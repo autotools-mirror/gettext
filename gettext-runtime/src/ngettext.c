@@ -20,6 +20,7 @@
 #endif
 
 #include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,9 +39,9 @@
 
 #define _(str) gettext (str)
 
-/* If nonzero expand escape sequences in strings before looking in the
+/* If true, expand escape sequences in strings before looking in the
    message catalog.  */
-int do_expand;
+static int do_expand;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -69,11 +70,11 @@ main (int argc, char *argv[])
   unsigned long n;
 
   /* Default values for command line options.  */
-  int do_help = 0;
-  int do_version = 0;
+  bool do_help = false;
+  bool do_version = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
-  do_expand = 0;
+  do_expand = false;
 
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
@@ -101,16 +102,16 @@ main (int argc, char *argv[])
       domain = optarg;
       break;
     case 'e':
-      do_expand = 1;
+      do_expand = true;
       break;
     case 'E':
       /* Ignore.  Just for compatibility.  */
       break;
     case 'h':
-      do_help = 1;
+      do_help = true;
       break;
     case 'V':
-      do_version = 1;
+      do_version = true;
       break;
     default:
       usage (EXIT_FAILURE);

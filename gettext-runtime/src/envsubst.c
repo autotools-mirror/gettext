@@ -22,6 +22,7 @@
 
 #include <errno.h>
 #include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,8 +39,8 @@
 
 #define _(str) gettext (str)
 
-/* If nonzero, substitution shall be performed on all variables.  */
-static int all_variables;
+/* If true, substitution shall be performed on all variables.  */
+static bool all_variables;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -64,9 +65,9 @@ int
 main (int argc, char *argv[])
 {
   /* Default values for command line options.  */
-  int show_variables = 0;
-  int do_help = 0;
-  int do_version = 0;
+  bool show_variables = false;
+  bool do_help = false;
+  bool do_version = false;
 
   int opt;
 
@@ -92,13 +93,13 @@ main (int argc, char *argv[])
     case '\0':		/* Long option.  */
       break;
     case 'h':
-      do_help = 1;
+      do_help = false;
       break;
     case 'v':
-      show_variables = 1;
+      show_variables = false;
       break;
     case 'V':
-      do_version = 1;
+      do_version = false;
       break;
     default:
       usage (EXIT_FAILURE);
@@ -146,11 +147,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       switch (argc - optind)
 	{
 	case 1:
-	  all_variables = 0;
+	  all_variables = false;
 	  note_variables (argv[optind++]);
 	  break;
 	case 0:
-	  all_variables = 1;
+	  all_variables = true;
 	  break;
 	default:
 	  abort ();
@@ -236,7 +237,7 @@ find_variables (const char *string,
       {
 	const char *variable_start;
 	const char *variable_end;
-	int valid;
+	bool valid;
 	char c;
 
 	if (*string == '{')
@@ -257,13 +258,13 @@ find_variables (const char *string,
 		if (*string == '}')
 		  {
 		    string++;
-		    valid = 1;
+		    valid = true;
 		  }
 		else
-		  valid = 0;
+		  valid = false;
 	      }
 	    else
-	      valid = 1;
+	      valid = true;
 
 	    if (valid)
 	      callback (variable_start, variable_end - variable_start);
@@ -465,18 +466,18 @@ subst_from_stdin ()
       /* Look for $VARIABLE or ${VARIABLE}.  */
       if (c == '$')
 	{
-	  int opening_brace = 0;
-	  int closing_brace = 0;
+	  bool opening_brace = false;
+	  bool closing_brace = false;
 
 	  c = do_getc ();
 	  if (c == '{')
 	    {
-	      opening_brace = 1;
+	      opening_brace = true;
 	      c = do_getc ();
 	    }
 	  if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
 	    {
-	      int valid;
+	      bool valid;
 
 	      /* Accumulate the VARIABLE in buffer.  */
 	      buflen = 0;
@@ -498,18 +499,18 @@ subst_from_stdin ()
 		{
 		  if (c == '}')
 		    {
-		      closing_brace = 1;
-		      valid = 1;
+		      closing_brace = true;
+		      valid = true;
 		    }
 		  else
 		    {
-		      valid = 0;
+		      valid = false;
 		      do_ungetc (c);
 		    }
 		}
 	      else
 		{
-		  valid = 1;
+		  valid = true;
 		  do_ungetc (c);
 		}
 
@@ -526,7 +527,7 @@ subst_from_stdin ()
 		  /* Test whether the variable shall be substituted.  */
 		  if (!all_variables
 		      && !sorted_string_list_member (&variables_set, buffer))
-		    valid = 0;
+		    valid = false;
 		}
 
 	      if (valid)

@@ -1,3 +1,10 @@
+2003-09-16  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (add_newline, do_expand): Change type to bool. Make
+	static.
+	(main, expand_escape): Use bool.
+	* tstngettext.c (main): Use bool.
+
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
 	* lang-sh: Source gettext.sh.

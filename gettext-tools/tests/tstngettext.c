@@ -68,8 +68,8 @@ main (int argc, char *argv[])
   unsigned long n;
 
   /* Default values for command line options.  */
-  int do_help = 0;
-  int do_version = 0;
+  bool do_help = false;
+  bool do_version = false;
   bool environ_changed = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
@@ -100,10 +100,10 @@ main (int argc, char *argv[])
       domain = optarg;
       break;
     case 'h':
-      do_help = 1;
+      do_help = true;
       break;
     case 'V':
-      do_version = 1;
+      do_version = true;
       break;
     case '=':
       {

@@ -21,6 +21,7 @@
 #endif
 
 #include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,12 +39,13 @@
 
 #define _(str) gettext (str)
 
-/* If nonzero add newline after last string.  This makes only sense in
+/* If true, add newline after last string.  This makes only sense in
    the `echo' emulation mode.  */
-int add_newline;
-/* If nonzero expand escape sequences in strings before looking in the
+static bool add_newline;
+
+/* If true, expand escape sequences in strings before looking in the
    message catalog.  */
-int do_expand;
+static bool do_expand;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -70,13 +72,13 @@ main (int argc, char *argv[])
   const char *msgid;
 
   /* Default values for command line options.  */
-  int do_help = 0;
-  int do_shell = 0;
-  int do_version = 0;
+  bool do_help = false;
+  bool do_shell = false;
+  bool do_version = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
-  add_newline = 1;
-  do_expand = 0;
+  add_newline = true;
+  do_expand = false;
 
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
@@ -104,22 +106,22 @@ main (int argc, char *argv[])
       domain = optarg;
       break;
     case 'e':
-      do_expand = 1;
+      do_expand = true;
       break;
     case 'E':
       /* Ignore.  Just for compatibility.  */
       break;
     case 'h':
-      do_help = 1;
+      do_help = true;
       break;
     case 'n':
-      add_newline = 0;
+      add_newline = false;
       break;
     case 's':
-      do_shell = 1;
+      do_shell = true;
       break;
     case 'V':
-      do_version = 1;
+      do_version = true;
       break;
     default:
       usage (EXIT_FAILURE);
@@ -145,7 +147,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* We have two major modes: use following Uniforum spec and as
      internationalized `echo' program.  */
-  if (do_shell == 0)
+  if (!do_shell)
     {
       /* We have to write a single strings translation to stdout.  */
 
@@ -310,7 +312,7 @@ expand_escape (const char *str)
 	  ++cp;
 	  break;
 	case 'c':		/* suppress trailing newline */
-	  add_newline = 0;
+	  add_newline = false;
 	  ++cp;
 	  break;
 	case 'f':		/* form feed */
