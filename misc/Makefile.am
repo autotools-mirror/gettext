@@ -29,4 +29,4 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = archive.tar.gz
 
 archive.tar.gz:
-	(cd autopoint-files && tar cf - `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@
+	(cd autopoint-files && tar cf - --owner=root --group=root `find archive -type f | grep -v /CVS/`) | gzip -c -9 > $@
