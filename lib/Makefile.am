@@ -36,6 +36,7 @@ libgettextlib_la_SOURCES = \
   basename.h basename.c \
   binary-io.h \
   c-ctype.h c-ctype.c \
+  classpath.h classpath.c \
   copy-file.h copy-file.c \
   error.h error.c \
   execute.h execute.c \
@@ -115,7 +116,7 @@ gettextsrc_DATA = gettext.h
 
 noinst_HEADERS = gettext.h
 
-EXTRA_DIST += classpath.c \
+EXTRA_DIST += \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
 gen-lbrkprop.c 3level.h Combining.txt
 

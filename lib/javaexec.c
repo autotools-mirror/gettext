@@ -29,6 +29,7 @@
 #include <string.h>
 
 #include "execute.h"
+#include "classpath.h"
 #include "xsetenv.h"
 #include "sh-quote.h"
 #include "pathname.h"
@@ -38,9 +39,6 @@
 
 #define _(str) gettext (str)
 
-
-/* CLASSPATH handling subroutines.  */
-#include "classpath.c"
 
 /* Survey of Java virtual machines.
 

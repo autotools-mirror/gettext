@@ -31,6 +31,7 @@
 #include "execute.h"
 #include "pipe.h"
 #include "wait-process.h"
+#include "classpath.h"
 #include "xsetenv.h"
 #include "sh-quote.h"
 #include "safe-read.h"
@@ -40,9 +41,6 @@
 
 #define _(str) gettext (str)
 
-
-/* CLASSPATH handling subroutines.  */
-#include "classpath.c"
 
 /* Survey of Java compilers.
 

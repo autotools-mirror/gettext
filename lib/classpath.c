@@ -1,5 +1,5 @@
 /* Java CLASSPATH handling.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -16,6 +16,19 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
+/* Specification.  */
+#include "classpath.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "xsetenv.h"
+#include "xmalloc.h"
 
 /* Separator in PATH like lists of pathnames.  */
 #if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
@@ -26,11 +39,10 @@
 # define PATH_SEPARATOR ':' 
 #endif
 
-
 /* Return the new CLASSPATH value.  The given classpaths are prepended to
    the current CLASSPATH value.   If use_minimal_classpath, the current
    CLASSPATH is ignored.  */
-static char *
+char *
 new_classpath (const char * const *classpaths, unsigned int classpaths_count,
 	       bool use_minimal_classpath)
 {
@@ -75,7 +87,7 @@ new_classpath (const char * const *classpaths, unsigned int classpaths_count,
 }
 
 /* Set CLASSPATH and returns a safe copy of its old value.  */
-static char *
+char *
 set_classpath (const char * const *classpaths, unsigned int classpaths_count,
 	       bool use_minimal_classpath, bool verbose)
 {
@@ -95,7 +107,7 @@ set_classpath (const char * const *classpaths, unsigned int classpaths_count,
 }
 
 /* Restore CLASSPATH to its previous value.  */
-static void
+void
 reset_classpath (char *old_classpath)
 {
   if (old_classpath != NULL)

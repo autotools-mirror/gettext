@@ -1,5 +1,15 @@
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* classpath.h: New file.
+	* classpath.c: Turn into an independent source file.
+	(new_classpath, set_classpath, reset_classpath): Make non-static.
+	* javacomp.c: Include classpath.h instead of classpath.c.
+	* javaexec.c: Likewise.
+	* Makefile.am (libgettextlib_la_SOURCES): Add classpath.h, classpath.c.
+	(EXTRA_DIST): Remove classpath.c.
+
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* localcharset.h: New file.
 	* localcharset.c: Include it.
 	* Makefile.am (libgettextlib_la_SOURCES): Add localcharset.h.
