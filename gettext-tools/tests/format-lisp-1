@@ -178,7 +178,7 @@ cat <<\EOF > f-l-1.data
 # Invalid: default clause not last
 "abc~[~D~;~X~:;~R~;~R~]~C"
 # Invalid: too many params
-"abc~@4[~D~]"
+"abc~4@[~D~]"
 # Invalid: too many params
 "abc~@[~D~4]"
 # Invalid: too many params
