@@ -1,5 +1,5 @@
 /* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -381,9 +381,7 @@
    The result must not be freed; it is statically allocated.  */
 
 const char *
-_nl_locale_name (category, categoryname)
-     int category;
-     const char *categoryname;
+_nl_locale_name (int category, const char *categoryname)
 {
   const char *retval;
 

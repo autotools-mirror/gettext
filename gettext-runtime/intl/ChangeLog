@@ -1,3 +1,58 @@
+2003-10-07  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C.
+	* libgnuintl.h.in (PARAMS): Remove macro.
+	(gettext, dgettext, dcgettext, ngettext, dngettext, dcngettext,
+	textdomain, bindtextdomain, bind_textdomain_codeset, fprintf, vfprintf,
+	printf, vprintf, sprintf, vsprintf, snprintf, vsnprintf, asprintf,
+	vasprintf, fwprintf, vfwprintf, wprintf, vwprintf, swprintf, vswprintf,
+	libintl_set_relocation_prefix): Use ANSI C function declarations.
+	* gettextP.h (PARAMS): Remove macro.
+	(_nl_locale_name, _nl_find_domain, _nl_load_domain, _nl_unload_domain,
+	_nl_init_domain_conv, _nl_free_domain_conv, _nl_find_msg, __gettext,
+	__dgettext, __dcgettext, __ngettext, __dngettext, __dcngettext,
+	__dcigettext, __textdomain, __bindtextdomain,
+	__bind_textdomain_codeset, libintl_dcigettext): Use ANSI C function
+	declarations.
+	* hash-string.h (PARAMS): Remove macro.
+	(hash_string): Use ANSI C function declaration.
+	* loadinfo.h (PARAMS): Remove macro.
+	(_nl_normalize_codeset, _nl_make_l10nflist, _nl_expand_alias,
+	_nl_explode_name, _nl_find_language): Use ANSI C function declarations.
+	* plural-exp.h (PARAMS): Remove macro.
+	(FREE_EXPRESSION, PLURAL_PARSE, GERMANIC_PLURAL,
+	EXTRACT_PLURAL_EXPRESSION): Use ANSI C function declarations.
+	* bindtextdom.c (set_binding_values, BINDTEXTDOMAIN,
+	BIND_TEXTDOMAIN_CODESET): Use ANSI C function declarations.
+	* dcgettext.c (DCGETTEXT): Likewise.
+	* dcigettext.c (transcmp, DCIGETTEXT, _nl_log_untranslated,
+	_nl_find_msg, plural_lookup, category_to_name, guess_category_value,
+	stpcpy, mempcpy): Likewise.
+	* dcngettext.c (DCNGETTEXT): Likewise.
+	* dgettext.c (DGETTEXT): Likewise.
+	* dngettext.c (DNGETTEXT): Likewise.
+	* eval-plural.h (plural_eval): Likewise.
+	* explodename.c (_nl_find_language, _nl_explode_name): Likewise.
+	* finddomain.c (_nl_find_domain): Likewise.
+	* gettext.c (GETTEXT): Likewise.
+	* intl-compat.c (gettext, dgettext, dcgettext, ngettext, dngettext,
+	dcngettext, textdomain, bindtextdomain, bind_textdomain_codeset):
+	Likewise.
+	* l10nflist.c (argz_count__, argz_stringify__, argz_next__, pop,
+	_nl_make_l10nflist, _nl_normalize_codeset, stpcpy): Likewise.
+	* loadmsgcat.c (get_sysdep_segment_value, _nl_init_domain_conv,
+	locale_charset, _nl_free_domain_conv, _nl_load_domain,
+	_nl_unload_domain): Likewise.
+	* localealias.c (_nl_expand_alias, read_alias_file, alias_compare):
+	Likewise.
+	* localename.c (_nl_locale_name): Likewise.
+	* log.c (print_escaped, _nl_log_untranslated): Likewise.
+	* ngettext.c (NGETTEXT): Likewise.
+	* plural-exp.c (EXTRACT_PLURAL_EXPRESSION): Likewise.
+	* plural.y (new_exp, new_exp_0, new_exp_1, new_exp_2, new_exp_3,
+	FREE_EXPRESSION, yylex, yyerror): Likewise.
+	* textdomain.c (TEXTDOMAIN): Likewise.
+
 2003-09-17  Bruno Haible  <bruno@clisp.org>
 
 	* printf.c: Test HAVE_FWPRINTF, not HAVE_WPRINTF. Needed for

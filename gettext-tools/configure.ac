@@ -139,14 +139,6 @@ dnl Put some default definitions into config.h.
 AH_TOP([
 /* Default value for alignment of strings in .mo file.  */
 #define DEFAULT_OUTPUT_ALIGNMENT 1
-
-#ifndef PARAMS
-# if __STDC__ || defined __GNUC__ || defined __SUNPRO_C || defined __cplusplus || __PROTOTYPES
-#  define PARAMS(args) args
-# else
-#  define PARAMS(args) ()
-# endif
-#endif
 ])
 AH_BOTTOM([
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR

@@ -47,9 +47,7 @@
 /* Look up MSGID in the DOMAINNAME message catalog of the current
    LC_MESSAGES locale.  */
 char *
-DGETTEXT (domainname, msgid)
-     const char *domainname;
-     const char *msgid;
+DGETTEXT (const char *domainname, const char *msgid)
 {
   return DCGETTEXT (domainname, msgid, LC_MESSAGES);
 }
