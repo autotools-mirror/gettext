@@ -10,7 +10,7 @@ Inuktitut, Uighur, Zhuang added 1995-10-10 by Michael Everson
 Sinhalese corrected, 1995-10-10 by Michael Everson
 Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
 Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
-2003-08-14 by Bruno Haible
+2004-01-18 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -20,10 +20,12 @@ aa Afar
 ab Abkhazian
 ae Avestan
 af Afrikaans
+ak Akan
 am Amharic
 an Aragonese
 ar Arabic
 as Assamese
+av Avaric
 ay Aymara
 az Azerbaijani
 
@@ -32,6 +34,7 @@ be Byelorussian; Belarusian
 bg Bulgarian
 bh Bihari
 bi Bislama
+bm Bambara
 bn Bengali; Bangla
 bo Tibetan
 br Breton
@@ -41,6 +44,7 @@ ca Catalan
 ce Chechen
 ch Chamorro
 co Corsican
+cr Cree
 cs Czech
 cu Church Slavic
 cv Chuvash
@@ -48,8 +52,10 @@ cy Welsh
 
 da Danish
 de German
+dv Divehi
 dz Dzongkha; Bhutani
 
+ee @'Ew@'e
 el Greek
 en English
 eo Esperanto
@@ -58,6 +64,7 @@ et Estonian
 eu Basque
 
 fa Persian
+ff Fulah
 fi Finnish
 fj Fijian; Fiji
 fo Faroese
@@ -84,6 +91,7 @@ hz Herero
 ia Interlingua
 id Indonesian (formerly in)
 ie Interlingue
+ig Igbo
 ii Sichuan Yi
 ik Inupiak
 io Ido
@@ -95,6 +103,7 @@ ja Japanese
 jv Javanese
 
 ka Georgian
+kg Kongo
 ki Kikuyu
 kj Kuanyama
 kk Kazakh
@@ -102,6 +111,7 @@ kl Kalaallisut; Greenlandic
 km Khmer; Cambodian
 kn Kannada
 ko Korean
+kr Kanuri
 ks Kashmiri
 ku Kurdish
 kv Komi
@@ -110,10 +120,12 @@ ky Kirghiz
 
 la Latin
 lb Letzeburgesch
+lg Ganda
 li Limburgish; Limburger; Limburgan
 ln Lingala
 lo Lao; Laotian
 lt Lithuanian
+lu Luba-Katanga
 lv Latvian; Lettish
 
 mg Malagasy
@@ -141,6 +153,7 @@ nv Navajo
 ny Chichewa; Nyanja
 
 oc Occitan; Proven@,{c}al
+oj Ojibwa
 om (Afan) Oromo
 or Oriya
 os Ossetian; Ossetic
@@ -198,6 +211,7 @@ uk Ukrainian
 ur Urdu
 uz Uzbek
 
+ve Venda
 vi Vietnamese
 vo Volap@"{u}k; Volapuk
 
