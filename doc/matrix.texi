@@ -38,7 +38,7 @@ lynx            |       [] [] []                                        |
 m4              |       [] [] [] []                [] []          []    |
 make            |          [] []          []       [] []                |
 mysecretdiary   |             []                                        |
-nano            |    []    []             []          []          []    |
+nano            |    []    [] []          []          []          []    |
 nano_1_0        |    []    [] []          []          []          []    |
 opcodes         |                                  []                   |
 parted          |          [] []                      []                |
@@ -59,13 +59,13 @@ wdiff           |          [] []             []                         |
 wget            |       [] [] [] []       [] []    [] [] []             |
                 +-------------------------------------------------------+
                   bg ca cs da de el en eo es et fi fr gl he hr hu id it
-                   0  3 14 31 34 11  1  8 24 13  1 39 23  4  0  2  8  9
+                   0  3 14 31 35 11  1  8 24 13  1 39 23  4  0  2  8  9
 @end group
 
 @group
                   ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
                 +-------------------------------------------------------+
-a2ps            |             []                   []    []             |  7
+a2ps            |             []                   []    [] []          |  8
 bash            |                                                       |  4
 bfd             |                                                       |  1
 binutils        |                                              []       |  2
@@ -101,7 +101,7 @@ lynx            | []          []              []   []       []          |  8
 m4              | []          []       []          []       []          | 12
 make            | [] []       []       []     []   []          []       | 12
 mysecretdiary   |                                                       |  1
-nano            |                                  []       []    []    |  8
+nano            |                                  []       []    []    |  9
 nano_1_0        |                                           []          |  7
 opcodes         |                                           [] []       |  3
 parted          | []                                        []          |  5
@@ -122,6 +122,6 @@ wdiff           |                                  [] []    [] []       |  7
 wget            | []          []                   [] [] [] [] [] []    | 17
                 +-------------------------------------------------------+
   35 teams        ja ko lv nb nl nn no pl pt pt_BR ru sk sl sv tr uk zh
-  55 domains      18 10  1  6 19  0  6 17  1  13   25 11 11 29 23  3  2  420
+  55 domains      18 10  1  6 19  0  6 17  1  13   25 11 11 30 23  3  2  422
 @end group
 @end example
