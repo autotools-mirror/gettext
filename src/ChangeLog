@@ -1,5 +1,12 @@
 2002-04-04  Bruno Haible  <bruno@clisp.org>
 
+	* po-lex.h (po_gram_error): Use __VA_ARGS__ + 0 instead of __VA_ARGS__.
+	(po_gram_error_at_line): LIkewise.
+	Fixes syntax error when __VA_ARGS__ is empty.
+	Reported by Trond Eivind Glomsrød <teg@redhat.com>.
+
+2002-04-04  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.c (find_pot): Add dummy return, to avoid gcc warning.
 
 2002-03-12  Bruno Haible  <bruno@clisp.org>

@@ -82,7 +82,7 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
     error_with_progname = false;					    \
     error (0, 0, totalfmt, gram_pos.file_name,				    \
 	   (unsigned long) gram_pos.line_number, gram_pos_column + 1,	    \
-	   __VA_ARGS__);						    \
+	   __VA_ARGS__ + 0);						    \
     error_with_progname = true;						    \
     free (totalfmt);							    \
     if (*fmt == '.')							    \
@@ -98,7 +98,7 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
   do {									    \
     error_with_progname = false;					    \
     error_at_line (0, 0, (pos)->file_name, (pos)->line_number,		    \
-		   fmt, __VA_ARGS__);					    \
+		   fmt, __VA_ARGS__ + 0);					    \
     error_with_progname = true;						    \
     if (*fmt == '.')							    \
       --error_message_count;						    \
