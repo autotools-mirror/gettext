@@ -595,23 +595,32 @@ This version was built without iconv()."),
   /* Process all input files.  */
   for (cnt = 0; cnt < file_list->nitems; ++cnt)
     {
-      const char *fname;
+      const char *filename;
       extractor_ty this_file_extractor;
 
-      fname = file_list->item[cnt];
+      filename = file_list->item[cnt];
 
       if (extractor.func)
 	this_file_extractor = extractor;
       else
 	{
+	  const char *base;
+	  char *reduced;
 	  const char *extension;
 	  const char *language;
 
+	  base = strrchr (filename, '/');
+	  if (!base)
+	    base = filename;
+
+	  reduced = xstrdup (base);
+	  /* Remove a trailing ".in" - it's a generic suffix.  */
+	  if (strlen (reduced) >= 3
+	      && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
+	    reduced[strlen (reduced) - 3] = '\0';
+
 	  /* Work out what the file extension is.  */
-	  extension = strrchr (fname, '/');
-	  if (!extension)
-	    extension = fname;
-	  extension = strrchr (extension, '.');
+	  extension = strrchr (reduced, '.');
 	  if (extension)
 	    ++extension;
 	  else
@@ -623,14 +632,16 @@ This version was built without iconv()."),
 	  if (language == NULL)
 	    {
 	      error (0, 0, _("\
-warning: file `%s' extension `%s' is unknown; will try C"), fname, extension);
+warning: file `%s' extension `%s' is unknown; will try C"), filename, extension);
 	      language = "C";
 	    }
 	  this_file_extractor = language_to_extractor (language);
+
+	  free (reduced);
 	}
 
       /* Extract the strings from the file.  */
-      extract_from_file (fname, this_file_extractor, mdlp);
+      extract_from_file (filename, this_file_extractor, mdlp);
     }
   string_list_free (file_list);
 

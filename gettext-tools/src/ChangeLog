@@ -1,3 +1,8 @@
+2003-10-11  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (main): Drop suffix ".in" from input file name, if
+	present, before looking at the file extension.
+
 2003-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* format-awk.c: Include xalloc.h instead of xmalloc.h.
