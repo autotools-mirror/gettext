@@ -1,6 +1,6 @@
 /* Arithmetic.
    Copyright (C) 2001-2002 Free Software Foundation, Inc.
-   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+   Written by Bruno Haible <bruno@clisp.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
 #include <stdlib.h>
 
 /* Return the greatest common divisor of a > 0 and b > 0.  */
-unsigned int
-gcd (unsigned int a, unsigned int b)
+unsigned long
+gcd (unsigned long a, unsigned long b)
 {
   /* Why no division, as in Euclid's algorithm? Because in Euclid's algorithm
      the division result floor(a/b) or floor(b/a) is very often = 1 or = 2,
@@ -33,7 +33,7 @@ gcd (unsigned int a, unsigned int b)
      bit in a single instruction, and the algorithm uses fewer variables than
      Euclid's algorithm.  */
 
-  unsigned int c = a | b;
+  unsigned long c = a | b;
   c = c ^ (c - 1);
   /* c = largest power of 2 that divides a and b.  */
 

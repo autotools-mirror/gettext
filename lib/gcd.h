@@ -1,6 +1,6 @@
 /* Arithmetic.
    Copyright (C) 2001-2002 Free Software Foundation, Inc.
-   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+   Written by Bruno Haible <bruno@clisp.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,6 +20,6 @@
 #define _GCD_H
 
 /* Return the greatest common divisor of a > 0 and b > 0.  */
-extern unsigned int gcd (unsigned int a, unsigned int b);
+extern unsigned long gcd (unsigned long a, unsigned long b);
 
 #endif /* _GCD_H */
