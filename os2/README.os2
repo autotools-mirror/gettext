@@ -1,0 +1,259 @@
+/*-------------- GNU gettext version 0.10.36 ---------------------------*/
+/*-------------- ported to run with emx+gcc on OS/2 --------------------*/
+
+Jun SAWATAISHI <jsawa@attglobal.net>      Sat, 24 Feb 2001 03:22:12 +0900
+
+
+
+
+Environment Variables
+====================
+
+  GNULOCALEDIR env. var. is not used !!
+
+  In your `config.sys'
+
+            set UNIXROOT=x:      ; directory where you installed
+
+                 If you executed "make prefix=x:/usr" and 
+                                 "make prefix=x:/usr", 
+                          or
+                     "configure --with-included-gettext --prefix=x:/usr" and 
+                     "make install", 
+                 
+                 this env. var. is not essential. 
+
+
+            set LANG=YOUR_CHOICE  ; always REQUIRED
+
+                          e.g. de, pt_BR, ja_JP.SJIS
+
+                 __Important notice__
+
+                      If LANG env. var. is not exist, 
+                      program will always show English message, even 
+                      if LANGUAGE env. var. is properly set. 
+
+
+            set LANGUAGE=xx       ; optional, two letter for you country
+
+              Chinese `zh', Czech `cs', Danish `da', Dutch `nl', Esperanto `eo',
+              Finnish `fi', French `fr', Irish `ga', German `de', Greek `el',
+              Italian `it', Japanese `ja', Indonesian `in', Norwegian `no',
+              Polish `pl', Portuguese `pt', Russian `ru', Spanish `es', Swedish
+              `sv' and Turkish `tr'.
+
+                   Replace xx by the two-letter ISO 639 code for your language. 
+                   Read Info manual of gettext. 
+                      
+               LANGUAGE env. var. overrides LANG. 
+                     When LANG=deutsch and LANGUAGE=ja, 
+                     Japanese message will shown by programs. 
+  
+  
+
+  Here is a partial copy of README file included in libiconv-1.3
+  (this is old, libiconv-1.6 has been released)
+
+>              LIBICONV - character set conversion library
+>
+>This library provides an iconv() implementation, for use on systems which
+>don't have one, or whose implementation cannot convert from/to Unicode.
+>
+>It provides support for the encodings:
+>
+>    European languages
+>        ASCII, ISO-8859-{1,2,3,4,5,7,9,10,13,14,15,16},
+>        KOI8-R, KOI8-U, KOI8-RU,
+>        CP{1250,1251,1252,1253,1254,1257}, CP{850,866},
+>        Mac{Roman,CentralEurope,Iceland,Croatian,Romania},
+>        Mac{Cyrillic,Ukraine,Greek,Turkish},
+>        Macintosh
+>    Semitic languages
+>        ISO-8859-{6,8}, CP{1255,1256}, Mac{Hebrew,Arabic}
+>    Japanese
+>        EUC-JP, SHIFT-JIS, CP932, ISO-2022-JP, ISO-2022-JP-2, ISO-2022-JP-1
+>    Chinese
+>        EUC-CN, HZ, GBK, EUC-TW, BIG5, CP950, ISO-2022-CN, ISO-2022-CN-EXT
+>    Korean
+>        EUC-KR, CP949, ISO-2022-KR
+>    Armenian
+>        ARMSCII-8
+>    Georgian
+>        Georgian-Academy, Georgian-PS
+>    Thai
+>        TIS-620, CP874, MacThai
+>    Laotian
+>        MuleLao-1, CP1133
+>    Vietnamese
+>        VISCII, TCVN, CP1258
+>    Platform specifics
+>        HP-ROMAN8, NEXTSTEP
+>    Full Unicode
+>        UTF-8
+>        UCS-2, UCS-2BE, UCS-2LE
+>        UCS-4, UCS-4BE, UCS-4LE
+>        UTF-16, UTF-16BE, UTF-16LE
+>        UTF-7
+>        JAVA
+>    Full Unicode, in terms of `uint16_t' or `uint32_t'
+>        (with machine dependent endianness and alignment)
+>        UCS-2-INTERNAL, UCS-4-INTERNAL
+>
+>It can convert from any of these encodings to any other, through Unicode
+>conversion. It has also some limited support for transliteration, i.e.
+>when a character cannot be represented in the target character set, it can
+>be approximated through one or several similarly looking characters.
+
+ How to Link Gettext with Other Softwares
+=========================================
+
+ - Be sure that gettext has been installed
+      e.g.
+           c:/usr/include/libintl.h
+           c:/usr/lib/libintl.{a,lib}
+           c:/usr/lib/charset.alias
+           c:/usr/dll/intl36f5.dll
+           c:/usr/share/locale/??/LC_MESSAGE/*.mo
+           c:/usr/share/locale/locale.alias
+           c:/usr/bin/gettext.exe
+                      gettextize 
+                      msgcmp.exe 
+                      msgcomm.exe
+                      msgfmt.exe 
+                      msgmerge.exe
+                      msgunfmt.exe
+                      xgettext.exe
+
+ - Be sure that sources are prepared for gettext
+
+ - If you do _not_ want to use UNIXROOT env. var
+
+    Programs main source should contain a line:
+         bindtextdomain (PACKAGE, LOCALEDIR); 
+
+    Define LOCALEDIR as your directory to be installed
+
+      If you like to install "x:/foo", 
+                   > make prefix=x:/foo -- this makes LOCALEDIR 
+                                            ="x:/foo/share/locale"
+                 and
+                    > make prefix=x:/foo install
+             or
+                    > sh configure --with-included-gettext --prefix=x:/foo
+                    > make install
+
+       Files will be intalled this way
+
+              x:/foo/bin/*.exe
+              x:/foo/share/locale/??/LC_MESSAGE/*.mo
+              x:/foo/lib/charset.alias
+
+       __Important notice__
+
+         When UNIXROOT env. var. exists, search path may vary
+
+         e.g. UNIXROOT=y:
+                          LOCALEDIR is assumed as "y:/usr/share/locale"
+                          charset.alias is assumed to be in "y:/usr/lib"
+
+
+         When UNIXROOT env. var. is not set or is empty and HOME env. 
+         var. is "x:/foo", `x:/usr/share/locale' is assumed as LOCALEDIR. 
+
+
+
+ - If you want to FIX LOCALEDIR in the way of XFree86
+     
+    __Important notice__
+
+      If compile time LOCALEDIR definition is equal to 
+               "/XFree86/lib/locale/X11" 
+            or
+               "__XOS2RedirRoot(/XFree86/lib/X11/locale)"
+    programs will _not_ read UNIXROOT env. var.
+
+      This implementation is intented to keep upper compatibility with 
+    conventional way of XFree86 OS/2 programs (gtk related ones). 
+    
+
+     Here I assume X11ROOT env. var. is "n:"
+
+       Method-1:
+               > sh configure --with-included-gettext \  (line is not break)
+                  --prefix=n:/XFree86 --datadir=n:/XFree86/lib/X11
+               > make install
+
+
+       Method-2:
+
+               > make prefix=n:/XFree86 datadir=n:/XFree86/lib/X11
+               > make install prefix=n:/XFree86 datadir=n:/XFree86/lib/X11
+
+       Method-3:  require modification of source codes
+          Change
+            bindtextdomain (PACKAGE, LOCALEDIR); 
+          to
+            bindtextdomain (PACKAGE, __XOS2RedirRoot("/XFree86/lib/X11/locale")); 
+          or
+            bindtextdomain (PACKAGE,"/XFree86/lib/X11/locale"; 
+    
+               > make               (prefix is meaningless for LOCALEDIR)
+               > make install prefix=n:/XFree86 datadir=n:/XFree86/lib/X11
+
+
+      Method-1, 2, 3 will intall files this way
+
+              n:/XFree86/bin/*.exe
+              n:/XFree86/lib/X11/locale/??/LC_MESSAGE/*.mo
+              n:/XFree86/lib/charset.alias
+
+      __Important notice__
+
+         If UNIXROOT is set, search path for `charset.alias' will change
+
+         e.g. UNIXROOT=e:
+                          charset.alias is assumed to be in "e:/usr/lib"
+                          (LOCALEDIR is ommited by programs)
+
+              You shoud copy `n:/XFree86/lib/charset.alias' in `e:/usr/lib'
+
+         When UNIXROOT env. var. is not set or is empty and HOME env. 
+         var. is "x:/foo", `x:/usr/lib/charset.alias' will be searched for. 
+
+
+ - Summary
+
+     compile time            env. var.                        LOCALEDIR for running
+      LOCALEDIR               UNIXROOT  HOME         programs
+========================================================================
+ __XOS2RedirRoot(XLOCALEDIR)    x:     y:/foo  __XOS2RedirRoot(XLOCALEDIR)
+ __XOS2RedirRoot(XLOCALEDIR)    x:      -      __XOS2RedirRoot(XLOCALEDIR)
+ __XOS2RedirRoot(XLOCALEDIR)    -      y:/foo  __XOS2RedirRoot(XLOCALEDIR)
+ __XOS2RedirRoot(XLOCALEDIR)    -       -      __XOS2RedirRoot(XLOCALEDIR)
+   XLOCALEDIR                   x:     y:/foo  __XOS2RedirRoot(XLOCALEDIR)
+   XLOCALEDIR                   x:      -      __XOS2RedirRoot(XLOCALEDIR)
+   XLOCALEDIR                   -      y:/foo  __XOS2RedirRoot(XLOCALEDIR)
+   XLOCALEDIR                   -       -      __XOS2RedirRoot(XLOCALEDIR)
+   c:/DIR/share/locale          x:     y:/foo  x:/usr/share/locale
+   c:/DIR/share/locale          x:      -      x:/usr/share/locale
+   c:/DIR/share/locale          -      y:/foo  y:/usr/share/locale
+   c:/DIR/share/locale          -       -      c:/DIR/share/locale
+   /DIR/share/locale            x:     y:/foo  x:/usr/share/locale
+   /DIR/share/locale            x:      -      x:/usr/share/locale
+   /DIR/share/locale            -      y:/foo  y:/usr/share/locale
+   /DIR/share/locale            -       -        /DIR/share/locale
+
+
+                  Note:  XLOCALEDIR = "/XFree86/lib/X11/locale"
+
+
+
+
+Modifications on gettext utilities
+==================================
+  
+  JAPANESE shift JIS code is accepted by the programs, when 
+  "charset=sjis" in PO file
+
+#EOF

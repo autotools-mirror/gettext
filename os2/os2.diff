@@ -1,0 +1,234 @@
+diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/bindtextdom.c gettext-2001-02-05-os2/intl/bindtextdom.c
+*** gettext-2001-02-05/intl/bindtextdom.c	Mon Jan 22 21:48:00 2001
+--- gettext-2001-02-05-os2/intl/bindtextdom.c	Thu Mar  1 02:40:40 2001
+***************
+*** 56,62 ****
+--- 56,66 ----
+  /* @@ end of prolog @@ */
+  
+  /* Contains the default location of the message catalogs.  */
++ #ifndef __EMX__
+  extern const char _nl_default_dirname[];
++ #else
++ extern char *_nl_default_dirname;
++ #endif
+  
+  /* List with bindings of specific domains.  */
+  extern struct binding *_nl_domain_bindings;
+***************
+*** 99,104 ****
+--- 103,111 ----
+  {
+    struct binding *binding;
+    int modified;
++ #ifdef __EMX__
++    UnixRoot(_nl_default_dirname, LOCALEDIR, EMX_LOCALEDIR);
++ #endif /* __EMX__ */
+  
+    /* Some sanity checks.  */
+    if (domainname == NULL || domainname[0] == '\0')
+***************
+*** 127,133 ****
+  	  break;
+  	}
+      }
+! 
+    if (binding != NULL)
+      {
+        if (dirnamep)
+--- 134,182 ----
+  	  break;
+  	}
+      }
+! #ifdef __EMX__
+!     if (_fngetdrive(*dirnamep) == 0) /* drive name is absent */
+!       {
+!         if (strlen(*dirnamep) >= strlen(OLD_EMX_XLOCALEDIR))
+!           {
+!             if (strnicmp(*dirnamep, OLD_EMX_XLOCALEDIR, 
+!                              strlen(OLD_EMX_XLOCALEDIR)) != 0)
+!               {
+!                 UnixRoot(*dirnamep, LOCALEDIR, EMX_LOCALEDIR);
+!               }
+!             else
+!               {
+!                 char *s, *x11root = getenv("X11ROOT");
+!                 if (x11root)
+!                   {
+!                     s = (char *)malloc(strlen(OLD_EMX_XLOCALEDIR) 
+!                                                      + strlen(x11root) +1 );
+!                     sprintf(s, "%s%s", x11root, OLD_EMX_XLOCALEDIR);
+!                     *dirnamep = s;
+!                   }
+!               }
+!            }
+!         else
+!           {
+!               UnixRoot(*dirnamep, LOCALEDIR, EMX_LOCALEDIR);
+!           }
+!       }
+!     else
+!       {
+!         size_t l = strlen(OLD_EMX_XLOCALEDIR);
+!         if ( strlen(*dirnamep) >= (l - 2))
+!           {
+!             char dir[_MAX_DIR];
+!             _splitpath(*dirnamep, NULL, dir, NULL, NULL);
+!             if (strnicmp(dir,OLD_EMX_XLOCALEDIR, l - 6) != 0)
+!               UnixRoot(*dirnamep, *dirnamep, EMX_LOCALEDIR);
+!           }
+!         else
+!           {
+!             UnixRoot(*dirnamep, *dirnamep, EMX_LOCALEDIR);
+!           }
+!       }
+! #endif /* __EMX__ */
+    if (binding != NULL)
+      {
+        if (dirnamep)
+diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/dcigettext.c gettext-2001-02-05-os2/intl/dcigettext.c
+*** gettext-2001-02-05/intl/dcigettext.c	Wed Jan 24 22:51:14 2001
+--- gettext-2001-02-05-os2/intl/dcigettext.c	Thu Mar  1 02:40:40 2001
+***************
+*** 256,263 ****
+  const char *_nl_current_default_domain = _nl_default_default_domain;
+  
+  /* Contains the default location of the message catalogs.  */
+  const char _nl_default_dirname[] = LOCALEDIR;
+! 
+  /* List with bindings of specific domains created by bindtextdomain()
+     calls.  */
+  struct binding *_nl_domain_bindings;
+--- 256,266 ----
+  const char *_nl_current_default_domain = _nl_default_default_domain;
+  
+  /* Contains the default location of the message catalogs.  */
++ #ifndef __EMX__
+  const char _nl_default_dirname[] = LOCALEDIR;
+! #else
+! char *_nl_default_dirname = NULL;
+! #endif /* __EMX__ */
+  /* List with bindings of specific domains created by bindtextdomain()
+     calls.  */
+  struct binding *_nl_domain_bindings;
+***************
+*** 387,392 ****
+--- 390,398 ----
+    size_t msgid_len;
+  #endif
+    size_t domainname_len;
++ #ifdef __EMX__
++    UnixRoot(_nl_default_dirname, LOCALEDIR, EMX_LOCALEDIR);
++ #endif /* __EMX__ */
+  
+    /* If no real MSGID is given return NULL.  */
+    if (msgid1 == NULL)
+***************
+*** 450,455 ****
+--- 456,468 ----
+    if (binding == NULL)
+      dirname = (char *) _nl_default_dirname;
+    else if (binding->dirname[0] == '/')
++ #ifdef __EMX__
++     {
++       UnixRoot(binding->dirname, LOCALEDIR, EMX_LOCALEDIR);
++       dirname = binding->dirname;
++     }
++   else if (_fnisabs(binding->dirname))
++ #endif /* __EMX__ */
+      dirname = binding->dirname;
+    else
+      {
+diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/libgnuintl.h gettext-2001-02-05-os2/intl/libgnuintl.h
+*** gettext-2001-02-05/intl/libgnuintl.h	Tue Feb  6 21:58:40 2001
+--- gettext-2001-02-05-os2/intl/libgnuintl.h	Thu Mar  1 02:40:40 2001
+***************
+*** 38,43 ****
+--- 38,53 ----
+  #  define PARAMS(args) ()
+  # endif
+  #endif
++ #ifdef __EMX__
++ #define EMX_LOCALEDIR       "/usr/share/locale"
++ #define OLD_EMX_XLOCALEDIR  "/XFree86/lib/X11/locale"
++ #define UnixRoot(a, b, c)  ({ char *s = NULL, *u = getenv("UNIXROOT"), \
++   *h = getenv("HOME");  s = (char *)malloc(strlen(c) + 3 ); \
++   if (u && u[1] == ':')  strncpy(s, u, 2); \
++   else if (a && a[0]=='/' && h && h[1]==':') strncpy(s, h, 2); \
++   if ( s[1] == ':') { strcat(s, c); (a) = s; } else { \
++     strcpy(s, b); a = s;}})
++ #endif /* __EMX__ */
+  
+  #ifdef __cplusplus
+  extern "C" {
+diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/localcharset.c gettext-2001-02-05-os2/intl/localcharset.c
+*** gettext-2001-02-05/intl/localcharset.c	Mon Jan 15 23:54:02 2001
+--- gettext-2001-02-05-os2/intl/localcharset.c	Thu Mar  1 02:40:40 2001
+***************
+*** 55,60 ****
+--- 55,64 ----
+  # include <windows.h>
+  #endif
+  
++ #ifdef __EMX__
++ #include "libgnuintl.h"
++ #endif /* __EMX__*/
++ 
+  #ifndef DIRECTORY_SEPARATOR
+  # define DIRECTORY_SEPARATOR '/'
+  #endif
+***************
+*** 88,96 ****
+--- 92,106 ----
+      {
+  #ifndef WIN32
+        FILE *fp;
++ #ifndef __EMX__
+        const char *dir = LIBDIR;
++ #endif /* __EMX__ */
+        const char *base = "charset.alias";
+        char *file_name;
++ #ifdef __EMX__
++       char *dir = NULL;
++       UnixRoot(dir, LIBDIR,"/usr/lib");
++ #endif /* __EMX__ */
+  
+        /* Concatenate dir and base into freshly allocated file_name.  */
+        {
+diff -PurwbB -X x-os2unix.dat gettext-2001-02-05/intl/localealias.c gettext-2001-02-05-os2/intl/localealias.c
+*** gettext-2001-02-05/intl/localealias.c	Mon Jan 22 21:48:00 2001
+--- gettext-2001-02-05-os2/intl/localealias.c	Thu Mar  1 02:40:40 2001
+***************
+*** 98,103 ****
+--- 98,106 ----
+  # undef feof
+  # define feof(s) feof_unlocked (s)
+  #endif
++ #ifdef __EMX__
++ #include "libgnuintl.h"
++ #endif /* __EMX__*/
+  
+  
+  struct alias_map
+***************
+*** 127,137 ****
+--- 130,148 ----
+  _nl_expand_alias (name)
+      const char *name;
+  {
++ #ifndef __EMX__
+    static const char *locale_alias_path = LOCALE_ALIAS_PATH;
++ #else
++ /*  static const char *locale_alias_path = NULL; */
++   char *locale_alias_path = NULL;
++ #endif
+    struct alias_map *retval;
+    const char *result = NULL;
+    size_t added;
+  
++ #ifdef __EMX__
++   UnixRoot(locale_alias_path, LOCALE_ALIAS_PATH, EMX_LOCALEDIR);
++ #endif /* __EMX__*/
+  #ifdef _LIBC
+    __libc_lock_lock (lock);
+  #endif
