@@ -1,3 +1,7 @@
+2003-10-19  Jim Meyering  <jim@meyering.net>
+
+	* vasnprintf.c (VASNPRINTF): Work around losing snprintf on HPUX 10.20.
+
 2003-08-29  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Test whether _snprintf is declared, not only existent
