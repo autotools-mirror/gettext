@@ -1,3 +1,13 @@
+2002-10-03  Bruno Haible  <bruno@clisp.org>
+
+	Avoid modifying PO files if the POT file is the same except for a
+	different POT-Creation-Date.
+	* Makefile.in.in (DISTFILES): Add stamp-po.
+	(all-yes): Depend on stamp-po, not directly on CATALOGS.
+	(stamp-po): New rule.
+	(mostlyclean): Also remove stamp-poT.
+	(maintainer-clean): Also remove stamp-po.
+
 2002-09-19  Bruno Haible  <bruno@clisp.org>
 
 	* be.po: Update from Ales Nyakhaychyk <i18n@infonet.by>.

@@ -44,7 +44,7 @@ UPDATEPOFILES = @UPDATEPOFILES@
 DUMMYPOFILES = @DUMMYPOFILES@
 DISTFILES.common = Makefile.in.in Makevars remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
-DISTFILES = $(DISTFILES.common) POTFILES.in $(DOMAIN).pot \
+DISTFILES = $(DISTFILES.common) POTFILES.in $(DOMAIN).pot stamp-po \
 $(POFILES) $(GMOFILES) \
 $(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
@@ -74,13 +74,29 @@ CATALOGS = @CATALOGS@
 
 all: all-@USE_NLS@
 
-all-yes: $(CATALOGS)
+all-yes: stamp-po
 all-no:
+
+# stamp-po is a timestamp denoting the last time at which the CATALOGS have
+# been loosely updated. Its purpose is that when a developer or translator
+# checks out the package via CVS, and the $(DOMAIN).pot file is not in CVS,
+# "make" will update the $(DOMAIN).pot and the $(CATALOGS), but subsequent
+# invocations of "make" will do nothing. This timestamp would not be necessary
+# if updating the $(CATALOGS) would always touch them; however, the rule for
+# $(POFILES) has been designed to not touch files that don't need to be
+# changed.
+stamp-po: $(srcdir)/$(DOMAIN).pot
+	$(MAKE) $(CATALOGS)
+	@echo "touch stamp-po"
+	@echo timestamp > stamp-poT
+	@mv stamp-poT stamp-po
 
 # Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
 # otherwise packages like GCC can not be built if only parts of the source
 # have been downloaded.
 
+# This target rebuilds $(DOMAIN).pot; it is an expensive operation.
+# Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
@@ -101,9 +117,14 @@ $(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in remove-potcdate.sed
 	  fi; \
 	}
 
+# This rule has no dependencies: we don't need to update $(DOMAIN).pot at
+# every "make" invocation, only create it when it is missing.
+# Only "make $(DOMAIN).pot-update" or "make dist" will force an update.
 $(srcdir)/$(DOMAIN).pot:
 	$(MAKE) $(DOMAIN).pot-update
 
+# This target rebuilds a PO file if $(DOMAIN).pot has changed.
+# Note that a PO file is not touched if it doesn't need to be changed.
 $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
@@ -239,6 +260,7 @@ dvi info tags TAGS ID:
 
 mostlyclean:
 	rm -f remove-potcdate.sed
+	rm -f stamp-poT
 	rm -f core core.* $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 	rm -fr *.o
 
@@ -250,7 +272,7 @@ distclean: clean
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
-	rm -f $(GMOFILES)
+	rm -f stamp-po $(GMOFILES)
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir:

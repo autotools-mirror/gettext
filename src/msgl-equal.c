@@ -1,5 +1,5 @@
 /* Message list test for equality.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,16 +24,111 @@
 /* Specification.  */
 #include "msgl-equal.h"
 
+#include <stddef.h>
 #include <string.h>
 
 
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
+static inline bool msgstr_equal PARAMS ((const char *msgstr1,
+					 size_t msgstr1_len,
+					 const char *msgstr2,
+					 size_t msgstr2_len));
+static inline bool msgstr_equal_ignoring_potcdate PARAMS ((const char *msgstr1,
+							   size_t msgstr1_len,
+							   const char *msgstr2,
+							   size_t msgstr2_len));
 static inline bool pos_equal PARAMS ((const lex_pos_ty *pos1,
 				      const lex_pos_ty *pos2));
 static inline bool msgdomain_equal PARAMS ((const msgdomain_ty *mdp1,
-					    const msgdomain_ty *mdp2));
+					    const msgdomain_ty *mdp2,
+					    bool ignore_potcdate));
 
+
+static inline bool
+msgstr_equal (msgstr1, msgstr1_len, msgstr2, msgstr2_len)
+     const char *msgstr1;
+     size_t msgstr1_len;
+     const char *msgstr2;
+     size_t msgstr2_len;
+{
+  return (msgstr1_len == msgstr2_len
+	  && memcmp (msgstr1, msgstr2, msgstr1_len) == 0);
+}
+
+static bool
+msgstr_equal_ignoring_potcdate (msgstr1, msgstr1_len, msgstr2, msgstr2_len)
+     const char *msgstr1;
+     size_t msgstr1_len;
+     const char *msgstr2;
+     size_t msgstr2_len;
+{
+  const char *msgstr1_end = msgstr1 + msgstr1_len;
+  const char *msgstr2_end = msgstr2 + msgstr2_len;
+  const char *ptr1;
+  const char *ptr2;
+  const char *const field = "POT-Creation-Date:";
+  const ptrdiff_t fieldlen = sizeof ("POT-Creation-Date:") - 1;
+
+  /* Search for the occurrence of field in msgstr1.  */
+  for (ptr1 = msgstr1;;)
+    {
+      if (msgstr1_end - ptr1 < fieldlen)
+	{
+	  ptr1 = NULL;
+	  break;
+	}
+      if (memcmp (ptr1, field, fieldlen) == 0)
+	break;
+      ptr1 = memchr (ptr1, '\n', msgstr1_end - ptr1);
+      if (ptr1 == NULL)
+	break;
+      ptr1++;
+    }
+
+  /* Search for the occurrence of field in msgstr2.  */
+  for (ptr2 = msgstr2;;)
+    {
+      if (msgstr2_end - ptr2 < fieldlen)
+	{
+	  ptr2 = NULL;
+	  break;
+	}
+      if (memcmp (ptr2, field, fieldlen) == 0)
+	break;
+      ptr2 = memchr (ptr2, '\n', msgstr2_end - ptr2);
+      if (ptr2 == NULL)
+	break;
+      ptr2++;
+    }
+
+  if (ptr1 == NULL)
+    {
+      if (ptr2 == NULL)
+	return msgstr_equal (msgstr1, msgstr1_len, msgstr2, msgstr2_len);
+    }
+  else
+    {
+      if (ptr2 != NULL)
+	{
+	  /* Compare, ignoring the lines starting at ptr1 and ptr2.  */
+	  if (msgstr_equal (msgstr1, ptr1 - msgstr1, msgstr2, ptr2 - msgstr2))
+	    {
+	      ptr1 = memchr (ptr1, '\n', msgstr1_end - ptr1);
+	      if (ptr1 == NULL)
+		ptr1 = msgstr1_end;
+
+	      ptr2 = memchr (ptr2, '\n', msgstr2_end - ptr2);
+	      if (ptr2 == NULL)
+		ptr2 = msgstr2_end;
+
+	      return msgstr_equal (ptr1, msgstr1_end - ptr1,
+				   ptr2, msgstr2_end - ptr2);
+	    }
+	}
+    }
+  return false;
+}
 
 static inline bool
 pos_equal (pos1, pos2)
@@ -63,9 +158,10 @@ string_list_equal (slp1, slp2)
 }
 
 bool
-message_equal (mp1, mp2)
+message_equal (mp1, mp2, ignore_potcdate)
      const message_ty *mp1;
      const message_ty *mp2;
+     bool ignore_potcdate;
 {
   size_t i, i1, i2;
 
@@ -78,9 +174,11 @@ message_equal (mp1, mp2)
 	: mp2->msgid_plural == NULL))
     return false;
 
-  if (mp1->msgstr_len != mp2->msgstr_len)
-    return false;
-  if (memcmp (mp1->msgstr, mp2->msgstr, mp1->msgstr_len) != 0)
+  if (mp1->msgid[0] == '\0' && ignore_potcdate
+      ? !msgstr_equal_ignoring_potcdate (mp1->msgstr, mp1->msgstr_len,
+					 mp2->msgstr, mp2->msgstr_len)
+      : !msgstr_equal (mp1->msgstr, mp1->msgstr_len,
+		       mp2->msgstr, mp2->msgstr_len))
     return false;
 
   if (!pos_equal (&mp1->pos, &mp2->pos))
@@ -114,9 +212,10 @@ message_equal (mp1, mp2)
 }
 
 bool
-message_list_equal (mlp1, mlp2)
+message_list_equal (mlp1, mlp2, ignore_potcdate)
      const message_list_ty *mlp1;
      const message_list_ty *mlp2;
+     bool ignore_potcdate;
 {
   size_t i, i1, i2;
 
@@ -125,24 +224,27 @@ message_list_equal (mlp1, mlp2)
   if (i1 != i2)
     return false;
   for (i = 0; i < i1; i++)
-    if (!message_equal (mlp1->item[i], mlp2->item[i]))
+    if (!message_equal (mlp1->item[i], mlp2->item[i], ignore_potcdate))
       return false;
   return true;
 }
 
 static inline bool
-msgdomain_equal (mdp1, mdp2)
+msgdomain_equal (mdp1, mdp2, ignore_potcdate)
      const msgdomain_ty *mdp1;
      const msgdomain_ty *mdp2;
+     bool ignore_potcdate;
 {
   return (strcmp (mdp1->domain, mdp2->domain) == 0
-	  && message_list_equal (mdp1->messages, mdp2->messages));
+	  && message_list_equal (mdp1->messages, mdp2->messages,
+				 ignore_potcdate));
 }
 
 bool
-msgdomain_list_equal (mdlp1, mdlp2)
+msgdomain_list_equal (mdlp1, mdlp2, ignore_potcdate)
      const msgdomain_list_ty *mdlp1;
      const msgdomain_list_ty *mdlp2;
+     bool ignore_potcdate;
 {
   size_t i, i1, i2;
 
@@ -151,7 +253,7 @@ msgdomain_list_equal (mdlp1, mdlp2)
   if (i1 != i2)
     return false;
   for (i = 0; i < i1; i++)
-    if (!msgdomain_equal (mdlp1->item[i], mdlp2->item[i]))
+    if (!msgdomain_equal (mdlp1->item[i], mdlp2->item[i], ignore_potcdate))
       return false;
   return true;
 }

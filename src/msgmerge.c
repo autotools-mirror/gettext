@@ -336,8 +336,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   if (update_mode)
     {
-      /* Do nothing if the original file and the result are equal.  */
-      if (!msgdomain_list_equal (def, result))
+      /* Do nothing if the original file and the result are equal.  Also do
+	 nothing if the original file and the result differ only by the
+	 POT-Creation-Date in the header entry; this is needed for projects
+	 which don't put the .pot file under CVS.  */
+      if (!msgdomain_list_equal (def, result, true))
 	{
 	  /* Back up def.po.  */
 	  enum backup_type backup_type;

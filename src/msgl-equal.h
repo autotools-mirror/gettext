@@ -1,5 +1,5 @@
 /* Message list test for equality.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -31,12 +31,15 @@ extern bool
    would be the same.  */
 
 extern bool
-       message_equal PARAMS ((const message_ty *mp1, const message_ty *mp2));
+       message_equal PARAMS ((const message_ty *mp1, const message_ty *mp2,
+			      bool ignore_potcdate));
 extern bool
        message_list_equal PARAMS ((const message_list_ty *mlp1,
-				   const message_list_ty *mlp2));
+				   const message_list_ty *mlp2,
+				   bool ignore_potcdate));
 extern bool
        msgdomain_list_equal PARAMS ((const msgdomain_list_ty *mdlp1,
-				     const msgdomain_list_ty *mdlp2));
+				     const msgdomain_list_ty *mdlp2,
+				     bool ignore_potcdate));
 
 #endif /* _MSGL_EQUAL_H */

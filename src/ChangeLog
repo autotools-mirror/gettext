@@ -1,3 +1,14 @@
+2002-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-equal.h (message_equal, message_list_equal,
+	msgdomain_list_equal): Add 'ignore_potcdate' argument.
+	* msgl-equal-c (msgstr_equal, msgstr_equal_ignoring_potcdate): New
+	functions.
+	(message_equal, message_list_equal, msgdomain_equal,
+	msgdomain_list_equal): Add 'ignore_potcdate' argument.
+	* msgmerge.c (main): Call msgdomain_list_equal with ignore_potcdate =
+	true.
+
 2002-09-09  Bruno Haible  <bruno@clisp.org>
 
 	* x-smalltalk.h: New file.
