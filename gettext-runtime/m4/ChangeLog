@@ -1,3 +1,9 @@
+2004-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* glibc2.m4: New file.
+	* gettext.m4 (AM_INTL_SUBDIR): Require gt_GLIBC2.
+	* Makefile.am (EXTRA_DIST): Add glibc2.m4.
+
 2004-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.1 released.

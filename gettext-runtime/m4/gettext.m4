@@ -1,5 +1,5 @@
-# gettext.m4 serial 28 (gettext-0.13)
-dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
+# gettext.m4 serial 29 (gettext-0.15)
+dnl Copyright (C) 1995-2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -350,6 +350,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([AM_MKINSTALLDIRS])dnl
   AC_REQUIRE([AC_PROG_CC])dnl
   AC_REQUIRE([AC_CANONICAL_HOST])dnl
+  AC_REQUIRE([gt_GLIBC2])dnl
   AC_REQUIRE([AC_PROG_RANLIB])dnl
   AC_REQUIRE([AC_ISC_POSIX])dnl
   AC_REQUIRE([AC_HEADER_STDC])dnl
