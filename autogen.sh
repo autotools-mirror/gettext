@@ -1,4 +1,4 @@
-# This script requires autoconf-2.58..2.59 and automake-1.8 in the PATH.
+# This script requires autoconf-2.58..2.59 and automake-1.8.2 in the PATH.
 
 aclocal
 autoconf
