@@ -1,3 +1,8 @@
+2003-08-29  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Test HAVE_DECL__SNPRINTF instead of HAVE__SNPRINTF.
+	Test HAVE_DECL__SNWPRINTF instead of HAVE__SNWPRINTF.
+
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (local_wcslen): Protect against multiple definition.

@@ -88,7 +88,7 @@ local_wcslen (const wchar_t *s)
 # define DIRECTIVES wchar_t_directives
 # define PRINTF_PARSE wprintf_parse
 # define USE_SNPRINTF 1
-# if HAVE__SNWPRINTF
+# if HAVE_DECL__SNWPRINTF
    /* On Windows, the function swprintf() has a different signature than
       on Unix; we use the _snwprintf() function instead.  */
 #  define SNPRINTF _snwprintf
@@ -102,8 +102,8 @@ local_wcslen (const wchar_t *s)
 # define DIRECTIVE char_directive
 # define DIRECTIVES char_directives
 # define PRINTF_PARSE printf_parse
-# define USE_SNPRINTF (HAVE__SNPRINTF || HAVE_SNPRINTF)
-# if HAVE__SNPRINTF
+# define USE_SNPRINTF (HAVE_DECL__SNPRINTF || HAVE_SNPRINTF)
+# if HAVE_DECL__SNPRINTF
    /* Windows.  */
 #  define SNPRINTF _snprintf
 # else
