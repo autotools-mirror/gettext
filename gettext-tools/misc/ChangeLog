@@ -1,5 +1,14 @@
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: When adding items to EXTRA_DIST, SUBDIRS,
+	DIST_SUBDIRS, ACLOCAL_AMFLAGS in Makefile.am, optionally remove one
+	space after the added items. When adding items to AC_CONFIG_FILES,
+	AC_OUTPUT in configure.ac, remove don't insert an extra space after
+	the added items.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in: Emit brackets around the argument of
 	AM_GNU_GETTEXT_VERSION.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
