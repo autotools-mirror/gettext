@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -1208,7 +1208,7 @@ xgettext_lex (tp)
 	      default_keywords = 0;
 	    }
 
-	  if (find_entry (&keywords, token.string, strlen (token.string),
+	  if (find_entry (&keywords, token.string, strlen (token.string) + 1,
 			  &keyword_value)
 	      == 0)
 	    {
@@ -1277,16 +1277,26 @@ xgettext_lex_keyword (name)
       sp = strchr (name, ':');
       if (sp)
 	{
+	  /* Make a temporary copy of 'name' up to 'sp', because
+	     insert_entry() expects a NUL terminated string.  */
+	  char *name_copy;
+
 	  len = sp - name;
+	  name_copy = (char *) alloca (len + 1);
+	  memcpy (name_copy, name, len);
+	  name_copy[len] = '\0';
+	  name = name_copy;
+
 	  argnum = atoi (sp + 1);
 	}
       else
 	{
 	  len = strlen (name);
+
 	  argnum = 1;
 	}
 
-      insert_entry (&keywords, name, len, (void *) (long) argnum);
+      insert_entry (&keywords, name, len + 1, (void *) (long) argnum);
     }
 }
 

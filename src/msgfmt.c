@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995, 1996, 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -624,7 +624,7 @@ some header fields still have the initial default value"));
   /* We insert the ID/string pair into the hashing table.  But we have
      to take care for dublicates.  */
   if (insert_entry (&current_domain->symbol_tab, msgid_string,
-		    strlen (msgid_string), entry))
+		    strlen (msgid_string) + 1, entry))
     {
       /* We don't need the just constructed entry.  */
       free (entry);
@@ -635,7 +635,7 @@ some header fields still have the initial default value"));
 	     translations are different.  Tell the user the old
 	     definition for reference.  */
 	  find_entry (&current_domain->symbol_tab, msgid_string,
-		      strlen (msgid_string), (void **) &entry);
+		      strlen (msgid_string) + 1, (void **) &entry);
 	  if (0 != strcmp(msgstr_string, entry->msgstr))
 	    {
 	      po_gram_error_at_line (msgid_pos, _("\

@@ -1,5 +1,11 @@
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgfmt.c (format_directive_message): Pass to insert_entry and
+	find_entry the length including the terminating NUL.
+	* xget-lex.c (xgettext_lex, xgettext_lex_keyword): Likewise.
+
+2000-12-31  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgunfmt.c (read_mo_file): Recognize "/dev/stdin", not "/dev/stdout".
 
 2000-12-31  Bruno Haible  <haible@clisp.cons.org>

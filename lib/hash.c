@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994, 1995, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1994, 1995, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software; you can redistribute it and/or modify
@@ -141,7 +141,7 @@ insert_entry (htab, key, keylen, data)
   else
     {
       /* An empty bucket has been found.  */
-      insert_entry_2 (htab, obstack_copy0 (&htab->mem_pool, key, keylen),
+      insert_entry_2 (htab, obstack_copy (&htab->mem_pool, key, keylen),
 		      keylen, hval, idx, data);
       return 0;
     }
