@@ -29,6 +29,8 @@ using namespace std;
 #include <stdio.h>
 #include <stdlib.h>
 #include "xsetenv.h"
+#include "autosprintf.h"
+using gnu::autosprintf;
 #define _(string) gettext (string)
 
 int main (int argc, char *argv[])
@@ -47,11 +49,10 @@ int main (int argc, char *argv[])
 
   cout << _("'Your command, please?', asked the waiter.") << endl;
 
-  printf (ngettext ("a piece of cake", "%d pieces of cake", n), n);
-  printf ("\n");
+  cout << autosprintf (ngettext ("a piece of cake", "%d pieces of cake", n), n)
+       << endl;
 
-  printf (_("%s is replaced by %s."), "FF", "EUR");
-  printf ("\n");
+  cout << autosprintf (_("%s is replaced by %s."), "FF", "EUR") << endl;
 }
 EOF
 
@@ -59,7 +60,11 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.cc -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${LTLIBINTL} \
+# Compile in two steps from .cc to .o and from .o to 'prog'. This way,
+# relinking is faster because doesn't need to redo the first step.
+${CXX} ${CXXFLAGS} ${CPPFLAGS} -c prog.cc -I.. -I$top_srcdir/libasprintf -I$top_srcdir/lib -I../intl \
+  || exit 1
+${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${LDFLAGS} -o prog prog.${OBJEXT} ../libasprintf/libasprintf.la ../lib/libgettextlib.la ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"

@@ -1,5 +1,17 @@
 2002-10-27  Bruno Haible  <bruno@clisp.org>
 
+	* libasprintf: New subdirectory.
+	* configure.in (CXX): Adjust to match the result in the libasprintf
+	subdirectory.
+	(SUBDIR_libasprintf): New AC_SUBST.
+	(AC_CONFIG_SUBDIRS): Recurse into libasprintf.
+	* Makefile.am (SUBDIRS): Add libasprintf conditionally.
+	(DIST_SUBDIRS): New variable.
+	* PACKAGING: Add libasprintf.*, autosprintf.h, and its documentation
+	autosprintf.html, autosprintf.info.
+
+2002-10-27  Bruno Haible  <bruno@clisp.org>
+
 	* PACKAGING: Update list of installed .m4 files.
 
 2002-09-27  Bruno Haible  <bruno@clisp.org>

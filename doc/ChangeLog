@@ -1,5 +1,9 @@
 2002-10-27  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (C): Add reference to autosprintf for C++.
+
+2002-10-27  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (@direntry): Add more entry points: one for every
 	program, except 'gettext' and 'ngettext', which are also available
 	as functions.

@@ -26,7 +26,12 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 gettextsrc_SCRIPTS = config.rpath mkinstalldirs
 
-SUBDIRS = doc intl intl-java lib libuniname src po projects misc man m4 tests
+SUBDIRS = \
+  doc intl intl-java lib @SUBDIR_libasprintf@ libuniname \
+  src po projects misc man m4 tests
+DIST_SUBDIRS = \
+  doc intl intl-java lib libasprintf libuniname \
+  src po projects misc man m4 tests
 
 EXTRA_DIST = config.rpath BUGS DISCLAIM PACKAGING README.gemtext \
              djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \

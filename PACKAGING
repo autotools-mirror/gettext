@@ -37,6 +37,8 @@ following file list.
       $prefix/lib/charset.alias           (not installed on glibc systems)
       $prefix/share/locale/locale.alias   (not installed on glibc systems)
       $prefix/include/libintl.h           (not installed on glibc systems)
+      $prefix/lib/libasprintf.*
+      $prefix/include/autosprintf.h
 
    gettext-tools
 
@@ -59,7 +61,9 @@ following file list.
       $prefix/doc/gettext/javadoc1/*
       $prefix/doc/gettext/javadoc2/*
       $prefix/doc/gettext/gettext_*.html
+      $prefix/doc/libasprintf/autosprintf.html
       $prefix/info/gettext.info*
+      $prefix/info/autosprintf.info
       $prefix/lib/libgettextlib*
       $prefix/lib/libgettextsrc*
       $prefix/lib/gettext/*

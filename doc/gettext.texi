@@ -6985,6 +6985,8 @@ Use
 
 @item Formatting with positions
 @code{fprintf "%2$d %1$d"} (POSIX but not C 99)
+@*In C++: @code{autosprintf "%2$d %1$d"}
+(@pxref{, , Introduction, autosprintf, GNU autosprintf})
 
 @item Portability
 autoconf (gettext.m4) and #if ENABLE_NLS
