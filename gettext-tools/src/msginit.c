@@ -98,6 +98,11 @@
 #define _(str) gettext (str)
 #define N_(str) (str)
 
+/* Get F_OK.  It is lacking from <fcntl.h> on Woe32.  */
+#ifndef F_OK
+# define F_OK 0
+#endif
+
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 extern const char * _nl_locale_name (int category, const char *categoryname);
