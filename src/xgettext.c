@@ -1153,7 +1153,7 @@ Content-Transfer-Encoding: 8bit\n",
 			  ? xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
 Copyright (C) YEAR %s\n\
-This file is distributed under the same license as the PACKAGE package.
+This file is distributed under the same license as the PACKAGE package.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
 				       copyright_holder)
 			  : "\
