@@ -198,15 +198,6 @@ main (argc, argv)
 	/* NOTREACHED */
       }
 
-  /* Verify selected options.  */
-  if (!line_comment && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--no-location", "--sort-by-file");
-
-  if (sort_by_msgid && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
-
   /* Version information requested.  */
   if (do_version)
     {
@@ -235,6 +226,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
       usage (EXIT_FAILURE);
     }
+
+  /* Verify selected options.  */
+  if (!line_comment && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--no-location", "--sort-by-file");
+
+  if (sort_by_msgid && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--sort-output", "--sort-by-file");
 
   /* Determine list of files we have to process: a single file.  */
   file_list = string_list_alloc ();

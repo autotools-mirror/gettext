@@ -248,6 +248,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     error (EXIT_FAILURE, 0, _("missing filter name"));
   sub_name = argv[optind];
 
+  /* Verify selected options.  */
+  if (!line_comment && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--no-location", "--sort-by-file");
+
+  if (sort_by_msgid && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--sort-output", "--sort-by-file");
+
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
   sub_argv = (char **) xmalloc ((sub_argc + 1) * sizeof (char *));
@@ -278,10 +287,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	    i++;
 	}
     }
-
-  if (sort_by_msgid && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
 
   /* By default, input comes from standard input.  */
   if (input_file == NULL)

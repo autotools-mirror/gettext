@@ -1,5 +1,19 @@
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcat.c (main): Move the option checking after the handling of
+	--version and --help, but before opening of any file.
+	* msgcomm.c (main): Move the option checking after the handling of
+	--version and --help.
+	* msguniq.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+	* msgconv.c (main): Additional option checking for --sort-by-file.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msggrep.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
 	* dir-list.c: Include specification header before all other headers.
 	* file-list.c: Likewise.
 	* message.c: Likewise.

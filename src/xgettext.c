@@ -346,10 +346,29 @@ main (argc, argv)
 	/* NOTREACHED */
       }
 
+  /* Version information requested.  */
+  if (do_version)
+    {
+      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
+      /* xgettext: no-wrap */
+      printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
+This is free software; see the source for copying conditions.  There is NO\n\
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
+"),
+	      "1995-1998, 2000, 2001");
+      printf (_("Written by %s.\n"), "Ulrich Drepper");
+      exit (EXIT_SUCCESS);
+    }
+
+  /* Help is requested.  */
+  if (do_help)
+    usage (EXIT_SUCCESS);
+
   /* Normalize selected options.  */
   if (omit_header != 0 && line_comment < 0)
     line_comment = 0;
 
+  /* Verify selected options.  */
   if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--no-location", "--sort-by-file");
@@ -368,24 +387,6 @@ main (argc, argv)
 xgettext cannot work without keywords to look for"));
       usage (EXIT_FAILURE);
     }
-
-  /* Version information requested.  */
-  if (do_version)
-    {
-      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
-      /* xgettext: no-wrap */
-      printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
-This is free software; see the source for copying conditions.  There is NO\n\
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
-"),
-	      "1995-1998, 2000, 2001");
-      printf (_("Written by %s.\n"), "Ulrich Drepper");
-      exit (EXIT_SUCCESS);
-    }
-
-  /* Help is requested.  */
-  if (do_help)
-    usage (EXIT_SUCCESS);
 
   /* Test whether we have some input files given.  */
   if (files_from == NULL && optind >= argc)

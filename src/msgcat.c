@@ -220,15 +220,6 @@ main (argc, argv)
 	/* NOTREACHED */
       }
 
-  /* Verify selected options.  */
-  if (!line_comment && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--no-location", "--sort-by-file");
-
-  if (sort_by_msgid && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
-
   /* Version information requested.  */
   if (do_version)
     {
@@ -247,6 +238,21 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
+  /* Verify selected options.  */
+  if (!line_comment && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--no-location", "--sort-by-file");
+
+  if (sort_by_msgid && sort_by_filepos)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--sort-output", "--sort-by-file");
+
+  /* Check the message selection criteria for sanity.  */
+  if (more_than >= less_than || less_than < 2)
+    error (EXIT_FAILURE, 0,
+           _("impossible selection criteria specified (%d < n < %d)"),
+           more_than, less_than);
+
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
     file_list = read_names_from_file (files_from);
@@ -255,12 +261,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Append names from command line.  */
   for (cnt = optind; cnt < argc; ++cnt)
     string_list_append_unique (file_list, argv[cnt]);
-
-  /* Check the message selection criteria for sanity.  */
-  if (more_than >= less_than || less_than < 2)
-    error (EXIT_FAILURE, 0,
-           _("impossible selection criteria specified (%d < n < %d)"),
-           more_than, less_than);
 
   /* Read input files, then filter, convert and merge messages.  */
   result = catenate_msgdomain_list (file_list, to_code);
