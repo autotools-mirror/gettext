@@ -34,8 +34,11 @@
 #include "read-po.h"
 #include "write-po.h"
 #include "system.h"
-#include "libgettext.h"
 #include "po.h"
+#include "msgl-equal.h"
+#include "backupfile.h"
+#include "copy-file.h"
+#include "libgettext.h"
 
 #define _(str) gettext (str)
 
@@ -55,10 +58,16 @@ static bool multi_domain_mode = false;
 /* List of user-specified compendiums.  */
 static message_list_list_ty *compendiums;
 
+/* Update mode.  */
+static bool update_mode = false;
+static const char *version_control_string;
+static const char *backup_suffix_string;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
+  { "backup", required_argument, NULL, CHAR_MAX + 1 },
   { "compendium", required_argument, NULL, 'C', },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
@@ -73,7 +82,9 @@ static const struct option long_options[] =
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "silent", no_argument, NULL, 'q' },
-  { "strict", no_argument, NULL, 'S' },
+  { "strict", no_argument, NULL, CHAR_MAX + 2 },
+  { "suffix", required_argument, NULL, CHAR_MAX + 3 },
+  { "update", no_argument, NULL, 'U' },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -93,13 +104,14 @@ struct statistics
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static void usage PARAMS ((int status));
-static msgdomain_list_ty *merge PARAMS ((const char *fn1, const char *fn2));
 static void compendium PARAMS ((const char *filename));
 static void match_domain PARAMS ((const char *fn1, const char *fn2,
 				  message_list_list_ty *definitions,
 				  message_list_ty *refmlp,
 				  message_list_ty *resultmlp,
 				  struct statistics *stats, int *processed));
+static msgdomain_list_ty *merge PARAMS ((const char *fn1, const char *fn2,
+					 msgdomain_list_ty **defp));
 
 
 int
@@ -111,6 +123,7 @@ main (argc, argv)
   bool do_help;
   bool do_version;
   char *output_file;
+  msgdomain_list_ty *def;
   msgdomain_list_ty *result;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
@@ -137,7 +150,7 @@ main (argc, argv)
   output_file = NULL;
 
   while ((opt
-	  = getopt_long (argc, argv, "C:D:eEFhimo:qsvVw:", long_options, NULL))
+	  = getopt_long (argc, argv, "C:D:eEFhimo:qsUvVw:", long_options, NULL))
 	 != EOF)
     switch (opt)
       {
@@ -188,8 +201,8 @@ main (argc, argv)
         sort_by_msgid = true;
         break;
 
-      case 'S':
-	message_print_style_uniforum ();
+      case 'U':
+	update_mode = true;
 	break;
 
       case 'v':
@@ -208,6 +221,18 @@ main (argc, argv)
 	  if (endp != optarg)
 	    message_page_width_set (value);
 	}
+	break;
+
+      case CHAR_MAX + 1: /* --backup */
+	version_control_string = optarg;
+	break;
+
+      case CHAR_MAX + 2: /* --strict */
+	message_print_style_uniforum ();
+	break;
+
+      case CHAR_MAX + 3: /* --suffix */
+	backup_suffix_string = optarg;
 	break;
 
       default:
@@ -246,6 +271,30 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Verify selected options.  */
+  if (update_mode)
+    {
+      if (output_file != NULL)
+	{
+	  error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+		 "--update", "--output-file");
+	}
+    }
+  else
+    {
+      if (version_control_string != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--backup", "--update");
+	  usage (EXIT_FAILURE);
+	}
+      if (backup_suffix_string != NULL)
+	{
+	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+		 "--suffix", "--update");
+	  usage (EXIT_FAILURE);
+	}
+    }
+
   if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--no-location", "--sort-by-file");
@@ -254,8 +303,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
-  /* merge the two files */
-  result = merge (argv[optind], argv[optind + 1]);
+  /* Merge the two files.  */
+  result = merge (argv[optind], argv[optind + 1], &def);
 
   /* Sort the results.  */
   if (sort_by_filepos)
@@ -263,8 +312,43 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (result);
 
-  /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, force_po, false);
+  if (update_mode)
+    {
+      /* Do nothing if the original file and the result are equal.  */
+      if (!msgdomain_list_equal (def, result))
+	{
+	  /* Back up def.po.  */
+	  enum backup_type backup_type;
+	  char *backup_file;
+
+	  output_file = argv[optind];
+
+	  if (backup_suffix_string == NULL)
+	    {
+	      backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
+	      if (backup_suffix_string != NULL
+		  && backup_suffix_string[0] == '\0')
+		backup_suffix_string = NULL;
+	    }
+	  if (backup_suffix_string != NULL)
+	    simple_backup_suffix = backup_suffix_string;
+
+	  backup_type = xget_version (_("backup type"), version_control_string);
+	  if (backup_type != none)
+	    {
+	      backup_file = find_backup_file_name (output_file, backup_type);
+	      copy_file (output_file, backup_file);
+	    }
+
+	  /* Write the merged message list out.  */
+	  msgdomain_list_print (result, output_file, true, false);
+	}
+    }
+  else
+    {
+      /* Write the merged message list out.  */
+      msgdomain_list_print (result, output_file, force_po, false);
+    }
 
   exit (EXIT_SUCCESS);
 }
@@ -315,10 +399,33 @@ Input file location:\n\
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
+Operation mode:\n\
+  -U, --update                update def.po,\n\
+                              do nothing if def.po already up to date\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
 Output file location:\n\
   -o, --output-file=FILE      write output to specified file\n\
 The results are written to standard output if no output file is specified\n\
 or if it is -.\n\
+"));
+      printf ("\n");
+      /* xgettext: no-wrap */
+      printf (_("\
+Output file location in update mode:\n\
+The result is written back to def.po.\n\
+      --backup=CONTROL        make a backup of def.po\n\
+      --suffix=SUFFIX         override the usual backup suffix\n\
+The version control method may be selected via the --backup option or through\n\
+the VERSION_CONTROL environment variable.  Here are the values:\n\
+  none, off       never make backups (even if --backup is given)\n\
+  numbered, t     make numbered backups\n\
+  existing, nil   numbered if numbered backups exist, simple otherwise\n\
+  simple, never   always make simple backups\n\
+The backup suffix is `~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n\
+environment variable.\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */
@@ -374,7 +481,7 @@ compendium (filename)
 }
 
 
-#define DOT_FREQUENCE 10
+#define DOT_FREQUENCY 10
 
 static void
 match_domain (fn1, fn2, definitions, refmlp, resultmlp, stats, processed)
@@ -395,7 +502,7 @@ match_domain (fn1, fn2, definitions, refmlp, resultmlp, stats, processed)
 
       /* Because merging can take a while we print something to signal
 	 we are not dead.  */
-      if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCE == 0)
+      if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
 	fputc ('.', stderr);
 
       refmsg = refmlp->item[j];
@@ -471,9 +578,10 @@ this message is used but not defined in %s"), fn1);
 }
 
 static msgdomain_list_ty *
-merge (fn1, fn2)
+merge (fn1, fn2, defp)
      const char *fn1;			/* definitions */
      const char *fn2;			/* references */
+     msgdomain_list_ty **defp;		/* return definition list */
 {
   msgdomain_list_ty *def;
   msgdomain_list_ty *ref;
@@ -570,10 +678,13 @@ merge (fn1, fn2)
 	    {
 	      /* Remember the old translation although it is not used anymore.
 		 But we mark it as obsolete.  */
-	      defmsg->obsolete = true;
+	      message_ty *mp;
+
+	      mp = message_copy (defmsg);
+	      mp->obsolete = true;
 
 	      message_list_append (msgdomain_list_sublist (result, domain, 1),
-				   defmsg);
+				   mp);
 	      stats.obsolete++;
 	    }
 	}
@@ -591,5 +702,7 @@ merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"),
   else if (!quiet)
     fputs (_(" done.\n"), stderr);
 
+  /* Return results.  */
+  *defp = def;
   return result;
 }

@@ -1,3 +1,21 @@
+2001-09-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgl-equal.h: New file.
+	* msgl-equal.c: New file.
+	* msgmerge.c: Include msgl-equal.h, backupfile.h, copy-file.h.
+	(update_mode, version_control_string, backup_suffix_string): New
+	variables.
+	(long_options): Add --backup, --suffix, --update.
+	(main): Accept options --backup, --suffix, -U/--update. If in update
+	mode, compare old and new message lists, backup the def.po file, and
+	overwrite the def.po file.
+	(usage): Document --backup, --suffix, -U/--update.
+	(DOT_FREQUENCY): Renamed from DOT_FREQUENCE.
+	(merge): Also return def.po message list. Don't share messages between
+	def and result; copy instead.
+	* Makefile.am (noinst_HEADERS): Add msgl-equal.h.
+	(msgmerge_SOURCES): Add msgl-equal.c.
+
 2001-09-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-hash-gen.y (number): Change type from 'int' to 'size_t'.

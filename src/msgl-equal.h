@@ -1,0 +1,38 @@
+/* Message list test for equality.
+   Copyright (C) 2001 Free Software Foundation, Inc.
+   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2, or (at your option)
+   any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software Foundation,
+   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+
+#ifndef _MSGL_EQUAL_H
+#define _MSGL_EQUAL_H
+
+#include "message.h"
+
+#include <stdbool.h>
+
+/* Test whether the written representation of two messages / message lists
+   would be the same.  */
+
+extern bool
+       message_equal PARAMS ((const message_ty *mp1, const message_ty *mp2));
+extern bool
+       message_list_equal PARAMS ((const message_list_ty *mlp1,
+				   const message_list_ty *mlp2));
+extern bool
+       msgdomain_list_equal PARAMS ((const msgdomain_list_ty *mdlp1,
+				     const msgdomain_list_ty *mdlp2));
+
+#endif /* _MSGL_EQUAL_H */
