@@ -113,8 +113,10 @@ except that this permission notice may be stated in a translation approved
 by the Foundation.
 @end titlepage
 
+@ifnottex
 @c Table of Contents
 @contents
+@end ifnottex
 
 @ifinfo
 @node Top, Introduction, (dir), (dir)
@@ -10398,6 +10400,11 @@ Project should come from this standard.
 @unnumbered General Index
 
 @printindex cp
+
+@iftex
+@c Table of Contents
+@contents
+@end iftex
 
 @bye
 
