@@ -874,7 +874,9 @@ Called through file-coding-system-alist, before the file is visited for real."
 
 (defun po-mode ()
   "Major mode for translators when they edit PO files.
-Special commands:\\{po-mode-map}
+
+Special commands:
+\\{po-mode-map}
 Turning on PO mode calls the value of the variable `po-mode-hook',
 if that value is non-nil.  Behaviour may be adjusted through some variables,
 all reachable through `M-x customize', in group `Emacs.Editing.I18n.Po'."
