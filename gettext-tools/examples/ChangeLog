@@ -1,3 +1,12 @@
+2005-01-06  Bruno Haible  <bruno@clisp.org>
+
+	* po/el.po: New file, from Simos Xenitellis <simos74@gmx.net>.
+	* po/ru.po: New file, from Pavel Maryanov <acid_jack@ukr.net>.
+	* po/uk.po: New file, from Maxim V. Dziumanenko <mvd@mylinux.com.ua>.
+	* po/LINGUAS: Add el, ru, uk.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2004-09-07  Bruno Haible  <bruno@clisp.org>
 
 	* po/xsmallpot.sh: Keep AC_PROG_* and OBJC lines in configure.in.
