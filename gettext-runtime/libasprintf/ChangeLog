@@ -1,3 +1,10 @@
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (local_wcslen): Protect against multiple definition.
+	(USE_SNPRINTF): Define also if only _snprintf() is available.
+	(SNPRINTF): Possibly define as _snprintf or _snwprintf.
+	* configure.ac: Also check for _snprintf.
+
 2003-08-11  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (local_wcslen): New function, for Solaris 2.5.1.

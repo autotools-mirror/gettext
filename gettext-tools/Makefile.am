@@ -198,6 +198,8 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
 	    -e 's/#undef HAVE_WPRINTF$$/#define HAVE_WPRINTF 1/' \
+	    -e 's/#undef HAVE__SNPRINTF$$/#define HAVE__SNPRINTF 1/' \
+	    -e 's/#undef HAVE__SNWPRINTF$$/#define HAVE__SNWPRINTF 1/' \
 	    -e 's/#undef ICONV_CONST$$/#define ICONV_CONST const/' \
 	    -e 's/#undef SETLOCALE_CONST$$/#define SETLOCALE_CONST const/' \
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \

@@ -1,5 +1,13 @@
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h.msvc): Define HAVE__SNPRINTF, HAVE__SNWPRINTF.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Define DLL_VARIABLE in config.h through AH_BOTTOM.
+
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
 	* windows/gettextsrc.def: Add formatstring_gcc_internal,
 	formatstring_perl, formatstring_perl_brace to the export list.
 

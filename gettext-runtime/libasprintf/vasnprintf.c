@@ -63,7 +63,11 @@
 #  define local_wcslen wcslen
 # else
    /* Solaris 2.5.1 has wcslen() in a separate library libw.so. To avoid
-      a dependency towards this library, here is a local substitute.  */
+      a dependency towards this library, here is a local substitute.
+      Define this substitute only once, even if this file is included
+      twice in the same compilation unit.  */
+#  ifndef local_wcslen_defined
+#   define local_wcslen_defined 1
 static size_t
 local_wcslen (const wchar_t *s)
 {
@@ -73,6 +77,7 @@ local_wcslen (const wchar_t *s)
     ;
   return ptr - s;
 }
+#  endif
 # endif
 #endif
 
@@ -83,15 +88,28 @@ local_wcslen (const wchar_t *s)
 # define DIRECTIVES wchar_t_directives
 # define PRINTF_PARSE wprintf_parse
 # define USE_SNPRINTF 1
-# define SNPRINTF swprintf
+# if HAVE__SNWPRINTF
+   /* On Windows, the function swprintf() has a different signature than
+      on Unix; we use the _snwprintf() function instead.  */
+#  define SNPRINTF _snwprintf
+# else
+   /* Unix.  */
+#  define SNPRINTF swprintf
+# endif
 #else
 # define VASNPRINTF vasnprintf
 # define CHAR_T char
 # define DIRECTIVE char_directive
 # define DIRECTIVES char_directives
 # define PRINTF_PARSE printf_parse
-# define USE_SNPRINTF HAVE_SNPRINTF
-# define SNPRINTF snprintf
+# define USE_SNPRINTF (HAVE__SNPRINTF || HAVE_SNPRINTF)
+# if HAVE__SNPRINTF
+   /* Windows.  */
+#  define SNPRINTF _snprintf
+# else
+   /* Unix.  */
+#  define SNPRINTF snprintf
+# endif
 #endif
 
 CHAR_T *
