@@ -6858,7 +6858,7 @@ textdomain (@var{PACKAGE});
 @end example
 
 To make LOCALEDIR known to the program, add the following lines to
-Makefile.in:
+@file{Makefile.in}:
 
 @example
 datadir = @@datadir@@
@@ -6909,6 +6909,66 @@ dist: Makefile $(DISTFILES)
 	for file in $(DISTFILES); do \
 	  ln $$file $(distdir) 2>/dev/null || cp -p $$file $(distdir) || exit 1; \
 	done
+@end example
+
+@end enumerate
+
+Note that if you are using GNU @code{automake}, @file{Makefile.in} is
+automatically generated from @file{Makefile.am}, and the first three
+changes and the last change are not necessary.  The remaining needed
+@file{Makefile.am} modifications are the following:
+
+@enumerate
+@item
+To make LOCALEDIR known to the program, add the following to
+@file{Makefile.am}:
+
+@example
+<module>_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+@end example
+
+@noindent
+for each specific module or compilation unit, or
+
+@example
+AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+@end example
+
+for all modules and compilation units together.  Furthermore, add this
+line to define @samp{localedir}:
+
+@example
+localedir = $(datadir)/locale
+@end example
+
+@item
+To ensure that the final linking will use @code{@@LIBINTL@@} or
+@code{@@LTLIBINTL@@} as a library, add the following to
+@file{Makefile.am}:
+
+@example
+<program>_LDADD = @@LIBINTL@@
+@end example
+
+@noindent
+for each specific program, or
+
+@example
+LDADD = @@LIBINTL@@
+@end example
+
+for all programs together.  Remember that when you use @code{libtool}
+to link a program, you need to use @@LTLIBINTL@@ instead of @@LIBINTL@@
+for that program.
+
+@item
+If you have an @file{intl/} directory, whose contents is created by
+@code{gettextize}, then to ensure that it will be searched for
+C preprocessor include files in all circumstances, add something like
+this to @file{Makefile.am}:
+
+@example
+AM_CPPFLAGS = -I../intl -I$(top_srcdir)/intl
 @end example
 
 @end enumerate

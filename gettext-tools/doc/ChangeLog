@@ -1,5 +1,11 @@
 2005-03-06  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (src/Makefile): Document the steps that need to be done
+	when automake is used.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-06  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (config.h.in): Explain the constraints for this file's
 	name and location.
 
