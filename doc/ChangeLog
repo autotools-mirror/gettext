@@ -1,3 +1,10 @@
+2001-12-07  Ben Elliston  <bje@redhat.com>
+
+	* gettext.texi (Overview): Grammar fixes.
+	(PO Files): Likewise.
+	(Main PO Commands): Likewise.
+	(Modifying Translations): Likewise.
+
 2001-12-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Common Lisp): Update.

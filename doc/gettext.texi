@@ -637,9 +637,9 @@ the GNU format.
 
 The following diagram summarizes the relation between the files
 handled by GNU @code{gettext} and the tools acting on these files.
-It is followed by a somewhat detailed explanations, which you should
+It is followed by somewhat detailed explanations, which you should
 read while keeping an eye on the diagram.  Having a clear understanding
-of these interrelations would surely help programmers, translators
+of these interrelations will surely help programmers, translators
 and maintainers.
 
 @example
@@ -775,7 +775,7 @@ of adding new strings, or modifying strings already translated.
 They just do their job the best they can.  For the Translation
 Project to work smoothly, it is important that maintainers do not
 carry translation concerns on their already loaded shoulders, and that
-translators be kept as free as possible of programmatic concerns.
+translators be kept as free as possible of programming concerns.
 
 The only concern maintainers should have is carefully marking new
 strings as translatable, when they should be, and do not otherwise
@@ -816,8 +816,8 @@ People resisting it will have a hard time participating in the
 Translation Project, or will give a hard time to other participants!  In
 particular, maintainers should relax and include all available official
 PO files in their distributions, even if these have not recently been
-updated, without banging or otherwise trying to exert pressure on the
-translator teams to get the job done.  The pressure should rather come
+updated, without exerting pressure on the translator teams to get the
+job done.  The pressure should rather come
 from the community of users speaking a particular language, and
 maintainers should consider themselves fairly relieved of any concern
 about the adequacy of translation files.  On the other hand, translators
@@ -829,7 +829,7 @@ Once the PO file is complete and dependable, the @code{msgfmt} program
 is used for turning the PO file into a machine-oriented format, which
 may yield efficient retrieval of translations by the programs of the
 package, whenever needed at runtime (@pxref{MO Files}).  @xref{msgfmt
-Invocation}, for more information about all modalities of execution
+Invocation}, for more information about all modes of execution
 for the @code{msgfmt} program.
 
 Finally, the modified and marked C sources are compiled and linked
@@ -979,7 +979,7 @@ search only.  @xref{Fuzzy Entries}.
 @item c-format
 @itemx no-c-format
 These flags should not be added by a human.  Instead only the
-@code{xgettext} program adds them.  In an automatized PO file processing
+@code{xgettext} program adds them.  In an automated PO file processing
 system as proposed here the user changes would be thrown away again as
 soon as the @code{xgettext} program generates a new template file.
 
@@ -1018,7 +1018,7 @@ not having Emacs handy should carefully continue reading on.
 
 Each of @var{untranslated-string} and @var{translated-string} respects
 the C syntax for a character string, including the surrounding quotes
-and imbedded backslashed escape sequences.  When the time comes
+and embedded backslashed escape sequences.  When the time comes
 to write multi-line strings, one should not use escaped newlines.
 Instead, a closing quote should follow the last character on the
 line to be continued, and an opening quote should resume the string
@@ -1127,8 +1127,8 @@ The commands @kbd{Q} (@code{po-quit}) and @kbd{q}
 (@code{po-confirm-and-quit}) are used when the translator is done with the
 PO file.  The former is a bit less verbose than the latter.  If the file
 has been modified, it is saved to disk first.  In both cases, and prior to
-all this, the commands check if some untranslated message remains in the
-PO file and, if yes, the translator is asked if she really wants to leave
+all this, the commands check if any untranslated messages remain in the
+PO file and, if so, the translator is asked if she really wants to leave
 off working with this PO file.  This is the preferred way of getting rid
 of an Emacs PO file buffer.  Merely killing it through the usual command
 @w{@kbd{C-x k}} (@code{kill-buffer}) is not the tidiest way to proceed.
@@ -2329,8 +2329,8 @@ merely tries to provide handy tools for helping her to do so.
 @node Modifying Translations, Modifying Comments, Obsolete Entries, Updating
 @section Modifying Translations
 
-PO mode prevents direct edition of the PO file, by the usual
-means Emacs give for altering a buffer's contents.  By doing so,
+PO mode prevents direct modification of the PO file, by the usual
+means Emacs gives for altering a buffer's contents.  By doing so,
 it pretends helping the translator to avoid little clerical errors
 about the overall file format, or the proper quoting of strings,
 as those errors would be easily made.  Other kinds of errors are
