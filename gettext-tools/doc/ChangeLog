@@ -1,5 +1,9 @@
 2003-02-22  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Python): Mention ngettext.
+
+2003-02-22  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (MOSTLYCLEANFILES): No need to clean the unused indices.
 	(The automake generated rule already cleans them.)
 

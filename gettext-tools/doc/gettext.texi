@@ -7469,7 +7469,9 @@ python
 @code{_('abc')} etc.
 
 @item gettext/ngettext functions
-@code{gettext.gettext}, @code{gettext.dgettext}, also @code{ugettext}
+@code{gettext.gettext}, @code{gettext.dgettext},
+@code{gettext.ngettext}, @code{gettext.dngettext},
+also @code{ugettext}, @code{ungettext}
 
 @item textdomain
 @code{gettext.textdomain} function, or

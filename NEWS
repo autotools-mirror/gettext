@@ -12,11 +12,26 @@ Version 0.12-pre1 - February 2003
   program maintainers.
   xgettext, accordingly, has a new option --msgid-bugs-address.
 
-* xgettext now also supports Smalltalk and PHP.
+* Programming languages support:
 
-* A new C++ class, called gnu::autosprintf, makes it possible to use C format
-  strings in C++. This is needed for proper internationalization of C++
-  programs.
+  - C++
+
+    A new C++ class, called gnu::autosprintf, makes it possible to use
+    C format strings in C++. This is needed for proper internationalization
+    of C++ programs.
+
+  - Smalltalk
+
+    xgettext now also supports Smalltalk.
+
+  - PHP
+
+    xgettext now also supports PHP.
+
+  - Python
+
+    "xgettext --language=Python" now supports the plural handling functions
+    ngettext, dngettext, ungettext (introduced in Python 2.3).
 
 * A new include file libgettextpo, with public header file "gettext-po.h",
   provides functions for reading PO files into memory. It is useful for
@@ -31,11 +46,13 @@ Version 0.12-pre1 - February 2003
   xgettext has a new option --from-code that specifies the encoding of the
   source files. The resulting POT files are UTF-8 encoded.
 
-* msgmerge has a new option -N/--no-fuzzy-matching that inhibits the fuzzy
-  search for untranslated messages.
+* Tools for translators:
 
-* msgattrib has new options --only-file and --ignore-file that cause the
-  specified attribute manipulation to apply to selected messages only.
+  - msgmerge has a new option -N/--no-fuzzy-matching that inhibits the fuzzy
+    search for untranslated messages.
+
+  - msgattrib has new options --only-file and --ignore-file that cause the
+    specified attribute manipulation to apply to selected messages only.
 
 * Compatibility with automake-1.7.
 

@@ -1,3 +1,10 @@
+2003-02-22  Bruno Haible  <bruno@clisp.org>
+
+	* lang-python-1: Renamed from lang-python. Make it work with Python
+	2.3.
+	* lang-python-2: New file.
+	* Makefile.am (TESTS): Remove lang-python, add lang-python-[12].
+
 2003-02-20  Bruno Haible  <bruno@clisp.org>
 
 	* msgfilter-1: Remove SKIP: messages, now emitted by the Makefile.

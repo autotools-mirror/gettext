@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -126,7 +126,11 @@ init_keywords ()
   if (default_keywords)
     {
       x_python_keyword ("gettext");
+      x_python_keyword ("ugettext");
       x_python_keyword ("dgettext:2");
+      x_python_keyword ("ngettext:1,2");
+      x_python_keyword ("ungettext:1,2");
+      x_python_keyword ("dngettext:2,3");
       x_python_keyword ("_");
       default_keywords = false;
     }
