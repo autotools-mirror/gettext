@@ -21,6 +21,7 @@
 # include <config.h>
 #endif
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -303,7 +304,7 @@ object_list_alloc ()
   return list;
 }
 
-static void *
+static void
 object_list_destroy (list)
      object_list *list;
 {
@@ -456,7 +457,6 @@ is_keyword (s)
   int num_keywords = get_num_objects (java_keywords);
   java_keyword *kw;
 
-  bool match;
   for (i = 0; i < num_keywords; i++)
     {
       kw = (java_keyword *) get_object (java_keywords, i);
