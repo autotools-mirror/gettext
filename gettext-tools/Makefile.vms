@@ -41,6 +41,9 @@ all : config.h
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms all
+	set default [-]
 
 config.h : config.h_vms
 	$(LN) config.h_vms config.h
@@ -76,6 +79,9 @@ install :
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms install
+	set default [-]
 
 installdirs :
 	set default [.doc]
@@ -106,6 +112,9 @@ installdirs :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
+	set default [-]
+	set default [.examples]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms installdirs
 	set default [-]
 
@@ -140,6 +149,9 @@ uninstall :
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms uninstall
+	set default [-]
 
 check : all
 	set default [.doc]
@@ -172,6 +184,9 @@ check : all
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms check
+	set default [-]
 
 mostlyclean :
 	set default [.doc]
@@ -202,6 +217,9 @@ mostlyclean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
 	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
+	set default [-]
+	set default [.examples]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms mostlyclean
 	set default [-]
 	$(RM) config.h;*
@@ -237,6 +255,9 @@ clean :
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms clean
+	set default [-]
 	$(RM) config.h;*
 
 distclean :
@@ -270,6 +291,9 @@ distclean :
 	set default [.tests]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
 	set default [-]
+	set default [.examples]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms distclean
+	set default [-]
 	$(RM) config.h;*
 
 maintainer-clean :
@@ -301,6 +325,9 @@ maintainer-clean :
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
 	set default [.tests]
+	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
+	set default [-]
+	set default [.examples]
 	$(MMS) $(MMSQUALIFIERS) /description=Makefile.vms maintainer-clean
 	set default [-]
 	$(RM) config.h;*

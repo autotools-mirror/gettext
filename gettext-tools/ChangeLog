@@ -1,3 +1,15 @@
+2003-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (AC_CONFIG_FILES): Create examples/Makefile,
+	examples, installpaths, examples/po/Makefile.
+	* Makefile.am (SUBDIRS): Add examples.
+	* Makefile.msvc (all, install, installdirs, uninstall, check,
+	mostlyclean, clean, distclean, maintainer-clean): Recurse into
+	examples.
+	* Makefile.vms (all, install, installdirs, uninstall, check,
+	mostlyclean, clean, distclean, maintainer-clean): Recurse into
+	examples.
+
 2003-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (docdir): New variable.
