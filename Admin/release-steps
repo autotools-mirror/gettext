@@ -19,5 +19,7 @@ Tasks not to forget before release:
 
 - Remove README-alpha from EXTRA_DIST in Makefile.am.
 
+- Bump po-mode-version-string in misc/po-mode.el.
+
 - Bump version number and release date in configure.in.
 
