@@ -1,5 +1,5 @@
 /* GNU gettext for C#
- * Copyright (C) 2003 Free Software Foundation, Inc.
+ * Copyright (C) 2003, 2005 Free Software Foundation, Inc.
  * Written by Bruno Haible <bruno@clisp.org>, 2003.
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -181,7 +181,7 @@ namespace GNU.Gettext {
       Type clazz = satelliteAssembly.GetType(ConstructClassName(resourceName)+"_"+culture.Name.Replace('-','_'));
       // We expect it has a no-argument constructor, and invoke it.
       ConstructorInfo constructor = clazz.GetConstructor(Type.EmptyTypes);
-      return constructor.Invoke(null) as GettextResourceSet;
+      return (GettextResourceSet) constructor.Invoke(null);
     }
 
     private static GettextResourceSet[] EmptyResourceSetArray = new GettextResourceSet[0];
@@ -196,12 +196,12 @@ namespace GNU.Gettext {
     private GettextResourceSet[] GetResourceSetsFor (CultureInfo culture) {
       //Console.WriteLine(">> GetResourceSetsFor "+culture);
       // Look up in the cache.
-      GettextResourceSet[] result = Loaded[culture] as GettextResourceSet[];
+      GettextResourceSet[] result = (GettextResourceSet[]) Loaded[culture];
       if (result == null) {
         lock(this) {
           // Look up again - maybe another thread has filled in the entry
           // while we slept waiting for the lock.
-          result = Loaded[culture] as GettextResourceSet[];
+          result = (GettextResourceSet[]) Loaded[culture];
           if (result == null) {
             // Determine the GettextResourceSets for the given culture.
             if (culture.Parent == null || culture.Equals(CultureInfo.InvariantCulture))
@@ -395,7 +395,7 @@ namespace GNU.Gettext {
       else if (value is String[])
         // A plural form, but no number is given.
         // Like the C implementation, return the first plural form.
-        return (value as String[])[0];
+        return ((String[]) value)[0];
       else
         throw new InvalidOperationException("resource for \""+msgid+"\" in "+GetType().FullName+" is not a string");
     }
@@ -417,7 +417,7 @@ namespace GNU.Gettext {
       else if (value is String[])
         // A plural form, but no number is given.
         // Like the C implementation, return the first plural form.
-        return (value as String[])[0];
+        return ((String[]) value)[0];
       else
         throw new InvalidOperationException("resource for \""+msgid+"\" in "+GetType().FullName+" is not a string");
     }
@@ -438,7 +438,7 @@ namespace GNU.Gettext {
       if (value == null || value is String)
         return (String)value;
       else if (value is String[]) {
-        String[] choices = value as String[];
+        String[] choices = (String[]) value;
         long index = PluralEval(n);
         return choices[index >= 0 && index < choices.Length ? index : 0];
       } else
