@@ -35,7 +35,6 @@ Usage: gettextize [OPTION]... [package-dir]
 Report bugs to <bug-gnu-utils@gnu.org>."
 package=@PACKAGE@
 version=@VERSION@
-aclocal_version=@ACLOCAL_VERSION@
 try_ln_s=:
 
 while test $# -gt 0; do
@@ -53,7 +52,7 @@ while test $# -gt 0; do
       $echo "$usage"; exit 0 ;;
     --version | --v* )
       echo "$progname (GNU $package) $version"
-      $echo "Copyright (C) 1996, 1997, 1998 Free Software Foundation, Inc.
+      $echo "Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
       $echo "Written by" "Ulrich Drepper"
@@ -143,7 +142,7 @@ cd $gettext_dir || {
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
-    intl | po | demo)
+    intl | po)
       ;;
     *)
       rm -f $srcdir/$file
@@ -168,24 +167,26 @@ for file in *; do
   ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file) 2>/dev/null ||
   cp $file $srcdir/po/$file
 done
+rm -f $srcdir/po/cat-id-tbl.c $srcdir/po/stamp-cat-id
+DATE=`date +%Y-%m-%d`
+cat > $srcdir/po/ChangeLog.tmp <<EOF
+$DATE  gettextize  <bug-gnu-utils@gnu.org>
 
+	* Makefile.in.in: Upgrade to gettext-${version}.
+	* cat-id-tbl.c, stamp-cat-id: Remove files.
 
-# Check whether we can run config.status to produce intl/Makefile.in.
-cd $origdir
-if test -f ./config.status; then
-  if test $configstatus -eq 0; then
-    echo "Shall I run config.status? (y/N)"
-    read ans
-    case "$ans" in
-      y* | Y* | 1* )
-	configstatus=1 ;;
-      * )
-	;;
-    esac
-  fi
-
-  test $configstatus -ne 0 &&
-    (CONFIG_FILES=intl/Makefile CONFIG_HEADERS= ./config.status)
+EOF
+if test -f $srcdir/po/ChangeLog; then
+  cat $srcdir/po/ChangeLog >> $srcdir/po/ChangeLog.tmp
+  cp -p $srcdir/po/ChangeLog $srcdir/po/ChangeLog~
 fi
+cp $srcdir/po/ChangeLog.tmp $srcdir/po/ChangeLog
+rm -f $srcdir/po/ChangeLog.tmp
+
+echo "Please add the files"
+echo "  codeset.m4 gettext.m4 iconv.m4 isc-posix.m4 lcmessage.m4 progtest.m4"
+echo "from the @datadir@/aclocal directory to your autoconf macro directory"
+echo "or directly to your aclocal.m4 file."
+echo
 
 exit 0
