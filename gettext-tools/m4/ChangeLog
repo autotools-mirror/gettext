@@ -13,6 +13,11 @@
 	* unlocked-io.m4, xreadlink.m4:
 	Use an all-permissive copyright notice, recommended by RMS.
 
+2005-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* stpncpy.m4 (gl_FUNC_STPNCPY): Rename the replacement function to
+	gnu_stpncpy. Needed for AIX.
+
 2005-01-08  Bruno Haible  <bruno@clisp.org>
 
 	* libgrep.m4: New file.
