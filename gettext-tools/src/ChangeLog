@@ -1,3 +1,20 @@
+2003-06-27  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.h (from_current_source_encoding): New declaraction.
+	* xgettext.c (from_current_source_encoding): New function.
+	(CONVERT_STRING): Use it.
+	* x-perl.c: Include po-charset.h.
+	(get_here_document): Convert each line to UTF-8.
+	(phase2_getc): Convert each comment to UTF-8. Tell xgettext_comment_add
+	to not convert it.
+	(extract_quotelike_pass1_utf8): New function.
+	(extract_quotelike): Use extract_quotelike_pass1_utf8.
+	(extract_triple_quotelike): Likewise.
+	(extract_variable): Tell remember_a_message to not convert the string.
+	(interpolate_keywords): Likewise.
+	(extract_balanced): Tell remember_a_message, remember_a_message_plural
+	to not convert the string.
+
 2003-06-23  Guido Flohr  <guido@imperia.net>
 
 	* x-perl.c (extract_quotelike_pass3): Fix handling of doubled

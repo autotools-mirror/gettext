@@ -34,6 +34,7 @@
 #include "progname.h"
 #include "xmalloc.h"
 #include "exit.h"
+#include "po-charset.h"
 #include "ucs4-utf8.h"
 #include "uniname.h"
 #include "gettext.h"
@@ -203,7 +204,9 @@ phase1_ungetc (int c)
     }
 }
 
-/* Read a here document and return its contents.  */
+/* Read a here document and return its contents.
+   The delimiter is an UTF-8 encoded string; the resulting string is UTF-8
+   encoded as well.  */
 
 static char *
 get_here_document (const char *delimiter)
@@ -228,6 +231,7 @@ get_here_document (const char *delimiter)
   for (;;)
     {
       int read_bytes = getline (&my_linebuf, &my_linebuf_size, fp);
+      char *my_line_utf8;
       bool chomp;
 
       if (read_bytes < 0)
@@ -250,6 +254,21 @@ get_here_document (const char *delimiter)
 	}
 
       ++here_eaten;
+
+      /* Convert to UTF-8.  */
+      my_line_utf8 =
+	from_current_source_encoding (my_linebuf, logical_file_name,
+				      line_number + here_eaten);
+      if (my_line_utf8 != my_linebuf)
+	{
+	  if (strlen (my_line_utf8) >= my_linebuf_size)
+	    {
+	      my_linebuf_size = strlen (my_line_utf8) + 1;
+	      my_linebuf = xrealloc (my_linebuf, my_linebuf_size);
+	    }
+	  strcpy (my_linebuf, my_line_utf8);
+	  free (my_line_utf8);
+	}
 
       /* Undosify.  This is important for catching the end of <<EOF and
 	 <<'EOF'.  We could rely on stdio doing this for us but you
@@ -347,6 +366,7 @@ phase2_getc ()
   size_t buflen;
   int lineno;
   int c;
+  char *utf8_string;
 
   c = phase1_getc ();
   if (c == '#')
@@ -365,6 +385,7 @@ phase2_getc ()
 	      break;
 	    }
 	}
+      /* Accumulate the comment.  */
       for (;;)
 	{
 	  c = phase1_getc ();
@@ -383,7 +404,13 @@ phase2_getc ()
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[buflen] = '\0';
-      xgettext_comment_add (buffer);
+      /* Convert it to UTF-8.  */
+      utf8_string =
+	from_current_source_encoding (buffer, logical_file_name, lineno);
+      /* Save it until we encounter the corresponding string.  */
+      xgettext_current_source_encoding = po_charset_utf8;
+      xgettext_comment_add (utf8_string);
+      xgettext_current_source_encoding = xgettext_global_source_encoding;
       last_comment_line = lineno;
     }
   return c;
@@ -430,10 +457,12 @@ enum token_type_ty
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
   token_type_symbol,		/* symbol, number */
-  token_type_keyword_symbol,    /* keyword symbol (used by parser) */
   token_type_regex_op,		/* s, tr, y, m.  */
   token_type_dot,               /* . */
-  token_type_other		/* regexp, misc. operator */
+  token_type_other,		/* regexp, misc. operator */
+  /* The following are not really token types, but variants used by
+     the parser.  */
+  token_type_keyword_symbol	/* keyword symbol */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -454,9 +483,12 @@ struct token_ty
 {
   token_type_ty type;
   string_type_ty string_type;	/* for token_type_string */
-  char *string;			/* for token_type_named_op, token_type_string,
-				   token_type_symbol, token_type_keyword_symbol,
-				   token_type_variable */
+  char *string;			/* for:			in encoding:
+				   token_type_named_op	ASCII
+				   token_type_string	UTF-8
+				   token_type_symbol	ASCII
+				   token_type_variable	global_source_encoding
+				 */
   int line_number;
 };
 
@@ -496,8 +528,6 @@ token2string (const token_ty *token)
       return "token_type_variable";
     case token_type_symbol:
       return "token_type_symbol";
-    case token_type_keyword_symbol:
-      return "token_type_keyword_symbol";
     case token_type_regex_op:
       return "token_type_regex_op";
     case token_type_dot:
@@ -519,7 +549,6 @@ free_token (token_ty *tp)
     case token_type_named_op:
     case token_type_string:
     case token_type_symbol:
-    case token_type_keyword_symbol:
     case token_type_variable:
       free (tp->string);
       break;
@@ -634,6 +663,19 @@ extract_quotelike_pass1 (int delim)
     }
 }
 
+/* Like extract_quotelike_pass1, but return the complete string in UTF-8
+   encoding.  */
+static char *
+extract_quotelike_pass1_utf8 (int delim)
+{
+  char *string = extract_quotelike_pass1 (delim);
+  char *utf8_string =
+    from_current_source_encoding (string, logical_file_name, line_number);
+  if (utf8_string != string)
+    free (string);
+  return utf8_string;
+}
+
 
 /* ========= Reading of tokens and commands.  Extracting strings.  ========= */
 
@@ -718,7 +760,7 @@ extract_oct (const char *string, size_t len, unsigned int *result)
 static void
 extract_quotelike (token_ty *tp, int delim)
 {
-  char *string = extract_quotelike_pass1 (delim);
+  char *string = extract_quotelike_pass1_utf8 (delim);
   size_t len = strlen (string);
 
   tp->type = token_type_string;
@@ -742,7 +784,7 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 
   tp->type = token_type_regex_op;
 
-  string = extract_quotelike_pass1 (delim);
+  string = extract_quotelike_pass1_utf8 (delim);
   if (interpolate)
     interpolate_keywords (mlp, string, line_number);
   free (string);
@@ -759,7 +801,7 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 	  delim = phase2_getc ();
 	}
     }
-  string = extract_quotelike_pass1 (delim);
+  string = extract_quotelike_pass1_utf8 (delim);
   if (interpolate)
     interpolate_keywords (mlp, string, line_number);
   free (string);
@@ -1358,7 +1400,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		      lex_pos_ty pos;
 		      pos.line_number = line_number;
 		      pos.file_name = logical_file_name;
+		      xgettext_current_source_encoding = po_charset_utf8;
 		      remember_a_message (mlp, xstrdup (t1->string), &pos);
+		      xgettext_current_source_encoding = xgettext_global_source_encoding;
 		      free_token (t2);
 		      free_token (t1);
 		    }
@@ -1442,7 +1486,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 
 /* Actually a simplified version of extract_variable().  It searches for
    variables inside a double-quoted string that may interpolate to
-   some keyword hash (reference).  */
+   some keyword hash (reference).  The string is UTF-8 encoded.  */
 static void
 interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 {
@@ -1659,6 +1703,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
 	      /* The string can only shrink with interpolation (because
 		 we ignore \Q).  */
+	      if (!(strlen (token.string) <= bufpos))
+		abort ();
 	      strcpy (buffer, token.string);
 	      free (token.string);
 	      state = wait_rbrace;
@@ -1735,7 +1781,9 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      buffer[bufpos] = '\0';
 	      token.string = xstrdup (buffer);
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
+	      xgettext_current_source_encoding = po_charset_utf8;
 	      remember_a_message (mlp, token.string, &pos);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      /* FALLTHROUGH */
 	    default:
 	      state = initial;
@@ -2300,7 +2348,6 @@ token_stack_dump (token_stack_ty *stack)
 	case token_type_named_op:
 	case token_type_string:
 	case token_type_symbol:
-	case token_type_keyword_symbol:
 	case token_type_variable:
 	  fprintf (stderr, "    string: %s\n", token->string);
 	  break;
@@ -2683,26 +2730,29 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 	  if (extract_all)
 	    {
 	      lex_pos_ty pos;
+	      char *string;
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
-	      remember_a_message (mlp, collect_message (mlp, tp,
-							EXIT_SUCCESS),
-				  &pos);
+	      string = collect_message (mlp, tp, EXIT_SUCCESS);
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      remember_a_message (mlp, string, &pos);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (state)
 	    {
 	      lex_pos_ty pos;
+	      char *string;
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
 
 	      if (arg_count == arg_sg)
 		{
-		  plural_mp =
-		    remember_a_message (mlp, collect_message (mlp, tp,
-							      EXIT_FAILURE),
-					&pos);
+		  string = collect_message (mlp, tp, EXIT_FAILURE);
+		  xgettext_current_source_encoding = po_charset_utf8;
+		  plural_mp = remember_a_message (mlp, string, &pos);
+		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_sg = -1;
 		}
 	      else if (arg_count == arg_pl && plural_mp == NULL)
@@ -2714,10 +2764,10 @@ extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int state,
 		}
 	      else if (arg_count == arg_pl)
 		{
-		  remember_a_message_plural (plural_mp,
-					     collect_message (mlp, tp,
-							      EXIT_FAILURE),
-					     &pos);
+		  string = collect_message (mlp, tp, EXIT_FAILURE);
+		  xgettext_current_source_encoding = po_charset_utf8;
+		  remember_a_message_plural (plural_mp, string, &pos);
+		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_pl = -1;
 		}
 	    }

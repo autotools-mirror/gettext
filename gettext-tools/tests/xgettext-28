@@ -9,6 +9,9 @@ tmpfiles="$tmpfiles xg-test28.pl"
 cat <<\EOF > xg-test28.pl
 use charnames ':full';
 printf "%s\n", gettext "Böse Bübchen - wo sind sie blo\N{LATIN SMALL LETTER SHARP S}?";
+print gettext <<STR
+Die europäische Währung ist \N{EURO SIGN}.
+STR
 EOF
 
 tmpfiles="$tmpfiles xg-test28.po"
@@ -39,6 +42,10 @@ msgstr ""
 
 #: xg-test28.pl:2
 msgid "Böse Bübchen - wo sind sie bloß?"
+msgstr ""
+
+#: xg-test28.pl:4
+msgid "Die europäische Währung ist €.\n"
 msgstr ""
 EOF
 

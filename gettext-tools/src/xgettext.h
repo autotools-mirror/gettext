@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -59,6 +59,14 @@ extern const char *xgettext_current_source_encoding;
    ASCII or UTF-8, when this conversion is a no-op).  */
 extern iconv_t xgettext_current_source_iconv;
 #endif
+
+/* Convert the given string from xgettext_current_source_encoding to
+   the output file encoding (i.e. ASCII or UTF-8).
+   The resulting string is either the argument string, or freshly allocated.
+   The file_name and line_number are only used for error message purposes.  */
+extern char *from_current_source_encoding (const char *string,
+					   const char *file_name,
+					   size_t line_number);
 
 /* List of messages whose msgids must not be extracted, or NULL.
    Used by remember_a_message().  */

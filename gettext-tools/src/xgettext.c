@@ -1009,27 +1009,6 @@ static struct formatstring_parser *current_formatstring_parser1;
 static struct formatstring_parser *current_formatstring_parser2;
 
 
-/* Convert the given string from xgettext_current_source_encoding to
-   the output file encoding (i.e. ASCII or UTF-8).  */
-#define CONVERT_STRING(string) \
-  if (xgettext_current_source_encoding == po_charset_ascii)		\
-    {									\
-      if (!is_ascii_string (string))					\
-	{								\
-	  char buffer[21];						\
-	  if (pos->line_number == (size_t)(-1))				\
-	    buffer[0] = '\0';						\
-	  else								\
-	    sprintf (buffer, ":%ld", (long) pos->line_number);		\
-	  error (EXIT_FAILURE, 0, _("Non-ASCII string at %s%s.\nPlease specify the source encoding through --from-code."), \
-		 pos->file_name, buffer);				\
-	}								\
-    }									\
-  else if (xgettext_current_source_encoding != po_charset_utf8)		\
-    {									\
-      string = convert_string (xgettext_current_source_iconv, string);	\
-    }
-
 #if !HAVE_ICONV
 /* If we don't have iconv(), the only supported values for
    xgettext_global_source_encoding and thus also for
@@ -1037,6 +1016,40 @@ static struct formatstring_parser *current_formatstring_parser2;
    convert_string() should not be called in this case.  */
 #define convert_string(cd,string) (abort (), (string))
 #endif
+
+/* Convert the given string from xgettext_current_source_encoding to
+   the output file encoding (i.e. ASCII or UTF-8).
+   The resulting string is either the argument string, or freshly allocated.
+   The file_name and line_number are only used for error message purposes.  */
+char *
+from_current_source_encoding (const char *string,
+			      const char *file_name, size_t line_number)
+{
+  if (xgettext_current_source_encoding == po_charset_ascii)
+    {
+      if (!is_ascii_string (string))
+	{
+	  char buffer[21];
+
+	  if (line_number == (size_t)(-1))
+	    buffer[0] = '\0';
+	  else
+	    sprintf (buffer, ":%ld", (long) line_number);
+	  error (EXIT_FAILURE, 0, _("\
+Non-ASCII string at %s%s.\n\
+Please specify the source encoding through --from-code."),
+		 file_name, buffer);
+	}
+    }
+  else if (xgettext_current_source_encoding != po_charset_utf8)
+    string = convert_string (xgettext_current_source_iconv, string);
+
+  return (char *) string;
+}
+
+#define CONVERT_STRING(string) \
+  string = from_current_source_encoding (string, pos->file_name, \
+					 pos->line_number);
 
 
 message_ty *
@@ -1135,7 +1148,7 @@ meta information, not the empty string.\n")));
 
 	  CONVERT_STRING (s);
 
-	  /* To reduce the possibility of unwanted matches be do a two
+	  /* To reduce the possibility of unwanted matches we do a two
 	     step match: the line must contain `xgettext:' and one of
 	     the possible format description strings.  */
 	  if ((t = strstr (s, "xgettext:")) != NULL)
