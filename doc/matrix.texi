@@ -15,7 +15,7 @@ error           |                         []       [] |
 fetchmail       |       () [] []          []       () |
 fileutils       |          [] []          [] []    [] |
 findutils       |          [] []          [] []    [] |
-flex            |          []             []       [] |
+flex            |    []    []             []       [] |
 gas             |                         []       [] |
 gawk            |                         []       [] |
 gcal            |    []                            [] |
@@ -23,7 +23,7 @@ gcc             |                         []       [] |
 gettext         |    []    [] []          []       [] |
 gnupg           |             [] []    [] [] []    [] |
 gprof           |                         []       [] |
-grep            |                            []       |
+grep            | []          []          [] []       |
 hello           |          [] [] []    [] [] [] [] [] |
 id-utils        |          [] []                   [] |
 indent          |    []       []       []    []    [] |
@@ -59,7 +59,7 @@ wdiff           |          [] []          [] []    [] |
 wget            |    [] [] [] [] []       [] []    [] |
                 +-------------------------------------+
                   bg ca cs da de el en eo es et fi fr
-                   0 10 11 31 35  9  1  8 38 15  1 48
+                   1 11 11 31 36  9  1  8 39 15  1 48
 @end group
 
 @group
@@ -135,13 +135,13 @@ binutils        |                            []          |  4
 bison           |                []       [] []          |  8
 clisp           |                                        |  5
 cpio            |    []     []   []       []             | 11
-diffutils       |                []       [] []          | 12
+diffutils       |                []       [] []     []   | 13
 enscript        |           []   []       []             |  6
 error           |                   []       []     []   |  6
 fetchmail       |    ()     ()               []          |  4
 fileutils       |                []    [] [] []          | 12
 findutils       |    []     []   [] [] [] [] []          | 18
-flex            |                []       [] []          |  7
+flex            |                []       [] []          |  8
 gas             |                            []          |  3
 gawk            |                         [] []          |  5
 gcal            |                         [] []          |  4
@@ -149,7 +149,7 @@ gcc             |                            []          |  3
 gettext         |                   [] [] [] []          | 10
 gnupg           |    []                   [] []          | 12
 gprof           |                         [] []          |  4
-grep            |                            []          |  3
+grep            |                []    []    []          |  8
 hello           | [] []          [] []    [] [] []       | 25
 id-utils        |                []       []             |  6
 indent          |                [] []    [] []          | 12
@@ -172,19 +172,19 @@ python          |                                        |  0
 recode          |    []          []    [] []             | 13
 sed             |           []   [] [] [] [] []          | 21
 sh-utils        | [] []     []   [] [] [] [] []     []   | 22
-sharutils       |                []       []             | 11
+sharutils       |                []       []        []   | 12
 sketch          |           []   ()                      |  2
 soundtracker    |                         []             |  5
 sp              |                                        |  0
 tar             | [] []     []      [] [] [] []          | 16
 texinfo         |                []       []        []   | 10
-textutils       |                      [] [] []          | 10
+textutils       |                      [] [] []     []   | 11
 util-linux      |           []            [] []          |  8
 vorbis-tools    |                         []             |  1
 wdiff           |                [] []    [] []          |  9
 wget            |                [] [] [] [] [] []  []   | 20
                 +----------------------------------------+
   35 teams        no pl pt pt_BR ru sk sl sv tr uk zh_TW
-  55 domains       5 12  2  12   24 11 10 41 34  4   4    476
+  55 domains       5 12  2  12   25 11 11 41 34  4   7    485
 @end group
 @end example
