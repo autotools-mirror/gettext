@@ -29,13 +29,13 @@
 ;;;
 ;;;   (autoload 'po-mode "po-mode"
 ;;;             "Major mode for translators to edit PO files" t)
-;;;   (setq auto-mode-alist (cons '("\\.po[tx]?\\'\\|\\.po\\." . po-mode)
+;;;   (setq auto-mode-alist (cons '("\\.po\\'\\|\\.po\\." . po-mode)
 ;;;				  auto-mode-alist))
 ;;;
 ;;; To automatically use the right coding system under Emacs 20, also add:
 ;;;
 ;;;   (autoload 'po-find-file-coding-system "po-mode")
-;;;   (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\."
+;;;   (modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
 ;;;				  'po-find-file-coding-system)
 ;;;
 ;;; You may also adjust some variables, below, by defining them in your
@@ -697,6 +697,30 @@ Content-Type into a Mule coding system.")
 
 ;;; Mode activation.
 
+(defun po-find-charset (filename)
+  "Return PO file charset value."
+  (interactive)
+  (let ((po-charset "^\"Content-Type: text/plain;[ \t]*charset=\\(.*\\)\\\\n\""))
+    ;; Try the first 4096 bytes.  In case we cannot find the charset value
+    ;; within the first 4096 bytes (the PO file might start with a long
+    ;; comment) try the next 4096 bytes repeatedly until we'll know for sure
+    ;; we've checked the empty header entry entirely.
+    (while (not (re-search-forward "^msgid" nil t))
+      (save-excursion
+        (goto-char (point-max))
+        (insert-file-contents filename nil (1- (point)) (1- (+ (point) 4096)))))
+    (if (re-search-forward po-charset nil t)
+        (match-string 1)
+      (progn
+        (save-excursion
+          (goto-char (point-max))
+          ;; We've found the first msgid; maybe, only a part of the msgstr
+          ;; value was loaded.  Load the next 1024 bytes; if charset still
+          ;; isn't available, give up.
+          (insert-file-contents filename nil (point) (+ (point) 1024)))
+        (when (re-search-forward po-charset nil t)
+          (match-string 1))))))
+
 (eval-and-compile
   (if (or po-EMACS20 po-XEMACS)
       (defun po-find-file-coding-system-guts (operation filename)
@@ -705,21 +729,15 @@ Called through file-coding-system-alist, before the file is visited for real."
 	(and (eq operation 'insert-file-contents)
 	     (with-temp-buffer
 	       (let ((coding-system-for-read 'no-conversion))
-		 ;; Is 4096 enough?  FIXME: Retry as needed!
-		 (insert-file-contents filename nil 0 4096)
-		 (if (re-search-forward
-		      "^\"Content-Type: text/plain;[ \t]*charset=\\([^\\]+\\)"
-		      nil t)
-		     (let* ((charset (buffer-substring
-				       (match-beginning 1) (match-end 1)))
-			    (charset-upper (intern (upcase charset)))
-			    (charset-lower (intern (downcase charset))))
-		       (list (or (cdr (assq charset-upper
-					    po-content-type-charset-alist))
-				 (if (memq charset-lower (coding-system-list))
-				     charset-lower
-				   'no-conversion))))
-		   '(no-conversion)))))))
+                 (let* ((charset (or (po-find-charset filename)
+				     "none"))
+                        (charset-upper (intern (upcase charset)))
+                        (charset-lower (intern (downcase charset))))
+                   (list (or (cdr (assq charset-upper
+                                        po-content-type-charset-alist))
+                             (if (memq charset-lower (coding-system-list))
+                                 charset-lower
+                               'no-conversion)))))))))
 
   (if po-EMACS20
       (defun po-find-file-coding-system (arg-list)

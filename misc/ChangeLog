@@ -1,3 +1,10 @@
+2001-07-08  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el: Don't recommend to use po-mode for POT files.
+	(po-find-charset): New function.
+	(po-find-file-coding-system-guts): Use it to get rid of the 4096 limit.
+	If no charset found, use "none".
+
 2001-07-07  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-compute-counters): Don't count the header entry.
