@@ -29,6 +29,7 @@ src/format-pascal.c
 src/format-python.c
 src/format-ycp.c
 src/gettext.c
+src/hostname.c
 src/message.c
 src/msgattrib.c
 src/msgcat.c
@@ -39,6 +40,7 @@ src/msgen.c
 src/msgexec.c
 src/msgfmt.c
 src/msggrep.c
+src/msginit.c
 src/msgl-cat.c
 src/msgl-charset.c
 src/msgl-iconv.c
