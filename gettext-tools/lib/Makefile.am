@@ -145,7 +145,7 @@ examplesconfig_DATA = \
 noinst_HEADERS = gettext.h
 
 EXTRA_DIST += \
-  $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c \
+  $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c allocsa.valgrind \
   gen-lbrkprop.c 3level.h Combining.txt \
   ChangeLog.0
 
