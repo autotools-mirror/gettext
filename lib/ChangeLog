@@ -1,3 +1,11 @@
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
+	* wait-process.c (WIFSIGNALED): Make it return false when WIFSTOPPED
+	returns true.
+	(wait_subprocess): Use WIFSIGNALED instead of WCOREDUMP || WTERMSIG.
+	On AIX and OSF/1, WTERMSIG has a negative value if !WIFSIGNALED. And
+	WCOREDUMP is a BSDism, not POSIX.
+
 2001-12-23  Bruno Haible  <bruno@clisp.org>
 
 	* xsetenv.h: New file.

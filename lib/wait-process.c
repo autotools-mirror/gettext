@@ -1,5 +1,5 @@
 /* Waiting for a subprocess to finish.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -43,15 +43,6 @@
 # ifndef WEXITSTATUS
 #  define WEXITSTATUS(x) ((x).w_retcode)
 # endif
-# ifndef WIFSIGNALED
-#  define WIFSIGNALED(x) (WTERMSIG(x) != 0)
-# endif
-# ifndef WIFEXITED
-#  define WIFEXITED(x) (WTERMSIG(x) == 0)
-# endif
-# ifndef WIFSTOPPED
-#  define WIFSTOPPED(x) (WTERMSIG(x) == 0x7f)
-# endif
 #else
 # define WAIT_T int
 # ifndef WTERMSIG
@@ -63,16 +54,21 @@
 # ifndef WEXITSTATUS
 #  define WEXITSTATUS(x) (((x) >> 8) & 0xff)
 # endif
-# ifndef WIFSIGNALED
-#  define WIFSIGNALED(x) (WTERMSIG (x) != 0)
-# endif
-# ifndef WIFEXITED
-#  define WIFEXITED(x) (WTERMSIG (x) == 0)
-# endif
-# ifndef WIFSTOPPED
-#  define WIFSTOPPED(x) (WTERMSIG(x) == 0x7f)
-# endif
 #endif
+/* For valid x, exactly one of WIFSIGNALED(x), WIFEXITED(x), WIFSTOPPED(x)
+   is true.  */
+#ifndef WIFSIGNALED
+# define WIFSIGNALED(x) (WTERMSIG (x) != 0 && WTERMSIG(x) != 0x7f)
+#endif
+#ifndef WIFEXITED
+# define WIFEXITED(x) (WTERMSIG (x) == 0)
+#endif
+#ifndef WIFSTOPPED
+# define WIFSTOPPED(x) (WTERMSIG (x) == 0x7f)
+#endif
+/* Note that portable applications may access
+   WTERMSIG(x) only if WIFSIGNALED(x) is true, and
+   WEXITSTATUS(x) only if WIFEXITED(x) is true.  */
 
 #include "error.h"
 #include "exit.h"
@@ -116,14 +112,17 @@ wait_subprocess (child, progname, exit_on_error)
 	    return 127;
 	}
 
+      /* One of WIFSIGNALED (status), WIFEXITED (status), WIFSTOPPED (status)
+	 must always be true.  Loop until the program terminates.  */
       if (!WIFSTOPPED (status))
 	break;
     }
 
-  if (WCOREDUMP (status) || WTERMSIG (status) != 0)
+  if (WIFSIGNALED (status))
     {
       if (exit_on_error)
-	error (EXIT_FAILURE, 0, _("%s subprocess got fatal signal"), progname);
+	error (EXIT_FAILURE, 0, _("%s subprocess got fatal signal %d"),
+	       progname, (int) WTERMSIG (status));
       else
 	return 127;
     }
