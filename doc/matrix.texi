@@ -51,10 +51,10 @@ texinfo         |    [] [] []       []          []                |
 textutils       |    [] [] [] []       []       [] []             |
 util-linux      |    [] []                                        |
 wdiff           |          []             []                      |
-wget            |    [] [] [] []       [] []    [] []             |
+wget            |    [] [] [] []       [] []    [] [] []          |
                 +-------------------------------------------------+
                   bg cs da de el en eo es et fi fr gl he hr id it
-                   0 13 24 30 11  1  8 21 13  1 28 18  2  0  8 10
+                   0 13 24 30 11  1  8 21 13  1 28 18  3  0  8 10
 @end group
 
 @group
@@ -109,9 +109,9 @@ texinfo         | []                         []                   |  7
 textutils       | []       [] [] []     []   [] [] []             | 15
 util-linux      |                       []                        |  3
 wdiff           |                            [] []                |  4
-wget            |          []                [] [] [] [] []       | 14
+wget            |          []                [] [] [] [] []       | 15
                 +-------------------------------------------------+
   31 teams        ja ko lv nl no pl pt pt_BR ru sk sl sv tr uk zh
-  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 16  1  2  359
+  50 domains      17  9  1 23  6 17  1  13   26  9 11 19 16  1  2  360
 @end group
 @end example
