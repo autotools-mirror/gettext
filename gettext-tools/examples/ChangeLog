@@ -1,3 +1,10 @@
+2005-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* po/vi.po: New file, from Clytie Siddall <clytie@riverland.net.au>.
+	* po/LINGUAS: Add vi.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2005-02-11  Bruno Haible  <bruno@clisp.org>
 
 	* po/ga.po: New file, from Kevin Patrick Scannell <scannell@slu.edu>.
