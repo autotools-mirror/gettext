@@ -1,3 +1,8 @@
+2003-11-09  Bruno Haible  <bruno@clisp.org>
+
+	* javaexec.m4 (gt_JAVAEXEC): Accept two optional arguments, denoting
+	a test class to execute.
+
 2003-11-11  Bruno Haible  <bruno@clisp.org>
 
 	* size_max.m4: New file, from gnulib.
