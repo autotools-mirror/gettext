@@ -28,6 +28,7 @@ EXTRA_DIST = README ChangeLog.0 \
 alloca.m4 \
 backupfile.m4 \
 canonicalize.m4 \
+eaccess.m4 \
 error.m4 \
 flex.m4 \
 fnmatch.m4 \
