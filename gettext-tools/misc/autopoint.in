@@ -283,7 +283,7 @@ case "$ver" in
   0.11 | 0.11.1 | 0.11.2 | 0.11.3 | 0.11.4 | 0.11.5 | \
   0.12 | 0.12.1 | \
   0.13 | 0.13.1 | \
-  0.14 | 0.14.1 )
+  0.14 | 0.14.1 | 0.14.2 )
     ;;
   *)
     func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in\
@@ -315,6 +315,7 @@ esac
 #      0.13.1                  1236
 #      0.14                    1296
 #      0.14.1                  1300
+#      0.14.2                  1420
 #
 # The requirement that the user must have the CVS program available is not
 # a severe restrictions, because most of the people who use autopoint are
