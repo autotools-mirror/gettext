@@ -1,4 +1,4 @@
-## Makefile for the doc subdirectory of the GNU NLS Utilities
+## Makefile for the gettext-tools/doc subdirectory of GNU gettext
 ## Copyright (C) 1995-1997, 2001-2003 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-docdir = $(prefix)/doc/@PACKAGE@
+docdir = $(prefix)/doc/gettext
 dvidir = $(docdir)
 psdir = $(docdir)
 pdfdir = $(docdir)
@@ -39,7 +39,9 @@ gettext_TEXINFOS = \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   gettextize.texi autopoint.texi iso-639.texi iso-3166.texi
 
-EXTRA_DIST = iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de nls.texi matrix.texi texi2html
+EXTRA_DIST = \
+  iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de texi2html \
+  ChangeLog.0
 
 iso-639.texi: ISO_639 iso-639.sed
 	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
