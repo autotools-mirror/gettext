@@ -1,3 +1,12 @@
+2003-09-12  Paul Eggert  <eggert@twinsun.com>
+
+	* setenv.c (clearenv): Define via prototype.
+
+2003-09-10  Bruno Haible  <bruno@clisp.org>
+
+	* setenv.c: Include <stdlib.h> and <string.h> unconditionally.
+	* unsetenv.c: Likewise.
+
 2003-12-12  Bruno Haible  <bruno@clisp.org>
 
 	Assume automake-1.8.
