@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.6
+# Revision: 1.9
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-18 17:10+0100\n"
-"PO-Revision-Date: 2003-11-22 13:55+0100\n"
+"PO-Revision-Date: 2003-11-23 18:28+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -230,7 +230,7 @@ msgstr "antalet formateringsdirektiv i \"msgid\" och \"%s\" är olika"
 #: src/format-gcc-internal.c:204
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
-msgstr "I direktiv nummer %u, flaggor är inte tillåtna före \"%c\".."
+msgstr "I direktiv nummer %u är flaggor inte tillåtna före \"%c\"."
 
 #: src/format-invalid.h:23
 msgid "The string ends in the middle of a directive."
@@ -323,7 +323,7 @@ msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
 "and one of \"%s\", \"%s\", \"%s\", \"%s\"."
 msgstr ""
-"I direktiv nummer %u föls inte argumentnummret av ett komma och en av \"%s"
+"I direktiv nummer %u följs inte argumentnummret av ett komma och en av \"%s"
 "\", \"%s\", \"%s\", \"%s\"."
 
 #: src/format-java.c:322
@@ -444,8 +444,8 @@ msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
 "conversion specifier '%c'."
 msgstr ""
-"I direktiv nummer %u, storleksbestämningen är inkompatibel med "
-"konverteringen \"%c\"."
+"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
+"\"%c\"."
 
 #: src/format-perl-brace.c:198 src/format-python.c:462 src/format-sh.c:304
 #, c-format
@@ -873,7 +873,7 @@ msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
 "syntax\n"
 msgstr ""
-"      --stringtable-input     infiler har NeXTstep/GNUstep \".strings\"-"
+"      --stringtable-input     infil har NeXTstep/GNUstep \".strings\"-"
 "syntax\n"
 
 #: src/msgattrib.c:446 src/msgcat.c:390 src/msgcomm.c:395 src/msgconv.c:326
@@ -2956,7 +2956,7 @@ msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
 "This version was built without expat.\n"
 msgstr ""
-"Spräk \"glade\" stöds ej. %s beror på expat.\n"
+"Språk \"glade\" stöds ej. %s beror på expat.\n"
 "Denna version byggdes utan expat.\n"
 
 #: src/x-java.c:1385
@@ -2972,7 +2972,7 @@ msgstr "%s:%d: varning: \"}\" hittades där \")\" förväntades"
 #: src/x-perl.c:310
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
-msgstr "%s:%d: hittar inte strängslutet \"%s\" någonstans före filslut."
+msgstr "%s:%d: hittar inte strängslutet \"%s\" någonstans före filslut"
 
 #: src/x-perl.c:1036
 #, c-format
