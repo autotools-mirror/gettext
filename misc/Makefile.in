@@ -145,7 +145,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
 DISTCLEANFILES = gettextize
-lisp_LISP = po-mode.el
+lisp_LISP = po-mode.el po-compat.el
 
 bin_SCRIPTS = gettextize
 subdir = misc
@@ -157,7 +157,7 @@ SCRIPTS = $(bin_SCRIPTS)
 DIST_SOURCES =
 LISP = $(lisp_LISP)
 
-ELCFILES = po-mode.elc
+ELCFILES = po-compat.elc po-mode.elc
 DIST_COMMON = ChangeLog Makefile.am Makefile.in elisp-comp \
 	gettextize.in
 all: all-am
