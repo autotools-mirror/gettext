@@ -484,7 +484,8 @@ EXAMPLESFILES = \
   hello-perl/INSTALL \
   hello-perl/autogen.sh \
   hello-perl/autoclean.sh \
-  hello-perl/hello.pl \
+  hello-perl/hello-1.pl.in \
+  hello-perl/hello-2.pl.in \
   hello-perl/Makefile.am \
   hello-perl/configure.ac \
   hello-perl/m4/Makefile.am \

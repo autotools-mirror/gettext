@@ -12,7 +12,7 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = m4 po
 
 # The list of programs that are built.
-bin_SCRIPTS = hello
+bin_SCRIPTS = hello-1 hello-2
 
 # Additional files to be distributed.
 EXTRA_DIST = autogen.sh autoclean.sh

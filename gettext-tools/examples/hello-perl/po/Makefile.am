@@ -6,14 +6,23 @@
 
 # List of files which contain translatable strings.
 POTFILES = \
-  hello.pl
+  hello-1.pl.in hello-2.pl.in
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
-  -k_ --flag=_:1:pass-perl-format --flag=_:1:pass-perl-brace-format
+  -k_ --flag=_:1:pass-perl-format --flag=_:1:pass-perl-brace-format \
+  -k__ --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format \
+  -k'$$__' --flag='$$__:1:pass-perl-format' --flag='$$__:1:pass-perl-brace-format' \
+  -k'%__' --flag=%__:1:pass-perl-format --flag=%__:1:pass-perl-brace-format \
+  -k__x --flag=__x:1:perl-brace-format \
+  -k__n:1,2 --flag=__n:1:pass-perl-format --flag=__n:1:pass-perl-brace-format \
+            --flag=__n:2:pass-perl-format --flag=__n:2:pass-perl-brace-format \
+  -k__nx:1,2 --flag=__nx:1:perl-brace-format --flag=__nx:2:perl-brace-format \
+  -k__xn:1,2 --flag=__xn:1:perl-brace-format --flag=__xn:2:perl-brace-format \
+  -kN__ --flag=N__:1:pass-perl-format --flag=N__:1:pass-perl-brace-format
 
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding
