@@ -20,6 +20,8 @@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4
 
+MAKEINFO = env LANG= LANGUAGE= @MAKEINFO@
+
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 gettextsrc_SCRIPTS = config.rpath
