@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.46
+# Revision: 1.47
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.2\n"
-"POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-04-29 22:52+0200\n"
+"POT-Creation-Date: 2002-05-02 15:48+0200\n"
+"PO-Revision-Date: 2002-06-02 10:15+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -248,7 +248,7 @@ msgstr ""
 "formateringsdirektiv i \"msgid\" och \"%s\" för argument \"%s\" är inte "
 "likadana"
 
-#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
@@ -264,7 +264,7 @@ msgstr ""
 "INGEN garanti; inte ens för SÄLJBARHET eller LÄMPLIGHET FÖR NÅGOT SPECIELLT\n"
 "ÄNDAMÅL.\n"
 
-#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Written by %s.\n"
 msgstr "Skrivet av %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
 msgid "too many arguments"
 msgstr "för många argument"
 
@@ -281,7 +281,7 @@ msgstr "för många argument"
 msgid "missing arguments"
 msgstr "argument saknas"
 
-#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
+#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
@@ -345,7 +345,7 @@ msgstr ""
 "översätts de argument som hittas i den valda meddelandekatalogen.\n"
 "Normal katalog för meddelandekataloger: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
+#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
@@ -355,17 +355,17 @@ msgstr ""
 "Rapportera fel till <bug-gnu-gettext@gnu.org>.\n"
 "Rapportera fel och synpunkter på översättningen till <sv@li.org>.\n"
 
-#: src/hostname.c:206 src/msginit.c:352
+#: src/hostname.c:209 src/msginit.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Användning: %s [FLAGGA]\n"
 
-#: src/hostname.c:211
+#: src/hostname.c:214
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr "Visa maskinens värdnamn.\n"
 
-#: src/hostname.c:216
+#: src/hostname.c:219
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -379,7 +379,7 @@ msgstr ""
 "  -f, --fqdn, --long    långt värdnamn, innehåller hela domännamnet och alias\n"
 "  -i, --ip-address      adresser för värdnamnet\n"
 
-#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
 #: src/msginit.c:394 src/urlget.c:180
 #, no-wrap
@@ -392,7 +392,7 @@ msgstr ""
 "  -h, --help                  visa denna hjälptext och avsluta\n"
 "  -V, --version               visa versionsinformation och avsluta\n"
 
-#: src/hostname.c:246 src/hostname.c:253
+#: src/hostname.c:249 src/hostname.c:256
 msgid "could not get host name"
 msgstr "kunde inte hämta värdnamn"
 
@@ -2554,7 +2554,7 @@ msgid ""
 msgstr ""
 "Tom msgid.  Detta är reserverat av GNU gettext:\n"
 "gettext(\"\") returnerar huvudet med metainformation,\n"
-"inte den tomma stängen.\n"
+"inte den tomma strängen.\n"
 
 #: src/xgettext.c:1291
 #, c-format

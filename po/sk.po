@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.2\n"
-"POT-Creation-Date: 2002-04-24 19:27+0200\n"
-"PO-Revision-Date: 2002-04-25 00:01+0200\n"
+"POT-Creation-Date: 2002-05-02 15:48+0200\n"
+"PO-Revision-Date: 2002-05-30 10:06+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -241,7 +241,7 @@ msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "formátovacie znaèky v 'msgid' a '%s' pre parameter '%s' nie sú rovnaké"
 
-#: src/gettext.c:135 src/hostname.c:172 src/msgattrib.c:269 src/msgcat.c:234
+#: src/gettext.c:135 src/hostname.c:175 src/msgattrib.c:269 src/msgcat.c:234
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
@@ -253,11 +253,11 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Autorské práva (C) %s Free Software Foundation, Inc.\n"
-"Toto je slobodný softvér; podmienky ¹írenia sú obsiahnuté v zdrojových\n"
-"textoch. Neposkytujú sa ¾iadne záruky; ani v prípade predaja alebo pou¾itia\n"
-"na ¹peciálny úèel.\n"
+"Toto je voµne ¹íriteµný softvér; pre podmienky kopírovania pozri zdrojový kód.\n"
+"Neposkytuje sa ®IADNA záruka; ani èo sa týka OBCHODOVATE¥NOSTI alebo VHODNOSTI\n"
+"NA KONKRÉTNY ÚÈEL.\n"
 
-#: src/gettext.c:140 src/hostname.c:177 src/msgattrib.c:274 src/msgcat.c:239
+#: src/gettext.c:140 src/hostname.c:180 src/msgattrib.c:274 src/msgcat.c:239
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
@@ -266,15 +266,15 @@ msgstr ""
 msgid "Written by %s.\n"
 msgstr "Napísal %s.\n"
 
-#: src/gettext.c:158 src/hostname.c:187 src/msginit.c:271 src/ngettext.c:143
+#: src/gettext.c:158 src/hostname.c:190 src/msginit.c:271 src/ngettext.c:143
 msgid "too many arguments"
 msgstr "príli¹ veµa parametrov"
 
 #: src/gettext.c:168 src/ngettext.c:155
 msgid "missing arguments"
-msgstr "chýbajúci parameter"
+msgstr "chýbajúce parametre"
 
-#: src/gettext.c:240 src/hostname.c:201 src/msgattrib.c:327 src/msgcat.c:295
+#: src/gettext.c:240 src/hostname.c:204 src/msgattrib.c:327 src/msgcat.c:295
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:247 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
@@ -339,7 +339,7 @@ msgstr ""
 "ktoré sa nachádzajú vo vybranom katalógu správ budú prelo¾ené.\n"
 "©tandardný adresár, v ktorom sa budú hµada» katalógy: %s\n"
 
-#: src/gettext.c:277 src/hostname.c:231 src/msgattrib.c:409 src/msgcat.c:378
+#: src/gettext.c:277 src/hostname.c:234 src/msgattrib.c:409 src/msgcat.c:378
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:313 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
@@ -351,17 +351,17 @@ msgstr ""
 "Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux."
 "sk>.\n"
 
-#: src/hostname.c:206 src/msginit.c:352
+#: src/hostname.c:209 src/msginit.c:352
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Pou¾itie: %s [VO¥BA]\n"
 
-#: src/hostname.c:211
+#: src/hostname.c:214
 #, no-wrap
 msgid "Print the machine's hostname.\n"
 msgstr "Zobrazi» hostiteµské meno stroja.\n"
 
-#: src/hostname.c:216
+#: src/hostname.c:219
 #, no-wrap
 msgid ""
 "Output format:\n"
@@ -376,7 +376,7 @@ msgstr ""
 "                          doménového mena a prezývok\n"
 "  -i, --ip-address      adresy pre meno hostiteµa\n"
 
-#: src/hostname.c:225 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
+#: src/hostname.c:228 src/msgattrib.c:403 src/msgcmp.c:209 src/msgconv.c:307
 #: src/msgen.c:288 src/msgexec.c:261 src/msgfilter.c:420 src/msggrep.c:486
 #: src/msginit.c:394 src/urlget.c:180
 #, no-wrap
@@ -389,7 +389,7 @@ msgstr ""
 "  -h, --help                  zobrazi» túto nápovedu a skonèi»\n"
 "  -V, --version               zobrazi» informáciu o verzii a skonèi»\n"
 
-#: src/hostname.c:246 src/hostname.c:253
+#: src/hostname.c:249 src/hostname.c:256
 msgid "could not get host name"
 msgstr "Nemô¾em získa» meno hostiteµa"
 
