@@ -865,7 +865,8 @@ englishname_of_language ()
 static const char *
 project_id ()
 {
-  char *prog = concatenated_pathname (LIBDIR, "gettext/project-id", NULL);
+  char *gettextlibdir;
+  char *prog;
   char *argv[3];
   pid_t child;
   int fd[1];
@@ -874,6 +875,12 @@ project_id ()
   size_t linesize;
   size_t linelen;
   int exitstatus;
+
+  gettextlibdir = getenv ("GETTEXTLIBDIR");
+  if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
+    gettextlibdir = concatenated_pathname (LIBDIR, "gettext", NULL);
+
+  prog = concatenated_pathname (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
   argv[0] = "/bin/sh";
@@ -909,7 +916,8 @@ project_id ()
 static const char *
 project_id_version ()
 {
-  char *prog = concatenated_pathname (LIBDIR, "gettext/project-id", NULL);
+  char *gettextlibdir;
+  char *prog;
   char *argv[4];
   pid_t child;
   int fd[1];
@@ -918,6 +926,12 @@ project_id_version ()
   size_t linesize;
   size_t linelen;
   int exitstatus;
+
+  gettextlibdir = getenv ("GETTEXTLIBDIR");
+  if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
+    gettextlibdir = concatenated_pathname (LIBDIR, "gettext", NULL);
+
+  prog = concatenated_pathname (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
   argv[0] = "/bin/sh";

@@ -1,3 +1,8 @@
+2001-12-01  Bruno Haible  <bruno@clisp.org>
+
+	* Rules-quot (.insert-header.po-update-en): Set the GETTEXTLIBDIR
+	environment variable, so that msginit finds its project-id script.
+
 2001-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.

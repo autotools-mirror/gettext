@@ -1,3 +1,9 @@
+2001-12-01  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (project_id): Make it possible to specify the location
+	of the project-id script through an environment variable.
+	(project_id_version): Likewise.
+
 2001-12-03  Tommy Johansson  <tommy.johansson@kanalen.org>
 
 	* x-java.l (tailcmp): New function.
