@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2004 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2005 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 AC_INIT
 AC_CONFIG_SRCDIR(vasprintf.c)
-AC_CONFIG_AUX_DIR(../../config)
+AC_CONFIG_AUX_DIR(../../build-aux)
 AM_INIT_AUTOMAKE(libasprintf, 1.0)
 AM_CONFIG_HEADER(config.h)
 

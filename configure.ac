@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
 AC_INIT
 AC_CONFIG_SRCDIR(gettext-tools/src/msgfmt.c)
-AC_CONFIG_AUX_DIR(config)
+AC_CONFIG_AUX_DIR(build-aux)
 . $srcdir/version.sh
 AM_INIT_AUTOMAKE(gettext, $VERSION_NUMBER)
 

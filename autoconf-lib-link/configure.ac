@@ -1,5 +1,5 @@
 dnl Configuration for the autoconf-lib-link directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2003, 2005 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
 AC_INIT
 AC_CONFIG_SRCDIR(tests/rpath-1a)
-AC_CONFIG_AUX_DIR(../config)
+AC_CONFIG_AUX_DIR(../build-aux)
 . $srcdir/../version.sh
 AM_INIT_AUTOMAKE(autoconf-lib-link, $VERSION_NUMBER)
 

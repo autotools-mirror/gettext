@@ -1,6 +1,6 @@
 dnl Configuration of a program that links with librpathy.
 dnl
-dnl Copyright (C) 2002-2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@ dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 AC_INIT(configure.ac)
-AC_CONFIG_AUX_DIR(../../../config)
+AC_CONFIG_AUX_DIR(../../../build-aux)
 AM_INIT_AUTOMAKE(gettext_rpathly, 0)
 AC_PROG_CC
 AC_LIB_LINKFLAGS([rpathy])
