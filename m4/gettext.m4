@@ -164,9 +164,29 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
       POSUB=po
     fi
     AC_OUTPUT_COMMANDS(
-     [for f in $CONFIG_FILES; do
-        case $f in po/Makefile.in | po/Makefile.in:*)
-          sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile
+     [for ac_file in $CONFIG_FILES; do
+        # Support "outfile[:infile[:infile...]]"
+        case "$ac_file" in
+          *:*) ac_file=`echo "$ac_file"|sed 's%:.*%%'` ;;
+        esac
+        # PO directories have a Makefile.in generated from Makefile.in.in.
+        case "$ac_file" in */Makefile.in)
+          # Adjust a relative srcdir.
+          ac_dir=`echo "$ac_file"|sed 's%/[^/][^/]*$%%'`
+          ac_dir_suffix="/`echo "$ac_dir"|sed 's%^\./%%'`"
+          ac_dots=`echo "$ac_dir_suffix"|sed 's%/[^/]*%../%g'`
+          case "$ac_given_srcdir" in
+            .)  top_srcdir=`echo $ac_dots|sed 's%/$%%'` ;;
+            /*) top_srcdir="$ac_given_srcdir" ;;
+            *)  top_srcdir="$ac_dots$ac_given_srcdir" ;;
+          esac
+          if test -f "$ac_given_srcdir/$ac_dir/POTFILES.in"; then
+            rm -f "$ac_dir/POTFILES"
+            echo creating "$ac_dir/POTFILES"
+            sed -e "/^#/d" -e "/^[ 	]*\$/d" -e "s,.*,     $top_srcdir/& \\\\," -e "\$s/\(.*\) \\\\/\1/" < "$ac_given_srcdir/$ac_dir/POTFILES.in" > "$ac_dir/POTFILES"
+            echo creating "$ac_dir/Makefile"
+            sed -e "/POTFILES =/r $ac_dir/POTFILES" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          fi
           ;;
         esac
       done])
@@ -319,23 +339,4 @@ strdup tsearch __argz_count __argz_stringify __argz_next])
    dnl Enable libtool support if the surrounding package wishes it.
    INTL_LIBTOOL_SUFFIX_PREFIX=ifelse([$1], use-libtool, [l], [])
    AC_SUBST(INTL_LIBTOOL_SUFFIX_PREFIX)
-
-   dnl Generate list of files to be processed by xgettext which will
-   dnl be included in po/Makefile.  But only do this if the po directory
-   dnl exists in srcdir.
-   if test -d $srcdir/po; then
-      test -d po || mkdir po
-      if test "x$srcdir" != "x."; then
-	if test "x`echo $srcdir | sed 's@/.*@@'`" = "x"; then
-	  posrcprefix="$srcdir/"
-   	else
-      	  posrcprefix="../$srcdir/"
-      	fi
-      else
-      	posrcprefix="../"
-      fi
-      rm -f po/POTFILES
-      sed -e "/^#/d" -e "/^\$/d" -e "s,.*,     $posrcprefix& \\\\," -e "\$s/\(.*\) \\\\/\1/" \
-       	< $srcdir/po/POTFILES.in > po/POTFILES
-   fi
   ])

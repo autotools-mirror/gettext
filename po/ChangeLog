@@ -1,3 +1,11 @@
+2001-05-14  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in.in (dist): Make it work independently of the subdir
+	level.
+	(POTFILES): Remove rule.
+	(Makefile): Depend on POTFILES.in, not POTFILES. POTFILES is now
+	created by config.status as well.
+
 2001-05-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* sl.po: Update from
