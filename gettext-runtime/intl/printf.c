@@ -164,12 +164,20 @@ libintl_sprintf (char *resultbuf, const char *format, ...)
 
 #if HAVE_SNPRINTF
 
+# if HAVE__SNPRINTF
+   /* Windows.  */
+#  define system_vsnprintf _vsnprintf
+# else
+   /* Unix.  */
+#  define system_vsnprintf vsnprintf
+# endif
+
 DLL_EXPORTED
 int
 libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list args)
 {
   if (strchr (format, '$') == NULL)
-    return vsnprintf (resultbuf, length, format, args);
+    return system_vsnprintf (resultbuf, length, format, args);
   else
     {
       size_t maxlength = length;
@@ -252,6 +260,14 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #include "asnprintf.c"
 #endif
 
+# if HAVE__SNWPRINTF
+   /* Windows.  */
+#  define system_vswprintf _vsnwprintf
+# else
+   /* Unix.  */
+#  define system_vswprintf vswprintf
+# endif
+
 DLL_EXPORTED
 int
 libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
@@ -315,7 +331,7 @@ int
 libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_list args)
 {
   if (wcschr (format, '$') == NULL)
-    return vswprintf (resultbuf, length, format, args);
+    return system_vswprintf (resultbuf, length, format, args);
   else
     {
       size_t maxlength = length;

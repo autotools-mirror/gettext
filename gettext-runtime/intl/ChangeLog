@@ -5,6 +5,10 @@
 	(SNPRINTF): Possibly define as _snprintf or _snwprintf.
 	* printf.c (DLL_EXPORTED): New macro.
 	Mark all functions as DLL_EXPORTED.
+	(system_vsnprintf): New macro.
+	(libintl_vsnprintf): Use it.
+	(system_vswprintf): New macro.
+	(libintl_vswprintf): Use it.
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
