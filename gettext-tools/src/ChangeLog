@@ -1,3 +1,7 @@
+2004-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* format-java.c (message_format_parse): Fix argument of freesa() calls.
+
 2004-03-19  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (install-exec-clean): Don't remove libgettextsrc.a on
