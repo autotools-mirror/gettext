@@ -1128,9 +1128,80 @@ These flags should not be added by a human.  Instead only the
 system as proposed here the user changes would be thrown away again as
 soon as the @code{xgettext} program generates a new template file.
 
+The @code{c-format} flag tells that the untranslated string and the
+translation are supposed to be C format strings.  The @code{no-c-format}
+flag tells that they are not C format strings, even though the untranslated
+string happens to look like a C format string (with @samp{%} directives).
+
 In case the @code{c-format} flag is given for a string the @code{msgfmt}
 does some more tests to check to validity of the translation.
-@xref{msgfmt Invocation}.
+@xref{msgfmt Invocation}, @ref{c-format Flag} and @ref{c-format}.
+
+@item python-format
+@kwindex python-format@r{ flag}
+@itemx no-python-format
+@kwindex no-python-format@r{ flag}
+Likewise for Python, see @ref{python-format}.
+
+@item lisp-format
+@kwindex lisp-format@r{ flag}
+@itemx no-lisp-format
+@kwindex no-lisp-format@r{ flag}
+Likewise for Lisp, see @ref{lisp-format}.
+
+@item elisp-format
+@kwindex elisp-format@r{ flag}
+@itemx no-elisp-format
+@kwindex no-elisp-format@r{ flag}
+Likewise for Emacs Lisp, see @ref{elisp-format}.
+
+@item librep-format
+@kwindex librep-format@r{ flag}
+@itemx no-librep-format
+@kwindex no-librep-format@r{ flag}
+Likewise for librep, see @ref{librep-format}.
+
+@item smalltalk-format
+@kwindex smalltalk-format@r{ flag}
+@itemx no-smalltalk-format
+@kwindex no-smalltalk-format@r{ flag}
+Likewise for Smalltalk, see @ref{smalltalk-format}.
+
+@item java-format
+@kwindex java-format@r{ flag}
+@itemx no-java-format
+@kwindex no-java-format@r{ flag}
+Likewise for Java, see @ref{java-format}.
+
+@item awk-format
+@kwindex awk-format@r{ flag}
+@itemx no-awk-format
+@kwindex no-awk-format@r{ flag}
+Likewise for awk, see @ref{awk-format}.
+
+@item object-pascal-format
+@kwindex object-pascal-format@r{ flag}
+@itemx no-object-pascal-format
+@kwindex no-object-pascal-format@r{ flag}
+Likewise for Object Pascal, see @ref{object-pascal-format}.
+
+@item ycp-format
+@kwindex ycp-format@r{ flag}
+@itemx no-ycp-format
+@kwindex no-ycp-format@r{ flag}
+Likewise for YCP, see @ref{ycp-format}.
+
+@item tcl-format
+@kwindex tcl-format@r{ flag}
+@itemx no-tcl-format
+@kwindex no-tcl-format@r{ flag}
+Likewise for Tcl, see @ref{tcl-format}.
+
+@item php-format
+@kwindex php-format@r{ flag}
+@itemx no-php-format
+@kwindex no-php-format@r{ flag}
+Likewise for PHP, see @ref{php-format}.
 
 @end table
 
