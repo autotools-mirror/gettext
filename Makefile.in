@@ -103,7 +103,7 @@ gettextsrc_DATA = ABOUT-NLS
 SUBDIRS = doc intl lib src po m4 misc tests
 
 MAINTAINERCLEANFILES = djgpp/README djgpp/config.sed djgpp/fnchange.lst
-EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh              djgpp/Makefile.maint djgpp/README.in djgpp/config.bat              djgpp/config.in djgpp/config.site djgpp/edtests.bat              djgpp/fnchange.in djgpp/tscript.sed              $(MAINTAINERCLEANFILES)
+EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh              djgpp/Makefile.maint djgpp/README.in djgpp/config.bat              djgpp/config.in djgpp/config.site djgpp/edtests.bat              djgpp/fnchange.in djgpp/tscript.sed os2/README.os2 os2/os2.diff              $(MAINTAINERCLEANFILES)
 
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -320,7 +320,7 @@ distdir: $(DISTFILES)
 	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
-	$(mkinstalldirs) $(distdir)/djgpp
+	$(mkinstalldirs) $(distdir)/djgpp $(distdir)/os2
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \
