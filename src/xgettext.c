@@ -74,7 +74,7 @@ struct passwd *getpwuid ();
 static bool add_all_comments = false;
 
 /* If nonzero add comments for file name and line number for each msgid.  */
-int line_comment;
+int line_comment = 1;
 
 /* Tag used in comment of prevailing domain.  */
 static char *comment_tag;
@@ -217,7 +217,6 @@ main (argc, argv)
   textdomain (PACKAGE);
 
   /* Set initial value of variables.  */
-  line_comment = -1;
   default_domain = MESSAGE_DOMAIN_DEFAULT;
 
   while ((optchar = getopt_long (argc, argv,
@@ -365,10 +364,6 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Help is requested.  */
   if (do_help)
     usage (EXIT_SUCCESS);
-
-  /* Normalize selected options.  */
-  if (omit_header != 0 && line_comment < 0)
-    line_comment = 0;
 
   /* Verify selected options.  */
   if (!line_comment && sort_by_filepos)
