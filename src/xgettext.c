@@ -71,7 +71,7 @@ static int line_comment;
 static char *comment_tag;
 
 /* Name of default domain file.  If not set defaults to messages.po.  */
-static char *default_domain;
+static const char *default_domain;
 
 /* If called with --debug option the output reflects whether format
    string recognition is done automatically or forced by the user.  */
@@ -91,10 +91,10 @@ static int force_po;
 static int foreign_user;
 
 /* String used as prefix for msgstr.  */
-static char *msgstr_prefix;
+static const char *msgstr_prefix;
 
 /* String used as suffix for msgstr.  */
-static char *msgstr_suffix;
+static const char *msgstr_suffix;
 
 /* Directory in which output files are created.  */
 static char *output_dir;
@@ -207,7 +207,7 @@ main (argc, argv)
   int join_existing = 0;
   int sort_by_msgid = 0;
   int sort_by_filepos = 0;
-  char *file_name;
+  const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;

@@ -1,3 +1,13 @@
+2001-04-30  Bruno Haible  <haible@clisp.cons.org>
+
+	* message.h (message_alloc): Add const to prototype.
+	* message.c (message_alloc): Add const to argument type.
+	* msgcmp.c (compare_class_ty): Add const to 'domain' field.
+	* xgettext.c (default_domain): Add const.
+	(msgstr_prefix): Likewise.
+	(msgstr_suffix): Likewise.
+	(main): Add const to 'file_name' variable.
+
 2001-04-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* read-po.h: New file.

@@ -73,7 +73,7 @@ parse_c_width_description_string (s)
 
 message_ty *
 message_alloc (msgid, msgid_plural)
-     char *msgid;
+     const char *msgid;
      const char *msgid_plural;
 {
   message_ty *mp;

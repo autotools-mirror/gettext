@@ -45,7 +45,7 @@ struct compare_class_ty
   PO_BASE_TY
 
   /* Name of domain we are currently examining.  */
-  char *domain;
+  const char *domain;
 
   /* List of domains already appeared in the current file.  */
   string_list_ty *domain_list;

@@ -110,7 +110,8 @@ struct message_ty
   int obsolete;
 };
 
-message_ty *message_alloc PARAMS ((char *msgid, const char *msgid_plural));
+message_ty *message_alloc PARAMS ((const char *msgid,
+				   const char *msgid_plural));
 void message_free PARAMS ((message_ty *));
 
 message_variant_ty *message_variant_search PARAMS ((message_ty *mp,
