@@ -5,7 +5,7 @@ autoconf
 automake
 
 (cd autoconf-lib-link
- aclocal -I m4
+ aclocal -I m4 -I ../config/m4
  autoconf
  automake
 )
@@ -16,6 +16,8 @@ automake
  autoheader
  automake
 )
+
+cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools
  aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../config/m4
