@@ -50,6 +50,15 @@ char *alloca ();
 #include <stdlib.h>
 #include <string.h>
 
+/* When building a DLL, we must export some functions.  Note that because
+   the functions are only defined for binary backward compatibility, we
+   don't need to use __declspec(dllimport) in any case.  */
+#if defined _MSC_VER && BUILDING_DLL
+# define DLL_EXPORTED __declspec(dllexport)
+#else
+# define DLL_EXPORTED
+#endif
+
 #define STATIC static
 
 /* Define auxiliary functions declared in "printf-args.h".  */
@@ -66,6 +75,7 @@ char *alloca ();
 #include "asnprintf.c"
 #endif
 
+DLL_EXPORTED
 int
 libintl_vfprintf (FILE *stream, const char *format, va_list args)
 {
@@ -86,6 +96,7 @@ libintl_vfprintf (FILE *stream, const char *format, va_list args)
     }
 }
 
+DLL_EXPORTED
 int
 libintl_fprintf (FILE *stream, const char *format, ...)
 {
@@ -98,12 +109,14 @@ libintl_fprintf (FILE *stream, const char *format, ...)
   return retval;
 }
 
+DLL_EXPORTED
 int
 libintl_vprintf (const char *format, va_list args)
 {
   return libintl_vfprintf (stdout, format, args);
 }
 
+DLL_EXPORTED
 int
 libintl_printf (const char *format, ...)
 {
@@ -116,6 +129,7 @@ libintl_printf (const char *format, ...)
   return retval;
 }
 
+DLL_EXPORTED
 int
 libintl_vsprintf (char *resultbuf, const char *format, va_list args)
 {
@@ -135,6 +149,7 @@ libintl_vsprintf (char *resultbuf, const char *format, va_list args)
     }
 }
 
+DLL_EXPORTED
 int
 libintl_sprintf (char *resultbuf, const char *format, ...)
 {
@@ -149,6 +164,7 @@ libintl_sprintf (char *resultbuf, const char *format, ...)
 
 #if HAVE_SNPRINTF
 
+DLL_EXPORTED
 int
 libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list args)
 {
@@ -175,6 +191,7 @@ libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list a
     }
 }
 
+DLL_EXPORTED
 int
 libintl_snprintf (char *resultbuf, size_t length, const char *format, ...)
 {
@@ -191,6 +208,7 @@ libintl_snprintf (char *resultbuf, size_t length, const char *format, ...)
 
 #if HAVE_ASPRINTF
 
+DLL_EXPORTED
 int
 libintl_vasprintf (char **resultp, const char *format, va_list args)
 {
@@ -202,6 +220,7 @@ libintl_vasprintf (char **resultp, const char *format, va_list args)
   return length;
 }
 
+DLL_EXPORTED
 int
 libintl_asprintf (char **resultp, const char *format, ...)
 {
@@ -233,6 +252,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #include "asnprintf.c"
 #endif
 
+DLL_EXPORTED
 int
 libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
 {
@@ -257,6 +277,7 @@ libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
     }
 }
 
+DLL_EXPORTED
 int
 libintl_fwprintf (FILE *stream, const wchar_t *format, ...)
 {
@@ -269,12 +290,14 @@ libintl_fwprintf (FILE *stream, const wchar_t *format, ...)
   return retval;
 }
 
+DLL_EXPORTED
 int
 libintl_vwprintf (const wchar_t *format, va_list args)
 {
   return libintl_vfwprintf (stdout, format, args);
 }
 
+DLL_EXPORTED
 int
 libintl_wprintf (const wchar_t *format, ...)
 {
@@ -287,6 +310,7 @@ libintl_wprintf (const wchar_t *format, ...)
   return retval;
 }
 
+DLL_EXPORTED
 int
 libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_list args)
 {
@@ -313,6 +337,7 @@ libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_
     }
 }
 
+DLL_EXPORTED
 int
 libintl_swprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, ...)
 {

@@ -3,6 +3,8 @@
 	* vasnprintf.c (local_wcslen): Protect against multiple definition.
 	(USE_SNPRINTF): Define also if only _snprintf() is available.
 	(SNPRINTF): Possibly define as _snprintf or _snwprintf.
+	* printf.c (DLL_EXPORTED): New macro.
+	Mark all functions as DLL_EXPORTED.
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
