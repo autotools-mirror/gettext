@@ -21,12 +21,14 @@
 # convert: z. Zt. "konvertieren"; besser (um)wandeln?
 # mandatory: z. Zt. "notwendig"; besser: verbindlich?
 # write: z. Zt. "schreiben"; besser an manchen Stellen: "speichern"?
-# details: Einzelheiten (oder doch "Details"?)
+# details: Details (nicht "Einzelheiten", es sei denn, es muss sein)
+# accelerator: Accelerator (oder: Beschleuniger?)
+# keyboard accelerator: Tastatur-Accelerator (oder T.-Beschleuniger,
+#                       Tastenkürzel, Tastatur-Kürzel)
 #
 # Host name/hostname - Rechnername
 #
-# msgid "%s subprocess I/O error"
-# msgstr "Subprozess %s mit Ein/Ausgabefehler"
+# I/O error          -  Ein/Ausgabefehler
 #
 # Todo:
 # . Zeilenlängen überprüfen.  Darauf achten, dass %s zu langen Zeichenketten
@@ -38,6 +40,7 @@
 #   INPUTFILE     - EINGABEDATEI (EINGABE_DATEI?)
 #   OUTPUTFILE    - AUSGABEDATEI (AUSGABE_DATEI?)
 #   SOURCEFILE    - QUELLDATEI (QUELL_DATEI?)
+#   CHAR          - ZEICHEN
 #   SUFFIX	- SUFFIX
 #   CONTROL       - KONTROLLE (vgl. 'cp', Art der Sicherung); besser ART?
 #   SCRIPT        - SKRIPT
@@ -70,9 +73,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11-pre1\n"
+"Project-Id-Version: GNU gettext 0.11-pre2\n"
 "POT-Creation-Date: 2001-11-30 14:18+0100\n"
-"PO-Revision-Date: 2001-11-04 12:25+0100\n"
+"PO-Revision-Date: 2001-11-30 19:47+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -569,7 +572,7 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -e, --no-escape           keine C-Ersatzdarstellungen in Ausgabe verwenden\n"
 "                              (Vorgabe)\n"
 "  -E, --escape              C-Ersatzdarstellungen und keine erweiterten\n"
@@ -684,7 +687,7 @@ msgid ""
 "  -s, --sort-output              generate sorted output\n"
 "  -F, --sort-by-file             sort output by file location\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -t, --to-code=NAME            Kodierung für die Ausgabe\n"
 "      --use-first               die zuerst vorkommende Übersetzung für jede\n"
 "                                  Meldung verwenden, nicht mehrere\n"
@@ -864,7 +867,7 @@ msgid ""
 "  -F, --sort-by-file             sort output by file location\n"
 "      --omit-header              don't write header with `msgid \"\"' entry\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -e, --no-escape               keine C-Ersatzdarstellungen in Ausgabe\n"
 "                                  verwenden (Vorgabe)\n"
 "  -E, --escape                  C-Ersatzdarstellungen und keine erweiterten\n"
@@ -913,7 +916,7 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -e, --no-escape               keine C-Ersatzdarstellungen in Ausgabe\n"
 "                                  verwenden (Vorgabe)\n"
 "  -E, --escape                  C-Ersatzdarstellungen und keine erweiterten\n"
@@ -1039,7 +1042,7 @@ msgid ""
 "  -s, --sort-output           generate sorted output\n"
 "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "      --no-escape             keine C-Ersatzdarstellungen in Ausgabe verwenden\n"
 "                                (Vorgabe)\n"
 "  -E, --escape                C-Ersatzdarstellungen und keine erweiterten\n"
@@ -1083,7 +1086,7 @@ msgstr "Subprozess %s wurde mit dem Exitcode %d beendet"
 #: src/msgfmt.c:303
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
-msgstr ""
+msgstr "das Argument für %s sollte ein einfaches Punktzeichen sein"
 
 #: src/msgfmt.c:364
 #, c-format
@@ -1189,7 +1192,7 @@ msgstr ""
 "geschrieben.\n"
 
 #: src/msgfmt.c:533
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Input file interpretation:\n"
 "  -c, --check                 perform all the checks implied by\n"
@@ -1212,6 +1215,8 @@ msgstr ""
 "                                Option --output-file hin überprüfen\n"
 "  -C, --check-compatibility   sicherstellen, dass sich GNU msgfmt wie X/Open\n"
 "                                msgfmt verhält\n"
+"      --check-accelerators[=ZEICHEN]   Vorhandensein des Tastatur-Accelerators\n"
+"                                für Menüeinträge überprüfen\n"
 "  -f, --use-fuzzy             auch ungenaue Übersetzungen (»fuzzy«) verwenden\n"
 
 #: src/msgfmt.c:548
@@ -1221,7 +1226,7 @@ msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -a, --alignment=ZAHL          Ausgaben an ZAHL (Vorgabe: %d) Bytegrenze\n"
 "                                  ausrichten\n"
 "      --no-hash                 Binärdatei soll keine Hash-Tabelle enthalten\n"
@@ -1349,12 +1354,13 @@ msgstr "»msgstr« ist ein ungültiges Formatelement %s, im Gegensatz zu »msgid«"
 #: src/msgfmt.c:1122
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr ""
+msgstr "bei »msgstr« fehlt die Markierung »%c« für den Tastatur-Accelerator"
 
 #: src/msgfmt.c:1130
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr ""
+"»msgstr« weist mehr als eine Markierung »%c« für den Tastatur-Accelerator auf"
 
 #: src/msgfmt.c:1164
 #, c-format
@@ -1376,12 +1382,9 @@ msgstr ""
 msgid "field `%s' still has initial default value"
 msgstr "Feld »%s« hat immer noch den anfänglichen Vorgabewert"
 
-# = Konvertierung der Meldung in Hinblick auf den Zeichensatz
-# 2001-03-11 20:56:03 CET -ke-
 #: src/msgfmt.c:1228
-#, fuzzy
 msgid "warning: PO file header missing or invalid\n"
-msgstr "Warnung: Kopfteil der PO-Datei fehlt, ist ungenau oder ungültig\n"
+msgstr "Warnung: Kopfteil der PO-Datei fehlt oder ist ungültig\n"
 
 # = Konvertierung der Meldung in Hinblick auf den Zeichensatz
 # 2001-03-11 20:56:03 CET -ke-
@@ -1389,16 +1392,14 @@ msgstr "Warnung: Kopfteil der PO-Datei fehlt, ist ungenau oder ungültig\n"
 msgid "warning: charset conversion will not work\n"
 msgstr "Warnung: Konvertierung des Zeichensatzes wird fehlschlagen.\n"
 
-# = Konvertierung der Meldung in Hinblick auf den Zeichensatz
-# 2001-03-11 20:56:03 CET -ke-
 #: src/msgfmt.c:1241
-#, fuzzy
 msgid "warning: PO file header fuzzy\n"
-msgstr "Warnung: Kopfteil der PO-Datei fehlt, ist ungenau oder ungültig\n"
+msgstr "Warnung: Kopfteil der PO-Datei ist ungenau (fuzzy)\n"
 
 #: src/msgfmt.c:1243
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr ""
+"Warnung: ältere Versionen von »msgfmt« werden hierbei einen Fehler melden\n"
 
 #: src/msgfmt.c:1268
 #, c-format
@@ -1521,7 +1522,7 @@ msgid ""
 "      --sort-output           generate sorted output\n"
 "      --sort-by-file          sort output by file location\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "      --no-escape              keine C-Ersatzdarstellungen in verwenden\n"
 "                                 (Vorgabe)\n"
 "      --escape                 C-Ersatzdarstellungen und keine erweiterten\n"
@@ -1565,7 +1566,7 @@ msgstr ""
 #: src/msginit.c:326
 #, c-format
 msgid "Created %s.\n"
-msgstr ""
+msgstr "%s wurde erzeugt.\n"
 
 #: src/msginit.c:348
 #, no-wrap
@@ -1605,15 +1606,16 @@ msgstr ""
 "Ergebnisse werden nach der Standardausgabe geschrieben, wenn »-« angegeben ist.\n"
 
 #: src/msginit.c:375
-#, fuzzy, no-wrap
+#, no-wrap
 msgid ""
 "Output details:\n"
 "  -l, --locale=LL_CC          set target locale\n"
 "      --no-translator         assume the PO file is automatically generated\n"
 "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -l, --locale=LL_CC          Lokale für die Ausgabe setzen\n"
+"      --no-translator         automatische Erzeugung der PO-Datei annehmen\n"
 "  -w, --width=ANZAHL          Breite der Ausgabe auf ANZAHL Spalten festlegen\n"
 
 #: src/msginit.c:426
@@ -1644,7 +1646,7 @@ msgstr "fdopen() fehlgeschlagen"
 #: src/msginit.c:892 src/msginit.c:937 src/msginit.c:1075
 #, c-format
 msgid "%s subprocess I/O error"
-msgstr "Subprozess %s mit Ein/Ausgabefehler"
+msgstr "Subprozess %s mit Ein-/Ausgabefehler"
 
 #: src/msginit.c:901 src/msginit.c:946 src/msginit.c:1084 src/msginit.c:1151
 #: src/read-java.c:90
@@ -1916,14 +1918,12 @@ msgstr ""
 "  -q, --quiet, --silent       Fortschrittsanzeige unterdrücken\n"
 
 #: src/msgmerge.c:625
-#, fuzzy
 msgid "this message should define plural forms"
-msgstr "... aber einige Meldungen haben nur %lu Pluralformen"
+msgstr "diese Meldung sollte Pluralformen definieren"
 
 #: src/msgmerge.c:648
-#, fuzzy
 msgid "this message should not define plural forms"
-msgstr "diese Meldung kommt vor, ist aber in %s nicht definiert"
+msgstr "diese Meldung sollte keine Pluralformen definieren"
 
 #: src/msgmerge.c:779
 #, c-format
@@ -2020,7 +2020,7 @@ msgid ""
 "  -w, --width=NUMBER       set output page width\n"
 "  -s, --sort-output        generate sorted output\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -e, --no-escape           keine C-Ersatzdarstellungen in Ausgabe verwenden\n"
 "                              (Vorgabe)\n"
 "  -E, --escape              C-Ersatzdarstellungen und keine erweiterten\n"
@@ -2510,7 +2510,7 @@ msgid ""
 "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
 "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
 msgstr ""
-"Einzelheiten zur Ausgabe:\n"
+"Details zur Ausgabe:\n"
 "  -e, --no-escape               keine C-Ersatzdarstellungen in Ausgabe\n"
 "                                  verwenden (Vorgabe)\n"
 "  -E, --escape                  C-Ersatzdarstellungen und keine erweiterten\n"
@@ -2563,15 +2563,6 @@ msgstr "Programmiersprache »%s« unbekannt"
 #~ "  -V, --version                Versionsnummer anzeigen und beenden\n"
 #~ "  -v, --verbose                mehr Hinweise während der Verarbeitung "
 #~ "geben\n"
-
-#~ msgid "%s:%lu: warning: keyword nested in keyword arg"
-#~ msgstr ""
-#~ "%s:%lu: Warnung: Schlüsselwort in Schlüsselwort-Argument verschachtelt"
-
-#~ msgid "%s:%lu: warning: keyword between outer keyword and its arg"
-#~ msgstr ""
-#~ "%s:%lu: Warnung: Schlüsselwort zwischen äußerem Schlüsselwort und\n"
-#~ "        dessen Argument"
 
 #~ msgid ""
 #~ "In the first two formats, copy SOURCE to DEST or multiple SOURCE(s) to\n"
@@ -2669,6 +2660,15 @@ msgstr "Programmiersprache »%s« unbekannt"
 #~ "  existing, nil   Numeriert wenn numerierte Backups existieren, sonst "
 #~ "einfach.\n"
 #~ "  simple, never   Immer einfache Sicherheitskopien erzeugen\n"
+
+#~ msgid "%s:%lu: warning: keyword nested in keyword arg"
+#~ msgstr ""
+#~ "%s:%lu: Warnung: Schlüsselwort in Schlüsselwort-Argument verschachtelt"
+
+#~ msgid "%s:%lu: warning: keyword between outer keyword and its arg"
+#~ msgstr ""
+#~ "%s:%lu: Warnung: Schlüsselwort zwischen äußerem Schlüsselwort und\n"
+#~ "        dessen Argument"
 
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
