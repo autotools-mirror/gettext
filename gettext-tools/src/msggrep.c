@@ -550,7 +550,7 @@ is_string_selected (int grep_pass, const char *str, size_t len)
 
       /* Open a pipe to a grep subprocess.  */
       child = create_pipe_out ("grep", grep_path, grep_argv[grep_pass],
-			       "/dev/null", false, true, fd);
+			       DEV_NULL, false, true, fd);
 
       if (full_write (fd[0], str, len) < len)
 	error (EXIT_FAILURE, errno,

@@ -56,6 +56,14 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
+/* Some platforms don't have the sigjmp_buf type in <setjmp.h>.  */
+#if defined _MSC_VER || defined __MINGW32__
+/* Native Woe32 API.  */
+# define sigjmp_buf jmp_buf
+# define sigsetjmp(env,savesigs) setjmp (env)
+# define siglongjmp longjmp
+#endif
+
 /* We use siginfo to get precise information about the signal.
    But siginfo doesn't work on Irix 6.5.  */
 #if HAVE_SIGINFO && !defined (__sgi)

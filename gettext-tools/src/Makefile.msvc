@@ -33,7 +33,20 @@ includedir = $(prefix)\include
 datadir = $(prefix)\share
 localedir = $(datadir)\locale
 aliaspath =
+jardir = $(datadir)\gettext
 pkgdatadir = $(datadir)\gettext
+projectsdir = $(pkgdatadir)\projects
+IIprefix = c:\\usr
+IIexec_prefix = $(IIprefix)
+IIbindir = $(IIexec_prefix)\\bin
+IIlibdir = $(IIexec_prefix)\\lib
+IIincludedir = $(IIprefix)\\include
+IIdatadir = $(IIprefix)\\share
+IIlocaledir = $(IIdatadir)\\locale
+IIaliaspath =
+IIjardir = $(IIdatadir)\\gettext
+IIpkgdatadir = $(IIdatadir)\\gettext
+IIprojectsdir = $(IIpkgdatadir)\\projects
 
 # Programs used by "make":
 
@@ -58,9 +71,9 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\" -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -DGETTEXTJAR=\"$(IIjardir)\\gettext.jar\" -DLIBDIR=\"$(IIlibdir)\" -DGETTEXTDATADIR=\"$(IIpkgdatadir)\" -DPROJECTSDIR=\"$(IIprojectsdir)\"
 
-INCLUDES =
+INCLUDES = -I. -I.. -I..\libuniname -I..\lib -I..\intl -I..\..\gettext-runtime\intl -I..\windows -I$(includedir)
 
 AR = lib
 AR_FLAGS = /out:
@@ -131,6 +144,7 @@ msgfilter_OBJECTS = msgfilter.obj
 msggrep_OBJECTS = msggrep.obj
 msginit_OBJECTS = msginit.obj localealias.obj
 msguniq_OBJECTS = msguniq.obj
+LDADD =
 
 RESOURCES = gettextsrc.res
 
@@ -246,8 +260,8 @@ gettextsrc.lib : $(OBJECTS)
 !else
 
 # gettextsrc.dll and gettextsrc.lib are created together.
-gettextsrc.lib : $(OBJECTS) $(RESOURCES)
-	$(CC) $(MFLAGS) -LD $(OBJECTS) $(RESOURCES)
+gettextsrc.lib : ..\windows\gettextsrc.def $(OBJECTS) $(RESOURCES)
+	$(CC) $(MFLAGS) -LD ..\windows\gettextsrc.def $(OBJECTS) ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(RESOURCES) -Fegettextsrc.dll
 
 gettextsrc.res : ../windows/gettextsrc.rc
 	rc -Fo gettextsrc.res ../windows/gettextsrc.rc
@@ -257,10 +271,10 @@ gettextsrc.res : ../windows/gettextsrc.rc
 # Compilation rules for $(program_OBJECTS), without $(PICFLAGS).
 
 msgcmp.obj : msgcmp.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgcmp.c
 
 msgfmt.obj : msgfmt.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgfmt.c
 
 write-mo.obj : write-mo.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c write-mo.c
@@ -275,10 +289,10 @@ plural-eval.obj : plural-eval.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c plural-eval.c
 
 msgmerge.obj : msgmerge.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgmerge.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgmerge.c
 
 msgunfmt.obj : msgunfmt.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgunfmt.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgunfmt.c
 
 read-mo.obj : read-mo.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c read-mo.c
@@ -290,7 +304,7 @@ read-tcl.obj : read-tcl.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c read-tcl.c
 
 xgettext.obj : xgettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c xgettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c xgettext.c
 
 x-c.obj : x-c.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c x-c.c
@@ -335,82 +349,82 @@ x-glade.obj : x-glade.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c x-glade.c
 
 msgattrib.obj : msgattrib.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgattrib.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgattrib.c
 
 msgcat.obj : msgcat.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcat.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgcat.c
 
 msgcomm.obj : msgcomm.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgcomm.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgcomm.c
 
 msgconv.obj : msgconv.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgconv.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgconv.c
 
 msgen.obj : msgen.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgen.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgen.c
 
 msgexec.obj : msgexec.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgexec.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgexec.c
 
 msgfilter.obj : msgfilter.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msgfilter.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msgfilter.c
 
 msggrep.obj : msggrep.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msggrep.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msggrep.c
 
 msginit.obj : msginit.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msginit.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msginit.c
 
 localealias.obj : ..\..\gettext-runtime\intl\localealias.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -c ..\..\gettext-runtime\intl\localealias.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -c ..\..\gettext-runtime\intl\localealias.c
 
 msguniq.obj : msguniq.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c msguniq.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msguniq.c
 
 msgcmp.exe : $(msgcmp_OBJECTS)
-	$(CC) $(msgcmp_OBJECTS) -lgettextsrc -Femsgcmp.exe
+	$(CC) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcmp.exe
 
 msgfmt.exe : $(msgfmt_OBJECTS)
-	$(CC) $(msgfmt_OBJECTS) -lgettextsrc -Femsgfmt.exe
+	$(CC) $(msgfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgfmt.exe
 
 msgmerge.exe : $(msgmerge_OBJECTS)
-	$(CC) $(msgmerge_OBJECTS) -lgettextsrc -Femsgmerge.exe
+	$(CC) $(msgmerge_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgmerge.exe
 
 msgunfmt.exe : $(msgunfmt_OBJECTS)
-	$(CC) $(msgunfmt_OBJECTS) -lgettextsrc -Femsgunfmt.exe
+	$(CC) $(msgunfmt_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgunfmt.exe
 
 xgettext.exe : $(xgettext_OBJECTS)
-	$(CC) $(xgettext_OBJECTS) ..\libuniname\uniname.lib -lgettextsrc -Fexgettext.exe
+	$(CC) $(xgettext_OBJECTS) ..\libuniname\uniname.lib gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Fexgettext.exe
 
 msgattrib.exe : $(msgattrib_OBJECTS)
-	$(CC) $(msgattrib_OBJECTS) -lgettextsrc -Femsgattrib.exe
+	$(CC) $(msgattrib_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgattrib.exe
 
 msgcat.exe : $(msgcat_OBJECTS)
-	$(CC) $(msgcat_OBJECTS) -lgettextsrc -Femsgcat.exe
+	$(CC) $(msgcat_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcat.exe
 
 msgcomm.exe : $(msgcomm_OBJECTS)
-	$(CC) $(msgcomm_OBJECTS) -lgettextsrc -Femsgcomm.exe
+	$(CC) $(msgcomm_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgcomm.exe
 
 msgconv.exe : $(msgconv_OBJECTS)
-	$(CC) $(msgconv_OBJECTS) -lgettextsrc -Femsgconv.exe
+	$(CC) $(msgconv_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgconv.exe
 
 msgen.exe : $(msgen_OBJECTS)
-	$(CC) $(msgen_OBJECTS) -lgettextsrc -Femsgen.exe
+	$(CC) $(msgen_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgen.exe
 
 msgexec.exe : $(msgexec_OBJECTS)
-	$(CC) $(msgexec_OBJECTS) -lgettextsrc -Femsgexec.exe
+	$(CC) $(msgexec_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgexec.exe
 
 msgfilter.exe : $(msgfilter_OBJECTS)
-	$(CC) $(msgfilter_OBJECTS) -lgettextsrc -Femsgfilter.exe
+	$(CC) $(msgfilter_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsgfilter.exe
 
 msggrep.exe : $(msggrep_OBJECTS)
-	$(CC) $(msggrep_OBJECTS) -lgettextsrc -Femsggrep.exe
+	$(CC) $(msggrep_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsggrep.exe
 
 msginit.exe : $(msginit_OBJECTS)
-	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj -lgettextsrc -Femsginit.exe
+	$(CC) $(msginit_OBJECTS) ..\intl\localename.obj gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsginit.exe
 
 msguniq.exe : $(msguniq_OBJECTS)
-	$(CC) $(msguniq_OBJECTS) -lgettextsrc -Femsguniq.exe
+	$(CC) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(LDADD) -Femsguniq.exe
 
 install : all force
 	-mkdir $(prefix)

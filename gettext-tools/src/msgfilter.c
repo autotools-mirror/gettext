@@ -30,7 +30,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/time.h>
+
+#if HAVE_SYS_TIME_H
+# include <sys/time.h>
+#endif
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>
@@ -503,6 +506,11 @@ nonintr_select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 static void
 process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
 {
+#if defined _MSC_VER || defined __MINGW32__
+  /* Native Woe32 API.  */
+  /* Not yet implemented.  */
+  error (EXIT_FAILURE, 0, _("Not yet implemented."));
+#else
   pid_t child;
   int fd[2];
   char *result;
@@ -648,6 +656,7 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
 
   *resultp = result;
   *lengthp = length;
+#endif
 }
 
 

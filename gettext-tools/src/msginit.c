@@ -23,6 +23,7 @@
 #include <alloca.h>
 
 #include <errno.h>
+#include <fcntl.h>
 #include <getopt.h>
 #include <limits.h>
 #include <locale.h>
@@ -31,7 +32,10 @@
 #include <string.h>
 #include <time.h>
 #include <sys/types.h>
-#include <pwd.h>
+
+#if HAVE_PWD_H
+# include <pwd.h>
+#endif
 
 #if HAVE_UNISTD_H
 # include <unistd.h>
@@ -872,7 +876,7 @@ project_id ()
   argv[0] = "/bin/sh";
   argv[1] = prog;
   argv[2] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, "/dev/null", false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");
@@ -924,7 +928,7 @@ project_id_version ()
   argv[1] = prog;
   argv[2] = "yes";
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, "/dev/null", false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");
@@ -973,6 +977,7 @@ po_revision_date (const char *header)
 static struct passwd *
 get_user_pwd ()
 {
+#if HAVE_PWD_H  /* Only Unix, not native Woe32.  */
   const char *username;
   struct passwd *userpasswd;
 
@@ -1007,6 +1012,7 @@ get_user_pwd ()
     return userpasswd;
   if (errno != 0)
     error (EXIT_FAILURE, errno, "getpwuid(\"%d\")", getuid ());
+#endif
 
   return NULL;
 }
@@ -1022,20 +1028,24 @@ get_user_fullname ()
   char *result;
 
   pwd = get_user_pwd ();
-  if (pwd == NULL)
-    return NULL;
+#if HAVE_PWD_H
+  if (pwd != NULL)
+    {
+      /* Return the pw_gecos field, upto the first comma (if any).  */
+      fullname = pwd->pw_gecos;
+      fullname_end = strchr (fullname, ',');
+      if (fullname_end == NULL)
+	fullname_end = fullname + strlen (fullname);
 
-  /* Return the pw_gecos field, upto the first comma (if any).  */
-  fullname = pwd->pw_gecos;
-  fullname_end = strchr (fullname, ',');
-  if (fullname_end == NULL)
-    fullname_end = fullname + strlen (fullname);
+      result = (char *) xmalloc (fullname_end - fullname + 1);
+      memcpy (result, fullname, fullname_end - fullname);
+      result[fullname_end - fullname] = '\0';
 
-  result = (char *) xmalloc (fullname_end - fullname + 1);
-  memcpy (result, fullname, fullname_end - fullname);
-  result[fullname_end - fullname] = '\0';
+      return result;
+    }
+#endif
 
-  return result;
+  return NULL;
 }
 
 
@@ -1061,7 +1071,7 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, "/dev/null", false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
 
   /* Retrieve his answer.  */
   fp = fdopen (fd[0], "r");
@@ -1128,7 +1138,7 @@ language_team_address ()
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
   argv[6] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, "/dev/null", false, true, fd);
+  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, fd);
 
   /* Retrieve its result.  */
   fp = fdopen (fd[0], "r");

@@ -1,8 +1,28 @@
+2003-03-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (noinst_HEADERS): Add po-gram-gen2.h.
+	(BUILT_SOURCES): Add po-gram-gen2.h.
+	(DISTCLEANFILES): Remove po-gram-gen2.h.
+	(po-gram-gen2.h): Simplify rule.
+
 2003-03-17  Bruno Haible  <bruno@clisp.org>
 
 	Native Woe32/MSVC support.
 	* Makefile.msvc: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
+	* msgfilter.c: Include <sys/time.h> only if it exists.
+	(process_string): Mark as NYI on Woe32.
+	* msgfmt.c (sigjmp_buf, sigsetjmp, siglongjmp): Provide fallback
+	definitions for Woe32.
+	* msginit.c: Include <fcntl.h>, for F_OK. Include <pwd.h> only if it
+	exists.
+	(get_user_pwd, get_user_fullname): Adapt for when <pwd.h> is missing.
+	(project_id, project_id_version, get_user_email,
+	language_team_address): Use DEV_NULL instead of "/dev/null".
+	* msggrep.c (is_string_selected): Likewise.
+	* read-java.c (execute_and_read_po_output): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* write-mo.c: Include <sys/param.h> only if it exists.
 
 2003-03-28  Bruno Haible  <bruno@clisp.org>
 

@@ -36,10 +36,10 @@ include_HEADERS = gettext-po.h
 
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
-po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
-msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
-write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h po-time.h \
-plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
+po-gram-gen.h po-gram-gen2.h po-hash-gen.h msgl-charset.h msgl-equal.h \
+msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h \
+read-mo.h write-mo.h read-java.h write-java.h read-tcl.h write-tcl.h \
+po-time.h plural-table.h format.h xgettext.h x-c.h x-po.h x-python.h x-lisp.h \
 x-elisp.h x-librep.h x-smalltalk.h x-java.h x-awk.h x-ycp.h x-tcl.h x-php.h \
 x-rst.h x-glade.h
 
@@ -214,18 +214,18 @@ endif
 
 # Special rules for bison and flex generated files.
 
-BUILT_SOURCES = po-gram-gen.c po-hash-gen.c po-gram-gen.h po-hash-gen.h
+BUILT_SOURCES = \
+  po-gram-gen.c po-gram-gen.h po-gram-gen2.h \
+  po-hash-gen.c po-hash-gen.h
 
 po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) 's/[yY][yY]/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
+	$(SED) 's/yy/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
 
 x-java.c: x-java.l
 	$(LEX) -o$@-tmp -Px_java_yy $(srcdir)/x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
-
-DISTCLEANFILES += po-gram-gen2.h
 
 
 # Special rules for installation of auxiliary programs.

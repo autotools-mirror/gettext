@@ -100,8 +100,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
     }
 
   /* Open a pipe to the Tcl interpreter.  */
-  child = create_pipe_in ("tclsh", "tclsh", argv, "/dev/null", false, true,
-			  fd);
+  child = create_pipe_in ("tclsh", "tclsh", argv, DEV_NULL, false, true, fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)

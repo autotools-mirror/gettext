@@ -63,7 +63,7 @@ execute_and_read_po_output (const char *progname,
   int exitstatus;
 
   /* Open a pipe to the JVM.  */
-  child = create_pipe_in (progname, prog_path, prog_argv, "/dev/null", false,
+  child = create_pipe_in (progname, prog_path, prog_argv, DEV_NULL, false,
 			  true, fd);
 
   fp = fdopen (fd[0], "r");

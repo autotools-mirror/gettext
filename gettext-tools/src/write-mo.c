@@ -27,9 +27,12 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <sys/param.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if HAVE_SYS_PARAM_H
+# include <sys/param.h>
+#endif
 
 /* These two include files describe the binary .mo format.  */
 #include "gmo.h"
