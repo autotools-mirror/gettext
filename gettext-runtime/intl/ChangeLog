@@ -1,3 +1,9 @@
+2003-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (install-exec): Remove the installed libintl.la if it
+	has hardwired pathnames in dependency_libs and the installed package
+	shall be relocatable.
+
 2003-04-05  Bruno Haible  <bruno@clisp.org>
 
 	* relocatable.c: Rely on DEPENDS_ON_LIBCHARSET, DEPENDS_ON_LIBICONV,
