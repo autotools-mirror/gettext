@@ -1,3 +1,8 @@
+2005-02-24  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/autogen.sh: Define and use GETTEXT_TOPSRCDIR, to make it
+	work in VPATH builds.
+
 2005-02-23  Bruno Haible  <bruno@clisp.org>
 
 	* xsmallpot.sh: Make the temporary directory writable.
