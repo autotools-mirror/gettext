@@ -20,7 +20,7 @@
 want_version="$1"
 while true; do
   if test -f configure; then
-    package=`grep '^PACKAGE=' configure | sed -e '1q' | sed -e 's/^PACKAGE=//'`
+    package=`(grep '^PACKAGE_NAME=' configure; grep '^PACKAGE=' configure) | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
     case "$package" in
       *[\"\$\`\{\}]*)
         # Some packages (gcal) retrieve the package name dynamically.
@@ -33,7 +33,7 @@ while true; do
         package="GNU $package"
       fi
       if test -n "$want_version"; then
-        version=`grep '^VERSION=' configure | sed -e '1q' | sed -e 's/^VERSION=//'`
+        version=`(grep '^PACKAGE_VERSION=' configure; grep '^VERSION=' configure) | sed -e '1q' | sed -e 's/^[^=]*=//' | sed -e "s/^'//" -e "s/'$//"`
         case "$version" in
           *[\"\$\`\{\}]*)
             # Some packages (gcal, gcc, clisp) retrieve the version dynamically.
