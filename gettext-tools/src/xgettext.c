@@ -2069,7 +2069,6 @@ finalize_header (msgdomain_list_ty *mdlp)
 static extractor_ty
 language_to_extractor (const char *name)
 {
-  typedef struct table_ty table_ty;
   struct table_ty
   {
     const char *name;
@@ -2078,6 +2077,7 @@ language_to_extractor (const char *name)
     struct formatstring_parser *formatstring_parser1;
     struct formatstring_parser *formatstring_parser2;
   };
+  typedef struct table_ty table_ty;
 
   static table_ty table[] =
   {
@@ -2130,12 +2130,12 @@ language_to_extractor (const char *name)
 static const char *
 extension_to_language (const char *extension)
 {
-  typedef struct table_ty table_ty;
   struct table_ty
   {
     const char *extension;
     const char *language;
   };
+  typedef struct table_ty table_ty;
 
   static table_ty table[] =
   {

@@ -1,3 +1,10 @@
+2003-10-14  Bruno Haible  <bruno@clisp.org>
+
+	Fix compilation errors in C++ mode.
+	* msgfilter.c (process_string): Cast the xrealloc expression.
+	* xgettext.c (language_to_extractor, extension_to_language): Move the
+	typedef after the struct definition.
+
 2003-10-13  Bruno Haible  <bruno@clisp.org>
 
 	Support CR/LF line terminators in C sources even on Unix.

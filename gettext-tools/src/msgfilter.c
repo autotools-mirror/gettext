@@ -659,7 +659,7 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
       if (length == allocated)
 	{
 	  allocated = allocated + (allocated >> 1);
-	  result = xrealloc (result, allocated);
+	  result = (char *) xrealloc (result, allocated);
 	}
       {
 	ssize_t nread = read (fd[0], result + length, allocated - length);

@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000-2002 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000-2003 Free Software Foundation, Inc.
 
    The GNU C Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -16,9 +16,13 @@
    - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #ifndef _HASH_H
-# define _HASH_H
+#define _HASH_H
 
-# include <obstack.h>
+#include <obstack.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct hash_table
 {
@@ -44,5 +48,9 @@ extern int iterate_table (hash_table *htab, void **ptr,
 			  void **data);
 
 extern unsigned long int next_prime (unsigned long int seed);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* not _HASH_H */
