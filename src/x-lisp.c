@@ -653,6 +653,8 @@ enum number_type
   n_float
 };
 
+/* Prototypes for local functions.  Needed to ensure compiler checking of
+   function argument counts despite of K&R C function definition syntax.  */
 static enum number_type is_number PARAMS ((const struct token *tp, int *basep));
 
 static enum number_type
