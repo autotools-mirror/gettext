@@ -1,3 +1,9 @@
+2005-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrep_a_DEPENDENCIES): New variable.
+	(AM_CPPFLAGS): Add -I../intl, so that libintl.h is found before gettext
+	is installed.
+
 2005-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add $(LIBADD_SOURCE).

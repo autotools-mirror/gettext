@@ -41,12 +41,13 @@ LIBADD_SOURCE = \
 
 # How to build libgrep.a.
 libgrep_a_LIBADD = @LIBGREPOBJS@
+libgrep_a_DEPENDENCIES = @LIBGREPOBJS@
 
 # List of files to be distributed.
 
 EXTRA_DIST += $(LIBADD_SOURCE)
 
-AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib -I../intl
 
 
 # VMS support.
