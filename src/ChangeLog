@@ -1,3 +1,7 @@
+2003-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* FILES: Update.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* msgconv.c: Include localcharset.h.

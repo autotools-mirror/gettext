@@ -172,6 +172,7 @@ format-awk.c    Format string handling for awk.
 format-pascal.c Format string handling for Object Pascal.
 format-ycp.c    Format string handling for YCP.
 format-tcl.c    Format string handling for Tcl.
+format-php.c    Format string handling for PHP.
 format.c        Table of the language dependent format string handlers.
 
 +-------------- The 'msgfmt' program
@@ -216,6 +217,9 @@ format.c        Table of the language dependent format string handlers.
 | x-librep.h
 | x-librep.c
 |               String extractor for librep.
+| x-smalltalk.h
+| x-smalltalk.c
+|               String extractor for Smalltalk.
 | x-java.h
 | x-java.l
 |               String extractor for Java.
@@ -228,6 +232,9 @@ format.c        Table of the language dependent format string handlers.
 | x-tcl.h
 | x-tcl.c
 |               String extractor for Tcl.
+| x-php.h
+| x-php.c
+|               String extractor for PHP.
 | x-rst.h
 | x-rst.c
 |               String extractor from .rst files, for Object Pascal.
