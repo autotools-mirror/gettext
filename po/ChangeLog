@@ -1,3 +1,20 @@
+2002-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* ru.po: Update from Oleg S. Tihonov <tihonov@ffke-campus.mipt.ru>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sl.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* sv.po: Update from 
+
+2002-08-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.5 released.
+
 2002-07-31  Bruno Haible  <bruno@clisp.org>
 
 	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
@@ -9,7 +26,7 @@
 	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
 	* sl.po: Update from
 	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
-	* sv.po: Update from Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
 	* tr.po: Update from Nilgün Belma Bugüner <nilgun@superonline.com>.
 
 2002-07-26  Bruno Haible  <bruno@clisp.org>

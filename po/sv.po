@@ -1,13 +1,13 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002.
-# Revision: 1.52
+# Revision: 1.53
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.4\n"
-"POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-07-31 20:12+0200\n"
+"Project-Id-Version: gettext 0.11.5\n"
+"POT-Creation-Date: 2002-08-20 15:24+0200\n"
+"PO-Revision-Date: 2002-08-08 11:43+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,8 +29,8 @@ msgstr "tvetydigt argument \"%s\" för \"%s\""
 msgid "Valid arguments are:"
 msgstr "Giltiga argument är:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
-#: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:267
+#: src/urlget.c:204 src/xgettext.c:840 src/xgettext.c:853 src/xgettext.c:863
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "fel uppstod när \"%s\" öppnades för läsning"
@@ -252,7 +252,7 @@ msgstr ""
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:381
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -268,7 +268,7 @@ msgstr ""
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:386
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrivet av %s.\n"
@@ -285,7 +285,7 @@ msgstr "argument saknas"
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:537
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:540
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Försök med \"%s --help\" för mer information.\n"
@@ -349,7 +349,7 @@ msgstr ""
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:634
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:637
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Rapportera fel till <bug-gnu-gettext@gnu.org>.\n"
@@ -406,8 +406,8 @@ msgstr "högst en infil tillåten"
 #: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
 #: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
 #: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
-#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
-#: src/xgettext.c:397
+#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:396
+#: src/xgettext.c:400
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s och %s är ömsesidigt uteslutande"
@@ -536,7 +536,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "omöjligt urvalskriterium angivet (%d < n < %d)"
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:542
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:545
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Användning: %s [FLAGGA] [INFIL]...\n"
@@ -564,7 +564,7 @@ msgstr ""
 "utom om --use-first ges.  Då tas de endast från den första PO-filen som\n"
 "definierar dem.  Filpositioner från alla filer bevaras.\n"
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:558
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:561
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -650,7 +650,7 @@ msgstr ""
 "  -s, --sort-output              sortera resultatet\n"
 "  -F, --sort-by-file             sortera resultatet efter filposition  \n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:628
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:631
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -875,7 +875,7 @@ msgstr ""
 "  -s, --sort-output           sortera resultatet\n"
 "  -F, --sort-by-file          sortera resultatet efter filposition\n"
 
-#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
+#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:417
 msgid "no input file given"
 msgstr "inga infiler givna"
 
@@ -2269,7 +2269,7 @@ msgstr "filslut inne i en sträng"
 msgid "end-of-line within string"
 msgstr "radslut inne i en sträng"
 
-#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:214
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "filen \"%s\" är avkortad"
@@ -2279,17 +2279,16 @@ msgstr "filen \"%s\" är avkortad"
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "filen \"%s\" innehåller en sträng som inte avslutas med nolltecknet"
 
-#: src/read-mo.c:181 src/read-mo.c:285
+#: src/read-mo.c:181 src/read-mo.c:289
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "filen \"%s\" är inte på GNUs .mo-format"
 
-#: src/read-mo.c:191
+#: src/read-mo.c:194
 #, c-format
-msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr ""
-"filen \"%s\" innehåller ett \"sysdep_segment\" som inte avslutas med "
-"nolltecknet"
+"filen \"%s\" innehåller en sträng som inte avslutas med nolltecknet vid %s"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2387,7 +2386,7 @@ msgstr "%s:%d: varning: oavslutad teckenkonstant"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: varning: oavslutad sträng"
 
-#: src/x-po.c:106 src/xgettext.c:648
+#: src/x-po.c:106 src/xgettext.c:651
 msgid "this file may not contain domain directives"
 msgstr "denna fil kan inte innehålla domändirektiv"
 
@@ -2406,26 +2405,26 @@ msgstr "%s:%d fattas tal efter #"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: ogiltigt strängmönster"
 
-#: src/xgettext.c:401
+#: src/xgettext.c:404
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing kan inte användas då resultatet skrivs till standard ut"
 
-#: src/xgettext.c:406
+#: src/xgettext.c:409
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext måste ha nyckelord att söka efter för att fungera"
 
-#: src/xgettext.c:502
+#: src/xgettext.c:505
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "varning: filtyp \"%s\" med suffix \"%s\" är okänd; försöker med C"
 
-#: src/xgettext.c:547
+#: src/xgettext.c:550
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extrahera översättbara strängar från givna infiler.\n"
 
-#: src/xgettext.c:552
+#: src/xgettext.c:555
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2434,7 +2433,7 @@ msgstr ""
 "Obligatoriska argument för långa flaggor är obligatoriska även för korta.\n"
 "Motsvarande gäller för frivilliga argument.\n"
 
-#: src/xgettext.c:567
+#: src/xgettext.c:570
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2449,14 +2448,14 @@ msgstr ""
 "  -p, --output-dir=KATALOG       utfiler placeras i katalogen KATALOG\n"
 "Om utfilen är - skrivs resultatet till standard ut.\n"
 
-#: src/xgettext.c:576
-#, no-wrap
+#: src/xgettext.c:579
+#, fuzzy, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
 "                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
-"                                   RST, Glade)\n"
+"                                   PHP, RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -2468,7 +2467,7 @@ msgstr ""
 "  -C, --c++                      samma som --language=C++\n"
 "I normalläge gissas språket från filändelsen på infilen.\n"
 
-#: src/xgettext.c:587
+#: src/xgettext.c:590
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2483,7 +2482,7 @@ msgstr ""
 "  -c, --add-comments[=MÄRKE]     skriv kommentarsblock med MÄRKE (eller de\n"
 "                                 före nyckelordsrader) till resultatet\n"
 
-#: src/xgettext.c:596
+#: src/xgettext.c:599
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2500,7 +2499,7 @@ msgstr ""
 "  -T, --trigraphs                hantera ANSI C treteckenssekvenser i infiler\n"
 "      --debug                    mer detaljerad igenkänning av formatsträngar\n"
 
-#: src/xgettext.c:606
+#: src/xgettext.c:609
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2543,11 +2542,11 @@ msgstr ""
 "  -m, --msgstr-prefix[=STRÄNG]   inled översatta strängar med STRÄNG eller \"\"\n"
 "  -M, --msgstr-suffix[=STRÄNG]   avsluta översatta strängar med STRÄNG eller \"\"\n"
 
-#: src/xgettext.c:828
+#: src/xgettext.c:831
 msgid "standard input"
 msgstr "standard in"
 
-#: src/xgettext.c:943
+#: src/xgettext.c:946
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2557,7 +2556,7 @@ msgstr ""
 "gettext(\"\") returnerar huvudet med metainformation,\n"
 "inte den tomma strängen.\n"
 
-#: src/xgettext.c:1299
+#: src/xgettext.c:1303
 #, c-format
 msgid "language `%s' unknown"
 msgstr "språket \"%s\" okänt"

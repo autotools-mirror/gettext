@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.4\n"
-"POT-Creation-Date: 2002-07-23 15:23+0200\n"
-"PO-Revision-Date: 2002-07-27 21:24+0200\n"
+"Project-Id-Version: gettext 0.11.5\n"
+"POT-Creation-Date: 2002-08-20 15:24+0200\n"
+"PO-Revision-Date: 2002-08-08 22:00+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +28,8 @@ msgstr "l'argument «%s» és ambigu per «%s»"
 msgid "Valid arguments are:"
 msgstr "Els arguments vàlids són:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
-#: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:267
+#: src/urlget.c:204 src/xgettext.c:840 src/xgettext.c:853 src/xgettext.c:863
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "error en obrir «%s» per llegir"
@@ -256,7 +256,7 @@ msgstr ""
 #: src/msgcmp.c:133 src/msgcomm.c:237 src/msgconv.c:188 src/msgen.c:176
 #: src/msgexec.c:165 src/msgfilter.c:253 src/msgfmt.c:351 src/msggrep.c:291
 #: src/msginit.c:256 src/msgmerge.c:270 src/msgunfmt.c:204 src/msguniq.c:212
-#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:378
+#: src/ngettext.c:126 src/urlget.c:135 src/xgettext.c:381
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -272,7 +272,7 @@ msgstr ""
 #: src/msgcmp.c:138 src/msgcomm.c:242 src/msgconv.c:193 src/msgen.c:181
 #: src/msgexec.c:170 src/msgfilter.c:258 src/msgfmt.c:356 src/msggrep.c:296
 #: src/msginit.c:261 src/msgmerge.c:275 src/msgunfmt.c:209 src/msguniq.c:217
-#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:383
+#: src/ngettext.c:131 src/urlget.c:140 src/xgettext.c:386
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"
@@ -289,7 +289,7 @@ msgstr "manquen arguments"
 #: src/msgcmp.c:170 src/msgcomm.c:311 src/msgconv.c:248 src/msgen.c:232
 #: src/msgexec.c:223 src/msgfilter.c:351 src/msgfmt.c:528 src/msggrep.c:402
 #: src/msginit.c:347 src/msgmerge.c:385 src/msgunfmt.c:314 src/msguniq.c:274
-#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:537
+#: src/ngettext.c:210 src/urlget.c:164 src/xgettext.c:540
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Proveu «%s --help» per obtenir més informació.\n"
@@ -355,7 +355,7 @@ msgstr ""
 #: src/msgcmp.c:215 src/msgcomm.c:391 src/msgconv.c:314 src/msgen.c:294
 #: src/msgexec.c:267 src/msgfilter.c:426 src/msgfmt.c:622 src/msggrep.c:492
 #: src/msginit.c:400 src/msgmerge.c:485 src/msgunfmt.c:395 src/msguniq.c:350
-#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:634
+#: src/ngettext.c:244 src/urlget.c:186 src/xgettext.c:637
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
 
@@ -411,8 +411,8 @@ msgstr "es permet com a molt un fitxer d'entrada"
 #: src/msgen.c:203 src/msgen.c:207 src/msgfilter.c:273 src/msgfilter.c:277
 #: src/msgfmt.c:373 src/msgfmt.c:379 src/msgfmt.c:394 src/msggrep.c:317
 #: src/msggrep.c:321 src/msgmerge.c:300 src/msgmerge.c:321 src/msgmerge.c:325
-#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:393
-#: src/xgettext.c:397
+#: src/msgunfmt.c:219 src/msguniq.c:238 src/msguniq.c:242 src/xgettext.c:396
+#: src/xgettext.c:400
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "«%s» i «%s» són mútuament excloents"
@@ -550,7 +550,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "s'ha especificat un criteri de selecció impossible (%d < n < %d)"
 
-#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:542
+#: src/msgcat.c:300 src/msgcomm.c:316 src/xgettext.c:545
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Forma d'ús: %s [OPCIÓ] [FITXERENTRADA]...\n"
@@ -581,7 +581,7 @@ msgstr ""
 "«--use-first», en el qual cas es treuran del primer fitxer PO que els\n"
 "definesca.  Les posicions de fitxer de tots els fitxers PO s'acumularan.\n"
 
-#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:558
+#: src/msgcat.c:323 src/msgcomm.c:338 src/xgettext.c:561
 #, no-wrap
 msgid ""
 "Input file location:\n"
@@ -672,7 +672,7 @@ msgstr ""
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 
-#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:628
+#: src/msgcat.c:372 src/msgcomm.c:385 src/msguniq.c:344 src/xgettext.c:631
 #, no-wrap
 msgid ""
 "Informative output:\n"
@@ -907,7 +907,7 @@ msgstr ""
 "  -s, --sort-output              genera una eixida ordenada\n"
 "  -F, --sort-by-file             ordena l'eixida pels noms de fitxer\n"
 
-#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:414
+#: src/msgen.c:192 src/msgfmt.c:367 src/xgettext.c:417
 msgid "no input file given"
 msgstr "no s'ha especificat cap fitxer d'entrada"
 
@@ -2405,7 +2405,7 @@ msgstr "s'ha trobat el final de fitxer emmig d'una cadena"
 msgid "end-of-line within string"
 msgstr "s'ha trobat un final de línia emmig d'una cadena"
 
-#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:214
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "el fitxer «%s» és truncat"
@@ -2415,16 +2415,17 @@ msgstr "el fitxer «%s» és truncat"
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fitxer «%s» conté una cadena no terminada en nul"
 
-#: src/read-mo.c:181 src/read-mo.c:285
+#: src/read-mo.c:181 src/read-mo.c:289
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fitxer «%s» no és en el format MO de GNU"
 
-#: src/read-mo.c:191
+# ivb (2002/08/08)
+# ivb  «%s» és una cadena amb forma «sysdep_string[%u]»
+#: src/read-mo.c:194
 #, c-format
-msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-msgstr ""
-"el fitxer «%s» conté un segment dependent del sistema no terminat en nul"
+msgid "file \"%s\" contains a not NUL terminated string, at %s"
+msgstr "el fitxer «%s» conté una cadena no terminada en nul, en %s"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2526,7 +2527,7 @@ msgstr "%s:%d: avís: el literal caràcter no és terminat"
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: avís: el literal cadena no és terminat"
 
-#: src/x-po.c:106 src/xgettext.c:648
+#: src/x-po.c:106 src/xgettext.c:651
 msgid "this file may not contain domain directives"
 msgstr "aquest fitxer no ha de contenir directives «domain»"
 
@@ -2545,26 +2546,26 @@ msgstr "%s:%d: manca un número després de «#»"
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: l'expressió de cadena no és vàlida"
 
-#: src/xgettext.c:401
+#: src/xgettext.c:404
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "no es pot usar «--join-existing» quan s'escriu en l'eixida estàndard"
 
-#: src/xgettext.c:406
+#: src/xgettext.c:409
 msgid "xgettext cannot work without keywords to look for"
 msgstr "«xgettext» no funciona sense paraules clau que cercar"
 
-#: src/xgettext.c:502
+#: src/xgettext.c:505
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 "avís: l'extensió «%2$s» del fitxer «%1$s» no és coneguda; es provarà amb «C»"
 
-#: src/xgettext.c:547
+#: src/xgettext.c:550
 #, no-wrap
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extreu les cadenes traduïbles dels fitxers d'entrada especificats.\n"
 
-#: src/xgettext.c:552
+#: src/xgettext.c:555
 #, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -2573,7 +2574,7 @@ msgstr ""
 "Els arguments obligatoris per les opcions llargues també ho són per les\n"
 "opcions curtes corresponents.  El mateix ocorre amb els arguments opcionals.\n"
 
-#: src/xgettext.c:567
+#: src/xgettext.c:570
 #, no-wrap
 msgid ""
 "Output file location:\n"
@@ -2590,14 +2591,14 @@ msgstr ""
 "                                 el DIRECTORI\n"
 "Si el fitxer d'eixida és «-» s'escriurà en l'eixida estàndard.\n"
 
-#: src/xgettext.c:576
-#, no-wrap
+#: src/xgettext.c:579
+#, fuzzy, no-wrap
 msgid ""
 "Choice of input file language:\n"
 "  -L, --language=NAME            recognise the specified language\n"
 "                                   (C, C++, ObjectiveC, PO, Python, Lisp,\n"
 "                                   EmacsLisp, librep, Java, awk, YCP, Tcl,\n"
-"                                   RST, Glade)\n"
+"                                   PHP, RST, Glade)\n"
 "  -C, --c++                      shorthand for --language=C++\n"
 "By default the language is guessed depending on the input file name extension.\n"
 msgstr ""
@@ -2609,7 +2610,7 @@ msgstr ""
 "Per defecte s'endevina el llenguatge fent servir l'extensió del nom\n"
 "del fitxer d'entrada.\n"
 
-#: src/xgettext.c:587
+#: src/xgettext.c:590
 #, no-wrap
 msgid ""
 "Operation mode:\n"
@@ -2627,7 +2628,7 @@ msgstr ""
 "                                 (o aquells que precedeixen les línies amb\n"
 "                                 una paraula clau) en el fitxer d'eixida\n"
 
-#: src/xgettext.c:596
+#: src/xgettext.c:599
 #, no-wrap
 msgid ""
 "Language=C/C++ specific options:\n"
@@ -2646,7 +2647,7 @@ msgstr ""
 "      --debug                    escriu unes marques més detallades\n"
 "                                 de reconeixement de cadenes de format\n"
 
-#: src/xgettext.c:606
+#: src/xgettext.c:609
 #, no-wrap
 msgid ""
 "Output details:\n"
@@ -2696,13 +2697,13 @@ msgstr ""
 "  -M, --msgstr-suffix[=CADENA]   usa la CADENA o «» com a sufix de\n"
 "                                 les entrades «msgstr»\n"
 
-#: src/xgettext.c:828
+#: src/xgettext.c:831
 msgid "standard input"
 msgstr "entrada estàndard"
 
 # ivb (2002/01/09)
 # ivb  Em sembla que açò és «no-wrap».
-#: src/xgettext.c:943
+#: src/xgettext.c:946
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -2712,7 +2713,7 @@ msgstr ""
 "«gettext(\"\")» retorna l'entrada de capçalera amb metainformació,\n"
 "no la cadena buida.\n"
 
-#: src/xgettext.c:1299
+#: src/xgettext.c:1303
 #, c-format
 msgid "language `%s' unknown"
 msgstr "el llenguatge «%s» no és conegut"
