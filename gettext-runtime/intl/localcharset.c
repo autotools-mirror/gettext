@@ -114,7 +114,7 @@ get_charset_aliases ()
   cp = charset_aliases;
   if (cp == NULL)
     {
-#if !defined WIN32
+#if !(defined VMS || defined WIN32)
       FILE *fp;
       const char *dir = relocate (LIBDIR);
       const char *base = "charset.alias";
@@ -204,11 +204,36 @@ get_charset_aliases ()
 
 #else
 
+# if defined VMS
+      /* To avoid the troubles of an extra file charset.alias_vms in the
+	 sources of many GNU packages, simply inline the aliases here.  */
+      /* The list of encodings is taken from the OpenVMS 7.3-1 documentation
+	 "Compaq C Run-Time Library Reference Manual for OpenVMS systems"
+	 section 10.7 "Handling Different Character Sets".  */
+      cp = "ISO8859-1" "\0" "ISO-8859-1" "\0"
+	   "ISO8859-2" "\0" "ISO-8859-2" "\0"
+	   "ISO8859-5" "\0" "ISO-8859-5" "\0"
+	   "ISO8859-7" "\0" "ISO-8859-7" "\0"
+	   "ISO8859-8" "\0" "ISO-8859-8" "\0"
+	   "ISO8859-9" "\0" "ISO-8859-9" "\0"
+	   /* Japanese */
+	   "eucJP" "\0" "EUC-JP" "\0"
+	   "SJIS" "\0" "SHIFT_JIS" "\0"
+	   "DECKANJI" "\0" "DEC-KANJI" "\0"
+	   "SDECKANJI" "\0" "EUC-JP" "\0"
+	   /* Chinese */
+	   "eucTW" "\0" "EUC-TW" "\0"
+	   "DECHANYU" "\0" "DEC-HANYU" "\0"
+	   "DECHANZI" "\0" "GB2312" "\0"
+	   /* Korean */
+	   "DECKOREAN" "\0" "EUC-KR" "\0";
+# endif
+
+# if defined WIN32
       /* To avoid the troubles of installing a separate file in the same
 	 directory as the DLL and of retrieving the DLL's directory at
 	 runtime, simply inline the aliases here.  */
 
-# if defined WIN32
       cp = "CP936" "\0" "GBK" "\0"
 	   "CP1361" "\0" "JOHAB" "\0"
 	   "CP20127" "\0" "ASCII" "\0"
