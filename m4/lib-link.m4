@@ -118,7 +118,7 @@ AC_DEFUN([AC_LIB_RPATH],
   sys_lib_dlsearch_path_spec="$acl_cv_sys_lib_dlsearch_path_spec"
   dnl Determine whether the user wants rpath handling at all.
   AC_ARG_ENABLE(rpath,
-    [  --disable-rpath         do not use hardcode runtime library paths],
+    [  --disable-rpath         do not hardcode runtime library paths],
     :, enable_rpath=yes)
 ])
 
