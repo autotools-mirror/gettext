@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11-pre2\n"
 "POT-Creation-Date: 2001-11-30 14:18+0100\n"
-"PO-Revision-Date: 2001-12-02 06:13+0900\n"
+"PO-Revision-Date: 2001-12-05 21:21+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -236,8 +236,8 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"저작권 (C) %s Free Software Foundation, Inc.\n"
-"이 프로그램은 공개 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
+"Copyright (C) %s Free Software Foundation, Inc.\n"
+"이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
 "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
 
 #: src/gettext.c:151 src/hostname.c:173 src/msgattrib.c:269 src/msgcat.c:234
@@ -247,7 +247,7 @@ msgstr ""
 #: src/xgettext.c:357
 #, c-format
 msgid "Written by %s.\n"
-msgstr "%s가 만들었습니다.\n"
+msgstr "%s이(가) 만들었습니다.\n"
 
 #: src/gettext.c:169 src/hostname.c:183 src/msginit.c:262 src/ngettext.c:143
 msgid "too many arguments"
