@@ -41,6 +41,7 @@
 #include "write-po.h"
 #include "format.h"
 #include "xalloc.h"
+#include "obstack.h"
 #include "strstr.h"
 #include "exit.h"
 #include "strcase.h"
@@ -54,6 +55,9 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#define obstack_chunk_alloc xmalloc
+#define obstack_chunk_free free
 
 
 /* If true do not print unneeded messages.  */
@@ -661,12 +665,16 @@ message_merge (message_ty *def, message_ty *ref)
 	const char *string;
 	size_t len;
       } header_fields[UNKNOWN + 1];
+      struct obstack pool;
       const char *cp;
       char *newp;
       size_t len, cnt;
 
       /* Clear all fields.  */
       memset (header_fields, '\0', sizeof (header_fields));
+
+      /* Prepare a temporary memory pool.  */
+      obstack_init (&pool);
 
       cp = def->msgstr;
       while (*cp != '\0')
@@ -682,7 +690,7 @@ message_merge (message_ty *def, message_ty *ref)
 
 	      len = endp - cp + 1;
 
-	      copy = (char *) alloca (len + 1);
+	      copy = (char *) obstack_alloc (&pool, len + 1);
 	      stpcpy (stpcpy (copy, cp), "\n");
 	      cp = copy;
 	    }
@@ -710,7 +718,8 @@ message_merge (message_ty *def, message_ty *ref)
 	      /* It's an unknown field.  Append content to what is already
 		 known.  */
 	      char *extended =
-		(char *) alloca (header_fields[UNKNOWN].len + len + 1);
+		(char *) obstack_alloc (&pool,
+					header_fields[UNKNOWN].len + len + 1);
 	      memcpy (extended, header_fields[UNKNOWN].string,
 		      header_fields[UNKNOWN].len);
 	      memcpy (&extended[header_fields[UNKNOWN].len], cp, len);
@@ -740,7 +749,7 @@ message_merge (message_ty *def, message_ty *ref)
 		char *extended;
 		endp = strchr (msgid_bugs_ptr, '\0');
 		msgid_bugs_len = (endp - msgid_bugs_ptr) + 1;
-		extended = (char *) alloca (msgid_bugs_len + 1);
+		extended = (char *) obstack_alloc (&pool, msgid_bugs_len + 1);
 		stpcpy (stpcpy (extended, msgid_bugs_ptr), "\n");
 		msgid_bugs_ptr = extended;
 	      }
@@ -770,7 +779,7 @@ message_merge (message_ty *def, message_ty *ref)
 		char *extended;
 		endp = strchr (pot_date_ptr, '\0');
 		pot_date_len = (endp - pot_date_ptr) + 1;
-		extended = (char *) alloca (pot_date_len + 1);
+		extended = (char *) obstack_alloc (&pool, pot_date_len + 1);
 		stpcpy (stpcpy (extended, pot_date_ptr), "\n");
 		pot_date_ptr = extended;
 	      }
@@ -810,6 +819,9 @@ message_merge (message_ty *def, message_ty *ref)
 	stpcpy (newp, header_fields[UNKNOWN].string);
 
 #undef IF_FILLED
+
+      /* Free the temporary memory pool.  */
+      obstack_free (&pool, NULL);
 
       msgstr = cp;
       msgstr_len = strlen (cp) + 1;
