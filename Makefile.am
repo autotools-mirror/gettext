@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES = djgpp/README djgpp/config.sed djgpp/fnchange.lst
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh \
              djgpp/Makefile.maint djgpp/README.in djgpp/config.bat \
              djgpp/config.in djgpp/config.site djgpp/edtests.bat \
-             djgpp/fnchange.in djgpp/tscript.sed \
+             djgpp/fnchange.in djgpp/tscript.sed os2/README.os2 os2/os2.diff \
              $(MAINTAINERCLEANFILES)
 
 ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
