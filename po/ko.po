@@ -823,6 +823,3 @@ msgstr "`%s' 언어를 알 수 없음"
 
 #~ msgid "%s: warning: no header entry found"
 #~ msgstr "%s: 경고: 헤더 항목을 찾지 못했음"
-
-#~ msgid "Report bugs to <bug-gnu-utils@gnu.org>.\n"
-#~ msgstr "<bug-gnu-utils@gnu.org>로 문제점을 보고하십시오.\n"
