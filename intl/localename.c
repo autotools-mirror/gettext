@@ -576,7 +576,7 @@ _nl_locale_name (category, categoryname)
 	case 0x01: /* SCOTTISH */ return "gd_UK";
 	case 0x02: /* IRISH */ return "ga_IE";
 	}
-      return "?";
+      return "C";
     case LANG_GALICIAN: return "gl_ES";
     case LANG_GEORGIAN: return "ka_GE";
     case LANG_GERMAN:
