@@ -112,7 +112,7 @@ following file list.
       $prefix/share/gettext/po/*
       $prefix/share/gettext/projects/*
       $prefix/share/gettext/gettext.h
-      $prefix/share/gettext/gettext.jar
+      $prefix/share/gettext/gettext.jar   (only installed if gcj is not present)
       $prefix/share/gettext/msgunfmt.tcl
       $prefix/share/gettext/archive.tar.gz
       $prefix/share/aclocal/codeset.m4
