@@ -178,6 +178,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
 	    -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
 	    -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	    -e 's/#undef HAVE_STRPBRK$$/#define HAVE_STRPBRK 1/' \
 	    -e 's/#undef HAVE_STRSTR$$/#define HAVE_STRSTR 1/' \
 	    -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
 	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
