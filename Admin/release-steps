@@ -34,6 +34,9 @@ Tasks not to forget before release:
 
 - Update djgpp/*.
 
+- Update gettext-tools/examples/*/LINGUAS and the file list in
+  gettext-tools/examples/Makefile.am.
+
 - Update
     NEWS
     autoconf-lib-link/NEWS
