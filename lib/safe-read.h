@@ -1,6 +1,5 @@
-/* read() wrapper.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
-   Written by Bruno Haible <haible@clisp.cons.org>, 2001.
+/* An interface to read() that retries after interrupts.
+   Copyright (C) 2002 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,13 +15,9 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
-/* Get ssize_t.  */
-#include <sys/types.h>
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <stddef.h>
 
-/* Read LEN bytes at PTR from descriptor DESC, retrying if interrupted.
-   Return the actual number of bytes read, zero for EOF, or negative
+/* Read up to COUNT bytes at BUF from descriptor FD, retrying if interrupted.
+   Return the actual number of bytes read, zero for EOF, or (size_t) -1
    for an error.  */
-extern ssize_t safe_read (int desc, void *ptr, size_t len);
+extern size_t safe_read (int fd, void *buf, size_t count);

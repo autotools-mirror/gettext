@@ -53,6 +53,7 @@ libgettextlib_la_SOURCES = \
   pipe.h pipe-bidi.c pipe-in.c pipe-out.c \
   progname.h progname.c \
   safe-read.h safe-read.c \
+  safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
   stpncpy.h stpncpy.c \
   strtoul.c \

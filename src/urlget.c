@@ -209,7 +209,7 @@ cat_file (const char *src_filename)
       if (n_read == 0)
 	break;
 
-      if (full_write (STDOUT_FILENO, buf, n_read) < 0)
+      if (full_write (STDOUT_FILENO, buf, n_read) < n_read)
 	error (EXIT_FAILURE, errno, _("error writing stdout"));
     }
 

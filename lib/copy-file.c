@@ -81,7 +81,7 @@ copy_file (const char *src_filename, const char *dest_filename)
       if (n_read == 0)
 	break;
 
-      if (full_write (dest_fd, buf, n_read) < 0)
+      if (full_write (dest_fd, buf, n_read) < n_read)
 	error (EXIT_FAILURE, errno, _("error writing \"%s\""), dest_filename);
     }
 

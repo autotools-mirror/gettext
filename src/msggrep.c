@@ -534,15 +534,13 @@ is_string_selected (int grep_pass, const char *str, size_t len)
     {
       pid_t child;
       int fd[1];
-      ssize_t nwritten;
       int exitstatus;
 
       /* Open a pipe to a grep subprocess.  */
       child = create_pipe_out ("grep", grep_path, grep_argv[grep_pass],
 			       "/dev/null", false, true, fd);
 
-      nwritten = full_write (fd[0], str, len);
-      if (nwritten != (ssize_t) len)
+      if (full_write (fd[0], str, len) < len)
 	error (EXIT_FAILURE, errno,
 	       _("write to grep subprocess failed"));
 

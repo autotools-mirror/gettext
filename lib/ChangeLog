@@ -1,5 +1,16 @@
 2002-11-22  Bruno Haible  <bruno@clisp.org>
 
+	* safe-write.h: New file, from current gnulib version.
+	* safe-write.c: New file, from current gnulib version.
+	* full-write.h: Update from current gnulib version.
+	* full-write.c: Update from current gnulib version.
+	* copy-file.c (copy_file): Change test of full_write return value.
+	* Makefile.am (libgettextlib_la_SOURCES): Add safe-write.h,
+	safe-write.c.
+
+	* safe-read.h: Update from current gnulib version.
+	* safe-read.c: Update from current gnulib version.
+
 	* argmatch.h: Update from current gnulib version.
 	* argmatch.c: Update from current gnulib version, with simplifications.
 

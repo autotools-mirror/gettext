@@ -292,13 +292,10 @@ nonintr_close (int fd)
 static void
 process_string (const message_ty *mp, const char *str, size_t len)
 {
-  ssize_t nwritten;
-
   if (strcmp (sub_name, "0") == 0)
     {
       /* Built-in command "0".  */
-      nwritten = full_write (STDOUT_FILENO, str, len + 1);
-      if (nwritten != (ssize_t) (len + 1))
+      if (full_write (STDOUT_FILENO, str, len + 1) < len + 1)
 	error (EXIT_FAILURE, errno, _("write to stdout failed"));
     }
   else
@@ -320,8 +317,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
       child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, false, true,
 			       fd);
 
-      nwritten = full_write (fd[0], str, len);
-      if (nwritten != (ssize_t) len)
+      if (full_write (fd[0], str, len) < len)
 	error (EXIT_FAILURE, errno,
 	       _("write to %s subprocess failed"), sub_name);
 
