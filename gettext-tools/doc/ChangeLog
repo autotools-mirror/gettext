@@ -3,6 +3,8 @@
 	* tutorial.html: New file, from Gora Mohanty with modifications:
 	Remove the navigation panel. Don't use the -s option.
 	* Makefile.am (doc_DATA): Add tutorial.html.
+	* Makefile.msvc (install, uninstall): Also tutorial.html.
+	* Makefile.vms (install, uninstall): Also tutorial.html.
 
 2005-02-06  Bruno Haible  <bruno@clisp.org>
 
