@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.2\n"
-"POT-Creation-Date: 2002-07-17 13:52+0200\n"
+"POT-Creation-Date: 2002-07-23 15:23+0200\n"
 "PO-Revision-Date: 2002-04-27 14:00+0200\n"
 "Last-Translator: Ales Nyakhaychyk <nyakhaychyk@i18n.linux.by>\n"
 "Language-Team: Belarusian <i18n@tut.by>\n"
@@ -29,7 +29,7 @@ msgstr "неадназначны аргумент \"%s\" для \"%s\""
 msgid "Valid arguments are:"
 msgstr "Рэчаісныя аргументы:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:171
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
 #: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
 #, c-format
 msgid "error while opening \"%s\" for reading"
@@ -150,12 +150,12 @@ msgstr "%s падпрацэс"
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s падрацэс атрымаў фатальны сігнал %d"
 
-#: src/format-c.c:589 src/format-python.c:506
+#: src/format-c.c:760 src/format-python.c:506
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "колькасьць сьпецыфікацый фармату ў 'msgid' і '%s' не супадае"
 
-#: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
 #, c-format
 msgid ""
@@ -1282,15 +1282,15 @@ msgstr ""
 msgid "`domain %s' directive ignored"
 msgstr "дырэктыва \"domain %s\" ігнаруецца"
 
-#: src/msgfmt.c:1482
+#: src/msgfmt.c:1484
 msgid "empty `msgstr' entry ignored"
 msgstr "парожняе уваходжаньне \"msgstr\" прапушчана"
 
-#: src/msgfmt.c:1483
+#: src/msgfmt.c:1485
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "недакладнае уваходжаньне \"msgstr\" прапушчана"
 
-#: src/msgfmt.c:1552
+#: src/msgfmt.c:1554
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: увага: ізыходны файл змяшчае недакладны пераклад"
@@ -1941,9 +1941,8 @@ msgstr ""
 msgid "iconv failure"
 msgstr "памылка iconv"
 
-#: src/po-lex.c:759 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
-#: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:104
+#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
+#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "памылка ў час чытаньня \"%s\""
@@ -1965,25 +1964,25 @@ msgstr "сімвал канца файла знаходзіцца ўнутры �
 msgid "end-of-line within string"
 msgstr "сімвал канца радка знаходзіцца ўнутры радка"
 
-#: src/read-mo.c:72 src/read-mo.c:137
-#, c-format
-msgid "file \"%s\" truncated"
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#, fuzzy, c-format
+msgid "file \"%s\" is truncated"
 msgstr "файл \"%s\" абрэзан"
 
-#: src/read-mo.c:103
-#, c-format
-msgid "seek \"%s\" offset %ld failed"
-msgstr "пераход у \"%s\" да змяшчэньня %ld не атрымаўся"
-
-#: src/read-mo.c:142
+#: src/read-mo.c:143
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "файл \"%s\" змяшчае радок не завершаны нулём"
 
-#: src/read-mo.c:187
+#: src/read-mo.c:181 src/read-mo.c:285
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "фармат файла \"%s\" не GNU .mo"
+
+#: src/read-mo.c:191
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgstr "файл \"%s\" змяшчае радок не завершаны нулём"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2024,7 +2023,7 @@ msgstr "нерэчаісная назва Java-класа: %s"
 msgid "failed to create \"%s\""
 msgstr "немагчыма стварыць \"%s\""
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1025
+#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "памылка ў час запісу файла \"%s\""
@@ -2033,7 +2032,7 @@ msgstr "памылка ў час запісу файла \"%s\""
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 
-#: src/write-mo.c:277
+#: src/write-mo.c:701
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "памылка ў час адкрыцця \"%s\" для запісу"
@@ -2064,12 +2063,12 @@ msgstr "немагчыма стварыць файл вываду \"%s\""
 msgid "standard output"
 msgstr "стандартны вывад"
 
-#: src/x-c.c:951
+#: src/x-c.c:954
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
 
-#: src/x-c.c:975
+#: src/x-c.c:978
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: увага: незавершаны радок"
@@ -2219,3 +2218,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "невядомая мова \"%s\""
+
+#~ msgid "seek \"%s\" offset %ld failed"
+#~ msgstr "пераход у \"%s\" да змяшчэньня %ld не атрымаўся"

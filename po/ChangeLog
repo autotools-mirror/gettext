@@ -1,3 +1,7 @@
+2002-07-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.11.4 released.
+
 2002-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* zh_TW.po: Update from Pofeng Lee <pofeng@linux.org.tw>.

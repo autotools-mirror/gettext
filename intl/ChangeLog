@@ -1,5 +1,9 @@
 2002-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.11.4 released.
+
+2002-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 4:0:2.
 
 2002-07-23  Bruno Haible  <bruno@clisp.org>

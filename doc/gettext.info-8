@@ -31,6 +31,17 @@ versions, except that this permission notice may be stated in a
 translation approved by the Foundation.
 
 
+File: gettext.info,  Node: librep-format,  Next: smalltalk-format,  Prev: elisp-format,  Up: Translators for other Languages
+
+librep Format Strings
+---------------------
+
+   librep format strings are documented in the librep manual, section
+Formatted Output,
+<http://librep.sourceforge.net/librep-manual.html#Formatted%20Output>,
+<http://www.gwinnup.org/research/docs/librep.html#SEC122>.
+
+
 File: gettext.info,  Node: smalltalk-format,  Next: java-format,  Prev: librep-format,  Up: Translators for other Languages
 
 Smalltalk Format Strings

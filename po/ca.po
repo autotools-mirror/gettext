@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.2\n"
-"POT-Creation-Date: 2002-07-17 13:52+0200\n"
+"POT-Creation-Date: 2002-07-23 15:23+0200\n"
 "PO-Revision-Date: 2002-04-29 21:17+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -28,7 +28,7 @@ msgstr "l'argument «%s» és ambigu per «%s»"
 msgid "Valid arguments are:"
 msgstr "Els arguments vàlids són:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:171
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
 #: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
 #, c-format
 msgid "error while opening \"%s\" for reading"
@@ -150,12 +150,12 @@ msgstr "subprocés «%s»"
 msgid "%s subprocess got fatal signal %d"
 msgstr "el subprocés «%s» ha rebut el senyal fatal %d"
 
-#: src/format-c.c:589 src/format-python.c:506
+#: src/format-c.c:760 src/format-python.c:506
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "el nombre d'especificacions de format en «msgid» i «%s» no coincideix"
 
-#: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
 #, c-format
 msgid ""
@@ -1492,15 +1492,15 @@ msgstr ""
 msgid "`domain %s' directive ignored"
 msgstr "es descarta la directiva «domain %s»"
 
-#: src/msgfmt.c:1482
+#: src/msgfmt.c:1484
 msgid "empty `msgstr' entry ignored"
 msgstr "es descarta l'entrada «msgstr» buida"
 
-#: src/msgfmt.c:1483
+#: src/msgfmt.c:1485
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "es descarta l'entrada «msgstr» difusa"
 
-#: src/msgfmt.c:1552
+#: src/msgfmt.c:1554
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: avís: el fitxer font conté una traducció difusa"
@@ -2382,9 +2382,8 @@ msgstr "hi ha una seqüència multioctet incompleta al final de la línia"
 msgid "iconv failure"
 msgstr "ha fallat iconv()"
 
-#: src/po-lex.c:759 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
-#: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:104
+#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
+#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error en llegir «%s»"
@@ -2406,25 +2405,25 @@ msgstr "s'ha trobat el final de fitxer emmig d'una cadena"
 msgid "end-of-line within string"
 msgstr "s'ha trobat un final de línia emmig d'una cadena"
 
-#: src/read-mo.c:72 src/read-mo.c:137
-#, c-format
-msgid "file \"%s\" truncated"
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#, fuzzy, c-format
+msgid "file \"%s\" is truncated"
 msgstr "el fitxer «%s» és truncat"
 
-#: src/read-mo.c:103
-#, c-format
-msgid "seek \"%s\" offset %ld failed"
-msgstr "no s'ha pogut desplaçar «%s» %ld octets"
-
-#: src/read-mo.c:142
+#: src/read-mo.c:143
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fitxer «%s» conté una cadena no terminada en nul"
 
-#: src/read-mo.c:187
+#: src/read-mo.c:181 src/read-mo.c:285
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fitxer «%s» no és en el format MO de GNU"
+
+#: src/read-mo.c:191
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgstr "el fitxer «%s» conté una cadena no terminada en nul"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2468,7 +2467,7 @@ msgstr "«%s» no és un nom vàlid de classe Java"
 msgid "failed to create \"%s\""
 msgstr "no s'ha pogut crear «%s»"
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1025
+#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "error en escriure el fitxer «%s»"
@@ -2479,7 +2478,7 @@ msgstr ""
 "no s'ha pogut compil·lar la classe Java, per favor useu «--verbose» o "
 "establiu «$JAVAC»"
 
-#: src/write-mo.c:277
+#: src/write-mo.c:701
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "error en obrir «%s» per escriure"
@@ -2516,12 +2515,12 @@ msgstr "no s'ha pogut crear el fitxer d'eixida «%s»"
 msgid "standard output"
 msgstr "eixida estàndard"
 
-#: src/x-c.c:951
+#: src/x-c.c:954
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: avís: el literal caràcter no és terminat"
 
-#: src/x-c.c:975
+#: src/x-c.c:978
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: avís: el literal cadena no és terminat"
@@ -2716,3 +2715,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "el llenguatge «%s» no és conegut"
+
+#~ msgid "seek \"%s\" offset %ld failed"
+#~ msgstr "no s'ha pogut desplaçar «%s» %ld octets"

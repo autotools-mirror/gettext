@@ -580,25 +580,25 @@ as a formatting directive for outputting an `int64_t' integer through
 or something like this, depending on the platform.  Assume you have
 code like
 
-     printf ("The amount is %0" PRId64 "\n"), number);
+     printf ("The amount is %0" PRId64 "\n", number);
 
-After marking, this cannot become
+The `gettext' tools and library have special support for these
+`<inttypes.h>' macros.  You can therefore simply write
 
-     printf (gettext ("The amount is %0") PRId64 "\n"), number);
+     printf (gettext ("The amount is %0" PRId64 "\n"), number);
 
-because it would simply be invalid C syntax. It cannot become
+The PO file will contain the string "The amount is %0<PRId64>\n".  The
+translators will provide a translation containing "%0<PRId64>" as well,
+and at runtime the `gettext' function's result will contain the
+appropriate constant string, "d" or "ld" or "lld".
 
-     printf (gettext ("The amount is %0" PRId64 "\n")), number);
-
-because the value of `PRId64' is not known to `xgettext', and even if
-were, there would be three or more possibilities, and the translator
-would have to translate three or more strings that differ in a single
-letter.
-
-   The solution for this problem is to change the code like this:
+   This works only for the predefined `<inttypes.h>' macros.  If you
+have defined your own similar macros, let's say `MYPRId64', that are
+not known to `xgettext', the solution for this problem is to change the
+code like this:
 
      char buf1[100];
-     sprintf (buf1, "%0" PRId64, number);
+     sprintf (buf1, "%0" MYPRId64, number);
      printf (gettext ("The amount is %s\n"), buf1);
 
    This means, you put the platform dependent code in one statement,

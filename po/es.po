@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.2\n"
-"POT-Creation-Date: 2002-07-17 13:52+0200\n"
+"POT-Creation-Date: 2002-07-23 15:23+0200\n"
 "PO-Revision-Date: 2002-06-11 18:08-0500\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -28,7 +28,7 @@ msgstr "el argumento `%s' es ambiguo para `%s'"
 msgid "Valid arguments are:"
 msgstr "Los argumentos válidos son:"
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:171
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
 #: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
 #, c-format
 msgid "error while opening \"%s\" for reading"
@@ -155,12 +155,12 @@ msgstr "subproceso %s"
 msgid "%s subprocess got fatal signal %d"
 msgstr "el subproceso %s tiene una señal fatal %d"
 
-#: src/format-c.c:589 src/format-python.c:506
+#: src/format-c.c:760 src/format-python.c:506
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "el número de especificaciones de formato en `msgid' y '%s' no coincide"
 
-#: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
 #, c-format
 msgid ""
@@ -1636,17 +1636,17 @@ msgstr "la instrucción `domain %s' no tiene efecto"
 # Ignorar es no saber (not to know). "to ignore" es "no hacer caso".
 # Sugerencia: Descartar. sv
 # Excelente palabreja. Me gusta mucho. mm
-#: src/msgfmt.c:1482
+#: src/msgfmt.c:1484
 msgid "empty `msgstr' entry ignored"
 msgstr "se descarta la línea vacía `msgstr'"
 
 # Lo mismo. sv
 # Ok. mm
-#: src/msgfmt.c:1483
+#: src/msgfmt.c:1485
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "se descarta la línea difusa `msgstr'"
 
-#: src/msgfmt.c:1552
+#: src/msgfmt.c:1554
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: atención: el fichero fuente contiene una traducción difusa"
@@ -2547,9 +2547,8 @@ msgstr "sucesión de multibyte inválida al final de la línea"
 msgid "iconv failure"
 msgstr "fallo en iconv"
 
-#: src/po-lex.c:759 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
-#: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:104
+#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
+#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error al leer \"%s\""
@@ -2571,25 +2570,25 @@ msgstr "fin de fichero dentro de una cadena"
 msgid "end-of-line within string"
 msgstr "fin de línea dentro de una cadena"
 
-#: src/read-mo.c:72 src/read-mo.c:137
-#, c-format
-msgid "file \"%s\" truncated"
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#, fuzzy, c-format
+msgid "file \"%s\" is truncated"
 msgstr "el fichero \"%s\" está truncado"
 
-#: src/read-mo.c:103
-#, c-format
-msgid "seek \"%s\" offset %ld failed"
-msgstr "fallo en la lectura \"%s\" en la posición (offset) %ld"
-
-#: src/read-mo.c:142
+#: src/read-mo.c:143
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fichero \"%s\" contiene una cadena no terminada en NUL"
 
-#: src/read-mo.c:187
+#: src/read-mo.c:181 src/read-mo.c:285
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fichero \"%s\" no está en el formato .mo de GNU"
+
+#: src/read-mo.c:191
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgstr "el fichero \"%s\" contiene una cadena no terminada en NUL"
 
 #: src/urlget.c:150
 msgid "expected two arguments"
@@ -2632,7 +2631,7 @@ msgstr "no es un nombre de clase Java válido: %s"
 msgid "failed to create \"%s\""
 msgstr "fallo al crear \"%s\""
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1025
+#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "hubo un error al escribir el fichero \"%s\""
@@ -2642,7 +2641,7 @@ msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "fallo en la compilación de la clase Java, intente --verbose o poner $JAVAC"
 
-#: src/write-mo.c:277
+#: src/write-mo.c:701
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "error al abrir el fichero \"%s\" para escritura"
@@ -2678,12 +2677,12 @@ msgstr "no se puede crear el fichero de salida \"%s\""
 msgid "standard output"
 msgstr "salida estándar"
 
-#: src/x-c.c:951
+#: src/x-c.c:954
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: atención: constante de tipo carácter no finalizada"
 
-#: src/x-c.c:975
+#: src/x-c.c:978
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: atención: literal de cadena no finalizada"
@@ -2911,3 +2910,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "lenguaje `%s' desconocido"
+
+#~ msgid "seek \"%s\" offset %ld failed"
+#~ msgstr "fallo en la lectura \"%s\" en la posición (offset) %ld"

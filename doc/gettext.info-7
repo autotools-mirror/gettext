@@ -197,7 +197,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.11.3 distribution itself, or from the GNU `hello'
+`gettext' 0.11.4 distribution itself, or from the GNU `hello'
 distribution (`http://www.franken.de/users/gnu/ke/hello' or
 `http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
 source code of the GNU `gettext' and GNU `hello' packages, as they are
@@ -317,7 +317,7 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.11.3
+          VERSION=0.11.4
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
@@ -325,12 +325,12 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Makevars
 
      or, if you are using GNU `automake', by a line like this:
 
-          AM_INIT_AUTOMAKE(gettext, 0.11.3)
+          AM_INIT_AUTOMAKE(gettext, 0.11.4)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.11.3' by its version numbers, exactly as they should appear
+     and `0.11.4' by its version numbers, exactly as they should appear
      in the packaged `tar' file name of your distribution
-     (`gettext-0.11.3.tar.gz', here).
+     (`gettext-0.11.4.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -417,11 +417,13 @@ File: gettext.info,  Node: aclocal,  Next: acconfig,  Prev: mkinstalldirs,  Up: 
 
    If you do not have an `aclocal.m4' file in your distribution, the
 simplest is to concatenate the files `codeset.m4', `gettext.m4',
-`glibc21.m4', `iconv.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
-`lib-link.m4', `lib-prefix.m4', `progtest.m4' from GNU `gettext''s
-`m4/' directory into a single file.  If you have suppressed the `intl/'
-directory, only `gettext.m4', `iconv.m4', `lib-ld.m4', `lib-link.m4',
-`lib-prefix.m4', `progtest.m4' need to be concatenated.
+`glibc21.m4', `iconv.m4', `intdiv0.m4', `inttypes.m4', `inttypes_h.m4',
+`inttypes-pri.m4', `isc-posix.m4', `lcmessage.m4', `lib-ld.m4',
+`lib-link.m4', `lib-prefix.m4', `progtest.m4', `stdint_h.m4',
+`uintmax_t.m4' from GNU `gettext''s `m4/' directory into a single file.
+If you have suppressed the `intl/' directory, only `gettext.m4',
+`iconv.m4', `lib-ld.m4', `lib-link.m4', `lib-prefix.m4', `progtest.m4'
+need to be concatenated.
 
    If you already have an `aclocal.m4' file, then you will have to
 merge the said macro files into your `aclocal.m4'.  Note that if you
@@ -724,7 +726,13 @@ of `AM_DISABLE_SHARED'). If INTLSYMBOL is `no-libtool', a static library
 
    If NEEDSYMBOL is specified and is `need-ngettext', then GNU gettext
 implementations (in libc or libintl) without the `ngettext()' function
-will be ignored.
+will be ignored.  If NEEDSYMBOL is specified and is
+`need-formatstring-macros', then GNU gettext implementations that don't
+support the ISO C 99 `<inttypes.h>' formatstring macros will be ignored.
+Only one NEEDSYMBOL can be specified.  To specify more than one
+requirement, just specify the strongest one among them.  The hierarchy
+among the various alternatives is as follows: `need-formatstring-macros'
+implies `need-ngettext'.
 
    INTLDIR is used to find the intl libraries.  If empty, the value
 `$(top_builddir)/intl/' is used.
@@ -925,7 +933,7 @@ repository all the files that `gettextize' mentions as "copy".
 Instead, he adds to the `configure.in' or `configure.ac' a line of the
 form
 
-     GETTEXT_VERSION=0.11.3
+     GETTEXT_VERSION=0.11.4
 
 and adds to the package's pre-build script an invocation of
 `autopoint'.  For everyone who checks out the CVS, this `autopoint'
@@ -970,8 +978,8 @@ Informative output
      Output version information and exit.
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.11.3.  In order to apply `autopoint' to a package using
-a `gettext' version newer than 0.11.3, you need to install this same
+current one, 0.11.4.  In order to apply `autopoint' to a package using
+a `gettext' version newer than 0.11.4, you need to install this same
 version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
@@ -1182,15 +1190,4 @@ section Formatting Strings,
 `http://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75'.
 Note that as of version 21, XEmacs supports numbered argument
 specifications in format strings while FSF Emacs doesn't.
-
-
-File: gettext.info,  Node: librep-format,  Next: smalltalk-format,  Prev: elisp-format,  Up: Translators for other Languages
-
-librep Format Strings
----------------------
-
-   librep format strings are documented in the librep manual, section
-Formatted Output,
-<http://librep.sourceforge.net/librep-manual.html#Formatted%20Output>,
-<http://www.gwinnup.org/research/docs/librep.html#SEC122>.
 

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.39\n"
-"POT-Creation-Date: 2002-07-17 13:52+0200\n"
+"POT-Creation-Date: 2002-07-23 15:23+0200\n"
 "PO-Revision-Date: 2001-07-28 17:00+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <gpul-traduccion@ceu.fi.udc.es>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Valid arguments are:"
 msgstr ""
 
-#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:171
+#: lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:728 src/read-mo.c:263
 #: src/urlget.c:204 src/xgettext.c:837 src/xgettext.c:850 src/xgettext.c:860
 #, c-format
 msgid "error while opening \"%s\" for reading"
@@ -154,13 +154,13 @@ msgstr ""
 msgid "%s subprocess got fatal signal %d"
 msgstr ""
 
-#: src/format-c.c:589 src/format-python.c:506
+#: src/format-c.c:760 src/format-python.c:506
 #, fuzzy, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr ""
 "o número de especificacións de formato en `msgid' e `msgstr' non coincide"
 
-#: src/format-c.c:603 src/format-elisp.c:389 src/format-librep.c:353
+#: src/format-c.c:774 src/format-elisp.c:389 src/format-librep.c:353
 #: src/format-pascal.c:443 src/format-python.c:520
 #, fuzzy, c-format
 msgid ""
@@ -1377,15 +1377,15 @@ msgstr ""
 msgid "`domain %s' directive ignored"
 msgstr "directiva `domain %s' ignorada"
 
-#: src/msgfmt.c:1482
+#: src/msgfmt.c:1484
 msgid "empty `msgstr' entry ignored"
 msgstr "entrada `msgstr' baleira ignorada"
 
-#: src/msgfmt.c:1483
+#: src/msgfmt.c:1485
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "entrada `msgstr' difusa ignorada"
 
-#: src/msgfmt.c:1552
+#: src/msgfmt.c:1554
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: aviso: o ficheiro fonte contén traduccións difusas"
@@ -2074,9 +2074,8 @@ msgstr "secuencia multibyte non válida"
 msgid "iconv failure"
 msgstr ""
 
-#: src/po-lex.c:759 src/read-mo.c:71 src/read-mo.c:136 src/x-c.c:296
-#: src/x-elisp.c:172 src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227
-#: src/x-ycp.c:104
+#: src/po-lex.c:759 src/read-mo.c:95 src/x-c.c:299 src/x-elisp.c:172
+#: src/x-librep.c:171 src/x-lisp.c:236 src/x-rst.c:227 src/x-ycp.c:104
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "erro ao ler \"%s\""
@@ -2098,25 +2097,25 @@ msgstr "fin de ficheiro nunha cadea"
 msgid "end-of-line within string"
 msgstr "fin de liña nunha cadea"
 
-#: src/read-mo.c:72 src/read-mo.c:137
-#, c-format
-msgid "file \"%s\" truncated"
+#: src/read-mo.c:116 src/read-mo.c:140 src/read-mo.c:188 src/read-mo.c:210
+#, fuzzy, c-format
+msgid "file \"%s\" is truncated"
 msgstr "ficheiro \"%s\" truncado"
 
-#: src/read-mo.c:103
-#, c-format
-msgid "seek \"%s\" offset %ld failed"
-msgstr "fallo ao desprazarse á posición %2$ld de \"%1$s\""
-
-#: src/read-mo.c:142
+#: src/read-mo.c:143
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "o ficheiro \"%s\" contén unha cadea non rematada en NUL"
 
-#: src/read-mo.c:187
+#: src/read-mo.c:181 src/read-mo.c:285
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "o ficheiro \"%s\" non está no formato .mo de GNU"
+
+#: src/read-mo.c:191
+#, fuzzy, c-format
+msgid "file \"%s\" contains a not NUL terminated sysdep segment"
+msgstr "o ficheiro \"%s\" contén unha cadea non rematada en NUL"
 
 #: src/urlget.c:150
 #, fuzzy
@@ -2159,7 +2158,7 @@ msgstr ""
 msgid "failed to create \"%s\""
 msgstr ""
 
-#: src/write-java.c:1210 src/write-mo.c:289 src/write-po.c:1025
+#: src/write-java.c:1210 src/write-mo.c:713 src/write-po.c:1025
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "erro ao escribi-lo ficheiro \"%s\""
@@ -2168,7 +2167,7 @@ msgstr "erro ao escribi-lo ficheiro \"%s\""
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 
-#: src/write-mo.c:277
+#: src/write-mo.c:701
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "erro ao abrir \"%s\" para escribir"
@@ -2199,12 +2198,12 @@ msgstr "non se pode crea-lo ficheiro de saída \"%s\""
 msgid "standard output"
 msgstr "saída estándar"
 
-#: src/x-c.c:951
+#: src/x-c.c:954
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: aviso: constante de tipo carácter non rematada"
 
-#: src/x-c.c:975
+#: src/x-c.c:978
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: aviso: literal de cadea non rematada"
@@ -2355,6 +2354,9 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "linguaxe `%s' descoñecida"
+
+#~ msgid "seek \"%s\" offset %ld failed"
+#~ msgstr "fallo ao desprazarse á posición %2$ld de \"%1$s\""
 
 #, fuzzy
 #~ msgid "a format specification for argument {%u} doesn't exist in 'msgstr'"

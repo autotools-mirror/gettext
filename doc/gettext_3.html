@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 16 July 2002 -->
+     from gettext.texi on 24 July 2002 -->
 
 <TITLE>GNU gettext utilities - 3  Preparing Program Sources</TITLE>
 </HEAD>
@@ -360,42 +360,37 @@ Assume you have code like
 </P>
 
 <PRE>
-printf ("The amount is %0" PRId64 "\n"), number);
+printf ("The amount is %0" PRId64 "\n", number);
 </PRE>
 
 <P>
-After marking, this cannot become
+The <CODE>gettext</CODE> tools and library have special support for these
+<CODE>&#60;inttypes.h&#62;</CODE> macros.  You can therefore simply write
 
 </P>
 
 <PRE>
-printf (gettext ("The amount is %0") PRId64 "\n"), number);
+printf (gettext ("The amount is %0" PRId64 "\n"), number);
 </PRE>
 
 <P>
-because it would simply be invalid C syntax. It cannot become
-
-</P>
-
-<PRE>
-printf (gettext ("The amount is %0" PRId64 "\n")), number);
-</PRE>
-
-<P>
-because the value of <CODE>PRId64</CODE> is not known to <CODE>xgettext</CODE>, and
-even if were, there would be three or more possibilities, and the
-translator would have to translate three or more strings that differ in
-a single letter.
+The PO file will contain the string "The amount is %0&#60;PRId64&#62;\n".
+The translators will provide a translation containing "%0&#60;PRId64&#62;"
+as well, and at runtime the <CODE>gettext</CODE> function's result will
+contain the appropriate constant string, "d" or "ld" or "lld".
 
 </P>
 <P>
-The solution for this problem is to change the code like this:
+This works only for the predefined <CODE>&#60;inttypes.h&#62;</CODE> macros.  If
+you have defined your own similar macros, let's say <SAMP>`MYPRId64&acute;</SAMP>,
+that are not known to <CODE>xgettext</CODE>, the solution for this problem
+is to change the code like this:
 
 </P>
 
 <PRE>
 char buf1[100];
-sprintf (buf1, "%0" PRId64, number);
+sprintf (buf1, "%0" MYPRId64, number);
 printf (gettext ("The amount is %s\n"), buf1);
 </PRE>
 

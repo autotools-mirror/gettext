@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 16 July 2002 -->
+     from gettext.texi on 24 July 2002 -->
 
 <TITLE>GNU gettext utilities - 12  The Maintainer's View</TITLE>
 </HEAD>
@@ -438,7 +438,7 @@ changes needed in each.
 <P>
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.11.3 distribution itself, or from the GNU
+<CODE>gettext</CODE> 0.11.4 distribution itself, or from the GNU
 <CODE>hello</CODE> distribution (<A HREF="http://www.franken.de/users/gnu/ke/hello">http://www.franken.de/users/gnu/ke/hello</A>
 or <A HREF="http://www.gnu.franken.de/ke/hello/">http://www.gnu.franken.de/ke/hello/</A>)  You may indeed
 refer to the source code of the GNU <CODE>gettext</CODE> and GNU <CODE>hello</CODE>
@@ -583,7 +583,7 @@ This is done by a set of lines like these:
 
 <PRE>
 PACKAGE=gettext
-VERSION=0.11.3
+VERSION=0.11.4
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -594,13 +594,13 @@ or, if you are using GNU <CODE>automake</CODE>, by a line like this:
 
 
 <PRE>
-AM_INIT_AUTOMAKE(gettext, 0.11.3)
+AM_INIT_AUTOMAKE(gettext, 0.11.4)
 </PRE>
 
 Of course, you replace <SAMP>`gettext&acute;</SAMP> with the name of your package,
-and <SAMP>`0.11.3&acute;</SAMP> by its version numbers, exactly as they
+and <SAMP>`0.11.4&acute;</SAMP> by its version numbers, exactly as they
 should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>`gettext-0.11.3.tar.gz&acute;</TT>, here).
+(<TT>`gettext-0.11.4.tar.gz&acute;</TT>, here).
 
 <LI>Check for internationalization support.
 
@@ -716,9 +716,11 @@ AC_CONFIG_AUX_DIR([<VAR>subdir</VAR>])
 <P>
 If you do not have an <TT>`aclocal.m4&acute;</TT> file in your distribution,
 the simplest is to concatenate the files <TT>`codeset.m4&acute;</TT>,
-<TT>`gettext.m4&acute;</TT>, <TT>`glibc21.m4&acute;</TT>, <TT>`iconv.m4&acute;</TT>, <TT>`isc-posix.m4&acute;</TT>,
-<TT>`lcmessage.m4&acute;</TT>, <TT>`lib-ld.m4&acute;</TT>, <TT>`lib-link.m4&acute;</TT>,
-<TT>`lib-prefix.m4&acute;</TT>, <TT>`progtest.m4&acute;</TT> from GNU <CODE>gettext</CODE>'s
+<TT>`gettext.m4&acute;</TT>, <TT>`glibc21.m4&acute;</TT>, <TT>`iconv.m4&acute;</TT>, <TT>`intdiv0.m4&acute;</TT>,
+<TT>`inttypes.m4&acute;</TT>, <TT>`inttypes_h.m4&acute;</TT>, <TT>`inttypes-pri.m4&acute;</TT>,
+<TT>`isc-posix.m4&acute;</TT>, <TT>`lcmessage.m4&acute;</TT>, <TT>`lib-ld.m4&acute;</TT>,
+<TT>`lib-link.m4&acute;</TT>, <TT>`lib-prefix.m4&acute;</TT>, <TT>`progtest.m4&acute;</TT>,
+<TT>`stdint_h.m4&acute;</TT>, <TT>`uintmax_t.m4&acute;</TT> from GNU <CODE>gettext</CODE>'s
 <TT>`m4/&acute;</TT> directory into a single file.  If you have suppressed the
 <TT>`intl/&acute;</TT> directory, only <TT>`gettext.m4&acute;</TT>, <TT>`iconv.m4&acute;</TT>,
 <TT>`lib-ld.m4&acute;</TT>, <TT>`lib-link.m4&acute;</TT>, <TT>`lib-prefix.m4&acute;</TT>,
@@ -1157,7 +1159,13 @@ presence of <CODE>AM_DISABLE_SHARED</CODE>). If <VAR>intlsymbol</VAR> is
 <P>
 If <VAR>needsymbol</VAR> is specified and is <SAMP>`need-ngettext&acute;</SAMP>, then GNU
 gettext implementations (in libc or libintl) without the <CODE>ngettext()</CODE>
-function will be ignored.
+function will be ignored.  If <VAR>needsymbol</VAR> is specified and is
+<SAMP>`need-formatstring-macros&acute;</SAMP>, then GNU gettext implementations that don't
+support the ISO C 99 <TT>`&#60;inttypes.h&#62;&acute;</TT> formatstring macros will be ignored.
+Only one <VAR>needsymbol</VAR> can be specified.  To specify more than one
+requirement, just specify the strongest one among them.  The hierarchy among
+the various alternatives is as follows: <SAMP>`need-formatstring-macros&acute;</SAMP>
+implies <SAMP>`need-ngettext&acute;</SAMP>.
 
 </P>
 <P>
@@ -1434,7 +1442,7 @@ form
 </P>
 
 <PRE>
-GETTEXT_VERSION=0.11.3
+GETTEXT_VERSION=0.11.4
 </PRE>
 
 <P>
@@ -1511,8 +1519,8 @@ Output version information and exit.
 
 <P>
 <CODE>autopoint</CODE> supports the GNU <CODE>gettext</CODE> versions from 0.10.35 to
-the current one, 0.11.3.  In order to apply <CODE>autopoint</CODE> to
-a package using a <CODE>gettext</CODE> version newer than 0.11.3, you
+the current one, 0.11.4.  In order to apply <CODE>autopoint</CODE> to
+a package using a <CODE>gettext</CODE> version newer than 0.11.4, you
 need to install this same version of GNU <CODE>gettext</CODE> at least.
 
 </P>

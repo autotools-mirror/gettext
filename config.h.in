@@ -129,9 +129,12 @@
 /* Define if you have the `inet_ntop' function. */
 #undef HAVE_INET_NTOP
 
+/* Define if <inttypes.h> exists and doesn't clash with <sys/types.h>. */
+#undef HAVE_INTTYPES_H
+
 /* Define if <inttypes.h> exists, doesn't clash with <sys/types.h>, and
    declares uintmax_t. */
-#undef HAVE_INTTYPES_H
+#undef HAVE_INTTYPES_H_WITH_UINTMAX
 
 /* Define if <sys/socket.h> defines AF_INET6. */
 #undef HAVE_IPV6
@@ -245,9 +248,12 @@
 /* Define if you have the <stddef.h> header file. */
 #undef HAVE_STDDEF_H
 
+/* Define if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
 /* Define if <stdint.h> exists, doesn't clash with <sys/types.h>, and declares
    uintmax_t. */
-#undef HAVE_STDINT_H
+#undef HAVE_STDINT_H_WITH_UINTMAX
 
 /* Define if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
@@ -383,6 +389,9 @@
 
 /* Name of package */
 #undef PACKAGE
+
+/* Define if <inttypes.h> exists and defines unusable PRI* macros. */
+#undef PRI_MACROS_BROKEN
 
 /* Define as const if the declaration of setlocale() needs const. */
 #undef SETLOCALE_CONST

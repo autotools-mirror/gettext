@@ -1,5 +1,9 @@
 2002-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.11.4 released.
+
+2002-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* add-to-archive: New file.
 	* add-to-autopoint-files: Remove file.
 	* cvsuser.c: New file.

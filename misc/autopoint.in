@@ -171,6 +171,7 @@ fi
 #      0.11.1                   740
 #      0.11.2                   748
 #      0.11.3                   804
+#      0.11.4                   864
 #
 # The requirement that the user must have the CVS program available is not
 # a severe restrictions, because most of the people who use autopoint are

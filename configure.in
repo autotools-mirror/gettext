@@ -2,8 +2,8 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 AC_INIT
 AC_CONFIG_SRCDIR(src/msgfmt.c)
-AM_INIT_AUTOMAKE(gettext, 0.11.3)
-RELEASE_DATE=2002-07-17      dnl in "date +%Y-%m-%d" format
+AM_INIT_AUTOMAKE(gettext, 0.11.4)
+RELEASE_DATE=2002-07-25      dnl in "date +%Y-%m-%d" format
 AM_CONFIG_HEADER(config.h)
 
 dnl Checks for programs.
