@@ -319,7 +319,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       if (domain->symbol_tab.filled != 0)
 	{
 	  if (strcmp (domain->domain_name, "-") == 0)
-	    output_file = stdout;
+	    {
+	      output_file = stdout;
+	      setmode (fileno (output_file), O_BINARY);
+	    }
 	  else
 	    {
 	      const char *fname;
@@ -327,7 +330,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	      fname = strict_uniforum ? add_mo_suffix (domain->domain_name)
 				      : domain->domain_name;
 
-	      output_file = fopen (fname, "w");
+	      output_file = fopen (fname, "wb");
 	      if (output_file == NULL)
 		{
 		  error (0, errno,

@@ -128,4 +128,27 @@ extern char *gnu_basename PARAMS ((const char *));
 # define basename(Arg) gnu_basename (Arg)
 #endif
 
+
+#include <fcntl.h>
+/* For systems that distinguish between text and binary I/O.
+   O_BINARY is usually declared in <fcntl.h>. */
+#if !defined O_BINARY && defined _O_BINARY
+  /* For MSC-compatible compilers.  */
+# define O_BINARY _O_BINARY
+# define O_TEXT _O_TEXT
+#endif
+#ifdef __BEOS__
+  /* BeOS 5 has O_BINARY and O_TEXT, but they have no effect.  */
+# undef O_BINARY
+# undef O_TEXT
+#endif
+#if O_BINARY
+# if !(defined(__EMX__) || defined(__DJGPP__))
+#  define setmode _setmode
+#  define fileno _fileno
+# endif
+#else
+# define setmode(fd, mode) /* nothing */
+#endif
+
 #endif

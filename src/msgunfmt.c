@@ -348,7 +348,10 @@ read_mo_file (mlp, fn)
   int j;
 
   if (strcmp (fn, "-") == 0 || strcmp (fn, "/dev/stdin") == 0)
-    fp = stdin;
+    {
+      fp = stdin;
+      setmode (fileno (fp), O_BINARY);
+    }
   else
     {
       fp = fopen (fn, "rb");

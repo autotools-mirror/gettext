@@ -1,3 +1,8 @@
+2001-02-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt.c (main): Open the output file in binary mode.
+	* msgunfmt.c (read_mo_file): Open the input file in binary mode.
+
 2001-01-21  Bruno Haible  <haible@clisp.cons.org>
 
 	Use libtool.
