@@ -2122,7 +2122,7 @@ The character encoding name can be written in either upper or lower case.
 Usually upper case is preferred.
 
 @item Content-Transfer-Encoding
-Set this to @code{8-bit}.
+Set this to @code{8bit}.
 
 @item Plural-Forms
 This field is optional.  It is only needed if the PO file has plural forms.
