@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 2001-05-20 02:20+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@technologist.com>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -790,7 +790,7 @@ msgstr "dizgi içinde dosya sonu"
 msgid "end-of-line within string"
 msgstr "dizgi içinde satýr sonu"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -845,23 +845,23 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "i18n iletileri `\\%c' öncelem dizilerini içeremez"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "\"%s\" çýktý dosyasý oluþturulamadý"
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "standart çýktý"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" dosyasýna yazarken hata"

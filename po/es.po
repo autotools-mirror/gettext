@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 1998-04-29 12:04-0500\n"
 "Last-Translator: Max de Mendizábal <max@tirania.nuclecu.unam.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # Nota: El error es del sistema, pero no se sabe cuál es el error,
@@ -1122,7 +1122,7 @@ msgstr "fin de fichero dentro de una cadena"
 msgid "end-of-line within string"
 msgstr "fin de línea dentro de una cadena"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "secuencia de control ilegal"
@@ -1179,7 +1179,7 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr "%s: atención: el fichero fuente contiene una traducción difusa"
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
@@ -1187,17 +1187,17 @@ msgstr ""
 "Los mensajes internacionalizados no deben contener la secuencia de escape `\\"
 "%c'"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "no se puede crear el fichero de salida \"%s\""
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "salida estándar"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "hubo un error al escribir el fichero \"%s\""

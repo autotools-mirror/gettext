@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 1999-09-19 10:24+07:00\n"
 "Last-Translator: Tedi Heriyanto <tedi-h@usa.net>\n"
 "Language-Team: Indonesian <id@li.org>\n"
@@ -769,7 +769,7 @@ msgstr "end-of-file dalam string"
 msgid "end-of-line within string"
 msgstr "end-of-line dalam string"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -824,23 +824,23 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "Pesan internasionalisasi tidak boleh mengandung escape sequence `\\%c'"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "tidak dapat membuat file output \"%s\""
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "standard output"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "kesalahan saat menulis file \"%s\""

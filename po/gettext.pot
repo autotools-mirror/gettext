@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -616,7 +616,7 @@ msgstr ""
 msgid "end-of-line within string"
 msgstr ""
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -671,23 +671,23 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr ""
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr ""
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr ""

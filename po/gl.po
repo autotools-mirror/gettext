@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 2000-05-30 10:03+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <gpul-traduccion@ceu.fi.udc.es>\n"
@@ -803,7 +803,7 @@ msgstr "fin de ficheiro nunha cadea"
 msgid "end-of-line within string"
 msgstr "fin de liña nunha cadea"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -858,24 +858,24 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 "as mensaxes internacionalizadas non deben conte-la secuencia de escape `\\%c'"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "non se pode crea-lo ficheiro de saída \"%s\""
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "saída estándar"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "erro ó escribi-lo ficheiro \"%s\""

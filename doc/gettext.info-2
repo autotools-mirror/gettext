@@ -1010,7 +1010,7 @@ Content-Type
      lower case.  Usually upper case is preferred.
 
 Content-Transfer-Encoding
-     Set this to `8-bit'.
+     Set this to `8bit'.
 
 Plural-Forms
      This field is optional.  It is only needed if the PO file has

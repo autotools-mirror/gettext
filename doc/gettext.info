@@ -34,9 +34,9 @@ translation approved by the Foundation.
 Indirect:
 gettext.info-1: 1411
 gettext.info-2: 49085
-gettext.info-3: 98511
-gettext.info-4: 147276
-gettext.info-5: 196307
+gettext.info-3: 98510
+gettext.info-4: 147275
+gettext.info-5: 196306
 
 Tag Table:
 (Indirect)
@@ -64,75 +64,75 @@ Node: Special cases78026
 Node: Template80888
 Node: xgettext Invocation81240
 Node: Creating85050
-Node: Updating91362
-Node: msgmerge Invocation92115
-Node: Translated Entries92289
-Node: Fuzzy Entries93580
-Node: Untranslated Entries96675
-Node: Obsolete Entries98511
-Node: Modifying Translations101643
-Node: Modifying Comments109464
-Node: Subedit113772
-Node: C Sources Context117548
-Node: Auxiliary122514
-Node: Compendium125613
-Node: Binaries126309
-Node: msgfmt Invocation126573
-Node: MO Files129201
-Node: Users137290
-Node: Matrix138773
-Node: Installers139977
-Node: End Users141147
-Node: Programmers141796
-Node: catgets142968
-Node: Interface to catgets144372
-Node: Problems with catgets146376
-Node: gettext147276
-Node: Interface to gettext148734
-Node: Ambiguities151075
-Node: Locating Catalogs153768
-Ref: Locating Catalogs-Footnote-1154915
-Ref: Locating Catalogs-Footnote-2155140
-Node: Charset conversion155289
-Node: Plural forms157731
-Ref: Plural forms-Footnote-1168079
-Node: GUI program problems168171
-Node: Optimized gettext173275
-Node: Comparison174608
-Node: Using libintl.a178880
-Node: gettext grok179657
-Node: Temp Programmers182289
-Node: Temp Implementations182729
-Node: Temp catgets184095
-Node: Temp WSI185782
-Node: Temp Notes187770
-Node: Translators188259
-Node: Trans Intro 0188638
-Node: Trans Intro 1191287
-Node: Discussions193151
-Node: Organization196307
-Node: Central Coordination198288
-Node: National Teams199416
-Node: Sub-Cultures201928
-Node: Organizational Ideas202847
-Node: Mailing Lists203850
-Node: Information Flow205653
-Node: Maintainers207786
-Node: Flat and Non-Flat209545
-Node: Prerequisites211028
-Node: gettextize Invocation215150
-Node: Adjusting Files218722
-Node: po/POTFILES.in220019
-Node: configure.in220963
-Node: config.guess223094
-Node: aclocal224153
-Node: acconfig225271
-Node: Makefile225754
-Node: src/Makefile228202
-Node: Conclusion231104
-Node: History231594
-Node: References235054
-Node: Language Codes236609
-Node: Country Codes240512
+Node: Updating91361
+Node: msgmerge Invocation92114
+Node: Translated Entries92288
+Node: Fuzzy Entries93579
+Node: Untranslated Entries96674
+Node: Obsolete Entries98510
+Node: Modifying Translations101642
+Node: Modifying Comments109463
+Node: Subedit113771
+Node: C Sources Context117547
+Node: Auxiliary122513
+Node: Compendium125612
+Node: Binaries126308
+Node: msgfmt Invocation126572
+Node: MO Files129200
+Node: Users137289
+Node: Matrix138772
+Node: Installers139976
+Node: End Users141146
+Node: Programmers141795
+Node: catgets142967
+Node: Interface to catgets144371
+Node: Problems with catgets146375
+Node: gettext147275
+Node: Interface to gettext148733
+Node: Ambiguities151074
+Node: Locating Catalogs153767
+Ref: Locating Catalogs-Footnote-1154914
+Ref: Locating Catalogs-Footnote-2155139
+Node: Charset conversion155288
+Node: Plural forms157730
+Ref: Plural forms-Footnote-1168078
+Node: GUI program problems168170
+Node: Optimized gettext173274
+Node: Comparison174607
+Node: Using libintl.a178879
+Node: gettext grok179656
+Node: Temp Programmers182288
+Node: Temp Implementations182728
+Node: Temp catgets184094
+Node: Temp WSI185781
+Node: Temp Notes187769
+Node: Translators188258
+Node: Trans Intro 0188637
+Node: Trans Intro 1191286
+Node: Discussions193150
+Node: Organization196306
+Node: Central Coordination198287
+Node: National Teams199415
+Node: Sub-Cultures201927
+Node: Organizational Ideas202846
+Node: Mailing Lists203849
+Node: Information Flow205652
+Node: Maintainers207785
+Node: Flat and Non-Flat209544
+Node: Prerequisites211027
+Node: gettextize Invocation215149
+Node: Adjusting Files218721
+Node: po/POTFILES.in220018
+Node: configure.in220962
+Node: config.guess223093
+Node: aclocal224152
+Node: acconfig225284
+Node: Makefile225767
+Node: src/Makefile228215
+Node: Conclusion231117
+Node: History231607
+Node: References235067
+Node: Language Codes236622
+Node: Country Codes240525
 
 End Tag Table

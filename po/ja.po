@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 1999-09-24 23:45+09:00\n"
 "Last-Translator: JUN SAWATAISHI <jsawa@attglobal.net>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=sjis\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/error.c:115
@@ -765,7 +765,7 @@ msgstr "文字列の中途でファイルが終了しました"
 msgid "end-of-line within string"
 msgstr "文字列の中で改行しています"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 #, fuzzy
 msgid "invalid multibyte sequence"
 msgstr "不正なコントロールシーケンスが検出されました"
@@ -826,24 +826,24 @@ msgstr ""
 "%s: 警告: ヘッダに文字セットの記述がありません\n"
 "%*s 警告: 文字セットの変換はできないでしょう"
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
 "国際化されたメッセージはエスケープシーケンス`\\%c'をふくんではなりません "
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "出力ファイル \"%s\"を作成できない"
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "標準出力"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "ファイル \"%s\" の書き込みエラー"

@@ -5,13 +5,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.35\n"
-"POT-Creation-Date: 2001-04-18 22:38+0200\n"
+"POT-Creation-Date: 2001-05-23 23:03+0200\n"
 "PO-Revision-Date: 1998-11-12 18:00 +0800\n"
 "Last-Translator: Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>\n"
 "Language-Team: Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=big5\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: lib/error.c:115
 msgid "Unknown system error"
@@ -751,7 +751,7 @@ msgstr "在字串中間發現檔案結束字元 (EOF)"
 msgid "end-of-line within string"
 msgstr "在字串中間發現行結束字元 (end-of-line)"
 
-#: src/po-lex.c:528 src/write-po.c:285 src/write-po.c:367
+#: src/po-lex.c:528 src/write-po.c:291 src/write-po.c:373
 msgid "invalid multibyte sequence"
 msgstr ""
 
@@ -806,23 +806,23 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 
-#: src/write-po.c:316
+#: src/write-po.c:322
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "要國際化的訊息不應含有 `\\%c' 這個溢出序列字元"
 
-#: src/write-po.c:857
+#: src/write-po.c:863
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "輸出檔 \"%s\" 無法建立"
 
-#: src/write-po.c:864
+#: src/write-po.c:870
 #, no-c-format
 msgid "standard output"
 msgstr "標準輸出"
 
-#: src/write-po.c:939
+#: src/write-po.c:945
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "當寫入 \"%s\" 這個檔案時發生錯誤"
