@@ -1,8 +1,5 @@
 Things we plan to do. Comments welcome.
 
-- For gcc: Making the .pot files is maintainer mode; otherwise building
-  breaks for normal users which don't have all the source.
-
 - Respect the GNU standard targets in intl/Makefile.in and po/Makefile.in.in.
 
 - gettextize needs not copy intl/ChangeLog. Instead create an empty ChangeLog,
