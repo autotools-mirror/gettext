@@ -1,3 +1,8 @@
+2003-05-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (DEFS): Fix spelling of DEPENDS_ON_LIBICONV.
+	* Makefile.msvc (CFLAGS): Likewise.
+
 2003-05-03  Bruno Haible  <bruno@clisp.org>
 
 	Upgrade to Unicode-4.0.
@@ -46,7 +51,7 @@
 
 	* relocatable.c: Rely on DEPENDS_ON_LIBCHARSET, DEPENDS_ON_LIBICONV,
 	DEPENDS_ON_LIBINTL, not on NO_LIBRARIES.
-	* Makefile.am (DEFS): Define DEPENDS_ON_LIBINTL and DEPENDS_ON_LIBCONV,
+	* Makefile.am (DEFS): Define DEPENDS_ON_LIBINTL and DEPENDS_ON_LIBICONV,
 	for relocatable.c.
 	* Makefile.msvc (CFLAGS): Also define DEPENDS_ON_LIBINTL and
 	DEPENDS_ON_LIBCONV.
