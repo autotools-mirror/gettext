@@ -1,3 +1,8 @@
+2001-07-07  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-compute-counters): Don't count the header entry.
+	Reported by Bernd Schandl.
+
 2001-07-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* po-mode.el (po-content-type-charset-alist): Add entries for

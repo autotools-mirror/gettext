@@ -929,6 +929,11 @@ Then, update the mode line counters."
   (let ((position 0) (total 0) here)
     (save-excursion
       (goto-char (point-min))
+      ;; While counting, skip the header entry, for consistency with msgfmt.
+      (po-find-span-of-entry)
+      (when (string= (po-get-msgid nil) "")
+        (po-next-entry))
+      ;; Start counting
       (while (re-search-forward po-any-msgstr-regexp nil t)
 	(and (= (% total 20) 0)
 	     (if flag
