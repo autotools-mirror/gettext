@@ -1,3 +1,7 @@
+2003-10-23  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat-13: Change expected result.
+
 2003-10-21  Bruno Haible  <bruno@clisp.org>
 
 	* lang-bash: Hide the warning about deprecated syntax.

@@ -23,7 +23,7 @@ is completely ignored, even if in "quotes", or \escape characters, etc.
 	= 
 		"0.000250 0.000250";
 
-/* a key with no value assumes the value is the same as the key */
+/* a key with no value assumes the value is the empty string */
 "hoe322070.element";
 EOF
 
@@ -57,7 +57,7 @@ msgstr "0.000250 0.000250"
 
 # a key with no value assumes the value is the same as the key
 msgid "hoe322070.element"
-msgstr "hoe322070.element"
+msgstr ""
 EOF
 
 : ${DIFF=diff}
