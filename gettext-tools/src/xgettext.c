@@ -32,6 +32,7 @@
 #include <limits.h>
 
 #include "xgettext.h"
+#include "closeout.h"
 #include "dir-list.h"
 #include "file-list.h"
 #include "str-list.h"
@@ -248,6 +249,9 @@ main (int argc, char *argv[])
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;

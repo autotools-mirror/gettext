@@ -1,3 +1,11 @@
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
+	Fix behaviour of "<program> --help > /dev/full".
+	* gettext.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* ngettext.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+
 2003-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms (LDADD): Take options from .opt files.

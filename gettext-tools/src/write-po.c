@@ -1094,7 +1094,9 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
   if (fflush (fp) || ferror (fp))
     error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	   filename);
-  fclose (fp);
+
+  if (fp != stdout)
+    fclose (fp);
 }
 
 

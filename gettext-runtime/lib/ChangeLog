@@ -1,3 +1,11 @@
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Add closeout.h, closeout.c.
+	* Makefile.msvc (OBJECTS): Add closeout.obj.
+	(closeout.obj): New rule.
+	* Makefile.vms (OBJECTS): Add closeout.obj.
+	(closeout.obj): New rule.
+
 2003-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* readlink.c: New file, trivial link to ../../gettext-tools/lib.

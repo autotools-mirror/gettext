@@ -26,6 +26,7 @@
 #include <locale.h>
 #include <errno.h>
 
+#include "closeout.h"
 #include "error.h"
 #include "progname.h"
 #include "relocatable.h"
@@ -85,6 +86,9 @@ main (int argc, char *argv[])
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "+d:eEhV", long_options, NULL))

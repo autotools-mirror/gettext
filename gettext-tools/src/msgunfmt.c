@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#include "closeout.h"
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"
@@ -114,6 +115,9 @@ main (int argc, char **argv)
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:pr:svVw:",
 				 long_options, NULL))

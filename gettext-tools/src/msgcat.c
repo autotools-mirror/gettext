@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#include "closeout.h"
 #include "dir-list.h"
 #include "str-list.h"
 #include "file-list.h"
@@ -116,6 +117,9 @@ main (int argc, char **argv)
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   /* Set default values for variables.  */
   do_help = false;

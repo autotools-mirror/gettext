@@ -26,6 +26,7 @@ c_isupper
 c_isxdigit
 c_tolower
 c_toupper
+close_stdout
 compile_java_class
 concatenated_pathname
 copy_file_preserving

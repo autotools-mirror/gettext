@@ -52,12 +52,15 @@ RM = -del
 
 SHELL = /bin/sh
 
-OBJECTS = basename.obj error.obj getopt.obj getopt1.obj progname.obj progreloc.obj relocatable.obj xmalloc.obj xstrdup.obj
+OBJECTS = basename.obj closeout.obj error.obj getopt.obj getopt1.obj progname.obj progreloc.obj relocatable.obj xmalloc.obj xstrdup.obj
 
 all : grt.lib
 
 basename.obj : ..\..\gettext-tools\lib\basename.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\basename.c
+
+closeout.obj : ..\..\gettext-tools\lib\closeout.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\closeout.c
 
 error.obj : ..\..\gettext-tools\lib\error.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\error.c

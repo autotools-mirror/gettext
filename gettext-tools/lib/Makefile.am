@@ -37,6 +37,7 @@ libgettextlib_la_SOURCES = \
   binary-io.h \
   c-ctype.h c-ctype.c \
   classpath.h classpath.c \
+  closeout.h closeout.c \
   copy-file.h copy-file.c \
   error.h error.c \
   error-progname.h error-progname.c \

@@ -1,3 +1,42 @@
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
+	Fix behaviour of "<program> --help > /dev/full".
+	* hostname.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgattrib.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgcat.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgcmp.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgcomm.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgconv.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgen.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgexec.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgfilter.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgfmt.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msggrep.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msginit.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgmerge.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msgunfmt.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* msguniq.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* urlget.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* xgettext.c: Include closeout.h.
+	(main): Register close_stdout for execution at program exit.
+	* write-po.c (msgdomain_list_print): Don't fclose (stdout) here.
+
 2003-09-11  Bruno Haible  <bruno@clisp.org>
 
 	* po-lex.c (mbfile_getc): Handle unexpected return value of

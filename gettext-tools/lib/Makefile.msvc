@@ -85,6 +85,7 @@ OBJECTS = \
   basename.obj \
   c-ctype.obj \
   classpath.obj \
+  closeout.obj \
   copy-file.obj \
   error.obj \
   error-progname.obj \
@@ -145,6 +146,9 @@ c-ctype.obj : c-ctype.c
 
 classpath.obj : classpath.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c classpath.c
+
+closeout.obj : closeout.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c closeout.c
 
 copy-file.obj : copy-file.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c copy-file.c

@@ -77,6 +77,7 @@
 /* Include this after <sys/socket.h>, to avoid a syntax error on BeOS.  */
 #include <stdbool.h>
 
+#include "closeout.h"
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"
@@ -132,6 +133,9 @@ main (int argc, char *argv[])
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   /* Set default values for variables.  */
   do_help = false;

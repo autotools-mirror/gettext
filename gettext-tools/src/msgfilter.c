@@ -46,6 +46,7 @@
 # include <sys/select.h>
 #endif
 
+#include "closeout.h"
 #include "dir-list.h"
 #include "error.h"
 #include "error-progname.h"
@@ -155,6 +156,9 @@ main (int argc, char **argv)
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   /* Set default values for variables.  */
   do_help = false;
