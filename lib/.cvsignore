@@ -3,3 +3,6 @@ charset.alias
 ref-add.sed
 ref-del.sed
 lbrkprop.txt
+javacomp.sh
+javaexec.sh
+stdbool.h
