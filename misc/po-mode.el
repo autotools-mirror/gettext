@@ -2024,32 +2024,61 @@ The string is properly recommented before the replacement occurs."
 	(fundamental-mode)
 	(message (_"Type 'M-x po-mode RET' once done")))))
 
+(defun po-ediff-quit ()
+  "Quit ediff and exit `recursive-edit'."
+  (interactive)
+  (ediff-quit t)
+  (exit-recursive-edit))
+
+(add-hook 'ediff-keymap-setup-hook
+	  '(lambda ()
+	     (define-key ediff-mode-map "Q" 'po-ediff-quit)))
+
+(defun po-ediff-buffers-exit-recursive (b1 b2 oldbuf end)
+  "Ediff buffer B1 and B2, pop back to OLDBUF and replace the old variants.
+This function will delete the first two variants in OLDBUF and replace this
+text with the contents of B2.
+
+For more info cf. `po-subedit-ediff'."
+  (ediff-buffers b1 b2)
+  (recursive-edit)
+  (pop-to-buffer oldbuf)
+  (delete-region (point-min) end)
+  (insert-buffer b2)
+  (display-buffer entry-buffer t))
+
 (defun po-subedit-ediff ()
   "Edit the subedit buffer using `ediff'.
-`po-subedit-ediff' calls `ediff-buffers' to edit translation variants side by
-side.  `msgcat' will mark every variant with:
+`po-subedit-ediff' calls `po-ediff-buffers-exit-recursive' to edit translation
+variants side by side.  `msgcat' is able to produce those variants;  every
+variant is marked with:
 
 #-#-#-#-#  file name reference  #-#-#-#-#
 
-Put changes in \" *po-msgstr-2\" buffer.
+Put changes in second buffer.
 
-When done with the `ediff' session press C-M-c exit to `recursive-edit'."
+When done with the `ediff' session press \\[exit-recursive-edit] exit to
+`recursive-edit', or call \\[po-ediff-quit] (`Q') in the ediff control panel."
   (interactive)
-  (let* ((marker-regex "^#-#-#-#-#  .*  #-#-#-#-#\n")
-	 start-1 end-1 start-2 end-2
+  (let* ((marker-regex "^#-#-#-#-#  \\(.*\\)  #-#-#-#-#\n")
+	 (buf1 " *po-msgstr-1") ; default if first marker is missing
+	 buf2 start-1 end-1 start-2 end-2
 	 (back-pointer po-subedit-back-pointer)
 	 (entry-marker (nth 0 back-pointer))
 	 (entry-buffer (marker-buffer entry-marker)))
     (goto-char (point-min))
     (if (looking-at marker-regex)
-	(forward-line 1))
+	(and (setq buf1 (match-string-no-properties 1))
+	     (forward-line 1)))
     (setq start-1 (point))
     (if (not (re-search-forward marker-regex (point-max) t))
 	(error "Only 1 msgstr found")
-      (setq end-1 (match-beginning 0))
+      (setq buf2 (match-string-no-properties 1)
+	    end-1 (match-beginning 0))
       (let ((oldbuf (current-buffer)))
 	(save-current-buffer
-	  (set-buffer (get-buffer-create " *po-msgstr-1"))
+	  (set-buffer (get-buffer-create
+		       (generate-new-buffer-name buf1)))
 	  (setq buffer-read-only nil)
 	  (erase-buffer)
 	  (insert-buffer-substring oldbuf start-1 end-1)
@@ -2057,21 +2086,17 @@ When done with the `ediff' session press C-M-c exit to `recursive-edit'."
 	
 	(setq start-2 (point))
 	(save-excursion
+	  ;; check for a third variant; if found ignore it
 	  (if (re-search-forward marker-regex (point-max) t)
 	      (setq end-2 (match-beginning 0))
 	    (setq end-2 (goto-char (1- (point-max))))))
 	(save-current-buffer
-	  (set-buffer (get-buffer-create " *po-msgstr-2"))
+	  (set-buffer (get-buffer-create
+		       (generate-new-buffer-name buf2)))
 	  (erase-buffer)
 	  (insert-buffer-substring oldbuf start-2 end-2))
 
-	(ediff-buffers " *po-msgstr-1" " *po-msgstr-2")
-	(recursive-edit)
-	(pop-to-buffer oldbuf))
-      
-      (delete-region (point-min) end-2)
-      (insert-buffer " *po-msgstr-2")
-      (display-buffer entry-buffer t))))
+	(po-ediff-buffers-exit-recursive buf1 buf2 oldbuf end-2)))))
 
 (defun po-subedit-abort ()
   "Exit the subedit buffer, merely discarding its contents."

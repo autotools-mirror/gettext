@@ -1,5 +1,17 @@
 2001-11-19  Karl Eichwalder  <ke@suse.de>
 
+	* po-mode.el (po-ediff-quit): New function.
+	(ediff-keymap-setup-hook): Assign key binding for 'po-ediff-quit'.
+	(po-ediff-buffers-exit-recursive): New function, in part derived
+	from 'po-subedit-ediff'.
+	(po-subedit-ediff): Use it.
+
+	* po-mode.el (po-subedit-ediff): Use meaningful buffer names,
+	derived from 'marker-regex'.
+	Cleanup: Follow docstring conventions.
+
+2001-11-19  Karl Eichwalder  <ke@suse.de>
+
 	* po-mode.el (po-mode-map): Enable key binding for
 	'po-edit-comment-and-ediff' ('C-c C-c' and 'C-c C-#').
 
