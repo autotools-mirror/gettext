@@ -1,3 +1,11 @@
+2001-10-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* et.po: Add Plural-Forms field.
+	* pt_BR.po: Likewise.
+	* zh.po: Likewise.
+	* ja.po: Change charset from sjis to SHIFT_JIS.
+	* ru.po: Add missing plural cases.
+
 2001-10-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* POTFILES.in: Add src/hostname.c, src/msginit.c.

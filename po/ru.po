@@ -520,6 +520,8 @@ msgstr "предупреждение: это сообщение не используется"
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "найдено критических ошибок: %d"
+msgstr[1] "найдено критических ошибок: %d"
+msgstr[2] "найдено критических ошибок: %d"
 
 #: src/msgcmp.c:418 src/msgfmt.c:703 src/read-po.c:184 src/xgettext.c:1147
 msgid "duplicate message definition"
@@ -729,18 +731,24 @@ msgstr "ошибка открытия файла \"%s\" для записи"
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "переведенных сообщений: %d"
+msgstr[1] "переведенных сообщений: %d"
+msgstr[2] "переведенных сообщений: %d"
 
 #: src/msgfmt.c:362
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", неточных переводов: %d"
+msgstr[1] ", неточных переводов: %d"
+msgstr[2] ", неточных переводов: %d"
 
 #: src/msgfmt.c:367
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", непереведенных сообщений: %d"
+msgstr[1] ", непереведенных сообщений: %d"
+msgstr[2] ", непереведенных сообщений: %d"
 
 #: src/msgfmt.c:389
 #, c-format, no-wrap
