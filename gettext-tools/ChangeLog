@@ -1,3 +1,10 @@
+2004-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.def: Add compile_csharp_class,
+	execute_csharp_program.
+	* windows/gettextsrc.def: Add formatstring_csharp. Rename
+	get_c99_format_directives to get_sysdep_c_format_directives.
+
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
 	* windows/gettextlib.rc: Bump version number to 0.14.

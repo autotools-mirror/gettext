@@ -32,6 +32,7 @@ c_isxdigit
 c_tolower
 c_toupper
 close_stdout
+compile_csharp_class
 compile_java_class
 concatenated_pathname
 copy_file_preserving
@@ -44,6 +45,7 @@ error_at_line
 error_one_per_line
 error_print_progname
 execute
+execute_csharp_program
 execute_java_class
 find_backup_file_name
 find_entry

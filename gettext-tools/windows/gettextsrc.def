@@ -5,6 +5,7 @@ format_language
 format_language_pretty
 formatstring_awk
 formatstring_c
+formatstring_csharp
 formatstring_elisp
 formatstring_gcc_internal
 formatstring_java
@@ -60,7 +61,7 @@ dir_list_nth
 dir_list_restore
 dir_list_save_reset
 extract_plural_expression
-get_c99_format_directives
+get_sysdep_c_format_directives
 iconv_message_list
 iconv_msgdomain_list
 is_ascii_message
