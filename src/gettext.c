@@ -280,7 +280,8 @@ variable TEXTDOMAINDIR.\n\
 When used with the -s option the program behaves like the `echo' command.\n\
 But it does not simply copy its arguments to stdout.  Instead those messages\n\
 found in the selected catalog are translated.\n\
-Standard search directory: %s\n"), LOCALEDIR);
+Standard search directory: %s\n"),
+	      getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }

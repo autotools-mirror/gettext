@@ -1,5 +1,11 @@
 2001-07-28  Bruno Haible  <haible@clisp.cons.org>
 
+	* gettext.c (usage): If IN_HELP2MAN is set, output template for
+	localedir, not its value.
+	* ngettext.c (usage): Likewise.
+
+2001-07-28  Bruno Haible  <haible@clisp.cons.org>
+
 	* po-lex.c: Include c-ctype.h instead of <ctype.h>.
 	(control_sequence): Use C locale character classifications.
 	* xgettext.c (main): Cast isspace argument to 'unsigned char'.

@@ -1,3 +1,7 @@
+2001-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in (AC_OUTPUT): Add man/x-to-1.
+
 2001-07-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (configure.in): Remove automake bug workarounds, not

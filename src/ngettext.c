@@ -236,7 +236,8 @@ If the TEXTDOMAIN parameter is not given, the domain is determined from the\n\
 environment variable TEXTDOMAIN.  If the message catalog is not found in the\n\
 regular directory, another location can be specified with the environment\n\
 variable TEXTDOMAINDIR.\n\
-Standard search directory: %s\n"), LOCALEDIR);
+Standard search directory: %s\n"),
+	      getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
       printf ("\n");
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"), stdout);
     }

@@ -1,3 +1,24 @@
+2001-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* x-to-1.in: New file.
+	* Makefile.am (localedir): New variable.
+	(man_MAN1GEN, man_MAN1IN, man_MAN1OTHER, man_MAN3LINK, man_HTMLGEN,
+	man_HTMLIN, man_HTMLOTHER): New variables.
+	(EXTRA_DIST): Remove gettext.1, ngettext.1, gettext.1.html,
+	ngettext.1.html. Add gettext.1.in, ngettext.1.in, gettext.1.html.in,
+	ngettext.1.html.in.
+	(MAINTAINERCLEANFILES): Likewise.
+	(CLEANFILES): New variable.
+	(SUFFIXES): Remove variable.
+	(.x.1): Remove rule.
+	(gettext.1, ngettext.1, gettext.1.in, ngettext.1.in, msgcmp.1,
+	msgfmt.1, msgmerge.1, msgunfmt.1, xgettext.1, msgcat.1, msgcomm.1,
+	msgconv.1, msgen.1, msgexec.1, msggrep.1, msguniq.1): New rules.
+	(gettext.1.html.in, ngettext.1.html.in): New rules.
+	(gettext.1.html, ngettext.1.html): Generated from corresponding .in
+	files.
+	(*.1.html): Remove CreationDate line from MAN2HTML output.
+
 2001-07-21  Bruno Haible  <haible@clisp.cons.org>
 
 	* msguniq.x: New file.
