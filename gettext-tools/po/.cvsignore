@@ -1,3 +1,5 @@
+Makefile.msvc
+Makefile.vms
 Makefile.in
 Makefile
 POTFILES
