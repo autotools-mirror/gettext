@@ -136,6 +136,23 @@ msgstr \"\"
   :type 'string
   :group 'po)
 
+(defcustom po-translation-project-address
+  "translation@iro.umontreal.ca"
+  "*Electronic mail address of the Translation Project.
+Typing \\[po-send-mail] (normally bound to `M') the user will send the PO file
+to this email address."
+  :type 'string
+  :group 'po)
+
+(defcustom po-translation-project-mail-label "TP-Robot"
+  "*Subject label when sending the PO file to `po-translation-project-address'.
+Don't change it when you send PO files to \"translation@iro.umontreal.ca\", the
+Translation Project Robot at http://www.iro.umontreal.ca/contrib/po/HTML/.  If
+the label is different, your submission will be consiedered as a regular mail
+and not stored at the TP site and also not forwarded to the package maintainer."
+  :type 'string
+  :group 'po)
+
 (defcustom po-highlighting (or po-EMACS20 po-XEMACS)
   "*Highlight text whenever appropriate, when non-nil.
 However, on older Emacses, a yet unexplained highlighting bug causes files
@@ -840,10 +857,6 @@ Content-Type into a Mule coding system.")
 
 (defvar po-auxiliary-cursor nil
   "Cursor into the 'po-auxiliary-list'.")
-
-(defvar po-translation-project-address
-  "translation@iro.umontreal.ca"
-  "Electronic mail address of the Translation Project.")
 
 (defvar po-compose-mail-function
   (let ((functions '(compose-mail-other-window
@@ -3266,7 +3279,7 @@ Write to your team?  ('n' if writing to the Translation Project robot) ")))
 	    (apply po-compose-mail-function address
 		   (if team-flag
 		       (read-string (_"Subject? "))
-		     (format "TP-Robot %s" name))
+		     (format "%s %s" po-translation-project-mail-label name))
 		   nil)
 	    (goto-char (point-min))
 	    (re-search-forward

@@ -1,3 +1,10 @@
+2002-02-09  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-translation-project-address): Convert it to a
+	customizable variable.
+	(po-translation-project-mail-label): New variable.
+	(po-send-mail): Use it.
+
 2002-02-01  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-mode-version-string): New variable.
