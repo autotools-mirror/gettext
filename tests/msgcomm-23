@@ -6,15 +6,15 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mcomm-23.in1 mcomm-23.in2"
-cp ${top_srcdir}/tests/msguniq-1.in mcomm-23.in1
-cp ${top_srcdir}/tests/msguniq-1.in mcomm-23.in2
+cp ${top_srcdir}/tests/msguniq-a.in mcomm-23.in1
+cp ${top_srcdir}/tests/msguniq-a.in mcomm-23.in2
 
 tmpfiles="$tmpfiles mcomm-23.out"
 : ${MSGCOMM=msgcomm}
 ${MSGCOMM} -w 1000 mcomm-23.in1 mcomm-23.in2 -o mcomm-23.out
 
 : ${DIFF=diff}
-${DIFF} ${top_srcdir}/tests/msguniq-1.out mcomm-23.out
+${DIFF} ${top_srcdir}/tests/msguniq-a.out mcomm-23.out
 result=$?
 
 rm -fr $tmpfiles

@@ -1,5 +1,17 @@
 2001-11-11  Bruno Haible  <haible@clisp.cons.org>
 
+	Avoid an implicit pattern rule ("%.out : %") in GNU make.
+	* msguniq-a.in: Renamed from msguniq-1.in.
+	* msguniq-a.out: Renamed from msguniq-1.out.
+	* Makefile.am (EXTRA_DIST): Distribute msguniq-a.in, msguniq-a.out
+	instead of msguniq-1.in, msguniq-1.out.
+	* msgcomm-23: Update.
+	* msguniq-1: Likewise.
+	* msguniq-2: Update. Make it work if $builddir != $srcdir.
+	* msguniq-3: Likewise.
+
+2001-11-11  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.am (xg-test1.ok.po): Pass --no-location to xgettext.
 
 2001-11-07  Bruno Haible  <haible@clisp.cons.org>
