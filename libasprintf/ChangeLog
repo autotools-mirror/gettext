@@ -17,6 +17,16 @@
 
 	* Makefile.am: Make use of += for variables.
 
+2003-01-12  Bruno Haible  <bruno@clisp.org>
+
+	Portability to FreeBSD.
+	* configure.in: Invoke gt_TYPE_WINT_T.
+	* printf-args.h: Use HAVE_WINT_T, not HAVE_WCHAR_T, to check for
+	availability of wint_t.
+	* printf-argc.c: Likewise.
+	* printf-parse.c: Likewise.
+	* vasnprintf.c: Likewise.
+
 2002-12-07  Bruno Haible  <bruno@clisp.org>
 
 	Switch to autoconf-2.57 and automake-1.7.2.
