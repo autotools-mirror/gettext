@@ -3,3 +3,7 @@ Please do not send reports about this release to any
 GNU mailing list or newsgroup.
 
 Please send comments and problems to <bruno@clisp.org>.
+
+Note that test release numbers cannot be given as argument to the "autopoint"
+program. Therefore please don't use the "gettextize" program of this test
+release on projects which you share with other programmers via CVS.
