@@ -367,6 +367,15 @@ merge (fn1, fn2)
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
   ref = read_po_file (fn2);
+  /* Add a dummy header entry, if the references file contains none.  */
+  if (message_list_search (ref, "") == NULL)
+    {
+      static lex_pos_ty pos = { __FILE__, __LINE__ };
+      message_ty *refmsg = message_alloc ("", NULL);
+
+      message_variant_append (refmsg, MESSAGE_DOMAIN_DEFAULT, "", 1, &pos);
+      message_list_prepend (ref, refmsg);
+    }
 
   result = message_list_alloc ();
 
@@ -400,6 +409,10 @@ merge (fn1, fn2)
 	  ++merged;
 	  continue;
 	}
+
+      /* Special treatment for the header entry.  */
+      if (refmsg->msgid[0] == '\0')
+	continue;
 
       /* If the message was not defined at all, try to find a very
 	 similar message, it could be a typo, or the suggestion may

@@ -1,5 +1,12 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* message.h (message_list_prepend): New declaration.
+	* message.c (message_list_prepend): New function.
+	* msgmerge.c (merge): Add a header entry to the ref list if it has
+	none.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* msgfmt.c: Change the --strict option to not apply to domain
 	directives, only to the output filename argument.
 	(struct msg_domain): Add file_name field.

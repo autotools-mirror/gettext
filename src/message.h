@@ -137,6 +137,7 @@ struct message_list_ty
 message_list_ty *message_list_alloc PARAMS ((void));
 void message_list_free PARAMS ((message_list_ty *));
 void message_list_append PARAMS ((message_list_ty *, message_ty *));
+void message_list_prepend PARAMS ((message_list_ty *, message_ty *));
 void message_list_delete_nth PARAMS ((message_list_ty *, size_t));
 message_ty *message_list_search PARAMS ((message_list_ty *, const char *));
 message_ty *message_list_search_fuzzy PARAMS ((message_list_ty *,
