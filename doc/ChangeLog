@@ -1,3 +1,8 @@
+2002-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2002-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.texi: New file, mostly extracted from gettext.texi.
