@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2004 Free Software Foundation, Inc.
+## Copyright (C) 2002-2005 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -57,6 +57,14 @@ lib_asprintf_EXTRASOURCES = \
   vasprintf.h vasprintf.c asprintf.c
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
 EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
+
+
+# How to build libasprintf.
+# With libtool 1.5.14, on some platforms, like BeOS, "libtool --tag=CXX" fails
+# to create a shared library, however "libtool --tag=CC" succeeds.
+libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
+	$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
+	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)
 
 
 # >>> gnulib module alloca.
