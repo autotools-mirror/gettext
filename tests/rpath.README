@@ -16,12 +16,37 @@ rpath-2 u v w
                   resolving dependencies, b = dependencies are given as
                   AC_LIB_LINKFLAGS argument instead.
 
+rpath-3 u v w
+        | | |
+        | | +---- a = static/static/static, b = static/static/shared,
+        | |       c = static/shared/static, d = static/shared/shared,
+        | |       e = shared/static/static, f = shared/static/shared,
+        | |       g = shared/shared/static, h = shared/shared/shared.
+        | |
+        | +------ a = all libraries and the program have the same prefix,
+        |         b = the libraries are in different directories.
+        |
+        +-------- a = all shared libraries use the libtool *.la files for
+                  resolving dependencies, b = dependencies are given as
+                  AC_LIB_LINKFLAGS argument instead.
+
 The rpath-2* tests are sensitive to
   - incomplete shared library support in the system,
   - bugs in libtool that creates the shared libraries,
   - bugs in lib-link.m4.
 
+The rpath-3* tests are sensitive to
+  - incomplete shared library support in the system,
+  - bugs in libtool that creates the shared libraries.
+
 Known failures:
+
+* On all platforms supporting shared libraries,
+    rpath-3aae rpath-3aag
+    rpath-3abe rpath-3abg
+  fail. This is a libtool 1.4.2 bug: When a shared library depends on a
+  static library indirectly through two different dependency paths,
+  libtool attempts to link together invalid sets of object files.
 
 * OSF/1 4.0: rpath-2bbd fails, because -rpath options are not cumulative:
   The last -rpath option overrides all previous ones. One would need to

@@ -1,0 +1,66 @@
+# Common portion of all rpath-3?a? tests.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+builddir=`pwd`
+global_top_srcdir=`cd "$top_srcdir" && pwd`
+export global_top_srcdir
+
+tmpfiles="$tmpfiles $rp-prefix"
+rm -rf $rp-prefix
+mkdir $rp-prefix
+
+tmpfiles="$tmpfiles $rp-build1"
+rm -rf $rp-build1
+mkdir $rp-build1
+(cd $top_srcdir/tests/rpathx && tar cf - *) | (cd $rp-build1 && tar xf -)
+(cd $rp-build1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build1_configure_flags --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ make > make.log 2>&1
+ make install > install.log 2>&1
+)
+if test $remove_la = yes; then
+  rm -f $rp-prefix/lib/librpathx.la
+fi
+
+tmpfiles="$tmpfiles $rp-build2"
+rm -rf $rp-build2
+mkdir $rp-build2
+(cd $top_srcdir/tests/rpathy && tar cf - *) | (cd $rp-build2 && tar xf -)
+(cd $rp-build2
+ ${CONFIG_SHELL-/bin/sh} ./configure $build2_configure_flags --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ make > make.log 2>&1
+ make install > install.log 2>&1
+)
+if test $remove_la = yes; then
+  rm -f $rp-prefix/lib/librpathy.la
+fi
+
+tmpfiles="$tmpfiles $rp-build3"
+rm -rf $rp-build3
+mkdir $rp-build3
+(cd $top_srcdir/tests/rpathz && tar cf - *) | (cd $rp-build3 && tar xf -)
+(cd $rp-build3
+ ${CONFIG_SHELL-/bin/sh} ./configure $build3_configure_flags --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ make > make.log 2>&1
+ make install > install.log 2>&1
+)
+if test $remove_la = yes; then
+  rm -f $rp-prefix/lib/librpathz.la
+fi
+
+tmpfiles="$tmpfiles $rp-build4"
+rm -rf $rp-build4
+mkdir $rp-build4
+(cd $top_srcdir/tests/$build4_package && tar cf - *) | (cd $rp-build4 && tar xf -)
+(cd $rp-build4
+ ${CONFIG_SHELL-/bin/sh} ./configure --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ make > make.log 2>&1
+ make check >> make.log
+)
+result=$?
+
+rm -rf $tmpfiles
+
+exit $result

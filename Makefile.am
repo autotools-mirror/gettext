@@ -73,6 +73,14 @@ $(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.in $(srcdir)
 $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.in $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && autoconf
 
+CONFIGURES_RPATHZ = $(srcdir)/tests/rpathz/Makefile.in $(srcdir)/tests/rpathz/aclocal.m4 $(srcdir)/tests/rpathz/configure
+$(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.in
+	cd $(srcdir)/tests/rpathz && automake Makefile
+$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathz && aclocal -I ../../m4
+$(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.in $(srcdir)/tests/rpathz/aclocal.m4
+	cd $(srcdir)/tests/rpathz && autoconf
+
 CONFIGURES_RPATHLX = $(srcdir)/tests/rpathlx/Makefile.in $(srcdir)/tests/rpathlx/aclocal.m4 $(srcdir)/tests/rpathlx/configure
 $(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.in
 	cd $(srcdir)/tests/rpathlx && automake Makefile
@@ -97,7 +105,23 @@ $(srcdir)/tests/rpathlyx/aclocal.m4: $(srcdir)/tests/rpathlyx/configure.in $(src
 $(srcdir)/tests/rpathlyx/configure: $(srcdir)/tests/rpathlyx/configure.in $(srcdir)/tests/rpathlyx/aclocal.m4
 	cd $(srcdir)/tests/rpathlyx && autoconf
 
-SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX)
+CONFIGURES_RPATHLZ = $(srcdir)/tests/rpathlz/Makefile.in $(srcdir)/tests/rpathlz/aclocal.m4 $(srcdir)/tests/rpathlz/configure
+$(srcdir)/tests/rpathlz/Makefile.in: $(srcdir)/tests/rpathlz/Makefile.am $(srcdir)/tests/rpathlz/configure.in
+	cd $(srcdir)/tests/rpathlz && automake Makefile
+$(srcdir)/tests/rpathlz/aclocal.m4: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlz && aclocal -I ../../m4
+$(srcdir)/tests/rpathlz/configure: $(srcdir)/tests/rpathlz/configure.in $(srcdir)/tests/rpathlz/aclocal.m4
+	cd $(srcdir)/tests/rpathlz && autoconf
+
+CONFIGURES_RPATHLZYX = $(srcdir)/tests/rpathlzyx/Makefile.in $(srcdir)/tests/rpathlzyx/aclocal.m4 $(srcdir)/tests/rpathlzyx/configure
+$(srcdir)/tests/rpathlzyx/Makefile.in: $(srcdir)/tests/rpathlzyx/Makefile.am $(srcdir)/tests/rpathlzyx/configure.in
+	cd $(srcdir)/tests/rpathlzyx && automake Makefile
+$(srcdir)/tests/rpathlzyx/aclocal.m4: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathlzyx && aclocal -I ../../m4
+$(srcdir)/tests/rpathlzyx/configure: $(srcdir)/tests/rpathlzyx/configure.in $(srcdir)/tests/rpathlzyx/aclocal.m4
+	cd $(srcdir)/tests/rpathlzyx && autoconf
+
+SUBCONFIGURES = $(CONFIGURES_RPATHX) $(CONFIGURES_RPATHY) $(CONFIGURES_RPATHZ) $(CONFIGURES_RPATHLX) $(CONFIGURES_RPATHLY) $(CONFIGURES_RPATHLYX) $(CONFIGURES_RPATHLZ) $(CONFIGURES_RPATHLZYX)
 
 subconfigures: $(SUBCONFIGURES)
 

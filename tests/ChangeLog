@@ -1,5 +1,19 @@
 2002-05-19  Bruno Haible  <bruno@clisp.org>
 
+	* rpath.README: Renamed from rpath-2.README.
+	* rpathz: New subdirectory.
+	* rpathlz: New subdirectory.
+	* rpathlzyx: New subdirectory.
+	* rpath-3_a, rpath-3_b, rpath-3[ab][ab][abcdefgh]: New files.
+	* Makefile.am (TESTS): Add rpath-3a[ab][abcdfh] and
+	rpath-3b[ab][abcdefgh].
+	(EXTRA_DIST): Add rpath{z,lz,lzyx}/{configure.in,aclocal.m4,configure},
+	rpath{z,lz,lzyx}/{Makefile.am,Makefile.in}, rpathz/rpathz.c,
+	rpath{lz,lzyx}/usez.c, rpath-3aae, rpath-3aag, rpath-3abe, rpath-3abg,
+	rpath.README. Remove rpath-2.README.
+
+2002-05-19  Bruno Haible  <bruno@clisp.org>
+
 	* lang-gawk: Fix SKIP message.
 
 2002-05-16  Bruno Haible  <bruno@clisp.org>
