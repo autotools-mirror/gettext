@@ -255,13 +255,23 @@ AC_DEFUN([AM_PO_SUBDIRS],
   dnl because they are needed for "make dist" to work.
 
   dnl Search for GNU msgfmt in the PATH.
+  dnl The first test excludes Solaris msgfmt and early GNU msgfmt versions.
+  dnl The second test excludes FreeBSD msgfmt.
   AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-    [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1], :)
+    [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1 &&
+     (if $ac_dir/$ac_word --statistics /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
+    :)
   AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 
   dnl Search for GNU xgettext 0.11 or newer in the PATH.
+  dnl The first test excludes Solaris xgettext and early GNU xgettext versions.
+  dnl The second test excludes FreeBSD xgettext.
   AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-    [$ac_dir/$ac_word --omit-header --copyright-holder= /dev/null >/dev/null 2>&1], :)
+    [$ac_dir/$ac_word --omit-header --copyright-holder= /dev/null >/dev/null 2>&1 &&
+     (if $ac_dir/$ac_word --omit-header --copyright-holder= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
+    :)
+  dnl Remove leftover from FreeBSD xgettext call.
+  rm -f messages.po
 
   dnl Search for GNU msgmerge 0.11 or newer in the PATH.
   AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
@@ -272,7 +282,8 @@ AC_DEFUN([AM_PO_SUBDIRS],
   if test "$GMSGFMT" != ":"; then
     dnl If it is no GNU msgfmt we define it as : so that the
     dnl Makefiles still can work.
-    if $GMSGFMT --statistics /dev/null >/dev/null 2>&1; then
+    if $GMSGFMT --statistics /dev/null >/dev/null 2>&1 &&
+       (if $GMSGFMT --statistics /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi); then
       : ;
     else
       AC_MSG_RESULT(
@@ -286,13 +297,16 @@ AC_DEFUN([AM_PO_SUBDIRS],
   if test "$XGETTEXT" != ":"; then
     dnl If it is no GNU xgettext we define it as : so that the
     dnl Makefiles still can work.
-    if $XGETTEXT --omit-header --copyright-holder= /dev/null >/dev/null 2>&1; then
+    if $XGETTEXT --omit-header --copyright-holder= /dev/null >/dev/null 2>&1 &&
+       (if $XGETTEXT --omit-header --copyright-holder= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi); then
       : ;
     else
       AC_MSG_RESULT(
         [found xgettext program is not GNU xgettext; ignore it])
       XGETTEXT=":"
     fi
+    dnl Remove leftover from FreeBSD xgettext call.
+    rm -f messages.po
   fi
 
   AC_OUTPUT_COMMANDS([

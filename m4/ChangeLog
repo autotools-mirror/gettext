@@ -1,3 +1,9 @@
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_PO_SUBDIRS): Exclude FreeBSD's msgfmt and xgettext
+	programs. They give usage messages on stderr but then terminate with
+	exit code 0.
+
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_PO_SUBDIRS): Look for Rules-* files in the source dir,
