@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -107,7 +107,7 @@ extern void po_lex_pass_obsolete_entries PARAMS ((bool flag));
   } while (0)
 
 /* GCC is also smart enough to allow optimizations like this.  */
-#elif __STDC__ && defined __GNUC__ && __GNUC__ >= 2
+#elif __STDC__ && defined __GNUC__ && __GNUC__ >= 2 && !defined __APPLE_CC__
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */
