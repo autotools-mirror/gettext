@@ -1,3 +1,7 @@
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:0:4.
+
 2003-12-02  Jakub Jelinek  <jakub@redhat.com>
 
 	* locale.alias: Use nb_NO instead of no_NO for bokmål.
