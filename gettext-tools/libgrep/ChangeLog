@@ -1,3 +1,8 @@
+2005-02-08  Bruno Haible  <bruno@clisp.org>
+
+	* kwset.h (kwsincr, kwsprep): Change return type to 'const char *'.
+	* kwset.c (kwsincr, kwsprep): Likewise.
+
 2005-02-03  Bruno Haible  <bruno@clisp.org>
 
 	* dfa.c (dfaexec): Avoid continuing the loop past the end of the

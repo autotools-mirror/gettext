@@ -40,11 +40,11 @@ extern kwset_t kwsalloc (char const *);
 /* Incrementally extend the keyword set to include the given string.
    Return NULL for success, or an error message.  Remember an index
    number for each keyword included in the set. */
-extern char *kwsincr (kwset_t, char const *, size_t);
+extern const char *kwsincr (kwset_t, char const *, size_t);
 
 /* When the keyword set has been completely built, prepare it for
    use.  Return NULL for success, or an error message. */
-extern char *kwsprep (kwset_t);
+extern const char *kwsprep (kwset_t);
 
 /* Search through the given buffer for a member of the keyword set.
    Return a pointer to the leftmost longest match found, or NULL if

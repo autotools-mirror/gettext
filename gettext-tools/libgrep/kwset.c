@@ -124,7 +124,7 @@ kwsalloc (char const *trans)
 
 /* Add the given string to the contents of the keyword set.  Return NULL
    for success, an error message otherwise. */
-char *
+const char *
 kwsincr (kwset_t kws, char const *text, size_t len)
 {
   struct kwset *kwset;
@@ -374,7 +374,7 @@ treenext (struct tree const *tree, struct trie *next[])
 
 /* Compute the shift for each trie node, as well as the delta
    table and next cache for the given keyword set. */
-char *
+const char *
 kwsprep (kwset_t kws)
 {
   register struct kwset *kwset;
