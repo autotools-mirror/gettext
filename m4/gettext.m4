@@ -281,7 +281,12 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
             if test -n "$ALL_LINGUAS"; then
               for presentlang in $ALL_LINGUAS; do
                 useit=no
-                for desiredlang in ${LINGUAS-$ALL_LINGUAS}; do
+                if test "%UNSET%" != "$LINGUAS"; then
+                  desiredlanguages="$LINGUAS"
+                else
+                  desiredlanguages="$ALL_LINGUAS"
+                fi
+                for desiredlang in $desiredlanguages; do
                   # Use the presentlang catalog if desiredlang is
                   #   a. equal to presentlang, or
                   #   b. a variant of presentlang (because in this case,
@@ -311,9 +316,8 @@ return (int) gettext ("")]ifelse([$2], need-ngettext, [ + (int) ngettext ("", ""
      [# Capture the value of obsolete $ALL_LINGUAS because we need it to
       # compute GMOFILES, POFILES, CATALOGS. But hide it from automake.
       eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
-      # Capture the value of $LINGUAS because we need it to compute CATALOGS.
+      # Capture the value of LINGUAS because we need it to compute CATALOGS.
       LINGUAS="${LINGUAS-%UNSET%}"
-      test "%UNSET%" != "\$LINGUAS" || unset LINGUAS
      ])
 
 
