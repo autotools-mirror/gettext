@@ -2,6 +2,7 @@
 
 	* Makefile.am (noinst_HEADERS): Add read-java.h, write-java.h,
 	format.h, msgunfmt.h.
+	(EXTRA_DIST): Add project-id, gnu/gettext/*.java.
 	* message.h (NFORMATS): Define via #define, not via an enum value.
 	* format.h (struct formatstring_parser): Use PARAMS.
 	* format-c.c (FAT_SIZE_MASK): Remove extraneous backslashes.

@@ -34,7 +34,8 @@ msgl-ascii.h msgl-cat.h msgl-english.h msgfmt.h msgunfmt.h read-mo.h \
 write-mo.h read-java.h write-java.h po-time.h format.h xgettext.h x-c.h \
 x-po.h x-java.h x-ycp.h x-rst.h
 
-EXTRA_DIST = FILES
+EXTRA_DIST = FILES project-id \
+gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
 
 localedir = $(datadir)/locale
 jardir = $(datadir)/gettext
