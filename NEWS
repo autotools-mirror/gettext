@@ -88,7 +88,7 @@ Version 0.13 - November 2003
       Lisp        (text mode)
       librep      (text mode)
       Smalltalk   (text mode)
-      Java        (text mode, AWT, Java)
+      Java        (text mode, AWT, Swing)
       awk         (text mode)
       Pascal      (text mode)
       YCP         (libyui)
