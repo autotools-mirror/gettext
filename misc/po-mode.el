@@ -1811,6 +1811,7 @@ The string is properly recommented before the replacement occurs."
   (skip-chars-backward " \t\n")
   (if (eq (preceding-char) ?<)
       (delete-region (1- (point)) (point-max)))
+  (run-hooks 'po-subedit-exit-hook)
   (let ((string (buffer-string)))
     (po-subedit-abort)
     (po-find-span-of-entry)

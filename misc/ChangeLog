@@ -1,3 +1,8 @@
+2001-03-03  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-subedit-exit): Run po-subedit-exit-hook before
+	leaving the edit buffer.
+
 2001-02-10  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettextize.in: Bail out if $gettext_dir doesn't exist.
