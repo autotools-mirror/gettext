@@ -874,6 +874,19 @@ AC_CACHE_VAL(lt_cv_prog_cc_pic,
       # PIC (with -KPIC) is the default.
       ;;
 
+    linux*)
+      echo '__INTEL_COMPILER' > conftest.$ac_ext
+      if $CC -E conftest.$ac_ext >/dev/null | grep __INTEL_COMPILER >/dev/null
+      then
+        lt_cv_prog_cc_can_build_shared=no
+      else
+        # Intel icc
+        lt_cv_prog_cc_pic='-KPIC'
+        lt_cv_prog_cc_static='-static'
+        lt_cv_prog_cc_wl='-Qoption,ld,'
+      fi
+      ;;
+
     cygwin* | mingw* | pw32* | os2*)
       # This hack is so that the source file can tell whether it is being
       # built for inclusion in a dll (and should export symbols for example).

@@ -146,6 +146,12 @@ use the following options:
 
      env CC="xlc -D_ALL_SOURCE" ./configure
 
+   On GNU/Linux with Intel icc as C/C++ compiler, config.guess guesses
+wrong and, as a consequence, libtool disables the use of shared libraries.
+To correct this, it is recommended to use the following options:
+
+     env CC="icc -D__ELF__" CXX="icc -D__ELF__" ./configure
+
    On BeOS, user installed software goes in /boot/home/config, not
 /usr/local.  It is recommended to use the following options:
 

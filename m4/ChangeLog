@@ -1,5 +1,9 @@
 2002-01-12  Bruno Haible  <bruno@clisp.org>
 
+	* libtool.m4: Add support for Intel icc.
+
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
 	* lib-prefix.m4 (AC_LIB_PREPARE_PREFIX): Fix shell programming mistake.
 	(AC_LIB_WITH_FINAL_PREFIX): New macro.
 	(AC_LIB_PREFIX): Use AC_LIB_WITH_FINAL_PREFIX. Remove

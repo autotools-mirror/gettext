@@ -1,3 +1,7 @@
+2002-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* INSTALL: Add instructions for using Intel icc.
+
 2002-01-11  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Change version number to 0.11-pre5.
