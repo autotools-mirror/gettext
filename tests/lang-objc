@@ -132,7 +132,12 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 EOF
 
-LANGUAGE= LC_ALL=fr_FR ./prog 2 > prog.out || exit 1
+LANGUAGE= LC_ALL=fr_FR ./prog 2 > prog.out
+case $? in
+  0) ;;
+  77) echo "SKIP: lang-objc"; rm -fr $tmpfiles; exit 77;;
+  *) exit 1;;
+esac
 ${DIFF} prog.ok prog.out || exit 1
 
 rm -fr $tmpfiles

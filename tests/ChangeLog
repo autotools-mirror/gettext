@@ -1,3 +1,7 @@
+2001-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* lang-objc: If the locale couldn't be set, skip the test.
+
 2001-12-16  Bruno Haible  <bruno@clisp.org>
 
 	* lang-clisp: Also test reversal of arguments.
