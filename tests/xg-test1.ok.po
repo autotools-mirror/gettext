@@ -95,6 +95,14 @@ msgstr ""
 msgid "this file may not contain domain directives"
 msgstr ""
 
+#, c-format
+msgid "%s:%d: warning: keyword nested in keyword arg"
+msgstr ""
+
+#, c-format
+msgid "%s:%d: warning: keyword between outer keyword and its arg"
+msgstr ""
+
 msgid "duplicate message definition"
 msgstr ""
 
@@ -149,7 +157,9 @@ msgid "while creating hash table"
 msgstr ""
 
 #, c-format
-msgid "%s: warning: PO file header missing, fuzzy, or invalid"
+msgid ""
+"%s: warning: PO file header missing, fuzzy, or invalid\n"
+"%*s  warning: charset conversion will not work"
 msgstr ""
 
 #, c-format
@@ -186,10 +196,36 @@ msgid "field `%s' still has initial default value"
 msgstr ""
 
 #, c-format
+msgid ""
+"%s: warning: charset \"%s\" is not a portable encoding name\n"
+"%*s  warning: charset conversion might not work"
+msgstr ""
+
+#, c-format
+msgid ""
+"%s: warning: charset missing in header\n"
+"%*s  warning: charset conversion will not work"
+msgstr ""
+
+#, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr ""
 
+msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
+msgstr ""
+
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
+msgstr ""
+
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
+msgstr ""
+
+msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
+msgstr ""
+
+#, c-format
+msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr ""
 
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"

@@ -61,22 +61,18 @@ host_alias = @host_alias@
 host_triplet = @host@
 ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
-GENCAT = @GENCAT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
@@ -94,23 +90,47 @@ USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 YACC = @YACC@
 aclocaldir = @aclocaldir@
-l = @l@
 lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 	xgettext-6 xgettext-7 xgettext-8 xgettext-9
+TESTS = gettext-1 gettext-2 msgcmp-1 msgcmp-2 msgfmt-1 msgfmt-2 msgfmt-3 	msgfmt-4 msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 	msgunfmt-1 xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 	xgettext-6 xgettext-7 xgettext-8 xgettext-9 plural-1
 
 
 EXTRA_DIST = $(TESTS) test.mo xg-test1.ok.po
 
 XGETTEXT = ../src/xgettext
 
-TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=../src:$$PATH 		    GETTEXT=`echo gettext|sed '$(transform)'` 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` $(SHELL)
+TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH 		    GETTEXT=tstgettext 		    XGETTEXT=`echo xgettext|sed '$(transform)'` 		    MSGFMT=`echo msgfmt|sed '$(transform)'` 		    MSGCMP=`echo msgcmp|sed '$(transform)'` 		    MSGMERGE=`echo msgmerge|sed '$(transform)'` 		    MSGUNFMT=`echo msgunfmt|sed '$(transform)'` 		    $(SHELL)
 
+
+# Two auxiliary programs used by the tests.
+INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
+DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+LDADD = ../intl/libintl.la
+EXTRA_PROGRAMS = tstgettext cake
+tstgettext_SOURCES = tstgettext.c setlocale.c
+tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
+cake_SOURCES = plural-1-prg.c setlocale.c
+CLEANFILES = $(EXTRA_PROGRAMS)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+tstgettext_OBJECTS =  tstgettext.o setlocale.o
+tstgettext_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.la
+tstgettext_LDFLAGS = 
+cake_OBJECTS =  plural-1-prg.o setlocale.o
+cake_LDADD = $(LDADD)
+cake_DEPENDENCIES =  ../intl/libintl.la
+cake_LDFLAGS = 
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  ChangeLog Makefile.am Makefile.in
 
 
@@ -118,8 +138,12 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
+SOURCES = $(tstgettext_SOURCES) $(cake_SOURCES)
+OBJECTS = $(tstgettext_OBJECTS) $(cake_OBJECTS)
+
 all: all-redirect
 .SUFFIXES:
+.SUFFIXES: .S .c .lo .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnits --include-deps tests/Makefile
 
@@ -127,9 +151,81 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
-tags: TAGS
-TAGS:
 
+.c.o:
+	$(COMPILE) -c $<
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.c.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+tstgettext: $(tstgettext_OBJECTS) $(tstgettext_DEPENDENCIES)
+	@rm -f tstgettext
+	$(LINK) $(tstgettext_LDFLAGS) $(tstgettext_OBJECTS) $(tstgettext_LDADD) $(LIBS)
+
+cake: $(cake_OBJECTS) $(cake_DEPENDENCIES)
+	@rm -f cake
+	$(LINK) $(cake_LDFLAGS) $(cake_OBJECTS) $(cake_LDADD) $(LIBS)
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 
@@ -191,7 +287,7 @@ install-am: all-am
 install: install-am
 uninstall-am:
 uninstall: uninstall-am
-all-am: Makefile
+all-am: Makefile all-local
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
@@ -201,44 +297,54 @@ installdirs:
 mostlyclean-generic:
 
 clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES)
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
 
 maintainer-clean-generic:
-mostlyclean-am:  mostlyclean-generic
+mostlyclean-am:  mostlyclean-compile mostlyclean-libtool \
+		mostlyclean-tags mostlyclean-generic
 
 mostlyclean: mostlyclean-am
 
-clean-am:  clean-generic mostlyclean-am
+clean-am:  clean-compile clean-libtool clean-tags clean-generic \
+		mostlyclean-am
 
 clean: clean-am
 
-distclean-am:  distclean-generic clean-am
+distclean-am:  distclean-compile distclean-libtool distclean-tags \
+		distclean-generic clean-am
 	-rm -f libtool
 
 distclean: distclean-am
 
-maintainer-clean-am:  maintainer-clean-generic distclean-am
+maintainer-clean-am:  maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-tags maintainer-clean-generic \
+		distclean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
 
 maintainer-clean: maintainer-clean-am
 
-.PHONY: tags distdir check-TESTS info-am info dvi-am dvi check check-am \
-installcheck-am installcheck install-exec-am install-exec \
-install-data-am install-data install-am install uninstall-am uninstall \
-all-redirect all-am all installdirs mostlyclean-generic \
-distclean-generic clean-generic maintainer-clean-generic clean \
-mostlyclean distclean maintainer-clean
+.PHONY: mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile mostlyclean-libtool distclean-libtool \
+clean-libtool maintainer-clean-libtool tags mostlyclean-tags \
+distclean-tags clean-tags maintainer-clean-tags distdir check-TESTS \
+info-am info dvi-am dvi check check-am installcheck-am installcheck \
+install-exec-am install-exec install-data-am install-data install-am \
+install uninstall-am uninstall all-local all-redirect all-am all \
+installdirs mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-		$(top_srcdir)/src/gettextp.c
+		$(top_srcdir)/src/gettext.c
 	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
-	  $(top_srcdir)/src/gettextp.c
+	  $(top_srcdir)/src/gettext.c
+all-local: $(EXTRA_PROGRAMS)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

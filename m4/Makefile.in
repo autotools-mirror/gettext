@@ -61,22 +61,18 @@ host_alias = @host_alias@
 host_triplet = @host@
 ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
-GENCAT = @GENCAT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
@@ -93,7 +89,6 @@ USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 YACC = @YACC@
-l = @l@
 lispdir = @lispdir@
 
 aclocaldir = @aclocaldir@
@@ -102,7 +97,7 @@ aclocal_DATA = gettext.m4 isc-posix.m4 lcmessage.m4 progtest.m4
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n'|sort |fmt |tr '\012' @ \
 #   |sed 's/@$/%/;s/@/ \\@/g' |tr @% '\012\012'
-EXTRA_DIST = README c-bs-a.m4 codeset.m4 gettext.m4 iconv.m4 isc-posix.m4 lcmessage.m4 progtest.m4
+EXTRA_DIST = README c-bs-a.m4 codeset.m4 gettext.m4 iconv.m4 inttypes_h.m4 isc-posix.m4 lcmessage.m4 libtool.m4 progtest.m4 setlocale.m4 uintmax_t.m4 ulonglong.m4
 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h

@@ -59,22 +59,18 @@ host_alias = @host_alias@
 host_triplet = @host@
 ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
-GENCAT = @GENCAT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
@@ -92,7 +88,6 @@ USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 YACC = @YACC@
 aclocaldir = @aclocaldir@
-l = @l@
 lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.3 gnits
@@ -105,8 +100,6 @@ gettextsrc_DATA = ABOUT-NLS
 
 EXTRA_DIST = BUGS DISCLAIM README.gemtext aclocal.sh
 SUBDIRS = doc lib intl src po m4 misc tests
-
-DISTCLEANFILES = intl/libintl.h
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = config.h
@@ -133,8 +126,9 @@ Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
 $(ACLOCAL_M4):  configure.in  m4/c-bs-a.m4 m4/codeset.m4 m4/gettext.m4 \
-		m4/iconv.m4 m4/isc-posix.m4 m4/lcmessage.m4 \
-		m4/progtest.m4
+		m4/iconv.m4 m4/inttypes_h.m4 m4/isc-posix.m4 \
+		m4/lcmessage.m4 m4/libtool.m4 m4/progtest.m4 \
+		m4/setlocale.m4 m4/uintmax_t.m4 m4/ulonglong.m4
 	cd $(srcdir) && $(ACLOCAL) $(ACLOCAL_AMFLAGS)
 
 config.status: $(srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
@@ -378,7 +372,6 @@ clean-generic:
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES)
 	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 mostlyclean-am:  mostlyclean-hdr mostlyclean-tags mostlyclean-generic

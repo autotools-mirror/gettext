@@ -60,22 +60,18 @@ host_alias = @host_alias@
 host_triplet = @host@
 ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
-GENCAT = @GENCAT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
@@ -98,24 +94,24 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 bin_PROGRAMS = gettext msgcmp msgfmt msgmerge msgunfmt xgettext msgcomm
 
-noinst_HEADERS = domain.h message.h po-gram.h po-hash.h po-lex.h po.h str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
+noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-lex.h po.h open-po.h str-list.h xget-lex.h dir-list.h po-gram-gen.h po-hash-gen.h
 
 
-datadir = $(prefix)/@DATADIRNAME@
+EXTRA_DIST = FILES
+
+datadir = $(prefix)/share
 localedir = $(datadir)/locale
-
-l = @l@
 
 INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl -I$(top_srcdir)/intl
 
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../lib/libnlsut.a ../intl/libintl.$la
+LDADD = ../lib/libnlsut.a @INTLLIBS@
 
 SED = sed
 YACC = @YACC@ -d
 
-# Source dependecies.
-gettext_SOURCES = gettextp.c
+# Source dependencies.
+gettext_SOURCES = gettext.c
 msgcmp_SOURCES = message.c msgcmp.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c dir-list.c
 
 msgfmt_SOURCES = msgfmt.c open-po.c po-gram-gen.y po-hash-gen.y po-lex.c po.c str-list.c message.c dir-list.c
@@ -139,38 +135,38 @@ PROGRAMS =  $(bin_PROGRAMS)
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-gettext_OBJECTS =  gettextp.o
+gettext_OBJECTS =  gettext.o
 gettext_LDADD = $(LDADD)
-gettext_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+gettext_DEPENDENCIES =  ../lib/libnlsut.a
 gettext_LDFLAGS = 
 msgcmp_OBJECTS =  message.o msgcmp.o open-po.o po-gram-gen.o \
 po-hash-gen.o po-lex.o po.o str-list.o dir-list.o
 msgcmp_LDADD = $(LDADD)
-msgcmp_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+msgcmp_DEPENDENCIES =  ../lib/libnlsut.a
 msgcmp_LDFLAGS = 
 msgfmt_OBJECTS =  msgfmt.o open-po.o po-gram-gen.o po-hash-gen.o \
 po-lex.o po.o str-list.o message.o dir-list.o
 msgfmt_LDADD = $(LDADD)
-msgfmt_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+msgfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgfmt_LDFLAGS = 
 msgmerge_OBJECTS =  message.o msgmerge.o open-po.o po-gram-gen.o \
 po-hash-gen.o po-lex.o po.o str-list.o dir-list.o
 msgmerge_LDADD = $(LDADD)
-msgmerge_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+msgmerge_DEPENDENCIES =  ../lib/libnlsut.a
 msgmerge_LDFLAGS = 
 msgunfmt_OBJECTS =  message.o msgunfmt.o str-list.o
 msgunfmt_LDADD = $(LDADD)
-msgunfmt_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+msgunfmt_DEPENDENCIES =  ../lib/libnlsut.a
 msgunfmt_LDFLAGS = 
 xgettext_OBJECTS =  message.o open-po.o po-gram-gen.o po-hash-gen.o \
 po-lex.o po.o str-list.o xget-lex.o xgettext.o dir-list.o
 xgettext_LDADD = $(LDADD)
-xgettext_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+xgettext_DEPENDENCIES =  ../lib/libnlsut.a
 xgettext_LDFLAGS = 
 msgcomm_OBJECTS =  msgcomm.o message.o po-gram-gen.o po-hash-gen.o \
 po-lex.o open-po.o po.o str-list.o dir-list.o
 msgcomm_LDADD = $(LDADD)
-msgcomm_DEPENDENCIES =  ../lib/libnlsut.a ../intl/libintl.$la
+msgcomm_DEPENDENCIES =  ../lib/libnlsut.a
 msgcomm_LDFLAGS = 
 YLWRAP = $(srcdir)/ylwrap
 CFLAGS = @CFLAGS@
@@ -421,7 +417,7 @@ maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
 po-lex.o: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) 's/[yY][yY]/po_gram_/g' $^ > $@-tmp
+	$(SED) 's/[yY][yY]/po_gram_/g' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

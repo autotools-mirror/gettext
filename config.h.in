@@ -61,24 +61,6 @@
 /* Define if you have the ANSI C header files.  */
 #undef STDC_HEADERS
 
-/* Make sure we see all GNU extensions.  */
-#undef _GNU_SOURCE
-
-/* Define if your locale.h file contains LC_MESSAGES.  */
-#undef HAVE_LC_MESSAGES
-
-/* Define if you have the parse_printf_format function.  */
-#undef HAVE_PARSE_PRINTF_FORMAT
-
-/* Define to 1 if NLS is requested.  */
-#undef ENABLE_NLS
-
-/* Define as 1 if you have catgets and don't want to use GNU gettext.  */
-#undef HAVE_CATGETS
-
-/* Define as 1 if you have gettext and don't want to use GNU gettext.  */
-#undef HAVE_GETTEXT
-
 /* Define if you have the __argz_count function.  */
 #undef HAVE___ARGZ_COUNT
 
@@ -208,37 +190,62 @@
 /* Define if you have the <values.h> header file.  */
 #undef HAVE_VALUES_H
 
-/* Define if you have the i library (-li).  */
-#undef HAVE_LIBI
-
 /* Name of package */
 #undef PACKAGE
 
 /* Version number of package */
 #undef VERSION
 
+/* Make sure we see all GNU extensions. */
+#undef _GNU_SOURCE
+
 /* Define if backslash-a works in C strings. */
 #undef HAVE_C_BACKSLASH_A
+
+/* Define if you have the unsigned long long type. */
+#undef HAVE_UNSIGNED_LONG_LONG
 
 /* Define if system has ptrdiff_t type */
 #undef HAVE_PTRDIFF_T
 
+/* Define if <inttypes.h> exists, doesn't clash with <sys/types.h>,
+   and declares uintmax_t.  */
+#undef HAVE_INTTYPES_H
+
+/* Define to unsigned long or unsigned long long
+   if <inttypes.h> doesn't define. */
+#undef uintmax_t
+
+/* Define if you have the parse_printf_format() function. */
+#undef HAVE_PARSE_PRINTF_FORMAT
+
+/* Define as const if the declaration of setlocale() needs const. */
+#undef SETLOCALE_CONST
+
 /* Define if you have the iconv() function. */
 #undef HAVE_ICONV
 
+/* Define as const if the declaration of iconv() needs const. */
+#undef ICONV_CONST
+
 /* Define if you have <langinfo.h> and nl_langinfo(CODESET). */
 #undef HAVE_LANGINFO_CODESET
+
+/* Define if your <locale.h> file defines LC_MESSAGES. */
+#undef HAVE_LC_MESSAGES
+
+/* Define to 1 if translation of program messages to the user's native language
+   is requested. */
+#undef ENABLE_NLS
+
+/* Define if the GNU gettext() function is already present or preinstalled. */
+#undef HAVE_GETTEXT
 
 
 /* We don't test for the basename function but still want to use the
    version in the libc when compiling for a system using glibc.  */
 #ifdef __GNU_LIBRARY__
 # define HAVE_BASENAME	1
-#endif
-
-/* On GNU systems we want to use the extensions.  */
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE	1
 #endif
 
 

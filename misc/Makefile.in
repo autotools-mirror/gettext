@@ -61,22 +61,18 @@ host_alias = @host_alias@
 host_triplet = @host@
 ACLOCAL_VERSION = @ACLOCAL_VERSION@
 AS = @AS@
+BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
 CATALOGS = @CATALOGS@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 DATADIRNAME = @DATADIRNAME@
 DLLTOOL = @DLLTOOL@
 EMACS = @EMACS@
-GENCAT = @GENCAT@
 GMOFILES = @GMOFILES@
 GMSGFMT = @GMSGFMT@
-GT_NO = @GT_NO@
-GT_YES = @GT_YES@
-INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
-INSTOBJEXT = @INSTOBJEXT@
-INTLDEPS = @INTLDEPS@
 INTLLIBS = @INTLLIBS@
 INTLOBJS = @INTLOBJS@
+INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 LIBICONV = @LIBICONV@
 LIBOBJS = @LIBOBJS@
 LIBTOOL = @LIBTOOL@
@@ -94,21 +90,16 @@ USE_NLS = @USE_NLS@
 VERSION = @VERSION@
 YACC = @YACC@
 aclocaldir = @aclocaldir@
-l = @l@
 lispdir = @lispdir@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-localedir = $(datadir)/locale
-
-EXTRA_DIST = combine-sh gettext.perl gettext-sh magic.add tcl_gettext.c README-Tcl po-mode.el locale.alias
+EXTRA_DIST = combine-sh gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
 
 DISTCLEANFILES = gettextize
 lisp_LISP = po-mode.el
 
 bin_SCRIPTS = gettextize
-
-locale_DATA = locale.alias
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES =  gettextize
@@ -117,8 +108,6 @@ SCRIPTS =  $(bin_SCRIPTS)
 LISP =  $(lisp_LISP)
 
 ELCFILES =  po-mode.elc
-DATA =  $(locale_DATA)
-
 DIST_COMMON =  ChangeLog Makefile.am Makefile.in elisp-comp \
 gettextize.in
 
@@ -191,25 +180,6 @@ clean-lisp:
 distclean-lisp:
 
 maintainer-clean-lisp:
-
-install-localeDATA: $(locale_DATA)
-	@$(NORMAL_INSTALL)
-	$(mkinstalldirs) $(DESTDIR)$(localedir)
-	@list='$(locale_DATA)'; for p in $$list; do \
-	  if test -f $(srcdir)/$$p; then \
-	    echo " $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(localedir)/$$p"; \
-	    $(INSTALL_DATA) $(srcdir)/$$p $(DESTDIR)$(localedir)/$$p; \
-	  else if test -f $$p; then \
-	    echo " $(INSTALL_DATA) $$p $(DESTDIR)$(localedir)/$$p"; \
-	    $(INSTALL_DATA) $$p $(DESTDIR)$(localedir)/$$p; \
-	  fi; fi; \
-	done
-
-uninstall-localeDATA:
-	@$(NORMAL_UNINSTALL)
-	list='$(locale_DATA)'; for p in $$list; do \
-	  rm -f $(DESTDIR)$(localedir)/$$p; \
-	done
 tags: TAGS
 TAGS:
 
@@ -240,22 +210,20 @@ installcheck: installcheck-am
 install-exec-am: install-binSCRIPTS
 install-exec: install-exec-am
 
-install-data-am: install-lispLISP install-localeDATA
+install-data-am: install-lispLISP
 install-data: install-data-am
 
 install-am: all-am
 	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
 install: install-am
-uninstall-am: uninstall-binSCRIPTS uninstall-lispLISP \
-		uninstall-localeDATA
+uninstall-am: uninstall-binSCRIPTS uninstall-lispLISP
 uninstall: uninstall-am
-all-am: Makefile $(SCRIPTS) $(LISP) $(ELCFILES) $(DATA)
+all-am: Makefile $(SCRIPTS) $(LISP) $(ELCFILES)
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
 installdirs:
-	$(mkinstalldirs)  $(DESTDIR)$(bindir) $(DESTDIR)$(lispdir) \
-		$(DESTDIR)$(localedir)
+	$(mkinstalldirs)  $(DESTDIR)$(bindir) $(DESTDIR)$(lispdir)
 
 
 mostlyclean-generic:
@@ -290,12 +258,12 @@ maintainer-clean: maintainer-clean-am
 
 .PHONY: uninstall-binSCRIPTS install-binSCRIPTS uninstall-lispLISP \
 install-lispLISP mostlyclean-lisp distclean-lisp clean-lisp \
-maintainer-clean-lisp uninstall-localeDATA install-localeDATA tags \
-distdir info-am info dvi-am dvi check check-am installcheck-am \
-installcheck install-exec-am install-exec install-data-am install-data \
-install-am install uninstall-am uninstall all-redirect all-am all \
-installdirs mostlyclean-generic distclean-generic clean-generic \
-maintainer-clean-generic clean mostlyclean distclean maintainer-clean
+maintainer-clean-lisp tags distdir info-am info dvi-am dvi check \
+check-am installcheck-am installcheck install-exec-am install-exec \
+install-data-am install-data install-am install uninstall-am uninstall \
+all-redirect all-am all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
 
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
