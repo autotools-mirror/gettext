@@ -61,7 +61,8 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
 
 xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 		$(top_srcdir)/src/gettext.c
-	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) -k_ --omit-header \
+	$(XGETTEXT) -d xg-test1.ok -p $(srcdir) \
+	  -k_ --omit-header --no-location \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 	  $(top_srcdir)/src/gettext.c
 
