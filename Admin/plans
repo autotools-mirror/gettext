@@ -2,9 +2,6 @@ Things we plan to do. Comments welcome.
 
 - Respect the GNU standard targets in intl/Makefile.in and po/Makefile.in.in.
 
-- gettextize needs not copy intl/ChangeLog. Instead create an empty ChangeLog,
-  so that "make distcheck" will not fail.
-
 - Document bash-2.04's $"..." facility and the associated 2 environment
   variables.
 

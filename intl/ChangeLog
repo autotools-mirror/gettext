@@ -1,3 +1,13 @@
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in (DISTFILES.common): Remove ChangeLog.
+	(DISTFILES.obsolete): New variable.
+	(install-data): Install ChangeLog.inst as ChangeLog. Remove the files
+	listed in DISTFILES.obsolete.
+	(uninstall): Simplify.
+	(distclean): Remove ChangeLog.inst.
+	(dist): Mention ChangeLog explicitly.
+
 2001-03-04  Bruno Haible  <haible@clisp.cons.org>
  
 	* dcigettext.c (ISSLASH, HAS_DEVICE, IS_ABSOLUTE_PATH,

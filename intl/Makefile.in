@@ -70,10 +70,11 @@ finddomain.$lo loadmsgcat.$lo localealias.$lo textdomain.$lo l10nflist.$lo \
 explodename.$lo dcigettext.$lo dcngettext.$lo dngettext.$lo ngettext.$lo \
 plural.$lo localcharset.$lo
 GETTOBJS = intl-compat.$lo
-DISTFILES.common = ChangeLog Makefile.in \
+DISTFILES.common = Makefile.in \
 config.charset locale.alias ref-add.sin ref-del.sin $(HEADERS) $(SOURCES)
 DISTFILES.normal = VERSION
 DISTFILES.gettext = libintl.glibc plural.c
+DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c
 
 # Libtool's library version information for libintl.
 # Before making a gettext release, the gettext maintainer must change this
@@ -172,10 +173,15 @@ install-data: all
 	if test "$(PACKAGE)" = "gettext"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
+	  $(INSTALL_DATA) ChangeLog.inst $(DESTDIR)$(gettextsrcdir)/ChangeLog; \
 	  dists="$(DISTFILES.common)"; \
 	  for file in $$dists; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
 			    $(DESTDIR)$(gettextsrcdir)/$$file; \
+	  done; \
+	  dists="$(DISTFILES.obsolete)"; \
+	  for file in $$dists; do \
+	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
 	  : ; \
@@ -220,8 +226,7 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext"; then \
-	  dists="$(DISTFILES.common)"; \
-	  for file in VERSION $$dists; do \
+	  for file in VERSION ChangeLog $(DISTFILES.common); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
@@ -255,7 +260,7 @@ clean: mostlyclean
 distclean: clean
 	rm -f Makefile ID TAGS
 	if test "$(PACKAGE)" = gettext; then \
-	  rm -f $(DISTFILES.normal); \
+	  rm -f ChangeLog.inst $(DISTFILES.normal); \
 	else \
 	  : ; \
 	fi
@@ -274,7 +279,7 @@ dist distdir: Makefile $(DISTFILES)
 	else \
 	  additional="$(DISTFILES.normal)"; \
 	fi; \
-	for file in $(DISTFILES.common) $$additional; do \
+	for file in ChangeLog $(DISTFILES.common) $$additional; do \
 	  ln $(srcdir)/$$file $(distdir) 2> /dev/null \
 	    || cp -p $(srcdir)/$$file $(distdir); \
 	done
