@@ -14,11 +14,15 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   s,\\.old\\.,_old.,g\
   s,\\.tab\\.c,_tab.c,g\
   s,\\.tab\\.h,_tab.h,g\
+  s,\\([1-9]\\)\\.html\\.in,\\1hi,g\
   s,\\([1-9]\\)\\.html,\\1-html,g\
   s,\\([1-9]\\)\\.in,\\1-in,g\
-  s,gettext_\\*\\.,gettext.*-,g\
+  s,\\.sh\\.in,.sh-in,g\
   @append_list_of_renamed_files@
-  /^TESTS[ 	]*=/ s,plural-\\([1-9]\\+\\),plural.\\1,g\
+  s,gettext_\\*\\.,gettext.*-,g\
+  s,format-librep,format_librep,g\
+  s,format-pascal,format_pascal,g\
+  /^TESTS[ 	]*=/,/^$/ s,plural-\\([1-9]\\+\\),plural.\\1,g\
   /^install-info-am:/,/^$/ {\
     /@list=/ s,\\\$(INFO_DEPS),& gettext.i,\
     s,file-\\[0-9\\]\\[0-9\\],& \\$\\$file[0-9] \\$\\$file[0-9][0-9],\
@@ -46,8 +50,12 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
   /^TEXI2HTML[ 	]*=/ s,=[ 	]*,&-,
 }
 
+# javacomp.sh is renamed to javacomp.sh-in,
+# javaexec.sh is renamed to javaexec.sh-in,
 # Makefile.in.in is renamed to Makefile.in-in...
 /^CONFIG_FILES=/,/^EOF/ {
+  s|lib/javacomp\.sh|&:lib/javacomp.sh-in|
+  s|lib/javaexec\.sh|&:lib/javaexec.sh-in|
   s|po/Makefile\.in|&:po/Makefile.in-in|
 }
 
@@ -118,3 +126,11 @@ lispdir = \\$(prefix)/gnu/emacs/site-lisp\
 
 # Let libtool use _libs all the time.
 /objdir=/s,\.libs,_libs,
+
+# Stock djdev203 does not provide an unsetenv() function,
+# so we will use djdev204 CVS tree's one.
+/^LTLIBOBJS=/ s,|, unsetenv.c |,
+
+# Stock djdev203 does not provide pw_gecos,
+# so we will use djdev204 CVS tree's one.
+/^LTLIBOBJS=/ s,|, getpwnam.c |,

@@ -12,9 +12,10 @@ config.sed: config.in fnchange.in
 	    -e '/plural-[1-9]\+/ d' \
 	    -e 's|\.h\.in|\\\\\\\\.h\\\\\\\\.in|' \
 	    -e 's|\.in\.in|\\\\\\\\.in\\\\\\\\.in|' \
-	    -e 's|[ ]\+.*/|,|' \
+	    -e 's|\.sh\.in|\\\\\\\\.sh\\\\\\\\.in|' \
+	    -e 's|^.*/\([A-Za-z0-9\\._+-]\+\)[ ]\+|  s,\1,|' \
+	    -e '/\/tests\// !s|@V@.*/||;s|@V@/tests/||' \
 	    -e 's|$$|,g\\\\\\|' \
-	    -e 's|^.*/|  s,|' \
 	    -e 's|^#.*$$|/@append_list_of_renamed_files@/ c\\|' \
 	  $(srcdir)/fnchange.in > t-script.sed
 	sed '$$ s|\\||' t-script.sed > script.sed
