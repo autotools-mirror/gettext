@@ -1,3 +1,7 @@
+2002-11-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-php.c (phase3_getc): Initialize variable last_was_qmark.
+
 2002-11-13  Bruno Haible  <bruno@clisp.org>
 
 	Assume ANSI C.

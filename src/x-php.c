@@ -586,7 +586,7 @@ phase3_getc ()
   if (c == '#')
     {
       /* sh comment.  */
-      bool last_was_qmark;
+      bool last_was_qmark = false;
 
       comment_start ();
       lineno = line_number;
@@ -673,7 +673,7 @@ phase3_getc ()
 	case '/':
 	  {
 	    /* C++ comment.  */
-	    bool last_was_qmark;
+	    bool last_was_qmark = false;
 
 	    comment_start ();
 	    lineno = line_number;
