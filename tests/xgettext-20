@@ -49,7 +49,7 @@ cat <<\EOF > simple.glade
     </Signal>
     <!-- Der übliche Programm-Gruß -->
     <label>Hello World</label>
-    <comments>This &lt;button&gt; diplays &quot;Hello World&quot;.</comments>
+    <comments>This &lt;button&gt; displays &quot;Hello World&quot;.</comments>
   </widget>
 </widget>
 
@@ -90,7 +90,7 @@ msgid "Hello World"
 msgstr ""
 
 #: simple.glade:31
-msgid "This <button> diplays \"Hello World\"."
+msgid "This <button> displays \"Hello World\"."
 msgstr ""
 EOF
 
