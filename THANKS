@@ -24,6 +24,7 @@ Adrian Bunk		bunk@fs.tum.de
 Akim Demaille		akim@epita.fr
 Albert Chin-A-Young	china@thewrittenword.com
 Alexander V. Lukyanov	lav@yars.free.net
+Alexander Turbov	AVTurbov@gwise.eltech.ru
 Alexandre Duret-Lutz	aduret@enst.fr
 Andreas Buening		andreas.buening@nexgo.de
 Andreas Fischer		a.fischer@asentics.de
@@ -32,6 +33,7 @@ Andrew Suffield		asuffield@debian.org
 Andrew V. Samoilov	kai@cmail.ru
 Andrew Zabolotny	zap@cobra.ru
 Andries Brouwer		andries.brouwer@cwi.nl
+Artem Vakhitov		temcat@mail.ru
 Bang Jun Young		bangjy@nownuri.nowcom.co.kr
 Barry A. Warsaw		barry@zope.com
 Ben Elliston		bje@redhat.com
@@ -41,6 +43,7 @@ Bernhard Herzog		bernhard@users.sourceforge.net
 Bill Perry		wmperry@aventail.com
 Bram Moolenaar		bram@moolenaar.net
 Bruno Haible		haible@ma2s2.mathematik.uni-karlsruhe.de
+Carlo Wood		carlo@alinoe.com
 Charles Wilson		cwilson@ece.gatech.edu
 Christian Casteyde	casteyde.christian@free.fr
 Christian von Roques	roques@pond.sub.org
@@ -48,8 +51,10 @@ Chuck Berg		chuckhberg@yahoo.com
 Colin Watson		cjwatson@debian.org
 Daniel Burrows		dburrows@debian.org
 Daniel Schepler		schepler@math.berkeley.edu
+Denis Barbier		barbier@linuxfr.org
 Dennis Bjorklund	db@zigo.dhs.org
 Derek Clegg		derek_clegg@next.com
+Dwayne Bailey		dwayne@obsidian.co.za
 Earnie Boyd		earnie_boyd@yahoo.com
 Edmund Grimley Evans	edmundo@rano.org
 Eli Zaretskii		eliz@is.elta.co.il
@@ -68,7 +73,9 @@ Göran Uddeborg		gvran@uddeborg.pp.se
 H. J. Lu		hjl@lucon.org
 Hrvoje Niksic		hniksic@srce.hr
 Igor Brezac		igor@ipass.net
+Jacob (=Jouk) Jansen	joukj@hrem.stm.tudelft.nl
 Jakub Jelinek		jj@sunsite.ms.mff.cuni.cz
+James A Baker		jabaker@mac.com
 James Henstridge	james@daa.com.au
 Jan Djärv		jan.djarv@mbox200.swipnet.se
 Jan-Marek Glogowski	glogow@stud.fbi.fh-darmstadt.de
@@ -94,6 +101,7 @@ Marcus Daniels		marcus@sysc.pdx.edu
 Marcus Meissner		meissner@suse.de
 Marin Purgar		pmc@asgard.hr
 Mark Eichin		eichin@thok.org
+Martin Mokrejš		mmokrejs@natur.cuni.cz
 Martin Quinson		martin.quinson@ens-lyon.fr
 Martin v. Löwis		martin@loewis.home.cs.tu-berlin.de
 Matthias Kiefer		kiefer@kde.org
@@ -107,10 +115,12 @@ Nils Naumann		naumann@unileoben.ac.at
 Nina Kusnetsova		nina@ns.kinetics.nsc.ru
 Noah Friedman		friedman@splode.com
 Olly Betts		olly@survex.com
+O'Riva			oriva@earthlink.net
 Owen Taylor		otaylor@redhat.com
 Paolo Bonzini		bonzini@gnu.org
 Paul D. Smith		psmith@gnu.org
 Paul Eggert		eggert@twinsun.com
+Paul Jarc		prj@po.cwru.edu
 Pavel Roskin		proski@gnu.org
 Pekka Järveläinen	pj@csc.fi
 Perry Rapp		prapp@erols.com, lifelines_3_0_18@hotmail.com
@@ -136,8 +146,10 @@ Stefan Kost		kost@imn.htwk-leipzig.de
 Stephan Kulow		coolo@kde.org
 Stephen Gildea		gildea@stop.mail-abuse.org
 Steven Edwards		Steven_Ed4153@yahoo.com
+Sven Utcke		utcke@informatik.uni-hamburg.de
 Thomas E. Dickey	dickey@clark.net
 Thorsten Kukuk		kukuk@suse.de
+Tim Mooney		mooney@dogbert.cc.ndsu.nodak.edu
 Tim Van Holder		tim.van.holder@pandora.be
 Tom Tromey		tromey@cygnus.com
 Tommy Johansson		tommy@kanalen.org
@@ -145,8 +157,10 @@ Tor Lillqvist		tml@iki.fi
 Trond Eivind Glomsrød	teg@redhat.com
 Uwe Ohse		uwe@tirka.gun.de
 Veronica Loell		info@nakawe.se
+Volodymyr M. Lisivka	lvm@mystery.lviv.net
 Wang Jian		lark@linux.net.cn
 Werner Koch		wk@gnupg.org
+Xiong Jiang		jxiong@offtopic.org
 
 
 Thanks to all members of the translation teams for the different
