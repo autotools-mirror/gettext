@@ -34,13 +34,7 @@ gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = ABOUT-NLS
 
 
-# Documentation tags not known to automake.
-
-ps:
-	cd doc && $(MAKE) ps
-
-pdf:
-	cd doc && $(MAKE) pdf
+# Documentation tag not known to automake.
 
 html:
 	cd doc && $(MAKE) html

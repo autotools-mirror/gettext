@@ -38,13 +38,7 @@ $(srcdir)/ABOUT-NLS: $(srcdir)/../gettext-runtime/ABOUT-NLS
 	cp $(srcdir)/../gettext-runtime/ABOUT-NLS $(srcdir)/ABOUT-NLS
 
 
-# Documentation tags not known to automake.
-
-ps:
-	cd doc && $(MAKE) ps
-
-pdf:
-	cd doc && $(MAKE) pdf
+# Documentation tag not known to automake.
 
 html:
 	cd doc && $(MAKE) html

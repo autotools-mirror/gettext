@@ -42,13 +42,7 @@ EXTRA_DIST += djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
 EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 
-# Documentation tags not known to automake.
-
-ps:
-	cd gettext-tools && $(MAKE) ps
-
-pdf:
-	cd gettext-tools && $(MAKE) pdf
+# Documentation tag not known to automake.
 
 html:
 	cd gettext-tools && $(MAKE) html

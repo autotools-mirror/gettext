@@ -22,10 +22,6 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST = nls.texi matrix.texi
 
 
-# Documentation tags not known to automake.
-
-ps:
-
-pdf:
+# Documentation tag not known to automake.
 
 html:

@@ -81,11 +81,7 @@ distclean-am:
 	rm -rf config
 
 
-# Documentation tags not known to automake.
-
-ps:
-
-pdf:
+# Documentation tag not known to automake.
 
 html:
 
