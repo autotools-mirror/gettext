@@ -1,3 +1,7 @@
+2005-01-20  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Add some notes about Java and C#.
+
 2005-01-05  Bruno Haible  <bruno@clisp.org>
 
 	Fix the "configure --help" output.
