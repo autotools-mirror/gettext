@@ -4,3 +4,7 @@ VERSION
 .libs
 *.lo
 *.la
+charset.alias
+libintl.h
+ref-add.sed
+ref-del.sed
