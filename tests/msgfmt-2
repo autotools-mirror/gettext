@@ -1,12 +1,5 @@
 #! /bin/sh
 
-TEXTDOMAINDIR=..
-LANGUAGE=tests
-LC_ALL=en
-LC_MESSAGES=
-LANG=
-export TEXTDOMAINDIR LANGUAGE LC_ALL LC_MESSAGES LANG
-
 if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null; then
   # Stardent Vistra SVR4 grep lacks -e, says ghazi@caip.rutgers.edu.
   if (echo -n testing; echo 1,2,3) | sed s/-n/xn/ | grep xn >/dev/null; then
@@ -76,7 +69,8 @@ ${MSGFMT} modules.po -o LC_MESSAGES/gen.mo
 
 tmpfiles="$tmpfiles mf-test2.out"
 : ${GETTEXT=gettext}
-${GETTEXT} gen 'error 3' > mf-test2.out
+TEXTDOMAINDIR=.. LANGUAGE=tests \
+${GETTEXT} --env LC_ALL=en gen 'error 3' > mf-test2.out
 
 tmpfiles="$tmpfiles gtmf-test2.ok"
 echo $ac_n "error 3 translation$ac_c" > gtmf-test2.ok

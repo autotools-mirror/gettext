@@ -1,12 +1,5 @@
 #! /bin/sh
 
-TEXTDOMAINDIR=..
-LANGUAGE=tests
-LC_ALL=en
-LC_MESSAGES=
-LANG=
-export TEXTDOMAINDIR LANGUAGE LC_ALL LC_MESSAGES LANG
-
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
@@ -64,7 +57,8 @@ ${MSGFMT} modules.po -o LC_MESSAGES/gen.mo
 
 tmpfiles="$tmpfiles mf-test1.out"
 : ${GETTEXT=gettext}
-${GETTEXT} gen 'SYS_(C)
+TEXTDOMAINDIR=.. LANGUAGE=tests \
+${GETTEXT} --env LC_ALL=en gen 'SYS_(C)
 ' > mf-test1.out
 
 tmpfiles="$tmpfiles gtmf-test1.ok"

@@ -20,6 +20,7 @@
 #endif
 
 #include <getopt.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -28,6 +29,7 @@
 #include "error.h"
 #include "basename.h"
 #include "exit.h"
+#include "xsetenv.h"
 
 #define HAVE_SETLOCALE 1
 /* Make sure we use the included libintl, not the system's one. */
@@ -47,6 +49,7 @@ char *program_name;
 static const struct option long_options[] =
 {
   { "domain", required_argument, NULL, 'd' },
+  { "env", required_argument, NULL, '=' },
   { "help", no_argument, NULL, 'h' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
@@ -73,6 +76,7 @@ main (argc, argv)
   /* Default values for command line options.  */
   int do_help = 0;
   int do_version = 0;
+  bool environ_changed = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
 
@@ -104,9 +108,28 @@ main (argc, argv)
     case 'V':
       do_version = 1;
       break;
+    case '=':
+      {
+	/* Undocumented option --env sets an environment variable.  */
+	char *separator = strchr (optarg, '=');
+	if (separator != NULL)
+	  {
+	    *separator = '\0';
+	    xsetenv (optarg, separator + 1, 1);
+	    environ_changed = true;
+	    break;
+	  }
+      }
+      /*FALLTHROUGH*/
     default:
       usage (EXIT_FAILURE);
     }
+
+#ifdef HAVE_SETLOCALE
+  if (environ_changed)
+    /* Set locale again via LC_ALL.  */
+    setlocale (LC_ALL, "");
+#endif
 
   /* Version information is requested.  */
   if (do_version)

@@ -53,22 +53,16 @@ sed 1,2d < fr.po > fr.po.strip
 : ${DIFF=diff}
 ${DIFF} fr.po.strip fr.po.tmp || exit 1
 
-LANGUAGE=
-LC_ALL=fr
-LC_MESSAGES=
-LANG=
-export LANGUAGE LC_ALL LC_MESSAGES LANG
-
 tmpfiles="$tmpfiles cake.ok cake.out"
 : ${DIFF=diff}
 echo 'un morceau de gateau' > cake.ok
-./cake 1 > cake.out || exit 1
+LANGUAGE= ./cake fr 1 > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '2 morceaux de gateau' > cake.ok
-./cake 2 > cake.out || exit 1
+LANGUAGE= ./cake fr 2 > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '10 morceaux de gateau' > cake.ok
-./cake 10 > cake.out || exit 1
+LANGUAGE= ./cake fr 10 > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 
 rm -fr $tmpfiles

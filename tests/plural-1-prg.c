@@ -19,9 +19,9 @@ int main (argc, argv)
   int argc;
   char *argv[];
 {
-  int n = atoi (argv[1]);
+  int n = atoi (argv[2]);
 
-  if (setlocale (LC_ALL, "") == NULL)
+  if (setlocale (LC_ALL, argv[1]) == NULL)
     return 1;
 
   textdomain ("cake");

@@ -1,5 +1,37 @@
 2002-01-05  Bruno Haible  <bruno@clisp.org>
 
+	Avoid setting LC_ALL for random shell and utility commands, including
+	libtool generated shell scripts. It generates extraneous output on
+	Solaris and HP-UX.
+
+	* tstgettext.c: Copy code from ../src/gettext.c. Add --env option.
+	* gettext-1: Pass extra environment variables only to the tstgettext
+	program. Pass LC_ALL via --env option. No need to pass LC_MESSAGES and
+	LANG.
+	* gettext-2: Likewise.
+	* msgfmt-1: Likewise.
+	* msgfmt-2: Likewise.
+
+	* tstngettext.c: Add --env option.
+	* plural-2: Pass extra environment variables only to the tstngettext
+	program. Pass LC_ALL via --env option.
+
+	* plural-1-prg.c: Pass locale as first argument.
+	* plural-1: Pass extra environment variables only to the cake program.
+	Pass LC_ALL value to cake as an argument.
+
+	* msgcmp-2: Pass extra environment variables only to the msgcmp
+	program.
+
+	* msgmerge-2: Pass extra environment variables only to the msgmerge
+	program.
+
+	* lang-c: Pass LC_ALL value to prog as an argument.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
+2002-01-05  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter-2: Skip the test if 'sed' adds extraneous newlines.
 
 2002-01-04  Bruno Haible  <bruno@clisp.org>

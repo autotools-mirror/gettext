@@ -60,8 +60,8 @@ msgstr[9] "9"
 EOF
   ${MSGFMT} -o ll/LC_MESSAGES/plural.mo ll.po || exit 1
   (for i in '' 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19; do
-     LANGUAGE= LC_ALL=ll TEXTDOMAIN=plural TEXTDOMAINDIR=. \
-       $NGETTEXT X Y ${i}0 ${i}1 ${i}2 ${i}3 ${i}4 ${i}5 ${i}6 ${i}7 ${i}8 ${i}9
+     LANGUAGE= TEXTDOMAIN=plural TEXTDOMAINDIR=. \
+       $NGETTEXT --env LC_ALL=ll X Y ${i}0 ${i}1 ${i}2 ${i}3 ${i}4 ${i}5 ${i}6 ${i}7 ${i}8 ${i}9
    done) > dataout
   test "$dataok" = `cat dataout` || {
     echo "Formula evaluation error for language $lang" 1>&2
