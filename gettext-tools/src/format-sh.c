@@ -38,15 +38,23 @@
    A variable substitution starts with '$' and is finished by either
    - a nonempty sequence of alphanumeric ASCII characters, the first being
      not a digit, or
-   - an opening brace '{', some other characters with balanced '{' and '}',
-     and a closing brace '}', or
-   - a single ASCII character, like '$' or '?'.
-
-   FIXME: POSIX has more complicated rules for determining the matching brace:
-     "Any '}' escaped by a backslash or within a quoted string, and characters
-      in embedded arithmetic expansions, command substitutions, and variable
-      expansions, shall not be examined in determining the matching '}'."
-   Not yet implemented here.
+   - an opening brace '{', a nonempty sequence of alphanumeric ASCII
+     characters, the first being not a digit, and a closing brace '}'.
+   We don't support variable references like $1, $$ or $? since they make
+   no sense when 'envsubst' is invoked.
+   We don't support non-ASCII variable names, to avoid dependencies w.r.t. the
+   current encoding: While "${\xe0}" looks like a variable access in ISO-8859-1
+   encoding, it doesn't look like one in the BIG5, BIG5-HKSCS, GBK, GB18030,
+   SHIFT_JIS, JOHAB encodings, because \xe0\x7d is a single character in these
+   encodings.
+   We don't support the POSIX syntax for default or alternate values:
+     ${variable-default}        ${variable:-default}
+     ${variable=default}        ${variable:=default}
+     ${variable+replacement}    ${variable:+replacement}
+     ${variable?ignored}        ${variable:?ignored}
+   because the translator might be tempted to change the default value; if
+   we allow it we have a security problem; if we don't allow it the translator
+   will be surprised.
  */
 
 struct named_arg
@@ -72,6 +80,10 @@ named_arg_compare (const void *p1, const void *p2)
 
 #define INVALID_NON_ASCII_VARIABLE() \
   xstrdup (_("The string refers to a shell variable with a non-ASCII name."))
+#define INVALID_SHELL_SYNTAX() \
+  xstrdup (_("The string refers to a shell variable with complex shell brace syntax. This syntax is unsupported here due to security reasons."))
+#define INVALID_CONTEXT_DEPENDENT_VARIABLE() \
+  xstrdup (_("The string refers to a shell variable whose value may be different inside shell functions."))
 #define INVALID_EMPTY_VARIABLE() \
   xstrdup (_("The string refers to a shell variable with an empty name."))
 
@@ -96,27 +108,31 @@ format_parse (const char *format, char **invalid_reason)
 
 	if (*format == '{')
 	  {
-	    unsigned int depth;
 	    const char *name_start;
 	    const char *name_end;
 	    size_t n;
 
 	    name_start = ++format;
-	    depth = 0;
 	    for (; *format != '\0'; format++)
 	      {
-		if (*format == '{')
-		  depth++;
-		else if (*format == '}')
-		  {
-		    if (depth == 0)
-		      break;
-		    else
-		      depth--;
-		  }
+		if (*format == '}')
+		  break;
 		if (!c_isascii (*format))
 		  {
-		    *invalid_reason = INVALID_NON_ASCII_VARIABLE();
+		    *invalid_reason = INVALID_NON_ASCII_VARIABLE ();
+		    goto bad_format;
+		  }
+		if (format > name_start
+		    && (*format == '-' || *format == '=' || *format == '+'
+			|| *format == '?' || *format == ':'))
+		  {
+		    *invalid_reason = INVALID_SHELL_SYNTAX ();
+		    goto bad_format;
+		  }
+		if (!(c_isalnum (*format) || *format == '_')
+		    || (format == name_start && c_isdigit (*format)))
+		  {
+		    *invalid_reason = INVALID_CONTEXT_DEPENDENT_VARIABLE ();
 		    goto bad_format;
 		  }
 	      }
@@ -130,7 +146,7 @@ format_parse (const char *format, char **invalid_reason)
 	    n = name_end - name_start;
 	    if (n == 0)
 	      {
-		*invalid_reason = INVALID_EMPTY_VARIABLE();
+		*invalid_reason = INVALID_EMPTY_VARIABLE ();
 		goto bad_format;
 	      }
 	    name = (char *) xmalloc (n + 1);
@@ -158,12 +174,14 @@ format_parse (const char *format, char **invalid_reason)
 	  {
 	    if (!c_isascii (*format))
 	      {
-		*invalid_reason = INVALID_NON_ASCII_VARIABLE();
+		*invalid_reason = INVALID_NON_ASCII_VARIABLE ();
 		goto bad_format;
 	      }
-	    name = (char *) xmalloc (2);
-	    name[0] = *format++;
-	    name[1] = '\0';
+	    else
+	      {
+		*invalid_reason = INVALID_CONTEXT_DEPENDENT_VARIABLE ();
+		goto bad_format;
+	      }
 	  }
 	else
 	  {

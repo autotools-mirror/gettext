@@ -1,5 +1,11 @@
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
+	* format-sh.c (INVALID_SHELL_SYNTAX,
+	INVALID_CONTEXT_DEPENDENT_VARIABLE): New macros.
+	(format_parse): Reject constructs like ${variable-default} and $?.
+
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
 	Fix behaviour of "<program> --help > /dev/full".
 	* hostname.c: Include closeout.h.
 	(main): Register close_stdout for execution at program exit.

@@ -1,5 +1,10 @@
 2003-09-13  Bruno Haible  <bruno@clisp.org>
 
+	* format-sh-1: Update to match stricter format string definition.
+	* format-sh-2: Likewise.
+
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
 	Fix behaviour of "<program> --help > /dev/full".
 	* tstgettext.c: Include closeout.h.
 	(main): Register close_stdout for execution at program exit.

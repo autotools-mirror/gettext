@@ -13,11 +13,11 @@ cat <<\EOF > f-sh-1.data
 "abc$file"
 # Valid: one argument
 "abc$f_x"
-# Valid: one argument
+# Invalid: context dependent variable
 "abc$0"
-# Valid: one argument
+# Invalid: context dependent variable
 "abc$$"
-# Valid: one argument
+# Invalid: complex shell syntax
 "abc${tmpdir-/tmp}"
 # Invalid: unterminated
 "abc$"

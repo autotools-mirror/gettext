@@ -19,9 +19,12 @@ msgstr "xyz$file"
 # Invalid: added argument
 msgid  "abc$file"
 msgstr "xyz$file in $dir"
+# Valid: braces or not, doesn't matter
+msgid  "abc$file"
+msgstr "xyz${file}"
 # Invalid: different default value
-msgid  "abc${file-/tmpdir}"
-msgstr "xyz$file"
+msgid  "abc$file"
+msgstr "xyz${file-/tmpdir}"
 EOF
 
 : ${MSGFMT=msgfmt}
