@@ -88,6 +88,8 @@ AM_FUNC_ERROR_AT_LINE
 
 gt_SETLOCALE
 
+gt_PREREQ_HOSTNAME
+
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_OUTPUT has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)

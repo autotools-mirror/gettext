@@ -23,6 +23,8 @@ bin_PROGRAMS = gettext ngettext \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msggrep msguniq
 
+noinst_PROGRAMS = hostname
+
 noinst_HEADERS = pos.h message.h po-gram.h po-hash.h po-charset.h po-lex.h \
 po.h open-po.h read-po.h str-list.h write-po.h dir-list.h file-list.h \
 po-gram-gen.h po-hash-gen.h msgl-charset.h msgl-equal.h msgl-iconv.h \
@@ -78,6 +80,7 @@ msgen_SOURCES     = msgen.c     $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po
 msgexec_SOURCES   = msgexec.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
 msggrep_SOURCES   = msggrep.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-charset.c
 msguniq_SOURCES   = msguniq.c   $(COMMON_SOURCE) msgl-ascii.c write-po.c read-po.c msgl-iconv.c msgl-cat.c
+hostname_SOURCES  = hostname.c
 
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.
@@ -111,6 +114,19 @@ x-java.c: x-java.l
 	test "$(LEX)" = ":" || mv $@-tmp $@
 
 DISTCLEANFILES = po-gram-gen2.h
+
+
+# Special rules for installation of auxiliary programs.
+
+install-exec-local:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
+
+installdirs-local:
+	$(mkinstalldirs) $(DESTDIR)$(libdir)/$(PACKAGE)
+
+uninstall-local:
+	$(RM) $(DESTDIR)$(libdir)/$(PACKAGE)/hostname$(EXEEXT)
 
 
 # Special rules for Java compilation.

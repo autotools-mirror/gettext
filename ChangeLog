@@ -1,3 +1,7 @@
+2001-09-29  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_PREREQ_HOSTNAME.
+
 2001-09-25  Bruno Haible  <haible@clisp.cons.org>
 
 	Upgrade to automake-1.5.
