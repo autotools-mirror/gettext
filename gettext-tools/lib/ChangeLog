@@ -1,3 +1,10 @@
+2003-05-28  Paul Eggert  <eggert@twinsun.com>
+
+	* pathmax.h: Include <limits.h> without checking for HAVE_LIMITS_H.
+	* addext.c: Likewise.
+	* backupfile.c: Likewise.
+	* xreadlink.c: Likewise.
+
 2003-06-23  Bruno Haible  <bruno@clisp.org>
 
 	Avoid compilation units that are empty after preprocessing.

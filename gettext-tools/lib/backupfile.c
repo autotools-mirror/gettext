@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-1999, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1990-1999, 2000-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -68,12 +68,8 @@
 # define HAVE_DIR 0
 #endif
 
-#if HAVE_LIMITS_H
-# include <limits.h>
-#endif
-#ifndef CHAR_BIT
-# define CHAR_BIT 8
-#endif
+#include <limits.h>
+
 /* Upper bound on the string length of an integer converted to string.
    302 / 1000 is ceil (log10 (2.0)).  Subtract 1 for the sign bit;
    add 1 for integer division truncation; add 1 more for a minus sign.  */
