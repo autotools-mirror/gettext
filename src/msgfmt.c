@@ -67,6 +67,7 @@ struct msgfmt_class_ty
   enum is_wrap do_wrap;
 
   bool has_header_entry;
+  bool has_nonfuzzy_header_entry;
 };
 
 /* Contains exit status for case in which no premature exit occurs.  */
@@ -1207,6 +1208,7 @@ format_constructor (that)
     this->is_format[i] = undecided;
   this->do_wrap = undecided;
   this->has_header_entry = false;
+  this->has_nonfuzzy_header_entry = false;
 }
 
 
@@ -1218,14 +1220,29 @@ format_debrief (that)
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
 
   /* Test whether header entry was found.  */
-  if (check_header && !this->has_header_entry)
+  if (check_header)
     {
-      multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-		       xasprintf (_("\
-warning: PO file header missing, fuzzy, or invalid\n")));
-      multiline_error (NULL,
-		       xasprintf (_("\
+      if (!this->has_header_entry)
+	{
+	  multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+			   xasprintf (_("\
+warning: PO file header missing or invalid\n")));
+	  multiline_error (NULL,
+			   xasprintf (_("\
 warning: charset conversion will not work\n")));
+	}
+      else if (!this->has_nonfuzzy_header_entry)
+	{
+	  /* Has only a fuzzy header entry.  Since the versions 0.10.xx
+	     ignore a fuzzy header entry and even give an error on it, we
+	     give a warning, to increase operability with these older
+	     msgfmt versions.  This warning can go away in January 2003.  */
+	  multiline_warning (xasprintf ("%s: ", gram_pos.file_name),
+			     xasprintf (_("warning: PO file header fuzzy\n")));
+	  multiline_warning (NULL,
+			     xasprintf (_("\
+warning: older versions of msgfmt will give an error on this\n")));
+	}
     }
 }
 
@@ -1355,6 +1372,8 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
 	      if (msgid_string[0] == '\0')
 		{
 		  this->has_header_entry = true;
+		  if (!this->is_fuzzy)
+		    this->has_nonfuzzy_header_entry = true;
 
 		  /* Do some more tests on the contents of the header
 		     entry.  */

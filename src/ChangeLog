@@ -1,3 +1,12 @@
+2001-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt.c (struct msgfmt_class_ty): New field
+	'has_nonfuzzy_header_entry'.
+	(format_constructor): Initialize it.
+	(format_debrief): Give a warning if the header entry exists but is
+	fuzzy.
+	(format_directive_message): Update has_nonfuzzy_header_entry.
+
 2001-11-25  Bruno Haible  <bruno@clisp.org>
 
 	* x-c.c (comment_start, comment_add, comment_line_end): New inline
