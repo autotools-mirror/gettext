@@ -1,3 +1,12 @@
+2001-11-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* message.h: New enum value format_smalltalk.
+	* message.c (format_language): Add value for format_smalltalk.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_smalltalk): New declaration.
+	* format-ycp.c (formatstring_smalltalk): New variable.
+	* format.c (formatstring_parsers): Add value for format_smalltalk.
+
 2001-11-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* format-lisp.c (parse_upto): Remove 'base' argument. It is always 0.

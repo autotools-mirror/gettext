@@ -1,4 +1,4 @@
-/* YCP format strings.
+/* YCP and Smalltalk format strings.
    Copyright (C) 2001 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -34,6 +34,8 @@
 /* YCP sformat strings are described in libycp documentation YCP-builtins.html.
    A directive starts with '%' and is followed by '%' or a nonzero digit ('1'
    to '9').
+   GNU Smalltalk format strings are described in the CharArray documentation,
+   methods 'bindWith:' and 'bindWithArguments:'. They have the same syntax.
  */
 
 struct spec
@@ -146,6 +148,15 @@ format_check (pos, msgid_descr, msgstr_descr)
 
 
 struct formatstring_parser formatstring_ycp =
+{
+  format_parse,
+  format_free,
+  format_get_number_of_directives,
+  format_check
+};
+
+
+struct formatstring_parser formatstring_smalltalk =
 {
   format_parse,
   format_free,

@@ -26,10 +26,11 @@
 /* Table of all format string parsers.  */
 struct formatstring_parser *formatstring_parsers[NFORMATS] =
 {
-  /* format_c */	&formatstring_c,
-  /* format_python */	&formatstring_python,
-  /* format_lisp */	&formatstring_lisp,
-  /* format_java */	&formatstring_java,
-  /* format_pascal */	&formatstring_pascal,
-  /* format_ycp */	&formatstring_ycp
+  /* format_c */		&formatstring_c,
+  /* format_python */		&formatstring_python,
+  /* format_lisp */		&formatstring_lisp,
+  /* format_smalltalk */	&formatstring_smalltalk,
+  /* format_java */		&formatstring_java,
+  /* format_pascal */		&formatstring_pascal,
+  /* format_ycp */		&formatstring_ycp
 };

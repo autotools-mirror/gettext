@@ -36,6 +36,7 @@ enum format_type
   format_c,
   format_python,
   format_lisp,
+  format_smalltalk,
   format_java,
   format_pascal,
   format_ycp

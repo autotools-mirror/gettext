@@ -41,22 +41,24 @@ static message_ty *message_list_search_fuzzy_inner PARAMS ((
 
 const char *const format_language[NFORMATS] =
 {
-  /* format_c */	"c",
-  /* format_python */	"python",
-  /* format_lisp */	"lisp",
-  /* format_java */	"java",
-  /* format_pascal */	"object-pascal",
-  /* format_ycp */	"ycp"
+  /* format_c */		"c",
+  /* format_python */		"python",
+  /* format_lisp */		"lisp",
+  /* format_smalltalk */	"smalltalk",
+  /* format_java */		"java",
+  /* format_pascal */		"object-pascal",
+  /* format_ycp */		"ycp"
 };
 
 const char *const format_language_pretty[NFORMATS] =
 {
-  /* format_c */	"C",
-  /* format_python */	"Python",
-  /* format_lisp */	"Lisp",
-  /* format_java */	"Java",
-  /* format_pascal */	"Object Pascal",
-  /* format_ycp */	"YCP"
+  /* format_c */		"C",
+  /* format_python */		"Python",
+  /* format_lisp */		"Lisp",
+  /* format_smalltalk */	"Smalltalk",
+  /* format_java */		"Java",
+  /* format_pascal */		"Object Pascal",
+  /* format_ycp */		"YCP"
 };
 
 

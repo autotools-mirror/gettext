@@ -52,6 +52,7 @@ struct formatstring_parser
 extern struct formatstring_parser formatstring_c;
 extern struct formatstring_parser formatstring_python;
 extern struct formatstring_parser formatstring_lisp;
+extern struct formatstring_parser formatstring_smalltalk;
 extern struct formatstring_parser formatstring_java;
 extern struct formatstring_parser formatstring_pascal;
 extern struct formatstring_parser formatstring_ycp;
