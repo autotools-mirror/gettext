@@ -55,7 +55,7 @@
 static int line_comment = 1;
 
 /* Name of default domain file.  If not set defaults to messages.po.  */
-static char *default_domain;
+static const char *default_domain;
 
 /* Force output of PO file even if empty.  */
 static int force_po;
@@ -138,7 +138,7 @@ main (argc, argv)
   message_list_ty *mlp;
   int sort_by_msgid = 0;
   int sort_by_filepos = 0;
-  char *file_name;
+  const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
   char *output_file = NULL;

@@ -22,6 +22,8 @@
 	* message.h (message_alloc): Add const to prototype.
 	* message.c (message_alloc): Add const to argument type.
 	* msgcmp.c (compare_class_ty): Add const to 'domain' field.
+	* msgcomm.c (default_domain): Add const.
+	(main): Add const to 'file_name' variable.
 	* xgettext.c (default_domain): Add const.
 	(msgstr_prefix): Likewise.
 	(msgstr_suffix): Likewise.
