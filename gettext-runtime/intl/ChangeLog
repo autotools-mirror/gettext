@@ -1,3 +1,8 @@
+2004-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (_nl_locale_name): Use two-letter ISO 639 codes for
+	Divehi, Fulfulde, Igbo, Kanuri, Venda.
+
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:0:4.
