@@ -16,7 +16,7 @@ be split into two packages:
         Dependencies: requires gettext-runtime.
 
 The 'gettext-runtime' binary package is much smaller than the 'gettext-tools'
-binary package (90 KB versus 4 MB). I recommend to include it in the default
+binary package (420 KB versus 5.5 MB). I recommend to include it in the default
 installation list, like GNU 'sh-utils'; in fact, the runtime programs are
 utilities for sh programs.
 
@@ -34,7 +34,7 @@ The 'gettext-tools' binary package can be installed by doing
       make
       make install
 
-If you want to install both at the same time, you simple do at the toplevel
+If you want to install both at the same time, you simply do at the toplevel
 directory:
 
       ./configure
