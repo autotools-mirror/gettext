@@ -1,6 +1,9 @@
 # List of files which containing translatable strings.
 # Copyright (C) 1995, 1998, 2001 Free Software Foundation, Inc.
 
+# For updating this file, look at the result of:
+#   $ grep -l '[^A-Za-z_]_(' {lib,src}/*.[chy]
+
 # Files from the compatibility library
 lib/error.c
 lib/getopt.c
@@ -19,5 +22,7 @@ src/open-po.c
 src/po-gram-gen.c
 src/po-lex.h
 src/po-lex.c
+src/po.c
+src/write-po.c
 src/xget-lex.c
 src/xgettext.c

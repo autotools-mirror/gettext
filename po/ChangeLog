@@ -1,5 +1,9 @@
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
+	* POTFILES.in: Add src/po.c, src/write-po.c.
+
+2001-03-09  Bruno Haible  <haible@clisp.cons.org>
+
 	* Makefile.in.in (update-po): Use $(GMOFILES), not $(CATALOGS).
 
 2001-03-03  Bruno Haible  <haible@clisp.cons.org>
