@@ -3,6 +3,7 @@
 
 1)
 gettext.c       Source for the 'gettext' program.
+ngettext.c      Source for the 'ngettext' program.
 
 2) The msgfmt, msgunfmt, msgcmp, msgcomm, msgmerge, xgettext programs.
 
