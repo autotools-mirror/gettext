@@ -15,5 +15,9 @@ msgconv
 msgen
 msgexec
 msggrep
+msginit
 msguniq
+hostname
+urlget
+user-email
 gettext.jar
