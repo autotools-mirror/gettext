@@ -1,5 +1,5 @@
 /* linebreak.h - line breaking of Unicode strings
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
 This program is free software; you can redistribute it and/or modify
@@ -60,20 +60,44 @@ enum {
           hyphenation rules.
    p[i] = UC_BREAK_PROHIBITED means that s[i-1] and s[i] must not be separated.
  */
-extern void u8_possible_linebreaks (const unsigned char *s, size_t n, const char *encoding, char *p);
-extern void u16_possible_linebreaks (const unsigned short *s, size_t n, const char *encoding, char *p);
-extern void u32_possible_linebreaks (const unsigned int *s, size_t n, const char *encoding, char *p);
-extern void mbs_possible_linebreaks (const char *s, size_t n, const char *encoding, char *p);
+extern void u8_possible_linebreaks (const unsigned char *s, size_t n,
+                                    const char *encoding,
+                                    char *p);
+extern void u16_possible_linebreaks (const unsigned short *s, size_t n,
+                                     const char *encoding,
+                                     char *p);
+extern void u32_possible_linebreaks (const unsigned int *s, size_t n,
+                                     const char *encoding,
+                                     char *p);
+extern void mbs_possible_linebreaks (const char *s, size_t n,
+                                     const char *encoding,
+                                     char *p);
 
 /* Choose the best line breaks, assuming the uc_width function.
    Return the column after the end of the string.
    o is an optional override; if o[i] != UC_BREAK_UNDEFINED, o[i] takes
    precedence over p[i] as returned by the *_possible_linebreaks function.
  */
-extern int u8_width_linebreaks (const unsigned char *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p);
-extern int u16_width_linebreaks (const unsigned short *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p);
-extern int u32_width_linebreaks (const unsigned int *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p);
-extern int mbs_width_linebreaks (const char *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p);
+extern int
+       u8_width_linebreaks (const unsigned char *s, size_t n,
+                            int width, int start_column, int at_end_columns,
+                            const char *o, const char *encoding,
+                            char *p);
+extern int
+       u16_width_linebreaks (const unsigned short *s, size_t n,
+                             int width, int start_column, int at_end_columns,
+                             const char *o, const char *encoding,
+                             char *p);
+extern int
+       u32_width_linebreaks (const unsigned int *s, size_t n,
+                             int width, int start_column, int at_end_columns,
+                             const char *o, const char *encoding,
+                             char *p);
+extern int
+       mbs_width_linebreaks (const char *s, size_t n,
+                             int width, int start_column, int at_end_columns,
+                             const char *o, const char *encoding,
+                             char *p);
 
 
 #endif /* _LINEBREAK_H */
