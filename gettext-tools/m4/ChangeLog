@@ -1,8 +1,28 @@
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* readlink.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add it.
+
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* ssize_t.m4 (gt_TYPE_SSIZE_T): Don't include <unistd.h>. <sys/types.h>
+	should be sufficient.
+	Reported by Paul Eggert.
+
+2003-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* backupfile.m4 (gt_PREREQ_BACKUPFILE): Remove limits.h check.
+
+2003-05-28  Paul Eggert  <eggert@twinsun.com>
+
+	* pathmax.m4 (gl_PATHMAX): Don't check for limits.h.
+	* xreadlink.m4 (gl_XREADLINK): Likewise.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	Portability to mingw32.
-	* m4/ssize.m4 (gt_TYPE_SSIZE_T): Test for unistd.h.
-	* m4/xreadlink.m4 (gl_XREADLINK): Require gt_TYPE_SSIZE_T.
+	* ssize_t.m4 (gt_TYPE_SSIZE_T): Test for unistd.h.
+	* xreadlink.m4 (gl_XREADLINK): Require gt_TYPE_SSIZE_T.
 	Reported by Jeff Bonggren <jbon@cfl.rr.com>.
 
 2003-06-19  Bruno Haible  <bruno@clisp.org>
