@@ -1,3 +1,7 @@
+2001-09-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Check for utime and utimes.
+
 2001-09-08  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in (AC_OUTPUT): Add intl-java/Makefile.
