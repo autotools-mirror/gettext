@@ -1,3 +1,8 @@
+2001-09-27  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Inline AM_WITH_NLS call.
+	(AM_WITH_NLS): Remove macro.
+
 2001-09-23  Bruno Haible  <haible@clisp.cons.org>
 
 	* siginfo.m4: New file.
