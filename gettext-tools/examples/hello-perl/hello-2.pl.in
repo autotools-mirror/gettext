@@ -1,0 +1,14 @@
+#!@PERL@
+# Example for use of GNU gettext.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# This file is in the public domain.
+#
+# Source code of the Perl program, using the Locale::TextDomain API.
+
+use Locale::TextDomain ("hello-perl" => "@localedir@");
+use POSIX qw(getpid);
+
+print __"Hello, world!";
+print "\n";
+print __x ("This program is running as process number {pid}.", pid => getpid());
+print "\n";
