@@ -23,7 +23,7 @@ gcc             |                         []       [] |
 gettext         |    []    [] []          []       [] |
 gnupg           |             [] []    [] [] []    [] |
 gprof           |                         []       [] |
-grep            |                                     |
+grep            |                            []       |
 hello           |          [] [] []    [] [] [] [] [] |
 id-utils        |          [] []                   [] |
 indent          |    []       []       []    []    [] |
@@ -59,7 +59,7 @@ wdiff           |          [] []          [] []    [] |
 wget            |    [] [] [] [] []       [] []    [] |
                 +-------------------------------------+
                   bg ca cs da de el en eo es et fi fr
-                   0 10 11 31 35  9  1  8 38 14  1 48
+                   0 10 11 31 35  9  1  8 38 15  1 48
 @end group
 
 @group
@@ -86,7 +86,7 @@ gcc             |                                     |
 gettext         |                      []             |
 gnupg           | []             [] []                |
 gprof           |                                     |
-grep            |                                     |
+grep            |                []                   |
 hello           | [] []    []    [] [] [] [] [] [] [] |
 id-utils        |                               []    |
 indent          | []                []          []    |
@@ -122,7 +122,7 @@ wdiff           |                                     |
 wget            | [] []    []       []          []    |
                 +-------------------------------------+
                   gl he hr hu id it ja ko lv nb nl nn
-                  19  7  0  4  6 10 22  9  1  8 19  4
+                  19  7  0  4  6 11 22  9  1  8 19  4
 @end group
 
 @group
@@ -149,7 +149,7 @@ gcc             |                            []          |  3
 gettext         |                   [] [] [] []          | 10
 gnupg           |    []                   [] []          | 12
 gprof           |                         [] []          |  4
-grep            |                            []          |  1
+grep            |                            []          |  3
 hello           | [] []          [] []    [] [] []       | 25
 id-utils        |                []       []             |  6
 indent          |                [] []    [] []          | 12
@@ -177,7 +177,7 @@ sketch          |           []   ()                      |  2
 soundtracker    |                         []             |  5
 sp              |                                        |  0
 tar             | [] []     []      [] [] [] []          | 16
-texinfo         |                []       []             |  9
+texinfo         |                []       []        []   | 10
 textutils       |                      [] [] []          | 10
 util-linux      |           []            [] []          |  8
 vorbis-tools    |                         []             |  1
@@ -185,6 +185,6 @@ wdiff           |                [] []    [] []          |  9
 wget            |                [] [] [] [] [] []  []   | 20
                 +----------------------------------------+
   35 teams        no pl pt pt_BR ru sk sl sv tr uk zh_TW
-  55 domains       5 12  2  12   24 11 10 41 34  4   3    473
+  55 domains       5 12  2  12   24 11 10 41 34  4   4    476
 @end group
 @end example
