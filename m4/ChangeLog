@@ -1,3 +1,7 @@
+2001-03-10  Bruno Haible  <haible@clisp.cons.org>
+
+	* signed.m4: Quote first argument of AC_DEFUN.
+
 2001-03-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (aclocal_DATA): Add codeset.m4 and iconv.m4, both needed
