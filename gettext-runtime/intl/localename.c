@@ -1,5 +1,5 @@
 /* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -711,7 +711,7 @@
    The result must not be freed; it is statically allocated.  */
 
 const char *
-_nl_locale_name (int category, const char *categoryname)
+_nl_locale_name_posix (int category, const char *categoryname)
 {
   /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
      On some systems this can be done by the 'setlocale' function itself.  */
@@ -733,20 +733,36 @@ _nl_locale_name (int category, const char *categoryname)
   if (retval != NULL && retval[0] != '\0')
     return retval;
 
-  /* We use C as the default domain.  POSIX says this is
-     implementation defined.  */
-# if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32))
+  return NULL;
+#endif
+}
 
+const char *
+_nl_locale_name_default (void)
+{
+  /* POSIX:2001 says:
+     "All implementations shall define a locale as the default locale, to be
+      invoked when no environment variables are set, or set to the empty
+      string.  This default locale can be the POSIX locale or any other
+      implementation-defined locale.  Some implementations may provide
+      facilities for local installation administrators to set the default
+      locale, customizing it for each location.  POSIX:2001 does not require
+      such a facility.  */
+
+#if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32))
+
+  /* The system does not have a way of setting the locale, other than the
+     POSIX specified environment variables.  We use C as default locale.  */
   return "C";
 
-# else
+#else
 
   /* Return an XPG style locale name language[_territory][@modifier].
      Don't even bother determining the codeset; it's not useful in this
      context, because message catalogs are not specific to a single
      codeset.  */
 
-#  if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
+# if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
   /* MacOS X 10.2 or newer */
   {
     /* Cache the locale name, since CoreFoundation calls are expensive.  */
@@ -755,7 +771,7 @@ _nl_locale_name (int category, const char *categoryname)
     if (cached_localename == NULL)
       {
 	char namebuf[256];
-#   if HAVE_CFLOCALECOPYCURRENT /* MacOS X 10.3 or newer */
+#  if HAVE_CFLOCALECOPYCURRENT /* MacOS X 10.3 or newer */
 	CFLocaleRef locale = CFLocaleCopyCurrent ();
 	CFStringRef name = CFLocaleGetIdentifier (locale);
 
@@ -763,7 +779,7 @@ _nl_locale_name (int category, const char *categoryname)
 				kCFStringEncodingASCII))
 	  cached_localename = strdup (namebuf);
 	CFRelease (locale);
-#   elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
+#  elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
 	CFTypeRef value =
 	  CFPreferencesCopyAppValue (CFSTR ("AppleLocale"),
 				     kCFPreferencesCurrentApplication);
@@ -772,16 +788,16 @@ _nl_locale_name (int category, const char *categoryname)
 	    && CFStringGetCString ((CFStringRef)value, namebuf, sizeof(namebuf),
 				   kCFStringEncodingASCII))
 	  cached_localename = strdup (namebuf);
-#   endif
+#  endif
 	if (cached_localename == NULL)
 	  cached_localename = "C";
       }
     return cached_localename;
   }
 
-#  endif
+# endif
 
-#  if defined(WIN32) /* WIN32 */
+# if defined(WIN32) /* WIN32 */
   {
     LCID lcid;
     LANGID langid;
@@ -1187,7 +1203,18 @@ _nl_locale_name (int category, const char *categoryname)
       default: return "C";
       }
   }
-#  endif
 # endif
 #endif
+}
+
+const char *
+_nl_locale_name (int category, const char *categoryname)
+{
+  const char *retval;
+
+  retval = _nl_locale_name_posix (category, categoryname);
+  if (retval != NULL)
+    return retval;
+
+  return _nl_locale_name_default ();
 }

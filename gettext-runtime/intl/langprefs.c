@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004 Free Software Foundation, Inc.
+   Copyright (C) 2004-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -35,17 +35,13 @@
 /* Determine the user's language preferences, as a colon separated list of
    locale names in XPG syntax
      language[_territory[.codeset]][@modifier]
-   The result must not be freed; it is statically allocated.  */
+   The result must not be freed; it is statically allocated.
+   The LANGUAGE environment variable does not need to be considered; it is
+   already taken into account by the caller.  */
 
 const char *
-_nl_language_preferences (void)
+_nl_language_preferences_default (void)
 {
-  const char *language;
-
-  language = getenv ("LANGUAGE");
-  if (language != NULL && language[0] != '\0')
-    return language;
-
 #if HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
   {
     /* Cache the preferences list, since CoreFoundation calls are expensive.  */

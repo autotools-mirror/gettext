@@ -1,3 +1,17 @@
+2005-01-01  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (guess_category_value): Let the environment variables
+	LC_ALL, LC_xxx, LANG take precedence over the system-dependent language
+	preference list.
+	* gettextP.h (_nl_language_preferences): Remove declaration.
+	(_nl_language_preferences_default): New declaration.
+	(_nl_locale_name_posix, _nl_locale_name_default): New declarations.
+	* langprefs.c (_nl_language_preferences_default): Renamed from
+	_nl_language_preferences. Remove handling of getenv("LANGUAGE").
+	* localename.c (_nl_locale_name_posix, _nl_locale_name_default): New
+	functions, extracted from _nl_locale_name.
+	(_nl_locale_name): Use them.
+
 2004-09-06  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c (_nl_locale_name): Add code for MacOS X versions that
