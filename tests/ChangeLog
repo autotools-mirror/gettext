@@ -1,3 +1,7 @@
+2001-04-06  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-2: Change formula and result for ru.
+
 2001-04-04  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt-3: Set LC_MESSAGES=C, to filter out specific warnings.
