@@ -1,3 +1,8 @@
+2003-11-28  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (set_format_flags_from_context): Add casts, to make it
+	compile in C++ mode.
+
 2003-11-22  Bruno Haible  <bruno@clisp.org>
 
 	* x-c.c (phase4_getc): Skip leading whitespace in C++ style comments

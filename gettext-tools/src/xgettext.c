@@ -1623,10 +1623,10 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 	  {
 	    if (formatstring_parsers[i] == current_formatstring_parser1
 		&& context.is_format1 != undecided)
-	      is_format[i] = context.is_format1;
+	      is_format[i] = (enum is_format) context.is_format1;
 	    if (formatstring_parsers[i] == current_formatstring_parser2
 		&& context.is_format2 != undecided)
-	      is_format[i] = context.is_format2;
+	      is_format[i] = (enum is_format) context.is_format2;
 	  }
 	if (possible_format_p (is_format[i]))
 	  {
