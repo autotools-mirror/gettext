@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PoInventory xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xsi:noNamespaceSchemaLocation="gnu/schema/PoInventory.xsd">
+  <domains>
+    <domain name="fileutils"/>
+    <domain name="sh-utils"/>
+  </domains>
+  <teams>
+    <team name="de"/>
+    <team name="pt_BR"/>
+  </teams>
+  <PoFiles>
+    <po domain="fileutils" team="pt_BR">82</po>
+    <po domain="sh-utils" team="de">99</po>
+  </PoFiles>
+</PoInventory>
