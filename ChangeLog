@@ -1,3 +1,10 @@
+2003-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* configure.in (gt_cv_prog_cxx_namespaces): Reject C++ compilers that
+	have namespaces but for which std::ostream is undefined, like cxx on
+	Tru64.
+	Reported by Martin Mokrejš <mmokrejs@natur.cuni.cz>.
+
 2003-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* configure.in: Invoke gl_FUNC_ALLOCA instead of AC_FUNC_ALLOCA.

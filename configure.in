@@ -211,8 +211,9 @@ if test "$CXX" != ":"; then
     AC_MSG_CHECKING([whether the C++ compiler supports namespaces])
     AC_LANG_PUSH(C++)
     cat <<EOF > conftest.$ac_ext
-#include <iostream.h>
+#include <iostream>
 namespace test { using namespace std; }
+std::ostream* ptr;
 int main () { return 0; }
 EOF
     if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
