@@ -11,6 +11,23 @@ AC_PROG_INSTALL
 AC_PROG_YACC
 gt_PROG_LEX
 
+gt_JAVACOMP
+AC_CHECK_PROG(JAR, jar, jar)
+if test -n "$HAVE_JAVACOMP" && test -n "$JAR"; then
+  BUILDJAVA=yes
+else
+  BUILDJAVA=no
+fi
+AC_SUBST(BUILDJAVA)
+
+gt_JAVAEXEC
+if test -n "$HAVE_JAVAEXEC" && test $BUILDJAVA = yes; then
+  TESTJAVA=yes
+else
+  TESTJAVA=no
+fi
+AC_SUBST(TESTJAVA)
+
 dnl Check for host type.
 AC_CANONICAL_HOST
 
@@ -98,6 +115,12 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
-AC_OUTPUT([Makefile lib/Makefile intl/Makefile src/Makefile po/Makefile.in \
-           doc/Makefile man/Makefile man/x-to-1 tests/Makefile m4/Makefile \
+AC_OUTPUT([Makefile \
+           lib/Makefile lib/javacomp.sh lib/javaexec.sh \
+           intl/Makefile \
+           src/Makefile \
+           po/Makefile.in \
+           doc/Makefile man/Makefile man/x-to-1 \
+           tests/Makefile \
+           m4/Makefile \
            misc/Makefile misc/gettextize])

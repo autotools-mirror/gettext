@@ -1,3 +1,9 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_JAVACOMP and check for 'jar'. Define BUILDJAVA.
+	Call gt_JAVAEXEC. Define TESTJAVA.
+	(AC_OUTPUT): Also create lib/javacomp.sh and lib/javaexec.sh.
+
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Add AC_REPLACE_FUNCS of strpbrk.

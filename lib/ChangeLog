@@ -1,3 +1,8 @@
+2001-09-08  Bruno Haible  <haible@clisp.cons.org>
+
+	* javacomp.sh.in: New file.
+	* javaexec.sh.in: New file.
+
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* javacomp.h: New file.
