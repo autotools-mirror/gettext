@@ -114,6 +114,7 @@ fi
 if test -d intl; then
   # Remove everything inside intl except for RCS and CVS subdirs and invisible
   # files.
+  $echo "Wiping out intl/ subdirectory"
   (cd intl &&
    for f in *; do
      if test CVS != "$f" && test RCS != "$f"; then
@@ -121,16 +122,19 @@ if test -d intl; then
      fi
    done)
 else
-  rm -f intl
+  $echo "Creating intl/ subdirectory"
   mkdir intl || {
     $echo "failed to create intl/ subdirectory"
     exit 1;
   }
 fi
 
-test -d po || mkdir po || {
-   $echo "failed to create po/ subdirectory"
-   exit 1
+test -d po || {
+  $echo "Creating po/ subdirectory"
+  mkdir po || {
+    $echo "failed to create po/ subdirectory"
+    exit 1
+  }
 }
 
 # For simplicity we changed to the gettext source directory.
@@ -145,6 +149,7 @@ for file in *; do
     intl | po)
       ;;
     *)
+      $echo "Copying file $file"
       rm -f $srcdir/$file
       ($try_ln_s && ln -s $gettext_dir/$file $srcdir/$file) 2>/dev/null ||
       cp $file $srcdir/$file
@@ -155,6 +160,7 @@ done
 # Copy files to intl/ subdirectory.
 cd intl
 for file in *; do
+  $echo "Copying file intl/$file"
   rm -f $srcdir/intl/$file
   ($try_ln_s && ln -s $gettext_dir/intl/$file $srcdir/intl/$file) 2>/dev/null ||
   cp $file $srcdir/intl/$file
@@ -163,22 +169,34 @@ done
 # Copy files to po/ subdirectory.
 cd ../po
 for file in *; do
+  $echo "Copying file po/$file"
   rm -f $srcdir/po/$file
   ($try_ln_s && ln -s $gettext_dir/po/$file $srcdir/po/$file) 2>/dev/null ||
   cp $file $srcdir/po/$file
 done
-rm -f $srcdir/po/cat-id-tbl.c $srcdir/po/stamp-cat-id
 DATE=`date +%Y-%m-%d`
 cat > $srcdir/po/ChangeLog.tmp <<EOF
 $DATE  gettextize  <bug-gnu-utils@gnu.org>
 
 	* Makefile.in.in: Upgrade to gettext-${version}.
-	* cat-id-tbl.c, stamp-cat-id: Remove files.
-
 EOF
+if test -e $srcdir/po/cat-id-tbl.c; then
+  $echo "Removing po/cat-id-tbl.c"
+  rm -f $srcdir/po/cat-id-tbl.c
+  $echo "	* cat-id-tbl.c: Remove file." >> $srcdir/po/ChangeLog.tmp
+fi
+if test -e $srcdir/po/stamp-cat-id; then
+  $echo "Removing po/stamp-cat-id"
+  rm -f $srcdir/po/stamp-cat-id
+  $echo "	* stamp-cat-id: Remove file." >> $srcdir/po/ChangeLog.tmp
+fi
+$echo >> $srcdir/po/ChangeLog.tmp
 if test -f $srcdir/po/ChangeLog; then
+  $echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)
   cat $srcdir/po/ChangeLog >> $srcdir/po/ChangeLog.tmp
   cp -p $srcdir/po/ChangeLog $srcdir/po/ChangeLog~
+else
+  $echo "Creating po/ChangeLog"
 fi
 cp $srcdir/po/ChangeLog.tmp $srcdir/po/ChangeLog
 rm -f $srcdir/po/ChangeLog.tmp
