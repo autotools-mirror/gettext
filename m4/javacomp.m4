@@ -15,15 +15,28 @@ AC_DEFUN([gt_JAVACOMP],
   if test -n "$JAVAC"; then
     ac_result="$JAVAC"
   else
-    if gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
+    pushdef([AC_MSG_CHECKING],[:])dnl
+    pushdef([AC_CHECKING],[:])dnl
+    pushdef([AC_MSG_RESULT],[:])dnl
+    AC_CHECK_PROG(HAVE_GCJ_IN_PATH, gcj, yes)
+    AC_CHECK_PROG(HAVE_JAVAC_IN_PATH, javac, yes)
+    AC_CHECK_PROG(HAVE_JIKES_IN_PATH, jikes, yes)
+    popdef([AC_MSG_RESULT])dnl
+    popdef([AC_CHECKING])dnl
+    popdef([AC_MSG_CHECKING])dnl
+    if test -n "$HAVE_GCJ_IN_PATH" \
+       && gcj --version 2>/dev/null | grep '^[3-9]' >/dev/null; then
       HAVE_GCJ=1
       ac_result="gcj -C"
     else
-      if (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
+      if test -n "$HAVE_JAVAC_IN_PATH" \
+         && (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
         HAVE_JAVAC=1
         ac_result="javac"
       else
-        if (jikes >/dev/null 2>/dev/null || test $? = 1) && (
+        if test -n "$HAVE_JIKES_IN_PATH" \
+           && (jikes >/dev/null 2>/dev/null || test $? = 1) \
+           && (
             # See if the existing CLASSPATH is sufficient to make jikes work.
             cat > conftest.java <<EOF
 public class conftest {

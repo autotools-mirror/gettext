@@ -15,19 +15,33 @@ AC_DEFUN([gt_JAVAEXEC],
   if test -n "$JAVA"; then
     ac_result="$JAVA"
   else
-    if gij --version >/dev/null 2>/dev/null; then
+    pushdef([AC_MSG_CHECKING],[:])dnl
+    pushdef([AC_CHECKING],[:])dnl
+    pushdef([AC_MSG_RESULT],[:])dnl
+    AC_CHECK_PROG(HAVE_GIJ_IN_PATH, gij, yes)
+    AC_CHECK_PROG(HAVE_JAVA_IN_PATH, java, yes)
+    AC_CHECK_PROG(HAVE_JRE_IN_PATH, jre, yes)
+    AC_CHECK_PROG(HAVE_JVIEW_IN_PATH, jview, yes)
+    popdef([AC_MSG_RESULT])dnl
+    popdef([AC_CHECKING])dnl
+    popdef([AC_MSG_CHECKING])dnl
+    if test -n "$HAVE_GIJ_IN_PATH" \
+       && gij --version >/dev/null 2>/dev/null; then
       HAVE_GIJ=1
       ac_result="gij"
     else
-      if java -version >/dev/null 2>/dev/null; then
+      if test -n "$HAVE_JAVA_IN_PATH" \
+         && java -version >/dev/null 2>/dev/null; then
         HAVE_JAVA_JVM=1
         ac_result="java"
       else
-        if (jre >/dev/null 2>/dev/null || test $? = 1); then
+        if test -n "$HAVE_JRE_IN_PATH" \
+           && (jre >/dev/null 2>/dev/null || test $? = 1); then
           HAVE_JRE=1
           ac_result="jre"
         else
-          if (jview -? >/dev/null 2>/dev/null || test $? = 1); then
+          if test -n "$HAVE_JVIEW_IN_PATH" \
+             && (jview -? >/dev/null 2>/dev/null || test $? = 1); then
             HAVE_JVIEW=1
             ac_result="jview"
           else
