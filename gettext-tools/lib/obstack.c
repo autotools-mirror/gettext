@@ -1,5 +1,5 @@
 /* obstack.c - subroutines used implicitly by object stack macros
-   Copyright (C) 1988-1994, 1996-1999, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1988-1994, 1996-1999, 2000-2005 Free Software Foundation, Inc.
    This file is part of the GNU C Library.  Its master source is NOT part of
    the C library, however.  The master source lives in /gd/gnu/lib.
 
@@ -74,12 +74,17 @@ union fooround
   long double d;
   void *p;
 };
+struct fooalign
+{
+  char c;
+  union fooround u;
+};
 /* If malloc were really smart, it would round addresses to DEFAULT_ALIGNMENT.
    But in fact it might be less smart and round addresses to as much as
    DEFAULT_ROUNDING.  So we prepare for it to do that.  */
 enum
   {
-    DEFAULT_ALIGNMENT = offsetof (struct { char c; union fooround u; }, u),
+    DEFAULT_ALIGNMENT = offsetof (struct fooalign, u),
     DEFAULT_ROUNDING = sizeof (union fooround)
   };
 
