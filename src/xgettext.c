@@ -1436,6 +1436,7 @@ language_to_scanner (name)
   {
     { "C", scan_c_file, },
     { "C++", scan_c_file, },
+    { "ObjectiveC", scan_c_file, },
     { "PO", read_po_file, },
     /* Here will follow more languages and their scanners: awk, perl,
        etc...  Make sure new scanners honor the --exlude-file option.  */
@@ -1474,6 +1475,7 @@ extension_to_language (extension)
     { "h",      "C",    },
     { "hh",     "C++",  },
     { "hpp",    "C++",  },
+    { "m",      "ObjectiveC" },
     { "po",     "PO",   },
     { "pot",    "PO",   },
     { "pox",    "PO",   },

@@ -1,5 +1,10 @@
 2001-07-22  Bruno Haible  <haible@clisp.cons.org>
 
+	* xgettext.c (language_to_scanner): Add language "ObjectiveC".
+	(extension_to_language): Map extension "m" to "ObjectiveC".
+
+2001-07-22  Bruno Haible  <haible@clisp.cons.org>
+
 	Make msgcomm work with multidomain input and different encodings.
 	* msgl-cat.h (msgcomm_mode, omit_header): New declarations.
 	* msgl-cat.c (msgcomm_mode, omit_header): New variables.
