@@ -276,7 +276,7 @@ else
       # see comment about different semantics on the GNU ld section
       ld_shlibs=no
       ;;
-    bsdi4*)
+    bsdi[45]*)
       ;;
     cygwin* | mingw* | pw32*)
       # When not using gcc, we currently assume that we are using
@@ -285,13 +285,6 @@ else
       # no search path for DLLs.
       hardcode_libdir_flag_spec=' '
       libext=lib
-      ;;
-    darwin* | rhapsody*)
-      if test "$GCC" = yes; then
-        hardcode_direct=no
-      else
-        ld_shlibs=no
-      fi
       ;;
     dgux*)
       hardcode_libdir_flag_spec='-L$libdir'
@@ -450,7 +443,7 @@ case "$host_os" in
     ;;
   beos*)
     ;;
-  bsdi4*)
+  bsdi[45]*)
     ;;
   cygwin* | mingw* | pw32*)
     shrext=.dll
