@@ -89,6 +89,7 @@ int_vasprintf (result, format, args)
 	      (void) va_arg (ap, int);
 	      break;
 	    case 'f':
+	    case 'F':
 	      {
 		double arg = va_arg (ap, double);
 		if (arg >= 1.0 || arg <= -1.0)
