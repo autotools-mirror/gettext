@@ -804,10 +804,10 @@ msgstr "%s: Warnung: Zeichensatz »%s« wird von iconv%s nicht unterstützt"
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 msgstr ""
 "%s: Warnung: Zeichensatz »%s« wird von iconv%s nicht unterstützt\n"
-"%*s  Warnung: Empfehlung: Installieren Sie libiconv und installieren Sie\n"
+"%*s  Warnung: Empfehlung: Installieren Sie GNU libiconv und installieren Sie\n"
 "        GNU gettext neu"
 
 #. TRANS: sentence trans_id_3 starts here
@@ -815,10 +815,10 @@ msgstr ""
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 msgstr ""
 "%s: Warnung: Zeichensatz »%s« wird ohne iconv%s nicht unterstützt\n"
-"%*s  Warnung: Empfehlung: Installieren Sie libiconv und installieren Sie\n"
+"%*s  Warnung: Empfehlung: Installieren Sie GNU libiconv und installieren Sie\n"
 "        GNU gettext neu"
 
 #: src/po.c:330

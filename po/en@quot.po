@@ -780,20 +780,20 @@ msgstr "%s: warning: charset “%s” is not supported by iconv%s"
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 msgstr ""
 "%s: warning: charset “%s” is not supported by iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 
 #. TRANS: sentence trans_id_3 starts here
 #: src/po.c:316
 #, c-format
 msgid ""
 "%s: warning: charset \"%s\" is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 msgstr ""
 "%s: warning: charset “%s” is not supported without iconv%s\n"
-"%*s  warning: consider installing libiconv and then reinstalling GNU gettext"
+"%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"
 
 #: src/po.c:330
 #, c-format

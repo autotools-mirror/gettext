@@ -300,7 +300,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 		  /* TRANS: sentence trans_id_2 starts here */
 		  error (0, 0, _("\
 %s: warning: charset \"%s\" is not supported by iconv%s\n\
-%*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
+%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"),
 			 gram_pos.file_name, po_lex_charset, note,
 			 (int) strlen (gram_pos.file_name), "");
 # endif
@@ -315,7 +315,7 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 		  /* TRANS: sentence trans_id_3 starts here */
 		  error (0, 0, _("\
 %s: warning: charset \"%s\" is not supported without iconv%s\n\
-%*s  warning: consider installing libiconv and then reinstalling GNU gettext"),
+%*s  warning: consider installing GNU libiconv and then reinstalling GNU gettext"),
 			 gram_pos.file_name, po_lex_charset,
 			 /* TRANS: sentence starts at trans_id_3 */
 			 _(", expect parse errors"),
