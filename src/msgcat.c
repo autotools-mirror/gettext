@@ -61,6 +61,7 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
@@ -216,6 +217,10 @@ main (argc, argv)
 	use_first = true;
 	break;
 
+      case CHAR_MAX + 2: /* --no-wrap */
+	message_page_width_ignore ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -357,6 +362,8 @@ Output details:\n\
   -n, --add-location             generate '#: filename:line' lines (default)\n\
       --strict                   write out strict Uniforum conforming .po file\n\
   -w, --width=NUMBER             set output page width\n\
+      --no-wrap                  do not break long message lines, longer than\n\
+                                 the output page width, into several lines\n\
   -s, --sort-output              generate sorted output\n\
   -F, --sort-by-file             sort output by file location\n\
 "));

@@ -103,6 +103,18 @@ message_page_width_set (n)
 }
 
 
+/* This variable controls the extent to which the page width applies.
+   True means it applies to message strings and file reference lines.
+   False means it applies to file reference lines only.  */
+static bool wrap_strings = true;
+
+void
+message_page_width_ignore ()
+{
+  wrap_strings = false;
+}
+
+
 /* These three variables control the output style of the message_print
    function.  Interface functions for them are to be used.  */
 static bool indent = false;
@@ -487,7 +499,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       startcol_after_break++;
 
       /* The line width.  Allow room for the closing quote character.  */
-      width = (do_wrap == no ? INT_MAX : page_width) - 1;
+      width = (wrap_strings && do_wrap != no ? page_width : INT_MAX) - 1;
       /* Adjust for indentation of subsequent lines.  */
       width -= startcol_after_break;
 

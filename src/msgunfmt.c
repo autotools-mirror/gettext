@@ -68,6 +68,7 @@ static const struct option long_options[] =
   { "java", no_argument, NULL, 'j' },
   { "locale", required_argument, NULL, 'l' },
   { "no-escape", no_argument, NULL, 'e' },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
   { "resource", required_argument, NULL, 'r' },
   { "sort-output", no_argument, NULL, 's' },
@@ -184,6 +185,10 @@ main (argc, argv)
 
       case CHAR_MAX + 1:
 	tcl_mode = true;
+	break;
+
+      case CHAR_MAX + 2: /* --no-wrap */
+	message_page_width_ignore ();
 	break;
 
       default:
@@ -374,6 +379,8 @@ Output details:\n\
   -i, --indent             write indented output style\n\
       --strict             write strict uniforum style\n\
   -w, --width=NUMBER       set output page width\n\
+      --no-wrap            do not break long message lines, longer than\n\
+                           the output page width, into several lines\n\
   -s, --sort-output        generate sorted output\n\
 "));
       printf ("\n");

@@ -135,6 +135,7 @@ static const struct option long_options[] =
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
@@ -360,6 +361,9 @@ main (argc, argv)
 	break;
       case CHAR_MAX + 2:	/* --foreign-user */
 	copyright_holder = "";
+	break;
+      case CHAR_MAX + 3:	/* --no-wrap */
+	message_page_width_ignore ();
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -601,6 +605,8 @@ Output details:\n\
   -n, --add-location             generate '#: filename:line' lines (default)\n\
       --strict                   write out strict Uniforum conforming .po file\n\
   -w, --width=NUMBER             set output page width\n\
+      --no-wrap                  do not break long message lines, longer than\n\
+                                 the output page width, into several lines\n\
   -s, --sort-output              generate sorted output\n\
   -F, --sort-by-file             sort output by file location\n\
       --omit-header              don't write header with `msgid \"\"' entry\n\

@@ -81,6 +81,7 @@ static const struct option long_options[] =
   { "no-fuzzy", no_argument, NULL, CHAR_MAX + 3 },
   { "no-location", no_argument, &line_comment, 0 },
   { "no-obsolete", no_argument, NULL, CHAR_MAX + 5 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 13 },
   { "obsolete", no_argument, NULL, CHAR_MAX + 12 },
   { "only-fuzzy", no_argument, NULL, CHAR_MAX + 4 },
   { "only-obsolete", no_argument, NULL, CHAR_MAX + 6 },
@@ -251,6 +252,10 @@ main (argc, argv)
 	to_change |= RESET_OBSOLETE;
 	break;
 
+      case CHAR_MAX + 13: /* --no-wrap */
+	message_page_width_ignore ();
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -388,6 +393,8 @@ Output details:\n\
   -n, --add-location          generate '#: filename:line' lines (default)\n\
       --strict                write out strict Uniforum conforming .po file\n\
   -w, --width=NUMBER          set output page width\n\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n\
   -s, --sort-output           generate sorted output\n\
   -F, --sort-by-file          sort output by file location\n\
 "));

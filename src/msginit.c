@@ -116,6 +116,7 @@ static const struct option long_options[] =
   { "input", required_argument, NULL, 'i' },
   { "locale", required_argument, NULL, 'l' },
   { "no-translator", no_argument, NULL, CHAR_MAX + 1 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
   { "output-file", required_argument, NULL, 'o' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
@@ -236,6 +237,10 @@ main (argc, argv)
 
       case CHAR_MAX + 1:
 	no_translator = true;
+	break;
+
+      case CHAR_MAX + 2: /* --no-wrap */
+	message_page_width_ignore ();
 	break;
 
       default:
@@ -381,6 +386,8 @@ Output details:\n\
   -l, --locale=LL_CC          set target locale\n\
       --no-translator         assume the PO file is automatically generated\n\
   -w, --width=NUMBER          set output page width\n\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n\
 "));
       printf ("\n");
       /* xgettext: no-wrap */

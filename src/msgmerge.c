@@ -87,6 +87,7 @@ static const struct option long_options[] =
   { "multi-domain", no_argument, NULL, 'm' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "output-file", required_argument, NULL, 'o' },
   { "quiet", no_argument, NULL, 'q' },
   { "sort-by-file", no_argument, NULL, 'F' },
@@ -250,6 +251,10 @@ main (argc, argv)
 
       case CHAR_MAX + 3: /* --suffix */
 	backup_suffix_string = optarg;
+	break;
+
+      case CHAR_MAX + 4: /* --no-wrap */
+	message_page_width_ignore ();
 	break;
 
       default:
@@ -462,6 +467,8 @@ Output details:\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
   -w, --width=NUMBER          set output page width\n\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n\
   -s, --sort-output           generate sorted output\n\
   -F, --sort-by-file          sort output by file location\n\
 "));

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000, 2001 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -26,7 +26,8 @@
 
 extern void
        message_page_width_set PARAMS ((size_t width));
-
+extern void
+       message_page_width_ignore PARAMS ((void));
 extern void
        message_print_style_indent PARAMS ((void));
 extern void

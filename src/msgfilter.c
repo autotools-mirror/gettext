@@ -101,6 +101,7 @@ static const struct option long_options[] =
   { "keep-header", no_argument, &keep_header, 1 },
   { "no-escape", no_argument, NULL, CHAR_MAX + 2 },
   { "no-location", no_argument, &line_comment, 0 },
+  { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
   { "output-file", required_argument, NULL, 'o' },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
@@ -233,6 +234,10 @@ main (argc, argv)
 
       case CHAR_MAX + 2:
 	message_print_style_escape (false);
+	break;
+
+      case CHAR_MAX + 3: /* --no-wrap */
+	message_page_width_ignore ();
 	break;
 
       default:
@@ -405,6 +410,8 @@ Output details:\n\
       --add-location          preserve '#: filename:line' lines (default)\n\
       --strict                strict Uniforum output style\n\
   -w, --width=NUMBER          set output page width\n\
+      --no-wrap               do not break long message lines, longer than\n\
+                              the output page width, into several lines\n\
   -s, --sort-output           generate sorted output\n\
   -F, --sort-by-file          sort output by file location\n\
 "));

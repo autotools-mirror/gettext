@@ -1,3 +1,24 @@
+2002-04-23  Bruno Haible  <bruno@clisp.org>
+
+	* write-po.h (message_page_width_ignore): New declaration.
+	* write-po.c (wrap_strings): New variable.
+	(message_page_width_ignore): New function.
+	(wrap): Ignore the do_wrap argument if wrap_strings is false.
+	* msgattrib.c (long_options): Add --no-wrap option.
+	(main): Handle option --no-wrap.
+	(usage): Document option --no-wrap.
+	* msgcat.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgen.c: Likewise.
+	* msgfilter.c: Likewise.
+	* msggrep.c: Likewise.
+	* msginit.c: Likewise.
+	* msgmerge.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* xgettext.c: Likewise.
+
 2002-04-19  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale): Add wa_BE. Change Javanese from

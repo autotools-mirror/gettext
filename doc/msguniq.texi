@@ -116,6 +116,12 @@ Set the output page width.  Long strings in the output files will be
 split across multiple lines in order to ensure that each line's width
 (= number of screen columns) is less or equal to the given @var{number}.
 
+@item --no-wrap
+@opindex --no-wrap@r{, @code{msguniq} option}
+Do not break long message lines.  Message lines whose width exceeds the
+output page width will not be split into several lines.  Only file reference
+lines which are wider than the output page width will be split.
+
 @item -s
 @itemx --sort-output
 @opindex -s@r{, @code{msguniq} option}
