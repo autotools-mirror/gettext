@@ -29,7 +29,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #include "po.h"
 #include "po-hash.h"
 #include "system.h"
+#include "mbswidth.h"
 #include "libgettext.h"
+
+extern const char *program_name;
 
 #define _(str) gettext (str)
 
@@ -158,6 +161,55 @@ po_directive_message (pop, msgid, msgid_pos, msgid_plural,
 }
 
 
+/* Emit a multiline warning to stderr, consisting of MESSAGE, with the
+   first line prefixed with PREFIX and the remaining lines prefixed with
+   the same amount of spaces.  Reuse the spaces of the previous call if
+   PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
+static void
+multiline_warning (prefix, message)
+     char *prefix;
+     char *message;
+{
+  static int width;
+  const char *cp;
+  int i;
+
+  fflush (stdout);
+
+  cp = message;
+
+  if (prefix != NULL)
+    {
+      fputs (prefix, stderr);
+      width = mbswidth (prefix, 0);
+      free (prefix);
+      goto after_indent;
+    }
+
+  while (1)
+    {
+      const char *np;
+
+      for (i = width; i > 0; i--)
+	putc (' ', stderr);
+
+    after_indent:
+      np = strchr (cp, '\n');
+
+      if (np == NULL || np[1] == '\0')
+	{
+	  fputs (cp, stderr);
+	  break;
+	}
+
+      np++;
+      fwrite (cp, 1, np - cp, stderr);
+      cp = np;
+    }
+
+  free (message);
+}
+
 void
 po_callback_message (msgid, msgid_pos, msgid_plural,
 		     msgstr, msgstr_len, msgstr_pos)
@@ -244,12 +296,17 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 	      break;
 	  if (i == SIZEOF (standard_charsets))
 	    {
-	      error (0, 0, _("\
-%s: warning: charset \"%s\" is not a portable encoding name\n\
-%*s  warning: charset conversion might not work"),
-		     gram_pos.file_name, charset,
-		     (int) strlen (gram_pos.file_name), "");
-	      --error_message_count;
+	      char *prefix;
+	      char *msg;
+
+	      asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+	      asprintf (&msg, _("\
+Charset \"%s\" is not a portable encoding name.\n\
+Message conversion to user's charset might not work.\n"),
+			charset);
+	      if (prefix == NULL || msg == NULL)
+		error (EXIT_FAILURE, 0, _("memory exhausted"));
+	      multiline_warning (prefix, msg);
 	    }
 	  else
 	    {
@@ -281,32 +338,40 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 	      if (po_lex_iconv == (iconv_t)(-1))
 		{
 		  const char *note;
+		  char *prefix;
+		  char *msg;
 
 		  for (i = 0; i < SIZEOF (weird_charsets); i++)
 		    if (strcmp (po_lex_charset, weird_charsets[i]) == 0)
 		      break;
 		  if (i < SIZEOF (weird_charsets))
-		    /* TRANS: sentence starts at trans_id_1 or trans_id_2 */
-		    note = _(", expect parse errors");
+		    note = _("Continuing anyway, expect parse errors.");
 		  else
-		    note = "";
+		    note = _("Continuing anyway.");
 
-# if _LIBICONV_VERSION
-		  /* TRANS: sentence trans_id_1 starts here */
-		  error (0, 0, _("\
-%s: warning: charset \"%s\" is not supported by iconv%s"),
-			 gram_pos.file_name, po_lex_charset, note);
-# else
-		  /* TRANS: sentence trans_id_2 starts here */
-		  error (0, 0, _("\
-%s: warning: charset \"%s\" is not supported by iconv%s\n\
-%*s  warning: consider installing GNU libiconv and then\n\
-%*s           reinstalling GNU gettext"),
-			 gram_pos.file_name, po_lex_charset, note,
-			 (int) strlen (gram_pos.file_name), "",
-			 (int) strlen (gram_pos.file_name), "");
+		  asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+		  asprintf (&msg, _("\
+Charset \"%s\" is not supported. %s relies on iconv(),\n\
+and iconv() does not support \"%s\".\n"),
+			    po_lex_charset, basename (program_name),
+			    po_lex_charset);
+		  if (prefix == NULL || msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (prefix, msg);
+
+# if !defined _LIBICONV_VERSION
+		  asprintf (&msg, _("\
+Installing GNU libiconv and then reinstalling GNU gettext\n\
+would fix this problem.\n"));
+		  if (msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (NULL, msg);
 # endif
-		  --error_message_count;
+
+		  asprintf (&msg, _("%s\n"), note);
+		  if (msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (NULL, msg);
 		}
 #else
 	      for (i = 0; i < SIZEOF (weird_charsets); i++)
@@ -314,28 +379,47 @@ po_callback_message (msgid, msgid_pos, msgid_plural,
 		  break;
 	      if (i < SIZEOF (weird_charsets))
 		{
-		  /* TRANS: sentence trans_id_3 starts here */
-		  error (0, 0, _("\
-%s: warning: charset \"%s\" is not supported without iconv%s\n\
-%*s  warning: consider installing GNU libiconv and then\n\
-%*s           reinstalling GNU gettext"),
-			 gram_pos.file_name, po_lex_charset,
-			 /* TRANS: sentence starts at trans_id_3 */
-			 _(", expect parse errors"),
-			 (int) strlen (gram_pos.file_name), "",
-			 (int) strlen (gram_pos.file_name), "");
-		  --error_message_count;
+		  const char *note =
+		    _("Continuing anyway, expect parse errors.");
+		  char *prefix;
+		  char *msg;
+
+		  asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+		  asprintf (&msg, _("\
+Charset \"%s\" is not supported. %s relies on iconv().\n\
+This version was built without iconv().\n"),
+			    po_lex_charset, basename (program_name));
+		  if (prefix == NULL || msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (prefix, msg);
+
+		  asprintf (&msg, _("\
+Installing GNU libiconv and then reinstalling GNU gettext\n\
+would fix this problem.\n"));
+		  if (msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (NULL, msg);
+
+		  asprintf (&msg, _("%s\n"), note);
+		  if (msg == NULL)
+		    error (EXIT_FAILURE, 0, _("memory exhausted"));
+		  multiline_warning (NULL, msg);
 		}
 #endif
 	    }
 	}
       else
 	{
-	  error (0, 0, _("\
-%s: warning: charset missing in header\n\
-%*s  warning: charset conversion will not work"),
-		 gram_pos.file_name, (int) strlen (gram_pos.file_name), "");
-	  --error_message_count;
+	  char *prefix;
+	  char *msg;
+
+	  asprintf (&prefix, _("%s: warning: "), gram_pos.file_name);
+	  asprintf (&msg, _("\
+Charset missing in header.\n\
+Message conversion to user's charset will not work.\n"));
+	  if (prefix == NULL || msg == NULL)
+	    error (EXIT_FAILURE, 0, _("memory exhausted"));
+	  multiline_warning (prefix, msg);
 	}
     }
 
