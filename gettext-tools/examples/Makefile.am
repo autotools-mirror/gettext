@@ -46,6 +46,8 @@ EXAMPLESFILES = \
   hello-c/po/pl.po \
   hello-c/po/ro.po \
   hello-c/po/sr.po \
+  hello-c/po/sv.po \
+  hello-c/po/tr.po \
   hello-c/po/zh_CN.po \
   \
   hello-c-gnome/INSTALL \
@@ -69,6 +71,8 @@ EXAMPLESFILES = \
   hello-c-gnome/po/pl.po \
   hello-c-gnome/po/ro.po \
   hello-c-gnome/po/sr.po \
+  hello-c-gnome/po/sv.po \
+  hello-c-gnome/po/tr.po \
   hello-c-gnome/po/zh_CN.po \
   \
   hello-c++/INSTALL \
@@ -89,6 +93,8 @@ EXAMPLESFILES = \
   hello-c++/po/pl.po \
   hello-c++/po/ro.po \
   hello-c++/po/sr.po \
+  hello-c++/po/sv.po \
+  hello-c++/po/tr.po \
   hello-c++/po/zh_CN.po \
   \
   hello-c++-qt/INSTALL \
@@ -110,6 +116,8 @@ EXAMPLESFILES = \
   hello-c++-qt/po/pl.po \
   hello-c++-qt/po/ro.po \
   hello-c++-qt/po/sr.po \
+  hello-c++-qt/po/sv.po \
+  hello-c++-qt/po/tr.po \
   hello-c++-qt/po/zh_CN.po \
   \
   hello-c++-kde/INSTALL \
@@ -133,6 +141,8 @@ EXAMPLESFILES = \
   hello-c++-kde/po/pl.po \
   hello-c++-kde/po/ro.po \
   hello-c++-kde/po/sr.po \
+  hello-c++-kde/po/sv.po \
+  hello-c++-kde/po/tr.po \
   hello-c++-kde/po/zh_CN.po \
   \
   hello-c++-gnome/INSTALL \
@@ -158,6 +168,8 @@ EXAMPLESFILES = \
   hello-c++-gnome/po/pl.po \
   hello-c++-gnome/po/ro.po \
   hello-c++-gnome/po/sr.po \
+  hello-c++-gnome/po/sv.po \
+  hello-c++-gnome/po/tr.po \
   hello-c++-gnome/po/zh_CN.po \
   \
   hello-objc/INSTALL \
@@ -178,6 +190,8 @@ EXAMPLESFILES = \
   hello-objc/po/pl.po \
   hello-objc/po/ro.po \
   hello-objc/po/sr.po \
+  hello-objc/po/sv.po \
+  hello-objc/po/tr.po \
   hello-objc/po/zh_CN.po \
   \
   hello-objc-gnustep/INSTALL \
@@ -201,6 +215,8 @@ EXAMPLESFILES = \
   hello-objc-gnustep/po/pl.po \
   hello-objc-gnustep/po/ro.po \
   hello-objc-gnustep/po/sr.po \
+  hello-objc-gnustep/po/sv.po \
+  hello-objc-gnustep/po/tr.po \
   hello-objc-gnustep/po/zh_CN.po \
   \
   hello-objc-gnome/INSTALL \
@@ -224,6 +240,8 @@ EXAMPLESFILES = \
   hello-objc-gnome/po/pl.po \
   hello-objc-gnome/po/ro.po \
   hello-objc-gnome/po/sr.po \
+  hello-objc-gnome/po/sv.po \
+  hello-objc-gnome/po/tr.po \
   hello-objc-gnome/po/zh_CN.po \
   \
   hello-sh/INSTALL \
@@ -243,6 +261,8 @@ EXAMPLESFILES = \
   hello-sh/po/pl.po \
   hello-sh/po/ro.po \
   hello-sh/po/sr.po \
+  hello-sh/po/sv.po \
+  hello-sh/po/tr.po \
   hello-sh/po/zh_CN.po \
   \
   hello-python/INSTALL \
@@ -262,6 +282,8 @@ EXAMPLESFILES = \
   hello-python/po/pl.po \
   hello-python/po/ro.po \
   hello-python/po/sr.po \
+  hello-python/po/sv.po \
+  hello-python/po/tr.po \
   hello-python/po/zh_CN.po \
   \
   hello-clisp/INSTALL \
@@ -281,6 +303,8 @@ EXAMPLESFILES = \
   hello-clisp/po/pl.po \
   hello-clisp/po/ro.po \
   hello-clisp/po/sr.po \
+  hello-clisp/po/sv.po \
+  hello-clisp/po/tr.po \
   hello-clisp/po/zh_CN.po \
   \
   hello-librep/INSTALL \
@@ -300,6 +324,8 @@ EXAMPLESFILES = \
   hello-librep/po/pl.po \
   hello-librep/po/ro.po \
   hello-librep/po/sr.po \
+  hello-librep/po/sv.po \
+  hello-librep/po/tr.po \
   hello-librep/po/zh_CN.po \
   \
   hello-smalltalk/INSTALL \
@@ -319,6 +345,8 @@ EXAMPLESFILES = \
   hello-smalltalk/po/pl.po \
   hello-smalltalk/po/ro.po \
   hello-smalltalk/po/sr.po \
+  hello-smalltalk/po/sv.po \
+  hello-smalltalk/po/tr.po \
   hello-smalltalk/po/zh_CN.po \
   \
   hello-java/INSTALL \
@@ -338,6 +366,8 @@ EXAMPLESFILES = \
   hello-java/po/pl.po \
   hello-java/po/ro.po \
   hello-java/po/sr.po \
+  hello-java/po/sv.po \
+  hello-java/po/tr.po \
   hello-java/po/zh_CN.po \
   \
   hello-java-awt/INSTALL \
@@ -360,6 +390,8 @@ EXAMPLESFILES = \
   hello-java-awt/po/pl.po \
   hello-java-awt/po/ro.po \
   hello-java-awt/po/sr.po \
+  hello-java-awt/po/sv.po \
+  hello-java-awt/po/tr.po \
   hello-java-awt/po/zh_CN.po \
   \
   hello-java-swing/INSTALL \
@@ -382,6 +414,8 @@ EXAMPLESFILES = \
   hello-java-swing/po/pl.po \
   hello-java-swing/po/ro.po \
   hello-java-swing/po/sr.po \
+  hello-java-swing/po/sv.po \
+  hello-java-swing/po/tr.po \
   hello-java-swing/po/zh_CN.po \
   \
   hello-gawk/INSTALL \
@@ -401,6 +435,8 @@ EXAMPLESFILES = \
   hello-gawk/po/pl.po \
   hello-gawk/po/ro.po \
   hello-gawk/po/sr.po \
+  hello-gawk/po/sv.po \
+  hello-gawk/po/tr.po \
   hello-gawk/po/zh_CN.po \
   \
   hello-pascal/INSTALL \
@@ -421,6 +457,8 @@ EXAMPLESFILES = \
   hello-pascal/po/pl.po \
   hello-pascal/po/ro.po \
   hello-pascal/po/sr.po \
+  hello-pascal/po/sv.po \
+  hello-pascal/po/tr.po \
   hello-pascal/po/zh_CN.po \
   \
   hello-ycp/INSTALL \
@@ -440,6 +478,8 @@ EXAMPLESFILES = \
   hello-ycp/po/pl.po \
   hello-ycp/po/ro.po \
   hello-ycp/po/sr.po \
+  hello-ycp/po/sv.po \
+  hello-ycp/po/tr.po \
   hello-ycp/po/zh_CN.po \
   \
   hello-tcl/INSTALL \
@@ -459,6 +499,8 @@ EXAMPLESFILES = \
   hello-tcl/po/pl.po \
   hello-tcl/po/ro.po \
   hello-tcl/po/sr.po \
+  hello-tcl/po/sv.po \
+  hello-tcl/po/tr.po \
   hello-tcl/po/zh_CN.po \
   \
   hello-tcl-tk/INSTALL \
@@ -478,6 +520,8 @@ EXAMPLESFILES = \
   hello-tcl-tk/po/pl.po \
   hello-tcl-tk/po/ro.po \
   hello-tcl-tk/po/sr.po \
+  hello-tcl-tk/po/sv.po \
+  hello-tcl-tk/po/tr.po \
   hello-tcl-tk/po/zh_CN.po \
   \
   hello-perl/INSTALL \
@@ -498,6 +542,8 @@ EXAMPLESFILES = \
   hello-perl/po/pl.po \
   hello-perl/po/ro.po \
   hello-perl/po/sr.po \
+  hello-perl/po/sv.po \
+  hello-perl/po/tr.po \
   hello-perl/po/zh_CN.po \
   \
   hello-php/INSTALL \
@@ -518,6 +564,8 @@ EXAMPLESFILES = \
   hello-php/po/pl.po \
   hello-php/po/ro.po \
   hello-php/po/sr.po \
+  hello-php/po/sv.po \
+  hello-php/po/tr.po \
   hello-php/po/zh_CN.po \
   \
   README

@@ -1,3 +1,8 @@
+2003-12-17  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2003-12-09  Bruno Haible  <bruno@clisp.org>
 
 	* hello-smalltalk/hello.st.in: Add workaround against PackageLoader
