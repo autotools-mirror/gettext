@@ -18,14 +18,21 @@
 
 2003-08-24  Bruno Haible  <bruno@clisp.org>
 
-	* basename.h: Make this file includable in C++ mode: add extern "C".
+	* backupfile.h: Make this file includable in C++ mode: add extern "C".
+	* basename.h: Likewise.
+	* copy-file.h: Likewise.
 	* error-progname.h: Likewise.
+	* findprog.h: Likewise.
+	* full-write.h: Likewise.
 	* pathname.h: Likewise.
+	* pipe.h: Likewise.
 	* progname.h: Likewise.
 	* relocatable.h: Likewise.
 	* stpcpy.h: Likewise.
+	* stpncpy.h: Likewise,
 	* strcase.h: Likewise.
 	* strstr.h: Likewise.
+	* wait-process.h: Likewise.
 	* xerror.h: Likewise.
 	* xmalloc.h: Likewise.
 

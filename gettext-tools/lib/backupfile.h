@@ -1,5 +1,5 @@
 /* backupfile.h -- declarations for making Emacs style backup file names
-   Copyright (C) 1990-1992, 1997-1999, 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 1990-1992, 1997-1999, 2001-2003 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -18,6 +18,11 @@
 
 #ifndef BACKUPFILE_H_
 # define BACKUPFILE_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* When to make backup files. */
 enum backup_type
@@ -42,12 +47,17 @@ enum backup_type
    || (Type) == numbered_existing	\
    || (Type) == numbered)
 
-extern char const *simple_backup_suffix;
+extern DLL_VARIABLE char const *simple_backup_suffix;
 
 extern char *find_backup_file_name (char const *file,
 				    enum backup_type backup_type);
 extern enum backup_type get_version (char const *context, char const *arg);
 extern enum backup_type xget_version (char const *context, char const *arg);
 extern void addext (char *filename, char const *ext, char e);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* ! BACKUPFILE_H_ */

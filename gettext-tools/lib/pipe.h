@@ -28,6 +28,12 @@
 
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* All these functions create a subprocess and don't wait for its termination.
    They return the process id of the subprocess.  They also return in fd[]
    one or two file descriptors for communication with the subprocess.
@@ -94,5 +100,11 @@ extern pid_t create_pipe_bidi (const char *progname,
 /* Unix API.  */
 # define DEV_NULL "/dev/null"
 #endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _PIPE_H */

@@ -20,6 +20,12 @@
 
 #include <string.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #ifndef __GNU_LIBRARY__
 
 /* Copy no more than N characters of SRC to DST, returning the address of
@@ -30,5 +36,11 @@ extern char *gnu_stpncpy (char *dst, const char *src, size_t n);
 #define stpncpy(Dst, Src, N) gnu_stpncpy (Dst, Src, N)
 
 #endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _STPNCPY_H */
