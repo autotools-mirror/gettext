@@ -1,3 +1,7 @@
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.37 released.
+
 2001-04-17  Bruno Haible  <haible@clisp.cons.org>
 
 	* mbswidth.m4: Also include <string.h>; this is where AIX 3.2.5

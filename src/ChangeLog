@@ -1,3 +1,14 @@
+2001-04-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* gettext-0.10.37 released.
+
+2001-04-18  Bruno Haible  <haible@clisp.cons.org>
+
+	* po.c (po_callback_message): Don't call iconv_open when the
+	OLD_PO_FILE_INPUT environment variable is set.
+	* write-po.c (wrap): Don't call iconv_open when the OLD_PO_FILE_OUTPUT
+	environment variable is set.
+
 2001-04-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* po.c: Include mbswidth.h.
