@@ -2,6 +2,8 @@
 
 	Upgrade to automake-1.5.
 	* Makefile.am (AUTOMAKE_OPTIONS): Add 'no-dependencies'.
+	(COMMON_SOURCE): Renamed from COMMON_SOURCES.
+	(FORMAT_SOURCE): Renamed from FORMAT_SOURCES.
 	* ylwrap: Remove file.
 
 2001-09-22  Bruno Haible  <haible@clisp.cons.org>
