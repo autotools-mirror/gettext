@@ -102,7 +102,6 @@ msgcomm.c       Main source for the 'msgcomm' program.
 msgattrib.c     Main source for the 'msgattrib' program.
 msgcat.c        Main source for the 'msgcat' program.
 msgconv.c       Main source for the 'msgconv' program.
-msgen.c         Main source for the 'msgen' program.
 msguniq.c       Main source for the 'msguniq' program.
 
 msgl-charset.h
@@ -113,6 +112,33 @@ msgl-charset.c
 msgexec.c       Main source for the 'msgexec' program.
 msgfilter.c     Main source for the 'msgfilter' program.
 msggrep.c       Main source for the 'msggrep' program.
+
++-------------- The 'msgen' program
+| msgl-english.h
+| msgl-english.c
+|               English message initialization.
+| msgen.c
+|               Main source for the 'msgen' program.
+|
++-------------- The 'msgen' program
+
+po-time.h
+po-time.c
+                Create time stamps for use in PO/POT files.
+
++-------------- The 'msginit' program
+| hostname.c
+|               The 'hostname' program.
+| user-email.in
+|               Determine the user's email address.
+| urlget.c
+|               The 'urlget' program.
+| project-id
+|               Determine the package's name.
+| msginit.c
+|               Main source for the 'msginit' program.
+|
++-------------- The 'msginit' program
 
 +-------------- The 'msgunfmt' program
 | msgunfmt.h
@@ -132,6 +158,8 @@ format.h        Declarations of the language dependent format string handlers.
 format-c.c      Format string handling for C.
 format-python.c Format string handling for Python.
 format-lisp.c   Format string handling for Common Lisp.
+format-elisp.c  Format string handling for Emacs Lisp.
+format-librep.c Format string handling for librep.
 format-java.c   Format string handling for Java.
 format-pascal.c Format string handling for Object Pascal.
 format-ycp.c    Format string handling for YCP.
@@ -164,6 +192,15 @@ format.c        Table of the language dependent format string handlers.
 | x-po.h
 | x-po.c
 |               String extractor from PO files.
+| x-lisp.h
+| x-lisp.c
+|               String extractor for Common Lisp.
+| x-elisp.h
+| x-elisp.c
+|               String extractor for Emacs Lisp.
+| x-librep.h
+| x-librep.c
+|               String extractor for librep.
 | x-java.h
 | x-java.l
 |               String extractor for Java.
