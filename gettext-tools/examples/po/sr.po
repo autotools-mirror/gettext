@@ -4,10 +4,10 @@
 # Aleksandar Jelenak <jelenak@netlinkplus.net>, 2003.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.13-pre1\n"
+"Project-Id-Version: gettext-examples 0.13\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-11-16 18:52+0100\n"
-"PO-Revision-Date: Wed, 19 Nov 2003 11:16:28 -0500\n"
+"PO-Revision-Date: 2003-12-01 13:15-0500\n"
 "Last-Translator: Aleksandar Jelenak <jelenak@netlinkplus.net>\n"
 "Language-Team: Serbian <sr@li.org>\n"
 "MIME-Version: 1.0\n"
