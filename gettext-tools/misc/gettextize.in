@@ -569,6 +569,18 @@ test -d "$srcdir/po" || {
   added_directories="$added_directories po"
 }
 
+# Create the directory for config.rpath, mkinstalldirs, if needed.
+# This is for consistency with autoreconf and automake.
+# Note that $auxdir is either empty or ends in a slash.
+test -d "$srcdir/$auxdir" || {
+  if $doit; then
+    echo "Creating $auxdir subdirectory"
+    mkdir "$srcdir/$auxdir" || func_fatal_error "failed to create $auxdir subdirectory"
+  else
+    echo "Create $auxdir subdirectory"
+  fi
+}
+
 # Now copy all files.  Take care for the destination directories.
 for file in *; do
   case $file in
