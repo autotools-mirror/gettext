@@ -10,7 +10,7 @@ Inuktitut, Uighur, Zhuang added 1995-10-10 by Michael Everson
 Sinhalese corrected, 1995-10-10 by Michael Everson
 Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
 Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
-2002-04-19 by Bruno Haible
+2003-08-14 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -21,6 +21,7 @@ ab Abkhazian
 ae Avestan
 af Afrikaans
 am Amharic
+an Aragonese
 ar Arabic
 as Assamese
 ay Aymara
@@ -75,6 +76,7 @@ he Hebrew (formerly iw)
 hi Hindi
 ho Hiri Motu
 hr Croatian
+ht Haitian; Haitian Creole
 hu Hungarian
 hy Armenian
 hz Herero
@@ -82,6 +84,7 @@ hz Herero
 ia Interlingua
 id Indonesian (formerly in)
 ie Interlingue
+ii Sichuan Yi
 ik Inupiak
 io Ido
 is Icelandic
@@ -107,6 +110,7 @@ ky Kirghiz
 
 la Latin
 lb Letzeburgesch
+li Limburgish; Limburger; Limburgan
 ln Lingala
 lo Lao; Laotian
 lt Lithuanian

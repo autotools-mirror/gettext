@@ -6,7 +6,7 @@
 #
 # This file contains a table with the following columns:
 # 1.  ISO 3166-1:1999 2-character country code.  See:
-#	<a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1.html">
+#	<a href="http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html">
 #	ISO 3166-1: The Code List
 #	</a>.
 # 2.  The usual English name for the country,
@@ -61,13 +61,14 @@ CD	Congo (Dem. Rep.)
 CF	Central African Rep.
 CG	Congo (Rep.)
 CH	Switzerland
-CI	Cote d'Ivoire
+CI	Côte d'Ivoire
 CK	Cook Islands
 CL	Chile
 CM	Cameroon
 CN	China
 CO	Colombia
 CR	Costa Rica
+CS	Serbia & Montenegro
 CU	Cuba
 CV	Cape Verde
 CX	Christmas Island
@@ -199,7 +200,7 @@ PT	Portugal
 PW	Palau
 PY	Paraguay
 QA	Qatar
-RE	Reunion
+RE	Réunion
 RO	Romania
 RU	Russia
 RW	Rwanda
@@ -222,17 +223,17 @@ ST	Sao Tome & Principe
 SV	El Salvador
 SY	Syria
 SZ	Swaziland
-TC	Turks & Caicos Is
+TC	Turks & Caicos Islands
 TD	Chad
 TF	French Southern & Antarctic Lands
 TG	Togo
 TH	Thailand
 TJ	Tajikistan
 TK	Tokelau
+TL	Timor-Leste
 TM	Turkmenistan
 TN	Tunisia
 TO	Tonga
-TP	East Timor
 TR	Turkey
 TT	Trinidad & Tobago
 TV	Tuvalu
@@ -255,7 +256,6 @@ WF	Wallis & Futuna
 WS	Samoa (Western)
 YE	Yemen
 YT	Mayotte
-YU	Yugoslavia
 ZA	South Africa
 ZM	Zambia
 ZW	Zimbabwe

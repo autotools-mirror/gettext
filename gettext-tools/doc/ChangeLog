@@ -1,3 +1,13 @@
+2003-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* ISO_639: Update. Add an, ht, ii, li.
+	* ISO_3166: Update. Change reference URL. Add CS, TL. Remove YU, TP.
+	* iso-3166.sed: Handle accented characters as best as texi2html can.
+
+2003-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Quote-like Expressions): Fix misplaced @group.
+
 2003-08-08  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention gcc-internal-format.
