@@ -1,3 +1,8 @@
+2001-07-02  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-validate): Use private 'compile-command' and buffer
+	name for validation output.
+
 2001-07-01  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-mode): Use add-hook to call po-replace-revision-date

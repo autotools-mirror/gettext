@@ -2536,13 +2536,15 @@ keyword for subsequent commands, also added to possible completions."
 (defun po-validate ()
   "Use `msgfmt' for validating the current PO file contents."
   (interactive)
-  (let ((command (concat po-msgfmt-program
-                         " --statistics -c -v -o " null-device " "
-                         buffer-file-name)))
+  (let ((compilation-buffer-name-function
+	 (function (lambda (mode) (progn "*PO validation*"))))
+        (compile-command (concat po-msgfmt-program
+                                 " --statistics -c -v -o " null-device " "
+                                 buffer-file-name)))
 
     (po-msgfmt-version-check)
 
-    (compile command)))
+    (compile compile-command)))
 
 (defvar po-msgfmt-version-checked nil)
 (defun po-msgfmt-version-check ()
