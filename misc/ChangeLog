@@ -1,3 +1,7 @@
+2002-02-18  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-mode): Provide it.
+
 2002-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Mark all error messages which lead to failure with

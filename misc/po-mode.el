@@ -3352,4 +3352,6 @@ strings remain."
 	      (save-buffer)
 	      (kill-buffer (current-buffer)))))))
 
+(provide 'po-mode)
+
 ;;; po-mode.el ends here
