@@ -1,70 +1,26 @@
 #! /bin/sh
 
 # Test of gettext facilities in the Perl language.
+# Assumes an fr_FR locale is installed.
+# Assumes the following packages are installed: perl.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles prog.pl"
-here="<" # Help St. Emacs
-here="$here<"
-
-cat <<EOF > prog.pl
+tmpfiles="$tmpfiles program.pl"
+cat <<\EOF > program.pl
 use Locale::Messages;
-
 textdomain "prog";
 bindtextdomain ("./");
-
-s/foo/
-          # stress test for string extraction /xe;
-
+my $n = 2;
 print _"'Your command, please?', asked the waiter.";
-
 printf ngettext ("a piece of cake", "%d pieces of cake", $n), $n;
-
 printf _"%s is replaced by %s.", "FF", "EUR";
-
-# Should be found.
-printf dngettext prog => ("one file deleted", "%d files deleted"), $n, $n;
-
-# Should not be found.
-printf dngettext ("prog"), ("one file created", "%d files created"), $n, $n;
-
-printf dngettext "prog", ${here}PERL, ${here}PERL;
-Singular
-PERL
-Plural
-PERL
-
-print ${here}PERL
-tied hash \$__{   Bareword
-}
-tied hash \$__->{"quoted string"}
-tied hash \$__->{  "weird
-formatting"}
-PERL
-
-print \$__  # Welcome
-   ->   # to the
- { # Republic of
- 'Welcome to the Republic of Perl!' # 
-# Perl!
-}; 
-
-\$! ? ?\$__{"pattern match"}? : s  # This is no delimiter.
-{\$__{substitution}}<\$__-\>{"find me"}>;
-
-# No interpolation!
-m'\$__{secret}';
-
-__END__
-gettext "Discarded!";
-         
 EOF
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -k_ -k%__ -k\$__ -o prog.pot --omit-header --no-location prog.pl
+${XGETTEXT} -k_ -o prog.pot --omit-header --no-location program.pl
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok
@@ -80,40 +36,6 @@ msgstr[1] ""
 #, perl-format
 msgid "%s is replaced by %s."
 msgstr ""
-
-#, perl-format
-msgid "one file deleted"
-msgid_plural "%d files deleted"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Singular\n"
-msgid_plural "Plural\n"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Bareword"
-msgstr ""
-
-msgid "quoted string"
-msgstr ""
-
-msgid ""
-"weird\n"
-"formatting"
-msgstr ""
-
-msgid "Welcome to the Republic of Perl!"
-msgstr ""
-
-msgid "pattern match"
-msgstr ""
-
-msgid "substitution"
-msgstr ""
-
-msgid "find me"
-msgstr ""
 EOF
 
 : ${DIFF=diff}
@@ -127,7 +49,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "'Your command, please?', asked the waiter."
-msgstr "«Votre commande, s'il vous plaît», dit le garçon."
+msgstr "«Votre commande, s'il vous plait», dit le garçon."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, perl-format
@@ -140,40 +62,6 @@ msgstr[1] "%d morceaux de gateau"
 #, perl-format
 msgid "%s is replaced by %s."
 msgstr "%2$s remplace %1$s."
-
-#, perl-format
-msgid "one file deleted"
-msgid_plural "%d files deleted"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Singular\n"
-msgid_plural "Plural\n"
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Bareword"
-msgstr ""
-
-msgid "quoted string"
-msgstr ""
-
-msgid ""
-"weird\n"
-"formatting"
-msgstr ""
-
-msgid "Welcome to the Republic of Perl!"
-msgstr ""
-
-msgid "pattern match"
-msgstr ""
-
-msgid "substitution"
-msgstr ""
-
-msgid "find me"
-msgstr ""
 EOF
 
 tmpfiles="$tmpfiles fr.po.new"
@@ -182,5 +70,29 @@ ${MSGMERGE} -q -o fr.po.new fr.po prog.pot
 
 : ${DIFF=diff}
 ${DIFF} fr.po fr.po.new || exit 1
+
+tmpfiles="$tmpfiles fr"
+test -d fr || mkdir fr
+test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
+
+: ${MSGFMT=msgfmt}
+${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
+
+tmpfiles="$tmpfiles prog.ok prog.out"
+: ${DIFF=diff}
+cat <<\EOF > prog.ok
+«Votre commande, s'il vous plait», dit le garçon.
+2 morceaux de gateau
+EUR remplace FF.
+EOF
+
+# Test for perl with Locale::Messages package.
+perl -e 'use Locale::Messages;' 2>/dev/null \
+  || { rm -fr $tmpfiles; exit 77; }
+
+LANGUAGE= LANG=fr_FR LC_MESSAGES= LC_ALL= perl program.pl > prog.out || exit 1
+${DIFF} prog.ok prog.out || exit 1
+
+rm -fr $tmpfiles
 
 exit 0
