@@ -1,5 +1,8 @@
 2002-04-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: Avoid the remarks about po/Makevars and config.guess
+	if they are not necessary.
+
 	* gettextize.in: New option -n/--dry-run.
 
 	* gettextize.in: Use functions for maintainability.

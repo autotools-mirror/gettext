@@ -165,6 +165,12 @@ if test $force -eq 0; then
   fi
 fi
 
+# Check in which directory config.rpath, mkinstalldirs etc. belong.
+auxdir=`cat "$configure_in" | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
+if test -n "$auxdir"; then
+  auxdir="$auxdir/"
+fi
+
 # For simplicity we change to the gettext source directory.
 cd $gettext_dir ||
   func_fatal_error "gettext source directory '${gettext_dir}' doesn't exist"
@@ -436,10 +442,6 @@ for file in *; do
       func_linkorcopy $file "$gettext_dir/$file" $file
       ;;
     config.rpath | mkinstalldirs)
-      auxdir=`cat "$srcdir/$configure_in" | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
-      if test -n "$auxdir"; then
-        auxdir="$auxdir/"
-      fi
       if test -f "$srcdir/$auxdir$file"; then
         :
       else
@@ -505,11 +507,17 @@ for file in *; do
     Makevars)
       func_linkorcopy $file "$gettext_dir/po/$file" po/$file.template
       if test -f "$srcdir/po/$file"; then
-        please="$please
+        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/$file" | LC_ALL=C sort > "$srcdir/po/$file.tmp1"
+        sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/$file.template" | LC_ALL=C sort > "$srcdir/po/$file.tmp2"
+        missingvars=`LC_ALL=C comm -13 "$srcdir/po/$file.tmp1" "$srcdir/po/$file.tmp2"`
+        rm -f "$srcdir/po/$file.tmp1" "$srcdir/po/$file.tmp2"
+        if test -n "$missingvars"; then
+          please="$please
 Please update po/$file so that it defines all the variables mentioned
 in po/$file.template.
 You can then remove po/$file.template.
 "
+        fi
       else
         please="$please
 Please create po/$file from the template in po/$file.template.
@@ -921,11 +929,18 @@ $configure_in file. Both will go away. Use <libintl.h> or \"gettext.h\" instead.
 "
 fi
 
+# Recommend fetching config.guess and config.sub.
+if test -f "$srcdir/$auxdir"config.guess && test -f "$srcdir/$auxdir"config.sub; then
+  :
+else
+  please="$please
+You will also need config.guess and config.sub, which you can get from
+ftp://ftp.gnu.org/pub/gnu/config/.
+"
+fi
+
 if $doit; then
   echo "$please"
-  echo "You will also need config.guess and config.sub, which you can get from"
-  echo "ftp://ftp.gnu.org/pub/gnu/config/."
-  echo
   echo "You might also want to copy the convenience header file gettext.h"
   echo "from the $gettext_dir directory into your package."
   echo "It is a wrapper around <libintl.h> that implements the configure --disable-nls"
