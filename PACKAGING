@@ -45,11 +45,16 @@ following file list.
       $prefix/bin/msg*
       $prefix/bin/xgettext
       $prefix/bin/gettextize
+      $prefix/bin/autopoint
       $prefix/man/man1/msg*.1
       $prefix/man/man1/xgettext.1
+      $prefix/man/man1/gettextize.1
+      $prefix/man/man1/autopoint.1
       $prefix/man/man3/*
       $prefix/doc/gettext/msg*.1.html
       $prefix/doc/gettext/xgettext.1.html
+      $prefix/doc/gettext/gettextize.1.html
+      $prefix/doc/gettext/autopoint.1.html
       $prefix/doc/gettext/*.3.html
       $prefix/doc/gettext/javadoc1/*
       $prefix/doc/gettext/javadoc2/*
@@ -60,12 +65,14 @@ following file list.
       $prefix/lib/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext.mo
       $prefix/share/gettext/config.rpath
+      $prefix/share/gettext/mkinstalldirs
       $prefix/share/gettext/intl/*
       $prefix/share/gettext/po/*
       $prefix/share/gettext/projects/*
       $prefix/share/gettext/gettext.h
       $prefix/share/gettext/gettext.jar
       $prefix/share/gettext/msgunfmt.tcl
+      $prefix/share/gettext/archive.tar.gz
       $prefix/share/aclocal/codeset.m4
       $prefix/share/aclocal/gettext.m4
       $prefix/share/aclocal/glibc21.m4
@@ -76,6 +83,8 @@ following file list.
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
       $prefix/share/aclocal/progtest.m4
+      $prefix/share/emacs/site-lisp/po-compat.el
+      $prefix/share/emacs/site-lisp/po-compat.elc
       $prefix/share/emacs/site-lisp/po-mode.el
       $prefix/share/emacs/site-lisp/po-mode.elc
 
