@@ -53,7 +53,7 @@
    $JAVAC   unknown     N  n/a            -O -g  true
    gcj -C   GCC 3.0     Y  --classpath=P  -O -g  gcj --version >/dev/null
    javac    JDK 1.1.8   Y  -classpath P   -O -g  javac 2>/dev/null; test $? = 1
-   javac    JDK 1.3.0   Y  -classpath P   -O -g  javac 2>/dev/null; test $? = 1
+   javac    JDK 1.3.0   Y  -classpath P   -O -g  javac 2>/dev/null; test $? -le 2
    jikes    Jikes 1.14  N  -classpath P   -O -g  jikes 2>/dev/null; test $? = 1
 
    All compilers support the option "-d DIRECTORY" for the base directory
@@ -263,14 +263,14 @@ compile_java_class (java_sources, java_sources_count,
 
     if (!javac_tested)
       {
-	/* Test for presence of javac: "javac 2> /dev/null ; test $? = 1"  */
+	/* Test for presence of javac: "javac 2> /dev/null ; test $? -le 2"  */
 	char *argv[2];
 	int exitstatus;
 
 	argv[0] = "javac";
 	argv[1] = NULL;
 	exitstatus = execute ("javac", "javac", argv, false, true, true);
-	javac_present = (exitstatus == 0 || exitstatus == 1);
+	javac_present = (exitstatus == 0 || exitstatus == 1 || exitstatus == 2);
 	javac_tested = true;
       }
 

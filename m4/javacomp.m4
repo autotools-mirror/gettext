@@ -19,7 +19,7 @@ AC_DEFUN([gt_JAVACOMP],
       HAVE_GCJ=1
       ac_result="gcj -C"
     else
-      if (javac -version >/dev/null 2>/dev/null || test $? = 1); then
+      if (javac -version >/dev/null 2>/dev/null || test $? -le 2); then
         HAVE_JAVAC=1
         ac_result="javac"
       else

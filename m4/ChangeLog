@@ -1,3 +1,7 @@
+2001-09-25  Bruno Haible  <haible@clisp.cons.org>
+
+	* javacomp.m4: Recognize javac exit code 2.
+
 2001-09-24  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.m4 (AM_WITH_NLS): Capture not only the value of $LINGUAS,
