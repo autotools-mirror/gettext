@@ -25,6 +25,12 @@
 
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Note: the _t suffix is reserved by ANSI C, so the _ty suffix is
    used to indicate a type name.  */
 
@@ -160,5 +166,11 @@ extern void po_callback_comment_filepos (const char *s, size_t line);
 extern void po_parse_comment_special (const char *s, bool *fuzzyp,
 				      enum is_format formatp[NFORMATS],
 				      enum is_wrap *wrapp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _READ_PO_ABSTRACT_H */

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1996, 1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1996, 1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -24,6 +24,12 @@
    It is an ordered list, without duplicates.  The default value of the
    list consists of the single directory ".".  */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Append a directory to the end of the list of directories.  */
 extern void dir_list_append (const char *directory);
 
@@ -36,5 +42,11 @@ extern void *dir_list_save_reset (void);
 
 /* Restore a previously saved list of directories.  */
 extern void dir_list_restore (void *saved_value);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _DIR_LIST_H */

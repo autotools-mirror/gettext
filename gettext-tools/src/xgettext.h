@@ -32,6 +32,12 @@
 /* Declare 'line_comment' and 'input_syntax'.  */
 #include "read-po.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* If true, omit the header entry.
    If false, keep the header entry present in the input.  */
 extern int xgettext_omit_header;
@@ -89,6 +95,11 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
    pos->file_name must be allocated with indefinite extent.  */
 extern void remember_a_message_plural (message_ty *mp,
 				       char *string, lex_pos_ty *pos);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* _XGETTEXT_H */

@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,6 +24,12 @@
 #if HAVE_ICONV
 #include <iconv.h>
 #endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 /* Canonicalize an encoding name.
    The results of this function are statically allocated and can be
@@ -70,5 +76,11 @@ extern void po_lex_charset_set (const char *header_entry,
 
 /* Finish up with the PO file's encoding.  */
 extern void po_lex_charset_close (void);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _PO_CHARSET_H */

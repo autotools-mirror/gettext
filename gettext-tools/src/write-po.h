@@ -25,6 +25,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* These functions output parts of a message, as comments.  */
 extern void
        message_print_comment (const message_ty *mp, FILE *fp);
@@ -63,5 +69,11 @@ extern void
        msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp);
 extern void
        msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _WRITE_PO_H */

@@ -1,5 +1,5 @@
 /* Message list character set conversion.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,6 +25,12 @@
 
 #include "message.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #if HAVE_ICONV
 /* Converts the STRING through the conversion descriptor CD.  */
 extern char *convert_string (iconv_t cd, const char *string);
@@ -45,5 +51,11 @@ extern msgdomain_list_ty *
        iconv_msgdomain_list (msgdomain_list_ty *mdlp,
 			     const char *to_code,
 			     const char *from_filename);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _MSGL_ICONV_H */

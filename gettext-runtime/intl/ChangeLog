@@ -1,3 +1,7 @@
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.h: Make this file includable in C++ mode: add extern "C".
+
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 6:0:4.

@@ -1,5 +1,5 @@
 /* Message list test for ASCII character set.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,6 +23,12 @@
 
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 extern bool
        is_ascii_string (const char *string);
 extern bool
@@ -31,5 +37,11 @@ extern bool
        is_ascii_message (message_ty *mp);
 extern bool
        is_ascii_message_list (message_list_ty *mlp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _MSGL_ASCII_H */

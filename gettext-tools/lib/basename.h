@@ -1,5 +1,5 @@
 /* Pathname hacking.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -22,11 +22,23 @@
 /* This is where basename() is declared.  */
 #include <string.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #if !(__GLIBC__ >= 2)
 /* When not using the GNU libc we use the basename implementation we
    provide here.  */
 extern char *gnu_basename (const char *);
 #define basename(Arg) gnu_basename (Arg)
 #endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _BASENAME_H */

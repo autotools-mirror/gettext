@@ -1,3 +1,16 @@
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* basename.h: Make this file includable in C++ mode: add extern "C".
+	* error-progname.h: Likewise.
+	* pathname.h: Likewise.
+	* progname.h: Likewise.
+	* relocatable.h: Likewise.
+	* stpcpy.h: Likewise.
+	* strcase.h: Likewise.
+	* strstr.h: Likewise.
+	* xerror.h: Likewise.
+	* xmalloc.h: Likewise.
+
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* getline.h: Update from gnulib.

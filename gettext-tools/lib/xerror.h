@@ -1,5 +1,5 @@
 /* Multiline error-reporting functions.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,12 @@
 /* Get fallback definition of __attribute__.  */
 #include "error.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Format a message and return the freshly allocated resulting string.  */
 extern char *xasprintf (const char *format, ...)
      __attribute__ ((__format__ (__printf__, 1, 2)));
@@ -37,5 +43,11 @@ extern void multiline_warning (char *prefix, char *message);
    the same amount of spaces.  Reuse the spaces of the previous call if
    PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
 extern void multiline_error (char *prefix, char *message);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _XERROR_H */

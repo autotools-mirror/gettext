@@ -24,6 +24,12 @@
 #include "pos.h"	/* Get lex_pos_ty.  */
 #include "message.h"	/* Get NFORMATS.  */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* This structure describes a format string parser for a language.  */
 struct formatstring_parser
 {
@@ -84,5 +90,11 @@ struct interval
   size_t endpos;
 };
 extern void get_c99_format_directives (const char *string, struct interval **intervalsp, size_t *lengthp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _FORMAT_H */

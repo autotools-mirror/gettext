@@ -26,6 +26,12 @@
 /* Get bool.  */
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Type describing list of immutable strings,
    implemented using a dynamic array.  */
 typedef struct string_list_ty string_list_ty;
@@ -71,5 +77,11 @@ extern char *string_list_join (const string_list_ty *slp);
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
 extern bool string_list_member (const string_list_ty *slp, const char *s);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _STR_LIST_H */

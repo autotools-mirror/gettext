@@ -28,6 +28,12 @@
      error_print_progname = maybe_print_progname;
  */
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Indicates whether errors and warnings get prefixed with program_name.
    Default is true.
    A reason to omit the prefix is for better interoperability with Emacs'
@@ -37,5 +43,11 @@ extern bool error_with_progname;
 /* Print program_name prefix on stderr if and only if error_with_progname
    is true.  */
 extern void maybe_print_progname (void);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _ERROR_PROGNAME_H */

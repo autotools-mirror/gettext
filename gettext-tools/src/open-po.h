@@ -21,6 +21,12 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Open the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  The
@@ -28,5 +34,11 @@
    purposes.  */
 extern FILE *open_po_file (const char *input_name, char **real_file_name_p,
 			   bool exit_on_error);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _OPEN_PO_H */

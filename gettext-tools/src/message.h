@@ -26,6 +26,12 @@
 
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* According to Sun's Uniforum proposal the default message domain is
    named 'messages'.  */
 #define MESSAGE_DOMAIN_DEFAULT "messages"
@@ -257,6 +263,11 @@ extern message_ty *
        msgdomain_list_search (msgdomain_list_ty *mdlp, const char *msgid);
 extern message_ty *
        msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp, const char *msgid);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* message.h */

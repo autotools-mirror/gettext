@@ -22,6 +22,11 @@
 #include <stddef.h>
 
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Defined in xmalloc.c.  */
 
 /* Allocate SIZE bytes of memory dynamically, with error checking.  */
@@ -49,6 +54,11 @@ extern void xalloc_die (void)
 
 /* Return a newly allocated copy of STRING.  */
 extern char *xstrdup (const char *string);
+
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* _XMALLOC_H */

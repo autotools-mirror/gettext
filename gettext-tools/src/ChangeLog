@@ -1,3 +1,20 @@
+2003-08-24  Bruno Haible  <bruno@clisp.org>
+
+	* dir-list.h: Make this file includable in C++ mode: add extern "C".
+	* file-list.h: Likewise.
+	* format.h: Likewise.
+	* message.h: Likewise.
+	* msgl-ascii.h: Likewise.
+	* msgl-iconv.h: Likewise.
+	* open-po.h: Likewise.
+	* po-charset.h: Likewise.
+	* po-time.h: Likewise.
+	* read-po-abstract.h: Likewise.
+	* str-list.h: Likewise.
+	* write-po.h: Likewise.
+	* xgettext.h: Likewise.
+	* xgettext.c: Add extern "C" around all "x-*.h" includes.
+
 2003-08-22  Bruno Haible  <bruno@clisp.org>
 
 	* format-awk.c: Include error-progname.h instead of progname.h.
