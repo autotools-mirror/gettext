@@ -273,7 +273,7 @@ uninstall:
 	  : ; \
 	fi
 
-info dvi:
+info dvi ps pdf html:
 
 $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: gettextP.h gmo.h loadinfo.h
@@ -286,6 +286,11 @@ tags: TAGS
 
 TAGS: $(HEADERS) $(SOURCES)
 	here=`pwd`; cd $(srcdir) && etags -o $$here/TAGS $(HEADERS) $(SOURCES)
+
+ctags: CTAGS
+
+CTAGS: $(HEADERS) $(SOURCES)
+	here=`pwd`; cd $(srcdir) && ctags -o $$here/CTAGS $(HEADERS) $(SOURCES)
 
 id: ID
 

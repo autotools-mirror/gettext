@@ -1,3 +1,9 @@
+2002-10-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (ps, pdf, html, ctags): New targets, for automake-1.7
+	compatibility.
+	(CTAGS): New rule.
+
 2002-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h (_INTL_REDIRECT_ASM): Don't define when using Apple cc.

@@ -256,7 +256,7 @@ uninstall-data-yes:
 
 check: all
 
-dvi info tags TAGS ID:
+info dvi ps pdf html tags TAGS ctags CTAGS ID:
 
 mostlyclean:
 	rm -f remove-potcdate.sed
