@@ -193,7 +193,7 @@ alloca (size)
      unsigned size;
 {
   auto char probe;		/* Probes stack depth: */
-  REGISTER char *depth = ADDRESS_FUNCTION (probe);
+  register char *depth = ADDRESS_FUNCTION (probe);
 
 #if STACK_DIRECTION == 0
   if (STACK_DIR == 0)		/* Unknown growth direction.  */
@@ -204,13 +204,13 @@ alloca (size)
      was allocated from deeper in the stack than currently. */
 
   {
-    REGISTER header *hp;	/* Traverses linked list.  */
+    register header *hp;	/* Traverses linked list.  */
 
     for (hp = last_alloca_header; hp != NULL;)
       if ((STACK_DIR > 0 && hp->h.deep > depth)
 	  || (STACK_DIR < 0 && hp->h.deep < depth))
 	{
-	  REGISTER header *np = hp->h.next;
+	  register header *np = hp->h.next;
 
 	  free ((pointer) hp);	/* Collect garbage.  */
 
@@ -228,7 +228,7 @@ alloca (size)
   /* Allocate combined header + user data storage.  */
 
   {
-    REGISTER pointer new = malloc (sizeof (header) + size);
+    register pointer new = malloc (sizeof (header) + size);
     /* Address of header.  */
 
     ((header *) new)->h.next = last_alloca_header;

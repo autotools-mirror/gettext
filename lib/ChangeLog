@@ -1,3 +1,8 @@
+2001-09-13  Bruno Haible  <haible@clisp.cons.org>
+
+	* alloca.c (alloca): Replace 'REGISTER' with 'register'.
+	Reported by Len Makin <len@hpc.csiro.au>.
+
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
 	* setenv.h: New file.
