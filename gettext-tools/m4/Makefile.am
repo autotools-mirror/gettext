@@ -37,8 +37,8 @@ aclocal_DATA = \
 # Files installed for the examples.
 
 docdir = @docdir@
-examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = \
+examplesbuildauxdir = $(docdir)/examples/build-aux
+examplesbuildaux_DATA = \
   gcj.m4 javacomp.m4 javaexec.m4 \
   csharpcomp.m4 csharpexec.m4
 

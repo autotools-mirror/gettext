@@ -18,7 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../config/m4
+ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
 
 SUBDIRS = doc intl lib libgrep libuniname src po projects misc man m4 tests examples
 
@@ -28,7 +28,7 @@ EXTRA_DIST = misc/DISCLAIM
 # Files installed for use by gettextize.
 
 gettextsrcdir = $(datadir)/gettext
-gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath ../config/mkinstalldirs
+gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath ../build-aux/mkinstalldirs
 
 
 # Files copied from other directories.

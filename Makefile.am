@@ -23,10 +23,10 @@ SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
 
 EXTRA_DIST = \
   version.sh PACKAGING ChangeLog.0 autogen.sh \
-  config/config.libpath config/reloc-ldflags config/install-reloc \
-  config/ac-help.sed \
-  config/m4/fixautomake.m4 \
-  config/m4/libtool.m4
+  build-aux/config.libpath build-aux/reloc-ldflags build-aux/install-reloc \
+  build-aux/ac-help.sed \
+  m4/fixautomake.m4 \
+  m4/libtool.m4
 
 # Additional dependencies for configure, due to the use of autoconf --trace.
 $(srcdir)/configure: $(srcdir)/autoconf-lib-link/configure.ac $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-tools/configure.ac 

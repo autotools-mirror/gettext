@@ -1,3 +1,8 @@
+2005-03-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Replace config/m4 with m4 and config/ with build-aux/.
+	(build-aux-dir): Renamed from config-dir.
+
 2005-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.3 released.

@@ -139,8 +139,8 @@ gettextsrc_DATA = gettext.h
 # Files installed for the examples.
 
 docdir = @docdir@
-examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = \
+examplesbuildauxdir = $(docdir)/examples/build-aux
+examplesbuildaux_DATA = \
   javacomp.sh.in javaexec.sh.in \
   csharpcomp.sh.in csharpexec.sh.in
 

@@ -69,7 +69,7 @@ iso-3166.texi: ISO_3166 iso-3166.sed
 # by automake.
 $(srcdir)/stamp-vti: $(info_TEXINFOS) $(gettext_TEXINFOS) $(top_srcdir)/../version.sh
 	(dir=.; test -f ./gettext.texi || dir=$(srcdir); \
-	set `$(SHELL) $(top_srcdir)/../config/mdate-sh $$dir/gettext.texi`; \
+	set `$(SHELL) $(top_srcdir)/../build-aux/mdate-sh $$dir/gettext.texi`; \
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \

@@ -18,7 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../config/m4
+ACLOCAL_AMFLAGS = -I m4 -I ../m4
 EXTRA_DIST =
 DISTCLEANFILES =
 
@@ -30,10 +30,10 @@ EXTRA_DIST += config.rpath
 # We want to maintain only one copy of config.rpath. The one in this directory
 # is the source.
 
-all-local: $(srcdir)/../config/config.rpath
+all-local: $(srcdir)/../build-aux/config.rpath
 
-$(srcdir)/../config/config.rpath: $(srcdir)/config.rpath
-	cp $(srcdir)/config.rpath $(srcdir)/../config/config.rpath
+$(srcdir)/../build-aux/config.rpath: $(srcdir)/config.rpath
+	cp $(srcdir)/config.rpath $(srcdir)/../build-aux/config.rpath
 
 
 # The AC_CONFIG_AUX_DIR argument in the tests/rpath*/configure.ac files is
@@ -42,40 +42,40 @@ $(srcdir)/../config/config.rpath: $(srcdir)/config.rpath
 #      SRCDIR/tests/rpath*/,
 #   2. at "make check" time, when the directory is copied and configured,
 #      relative to BUILDDIR/tests/tstdir/rp-*/.
-# We choose this argument to be '../../../config', for case 1, and therefore
-# we need to make a local copy of the config directory, for case 2.
+# We choose this argument to be '../../../build-aux', for case 1, and therefore
+# we need to make a local copy of the build-aux directory, for case 2.
 
-all-local: config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
+all-local: build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/mkinstalldirs build-aux/missing build-aux/config.rpath
 
-config-dir:
-	test -d config || mkdir config
-	touch config-dir
+build-aux-dir:
+	test -d build-aux || mkdir build-aux
+	touch build-aux-dir
 
-config/config.guess: $(srcdir)/../config/config.guess config-dir
-	cp $(srcdir)/../config/config.guess config/config.guess
+build-aux/config.guess: $(srcdir)/../build-aux/config.guess build-aux-dir
+	cp $(srcdir)/../build-aux/config.guess build-aux/config.guess
 
-config/config.sub: $(srcdir)/../config/config.sub config-dir
-	cp $(srcdir)/../config/config.sub config/config.sub
+build-aux/config.sub: $(srcdir)/../build-aux/config.sub build-aux-dir
+	cp $(srcdir)/../build-aux/config.sub build-aux/config.sub
 
-config/install-sh: $(srcdir)/../config/install-sh config-dir
-	cp $(srcdir)/../config/install-sh config/install-sh
+build-aux/install-sh: $(srcdir)/../build-aux/install-sh build-aux-dir
+	cp $(srcdir)/../build-aux/install-sh build-aux/install-sh
 
-config/ltmain.sh: $(srcdir)/../config/ltmain.sh config-dir
-	cp $(srcdir)/../config/ltmain.sh config/ltmain.sh
+build-aux/ltmain.sh: $(srcdir)/../build-aux/ltmain.sh build-aux-dir
+	cp $(srcdir)/../build-aux/ltmain.sh build-aux/ltmain.sh
 
-config/mkinstalldirs: $(srcdir)/../config/mkinstalldirs config-dir
-	cp $(srcdir)/../config/mkinstalldirs config/mkinstalldirs
+build-aux/mkinstalldirs: $(srcdir)/../build-aux/mkinstalldirs build-aux-dir
+	cp $(srcdir)/../build-aux/mkinstalldirs build-aux/mkinstalldirs
 
-config/missing: $(srcdir)/../config/missing config-dir
-	cp $(srcdir)/../config/missing config/missing
+build-aux/missing: $(srcdir)/../build-aux/missing build-aux-dir
+	cp $(srcdir)/../build-aux/missing build-aux/missing
 
-config/config.rpath: $(srcdir)/config.rpath config-dir
-	cp $(srcdir)/config.rpath config/config.rpath
+build-aux/config.rpath: $(srcdir)/config.rpath build-aux-dir
+	cp $(srcdir)/config.rpath build-aux/config.rpath
 
-DISTCLEANFILES += config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
+DISTCLEANFILES += build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/mkinstalldirs build-aux/missing build-aux/config.rpath
 
 distclean-local:
-	rm -rf config config-dir
+	rm -rf build-aux build-aux-dir
 
 
 # Subdirectories with separate autoconfiguration.
@@ -83,24 +83,24 @@ distclean-local:
 CONFIGURES_RPATHX = $(srcdir)/tests/rpathx/Makefile.in $(srcdir)/tests/rpathx/aclocal.m4 $(srcdir)/tests/rpathx/configure
 $(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.ac $(srcdir)/tests/rpathx/aclocal.m4
 	cd $(srcdir)/tests/rpathx && automake Makefile
-$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/../config/m4/libtool.m4
-	cd $(srcdir)/tests/rpathx && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/../m4/libtool.m4
+	cd $(srcdir)/tests/rpathx && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/tests/rpathx/aclocal.m4
 	cd $(srcdir)/tests/rpathx && autoconf
 
 CONFIGURES_RPATHY = $(srcdir)/tests/rpathy/Makefile.in $(srcdir)/tests/rpathy/aclocal.m4 $(srcdir)/tests/rpathy/configure
 $(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.ac $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && automake Makefile
-$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/../config/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathy && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/../m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathy && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && autoconf
 
 CONFIGURES_RPATHZ = $(srcdir)/tests/rpathz/Makefile.in $(srcdir)/tests/rpathz/aclocal.m4 $(srcdir)/tests/rpathz/configure
 $(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.ac $(srcdir)/tests/rpathz/aclocal.m4
 	cd $(srcdir)/tests/rpathz && automake Makefile
-$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/../config/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathz && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/../m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathz && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/tests/rpathz/aclocal.m4
 	cd $(srcdir)/tests/rpathz && autoconf
 

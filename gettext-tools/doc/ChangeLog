@@ -1,3 +1,7 @@
+2005-03-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (stamp-vti): Replace config with build-aux.
+
 2005-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.3 released.

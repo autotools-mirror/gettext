@@ -19,7 +19,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I ../../config/m4 -I ../m4
+ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4
 EXTRA_DIST =
 MOSTLYCLEANFILES =
 
