@@ -112,11 +112,11 @@ cat <<\EOF > f-c-1.data
 # Invalid: mixing of numbered and unnumbered arguments
 "abc%1$.*x"
 # Invalid: missing non-final argument
-"abc%2$x$3$s"
+"abc%2$x%3$s"
 # Valid: permutation
 "abc%2$ddef%1$d"
 # Valid: multiple uses of same argument
-"abc%2xdef%1pghi%2x"
+"abc%2$xdef%1$pghi%2$x"
 # Valid: one argument with width
 "abc%2$#*1$g"
 # Valid: one argument with width and precision
