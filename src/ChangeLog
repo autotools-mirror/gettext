@@ -1,3 +1,9 @@
+2001-03-19  Bruno Haible  <haible@clisp.cons.org>
+
+	* xgettext.c (extension_to_language): Recognize "*.cpp" and "*.hpp" as
+	being C++.
+	Patch by Dennis Bjorklund <db@zigo.dhs.org>.
+
 2001-03-11  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext.c: Force inclusion of libgnuintl.h. On Solaris, <locale.h>

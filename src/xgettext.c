@@ -1453,11 +1453,13 @@ extension_to_language (extension)
     { "c++",    "C++",  },
     { "cc",     "C++",  },
     { "cxx",    "C++",  },
+    { "cpp",    "C++",  },
     { "h",      "C",    },
+    { "hpp",    "C++",  },
     { "po",     "PO",   },
     { "pot",    "PO",   },
     { "pox",    "PO",   },
-    /* Here will follow more file extensions: sh, pl, tcl ... */
+    /* Here will follow more file extensions: sh, pl, tcl, lisp ... */
   };
 
   table_ty *tp;
