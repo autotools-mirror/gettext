@@ -19,11 +19,14 @@ AC_DEFUN([gt_PRINTF_POSIX],
       AC_TRY_RUN([
 #include <stdio.h>
 #include <string.h>
+/* The string "%2$d %1$d", with dollar characters protected from the shell's
+   dollar expansion (possibly an autoconf bug).  */
+static char format[] = { '%', '2', '$', 'd', ' ', '%', '1', '$', 'd', '\0' };
 static char buf[100];
 int main ()
 {
-  sprintf (buf, "%2$d %1$d", 33, 55);
-  return (strcmp (buf, "55 33") == 0);
+  sprintf (buf, format, 33, 55);
+  return (strcmp (buf, "55 33") != 0);
 }], gt_cv_func_printf_posix=yes, gt_cv_func_printf_posix=no,
       [
         AC_EGREP_CPP(notposix, [
