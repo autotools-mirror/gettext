@@ -98,6 +98,10 @@ init_keywords ()
       x_php_keyword ("gettext");
       x_php_keyword ("dgettext:2");
       x_php_keyword ("dcgettext:2");
+      /* The following were added in PHP 4.2.0.  */
+      x_php_keyword ("ngettext:1,2");
+      x_php_keyword ("dngettext:2,3");
+      x_php_keyword ("dcngettext:2,3");
       default_keywords = false;
     }
 }

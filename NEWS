@@ -1,9 +1,30 @@
 Version 0.12.2 - XXX 2003
 
+* Programming languages support:
+
+  - Perl:
+    xgettext now also supports Perl.
+
+  - PHP:
+    "xgettext --language=PHP" now supports the plural handling functions
+    ngettext, dngettext, dcngettext (introduced in PHP 4.2.0).
+
 * Data formats support:
 
   - Glade:
     xgettext now also supports Glade version 2.
+
+* Portability:
+
+  - C format strings with positions, as they arise when a translator needs to
+    reorder a sentence, are now supported on all platforms. On those few
+    platforms (NetBSD and Woe32) for which the native printf()/fprintf()/...
+    functions don't support such format strings, replacements are provided
+    through <libintl.h>.
+
+  - A new configuration option --disable-libasprintf allows to build all of
+    gettext except libasprintf; this is necessary on platforms for which
+    libtool cannot create shared libraries with C++ code.
 
 Version 0.12.1 - May 2003
 
@@ -303,7 +324,7 @@ Version 0.10.35 - April 1998, by Ulrich Drepper
 
 * reasonable header entry format implemented
 
-* Norwegian translation by Karl Anders Øygard
+* Norwegian translation by Karl Anders ï¿½gard
 
 * Configure command line option `--with-gnu-gettext' is renamed to
   `--with-included-gettext'

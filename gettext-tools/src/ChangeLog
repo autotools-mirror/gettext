@@ -1,3 +1,10 @@
+2003-07-03  Bruno Haible  <bruno@clisp.org>
+
+	Support for PHP >= 4.2.0.
+	* x-php.c (init_keywords): Add ngettext, dngettext, dcngettext to the
+	built-in keywords.
+	Reported by A. Sopicki <a.sopicki@gmx.de>.
+
 2003-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.h (from_current_source_encoding): New declaraction.
