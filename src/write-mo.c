@@ -157,11 +157,11 @@ write_table (FILE *output_file, message_list_ty *mlp)
   nstrings = 0;
   msg_arr =
     (struct pre_message *)
-    alloca (mlp->nitems * sizeof (struct pre_message));
+    xmalloc (mlp->nitems * sizeof (struct pre_message));
   n_sysdep_strings = 0;
   sysdep_msg_arr =
     (struct pre_sysdep_message *)
-    alloca (mlp->nitems * sizeof (struct pre_sysdep_message));
+    xmalloc (mlp->nitems * sizeof (struct pre_sysdep_message));
   n_sysdep_segments = 0;
   sysdep_segments = NULL;
   for (j = 0; j < mlp->nitems; j++)
@@ -224,8 +224,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	    {
 	      struct pre_sysdep_string *pre =
 		(struct pre_sysdep_string *)
-		alloca (sizeof (struct pre_sysdep_string)
-			+ nintervals[m] * sizeof (struct pre_segment_pair));
+		xmalloc (sizeof (struct pre_sysdep_string)
+			 + nintervals[m] * sizeof (struct pre_segment_pair));
 	      const char *str;
 	      size_t str_len;
 	      size_t lastpos;
@@ -374,13 +374,13 @@ write_table (FILE *output_file, message_list_ty *mlp)
   header.orig_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
   orig_tab =
-    (struct string_desc *) alloca (nstrings * sizeof (struct string_desc));
+    (struct string_desc *) xmalloc (nstrings * sizeof (struct string_desc));
 
   /* Offset of table for translated string offsets.  */
   header.trans_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
   trans_tab =
-    (struct string_desc *) alloca (nstrings * sizeof (struct string_desc));
+    (struct string_desc *) xmalloc (nstrings * sizeof (struct string_desc));
 
   /* Size of hash table.  */
   header.hash_tab_size = hash_tab_size;
@@ -463,7 +463,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Here output_file is at position header.hash_tab_offset.  */
 
       /* Allocate room for the hashing table to be written out.  */
-      hash_tab = (nls_uint32 *) alloca (hash_tab_size * sizeof (nls_uint32));
+      hash_tab = (nls_uint32 *) xmalloc (hash_tab_size * sizeof (nls_uint32));
       memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
 
       /* Insert all value in the hash table, following the algorithm described
@@ -492,7 +492,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Write the hash table out.  */
       fwrite (hash_tab, hash_tab_size * sizeof (nls_uint32), 1, output_file);
 
-      freea (hash_tab);
+      free (hash_tab);
     }
 
   if (minor_revision >= 1)
@@ -506,7 +506,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       sysdep_segments_tab =
 	(struct sysdep_segment *)
-	alloca (n_sysdep_segments * sizeof (struct sysdep_segment));
+	xmalloc (n_sysdep_segments * sizeof (struct sysdep_segment));
       for (i = 0; i < n_sysdep_segments; i++)
 	{
 	  offset = roundup (offset, alignment);
@@ -520,10 +520,10 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	      n_sysdep_segments * sizeof (struct sysdep_segment), 1,
 	      output_file);
 
-      freea (sysdep_segments_tab);
+      free (sysdep_segments_tab);
 
       sysdep_tab =
-	(nls_uint32 *) alloca (n_sysdep_strings * sizeof (nls_uint32));
+	(nls_uint32 *) xmalloc (n_sysdep_strings * sizeof (nls_uint32));
       stoffset = sysdep_tab_offset;
 
       for (m = 0; m < 2; m++)
@@ -544,7 +544,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 		  output_file);
 	}
 
-      freea (sysdep_tab);
+      free (sysdep_tab);
 
       /* Here output_file is at position sysdep_tab_offset.  */
 
@@ -583,8 +583,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
   /* Here output_file is at position end_offset.  */
 
-  freea (trans_tab);
-  freea (orig_tab);
+  free (trans_tab);
+  free (orig_tab);
 
 
   /* Fourth pass: Write the strings.  */
@@ -657,13 +657,13 @@ write_table (FILE *output_file, message_list_ty *mlp)
 		offset += msg->id_plural_len;
 	      }
 
-	    freea (pre);
+	    free (pre);
 	  }
     }
 
   freea (null);
-  freea (sysdep_msg_arr);
-  freea (msg_arr);
+  free (sysdep_msg_arr);
+  free (msg_arr);
 }
 
 

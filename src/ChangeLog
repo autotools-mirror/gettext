@@ -1,5 +1,12 @@
 2003-01-23  Bruno Haible  <bruno@clisp.org>
 
+	* write-mo.c (write_table): Use xmalloc/free instead of alloca/freea
+	for most allocations. Needed for platforms with a small stack, such
+	as Woe32 with a default stack size of 1.2 MB.
+	Reported by Xiong Jiang <jxiong@offtopic.org>.
+
+2003-01-23  Bruno Haible  <bruno@clisp.org>
+
 	* format-c.c (get_c99_format_directives): Free the allocated
 	descriptor after use.
 
