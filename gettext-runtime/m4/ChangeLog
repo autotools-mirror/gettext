@@ -1,3 +1,8 @@
+2003-01-11  Bruno Haible  <bruno@clisp.org>
+
+	* ulonglong.m4 (jm_AC_TYPE_UNSIGNED_LONG_LONG): Also test the ULL
+	suffix.
+
 2003-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.12.1 released.
