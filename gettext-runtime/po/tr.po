@@ -1,20 +1,24 @@
 # Turkish translations for Gnu Gettext Package.
-# Copyright (C) 2002 Free Software Foundation, Inc.
-# Nilgün Belma Bugüner <nilgun@superonline.com>, 2001, 2002.
+# Copyright (C) 2003 Free Software Foundation, Inc.
+# Nilgün Belma Bugüner <nilgun@superonline.com>, 2001, 2002, 2003.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext 0.11.5\n"
+"Project-Id-Version: gettext-runtime 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2003-05-12 19:47+0200\n"
-"PO-Revision-Date: 2002-09-11 17:27+0300\n"
+"POT-Creation-Date: 2003-10-16 21:36+0200\n"
+"PO-Revision-Date: 2003-11-24 06:33+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
+
+#: ../gettext-tools/lib/closeout.c:66
+msgid "write error"
+msgstr "yazma hatası"
 
 #: ../gettext-tools/lib/error.c:137 ../gettext-tools/lib/error.c:165
 msgid "Unknown system error"
@@ -78,10 +82,11 @@ msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: `-W %s' seçeneği bir argümanla kullanılmaz\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
+#, c-format
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
-#: src/gettext.c:129 src/ngettext.c:120
+#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,25 +98,104 @@ msgstr ""
 "Hiçbir garantisi yoktur; hatta SATILABİLİRLİĞİ veya ŞAHSİ KULLANIMINIZA\n"
 "UYGUNLUĞU için bile garanti verilmez.\n"
 
-#: src/gettext.c:134 src/ngettext.c:125
+#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
 
-#: src/gettext.c:152 src/ngettext.c:137
+#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#, c-format
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/gettext.c:162 src/ngettext.c:149
+#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#, c-format
 msgid "missing arguments"
 msgstr "argümanlar eksik"
 
-#: src/gettext.c:233 src/ngettext.c:203
+#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Daha fazla bilgilendirilmek için `%s --help' yazınız.\n"
 
-#: src/gettext.c:238
+#: src/envsubst.c:176
+#, c-format, no-wrap
+msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "Kullanımı: %s [SEÇENEK] [KABUK-BİÇİMİ]\n"
+
+#: src/envsubst.c:181
+#, c-format, no-wrap
+msgid "Substitutes the values of environment variables.\n"
+msgstr "Ortam değişkenlerinin değerleri ikame edilir.\n"
+
+#: src/envsubst.c:185
+#, c-format, no-wrap
+msgid "Operation mode:\n"
+msgstr "İşlem kipi:\n"
+
+#: src/envsubst.c:188
+#, c-format, no-wrap
+msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
+msgstr "  -v, --variables             KABUK-BİÇİMİ içindeki değişkenleri çıktılar\n"
+
+#: src/envsubst.c:192
+#, c-format, no-wrap
+msgid "Informative output:\n"
+msgstr "Bilgilendirici çıktı:\n"
+
+#: src/envsubst.c:195
+#, c-format, no-wrap
+msgid "  -h, --help                  display this help and exit\n"
+msgstr "  -h, --help                  bu yardım iletisini gösterir ve çıkar\n"
+
+#: src/envsubst.c:198
+#, c-format, no-wrap
+msgid "  -V, --version               output version information and exit\n"
+msgstr "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
+
+#: src/envsubst.c:202
+#, c-format, no-wrap
+msgid ""
+"In normal operation mode, standard input is copied to standard output,\n"
+"with references to environment variables of the form $VARIABLE or ${VARIABLE}\n"
+"being replaced with the corresponding values.  If a SHELL-FORMAT is given,\n"
+"only those environment variables that are referenced in SHELL-FORMAT are\n"
+"substituted; otherwise all environment variables references occurring in\n"
+"standard input are substituted.\n"
+msgstr ""
+"Normal işlem kipinde, $VARIABLE veya ${VARIABLE} biçimindeki ortam\n"
+"değişkenleri, karşı düşen değerlerle değiştirilerek standart girdi\n"
+"standart çıktıya kopyalanır. Eğer bir KABUK-BİÇİMİ verilmişse, yalnız\n"
+"onun içindeki ortam değişkenleri için bu ikame işlemi yapılır.\n"
+"Aksi takdirde, standart girdideki ortam değişkenlerinin tümüne bu ikame\n"
+"işlemi uygulanır.\n"
+
+#: src/envsubst.c:211
+#, c-format, no-wrap
+msgid ""
+"When --variables is used, standard input is ignored, and the output consists\n"
+"of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
+msgstr ""
+"--variables seçeneği kullanılmışsa, standart girdi görmezden gelinir ve\n"
+"her satırda bir tane olmak üzere KABUK-BİÇİMİ içindeki ortam değişkenleri\n"
+"çıktılanır.\n"
+
+#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr ""
+"Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
+"Çeviri hatalarını <gnu-tr-u12a@lists.sourceforge.net> adresine bildiriniz.\n"
+
+#: src/envsubst.c:438
+#, c-format
+msgid "error while reading \"%s\""
+msgstr "\"%s\" okunurken hata"
+
+#: src/envsubst.c:439
+msgid "standard input"
+msgstr "standart girdi"
+
+#: src/gettext.c:244
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -120,13 +204,13 @@ msgstr ""
 "Kullanımı: %s [SEÇENEK] [[PAKET] MSGID]\n"
 "ya da:     %s [SEÇENEK] -s [MSGID]...\n"
 
-#: src/gettext.c:244
-#, no-wrap
+#: src/gettext.c:250
+#, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Bir iletinin anadile çevirisini gösterir.\n"
 
-#: src/gettext.c:248
-#, no-wrap
+#: src/gettext.c:254
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -145,7 +229,7 @@ msgstr ""
 "  -V, --version         sürüm bilgilerini gösterir ve çıkar\n"
 "  [PAKET] MSGID         PAKET.mo dosyasından MSGID ile ilişkili çeviriyi alır\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:265
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -164,26 +248,20 @@ msgstr ""
 "Ancak iletiyi standart çıktıya basitçe kopyalamak yerine çevirisini verir.\n"
 "Standart arama dizini: %s\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr ""
-"Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
-"Çeviri hatalarını <gnu-tr-u12a@lists.sourceforge.net> adresine bildiriniz.\n"
-
-#: src/ngettext.c:208
+#: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Kullanımı: %s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL SAYI\n"
 
-#: src/ngettext.c:213
-#, no-wrap
+#: src/ngettext.c:218
+#, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Bir sayıya bağlı olarak ilgili tekil/çoğul ileti çevirisini gösterir.\n"
 
-#: src/ngettext.c:218
-#, no-wrap
+#: src/ngettext.c:223
+#, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 "  -e                        enable expansion of some escape sequences\n"
@@ -203,7 +281,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL   MSGID (tekil) / MSGID-PLURAL (çoğul) çevrilir\n"
 "  SAYI               SAYIya bağlı olarak tekil/çoğul iletilerden biri seçilir\n"
 
-#: src/ngettext.c:229
+#: src/ngettext.c:234
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -351,15 +429,6 @@ msgstr ""
 #~ "da\n"
 #~ "                              içerir\n"
 #~ "  -i, --ip-address            makinanın IP adresi\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ msgstr ""
-#~ "Bilgilendirme seçenekleri:\n"
-#~ "  -h, --help                  Bu yardımı gösterir ve çıkar\n"
-#~ "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
 
 #~ msgid "could not get host name"
 #~ msgstr "makina ismi alınamadı"
@@ -697,6 +766,12 @@ msgstr ""
 #~ msgid_plural "found %d fatal errors"
 #~ msgstr[0] "%d ölümcül hata bulundu"
 #~ msgstr[1] "%d ölümcül hata bulundu"
+
+#~ msgid "duplicate message definition"
+#~ msgstr "ileti iki defa tanımlanmış"
+
+#~ msgid "...this is the location of the first definition"
+#~ msgstr "...bu ilk tanımlamanın konumu"
 
 #~ msgid "at least two files must be specified"
 #~ msgstr "en az iki dosya belirtilmelidir"
@@ -1302,12 +1377,6 @@ msgstr ""
 #~ msgid "`domain %s' directive ignored"
 #~ msgstr "`domain %s' yönergesi yoksayıldı"
 
-#~ msgid "duplicate message definition"
-#~ msgstr "ileti iki defa tanımlanmış"
-
-#~ msgid "...this is the location of the first definition"
-#~ msgstr "...bu ilk tanımlamanın konumu"
-
 #~ msgid "empty `msgstr' entry ignored"
 #~ msgstr "boş `msgstr' girdisi yoksayıldı"
 
@@ -1765,9 +1834,6 @@ msgstr ""
 #~ msgid "%s and explicit file names are mutually exclusive"
 #~ msgstr "%s ile diğer dosya isimleri bağdaşmıyor"
 
-#~ msgid "Usage: %s [OPTION] [FILE]...\n"
-#~ msgstr "Kullanımı: %s [SEÇENEK] [DOSYA]...\n"
-
 #~ msgid "Convert binary message catalog to Uniforum style .po file.\n"
 #~ msgstr "İkilik ileti kataloğunu Uniforum tarzı .po dosyasına dönüştürür.\n"
 
@@ -1989,9 +2055,6 @@ msgstr ""
 #~ msgid "iconv failure"
 #~ msgstr "iconv başarısızlığı"
 
-#~ msgid "error while reading \"%s\""
-#~ msgstr "\"%s\" okunurken hata"
-
 #~ msgid "keyword \"%s\" unknown"
 #~ msgstr "anahtar-sözcük \"%s\" bilinmiyor"
 
@@ -2132,15 +2195,14 @@ msgstr ""
 #~ "  -p, --output-dir=DİZİN      çıktı dosyaları DİZİNe konulacaktır.\n"
 #~ "Çıktı dosyası olarak - verilmişse çıktı standart çıktıya yazılır.\n"
 
-#, fuzzy
 #~ msgid ""
 #~ "Choice of input file language:\n"
 #~ "  -L, --language=NAME            recognise the specified language\n"
 #~ "                                   (C, C++, ObjectiveC, PO, Python, "
 #~ "Lisp,\n"
-#~ "                                   EmacsLisp, librep, Smalltalk, Java, "
-#~ "awk,\n"
-#~ "                                   YCP, Tcl, PHP, RST, Glade)\n"
+#~ "                                   EmacsLisp, librep, Java, awk, YCP, "
+#~ "Tcl,\n"
+#~ "                                   RST, Glade)\n"
 #~ "  -C, --c++                      shorthand for --language=C++\n"
 #~ "By default the language is guessed depending on the input file name "
 #~ "extension.\n"
@@ -2242,9 +2304,6 @@ msgstr ""
 #~ "  -M, --msgstr-suffix[=DİZGE] msgstr girdileri için sonek olarak DİZGE ya "
 #~ "da\n"
 #~ "                              \"\" kullanılır\n"
-
-#~ msgid "standard input"
-#~ msgstr "standart girdi"
 
 #~ msgid ""
 #~ "Empty msgid.  It is reserved by GNU gettext:\n"

@@ -1,14 +1,14 @@
 # Swedish messages for gettext
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.3
+# Revision: 1.4
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2003-10-16 21:36+0200\n"
-"PO-Revision-Date: 2003-11-22 14:14+0100\n"
+"PO-Revision-Date: 2003-11-22 16:33+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgid ""
 msgstr ""
 "I normalt körläge kopieras standard in till standard ut med referenser\n"
 "till miljövariabler i form av $VARIABEL eller ${VARIABEL} ersatta med\n"
-"motsvarande värden.  Om ett SKALFORMAT är givet så ersätts bara de\n"
+"motsvarande värden.  Om SKALFORMAT anges så ersätts bara de\n"
 "miljövariabler som refereras i SKALFORMAT; annars ersätts alla miljövariabler\n"
 "som hittas i standard in.\n"
 

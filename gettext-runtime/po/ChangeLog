@@ -1,3 +1,11 @@
+2003-11-24  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* ro.po: New file, from Eugen Hoanca <eugenh@urban-grafx.ro>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@superonline.com>.
+	* LINGUAS: Add ro.
+
 2003-11-22  Bruno Haible  <bruno@clisp.org>
 
 	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
