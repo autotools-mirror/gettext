@@ -18,12 +18,16 @@
 /* Written by David MacKenzie <djm@ai.mit.edu>
    Modified by Akim Demaille <demaille@inf.enst.fr> */
 
+#if HAVE_CONFIG_H
+# include <config.h>
+#endif
+
+/* Specification.  */
 #include "argmatch.h"
 
 #include <stdio.h>
-#ifdef STDC_HEADERS
-# include <string.h>
-#endif
+#include <stdlib.h>
+#include <string.h>
 
 #include "gettext.h"
 #define _(msgid) gettext (msgid)
@@ -40,9 +44,8 @@
 ARGMATCH_DIE_DECL;
 #endif
 
-
 static void
-__argmatch_die ()
+__argmatch_die (void)
 {
   ARGMATCH_DIE;
 }
@@ -187,3 +190,75 @@ argmatch_to_argument (const char *value,
       return arglist[i];
   return NULL;
 }
+
+#ifdef TEST
+/*
+ * Based on "getversion.c" by David MacKenzie <djm@gnu.ai.mit.edu>
+ */
+char *program_name;
+extern const char *getenv ();
+
+/* When to make backup files.  */
+enum backup_type
+{
+  /* Never make backups.  */
+  none,
+
+  /* Make simple backups of every file.  */
+  simple,
+
+  /* Make numbered backups of files that already have numbered backups,
+     and simple backups of the others.  */
+  numbered_existing,
+
+  /* Make numbered backups of every file.  */
+  numbered
+};
+
+/* Two tables describing arguments (keys) and their corresponding
+   values */
+static const char *const backup_args[] =
+{
+  "no", "none", "off",
+  "simple", "never",
+  "existing", "nil",
+  "numbered", "t",
+  0
+};
+
+static const enum backup_type backup_vals[] =
+{
+  none, none, none,
+  simple, simple,
+  numbered_existing, numbered_existing,
+  numbered, numbered
+};
+
+int
+main (int argc, const char *const *argv)
+{
+  const char *cp;
+  enum backup_type backup_type = none;
+
+  program_name = (char *) argv[0];
+
+  if (argc > 2)
+    {
+      fprintf (stderr, "Usage: %s [VERSION_CONTROL]\n", program_name);
+      exit (1);
+    }
+
+  if ((cp = getenv ("VERSION_CONTROL")))
+    backup_type = XARGMATCH ("$VERSION_CONTROL", cp,
+			     backup_args, backup_vals);
+
+  if (argc == 2)
+    backup_type = XARGMATCH (program_name, argv[1],
+			     backup_args, backup_vals);
+
+  printf ("The version control is `%s'\n",
+	  ARGMATCH_TO_ARGUMENT (backup_type, backup_args, backup_vals));
+
+  return 0;
+}
+#endif
