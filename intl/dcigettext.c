@@ -178,9 +178,9 @@ static void *mempcpy PARAMS ((void *dest, const void *src, size_t n));
 /* XPG3 defines the result of `setlocale (category, NULL)' as:
    ``Directs `setlocale()' to query `category' and return the current
      setting of `local'.''
-   However it does not specify the exact format.  And even worse: POSIX
-   defines this not at all.  So we can use this feature only on selected
-   system (e.g. those using GNU C Library).  */
+   However it does not specify the exact format.  Neither do SUSV2 and
+   ISO C 99.  So we can use this feature only on selected systems (e.g.
+   those using GNU C Library).  */
 #ifdef _LIBC
 # define HAVE_LOCALE_NULL
 #endif
