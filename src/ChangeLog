@@ -1,5 +1,11 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgmerge.c (match_domain): Change type of 'processed' argument to
+	'unsigned int *'.
+	(merge): Change type of 'processed' to 'unsigned int'.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	Avoid warnings on platforms where size_t is larger than int.
 	* msgfmt.c (check_pair): Use an 'unsigned int' variable instead of
 	'size_t', to avoid warnings.
