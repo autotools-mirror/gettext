@@ -2,6 +2,8 @@
 
 	* plural-count.h: New file.
 	* plural-count.c: New file, extracted from msgmerge.c.
+	* msgmerge.c: Include plural-count.h instead of plural-exp.h.
+	(match_domain): Use function get_plural_count().
 	* Makefile.am (noinst_HEADERS): Add plural-count.h.
 	(msgmerge_SOURCES): Add plural-count.c.
 	* Makefile.msvc (msgmerge_OBJECTS): Add plural-count.obj.

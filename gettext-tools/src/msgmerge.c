@@ -47,7 +47,7 @@
 #include "stpncpy.h"
 #include "msgl-iconv.h"
 #include "msgl-equal.h"
-#include "plural-exp.h"
+#include "plural-count.h"
 #include "backupfile.h"
 #include "copy-file.h"
 #include "gettext.h"
@@ -977,14 +977,11 @@ this message is used but not defined in %s"), fn1);
 	if (problematic & 1)
 	  {
 	    /* Need to know nplurals of the result domain.  */
-	    message_ty *header_entry;
-	    struct expression *plural;
+	    message_ty *header_entry = message_list_search (resultmlp, "");
 
-	    header_entry = message_list_search (resultmlp, "");
-	    extract_plural_expression (header_entry
-				       ? header_entry->msgstr
-				       : NULL,
-				       &plural, &nplurals);
+	    nplurals = get_plural_count (header_entry
+					 ? header_entry->msgstr
+					 : NULL);
 	  }
 
 	for (j = 0; j < resultmlp->nitems; j++)
