@@ -1151,16 +1151,17 @@ u32_possible_linebreaks (s, n, encoding, p)
 #endif
 
 
-/* Choose the best line breaks, assuming the uc_width function.  Return the
-   column after the end of the string.  */
+/* Choose the best line breaks, assuming the uc_width function.
+   Return the column after the end of the string.  */
 
 int
-u8_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
+u8_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
      const unsigned char *s;
      size_t n;
      int width;
      int start_column;
      int at_end_columns;
+     const char *o;
      const char *encoding;
      char *p;
 {
@@ -1180,6 +1181,10 @@ u8_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
       unsigned int uc;
       int count = u8_mbtouc (&uc, s, s_end - s);
 
+      /* Respect the override.  */
+      if (o != NULL && *o != UC_BREAK_UNDEFINED)
+        *p = *o;
+
       if (*p == UC_BREAK_POSSIBLE || *p == UC_BREAK_MANDATORY)
         {
           /* An atomic piece of text ends here.  */
@@ -1223,6 +1228,8 @@ u8_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
 
       s += count;
       p += count;
+      if (o != NULL)
+        o += count;
     }
 
   /* The last atomic piece of text ends here.  */
@@ -1239,12 +1246,13 @@ u8_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
 #ifdef unused
 
 int
-u16_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
+u16_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
      const unsigned short *s;
      size_t n;
      int width;
      int start_column;
      int at_end_columns;
+     const char *o;
      const char *encoding;
      char *p;
 {
@@ -1264,6 +1272,10 @@ u16_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
       unsigned int uc;
       int count = u16_mbtouc (&uc, s, s_end - s);
 
+      /* Respect the override.  */
+      if (o != NULL && *o != UC_BREAK_UNDEFINED)
+        *p = *o;
+
       if (*p == UC_BREAK_POSSIBLE || *p == UC_BREAK_MANDATORY)
         {
           /* An atomic piece of text ends here.  */
@@ -1307,6 +1319,8 @@ u16_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
 
       s += count;
       p += count;
+      if (o != NULL)
+        o += count;
     }
 
   /* The last atomic piece of text ends here.  */
@@ -1321,12 +1335,13 @@ u16_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
 }
 
 int
-u32_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
+u32_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
      const unsigned int *s;
      size_t n;
      int width;
      int start_column;
      int at_end_columns;
+     const char *o;
      const char *encoding;
      char *p;
 {
@@ -1344,6 +1359,10 @@ u32_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
   while (s < s_end)
     {
       unsigned int uc = *s;
+
+      /* Respect the override.  */
+      if (o != NULL && *o != UC_BREAK_UNDEFINED)
+        *p = *o;
 
       if (*p == UC_BREAK_POSSIBLE || *p == UC_BREAK_MANDATORY)
         {
@@ -1388,6 +1407,8 @@ u32_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
 
       s++;
       p++;
+      if (o != NULL)
+        o++;
     }
 
   /* The last atomic piece of text ends here.  */
@@ -1505,7 +1526,7 @@ main (argc, argv)
       char *breaks = malloc (length);
       int i;
 
-      u8_width_linebreaks ((unsigned char *) input, length, width, 0, 0, "UTF-8", breaks);
+      u8_width_linebreaks ((unsigned char *) input, length, width, 0, 0, NULL, "UTF-8", breaks);
 
       for (i = 0; i < length; i++)
         {
@@ -1670,7 +1691,7 @@ is_all_ascii (s, n)
 
 #endif /* C_CTYPE_ASCII */
 
-#ifdef unused
+#if defined unused || defined TEST2
 
 void
 mbs_possible_linebreaks (s, n, encoding, p)
@@ -1748,17 +1769,18 @@ mbs_possible_linebreaks (s, n, encoding, p)
 #endif
 
 int
-mbs_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
+mbs_width_linebreaks (s, n, width, start_column, at_end_columns, o, encoding, p)
      const char *s;
      size_t n;
      int width;
      int start_column;
      int at_end_columns;
+     const char *o;
      const char *encoding;
      char *p;
 {
   if (is_utf8_encoding (encoding))
-    return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, encoding, p);
+    return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, o, encoding, p);
   else
     {
 #if HAVE_ICONV
@@ -1771,20 +1793,30 @@ mbs_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
             {
               /* Convert the string to UTF-8 and build a translation table
                  from offsets into s to offsets into the translated string.  */
-              char *memory = malloc (n * sizeof (size_t) + m + m);
+              char *memory = malloc (n * sizeof (size_t) + m + m + (o != NULL ? m : 0));
               if (memory != NULL)
                 {
                   size_t *offtable = (size_t *) memory;
                   char *t = (char *) (offtable + n);
                   char *q = (char *) (t + m);
+                  char *o8 = (o != NULL ? (char *) (q + m) : NULL);
                   int res_column;
                   size_t i;
 
                   iconv_string_keeping_offsets (to_utf8, s, n, offtable, t, m);
 
+                  /* Translate the overrides to the UTF-8 string.  */
+                  if (o != NULL)
+                    {
+                      memset (o8, UC_BREAK_UNDEFINED, m);
+                      for (i = 0; i < n; i++)
+                        if (offtable[i] != (size_t)(-1))
+                          o8[offtable[i]] = o[i];
+                    }
+
                   /* Determine the line breaks of the UTF-8 string.  */
                   res_column =
-                    u8_width_linebreaks ((const unsigned char *) t, m, width, start_column, at_end_columns, encoding, q);
+                    u8_width_linebreaks ((const unsigned char *) t, m, width, start_column, at_end_columns, o8, encoding, q);
 
                   /* Translate the result back to the original string.  */
                   memset (p, UC_BREAK_PROHIBITED, n);
@@ -1805,7 +1837,7 @@ mbs_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
       if (is_all_ascii (s, n))
 	{
 	  /* ASCII is a subset of UTF-8.  */
-	  return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, encoding, p);
+	  return u8_width_linebreaks ((const unsigned char *) s, n, width, start_column, at_end_columns, o, encoding, p);
 	}
 #endif
       /* We have a non-ASCII string and cannot convert it.
@@ -1816,9 +1848,13 @@ mbs_width_linebreaks (s, n, width, start_column, at_end_columns, encoding, p)
         const char *s_end = s + n;
         while (s < s_end)
           {
-            *p = (*s == '\n' ? UC_BREAK_MANDATORY : UC_BREAK_PROHIBITED);
+            *p = ((o != NULL && *o == UC_BREAK_MANDATORY) || *s == '\n'
+                  ? UC_BREAK_MANDATORY
+                  : UC_BREAK_PROHIBITED);
             s++;
             p++;
+            if (o != NULL)
+              o++;
           }
         /* We cannot compute widths in this case.  */
         return start_column;
@@ -1927,7 +1963,7 @@ main (argc, argv)
       char *breaks = malloc (length);
       int i;
 
-      mbs_width_linebreaks (input, length, width, 0, 0, locale_charset (), breaks);
+      mbs_width_linebreaks (input, length, width, 0, 0, NULL, locale_charset (), breaks);
 
       for (i = 0; i < length; i++)
         {

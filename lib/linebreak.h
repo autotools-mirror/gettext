@@ -51,6 +51,7 @@ extern int u32_width PARAMS ((const unsigned int *s, size_t n, const char *encod
 /* Line breaking.  */
 
 enum {
+  UC_BREAK_UNDEFINED,
   UC_BREAK_PROHIBITED,
   UC_BREAK_POSSIBLE,
   UC_BREAK_MANDATORY,
@@ -71,12 +72,15 @@ extern void u16_possible_linebreaks PARAMS ((const unsigned short *s, size_t n, 
 extern void u32_possible_linebreaks PARAMS ((const unsigned int *s, size_t n, const char *encoding, char *p));
 extern void mbs_possible_linebreaks PARAMS ((const char *s, size_t n, const char *encoding, char *p));
 
-/* Choose the best line breaks, assuming the uc_width function.  Return the
-   column after the end of the string.  */
-extern int u8_width_linebreaks PARAMS ((const unsigned char *s, size_t n, int width, int start_column, int at_end_columns, const char *encoding, char *p));
-extern int u16_width_linebreaks PARAMS ((const unsigned short *s, size_t n, int width, int start_column, int at_end_columns, const char *encoding, char *p));
-extern int u32_width_linebreaks PARAMS ((const unsigned int *s, size_t n, int width, int start_column, int at_end_columns, const char *encoding, char *p));
-extern int mbs_width_linebreaks PARAMS ((const char *s, size_t n, int width, int start_column, int at_end_columns, const char *encoding, char *p));
+/* Choose the best line breaks, assuming the uc_width function.
+   Return the column after the end of the string.
+   o is an optional override; if o[i] != UC_BREAK_UNDEFINED, o[i] takes
+   precedence over p[i] as returned by the *_possible_linebreaks function.
+ */
+extern int u8_width_linebreaks PARAMS ((const unsigned char *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p));
+extern int u16_width_linebreaks PARAMS ((const unsigned short *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p));
+extern int u32_width_linebreaks PARAMS ((const unsigned int *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p));
+extern int mbs_width_linebreaks PARAMS ((const char *s, size_t n, int width, int start_column, int at_end_columns, const char *o, const char *encoding, char *p));
 
 
 #endif /* _LINEBREAK_H */

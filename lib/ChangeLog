@@ -1,3 +1,11 @@
+2001-04-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* linebreak.h (UC_BREAK_UNDEFINED): New enum value.
+	(u8_width_linebreaks, u16_width_linebreaks, u32_width_linebreaks,
+	mbs_width_linebreaks): Add overrides argument.
+	* linebreak.c (u8_width_linebreaks, u16_width_linebreaks,
+	u32_width_linebreaks, mbs_width_linebreaks): Add overrides argument.
+
 2001-03-29  Bruno Haible  <haible@clisp.cons.org>
 
 	* gettext-0.10.36 released.

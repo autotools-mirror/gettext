@@ -214,9 +214,11 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
       const char *ep;
       size_t portion_len;
       char *portion;
+      char *overrides;
       char *linebreaks;
       char *pp;
-      int startcol, startcol_after_break, width, endcols;
+      char *op;
+      int startcol, startcol_after_break, width;
       size_t i;
 
       for (es = s; *es != '\0'; )
@@ -279,7 +281,9 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 	    }
 	}
       portion = (char *) xmalloc (portion_len);
-      for (ep = s, pp = portion; ep < es; ep++)
+      overrides = (char *) xmalloc (portion_len);
+      memset (overrides, UC_BREAK_UNDEFINED, portion_len);
+      for (ep = s, pp = portion, op = overrides; ep < es; ep++)
 	{
 	  char c = *ep;
 	  const char *esc = strchr (escapes, c);
@@ -287,6 +291,8 @@ wrap (fp, line_prefix, name, value, do_wrap, charset)
 	    {
 	      *pp++ = '\\';
 	      *pp++ = c = escape_names[esc - escapes];
+	      op++;
+	      *op++ = UC_BREAK_PROHIBITED;
 	      /* We warn about any use of escape sequences beside
 		 '\n' and '\t'.  */
 	      if (c != 'n' && c != 't')
@@ -300,11 +306,17 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      *pp++ = '0' + (((unsigned char) c >> 6) & 7);
 	      *pp++ = '0' + (((unsigned char) c >> 3) & 7);
 	      *pp++ = '0' + ((unsigned char) c & 7);
+	      op++;
+	      *op++ = UC_BREAK_PROHIBITED;
+	      *op++ = UC_BREAK_PROHIBITED;
+	      *op++ = UC_BREAK_PROHIBITED;
 	    }
 	  else if (c == '\\' || c == '"')
 	    {
 	      *pp++ = '\\';
 	      *pp++ = c;
+	      op++;
+	      *op++ = UC_BREAK_PROHIBITED;
 	    }
 	  else
 	    {
@@ -344,13 +356,21 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		  insize = inptr - ep;
 		  memcpy (pp, ep, insize);
 		  pp += insize;
+		  op += insize;
 		  ep += insize - 1;
 		}
 	      else
 #endif
-		*pp++ = c;
+		{
+		  *pp++ = c;
+		  op++;
+		}
 	    }
 	}
+
+      /* Don't break immediately before the "\n" at the end.  */
+      if (es > s && es[-1] == '\n')
+	overrides[portion_len - 2] = UC_BREAK_PROHIBITED;
 
       linebreaks = (char *) xmalloc (portion_len);
 
@@ -389,17 +409,9 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       /* Adjust for indentation of subsequent lines.  */
       startcol -= startcol_after_break;
 
-      /* Do line breaking on the portion.
-	 But don't break immediately before the "\n" at the end.  */
-      endcols = 0;
-      if (es > s && es[-1] == '\n')
-	{
-	  endcols = 2;
-	  linebreaks[portion_len - 2] = UC_BREAK_PROHIBITED;
-	  linebreaks[portion_len - 1] = UC_BREAK_PROHIBITED;
-	}
-      mbs_width_linebreaks (portion, portion_len - endcols, width,
-			    startcol, endcols, charset, linebreaks);
+      /* Do line breaking on the portion.  */
+      mbs_width_linebreaks (portion, portion_len, width, startcol, 0,
+			    overrides, charset, linebreaks);
 
       /* If this is the first line, and we are not using the indented
 	 style, and the line would wrap, then use an empty first line
@@ -455,6 +467,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       fputs ("\"\n", fp);
 
       free (linebreaks);
+      free (overrides);
       free (portion);
 
       s = es;
