@@ -1,3 +1,24 @@
+2001-11-03  Bruno Haible  <haible@clisp.cons.org>
+
+	Distribute javadoc generated documentation.
+	* Makefile.am (docdir, htmldir, JAVADOC1, JAVADOC2): New variables.
+	(all-classes): Renamed from all-local.
+	(all-classes-no): Renamed from all-java-no.
+	(all-classes-yes): Renamed from all-java-yes.
+	(install-classes): Renamed from install-data-local.
+	(install-classes-no): Renamed from install-java-no.
+	(install-classes-yes): Renamed from install-java-yes.
+	(installdirs-classes): Renamed from installdirs-local.
+	(uninstall-classes): Renamed from uninstall-local.
+	(all-local, install-data-local, installdirs-local, uninstall-local):
+	New targets.
+	(JAVADOC1_FILES, JAVADOC2_FILES): New variables.
+	(all-javadoc1, javadoc1/tree.html, install-javadoc1,
+	installdirs-javadoc1, uninstall-javadoc1, all-javadoc2,
+	javadoc2/index.html, install-javadoc2, installdirs-javadoc2,
+	uninstall-javadoc2): New targets.
+	(EXTRA_DIST): Add JAVADOC1_FILES and JAVADOC2_FILES.
+
 2001-10-30  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (EXTRA_DIST): New variable.
