@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles mm-test2.out"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
 ${MSGMERGE} -q mm-test2.in1 mm-test2.in2 -o /dev/stdout \
-  2> mm-test2.out
+  2>&1 | grep -v '^==' > mm-test2.out
 
 tmpfiles="$tmpfiles mm-test2.ok"
 cat << EOF > mm-test2.ok

@@ -70,7 +70,7 @@ tmpfiles="$tmpfiles mf-test10.err"
 : ${MSGFMT=msgfmt}
 LC_MESSAGES=C LC_ALL= \
 ${MSGFMT} --check mf-test10.po2 -o /dev/null \
-    2> mf-test10.err
+    2>&1 | grep -v '^==' > mf-test10.err
 
 tmpfiles="$tmpfiles mf-test10.ok"
 cat << EOF > mf-test10.ok

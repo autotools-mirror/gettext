@@ -1,3 +1,13 @@
+2002-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* msgcmp-2: Filter out valgrind's messages from the stderr output.
+	* msgfmt-7: Likewise.
+	* msgfmt-8: Likewise.
+	* msgfmt-9: Likewise.
+	* msgfmt-10: Likewise.
+	* msgmerge-2: Likewise.
+	* msgmerge-13: Likewise.
+
 2002-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-23: New file.

@@ -25,7 +25,7 @@ tmpfiles="$tmpfiles mm-test13.err"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
 ${MSGMERGE} -q mm-test13.in1 mm-test13.in2 -o /dev/null \
-    2> mm-test13.err
+    2>&1 | grep -v '^==' > mm-test13.err
 
 tmpfiles="$tmpfiles mm-test13.ok"
 cat << EOF > mm-test13.ok

@@ -22,7 +22,7 @@ EOF
 tmpfiles="$tmpfiles mc-test2.out"
 : ${MSGCMP=msgcmp}
 LC_MESSAGES=C LC_ALL= \
-${MSGCMP} mc-test2.in1 mc-test2.in2 > mc-test2.out 2>&1
+${MSGCMP} mc-test2.in1 mc-test2.in2 2>&1 | grep -v '^==' > mc-test2.out
 
 tmpfiles="$tmpfiles mc-test2.ok"
 cat <<EOF > mc-test2.ok
