@@ -1,3 +1,8 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.am (LDADD): Replace libnlsut.a with libgettextlib.la.
+	(*_LDADD): Likewise.
+
 2001-10-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* x-c.h (EXTENSIONS_C): Add ".hxx".

@@ -1,5 +1,15 @@
 2001-10-21  Bruno Haible  <haible@clisp.cons.org>
 
+	Create a libgettextlib shared library.
+	* Makefile.am (noinst_LIBRARIES): Remove variable.
+	(lib_LTLIBRARIES): New variable.
+	(libgettextlib_la_SOURCES): Renamed from libnlsut_a_SOURCES.
+	(libgettextlib_la_HEADER): Renamed from libnlsut_a_HEADER.
+	(libgettextlib_la_LIBADD): Renamed from libnlsut_a_LIBADD.
+	(libgettextlib_la_LDFLAGS): New variable.
+
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
 	* mkdtemp.c: Include <inttypes.h> if it exists. Needed on platforms
 	which have <inttypes.h> but not <stdint.h>, like BeOS.
 

@@ -1,3 +1,7 @@
+2001-10-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Define LTLIBOBJS and LTALLOCA based on LIBOBJS, ALLOCA.
+
 2001-10-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Remove check for texi2html.

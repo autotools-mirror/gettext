@@ -604,7 +604,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "gcc -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-python.c ../lib/libnlsut.a"
+ * compile-command: "/bin/sh ../libtool --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-python.c ../lib/libgettextlib.la"
  * End:
  */
 

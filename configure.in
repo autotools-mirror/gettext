@@ -120,6 +120,17 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
+dnl These can be removed when we drop support for autoconf-2.13 and switch
+dnl to autoconf-2.52.
+changequote(,)dnl
+LTLIBOBJS=`echo "$LIBOBJS" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
+changequote([, ])dnl
+AC_SUBST(LTLIBOBJS)
+changequote(,)dnl
+LTALLOCA=`echo "$ALLOCA" | sed 's/\.[^.]* /.lo /g;s/\.[^.]*$/.lo/'`
+changequote([, ])dnl
+AC_SUBST(LTALLOCA)
+
 AC_OUTPUT([Makefile \
            lib/Makefile lib/javacomp.sh lib/javaexec.sh \
            intl/Makefile intl-java/Makefile \

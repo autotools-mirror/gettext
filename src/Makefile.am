@@ -41,7 +41,7 @@ INCLUDES = -I. -I$(srcdir) -I.. -I$(top_srcdir)/lib -I../intl \
 -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
 -DLIBDIR=\"$(libdir)\" -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
-LDADD = ../lib/libnlsut.a @INTLLIBS@
+LDADD = ../lib/libgettextlib.la @INTLLIBS@
 
 SED = sed
 YACC = @YACC@ -d
@@ -88,21 +88,21 @@ urlget_SOURCES    = urlget.c
 # Link dependencies.
 # po-lex.c and po.c may need -liconv.
 # write-po.c pulls in linebreak.c which may need -liconv.
-msgcmp_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgmerge_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgunfmt_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-xgettext_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgattrib_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgcat_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgcomm_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgconv_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgen_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msgexec_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msggrep_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+msgcmp_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgfmt_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgmerge_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgunfmt_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+xgettext_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgattrib_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgcat_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgcomm_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgconv_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgen_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msgexec_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msggrep_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
 msginit_LDADD = ../intl/localealias.$(OBJEXT) ../intl/localename.$(OBJEXT) \
-                ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
-msguniq_LDADD = ../lib/libnlsut.a @INTLLIBS@ @LIBICONV@
+                ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
+msguniq_LDADD = ../lib/libgettextlib.la @INTLLIBS@ @LIBICONV@
 
 
 # Special rules for bison and flex generated files.

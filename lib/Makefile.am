@@ -19,21 +19,22 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
-noinst_LIBRARIES = libnlsut.a
+lib_LTLIBRARIES = libgettextlib.la
 
 # Sources that are compiled on all platforms.
 
-libnlsut_a_SOURCES = addext.c argmatch.c backupfile.c basename.c c-ctype.c \
-concatpath.c copy-file.c execute.c findprog.c fstrcmp.c full-write.c gcd.c \
-getopt.c getopt1.c hash.c javacomp.c javaexec.c linebreak.c localcharset.c \
-mbswidth.c obstack.c pipe-bidi.c pipe-in.c pipe-out.c progname.c safe-read.c \
-sh-quote.c tmpdir.c wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
+libgettextlib_la_SOURCES = addext.c argmatch.c backupfile.c basename.c \
+c-ctype.c concatpath.c copy-file.c execute.c findprog.c fstrcmp.c \
+full-write.c gcd.c getopt.c getopt1.c hash.c javacomp.c javaexec.c \
+linebreak.c localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c \
+pipe-out.c progname.c safe-read.c sh-quote.c tmpdir.c wait-process.c xerror.c \
+xgetcwd.c xmalloc.c xstrdup.c
 
-libnlsut_a_HEADER = argmatch.h backupfile.h basename.h c-ctype.h copy-file.h \
-execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h javacomp.h \
-javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h pipe.h \
-progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h utf16-ucs4.h \
-wait-process.h xerror.h xmalloc.h
+libgettextlib_la_HEADER = argmatch.h backupfile.h basename.h c-ctype.h \
+copy-file.h execute.h findprog.h fstrcmp.h full-write.h gcd.h getopt.h hash.h \
+javacomp.h javaexec.h lbrkprop.h linebreak.h mbswidth.h obstack.h pathmax.h \
+pipe.h progname.h safe-read.h sh-quote.h system.h tmpdir.h utf8-ucs4.h \
+utf16-ucs4.h wait-process.h xerror.h xmalloc.h
 
 # Sources that are compiled only on platforms that lack the functions.
 
@@ -49,11 +50,19 @@ UNUSED_SOURCE = memmove.c
 
 UNUSED_HEADER =
 
-libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
+# How to build libgettextlib.la.
+
+libgettextlib_la_LIBADD = @LTALLOCA@ @LTLIBOBJS@
+
+# Need @INTLLIBS@ because many source files use gettext().
+# Need @LIBICONV@ because linebreak.c uses iconv().
+libgettextlib_la_LDFLAGS = \
+  -release @VERSION@ \
+  @INTLLIBS@ @LIBICONV@ -no-undefined
 
 # List of files to be distributed.
 
-noinst_HEADERS = $(libnlsut_a_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
+noinst_HEADERS = $(libgettextlib_la_HEADER) $(LIBADD_HEADER) $(UNUSED_HEADER)
 
 EXTRA_DIST = classpath.c config.charset ref-add.sin ref-del.sin \
 $(LIBADD_SOURCE) $(UNUSED_SOURCE) \
