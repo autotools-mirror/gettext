@@ -40,6 +40,7 @@ subdir = intl
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 MKINSTALLDIRS = @MKINSTALLDIRS@
+mkinstalldirs = $(SHELL) `case "$(MKINSTALLDIRS)" in /*) echo "$(MKINSTALLDIRS)" ;; *) echo "$(top_builddir)/$(MKINSTALLDIRS)" ;; esac`
 
 l = @l@
 
@@ -134,15 +135,14 @@ install: install-exec install-data
 install-exec: all
 	if test "$(PACKAGE)" = "gettext" \
 	   && test '@INTLOBJS@' = '$(GETTOBJS)'; then \
-	  $(SHELL) $(MKINSTALLDIRS) $(DESTDIR)$(libdir); \
-	  $(SHELL) $(MKINSTALLDIRS) $(DESTDIR)$(includedir); \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	  $(INSTALL_DATA) intlh.inst $(DESTDIR)$(includedir)/libintl.h; \
 	  $(INSTALL_DATA) libintl.a $(DESTDIR)$(libdir)/libintl.a; \
 	else \
 	  : ; \
 	fi; \
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
-	  $(SHELL) $(MKINSTALLDIRS) $(DESTDIR)$(libdir); \
+	  $(mkinstalldirs) $(DESTDIR)$(libdir); \
 	  test -f $(DESTDIR)$(libdir)/charset.alias \
 	    && orig=$(DESTDIR)$(libdir)/charset.alias \
 	    || orig=charset.alias; \
@@ -156,7 +156,7 @@ install-exec: all
 	fi
 install-data: all
 	if test "$(PACKAGE)" = "gettext"; then \
-	  $(SHELL) $(MKINSTALLDIRS) $(DESTDIR)$(gettextsrcdir); \
+	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
 	  dists="$(DISTFILES.common)"; \
 	  for file in $$dists; do \

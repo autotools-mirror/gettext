@@ -1,3 +1,10 @@
+2000-07-28  Bruno Haible  <haible@clisp.cons.org>
+
+	* Makefile.in (mkinstalldirs): New macro. Needed when configured with
+	--srcdir=<relative pathname>; then ac_aux_dir will be a relative
+	pathname rooted at the top builddir, and @MKINSTALLDIRS@ likewise.
+	(install-exec, install-data): Use it.
+
 2000-07-26  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (install-exec, install-data): Use $(SHELL) for calling
