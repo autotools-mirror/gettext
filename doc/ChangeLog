@@ -1,3 +1,8 @@
+2002-04-04  Bruno Haible  <haible@clisp.cons.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2002-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.11.1 released.
