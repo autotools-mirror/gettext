@@ -42,7 +42,6 @@ libgrt_a_SOURCES = \
 # Sources that are compiled only on platforms that lack the functions.
 
 LIBADD_SOURCE = \
-  alloca.c \
   atexit.c \
   ../../gettext-tools/lib/canonicalize.h canonicalize.c \
   memmove.c \
