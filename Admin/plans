@@ -34,13 +34,8 @@ Things we plan to do. Comments welcome.
 - Split xgettext into a language dependent part and a language independent
   part.
 
-- Add c-ctype.{h,c} to misc. Document setlocale, LC_CTYPE, LC_MESSAGES issues.
-
 - Document what it means to add gettext support to a programming/scripting
   language. Add support for Java.
-
-- The --width option shouldn't split multibyte characters and take into account
-  the wcwidth of the characters.
 
 - KDE wants a kind of gettext2("role","msg")  function whose key is the
   concatenation of "role" and "msg" but whose default value is only "msg".
@@ -62,4 +57,7 @@ Things we plan to do. Comments welcome.
 - KBabel:
   http://i18n.kde.org/translation-howto/gui-specialized-apps.html
   http://i18n.kde.org/tools/kbabel/
+
+- lib/ needs patches for building on systems without <libintl.h>.
+- Protect all uses of LC_MESSAGES by HAVE_LC_MESSAGES.
 
