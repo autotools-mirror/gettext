@@ -1,5 +1,15 @@
 2001-09-02  Bruno Haible  <haible@clisp.cons.org>
 
+	* mkdtemp.h: New file.
+	* mkdtemp.c: New file, mostly taken from glibc-2.2.4.
+	* tmpdir.h: New file.
+	* tmpdir.c: New file, mostly taken from glibc-2.2.4.
+	* Makefile.am (EXTRA_DIST): Add mkdtemp.c.
+	(libnlsut_a_SOURCES): Add tmpdir.c.
+	(noinst_HEADERS): Add mkdtemp.h, tmpdir.h.
+
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
 	* execute.h: New file.
 	* execute.c: New file.
 	* Makefile.am (libnlsut_a_SOURCES): Add execute.c.

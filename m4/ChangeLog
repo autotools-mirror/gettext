@@ -1,3 +1,9 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* mkdtemp.m4: New file.
+	* tmpdir.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2001-09-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* flex.m4: New file.

@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 noinst_LIBRARIES = libnlsut.a
 
 EXTRA_DIST = alloca.c config.charset error.c getline.c memset.c memmove.c \
-ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c strcspn.c \
+mkdtemp.c ref-add.sin ref-del.sin stpcpy.c stpncpy.c strcasecmp.c strcspn.c \
 strncasecmp.c strstr.c strtol.c strtoul.c vasprintf.c \
 stdbool.h.in \
 gen-lbrkprop.c 3level.h
@@ -30,14 +30,15 @@ gen-lbrkprop.c 3level.h
 libnlsut_a_SOURCES = basename.c c-ctype.c concatpath.c execute.c findprog.c \
 fstrcmp.c full-write.c gcd.c getopt.c getopt1.c hash.c linebreak.c \
 localcharset.c mbswidth.c obstack.c pipe-bidi.c pipe-in.c pipe-out.c \
-progname.c safe-read.c wait-process.c xerror.c xgetcwd.c xmalloc.c xstrdup.c
+progname.c safe-read.c tmpdir.c wait-process.c xerror.c xgetcwd.c xmalloc.c \
+xstrdup.c
 
 libnlsut_a_LIBADD = @ALLOCA@ @LIBOBJS@
 
 noinst_HEADERS = c-ctype.h error.h execute.h findprog.h fstrcmp.h \
 full-write.h gcd.h getline.h getopt.h hash.h lbrkprop.h linebreak.h mbswidth.h \
-obstack.h pathmax.h pipe.h progname.h safe-read.h system.h utf8-ucs4.h \
-utf16-ucs4.h wait-process.h xerror.h
+mkdtemp.h obstack.h pathmax.h pipe.h progname.h safe-read.h system.h tmpdir.h \
+utf8-ucs4.h utf16-ucs4.h wait-process.h xerror.h
 
 DEFS = -DLIBDIR=\"$(libdir)\" @DEFS@
 INCLUDES = -I. -I$(srcdir) -I.. -I../intl

@@ -1,3 +1,7 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* configure.in: Call gt_TMPDIR and gt_FUNC_MKDTEMP.
+
 2001-09-03  Bruno Haible  <haible@clisp.cons.org>
 
 	* configure.in: Call gt_PROG_LEX.
