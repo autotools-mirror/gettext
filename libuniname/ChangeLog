@@ -1,0 +1,11 @@
+2002-02-02  Bruno Haible  <bruno@clisp.org>
+
+	* gen-uninames: New file.
+	* uninames.h: New file.
+	* uniname.h: New file.
+	* uniname.c: New file.
+	* test-names.c: New file.
+	* test-names.sh: New file.
+	* UnicodeDataNames.txt: New file.
+	* Makefile.am: New file.
+
