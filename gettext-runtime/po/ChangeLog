@@ -1,3 +1,8 @@
+2005-02-11  Bruno Haible  <bruno@clisp.org>
+
+	* ga.po: New file, from Kevin Patrick Scannell <scannell@slu.edu>.
+	* LINGUAS: Add ga.
+
 2005-02-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (PACKAGE_BUGREPORT): New variable.
