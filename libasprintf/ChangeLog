@@ -1,0 +1,14 @@
+2002-10-27  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.h, printf-args.c: New files.
+	* printf-parse.h, printf-parse.c: New files.
+	* vasnprintf.h, vasnprintf.c, asnprintf.c: New files.
+	* vasprintf.h, vasprintf.c, asprintf.c: New files.
+	* lib-asprintf.h, lib-asprintf.c: New files.
+	* autosprintf.h, autosprintf.cc: New files.
+	* README, NEWS, AUTHORS, COPYING, autosprintf.texi: New files.
+	* Makefile.am, configure.in: New files.
+	* liballoca.h, libstdarg.h: New files, from gettext-0.11.6/lib.
+	* COPYING.LIB, INSTALL, config.guess, config.sub, install-sh,
+	ltmain.sh, missing, mkinstalldirs, texi2html, texinfo.tex: Standard
+	infrastructure files, from gettext-0.11.6.
