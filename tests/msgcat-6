@@ -64,12 +64,6 @@ ${MSGCAT} --more-than=0 -o mcat-test6.out \
 
 tmpfiles="$tmpfiles mcat-test6.ok"
 cat << EOF > mcat-test6.ok
-# #-#-#-#-#  mcat-test6.in1 (xyz)  #-#-#-#-#
-# German message file for xyz.
-# Copyright (C) 1999, 2000, 2001 xyz.
-# Kab Def <ke@zzz.uucp>, 2000.
-#
-# #-#-#-#-#  mcat-test6.in2 (xyz)  #-#-#-#-#
 # German message file for xyz.
 # Copyright (C) 1999, 2000, 2001 xyz.
 # Kab Def <ke@zzz.uucp>, 2000.
@@ -85,9 +79,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  mcat-test6.in1 (xyz)  #-#-#-#-#
-#. Help text (HTML-like) START
-#. #-#-#-#-#  mcat-test6.in2 (xyz)  #-#-#-#-#
 #. Help text (HTML-like) START
 #: clients/inst_ask_config.ycp:119
 #, fuzzy
