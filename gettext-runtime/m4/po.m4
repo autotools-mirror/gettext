@@ -1,4 +1,4 @@
-# po.m4 serial 4 (gettext-0.14.2)
+# po.m4 serial 5 (gettext-0.14.2)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -19,6 +19,8 @@ dnl Authors:
 dnl   Ulrich Drepper <drepper@cygnus.com>, 1995-2000.
 dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2003.
 
+AC_PREREQ(2.50)
+
 dnl Checks for all prerequisites of the po subdirectory.
 AC_DEFUN([AM_PO_SUBDIRS],
 [
@@ -34,7 +36,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
   dnl The first test excludes Solaris msgfmt and early GNU msgfmt versions.
   dnl The second test excludes FreeBSD msgfmt.
   AM_PATH_PROG_WITH_TEST(MSGFMT, msgfmt,
-    [$ac_dir/$ac_word --statistics /dev/null >/dev/null 2>&1 &&
+    [$ac_dir/$ac_word --statistics /dev/null >&]AS_MESSAGE_LOG_FD[ 2>&1 &&
      (if $ac_dir/$ac_word --statistics /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
     :)
   AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
@@ -43,7 +45,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
   dnl The first test excludes Solaris xgettext and early GNU xgettext versions.
   dnl The second test excludes FreeBSD xgettext.
   AM_PATH_PROG_WITH_TEST(XGETTEXT, xgettext,
-    [$ac_dir/$ac_word --omit-header --copyright-holder= --msgid-bugs-address= /dev/null >/dev/null 2>&1 &&
+    [$ac_dir/$ac_word --omit-header --copyright-holder= --msgid-bugs-address= /dev/null >&]AS_MESSAGE_LOG_FD[ 2>&1 &&
      (if $ac_dir/$ac_word --omit-header --copyright-holder= --msgid-bugs-address= /dev/null 2>&1 >/dev/null | grep usage >/dev/null; then exit 1; else exit 0; fi)],
     :)
   dnl Remove leftover from FreeBSD xgettext call.
@@ -51,7 +53,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
 
   dnl Search for GNU msgmerge 0.11 or newer in the PATH.
   AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
-    [$ac_dir/$ac_word --update -q /dev/null /dev/null >/dev/null 2>&1], :)
+    [$ac_dir/$ac_word --update -q /dev/null /dev/null >&]AS_MESSAGE_LOG_FD[ 2>&1], :)
 
   dnl This could go away some day; the PATH_PROG_WITH_TEST already does it.
   dnl Test whether we really found GNU msgfmt.

@@ -1,3 +1,11 @@
+2005-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* progtest.m4: Require autoconf >= 2.50.
+	(AM_PATH_PROG_WITH_TEST): Emit some traces to the log file.
+	* po.m4: Require autoconf >= 2.50.
+	(AM_PO_SUBDIRS): Emit the tested program's output to the log file.
+	Suggested by Yann Dirson <ydirson@altern.org>.
+
 2004-06-01  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* longlong.m4, ulonglong.m4: Fix copyright date and/or serial number.

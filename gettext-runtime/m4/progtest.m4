@@ -1,5 +1,5 @@
-# progtest.m4 serial 3 (gettext-0.12)
-dnl Copyright (C) 1996-2003 Free Software Foundation, Inc.
+# progtest.m4 serial 4 (gettext-0.14.2)
+dnl Copyright (C) 1996-2003, 2005 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -17,6 +17,8 @@ dnl They are *not* in the public domain.
 
 dnl Authors:
 dnl   Ulrich Drepper <drepper@cygnus.com>, 1996.
+
+AC_PREREQ(2.50)
 
 # Search path for a program which passes the given test.
 
@@ -67,6 +69,7 @@ AC_CACHE_VAL(ac_cv_path_$1,
       test -z "$ac_dir" && ac_dir=.
       for ac_exec_ext in '' $ac_executable_extensions; do
         if $ac_executable_p "$ac_dir/$ac_word$ac_exec_ext"; then
+          echo "$as_me: trying $ac_dir/$ac_word..." >&AS_MESSAGE_LOG_FD
           if [$3]; then
             ac_cv_path_$1="$ac_dir/$ac_word$ac_exec_ext"
             break 2
