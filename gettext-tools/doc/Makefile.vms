@@ -25,6 +25,7 @@ install : all
 	create /directory $(datadir)]
 	create /directory $(datadir).doc]
 	create /directory $(docdir)]
+	$(INSTALL_DATA) FAQ.html $(docdir)]FAQ.html
 	$(INSTALL_DATA) gettext_*.html $(docdir)
 
 installdirs :
@@ -34,6 +35,7 @@ installdirs :
 	create /directory $(docdir)]
 
 uninstall :
+	$(RM) $(docdir)]FAQ.html;
 	$(RM) $(docdir)]gettext_*.html;
 
 check : all

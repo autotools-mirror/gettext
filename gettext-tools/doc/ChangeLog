@@ -1,3 +1,12 @@
+2004-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* FAQ.html: New file.
+	* Makefile.am (doc_DATA): New variable.
+	* Makefile.msvc (install): Also install FAQ.html.
+	(uninstall): Also uninstall FAQ.html.
+	* Makefile.vms (install): Also install FAQ.html.
+	(uninstall): Also uninstall FAQ.html.
+
 2004-02-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Mention glibc2.m4.

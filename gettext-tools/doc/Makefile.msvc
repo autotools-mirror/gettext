@@ -32,6 +32,7 @@ install : all force
 	-mkdir $(datadir)
 	-mkdir $(datadir)\doc
 	-mkdir $(docdir)
+	$(INSTALL_DATA) FAQ.html $(docdir)
 	$(INSTALL_DATA) gettext_*.html $(docdir)
 
 installdirs : force
@@ -41,6 +42,7 @@ installdirs : force
 	-mkdir $(docdir)
 
 uninstall : force
+	$(RM) $(docdir)\FAQ.html
 	$(RM) $(docdir)\gettext_*.html
 
 check : all
