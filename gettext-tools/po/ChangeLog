@@ -1,3 +1,7 @@
+2003-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+
 2003-06-22  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add lib/w32spawn.h, src/read-properties.c,
