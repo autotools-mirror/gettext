@@ -1,3 +1,12 @@
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
+	* size_max.m4: New file, moved here from ../../gettext-tools/m4/.
+	* ssize_t.m4: New file, moved here from ../../gettext-tools/m4/.
+	* xsize.m4: New file, moved here from ../../gettext-tools/m4/.
+	* gettext.m4 (AM_INTL_SUBDIR): Require gt_TYPE_SSIZE_T, gl_XSIZE.
+	Improve ptrdiff_t test.
+	* Makefile.am (EXTRA_DIST): Add size_max.m4, ssize_t.m4, xsize.m4.
+
 2003-11-09  Bruno Haible  <bruno@clisp.org>
 
 	* po.m4 (AM_POSTPROCESS_PO_MAKEFILE): New macro.

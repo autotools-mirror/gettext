@@ -1,4 +1,4 @@
-# gettext.m4 serial 26 (gettext-0.13)
+# gettext.m4 serial 27 (gettext-0.13)
 dnl Copyright (C) 1995-2003 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -373,8 +373,13 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([jm_AC_TYPE_UINTMAX_T])dnl
   AC_REQUIRE([gt_HEADER_INTTYPES_H])dnl
   AC_REQUIRE([gt_INTTYPES_PRI])dnl
+  AC_REQUIRE([gt_TYPE_SSIZE_T])dnl
+  AC_REQUIRE([gl_XSIZE])dnl
 
-  AC_CHECK_TYPES([ptrdiff_t])
+  AC_CHECK_TYPE([ptrdiff_t], ,
+    [AC_DEFINE([ptrdiff_t], [long],
+       [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
+    ])
   AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
 stdlib.h string.h unistd.h sys/param.h])
   AC_CHECK_FUNCS([asprintf fwprintf getcwd getegid geteuid getgid getuid \

@@ -1,3 +1,7 @@
+2003-11-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Mention size_max.m4, ssize_t.m4, xsize.m4.
+
 2003-11-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (C, sh, Python, Common Lisp, librep, Smalltalk, Java,

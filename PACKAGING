@@ -132,11 +132,14 @@ following file list.
       $prefix/share/aclocal/printf-posix.m4
       $prefix/share/aclocal/progtest.m4
       $prefix/share/aclocal/signed.m4
+      $prefix/share/aclocal/size_max.m4
+      $prefix/share/aclocal/ssize_t.m4
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4
       $prefix/share/aclocal/ulonglong.m4
       $prefix/share/aclocal/wchar_t.m4
       $prefix/share/aclocal/wint_t.m4
+      $prefix/share/aclocal/xsize.m4
       $prefix/share/emacs/site-lisp/po-compat.el
       $prefix/share/emacs/site-lisp/po-compat.elc
       $prefix/share/emacs/site-lisp/po-mode.el
