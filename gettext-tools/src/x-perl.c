@@ -144,23 +144,18 @@ token2string (const token_ty *token)
 }
 #endif
 
-struct stack_entry
+typedef struct token_stack_ty token_stack_ty;
+struct token_stack_ty
 {
-  struct stack_entry *next;
-  struct stack_entry *prev;
-  void *data;
-  void (*destroy) (token_ty *data);
+  token_ty **items;
+  size_t nitems;
+  size_t nitems_max;
 };
 
-struct stack
-{
-  struct stack_entry *first;
-  struct stack_entry *last;
-};
-
-static struct stack *token_stack;
+static struct token_stack_ty token_stack;
 
 /* Forward declaration of local functions.  */
+static inline void free_token (token_ty *tp);
 static void interpolate_keywords (message_list_ty *mlp, const char *string, int lineno);
 static char *extract_quotelike_pass1 (int delim);
 static token_ty *x_perl_lex (message_list_ty *mlp);
@@ -170,111 +165,77 @@ static bool extract_balanced (message_list_ty *mlp, int arg_sg, int arg_pl, int 
 #if DEBUG_PERL
 /* Dumps all resources allocated by stack STACK.  */
 static int
-stack_dump (struct stack *stack)
+token_stack_dump (token_stack_ty *stack)
 {
-  struct stack_entry *last = stack->last;
+  size_t i;
 
   fprintf (stderr, "BEGIN STACK DUMP\n");
-  while (last)
+  for (i = 0; i < stack->nitems; i++)
     {
-      struct stack_entry *next = last->prev;
-
-      if (last->data)
+      token_ty *token = stack->items[i];
+      fprintf (stderr, "  [%s]\n", token2string (token));
+      switch (token->type)
 	{
-	  token_ty *token = (token_ty *) last->data;
-	  fprintf (stderr, "  [%s]\n", token2string (token));
-	  switch (token->type)
-	    {
-	    case token_type_named_op:
-	    case token_type_string:
-	    case token_type_symbol:
-	    case token_type_keyword_symbol:
-	    case token_type_variable:
-	      fprintf (stderr, "    string: %s\n", token->string);
-	      break;
-	    }
+	case token_type_named_op:
+	case token_type_string:
+	case token_type_symbol:
+	case token_type_keyword_symbol:
+	case token_type_variable:
+	  fprintf (stderr, "    string: %s\n", token->string);
+	  break;
 	}
-      last = next;
     }
   fprintf (stderr, "END STACK DUMP\n");
-  return 1;
+  return 0;
 }
 #endif
 
-/* Unshifts the pointer DATA onto the stack STACK.  The argument DESTROY
-   is a pointer to a function that frees the resources associated with
-   DATA or NULL (no destructor).  */
+/* Pushes the token TOKEN onto the stack STACK.  */
 static void
-stack_unshift (struct stack *stack, void *data, void (*destroy) (token_ty *data))
+token_stack_push (token_stack_ty *stack, token_ty *token)
 {
-  struct stack_entry *entry =
-    (struct stack_entry *) xmalloc (sizeof (struct stack_entry));
+  if (stack->nitems >= stack->nitems_max)
+    {
+      size_t nbytes;
 
-  if (stack->first == NULL)
-    stack->last = entry;
-  else
-    stack->first->prev = entry;
-
-  entry->next = stack->first;
-  entry->prev = NULL;
-  entry->data = data;
-  entry->destroy = destroy;
-  stack->first = entry;
+      stack->nitems_max = 2 * stack->nitems_max + 4;
+      nbytes = stack->nitems_max * sizeof (token_ty *);
+      stack->items = xrealloc (stack->items, nbytes);
+    }
+  stack->items[stack->nitems++] = token;
 }
 
-/* Shifts the first element from the stack STACK and returns its contents or
-   NULL if the stack is empty.  */
-static void *
-stack_shift (struct stack *stack)
+/* Pops the most recently pushed token from the stack STACK and returns it.
+   Returns NULL if the stack is empty.  */
+static token_ty *
+token_stack_pop (token_stack_ty *stack)
 {
-  struct stack_entry *entry = stack->first;
-  void *data;
-
-  if (!entry)
-    return NULL;
-
-  stack->first = entry->next;
-  if (!stack->first)
-    stack->last = NULL;
+  if (stack->nitems > 0)
+    return stack->items[--(stack->nitems)];
   else
-    stack->first->prev = NULL;
-
-  data = entry->data;
-  free (entry);
-
-  return data;
+    return NULL;
 }
 
-/* Return the bottom of the stack without removing it from the stack or
+/* Return the top of the stack without removing it from the stack, or
    NULL if the stack is empty.  */
-static void *
-stack_head (struct stack *stack)
+static token_ty *
+token_stack_peek (const token_stack_ty *stack)
 {
-  struct stack_entry *entry = stack->first;
-  void *data;
-
-  if (!entry)
+  if (stack->nitems > 0)
+    return stack->items[stack->nitems - 1];
+  else
     return NULL;
-
-  data = entry->data;
-
-  return data;
 }
 
 /* Frees all resources allocated by stack STACK.  */
 static void
-stack_free (struct stack *stack)
+token_stack_free (token_stack_ty *stack)
 {
-  struct stack_entry *last = stack->last;
+  size_t i;
 
-  while (last)
-    {
-      struct stack_entry *next = last->prev;
-      if (last->data && last->destroy)
-	last->destroy (last->data);
-      free (last);
-      last = next;
-    }
+  for (i = 0; i < stack->nitems; i++)
+    free_token (stack->items[i]);
+  free (stack->items);
 }
 
 /* ====================== Keyword set customization.  ====================== */
@@ -2378,9 +2339,9 @@ static token_ty *
 x_perl_lex (message_list_ty *mlp)
 {
 #if DEBUG_PERL
-  int dummy = stack_dump (token_stack);
+  int dummy = token_stack_dump (&token_stack);
 #endif
-  token_ty *tp = stack_shift (token_stack);
+  token_ty *tp = token_stack_pop (&token_stack);
 
   if (!tp)
     {
@@ -2402,7 +2363,7 @@ x_perl_lex (message_list_ty *mlp)
   /* A symbol followed by a fat comma is really a single-quoted string.  */
   if (tp->type == token_type_symbol || tp->type == token_type_named_op)
     {
-      token_ty *next = stack_head (token_stack);
+      token_ty *next = token_stack_peek (&token_stack);
 
       if (!next)
 	{
@@ -2441,7 +2402,7 @@ x_perl_lex (message_list_ty *mlp)
 static void
 x_perl_unlex (token_ty *tp)
 {
-  stack_unshift (token_stack, tp, free_token);
+  token_stack_push (&token_stack, tp);
 }
 
 /* ========================= Extracting strings.  ========================== */
@@ -2880,9 +2841,9 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   init_keywords ();
 
-  token_stack = (struct stack *) xmalloc (sizeof (struct stack));
-  token_stack->first = NULL;
-  token_stack->last = NULL;
+  token_stack.items = NULL;
+  token_stack.nitems = 0;
+  token_stack.nitems_max = 0;
   here_eaten = 0;
   end_of_file = false;
 
@@ -2897,9 +2858,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   logical_file_name = NULL;
   line_number = 0;
   last_token = token_type_semicolon;
-  stack_free (token_stack);
-  free (token_stack);
-  token_stack = NULL;
+  token_stack_free (&token_stack);
   here_eaten = 0;
   end_of_file = true;
 }

@@ -1,5 +1,18 @@
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
+	* x-perl.c (struct stack_entry): Remove type.
+	(struct stack): Remove type.
+	(struct token_stack_ty): New type.
+	(token_stack): Change type to 'struct token_stack_ty'.
+	(token_stack_dump): Renamed from stack_dump. Update.
+	(token_stack_push): Renamed from stack_unshift. Rewritten.
+	(token_stack_pop): Renamed from stack_shift. Rewritten.
+	(token_stack_peek): Renamed from stack_head. Rewritten.
+	(token_stack_free): Renamed from stack_free. Rewritten.
+	(x_perl_lex, x_perl_unlex, extract_perl): Update.
+
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
 	* x-perl.c (DEBUG_MEMORY): Remove macro.
 	(remember_a_message_debug, remember_a_message_plural_debug,
 	xmalloc_debug, xrealloc_debug, xrealloc_static_debug, xstrdup_debug,
