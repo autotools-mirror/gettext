@@ -1,5 +1,12 @@
 2001-09-06  Bruno Haible  <haible@clisp.cons.org>
 
+	* sh-quote.h: New file.
+	* sh-quote.c: New file.
+	* Makefile.am (libnlsut_a_SOURCES): Add sh-quote.c.
+	(noinst_HEADERS): Add sh-quote.h.
+
+2001-09-06  Bruno Haible  <haible@clisp.cons.org>
+
 	* strpbrk.h: New file.
 	* strpbrk.c: New file, from glibc-2.2.4.
 	* Makefile.am (EXTRA_DIST): Add strpbrk.c.
