@@ -72,13 +72,3 @@ ${DIFF} cake.ok cake.out || exit 1
 rm -fr $tmpfiles
 
 exit 0
-
-# Preserve executable bits for this shell script.
-# Thanks to Noah Friedman for this great trick.
-Local Variables:
-eval:(defun frobme () (set-file-modes buffer-file-name file-mode))
-eval:(make-local-variable 'file-mode)
-eval:(setq file-mode (file-modes (buffer-file-name)))
-eval:(make-local-variable 'after-save-hook)
-eval:(add-hook 'after-save-hook 'frobme)
-End:
