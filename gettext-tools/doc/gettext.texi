@@ -8448,13 +8448,13 @@ fpk
 
 @table @asis
 @item RPMs
-glade, libglade, xml-i18n-tools
+glade, libglade, glade2, libglade2, intltool
 
 @item File extension
-@code{glade}
+@code{glade}, @code{glade2}
 
 @item Extractor
-@code{xgettext}, @code{libglade-xgettext}
+@code{xgettext}, @code{libglade-xgettext}, @code{xml-i18n-extract}, @code{intltool-extract}
 @end table
 
 @c This is the template for new data formats.

@@ -1,3 +1,10 @@
+Version 0.12.2 - XXX 2003
+
+* Data formats support:
+
+  - Glade:
+    xgettext now also supports Glade version 2.
+
 Version 0.12.1 - May 2003
 
 * Bug fixes.

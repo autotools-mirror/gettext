@@ -1,5 +1,5 @@
 /* xgettext glade backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -232,8 +232,49 @@ start_element_handler (void *userData, const char *name,
   stack[stack_depth - 1].extract_string = false;
 
   p = &stack[stack_depth];
+  /* In Glade 1, a few specific elements are translatable.  */
   p->extract_string =
     (find_entry (&keywords, name, strlen (name), &hash_result) == 0);
+  /* In Glade 2, all <property> and <atkproperty> elements are translatable
+     that have the attribute translatable="yes".  */
+  if (!p->extract_string
+      && (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0))
+    {
+      bool has_translatable = false;
+      const char **attp = attributes;
+      while (*attp != NULL)
+	{
+	  if (strcmp (attp[0], "translatable") == 0)
+	    {
+	      has_translatable = (strcmp (attp[1], "yes") == 0);
+	      break;
+	    }
+	  attp += 2;
+	}
+      p->extract_string = has_translatable;
+    }
+  if (!p->extract_string
+      && strcmp (name, "atkaction") == 0)
+    {
+      const char **attp = attributes;
+      while (*attp != NULL)
+	{
+	  if (strcmp (attp[0], "description") == 0)
+	    {
+	      if (strcmp (attp[1], "") != 0)
+		{
+		  lex_pos_ty pos;
+
+		  pos.file_name = logical_file_name;
+		  pos.line_number = XML_GetCurrentLineNumber (parser);
+
+		  remember_a_message (mlp, xstrdup (attp[1]), &pos);
+		}
+	      break;
+	    }
+	  attp += 2;
+	}
+    }
   p->lineno = XML_GetCurrentLineNumber (parser);
   p->buffer = NULL;
   p->bufmax = 0;
