@@ -32,6 +32,10 @@ all-local $(libasprintf_la_OBJECTS): autosprintf.h
 autosprintf.h: autosprintf.h.in
 	cp $(srcdir)/autosprintf.h.in autosprintf.h
 MOSTLYCLEANFILES += autosprintf.h
+EXTRA_DIST += autosprintf.h.in
+
+dist-hook:
+	rm -f $(distdir)/autosprintf.h
 
 
 # Library code.
@@ -189,6 +193,9 @@ config.h.msvc: config.h.in
 	   < $<; echo; echo '#define snprintf _snprintf') > $@
 
 autosprintf.h.msvc-shared: autosprintf.h.in windows/dllexport.h
-	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $< > $@
+	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' \
+	    -e 's/class /class LIBASPRINTF_DLL_EXPORTED /' \
+	    -e 's/struct /struct LIBASPRINTF_DLL_EXPORTED /' \
+	    -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $< > $@
 
-EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/dllexport.h windows/asprintf.rc
+EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc autosprintf.h.msvc-shared windows/dllexport.h windows/asprintf.rc

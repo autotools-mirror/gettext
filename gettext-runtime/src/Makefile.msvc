@@ -28,6 +28,13 @@ MFLAGS=-MD
 prefix = c:\usr
 exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
+datadir = $(prefix)\share
+localedir = $(datadir)\locale
+IIprefix = c:\\usr
+IIexec_prefix = $(IIprefix)
+IIbindir = $(IIexec_prefix)\\bin
+IIdatadir = $(IIprefix)\\share
+IIlocaledir = $(IIdatadir)\\locale
 
 # Programs used by "make":
 
@@ -52,9 +59,9 @@ OPTIMFLAGS = -Od -Z7
 OPTIMFLAGS = -D_NDEBUG -O1
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DLOCALEDIR=\"$(IIlocaledir)\"
 
-INCLUDES =
+INCLUDES = -I. -I.. -I..\intl -I..\lib -I..\..\gettext-tools\lib -I..\..\gettext-tools\windows
 
 LN = copy
 RM = -del
@@ -72,21 +79,21 @@ PROGRAMS = gettext.exe ngettext.exe
 
 gettext_OBJECTS = gettext.obj
 ngettext_OBJECTS = ngettext.obj
-LDADD = ..\lib\grt.lib
+LDADD =
 
 all : $(PROGRAMS)
 
 gettext.obj : gettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c gettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c gettext.c
 
 ngettext.obj : ngettext.c
-	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(prefix)\" -DINSTALLDIR=\"$(bindir)\" -c ngettext.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c ngettext.c
 
 gettext.exe : $(gettext_OBJECTS)
-	$(CC) $(gettext_OBJECTS) $(LDADD) -Fegettext.exe
+	$(CC) $(gettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(LDADD) -Fegettext.exe
 
 ngettext.exe : $(ngettext_OBJECTS)
-	$(CC) $(ngettext_OBJECTS) $(LDADD) -Fengettext.exe
+	$(CC) $(ngettext_OBJECTS) ..\lib\grt.lib ..\intl\intl.lib $(LDADD) -Fengettext.exe
 
 install : all force
 	-mkdir $(prefix)

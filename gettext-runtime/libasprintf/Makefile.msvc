@@ -62,7 +62,7 @@ OPTIMFLAGS = -D_NDEBUG -O1
 
 # -DBUILDING_LIBASPRINTF: Change expansion of LIBASPRINTF_DLL_EXPORTED macro.
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DBUILDING_LIBASPRINTF
-CXXFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DBUILDING_LIBASPRINTF
+CXXFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DBUILDING_LIBASPRINTF -GX
 
 INCLUDES = -I.
 
@@ -138,7 +138,7 @@ install : all force
 	$(INSTALL_DATA) asprintf.lib $(libdir)\asprintf.lib
 	-mkdir $(prefix)\doc
 	-mkdir $(sub_docdir)
-	$(INSTALL_DATA) doc\autosprintf.html $(sub_docdir)\autosprintf.html
+	$(INSTALL_DATA) autosprintf.html $(sub_docdir)\autosprintf.html
 
 installdirs : force
 	-mkdir $(prefix)

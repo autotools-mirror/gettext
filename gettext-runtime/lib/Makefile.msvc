@@ -15,6 +15,10 @@ DEBUG=0
 MFLAGS=
 !endif
 
+# Directories used by "make install":
+prefix = c:\usr
+includedir = $(prefix)\include
+
 # Programs used by "make":
 
 CC = cl
@@ -32,7 +36,7 @@ OPTIMFLAGS = -D_NDEBUG -O1
 
 CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H
 
-INCLUDES =
+INCLUDES = -I. -I.. -I..\intl -I..\..\gettext-tools\lib -I..\..\gettext-tools\windows -I$(includedir)
 
 AR = lib
 AR_FLAGS = /out:
