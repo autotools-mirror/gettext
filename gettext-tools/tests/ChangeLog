@@ -1,3 +1,8 @@
+2003-04-14  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CHECKER): New variable.
+	(TESTS_ENVIRONMENT): Use it.
+
 2003-04-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.vms: Avoid rules with no lines. Don't use the force target.

@@ -72,23 +72,27 @@ EXTRA_DIST += $(TESTS) \
 
 XGETTEXT = ../src/xgettext
 
+# For debugging memory leaks and memory allocation bugs.
+CHECKER =
+#CHECKER = valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
+
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) PATH=.:../src:$$PATH \
-		    GETTEXT=tstgettext \
-		    NGETTEXT=tstngettext \
-		    XGETTEXT=xgettext \
-		    MSGATTRIB=msgattrib \
-		    MSGCAT=msgcat \
-		    MSGCMP=msgcmp \
-		    MSGCOMM=msgcomm \
-		    MSGCONV=msgconv \
-		    MSGEN=msgen \
-		    MSGEXEC=msgexec \
-		    MSGFILTER=msgfilter \
-		    MSGFMT=msgfmt \
-		    MSGGREP=msggrep \
-		    MSGMERGE=msgmerge \
-		    MSGUNFMT=msgunfmt \
-		    MSGUNIQ=msguniq \
+		    GETTEXT="$(CHECKER) tstgettext" \
+		    NGETTEXT="$(CHECKER) tstngettext" \
+		    XGETTEXT="$(CHECKER) xgettext" \
+		    MSGATTRIB="$(CHECKER) msgattrib" \
+		    MSGCAT="$(CHECKER) msgcat" \
+		    MSGCMP="$(CHECKER) msgcmp" \
+		    MSGCOMM="$(CHECKER) msgcomm" \
+		    MSGCONV="$(CHECKER) msgconv" \
+		    MSGEN="$(CHECKER) msgen" \
+		    MSGEXEC="$(CHECKER) msgexec" \
+		    MSGFILTER="$(CHECKER) msgfilter" \
+		    MSGFMT="$(CHECKER) msgfmt" \
+		    MSGGREP="$(CHECKER) msggrep" \
+		    MSGMERGE="$(CHECKER) msgmerge" \
+		    MSGUNFMT="$(CHECKER) msgunfmt" \
+		    MSGUNIQ="$(CHECKER) msguniq" \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
 		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
