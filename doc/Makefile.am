@@ -159,3 +159,6 @@ uninstall-html-monolithic:
 uninstall-html-split:
 	$(RM) $(DESTDIR)$(htmldir)/gettext_*.html
 
+
+# One more automake bug.
+installdirs: installdirs-local
