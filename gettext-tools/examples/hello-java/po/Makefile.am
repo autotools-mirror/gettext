@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003-2004 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -65,7 +65,7 @@ CLASSFILES = @CLASSFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(DOMAIN)_$(lang).properties)
 CATALOGS = @JAVACATALOGS@
 
-SUFFIXES = .po .sed .sin .nop .po-update
+SUFFIXES = .po .sed .sin .nop .po-create .po-update
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
@@ -125,9 +125,13 @@ $(srcdir)/$(DOMAIN).pot:
 # Note that a PO file is not touched if it doesn't need to be changed.
 $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
-	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot
+	if test -f "$(srcdir)/$${lang}.po"; then \
+	  test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
+	  echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
+	  cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot; \
+	else \
+	  $(MAKE) $${lang}.po-create; \
+	fi
 
 
 html ID:
@@ -150,6 +154,13 @@ update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update
 	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
 	$(MAKE) update-properties
+
+# General rule for creating PO files.
+
+.nop.po-create:
+	@lang=`echo $@ | sed -e 's/\.po-create$$//'`; \
+	echo "File $$lang.po does not exist. If you are a translator, you can create it through 'msginit'." 1>&2; \
+	exit 1
 
 # General rule for updating PO files.
 

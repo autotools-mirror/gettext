@@ -1,5 +1,9 @@
 2004-01-17  Bruno Haible  <bruno@clisp.org>
 
+	* hello-*/po/Makefile.am: Adapt to changes made in po/Makefile.in.in.
+
+2004-01-17  Bruno Haible  <bruno@clisp.org>
+
 	* po/af.po: New file, from Ysbeer <ysbeer@af.org.za>.
 	* po/ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
 	* po/de.po: Update from Karl Eichwalder <ke@gnu.franken.de>.
