@@ -230,17 +230,6 @@ __argz_count __argz_stringify __argz_next])
      fi
    fi
 
-   dnl The reference to <locale.h> in the installed <libintl.h> file
-   dnl must be resolved because we cannot expect the users of this
-   dnl to define HAVE_LOCALE_H.
-   if test $ac_cv_header_locale_h = yes; then
-     INCLUDE_LOCALE_H="#include <locale.h>"
-   else
-     INCLUDE_LOCALE_H="\
-/* The system does not provide the header <locale.h>.  Take care yourself.  */"
-   fi
-   AC_SUBST(INCLUDE_LOCALE_H)
-
    dnl In the intl/Makefile.in we have a special dependency which makes
    dnl only sense for gettext.  We comment this out for non-gettext
    dnl packages.

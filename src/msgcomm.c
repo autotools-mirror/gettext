@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1997, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1997-1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -25,18 +25,13 @@
 #include <getopt.h>
 #include <stdio.h>
 #include <sys/types.h>
-
-#ifdef STDC_HEADERS
-# include <stdlib.h>
-#endif
+#include <stdlib.h>
 
 #ifdef HAVE_LIMITS_H
 # include <limits.h>
 #endif
 
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#endif
+#include <locale.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>

@@ -28,14 +28,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <sys/types.h>
-
-#ifdef STDC_HEADERS
-# include <stdlib.h>
-#endif
-
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#endif
+#include <stdlib.h>
+#include <locale.h>
 
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>

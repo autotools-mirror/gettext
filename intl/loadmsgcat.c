@@ -49,15 +49,8 @@ char *alloca ();
 # endif
 #endif
 
-#if defined HAVE_STDLIB_H || defined _LIBC
-# include <stdlib.h>
-#endif
-
-#if defined HAVE_STRING_H || defined _LIBC
-# include <string.h>
-#else
-# include <strings.h>
-#endif
+#include <stdlib.h>
+#include <string.h>
 
 #if defined HAVE_UNISTD_H || defined _LIBC
 # include <unistd.h>

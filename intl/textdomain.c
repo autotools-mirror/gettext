@@ -19,18 +19,8 @@
 # include <config.h>
 #endif
 
-#if defined HAVE_STDLIB_H || defined _LIBC
-# include <stdlib.h>
-#endif
-
-#if defined HAVE_STRING_H || defined _LIBC
-# include <string.h>
-#else
-# include <strings.h>
-# ifndef memcpy
-#  define memcpy(Dst, Src, Num) (bcopy (Src, Dst, Num), (Dst))
-# endif
-#endif
+#include <stdlib.h>
+#include <string.h>
 
 #ifdef _LIBC
 # include <libintl.h>

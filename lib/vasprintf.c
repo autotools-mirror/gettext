@@ -22,13 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 
 #include <stdio.h>
 #include <string.h>
-
-#if HAVE_STDLIB_H
-# include <stdlib.h>
-#else
-extern unsigned long strtoul ();
-extern char *malloc ();
-#endif
+#include <stdlib.h>
 
 #if __STDC__
 # include <stdarg.h>

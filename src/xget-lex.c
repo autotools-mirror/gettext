@@ -24,10 +24,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
-
-#ifdef STDC_HEADERS
-# include <stdlib.h>
-#endif
+#include <stdlib.h>
 
 #include "dir-list.h"
 #include "error.h"

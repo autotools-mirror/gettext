@@ -1,5 +1,5 @@
 /* gettext - retrieve text string from message catalog and print it.
-   Copyright (C) 1995, 1996, 1997, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000, 2001 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -22,16 +22,8 @@
 
 #include <getopt.h>
 #include <stdio.h>
-
-#ifdef HAVE_STDLIB_H
-# include <stdlib.h>
-#else
-char *getenv ();
-#endif
-
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#endif
+#include <stdlib.h>
+#include <locale.h>
 
 #include "error.h"
 #include "system.h"

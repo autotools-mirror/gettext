@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1996, 1998, 2000 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1996, 1998, 2000, 2001 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -21,12 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 #define SRC_STR_LIST_H 1
 
 /* Get size_t and NULL.  */
-#ifdef HAVE_STDDEF_H
-# include <stddef.h>
-#else
-# include <sys/types.h>
-# include <stdio.h>
-#endif
+#include <stddef.h>
 
 /* Type describing list of immutable strings,
    implemented using a dynamic array.  */

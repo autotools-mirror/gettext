@@ -1,5 +1,5 @@
 /* Functions to make fuzzy comparisons between strings
-   Copyright (C) 1988, 1989, 1992, 1993, 1995 Free Software Foundation, Inc.
+   Copyright (C) 1988-1989, 1992-1993, 1995, 2001 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -34,12 +34,7 @@
 # include "config.h"
 #endif
 
-#ifdef HAVE_STRING_H
-# include <string.h>
-#else
-# include <strings.h>
-#endif
-
+#include <string.h>
 #include <stdio.h>
 
 #ifdef HAVE_LIMITS_H

@@ -26,15 +26,7 @@
 # include <config.h>
 #endif
 
-
-#if defined HAVE_STRING_H || defined _LIBC
-# include <string.h>
-#else
-# include <strings.h>
-# ifndef memcpy
-#  define memcpy(Dst, Src, Num) (bcopy (Src, Dst, Num), (Dst))
-# endif
-#endif
+#include <string.h>
 #if !HAVE_STRCHR && !defined _LIBC
 # ifndef strchr
 #  define strchr index
@@ -46,10 +38,7 @@
 #endif
 #include <ctype.h>
 #include <sys/types.h>
-
-#if defined HAVE_STDLIB_H || defined _LIBC
-# include <stdlib.h>
-#endif
+#include <stdlib.h>
 
 #include "loadinfo.h"
 

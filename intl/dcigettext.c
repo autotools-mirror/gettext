@@ -53,25 +53,10 @@ extern int errno;
 # define __set_errno(val) errno = (val)
 #endif
 
-#if defined HAVE_STDDEF_H || defined _LIBC
-# include <stddef.h>
-#endif
-#if defined HAVE_STDLIB_H || defined _LIBC
-# include <stdlib.h>
-#else
-char *getenv ();
-# ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-# else
-void free ();
-# endif
-#endif
+#include <stddef.h>
+#include <stdlib.h>
 
-#if defined HAVE_STRING_H || defined _LIBC
-# include <string.h>
-#else
-# include <strings.h>
-#endif
+#include <string.h>
 #if !HAVE_STRCHR && !defined _LIBC
 # ifndef strchr
 #  define strchr index
@@ -82,9 +67,7 @@ void free ();
 # include <unistd.h>
 #endif
 
-#if defined HAVE_LOCALE_H || defined _LIBC
-# include <locale.h>
-#endif
+#include <locale.h>
 
 #if defined HAVE_SYS_PARAM_H || defined _LIBC
 # include <sys/param.h>

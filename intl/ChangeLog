@@ -1,3 +1,22 @@
+2001-01-07  Bruno Haible  <haible@clisp.cons.org>
+
+	Assume <stddef.h>, <stdlib.h>, <string.h>, <locale.h> exist.
+	* intlh.inst.in: Likewise.
+	* libgettext.h: Likewise.
+	* gettextP.h: Likewise.
+	* bindtextdom.c: Likewise.
+	* dcigettext.c: Likewise.
+	* dgettext.c: Likewise.
+	* dngettext.c: Likewise.
+	* explodename.c: Likewise.
+	* finddomain.c: Likewise.
+	* gettext.c: Likewise.
+	* l10nflist.c: Likewise.
+	* loadmsgcat.c: Likewise.
+	* localealias.c: Likewise.
+	* ngettext.c: Likewise.
+	* textdomain.c: Likewise.
+
 2001-01-06  Bruno Haible  <haible@clisp.cons.org>
 
 	Remove catgets fallback code.

@@ -29,13 +29,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 # include <limits.h>
 #endif
 
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#endif
-
-#ifdef STDC_HEADERS
-# include <stdlib.h>
-#endif
+#include <locale.h>
+#include <stdlib.h>
 
 #include "fstrcmp.h"
 #include "message.h"

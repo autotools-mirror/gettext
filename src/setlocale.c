@@ -19,22 +19,9 @@
 # include <config.h>
 #endif
 
-#ifdef HAVE_STDLIB_H
-# include <stdlib.h>
-#else
-# ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-# endif
-extern char *getenv ();
-#endif
-
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#endif
-
-#ifdef HAVE_STRING_H
-# include <string.h>
-#endif
+#include <stdlib.h>
+#include <locale.h>
+#include <string.h>
 
 /* Return string representation of locale CATEGORY.  */
 static const char *
@@ -103,10 +90,8 @@ setlocale (category, locale)
      int category;
      SETLOCALE_CONST char *locale;
 {
-  char *retval;
   static char C_string[] = "C";
   static char *current_locale = C_string;
-#ifdef HAVE_LOCALE_H
   struct list
   {
     int category;
@@ -115,6 +100,7 @@ setlocale (category, locale)
   };
   static struct list *facets = NULL;
   struct list *facetp;
+  char *retval;
 
   if (locale != NULL)
     {
@@ -162,17 +148,6 @@ setlocale (category, locale)
 	retval = facetp->current_locale;
 	break;
       }
-#else
-  if (locale != NULL)
-    {
-      if (current_locale != C_string)
-	free (current_locale);
-      current_locale = (char *) malloc (strlen (locale) + 1);
-      strcpy (current_locale, locale);
-    }
-
-  retval = current_locale;
-#endif
 
   if (retval[0] == '\0')
     {

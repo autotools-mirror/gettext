@@ -6,12 +6,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-#ifdef HAVE_LOCALE_H
-# include <locale.h>
-#else
-extern char *setlocale ();
-#endif
+#include <locale.h>
 
 /* Make sure we use the included libintl, not the system's one. */
 #if 0

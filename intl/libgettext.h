@@ -31,10 +31,7 @@
 #define __USE_GNU_GETTEXT 1
 
 #include <sys/types.h>
-
-#if HAVE_LOCALE_H
-# include <locale.h>
-#endif
+#include <locale.h>
 
 
 #ifdef __cplusplus

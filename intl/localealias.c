@@ -47,25 +47,9 @@ char *alloca ();
 # endif
 #endif
 
-#if defined HAVE_STDLIB_H || defined _LIBC
-# include <stdlib.h>
-#else
-char *getenv ();
-# ifdef HAVE_MALLOC_H
-#  include <malloc.h>
-# else
-void free ();
-# endif
-#endif
+#include <stdlib.h>
 
-#if defined HAVE_STRING_H || defined _LIBC
-# include <string.h>
-#else
-# include <strings.h>
-# ifndef memcpy
-#  define memcpy(Dst, Src, Num) (bcopy (Src, Dst, Num), (Dst))
-# endif
-#endif
+#include <string.h>
 #if !HAVE_STRCHR && !defined _LIBC
 # ifndef strchr
 #  define strchr index

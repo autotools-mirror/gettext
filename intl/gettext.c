@@ -23,15 +23,7 @@
 # define __need_NULL
 # include <stddef.h>
 #else
-# ifdef HAVE_STDLIB_H
-#  include <stdlib.h>		/* Just for NULL.  */
-# else
-#  ifdef HAVE_STRING_H
-#   include <string.h>
-#  else
-#   define NULL ((void *) 0)
-#  endif
-# endif
+# include <stdlib.h>		/* Just for NULL.  */
 #endif
 
 #ifdef _LIBC

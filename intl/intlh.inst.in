@@ -18,7 +18,7 @@
 #ifndef _LIBINTL_H
 #define _LIBINTL_H	1
 
-@INCLUDE_LOCALE_H@
+#include <locale.h>
 
 /* We define an additional symbol to signal that we use the GNU
    implementation of gettext.  */

@@ -1,4 +1,4 @@
-#serial 1
+#serial 2
 
 # Check for setlocale declaration.
 
@@ -8,9 +8,7 @@ AC_MSG_CHECKING([for setlocale declaration])
 AC_CACHE_VAL(gt_cv_proto_setlocale, [
 AC_TRY_COMPILE([
 #include <stdlib.h>
-#ifdef HAVE_LOCALE_H
 #include <locale.h>
-#endif
 #if defined(__STDC__) || defined(__cplusplus)
 char* setlocale (int category, char* locale);
 #else
