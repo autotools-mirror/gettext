@@ -1,18 +1,9 @@
 Things we plan to do. Comments welcome.
 
-- Respect the GNU standard targets in intl/Makefile.in and po/Makefile.in.in.
-
 - Document bash-2.04's $"..." facility and the associated 2 environment
   variables.
 
-- Document that gettext requires the LC_MESSAGES category (or LANGUAGE
-  override) and LC_CTYPE category to be set correctly via setlocale.
-
 - Merge clisp specific changes.
-
-- Work towards integration with automake.
-
-- Stop documenting AM_WITH_NLS. AM_GNU_GETTEXT is the right macro to use.
 
 - Documentation: Distinguish more clearly between gettext/xgettext,
   the Translation Project for GNU packages, and the PO mode.
@@ -21,8 +12,6 @@ Things we plan to do. Comments welcome.
 
 - KDE wants a kind of gettext2("role","msg")  function whose key is the
   concatenation of "role" and "msg" but whose default value is only "msg".
-
-- Add msvc Makefile.
 
 - Look at Christian Robottom Reis's manual:
   http://www.async.com.br/~kiko/gettext.html
@@ -33,11 +22,6 @@ Things we plan to do. Comments welcome.
 - KBabel:
   http://i18n.kde.org/translation-howto/gui-specialized-apps.html
   http://i18n.kde.org/tools/kbabel/
-
-- New programs:
-
-  msginit
-  create initial PO file from POT file.
 
 - Rewrite doc node "Compendium", discuss functionality, then check
   implementation and add Karl's new tests.
