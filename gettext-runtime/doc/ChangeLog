@@ -1,3 +1,10 @@
+2003-09-13  Bruno Haible  <bruno@clisp.org>
+
+	* rt-gettext.texi: New file.
+	* rt-ngettext.texi: New file.
+	* rt-envsubst.texi: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2003-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* matrix.texi: Update.
