@@ -299,7 +299,7 @@ ID: $(HEADERS) $(SOURCES)
 
 
 mostlyclean:
-	rm -f *.a *.la *.o *.lo core core.*
+	rm -f *.a *.la *.o *.obj *.lo core core.*
 	rm -f libintl.h charset.alias ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
 

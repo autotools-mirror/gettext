@@ -1,5 +1,10 @@
 2002-11-08  Bruno Haible  <bruno@clisp.org>
 
+	* progtest.m4 (AM_PATH_PROG_WITH_TEST): Portability to OS/2.
+	Reported by Andreas Buening <andreas.buening@nexgo.de>.
+
+2002-11-08  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (AM_GNU_GETTEXT): Print a message containing the macro's
 	main decisions.
 	Reported by Andreas Buening <andreas.buening@nexgo.de>.

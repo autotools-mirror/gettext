@@ -1,3 +1,8 @@
+2002-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (mostlyclean): Remove object files on OS/2 as well.
+	Reported by Andreas Buening <andreas.buening@nexgo.de>.
+
 2002-10-16  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (ps, pdf, html, ctags): New targets, for automake-1.7
