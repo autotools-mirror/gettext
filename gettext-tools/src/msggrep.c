@@ -330,7 +330,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	 on every call.  */
       grep_path = find_in_path ("grep");
 
-      /* On Solaris >= 2.8, we need to use /usr/xpg4/bin/grep instead of
+      /* On Solaris, we need to use /usr/xpg4/bin/grep instead of
 	 /usr/bin/grep, because /usr/bin/grep doesn't understand the options
 	 -q and -e.  */
 #if (defined (sun) || defined (__sun)) && defined (__SVR4)
