@@ -1,4 +1,4 @@
-# csharp.m4 serial 1 (gettext-0.14)
+# csharp.m4 serial 2 (gettext-0.15)
 dnl Copyright (C) 2004 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -20,11 +20,11 @@ AC_DEFUN([gt_CSHARP_CHOICE],
   case "$CSHARP_CHOICE" in
     pnet)
       AC_DEFINE([CSHARP_CHOICE_PNET], 1,
-        [Define if pnet is the preferred C[#] implementation.])
+        [Define if pnet is the preferred C# implementation.])
       ;;
     mono)
       AC_DEFINE([CSHARP_CHOICE_MONO], 1,
-        [Define if mono is the preferred C[#] implementation.])
+        [Define if mono is the preferred C# implementation.])
       ;;
   esac
 ])
