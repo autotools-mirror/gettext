@@ -97,7 +97,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 (gst --version) >/dev/null 2>/dev/null \
   || { rm -fr $tmpfiles; exit 77; }
 case `gst --version | sed -n -e 1p | sed -e 's/^[^0-9]*//'` in
-  0.* | 1.* | 2.0 | 2.0.[0-5])
+  0.* | 1.* | 2.0 | 2.0.[0-5] | 2.1 | 2.1.[0-1])
     rm -fr $tmpfiles; exit 77;;
 esac
 
