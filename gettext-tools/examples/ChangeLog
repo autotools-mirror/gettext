@@ -1,3 +1,8 @@
+2004-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* hello-csharp/hello.cs: Work around mono-0.29 CurrentUICulture bug.
+	* hello-csharp-forms/hello.cs: Likewise.
+
 2003-12-29  Bruno Haible  <bruno@clisp.org>
 
 	* hello-perl/INSTALL: Mention that libintl-perl-1.09 required.

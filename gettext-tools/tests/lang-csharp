@@ -5,7 +5,8 @@
 # Assumes the following packages are installed: pnet, pnetlib.
 
 # Note: This test fails with mono-0.28 because the CultureInfo.Parent pointers
-# are wrong for locales containing a language and a territory.
+# are wrong for locales containing a language and a territory. This is fixed
+# in mono-0.29.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -19,13 +20,13 @@ using System;
 using GNU.Gettext;
 class Program {
   static void Main (String[] args) {
-#if not_yet_needed
+    #if __MonoCS__
     // Some systems don't set CurrentCulture and CurrentUICulture as specified
     // by LC_ALL. So set it by hand.
     System.Threading.Thread.CurrentThread.CurrentCulture =
     System.Threading.Thread.CurrentThread.CurrentUICulture =
       new System.Globalization.CultureInfo("fr-FR");
-#endif
+    #endif
     int n = Int32.Parse(args[0]);
     GettextResourceManager catalog = new GettextResourceManager("prog");
     Console.WriteLine(catalog.GetString("'Your command, please?', asked the waiter."));

@@ -1,5 +1,5 @@
 // Example for use of GNU gettext.
-// Copyright (C) 2003 Free Software Foundation, Inc.
+// Copyright (C) 2003-2004 Free Software Foundation, Inc.
 // This file is in the public domain.
 //
 // Source code of the C#/Forms program.
@@ -77,6 +77,20 @@ public class Hello {
   }
 
   public static void Main () {
+    #if __MonoCS__
+    // Some systems don't set CurrentCulture and CurrentUICulture as specified
+    // by LC_ALL. So set it by hand.
+    String locale = System.Environment.GetEnvironmentVariable("LC_ALL");
+    if (locale == null || locale == "")
+      locale = System.Environment.GetEnvironmentVariable("LANG");
+    if (!(locale == null || locale == "")) {
+      if (locale.IndexOf('.') >= 0)
+        locale = locale.Substring(0,locale.IndexOf('.'));
+      System.Threading.Thread.CurrentThread.CurrentCulture =
+      System.Threading.Thread.CurrentThread.CurrentUICulture =
+        new System.Globalization.CultureInfo(locale.Replace('_','-'));
+    }
+    #endif
     Application.Run(new HelloWindow());
   }
 }
