@@ -25,8 +25,6 @@
 # include <string.h>
 #endif
 
-#include <locale.h>
-
 #include "gettext.h"
 #define _(msgid) gettext (msgid)
 
