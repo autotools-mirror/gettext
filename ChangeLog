@@ -10,8 +10,8 @@
 2002-10-27  Bruno Haible  <bruno@clisp.org>
 
 	* libasprintf: New subdirectory.
-	* configure.in (CXX): Adjust to match the result in the libasprintf
-	subdirectory.
+	* configure.in (CXX): Adjust to match the result in and the
+	requirements of the libasprintf subdirectory.
 	(SUBDIR_libasprintf): New AC_SUBST.
 	(AC_CONFIG_SUBDIRS): Recurse into libasprintf.
 	* Makefile.am (SUBDIRS): Add libasprintf conditionally.
