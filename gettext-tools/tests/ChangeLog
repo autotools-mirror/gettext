@@ -1,5 +1,11 @@
 2003-09-01  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext-26: Add explicit symbol import to 'use' command.
+	* lang-perl-1: Likewise.
+	Suggested by Guido Flohr.
+
+2003-09-01  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-29: New test, from Guido Flohr.
 	* Makefile.am (TESTS): Add it.
 

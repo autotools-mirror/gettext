@@ -10,7 +10,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles program.pl"
 cat <<\EOF > program.pl
-use Locale::Messages;
+use Locale::Messages qw (textdomain bindtextdomain ngettext);
 textdomain "prog";
 bindtextdomain "prog", "./";
 my $n = 2;
