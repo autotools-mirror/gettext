@@ -1,5 +1,11 @@
 2005-03-05  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in: When a po/POTFILES.in does not exist, create an
+	initial empty one.
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
+2005-03-05  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in (func_m4ChangeLog_init, func_m4ChangeLog_finish):
 	Keep track whether a $m4dir/ChangeLog file was created.
 	Don't create a $m4dir/Makefile.am if aclocal version 1.8 or newer is

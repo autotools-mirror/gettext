@@ -680,12 +680,19 @@ if test -f "$srcdir/po/stamp-cat-id"; then
   func_remove po/stamp-cat-id
   $do_changelog && func_poChangeLog_add_entry "	* stamp-cat-id: Remove file."
 fi
-$do_changelog && func_poChangeLog_finish
 if test ! -f "$srcdir/po/POTFILES.in"; then
+  if $doit; then
+    echo "Creating initial po/POTFILES.in"
+    echo '# List of source files which contain translatable strings.' > "$srcdir/po/POTFILES.in"
+  else
+    echo "Create initial po/POTFILES.in"
+  fi
+  $do_changelog && func_poChangeLog_add_entry "	* POTFILES.in: New file."
   please="$please
-Please create po/POTFILES.in as described in the documentation.
+Please fill po/POTFILES.in as described in the documentation.
 "
 fi
+$do_changelog && func_poChangeLog_finish
 
 m4filelist='  codeset.m4 gettext.m4 glibc2.m4 glibc21.m4 iconv.m4 intdiv0.m4
   intmax.m4 inttypes.m4 inttypes_h.m4 inttypes-pri.m4 isc-posix.m4 lcmessage.m4
