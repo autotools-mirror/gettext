@@ -1,3 +1,10 @@
+2005-02-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (PACKAGE_BUGREPORT): New variable.
+	($(DOMAIN).pot-update): If MSGID_BUGS_ADDRESS is empty and
+	PACKAGE_BUGREPORT is available, use the latter.
+	Reported by Simon Josefsson <jas@extundo.com>.
+
 2005-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* vi.po: New file, from Clytie Siddall <clytie@riverland.net.au>.
