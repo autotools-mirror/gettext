@@ -1,3 +1,7 @@
+2002-03-10  Bruno Haible  <bruno@clisp.org>
+
+	* x-python.c (phase7_getuc): Change type of buf to 'unsigned char[]'.
+
 2002-03-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msginit_LDADD): Use @INTL_LIBTOOL_SUFFIX_PREFIX@o

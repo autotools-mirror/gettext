@@ -529,7 +529,7 @@ phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_
 	{
 	  if (c == 'u')
 	    {
-	      char buf[4];
+	      unsigned char buf[4];
 	      unsigned int n = 0;
 	      int i;
 
@@ -563,7 +563,7 @@ phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_
 	    {
 	      if (c == 'U')
 		{
-		  char buf[8];
+		  unsigned char buf[8];
 		  unsigned int n = 0;
 		  int i;
 
@@ -612,7 +612,7 @@ phase7_getuc (quote_char, triple, interpret_ansic, interpret_unicode, backslash_
 		  int c1 = phase1_getc ();
 		  if (c1 == '{')
 		    {
-		      char buf[UNINAME_MAX + 1];
+		      unsigned char buf[UNINAME_MAX + 1];
 		      int i;
 		      unsigned int n;
 
