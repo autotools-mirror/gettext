@@ -56,13 +56,7 @@ extern int errno;
 
 #include <stddef.h>
 #include <stdlib.h>
-
 #include <string.h>
-#if !HAVE_STRCHR && !defined _LIBC
-# ifndef strchr
-#  define strchr index
-# endif
-#endif
 
 #if defined HAVE_UNISTD_H || defined _LIBC
 # include <unistd.h>

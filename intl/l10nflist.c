@@ -28,11 +28,6 @@
 #endif
 
 #include <string.h>
-#if !HAVE_STRCHR && !defined _LIBC
-# ifndef strchr
-#  define strchr index
-# endif
-#endif
 
 #if defined _LIBC || defined HAVE_ARGZ_H
 # include <argz.h>

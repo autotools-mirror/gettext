@@ -55,11 +55,6 @@ extern int strncasecmp PARAMS ((const char *__s1, const char *__s2,
 #  define memcpy(D, S, N) bcopy ((S), (D), (N))
 # endif
 #endif
-#if !HAVE_STRCHR
-# ifndef strchr
-#  define strchr index
-# endif
-#endif
 
 #ifdef __GNUC__
 # ifndef alloca

@@ -49,13 +49,7 @@ char *alloca ();
 #endif
 
 #include <stdlib.h>
-
 #include <string.h>
-#if !HAVE_STRCHR && !defined _LIBC
-# ifndef strchr
-#  define strchr index
-# endif
-#endif
 
 #include "gettextP.h"
 
