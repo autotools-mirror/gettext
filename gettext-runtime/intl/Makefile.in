@@ -157,10 +157,6 @@ LTV_AGE=2
 	$(YACC) $(YFLAGS) --output $@ $<
 	rm -f $*.h
 
-.sin.sed:
-	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $< > t-$@
-	mv t-$@ $@
-
 bindtextdom.lo: $(srcdir)/bindtextdom.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/bindtextdom.c
 dcgettext.lo: $(srcdir)/dcgettext.c
@@ -201,6 +197,13 @@ osdep.lo: $(srcdir)/osdep.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
+
+ref-add.sed: $(srcdir)/ref-add.sin
+	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-add.sin > t-ref-add.sed
+	mv t-ref-add.sed ref-add.sed
+ref-del.sed: $(srcdir)/ref-del.sin
+	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-del.sin > t-ref-del.sed
+	mv t-ref-del.sed ref-del.sed
 
 INCLUDES = -I.. -I. -I$(srcdir)
 

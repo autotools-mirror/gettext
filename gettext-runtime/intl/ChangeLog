@@ -1,3 +1,8 @@
+2003-02-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (.sin.sed): Remove rule.
+	(ref-add.sed, ref-del.sed): New rules.
+
 2003-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Big restructuring.
