@@ -1,5 +1,10 @@
 2001-06-10  Bruno Haible  <haible@clisp.cons.org>
 
+	* msgcmp.c (main): Set gram_max_allowed_errors to UINT_MAX, as in
+	msgmerge.c.
+
+2001-06-10  Bruno Haible  <haible@clisp.cons.org>
+
 	* message.c (message_alloc): Cast xmalloc return value.
 	(message_list_alloc): Likewise.
 	(message_list_list_alloc): Likewise.

@@ -21,6 +21,7 @@
 #endif
 
 #include <getopt.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -82,6 +83,7 @@ main (argc, argv)
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
+  gram_max_allowed_errors = UINT_MAX;
 
 #ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
