@@ -382,9 +382,9 @@ munmap putenv setenv setlocale snprintf stpcpy strcasecmp strdup strtoul \
 tsearch wprintf __argz_count __argz_stringify __argz_next __fsetlocking])
 
   dnl Use the *_unlocked functions only if they are declared.
-  dnl (because some of them were declared in Solaris 2.5.1 but were removed
-  dnl in Solaris 2.6, whereas we want binaries built on Solaris 2.5.1 to run
-  dnl on Solaris 2.6).
+  dnl (because some of them were defined without being declared in Solaris
+  dnl 2.5.1 but were removed in Solaris 2.6, whereas we want binaries built
+  dnl on Solaris 2.5.1 to run on Solaris 2.6).
   dnl Don't use AC_CHECK_DECLS because it isn't supported in autoconf-2.13.
   gt_CHECK_DECL(feof_unlocked, [#include <stdio.h>])
   gt_CHECK_DECL(fgets_unlocked, [#include <stdio.h>])
