@@ -1,3 +1,8 @@
+2003-12-16  Bruno Haible  <bruno@clisp.org>
+
+	* printf-posix.m4 (gt_PRINTF_POSIX): Guess correctly when cross-
+	compiling to Cygwin.
+
 2003-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.13 released.
