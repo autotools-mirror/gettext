@@ -22,6 +22,7 @@
 	* hello-perl/configure.ac: Update accordingly.
 	* hello-perl/Makefile.am: Update accordingly.
 	* Makefile.am (EXAMPLESFILES): Update.
+	* po/Makefile.am (POTFILES): Update.
 
 2003-12-06  Bruno Haible  <bruno@clisp.org>
 
