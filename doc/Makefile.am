@@ -141,7 +141,7 @@ install-html-monolithic: gettext.html
 
 install-html-split: gettext_toc.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
-	for file in `dirname $<`/gettext_*.html; do \
+	for file in `if test -f gettext_toc.html; then echo .; else echo $(srcdir); fi`/gettext_*.html; do \
 	  $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir)/`basename $$file`; \
 	done
 

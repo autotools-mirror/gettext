@@ -1,6 +1,7 @@
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.am (install-html-split): Install into correct directory.
+	Don't use $<.
 
 2001-04-19  Bruno Haible  <haible@clisp.cons.org>
 
