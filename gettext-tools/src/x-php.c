@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -537,7 +537,7 @@ comment_add (int c)
 {
   if (buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen++] = c;
@@ -552,7 +552,7 @@ comment_line_end (size_t chars_to_remove)
     --buflen;
   if (chars_to_remove == 0 && buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
@@ -773,7 +773,7 @@ x_php_lex (token_ty *tp)
 	    {
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
@@ -803,7 +803,7 @@ x_php_lex (token_ty *tp)
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = 0;
@@ -830,14 +830,14 @@ x_php_lex (token_ty *tp)
 		}
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = 0;
@@ -967,14 +967,14 @@ x_php_lex (token_ty *tp)
 		}
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = 0;
@@ -1029,7 +1029,7 @@ x_php_lex (token_ty *tp)
 		      {
 			if (bufpos >= bufmax)
 			  {
-			    bufmax += 100;
+			    bufmax = 2 * bufmax + 10;
 			    buffer = xrealloc (buffer, bufmax);
 			  }
 			buffer[bufpos++] = c;

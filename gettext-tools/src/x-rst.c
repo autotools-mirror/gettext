@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -109,7 +109,7 @@ extract_rst (FILE *f,
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  if (c == '=')
@@ -143,7 +143,7 @@ extract_rst (FILE *f,
 		    break;
 		  if (bufpos >= bufmax)
 		    {
-		      bufmax += 100;
+		      bufmax = 2 * bufmax + 10;
 		      buffer = xrealloc (buffer, bufmax);
 		    }
 		  buffer[bufpos++] = c;
@@ -177,7 +177,7 @@ extract_rst (FILE *f,
 		}
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = (unsigned char) n;
@@ -205,7 +205,7 @@ extract_rst (FILE *f,
 	}
       if (bufpos >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[bufpos] = '\0';

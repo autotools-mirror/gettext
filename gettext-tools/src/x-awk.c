@@ -1,5 +1,5 @@
 /* xgettext awk backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -201,14 +201,14 @@ phase2_getc ()
 	    break;
 	  if (buflen >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[buflen++] = c;
 	}
       if (buflen >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[buflen] = '\0';
@@ -431,7 +431,7 @@ x_awk_lex (token_ty *tp)
 	    {
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
@@ -465,7 +465,7 @@ x_awk_lex (token_ty *tp)
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = '\0';
@@ -504,14 +504,14 @@ x_awk_lex (token_ty *tp)
 		break;
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
 	    }
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos] = '\0';

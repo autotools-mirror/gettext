@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -426,7 +426,7 @@ comment_add (int c)
 {
   if (buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen++] = c;
@@ -441,7 +441,7 @@ comment_line_end (size_t chars_to_remove)
     --buflen;
   if (chars_to_remove == 0 && buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
@@ -774,7 +774,7 @@ phase5_get (token_ty *tp)
 	{
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
@@ -804,7 +804,7 @@ phase5_get (token_ty *tp)
 	}
       if (bufpos >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[bufpos] = 0;
@@ -838,7 +838,7 @@ phase5_get (token_ty *tp)
 	{
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
@@ -849,7 +849,7 @@ phase5_get (token_ty *tp)
 	    case 'E':
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buffer = xrealloc (buffer, bufmax);
 		}
 	      buffer[bufpos++] = c;
@@ -884,7 +884,7 @@ phase5_get (token_ty *tp)
 	}
       if (bufpos >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[bufpos] = 0;
@@ -939,14 +939,14 @@ phase5_get (token_ty *tp)
 	    c = '\'';
 	  if (bufpos >= bufmax)
 	    {
-	      bufmax += 100;
+	      bufmax = 2 * bufmax + 10;
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[bufpos++] = c;
 	}
       if (bufpos >= bufmax)
 	{
-	  bufmax += 100;
+	  bufmax = 2 * bufmax + 10;
 	  buffer = xrealloc (buffer, bufmax);
 	}
       buffer[bufpos] = 0;
@@ -1085,7 +1085,7 @@ phase6_get (token_ty *tp)
 	      /* Accumulate.  */
 	      if (bufpos >= bufmax)
 		{
-		  bufmax += 100;
+		  bufmax = 2 * bufmax + 10;
 		  buf = xrealloc (buf, bufmax * sizeof (buf[0]));
 		}
 	      buf[bufpos++] = *tp;

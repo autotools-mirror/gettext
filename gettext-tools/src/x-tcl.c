@@ -1,5 +1,5 @@
 /* xgettext Tcl backend.
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -364,7 +364,7 @@ comment_add (int c)
 {
   if (buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen++] = c;
@@ -378,7 +378,7 @@ comment_line_end ()
     --buflen;
   if (buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';

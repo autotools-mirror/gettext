@@ -221,7 +221,7 @@ comment_add (int c)
   size_t len = ((unsigned char) c < 0x80 ? 1 : 2);
   if (buflen + len > bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   if ((unsigned char) c < 0x80)
@@ -241,7 +241,7 @@ comment_line_end ()
     --buflen;
   if (buflen >= bufmax)
     {
-      bufmax += 100;
+      bufmax = 2 * bufmax + 10;
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
@@ -716,7 +716,7 @@ phase5_get (token_ty *tp)
 	      {
 		if (bufpos >= bufmax)
 		  {
-		    bufmax += 100;
+		    bufmax = 2 * bufmax + 10;
 		    buffer = xrealloc (buffer, bufmax);
 		  }
 		buffer[bufpos++] = c;
@@ -745,7 +745,7 @@ phase5_get (token_ty *tp)
 	      }
 	    if (bufpos >= bufmax)
 	      {
-		bufmax += 100;
+		bufmax = 2 * bufmax + 10;
 		buffer = xrealloc (buffer, bufmax);
 	      }
 	    buffer[bufpos] = '\0';
@@ -847,7 +847,7 @@ phase5_get (token_ty *tp)
 		  len = (uc < 0x10000 ? 1 : 2);
 		  if (bufpos + len > bufmax)
 		    {
-		      bufmax += 100;
+		      bufmax = 2 * bufmax + 10;
 		      buffer =
 			xrealloc (buffer, bufmax * sizeof (unsigned short));
 		    }

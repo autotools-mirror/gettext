@@ -1,5 +1,20 @@
 2003-06-15  Bruno Haible  <bruno@clisp.org>
 
+	* x-awk.c (phase2_getc, x_awk_lex): Increase bufmax proportionally.
+	* x-c.c (comment_add, comment_line_end, phase5_get, phase6_get):
+	Likewise.
+	* x-elisp.c (comment_add, comment_line_end): Likewise.
+	* x-librep.c (comment_add, comment_line_end): Likewise.
+	* x-lisp.c (comment_add, comment_line_end): Likewise.
+	* x-php.c (comment_add, comment_line_end, x_php_lex): Likewise.
+	* x-python.c (comment_add, comment_line_end, phase5_get): Likewise.
+	* x-rst.c (extract_rst): Likewise.
+	* x-smalltalk.c (comment_add, comment_line_end, phase2_get): Likewise.
+	* x-tcl.c (comment_add, comment_line_end): Likewise.
+	* x-ycp.c (phase2_getc, x_ycp_lex): Likewise.
+
+2003-06-15  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (current_formatstring_parser1,
 	current_formatstring_parser2): New variables, replacing
 	current_formatstring_parser.
