@@ -327,6 +327,7 @@ Other Programming Languages
 The Translator's View
 
 * c-format::                    C Format Strings
+* sh-format::                   Shell Format Strings
 * python-format::               Python Format Strings
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
@@ -7213,6 +7214,7 @@ strings.
 
 @menu
 * c-format::                    C Format Strings
+* sh-format::                   Shell Format Strings
 * python-format::               Python Format Strings
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
@@ -7228,7 +7230,7 @@ strings.
 * gcc-internal-format::         GCC internal Format Strings
 @end menu
 
-@node c-format, python-format, Translators for other Languages, Translators for other Languages
+@node c-format, sh-format, Translators for other Languages, Translators for other Languages
 @subsection C Format Strings
 
 C format strings are described in POSIX (IEEE P1003.1 2001), section
@@ -7258,7 +7260,26 @@ on this reordering ability: On the few platforms where @code{printf()},
 or @file{libintl.so} provides replacement functions, and GNU @code{<libintl.h>}
 activates these replacement functions automatically.
 
-@node python-format, lisp-format, c-format, Translators for other Languages
+@node sh-format, python-format, c-format, Translators for other Languages
+@subsection Shell Format Strings
+
+Shell format strings, as supported by GNU gettext and the @samp{envsubst}
+program, are strings with references to shell variables in the form
+@code{$@var{variable}} or @code{$@{@var{variable}@}}.  References of the form
+@code{$@{@var{variable}-@var{default}@}},
+@code{$@{@var{variable}:-@var{default}@}},
+@code{$@{@var{variable}=@var{default}@}},
+@code{$@{@var{variable}:=@var{default}@}},
+@code{$@{@var{variable}+@var{replacement}@}},
+@code{$@{@var{variable}:+@var{replacement}@}},
+@code{$@{@var{variable}?@var{ignored}@}},
+@code{$@{@var{variable}:?@var{ignored}@}},
+that would be valid inside shell scripts, are not supported.  The
+@var{variable} names must consist solely of alphanumeric or underscore
+ASCII characters, not start with a digit and be nonempty; otherwise such
+a variable reference is ignored.
+
+@node python-format, lisp-format, sh-format, Translators for other Languages
 @subsection Python Format Strings
 
 Python format strings are described in
