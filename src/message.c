@@ -638,8 +638,12 @@ message_list_list_search (mllp, msgid)
      message_list_list_ty *mllp;
      const char *msgid;
 {
+  message_ty *best_mp;
+  int best_weight; /* 0: not found, 1: found without msgstr, 2: translated */
   size_t j;
 
+  best_mp = NULL;
+  best_weight = 0;
   for (j = 0; j < mllp->nitems; ++j)
     {
       message_list_ty *mlp;
@@ -648,9 +652,16 @@ message_list_list_search (mllp, msgid)
       mlp = mllp->item[j];
       mp = message_list_search (mlp, msgid);
       if (mp)
-        return mp;
+	{
+	  int weight = (mp->msgstr_len == 1 && mp->msgstr[0] == '\0' ? 1 : 2);
+	  if (weight > best_weight)
+	    {
+	      best_mp = mp;
+	      best_weight = weight;
+	    }
+	}
     }
-  return NULL;
+  return best_mp;
 }
 
 
