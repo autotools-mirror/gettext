@@ -1,5 +1,12 @@
 2003-12-07  Bruno Haible  <bruno@clisp.org>
 
+	* po/sv.po: New file, from Jan Djärv <jan.h.d@swipnet.se>.
+	* po/tr.po: New file, from
+	Nilgün Belma Bugüner <nilgun@superonline.com>.
+	* po/LINGUAS: Add sv, tr.
+
+2003-12-07  Bruno Haible  <bruno@clisp.org>
+
 	* hello-perl/hello-1.pl.in: Renamed from hello-perl/hello.pl. Make it
 	work.
 	* hello-perl/hello-2.pl.in: New file, from Guido Flohr.
