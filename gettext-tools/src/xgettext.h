@@ -55,11 +55,11 @@ typedef struct flag_context_ty flag_context_ty;
 struct flag_context_ty
 {
   /* Regarding the primary formatstring type.  */
-  enum is_format is_format1 : 3;
-  bool pass_format1         : 1;
+  /*enum is_format*/ unsigned int is_format1    : 3;
+  /*bool*/           unsigned int pass_format1  : 1;
   /* Regarding the secondary formatstring type.  */
-  enum is_format is_format2 : 3;
-  bool pass_format2         : 1;
+  /*enum is_format*/ unsigned int is_format2    : 3;
+  /*bool*/           unsigned int pass_format2  : 1;
 };
 /* Null context.  */
 extern flag_context_ty null_context;
