@@ -22,7 +22,6 @@
 #include <stdbool.h>
 
 #include "msgfmt.h"
-#include "hash.h"
 
 /* Alignment of strings in resulting .mo file.  */
 extern size_t alignment;
@@ -30,12 +29,12 @@ extern size_t alignment;
 /* True if no hash table in .mo is wanted.  */
 extern bool no_hash_table;
 
-/* Write a GNU mo file.  tab is a hash table containing the messages to be
-   output, mapping 'const char *msgid' to 'struct hashtable_entry *'.
+/* Write a GNU mo file.  mlp is a list containing the messages to be output.
    domain_name is the domain name, file_name is the desired file name.
    Return 0 if ok, nonzero on error.  */
 extern int
-       msgdomain_write_mo PARAMS ((hash_table *tab, const char *domain_name,
+       msgdomain_write_mo PARAMS ((message_list_ty *mlp,
+				   const char *domain_name,
 				   const char *file_name));
 
 #endif /* _WRITE_MO_H */

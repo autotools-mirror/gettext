@@ -75,6 +75,8 @@ static const char *output_file_name;
    each output file.  */
 struct msg_domain
 {
+  /* List for mapping message IDs to message strings.  */
+  message_list_ty *mlp;
   /* Table for mapping message IDs to message strings.  */
   hash_table symbol_tab;
   /* Name of domain these ID/String pairs are part of.  */
@@ -91,7 +93,7 @@ static struct msg_domain *current_domain;
    'error' or 'multiline_error' to emit verbosity messages, because 'error'
    and 'multiline_error' during PO file parsing cause the program to exit
    with EXIT_FAILURE.  See function lex_end().  */
-static bool verbose = false;
+bool verbose = false;
 
 /* If true check strings according to format string rules for the
    language.  */
@@ -309,11 +311,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   for (domain = domain_list; domain != NULL; domain = domain->next)
     {
-      if (msgdomain_write_mo (&domain->symbol_tab, domain->domain_name,
+      if (msgdomain_write_mo (domain->mlp, domain->domain_name,
 			      domain->file_name))
 	exit_status = EXIT_FAILURE;
 
-      /* Hashing table is not used anmore.  */
+      /* List is not used anymore.  */
+      message_list_free (domain->mlp);
+      /* Hashing table is not used anymore.  */
       delete_hash (&domain->symbol_tab);
     }
 
@@ -452,6 +456,7 @@ new_domain (name, file_name)
       struct msg_domain *domain;
 
       domain = (struct msg_domain *) xmalloc (sizeof (struct msg_domain));
+      domain->mlp = message_list_alloc ();
       if (init_hash (&domain->symbol_tab, 100) != 0)
 	error (EXIT_FAILURE, errno, _("while creating hash table"));
       domain->domain_name = name;
@@ -628,10 +633,8 @@ check_pair (msgid, msgid_pos, msgid_plural, msgstr, msgstr_len, msgstr_pos,
 
 
 /* The rest of the file is similar to read-po.c.  The differences are:
-   - The result is a hash table of msgid -> struct hashtable_entry, not
-     a linear list.  This is more efficient, because the order of the
-     entries does not matter and the only lookup operation performed on
-     the message set is the duplicate lookup.
+   - The result is both a message_list_ty and a hash table mapping
+     msgid -> message_ty.  This is useful to speed up the duplicate lookup.
    - Comments are not stored, they are discarded right away.
    - The header entry check is performed on-the-fly.
  */
@@ -729,7 +732,7 @@ format_directive_message (that, msgid_string, msgid_pos, msgid_plural,
      bool obsolete;
 {
   msgfmt_class_ty *this = (msgfmt_class_ty *) that;
-  struct hashtable_entry *entry;
+  message_ty *entry;
   size_t i;
 
   /* Don't emit untranslated entries.  Also don't emit fuzzy entries, unless
@@ -824,12 +827,11 @@ some header fields still have the initial default value"));
 
       /* We found a valid pair of msgid/msgstr.
 	 Construct struct to describe msgstr definition.  */
-      entry = (struct hashtable_entry *) xmalloc (sizeof (*entry));
-
+      entry = message_alloc (NULL, NULL, NULL, 0, msgstr_pos);
+      entry->msgid = msgid_string;
       entry->msgid_plural = msgid_plural;
       entry->msgstr = msgstr_string;
       entry->msgstr_len = msgstr_len;
-      entry->pos = *msgstr_pos;
 
       /* Do some more checks on both strings.  */
       check_pair (msgid_string, msgid_pos, msgid_plural,
@@ -867,12 +869,12 @@ duplicate message definition"));
 
 	  /* We don't need the just constructed entries'
 	     parameter string (allocated in po-gram.y).  */
+	  free (msgid_string);
 	  free (msgstr_string);
 	}
+      else
+	message_list_append (current_domain->mlp, entry);
   }
-
-  /* We do not need the msgid string in any case.  */
-  free (msgid_string);
 
   /* Prepare for next message.  */
   this->is_fuzzy = false;

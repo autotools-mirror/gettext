@@ -36,6 +36,7 @@
 
 #include "error.h"
 #include "hash.h"
+#include "message.h"
 #include "system.h"
 #include "libgettext.h"
 
@@ -62,18 +63,18 @@ bool no_hash_table;
 /* Prototypes for local functions.  Needed to ensure compiler checking of
    function argument counts despite of K&R C function definition syntax.  */
 static int compare_id PARAMS ((const void *pval1, const void *pval2));
-static void write_table PARAMS ((FILE *output_file, hash_table *tab));
+static void write_table PARAMS ((FILE *output_file, message_list_ty *mlp));
 
 
 /* Define the data structure which we need to represent the data to
    be written out.  */
 struct id_str_pair
 {
-  char *id;
+  const char *id;
   size_t id_len;
-  char *id_plural;
+  const char *id_plural;
   size_t id_plural_len;
-  char *str;
+  const char *str;
   size_t str_len;
 };
 
@@ -89,9 +90,9 @@ compare_id (pval1, pval2)
 
 
 static void
-write_table (output_file, tab)
+write_table (output_file, mlp)
      FILE *output_file;
-     hash_table *tab;
+     message_list_ty *mlp;
 {
   static char null = '\0';
   /* This should be explained:
@@ -115,66 +116,63 @@ write_table (output_file, tab)
      Formulas: [Knuth, The Art of Computer Programming, Volume 3,
 		Sorting and Searching, 1973, Addison Wesley]  */
   nls_uint32 hash_tab_size =
-    (no_hash_table ? 0 : next_prime ((tab->filled * 4) / 3));
+    (no_hash_table ? 0 : next_prime ((mlp->nitems * 4) / 3));
   nls_uint32 *hash_tab;
 
   /* Header of the .mo file to be written.  */
   struct mo_file_header header;
   struct id_str_pair *msg_arr;
-  void *ptr;
-  size_t cnt;
-  const void *id;
-  size_t id_len;
-  struct hashtable_entry *entry;
+  size_t cnt, j;
+  message_ty *entry;
   struct string_desc sd;
 
   /* Fill the structure describing the header.  */
   header.magic = _MAGIC;		/* Magic number.  */
   header.revision = MO_REVISION_NUMBER;	/* Revision number of file format.  */
-  header.nstrings = tab->filled;	/* Number of strings.  */
+  header.nstrings = mlp->nitems;	/* Number of strings.  */
   header.orig_tab_offset = sizeof (header);
 			/* Offset of table for original string offsets.  */
   header.trans_tab_offset = sizeof (header)
-			    + tab->filled * sizeof (struct string_desc);
+			    + mlp->nitems * sizeof (struct string_desc);
 			/* Offset of table for translation string offsets.  */
   header.hash_tab_size = hash_tab_size;	/* Size of used hashing table.  */
   header.hash_tab_offset =
 	no_hash_table ? 0 : sizeof (header)
-			    + 2 * (tab->filled * sizeof (struct string_desc));
+			    + 2 * (mlp->nitems * sizeof (struct string_desc));
 			/* Offset of hashing table.  */
 
   /* Write the header out.  */
   fwrite (&header, sizeof (header), 1, output_file);
 
   /* Allocate table for the all elements of the hashing table.  */
-  msg_arr = (struct id_str_pair *) alloca (tab->filled * sizeof (msg_arr[0]));
+  msg_arr = (struct id_str_pair *) alloca (mlp->nitems * sizeof (msg_arr[0]));
 
-  /* Read values from hashing table into array.  */
-  for (cnt = 0, ptr = NULL;
-       iterate_table (tab, &ptr, &id, &id_len, (void **) &entry) >= 0;
-       ++cnt)
+  /* Read values from list into array.  */
+  for (j = 0; j < mlp->nitems; j++)
     {
-      msg_arr[cnt].id = (char *) id;
-      msg_arr[cnt].id_len = id_len;
-      msg_arr[cnt].id_plural = entry->msgid_plural;
-      msg_arr[cnt].id_plural_len =
+      entry = mlp->item[j];
+
+      msg_arr[j].id = entry->msgid;
+      msg_arr[j].id_len = strlen (entry->msgid) + 1;
+      msg_arr[j].id_plural = entry->msgid_plural;
+      msg_arr[j].id_plural_len =
 	(entry->msgid_plural != NULL ? strlen (entry->msgid_plural) + 1 : 0);
-      msg_arr[cnt].str = entry->msgstr;
-      msg_arr[cnt].str_len = entry->msgstr_len;
+      msg_arr[j].str = entry->msgstr;
+      msg_arr[j].str_len = entry->msgstr_len;
     }
 
   /* Sort the table according to original string.  */
-  qsort (msg_arr, tab->filled, sizeof (msg_arr[0]), compare_id);
+  qsort (msg_arr, mlp->nitems, sizeof (msg_arr[0]), compare_id);
 
   /* Set offset to first byte after all the tables.  */
   sd.offset = roundup (sizeof (header)
-		       + tab->filled * sizeof (sd)
-		       + tab->filled * sizeof (sd)
+		       + mlp->nitems * sizeof (sd)
+		       + mlp->nitems * sizeof (sd)
 		       + hash_tab_size * sizeof (nls_uint32),
 		       alignment);
 
   /* Write out length and starting offset for all original strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
+  for (cnt = 0; cnt < mlp->nitems; ++cnt)
     {
       /* Subtract 1 because of the terminating NUL.  */
       sd.length = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len - 1;
@@ -183,7 +181,7 @@ write_table (output_file, tab)
     }
 
   /* Write out length and starting offset for all translation strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
+  for (cnt = 0; cnt < mlp->nitems; ++cnt)
     {
       /* Subtract 1 because of the terminating NUL.  */
       sd.length = msg_arr[cnt].str_len - 1;
@@ -200,7 +198,7 @@ write_table (output_file, tab)
 
       /* Insert all value in the hash table, following the algorithm described
 	 above.  */
-      for (cnt = 0; cnt < tab->filled; ++cnt)
+      for (cnt = 0; cnt < mlp->nitems; ++cnt)
 	{
 	  nls_uint32 hash_val = hash_string (msg_arr[cnt].id);
 	  nls_uint32 idx = hash_val % hash_tab_size;
@@ -226,12 +224,12 @@ write_table (output_file, tab)
     }
 
   /* Write bytes to make first string to be aligned.  */
-  cnt = sizeof (header) + 2 * tab->filled * sizeof (sd)
+  cnt = sizeof (header) + 2 * mlp->nitems * sizeof (sd)
 	+ hash_tab_size * sizeof (nls_uint32);
   fwrite (&null, 1, roundup (cnt, alignment) - cnt, output_file);
 
   /* Now write the original strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
+  for (cnt = 0; cnt < mlp->nitems; ++cnt)
     {
       size_t len = msg_arr[cnt].id_len + msg_arr[cnt].id_plural_len;
 
@@ -243,28 +241,26 @@ write_table (output_file, tab)
     }
 
   /* Now write the translation strings.  */
-  for (cnt = 0; cnt < tab->filled; ++cnt)
+  for (cnt = 0; cnt < mlp->nitems; ++cnt)
     {
       size_t len = msg_arr[cnt].str_len;
 
       fwrite (msg_arr[cnt].str, len, 1, output_file);
       fwrite (&null, 1, roundup (len, alignment) - len, output_file);
-
-      free (msg_arr[cnt].str);
     }
 }
 
 
 int
-msgdomain_write_mo (tab, domain_name, file_name)
-     hash_table *tab;
+msgdomain_write_mo (mlp, domain_name, file_name)
+     message_list_ty *mlp;
      const char *domain_name;
      const char *file_name;
 {
   FILE *output_file;
 
   /* If no entry for this domain don't even create the file.  */
-  if (tab->filled != 0)
+  if (mlp->nitems != 0)
     {
       if (strcmp (domain_name, "-") == 0)
 	{
@@ -284,7 +280,7 @@ msgdomain_write_mo (tab, domain_name, file_name)
 
       if (output_file != NULL)
 	{
-	  write_table (output_file, tab);
+	  write_table (output_file, mlp);
 
 	  /* Make sure nothing went wrong.  */
 	  if (fflush (output_file) || ferror (output_file))

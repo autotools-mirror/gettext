@@ -19,16 +19,12 @@
 #ifndef _MSGFMT_H
 #define _MSGFMT_H
 
-#include "pos.h"
+#include "message.h"
 
-/* Contains information about the definition of one translation.
-   The msgid is the hash table key.  This is a mini 'struct message_ty'.  */
-struct hashtable_entry
-{
-  char *msgid_plural;	/* The msgid's plural, if present.  */
-  char *msgstr;		/* The msgstr strings.  */
-  size_t msgstr_len;	/* The number of bytes in msgstr, including NULs.  */
-  lex_pos_ty pos;	/* Position in the source PO file.  */
-};
+/* Be more verbose.  Use only 'fprintf' and 'multiline_warning' but not
+   'error' or 'multiline_error' to emit verbosity messages, because 'error'
+   and 'multiline_error' during PO file parsing cause the program to exit
+   with EXIT_FAILURE.  See function lex_end().  */
+extern bool verbose;
 
 #endif /* _MSGFMT_H */

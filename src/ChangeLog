@@ -1,3 +1,23 @@
+2001-09-02  Bruno Haible  <haible@clisp.cons.org>
+
+	* msgfmt.h (struct hashtable_entry): Remove type.
+	(verbose): New declaration.
+	* msgfmt.c (msg_domain): Add a message list field.
+	(verbose): Make non-static.
+	(main): Pass the message list, not the hash table, to
+	msgdomain_write_mo. Free the message list when done.
+	(new_domain): Initialize the message list to empty.
+	(format_directive_message): Change type of entry to 'message_ty *'.
+	Store msgid in it.
+	* write-mo.h: Don't include hash.h.
+	(msgdomain_write_mo): Change argument type from hash table to message
+	list.
+	* write-mo.c (id_str_pair): Add const.
+	(write_table): Change argument type from hash table to message list.
+	Use 'message_ty' instead of 'struct hashtable_entry'.
+	(msgdomain_write_mo): Change argument type from hash table to message
+	list.
+
 2001-09-01  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt.h: New file, extracted from msgfmt.c.
