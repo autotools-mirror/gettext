@@ -4219,7 +4219,7 @@ fi
                sed -e '/^#/d' $srcdir/intl/$msgformat-msg.sed > intl/po2msg.sed
    fi
       sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
-     $srcdir/intl/po2tbl.sed.in > intl/po2tbl.sed
+     $srcdir/intl/po2tbl.sin > intl/po2tbl.sed
 
             if test "$PACKAGE" = "gettext"; then
      GT_NO="#NO#"

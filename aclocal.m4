@@ -856,7 +856,7 @@ __argz_count __argz_stringify __argz_next])
    fi
    dnl po2tbl.sed is always needed.
    sed -e '/^#.*[^\\]$/d' -e '/^#$/d' \
-     $srcdir/intl/po2tbl.sed.in > intl/po2tbl.sed
+     $srcdir/intl/po2tbl.sin > intl/po2tbl.sed
 
    dnl In the intl/Makefile.in we have a special dependency which makes
    dnl only sense for gettext.  We comment this out for non-gettext
