@@ -21,6 +21,13 @@
 # include <config.h>
 #endif
 
+/* The bison generated parser uses alloca.  AIX 3 forces us to put this
+   declaration at the beginning of the file.  The declaration in bison's
+   skeleton file comes too late.  */
+#ifdef _AIX
+ #pragma alloca
+#endif
+
 #include <stdlib.h>
 #include "gettextP.h"
 

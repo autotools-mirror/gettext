@@ -1,3 +1,9 @@
+2001-03-21  Bruno Haible  <haible@clisp.cons.org>
+
+	* dcigettext.c (_nl_state_lock): Mark as #ifdef _LIBC. AIX 3 xlc
+	chokes on empty macro arguments.
+	* plural.y: Add #pragma for alloca on AIX 3.
+
 2001-03-20  Bruno Haible  <haible@clisp.cons.org>
 
 	* Makefile.in (DISTFILES.generated): New variable.
