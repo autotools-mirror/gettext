@@ -2,11 +2,16 @@
 # Copyright (C) 1995, 1998, 2001 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
-#   $ grep -l '[^A-Za-z_]_(' {lib,src}/*.[chy]
+#   $ grep -l '[^A-Za-z_]_(' {lib,src}/*.[chly]
 
 # Files from the compatibility library
+lib/argmatch.c
+lib/copy-file.c
 lib/error.c
+lib/execute.c
 lib/getopt.c
+lib/javacomp.c
+lib/javaexec.c
 lib/obstack.c
 lib/pipe-bidi.c
 lib/pipe-in.c
@@ -16,20 +21,30 @@ lib/xerror.c
 lib/xmalloc.c
 
 # Package source files
+src/file-list.c
+src/format-c.c
+src/format-java.c
+src/format-lisp.c
+src/format-pascal.c
+src/format-python.c
+src/format-ycp.c
 src/gettext.c
 src/message.c
+src/msgattrib.c
 src/msgcat.c
 src/msgcmp.c
 src/msgcomm.c
 src/msgconv.c
 src/msgen.c
+src/msgexec.c
 src/msgfmt.c
 src/msggrep.c
+src/msgl-cat.c
 src/msgl-charset.c
 src/msgl-iconv.c
 src/msgmerge.c
-src/msgsed.c
 src/msgunfmt.c
+src/msguniq.c
 src/ngettext.c
 src/open-po.c
 src/po-charset.c
@@ -37,7 +52,14 @@ src/po-gram-gen.c
 src/po-lex.h
 src/po-lex.c
 src/po.c
+src/read-java.c
+src/read-mo.c
 src/read-po.c
+src/write-java.c
+src/write-mo.c
 src/write-po.c
-src/xget-lex.c
+src/x-c.c
+src/x-po.c
+src/x-rst.c
+src/x-ycp.c
 src/xgettext.c
