@@ -46,7 +46,9 @@ xg-test1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c \
 # Two auxiliary programs used by the tests.
 INCLUDES = -I.. -I$(top_srcdir)/lib -I$(top_srcdir)/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
-LDADD = ../intl/libintl.la @LIBICONV@
+LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@)
+LDADD_yes = ../intl/libintl.la
+LDADD_no = ../intl/libgnuintl.la @INTLLIBS@
 EXTRA_PROGRAMS = tstgettext cake
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_LDADD = ../lib/libnlsut.a $(LDADD)
