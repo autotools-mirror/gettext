@@ -5,9 +5,11 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-# Test whether we can execute Tcl programs.
+# Test whether we can execute Tcl programs and Tcl's fconfigure command
+# understands the -encoding option (it does since approximately Tcl 8.1).
 tmpfiles="$tmpfiles version.tcl"
 cat <<\EOF > version.tcl
+fconfigure stdout -encoding utf-8
 puts $tcl_version
 EOF
 (tclsh version.tcl) >/dev/null 2>/dev/null \
