@@ -1,5 +1,10 @@
 2002-01-13  Bruno Haible  <bruno@clisp.org>
 
+	* msgl-iconv.c (iconv_message_list): Don't complain by a nonportable
+	encoding name if it has been overridden by an argument canon_from_code.
+
+2002-01-13  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-ascii.c (is_ascii_message): Don't consider a message as being
 	ASCII if its msgid or msgid_plural is not ASCII.
 

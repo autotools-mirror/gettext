@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,7 @@
 #include "msgl-iconv.h"
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -264,6 +265,7 @@ iconv_message_list (mlp, canon_from_code, canon_to_code)
      const char *canon_from_code;
      const char *canon_to_code;
 {
+  bool canon_from_code_overridden = (canon_from_code != NULL);
   size_t j;
 
   /* If the list is empty, nothing to do.  */
@@ -296,18 +298,23 @@ iconv_message_list (mlp, canon_from_code, canon_to_code)
 
 		canon_charset = po_charset_canonicalize (charset);
 		if (canon_charset == NULL)
-		  error (EXIT_FAILURE, 0,
-			 _("\
+		  {
+		    if (!canon_from_code_overridden)
+		      error (EXIT_FAILURE, 0,
+			     _("\
 present charset \"%s\" is not a portable encoding name"),
-			 charset);
-
-		if (canon_from_code == NULL)
-		  canon_from_code = canon_charset;
-		else if (canon_from_code != canon_charset)
-		  error (EXIT_FAILURE, 0,
-			 _("\
+			     charset);
+		  }
+		else
+		  {
+		    if (canon_from_code == NULL)
+		      canon_from_code = canon_charset;
+		    else if (canon_from_code != canon_charset)
+		      error (EXIT_FAILURE, 0,
+			     _("\
 two different charsets \"%s\" and \"%s\" in input file"),
-			 canon_from_code, canon_charset);
+			     canon_from_code, canon_charset);
+		  }
 
 		len1 = charsetstr - header;
 		len2 = strlen (canon_to_code);
