@@ -40,3 +40,11 @@ Things we plan to do. Comments welcome.
 
 - msgdiff
 
+- automake integration: Add to "make dist" an invocation of
+  "intltool-update --maintain", parametrized through a few variables that
+  specify
+    - where to look for i18n files,
+    - which file types are to be considered by i18n,
+    - which files are explicitly not i18n (e.g. generated files like
+      src/po-gram-gen.c)
+
