@@ -1,3 +1,7 @@
+2001-04-17  Bruno Haible  <haible@clisp.cons.org>
+
+	* plural-2: Change formula and result for sl. Add test for lt.
+
 2001-04-09  Bruno Haible  <haible@clisp.cons.org>
 
 	* msgfmt-3: Update regexp to filter out specific warnings.
