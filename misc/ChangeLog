@@ -1,3 +1,8 @@
+2001-11-20  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-ediff-buffers-exit-recursive): Kill ediff buffers
+	after quitting the ediff session.
+
 2002-01-03  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in: Recommend installation of gettext.h.

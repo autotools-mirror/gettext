@@ -2037,8 +2037,10 @@ The string is properly recommented before the replacement occurs."
 
 (defun po-ediff-buffers-exit-recursive (b1 b2 oldbuf end)
   "Ediff buffer B1 and B2, pop back to OLDBUF and replace the old variants.
-This function will delete the first two variants in OLDBUF and replace this
-text with the contents of B2.
+This function will delete the first two variants in OLDBUF, call
+`ediff-buffers' to compare both strings and replace the two variants in
+OLDBUF with the contents of B2.
+Once done kill B1 and B2.
 
 For more info cf. `po-subedit-ediff'."
   (ediff-buffers b1 b2)
@@ -2046,6 +2048,7 @@ For more info cf. `po-subedit-ediff'."
   (pop-to-buffer oldbuf)
   (delete-region (point-min) end)
   (insert-buffer b2)
+  (mapc 'kill-buffer `(,b1 ,b2))
   (display-buffer entry-buffer t))
 
 (defun po-subedit-ediff ()
