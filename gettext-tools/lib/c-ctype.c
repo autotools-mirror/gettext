@@ -1,6 +1,6 @@
 /* Character handling in C locale.
 
-   Copyright 2000-2002 Free Software Foundation, Inc.
+   Copyright 2000-2003 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
 bool
 c_isascii (int c)
 {
-  return ((c & ~0x7f) == 0);
+  return (c >= 0x00 && c <= 0x7f);
 }
 
 bool
@@ -48,9 +48,14 @@ c_isalnum (int c)
 {
 #if C_CTYPE_CONSECUTIVE_DIGITS \
     && C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
+#if C_CTYPE_ASCII
+  return ((c >= '0' && c <= '9')
+          || ((c & ~0x20) >= 'A' && (c & ~0x20) <= 'Z'));
+#else
   return ((c >= '0' && c <= '9')
           || (c >= 'A' && c <= 'Z')
           || (c >= 'a' && c <= 'z'));
+#endif
 #else
   switch (c)
     {
@@ -77,7 +82,11 @@ bool
 c_isalpha (int c)
 {
 #if C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
+#if C_CTYPE_ASCII
+  return ((c & ~0x20) >= 'A' && (c & ~0x20) <= 'Z');
+#else
   return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+#endif
 #else
   switch (c)
     {
@@ -249,8 +258,7 @@ c_ispunct (int c)
 #if C_CTYPE_ASCII
   return ((c >= '!' && c <= '~')
           && !((c >= '0' && c <= '9')
-               || (c >= 'A' && c <= 'Z')
-               || (c >= 'a' && c <= 'z')));
+               || ((c & ~0x20) >= 'A' && (c & ~0x20) <= 'Z')));
 #else
   switch (c)
     {
@@ -300,9 +308,14 @@ c_isxdigit (int c)
 {
 #if C_CTYPE_CONSECUTIVE_DIGITS \
     && C_CTYPE_CONSECUTIVE_UPPERCASE && C_CTYPE_CONSECUTIVE_LOWERCASE
+#if C_CTYPE_ASCII
+  return ((c >= '0' && c <= '9')
+          || ((c & ~0x20) >= 'A' && (c & ~0x20) <= 'F'));
+#else
   return ((c >= '0' && c <= '9')
           || (c >= 'A' && c <= 'F')
           || (c >= 'a' && c <= 'f'));
+#endif
 #else
   switch (c)
     {

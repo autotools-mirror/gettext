@@ -1,3 +1,11 @@
+2003-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* c-ctype.h: Assume C_CTYPE_CONSECUTIVE_DIGITS.
+	(c_isascii, c_isalnum, c_isalpha, c_isxdigit): Optimize.
+	* c-ctype.c (c_isascii, c_isalnum, c_isalpha, c_ispunct, c_isxdigit):
+	Optimize.
+	Suggested by Paul Eggert.
+
 2003-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Add support for Linux libc5. Based on data from
