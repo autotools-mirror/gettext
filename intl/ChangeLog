@@ -174,11 +174,6 @@
 
 	* bindtextdom.c (set_binding_values): Add prototype.
 
-2000-05-06  Bruno Haible  <haible@clisp.cons.org>
-
-	* tst-gettext.c (main): Disable possibly existing LC_CTYPE and
-	OUTPUT_CHARSET environment variables.
-
 2000-05-05  Bruno Haible  <haible@clisp.cons.org>
 
 	* dcigettext.c (alignof): New macro.
