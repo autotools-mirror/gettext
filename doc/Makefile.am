@@ -142,7 +142,7 @@ install-html-monolithic: gettext.html
 install-html-split: gettext_toc.html
 	$(mkinstalldirs) $(DESTDIR)$(htmldir)
 	for file in `dirname $<`/gettext_*.html; do \
-	  $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir)/$$file; \
+	  $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir)/`basename $$file`; \
 	done
 
 installdirs-html:
