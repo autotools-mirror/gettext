@@ -496,12 +496,15 @@ catalogname_for_locale (const char *locale)
   static const char *locales_with_principal_territory[] = {
 		/* Language	Main territory */
     "af_ZA",	/* Afrikaans	South Africa */
+    "ak_GH",	/* Akan		Ghana */
     "am_ET",	/* Amharic	Ethiopia */
     "an_ES",	/* Aragonese	Spain */
     "as_IN",	/* Assamese	India */
+    "av_RU",	/* Avaric	Russia */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
     "be_BY",	/* Belarusian	Belarus */
     "bg_BG",	/* Bulgarian	Bulgaria */
+    "bm_ML",	/* Bambara	Mali */
     "bn_IN",	/* Bengali	India */
     "bo_CN",	/* Tibetan	China */
     "br_FR",	/* Breton	France */
@@ -509,11 +512,14 @@ catalogname_for_locale (const char *locale)
     "ca_ES",	/* Catalan	Spain */
     "ce_RU",	/* Chechen	Russia */
     "co_FR",	/* Corsican	France */
+    "cr_CA",	/* Cree		Canada */
     "cs_CZ",	/* Czech	Czech Republic */
     "cy_GB",	/* Welsh	Britain */
     "da_DK",	/* Danish	Denmark */
     "de_DE",	/* German	Germany */
+    "dv_MV",	/* Divehi	Maldives */
     "dz_BT",	/* Dzongkha	Bhutan */
+    "ee_GH",	/* Éwé		Ghana */
     "el_GR",	/* Greek	Greece */
     /* Don't put "en_GB" or "en_US" here.  That would be asking for fruitless
        political discussion.  */
@@ -534,21 +540,26 @@ catalogname_for_locale (const char *locale)
     "hu_HU",	/* Hungarian	Hungary */
     "hy_AM",	/* Armenian	Armenia */
     "id_ID",	/* Indonesian	Indonesia */
+    "ig_NG",	/* Igbo		Nigeria */
     "ii_CN",	/* Sichuan Yi	China */
     "is_IS",	/* Icelandic	Iceland */
     "it_IT",	/* Italian	Italy */
     "ja_JP",	/* Japanese	Japan */
     "jv_ID",	/* Javanese	Indonesia */
     "ka_GE",	/* Georgian	Georgia */
+    "kg_CD",	/* Kongo	Democratic Republic of Congo */
     "kk_KZ",	/* Kazakh	Kazakhstan */
     "kl_GL",	/* Kalaallisut	Greenland */
     "km_KH",	/* Khmer	Cambodia */
     "kn_IN",	/* Kannada	India */
     "ko_KR",	/* Korean	Korea (South) */
     "kok_IN",	/* Konkani	India */
+    "kr_NG",	/* Kanuri	Nigeria */
+    "lg_UG",	/* Ganda	Uganda */
     "li_BE",	/* Limburgish	Belgium */
     "lo_LA",	/* Laotian	Laos */
     "lt_LT",	/* Lithuanian	Lithuania */
+    "lu_CD",	/* Luba-Katanga	Democratic Republic of Congo */
     "lv_LV",	/* Latvian	Latvia */
     "mg_MG",	/* Malagasy	Madagascar */
     "mk_MK",	/* Macedonian	Macedonia */
@@ -566,6 +577,7 @@ catalogname_for_locale (const char *locale)
     "nn_NO",	/* Norwegian Nynorsk	Norway */
     "no_NO",	/* Norwegian	Norway */
     "oc_FR",	/* Occitan	France */
+    "oj_CA",	/* Ojibwa	Canada */
     "or_IN",	/* Oriya	India */
     "pa_IN",	/* Punjabi	India */
     "pl_PL",	/* Polish	Poland */
@@ -596,6 +608,7 @@ catalogname_for_locale (const char *locale)
     "uk_UA",	/* Ukrainian	Ukraine */
     "ur_PK",	/* Urdu		Pakistan */
     "uz_UZ",	/* Uzbek	Uzbekistan */
+    "ve_ZA",	/* Venda	South Africa */
     "vi_VN",	/* Vietnamese	Vietnam */
     "wa_BE",	/* Walloon	Belgium */
     "wen_DE"	/* Sorbian	Germany */
@@ -723,10 +736,12 @@ englishname_of_language ()
     { "ab", "Abkhazian" },
     { "ae", "Avestan" },
     { "af", "Afrikaans" },
+    { "ak", "Akan" },
     { "am", "Amharic" },
     { "an", "Aragonese" },
     { "ar", "Arabic" },
     { "as", "Assamese" },
+    { "av", "Avaric" },
     { "ay", "Aymara" },
     { "az", "Azerbaijani" },
     { "ba", "Bashkir" },
@@ -734,6 +749,7 @@ englishname_of_language ()
     { "bg", "Bulgarian" },
     { "bh", "Bihari" },
     { "bi", "Bislama" },
+    { "bm", "Bambara" },
     { "bn", "Bengali" },
     { "bo", "Tibetan" },
     { "br", "Breton" },
@@ -742,13 +758,16 @@ englishname_of_language ()
     { "ce", "Chechen" },
     { "ch", "Chamorro" },
     { "co", "Corsican" },
+    { "cr", "Cree" },
     { "cs", "Czech" },
     { "cu", "Church Slavic" },
     { "cv", "Chuvash" },
     { "cy", "Welsh" },
     { "da", "Danish" },
     { "de", "German" },
+    { "dv", "Divehi" },
     { "dz", "Dzongkha" },
+    { "ee", "Ewe" },
     { "el", "Greek" },
     { "en", "English" },
     { "eo", "Esperanto" },
@@ -756,6 +775,7 @@ englishname_of_language ()
     { "et", "Estonian" },
     { "eu", "Basque" },
     { "fa", "Persian" },
+    { "ff", "Fulah" },
     { "fi", "Finnish" },
     { "fj", "Fijian" },
     { "fo", "Faroese" },
@@ -779,6 +799,7 @@ englishname_of_language ()
     { "ia", "Interlingua" },
     { "id", "Indonesian" },
     { "ie", "Interlingue" },
+    { "ig", "Igbo" },
     { "ii", "Sichuan Yi" },
     { "ik", "Inupiak" },
     { "is", "Icelandic" },
@@ -787,6 +808,7 @@ englishname_of_language ()
     { "ja", "Japanese" },
     { "jw", "Javanese" },
     { "ka", "Georgian" },
+    { "kg", "Kongo" },
     { "ki", "Kikuyu" },
     { "kj", "Kuanyama" },
     { "kk", "Kazakh" },
@@ -794,6 +816,7 @@ englishname_of_language ()
     { "km", "Khmer" },
     { "kn", "Kannada" },
     { "ko", "Korean" },
+    { "kr", "Kanuri" },
     { "ks", "Kashmiri" },
     { "ku", "Kurdish" },
     { "kv", "Komi" },
@@ -802,10 +825,12 @@ englishname_of_language ()
     { "kok", "Konkani" },
     { "la", "Latin" },
     { "lb", "Letzeburgesch" },
+    { "lg", "Ganda" },
     { "li", "Limburgish" },
     { "ln", "Lingala" },
     { "lo", "Laotian" },
     { "lt", "Lithuanian" },
+    { "lu", "Luba-Katanga" },
     { "lv", "Latvian" },
     { "mg", "Malagasy" },
     { "mh", "Marshall" },
@@ -831,6 +856,7 @@ englishname_of_language ()
     { "nv", "Navajo" },
     { "ny", "Nyanja" },
     { "oc", "Occitan" },
+    { "oj", "Ojibwa" },
     { "om", "(Afan) Oromo" },
     { "or", "Oriya" },
     { "os", "Ossetian" },
@@ -881,6 +907,7 @@ englishname_of_language ()
     { "uk", "Ukrainian" },
     { "ur", "Urdu" },
     { "uz", "Uzbek" },
+    { "ve", "Venda" },
     { "vi", "Vietnamese" },
     { "vo", "Volapuk" },
     { "wo", "Wolof" },
