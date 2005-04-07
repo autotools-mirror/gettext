@@ -1,3 +1,8 @@
+Version 0.14.4 - April 2005
+
+* The gettext autoconf macros will now work with the forthcoming g++ 4.0.
+* Fix improved detection of the locale on MacOS X.
+
 Version 0.14.2 - January 2005
 
 * Improved detection of the locale on MacOS X.
