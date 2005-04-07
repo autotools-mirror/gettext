@@ -96,7 +96,7 @@ Some points you might be interested in before installing the package:
 1.  If your system's C library already provides the gettext interface
     and its associated tools don't come from this package, it might be
     a good idea to configure the package with
-        --program-prefix=g
+    --program-transform-name='s/^gettext$/g&/;s/^msgfmt$/g&/;s/^xgettext$/g&/'
 
     Systems affected by this are:
         Solaris 2.x
@@ -105,7 +105,7 @@ Some points you might be interested in before installing the package:
     one which comes with xview.  This one is *not* usable.  It's best
     you delete^H^H^H^H^H^Hrename it or install this package as in the
     point above with
-	--program-prefix=g
+    --program-transform-name='s/^gettext$/g&/;s/^msgfmt$/g&/;s/^xgettext$/g&/'
 
 3.  The locale name alias scheme implemented here is in a similar form
     implemented in the X Window System.  Especially the alias data base

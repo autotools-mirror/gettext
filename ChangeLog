@@ -1,3 +1,9 @@
+2005-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* README: Recommend --program-transform-name instead of
+	--program-prefix.
+	Reported by Joel Reicher <joel@panacea.null.org>.
+
 2005-03-22  Bruno Haible  <bruno@clisp.org>
 
 	* m4: New directory, renamed from config/m4/.
