@@ -165,7 +165,7 @@ libintl.la libgnuintl.la: $(OBJECTS)
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
 LTV_CURRENT=7
-LTV_REVISION=2
+LTV_REVISION=3
 LTV_AGE=4
 
 .SUFFIXES:

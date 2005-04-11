@@ -1,3 +1,7 @@
+2005-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 7:3:4.
+
 2005-03-16  Bruno Haible  <bruno@clisp.org>
 
 	Canonicalize locale names on MacOS X.
