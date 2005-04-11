@@ -2,6 +2,11 @@
 
 	* gettext-0.14.4 released.
 
+2005-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* tests/rpath-1, tests/rpath-2_a, tests/rpath-2_b, tests/rpath-3_a:
+	* tests/rpath-3_b, tests/rpathcfg.sh: Use build-aux instead of config.
+
 2005-03-22  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (AC_CONFIG_AUX_DIR): Use ../build-aux.

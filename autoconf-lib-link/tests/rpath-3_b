@@ -4,7 +4,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 builddir=`pwd`
-global_top_auxdir=`cd "$top_srcdir"/config && pwd`
+global_top_auxdir=`cd "$top_srcdir"/build-aux && pwd`
 export global_top_auxdir
 
 test -d tstdir || mkdir tstdir

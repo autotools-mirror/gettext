@@ -10,7 +10,7 @@ echo "--------------- config.rpath output ---------------"
 ${CONFIG_SHELL-/bin/sh} $srcdir/../config.rpath "$host" | sed -e 's/^acl_cv_//'
 echo "--------------- experimentally determined ---------------"
 builddir=`pwd`
-global_top_auxdir=`cd "$top_srcdir"/config && pwd`
+global_top_auxdir=`cd "$top_srcdir"/build-aux && pwd`
 export global_top_auxdir
 
 test -d tstdir || mkdir tstdir
