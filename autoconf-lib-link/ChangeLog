@@ -1,3 +1,7 @@
+2005-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.4 released.
+
 2005-03-22  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (AC_CONFIG_AUX_DIR): Use ../build-aux.
