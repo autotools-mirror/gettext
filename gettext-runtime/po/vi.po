@@ -1,13 +1,13 @@
-#  Vietnamese Translation for gettext-runtime-0.14.2.
-#  Copyright (C) 2005 Free Software Foundation, Inc.
-#  Clytie Siddall <clytie@riverland.net.au>, 2005.
+# Vietnamese Translation for gettext-runtime-0.14.3.
+# Copyright © 2005 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2005.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.2\n"
+"Project-Id-Version: gettext-runtime 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2005-02-26 11:27+0950\n"
+"PO-Revision-Date: 2005-04-06 14:39+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
 "MIME-Version: 1.0\n"
@@ -91,7 +91,7 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"Bản quyền (C) %s Free Software Foundation, Inc.\n"
+"Bản quyền © %s Free Software Foundation, Inc.\n"
 "Phần mềm này tự do; hãy xem mã nguồn để tìm điều kiện sao chép.\n"
 "Không bảo đảm gì cả, dù khả năng bán hay khả năng làm việc dứt khoát.\n"
 
@@ -150,7 +150,7 @@ msgstr "  -h, --help                  hiển thị _trợ giúp_ này rồi tho�
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               xuất thông tin _phiên bản_ rồi thoát\n"
 
-#  Câu có đúng không? Câu dài, phúc tạp.
+# Câu có đúng không? Câu dài, phúc tạp.
 #: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
@@ -201,7 +201,7 @@ msgstr ""
 "hay:    %s [TÙY_CHỌN] -s [MSGID]...\n"
 "TEXTDOMAIN - miền văn bản; MSGID - số thông điệp (chuỗi ngôn ngữ gốc)\n"
 
-#  Trong văn cảnh này, ngôn ngữ "native" của ai?
+# Trong văn cảnh này, ngôn ngữ "native" của ai?
 #: src/gettext.c:250
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"

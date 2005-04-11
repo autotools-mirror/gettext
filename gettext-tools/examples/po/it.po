@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.14.2\n"
+"Project-Id-Version: gettext-examples 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-29 17:39+0100\n"
-"PO-Revision-Date: 2005-03-05 10:28+0000\n"
+"PO-Revision-Date: 2005-04-06 11:53+0100\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Questo programma è in esecuzione con numero di processo %1."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
-msgstr "Esempio di salve mondo"
+msgstr "Esempio di Salve mondo"
 
 #: hello-c++-kde/hello.cc:48
 msgid "Hello world example"

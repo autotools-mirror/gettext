@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.2\n"
+"Project-Id-Version: gettext-runtime 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2005-03-05 10:52+0000\n"
+"PO-Revision-Date: 2005-04-06 11:47+0100\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -131,7 +131,7 @@ msgstr "Sostituisce i valori delle variabili d'ambiente.\n"
 #: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
-msgstr "Modalità operativa:\n"
+msgstr "Modo di operazione:\n"
 
 #: src/envsubst.c:188
 #, c-format, no-wrap
