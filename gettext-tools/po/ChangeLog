@@ -1,3 +1,9 @@
+2005-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* ru.po: Update from Oleg S. Tihonov <ost@tatnipi.ru>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+
 2005-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.3 released.

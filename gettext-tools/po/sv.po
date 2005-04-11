@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003.
-# Revision: 1.12
+# Revision: 1.14
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14-pre1\n"
+"Project-Id-Version: gettext-tools 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-02-12 20:12+0100\n"
-"PO-Revision-Date: 2004-01-23 21:18+0100\n"
+"PO-Revision-Date: 2005-04-10 15:10+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/argmatch.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "invalid argument %s for %s"
-msgstr "ogiltigt argument \"%s\" för \"%s\""
+msgstr "ogiltigt argument %s för %s"
 
 #: lib/argmatch.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument %s for %s"
-msgstr "tvetydigt argument \"%s\" för \"%s\""
+msgstr "tvetydigt argument %s för %s"
 
 #: lib/argmatch.c:157
 #, c-format
@@ -71,15 +71,14 @@ msgid "fdopen() failed"
 msgstr "fdopen() misslyckades"
 
 #: lib/csharpcomp.c:526
-#, fuzzy, c-format
+#, c-format
 msgid "C# compiler not found, try installing pnet"
-msgstr "Javakompilator hittades inte, försök installera gcj eller sätt $JAVAC"
+msgstr "Kompilator för C# hittades inte, försök installera pnet"
 
 #: lib/csharpexec.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "C# virtual machine not found, try installing pnet"
-msgstr ""
-"Virtuell Javamaskin hittades inte, försök installera gij eller sätt $JAVA"
+msgstr "Virtuell maskin för C# hittades inte, försök installera pnet"
 
 #: lib/error.c:121
 msgid "Unknown system error"
@@ -257,9 +256,9 @@ msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "I direktiv nummer %u följs inte \"{\" av ett argumentnummer."
 
 #: src/format-csharp.c:106
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
-msgstr "I direktiv nummer %u följs inte \"{\" av ett argumentnummer."
+msgstr "I direktiv nummer %u följs inte \",\" av ett nummer."
 
 #: src/format-csharp.c:125 src/format-java.c:190
 msgid ""
@@ -268,15 +267,18 @@ msgstr ""
 "Strängen slutar mitt i ett direktiv: hittade \"{\" utan tillhörande \"}\"."
 
 #: src/format-csharp.c:133
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
-msgstr "I direktiv nummer %u är tecknet \"%c\" inte en siffra mellan 1 och 9."
+msgstr ""
+"Direktiv nummer %u avslutas med det ogiltiga tecknet \"%c\" istället för \"}"
+"\"."
 
 #: src/format-csharp.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
-msgstr "I direktiv nummer %u används \"~;\" i en felaktig position."
+msgstr ""
+"Direktiv nummer %u avslutas med ett ogiltigt tecken istället för \"}\"."
 
 #: src/format-csharp.c:152 src/format-java.c:333
 msgid ""
@@ -286,9 +288,9 @@ msgstr ""
 "Strängen startar mitt i ett direktiv: hittade \"}\" utan tillhörande \"{\"."
 
 #: src/format-csharp.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "The string contains a lone '}' after directive number %u."
-msgstr "Strängen avslutas mitt i ett direktiv."
+msgstr "Strängen innehåller ett ensamt \"}\" efter direktiv nummer %u."
 
 #: src/format-gcc-internal.c:202
 #, c-format
@@ -595,7 +597,7 @@ msgstr ""
 
 #: src/gettext-po.c:80
 msgid "<unnamed>"
-msgstr ""
+msgstr "<utan namn>"
 
 #: src/gettext-po.c:98 src/gettext-po.c:141 src/open-po.c:55
 msgid "<stdin>"
@@ -2036,7 +2038,7 @@ msgstr ""
 "mönster eller hör till någon given källkodsfil.\n"
 
 #: src/msggrep.c:502
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -2068,7 +2070,7 @@ msgid ""
 msgstr ""
 "Meddelandeval:\n"
 "  [-N KÄLLKODSFIL]... [-M DOMÄNNAMN]...\n"
-"   [-K MSGID-MÖNSTER] [-T MSGSTR-MÖNSTER] [-C KOMMENTARSMÖNSTER]\n"
+"  [-K MSGID-MÖNSTER] [-T MSGSTR-MÖNSTER] [-C KOMMENTARSMÖNSTER]\n"
 "Ett meddelande väljs om det kommer från en av de angivna källkodsfilerna,\n"
 "eller om det kommer från en av de angivna domänerna,\n"
 "eller om -K ges och nyckeln (msgid eller msgid_plural) matchar MSGID-MÖNSTER,\n"
@@ -2078,7 +2080,7 @@ msgstr ""
 "När fler än ett utvalskriteria anges är mängden valda meddelanden unionen\n"
 "av utvalda meddelanden för varje enskilt kriteria.\n"
 "\n"
-"Syntax för MSGID-MÖNSTER eller MSGSTR-MÖNSTER:\n"
+"Syntax för MSGID-MÖNSTER eller MSGSTR-MÖNSTER eller KOMMENTARSMÖNSTER:\n"
 "  [-E | -F] [-e MÖNSTER | -f FIL]...\n"
 "MÖNSTER är normala reguljära uttryck\n"
 "eller utökade reguljära uttryck om -E ges\n"
@@ -2916,9 +2918,9 @@ msgid "cannot create a temporary directory using template \"%s\""
 msgstr "kan inte skapa temporärkatalog med mallen \"%s\""
 
 #: src/write-csharp.c:726
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create directory \"%s\""
-msgstr "misslyckades med att skapa \"%s\""
+msgstr "misslyckades med att skapa katalogen \"%s\""
 
 #: src/write-csharp.c:761 src/write-java.c:1063 src/write-java.c:1076
 #, c-format
@@ -2932,10 +2934,9 @@ msgid "error while writing \"%s\" file"
 msgstr "fel vid skrivning till filen \"%s\""
 
 #: src/write-csharp.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "compilation of C# class failed, please try --verbose"
-msgstr ""
-"kompilering av Javaklass misslyckades, försök med --verbose eller sätt $JAVAC"
+msgstr "kompilering av C# klass misslyckades, försök med --verbose"
 
 #: src/write-java.c:1005
 #, c-format
@@ -3040,18 +3041,17 @@ msgstr ""
 "översatta strängarna, inte i de oöversatta strängarna\n"
 
 #: src/write-resources.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "error while writing to %s subprocess"
-msgstr "fel vid skrivning till filen \"%s\""
+msgstr "fel vid skrivning till subprocess %s"
 
 #: src/write-resources.c:132
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
 msgstr ""
 "meddelandekatalog har översättningar med pluralformer, men formatet för\n"
-"Qt-meddelandekataloger stöder inte pluralhantering\n"
+"C# .resources stöder inte pluralhantering\n"
 
 #: src/write-tcl.c:158
 msgid ""
@@ -3091,54 +3091,57 @@ msgstr ""
 "Ange källkodning med --from-code.\n"
 
 #: src/x-csharp.c:260
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+"%s:%d: Ogiltig multibytesekvens.\n"
+"Ange korrekt källkodning med --from-code.\n"
 
 #: src/x-csharp.c:276
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+"%s:%d: Lång ogiltig multibytesekvens.\n"
+"Ange korrekt källkodning med --from-code.\n"
+"\n"
 
 #: src/x-csharp.c:288
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+"%s:%d: Ofullständig multibytesekvens vid filslut.\n"
+"Ange korrekt källkodning med --from-code.\n"
+"\n"
 
 #: src/x-csharp.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+"%s:%d: Ofullständig multibytesekvens vid radslut.\n"
+"Ange korrekt källkodning med --from-code.\n"
 
 #: src/x-csharp.c:306
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: iconv failure"
-msgstr "iconv misslyckades"
+msgstr "%s:%d: iconv misslyckades"
 
 #: src/x-csharp.c:329
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+"%s:%d: Ogiltig multibytesekvens.\n"
+"Ange korrekt källkodning med --from-code.\n"
+"\n"
 
 #: src/x-csharp.c:1379 src/x-python.c:596
 #, c-format
@@ -3285,7 +3288,7 @@ msgid "Choice of input file language:\n"
 msgstr "Språkval i infiler:\n"
 
 #: src/xgettext.c:759
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3295,13 +3298,13 @@ msgid ""
 "PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
 msgstr ""
-"  -L, --language=NAMN          känn igen angivet språk\n"
-"                                 (C, C++, ObjectiveC, PO, Shell, Python, "
+"  -L, --language=NAMN         känn igen angivet språk\n"
+"                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
-"                                 EmacsLisp, librep, Smalltalk, Java,\n"
-"                                 JavaProperties, C#, awk, YCP, Tcl, Perl, "
+"                                EmacsLisp, librep, Scheme, Smalltalk, Java,\n"
+"                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
 "PHP,\n"
-"                                 GCC-source, NXStringTable, RST, Glade)\n"
+"                                GCC-source, NXStringTable, RST, Glade)\n"
 
 #: src/xgettext.c:765
 #, c-format
@@ -3360,17 +3363,17 @@ msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           extrahera alla strängar\n"
 
 #: src/xgettext.c:792 src/xgettext.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 "Java,\n"
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
-"                                 (bara språken C, C++, ObjectiveC, Shell,\n"
-"                                 Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk\n"
-"                                 Tcl, Perl, PHP, GCC-source, Glade)\n"
+"                                (bara språken C, C++, ObjectiveC, Shell,\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:796
 #, c-format
@@ -3393,17 +3396,17 @@ msgstr ""
 "                              nummer NR för nyckelord ORD\n"
 
 #: src/xgettext.c:806
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 "Java,\n"
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
-"                                 (bara språken C, C++, ObjectiveC, Shell,\n"
-"                                 Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk,\n"
-"                                 YCP, Tcl, Perl, PHP, GCC-source)\n"
+"                                (bara språken C, C++, ObjectiveC, Shell,\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 
 #: src/xgettext.c:810
 #, c-format
@@ -3574,6 +3577,3 @@ msgstr "Kunde inte hitta något om din e-postadress."
 #: src/user-email.sh.in:397
 msgid "Please enter your email address."
 msgstr "Skriv in din e-postadress."
-
-#~ msgid "write to grep subprocess failed"
-#~ msgstr "skrivning till grep barnprocess misslyckades"
