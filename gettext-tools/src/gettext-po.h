@@ -29,7 +29,7 @@ extern "C" {
 /* =========================== Meta Information ============================ */
 
 /* Version number: (major<<16) + (minor<<8) + subminor */
-#define LIBGETTEXTPO_VERSION 0x000E03
+#define LIBGETTEXTPO_VERSION 0x000E04
 extern int libgettextpo_version;
 
 /* ================================= Types ================================= */

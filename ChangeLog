@@ -1,3 +1,7 @@
+2005-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* version.sh: Bump version number to 0.14.4.
+
 2005-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* README: Recommend --program-transform-name instead of
