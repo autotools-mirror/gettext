@@ -48,3 +48,5 @@ Things we plan to do. Comments welcome.
     - which files are explicitly not i18n (e.g. generated files like
       src/po-gram-gen.c)
 
+- AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/version.sh'])
+
