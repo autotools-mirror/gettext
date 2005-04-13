@@ -37,22 +37,25 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(am__configure_deps) \
-	$(srcdir)/../config/config.guess \
-	$(srcdir)/../config/config.sub $(srcdir)/../config/install-sh \
-	$(srcdir)/../config/ltmain.sh $(srcdir)/../config/missing \
-	$(srcdir)/../config/mkinstalldirs $(srcdir)/Makefile.am \
+	$(srcdir)/../build-aux/config.guess \
+	$(srcdir)/../build-aux/config.sub \
+	$(srcdir)/../build-aux/install-sh \
+	$(srcdir)/../build-aux/ltmain.sh \
+	$(srcdir)/../build-aux/missing \
+	$(srcdir)/../build-aux/mkinstalldirs $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(top_srcdir)/configure $(top_srcdir)/intl/Makefile.in \
-	../config/compile ../config/config.guess \
-	../config/config.rpath ../config/config.sub \
-	../config/elisp-comp ../config/install-sh ../config/ltmain.sh \
-	../config/mdate-sh ../config/missing ../config/mkinstalldirs \
-	../config/texinfo.tex ../config/ylwrap ABOUT-NLS AUTHORS \
+	../build-aux/compile ../build-aux/config.guess \
+	../build-aux/config.rpath ../build-aux/config.sub \
+	../build-aux/elisp-comp ../build-aux/install-sh \
+	../build-aux/ltmain.sh ../build-aux/mdate-sh \
+	../build-aux/missing ../build-aux/mkinstalldirs \
+	../build-aux/texinfo.tex ../build-aux/ylwrap ABOUT-NLS AUTHORS \
 	COPYING ChangeLog INSTALL NEWS
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-ld.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-link.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-prefix.m4 \
@@ -96,7 +99,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = intl/Makefile
 depcomp =
@@ -296,7 +299,7 @@ subdirs = @subdirs@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../config/m4
+ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../m4
 SUBDIRS = doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4
 DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4
 EXTRA_DIST = BUGS Makefile.vms config.h_vms README.woe32 Makefile.msvc \
@@ -524,7 +527,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/../autoconf-lib-link/m4 $(distdir)/../config $(distdir)/../config/m4 $(distdir)/../gettext-tools/lib $(distdir)/../gettext-tools/m4 $(distdir)/intl $(distdir)/m4 $(distdir)/man $(distdir)/po $(distdir)/src $(distdir)/windows
+	$(mkdir_p) $(distdir)/../autoconf-lib-link/m4 $(distdir)/../build-aux $(distdir)/../gettext-tools/lib $(distdir)/../gettext-tools/m4 $(distdir)/../m4 $(distdir)/intl $(distdir)/m4 $(distdir)/man $(distdir)/po $(distdir)/src $(distdir)/windows
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

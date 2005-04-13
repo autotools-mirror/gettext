@@ -41,8 +41,8 @@ DIST_COMMON = $(gettext_TEXINFOS) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/stamp-vti \
 	$(srcdir)/version.texi ChangeLog
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-ld.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-link.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-prefix.m4 \
@@ -102,14 +102,14 @@ am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
 DIST_SOURCES =
 INFO_DEPS = $(srcdir)/gettext.info
-TEXINFO_TEX = $(top_srcdir)/../config/texinfo.tex
-am__TEXINFO_TEX_DIR = $(top_srcdir)/../config
+TEXINFO_TEX = $(top_srcdir)/../build-aux/texinfo.tex
+am__TEXINFO_TEX_DIR = $(top_srcdir)/../build-aux
 DVIS = gettext.dvi
 PDFS = gettext.pdf
 PSS = gettext.ps
@@ -733,7 +733,7 @@ iso-3166.texi: ISO_3166 iso-3166.sed
 # by automake.
 $(srcdir)/stamp-vti: $(info_TEXINFOS) $(gettext_TEXINFOS) $(top_srcdir)/../version.sh
 	(dir=.; test -f ./gettext.texi || dir=$(srcdir); \
-	set `$(SHELL) $(top_srcdir)/../config/mdate-sh $$dir/gettext.texi`; \
+	set `$(SHELL) $(top_srcdir)/../build-aux/mdate-sh $$dir/gettext.texi`; \
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \

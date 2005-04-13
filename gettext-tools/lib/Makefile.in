@@ -51,8 +51,8 @@ DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
 	strcspn.c strerror.c strncasecmp.c strpbrk.c strstr.c \
 	strtoul.c unsetenv.c vasprintf.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-ld.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-link.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-prefix.m4 \
@@ -112,7 +112,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES = javacomp.sh javaexec.sh csharpcomp.sh \
 	csharpexec.sh
@@ -123,7 +123,8 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(libdir)" \
-	"$(DESTDIR)$(examplesconfigdir)" "$(DESTDIR)$(gettextsrcdir)"
+	"$(DESTDIR)$(examplesbuildauxdir)" \
+	"$(DESTDIR)$(gettextsrcdir)"
 libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libgettextlib_la_DEPENDENCIES = @LTLIBOBJS@
@@ -152,9 +153,9 @@ LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(libgettextlib_la_SOURCES)
 DIST_SOURCES = $(libgettextlib_la_SOURCES)
-examplesconfigDATA_INSTALL = $(INSTALL_DATA)
+examplesbuildauxDATA_INSTALL = $(INSTALL_DATA)
 gettextsrcDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(examplesconfig_DATA) $(gettextsrc_DATA)
+DATA = $(examplesbuildaux_DATA) $(gettextsrc_DATA)
 HEADERS = $(noinst_HEADERS)
 ETAGS = etags
 CTAGS = ctags
@@ -460,8 +461,8 @@ libgettextlib_la_LDFLAGS = \
 # Extra files to be installed.
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = gettext.h
-examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = \
+examplesbuildauxdir = $(docdir)/examples/build-aux
+examplesbuildaux_DATA = \
   javacomp.sh.in javaexec.sh.in \
   csharpcomp.sh.in csharpexec.sh.in
 
@@ -567,22 +568,22 @@ clean-libtool:
 distclean-libtool:
 	-rm -f libtool
 uninstall-info-am:
-install-examplesconfigDATA: $(examplesconfig_DATA)
+install-examplesbuildauxDATA: $(examplesbuildaux_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(examplesconfigdir)" || $(mkdir_p) "$(DESTDIR)$(examplesconfigdir)"
-	@list='$(examplesconfig_DATA)'; for p in $$list; do \
+	test -z "$(examplesbuildauxdir)" || $(mkdir_p) "$(DESTDIR)$(examplesbuildauxdir)"
+	@list='$(examplesbuildaux_DATA)'; for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  f=$(am__strip_dir) \
-	  echo " $(examplesconfigDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(examplesconfigdir)/$$f'"; \
-	  $(examplesconfigDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(examplesconfigdir)/$$f"; \
+	  echo " $(examplesbuildauxDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(examplesbuildauxdir)/$$f'"; \
+	  $(examplesbuildauxDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(examplesbuildauxdir)/$$f"; \
 	done
 
-uninstall-examplesconfigDATA:
+uninstall-examplesbuildauxDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(examplesconfig_DATA)'; for p in $$list; do \
+	@list='$(examplesbuildaux_DATA)'; for p in $$list; do \
 	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(examplesconfigdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(examplesconfigdir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(examplesbuildauxdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(examplesbuildauxdir)/$$f"; \
 	done
 install-gettextsrcDATA: $(gettextsrc_DATA)
 	@$(NORMAL_INSTALL)
@@ -682,7 +683,7 @@ check: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(LTLIBRARIES) $(DATA) $(HEADERS) all-local
 installdirs:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(examplesconfigdir)" "$(DESTDIR)$(gettextsrcdir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(examplesbuildauxdir)" "$(DESTDIR)$(gettextsrcdir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: $(BUILT_SOURCES)
@@ -734,7 +735,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-examplesconfigDATA install-gettextsrcDATA
+install-data-am: install-examplesbuildauxDATA install-gettextsrcDATA
 
 install-exec-am: install-exec-local install-libLTLIBRARIES
 
@@ -761,7 +762,7 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-examplesconfigDATA uninstall-gettextsrcDATA \
+uninstall-am: uninstall-examplesbuildauxDATA uninstall-gettextsrcDATA \
 	uninstall-info-am uninstall-libLTLIBRARIES uninstall-local
 
 .PHONY: CTAGS GTAGS all all-am all-local check check-am clean \
@@ -769,14 +770,14 @@ uninstall-am: uninstall-examplesconfigDATA uninstall-gettextsrcDATA \
 	distclean distclean-compile distclean-generic \
 	distclean-libtool distclean-tags distdir dvi dvi-am html \
 	html-am info info-am install install-am install-data \
-	install-data-am install-examplesconfigDATA install-exec \
+	install-data-am install-examplesbuildauxDATA install-exec \
 	install-exec-am install-exec-local install-gettextsrcDATA \
 	install-info install-info-am install-libLTLIBRARIES \
 	install-man install-strip installcheck installcheck-am \
 	installdirs maintainer-clean maintainer-clean-generic \
 	mostlyclean mostlyclean-compile mostlyclean-generic \
 	mostlyclean-libtool pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-examplesconfigDATA \
+	uninstall-am uninstall-examplesbuildauxDATA \
 	uninstall-gettextsrcDATA uninstall-info-am \
 	uninstall-libLTLIBRARIES uninstall-local
 

@@ -42,8 +42,8 @@ subdir = m4
 DIST_COMMON = README $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	ChangeLog
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-ld.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-link.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-prefix.m4 \
@@ -103,7 +103,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =
@@ -115,10 +115,10 @@ am__vpath_adj = case $$p in \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
 am__installdirs = "$(DESTDIR)$(aclocaldir)" \
-	"$(DESTDIR)$(examplesconfigdir)"
+	"$(DESTDIR)$(examplesbuildauxdir)"
 aclocalDATA_INSTALL = $(INSTALL_DATA)
-examplesconfigDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(aclocal_DATA) $(examplesconfig_DATA)
+examplesbuildauxDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(aclocal_DATA) $(examplesbuildaux_DATA)
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 ALLOCA = @ALLOCA@
@@ -351,8 +351,8 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/wint_t.m4 \
   ../../gettext-runtime/m4/xsize.m4
 
-examplesconfigdir = $(docdir)/examples/config
-examplesconfig_DATA = \
+examplesbuildauxdir = $(docdir)/examples/build-aux
+examplesbuildaux_DATA = \
   gcj.m4 javacomp.m4 javaexec.m4 \
   csharpcomp.m4 csharpexec.m4
 
@@ -473,22 +473,22 @@ uninstall-aclocalDATA:
 	  echo " rm -f '$(DESTDIR)$(aclocaldir)/$$f'"; \
 	  rm -f "$(DESTDIR)$(aclocaldir)/$$f"; \
 	done
-install-examplesconfigDATA: $(examplesconfig_DATA)
+install-examplesbuildauxDATA: $(examplesbuildaux_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(examplesconfigdir)" || $(mkdir_p) "$(DESTDIR)$(examplesconfigdir)"
-	@list='$(examplesconfig_DATA)'; for p in $$list; do \
+	test -z "$(examplesbuildauxdir)" || $(mkdir_p) "$(DESTDIR)$(examplesbuildauxdir)"
+	@list='$(examplesbuildaux_DATA)'; for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  f=$(am__strip_dir) \
-	  echo " $(examplesconfigDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(examplesconfigdir)/$$f'"; \
-	  $(examplesconfigDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(examplesconfigdir)/$$f"; \
+	  echo " $(examplesbuildauxDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(examplesbuildauxdir)/$$f'"; \
+	  $(examplesbuildauxDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(examplesbuildauxdir)/$$f"; \
 	done
 
-uninstall-examplesconfigDATA:
+uninstall-examplesbuildauxDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(examplesconfig_DATA)'; for p in $$list; do \
+	@list='$(examplesbuildaux_DATA)'; for p in $$list; do \
 	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(examplesconfigdir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(examplesconfigdir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(examplesbuildauxdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(examplesbuildauxdir)/$$f"; \
 	done
 tags: TAGS
 TAGS:
@@ -528,7 +528,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(aclocaldir)" "$(DESTDIR)$(examplesconfigdir)"; do \
+	for dir in "$(DESTDIR)$(aclocaldir)" "$(DESTDIR)$(examplesbuildauxdir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: install-am
@@ -573,7 +573,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-aclocalDATA install-examplesconfigDATA
+install-data-am: install-aclocalDATA install-examplesbuildauxDATA
 
 install-exec-am:
 
@@ -599,20 +599,20 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-aclocalDATA uninstall-examplesconfigDATA \
+uninstall-am: uninstall-aclocalDATA uninstall-examplesbuildauxDATA \
 	uninstall-info-am
 
 .PHONY: all all-am check check-am clean clean-generic clean-libtool \
 	distclean distclean-generic distclean-libtool distdir dvi \
 	dvi-am html html-am info info-am install install-aclocalDATA \
 	install-am install-data install-data-am \
-	install-examplesconfigDATA install-exec install-exec-am \
+	install-examplesbuildauxDATA install-exec install-exec-am \
 	install-info install-info-am install-man install-strip \
 	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic \
 	mostlyclean-libtool pdf pdf-am ps ps-am uninstall \
 	uninstall-aclocalDATA uninstall-am \
-	uninstall-examplesconfigDATA uninstall-info-am
+	uninstall-examplesbuildauxDATA uninstall-info-am
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

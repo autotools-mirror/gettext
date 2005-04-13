@@ -1533,7 +1533,7 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 ac_aux_dir=
-for ac_dir in ../config $srcdir/../config; do
+for ac_dir in ../build-aux $srcdir/../build-aux; do
   if test -f $ac_dir/install-sh; then
     ac_aux_dir=$ac_dir
     ac_install_sh="$ac_aux_dir/install-sh -c"
@@ -1549,8 +1549,8 @@ for ac_dir in ../config $srcdir/../config; do
   fi
 done
 if test -z "$ac_aux_dir"; then
-  { { echo "$as_me:$LINENO: error: cannot find install-sh or install.sh in ../config $srcdir/../config" >&5
-echo "$as_me: error: cannot find install-sh or install.sh in ../config $srcdir/../config" >&2;}
+  { { echo "$as_me:$LINENO: error: cannot find install-sh or install.sh in ../build-aux $srcdir/../build-aux" >&5
+echo "$as_me: error: cannot find install-sh or install.sh in ../build-aux $srcdir/../build-aux" >&2;}
    { (exit 1); exit 1; }; }
 fi
 ac_config_guess="$SHELL $ac_aux_dir/config.guess"
@@ -38490,7 +38490,7 @@ int
 main ()
 {
 bindtextdomain ("", "");
-return (int) gettext ("") + (int) ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_domain_bindings
+return * gettext ("") + * ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_domain_bindings
   ;
   return 0;
 }
@@ -38936,7 +38936,7 @@ int
 main ()
 {
 bindtextdomain ("", "");
-return (int) gettext ("") + (int) ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_expand_alias ("")
+return * gettext ("") + * ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_expand_alias ("")
   ;
   return 0;
 }
@@ -38991,7 +38991,7 @@ int
 main ()
 {
 bindtextdomain ("", "");
-return (int) gettext ("") + (int) ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_expand_alias ("")
+return * gettext ("") + * ngettext ("", "", 0) + _nl_msg_cat_cntr + *_nl_expand_alias ("")
   ;
   return 0;
 }

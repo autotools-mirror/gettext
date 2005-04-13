@@ -36,27 +36,29 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(am__configure_deps) \
-	$(srcdir)/../config/config.guess \
-	$(srcdir)/../config/config.sub $(srcdir)/../config/install-sh \
-	$(srcdir)/../config/ltmain.sh $(srcdir)/../config/missing \
-	$(srcdir)/../config/mkinstalldirs $(srcdir)/Makefile.am \
+	$(srcdir)/../build-aux/config.guess \
+	$(srcdir)/../build-aux/config.sub \
+	$(srcdir)/../build-aux/install-sh \
+	$(srcdir)/../build-aux/ltmain.sh \
+	$(srcdir)/../build-aux/missing \
+	$(srcdir)/../build-aux/mkinstalldirs $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure \
-	../config/compile ../config/config.guess \
-	../config/config.rpath ../config/config.sub \
-	../config/elisp-comp ../config/install-sh ../config/ltmain.sh \
-	../config/mdate-sh ../config/missing ../config/mkinstalldirs \
-	../config/texinfo.tex ../config/ylwrap AUTHORS COPYING \
+	../build-aux/compile ../build-aux/config.guess \
+	../build-aux/config.rpath ../build-aux/config.sub \
+	../build-aux/elisp-comp ../build-aux/install-sh \
+	../build-aux/ltmain.sh ../build-aux/mdate-sh \
+	../build-aux/missing ../build-aux/mkinstalldirs \
+	../build-aux/texinfo.tex ../build-aux/ylwrap AUTHORS COPYING \
 	ChangeLog INSTALL NEWS config.rpath
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_CLEAN_FILES =
 depcomp =
 am__depfiles_maybe =
@@ -189,11 +191,12 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 with_gnu_ld = @with_gnu_ld@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../config/m4
+ACLOCAL_AMFLAGS = -I m4 -I ../m4
 EXTRA_DIST = config.rpath
-DISTCLEANFILES = config/config.guess config/config.sub \
-	config/install-sh config/ltmain.sh config/mkinstalldirs \
-	config/missing config/config.rpath
+DISTCLEANFILES = build-aux/config.guess build-aux/config.sub \
+	build-aux/install-sh build-aux/ltmain.sh \
+	build-aux/mkinstalldirs build-aux/missing \
+	build-aux/config.rpath
 SUBDIRS = m4 tests
 
 # Subdirectories with separate autoconfiguration.
@@ -388,7 +391,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/../config $(distdir)/../config/m4
+	$(mkdir_p) $(distdir)/../build-aux $(distdir)/../m4
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
@@ -628,10 +631,10 @@ uninstall-info: uninstall-info-recursive
 # We want to maintain only one copy of config.rpath. The one in this directory
 # is the source.
 
-all-local: $(srcdir)/../config/config.rpath
+all-local: $(srcdir)/../build-aux/config.rpath
 
-$(srcdir)/../config/config.rpath: $(srcdir)/config.rpath
-	cp $(srcdir)/config.rpath $(srcdir)/../config/config.rpath
+$(srcdir)/../build-aux/config.rpath: $(srcdir)/config.rpath
+	cp $(srcdir)/config.rpath $(srcdir)/../build-aux/config.rpath
 
 # The AC_CONFIG_AUX_DIR argument in the tests/rpath*/configure.ac files is
 # interpreted in two different contexts:
@@ -639,54 +642,54 @@ $(srcdir)/../config/config.rpath: $(srcdir)/config.rpath
 #      SRCDIR/tests/rpath*/,
 #   2. at "make check" time, when the directory is copied and configured,
 #      relative to BUILDDIR/tests/tstdir/rp-*/.
-# We choose this argument to be '../../../config', for case 1, and therefore
-# we need to make a local copy of the config directory, for case 2.
+# We choose this argument to be '../../../build-aux', for case 1, and therefore
+# we need to make a local copy of the build-aux directory, for case 2.
 
-all-local: config/config.guess config/config.sub config/install-sh config/ltmain.sh config/mkinstalldirs config/missing config/config.rpath
+all-local: build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/mkinstalldirs build-aux/missing build-aux/config.rpath
 
-config-dir:
-	test -d config || mkdir config
-	touch config-dir
+build-aux-dir:
+	test -d build-aux || mkdir build-aux
+	touch build-aux-dir
 
-config/config.guess: $(srcdir)/../config/config.guess config-dir
-	cp $(srcdir)/../config/config.guess config/config.guess
+build-aux/config.guess: $(srcdir)/../build-aux/config.guess build-aux-dir
+	cp $(srcdir)/../build-aux/config.guess build-aux/config.guess
 
-config/config.sub: $(srcdir)/../config/config.sub config-dir
-	cp $(srcdir)/../config/config.sub config/config.sub
+build-aux/config.sub: $(srcdir)/../build-aux/config.sub build-aux-dir
+	cp $(srcdir)/../build-aux/config.sub build-aux/config.sub
 
-config/install-sh: $(srcdir)/../config/install-sh config-dir
-	cp $(srcdir)/../config/install-sh config/install-sh
+build-aux/install-sh: $(srcdir)/../build-aux/install-sh build-aux-dir
+	cp $(srcdir)/../build-aux/install-sh build-aux/install-sh
 
-config/ltmain.sh: $(srcdir)/../config/ltmain.sh config-dir
-	cp $(srcdir)/../config/ltmain.sh config/ltmain.sh
+build-aux/ltmain.sh: $(srcdir)/../build-aux/ltmain.sh build-aux-dir
+	cp $(srcdir)/../build-aux/ltmain.sh build-aux/ltmain.sh
 
-config/mkinstalldirs: $(srcdir)/../config/mkinstalldirs config-dir
-	cp $(srcdir)/../config/mkinstalldirs config/mkinstalldirs
+build-aux/mkinstalldirs: $(srcdir)/../build-aux/mkinstalldirs build-aux-dir
+	cp $(srcdir)/../build-aux/mkinstalldirs build-aux/mkinstalldirs
 
-config/missing: $(srcdir)/../config/missing config-dir
-	cp $(srcdir)/../config/missing config/missing
+build-aux/missing: $(srcdir)/../build-aux/missing build-aux-dir
+	cp $(srcdir)/../build-aux/missing build-aux/missing
 
-config/config.rpath: $(srcdir)/config.rpath config-dir
-	cp $(srcdir)/config.rpath config/config.rpath
+build-aux/config.rpath: $(srcdir)/config.rpath build-aux-dir
+	cp $(srcdir)/config.rpath build-aux/config.rpath
 
 distclean-local:
-	rm -rf config config-dir
+	rm -rf build-aux build-aux-dir
 $(srcdir)/tests/rpathx/Makefile.in: $(srcdir)/tests/rpathx/Makefile.am $(srcdir)/tests/rpathx/configure.ac $(srcdir)/tests/rpathx/aclocal.m4
 	cd $(srcdir)/tests/rpathx && automake Makefile
-$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/../config/m4/libtool.m4
-	cd $(srcdir)/tests/rpathx && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathx/aclocal.m4: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/../m4/libtool.m4
+	cd $(srcdir)/tests/rpathx && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathx/configure: $(srcdir)/tests/rpathx/configure.ac $(srcdir)/tests/rpathx/aclocal.m4
 	cd $(srcdir)/tests/rpathx && autoconf
 $(srcdir)/tests/rpathy/Makefile.in: $(srcdir)/tests/rpathy/Makefile.am $(srcdir)/tests/rpathy/configure.ac $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && automake Makefile
-$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/../config/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathy && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathy/aclocal.m4: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/../m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathy && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathy/configure: $(srcdir)/tests/rpathy/configure.ac $(srcdir)/tests/rpathy/aclocal.m4
 	cd $(srcdir)/tests/rpathy && autoconf
 $(srcdir)/tests/rpathz/Makefile.in: $(srcdir)/tests/rpathz/Makefile.am $(srcdir)/tests/rpathz/configure.ac $(srcdir)/tests/rpathz/aclocal.m4
 	cd $(srcdir)/tests/rpathz && automake Makefile
-$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/../config/m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
-	cd $(srcdir)/tests/rpathz && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../config/m4 && pwd`
+$(srcdir)/tests/rpathz/aclocal.m4: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/../m4/libtool.m4 $(srcdir)/m4/lib-link.m4 $(srcdir)/m4/lib-prefix.m4 $(srcdir)/m4/lib-ld.m4
+	cd $(srcdir)/tests/rpathz && aclocal -I `cd ../../m4 && pwd` -I `cd ../../../m4 && pwd`
 $(srcdir)/tests/rpathz/configure: $(srcdir)/tests/rpathz/configure.ac $(srcdir)/tests/rpathz/aclocal.m4
 	cd $(srcdir)/tests/rpathz && autoconf
 $(srcdir)/tests/rpathlx/Makefile.in: $(srcdir)/tests/rpathlx/Makefile.am $(srcdir)/tests/rpathlx/configure.ac $(srcdir)/tests/rpathlx/aclocal.m4

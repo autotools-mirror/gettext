@@ -37,11 +37,11 @@ build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(top_srcdir)/configure AUTHORS COPYING \
-	ChangeLog INSTALL NEWS THANKS config/compile \
-	config/config.guess config/config.rpath config/config.sub \
-	config/elisp-comp config/install-sh config/ltmain.sh \
-	config/mdate-sh config/missing config/mkinstalldirs \
-	config/texinfo.tex config/ylwrap
+	ChangeLog INSTALL NEWS THANKS build-aux/compile \
+	build-aux/config.guess build-aux/config.rpath \
+	build-aux/config.sub build-aux/elisp-comp build-aux/install-sh \
+	build-aux/ltmain.sh build-aux/mdate-sh build-aux/missing \
+	build-aux/mkinstalldirs build-aux/texinfo.tex build-aux/ylwrap
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -49,7 +49,7 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
-mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/build-aux/mkinstalldirs
 CONFIG_CLEAN_FILES =
 depcomp =
 am__depfiles_maybe =
@@ -163,9 +163,9 @@ SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
 
 # Woe32 support.
 EXTRA_DIST = version.sh PACKAGING ChangeLog.0 autogen.sh \
-	config/config.libpath config/reloc-ldflags \
-	config/install-reloc config/ac-help.sed \
-	config/m4/fixautomake.m4 config/m4/libtool.m4 djgpp/COPYING.DJ \
+	build-aux/config.libpath build-aux/reloc-ldflags \
+	build-aux/install-reloc build-aux/ac-help.sed \
+	m4/fixautomake.m4 m4/libtool.m4 djgpp/COPYING.DJ \
 	djgpp/Makefile.maint djgpp/README.DJ djgpp/README.in \
 	djgpp/README djgpp/config.bat djgpp/config.in djgpp/config.sed \
 	djgpp/config.site djgpp/djpwd.h djgpp/edtests.bat \
@@ -348,7 +348,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/config $(distdir)/config/m4 $(distdir)/djgpp $(distdir)/os2 $(distdir)/vms
+	$(mkdir_p) $(distdir)/build-aux $(distdir)/djgpp $(distdir)/m4 $(distdir)/os2 $(distdir)/vms
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

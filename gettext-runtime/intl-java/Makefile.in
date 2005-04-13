@@ -38,8 +38,8 @@ host_triplet = @host@
 subdir = intl-java
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in ChangeLog
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../config/m4/libtool.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
+	$(top_srcdir)/../m4/libtool.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-ld.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-link.m4 \
 	$(top_srcdir)/../autoconf-lib-link/m4/lib-prefix.m4 \
@@ -81,7 +81,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../config/m4/fixautomake.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../build-aux/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 SOURCES =

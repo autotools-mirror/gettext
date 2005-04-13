@@ -40,21 +40,21 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = README $(am__configure_deps) $(include_HEADERS) \
-	$(srcdir)/../../config/config.guess \
-	$(srcdir)/../../config/config.sub \
-	$(srcdir)/../../config/install-sh \
-	$(srcdir)/../../config/ltmain.sh \
-	$(srcdir)/../../config/missing \
-	$(srcdir)/../../config/mkinstalldirs \
-	$(srcdir)/../../config/texinfo.tex $(srcdir)/Makefile.am \
+	$(srcdir)/../../build-aux/config.guess \
+	$(srcdir)/../../build-aux/config.sub \
+	$(srcdir)/../../build-aux/install-sh \
+	$(srcdir)/../../build-aux/ltmain.sh \
+	$(srcdir)/../../build-aux/missing \
+	$(srcdir)/../../build-aux/mkinstalldirs \
+	$(srcdir)/../../build-aux/texinfo.tex $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(top_srcdir)/configure ../../config/compile \
-	../../config/config.guess ../../config/config.rpath \
-	../../config/config.sub ../../config/elisp-comp \
-	../../config/install-sh ../../config/ltmain.sh \
-	../../config/mdate-sh ../../config/missing \
-	../../config/mkinstalldirs ../../config/texinfo.tex \
-	../../config/ylwrap AUTHORS COPYING COPYING.LIB ChangeLog \
+	$(top_srcdir)/configure ../../build-aux/compile \
+	../../build-aux/config.guess ../../build-aux/config.rpath \
+	../../build-aux/config.sub ../../build-aux/elisp-comp \
+	../../build-aux/install-sh ../../build-aux/ltmain.sh \
+	../../build-aux/mdate-sh ../../build-aux/missing \
+	../../build-aux/mkinstalldirs ../../build-aux/texinfo.tex \
+	../../build-aux/ylwrap AUTHORS COPYING COPYING.LIB ChangeLog \
 	INSTALL NEWS
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -66,14 +66,13 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/intmax.m4 \
 	$(top_srcdir)/../m4/signed.m4 $(top_srcdir)/../m4/size_max.m4 \
 	$(top_srcdir)/../m4/stdint_h.m4 $(top_srcdir)/../m4/wchar_t.m4 \
 	$(top_srcdir)/../m4/wint_t.m4 $(top_srcdir)/../m4/xsize.m4 \
-	$(top_srcdir)/../../config/m4/fixautomake.m4 \
-	$(top_srcdir)/../../config/m4/libtool.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/../../m4/fixautomake.m4 \
+	$(top_srcdir)/../../m4/libtool.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno configure.status.lineno
-mkinstalldirs = $(SHELL) $(top_srcdir)/../../config/mkinstalldirs
+mkinstalldirs = $(SHELL) $(top_srcdir)/../../build-aux/mkinstalldirs
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
@@ -111,8 +110,8 @@ CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 SOURCES = $(libasprintf_la_SOURCES)
 DIST_SOURCES = $(libasprintf_la_SOURCES)
 INFO_DEPS = $(srcdir)/autosprintf.info
-TEXINFO_TEX = $(top_srcdir)/../../config/texinfo.tex
-am__TEXINFO_TEX_DIR = $(top_srcdir)/../../config
+TEXINFO_TEX = $(top_srcdir)/../../build-aux/texinfo.tex
+am__TEXINFO_TEX_DIR = $(top_srcdir)/../../build-aux
 DVIS = autosprintf.dvi
 PDFS = autosprintf.pdf
 PSS = autosprintf.ps
@@ -249,7 +248,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I ../../config/m4 -I ../m4
+ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4
 
 # >>> gnulib module alloca.
 EXTRA_DIST = autosprintf.h.in $(lib_asprintf_EXTRASOURCES) alloca_.h \
@@ -583,7 +582,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/../../config $(distdir)/../../config/m4 $(distdir)/../m4 $(distdir)/windows
+	$(mkdir_p) $(distdir)/../../build-aux $(distdir)/../../m4 $(distdir)/../m4 $(distdir)/windows
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \

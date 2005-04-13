@@ -39,19 +39,20 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 DIST_COMMON = $(am__configure_deps) \
-	$(srcdir)/../../../config/config.guess \
-	$(srcdir)/../../../config/config.sub \
-	$(srcdir)/../../../config/install-sh \
-	$(srcdir)/../../../config/ltmain.sh \
-	$(srcdir)/../../../config/missing \
-	$(srcdir)/../../../config/mkinstalldirs $(srcdir)/Makefile.am \
-	$(srcdir)/Makefile.in $(top_srcdir)/configure \
-	../../../config/compile ../../../config/config.guess \
-	../../../config/config.rpath ../../../config/config.sub \
-	../../../config/elisp-comp ../../../config/install-sh \
-	../../../config/ltmain.sh ../../../config/mdate-sh \
-	../../../config/missing ../../../config/mkinstalldirs \
-	../../../config/texinfo.tex ../../../config/ylwrap
+	$(srcdir)/../../../build-aux/config.guess \
+	$(srcdir)/../../../build-aux/config.sub \
+	$(srcdir)/../../../build-aux/install-sh \
+	$(srcdir)/../../../build-aux/ltmain.sh \
+	$(srcdir)/../../../build-aux/missing \
+	$(srcdir)/../../../build-aux/mkinstalldirs \
+	$(srcdir)/Makefile.am $(srcdir)/Makefile.in \
+	$(top_srcdir)/configure ../../../build-aux/compile \
+	../../../build-aux/config.guess \
+	../../../build-aux/config.rpath ../../../build-aux/config.sub \
+	../../../build-aux/elisp-comp ../../../build-aux/install-sh \
+	../../../build-aux/ltmain.sh ../../../build-aux/mdate-sh \
+	../../../build-aux/missing ../../../build-aux/mkinstalldirs \
+	../../../build-aux/texinfo.tex ../../../build-aux/ylwrap
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -345,7 +346,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/../../../config
+	$(mkdir_p) $(distdir)/../../../build-aux
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
