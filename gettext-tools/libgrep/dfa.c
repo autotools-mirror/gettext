@@ -343,7 +343,7 @@ static unsigned char const *buf_end;	/* refference to end in dfaexec().  */
 /* This function update cur_mb_len, and cur_mb_index.
    p points current lexptr, len is the remaining buffer length.  */
 static void
-update_mb_len_index (unsigned char const *p, int len)
+update_mb_len_index (char const *p, int len)
 {
   /* If last character is a part of a multibyte character,
      we update cur_mb_index.  */

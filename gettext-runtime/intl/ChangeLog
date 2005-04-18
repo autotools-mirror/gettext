@@ -1,3 +1,11 @@
+2005-04-18  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in (_INTL_REDIRECT_ASM): Test for __APPLE_CC__ > 1.
+	Needed because gcc-4.0 defines __APPLE_CC__ and implements
+	__USER_LABEL_PREFIX__ correctly.
+	* plural-exp.c (GERMANIC_PLURAL): Test for __APPLE_CC > 1.
+	Needed because gcc-4.0 defines __APPLE_CC__.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.

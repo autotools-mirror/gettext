@@ -1,3 +1,8 @@
+2005-04-18  Bruno Haible  <bruno@clisp.org>
+
+	* dfa.c (update_mb_len_index): Change argument type to 'const char *'.
+	Avoids gcc-4.0 warnings.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.

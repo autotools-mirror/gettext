@@ -72,7 +72,7 @@ int gram_pos_column;
 
 #if !(__STDC__ && \
       ((defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L && !defined __DECC) \
-       || (defined __GNUC__ && __GNUC__ >= 2 && !defined __APPLE_CC__)))
+       || (defined __GNUC__ && __GNUC__ >= 2 && !(__APPLE_CC__ > 1))))
 
 /* CAUTION: If you change this function, you must also make identical
    changes to the macro of the same name in src/po-lex.h  */

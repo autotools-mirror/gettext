@@ -229,52 +229,46 @@ phase2_getc ()
 	      return UEOF;
 	    buf[1] = c;
 	    count = 2;
-	  }
 
-	if (buf[0] >= 0xe0
-	    && ((buf[1] ^ 0x80) < 0x40))
-	  {
-	    c = phase1_getc ();
-	    if (c == EOF)
-	      return UEOF;
-	    buf[2] = c;
-	    count = 3;
-	  }
+	    if (buf[0] >= 0xe0
+		&& ((buf[1] ^ 0x80) < 0x40))
+	      {
+		c = phase1_getc ();
+		if (c == EOF)
+		  return UEOF;
+		buf[2] = c;
+		count = 3;
 
-	if (buf[0] >= 0xf0
-	    && ((buf[1] ^ 0x80) < 0x40)
-	    && ((buf[2] ^ 0x80) < 0x40))
-	  {
-	    c = phase1_getc ();
-	    if (c == EOF)
-	      return UEOF;
-	    buf[3] = c;
-	    count = 4;
-	  }
+		if (buf[0] >= 0xf0
+		    && ((buf[2] ^ 0x80) < 0x40))
+		  {
+		    c = phase1_getc ();
+		    if (c == EOF)
+		      return UEOF;
+		    buf[3] = c;
+		    count = 4;
 
-	if (buf[0] >= 0xf8
-	    && ((buf[1] ^ 0x80) < 0x40)
-	    && ((buf[2] ^ 0x80) < 0x40)
-	    && ((buf[3] ^ 0x80) < 0x40))
-	  {
-	    c = phase1_getc ();
-	    if (c == EOF)
-	      return UEOF;
-	    buf[4] = c;
-	    count = 5;
-	  }
+		    if (buf[0] >= 0xf8
+			&& ((buf[3] ^ 0x80) < 0x40))
+		      {
+			c = phase1_getc ();
+			if (c == EOF)
+			  return UEOF;
+			buf[4] = c;
+			count = 5;
 
-	if (buf[0] >= 0xfc
-	    && ((buf[1] ^ 0x80) < 0x40)
-	    && ((buf[2] ^ 0x80) < 0x40)
-	    && ((buf[3] ^ 0x80) < 0x40)
-	    && ((buf[4] ^ 0x80) < 0x40))
-	  {
-	    c = phase1_getc ();
-	    if (c == EOF)
-	      return UEOF;
-	    buf[5] = c;
-	    count = 6;
+			if (buf[0] >= 0xfc
+			    && ((buf[4] ^ 0x80) < 0x40))
+			  {
+			    c = phase1_getc ();
+			    if (c == EOF)
+			      return UEOF;
+			    buf[5] = c;
+			    count = 6;
+			  }
+		      }
+		  }
+	      }
 	  }
 
 	u8_mbtouc (&uc, buf, count);

@@ -109,7 +109,7 @@ extern void po_lex_pass_obsolete_entries (bool flag);
   } while (0)
 
 /* GCC is also smart enough to allow optimizations like this.  */
-#elif __STDC__ && defined __GNUC__ && __GNUC__ >= 2 && !defined __APPLE_CC__
+#elif __STDC__ && defined __GNUC__ && __GNUC__ >= 2 && !(__APPLE_CC__ > 1)
 
 /* CAUTION: If you change this macro, you must also make identical
    changes to the function of the same name in src/po-lex.c  */

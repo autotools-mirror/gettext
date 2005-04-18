@@ -27,7 +27,7 @@
 
 #include "plural-exp.h"
 
-#if (defined __GNUC__ && !defined __APPLE_CC__) \
+#if (defined __GNUC__ && !(__APPLE_CC__ > 1)) \
     || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
 
 /* These structs are the constant expression for the germanic plural

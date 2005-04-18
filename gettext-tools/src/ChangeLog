@@ -1,3 +1,12 @@
+2005-04-18  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.h (po_gram_error, po_gram_error_at_line): Test for
+	__APPLE_CC__ > 1. Needed because gcc-4.0 defines __APPLE_CC__ and
+	implements __VA_ARGS__ correctly.
+	* po-lex.c (po_gram_error, po_gram_error_at_line): Likewise.
+	* read-stringtable.c (phase2_getc): Optimize UTF-8 code. Avoids
+	gcc-4.0 warnings.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.
