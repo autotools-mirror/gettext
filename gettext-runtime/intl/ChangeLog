@@ -1,3 +1,9 @@
+2005-03-19  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (struct known_translation_t): Change type of domainname
+	field to 'const char *'.
+	(DCIGETTEXT): Remove const-cast.
+
 2005-04-18  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (_INTL_REDIRECT_ASM): Test for __APPLE_CC__ > 1.
