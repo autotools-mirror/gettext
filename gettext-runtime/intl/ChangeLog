@@ -1,5 +1,11 @@
 2005-03-19  Bruno Haible  <bruno@clisp.org>
 
+	* gettextP.h (struct loaded_domain): Remove codeset_cntr field.
+	(struct binding): Likewise.
+	* bindtextdom.c (set_binding_values): Drop codeset_cntr modifications.
+
+2005-03-19  Bruno Haible  <bruno@clisp.org>
+
 	Fix gettext-tools/tests/gettext-5 bug.
 	* gettextP.h (struct converted_domain): New type.
 	(struct loaded_domain): Remove the conv, conv_tab fields. Add

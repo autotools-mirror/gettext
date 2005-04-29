@@ -1,5 +1,5 @@
 /* Implementation of the bindtextdomain(3) function
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -201,7 +201,6 @@ set_binding_values (const char *domainname,
 			free (binding->codeset);
 
 		      binding->codeset = result;
-		      binding->codeset_cntr++;
 		      modified = 1;
 		    }
 		}
@@ -265,8 +264,6 @@ set_binding_values (const char *domainname,
 	/* The default value.  */
 	new_binding->dirname = (char *) INTUSE(_nl_default_dirname);
 
-      new_binding->codeset_cntr = 0;
-
       if (codesetp)
 	{
 	  const char *codeset = *codesetp;
@@ -287,7 +284,6 @@ set_binding_values (const char *domainname,
 	      memcpy (result, codeset, len);
 #endif
 	      codeset = result;
-	      new_binding->codeset_cntr++;
 	    }
 	  *codesetp = codeset;
 	  new_binding->codeset = (char *) codeset;
