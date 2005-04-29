@@ -1,3 +1,23 @@
+2005-03-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-3: New file.
+	* gettext-3-prg.c: New file.
+	* gettext-3-1.po: New file, taken from glibc.
+	* gettext-3-2.po: New file, taken from glibc.
+	* gettext-4: New file.
+	* gettext-4-prg.c: New file.
+	* gettext-4-po: New file, taken from glibc.
+	* gettext-5: New file.
+	* gettext-5-prg.c: New file.
+	* gettext-5-po: New file, taken from glibc.
+	* Makefile.am (TESTS): Add gettext-3, gettext-4, gettext-5.
+	(EXTRA_DIST): Add gettext-3-1.po, gettext-3-2.po, gettext-4.po,
+	gettext-5.po.
+	(noinst_PROGRAMS): Add gettext-3-prg, gettext-4-prg, gettext-5-prg.
+	(gettext_3_prg_SOURCES, gettext_3_prg_LDADD): New variables.
+	(gettext_4_prg_SOURCES, gettext_4_prg_LDADD): New variables.
+	(gettext_5_prg_SOURCES, gettext_5_prg_LDADD): New variables.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.
