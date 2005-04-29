@@ -77,6 +77,26 @@ struct sysdep_string_desc
   const char *pointer;
 };
 
+/* Cache of translated strings after charset conversion.
+   Note: The strings are converted to the target encoding only on an as-needed
+   basis.  */
+struct converted_domain
+{
+  /* The target encoding name.  */
+  const char *encoding;
+  /* The descriptor for conversion from the message catalog's encoding to
+     this target encoding.  */
+#ifdef _LIBC
+  __gconv_t conv;
+#else
+# if HAVE_ICONV
+  iconv_t conv;
+# endif
+#endif
+  /* The table of translated strings after charset conversion.  */
+  char **conv_tab;
+};
+
 /* The representation of an opened message catalog.  */
 struct loaded_domain
 {
@@ -113,14 +133,10 @@ struct loaded_domain
   int must_swap_hash_tab;
 
   int codeset_cntr;
-#ifdef _LIBC
-  __gconv_t conv;
-#else
-# if HAVE_ICONV
-  iconv_t conv;
-# endif
-#endif
-  char **conv_tab;
+
+  /* Cache of charset conversions of the translated strings.  */
+  struct converted_domain *conversions;
+  size_t nconversions;
 
   struct expression *plural;
   unsigned long int nplurals;
@@ -166,16 +182,10 @@ void _nl_load_domain (struct loaded_l10nfile *__domain,
      internal_function;
 void _nl_unload_domain (struct loaded_domain *__domain)
      internal_function;
-const char *_nl_init_domain_conv (struct loaded_l10nfile *__domain_file,
-				  struct loaded_domain *__domain,
-				  struct binding *__domainbinding)
-     internal_function;
-void _nl_free_domain_conv (struct loaded_domain *__domain)
-     internal_function;
 
 char *_nl_find_msg (struct loaded_l10nfile *domain_file,
 		    struct binding *domainbinding, const char *msgid,
-		    size_t *lengthp)
+		    int convert, size_t *lengthp)
      internal_function;
 
 #ifdef _LIBC
