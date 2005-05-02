@@ -7537,7 +7537,7 @@ strings.
 C format strings are described in POSIX (IEEE P1003.1 2001), section
 XSH 3 fprintf(),
 @uref{http://www.opengroup.org/onlinepubs/007904975/functions/fprintf.html}.
-See also the fprintf(3) manual page,
+See also the fprintf() manual page,
 @uref{http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php},
 @uref{http://informatik.fh-wuerzburg.de/student/i510/man/printf.html}.
 
