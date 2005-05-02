@@ -115,6 +115,10 @@ gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
 AC_TYPE_MODE_T
 gt_TYPE_SIG_ATOMIC_T
+gl_GLIBC21
+if test $GLIBC21 = yes; then
+  AC_CHECK_MEMBERS([struct __locale_struct.__names], , , [#include <xlocale.h>])
+fi
 
 dnl Checks for library functions.
 gl_ALLOCSA
@@ -168,6 +172,9 @@ AH_TOP([
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 ])
 AH_BOTTOM([
+/* Indicator for intl/ that it is compiled for testing purposes only.  */
+#define USE_IN_GETTEXT_TESTS
+
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
    contains the characters not allowed.  */
 #if defined _MSC_VER || defined __MINGW32__

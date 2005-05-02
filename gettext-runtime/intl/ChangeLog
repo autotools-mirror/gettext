@@ -1,3 +1,16 @@
+2005-03-20  Bruno Haible  <bruno@clisp.org>
+
+	Make it possible for multiple threads to use gettext() in different
+	locales.
+	* dcigettext.c (HAVE_PER_THREAD_LOCALE): New macro.
+	(struct known_translation_t): If HAVE_PER_THREAD_LOCALE, add localename
+	field.
+	(transcmp): If HAVE_PER_THREAD_LOCALE, compare localename fields.
+	(DCIGETTEXT): If HAVE_PER_THREAD_LOCALE, fill the localename field in
+	search and newp.
+	(guess_category_value): If HAVE_PER_THREAD_LOCALE, look at the thread's
+	locale.
+
 2005-03-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettextP.h (struct loaded_domain): Remove codeset_cntr field.

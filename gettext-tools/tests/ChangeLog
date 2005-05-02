@@ -1,3 +1,20 @@
+2005-03-20  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-6: New file.
+	* gettext-6-prg.c: New file.
+	* gettext-6-1.po: New file.
+	* gettext-6-2.po: New file.
+	* gettext-7: New file.
+	* gettext-7-prg.c: New file.
+	* gettext-7.po: New file.
+	* Makefile.am (TESTS): Add gettext-6, gettext-7.
+	(EXTRA_DIST): Add gettext-6-1.po, gettext-6-2.po, gettext-7.po.
+	(noinst_PROGRAMS): Add gettext-6-prg, gettext-7-prg.
+	(gettext_6_prg_SOURCES, gettext_6_prg_CFLAGS, gettext_6_prg_LDADD): New
+	variables.
+	(gettext_7_prg_SOURCES, gettext_7_prg_CFLAGS, gettext_7_prg_LDADD): New
+	variables.
+
 2005-03-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-3: New file.

@@ -20,7 +20,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
 
-TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 \
+TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
@@ -111,7 +111,8 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 \
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok msguniq-a.in msguniq-a.inp \
 	msguniq-a.out qttest_pl.po qttest_pl.qm ChangeLog.0 gettext-3-1.po \
-	gettext-3-2.po gettext-4.po gettext-5.po
+	gettext-3-2.po gettext-4.po gettext-5.po gettext-6-1.po \
+	gettext-6-2.po gettext-7.po
 
 XGETTEXT = ../src/xgettext
 
@@ -172,7 +173,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la
 LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg cake fc3 fc4 fc5
+noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
@@ -186,6 +187,16 @@ gettext_4_prg_SOURCES = gettext-4-prg.c
 gettext_4_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
 gettext_5_prg_SOURCES = gettext-5-prg.c
 gettext_5_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_6_prg_SOURCES = gettext-6-prg.c
+gettext_6_prg_CFLAGS = $(gettext_6_prg_CFLAGS_@GLIBC2@)
+gettext_6_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
+gettext_6_prg_LDADD = $(gettext_6_prg_LDADD_@GLIBC2@)
+gettext_6_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
+gettext_7_prg_SOURCES = gettext-7-prg.c
+gettext_7_prg_CFLAGS = $(gettext_7_prg_CFLAGS_@GLIBC2@)
+gettext_7_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
+gettext_7_prg_LDADD = $(gettext_7_prg_LDADD_@GLIBC2@)
+gettext_7_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c
