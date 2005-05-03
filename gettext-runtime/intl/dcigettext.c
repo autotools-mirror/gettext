@@ -87,6 +87,10 @@ extern int errno;
 # include <sys/param.h>
 #endif
 
+#if !defined _LIBC && HAVE_NL_LOCALE_NAME
+# include <langinfo.h>
+#endif
+
 #include "gettextP.h"
 #include "plural-exp.h"
 #ifdef _LIBC
@@ -217,7 +221,7 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 #endif
 
 /* Whether to support different locales in different threads.  */
-#if defined _LIBC || (HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS)
+#if defined _LIBC || HAVE_NL_LOCALE_NAME || (HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS)
 # define HAVE_PER_THREAD_LOCALE
 #endif
 
@@ -510,7 +514,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #  ifdef _LIBC
   localename = __current_locale_name (category);
 #  else
-#   if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
+#   if HAVE_NL_LOCALE_NAME
+  /* NL_LOCALE_NAME is public glibc API introduced in glibc-2.4.  */
+  localename = nl_langinfo (NL_LOCALE_NAME (category));
+#   else
+#    if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
   /* The __names field is not public glibc API and must therefore not be used
      in code that is installed in public locations.  */
   {
@@ -520,6 +528,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     else
       localename = "";
   }
+#    endif
 #   endif
 #  endif
   search->localename = localename;

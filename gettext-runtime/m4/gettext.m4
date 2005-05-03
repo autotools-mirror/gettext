@@ -1,4 +1,4 @@
-# gettext.m4 serial 37 (gettext-0.14.4)
+# gettext.m4 serial 38 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -442,6 +442,19 @@ __fsetlocking])
   AM_LANGINFO_CODESET
   if test $ac_cv_header_locale_h = yes; then
     gt_LC_MESSAGES
+  fi
+
+  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOUURCE is defined,
+  dnl and a _NL_LOCALE_NAME macro always.
+  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
+    [AC_TRY_LINK([#include <langinfo.h>],
+      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));],
+      gt_cv_nl_locale_name=yes,
+      gt_cv_nl_locale_name=no)
+    ])
+  if test $gt_cv_nl_locale_name = yes; then
+    AC_DEFINE(HAVE_NL_LOCALE_NAME, 1,
+      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOUURCE is defined.])
   fi
 
   if test -n "$INTL_MACOSX_LIBS"; then
