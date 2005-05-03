@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -362,6 +362,10 @@ static bool open_doublequote;
    innermost backquotes nesting.  */
 static bool open_singlequote;
 
+/* The expected terminator of the currently open single-quote.
+   Usually '\'', but can be '"' for i18n-quotes.  */
+static char open_singlequote_terminator;
+
 
 /* Functions to update the state.  */
 
@@ -407,6 +411,7 @@ saw_opening_singlequote ()
   if (open_doublequote || open_singlequote)
     abort ();
   open_singlequote = true;
+  open_singlequote_terminator = '\'';
 }
 
 static inline void
@@ -529,8 +534,16 @@ phase2_getc ()
   if (c == EOF)
     return c;
   if (c == '\'')
-    return (open_doublequote ? QUOTED (c) : c);
-  if (!open_singlequote)
+    return ((open_doublequote
+	     || (open_singlequote && open_singlequote_terminator != c))
+	    ? QUOTED (c)
+	    : c);
+  if (open_singlequote)
+    {
+      if (c == open_singlequote_terminator)
+	return c;
+    }
+  else
     {
       if (c == '"' || c == '$')
 	return c;
@@ -573,7 +586,10 @@ phase2_getc ()
 	      return '\\';
 	    }
 	  else
-	    return (open_doublequote ? QUOTED (c) : c);
+	    return ((open_doublequote
+		     || (open_singlequote && open_singlequote_terminator != c))
+		    ? QUOTED (c)
+		    : c);
 	}
       else if (c == '"')
 	{
@@ -590,7 +606,7 @@ phase2_getc ()
 		  return '\\';
 		}
 	      else
-		return QUOTED (c);
+		return (open_singlequote_terminator != c ? QUOTED (c) : c);
 	    }
 	  else
 	    {
@@ -990,7 +1006,8 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	      lex_pos_ty pos;
 	      struct token string;
 
-	      saw_opening_doublequote ();
+	      saw_opening_singlequote ();
+	      open_singlequote_terminator = '"';
 	      pos.file_name = logical_file_name;
 	      pos.line_number = line_number;
 	      init_token (&string);
@@ -1001,7 +1018,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 		    break;
 		  if (c == '"')
 		    {
-		      saw_closing_doublequote ();
+		      saw_closing_singlequote ();
 		      break;
 		    }
 		  grow_token (&string);
@@ -1042,7 +1059,12 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
       if (c == '"')
 	{
-	  if (!open_doublequote)
+	  if (open_singlequote && open_singlequote_terminator == '"')
+	    {
+	      /* Handle a closing i18n quote.  */
+	      saw_closing_singlequote ();
+	    }
+	  else if (!open_doublequote)
 	    {
 	      /* Handle an opening double quote.  */
 	      saw_opening_doublequote ();

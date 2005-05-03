@@ -78,7 +78,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-properties-1 \
 	xgettext-python-1 xgettext-python-2 \
 	xgettext-scheme-1 \
-	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 \
+	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 \
 	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 \

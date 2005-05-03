@@ -1,5 +1,14 @@
 2005-05-01  Bruno Haible  <bruno@clisp.org>
 
+	* x-sh.c (open_singlequote_terminator): New variable.
+	(saw_opening_singlequote): Set it.
+	(phase2_getc): Handle the case of open_singlequote_terminator == '"'.
+	(read_word): Likewise. Treat i18n quotes like single quotes with
+	terminator '"'.
+	Reported by Jakub Bogusz <qboosh@pld-linux.org>.
+
+2005-05-01  Bruno Haible  <bruno@clisp.org>
+
 	Improved error message.
 	* msgl-iconv.h (struct conversion_context): New type.
 	(convert_string): Add context argument.
