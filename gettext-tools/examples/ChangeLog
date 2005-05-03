@@ -1,3 +1,14 @@
+2005-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* hello-csharp/configure.ac, hello-csharp-forms/configure.ac: Call
+	gt_CSHARPEXEC with parameters.
+	* hello-csharp/m4/Makefile.am, hello-csharp-forms/m4/Makefile.am
+	(EXTRA_DIST): Add csharpexec-test.exe.
+	* hello-csharp/autogen.sh, hello-csharp-forms/autogen.sh: Also copy
+	m4/csharpexec-test.exe.
+	* hello-csharp/autoclean.sh, hello-csharp-forms/autoclean.sh: Also
+	remove m4/csharpexec-test.exe.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.

@@ -1,10 +1,11 @@
-# csharpexec.m4 serial 1 (gettext-0.14)
-dnl Copyright (C) 2003-2004 Free Software Foundation, Inc.
+# csharpexec.m4 serial 2 (gettext-0.15)
+dnl Copyright (C) 2003-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
 
 # Prerequisites of csharpexec.sh.
+# gt_CSHARPEXEC or gt_CSHARPEXEC(testexecutable, its-directory)
 # Sets HAVE_CSHARPEXEC to nonempty if csharpexec.sh will work.
 
 AC_DEFUN([gt_CSHARPEXEC],
@@ -29,7 +30,8 @@ AC_DEFUN([gt_CSHARPEXEC],
     case "$impl" in
       pnet)
         if test -n "$HAVE_ILRUN_IN_PATH" \
-           && ilrun --version >/dev/null 2>/dev/null; then
+           && ilrun --version >/dev/null 2>/dev/null \
+           ifelse([$1], , , [&& ilrun $2/$1 >/dev/null 2>/dev/null]); then
           HAVE_ILRUN=1
           ac_result="ilrun"
           break
@@ -37,7 +39,8 @@ AC_DEFUN([gt_CSHARPEXEC],
         ;;
       mono)
         if test -n "$HAVE_MONO_IN_PATH" \
-           && mono --version >/dev/null 2>/dev/null; then
+           && mono --version >/dev/null 2>/dev/null \
+           ifelse([$1], , , [&& mono $2/$1 >/dev/null 2>/dev/null]); then
           HAVE_MONO=1
           ac_result="mono"
           break

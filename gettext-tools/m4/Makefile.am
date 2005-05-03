@@ -40,11 +40,11 @@ docdir = @docdir@
 examplesbuildauxdir = $(docdir)/examples/build-aux
 examplesbuildaux_DATA = \
   gcj.m4 javacomp.m4 javaexec.m4 \
-  csharpcomp.m4 csharpexec.m4
+  csharpcomp.m4 csharpexec.m4 csharpexec-test.exe
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
-EXTRA_DIST = README ChangeLog.0 \
+EXTRA_DIST = README ChangeLog.0 csharpexec-test.exe \
 alloca.m4 \
 allocsa.m4 \
 backupfile.m4 \

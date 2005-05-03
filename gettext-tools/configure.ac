@@ -69,7 +69,7 @@ else
 fi
 AC_SUBST(BUILDCSHARP)
 
-gt_CSHARPEXEC
+gt_CSHARPEXEC([csharpexec-test.exe], [$srcdir/m4])
 if test -n "$HAVE_CSHARPEXEC" && test $BUILDCSHARP = yes; then
   TESTCSHARP=yes
 else

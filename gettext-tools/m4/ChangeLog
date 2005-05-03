@@ -1,5 +1,13 @@
 2005-05-01  Bruno Haible  <bruno@clisp.org>
 
+	* csharpexec-test.exe: New file.
+	* csharpexec.m4 (gt_CSHARPEXEC): Test whether the C# engine can execute
+	it.
+	* Makefile.am (examplesbuildaux_DATA, EXTRA_DIST): Add
+	csharpexec-test.exe.
+
+2005-05-01  Bruno Haible  <bruno@clisp.org>
+
 	* csharpcomp.m4 (gt_CSHARPCOMP): Check that cscc can actually compile
 	a trivial program.
 	Reported by Pierre <pierre42d@9online.fr>.

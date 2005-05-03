@@ -1,5 +1,5 @@
 dnl Example for use of GNU gettext.
-dnl Copyright (C) 2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
@@ -18,7 +18,7 @@ fi
 AC_SUBST(BUILDCSHARP)
 
 dnl Check whether we can execute C# programs.
-gt_CSHARPEXEC
+gt_CSHARPEXEC([csharpexec-test.exe], [$srcdir/m4])
 if test -n "$HAVE_CSHARPEXEC" && test $BUILDCSHARP = yes; then
   TESTCSHARP=yes
 else

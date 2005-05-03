@@ -30,6 +30,7 @@ cp -p ${GETTEXTSRCPODIR-$GETTEXT_TOPSRCDIR/gettext-runtime/po}/remove-potcdate.s
 
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpcomp.m4 m4/csharpcomp.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpexec.m4 m4/csharpexec.m4
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpexec-test.exe m4/csharpexec-test.exe
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharp.m4 m4/csharp.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/lib}/csharpcomp.sh.in csharpcomp.sh.in
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/lib}/csharpexec.sh.in csharpexec.sh.in

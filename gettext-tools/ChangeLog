@@ -1,3 +1,7 @@
+2005-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Call gt_CSHARPEXEC with parameters.
+
 2005-03-20  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Test for field __names in struct __locale_struct.
