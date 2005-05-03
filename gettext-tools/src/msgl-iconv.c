@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -171,8 +171,29 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 #undef tmpbufsize
 }
 
+static void conversion_error (const struct conversion_context* context)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
+     __attribute__ ((noreturn))
+#endif
+;
+static void
+conversion_error (const struct conversion_context* context)
+{
+  if (context->to_code == po_charset_utf8)
+    /* If a conversion to UTF-8 fails, the problem lies in the input.  */
+    error (EXIT_FAILURE, 0, _("%s: input is not valid in \"%s\" encoding"),
+	   context->from_filename, context->from_code);
+  else
+    error (EXIT_FAILURE, 0,
+	   _("%s: error while converting from \"%s\" encoding to \"%s\" encoding"),
+	   context->from_filename, context->from_code, context->to_code);
+  /* NOTREACHED */
+  abort ();
+}
+
 char *
-convert_string (iconv_t cd, const char *string)
+convert_string (iconv_t cd, const char *string,
+		const struct conversion_context* context)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
@@ -184,31 +205,34 @@ convert_string (iconv_t cd, const char *string)
 	&& strlen (result) == resultlen - 1)
       return result;
 
-  error (EXIT_FAILURE, 0, _("conversion failure"));
+  conversion_error (context);
   /* NOTREACHED */
   return NULL;
 }
 
 static void
-convert_string_list (iconv_t cd, string_list_ty *slp)
+convert_string_list (iconv_t cd, string_list_ty *slp,
+		     const struct conversion_context* context)
 {
   size_t i;
 
   if (slp != NULL)
     for (i = 0; i < slp->nitems; i++)
-      slp->item[i] = convert_string (cd, slp->item[i]);
+      slp->item[i] = convert_string (cd, slp->item[i], context);
 }
 
 static void
-convert_msgid (iconv_t cd, message_ty *mp)
+convert_msgid (iconv_t cd, message_ty *mp,
+	       const struct conversion_context* context)
 {
-  mp->msgid = convert_string (cd, mp->msgid);
+  mp->msgid = convert_string (cd, mp->msgid, context);
   if (mp->msgid_plural != NULL)
-    mp->msgid_plural = convert_string (cd, mp->msgid_plural);
+    mp->msgid_plural = convert_string (cd, mp->msgid_plural, context);
 }
 
 static void
-convert_msgstr (iconv_t cd, message_ty *mp)
+convert_msgstr (iconv_t cd, message_ty *mp,
+		const struct conversion_context* context)
 {
   char *result = NULL;
   size_t resultlen;
@@ -242,7 +266,7 @@ convert_msgstr (iconv_t cd, message_ty *mp)
 	  }
       }
 
-  error (EXIT_FAILURE, 0, _("conversion failure"));
+  conversion_error (context);
 }
 
 #endif
@@ -345,6 +369,7 @@ input file doesn't contain a header entry with a charset specification"));
     {
 #if HAVE_ICONV
       iconv_t cd;
+      struct conversion_context context;
       bool msgids_changed;
 
       /* Avoid glibc-2.1 bug with EUC-KR.  */
@@ -360,6 +385,10 @@ Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
 and iconv() does not support this conversion."),
 	       canon_from_code, canon_to_code, basename (program_name));
 
+      context.from_code = canon_from_code;
+      context.to_code = canon_to_code;
+      context.from_filename = from_filename;
+
       msgids_changed = false;
       for (j = 0; j < mlp->nitems; j++)
 	{
@@ -367,10 +396,10 @@ and iconv() does not support this conversion."),
 
 	  if (!is_ascii_string (mp->msgid))
 	    msgids_changed = true;
-	  convert_string_list (cd, mp->comment);
-	  convert_string_list (cd, mp->comment_dot);
-	  convert_msgid (cd, mp);
-	  convert_msgstr (cd, mp);
+	  convert_string_list (cd, mp->comment, &context);
+	  convert_string_list (cd, mp->comment_dot, &context);
+	  convert_msgid (cd, mp, &context);
+	  convert_msgstr (cd, mp, &context);
 	}
 
       iconv_close (cd);

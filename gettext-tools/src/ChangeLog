@@ -1,3 +1,16 @@
+2005-05-01  Bruno Haible  <bruno@clisp.org>
+
+	Improved error message.
+	* msgl-iconv.h (struct conversion_context): New type.
+	(convert_string): Add context argument.
+	* msgl-iconv.c (conversion_error): New function.
+	(convert_string, convert_string_list, convert_msgid, convert_msgstr):
+	Add context argument.
+	(iconv_message_list): Construct context for them.
+	* xgettext.c (convert_string): Add context argument.
+	(from_current_source_encoding): Construct context for convert_string.
+	Reported by Hans Ulrich Niedermann <debian@n-dimensional.de>.
+
 2005-04-18  Bruno Haible  <bruno@clisp.org>
 
 	* po-lex.h (po_gram_error, po_gram_error_at_line): Test for

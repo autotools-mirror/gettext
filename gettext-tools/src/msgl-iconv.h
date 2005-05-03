@@ -1,5 +1,5 @@
 /* Message list character set conversion.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,8 +32,19 @@ extern "C" {
 
 
 #if HAVE_ICONV
+
+/* A context, used for accurate error messages.  */
+struct conversion_context
+{
+  const char *from_code;     /* canonicalized encoding name for input */
+  const char *to_code;       /* canonicalized encoding name for output */
+  const char *from_filename; /* file name where the input comes from */
+};
+
 /* Converts the STRING through the conversion descriptor CD.  */
-extern char *convert_string (iconv_t cd, const char *string);
+extern char *convert_string (iconv_t cd, const char *string,
+			     const struct conversion_context* context);
+
 #endif
 
 /* Converts the message list MLP to the (already canonicalized) encoding

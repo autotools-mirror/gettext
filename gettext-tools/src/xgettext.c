@@ -1647,7 +1647,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
    xgettext_global_source_encoding and thus also for
    xgettext_current_source_encoding are ASCII and UTF-8.
    convert_string() should not be called in this case.  */
-#define convert_string(cd,string) (abort (), (string))
+#define convert_string(cd,string,context) (abort (), (string))
 #endif
 
 /* Convert the given string from xgettext_current_source_encoding to
@@ -1677,7 +1677,15 @@ Please specify the source encoding through --from-code.\n"),
 	}
     }
   else if (xgettext_current_source_encoding != po_charset_utf8)
-    string = convert_string (xgettext_current_source_iconv, string);
+    {
+      struct conversion_context context;
+
+      context.from_code = xgettext_current_source_encoding;
+      context.to_code = po_charset_utf8;
+      context.from_filename = file_name;
+
+      string = convert_string (xgettext_current_source_iconv, string, &context);
+    }
 
   return (char *) string;
 }
