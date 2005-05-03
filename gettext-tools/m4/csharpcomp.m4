@@ -1,4 +1,4 @@
-# csharpcomp.m4 serial 4 (gettext-0.14.2)
+# csharpcomp.m4 serial 5 (gettext-0.15)
 dnl Copyright (C) 2003-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -25,7 +25,15 @@ AC_DEFUN([gt_CSHARPCOMP],
     case "$impl" in
       pnet)
         if test -n "$HAVE_CSCC_IN_PATH" \
-           && cscc --version >/dev/null 2>/dev/null; then
+           && cscc --version >/dev/null 2>/dev/null \
+           && (
+             # See if pnetlib is well installed.
+             echo 'class ConfTest { static void Main() { } }' > conftest.cs
+             cscc -o conftest.exe conftest.cs 2>/dev/null
+             error=$?
+             rm -f conftest.cs conftest.exe
+             exit $error
+            ); then
           HAVE_CSCC=1
           ac_result="cscc"
           break
