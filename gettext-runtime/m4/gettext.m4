@@ -1,4 +1,4 @@
-# gettext.m4 serial 38 (gettext-0.15)
+# gettext.m4 serial 39 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -457,10 +457,6 @@ __fsetlocking])
       [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOUURCE is defined.])
   fi
 
-  if test -n "$INTL_MACOSX_LIBS"; then
-    CPPFLAGS="$CPPFLAGS -I/System/Library/Frameworks/CoreFoundation.framework/Headers"
-  fi
-
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least
   dnl bison-1.26 because earlier versions generate a plural.c that doesn't
@@ -501,15 +497,12 @@ AC_DEFUN([gt_INTL_MACOSX],
   dnl Check for API introduced in MacOS X 10.2.
   AC_CACHE_CHECK([for CFPreferencesCopyAppValue],
     gt_cv_func_CFPreferencesCopyAppValue,
-    [gt_save_CPPFLAGS="$CPPFLAGS"
-     CPPFLAGS="$CPPFLAGS -I/System/Library/Frameworks/CoreFoundation.framework/Headers"
-     gt_save_LIBS="$LIBS"
-     LIBS="$LIBS -framework CoreFoundation"
-     AC_TRY_LINK([#include <CFPreferences.h>],
+    [gt_save_LIBS="$LIBS"
+     LIBS="$LIBS -Wl,-framework -Wl,CoreFoundation"
+     AC_TRY_LINK([#include <CoreFoundation/CFPreferences.h>],
        [CFPreferencesCopyAppValue(NULL, NULL)],
        [gt_cv_func_CFPreferencesCopyAppValue=yes],
        [gt_cv_func_CFPreferencesCopyAppValue=no])
-     CPPFLAGS="$gt_save_CPPFLAGS"
      LIBS="$gt_save_LIBS"])
   if test $gt_cv_func_CFPreferencesCopyAppValue = yes; then
     AC_DEFINE([HAVE_CFPREFERENCESCOPYAPPVALUE], 1,
@@ -517,14 +510,11 @@ AC_DEFUN([gt_INTL_MACOSX],
   fi
   dnl Check for API introduced in MacOS X 10.3.
   AC_CACHE_CHECK([for CFLocaleCopyCurrent], gt_cv_func_CFLocaleCopyCurrent,
-    [gt_save_CPPFLAGS="$CPPFLAGS"
-     CPPFLAGS="$CPPFLAGS -I/System/Library/Frameworks/CoreFoundation.framework/Headers"
-     gt_save_LIBS="$LIBS"
-     LIBS="$LIBS -framework CoreFoundation"
-     AC_TRY_LINK([#include <CFLocale.h>], [CFLocaleCopyCurrent();],
+    [gt_save_LIBS="$LIBS"
+     LIBS="$LIBS -Wl,-framework -Wl,CoreFoundation"
+     AC_TRY_LINK([#include <CoreFoundation/CFLocale.h>], [CFLocaleCopyCurrent();],
        [gt_cv_func_CFLocaleCopyCurrent=yes],
        [gt_cv_func_CFLocaleCopyCurrent=no])
-     CPPFLAGS="$gt_save_CPPFLAGS"
      LIBS="$gt_save_LIBS"])
   if test $gt_cv_func_CFLocaleCopyCurrent = yes; then
     AC_DEFINE([HAVE_CFLOCALECOPYCURRENT], 1,

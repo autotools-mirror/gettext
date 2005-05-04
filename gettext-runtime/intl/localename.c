@@ -29,11 +29,11 @@
 
 #if HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
-# include <CFString.h>
+# include <CoreFoundation/CFString.h>
 # if HAVE_CFLOCALECOPYCURRENT
-#  include <CFLocale.h>
+#  include <CoreFoundation/CFLocale.h>
 # elif HAVE_CFPREFERENCESCOPYAPPVALUE
-#  include <CFPreferences.h>
+#  include <CoreFoundation/CFPreferences.h>
 # endif
 #endif
 

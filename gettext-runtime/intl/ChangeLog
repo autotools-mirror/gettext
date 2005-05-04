@@ -1,3 +1,18 @@
+2005-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* langprefs.c: Use #include <CoreFoundation/...> syntax. It's a
+	special Apple syntax implemented in the C compiler, but since
+	<CFString.h> already uses it, all compilers usable on MacOS X must
+	support it.
+	* localename.c: Likewise.
+
+2005-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c: Include langinfo.h.
+	(HAVE_PER_THREAD_LOCALE): Define also if HAVE_NL_LOCALE_NAME.
+	(DCIGETTEXT): Support retrieving the locale name through nl_langinfo
+	and NL_LOCALE_NAME.
+
 2005-03-20  Bruno Haible  <bruno@clisp.org>
 
 	Make it possible for multiple threads to use gettext() in different

@@ -26,10 +26,10 @@
 
 #if HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
-# include <CFPreferences.h>
-# include <CFPropertyList.h>
-# include <CFArray.h>
-# include <CFString.h>
+# include <CoreFoundation/CFPreferences.h>
+# include <CoreFoundation/CFPropertyList.h>
+# include <CoreFoundation/CFArray.h>
+# include <CoreFoundation/CFString.h>
 extern void _nl_locale_name_canonicalize (char *name);
 #endif
 

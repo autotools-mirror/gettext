@@ -1,3 +1,16 @@
+2005-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Remove CPPFLAGS addition for
+	CoreFoundation on MacOS X.
+	(gt_INTL_MACOSX): Likewise. Use #include <CoreFoundation/...> syntax.
+	It's a special Apple syntax implemented in the C compiler, but since
+	<CFString.h> already uses it, all compilers usable on MacOS X must
+	support it. In LIBS, use -Wl prefix for -framework option.
+
+2005-05-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Also test for NL_LOCALE_NAME macro.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.
