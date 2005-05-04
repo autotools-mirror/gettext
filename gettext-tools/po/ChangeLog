@@ -1,3 +1,9 @@
+2005-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (Makefile): Call config.status with calling convention
+	supported since autoconf-2.50.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.

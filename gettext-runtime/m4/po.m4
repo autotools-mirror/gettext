@@ -1,4 +1,4 @@
-# po.m4 serial 7 (gettext-0.14.3)
+# po.m4 serial 8 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -86,7 +86,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
     rm -f messages.po
   fi
 
-  AC_OUTPUT_COMMANDS([
+  AC_CONFIG_COMMANDS([po-directories], [[
     for ac_file in $CONFIG_FILES; do
       # Support "outfile[:infile[:infile...]]"
       case "$ac_file" in
@@ -197,7 +197,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
         fi
         ;;
       esac
-    done],
+    done]],
    [# Capture the value of obsolete ALL_LINGUAS because we need it to compute
     # POFILES, UPDATEPOFILES, DUMMYPOFILES, GMOFILES, CATALOGS. But hide it
     # from automake.

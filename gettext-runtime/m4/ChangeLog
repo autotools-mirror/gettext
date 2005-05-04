@@ -1,3 +1,9 @@
+2005-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* po.m4 (AM_PO_SUBDIRS): Use AC_CONFIG_COMMANDS instead of
+	AC_OUTPUT_COMMANDS.
+	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Remove CPPFLAGS addition for

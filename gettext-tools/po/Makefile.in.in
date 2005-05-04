@@ -8,7 +8,7 @@
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
 #
-# Origin: gettext-0.14.4
+# Origin: gettext-0.15
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -374,8 +374,7 @@ update-gmo: Makefile $(GMOFILES)
 
 Makefile: Makefile.in.in Makevars $(top_builddir)/config.status @POMAKEFILEDEPS@
 	cd $(top_builddir) \
-	  && CONFIG_FILES=$(subdir)/$@.in CONFIG_HEADERS= \
-	       $(SHELL) ./config.status
+	  && $(SHELL) ./config.status $(subdir)/$@.in po-directories
 
 force:
 
