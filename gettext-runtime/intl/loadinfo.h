@@ -137,9 +137,4 @@ extern int _nl_explode_name (char *name, const char **language,
 			     const char **special, const char **sponsor,
 			     const char **revision);
 
-/* Split a locale name NAME into a leading language part and all the
-   rest.  Return a pointer to the first character after the language,
-   i.e. to the first byte of the rest.  */
-extern char *_nl_find_language (const char *name);
-
 #endif	/* loadinfo.h */

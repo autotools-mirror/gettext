@@ -1,3 +1,8 @@
+2003-01-07  Ulrich Drepper  <drepper@redhat.com>
+
+	* explodename.c (_nl_find_language.c): Mark as static.
+	* loadinfo.h: Remove _nl_find_language prototype.
+
 2005-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* langprefs.c: Use #include <CoreFoundation/...> syntax. It's a

@@ -37,7 +37,12 @@
 
 /* @@ end of prolog @@ */
 
-char *
+/* Split a locale name NAME into a leading language part and all the
+   rest.  Return a pointer to the first character after the language,
+   i.e. to the first byte of the rest.  */
+static char *_nl_find_language (const char *name);
+
+static char *
 _nl_find_language (const char *name)
 {
   while (name[0] != '\0' && name[0] != '_' && name[0] != '@'
