@@ -1,3 +1,24 @@
+2005-05-05  Bruno Haible  <bruno@clisp.org>
+
+	* hash-string.h (__hash_string): Define differently outside glibc.
+	* hash-string.c: Include config.h.
+	* Makefile.in (SOURCES): Add hash-string.c.
+	(OBJECTS): Add hash-string.$lo.
+	(hash-string.lo): New rule.
+	(hash-string.$lo): Depend on hash-string.h.
+	* Makefile.msvc (OBJECTS): Add hash-string.obj.
+	(hash-string.obj): New rule.
+	* Makefile.vms (OBJECTS): Add hash-string.obj.
+	(hash-string.obj): New rule.
+
+2003-06-11  Ulrich Drepper  <drepper@redhat.com>
+
+	Remove warnings gcc 3.3 shows.
+	* hash-string.c: New file.
+	* hash-string.h: Remove hash_string definition.  Declare __hash_string.
+	* dcigettext.c (_nl_find_msg): Adjust hash_string caller.
+	* loadmsgcat.c (_nl_load_domain): Likewise.
+
 2003-04-29  Jakub Jelinek  <jakub@redhat.com>
 
 	* plural.y: Include string.h. Needed because recent versions of bison

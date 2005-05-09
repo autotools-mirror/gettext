@@ -99,7 +99,7 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
+OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj hash-string.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
 
 RESOURCES = intl.res
 
@@ -126,6 +126,9 @@ gettext.obj : $(srcdir)\gettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gm
 
 finddomain.obj : $(srcdir)\finddomain.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\finddomain.c
+
+hash-string.obj : $(srcdir)\hash-string.c $(srcdir)\hash-string.h
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\hash-string.c
 
 loadmsgcat.obj : $(srcdir)\loadmsgcat.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\hash-string.h $(srcdir)\plural-exp.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\loadmsgcat.c

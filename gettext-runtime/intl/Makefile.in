@@ -85,6 +85,7 @@ SOURCES = \
   dgettext.c \
   gettext.c \
   finddomain.c \
+  hash-string.c \
   loadmsgcat.c \
   localealias.c \
   textdomain.c \
@@ -111,6 +112,7 @@ OBJECTS = \
   dgettext.$lo \
   gettext.$lo \
   finddomain.$lo \
+  hash-string.$lo \
   loadmsgcat.$lo \
   localealias.$lo \
   textdomain.$lo \
@@ -188,6 +190,8 @@ gettext.lo: $(srcdir)/gettext.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/gettext.c
 finddomain.lo: $(srcdir)/finddomain.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/finddomain.c
+hash-string.lo: $(srcdir)/hash-string.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/hash-string.c
 loadmsgcat.lo: $(srcdir)/loadmsgcat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/loadmsgcat.c
 localealias.lo: $(srcdir)/localealias.c
@@ -426,7 +430,7 @@ info dvi ps pdf html:
 
 $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
-dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
+hash-string.$lo dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
 explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: $(srcdir)/plural-exp.h
 dcigettext.$lo: $(srcdir)/eval-plural.h

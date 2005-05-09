@@ -133,7 +133,7 @@ LIBUNINAME = ../libuniname/libuniname.a
 msgcmp_SOURCES = msgcmp.c
 msgfmt_SOURCES = msgfmt.c \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
-  write-qt.c plural-eval.c
+  write-qt.c plural-eval.c ../../gettext-runtime/intl/hash-string.c
 msgmerge_SOURCES = msgmerge.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c

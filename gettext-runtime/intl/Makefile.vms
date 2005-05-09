@@ -45,7 +45,7 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
+OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,hash-string.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
 
 all : intl.olb,libintl.h
 	write sys$output "Nothing else to be done for 'all'."
@@ -67,6 +67,9 @@ gettext.obj : $(srcdir)gettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h
 
 finddomain.obj : $(srcdir)finddomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)finddomain.c
+
+hash-string.obj : $(srcdir)hash-string.c,$(srcdir)hash-string.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)hash-string.c
 
 loadmsgcat.obj : $(srcdir)loadmsgcat.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)loadmsgcat.c

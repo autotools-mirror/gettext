@@ -809,7 +809,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
     {
       /* Use the hashing table.  */
       nls_uint32 len = strlen (msgid);
-      nls_uint32 hash_val = hash_string (msgid);
+      nls_uint32 hash_val = __hash_string (msgid);
       nls_uint32 idx = hash_val % domain->hash_size;
       nls_uint32 incr = 1 + (hash_val % (domain->hash_size - 2));
 
