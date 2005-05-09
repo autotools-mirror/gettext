@@ -1,3 +1,8 @@
+2003-04-29  Jakub Jelinek  <jakub@redhat.com>
+
+	* plural.y: Include string.h. Needed because recent versions of bison
+	generate output that uses memcpy().
+
 2003-01-07  Ulrich Drepper  <drepper@redhat.com>
 
 	* explodename.c (_nl_find_language.c): Mark as static.
