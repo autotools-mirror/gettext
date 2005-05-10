@@ -254,10 +254,14 @@ read_alias_file (const char *fname, int fname_len)
       char *alias;
       char *value;
       char *cp;
+      int complete_line;
 
       if (FGETS (buf, sizeof buf, fp) == NULL)
 	/* EOF reached.  */
 	break;
+
+      /* Determine whether the line is complete.  */
+      complete_line = strchr (buf, '\n') != NULL;
 
       cp = buf;
       /* Ignore leading white space.  */
@@ -345,11 +349,13 @@ read_alias_file (const char *fname, int fname_len)
 
       /* Possibly not the whole line fits into the buffer.  Ignore
 	 the rest of the line.  */
-      while (strchr (buf, '\n') == NULL)
-	if (FGETS (buf, sizeof buf, fp) == NULL)
-	  /* Make sure the inner loop will be left.  The outer loop
-	     will exit at the `feof' test.  */
-	  break;
+      if (! complete_line)
+	do
+	  if (FGETS (buf, sizeof buf, fp) == NULL)
+	    /* Make sure the inner loop will be left.  The outer loop
+	       will exit at the `feof' test.  */
+	    break;
+	while (strchr (buf, '\n') == NULL);
     }
 
   /* Should we test for ferror()?  I think we have to silently ignore

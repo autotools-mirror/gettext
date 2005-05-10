@@ -1,3 +1,8 @@
+2003-06-18  Ulrich Drepper  <drepper@redhat.com>
+
+	* localealias.c (read_alias_file): Determine whether line is read
+	incompletely early, before we modify the line.
+
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* hash-string.h (__hash_string): Define differently outside glibc.
