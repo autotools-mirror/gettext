@@ -1,5 +1,5 @@
 /* Handle aliases for locale names.
-   Copyright (C) 1995-1999, 2000-2001, 2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2001, 2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -230,7 +230,13 @@ read_alias_file (const char *fname, int fname_len)
   memcpy (&full_fname[fname_len], aliasfile, sizeof aliasfile);
 #endif
 
+#ifdef _LIBC
+  /* Note the file is opened with cancellation in the I/O functions
+     disabled.  */
+  fp = fopen (relocate (full_fname), "rc");
+#else
   fp = fopen (relocate (full_fname), "r");
+#endif
   freea (full_fname);
   if (fp == NULL)
     return 0;
