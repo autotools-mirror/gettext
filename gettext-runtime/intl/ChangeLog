@@ -1,5 +1,12 @@
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
+	* dcigettext.c (_nl_find_msg) [_LIBC]: Update norm_add_slashes call.
+	2004-03-24  Roland McGrath  <roland@redhat.com>
+		* loadmsgcat.c (_nl_init_domain_conv): Update norm_add_slashes
+		call.
+
+2005-05-05  Bruno Haible  <bruno@clisp.org>
+
 	* localealias.c (read_alias_file): Limit last patch to _LIBC case.
 
 2003-09-04  Ulrich Drepper  <drepper@redhat.com>
