@@ -1,3 +1,12 @@
+2004-08-06  Jakub Jelinek  <jakub@redhat.com>
+
+	* finddomain.c (free_mem): Rename to...
+	(_nl_finddomain_subfreeres): ... this.  Add __libc_freeres_fn_section.
+	* loadmsgcat.c (_nl_unload_domain): Add __libc_freeres_fn_section.
+	* gettextP.h (_nl_unload_domain): Move into #ifdef _LIBC.
+	Add attribute_hidden.
+	(_nl_findomain_subfreeres): New prototype.
+
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (_nl_find_msg) [_LIBC]: Update norm_add_slashes call.

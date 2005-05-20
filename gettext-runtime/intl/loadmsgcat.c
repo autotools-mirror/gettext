@@ -1262,7 +1262,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 #ifdef _LIBC
 void
-internal_function
+internal_function __libc_freeres_fn_section
 _nl_unload_domain (struct loaded_domain *domain)
 {
   size_t i;

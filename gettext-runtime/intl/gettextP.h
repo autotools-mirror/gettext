@@ -132,8 +132,6 @@ struct loaded_domain
   /* 1 if the hash table uses a different endianness than this machine.  */
   int must_swap_hash_tab;
 
-  int codeset_cntr;
-
   /* Cache of charset conversions of the translated strings.  */
   struct converted_domain *conversions;
   size_t nconversions;
@@ -156,7 +154,6 @@ struct binding
 {
   struct binding *next;
   char *dirname;
-  int codeset_cntr;	/* Incremented each time codeset changes.  */
   char *codeset;
   char domainname[ZERO];
 };
@@ -179,8 +176,6 @@ struct loaded_l10nfile *_nl_find_domain (const char *__dirname, char *__locale,
      internal_function;
 void _nl_load_domain (struct loaded_l10nfile *__domain,
 		      struct binding *__domainbinding)
-     internal_function;
-void _nl_unload_domain (struct loaded_domain *__domain)
      internal_function;
 
 char *_nl_find_msg (struct loaded_l10nfile *domain_file,
@@ -210,6 +205,9 @@ extern char *__bindtextdomain (const char *__domainname,
 			       const char *__dirname);
 extern char *__bind_textdomain_codeset (const char *__domainname,
 					const char *__codeset);
+extern void _nl_finddomain_subfreeres (void) attribute_hidden;
+extern void _nl_unload_domain (struct loaded_domain *__domain)
+     internal_function attribute_hidden;
 #else
 /* Declare the exported libintl_* functions, in a way that allows us to
    call them under their real name.  */
