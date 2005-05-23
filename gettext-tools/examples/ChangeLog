@@ -1,10 +1,3 @@
-2005-05-23  Bruno Haible  <bruno@clisp.org>
-
-	* po/zh_TW.po: New file, from Abel Cheung <abelcheung@gmail.com>.
-	* po/LINGUAS: Add it.
-	* hello-*/po/LINGUAS: Update.
-	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
-
 2005-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* hello-csharp/configure.ac, hello-csharp-forms/configure.ac: Call
@@ -15,6 +8,17 @@
 	m4/csharpexec-test.exe.
 	* hello-csharp/autoclean.sh, hello-csharp-forms/autoclean.sh: Also
 	remove m4/csharpexec-test.exe.
+
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.5 released.
+
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* po/zh_TW.po: New file, from Abel Cheung <abelcheung@gmail.com>.
+	* po/LINGUAS: Add it.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
 
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 

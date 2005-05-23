@@ -12,6 +12,10 @@
 	a trivial program.
 	Reported by Pierre <pierre42d@9online.fr>.
 
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.5 released.
+
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.4 released.

@@ -1,15 +1,3 @@
-2005-05-21  Bruno Haible  <bruno@clisp.org>
-
-	* format-gcc-internal.c: Update for GCC 4.0.
-	(FAT_POINTER, FAT_SIZE_LONGLONG, FAT_SIZE_WIDE, FAT_SIZE_MASK): New
-	enum items.
-	(FAT_*): Update.
-	(struct spec): Add uses_err_no field.
-	(format_parse): Initialize uses_err_no field. Handle %q flag. Handle
-	'll', 'w' size specifiers. Handle %<, %>, %', %m, %p, %J directives.
-	(format_check): Also check that the use of err_no is the same.
-	Based on a patch by Jakub Jelinek <jakub@redhat.com>.
-
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msgfmt_SOURCES): Add hash-string.c.
@@ -48,6 +36,26 @@
 	* po-lex.c (po_gram_error, po_gram_error_at_line): Likewise.
 	* read-stringtable.c (phase2_getc): Optimize UTF-8 code. Avoids
 	gcc-4.0 warnings.
+
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.5 released.
+
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h (LIBGETTEXTPO_VERSION): Bump version number.
+
+2005-05-21  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c: Update for GCC 4.0.
+	(FAT_POINTER, FAT_SIZE_LONGLONG, FAT_SIZE_WIDE, FAT_SIZE_MASK): New
+	enum items.
+	(FAT_*): Update.
+	(struct spec): Add uses_err_no field.
+	(format_parse): Initialize uses_err_no field. Handle %q flag. Handle
+	'll', 'w' size specifiers. Handle %<, %>, %', %m, %p, %J directives.
+	(format_check): Also check that the use of err_no is the same.
+	Based on a patch by Jakub Jelinek <jakub@redhat.com>.
 
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 

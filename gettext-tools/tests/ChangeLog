@@ -1,13 +1,3 @@
-2005-05-21  Bruno Haible  <bruno@clisp.org>
-
-	* format-gcc-internal-1: Add tests for GCC-4.0 directives %<, %>, %',
-	%m, %p, %J and size specifiers.
-	* format-gcc-internal-2: Likewise.
-
-2005-05-21  Bruno Haible  <bruno@clisp.org>
-
-	* format-c-2: Test also the type incompatibility due to size.
-
 2005-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-sh-4: New file.
@@ -49,6 +39,20 @@
 	(gettext_3_prg_SOURCES, gettext_3_prg_LDADD): New variables.
 	(gettext_4_prg_SOURCES, gettext_4_prg_LDADD): New variables.
 	(gettext_5_prg_SOURCES, gettext_5_prg_LDADD): New variables.
+
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.5 released.
+
+2005-05-21  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal-1: Add tests for GCC-4.0 directives %<, %>, %',
+	%m, %p, %J and size specifiers.
+	* format-gcc-internal-2: Likewise.
+
+2005-05-21  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-2: Test also the type incompatibility due to size.
 
 2005-04-11  Bruno Haible  <bruno@clisp.org>
 
