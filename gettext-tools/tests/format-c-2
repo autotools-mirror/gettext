@@ -142,6 +142,132 @@ msgstr "xyz%n"
 # Invalid: type incompatibility
 msgid  "abc%p"
 msgstr "xyz%n"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%hhi"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%hi"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%li"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%Li"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%qi"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%hi"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%li"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%Li"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%qi"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%hhi"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%li"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%Li"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%qi"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%hi"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%Li"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%qi"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%lli"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%lli"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%lli"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%Li"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%Li"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%Li"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%qi"
+msgstr "xyz%ji"
+# Invalid: type incompatibility due to size
+msgid  "abc%qi"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%qi"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%ji"
+msgstr "xyz%zi"
+# Invalid: type incompatibility due to size
+msgid  "abc%ji"
+msgstr "xyz%ti"
+# Invalid: type incompatibility due to size
+msgid  "abc%zi"
+msgstr "xyz%ti"
 # Invalid: type incompatibility for width
 msgid  "abc%g%*g"
 msgstr "xyz%*g%g"
