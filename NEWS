@@ -1,3 +1,7 @@
+Version 0.14.5 - May 2005
+
+* Updated the meaning of 'gcc-internal-format' to match GCC 4.0.
+
 Version 0.14.4 - April 2005
 
 * The gettext autoconf macros will now work with the forthcoming g++ 4.0.

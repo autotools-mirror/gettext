@@ -1,5 +1,11 @@
 2005-05-21  Bruno Haible  <bruno@clisp.org>
 
+	* format-gcc-internal-1: Add tests for GCC-4.0 directives %<, %>, %',
+	%m, %p, %J and size specifiers.
+	* format-gcc-internal-2: Likewise.
+
+2005-05-21  Bruno Haible  <bruno@clisp.org>
+
 	* format-c-2: Test also the type incompatibility due to size.
 
 2005-05-01  Bruno Haible  <bruno@clisp.org>

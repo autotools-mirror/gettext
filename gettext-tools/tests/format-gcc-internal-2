@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Test checking of C format strings.
+# Test checking of GCC internal format strings.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -10,12 +10,30 @@ cat <<\EOF > f-gi-2.data
 # Valid: %% doesn't count
 msgid  "abc%%def"
 msgstr "xyz"
+# Valid: %< doesn't count
+msgid  "abc%<def"
+msgstr "xyz"
+# Valid: %> doesn't count
+msgid  "abc%>def"
+msgstr "xyz"
+# Valid: %' doesn't count
+msgid  "abc%'def"
+msgstr "xyz"
+# Invalid: %m consumes err_no
+msgid  "abc%mdef"
+msgstr "xyz"
+# Invalid: %m consumes err_no
+msgid  "abc"
+msgstr "xyz%muvw"
 # Invalid: invalid msgstr
 msgid  "abc%%def"
 msgstr "xyz%"
 # Valid: same arguments
 msgid  "abc%s%Hdef"
 msgstr "xyz%s%H"
+# Valid: same arguments, with different flags
+msgid  "abc%s%Hdef"
+msgstr "xyz%qs%qH"
 # Valid: same arguments, with different widths
 msgid  "abc%.*sdef"
 msgstr "xyz%i%s"
@@ -45,6 +63,9 @@ msgid  "abc%c"
 msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%c"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%c"
 msgstr "xyz%H"
 # Invalid: type incompatibility
 msgid  "abc%c"
@@ -87,6 +108,9 @@ msgid  "abc%s"
 msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%s"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%s"
 msgstr "xyz%H"
 # Invalid: type incompatibility
 msgid  "abc%s"
@@ -126,6 +150,9 @@ msgid  "abc%i"
 msgstr "xyz%u"
 # Invalid: type incompatibility
 msgid  "abc%i"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%i"
 msgstr "xyz%H"
 # Invalid: type incompatibility
 msgid  "abc%i"
@@ -162,6 +189,9 @@ msgid  "abc%i"
 msgstr "xyz%V"
 # Invalid: type incompatibility
 msgid  "abc%u"
+msgstr "xyz%p"
+# Invalid: type incompatibility
+msgid  "abc%u"
 msgstr "xyz%H"
 # Invalid: type incompatibility
 msgid  "abc%u"
@@ -195,6 +225,42 @@ msgid  "abc%u"
 msgstr "xyz%Q"
 # Invalid: type incompatibility
 msgid  "abc%u"
+msgstr "xyz%V"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%H"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%D"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%F"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%T"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%A"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%C"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%E"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%L"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%O"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%P"
+# Invalid: type incompatibility
+msgid  "abc%p"
+msgstr "xyz%Q"
+# Invalid: type incompatibility
+msgid  "abc%p"
 msgstr "xyz%V"
 # Invalid: type incompatibility
 msgid  "abc%H"
@@ -394,6 +460,24 @@ msgstr "xyz%V"
 # Invalid: type incompatibility
 msgid  "abc%Q"
 msgstr "xyz%V"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%li"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%i"
+msgstr "xyz%wi"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%lli"
+# Invalid: type incompatibility due to size
+msgid  "abc%li"
+msgstr "xyz%wi"
+# Invalid: type incompatibility due to size
+msgid  "abc%lli"
+msgstr "xyz%wi"
 # Invalid: type incompatibility for width
 msgid  "abc%.*s"
 msgstr "xyz%u%s"
