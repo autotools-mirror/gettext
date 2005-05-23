@@ -1,3 +1,11 @@
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* vi.po: New file, from Clytie Siddall <clytie@riverland.net.au>.
+	* zh_TW.po: Update from Abel Cheung <abelcheung@gmail.com>.
+	* LINGUAS: Add vi.
+
 2005-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (Makefile): Call config.status with calling convention

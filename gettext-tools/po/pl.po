@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.14.2-pre4\n"
+"Project-Id-Version: GNU gettext-tools 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-02-12 20:12+0100\n"
-"PO-Revision-Date: 2005-02-14 12:45+0100\n"
+"PO-Revision-Date: 2005-04-18 17:30+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -719,7 +719,7 @@ msgstr ""
 #: src/msgmerge.c:547 src/msgunfmt.c:513 src/msguniq.c:396 src/urlget.c:183
 #: src/xgettext.c:870
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Raporty o b³êdach prosimy wysy³aæ do bug-gnu-utils@gnu.org\n"
+msgstr "Raporty o b³êdach prosimy wysy³aæ do bug-gnu-gettext@gnu.org .\n"
 
 #: src/hostname.c:254 src/hostname.c:260 src/hostname.c:267
 #, c-format

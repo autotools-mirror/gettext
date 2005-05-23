@@ -1,40 +1,40 @@
 # traditional Chinese translation for gettext.
-# Copyright (C) 1998, 2001, 2002 Free Software Foundation, Inc.
+# Copyright (C) 1998, 2001, 2002, 2005 Free Software Foundation, Inc.
 # Pofeng Lee <pofeng@linux.org.tw>, 2001-2002.
 # Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>, 1998.
-# Abel Cheung <maddog@linux.org.hk>, 2002.
+# Abel Cheung <abelcheung@gmail.com>, 2002, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext 0.11.3\n"
+"Project-Id-Version: gettext-tools 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-02-12 20:12+0100\n"
-"PO-Revision-Date: 2002-07-21 06:45 +0800\n"
-"Last-Translator: Pofeng Lee <pofeng@linux.org.tw>\n"
+"PO-Revision-Date: 2005-04-27 21:59+0800\n"
+"Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=Big5\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: lib/argmatch.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "invalid argument %s for %s"
-msgstr "¡¥%2$s¡¦ªº°Ñ¼Æ¡¥%1$s¡¦µL®Ä"
+msgstr "%2$s çš„åƒæ•¸ %1$s ç„¡æ•ˆ"
 
 #: lib/argmatch.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument %s for %s"
-msgstr "¡¥%2$s¡¦ªº°Ñ¼Æ¡¥%1$s¡¦¬O¤£©ú½Tªº"
+msgstr "%2$s çš„åƒæ•¸ %1$s ä¸æ˜ç¢º"
 
 #: lib/argmatch.c:157
 #, c-format
 msgid "Valid arguments are:"
-msgstr "¦³®Äªº°Ñ¼Æ¬°¡G"
+msgstr "æœ‰æ•ˆçš„åƒæ•¸ç‚ºï¼š"
 
 #: lib/closeout.c:64
 msgid "write error"
-msgstr ""
+msgstr "å¯«å…¥æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 # lib/copy-file.c:61 src/file-list.c:57 src/po-lex.c:726 src/read-mo.c:171 src/urlget.c:204 src/xgettext.c:823 src/xgettext.c:836 src/xgettext.c:846 #, c-format
 #: lib/copy-file.c:65 src/file-list.c:56 src/msggrep.c:231 src/open-po.c:118
@@ -42,27 +42,27 @@ msgstr ""
 #: src/xgettext.c:1582 src/xgettext.c:1592
 #, c-format
 msgid "error while opening \"%s\" for reading"
-msgstr "·í¶}±ÒÀÉ®×¡§%s¡¨·Ç³ÆÅª¨ú®Éµo¥Í¿ù»~"
+msgstr "ç•¶é–‹å•Ÿæª”æ¡ˆ â€œ%sâ€ æº–å‚™è®€å–æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: lib/copy-file.c:72
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
-msgstr "µLªk¼g¤J³Æ¥÷ÀÉ¡§%s¡¨"
+msgstr "ç„¡æ³•é–‹å•Ÿå‚™ä»½æª” â€œ%sâ€ ä¾†å¯«å…¥å…§å®¹"
 
 #: lib/copy-file.c:80 src/urlget.c:212
 #, c-format
 msgid "error reading \"%s\""
-msgstr "Åª¨ú¡§%s¡¨®Éµo¥Í¿ù»~"
+msgstr "è®€å– â€œ%sâ€ æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: lib/copy-file.c:85 lib/copy-file.c:89
 #, c-format
 msgid "error writing \"%s\""
-msgstr "¼g¤J¡§%s¡¨®Éµo¥Í¿ù»~"
+msgstr "å¯«å…¥ â€œ%sâ€ æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: lib/copy-file.c:91 src/urlget.c:222
 #, c-format
 msgid "error after reading \"%s\""
-msgstr "§¹¦¨Åª¨ú¡§%s¡¨«áµo¥Í¿ù»~"
+msgstr "å®Œæˆè®€å– â€œ%sâ€ å¾Œç™¼ç”ŸéŒ¯èª¤"
 
 #: lib/csharpcomp.c:273 src/msginit.c:970 src/msginit.c:1037
 #: src/msginit.c:1195 src/msginit.c:1277 src/read-csharp.c:73
@@ -70,129 +70,129 @@ msgstr "§¹¦¨Åª¨ú¡§%s¡¨«áµo¥Í¿ù»~"
 #: src/write-resources.c:79
 #, c-format
 msgid "fdopen() failed"
-msgstr "fdopen() ¥¢±Ñ"
+msgstr "fdopen() å¤±æ•—"
 
 #: lib/csharpcomp.c:526
-#, fuzzy, c-format
+#, c-format
 msgid "C# compiler not found, try installing pnet"
-msgstr "§ä¤£¨ì Java ½sÄ¶¾¹¡A½Ğ¦w¸Ë gcj ©Î¬O³]©w $JAVAC Àô¹ÒÅÜ¼Æ"
+msgstr "æ‰¾ä¸åˆ° C# ç·¨è­¯å™¨ï¼Œè«‹å®‰è£ pnet"
 
 #: lib/csharpexec.c:251
-#, fuzzy, c-format
+#, c-format
 msgid "C# virtual machine not found, try installing pnet"
-msgstr "§ä¤£¨ì Java virtual machine¡A½Ğ¦w¸Ë gij ©Î¬O³]©w $JAVA Àô¹ÒÅÜ¼Æ"
+msgstr "æ‰¾ä¸åˆ° C# virtual machineï¼Œè«‹å®‰è£ pnet"
 
 #: lib/error.c:121
 msgid "Unknown system error"
-msgstr "¤£©úªº¨t²Î¿ù»~"
+msgstr "ç³»çµ±å‡ºç¾ä¸æ˜éŒ¯èª¤"
 
 #: lib/execute.c:186 lib/execute.c:262 lib/execute.c:304 lib/pipe.c:231
 #: lib/pipe.c:349 lib/pipe.c:409 lib/wait-process.c:336 lib/wait-process.c:403
 #, c-format
 msgid "%s subprocess failed"
-msgstr "%s °Æµ{§Çµo¥Í¿ù»~"
+msgstr "%s å‰¯é€²ç¨‹ç™¼ç”ŸéŒ¯èª¤"
 
 #: lib/getopt.c:551 lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s¡G¿ï¶µ¡¥%s¡¦¬O¤£©ú½Tªº\n"
+msgstr "%sï¼šé¸é … â€˜%sâ€™ ä¸æ˜ç¢º\n"
 
 #: lib/getopt.c:603 lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s¡G¿ï¶µ¡¥--%s¡¦¤£¤¹³\¦³°Ñ¼Æ\n"
+msgstr "%sï¼šé¸é … â€˜--%sâ€™ ä¸å¯é…åˆåƒæ•¸ä½¿ç”¨\n"
 
 #: lib/getopt.c:616 lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s¡G¿ï¶µ¡¥%c%s¡¦¤£¤¹³\¦³°Ñ¼Æ\n"
+msgstr "%sï¼šé¸é … â€˜%c%sâ€™ ä¸å¯é…åˆåƒæ•¸ä½¿ç”¨\n"
 
 #: lib/getopt.c:667 lib/getopt.c:689 lib/getopt.c:1020 lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s¡G¿ï¶µ¡¥%s¡¦»İ­n°Ñ¼Æ\n"
+msgstr "%sï¼šé¸é … â€˜%sâ€™ éœ€è¦åƒæ•¸\n"
 
 #: lib/getopt.c:727 lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s¡GµLªkÃÑ§O¿ï¶µ¡¥--%s¡¦\n"
+msgstr "%sï¼šç„¡æ³•è¾¨è­˜ â€˜--%sâ€™ é¸é …\n"
 
 #: lib/getopt.c:738 lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s¡GµLªkÃÑ§O¿ï¶µ¡¥%c%s¡¦\n"
+msgstr "%sï¼šç„¡æ³•è¾¨è­˜ â€˜%c%sâ€™ é¸é …\n"
 
 #: lib/getopt.c:796 lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s¡G¤£¦Xªkªº¿ï¶µ ¢w %c\n"
+msgstr "%sï¼šé¸é …ä¸åˆæ³• -- %c\n"
 
 #: lib/getopt.c:805 lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
-msgstr "%s¡G¿ï¶µµL®Ä ¢w %c\n"
+msgstr "%sï¼šé¸é …ç„¡æ•ˆ -- %c\n"
 
 #: lib/getopt.c:863 lib/getopt.c:882 lib/getopt.c:1095 lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s¡G¿ï¶µ»İ­n°Ñ¼Æ ¢w %c\n"
+msgstr "%sï¼šé¸é …éœ€è¦åƒæ•¸ -- %c\n"
 
 #: lib/getopt.c:935 lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s¡G¿ï¶µ¡¥-W %s¡¦¬O¤£©ú½Tªº\n"
+msgstr "%sï¼šé¸é … â€˜-W %sâ€™ ä¸æ˜ç¢º\n"
 
 #: lib/getopt.c:978 lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s¡G¿ï¶µ¡¥-W %s¡¦¤£¤¹³\¦³°Ñ¼Æ\n"
+msgstr "%sï¼šé¸é … â€˜-W %sâ€™ ä¸å¯é…åˆåƒæ•¸ä½¿ç”¨\n"
 
 #: lib/javacomp.c:467
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
-msgstr "§ä¤£¨ì Java ½sÄ¶¾¹¡A½Ğ¦w¸Ë gcj ©Î¬O³]©w $JAVAC Àô¹ÒÅÜ¼Æ"
+msgstr "æ‰¾ä¸åˆ° Java ç·¨è­¯å™¨ï¼Œè«‹å®‰è£ gcj æˆ–æ˜¯è¨­å®š $JAVAC ç’°å¢ƒè®Šæ•¸"
 
 #: lib/javaexec.c:420
 #, c-format
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
-msgstr "§ä¤£¨ì Java virtual machine¡A½Ğ¦w¸Ë gij ©Î¬O³]©w $JAVA Àô¹ÒÅÜ¼Æ"
+msgstr "æ‰¾ä¸åˆ° Java virtual machineï¼Œè«‹å®‰è£ gij æˆ–æ˜¯è¨­å®š $JAVA ç’°å¢ƒè®Šæ•¸"
 
 #: lib/obstack.c:438 lib/obstack.c:441 lib/xerror.c:51 lib/xmalloc.c:41
 #: lib/xsetenv.c:40 src/gettext-po.c:901 src/po-lex.c:89 src/po-lex.c:118
 #: src/x-glade.c:390
 #, c-format
 msgid "memory exhausted"
-msgstr "°O¾ĞÅé¯ÓºÉ"
+msgstr "è¨˜æ†¶é«”è€—ç›¡"
 
 #: lib/pipe.c:157 lib/pipe.c:160 lib/pipe.c:264 lib/pipe.c:267
 #, c-format
 msgid "cannot create pipe"
-msgstr "µLªk«Ø¥ßºŞ½u"
+msgstr "ç„¡æ³•å»ºç«‹ç®¡ç·š"
 
 #: lib/w32spawn.h:48
-#, fuzzy, c-format
+#, c-format
 msgid "DuplicateHandle failed with error code 0x%08x"
-msgstr "%s °Æµ{§Ç¥¢±Ñ¡A¿ù»~½X¬° %d"
+msgstr "DuplicateHandle å¤±æ•—ï¼ŒéŒ¯èª¤ç¢¼ç‚º 0x%08x"
 
 #: lib/w32spawn.h:53
 #, c-format
 msgid "_open_osfhandle failed"
-msgstr ""
+msgstr "_open_osfhandle å¤±æ•—"
 
 #: lib/wait-process.c:279 lib/wait-process.c:311 lib/wait-process.c:369
 #, c-format
 msgid "%s subprocess"
-msgstr "%s °Æµ{§Ç"
+msgstr "%s å‰¯é€²ç¨‹"
 
 #: lib/wait-process.c:328 lib/wait-process.c:395
 #, c-format
 msgid "%s subprocess got fatal signal %d"
-msgstr "%s °Æµ{§Ç¥X²{ÄY­«¿ù»~ªº°T¸¹ %d"
+msgstr "%s å‰¯é€²ç¨‹å‡ºç¾ä»£è¡¨åš´é‡éŒ¯èª¤çš„è¨Šè™Ÿ %d"
 
 #: src/format.c:127
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
-msgstr "¤£¹³¡¥msgid¡¦¡A¡¥%s¡¦¤£¬O¦³®Äªº %s ®æ¦¡¦r¦ê"
+msgstr "å’Œ â€˜msgidâ€™ ä¸åŒï¼Œâ€˜%sâ€™ çš„ %s æ ¼å¼å­—ä¸²ç„¡æ•ˆã€‚åŸå› ï¼š%s"
 
 #: src/format-awk.c:489 src/format-elisp.c:337 src/format-librep.c:301
 #: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
@@ -200,14 +200,14 @@ msgstr "¤£¹³¡¥msgid¡¦¡A¡¥%s¡¦¤£¬O¦³®Äªº %s ®æ¦¡¦r¦ê"
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
-msgstr "¡¥%2$s¡¦¤¤²Ä %1$u ­Ó°Ñ¼Æªº³W®æ¦b¡¥msgid¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "â€˜%2$sâ€™ ä¸­ç¬¬ %1$u å€‹åƒæ•¸çš„è¦æ ¼åœ¨ â€˜msgidâ€™ ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-awk.c:499 src/format-elisp.c:347 src/format-librep.c:311
 #: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
 #: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
-msgstr "²Ä %u ­Ó°Ñ¼Æªº³W®æ¦b¡¥%s¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„è¦æ ¼åœ¨â€˜%sâ€™ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-awk.c:519 src/format-c.c:856 src/format-elisp.c:367
 #: src/format-gcc-internal.c:274 src/format-librep.c:331
@@ -216,7 +216,7 @@ msgstr "²Ä %u ­Ó°Ñ¼Æªº³W®æ¦b¡¥%s¡¦¤¤¨Ã¤£¦s¦b"
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
-msgstr "¡¥msgid¡¦©M¡¥%s¡¦ªº²Ä %u ­Ó°Ñ¼Æªº³W®æ¨Ã¤£¬Û¦P"
+msgstr "â€˜msgidâ€™å’Œâ€˜%sâ€™çš„ç¬¬ %u å€‹åƒæ•¸çš„è¦æ ¼ä¸¦ä¸ç›¸åŒ"
 
 #: src/format-c.c:176
 #, c-format
@@ -224,22 +224,24 @@ msgid ""
 "In the directive number %u, the token after '<' is not the name of a format "
 "specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
 msgstr ""
+"åœ¨ç¬¬ %u å€‹åƒæ•¸ï¼Œâ€˜<â€™ ä¹‹å¾Œçš„é—œéµå­—ä¸æ˜¯æ­£ç¢ºçš„è®Šæ•¸è¦æ ¼ã€‚å¦‚æœæƒ³ç²çŸ¥æ­£ç¢ºçš„è®Šæ•¸è¦æ ¼"
+"åç¨±ï¼Œè«‹åƒè€ƒ ISO C 99 è¦æ ¼ç¬¬ 7.8.1 ç¯€ã€‚"
 
 #: src/format-c.c:563
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
-msgstr ""
+msgstr "åœ¨ç¬¬ %u å€‹åƒæ•¸ï¼Œâ€˜<â€™ ä¹‹å¾Œçš„é—œéµå­—å¾Œé¢ç¼ºå°‘äº† â€˜>â€™ã€‚"
 
 #: src/format-c.c:770
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
-msgstr ""
+msgstr "å­—ä¸²ä¸­æœ‰æåŠç¬¬ %u å€‹åƒæ•¸ï¼Œä½†å¿½ç•¥äº†ç¬¬ %u å€‹ã€‚"
 
 #: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:265
 #: src/format-python.c:485
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
-msgstr "¡¥msgid¡¦©M¡¥%s¡¦ªº°Ñ¼Æ¼Æ¥Ø¨Ã¤£²Å¦X"
+msgstr "â€˜msgidâ€™ å’Œ â€˜%sâ€™ çš„åƒæ•¸æ•¸ç›®ä¸ç¬¦"
 
 #: src/format-csharp.c:86 src/format-java.c:203
 #, c-format
@@ -249,7 +251,7 @@ msgstr ""
 #: src/format-csharp.c:106
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
-msgstr ""
+msgstr "åœ¨ç¬¬ %u å€‹åƒæ•¸ï¼Œâ€˜,â€™ å¾Œé¢çš„ä¸æ˜¯æ•¸å­—ã€‚"
 
 #: src/format-csharp.c:125 src/format-java.c:190
 msgid ""
@@ -260,12 +262,12 @@ msgstr ""
 #, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çµæŸçš„å­—å…ƒæ˜¯ â€˜%câ€™ è€Œä¸æ˜¯ â€˜}â€™ã€‚"
 
 #: src/format-csharp.c:134
 #, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çµæŸçš„ä¸æ˜¯ â€˜}â€™ï¼Œè€Œæ˜¯ä¸åˆæ³•çš„å­—å…ƒã€‚"
 
 #: src/format-csharp.c:152 src/format-java.c:333
 msgid ""
@@ -276,7 +278,7 @@ msgstr ""
 #: src/format-csharp.c:153
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸å¾Œå‡ºç¾å–®ç¨çš„ â€˜}â€™ã€‚"
 
 #: src/format-gcc-internal.c:202
 #, c-format
@@ -285,19 +287,19 @@ msgstr ""
 
 #: src/format-invalid.h:23
 msgid "The string ends in the middle of a directive."
-msgstr ""
+msgstr "åœ¨åƒæ•¸ä¸­é–“ï¼Œå­—ä¸²çªç„¶çµæŸ"
 
 #: src/format-invalid.h:26
 msgid ""
 "The string refers to arguments both through absolute argument numbers and "
 "through unnumbered argument specifications."
-msgstr ""
+msgstr "å­—ä¸²ä¸­åŒæ™‚å‡ºç¾äº†æœ‰ç¡¬æ€§è¦å®šå’Œæ²’æœ‰ç¡¬æ€§è¦å®šä½ç½®çš„åƒæ•¸"
 
 #: src/format-invalid.h:29
 #, c-format
 msgid ""
 "In the directive number %u, the argument number 0 is not a positive integer."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸ä¸­çš„æ•¸å­— 0 ä¸æ˜¯æ­£æ•´æ•¸ã€‚"
 
 #: src/format-invalid.h:31
 #, c-format
@@ -318,37 +320,37 @@ msgstr ""
 msgid ""
 "In the directive number %u, the character '%c' is not a valid conversion "
 "specifier."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„ â€˜%câ€™ å­—å…ƒå±¬æ–¼ç„¡æ•ˆçš„åˆ—å°æ ¼å¼ã€‚"
 
 #: src/format-invalid.h:38
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a valid "
 "conversion specifier."
-msgstr ""
+msgstr "ç”¨ä¾†çµæŸç¬¬ %u å€‹åƒæ•¸çš„å­—å…ƒå±¬æ–¼ç„¡æ•ˆçš„åˆ—å°æ ¼å¼ã€‚"
 
 #: src/format-invalid.h:41
 #, c-format
 msgid "The string refers to argument number %u in incompatible ways."
-msgstr ""
+msgstr "å­—ä¸²æ¡ç”¨äº†ä¸ç›¸å®¹çš„æ–¹æ³•ä¾†è¡¨ç¤ºç¬¬ %u å€‹åƒæ•¸ã€‚"
 
 #: src/format-java.c:237
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
 "style."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„å­å­—ä¸² â€œ%sâ€ æ˜¯ç„¡æ•ˆçš„æ—¥æœŸ/æ™‚é–“æ ¼å¼ã€‚"
 
 #: src/format-java.c:247 src/format-java.c:279 src/format-java.c:306
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„ â€œ%sâ€ å¾Œé¢ç¼ºå°‘äº†é€—è™Ÿã€‚"
 
 #: src/format-java.c:269
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„å­å­—ä¸² â€œ%sâ€ æ˜¯ç„¡æ•ˆçš„æ•¸å­—æ ¼å¼ã€‚"
 
 #: src/format-java.c:314
 #, c-format
@@ -374,18 +376,18 @@ msgstr ""
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "¡¥%2$s¡¦¤¤ªº°Ñ¼Æ {%1$u} ªº®æ¦¡¦b¡¥msgid¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "â€˜%2$sâ€™ ä¸­çš„åƒæ•¸ {%1$u} çš„æ ¼å¼åœ¨ â€˜msgidâ€™ ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-java.c:739
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
-msgstr "°Ñ¼Æ {%u} ªº³W®æ¦b¡¥%s¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "åƒæ•¸ {%u} çš„è¦æ ¼åœ¨ â€˜%sâ€™ ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-java.c:759
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
-msgstr "¡¥msgid¡¦©M¡¥%s¡¦ªº°Ñ¼Æ {%u} ªº³W®æ¨Ã¤£¬Û¦P"
+msgstr "â€˜msgidâ€™ å’Œ â€˜%sâ€™ çš„åƒæ•¸ {%u} è¦æ ¼ä¸¦ä¸ç›¸åŒ"
 
 #: src/format-lisp.c:2352 src/format-lisp.c:2364
 #, c-format
@@ -423,7 +425,7 @@ msgstr ""
 #: src/format-lisp.c:3180 src/format-lisp.c:3266
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
-msgstr ""
+msgstr "æ‰¾åˆ° â€˜~%câ€™ ä½†æ²’æœ‰ â€˜~%câ€™ é…åˆã€‚"
 
 #: src/format-lisp.c:2808
 #, c-format
@@ -449,12 +451,12 @@ msgstr ""
 #: src/format-lisp.c:3342
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
-msgstr "¡¥msgid¡¦©M¡¥%s¡¦ªº°Ñ¼Æ³W®æ¨Ã«D¦Pµ¥"
+msgstr "â€˜msgidâ€™ å’Œ â€˜%sâ€™ çš„åƒæ•¸è¦æ ¼ä¸¦éåŒç­‰"
 
 #: src/format-lisp.c:3358
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
-msgstr "¡¥%s¡¦ªº°Ñ¼Æ³W®æ¨Ã«D¡¥msgid¡¦ªº°Ñ¼Æ³W®æªº¤@³¡¥÷"
+msgstr "â€˜%sâ€™ çš„åƒæ•¸è¦æ ¼ä¸¦é â€˜msgidâ€™ çš„åƒæ•¸è¦æ ¼çš„ä¸€éƒ¨ä»½"
 
 #: src/format-perl.c:426
 #, c-format
@@ -466,7 +468,7 @@ msgstr ""
 #: src/format-perl-brace.c:194 src/format-python.c:443 src/format-sh.c:295
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
-msgstr "°Ñ¼Æ¡¥%s¡¦ªº³W®æ¦b¡¥%s¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "åƒæ•¸ â€˜%sâ€™ çš„è¦æ ¼åœ¨ â€˜%sâ€™ ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-python.c:113
 msgid ""
@@ -485,8 +487,7 @@ msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
 msgstr ""
-"¦b 'msgid' ¸Ì­±ªº¦r¦ê®æ¦¡©w¸q¹ïÀ³ªº¬O¤@­ÓÂø´êªí(mapping)¡A¦Ó¦b '%s' ¸Ì­±ªº¹ï"
-"À³ªº«o¬O¤@­Ó©T©w¦³§Ç¦C (tuple)"
+"â€˜msgidâ€™ è£¡çš„è¦æ ¼å°æ‡‰çš„æ˜¯é›œæ¹Šè¡¨ (mapping)ï¼Œè€Œ â€˜%sâ€™ çš„å»æ˜¯å›ºå®šæœ‰åºåˆ— (tuple)"
 
 #: src/format-python.c:410
 #, c-format
@@ -494,21 +495,20 @@ msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
-"¦b 'msgid' ¸Ì­±ªº¦r¦ê®æ¦¡©w¸q¹ïÀ³ªº¬O¤@­Ó©T©w¦³§Ç¦C(tuple)¡A¦Ó¦b '%s' ¸Ì­±ªº"
-"¹ïÀ³ªº«o¬O¤@­ÓÂø´êªí (mapping)"
+"â€˜msgidâ€™ è£¡çš„è¦æ ¼å°æ‡‰çš„æ˜¯å›ºå®šæœ‰åºåˆ— (tuple)ï¼Œè€Œ â€˜%sâ€™ çš„å»æ˜¯é›œæ¹Šè¡¨ (mapping)"
 
 #: src/format-python.c:433 src/format-sh.c:285
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "¡¥%2$s¡¦¤¤ªº°Ñ¼Æ¡¥%1$s¡¦ªº®æ¦¡¦b¡¥msgid¡¦¤¤¨Ã¤£¦s¦b"
+msgstr "â€˜%2$sâ€™ ä¸­çš„åƒæ•¸ â€˜%1$sâ€™ çš„æ ¼å¼åœ¨ â€˜msgidâ€™ ä¸­ä¸¦ä¸å­˜åœ¨"
 
 #: src/format-python.c:463
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
-msgstr "¡¥msgid¡¦©M¡¥%s¡¦ªº°Ñ¼Æ¡¥%s¡¦ªº®æ¦¡¨Ã¤£¬Û¦P"
+msgstr "â€˜msgidâ€™å’Œâ€˜%sâ€™çš„åƒæ•¸â€˜%sâ€™çš„æ ¼å¼ä¸¦ä¸ç›¸åŒ"
 
 #: src/format-qt.c:78
 #, c-format
@@ -517,13 +517,14 @@ msgstr ""
 
 #: src/format-sh.c:80
 msgid "The string refers to a shell variable with a non-ASCII name."
-msgstr ""
+msgstr "å­—ä¸²ä¸­çš„ shell è®Šæ•¸åç¨±å«æœ‰ä¸å±¬æ–¼ ASCII çš„å­—å…ƒã€‚"
 
 #: src/format-sh.c:82
 msgid ""
 "The string refers to a shell variable with complex shell brace syntax. This "
 "syntax is unsupported here due to security reasons."
 msgstr ""
+"å­—ä¸²ä¸­çš„ shell è®Šæ•¸åç¨±å«æœ‰è¼ƒè¤‡é›œçš„æ‹¬è™Ÿæ ¼å¼ï¼Œå› å®‰å…¨ç†ç”±ï¼Œé€™ç¨®æ ¼å¼ä¸æœƒæ”¯æ´ã€‚"
 
 #: src/format-sh.c:84
 msgid ""
@@ -533,29 +534,29 @@ msgstr ""
 
 #: src/format-sh.c:86
 msgid "The string refers to a shell variable with an empty name."
-msgstr ""
+msgstr "å­—ä¸²ä¸­çš„ shell è®Šæ•¸æ²’æœ‰åç¨±ã€‚"
 
 #: src/format-ycp.c:83
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸çš„å­—å…ƒâ€˜%câ€™ä¸æ˜¯ 1 è‡³ 9 ä¹‹é–“çš„æ•´æ•¸ã€‚"
 
 #: src/format-ycp.c:84
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a digit between "
 "1 and 9."
-msgstr ""
+msgstr "ç¬¬ %u å€‹åƒæ•¸æœ€å¾Œä¸€å€‹å­—å…ƒä¸æ˜¯ 1 è‡³ 9 ä¹‹é–“çš„æ•´æ•¸ã€‚"
 
 #: src/gettext-po.c:80
 msgid "<unnamed>"
-msgstr ""
+msgstr "<æœªå‘½å>"
 
 #: src/gettext-po.c:98 src/gettext-po.c:141 src/open-po.c:55
 msgid "<stdin>"
-msgstr "<¼Ğ·Ç¿é¤J>"
+msgstr "<æ¨™æº–è¼¸å…¥>"
 
 #: src/hostname.c:182 src/msgattrib.c:311 src/msgcat.c:263 src/msgcmp.c:140
 #: src/msgcomm.c:260 src/msgconv.c:217 src/msgen.c:203 src/msgexec.c:177
@@ -568,9 +569,9 @@ msgid ""
 "This is free software; see the source for copying conditions.  There is NO\n"
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
-"ª©Åv©Ò¦³ (C) %s Free Software Foundation, Inc.\n"
-"³o¬O¦Û¥Ñ³nÅé¡F½Ğ°Ñ¦Ò­ì©l½Xªºª©ÅvÁn©ú¡C¥»³nÅé¤£´£¨Ñ¥ô¦ó«OÃÒ¡A¬Æ¦Ü¤£·|¥]¬A\n"
-"¥i°â©Ê©M¾A¥Î©ó¥ô¦ó¯S©w¥Øªºªº«OÃÒ¡C\n"
+"ç‰ˆæ¬Šæ‰€æœ‰ (C) %s Free Software Foundation, Inc.\n"
+"é€™æ˜¯è‡ªç”±è»Ÿé«”ï¼›è«‹åƒè€ƒåŸå§‹ç¢¼çš„ç‰ˆæ¬Šè²æ˜ã€‚æœ¬è»Ÿé«”ä¸æä¾›ä»»ä½•ä¿è­‰ï¼Œç”šè‡³ä¸æœƒåŒ…æ‹¬\n"
+"å¯å”®æ€§æˆ–é©ç”¨æ–¼ä»»ä½•ç‰¹å®šç›®çš„çš„ä¿è­‰ã€‚\n"
 
 #: src/hostname.c:187 src/msgattrib.c:316 src/msgcat.c:268 src/msgcmp.c:145
 #: src/msgcomm.c:265 src/msgconv.c:222 src/msgen.c:208 src/msgexec.c:182
@@ -579,12 +580,12 @@ msgstr ""
 #: src/xgettext.c:508
 #, c-format
 msgid "Written by %s.\n"
-msgstr "¥Ñ %s ½s¼g¡C\n"
+msgstr "ç”± %s ç·¨å¯«ã€‚\n"
 
 #: src/hostname.c:197 src/msginit.c:283
 #, c-format
 msgid "too many arguments"
-msgstr "°Ñ¼Æ¹L¦h"
+msgstr "åƒæ•¸éå¤š"
 
 #: src/hostname.c:210 src/msgattrib.c:372 src/msgcat.c:327 src/msgcmp.c:176
 #: src/msgcomm.c:333 src/msgconv.c:280 src/msgen.c:258 src/msgexec.c:234
@@ -593,44 +594,41 @@ msgstr "°Ñ¼Æ¹L¦h"
 #: src/xgettext.c:717
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "¸Õ¸Õ¡¥%s --help¡¦¨ÓÀò¨ú§ó¦h¸ê°T¡C\n"
+msgstr "è«‹åŸ·è¡Œ â€˜%s --helpâ€™ é¡¯ç¤ºé¡å¤–è³‡è¨Šã€‚\n"
 
 #: src/hostname.c:214 src/msginit.c:365
 #, c-format
 msgid "Usage: %s [OPTION]\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ]\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …]\n"
 
 #: src/hostname.c:218
 #, c-format
 msgid "Print the machine's hostname.\n"
-msgstr "¦C¦L¥D¾÷ªº¦WºÙ¡C\n"
+msgstr "åˆ—å°ä¸»æ©Ÿçš„åç¨±ã€‚\n"
 
 #: src/hostname.c:221
 #, c-format
 msgid "Output format:\n"
-msgstr ""
+msgstr "è¼¸å‡ºæ ¼å¼ï¼š\n"
 
 #: src/hostname.c:223
 #, c-format
 msgid "  -s, --short                 short host name\n"
-msgstr ""
+msgstr "  -s, --short                 çŸ­çš„ä¸»æ©Ÿåç¨±\n"
 
 #: src/hostname.c:225
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified "
 "domain\n"
 "                                name, and aliases\n"
 msgstr ""
-"¿é¥X®æ¦¡¡G\n"
-"  -s, --short           µuªº¥D¾÷¦WºÙ\n"
-"  -f, --fqdn, --long    ªøªº¥D¾÷¦WºÙ¡A¥]¬A¥¿¦¡ªººô°ì¦WºÙ¡]FQDN¡^¤Î§O¦W\n"
-"  -i, --ip-address      ¥D¾÷ªº IP ¦a§}\n"
+"  -f, --fqdn, --long          é•·çš„ä¸»æ©Ÿåç¨±ï¼ŒåŒ…æ‹¬æ­£å¼çš„ç¶²åŸŸåç¨±(FQDN)åŠåˆ¥å\n"
 
 #: src/hostname.c:228
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
-msgstr ""
+msgstr "  -i, --ip-address            ä¸»æ©Ÿçš„ IP åœ°å€\n"
 
 #: src/hostname.c:231 src/msgattrib.c:476 src/msgcat.c:425 src/msgcmp.c:219
 #: src/msgcomm.c:427 src/msgconv.c:356 src/msgen.c:331 src/msgexec.c:276
@@ -639,7 +637,7 @@ msgstr ""
 #: src/xgettext.c:863
 #, c-format
 msgid "Informative output:\n"
-msgstr ""
+msgstr "é¡¯ç¤ºè³‡è¨Šï¼š\n"
 
 #: src/hostname.c:233 src/msgattrib.c:478 src/msgcat.c:427 src/msgcmp.c:221
 #: src/msgcomm.c:429 src/msgconv.c:358 src/msgen.c:333 src/msgexec.c:278
@@ -648,19 +646,16 @@ msgstr ""
 #: src/xgettext.c:865
 #, c-format
 msgid "  -h, --help                  display this help and exit\n"
-msgstr ""
+msgstr "  -h, --help                  é¡¯ç¤ºæœ¬è¨Šæ¯ï¼Œç„¶å¾ŒçµæŸ\n"
 
 #: src/hostname.c:235 src/msgattrib.c:480 src/msgcat.c:429 src/msgcmp.c:223
 #: src/msgcomm.c:431 src/msgconv.c:360 src/msgen.c:335 src/msgexec.c:280
 #: src/msgfilter.c:457 src/msgfmt.c:733 src/msggrep.c:573 src/msginit.c:421
 #: src/msgmerge.c:540 src/msgunfmt.c:508 src/msguniq.c:393 src/urlget.c:180
 #: src/xgettext.c:867
-#, fuzzy, c-format
+#, c-format
 msgid "  -V, --version               output version information and exit\n"
-msgstr ""
-"¿é¥X¸ê°T¡G\n"
-"  -h, --help                  Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-"  -V, --version               Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
+msgstr "  -V, --version               é¡¯ç¤ºç‰ˆæœ¬è³‡è¨Šï¼Œç„¶å¾ŒçµæŸ\n"
 
 #: src/hostname.c:238 src/msgattrib.c:483 src/msgcat.c:432 src/msgcmp.c:226
 #: src/msgcomm.c:434 src/msgconv.c:363 src/msgen.c:338 src/msgexec.c:283
@@ -668,18 +663,18 @@ msgstr ""
 #: src/msgmerge.c:547 src/msgunfmt.c:513 src/msguniq.c:396 src/urlget.c:183
 #: src/xgettext.c:870
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "½Ğ¦^³ø¿ù»~¦Ü <bug-gnu-gettext@gnu.org>¡C\n"
+msgstr "è«‹å‘ <bug-gnu-gettext@gnu.org> åŒ¯å ±éŒ¯èª¤ã€‚\n"
 
 #: src/hostname.c:254 src/hostname.c:260 src/hostname.c:267
 #, c-format
 msgid "could not get host name"
-msgstr "µLªk¨ú±o¥D¾÷¦WºÙ"
+msgstr "ç„¡æ³•å–å¾—ä¸»æ©Ÿåç¨±"
 
 #: src/msgattrib.c:331 src/msgconv.c:237 src/msgexec.c:149 src/msgfilter.c:200
 #: src/msggrep.c:393 src/msginit.c:206 src/msguniq.c:259
 #, c-format
 msgid "at most one input file allowed"
-msgstr "³Ì¦h¥u¤¹³\¤@­Ó¿é¤JÀÉ"
+msgstr "æœ€å¤šåªæ¥å—ä¸€å€‹è¼¸å…¥æª”"
 
 #: src/msgattrib.c:337 src/msgattrib.c:341 src/msgcat.c:278 src/msgcat.c:282
 #: src/msgcomm.c:275 src/msgcomm.c:279 src/msgconv.c:243 src/msgconv.c:247
@@ -690,19 +685,19 @@ msgstr "³Ì¦h¥u¤¹³\¤@­Ó¿é¤JÀÉ"
 #: src/xgettext.c:518 src/xgettext.c:522
 #, c-format
 msgid "%s and %s are mutually exclusive"
-msgstr "%s ©M %s ¨âªÌ¬O¤¬¤£¬Û®eªº"
+msgstr "%s å’Œ %s å…©è€…æ˜¯äº’ä¸ç›¸å®¹çš„"
 
 #: src/msgattrib.c:376 src/msgconv.c:284 src/msggrep.c:471 src/msguniq.c:304
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] [¿é¤JÀÉ]\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] [è¼¸å…¥æª”]\n"
 
 #: src/msgattrib.c:381
 #, c-format, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
-msgstr "®Ú¾Ú°T®§ªºÄİ©Ê¹LÂoÂ½Ä¶ÀÉ¸ÌªºÂ½Ä¶±ø¥Ø¡A¨Ã³B²z°T®§ªºÄİ©Ê¡C\n"
+msgstr "æ ¹æ“šè¨Šæ¯çš„å±¬æ€§éæ¿¾ç¿»è­¯æª”è£¡çš„æ¢ç›®ï¼Œä¸¦è™•ç†é€™äº›å±¬æ€§ã€‚\n"
 
 #: src/msgattrib.c:385 src/msgcat.c:348 src/msgcmp.c:194 src/msgcomm.c:353
 #: src/msgconv.c:292 src/msgen.c:274 src/msgexec.c:257 src/msgfilter.c:379
@@ -711,20 +706,20 @@ msgstr "®Ú¾Ú°T®§ªºÄİ©Ê¹LÂoÂ½Ä¶ÀÉ¸ÌªºÂ½Ä¶±ø¥Ø¡A¨Ã³B²z°T®§ªºÄİ©Ê¡C\n"
 #, c-format
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
-msgstr "ªø¿ï¶µ¥²¶·¥Îªº°Ñ¼Æ¦b¨Ï¥Îµu¿ï¶µ®É¤]¬O¥²¶·ªº¡C\n"
+msgstr "é•·é¸é …å¿…é ˆç”¨çš„åƒæ•¸åœ¨ä½¿ç”¨çŸ­é¸é …æ™‚ä¹Ÿæ˜¯å¿…é ˆçš„ã€‚\n"
 
 #: src/msgattrib.c:388 src/msgcat.c:351 src/msgcmp.c:197 src/msgcomm.c:356
 #: src/msgconv.c:295 src/msgen.c:277 src/msgexec.c:260 src/msgfilter.c:382
 #: src/msgfmt.c:625 src/msggrep.c:484 src/msginit.c:378 src/msgmerge.c:445
 #: src/msgunfmt.c:432 src/msguniq.c:323 src/xgettext.c:735
-#, fuzzy, c-format
+#, c-format
 msgid "Input file location:\n"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "è¼¸å…¥æª”ä½ç½®ï¼š\n"
 
 #: src/msgattrib.c:390 src/msgconv.c:297 src/msggrep.c:486 src/msguniq.c:325
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
-msgstr ""
+msgstr "  INPUTFILE                   ç”¨ä½œè¼¸å…¥çš„ PO æª”\n"
 
 #: src/msgattrib.c:392 src/msgcat.c:357 src/msgcmp.c:203 src/msgcomm.c:362
 #: src/msgconv.c:299 src/msgen.c:281 src/msgexec.c:264 src/msgfilter.c:386
@@ -733,16 +728,13 @@ msgstr ""
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
-msgstr ""
+msgstr "  -D, --directory=ç›®éŒ„        æœå°‹è¼¸å…¥æª”æ™‚åŠ å…¥æŒ‡å®š<ç›®éŒ„>\n"
 
 #: src/msgattrib.c:394 src/msgconv.c:301 src/msgexec.c:266 src/msgfilter.c:388
 #: src/msggrep.c:490 src/msgunfmt.c:436 src/msguniq.c:329
-#, fuzzy, c-format
+#, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
-msgstr ""
-"¿é¤JÀÉ¦ì¸m¡G\n"
-"  ¿é¤JÀÉ ...               ¿é¤Jªº .mo ÀÉ\n"
-"¦pªG¨S¦³«ü©w¿é¤JÀÉ©Î¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
+msgstr "å¦‚æœæ²’æœ‰æŒ‡å®šè¼¸å…¥æª”æˆ–è¼¸å…¥æª”æ˜¯ â€˜-â€™ï¼Œå‰‡ç”±æ¨™æº–è¼¸å…¥è®€å–å…§å®¹ã€‚\n"
 
 #: src/msgattrib.c:397 src/msgcat.c:362 src/msgcomm.c:367 src/msgconv.c:304
 #: src/msgen.c:286 src/msgfilter.c:391 src/msgfmt.c:649 src/msggrep.c:493
@@ -750,111 +742,108 @@ msgstr ""
 #: src/xgettext.c:746
 #, c-format
 msgid "Output file location:\n"
-msgstr ""
+msgstr "è¼¸å‡ºæª”ä½ç½®ï¼š\n"
 
 #: src/msgattrib.c:399 src/msgcat.c:364 src/msgcomm.c:369 src/msgconv.c:306
 #: src/msgen.c:288 src/msgfilter.c:393 src/msgfmt.c:651 src/msggrep.c:495
 #: src/msgmerge.c:465 src/msgunfmt.c:474 src/msguniq.c:334
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
-msgstr ""
+msgstr "  -o, --output-file=æª”æ¡ˆ      å°‡è¼¸å‡ºçš„å…§å®¹å¯«å…¥æŒ‡å®š<æª”æ¡ˆ>\n"
 
 #: src/msgattrib.c:401 src/msgcat.c:366 src/msgcomm.c:371 src/msgconv.c:308
 #: src/msgen.c:290 src/msgfilter.c:395 src/msggrep.c:497 src/msgmerge.c:467
 #: src/msgunfmt.c:476 src/msguniq.c:336
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
-msgstr ""
-"¿é¥XÀÉ¦ì¸m¡G\n"
-"  -o, --output-file=¿é¥XÀÉ    ±N¿é¥X¼g¤J¦Ü«ü©wªºÀÉ®×\n"
-"¦pªG¨S¦³«ü©w<¿é¥XÀÉ>©Î<¿é¥XÀÉ>¬O¡¥-¡¦¡A«h·|±Nµ²ªG¼g¤J¦Ü¼Ğ·Ç¿é¥X¡C\n"
+msgstr "å¦‚æœæ²’æœ‰æŒ‡å®š<è¼¸å‡ºæª”>æˆ–<è¼¸å‡ºæª”>æ˜¯ â€˜-â€™ï¼Œå‰‡æœƒåœ¨æ¨™æº–è¼¸å‡ºé¡¯ç¤ºçµæœã€‚\n"
 
 #: src/msgattrib.c:405 src/msgcat.c:370 src/msgcomm.c:375 src/msguniq.c:340
 #, c-format
 msgid "Message selection:\n"
-msgstr ""
+msgstr "ç¯©é¸è¨Šæ¯ï¼š\n"
 
 #: src/msgattrib.c:407
 #, c-format
 msgid ""
 "      --translated            keep translated, remove untranslated messages\n"
-msgstr ""
+msgstr "      --translated            åªä¿ç•™å·²ç¿»è­¯æ¢ç›®ï¼Œåˆªé™¤æœªç¿»è­¯æ¢ç›®\n"
 
 #: src/msgattrib.c:409
 #, c-format
 msgid ""
 "      --untranslated          keep untranslated, remove translated messages\n"
-msgstr ""
+msgstr "      --untranslated          åªä¿ç•™æœªç¿»è­¯æ¢ç›®ï¼Œåˆªé™¤å·²ç¿»è­¯æ¢ç›®\n"
 
 #: src/msgattrib.c:411
 #, c-format
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
-msgstr ""
+msgstr "      --no-fuzzy              åˆªé™¤åŠ ä¸Š 'fuzzy' æ¨™è¨˜çš„æ¢ç›®\n"
 
 #: src/msgattrib.c:413
 #, c-format
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
-msgstr ""
+msgstr "      --only-fuzzy            åªä¿ç•™åŠ ä¸Š 'fuzzy' æ¨™è¨˜çš„æ¢ç›®\n"
 
 #: src/msgattrib.c:415
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
-msgstr ""
+msgstr "      --no-obsolete           åˆªé™¤éæ™‚çš„æ¢ç›® (#~)\n"
 
 #: src/msgattrib.c:417
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
-msgstr ""
+msgstr "      --only-obsolete         åªä¿ç•™éæ™‚çš„æ¢ç›® (#~) \n"
 
 #: src/msgattrib.c:420
 #, c-format
 msgid "Attribute manipulation:\n"
-msgstr ""
+msgstr "è™•ç†å±¬æ€§ï¼š\n"
 
 #: src/msgattrib.c:422
 #, c-format
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
-msgstr ""
+msgstr "      --set-fuzzy             å°‡æ‰€æœ‰æ¢ç›®æ¨™è¨˜ç‚º 'fuzzy'\n"
 
 #: src/msgattrib.c:424
 #, c-format
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
-msgstr ""
+msgstr "      --clear-fuzzy           ç§»é™¤æ‰€æœ‰æ¢ç›®çš„ 'fuzzy' ç‹€æ…‹\n"
 
 #: src/msgattrib.c:426
 #, c-format
 msgid "      --set-obsolete          set all messages obsolete\n"
-msgstr ""
+msgstr "      --set-obsolete          å°‡æ‰€æœ‰æ¢ç›®æ¨™è¨˜ç‚ºéæ™‚\n"
 
 #: src/msgattrib.c:428
 #, c-format
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
-msgstr ""
+msgstr "      --clear-obsolete        æ¸…é™¤æ‰€æœ‰æ¢ç›®çš„éæ™‚æ¨™è¨˜\n"
 
 #: src/msgattrib.c:430
 #, c-format
 msgid ""
 "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
-msgstr ""
+msgstr "      --only-file=FILE.po     åªè™•ç† FILE.po è£¡å·²ç¶“æœ‰çš„æ¢ç›®\n"
 
 #: src/msgattrib.c:432
 #, c-format
 msgid ""
 "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
-msgstr ""
+msgstr "      --ignore-file=FILE.po   åªè™•ç† FILE.po è£¡æ²’æœ‰çš„æ¢ç›®\n"
 
 #: src/msgattrib.c:434
 #, c-format
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
-msgstr ""
+msgstr "      --fuzzy                 ç­‰æ–¼ --only-fuzzy --clear-fuzzy\n"
 
 #: src/msgattrib.c:436
 #, c-format
 msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
-msgstr ""
+msgstr "      --obsolete              ç­‰æ–¼ --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:439 src/msgcat.c:382 src/msgcmp.c:211 src/msgcomm.c:387
 #: src/msgconv.c:319 src/msgen.c:294 src/msgexec.c:269 src/msgfilter.c:414
@@ -862,14 +851,14 @@ msgstr ""
 #: src/msguniq.c:347
 #, c-format
 msgid "Input file syntax:\n"
-msgstr ""
+msgstr "è¼¸å…¥æª”æ ¼å¼ï¼š\n"
 
 #: src/msgattrib.c:441 src/msgconv.c:321 src/msgen.c:296 src/msgexec.c:271
 #: src/msgfilter.c:416 src/msggrep.c:534 src/msginit.c:396 src/msguniq.c:349
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
-msgstr ""
+msgstr "  -P, --properties-input      ä»¥ Java .properties æ ¼å¼è™•ç†è¼¸å…¥æª”\n"
 
 #: src/msgattrib.c:443 src/msgconv.c:323 src/msgen.c:298 src/msgexec.c:273
 #: src/msgfilter.c:418 src/msggrep.c:536 src/msginit.c:398 src/msguniq.c:351
@@ -878,6 +867,7 @@ msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
 "syntax\n"
 msgstr ""
+"      --stringtable-input     ä»¥ NeXTstep/GNUstep .strings æ ¼å¼è™•ç†è¼¸å…¥æª”\n"
 
 #: src/msgattrib.c:446 src/msgcat.c:390 src/msgcomm.c:395 src/msgconv.c:326
 #: src/msgen.c:301 src/msgfilter.c:421 src/msgfmt.c:722 src/msggrep.c:539
@@ -885,7 +875,7 @@ msgstr ""
 #: src/xgettext.c:821
 #, c-format
 msgid "Output details:\n"
-msgstr ""
+msgstr "è¼¸å‡ºå…§å®¹ç´°ç¯€ï¼š\n"
 
 #: src/msgattrib.c:448 src/msgcat.c:397 src/msgcomm.c:397 src/msgconv.c:328
 #: src/msgen.c:303 src/msgmerge.c:508 src/msgunfmt.c:482 src/msguniq.c:361
@@ -908,7 +898,7 @@ msgstr ""
 #: src/msgunfmt.c:486 src/msguniq.c:365 src/xgettext.c:827
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
-msgstr ""
+msgstr "      --force-po              å°±ç®—æ²’æœ‰å…§å®¹ä»ç”¢ç”Ÿ PO æª”\n"
 
 #: src/msgattrib.c:454 src/msgcat.c:403 src/msgcomm.c:403 src/msguniq.c:367
 #: src/xgettext.c:829
@@ -920,7 +910,7 @@ msgstr ""
 #: src/xgettext.c:831
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
-msgstr ""
+msgstr "      --no-location           ä¸åŠ å…¥é¡ä¼¼ '#: æª”æ¡ˆ:è¡Œè™Ÿ' çš„æºä»£ç¢¼ä½ç½®\n"
 
 #: src/msgattrib.c:458 src/msgcat.c:407 src/msgcomm.c:407 src/msguniq.c:371
 #: src/xgettext.c:833
@@ -928,6 +918,7 @@ msgstr ""
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
+"  -n, --add-location          æœƒåŠ å…¥ '#: æª”æ¡ˆ:è¡Œè™Ÿ' æ ¼å¼çš„æºä»£ç¢¼ä½ç½® (é è¨­)\n"
 
 #: src/msgattrib.c:460 src/msgcat.c:409 src/msgcomm.c:409 src/msguniq.c:373
 #: src/xgettext.c:835
@@ -935,13 +926,14 @@ msgstr ""
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr ""
+"      --strict                ç”¢ç”Ÿçš„ .po æª”å…§å®¹è·Ÿéš¨åš´æ ¼çš„ Uniforum æ ¼å¼\n"
 
 #: src/msgattrib.c:462 src/msgcat.c:411 src/msgcomm.c:411 src/msgconv.c:342
 #: src/msgen.c:317 src/msgfilter.c:439 src/msggrep.c:555 src/msginit.c:407
 #: src/msgmerge.c:522 src/msgunfmt.c:492 src/msguniq.c:375
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
-msgstr ""
+msgstr "  -p, --properties-output    ç”¢ç”Ÿ Java .properties æª”æ¡ˆ\n"
 
 #: src/msgattrib.c:464 src/msgcat.c:413 src/msgcomm.c:413 src/msgconv.c:344
 #: src/msgen.c:319 src/msgfilter.c:441 src/msggrep.c:557 src/msginit.c:409
@@ -949,28 +941,24 @@ msgstr ""
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
-msgstr ""
+msgstr "      --stringtable-output    ç”¢ç”Ÿ NeXTstep/GNUstep .strings æª”æ¡ˆ\n"
 
 #: src/msgattrib.c:466 src/msgcat.c:415 src/msgcomm.c:415 src/msgconv.c:346
 #: src/msgen.c:321 src/msgfilter.c:443 src/msggrep.c:559 src/msginit.c:411
 #: src/msgmerge.c:526 src/msgunfmt.c:496 src/msguniq.c:379 src/xgettext.c:841
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
-msgstr ""
+msgstr "  -w, --width=NUMBER          æŒ‡å®šè¼¸å‡ºæª”æ¯è¡Œå¯¬åº¦\n"
 
 #: src/msgattrib.c:468 src/msgcat.c:417 src/msgcomm.c:417 src/msgconv.c:348
 #: src/msgen.c:323 src/msgfilter.c:445 src/msggrep.c:561 src/msginit.c:413
 #: src/msgmerge.c:528 src/msgunfmt.c:498 src/msguniq.c:381 src/xgettext.c:843
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
 "                              the output page width, into several lines\n"
 msgstr ""
-"¿é¥X²Ó¸`¡G\n"
-"  -l, --locale=LL_CC          ³]©w¥Ø¼Ğ»y¨t\n"
-"      --no-translator         °²³] PO ÀÉ¬O¦Û°Ê²£¥Íªº\n"
-"  -w, --width=¼Æ¦r            ³]©w¿é¥Xªº¼e«×\n"
-"      --no-wrap               §Y¨Ï¿é¥Xªº°T®§¶W¥X­¶¼e¡A¤]¤£±N¿é¥Xªº°T®§Â_¦æ\n"
+"      --no-wrap               å³ä½¿è¼¸å‡ºçš„è¨Šæ¯è¶…å‡ºé å¯¬ï¼Œä¹Ÿä¸å°‡è¼¸å‡ºçš„è¨Šæ¯æ–·è¡Œ\n"
 
 #: src/msgattrib.c:471 src/msgcat.c:420 src/msgcomm.c:420 src/msgconv.c:351
 #: src/msgen.c:326 src/msgfilter.c:448 src/msgmerge.c:531 src/msgunfmt.c:501
@@ -989,12 +977,12 @@ msgstr ""
 #: src/msgcat.c:288 src/msgcomm.c:305
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
-msgstr "¤£¥i¯à¥X²{ªº¿ï¾Ü±ø¥ó (%d < n <%d)"
+msgstr "ä¸å¯èƒ½å‡ºç¾çš„é¸æ“‡æ¢ä»¶ (%d < n <%d)"
 
 #: src/msgcat.c:331 src/msgcomm.c:337 src/xgettext.c:721
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] [¿é¤JÀÉ]...\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] [è¼¸å…¥æª”]...\n"
 
 #: src/msgcat.c:336
 #, c-format, no-wrap
@@ -1009,13 +997,13 @@ msgid ""
 "is specified, they will be taken from the first PO file to define them.\n"
 "File positions from all PO files will be cumulated.\n"
 msgstr ""
-"¦X¨Ö«ü©wªº PO ÀÉ¡C\n"
-"¦b¨â­Ó©Î¦h­Ó«ü©wªº PO ÀÉ¤¤§ä¥X¦@¦PªºÂ½Ä¶°T®§¡C§Q¥Î --more-than ¿ï¶µ¡A¥i¥H\n"
-"¥O°T®§¦b¤£¦PÀÉ®×¥X²{ªº¦¸¼Æ¸û¦h¤~·|¦C¦L¡C¬Û¤Ï¦a¡A--less-than ¿ï¶µ«h·|¥O°T®§\n"
-"¦b¤£¦PÀÉ®×¥X²{ªº¦¸¼Æ¸û¤Ö¤~¦C¦L¡]¨Ò¦p --less-than=2 ªí¥Ü¦C¦L¥u¥X²{¤@¦¸ªº°T\n"
-"®§¡^¡CÂ½Ä¶¤º®e¡B¦Û¦æ¥[¤Wªºµù¸Ñ©M­ìµ{¦¡½Xªºµù¸Ñ³£·|²Ö¿n¡A°£«D¨Ï¥Î¤F\n"
-"--use-first ¿ï¶µ¡A¨º¼Ë«h·|¥Ñ²Ä¤@­Ó§t¦³¸ÓÂ½Ä¶±ø¥ØªºÀÉ®×¨ú±o¸ê®Æ¡C\n"
-"©Ò¦³ PO ÀÉ¤¤ªºÂ½Ä¶±ø¥ØªºÀÉ®×¦ì¸m³£·|²Ö¿n¤U¨Ó¡C\n"
+"åˆä½µæŒ‡å®šçš„ PO æª”ã€‚\n"
+"åœ¨å…©å€‹æˆ–å¤šå€‹æŒ‡å®šçš„ PO æª”ä¸­æ‰¾å‡ºå…±åŒçš„ç¿»è­¯è¨Šæ¯ã€‚åˆ©ç”¨ --more-than é¸é …ï¼Œå¯ä»¥\n"
+"ä»¤è¨Šæ¯åœ¨ä¸åŒæª”æ¡ˆå‡ºç¾çš„æ¬¡æ•¸è¼ƒå¤šæ‰æœƒåˆ—å°ã€‚ç›¸ååœ°ï¼Œ--less-than é¸é …å‰‡æœƒä»¤è¨Šæ¯\n"
+"åœ¨ä¸åŒæª”æ¡ˆå‡ºç¾çš„æ¬¡æ•¸è¼ƒå°‘æ‰åˆ—å°ï¼ˆä¾‹å¦‚ --less-than=2 è¡¨ç¤ºåˆ—å°åªå‡ºç¾ä¸€æ¬¡çš„è¨Š\n"
+"æ¯ï¼‰ã€‚ç¿»è­¯å…§å®¹ã€è‡ªè¡ŒåŠ ä¸Šçš„è¨»è§£å’ŒåŸç¨‹å¼ç¢¼çš„è¨»è§£éƒ½æœƒç´¯ç©ï¼Œé™¤éä½¿ç”¨äº†\n"
+"--use-first é¸é …ï¼Œé‚£æ¨£å‰‡æœƒç”±ç¬¬ä¸€å€‹å«æœ‰è©²ç¿»è­¯æ¢ç›®çš„æª”æ¡ˆå–å¾—è³‡æ–™ã€‚\n"
+"æ‰€æœ‰ PO æª”ä¸­çš„ç¿»è­¯æ¢ç›®çš„æª”æ¡ˆä½ç½®éƒ½æœƒç´¯ç©ä¸‹ä¾†ã€‚\n"
 
 #: src/msgcat.c:353 src/msgcomm.c:358 src/xgettext.c:737
 #, c-format
@@ -1072,7 +1060,7 @@ msgstr ""
 #: src/msgcat.c:392 src/msgconv.c:314 src/msguniq.c:356
 #, c-format
 msgid "  -t, --to-code=NAME          encoding for output\n"
-msgstr ""
+msgstr "  -t, --to-code=åç¨±          è¼¸å‡ºçš„ç·¨ç¢¼\n"
 
 #: src/msgcat.c:394 src/msguniq.c:358
 #, c-format
@@ -1084,17 +1072,17 @@ msgstr ""
 #: src/msgcmp.c:156 src/msgmerge.c:313
 #, c-format
 msgid "no input files given"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "æœªæŒ‡å®šè¼¸å…¥æª”"
 
 #: src/msgcmp.c:161 src/msgmerge.c:318
 #, c-format
 msgid "exactly 2 input files required"
-msgstr "»İ­n«ê¦n«ü©w¨â­Ó¿é¤JÀÉ"
+msgstr "éœ€è¦æ°å¥½æŒ‡å®šå…©å€‹è¼¸å…¥æª”"
 
 #: src/msgcmp.c:180 src/msgmerge.c:425
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] def.po ref.pot\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] def.po ref.pot\n"
 
 #: src/msgcmp.c:185
 #, c-format, no-wrap
@@ -1106,11 +1094,11 @@ msgid ""
 "you have translated each and every message in your program.  Where an exact\n"
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"¤ñ¸û¨â­Ó Uniforum ®æ¦¡ªº .po ÀÉ®×¡AÀË¬d¨âªÌ¬O§_§t¦³¬Û¦Pªº msgid Äæ¦ì¡C\n"
-"def.po ¬OÂ½Ä¶¹LªºÂÂ PO ÀÉ¡Aref.pot «h¬O·s«Ø¥ßªº PO ÀÉ©Î¬O POT ÀÉ\n"
-"(³q±`¥Ñ xgettext ²£¥Í)¡C\n"
-"¦¹µ{¦¡¥i¥Î¨ÓÀË¬dµ{¦¡¤¤ªº©Ò¦³ªº°T®§¬O§_³£¤w¸gÂ½Ä¶¦n¤F¡C¤ñ¸û®É¦pªG\n"
-"¦³¤£§¹¥ş°t¦Xªº¦r¦ê¥X²{¡Aµ{¦¡·|¥H¼Ò½k°t¹ïªº¤è¦¡±o¥X¸û¦nªºµ²ªG¡C\n"
+"æ¯”è¼ƒå…©å€‹ Uniforum æ ¼å¼çš„ .po æª”æ¡ˆï¼Œæª¢æŸ¥å…©è€…æ˜¯å¦å«æœ‰ç›¸åŒçš„ msgid æ¬„ä½ã€‚\n"
+"def.po æ˜¯ç¿»è­¯éçš„èˆŠ PO æª”ï¼Œref.pot å‰‡æ˜¯æ–°å»ºç«‹çš„ PO æª”æˆ–æ˜¯ POT æª”\n"
+"(é€šå¸¸ç”± xgettext ç”¢ç”Ÿ)ã€‚\n"
+"æ­¤ç¨‹å¼å¯ç”¨ä¾†æª¢æŸ¥ç¨‹å¼ä¸­çš„æ‰€æœ‰çš„è¨Šæ¯æ˜¯å¦éƒ½å·²ç¶“ç¿»è­¯å¥½äº†ã€‚æ¯”è¼ƒæ™‚å¦‚æœ\n"
+"æœ‰ä¸å®Œå…¨é…åˆçš„å­—ä¸²å‡ºç¾ï¼Œç¨‹å¼æœƒä»¥æ¨¡ç³Šé…å°çš„æ–¹å¼å¾—å‡ºè¼ƒå¥½çš„çµæœã€‚\n"
 
 #: src/msgcmp.c:199
 #, c-format
@@ -1128,44 +1116,43 @@ msgid "Operation modifiers:\n"
 msgstr ""
 
 #: src/msgcmp.c:208 src/msgmerge.c:493
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def."
 "po\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -m, --multi-domain          ±N ref.pot ®M¥Î©ó def.po ¤¤ªº¨C¤@­Ó»â°ì\n"
+"  -m, --multi-domain          å°‡ ref.pot å¥—ç”¨æ–¼ def.po ä¸­çš„æ¯ä¸€å€‹é ˜åŸŸ\n"
 
 #: src/msgcmp.c:285 src/msgmerge.c:965
 #, c-format
 msgid "this message is used but not defined..."
-msgstr "³o­Ó°T®§¦³¨Ï¥Î¹L¦ı¨S¦³©w¸q..."
+msgstr "é€™å€‹è¨Šæ¯æœ‰ä½¿ç”¨éä½†æ²’æœ‰å®šç¾©..."
 
 #: src/msgcmp.c:287 src/msgmerge.c:967
 #, c-format
 msgid "...but this definition is similar"
-msgstr "...¦ı³o­Ó©w¸q«Ü¬Û¦ü"
+msgstr "...ä½†é€™å€‹å®šç¾©å¾ˆç›¸ä¼¼"
 
 #: src/msgcmp.c:292 src/msgmerge.c:997
 #, c-format
 msgid "this message is used but not defined in %s"
-msgstr "³o­Ó°T®§¦³¨Ï¥Î¹L¦ı¦b %s ¤¤¨S¦³©w¸q"
+msgstr "é€™å€‹è¨Šæ¯æœ‰ä½¿ç”¨éä½†åœ¨ %s ä¸­æ²’æœ‰å®šç¾©"
 
 #: src/msgcmp.c:396
 #, c-format
 msgid "warning: this message is not used"
-msgstr "Äµ§i¡G¨S¦³¨Ï¥Î³o­Ó°T®§"
+msgstr "è­¦å‘Šï¼šæ²’æœ‰ä½¿ç”¨é€™å€‹è¨Šæ¯"
 
 #: src/msgcmp.c:403
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
-msgstr[0] "§ä¨ì %d ­ÓÄY­«¿ù»~"
+msgstr[0] "æ‰¾åˆ° %d å€‹åš´é‡éŒ¯èª¤"
 
 #: src/msgcomm.c:294
 #, c-format
 msgid "at least two files must be specified"
-msgstr "¥²¶·«ü©w¦Ü¤Ö¨â­ÓÀÉ®×"
+msgstr "å¿…é ˆæŒ‡å®šè‡³å°‘å…©å€‹æª”æ¡ˆ"
 
 #: src/msgcomm.c:342
 #, c-format, no-wrap
@@ -1179,11 +1166,11 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 msgstr ""
-"¦b¨â­Ó©Î¦h­Ó«ü©wªº PO ÀÉ¤¤§ä¥X¦@¦PªºÂ½Ä¶°T®§¡C§Q¥Î --more-than ¿ï¶µ¡A¥i¥H\n"
-"¥O°T®§¦b¤£¦PÀÉ®×¥X²{ªº¦¸¼Æ¸û¦h¤~·|¦C¦L¡C¬Û¤Ï¦a¡A--less-than ¿ï¶µ«h·|¥O°T®§\n"
-"¦b¤£¦PÀÉ®×¥X²{ªº¦¸¼Æ¸û¤Ö¤~¦C¦L¡]¨Ò¦p --less-than=2 ªí¥Ü¦C¦L¥u¥X²{¤@¦¸ªº\n"
-"°T®§¡^¡CÂ½Ä¶¤º®e¡B¦Û¦æ¥[¤Wªºµù¸Ñ©M­ìµ{¦¡½Xªºµù¸Ñ³£·|«O¯d¡A¦ı¥u·|¥Ñ²Ä¤@­Ó\n"
-"§t¦³¸ÓÂ½Ä¶±ø¥ØªºÀÉ®×¨ú±o¡C©Ò¦³ PO ÀÉ¤¤ªºÂ½Ä¶±ø¥ØªºÀÉ®×¦ì¸m³£·|²Ö¿n¤U¨Ó¡C\n"
+"åœ¨å…©å€‹æˆ–å¤šå€‹æŒ‡å®šçš„ PO æª”ä¸­æ‰¾å‡ºå…±åŒçš„ç¿»è­¯è¨Šæ¯ã€‚åˆ©ç”¨ --more-than é¸é …ï¼Œå¯ä»¥\n"
+"ä»¤è¨Šæ¯åœ¨ä¸åŒæª”æ¡ˆå‡ºç¾çš„æ¬¡æ•¸è¼ƒå¤šæ‰æœƒåˆ—å°ã€‚ç›¸ååœ°ï¼Œ--less-than é¸é …å‰‡æœƒä»¤è¨Šæ¯\n"
+"åœ¨ä¸åŒæª”æ¡ˆå‡ºç¾çš„æ¬¡æ•¸è¼ƒå°‘æ‰åˆ—å°ï¼ˆä¾‹å¦‚ --less-than=2 è¡¨ç¤ºåˆ—å°åªå‡ºç¾ä¸€æ¬¡çš„\n"
+"è¨Šæ¯ï¼‰ã€‚ç¿»è­¯å…§å®¹ã€è‡ªè¡ŒåŠ ä¸Šçš„è¨»è§£å’ŒåŸç¨‹å¼ç¢¼çš„è¨»è§£éƒ½æœƒä¿ç•™ï¼Œä½†åªæœƒç”±ç¬¬ä¸€å€‹\n"
+"å«æœ‰è©²ç¿»è­¯æ¢ç›®çš„æª”æ¡ˆå–å¾—ã€‚æ‰€æœ‰ PO æª”ä¸­çš„ç¿»è­¯æ¢ç›®çš„æª”æ¡ˆä½ç½®éƒ½æœƒç´¯ç©ä¸‹ä¾†ã€‚\n"
 
 #: src/msgcomm.c:380
 #, c-format
@@ -1201,20 +1188,17 @@ msgstr ""
 #: src/msgconv.c:288
 #, c-format
 msgid "Converts a translation catalog to a different character encoding.\n"
-msgstr "±N¤@­ÓÂ½Ä¶ÀÉªº½s½XÂà´«¬°¥t¤@ºØ¤å¦r½s½X¡C\n"
+msgstr "å°‡ä¸€å€‹ç¿»è­¯æª”çš„ç·¨ç¢¼è½‰æ›ç‚ºå¦ä¸€ç¨®æ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/msgconv.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Conversion target:\n"
-msgstr "Âà´«¿ù»~"
+msgstr "è½‰æ›ç›®æ¨™ï¼š\n"
 
 #: src/msgconv.c:316
-#, fuzzy, c-format
+#, c-format
 msgid "The default encoding is the current locale's encoding.\n"
-msgstr ""
-"Âà´«¥Ø¼Ğ¡G\n"
-"  -t, --to-code=¦WºÙ          ¿é¥Xªº½s½X\n"
-"¹w³]ªº½s½X¬°¥Ø«e»y¨tªº½s½X¡C\n"
+msgstr "é è¨­çš„ç·¨ç¢¼ç‚ºç›®å‰èªè¨€çš„ç·¨ç¢¼ã€‚\n"
 
 #: src/msgconv.c:334 src/msgen.c:309 src/msgmerge.c:514
 #, c-format
@@ -1225,61 +1209,61 @@ msgstr ""
 #: src/msgmerge.c:516
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
-msgstr ""
+msgstr "      --no-location           ä¸è¼¸å‡ºæºä»£ç¢¼ä½ç½®\n"
 
 #: src/msgconv.c:338 src/msgen.c:313 src/msgfilter.c:435 src/msggrep.c:551
 #: src/msgmerge.c:518
 #, c-format
 msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
-msgstr ""
+msgstr "      --add-location          ä¿ç•™æºä»£ç¢¼ä½ç½® (é è¨­)\n"
 
 #: src/msgconv.c:340 src/msgen.c:315 src/msgfilter.c:437 src/msggrep.c:553
 #: src/msgmerge.c:520
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
-msgstr ""
+msgstr "      --strict                åš´æ ¼éµå¾ Uniforum æ ¼å¼\n"
 
 #: src/msgen.c:219 src/msgfmt.c:377 src/xgettext.c:539
 #, c-format
 msgid "no input file given"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "æœªæŒ‡å®šè¼¸å…¥æª”"
 
 #: src/msgen.c:224
 #, c-format
 msgid "exactly one input file required"
-msgstr "»İ­n«ê¦n«ü©w¤@­Ó¿é¤JÀÉ"
+msgstr "éœ€è¦æ°å¥½æŒ‡å®šä¸€å€‹è¼¸å…¥æª”"
 
 #: src/msgen.c:262
 #, c-format
 msgid "Usage: %s [OPTION] INPUTFILE\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] ¿é¤JÀÉ\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] è¼¸å…¥æª”\n"
 
 #: src/msgen.c:267
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
 "created English PO file, or a PO Template file (generally created by\n"
 "xgettext).  Untranslated entries are assigned a translation that is\n"
 "identical to the msgid.\n"
 msgstr ""
-"²£¥Í­^¤åÂ½Ä¶ÀÉ¡C¿é¤JÀÉ¥i¥H¬O PO ÀÉ©Î POT ÀÉ(³q±`¥Ñ xgettext ²£¥Í)¡C\n"
-"¥¼Â½Ä¶ªº±ø¥Ø·|¶ñ¤W©M msgid ¤@¼Ëªº¦r¦ê¡A¨Ã¼Ğ°O¬°¼Ò½kÂ½Ä¶¡C\n"
+"ç”¢ç”Ÿè‹±æ–‡ç¿»è­¯æª”ã€‚è¼¸å…¥æª”å¯ä»¥æ˜¯ PO æª”æˆ– POT æª” (é€šå¸¸ç”± xgettext ç”¢ç”Ÿ)ã€‚\n"
+"æœªç¿»è­¯çš„æ¢ç›®æœƒå¡«ä¸Šå’Œ msgid ä¸€æ¨£çš„å­—ä¸²ã€‚\n"
 
 #: src/msgen.c:279
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
-msgstr ""
+msgstr "  è¼¸å…¥æª”                      ä½œç‚ºè¼¸å…¥çš„ PO æˆ– POT æª”\n"
 
 #: src/msgexec.c:192
 #, c-format
 msgid "missing command name"
-msgstr "¯Ê¤Ö¤F«ü¥O¦WºÙ"
+msgstr "ç¼ºå°‘äº†æŒ‡ä»¤åç¨±"
 
 #: src/msgexec.c:238
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] «ü¥O [«ü¥O¿ï¶µ]\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] æŒ‡ä»¤ [æŒ‡ä»¤é¸é …]\n"
 
 #: src/msgexec.c:243
 #, c-format, no-wrap
@@ -1290,11 +1274,11 @@ msgid ""
 "msgexec's output.  msgexec's return code is the maximum return code\n"
 "across all invocations.\n"
 msgstr ""
-"¥HÂ½Ä¶ÀÉªº©Ò¦³Â½Ä¶±ø¥Ø¤º®e§@¬°¬Y«ü¥Oªº¿é¤J¸ê®Æ¡C\n"
-"<«ü¥O>¥i¥H¬O¥ô¦ó¥Ñ¼Ğ·Ç¿é¤JÅª¤JÂ½Ä¶±ø¥Øªºµ{¦¡¡C\n"
-"¹ï©ó¨C­ÓÂ½Ä¶±ø¥Ø«ü¥O³£·|°õ¦æ¤@¦¸¡C¥¦ªº¿é¥Xµ²ªG\n"
-"§Y¬O msgexec ªº¿é¥Xµ²ªG¡Cmsgexec ªº¦^¶Ç­È¬O©Ò¦³\n"
-"«ü¥O°õ¦æªº¦^¶Ç­Èªº³Ì¤j­È¡C\n"
+"ä»¥ç¿»è­¯æª”çš„æ‰€æœ‰ç¿»è­¯æ¢ç›®å…§å®¹ä½œç‚ºæŸæŒ‡ä»¤çš„è¼¸å…¥è³‡æ–™ã€‚\n"
+"<æŒ‡ä»¤>å¯ä»¥æ˜¯ä»»ä½•ç”±æ¨™æº–è¼¸å…¥è®€å…¥ç¿»è­¯æ¢ç›®çš„ç¨‹å¼ã€‚\n"
+"å°æ–¼æ¯å€‹ç¿»è­¯æ¢ç›®æŒ‡ä»¤éƒ½æœƒåŸ·è¡Œä¸€æ¬¡ã€‚å®ƒçš„è¼¸å‡ºçµæœ\n"
+"å³æ˜¯ msgexec çš„è¼¸å‡ºçµæœã€‚msgexec çš„å›å‚³å€¼æ˜¯æ‰€æœ‰\n"
+"æŒ‡ä»¤åŸ·è¡Œçš„å›å‚³å€¼çš„æœ€å¤§å€¼ã€‚\n"
 
 #: src/msgexec.c:252
 #, c-format, no-wrap
@@ -1302,43 +1286,43 @@ msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
 "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
 msgstr ""
-"¦³¤@­ÓºÙ¬° '0' ªº¯S®í¤º¸m«ü¥O¡A¥¦·|¿é¥X©Ò¦³Â½Ä¶±ø¥Ø¡A¨ÃÀH«á¥[¤W null ¦ì¤¸¡C\n"
-"¡§msgexec 0¡¨ªº¿é¥X¾A¥Î©ó§@¬°¡§xargs -0¡¨ªº¿é¤J¡C\n"
+"æœ‰ä¸€å€‹ç¨±ç‚º '0' çš„ç‰¹æ®Šå…§ç½®æŒ‡ä»¤ï¼Œå®ƒæœƒè¼¸å‡ºæ‰€æœ‰ç¿»è­¯æ¢ç›®ï¼Œä¸¦éš¨å¾ŒåŠ ä¸Š null ä½å…ƒã€‚\n"
+"â€œmsgexec 0â€çš„è¼¸å‡ºé©ç”¨æ–¼ä½œç‚ºâ€œxargs -0â€çš„è¼¸å…¥ã€‚\n"
 
 #: src/msgexec.c:262 src/msgfilter.c:384
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
-msgstr ""
+msgstr "  -i, --input=INPUTFILE       ä½œç‚ºè¼¸å…¥çš„ PO æª”\n"
 
 #: src/msgexec.c:322
 #, c-format
 msgid "write to stdout failed"
-msgstr "¼g¤J¦Ü¼Ğ·Ç¿é¥X®Éµo¥Í¿ù»~"
+msgstr "å¯«å…¥è‡³æ¨™æº–è¼¸å‡ºæ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/msgexec.c:345 src/msgfilter.c:637
 #, c-format
 msgid "write to %s subprocess failed"
-msgstr "¼g¤J¦Ü %s °Æµ{§Ç®Éµo¥Í¿ù»~"
+msgstr "å¯«å…¥è‡³ %s å‰¯é€²ç¨‹æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/msgfilter.c:285
 #, c-format
 msgid "missing filter name"
-msgstr "¥¼«ü©w¹LÂo¾¹"
+msgstr "æœªæŒ‡å®šéæ¿¾å™¨"
 
 #: src/msgfilter.c:309
 #, c-format
 msgid "at least one sed script must be specified"
-msgstr "¥²¶·«ü©w¦Ü¤Ö¤@­Ó sed script"
+msgstr "å¿…é ˆæŒ‡å®šè‡³å°‘ä¸€å€‹ sed script"
 
 #: src/msgfilter.c:371
 #, c-format
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] ¹LÂo¾¹ [¹LÂo¾¹¿ï¶µ]\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] éæ¿¾å™¨ [éæ¿¾å™¨é¸é …]\n"
 
 #: src/msgfilter.c:375
 #, c-format
 msgid "Applies a filter to all translations of a translation catalog.\n"
-msgstr "¹ï©óÂ½Ä¶ÀÉ¤¤ªº©Ò¦³Â½Ä¶±ø¥Ø¶i¦æ¹LÂo¡C\n"
+msgstr "å°æ–¼ç¿»è­¯æª”ä¸­çš„æ‰€æœ‰ç¿»è­¯æ¢ç›®é€²è¡Œéæ¿¾ã€‚\n"
 
 #: src/msgfilter.c:399
 #, c-format
@@ -1346,8 +1330,8 @@ msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
 "and writes a modified translation to standard output.\n"
 msgstr ""
-"<¹LÂo¾¹>¥i¥H¬O¥ô¦ó¥Ñ¼Ğ·Ç¿é¤JÅª¤JÂ½Ä¶±ø¥Ø\n"
-"¨Ã±N­×§ï«áªºÂ½Ä¶¼g¶i¼Ğ·Ç¿é¥Xªºµ{¦¡¡C\n"
+"<éæ¿¾å™¨>å¯ä»¥æ˜¯ä»»ä½•ç”±æ¨™æº–è¼¸å…¥è®€å…¥ç¿»è­¯æ¢ç›®\n"
+"ä¸¦å°‡ä¿®æ”¹å¾Œçš„ç¿»è­¯å¯«é€²æ¨™æº–è¼¸å‡ºçš„ç¨‹å¼ã€‚\n"
 
 #: src/msgfilter.c:404
 #, c-format
@@ -1399,83 +1383,83 @@ msgstr ""
 #: src/msgfilter.c:589
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr "µLªk©M %s °Æµ{§Ç«Ø¥ß«D±M¥Îªº I/O"
+msgstr "ç„¡æ³•å’Œ %s å‰¯é€²ç¨‹å»ºç«‹éå°ˆç”¨çš„ I/O"
 
 #: src/msgfilter.c:617
 #, c-format
 msgid "communication with %s subprocess failed"
-msgstr "©M %s °Æµ{§Ç·¾³q®É¥X²{¿ù»~"
+msgstr "å’Œ %s å‰¯é€²ç¨‹æºé€šæ™‚å‡ºç¾éŒ¯èª¤"
 
 #: src/msgfilter.c:668
 #, c-format
 msgid "read from %s subprocess failed"
-msgstr "¥Ñ %s °Æµ{§ÇÅª¤J¸ê®Æ®É¥X²{¿ù»~"
+msgstr "ç”± %s å‰¯é€²ç¨‹è®€å…¥è³‡æ–™æ™‚å‡ºç¾éŒ¯èª¤"
 
 #: src/msgfilter.c:684
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
-msgstr "%s °Æµ{§Ç¤w²×¤î¡A¿ù»~½X¬° %d"
+msgstr "%s å‰¯é€²ç¨‹å·²çµ‚æ­¢ï¼ŒéŒ¯èª¤ç¢¼ç‚º %d"
 
 #: src/msgfmt.c:316
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
-msgstr "%s ªº°Ñ¼ÆÀ³¸Ó¬O¤@­Ó¼ĞÂI²Å¸¹"
+msgstr "%s çš„åƒæ•¸æ‡‰è©²æ˜¯ä¸€å€‹æ¨™é»ç¬¦è™Ÿ"
 
 #: src/msgfmt.c:419 src/msgfmt.c:441 src/msgfmt.c:463 src/msgunfmt.c:313
 #: src/msgunfmt.c:336
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
-msgstr "%s »İ­n«ü©w¡§-d ¥Ø¿ı¡¨¿ï¶µ"
+msgstr "%s éœ€è¦æŒ‡å®šâ€œ-d ç›®éŒ„â€é¸é …"
 
 #: src/msgfmt.c:434 src/msgfmt.c:456 src/msgunfmt.c:306 src/msgunfmt.c:329
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
-msgstr "%s »İ­n«ü©w¡§-l locale¡¨¿ï¶µ"
+msgstr "%s éœ€è¦æŒ‡å®šâ€œ-l localeâ€é¸é …"
 
 #: src/msgfmt.c:472 src/msgunfmt.c:345 src/msgunfmt.c:351
 #, c-format
 msgid "%s is only valid with %s or %s"
-msgstr "%s ¥u¯à°t¦X %s ©Î %s ¤@°_¨Ï¥Î¤~¦³®Ä"
+msgstr "%s åªèƒ½é…åˆ %s æˆ– %s ä¸€èµ·ä½¿ç”¨æ‰æœ‰æ•ˆ"
 
 #: src/msgfmt.c:478 src/msgfmt.c:484
-#, fuzzy, c-format
+#, c-format
 msgid "%s is only valid with %s, %s or %s"
-msgstr "%s ¥u¯à°t¦X %s ©Î %s ¤@°_¨Ï¥Î¤~¦³®Ä"
+msgstr "%s åªèƒ½é…åˆ %sã€%s æˆ– %s ä¸€èµ·ä½¿ç”¨æ‰æœ‰æ•ˆ"
 
 #: src/msgfmt.c:581
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
-msgstr[0] "%d ­Ó¤wÂ½Ä¶ªº°T®§"
+msgstr[0] "%d å€‹å·²ç¿»è­¯çš„è¨Šæ¯"
 
 #: src/msgfmt.c:586
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
-msgstr[0] "¡A%d ­Ó¼Ò½kÂ½Ä¶°T®§"
+msgstr[0] "ï¼Œ%d å€‹æ¨¡ç³Šç¿»è­¯è¨Šæ¯"
 
 #: src/msgfmt.c:591
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
-msgstr[0] "¡A%d ­Ó¥¼Â½Ä¶ªº°T®§"
+msgstr[0] "ï¼Œ%d å€‹æœªç¿»è­¯çš„è¨Šæ¯"
 
 #: src/msgfmt.c:611
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] filename.po ...\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] filename.po ...\n"
 
 #: src/msgfmt.c:615
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
-msgstr "¥Ñ¤å¦r¼Ò¦¡Â½Ä¶ÀÉ²£¥Í¤G¤¸½XÂ½Ä¶ÀÉ¡C\n"
+msgstr "ç”±æ–‡å­—æ¨¡å¼ç¿»è­¯æª”ç”¢ç”ŸäºŒå…ƒç¢¼ç¿»è­¯æª”ã€‚\n"
 
 #: src/msgfmt.c:620 src/xgettext.c:730
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
-msgstr "ªø¿ï¶µ¥²­nªº°Ñ¼Æ¦b¨Ï¥Îµu¿ï¶µ®É¤]¬O¥²­nªº¡C¹ï©ó¿ï¾Ü©Êªº°Ñ¼Æ¤]¤@¼Ë¡C\n"
+msgstr "é•·é¸é …å¿…è¦çš„åƒæ•¸åœ¨ä½¿ç”¨çŸ­é¸é …æ™‚ä¹Ÿæ˜¯å¿…è¦çš„ã€‚å°æ–¼é¸æ“‡æ€§çš„åƒæ•¸ä¹Ÿä¸€æ¨£ã€‚\n"
 
 #: src/msgfmt.c:627
 #, c-format
@@ -1485,16 +1469,15 @@ msgstr ""
 #: src/msgfmt.c:634 src/msgmerge.c:457 src/msgunfmt.c:421 src/xgettext.c:778
 #, c-format
 msgid "Operation mode:\n"
-msgstr ""
+msgstr "æ“ä½œæ¨¡å¼ï¼š\n"
 
 #: src/msgfmt.c:636
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
 "class\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G²£¥Í Java ResourceBundle class\n"
+"  -j, --java                  Java æ¨¡å¼ï¼šç”¢ç”Ÿ Java ResourceBundle class\n"
 
 #: src/msgfmt.c:638
 #, c-format
@@ -1502,38 +1485,31 @@ msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
 "higher)\n"
 msgstr ""
+"      --java2                 é¡ä¼¼ --javaï¼Œå‡è¨­æ ¼å¼ç‚º Java2 (JDK 1.2 æˆ–ä»¥"
+"ä¸Š)\n"
 
 #: src/msgfmt.c:640
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
-msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
+msgstr "      --csharp                C# æ¨¡å¼ï¼šç”¢ç”Ÿ .NET .dll æª”\n"
 
 #: src/msgfmt.c:642
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
 "file\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
 
 #: src/msgfmt.c:644
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
-msgstr ""
+msgstr "      --tcl                   Tcl æ¨¡å¼ï¼šç”¢ç”Ÿ tcl/msgcat .msg æª”\n"
 
 #: src/msgfmt.c:646
-#, fuzzy, c-format
+#, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
-msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
+msgstr "      --qt                    Qt æ¨¡å¼ï¼šç”¢ç”Ÿ Qt .qm æª”\n"
 
 #: src/msgfmt.c:653
 #, c-format
@@ -1548,12 +1524,12 @@ msgstr ""
 #: src/msgfmt.c:658
 #, c-format
 msgid "Output file location in Java mode:\n"
-msgstr ""
+msgstr "Java æ¨¡å¼çš„è¼¸å‡ºæª”ä½ç½®ï¼š\n"
 
 #: src/msgfmt.c:660 src/msgfmt.c:674 src/msgunfmt.c:441 src/msgunfmt.c:452
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
-msgstr ""
+msgstr "  -r, --resource=RESOURCE     resource åç¨±\n"
 
 #: src/msgfmt.c:662 src/msgfmt.c:676 src/msgfmt.c:686 src/msgunfmt.c:443
 #: src/msgunfmt.c:454 src/msgunfmt.c:464
@@ -1562,32 +1538,30 @@ msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
 "language_COUNTRY\n"
 msgstr ""
+"  -l, --locale=LOCALE         æŒ‡å®šèªè¨€ï¼Œå¯ä»¥ç”¨èªè¨€åç¨±æˆ–è€… xy_XY æ ¼å¼çš„\n"
+"                              èªè¨€ä»£è™Ÿ\n"
 
 #: src/msgfmt.c:664
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
-msgstr ""
+msgstr "  -d ç›®éŒ„                     class ç›®éŒ„å±¤çš„åŸºæœ¬ç›®éŒ„\n"
 
 #: src/msgfmt.c:666
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
 "name,\n"
 "separated with an underscore.  The -d option is mandatory.  The class is\n"
 "written under the specified directory.\n"
 msgstr ""
-"Java ¼Ò¦¡ªº¿é¥XÀÉ¦ì¸m¡G\n"
-"  -r, --resource=RESOURCE     resource ¦WºÙ\n"
-"  -l, --locale=»y¨t           »y¨t¦WºÙ¡A¥²¶·¬O¡u»y¨¥¡v©Î¡u»y¨¥_°ê®a¡vªº®æ¦¡\n"
-"  -d ¥Ø¿ı                     class ¥Ø¿ı¼hªº°ò¥»¥Ø¿ı\n"
-"class ¦WºÙ¬O¥Ñ»y¨t¦WºÙ©M resource ¦WºÙ¦X¨Ö¨Ó¨M©wªº¡A¨âªÌ¤§¶¡·|¥Î©³½u¤À¹j¡C\n"
-"-d ¿ï¶µ¬O¥²¶·ªº¡Cclass ÀÉ·|¦s©ñ¦b«ü©wªº¥Ø¿ı¡C\n"
+"class åç¨±æ˜¯ç”±èªè¨€åç¨±å’Œ resource åç¨±åˆä½µä¾†æ±ºå®šçš„ï¼Œå…©è€…ä¹‹é–“æœƒç”¨åº•ç·šåˆ†éš”ã€‚\n"
+"-d é¸é …æ˜¯å¿…é ˆçš„ã€‚class æª”æœƒå­˜æ”¾åœ¨æŒ‡å®šçš„ç›®éŒ„ã€‚\n"
 
 #: src/msgfmt.c:672
-#, fuzzy, c-format
+#, c-format
 msgid "Output file location in C# mode:\n"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "C# æ¨¡å¼çš„è¼¸å‡ºæª”ä½ç½®ï¼š\n"
 
 #: src/msgfmt.c:678 src/msgunfmt.c:456
 #, c-format
@@ -1606,7 +1580,7 @@ msgstr ""
 #: src/msgfmt.c:684
 #, c-format
 msgid "Output file location in Tcl mode:\n"
-msgstr ""
+msgstr "Tcl æ¨¡å¼çš„è¼¸å‡ºæª”ä½ç½®ï¼š\n"
 
 #: src/msgfmt.c:688 src/msgunfmt.c:466
 #, c-format
@@ -1666,6 +1640,9 @@ msgid ""
 "for\n"
 "                                menu items\n"
 msgstr ""
+"      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
+"for\n"
+"                                menu items\n"
 
 #: src/msgfmt.c:719
 #, c-format
@@ -1673,84 +1650,80 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 
 #: src/msgfmt.c:724
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 msgstr ""
-"¿é¥X²Ó¸`¡G\n"
-"  -a, --alignment=¼Æ¦r        ¥H<¼Æ¦r>­Ó¦ì¤¸²Õ¬°³æ¦ì°t¸m¦r¦ê¦ì¸m(¹w³]¡G%d)\n"
-"      --no-hash               ¤G¤¸½XÀÉ¤£·|¥]§tÂø´êªí (hash table) ¦b¤º\n"
+"  -a, --alignment=æ•¸å­—        ä»¥<æ•¸å­—>å€‹ä½å…ƒçµ„ç‚ºå–®ä½é…ç½®å­—ä¸²ä½ç½®(é è¨­ï¼š%d)\n"
 
 #: src/msgfmt.c:726
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
-"¿é¥X²Ó¸`¡G\n"
-"  -a, --alignment=¼Æ¦r        ¥H<¼Æ¦r>­Ó¦ì¤¸²Õ¬°³æ¦ì°t¸m¦r¦ê¦ì¸m(¹w³]¡G%d)\n"
-"      --no-hash               ¤G¤¸½XÀÉ¤£·|¥]§tÂø´êªí (hash table) ¦b¤º\n"
+"      --no-hash               äºŒå…ƒç¢¼æª”ä¸æœƒåŒ…å«é›œæ¹Šè¡¨ (hash table) åœ¨å…§\n"
 
 #: src/msgfmt.c:735
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
-msgstr ""
+msgstr "      --statistics            é¡¯ç¤ºæœ‰é—œç¿»è­¯è¨Šæ¯çš„çµ±è¨ˆ\n"
 
 #: src/msgfmt.c:737 src/msgmerge.c:542 src/msgunfmt.c:510
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
-msgstr ""
+msgstr "  -v, --verbose               é¡¯ç¤ºè©³ç´°è³‡è¨Š\n"
 
 #: src/msgfmt.c:875
 #, c-format
 msgid "plural expression can produce negative values"
-msgstr "½Æ¼Æªí¥Ü¦¡¥i¯à²£¥Í­t¼Æ"
+msgstr "è¤‡æ•¸è¡¨ç¤ºå¼å¯èƒ½ç”¢ç”Ÿè² æ•¸"
 
 #: src/msgfmt.c:888
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
-msgstr "nplurals = %lu¡A¦ı½Æ¼Æªí¥Ü¦¡ªº³Ì¤j­È¥i¯àµ¥©ó %lu"
+msgstr "nplurals = %luï¼Œä½†è¤‡æ•¸è¡¨ç¤ºå¼çš„æœ€å¤§å€¼å¯èƒ½ç­‰æ–¼ %lu"
 
 #: src/msgfmt.c:915
 #, c-format
 msgid "plural expression can produce division by zero"
-msgstr "½Æ¼Æªí¥Ü¦¡·|¤Ş­P³Q 0 ¾ã°£ªº¿ù»~"
+msgstr "è¤‡æ•¸è¡¨ç¤ºå¼æœƒå¼•è‡´è¢« 0 æ•´é™¤çš„éŒ¯èª¤"
 
 #: src/msgfmt.c:921
 #, c-format
 msgid "plural expression can produce integer overflow"
-msgstr "½Æ¼Æªí¥Ü¦¡·|¤Ş­P¾ã¼Æ·¸¦ìªº¿ù»~"
+msgstr "è¤‡æ•¸è¡¨ç¤ºå¼æœƒå¼•è‡´æ•´æ•¸æº¢ä½çš„éŒ¯èª¤"
 
 #: src/msgfmt.c:927
 #, c-format
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
-msgstr "½Æ¼Æªí¥Ü¦¡·|¤Ş­P¹Bºâ¿ù»~¡A¨Ò¦p³Q 0 ¾ã°£"
+msgstr "è¤‡æ•¸è¡¨ç¤ºå¼æœƒå¼•è‡´é‹ç®—éŒ¯èª¤ï¼Œä¾‹å¦‚è¢« 0 æ•´é™¤"
 
 #: src/msgfmt.c:1005 src/msgfmt.c:1017
 #, c-format
 msgid "message catalog has plural form translations..."
-msgstr "Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶..."
+msgstr "ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯..."
 
 #: src/msgfmt.c:1008
 #, c-format
 msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
-msgstr "...¦ıÀÉÀY¯Ê¤Ö¤F¡§plural=ªí¥Ü¦¡¡¨ªº¶µ¥Ø"
+msgstr "...ä½†æª”é ­ç¼ºå°‘äº†â€œplural=è¡¨ç¤ºå¼â€çš„é …ç›®"
 
 #: src/msgfmt.c:1020
 #, c-format
 msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
-msgstr "...¦ıÀÉÀY¯Ê¤Ö¤F¡§nplurals=¾ã¼Æ¡¨ªº¶µ¥Ø"
+msgstr "...ä½†æª”é ­ç¼ºå°‘äº†â€œnplurals=æ•´æ•¸â€çš„é …ç›®"
 
 #: src/msgfmt.c:1045
 #, c-format
 msgid "invalid nplurals value"
-msgstr "µL®Äªº nplurals ­È"
+msgstr "ç„¡æ•ˆçš„ nplurals å€¼"
 
 #: src/msgfmt.c:1059
 #, c-format
 msgid "invalid plural expression"
-msgstr "µL®Äªº½Æ¼Æªí¥Ü¦¡"
+msgstr "ç„¡æ•ˆçš„è¤‡æ•¸è¡¨ç¤ºå¼"
 
 #: src/msgfmt.c:1078 src/msgfmt.c:1093
 #, c-format
@@ -1761,18 +1734,18 @@ msgstr "nplurals = %lu..."
 #, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
-msgstr[0] "...¦ı¬Y¨Ç°T®§¥u¦³ %lu ºØ½Æ¼Æ«¬ºA"
+msgstr[0] "...ä½†æŸäº›è¨Šæ¯åªæœ‰ %lu ç¨®è¤‡æ•¸å‹æ…‹"
 
 #: src/msgfmt.c:1096
 #, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
-msgstr[0] "...¦ı¬Y¨Ç°T®§¦³ %lu ºØ½Æ¼Æ«¬ºA"
+msgstr[0] "...ä½†æŸäº›è¨Šæ¯æœ‰ %lu ç¨®è¤‡æ•¸å‹æ…‹"
 
 #: src/msgfmt.c:1126
 #, c-format
 msgid "Try using the following, valid for %s:\n"
-msgstr "¹Á¸Õ¨Ï¥Î¤U¦C %s ¤¤Äİ©ó¦Xªkªº«¬ºA:\n"
+msgstr "å˜—è©¦ä½¿ç”¨ä¸‹åˆ— %s ä¸­å±¬æ–¼åˆæ³•çš„å‹æ…‹:\n"
 
 #: src/msgfmt.c:1139
 #, c-format
@@ -1780,122 +1753,122 @@ msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
-"Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶¡A¦ı¯Ê¤Ö¤F¥H¤Uªº¼ĞÀYÄæ¦ì¡G\n"
-"¡§Plural-Forms: nplurals=<¾ã¼Æ>; plural=<ªí¥Ü¦¡>;¡¨"
+"ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯ï¼Œä½†ç¼ºå°‘äº†ä»¥ä¸‹çš„æ¨™é ­æ¬„ä½ï¼š\n"
+"â€œPlural-Forms: nplurals=<æ•´æ•¸>; plural=<è¡¨ç¤ºå¼>;â€"
 
 #: src/msgfmt.c:1191
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr "`msgid' ©M `msgid_plural' Äæ¦ì¨Ã«D¦P®É¥H '\\n' ¶}©l"
+msgstr "`msgid' å’Œ `msgid_plural' æ¬„ä½ä¸¦éåŒæ™‚ä»¥ '\\n' é–‹å§‹"
 
 #: src/msgfmt.c:1201
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "¡¥msgid¡¦©M¡¥msgstr[%u]¡¦Äæ¦ì¨Ã«D¦P®É¥H¡¥\\n¡¦¶}©l"
+msgstr "â€˜msgidâ€™å’Œâ€˜msgstr[%u]â€™æ¬„ä½ä¸¦éåŒæ™‚ä»¥â€˜\\nâ€™é–‹å§‹"
 
 #: src/msgfmt.c:1213
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr "¡¥msgid¡¦©M¡¥msgstr¡¦Äæ¦ì¨Ã«D¦P®É¥H¡¥\\n¡¦¶}©l"
+msgstr "â€˜msgidâ€™å’Œâ€˜msgstrâ€™æ¬„ä½ä¸¦éåŒæ™‚ä»¥â€˜\\nâ€™é–‹å§‹"
 
 #: src/msgfmt.c:1230
 #, c-format
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "¡¥msgid¡¦©M¡¥msgid_plural¡¦Äæ¦ì¨Ã«D¦P®É¥H¡¥\\n¡¦µ²§ô"
+msgstr "â€˜msgidâ€™å’Œâ€˜msgid_pluralâ€™æ¬„ä½ä¸¦éåŒæ™‚ä»¥â€˜\\nâ€™çµæŸ"
 
 #: src/msgfmt.c:1240
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "¡¥msgid¡¦©M¡¥msgstr[%u]¡¦Äæ¦ì¨Ã«D¦P®É¥H¡¥\\n¡¦µ²§ô"
+msgstr "â€˜msgidâ€™å’Œâ€˜msgstr[%u]â€™æ¬„ä½ä¸¦éåŒæ™‚ä»¥â€˜\\nâ€™çµæŸ"
 
 #: src/msgfmt.c:1252
 #, c-format
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr "¡¥msgid¡¦©M¡¥msgstr¡¦Äæ¦ì¨Ã«D¦P®É¥H¡¥\\n¡¦µ²§ô"
+msgstr "â€˜msgidâ€™å’Œâ€˜msgstrâ€™æ¬„ä½ä¸¦éåŒæ™‚ä»¥â€˜\\nâ€™çµæŸ"
 
 #: src/msgfmt.c:1264
 #, c-format
 msgid "plural handling is a GNU gettext extension"
-msgstr "½Æ¼Æ³B²z¬O GNU gettext ªºÂX®i¥\¯à"
+msgstr "è¤‡æ•¸è™•ç†æ˜¯ GNU gettext çš„æ“´å±•åŠŸèƒ½"
 
 #: src/msgfmt.c:1305
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr "msgstr ¯Ê¤Ö¤F±¶®|Áä¼Ğ°O¡¥%c¡¦"
+msgstr "msgstr ç¼ºå°‘äº†æ·å¾‘éµæ¨™è¨˜â€˜%câ€™"
 
 #: src/msgfmt.c:1313
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
-msgstr "msgstr §t¦³¹L¦hªº±¶®|Áä¼Ğ°O¡¥%c¡¦"
+msgstr "msgstr å«æœ‰éå¤šçš„æ·å¾‘éµæ¨™è¨˜â€˜%câ€™"
 
 #: src/msgfmt.c:1347
 #, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "¯Ê¤Ö¤F¼ĞÀYÄæ¦ì¡¥%s¡¦\n"
+msgstr "ç¼ºå°‘äº†æ¨™é ­æ¬„ä½â€˜%sâ€™\n"
 
 #: src/msgfmt.c:1351
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "¼ĞÀYÄæ¦ì¡¥%s¡¦À³¸Ó¦ì©ó¦æ­º\n"
+msgstr "æ¨™é ­æ¬„ä½â€˜%sâ€™æ‡‰è©²ä½æ–¼è¡Œé¦–\n"
 
 #: src/msgfmt.c:1362
 msgid "some header fields still have the initial default value\n"
-msgstr "¬Y¨Ç¼ĞÀYÄæ¦ì¤´µM¬O¹w³]­È\n"
+msgstr "æŸäº›æ¨™é ­æ¬„ä½ä»ç„¶æ˜¯é è¨­å€¼\n"
 
 #: src/msgfmt.c:1374
 #, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "¼ĞÀYÄæ¦ì¡¥%s¡¦¤´µM¬O¹w³]­È\n"
+msgstr "æ¨™é ­æ¬„ä½â€˜%sâ€™ä»ç„¶æ˜¯é è¨­å€¼\n"
 
 #: src/msgfmt.c:1432
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
-msgstr "Äµ§i¡G¯Ê¤Ö¤F PO ÀÉªº¼ĞÀY©Î¬O®æ¦¡µL®Ä\n"
+msgstr "è­¦å‘Šï¼šç¼ºå°‘äº† PO æª”çš„æ¨™é ­æˆ–æ˜¯æ ¼å¼ç„¡æ•ˆ\n"
 
 #: src/msgfmt.c:1435
 #, c-format
 msgid "warning: charset conversion will not work\n"
-msgstr "Äµ§i¡G¦r¤¸¶°Âà´«ªº¥\¯à¤£·|¥Í®Ä\n"
+msgstr "è­¦å‘Šï¼šå­—å…ƒé›†è½‰æ›çš„åŠŸèƒ½ä¸æœƒç”Ÿæ•ˆ\n"
 
 #: src/msgfmt.c:1445
 #, c-format
 msgid "warning: PO file header fuzzy\n"
-msgstr "Äµ§i¡GPO ÀÉªº¼ĞÀY¤´µM¬O¼Ò½kª¬ºA\n"
+msgstr "è­¦å‘Šï¼šPO æª”çš„æ¨™é ­ä»ç„¶æ˜¯æ¨¡ç³Šç‹€æ…‹\n"
 
 #: src/msgfmt.c:1447
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
-msgstr "Äµ§i¡G¸ûÂÂª©¥»ªº msgfmt ¹J¨ì¦¹ÀÉ®×®É·|¦L¥X¿ù»~°T®§\n"
+msgstr "è­¦å‘Šï¼šè¼ƒèˆŠç‰ˆæœ¬çš„ msgfmt é‡åˆ°æ­¤æª”æ¡ˆæ™‚æœƒå°å‡ºéŒ¯èª¤è¨Šæ¯\n"
 
 #: src/msgfmt.c:1471
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
-msgstr "»â°ì¦WºÙ¡§%s¡¨¤£¾A¦X§@¬°ÀÉ®×¦WºÙ"
+msgstr "é ˜åŸŸåç¨±â€œ%sâ€ä¸é©åˆä½œç‚ºæª”æ¡ˆåç¨±"
 
 #: src/msgfmt.c:1476
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
-msgstr "»â°ì¦WºÙ¡§%s¡¨¤£¾A¦X§@¬°ÀÉ®×¦WºÙ¡G±N¨Ï¥Î¦r­º"
+msgstr "é ˜åŸŸåç¨±â€œ%sâ€ä¸é©åˆä½œç‚ºæª”æ¡ˆåç¨±ï¼šå°‡ä½¿ç”¨å­—é¦–"
 
 #: src/msgfmt.c:1490
 #, c-format
 msgid "`domain %s' directive ignored"
-msgstr "©¿²¤¡¥domain %s¡¦«ü¥O"
+msgstr "å¿½ç•¥â€˜domain %sâ€™æŒ‡ä»¤"
 
 #: src/msgfmt.c:1544
 #, c-format
 msgid "empty `msgstr' entry ignored"
-msgstr "©¿²¤ªÅªº¡¥msgstr¡¦Äæ¦ì"
+msgstr "å¿½ç•¥ç©ºçš„â€˜msgstrâ€™æ¬„ä½"
 
 #: src/msgfmt.c:1545
 #, c-format
 msgid "fuzzy `msgstr' entry ignored"
-msgstr "©¿²¤¼Ò½kªº¡¥msgstr¡¦Äæ¦ì"
+msgstr "å¿½ç•¥æ¨¡ç³Šçš„â€˜msgstrâ€™æ¬„ä½"
 
 #: src/msgfmt.c:1603
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
-msgstr "%s¡GÄµ§i¡G­ì©lÀÉ¥]§t¼Ò½kÂ½Ä¶±ø¥Ø"
+msgstr "%sï¼šè­¦å‘Šï¼šåŸå§‹æª”åŒ…å«æ¨¡ç³Šç¿»è­¯æ¢ç›®"
 
 #: src/msggrep.c:242 src/po-lex.c:666 src/read-mo.c:79
 #: src/read-properties.c:80 src/read-stringtable.c:95 src/x-awk.c:143
@@ -1906,22 +1879,22 @@ msgstr "%s¡GÄµ§i¡G­ì©lÀÉ¥]§t¼Ò½kÂ½Ä¶±ø¥Ø"
 #: src/x-ycp.c:91
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "Åª¨ú¡§%s¡¨®É¥X²{¿ù»~"
+msgstr "è®€å– â€œ%sâ€ æ™‚å‡ºç¾éŒ¯èª¤"
 
 #: src/msggrep.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "option '%c' cannot be used before 'K' or 'T' or 'C' has been specified"
-msgstr "¥¼«ü©w¡¥K¡¦©Î¡¥T¡¦«e¤£¯à¨Ï¥Î¿ï¶µ¡¥%c¡¦"
+msgstr "æœªæŒ‡å®š â€˜Kâ€™ã€â€˜Tâ€™ æˆ– â€˜Câ€™ é¸é …å‰ä¸èƒ½ä½¿ç”¨é¸é … â€˜%câ€™"
 
 #: src/msggrep.c:476
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
 "or belong to some given source files.\n"
-msgstr "©â¨úÂ½Ä¶ÀÉ¤¤ªº°T®§¡A¦Ó³o¨Ç°T®§²Å¦X¬YºØ¼Ë¦¡©ÎÄİ©ó¬Y­Ó«ü©wªº¨Ó·½ÀÉ¡C\n"
+msgstr "æŠ½å–ç¿»è­¯æª”ä¸­çš„è¨Šæ¯ï¼Œè€Œé€™äº›è¨Šæ¯ç¬¦åˆæŸç¨®æ¨£å¼æˆ–å±¬æ–¼æŸå€‹æŒ‡å®šçš„ä¾†æºæª”ã€‚\n"
 
 #: src/msggrep.c:502
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -1951,29 +1924,35 @@ msgid ""
 "  -f, --file=FILE             obtain PATTERN from FILE\n"
 "  -i, --ignore-case           ignore case distinctions\n"
 msgstr ""
-"°T®§¿ï¾Ü¡GXXX  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
+"è¨Šæ¯é¸æ“‡ï¼š\n"
+"  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
 "  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n"
-"µ{¦¡·|¨Ì¾Ú¨ä«ü©wªº­ì©lÀÉ¨Ó¿ï¾ÜÂ½Ä¶°T®§¡A©Î ¨Ì¾Ú¨ä«ü©wªº¤å¦r»â°ì¡A\n"
-"©Î ¨Ì¾Ú¿ï¶µ -K¡AÃöÁä¦r (msgid or msgid_plural) ²Å¦X MSGID-PATTERN,\n"
-"©Î ¨Ì¾Ú¿ï¶µ -T¡AÂ½Ä¶¦r¦ê (msgstr) ²Å¦X MSGSTR-PATTERN,\n"
-"©Î ¨Ì¾Ú¿ï¶µ -T¡AÂ½Ä¶µù¸Ñ²Å¦X COMMENT-PATTERN¡C\n"
 "\n"
-"­Y«ü©w¤F¨â­Ó¥H¤Wªº¿ï¾Ü¼Ğ·Ç¡A«h·|¿ï¾Ü²Å¦X¨C¤@­Ó±ø¥óªº°T®§¶°¦XÀÉ¡C\n"
+"ç¨‹å¼æœƒä¾æ“šä»¥ä¸‹å…¶ä¸­ä¸€å€‹æ¨™æº–ä¾†é¸æ“‡ç¿»è­¯è¨Šæ¯ï¼š\n"
+"* æŒ‡å®šçš„åŸå§‹æª”\n"
+"* æŒ‡å®šçš„æ–‡å­—é ˜åŸŸ\n"
+"* ä½¿ç”¨äº†é¸é … -Kï¼Œè€ŒåŸæ–‡ (msgid or msgid_plural) ç¬¦åˆ MSGID-PATTERN\n"
+"* ä½¿ç”¨äº†é¸é … -Tï¼Œè€Œç¿»è­¯å­—å¥ (msgstr) ç¬¦åˆ MSGSTR-PATTERN\n"
+"* ä½¿ç”¨äº†é¸é … -Cï¼Œè€Œç¿»è­¯è¨»è§£ç¬¦åˆ COMMENT-PATTERN\n"
 "\n"
-"MSGID-PATTERN ©Î MSGSTR-PATTERN ªº»yªk:\n"
+"è‹¥æŒ‡å®šäº†å…©å€‹æˆ–ä»¥ä¸Šçš„é¸æ“‡æ¨™æº–ï¼Œè¨Šæ¯æœ€å°‘åªè¦ç¬¦åˆå…¶ä¸­ä¸€å€‹æ¨™æº–å°±å·²ç¶“è¶³å¤ ã€‚\n"
+"\n"
+"MSGID-PATTERN æˆ– MSGSTR-PATTERN æˆ– COMMENT-PATTERN çš„èªæ³•ï¼š\n"
 "  [-E | -F] [-e PATTERN | -f FILE]...\n"
-" PATTERNs ¤º©w¬O °òÂ¦±`³W¹Bºâ¦¡ ( basic regular expressions)¡A\n"
-"¦pªG«ü©w -E «h¬O ©µ¦ù±`³W¹Bºâ¦¡ ( extended regular expressions)¡A¦pªG«ü©w -F «h¬O ©T©wªº¦r¦ê¡C\n"
+"PATTERN å…§å®šæ˜¯åŸºç¤å¸¸è¦é‹ç®—å¼ (basic regular expression)ï¼Œ\n"
+"å¦‚æœæŒ‡å®š -E å‰‡æ˜¯å»¶ä¼¸å¸¸è¦é‹ç®—å¼ (extended regular expression)ï¼Œ\n"
+"å¦‚æœæŒ‡å®š -F å‰‡æ˜¯æ™®é€šå­—ä¸²ã€‚\n"
 "\n"
-"  -N, --location=SOURCEFILE   ¿ï¾Ü¦Û SOURCEFILE ©â¨ú¥X¨ÓªºÂ½Ä¶°T®§\n"
-"  -M, --domain=DOMAINNAME     ¿ï¾ÜÄİ©ó DOMAINNAME »â°ìªºÂ½Ä¶°T®§\n"
-"  -K, --msgid                 «ü©w msgid ¤ñ¹ï¼Ë¦¡\n"
-"  -T, --msgstr                «ü©w msgstr ¼Ë¦¡\n"
-"  -E, --extended-regexp       «ü©w PATTERN ¬°©µ¦ù±`³W¹Bºâ¦¡\n"
-"  -F, --fixed-strings         «ü©w PATTERN ¬°¤@²Õ©T©wªº¦r¦ê\n"
-"  -e, --regexp=PATTERN        «ü©w PATTERN ¬°°òÂ¦±`³W¹Bºâ¦¡\n"
-"  -f, --file=FILE             PATTERN ±Ä¥Î FILE ªº¤º®e \n"
-"  -i, --ignore-case           ©¿²¤¤j¤p¼g\n"
+"  -N, --location=SOURCEFILE   é¸æ“‡è‡ª SOURCEFILE æŠ½å–å‡ºä¾†çš„ç¿»è­¯è¨Šæ¯\n"
+"  -M, --domain=DOMAINNAME     é¸æ“‡å±¬æ–¼ DOMAINNAME é ˜åŸŸçš„ç¿»è­¯è¨Šæ¯\n"
+"  -K, --msgid                 æŒ‡å®šç¬¦åˆ msgid çš„æ¨£å¼\n"
+"  -T, --msgstr                æŒ‡å®šç¬¦åˆ msgstr çš„æ¨£å¼\n"
+"  -C, --comment               æŒ‡å®šç¬¦åˆç¿»è­¯è¨»é‡‹çš„æ¨£å¼\n"
+"  -E, --extended-regexp       æŒ‡å®š PATTERN ç‚ºå»¶ä¼¸å¸¸è¦é‹ç®—å¼\n"
+"  -F, --fixed-strings         æŒ‡å®š PATTERN ç‚ºæ™®é€šå­—ä¸²\n"
+"  -e, --regexp=PATTERN        æŒ‡å®š PATTERN ç‚ºåŸºç¤å¸¸è¦é‹ç®—å¼\n"
+"  -f, --file=FILE             PATTERN æ¡ç”¨ FILE çš„å…§å®¹ \n"
+"  -i, --ignore-case           ä¸å€åˆ†å¤§å°å¯«\n"
 
 #: src/msggrep.c:543
 #, c-format
@@ -1984,12 +1963,12 @@ msgstr ""
 #: src/msggrep.c:564
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
-msgstr ""
+msgstr "      --sort-output           å°‡è¨Šæ¯æ’åº\n"
 
 #: src/msggrep.c:566
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
-msgstr ""
+msgstr "      --sort-by-file          æ ¹æ“šæª”æ¡ˆä½ç½®æ’åº\n"
 
 #: src/msginit.c:296
 msgid ""
@@ -1997,8 +1976,8 @@ msgid ""
 "your LANG environment variable, as described in the ABOUT-NLS\n"
 "file.  This is necessary so you can test your translations.\n"
 msgstr ""
-"¨t²ÎÀô¹Ò¨S¦³¥ô¦ó©M»y¨¥¦³Ãöªº³]©w¡C½Ğ®Ú¾Ú ABOUT-NLS ÀÉ®×©Ò­z¡A\n"
-"³]©w LANG Àô¹ÒÅÜ¼Æ¡C³o¬O´ú¸ÕÂ½Ä¶®Éªº¥²­n¨BÆJ¡C\n"
+"ç³»çµ±ç’°å¢ƒæ²’æœ‰ä»»ä½•å’Œèªè¨€æœ‰é—œçš„è¨­å®šã€‚è«‹æ ¹æ“š ABOUT-NLS æª”æ¡ˆæ‰€è¿°ï¼Œ\n"
+"è¨­å®š LANG ç’°å¢ƒè®Šæ•¸ã€‚é€™æ˜¯æ¸¬è©¦ç¿»è­¯æ™‚çš„å¿…è¦æ­¥é©Ÿã€‚\n"
 
 #: src/msginit.c:324
 #, c-format
@@ -2007,98 +1986,94 @@ msgid ""
 "Please specify the locale through the --locale option or\n"
 "the output .po file through the --output-file option.\n"
 msgstr ""
-"¿é¥XÀÉ %s ¤w¸g¦s¦b¡C\n"
-"½Ğ³z¹L --locale ¿ï¶µ«ü©w»y¨t©Î\n"
-"--output-file ¿ï¶µ«ü©w¿é¥Xªº .po ÀÉ¡C\n"
+"è¼¸å‡ºæª” %s å·²ç¶“å­˜åœ¨ã€‚\n"
+"è«‹é€é --locale é¸é …æŒ‡å®šèªç³»æˆ–\n"
+"--output-file é¸é …æŒ‡å®šè¼¸å‡ºçš„ .po æª”ã€‚\n"
 
 #: src/msginit.c:350
 #, c-format
 msgid "Created %s.\n"
-msgstr "¤w«Ø¥ß %s¡C\n"
+msgstr "å·²å»ºç«‹ %sã€‚\n"
 
 #: src/msginit.c:370
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
-msgstr "«Ø¥ß·sªº PO ÀÉ¡A¨Ã¥Ñ¨Ï¥ÎªÌÀô¹Ò¨ú±oªì©l¤Æ©Ò»İªºÀÉÀY¸ê®Æ¡C\n"
+msgstr "å»ºç«‹æ–°çš„ PO æª”ï¼Œä¸¦ç”±ä½¿ç”¨è€…ç’°å¢ƒå–å¾—åˆå§‹åŒ–æ‰€éœ€çš„æª”é ­è³‡æ–™ã€‚\n"
 
 #: src/msginit.c:380
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
-msgstr ""
+msgstr "  -i, --input=è¼¸å…¥æª”          è¼¸å…¥çš„ POT æª”\n"
 
 #: src/msginit.c:382
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
 "file.\n"
 "If it is -, standard input is read.\n"
 msgstr ""
-"¿é¤JÀÉ¦ì¸m¡G\n"
-"  -i, --input=¿é¤JÀÉ          ¿é¤Jªº POT ÀÉ\n"
-"¦pªG¨S¦³«ü©w¿é¤JÀÉ¡A·|¦b¥Ø«eªº¥Ø¿ı·j´M POT ÀÉ¡C\n"
-"¦pªG¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
+"å¦‚æœæ²’æœ‰æŒ‡å®šè¼¸å…¥æª”ï¼Œæœƒåœ¨ç›®å‰çš„ç›®éŒ„æœå°‹ POT æª”ã€‚\n"
+"å¦‚æœè¼¸å…¥æª”æ˜¯ -ï¼Œå‰‡è®€å–æ¨™æº–è¼¸å…¥çš„å…§å®¹ã€‚\n"
 
 #: src/msginit.c:388
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
-msgstr ""
+msgstr "  -o, --output-file=FILE      å°‡è¼¸å‡ºçš„å…§å®¹å¯«å…¥æŒ‡å®šçš„ PO æª”\n"
 
 #: src/msginit.c:390
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
-"¿é¥XÀÉ¦ì¸m¡G\n"
-"  -o, --output-file=¿é¥XÀÉ    ±N¿é¥X¼g¦Ü«ü©wªº PO ÀÉ\n"
-"¦pªG¨S¦³«ü©w<¿é¥XÀÉ>¡A«hÀÉ¦W±N·|¥Ñ --locale ¿ï¶µ©Î¬O¨Ï¥ÎªÌªº»y¨t¨M©w¡C\n"
-"¦pªG<¿é¥XÀÉ>¬O¡¥-¡¦¡A«h·|±Nµ²ªG¼g¦Ü¼Ğ·Ç¿é¥X¡C\n"
+"å¦‚æœæ²’æœ‰æŒ‡å®šè¼¸å‡ºæª”ï¼Œæª”åå°‡æœƒç”± --locale é¸é …æˆ–ä½¿ç”¨è€…çš„èªç³»æ±ºå®šã€‚\n"
+"å¦‚æœè¼¸å‡ºæª”æ˜¯ -ï¼Œå‰‡æœƒå°‡çµæœå¯«è‡³æ¨™æº–è¼¸å‡ºã€‚\n"
 
 #: src/msginit.c:403
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
-msgstr ""
+msgstr "  -l, --locale=LL_CC          æŒ‡å®šåœ°å€è¨­å®š\n"
 
 #: src/msginit.c:405
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
-msgstr ""
+msgstr "      --no-translator         å‡è¨­ PO æª”æ˜¯è‡ªå‹•ç”¢ç”Ÿçš„\n"
 
 #: src/msginit.c:461
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
-"§ä¨ì¦h©ó¤@­Óªº .pot ÀÉ¡C\n"
-"½Ğ³z¹L --input ¿ï¶µ«ü©w§@¬°¿é¤JÀÉªº .pot ÀÉ¡C\n"
+"æ‰¾åˆ°å¤šæ–¼ä¸€å€‹çš„ .pot æª”ã€‚\n"
+"è«‹é€é --input é¸é …æŒ‡å®šä½œç‚ºè¼¸å…¥æª”çš„ .pot æª”ã€‚\n"
 
 #: src/msginit.c:469 src/msginit.c:474
 #, c-format
 msgid "error reading current directory"
-msgstr "Åª¨ú¥Ø«eªº¥Ø¿ı®Éµo¥Í¿ù»~"
+msgstr "è®€å–ç›®å‰çš„ç›®éŒ„æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/msginit.c:482
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
-"¦b¥Ø«e¥Ø¿ı¤¤§ä¤£¨ì¥ô¦ó .pot ÀÉ¡C\n"
-"½Ğ³z¹L --input ¿ï¶µ«ü©w§@¬°¿é¤JÀÉªº .pot ÀÉ¡C\n"
+"åœ¨ç›®å‰ç›®éŒ„ä¸­æ‰¾ä¸åˆ°ä»»ä½• .pot æª”ã€‚\n"
+"è«‹é€é --input é¸é …æŒ‡å®šä½œç‚ºè¼¸å…¥æª”çš„ .pot æª”ã€‚\n"
 
 #: src/msginit.c:978 src/msginit.c:1045 src/msginit.c:1203
 #, c-format
 msgid "%s subprocess I/O error"
-msgstr "%s °Æµ{§Ç¿é¥X/¿é¤J¿ù»~"
+msgstr "%s å‰¯é€²ç¨‹è¼¸å‡º/è¼¸å…¥éŒ¯èª¤"
 
 #: src/msginit.c:990 src/msginit.c:1057 src/msginit.c:1215 src/msginit.c:1294
 #: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
 #: src/read-tcl.c:127 src/write-resources.c:105
 #, c-format
 msgid "%s subprocess failed with exit code %d"
-msgstr "%s °Æµ{§Ç¥¢±Ñ¡A¿ù»~½X¬° %d"
+msgstr "%s å‰¯é€²ç¨‹å¤±æ•—ï¼ŒéŒ¯èª¤ç¢¼ç‚º %d"
 
 #: src/msginit.c:1181
 msgid ""
@@ -2108,8 +2083,8 @@ msgid ""
 "contact\n"
 "you in case of unexpected technical problems.\n"
 msgstr ""
-"·sªºÂ½Ä¶ÀÉÀ³¸Ó§t¦³±zªº¹q¶l¦a§}¡A³o¼Ë¨Ï¥ÎªÌ´N¥i¥H¹ï±zªºÂ½Ä¶´£¥X·N¨£¡A\n"
-"¦P®É³n¥óºûÅ@ªÌ¤]¥i¥H¦b¥X²{§Ş³N°İÃD®ÉÁpµ¸±z¡C\n"
+"æ–°çš„ç¿»è­¯æª”æ‡‰è©²å«æœ‰æ‚¨çš„é›»éƒµåœ°å€ï¼Œé€™æ¨£ä½¿ç”¨è€…å°±å¯ä»¥å°æ‚¨çš„ç¿»è­¯æå‡ºæ„è¦‹ï¼Œ\n"
+"åŒæ™‚è»Ÿä»¶ç¶­è­·è€…ä¹Ÿå¯ä»¥åœ¨å‡ºç¾æŠ€è¡“å•é¡Œæ™‚è¯çµ¡æ‚¨ã€‚\n"
 
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
@@ -2122,37 +2097,37 @@ msgstr "traditional Chinese translation for %s"
 #: src/msgl-cat.c:176 src/msgl-charset.c:86 src/msgl-iconv.c:305
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
-msgstr "¥Ø«eªº¦r¤¸¶°½s½X¡§%s¡¨¤£¬O³q¥Îªº½s½X¦WºÙ"
+msgstr "ç›®å‰çš„å­—å…ƒé›†ç·¨ç¢¼â€œ%sâ€ä¸æ˜¯é€šç”¨çš„ç·¨ç¢¼åç¨±"
 
 #: src/msgl-cat.c:187 src/msgl-iconv.c:316
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
-msgstr "¿é¤JÀÉ¦³¨âºØ¤£¦Pªº¦r¤¸¶°½s½X¡§%s¡¨©M¡§%s¡¨"
+msgstr "è¼¸å…¥æª”æœ‰å…©ç¨®ä¸åŒçš„å­—å…ƒé›†ç·¨ç¢¼â€œ%sâ€å’Œâ€œ%sâ€"
 
 #: src/msgl-cat.c:202
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
-msgstr "¿é¤JÀÉ¡¥%s¡¦¨S¦³«ü©w¦r¤¸¶°ªº¼ĞÀYÄæ¦ì"
+msgstr "è¼¸å…¥æª”â€˜%sâ€™æ²’æœ‰æŒ‡å®šå­—å…ƒé›†çš„æ¨™é ­æ¬„ä½"
 
 #: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
-msgstr "¿é¤JÀÉ¡¥%2$s¡¦ªº»â°ì¡§%1$s¡¨¨S¦³«ü©w¦r¤¸¶°ªº¼ĞÀYÄæ¦ì"
+msgstr "è¼¸å…¥æª”â€˜%2$sâ€™çš„é ˜åŸŸâ€œ%1$sâ€æ²’æœ‰æŒ‡å®šå­—å…ƒé›†çš„æ¨™é ­æ¬„ä½"
 
 #: src/msgl-cat.c:383 src/msgl-iconv.c:405
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
-msgstr "¥Ø¼Ğªº¦r¤¸¶°½s½X¡§%s¡¨¤£¬O³q¥Îªº½s½X¦WºÙ¡C"
+msgstr "ç›®æ¨™çš„å­—å…ƒé›†ç·¨ç¢¼â€œ%sâ€ä¸æ˜¯é€šç”¨çš„ç·¨ç¢¼åç¨±ã€‚"
 
 #: src/msgl-cat.c:433 src/msgl-cat.c:439 src/msgl-charset.c:92
 #: src/msgl-charset.c:127 src/write-po.c:851 src/write-po.c:917
 #: src/xgettext.c:2070
 #, c-format
 msgid "warning: "
-msgstr "Äµ§i¡G"
+msgstr "è­¦å‘Šï¼š"
 
 #: src/msgl-cat.c:434
 #, c-format
@@ -2160,7 +2135,7 @@ msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
 "Converting the output to UTF-8.\n"
 msgstr ""
-"¿é¤JÀÉ§t¦³¤£¦P½s½Xªº°T®§¡A¨ä¤¤¤@ºØ¬O UTF-8¡C·|±N¿é¥Xªº½s½XÂà´«¬° UTF-8¡C\n"
+"è¼¸å…¥æª”å«æœ‰ä¸åŒç·¨ç¢¼çš„è¨Šæ¯ï¼Œå…¶ä¸­ä¸€ç¨®æ˜¯ UTF-8ã€‚æœƒå°‡è¼¸å‡ºçš„ç·¨ç¢¼è½‰æ›ç‚º UTF-8ã€‚\n"
 
 #: src/msgl-cat.c:440
 #, c-format
@@ -2170,8 +2145,8 @@ msgid ""
 "Converting the output to UTF-8.\n"
 "To select a different output encoding, use the --to-code option.\n"
 msgstr ""
-"¿é¤JÀÉ§t¦³¤£¦P½s½Xªº°T®§¡A¨ä¤¤¥]¬A %s ©M %s¡C·|±N¿é¥Xªº½s½XÂà´«¬° UTF-8¡C\n"
-"­Y­n¿ï¾Ü¥t¤@ºØ¿é¥X½s½X¡A½Ğ¨Ï¥Î --to-code ¿ï¶µ¡C\n"
+"è¼¸å…¥æª”å«æœ‰ä¸åŒç·¨ç¢¼çš„è¨Šæ¯ï¼Œå…¶ä¸­åŒ…æ‹¬ %s å’Œ %sã€‚æœƒå°‡è¼¸å‡ºçš„ç·¨ç¢¼è½‰æ›ç‚º UTF-8ã€‚\n"
+"è‹¥è¦é¸æ“‡å¦ä¸€ç¨®è¼¸å‡ºç·¨ç¢¼ï¼Œè«‹ä½¿ç”¨ --to-code é¸é …ã€‚\n"
 
 #: src/msgl-charset.c:93
 #, c-format
@@ -2181,14 +2156,14 @@ msgid ""
 "Output of '%s' might be incorrect.\n"
 "Possible workarounds are:\n"
 msgstr ""
-"¥Ø«e»y¨tªº¦r¤¸¶°¡§%s¡¨©M¿é¤JÀÉªº¦r¤¸¶°¡§%s¡¨¤£¦P¡C\n"
-"¡¥%s¡¦ªº¿é¥X¥i¯à¦³»~¡C\n"
-"¥i¦æªº¸Ñ¨M¤èªk¥]¬A¡G\n"
+"ç›®å‰èªç³»çš„å­—å…ƒé›†â€œ%sâ€å’Œè¼¸å…¥æª”çš„å­—å…ƒé›†â€œ%sâ€ä¸åŒã€‚\n"
+"â€˜%sâ€™çš„è¼¸å‡ºå¯èƒ½æœ‰èª¤ã€‚\n"
+"å¯è¡Œçš„è§£æ±ºæ–¹æ³•åŒ…æ‹¬ï¼š\n"
 
 #: src/msgl-charset.c:100
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
-msgstr "¡´ ³]©w LC_ALL Àô¹ÒÅÜ¼Æ¬°¨Ï¥Î½s½X %s ªº»y¨t¡C\n"
+msgstr "â— è¨­å®š LC_ALL ç’°å¢ƒè®Šæ•¸ç‚ºä½¿ç”¨ç·¨ç¢¼ %s çš„èªç³»ã€‚\n"
 
 #: src/msgl-charset.c:105
 #, c-format
@@ -2197,9 +2172,9 @@ msgid ""
 "  then apply '%s',\n"
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
-"¡´ ¥Î¡¥msgconv¡¦±NÂ½Ä¶ÀÉªº¦r¤¸¶°Âà´«¬° %s¡A\n"
-"   µM«á®M¥Î¡¥%s¡¦«ü¥O¡A\n"
-"   ³Ì«á¥Î¡¥msgconv¡¦±NÂ½Ä¶ÀÉªº¦r¤¸¶°ÁÙ­ì¬° %s¡C\n"
+"â— ç”¨â€˜msgconvâ€™å°‡ç¿»è­¯æª”çš„å­—å…ƒé›†è½‰æ›ç‚º %sï¼Œ\n"
+"   ç„¶å¾Œå¥—ç”¨â€˜%sâ€™æŒ‡ä»¤ï¼Œ\n"
+"   æœ€å¾Œç”¨â€˜msgconvâ€™å°‡ç¿»è­¯æª”çš„å­—å…ƒé›†é‚„åŸç‚º %sã€‚\n"
 
 #: src/msgl-charset.c:114
 #, c-format
@@ -2209,10 +2184,10 @@ msgid ""
 "  then apply '%s',\n"
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
-"¡´ ³]©w LC_ALL Àô¹ÒÅÜ¼Æ¬°¨Ï¥Î½s½X %s ªº»y¨t¡A\n"
-"   ¥Î¡¥msgconv¡¦±NÂ½Ä¶ÀÉªº¦r¤¸¶°Âà´«¬° %s¡A\n"
-"   µM«á®M¥Î¡¥%s¡¦«ü¥O¡A\n"
-"   ³Ì«á¥Î¡¥msgconv¡¦±NÂ½Ä¶ÀÉªº¦r¤¸¶°ÁÙ­ì¬° %s¡C\n"
+"â— è¨­å®š LC_ALL ç’°å¢ƒè®Šæ•¸ç‚ºä½¿ç”¨ç·¨ç¢¼ %s çš„èªç³»ï¼Œ\n"
+"   ç”¨â€˜msgconvâ€™å°‡ç¿»è­¯æª”çš„å­—å…ƒé›†è½‰æ›ç‚º %sï¼Œ\n"
+"   ç„¶å¾Œå¥—ç”¨â€˜%sâ€™æŒ‡ä»¤ï¼Œ\n"
+"   æœ€å¾Œç”¨â€˜msgconvâ€™å°‡ç¿»è­¯æª”çš„å­—å…ƒé›†é‚„åŸç‚º %sã€‚\n"
 
 #: src/msgl-charset.c:128
 #, c-format
@@ -2221,19 +2196,19 @@ msgid ""
 "Output of '%s' might be incorrect.\n"
 "A possible workaround is to set LC_ALL=C.\n"
 msgstr ""
-"»y¨tªº¦r¤¸¶°½s½X¡§%s¡¨¤£¬O³q¥Îªº½s½X¦WºÙ¡C\n"
-"¡¥%s¡¦ªº¿é¥X¥i¯à¦³»~¡C\n"
-"³]©w LC_ALL=C ¬O¤@­Ó¥i¦æªº¸Ñ¨M¤èªk¡C\n"
+"èªç³»çš„å­—å…ƒé›†ç·¨ç¢¼â€œ%sâ€ä¸æ˜¯é€šç”¨çš„ç·¨ç¢¼åç¨±ã€‚\n"
+"â€˜%sâ€™çš„è¼¸å‡ºå¯èƒ½æœ‰èª¤ã€‚\n"
+"è¨­å®š LC_ALL=C æ˜¯ä¸€å€‹å¯è¡Œçš„è§£æ±ºæ–¹æ³•ã€‚\n"
 
 #: src/msgl-iconv.c:187 src/msgl-iconv.c:245
 #, c-format
 msgid "conversion failure"
-msgstr "Âà´«¿ù»~"
+msgstr "è½‰æ›éŒ¯èª¤"
 
 #: src/msgl-iconv.c:339
 #, c-format
 msgid "input file doesn't contain a header entry with a charset specification"
-msgstr "¿é¤JÀÉ¨S¦³«ü©w¦r¤¸¶°ªº¼ĞÀYÄæ¦ì"
+msgstr "è¼¸å…¥æª”æ²’æœ‰æŒ‡å®šå­—å…ƒé›†çš„æ¨™é ­æ¬„ä½"
 
 #: src/msgl-iconv.c:358 src/xgettext.c:597
 #, c-format
@@ -2241,8 +2216,8 @@ msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
 "not support this conversion."
 msgstr ""
-"¤£¤ä´©±N¦r¤¸¶°¥Ñ¡§%s¡¨Âà´«¦Ü¡§%s¡¨¡C%s »İ­n iconv()¡A\n"
-"¦ı iconv() ¤£¤ä´©¦¹ºØÂà´«¤è¦¡¡C"
+"ä¸æ”¯æ´å°‡å­—å…ƒé›†ç”±â€œ%sâ€è½‰æ›è‡³â€œ%sâ€ã€‚%s éœ€è¦ iconv()ï¼Œ\n"
+"ä½† iconv() ä¸æ”¯æ´æ­¤ç¨®è½‰æ›æ–¹å¼ã€‚"
 
 #: src/msgl-iconv.c:380
 #, c-format
@@ -2257,17 +2232,17 @@ msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
 "built without iconv()."
 msgstr ""
-"¤£¤ä´©±N¦r¤¸¶°¥Ñ¡§%s¡¨Âà´«¦Ü¡§%s¡¨¡C%s »İ­n iconv()¡A\n"
-"¦ı½sÄ¶¦¹µ{¦¡®É¨S¦³ iconv() ¤ä´©¡C"
+"ä¸æ”¯æ´å°‡å­—å…ƒé›†ç”±â€œ%sâ€è½‰æ›è‡³â€œ%sâ€ã€‚%s éœ€è¦ iconv()ï¼Œ\n"
+"ä½†ç·¨è­¯æ­¤ç¨‹å¼æ™‚æ²’æœ‰ iconv() æ”¯æ´ã€‚"
 
 #: src/msgmerge.c:335 src/msgmerge.c:341
 #, c-format
 msgid "%s is only valid with %s"
-msgstr "%s ¥u¯à©M %s °t¦X¤@°_¨Ï¥Î¤~¦³®Ä"
+msgstr "%s åªèƒ½å’Œ %s é…åˆä¸€èµ·ä½¿ç”¨æ‰æœ‰æ•ˆ"
 
 #: src/msgmerge.c:395
 msgid "backup type"
-msgstr "³Æ¥÷¤è¦¡"
+msgstr "å‚™ä»½æ–¹å¼"
 
 #: src/msgmerge.c:430
 #, c-format, no-wrap
@@ -2282,12 +2257,12 @@ msgid ""
 "comments and file positions will be preserved.  Where an exact match\n"
 "cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
-"¦X¨Ö¨â­Ó Uniforum ®æ¦¡ªº .po ÀÉ¡Cdef.po ¬OÂÂªº PO ÀÉ¡A¸Ì­±ªºÂ½Ä¶°T®§¥u­n\n"
-"©M·s²£¥ÍªºÀÉ®×±ø¥Ø²Å¦X¡A³£·|³Q¦X¨Ö¶i¥h¡F¦X¨Ö®É·|«O¯d¦Û¦æ¥[¤Wªºµù¸Ñ¡A¤£¹L\n"
-"·|±Ë±ó­ìµ{¦¡½Xªºµù¸Ñ©MÀÉ®×¦ì¸m¡Cref.pot ¥i¥H¬O¦³³Ì·s¨Ó·½±ø¥Ø¦ı¥u§t¦³ÂÂÂ½Ä¶\n"
-"ªº PO ÀÉ¡A©Î¬O¤@­Ó POT ÀÉ (³q±`¥Ñ xgettext ²£¥Í)¡F¥ô¦óÂ½Ä¶«áªº°T®§©ÎÀÉ®×¸Ì\n"
-"ªºµù¸Ñ³£·|³Q±Ë±ó¡A¦ı¯S®íºX¼Ğµù¸Ñ©MÀÉ®×¦ì¸m³£·|³Q«O¯d¡C¤ñ¸û®É¦pªG¦³¤£§¹¥ş\n"
-"°t¦Xªº¦r¦ê¥X²{¡Aµ{¦¡·|¥H¼Ò½k°t¹ïªº¤è¦¡±o¥X¸û¦nªºµ²ªG¡C\n"
+"åˆä½µå…©å€‹ Uniforum æ ¼å¼çš„ .po æª”ã€‚def.po æ˜¯èˆŠçš„ PO æª”ï¼Œè£¡é¢çš„ç¿»è­¯è¨Šæ¯åªè¦\n"
+"å’Œæ–°ç”¢ç”Ÿçš„æª”æ¡ˆæ¢ç›®ç¬¦åˆï¼Œéƒ½æœƒè¢«åˆä½µé€²å»ï¼›åˆä½µæ™‚æœƒä¿ç•™è‡ªè¡ŒåŠ ä¸Šçš„è¨»è§£ï¼Œä¸é\n"
+"æœƒæ¨æ£„åŸç¨‹å¼ç¢¼çš„è¨»è§£å’Œæª”æ¡ˆä½ç½®ã€‚ref.pot å¯ä»¥æ˜¯æœ‰æœ€æ–°ä¾†æºæ¢ç›®ä½†åªå«æœ‰èˆŠç¿»è­¯\n"
+"çš„ PO æª”ï¼Œæˆ–æ˜¯ä¸€å€‹ POT æª” (é€šå¸¸ç”± xgettext ç”¢ç”Ÿ)ï¼›ä»»ä½•ç¿»è­¯å¾Œçš„è¨Šæ¯æˆ–æª”æ¡ˆè£¡\n"
+"çš„è¨»è§£éƒ½æœƒè¢«æ¨æ£„ï¼Œä½†ç‰¹æ®Šæ——æ¨™è¨»è§£å’Œæª”æ¡ˆä½ç½®éƒ½æœƒè¢«ä¿ç•™ã€‚æ¯”è¼ƒæ™‚å¦‚æœæœ‰ä¸å®Œå…¨\n"
+"é…åˆçš„å­—ä¸²å‡ºç¾ï¼Œç¨‹å¼æœƒä»¥æ¨¡ç³Šé…å°çš„æ–¹å¼å¾—å‡ºè¼ƒå¥½çš„çµæœã€‚\n"
 
 #: src/msgmerge.c:447
 #, c-format
@@ -2307,14 +2282,11 @@ msgid ""
 msgstr ""
 
 #: src/msgmerge.c:459
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
-msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -U, --update                §ó·s def.po¡A©Î¬O·í def.po ¤w¬O³Ì·sª©¥»®É¡A\n"
-"                              ¤£¶i¦æ¥ô¦ó¾Ş§@¡C\n"
+msgstr "  -U, --update                æ›´æ–° def.po (åƒ…ç•¶ def.po æœªæ›´æ–°æ™‚)\n"
 
 #: src/msgmerge.c:471
 #, c-format
@@ -2329,15 +2301,15 @@ msgstr ""
 #: src/msgmerge.c:475
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
-msgstr ""
+msgstr "      --backup=CONTROL        å°‡ def.po å‚™ä»½\n"
 
 #: src/msgmerge.c:477
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
-msgstr ""
+msgstr "      --suffix=SUFFIX         è‡ªè¡ŒæŒ‡å®šå‚™ä»½æª”åæœ«ç«¯çš„å­—ä¸²\n"
 
 #: src/msgmerge.c:479
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The version control method may be selected via the --backup option or "
 "through\n"
@@ -2347,18 +2319,12 @@ msgid ""
 "  existing, nil   numbered if numbered backups exist, simple otherwise\n"
 "  simple, never   always make simple backups\n"
 msgstr ""
-"§ó·s¼Ò¦¡ªº¿é¥XÀÉ¦ì¸m¡G\n"
-"¿é¥Xµ²ªG±N·|¼g¤J def.po¡C\n"
-"      --backup=CONTROL        »s§@ def.po ªº³Æ¥÷ÀÉ\n"
-"      --suffix=«á¸m¦r¤¸       ¦Û¦æ«ü©w³Æ¥÷ÀÉªº«á¸m¦r¤¸\n"
-"ª©¥»±±¨îªº¤è¦¡¥i³z¹L --backup ¿ï¶µ©Î VERSION_CONTROL Àô¹ÒÅÜ¼Æ¨Ó¿ï¾Ü¡C\n"
-"¥H¤U¬O¥i¥ÎªºÅÜ¼Æ­È¡G\n"
-"  none, off       ¤£·|¶i¦æ³Æ¥÷ (§Y¨Ï¨Ï¥Î¤F --backup ¿ï¶µ)\n"
-"  numbered, t     ³Æ¥÷ÀÉ·|¥[¤W¼Æ¦r\n"
-"  existing, nil   ­Y¦³¼Æ¦rªº³Æ¥÷ÀÉ¤w¸g¦s¦b«h¨Ï¥Î¼Æ¦r¡A§_«h¨Ï¥Î´¶³q¤è¦¡³Æ¥÷\n"
-"  simple, never   ¥Ã»·¨Ï¥Î´¶³q¤è¦¡³Æ¥÷\n"
-"³Æ¥÷ÀÉªº«á¸m¦r¤¸¬°¡¥~¡¦¡A°£«D¥H --suffix ¿ï¶µ©Î¬O SIMPLE_BACKUP_SUFFIX\n"
-"Àô¹ÒÅÜ¼Æ«ü©w¡C\n"
+"ç‰ˆæœ¬æ§åˆ¶çš„æ–¹å¼å¯é€é --backup é¸é …æˆ– VERSION_CONTROL ç’°å¢ƒè®Šæ•¸ä¾†é¸æ“‡ã€‚\n"
+"ä»¥ä¸‹æ˜¯å¯ç”¨çš„è®Šæ•¸å€¼ï¼š\n"
+"  none, off       å³ä½¿ä½¿ç”¨äº† --backup é¸é …ä»ä¸æœƒå‚™ä»½\n"
+"  numbered, t     å‚™ä»½æª”ååŠ ä¸Šæ•¸å­—\n"
+"  existing, nil   è‹¥æœ‰æ•¸å­—çš„å‚™ä»½æª”å·²ç¶“å­˜åœ¨å‰‡ä½¿ç”¨æ•¸å­—ï¼Œå¦å‰‡ä½¿ç”¨ä¸€èˆ¬åç¨±\n"
+"  simple, never   æ°¸é ä½¿ç”¨æ™®é€šæ–¹å¼å‚™ä»½\n"
 
 #: src/msgmerge.c:486
 #, c-format
@@ -2367,11 +2333,13 @@ msgid ""
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
+"å‚™ä»½æª”çš„å¾Œç½®å­—å…ƒç‚ºâ€˜~â€™ï¼Œé™¤éä»¥ --suffix é¸é …æˆ–æ˜¯ SIMPLE_BACKUP_SUFFIX\n"
+"ç’°å¢ƒè®Šæ•¸æŒ‡å®šã€‚\n"
 
 #: src/msgmerge.c:495
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
-msgstr ""
+msgstr "  -N, --no-fuzzy-matching     ä¸é€²è¡Œæ¨¡ç³Šå­—ä¸²é…å°\n"
 
 #: src/msgmerge.c:544
 #, c-format
@@ -2381,12 +2349,12 @@ msgstr ""
 #: src/msgmerge.c:1067
 #, c-format
 msgid "this message should define plural forms"
-msgstr "¦¹°T®§À³¸Ó¦³½Æ¼Æ«¬ºA"
+msgstr "æ­¤è¨Šæ¯æ‡‰è©²æœ‰è¤‡æ•¸å‹æ…‹"
 
 #: src/msgmerge.c:1090
 #, c-format
 msgid "this message should not define plural forms"
-msgstr "¦¹°T®§¤£À³¦³½Æ¼Æ«¬ºA"
+msgstr "æ­¤è¨Šæ¯ä¸æ‡‰æœ‰è¤‡æ•¸å‹æ…‹"
 
 #: src/msgmerge.c:1256
 #, c-format
@@ -2395,91 +2363,79 @@ msgid ""
 "obsolete %ld.\n"
 msgstr ""
 "%s\n"
-"Åª¤J %ld ÂÂÂ½Ä¶ + %ld °Ñ¦Ò±ø¥Ø¡C¦X¨Ö¡G%ld¡A¼Ò½k¡G%ld¡A¥¼Ä¶¡G%ld¡A¹L®É¡G%"
-"ld¡C\n"
+"è®€å…¥ %ld èˆŠç¿»è­¯ + %ld åƒè€ƒæ¢ç›®ã€‚åˆä½µï¼š%ldï¼Œæ¨¡ç³Šï¼š%ldï¼Œæœªè­¯ï¼š%ldï¼Œéæ™‚ï¼š%"
+"ldã€‚\n"
 
 #: src/msgmerge.c:1264
 msgid " done.\n"
-msgstr " §¹¦¨¡C\n"
+msgstr " å®Œæˆã€‚\n"
 
 #: src/msgunfmt.c:291 src/msgunfmt.c:300 src/msgunfmt.c:323
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
-msgstr "¨Ï¥Î %s ¤£¯à¦P®É«ü©wÀÉ®×¦WºÙ"
+msgstr "ä½¿ç”¨ %s ä¸èƒ½åŒæ™‚æŒ‡å®šæª”æ¡ˆåç¨±"
 
 #: src/msgunfmt.c:410
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] [ÀÉ®×]...\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] [æª”æ¡ˆ]...\n"
 
 #: src/msgunfmt.c:414
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
-msgstr "±N¤G¤¸½XÂ½Ä¶ÀÉÂà´«¬° Uniforum «¬¦¡ªº .po ÀÉ¡C\n"
+msgstr "å°‡äºŒå…ƒç¢¼ç¿»è­¯æª”è½‰æ›ç‚º Uniforum å‹å¼çš„ .po æª”ã€‚\n"
 
 #: src/msgunfmt.c:423
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
 "class\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G²£¥Í Java ResourceBundle class\n"
+"  -j, --java                  Java æ¨¡å¼ï¼šç”¢ç”Ÿ Java ResourceBundle class\n"
 
 #: src/msgunfmt.c:425
-#, fuzzy, c-format
+#, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
-msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
+msgstr "      --csharp                C# æ¨¡å¼ï¼šè¼¸å…¥æª”æ˜¯ .NET .dll æª”\n"
 
 #: src/msgunfmt.c:427
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
 "file\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
 
 #: src/msgunfmt.c:429
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
+"      --tcl                   Tcl æ¨¡å¼ï¼šè¼¸å…¥è³‡æ–™æ˜¯ tcl/msgcat .msg æª”\n"
 
 #: src/msgunfmt.c:434
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
-msgstr ""
+msgstr "  æª”æ¡ˆ ...                    ä½œç‚ºè¼¸å…¥çš„ .mo æª”\n"
 
 #: src/msgunfmt.c:439
 #, c-format
 msgid "Input file location in Java mode:\n"
-msgstr ""
+msgstr "Java æ¨¡å¼æ™‚çš„è¼¸å…¥æª”ä½ç½®ï¼š\n"
 
 #: src/msgunfmt.c:445
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
 "name,\n"
 "separated with an underscore.  The class is located using the CLASSPATH.\n"
 msgstr ""
-"Java ¼Ò¦¡ªº¿é¥XÀÉ¦ì¸m¡G\n"
-"  -r, --resource=RESOURCE  resource ¦WºÙ\n"
-"  -l, --locale=»y¨t        »y¨t¦WºÙ¡A¥²¶·¬O¡u»y¨¥¡v©Î¡u»y¨¥_°ê®a¡vªº®æ¦¡\n"
-"class ¦WºÙ¬O¥Ñ»y¨t¦WºÙ©M resource ¦WºÙ¦X¨Ö¨Ó¨M©wªº¡A¨âªÌ¤§¶¡·|¥Î©³½u¤À¹j¡C\n"
-"class ÀÉ·|¦b CLASSPATH ªí¥Üªº¥Ø¿ı¤¤·j´M¡C\n"
+"class åç¨±æ˜¯ç”±èªè¨€åç¨±å’Œ resource åç¨±åˆä½µä¾†æ±ºå®šçš„ï¼Œå…©è€…ä¹‹é–“æœƒç”¨åº•ç·šåˆ†éš”ã€‚\n"
+"class æª”æœƒåœ¨ CLASSPATH è®Šæ•¸æ‰€æŒ‡å®šçš„ç›®éŒ„ä¸­æœå°‹ã€‚\n"
 
 #: src/msgunfmt.c:450
-#, fuzzy, c-format
+#, c-format
 msgid "Input file location in C# mode:\n"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "C# æ¨¡å¼æ™‚çš„è¼¸å…¥æª”ä½ç½®ï¼š\n"
 
 #: src/msgunfmt.c:458
 #, c-format
@@ -2508,7 +2464,7 @@ msgstr ""
 #: src/msgunfmt.c:490
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
-msgstr ""
+msgstr "      --strict                è¼¸å‡ºçµæœåš´æ ¼éµå¾ Uniforum æ ¼å¼\n"
 
 #: src/msguniq.c:309
 #, c-format, no-wrap
@@ -2522,34 +2478,32 @@ msgid ""
 "specified, they will be taken from the first translation.  File positions\n"
 "will be cumulated.  When using the --unique option, duplicates are discarded.\n"
 msgstr ""
-"²Î¤@Â½Ä¶ÀÉ¸Ì­«ÂĞ¥X²{ªºÂ½Ä¶±ø¥Ø¡C\n"
-"¥¦·|·j´M¾Ö¦³¬Û¦P°T®§ÃÑ§O½Xªº­«ÂĞÂ½Ä¶±ø¥Ø¡C³o¨Ç±ø¥Ø¹ï©ó¨ä¥¦¹³ msgfmt¡B\n"
-"msgmerge ©Î msgcat µ¥ªºµ{¦¡¦Ó¨¥¬OµL®Äªº¿é¤J¸ê®Æ¡C¹w³]¼Ò¦¡¤¤¡A­«ÂĞªº±ø¥Ø±N·|\n"
-"¦X¨Ö¦b¤@°_¡C·í¨Ï¥Î --repeated ¿ï¶µ®É¡A¥u·|Åã¥Ü­«ÂĞªº±ø¥Ø¦Ó±Ë±ó¨ä¥¦±ø¥Ø¡C\n"
-"¦Û¦æ¥[¤Wªºµù¸Ñ©M­ìµ{¦¡½XÊúµù¸Ñ³£·|²Ö¿n¡A°£«D«ü©w¤F --use-first ¿ï¶µ¡A¨º¼Ë\n"
-"«h·|¥Ñ²Ä¤@­ÓÂ½Ä¶±ø¥Ø¤¤Àò¨ú³o¨Ç¸ê®Æ¡CÀÉ®×¦ì¸m¬O·|²Ö¿n¤U¨Óªº¡C·í¨Ï¥Î --unique\n"
-"¿ï¶µ®É¡A«h·|±Ë±ó¥ô¦ó­«ÂĞªºÂ½Ä¶±ø¥Ø¡C\n"
+"çµ±ä¸€ç¿»è­¯æª”è£¡é‡è¤‡å‡ºç¾çš„æ¢ç›®ã€‚\n"
+"å®ƒæœƒæœå°‹é‡è¤‡çš„æ¢ç›®ï¼Œé€™äº›æ¢ç›®æœƒä»¤ msgfmtã€msgmerge æˆ– msgcat ç­‰çš„ç¨‹å¼ç„¡æ³•\n"
+"æ­£å¸¸è™•ç†ç¿»è­¯æ¢ç›®ã€‚åœ¨é è¨­æ¨¡å¼ä¸­ï¼Œé‡è¤‡çš„æ¢ç›®æœƒåˆä½µåœ¨ä¸€èµ·ã€‚ä½¿ç”¨ --repeated \n"
+"é¸é …æ™‚ï¼Œåªæœƒé¡¯ç¤ºé‡è¤‡çš„æ¢ç›®è€Œæ¨æ£„å…¶å®ƒæ¢ç›®ã€‚\n"
+"è‡ªè¡ŒåŠ ä¸Šçš„è¨»è§£å’ŒåŸç¨‹å¼ç¢¼çš„è¨»è§£éƒ½æœƒç´¯ç©ï¼›é™¤éä½¿ç”¨ --use-first é¸é …ï¼Œé‚£æ¨£\n"
+"å‰‡æœƒç”±ç¬¬ä¸€å€‹ç¿»è­¯æ¢ç›®ä¸­è®€å–é€™äº›è³‡æ–™ã€‚æª”æ¡ˆä½ç½®æ˜¯æœƒç´¯ç©ä¸‹ä¾†çš„ã€‚\n"
+"ç•¶ä½¿ç”¨ --unique é¸é …æ™‚ï¼Œå‰‡æœƒæ¨æ£„ä»»ä½•é‡è¤‡çš„ç¿»è­¯æ¢ç›®ã€‚\n"
 
 #: src/msguniq.c:342
 #, c-format
 msgid "  -d, --repeated              print only duplicates\n"
-msgstr ""
+msgstr "  -d, --repeated              åªé¡¯ç¤ºé‡è¤‡æ¢ç›®\n"
 
 #: src/msguniq.c:344
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -u, --unique                print only unique messages, discard "
 "duplicates\n"
 msgstr ""
-"°T®§¿ï¾Ü¡G\n"
-"  -d, --repeated                 ¥u¦L¥X­«ÂĞªº±ø¥Ø\n"
-"  -u, --unique                   ¥u¦L¥X¥X²{¤@¦¸ªº±ø¥Ø¡A±Ë±ó¥ô¦ó­«ÂĞªº±ø¥Ø\n"
+"  -u, --unique                åªé¡¯ç¤ºå‡ºç¾ä¸€æ¬¡çš„æ¢ç›®ï¼Œæ¨æ£„ä»»ä½•é‡è¤‡çš„æ¢ç›®\n"
 
 #: src/po-charset.c:226 src/po-charset.c:296 src/po-charset.c:324
 #: src/po-charset.c:351
 #, c-format
 msgid "%s: warning: "
-msgstr "%s¡GÄµ§i¡G"
+msgstr "%sï¼šè­¦å‘Šï¼š"
 
 #: src/po-charset.c:227
 #, c-format
@@ -2557,16 +2511,16 @@ msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
 "Message conversion to user's charset might not work.\n"
 msgstr ""
-"¦r¤¸¶°¡§%s¡¨¤£¬O³q¥Îªº½s½X¦WºÙ¡C\n"
-"Âà´«°T®§¦Ü¨Ï¥ÎªÌ¦r¤¸¶°ªº¥\¯à±N¤£·|¹B§@¡C\n"
+"å­—å…ƒé›†â€œ%sâ€ä¸æ˜¯é€šç”¨çš„ç·¨ç¢¼åç¨±ã€‚\n"
+"è½‰æ›è¨Šæ¯è‡³ä½¿ç”¨è€…å­—å…ƒé›†çš„åŠŸèƒ½å°‡ä¸æœƒé‹ä½œã€‚\n"
 
 #: src/po-charset.c:292 src/po-charset.c:322
 msgid "Continuing anyway, expect parse errors."
-msgstr "¤´·|Ä~Äò°õ¦æ¡A¦ı¹w­p·|¥X²{¤ÀªR¿ù»~¡C"
+msgstr "ä»æœƒç¹¼çºŒåŸ·è¡Œï¼Œä½†é è¨ˆè§£æå…§å®¹æ™‚æœƒå‡ºç¾éŒ¯èª¤ã€‚"
 
 #: src/po-charset.c:294
 msgid "Continuing anyway."
-msgstr "¤´·|Ä~Äò°õ¦æ¡C"
+msgstr "ä»æœƒç¹¼çºŒåŸ·è¡Œã€‚"
 
 #: src/po-charset.c:297
 #, c-format
@@ -2574,15 +2528,15 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
 "and iconv() does not support \"%s\".\n"
 msgstr ""
-"¤£¤ä´©¦r¤¸¶°¡§%s¡¨¡C%s »İ­n iconv()¡A\n"
-"¦ı iconv() ¤£¤ä´©¡§%s¡¨¡C\n"
+"ä¸æ”¯æ´å­—å…ƒé›† â€œ%sâ€ã€‚%s éœ€è¦ iconv()ï¼Œ\n"
+"ä½† iconv() ä¸æ”¯æ´ â€œ%sâ€ã€‚\n"
 
 #: src/po-charset.c:306 src/po-charset.c:332
 #, c-format
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
-msgstr "¥ı¦w¸Ë GNU libiconv¡AµM«á¦A¦w¸Ë GNU gettext¡A±N·|­×¥¿¦¹°İÃD¡C\n"
+msgstr "å…ˆå®‰è£ GNU libiconvï¼Œç„¶å¾Œå†å®‰è£ GNU gettextï¼Œå°‡æœƒä¿®æ­£æ­¤å•é¡Œã€‚\n"
 
 #: src/po-charset.c:311 src/po-charset.c:336
 #, c-format
@@ -2595,8 +2549,8 @@ msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
 "This version was built without iconv().\n"
 msgstr ""
-"¤£¤ä´©¦r¤¸¶°¡§%s¡¨¡C%s »İ­n iconv()¡A\n"
-"¦ı½sÄ¶¦¹µ{¦¡®É¨S¦³ iconv() ¤ä´©¡C\n"
+"ä¸æ”¯æ´å­—å…ƒé›† â€œ%sâ€ã€‚%s éœ€è¦ iconv()ï¼Œ\n"
+"ä½†ç·¨è­¯æ­¤ç¨‹å¼æ™‚æ²’æœ‰ iconv() æ”¯æ´ã€‚\n"
 
 #: src/po-charset.c:352
 #, c-format
@@ -2604,227 +2558,224 @@ msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
 msgstr ""
-"ÀÉÀY¯Ê¤Ö¤F«ü©w¦r¤¸¶°ªºÄæ¦ì¡C\n"
-"Âà´«°T®§¦Ü¨Ï¥ÎªÌ¦r¤¸¶°ªº¥\¯à±N¤£·|¥Í®Ä¡C\n"
+"æª”é ­ç¼ºå°‘äº†æŒ‡å®šå­—å…ƒé›†çš„æ¬„ä½ã€‚\n"
+"è½‰æ›è¨Šæ¯è‡³ä½¿ç”¨è€…å­—å…ƒé›†çš„åŠŸèƒ½å°‡ä¸æœƒç”Ÿæ•ˆã€‚\n"
 
 #: src/po-gram-gen.y:94
 #, c-format
 msgid "inconsistent use of #~"
-msgstr "¤£¤@­P¦a¨Ï¥Î #~"
+msgstr "ä¸ä¸€è‡´åœ°ä½¿ç”¨ #~"
 
 #: src/po-gram-gen.y:198
 #, c-format
 msgid "missing `msgstr[]' section"
-msgstr "¯Ê¤Ö¤F¡¥msgstr[]¡¦¬q¸¨"
+msgstr "ç¼ºå°‘äº† â€˜msgstr[]â€™ æ®µè½"
 
 #: src/po-gram-gen.y:206
 #, c-format
 msgid "missing `msgid_plural' section"
-msgstr "¯Ê¤Ö¤F¡¥msgid_plural¡¦¬q¸¨"
+msgstr "ç¼ºå°‘äº† â€˜msgid_pluralâ€™ æ®µè½"
 
 #: src/po-gram-gen.y:213
 #, c-format
 msgid "missing `msgstr' section"
-msgstr "¯Ê¤Ö¤F¡¥msgstr¡¦¬q¸¨"
+msgstr "ç¼ºå°‘äº† â€˜msgstrâ€™ æ®µè½"
 
 #: src/po-gram-gen.y:258
 #, c-format
 msgid "first plural form has nonzero index"
-msgstr "²Ä¤@­Ó½Æ¼Æ®æ¦¡ªº¯Á¤Ş¼Æ¦r¤£¬O 0"
+msgstr "ç¬¬ä¸€å€‹è¤‡æ•¸æ ¼å¼çš„ç´¢å¼•æ•¸å­—ä¸æ˜¯ 0"
 
 #: src/po-gram-gen.y:260
 #, c-format
 msgid "plural form has wrong index"
-msgstr "½Æ¼Æ®æ¦¡§t¦³¿ù»~ªº¯Á¤Ş¼Æ¦r"
+msgstr "è¤‡æ•¸æ ¼å¼å«æœ‰éŒ¯èª¤çš„ç´¢å¼•æ•¸å­—"
 
 #: src/po-lex.h:93 src/po-lex.h:108 src/po-lex.h:128 src/po-lex.h:143
 #: src/po-lex.c:103 src/po-lex.c:132
 #, c-format
 msgid "too many errors, aborting"
-msgstr "¿ù»~¤Ó¦h¡A¥²¶·¤¤Â_§@·~"
+msgstr "éŒ¯èª¤å¤ªå¤šï¼Œå¿…é ˆä¸­æ–·ä½œæ¥­"
 
 #: src/po-lex.c:458 src/po-lex.c:522 src/write-po.c:555 src/write-po.c:661
 #, c-format
 msgid "invalid multibyte sequence"
-msgstr "µL®Äªº¦h¦r¤¸§Ç¦C"
+msgstr "ç„¡æ•ˆçš„å¤šä½å…ƒåºåˆ—"
 
 #: src/po-lex.c:486
 #, c-format
 msgid "incomplete multibyte sequence at end of file"
-msgstr "ÀÉ®×¥½ºİ¥X²{¤£§¹¾ãªº¦h¦r¤¸§Ç¦C"
+msgstr "æª”æ¡ˆæœ«ç«¯å‡ºç¾ä¸å®Œæ•´çš„å¤šä½å…ƒåºåˆ—"
 
 #: src/po-lex.c:496
 #, c-format
 msgid "incomplete multibyte sequence at end of line"
-msgstr "¦æ¥½¥X²{¤£§¹¾ãªº¦h¦r¤¸§Ç¦C"
+msgstr "è¡Œæœ«å‡ºç¾ä¸å®Œæ•´çš„å¤šä½å…ƒåºåˆ—"
 
 #: src/po-lex.c:504
 #, c-format
 msgid "iconv failure"
-msgstr "iconv ¥¢±Ñ"
+msgstr "iconv å¤±æ•—"
 
 #: src/po-lex.c:737
 #, c-format
 msgid "keyword \"%s\" unknown"
-msgstr "¤£©úªºÃöÁä¦r¡§%s¡¨"
+msgstr "ä¸æ˜çš„é—œéµå­—â€œ%sâ€"
 
 #: src/po-lex.c:847
 #, c-format
 msgid "invalid control sequence"
-msgstr "µL®Äªº±±¨î§Ç¦C"
+msgstr "ç„¡æ•ˆçš„æ§åˆ¶åºåˆ—"
 
 #: src/po-lex.c:955
 #, c-format
 msgid "end-of-file within string"
-msgstr "ÀÉ®×¦b¦r¦ê¤¤¬q¬ğµMµ²§ô"
+msgstr "æª”æ¡ˆåœ¨å­—ä¸²ä¸­æ®µçªç„¶çµæŸ"
 
 #: src/po-lex.c:961
 #, c-format
 msgid "end-of-line within string"
-msgstr "¦r¦ê¤¤¶¡¬ğµMÂ_¦æ"
+msgstr "å­—ä¸²ä¸­é–“çªç„¶æ–·è¡Œ"
 
 #: src/read-mo.c:98 src/read-mo.c:119 src/read-mo.c:165 src/read-mo.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" is truncated"
-msgstr "ÀÉ®×¡§%s¡¨³QºIÂ_¤F"
+msgstr "æª”æ¡ˆ â€œ%sâ€ è¢«æˆªæ–·äº†"
 
 #: src/read-mo.c:122
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
-msgstr "ÀÉ®×¡§%s¡¨¥]§t¨Ã«D¥H NUL ¬°µ²§Àªº¦r¦ê"
+msgstr "æª”æ¡ˆ â€œ%sâ€ åŒ…å«ä¸¦éä»¥ NUL ç‚ºçµå°¾çš„å­—ä¸²"
 
 #: src/read-mo.c:158 src/read-mo.c:267
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
-msgstr "ÀÉ®×¡§%s¡¨¨Ã«D GNU .mo ®æ¦¡ÀÉ®×"
+msgstr "æª”æ¡ˆ â€œ%sâ€ ä¸¦é GNU .mo æ ¼å¼æª”æ¡ˆ"
 
 #: src/read-mo.c:171
-#, fuzzy, c-format
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
-msgstr "ÀÉ®×¡§%s¡¨¥]§t¨Ã«D¥H NUL ¬°µ²§Àªº¦r¦ê"
+msgstr "æª”æ¡ˆ â€œ%sâ€ åœ¨ %s åŒ…å«ä¸¦éä»¥ NUL ç‚ºçµå°¾çš„å­—ä¸²"
 
 #: src/read-po.c:318 src/xgettext.c:882
 #, c-format
 msgid "this file may not contain domain directives"
-msgstr "¦¹ÀÉ®×¤£¯à§t¦³»â°ì«ü¥O"
+msgstr "æ­¤æª”æ¡ˆä¸èƒ½å«æœ‰ domain æŒ‡ä»¤"
 
 #: src/read-po.c:357
 #, c-format
 msgid "duplicate message definition"
-msgstr "­«½Æªº°T®§©w¸q"
+msgstr "è¨Šæ¯è¢«é‡è¤‡å®šç¾©"
 
 #: src/read-po.c:358
 #, c-format
 msgid "...this is the location of the first definition"
-msgstr "...³o¬O²Ä¤@¦¸©w¸qªº¦ì¸m"
+msgstr "...é€™æ˜¯ç¬¬ä¸€æ¬¡å®šç¾©çš„ä½ç½®"
 
 #: src/read-properties.c:215
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu: warning: invalid \\uxxxx syntax for Unicode character"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¤¸±`¼Æ"
+msgstr "%s:%lu: éŒ¯èª¤ï¼šUnicode å­—å…ƒæ ¼å¼ \\uxxxx ç„¡æ•ˆ"
 
 #: src/read-stringtable.c:803
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu: warning: unterminated string"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr "%s:%lu: è­¦å‘Šï¼šå­—ä¸²æœªçµæŸ"
 
 #: src/read-stringtable.c:814
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu: warning: syntax error"
-msgstr "%s¡GÄµ§i¡G"
+msgstr "%s:%lu: è­¦å‘Šï¼šæ ¼å¼éŒ¯èª¤"
 
 #: src/read-stringtable.c:877 src/read-stringtable.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu: warning: unterminated key/value pair"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr ""
 
 #: src/read-stringtable.c:945
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu: warning: syntax error, expected ';' after string"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr "%s:%lu: è­¦å‘Šï¼šæ ¼å¼éŒ¯èª¤ï¼Œå­—ä¸²å¾Œæ‡‰å‡ºç¾â€˜;â€™"
 
 #: src/read-stringtable.c:955
 #, c-format
 msgid "%s:%lu: warning: syntax error, expected '=' or ';' after string"
-msgstr ""
+msgstr "%s:%lu: è­¦å‘Šï¼šæ ¼å¼éŒ¯èª¤ï¼Œå­—ä¸²å¾Œæ‡‰è©²å‡ºç¾ â€˜=â€™ æˆ– â€˜;â€™"
 
 #: src/urlget.c:149
 #, c-format
 msgid "expected two arguments"
-msgstr "»İ­n«ê¦n¨â­Ó°Ñ¼Æ"
+msgstr "éœ€è¦æ°å¥½å…©å€‹åƒæ•¸"
 
 #: src/urlget.c:166
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
-msgstr "¥Îªk¡G%s [¿ï¶µ] ºô§} ÀÉ®×\n"
+msgstr "ç”¨æ³•ï¼š%s [é¸é …] ç¶²å€ æª”æ¡ˆ\n"
 
 #: src/urlget.c:171
 #, c-format, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
 "the locally accessible FILE is used instead.\n"
-msgstr ""
-"Â^¨ú¨Ã¿é¥X¬Y<ºô§}>ªº¤º®e¡C¦pªGµLªk¦s¨ú¸Ó<ºô§}>¡A\n"
-"«h·|¨Ï¥Î«ü©wªº¥»¾÷<ÀÉ®×>¥N´À¡C\n"
+msgstr "æ“·å–ä¸¦è¼¸å‡ºæŸç¶²å€çš„å…§å®¹ã€‚å¦‚æœç„¡æ³•å­˜å–è©²ç¶²å€ï¼Œå‰‡æ”¹ç”¨æŒ‡å®šçš„æœ¬æ©Ÿæª”æ¡ˆä»£æ›¿ã€‚\n"
 
 #: src/urlget.c:218
 #, c-format
 msgid "error writing stdout"
-msgstr "¼g¤J¦Ü¼Ğ·Ç¿é¥X®Éµo¥Í¿ù»~"
+msgstr "å¯«å…¥è‡³æ¨™æº–è¼¸å‡ºæ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/write-csharp.c:665 src/write-java.c:982
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
-msgstr "§ä¤£¨ì¼È¦sÀÉ¥Ø¿ı¡A¥¿¹Á¸Õ³]©w $TMPDIR"
+msgstr "æ‰¾ä¸åˆ°æš«å­˜æª”ç›®éŒ„ï¼Œæ­£å˜—è©¦è¨­å®š $TMPDIR"
 
 #: src/write-csharp.c:675 src/write-java.c:992
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
-msgstr "µLªk®Ú¾Ú¼Ë¦¡¡§%s¡¨«Ø¥ß¼È¦sÀÉ¥Ø¿ı"
+msgstr "ç„¡æ³•æ ¹æ“šç›®éŒ„åç¨±æ¨£å¼ â€œ%sâ€ å»ºç«‹æš«å­˜æª”ç›®éŒ„"
 
 #: src/write-csharp.c:726
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create directory \"%s\""
-msgstr "µLªk«Ø¥ß¡§%s¡¨"
+msgstr "ç„¡æ³•å»ºç«‹ â€œ%sâ€ ç›®éŒ„"
 
 #: src/write-csharp.c:761 src/write-java.c:1063 src/write-java.c:1076
 #, c-format
 msgid "failed to create \"%s\""
-msgstr "µLªk«Ø¥ß¡§%s¡¨"
+msgstr "ç„¡æ³•å»ºç«‹ â€œ%sâ€"
 
 #: src/write-csharp.c:769 src/write-java.c:1084 src/write-mo.c:726
 #: src/write-po.c:1126 src/write-qt.c:530 src/write-tcl.c:204
 #, c-format
 msgid "error while writing \"%s\" file"
-msgstr "·í¼g¤JÀÉ®×¡§%s¡¨®Éµo¥Í¿ù»~"
+msgstr "ç•¶å¯«å…¥æª”æ¡ˆ â€œ%sâ€ æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/write-csharp.c:787
-#, fuzzy, c-format
+#, c-format
 msgid "compilation of C# class failed, please try --verbose"
-msgstr ""
-"½sÄ¶ Java class ÀÉ¥X²{¿ù»~¡A½Ğ¹Á¸Õ¨Ï¥Î --verbose ¿ï¶µ©Î³]©w $JAVAC Àô¹ÒÅÜ¼Æ"
+msgstr "ç·¨è­¯ C# class æª”å‡ºç¾éŒ¯èª¤ï¼Œè«‹å˜—è©¦ä½¿ç”¨ --verbose é¸é …"
 
 #: src/write-java.c:1005
 #, c-format
 msgid "not a valid Java class name: %s"
-msgstr "¨Ã«D¦³®Äªº Java class ¦WºÙ¡G%s"
+msgstr "ä¸¦éæœ‰æ•ˆçš„ Java class åç¨±ï¼š%s"
 
 #: src/write-java.c:1097
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
-"½sÄ¶ Java class ÀÉ¥X²{¿ù»~¡A½Ğ¹Á¸Õ¨Ï¥Î --verbose ¿ï¶µ©Î³]©w $JAVAC Àô¹ÒÅÜ¼Æ"
+"ç·¨è­¯ Java class æª”å‡ºç¾éŒ¯èª¤ï¼Œè«‹å˜—è©¦ä½¿ç”¨ --verbose é¸é …æˆ–è¨­å®š $JAVAC ç’°å¢ƒè®Šæ•¸"
 
 #: src/write-mo.c:714 src/write-qt.c:518 src/write-tcl.c:194
 #, c-format
 msgid "error while opening \"%s\" for writing"
-msgstr "·í¶}±ÒÀÉ®×¡§%s¡¨·Ç³Æ¼g¤J®Éµo¥Í¿ù»~"
+msgstr "ç•¶é–‹å•Ÿæª”æ¡ˆ â€œ%sâ€ ä¾†å¯«å…¥å…§å®¹æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/write-po.c:606
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
-msgstr "°ê»Ú¤Æªº°T®§¤£À³§t¦³¡¥\\%c¡¦³o­Ó·¸¥X§Ç¦C¦r¤¸"
+msgstr "åœ‹éš›åŒ–çš„è¨Šæ¯ä¸æ‡‰å«æœ‰ â€˜\\%câ€™ é€™å€‹æº¢å‡ºåºåˆ—å­—å…ƒ"
 
 #: src/write-po.c:852 src/write-po.c:918
 #, c-format
@@ -2834,9 +2785,9 @@ msgid ""
 "different from yours. Consider using a pure ASCII msgid instead.\n"
 "%s\n"
 msgstr ""
-"¤U¦Cªº msgid §t¦³«D ASCII ªº¦r¤¸¡C\n"
-"³o¼Ë·|¹ï¥ô¦ó¨Ï¥Î¨ä¥¦½s½X(©M±zªº¦r¤¸¶°½s½X¤£¦P)ªºÂ½Ä¶ªÌºc¦¨°İÃD¡C\n"
-"½Ğ¦Ò¼{¨Ï¥Î¥u¦³ ASCII ¦r¤¸ªº msgid¡C\n"
+"ä¸‹åˆ—çš„ msgid å«æœ‰ä¸å±¬æ–¼ ASCII çš„å­—å…ƒã€‚\n"
+"é€™æ¨£æœƒå°ä»»ä½•ä½¿ç”¨å…¶å®ƒç·¨ç¢¼ (å’Œæ‚¨ç”¨çš„å­—å…ƒé›†ç·¨ç¢¼ä¸åŒ) çš„ç¿»è­¯è€…æ§‹æˆå•é¡Œã€‚\n"
+"è«‹è€ƒæ…®ä½¿ç”¨åªæœ‰ ASCII å­—å…ƒçš„ msgidã€‚\n"
 "%s\n"
 
 #: src/write-po.c:1063
@@ -2845,6 +2796,8 @@ msgid ""
 "Cannot output multiple translation domains into a single file with Java ."
 "properties syntax. Try using PO file syntax instead."
 msgstr ""
+"ä¸å¯ä»¥å°‡å¤šå€‹å±¬æ–¼ä¸åŒé ˜åŸŸçš„ç¿»è­¯è¨Šæ¯å¯«å…¥ä¸€å€‹ Java .properties æª”æ¡ˆã€‚è«‹æ”¹ç”¨PO æª”"
+"æ¡ˆæ ¼å¼ã€‚"
 
 #: src/write-po.c:1065
 #, c-format
@@ -2852,6 +2805,7 @@ msgid ""
 "Cannot output multiple translation domains into a single file with NeXTstep/"
 "GNUstep .strings syntax."
 msgstr ""
+"ä¸å¯ä»¥å°‡å¤šå€‹å±¬æ–¼ä¸åŒé ˜åŸŸçš„ç¿»è­¯è¨Šæ¯å¯«å…¥ä¸€å€‹ NeXTstep/GNUstep .strings æª”æ¡ˆã€‚"
 
 #: src/write-po.c:1091
 #, c-format
@@ -2862,32 +2816,27 @@ msgid ""
 msgstr ""
 
 #: src/write-po.c:1095
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them."
-msgstr ""
-"Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶¡A¦ı¯Ê¤Ö¤F¥H¤Uªº¼ĞÀYÄæ¦ì¡G\n"
-"¡§Plural-Forms: nplurals=<¾ã¼Æ>; plural=<ªí¥Ü¦¡>;¡¨"
+msgstr "ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯ï¼Œä½†è¼¸å‡ºæª”çš„æ ¼å¼ä¸æ”¯æ´è¤‡æ•¸å‹æ…‹ã€‚"
 
 #: src/write-po.c:1107
 #, c-format
 msgid "cannot create output file \"%s\""
-msgstr "µLªk«Ø¥ß¿é¥XÀÉ¡§%s¡¨"
+msgstr "ç„¡æ³•ç”¢ç”Ÿè¼¸å‡ºæª” â€œ%sâ€"
 
 #: src/write-po.c:1114
 #, no-c-format
 msgid "standard output"
-msgstr "¼Ğ·Ç¿é¥X"
+msgstr "æ¨™æº–è¼¸å‡º"
 
 #: src/write-qt.c:475
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
-msgstr ""
-"Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶¡A¦ı¯Ê¤Ö¤F¥H¤Uªº¼ĞÀYÄæ¦ì¡G\n"
-"¡§Plural-Forms: nplurals=<¾ã¼Æ>; plural=<ªí¥Ü¦¡>;¡¨"
+msgstr "ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯ï¼Œä½† Qt çš„ç¿»è­¯æª”ä¸èƒ½è™•ç†è¤‡æ•¸å‹æ…‹\n"
 
 #: src/write-qt.c:499
 msgid ""
@@ -2897,47 +2846,41 @@ msgid ""
 msgstr ""
 
 #: src/write-resources.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "error while writing to %s subprocess"
-msgstr "·í¼g¤JÀÉ®×¡§%s¡¨®Éµo¥Í¿ù»~"
+msgstr "å°‡å…§å®¹å¯«å…¥è‡³ %s å‰¯é€²ç¨‹æ™‚ç™¼ç”ŸéŒ¯èª¤"
 
 #: src/write-resources.c:132
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
-msgstr ""
-"Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶¡A¦ı¯Ê¤Ö¤F¥H¤Uªº¼ĞÀYÄæ¦ì¡G\n"
-"¡§Plural-Forms: nplurals=<¾ã¼Æ>; plural=<ªí¥Ü¦¡>;¡¨"
+msgstr "ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯ï¼Œä½† C# çš„ç¿»è­¯æª”ä¸èƒ½è™•ç†è¤‡æ•¸å‹æ…‹\n"
 
 #: src/write-tcl.c:158
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
-msgstr ""
-"Â½Ä¶ÀÉ§t¦³½Æ¼Æ«¬ºAªºÂ½Ä¶¡A¦ı¯Ê¤Ö¤F¥H¤Uªº¼ĞÀYÄæ¦ì¡G\n"
-"¡§Plural-Forms: nplurals=<¾ã¼Æ>; plural=<ªí¥Ü¦¡>;¡¨"
+msgstr "ç¿»è­¯æª”å«æœ‰è¤‡æ•¸å‹æ…‹çš„ç¿»è­¯ï¼Œä½† Tcl çš„ç¿»è­¯æª”ä¸èƒ½è™•ç†è¤‡æ•¸å‹æ…‹\n"
 
 #: src/x-awk.c:345 src/x-python.c:396
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated string"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr "%s:%d: è­¦å‘Šï¼šå­—ä¸²æœªå®Œçµ"
 
 #: src/x-awk.c:596
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated regular expression"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr "%s:%d: è­¦å‘Šï¼šæ­£è¦è¡¨ç¤ºå¼ä¸å®Œæ•´"
 
 #: src/x-c.c:1093 src/x-csharp.c:1498 src/x-java.c:826
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¤¸±`¼Æ"
+msgstr "%s:%d: è­¦å‘Šï¼šå­—å…ƒå¸¸æ•¸æœªå®Œçµ"
 
 #: src/x-c.c:1117
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr ""
 
 #: src/x-csharp.c:218 src/xgettext.c:1672
 #, c-format
@@ -2945,6 +2888,8 @@ msgid ""
 "Non-ASCII string at %s%s.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
+"%s%s å‡ºç¾ä¸å±¬æ–¼ ASCII å­—å…ƒçš„å­—ä¸²ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:260
 #, c-format
@@ -2952,6 +2897,8 @@ msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
+"%s:%d: å‡ºç¾ç„¡æ•ˆçš„å¤šä½å…ƒåºåˆ—ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ­£ç¢ºæ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:276
 #, c-format
@@ -2959,6 +2906,8 @@ msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
+"%s:%d: å‡ºç¾ç„¡æ•ˆè€Œä¸”ååˆ†é•·çš„å¤šä½å…ƒåºåˆ—ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ­£ç¢ºæ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:288
 #, c-format
@@ -2966,6 +2915,8 @@ msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
+"%s:%d: æª”æ¡ˆæœ«ç«¯å‡ºç¾ä¸å®Œæ•´çš„å¤šä½å…ƒåºåˆ—ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ­£ç¢ºæ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:297
 #, c-format
@@ -2973,11 +2924,13 @@ msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
+"%s:%d: è©²è¡Œæœ«ç«¯å‡ºç¾ä¸å®Œæ•´çš„å¤šä½å…ƒåºåˆ—ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ­£ç¢ºæ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:306
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: iconv failure"
-msgstr "iconv ¥¢±Ñ"
+msgstr "%s:%d: iconv å¤±æ•—"
 
 #: src/x-csharp.c:329
 #, c-format
@@ -2985,40 +2938,42 @@ msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
+"%s:%d: å‡ºç¾ç„¡æ•ˆçš„å¤šä½å…ƒåºåˆ—ã€‚\n"
+"è«‹ä½¿ç”¨ --from-code é¸é …æŒ‡å®šæºä»£ç¢¼çš„æ­£ç¢ºæ–‡å­—ç·¨ç¢¼ã€‚\n"
 
 #: src/x-csharp.c:1379 src/x-python.c:596
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: invalid Unicode character"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¤¸±`¼Æ"
+msgstr "%s:%d: è­¦å‘Šï¼šUnicode å­—å…ƒç„¡æ•ˆ"
 
 #: src/x-csharp.c:1501 src/x-java.c:829
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated string constant"
-msgstr "%s¡G%d¡GÄµ§i¡G¥¼§¹µ²ªº¦r¦ê"
+msgstr "%s:%d: è­¦å‘Šï¼šå­—å…ƒå¸¸æ•¸æœªå®Œçµ"
 
 #: src/x-csharp.c:2005 src/x-java.c:1323
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
-msgstr ""
+msgstr "%s:%d: æ‡‰è©²æœ‰ â€˜)â€™ çš„åœ°æ–¹å‡ºç¾äº† â€˜}â€™"
 
 #: src/x-csharp.c:2029 src/x-java.c:1347
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
-msgstr ""
+msgstr "%s:%d: æ‡‰è©²æœ‰ â€˜}â€™ çš„åœ°æ–¹å‡ºç¾äº† â€˜)â€™"
 
 #: src/x-glade.c:413 src/x-glade.c:420
 #, c-format
 msgid "%s:%d:%d: %s"
-msgstr ""
+msgstr "%s:%d:%d: %s"
 
 #: src/x-glade.c:447
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
 "This version was built without expat.\n"
 msgstr ""
-"¤£¤ä´©¦r¤¸¶°¡§%s¡¨¡C%s »İ­n iconv()¡A\n"
-"¦ı½sÄ¶¦¹µ{¦¡®É¨S¦³ iconv() ¤ä´©¡C\n"
+"ä¸æ”¯æ´ â€œgladeâ€ èªè¨€ã€‚%s æ˜¯éœ€è¦ expat è»Ÿé«”çš„ï¼Œ\n"
+"ä½†é€™å€‹ç‰ˆæœ¬ç·¨è­¯æ™‚æ²’æœ‰åŠ å…¥ expat æ”¯æ´ã€‚\n"
 
 #: src/x-perl.c:311
 #, c-format
@@ -3028,7 +2983,7 @@ msgstr ""
 #: src/x-perl.c:1038
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
-msgstr ""
+msgstr "%s:%d: \\x{HEXNUMBER} ç¼ºå°‘äº†å³é‚Šçš„å¤§æ‹¬è™Ÿ"
 
 #: src/x-perl.c:1158
 #, c-format
@@ -3041,9 +2996,9 @@ msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr ""
 
 #: src/x-perl.c:1212
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
-msgstr "%s¡G%d¡GµL®Äªº¦r¦ê©w¸q"
+msgstr ""
 
 #: src/x-perl.c:1225
 #, c-format
@@ -3058,22 +3013,22 @@ msgstr ""
 #: src/x-perl.c:3006
 #, c-format
 msgid "%s:%d: fatal: plural message seen before singular message\n"
-msgstr ""
+msgstr "%s:%d: åš´é‡éŒ¯èª¤ï¼šè¤‡æ•¸å¼å‡ºç¾åœ¨å–®æ•¸å¼ä¹‹å‰\n"
 
 #: src/x-rst.c:107
 #, c-format
 msgid "%s:%d: invalid string definition"
-msgstr "%s¡G%d¡GµL®Äªº¦r¦ê©w¸q"
+msgstr "%s:%d: ç„¡æ•ˆçš„å­—ä¸²å®šç¾©"
 
 #: src/x-rst.c:171
 #, c-format
 msgid "%s:%d: missing number after #"
-msgstr "%s¡G%d¡G# «á¯Ê¤Ö¤F¼Æ¦r"
+msgstr "%s:%d: # å¾Œç¼ºå°‘äº†æ•¸å­—"
 
 #: src/x-rst.c:206
 #, c-format
 msgid "%s:%d: invalid string expression"
-msgstr "%s¡G%d¡GµL®Äªº¦r¦êªí¥Ü¦¡"
+msgstr "%s:%d: ç„¡æ•ˆçš„å­—ä¸²è¡¨ç¤ºå¼"
 
 #: src/x-sh.c:1015
 #, c-format
@@ -3081,26 +3036,27 @@ msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
 "use eval_gettext instead"
 msgstr ""
+"%s:%lu: è­¦å‘Šï¼š$\"...\" é€™ç¨®æ ¼å¼å› ç‚ºå®‰å…¨ç†ç”±å·²ç¶“éæ™‚ï¼›è«‹æ”¹ç”¨ eval_gettext"
 
 #: src/xgettext.c:526
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
-msgstr "·íµ²ªG³Q¾É¦V¦Ü¼Ğ·Ç¿é¥X®É¡A¿ï¶µ --join-existing ¤£¯à¨Ï¥Î"
+msgstr "ç•¶çµæœè¢«å°å‘è‡³æ¨™æº–è¼¸å‡ºæ™‚ï¼Œä¸å¯ä»¥ç”¨ --join-existing é¸é …"
 
 #: src/xgettext.c:531
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
-msgstr "­YµLÃöÁä¦r¡Axgettext ±NµLªk¹B§@"
+msgstr "è‹¥ç„¡é—œéµå­—ï¼Œxgettext å°‡ç„¡æ³•é‹ä½œ"
 
 #: src/xgettext.c:674
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr "Äµ§i¡GÀÉ®×¡¥%s¡¦ªº°ÆÀÉ¦W¡¥%s¡¦¥¼©ú¡F·|°²³]¬O C ®æ¦¡¨Ó³B²z"
+msgstr "è­¦å‘Šï¼šç„¡æ³•è¾¨èªæª”æ¡ˆ â€˜%sâ€™ çš„å‰¯æª”å â€˜%sâ€™ï¼›æœƒå‡è¨­æ˜¯ C æ ¼å¼ä¾†è™•ç†"
 
 #: src/xgettext.c:725
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
-msgstr "¥Ñ«ü©wªº¿é¤JÀÉ©â¨ú¥iÂ½Ä¶ªº¦r¦ê¡C\n"
+msgstr "ç”±æŒ‡å®šçš„è¼¸å…¥æª”æŠ½å–å¯ç¿»è­¯çš„å­—ä¸²ã€‚\n"
 
 #: src/xgettext.c:748
 #, c-format
@@ -3108,25 +3064,26 @@ msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
 "po)\n"
 msgstr ""
+"  -d, --default-domain=NAME   ä½¿ç”¨ NAME.po ä½œç‚ºè¼¸å‡ºæª” (è€Œä¸æ˜¯ messages.po)\n"
 
 #: src/xgettext.c:750
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
-msgstr ""
+msgstr "  -o, --output=FILE           å°‡è¼¸å‡ºå…§å®¹å¯«å…¥è‡³æŒ‡å®šæª”æ¡ˆ\n"
 
 #: src/xgettext.c:752
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
-msgstr ""
+msgstr "  -p, --output-dir=DIR        è¼¸å‡ºæª”æœƒå­˜å–åœ¨æŒ‡å®šç›®éŒ„\n"
 
 #: src/xgettext.c:757
-#, fuzzy, c-format
+#, c-format
 msgid "Choice of input file language:\n"
-msgstr "¥¼«ü©w¿é¤JÀÉ"
+msgstr "è¼¸å…¥æª”çš„èªè¨€é¸æ“‡ï¼š\n"
 
 #: src/xgettext.c:759
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3136,25 +3093,25 @@ msgid ""
 "PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
 msgstr ""
-"¿é¤JÀÉªº»y¨¥¿ï¾Ü¡G\n"
-"  -L, --language=¦WºÙ            ÃÑ§O«ü©wªº»y¨¥\n"
-"                                   (C¡BC++¡BObjectiveC¡BPO¡BPython¡BLisp¡B\n"
-"                                   EmacsLisp¡Blibrep¡BJava¡Bawk¡BYCP¡BTcl¡B\n"
-"                                   RST¡BGlade)\n"
-"  -C, --c++                      --language=C++ ªºÁY¼g\n"
-"¹w³]ªº»y¨¥¬O¥Ñ¿é¤JÀÉªº©µ¦ùÀÉ¦W¨M©wªº¡C\n"
+"  -L, --language=èªè¨€         è¾¨èªæŒ‡å®šçš„ç¨‹å¼èªè¨€\n"
+"                                (C, C++, ObjectiveC, PO, Shell, Python, "
+"Lisp,\n"
+"                                EmacsLisp, librep, Scheme, Smalltalk, Java,\n"
+"                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
+"PHP,\n"
+"                                GCC-source, NXStringTable, RST, Glade)\n"
 
 #: src/xgettext.c:765
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
-msgstr ""
+msgstr "  -C, --c++                   --language=C++ çš„ç°¡å¯«\n"
 
 #: src/xgettext.c:767
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
-msgstr ""
+msgstr "é è¨­çš„èªè¨€æ˜¯ç”±è¼¸å…¥æª”çš„å»¶ä¼¸æª”åæ±ºå®šçš„ã€‚\n"
 
 #: src/xgettext.c:772
 #, c-format
@@ -3162,21 +3119,23 @@ msgid ""
 "      --from-code=NAME        encoding of input files\n"
 "                                (except for Python, Tcl, Glade)\n"
 msgstr ""
+"      --from-code=NAME        è¼¸å…¥æª”çš„æ–‡å­—ç·¨ç¢¼\n"
+"                                (Python, Tcl, Glade ä¾‹å¤–)\n"
 
 #: src/xgettext.c:775
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
-msgstr ""
+msgstr "è¼¸å…¥æª”å…§å®¹é è¨­æœƒç•¶ä½œ ASCII çœ‹å¾…ã€‚\n"
 
 #: src/xgettext.c:780
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
-msgstr ""
+msgstr "  -j, --join-existing         åˆä½µå·²å­˜åœ¨çš„è¨Šæ¯æª”\n"
 
 #: src/xgettext.c:782
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
-msgstr ""
+msgstr "  -x, --exclude-file=FILE.po  ä¸å–å‡ºå±¬æ–¼ FILE.po çš„è¨Šæ¯\n"
 
 #: src/xgettext.c:784
 #, fuzzy, c-format
@@ -3184,37 +3143,31 @@ msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
 "                              preceding keyword lines) in output file\n"
 msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --join-existing            ¦X¨Ö¤w¦s¦bªº°T®§ÀÉ\n"
-"  -x, --exclude-file=FILE.po     ¤£¨ú¥X FILE.po ¤¤iªº°T®§\n"
-"  -c, --add-comments[=TAG]       ¦b¿é¥XÀÉ¤¤¼W¥[µù¸Ñ°Ï¶ô TAG (or those\n"
-"                                 preceding keyword lines) in output file\n"
+"  -c, --add-comments[=TAG]    åœ¨è¼¸å‡ºæª”ä¸­å¢åŠ è¨»è§£å€å¡Šï¼Œå¯è‡ªé¸ TAG (or those\n"
+"                              preceding keyword lines)\n"
 
 #: src/xgettext.c:788
 #, c-format
 msgid "Language specific options:\n"
-msgstr ""
+msgstr "å€‹åˆ¥èªè¨€ç‰¹æ®Šé¸é …ï¼š\n"
 
 #: src/xgettext.c:790
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
-msgstr ""
+msgstr "  -a, --extract-all           æŠ½å–æ‰€æœ‰å­—ä¸²\n"
 
 #: src/xgettext.c:792 src/xgettext.c:799
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 "Java,\n"
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
-"¿é¤JÀÉªº»y¨¥¿ï¾Ü¡G\n"
-"  -L, --language=¦WºÙ            ÃÑ§O«ü©wªº»y¨¥\n"
-"                                   (C¡BC++¡BObjectiveC¡BPO¡BPython¡BLisp¡B\n"
-"                                   EmacsLisp¡Blibrep¡BJava¡Bawk¡BYCP¡BTcl¡B\n"
-"                                   RST¡BGlade)\n"
-"  -C, --c++                      --language=C++ ªºÁY¼g\n"
-"¹w³]ªº»y¨¥¬O¥Ñ¿é¤JÀÉªº©µ¦ùÀÉ¦W¨M©wªº¡C\n"
+"                                (åªé©ç”¨æ–¼ C, C++, ObjectiveC, Shell,\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:796
 #, c-format
@@ -3222,6 +3175,8 @@ msgid ""
 "  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
 "                              WORD means not to use default keywords)\n"
 msgstr ""
+"  -k, --keyword[=WORD]        è¦ç•™æ„çš„é¡å¤–é—œéµå­— (å¦‚æœæ²’æœ‰æŒ‡å®šï¼Œ\n"
+"                              è¡¨ç¤ºä¸ä½¿ç”¨é è¨­çš„é—œéµå­—)\n"
 
 #: src/xgettext.c:803
 #, c-format
@@ -3232,20 +3187,17 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:806
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 "Java,\n"
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
-"¿é¤JÀÉªº»y¨¥¿ï¾Ü¡G\n"
-"  -L, --language=¦WºÙ            ÃÑ§O«ü©wªº»y¨¥\n"
-"                                   (C¡BC++¡BObjectiveC¡BPO¡BPython¡BLisp¡B\n"
-"                                   EmacsLisp¡Blibrep¡BJava¡Bawk¡BYCP¡BTcl¡B\n"
-"                                   RST¡BGlade)\n"
-"  -C, --c++                      --language=C++ ªºÁY¼g\n"
-"¹w³]ªº»y¨¥¬O¥Ñ¿é¤JÀÉªº©µ¦ùÀÉ¦W¨M©wªº¡C\n"
+"                                (åªé©ç”¨æ–¼ C, C++, ObjectiveC, Shell,\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 
 #: src/xgettext.c:810
 #, c-format
@@ -3255,20 +3207,17 @@ msgstr ""
 #: src/xgettext.c:812
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
-msgstr ""
+msgstr "                                (åªé©ç”¨æ–¼ C, C++, ObjectiveC)\n"
 
 #: src/xgettext.c:814
-#, fuzzy, c-format
+#, c-format
 msgid "      --qt                    recognize Qt format strings\n"
-msgstr ""
-"¾Ş§@¼Ò¦¡¡G\n"
-"  -j, --java               Java ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O Java ResourceBundle class\n"
-"      --tcl                Tcl ¼Ò¦¡¡G¿é¤J¸ê®Æ¬O tcl/msgcat .msg ÀÉ®×\n"
+msgstr "      --qt                    è¾¨èª Qt æ ¼å¼çš„å­—ä¸²\n"
 
 #: src/xgettext.c:816
 #, c-format
 msgid "                                (only language C++)\n"
-msgstr ""
+msgstr "                                (åªé©ç”¨æ–¼ C++)\n"
 
 #: src/xgettext.c:818
 #, c-format
@@ -3279,7 +3228,7 @@ msgstr ""
 #: src/xgettext.c:837
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
-msgstr ""
+msgstr "      --properties-output     è¼¸å‡ºæª”æ ¼å¼ç‚º Java .properties æª”\n"
 
 #: src/xgettext.c:852
 #, c-format
@@ -3297,6 +3246,7 @@ msgstr ""
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 msgstr ""
+"      --msgid-bugs-address=EMAIL@ADDRESS  æŒ‡å®šåŒ¯å ± msgid å•é¡Œæ™‚çš„éƒµä»¶åœ°å€\n"
 
 #: src/xgettext.c:858
 #, c-format
@@ -3321,12 +3271,12 @@ msgstr ""
 
 #: src/xgettext.c:1560
 msgid "standard input"
-msgstr "¼Ğ·Ç¿é¤J"
+msgstr "æ¨™æº–è¼¸å…¥"
 
 #: src/xgettext.c:1731 src/xgettext.c:1786
-#, fuzzy, c-format
+#, c-format
 msgid "%s%s: warning: "
-msgstr "%s¡GÄµ§i¡G"
+msgstr "%s%s: è­¦å‘Šï¼š"
 
 #: src/xgettext.c:1733
 #, c-format
@@ -3336,11 +3286,11 @@ msgid ""
 msgstr ""
 
 #: src/xgettext.c:1733
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Although declared as such, the %s is not a valid %s format string. Reason: %"
 "s\n"
-msgstr "¤£¹³¡¥msgid¡¦¡A¡¥%s¡¦¤£¬O¦³®Äªº %s ®æ¦¡¦r¦ê"
+msgstr ""
 
 #: src/xgettext.c:1788
 msgid ""
@@ -3348,9 +3298,9 @@ msgid ""
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
 msgstr ""
-"ªÅ¥Õªº msgid¡C¥¦¬O«O¯dµ¹ GNU gettext ±M¥Îªº¡G\n"
-"gettext(\"\") ·|¦^¶ÇÀÉ®×¶}©l³¡¥÷ªº¸ê°T¡A\n"
-"¨Ã«DªÅ¥Õ¦r¦ê¡C\n"
+"ç©ºç™½çš„ msgidã€‚å®ƒæ˜¯ä¿ç•™çµ¦ GNU gettext å°ˆç”¨çš„ï¼š\n"
+"gettext(\"\") æœƒå›å‚³æª”æ¡ˆé–‹å§‹éƒ¨ä»½çš„è³‡è¨Šï¼Œ\n"
+"ä¸¦éç©ºç™½å­—ä¸²ã€‚\n"
 
 #: src/xgettext.c:2071
 msgid ""
@@ -3359,39 +3309,43 @@ msgid ""
 "the MSGID_BUGS_ADDRESS variable there; otherwise please\n"
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
+"æ‚¨æœªä½¿ç”¨ --msgid-bugs-address é¸é …ã€‚\n"
+"å¦‚æœæ‚¨ä½¿ç”¨ â€˜Makevarsâ€™ æª”æ¡ˆï¼Œè«‹åœ¨å…¶ä¸­è¨­å®š\n"
+"MSGID_BUGS_ADDRESS è®Šæ•¸ï¼›å¦å‰‡è«‹åœ¨æŒ‡ä»¤ä¸­\n"
+"ä½¿ç”¨ --msgid-bugs-address é¸é …ã€‚\n"
 
 #: src/xgettext.c:2262
 #, c-format
 msgid "language `%s' unknown"
-msgstr "¤£©úªº»y¨¥¡¥%s¡¦"
+msgstr "ä¸æ˜çš„èªè¨€ â€˜%sâ€™"
 
 #: src/user-email.sh.in:340
 msgid "Which is your email address?"
-msgstr ""
+msgstr "è«‹å•æ‚¨çš„é›»å­éƒµä»¶åœ°å€ï¼Ÿ"
 
 #: src/user-email.sh.in:342
 msgid "Please choose the number, or enter your email address."
-msgstr ""
+msgstr "è«‹é¸æ“‡æ•¸å­—ï¼Œæˆ–è€…è‡ªè¡Œå¡«ä¸Šé›»å­éƒµä»¶åœ°å€ã€‚"
 
 #: src/user-email.sh.in:360 src/user-email.sh.in:384 src/user-email.sh.in:403
 msgid "Invalid email address: invalid character."
-msgstr ""
+msgstr "é›»å­éƒµä»¶åœ°å€ç„¡æ•ˆï¼šå­—å…ƒç„¡æ•ˆã€‚"
 
 #: src/user-email.sh.in:362 src/user-email.sh.in:386 src/user-email.sh.in:405
 msgid "Invalid email address: need a fully qualified host name or domain name."
-msgstr ""
+msgstr "é›»å­éƒµä»¶åœ°å€ç„¡æ•ˆï¼šéœ€è¦å®Œæ•´çš„ä¸»æ©Ÿåç¨±å’Œç¶²åŸŸåç¨±ã€‚"
 
 #: src/user-email.sh.in:363 src/user-email.sh.in:387 src/user-email.sh.in:406
 msgid "Invalid email address: missing @"
-msgstr ""
+msgstr "é›»å­éƒµä»¶åœ°å€ç„¡æ•ˆï¼šç¼ºå°‘äº† @"
 
 #: src/user-email.sh.in:372
 msgid "Is the following your email address?"
-msgstr ""
+msgstr "ä»¥ä¸‹çš„æ˜¯å¦æ‚¨çš„é›»å­éƒµä»¶åœ°å€ï¼Ÿ"
 
 #: src/user-email.sh.in:374
 msgid "Please confirm by pressing Return, or enter your email address."
-msgstr ""
+msgstr "è«‹æŒ‰ [ENTER] ç¢ºèªï¼Œæˆ–è€…è‡ªè¡Œè¼¸å…¥é›»å­éƒµä»¶åœ°å€ã€‚"
 
 #: src/user-email.sh.in:395
 msgid "Couldn't find out about your email address."
@@ -3399,495 +3353,4 @@ msgstr ""
 
 #: src/user-email.sh.in:397
 msgid "Please enter your email address."
-msgstr ""
-
-#~ msgid "write to grep subprocess failed"
-#~ msgstr "¼g¤J¦Ü grep °Æµ{§Ç®É¥X²{¿ù»~"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  INPUTFILE                   input PO file\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
-#~ "search\n"
-#~ "If no input file is given or if it is -, standard input is read.\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  ¿é¤JÀÉ                      ¿é¤Jªº PO ÀÉ\n"
-#~ "  -D, --directory=¥Ø¿ı        ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-#~ "¦pªG¨S¦³«ü©w¿é¤JÀÉ©Î¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
-
-#~ msgid ""
-#~ "Output file location:\n"
-#~ "  -o, --output-file=FILE      write output to specified file\n"
-#~ "The results are written to standard output if no output file is "
-#~ "specified\n"
-#~ "or if it is -.\n"
-#~ msgstr ""
-#~ "¿é¥XÀÉ¦ì¸m¡G\n"
-#~ "  -o, --output-file=¿é¥XÀÉ    ±N¿é¥Xµ²ªG¼g¦Ü<¿é¥XÀÉ>\n"
-#~ "¦pªG¨S¦³«ü©w<¿é¥XÀÉ>©Î<¿é¥XÀÉ>¬O¡¥-¡¦¡A«h·|±Nµ²ªG¼g¦Ü¼Ğ·Ç¿é¥X¡C\n"
-
-#~ msgid ""
-#~ "Message selection:\n"
-#~ "      --translated            keep translated, remove untranslated "
-#~ "messages\n"
-#~ "      --untranslated          keep untranslated, remove translated "
-#~ "messages\n"
-#~ "      --no-fuzzy              remove 'fuzzy' marked messages\n"
-#~ "      --only-fuzzy            keep 'fuzzy' marked messages\n"
-#~ "      --no-obsolete           remove obsolete #~ messages\n"
-#~ "      --only-obsolete         keep obsolete #~ messages\n"
-#~ msgstr ""
-#~ "°T®§¿ï¾Ü¡G\n"
-#~ "      --translated            «O¯d¤wÂ½Ä¶ªº°T®§¡A²¾°£¥¼Â½Ä¶ªº°T®§\n"
-#~ "      --untranslated          «O¯d¥¼Â½Ä¶ªº°T®§¡A²¾°£¤wÂ½Ä¶ªº°T®§\n"
-#~ "      --no-fuzzy              ²¾°£³Q¼Ğ°O¬°¡u¼Ò½k¡vªº°T®§\n"
-#~ "      --only-fuzzy            «O¯d³Q¼Ğ°O¬°¡u¼Ò½k¡vªº°T®§\n"
-#~ "      --no-obsolete           ²¾°£¹L®É #~ ªº°T®§\n"
-#~ "      --only-obsolete         «O¯d¹L®É #~ ªº°T®§\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Attribute manipulation:\n"
-#~ "      --set-fuzzy             set all messages 'fuzzy'\n"
-#~ "      --clear-fuzzy           set all messages non-'fuzzy'\n"
-#~ "      --set-obsolete          set all messages obsolete\n"
-#~ "      --clear-obsolete        set all messages non-obsolete\n"
-#~ "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
-#~ "      --ignore-file=FILE.po   manipulate only entries not listed in FILE."
-#~ "po\n"
-#~ "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
-#~ "      --obsolete              synonym for --only-obsolete --clear-"
-#~ "obsolete\n"
-#~ msgstr ""
-#~ "Äİ©Ê³B²z¡G\n"
-#~ "      --set-fuzzy             ¥ş³¡°T®§³]¬°¡u¼Ò½k¡v\n"
-#~ "      --clear-fuzzy           ¥ş³¡°T®§²M°£¡u¼Ò½k¡vÄİ©Ê\n"
-#~ "      --set-obsolete          ¥ş³¡°T®§³]¬°¹L®É\n"
-#~ "      --clear-obsolete        ¥ş³¡°T®§²M°£¹L®ÉÄİ©Ê\n"
-#~ "      --fuzzy                 µ¥©ó --only-fuzzy --clear-fuzzy\n"
-#~ "      --obsolete              µ¥©ó --only-obsolete --clear-obsolete\n"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  INPUTFILE ...                  input files\n"
-#~ "  -f, --files-from=FILE          get list of input files from FILE\n"
-#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
-#~ "search\n"
-#~ "If input file is -, standard input is read.\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  ¿é¤JÀÉ ...                     ¿é¤Jªº PO ÀÉ\n"
-#~ "  -f, --files-from=ÀÉ®×          ¥Ñ<ÀÉ®×>Åª¤J¿é¤JÀÉªº¦Cªí\n"
-#~ "  -D, --directory=¥Ø¿ı           ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-#~ "¦pªG¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
-
-#~ msgid ""
-#~ "Output file location:\n"
-#~ "  -o, --output-file=FILE         write output to specified file\n"
-#~ "The results are written to standard output if no output file is "
-#~ "specified\n"
-#~ "or if it is -.\n"
-#~ msgstr ""
-#~ "¿é¥XÀÉ¦ì¸m¡G\n"
-#~ "  -o, --output-file=¿é¥XÀÉ       ±N¿é¥Xµ²ªG¼g¦Ü<¿é¥XÀÉ>\n"
-#~ "¦pªG¨S¦³«ü©w<¿é¥XÀÉ>©Î<¿é¥XÀÉ>¬O¡¥-¡¦¡A«h·|±Nµ²ªG¼g¦Ü¼Ğ·Ç¿é¥X¡C\n"
-
-#~ msgid ""
-#~ "Message selection:\n"
-#~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
-#~ "                                 set\n"
-#~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
-#~ "                                 definitions, defaults to 0 if not set\n"
-#~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
-#~ "                                 that only unique messages be printed\n"
-#~ msgstr ""
-#~ "°T®§¿ï¾Ü¡G\n"
-#~ "  -<, --less-than=¼Æ¦r           ¥u¦L¥X¥X²{¦¸¼Æ¤Ö©ó«ü©w¦¸¼Æªº°T®§¡A­Y¨S"
-#~ "¦³\n"
-#~ "                                 «ü©w¦¸¼Æ«h¹w³]­È¬°µL­­¤j\n"
-#~ "  ->, --more-than=¼Æ¦r           ¥u¦L¥X¥X²{¦¸¼Æ¦h©ó«ü©w¦¸¼Æªº°T®§¡A­Y¨S"
-#~ "¦³\n"
-#~ "                                 «ü©w¦¸¼Æ«h¹w³]­È¬° 0\n"
-#~ "  -u, --unique                   --less-than=2 ªºÁY¼g¡A­n¨D¥u¦L¥X¥X²{¤@"
-#~ "¦¸\n"
-#~ "                                 ªº°T®§\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                     display this help and exit\n"
-#~ "  -V, --version                  output version information and exit\n"
-#~ msgstr ""
-#~ "¿é¥X¸ê°T¡G\n"
-#~ "  -h, --help                     Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-#~ "  -V, --version                  Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  def.po                      translations\n"
-#~ "  ref.pot                     references to the sources\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
-#~ "search\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  def.po                      Â½Ä¶ÀÉ\n"
-#~ "  ref.pot                     Â½Ä¶¨Ó·½ÀÉ\n"
-#~ "  -D, --directory=¥Ø¿ı        ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-
-#~ msgid ""
-#~ "Message selection:\n"
-#~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
-#~ "                                 set\n"
-#~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
-#~ "                                 definitions, defaults to 1 if not set\n"
-#~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
-#~ "                                 that only unique messages be printed\n"
-#~ msgstr ""
-#~ "  -<, --less-than=¼Æ¦r           ¥u¦L¥X¥X²{¦¸¼Æ¤Ö©ó«ü©w¦¸¼Æªº°T®§¡A­Y¨S"
-#~ "¦³\n"
-#~ "                                 «ü©w¦¸¼Æ«h¹w³]­È¬°µL­­¤j\n"
-#~ "  ->, --more-than=¼Æ¦r           ¥u¦L¥X¥X²{¦¸¼Æ¦h©ó«ü©w¦¸¼Æªº°T®§¡A­Y¨S"
-#~ "¦³\n"
-#~ "                                 «ü©w¦¸¼Æ«h¹w³]­È¬° 0\n"
-#~ "  -u, --unique                   --less-than=2 ªºÁY¼g¡A­n¨D¥u¦L¥X¥X²{¤@"
-#~ "¦¸\n"
-#~ "                                 ªº°T®§\n"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  INPUTFILE                   input PO or POT file\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
-#~ "search\n"
-#~ "If input file is -, standard input is read.\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  ¿é¤JÀÉ                      ¿é¤Jªº PO ©Î POT ÀÉ\n"
-#~ "  -D, --directory=¥Ø¿ı        ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-#~ "¦pªG¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  -i, --input=INPUTFILE       input PO file\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
-#~ "search\n"
-#~ "If no input file is given or if it is -, standard input is read.\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  -i, --input=¿é¤JÀÉ          ¿é¤Jªº PO ÀÉ\n"
-#~ "  -D, --directory=¥Ø¿ı        ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-#~ "¦pªG¨S¦³«ü©w<¿é¤JÀÉ>©ÎªÌ<¿é¤JÀÉ>¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
-
-#~ msgid ""
-#~ "Input file location:\n"
-#~ "  filename.po ...             input files\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
-#~ "search\n"
-#~ "If input file is -, standard input is read.\n"
-#~ msgstr ""
-#~ "¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  filename.po ...             ¿é¤JÀÉ\n"
-#~ "  -D, --directory=¥Ø¿ı        ¦P®É¦b<¥Ø¿ı>¤¤·j´M¿é¤JÀÉ\n"
-#~ "¦pªG¿é¤JÀÉ¬O¡¥-¡¦¡A«hÅª¨ú¼Ğ·Ç¿é¤J¡C\n"
-
-#~ msgid ""
-#~ "Operation mode:\n"
-#~ "  -j, --java                  Java mode: generate a Java ResourceBundle "
-#~ "class\n"
-#~ "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
-#~ "higher)\n"
-#~ "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
-#~ msgstr ""
-#~ "¾Ş§@¼Ò¦¡¡G\n"
-#~ "  -j, --java                  Java ¼Ò¦¡¡G²£¥Í Java ResourceBundle class\n"
-#~ "      --java2                 Ãş¦ü --java¡A¦ı°²³]¬O Java2 (JDK 1.2 ©Î¸û"
-#~ "·s\n"
-#~ "                              ªºª©¥»)\n"
-#~ "      --tcl                   Tcl ¼Ò¦¡¡G²£¥Í tcl/msgcat .msg ÀÉ®×\n"
-
-#~ msgid ""
-#~ "Output file location:\n"
-#~ "  -o, --output-file=FILE      write output to specified file\n"
-#~ "      --strict                enable strict Uniforum mode\n"
-#~ "If output file is -, output is written to standard output.\n"
-#~ msgstr ""
-#~ "¿é¥XÀÉ¦ì¸m¡G\n"
-#~ "  -o, --output-file=¿é¥XÀÉ    ±N¿é¥X¼g¤J¦Ü«ü©wªº<¿é¥XÀÉ>\n"
-#~ "      --strict                ¨Ï¥ÎÄY®æªº Uniforum ¼Ò¦¡\n"
-#~ "¦pªG<¿é¥XÀÉ>¬O¡¥-¡¦¡A«h·|±Nµ²ªG¼g¦Ü¼Ğ·Ç¿é¥X¡C\n"
-
-#~ msgid ""
-#~ "Output file location in Tcl mode:\n"
-#~ "  -l, --locale=LOCALE         locale name, either language or "
-#~ "language_COUNTRY\n"
-#~ "  -d DIRECTORY                base directory of .msg message catalogs\n"
-#~ "The -l and -d options are mandatory.  The .msg file is written in the\n"
-#~ "specified directory.\n"
-#~ msgstr ""
-#~ "Tcl ¼Ò¦¡ªº¿é¥XÀÉ¦ì¸m¡G\n"
-#~ "  -l, --locale=»y¨t           »y¨t¦WºÙ¡A®æ¦¡¥²¶·¬O¡u»y¨¥¡v©Î¡u»y¨¥_°ê"
-#~ "®a¡v\n"
-#~ "  -d ¥Ø¿ı                     .msg Â½Ä¶ÀÉ¦s©ñªº¥Ø¿ı\n"
-#~ "-l ©M -d ¿ï¶µ¬O¥²­nªº¡C©Ò²£¥Íªº .msg ÀÉ·|¦s©ñ¦b«ü©wªº¥Ø¿ı¡C\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ "      --statistics            print statistics about translations\n"
-#~ "  -v, --verbose               increase verbosity level\n"
-#~ msgstr ""
-#~ "¿é¥X¸ê°T¡G\n"
-#~ "  -h, --help                  Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-#~ "  -V, --version               Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-#~ "      --statistics            ¦C¦LÂ½Ä¶±ø¥Øªº²Î­p\n"
-#~ "  -v, --verbose               ¼W¥[¿é¥Xªº¸Ô²Óµ{«×\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Operation modifiers:\n"
-#~ "  -m, --multi-domain          apply ref.pot to each of the domains in def."
-#~ "po\n"
-#~ "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
-#~ msgstr ""
-#~ "¾Ş§@¼Ò¦¡¡G\n"
-#~ "  -m, --multi-domain          ±N ref.pot ®M¥Î©ó def.po ¤¤ªº¨C¤@­Ó»â°ì\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help                  display this help and exit\n"
-#~ "  -V, --version               output version information and exit\n"
-#~ "  -v, --verbose               increase verbosity level\n"
-#~ "  -q, --quiet, --silent       suppress progress indicators\n"
-#~ msgstr ""
-#~ "¿é¥X¸ê°T¡G\n"
-#~ "  -h, --help                  Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-#~ "  -V, --version               Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-#~ "  -v, --verbose               ¼W¥[¿é¥Xªº¸Ô²Óµ{«×\n"
-#~ "  -q, --quiet, --silent       ¤£Åã¥Ü¶i«×«ü¥Ü\n"
-
-#~ msgid ""
-#~ "Input file location in Tcl mode:\n"
-#~ "  -l, --locale=LOCALE      locale name, either language or "
-#~ "language_COUNTRY\n"
-#~ "  -d DIRECTORY             base directory of .msg message catalogs\n"
-#~ "The -l and -d options are mandatory.  The .msg file is located in the\n"
-#~ "specified directory.\n"
-#~ msgstr ""
-#~ "Tcl ¼Ò¦¡ªº¿é¤JÀÉ¦ì¸m¡G\n"
-#~ "  -l, --locale=»y¨t        »y¨t¦WºÙ¡A®æ¦¡¥²¶·¬O¡u»y¨¥¡v©Î¡u»y¨¥_°ê®a¡v\n"
-#~ "  -d ¥Ø¿ı                  .msg Â½Ä¶ÀÉ¦s©ñªº¥Ø¿ı\n"
-#~ "-l ©M -d ¿ï¶µ¬O¥²­nªº¡C©Ò²£¥Íªº .msg ÀÉ·|¦s©ñ¦b«ü©wªº¥Ø¿ı¡C\n"
-
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape          do not use C escapes in output (default)\n"
-#~ "  -E, --escape             use C escapes in output, no extended chars\n"
-#~ "      --force-po           write PO file even if empty\n"
-#~ "  -i, --indent             write indented output style\n"
-#~ "      --strict             write strict uniforum style\n"
-#~ "  -w, --width=NUMBER       set output page width\n"
-#~ "      --no-wrap            do not break long message lines, longer than\n"
-#~ "                           the output page width, into several lines\n"
-#~ "  -s, --sort-output        generate sorted output\n"
-#~ msgstr ""
-#~ "¿é¥X²Ó¸`¡G\n"
-#~ "  -e, --no-escape          ¿é¥Xªºµ²ªG¤£¨Ï¥Î C ·¸¥X¦r¤¸(¹w³])\n"
-#~ "  -E, --escape             ¿é¥Xµ²ªG¨Ï¥Î C ·¸¥X¦r¤¸¡A¤£ª½±µ¿é¥X©µ¦ù¦r¤¸\n"
-#~ "      --force-po           §Y¨Ï¤º®eªÅ¥Õ¡A¤´µM±j­¢¿é¥X PO ÀÉ\n"
-#~ "  -i, --indent             ¨Ï¥ÎÁY±Æ¤è¦¡¼g¤J .po ÀÉ\n"
-#~ "      --strict             ¿é¥XÄY®æ²Å¦X Uniforum ®æ¦¡ªº .po ÀÉ\n"
-#~ "  -w, --width=¼Æ¦r         ³]©w¿é¥Xªº¼e«×\n"
-#~ "      --no-wrap            §Y¨Ï¿é¥Xªº°T®§¶W¥X«ü©wªº¼e«×¡A¤]¤£±N¿é¥Xªº°T"
-#~ "®§\n"
-#~ "  -s, --sort-output        ¿é¥X®É¥ı±N¶µ¥Ø±Æ§Ç\n"
-
-#~ msgid ""
-#~ "Informative output:\n"
-#~ "  -h, --help               display this help and exit\n"
-#~ "  -V, --version            output version information and exit\n"
-#~ "  -v, --verbose            increase verbosity level\n"
-#~ msgstr ""
-#~ "¿é¥X¸ê°T¡G\n"
-#~ "  -h, --help               Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-#~ "  -V, --version            Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-#~ "  -v, --verbose            ¼W¥[¿é¥Xªº¸Ô²Óµ{«×\n"
-
-#~ msgid ""
-#~ "Output file location:\n"
-#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of "
-#~ "messages.po)\n"
-#~ "  -o, --output=FILE              write output to specified file\n"
-#~ "  -p, --output-dir=DIR           output files will be placed in directory "
-#~ "DIR\n"
-#~ "If output file is -, output is written to standard output.\n"
-#~ msgstr ""
-#~ "¿é¥XÀÉ¦ì¸m¡G\n"
-#~ "  -d, --default-domain=NAME      ¨Ï¥Î NAME.po §@¬°¿é¥XÀÉ¦W(¦Ó«D messages."
-#~ "po)\n"
-#~ "  -o, --output=ÀÉ®×              ±Nµ²ªG¼g¤J¦Ü«ü©wªºÀÉ®×\n"
-#~ "  -p, --output-dir=¥Ø¿ı          ¿é¥XÀÉ·|©ñ¦b«ü©wªº<¥Ø¿ı>\n"
-
-#~ msgid ""
-#~ "Language=C/C++ specific options:\n"
-#~ "  -a, --extract-all              extract all strings\n"
-#~ "  -k, --keyword[=WORD]           additional keyword to be looked for "
-#~ "(without\n"
-#~ "                                 WORD means not to use default keywords)\n"
-#~ "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
-#~ "      --debug                    more detailed formatstring recognition "
-#~ "result\n"
-#~ msgstr ""
-#~ "Language=C/C++ ±M¥Îªº¿ï¶µ¡G\n"
-#~ "  -a, --extract-all              ©â¨ú©Ò¦³¦r¦ê\n"
-#~ "  -k, --keyword[=¦rµü]           ÃB¥~­n¯d·NªºÃöÁä¦r (¦p¨S¦³«ü©w<¦rµü>«hªí"
-#~ "¥Ü\n"
-#~ "                                 ¤£¨Ï¥Î¹w³]ªºÃöÁä¦r)\n"
-#~ "  -T, --trigraphs                ¯d·N¿é¤J¸ê®Æ¤¤ªº ANSI C trigraph\n"
-#~ "      --debug                    ¶i¦æ®æ¦¡¦r¦êÃÑ§O®ÉÅã¥Ü§ó¸Ô²Óªºµ²ªG\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended "
-#~ "chars\n"
-#~ "      --force-po                 write PO file even if empty\n"
-#~ "  -i, --indent                   write the .po file using indented style\n"
-#~ "      --no-location              do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location             generate '#: filename:line' lines "
-#~ "(default)\n"
-#~ "      --strict                   write out strict Uniforum conforming .po "
-#~ "file\n"
-#~ "  -w, --width=NUMBER             set output page width\n"
-#~ "      --no-wrap                  do not break long message lines, longer "
-#~ "than\n"
-#~ "                                 the output page width, into several "
-#~ "lines\n"
-#~ "  -s, --sort-output              generate sorted output\n"
-#~ "  -F, --sort-by-file             sort output by file location\n"
-#~ "      --omit-header              don't write header with `msgid \"\"' "
-#~ "entry\n"
-#~ "      --copyright-holder=STRING  set copyright holder in output\n"
-#~ "      --foreign-user             omit FSF copyright in output for foreign "
-#~ "user\n"
-#~ "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid "
-#~ "bugs\n"
-#~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
-#~ "entries\n"
-#~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "
-#~ "entries\n"
-#~ msgstr ""
-#~ "¿é¥X²Ó¸`¡G\n"
-#~ "  -e, --no-escape                ¿é¥Xªºµ²ªG¤£¨Ï¥Î C ·¸¥X¦r¤¸(¹w³])\n"
-#~ "  -E, --escape                   ¿é¥Xµ²ªG¨Ï¥Î C ·¸¥X¦r¤¸¡A¤£ª½±µ¿é¥X©µ¦ù¦r"
-#~ "¤¸\n"
-#~ "      --force-po                 §Y¨Ï¤º®eªÅ¥Õ¡A¤´µM±j­¢¿é¥X PO ÀÉ\n"
-#~ "  -i, --indent                   ¨Ï¥ÎÁY±Æ¤è¦¡¼g¤J .po ÀÉ\n"
-#~ "      --no-location              ¤£¼g¤J '#: filename:line' µù¸Ñ\n"
-#~ "  -n, --add-location             ²£¥Í '#: filename:line' µù¸Ñ(¹w³])\n"
-#~ "      --strict                   ¿é¥XÄY®æ²Å¦X Uniforum ®æ¦¡ªº .po ÀÉ\n"
-#~ "  -w, --width=¼Æ¦r               ³]©w¿é¥Xªº¼e«×\n"
-#~ "      --no-wrap                  §Y¨Ï¿é¥Xªº°T®§¶W¥X­¶¼e¡A¤]¤£±N¿é¥Xªº°T®§"
-#~ "Â_¦æ\n"
-#~ "  -s, --sort-output              ¿é¥X®É¥ı±N¶µ¥Ø±Æ§Ç\n"
-#~ "  -F, --sort-by-file             ®Ú¾ÚÀÉ®×¦ì¸m¶i¦æ±Æ§Ç\n"
-#~ "      --omit-header              ¤£¼g¤J§t¦³¡¥msgid \"\"¡¦Äæ¦ìªºÀÉÀY\n"
-#~ "      --copyright-holder=¦r¦ê    ¦b¿é¥Xµ²ªG¤¤³]©wª©Åv¾Ö¦³ªÌ\n"
-#~ "      --foreign-user             ¦b¿é¥Xµ²ªG¤¤¬Ù²¤ FSF ª©Åv\n"
-#~ "  -m, --msgstr-prefix[=¦r¦ê]     msgstr ±ø¥Ø¨Ï¥Î<¦r¦ê>§@¬°«e¸m¦r¦ê\n"
-#~ "                                 (¹w³]¬°ªÅ¥Õ¦r¦ê \"\")\n"
-#~ "  -M, --msgstr-suffix[=¦r¦ê]     msgstr ±ø¥Ø¨Ï¥Î<¦r¦ê>§@¬°«á¸m¦r¦ê\n"
-#~ "                                 (¹w³]¬°ªÅ¥Õ¦r¦ê \"\")\n"
-
-#~ msgid ""
-#~ "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
-#~ "or:    %s [OPTION] -s [MSGID]...\n"
-#~ msgstr ""
-#~ "¥Îªk¡G%s [¿ï¶µ] [[¤å¦r»â°ì] MSGID]\n"
-#~ "©Î¡G  %s [¿ï¶µ] -s [MSGID]...\n"
-
-#~ msgid "Display native language translation of a textual message.\n"
-#~ msgstr "Åã¥Ü¬Y¤å¦r°T®§ªº¥»¦a»y¨¥Â½Ä¶¡C\n"
-
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "  -d, --domain=¤å¦r»â°ì     ¥Ñ<¤å¦r»â°ì>Åª¨úÂ½Ä¶«áªº°T®§\n"
-#~ "  -e                        ¤¹³\®i¶}¬YÃş·¸¥X§Ç¦C¦r¤¸\n"
-#~ "  -E                        (¬°¤F¬Û®e©Ê¦s¦bªº¿ï¶µ¡A¤£·|³y¦¨¥ô¦ó¼vÅT)\n"
-#~ "  -h, --help                Åã¥Ü¦¹¬q»¡©ú°T®§¨ÃÂ÷¶}\n"
-#~ "  -n                        ¥h°£¥½ºİªº newline ¦r¤¸\n"
-#~ "  -V, --version             Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-#~ "  [¤å¦r»â°ì] MSGID          ¥Ñ<¤å¦r»â°ì>Åª¨ú¬ÛÀ³©ó MSGID ªºÂ½Ä¶°T®§\n"
-
-#~ msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-#~ msgstr "¥Îªk¡G%s [¿ï¶µ] [¤å¦r»â°ì] MSGID ½Æ¼Æ-MSGID ¼Æ¦r\n"
-
-#~ msgid ""
-#~ "Display native language translation of a textual message whose "
-#~ "grammatical\n"
-#~ "form depends on a number.\n"
-#~ msgstr "Åã¥Ü¬Y¤å¦r°T®§ªº¥»¦a»y¨¥Â½Ä¶¡A¦ÓÂ½Ä¶ªº¤åªk©M¼Æ¦r¦³Ãö¡C\n"
-
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-#~ "(plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this "
-#~ "value\n"
-#~ msgstr ""
-#~ "  -d, --domain=¤å¦r»â°ì     ¥Ñ<¤å¦r»â°ì>Åª¨úÂ½Ä¶«áªº°T®§¡C\n"
-#~ "  -e                        ¤¹³\®i¶}¬YÃş·¸¥X§Ç¦C¦r¤¸\n"
-#~ "  -E                        (¬°¤F¬Û®e©Ê¦s¦bªº¿ï¶µ¡A¤£·|³y¦¨¥ô¦ó¼vÅT)\n"
-#~ "  -h, --help                Åã¥Ü¦¹¬q»¡©ú¨ÃÂ÷¶}\n"
-#~ "  -V, --version             Åã¥Üª©¥»¸ê°T¨ÃÂ÷¶}\n"
-#~ "  [¤å¦r»â°ì]                ¥Ñ<¤å¦r»â°ì>Åª¨úÂ½Ä¶°T®§\n"
-#~ "  MSGID ½Æ¼Æ-MSGID          Â½Ä¶ MSGID (³æ¼Æ) / ½Æ¼Æ-MSGID (½Æ¼Æ)\n"
-#~ "  ¼Æ¦r                      ®Ú¾Ú<¼Æ¦r>¨Ó¿ï¾Ü³æ¼Æ©Î½Æ¼Æ«¬ºA\n"
-
-#~ msgid ""
-#~ "If the TEXTDOMAIN parameter is not given, the domain is determined from "
-#~ "the\n"
-#~ "environment variable TEXTDOMAIN.  If the message catalog is not found in "
-#~ "the\n"
-#~ "regular directory, another location can be specified with the "
-#~ "environment\n"
-#~ "variable TEXTDOMAINDIR.\n"
-#~ "Standard search directory: %s\n"
-#~ msgstr ""
-#~ "°²¦p¨S¦³«ü©w<¤å¦r»â°ì>°Ñ¼Æ¡Aµ{¦¡·|®Ú¾Ú TEXTDOMAIN Àô¹ÒÅÜ¼Æ¨Ó³]©w¤å¦r»â"
-#~ "°ì¡C\n"
-#~ "°²¦p°T®§¸ê®ÆÀÉ¤£¦b¥¿±`ªº¥Ø¿ı¤U¡A¥i¥H¥ÎÀô¹ÒÅÜ¼Æ TEXTDOMAINDIR «ü©w°T®§¸ê®Æ"
-#~ "ÀÉ\n"
-#~ "ªº©Ò¦bªº¦ì¸m¡C\n"
-#~ "¼Ğ·Çªº·j´M¥Ø¿ı¬°¡G%s\n"
-
-#, fuzzy
-#~ msgid "file \"%s\" contains a not NUL terminated sysdep segment"
-#~ msgstr "ÀÉ®×¡§%s¡¨¥]§t¨Ã«D¥H NUL ¬°µ²§Àªº¦r¦ê"
-
-#~ msgid "seek \"%s\" offset %ld failed"
-#~ msgstr "·j´M¡§%s¡¨ªº¦ì¸m %ld ¥¢±Ñ"
-
-#~ msgid "%s: warning: no header entry found"
-#~ msgstr "%s: Äµ§i: ¨S¦³¼ĞÀYÄæ¦ì"
-
-#~ msgid "found %d errors"
-#~ msgstr "§ä¨ì %d ­Ó¿ù»~"
+msgstr "è«‹è‡ªè¡Œè¼¸å…¥é›»å­éƒµä»¶åœ°å€ã€‚"
