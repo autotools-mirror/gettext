@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.14.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-02-12 20:12+0100\n"
+"POT-Creation-Date: 2005-05-23 15:05+0200\n"
 "PO-Revision-Date: 2005-05-15 21:18+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
@@ -211,7 +211,7 @@ msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "trong '%2$s' không có đặc tả định dạng cho đối số %1$u"
 
 #: src/format-awk.c:519 src/format-c.c:856 src/format-elisp.c:367
-#: src/format-gcc-internal.c:274 src/format-librep.c:331
+#: src/format-gcc-internal.c:331 src/format-librep.c:331
 #: src/format-pascal.c:420 src/format-perl.c:597 src/format-php.c:367
 #: src/format-python.c:494 src/format-tcl.c:406
 #, c-format
@@ -238,7 +238,7 @@ msgstr "Trong số chỉ thị %u, hiệu bài sau «<» không có «>» theo s
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "Chuỗi ấy tham chiệu đến số đối số %u nhưng mà bỏ qua số đối số %u."
 
-#: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:265
+#: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:322
 #: src/format-python.c:485
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
@@ -289,10 +289,30 @@ msgstr ""
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "Chuỗi ấy chứa dấu ngoặc móc đóng «}» riêng lẻ sau chỉ thị số %u."
 
-#: src/format-gcc-internal.c:202
+#: src/format-gcc-internal.c:216
+#, c-format
+msgid "The %%J directive is only allowed at the beginning of the string."
+msgstr ""
+
+#: src/format-gcc-internal.c:217
+#, c-format
+msgid "The %%J directive does not support flags."
+msgstr ""
+
+#: src/format-gcc-internal.c:259
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "Trong chỉ thị số %u, không cho phép cờ trước '%c'."
+
+#: src/format-gcc-internal.c:342
+#, c-format
+msgid "'msgid' uses %%m but '%s' doesn't"
+msgstr ""
+
+#: src/format-gcc-internal.c:345
+#, c-format
+msgid "'msgid' does not use %%m but '%s' uses %%m"
+msgstr ""
 
 #: src/format-invalid.h:23
 msgid "The string ends in the middle of a directive."

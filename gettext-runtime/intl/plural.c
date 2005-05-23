@@ -296,7 +296,7 @@ static const short yycheck[] =
 #define YYPURE 1
 
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
-#line 3 "/usr/local/share/bison/bison.simple"
+#line 3 "/home/haible/gnu/arch/linuxlibc6/share/bison/bison.simple"
 
 /* Skeleton output parser for bison,
 
@@ -609,7 +609,7 @@ yystpcpy (yydest, yysrc)
 # endif
 #endif
 
-#line 315 "/usr/local/share/bison/bison.simple"
+#line 315 "/home/haible/gnu/arch/linuxlibc6/share/bison/bison.simple"
 
 
 /* The user can define YYPARSE_PARAM as the name of an argument to be passed
@@ -1079,7 +1079,7 @@ case 12:
     break;
 }
 
-#line 705 "/usr/local/share/bison/bison.simple"
+#line 705 "/home/haible/gnu/arch/linuxlibc6/share/bison/bison.simple"
 
 
   yyvsp -= yylen;

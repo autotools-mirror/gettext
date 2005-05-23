@@ -1,5 +1,5 @@
-#ifndef BISON_Y_TAB_H
-# define BISON_Y_TAB_H
+#ifndef BISON_PO_GRAM_GEN_H
+# define BISON_PO_GRAM_GEN_H
 
 #ifndef YYSTYPE
 typedef union
@@ -26,4 +26,4 @@ typedef union
 
 extern YYSTYPE yylval;
 
-#endif /* not BISON_Y_TAB_H */
+#endif /* not BISON_PO_GRAM_GEN_H */
