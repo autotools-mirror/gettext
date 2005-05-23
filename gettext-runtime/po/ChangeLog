@@ -1,3 +1,7 @@
+2005-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* zh_TW.po: Update from Abel Cheung <abelcheung@gmail.com>.
+
 2005-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (Makefile): Call config.status with calling convention
