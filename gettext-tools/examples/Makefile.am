@@ -58,6 +58,7 @@ EXAMPLESFILES = \
   hello-c/po/uk.po \
   hello-c/po/vi.po \
   hello-c/po/zh_CN.po \
+  hello-c/po/zh_TW.po \
   \
   hello-c-gnome/INSTALL \
   hello-c-gnome/autogen.sh \
@@ -92,6 +93,7 @@ EXAMPLESFILES = \
   hello-c-gnome/po/uk.po \
   hello-c-gnome/po/vi.po \
   hello-c-gnome/po/zh_CN.po \
+  hello-c-gnome/po/zh_TW.po \
   \
   hello-c++/INSTALL \
   hello-c++/autogen.sh \
@@ -123,6 +125,7 @@ EXAMPLESFILES = \
   hello-c++/po/uk.po \
   hello-c++/po/vi.po \
   hello-c++/po/zh_CN.po \
+  hello-c++/po/zh_TW.po \
   \
   hello-c++-qt/INSTALL \
   hello-c++-qt/BUGS \
@@ -155,6 +158,7 @@ EXAMPLESFILES = \
   hello-c++-qt/po/uk.po \
   hello-c++-qt/po/vi.po \
   hello-c++-qt/po/zh_CN.po \
+  hello-c++-qt/po/zh_TW.po \
   \
   hello-c++-kde/INSTALL \
   hello-c++-kde/BUGS \
@@ -213,6 +217,7 @@ EXAMPLESFILES = \
   hello-c++-kde/po/uk.po \
   hello-c++-kde/po/vi.po \
   hello-c++-kde/po/zh_CN.po \
+  hello-c++-kde/po/zh_TW.po \
   \
   hello-c++-gnome/INSTALL \
   hello-c++-gnome/autogen.sh \
@@ -249,6 +254,7 @@ EXAMPLESFILES = \
   hello-c++-gnome/po/uk.po \
   hello-c++-gnome/po/vi.po \
   hello-c++-gnome/po/zh_CN.po \
+  hello-c++-gnome/po/zh_TW.po \
   \
   hello-objc/INSTALL \
   hello-objc/autogen.sh \
@@ -280,6 +286,7 @@ EXAMPLESFILES = \
   hello-objc/po/uk.po \
   hello-objc/po/vi.po \
   hello-objc/po/zh_CN.po \
+  hello-objc/po/zh_TW.po \
   \
   hello-objc-gnustep/INSTALL \
   hello-objc-gnustep/BUGS \
@@ -314,6 +321,7 @@ EXAMPLESFILES = \
   hello-objc-gnustep/po/uk.po \
   hello-objc-gnustep/po/vi.po \
   hello-objc-gnustep/po/zh_CN.po \
+  hello-objc-gnustep/po/zh_TW.po \
   \
   hello-objc-gnome/INSTALL \
   hello-objc-gnome/autogen.sh \
@@ -348,6 +356,7 @@ EXAMPLESFILES = \
   hello-objc-gnome/po/uk.po \
   hello-objc-gnome/po/vi.po \
   hello-objc-gnome/po/zh_CN.po \
+  hello-objc-gnome/po/zh_TW.po \
   \
   hello-sh/INSTALL \
   hello-sh/autogen.sh \
@@ -378,6 +387,7 @@ EXAMPLESFILES = \
   hello-sh/po/uk.po \
   hello-sh/po/vi.po \
   hello-sh/po/zh_CN.po \
+  hello-sh/po/zh_TW.po \
   \
   hello-python/INSTALL \
   hello-python/autogen.sh \
@@ -408,6 +418,7 @@ EXAMPLESFILES = \
   hello-python/po/uk.po \
   hello-python/po/vi.po \
   hello-python/po/zh_CN.po \
+  hello-python/po/zh_TW.po \
   \
   hello-clisp/INSTALL \
   hello-clisp/autogen.sh \
@@ -438,6 +449,7 @@ EXAMPLESFILES = \
   hello-clisp/po/uk.po \
   hello-clisp/po/vi.po \
   hello-clisp/po/zh_CN.po \
+  hello-clisp/po/zh_TW.po \
   \
   hello-librep/INSTALL \
   hello-librep/autogen.sh \
@@ -468,6 +480,7 @@ EXAMPLESFILES = \
   hello-librep/po/uk.po \
   hello-librep/po/vi.po \
   hello-librep/po/zh_CN.po \
+  hello-librep/po/zh_TW.po \
   \
   hello-guile/INSTALL \
   hello-guile/autogen.sh \
@@ -498,6 +511,7 @@ EXAMPLESFILES = \
   hello-guile/po/uk.po \
   hello-guile/po/vi.po \
   hello-guile/po/zh_CN.po \
+  hello-guile/po/zh_TW.po \
   \
   hello-smalltalk/INSTALL \
   hello-smalltalk/autogen.sh \
@@ -528,6 +542,7 @@ EXAMPLESFILES = \
   hello-smalltalk/po/uk.po \
   hello-smalltalk/po/vi.po \
   hello-smalltalk/po/zh_CN.po \
+  hello-smalltalk/po/zh_TW.po \
   \
   hello-java/INSTALL \
   hello-java/autogen.sh \
@@ -558,6 +573,7 @@ EXAMPLESFILES = \
   hello-java/po/uk.po \
   hello-java/po/vi.po \
   hello-java/po/zh_CN.po \
+  hello-java/po/zh_TW.po \
   \
   hello-java-awt/INSTALL \
   hello-java-awt/BUGS \
@@ -591,6 +607,7 @@ EXAMPLESFILES = \
   hello-java-awt/po/uk.po \
   hello-java-awt/po/vi.po \
   hello-java-awt/po/zh_CN.po \
+  hello-java-awt/po/zh_TW.po \
   \
   hello-java-swing/INSTALL \
   hello-java-swing/BUGS \
@@ -624,6 +641,7 @@ EXAMPLESFILES = \
   hello-java-swing/po/uk.po \
   hello-java-swing/po/vi.po \
   hello-java-swing/po/zh_CN.po \
+  hello-java-swing/po/zh_TW.po \
   \
   hello-csharp/INSTALL \
   hello-csharp/autogen.sh \
@@ -654,6 +672,7 @@ EXAMPLESFILES = \
   hello-csharp/po/uk.po \
   hello-csharp/po/vi.po \
   hello-csharp/po/zh_CN.po \
+  hello-csharp/po/zh_TW.po \
   \
   hello-csharp-forms/INSTALL \
   hello-csharp-forms/BUGS \
@@ -685,6 +704,7 @@ EXAMPLESFILES = \
   hello-csharp-forms/po/uk.po \
   hello-csharp-forms/po/vi.po \
   hello-csharp-forms/po/zh_CN.po \
+  hello-csharp-forms/po/zh_TW.po \
   \
   hello-gawk/INSTALL \
   hello-gawk/autogen.sh \
@@ -715,6 +735,7 @@ EXAMPLESFILES = \
   hello-gawk/po/uk.po \
   hello-gawk/po/vi.po \
   hello-gawk/po/zh_CN.po \
+  hello-gawk/po/zh_TW.po \
   \
   hello-pascal/INSTALL \
   hello-pascal/autogen.sh \
@@ -746,6 +767,7 @@ EXAMPLESFILES = \
   hello-pascal/po/uk.po \
   hello-pascal/po/vi.po \
   hello-pascal/po/zh_CN.po \
+  hello-pascal/po/zh_TW.po \
   \
   hello-ycp/INSTALL \
   hello-ycp/autogen.sh \
@@ -776,6 +798,7 @@ EXAMPLESFILES = \
   hello-ycp/po/uk.po \
   hello-ycp/po/vi.po \
   hello-ycp/po/zh_CN.po \
+  hello-ycp/po/zh_TW.po \
   \
   hello-tcl/INSTALL \
   hello-tcl/autogen.sh \
@@ -806,6 +829,7 @@ EXAMPLESFILES = \
   hello-tcl/po/uk.po \
   hello-tcl/po/vi.po \
   hello-tcl/po/zh_CN.po \
+  hello-tcl/po/zh_TW.po \
   \
   hello-tcl-tk/INSTALL \
   hello-tcl-tk/autogen.sh \
@@ -836,6 +860,7 @@ EXAMPLESFILES = \
   hello-tcl-tk/po/uk.po \
   hello-tcl-tk/po/vi.po \
   hello-tcl-tk/po/zh_CN.po \
+  hello-tcl-tk/po/zh_TW.po \
   \
   hello-perl/INSTALL \
   hello-perl/autogen.sh \
@@ -867,6 +892,7 @@ EXAMPLESFILES = \
   hello-perl/po/uk.po \
   hello-perl/po/vi.po \
   hello-perl/po/zh_CN.po \
+  hello-perl/po/zh_TW.po \
   \
   hello-php/INSTALL \
   hello-php/README \
@@ -898,6 +924,7 @@ EXAMPLESFILES = \
   hello-php/po/uk.po \
   hello-php/po/vi.po \
   hello-php/po/zh_CN.po \
+  hello-php/po/zh_TW.po \
   \
   README
 
