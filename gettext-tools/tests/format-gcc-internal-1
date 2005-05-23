@@ -9,6 +9,14 @@ tmpfiles="$tmpfiles f-gi-1.data"
 cat <<\EOF > f-gi-1.data
 # Valid: no argument
 "abc%%"
+# Valid: no argument
+"abc%<"
+# Valid: no argument
+"abc%>"
+# Valid: no argument
+"abc%'"
+# Valid: no argument
+"abc%m"
 # Valid: one character argument
 "abc%c"
 # Valid: one string argument
@@ -26,7 +34,15 @@ cat <<\EOF > f-gi-1.data
 # Valid: one integer and one string argument
 "abc%.*s"
 # Valid: one pointer argument
+"abc%p"
+# Valid: one pointer argument
 "abc%H"
+# Valid: one pointer argument
+"%J"
+# Invalid: %J not at start
+"abc%J"
+# Invalid: %J with flags
+"%qJ"
 # Valid: one pointer argument
 "abc%D"
 # Valid: one pointer argument
@@ -50,9 +66,17 @@ cat <<\EOF > f-gi-1.data
 # Valid: one pointer argument
 "abc%V"
 # Valid: one argument with flags
+"abc%qdef"
+# Valid: one argument with flags
 "abc%+#Ag"
 # Valid: one argument with size specifier
 "abc%li"
+# Valid: one argument with size specifier
+"abc%lli"
+# Invalid: one argument with invalid size specifier
+"abc%llli"
+# Valid: one argument with size specifier
+"abc%wi"
 # Invalid: unterminated
 "abc%"
 # Invalid: unknown format specifier

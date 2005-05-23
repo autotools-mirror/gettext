@@ -1,5 +1,5 @@
 /* GCC internal format strings.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,41 +33,55 @@
 #define _(str) gettext (str)
 
 /* GCC internal format strings consist of language frontend independent
-   format directives, implemented in gcc-3.3/gcc/diagnostic.c (function
-   output_format), plus some frontend dependent extensions:
-     - for the C/ObjC frontend in gcc-3.3/gcc/c-objc-common.c
-     - for the C++ frontend in gcc-3.3/gcc/cp/error.c
+   format directives, implemented in gcc-4.0.0/gcc/pretty-print.c (function
+   pp_base_format_text), plus some frontend dependent extensions:
+     - for the C/ObjC frontend
+       in gcc-4.0.0/gcc/c-objc-common.c (function c_tree_printer)
+     - for the C++ frontend
+       in gcc-4.0.0/gcc/cp/error.c (function cp_printer)
    Taking these together, GCC internal format strings are specified as follows.
+
    A directive
    - starts with '%',
-   - is optionally followed by a size specifier 'l',
+   - is optionally followed by 'q',
+   - is optionally followed by a size specifier 'l', 'll' or 'w',
    - is optionally followed by '+' (only the specifiers of gcc/cp/error.c),
    - is optionally followed by '#' (only the specifiers of gcc/cp/error.c),
    - is finished by a specifier
 
-       - '%', that needs no argument,
+       - '%', '<', '>', "'", that need no argument,
+       - 'm', that needs no argument but looks at an err_no variable,
        - 'c', that needs a character argument,
        - 's', that needs a string argument,
-       - 'i', 'd', that need a signed integer argument,
-       - 'o', 'u', 'x', that need an unsigned integer argument,
+       - 'i', 'd', that need a signed integer argument of the specified size,
+       - 'o', 'u', 'x', that need an unsigned integer argument of the specified
+         size,
        - '.*s', that needs a signed integer argument and a string argument,
+       - 'p', that needs a 'void *' argument,
        - 'H', that needs a 'location_t *' argument,
-         [see gcc/diagnostic.c]
+         [see gcc/pretty-print.c]
 
        - 'D', that needs a general declaration argument,
        - 'F', that needs a function declaration argument,
        - 'T', that needs a type argument,
+       - 'E', that needs an expression argument,
          [see gcc/c-objc-common.c and gcc/cp/error.c]
 
        - 'A', that needs a function argument list argument,
        - 'C', that needs a tree code argument,
-       - 'E', that needs an expression argument,
        - 'L', that needs a language argument,
        - 'O', that needs a binary operator argument,
        - 'P', that needs a function parameter argument,
        - 'Q', that needs an assignment operator argument,
        - 'V', that needs a const/volatile qualifier argument.
          [see gcc/cp/error.c]
+
+   Furthermore, some extra directives can occur only at the beginning of a
+   format string. Such a directive
+   - starts with '%',
+   - is finished by a specifier
+       - 'J', that needs a general declaration argument.
+   [see gcc/pretty-print.c (function pp_base_prepare_to_format)]
  */
 
 enum format_arg_type
@@ -77,22 +91,27 @@ enum format_arg_type
   FAT_INTEGER		= 1,
   FAT_CHAR		= 2,
   FAT_STRING		= 3,
-  FAT_LOCATION		= 4,
-  FAT_TREE		= 5,
-  FAT_TREE_CODE		= 6,
-  FAT_LANGUAGES		= 7,
+  FAT_POINTER		= 4,
+  FAT_LOCATION		= 5,
+  FAT_TREE		= 6,
+  FAT_TREE_CODE		= 7,
+  FAT_LANGUAGES		= 8,
   /* Flags */
-  FAT_UNSIGNED		= 1 << 3,
-  FAT_SIZE_LONG		= 1 << 4,
-  FAT_TREE_DECL		= 1 << 5,
-  FAT_TREE_FUNCDECL	= 2 << 5,
-  FAT_TREE_TYPE		= 3 << 5,
-  FAT_TREE_ARGUMENT	= 4 << 5,
-  FAT_TREE_EXPRESSION	= 5 << 5,
-  FAT_TREE_CV		= 6 << 5,
-  FAT_TREE_CODE_BINOP	= 1 << 8,
-  FAT_TREE_CODE_ASSOP	= 2 << 8,
-  FAT_FUNCPARAM		= 1 << 10
+  FAT_UNSIGNED		= 1 << 4,
+  FAT_SIZE_LONG		= 1 << 5,
+  FAT_SIZE_LONGLONG	= 2 << 5,
+  FAT_SIZE_WIDE		= 3 << 5,
+  FAT_TREE_DECL		= 1 << 7,
+  FAT_TREE_FUNCDECL	= 2 << 7,
+  FAT_TREE_TYPE		= 3 << 7,
+  FAT_TREE_ARGUMENT	= 4 << 7,
+  FAT_TREE_EXPRESSION	= 5 << 7,
+  FAT_TREE_CV		= 6 << 7,
+  FAT_TREE_CODE_BINOP	= 1 << 10,
+  FAT_TREE_CODE_ASSOP	= 2 << 10,
+  FAT_FUNCPARAM		= 1 << 12,
+  /* Bitmasks */
+  FAT_SIZE_MASK		= (FAT_SIZE_LONG | FAT_SIZE_LONGLONG | FAT_SIZE_WIDE)
 };
 
 struct unnumbered_arg
@@ -106,19 +125,24 @@ struct spec
   unsigned int unnumbered_arg_count;
   unsigned int allocated;
   struct unnumbered_arg *unnumbered;
+  bool uses_err_no;
 };
 
 
 static void *
 format_parse (const char *format, bool translated, char **invalid_reason)
 {
+  const char *format_start;
   struct spec spec;
   struct spec *result;
+
+  format_start = format;
 
   spec.directives = 0;
   spec.unnumbered_arg_count = 0;
   spec.allocated = 0;
   spec.unnumbered = NULL;
+  spec.uses_err_no = false;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -128,15 +152,33 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 
 	spec.directives++;
 
+	if (*format == 'q')
+	  format++;
+
 	/* Parse size.  */
 	size = 0;
 	if (*format == 'l')
 	  {
 	    format++;
 	    size = FAT_SIZE_LONG;
+	    if (*format == 'l')
+	      {
+		format++;
+		size = FAT_SIZE_LONGLONG;
+	      }
+	  }
+	else if (*format == 'w')
+	  {
+	    format++;
+	    size = FAT_SIZE_WIDE;
 	  }
 
-	if (*format != '%')
+	if (*format == '%' || *format == '<' || *format == '>'
+	    || *format == '\'')
+	  ;
+	else if (*format == 'm')
+	  spec.uses_err_no = true;
+	else
 	  {
 	    enum format_arg_type type;
 
@@ -159,8 +201,23 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		spec.unnumbered_arg_count++;
 		type = FAT_STRING;
 	      }
+	    else if (*format == 'p')
+	      type = FAT_POINTER;
 	    else if (*format == 'H')
 	      type = FAT_LOCATION;
+	    else if (*format == 'J')
+	      {
+		if (format - format_start == 1)
+		  type = FAT_TREE | FAT_TREE_DECL;
+		else
+		  {
+		    *invalid_reason =
+		      (format[-1] == '%'
+		       ? xasprintf (_("The %%J directive is only allowed at the beginning of the string."))
+		       : xasprintf (_("The %%J directive does not support flags.")));
+		    goto bad_format;
+		  }
+	      }
 	    else
 	      {
 		if (*format == '+')
@@ -173,12 +230,12 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		  type = FAT_TREE | FAT_TREE_FUNCDECL;
 		else if (*format == 'T')
 		  type = FAT_TREE | FAT_TREE_TYPE;
+		else if (*format == 'E')
+		  type = FAT_TREE | FAT_TREE_EXPRESSION;
 		else if (*format == 'A')
 		  type = FAT_TREE | FAT_TREE_ARGUMENT;
 		else if (*format == 'C')
 		  type = FAT_TREE_CODE;
-		else if (*format == 'E')
-		  type = FAT_TREE | FAT_TREE_EXPRESSION;
 		else if (*format == 'L')
 		  type = FAT_LANGUAGES;
 		else if (*format == 'O')
@@ -276,6 +333,21 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	  err = true;
 	}
 
+  /* Check that the use of err_no is the same.  */
+  if (spec1->uses_err_no != spec2->uses_err_no)
+    {
+      if (error_logger)
+	{
+	  if (spec1->uses_err_no)
+	    error_logger (_("'msgid' uses %%m but '%s' doesn't"),
+			  pretty_msgstr);
+	  else
+	    error_logger (_("'msgid' does not use %%m but '%s' uses %%m"),
+			  pretty_msgstr);
+	}
+      err = true;
+    }
+
   return err;
 }
 
@@ -316,9 +388,23 @@ format_print (void *descr)
 	printf (" ");
       if (spec->unnumbered[i].type & FAT_UNSIGNED)
 	printf ("[unsigned]");
-      if (spec->unnumbered[i].type & FAT_SIZE_LONG)
-	printf ("[long]");
-      switch (spec->unnumbered[i].type & ~(FAT_UNSIGNED | FAT_SIZE_LONG))
+      switch (spec->unnumbered[i].type & FAT_SIZE_MASK)
+	{
+	case 0:
+	  break;
+	case FAT_SIZE_LONG:
+	  printf ("[long]");
+	  break;
+	case FAT_SIZE_LONGLONG:
+	  printf ("[long long]");
+	  break;
+	case FAT_SIZE_WIDE:
+	  printf ("[host-wide]");
+	  break;
+	default:
+	  abort ();
+	}
+      switch (spec->unnumbered[i].type & ~(FAT_UNSIGNED | FAT_SIZE_MASK))
 	{
 	case FAT_INTEGER:
 	  printf ("i");
@@ -331,6 +417,9 @@ format_print (void *descr)
 	  break;
 	case FAT_STRING:
 	  printf ("s");
+	  break;
+	case FAT_POINTER:
+	  printf ("p");
 	  break;
 	case FAT_LOCATION:
 	  printf ("H");
@@ -370,6 +459,8 @@ format_print (void *descr)
 	}
     }
   printf (")");
+  if (spec->uses_err_no)
+    printf (" ERR_NO");
 }
 
 int
