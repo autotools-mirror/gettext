@@ -92,6 +92,11 @@ char *alloca ();
 #ifdef _LIBC
 # include "../locale/localeinfo.h"
 # include <not-cancel.h>
+# include <bits/libc-lock.h>
+#else
+# define __libc_lock_define_initialized_recursive(CLASS, NAME)
+# define __libc_lock_lock_recursive(NAME)
+# define __libc_lock_unlock_recursive(NAME)
 #endif
 
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.
@@ -773,7 +778,8 @@ internal_function
 _nl_load_domain (struct loaded_l10nfile *domain_file,
 		 struct binding *domainbinding)
 {
-  int fd;
+  __libc_lock_define_initialized_recursive (static, lock);
+  int fd = -1;
   size_t size;
 #ifdef _LIBC
   struct stat64 st;
@@ -787,7 +793,22 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   const char *nullentry;
   size_t nullentrylen;
 
-  domain_file->decided = 1;
+  __libc_lock_lock_recursive (lock);
+  if (domain_file->decided != 0)
+    {
+      /* There are two possibilities:
+
+	 + this is the same thread calling again during this initialization
+	   via _nl_find_msg.  We have initialized everything this call needs.
+
+	 + this is another thread which tried to initialize this object.
+	   Not necessary anymore since if the lock is available this
+	   is finished.
+      */
+      goto done;
+    }
+
+  domain_file->decided = -1;
   domain_file->data = NULL;
 
   /* Note that it would be useless to store domainbinding in domain_file
@@ -799,12 +820,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
      specification the locale file name is different for XPG and CEN
      syntax.  */
   if (domain_file->filename == NULL)
-    return;
+    goto out;
 
   /* Try to open the addressed file.  */
   fd = open (domain_file->filename, O_RDONLY | O_BINARY);
   if (fd == -1)
-    return;
+    goto out;
 
   /* We must know about the size of the file.  */
   if (
@@ -815,11 +836,8 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 #endif
       || __builtin_expect ((size = (size_t) st.st_size) != st.st_size, 0)
       || __builtin_expect (size < sizeof (struct mo_file_header), 0))
-    {
-      /* Something went wrong.  */
-      close (fd);
-      return;
-    }
+    /* Something went wrong.  */
+    goto out;
 
 #ifdef HAVE_MMAP
   /* Now we are ready to load the file.  If mmap() is available we try
@@ -831,6 +849,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
     {
       /* mmap() call was successful.  */
       close (fd);
+      fd = -1;
       use_mmap = 1;
     }
 #endif
@@ -844,7 +863,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
       data = (struct mo_file_header *) malloc (size);
       if (data == NULL)
-	return;
+	goto out;
 
       to_read = size;
       read_ptr = (char *) data;
@@ -857,8 +876,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 	      if (nb == -1 && errno == EINTR)
 		continue;
 #endif
-	      close (fd);
-	      return;
+	      goto out;
 	    }
 	  read_ptr += nb;
 	  to_read -= nb;
@@ -866,6 +884,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
       while (to_read > 0);
 
       close (fd);
+      fd = -1;
     }
 
   /* Using the magic number we can test whether it really is a message
@@ -880,12 +899,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
       else
 #endif
 	free (data);
-      return;
+      goto out;
     }
 
   domain = (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
   if (domain == NULL)
-    return;
+    goto out;
   domain_file->data = domain;
 
   domain->data = (char *) data;
@@ -1247,7 +1266,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 	free (data);
       free (domain);
       domain_file->data = NULL;
-      return;
+      goto out;
     }
 
   /* No caches of converted translations so far.  */
@@ -1257,6 +1276,15 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   /* Get the header entry and look for a plural specification.  */
   nullentry = _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
   EXTRACT_PLURAL_EXPRESSION (nullentry, &domain->plural, &domain->nplurals);
+
+ out:
+  if (fd != -1)
+    close (fd);
+
+  domain_file->decided = 1;
+
+ done:
+  __libc_lock_unlock_recursive (lock);
 }
 
 

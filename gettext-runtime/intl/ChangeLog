@@ -1,3 +1,26 @@
+2005-05-05  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (__libc_rwlock_wrlock): Define fallback.
+	* finddomain.c (__libc_rwlock_define_initialized,
+	__libc_rwlock_rdlock, __libc_rwlock_wrlock, __libc_rwlock_unlock):
+	Define fallbacks.
+	* loadmsgcat.c (__libc_lock_define_initialized_recursive,
+	__libc_lock_lock_recursive, __libc_lock_unlock_recursive): Define
+	fallbacks.
+	(_nl_load_domain): Fix portability problems in last patch.
+	
+2004-09-25  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (DCIGETTEXT): Protect tfind/tsearch calls.
+	* dcigettext.c (_nl_find_msg): Call _nl_load_domain also if
+	decided < 0.
+	* finddomain.c (_nl_find_domain): Likewise.
+	* loadmsgcat.c (_nl_load_domain): Set decided to 1 only once we
+	are done.  First set to -1 to signal initialization is ongoing.
+	Protect against concurrent callers with recursive lock.
+	* finddomain.c (_nl_find_domain): Protect calls to
+	_nl_make_l10nflist.  [BZ #322]
+
 2004-08-06  Jakub Jelinek  <jakub@redhat.com>
 
 	* finddomain.c (free_mem): Rename to...
