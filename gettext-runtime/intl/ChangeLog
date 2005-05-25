@@ -1,3 +1,14 @@
+2005-02-16  Roland McGrath  <roland@redhat.com>
+
+	* dcigettext.c (_nl_find_msg): Add a cast.
+
+	* dcigettext.c (INTVARDEF, INTUSE): Macros removed.
+	(_nl_default_dirname): Use libc_hidden_data_def instead of INTVARDEF.
+	(libc_freeres_fn, DCIGETTEXT): Don't use INTUSE.
+	* bindtextdom.c (INTUSE): Macro removed.
+	(_nl_default_dirname): Use libc_hidden_proto.
+	(set_binding_values): Don't use INTUSE.
+
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (__libc_rwlock_wrlock): Define fallback.

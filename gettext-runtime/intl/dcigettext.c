@@ -298,13 +298,6 @@ transcmp (const void *p1, const void *p2)
 }
 #endif
 
-#ifndef INTVARDEF
-# define INTVARDEF(name)
-#endif
-#ifndef INTUSE
-# define INTUSE(name) name
-#endif
-
 /* Name of the default domain used for gettext(3) prior any call to
    textdomain(3).  The default value for this is "messages".  */
 const char _nl_default_default_domain[] attribute_hidden = "messages";
@@ -317,8 +310,14 @@ const char *_nl_current_default_domain attribute_hidden
 #if defined __EMX__
 extern const char _nl_default_dirname[];
 #else
+# ifdef _LIBC
+extern const char _nl_default_dirname[];
+libc_hidden_proto (_nl_default_dirname)
+# endif
 const char _nl_default_dirname[] = LOCALEDIR;
-INTVARDEF (_nl_default_dirname)
+# ifdef _LIBC
+libc_hidden_data_def (_nl_default_dirname)
+# endif
 #endif
 
 /* List with bindings of specific domains created by bindtextdomain()
@@ -581,7 +580,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     }
 
   if (binding == NULL)
-    dirname = (char *) INTUSE(_nl_default_dirname);
+    dirname = (char *) _nl_default_dirname;
   else if (IS_ABSOLUTE_PATH (binding->dirname))
     dirname = binding->dirname;
   else
@@ -1121,7 +1120,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		      goto converted;
 		    }
 
-		  inbuf = result;
+		  inbuf = (const unsigned char *) result;
 # else
 #  if HAVE_ICONV
 		  const char *inptr = (const char *) inbuf;
@@ -1189,7 +1188,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		  newmem->next = transmem_list;
 		  transmem_list = newmem;
 
-		  freemem = newmem->data;
+		  freemem = (unsigned char *) newmem->data;
 		  freemem_size -= offsetof (struct transmem_list, data);
 # else
 		  transmem_list = newmem;
@@ -1505,7 +1504,7 @@ libc_freeres_fn (free_mem)
     {
       struct binding *oldp = _nl_domain_bindings;
       _nl_domain_bindings = _nl_domain_bindings->next;
-      if (oldp->dirname != INTUSE(_nl_default_dirname))
+      if (oldp->dirname != _nl_default_dirname)
 	/* Yes, this is a pointer comparison.  */
 	free (oldp->dirname);
       free (oldp->codeset);
