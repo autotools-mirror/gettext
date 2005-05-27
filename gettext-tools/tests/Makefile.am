@@ -171,8 +171,8 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
-LDADD_yes = ../intl/libintl.la
-LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
+LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
+LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
 noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"

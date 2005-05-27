@@ -81,11 +81,43 @@ char *alloca ();
 # endif
 # define HAVE_MEMPCPY	1
 # define HAVE___FSETLOCKING	1
+#endif
 
-/* We need locking here since we can be called from different places.  */
+/* Handle multi-threaded applications.
+   We need locking here since we can be called from different places.  */
+#ifdef THREAD_H
+# include THREAD_H
+#endif
+#ifdef _LIBC
 # include <bits/libc-lock.h>
-
-__libc_lock_define_initialized (static, lock);
+#else
+# if USE_POSIX_THREADS
+#  define __libc_lock_define(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME;
+#  define __libc_lock_define_initialized(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME = PTHREAD_MUTEX_INITIALIZER;
+#  define __libc_lock_lock(NAME) \
+     if (pthread_mutex_lock (&NAME) != 0) abort ()
+#  define __libc_lock_unlock(NAME) \
+     if (pthread_mutex_unlock (&NAME) != 0) abort ()
+# else
+#  if USE_PTH_THREADS
+#   define __libc_lock_define(CLASS, NAME) \
+      CLASS pth_mutex_t NAME;
+#   define __libc_lock_define_initialized(CLASS, NAME) \
+      CLASS pth_mutex_t NAME = PTH_MUTEX_INIT;
+#   define __libc_lock_lock(NAME) \
+      if (!pth_mutex_acquire (&NAME, 0, NULL)) abort ()
+#   define __libc_lock_unlock(NAME) \
+      if (!pth_mutex_release (&NAME)) abort ()
+#  else
+/* Provide dummy implementation if threads are not supported.  */
+#   define __libc_lock_define(CLASS, NAME)
+#   define __libc_lock_define_initialized(CLASS, NAME)
+#   define __libc_lock_lock(NAME)
+#   define __libc_lock_unlock(NAME)
+#  endif
+# endif
 #endif
 
 #ifndef internal_function
@@ -118,6 +150,9 @@ __libc_lock_define_initialized (static, lock);
 # undef feof
 # define feof(s) feof_unlocked (s)
 #endif
+
+
+__libc_lock_define_initialized (static, lock)
 
 
 struct alias_map
@@ -155,9 +190,7 @@ _nl_expand_alias (const char *name)
   const char *result = NULL;
   size_t added;
 
-#ifdef _LIBC
   __libc_lock_lock (lock);
-#endif
 
   if (locale_alias_path == NULL)
     locale_alias_path = LOCALE_ALIAS_PATH;
@@ -204,9 +237,7 @@ _nl_expand_alias (const char *name)
     }
   while (added != 0);
 
-#ifdef _LIBC
   __libc_lock_unlock (lock);
-#endif
 
   return result;
 }

@@ -1,4 +1,4 @@
-# gettext.m4 serial 39 (gettext-0.15)
+# gettext.m4 serial 40 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -234,8 +234,8 @@ return * gettext ("")]ifelse([$2], [need-ngettext], [ + * ngettext ("", "", 0)],
         dnl Mark actions used to generate GNU NLS library.
         BUILD_INCLUDED_LIBINTL=yes
         USE_INCLUDED_LIBINTL=yes
-        LIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LIBICONV"
-        LTLIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LTLIBICONV"
+        LIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LIBICONV $LIBTHREAD"
+        LTLIBINTL="ifelse([$3],[],\${top_builddir}/intl,[$3])/libintl.[]gt_libtool_suffix_prefix[]a $LTLIBICONV $LTLIBTHREAD"
         LIBS=`echo " $LIBS " | sed -e 's/ -lintl / /' -e 's/^ //' -e 's/ $//'`
       fi
 
@@ -444,7 +444,7 @@ __fsetlocking])
     gt_LC_MESSAGES
   fi
 
-  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOUURCE is defined,
+  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
   dnl and a _NL_LOCALE_NAME macro always.
   AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
     [AC_TRY_LINK([#include <langinfo.h>],
@@ -454,8 +454,67 @@ __fsetlocking])
     ])
   if test $gt_cv_nl_locale_name = yes; then
     AC_DEFINE(HAVE_NL_LOCALE_NAME, 1,
-      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOUURCE is defined.])
+      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
   fi
+
+  dnl Check for multithreading.
+  AC_ARG_ENABLE(threads,
+    AC_HELP_STRING([--disable-threads], [build without multithread safety]),
+    gt_use_threads=$enableval, gt_use_threads=yes)
+  LIBTHREAD=
+  LTLIBTHREAD=
+  if test "$gt_use_threads" != no; then
+    THREAD_H=
+    if test "$gt_use_threads" = yes || test "$gt_use_threads" = posix; then
+      AC_CHECK_HEADER(pthread.h, gt_have_pthread_h=yes, gt_have_pthread_h=no)
+      if test "$gt_have_pthread_h" = yes; then
+        # Other possible tests:
+        #   compiler flag -pthread
+        #   -lc_r (AIX, FreeBSD)
+        #   -lpthreads (FSU threads, PCthreads)
+        #   -lthread
+        #   -lgthreads
+        gt_have_pthread=
+        if test -z "$gt_have_pthread"; then
+          AC_CHECK_LIB(pthread, pthread_self,
+            [gt_have_pthread=yes LIBTHREAD=-lpthread LTLIBTHREAD=-lpthread])
+        fi
+        if test -n "$gt_have_pthread"; then
+          THREAD_H='<pthread.h>'
+          CPPFLAGS="$CPPFLAGS -DUSE_POSIX_THREADS"
+          case "$host_os" in
+            # aix*) CPPFLAGS="$CPPFLAGS -D_THREAD_SAFE" ;;
+            # freebsd*) CPPFLAGS="$CPPFLAGS -D_THREAD_SAFE" ;;
+            # linux*) CPPFLAGS="$CPPFLAGS -D_REENTRANT" ;;
+            solaris*) CPPFLAGS="$CPPFLAGS -D_REENTRANT" ;;
+          esac
+        fi
+      fi
+    fi
+    if test "$gt_use_threads" = pth; then
+      gt_save_CPPFLAGS="$CPPFLAGS"
+      AC_LIB_LINKFLAGS(pth)
+      gt_have_pth=
+      gt_save_LIBS="$LIBS"
+      LIBS="$LIBS -lpth"
+      AC_TRY_LINK([#include <pth.h>], [pth_self();], gt_have_pth=yes)
+      LIBS="$gt_save_LIBS"
+      if test -n "$gt_have_pth"; then
+        LIBTHREAD="$LIBPTH"
+        LTLIBTHREAD="$LTLIBPTH"
+        THREAD_H='<pth.h>'
+        CPPFLAGS="$CPPFLAGS -DUSE_PTH_THREADS"
+      else
+        CPPFLAGS="$gt_save_CPPFLAGS"
+      fi
+    fi
+    if test -n "$THREAD_H"; then
+      AC_DEFINE_UNQUOTED(THREAD_H, [$THREAD_H],
+        [Define to the header that declares multithreading facilities.])
+    fi
+  fi
+  AC_SUBST(LIBTHREAD)
+  AC_SUBST(LTLIBTHREAD)
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least

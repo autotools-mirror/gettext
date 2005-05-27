@@ -1,5 +1,5 @@
 /* Implementation of the textdomain(3) function.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -30,14 +30,45 @@
 #endif
 #include "gettextP.h"
 
+/* Handle multi-threaded applications.  */
+#ifdef THREAD_H
+# include THREAD_H
+#endif
 #ifdef _LIBC
-/* We have to handle multi-threaded applications.  */
 # include <bits/libc-lock.h>
 #else
-/* Provide dummy implementation if this is outside glibc.  */
-# define __libc_rwlock_define(CLASS, NAME)
-# define __libc_rwlock_wrlock(NAME)
-# define __libc_rwlock_unlock(NAME)
+# if USE_POSIX_THREADS
+#  define __libc_rwlock_define(CLASS, NAME) \
+     CLASS pthread_rwlock_t NAME;
+#  define __libc_rwlock_define_initialized(CLASS, NAME) \
+     CLASS pthread_rwlock_t NAME = PTHREAD_RWLOCK_INITIALIZER;
+#  define __libc_rwlock_rdlock(NAME)  \
+     if (pthread_rwlock_rdlock (&NAME) != 0) abort ()
+#  define __libc_rwlock_wrlock(NAME)  \
+     if (pthread_rwlock_wrlock (&NAME) != 0) abort ()
+#  define __libc_rwlock_unlock(NAME)  \
+     if (pthread_rwlock_unlock (&NAME) != 0) abort ()
+# else
+#  if USE_PTH_THREADS
+#   define __libc_rwlock_define(CLASS, NAME) \
+      CLASS pth_rwlock_t NAME;
+#   define __libc_rwlock_define_initialized(CLASS, NAME) \
+      CLASS pth_rwlock_t NAME = PTH_RWLOCK_INIT;
+#   define __libc_rwlock_rdlock(NAME) \
+      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RD, 0, NULL)) abort ()
+#   define __libc_rwlock_wrlock(NAME) \
+      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RW, 0, NULL)) abort ()
+#   define __libc_rwlock_unlock(NAME) \
+      if (!pth_rwlock_release (&NAME)) abort ()
+#  else
+/* Provide dummy implementation if threads are not supported.  */
+#   define __libc_rwlock_define(CLASS, NAME)
+#   define __libc_rwlock_define_initialized(CLASS, NAME)
+#   define __libc_rwlock_rdlock(NAME)
+#   define __libc_rwlock_wrlock(NAME)
+#   define __libc_rwlock_unlock(NAME)
+#  endif
+# endif
 #endif
 
 /* The internal variables in the standalone libintl.a must have different

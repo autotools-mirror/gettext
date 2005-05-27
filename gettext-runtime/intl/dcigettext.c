@@ -100,18 +100,65 @@ extern int errno;
 #endif
 #include "hash-string.h"
 
-/* Thread safetyness.  */
+/* Handle multi-threaded applications.  */
+#ifdef THREAD_H
+# include THREAD_H
+#endif
 #ifdef _LIBC
 # include <bits/libc-lock.h>
 #else
-/* Provide dummy implementation if this is outside glibc.  */
-# define __libc_lock_define_initialized(CLASS, NAME)
-# define __libc_lock_lock(NAME)
-# define __libc_lock_unlock(NAME)
-# define __libc_rwlock_define_initialized(CLASS, NAME)
-# define __libc_rwlock_rdlock(NAME)
-# define __libc_rwlock_wrlock(NAME)
-# define __libc_rwlock_unlock(NAME)
+# if USE_POSIX_THREADS
+#  define __libc_lock_define(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME;
+#  define __libc_lock_define_initialized(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME = PTHREAD_MUTEX_INITIALIZER;
+#  define __libc_lock_lock(NAME) \
+     if (pthread_mutex_lock (&NAME) != 0) abort ()
+#  define __libc_lock_unlock(NAME) \
+     if (pthread_mutex_unlock (&NAME) != 0) abort ()
+#  define __libc_rwlock_define(CLASS, NAME) \
+     CLASS pthread_rwlock_t NAME;
+#  define __libc_rwlock_define_initialized(CLASS, NAME) \
+     CLASS pthread_rwlock_t NAME = PTHREAD_RWLOCK_INITIALIZER;
+#  define __libc_rwlock_rdlock(NAME)  \
+     if (pthread_rwlock_rdlock (&NAME) != 0) abort ()
+#  define __libc_rwlock_wrlock(NAME)  \
+     if (pthread_rwlock_wrlock (&NAME) != 0) abort ()
+#  define __libc_rwlock_unlock(NAME)  \
+     if (pthread_rwlock_unlock (&NAME) != 0) abort ()
+# else
+#  if USE_PTH_THREADS
+#   define __libc_lock_define(CLASS, NAME) \
+      CLASS pth_mutex_t NAME;
+#   define __libc_lock_define_initialized(CLASS, NAME) \
+      CLASS pth_mutex_t NAME = PTH_MUTEX_INIT;
+#   define __libc_lock_lock(NAME) \
+      if (!pth_mutex_acquire (&NAME, 0, NULL)) abort ()
+#   define __libc_lock_unlock(NAME) \
+      if (!pth_mutex_release (&NAME)) abort ()
+#   define __libc_rwlock_define(CLASS, NAME) \
+      CLASS pth_rwlock_t NAME;
+#   define __libc_rwlock_define_initialized(CLASS, NAME) \
+      CLASS pth_rwlock_t NAME = PTH_RWLOCK_INIT;
+#   define __libc_rwlock_rdlock(NAME) \
+      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RD, 0, NULL)) abort ()
+#   define __libc_rwlock_wrlock(NAME) \
+      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RW, 0, NULL)) abort ()
+#   define __libc_rwlock_unlock(NAME) \
+      if (!pth_rwlock_release (&NAME)) abort ()
+#  else
+/* Provide dummy implementation if threads are not supported.  */
+#   define __libc_lock_define(CLASS, NAME)
+#   define __libc_lock_define_initialized(CLASS, NAME)
+#   define __libc_lock_lock(NAME)
+#   define __libc_lock_unlock(NAME)
+#   define __libc_rwlock_define(CLASS, NAME)
+#   define __libc_rwlock_define_initialized(CLASS, NAME)
+#   define __libc_rwlock_rdlock(NAME)
+#   define __libc_rwlock_wrlock(NAME)
+#   define __libc_rwlock_unlock(NAME)
+#  endif
+# endif
 #endif
 
 /* Alignment of types.  */
@@ -260,6 +307,8 @@ struct known_translation_t
 #if defined HAVE_TSEARCH || defined _LIBC
 # include <search.h>
 
+__libc_rwlock_define_initialized (static, tree_lock);
+
 static void *root;
 
 # ifdef _LIBC
@@ -407,9 +456,7 @@ typedef unsigned char transmem_block_t;
 #endif
 
 /* Lock variable to protect the global data in the gettext implementation.  */
-#ifdef _LIBC
 __libc_rwlock_define_initialized (, _nl_state_lock attribute_hidden)
-#endif
 
 /* Checking whether the binaries runs SUID must be done and glibc provides
    easier methods therefore we make a difference here.  */
@@ -536,7 +583,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
      tsearch calls can be fatal.  */
-  __libc_rwlock_define_initialized (static, tree_lock);
   __libc_rwlock_rdlock (tree_lock);
 
   foundp = (struct known_translation_t **) tfind (search, &root, transcmp);

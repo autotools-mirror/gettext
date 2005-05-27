@@ -1,5 +1,5 @@
 /* Log file output.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -26,6 +26,38 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Handle multi-threaded applications.  */
+#ifdef THREAD_H
+# include THREAD_H
+#endif
+#if USE_POSIX_THREADS
+# define __libc_lock_define(CLASS, NAME) \
+    CLASS pthread_mutex_t NAME;
+# define __libc_lock_define_initialized(CLASS, NAME) \
+    CLASS pthread_mutex_t NAME = PTHREAD_MUTEX_INITIALIZER;
+# define __libc_lock_lock(NAME) \
+    if (pthread_mutex_lock (&NAME) != 0) abort ()
+# define __libc_lock_unlock(NAME) \
+    if (pthread_mutex_unlock (&NAME) != 0) abort ()
+#else
+# if USE_PTH_THREADS
+#  define __libc_lock_define(CLASS, NAME) \
+     CLASS pth_mutex_t NAME;
+#  define __libc_lock_define_initialized(CLASS, NAME) \
+     CLASS pth_mutex_t NAME = PTH_MUTEX_INIT;
+#  define __libc_lock_lock(NAME) \
+     if (!pth_mutex_acquire (&NAME, 0, NULL)) abort ()
+#  define __libc_lock_unlock(NAME) \
+     if (!pth_mutex_release (&NAME)) abort ()
+# else
+/* Provide dummy implementation if threads are not supported.  */
+#  define __libc_lock_define(CLASS, NAME)
+#  define __libc_lock_define_initialized(CLASS, NAME)
+#  define __libc_lock_lock(NAME)
+#  define __libc_lock_unlock(NAME)
+# endif
+#endif
+
 /* Print an ASCII string with quotes and escape sequences where needed.  */
 static void
 print_escaped (FILE *stream, const char *str)
@@ -48,13 +80,14 @@ print_escaped (FILE *stream, const char *str)
   putc ('"', stream);
 }
 
-/* Add to the log file an entry denoting a failed translation.  */
-void
-_nl_log_untranslated (const char *logfilename, const char *domainname,
-		      const char *msgid1, const char *msgid2, int plural)
+static char *last_logfilename = NULL;
+static FILE *last_logfile = NULL;
+__libc_lock_define_initialized (static, lock)
+
+static inline void
+_nl_log_untranslated_locked (const char *logfilename, const char *domainname,
+			     const char *msgid1, const char *msgid2, int plural)
 {
-  static char *last_logfilename = NULL;
-  static FILE *last_logfile = NULL;
   FILE *logfile;
 
   /* Can we reuse the last opened logfile?  */
@@ -95,4 +128,14 @@ _nl_log_untranslated (const char *logfilename, const char *domainname,
   else
     fprintf (logfile, "\nmsgstr \"\"\n");
   putc ('\n', logfile);
+}
+
+/* Add to the log file an entry denoting a failed translation.  */
+void
+_nl_log_untranslated (const char *logfilename, const char *domainname,
+		      const char *msgid1, const char *msgid2, int plural)
+{
+  __libc_lock_lock (lock);
+  _nl_log_untranslated_locked (logfilename, domainname, msgid1, msgid2, plural);
+  __libc_lock_unlock (lock);
 }

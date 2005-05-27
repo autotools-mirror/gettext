@@ -92,11 +92,67 @@ char *alloca ();
 #ifdef _LIBC
 # include "../locale/localeinfo.h"
 # include <not-cancel.h>
+#endif
+
+/* Handle multi-threaded applications.  */
+#ifdef THREAD_H
+# include THREAD_H
+#endif
+#ifdef _LIBC
 # include <bits/libc-lock.h>
 #else
-# define __libc_lock_define_initialized_recursive(CLASS, NAME)
-# define __libc_lock_lock_recursive(NAME)
-# define __libc_lock_unlock_recursive(NAME)
+# if USE_POSIX_THREADS
+#  define __libc_lock_define_recursive(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME;
+#  define __libc_lock_define_initialized_recursive(CLASS, NAME) \
+     CLASS pthread_mutex_t NAME;					      \
+     static pthread_mutex_t NAME##_aux = PTHREAD_MUTEX_INITIALIZER;	      \
+     static int NAME##_initialized = 0;					      \
+     auto int NAME##_dummy =						      \
+       ((NAME##_initialized == 0					      \
+         ? mutex_init_recursive (&NAME, &NAME##_aux), NAME##_initialized = 1, 0 \
+         : 0), NAME##_dummy);
+static inline void
+mutex_init_recursive (pthread_mutex_t *mutex, pthread_mutex_t *mutex_aux)
+{
+  pthread_mutexattr_t attributes;
+
+  if (pthread_mutex_lock (mutex_aux) != 0)
+    abort ();
+  if (pthread_mutexattr_init (&attributes) != 0)
+    abort ();
+  if (pthread_mutexattr_settype (&attributes, PTHREAD_MUTEX_RECURSIVE) != 0)
+    abort ();
+  if (pthread_mutex_init (mutex, &attributes) != 0)
+    abort ();
+  if (pthread_mutexattr_destroy (&attributes) != 0)
+    abort ();
+  if (pthread_mutex_unlock (mutex_aux) != 0)
+    abort ();
+}
+#  define __libc_lock_lock_recursive(NAME) \
+     if (pthread_mutex_lock (&NAME) != 0) abort ()
+#  define __libc_lock_unlock_recursive(NAME) \
+     if (pthread_mutex_unlock (&NAME) != 0) abort ()
+# else
+#  if USE_PTH_THREADS
+    /* In Pth, mutexes are recursive by default.  */
+#   define __libc_lock_define_recursive(CLASS, NAME) \
+      CLASS pth_mutex_t NAME;
+#   define __libc_lock_define_initialized_recursive(CLASS, NAME) \
+      CLASS pth_mutex_t NAME = PTH_MUTEX_INIT;
+#   define __libc_lock_lock_recursive(NAME) \
+      if (!pth_mutex_acquire (&NAME, 0, NULL)) abort ()
+#   define __libc_lock_unlock_recursive(NAME) \
+      if (!pth_mutex_release (&NAME)) abort ()
+#  else
+/* Provide dummy implementation if threads are not supported.  */
+#   define __libc_lock_define_recursive(CLASS, NAME)
+#   define __libc_lock_define_initialized_recursive(CLASS, NAME)
+#   define __libc_lock_lock_recursive(NAME)
+#   define __libc_lock_unlock_recursive(NAME)
+#  endif
+# endif
 #endif
 
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.
@@ -778,7 +834,7 @@ internal_function
 _nl_load_domain (struct loaded_l10nfile *domain_file,
 		 struct binding *domainbinding)
 {
-  __libc_lock_define_initialized_recursive (static, lock);
+  __libc_lock_define_initialized_recursive (static, lock)
   int fd = -1;
   size_t size;
 #ifdef _LIBC

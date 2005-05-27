@@ -1,3 +1,35 @@
+2005-05-05  Bruno Haible  <bruno@clisp.org>
+
+	Make libintl multithread-safe outside glibc.
+	* bindtextdom.c: Include THREAD_H.
+	(__libc_rwlock_*): Define also for USE_POSIX_THREADS or
+	USE_PTH_THREADS.
+	* dcigettext.c: Include THREAD_H.
+	(__libc_lock_*, __libc_rwlock_*): Define also for USE_POSIX_THREADS or
+	USE_PTH_THREADS.
+	(_nl_state_lock): Define always.
+	(tree_lock): Define outside DCIGETTEXT.
+	(DCIGETTEXT): ... not here.
+	* finddomain.c: Include THREAD_H.
+	(__libc_rwlock_*): Define also for USE_POSIX_THREADS or
+	USE_PTH_THREADS.
+	* loadmsgcat.c: Include THREAD_H.
+	(__libc_lock_*_recursive): Define also for USE_POSIX_THREADS or
+	USE_PTH_THREADS.
+	(_nl_load_domain): Remove extraneous comma.
+	* localealias.c: Include THREAD_H.
+	(__libc_lock_*): Define also for USE_POSIX_THREADS or USE_PTH_THREADS.
+	(lock): Define always.
+	(_nl_expand_alias): Use lock always.
+	* textdomain.c: Include THREAD_H.
+	(__libc_rwlock_*): Define also for USE_POSIX_THREADS or
+	USE_PTH_THREADS.
+	* log.c: Include THREAD_H.
+	(__libc_lock_*): Define also for USE_POSIX_THREADS or USE_PTH_THREADS.
+	(last_logfilename, last_logfile, lock): New variables.
+	(_nl_log_untranslated_locked): Renamed from _nl_log_untranslated.
+	(_nl_log_untranslated): Rewritten.
+
 2005-02-16  Roland McGrath  <roland@redhat.com>
 
 	* dcigettext.c (_nl_find_msg): Add a cast.
