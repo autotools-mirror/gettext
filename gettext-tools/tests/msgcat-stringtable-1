@@ -46,7 +46,7 @@ msgstr "pattern II target 1"
 msgid "escapes"
 msgstr ""
 "This is a tab \t and a return \n"
-" or a  but not a p"
+" or a \a but not a p"
 
 msgid "escapes2"
 msgstr "Well how about a "

@@ -135,7 +135,7 @@ msgstr ""
 #. Octal escapes have 2 or 3 digits, depending on the initial digit.
 #: xg-j-2.java:26
 msgid ""
-"bel: \n"
+"bel: \a\n"
 "newline: \n"
 "backslash: \\\n"
 "dquote-zero: \"0\n"

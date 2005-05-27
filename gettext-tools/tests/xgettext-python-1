@@ -51,8 +51,8 @@ msgstr ""
 
 #. interpret_ansic = true, interpret_unicode = false
 msgid ""
-"abc\\def'ghi\"jkl\b\f\n"
-"\r\t x x~y\\u0142\\U00010123\\N{LATIN SMALL LETTER Z}"
+"abc\\def'ghi\"jkl\a\b\f\n"
+"\r\t\v x x~y\\u0142\\U00010123\\N{LATIN SMALL LETTER Z}"
 msgstr ""
 
 #. interpret_ansic = false, interpret_unicode = false
@@ -64,8 +64,8 @@ msgstr ""
 
 #. interpret_ansic = true, interpret_unicode = true
 msgid ""
-"abc\\def'ghi\"jkl\b\f\n"
-"\r\t x x~ył𐄣z"
+"abc\\def'ghi\"jkl\a\b\f\n"
+"\r\t\v x x~ył𐄣z"
 msgstr ""
 
 #. interpret_ansic = false, interpret_unicode = true

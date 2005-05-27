@@ -128,7 +128,7 @@ msgstr ""
 
 #. Hex escapes are recognized.
 #: xg-cs-3.cs:22
-msgid "bel: \n"
+msgid "bel: \a\n"
 msgstr ""
 
 #. Recognized despite comments
