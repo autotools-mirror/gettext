@@ -487,12 +487,10 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
   first_line = true;
   do
     {
-      /* The \a and \v escapes were added by the ANSI C Standard.
-	 Prior to the Standard, most compilers did not have them.
-	 Because we need the same program on all platforms we don't provide
-	 support for them here.  Thus we only support \b\f\n\r\t.  */
+      /* The usual escapes, as defined by the ANSI C Standard.  */
 #     define is_escape(c) \
-       ((c) == '\b' || (c) == '\f' || (c) == '\n' || (c) == '\r' || (c) == '\t')
+        ((c) == '\a' || (c) == '\b' || (c) == '\f' || (c) == '\n' \
+         || (c) == '\r' || (c) == '\t' || (c) == '\v')
 
       const char *es;
       const char *ep;
@@ -589,11 +587,13 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 	    {
 	      switch (c)
 		{
+		case '\a': c = 'a'; break;
 		case '\b': c = 'b'; break;
 		case '\f': c = 'f'; break;
 		case '\n': c = 'n'; break;
 		case '\r': c = 'r'; break;
 		case '\t': c = 't'; break;
+		case '\v': c = 'v'; break;
 		default: abort ();
 		}
 	      *pp++ = '\\';
