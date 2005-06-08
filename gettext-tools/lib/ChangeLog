@@ -1,3 +1,8 @@
+2005-06-08  Bruno Haible  <bruno@clisp.org>
+
+	* binary-io.h (fileno): Undefine before defining it. Avoids a gcc
+	warning on mingw.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.
