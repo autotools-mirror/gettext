@@ -1,5 +1,5 @@
 /* Return the canonical absolute name of a given file.
-   Copyright (C) 1996-2003 Free Software Foundation, Inc.
+   Copyright (C) 1996-2003, 2005 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -104,7 +104,9 @@ __realpath (const char *name, char *resolved)
   char *rpath, *dest, *extra_buf = NULL;
   const char *start, *end, *rpath_limit;
   long int path_max;
+#ifdef S_ISLNK
   int num_links = 0;
+#endif
 
   if (name == NULL)
     {
@@ -164,7 +166,6 @@ __realpath (const char *name, char *resolved)
 #else
       struct stat st;
 #endif
-      int n;
 
       /* Skip sequence of multiple path-separators.  */
       while (*start == '/')
@@ -238,6 +239,7 @@ __realpath (const char *name, char *resolved)
 	    {
 	      char *buf;
 	      size_t len;
+	      int n;
 
 	      if (++num_links > MAXSYMLINKS)
 		{
