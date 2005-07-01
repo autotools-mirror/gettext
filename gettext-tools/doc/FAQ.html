@@ -599,11 +599,14 @@ package of <span style="font-family: monospace;">gettext-tools</span>.
 Then<br>
 <ul>
   <li>You need to add an <span style="font-family: monospace;">-MD</span>
-option to all compilation and link command lines. MSVC has three
+option to all compilation and link command lines. MSVC has six
 different, mutually incompatible, compilation models (<span
  style="font-family: monospace;">-ML</span>, <span
  style="font-family: monospace;">-MT</span>, <span
- style="font-family: monospace;">-MD</span>); the default is <span
+ style="font-family: monospace;">-MD</span>, <span
+ style="font-family: monospace;">-MLd</span>, <span
+ style="font-family: monospace;">-MTd</span>, <span
+ style="font-family: monospace;">-MDd</span>); the default is <span
  style="font-family: monospace;">-ML</span>. <span
  style="font-family: monospace;">intl.dll</span> uses the <span
  style="font-family: monospace;">-MD</span> model, therefore the rest
