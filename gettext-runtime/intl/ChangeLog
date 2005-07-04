@@ -1,3 +1,8 @@
+2005-07-02  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.c (get_charset_aliases) [WIN32]: Add CP65001 and others.
+	Reported by <mus1876@gmx.info> via Alain Bench <messtic@oreka.com>.
+
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	Make libintl multithread-safe outside glibc.
