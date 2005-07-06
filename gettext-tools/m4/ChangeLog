@@ -1,5 +1,10 @@
 2005-07-05  Bruno Haible  <bruno@clisp.org>
 
+	* relocatable.m4 (AC_RELOCATABLE): On mingw, simply set
+	SET_RELOCATABLE to a trivial value.
+
+2005-07-05  Bruno Haible  <bruno@clisp.org>
+
 	* mbrtowc.m4 (gl_FUNC_MBRTOWC): Upgrade to version from current
 	autoconf CVS. Needed for mingw.
 
