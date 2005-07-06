@@ -1,3 +1,8 @@
+2005-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* mbrtowc.m4 (gl_FUNC_MBRTOWC): Upgrade to version from current
+	autoconf CVS. Needed for mingw.
+
 2005-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* csharpexec-test.exe: New file.
