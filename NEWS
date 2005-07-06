@@ -1,3 +1,6 @@
+
+* Portability to mingw.
+
 Version 0.14.5 - May 2005
 
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.0.
