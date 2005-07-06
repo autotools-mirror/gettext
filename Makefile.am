@@ -57,4 +57,3 @@ EXTRA_DIST += README.vms Makefile.vms \
 # Woe32 support.
 
 EXTRA_DIST += README.woe32 Makefile.msvc
-EXTRA_DIST += README.mingw
