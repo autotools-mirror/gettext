@@ -121,7 +121,7 @@ libgettextlib_la_LIBADD = @LTLIBOBJS@
 # Need @LTLIBICONV@ because linebreak.c uses iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
-  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
 # No need to install libgettextlib.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean

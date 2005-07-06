@@ -131,26 +131,71 @@ LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c \
+msgfmt_SOURCES = msgfmt.c
+msgfmt_SOURCES += \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
   write-qt.c plural-eval.c ../../gettext-runtime/intl/hash-string.c
-msgmerge_SOURCES = msgmerge.c plural-count.c
-msgunfmt_SOURCES = msgunfmt.c \
+if !MINGW
+msgmerge_SOURCES = msgmerge.c
+else
+msgmerge_SOURCES = ../mingw/c++msgmerge.cc
+endif
+msgmerge_SOURCES += plural-count.c
+msgunfmt_SOURCES = msgunfmt.c
+msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
-xgettext_SOURCES = xgettext.c \
+if !MINGW
+xgettext_SOURCES = xgettext.c
+else
+xgettext_SOURCES = ../mingw/c++xgettext.cc
+endif
+xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c
+if !MINGW
 msgattrib_SOURCES = msgattrib.c
+else
+msgattrib_SOURCES = ../mingw/c++msgattrib.cc
+endif
+if !MINGW
 msgcat_SOURCES = msgcat.c
+else
+msgcat_SOURCES = ../mingw/c++msgcat.cc
+endif
+if !MINGW
 msgcomm_SOURCES = msgcomm.c
+else
+msgcomm_SOURCES = ../mingw/c++msgcomm.cc
+endif
+if !MINGW
 msgconv_SOURCES = msgconv.c
+else
+msgconv_SOURCES = ../mingw/c++msgconv.cc
+endif
+if !MINGW
 msgen_SOURCES = msgen.c
+else
+msgen_SOURCES = ../mingw/c++msgen.cc
+endif
 msgexec_SOURCES = msgexec.c
+if !MINGW
 msgfilter_SOURCES = msgfilter.c
+else
+msgfilter_SOURCES = ../mingw/c++msgfilter.cc
+endif
+if !MINGW
 msggrep_SOURCES = msggrep.c
-msginit_SOURCES = msginit.c plural-count.c ../../gettext-runtime/intl/localealias.c
+else
+msggrep_SOURCES = ../mingw/c++msggrep.cc
+endif
+msginit_SOURCES = msginit.c
+msginit_SOURCES +=  plural-count.c ../../gettext-runtime/intl/localealias.c
+if !MINGW
 msguniq_SOURCES = msguniq.c
+else
+msguniq_SOURCES = ../mingw/c++msguniq.cc
+endif
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 
@@ -161,7 +206,16 @@ urlget_SOURCES = urlget.c
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+
+# Special rules for mingw.
+if MINGW
+format_CFLAGS = -x c++
+# Work around an automake 1.9 bug: *_CFLAGS settings are ignored for elements
+# of a libtool library.
+format.lo: format.c
+	$(LTCOMPILE) $(format_CFLAGS) -c -o format.lo format.c
+endif
 
 # No need to install libgettextsrc.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
@@ -177,7 +231,7 @@ install-exec-clean:
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 # Build order. Only needed for "make -j[N]".
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
 
@@ -203,23 +257,23 @@ msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
 
 # Specify installation directory, for --enable-relocatable.
-msgcmp_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgmerge_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgunfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-xgettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgattrib_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgcat_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgcomm_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgconv_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgen_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgexec_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgfilter_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msggrep_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msginit_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msguniq_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-hostname_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
-urlget_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
+msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgmerge_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgunfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+xgettext_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgattrib_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgcat_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgcomm_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgconv_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgen_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgexec_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
+urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 if RELOCATABLE_VIA_LD
 msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`

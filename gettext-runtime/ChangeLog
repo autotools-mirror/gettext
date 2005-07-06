@@ -1,3 +1,8 @@
+2005-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (DLL_VARIABLE): Define also as nonempty when building
+	shared libraries with mingw.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.

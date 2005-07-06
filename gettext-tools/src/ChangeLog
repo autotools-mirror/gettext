@@ -1,3 +1,15 @@
+2005-07-05  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (msgmerge_SOURCES, xgettext_SOURCES, msgattrib_SOURCES,
+	msgcat_SOURCES, msgcomm_SOURCES, msgconv_SOURCES, msgen_SOURCES,
+	msgfilter_SOURCES, msggrep_SOURCES, msguniq_SOURCES): On mingw, use
+	C++ source code.
+	(libgettextsrc_la_LDFLAGS, libgettextpo_la_LDFLAGS): Use LTNOUNDEF.
+	(format_CFLAGS): New variable.
+	(format.lo): New rule.
+	(msg*_CFLAGS, xgettext_CFLAGS): Remove variables.
+	(msg*_CPPFLAGS, xgettext_CPPFLAGS): New variables.
+
 2005-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Output \a and \v as an escape sequence, like

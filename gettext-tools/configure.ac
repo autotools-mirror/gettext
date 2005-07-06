@@ -94,6 +94,11 @@ gl_USE_SYSTEM_EXTENSIONS
 dnl Check for build configuration.
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
+case "$host_os" in
+  nonexistent*) LTNOUNDEF='-no-undefined' ;;
+  *) LTNOUNDEF='' ;;
+esac
+AC_SUBST([LTNOUNDEF])
 
 AC_RELOCATABLE
 
@@ -166,6 +171,14 @@ dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
+dnl Compilation on mingw needs special Makefile rules, because of variables
+dnl being exported from or imported into shared libraries.
+case "$host_os" in
+  mingw*) is_mingw=yes ;;
+  *) is_mingw=no ;;
+esac
+AM_CONDITIONAL([MINGW], [test $is_mingw = yes])
+
 dnl Put some default definitions into config.h.
 AH_TOP([
 /* Default value for alignment of strings in .mo file.  */
@@ -197,7 +210,7 @@ AH_BOTTOM([
 #define PAGE_WIDTH 79
 
 /* On Windows, variables that may be in a DLL must be marked specially.  */
-#if defined _MSC_VER && defined _DLL
+#if (defined _MSC_VER && defined _DLL) || (defined __MINGW32__ && defined DLL_EXPORT)
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE

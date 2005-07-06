@@ -104,7 +104,7 @@ AM_GNU_GETTEXT(use-libtool, need-ngettext)
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
 /* On Windows, variables that may be in a DLL must be marked specially.  */
-#if defined _MSC_VER && defined _DLL
+#if (defined _MSC_VER && defined _DLL) || (defined __MINGW32__ && defined DLL_EXPORT)
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
