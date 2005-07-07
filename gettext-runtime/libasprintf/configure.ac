@@ -39,6 +39,11 @@ AC_EXEEXT
 dnl Check for build configuration.
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
+case "$host_os" in
+  beos*) LTNOUNDEF='-no-undefined' ;;
+  *) LTNOUNDEF='' ;;
+esac
+AC_SUBST([LTNOUNDEF])
 
 dnl Checks for libraries.
 

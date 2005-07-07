@@ -62,6 +62,7 @@ EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
 # How to build libasprintf.
 # With libtool 1.5.14, on some platforms, like BeOS, "libtool --tag=CXX" fails
 # to create a shared library, however "libtool --tag=CC" succeeds.
+libasprintf_la_LDFLAGS = @LTNOUNDEF@
 libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
 	$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
 	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)
