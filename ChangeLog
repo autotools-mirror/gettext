@@ -1,3 +1,8 @@
+2005-07-08  Bruno Haible  <bruno@clisp.org>
+
+	* m4/libtool.m4 (postinstall_cmds) [cygwin,mingw,pw32]: Make DLL
+	executable after installing it.
+
 2005-07-06  Bruno Haible  <bruno@clisp.org>
 
 	* README.mingw: Remove file.
