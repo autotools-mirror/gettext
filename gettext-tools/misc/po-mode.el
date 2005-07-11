@@ -3096,6 +3096,11 @@ Leave point after marked string."
 (defun po-validate ()
   "Use 'msgfmt' for validating the current PO file contents."
   (interactive)
+  ; The 'compile' subsystem is autoloaded through a call to (compile ...).
+  ; We need to initialize it outside of any binding. Without this statement,
+  ; all defcustoms and defvars of compile.el would be undone when the let*
+  ; terminates.
+  (require 'compile)
   (let* ((dev-null
 	  (cond ((boundp 'null-device) null-device) ; since Emacs 20.3
 		((memq system-type '(windows-nt windows-95)) "NUL")
