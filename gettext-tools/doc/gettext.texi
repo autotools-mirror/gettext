@@ -127,6 +127,7 @@ version @value{VERSION}.
 
 @menu
 * Introduction::                Introduction
+* Users::                       The User's View
 * Basics::                      PO Files and PO Mode Basics
 * Sources::                     Preparing Program Sources
 * Template::                    Making the PO Template File
@@ -134,10 +135,10 @@ version @value{VERSION}.
 * Updating::                    Updating Existing PO Files
 * Manipulating::                Manipulating PO Files
 * Binaries::                    Producing Binary MO Files
-* Users::                       The User's View
 * Programmers::                 The Programmer's View
 * Translators::                 The Translator's View
 * Maintainers::                 The Maintainer's View
+* Installers::                  The Installer's and Distributor's View
 * Programming Languages::       Other Programming Languages
 * Conclusion::                  Concluding Remarks
 
@@ -161,6 +162,11 @@ Introduction
 * Aspects::                     Aspects in Native Language Support
 * Files::                       Files Conveying Translations
 * Overview::                    Overview of GNU @code{gettext}
+
+The User's View
+
+* Matrix::                      The Current @file{ABOUT-NLS} Matrix
+* End Users::                   Magic for End Users
 
 PO Files and PO Mode Basics
 
@@ -228,12 +234,6 @@ Producing Binary MO Files
 * msgfmt Invocation::           Invoking the @code{msgfmt} Program
 * msgunfmt Invocation::         Invoking the @code{msgunfmt} Program
 * MO Files::                    The Format of GNU MO Files
-
-The User's View
-
-* Matrix::                      The Current @file{ABOUT-NLS} Matrix
-* Installers::                  Magic for Installers
-* End Users::                   Magic for End Users
 
 The Programmer's View
 
@@ -417,7 +417,7 @@ Concluding Remarks
 
 @end ifinfo
 
-@node Introduction, Basics, Top, Top
+@node Introduction, Users, Top, Top
 @chapter Introduction
 
 @quotation
@@ -1013,7 +1013,79 @@ program should localize itself automatically, whenever it executes.
 The remainder of this manual has the purpose of explaining in depth the various
 steps outlined above.
 
-@node Basics, Sources, Introduction, Top
+@node Users, Basics, Introduction, Top
+@chapter The User's View
+
+When GNU @code{gettext} will truly have reached its goal, average users
+should feel some kind of astonished pleasure, seeing the effect of
+that strange kind of magic that just makes their own native language
+appear everywhere on their screens.  As for naive users, they would
+ideally have no special pleasure about it, merely taking their own
+language for @emph{granted}, and becoming rather unhappy otherwise.
+
+So, let's try to describe here how we would like the magic to operate,
+as we want the users' view to be the simplest, among all ways one
+could look at GNU @code{gettext}.  All other software engineers:
+programmers, translators, maintainers, should work together in such a
+way that the magic becomes possible.  This is a long and progressive
+undertaking, and information is available about the progress of the
+Translation Project.
+
+When a package is distributed, there are two kinds of users:
+@dfn{installers} who fetch the distribution, unpack it, configure
+it, compile it and install it for themselves or others to use; and
+@dfn{end users} that call programs of the package, once these have
+been installed at their site.  GNU @code{gettext} is offering magic
+for both installers and end users.
+
+@menu
+* Matrix::                      The Current @file{ABOUT-NLS} Matrix
+* End Users::                   Magic for End Users
+@end menu
+
+@node Matrix, End Users, Users, Users
+@section The Current @file{ABOUT-NLS} Matrix
+@cindex Translation Matrix
+@cindex available translations
+@cindex @file{ABOUT-NLS} file
+
+Languages are not equally supported in all packages using GNU
+@code{gettext}.  To know if some package uses GNU @code{gettext}, one
+may check the distribution for the @file{ABOUT-NLS} information file, for
+some @file{@var{ll}.po} files, often kept together into some @file{po/}
+directory, or for an @file{intl/} directory.  Internationalized packages
+have usually many @file{@var{ll}.po} files, where @var{ll} represents
+the language.  @ref{End Users} for a complete description of the format
+for @var{ll}.
+
+More generally, a matrix is available for showing the current state
+of the Translation Project, listing which packages are prepared for
+multi-lingual messages, and which languages are supported by each.
+Because this information changes often, this matrix is not kept within
+this GNU @code{gettext} manual.  This information is often found in
+file @file{ABOUT-NLS} from various distributions, but is also as old as
+the distribution itself.  A recent copy of this @file{ABOUT-NLS} file,
+containing up-to-date information, should generally be found on the
+Translation Project sites, and also on most GNU archive sites.
+
+@node End Users,  , Matrix, Users
+@section Magic for End Users
+@cindex setting up @code{gettext} at run time
+@cindex selecting message language
+@cindex language selection
+
+@vindex LANG@r{, environment variable}
+We consider here those packages using GNU @code{gettext} internally,
+and for which the installers did not disable translation at
+@emph{configure} time.  Then, users only have to set the @code{LANG}
+environment variable to the appropriate @samp{@var{ll}_@var{CC}}
+combination prior to using the programs in the package.  @xref{Matrix}.
+For example, let's presume a German site.  At the shell prompt, users
+merely have to execute @w{@samp{setenv LANG de_DE}} (in @code{csh}) or
+@w{@samp{export LANG; LANG=de_DE}} (in @code{sh}).  They could even do
+this from their @file{.login} or @file{.profile} file.
+
+@node Basics, Sources, Users, Top
 @chapter PO Files and PO Mode Basics
 
 The GNU @code{gettext} toolset helps programmers and translators
@@ -4217,7 +4289,7 @@ if (file == NULL)
 po_file_free (file);
 @end example
 
-@node Binaries, Users, Manipulating, Top
+@node Binaries, Programmers, Manipulating, Top
 @chapter Producing Binary MO Files
 
 @c FIXME: Rewrite.
@@ -4384,107 +4456,7 @@ T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
 @end group
 @end example
 
-@node Users, Programmers, Binaries, Top
-@chapter The User's View
-
-When GNU @code{gettext} will truly have reached its goal, average users
-should feel some kind of astonished pleasure, seeing the effect of
-that strange kind of magic that just makes their own native language
-appear everywhere on their screens.  As for naive users, they would
-ideally have no special pleasure about it, merely taking their own
-language for @emph{granted}, and becoming rather unhappy otherwise.
-
-So, let's try to describe here how we would like the magic to operate,
-as we want the users' view to be the simplest, among all ways one
-could look at GNU @code{gettext}.  All other software engineers:
-programmers, translators, maintainers, should work together in such a
-way that the magic becomes possible.  This is a long and progressive
-undertaking, and information is available about the progress of the
-Translation Project.
-
-When a package is distributed, there are two kinds of users:
-@dfn{installers} who fetch the distribution, unpack it, configure
-it, compile it and install it for themselves or others to use; and
-@dfn{end users} that call programs of the package, once these have
-been installed at their site.  GNU @code{gettext} is offering magic
-for both installers and end users.
-
-@menu
-* Matrix::                      The Current @file{ABOUT-NLS} Matrix
-* Installers::                  Magic for Installers
-* End Users::                   Magic for End Users
-@end menu
-
-@node Matrix, Installers, Users, Users
-@section The Current @file{ABOUT-NLS} Matrix
-@cindex Translation Matrix
-@cindex available translations
-@cindex @file{ABOUT-NLS} file
-
-Languages are not equally supported in all packages using GNU
-@code{gettext}.  To know if some package uses GNU @code{gettext}, one
-may check the distribution for the @file{ABOUT-NLS} information file, for
-some @file{@var{ll}.po} files, often kept together into some @file{po/}
-directory, or for an @file{intl/} directory.  Internationalized packages
-have usually many @file{@var{ll}.po} files, where @var{ll} represents
-the language.  @ref{End Users} for a complete description of the format
-for @var{ll}.
-
-More generally, a matrix is available for showing the current state
-of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages are supported by each.
-Because this information changes often, this matrix is not kept within
-this GNU @code{gettext} manual.  This information is often found in
-file @file{ABOUT-NLS} from various distributions, but is also as old as
-the distribution itself.  A recent copy of this @file{ABOUT-NLS} file,
-containing up-to-date information, should generally be found on the
-Translation Project sites, and also on most GNU archive sites.
-
-@node Installers, End Users, Matrix, Users
-@section Magic for Installers
-@cindex package build and installation options
-@cindex setting up @code{gettext} at build time
-
-By default, packages fully using GNU @code{gettext}, internally,
-are installed in such a way that they to allow translation of
-messages.  At @emph{configuration} time, those packages should
-automatically detect whether the underlying host system already provides
-the GNU @code{gettext} functions.  If not,
-the GNU @code{gettext} library should be automatically prepared
-and used.  Installers may use special options at configuration
-time for changing this behavior.  The command @samp{./configure
---with-included-gettext} bypasses system @code{gettext} to
-use the included GNU @code{gettext} instead,
-while @samp{./configure --disable-nls}
-produces programs totally unable to translate messages.
-
-@vindex LINGUAS@r{, environment variable}
-Internationalized packages have usually many @file{@var{ll}.po}
-files.  Unless
-translations are disabled, all those available are installed together
-with the package.  However, the environment variable @code{LINGUAS}
-may be set, prior to configuration, to limit the installed set.
-@code{LINGUAS} should then contain a space separated list of two-letter
-codes, stating which languages are allowed.
-
-@node End Users,  , Installers, Users
-@section Magic for End Users
-@cindex setting up @code{gettext} at run time
-@cindex selecting message language
-@cindex language selection
-
-@vindex LANG@r{, environment variable}
-We consider here those packages using GNU @code{gettext} internally,
-and for which the installers did not disable translation at
-@emph{configure} time.  Then, users only have to set the @code{LANG}
-environment variable to the appropriate @samp{@var{ll}_@var{CC}}
-combination prior to using the programs in the package.  @xref{Matrix}.
-For example, let's presume a German site.  At the shell prompt, users
-merely have to execute @w{@samp{setenv LANG de_DE}} (in @code{csh}) or
-@w{@samp{export LANG; LANG=de_DE}} (in @code{sh}).  They could even do
-this from their @file{.login} or @file{.profile} file.
-
-@node Programmers, Translators, Users, Top
+@node Programmers, Translators, Binaries, Top
 @chapter The Programmer's View
 
 @c FIXME: Reorganize whole chapter.
@@ -6218,7 +6190,7 @@ $ msgmerge --no-fuzzy-matching $domain.$lang-urgent.po $package/po/$domain.pot \
 
 Then she can submit @file{$domain.$lang.po} and proceed to the next domain.
 
-@node Maintainers, Programming Languages, Translators, Top
+@node Maintainers, Installers, Translators, Top
 @chapter The Maintainer's View
 @cindex package maintainer's view of @code{gettext}
 
@@ -7368,7 +7340,36 @@ $ (cd po; make update-po)
 $ make distclean
 @end example
 
-@node Programming Languages, Conclusion, Maintainers, Top
+@node Installers, Programming Languages, Maintainers, Top
+@chapter The Installer's and Distributor's View
+@cindex package installer's view of @code{gettext}
+@cindex package distributor's view of @code{gettext}
+@cindex package build and installation options
+@cindex setting up @code{gettext} at build time
+
+By default, packages fully using GNU @code{gettext}, internally,
+are installed in such a way that they to allow translation of
+messages.  At @emph{configuration} time, those packages should
+automatically detect whether the underlying host system already provides
+the GNU @code{gettext} functions.  If not,
+the GNU @code{gettext} library should be automatically prepared
+and used.  Installers may use special options at configuration
+time for changing this behavior.  The command @samp{./configure
+--with-included-gettext} bypasses system @code{gettext} to
+use the included GNU @code{gettext} instead,
+while @samp{./configure --disable-nls}
+produces programs totally unable to translate messages.
+
+@vindex LINGUAS@r{, environment variable}
+Internationalized packages have usually many @file{@var{ll}.po}
+files.  Unless
+translations are disabled, all those available are installed together
+with the package.  However, the environment variable @code{LINGUAS}
+may be set, prior to configuration, to limit the installed set.
+@code{LINGUAS} should then contain a space separated list of two-letter
+codes, stating which languages are allowed.
+
+@node Programming Languages, Conclusion, Installers, Top
 @chapter Other Programming Languages
 
 While the presentation of @code{gettext} focuses mostly on C and
