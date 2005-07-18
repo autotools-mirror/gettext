@@ -1,3 +1,9 @@
+2005-07-17  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c (mb_width): Remove gcc warnings on platform with unsigned
+	'char' type (e.g. Linux/PowerPC).
+	Reported by Jeff Rizzo <riz@netbsd.org>.
+
 2005-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msgmerge_SOURCES, xgettext_SOURCES, msgattrib_SOURCES,
