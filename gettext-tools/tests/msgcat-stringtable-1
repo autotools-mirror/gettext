@@ -27,11 +27,14 @@ is completely ignored, even if in "quotes", or \escape characters, etc.
 "hoe322070.element";
 EOF
 
-tmpfiles="$tmpfiles mcat-s-1.out"
+tmpfiles="$tmpfiles mcat-s-1.out mcat-s-1.err"
 rm -f mcat-s-1.out
 : ${MSGCAT=msgcat}
-${MSGCAT} --stringtable-input mcat-s-1.in -o mcat-s-1.out
-test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+LC_MESSAGES=C LC_ALL= \
+${MSGCAT} --stringtable-input mcat-s-1.in -o mcat-s-1.out >mcat-s-1.err 2>&1
+result=$?
+cat mcat-s-1.err | grep -v 'msgcat: internationalized messages'
+test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-s-1.ok"
 cat << \EOF > mcat-s-1.ok
