@@ -48,6 +48,7 @@
 #define DO_TEST_LOCK 1
 #define DO_TEST_RWLOCK 1
 #define DO_TEST_RECURSIVE_LOCK 1
+#define DO_TEST_ONCE 1
 
 /* Whether to help the scheduler through explicit yield().
    Uncomment this to see if the operating system has a fair scheduler.  */
@@ -66,6 +67,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #if !ENABLE_LOCKING
 # undef USE_POSIX_THREADS
@@ -498,6 +500,152 @@ test_recursive_lock (void)
   check_accounts ();
 }
 
+/* Test once-only execution by having several threads attempt to grab a
+   once-only task simultaneously (triggered by releasing a read-write lock).  */
+
+gl_once_define(static, fresh_once)
+static int ready[THREAD_COUNT];
+static gl_lock_t ready_lock[THREAD_COUNT];
+#if ENABLE_LOCKING
+static gl_rwlock_t fire_signal[REPEAT_COUNT];
+#else
+static volatile int fire_signal_state;
+#endif
+static gl_once_t once_control;
+static int performed;
+gl_lock_define_initialized(static, performed_lock)
+
+static void
+once_execute (void)
+{
+  gl_lock_lock (performed_lock);
+  performed++;
+  gl_lock_unlock (performed_lock);
+}
+
+static void *
+once_contender_thread (void *arg)
+{
+  int id = (int) (long) arg;
+  int repeat;
+
+  for (repeat = 0; repeat <= REPEAT_COUNT; repeat++)
+    {
+      /* Tell the main thread that we're ready.  */
+      gl_lock_lock (ready_lock[id]);
+      ready[id] = 1;
+      gl_lock_unlock (ready_lock[id]);
+
+      if (repeat == REPEAT_COUNT)
+	break;
+
+      dbgprintf ("Contender %p waiting for signal for round %d\n",
+		 gl_thread_self (), repeat);
+#if ENABLE_LOCKING
+      /* Wait for the signal to go.  */
+      gl_rwlock_rdlock (fire_signal[repeat]);
+      /* And don't hinder the others (if the scheduler is unfair).  */
+      gl_rwlock_unlock (fire_signal[repeat]);
+#else
+      /* Wait for the signal to go.  */
+      while (fire_signal_state <= repeat)
+	yield ();
+#endif
+      dbgprintf ("Contender %p got the     signal for round %d\n",
+		 gl_thread_self (), repeat);
+
+      /* Contend for execution.  */
+      gl_once (once_control, once_execute);
+    }
+
+  return NULL;
+}
+
+void
+test_once (void)
+{
+  int i, repeat;
+  gl_thread_t threads[THREAD_COUNT];
+
+  /* Initialize all variables.  */
+  for (i = 0; i < THREAD_COUNT; i++)
+    {
+      ready[i] = 0;
+      gl_lock_init (ready_lock[i]);
+    }
+#if ENABLE_LOCKING
+  for (i = 0; i < REPEAT_COUNT; i++)
+    gl_rwlock_init (fire_signal[i]);
+#else
+  fire_signal_state = 0;
+#endif
+
+  /* Block all fire_signals.  */
+  for (i = REPEAT_COUNT-1; i >= 0; i--)
+    gl_rwlock_wrlock (fire_signal[i]);
+
+  /* Spawn the threads.  */
+  for (i = 0; i < THREAD_COUNT; i++)
+    threads[i] = gl_thread_create (once_contender_thread, (void *) (long) i);
+
+  for (repeat = 0; repeat <= REPEAT_COUNT; repeat++)
+    {
+      /* Wait until every thread is ready.  */
+      dbgprintf ("Main thread before synchonizing for round %d\n", repeat);
+      for (;;)
+	{
+	  int ready_count = 0;
+	  for (i = 0; i < THREAD_COUNT; i++)
+	    {
+	      gl_lock_lock (ready_lock[i]);
+	      ready_count += ready[i];
+	      gl_lock_unlock (ready_lock[i]);
+	    }
+	  if (ready_count == THREAD_COUNT)
+	    break;
+	  yield ();
+	}
+      dbgprintf ("Main thread after  synchonizing for round %d\n", repeat);
+
+      if (repeat > 0)
+	{
+	  /* Check that exactly one thread executed the once_execute()
+	     function.  */
+	  if (performed != 1)
+	    abort ();
+	}
+
+      if (repeat == REPEAT_COUNT)
+	break;
+
+      /* Preparation for the next round: Initialize once_control.  */
+      memcpy (&once_control, &fresh_once, sizeof (gl_once_t));
+
+      /* Preparation for the next round: Reset the performed counter.  */
+      performed = 0;
+
+      /* Preparation for the next round: Reset the ready flags.  */
+      for (i = 0; i < THREAD_COUNT; i++)
+	{
+	  gl_lock_lock (ready_lock[i]);
+	  ready[i] = 0;
+	  gl_lock_unlock (ready_lock[i]);
+	}
+
+      /* Signal all threads simultaneously.  */
+      dbgprintf ("Main thread giving signal for round %d\n", repeat);
+#if ENABLE_LOCKING
+      gl_rwlock_unlock (fire_signal[repeat]);
+#else
+      fire_signal_state = repeat + 1;
+#endif
+    }
+
+  /* Wait for the threads to terminate.  */
+  for (i = 0; i < THREAD_COUNT; i++)
+    gl_thread_join (threads[i]);
+}
+
 int
 main ()
 {
@@ -519,6 +667,11 @@ main ()
 #if DO_TEST_RECURSIVE_LOCK
   printf ("Starting test_recursive_lock ..."); fflush (stdout);
   test_recursive_lock ();
+  printf (" OK\n"); fflush (stdout);
+#endif
+#if DO_TEST_ONCE
+  printf ("Starting test_once ..."); fflush (stdout);
+  test_once ();
   printf (" OK\n"); fflush (stdout);
 #endif
 

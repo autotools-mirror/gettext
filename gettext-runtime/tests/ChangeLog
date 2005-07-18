@@ -1,5 +1,11 @@
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
+	* test-lock.c (DO_TEST_ONCE): New macro.
+	(once_execute, once_contender_thread, test_once): New functions.
+	(main): Also call test_once.
+
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
 	* tests-lock.c: New file.
 	* Makefile.am: New file.
 	* Makefile.msvc: New file.

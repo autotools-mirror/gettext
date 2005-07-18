@@ -1,5 +1,9 @@
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.m4 (AM_INTL_SUBDIR): Also hide the glthread_once* functions.
+
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
 	* lock.m4: New file.
 	* gettext.m4 (AM_INTL_SUBDIR): Remove multithreading checks. Instead
 	require gl_LOCK and define __libc_lock_*, __libc_rwlock_*,

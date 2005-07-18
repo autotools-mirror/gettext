@@ -492,6 +492,9 @@ __fsetlocking])
 #define glthread_recursive_lock_lock     libintl_recursive_lock_lock
 #define glthread_recursive_lock_unlock   libintl_recursive_lock_unlock
 #define glthread_recursive_lock_destroy  libintl_recursive_lock_destroy
+#define glthread_once                 libintl_once
+#define glthread_once_call            libintl_once_call
+#define glthread_once_singlethreaded  libintl_once_singlethreaded
 ])
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
