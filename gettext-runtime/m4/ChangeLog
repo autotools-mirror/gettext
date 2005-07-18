@@ -1,3 +1,11 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* lock.m4: New file.
+	* gettext.m4 (AM_INTL_SUBDIR): Remove multithreading checks. Instead
+	require gl_LOCK and define __libc_lock_*, __libc_rwlock_*,
+	__libc_lock_*recursive*, glthread_* as macros.
+	* Makefile.am (EXTRA_DIST): Add lock.m4.
+
 2005-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): Add LIBTHREAD to LIBINTL and

@@ -27,35 +27,10 @@
 #include <string.h>
 
 /* Handle multi-threaded applications.  */
-#ifdef THREAD_H
-# include THREAD_H
-#endif
-#if USE_POSIX_THREADS
-# define __libc_lock_define(CLASS, NAME) \
-    CLASS pthread_mutex_t NAME;
-# define __libc_lock_define_initialized(CLASS, NAME) \
-    CLASS pthread_mutex_t NAME = PTHREAD_MUTEX_INITIALIZER;
-# define __libc_lock_lock(NAME) \
-    if (pthread_mutex_lock (&NAME) != 0) abort ()
-# define __libc_lock_unlock(NAME) \
-    if (pthread_mutex_unlock (&NAME) != 0) abort ()
+#ifdef _LIBC
+# include <bits/libc-lock.h>
 #else
-# if USE_PTH_THREADS
-#  define __libc_lock_define(CLASS, NAME) \
-     CLASS pth_mutex_t NAME;
-#  define __libc_lock_define_initialized(CLASS, NAME) \
-     CLASS pth_mutex_t NAME = PTH_MUTEX_INIT;
-#  define __libc_lock_lock(NAME) \
-     if (!pth_mutex_acquire (&NAME, 0, NULL)) abort ()
-#  define __libc_lock_unlock(NAME) \
-     if (!pth_mutex_release (&NAME)) abort ()
-# else
-/* Provide dummy implementation if threads are not supported.  */
-#  define __libc_lock_define(CLASS, NAME)
-#  define __libc_lock_define_initialized(CLASS, NAME)
-#  define __libc_lock_lock(NAME)
-#  define __libc_lock_unlock(NAME)
-# endif
+# include "lock.h"
 #endif
 
 /* Print an ASCII string with quotes and escape sequences where needed.  */

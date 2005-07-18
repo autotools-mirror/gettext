@@ -45,7 +45,7 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,hash-string.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
+OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,hash-string.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,lock.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
 
 all : intl.olb,libintl.h
 	write sys$output "Nothing else to be done for 'all'."
@@ -53,7 +53,7 @@ all : intl.olb,libintl.h
 libgnuintl.h :
 	$(LN) $(srcdir)libgnuintl.h_vms libgnuintl.h
 
-bindtextdom.obj : $(srcdir)bindtextdom.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
+bindtextdom.obj : $(srcdir)bindtextdom.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)bindtextdom.c
 
 dcgettext.obj : $(srcdir)dcgettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
@@ -65,16 +65,16 @@ dgettext.obj : $(srcdir)dgettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo
 gettext.obj : $(srcdir)gettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)gettext.c
 
-finddomain.obj : $(srcdir)finddomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
+finddomain.obj : $(srcdir)finddomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)finddomain.c
 
 hash-string.obj : $(srcdir)hash-string.c,$(srcdir)hash-string.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)hash-string.c
 
-loadmsgcat.obj : $(srcdir)loadmsgcat.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h
+loadmsgcat.obj : $(srcdir)loadmsgcat.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)loadmsgcat.c
 
-localealias.obj : $(srcdir)localealias.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)relocatable.h
+localealias.obj : $(srcdir)localealias.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)lock.h,$(srcdir)relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localealias.c
 
 textdomain.obj : $(srcdir)textdomain.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
@@ -86,7 +86,7 @@ l10nflist.obj : $(srcdir)l10nflist.c,libgnuintl.h,$(srcdir)loadinfo.h
 explodename.obj : $(srcdir)explodename.c,libgnuintl.h,$(srcdir)loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)explodename.c
 
-dcigettext.obj : $(srcdir)dcigettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h,$(srcdir)eval-plural.h
+dcigettext.obj : $(srcdir)dcigettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h,$(srcdir)hash-string.h,$(srcdir)plural-exp.h,$(srcdir)eval-plural.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)dcigettext.c
 
 dcngettext.obj : $(srcdir)dcngettext.c,libgnuintl.h,$(srcdir)gettextP.h,$(srcdir)gmo.h,$(srcdir)loadinfo.h
@@ -107,6 +107,9 @@ plural-exp.obj : $(srcdir)plural-exp.c,libgnuintl.h,$(srcdir)plural-exp.h
 localcharset.obj : $(srcdir)localcharset.c,libgnuintl.h,$(srcdir)localcharset.h,$(srcdir)relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localcharset.c
 
+lock.obj : $(srcdir)lock.c,$(srcdir)lock.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)lock.c
+
 relocatable.obj : $(srcdir)relocatable.c,libgnuintl.h,$(srcdir)relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)relocatable.c
 
@@ -116,7 +119,7 @@ langprefs.obj : $(srcdir)langprefs.c,libgnuintl.h
 localename.obj : $(srcdir)localename.c,libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)localename.c
 
-log.obj : $(srcdir)log.c,libgnuintl.h
+log.obj : $(srcdir)log.c,libgnuintl.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)log.c
 
 osdep.obj : $(srcdir)osdep.c,libgnuintl.h

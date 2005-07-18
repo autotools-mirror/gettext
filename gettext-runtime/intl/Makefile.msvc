@@ -99,7 +99,7 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj hash-string.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
+OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj hash-string.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj lock.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
 
 RESOURCES = intl.res
 
@@ -112,7 +112,7 @@ libgnuintl.h :
 	$(LN) $(srcdir)\libgnuintl.h.msvc-shared libgnuintl.h
 !endif
 
-bindtextdom.obj : $(srcdir)\bindtextdom.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
+bindtextdom.obj : $(srcdir)\bindtextdom.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\bindtextdom.c
 
 dcgettext.obj : $(srcdir)\dcgettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
@@ -124,16 +124,16 @@ dgettext.obj : $(srcdir)\dgettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\
 gettext.obj : $(srcdir)\gettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\gettext.c
 
-finddomain.obj : $(srcdir)\finddomain.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
+finddomain.obj : $(srcdir)\finddomain.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\finddomain.c
 
 hash-string.obj : $(srcdir)\hash-string.c $(srcdir)\hash-string.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\hash-string.c
 
-loadmsgcat.obj : $(srcdir)\loadmsgcat.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\hash-string.h $(srcdir)\plural-exp.h
+loadmsgcat.obj : $(srcdir)\loadmsgcat.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\hash-string.h $(srcdir)\plural-exp.h $(srcdir)\lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\loadmsgcat.c
 
-localealias.obj : $(srcdir)\localealias.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\relocatable.h
+localealias.obj : $(srcdir)\localealias.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\lock.h $(srcdir)\relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\localealias.c
 
 textdomain.obj : $(srcdir)\textdomain.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
@@ -145,7 +145,7 @@ l10nflist.obj : $(srcdir)\l10nflist.c libgnuintl.h $(srcdir)\loadinfo.h
 explodename.obj : $(srcdir)\explodename.c libgnuintl.h $(srcdir)\loadinfo.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\explodename.c
 
-dcigettext.obj : $(srcdir)\dcigettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\hash-string.h $(srcdir)\plural-exp.h $(srcdir)\eval-plural.h
+dcigettext.obj : $(srcdir)\dcigettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h $(srcdir)\hash-string.h $(srcdir)\plural-exp.h $(srcdir)\eval-plural.h $(srcdir)\lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\dcigettext.c
 
 dcngettext.obj : $(srcdir)\dcngettext.c libgnuintl.h $(srcdir)\gettextP.h $(srcdir)\gmo.h $(srcdir)\loadinfo.h
@@ -166,6 +166,9 @@ plural-exp.obj : $(srcdir)\plural-exp.c libgnuintl.h $(srcdir)\plural-exp.h
 localcharset.obj : $(srcdir)\localcharset.c libgnuintl.h $(srcdir)\localcharset.h $(srcdir)\relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\localcharset.c
 
+lock.obj : $(srcdir)\lock.c $(srcdir)\lock.h
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\lock.c
+
 relocatable.obj : $(srcdir)\relocatable.c libgnuintl.h $(srcdir)\relocatable.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\relocatable.c
 
@@ -175,7 +178,7 @@ langprefs.obj : $(srcdir)\langprefs.c libgnuintl.h
 localename.obj : $(srcdir)\localename.c libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\localename.c
 
-log.obj : $(srcdir)\log.c libgnuintl.h
+log.obj : $(srcdir)\log.c libgnuintl.h $(srcdir)\lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\log.c
 
 printf.obj : $(srcdir)\printf.c libgnuintl.h $(srcdir)\printf-args.h $(srcdir)\printf-args.c $(srcdir)\printf-parse.h $(srcdir)\wprintf-parse.h $(srcdir)\printf-parse.c $(srcdir)\vasnprintf.h $(srcdir)\vasnwprintf.h $(srcdir)\vasnprintf.c

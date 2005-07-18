@@ -1,3 +1,7 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Add lock.m4 to file list.
+
 2005-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* FAQ.html (windows_howto): Mention the three debugging runtime libs.

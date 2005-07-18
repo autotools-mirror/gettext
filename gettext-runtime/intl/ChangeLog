@@ -1,3 +1,33 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* lock.h: New file.
+	* lock.c: New file.
+	* bindtextdom.c: Include lock.h. Don't include THREAD_H. Remove
+	definitions of __libc_rwlock_*.
+	* finddomain.c: Likewise.
+	* textdomain.c: Likewise.
+	* dcigettext.c: Include lock.h. Don't include THREAD_H. Remove
+	definitions of __libc_lock_*, __libc_rwlock_*.
+	* loadmsgcat.c: Include lock.h. Don't include THREAD_H. Remove
+	definitions of __libc_lock_*_recursive.
+	* localealias.c: Include lock.h. Don't include THREAD_H. Remove
+	definitions of __libc_lock_*.
+	* log.c: Likewise.
+	* Makefile.in (HEADERS): Add lock.h.
+	(SOURCES): Add lock.c.
+	(OBJECTS): Add lock.$lo.
+	(lock.lo): New rule.
+	(bindtextdom.$lo, dcigettext.$lo, finddomain.$lo, loadmsgcat.$lo,
+	localealias.$lo, lock.$lo, log.$lo): Depend on lock.h.
+	* Makefile.msvc (OBJECTS): Add lock.obj.
+	(bindtextdom.obj, finddomain.obj, loadmsgcat.obj, localealias.obj,
+	dcigettext.obj, log.obj): Depend on lock.h.
+	(lock.obj): New rule.
+	* Makefile.vms (OBJECTS): Add lock.obj.
+	(bindtextdom.obj, finddomain.obj, loadmsgcat.obj, localealias.obj,
+	dcigettext.obj, log.obj): Depend on lock.h.
+	(lock.obj): New rule.
+
 2005-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* printf-args.c (printf_fetchargs): Work around broken definition of
@@ -61,7 +91,7 @@
 	__libc_lock_lock_recursive, __libc_lock_unlock_recursive): Define
 	fallbacks.
 	(_nl_load_domain): Fix portability problems in last patch.
-	
+
 2004-09-25  Ulrich Drepper  <drepper@redhat.com>
 
 	* dcigettext.c (DCIGETTEXT): Protect tfind/tsearch calls.

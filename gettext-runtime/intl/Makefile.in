@@ -72,6 +72,7 @@ HEADERS = \
   plural-exp.h \
   eval-plural.h \
   localcharset.h \
+  lock.h \
   relocatable.h \
   xsize.h \
   printf-args.h printf-args.c \
@@ -98,6 +99,7 @@ SOURCES = \
   plural.y \
   plural-exp.c \
   localcharset.c \
+  lock.c \
   relocatable.c \
   langprefs.c \
   localename.c \
@@ -125,6 +127,7 @@ OBJECTS = \
   plural.$lo \
   plural-exp.$lo \
   localcharset.$lo \
+  lock.$lo \
   relocatable.$lo \
   langprefs.$lo \
   localename.$lo \
@@ -216,6 +219,8 @@ plural-exp.lo: $(srcdir)/plural-exp.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
 localcharset.lo: $(srcdir)/localcharset.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
+lock.lo: $(srcdir)/lock.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/lock.c
 relocatable.lo: $(srcdir)/relocatable.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/relocatable.c
 langprefs.lo: $(srcdir)/langprefs.c
@@ -435,6 +440,7 @@ explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo plural.$lo plural-exp.$lo: $(srcdir)/plural-exp.h
 dcigettext.$lo: $(srcdir)/eval-plural.h
 localcharset.$lo: $(srcdir)/localcharset.h
+bindtextdom.$lo dcigettext.$lo finddomain.$lo loadmsgcat.$lo localealias.$lo lock.$lo log.$lo: $(srcdir)/lock.h
 localealias.$lo localcharset.$lo relocatable.$lo: $(srcdir)/relocatable.h
 printf.$lo: $(srcdir)/printf-args.h $(srcdir)/printf-args.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/printf-parse.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/vasnprintf.c
 

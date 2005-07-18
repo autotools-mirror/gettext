@@ -31,44 +31,10 @@
 #include "gettextP.h"
 
 /* Handle multi-threaded applications.  */
-#ifdef THREAD_H
-# include THREAD_H
-#endif
 #ifdef _LIBC
 # include <bits/libc-lock.h>
 #else
-# if USE_POSIX_THREADS
-#  define __libc_rwlock_define(CLASS, NAME) \
-     CLASS pthread_rwlock_t NAME;
-#  define __libc_rwlock_define_initialized(CLASS, NAME) \
-     CLASS pthread_rwlock_t NAME = PTHREAD_RWLOCK_INITIALIZER;
-#  define __libc_rwlock_rdlock(NAME)  \
-     if (pthread_rwlock_rdlock (&NAME) != 0) abort ()
-#  define __libc_rwlock_wrlock(NAME)  \
-     if (pthread_rwlock_wrlock (&NAME) != 0) abort ()
-#  define __libc_rwlock_unlock(NAME)  \
-     if (pthread_rwlock_unlock (&NAME) != 0) abort ()
-# else
-#  if USE_PTH_THREADS
-#   define __libc_rwlock_define(CLASS, NAME) \
-      CLASS pth_rwlock_t NAME;
-#   define __libc_rwlock_define_initialized(CLASS, NAME) \
-      CLASS pth_rwlock_t NAME = PTH_RWLOCK_INIT;
-#   define __libc_rwlock_rdlock(NAME) \
-      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RD, 0, NULL)) abort ()
-#   define __libc_rwlock_wrlock(NAME) \
-      if (!pth_rwlock_acquire (&NAME, PTH_RWLOCK_RW, 0, NULL)) abort ()
-#   define __libc_rwlock_unlock(NAME) \
-      if (!pth_rwlock_release (&NAME)) abort ()
-#  else
-/* Provide dummy implementation if threads are not supported.  */
-#   define __libc_rwlock_define(CLASS, NAME)
-#   define __libc_rwlock_define_initialized(CLASS, NAME)
-#   define __libc_rwlock_rdlock(NAME)
-#   define __libc_rwlock_wrlock(NAME)
-#   define __libc_rwlock_unlock(NAME)
-#  endif
-# endif
+# include "lock.h"
 #endif
 
 /* The internal variables in the standalone libintl.a must have different

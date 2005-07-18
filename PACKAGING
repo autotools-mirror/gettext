@@ -130,6 +130,7 @@ following file list.
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
+      $prefix/share/aclocal/lock.m4
       $prefix/share/aclocal/longdouble.m4
       $prefix/share/aclocal/longlong.m4
       $prefix/share/aclocal/nls.m4

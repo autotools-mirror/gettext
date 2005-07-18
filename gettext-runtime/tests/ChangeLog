@@ -1,0 +1,7 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* tests-lock.c: New file.
+	* Makefile.am: New file.
+	* Makefile.msvc: New file.
+	* Makefile.vms: New file.
+

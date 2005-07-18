@@ -22,8 +22,8 @@ ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
-SUBDIRS =      doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4
-DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4
+SUBDIRS =      doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4 tests
+DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4 tests
 
 EXTRA_DIST = BUGS
 
@@ -161,6 +161,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
+	    -e 's/#undef USE_WIN32_THREADS$$/#define USE_WIN32_THREADS 1/' \
 	    -e 's/#undef __GETOPT_PREFIX$$/#define __GETOPT_PREFIX/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \

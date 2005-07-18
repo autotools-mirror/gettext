@@ -1,3 +1,7 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Add lock.m4.
+
 2005-07-08  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4 (postinstall_cmds) [cygwin,mingw,pw32]: Make DLL

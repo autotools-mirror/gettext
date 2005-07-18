@@ -1,3 +1,11 @@
+2005-07-16  Bruno Haible  <bruno@clisp.org>
+
+	* tests: New directory.
+	* configure.ac (LIBSCHED): New variable.
+	Add AC_CONFIG of tests/Makefile.
+	* Makefile.am (SUBDIRS, DIST_SUBDIRS): Add tests.
+	(config.h.msvc): Define USE_WIN32_THREADS.
+
 2005-07-05  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (DLL_VARIABLE): Define also as nonempty when building

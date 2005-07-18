@@ -127,6 +127,14 @@ AC_SUBST(CROSS_COMPILING)
 dnl Checks for optional programs for the tests/lang-* tests.
 gt_PROG_ANSI_CXX
 
+dnl Checks for special libraries for the tests/test-lock test.
+dnl On some systems, sched_yield is in librt, rather than in libpthread.
+LIBSCHED=
+if test $gl_threads_api = posix; then
+  AC_CHECK_LIB(rt, sched_yield, [LIBSCHED=-lrt])
+fi
+AC_SUBST([LIBSCHED])
+
 dnl Determine whether to build libasprintf.
 AC_ARG_ENABLE(libasprintf,
   [  --disable-libasprintf   do not build libasprintf],
@@ -169,5 +177,7 @@ AC_CONFIG_FILES([man/Makefile],
 AC_CONFIG_FILES([man/x-to-1])
 
 AC_CONFIG_FILES([m4/Makefile])
+
+AC_CONFIG_FILES([tests/Makefile])
 
 AC_OUTPUT
