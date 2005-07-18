@@ -1,5 +1,11 @@
 2005-07-17  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Editing): New chapter, including all the PO Mode
+	descriptions.
+	(PO Files): Chapter renamed from Basics.
+
+2005-07-17  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Users): Move chapter to become the second.
 	(Installers): New chapter, extracted from Users chapter.
 
