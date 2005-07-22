@@ -1,3 +1,10 @@
+2005-07-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Remove rules depending on @STDBOOL_H@, @ALLOCA_H@,
+	@FNMATCH_H@, @GETOPT_H@.
+	(BUILT_SOURCES): Add $(STDBOOL_H), $(ALLOCA_H).
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-07-09  Bruno Haible  <bruno@clisp.org>
 
 	* csharpcomp.sh.in (options_csc): For -l option, add a .dll suffix.
