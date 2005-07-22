@@ -1,0 +1,4 @@
+Makefile
+.libs
+_libs
+test-lock

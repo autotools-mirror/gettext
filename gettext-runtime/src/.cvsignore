@@ -1,0 +1,5 @@
+Makefile
+gettext.sh
+envsubst
+gettext
+ngettext
