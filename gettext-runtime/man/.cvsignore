@@ -1,2 +1,6 @@
 Makefile
 x-to-1
+gettext.1
+gettext.1.html
+ngettext.1
+ngettext.1.html

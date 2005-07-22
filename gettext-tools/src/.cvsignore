@@ -1,6 +1,9 @@
 Makefile
 po-gram-gen2.h
 .libs
+_libs
+*.lo
+*.la
 gettext
 msgcmp
 msgcomm

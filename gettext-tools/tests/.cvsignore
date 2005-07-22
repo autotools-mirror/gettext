@@ -1,5 +1,15 @@
 Makefile
 .libs
+_libs
 cake
+fc3
+fc4
+fc5
+gettext-3-prg
+gettext-4-prg
+gettext-5-prg
+gettext-6-prg
+gettext-7-prg
+testlocale
 tstgettext
 tstngettext

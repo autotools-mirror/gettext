@@ -5,6 +5,12 @@ config.log
 config.status
 libtool
 stamp-h
+alloca.h
+autosprintf.h
+.libs
+_libs
+*.lo
+*.la
 config.h.msvc
 config.h_vms
 autosprintf.h.msvc-shared

@@ -1,1 +1,4 @@
 Makefile
+.libs
+_libs
+test-names

@@ -1,3 +1,4 @@
 Makefile
 autopoint
 gettextize
+elc-stamp

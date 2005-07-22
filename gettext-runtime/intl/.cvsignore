@@ -1,5 +1,6 @@
 ChangeLog.inst
 Makefile
+libgnuintl.h
 VERSION
 .libs
 *.lo

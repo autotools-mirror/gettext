@@ -3,6 +3,15 @@ charset.alias
 ref-add.sed
 ref-del.sed
 lbrkprop.txt
+csharpcomp.sh
+csharpexec.sh
 javacomp.sh
 javaexec.sh
+alloca.h
+fnmatch.h
+getopt.h
 stdbool.h
+.libs
+_libs
+*.lo
+*.la

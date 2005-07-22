@@ -3,5 +3,6 @@ config.cache
 config.h
 config.log
 config.status
+libtool
 config.h.msvc
 config.h_vms
