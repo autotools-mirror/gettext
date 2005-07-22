@@ -62,8 +62,12 @@ AC_HELP_STRING([--disable-threads], [build without multithread safety]),
             ;;
         esac
         gl_have_pthread=
+        # Test whether both pthread_mutex_lock and pthread_mutexattr_init exist
+        # in libc. IRIX 6.5 has the first one in both libc and libpthread, but
+        # the second one only in libpthread, and lock.c needs it.
         AC_TRY_LINK([#include <pthread.h>],
-          [pthread_mutex_lock((pthread_mutex_t*)0);],
+          [pthread_mutex_lock((pthread_mutex_t*)0);
+           pthread_mutexattr_init((pthread_mutexattr_t*)0);],
           [gl_have_pthread=yes])
         # Test for libpthread by looking for pthread_kill. (Not pthread_self,
         # since it is defined as a macro on OSF/1.)
