@@ -1,3 +1,8 @@
+2005-07-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-6-prg.c: Don't compile the test on non-glibc systems.
+	* gettext-7-prg.c: Likewise.
+
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
         * msgcat-stringtable-1: Filter out warning message from output.

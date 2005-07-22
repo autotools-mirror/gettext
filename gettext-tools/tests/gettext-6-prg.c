@@ -21,13 +21,14 @@
 # include <config.h>
 #endif
 
-#if USE_POSIX_THREADS
-
 #include <locale.h>
-#include <pthread.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#if USE_POSIX_THREADS && (__GLIBC__ >= 2)
+
+#include <pthread.h>
 #include "setenv.h"
 
 /* Make sure we use the included libintl, not the system's one. */
