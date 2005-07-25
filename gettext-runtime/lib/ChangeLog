@@ -1,3 +1,10 @@
+2005-07-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Remove rules depending on @STDBOOL_H@, @ALLOCA_H@,
+	@GETOPT_H@.
+	(BUILT_SOURCES): Add $(STDBOOL_H), $(ALLOCA_H).
+	Reported by Alexandre Duret-Lutz <adl@src.lip6.fr>.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.

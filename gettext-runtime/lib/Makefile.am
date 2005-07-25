@@ -70,11 +70,11 @@ EXTRA_DIST += $(LIBADD_SOURCE)
 
 
 # >>> gnulib module stdbool.
+BUILT_SOURCES += $(STDBOOL_H)
 EXTRA_DIST += ../../gettext-tools/lib/stdbool_.h
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgrt_a_OBJECTS): @STDBOOL_H@
 stdbool.h: ../../gettext-tools/lib/stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool_.h > stdbool.h
 MOSTLYCLEANFILES += stdbool.h
@@ -82,11 +82,11 @@ MOSTLYCLEANFILES += stdbool.h
 
 
 # >>> gnulib module alloca.
+BUILT_SOURCES += $(ALLOCA_H)
 EXTRA_DIST += ../../gettext-tools/lib/alloca_.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgrt_a_OBJECTS): @ALLOCA_H@
 alloca.h: ../../gettext-tools/lib/alloca_.h
 	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
 MOSTLYCLEANFILES += alloca.h
@@ -99,7 +99,6 @@ EXTRA_DIST += ../../gettext-tools/lib/getopt_.h ../../gettext-tools/lib/getopt_i
 
 # The following is needed in order to create a <getopt.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @GETOPT_H@
 getopt.h: ../../gettext-tools/lib/getopt_.h
 	cp $(srcdir)/../../gettext-tools/lib/getopt_.h getopt.h
 MOSTLYCLEANFILES += getopt.h
