@@ -1,3 +1,7 @@
+2005-07-22  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (libintl.la, libgnuintl.la): Link with @LTLIBTHREADS@.
+
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h (gl_once_t): New type.
