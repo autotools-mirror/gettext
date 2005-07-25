@@ -1,749 +1,189 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 11 April 2005 -->
+     from gettext.texi on 21 July 2005 -->
 
-<TITLE>GNU gettext utilities - B  Country Codes</TITLE>
+<TITLE>GNU gettext utilities - 16  Concluding Remarks</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_15.html">previous</A>, <A HREF="gettext_17.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_15.html">previous</A>, <A HREF="gettext_17.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC291" HREF="gettext_toc.html#TOC291">B  Country Codes</A></H1>
+<H1><A NAME="SEC290" HREF="gettext_toc.html#TOC290">16  Concluding Remarks</A></H1>
+
 <P>
-<A NAME="IDX1165"></A>
+We would like to conclude this GNU <CODE>gettext</CODE> manual by presenting
+an history of the Translation Project so far.  We finally give
+a few pointers for those who want to do further research or readings
+about Native Language Support matters.
+
+</P>
+
+
+
+<H2><A NAME="SEC291" HREF="gettext_toc.html#TOC291">16.1  History of GNU <CODE>gettext</CODE></A></H2>
+<P>
 <A NAME="IDX1166"></A>
 
 </P>
 <P>
-The ISO 3166 standard defines two character codes for many countries
-and territories.  All abbreviations for countries used in the Translation
-Project should come from this standard.
+Internationalization concerns and algorithms have been informally
+and casually discussed for years in GNU, sometimes around GNU
+<CODE>libc</CODE>, maybe around the incoming <CODE>Hurd</CODE>, or otherwise
+(nobody clearly remembers).  And even then, when the work started for
+real, this was somewhat independently of these previous discussions.
 
 </P>
-<DL COMPACT>
+<P>
+This all began in July 1994, when Patrick D'Cruze had the idea and
+initiative of internationalizing version 3.9.2 of GNU <CODE>fileutils</CODE>.
+He then asked Jim Meyering, the maintainer, how to get those changes
+folded into an official release.  That first draft was full of
+<CODE>#ifdef</CODE>s and somewhat disconcerting, and Jim wanted to find
+nicer ways.  Patrick and Jim shared some tries and experimentations
+in this area.  Then, feeling that this might eventually have a deeper
+impact on GNU, Jim wanted to know what standards were, and contacted
+Richard Stallman, who very quickly and verbally described an overall
+design for what was meant to become <CODE>glocale</CODE>, at that time.
 
-<DT><SAMP>`AD&acute;</SAMP>
-<DD>
-Andorra.
-<DT><SAMP>`AE&acute;</SAMP>
-<DD>
-United Arab Emirates.
-<DT><SAMP>`AF&acute;</SAMP>
-<DD>
-Afghanistan.
-<DT><SAMP>`AG&acute;</SAMP>
-<DD>
-Antigua and Barbuda.
-<DT><SAMP>`AI&acute;</SAMP>
-<DD>
-Anguilla.
-<DT><SAMP>`AL&acute;</SAMP>
-<DD>
-Albania.
-<DT><SAMP>`AM&acute;</SAMP>
-<DD>
-Armenia.
-<DT><SAMP>`AN&acute;</SAMP>
-<DD>
-Netherlands Antilles.
-<DT><SAMP>`AO&acute;</SAMP>
-<DD>
-Angola.
-<DT><SAMP>`AQ&acute;</SAMP>
-<DD>
-Antarctica.
-<DT><SAMP>`AR&acute;</SAMP>
-<DD>
-Argentina.
-<DT><SAMP>`AS&acute;</SAMP>
-<DD>
-Samoa (American).
-<DT><SAMP>`AT&acute;</SAMP>
-<DD>
-Austria.
-<DT><SAMP>`AU&acute;</SAMP>
-<DD>
-Australia.
-<DT><SAMP>`AW&acute;</SAMP>
-<DD>
-Aruba.
-<DT><SAMP>`AZ&acute;</SAMP>
-<DD>
-Azerbaijan.
-<DT><SAMP>`BA&acute;</SAMP>
-<DD>
-Bosnia and Herzegovina.
-<DT><SAMP>`BB&acute;</SAMP>
-<DD>
-Barbados.
-<DT><SAMP>`BD&acute;</SAMP>
-<DD>
-Bangladesh.
-<DT><SAMP>`BE&acute;</SAMP>
-<DD>
-Belgium.
-<DT><SAMP>`BF&acute;</SAMP>
-<DD>
-Burkina Faso.
-<DT><SAMP>`BG&acute;</SAMP>
-<DD>
-Bulgaria.
-<DT><SAMP>`BH&acute;</SAMP>
-<DD>
-Bahrain.
-<DT><SAMP>`BI&acute;</SAMP>
-<DD>
-Burundi.
-<DT><SAMP>`BJ&acute;</SAMP>
-<DD>
-Benin.
-<DT><SAMP>`BM&acute;</SAMP>
-<DD>
-Bermuda.
-<DT><SAMP>`BN&acute;</SAMP>
-<DD>
-Brunei.
-<DT><SAMP>`BO&acute;</SAMP>
-<DD>
-Bolivia.
-<DT><SAMP>`BR&acute;</SAMP>
-<DD>
-Brazil.
-<DT><SAMP>`BS&acute;</SAMP>
-<DD>
-Bahamas.
-<DT><SAMP>`BT&acute;</SAMP>
-<DD>
-Bhutan.
-<DT><SAMP>`BV&acute;</SAMP>
-<DD>
-Bouvet Island.
-<DT><SAMP>`BW&acute;</SAMP>
-<DD>
-Botswana.
-<DT><SAMP>`BY&acute;</SAMP>
-<DD>
-Belarus.
-<DT><SAMP>`BZ&acute;</SAMP>
-<DD>
-Belize.
-<DT><SAMP>`CA&acute;</SAMP>
-<DD>
-Canada.
-<DT><SAMP>`CC&acute;</SAMP>
-<DD>
-Cocos (Keeling) Islands.
-<DT><SAMP>`CD&acute;</SAMP>
-<DD>
-Congo (Dem. Rep.).
-<DT><SAMP>`CF&acute;</SAMP>
-<DD>
-Central African Rep..
-<DT><SAMP>`CG&acute;</SAMP>
-<DD>
-Congo (Rep.).
-<DT><SAMP>`CH&acute;</SAMP>
-<DD>
-Switzerland.
-<DT><SAMP>`CI&acute;</SAMP>
-<DD>
-C&ocirc;te d'Ivoire.
-<DT><SAMP>`CK&acute;</SAMP>
-<DD>
-Cook Islands.
-<DT><SAMP>`CL&acute;</SAMP>
-<DD>
-Chile.
-<DT><SAMP>`CM&acute;</SAMP>
-<DD>
-Cameroon.
-<DT><SAMP>`CN&acute;</SAMP>
-<DD>
-China.
-<DT><SAMP>`CO&acute;</SAMP>
-<DD>
-Colombia.
-<DT><SAMP>`CR&acute;</SAMP>
-<DD>
-Costa Rica.
-<DT><SAMP>`CS&acute;</SAMP>
-<DD>
-Serbia and Montenegro.
-<DT><SAMP>`CU&acute;</SAMP>
-<DD>
-Cuba.
-<DT><SAMP>`CV&acute;</SAMP>
-<DD>
-Cape Verde.
-<DT><SAMP>`CX&acute;</SAMP>
-<DD>
-Christmas Island.
-<DT><SAMP>`CY&acute;</SAMP>
-<DD>
-Cyprus.
-<DT><SAMP>`CZ&acute;</SAMP>
-<DD>
-Czech Republic.
-<DT><SAMP>`DE&acute;</SAMP>
-<DD>
-Germany.
-<DT><SAMP>`DJ&acute;</SAMP>
-<DD>
-Djibouti.
-<DT><SAMP>`DK&acute;</SAMP>
-<DD>
-Denmark.
-<DT><SAMP>`DM&acute;</SAMP>
-<DD>
-Dominica.
-<DT><SAMP>`DO&acute;</SAMP>
-<DD>
-Dominican Republic.
-<DT><SAMP>`DZ&acute;</SAMP>
-<DD>
-Algeria.
-<DT><SAMP>`EC&acute;</SAMP>
-<DD>
-Ecuador.
-<DT><SAMP>`EE&acute;</SAMP>
-<DD>
-Estonia.
-<DT><SAMP>`EG&acute;</SAMP>
-<DD>
-Egypt.
-<DT><SAMP>`EH&acute;</SAMP>
-<DD>
-Western Sahara.
-<DT><SAMP>`ER&acute;</SAMP>
-<DD>
-Eritrea.
-<DT><SAMP>`ES&acute;</SAMP>
-<DD>
-Spain.
-<DT><SAMP>`ET&acute;</SAMP>
-<DD>
-Ethiopia.
-<DT><SAMP>`FI&acute;</SAMP>
-<DD>
-Finland.
-<DT><SAMP>`FJ&acute;</SAMP>
-<DD>
-Fiji.
-<DT><SAMP>`FK&acute;</SAMP>
-<DD>
-Falkland Islands.
-<DT><SAMP>`FM&acute;</SAMP>
-<DD>
-Micronesia.
-<DT><SAMP>`FO&acute;</SAMP>
-<DD>
-Faeroe Islands.
-<DT><SAMP>`FR&acute;</SAMP>
-<DD>
-France.
-<DT><SAMP>`GA&acute;</SAMP>
-<DD>
-Gabon.
-<DT><SAMP>`GB&acute;</SAMP>
-<DD>
-Britain (UK).
-<DT><SAMP>`GD&acute;</SAMP>
-<DD>
-Grenada.
-<DT><SAMP>`GE&acute;</SAMP>
-<DD>
-Georgia.
-<DT><SAMP>`GF&acute;</SAMP>
-<DD>
-French Guiana.
-<DT><SAMP>`GH&acute;</SAMP>
-<DD>
-Ghana.
-<DT><SAMP>`GI&acute;</SAMP>
-<DD>
-Gibraltar.
-<DT><SAMP>`GL&acute;</SAMP>
-<DD>
-Greenland.
-<DT><SAMP>`GM&acute;</SAMP>
-<DD>
-Gambia.
-<DT><SAMP>`GN&acute;</SAMP>
-<DD>
-Guinea.
-<DT><SAMP>`GP&acute;</SAMP>
-<DD>
-Guadeloupe.
-<DT><SAMP>`GQ&acute;</SAMP>
-<DD>
-Equatorial Guinea.
-<DT><SAMP>`GR&acute;</SAMP>
-<DD>
-Greece.
-<DT><SAMP>`GS&acute;</SAMP>
-<DD>
-South Georgia and the South Sandwich Islands.
-<DT><SAMP>`GT&acute;</SAMP>
-<DD>
-Guatemala.
-<DT><SAMP>`GU&acute;</SAMP>
-<DD>
-Guam.
-<DT><SAMP>`GW&acute;</SAMP>
-<DD>
-Guinea-Bissau.
-<DT><SAMP>`GY&acute;</SAMP>
-<DD>
-Guyana.
-<DT><SAMP>`HK&acute;</SAMP>
-<DD>
-Hong Kong.
-<DT><SAMP>`HM&acute;</SAMP>
-<DD>
-Heard Island and McDonald Islands.
-<DT><SAMP>`HN&acute;</SAMP>
-<DD>
-Honduras.
-<DT><SAMP>`HR&acute;</SAMP>
-<DD>
-Croatia.
-<DT><SAMP>`HT&acute;</SAMP>
-<DD>
-Haiti.
-<DT><SAMP>`HU&acute;</SAMP>
-<DD>
-Hungary.
-<DT><SAMP>`ID&acute;</SAMP>
-<DD>
-Indonesia.
-<DT><SAMP>`IE&acute;</SAMP>
-<DD>
-Ireland.
-<DT><SAMP>`IL&acute;</SAMP>
-<DD>
-Israel.
-<DT><SAMP>`IN&acute;</SAMP>
-<DD>
-India.
-<DT><SAMP>`IO&acute;</SAMP>
-<DD>
-British Indian Ocean Territory.
-<DT><SAMP>`IQ&acute;</SAMP>
-<DD>
-Iraq.
-<DT><SAMP>`IR&acute;</SAMP>
-<DD>
-Iran.
-<DT><SAMP>`IS&acute;</SAMP>
-<DD>
-Iceland.
-<DT><SAMP>`IT&acute;</SAMP>
-<DD>
-Italy.
-<DT><SAMP>`JM&acute;</SAMP>
-<DD>
-Jamaica.
-<DT><SAMP>`JO&acute;</SAMP>
-<DD>
-Jordan.
-<DT><SAMP>`JP&acute;</SAMP>
-<DD>
-Japan.
-<DT><SAMP>`KE&acute;</SAMP>
-<DD>
-Kenya.
-<DT><SAMP>`KG&acute;</SAMP>
-<DD>
-Kyrgyzstan.
-<DT><SAMP>`KH&acute;</SAMP>
-<DD>
-Cambodia.
-<DT><SAMP>`KI&acute;</SAMP>
-<DD>
-Kiribati.
-<DT><SAMP>`KM&acute;</SAMP>
-<DD>
-Comoros.
-<DT><SAMP>`KN&acute;</SAMP>
-<DD>
-St Kitts and Nevis.
-<DT><SAMP>`KP&acute;</SAMP>
-<DD>
-Korea (North).
-<DT><SAMP>`KR&acute;</SAMP>
-<DD>
-Korea (South).
-<DT><SAMP>`KW&acute;</SAMP>
-<DD>
-Kuwait.
-<DT><SAMP>`KY&acute;</SAMP>
-<DD>
-Cayman Islands.
-<DT><SAMP>`KZ&acute;</SAMP>
-<DD>
-Kazakhstan.
-<DT><SAMP>`LA&acute;</SAMP>
-<DD>
-Laos.
-<DT><SAMP>`LB&acute;</SAMP>
-<DD>
-Lebanon.
-<DT><SAMP>`LC&acute;</SAMP>
-<DD>
-St Lucia.
-<DT><SAMP>`LI&acute;</SAMP>
-<DD>
-Liechtenstein.
-<DT><SAMP>`LK&acute;</SAMP>
-<DD>
-Sri Lanka.
-<DT><SAMP>`LR&acute;</SAMP>
-<DD>
-Liberia.
-<DT><SAMP>`LS&acute;</SAMP>
-<DD>
-Lesotho.
-<DT><SAMP>`LT&acute;</SAMP>
-<DD>
-Lithuania.
-<DT><SAMP>`LU&acute;</SAMP>
-<DD>
-Luxembourg.
-<DT><SAMP>`LV&acute;</SAMP>
-<DD>
-Latvia.
-<DT><SAMP>`LY&acute;</SAMP>
-<DD>
-Libya.
-<DT><SAMP>`MA&acute;</SAMP>
-<DD>
-Morocco.
-<DT><SAMP>`MC&acute;</SAMP>
-<DD>
-Monaco.
-<DT><SAMP>`MD&acute;</SAMP>
-<DD>
-Moldova.
-<DT><SAMP>`MG&acute;</SAMP>
-<DD>
-Madagascar.
-<DT><SAMP>`MH&acute;</SAMP>
-<DD>
-Marshall Islands.
-<DT><SAMP>`MK&acute;</SAMP>
-<DD>
-Macedonia.
-<DT><SAMP>`ML&acute;</SAMP>
-<DD>
-Mali.
-<DT><SAMP>`MM&acute;</SAMP>
-<DD>
-Myanmar (Burma).
-<DT><SAMP>`MN&acute;</SAMP>
-<DD>
-Mongolia.
-<DT><SAMP>`MO&acute;</SAMP>
-<DD>
-Macao.
-<DT><SAMP>`MP&acute;</SAMP>
-<DD>
-Northern Mariana Islands.
-<DT><SAMP>`MQ&acute;</SAMP>
-<DD>
-Martinique.
-<DT><SAMP>`MR&acute;</SAMP>
-<DD>
-Mauritania.
-<DT><SAMP>`MS&acute;</SAMP>
-<DD>
-Montserrat.
-<DT><SAMP>`MT&acute;</SAMP>
-<DD>
-Malta.
-<DT><SAMP>`MU&acute;</SAMP>
-<DD>
-Mauritius.
-<DT><SAMP>`MV&acute;</SAMP>
-<DD>
-Maldives.
-<DT><SAMP>`MW&acute;</SAMP>
-<DD>
-Malawi.
-<DT><SAMP>`MX&acute;</SAMP>
-<DD>
-Mexico.
-<DT><SAMP>`MY&acute;</SAMP>
-<DD>
-Malaysia.
-<DT><SAMP>`MZ&acute;</SAMP>
-<DD>
-Mozambique.
-<DT><SAMP>`NA&acute;</SAMP>
-<DD>
-Namibia.
-<DT><SAMP>`NC&acute;</SAMP>
-<DD>
-New Caledonia.
-<DT><SAMP>`NE&acute;</SAMP>
-<DD>
-Niger.
-<DT><SAMP>`NF&acute;</SAMP>
-<DD>
-Norfolk Island.
-<DT><SAMP>`NG&acute;</SAMP>
-<DD>
-Nigeria.
-<DT><SAMP>`NI&acute;</SAMP>
-<DD>
-Nicaragua.
-<DT><SAMP>`NL&acute;</SAMP>
-<DD>
-Netherlands.
-<DT><SAMP>`NO&acute;</SAMP>
-<DD>
-Norway.
-<DT><SAMP>`NP&acute;</SAMP>
-<DD>
-Nepal.
-<DT><SAMP>`NR&acute;</SAMP>
-<DD>
-Nauru.
-<DT><SAMP>`NU&acute;</SAMP>
-<DD>
-Niue.
-<DT><SAMP>`NZ&acute;</SAMP>
-<DD>
-New Zealand.
-<DT><SAMP>`OM&acute;</SAMP>
-<DD>
-Oman.
-<DT><SAMP>`PA&acute;</SAMP>
-<DD>
-Panama.
-<DT><SAMP>`PE&acute;</SAMP>
-<DD>
-Peru.
-<DT><SAMP>`PF&acute;</SAMP>
-<DD>
-French Polynesia.
-<DT><SAMP>`PG&acute;</SAMP>
-<DD>
-Papua New Guinea.
-<DT><SAMP>`PH&acute;</SAMP>
-<DD>
-Philippines.
-<DT><SAMP>`PK&acute;</SAMP>
-<DD>
-Pakistan.
-<DT><SAMP>`PL&acute;</SAMP>
-<DD>
-Poland.
-<DT><SAMP>`PM&acute;</SAMP>
-<DD>
-St Pierre and Miquelon.
-<DT><SAMP>`PN&acute;</SAMP>
-<DD>
-Pitcairn.
-<DT><SAMP>`PR&acute;</SAMP>
-<DD>
-Puerto Rico.
-<DT><SAMP>`PS&acute;</SAMP>
-<DD>
-Palestine.
-<DT><SAMP>`PT&acute;</SAMP>
-<DD>
-Portugal.
-<DT><SAMP>`PW&acute;</SAMP>
-<DD>
-Palau.
-<DT><SAMP>`PY&acute;</SAMP>
-<DD>
-Paraguay.
-<DT><SAMP>`QA&acute;</SAMP>
-<DD>
-Qatar.
-<DT><SAMP>`RE&acute;</SAMP>
-<DD>
-Reunion.
-<DT><SAMP>`RO&acute;</SAMP>
-<DD>
-Romania.
-<DT><SAMP>`RU&acute;</SAMP>
-<DD>
-Russia.
-<DT><SAMP>`RW&acute;</SAMP>
-<DD>
-Rwanda.
-<DT><SAMP>`SA&acute;</SAMP>
-<DD>
-Saudi Arabia.
-<DT><SAMP>`SB&acute;</SAMP>
-<DD>
-Solomon Islands.
-<DT><SAMP>`SC&acute;</SAMP>
-<DD>
-Seychelles.
-<DT><SAMP>`SD&acute;</SAMP>
-<DD>
-Sudan.
-<DT><SAMP>`SE&acute;</SAMP>
-<DD>
-Sweden.
-<DT><SAMP>`SG&acute;</SAMP>
-<DD>
-Singapore.
-<DT><SAMP>`SH&acute;</SAMP>
-<DD>
-St Helena.
-<DT><SAMP>`SI&acute;</SAMP>
-<DD>
-Slovenia.
-<DT><SAMP>`SJ&acute;</SAMP>
-<DD>
-Svalbard and Jan Mayen.
-<DT><SAMP>`SK&acute;</SAMP>
-<DD>
-Slovakia.
-<DT><SAMP>`SL&acute;</SAMP>
-<DD>
-Sierra Leone.
-<DT><SAMP>`SM&acute;</SAMP>
-<DD>
-San Marino.
-<DT><SAMP>`SN&acute;</SAMP>
-<DD>
-Senegal.
-<DT><SAMP>`SO&acute;</SAMP>
-<DD>
-Somalia.
-<DT><SAMP>`SR&acute;</SAMP>
-<DD>
-Suriname.
-<DT><SAMP>`ST&acute;</SAMP>
-<DD>
-Sao Tome and Principe.
-<DT><SAMP>`SV&acute;</SAMP>
-<DD>
-El Salvador.
-<DT><SAMP>`SY&acute;</SAMP>
-<DD>
-Syria.
-<DT><SAMP>`SZ&acute;</SAMP>
-<DD>
-Swaziland.
-<DT><SAMP>`TC&acute;</SAMP>
-<DD>
-Turks and Caicos Islands.
-<DT><SAMP>`TD&acute;</SAMP>
-<DD>
-Chad.
-<DT><SAMP>`TF&acute;</SAMP>
-<DD>
-French Southern and Antarctic Lands.
-<DT><SAMP>`TG&acute;</SAMP>
-<DD>
-Togo.
-<DT><SAMP>`TH&acute;</SAMP>
-<DD>
-Thailand.
-<DT><SAMP>`TJ&acute;</SAMP>
-<DD>
-Tajikistan.
-<DT><SAMP>`TK&acute;</SAMP>
-<DD>
-Tokelau.
-<DT><SAMP>`TL&acute;</SAMP>
-<DD>
-Timor-Leste.
-<DT><SAMP>`TM&acute;</SAMP>
-<DD>
-Turkmenistan.
-<DT><SAMP>`TN&acute;</SAMP>
-<DD>
-Tunisia.
-<DT><SAMP>`TO&acute;</SAMP>
-<DD>
-Tonga.
-<DT><SAMP>`TR&acute;</SAMP>
-<DD>
-Turkey.
-<DT><SAMP>`TT&acute;</SAMP>
-<DD>
-Trinidad and Tobago.
-<DT><SAMP>`TV&acute;</SAMP>
-<DD>
-Tuvalu.
-<DT><SAMP>`TW&acute;</SAMP>
-<DD>
-Taiwan.
-<DT><SAMP>`TZ&acute;</SAMP>
-<DD>
-Tanzania.
-<DT><SAMP>`UA&acute;</SAMP>
-<DD>
-Ukraine.
-<DT><SAMP>`UG&acute;</SAMP>
-<DD>
-Uganda.
-<DT><SAMP>`UM&acute;</SAMP>
-<DD>
-US minor outlying islands.
-<DT><SAMP>`US&acute;</SAMP>
-<DD>
-United States.
-<DT><SAMP>`UY&acute;</SAMP>
-<DD>
-Uruguay.
-<DT><SAMP>`UZ&acute;</SAMP>
-<DD>
-Uzbekistan.
-<DT><SAMP>`VA&acute;</SAMP>
-<DD>
-Vatican City.
-<DT><SAMP>`VC&acute;</SAMP>
-<DD>
-St Vincent.
-<DT><SAMP>`VE&acute;</SAMP>
-<DD>
-Venezuela.
-<DT><SAMP>`VG&acute;</SAMP>
-<DD>
-Virgin Islands (UK).
-<DT><SAMP>`VI&acute;</SAMP>
-<DD>
-Virgin Islands (US).
-<DT><SAMP>`VN&acute;</SAMP>
-<DD>
-Vietnam.
-<DT><SAMP>`VU&acute;</SAMP>
-<DD>
-Vanuatu.
-<DT><SAMP>`WF&acute;</SAMP>
-<DD>
-Wallis and Futuna.
-<DT><SAMP>`WS&acute;</SAMP>
-<DD>
-Samoa (Western).
-<DT><SAMP>`YE&acute;</SAMP>
-<DD>
-Yemen.
-<DT><SAMP>`YT&acute;</SAMP>
-<DD>
-Mayotte.
-<DT><SAMP>`ZA&acute;</SAMP>
-<DD>
-South Africa.
-<DT><SAMP>`ZM&acute;</SAMP>
-<DD>
-Zambia.
-<DT><SAMP>`ZW&acute;</SAMP>
-<DD>
-Zimbabwe.
-</DL>
+</P>
+<P>
+Jim implemented <CODE>glocale</CODE> and got a lot of exhausting feedback
+from Patrick and Richard, of course, but also from Mitchum DSouza
+(who wrote a <CODE>catgets</CODE>-like package), Roland McGrath, maybe David
+MacKenzie, Fran&ccedil;ois Pinard, and Paul Eggert, all pushing and
+pulling in various directions, not always compatible, to the extent
+that after a couple of test releases, <CODE>glocale</CODE> was torn apart.
+In particular, Paul Eggert -- always keeping an eye on developments
+in Solaris -- advocated the use of the <CODE>gettext</CODE> API over
+<CODE>glocale</CODE>'s <CODE>catgets</CODE>-based API.
 
+</P>
+<P>
+While Jim took some distance and time and became dad for a second
+time, Roland wanted to get GNU <CODE>libc</CODE> internationalized, and
+got Ulrich Drepper involved in that project.  Instead of starting
+from <CODE>glocale</CODE>, Ulrich rewrote something from scratch, but
+more conformant to the set of guidelines who emerged out of the
+<CODE>glocale</CODE> effort.  Then, Ulrich got people from the previous
+forum to involve themselves into this new project, and the switch
+from <CODE>glocale</CODE> to what was first named <CODE>msgutils</CODE>, renamed
+<CODE>nlsutils</CODE>, and later <CODE>gettext</CODE>, became officially accepted
+by Richard in May 1995 or so.
+
+</P>
+<P>
+Let's summarize by saying that Ulrich Drepper wrote GNU <CODE>gettext</CODE>
+in April 1995.  The first official release of the package, including
+PO mode, occurred in July 1995, and was numbered 0.7.  Other people
+contributed to the effort by providing a discussion forum around
+Ulrich, writing little pieces of code, or testing.  These are quoted
+in the <CODE>THANKS</CODE> file which comes with the GNU <CODE>gettext</CODE>
+distribution.
+
+</P>
+<P>
+While this was being done, Fran&ccedil;ois adapted half a dozen of
+GNU packages to <CODE>glocale</CODE> first, then later to <CODE>gettext</CODE>,
+putting them in pretest, so providing along the way an effective
+user environment for fine tuning the evolving tools.  He also took
+the responsibility of organizing and coordinating the Translation
+Project.  After nearly a year of informal exchanges between people from
+many countries, translator teams started to exist in May 1995, through
+the creation and support by Patrick D'Cruze of twenty unmoderated
+mailing lists for that many native languages, and two moderated
+lists: one for reaching all teams at once, the other for reaching
+all willing maintainers of internationalized free software packages.
+
+</P>
+<P>
+Fran&ccedil;ois also wrote PO mode in June 1995 with the collaboration
+of Greg McGary, as a kind of contribution to Ulrich's package.
+He also gave a hand with the GNU <CODE>gettext</CODE> Texinfo manual.
+
+</P>
+<P>
+In 1997, Ulrich Drepper released the GNU libc 2.0, which included the
+<CODE>gettext</CODE>, <CODE>textdomain</CODE> and <CODE>bindtextdomain</CODE> functions.
+
+</P>
+<P>
+In 2000, Ulrich Drepper added plural form handling (the <CODE>ngettext</CODE>
+function) to GNU libc.  Later, in 2001, he released GNU libc 2.2.x,
+which is the first free C library with full internationalization support.
+
+</P>
+<P>
+Ulrich being quite busy in his role of General Maintainer of GNU libc,
+he handed over the GNU <CODE>gettext</CODE> maintenance to Bruno Haible in
+2000.  Bruno added the plural form handling to the tools as well, added
+support for UTF-8 and CJK locales, and wrote a few new tools for
+manipulating PO files.
+
+</P>
+
+
+<H2><A NAME="SEC292" HREF="gettext_toc.html#TOC292">16.2  Related Readings</A></H2>
+<P>
+<A NAME="IDX1167"></A>
+<A NAME="IDX1168"></A>
+
+</P>
+<P>
+Eugene H. Dorr (<TT>`dorre@well.com&acute;</TT>) maintains an interesting
+bibliography on internationalization matters, called
+<CITE>Internationalization Reference List</CITE>, which is available as:
+
+<PRE>
+ftp://ftp.ora.com/pub/examples/nutshell/ujip/doc/i18n-books.txt
+</PRE>
+
+<P>
+Michael Gschwind (<TT>`mike@vlsivie.tuwien.ac.at&acute;</TT>) maintains a
+Frequently Asked Questions (FAQ) list, entitled <CITE>Programming for
+Internationalisation</CITE>.  This FAQ discusses writing programs which
+can handle different language conventions, character sets, etc.;
+and is applicable to all character set encodings, with particular
+emphasis on ISO 8859-1.  It is regularly published in Usenet
+groups <TT>`comp.unix.questions&acute;</TT>, <TT>`comp.std.internat&acute;</TT>,
+<TT>`comp.software.international&acute;</TT>, <TT>`comp.lang.c&acute;</TT>,
+<TT>`comp.windows.x&acute;</TT>, <TT>`comp.std.c&acute;</TT>, <TT>`comp.answers&acute;</TT>
+and <TT>`news.answers&acute;</TT>.  The home location of this document is:
+
+<PRE>
+ftp://ftp.vlsivie.tuwien.ac.at/pub/8bit/ISO-programming
+</PRE>
+
+<P>
+Patrick D'Cruze (<TT>`pdcruze@li.org&acute;</TT>) wrote a tutorial about NLS
+matters, and Jochen Hein (<TT>`Hein@student.tu-clausthal.de&acute;</TT>) took
+over the responsibility of maintaining it.  It may be found as:
+
+<PRE>
+ftp://sunsite.unc.edu/pub/Linux/utils/nls/catalogs/Incoming/...
+     ...locale-tutorial-0.8.txt.gz
+</PRE>
+
+<P>
+This site is mirrored in:
+
+<PRE>
+ftp://ftp.ibp.fr/pub/linux/sunsite/
+</PRE>
+
+<P>
+A French version of the same tutorial should be findable at:
+
+<PRE>
+ftp://ftp.ibp.fr/pub/linux/french/docs/
+</PRE>
+
+<P>
+together with French translations of many Linux-related documents.
+
+</P>
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_15.html">previous</A>, <A HREF="gettext_17.html">next</A>, <A HREF="gettext_22.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_15.html">previous</A>, <A HREF="gettext_17.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>
