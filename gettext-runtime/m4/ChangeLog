@@ -1,3 +1,8 @@
+2005-07-22  Bruno Haible  <bruno@clisp.org>
+
+	* lock.m4 (gl_LOCK): Stronger test for pthread functions in libc, so
+	that the result on IRIX 6.5 is no.
+
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Also hide the glthread_once* functions.
