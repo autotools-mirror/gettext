@@ -3,3 +3,5 @@ config.cache
 config.log
 config.status
 libtool
+build-aux
+build-aux-dir
