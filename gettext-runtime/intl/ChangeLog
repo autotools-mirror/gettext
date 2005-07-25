@@ -1,3 +1,11 @@
+2005-07-25  Bruno Haible  <bruno@clisp.org>
+
+	Make pthread_in_use() return 0 on Solaris and HP-UX when not linking
+	with -lpthread.
+	* lock.h (pthread_in_use) [PTHREAD_IN_USE_DETECTION_HARD]: Define
+	through glthread_in_use.
+	* lock.c (dummy_thread_func, glthread_in_use): New functions.
+
 2005-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (libintl.la, libgnuintl.la): Link with @LTLIBTHREADS@.

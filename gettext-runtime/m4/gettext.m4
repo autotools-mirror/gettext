@@ -479,6 +479,7 @@ __fsetlocking])
 #define __libc_lock_init_recursive                gl_recursive_lock_init
 #define __libc_lock_lock_recursive                gl_recursive_lock_lock
 #define __libc_lock_unlock_recursive              gl_recursive_lock_unlock
+#define glthread_in_use  libintl_thread_in_use
 #define glthread_lock_init     libintl_lock_init
 #define glthread_lock_lock     libintl_lock_lock
 #define glthread_lock_unlock   libintl_lock_unlock

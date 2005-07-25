@@ -75,7 +75,17 @@ AC_HELP_STRING([--disable-threads], [build without multithread safety]),
           # The program links fine without libpthread. But it may actually
           # need to link with libpthread in order to create multiple threads.
           AC_CHECK_LIB(pthread, pthread_kill,
-            [LIBMULTITHREAD=-lpthread LTLIBMULTITHREAD=-lpthread])
+            [LIBMULTITHREAD=-lpthread LTLIBMULTITHREAD=-lpthread
+             # On Solaris and HP-UX, most pthread functions exist also in libc.
+             # Therefore pthread_in_use() needs to actually try to create a
+             # thread: pthread_create from libc will fail, whereas
+             # pthread_create will actually create a thread.
+             case "$host_os" in
+               solaris* | hpux*)
+                 AC_DEFINE([PTHREAD_IN_USE_DETECTION_HARD], 1,
+                   [Define if the pthread_in_use() detection is hard.])
+             esac
+            ])
         else
           # Some library is needed. Try libpthread and libc_r.
           AC_CHECK_LIB(pthread, pthread_kill,
@@ -239,7 +249,8 @@ dnl
 dnl Solaris 7,8,9     posix       -lpthread       Y      Sol 7,8: 0.0; Sol 9: OK
 dnl                   solaris     -lthread        Y      Sol 7,8: 0.0; Sol 9: OK
 dnl
-dnl HP-UX 11          posix       -lpthread       Y      OK
+dnl HP-UX 11          posix       -lpthread       N (cc) OK
+dnl                                               Y (gcc)
 dnl
 dnl IRIX 6.5          posix       -lpthread       Y      0.5
 dnl

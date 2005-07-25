@@ -1,3 +1,9 @@
+2005-07-25  Bruno Haible  <bruno@clisp.org>
+
+	* lock.m4 (gl_LOCK): On Solaris and HP-UX, define
+	PTHREAD_IN_USE_DETECTION_HARD.
+	* gettext.m4 (AM_INTL_SUBDIR): Also hide the glthread_in_use function.
+
 2005-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* lock.m4 (gl_LOCK): Stronger test for pthread functions in libc, so
