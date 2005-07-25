@@ -1,5 +1,7 @@
 Makefile
 gettext.sh
+.libs
+_libs
 envsubst
 gettext
 ngettext
