@@ -1,5 +1,9 @@
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
+	* user-email.sh.in (datarootdir): New variable.
+
+2005-07-26  Bruno Haible  <bruno@clisp.org>
+
 	Fix compilation error on systems without iconv().
 	* xgettext.c (convert_string): Remove fallback macro definition.
 	(from_current_source_encoding) [!HAVE_ICONV]: Just abort here.

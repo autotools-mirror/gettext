@@ -28,6 +28,7 @@ version=@VERSION@
 # Set variables
 # - gettext_dir     directory where the sources are stored.
 prefix="@prefix@"
+datarootdir="@datarootdir@"
 gettext_dir="@datadir@/gettext"
 
 # func_tmpdir

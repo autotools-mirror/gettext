@@ -1,3 +1,8 @@
+2005-07-26  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (datarootdir): New variable.
+	Suggested by Stepan Kasal <kasal@ucw.cz>.
+
 2005-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (Makefile): Call config.status with calling convention
