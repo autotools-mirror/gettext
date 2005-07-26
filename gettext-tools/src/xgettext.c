@@ -1642,14 +1642,6 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 
 
 
-#if !HAVE_ICONV
-/* If we don't have iconv(), the only supported values for
-   xgettext_global_source_encoding and thus also for
-   xgettext_current_source_encoding are ASCII and UTF-8.
-   convert_string() should not be called in this case.  */
-#define convert_string(cd,string,context) (abort (), (string))
-#endif
-
 /* Convert the given string from xgettext_current_source_encoding to
    the output file encoding (i.e. ASCII or UTF-8).
    The resulting string is either the argument string, or freshly allocated.
@@ -1678,6 +1670,7 @@ Please specify the source encoding through --from-code.\n"),
     }
   else if (xgettext_current_source_encoding != po_charset_utf8)
     {
+#if HAVE_ICONV
       struct conversion_context context;
 
       context.from_code = xgettext_current_source_encoding;
@@ -1685,6 +1678,13 @@ Please specify the source encoding through --from-code.\n"),
       context.from_filename = file_name;
 
       string = convert_string (xgettext_current_source_iconv, string, &context);
+#else
+      /* If we don't have iconv(), the only supported values for
+	 xgettext_global_source_encoding and thus also for
+	 xgettext_current_source_encoding are ASCII and UTF-8.
+	 convert_string() should not be called in this case.  */
+      abort ();
+#endif
     }
 
   return (char *) string;
