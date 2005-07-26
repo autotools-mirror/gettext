@@ -4,7 +4,7 @@ config.h
 config.log
 config.status
 libtool
-stamp-h
+stamp-h*
 alloca.h
 autosprintf.h
 .libs

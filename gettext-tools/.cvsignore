@@ -4,5 +4,6 @@ config.h
 config.log
 config.status
 libtool
+stamp-h*
 config.h.msvc
 config.h_vms
