@@ -1,5 +1,9 @@
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
+	* lock.m4 (gl_LOCK): On OSF/1 with cc, use -D_REENTRANT, not -pthread.
+
+2005-07-26  Bruno Haible  <bruno@clisp.org>
+
 	* lock.m4 (gl_LOCK): Add some ordering constraints.
 
 2005-07-25  Bruno Haible  <bruno@clisp.org>

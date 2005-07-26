@@ -59,14 +59,13 @@ AC_HELP_STRING([--disable-threads], [build without multithread safety]),
         #   -lgthreads
         case "$host_os" in
           osf*)
-            # On OSF/1, the compiler needs the flag -pthread so that it groks
-            # <pthread.h>. For the linker, it is equivalent to -lpthread.
-            if test -n "$GCC"; then
-              # gcc-2.95 doesn't understand -pthread, only -D_REENTRANT.
-              CPPFLAGS="$CPPFLAGS -D_REENTRANT"
-            else
-              CPPFLAGS="$CPPFLAGS -pthread"
-            fi
+            # On OSF/1, the compiler needs the flag -D_REENTRANT so that it
+            # groks <pthread.h>. cc also understands the flag -pthread, but
+            # we don't use it because 1. gcc-2.95 doesn't understand -pthread,
+            # 2. putting a flag into CPPFLAGS that has an effect on the linker
+            # causes the AC_TRY_LINK test below to succeed unexpectedly,
+            # leading to wrong values of LIBTHREAD and LTLIBTHREAD.
+            CPPFLAGS="$CPPFLAGS -D_REENTRANT"
             ;;
         esac
         gl_have_pthread=
