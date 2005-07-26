@@ -137,7 +137,8 @@ int x = (int)PTHREAD_MUTEX_RECURSIVE;
             [AC_DEFINE([HAVE_PTHREAD_MUTEX_RECURSIVE], 1,
                [Define if the <pthread.h> defines PTHREAD_MUTEX_RECURSIVE.])])
           # Some systems optimize for single-threaded programs by default, and
-          # need special flags to disable these optimizations.
+          # need special flags to disable these optimizations. For example, the
+          # definition of 'errno' in <errno.h>.
           case "$host_os" in
             aix* | freebsd*) CPPFLAGS="$CPPFLAGS -D_THREAD_SAFE" ;;
             solaris*) CPPFLAGS="$CPPFLAGS -D_REENTRANT" ;;
