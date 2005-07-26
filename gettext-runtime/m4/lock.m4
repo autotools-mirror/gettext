@@ -16,9 +16,17 @@ dnl Sets the variables LIBMULTITHREAD and LTLIBMULTITHREAD similarly, for
 dnl programs that really need multithread functionality. The difference
 dnl between LIBTHREAD and LIBMULTITHREAD is that on platforms supporting weak
 dnl symbols, typically LIBTHREAD="" whereas LIBMULTITHREAD="-lpthread".
+dnl Adds to CPPFLAGS the flag -D_REENTRANT or -D_THREAD_SAFE if needed for
+dnl multithread-safe programs.
 
 AC_DEFUN([gl_LOCK],
 [
+  dnl Ordering constraints: This macro modifies CPPFLAGS in a way that
+  dnl influences the result of the autoconf tests that test for *_unlocked
+  dnl declarations, on AIX 5 at least. Therefore it must come early.
+  AC_BEFORE([$0], [gl_FUNC_GLIBC_UNLOCKED_IO])dnl
+  AC_BEFORE([$0], [gl_ARGP])dnl
+
   AC_REQUIRE([AC_CANONICAL_HOST])
   AC_REQUIRE([AC_GNU_SOURCE]) dnl needed for pthread_rwlock_t on glibc systems
   dnl Check for multithreading.

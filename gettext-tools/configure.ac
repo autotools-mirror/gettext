@@ -104,6 +104,10 @@ AC_RELOCATABLE
 
 dnl Checks for libraries.
 
+dnl These are the only lines required to internationalize the package.
+dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
+AM_GNU_GETTEXT(use-libtool, need-ngettext)
+
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)
@@ -166,10 +170,6 @@ gl_XSIZE
 gt_LIBGREP
 
 gt_PREREQ_HOSTNAME
-
-dnl These are the only lines required to internationalize the package.
-dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
-AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
 dnl Compilation on mingw needs special Makefile rules, because of variables
 dnl being exported from or imported into shared libraries.

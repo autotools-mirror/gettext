@@ -74,6 +74,10 @@ AC_RELOCATABLE
 
 dnl Checks for libraries.
 
+dnl These are the only lines required to internationalize the package.
+dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
+AM_GNU_GETTEXT(use-libtool, need-ngettext)
+
 dnl Checks for header files.
 AC_CHECK_HEADERS(string.h)
 AM_STDBOOL_H
@@ -96,10 +100,6 @@ gl_PATHMAX
 gl_FUNC_READLINK
 gl_XREADLINK
 gl_CANONICALIZE
-
-dnl These are the only lines required to internationalize the package.
-dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
-AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
