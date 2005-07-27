@@ -1,3 +1,21 @@
+2005-07-24  Bruno Haible  <bruno@clisp.org>
+
+	Tidy up exported symbols.
+	* hello-c/m4/Makefile.am (EXTRA_DIST): Add visibility.m4.
+	* hello-c-gnome/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-c++/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-c++-gnome/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-c++-kde/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-objc/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-objc-gnome/m4/Makefile.am (EXTRA_DIST): Likewise.
+	* hello-c/autoclean.sh: Remove also m4/visibility.m4.
+	* hello-c-gnome/autoclean.sh: Likewise.
+	* hello-c++/autoclean.sh: Likewise.
+	* hello-c++-gnome/autoclean.sh: Likewise.
+	* hello-c++-kde/autoclean.sh: Likewise.
+	* hello-objc/autoclean.sh: Likewise.
+	* hello-objc-gnome/autoclean.sh: Likewise.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* installpaths.in (datarootdir): New variable.

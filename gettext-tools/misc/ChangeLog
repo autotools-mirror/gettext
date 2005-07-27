@@ -1,3 +1,8 @@
+2005-07-24  Bruno Haible  <bruno@clisp.org>
+
+	Tidy up exported symbols.
+	* gettextize.in (m4filelist): Add visibility.m4.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in (datarootdir): New variable.

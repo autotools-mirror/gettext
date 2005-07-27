@@ -1,3 +1,8 @@
+2005-07-24  Bruno Haible  <bruno@clisp.org>
+
+	Tidy up exported symbols.
+	* PACKAGING: Mention visibility.m4.
+
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Add lock.m4.

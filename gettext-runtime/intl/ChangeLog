@@ -1,3 +1,27 @@
+2005-07-24  Bruno Haible  <bruno@clisp.org>
+
+	Tidy up exported symbols.
+	* export.h: New file.
+	* gettextP.h: Move declarations so that libgnuintl.h is included
+	before loadinfo.h. Needed because libgnuintl.h defines
+	LIBINTL_DLL_EXPORTED and loadinfo.h uses it.
+	(_nl_msg_cat_cntr): Export.
+	* loadinfo.h (LIBINTL_DLL_EXPORTED): Provide fallback declaration.
+	(_nl_expand_alias): Export.
+	* bindtextdom.c: Include gettextP.h before libgnuintl.h. Needed so
+	that _INTL_REDIRECT_MACROS is defined when libgnuintl.h is included.
+	Otherwise libgnuintl.h may choose to use _INTL_REDIRECT_ASM, and then
+	gcc-4.0 ignores visibility declarations.
+	* textdomain.c: Likewise.
+	* relocatable.h (RELOCATABLE_DLL_EXPORTED) [HAVE_VISIBILITY]: Define
+	to the gcc visibility attribute.
+	* Makefile.in (DEFS): Define also BUILDING_LIBINTL and BUILDING_DLL.
+	(CFLAGS): Add CFLAG_VISIBILITY.
+	(DISTFILES.common): Add export.h.
+	(libgnuintl.h): Add LIBINTL_DLL_EXPORTED definition and uses.
+	(libintl.h): Create directly from libgnuintl.h.in, without
+	LIBINTL_DLL_EXPORTED.
+
 2005-07-21  Bruno Haible  <bruno@clisp.org>
 
 	* plural.y: Modify comment about #pragma alloca.

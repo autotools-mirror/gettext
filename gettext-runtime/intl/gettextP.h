@@ -30,6 +30,44 @@
 # endif
 #endif
 
+#ifdef _LIBC
+extern char *__gettext (const char *__msgid);
+extern char *__dgettext (const char *__domainname, const char *__msgid);
+extern char *__dcgettext (const char *__domainname, const char *__msgid,
+			  int __category);
+extern char *__ngettext (const char *__msgid1, const char *__msgid2,
+			 unsigned long int __n);
+extern char *__dngettext (const char *__domainname,
+			  const char *__msgid1, const char *__msgid2,
+			  unsigned long int n);
+extern char *__dcngettext (const char *__domainname,
+			   const char *__msgid1, const char *__msgid2,
+			   unsigned long int __n, int __category);
+extern char *__dcigettext (const char *__domainname,
+			   const char *__msgid1, const char *__msgid2,
+			   int __plural, unsigned long int __n,
+			   int __category);
+extern char *__textdomain (const char *__domainname);
+extern char *__bindtextdomain (const char *__domainname,
+			       const char *__dirname);
+extern char *__bind_textdomain_codeset (const char *__domainname,
+					const char *__codeset);
+extern void _nl_finddomain_subfreeres (void) attribute_hidden;
+extern void _nl_unload_domain (struct loaded_domain *__domain)
+     internal_function attribute_hidden;
+#else
+/* Declare the exported libintl_* functions, in a way that allows us to
+   call them under their real name.  */
+# undef _INTL_REDIRECT_INLINE
+# undef _INTL_REDIRECT_MACROS
+# define _INTL_REDIRECT_MACROS
+# include "libgnuintl.h"
+extern char *libintl_dcigettext (const char *__domainname,
+				 const char *__msgid1, const char *__msgid2,
+				 int __plural, unsigned long int __n,
+				 int __category);
+#endif
+
 #include "loadinfo.h"
 
 #include "gmo.h"		/* Get nls_uint32.  */
@@ -161,7 +199,7 @@ struct binding
 /* A counter which is incremented each time some previous translations
    become invalid.
    This variable is part of the external ABI of the GNU libintl.  */
-extern int _nl_msg_cat_cntr;
+extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
 
 #ifndef _LIBC
 const char *_nl_language_preferences_default (void);
@@ -182,44 +220,6 @@ char *_nl_find_msg (struct loaded_l10nfile *domain_file,
 		    struct binding *domainbinding, const char *msgid,
 		    int convert, size_t *lengthp)
      internal_function;
-
-#ifdef _LIBC
-extern char *__gettext (const char *__msgid);
-extern char *__dgettext (const char *__domainname, const char *__msgid);
-extern char *__dcgettext (const char *__domainname, const char *__msgid,
-			  int __category);
-extern char *__ngettext (const char *__msgid1, const char *__msgid2,
-			 unsigned long int __n);
-extern char *__dngettext (const char *__domainname,
-			  const char *__msgid1, const char *__msgid2,
-			  unsigned long int n);
-extern char *__dcngettext (const char *__domainname,
-			   const char *__msgid1, const char *__msgid2,
-			   unsigned long int __n, int __category);
-extern char *__dcigettext (const char *__domainname,
-			   const char *__msgid1, const char *__msgid2,
-			   int __plural, unsigned long int __n,
-			   int __category);
-extern char *__textdomain (const char *__domainname);
-extern char *__bindtextdomain (const char *__domainname,
-			       const char *__dirname);
-extern char *__bind_textdomain_codeset (const char *__domainname,
-					const char *__codeset);
-extern void _nl_finddomain_subfreeres (void) attribute_hidden;
-extern void _nl_unload_domain (struct loaded_domain *__domain)
-     internal_function attribute_hidden;
-#else
-/* Declare the exported libintl_* functions, in a way that allows us to
-   call them under their real name.  */
-# undef _INTL_REDIRECT_INLINE
-# undef _INTL_REDIRECT_MACROS
-# define _INTL_REDIRECT_MACROS
-# include "libgnuintl.h"
-extern char *libintl_dcigettext (const char *__domainname,
-				 const char *__msgid1, const char *__msgid2,
-				 int __plural, unsigned long int __n,
-				 int __category);
-#endif
 
 /* @@ begin of epilog @@ */
 

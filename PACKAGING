@@ -142,6 +142,7 @@ following file list.
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4
       $prefix/share/aclocal/ulonglong.m4
+      $prefix/share/aclocal/visibility.m4
       $prefix/share/aclocal/wchar_t.m4
       $prefix/share/aclocal/wint_t.m4
       $prefix/share/aclocal/xsize.m4

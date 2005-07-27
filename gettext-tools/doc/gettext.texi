@@ -6659,7 +6659,7 @@ the simplest is to concatenate the files @file{codeset.m4},
 @file{longdouble.m4}, @file{longlong.m4}, @file{printf-posix.m4},
 @file{progtest.m4}, @file{signed.m4}, @file{size_max.m4},
 @file{stdint_h.m4}, @file{uintmax_t.m4}, @file{ulonglong.m4},
-@file{wchar_t.m4}, @file{wint_t.m4}, @file{xsize.m4}
+@file{visibility.m4}, @file{wchar_t.m4}, @file{wint_t.m4}, @file{xsize.m4}
 from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},

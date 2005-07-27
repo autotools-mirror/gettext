@@ -23,12 +23,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "gettextP.h"
 #ifdef _LIBC
 # include <libintl.h>
 #else
 # include "libgnuintl.h"
 #endif
-#include "gettextP.h"
 
 /* Handle multi-threaded applications.  */
 #ifdef _LIBC

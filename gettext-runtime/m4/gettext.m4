@@ -1,4 +1,4 @@
-# gettext.m4 serial 40 (gettext-0.15)
+# gettext.m4 serial 41 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -365,6 +365,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gt_GLIBC2])dnl
   AC_REQUIRE([AC_PROG_RANLIB])dnl
   AC_REQUIRE([AC_ISC_POSIX])dnl
+  AC_REQUIRE([gl_VISIBILITY])dnl
   AC_REQUIRE([AC_HEADER_STDC])dnl
   AC_REQUIRE([AC_C_CONST])dnl
   AC_REQUIRE([bh_C_SIGNED])dnl

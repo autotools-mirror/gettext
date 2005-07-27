@@ -1,3 +1,10 @@
+2005-07-24  Bruno Haible  <bruno@clisp.org>
+
+	Tidy up exported symbols.
+	* gettext.m4 (AM_INTL_SUBDIR): Require gl_VISIBILITY.
+	* visibility.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* lock.m4 (gl_LOCK): On OSF/1 with cc, use -D_REENTRANT, not -pthread.
