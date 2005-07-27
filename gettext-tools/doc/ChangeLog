@@ -1,3 +1,11 @@
+2005-05-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Why): Mention libgettextpo.
+	(Overview, PO Files, Header Entry, Prioritizing messages): De-emphasize
+	PO mode. Talk about PO file editors instead.
+	(Sources): New section 'Importing'.
+	(PO Mode): Move introducing paragraph from Overview to here.
+
 2005-07-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Editing): New chapter, including all the PO Mode

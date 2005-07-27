@@ -171,6 +171,7 @@ The User's View
 
 Preparing Program Sources
 
+* Importing::                   Importing the @code{gettext} declaration
 * Triggering::                  Triggering @code{gettext} Operations
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
@@ -524,6 +525,10 @@ A few stand-alone programs to massage in various ways the sets of
 translatable strings, or already translated strings.
 
 @item
+A library supporting the parsing and creation of files containing
+translated messages.
+
+@item
 A special mode for Emacs@footnote{In this manual, all mentions of Emacs
 refers to either GNU Emacs or to XEmacs, which people sometimes call FSF
 Emacs and Lucid Emacs, respectively.} which helps preparing these sets
@@ -812,21 +817,21 @@ and maintainers.
 
 @example
 @group
-Original C Sources ---> PO mode ---> Marked C Sources ---.
-                                                         |
-              .---------<--- GNU gettext Library         |
-.--- make <---+                                          |
-|             `---------<--------------------+-----------'
+Original C Sources ---> Preparation ---> Marked C Sources ---.
+                                                             |
+              .---------<--- GNU gettext Library             |
+.--- make <---+                                              |
+|             `---------<--------------------+---------------'
 |                                            |
 |   .-----<--- PACKAGE.pot <--- xgettext <---'   .---<--- PO Compendium
-|   |                                            |             ^
-|   |                                            `---.         |
-|   `---.                                            +---> PO mode ---.
-|       +----> msgmerge ------> LANG.po ---->--------'                |
-|   .---'                                                             |
-|   |                                                                 |
-|   `-------------<---------------.                                   |
-|                                 +--- New LANG.po <------------------'
+|   |                                            |              ^
+|   |                                            `---.          |
+|   `---.                                            +---> PO editor ---.
+|       +----> msgmerge ------> LANG.po ---->--------'                  |
+|   .---'                                                               |
+|   |                                                                   |
+|   `-------------<---------------.                                     |
+|                                 +--- New LANG.po <--------------------'
 |   .--- LANG.gmo <--- msgfmt <---'
 |   |
 |   `---> install ---> /.../LANG/PACKAGE.mo ---.
@@ -834,18 +839,6 @@ Original C Sources ---> PO mode ---> Marked C Sources ---.
 `-------> install ---> /.../bin/PROGRAM -------'
 @end group
 @end example
-
-The indication @samp{PO mode} appears in two places in this picture,
-and you may safely read it as merely meaning ``hand editing'', using
-any editor of your choice, really.  However, for those of you being
-the lucky users of Emacs, PO mode has been specifically created
-for providing a cozy environment for editing or modifying PO files.
-While editing a PO file, PO mode allows for the easy browsing of
-auxiliary and compendium PO files, as well as for following references into
-the set of C program sources from which PO files have been derived.
-It has a few special features, among which are the interactive marking
-of program strings as translatable, and the validation of PO files
-with easy repositioning to PO file lines showing errors.
 
 @cindex marking translatable strings
 As a programmer, the first step to bringing GNU @code{gettext}
@@ -925,16 +918,14 @@ for sharing your translating concerns with others who target the same
 native language.
 
 While adding the translated messages into the @file{@var{lang}.po}
-PO file, if you do not have Emacs handy, you are on your own
+PO file, if you are not using one of the dedicated PO file editors
+(@pxref{Editing}), you are on your own
 for ensuring that your efforts fully respect the PO file format, and quoting
 conventions (@pxref{PO Files}).  This is surely not an impossible task,
-as this is the way many people have handled PO files already for Uniforum or
-Solaris.  On the other hand, by using PO mode in Emacs, most details
+as this is the way many people have handled PO files around 1995.
+On the other hand, by using a PO file editor, most details
 of PO file format are taken care of for you, but you have to acquire
-some familiarity with PO mode itself.  Besides main PO mode commands
-(@pxref{Main PO Commands}), you should know how to move between entries
-(@pxref{Entry Positioning}), and how to handle untranslated entries
-(@pxref{Untranslated Entries}).
+some familiarity with PO file editor itself.
 
 If some common translations have already been saved into a compendium
 PO file, translators may use PO mode for initializing untranslated
@@ -1341,17 +1332,15 @@ msgstr[0] "s'ha trobat %d error fatal"
 msgstr[1] "s'han trobat %d errors fatals"
 @end example
 
-@efindex po-normalize@r{, PO Mode command}
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,
-and PO mode is unable to take action on those lines.  By using the
-PO mode function @w{@kbd{M-x po-normalize}}, the translator may get
-rid of those spurious lines.  @xref{Normalizing}.
+and will be dropped when the PO file is processed by the tools, or may
+disturb some PO file editors.
 
 The remainder of this section may be safely skipped by those using
-PO mode, yet it may be interesting for everybody to have a better
+a PO file editor, yet it may be interesting for everybody to have a better
 idea of the precise format of a PO file.  On the other hand, those
-not having Emacs handy should carefully continue reading on.
+wishing to modify PO files by hand should carefully continue reading on.
 
 Each of @var{untranslated-string} and @var{translated-string} respects
 the C syntax for a character string, including the surrounding quotes
@@ -1412,8 +1401,23 @@ categories.  First, you have to make the localization functions
 known to all modules needing message translation.  Second, you should
 properly trigger the operation of GNU @code{gettext} when the program
 initializes, usually from the @code{main} function.  Last, you should
-identify and especially mark all constant strings in your program
+identify, adjust and mark all constant strings in your program
 needing translation.
+
+@menu
+* Importing::                   Importing the @code{gettext} declaration
+* Triggering::                  Triggering @code{gettext} Operations
+* Preparing Strings::           Preparing Translatable Strings
+* Mark Keywords::               How Marks Appear in Sources
+* Marking::                     Marking Translatable Strings
+* c-format Flag::               Telling something about the following string
+* Special cases::               Special Cases of Translatable Strings
+* Names::                       Marking Proper Names for Translation
+* Libraries::                   Preparing Library Sources
+@end menu
+
+@node Importing, Triggering, Sources, Sources
+@section Importing the @code{gettext} declaration
 
 Presuming that your set of programs, or package, has been adjusted
 so all needed GNU @code{gettext} files are available, and your
@@ -1433,21 +1437,7 @@ the C string comes from a different C module) should contain the line:
 #include <libintl.h>
 @end example
 
-The remaining changes to your C sources are discussed in the further
-sections of this chapter.
-
-@menu
-* Triggering::                  Triggering @code{gettext} Operations
-* Preparing Strings::           Preparing Translatable Strings
-* Mark Keywords::               How Marks Appear in Sources
-* Marking::                     Marking Translatable Strings
-* c-format Flag::               Telling something about the following string
-* Special cases::               Special Cases of Translatable Strings
-* Names::                       Marking Proper Names for Translation
-* Libraries::                   Preparing Library Sources
-@end menu
-
-@node Triggering, Preparing Strings, Sources, Sources
+@node Triggering, Preparing Strings, Importing, Sources
 @section Triggering @code{gettext} Operations
 
 @cindex initialization
@@ -2457,7 +2447,7 @@ money.
 This has already been filled in by @code{xgettext}.
 
 @item PO-Revision-Date
-You don't need to fill this in.  It will be filled by the Emacs PO mode
+You don't need to fill this in.  It will be filled by the PO file editor
 when you save the file.
 
 @item Last-Translator
@@ -2623,6 +2613,21 @@ format of the plural forms field is described in @ref{Plural forms}.
 @cindex Emacs PO Mode
 
 @c FIXME: Rewrite.
+
+For those of you being
+the lucky users of Emacs, PO mode has been specifically created
+for providing a cozy environment for editing or modifying PO files.
+While editing a PO file, PO mode allows for the easy browsing of
+auxiliary and compendium PO files, as well as for following references into
+the set of C program sources from which PO files have been derived.
+It has a few special features, among which are the interactive marking
+of program strings as translatable, and the validation of PO files
+with easy repositioning to PO file lines showing errors.
+
+For the beginning, besides main PO mode commands
+(@pxref{Main PO Commands}), you should know how to move between entries
+(@pxref{Entry Positioning}), and how to handle untranslated entries
+(@pxref{Untranslated Entries}).
 
 @menu
 * Installation::                Completing GNU @code{gettext} Installation
@@ -6164,8 +6169,8 @@ The second step starts with removing duplicates:
 $ msguniq $HOME/gettextlogused > missing.po
 @end smallexample
 
-The result is a PO file, but needs some preprocessing before the Emacs PO
-mode can be used with it.  First, it is a multi-domain PO file, containing
+The result is a PO file, but needs some preprocessing before a PO file editor
+can be used with it.  First, it is a multi-domain PO file, containing
 messages from many translation domains.  Second, it lacks all translator
 comments and source references.  Here is how to get a list of the affected
 translation domains:
@@ -6189,7 +6194,7 @@ or from the package (in most cases, @file{$package/po/$lang.po}), or
 creates a fresh one if she's the first translator (see @ref{Creating}).
 She then uses the following commands to mark the not urgent messages as
 "obsolete".  (This doesn't mean that these messages - translated and
-untranslated ones - will go away.  It simply means that Emacs PO mode
+untranslated ones - will go away.  It simply means that the PO file editor
 will ignore them in the following editing session.)
 
 @smallexample
@@ -6199,7 +6204,8 @@ $ msgattrib --set-obsolete --ignore-file $domain-missing.po $domain.$lang.po \
   > $domain.$lang-urgent.po
 @end smallexample
 
-The she translates @file{$domain.$lang-urgent.po} by use of Emacs PO mode.
+The she translates @file{$domain.$lang-urgent.po} by use of a PO file editor
+(@pxref{Editing}).
 (FIXME: I don't know whether @code{KBabel} and @code{gtranslator} also
 preserve obsolete messages, as they should.)
 Finally she restores the not urgent messages (with their earlier
@@ -7481,7 +7487,8 @@ without actually translating the strings.
 
 @item
 To help the programmer in the task of marking translatable strings,
-which is usually performed using the Emacs PO mode, you are welcome to
+which is sometimes performed using the Emacs PO mode (@pxref{Marking}),
+you are welcome to
 contact the GNU @code{gettext} maintainers, so they can add support for
 your language to @file{po-mode.el}.
 @end enumerate
@@ -7518,7 +7525,7 @@ and plural handling).
 @section The Programmer's View
 
 For the programmer, the general procedure is the same as for the C
-language.  The Emacs PO mode supports other languages, and the GNU
+language.  The Emacs PO mode marking supports other languages, and the GNU
 @code{xgettext} string extractor recognizes other languages based on the
 file extension or a command-line option.  In some languages,
 @code{setlocale} is not needed because it is already performed by the
