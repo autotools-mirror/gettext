@@ -1,3 +1,13 @@
+2005-05-21  Bruno Haible  <bruno@clisp.org>
+
+	New undocumented option, used by glocale PO files.
+	* msgfmt.c (include_fuzzies): Renamed from include_all.
+	(include_untranslated): New variable.
+	(long_options): Add --use-untranslated.
+	(main): Handle --use-untranslated.
+	(msgfmt_frob_new_message): Test include_untranslated.
+	(msgfmt_comment_special): Update.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* user-email.sh.in (datarootdir): New variable.

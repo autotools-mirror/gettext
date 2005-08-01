@@ -82,7 +82,10 @@
 static int exit_status;
 
 /* If true include even fuzzy translations in output file.  */
-static bool include_all = false;
+static bool include_fuzzies = false;
+
+/* If true include even untranslated messages in output file.  */
+static bool include_untranslated = false;
 
 /* Specifies name of the output file.  */
 static const char *output_file_name;
@@ -189,6 +192,7 @@ static const struct option long_options[] =
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 8 },
   { "tcl", no_argument, NULL, CHAR_MAX + 7 },
   { "use-fuzzy", no_argument, NULL, 'f' },
+  { "use-untranslated", no_argument, NULL, CHAR_MAX + 12 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
@@ -272,7 +276,7 @@ main (int argc, char *argv[])
 	dir_list_append (optarg);
 	break;
       case 'f':
-	include_all = true;
+	include_fuzzies = true;
 	break;
       case 'h':
 	do_help = true;
@@ -347,6 +351,9 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 11: /* --csharp-resources */
 	csharp_resources_mode = true;
+	break;
+      case CHAR_MAX + 12: /* --use-untranslated (undocumented) */
+	include_untranslated = true;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -1533,8 +1540,8 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
       /* Don't emit untranslated entries.
 	 Also don't emit fuzzy entries, unless --use-fuzzy was specified.
 	 But ignore fuzziness of the header entry.  */
-      if (mp->msgstr[0] == '\0'
-	  || (!include_all && mp->is_fuzzy && mp->msgid[0] != '\0'))
+      if ((!include_untranslated && mp->msgstr[0] == '\0')
+	  || (!include_fuzzies && mp->is_fuzzy && mp->msgid[0] != '\0'))
 	{
 	  if (check_compatibility)
 	    {
@@ -1597,7 +1604,7 @@ msgfmt_comment_special (abstract_po_reader_ty *that, const char *s)
     {
       static bool warned = false;
 
-      if (!include_all && check_compatibility && !warned)
+      if (!include_fuzzies && check_compatibility && !warned)
 	{
 	  warned = true;
 	  error (0, 0, _("\
