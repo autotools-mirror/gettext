@@ -1304,7 +1304,7 @@ _nl_unload_domain (struct loaded_domain *domain)
     {
       struct converted_domain *convd = &domain->conversions[i];
 
-	free (convd->encoding);
+      free (convd->encoding);
       if (convd->conv_tab != NULL && convd->conv_tab != (char **) -1)
 	free (convd->conv_tab);
       if (convd->conv != (__gconv_t) -1)
