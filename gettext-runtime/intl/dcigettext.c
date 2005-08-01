@@ -253,7 +253,7 @@ struct known_translation_t
 #if defined HAVE_TSEARCH || defined _LIBC
 # include <search.h>
 
-__libc_rwlock_define_initialized (static, tree_lock);
+__libc_rwlock_define_initialized (static, tree_lock)
 
 static void *root;
 

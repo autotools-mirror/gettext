@@ -1,3 +1,7 @@
+2005-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (tree_lock): Remove extraneous semicolon.
+
 2005-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (LIBINTL_VERSION): New macro.
