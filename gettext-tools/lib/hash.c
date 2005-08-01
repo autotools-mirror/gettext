@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994-1995, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2005 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software; you can redistribute it and/or modify
@@ -50,6 +50,7 @@ hash_entry;
 static void insert_entry_2 (hash_table *htab,
 			    const void *key, size_t keylen,
 			    unsigned long int hval, size_t idx, void *data);
+static void resize (hash_table *htab);
 static size_t lookup (hash_table *htab,
 		      const void *key, size_t keylen,
 		      unsigned long int hval);
@@ -99,6 +100,9 @@ insert_entry (hash_table *htab, const void *key, size_t keylen, void *data)
       /* An empty bucket has been found.  */
       insert_entry_2 (htab, obstack_copy (&htab->mem_pool, key, keylen),
 		      keylen, hval, idx, data);
+      if (100 * htab->filled > 75 * htab->size)
+	/* Table is filled more than 75%.  Resize the table.  */
+	resize (htab);
       return 0;
     }
 }
@@ -129,26 +133,30 @@ insert_entry_2 (hash_table *htab,
     }
 
   ++htab->filled;
-  if (100 * htab->filled > 75 * htab->size)
-    {
-      /* Table is filled more than 75%.  Resize the table.  */
-      unsigned long int old_size = htab->size;
+}
 
-      htab->size = next_prime (htab->size * 2);
-      htab->filled = 0;
-      htab->first = NULL;
-      htab->table = (void *) xcalloc (1 + htab->size, sizeof (hash_entry));
 
-      for (idx = 1; idx <= old_size; ++idx)
-	if (table[idx].used)
-	  insert_entry_2 (htab, table[idx].key, table[idx].keylen,
-			  table[idx].used,
-			  lookup (htab, table[idx].key, table[idx].keylen,
-				  table[idx].used),
-			  table[idx].data);
+static void
+resize (hash_table *htab)
+{
+  unsigned long int old_size = htab->size;
+  hash_entry *table = (hash_entry *) htab->table;
+  size_t idx;
 
-      free (table);
-    }
+  htab->size = next_prime (htab->size * 2);
+  htab->filled = 0;
+  htab->first = NULL;
+  htab->table = (void *) xcalloc (1 + htab->size, sizeof (hash_entry));
+
+  for (idx = 1; idx <= old_size; ++idx)
+    if (table[idx].used)
+      insert_entry_2 (htab, table[idx].key, table[idx].keylen,
+		      table[idx].used,
+		      lookup (htab, table[idx].key, table[idx].keylen,
+			      table[idx].used),
+		      table[idx].data);
+
+  free (table);
 }
 
 
