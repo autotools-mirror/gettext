@@ -19,6 +19,7 @@ Tasks not to forget before release:
   * if backwards compatibility has been broken, set LTV_AGE to 0.
 
 - Update the version numbers in
+    gettext-runtime/intl/libgnuintl.h.in
     gettext-runtime/windows/intl.rc
     gettext-tools/src/gettext-po.h
     gettext-tools/windows/gettextlib.rc
