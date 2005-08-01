@@ -108,6 +108,7 @@ SOURCES = \
   localename.c \
   log.c \
   printf.c \
+  version.c \
   osdep.c \
   os2compat.c \
   intl-compat.c
@@ -136,6 +137,7 @@ OBJECTS = \
   localename.$lo \
   log.$lo \
   printf.$lo \
+  version.$lo \
   osdep.$lo \
   intl-compat.$lo
 DISTFILES.common = Makefile.in \
@@ -235,6 +237,8 @@ log.lo: $(srcdir)/log.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/log.c
 printf.lo: $(srcdir)/printf.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/printf.c
+version.lo: $(srcdir)/version.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/version.c
 osdep.lo: $(srcdir)/osdep.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c

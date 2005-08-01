@@ -1,5 +1,18 @@
 2005-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* libgnuintl.h.in (LIBINTL_VERSION): New macro.
+	(libintl_version): New declaration.
+	* version.c: New file.
+	* Makefile.in (SOURCES): Add version.c.
+	(OBJECTS): Add version.$lo.
+	(version.lo): New rule.
+	* Makefile.msvc (OBJECTS): Add version.obj.
+	(version.obj): New rule.
+	* Makefile.vms (OBJECTS): Add version.obj.
+	(version.obj): New rule.
+
+2005-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* intl-compat.c (DLL_EXPORTED) [HAVE_VISIBILITY]: Define to the gcc
 	visibility attribute.
 

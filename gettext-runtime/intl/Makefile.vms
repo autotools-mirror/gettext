@@ -45,7 +45,7 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,hash-string.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,lock.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,osdep.obj,intl-compat.obj
+OBJECTS = bindtextdom.obj,dcgettext.obj,dgettext.obj,gettext.obj,finddomain.obj,hash-string.obj,loadmsgcat.obj,localealias.obj,textdomain.obj,l10nflist.obj,explodename.obj,dcigettext.obj,dcngettext.obj,dngettext.obj,ngettext.obj,plural-parse.obj,plural-exp.obj,localcharset.obj,lock.obj,relocatable.obj,langprefs.obj,localename.obj,log.obj,version.obj,osdep.obj,intl-compat.obj
 
 all : intl.olb,libintl.h
 	write sys$output "Nothing else to be done for 'all'."
@@ -121,6 +121,9 @@ localename.obj : $(srcdir)localename.c,libgnuintl.h
 
 log.obj : $(srcdir)log.c,libgnuintl.h,$(srcdir)lock.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)log.c
+
+version.obj : $(srcdir)version.c,libgnuintl.h
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)version.c
 
 osdep.obj : $(srcdir)osdep.c,libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) $(srcdir)osdep.c

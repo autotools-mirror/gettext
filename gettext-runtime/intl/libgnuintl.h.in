@@ -52,6 +52,11 @@ extern "C" {
 #endif
 
 
+/* Version number: (major<<16) + (minor<<8) + subminor */
+#define LIBINTL_VERSION 0x000E05
+extern int libintl_version;
+
+
 /* We redirect the functions to those prefixed with "libintl_".  This is
    necessary, because some systems define gettext/textdomain/... in the C
    library (namely, Solaris 2.4 and newer, and GNU libc 2.0 and newer).

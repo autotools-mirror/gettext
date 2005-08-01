@@ -99,7 +99,7 @@ INSTALL_DATA = copy
 
 SHELL = /bin/sh
 
-OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj hash-string.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj lock.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj osdep.obj intl-compat.obj
+OBJECTS = bindtextdom.obj dcgettext.obj dgettext.obj gettext.obj finddomain.obj hash-string.obj loadmsgcat.obj localealias.obj textdomain.obj l10nflist.obj explodename.obj dcigettext.obj dcngettext.obj dngettext.obj ngettext.obj plural.obj plural-exp.obj localcharset.obj lock.obj relocatable.obj langprefs.obj localename.obj log.obj printf.obj version.obj osdep.obj intl-compat.obj
 
 RESOURCES = intl.res
 
@@ -183,6 +183,9 @@ log.obj : $(srcdir)\log.c libgnuintl.h $(srcdir)\lock.h
 
 printf.obj : $(srcdir)\printf.c libgnuintl.h $(srcdir)\printf-args.h $(srcdir)\printf-args.c $(srcdir)\printf-parse.h $(srcdir)\wprintf-parse.h $(srcdir)\printf-parse.c $(srcdir)\vasnprintf.h $(srcdir)\vasnwprintf.h $(srcdir)\vasnprintf.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\printf.c
+
+version.obj : $(srcdir)\version.c libgnuintl.h
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\version.c
 
 osdep.obj : $(srcdir)\osdep.c libgnuintl.h
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c $(srcdir)\osdep.c
