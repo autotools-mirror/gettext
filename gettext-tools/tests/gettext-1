@@ -1,6 +1,6 @@
 #! /bin/sh
-# One argument is required which is the path to the toplevel directory
-# of the distribution.
+
+# Test the gettext program with -e option.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15

@@ -1,6 +1,6 @@
 #! /bin/sh
-# One argument is required which is the path to the toplevel directory
-# of the distribution.
+
+# Test the gettext program without -e option.
 
 if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null; then
   # Stardent Vistra SVR4 grep lacks -e, says ghazi@caip.rutgers.edu.
