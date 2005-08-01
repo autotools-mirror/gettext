@@ -68,6 +68,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/lcmessage.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/lock.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longdouble.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longlong.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/nls.m4 \
@@ -79,6 +80,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/stdint_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/uintmax_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/ulonglong.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/visibility.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wchar_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wint_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/xsize.m4 \
@@ -180,6 +182,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -244,6 +247,7 @@ HAVE_MONO = @HAVE_MONO@
 HAVE_MONO_IN_PATH = @HAVE_MONO_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -264,8 +268,11 @@ LIBEXPAT = @LIBEXPAT@
 LIBGREPOBJS = @LIBGREPOBJS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LOCALE_FR = @LOCALE_FR@
@@ -273,8 +280,14 @@ LOCALE_FR_UTF8 = @LOCALE_FR_UTF8@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
+LTNOUNDEF = @LTNOUNDEF@
 MAKEINFO = @MAKEINFO@
+MINGW_FALSE = @MINGW_FALSE@
+MINGW_TRUE = @MINGW_TRUE@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MONO_PATH = @MONO_PATH@
 MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
@@ -362,11 +375,6 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
-
-# >>> gnulib module stdbool.
-# <<< gnulib module stdbool.
-
-# >>> gnulib module alloca.
 # <<< gnulib module localcharset.
 
 # VMS support.
@@ -377,13 +385,18 @@ EXTRA_DIST = $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c \
 	ChangeLog.0 stdbool_.h alloca_.h fnmatch_.h fnmatch_loop.c \
 	getopt_.h getopt_int.h config.charset ref-add.sin ref-del.sin \
 	Makefile.vms Makefile.msvc
+
+# >>> gnulib module stdbool.
+# <<< gnulib module stdbool.
+
+# >>> gnulib module alloca.
 # <<< gnulib module alloca.
 
 # >>> gnulib module fnmatch.
 # <<< gnulib module fnmatch.
 
 # >>> gnulib module getopt.
-BUILT_SOURCES = $(FNMATCH_H) $(GETOPT_H)
+BUILT_SOURCES = $(STDBOOL_H) $(ALLOCA_H) $(FNMATCH_H) $(GETOPT_H)
 MOSTLYCLEANFILES = stdbool.h alloca.h fnmatch.h getopt.h
 CLEANFILES = charset.alias ref-add.sed ref-del.sed
 DISTCLEANFILES = 
@@ -455,7 +468,7 @@ libgettextlib_la_LIBADD = @LTLIBOBJS@
 # Need @LTLIBICONV@ because linebreak.c uses iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
-  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
 
 # Extra files to be installed.
@@ -792,25 +805,21 @@ install-exec-clean:
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @STDBOOL_H@
 stdbool.h: stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/stdbool_.h > stdbool.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgettextlib_la_OBJECTS): @ALLOCA_H@
 alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h alloca.h
 
 # The following is needed in order to create an <fnmatch.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @FNMATCH_H@
 fnmatch.h: fnmatch_.h
 	cp $(srcdir)/fnmatch_.h fnmatch.h
 
 # The following is needed in order to create a <getopt.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @GETOPT_H@
 getopt.h: getopt_.h
 	cp $(srcdir)/getopt_.h getopt.h
 

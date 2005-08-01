@@ -14,7 +14,7 @@
 
 @SET_MAKE@
 
-SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) $(fc5_SOURCES) $(testlocale_SOURCES) $(tstgettext_SOURCES) $(tstngettext_SOURCES)
+SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) $(fc5_SOURCES) $(gettext_3_prg_SOURCES) $(gettext_4_prg_SOURCES) $(gettext_5_prg_SOURCES) $(gettext_6_prg_SOURCES) $(gettext_7_prg_SOURCES) $(testlocale_SOURCES) $(tstgettext_SOURCES) $(tstngettext_SOURCES)
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -39,8 +39,10 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 noinst_PROGRAMS = tstgettext$(EXEEXT) tstngettext$(EXEEXT) \
-	testlocale$(EXEEXT) cake$(EXEEXT) fc3$(EXEEXT) fc4$(EXEEXT) \
-	fc5$(EXEEXT)
+	testlocale$(EXEEXT) gettext-3-prg$(EXEEXT) \
+	gettext-4-prg$(EXEEXT) gettext-5-prg$(EXEEXT) \
+	gettext-6-prg$(EXEEXT) gettext-7-prg$(EXEEXT) cake$(EXEEXT) \
+	fc3$(EXEEXT) fc4$(EXEEXT) fc5$(EXEEXT)
 subdir = tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in ChangeLog
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -61,6 +63,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/lcmessage.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/lock.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longdouble.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longlong.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/nls.m4 \
@@ -72,6 +75,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/stdint_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/uintmax_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/ulonglong.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/visibility.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wchar_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wint_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/xsize.m4 \
@@ -122,6 +126,24 @@ fc4_DEPENDENCIES = ../lib/libgettextlib.la $(am__DEPENDENCIES_1)
 am_fc5_OBJECTS = format-c-5-prg.$(OBJEXT)
 fc5_OBJECTS = $(am_fc5_OBJECTS)
 fc5_DEPENDENCIES = ../lib/libgettextlib.la $(am__DEPENDENCIES_1)
+am_gettext_3_prg_OBJECTS = gettext-3-prg.$(OBJEXT)
+gettext_3_prg_OBJECTS = $(am_gettext_3_prg_OBJECTS)
+gettext_3_prg_DEPENDENCIES = ../lib/libgettextlib.la \
+	$(am__DEPENDENCIES_1)
+am_gettext_4_prg_OBJECTS = gettext-4-prg.$(OBJEXT)
+gettext_4_prg_OBJECTS = $(am_gettext_4_prg_OBJECTS)
+gettext_4_prg_DEPENDENCIES = ../lib/libgettextlib.la \
+	$(am__DEPENDENCIES_1)
+am_gettext_5_prg_OBJECTS = gettext-5-prg.$(OBJEXT)
+gettext_5_prg_OBJECTS = $(am_gettext_5_prg_OBJECTS)
+gettext_5_prg_DEPENDENCIES = ../lib/libgettextlib.la \
+	$(am__DEPENDENCIES_1)
+am_gettext_6_prg_OBJECTS = gettext_6_prg-gettext-6-prg.$(OBJEXT)
+gettext_6_prg_OBJECTS = $(am_gettext_6_prg_OBJECTS)
+gettext_6_prg_DEPENDENCIES =
+am_gettext_7_prg_OBJECTS = gettext_7_prg-gettext-7-prg.$(OBJEXT)
+gettext_7_prg_OBJECTS = $(am_gettext_7_prg_OBJECTS)
+gettext_7_prg_DEPENDENCIES =
 am_testlocale_OBJECTS = testlocale.$(OBJEXT)
 testlocale_OBJECTS = $(am_testlocale_OBJECTS)
 testlocale_LDADD = $(LDADD)
@@ -148,10 +170,15 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) $(fc5_SOURCES) \
-	$(testlocale_SOURCES) $(tstgettext_SOURCES) \
-	$(tstngettext_SOURCES)
+	$(gettext_3_prg_SOURCES) $(gettext_4_prg_SOURCES) \
+	$(gettext_5_prg_SOURCES) $(gettext_6_prg_SOURCES) \
+	$(gettext_7_prg_SOURCES) $(testlocale_SOURCES) \
+	$(tstgettext_SOURCES) $(tstngettext_SOURCES)
 DIST_SOURCES = $(cake_SOURCES) $(fc3_SOURCES) $(fc4_SOURCES) \
-	$(fc5_SOURCES) $(testlocale_SOURCES) $(tstgettext_SOURCES) \
+	$(fc5_SOURCES) $(gettext_3_prg_SOURCES) \
+	$(gettext_4_prg_SOURCES) $(gettext_5_prg_SOURCES) \
+	$(gettext_6_prg_SOURCES) $(gettext_7_prg_SOURCES) \
+	$(testlocale_SOURCES) $(tstgettext_SOURCES) \
 	$(tstngettext_SOURCES)
 ETAGS = etags
 CTAGS = ctags
@@ -176,6 +203,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -239,6 +267,7 @@ HAVE_MONO = @HAVE_MONO@
 HAVE_MONO_IN_PATH = @HAVE_MONO_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -259,8 +288,11 @@ LIBEXPAT = @LIBEXPAT@
 LIBGREPOBJS = @LIBGREPOBJS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LOCALE_FR = @LOCALE_FR@
@@ -268,8 +300,14 @@ LOCALE_FR_UTF8 = @LOCALE_FR_UTF8@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
+LTNOUNDEF = @LTNOUNDEF@
 MAKEINFO = @MAKEINFO@
+MINGW_FALSE = @MINGW_FALSE@
+MINGW_TRUE = @MINGW_TRUE@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MONO_PATH = @MONO_PATH@
 MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
@@ -363,8 +401,10 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 # Woe32 support.
 EXTRA_DIST = $(TESTS) test.mo xg-c-1.ok.po mex-test2.ok msguniq-a.in \
 	msguniq-a.inp msguniq-a.out qttest_pl.po qttest_pl.qm \
-	ChangeLog.0 Makefile.vms Makefile.msvc
-TESTS = gettext-1 gettext-2 \
+	ChangeLog.0 gettext-3-1.po gettext-3-2.po gettext-4.po \
+	gettext-5.po gettext-6-1.po gettext-6-2.po gettext-7.po \
+	Makefile.vms Makefile.msvc
+TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 \
@@ -422,7 +462,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-properties-1 \
 	xgettext-python-1 xgettext-python-2 \
 	xgettext-scheme-1 \
-	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 \
+	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 \
 	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 \
@@ -500,8 +540,8 @@ AM_CPPFLAGS = \
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
-LDADD_yes = ../intl/libintl.la
-LDADD_no = ../intl/libgnuintl.la @LTLIBINTL@
+LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
+LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
@@ -509,6 +549,22 @@ tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
 testlocale_SOURCES = testlocale.c
+gettext_3_prg_SOURCES = gettext-3-prg.c
+gettext_3_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_4_prg_SOURCES = gettext-4-prg.c
+gettext_4_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_5_prg_SOURCES = gettext-5-prg.c
+gettext_5_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_6_prg_SOURCES = gettext-6-prg.c
+gettext_6_prg_CFLAGS = $(gettext_6_prg_CFLAGS_@GLIBC2@)
+gettext_6_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
+gettext_6_prg_LDADD = $(gettext_6_prg_LDADD_@GLIBC2@)
+gettext_6_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
+gettext_7_prg_SOURCES = gettext-7-prg.c
+gettext_7_prg_CFLAGS = $(gettext_7_prg_CFLAGS_@GLIBC2@)
+gettext_7_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
+gettext_7_prg_LDADD = $(gettext_7_prg_LDADD_@GLIBC2@)
+gettext_7_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c
@@ -569,6 +625,21 @@ fc4$(EXEEXT): $(fc4_OBJECTS) $(fc4_DEPENDENCIES)
 fc5$(EXEEXT): $(fc5_OBJECTS) $(fc5_DEPENDENCIES) 
 	@rm -f fc5$(EXEEXT)
 	$(LINK) $(fc5_LDFLAGS) $(fc5_OBJECTS) $(fc5_LDADD) $(LIBS)
+gettext-3-prg$(EXEEXT): $(gettext_3_prg_OBJECTS) $(gettext_3_prg_DEPENDENCIES) 
+	@rm -f gettext-3-prg$(EXEEXT)
+	$(LINK) $(gettext_3_prg_LDFLAGS) $(gettext_3_prg_OBJECTS) $(gettext_3_prg_LDADD) $(LIBS)
+gettext-4-prg$(EXEEXT): $(gettext_4_prg_OBJECTS) $(gettext_4_prg_DEPENDENCIES) 
+	@rm -f gettext-4-prg$(EXEEXT)
+	$(LINK) $(gettext_4_prg_LDFLAGS) $(gettext_4_prg_OBJECTS) $(gettext_4_prg_LDADD) $(LIBS)
+gettext-5-prg$(EXEEXT): $(gettext_5_prg_OBJECTS) $(gettext_5_prg_DEPENDENCIES) 
+	@rm -f gettext-5-prg$(EXEEXT)
+	$(LINK) $(gettext_5_prg_LDFLAGS) $(gettext_5_prg_OBJECTS) $(gettext_5_prg_LDADD) $(LIBS)
+gettext-6-prg$(EXEEXT): $(gettext_6_prg_OBJECTS) $(gettext_6_prg_DEPENDENCIES) 
+	@rm -f gettext-6-prg$(EXEEXT)
+	$(LINK) $(gettext_6_prg_LDFLAGS) $(gettext_6_prg_OBJECTS) $(gettext_6_prg_LDADD) $(LIBS)
+gettext-7-prg$(EXEEXT): $(gettext_7_prg_OBJECTS) $(gettext_7_prg_DEPENDENCIES) 
+	@rm -f gettext-7-prg$(EXEEXT)
+	$(LINK) $(gettext_7_prg_LDFLAGS) $(gettext_7_prg_OBJECTS) $(gettext_7_prg_LDADD) $(LIBS)
 testlocale$(EXEEXT): $(testlocale_OBJECTS) $(testlocale_DEPENDENCIES) 
 	@rm -f testlocale$(EXEEXT)
 	$(LINK) $(testlocale_LDFLAGS) $(testlocale_OBJECTS) $(testlocale_LDADD) $(LIBS)
@@ -593,6 +664,18 @@ distclean-compile:
 
 .c.lo:
 	$(LTCOMPILE) -c -o $@ $<
+
+gettext_6_prg-gettext-6-prg.o: gettext-6-prg.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gettext_6_prg_CFLAGS) $(CFLAGS) -c -o gettext_6_prg-gettext-6-prg.o `test -f 'gettext-6-prg.c' || echo '$(srcdir)/'`gettext-6-prg.c
+
+gettext_6_prg-gettext-6-prg.obj: gettext-6-prg.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gettext_6_prg_CFLAGS) $(CFLAGS) -c -o gettext_6_prg-gettext-6-prg.obj `if test -f 'gettext-6-prg.c'; then $(CYGPATH_W) 'gettext-6-prg.c'; else $(CYGPATH_W) '$(srcdir)/gettext-6-prg.c'; fi`
+
+gettext_7_prg-gettext-7-prg.o: gettext-7-prg.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gettext_7_prg_CFLAGS) $(CFLAGS) -c -o gettext_7_prg-gettext-7-prg.o `test -f 'gettext-7-prg.c' || echo '$(srcdir)/'`gettext-7-prg.c
+
+gettext_7_prg-gettext-7-prg.obj: gettext-7-prg.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(gettext_7_prg_CFLAGS) $(CFLAGS) -c -o gettext_7_prg-gettext-7-prg.obj `if test -f 'gettext-7-prg.c'; then $(CYGPATH_W) 'gettext-7-prg.c'; else $(CYGPATH_W) '$(srcdir)/gettext-7-prg.c'; fi`
 
 tstgettext-tstgettext.o: tstgettext.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(tstgettext_CFLAGS) $(CFLAGS) -c -o tstgettext-tstgettext.o `test -f 'tstgettext.c' || echo '$(srcdir)/'`tstgettext.c

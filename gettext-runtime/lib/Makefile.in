@@ -79,12 +79,13 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/m4/intdiv0.m4 $(top_srcdir)/m4/intmax.m4 \
 	$(top_srcdir)/m4/inttypes-pri.m4 $(top_srcdir)/m4/inttypes.m4 \
 	$(top_srcdir)/m4/inttypes_h.m4 $(top_srcdir)/m4/lcmessage.m4 \
-	$(top_srcdir)/m4/longdouble.m4 $(top_srcdir)/m4/longlong.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/printf-posix.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/signed.m4 $(top_srcdir)/m4/size_max.m4 \
-	$(top_srcdir)/m4/stdint_h.m4 $(top_srcdir)/m4/uintmax_t.m4 \
-	$(top_srcdir)/m4/ulonglong.m4 $(top_srcdir)/m4/wchar_t.m4 \
+	$(top_srcdir)/m4/lock.m4 $(top_srcdir)/m4/longdouble.m4 \
+	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/printf-posix.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/signed.m4 \
+	$(top_srcdir)/m4/size_max.m4 $(top_srcdir)/m4/stdint_h.m4 \
+	$(top_srcdir)/m4/uintmax_t.m4 $(top_srcdir)/m4/ulonglong.m4 \
+	$(top_srcdir)/m4/visibility.m4 $(top_srcdir)/m4/wchar_t.m4 \
 	$(top_srcdir)/m4/wint_t.m4 $(top_srcdir)/m4/xsize.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -136,6 +137,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -179,6 +181,7 @@ HAVE_MCS = @HAVE_MCS@
 HAVE_MCS_IN_PATH = @HAVE_MCS_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -196,13 +199,20 @@ JAVAC = @JAVAC@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBSCHED = @LIBSCHED@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
 MAKEINFO = @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
@@ -284,11 +294,6 @@ target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 
 # List of files to be distributed.
-
-# >>> gnulib module stdbool.
-# <<< gnulib module stdbool.
-
-# >>> gnulib module alloca.
 # <<< gnulib module getopt.
 
 # VMS support.
@@ -299,10 +304,15 @@ EXTRA_DIST = $(LIBADD_SOURCE) ../../gettext-tools/lib/stdbool_.h \
 	../../gettext-tools/lib/getopt_.h \
 	../../gettext-tools/lib/getopt_int.h Makefile.vms \
 	Makefile.msvc
+
+# >>> gnulib module stdbool.
+# <<< gnulib module stdbool.
+
+# >>> gnulib module alloca.
 # <<< gnulib module alloca.
 
 # >>> gnulib module getopt.
-BUILT_SOURCES = $(GETOPT_H)
+BUILT_SOURCES = $(STDBOOL_H) $(ALLOCA_H) $(GETOPT_H)
 MOSTLYCLEANFILES = stdbool.h alloca.h getopt.h
 noinst_LIBRARIES = libgrt.a
 
@@ -639,19 +649,16 @@ uninstall-am: uninstall-info-am
 
 # The following is needed in order to create an <stdbool.h> when the system
 # doesn't have one that works.
-all-local $(libgrt_a_OBJECTS): @STDBOOL_H@
 stdbool.h: ../../gettext-tools/lib/stdbool_.h
 	sed -e 's/@''HAVE__BOOL''@/@HAVE__BOOL@/g' < $(srcdir)/../../gettext-tools/lib/stdbool_.h > stdbool.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
-all-local $(libgrt_a_OBJECTS): @ALLOCA_H@
 alloca.h: ../../gettext-tools/lib/alloca_.h
 	cp $(srcdir)/../../gettext-tools/lib/alloca_.h alloca.h
 
 # The following is needed in order to create a <getopt.h> when the system
 # doesn't have one that works.
-all-local $(libgettextlib_la_OBJECTS): @GETOPT_H@
 getopt.h: ../../gettext-tools/lib/getopt_.h
 	cp $(srcdir)/../../gettext-tools/lib/getopt_.h getopt.h
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

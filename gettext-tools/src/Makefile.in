@@ -66,6 +66,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/lcmessage.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/lock.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longdouble.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longlong.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/nls.m4 \
@@ -77,6 +78,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/stdint_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/uintmax_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/ulonglong.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/visibility.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wchar_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wint_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/xsize.m4 \
@@ -148,37 +150,52 @@ am_hostname_OBJECTS = hostname-hostname.$(OBJEXT)
 hostname_OBJECTS = $(am_hostname_OBJECTS)
 hostname_LDADD = $(LDADD)
 hostname_DEPENDENCIES = ../lib/libgettextlib.la
-am_msgattrib_OBJECTS = msgattrib-msgattrib.$(OBJEXT)
+am__msgattrib_SOURCES_DIST = msgattrib.c ../mingw/c++msgattrib.cc
+@MINGW_FALSE@am_msgattrib_OBJECTS = msgattrib-msgattrib.$(OBJEXT)
+@MINGW_TRUE@am_msgattrib_OBJECTS = msgattrib-c++msgattrib.$(OBJEXT)
 msgattrib_OBJECTS = $(am_msgattrib_OBJECTS)
 msgattrib_DEPENDENCIES = libgettextsrc.la
-am_msgcat_OBJECTS = msgcat-msgcat.$(OBJEXT)
+am__msgcat_SOURCES_DIST = msgcat.c ../mingw/c++msgcat.cc
+@MINGW_FALSE@am_msgcat_OBJECTS = msgcat-msgcat.$(OBJEXT)
+@MINGW_TRUE@am_msgcat_OBJECTS = msgcat-c++msgcat.$(OBJEXT)
 msgcat_OBJECTS = $(am_msgcat_OBJECTS)
 msgcat_DEPENDENCIES = libgettextsrc.la
 am_msgcmp_OBJECTS = msgcmp-msgcmp.$(OBJEXT)
 msgcmp_OBJECTS = $(am_msgcmp_OBJECTS)
 msgcmp_DEPENDENCIES = libgettextsrc.la
-am_msgcomm_OBJECTS = msgcomm-msgcomm.$(OBJEXT)
+am__msgcomm_SOURCES_DIST = msgcomm.c ../mingw/c++msgcomm.cc
+@MINGW_FALSE@am_msgcomm_OBJECTS = msgcomm-msgcomm.$(OBJEXT)
+@MINGW_TRUE@am_msgcomm_OBJECTS = msgcomm-c++msgcomm.$(OBJEXT)
 msgcomm_OBJECTS = $(am_msgcomm_OBJECTS)
 msgcomm_DEPENDENCIES = libgettextsrc.la
-am_msgconv_OBJECTS = msgconv-msgconv.$(OBJEXT)
+am__msgconv_SOURCES_DIST = msgconv.c ../mingw/c++msgconv.cc
+@MINGW_FALSE@am_msgconv_OBJECTS = msgconv-msgconv.$(OBJEXT)
+@MINGW_TRUE@am_msgconv_OBJECTS = msgconv-c++msgconv.$(OBJEXT)
 msgconv_OBJECTS = $(am_msgconv_OBJECTS)
 msgconv_DEPENDENCIES = libgettextsrc.la
-am_msgen_OBJECTS = msgen-msgen.$(OBJEXT)
+am__msgen_SOURCES_DIST = msgen.c ../mingw/c++msgen.cc
+@MINGW_FALSE@am_msgen_OBJECTS = msgen-msgen.$(OBJEXT)
+@MINGW_TRUE@am_msgen_OBJECTS = msgen-c++msgen.$(OBJEXT)
 msgen_OBJECTS = $(am_msgen_OBJECTS)
 msgen_DEPENDENCIES = libgettextsrc.la
 am_msgexec_OBJECTS = msgexec-msgexec.$(OBJEXT)
 msgexec_OBJECTS = $(am_msgexec_OBJECTS)
 msgexec_DEPENDENCIES = libgettextsrc.la
-am_msgfilter_OBJECTS = msgfilter-msgfilter.$(OBJEXT)
+am__msgfilter_SOURCES_DIST = msgfilter.c ../mingw/c++msgfilter.cc
+@MINGW_FALSE@am_msgfilter_OBJECTS = msgfilter-msgfilter.$(OBJEXT)
+@MINGW_TRUE@am_msgfilter_OBJECTS = msgfilter-c++msgfilter.$(OBJEXT)
 msgfilter_OBJECTS = $(am_msgfilter_OBJECTS)
 msgfilter_DEPENDENCIES = libgettextsrc.la
 am_msgfmt_OBJECTS = msgfmt-msgfmt.$(OBJEXT) msgfmt-write-mo.$(OBJEXT) \
 	msgfmt-write-java.$(OBJEXT) msgfmt-write-csharp.$(OBJEXT) \
 	msgfmt-write-resources.$(OBJEXT) msgfmt-write-tcl.$(OBJEXT) \
-	msgfmt-write-qt.$(OBJEXT) msgfmt-plural-eval.$(OBJEXT)
+	msgfmt-write-qt.$(OBJEXT) msgfmt-plural-eval.$(OBJEXT) \
+	msgfmt-hash-string.$(OBJEXT)
 msgfmt_OBJECTS = $(am_msgfmt_OBJECTS)
 msgfmt_DEPENDENCIES = libgettextsrc.la
-am_msggrep_OBJECTS = msggrep-msggrep.$(OBJEXT)
+am__msggrep_SOURCES_DIST = msggrep.c ../mingw/c++msggrep.cc
+@MINGW_FALSE@am_msggrep_OBJECTS = msggrep-msggrep.$(OBJEXT)
+@MINGW_TRUE@am_msggrep_OBJECTS = msggrep-c++msggrep.$(OBJEXT)
 msggrep_OBJECTS = $(am_msggrep_OBJECTS)
 am__DEPENDENCIES_1 = ../libgrep/libgrep.a
 msggrep_DEPENDENCIES = $(am__DEPENDENCIES_1) libgettextsrc.la
@@ -188,8 +205,12 @@ msginit_OBJECTS = $(am_msginit_OBJECTS)
 msginit_DEPENDENCIES =  \
 	../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
 	libgettextsrc.la
-am_msgmerge_OBJECTS = msgmerge-msgmerge.$(OBJEXT) \
-	msgmerge-plural-count.$(OBJEXT)
+am__msgmerge_SOURCES_DIST = msgmerge.c plural-count.c \
+	../mingw/c++msgmerge.cc
+@MINGW_FALSE@am_msgmerge_OBJECTS = msgmerge-msgmerge.$(OBJEXT) \
+@MINGW_FALSE@	msgmerge-plural-count.$(OBJEXT)
+@MINGW_TRUE@am_msgmerge_OBJECTS = msgmerge-c++msgmerge.$(OBJEXT) \
+@MINGW_TRUE@	msgmerge-plural-count.$(OBJEXT)
 msgmerge_OBJECTS = $(am_msgmerge_OBJECTS)
 msgmerge_DEPENDENCIES = libgettextsrc.la
 am_msgunfmt_OBJECTS = msgunfmt-msgunfmt.$(OBJEXT) \
@@ -198,23 +219,50 @@ am_msgunfmt_OBJECTS = msgunfmt-msgunfmt.$(OBJEXT) \
 	msgunfmt-read-resources.$(OBJEXT) msgunfmt-read-tcl.$(OBJEXT)
 msgunfmt_OBJECTS = $(am_msgunfmt_OBJECTS)
 msgunfmt_DEPENDENCIES = libgettextsrc.la
-am_msguniq_OBJECTS = msguniq-msguniq.$(OBJEXT)
+am__msguniq_SOURCES_DIST = msguniq.c ../mingw/c++msguniq.cc
+@MINGW_FALSE@am_msguniq_OBJECTS = msguniq-msguniq.$(OBJEXT)
+@MINGW_TRUE@am_msguniq_OBJECTS = msguniq-c++msguniq.$(OBJEXT)
 msguniq_OBJECTS = $(am_msguniq_OBJECTS)
 msguniq_DEPENDENCIES = libgettextsrc.la
 am_urlget_OBJECTS = urlget-urlget.$(OBJEXT)
 urlget_OBJECTS = $(am_urlget_OBJECTS)
 urlget_LDADD = $(LDADD)
 urlget_DEPENDENCIES = ../lib/libgettextlib.la
-am_xgettext_OBJECTS = xgettext-xgettext.$(OBJEXT) \
-	xgettext-x-c.$(OBJEXT) xgettext-x-po.$(OBJEXT) \
-	xgettext-x-sh.$(OBJEXT) xgettext-x-python.$(OBJEXT) \
-	xgettext-x-lisp.$(OBJEXT) xgettext-x-elisp.$(OBJEXT) \
-	xgettext-x-librep.$(OBJEXT) xgettext-x-scheme.$(OBJEXT) \
-	xgettext-x-smalltalk.$(OBJEXT) xgettext-x-java.$(OBJEXT) \
-	xgettext-x-csharp.$(OBJEXT) xgettext-x-awk.$(OBJEXT) \
-	xgettext-x-ycp.$(OBJEXT) xgettext-x-tcl.$(OBJEXT) \
-	xgettext-x-perl.$(OBJEXT) xgettext-x-php.$(OBJEXT) \
-	xgettext-x-rst.$(OBJEXT) xgettext-x-glade.$(OBJEXT)
+am__xgettext_SOURCES_DIST = xgettext.c x-c.c x-po.c x-sh.c x-python.c \
+	x-lisp.c x-elisp.c x-librep.c x-scheme.c x-smalltalk.c \
+	x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
+	x-rst.c x-glade.c ../mingw/c++xgettext.cc
+@MINGW_FALSE@am_xgettext_OBJECTS = xgettext-xgettext.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-c.$(OBJEXT) xgettext-x-po.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-sh.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-python.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-lisp.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-elisp.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-librep.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-scheme.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-smalltalk.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-java.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-csharp.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-awk.$(OBJEXT) xgettext-x-ycp.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-tcl.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-perl.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-php.$(OBJEXT) xgettext-x-rst.$(OBJEXT) \
+@MINGW_FALSE@	xgettext-x-glade.$(OBJEXT)
+@MINGW_TRUE@am_xgettext_OBJECTS = xgettext-c++xgettext.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-c.$(OBJEXT) xgettext-x-po.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-sh.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-python.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-lisp.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-elisp.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-librep.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-scheme.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-smalltalk.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-java.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-csharp.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-awk.$(OBJEXT) xgettext-x-ycp.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-tcl.$(OBJEXT) xgettext-x-perl.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-php.$(OBJEXT) xgettext-x-rst.$(OBJEXT) \
+@MINGW_TRUE@	xgettext-x-glade.$(OBJEXT)
 xgettext_OBJECTS = $(am_xgettext_OBJECTS)
 am__DEPENDENCIES_2 = ../libuniname/libuniname.a
 xgettext_DEPENDENCIES = $(am__DEPENDENCIES_2) libgettextsrc.la
@@ -229,6 +277,14 @@ LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
+CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+LTCXXCOMPILE = $(LIBTOOL) --tag=CXX --mode=compile $(CXX) $(DEFS) \
+	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
+	$(AM_CXXFLAGS) $(CXXFLAGS)
+CXXLD = $(CXX)
+CXXLINK = $(LIBTOOL) --tag=CXX --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 YACCCOMPILE = $(YACC) $(YFLAGS) $(AM_YFLAGS)
 LTYACCCOMPILE = $(LIBTOOL) --mode=compile $(YACC) $(YFLAGS) \
 	$(AM_YFLAGS)
@@ -240,12 +296,15 @@ SOURCES = $(libgettextpo_la_SOURCES) $(libgettextsrc_la_SOURCES) \
 	$(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) \
 	$(urlget_SOURCES) $(xgettext_SOURCES)
 DIST_SOURCES = $(libgettextpo_la_SOURCES) $(libgettextsrc_la_SOURCES) \
-	$(hostname_SOURCES) $(msgattrib_SOURCES) $(msgcat_SOURCES) \
-	$(msgcmp_SOURCES) $(msgcomm_SOURCES) $(msgconv_SOURCES) \
-	$(msgen_SOURCES) $(msgexec_SOURCES) $(msgfilter_SOURCES) \
-	$(msgfmt_SOURCES) $(msggrep_SOURCES) $(msginit_SOURCES) \
-	$(msgmerge_SOURCES) $(msgunfmt_SOURCES) $(msguniq_SOURCES) \
-	$(urlget_SOURCES) $(xgettext_SOURCES)
+	$(hostname_SOURCES) $(am__msgattrib_SOURCES_DIST) \
+	$(am__msgcat_SOURCES_DIST) $(msgcmp_SOURCES) \
+	$(am__msgcomm_SOURCES_DIST) $(am__msgconv_SOURCES_DIST) \
+	$(am__msgen_SOURCES_DIST) $(msgexec_SOURCES) \
+	$(am__msgfilter_SOURCES_DIST) $(msgfmt_SOURCES) \
+	$(am__msggrep_SOURCES_DIST) $(msginit_SOURCES) \
+	$(am__msgmerge_SOURCES_DIST) $(msgunfmt_SOURCES) \
+	$(am__msguniq_SOURCES_DIST) $(urlget_SOURCES) \
+	$(am__xgettext_SOURCES_DIST)
 includeHEADERS_INSTALL = $(INSTALL_HEADER)
 HEADERS = $(include_HEADERS) $(noinst_HEADERS)
 ETAGS = etags
@@ -273,6 +332,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -345,6 +405,7 @@ HAVE_MONO = @HAVE_MONO@
 HAVE_MONO_IN_PATH = @HAVE_MONO_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -365,8 +426,11 @@ LIBEXPAT = @LIBEXPAT@
 LIBGREPOBJS = @LIBGREPOBJS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LOCALE_FR = @LOCALE_FR@
@@ -374,8 +438,14 @@ LOCALE_FR_UTF8 = @LOCALE_FR_UTF8@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
+LTNOUNDEF = @LTNOUNDEF@
 MAKEINFO = @MAKEINFO@
+MINGW_FALSE = @MINGW_FALSE@
+MINGW_TRUE = @MINGW_TRUE@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MONO_PATH = @MONO_PATH@
 MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
@@ -559,29 +629,42 @@ LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
-msgfmt_SOURCES = msgfmt.c \
-  write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
-  write-qt.c plural-eval.c
-
-msgmerge_SOURCES = msgmerge.c plural-count.c
-msgunfmt_SOURCES = msgunfmt.c \
-  read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
-
-xgettext_SOURCES = xgettext.c \
-  x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
-  x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
-  x-rst.c x-glade.c
-
-msgattrib_SOURCES = msgattrib.c
-msgcat_SOURCES = msgcat.c
-msgcomm_SOURCES = msgcomm.c
-msgconv_SOURCES = msgconv.c
-msgen_SOURCES = msgen.c
+msgfmt_SOURCES = msgfmt.c write-mo.c write-java.c write-csharp.c \
+	write-resources.c write-tcl.c write-qt.c plural-eval.c \
+	../../gettext-runtime/intl/hash-string.c
+@MINGW_FALSE@msgmerge_SOURCES = msgmerge.c plural-count.c
+@MINGW_TRUE@msgmerge_SOURCES = ../mingw/c++msgmerge.cc plural-count.c
+msgunfmt_SOURCES = msgunfmt.c read-mo.c read-java.c read-csharp.c \
+	read-resources.c read-tcl.c
+@MINGW_FALSE@xgettext_SOURCES = xgettext.c x-c.c x-po.c x-sh.c \
+@MINGW_FALSE@	x-python.c x-lisp.c x-elisp.c x-librep.c \
+@MINGW_FALSE@	x-scheme.c x-smalltalk.c x-java.c x-csharp.c \
+@MINGW_FALSE@	x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c \
+@MINGW_FALSE@	x-glade.c
+@MINGW_TRUE@xgettext_SOURCES = ../mingw/c++xgettext.cc x-c.c x-po.c \
+@MINGW_TRUE@	x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c \
+@MINGW_TRUE@	x-scheme.c x-smalltalk.c x-java.c x-csharp.c \
+@MINGW_TRUE@	x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c x-rst.c \
+@MINGW_TRUE@	x-glade.c
+@MINGW_FALSE@msgattrib_SOURCES = msgattrib.c
+@MINGW_TRUE@msgattrib_SOURCES = ../mingw/c++msgattrib.cc
+@MINGW_FALSE@msgcat_SOURCES = msgcat.c
+@MINGW_TRUE@msgcat_SOURCES = ../mingw/c++msgcat.cc
+@MINGW_FALSE@msgcomm_SOURCES = msgcomm.c
+@MINGW_TRUE@msgcomm_SOURCES = ../mingw/c++msgcomm.cc
+@MINGW_FALSE@msgconv_SOURCES = msgconv.c
+@MINGW_TRUE@msgconv_SOURCES = ../mingw/c++msgconv.cc
+@MINGW_FALSE@msgen_SOURCES = msgen.c
+@MINGW_TRUE@msgen_SOURCES = ../mingw/c++msgen.cc
 msgexec_SOURCES = msgexec.c
-msgfilter_SOURCES = msgfilter.c
-msggrep_SOURCES = msggrep.c
-msginit_SOURCES = msginit.c plural-count.c ../../gettext-runtime/intl/localealias.c
-msguniq_SOURCES = msguniq.c
+@MINGW_FALSE@msgfilter_SOURCES = msgfilter.c
+@MINGW_TRUE@msgfilter_SOURCES = ../mingw/c++msgfilter.cc
+@MINGW_FALSE@msggrep_SOURCES = msggrep.c
+@MINGW_TRUE@msggrep_SOURCES = ../mingw/c++msggrep.cc
+msginit_SOURCES = msginit.c plural-count.c \
+	../../gettext-runtime/intl/localealias.c
+@MINGW_FALSE@msguniq_SOURCES = msguniq.c
+@MINGW_TRUE@msguniq_SOURCES = ../mingw/c++msguniq.cc
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 
@@ -592,8 +675,11 @@ urlget_SOURCES = urlget.c
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
+
+# Special rules for mingw.
+@MINGW_TRUE@format_CFLAGS = -x c++
 
 # How to build libgettextpo.la.
 # Need libgettextsrc.la.
@@ -601,7 +687,7 @@ libgettextsrc_la_LDFLAGS = \
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
 # Build order. Only needed for "make -j[N]".
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
@@ -629,23 +715,23 @@ msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
 
 # Specify installation directory, for --enable-relocatable.
-msgcmp_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgmerge_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgunfmt_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-xgettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgattrib_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgcat_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgcomm_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgconv_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgen_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgexec_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msgfilter_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msggrep_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msginit_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-msguniq_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-hostname_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
-urlget_CFLAGS = -DINSTALLDIR=\"$(pkglibdir)\"
+msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgmerge_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgunfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+xgettext_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgattrib_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgcat_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgcomm_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgconv_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgen_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgexec_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
+urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 @RELOCATABLE_VIA_LD_TRUE@msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 @RELOCATABLE_VIA_LD_TRUE@msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 @RELOCATABLE_VIA_LD_TRUE@msgmerge_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
@@ -683,7 +769,7 @@ all: $(BUILT_SOURCES)
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .lo .o .obj .y
+.SUFFIXES: .c .cc .lo .o .obj .y
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -802,52 +888,52 @@ hostname$(EXEEXT): $(hostname_OBJECTS) $(hostname_DEPENDENCIES)
 	$(LINK) $(hostname_LDFLAGS) $(hostname_OBJECTS) $(hostname_LDADD) $(LIBS)
 msgattrib$(EXEEXT): $(msgattrib_OBJECTS) $(msgattrib_DEPENDENCIES) 
 	@rm -f msgattrib$(EXEEXT)
-	$(LINK) $(msgattrib_LDFLAGS) $(msgattrib_OBJECTS) $(msgattrib_LDADD) $(LIBS)
+	$(CXXLINK) $(msgattrib_LDFLAGS) $(msgattrib_OBJECTS) $(msgattrib_LDADD) $(LIBS)
 msgcat$(EXEEXT): $(msgcat_OBJECTS) $(msgcat_DEPENDENCIES) 
 	@rm -f msgcat$(EXEEXT)
-	$(LINK) $(msgcat_LDFLAGS) $(msgcat_OBJECTS) $(msgcat_LDADD) $(LIBS)
+	$(CXXLINK) $(msgcat_LDFLAGS) $(msgcat_OBJECTS) $(msgcat_LDADD) $(LIBS)
 msgcmp$(EXEEXT): $(msgcmp_OBJECTS) $(msgcmp_DEPENDENCIES) 
 	@rm -f msgcmp$(EXEEXT)
 	$(LINK) $(msgcmp_LDFLAGS) $(msgcmp_OBJECTS) $(msgcmp_LDADD) $(LIBS)
 msgcomm$(EXEEXT): $(msgcomm_OBJECTS) $(msgcomm_DEPENDENCIES) 
 	@rm -f msgcomm$(EXEEXT)
-	$(LINK) $(msgcomm_LDFLAGS) $(msgcomm_OBJECTS) $(msgcomm_LDADD) $(LIBS)
+	$(CXXLINK) $(msgcomm_LDFLAGS) $(msgcomm_OBJECTS) $(msgcomm_LDADD) $(LIBS)
 msgconv$(EXEEXT): $(msgconv_OBJECTS) $(msgconv_DEPENDENCIES) 
 	@rm -f msgconv$(EXEEXT)
-	$(LINK) $(msgconv_LDFLAGS) $(msgconv_OBJECTS) $(msgconv_LDADD) $(LIBS)
+	$(CXXLINK) $(msgconv_LDFLAGS) $(msgconv_OBJECTS) $(msgconv_LDADD) $(LIBS)
 msgen$(EXEEXT): $(msgen_OBJECTS) $(msgen_DEPENDENCIES) 
 	@rm -f msgen$(EXEEXT)
-	$(LINK) $(msgen_LDFLAGS) $(msgen_OBJECTS) $(msgen_LDADD) $(LIBS)
+	$(CXXLINK) $(msgen_LDFLAGS) $(msgen_OBJECTS) $(msgen_LDADD) $(LIBS)
 msgexec$(EXEEXT): $(msgexec_OBJECTS) $(msgexec_DEPENDENCIES) 
 	@rm -f msgexec$(EXEEXT)
 	$(LINK) $(msgexec_LDFLAGS) $(msgexec_OBJECTS) $(msgexec_LDADD) $(LIBS)
 msgfilter$(EXEEXT): $(msgfilter_OBJECTS) $(msgfilter_DEPENDENCIES) 
 	@rm -f msgfilter$(EXEEXT)
-	$(LINK) $(msgfilter_LDFLAGS) $(msgfilter_OBJECTS) $(msgfilter_LDADD) $(LIBS)
+	$(CXXLINK) $(msgfilter_LDFLAGS) $(msgfilter_OBJECTS) $(msgfilter_LDADD) $(LIBS)
 msgfmt$(EXEEXT): $(msgfmt_OBJECTS) $(msgfmt_DEPENDENCIES) 
 	@rm -f msgfmt$(EXEEXT)
 	$(LINK) $(msgfmt_LDFLAGS) $(msgfmt_OBJECTS) $(msgfmt_LDADD) $(LIBS)
 msggrep$(EXEEXT): $(msggrep_OBJECTS) $(msggrep_DEPENDENCIES) 
 	@rm -f msggrep$(EXEEXT)
-	$(LINK) $(msggrep_LDFLAGS) $(msggrep_OBJECTS) $(msggrep_LDADD) $(LIBS)
+	$(CXXLINK) $(msggrep_LDFLAGS) $(msggrep_OBJECTS) $(msggrep_LDADD) $(LIBS)
 msginit$(EXEEXT): $(msginit_OBJECTS) $(msginit_DEPENDENCIES) 
 	@rm -f msginit$(EXEEXT)
 	$(LINK) $(msginit_LDFLAGS) $(msginit_OBJECTS) $(msginit_LDADD) $(LIBS)
 msgmerge$(EXEEXT): $(msgmerge_OBJECTS) $(msgmerge_DEPENDENCIES) 
 	@rm -f msgmerge$(EXEEXT)
-	$(LINK) $(msgmerge_LDFLAGS) $(msgmerge_OBJECTS) $(msgmerge_LDADD) $(LIBS)
+	$(CXXLINK) $(msgmerge_LDFLAGS) $(msgmerge_OBJECTS) $(msgmerge_LDADD) $(LIBS)
 msgunfmt$(EXEEXT): $(msgunfmt_OBJECTS) $(msgunfmt_DEPENDENCIES) 
 	@rm -f msgunfmt$(EXEEXT)
 	$(LINK) $(msgunfmt_LDFLAGS) $(msgunfmt_OBJECTS) $(msgunfmt_LDADD) $(LIBS)
 msguniq$(EXEEXT): $(msguniq_OBJECTS) $(msguniq_DEPENDENCIES) 
 	@rm -f msguniq$(EXEEXT)
-	$(LINK) $(msguniq_LDFLAGS) $(msguniq_OBJECTS) $(msguniq_LDADD) $(LIBS)
+	$(CXXLINK) $(msguniq_LDFLAGS) $(msguniq_OBJECTS) $(msguniq_LDADD) $(LIBS)
 urlget$(EXEEXT): $(urlget_OBJECTS) $(urlget_DEPENDENCIES) 
 	@rm -f urlget$(EXEEXT)
 	$(LINK) $(urlget_LDFLAGS) $(urlget_OBJECTS) $(urlget_LDADD) $(LIBS)
 xgettext$(EXEEXT): $(xgettext_OBJECTS) $(xgettext_DEPENDENCIES) 
 	@rm -f xgettext$(EXEEXT)
-	$(LINK) $(xgettext_LDFLAGS) $(xgettext_OBJECTS) $(xgettext_LDADD) $(LIBS)
+	$(CXXLINK) $(xgettext_LDFLAGS) $(xgettext_OBJECTS) $(xgettext_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -865,304 +951,379 @@ distclean-compile:
 	$(LTCOMPILE) -c -o $@ $<
 
 hostname-hostname.o: hostname.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hostname_CFLAGS) $(CFLAGS) -c -o hostname-hostname.o `test -f 'hostname.c' || echo '$(srcdir)/'`hostname.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(hostname_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o hostname-hostname.o `test -f 'hostname.c' || echo '$(srcdir)/'`hostname.c
 
 hostname-hostname.obj: hostname.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(hostname_CFLAGS) $(CFLAGS) -c -o hostname-hostname.obj `if test -f 'hostname.c'; then $(CYGPATH_W) 'hostname.c'; else $(CYGPATH_W) '$(srcdir)/hostname.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(hostname_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o hostname-hostname.obj `if test -f 'hostname.c'; then $(CYGPATH_W) 'hostname.c'; else $(CYGPATH_W) '$(srcdir)/hostname.c'; fi`
 
 msgattrib-msgattrib.o: msgattrib.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgattrib_CFLAGS) $(CFLAGS) -c -o msgattrib-msgattrib.o `test -f 'msgattrib.c' || echo '$(srcdir)/'`msgattrib.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgattrib_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgattrib-msgattrib.o `test -f 'msgattrib.c' || echo '$(srcdir)/'`msgattrib.c
 
 msgattrib-msgattrib.obj: msgattrib.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgattrib_CFLAGS) $(CFLAGS) -c -o msgattrib-msgattrib.obj `if test -f 'msgattrib.c'; then $(CYGPATH_W) 'msgattrib.c'; else $(CYGPATH_W) '$(srcdir)/msgattrib.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgattrib_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgattrib-msgattrib.obj `if test -f 'msgattrib.c'; then $(CYGPATH_W) 'msgattrib.c'; else $(CYGPATH_W) '$(srcdir)/msgattrib.c'; fi`
 
 msgcat-msgcat.o: msgcat.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcat_CFLAGS) $(CFLAGS) -c -o msgcat-msgcat.o `test -f 'msgcat.c' || echo '$(srcdir)/'`msgcat.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcat_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcat-msgcat.o `test -f 'msgcat.c' || echo '$(srcdir)/'`msgcat.c
 
 msgcat-msgcat.obj: msgcat.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcat_CFLAGS) $(CFLAGS) -c -o msgcat-msgcat.obj `if test -f 'msgcat.c'; then $(CYGPATH_W) 'msgcat.c'; else $(CYGPATH_W) '$(srcdir)/msgcat.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcat_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcat-msgcat.obj `if test -f 'msgcat.c'; then $(CYGPATH_W) 'msgcat.c'; else $(CYGPATH_W) '$(srcdir)/msgcat.c'; fi`
 
 msgcmp-msgcmp.o: msgcmp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcmp_CFLAGS) $(CFLAGS) -c -o msgcmp-msgcmp.o `test -f 'msgcmp.c' || echo '$(srcdir)/'`msgcmp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcmp_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcmp-msgcmp.o `test -f 'msgcmp.c' || echo '$(srcdir)/'`msgcmp.c
 
 msgcmp-msgcmp.obj: msgcmp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcmp_CFLAGS) $(CFLAGS) -c -o msgcmp-msgcmp.obj `if test -f 'msgcmp.c'; then $(CYGPATH_W) 'msgcmp.c'; else $(CYGPATH_W) '$(srcdir)/msgcmp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcmp_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcmp-msgcmp.obj `if test -f 'msgcmp.c'; then $(CYGPATH_W) 'msgcmp.c'; else $(CYGPATH_W) '$(srcdir)/msgcmp.c'; fi`
 
 msgcomm-msgcomm.o: msgcomm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcomm_CFLAGS) $(CFLAGS) -c -o msgcomm-msgcomm.o `test -f 'msgcomm.c' || echo '$(srcdir)/'`msgcomm.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcomm_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcomm-msgcomm.o `test -f 'msgcomm.c' || echo '$(srcdir)/'`msgcomm.c
 
 msgcomm-msgcomm.obj: msgcomm.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgcomm_CFLAGS) $(CFLAGS) -c -o msgcomm-msgcomm.obj `if test -f 'msgcomm.c'; then $(CYGPATH_W) 'msgcomm.c'; else $(CYGPATH_W) '$(srcdir)/msgcomm.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcomm_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgcomm-msgcomm.obj `if test -f 'msgcomm.c'; then $(CYGPATH_W) 'msgcomm.c'; else $(CYGPATH_W) '$(srcdir)/msgcomm.c'; fi`
 
 msgconv-msgconv.o: msgconv.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgconv_CFLAGS) $(CFLAGS) -c -o msgconv-msgconv.o `test -f 'msgconv.c' || echo '$(srcdir)/'`msgconv.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgconv_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgconv-msgconv.o `test -f 'msgconv.c' || echo '$(srcdir)/'`msgconv.c
 
 msgconv-msgconv.obj: msgconv.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgconv_CFLAGS) $(CFLAGS) -c -o msgconv-msgconv.obj `if test -f 'msgconv.c'; then $(CYGPATH_W) 'msgconv.c'; else $(CYGPATH_W) '$(srcdir)/msgconv.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgconv_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgconv-msgconv.obj `if test -f 'msgconv.c'; then $(CYGPATH_W) 'msgconv.c'; else $(CYGPATH_W) '$(srcdir)/msgconv.c'; fi`
 
 msgen-msgen.o: msgen.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgen_CFLAGS) $(CFLAGS) -c -o msgen-msgen.o `test -f 'msgen.c' || echo '$(srcdir)/'`msgen.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgen_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgen-msgen.o `test -f 'msgen.c' || echo '$(srcdir)/'`msgen.c
 
 msgen-msgen.obj: msgen.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgen_CFLAGS) $(CFLAGS) -c -o msgen-msgen.obj `if test -f 'msgen.c'; then $(CYGPATH_W) 'msgen.c'; else $(CYGPATH_W) '$(srcdir)/msgen.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgen_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgen-msgen.obj `if test -f 'msgen.c'; then $(CYGPATH_W) 'msgen.c'; else $(CYGPATH_W) '$(srcdir)/msgen.c'; fi`
 
 msgexec-msgexec.o: msgexec.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgexec_CFLAGS) $(CFLAGS) -c -o msgexec-msgexec.o `test -f 'msgexec.c' || echo '$(srcdir)/'`msgexec.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgexec_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgexec-msgexec.o `test -f 'msgexec.c' || echo '$(srcdir)/'`msgexec.c
 
 msgexec-msgexec.obj: msgexec.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgexec_CFLAGS) $(CFLAGS) -c -o msgexec-msgexec.obj `if test -f 'msgexec.c'; then $(CYGPATH_W) 'msgexec.c'; else $(CYGPATH_W) '$(srcdir)/msgexec.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgexec_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgexec-msgexec.obj `if test -f 'msgexec.c'; then $(CYGPATH_W) 'msgexec.c'; else $(CYGPATH_W) '$(srcdir)/msgexec.c'; fi`
 
 msgfilter-msgfilter.o: msgfilter.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfilter_CFLAGS) $(CFLAGS) -c -o msgfilter-msgfilter.o `test -f 'msgfilter.c' || echo '$(srcdir)/'`msgfilter.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfilter_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfilter-msgfilter.o `test -f 'msgfilter.c' || echo '$(srcdir)/'`msgfilter.c
 
 msgfilter-msgfilter.obj: msgfilter.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfilter_CFLAGS) $(CFLAGS) -c -o msgfilter-msgfilter.obj `if test -f 'msgfilter.c'; then $(CYGPATH_W) 'msgfilter.c'; else $(CYGPATH_W) '$(srcdir)/msgfilter.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfilter_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfilter-msgfilter.obj `if test -f 'msgfilter.c'; then $(CYGPATH_W) 'msgfilter.c'; else $(CYGPATH_W) '$(srcdir)/msgfilter.c'; fi`
 
 msgfmt-msgfmt.o: msgfmt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-msgfmt.o `test -f 'msgfmt.c' || echo '$(srcdir)/'`msgfmt.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-msgfmt.o `test -f 'msgfmt.c' || echo '$(srcdir)/'`msgfmt.c
 
 msgfmt-msgfmt.obj: msgfmt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-msgfmt.obj `if test -f 'msgfmt.c'; then $(CYGPATH_W) 'msgfmt.c'; else $(CYGPATH_W) '$(srcdir)/msgfmt.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-msgfmt.obj `if test -f 'msgfmt.c'; then $(CYGPATH_W) 'msgfmt.c'; else $(CYGPATH_W) '$(srcdir)/msgfmt.c'; fi`
 
 msgfmt-write-mo.o: write-mo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-mo.o `test -f 'write-mo.c' || echo '$(srcdir)/'`write-mo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-mo.o `test -f 'write-mo.c' || echo '$(srcdir)/'`write-mo.c
 
 msgfmt-write-mo.obj: write-mo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-mo.obj `if test -f 'write-mo.c'; then $(CYGPATH_W) 'write-mo.c'; else $(CYGPATH_W) '$(srcdir)/write-mo.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-mo.obj `if test -f 'write-mo.c'; then $(CYGPATH_W) 'write-mo.c'; else $(CYGPATH_W) '$(srcdir)/write-mo.c'; fi`
 
 msgfmt-write-java.o: write-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-java.o `test -f 'write-java.c' || echo '$(srcdir)/'`write-java.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-java.o `test -f 'write-java.c' || echo '$(srcdir)/'`write-java.c
 
 msgfmt-write-java.obj: write-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-java.obj `if test -f 'write-java.c'; then $(CYGPATH_W) 'write-java.c'; else $(CYGPATH_W) '$(srcdir)/write-java.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-java.obj `if test -f 'write-java.c'; then $(CYGPATH_W) 'write-java.c'; else $(CYGPATH_W) '$(srcdir)/write-java.c'; fi`
 
 msgfmt-write-csharp.o: write-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-csharp.o `test -f 'write-csharp.c' || echo '$(srcdir)/'`write-csharp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-csharp.o `test -f 'write-csharp.c' || echo '$(srcdir)/'`write-csharp.c
 
 msgfmt-write-csharp.obj: write-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-csharp.obj `if test -f 'write-csharp.c'; then $(CYGPATH_W) 'write-csharp.c'; else $(CYGPATH_W) '$(srcdir)/write-csharp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-csharp.obj `if test -f 'write-csharp.c'; then $(CYGPATH_W) 'write-csharp.c'; else $(CYGPATH_W) '$(srcdir)/write-csharp.c'; fi`
 
 msgfmt-write-resources.o: write-resources.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-resources.o `test -f 'write-resources.c' || echo '$(srcdir)/'`write-resources.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-resources.o `test -f 'write-resources.c' || echo '$(srcdir)/'`write-resources.c
 
 msgfmt-write-resources.obj: write-resources.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-resources.obj `if test -f 'write-resources.c'; then $(CYGPATH_W) 'write-resources.c'; else $(CYGPATH_W) '$(srcdir)/write-resources.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-resources.obj `if test -f 'write-resources.c'; then $(CYGPATH_W) 'write-resources.c'; else $(CYGPATH_W) '$(srcdir)/write-resources.c'; fi`
 
 msgfmt-write-tcl.o: write-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-tcl.o `test -f 'write-tcl.c' || echo '$(srcdir)/'`write-tcl.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-tcl.o `test -f 'write-tcl.c' || echo '$(srcdir)/'`write-tcl.c
 
 msgfmt-write-tcl.obj: write-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-tcl.obj `if test -f 'write-tcl.c'; then $(CYGPATH_W) 'write-tcl.c'; else $(CYGPATH_W) '$(srcdir)/write-tcl.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-tcl.obj `if test -f 'write-tcl.c'; then $(CYGPATH_W) 'write-tcl.c'; else $(CYGPATH_W) '$(srcdir)/write-tcl.c'; fi`
 
 msgfmt-write-qt.o: write-qt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-qt.o `test -f 'write-qt.c' || echo '$(srcdir)/'`write-qt.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-qt.o `test -f 'write-qt.c' || echo '$(srcdir)/'`write-qt.c
 
 msgfmt-write-qt.obj: write-qt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-write-qt.obj `if test -f 'write-qt.c'; then $(CYGPATH_W) 'write-qt.c'; else $(CYGPATH_W) '$(srcdir)/write-qt.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-write-qt.obj `if test -f 'write-qt.c'; then $(CYGPATH_W) 'write-qt.c'; else $(CYGPATH_W) '$(srcdir)/write-qt.c'; fi`
 
 msgfmt-plural-eval.o: plural-eval.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-plural-eval.o `test -f 'plural-eval.c' || echo '$(srcdir)/'`plural-eval.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-plural-eval.o `test -f 'plural-eval.c' || echo '$(srcdir)/'`plural-eval.c
 
 msgfmt-plural-eval.obj: plural-eval.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgfmt_CFLAGS) $(CFLAGS) -c -o msgfmt-plural-eval.obj `if test -f 'plural-eval.c'; then $(CYGPATH_W) 'plural-eval.c'; else $(CYGPATH_W) '$(srcdir)/plural-eval.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-plural-eval.obj `if test -f 'plural-eval.c'; then $(CYGPATH_W) 'plural-eval.c'; else $(CYGPATH_W) '$(srcdir)/plural-eval.c'; fi`
+
+msgfmt-hash-string.o: ../../gettext-runtime/intl/hash-string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-hash-string.o `test -f '../../gettext-runtime/intl/hash-string.c' || echo '$(srcdir)/'`../../gettext-runtime/intl/hash-string.c
+
+msgfmt-hash-string.obj: ../../gettext-runtime/intl/hash-string.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgfmt-hash-string.obj `if test -f '../../gettext-runtime/intl/hash-string.c'; then $(CYGPATH_W) '../../gettext-runtime/intl/hash-string.c'; else $(CYGPATH_W) '$(srcdir)/../../gettext-runtime/intl/hash-string.c'; fi`
 
 msggrep-msggrep.o: msggrep.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msggrep_CFLAGS) $(CFLAGS) -c -o msggrep-msggrep.o `test -f 'msggrep.c' || echo '$(srcdir)/'`msggrep.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msggrep_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msggrep-msggrep.o `test -f 'msggrep.c' || echo '$(srcdir)/'`msggrep.c
 
 msggrep-msggrep.obj: msggrep.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msggrep_CFLAGS) $(CFLAGS) -c -o msggrep-msggrep.obj `if test -f 'msggrep.c'; then $(CYGPATH_W) 'msggrep.c'; else $(CYGPATH_W) '$(srcdir)/msggrep.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msggrep_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msggrep-msggrep.obj `if test -f 'msggrep.c'; then $(CYGPATH_W) 'msggrep.c'; else $(CYGPATH_W) '$(srcdir)/msggrep.c'; fi`
 
 msginit-msginit.o: msginit.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-msginit.o `test -f 'msginit.c' || echo '$(srcdir)/'`msginit.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-msginit.o `test -f 'msginit.c' || echo '$(srcdir)/'`msginit.c
 
 msginit-msginit.obj: msginit.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-msginit.obj `if test -f 'msginit.c'; then $(CYGPATH_W) 'msginit.c'; else $(CYGPATH_W) '$(srcdir)/msginit.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-msginit.obj `if test -f 'msginit.c'; then $(CYGPATH_W) 'msginit.c'; else $(CYGPATH_W) '$(srcdir)/msginit.c'; fi`
 
 msginit-plural-count.o: plural-count.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-plural-count.o `test -f 'plural-count.c' || echo '$(srcdir)/'`plural-count.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-plural-count.o `test -f 'plural-count.c' || echo '$(srcdir)/'`plural-count.c
 
 msginit-plural-count.obj: plural-count.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-plural-count.obj `if test -f 'plural-count.c'; then $(CYGPATH_W) 'plural-count.c'; else $(CYGPATH_W) '$(srcdir)/plural-count.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-plural-count.obj `if test -f 'plural-count.c'; then $(CYGPATH_W) 'plural-count.c'; else $(CYGPATH_W) '$(srcdir)/plural-count.c'; fi`
 
 msginit-localealias.o: ../../gettext-runtime/intl/localealias.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-localealias.o `test -f '../../gettext-runtime/intl/localealias.c' || echo '$(srcdir)/'`../../gettext-runtime/intl/localealias.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-localealias.o `test -f '../../gettext-runtime/intl/localealias.c' || echo '$(srcdir)/'`../../gettext-runtime/intl/localealias.c
 
 msginit-localealias.obj: ../../gettext-runtime/intl/localealias.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msginit_CFLAGS) $(CFLAGS) -c -o msginit-localealias.obj `if test -f '../../gettext-runtime/intl/localealias.c'; then $(CYGPATH_W) '../../gettext-runtime/intl/localealias.c'; else $(CYGPATH_W) '$(srcdir)/../../gettext-runtime/intl/localealias.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msginit_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msginit-localealias.obj `if test -f '../../gettext-runtime/intl/localealias.c'; then $(CYGPATH_W) '../../gettext-runtime/intl/localealias.c'; else $(CYGPATH_W) '$(srcdir)/../../gettext-runtime/intl/localealias.c'; fi`
 
 msgmerge-msgmerge.o: msgmerge.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgmerge_CFLAGS) $(CFLAGS) -c -o msgmerge-msgmerge.o `test -f 'msgmerge.c' || echo '$(srcdir)/'`msgmerge.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgmerge-msgmerge.o `test -f 'msgmerge.c' || echo '$(srcdir)/'`msgmerge.c
 
 msgmerge-msgmerge.obj: msgmerge.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgmerge_CFLAGS) $(CFLAGS) -c -o msgmerge-msgmerge.obj `if test -f 'msgmerge.c'; then $(CYGPATH_W) 'msgmerge.c'; else $(CYGPATH_W) '$(srcdir)/msgmerge.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgmerge-msgmerge.obj `if test -f 'msgmerge.c'; then $(CYGPATH_W) 'msgmerge.c'; else $(CYGPATH_W) '$(srcdir)/msgmerge.c'; fi`
 
 msgmerge-plural-count.o: plural-count.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgmerge_CFLAGS) $(CFLAGS) -c -o msgmerge-plural-count.o `test -f 'plural-count.c' || echo '$(srcdir)/'`plural-count.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgmerge-plural-count.o `test -f 'plural-count.c' || echo '$(srcdir)/'`plural-count.c
 
 msgmerge-plural-count.obj: plural-count.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgmerge_CFLAGS) $(CFLAGS) -c -o msgmerge-plural-count.obj `if test -f 'plural-count.c'; then $(CYGPATH_W) 'plural-count.c'; else $(CYGPATH_W) '$(srcdir)/plural-count.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgmerge-plural-count.obj `if test -f 'plural-count.c'; then $(CYGPATH_W) 'plural-count.c'; else $(CYGPATH_W) '$(srcdir)/plural-count.c'; fi`
 
 msgunfmt-msgunfmt.o: msgunfmt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-msgunfmt.o `test -f 'msgunfmt.c' || echo '$(srcdir)/'`msgunfmt.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-msgunfmt.o `test -f 'msgunfmt.c' || echo '$(srcdir)/'`msgunfmt.c
 
 msgunfmt-msgunfmt.obj: msgunfmt.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-msgunfmt.obj `if test -f 'msgunfmt.c'; then $(CYGPATH_W) 'msgunfmt.c'; else $(CYGPATH_W) '$(srcdir)/msgunfmt.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-msgunfmt.obj `if test -f 'msgunfmt.c'; then $(CYGPATH_W) 'msgunfmt.c'; else $(CYGPATH_W) '$(srcdir)/msgunfmt.c'; fi`
 
 msgunfmt-read-mo.o: read-mo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-mo.o `test -f 'read-mo.c' || echo '$(srcdir)/'`read-mo.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-mo.o `test -f 'read-mo.c' || echo '$(srcdir)/'`read-mo.c
 
 msgunfmt-read-mo.obj: read-mo.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-mo.obj `if test -f 'read-mo.c'; then $(CYGPATH_W) 'read-mo.c'; else $(CYGPATH_W) '$(srcdir)/read-mo.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-mo.obj `if test -f 'read-mo.c'; then $(CYGPATH_W) 'read-mo.c'; else $(CYGPATH_W) '$(srcdir)/read-mo.c'; fi`
 
 msgunfmt-read-java.o: read-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-java.o `test -f 'read-java.c' || echo '$(srcdir)/'`read-java.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-java.o `test -f 'read-java.c' || echo '$(srcdir)/'`read-java.c
 
 msgunfmt-read-java.obj: read-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-java.obj `if test -f 'read-java.c'; then $(CYGPATH_W) 'read-java.c'; else $(CYGPATH_W) '$(srcdir)/read-java.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-java.obj `if test -f 'read-java.c'; then $(CYGPATH_W) 'read-java.c'; else $(CYGPATH_W) '$(srcdir)/read-java.c'; fi`
 
 msgunfmt-read-csharp.o: read-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-csharp.o `test -f 'read-csharp.c' || echo '$(srcdir)/'`read-csharp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-csharp.o `test -f 'read-csharp.c' || echo '$(srcdir)/'`read-csharp.c
 
 msgunfmt-read-csharp.obj: read-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-csharp.obj `if test -f 'read-csharp.c'; then $(CYGPATH_W) 'read-csharp.c'; else $(CYGPATH_W) '$(srcdir)/read-csharp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-csharp.obj `if test -f 'read-csharp.c'; then $(CYGPATH_W) 'read-csharp.c'; else $(CYGPATH_W) '$(srcdir)/read-csharp.c'; fi`
 
 msgunfmt-read-resources.o: read-resources.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-resources.o `test -f 'read-resources.c' || echo '$(srcdir)/'`read-resources.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-resources.o `test -f 'read-resources.c' || echo '$(srcdir)/'`read-resources.c
 
 msgunfmt-read-resources.obj: read-resources.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-resources.obj `if test -f 'read-resources.c'; then $(CYGPATH_W) 'read-resources.c'; else $(CYGPATH_W) '$(srcdir)/read-resources.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-resources.obj `if test -f 'read-resources.c'; then $(CYGPATH_W) 'read-resources.c'; else $(CYGPATH_W) '$(srcdir)/read-resources.c'; fi`
 
 msgunfmt-read-tcl.o: read-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-tcl.o `test -f 'read-tcl.c' || echo '$(srcdir)/'`read-tcl.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-tcl.o `test -f 'read-tcl.c' || echo '$(srcdir)/'`read-tcl.c
 
 msgunfmt-read-tcl.obj: read-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msgunfmt_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-tcl.obj `if test -f 'read-tcl.c'; then $(CYGPATH_W) 'read-tcl.c'; else $(CYGPATH_W) '$(srcdir)/read-tcl.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgunfmt_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msgunfmt-read-tcl.obj `if test -f 'read-tcl.c'; then $(CYGPATH_W) 'read-tcl.c'; else $(CYGPATH_W) '$(srcdir)/read-tcl.c'; fi`
 
 msguniq-msguniq.o: msguniq.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msguniq_CFLAGS) $(CFLAGS) -c -o msguniq-msguniq.o `test -f 'msguniq.c' || echo '$(srcdir)/'`msguniq.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msguniq_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msguniq-msguniq.o `test -f 'msguniq.c' || echo '$(srcdir)/'`msguniq.c
 
 msguniq-msguniq.obj: msguniq.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(msguniq_CFLAGS) $(CFLAGS) -c -o msguniq-msguniq.obj `if test -f 'msguniq.c'; then $(CYGPATH_W) 'msguniq.c'; else $(CYGPATH_W) '$(srcdir)/msguniq.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msguniq_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o msguniq-msguniq.obj `if test -f 'msguniq.c'; then $(CYGPATH_W) 'msguniq.c'; else $(CYGPATH_W) '$(srcdir)/msguniq.c'; fi`
 
 urlget-urlget.o: urlget.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(urlget_CFLAGS) $(CFLAGS) -c -o urlget-urlget.o `test -f 'urlget.c' || echo '$(srcdir)/'`urlget.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(urlget_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o urlget-urlget.o `test -f 'urlget.c' || echo '$(srcdir)/'`urlget.c
 
 urlget-urlget.obj: urlget.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(urlget_CFLAGS) $(CFLAGS) -c -o urlget-urlget.obj `if test -f 'urlget.c'; then $(CYGPATH_W) 'urlget.c'; else $(CYGPATH_W) '$(srcdir)/urlget.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(urlget_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o urlget-urlget.obj `if test -f 'urlget.c'; then $(CYGPATH_W) 'urlget.c'; else $(CYGPATH_W) '$(srcdir)/urlget.c'; fi`
 
 xgettext-xgettext.o: xgettext.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-xgettext.o `test -f 'xgettext.c' || echo '$(srcdir)/'`xgettext.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-xgettext.o `test -f 'xgettext.c' || echo '$(srcdir)/'`xgettext.c
 
 xgettext-xgettext.obj: xgettext.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-xgettext.obj `if test -f 'xgettext.c'; then $(CYGPATH_W) 'xgettext.c'; else $(CYGPATH_W) '$(srcdir)/xgettext.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-xgettext.obj `if test -f 'xgettext.c'; then $(CYGPATH_W) 'xgettext.c'; else $(CYGPATH_W) '$(srcdir)/xgettext.c'; fi`
 
 xgettext-x-c.o: x-c.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-c.o `test -f 'x-c.c' || echo '$(srcdir)/'`x-c.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-c.o `test -f 'x-c.c' || echo '$(srcdir)/'`x-c.c
 
 xgettext-x-c.obj: x-c.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-c.obj `if test -f 'x-c.c'; then $(CYGPATH_W) 'x-c.c'; else $(CYGPATH_W) '$(srcdir)/x-c.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-c.obj `if test -f 'x-c.c'; then $(CYGPATH_W) 'x-c.c'; else $(CYGPATH_W) '$(srcdir)/x-c.c'; fi`
 
 xgettext-x-po.o: x-po.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-po.o `test -f 'x-po.c' || echo '$(srcdir)/'`x-po.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-po.o `test -f 'x-po.c' || echo '$(srcdir)/'`x-po.c
 
 xgettext-x-po.obj: x-po.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-po.obj `if test -f 'x-po.c'; then $(CYGPATH_W) 'x-po.c'; else $(CYGPATH_W) '$(srcdir)/x-po.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-po.obj `if test -f 'x-po.c'; then $(CYGPATH_W) 'x-po.c'; else $(CYGPATH_W) '$(srcdir)/x-po.c'; fi`
 
 xgettext-x-sh.o: x-sh.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-sh.o `test -f 'x-sh.c' || echo '$(srcdir)/'`x-sh.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-sh.o `test -f 'x-sh.c' || echo '$(srcdir)/'`x-sh.c
 
 xgettext-x-sh.obj: x-sh.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-sh.obj `if test -f 'x-sh.c'; then $(CYGPATH_W) 'x-sh.c'; else $(CYGPATH_W) '$(srcdir)/x-sh.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-sh.obj `if test -f 'x-sh.c'; then $(CYGPATH_W) 'x-sh.c'; else $(CYGPATH_W) '$(srcdir)/x-sh.c'; fi`
 
 xgettext-x-python.o: x-python.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-python.o `test -f 'x-python.c' || echo '$(srcdir)/'`x-python.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-python.o `test -f 'x-python.c' || echo '$(srcdir)/'`x-python.c
 
 xgettext-x-python.obj: x-python.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-python.obj `if test -f 'x-python.c'; then $(CYGPATH_W) 'x-python.c'; else $(CYGPATH_W) '$(srcdir)/x-python.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-python.obj `if test -f 'x-python.c'; then $(CYGPATH_W) 'x-python.c'; else $(CYGPATH_W) '$(srcdir)/x-python.c'; fi`
 
 xgettext-x-lisp.o: x-lisp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-lisp.o `test -f 'x-lisp.c' || echo '$(srcdir)/'`x-lisp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-lisp.o `test -f 'x-lisp.c' || echo '$(srcdir)/'`x-lisp.c
 
 xgettext-x-lisp.obj: x-lisp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-lisp.obj `if test -f 'x-lisp.c'; then $(CYGPATH_W) 'x-lisp.c'; else $(CYGPATH_W) '$(srcdir)/x-lisp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-lisp.obj `if test -f 'x-lisp.c'; then $(CYGPATH_W) 'x-lisp.c'; else $(CYGPATH_W) '$(srcdir)/x-lisp.c'; fi`
 
 xgettext-x-elisp.o: x-elisp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-elisp.o `test -f 'x-elisp.c' || echo '$(srcdir)/'`x-elisp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-elisp.o `test -f 'x-elisp.c' || echo '$(srcdir)/'`x-elisp.c
 
 xgettext-x-elisp.obj: x-elisp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-elisp.obj `if test -f 'x-elisp.c'; then $(CYGPATH_W) 'x-elisp.c'; else $(CYGPATH_W) '$(srcdir)/x-elisp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-elisp.obj `if test -f 'x-elisp.c'; then $(CYGPATH_W) 'x-elisp.c'; else $(CYGPATH_W) '$(srcdir)/x-elisp.c'; fi`
 
 xgettext-x-librep.o: x-librep.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-librep.o `test -f 'x-librep.c' || echo '$(srcdir)/'`x-librep.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-librep.o `test -f 'x-librep.c' || echo '$(srcdir)/'`x-librep.c
 
 xgettext-x-librep.obj: x-librep.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-librep.obj `if test -f 'x-librep.c'; then $(CYGPATH_W) 'x-librep.c'; else $(CYGPATH_W) '$(srcdir)/x-librep.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-librep.obj `if test -f 'x-librep.c'; then $(CYGPATH_W) 'x-librep.c'; else $(CYGPATH_W) '$(srcdir)/x-librep.c'; fi`
 
 xgettext-x-scheme.o: x-scheme.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-scheme.o `test -f 'x-scheme.c' || echo '$(srcdir)/'`x-scheme.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-scheme.o `test -f 'x-scheme.c' || echo '$(srcdir)/'`x-scheme.c
 
 xgettext-x-scheme.obj: x-scheme.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-scheme.obj `if test -f 'x-scheme.c'; then $(CYGPATH_W) 'x-scheme.c'; else $(CYGPATH_W) '$(srcdir)/x-scheme.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-scheme.obj `if test -f 'x-scheme.c'; then $(CYGPATH_W) 'x-scheme.c'; else $(CYGPATH_W) '$(srcdir)/x-scheme.c'; fi`
 
 xgettext-x-smalltalk.o: x-smalltalk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-smalltalk.o `test -f 'x-smalltalk.c' || echo '$(srcdir)/'`x-smalltalk.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-smalltalk.o `test -f 'x-smalltalk.c' || echo '$(srcdir)/'`x-smalltalk.c
 
 xgettext-x-smalltalk.obj: x-smalltalk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-smalltalk.obj `if test -f 'x-smalltalk.c'; then $(CYGPATH_W) 'x-smalltalk.c'; else $(CYGPATH_W) '$(srcdir)/x-smalltalk.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-smalltalk.obj `if test -f 'x-smalltalk.c'; then $(CYGPATH_W) 'x-smalltalk.c'; else $(CYGPATH_W) '$(srcdir)/x-smalltalk.c'; fi`
 
 xgettext-x-java.o: x-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-java.o `test -f 'x-java.c' || echo '$(srcdir)/'`x-java.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-java.o `test -f 'x-java.c' || echo '$(srcdir)/'`x-java.c
 
 xgettext-x-java.obj: x-java.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-java.obj `if test -f 'x-java.c'; then $(CYGPATH_W) 'x-java.c'; else $(CYGPATH_W) '$(srcdir)/x-java.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-java.obj `if test -f 'x-java.c'; then $(CYGPATH_W) 'x-java.c'; else $(CYGPATH_W) '$(srcdir)/x-java.c'; fi`
 
 xgettext-x-csharp.o: x-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-csharp.o `test -f 'x-csharp.c' || echo '$(srcdir)/'`x-csharp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-csharp.o `test -f 'x-csharp.c' || echo '$(srcdir)/'`x-csharp.c
 
 xgettext-x-csharp.obj: x-csharp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-csharp.obj `if test -f 'x-csharp.c'; then $(CYGPATH_W) 'x-csharp.c'; else $(CYGPATH_W) '$(srcdir)/x-csharp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-csharp.obj `if test -f 'x-csharp.c'; then $(CYGPATH_W) 'x-csharp.c'; else $(CYGPATH_W) '$(srcdir)/x-csharp.c'; fi`
 
 xgettext-x-awk.o: x-awk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-awk.o `test -f 'x-awk.c' || echo '$(srcdir)/'`x-awk.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-awk.o `test -f 'x-awk.c' || echo '$(srcdir)/'`x-awk.c
 
 xgettext-x-awk.obj: x-awk.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-awk.obj `if test -f 'x-awk.c'; then $(CYGPATH_W) 'x-awk.c'; else $(CYGPATH_W) '$(srcdir)/x-awk.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-awk.obj `if test -f 'x-awk.c'; then $(CYGPATH_W) 'x-awk.c'; else $(CYGPATH_W) '$(srcdir)/x-awk.c'; fi`
 
 xgettext-x-ycp.o: x-ycp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-ycp.o `test -f 'x-ycp.c' || echo '$(srcdir)/'`x-ycp.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-ycp.o `test -f 'x-ycp.c' || echo '$(srcdir)/'`x-ycp.c
 
 xgettext-x-ycp.obj: x-ycp.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-ycp.obj `if test -f 'x-ycp.c'; then $(CYGPATH_W) 'x-ycp.c'; else $(CYGPATH_W) '$(srcdir)/x-ycp.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-ycp.obj `if test -f 'x-ycp.c'; then $(CYGPATH_W) 'x-ycp.c'; else $(CYGPATH_W) '$(srcdir)/x-ycp.c'; fi`
 
 xgettext-x-tcl.o: x-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-tcl.o `test -f 'x-tcl.c' || echo '$(srcdir)/'`x-tcl.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-tcl.o `test -f 'x-tcl.c' || echo '$(srcdir)/'`x-tcl.c
 
 xgettext-x-tcl.obj: x-tcl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-tcl.obj `if test -f 'x-tcl.c'; then $(CYGPATH_W) 'x-tcl.c'; else $(CYGPATH_W) '$(srcdir)/x-tcl.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-tcl.obj `if test -f 'x-tcl.c'; then $(CYGPATH_W) 'x-tcl.c'; else $(CYGPATH_W) '$(srcdir)/x-tcl.c'; fi`
 
 xgettext-x-perl.o: x-perl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-perl.o `test -f 'x-perl.c' || echo '$(srcdir)/'`x-perl.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-perl.o `test -f 'x-perl.c' || echo '$(srcdir)/'`x-perl.c
 
 xgettext-x-perl.obj: x-perl.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-perl.obj `if test -f 'x-perl.c'; then $(CYGPATH_W) 'x-perl.c'; else $(CYGPATH_W) '$(srcdir)/x-perl.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-perl.obj `if test -f 'x-perl.c'; then $(CYGPATH_W) 'x-perl.c'; else $(CYGPATH_W) '$(srcdir)/x-perl.c'; fi`
 
 xgettext-x-php.o: x-php.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-php.o `test -f 'x-php.c' || echo '$(srcdir)/'`x-php.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-php.o `test -f 'x-php.c' || echo '$(srcdir)/'`x-php.c
 
 xgettext-x-php.obj: x-php.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-php.obj `if test -f 'x-php.c'; then $(CYGPATH_W) 'x-php.c'; else $(CYGPATH_W) '$(srcdir)/x-php.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-php.obj `if test -f 'x-php.c'; then $(CYGPATH_W) 'x-php.c'; else $(CYGPATH_W) '$(srcdir)/x-php.c'; fi`
 
 xgettext-x-rst.o: x-rst.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-rst.o `test -f 'x-rst.c' || echo '$(srcdir)/'`x-rst.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-rst.o `test -f 'x-rst.c' || echo '$(srcdir)/'`x-rst.c
 
 xgettext-x-rst.obj: x-rst.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-rst.obj `if test -f 'x-rst.c'; then $(CYGPATH_W) 'x-rst.c'; else $(CYGPATH_W) '$(srcdir)/x-rst.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-rst.obj `if test -f 'x-rst.c'; then $(CYGPATH_W) 'x-rst.c'; else $(CYGPATH_W) '$(srcdir)/x-rst.c'; fi`
 
 xgettext-x-glade.o: x-glade.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-glade.o `test -f 'x-glade.c' || echo '$(srcdir)/'`x-glade.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-glade.o `test -f 'x-glade.c' || echo '$(srcdir)/'`x-glade.c
 
 xgettext-x-glade.obj: x-glade.c
-	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(xgettext_CFLAGS) $(CFLAGS) -c -o xgettext-x-glade.obj `if test -f 'x-glade.c'; then $(CYGPATH_W) 'x-glade.c'; else $(CYGPATH_W) '$(srcdir)/x-glade.c'; fi`
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o xgettext-x-glade.obj `if test -f 'x-glade.c'; then $(CYGPATH_W) 'x-glade.c'; else $(CYGPATH_W) '$(srcdir)/x-glade.c'; fi`
+
+.cc.o:
+	$(CXXCOMPILE) -c -o $@ $<
+
+.cc.obj:
+	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cc.lo:
+	$(LTCXXCOMPILE) -c -o $@ $<
+
+msgattrib-c++msgattrib.o: ../mingw/c++msgattrib.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgattrib_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgattrib-c++msgattrib.o `test -f '../mingw/c++msgattrib.cc' || echo '$(srcdir)/'`../mingw/c++msgattrib.cc
+
+msgattrib-c++msgattrib.obj: ../mingw/c++msgattrib.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgattrib_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgattrib-c++msgattrib.obj `if test -f '../mingw/c++msgattrib.cc'; then $(CYGPATH_W) '../mingw/c++msgattrib.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgattrib.cc'; fi`
+
+msgcat-c++msgcat.o: ../mingw/c++msgcat.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcat_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgcat-c++msgcat.o `test -f '../mingw/c++msgcat.cc' || echo '$(srcdir)/'`../mingw/c++msgcat.cc
+
+msgcat-c++msgcat.obj: ../mingw/c++msgcat.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcat_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgcat-c++msgcat.obj `if test -f '../mingw/c++msgcat.cc'; then $(CYGPATH_W) '../mingw/c++msgcat.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgcat.cc'; fi`
+
+msgcomm-c++msgcomm.o: ../mingw/c++msgcomm.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcomm_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgcomm-c++msgcomm.o `test -f '../mingw/c++msgcomm.cc' || echo '$(srcdir)/'`../mingw/c++msgcomm.cc
+
+msgcomm-c++msgcomm.obj: ../mingw/c++msgcomm.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgcomm_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgcomm-c++msgcomm.obj `if test -f '../mingw/c++msgcomm.cc'; then $(CYGPATH_W) '../mingw/c++msgcomm.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgcomm.cc'; fi`
+
+msgconv-c++msgconv.o: ../mingw/c++msgconv.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgconv_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgconv-c++msgconv.o `test -f '../mingw/c++msgconv.cc' || echo '$(srcdir)/'`../mingw/c++msgconv.cc
+
+msgconv-c++msgconv.obj: ../mingw/c++msgconv.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgconv_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgconv-c++msgconv.obj `if test -f '../mingw/c++msgconv.cc'; then $(CYGPATH_W) '../mingw/c++msgconv.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgconv.cc'; fi`
+
+msgen-c++msgen.o: ../mingw/c++msgen.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgen_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgen-c++msgen.o `test -f '../mingw/c++msgen.cc' || echo '$(srcdir)/'`../mingw/c++msgen.cc
+
+msgen-c++msgen.obj: ../mingw/c++msgen.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgen_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgen-c++msgen.obj `if test -f '../mingw/c++msgen.cc'; then $(CYGPATH_W) '../mingw/c++msgen.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgen.cc'; fi`
+
+msgfilter-c++msgfilter.o: ../mingw/c++msgfilter.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfilter_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgfilter-c++msgfilter.o `test -f '../mingw/c++msgfilter.cc' || echo '$(srcdir)/'`../mingw/c++msgfilter.cc
+
+msgfilter-c++msgfilter.obj: ../mingw/c++msgfilter.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgfilter_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgfilter-c++msgfilter.obj `if test -f '../mingw/c++msgfilter.cc'; then $(CYGPATH_W) '../mingw/c++msgfilter.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgfilter.cc'; fi`
+
+msggrep-c++msggrep.o: ../mingw/c++msggrep.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msggrep_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msggrep-c++msggrep.o `test -f '../mingw/c++msggrep.cc' || echo '$(srcdir)/'`../mingw/c++msggrep.cc
+
+msggrep-c++msggrep.obj: ../mingw/c++msggrep.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msggrep_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msggrep-c++msggrep.obj `if test -f '../mingw/c++msggrep.cc'; then $(CYGPATH_W) '../mingw/c++msggrep.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msggrep.cc'; fi`
+
+msgmerge-c++msgmerge.o: ../mingw/c++msgmerge.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgmerge-c++msgmerge.o `test -f '../mingw/c++msgmerge.cc' || echo '$(srcdir)/'`../mingw/c++msgmerge.cc
+
+msgmerge-c++msgmerge.obj: ../mingw/c++msgmerge.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msgmerge_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msgmerge-c++msgmerge.obj `if test -f '../mingw/c++msgmerge.cc'; then $(CYGPATH_W) '../mingw/c++msgmerge.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msgmerge.cc'; fi`
+
+msguniq-c++msguniq.o: ../mingw/c++msguniq.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msguniq_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msguniq-c++msguniq.o `test -f '../mingw/c++msguniq.cc' || echo '$(srcdir)/'`../mingw/c++msguniq.cc
+
+msguniq-c++msguniq.obj: ../mingw/c++msguniq.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(msguniq_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o msguniq-c++msguniq.obj `if test -f '../mingw/c++msguniq.cc'; then $(CYGPATH_W) '../mingw/c++msguniq.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++msguniq.cc'; fi`
+
+xgettext-c++xgettext.o: ../mingw/c++xgettext.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o xgettext-c++xgettext.o `test -f '../mingw/c++xgettext.cc' || echo '$(srcdir)/'`../mingw/c++xgettext.cc
+
+xgettext-c++xgettext.obj: ../mingw/c++xgettext.cc
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(xgettext_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o xgettext-c++xgettext.obj `if test -f '../mingw/c++xgettext.cc'; then $(CYGPATH_W) '../mingw/c++xgettext.cc'; else $(CYGPATH_W) '$(srcdir)/../mingw/c++xgettext.cc'; fi`
 
 .y.c:
 	$(YACCCOMPILE) $<
@@ -1395,6 +1556,10 @@ uninstall-am: uninstall-binPROGRAMS uninstall-includeHEADERS \
 	uninstall-binPROGRAMS uninstall-includeHEADERS \
 	uninstall-info-am uninstall-libLTLIBRARIES uninstall-local
 
+# Work around an automake 1.9 bug: *_CFLAGS settings are ignored for elements
+# of a libtool library.
+@MINGW_TRUE@format.lo: format.c
+@MINGW_TRUE@	$(LTCOMPILE) $(format_CFLAGS) -c -o format.lo format.c
 
 # No need to install libgettextsrc.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean

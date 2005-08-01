@@ -87,12 +87,13 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/m4/intdiv0.m4 $(top_srcdir)/m4/intmax.m4 \
 	$(top_srcdir)/m4/inttypes-pri.m4 $(top_srcdir)/m4/inttypes.m4 \
 	$(top_srcdir)/m4/inttypes_h.m4 $(top_srcdir)/m4/lcmessage.m4 \
-	$(top_srcdir)/m4/longdouble.m4 $(top_srcdir)/m4/longlong.m4 \
-	$(top_srcdir)/m4/nls.m4 $(top_srcdir)/m4/po.m4 \
-	$(top_srcdir)/m4/printf-posix.m4 $(top_srcdir)/m4/progtest.m4 \
-	$(top_srcdir)/m4/signed.m4 $(top_srcdir)/m4/size_max.m4 \
-	$(top_srcdir)/m4/stdint_h.m4 $(top_srcdir)/m4/uintmax_t.m4 \
-	$(top_srcdir)/m4/ulonglong.m4 $(top_srcdir)/m4/wchar_t.m4 \
+	$(top_srcdir)/m4/lock.m4 $(top_srcdir)/m4/longdouble.m4 \
+	$(top_srcdir)/m4/longlong.m4 $(top_srcdir)/m4/nls.m4 \
+	$(top_srcdir)/m4/po.m4 $(top_srcdir)/m4/printf-posix.m4 \
+	$(top_srcdir)/m4/progtest.m4 $(top_srcdir)/m4/signed.m4 \
+	$(top_srcdir)/m4/size_max.m4 $(top_srcdir)/m4/stdint_h.m4 \
+	$(top_srcdir)/m4/uintmax_t.m4 $(top_srcdir)/m4/ulonglong.m4 \
+	$(top_srcdir)/m4/visibility.m4 $(top_srcdir)/m4/wchar_t.m4 \
 	$(top_srcdir)/m4/wint_t.m4 $(top_srcdir)/m4/xsize.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
@@ -153,6 +154,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -196,6 +198,7 @@ HAVE_MCS = @HAVE_MCS@
 HAVE_MCS_IN_PATH = @HAVE_MCS_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -213,13 +216,20 @@ JAVAC = @JAVAC@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBSCHED = @LIBSCHED@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MSGFMT = @MSGFMT@
@@ -300,8 +310,8 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../m4
-SUBDIRS = doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4
-DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4
+SUBDIRS = doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4 tests
+DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4 tests
 EXTRA_DIST = BUGS Makefile.vms config.h_vms README.woe32 Makefile.msvc \
 	config.h.msvc windows/dllexport.h windows/intl.rc
 
@@ -892,6 +902,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef STACK_DIRECTION$$/#define STACK_DIRECTION -1/' \
 	    -e 's/#undef STDC_HEADERS$$/#define STDC_HEADERS 1/' \
 	    -e 's/#undef USE_UNLOCKED_IO$$/#define USE_UNLOCKED_IO 1/' \
+	    -e 's/#undef USE_WIN32_THREADS$$/#define USE_WIN32_THREADS 1/' \
 	    -e 's/#undef __GETOPT_PREFIX$$/#define __GETOPT_PREFIX/' \
 	    -e 's/#undef inline$$/#define inline __inline/' \
 	    -e 's/#undef ssize_t$$/#define ssize_t int/' \

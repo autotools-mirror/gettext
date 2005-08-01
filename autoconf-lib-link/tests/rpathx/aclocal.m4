@@ -2066,7 +2066,8 @@ cygwin* | mingw* | pw32*)
       dlpath=`$SHELL 2>&1 -c '\''. $dir/'\''\${base_file}'\''i;echo \$dlname'\''`~
       dldir=$destdir/`dirname \$dlpath`~
       test -d \$dldir || mkdir -p \$dldir~
-      $install_prog $dir/$dlname \$dldir/$dlname'
+      $install_prog $dir/$dlname \$dldir/$dlname~
+      chmod a+x \$dldir/$dlname'
     postuninstall_cmds='dldll=`$SHELL 2>&1 -c '\''. $file; echo \$dlname'\''`~
       dlpath=$dir/\$dldll~
        $rm \$dlpath'

@@ -184,6 +184,7 @@ LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+LTNOUNDEF = @LTNOUNDEF@
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 OBJDUMP = @OBJDUMP@
 OBJEXT = @OBJEXT@
@@ -279,6 +280,11 @@ lib_asprintf_EXTRASOURCES = \
   vasnprintf.h vasnprintf.c asnprintf.c \
   vasprintf.h vasprintf.c asprintf.c
 
+
+# How to build libasprintf.
+# With libtool 1.5.14, on some platforms, like BeOS, "libtool --tag=CXX" fails
+# to create a shared library, however "libtool --tag=CC" succeeds.
+libasprintf_la_LDFLAGS = @LTNOUNDEF@
 
 # Documentation.
 docdir = $(datadir)/doc/@PACKAGE@
@@ -856,10 +862,6 @@ autosprintf.h: autosprintf.h.in
 dist-hook:
 	rm -f $(distdir)/autosprintf.h
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
-
-# How to build libasprintf.
-# With libtool 1.5.14, on some platforms, like BeOS, "libtool --tag=CXX" fails
-# to create a shared library, however "libtool --tag=CC" succeeds.
 libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
 	$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
 	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)

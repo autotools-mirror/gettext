@@ -861,6 +861,9 @@ Optional Features:
   --enable-csharp[=IMPL]  choose preferred C# implementation (pnet or mono)
   --enable-relocatable    install a package that can be moved in the filesystem
   --disable-nls           do not use Native Language Support
+  --enable-threads={posix|solaris|pth|win32}
+                          specify multithreading API
+  --disable-threads       build without multithread safety
   --disable-rpath         do not hardcode runtime library paths
   --disable-libasprintf   do not build libasprintf
 
@@ -873,6 +876,8 @@ Optional Packages:
   --with-tags[=TAGS]
                           include additional configurations [automatic]
   --with-gnu-ld           assume the C compiler uses GNU ld default=no
+  --with-libpth-prefix[=DIR]  search for libpth in DIR/include and DIR/lib
+  --without-libpth-prefix     don't search for libpth in includedir and libdir
   --with-libiconv-prefix[=DIR]  search for libiconv in DIR/include and DIR/lib
   --without-libiconv-prefix     don't search for libiconv in includedir and libdir
   --with-included-gettext use the GNU gettext library included here
@@ -2005,9 +2010,20 @@ if test "${enable_nls+set}" = set; then
   enableval="$enable_nls"
 
 fi;
+# Check whether --enable-threads or --disable-threads was given.
+if test "${enable_threads+set}" = set; then
+  enableval="$enable_threads"
+
+fi;
 # Check whether --enable-rpath or --disable-rpath was given.
 if test "${enable_rpath+set}" = set; then
   enableval="$enable_rpath"
+
+fi;
+
+# Check whether --with-libpth-prefix or --without-libpth-prefix was given.
+if test "${with_libpth_prefix+set}" = set; then
+  withval="$with_libpth_prefix"
 
 fi;
 
@@ -2127,20 +2143,25 @@ if test "${enable_relocatable+set}" = set; then
   enableval="$enable_relocatable"
 
 fi;
-
-# Check whether --with-included-regex or --without-included-regex was given.
-if test "${with_included_regex+set}" = set; then
-  withval="$with_included_regex"
-
-fi;
 # Check whether --enable-nls or --disable-nls was given.
 if test "${enable_nls+set}" = set; then
   enableval="$enable_nls"
 
 fi;
+# Check whether --enable-threads or --disable-threads was given.
+if test "${enable_threads+set}" = set; then
+  enableval="$enable_threads"
+
+fi;
 # Check whether --enable-rpath or --disable-rpath was given.
 if test "${enable_rpath+set}" = set; then
   enableval="$enable_rpath"
+
+fi;
+
+# Check whether --with-libpth-prefix or --without-libpth-prefix was given.
+if test "${with_libpth_prefix+set}" = set; then
+  withval="$with_libpth_prefix"
 
 fi;
 
@@ -2164,6 +2185,12 @@ fi;
 # Check whether --with-libintl-prefix or --without-libintl-prefix was given.
 if test "${with_libintl_prefix+set}" = set; then
   withval="$with_libintl_prefix"
+
+fi;
+
+# Check whether --with-included-regex or --without-included-regex was given.
+if test "${with_included_regex+set}" = set; then
+  withval="$with_included_regex"
 
 fi;
 

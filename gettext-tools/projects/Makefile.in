@@ -54,6 +54,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/inttypes_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/lcmessage.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/lock.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longdouble.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/longlong.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/nls.m4 \
@@ -65,6 +66,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/stdint_h.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/uintmax_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/ulonglong.m4 \
+	$(top_srcdir)/../gettext-runtime/m4/visibility.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wchar_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wint_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/xsize.m4 \
@@ -125,6 +127,7 @@ CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CFLAG_VISIBILITY = @CFLAG_VISIBILITY@
 CLASSPATH = @CLASSPATH@
 CLASSPATH_SEPARATOR = @CLASSPATH_SEPARATOR@
 CPP = @CPP@
@@ -188,6 +191,7 @@ HAVE_MONO = @HAVE_MONO@
 HAVE_MONO_IN_PATH = @HAVE_MONO_IN_PATH@
 HAVE_POSIX_PRINTF = @HAVE_POSIX_PRINTF@
 HAVE_SNPRINTF = @HAVE_SNPRINTF@
+HAVE_VISIBILITY = @HAVE_VISIBILITY@
 HAVE_WPRINTF = @HAVE_WPRINTF@
 HAVE__BOOL = @HAVE__BOOL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -208,8 +212,11 @@ LIBEXPAT = @LIBEXPAT@
 LIBGREPOBJS = @LIBGREPOBJS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
+LIBMULTITHREAD = @LIBMULTITHREAD@
 LIBOBJS = @LIBOBJS@
+LIBPTH = @LIBPTH@
 LIBS = @LIBS@
+LIBTHREAD = @LIBTHREAD@
 LIBTOOL = @LIBTOOL@
 LN_S = @LN_S@
 LOCALE_FR = @LOCALE_FR@
@@ -217,8 +224,14 @@ LOCALE_FR_UTF8 = @LOCALE_FR_UTF8@
 LTLIBEXPAT = @LTLIBEXPAT@
 LTLIBICONV = @LTLIBICONV@
 LTLIBINTL = @LTLIBINTL@
+LTLIBMULTITHREAD = @LTLIBMULTITHREAD@
 LTLIBOBJS = @LTLIBOBJS@
+LTLIBPTH = @LTLIBPTH@
+LTLIBTHREAD = @LTLIBTHREAD@
+LTNOUNDEF = @LTNOUNDEF@
 MAKEINFO = @MAKEINFO@
+MINGW_FALSE = @MINGW_FALSE@
+MINGW_TRUE = @MINGW_TRUE@
 MKINSTALLDIRS = @MKINSTALLDIRS@
 MONO_PATH = @MONO_PATH@
 MONO_PATH_SEPARATOR = @MONO_PATH_SEPARATOR@
