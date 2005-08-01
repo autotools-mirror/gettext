@@ -1,5 +1,11 @@
 2005-07-31  Bruno Haible  <bruno@clisp.org>
 
+	Avoid const-cast.
+	* dcigettext.c (DCIGETTEXT): Change type of 'dirname' to const char *.
+	Use an auxiliary variable 'resolved_dirname' of type 'char *'.
+
+2005-07-31  Bruno Haible  <bruno@clisp.org>
+
 	* dcigettext.c (tree_lock): Remove extraneous semicolon.
 
 2005-07-25  Bruno Haible  <bruno@clisp.org>

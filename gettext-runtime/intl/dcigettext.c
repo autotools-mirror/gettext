@@ -451,7 +451,8 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   struct binding *binding;
   const char *categoryname;
   const char *categoryvalue;
-  char *dirname, *xdomainname;
+  const char *dirname;
+  char *xdomainname;
   char *single_locale;
   char *retval;
   size_t retlen;
@@ -572,39 +573,43 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     }
 
   if (binding == NULL)
-    dirname = (char *) _nl_default_dirname;
-  else if (IS_ABSOLUTE_PATH (binding->dirname))
-    dirname = binding->dirname;
+    dirname = _nl_default_dirname;
   else
     {
-      /* We have a relative path.  Make it absolute now.  */
-      size_t dirname_len = strlen (binding->dirname) + 1;
-      size_t path_max;
-      char *ret;
-
-      path_max = (unsigned int) PATH_MAX;
-      path_max += 2;		/* The getcwd docs say to do this.  */
-
-      for (;;)
+      dirname = binding->dirname;
+      if (!IS_ABSOLUTE_PATH (dirname))
 	{
-	  dirname = (char *) alloca (path_max + dirname_len);
-	  ADD_BLOCK (block_list, dirname);
+	  /* We have a relative path.  Make it absolute now.  */
+	  size_t dirname_len = strlen (dirname) + 1;
+	  size_t path_max;
+	  char *resolved_dirname;
+	  char *ret;
 
-	  __set_errno (0);
-	  ret = getcwd (dirname, path_max);
-	  if (ret != NULL || errno != ERANGE)
-	    break;
+	  path_max = (unsigned int) PATH_MAX;
+	  path_max += 2;		/* The getcwd docs say to do this.  */
 
-	  path_max += path_max / 2;
-	  path_max += PATH_INCR;
+	  for (;;)
+	    {
+	      resolved_dirname = (char *) alloca (path_max + dirname_len);
+	      ADD_BLOCK (block_list, tmp_dirname);
+
+	      __set_errno (0);
+	      ret = getcwd (resolved_dirname, path_max);
+	      if (ret != NULL || errno != ERANGE)
+		break;
+
+	      path_max += path_max / 2;
+	      path_max += PATH_INCR;
+	    }
+
+	  if (ret == NULL)
+	    /* We cannot get the current working directory.  Don't signal an
+	       error but simply return the default string.  */
+	    goto return_untranslated;
+
+	  stpcpy (stpcpy (strchr (resolved_dirname, '\0'), "/"), dirname);
+	  dirname = resolved_dirname;
 	}
-
-      if (ret == NULL)
-	/* We cannot get the current working directory.  Don't signal an
-	   error but simply return the default string.  */
-	goto return_untranslated;
-
-      stpcpy (stpcpy (strchr (dirname, '\0'), "/"), binding->dirname);
     }
 
   /* Now determine the symbolic name of CATEGORY and its value.  */
