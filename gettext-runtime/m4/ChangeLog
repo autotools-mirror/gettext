@@ -1,3 +1,8 @@
+2005-07-28  Stepan Kasal  <kasal@ucw.cz>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Don't use changequote, add pairs of
+	brackets instead.
+
 2005-07-28  Bruno Haible  <bruno@clisp.org>
 
 	* po.m4 (AM_PO_SUBDIRS, AM_POSTPROCESS_PO_MAKEFILE): Update comments
