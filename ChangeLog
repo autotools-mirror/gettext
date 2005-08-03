@@ -1,3 +1,7 @@
+2005-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Add commands for gettext-runtime/glocale directory.
+
 2005-07-24  Bruno Haible  <bruno@clisp.org>
 
 	Tidy up exported symbols.

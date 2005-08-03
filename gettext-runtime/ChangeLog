@@ -1,3 +1,10 @@
+2005-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* glocale: New directory.
+	* configure.ac (SUBDIR_glocale): New variable.
+	* Makefile.am (SUBDIRS): Add SUBDIR_glocale.
+	(DIST_SUBDIRS): Add glocale.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Move the AM_GNU_GETTEXT invocation early, since it
