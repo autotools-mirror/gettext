@@ -1,3 +1,8 @@
+2005-08-03  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (intl/Makefile): Remove the VPATH line.
+	Reported by Jason Keltz <jas@cs.yorku.ca>.
+
 2005-07-26  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Move the AM_GNU_GETTEXT invocation early, since it

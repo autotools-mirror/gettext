@@ -24,6 +24,17 @@ SHELL = /bin/sh
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 top_builddir = ..
+
+# The VPATH variables allows builds with $builddir != $srcdir, assuming a
+# 'make' program that supports VPATH (such as GNU make). This line is removed
+# by autoconf automatically when "$(srcdir)" = ".".
+# In this directory, the VPATH handling is particular:
+# 1. If INTL_LIBTOOL_SUFFIX_PREFIX is 'l' (indicating a build with libtool),
+#    the .c -> .lo rules carefully use $(srcdir), so that VPATH can be omitted.
+# 2. If PACKAGE = gettext-tools, VPATH _must_ be omitted, because otherwise
+#    'make' does the wrong thing if GNU gettext was configured with
+#    "./configure --srcdir=`pwd`", namely it gets confused by the .lo and .la
+#    files it finds in srcdir = ../../gettext-runtime/intl.
 VPATH = $(srcdir)
 
 prefix = @prefix@
