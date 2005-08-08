@@ -503,6 +503,7 @@ catalogname_for_locale (const char *locale)
     "ak_GH",	/* Akan		Ghana */
     "am_ET",	/* Amharic	Ethiopia */
     "an_ES",	/* Aragonese	Spain */
+    "ang_GB",	/* Old English	Britain */
     "as_IN",	/* Assamese	India */
     "av_RU",	/* Avaric	Russia */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
@@ -549,8 +550,12 @@ catalogname_for_locale (const char *locale)
     "is_IS",	/* Icelandic	Iceland */
     "it_IT",	/* Italian	Italy */
     "ja_JP",	/* Japanese	Japan */
+    "jab_NG",	/* Hyam		Nigeria */
     "jv_ID",	/* Javanese	Indonesia */
     "ka_GE",	/* Georgian	Georgia */
+    "kaj_NG",	/* Jju		Nigeria */
+    "kcg_NG",	/* Tyap		Nigeria */
+    "kdm_NG",	/* Kagoma	Nigeria */
     "kg_CD",	/* Kongo	Democratic Republic of Congo */
     "kk_KZ",	/* Kazakh	Kazakhstan */
     "kl_GL",	/* Kalaallisut	Greenland */
@@ -565,25 +570,30 @@ catalogname_for_locale (const char *locale)
     "lt_LT",	/* Lithuanian	Lithuania */
     "lu_CD",	/* Luba-Katanga	Democratic Republic of Congo */
     "lv_LV",	/* Latvian	Latvia */
+    "mai_IN",	/* Maithili	India */
     "mg_MG",	/* Malagasy	Madagascar */
     "mk_MK",	/* Macedonian	Macedonia */
     "ml_IN",	/* Malayalam	India */
     "mn_MN",	/* Mongolian	Mongolia */
+    "mni_IN",	/* Manipuri	India */
     "mr_IN",	/* Marathi	India */
     "ms_MY",	/* Malay	Malaysia */
     "mt_MT",	/* Maltese	Malta */
     "my_MM",	/* Burmese	Myanmar */
-    "mni_IN",	/* Manipuri	India */
     "na_NR",	/* Nauru	Nauru */
+    "nah_MX",	/* Nahuatl	Mexico */
     "nb_NO",	/* Norwegian Bokmål	Norway */
+    "nds_DE",	/* Low Saxon	Germany */
     "ne_NP",	/* Nepali	Nepal */
     "nl_NL",	/* Dutch	Netherlands */
     "nn_NO",	/* Norwegian Nynorsk	Norway */
     "no_NO",	/* Norwegian	Norway */
+    "nso_ZA",	/* Northern Sotho	South Africa */
     "oc_FR",	/* Occitan	France */
     "oj_CA",	/* Ojibwa	Canada */
     "or_IN",	/* Oriya	India */
     "pa_IN",	/* Punjabi	India */
+    "pbb_CO",	/* Páez		Colombia */
     "pl_PL",	/* Polish	Poland */
     "ps_AF",	/* Pashto	Afghanistan */
     "pt_PT",	/* Portuguese	Portugal */
@@ -603,6 +613,7 @@ catalogname_for_locale (const char *locale)
     "sr_YU",	/* Serbian	Yugoslavia */
     "sv_SE",	/* Swedish	Sweden */
     "te_IN",	/* Telugu	India */
+    "tet_ID",	/* Tetum	Indonesia */
     "tg_TJ",	/* Tajik	Tajikistan */
     "th_TH",	/* Thai		Thailand */
     "tk_TM",	/* Turkmen	Turkmenistan */
@@ -615,7 +626,8 @@ catalogname_for_locale (const char *locale)
     "ve_ZA",	/* Venda	South Africa */
     "vi_VN",	/* Vietnamese	Vietnam */
     "wa_BE",	/* Walloon	Belgium */
-    "wen_DE"	/* Sorbian	Germany */
+    "wen_DE",	/* Sorbian	Germany */
+    "zap_MX"	/* Zapotec	Mexico */
   };
   const char *dot;
   size_t i;
@@ -743,6 +755,7 @@ englishname_of_language ()
     { "ak", "Akan" },
     { "am", "Amharic" },
     { "an", "Aragonese" },
+    { "ang", "Old English" },
     { "ar", "Arabic" },
     { "as", "Assamese" },
     { "av", "Avaric" },
@@ -810,8 +823,12 @@ englishname_of_language ()
     { "it", "Italian" },
     { "iu", "Inuktitut" },
     { "ja", "Japanese" },
+    { "jab", "Hyam" },
     { "jw", "Javanese" },
     { "ka", "Georgian" },
+    { "kaj", "Jju" },
+    { "kcg", "Tyap" },
+    { "kdm", "Kagoma" },
     { "kg", "Kongo" },
     { "ki", "Kikuyu" },
     { "kj", "Kuanyama" },
@@ -836,27 +853,32 @@ englishname_of_language ()
     { "lt", "Lithuanian" },
     { "lu", "Luba-Katanga" },
     { "lv", "Latvian" },
+    { "mai", "Maithili" },
     { "mg", "Malagasy" },
     { "mh", "Marshall" },
     { "mi", "Maori" },
     { "mk", "Macedonian" },
     { "ml", "Malayalam" },
     { "mn", "Mongolian" },
+    { "mni", "Manipuri" },
     { "mo", "Moldavian" },
     { "mr", "Marathi" },
     { "ms", "Malay" },
     { "mt", "Maltese" },
     { "my", "Burmese" },
-    { "mni", "Manipuri" },
+    { "myn", "Mayan" },
     { "na", "Nauru" },
+    { "nah", "Nahuatl" },
     { "nb", "Norwegian Bokmal" },
     { "nd", "North Ndebele" },
+    { "nds", "Low Saxon" },
     { "ne", "Nepali" },
     { "ng", "Ndonga" },
     { "nl", "Dutch" },
     { "nn", "Norwegian Nynorsk" },
     { "no", "Norwegian" },
     { "nr", "South Ndebele" },
+    { "nso", "Northern Sotho" },
     { "nv", "Navajo" },
     { "ny", "Nyanja" },
     { "oc", "Occitan" },
@@ -865,6 +887,7 @@ englishname_of_language ()
     { "or", "Oriya" },
     { "os", "Ossetian" },
     { "pa", "Punjabi" },
+    { "pbb", "Páez" },
     { "pi", "Pali" },
     { "pl", "Polish" },
     { "ps", "Pashto" },
@@ -895,6 +918,7 @@ englishname_of_language ()
     { "sw", "Swahili" },
     { "ta", "Tamil" },
     { "te", "Telugu" },
+    { "tet", "Tetum" },
     { "tg", "Tajik" },
     { "th", "Thai" },
     { "ti", "Tigrinya" },
@@ -914,14 +938,15 @@ englishname_of_language ()
     { "ve", "Venda" },
     { "vi", "Vietnamese" },
     { "vo", "Volapuk" },
-    { "wo", "Wolof" },
     { "wen", "Sorbian" },
+    { "wo", "Wolof" },
     { "xh", "Xhosa" },
     { "yi", "Yiddish" },
     { "yo", "Yoruba" },
     { "za", "Zhuang" },
     { "zh", "Chinese" },
-    { "zu", "Zulu" }
+    { "zu", "Zulu" },
+    { "zap", "Zapotec" }
   };
   size_t i;
 

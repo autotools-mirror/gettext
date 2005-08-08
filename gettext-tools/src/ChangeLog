@@ -1,3 +1,12 @@
+2005-08-08  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (catalogname_for_locale): Add support for Old English,
+	Hyam, Jju, Tyap, Maithili, Nahuatl, Low Saxon, Northern Sotho, Páez,
+	Tetum, Zapotec.
+	(englishname_of_language): Add support for Old English, Hyam, Jju,
+	Tyap, Kagoma, Maithili, Mayan, Nahuatl, Low Saxon, Northern Sotho,
+	Páez, Tetum, Zapotec.
+
 2005-05-21  Bruno Haible  <bruno@clisp.org>
 
 	New undocumented option, used by glocale PO files.
