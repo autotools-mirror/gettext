@@ -1276,7 +1276,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   domain->nconversions = 0;
 
   /* Get the header entry and look for a plural specification.  */
+#ifdef IN_LIBGLOCALE
+  nullentry =
+    _nl_find_msg (domain_file, domainbinding, NULL, "", &nullentrylen);
+#else
   nullentry = _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+#endif
   EXTRACT_PLURAL_EXPRESSION (nullentry, &domain->plural, &domain->nplurals);
 
  out:

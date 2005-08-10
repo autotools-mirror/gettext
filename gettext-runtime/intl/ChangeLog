@@ -1,3 +1,27 @@
+2005-07-31  Bruno Haible  <bruno@clisp.org>
+
+	Make code usable in libglocale.
+	* gettextP.h (gl_dcigettext): New declaration.
+	(_nl_msg_cat_cntr): Export also from libglocale.
+	(_nl_find_msg): In libglocale, take the encoding as argument and no
+	convert flag.
+	* dcigettext.c (HAVE_PER_THREAD_LOCALE): Define in libglocale.
+	(struct known_translation_t): In libglocale, add encoding field.
+	(transcmp): In libglocale, compare also the encoding fields.
+	(libintl_version): Don't define in libglocale.
+	(_nl_current_default_domain, _nl_domain_bindings): Likewise.
+	(DCIGETTEXT): In libglocale, also take the localename and encoding
+	as arguments. Don't call nl_langinfo. Instead of walking the other
+	library's _nl_domain_bindings, use bindtextdomain.
+	(_nl_find_msg): In libglocale, take the encoding as argument and no
+	convert flag. Don't call get_output_charset.
+	(guess_category_value): In libglocale, take the locale name as
+	argument. Don't call __current_locale_name or uselocale or
+	_nl_locale_name_posix and _nl_locale_name_default.
+	(get_output_charset): Don't define in libglocale.
+	* loadmsgcat.c (_nl_load_domain): Update.
+	* plural-exp.h (plural_eval): Don't declare in libglocale.
+
 2005-08-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in: Add comments about VPATH.

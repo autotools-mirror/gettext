@@ -215,7 +215,7 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 #endif
 
 /* Whether to support different locales in different threads.  */
-#if defined _LIBC || HAVE_NL_LOCALE_NAME || (HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS)
+#if defined _LIBC || HAVE_NL_LOCALE_NAME || (HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS) || defined IN_LIBGLOCALE
 # define HAVE_PER_THREAD_LOCALE
 #endif
 
@@ -232,6 +232,11 @@ struct known_translation_t
 #ifdef HAVE_PER_THREAD_LOCALE
   /* Name of the relevant locale category, or "" for the global locale.  */
   const char *localename;
+#endif
+
+#ifdef IN_LIBGLOCALE
+  /* The character encoding.  */
+  const char *encoding;
 #endif
 
   /* State of the catalog counter at the point the string was found.  */
@@ -282,10 +287,16 @@ transcmp (const void *p1, const void *p2)
 	  result = strcmp (s1->localename, s2->localename);
 	  if (result == 0)
 #endif
-	    /* We compare the category last (though this is the cheapest
-	       operation) since it is hopefully always the same (namely
-	       LC_MESSAGES).  */
-	    result = s1->category - s2->category;
+	    {
+#ifdef IN_LIBGLOCALE
+	      result = strcmp (s1->encoding, s2->encoding);
+	      if (result == 0)
+#endif
+		/* We compare the category last (though this is the cheapest
+		   operation) since it is hopefully always the same (namely
+		   LC_MESSAGES).  */
+		result = s1->category - s2->category;
+	    }
 	}
     }
 
@@ -297,9 +308,11 @@ transcmp (const void *p1, const void *p2)
    textdomain(3).  The default value for this is "messages".  */
 const char _nl_default_default_domain[] attribute_hidden = "messages";
 
+#ifndef IN_LIBGLOCALE
 /* Value used as the default domain for gettext(3).  */
 const char *_nl_current_default_domain attribute_hidden
      = _nl_default_default_domain;
+#endif
 
 /* Contains the default location of the message catalogs.  */
 #if defined __EMX__
@@ -315,25 +328,36 @@ libc_hidden_data_def (_nl_default_dirname)
 # endif
 #endif
 
+#ifndef IN_LIBGLOCALE
 /* List with bindings of specific domains created by bindtextdomain()
    calls.  */
 struct binding *_nl_domain_bindings;
+#endif
 
 /* Prototypes for local functions.  */
 static char *plural_lookup (struct loaded_l10nfile *domain,
 			    unsigned long int n,
 			    const char *translation, size_t translation_len)
      internal_function;
+
+#ifdef IN_LIBGLOCALE
+static const char *guess_category_value (int category,
+					 const char *categoryname,
+					 const char *localename)
+     internal_function;
+#else
 static const char *guess_category_value (int category,
 					 const char *categoryname)
      internal_function;
+#endif
+
 #ifdef _LIBC
 # include "../locale/localeinfo.h"
 # define category_to_name(category)	_nl_category_names[category]
 #else
 static const char *category_to_name (int category) internal_function;
 #endif
-#if defined _LIBC || HAVE_ICONV
+#if (defined _LIBC || HAVE_ICONV) && !defined IN_LIBGLOCALE
 static const char *get_output_charset (struct binding *domainbinding)
      internal_function;
 #endif
@@ -440,9 +464,18 @@ static int enable_secure;
 /* Look up MSGID in the DOMAINNAME message catalog for the current
    CATEGORY locale and, if PLURAL is nonzero, search over string
    depending on the plural form determined by N.  */
+#ifdef IN_LIBGLOCALE
+char *
+gl_dcigettext (const char *domainname,
+	       const char *msgid1, const char *msgid2,
+	       int plural, unsigned long int n,
+	       int category,
+	       const char *localename, const char *encoding)
+#else
 char *
 DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	    int plural, unsigned long int n, int category)
+#endif
 {
 #ifndef HAVE_ALLOCA
   struct block_list *block_list = NULL;
@@ -461,7 +494,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   struct known_translation_t *search;
   struct known_translation_t **foundp = NULL;
   size_t msgid_len;
-# ifdef HAVE_PER_THREAD_LOCALE
+# if defined HAVE_PER_THREAD_LOCALE && !defined IN_LIBGLOCALE
   const char *localename;
 # endif
 #endif
@@ -505,14 +538,15 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   search->domainname = domainname;
   search->category = category;
 # ifdef HAVE_PER_THREAD_LOCALE
-#  ifdef _LIBC
+#  ifndef IN_LIBGLOCALE
+#   ifdef _LIBC
   localename = __current_locale_name (category);
-#  else
-#   if HAVE_NL_LOCALE_NAME
+#   else
+#    if HAVE_NL_LOCALE_NAME
   /* NL_LOCALE_NAME is public glibc API introduced in glibc-2.4.  */
   localename = nl_langinfo (NL_LOCALE_NAME (category));
-#   else
-#    if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
+#    else
+#     if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
   /* The __names field is not public glibc API and must therefore not be used
      in code that is installed in public locations.  */
   {
@@ -522,10 +556,14 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     else
       localename = "";
   }
+#     endif
 #    endif
 #   endif
 #  endif
   search->localename = localename;
+#  ifdef IN_LIBGLOCALE
+  search->encoding = encoding;
+#  endif
 # endif
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
@@ -558,6 +596,12 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   DETERMINE_SECURE;
 
   /* First find matching binding.  */
+#ifdef IN_LIBGLOCALE
+  /* We can use a trivial binding, since _nl_find_msg will ignore it anyway,
+     and _nl_load_domain and _nl_find_domain just pass it through.  */
+  binding = NULL;
+  dirname = bindtextdomain (domainname, NULL);
+#else
   for (binding = _nl_domain_bindings; binding != NULL; binding = binding->next)
     {
       int compare = strcmp (domainname, binding->domainname);
@@ -577,6 +621,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   else
     {
       dirname = binding->dirname;
+#endif
       if (!IS_ABSOLUTE_PATH (dirname))
 	{
 	  /* We have a relative path.  Make it absolute now.  */
@@ -610,11 +655,17 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	  stpcpy (stpcpy (strchr (resolved_dirname, '\0'), "/"), dirname);
 	  dirname = resolved_dirname;
 	}
+#ifndef IN_LIBGLOCALE
     }
+#endif
 
   /* Now determine the symbolic name of CATEGORY and its value.  */
   categoryname = category_to_name (category);
+#ifdef IN_LIBGLOCALE
+  categoryvalue = guess_category_value (category, categoryname, localename);
+#else
   categoryvalue = guess_category_value (category, categoryname);
+#endif
 
   domainname_len = strlen (domainname);
   xdomainname = (char *) alloca (strlen (categoryname)
@@ -672,7 +723,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
       if (domain != NULL)
 	{
+#if defined IN_LIBGLOCALE
+	  retval = _nl_find_msg (domain, binding, encoding, msgid1, &retlen);
+#else
 	  retval = _nl_find_msg (domain, binding, msgid1, 1, &retlen);
+#endif
 
 	  if (retval == NULL)
 	    {
@@ -680,8 +735,13 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
 	      for (cnt = 0; domain->successor[cnt] != NULL; ++cnt)
 		{
+#if defined IN_LIBGLOCALE
+		  retval = _nl_find_msg (domain->successor[cnt], binding,
+					 encoding, msgid1, &retlen);
+#else
 		  retval = _nl_find_msg (domain->successor[cnt], binding,
 					 msgid1, 1, &retlen);
+#endif
 
 		  if (retval != NULL)
 		    {
@@ -726,6 +786,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		      newp->category = category;
 # ifdef HAVE_PER_THREAD_LOCALE
 		      newp->localename = new_localename;
+# endif
+# ifdef IN_LIBGLOCALE
+		      newp->encoding = encoding;
 # endif
 		      newp->counter = _nl_msg_cat_cntr;
 		      newp->domain = domain;
@@ -794,9 +857,17 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
 char *
 internal_function
+#ifdef IN_LIBGLOCALE
 _nl_find_msg (struct loaded_l10nfile *domain_file,
-	      struct binding *domainbinding, const char *msgid, int convert,
+	      struct binding *domainbinding, const char *encoding,
+	      const char *msgid,
 	      size_t *lengthp)
+#else
+_nl_find_msg (struct loaded_l10nfile *domain_file,
+	      struct binding *domainbinding,
+	      const char *msgid, int convert,
+	      size_t *lengthp)
+#endif
 {
   struct loaded_domain *domain;
   nls_uint32 nstrings;
@@ -902,10 +973,16 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
     }
 
 #if defined _LIBC || HAVE_ICONV
+# ifdef IN_LIBGLOCALE
+  if (encoding != NULL)
+# else
   if (convert)
+# endif
     {
       /* We are supposed to do a conversion.  */
+# ifndef IN_LIBGLOCALE
       const char *encoding = get_output_charset (domainbinding);
+# endif
 
       /* Search whether a table with converted translations for this
 	 encoding has already been allocated.  */
@@ -965,9 +1042,15 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	    size_t nullentrylen;
 
 	    /* Get the header entry.  This is a recursion, but it doesn't
-	       reallocate domain->conversions because we pass convert = 0.  */
+	       reallocate domain->conversions because we pass
+	       encoding = NULL or convert = 0, respectively.  */
 	    nullentry =
+# ifdef IN_LIBGLOCALE
+	      _nl_find_msg (domain_file, domainbinding, NULL, "",
+			    &nullentrylen);
+# else
 	      _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+# endif
 
 	    if (nullentry != NULL)
 	      {
@@ -1327,13 +1410,21 @@ category_to_name (int category)
    or system-dependent defaults.  */
 static const char *
 internal_function
+#ifdef IN_LIBGLOCALE
+guess_category_value (int category, const char *categoryname,
+		      const char *locale)
+
+#else
 guess_category_value (int category, const char *categoryname)
+#endif
 {
   const char *language;
+#ifndef IN_LIBGLOCALE
   const char *locale;
-#ifndef _LIBC
+# ifndef _LIBC
   const char *language_default;
   int locale_defaulted;
+# endif
 #endif
 
   /* We use the settings in the following order:
@@ -1350,13 +1441,14 @@ guess_category_value (int category, const char *categoryname)
        - If the system provides both a list of languages and a default locale,
          the former is used.  */
 
+#ifndef IN_LIBGLOCALE
   /* Fetch the locale name, through the POSIX method of looking to `LC_ALL',
      `LC_xxx', and `LANG'.  On some systems this can be done by the
      `setlocale' function itself.  */
-#ifdef _LIBC
+# ifdef _LIBC
   locale = __current_locale_name (category);
-#else
-# if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
+# else
+#  if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
   /* The __names field is not public glibc API and must therefore not be used
      in code that is installed in public locations.  */
   locale_t thread_locale = uselocale (NULL);
@@ -1366,7 +1458,7 @@ guess_category_value (int category, const char *categoryname)
       locale_defaulted = 0;
     }
   else
-# endif
+#  endif
     {
       locale = _nl_locale_name_posix (category, categoryname);
       locale_defaulted = 0;
@@ -1376,6 +1468,7 @@ guess_category_value (int category, const char *categoryname)
 	  locale_defaulted = 1;
 	}
     }
+# endif
 #endif
 
   /* Ignore LANGUAGE and its system-dependent analogon if the locale is set
@@ -1397,7 +1490,7 @@ guess_category_value (int category, const char *categoryname)
   language = getenv ("LANGUAGE");
   if (language != NULL && language[0] != '\0')
     return language;
-#ifndef _LIBC
+#if !defined IN_LIBGLOCALE && !defined _LIBC
   /* The next priority value is the locale name, if not defaulted.  */
   if (locale_defaulted)
     {
@@ -1411,7 +1504,7 @@ guess_category_value (int category, const char *categoryname)
   return locale;
 }
 
-#if defined _LIBC || HAVE_ICONV
+#if (defined _LIBC || HAVE_ICONV) && !defined IN_LIBGLOCALE
 /* Returns the output charset.  */
 static const char *
 internal_function
