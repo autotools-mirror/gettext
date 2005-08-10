@@ -22,8 +22,19 @@ ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
-SUBDIRS =      doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ @SUBDIR_glocale@ src po man m4 tests
-DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          glocale          src po man m4 tests
+# The list of subdirectories depends on whether --disable-libasprintf or
+# --disable-glocale was specified.
+if ENABLE_LIBASPRINTF
+SUBDIR_libasprintf = libasprintf
+else
+SUBDIR_libasprintf =
+endif
+if ENABLE_GLOCALE
+SUBDIR_glocale = glocale
+else
+SUBDIR_glocale =
+endif
+SUBDIRS = doc intl intl-java intl-csharp lib $(SUBDIR_libasprintf) $(SUBDIR_glocale) src po man m4 tests
 
 EXTRA_DIST = BUGS
 

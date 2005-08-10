@@ -147,7 +147,7 @@ AC_ARG_ENABLE(libasprintf,
 if test "$CXX" = ":"; then
   SUBDIR_libasprintf=
 fi
-AC_SUBST(SUBDIR_libasprintf)
+AM_CONDITIONAL([ENABLE_LIBASPRINTF], [test -n "$SUBDIR_libasprintf"])
 
 dnl Determine whether to build glocale.
 AC_ARG_ENABLE(libglocale,
@@ -158,7 +158,7 @@ AC_ARG_ENABLE(libglocale,
      SUBDIR_glocale=
    fi
   ], SUBDIR_glocale=glocale)
-AC_SUBST(SUBDIR_glocale)
+AM_CONDITIONAL([ENABLE_GLOCALE], [test -n "$SUBDIR_glocale"])
 
 AC_CONFIG_SUBDIRS(libasprintf glocale)
 

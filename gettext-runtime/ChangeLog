@@ -1,3 +1,13 @@
+2005-08-10  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (SUBDIR_libasprintf, SUBDIR_glocale): Remove AC_SUBSTs.
+	(ENABLE_LIBASPRINTF, ENABLE_GLOCALE): New automake conditionals.
+	* Makefile.am (SUBDIR_libasprintf, SUBDIR_glocale): New variables.
+	(SUBDIRS): Use them.
+	(DIST_SUBDIRS): Remove variable. Automake computes it correctly through
+	the conditionals.
+	Suggested by Stepan Kasal <kasal@ucw.cz>.
+
 2005-07-31  Bruno Haible  <bruno@clisp.org>
 
 	* glocale: New directory.
