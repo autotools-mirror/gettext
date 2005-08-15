@@ -443,7 +443,8 @@ __fsetlocking])
   dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
   dnl and a _NL_LOCALE_NAME macro always.
   AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
-    [AC_TRY_LINK([#include <langinfo.h>],
+    [AC_TRY_LINK([#include <langinfo.h>
+#include <locale.h>],
       [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));],
       gt_cv_nl_locale_name=yes,
       gt_cv_nl_locale_name=no)
