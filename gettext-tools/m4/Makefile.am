@@ -90,7 +90,6 @@ signalblocking.m4 \
 ssize_t.m4 \
 stdbool.m4 \
 stpncpy.m4 \
-strcase.m4 \
 strdup.m4 \
 strerror.m4 \
 strerror_r.m4 \
