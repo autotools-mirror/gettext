@@ -132,7 +132,6 @@ OBJECTS = \
   setenv.obj unsetenv.obj \
   stpcpy.obj \
   stpncpy.obj \
-  strcasecmp.obj strncasecmp.obj \
   vasprintf.obj
 
 RESOURCES = gettextlib.res
@@ -306,12 +305,6 @@ stpcpy.obj : stpcpy.c
 
 stpncpy.obj : stpncpy.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c stpncpy.c
-
-strcasecmp.obj : strcasecmp.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c strcasecmp.c
-
-strncasecmp.obj : strncasecmp.c
-	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c strncasecmp.c
 
 vasprintf.obj : vasprintf.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c vasprintf.c

@@ -99,7 +99,6 @@ LIBADD_SOURCE = \
   setenv.h setenv.c unsetenv.c \
   stpcpy.h stpcpy.c \
   stpncpy.h stpncpy.c \
-  strcase.h strcasecmp.c strncasecmp.c \
   strcspn.c \
   strerror.c \
   strpbrk.h strpbrk.c \

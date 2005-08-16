@@ -3,6 +3,9 @@
 	* strcase.h: Remove file.
 	* strcasecmp.c: Remove file.
 	* strncasecmp.c: Remove file.
+	* Makefile.am (LIBADD_SOURCE): Remove them.
+	* Makefile.msvc (OBJECTS): Remove strcasecmp.obj, strncasecmp.obj.
+	(strcasecmp.obj, strncasecmp.obj): Remove rules.
 
 2005-07-31  Bruno Haible  <bruno@clisp.org>
 
