@@ -291,9 +291,6 @@ read_alias_file (const char *fname, int fname_len)
 
 	  if (cp[0] != '\0')
 	    {
-	      size_t alias_len;
-	      size_t value_len;
-
 	      value = cp++;
 	      while (cp[0] != '\0' && !isspace ((unsigned char) cp[0]))
 		++cp;
@@ -309,48 +306,60 @@ read_alias_file (const char *fname, int fname_len)
 	      else if (cp[0] != '\0')
 		*cp++ = '\0';
 
-	      if (nmap >= maxmap)
-		if (__builtin_expect (extend_alias_table (), 0))
-		  return added;
-
-	      alias_len = strlen (alias) + 1;
-	      value_len = strlen (value) + 1;
-
-	      if (string_space_act + alias_len + value_len > string_space_max)
+#ifdef IN_LIBGLOCALE
+	      /* glibc's locale.alias contains entries for ja_JP and ko_KR
+		 that make it impossible to use a Japanese or Korean UTF-8
+		 locale under the name "ja_JP" or "ko_KR".  Ignore these
+		 entries.  */
+	      if (strchr (alias, '_') == NULL)
+#endif
 		{
-		  /* Increase size of memory pool.  */
-		  size_t new_size = (string_space_max
-				     + (alias_len + value_len > 1024
-					? alias_len + value_len : 1024));
-		  char *new_pool = (char *) realloc (string_space, new_size);
-		  if (new_pool == NULL)
-		    return added;
+		  size_t alias_len;
+		  size_t value_len;
 
-		  if (__builtin_expect (string_space != new_pool, 0))
+		  if (nmap >= maxmap)
+		    if (__builtin_expect (extend_alias_table (), 0))
+		      return added;
+
+		  alias_len = strlen (alias) + 1;
+		  value_len = strlen (value) + 1;
+
+		  if (string_space_act + alias_len + value_len > string_space_max)
 		    {
-		      size_t i;
+		      /* Increase size of memory pool.  */
+		      size_t new_size = (string_space_max
+					 + (alias_len + value_len > 1024
+					    ? alias_len + value_len : 1024));
+		      char *new_pool = (char *) realloc (string_space, new_size);
+		      if (new_pool == NULL)
+			return added;
 
-		      for (i = 0; i < nmap; i++)
+		      if (__builtin_expect (string_space != new_pool, 0))
 			{
-			  map[i].alias += new_pool - string_space;
-			  map[i].value += new_pool - string_space;
+			  size_t i;
+
+			  for (i = 0; i < nmap; i++)
+			    {
+			      map[i].alias += new_pool - string_space;
+			      map[i].value += new_pool - string_space;
+			    }
 			}
+
+		      string_space = new_pool;
+		      string_space_max = new_size;
 		    }
 
-		  string_space = new_pool;
-		  string_space_max = new_size;
+		  map[nmap].alias = memcpy (&string_space[string_space_act],
+					    alias, alias_len);
+		  string_space_act += alias_len;
+
+		  map[nmap].value = memcpy (&string_space[string_space_act],
+					    value, value_len);
+		  string_space_act += value_len;
+
+		  ++nmap;
+		  ++added;
 		}
-
-	      map[nmap].alias = memcpy (&string_space[string_space_act],
-					alias, alias_len);
-	      string_space_act += alias_len;
-
-	      map[nmap].value = memcpy (&string_space[string_space_act],
-					value, value_len);
-	      string_space_act += value_len;
-
-	      ++nmap;
-	      ++added;
 	    }
 	}
 

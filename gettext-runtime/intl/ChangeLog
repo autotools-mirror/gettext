@@ -1,3 +1,8 @@
+2005-08-19  Bruno Haible  <bruno@clisp.org>
+
+	* localealias.c (read_alias_file) [IN_LIBGLOCALE]: Ignore aliases
+	containing an underscore.
+
 2005-07-31  Bruno Haible  <bruno@clisp.org>
 
 	Make code usable in libglocale.
