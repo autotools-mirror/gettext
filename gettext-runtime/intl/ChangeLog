@@ -1,5 +1,10 @@
 2005-08-19  Bruno Haible  <bruno@clisp.org>
 
+	* localealias.c (read_alias_file): In case of failure, close the
+	file descriptor and sort the array before returning.
+
+2005-08-19  Bruno Haible  <bruno@clisp.org>
+
 	* localealias.c (read_alias_file) [IN_LIBGLOCALE]: Ignore aliases
 	containing an underscore.
 

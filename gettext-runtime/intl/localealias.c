@@ -319,7 +319,7 @@ read_alias_file (const char *fname, int fname_len)
 
 		  if (nmap >= maxmap)
 		    if (__builtin_expect (extend_alias_table (), 0))
-		      return added;
+		      goto out;
 
 		  alias_len = strlen (alias) + 1;
 		  value_len = strlen (value) + 1;
@@ -332,7 +332,7 @@ read_alias_file (const char *fname, int fname_len)
 					    ? alias_len + value_len : 1024));
 		      char *new_pool = (char *) realloc (string_space, new_size);
 		      if (new_pool == NULL)
-			return added;
+			goto out;
 
 		      if (__builtin_expect (string_space != new_pool, 0))
 			{
@@ -374,6 +374,7 @@ read_alias_file (const char *fname, int fname_len)
 	while (strchr (buf, '\n') == NULL);
     }
 
+ out:
   /* Should we test for ferror()?  I think we have to silently ignore
      errors.  --drepper  */
   fclose (fp);
