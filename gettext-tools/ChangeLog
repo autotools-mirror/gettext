@@ -1,3 +1,7 @@
+2005-08-11  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Accept --without-emacs option.
+
 2005-08-03  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (intl/Makefile): Remove the VPATH line.

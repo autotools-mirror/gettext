@@ -243,6 +243,18 @@ esac
 
 dnl Check for Emacs and where to install .elc files.
 AM_PATH_LISPDIR
+dnl Sometimes Emacs is badly installed. Allow the user to work around it.
+AC_ARG_WITH([emacs],
+  [  --without-emacs         do not use Emacs, don't install po-mode],
+  [gt_use_emacs=$withval],
+  [gt_use_emacs=yes])
+if test "$EMACS" != no; then
+  AC_MSG_CHECKING([whether Emacs support is requested])
+  AC_MSG_RESULT([$gt_use_emacs])
+  if test "$gt_use_emacs" = no; then
+    EMACS=no
+  fi
+fi
 
 aclocaldir='${datadir}/aclocal'
 AC_SUBST(aclocaldir)
