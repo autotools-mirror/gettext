@@ -1,3 +1,9 @@
+2005-08-13  Bruno Haible  <bruno@clisp.org>
+
+	New configure options --disable-java, --disable-native-java.
+	* configure.ac: Invoke gt_JAVA_CHOICE.
+	(BUILDJAVA): Use it.
+
 2005-08-10  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (SUBDIR_libasprintf, SUBDIR_glocale): Remove AC_SUBSTs.

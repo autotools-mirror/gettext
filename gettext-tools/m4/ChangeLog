@@ -1,3 +1,8 @@
+2005-08-13  Bruno Haible  <bruno@clisp.org>
+
+	* java.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2005-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* strcase.m4: Remove file.

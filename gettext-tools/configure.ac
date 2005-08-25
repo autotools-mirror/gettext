@@ -36,8 +36,10 @@ AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_YACC
 
+gt_JAVA_CHOICE
+
 gt_GCJ
-if test -n "$HAVE_GCJ"; then
+if test -n "$HAVE_GCJ" && test "$JAVA_CHOICE" = yes; then
   BUILDJAVAEXE=yes
 else
   BUILDJAVAEXE=no
@@ -46,7 +48,7 @@ AC_SUBST(BUILDJAVAEXE)
 
 gt_JAVACOMP
 AC_CHECK_PROG(JAR, jar, jar)
-if test -n "$HAVE_JAVACOMP" && test -n "$JAR"; then
+if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
   BUILDJAVA=yes
 else
   BUILDJAVA=no

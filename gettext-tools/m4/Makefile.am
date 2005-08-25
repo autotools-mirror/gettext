@@ -66,6 +66,7 @@ getndelim2.m4 \
 getopt.m4 \
 hard-locale.m4 \
 hostname.m4 \
+java.m4 \
 javacomp.m4 \
 javaexec.m4 \
 locale-fr.m4 \
