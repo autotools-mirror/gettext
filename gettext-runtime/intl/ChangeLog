@@ -1,3 +1,9 @@
+2005-08-25  Bruno Haible  <bruno@clisp.org>
+
+	* libintl.glibc: Update from current glibc.
+	* libgnuintl.h.in (_INTL_MAY_RETURN_STRING_ARG): New macro.
+	(gettext, dgettext, dcgettext, ngettext, dngettext, dcngettext):
+
 2005-08-21  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h: Add multiple inclusion guard.
