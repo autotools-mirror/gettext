@@ -1,3 +1,8 @@
+2005-08-26  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Add an entry about Romanian.
+	Explanations by Eddy Petrişor <eddy.petrisor@gmail.com>.
+
 2005-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* write-mo.h (byteswap): New variable.

@@ -5113,6 +5113,22 @@ Languages with this property include:
 Gaeilge (Irish)
 @end table
 
+@item Three forms, special case for numbers ending in 00 or [2-9][0-9]
+The header entry would be:
+
+@smallexample
+Plural-Forms: nplurals=3; \
+    plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2;
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Romanic family
+Romanian
+@end table
+
 @item Three forms, special case for numbers ending in 1[2-9]
 The header entry would look like this:
 
