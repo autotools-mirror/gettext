@@ -1,3 +1,14 @@
+2005-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* write-mo.h (byteswap): New variable.
+	* write-mo.c: Include byteswap.h.
+	(byteswap): New variable.
+	(BSWAP32): New macro.
+	(write_table): If requested, byteswap all 32-bit values before writing
+	them out.
+	* msgfmt.c (long_options): Add --endianness.
+	(main): Accept --endianness argument and set byteswap.
+
 2005-08-08  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale): Add support for Old English,

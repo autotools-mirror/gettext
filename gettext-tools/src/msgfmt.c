@@ -178,6 +178,7 @@ static const struct option long_options[] =
   { "csharp", no_argument, NULL, CHAR_MAX + 10 },
   { "csharp-resources", no_argument, NULL, CHAR_MAX + 11 },
   { "directory", required_argument, NULL, 'D' },
+  { "endianness", required_argument, NULL, CHAR_MAX + 13 },
   { "help", no_argument, NULL, 'h' },
   { "java", no_argument, NULL, 'j' },
   { "java2", no_argument, NULL, CHAR_MAX + 5 },
@@ -354,6 +355,20 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 12: /* --use-untranslated (undocumented) */
 	include_untranslated = true;
+	break;
+      case CHAR_MAX + 13: /* --endianness={big|little} */
+	{
+	  int endianness;
+
+	  if (strcmp (optarg, "big") == 0)
+	    endianness = 1;
+	  else if (strcmp (optarg, "little") == 0)
+	    endianness = 0;
+	  else
+	    error (EXIT_FAILURE, 0, _("invalid endianness: %s"), optarg);
+
+	  byteswap = endianness ^ ENDIANNESS;
+	}
 	break;
       default:
 	usage (EXIT_FAILURE);
