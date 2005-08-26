@@ -35,7 +35,17 @@ host_cpu=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\1/'`
 host_vendor=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\2/'`
 host_os=`echo "$host" | sed 's/^\([^-]*\)-\([^-]*\)-\(.*\)$/\3/'`
 
-cc_basename=`echo "$CC" | sed -e 's%^.*/%%'`
+# Code taken from libtool.m4's _LT_CC_BASENAME.
+
+for cc_temp in $CC""; do
+  case $cc_temp in
+    compile | *[\\/]compile | ccache | *[\\/]ccache ) ;;
+    distcc | *[\\/]distcc | purify | *[\\/]purify ) ;;
+    \-*) ;;
+    *) break;;
+  esac
+done
+cc_basename=`echo "$cc_temp" | sed -e 's%^.*/%%'`
 
 # Code taken from libtool.m4's AC_LIBTOOL_PROG_COMPILER_PIC.
 
@@ -127,6 +137,12 @@ esac
 
 ld_shlibs=yes
 if test "$with_gnu_ld" = yes; then
+  # Set some defaults for GNU ld with shared library support. These
+  # are reset later if shared libraries are not supported. Putting them
+  # here allows them to be overridden if necessary.
+  # Unlike libtool, we use -rpath here, not --rpath, since the documented
+  # option of GNU ld is called -rpath, not --rpath.
+  hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
   case "$host_os" in
     aix3* | aix4* | aix5*)
       # On AIX/PPC, the GNU linker is very broken
@@ -162,6 +178,13 @@ if test "$with_gnu_ld" = yes; then
         ld_shlibs=no
       fi
       ;;
+    linux*)
+      if $LD --help 2>&1 | grep ': supported targets:.* elf' > /dev/null; then
+        :
+      else
+        ld_shlibs=no
+      fi
+      ;;
     netbsd*)
       ;;
     solaris* | sysv5*)
@@ -176,13 +199,6 @@ if test "$with_gnu_ld" = yes; then
     sunos4*)
       hardcode_direct=yes
       ;;
-    linux*)
-      if $LD --help 2>&1 | grep ': supported targets:.* elf' > /dev/null; then
-        :
-      else
-        ld_shlibs=no
-      fi
-      ;;
     *)
       if $LD --help 2>&1 | grep ': supported targets:.* elf' > /dev/null; then
         :
@@ -191,10 +207,8 @@ if test "$with_gnu_ld" = yes; then
       fi
       ;;
   esac
-  if test "$ld_shlibs" = yes; then
-    # Unlike libtool, we use -rpath here, not --rpath, since the documented
-    # option of GNU ld is called -rpath, not --rpath.
-    hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
+  if test "$ld_shlibs" = no; then
+    hardcode_libdir_flag_spec=
   fi
 else
   case "$host_os" in
