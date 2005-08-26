@@ -1,3 +1,9 @@
+2005-08-26  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-team-name-to-code): Add support for Old English,
+	Hyam, Jju, Tyap, Kagoma, Maithili, Mayan, Nahuatl, Low Saxon,
+	Northern Sotho, Páez, Tetum, Zapotec.
+
 2005-07-24  Bruno Haible  <bruno@clisp.org>
 
 	Tidy up exported symbols.
