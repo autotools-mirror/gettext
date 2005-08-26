@@ -170,6 +170,13 @@ gl_CANONICALIZE
 gt_SETLOCALE
 gl_XSIZE
 gt_LIBGREP
+gl_BYTESWAP
+AC_C_BIGENDIAN([endianness=1], [endianness=0],
+  [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
+   echo "Please report this as a bug to bug-autoconf@gnu.org" 1>&2
+   exit 1])
+AC_DEFINE_UNQUOTED([ENDIANNESS], [$endianness],
+  [Define according to the byte order of the target machine: 1 for big endian, 0 for little endian.])
 
 gt_PREREQ_HOSTNAME
 

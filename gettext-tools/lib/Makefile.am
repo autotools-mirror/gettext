@@ -181,6 +181,19 @@ MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
 
 
+# >>> gnulib module byteswap.
+BUILT_SOURCES += $(BYTESWAP_H)
+EXTRA_DIST += byteswap_.h
+
+# We need the following in order to create <byteswap.h> when the system
+# doesn't have one.
+byteswap.h: byteswap_.h
+	cp $(srcdir)/$< $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += byteswap.h
+# <<< gnulib module byteswap.
+
+
 # >>> gnulib module fnmatch.
 BUILT_SOURCES += $(FNMATCH_H)
 EXTRA_DIST += fnmatch_.h fnmatch_loop.c

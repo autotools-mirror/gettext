@@ -1,3 +1,10 @@
+2005-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* byteswap_.h: New file, from gnulib.
+	* Makefile.am (BUILT_SOURCES, EXTRA_DIST, MOSTLYCLEANFILES): Adjust
+	for byteswap.h.
+	(byteswap.h): New rule.
+
 2005-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* strcase.h: Remove file.

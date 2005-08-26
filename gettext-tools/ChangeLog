@@ -1,3 +1,7 @@
+2005-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gl_BYTESWAP. Define ENDIANNESS.
+
 2005-08-13  Bruno Haible  <bruno@clisp.org>
 
 	New configure options --disable-java, --disable-native-java.
