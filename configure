@@ -858,6 +858,8 @@ Optional Features:
   --enable-fast-install[=PKGS]
                           optimize for fast installation [default=yes]
   --disable-libtool-lock  avoid locking (might break parallel builds)
+  --disable-java          do not build Java sources
+  --disable-native-java   do not compile Java to native executables
   --enable-csharp[=IMPL]  choose preferred C# implementation (pnet or mono)
   --enable-relocatable    install a package that can be moved in the filesystem
   --disable-nls           do not use Native Language Support
@@ -866,6 +868,7 @@ Optional Features:
   --disable-threads       build without multithread safety
   --disable-rpath         do not hardcode runtime library paths
   --disable-libasprintf   do not build libasprintf
+  --disable-libglocale    do not build libglocale
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -889,6 +892,7 @@ Optional Packages:
   --with-libexpat-prefix[=DIR]  search for libexpat in DIR/include and DIR/lib
   --without-libexpat-prefix     don't search for libexpat in includedir and libdir
   --with-lispdir          override the default lisp directory
+  --without-emacs         do not use Emacs, don't install po-mode
 
 Some influential environment variables:
   CC          C compiler command
@@ -1929,6 +1933,16 @@ if test "${enable_dependency_tracking+set}" = set; then
   enableval="$enable_dependency_tracking"
 
 fi;
+# Check whether --enable-java or --disable-java was given.
+if test "${enable_java+set}" = set; then
+  enableval="$enable_java"
+
+fi;
+# Check whether --enable-native-java or --disable-native-java was given.
+if test "${enable_native_java+set}" = set; then
+  enableval="$enable_native_java"
+
+fi;
 
 
 # Check whether --enable-csharp or --disable-csharp was given.
@@ -2056,6 +2070,11 @@ if test "${enable_libasprintf+set}" = set; then
   enableval="$enable_libasprintf"
 
 fi;
+# Check whether --enable-libglocale or --disable-libglocale was given.
+if test "${enable_libglocale+set}" = set; then
+  enableval="$enable_libglocale"
+
+fi;
 
 
 
@@ -2063,6 +2082,16 @@ fi;
 # Check whether --enable-dependency-tracking or --disable-dependency-tracking was given.
 if test "${enable_dependency_tracking+set}" = set; then
   enableval="$enable_dependency_tracking"
+
+fi;
+# Check whether --enable-java or --disable-java was given.
+if test "${enable_java+set}" = set; then
+  enableval="$enable_java"
+
+fi;
+# Check whether --enable-native-java or --disable-native-java was given.
+if test "${enable_native_java+set}" = set; then
+  enableval="$enable_native_java"
 
 fi;
 
@@ -2205,6 +2234,12 @@ fi;
 # Check whether --with-lispdir or --without-lispdir was given.
 if test "${with_lispdir+set}" = set; then
   withval="$with_lispdir"
+
+fi;
+
+# Check whether --with-emacs or --without-emacs was given.
+if test "${with_emacs+set}" = set; then
+  withval="$with_emacs"
 
 fi;
 

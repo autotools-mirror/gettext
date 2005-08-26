@@ -47,9 +47,8 @@ DIST_COMMON = $(noinst_HEADERS) $(srcdir)/Makefile.am \
 	$(srcdir)/javaexec.sh.in ChangeLog atexit.c canonicalize.c \
 	error.c error.h fnmatch.c getline.c getndelim2.c getopt.c \
 	getopt1.c memmove.c memset.c mkdtemp.c readlink.c \
-	relocatable.c setenv.c stpcpy.c stpncpy.c strcasecmp.c \
-	strcspn.c strerror.c strncasecmp.c strpbrk.c strstr.c \
-	strtoul.c unsetenv.c vasprintf.c
+	relocatable.c setenv.c stpcpy.c stpncpy.c strcspn.c strerror.c \
+	strpbrk.c strstr.c strtoul.c unsetenv.c vasprintf.c
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../m4/libtool.m4 \
@@ -85,7 +84,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/wint_t.m4 \
 	$(top_srcdir)/../gettext-runtime/m4/xsize.m4 \
 	$(top_srcdir)/m4/alloca.m4 $(top_srcdir)/m4/allocsa.m4 \
-	$(top_srcdir)/m4/backupfile.m4 \
+	$(top_srcdir)/m4/backupfile.m4 $(top_srcdir)/m4/byteswap.m4 \
 	$(top_srcdir)/m4/canonicalize.m4 $(top_srcdir)/m4/csharp.m4 \
 	$(top_srcdir)/m4/csharpcomp.m4 $(top_srcdir)/m4/csharpexec.m4 \
 	$(top_srcdir)/m4/eaccess.m4 $(top_srcdir)/m4/eealloc.m4 \
@@ -94,19 +93,19 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/m4/gcj.m4 $(top_srcdir)/m4/getline.m4 \
 	$(top_srcdir)/m4/getndelim2.m4 $(top_srcdir)/m4/getopt.m4 \
 	$(top_srcdir)/m4/hard-locale.m4 $(top_srcdir)/m4/hostname.m4 \
-	$(top_srcdir)/m4/javacomp.m4 $(top_srcdir)/m4/javaexec.m4 \
-	$(top_srcdir)/m4/libgrep.m4 $(top_srcdir)/m4/locale-fr.m4 \
-	$(top_srcdir)/m4/mbrtowc.m4 $(top_srcdir)/m4/mbstate_t.m4 \
-	$(top_srcdir)/m4/mbswidth.m4 $(top_srcdir)/m4/memchr.m4 \
-	$(top_srcdir)/m4/mkdtemp.m4 $(top_srcdir)/m4/onceonly.m4 \
-	$(top_srcdir)/m4/pathmax.m4 $(top_srcdir)/m4/quote.m4 \
-	$(top_srcdir)/m4/quotearg.m4 $(top_srcdir)/m4/readlink.m4 \
-	$(top_srcdir)/m4/regex.m4 $(top_srcdir)/m4/relocatable.m4 \
-	$(top_srcdir)/m4/restrict.m4 $(top_srcdir)/m4/setenv.m4 \
-	$(top_srcdir)/m4/setlocale.m4 $(top_srcdir)/m4/sig_atomic_t.m4 \
-	$(top_srcdir)/m4/siginfo.m4 $(top_srcdir)/m4/signalblocking.m4 \
-	$(top_srcdir)/m4/ssize_t.m4 $(top_srcdir)/m4/stdbool.m4 \
-	$(top_srcdir)/m4/stpncpy.m4 $(top_srcdir)/m4/strcase.m4 \
+	$(top_srcdir)/m4/java.m4 $(top_srcdir)/m4/javacomp.m4 \
+	$(top_srcdir)/m4/javaexec.m4 $(top_srcdir)/m4/libgrep.m4 \
+	$(top_srcdir)/m4/locale-fr.m4 $(top_srcdir)/m4/mbrtowc.m4 \
+	$(top_srcdir)/m4/mbstate_t.m4 $(top_srcdir)/m4/mbswidth.m4 \
+	$(top_srcdir)/m4/memchr.m4 $(top_srcdir)/m4/mkdtemp.m4 \
+	$(top_srcdir)/m4/onceonly.m4 $(top_srcdir)/m4/pathmax.m4 \
+	$(top_srcdir)/m4/quote.m4 $(top_srcdir)/m4/quotearg.m4 \
+	$(top_srcdir)/m4/readlink.m4 $(top_srcdir)/m4/regex.m4 \
+	$(top_srcdir)/m4/relocatable.m4 $(top_srcdir)/m4/restrict.m4 \
+	$(top_srcdir)/m4/setenv.m4 $(top_srcdir)/m4/setlocale.m4 \
+	$(top_srcdir)/m4/sig_atomic_t.m4 $(top_srcdir)/m4/siginfo.m4 \
+	$(top_srcdir)/m4/signalblocking.m4 $(top_srcdir)/m4/ssize_t.m4 \
+	$(top_srcdir)/m4/stdbool.m4 $(top_srcdir)/m4/stpncpy.m4 \
 	$(top_srcdir)/m4/strdup.m4 $(top_srcdir)/m4/strerror.m4 \
 	$(top_srcdir)/m4/strtol.m4 $(top_srcdir)/m4/strtoul.m4 \
 	$(top_srcdir)/m4/tmpdir.m4 $(top_srcdir)/m4/unionwait.m4 \
@@ -178,6 +177,7 @@ BUILDCSHARP = @BUILDCSHARP@
 BUILDJAVA = @BUILDJAVA@
 BUILDJAVAEXE = @BUILDJAVAEXE@
 BUILD_INCLUDED_LIBINTL = @BUILD_INCLUDED_LIBINTL@
+BYTESWAP_H = @BYTESWAP_H@
 CATOBJEXT = @CATOBJEXT@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
@@ -263,6 +263,7 @@ INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 JAR = @JAR@
 JAVA = @JAVA@
 JAVAC = @JAVAC@
+JAVA_CHOICE = @JAVA_CHOICE@
 LDFLAGS = @LDFLAGS@
 LIBEXPAT = @LIBEXPAT@
 LIBGREPOBJS = @LIBGREPOBJS@
@@ -382,9 +383,9 @@ AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 # Woe32 support.
 EXTRA_DIST = $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c \
 	allocsa.valgrind gen-lbrkprop.c 3level.h Combining.txt \
-	ChangeLog.0 stdbool_.h alloca_.h fnmatch_.h fnmatch_loop.c \
-	getopt_.h getopt_int.h config.charset ref-add.sin ref-del.sin \
-	Makefile.vms Makefile.msvc
+	ChangeLog.0 stdbool_.h alloca_.h byteswap_.h fnmatch_.h \
+	fnmatch_loop.c getopt_.h getopt_int.h config.charset \
+	ref-add.sin ref-del.sin Makefile.vms Makefile.msvc
 
 # >>> gnulib module stdbool.
 # <<< gnulib module stdbool.
@@ -392,12 +393,16 @@ EXTRA_DIST = $(LIBADD_SOURCE) $(UNUSED_SOURCE) relocwrapper.c \
 # >>> gnulib module alloca.
 # <<< gnulib module alloca.
 
+# >>> gnulib module byteswap.
+# <<< gnulib module byteswap.
+
 # >>> gnulib module fnmatch.
 # <<< gnulib module fnmatch.
 
 # >>> gnulib module getopt.
-BUILT_SOURCES = $(STDBOOL_H) $(ALLOCA_H) $(FNMATCH_H) $(GETOPT_H)
-MOSTLYCLEANFILES = stdbool.h alloca.h fnmatch.h getopt.h
+BUILT_SOURCES = $(STDBOOL_H) $(ALLOCA_H) $(BYTESWAP_H) $(FNMATCH_H) \
+	$(GETOPT_H)
+MOSTLYCLEANFILES = stdbool.h alloca.h byteswap.h fnmatch.h getopt.h
 CLEANFILES = charset.alias ref-add.sed ref-del.sed
 DISTCLEANFILES = 
 SUFFIXES = .sed .sin
@@ -446,7 +451,6 @@ LIBADD_SOURCE = \
   setenv.h setenv.c unsetenv.c \
   stpcpy.h stpcpy.c \
   stpncpy.h stpncpy.c \
-  strcase.h strcasecmp.c strncasecmp.c \
   strcspn.c \
   strerror.c \
   strpbrk.h strpbrk.c \
@@ -812,6 +816,12 @@ stdbool.h: stdbool_.h
 # doesn't have one that works with the given compiler.
 alloca.h: alloca_.h
 	cp $(srcdir)/alloca_.h alloca.h
+
+# We need the following in order to create <byteswap.h> when the system
+# doesn't have one.
+byteswap.h: byteswap_.h
+	cp $(srcdir)/$< $@-t
+	mv $@-t $@
 
 # The following is needed in order to create an <fnmatch.h> when the system
 # doesn't have one that works.

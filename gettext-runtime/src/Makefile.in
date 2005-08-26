@@ -58,6 +58,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-tools/m4/error.m4 \
 	$(top_srcdir)/../gettext-tools/m4/extensions.m4 \
 	$(top_srcdir)/../gettext-tools/m4/getopt.m4 \
+	$(top_srcdir)/../gettext-tools/m4/java.m4 \
 	$(top_srcdir)/../gettext-tools/m4/javacomp.m4 \
 	$(top_srcdir)/../gettext-tools/m4/onceonly.m4 \
 	$(top_srcdir)/../gettext-tools/m4/pathmax.m4 \
@@ -165,6 +166,10 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
+ENABLE_GLOCALE_FALSE = @ENABLE_GLOCALE_FALSE@
+ENABLE_GLOCALE_TRUE = @ENABLE_GLOCALE_TRUE@
+ENABLE_LIBASPRINTF_FALSE = @ENABLE_LIBASPRINTF_FALSE@
+ENABLE_LIBASPRINTF_TRUE = @ENABLE_LIBASPRINTF_TRUE@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
@@ -203,6 +208,7 @@ INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 JAR = @JAR@
 JAVAC = @JAVAC@
+JAVA_CHOICE = @JAVA_CHOICE@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
@@ -244,7 +250,6 @@ SET_RELOCATABLE = @SET_RELOCATABLE@
 SHELL = @SHELL@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
-SUBDIR_libasprintf = @SUBDIR_libasprintf@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@

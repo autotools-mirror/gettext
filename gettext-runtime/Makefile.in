@@ -68,6 +68,7 @@ am__aclocal_m4_deps = $(top_srcdir)/../m4/fixautomake.m4 \
 	$(top_srcdir)/../gettext-tools/m4/error.m4 \
 	$(top_srcdir)/../gettext-tools/m4/extensions.m4 \
 	$(top_srcdir)/../gettext-tools/m4/getopt.m4 \
+	$(top_srcdir)/../gettext-tools/m4/java.m4 \
 	$(top_srcdir)/../gettext-tools/m4/javacomp.m4 \
 	$(top_srcdir)/../gettext-tools/m4/onceonly.m4 \
 	$(top_srcdir)/../gettext-tools/m4/pathmax.m4 \
@@ -124,6 +125,8 @@ gettextsrcDATA_INSTALL = $(INSTALL_DATA)
 DATA = $(gettextsrc_DATA)
 ETAGS = etags
 CTAGS = ctags
+DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf glocale \
+	src po man m4 tests
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -175,6 +178,10 @@ ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
+ENABLE_GLOCALE_FALSE = @ENABLE_GLOCALE_FALSE@
+ENABLE_GLOCALE_TRUE = @ENABLE_GLOCALE_TRUE@
+ENABLE_LIBASPRINTF_FALSE = @ENABLE_LIBASPRINTF_FALSE@
+ENABLE_LIBASPRINTF_TRUE = @ENABLE_LIBASPRINTF_TRUE@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
@@ -213,6 +220,7 @@ INTL_LIBTOOL_SUFFIX_PREFIX = @INTL_LIBTOOL_SUFFIX_PREFIX@
 INTL_MACOSX_LIBS = @INTL_MACOSX_LIBS@
 JAR = @JAR@
 JAVAC = @JAVAC@
+JAVA_CHOICE = @JAVA_CHOICE@
 LDFLAGS = @LDFLAGS@
 LIBICONV = @LIBICONV@
 LIBINTL = @LIBINTL@
@@ -254,7 +262,6 @@ SET_RELOCATABLE = @SET_RELOCATABLE@
 SHELL = @SHELL@
 STDBOOL_H = @STDBOOL_H@
 STRIP = @STRIP@
-SUBDIR_libasprintf = @SUBDIR_libasprintf@
 USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
 USE_NLS = @USE_NLS@
 VERSION = @VERSION@
@@ -310,8 +317,14 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../m4
-SUBDIRS = doc intl intl-java intl-csharp lib @SUBDIR_libasprintf@ src po man m4 tests
-DIST_SUBDIRS = doc intl intl-java intl-csharp lib libasprintf          src po man m4 tests
+@ENABLE_LIBASPRINTF_FALSE@SUBDIR_libasprintf = 
+
+# The list of subdirectories depends on whether --disable-libasprintf or
+# --disable-glocale was specified.
+@ENABLE_LIBASPRINTF_TRUE@SUBDIR_libasprintf = libasprintf
+@ENABLE_GLOCALE_FALSE@SUBDIR_glocale = 
+@ENABLE_GLOCALE_TRUE@SUBDIR_glocale = glocale
+SUBDIRS = doc intl intl-java intl-csharp lib $(SUBDIR_libasprintf) $(SUBDIR_glocale) src po man m4 tests
 EXTRA_DIST = BUGS Makefile.vms config.h_vms README.woe32 Makefile.msvc \
 	config.h.msvc windows/dllexport.h windows/intl.rc
 
