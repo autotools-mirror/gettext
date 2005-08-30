@@ -151,18 +151,7 @@ if test "$CXX" = ":"; then
 fi
 AM_CONDITIONAL([ENABLE_LIBASPRINTF], [test -n "$SUBDIR_libasprintf"])
 
-dnl Determine whether to build glocale.
-AC_ARG_ENABLE(libglocale,
-  [  --disable-libglocale    do not build libglocale],
-  [if test "$enableval" != no; then
-     SUBDIR_glocale=glocale
-   else
-     SUBDIR_glocale=
-   fi
-  ], SUBDIR_glocale=glocale)
-AM_CONDITIONAL([ENABLE_GLOCALE], [test -n "$SUBDIR_glocale"])
-
-AC_CONFIG_SUBDIRS(libasprintf glocale)
+AC_CONFIG_SUBDIRS(libasprintf)
 
 AC_CONFIG_FILES([Makefile])
 

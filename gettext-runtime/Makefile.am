@@ -29,12 +29,7 @@ SUBDIR_libasprintf = libasprintf
 else
 SUBDIR_libasprintf =
 endif
-if ENABLE_GLOCALE
-SUBDIR_glocale = glocale
-else
-SUBDIR_glocale =
-endif
-SUBDIRS = doc intl intl-java intl-csharp lib $(SUBDIR_libasprintf) $(SUBDIR_glocale) src po man m4 tests
+SUBDIRS = doc intl intl-java intl-csharp lib $(SUBDIR_libasprintf) src po man m4 tests
 
 EXTRA_DIST = BUGS
 

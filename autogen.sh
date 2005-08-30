@@ -43,13 +43,6 @@ automake
  automake
 )
 
-(cd gettext-runtime/glocale
- aclocal -I m4 -I ../m4 -I ../../gettext-tools/m4 -I ../../m4
- autoconf
- autoheader && touch config.h.in
- automake
-)
-
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools

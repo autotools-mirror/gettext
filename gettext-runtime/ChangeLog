@@ -1,3 +1,13 @@
+2008-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* glocale: Remove directory, moved to separate project.
+	* configure.ac (--disable-libglocale): Remove option.
+	(SUBDIR_glocale): Remove variable.
+	(ENABLE_GLOCALE): Remove conditional.
+	(AC_CONFIG_SUBDIRS): Remove glocale.
+	* Makefile.am (SUBDIR_glocale): Remove variable.
+	(SUBDIRS): Remove $(SUBDIR_glocale).
+
 2005-08-13  Bruno Haible  <bruno@clisp.org>
 
 	New configure options --disable-java, --disable-native-java.
