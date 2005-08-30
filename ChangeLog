@@ -1,5 +1,9 @@
 2008-08-28  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: Make the script executable.
+
+2008-08-28  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: Remove code for gettext-runtime/glocale.
 
 2005-07-31  Bruno Haible  <bruno@clisp.org>
