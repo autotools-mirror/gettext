@@ -1,3 +1,8 @@
+2005-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (intl/libgnuintl.h_vms, intl/libgnuintl.h.msvc-static,
+	intl/libgnuintl.h.msvc-shared): Remove the IN_LIBGLOCALE conditional.
+
 2008-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* glocale: Remove directory, moved to separate project.

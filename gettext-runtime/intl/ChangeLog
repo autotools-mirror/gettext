@@ -1,3 +1,11 @@
+2005-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in: Add IN_LIBGLOCALE conditional.
+	* Makefile.in (libgnuintl.h, libintl.h): Remove the IN_LIBGLOCALE
+	conditional.
+	* dcigettext.c [IN_LIBGLOCALE]: Include also <libintl.h>, for
+	bindtextdomain().
+
 2005-08-25  Bruno Haible  <bruno@clisp.org>
 
 	* libintl.glibc: Update from current glibc.

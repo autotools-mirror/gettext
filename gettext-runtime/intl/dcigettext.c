@@ -96,6 +96,9 @@ extern int errno;
 #ifdef _LIBC
 # include <libintl.h>
 #else
+# ifdef IN_LIBGLOCALE
+#  include <libintl.h>
+# endif
 # include "libgnuintl.h"
 #endif
 #include "hash-string.h"

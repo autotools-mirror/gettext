@@ -116,7 +116,8 @@ config.h_vms: config.h.in ../version.sh
 # KEEP_CRTL_SETLOCALE tells it to not override the native locale support.
 
 intl/libgnuintl.h_vms: intl/libgnuintl.h.in
-	sed -e 's,@''HAVE_POSIX_PRINTF''@,1,g ' \
+	sed -e '/IN_LIBGLOCALE/d' \
+	    -e 's,@''HAVE_POSIX_PRINTF''@,1,g ' \
 	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
 	    -e 's,@''HAVE_WPRINTF''@,1,g' \
@@ -178,14 +179,16 @@ config.h.msvc: config.h.in ../version.sh
 	  < $(srcdir)/config.h.in > $@
 
 intl/libgnuintl.h.msvc-static: intl/libgnuintl.h.in
-	sed -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
+	sed -e '/IN_LIBGLOCALE/d' \
+	    -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
 	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
 	    -e 's,@''HAVE_WPRINTF''@,1,g' \
 	  < $(srcdir)/intl/libgnuintl.h.in > $@
 
 intl/libgnuintl.h.msvc-shared: intl/libgnuintl.h.in windows/dllexport.h
-	sed -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
+	sed -e '/IN_LIBGLOCALE/d' \
+	    -e 's,@''HAVE_POSIX_PRINTF''@,0,g ' \
 	    -e 's,@''HAVE_ASPRINTF''@,0,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,0,g' \
 	    -e 's,@''HAVE_WPRINTF''@,1,g' \
