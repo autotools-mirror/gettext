@@ -1,4 +1,4 @@
-# gettext.m4 serial 41 (gettext-0.15)
+# gettext.m4 serial 42 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -360,41 +360,27 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([AC_PROG_RANLIB])dnl
   AC_REQUIRE([AC_ISC_POSIX])dnl
   AC_REQUIRE([gl_VISIBILITY])dnl
+  AC_REQUIRE([gt_INTL_SUBDIR_CORE])dnl
   AC_REQUIRE([AC_HEADER_STDC])dnl
-  AC_REQUIRE([AC_C_CONST])dnl
   AC_REQUIRE([bh_C_SIGNED])dnl
-  AC_REQUIRE([AC_C_INLINE])dnl
   AC_REQUIRE([AC_TYPE_OFF_T])dnl
-  AC_REQUIRE([AC_TYPE_SIZE_T])dnl
   AC_REQUIRE([gl_AC_TYPE_LONG_LONG])dnl
   AC_REQUIRE([gt_TYPE_LONGDOUBLE])dnl
   AC_REQUIRE([gt_TYPE_WCHAR_T])dnl
   AC_REQUIRE([gt_TYPE_WINT_T])dnl
   AC_REQUIRE([gl_AC_HEADER_INTTYPES_H])
-  AC_REQUIRE([gl_AC_HEADER_STDINT_H])
   AC_REQUIRE([gt_TYPE_INTMAX_T])
   AC_REQUIRE([gt_PRINTF_POSIX])
-  AC_REQUIRE([AC_FUNC_ALLOCA])dnl
-  AC_REQUIRE([AC_FUNC_MMAP])dnl
   AC_REQUIRE([gl_GLIBC21])dnl
-  AC_REQUIRE([gt_INTDIV0])dnl
-  AC_REQUIRE([gl_AC_TYPE_UINTMAX_T])dnl
-  AC_REQUIRE([gt_HEADER_INTTYPES_H])dnl
-  AC_REQUIRE([gt_INTTYPES_PRI])dnl
   AC_REQUIRE([gl_XSIZE])dnl
   AC_REQUIRE([gt_INTL_MACOSX])dnl
-  AC_REQUIRE([gl_LOCK])dnl
 
   AC_CHECK_TYPE([ptrdiff_t], ,
     [AC_DEFINE([ptrdiff_t], [long],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
-  AC_CHECK_HEADERS([argz.h limits.h locale.h nl_types.h malloc.h stddef.h \
-stdlib.h string.h unistd.h sys/param.h])
-  AC_CHECK_FUNCS([asprintf fwprintf getcwd getegid geteuid getgid getuid \
-mempcpy munmap putenv setenv setlocale snprintf stpcpy strcasecmp strdup \
-strtoul tsearch wcslen __argz_count __argz_stringify __argz_next \
-__fsetlocking])
+  AC_CHECK_HEADERS([locale.h nl_types.h malloc.h stddef.h stdlib.h string.h])
+  AC_CHECK_FUNCS([asprintf fwprintf putenv setenv setlocale snprintf wcslen])
 
   dnl Use the _snprintf function only if it is declared (because on NetBSD it
   dnl is defined as a weak alias of snprintf; we prefer to use the latter).
@@ -406,8 +392,6 @@ __fsetlocking])
   dnl 2.5.1 but were removed in Solaris 2.6, whereas we want binaries built
   dnl on Solaris 2.5.1 to run on Solaris 2.6).
   dnl Don't use AC_CHECK_DECLS because it isn't supported in autoconf-2.13.
-  gt_CHECK_DECL(feof_unlocked, [#include <stdio.h>])
-  gt_CHECK_DECL(fgets_unlocked, [#include <stdio.h>])
   gt_CHECK_DECL(getc_unlocked, [#include <stdio.h>])
 
   case $gt_cv_func_printf_posix in
@@ -434,24 +418,9 @@ __fsetlocking])
   fi
   AC_SUBST([HAVE_WPRINTF])
 
-  AM_ICONV
   AM_LANGINFO_CODESET
   if test $ac_cv_header_locale_h = yes; then
     gt_LC_MESSAGES
-  fi
-
-  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
-  dnl and a _NL_LOCALE_NAME macro always.
-  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
-    [AC_TRY_LINK([#include <langinfo.h>
-#include <locale.h>],
-      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));],
-      gt_cv_nl_locale_name=yes,
-      gt_cv_nl_locale_name=no)
-    ])
-  if test $gt_cv_nl_locale_name = yes; then
-    AC_DEFINE(HAVE_NL_LOCALE_NAME, 1,
-      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
   fi
 
   dnl Rename some macros and functions used for locking.
@@ -493,6 +462,67 @@ __fsetlocking])
 #define glthread_once_call            libintl_once_call
 #define glthread_once_singlethreaded  libintl_once_singlethreaded
 ])
+])
+
+
+dnl Checks for the core files of the intl subdirectory:
+dnl   dcigettext.c
+dnl   eval-plural.h
+dnl   explodename.c
+dnl   finddomain.c
+dnl   gettextP.h
+dnl   gmo.h
+dnl   hash-string.h hash-string.c
+dnl   l10nflist.c
+dnl   libgnuintl.h.in (except the *printf stuff)
+dnl   loadinfo.h
+dnl   loadmsgcat.c
+dnl   localealias.c
+dnl   log.c
+dnl   plural-exp.h plural-exp.c
+dnl   plural.y
+dnl Used by libglocale.
+AC_DEFUN([gt_INTL_SUBDIR_CORE],
+[
+  AC_REQUIRE([AC_C_CONST])dnl
+  AC_REQUIRE([AC_C_INLINE])dnl
+  AC_REQUIRE([AC_TYPE_SIZE_T])dnl
+  AC_REQUIRE([gl_AC_HEADER_STDINT_H])
+  AC_REQUIRE([AC_FUNC_ALLOCA])dnl
+  AC_REQUIRE([AC_FUNC_MMAP])dnl
+  AC_REQUIRE([gt_INTDIV0])dnl
+  AC_REQUIRE([gl_AC_TYPE_UINTMAX_T])dnl
+  AC_REQUIRE([gt_HEADER_INTTYPES_H])dnl
+  AC_REQUIRE([gt_INTTYPES_PRI])dnl
+  AC_REQUIRE([gl_LOCK])dnl
+  AC_CHECK_HEADERS([argz.h limits.h unistd.h sys/param.h])
+  AC_CHECK_FUNCS([getcwd getegid geteuid getgid getuid mempcpy munmap \
+    stpcpy strcasecmp strdup strtoul tsearch __argz_count __argz_stringify \
+    __argz_next __fsetlocking])
+
+  dnl Use the *_unlocked functions only if they are declared.
+  dnl (because some of them were defined without being declared in Solaris
+  dnl 2.5.1 but were removed in Solaris 2.6, whereas we want binaries built
+  dnl on Solaris 2.5.1 to run on Solaris 2.6).
+  dnl Don't use AC_CHECK_DECLS because it isn't supported in autoconf-2.13.
+  gt_CHECK_DECL(feof_unlocked, [#include <stdio.h>])
+  gt_CHECK_DECL(fgets_unlocked, [#include <stdio.h>])
+
+  AM_ICONV
+
+  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
+  dnl and a _NL_LOCALE_NAME macro always.
+  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
+    [AC_TRY_LINK([#include <langinfo.h>
+#include <locale.h>],
+      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));],
+      gt_cv_nl_locale_name=yes,
+      gt_cv_nl_locale_name=no)
+    ])
+  if test $gt_cv_nl_locale_name = yes; then
+    AC_DEFINE(HAVE_NL_LOCALE_NAME, 1,
+      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
+  fi
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least
