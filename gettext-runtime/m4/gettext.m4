@@ -1,4 +1,4 @@
-# gettext.m4 serial 42 (gettext-0.15)
+# gettext.m4 serial 43 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -15,7 +15,7 @@ dnl They are *not* in the public domain.
 
 dnl Authors:
 dnl   Ulrich Drepper <drepper@cygnus.com>, 1995-2000.
-dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2003.
+dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2005.
 
 dnl Macro to add for using GNU gettext.
 
@@ -361,9 +361,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([AC_ISC_POSIX])dnl
   AC_REQUIRE([gl_VISIBILITY])dnl
   AC_REQUIRE([gt_INTL_SUBDIR_CORE])dnl
-  AC_REQUIRE([AC_HEADER_STDC])dnl
   AC_REQUIRE([bh_C_SIGNED])dnl
-  AC_REQUIRE([AC_TYPE_OFF_T])dnl
   AC_REQUIRE([gl_AC_TYPE_LONG_LONG])dnl
   AC_REQUIRE([gt_TYPE_LONGDOUBLE])dnl
   AC_REQUIRE([gt_TYPE_WCHAR_T])dnl
@@ -379,7 +377,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
     [AC_DEFINE([ptrdiff_t], [long],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
-  AC_CHECK_HEADERS([locale.h nl_types.h malloc.h stddef.h stdlib.h string.h])
+  AC_CHECK_HEADERS([stddef.h stdlib.h string.h])
   AC_CHECK_FUNCS([asprintf fwprintf putenv setenv setlocale snprintf wcslen])
 
   dnl Use the _snprintf function only if it is declared (because on NetBSD it
@@ -495,6 +493,13 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   AC_REQUIRE([gt_HEADER_INTTYPES_H])dnl
   AC_REQUIRE([gt_INTTYPES_PRI])dnl
   AC_REQUIRE([gl_LOCK])dnl
+
+  AC_TRY_COMPILE(
+    [int foo (int a) { a = __builtin_expect (a, 10); return a == 10 ? 0 : 1; }],
+    [],
+    [AC_DEFINE([HAVE_BUILTIN_EXPECT], 1,
+       [Define to 1 if the compiler understands __builtin_expect.])])
+
   AC_CHECK_HEADERS([argz.h limits.h unistd.h sys/param.h])
   AC_CHECK_FUNCS([getcwd getegid geteuid getgid getuid mempcpy munmap \
     stpcpy strcasecmp strdup strtoul tsearch __argz_count __argz_stringify \

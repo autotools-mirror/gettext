@@ -1,5 +1,10 @@
 2005-08-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h_vms): Remove setting of HAVE_MALLOC_H,
+	HAVE_NL_TYPES_H.
+
+2005-08-28  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (intl/libgnuintl.h_vms, intl/libgnuintl.h.msvc-static,
 	intl/libgnuintl.h.msvc-shared): Remove the IN_LIBGLOCALE conditional.
 

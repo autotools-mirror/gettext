@@ -1,5 +1,11 @@
 2005-08-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.m4 (AM_INTL_SUBDIR): Remove AC_HEADER_STDC, AC_TYPE_OFF_T
+	tests. Remove tests for locale.h, nl_types.h, malloc.h.
+	(gt_INTL_SUBDIR_CORE): Add test for __builtin_expect.
+
+2005-08-28  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.m4 (gt_INTL_SUBDIR_CORE): New macro, extracted from
 	AM_INTL_SUBDIR.
 	(AM_INTL_SUBDIR): Require it.
