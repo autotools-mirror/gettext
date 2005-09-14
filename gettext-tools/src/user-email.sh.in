@@ -95,6 +95,9 @@ files=""
 
 # ----------------------- BEGIN MAILER SPECIFIC CODE -----------------------
 
+# Mozilla Thunderbird addresses
+files="$files .thunderbird/*/prefs.js"
+
 # Mozilla addresses
 files="$files .mozilla/*/prefs.js"
 
@@ -114,7 +117,10 @@ files="$files .kde2/share/config/emaildefaults"
 # KDE kmail addresses
 files="$files .kde2/share/config/kmailrc"
 
-# GNOME evolution addresses
+# GNOME evolution 2 addresses
+files="$files .gconf/apps/evolution/mail/%gconf.xml"
+
+# GNOME evolution 1 addresses
 files="$files evolution/config.xmldb"
 
 # GNOME balsa addresses
@@ -160,8 +166,8 @@ if test -n "$files"; then
 
 # ----------------------- BEGIN MAILER SPECIFIC CODE -----------------------
 
-      # Mozilla addresses
-      .mozilla/*/prefs.js)
+      # Mozilla and Mozilla Thunderbird addresses
+      .mozilla/*/prefs.js | .thunderbird/*/prefs.js)
         addresses="$addresses "`grep -h '^user_pref("mail\.identity\..*\.useremail", ".*");$' $file 2>/dev/null | sed -e 's/^user_pref("mail\.identity\..*\.useremail", "\(.*\)");$/\1/'`
         ;;
 
@@ -197,7 +203,13 @@ if test -n "$files"; then
         addresses="$addresses "`grep -h '^Email Address=' $file 2>/dev/null | sed -e 's/^Email Address=//'`
         ;;
 
-      # GNOME evolution addresses
+      # GNOME evolution 2 addresses
+      .gconf/apps/evolution/mail/%gconf.xml)
+        sedexpr0='s,^.*&lt;addr-spec&gt;\(.*\)&lt;/addr-spec&gt;.*$,\1,p'
+        addresses="$addresses "`sed -n -e "$sedexpr0" < $file`
+        ;;
+
+      # GNOME evolution 1 addresses
       evolution/config.xmldb)
         sedexpr0='s/^.*<entry name="identity_address_[0-9]*" type="string" value="\([^"]*\)".*$/\1/p'
         sedexpr1='s/\(..\)/\\x\1/g'
@@ -224,7 +236,15 @@ if test -n "$files"; then
 
       # mutt addresses
       .muttrc)
-        addresses="$addresses "`grep -h '^set from="[^"]*"[ 	]*$' $file 2>/dev/null | sed -e 's/^set from="\([^"]*\)"[ 	]*$/\1/'`
+        mutt_addresses=`grep -h '^set from="[^"]*"[ 	]*$' $file 2>/dev/null | sed -e 's/^set from="\([^"]*\)"[ 	]*$/\1/'`
+        if test -n "$mutt_addresses"; then
+          addresses="$addresses $mutt_addresses"
+        else
+          # mutt uses $EMAIL as fallback.
+          if test -n "$EMAIL"; then
+            addresses="$addresses $EMAIL"
+          fi
+        fi
         ;;
 
       # pine addresses

@@ -1,3 +1,8 @@
+2005-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* user-email.sh.in: Add support for Mozilla Thunderbird and GNOME
+	Evolution 2. Improve mutt support.
+
 2005-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Add an entry about Romanian.
