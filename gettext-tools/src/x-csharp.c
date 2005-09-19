@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,6 +33,7 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
+#include "xerror.h"
 #include "exit.h"
 #include "hash.h"
 #include "po-charset.h"
