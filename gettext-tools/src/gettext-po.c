@@ -23,6 +23,7 @@
 /* Specification.  */
 #include "gettext-po.h"
 
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -110,6 +111,7 @@ po_file_read (const char *filename, po_error_handler_t handler)
   po_error_at_line     = handler->error_at_line;
   po_multiline_warning = handler->multiline_warning;
   po_multiline_error   = handler->multiline_error;
+  gram_max_allowed_errors = UINT_MAX;
 
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
@@ -122,6 +124,7 @@ po_file_read (const char *filename, po_error_handler_t handler)
   po_error_at_line     = error_at_line;
   po_multiline_warning = multiline_warning;
   po_multiline_error   = multiline_error;
+  gram_max_allowed_errors = 20;
 
   if (fp != stdin)
     fclose (fp);
