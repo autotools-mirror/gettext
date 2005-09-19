@@ -79,7 +79,7 @@ func_find_curr_installdir ()
         else
           PATH_SEPARATOR=:
         fi
-        rm -f "$tmp"
+        rm -rf "$tmp"
       fi
       save_IFS="$IFS"; IFS="$PATH_SEPARATOR"
       for dir in $PATH; do
