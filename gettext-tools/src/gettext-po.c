@@ -37,6 +37,7 @@
 #include "error.h"
 #include "xerror.h"
 #include "po-error.h"
+#include "po-xerror.h"
 #include "vasprintf.h"
 #include "format.h"
 #include "gettext.h"
@@ -89,7 +90,51 @@ po_file_create (void)
    Return its contents.  Upon failure, return NULL and set errno.  */
 
 po_file_t
-po_file_read (const char *filename, po_error_handler_t handler)
+po_file_read (const char *filename, po_xerror_handler_t handler)
+{
+  FILE *fp;
+  po_file_t file;
+
+  if (strcmp (filename, "-") == 0 || strcmp (filename, "/dev/stdin") == 0)
+    {
+      filename = _("<stdin>");
+      fp = stdin;
+    }
+  else
+    {
+      fp = fopen (filename, "r");
+      if (fp == NULL)
+	return NULL;
+    }
+
+  /* Establish error handler around read_po().  */
+  po_xerror =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror;
+  po_xerror2 =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror2;
+  gram_max_allowed_errors = UINT_MAX;
+
+  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file->real_filename = filename;
+  file->logical_filename = filename;
+  file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
+  file->domains = NULL;
+
+  /* Restore error handler.  */
+  po_xerror  = textmode_xerror;
+  po_xerror2 = textmode_xerror2;
+  gram_max_allowed_errors = 20;
+
+  if (fp != stdin)
+    fclose (fp);
+  return file;
+}
+#undef po_file_read
+
+po_file_t
+po_file_read_v2 (const char *filename, po_error_handler_t handler)
 {
   FILE *fp;
   po_file_t file;
@@ -130,7 +175,6 @@ po_file_read (const char *filename, po_error_handler_t handler)
     fclose (fp);
   return file;
 }
-#undef po_file_read
 
 /* Older version for binary backward compatibility.  */
 po_file_t
@@ -166,6 +210,28 @@ po_file_read (const char *filename)
 /* Write an in-memory PO file to a file.
    Upon failure, return NULL and set errno.  */
 
+po_file_t
+po_file_write (po_file_t file, const char *filename, po_xerror_handler_t handler)
+{
+  /* Establish error handler around msgdomain_list_print().  */
+  po_xerror =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror;
+  po_xerror2 =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror2;
+
+  msgdomain_list_print (file->mdlp, filename, true, false);
+
+  /* Restore error handler.  */
+  po_xerror  = textmode_xerror;
+  po_xerror2 = textmode_xerror2;
+
+  return file;
+}
+#undef po_file_write
+
+/* Older version for binary backward compatibility.  */
 po_file_t
 po_file_write (po_file_t file, const char *filename, po_error_handler_t handler)
 {
@@ -891,6 +957,45 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
 	mp->is_format[i] = (value ? yes : no);
 }
 
+
+/* An error logger based on the po_xerror function pointer.  */
+static void
+po_xerror_logger (const char *format, ...)
+{
+  va_list args;
+  char *error_message;
+
+  va_start (args, format);
+  if (vasprintf (&error_message, format, args) < 0)
+    error (EXIT_FAILURE, 0, _("memory exhausted"));
+  va_end (args);
+  po_xerror (PO_SEVERITY_ERROR, NULL, NULL, 0, 0, false, error_message);
+  free (error_message);
+}
+
+/* Test whether the message translation is a valid format string if the message
+   is marked as being a format string.  If it is invalid, pass the reasons to
+   the handler.  */
+void
+po_message_check_format (po_message_t message, po_xerror_handler_t handler)
+{
+  message_ty *mp = (message_ty *) message;
+
+  /* Establish error handler for po_xerror_logger().  */
+  po_xerror =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror;
+
+  check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
+			     mp->msgstr, mp->msgstr_len,
+			     mp->is_format, po_xerror_logger);
+
+  /* Restore error handler.  */
+  po_xerror = textmode_xerror;
+}
+#undef po_message_check_format
+
+/* Older version for binary backward compatibility.  */
 
 /* An error logger based on the po_error function pointer.  */
 static void

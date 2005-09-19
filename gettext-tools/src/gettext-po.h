@@ -78,6 +78,39 @@ struct po_error_handler
 };
 typedef const struct po_error_handler *po_error_handler_t;
 
+/* A po_xerror_handler handles warnings, error and fatal error situations.  */
+#define PO_SEVERITY_WARNING	0 /* just a warning, tell the user */
+#define PO_SEVERITY_ERROR	1 /* an error, the operation cannot complete */
+#define PO_SEVERITY_FATAL_ERROR	2 /* an error, the operation must be aborted */
+struct po_xerror_handler
+{
+  /* Signal a problem of the given severity.
+     MESSAGE and/or FILENAME + LINENO indicate where the problem occurred.
+     If FILENAME is NULL, FILENAME and LINENO and COLUMN should be ignored.
+     If LINENO is (size_t)(-1), LINENO and COLUMN should be ignored.
+     If COLUMN is (size_t)(-1), it should be ignored.
+     MESSAGE_TEXT is the problem description (if MULTILINE_P is true,
+     multiple lines of text, each terminated with a newline, otherwise
+     usually a single line).
+     Must not return if SEVERITY is PO_SEVERITY_FATAL_ERROR.  */
+  void (*xerror) (int severity,
+		  po_message_t message,
+		  const char *filename, size_t lineno, size_t column,
+		  int multiline_p, const char *message_text);
+  /* Signal a problem that refers to two messages.
+     Similar to two calls to xerror.
+     If possible, a "..." can be appended to MESSAGE_TEXT1 and prepended to
+     MESSAGE_TEXT2.  */
+  void (*xerror2) (int severity,
+		   po_message_t message1,
+		   const char *filename1, size_t lineno1, size_t column1,
+		   int multiline_p1, const char *message_text1,
+		   po_message_t message2,
+		   const char *filename2, size_t lineno2, size_t column2,
+		   int multiline_p2, const char *message_text2);
+};
+typedef const struct po_xerror_handler *po_xerror_handler_t;
+
 /* Memory allocation:
    The memory allocations performed by these functions use xmalloc(),
    therefore will cause a program exit if memory is exhausted.
@@ -92,14 +125,15 @@ extern po_file_t po_file_create (void);
 
 /* Read a PO file into memory.
    Return its contents.  Upon failure, return NULL and set errno.  */
-#define po_file_read po_file_read_v2
+#define po_file_read po_file_read_v3
 extern po_file_t po_file_read (const char *filename,
-			       po_error_handler_t handler);
+			       po_xerror_handler_t handler);
 
 /* Write an in-memory PO file to a file.
    Upon failure, return NULL and set errno.  */
+#define po_file_write po_file_write_v2
 extern po_file_t po_file_write (po_file_t file, const char *filename,
-				po_error_handler_t handler);
+				po_xerror_handler_t handler);
 
 /* Free a PO file from memory.  */
 extern void po_file_free (po_file_t file);
@@ -233,7 +267,8 @@ extern void po_message_set_format (po_message_t message, const char *format_type
 /* Test whether the message translation is a valid format string if the message
    is marked as being a format string.  If it is invalid, pass the reasons to
    the handler.  */
-extern void po_message_check_format (po_message_t message, po_error_handler_t handler);
+#define po_message_check_format po_message_check_format_v2
+extern void po_message_check_format (po_message_t message, po_xerror_handler_t handler);
 
 
 /* =========================== po_filepos_t API ============================ */

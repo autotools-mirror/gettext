@@ -1,4 +1,11 @@
 
+* libgettextpo library:
+  - The error handler type passed to po_file_read(), po_file_write(),
+    po_message_check_format() has changed.
+    This is an incompatible change: Programs using the library *must* update
+    their code.
+    Binary compatibility is guaranteed, however.
+
 * Portability to mingw.
 
 Version 0.14.5 - May 2005

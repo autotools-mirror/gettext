@@ -1,5 +1,22 @@
 2005-09-17  Bruno Haible  <bruno@clisp.org>
 
+	Use new error handlers in libgettextpo.
+	* gettext-po.h (PO_SEVERITY_WARNING, PO_SEVERITY_ERROR,
+	PO_SEVERITY_FATAL_ERROR): New macros.
+	(po_xerror_handler): New structure type.
+	(po_xerror_handler_t): New type.
+	(po_file_read): Change signature; version 3.
+	(po_file_write): Change signature; version 2.
+	(po_message_check_format): Change signature; version 2.
+	* gettext-po.c: Include po-xerror.h.
+	(po_file_read): New implementation. Renamed old implementation to
+	po_file_read_v2.
+	(po_file_write): New implementation. Keep old implementation.
+	(po_xerror_logger): New function.
+	(po_message_check_format): New implementation. Keep old implementation.
+
+2005-09-17  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c (check_plural): Fix broken determination of max_nplurals.
 
 2005-09-17  Bruno Haible  <bruno@clisp.org>
