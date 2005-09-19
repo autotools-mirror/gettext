@@ -58,7 +58,7 @@ else
       wl='-Wl,'
       ;;
     darwin*)
-      case "$cc_basename" in
+      case $cc_basename in
         xlc*)
           wl='-Wl,'
           ;;
@@ -305,7 +305,7 @@ else
       if test "$GCC" = yes ; then
         :
       else
-        case "$cc_basename" in
+        case $cc_basename in
           xlc*)
             ;;
           *)
