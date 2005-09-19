@@ -25,7 +25,7 @@
 #   known workaround is to choose shorter directory names for the build
 #   directory and/or the installation directory.
 
-# All known linkers require a `.a' archive for static linking (except M$VC,
+# All known linkers require a `.a' archive for static linking (except MSVC,
 # which needs '.lib').
 libext=a
 shrext=.so
@@ -342,7 +342,7 @@ else
       ;;
     hpux10* | hpux11*)
       if test "$with_gnu_ld" = no; then
-        case "$host_cpu" in
+        case $host_cpu in
           hppa*64*)
             hardcode_libdir_flag_spec='${wl}+b ${wl}$libdir'
             hardcode_libdir_separator=:
@@ -490,7 +490,7 @@ case "$host_os" in
   gnu*)
     ;;
   hpux9* | hpux10* | hpux11*)
-    case "$host_cpu" in
+    case $host_cpu in
       ia64*)
         shrext=.so
         ;;

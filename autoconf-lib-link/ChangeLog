@@ -1,5 +1,9 @@
 2005-09-18  Bruno Haible  <bruno@clisp.org>
 
+	* config.rpath: Upgrade to libtool-1.5.20.
+
+2005-09-18  Bruno Haible  <bruno@clisp.org>
+
 	* config.rpath: Complete upgrade to libtool-1.5.16.
 
 2005-05-01  Bruno Haible  <bruno@clisp.org>
