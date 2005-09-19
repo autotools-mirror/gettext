@@ -264,12 +264,6 @@ extern int po_message_is_format (po_message_t message, const char *format_type);
 /* Change the format string mark for a given type of a message.  */
 extern void po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value);
 
-/* Test whether the message translation is a valid format string if the message
-   is marked as being a format string.  If it is invalid, pass the reasons to
-   the handler.  */
-#define po_message_check_format po_message_check_format_v2
-extern void po_message_check_format (po_message_t message, po_xerror_handler_t handler);
-
 
 /* =========================== po_filepos_t API ============================ */
 
@@ -279,6 +273,24 @@ extern const char * po_filepos_file (po_filepos_t filepos);
 /* Return the line number where the string starts, or (size_t)(-1) if no line
    number is available.  */
 extern size_t po_filepos_start_line (po_filepos_t filepos);
+
+
+/* ============================= Checking API ============================== */
+
+/* Test whether an entire file PO file is valid, like msgfmt does it.
+   If it is invalid, pass the reasons to the handler.  */
+extern void po_file_check_all (po_file_t file, po_xerror_handler_t handler);
+
+/* Test a single message, to be inserted in a PO file in memory, like msgfmt
+   does it.  If it is invalid, pass the reasons to the handler.  The iterator
+   is not modified by this call; it only specifies the file and the domain.  */
+extern void po_message_check_all (po_message_t message, po_message_iterator_t iterator, po_xerror_handler_t handler);
+
+/* Test whether the message translation is a valid format string if the message
+   is marked as being a format string.  If it is invalid, pass the reasons to
+   the handler.  */
+#define po_message_check_format po_message_check_format_v2
+extern void po_message_check_format (po_message_t message, po_xerror_handler_t handler);
 
 
 #ifdef __cplusplus

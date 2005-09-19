@@ -41,7 +41,7 @@ str-list.h \
 write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h \
-msgl-english.h msgfmt.h msgunfmt.h plural-count.h \
+msgl-english.h msgl-check.h msgfmt.h msgunfmt.h plural-count.h \
 read-mo.h write-mo.h \
 read-java.h write-java.h \
 read-csharp.h write-csharp.h \
@@ -112,8 +112,9 @@ format-php.c format-gcc-internal.c format-qt.c
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-properties.c write-stringtable.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c file-list.c \
-msgl-charset.c po-time.c plural.c plural-table.c $(FORMAT_SOURCE)
+msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c msgl-check.c \
+file-list.c msgl-charset.c po-time.c plural.c plural-eval.c plural-table.c \
+$(FORMAT_SOURCE)
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = gettext-po.c
@@ -134,7 +135,7 @@ msgcmp_SOURCES = msgcmp.c
 msgfmt_SOURCES = msgfmt.c
 msgfmt_SOURCES += \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
-  write-qt.c plural-eval.c ../../gettext-runtime/intl/hash-string.c
+  write-qt.c ../../gettext-runtime/intl/hash-string.c
 if !MINGW
 msgmerge_SOURCES = msgmerge.c
 else

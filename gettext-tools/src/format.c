@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2004 Free Software Foundation, Inc.
+   Copyright (C) 2001-2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -61,7 +61,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
 bool
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
-			   enum is_format is_format[NFORMATS],
+			   const enum is_format is_format[NFORMATS],
 			   formatstring_error_logger_t error_logger)
 {
   bool err = false;

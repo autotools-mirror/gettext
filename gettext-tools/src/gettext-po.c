@@ -40,6 +40,7 @@
 #include "po-xerror.h"
 #include "vasprintf.h"
 #include "format.h"
+#include "msgl-check.h"
 #include "gettext.h"
 
 #define _(str) gettext(str)
@@ -958,20 +959,132 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
 }
 
 
-/* An error logger based on the po_xerror function pointer.  */
-static void
-po_xerror_logger (const char *format, ...)
-{
-  va_list args;
-  char *error_message;
+/* Return the file name.  */
 
-  va_start (args, format);
-  if (vasprintf (&error_message, format, args) < 0)
-    error (EXIT_FAILURE, 0, _("memory exhausted"));
-  va_end (args);
-  po_xerror (PO_SEVERITY_ERROR, NULL, NULL, 0, 0, false, error_message);
-  free (error_message);
+const char *
+po_filepos_file (po_filepos_t filepos)
+{
+  lex_pos_ty *pp = (lex_pos_ty *) filepos;
+
+  return pp->file_name;
 }
+
+
+/* Return the line number where the string starts, or (size_t)(-1) if no line
+   number is available.  */
+
+size_t
+po_filepos_start_line (po_filepos_t filepos)
+{
+  lex_pos_ty *pp = (lex_pos_ty *) filepos;
+
+  return pp->line_number;
+}
+
+
+/* Test whether an entire file PO file is valid, like msgfmt does it.
+   If it is invalid, pass the reasons to the handler.  */
+
+void
+po_file_check_all (po_file_t file, po_xerror_handler_t handler)
+{
+  msgdomain_list_ty *mdlp;
+  size_t k;
+
+  /* Establish error handler.  */
+  po_xerror =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror;
+  po_xerror2 =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror2;
+
+  mdlp = file->mdlp;
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+      size_t j;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  check_message (mp, &mp->pos, &mp->pos, 1, 1, 1, 0, 0, 0);
+	}
+
+      check_plural (mlp);
+    }
+
+  /* Restore error handler.  */
+  po_xerror  = textmode_xerror;
+  po_xerror2 = textmode_xerror2;
+}
+
+
+/* Test a single message, to be inserted in a PO file in memory, like msgfmt
+   does it.  If it is invalid, pass the reasons to the handler.  The iterator
+   is not modified by this call; it only specifies the file and the domain.  */
+
+void
+po_message_check_all (po_message_t message, po_message_iterator_t iterator,
+		      po_xerror_handler_t handler)
+{
+  message_ty *mp = (message_ty *) message;
+
+  /* Establish error handler.  */
+  po_xerror =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror;
+  po_xerror2 =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror2;
+
+  check_message (mp, &mp->pos, &mp->pos, 1, 1, 1, 0, 0, 0);
+
+  /* For plural checking, combine the message and its header into a small,
+     two-element message list.  */
+  {
+    message_ty *header;
+
+    /* Find the header.  */
+    {
+      message_list_ty *mlp;
+      size_t j;
+
+      header = NULL;
+      mlp =
+	msgdomain_list_sublist (iterator->file->mdlp, iterator->domain, false);
+      if (mlp != NULL)
+	for (j = 0; j < mlp->nitems; j++)
+	  if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	    {
+	      header = mlp->item[j];
+	      break;
+	    }
+    }
+
+    {
+      message_ty *items[2];
+      struct message_list_ty ml;
+      ml.item = items;
+      ml.nitems = 0;
+      ml.nitems_max = 2;
+      ml.use_hashtable = false;
+
+      if (header != NULL)
+	message_list_append (&ml, header);
+      if (mp != header)
+	message_list_append (&ml, mp);
+
+      check_plural (&ml);
+    }
+  }
+
+  /* Restore error handler.  */
+  po_xerror  = textmode_xerror;
+  po_xerror2 = textmode_xerror2;
+}
+
 
 /* Test whether the message translation is a valid format string if the message
    is marked as being a format string.  If it is invalid, pass the reasons to
@@ -981,17 +1094,19 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
 {
   message_ty *mp = (message_ty *) message;
 
-  /* Establish error handler for po_xerror_logger().  */
+  /* Establish error handler.  */
   po_xerror =
     (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
     handler->xerror;
+  po_xerror2 =
+    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+    handler->xerror2;
 
-  check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
-			     mp->msgstr, mp->msgstr_len,
-			     mp->is_format, po_xerror_logger);
+  check_message (mp, &mp->pos, &mp->pos, 0, 1, 0, 0, 0, 0);
 
   /* Restore error handler.  */
-  po_xerror = textmode_xerror;
+  po_xerror  = textmode_xerror;
+  po_xerror2 = textmode_xerror2;
 }
 #undef po_message_check_format
 
@@ -1029,27 +1144,4 @@ po_message_check_format (po_message_t message, po_error_handler_t handler)
 
   /* Restore error handler.  */
   po_error = error;
-}
-
-
-/* Return the file name.  */
-
-const char *
-po_filepos_file (po_filepos_t filepos)
-{
-  lex_pos_ty *pp = (lex_pos_ty *) filepos;
-
-  return pp->file_name;
-}
-
-
-/* Return the line number where the string starts, or (size_t)(-1) if no line
-   number is available.  */
-
-size_t
-po_filepos_start_line (po_filepos_t filepos)
-{
-  lex_pos_ty *pp = (lex_pos_ty *) filepos;
-
-  return pp->line_number;
 }

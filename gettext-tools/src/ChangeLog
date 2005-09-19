@@ -1,5 +1,32 @@
 2005-09-17  Bruno Haible  <bruno@clisp.org>
 
+	* msgl-check.h: New file.
+	* msgl-check.c: New file, mostly extracted from msgfmt.c.
+	* Makefile.am (noinst_HEADERS): Add msgl-check.h.
+	(libgettextsrc_la_SOURCES): Add msgl-check.c, plural-eval.c.
+	(msgfmt_SOURCES): Remove plural-eval.c.
+	* format.c (check_msgid_msgstr_format): Add const to argument type.
+	* format.h (check_msgid_msgstr_format): Add const to argument type.
+	* gettext-po.c: Include msgl-check.h.
+	(po_file_check_all, po_message_check_all): New functions.
+	(po_xerror_logger): Remove function.
+	(po_message_check_format): Use new check_message function.
+	* gettext-po.h (po_file_check_all, po_message_check_all): New
+	declarations.
+	* msgfmt.c: Include msgl-check.h instead of setjmp.h, signal.h,
+	stdarg.h, po-xerror.h, format.h, plural-exp.h, plural-table.h,
+	strstr.h.
+	(SIZEOF, sigjmp_buf, sigsetjmp, siglongjmp, USE_SIGINFO,
+	sigfpe_exit, sigfpe_code, sigfpe_handler, install_sigfpe_handler,
+	uninstall_sigfpe_handler, check_plural_eval, plural_help, check_plural,
+	curr_mp, curr_msgid_pos, formatstring_error_logger, check_pair,
+	check_header_entry): Move definitions to msgl-check.c.
+	(main): Update.
+	(msgfmt_frob_new_message): Call check_message instead of
+	check_header_entry and check_pair.
+
+2005-09-17  Bruno Haible  <bruno@clisp.org>
+
 	Use new error handlers in libgettextpo.
 	* gettext-po.h (PO_SEVERITY_WARNING, PO_SEVERITY_ERROR,
 	PO_SEVERITY_FATAL_ERROR): New macros.

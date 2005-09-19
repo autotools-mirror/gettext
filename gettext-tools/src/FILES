@@ -209,13 +209,17 @@ format-gcc-internal.c  Format string handling GCC internal.
 format-qt.c            Format string handling for Qt.
 format.c        Table of the language dependent format string handlers.
 
+plural.c
+                Parsing plural expressions.
+plural-eval.c
+                Evaluating plural expressions.
+msgl-check.h
+msgl-check.c
+                Checking of messages.
+
 +-------------- The 'msgfmt' program
 | msgfmt.h
 |               Declarations.
-| plural.c
-|               Parsing plural expressions.
-| plural-eval.c
-|               Evaluating plursl expressions.
 | write-mo.h
 | write-mo.c
 |               Generating GNU .mo files.
