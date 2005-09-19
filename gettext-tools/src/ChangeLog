@@ -1,3 +1,65 @@
+2005-09-17  Bruno Haible  <bruno@clisp.org>
+
+	New, higher-level error message output primitives.
+	* po-xerror.h: New file.
+	* po-xerror.c: New file.
+	* open-po.c: Include xerror.h, po-xerror.h, not error.h.
+	(open_po_file): Use po_xerror instead of error.
+	* po-charset.c: Include po-xerror.h, not po-error.h.
+	(po_lex_charset_set): Use po_xerror instead of po_multiline_warning.
+	* po-lex.c: Include xerror.h, po-error.h, po-xerror.h.
+	(po_gram_error, po_gram_error_at_line): Use po_xerror instead of
+	po_error or po_error_at_line. Don't decrement error_message_count;
+	let the caller do this instead.
+	(mbfile_getc, lex_getc): Use po_xerror instead of po_error.
+	* po-lex.h: Don't include po-error.h.
+	(po_gram_error, po_gram_error_at_line): Remove optimized macros.
+	* read-po-abstract.c: Include xerror.h, po-xerror.h.
+	(po_scan): Use po_xerror instead of po_error.
+	* read-po.c: Include po-xerror.h.
+	(default_add_message): Use po_xerror2 instead of po_gram_error_at_line
+	pair.
+	* read-properties.c: Include xerror.h, po-xerror.h, not exit.h.
+	(phase1_getc, phase4_getuc): Use po_xerror instead of error.
+	* read-stringtable.c: Include xerror.h, po-xerror.h, not exit.h.
+	(phase1_getc, read_string, stringtable_parse): Use po_xerror instead of
+	error.
+	* write-po.c: Include po-xerror.h, not exit.h, po-error.h.
+	(wrap): Pass the entire message as argument. Use po_xerror instead of
+	po_error.
+	(message_print, message_print_obsolete): Update. Use po_xerror instead
+	of po_multiline_warning.
+	(msgdomain_list_print): Use po_xerror instead of po_error or
+	po_error_at_line.
+	* msgl-iconv.h (struct conversion_context): Add 'message' field.
+	* msgl-iconv.c: Include xerror.h, po-xerror.h, not error.h, exit.h.
+	(conversion_error): Use po_xerror instead of error.
+	(iconv_message_list): Likewise. Set the entire message in the
+	conversion context before calling convert_*.
+	(iconv_msgdomain_list): Use po_xerror instead of error.
+	* xgettext.c (from_current_source_encoding): Set context.message.
+	* msgfmt.c: Include po-xerror.h.
+	(check_plural_eval): Pass the entire header as argument. Use po_xerror
+	instead of error_at_line.
+	(plural_help): New function, extracted from check_plural.
+	(check_plural): Change type of local variables has_plural, min_pos,
+	max_pos. Use po_xerror2 instead of error_at_line pairs. Use po_xerror
+	instead of error_at_line.
+	(curr_mp): New variable.
+	(formatstring_error_logger): Use po_xerror instead of vfprintf.
+	(check_pair): Take the entire message as argument. Use po_xerror
+	instead of error_at_line. Set curr_mp before calling
+	check_msgid_msgstr_format.
+	(check_header_entry): Take the entire header message as argument. Use
+	po_xerror instead of multiline_error.
+	(msgfmt_frob_new_message): Update.
+	* msgcmp.c (match_domain): Decrement error_message_count between two
+	error messages that belong together.
+	* msgmerge.c (match_domain): Decrement error_message_count between two
+	error messages that belong together.
+	* Makefile.am (noinst_HEADERS): Add po-xerror.h.
+	(COMMON_SOURCE): Add po-xerror.c.
+
 2005-09-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.c (po_file_read): Set gram_max_allowed_errors to a large

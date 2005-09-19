@@ -1676,6 +1676,7 @@ Please specify the source encoding through --from-code.\n"),
       context.from_code = xgettext_current_source_encoding;
       context.to_code = po_charset_utf8;
       context.from_filename = file_name;
+      context.message = NULL;
 
       string = convert_string (xgettext_current_source_iconv, string, &context);
 #else

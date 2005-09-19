@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995-1996, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2000-2003, 2005 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,8 @@
 #include "dir-list.h"
 #include "pathname.h"
 #include "xalloc.h"
-#include "error.h"
+#include "xerror.h"
+#include "po-xerror.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -114,8 +115,14 @@ open_po_file (const char *input_name, char **real_file_name_p,
   FILE *fp = try_open_po_file (input_name, real_file_name_p);
 
   if (fp == NULL && exit_on_error)
-    error (EXIT_FAILURE, errno,
-	   _("error while opening \"%s\" for reading"), *real_file_name_p);
+    {
+      const char *errno_description = strerror (errno);
+      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		 xasprintf ("%s: %s",
+			    xasprintf (_("error while opening \"%s\" for reading"),
+				       *real_file_name_p),
+			    errno_description));
+    }
 
   return fp;
 }

@@ -39,6 +39,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "xerror.h"
+#include "po-xerror.h"
 #include "format.h"
 #include "xalloc.h"
 #include "plural-exp.h"
@@ -873,7 +874,7 @@ uninstall_sigfpe_handler ()
 static void
 check_plural_eval (struct expression *plural_expr,
 		   unsigned long nplurals_value,
-		   const lex_pos_ty *header_pos)
+		   const message_ty *header)
 {
   if (sigsetjmp (sigfpe_exit, 1) == 0)
     {
@@ -891,25 +892,22 @@ check_plural_eval (struct expression *plural_expr,
 	      /* End of protection against arithmetic exceptions.  */
 	      uninstall_sigfpe_handler ();
 
-	      error_with_progname = false;
-	      error_at_line (0, 0,
-			     header_pos->file_name, header_pos->line_number,
-			     _("plural expression can produce negative values"));
-	      error_with_progname = true;
+	      po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false,
+			 _("plural expression can produce negative values"));
 	      exit_status = EXIT_FAILURE;
 	      return;
 	    }
 	  else if (val >= nplurals_value)
 	    {
+	      char *msg;
+
 	      /* End of protection against arithmetic exceptions.  */
 	      uninstall_sigfpe_handler ();
 
-	      error_with_progname = false;
-	      error_at_line (0, 0,
-			     header_pos->file_name, header_pos->line_number,
-			     _("nplurals = %lu but plural expression can produce values as large as %lu"),
-			     nplurals_value, val);
-	      error_with_progname = true;
+	      msg = xasprintf (_("nplurals = %lu but plural expression can produce values as large as %lu"),
+			       nplurals_value, val);
+	      po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+	      free (msg);
 	      exit_status = EXIT_FAILURE;
 	      return;
 	    }
@@ -933,27 +931,53 @@ check_plural_eval (struct expression *plural_expr,
 #if USE_SIGINFO
 # ifdef FPE_INTDIV
 	case FPE_INTDIV:
-	  /* xgettext: c-format */
 	  msg = _("plural expression can produce division by zero");
 	  break;
 # endif
 # ifdef FPE_INTOVF
 	case FPE_INTOVF:
-	  /* xgettext: c-format */
 	  msg = _("plural expression can produce integer overflow");
 	  break;
 # endif
 	default:
 #endif
-	  /* xgettext: c-format */
 	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
 	}
 
-      error_with_progname = false;
-      error_at_line (0, 0, header_pos->file_name, header_pos->line_number, msg);
-      error_with_progname = true;
+      po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
       exit_status = EXIT_FAILURE;
     }
+}
+
+
+/* Try to help the translator by looking up the right plural formula for her.
+   Return a freshly allocated multiline help string, or NULL.  */
+static char *
+plural_help (const char *nullentry)
+{
+  const char *language;
+  size_t j;
+
+  language = strstr (nullentry, "Language-Team: ");
+  if (language != NULL)
+    {
+      language += 15;
+      for (j = 0; j < plural_table_size; j++)
+	if (strncmp (language,
+		     plural_table[j].language,
+		     strlen (plural_table[j].language)) == 0)
+	  {
+	    char *helpline1 =
+	      xasprintf (_("Try using the following, valid for %s:"),
+			 plural_table[j].language);
+	    char *help =
+	      xasprintf ("%s\n\"Plural-Forms: %s\\n\"\n",
+			 helpline1, plural_table[j].value);
+	    free (helpline1);
+	    return help;
+	  }
+    }
+  return NULL;
 }
 
 
@@ -961,11 +985,11 @@ check_plural_eval (struct expression *plural_expr,
 static void
 check_plural (message_list_ty *mlp)
 {
-  const lex_pos_ty *has_plural;
+  const message_ty *has_plural;
   unsigned long min_nplurals;
-  const lex_pos_ty *min_pos;
+  const message_ty *min_pos;
   unsigned long max_nplurals;
-  const lex_pos_ty *max_pos;
+  const message_ty *max_pos;
   size_t j;
   message_ty *header;
 
@@ -986,7 +1010,7 @@ check_plural (message_list_ty *mlp)
 	  unsigned long n;
 
 	  if (has_plural == NULL)
-	    has_plural = &mp->pos;
+	    has_plural = mp;
 
 	  n = 0;
 	  for (p = mp->msgstr, p_end = p + mp->msgstr_len;
@@ -996,12 +1020,12 @@ check_plural (message_list_ty *mlp)
 	  if (min_nplurals > n)
 	    {
 	      min_nplurals = n;
-	      min_pos = &mp->pos;
+	      min_pos = mp;
 	    }
 	  if (max_nplurals > n)
 	    {
 	      max_nplurals = n;
-	      min_pos = &mp->pos;
+	      min_pos = mp;
 	    }
 	}
     }
@@ -1014,7 +1038,6 @@ check_plural (message_list_ty *mlp)
       const char *nullentry;
       const char *plural;
       const char *nplurals;
-      bool try_to_help = false;
 
       nullentry = header->msgstr;
 
@@ -1022,26 +1045,50 @@ check_plural (message_list_ty *mlp)
       nplurals = strstr (nullentry, "nplurals=");
       if (plural == NULL && has_plural != NULL)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
-			 _("message catalog has plural form translations..."));
-	  --error_message_count;
-	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
-			 _("...but header entry lacks a \"plural=EXPRESSION\" attribute"));
-	  error_with_progname = true;
-	  try_to_help = true;
+	  const char *msg1 =
+	    _("message catalog has plural form translations");
+	  const char *msg2 =
+	    _("but header entry lacks a \"plural=EXPRESSION\" attribute");
+	  char *help = plural_help (nullentry);
+
+	  if (help != NULL)
+	    {
+	      char *msg2ext = xasprintf ("%s\n%s", msg2, help);
+	      po_xerror2 (PO_SEVERITY_ERROR,
+			  has_plural, NULL, 0, 0, false, msg1,
+			  header, NULL, 0, 0, true, msg2ext);
+	      free (msg2ext);
+	      free (help);
+	    }
+	  else
+	    po_xerror2 (PO_SEVERITY_ERROR,
+			has_plural, NULL, 0, 0, false, msg1,
+			header, NULL, 0, 0, false, msg2);
+
 	  exit_status = EXIT_FAILURE;
 	}
       if (nplurals == NULL && has_plural != NULL)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
-			 _("message catalog has plural form translations..."));
-	  --error_message_count;
-	  error_at_line (0, 0, header->pos.file_name, header->pos.line_number,
-			 _("...but header entry lacks a \"nplurals=INTEGER\" attribute"));
-	  error_with_progname = true;
-	  try_to_help = true;
+	  const char *msg1 =
+	    _("message catalog has plural form translations");
+	  const char *msg2 =
+	    _("but header entry lacks a \"nplurals=INTEGER\" attribute");
+	  char *help = plural_help (nullentry);
+
+	  if (help != NULL)
+	    {
+	      char *msg2ext = xasprintf ("%s\n%s", msg2, help);
+	      po_xerror2 (PO_SEVERITY_ERROR,
+			  has_plural, NULL, 0, 0, false, msg1,
+			  header, NULL, 0, 0, true, msg2ext);
+	      free (msg2ext);
+	      free (help);
+	    }
+	  else
+	    po_xerror2 (PO_SEVERITY_ERROR,
+			has_plural, NULL, 0, 0, false, msg1,
+			header, NULL, 0, 0, false, msg2);
+
 	  exit_status = EXIT_FAILURE;
 	}
       if (plural != NULL && nplurals != NULL)
@@ -1061,12 +1108,20 @@ check_plural (message_list_ty *mlp)
 	    nplurals_value = strtoul (nplurals, (char **) &endp, 10);
 	  if (nplurals == endp)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0,
-			     header->pos.file_name, header->pos.line_number,
-			     _("invalid nplurals value"));
-	      error_with_progname = true;
-	      try_to_help = true;
+	      const char *msg = _("invalid nplurals value");
+	      char *help = plural_help (nullentry);
+
+	      if (help != NULL)
+		{
+		  char *msgext = xasprintf ("%s\n%s", msg, help);
+		  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
+			     msgext);
+		  free (msgext);
+		  free (help);
+		}
+	      else
+		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+
 	      exit_status = EXIT_FAILURE;
 	    }
 
@@ -1075,51 +1130,61 @@ check_plural (message_list_ty *mlp)
 	  args.cp = plural;
 	  if (parse_plural_expression (&args) != 0)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0,
-			     header->pos.file_name, header->pos.line_number,
-			     _("invalid plural expression"));
-	      error_with_progname = true;
-	      try_to_help = true;
+	      const char *msg = _("invalid plural expression");
+	      char *help = plural_help (nullentry);
+
+	      if (help != NULL)
+		{
+		  char *msgext = xasprintf ("%s\n%s", msg, help);
+		  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
+			     msgext);
+		  free (msgext);
+		  free (help);
+		}
+	      else
+		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+
 	      exit_status = EXIT_FAILURE;
 	    }
 	  plural_expr = args.res;
 
 	  /* See whether nplurals and plural fit together.  */
 	  if (exit_status != EXIT_FAILURE)
-	    check_plural_eval (plural_expr, nplurals_value, &header->pos);
+	    check_plural_eval (plural_expr, nplurals_value, header);
 
 	  /* Check the number of plurals of the translations.  */
 	  if (exit_status != EXIT_FAILURE)
 	    {
 	      if (min_nplurals < nplurals_value)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0,
-				 header->pos.file_name, header->pos.line_number,
-				 _("nplurals = %lu..."), nplurals_value);
-		  --error_message_count;
-		  error_at_line (0, 0, min_pos->file_name, min_pos->line_number,
-				 ngettext ("...but some messages have only one plural form",
-					   "...but some messages have only %lu plural forms",
-					   min_nplurals),
-				 min_nplurals);
-		  error_with_progname = true;
+		  char *msg1 =
+		    xasprintf (_("nplurals = %lu"), nplurals_value);
+		  char *msg2 =
+		    xasprintf (ngettext ("but some messages have only one plural form",
+					 "but some messages have only %lu plural forms",
+					 min_nplurals),
+			       min_nplurals);
+		  po_xerror2 (PO_SEVERITY_ERROR,
+			      header, NULL, 0, 0, false, msg1,
+			      min_pos, NULL, 0, 0, false, msg2);
+		  free (msg2);
+		  free (msg1);
 		  exit_status = EXIT_FAILURE;
 		}
 	      else if (max_nplurals > nplurals_value)
 		{
-		  error_with_progname = false;
-		  error_at_line (0, 0,
-				 header->pos.file_name, header->pos.line_number,
-				 _("nplurals = %lu..."), nplurals_value);
-		  --error_message_count;
-		  error_at_line (0, 0, max_pos->file_name, max_pos->line_number,
-				 ngettext ("...but some messages have one plural form",
-					   "...but some messages have %lu plural forms",
-					   max_nplurals),
-				 max_nplurals);
-		  error_with_progname = true;
+		  char *msg1 =
+		    xasprintf (_("nplurals = %lu"), nplurals_value);
+		  char *msg2 =
+		    xasprintf (ngettext ("but some messages have one plural form",
+					 "but some messages have %lu plural forms",
+					 max_nplurals),
+			       max_nplurals);
+		  po_xerror2 (PO_SEVERITY_ERROR,
+			      header, NULL, 0, 0, false, msg1,
+			      max_pos, NULL, 0, 0, false, msg2);
+		  free (msg2);
+		  free (msg1);
 		  exit_status = EXIT_FAILURE;
 		}
 	      /* The only valid case is max_nplurals <= n <= min_nplurals,
@@ -1127,70 +1192,45 @@ check_plural (message_list_ty *mlp)
 		 max_nplurals = n = min_nplurals.  */
 	    }
 	}
-      /* Try to help the translator by looking up the right plural formula
-	 for her.  */
-      if (try_to_help)
-	{
-	  const char *language;
-
-	  language = strstr (nullentry, "Language-Team: ");
-	  if (language != NULL)
-	    {
-	      language += 15;
-	      for (j = 0; j < plural_table_size; j++)
-		if (strncmp (language,
-			     plural_table[j].language,
-			     strlen (plural_table[j].language)) == 0)
-		  {
-		    char *recommended =
-		      xasprintf ("Plural-Forms: %s\\n", plural_table[j].value);
-		    fprintf (stderr,
-			     _("Try using the following, valid for %s:\n"),
-			     plural_table[j].language);
-		    fprintf (stderr, "\"%s\"\n", recommended);
-		    free (recommended);
-		    break;
-		  }
-	    }
-	}
     }
   else if (has_plural != NULL)
     {
-      error_with_progname = false;
-      error_at_line (0, 0, has_plural->file_name, has_plural->line_number,
-		     _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
-      error_with_progname = true;
+      po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
+		 _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
       exit_status = EXIT_FAILURE;
     }
 }
 
 
 /* Signal an error when checking format strings.  */
+static const message_ty *curr_mp;
 static lex_pos_ty curr_msgid_pos;
 static void
 formatstring_error_logger (const char *format, ...)
 {
   va_list args;
+  char *msg;
 
   va_start (args, format);
-  fprintf (stderr, "%s:%lu: ",
-	   curr_msgid_pos.file_name,
-	   (unsigned long) curr_msgid_pos.line_number);
-  vfprintf (stderr, format, args);
-  putc ('\n', stderr);
-  fflush (stderr);
+  if (vasprintf (&msg, format, args) < 0)
+    error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (args);
-  ++error_message_count;
+  po_xerror (PO_SEVERITY_ERROR,
+	     curr_mp, curr_msgid_pos.file_name, curr_msgid_pos.line_number,
+	     (size_t)(-1), false, msg);
+  free (msg);
 }
 
 
 /* Perform miscellaneous checks on a message.  */
 static void
-check_pair (const char *msgid,
+check_pair (const message_ty *mp,
+	    const char *msgid,
 	    const lex_pos_ty *msgid_pos,
 	    const char *msgid_plural,
 	    const char *msgstr, size_t msgstr_len,
-	    const lex_pos_ty *msgstr_pos, enum is_format is_format[NFORMATS])
+	    const lex_pos_ty *msgstr_pos,
+	    enum is_format is_format[NFORMATS])
 {
   int has_newline;
   unsigned int j;
@@ -1208,21 +1248,22 @@ check_pair (const char *msgid,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
+	  po_xerror (PO_SEVERITY_ERROR,
+		     mp, msgid_pos->file_name, msgid_pos->line_number,
+		     (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both begin with '\\n'"));
-	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
-	    error_with_progname = false;
-	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			   _("\
+	    char *msg =
+	      xasprintf (_("\
 `msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), j);
-	    error_with_progname = true;
+	    po_xerror (PO_SEVERITY_ERROR,
+		       mp, msgid_pos->file_name, msgid_pos->line_number,
+		       (size_t)(-1), false, msg);
+	    free (msg);
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -1230,11 +1271,10 @@ check_pair (const char *msgid,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
+	  po_xerror (PO_SEVERITY_ERROR,
+		     mp, msgid_pos->file_name, msgid_pos->line_number,
+		     (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
-	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -1247,21 +1287,22 @@ check_pair (const char *msgid,
     {
       if (TEST_NEWLINE(msgid_plural) != has_newline)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
+	  po_xerror (PO_SEVERITY_ERROR,
+		     mp, msgid_pos->file_name, msgid_pos->line_number,
+		     (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both end with '\\n'"));
-	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
       for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	if (TEST_NEWLINE(p) != has_newline)
 	  {
-	    error_with_progname = false;
-	    error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			   _("\
+	    char *msg =
+	      xasprintf (_("\
 `msgid' and `msgstr[%u]' entries do not both end with '\\n'"), j);
-	    error_with_progname = true;
+	    po_xerror (PO_SEVERITY_ERROR,
+		       mp, msgid_pos->file_name, msgid_pos->line_number,
+		       (size_t)(-1), false, msg);
+	    free (msg);
 	    exit_status = EXIT_FAILURE;
 	  }
     }
@@ -1269,11 +1310,10 @@ check_pair (const char *msgid,
     {
       if (TEST_NEWLINE(msgstr) != has_newline)
 	{
-	  error_with_progname = false;
-	  error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			 _("\
+	  po_xerror (PO_SEVERITY_ERROR,
+		     mp, msgid_pos->file_name, msgid_pos->line_number,
+		     (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both end with '\\n'"));
-	  error_with_progname = true;
 	  exit_status = EXIT_FAILURE;
 	}
     }
@@ -1281,10 +1321,10 @@ check_pair (const char *msgid,
 
   if (check_compatibility && msgid_plural != NULL)
     {
-      error_with_progname = false;
-      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-		     _("plural handling is a GNU gettext extension"));
-      error_with_progname = true;
+      po_xerror (PO_SEVERITY_ERROR,
+		 mp, msgid_pos->file_name, msgid_pos->line_number,
+		 (size_t)(-1), false, _("\
+plural handling is a GNU gettext extension"));
       exit_status = EXIT_FAILURE;
     }
 
@@ -1292,6 +1332,7 @@ check_pair (const char *msgid,
     /* Test 3: Check whether both formats strings contain the same number
        of format specifications.  */
     {
+      curr_mp = mp;
       curr_msgid_pos = *msgid_pos;
       if (check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
 				     is_format, formatstring_error_logger))
@@ -1322,19 +1363,23 @@ check_pair (const char *msgid,
 
 	  if (count == 0)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			     _("msgstr lacks the keyboard accelerator mark '%c'"),
-			     accelerator_char);
-	      error_with_progname = true;
+	      char *msg =
+		xasprintf (_("msgstr lacks the keyboard accelerator mark '%c'"),
+			   accelerator_char);
+	      po_xerror (PO_SEVERITY_ERROR,
+			 mp, msgid_pos->file_name, msgid_pos->line_number,
+			 (size_t)(-1), false, msg);
+	      free (msg);
 	    }
 	  else if (count > 1)
 	    {
-	      error_with_progname = false;
-	      error_at_line (0, 0, msgid_pos->file_name, msgid_pos->line_number,
-			     _("msgstr has too many keyboard accelerator marks '%c'"),
-			     accelerator_char);
-	      error_with_progname = true;
+	      char *msg =
+		xasprintf (_("msgstr has too many keyboard accelerator marks '%c'"),
+			   accelerator_char);
+	      po_xerror (PO_SEVERITY_ERROR,
+			 mp, msgid_pos->file_name, msgid_pos->line_number,
+			 (size_t)(-1), false, msg);
+	      free (msg);
 	    }
 	}
     }
@@ -1343,7 +1388,7 @@ check_pair (const char *msgid,
 
 /* Perform miscellaneous checks on a header entry.  */
 static void
-check_header_entry (const char *msgstr_string)
+check_header_entry (const message_ty *mp, const char *msgstr_string)
 {
   static const char *required_fields[] =
   {
@@ -1365,14 +1410,24 @@ check_header_entry (const char *msgstr_string)
       char *endp = strstr (msgstr_string, required_fields[cnt]);
 
       if (endp == NULL)
-	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-			 xasprintf (_("headerfield `%s' missing in header\n"),
-				    required_fields[cnt]));
+	{
+	  char *msg =
+	    xasprintf (_("headerfield `%s' missing in header\n"),
+		       required_fields[cnt]);
+	  po_xerror (PO_SEVERITY_ERROR, mp, gram_pos.file_name, (size_t)(-1),
+		     (size_t)(-1), true, msg);
+	  free (msg);
+	}
       else if (endp != msgstr_string && endp[-1] != '\n')
-	multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-			 xasprintf (_("\
+	{
+	  char *msg =
+	    xasprintf (_("\
 header field `%s' should start at beginning of line\n"),
-				    required_fields[cnt]));
+		       required_fields[cnt]);
+	  po_xerror (PO_SEVERITY_ERROR, mp, gram_pos.file_name, (size_t)(-1),
+		     (size_t)(-1), true, msg);
+	  free (msg);
+	}
       else if (default_values[cnt] != NULL
 	       && strncmp (default_values[cnt],
 			   endp + strlen (required_fields[cnt]) + 2,
@@ -1380,9 +1435,10 @@ header field `%s' should start at beginning of line\n"),
 	{
 	  if (initial != -1)
 	    {
-	      multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-			       xstrdup (_("\
-some header fields still have the initial default value\n")));
+	      po_xerror (PO_SEVERITY_ERROR,
+			 mp, gram_pos.file_name, (size_t)(-1), (size_t)(-1),
+			 true, _("\
+some header fields still have the initial default value\n"));
 	      initial = -1;
 	      break;
 	    }
@@ -1392,10 +1448,14 @@ some header fields still have the initial default value\n")));
     }
 
   if (initial != -1)
-    multiline_error (xasprintf ("%s: ", gram_pos.file_name),
-		     xasprintf (_("\
-field `%s' still has initial default value\n"),
-				required_fields[initial]));
+    {
+      char *msg =
+	xasprintf (_("field `%s' still has initial default value\n"),
+		   required_fields[initial]);
+      po_xerror (PO_SEVERITY_ERROR, mp, gram_pos.file_name, (size_t)(-1),
+		 (size_t)(-1), true, msg);
+      free (msg);
+    }
 }
 
 
@@ -1587,7 +1647,7 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
 
 	      /* Do some more tests on the contents of the header entry.  */
 	      if (check_header)
-		check_header_entry (mp->msgstr);
+		check_header_entry (mp, mp->msgstr);
 	    }
 	  else
 	    /* We don't count the header entry in the statistic so place
@@ -1598,7 +1658,8 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
 	      ++msgs_translated;
 
 	  /* Do some more checks on both strings.  */
-	  check_pair (mp->msgid, msgid_pos, mp->msgid_plural,
+	  check_pair (mp,
+		      mp->msgid, msgid_pos, mp->msgid_plural,
 		      mp->msgstr, mp->msgstr_len, msgstr_pos,
 		      mp->is_format);
 	}

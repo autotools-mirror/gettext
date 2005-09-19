@@ -46,6 +46,9 @@
 #include "exit.h"
 #include "error.h"
 #include "error-progname.h"
+#include "xerror.h"
+#include "po-error.h"
+#include "po-xerror.h"
 #include "pos.h"
 #include "str-list.h"
 #include "po-gram-gen2.h"
@@ -70,13 +73,6 @@ int gram_pos_column;
 /* Error handling during the parsing of a PO file.
    These functions can access gram_pos and gram_pos_column.  */
 
-#if !(__STDC__ && \
-      ((defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L && !defined __DECC) \
-       || (defined __GNUC__ && __GNUC__ >= 2 && !(__APPLE_CC__ > 1))))
-
-/* CAUTION: If you change this function, you must also make identical
-   changes to the macro of the same name in src/po-lex.h  */
-
 /* VARARGS1 */
 void
 po_gram_error (const char *fmt, ...)
@@ -88,23 +84,13 @@ po_gram_error (const char *fmt, ...)
   if (vasprintf (&buffer, fmt, ap) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
-  error_with_progname = false;
-  po_error (0, 0, "%s:%lu:%d: %s", gram_pos.file_name,
-	    (unsigned long) gram_pos.line_number, gram_pos_column + 1, buffer);
-  error_with_progname = true;
+  po_xerror (PO_SEVERITY_ERROR, NULL, gram_pos.file_name, gram_pos.line_number,
+	     gram_pos_column + 1, false, buffer);
   free (buffer);
 
-  /* Some messages need more than one line.  Continuation lines are
-     indicated by using "..." at the start of the string.  We don't
-     increment the error counter for these continuation lines.  */
-  if (*fmt == '.')
-    --error_message_count;
-  else if (error_message_count >= gram_max_allowed_errors)
+  if (error_message_count >= gram_max_allowed_errors)
     po_error (EXIT_FAILURE, 0, _("too many errors, aborting"));
 }
-
-/* CAUTION: If you change this function, you must also make identical
-   changes to the macro of the same name in src/po-lex.h  */
 
 /* VARARGS2 */
 void
@@ -117,22 +103,13 @@ po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
   if (vasprintf (&buffer, fmt, ap) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
-  error_with_progname = false;
-  po_error_at_line (0, 0, pp->file_name, pp->line_number, "%s", buffer);
-  error_with_progname = true;
+  po_xerror (PO_SEVERITY_ERROR, NULL, pp->file_name, pp->line_number,
+	     (size_t)(-1), false, buffer);
   free (buffer);
 
-  /* Some messages need more than one line, or more than one location.
-     Continuation lines are indicated by using "..." at the start of the
-     string.  We don't increment the error counter for these
-     continuation lines.  */
-  if (*fmt == '.')
-    --error_message_count;
-  else if (error_message_count >= gram_max_allowed_errors)
+  if (error_message_count >= gram_max_allowed_errors)
     po_error (EXIT_FAILURE, 0, _("too many errors, aborting"));
 }
-
-#endif
 
 
 /* The lowest level of PO file parsing converts bytes to multibyte characters.
@@ -505,7 +482,13 @@ incomplete multibyte sequence at end of line"));
 		    }
 		}
 	      else
-		po_error (EXIT_FAILURE, errno, _("iconv failure"));
+		{
+		  const char *errno_description = strerror (errno);
+		  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+			     xasprintf ("%s: %s",
+					_("iconv failure"),
+					errno_description));
+		}
 	    }
 	  else
 	    {
@@ -665,10 +648,14 @@ lex_getc (mbchar_t mbc)
       if (mb_iseof (mbc))
 	{
 	  if (ferror (mbf->fp))
+	   bomb:
 	    {
-	    bomb:
-	      po_error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-			gram_pos.file_name);
+	      const char *errno_description = strerror (errno);
+	      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+			 xasprintf ("%s: %s",
+				    xasprintf (_("error while reading \"%s\""),
+					       gram_pos.file_name),
+				    errno_description));
 	    }
 	  break;
 	}

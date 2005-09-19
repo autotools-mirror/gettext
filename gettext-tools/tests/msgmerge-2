@@ -26,7 +26,7 @@ ${MSGMERGE} -q mm-test2.in1 mm-test2.in2 -o /dev/stdout \
 
 tmpfiles="$tmpfiles mm-test2.ok"
 cat << EOF > mm-test2.ok
-mm-test2.in1:3: duplicate message definition
+mm-test2.in1:3: duplicate message definition...
 mm-test2.in1:1: ...this is the location of the first definition
 msgmerge: found 1 fatal error
 EOF

@@ -34,7 +34,7 @@ lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
 
 include_HEADERS = gettext-po.h
 
-noinst_HEADERS = pos.h message.h po-error.h po-gram.h po-charset.h \
+noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
 po-lex.h open-po.h \
 read-po-abstract.h read-po.h read-properties.h read-stringtable.h \
 str-list.h \
@@ -98,7 +98,7 @@ CSHARPCOMPFLAGS = -O -g
 # (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> open-po.c -> dir-list.c -> str-list.c.
 # (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
 # (read-po-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
-COMMON_SOURCE = message.c po-error.c \
+COMMON_SOURCE = message.c po-error.c po-xerror.c \
 read-po-abstract.c po-lex.c po-gram-gen.y po-charset.c \
 read-properties.c read-stringtable.c open-po.c dir-list.c str-list.c
 

@@ -45,10 +45,9 @@
 #include "xallocsa.h"
 #include "strstr.h"
 #include "fwriteerror.h"
-#include "exit.h"
 #include "error-progname.h"
 #include "xerror.h"
-#include "po-error.h"
+#include "po-xerror.h"
 #include "gettext.h"
 
 /* Our regular abbreviation.  */
@@ -419,8 +418,9 @@ memcpy_small (void *dst, const void *src, size_t n)
 
 
 static void
-wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
-      enum is_wrap do_wrap, const char *charset)
+wrap (const message_ty *mp, FILE *fp, const char *line_prefix,
+      const char *name, const char *value, enum is_wrap do_wrap,
+      const char *charset)
 {
   const char *canon_charset;
   const char *s;
@@ -550,7 +550,8 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 		    {
 		      if (errno == EILSEQ)
 			{
-			  po_error (0, 0, _("invalid multibyte sequence"));
+			  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+				     _("invalid multibyte sequence"));
 			  continue;
 			}
 		      else
@@ -603,9 +604,15 @@ wrap (FILE *fp, const char *line_prefix, const char *name, const char *value,
 	      /* We warn about any use of escape sequences beside
 		 '\n' and '\t'.  */
 	      if (c != 'n' && c != 't')
-		po_error (0, 0, _("\
+		{
+		  char *error_message =
+		    xasprintf (_("\
 internationalized messages should not contain the `\\%c' escape sequence"),
-			  c);
+			       c);
+		  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+			     error_message);
+		  free (error_message);
+		}
 	    }
 	  else if (escape && !c_isprint ((unsigned char) c))
 	    {
@@ -658,7 +665,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		    {
 		      if (errno == EILSEQ)
 			{
-			  po_error (0, 0, _("invalid multibyte sequence"));
+			  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0,
+				     false, _("invalid multibyte sequence"));
 			  continue;
 			}
 		      else
@@ -848,18 +856,22 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
      this domain, emit an empty string.  */
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
-    po_multiline_warning (xasprintf (_("warning: ")),
-			  xasprintf (_("\
+    {
+      char *warning_message =
+	xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
-%s\n"), mp->msgid));
-  wrap (fp, NULL, "msgid", mp->msgid, mp->do_wrap, charset);
+%s\n"), mp->msgid);
+      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      free (warning_message);
+    }
+  wrap (mp, fp, NULL, "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
-    wrap (fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
+    wrap (mp, fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (fp, NULL, "msgstr", mp->msgstr, mp->do_wrap, charset);
+    wrap (mp, fp, NULL, "msgstr", mp->msgstr, mp->do_wrap, charset);
   else
     {
       char prefix_buf[20];
@@ -871,7 +883,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (fp, NULL, prefix_buf, p, mp->do_wrap, charset);
+	  wrap (mp, fp, NULL, prefix_buf, p, mp->do_wrap, charset);
 	}
     }
 }
@@ -914,18 +926,23 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
      are as readable as possible.  */
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
-    po_multiline_warning (xasprintf (_("warning: ")),
-			  xasprintf (_("\
+    {
+      char *warning_message =
+	xasprintf (_("\
 The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
-%s\n"), mp->msgid));
-  wrap (fp, "#~ ", "msgid", mp->msgid, mp->do_wrap, charset);
+%s\n"), mp->msgid);
+      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      free (warning_message);
+    }
+  wrap (mp, fp, "#~ ", "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
-    wrap (fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
+    wrap (mp, fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap,
+	  charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (fp, "#~ ", "msgstr", mp->msgstr, mp->do_wrap, charset);
+    wrap (mp, fp, "#~ ", "msgstr", mp->msgstr, mp->do_wrap, charset);
   else
     {
       char prefix_buf[20];
@@ -937,7 +954,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (fp, "#~ ", prefix_buf, p, mp->do_wrap, charset);
+	  wrap (mp, fp, "#~ ", prefix_buf, p, mp->do_wrap, charset);
 	}
     }
 }
@@ -1060,9 +1077,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       if (mdlp->nitems > 1)
 	{
 	  if (use_syntax_properties)
-	    po_error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
+	    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
+Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
 	  if (use_syntax_stringtable)
-	    po_error (EXIT_FAILURE, 0, _("Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
+	    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
+Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
 	}
       if (mdlp->nitems == 1)
 	{
@@ -1086,13 +1105,15 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	    {
 	      error_with_progname = false;
 	      if (use_syntax_properties)
-		po_error_at_line (EXIT_FAILURE, 0,
-				  has_plural->file_name, has_plural->line_number,
-				  _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+		po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
+			   has_plural->file_name, has_plural->line_number,
+			   (size_t)(-1), false, _("\
+message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
 	      if (use_syntax_stringtable)
-		po_error_at_line (EXIT_FAILURE, 0,
-				  has_plural->file_name, has_plural->line_number,
-				  _("message catalog has plural form translations, but the output format does not support them."));
+		po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
+			   has_plural->file_name, has_plural->line_number,
+			   (size_t)(-1), false, _("\
+message catalog has plural form translations, but the output format does not support them."));
 	      error_with_progname = true;
 	    }
 	}
@@ -1104,8 +1125,14 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
     {
       fp = fopen (filename, "w");
       if (fp == NULL)
-	po_error (EXIT_FAILURE, errno, _("cannot create output file \"%s\""),
-		  filename);
+	{
+	  const char *errno_description = strerror (errno);
+	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		     xasprintf ("%s: %s",
+				xasprintf (_("cannot create output file \"%s\""),
+					   filename),
+				errno_description));
+	}
     }
   else
     {
@@ -1123,8 +1150,14 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 
   /* Make sure nothing went wrong.  */
   if (fwriteerror (fp))
-    po_error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-	      filename);
+    {
+      const char *errno_description = strerror (errno);
+      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		 xasprintf ("%s: %s",
+			    xasprintf (_("error while writing \"%s\" file"),
+				       filename),
+			    errno_description));
+    }
 }
 
 

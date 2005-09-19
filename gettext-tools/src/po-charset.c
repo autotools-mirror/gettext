@@ -30,7 +30,7 @@
 
 #include "xallocsa.h"
 #include "xerror.h"
-#include "po-error.h"
+#include "po-xerror.h"
 #include "basename.h"
 #include "progname.h"
 #include "strstr.h"
@@ -223,11 +223,17 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 	  if (!(filenamelen >= 4
 		&& memcmp (filename + filenamelen - 4, ".pot", 4) == 0
 		&& strcmp (charset, "CHARSET") == 0))
-	    po_multiline_warning (xasprintf (_("%s: warning: "), filename),
-				  xasprintf (_("\
+	    {
+	      char *warning_message =
+		xasprintf (_("\
 Charset \"%s\" is not a portable encoding name.\n\
 Message conversion to user's charset might not work.\n"),
-					     charset));
+			   charset);
+	      po_xerror (PO_SEVERITY_WARNING, NULL,
+			 filename, (size_t)(-1), (size_t)(-1), true,
+			 warning_message);
+	      free (warning_message);
+	    }
 	}
       else
 	{
@@ -280,7 +286,25 @@ Message conversion to user's charset might not work.\n"),
 	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
 	      if (po_lex_iconv == (iconv_t)(-1))
 		{
+		  char *warning_message;
+		  const char *recommendation;
 		  const char *note;
+		  char *whole_message;
+
+		  warning_message =
+		    xasprintf (_("\
+Charset \"%s\" is not supported. %s relies on iconv(),\n\
+and iconv() does not support \"%s\".\n"),
+			       po_lex_charset, basename (program_name),
+			       po_lex_charset);
+
+# if !defined _LIBICONV_VERSION
+		  recommendation = _("\
+Installing GNU libiconv and then reinstalling GNU gettext\n\
+would fix this problem.\n");
+# else
+		  recommendation = "";
+# endif
 
 		  /* Test for a charset which has double-byte characters
 		     ending in 0x5C.  For these encodings, the string parser
@@ -293,22 +317,16 @@ Message conversion to user's charset might not work.\n"),
 		  else
 		    note = _("Continuing anyway.");
 
-		  po_multiline_warning (xasprintf (_("%s: warning: "), filename),
-					xasprintf (_("\
-Charset \"%s\" is not supported. %s relies on iconv(),\n\
-and iconv() does not support \"%s\".\n"),
-						   po_lex_charset,
-						   basename (program_name),
-						   po_lex_charset));
+		  whole_message =
+		    xasprintf ("%s%s%s\n",
+			       warning_message, recommendation, note);
 
-# if !defined _LIBICONV_VERSION
-		  po_multiline_warning (NULL,
-					xasprintf (_("\
-Installing GNU libiconv and then reinstalling GNU gettext\n\
-would fix this problem.\n")));
-# endif
+		  po_xerror (PO_SEVERITY_WARNING, NULL,
+			     filename, (size_t)(-1), (size_t)(-1), true,
+			     whole_message);
 
-		  po_multiline_warning (NULL, xasprintf (_("%s\n"), note));
+		  free (whole_message);
+		  free (warning_message);
 		}
 #else
 	      /* Test for a charset which has double-byte characters
@@ -318,22 +336,33 @@ would fix this problem.\n")));
 	      po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
 	      if (po_is_charset_weird (po_lex_charset) && !po_lex_weird_cjk)
 		{
-		  const char *note =
-		    _("Continuing anyway, expect parse errors.");
+		  char *warning_message;
+		  const char *recommendation;
+		  const char *note;
+		  char *whole_message;
 
-		  po_multiline_warning (xasprintf (_("%s: warning: "), filename),
-					xasprintf (_("\
+		  warning_message =
+		    xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-						   po_lex_charset,
-						   basename (program_name)));
+			       po_lex_charset, basename (program_name));
 
-		  po_multiline_warning (NULL,
-					xasprintf (_("\
+		  recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
-would fix this problem.\n")));
+would fix this problem.\n");
 
-		  po_multiline_warning (NULL, xasprintf (_("%s\n"), note));
+		  note = _("Continuing anyway, expect parse errors.");
+
+		  whole_message =
+		    xasprintf ("%s%s%s\n",
+			       warning_message, recommendation, note);
+
+		  po_xerror (PO_SEVERITY_WARNING, NULL,
+			     filename, (size_t)(-1), (size_t)(-1), true,
+			     whole_message);
+
+		  free (whole_message);
+		  free (warning_message);
 		}
 #endif
 	    }
@@ -348,10 +377,11 @@ would fix this problem.\n")));
 
       if (!(filenamelen >= 4
 	    && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
-	po_multiline_warning (xasprintf (_("%s: warning: "), filename),
-			      xasprintf (_("\
+	po_xerror (PO_SEVERITY_WARNING,
+		   NULL, filename, (size_t)(-1), (size_t)(-1), true,
+		   _("\
 Charset missing in header.\n\
-Message conversion to user's charset will not work.\n")));
+Message conversion to user's charset will not work.\n"));
     }
 }
 

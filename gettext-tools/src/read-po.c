@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 
 #include "open-po.h"
 #include "po-charset.h"
+#include "po-xerror.h"
 #include "xalloc.h"
 #include "gettext.h"
 
@@ -354,9 +355,11 @@ default_add_message (default_po_reader_ty *this,
 	     translations are equal or different.  This is for consistency
 	     with msgmerge, msgcat and others.  The user can use the
 	     msguniq program to get rid of duplicates.  */
-	  po_gram_error_at_line (msgid_pos, _("duplicate message definition"));
-	  po_gram_error_at_line (&mp->pos, _("\
-...this is the location of the first definition"));
+	  po_xerror2 (PO_SEVERITY_ERROR,
+		      NULL, msgid_pos->file_name, msgid_pos->line_number,
+		      (size_t)(-1), false, _("duplicate message definition"),
+		      mp, NULL, 0, 0, false,
+		      _("this is the location of the first definition"));
 	}
       /* We don't need the just constructed entries' parameter string
 	 (allocated in po-gram-gen.y).  */

@@ -39,6 +39,7 @@ struct conversion_context
   const char *from_code;     /* canonicalized encoding name for input */
   const char *to_code;       /* canonicalized encoding name for output */
   const char *from_filename; /* file name where the input comes from */
+  const message_ty *message; /* message being converted, or NULL */
 };
 
 /* Converts the STRING through the conversion descriptor CD.  */

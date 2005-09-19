@@ -34,7 +34,7 @@ ${MSGFMT} --verbose --check mf-test7.in1 -o /dev/null \
 
 tmpfiles="$tmpfiles mf-test7.ok"
 cat << EOF > mf-test7.ok
-mf-test7.in1:17: duplicate message definition
+mf-test7.in1:17: duplicate message definition...
 mf-test7.in1:16: ...this is the location of the first definition
 msgfmt: found 1 fatal error
 EOF

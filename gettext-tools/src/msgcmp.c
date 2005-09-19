@@ -284,6 +284,7 @@ match_domain (const char *fn1, const char *fn2,
 	    {
 	      po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined..."));
+	      error_message_count--;
 	      po_gram_error_at_line (&defmsg->pos, _("\
 ...but this definition is similar"));
 	      defmsg->used = 1;

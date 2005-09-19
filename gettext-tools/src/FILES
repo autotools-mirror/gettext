@@ -34,6 +34,8 @@ msgl-ascii.c
 
 po-error.h
 po-error.c
+po-xerror.h
+po-xerror.c
                 Error handling during writing and reading of PO files.
 
 write-po.h

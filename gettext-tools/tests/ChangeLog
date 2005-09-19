@@ -1,3 +1,11 @@
+2005-09-17  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt-7: Update after slight change in error message.
+	* msgfmt-8: Likewise.
+	* msgfmt-9: Likewise.
+	* msgmerge-2: Likewise.
+	* msgmerge-9: Likewise.
+
 2005-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* plural-2: Add test for Romanian plural formula.

@@ -34,7 +34,6 @@
 # include <iconv.h>
 #endif
 
-#include "error.h"
 #include "progname.h"
 #include "basename.h"
 #include "message.h"
@@ -43,7 +42,8 @@
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "strstr.h"
-#include "exit.h"
+#include "xerror.h"
+#include "po-xerror.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -181,12 +181,15 @@ conversion_error (const struct conversion_context* context)
 {
   if (context->to_code == po_charset_utf8)
     /* If a conversion to UTF-8 fails, the problem lies in the input.  */
-    error (EXIT_FAILURE, 0, _("%s: input is not valid in \"%s\" encoding"),
-	   context->from_filename, context->from_code);
+    po_xerror (PO_SEVERITY_FATAL_ERROR, context->message, NULL, 0, 0, false,
+	       xasprintf (_("%s: input is not valid in \"%s\" encoding"),
+			  context->from_filename, context->from_code));
   else
-    error (EXIT_FAILURE, 0,
-	   _("%s: error while converting from \"%s\" encoding to \"%s\" encoding"),
-	   context->from_filename, context->from_code, context->to_code);
+    po_xerror (PO_SEVERITY_FATAL_ERROR, context->message, NULL, 0, 0, false,
+	       xasprintf (_("\
+%s: error while converting from \"%s\" encoding to \"%s\" encoding"),
+			  context->from_filename, context->from_code,
+			  context->to_code));
   /* NOTREACHED */
   abort ();
 }
@@ -325,10 +328,10 @@ iconv_message_list (message_list_ty *mlp,
 			    && strcmp (charset, "CHARSET") == 0)
 			  canon_charset = po_charset_ascii;
 			else
-			  error (EXIT_FAILURE, 0,
-				 _("\
+			  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0,
+				     false, xasprintf (_("\
 present charset \"%s\" is not a portable encoding name"),
-				 charset);
+						charset));
 		      }
 		  }
 		else
@@ -336,10 +339,11 @@ present charset \"%s\" is not a portable encoding name"),
 		    if (canon_from_code == NULL)
 		      canon_from_code = canon_charset;
 		    else if (canon_from_code != canon_charset)
-		      error (EXIT_FAILURE, 0,
-			     _("\
+		      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0,  0,
+				 false,
+				 xasprintf (_("\
 two different charsets \"%s\" and \"%s\" in input file"),
-			     canon_from_code, canon_charset);
+					    canon_from_code, canon_charset));
 		  }
 		freesa (charset);
 
@@ -360,7 +364,8 @@ two different charsets \"%s\" and \"%s\" in input file"),
       if (is_ascii_message_list (mlp))
 	canon_from_code = po_charset_ascii;
       else
-	error (EXIT_FAILURE, 0, _("\
+	po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		   _("\
 input file doesn't contain a header entry with a charset specification"));
     }
 
@@ -380,10 +385,12 @@ input file doesn't contain a header entry with a charset specification"));
 # endif
       cd = iconv_open (canon_to_code, canon_from_code);
       if (cd == (iconv_t)(-1))
-	error (EXIT_FAILURE, 0, _("\
+	po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		   xasprintf (_("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
 and iconv() does not support this conversion."),
-	       canon_from_code, canon_to_code, basename (program_name));
+			      canon_from_code, canon_to_code,
+			      basename (program_name)));
 
       context.from_code = canon_from_code;
       context.to_code = canon_to_code;
@@ -396,6 +403,7 @@ and iconv() does not support this conversion."),
 
 	  if (!is_ascii_string (mp->msgid))
 	    msgids_changed = true;
+	  context.message = mp;
 	  convert_string_list (cd, mp->comment, &context);
 	  convert_string_list (cd, mp->comment_dot, &context);
 	  convert_msgid (cd, mp, &context);
@@ -406,15 +414,18 @@ and iconv() does not support this conversion."),
 
       if (msgids_changed)
 	if (message_list_msgids_changed (mlp))
-	  error (EXIT_FAILURE, 0, _("\
+	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		     xasprintf (_("\
 Conversion from \"%s\" to \"%s\" introduces duplicates: \
 some different msgids become equal."),
-		 canon_from_code, canon_to_code);
+				canon_from_code, canon_to_code));
 #else
-	  error (EXIT_FAILURE, 0, _("\
+	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		     xasprintf (_("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
 This version was built without iconv()."),
-		 canon_from_code, canon_to_code, basename (program_name));
+				canon_from_code, canon_to_code,
+				basename (program_name));
 #endif
     }
 }
@@ -430,9 +441,10 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
   /* Canonicalize target encoding.  */
   canon_to_code = po_charset_canonicalize (to_code);
   if (canon_to_code == NULL)
-    error (EXIT_FAILURE, 0,
-	   _("target charset \"%s\" is not a portable encoding name."),
-	   to_code);
+    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+	       xasprintf (_("\
+target charset \"%s\" is not a portable encoding name."),
+			  to_code));
 
   for (k = 0; k < mdlp->nitems; k++)
     iconv_message_list (mdlp->item[k]->messages, mdlp->encoding, canon_to_code,

@@ -32,6 +32,8 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xalloc.h"
+#include "xerror.h"
+#include "po-xerror.h"
 #include "gettext.h"
 
 /* Local variables.  */
@@ -187,10 +189,12 @@ po_scan (abstract_po_reader_ty *pop, FILE *fp,
     }
 
   if (error_message_count > 0)
-    po_error (EXIT_FAILURE, 0,
-	      ngettext ("found %d fatal error", "found %d fatal errors",
-			error_message_count),
-	      error_message_count);
+    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
+	       /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1), false,
+	       xasprintf (ngettext ("found %d fatal error",
+				    "found %d fatal errors",
+				    error_message_count),
+			  error_message_count));
   error_message_count = 0;
 }
 
