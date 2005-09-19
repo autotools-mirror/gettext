@@ -1022,10 +1022,10 @@ check_plural (message_list_ty *mlp)
 	      min_nplurals = n;
 	      min_pos = mp;
 	    }
-	  if (max_nplurals > n)
+	  if (max_nplurals < n)
 	    {
 	      max_nplurals = n;
-	      min_pos = mp;
+	      max_pos = mp;
 	    }
 	}
     }

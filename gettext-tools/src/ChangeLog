@@ -1,5 +1,9 @@
 2005-09-17  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c (check_plural): Fix broken determination of max_nplurals.
+
+2005-09-17  Bruno Haible  <bruno@clisp.org>
+
 	New, higher-level error message output primitives.
 	* po-xerror.h: New file.
 	* po-xerror.c: New file.
