@@ -10,6 +10,7 @@ test ! -f Makefile || make distclean
 # Brought in by explicit copy.
 rm -f m4/nls.m4
 rm -f m4/po.m4
+rm -f m4/progtest.m4
 rm -f po/remove-potcdate.sin
 
 # Brought in by explicit copy.
