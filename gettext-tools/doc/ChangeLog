@@ -1,3 +1,9 @@
+2005-09-20  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.texi (--from-code): Python input is always assumed to be
+	in ISO-8859-1, not UTF-8.
+	Reported by Danilo Segan <dsegan@gmx.net>.
+
 2005-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Plural forms): Add info about Romanian.
