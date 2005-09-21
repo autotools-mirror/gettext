@@ -110,6 +110,9 @@ dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
+dnl This line internationalizes the bison generated parsers.
+BISON_I18N
+
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)

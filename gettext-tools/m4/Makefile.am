@@ -50,6 +50,7 @@ EXTRA_DIST = README ChangeLog.0 csharpexec-test.exe \
 alloca.m4 \
 allocsa.m4 \
 backupfile.m4 \
+bison-i18n.m4 \
 byteswap.m4 \
 canonicalize.m4 \
 csharp.m4 \
