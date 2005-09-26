@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -33,11 +33,17 @@
 #include "x-python.h"
 #include "error.h"
 #include "error-progname.h"
+#include "progname.h"
+#include "basename.h"
+#include "xerror.h"
 #include "xalloc.h"
 #include "exit.h"
+#include "strstr.h"
+#include "c-ctype.h"
 #include "po-charset.h"
 #include "uniname.h"
 #include "utf16-ucs4.h"
+#include "utf8-ucs4.h"
 #include "ucs4-utf8.h"
 #include "gettext.h"
 
@@ -148,11 +154,14 @@ static int line_number;
 static FILE *fp;
 
 
-/* 1. line_number handling.  Also allow a lookahead.  */
+/* 1. line_number handling.  */
 
-static unsigned char phase1_pushback[max (9, UNINAME_MAX + 3)];
+/* Maximum used, roughly a safer MB_LEN_MAX.  */
+#define MAX_PHASE1_PUSHBACK 16
+static unsigned char phase1_pushback[MAX_PHASE1_PUSHBACK];
 static int phase1_pushback_length;
 
+/* Read the next single byte from the input file.  */
 static int
 phase1_getc ()
 {
@@ -174,12 +183,12 @@ phase1_getc ()
     }
 
   if (c == '\n')
-    line_number++;
+    ++line_number;
 
   return c;
 }
 
-/* Supports max (9, UNINAME_MAX + 3) characters of pushback.  */
+/* Supports MAX_PHASE1_PUSHBACK characters of pushback.  */
 static void
 phase1_ungetc (int c)
 {
@@ -195,53 +204,374 @@ phase1_ungetc (int c)
 }
 
 
-/* Accumulating comments.  */
+/* Phase 2: Conversion to Unicode.
+   This is done early because PEP 0263 specifies that conversion to Unicode
+   conceptually occurs before tokenization.  A test case where it matters
+   is with encodings like BIG5: when a double-byte character ending in 0x5C
+   is followed by '\' or 'u0021', the tokenizer must not treat the second
+   half of the double-byte character as a backslash.  */
 
-static char *buffer;
-static size_t bufmax;
-static size_t buflen;
+/* End-of-file indicator for functions returning an UCS-4 character.  */
+#define UEOF -1
+
+static int phase2_pushback[max (9, UNINAME_MAX + 3)];
+static int phase2_pushback_length;
+
+/* Read the next Unicode UCS-4 character from the input file.  */
+static int
+phase2_getc ()
+{
+  if (phase2_pushback_length)
+    return phase2_pushback[--phase2_pushback_length];
+
+  if (xgettext_current_source_encoding == po_charset_ascii)
+    {
+      int c = phase1_getc ();
+      if (c == EOF)
+	return UEOF;
+      if (!c_isascii (c))
+	{
+	  char buffer[21];
+	  sprintf (buffer, ":%ld", (long) line_number);
+	  multiline_error (xstrdup (""),
+			   xasprintf (_("\
+Non-ASCII string at %s%s.\n\
+Please specify the source encoding through --from-code or through a comment\n\
+as specified in http://www.python.org/peps/pep-0263.html.\n"),
+			   real_file_name, buffer));
+	  exit (EXIT_FAILURE);
+	}
+      return c;
+    }
+  else if (xgettext_current_source_encoding != po_charset_utf8)
+    {
+#if HAVE_ICONV
+      /* Use iconv on an increasing number of bytes.  Read only as many bytes
+	 through phase1_getc as needed.  This is needed to give reasonable
+	 interactive behaviour when fp is connected to an interactive tty.  */
+      unsigned char buf[MAX_PHASE1_PUSHBACK];
+      size_t bufcount;
+      int c = phase1_getc ();
+      if (c == EOF)
+	return UEOF;
+      buf[0] = (unsigned char) c;
+      bufcount = 1;
+
+      for (;;)
+	{
+	  unsigned char scratchbuf[6];
+	  const char *inptr = (const char *) &buf[0];
+	  size_t insize = bufcount;
+	  char *outptr = (char *) &scratchbuf[0];
+	  size_t outsize = sizeof (scratchbuf);
+
+	  size_t res = iconv (xgettext_current_source_iconv,
+			      (ICONV_CONST char **) &inptr, &insize,
+			      &outptr, &outsize);
+	  /* We expect that a character has been produced if and only if
+	     some input bytes have been consumed.  */
+	  if ((insize < bufcount) != (outsize < sizeof (scratchbuf)))
+	    abort ();
+	  if (outsize == sizeof (scratchbuf))
+	    {
+	      /* No character has been produced.  Must be an error.  */
+	      if (res != (size_t)(-1))
+		abort ();
+
+	      if (errno == EILSEQ)
+		{
+		  /* An invalid multibyte sequence was encountered.  */
+		  multiline_error (xstrdup (""),
+				   xasprintf (_("\
+%s:%d: Invalid multibyte sequence.\n\
+Please specify the correct source encoding through --from-code or through a\n\
+comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+				   real_file_name, line_number));
+		  exit (EXIT_FAILURE);
+		}
+	      else if (errno == EINVAL)
+		{
+		  /* An incomplete multibyte character.  */
+		  int c;
+
+		  if (bufcount == MAX_PHASE1_PUSHBACK)
+		    {
+		      /* An overlong incomplete multibyte sequence was
+			 encountered.  */
+		      multiline_error (xstrdup (""),
+				       xasprintf (_("\
+%s:%d: Long incomplete multibyte sequence.\n\
+Please specify the correct source encoding through --from-code or through a\n\
+comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+				       real_file_name, line_number));
+		      exit (EXIT_FAILURE);
+		    }
+
+		  /* Read one more byte and retry iconv.  */
+		  c = phase1_getc ();
+		  if (c == EOF)
+		    {
+		      multiline_error (xstrdup (""),
+				       xasprintf (_("\
+%s:%d: Incomplete multibyte sequence at end of file.\n\
+Please specify the correct source encoding through --from-code or through a\n\
+comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+				       real_file_name, line_number));
+		      exit (EXIT_FAILURE);
+		    }
+		  if (c == '\n')
+		    {
+		      multiline_error (xstrdup (""),
+				       xasprintf (_("\
+%s:%d: Incomplete multibyte sequence at end of line.\n\
+Please specify the correct source encoding through --from-code or through a\n\
+comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+				       real_file_name, line_number - 1));
+		      exit (EXIT_FAILURE);
+		    }
+		  buf[bufcount++] = (unsigned char) c;
+		}
+	      else
+		error (EXIT_FAILURE, errno, _("%s:%d: iconv failure"),
+		       real_file_name, line_number);
+	    }
+	  else
+	    {
+	      size_t outbytes = sizeof (scratchbuf) - outsize;
+	      size_t bytes = bufcount - insize;
+	      unsigned int uc;
+
+	      /* We expect that one character has been produced.  */
+	      if (bytes == 0)
+		abort ();
+	      if (outbytes == 0)
+		abort ();
+	      /* Push back the unused bytes.  */
+	      while (insize > 0)
+		phase1_ungetc (buf[--insize]);
+	      /* Convert the character from UTF-8 to UCS-4.  */
+	      if (u8_mbtouc (&uc, scratchbuf, outbytes) < outbytes)
+		{
+		  /* scratchbuf contains an out-of-range Unicode character
+		     (> 0x10ffff).  */
+		  multiline_error (xstrdup (""),
+				   xasprintf (_("\
+%s:%d: Invalid multibyte sequence.\n\
+Please specify the source encoding through --from-code or through a comment\n\
+as specified in http://www.python.org/peps/pep-0263.html.\n"),
+				   real_file_name, line_number));
+		  exit (EXIT_FAILURE);
+		}
+	      return uc;
+	    }
+	}
+#else
+      /* If we don't have iconv(), the only supported values for
+	 xgettext_global_source_encoding and thus also for
+	 xgettext_current_source_encoding are ASCII and UTF-8.  */
+      abort ();
+#endif
+    }
+  else
+    {
+      /* Read an UTF-8 encoded character.  */
+      unsigned char buf[6];
+      unsigned int count;
+      int c;
+      unsigned int uc;
+
+      c = phase1_getc ();
+      if (c == EOF)
+	return UEOF;
+      buf[0] = c;
+      count = 1;
+
+      if (buf[0] >= 0xc0)
+	{
+	  c = phase1_getc ();
+	  if (c == EOF)
+	    return UEOF;
+	  buf[1] = c;
+	  count = 2;
+	}
+
+      if (buf[0] >= 0xe0
+	  && ((buf[1] ^ 0x80) < 0x40))
+	{
+	  c = phase1_getc ();
+	  if (c == EOF)
+	    return UEOF;
+	  buf[2] = c;
+	  count = 3;
+	}
+
+      if (buf[0] >= 0xf0
+	  && ((buf[1] ^ 0x80) < 0x40)
+	  && ((buf[2] ^ 0x80) < 0x40))
+	{
+	  c = phase1_getc ();
+	  if (c == EOF)
+	    return UEOF;
+	  buf[3] = c;
+	  count = 4;
+	}
+
+      if (buf[0] >= 0xf8
+	  && ((buf[1] ^ 0x80) < 0x40)
+	  && ((buf[2] ^ 0x80) < 0x40)
+	  && ((buf[3] ^ 0x80) < 0x40))
+	{
+	  c = phase1_getc ();
+	  if (c == EOF)
+	    return UEOF;
+	  buf[4] = c;
+	  count = 5;
+	}
+
+      if (buf[0] >= 0xfc
+	  && ((buf[1] ^ 0x80) < 0x40)
+	  && ((buf[2] ^ 0x80) < 0x40)
+	  && ((buf[3] ^ 0x80) < 0x40)
+	  && ((buf[4] ^ 0x80) < 0x40))
+	{
+	  c = phase1_getc ();
+	  if (c == EOF)
+	    return UEOF;
+	  buf[5] = c;
+	  count = 6;
+	}
+
+      u8_mbtouc (&uc, buf, count);
+      return uc;
+    }
+}
+
+/* Supports max (9, UNINAME_MAX + 3) pushback characters.  */
+static void
+phase2_ungetc (int c)
+{
+  if (c != UEOF)
+    {
+      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+	abort ();
+      phase2_pushback[phase2_pushback_length++] = c;
+    }
+}
+
+
+/* ========================= Accumulating strings.  ======================== */
+
+/* A string buffer type that allows appending Unicode characters.
+   Returns the entire string in UTF-8 encoding.  */
+
+struct unicode_string_buffer
+{
+  /* The part of the string that has already been converted to UTF-8.  */
+  char *utf8_buffer;
+  size_t utf8_buflen;
+  size_t utf8_allocated;
+};
+
+/* Initialize a 'struct unicode_string_buffer' to empty.  */
+static inline void
+init_unicode_string_buffer (struct unicode_string_buffer *bp)
+{
+  bp->utf8_buffer = NULL;
+  bp->utf8_buflen = 0;
+  bp->utf8_allocated = 0;
+}
+
+/* Auxiliary function: Ensure count more bytes are available in bp->utf8.  */
+static inline void
+unicode_string_buffer_append_unicode_grow (struct unicode_string_buffer *bp,
+					   size_t count)
+{
+  if (bp->utf8_buflen + count > bp->utf8_allocated)
+    {
+      size_t new_allocated = 2 * bp->utf8_allocated + 10;
+      if (new_allocated < bp->utf8_buflen + count)
+	new_allocated = bp->utf8_buflen + count;
+      bp->utf8_allocated = new_allocated;
+      bp->utf8_buffer = xrealloc (bp->utf8_buffer, new_allocated);
+    }
+}
+
+/* Auxiliary function: Append a Unicode character to bp->utf8.
+   uc must be < 0x110000.  */
+static inline void
+unicode_string_buffer_append_unicode (struct unicode_string_buffer *bp,
+				      unsigned int uc)
+{
+  unsigned char utf8buf[6];
+  int count = u8_uctomb (utf8buf, uc, 6);
+
+  if (count < 0)
+    /* The caller should have ensured that uc is not out-of-range.  */
+    abort ();
+
+  unicode_string_buffer_append_unicode_grow (bp, count);
+  memcpy (bp->utf8_buffer + bp->utf8_buflen, utf8buf, count);
+  bp->utf8_buflen += count;
+}
+
+/* Return the string buffer's contents.  */
+static char *
+unicode_string_buffer_result (struct unicode_string_buffer *bp)
+{
+  /* NUL-terminate it.  */
+  unicode_string_buffer_append_unicode_grow (bp, 1);
+  bp->utf8_buffer[bp->utf8_buflen] = '\0';
+  /* Return it.  */
+  return bp->utf8_buffer;
+}
+
+/* Free the memory pointed to by a 'struct unicode_string_buffer'.  */
+static inline void
+free_unicode_string_buffer (struct unicode_string_buffer *bp)
+{
+  free (bp->utf8_buffer);
+}
+
+
+/* ======================== Accumulating comments.  ======================== */
+
+
+/* Accumulating a single comment line.  */
+
+static struct unicode_string_buffer comment_buffer;
 
 static inline void
 comment_start ()
 {
-  buflen = 0;
+  comment_buffer.utf8_buflen = 0;
+}
+
+static inline bool
+comment_at_start ()
+{
+  return (comment_buffer.utf8_buflen == 0);
 }
 
 static inline void
 comment_add (int c)
 {
-  /* We assume the program source is in ISO-8859-1 (for consistency with
-     Python's \ooo and \xnn syntax inside strings), but we produce a POT
-     file in UTF-8 encoding.  */
-  size_t len = ((unsigned char) c < 0x80 ? 1 : 2);
-  if (buflen + len > bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  if ((unsigned char) c < 0x80)
-    buffer[buflen++] = c;
-  else
-    {
-      buffer[buflen++] = 0xc0 | ((unsigned char) c >> 6);
-      buffer[buflen++] = 0x80 | ((unsigned char) c & 0x3f);
-    }
+  unicode_string_buffer_append_unicode (&comment_buffer, c);
 }
 
-static inline void
+static inline const char *
 comment_line_end ()
 {
+  char *buffer = unicode_string_buffer_result (&comment_buffer);
+  size_t buflen = strlen (buffer);
+
   while (buflen >= 1
 	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
   buffer[buflen] = '\0';
   savable_comment_add (buffer);
+  return buffer;
 }
+
 
 /* These are for tracking whether comments count as immediately before
    keyword.  */
@@ -249,56 +579,395 @@ static int last_comment_line;
 static int last_non_comment_line;
 
 
-/* 2. Outside strings, replace backslash-newline with nothing and a comment
-      with nothing.  */
+/* ======================== Recognizing comments.  ======================== */
+
+
+/* Recognizing the "coding" comment.
+   As specified in PEP 0263, it takes the form
+     "coding" [":"|"="] {alphanumeric or "-" or "_" or "*"}*
+   and is located in a comment in a line that
+     - is either the first or second line,
+     - is not a continuation line,
+     - contains no other tokens except this comment.  */
+
+/* Canonicalized encoding name for the current input file.  */
+static const char *xgettext_current_file_source_encoding;
+
+#if HAVE_ICONV
+/* Converter from xgettext_current_file_source_encoding to UTF-8 (except from
+   ASCII or UTF-8, when this conversion is a no-op).  */
+static iconv_t xgettext_current_file_source_iconv;
+#endif
+
+static inline void
+set_current_file_source_encoding (const char *canon_encoding)
+{
+  xgettext_current_file_source_encoding = canon_encoding;
+
+  if (xgettext_current_file_source_encoding != po_charset_ascii
+      && xgettext_current_file_source_encoding != po_charset_utf8)
+    {
+#if HAVE_ICONV
+      iconv_t cd;
+
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (strcmp (xgettext_current_file_source_encoding, "EUC-KR") == 0)
+	cd = (iconv_t)(-1);
+      else
+# endif
+      cd = iconv_open (po_charset_utf8, xgettext_current_file_source_encoding);
+      if (cd == (iconv_t)(-1))
+	error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1, _("\
+Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
+and iconv() does not support this conversion."),
+	       xgettext_current_file_source_encoding, po_charset_utf8,
+	       basename (program_name));
+      xgettext_current_file_source_iconv = cd;
+#else
+      error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1, _("\
+Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
+This version was built without iconv()."),
+	     xgettext_global_source_encoding, po_charset_utf8,
+	     basename (program_name));
+#endif
+    }
+
+  xgettext_current_source_encoding = xgettext_current_file_source_encoding;
+#if HAVE_ICONV
+  xgettext_current_source_iconv = xgettext_current_file_source_iconv;
+#endif
+}
+
+static inline void
+try_to_extract_coding (const char *comment)
+{
+  const char *p = strstr (comment, "coding");
+
+  if (p != NULL)
+    {
+      p += 6;
+      if (*p == ':' || *p == '=')
+	{
+	  p++;
+	  while (*p == ' ' || *p == '\t')
+	    p++;
+	  {
+	    const char *encoding_start = p;
+
+	    while (c_isalnum (*p) || *p == '-' || *p == '_' || *p == '.')
+	      p++;
+	    {
+	      const char *encoding_end = p;
+
+	      if (encoding_end > encoding_start)
+		{
+		  /* Extract the encoding string.  */
+		  size_t encoding_len = encoding_end - encoding_start;
+		  char *encoding = (char *) xmalloc (encoding_len + 1);
+
+		  memcpy (encoding, encoding_start, encoding_len);
+		  encoding[encoding_len] = '\0';
+
+		  {
+		    /* Canonicalize it.  */
+		    const char *canon_encoding = po_charset_canonicalize (encoding);
+		    if (canon_encoding == NULL)
+		      {
+			error_at_line (0, 0,
+				       logical_file_name, line_number - 1, _("\
+Unknown encoding \"%s\". Proceeding with ASCII instead."),
+				       encoding);
+		        canon_encoding = po_charset_ascii;
+		      }
+
+		    /* Activate it.  */
+		    set_current_file_source_encoding (canon_encoding);
+		  }
+
+		  free (encoding);
+		}
+	    }
+	  }
+	}
+    }
+}
+
+/* Tracking whether the current line is a continuation line or contains a
+   non-blank character.  */
+static bool continuation_or_nonblank_line = false;
+
+
+/* Phase 3: Outside strings, replace backslash-newline with nothing and a
+   comment with nothing.  */
 
 static int
-phase2_getc ()
+phase3_getc ()
 {
   int c;
 
   for (;;)
     {
-      c = phase1_getc ();
+      c = phase2_getc ();
       if (c == '\\')
 	{
-	  c = phase1_getc ();
+	  c = phase2_getc ();
 	  if (c != '\n')
 	    {
-	      phase1_ungetc (c);
+	      phase2_ungetc (c);
 	      /* This shouldn't happen usually, because "A backslash is
 		 illegal elsewhere on a line outside a string literal."  */
 	      return '\\';
 	    }
 	  /* Eat backslash-newline.  */
+	  continuation_or_nonblank_line = true;
 	}
       else if (c == '#')
 	{
 	  /* Eat a comment.  */
+	  const char *comment;
+
 	  last_comment_line = line_number;
 	  comment_start ();
 	  for (;;)
 	    {
-	      c = phase1_getc ();
-	      if (c == EOF || c == '\n')
+	      c = phase2_getc ();
+	      if (c == UEOF || c == '\n')
 		break;
 	      /* We skip all leading white space, but not EOLs.  */
-	      if (!(buflen == 0 && (c == ' ' || c == '\t')))
+	      if (!(comment_at_start () && (c == ' ' || c == '\t')))
 		comment_add (c);
 	    }
-	  comment_line_end ();
+	  comment = comment_line_end ();
+	  if (line_number - 1 <= 2 && !continuation_or_nonblank_line)
+	    try_to_extract_coding (comment);
+	  continuation_or_nonblank_line = false;
 	  return c;
 	}
       else
-	return c;
+	{
+	  if (c == '\n')
+	    continuation_or_nonblank_line = false;
+	  else if (!(c == ' ' || c == '\t' || c == '\f'))
+	    continuation_or_nonblank_line = true;
+	  return c;
+	}
     }
 }
 
 /* Supports only one pushback character.  */
 static void
-phase2_ungetc (int c)
+phase3_ungetc (int c)
 {
-  phase1_ungetc (c);
+  phase2_ungetc (c);
+}
+
+
+/* ========================= Accumulating strings.  ======================== */
+
+/* Return value of phase7_getuc when EOF is reached.  */
+#define P7_EOF (-1)
+#define P7_STRING_END (-2)
+
+/* Convert an UTF-16 or UTF-32 code point to a return value that can be
+   distinguished from a single-byte return value.  */
+#define UNICODE(code) (0x100 + (code))
+
+/* Test a return value of phase7_getuc whether it designates an UTF-16 or
+   UTF-32 code point.  */
+#define IS_UNICODE(p7_result) ((p7_result) >= 0x100)
+
+/* Extract the UTF-16 or UTF-32 code of a return value that satisfies
+   IS_UNICODE.  */
+#define UNICODE_VALUE(p7_result) ((p7_result) - 0x100)
+
+/* A string buffer type that allows appending bytes (in the
+   xgettext_current_source_encoding) or Unicode characters.
+   Returns the entire string in UTF-8 encoding.  */
+
+struct mixed_string_buffer
+{
+  /* The part of the string that has already been converted to UTF-8.  */
+  char *utf8_buffer;
+  size_t utf8_buflen;
+  size_t utf8_allocated;
+  /* The first half of an UTF-16 surrogate character.  */
+  unsigned short utf16_surr;
+  /* The part of the string that is still in the source encoding.  */
+  char *curr_buffer;
+  size_t curr_buflen;
+  size_t curr_allocated;
+};
+
+/* Initialize a 'struct mixed_string_buffer' to empty.  */
+static inline void
+init_mixed_string_buffer (struct mixed_string_buffer *bp)
+{
+  bp->utf8_buffer = NULL;
+  bp->utf8_buflen = 0;
+  bp->utf8_allocated = 0;
+  bp->utf16_surr = 0;
+  bp->curr_buffer = NULL;
+  bp->curr_buflen = 0;
+  bp->curr_allocated = 0;
+}
+
+/* Auxiliary function: Append a byte to bp->curr.  */
+static inline void
+mixed_string_buffer_append_byte (struct mixed_string_buffer *bp, unsigned char c)
+{
+  if (bp->curr_buflen == bp->curr_allocated)
+    {
+      bp->curr_allocated = 2 * bp->curr_allocated + 10;
+      bp->curr_buffer = xrealloc (bp->curr_buffer, bp->curr_allocated);
+    }
+  bp->curr_buffer[bp->curr_buflen++] = c;
+}
+
+/* Auxiliary function: Ensure count more bytes are available in bp->utf8.  */
+static inline void
+mixed_string_buffer_append_unicode_grow (struct mixed_string_buffer *bp, size_t count)
+{
+  if (bp->utf8_buflen + count > bp->utf8_allocated)
+    {
+      size_t new_allocated = 2 * bp->utf8_allocated + 10;
+      if (new_allocated < bp->utf8_buflen + count)
+	new_allocated = bp->utf8_buflen + count;
+      bp->utf8_allocated = new_allocated;
+      bp->utf8_buffer = xrealloc (bp->utf8_buffer, new_allocated);
+    }
+}
+
+/* Auxiliary function: Append a Unicode character to bp->utf8.
+   uc must be < 0x110000.  */
+static inline void
+mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp, unsigned int uc)
+{
+  unsigned char utf8buf[6];
+  int count = u8_uctomb (utf8buf, uc, 6);
+
+  if (count < 0)
+    /* The caller should have ensured that uc is not out-of-range.  */
+    abort ();
+
+  mixed_string_buffer_append_unicode_grow (bp, count);
+  memcpy (bp->utf8_buffer + bp->utf8_buflen, utf8buf, count);
+  bp->utf8_buflen += count;
+}
+
+/* Auxiliary function: Flush bp->utf16_surr into bp->utf8_buffer.  */
+static inline void
+mixed_string_buffer_flush_utf16_surr (struct mixed_string_buffer *bp)
+{
+  if (bp->utf16_surr != 0)
+    {
+      /* A half surrogate is invalid, therefore use U+FFFD instead.  */
+      mixed_string_buffer_append_unicode (bp, 0xfffd);
+      bp->utf16_surr = 0;
+    }
+}
+
+/* Auxiliary function: Flush bp->curr_buffer into bp->utf8_buffer.  */
+static inline void
+mixed_string_buffer_flush_curr_buffer (struct mixed_string_buffer *bp, int lineno)
+{
+  if (bp->curr_buflen > 0)
+    {
+      char *curr;
+      size_t count;
+
+      mixed_string_buffer_append_byte (bp, '\0');
+
+      /* Convert from the source encoding to UTF-8.  */
+      curr = from_current_source_encoding (bp->curr_buffer,
+					   logical_file_name, lineno);
+
+      /* Append it to bp->utf8_buffer.  */
+      count = strlen (curr);
+      mixed_string_buffer_append_unicode_grow (bp, count);
+      memcpy (bp->utf8_buffer + bp->utf8_buflen, curr, count);
+      bp->utf8_buflen += count;
+
+      if (curr != bp->curr_buffer)
+	free (curr);
+      bp->curr_buflen = 0;
+    }
+}
+
+/* Append a character or Unicode character to a 'struct mixed_string_buffer'.  */
+static void
+mixed_string_buffer_append (struct mixed_string_buffer *bp, int c)
+{
+  if (IS_UNICODE (c))
+    {
+      /* Append a Unicode character.  */
+
+      /* Switch from multibyte character mode to Unicode character mode.  */
+      mixed_string_buffer_flush_curr_buffer (bp, line_number);
+
+      /* Test whether this character and the previous one form a Unicode
+	 surrogate character pair.  */
+      if (bp->utf16_surr != 0
+	  && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
+	{
+	  unsigned short utf16buf[2];
+	  unsigned int uc;
+
+	  utf16buf[0] = bp->utf16_surr;
+	  utf16buf[1] = UNICODE_VALUE (c);
+	  if (u16_mbtouc_aux (&uc, utf16buf, 2) != 2)
+	    abort ();
+
+	  mixed_string_buffer_append_unicode (bp, uc);
+	  bp->utf16_surr = 0;
+	}
+      else
+	{
+	  mixed_string_buffer_flush_utf16_surr (bp);
+
+	  if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
+	    bp->utf16_surr = UNICODE_VALUE (c);
+	  else
+	    mixed_string_buffer_append_unicode (bp, UNICODE_VALUE (c));
+	}
+    }
+  else
+    {
+      /* Append a single byte.  */
+
+      /* Switch from Unicode character mode to multibyte character mode.  */
+      mixed_string_buffer_flush_utf16_surr (bp);
+
+      /* When a newline is seen, convert the accumulated multibyte sequence.
+	 This ensures a correct line number in the error message in case of
+	 a conversion error.  The "- 1" is to account for the newline.  */
+      if (c == '\n')
+	mixed_string_buffer_flush_curr_buffer (bp, line_number - 1);
+
+      mixed_string_buffer_append_byte (bp, (unsigned char) c);
+    }
+}
+
+/* Return the string buffer's contents.  */
+static char *
+mixed_string_buffer_result (struct mixed_string_buffer *bp)
+{
+  /* Flush all into bp->utf8_buffer.  */
+  mixed_string_buffer_flush_utf16_surr (bp);
+  mixed_string_buffer_flush_curr_buffer (bp, line_number);
+  /* NUL-terminate it.  */
+  mixed_string_buffer_append_unicode_grow (bp, 1);
+  bp->utf8_buffer[bp->utf8_buflen] = '\0';
+  /* Return it.  */
+  return bp->utf8_buffer;
+}
+
+/* Free the memory pointed to by a 'struct mixed_string_buffer'.  */
+static inline void
+free_mixed_string_buffer (struct mixed_string_buffer *bp)
+{
+  free (bp->utf8_buffer);
+  free (bp->curr_buffer);
 }
 
 
@@ -336,11 +1005,8 @@ struct token_ty
     u"abc"    \<nl> \\ \' \" \a\b\f\n\r\t\v \ooo \xnn \unnnn \Unnnnnnnn \N{...}
     ur"abc"                                           \unnnn
    The \unnnn values are UTF-16 values; a single \Unnnnnnnn can expand to two
-   \unnnn items.  The \ooo and \xnn values are ISO-8859-1 values: u"\xff" and
-   u"\u00ff" are the same.  */
-
-#define P7_EOF (-1)
-#define P7_STRING_END (-2)
+   \unnnn items.  The \ooo and \xnn values are in the current source encoding.
+ */
 
 static int
 phase7_getuc (int quote_char,
@@ -351,26 +1017,26 @@ phase7_getuc (int quote_char,
 
   for (;;)
     {
-      /* Use phase 1, because phase 2 elides comments.  */
-      c = phase1_getc ();
+      /* Use phase 2, because phase 3 elides comments.  */
+      c = phase2_getc ();
 
-      if (c == EOF)
+      if (c == UEOF)
 	return P7_EOF;
 
       if (c == quote_char && (interpret_ansic || (*backslash_counter & 1) == 0))
 	{
 	  if (triple)
 	    {
-	      int c1 = phase1_getc ();
+	      int c1 = phase2_getc ();
 	      if (c1 == quote_char)
 		{
-		  int c2 = phase1_getc ();
+		  int c2 = phase2_getc ();
 		  if (c2 == quote_char)
 		    return P7_STRING_END;
-		  phase1_ungetc (c2);
+		  phase2_ungetc (c2);
 		}
-	      phase1_ungetc (c1);
-	      return c;
+	      phase2_ungetc (c1);
+	      return UNICODE (c);
 	    }
 	  else
 	    return P7_STRING_END;
@@ -381,7 +1047,7 @@ phase7_getuc (int quote_char,
 	  if (triple)
 	    {
 	      *backslash_counter = 0;
-	      return '\n';
+	      return UNICODE ('\n');
 	    }
 	  /* In r"..." and ur"..." strings, newline is only allowed
 	     immediately after an odd number of backslashes (although the
@@ -389,9 +1055,9 @@ phase7_getuc (int quote_char,
 	  if (!(interpret_ansic || (*backslash_counter & 1) == 0))
 	    {
 	      *backslash_counter = 0;
-	      return '\n';
+	      return UNICODE ('\n');
 	    }
-	  phase1_ungetc (c);
+	  phase2_ungetc (c);
 	  error_with_progname = false;
 	  error (0, 0, _("%s:%d: warning: unterminated string"),
 		 logical_file_name, line_number);
@@ -402,7 +1068,7 @@ phase7_getuc (int quote_char,
       if (c != '\\')
 	{
 	  *backslash_counter = 0;
-	  return c;
+	  return UNICODE (c);
 	}
 
       /* Backslash handling.  */
@@ -410,15 +1076,15 @@ phase7_getuc (int quote_char,
       if (!interpret_ansic && !interpret_unicode)
 	{
 	  ++*backslash_counter;
-	  return '\\';
+	  return UNICODE ('\\');
 	}
 
       /* Dispatch according to the character following the backslash.  */
-      c = phase1_getc ();
-      if (c == EOF)
+      c = phase2_getc ();
+      if (c == UEOF)
 	{
 	  ++*backslash_counter;
-	  return '\\';
+	  return UNICODE ('\\');
 	}
 
       if (interpret_ansic)
@@ -428,60 +1094,60 @@ phase7_getuc (int quote_char,
 	    continue;
 	  case '\\':
 	    ++*backslash_counter;
-	    return c;
+	    return UNICODE (c);
 	  case '\'': case '"':
 	    *backslash_counter = 0;
-	    return c;
+	    return UNICODE (c);
 	  case 'a':
 	    *backslash_counter = 0;
-	    return '\a';
+	    return UNICODE ('\a');
 	  case 'b':
 	    *backslash_counter = 0;
-	    return '\b';
+	    return UNICODE ('\b');
 	  case 'f':
 	    *backslash_counter = 0;
-	    return '\f';
+	    return UNICODE ('\f');
 	  case 'n':
 	    *backslash_counter = 0;
-	    return '\n';
+	    return UNICODE ('\n');
 	  case 'r':
 	    *backslash_counter = 0;
-	    return '\r';
+	    return UNICODE ('\r');
 	  case 't':
 	    *backslash_counter = 0;
-	    return '\t';
+	    return UNICODE ('\t');
 	  case 'v':
 	    *backslash_counter = 0;
-	    return '\v';
+	    return UNICODE ('\v');
 	  case '0': case '1': case '2': case '3': case '4':
 	  case '5': case '6': case '7':
 	    {
 	      int n = c - '0';
 
-	      c = phase1_getc ();
-	      if (c != EOF)
+	      c = phase2_getc ();
+	      if (c != UEOF)
 		{
 		  if (c >= '0' && c <= '7')
 		    {
 		      n = (n << 3) + (c - '0');
-		      c = phase1_getc ();
-		      if (c != EOF)
+		      c = phase2_getc ();
+		      if (c != UEOF)
 			{
 			  if (c >= '0' && c <= '7')
 			    n = (n << 3) + (c - '0');
 			  else
-			    phase1_ungetc (c);
+			    phase2_ungetc (c);
 			}
 		    }
 		  else
-		    phase1_ungetc (c);
+		    phase2_ungetc (c);
 		}
 	      *backslash_counter = 0;
 	      return (unsigned char) n;
 	    }
 	  case 'x':
 	    {
-	      int c1 = phase1_getc ();
+	      int c1 = phase2_getc ();
 	      int n1;
 
 	      if (c1 >= '0' && c1 <= '9')
@@ -495,7 +1161,7 @@ phase7_getuc (int quote_char,
 
 	      if (n1 >= 0)
 		{
-		  int c2 = phase1_getc ();
+		  int c2 = phase2_getc ();
 		  int n2;
 
 		  if (c2 >= '0' && c2 <= '9')
@@ -513,12 +1179,12 @@ phase7_getuc (int quote_char,
 		      return (unsigned char) ((n1 << 4) + n2);
 		    }
 
-		  phase1_ungetc (c2);
+		  phase2_ungetc (c2);
 		}
-	      phase1_ungetc (c1);
-	      phase1_ungetc (c);
+	      phase2_ungetc (c1);
+	      phase2_ungetc (c);
 	      ++*backslash_counter;
-	      return '\\';
+	      return UNICODE ('\\');
 	    }
 	  }
 
@@ -532,7 +1198,7 @@ phase7_getuc (int quote_char,
 
 	      for (i = 0; i < 4; i++)
 		{
-		  int c1 = phase1_getc ();
+		  int c1 = phase2_getc ();
 
 		  if (c1 >= '0' && c1 <= '9')
 		    n = (n << 4) + (c1 - '0');
@@ -542,18 +1208,18 @@ phase7_getuc (int quote_char,
 		    n = (n << 4) + (c1 - 'a' + 10);
 		  else
 		    {
-		      phase1_ungetc (c1);
+		      phase2_ungetc (c1);
 		      while (--i >= 0)
-			phase1_ungetc (buf[i]);
-		      phase1_ungetc (c);
+			phase2_ungetc (buf[i]);
+		      phase2_ungetc (c);
 		      ++*backslash_counter;
-		      return '\\';
+		      return UNICODE ('\\');
 		    }
 
 		  buf[i] = c1;
 		}
 	      *backslash_counter = 0;
-	      return n;
+	      return UNICODE (n);
 	    }
 
 	  if (interpret_ansic)
@@ -566,7 +1232,7 @@ phase7_getuc (int quote_char,
 
 		  for (i = 0; i < 8; i++)
 		    {
-		      int c1 = phase1_getc ();
+		      int c1 = phase2_getc ();
 
 		      if (c1 >= '0' && c1 <= '9')
 			n = (n << 4) + (c1 - '0');
@@ -576,12 +1242,12 @@ phase7_getuc (int quote_char,
 			n = (n << 4) + (c1 - 'a' + 10);
 		      else
 			{
-			  phase1_ungetc (c1);
+			  phase2_ungetc (c1);
 			  while (--i >= 0)
-			    phase1_ungetc (buf[i]);
-			  phase1_ungetc (c);
+			    phase2_ungetc (buf[i]);
+			  phase2_ungetc (c);
 			  ++*backslash_counter;
-			  return '\\';
+			  return UNICODE ('\\');
 			}
 
 		      buf[i] = c1;
@@ -589,7 +1255,7 @@ phase7_getuc (int quote_char,
 		  if (n < 0x110000)
 		    {
 		      *backslash_counter = 0;
-		      return n;
+		      return UNICODE (n);
 		    }
 
 		  error_with_progname = false;
@@ -598,15 +1264,15 @@ phase7_getuc (int quote_char,
 		  error_with_progname = true;
 
 		  while (--i >= 0)
-		    phase1_ungetc (buf[i]);
-		  phase1_ungetc (c);
+		    phase2_ungetc (buf[i]);
+		  phase2_ungetc (c);
 		  ++*backslash_counter;
-		  return '\\';
+		  return UNICODE ('\\');
 		}
 
 	      if (c == 'N')
 		{
-		  int c1 = phase1_getc ();
+		  int c1 = phase2_getc ();
 		  if (c1 == '{')
 		    {
 		      unsigned char buf[UNINAME_MAX + 1];
@@ -615,16 +1281,16 @@ phase7_getuc (int quote_char,
 
 		      for (i = 0; i < UNINAME_MAX; i++)
 			{
-			  int c2 = phase1_getc ();
+			  int c2 = phase2_getc ();
 			  if (!(c2 >= ' ' && c2 <= '~'))
 			    {
-			      phase1_ungetc (c2);
+			      phase2_ungetc (c2);
 			      while (--i >= 0)
-				phase1_ungetc (buf[i]);
-			      phase1_ungetc (c1);
-			      phase1_ungetc (c);
+				phase2_ungetc (buf[i]);
+			      phase2_ungetc (c1);
+			      phase2_ungetc (c);
 			      ++*backslash_counter;
-			      return '\\';
+			      return UNICODE ('\\');
 			    }
 			  if (c2 == '}')
 			    break;
@@ -636,24 +1302,24 @@ phase7_getuc (int quote_char,
 		      if (n != UNINAME_INVALID)
 			{
 			  *backslash_counter = 0;
-			  return n;
+			  return UNICODE (n);
 			}
 
-		      phase1_ungetc ('}');
+		      phase2_ungetc ('}');
 		      while (--i >= 0)
-			phase1_ungetc (buf[i]);
+			phase2_ungetc (buf[i]);
 		    }
-		  phase1_ungetc (c1);
-		  phase1_ungetc (c);
+		  phase2_ungetc (c1);
+		  phase2_ungetc (c);
 		  ++*backslash_counter;
-		  return '\\';
+		  return UNICODE ('\\');
 		}
 	    }
 	}
 
-      phase1_ungetc (c);
+      phase2_ungetc (c);
       ++*backslash_counter;
-      return '\\';
+      return UNICODE ('\\');
     }
 }
 
@@ -681,11 +1347,11 @@ phase5_get (token_ty *tp)
   for (;;)
     {
       tp->line_number = line_number;
-      c = phase2_getc ();
+      c = phase3_getc ();
 
       switch (c)
 	{
-	case EOF:
+	case UEOF:
 	  tp->type = token_type_eof;
 	  return;
 
@@ -712,8 +1378,8 @@ phase5_get (token_ty *tp)
 	{
 	case '.':
 	  {
-	    int c1 = phase2_getc ();
-	    phase2_ungetc (c1);
+	    int c1 = phase3_getc ();
+	    phase3_ungetc (c1);
 	    if (!(c1 >= '0' && c1 <= '9'))
 	      {
 
@@ -751,7 +1417,7 @@ phase5_get (token_ty *tp)
 		    buffer = xrealloc (buffer, bufmax);
 		  }
 		buffer[bufpos++] = c;
-		c = phase2_getc ();
+		c = phase3_getc ();
 		switch (c)
 		  {
 		  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
@@ -769,7 +1435,7 @@ phase5_get (token_ty *tp)
 		  case '5': case '6': case '7': case '8': case '9':
 		    continue;
 		  default:
-		    phase2_ungetc (c);
+		    phase3_ungetc (c);
 		    break;
 		  }
 		break;
@@ -787,9 +1453,7 @@ phase5_get (token_ty *tp)
 
 	/* Strings.  */
 	  {
-	    static unsigned short *buffer;
-	    static int bufmax;
-	    int bufpos;
+	    struct mixed_string_buffer literal;
 	    int quote_char;
 	    bool interpret_ansic;
 	    bool interpret_unicode;
@@ -798,7 +1462,7 @@ phase5_get (token_ty *tp)
 
 	    case 'R': case 'r':
 	      {
-		int c1 = phase1_getc ();
+		int c1 = phase2_getc ();
 		if (c1 == '"' || c1 == '\'')
 		  {
 		    quote_char = c1;
@@ -806,13 +1470,13 @@ phase5_get (token_ty *tp)
 		    interpret_unicode = false;
 		    goto string;
 		  }
-		phase1_ungetc (c1);
+		phase2_ungetc (c1);
 		goto symbol;
 	      }
 
 	    case 'U': case 'u':
 	      {
-		int c1 = phase1_getc ();
+		int c1 = phase2_getc ();
 		if (c1 == '"' || c1 == '\'')
 		  {
 		    quote_char = c1;
@@ -822,7 +1486,7 @@ phase5_get (token_ty *tp)
 		  }
 		if (c1 == 'R' || c1 == 'r')
 		  {
-		    int c2 = phase1_getc ();
+		    int c2 = phase2_getc ();
 		    if (c2 == '"' || c2 == '\'')
 		      {
 			quote_char = c2;
@@ -830,9 +1494,9 @@ phase5_get (token_ty *tp)
 			interpret_unicode = true;
 			goto string;
 		      }
-		    phase1_ungetc (c2);
+		    phase2_ungetc (c2);
 		  }
-		phase1_ungetc (c1);
+		phase2_ungetc (c1);
 		goto symbol;
 	      }
 
@@ -843,75 +1507,40 @@ phase5_get (token_ty *tp)
 	    string:
 	      triple = false;
 	      {
-		int c1 = phase1_getc ();
+		int c1 = phase2_getc ();
 		if (c1 == quote_char)
 		  {
-		    int c2 = phase1_getc ();
+		    int c2 = phase2_getc ();
 		    if (c2 == quote_char)
 		      triple = true;
 		    else
 		      {
-			phase1_ungetc (c2);
-			phase1_ungetc (c1);
+			phase2_ungetc (c2);
+			phase2_ungetc (c1);
 		      }
 		  }
 		else
-		  phase1_ungetc (c1);
+		  phase2_ungetc (c1);
 	      }
 	      backslash_counter = 0;
-	      /* Start accumulating the string.  We store the string in
-		 UTF-16 before converting it to UTF-8.  Why not converting
-		 every character directly to UTF-8? Because a string can
-		 contain surrogates like u"\uD800\uDF00", and we must
-		 combine them to a single UTF-8 character.  */
-	      bufpos = 0;
+	      /* Start accumulating the string.  */
+	      init_mixed_string_buffer (&literal);
 	      for (;;)
 		{
 		  int uc = phase7_getuc (quote_char, triple, interpret_ansic,
 					 interpret_unicode, &backslash_counter);
-		  unsigned int len;
 
 		  if (uc == P7_EOF || uc == P7_STRING_END)
 		    break;
 
-		  assert (uc >= 0 && uc < 0x110000);
-		  len = (uc < 0x10000 ? 1 : 2);
-		  if (bufpos + len > bufmax)
-		    {
-		      bufmax = 2 * bufmax + 10;
-		      buffer =
-			xrealloc (buffer, bufmax * sizeof (unsigned short));
-		    }
-		  if (uc < 0x10000)
-		    buffer[bufpos++] = uc;
-		  else
-		    {
-		      buffer[bufpos++] = 0xd800 + ((uc - 0x10000) >> 10);
-		      buffer[bufpos++] = 0xdc00 + ((uc - 0x10000) & 0x3ff);
-		    }
+		  if (IS_UNICODE (uc))
+		    assert (UNICODE_VALUE (uc) >= 0
+			    && UNICODE_VALUE (uc) < 0x110000);
+
+		  mixed_string_buffer_append (&literal, uc);
 		}
-	      /* Now convert from UTF-16 to UTF-8.  */
-	      {
-		int pos;
-		unsigned char *utf8_string;
-		unsigned char *q;
-
-		/* Each UTF-16 word needs 3 bytes at worst.  */
-		utf8_string = (unsigned char *) xmalloc (3 * bufpos + 1);
-		for (pos = 0, q = utf8_string; pos < bufpos; )
-		  {
-		    unsigned int uc;
-		    int n;
-
-		    pos += u16_mbtouc (&uc, buffer + pos, bufpos - pos);
-		    n = u8_uctomb (q, uc, 6);
-		    assert (n > 0);
-		    q += n;
-		  }
-		*q = '\0';
-		assert (q - utf8_string <= 3 * bufpos);
-		tp->string = (char *) utf8_string;
-	      }
+	      tp->string = xstrdup (mixed_string_buffer_result (&literal));
+	      free_mixed_string_buffer (&literal);
 	      tp->comment = add_reference (savable_comment);
 	      tp->type = token_type_string;
 	      return;
@@ -1124,9 +1753,11 @@ extract_parenthesized (message_list_ty *mlp,
 
 	    if (extract_all)
 	      {
+		xgettext_current_source_encoding = po_charset_utf8;
 		savable_comment_to_xgettext_comment (token.comment);
 		remember_a_message (mlp, token.string, inner_context, &pos);
 		savable_comment_reset ();
+		xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 	      }
 	    else
 	      {
@@ -1137,18 +1768,22 @@ extract_parenthesized (message_list_ty *mlp,
 			/* Seen an msgid.  */
 			message_ty *mp;
 
+			xgettext_current_source_encoding = po_charset_utf8;
 			savable_comment_to_xgettext_comment (token.comment);
 			mp = remember_a_message (mlp, token.string,
 						inner_context, &pos);
 			savable_comment_reset ();
+			xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
 		    else
 		      {
 			/* Seen an msgid_plural.  */
+			xgettext_current_source_encoding = po_charset_utf8;
 			remember_a_message_plural (plural_mp, token.string,
 						   inner_context, &pos);
+			xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 			plural_mp = NULL;
 		      }
 		  }
@@ -1184,9 +1819,6 @@ extract_python (FILE *f,
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
-  /* We convert our strings to UTF-8 encoding.  */
-  xgettext_current_source_encoding = po_charset_utf8;
-
   fp = f;
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
@@ -1194,6 +1826,18 @@ extract_python (FILE *f,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  xgettext_current_file_source_encoding = xgettext_global_source_encoding;
+#if HAVE_ICONV
+  xgettext_current_file_source_iconv = xgettext_global_source_iconv;
+#endif
+
+  xgettext_current_source_encoding = xgettext_current_file_source_encoding;
+#if HAVE_ICONV
+  xgettext_current_source_iconv = xgettext_current_file_source_iconv;
+#endif
+
+  continuation_or_nonblank_line = false;
 
   open_pbb = 0;
 

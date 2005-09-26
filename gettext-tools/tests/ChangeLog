@@ -1,3 +1,8 @@
+2005-09-25  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-python-3: New file.
+	* Makefile.am (TESTS): Add it.
+
 2005-09-17  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt-7: Update after slight change in error message.

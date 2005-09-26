@@ -1,5 +1,50 @@
 2005-09-25  Bruno Haible  <bruno@clisp.org>
 
+	Support for Python source encodings (PEP 0263).
+	* x-python.c: Include progname.h, basename.h, xerror.h, strstr.h,
+	c-ctype.h, utf8-ucs4.h.
+	(phase1_pushback): Reduce size.
+	(UEOF): New macro.
+	(phase2_pushback, phase2_pushback_length): New variables.
+	(phase2_getc, phase2_ungetc): New functions.
+	(struct unicode_string_buffer): New structure type.
+	(init_unicode_string_buffer, unicode_string_buffer_append_unicode_grow,
+	unicode_string_buffer_append_unicode, unicode_string_buffer_result,
+	free_unicode_string_buffer): New functions.
+	(comment_buffer): New variable.
+	(buffer, bufmax, buflen): Remove variables.
+	(comment_start, comment_add, comment_line_end): Rewritten.
+	(comment_at_start): New function.
+	(xgettext_current_file_source_encoding): New variable.
+	(xgettext_current_file_source_iconv): New variable.
+	(set_current_file_source_encoding, try_to_extract_coding): New
+	functions.
+	(continuation_or_nonblank_line): New variable.
+	(phase3_getc): Renamed from phase2_getc. Use phase2_getc instead of
+	phase1_getc. Return a Unicode character. Call try_to_extract_coding
+	when seeing a comment among the first two lines.
+	(phase3_ungetc): Renamed from phase2_ungetc. Use phase2_ungetc instead
+	of phase1_ungetc.
+	(UNICODE, IS_UNICODE, UNICODE_VALUE): New macros.
+	(struct mixed_string_buffer): New structure type.
+	(init_mixed_string_buffer, mixed_string_buffer_append_byte,
+	mixed_string_buffer_append_unicode_grow,
+	mixed_string_buffer_append_unicode,
+	mixed_string_buffer_flush_utf16_surr,
+	mixed_string_buffer_flush_curr_buffer, mixed_string_buffer_append,
+	mixed_string_buffer_result, free_mixed_string_buffer): New functions.
+	(phase7_getuc): Use phase2_getc instead of phase1_getc. Return a
+	Unicode character except for \ooo and \xnn.
+	(phase5_get): Operate on the level of Unicode characters instead of
+	at the level of bytes. Use a mixed_string_buffer to accumulate a
+	string literal.
+	(extract_parenthesized): Set xgettext_current_source_encoding to UTF-8
+	while passing UTF-8 strings to the xgettext main code.
+	(extract_python): Initialize xgettext_current_file_source_encoding and
+	xgettext_current_source_encoding.
+
+2005-09-25  Bruno Haible  <bruno@clisp.org>
+
 	* x-csharp.c (phase2_getc): Fix mis-use of iconv() when the source
 	encoding is neither ASCII nor UTF-8.
 

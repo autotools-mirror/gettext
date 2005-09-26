@@ -93,9 +93,8 @@ extension.
 @opindex --from-code@r{, @code{xgettext} option}
 Specifies the encoding of the input files.  This option is needed only
 if some untranslated message strings or their corresponding comments
-contain non-ASCII characters.  Note that Python input files are always
-assumed to be in ISO-8859-1, regardless of this option.  And Tcl and Glade
-input files are always assumed to be in UTF-8, regardless of this option.
+contain non-ASCII characters.  Note that Tcl and Glade input files are
+always assumed to be in UTF-8, regardless of this option.
 
 @end table
 

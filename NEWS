@@ -1,4 +1,11 @@
 
+* Programming languages support:
+
+  - Python:
+    xgettext now recognizes the source encoding from a "coding:" comment
+    among the first two lines.  The default encoding is now ASCII, no longer
+    ISO-8859-1.
+
 * libgettextpo library:
   - The error handler type passed to po_file_read(), po_file_write(),
     po_message_check_format() has changed.
