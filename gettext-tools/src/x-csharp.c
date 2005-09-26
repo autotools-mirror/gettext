@@ -231,7 +231,12 @@ Please specify the source encoding through --from-code.\n"),
 	 through phase1_getc as needed.  This is needed to give reasonable
 	 interactive behaviour when fp is connected to an interactive tty.  */
       unsigned char buf[MAX_PHASE1_PUSHBACK];
-      size_t bufcount = 0;
+      size_t bufcount;
+      int c = phase1_getc ();
+      if (c == EOF)
+	return UEOF;
+      buf[0] = (unsigned char) c;
+      bufcount = 1;
 
       for (;;)
 	{
