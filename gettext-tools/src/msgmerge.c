@@ -1240,6 +1240,24 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 	      message_ty *mp;
 
 	      mp = message_copy (defmsg);
+	      /* Clear the extracted comments.  */
+	      if (mp->comment_dot != NULL)
+		{
+		  string_list_free (mp->comment_dot);
+		  mp->comment_dot = NULL;
+		}
+	      /* Clear the file position comments.  */
+	      if (mp->filepos != NULL)
+		{
+		  size_t i;
+
+		  for (i = 0; i < mp->filepos_count; i++)
+		    free ((char *) mp->filepos[i].file_name);
+		  mp->filepos_count = 0;
+		  free (mp->filepos);
+		  mp->filepos = NULL;
+		}
+	      /* Mark as obsolete.   */
 	      mp->obsolete = true;
 
 	      message_list_append (msgdomain_list_sublist (result, domain, true),

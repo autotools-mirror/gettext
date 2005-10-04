@@ -905,6 +905,12 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
   /* Print translator comment if available.  */
   message_print_comment (mp, fp);
 
+  /* Print xgettext extracted comments (normally empty).  */
+  message_print_comment_dot (mp, fp);
+
+  /* Print the file position comments (normally empty).  */
+  message_print_comment_filepos (mp, fp, uniforum, page_width);
+
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy)
     {

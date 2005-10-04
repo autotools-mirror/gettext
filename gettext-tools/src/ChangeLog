@@ -1,3 +1,12 @@
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
+	Change msgattrib to no longer remove extracted comments and file
+	positions when marking messages obsolete.
+	* msgmerge.c (merge): When marking a message obsolete, remove the
+	extracted comments and file positions.
+	* write-po.c (message_print_obsolete): Also print the extracted
+	comments and file positions.
+
 2005-09-25  Bruno Haible  <bruno@clisp.org>
 
 	Support for Python source encodings (PEP 0263).
