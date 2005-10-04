@@ -23,6 +23,7 @@
 /* Specification.  */
 #include "format.h"
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -98,6 +99,15 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 	  {
 	    char buf[18+1];
 	    const char *pretty_msgstr = "msgstr";
+	    /* Use strict checking (require same number of format directives
+	       on both sides) if the message has no plurals, or if msgid_plural
+	       exists but on the msgstr[] side there is only msgstr[0].
+	       Use relaxed checking when there are at least two msgstr[] forms.
+	       We are too lazy to check which of the plural forms applies to
+	       infinitely many values of N.  */
+	    bool has_plural_translations = (strlen (msgstr) + 1 < msgstr_len);
+	    bool strict_checking =
+	      (msgid_plural == NULL || !has_plural_translations);
 	    const char *p_end = msgstr + msgstr_len;
 	    const char *p;
 
@@ -116,7 +126,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 		if (msgstr_descr != NULL)
 		  {
 		    if (parser->check (msgid_descr, msgstr_descr,
-				       msgid_plural == NULL,
+				       strict_checking,
 				       error_logger, pretty_msgstr))
 		      err = true;
 

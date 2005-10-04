@@ -1,3 +1,10 @@
+2005-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* format.c: Include stdbool.h.
+	(check_msgid_msgstr_format): Enable strict checking also when
+	msgid_plural is present but nplurals = 1.
+	Reported by Farzaneh Sarafraz <farzaneh@farsiweb.info>.
+
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Change msgattrib to no longer remove extracted comments and file
