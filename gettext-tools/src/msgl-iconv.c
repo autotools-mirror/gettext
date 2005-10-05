@@ -275,17 +275,18 @@ convert_msgstr (iconv_t cd, message_ty *mp,
 #endif
 
 
-void
+bool
 iconv_message_list (message_list_ty *mlp,
 		    const char *canon_from_code, const char *canon_to_code,
 		    const char *from_filename)
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
+  bool msgids_changed;
   size_t j;
 
   /* If the list is empty, nothing to do.  */
   if (mlp->nitems == 0)
-    return;
+    return false;
 
   /* Search the header entry, and extract and replace the charset name.  */
   for (j = 0; j < mlp->nitems; j++)
@@ -369,13 +370,14 @@ two different charsets \"%s\" and \"%s\" in input file"),
 input file doesn't contain a header entry with a charset specification"));
     }
 
+  msgids_changed = false;
+
   /* If the two encodings are the same, nothing to do.  */
   if (canon_from_code != canon_to_code)
     {
 #if HAVE_ICONV
       iconv_t cd;
       struct conversion_context context;
-      bool msgids_changed;
 
       /* Avoid glibc-2.1 bug with EUC-KR.  */
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
@@ -396,7 +398,6 @@ and iconv() does not support this conversion."),
       context.to_code = canon_to_code;
       context.from_filename = from_filename;
 
-      msgids_changed = false;
       for (j = 0; j < mlp->nitems; j++)
 	{
 	  message_ty *mp = mlp->item[j];
@@ -428,6 +429,8 @@ This version was built without iconv()."),
 				basename (program_name));
 #endif
     }
+
+  return msgids_changed;
 }
 
 msgdomain_list_ty *

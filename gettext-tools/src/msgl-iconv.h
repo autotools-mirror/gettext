@@ -19,6 +19,7 @@
 #ifndef _MSGL_ICONV_H
 #define _MSGL_ICONV_H
 
+#include <stdbool.h>
 #if HAVE_ICONV
 #include <iconv.h>
 #endif
@@ -51,8 +52,9 @@ extern char *convert_string (iconv_t cd, const char *string,
 /* Converts the message list MLP to the (already canonicalized) encoding
    CANON_TO_CODE.  The (already canonicalized) encoding before conversion
    can be passed as CANON_FROM_CODE; if NULL is passed instead, the
-   encoding is looked up in the header entry.  */
-extern void
+   encoding is looked up in the header entry.  Returns true if and only if
+   some msgid changed due to the conversion.  */
+extern bool
        iconv_message_list (message_list_ty *mlp,
 			   const char *canon_from_code,
 			   const char *canon_to_code,

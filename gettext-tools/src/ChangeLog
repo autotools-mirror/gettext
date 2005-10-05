@@ -1,3 +1,13 @@
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
+	Avoid a crash when msgcat or msgconv is asked to convert a non-ASCII
+	msgid.
+	* msgl-iconv.h (iconv_message_list): Change return type to boolean.
+	* msgl-iconv.c (iconv_message_list): Likewise. Return true if some
+	msgids change.
+	* msgl-cat.c (catenate_msgdomain_list): Exit with an error message if
+	the msgids change through charset conversion.
+
 2005-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* format.c: Include stdbool.h.

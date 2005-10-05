@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -470,8 +470,20 @@ To select a different output encoding, use the --to-code option.\n\
 	       conversion that would only replace the charset name in the
 	       header entry with its canonical equivalent.  */
 	    if (!(to_code == NULL && canon_charsets[n][k] == canon_to_code))
-	      iconv_message_list (mdlp->item[k]->messages, canon_charsets[n][k],
-				  canon_to_code, files[n]);
+	      if (iconv_message_list (mdlp->item[k]->messages,
+				      canon_charsets[n][k], canon_to_code,
+				      files[n]))
+		{
+		  multiline_error (xstrdup (""),
+				   xasprintf (_("\
+Conversion of file %s from %s encoding to %s encoding\n\
+changes some msgids.\n\
+Either change all msgids to be pure ASCII, or ensure they are\n\
+UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
+					      files[n], canon_charsets[n][k],
+					      canon_to_code));
+		  exit (EXIT_FAILURE);
+		}
       }
 
   /* Fill the resulting messages.  */
