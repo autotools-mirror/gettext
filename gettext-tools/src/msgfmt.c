@@ -913,6 +913,7 @@ domain name \"%s\" not suitable as file name: will use prefix"), name);
 
 static void
 msgfmt_add_message (default_po_reader_ty *this,
+		    char *msgctxt,
 		    char *msgid,
 		    lex_pos_ty *msgid_pos,
 		    char *msgid_plural,
@@ -932,7 +933,7 @@ msgfmt_add_message (default_po_reader_ty *this,
     }
 
   /* Invoke superclass method.  */
-  default_add_message (this, msgid, msgid_pos, msgid_plural,
+  default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
 		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
 }
 
@@ -950,7 +951,7 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
 	 Also don't emit fuzzy entries, unless --use-fuzzy was specified.
 	 But ignore fuzziness of the header entry.  */
       if ((!include_untranslated && mp->msgstr[0] == '\0')
-	  || (!include_fuzzies && mp->is_fuzzy && mp->msgid[0] != '\0'))
+	  || (!include_fuzzies && mp->is_fuzzy && !is_header (mp)))
 	{
 	  if (check_compatibility)
 	    {
@@ -973,7 +974,7 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
       else
 	{
 	  /* Test for header entry.  */
-	  if (mp->msgid[0] == '\0')
+	  if (is_header (mp))
 	    {
 	      this->has_header_entry = true;
 	      if (!mp->is_fuzzy)

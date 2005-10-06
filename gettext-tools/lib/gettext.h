@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-1998, 2000-2002, 2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002, 2004-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -75,5 +75,65 @@
    The macro's expansion is not parenthesized, so that it is suitable as
    initializer for static 'char[]' or 'const char[]' variables.  */
 #define gettext_noop(String) String
+
+/* The separator between msgctxt and msgid in a .mo file.  */
+#define GETTEXT_CONTEXT_GLUE "\004"
+
+/* Pseudo function calls, taking a MSGCTXT and a MSGID instead of just a
+   MSGID.  MSGCTXT and MSGID must be string literals.  MSGCTXT should be
+   short and rarely need to change.
+   The letter 'p' stands for 'particular' or 'special'.  */
+#define pgettext(Msgctxt, Msgid) \
+  pgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+#define dpgettext(Domainname, Msgctxt, Msgid) \
+  pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, LC_MESSAGES)
+#define dcpgettext(Domainname, Msgctxt, Msgid, Category) \
+  pgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, Category)
+#define npgettext(Msgctxt, Msgid, MsgidPlural, N) \
+  npgettext_aux (NULL, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
+#define dnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N) \
+  npgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, LC_MESSAGES)
+#define dcnpgettext(Domainname, Msgctxt, Msgid, MsgidPlural, N, Category) \
+  npgettext_aux (Domainname, Msgctxt GETTEXT_CONTEXT_GLUE Msgid, Msgid, MsgidPlural, N, Category)
+
+#ifdef __GNUC__
+__inline
+#else
+#ifdef __cplusplus
+inline
+#endif
+#endif
+static const char *
+pgettext_aux (const char *domain,
+	      const char *msg_ctxt_id, const char *msgid,
+	      int category)
+{
+  const char *translation = dcgettext (domain, msg_ctxt_id, category);
+  if (translation == msg_ctxt_id)
+    return msgid;
+  else
+    return translation;
+}
+
+#ifdef __GNUC__
+__inline
+#else
+#ifdef __cplusplus
+inline
+#endif
+#endif
+static const char *
+npgettext_aux (const char *domain,
+	       const char *msg_ctxt_id, const char *msgid,
+	       const char *msgid_plural, unsigned long int n,
+	       int category)
+{
+  const char *translation =
+    dcngettext (domain, msg_ctxt_id, msgid_plural, n, category);
+  if (translation == msg_ctxt_id || translation == msgid_plural)
+    return (n == 1 ? msgid : msgid_plural);
+  else
+    return translation;
+}
 
 #endif /* _LIBGETTEXT_H */

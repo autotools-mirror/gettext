@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -56,6 +56,7 @@ struct default_po_reader_class_ty
 
   /* How to add a message to the list.  */
   void (*add_message) (struct default_po_reader_ty *pop,
+		       char *msgctxt,
 		       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
 		       bool force_fuzzy, bool obsolete);
@@ -122,6 +123,7 @@ extern void default_parse_brief (abstract_po_reader_ty *that);
 extern void default_parse_debrief (abstract_po_reader_ty *that);
 extern void default_directive_domain (abstract_po_reader_ty *that, char *name);
 extern void default_directive_message (abstract_po_reader_ty *that,
+				       char *msgctxt,
 				       char *msgid,
 				       lex_pos_ty *msgid_pos,
 				       char *msgid_plural,
@@ -136,6 +138,7 @@ extern void default_comment_special (abstract_po_reader_ty *that,
 				     const char *s);
 extern void default_set_domain (default_po_reader_ty *this, char *name);
 extern void default_add_message (default_po_reader_ty *this,
+				 char *msgctxt,
 				 char *msgid,
 				 lex_pos_ty *msgid_pos,
 				 char *msgid_plural,

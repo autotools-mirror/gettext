@@ -886,6 +886,7 @@ exclude_directive_domain (abstract_po_reader_ty *pop, char *name)
 
 static void
 exclude_directive_message (abstract_po_reader_ty *pop,
+			   char *msgctxt,
 			   char *msgid,
 			   lex_pos_ty *msgid_pos,
 			   char *msgid_plural,
@@ -898,12 +899,12 @@ exclude_directive_message (abstract_po_reader_ty *pop,
   /* See if this message ID has been seen before.  */
   if (exclude == NULL)
     exclude = message_list_alloc (true);
-  mp = message_list_search (exclude, msgid);
+  mp = message_list_search (exclude, msgctxt, msgid);
   if (mp != NULL)
     free (msgid);
   else
     {
-      mp = message_alloc (msgid, msgid_plural, "", 1, msgstr_pos);
+      mp = message_alloc (msgctxt, msgid, msgid_plural, "", 1, msgstr_pos);
       /* Do not free msgid.  */
       message_list_append (exclude, mp);
     }
@@ -1761,15 +1762,17 @@ remember_a_message (message_list_ty *mlp, char *string,
 {
   enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
+  char *msgctxt;
   char *msgid;
   message_ty *mp;
   char *msgstr;
   size_t i;
 
+  msgctxt = NULL;
   msgid = string;
 
   /* See whether we shall exclude this message.  */
-  if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
+  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
     {
       /* Tell the lexer to reset its comment buffer, so that the next
 	 message gets the correct comments.  */
@@ -1803,7 +1806,7 @@ meta information, not the empty string.\n")));
     }
 
   /* See if we have seen this message before.  */
-  mp = message_list_search (mlp, msgid);
+  mp = message_list_search (mlp, msgctxt, msgid);
   if (mp != NULL)
     {
       free (msgid);
@@ -1829,7 +1832,8 @@ meta information, not the empty string.\n")));
 	msgstr = "";
 
       /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (msgid, NULL, msgstr, strlen (msgstr) + 1, &dummypos);
+      mp = message_alloc (NULL, msgid, NULL, msgstr, strlen (msgstr) + 1,
+			  &dummypos);
       /* Do not free msgid.  */
       message_list_append (mlp, mp);
     }
@@ -2102,7 +2106,7 @@ Content-Transfer-Encoding: 8bit\n",
 		      timestring);
   free (timestring);
 
-  mp = message_alloc ("", NULL, msgstr, strlen (msgstr) + 1, &pos);
+  mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
   message_comment_append (mp,
 			  copyright_holder[0] != '\0'
@@ -2152,7 +2156,8 @@ finalize_header (msgdomain_list_ty *mdlp)
 
     if (has_plural)
       {
-	message_ty *header = message_list_search (mdlp->item[0]->messages, "");
+	message_ty *header =
+	  message_list_search (mdlp->item[0]->messages, NULL, "");
 	if (header != NULL
 	    && strstr (header->msgstr, "Plural-Forms:") == NULL)
 	  {

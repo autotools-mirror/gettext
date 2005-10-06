@@ -78,7 +78,7 @@ struct grep_task {
   bool case_insensitive;
   void *compiled_patterns;
 };
-static struct grep_task grep_task[3];
+static struct grep_task grep_task[4];
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -96,6 +96,7 @@ static const struct option long_options[] =
   { "ignore-case", no_argument, NULL, 'i' },
   { "indent", no_argument, NULL, CHAR_MAX + 2 },
   { "location", required_argument, NULL, 'N' },
+  { "msgctxt", no_argument, NULL, 'J' },
   { "msgid", no_argument, NULL, 'K' },
   { "msgstr", no_argument, NULL, 'T' },
   { "no-escape", no_argument, NULL, CHAR_MAX + 3 },
@@ -170,7 +171,7 @@ main (int argc, char **argv)
   location_files = string_list_alloc ();
   domain_names = string_list_alloc ();
 
-  for (i = 0; i < 3; i++)
+  for (i = 0; i < 4; i++)
     {
       struct grep_task *gt = &grep_task[i];
 
@@ -181,7 +182,7 @@ main (int argc, char **argv)
       gt->case_insensitive = false;
     }
 
-  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiKM:N:o:pPTVw:",
+  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:N:o:pPTVw:",
 			     long_options, NULL))
 	 != EOF)
     switch (opt)
@@ -190,7 +191,7 @@ main (int argc, char **argv)
 	break;
 
       case 'C':
-	grep_pass = 2;
+	grep_pass = 3;
 	break;
 
       case 'D':
@@ -283,8 +284,12 @@ error while reading \"%s\""), optarg);
 	grep_task[grep_pass].case_insensitive = true;
 	break;
 
-      case 'K':
+      case 'J':
 	grep_pass = 0;
+	break;
+
+      case 'K':
+	grep_pass = 1;
 	break;
 
       case 'M':
@@ -312,7 +317,7 @@ error while reading \"%s\""), optarg);
 	break;
 
       case 'T':
-	grep_pass = 1;
+	grep_pass = 2;
 	break;
 
       case 'V':
@@ -405,7 +410,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Compile the patterns.  */
-  for (grep_pass = 0; grep_pass < 3; grep_pass++)
+  for (grep_pass = 0; grep_pass < 4; grep_pass++)
     {
       struct grep_task *gt = &grep_task[grep_pass];
 
@@ -428,7 +433,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   if (grep_task[0].pattern_count > 0
       || grep_task[1].pattern_count > 0
-      || grep_task[2].pattern_count > 0)
+      || grep_task[2].pattern_count > 0
+      || grep_task[3].pattern_count > 0)
     {
       /* Warn if the current locale is not suitable for this PO file.  */
       compare_po_locale_charsets (result);
@@ -454,7 +460,7 @@ static void
 no_pass (int opt)
 {
   error (EXIT_SUCCESS, 0,
-	 _("option '%c' cannot be used before 'K' or 'T' or 'C' has been specified"),
+	 _("option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' has been specified"),
 	 opt);
   usage (EXIT_FAILURE);
 }
@@ -503,9 +509,11 @@ or if it is -.\n"));
       printf (_("\
 Message selection:\n\
   [-N SOURCEFILE]... [-M DOMAINNAME]...\n\
-  [-K MSGID-PATTERN] [-T MSGSTR-PATTERN] [-C COMMENT-PATTERN]\n\
+  [-J MSGCTXT-PATTERN] [-K MSGID-PATTERN] [-T MSGSTR-PATTERN]\n\
+  [-C COMMENT-PATTERN]\n\
 A message is selected if it comes from one of the specified source files,\n\
 or if it comes from one of the specified domains,\n\
+or if -J is given and its context (msgctxt) matches MSGCTXT-PATTERN,\n\
 or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n\
 or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n\
 or if -C is given and the translator's comment matches COMMENT-PATTERN.\n\
@@ -513,13 +521,14 @@ or if -C is given and the translator's comment matches COMMENT-PATTERN.\n\
 When more than one selection criterion is specified, the set of selected\n\
 messages is the union of the selected messages of each criterion.\n\
 \n\
-MSGID-PATTERN or MSGSTR-PATTERN or COMMENT-PATTERN syntax:\n\
+MSGCTXT-PATTERN or MSGID-PATTERN or MSGSTR-PATTERN or COMMENT-PATTERN syntax:\n\
   [-E | -F] [-e PATTERN | -f FILE]...\n\
 PATTERNs are basic regular expressions by default, or extended regular\n\
 expressions if -E is given, or fixed strings if -F is given.\n\
 \n\
   -N, --location=SOURCEFILE   select messages extracted from SOURCEFILE\n\
   -M, --domain=DOMAINNAME     select messages belonging to domain DOMAINNAME\n\
+  -J, --msgctxt               start of patterns for the msgctxt\n\
   -K, --msgid                 start of patterns for the msgid\n\
   -T, --msgstr                start of patterns for the msgstr\n\
   -C, --comment               start of patterns for the translator's comment\n\
@@ -650,7 +659,7 @@ is_message_selected (const message_ty *mp)
   const char *p;
 
   /* Always keep the header entry.  */
-  if (mp->msgid[0] == '\0')
+  if (is_header (mp))
     return true;
 
   /* Test whether one of mp->filepos[] is selected.  */
@@ -658,11 +667,16 @@ is_message_selected (const message_ty *mp)
     if (filename_list_match (location_files, mp->filepos[i].file_name))
       return true;
 
+  /* Test msgctxt using the --msgctxt arguments.  */
+  if (mp->msgctxt != NULL
+      && is_string_selected (0, mp->msgctxt, strlen (mp->msgctxt)))
+    return true;
+
   /* Test msgid and msgid_plural using the --msgid arguments.  */
-  if (is_string_selected (0, mp->msgid, strlen (mp->msgid)))
+  if (is_string_selected (1, mp->msgid, strlen (mp->msgid)))
     return true;
   if (mp->msgid_plural != NULL
-      && is_string_selected (0, mp->msgid_plural, strlen (mp->msgid_plural)))
+      && is_string_selected (1, mp->msgid_plural, strlen (mp->msgid_plural)))
     return true;
 
   /* Test msgstr using the --msgstr arguments.  */
@@ -673,14 +687,14 @@ is_message_selected (const message_ty *mp)
     {
       size_t length = strlen (p);
 
-      if (is_string_selected (1, p, length))
+      if (is_string_selected (2, p, length))
 	return true;
 
       p += length + 1;
     }
 
   /* Test translator comments using the --comment arguments.  */
-  if (grep_task[2].pattern_count > 0
+  if (grep_task[3].pattern_count > 0
       && mp->comment != NULL && mp->comment->nitems > 0)
     {
       size_t length;
@@ -706,7 +720,7 @@ is_message_selected (const message_ty *mp)
       if (q != total_comment + length)
 	abort ();
 
-      selected = is_string_selected (2, total_comment, length);
+      selected = is_string_selected (3, total_comment, length);
 
       freesa (total_comment);
 

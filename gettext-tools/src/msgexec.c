@@ -331,6 +331,10 @@ process_string (const message_ty *mp, const char *str, size_t len)
       int exitstatus;
 
       /* Set environment variables for the subprocess.  */
+      if (mp->msgctxt != NULL)
+	xsetenv ("MSGEXEC_MSGCTXT", mp->msgctxt, 1);
+      else
+	unsetenv ("MSGEXEC_MSGCTXT");
       xsetenv ("MSGEXEC_MSGID", mp->msgid, 1);
       location = xasprintf ("%s:%ld", mp->pos.file_name,
 			    (long) mp->pos.line_number);

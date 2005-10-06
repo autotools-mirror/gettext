@@ -1,3 +1,13 @@
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
+	Support for context dependent translations in PO files.
+	* gettext.texi (PO Files): Explain syntax of msgctxt.
+	(MO Files): Explain how contexts are stored.
+	(Contexts): New subsection.
+	(GUI program problems): Remove subsection.
+	* msgexec.texi: Mention MSGEXEC_MSGCTXT environment variable.
+	* msggrep.texi: Document option -J.
+
 2005-09-25  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.texi (--from-code): Python input is no longer always in

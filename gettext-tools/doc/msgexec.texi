@@ -17,12 +17,15 @@ A special builtin command called @samp{0} outputs the translation, followed
 by a null byte.  The output of @samp{msgexec 0} is suitable as input for
 @samp{xargs -0}.
 
+@vindex MSGEXEC_MSGCTXT@r{, environment variable}
 @vindex MSGEXEC_MSGID@r{, environment variable}
 @vindex MSGEXEC_LOCATION@r{, environment variable}
 During each @var{command} invocation, the environment variable
 @code{MSGEXEC_MSGID} is bound to the message's msgid, and the environment
 variable @code{MSGEXEC_LOCATION} is bound to the location in the PO file
-of the message.
+of the message.  If the message has a context, the environment variable
+@code{MSGEXEC_MSGCTXT} is bound to the message's msgctxt, otherwise it is
+unbound.
 
 @cindex catalog encoding and @code{msgexec} output
 Note: It is your responsibility to ensure that the @var{command} can cope

@@ -304,7 +304,7 @@ po_file_domain_header (po_file_t file, const char *domain)
   mlp = msgdomain_list_sublist (file->mdlp, domain, false);
   if (mlp != NULL)
     for (j = 0; j < mlp->nitems; j++)
-      if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+      if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 	{
 	  const char *header = mlp->item[j]->msgstr;
 
@@ -510,7 +510,36 @@ po_message_create (void)
 {
   lex_pos_ty pos = { NULL, 0 };
 
-  return (po_message_t) message_alloc (NULL, NULL, NULL, 0, &pos);
+  return (po_message_t) message_alloc (NULL, NULL, NULL, NULL, 0, &pos);
+}
+
+
+/* Return the context of a message, or NULL for a message not restricted to a
+   context.  */
+const char *
+po_message_msgctxt (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return mp->msgctxt;
+}
+
+
+/* Change the context of a message. NULL means a message not restricted to a
+   context.  */
+void
+po_message_set_msgctxt (po_message_t message, const char *msgctxt)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (msgctxt != mp->msgctxt)
+    {
+      char *old_msgctxt = (char *) mp->msgctxt;
+
+      mp->msgctxt = (msgctxt != NULL ? xstrdup (msgctxt) : NULL);
+      if (old_msgctxt != NULL)
+	free (old_msgctxt);
+    }
 }
 
 
@@ -1056,7 +1085,7 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
 	msgdomain_list_sublist (iterator->file->mdlp, iterator->domain, false);
       if (mlp != NULL)
 	for (j = 0; j < mlp->nitems; j++)
-	  if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	  if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 	    {
 	      header = mlp->item[j];
 	      break;

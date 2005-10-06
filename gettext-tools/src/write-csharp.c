@@ -85,8 +85,9 @@
 #endif
 
 #include "c-ctype.h"
-#include "error.h"
 #include "relocatable.h"
+#include "error.h"
+#include "xerror.h"
 #include "csharpcomp.h"
 #include "message.h"
 #include "mkdtemp.h"
@@ -562,7 +563,7 @@ write_csharp_code (FILE *stream, const char *class_name, message_list_ty *mlp)
       struct expression *plural;
       unsigned long int nplurals;
 
-      header_entry = message_list_search (mlp, "");
+      header_entry = message_list_search (mlp, NULL, "");
       extract_plural_expression (header_entry ? header_entry->msgstr : NULL,
 				 &plural, &nplurals);
 
@@ -635,6 +636,25 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   /* If no entry for this resource/domain, don't even create the file.  */
   if (mlp->nitems == 0)
     return 0;
+
+  /* Determine whether mlp has entries with context.  */
+  {
+    bool has_context;
+    size_t j;
+
+    has_context = false;
+    for (j = 0; j < mlp->nitems; j++)
+      if (mlp->item[j]->msgctxt != NULL)
+	has_context = true;
+    if (has_context)
+      {
+	multiline_error (xstrdup (""),
+			 xstrdup (_("\
+message catalog has context dependent translations\n\
+but the C# .dll format doesn't support contexts\n")));
+	return 1;
+      }
+  }
 
   retval = 1;
 

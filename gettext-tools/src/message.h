@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -35,6 +35,10 @@ extern "C" {
 /* According to Sun's Uniforum proposal the default message domain is
    named 'messages'.  */
 #define MESSAGE_DOMAIN_DEFAULT "messages"
+
+
+/* Separator between msgctxt and msgid in .mo files.  */
+#define MSGCTXT_SEPARATOR '\004'  /* EOT */
 
 
 /* Kinds of format strings.  */
@@ -96,6 +100,9 @@ enum is_wrap
 typedef struct message_ty message_ty;
 struct message_ty
 {
+  /* The msgctxt string, if present.  */
+  const char *msgctxt;
+
   /* The msgid string.  */
   const char *msgid;
 
@@ -155,9 +162,11 @@ struct message_ty
 };
 
 extern message_ty *
-       message_alloc (const char *msgid, const char *msgid_plural,
+       message_alloc (const char *msgctxt,
+		      const char *msgid, const char *msgid_plural,
 		      const char *msgstr, size_t msgstr_len,
 		      const lex_pos_ty *pp);
+#define is_header(mp) ((mp)->msgctxt == NULL && (mp)->msgid[0] == '\0')
 extern void
        message_free (message_ty *mp);
 extern void
@@ -200,13 +209,16 @@ typedef bool message_predicate_ty (const message_ty *mp);
 extern void
        message_list_remove_if_not (message_list_ty *mlp,
 				   message_predicate_ty *predicate);
-/* Recompute the hash table of a message list after the msgids changed.  */
+/* Recompute the hash table of a message list after the msgids or msgctxts
+   changed.  */
 extern bool
        message_list_msgids_changed (message_list_ty *mlp);
 extern message_ty *
-       message_list_search (message_list_ty *mlp, const char *msgid);
+       message_list_search (message_list_ty *mlp,
+			    const char *msgctxt, const char *msgid);
 extern message_ty *
-       message_list_search_fuzzy (message_list_ty *mlp, const char *msgid);
+       message_list_search_fuzzy (message_list_ty *mlp,
+				  const char *msgctxt, const char *msgid);
 
 
 typedef struct message_list_list_ty message_list_list_ty;
@@ -229,10 +241,10 @@ extern void
 				      message_list_list_ty *mllp2);
 extern message_ty *
        message_list_list_search (message_list_list_ty *mllp,
-				 const char *msgid);
+				 const char *msgctxt, const char *msgid);
 extern message_ty *
        message_list_list_search_fuzzy (message_list_list_ty *mllp,
-				       const char *msgid);
+				       const char *msgctxt, const char *msgid);
 
 
 typedef struct msgdomain_ty msgdomain_ty;
@@ -271,9 +283,11 @@ extern message_list_ty *
        msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
 			       bool create);
 extern message_ty *
-       msgdomain_list_search (msgdomain_list_ty *mdlp, const char *msgid);
+       msgdomain_list_search (msgdomain_list_ty *mdlp,
+			      const char *msgctxt, const char *msgid);
 extern message_ty *
-       msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp, const char *msgid);
+       msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp,
+				    const char *msgctxt, const char *msgid);
 
 
 #ifdef __cplusplus

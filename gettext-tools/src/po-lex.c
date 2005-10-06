@@ -50,6 +50,7 @@
 #include "po-error.h"
 #include "po-xerror.h"
 #include "pos.h"
+#include "message.h"
 #include "str-list.h"
 #include "po-gram-gen2.h"
 
@@ -725,6 +726,8 @@ keyword_p (const char *s)
     return MSGID_PLURAL;
   if (!strcmp (s, "msgstr"))
     return MSGSTR;
+  if (!strcmp (s, "msgctxt"))
+    return MSGCTXT;
   po_gram_error_at_line (&gram_pos, _("keyword \"%s\" unknown"), s);
   return NAME;
 }
@@ -965,6 +968,12 @@ po_gram_lex ()
 		bufpos += mb_len (mbc);
 	      }
 	    buf[bufpos] = '\0';
+
+	    /* Strings cannot contain the msgctxt separator, because it cannot
+	       be faithfully represented in the msgid of a .mo file.  */
+	    if (strchr (buf, MSGCTXT_SEPARATOR) != NULL)
+	      po_gram_error_at_line (&gram_pos,
+				     _("context separator <EOT> within string"));
 
 	    /* FIXME: Treatment of embedded \000 chars is incorrect.  */
 	    po_gram_lval.string.string = xstrdup (buf);

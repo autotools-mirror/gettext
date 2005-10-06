@@ -1,5 +1,30 @@
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
+	Support for context dependent translations in PO files.
+	* msgattrib-15: New file.
+	* msgcat-13: New file.
+	* msgcat-14: New file.
+	* msgcomm-25: New file.
+	* msgconv-5: New file.
+	* msgen-3: New file.
+	* msgexec-4: New file.
+	* msgfilter-4: New file.
+	* msgfmt-14: New file.
+	* msgfmt-qt-2: New file.
+	* msggrep-7: New file.
+	* msginit-2: New file.
+	* msgmerge-18: New file.
+	* msguniq-5: New file.
+	* qttest2_de.po: New file.
+	* qttest2_de.qm: New file.
+	* qttest2_de.ts: New file.
+	* Makefile.am (TESTS): Add msgattrib-15, msgcat-13, msgcat-14,
+	msgcomm-25, msgconv-5, msgen-3, msgexec-4, msgfmt-14, msgfmt-qt-2,
+	msggrep-7, msginit-2, msgmerge-18, msguniq-5.
+	(EXTRA_DIST): Add qttest2_de.po, qttest2_de.qm, qttest2_de.ts.
+
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
 	* msgcat-12: New file.
 	* Makefie.am (TESTS): Add it.
 

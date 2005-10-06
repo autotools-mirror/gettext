@@ -1,3 +1,11 @@
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
+	Support for context dependent translations in PO files.
+	* gettext.h (GETTEXT_CONTEXT_GLUE): New macro.
+	(pgettext, dpgettext, dcpgettext, npgettext, dnpgettext, dcnpgettext):
+	New macros.
+	(pgettext_aux, npgettext_aux): New inline functions.
+
 2005-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* byteswap_.h: New file, from gnulib.

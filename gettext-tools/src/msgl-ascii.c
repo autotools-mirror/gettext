@@ -73,6 +73,10 @@ is_ascii_message (message_ty *mp)
   if (mp->msgid_plural != NULL && !is_ascii_string (mp->msgid_plural))
     return false;
 
+  /* Likewise for msgctxt.  */
+  if (mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt))
+    return false;
+
   return true;
 }
 

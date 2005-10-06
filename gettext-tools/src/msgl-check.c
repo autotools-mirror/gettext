@@ -280,7 +280,7 @@ check_plural (message_list_ty *mlp)
 
   /* Look at the plural entry for this domain.
      Cf, function extract_plural_expression.  */
-  header = message_list_search (mlp, "");
+  header = message_list_search (mlp, NULL, "");
   if (header != NULL)
     {
       const char *nullentry;
@@ -728,7 +728,7 @@ check_message (const message_ty *mp,
 	       int check_compatibility,
 	       int check_accelerators, char accelerator_char)
 {
-  if (check_header && mp->msgid[0] == '\0')
+  if (check_header && is_header (mp))
     check_header_entry (mp, mp->msgstr);
 
   return check_pair (mp,

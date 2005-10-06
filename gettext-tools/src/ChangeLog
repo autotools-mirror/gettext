@@ -1,5 +1,117 @@
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
+	Support for context dependent translations in PO files.
+	* message.h (MSGCTXT_SEPARATOR): New macro.
+	(struct message_ty): Add 'msgctxt' field.
+	(message_alloc): Add msgctxt argument.
+	(is_header): New macro.
+	(message_list_search, message_list_search_fuzzy,
+	message_list_list_search, message_list_list_search_fuzzy,
+	msgdomain_list_search, msgdomain_list_search_fuzzy): Add msgctxt
+	argument.
+	* message.c: Include xallocsa.h.
+	(message_alloc): Add msgctxt argument.
+	(message_copy): Update.
+	(message_list_hash_insert_entry): New function.
+	(message_list_append, message_list_prepend, message_list_insert_at,
+	message_list_msgids_changed): Use it.
+	(message_list_search): Add msgctxt argument.
+	(message_list_search_fuzzy_inner): Likewise.
+	(message_list_search_fuzzy): Likewise.
+	(message_list_list_search): Likewise.
+	(message_list_list_search_fuzzy): Likewise.
+	* msgl-ascii.c (is_ascii_message): Also test the msgctxt.
+	* write-po.c (message_print): Warn if some msgctxt has non-ASCII
+	characters. Write out the msgctxt.
+	(message_print_obsolete): Likewise.
+	(msgdomain_list_print_po): Use is_header macro.
+	(msgdomain_list_print): Likewise. Bail out if contexts are present and
+	cannot be stored in the given output format.
+	* write-properties.c (write_message): Use is_header macro.
+	* po-lex.c: Include message.h.
+	(keyword_p): Also recognize 'msgctxt'.
+	(po_gram_lex): Bail out if a string contains the EOT character.
+	* read-po-abstract.h (struct abstract_po_reader_class_ty): Add msgctxt
+	argument to directive_message function pointer.
+	(po_callback_message): Add msgctxt argument.
+	* read-po-abstract.c (call_directive_message, po_callback_message): Add
+	msgctxt argument.
+	* po-gram-gen.y (do_callback_message): Add msgctxt argument. Use
+	is_header macro.
+	(MSGCTXT): New token type.
+	(message_intro, MSGCTXT): Declare return types.
+	(message): Use message_intro instead of just MSGID.
+	(message_intro): New nonterminal reduction rules.
+	* read-properties.c (properties_parse): Update.
+	* read-stringtable.c (stringtable_parse): Update.
+	* read-po.h (struct default_po_reader_class_ty): Add msgctxt argument
+	to add_message field.
+	(default_directive_message, default_add_message): Likewise.
+	* read-po.c (call_add_message, default_directive_message,
+	default_add_message): Add msgctxt argument.
+	* msgl-iconv.c (convert_msgid): Also convert the msgctxt.
+	(iconv_message_list): Use is_header macro. Test also the msgctxt for
+	non-ASCII-ness.
+	* msgl-cat.c (is_message_selected, is_message_needed): Use is_header
+	macro.
+	(catenate_msgdomain_list): Likewise. Update.
+	* msgl-equal.c (message_equal): Likewise. Also compare the msgctxt.
+	* msgcmp.c (is_message_selected): Use is_header macro.
+	(match_domain): Update.
+	(compare): Use is_header macro.
+	* msgmerge.c (message_merge, match_domain): Use is_header macro.
+	Update.
+	(merge): Update.
+	* msgattrib.c (is_message_selected): Use is_header macro.
+	(process_message_list): Likewise. Update.
+	* msgl-charset.c (compare_po_locale_charsets): Use is_header macro.
+	* msgexec.c (process_string): Also set or unset MSGEXEC_MSGCTXT
+	variable.
+	* msgfilter.c (process_message): Use is_header macro.
+	* msggrep.c (grep_task): Increase size from 3 to 4.
+	(long_options): Add --msgctxt option.
+	(main): Accept -J/--msgctxt option. Update grep_pass numbers.
+	(no_pass): Update.
+	(usage): Mention -J option.
+	(is_message_selected): Use is_header macro. Perform a new grep pass on
+	the msgctxt.
+	* msginit.c (fill_header): Use is_header macro. Update.
+	(update_msgstr_plurals): Update.
+	* read-mo.c (read_mo_file): Split msgid into msgctxt and msgid. Update.
+	* read-tcl.c (msgdomain_read_tcl): Use is_header macro.
+	* msgl-check.c (check_plural): Update.
+	(check_message): Use is_header macro.
+	* write-mo.c (write_table): Write msgid with msgctxt, instead of just
+	the msgid.
+	* write-java.c: Include xerror.h.
+	(write_java_code): Update.
+	(msgdomain_write_java): Give error if some entries have a context.
+	* write-csharp.c: Include xerror.h.
+	(write_csharp_code): Update.
+	(msgdomain_write_csharp): Give error if some entries have a context.
+	* write-resources.c (msgdomain_write_csharp_resources): Bail out if
+	contexts are present and cannot be stored in the given output format.
+	* write-tcl.c (write_msg): Use is_header macro.
+	(msgdomain_write_tcl): Bail out if contexts are present and cannot be
+	stored in the given output format.
+	* write-qt.c: Include hash.h.
+	(write_qm): Use is_header macro. Write out msgctxt if present. Write
+	a contexts section if appropriate.
+	* msgfmt.c (msgfmt_add_message): Add msgctxt argument.
+	(msgfmt_frob_new_message): Use is_header macro.
+	* xgettext.c (exclude_directive_message): Add msgctxt argument.
+	(remember_a_message, construct_header, finalize_header): Update.
+	* x-po.c (extract_add_message): Add msgctxt argument. Update.
+	(extract): Update.
+	* gettext-po.h (po_message_msgctxt, po_message_set_msgctxt): New
+	declarations.
+	* gettext-po.c (po_file_domain_header): Use is_header macro.
+	(po_message_create): Update.
+	(po_message_msgctxt, po_message_set_msgctxt): New functions.
+	(po_message_check_all): Use is_header macro.
+
+2005-10-01  Bruno Haible  <bruno@clisp.org>
+
 	Avoid a crash when msgcat or msgconv is asked to convert a non-ASCII
 	msgid.
 	* msgl-iconv.h (iconv_message_list): Change return type to boolean.

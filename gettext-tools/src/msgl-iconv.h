@@ -53,7 +53,7 @@ extern char *convert_string (iconv_t cd, const char *string,
    CANON_TO_CODE.  The (already canonicalized) encoding before conversion
    can be passed as CANON_FROM_CODE; if NULL is passed instead, the
    encoding is looked up in the header entry.  Returns true if and only if
-   some msgid changed due to the conversion.  */
+   some msgctxt or msgid changed due to the conversion.  */
 extern bool
        iconv_message_list (message_list_ty *mlp,
 			   const char *canon_from_code,

@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -286,20 +286,35 @@ read_mo_file (message_list_ty *mlp, const char *filename)
       for (i = 0; i < header.nstrings; i++)
 	{
 	  message_ty *mp;
+	  char *msgctxt;
 	  char *msgid;
 	  size_t msgid_len;
+	  char *separator;
 	  char *msgstr;
 	  size_t msgstr_len;
 
-	  /* Read the msgid.  */
+	  /* Read the msgctxt and msgid.  */
 	  msgid = get_string (&bf, header.orig_tab_offset + i * 8,
 			      &msgid_len);
+	  /* Split into msgctxt and msgid.  */
+	  separator = strchr (msgid, MSGCTXT_SEPARATOR);
+	  if (separator != NULL)
+	    {
+	      /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
+	      *separator = '\0';
+	      msgctxt = msgid;
+	      msgid = separator + 1;
+	      msgid_len -= msgid - msgctxt;
+	    }
+	  else
+	    msgctxt = NULL;
 
 	  /* Read the msgstr.  */
 	  msgstr = get_string (&bf, header.trans_tab_offset + i * 8,
 			       &msgstr_len);
 
-	  mp = message_alloc (msgid,
+	  mp = message_alloc (msgctxt,
+			      msgid,
 			      (strlen (msgid) + 1 < msgid_len
 			       ? msgid + strlen (msgid) + 1
 			       : NULL),
@@ -327,21 +342,36 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 	  for (i = 0; i < header.n_sysdep_strings; i++)
 	    {
 	      message_ty *mp;
+	      char *msgctxt;
 	      char *msgid;
 	      size_t msgid_len;
+	      char *separator;
 	      char *msgstr;
 	      size_t msgstr_len;
 	      nls_uint32 offset;
 
-	      /* Read the msgid.  */
+	      /* Read the msgctxt and msgid.  */
 	      offset = get_uint32 (&bf, header.orig_sysdep_tab_offset + i * 4);
 	      msgid = get_sysdep_string (&bf, offset, &header, &msgid_len);
+	      /* Split into msgctxt and msgid.  */
+	      separator = strchr (msgid, MSGCTXT_SEPARATOR);
+	      if (separator != NULL)
+		{
+		  /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
+		  *separator = '\0';
+		  msgctxt = msgid;
+		  msgid = separator + 1;
+		  msgid_len -= msgid - msgctxt;
+		}
+	      else
+		msgctxt = NULL;
 
 	      /* Read the msgstr.  */
 	      offset = get_uint32 (&bf, header.trans_sysdep_tab_offset + i * 4);
 	      msgstr = get_sysdep_string (&bf, offset, &header, &msgstr_len);
 
-	      mp = message_alloc (msgid,
+	      mp = message_alloc (msgctxt,
+				  msgid,
 				  (strlen (msgid) + 1 < msgid_len
 				   ? msgid + strlen (msgid) + 1
 				   : NULL),

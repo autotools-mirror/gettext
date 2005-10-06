@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2001, 2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -94,15 +94,17 @@ static long plural_counter;
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
 
 static inline void
-do_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+do_callback_message (char *msgctxt,
+		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
 		     bool obsolete)
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
-  if (msgid[0] == '\0' && !obsolete)
+  if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
     po_lex_charset_set (msgstr, gram_pos.file_name);
 
-  po_callback_message (msgid, msgid_pos, msgid_plural,
+  po_callback_message (msgctxt,
+		       msgid, msgid_pos, msgid_plural,
 		       msgstr, msgstr_len, msgstr_pos,
 		       false, obsolete);
 }
@@ -112,6 +114,7 @@ do_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 %token	COMMENT
 %token	DOMAIN
 %token	JUNK
+%token	MSGCTXT
 %token	MSGID
 %token	MSGID_PLURAL
 %token	MSGSTR
@@ -129,10 +132,10 @@ do_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
   struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 }
 
-%type <string> STRING COMMENT NAME msgid_pluralform
+%type <string> STRING COMMENT NAME message_intro msgid_pluralform
 %type <stringlist> string_list
 %type <number> NUMBER
-%type <pos> DOMAIN MSGID MSGID_PLURAL MSGSTR '[' ']'
+%type <pos> DOMAIN MSGCTXT MSGID MSGID_PLURAL MSGSTR '[' ']'
 %type <rhs> pluralform pluralform_list
 
 %right MSGSTR
@@ -155,7 +158,7 @@ domain
 	;
 
 message
-	: MSGID string_list MSGSTR string_list
+	: message_intro string_list MSGSTR string_list
 		{
 		  char *string2 = string_list_concat_destroy (&$2.stringlist);
 		  char *string4 = string_list_concat_destroy (&$4.stringlist);
@@ -164,7 +167,7 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    do_callback_message (string2, &$1.pos, NULL,
+		    do_callback_message ($1.string, string2, &$1.pos, NULL,
 					 string4, strlen (string4) + 1, &$3.pos,
 					 $1.obsolete);
 		  else
@@ -173,7 +176,7 @@ message
 		      free (string4);
 		    }
 		}
-	| MSGID string_list msgid_pluralform pluralform_list
+	| message_intro string_list msgid_pluralform pluralform_list
 		{
 		  char *string2 = string_list_concat_destroy (&$2.stringlist);
 
@@ -181,7 +184,7 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    do_callback_message (string2, &$1.pos, $3.string,
+		    do_callback_message ($1.string, string2, &$1.pos, $3.string,
 					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
 					 $1.obsolete);
 		  else
@@ -191,7 +194,7 @@ message
 		      free ($4.rhs.msgstr);
 		    }
 		}
-	| MSGID string_list msgid_pluralform
+	| message_intro string_list msgid_pluralform
 		{
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
@@ -199,7 +202,7 @@ message
 		  string_list_destroy (&$2.stringlist);
 		  free ($3.string);
 		}
-	| MSGID string_list pluralform_list
+	| message_intro string_list pluralform_list
 		{
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
@@ -207,11 +210,28 @@ message
 		  string_list_destroy (&$2.stringlist);
 		  free ($3.rhs.msgstr);
 		}
-	| MSGID string_list
+	| message_intro string_list
 		{
 		  check_obsolete ($1, $2);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgstr' section"));
 		  string_list_destroy (&$2.stringlist);
+		}
+	;
+
+message_intro
+	: MSGID
+		{
+		  $$.string = NULL;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	| MSGCTXT string_list MSGID
+		{
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  $$.string = string_list_concat_destroy (&$2.stringlist);
+		  $$.pos = $3.pos;
+		  $$.obsolete = $3.obsolete;
 		}
 	;
 

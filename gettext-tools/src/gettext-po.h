@@ -185,6 +185,14 @@ extern void po_message_insert (po_message_iterator_t iterator, po_message_t mess
    To finish initializing the message, you must set the msgid and msgstr.  */
 extern po_message_t po_message_create (void);
 
+/* Return the context of a message, or NULL for a message not restricted to a
+   context.  */
+extern const char * po_message_msgctxt (po_message_t message);
+
+/* Change the context of a message. NULL means a message not restricted to a
+   context.  */
+extern void po_message_set_msgctxt (po_message_t message, const char *msgctxt);
+
 /* Return the msgid (untranslated English string) of a message.  */
 extern const char * po_message_msgid (po_message_t message);
 

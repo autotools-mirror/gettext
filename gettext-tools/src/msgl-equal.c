@@ -1,5 +1,5 @@
 /* Message list test for equality.
-   Copyright (C) 2001-2002 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -136,6 +136,11 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
 {
   size_t i, i1, i2;
 
+  if (!(mp1->msgctxt != NULL
+	? mp2->msgctxt != NULL && strcmp (mp1->msgctxt, mp2->msgctxt) == 0
+	: mp2->msgctxt == NULL))
+    return false;
+
   if (strcmp (mp1->msgid, mp2->msgid) != 0)
     return false;
 
@@ -145,7 +150,7 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
 	: mp2->msgid_plural == NULL))
     return false;
 
-  if (mp1->msgid[0] == '\0' && ignore_potcdate
+  if (is_header (mp1) && ignore_potcdate
       ? !msgstr_equal_ignoring_potcdate (mp1->msgstr, mp1->msgstr_len,
 					 mp2->msgstr, mp2->msgstr_len)
       : !msgstr_equal (mp1->msgstr, mp1->msgstr_len,

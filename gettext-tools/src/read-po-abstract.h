@@ -75,6 +75,7 @@ struct abstract_po_reader_class_ty
 
   /* what to do with a message directive */
   void (*directive_message) (struct abstract_po_reader_ty *pop,
+			     char *msgctxt,
 			     char *msgid, lex_pos_ty *msgid_pos,
 			     char *msgid_plural,
 			     char *msgstr, size_t msgstr_len,
@@ -153,7 +154,8 @@ extern void
 
 /* Callbacks used by po-gram.y or po-lex.c, indirectly from po_scan.  */
 extern void po_callback_domain (char *name);
-extern void po_callback_message (char *msgid, lex_pos_ty *msgid_pos,
+extern void po_callback_message (char *msgctxt,
+				 char *msgid, lex_pos_ty *msgid_pos,
 				 char *msgid_plural,
 				 char *msgstr, size_t msgstr_len,
 				 lex_pos_ty *msgstr_pos,

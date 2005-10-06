@@ -854,6 +854,18 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
      this domain, emit an empty string.  */
+  if (mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt)
+      && po_charset_canonicalize (charset) != po_charset_utf8)
+    {
+      char *warning_message =
+	xasprintf (_("\
+The following msgctxt contains non-ASCII characters.\n\
+This will cause problems to translators who use a character encoding\n\
+different from yours. Consider using a pure ASCII msgctxt instead.\n\
+%s\n"), mp->msgctxt);
+      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      free (warning_message);
+    }
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
     {
@@ -866,6 +878,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
+  if (mp->msgctxt != NULL)
+    wrap (mp, fp, NULL, "msgctxt", mp->msgctxt, mp->do_wrap, charset);
   wrap (mp, fp, NULL, "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
     wrap (mp, fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
@@ -930,6 +944,18 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
+  if (mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt)
+      && po_charset_canonicalize (charset) != po_charset_utf8)
+    {
+      char *warning_message =
+	xasprintf (_("\
+The following msgctxt contains non-ASCII characters.\n\
+This will cause problems to translators who use a character encoding\n\
+different from yours. Consider using a pure ASCII msgctxt instead.\n\
+%s\n"), mp->msgctxt);
+      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      free (warning_message);
+    }
   if (!is_ascii_string (mp->msgid)
       && po_charset_canonicalize (charset) != po_charset_utf8)
     {
@@ -942,6 +968,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
+  if (mp->msgctxt != NULL)
+    wrap (mp, fp, "#~ ", "msgctxt", mp->msgctxt, mp->do_wrap, charset);
   wrap (mp, fp, "#~ ", "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
     wrap (mp, fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap,
@@ -997,7 +1025,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
       /* Search the header entry.  */
       header = NULL;
       for (j = 0; j < mlp->nitems; ++j)
-	if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 	  {
 	    header = mlp->item[j]->msgstr;
 	    break;
@@ -1066,7 +1094,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 	  message_list_ty *mlp = mdlp->item[k]->messages;
 
 	  if (!(mlp->nitems == 0
-		|| (mlp->nitems == 1 && mlp->item[0]->msgid[0] == '\0')))
+		|| (mlp->nitems == 1 && is_header (mlp->item[0]))))
 	    {
 	      found_nonempty = true;
 	      break;
@@ -1092,8 +1120,31 @@ Cannot output multiple translation domains into a single file with NeXTstep/GNUs
       if (mdlp->nitems == 1)
 	{
 	  message_list_ty *mlp = mdlp->item[0]->messages;
+	  const lex_pos_ty *has_context;
 	  const lex_pos_ty *has_plural;
 	  size_t j;
+
+	  has_context = NULL;
+	  for (j = 0; j < mlp->nitems; j++)
+	    {
+	      message_ty *mp = mlp->item[j];
+
+	      if (mp->msgctxt != NULL)
+		{
+		  has_context = &mp->pos;
+		  break;
+		}
+	    }
+
+	  if (has_context != NULL)
+	    {
+	      error_with_progname = false;
+	      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
+			 has_context->file_name, has_context->line_number,
+			 (size_t)(-1), false, _("\
+message catalog has context dependent translations, but the output format does not support them."));
+	      error_with_progname = true;
+	    }
 
 	  has_plural = NULL;
 	  for (j = 0; j < mlp->nitems; j++)

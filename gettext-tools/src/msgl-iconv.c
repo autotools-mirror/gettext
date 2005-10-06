@@ -228,6 +228,8 @@ static void
 convert_msgid (iconv_t cd, message_ty *mp,
 	       const struct conversion_context* context)
 {
+  if (mp->msgctxt != NULL)
+    mp->msgctxt = convert_string (cd, mp->msgctxt, context);
   mp->msgid = convert_string (cd, mp->msgid, context);
   if (mp->msgid_plural != NULL)
     mp->msgid_plural = convert_string (cd, mp->msgid_plural, context);
@@ -290,7 +292,7 @@ iconv_message_list (message_list_ty *mlp,
 
   /* Search the header entry, and extract and replace the charset name.  */
   for (j = 0; j < mlp->nitems; j++)
-    if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+    if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
 	const char *header = mlp->item[j]->msgstr;
 
@@ -402,7 +404,8 @@ and iconv() does not support this conversion."),
 	{
 	  message_ty *mp = mlp->item[j];
 
-	  if (!is_ascii_string (mp->msgid))
+	  if ((mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt))
+	      || !is_ascii_string (mp->msgid))
 	    msgids_changed = true;
 	  context.message = mp;
 	  convert_string_list (cd, mp->comment, &context);

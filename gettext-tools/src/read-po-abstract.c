@@ -93,6 +93,7 @@ call_directive_domain (abstract_po_reader_ty *pop, char *name)
 
 static inline void
 call_directive_message (abstract_po_reader_ty *pop,
+			char *msgctxt,
 			char *msgid,
 			lex_pos_ty *msgid_pos,
 			char *msgid_plural,
@@ -101,7 +102,8 @@ call_directive_message (abstract_po_reader_ty *pop,
 			bool force_fuzzy, bool obsolete)
 {
   if (pop->methods->directive_message)
-    pop->methods->directive_message (pop, msgid, msgid_pos, msgid_plural,
+    pop->methods->directive_message (pop, msgctxt,
+				     msgid, msgid_pos, msgid_plural,
 				     msgstr, msgstr_len, msgstr_pos,
 				     force_fuzzy, obsolete);
 }
@@ -216,12 +218,14 @@ po_callback_domain (char *name)
 /* This function is called by po_gram_lex() whenever a message has been
    seen.  */
 void
-po_callback_message (char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+po_callback_message (char *msgctxt,
+		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
 		     bool force_fuzzy, bool obsolete)
 {
   /* assert(callback_arg); */
-  call_directive_message (callback_arg, msgid, msgid_pos, msgid_plural,
+  call_directive_message (callback_arg, msgctxt,
+			  msgid, msgid_pos, msgid_plural,
 			  msgstr, msgstr_len, msgstr_pos,
 			  force_fuzzy, obsolete);
 }

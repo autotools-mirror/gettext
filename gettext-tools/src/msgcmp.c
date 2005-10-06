@@ -236,7 +236,7 @@ static bool
 is_message_selected (const message_ty *mp)
 {
   /* Always keep the header entry.  */
-  if (mp->msgid[0] == '\0')
+  if (is_header (mp))
     return true;
 
   return !mp->obsolete;
@@ -271,7 +271,7 @@ match_domain (const char *fn1, const char *fn2,
       refmsg = refmlp->item[j];
 
       /* See if it is in the other file.  */
-      defmsg = message_list_search (defmlp, refmsg->msgid);
+      defmsg = message_list_search (defmlp, refmsg->msgctxt, refmsg->msgid);
       if (defmsg)
 	defmsg->used = 1;
       else
@@ -280,7 +280,8 @@ match_domain (const char *fn1, const char *fn2,
 	     similar message, it could be a typo, or the suggestion may
 	     help.  */
 	  (*nerrors)++;
-	  defmsg = message_list_search_fuzzy (defmlp, refmsg->msgid);
+	  defmsg =
+	    message_list_search_fuzzy (defmlp, refmsg->msgctxt, refmsg->msgid);
 	  if (defmsg)
 	    {
 	      po_gram_error_at_line (&refmsg->pos, _("\
@@ -323,7 +324,7 @@ compare (const char *fn1, const char *fn2)
 	message_list_ty *mlp = ref->item[k]->messages;
 
 	for (j = 0; j < mlp->nitems; j++)
-	  if (mlp->item[j]->msgid[0] == '\0' /* && !mlp->item[j]->obsolete */)
+	  if (is_header (mlp->item[j]) /* && !mlp->item[j]->obsolete */)
 	    {
 	      const char *header = mlp->item[j]->msgstr;
 

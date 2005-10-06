@@ -1715,7 +1715,7 @@ fill_header (msgdomain_list_ty *mdlp)
 
 	  /* Search the header entry.  */
 	  for (j = 0; j < mlp->nitems; j++)
-	    if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	    if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 	      {
 		header_mp = mlp->item[j];
 		break;
@@ -1726,7 +1726,7 @@ fill_header (msgdomain_list_ty *mdlp)
 	    {
 	      static lex_pos_ty pos = { __FILE__, __LINE__ };
 
-	      header_mp = message_alloc ("", NULL, "", 1, &pos);
+	      header_mp = message_alloc (NULL, "", NULL, "", 1, &pos);
 	      message_list_prepend (mlp, header_mp);
 	    }
 
@@ -1797,7 +1797,7 @@ update_msgstr_plurals (msgdomain_list_ty *mdlp)
       char *untranslated_plural_msgstr;
       size_t j;
 
-      header_entry = message_list_search (mlp, "");
+      header_entry = message_list_search (mlp, NULL, "");
       nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
       untranslated_plural_msgstr = (char *) xmalloc (nplurals);
       memset (untranslated_plural_msgstr, '\0', nplurals);

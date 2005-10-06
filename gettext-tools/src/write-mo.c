@@ -145,6 +145,7 @@ struct pre_sysdep_message
 static void
 write_table (FILE *output_file, message_list_ty *mlp)
 {
+  char **msgctid_arr;
   size_t nstrings;
   struct pre_message *msg_arr;
   size_t n_sysdep_strings;
@@ -169,6 +170,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* First pass: Move the static string pairs into an array, for sorting,
      and at the same time, compute the segments of the system dependent
      strings.  */
+  msgctid_arr = (char **) xmalloc (mlp->nitems * sizeof (char *));
   nstrings = 0;
   msg_arr =
     (struct pre_message *)
@@ -183,8 +185,21 @@ write_table (FILE *output_file, message_list_ty *mlp)
   for (j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
+      size_t msgctlen;
+      char *msgctid;
       struct interval *intervals[2];
       size_t nintervals[2];
+
+      /* Concatenate mp->msgctxt and mp->msgid into msgctid.  */
+      msgctlen = (mp->msgctxt != NULL ? strlen (mp->msgctxt) + 1 : 0);
+      msgctid = (char *) xmalloc (msgctlen + strlen (mp->msgid) + 1);
+      if (mp->msgctxt != NULL)
+	{
+	  memcpy (msgctid, mp->msgctxt, msgctlen - 1);
+	  msgctid[msgctlen - 1] = MSGCTXT_SEPARATOR;
+	}
+      strcpy (msgctid + msgctlen, mp->msgid);
+      msgctid_arr[j] = msgctid;
 
       intervals[M_ID] = NULL;
       nintervals[M_ID] = 0;
@@ -204,6 +219,22 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
 	  get_sysdep_c_format_directives (mp->msgid, false,
 					  &intervals[M_ID], &nintervals[M_ID]);
+	  if (msgctlen > 0)
+	    {
+	      struct interval *id_intervals = intervals[M_ID];
+	      size_t id_nintervals = nintervals[M_ID];
+
+	      if (id_nintervals > 0)
+		{
+		  unsigned int i;
+
+		  for (i = 0; i < id_nintervals; i++)
+		    {
+		      id_intervals[i].startpos += msgctlen;
+		      id_intervals[i].endpos += msgctlen;
+		    }
+		}
+	    }
 
 	  p_end = mp->msgstr + mp->msgstr_len;
 	  for (p = mp->msgstr; p < p_end; p += strlen (p) + 1)
@@ -252,8 +283,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
 	      if (m == M_ID)
 		{
-		  str = mp->msgid;
-		  str_len = strlen (mp->msgid) + 1;
+		  str = msgctid; /* concatenation of mp->msgctxt + mp->msgid  */
+		  str_len = strlen (msgctid) + 1;
 		}
 	      else
 		{
@@ -321,8 +352,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
       else
 	{
 	  /* Static string pair.  */
-	  msg_arr[nstrings].str[M_ID].pointer = mp->msgid;
-	  msg_arr[nstrings].str[M_ID].length = strlen (mp->msgid) + 1;
+	  msg_arr[nstrings].str[M_ID].pointer = msgctid;
+	  msg_arr[nstrings].str[M_ID].length = strlen (msgctid) + 1;
 	  msg_arr[nstrings].str[M_STR].pointer = mp->msgstr;
 	  msg_arr[nstrings].str[M_STR].length = mp->msgstr_len;
 	  msg_arr[nstrings].id_plural = mp->msgid_plural;
@@ -745,8 +776,11 @@ write_table (FILE *output_file, message_list_ty *mlp)
     }
 
   freea (null);
+  for (j = 0; j < mlp->nitems; j++)
+    free (msgctid_arr[j]);
   free (sysdep_msg_arr);
   free (msg_arr);
+  free (msgctid_arr);
 }
 
 

@@ -47,6 +47,7 @@ static char *header_charset;
 
 static void
 extract_add_message (default_po_reader_ty *this,
+		     char *msgctxt,
 		     char *msgid,
 		     lex_pos_ty *msgid_pos,
 		     char *msgid_plural,
@@ -55,14 +56,14 @@ extract_add_message (default_po_reader_ty *this,
 		     bool force_fuzzy, bool obsolete)
 {
   /* See whether we shall exclude this message.  */
-  if (exclude != NULL && message_list_search (exclude, msgid) != NULL)
+  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
     goto discard;
 
   /* If the msgid is the empty string, it is the old header.  Throw it
      away, we have constructed a new one.  Only remember its charset.
      But if no new one was constructed, keep the old header.  This is useful
      because the old header may contain a charset= directive.  */
-  if (*msgid == '\0' && !xgettext_omit_header)
+  if (msgctxt == NULL && *msgid == '\0' && !xgettext_omit_header)
     {
       const char *charsetstr = strstr (msgstr, "charset=");
 
@@ -83,13 +84,15 @@ extract_add_message (default_po_reader_ty *this,
 	}
 
      discard:
+      if (msgctxt != NULL)
+	free (msgctxt);
       free (msgid);
       free (msgstr);
       return;
     }
 
   /* Invoke superclass method.  */
-  default_add_message (this, msgid, msgid_pos, msgid_plural,
+  default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
 		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
 }
 
@@ -148,7 +151,8 @@ extract (FILE *fp,
       if (!xgettext_omit_header)
 	{
 	  /* Put the old charset into the freshly constructed header entry.  */
-	  message_ty *mp = message_list_search (mdlp->item[0]->messages, "");
+	  message_ty *mp =
+	    message_list_search (mdlp->item[0]->messages, NULL, "");
 
 	  if (mp != NULL && !mp->obsolete)
 	    {

@@ -117,6 +117,25 @@ msgdomain_write_csharp_resources (message_list_ty *mlp,
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
+      /* Determine whether mlp has entries with context.  */
+      {
+	bool has_context;
+	size_t j;
+
+	has_context = false;
+	for (j = 0; j < mlp->nitems; j++)
+	  if (mlp->item[j]->msgctxt != NULL)
+	    has_context = true;
+	if (has_context)
+	  {
+	    multiline_error (xstrdup (""),
+			     xstrdup (_("\
+message catalog has context dependent translations\n\
+but the C# .resources format doesn't support contexts\n")));
+	    return 1;
+	  }
+      }
+
       /* Determine whether mlp has plural entries.  */
       {
 	bool has_plural;

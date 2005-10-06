@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -137,7 +137,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
       size_t j;
 
       for (j = 0; j < mlp->nitems; j++)
-	if (mlp->item[j]->msgid[0] == '\0')
+	if (is_header (mlp->item[j]))
 	  {
 	    /* Found the header entry.  */
 	    if (j > 0)

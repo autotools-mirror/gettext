@@ -494,7 +494,7 @@ static bool
 is_message_selected (const message_ty *mp)
 {
   /* Always keep the header entry.  */
-  if (mp->msgid[0] == '\0')
+  if (is_header (mp))
     return true;
 
   if ((to_remove & (REMOVE_UNTRANSLATED | REMOVE_TRANSLATED))
@@ -538,10 +538,10 @@ process_message_list (message_list_ty *mlp,
 	  /* Attribute changes only affect messages listed in --only-file
 	     and not listed in --ignore-file.  */
 	  if ((only_mlp
-	       ? message_list_search (only_mlp, mp->msgid) != NULL
+	       ? message_list_search (only_mlp, mp->msgctxt, mp->msgid) != NULL
 	       : true)
 	      && (ignore_mlp
-		  ? message_list_search (ignore_mlp, mp->msgid) == NULL
+		  ? message_list_search (ignore_mlp, mp->msgctxt, mp->msgid) == NULL
 		  : true))
 	    {
 	      if (to_change & SET_FUZZY)
@@ -549,7 +549,7 @@ process_message_list (message_list_ty *mlp,
 	      if (to_change & RESET_FUZZY)
 		mp->is_fuzzy = false;
 	      /* Always keep the header entry non-obsolete.  */
-	      if ((to_change & SET_OBSOLETE) && (mp->msgid[0] != '\0'))
+	      if ((to_change & SET_OBSOLETE) && !is_header (mp))
 		mp->obsolete = true;
 	      if (to_change & RESET_OBSOLETE)
 		mp->obsolete = false;

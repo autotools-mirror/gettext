@@ -262,8 +262,8 @@ About @code{gettext}
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
 * Charset conversion::          How to request conversion to Unicode
+* Contexts::                    Solving ambiguities in GUI programs
 * Plural forms::                Additional functions for handling plurals
-* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 
 Temporary Notes for the Programmers Chapter
@@ -1303,6 +1303,28 @@ Likewise for Qt, see @ref{qt-format}.
 
 @end table
 
+@kwindex msgctxt
+@cindex context, in PO files
+It is also possible to have entries with a context specifier. They look like
+this:
+
+@example
+@var{white-space}
+#  @var{translator-comments}
+#. @var{automatic-comments}
+#: @var{reference}@dots{}
+#, @var{flag}@dots{}
+msgctxt @var{context}
+msgid @var{untranslated-string}
+msgstr @var{translated-string}
+@end example
+
+The context serves to disambiguate messages with the same
+@var{untranslated-string}.  It is possible to have several entries with
+the same @var{untranslated-string} in a PO file, provided that they each
+have a different @var{context}.  Note that an empty @var{context} string
+and a absent @code{msgctxt} line do not mean the same thing.
+
 @kwindex msgid_plural
 @cindex plural forms, in PO files
 A different kind of entries is used for translations which involve
@@ -1331,6 +1353,9 @@ msgid_plural "found %d fatal errors"
 msgstr[0] "s'ha trobat %d error fatal"
 msgstr[1] "s'han trobat %d errors fatals"
 @end example
+
+Here also, a @code{msgctxt} context can be specified before @code{msgid},
+like above.
 
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,
@@ -4402,6 +4427,10 @@ With this option, each string is separately aligned so it starts at
 an offset which is a multiple of the alignment value.  On some RISC
 machines, a correct alignment will speed things up.
 
+@cindex context, in MO files
+Contexts are stored by storing the concatenation of the context, a
+@key{EOT} byte, and the original string, instead of the original string.
+
 @cindex plural forms, in MO files
 Plural forms are stored by letting the plural of the original string
 follow the singular of the original string, separated through a
@@ -4641,8 +4670,8 @@ in using this library will be interested in this description.
 * Ambiguities::                 Solving ambiguities
 * Locating Catalogs::           Locating message catalog files
 * Charset conversion::          How to request conversion to Unicode
+* Contexts::                    Solving ambiguities in GUI programs
 * Plural forms::                Additional functions for handling plurals
-* GUI program problems::        Another technique for solving ambiguities
 * Optimized gettext::           Optimization of the *gettext functions
 @end menu
 
@@ -4798,7 +4827,7 @@ in setting the locale values is simulated by looking at the environment
 variables.}
 @code{dcgettext} specifies the locale category by the third argument.
 
-@node Charset conversion, Plural forms, Locating Catalogs, gettext
+@node Charset conversion, Contexts, Locating Catalogs, gettext
 @subsection How to specify the output character set @code{gettext} uses
 @cindex charset conversion at runtime
 @cindex encoding conversion at runtime
@@ -4846,7 +4875,129 @@ user.  If the system went out of core during the execution of
 global variable @var{errno} is set accordingly.
 @end deftypefun
 
-@node Plural forms, GUI program problems, Charset conversion, gettext
+@node Contexts, Plural forms, Charset conversion, gettext
+@subsection Using contexts for solving ambiguities
+@cindex context
+@cindex GUI programs
+@cindex translating menu entries
+@cindex menu entries
+
+One place where the @code{gettext} functions, if used normally, have big
+problems is within programs with graphical user interfaces (GUIs).  The
+problem is that many of the strings which have to be translated are very
+short.  They have to appear in pull-down menus which restricts the
+length.  But strings which are not containing entire sentences or at
+least large fragments of a sentence may appear in more than one
+situation in the program but might have different translations.  This is
+especially true for the one-word strings which are frequently used in
+GUI programs.
+
+As a consequence many people say that the @code{gettext} approach is
+wrong and instead @code{catgets} should be used which indeed does not
+have this problem.  But there is a very simple and powerful method to
+handle this kind of problems with the @code{gettext} functions.
+
+Contexts can be added to strings to be translated.  A context dependent
+translation lookup is when a translation for a given string is searched,
+that is limited to a given context.  The translation for the same string
+in a different context can be different.  The different translations of
+the same string in different contexts can be stored in the in the same
+MO file, and can be edited by the translator in the same PO file.
+
+The @file{gettext.h} include file contains the lookup macros for strings
+with contexts.  They are implemented as thin macros and inline functions
+over the functions from @code{<libintl.h>}.
+
+@findex pgettext
+@example
+const char *pgettext (const char *msgctxt, const char *msgid);
+@end example
+
+In a call of this macro, @var{msgctxt} and @var{msgid} must be string
+literals.  The macro returns the translation of @var{msgid}, restricted
+to the context given by @var{msgctxt}.
+
+The @var{msgctxt} string is visible in the PO file to the translator.
+You should try to make it somehow canonical and never changing.  Because
+every time you change an @var{msgctxt}, the translator will have to review
+the translation of @var{msgid}.
+
+Finding a canonical @var{msgctxt} string that doesn't change over time can
+be hard.  But you shouldn't use the file name or class name containing the
+@code{pgettext} call -- because it is a common development task to rename
+a file or a class, and it shouldn't cause translator work.  Also you shouldn't
+use a comment in the form of a complete English sentence as @var{msgctxt} --
+because orthography or grammar changes are often applied to such sentences,
+and again, it shouldn't force the translator to do a review.
+
+The @samp{p} in @samp{pgettext} stands for ``particular'': @code{pgettext}
+fetches a particular translation of the @var{msgid}.
+
+@findex dpgettext
+@findex dcpgettext
+@example
+const char *dpgettext (const char *domain_name,
+                       const char *msgctxt, const char *msgid);
+const char *dcpgettext (const char *domain_name,
+                        const char *msgctxt, const char *msgid,
+                        int category);
+@end example
+
+These are generalizations of @code{pgettext}.  The behave similarly to
+@code{dgettext} and @code{dcgettext}, respectively.  The @var{domain_name}
+argument defines the translation domain.  The @var{category} argument
+allows to use another locale facet than @code{LC_MESSAGES}.
+
+As as example consider the following fictional situation.  A GUI program
+has a menu bar with the following entries:
+
+@smallexample
++------------+------------+--------------------------------------+
+| File       | Printer    |                                      |
++------------+------------+--------------------------------------+
+| Open     | | Select   |
+| New      | | Open     |
++----------+ | Connect  |
+             +----------+
+@end smallexample
+
+To have the strings @code{File}, @code{Printer}, @code{Open},
+@code{New}, @code{Select}, and @code{Connect} translated there has to be
+at some point in the code a call to a function of the @code{gettext}
+family.  But in two places the string passed into the function would be
+@code{Open}.  The translations might not be the same and therefore we
+are in the dilemma described above.
+
+What distinguishes the two places is the menu path from the menu root to
+the particular menu entries:
+
+@smallexample
+Menu|File
+Menu|Printer
+Menu|File|Open
+Menu|File|New
+Menu|Printer|Select
+Menu|Printer|Open
+Menu|Printer|Connect
+@end smallexample
+
+The context is thus the menu path without its last part.  So, the calls
+look like this:
+
+@smallexample
+pgettext ("Menu|", "File")
+pgettext ("Menu|", "Printer")
+pgettext ("Menu|File|", "Open")
+pgettext ("Menu|File|", "New")
+pgettext ("Menu|Printer|", "Select")
+pgettext ("Menu|Printer|", "Open")
+pgettext ("Menu|Printer|", "Connect")
+@end smallexample
+
+Whether or not to use the @samp{|} character at the end of the context is a
+matter of style.
+
+@node Plural forms, Optimized gettext, Contexts, gettext
 @subsection Additional functions for plural forms
 @cindex plural forms
 
@@ -5213,130 +5364,7 @@ Slovenian
 @end table
 @end table
 
-@node GUI program problems, Optimized gettext, Plural forms, gettext
-@subsection How to use @code{gettext} in GUI programs
-@cindex GUI programs
-@cindex translating menu entries
-@cindex menu entries
-
-One place where the @code{gettext} functions, if used normally, have big
-problems is within programs with graphical user interfaces (GUIs).  The
-problem is that many of the strings which have to be translated are very
-short.  They have to appear in pull-down menus which restricts the
-length.  But strings which are not containing entire sentences or at
-least large fragments of a sentence may appear in more than one
-situation in the program but might have different translations.  This is
-especially true for the one-word strings which are frequently used in
-GUI programs.
-
-As a consequence many people say that the @code{gettext} approach is
-wrong and instead @code{catgets} should be used which indeed does not
-have this problem.  But there is a very simple and powerful method to
-handle these kind of problems with the @code{gettext} functions.
-
-@noindent
-As as example consider the following fictional situation.  A GUI program
-has a menu bar with the following entries:
-
-@smallexample
-+------------+------------+--------------------------------------+
-| File       | Printer    |                                      |
-+------------+------------+--------------------------------------+
-| Open     | | Select   |
-| New      | | Open     |
-+----------+ | Connect  |
-             +----------+
-@end smallexample
-
-To have the strings @code{File}, @code{Printer}, @code{Open},
-@code{New}, @code{Select}, and @code{Connect} translated there has to be
-at some point in the code a call to a function of the @code{gettext}
-family.  But in two places the string passed into the function would be
-@code{Open}.  The translations might not be the same and therefore we
-are in the dilemma described above.
-
-One solution to this problem is to artificially enlengthen the strings
-to make them unambiguous.  But what would the program do if no
-translation is available?  The enlengthened string is not what should be
-printed.  So we should use a little bit modified version of the functions.
-
-To enlengthen the strings a uniform method should be used.  E.g., in the
-example above the strings could be chosen as
-
-@smallexample
-Menu|File
-Menu|Printer
-Menu|File|Open
-Menu|File|New
-Menu|Printer|Select
-Menu|Printer|Open
-Menu|Printer|Connect
-@end smallexample
-
-Now all the strings are different and if now instead of @code{gettext}
-the following little wrapper function is used, everything works just
-fine:
-
-@cindex sgettext
-@smallexample
-  char *
-  sgettext (const char *msgid)
-  @{
-    char *msgval = gettext (msgid);
-    if (msgval == msgid)
-      msgval = strrchr (msgid, '|') + 1;
-    return msgval;
-  @}
-@end smallexample
-
-What this little function does is to recognize the case when no
-translation is available.  This can be done very efficiently by a
-pointer comparison since the return value is the input value.  If there
-is no translation we know that the input string is in the format we used
-for the Menu entries and therefore contains a @code{|} character.  We
-simply search for the last occurrence of this character and return a
-pointer to the character following it.  That's it!
-
-If one now consistently uses the enlengthened string form and replaces
-the @code{gettext} calls with calls to @code{sgettext} (this is normally
-limited to very few places in the GUI implementation) then it is
-possible to produce a program which can be internationalized.
-
-The other @code{gettext} functions (@code{dgettext}, @code{dcgettext}
-and the @code{ngettext} equivalents) can and should have corresponding
-functions as well which look almost identical, except for the parameters
-and the call to the underlying function.
-
-Now there is of course the question why such functions do not exist in
-the GNU gettext package?  There are two parts of the answer to this question.
-
-@itemize @bullet
-@item
-They are easy to write and therefore can be provided by the project they
-are used in.  This is not an answer by itself and must be seen together
-with the second part which is:
-
-@item
-There is no way the gettext package can contain a version which can work
-everywhere.  The problem is the selection of the character to separate
-the prefix from the actual string in the enlenghtened string.  The
-examples above used @code{|} which is a quite good choice because it
-resembles a notation frequently used in this context and it also is a
-character not often used in message strings.
-
-But what if the character is used in message strings?  Or if the chose
-character is not available in the character set on the machine one
-compiles (e.g., @code{|} is not required to exist for @w{ISO C}; this is
-why the @file{iso646.h} file exists in @w{ISO C} programming environments).
-@end itemize
-
-There is only one more comment to be said.  The wrapper function above
-requires that the translations strings are not enlengthened themselves.
-This is only logical.  There is no need to disambiguate the strings
-(since they are never used as keys for a search) and one also saves
-quite some memory and disk space by doing this.
-
-@node Optimized gettext,  , GUI program problems, gettext
+@node Optimized gettext,  , Plural forms, gettext
 @subsection Optimization of the *gettext functions
 @cindex optimization of @code{gettext} functions
 

@@ -724,7 +724,7 @@ process_message (message_ty *mp)
   size_t k;
 
   /* Keep the header entry unmodified, if --keep-header was given.  */
-  if (mp->msgid[0] == '\0' && keep_header)
+  if (is_header (mp) && keep_header)
     return;
 
   /* Count NUL delimited substrings.  */

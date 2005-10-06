@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -219,9 +219,9 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 
   /* Put a comment mark if the message is the header or untranslated or
      fuzzy.  */
-  if (mp->msgid[0] == '\0'
+  if (is_header (mp)
       || mp->msgstr[0] == '\0'
-      || (mp->is_fuzzy && mp->msgid[0] != '\0'))
+      || (mp->is_fuzzy && !is_header (mp)))
     putc ('!', fp);
 
   /* Now write the untranslated string and the translated string.  */

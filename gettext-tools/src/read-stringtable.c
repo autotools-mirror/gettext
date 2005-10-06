@@ -879,7 +879,7 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	     necessarily designate an untranslated entry.  */
 	  msgstr = "";
 	  msgstr_pos = msgid_pos;
-	  po_callback_message (msgid, &msgid_pos, NULL,
+	  po_callback_message (NULL, msgid, &msgid_pos, NULL,
 			       msgstr, strlen (msgstr) + 1, &msgstr_pos,
 			       false, next_is_obsolete);
 	}
@@ -928,7 +928,7 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 		msgstr = fuzzy_msgstr;
 
 	      /* A key/value pair.  */
-	      po_callback_message (msgid, &msgid_pos, NULL,
+	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
 				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
 				   false, next_is_obsolete);
 	    }

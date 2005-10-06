@@ -44,13 +44,16 @@ or if it is @samp{-}.
 
 @example
   [-N @var{sourcefile}]... [-M @var{domainname}]...
-  [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}] [-C @var{comment-pattern}]
+  [-J @var{msgctxt-pattern} [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}]
+  [-C @var{comment-pattern}]
 @end example
 
 A message is selected if
 @itemize @bullet
 @item it comes from one of the specified source files,
 @item or if it comes from one of the specified domains,
+@item or if @samp{-J} is given and its context (msgctxt) matches
+      @var{msgctxt-pattern},
 @item or if @samp{-K} is given and its key (msgid or msgid_plural) matches
       @var{msgid-pattern},
 @item or if @samp{-T} is given and its translation (msgstr) matches
@@ -82,6 +85,12 @@ either a literal file name or a wildcard pattern.
 @opindex -M@r{, @code{msggrep} option}
 @opindex --domain@r{, @code{msggrep} option}
 Select messages belonging to domain @var{domainname}.
+
+@item -J
+@itemx --msgctxt
+@opindex -J@r{, @code{msggrep} option}
+@opindex --msgctxt@r{, @code{msggrep} option}
+Start of patterns for the msgctxt.
 
 @item -K
 @itemx --msgid

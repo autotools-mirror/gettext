@@ -536,7 +536,7 @@ properties_parse (abstract_po_reader_ty *this, FILE *file,
 		 and if it is not already header/fuzzy/untranslated.  */
 	      force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
 
-	      po_callback_message (msgid, &msgid_pos, NULL,
+	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
 				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
 				   force_fuzzy, false);
 	    }

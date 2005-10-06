@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -60,7 +60,8 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
       const message_list_ty *mlp = mdlp->item[k]->messages;
 
       for (j = 0; j < mlp->nitems; j++)
-	if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	if (mlp->item[j]->msgstr == NULL
+	    && mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
 	  {
 	    const char *header = mlp->item[j]->msgstr;
 

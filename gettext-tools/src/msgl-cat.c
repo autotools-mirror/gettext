@@ -69,7 +69,7 @@ is_message_selected (const message_ty *tmp)
 {
   int used = (tmp->used >= 0 ? tmp->used : - tmp->used);
 
-  return (tmp->msgid[0] == '\0'
+  return (is_header (tmp)
 	  ? !omit_header	/* keep the header entry */
 	  : (used > more_than && used < less_than));
 }
@@ -79,7 +79,7 @@ static bool
 is_message_needed (const message_ty *mp)
 {
   if (!msgcomm_mode
-      && ((mp->msgid[0] != '\0' && mp->is_fuzzy) || mp->msgstr[0] == '\0'))
+      && ((!is_header (mp) && mp->is_fuzzy) || mp->msgstr[0] == '\0'))
     /* Weak translation.  Needed if there are only weak translations.  */
     return mp->tmp->used < 0 && is_message_selected (mp->tmp);
   else
@@ -137,7 +137,7 @@ catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
 	  if (mlp->nitems > 0)
 	    {
 	      for (j = 0; j < mlp->nitems; j++)
-		if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 		  {
 		    const char *header = mlp->item[j]->msgstr;
 
@@ -230,7 +230,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	  char *project_id = NULL;
 
 	  for (j = 0; j < mlp->nitems; j++)
-	    if (mlp->item[j]->msgid[0] == '\0' && !mlp->item[j]->obsolete)
+	    if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
 	      {
 		const char *header = mlp->item[j]->msgstr;
 
@@ -296,11 +296,11 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	      message_ty *tmp;
 	      size_t i;
 
-	      tmp = message_list_search (total_mlp, mp->msgid);
+	      tmp = message_list_search (total_mlp, mp->msgctxt, mp->msgid);
 	      if (tmp == NULL)
 		{
-		  tmp = message_alloc (mp->msgid, mp->msgid_plural, NULL, 0,
-				       &mp->pos);
+		  tmp = message_alloc (mp->msgctxt, mp->msgid, mp->msgid_plural,
+				       NULL, 0, &mp->pos);
 		  tmp->is_fuzzy = true; /* may be set to false later */
 		  for (i = 0; i < NFORMATS; i++)
 		    tmp->is_format[i] = undecided; /* may be set to yes/no later */
@@ -312,7 +312,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		}
 
 	      if (!msgcomm_mode
-		  && ((mp->msgid[0] != '\0' && mp->is_fuzzy)
+		  && ((!is_header (mp) && mp->is_fuzzy)
 		      || mp->msgstr[0] == '\0'))
 		/* Weak translation.  Counted as negative tmp->used.  */
 		{
@@ -477,8 +477,8 @@ To select a different output encoding, use the --to-code option.\n\
 		  multiline_error (xstrdup (""),
 				   xasprintf (_("\
 Conversion of file %s from %s encoding to %s encoding\n\
-changes some msgids.\n\
-Either change all msgids to be pure ASCII, or ensure they are\n\
+changes some msgids or msgctxts.\n\
+Either change all msgids and msgctxts to be pure ASCII, or ensure they are\n\
 UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 					      files[n], canon_charsets[n][k],
 					      canon_to_code));
