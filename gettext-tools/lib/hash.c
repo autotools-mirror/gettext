@@ -262,9 +262,10 @@ resize (hash_table *htab)
 
 
 /* Try to insert the pair (KEY[0..KEYLEN-1], DATA) in the hash table.
-   Return 0 if successful, or -1 if there is already an entry with the given
-   key.  */
-int
+   Return non-NULL (more precisely, the address of the KEY inside the table's
+   memory pool) if successful, or NULL if there is already an entry with the
+   given key.  */
+const void *
 hash_insert_entry (hash_table *htab,
 		   const void *key, size_t keylen,
 		   void *data)
@@ -275,7 +276,7 @@ hash_insert_entry (hash_table *htab,
 
   if (table[idx].used)
     /* We don't want to overwrite the old value.  */
-    return -1;
+    return NULL;
   else
     {
       /* An empty bucket has been found.  */
@@ -284,7 +285,7 @@ hash_insert_entry (hash_table *htab,
       if (100 * htab->filled > 75 * htab->size)
 	/* Table is filled more than 75%.  Resize the table.  */
 	resize (htab);
-      return 0;
+      return keycopy;
     }
 }
 

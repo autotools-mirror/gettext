@@ -1,5 +1,9 @@
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* message.c (message_list_hash_insert_entry): Update.
+
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
        * message.c (message_list_alloc, message_list_free,
        message_list_hash_insert_entry, message_list_remove_if_not,
        message_list_msgids_changed, message_list_search): Update.

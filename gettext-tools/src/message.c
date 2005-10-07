@@ -276,7 +276,7 @@ message_list_hash_insert_entry (hash_table *htable, message_ty *mp)
       keylen = strlen (mp->msgid) + 1;
     }
 
-  found = hash_insert_entry (htable, key, keylen, mp);
+  found = (hash_insert_entry (htable, key, keylen, mp) == NULL);
 
   if (mp->msgctxt != NULL)
     freesa (alloced_key);

@@ -50,11 +50,12 @@ extern int hash_find_entry (hash_table *htab,
 			    void **result);
 
 /* Try to insert the pair (KEY[0..KEYLEN-1], DATA) in the hash table.
-   Return 0 if successful, or -1 if there is already an entry with the given
-   key.  */
-extern int hash_insert_entry (hash_table *htab,
-			      const void *key, size_t keylen,
-			      void *data);
+   Return non-NULL (more precisely, the address of the KEY inside the table's
+   memory pool) if successful, or NULL if there is already an entry with the
+   given key.  */
+extern const void * hash_insert_entry (hash_table *htab,
+				       const void *key, size_t keylen,
+				       void *data);
 
 /* Insert the pair (KEY[0..KEYLEN-1], DATA) in the hash table.
    Return 0.  */
