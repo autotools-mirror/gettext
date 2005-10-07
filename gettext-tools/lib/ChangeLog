@@ -1,3 +1,20 @@
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* hash.h: Add comments everywhere.
+	(hash_init): Renamed from init_hash.
+	(hash_destroy): Renamed from delete_hash.
+	(hash_find_entry): Renamed from find_entry.
+	(hash_insert_entry): Renamed from insert_entry.
+	(hash_set_value): New declaration.
+	(hash_iterate): Renamed from iterate_table.
+	* hash.c: Add comments everywhere. Reorder.
+	(hash_init): Renamed from init_hash.
+	(hash_destroy): Renamed from delete_hash.
+	(hash_find_entry): Renamed from find_entry.
+	(hash_insert_entry): Renamed from insert_entry.
+	(hash_set_value): New function.
+	(hash_iterate): Renamed from iterate_table.
+
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Support for context dependent translations in PO files.

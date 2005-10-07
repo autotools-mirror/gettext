@@ -1,3 +1,27 @@
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
+       * message.c (message_list_alloc, message_list_free,
+       message_list_hash_insert_entry, message_list_remove_if_not,
+       message_list_msgids_changed, message_list_search): Update.
+       * write-qt.c (write_qm): Update.
+       * xgettext.c (flag_context_list_table_lookup,
+       flag_context_list_table_insert): Update.
+       * x-awk.c (x_awk_keyword, extract_parenthesized): Update.
+       * x-c.c (add_keyword, x_c_lex): Update.
+       * x-csharp.c (x_csharp_keyword, extract_parenthesized: Update.
+       * x-elisp.c (x_elisp_keyword, read_object): Update.
+       * x-glade.c (x_glade_keyword, start_element_handler): Update.
+       * x-java.c (x_java_keyword, extract_parenthesized): Update.
+       * x-librep.c (x_librep_keyword, read_object): Update.
+       * x-lisp.c (x_lisp_keyword, read_object): Update.
+       * x-perl.c (x_perl_keyword, extract_variable, interpolate_keywords,
+       extract_balanced): Update.
+       * x-php.c (x_php_keyword, extract_parenthesized): Update.
+       * x-python.c (x_python_keyword, extract_parenthesized): Update.
+       * x-scheme.c (x_scheme_keyword, read_object): Update.
+       * x-sh.c (x_sh_keyword, read_command): Update.
+       * x-tcl.c (x_tcl_keyword, read_command): Update.
+
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Support for context dependent translations in PO files.
