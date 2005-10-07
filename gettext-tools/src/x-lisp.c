@@ -133,7 +133,7 @@ x_lisp_keyword (const char *name)
       size_t i;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -159,8 +159,8 @@ x_lisp_keyword (const char *name)
 
       if (argnum1 == 0)
 	argnum1 = 1;
-      insert_entry (&keywords, symname, len,
-		    (void *) (long) (argnum1 + (argnum2 << 10)));
+      hash_insert_entry (&keywords, symname, len,
+			 (void *) (long) (argnum1 + (argnum2 << 10)));
     }
 }
 
@@ -1065,10 +1065,10 @@ read_object (struct object *op, flag_context_ty outer_context)
 			      i--;
 			    prefix_len = i;
 
-			    if (find_entry (&keywords,
-					    symbol_name + prefix_len,
-					    strlen (symbol_name + prefix_len),
-					    &keyword_value)
+			    if (hash_find_entry (&keywords,
+						 symbol_name + prefix_len,
+						 strlen (symbol_name + prefix_len),
+						 &keyword_value)
 				== 0)
 			      {
 				argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);

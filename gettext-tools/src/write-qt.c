@@ -495,15 +495,15 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 	unsigned long table_size;
 
 	/* Collect the contexts, removing duplicates.  */
-	init_hash (&all_contexts, 10);
+	hash_init (&all_contexts, 10);
 	for (j = 0; j < mlp->nitems; j++)
 	  {
 	    message_ty *mp = mlp->item[j];
 
 	    if (!is_header (mp))
-	      insert_entry (&all_contexts,
-			    mp->msgctxt, strlen (mp->msgctxt) + 1,
-			    NULL);
+	      hash_insert_entry (&all_contexts,
+				 mp->msgctxt, strlen (mp->msgctxt) + 1,
+				 NULL);
 	  }
 
 	/* Compute the number of different contexts.  */
@@ -541,7 +541,7 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 	    void *null;
 
 	    iter = NULL;
-	    while (iterate_table (&all_contexts, &iter, &key, &keylen, &null)
+	    while (hash_iterate (&all_contexts, &iter, &key, &keylen, &null)
 		   == 0)
 	      {
 		const char *context = (const char *)key;
@@ -638,7 +638,7 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 	  free (list_memory);
 	}
 
-	delete_hash (&all_contexts);
+	hash_destroy (&all_contexts);
       }
   }
 

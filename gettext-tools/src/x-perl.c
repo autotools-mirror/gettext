@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2004 Free Software Foundation, Inc.
+   Copyright (C) 2002-2005 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -79,7 +79,7 @@ x_perl_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -90,8 +90,8 @@ x_perl_keyword (const char *name)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (&keywords, name, end - name,
-			(void *) (long) (argnum1 + (argnum2 << 10)));
+	  hash_insert_entry (&keywords, name, end - name,
+			     (void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
@@ -1497,8 +1497,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		   real_file_name, line_number);
 #endif
 
-	  if (find_entry (&keywords, tp->string, strlen (tp->string),
-			  &keyword_value) == 0)
+	  if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
+			       &keyword_value) == 0)
 	    {
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and
@@ -1754,7 +1754,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	  switch (c)
 	    {
 	    case '-':
-	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
+	      if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
+		  == 0)
 		{
 		  flag_context_list_iterator_ty context_iter =
 		    flag_context_list_iterator (
@@ -1773,7 +1774,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	    case '{':
 	      if (!maybe_hash_deref)
 		buffer[0] = '%';
-	      if (find_entry (&keywords, buffer, bufpos, &keyword_value) == 0)
+	      if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
+		  == 0)
 		{
 		  flag_context_list_iterator_ty context_iter =
 		    flag_context_list_iterator (
@@ -2879,8 +2881,8 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  {
 	    void *keyword_value;
 
-	    if (find_entry (&keywords, tp->string, strlen (tp->string),
-			    &keyword_value) == 0)
+	    if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
+				 &keyword_value) == 0)
 	      {
 		last_token = token_type_keyword_symbol;
 

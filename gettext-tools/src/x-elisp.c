@@ -1,5 +1,5 @@
 /* xgettext Emacs Lisp backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001-2002.
 
@@ -87,7 +87,7 @@ x_elisp_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -98,8 +98,8 @@ x_elisp_keyword (const char *name)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (&keywords, name, end - name,
-			(void *) (long) (argnum1 + (argnum2 << 10)));
+	  hash_insert_entry (&keywords, name, end - name,
+			     (void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
@@ -690,9 +690,9 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 			char *symbol_name = string_of_object (&inner);
 			void *keyword_value;
 
-			if (find_entry (&keywords,
-					symbol_name, strlen (symbol_name),
-					&keyword_value)
+			if (hash_find_entry (&keywords,
+					     symbol_name, strlen (symbol_name),
+					     &keyword_value)
 			    == 0)
 			  {
 			    argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);

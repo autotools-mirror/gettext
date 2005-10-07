@@ -90,7 +90,7 @@ x_sh_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -101,8 +101,8 @@ x_sh_keyword (const char *name)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (&keywords, name, end - name,
-			(void *) (long) (argnum1 + (argnum2 << 10)));
+	  hash_insert_entry (&keywords, name, end - name,
+			     (void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
@@ -1191,9 +1191,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 		  char *function_name = string_of_word (&inner);
 		  void *keyword_value;
 
-		  if (find_entry (&keywords,
-				  function_name, strlen (function_name),
-				  &keyword_value)
+		  if (hash_find_entry (&keywords,
+				       function_name, strlen (function_name),
+				       &keyword_value)
 		      == 0)
 		    {
 		      argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);

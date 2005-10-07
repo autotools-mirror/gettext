@@ -91,7 +91,7 @@ x_tcl_keyword (const char *name)
       int argnum2;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -102,8 +102,8 @@ x_tcl_keyword (const char *name)
 
       if (argnum1 == 0)
 	argnum1 = 1;
-      insert_entry (&keywords, name, end - name,
-		    (void *) (long) (argnum1 + (argnum2 << 10)));
+      hash_insert_entry (&keywords, name, end - name,
+			 (void *) (long) (argnum1 + (argnum2 << 10)));
     }
 }
 
@@ -904,9 +904,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 		if (function_name[0] == ':' && function_name[1] == ':')
 		  stripped_name += 2;
 
-		if (find_entry (&keywords,
-				stripped_name, strlen (stripped_name),
-				&keyword_value)
+		if (hash_find_entry (&keywords,
+				     stripped_name, strlen (stripped_name),
+				     &keyword_value)
 		    == 0)
 		  {
 		    argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);

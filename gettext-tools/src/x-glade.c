@@ -1,5 +1,5 @@
 /* xgettext glade backend.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -78,9 +78,9 @@ x_glade_keyword (const char *name)
   else
     {
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
-      insert_entry (&keywords, name, strlen (name), NULL);
+      hash_insert_entry (&keywords, name, strlen (name), NULL);
     }
 }
 
@@ -234,7 +234,7 @@ start_element_handler (void *userData, const char *name,
   /* In Glade 1, a few specific elements are translatable.  */
   if (!p->extract_string)
     p->extract_string =
-      (find_entry (&keywords, name, strlen (name), &hash_result) == 0);
+      (hash_find_entry (&keywords, name, strlen (name), &hash_result) == 0);
   /* In Glade 2, all <property> and <atkproperty> elements are translatable
      that have the attribute translatable="yes".  */
   if (!p->extract_string

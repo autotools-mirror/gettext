@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -72,7 +72,7 @@ x_php_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	init_hash (&keywords, 100);
+	hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -83,8 +83,8 @@ x_php_keyword (const char *name)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (&keywords, name, end - name,
-			(void *) (long) (argnum1 + (argnum2 << 10)));
+	  hash_insert_entry (&keywords, name, end - name,
+			     (void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
@@ -1257,8 +1257,8 @@ extract_parenthesized (message_list_ty *mlp,
 	  {
 	    void *keyword_value;
 
-	    if (find_entry (&keywords, token.string, strlen (token.string),
-			    &keyword_value)
+	    if (hash_find_entry (&keywords, token.string, strlen (token.string),
+				 &keyword_value)
 		== 0)
 	      {
 		int argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);

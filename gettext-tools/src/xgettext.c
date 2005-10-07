@@ -1103,7 +1103,7 @@ flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
   void *entry;
 
   if (flag_table->table != NULL
-      && find_entry (flag_table, key, keylen, &entry) == 0)
+      && hash_find_entry (flag_table, key, keylen, &entry) == 0)
     return (flag_context_list_ty *) entry;
   else
     return NULL;
@@ -1143,11 +1143,11 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
   /* Insert the pair (VALUE, PASS) at INDEX in the element numbered ARGNUM
      of the list corresponding to NAME in the TABLE.  */
   if (table->table == NULL)
-    init_hash (table, 100);
+    hash_init (table, 100);
   {
     void *entry;
 
-    if (find_entry (table, name_start, name_end - name_start, &entry) != 0)
+    if (hash_find_entry (table, name_start, name_end - name_start, &entry) != 0)
       {
 	/* Create new hash table entry.  */
 	flag_context_list_ty *list =
@@ -1168,7 +1168,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	    abort ();
 	  }
 	list->next = NULL;
-	insert_entry (table, name_start, name_end - name_start, list);
+	hash_insert_entry (table, name_start, name_end - name_start, list);
       }
     else
       {

@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -117,7 +117,7 @@ add_keyword (const char *name, hash_table *keywords)
       const char *colon;
 
       if (keywords->table == NULL)
-	init_hash (keywords, 100);
+	hash_init (keywords, 100);
 
       split_keywordspec (name, &end, &argnum1, &argnum2);
 
@@ -128,8 +128,8 @@ add_keyword (const char *name, hash_table *keywords)
 	{
 	  if (argnum1 == 0)
 	    argnum1 = 1;
-	  insert_entry (keywords, name, end - name,
-			(void *) (long) (argnum1 + (argnum2 << 10)));
+	  hash_insert_entry (keywords, name, end - name,
+			     (void *) (long) (argnum1 + (argnum2 << 10)));
 	}
     }
 }
@@ -1564,8 +1564,9 @@ x_c_lex (xgettext_token_ty *tp)
 	case token_type_name:
 	  last_non_comment_line = newline_count;
 
-	  if (find_entry (objc_extensions ? &objc_keywords : &c_keywords,
-			  token.string, strlen (token.string), &keyword_value)
+	  if (hash_find_entry (objc_extensions ? &objc_keywords : &c_keywords,
+			       token.string, strlen (token.string),
+			       &keyword_value)
 	      == 0)
 	    {
 	      tp->type = xgettext_token_type_keyword;

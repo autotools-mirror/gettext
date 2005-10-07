@@ -229,7 +229,7 @@ message_list_alloc (bool use_hashtable)
   mlp->nitems_max = 0;
   mlp->item = NULL;
   if ((mlp->use_hashtable = use_hashtable))
-    init_hash (&mlp->htable, 10);
+    hash_init (&mlp->htable, 10);
   return mlp;
 }
 
@@ -244,7 +244,7 @@ message_list_free (message_list_ty *mlp)
   if (mlp->item)
     free (mlp->item);
   if (mlp->use_hashtable)
-    delete_hash (&mlp->htable);
+    hash_destroy (&mlp->htable);
   free (mlp);
 }
 
@@ -276,7 +276,7 @@ message_list_hash_insert_entry (hash_table *htable, message_ty *mp)
       keylen = strlen (mp->msgid) + 1;
     }
 
-  found = insert_entry (htable, key, keylen, mp);
+  found = hash_insert_entry (htable, key, keylen, mp);
 
   if (mp->msgctxt != NULL)
     freesa (alloced_key);
@@ -374,7 +374,7 @@ message_list_delete_nth (message_list_ty *mlp, size_t n)
   if (mlp->use_hashtable)
     {
       /* Our simple-minded hash tables don't support removal.  */
-      delete_hash (&mlp->htable);
+      hash_destroy (&mlp->htable);
       mlp->use_hashtable = false;
     }
 }
@@ -393,7 +393,7 @@ message_list_remove_if_not (message_list_ty *mlp,
   if (mlp->use_hashtable && i < mlp->nitems)
     {
       /* Our simple-minded hash tables don't support removal.  */
-      delete_hash (&mlp->htable);
+      hash_destroy (&mlp->htable);
       mlp->use_hashtable = false;
     }
   mlp->nitems = i;
@@ -408,8 +408,8 @@ message_list_msgids_changed (message_list_ty *mlp)
       unsigned long int size = mlp->htable.size;
       size_t j;
 
-      delete_hash (&mlp->htable);
-      init_hash (&mlp->htable, size);
+      hash_destroy (&mlp->htable);
+      hash_init (&mlp->htable, size);
 
       for (j = 0; j < mlp->nitems; j++)
 	{
@@ -420,7 +420,7 @@ message_list_msgids_changed (message_list_ty *mlp)
 	       the assertion that it wouldn't have duplicates, and before the
 	       msgids changed it indeed didn't have duplicates.  */
 	    {
-	      delete_hash (&mlp->htable);
+	      hash_destroy (&mlp->htable);
 	      mlp->use_hashtable = false;
 	      return true;
 	    }
@@ -461,7 +461,7 @@ message_list_search (message_list_ty *mlp,
 
       {
 	void *htable_value;
-	int found = !find_entry (&mlp->htable, key, keylen, &htable_value);
+	int found = !hash_find_entry (&mlp->htable, key, keylen, &htable_value);
 
 	if (msgctxt != NULL)
 	  freesa (alloced_key);

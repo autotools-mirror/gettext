@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000-2003 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000-2003, 2005 Free Software Foundation, Inc.
 
    The GNU C Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -18,7 +18,7 @@
 #ifndef _HASH_H
 #define _HASH_H
 
-#include <obstack.h>
+#include "obstack.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,27 +26,51 @@ extern "C" {
 
 typedef struct hash_table
 {
-  unsigned long int size;
-  unsigned long int filled;
-  void *first;
-  void *table;
-  struct obstack mem_pool;
+  unsigned long int size;   /* Number of allocated entries.  */
+  unsigned long int filled; /* Number of used entries.  */
+  void *first;              /* Pointer to head of list of entries.  */
+  void *table;              /* Pointer to array of entries.  */
+  struct obstack mem_pool;  /* Memory pool holding the keys.  */
 }
 hash_table;
 
-extern int init_hash (hash_table *htab, unsigned long int init_size);
-extern int delete_hash (hash_table *htab);
-extern int insert_entry (hash_table *htab,
-			 const void *key, size_t keylen,
-			 void *data);
-extern int find_entry (hash_table *htab,
-		       const void *key, size_t keylen,
-		       void **result);
+/* Initialize a hash table.  INIT_SIZE > 1 is the initial number of available
+   entries.
+   Return 0 upon successful completion, -1 upon memory allocation error.  */
+extern int hash_init (hash_table *htab, unsigned long int init_size);
 
-extern int iterate_table (hash_table *htab, void **ptr,
-			  const void **key, size_t *keylen,
-			  void **data);
+/* Delete a hash table's contents.
+   Return 0 always.  */
+extern int hash_destroy (hash_table *htab);
 
+/* Look up the value of a key in the given table.
+   If found, return 0 and set *RESULT to it.  Otherwise return -1.  */
+extern int hash_find_entry (hash_table *htab,
+			    const void *key, size_t keylen,
+			    void **result);
+
+/* Try to insert the pair (KEY[0..KEYLEN-1], DATA) in the hash table.
+   Return 0 if successful, or -1 if there is already an entry with the given
+   key.  */
+extern int hash_insert_entry (hash_table *htab,
+			      const void *key, size_t keylen,
+			      void *data);
+
+/* Insert the pair (KEY[0..KEYLEN-1], DATA) in the hash table.
+   Return 0.  */
+extern int hash_set_value (hash_table *htab,
+			   const void *key, size_t keylen,
+			   void *data);
+
+/* Steps *PTR forward to the next used entry in the given hash table.  *PTR
+   should be initially set to NULL.  Store information about the next entry
+   in *KEY, *KEYLEN, *DATA.
+   Return 0.  */
+extern int hash_iterate (hash_table *htab, void **ptr,
+			 const void **key, size_t *keylen,
+			 void **data);
+
+/* Given SEED > 1, return the smallest odd prime number >= SEED.  */
 extern unsigned long int next_prime (unsigned long int seed);
 
 #ifdef __cplusplus
