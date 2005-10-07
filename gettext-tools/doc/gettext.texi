@@ -1323,7 +1323,7 @@ The context serves to disambiguate messages with the same
 @var{untranslated-string}.  It is possible to have several entries with
 the same @var{untranslated-string} in a PO file, provided that they each
 have a different @var{context}.  Note that an empty @var{context} string
-and a absent @code{msgctxt} line do not mean the same thing.
+and an absent @code{msgctxt} line do not mean the same thing.
 
 @kwindex msgid_plural
 @cindex plural forms, in PO files
@@ -1626,7 +1626,7 @@ printf (rw ? "File %s is write protected" : "File %s is read protected",
 
 @noindent
 This way the translator will not only understand the message, she will
-also be able to find the appropriate grammatical construction.  The French
+also be able to find the appropriate grammatical construction.  A French
 translator for example translates "write protected" like "protected
 against writing".
 
@@ -4943,7 +4943,7 @@ const char *dcpgettext (const char *domain_name,
                         int category);
 @end example
 
-These are generalizations of @code{pgettext}.  The behave similarly to
+These are generalizations of @code{pgettext}.  They behave similarly to
 @code{dgettext} and @code{dcgettext}, respectively.  The @var{domain_name}
 argument defines the translation domain.  The @var{category} argument
 allows to use another locale facet than @code{LC_MESSAGES}.

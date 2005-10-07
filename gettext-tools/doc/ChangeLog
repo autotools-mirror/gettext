@@ -1,3 +1,8 @@
+2005-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files, Preparing Strings, Contexts): Small fixes.
+	Patch by Pavel Roskin <proski@gnu.org>.
+
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Support for context dependent translations in PO files.
