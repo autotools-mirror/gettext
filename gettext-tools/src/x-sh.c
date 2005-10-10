@@ -324,7 +324,7 @@ comment_line_end ()
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -745,7 +745,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	     precede it, with no non-whitespace token on a line between
 	     both.  */
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  wp->type = t_separator;
 	  return;
 	}
@@ -1024,8 +1024,10 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 		  grow_token (&string);
 		  string.chars[string.charcount++] = (unsigned char) c;
 		}
+	      savable_comment_to_xgettext_comment (savable_comment);
 	      remember_a_message (mlp, string_of_token (&string),
 				  context, &pos);
+	      savable_comment_reset ();
 	      free_token (&string);
 
 	      error_with_progname = false;
@@ -1165,8 +1167,10 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = inner.line_number_at_start;
+	      savable_comment_to_xgettext_comment (savable_comment);
 	      remember_a_message (mlp, string_of_word (&inner),
 				  inner_context, &pos);
+	      savable_comment_reset ();
 	    }
 	}
 
@@ -1225,8 +1229,10 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 		      pos.file_name = logical_file_name;
 		      pos.line_number = inner.line_number_at_start;
+		      savable_comment_to_xgettext_comment (savable_comment);
 		      mp = remember_a_message (mlp, string_of_word (&inner),
 					       inner_context, &pos);
+		      savable_comment_reset ();
 		      if (argnum2 > 0)
 			plural_mp = mp;
 		    }
@@ -1239,8 +1245,10 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 		      pos.file_name = logical_file_name;
 		      pos.line_number = inner.line_number_at_start;
+		      savable_comment_to_xgettext_comment (savable_comment);
 		      remember_a_message_plural (plural_mp, string_of_word (&inner),
 						 inner_context, &pos);
+		      savable_comment_reset ();
 		    }
 		}
 

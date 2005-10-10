@@ -1,5 +1,5 @@
 /* xgettext Smalltalk backend.
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -148,7 +148,7 @@ comment_line_end ()
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -242,7 +242,7 @@ phase2_get (token_ty *tp)
 
 	case '\n':
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  /* FALLTHROUGH */
 	case ' ':
 	case '\t':
@@ -541,7 +541,9 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
+		savable_comment_to_xgettext_comment (savable_comment);
 		remember_a_message (mlp, token.string, null_context, &pos);
+		savable_comment_reset ();
 		state = 0;
 		break;
 	      }
@@ -550,8 +552,10 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
+		savable_comment_to_xgettext_comment (savable_comment);
 		plural_mp = remember_a_message (mlp, token.string,
 						null_context, &pos);
+		savable_comment_reset ();
 		state = 4;
 		break;
 	      }
@@ -560,8 +564,10 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
+		savable_comment_to_xgettext_comment (savable_comment);
 		remember_a_message_plural (plural_mp, token.string,
 					   null_context, &pos);
+		savable_comment_reset ();
 		state = 0;
 		break;
 	      }

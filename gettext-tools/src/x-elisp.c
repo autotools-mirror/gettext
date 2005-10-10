@@ -365,7 +365,7 @@ comment_line_end (size_t chars_to_remove)
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -639,7 +639,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 	     precede it, with no non-whitespace token on a line between
 	     both.  */
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  continue;
 
 	case '(':
@@ -724,8 +724,10 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
 			    pos.file_name = logical_file_name;
 			    pos.line_number = inner.line_number_at_start;
+			    savable_comment_to_xgettext_comment (savable_comment);
 			    mp = remember_a_message (mlp, string_of_object (&inner),
 						     inner_context, &pos);
+			    savable_comment_reset ();
 			    if (argnum2 > 0)
 			      plural_mp = mp;
 			  }
@@ -738,8 +740,10 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
 			    pos.file_name = logical_file_name;
 			    pos.line_number = inner.line_number_at_start;
+			    savable_comment_to_xgettext_comment (savable_comment);
 			    remember_a_message_plural (plural_mp, string_of_object (&inner),
 						       inner_context, &pos);
+			    savable_comment_reset ();
 			  }
 		      }
 		  }
@@ -920,8 +924,10 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
 		pos.file_name = logical_file_name;
 		pos.line_number = op->line_number_at_start;
+		savable_comment_to_xgettext_comment (savable_comment);
 		remember_a_message (mlp, string_of_object (op),
 				    null_context, &pos);
+		savable_comment_reset ();
 	      }
 	    last_non_comment_line = line_number;
 	    return;

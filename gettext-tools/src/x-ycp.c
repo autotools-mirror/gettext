@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -179,7 +179,7 @@ phase2_getc ()
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[buflen] = '\0';
-	  xgettext_comment_add (buffer);
+	  savable_comment_add (buffer);
 	  last_comment_line = lineno;
 	  return '\n';
 	}
@@ -225,7 +225,7 @@ phase2_getc ()
 			     || buffer[buflen - 1] == '\t'))
 		    --buflen;
 		  buffer[buflen] = '\0';
-		  xgettext_comment_add (buffer);
+		  savable_comment_add (buffer);
 		  buflen = 0;
 		  lineno = line_number;
 		  last_was_star = false;
@@ -244,7 +244,7 @@ phase2_getc ()
 				 || buffer[buflen - 1] == '\t'))
 			--buflen;
 		      buffer[buflen] = '\0';
-		      xgettext_comment_add (buffer);
+		      savable_comment_add (buffer);
 		      break;
 		    }
 		  /* FALLTHROUGH */
@@ -284,7 +284,7 @@ phase2_getc ()
 	      buffer = xrealloc (buffer, bufmax);
 	    }
 	  buffer[buflen] = '\0';
-	  xgettext_comment_add (buffer);
+	  savable_comment_add (buffer);
 	  last_comment_line = lineno;
 	  return '\n';
 	}
@@ -426,7 +426,7 @@ x_ycp_lex (token_ty *tp)
 
 	case '\n':
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  /* FALLTHROUGH */
 	case '\r':
 	case '\t':
@@ -616,15 +616,19 @@ extract_parenthesized (message_list_ty *mlp,
 	      if (plural_mp == NULL)
 		{
 		  /* Seen an msgid.  */
+		  savable_comment_to_xgettext_comment (savable_comment);
 		  plural_mp = remember_a_message (mlp, token.string,
 						  inner_context, &pos);
+		  savable_comment_reset ();
 		  state = 2;
 		}
 	      else
 		{
 		  /* Seen an msgid_plural.  */
+		  savable_comment_to_xgettext_comment (savable_comment);
 		  remember_a_message_plural (plural_mp, token.string,
 					     inner_context, &pos);
+		  savable_comment_reset ();
 		  state = 0;
 		}
 	    }

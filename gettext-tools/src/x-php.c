@@ -565,7 +565,7 @@ comment_line_end (size_t chars_to_remove)
       buffer = xrealloc (buffer, bufmax);
     }
   buffer[buflen] = '\0';
-  xgettext_comment_add (buffer);
+  savable_comment_add (buffer);
 }
 
 
@@ -785,7 +785,7 @@ x_php_lex (token_ty *tp)
 
 	case '\n':
 	  if (last_non_comment_line > last_comment_line)
-	    xgettext_comment_reset ();
+	    savable_comment_reset ();
 	  /* FALLTHROUGH */
 	case ' ':
 	case '\t':
@@ -1320,7 +1320,11 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.line_number = token.line_number;
 
 	    if (extract_all)
-	      remember_a_message (mlp, token.string, inner_context, &pos);
+	      {
+		savable_comment_to_xgettext_comment (savable_comment);
+		remember_a_message (mlp, token.string, inner_context, &pos);
+		savable_comment_reset ();
+	      }
 	    else
 	      {
 		if (commas_to_skip == 0)
@@ -1328,17 +1332,23 @@ extract_parenthesized (message_list_ty *mlp,
 		    if (plural_mp == NULL)
 		      {
 			/* Seen an msgid.  */
-			message_ty *mp =
+			message_ty *mp;
+
+			savable_comment_to_xgettext_comment (savable_comment);
+			mp =
 			  remember_a_message (mlp, token.string,
 					      inner_context, &pos);
+			savable_comment_reset ();
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
 		    else
 		      {
 			/* Seen an msgid_plural.  */
+			savable_comment_to_xgettext_comment (savable_comment);
 			remember_a_message_plural (plural_mp, token.string,
 						   inner_context, &pos);
+			savable_comment_reset ();
 			plural_mp = NULL;
 		      }
 		  }

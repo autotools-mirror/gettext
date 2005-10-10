@@ -268,8 +268,10 @@ start_element_handler (void *userData, const char *name,
 		  pos.file_name = logical_file_name;
 		  pos.line_number = XML_GetCurrentLineNumber (parser);
 
+		  savable_comment_to_xgettext_comment (savable_comment);
 		  remember_a_message (mlp, xstrdup (attp[1]),
 				      null_context, &pos);
+		  savable_comment_reset ();
 		}
 	      break;
 	    }
@@ -281,7 +283,7 @@ start_element_handler (void *userData, const char *name,
   p->bufmax = 0;
   p->buflen = 0;
   if (!p->extract_string)
-    xgettext_comment_reset ();
+    savable_comment_reset ();
 }
 
 /* Callback called when </element> is seen.  */
@@ -305,7 +307,9 @@ end_element_handler (void *userData, const char *name)
 	  pos.file_name = logical_file_name;
 	  pos.line_number = p->lineno;
 
+	  savable_comment_to_xgettext_comment (savable_comment);
 	  remember_a_message (mlp, p->buffer, null_context, &pos);
+	  savable_comment_reset ();
 	  p->buffer = NULL;
 	}
     }
@@ -317,7 +321,7 @@ end_element_handler (void *userData, const char *name)
   /* Decrease stack depth.  */
   stack_depth--;
 
-  xgettext_comment_reset ();
+  savable_comment_reset ();
 }
 
 /* Callback called when some text is seen.  */
@@ -358,7 +362,7 @@ comment_handler (void *userData, const char *data)
       while (q > p && (q[-1] == ' ' || q[-1] == '\t'))
 	q--;
       *q = '\0';
-      xgettext_comment_add (p);
+      savable_comment_add (p);
     }
   q = p + strlen (p);
   while (p[0] == ' ' || p[0] == '\t')
@@ -366,7 +370,7 @@ comment_handler (void *userData, const char *data)
   while (q > p && (q[-1] == ' ' || q[-1] == '\t'))
     q--;
   *q = '\0';
-  xgettext_comment_add (p);
+  savable_comment_add (p);
   free (copy);
 }
 

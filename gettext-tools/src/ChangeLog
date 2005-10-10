@@ -1,5 +1,81 @@
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
+	Use savable_comment_* API instead of xgettext_comment_* API.
+	* x-awk.c (phase2_getc): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(x_awk_lex): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(extract_parenthesized): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-elisp.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_object): Call savable_comment_reset instead of
+	xgettext_comment_reset. Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-glade.c (start_element_handler, end_element_handler): Call
+	savable_comment_to_xgettext_comment and savable_comment_reset around
+	remember_a_message. Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(comment_handler): Call savable_comment_add instead of
+	xgettext_comment_add.
+	* x-librep.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_object): Call savable_comment_reset instead of
+	xgettext_comment_reset. Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-lisp.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_object): Call savable_comment_reset instead of
+	xgettext_comment_reset. Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-perl.c (phase2_getc): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(extract_variable, interpolate_keywords): Call
+	savable_comment_to_xgettext_comment and savable_comment_reset around
+	remember_a_message.
+	(x_perl_prelex): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(extract_balanced): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-php.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(x_php_lex): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(extract_parenthesized): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-scheme.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_object): Call savable_comment_reset instead of
+	xgettext_comment_reset. Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-sh.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_word): Call savable_comment_reset instead of
+	xgettext_comment_reset. Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	(read_command): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-smalltalk.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(phase2_get): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(extract_smalltalk): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-tcl.c (comment_line_end): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(read_word): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(read_command): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+	* x-ycp.c (phase2_getc): Call savable_comment_add instead of
+	xgettext_comment_add.
+	(x_ycp_lex): Call savable_comment_reset instead of
+	xgettext_comment_reset.
+	(extract_parenthesized): Call savable_comment_to_xgettext_comment and
+	savable_comment_reset around remember_a_message.
+
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* message.c (message_list_hash_insert_entry): Update.
 
 2005-10-03  Bruno Haible  <bruno@clisp.org>
