@@ -1,4 +1,4 @@
-/* Copyright (C) 1994, 1999, 2002-2003 Free Software Foundation, Inc.
+/* Copyright (C) 1994, 1999, 2002-2003, 2005 Free Software Foundation, Inc.
 This file is part of the GNU C Library.
 
 This program is free software; you can redistribute it and/or modify
@@ -24,7 +24,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
  *
  * Stephen R. van den Berg, berg@pool.informatik.rwth-aachen.de	*/
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 

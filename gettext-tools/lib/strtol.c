@@ -1,7 +1,6 @@
 /* Convert string representation of a number into an integer value.
 
-   Copyright (C) 1991, 1992, 1994, 1995, 1996, 1997, 1998, 1999, 2003
-   Free Software Foundation, Inc.
+   Copyright (C) 1991-1992, 1994-1999, 2003, 2005 Free Software Foundation, Inc.
 
    NOTE: The canonical source of this file is maintained with the GNU C
    Library.  Bugs can be reported to bug-glibc@gnu.org.
@@ -20,7 +19,7 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 

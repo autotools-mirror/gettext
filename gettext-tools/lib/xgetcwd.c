@@ -1,5 +1,5 @@
 /* xgetcwd.c -- return current directory with unlimited length
-   Copyright (C) 1992, 1996, 2000, 2003 Free Software Foundation, Inc.
+   Copyright (C) 1992, 1996, 2000, 2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 
 /* Written by David MacKenzie <djm@gnu.ai.mit.edu>.  */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 

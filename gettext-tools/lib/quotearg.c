@@ -1,7 +1,6 @@
 /* quotearg.c - quote arguments for output
 
-   Copyright (C) 1998, 1999, 2000, 2001, 2002, 2004 Free Software
-   Foundation, Inc.
+   Copyright (C) 1998-1999, 2000-2002, 2004-2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -19,7 +18,7 @@
 
 /* Written by Paul Eggert <eggert@twinsun.com> */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 

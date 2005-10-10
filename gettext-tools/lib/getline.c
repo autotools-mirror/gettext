@@ -1,6 +1,6 @@
 /* getline.c -- Replacement for GNU C library function getline
 
-   Copyright (C) 1993, 1996, 1997, 1998, 2000, 2003 Free Software
+   Copyright (C) 1993, 1996-1998, 2000, 2003, 2005 Free Software
    Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 
 /* Written by Jan Brittenson, bson@gnu.ai.mit.edu.  */
 
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 

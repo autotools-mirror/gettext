@@ -1,3 +1,38 @@
+2005-10-06  Bruno Haible  <bruno@clisp.org>
+
+	* addext.c: Test HAVE_CONFIG_H using #ifdef.
+	* argmatch.c: Likewise.
+	* backupfile.c: Likewise.
+	* c-strcasecmp.c: Likewise.
+	* c-strncasecmp.c: Likewise.
+	* canonicalize.c: Likewise.
+	* closeout.c: Likewise.
+	* exitfail.c: Likewise.
+	* fnmatch.c: Likewise.
+	* full-write.c: Likewise.
+	* fwriteerror.c: Likewise.
+	* getline.c: Likewise.
+	* getndelim2.c: Likewise.
+	* getopt_.h: Likewise.
+	* hash.c: Likewise.
+	* memmove.c: Likewise.
+	* quote.c: Likewise.
+	* quotearg.c: Likewise.
+	* readlink.c: Likewise.
+	* safe-read.c: Likewise.
+	* setenv.c: Likewise.
+	* strcspn.c: Likewise.
+	* strerror.c: Likewise.
+	* strstr.c: Likewise.
+	* strtol.c: Likewise.
+	* unsetenv.c: Likewise.
+	* xgetcwd.c: Likewise.
+	* xmalloc.c: Likewise.
+	* xreadlink.c: Likewise.
+	* xsetenv.c: Likewise.
+	* xstrdup.c: Likewise.
+	Reported by Ralf Wildenhues on bug-gnulib.
+
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* hash.h (hash_insert_entry): Return a pointer instead of int.

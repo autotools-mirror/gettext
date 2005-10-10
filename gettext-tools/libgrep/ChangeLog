@@ -1,3 +1,11 @@
+2005-10-06  Bruno Haible  <bruno@clisp.org>
+
+	* hard-locale.c: Test HAVE_CONFIG_H using #ifdef.
+	* m-common.c: Likewise.
+	* m-fgrep.c: Likewise.
+	* m-regex.c: Likewise.
+	Reported by Ralf Wildenhues on bug-gnulib.
+
 2005-04-18  Bruno Haible  <bruno@clisp.org>
 
 	* dfa.c (update_mb_len_index): Change argument type to 'const char *'.

@@ -1,5 +1,5 @@
 /* Declarations for getopt.
-   Copyright (C) 1989-1994,1996-1999,2001,2003,2004
+   Copyright (C) 1989-1994,1996-1999,2001,2003-2005
    Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
@@ -27,7 +27,7 @@
    <stdlib.h> includes <getopt.h>, and <config.h> is not a prerequisite for
    using <stdlib.h>, this file can be included without a prior
    "#include <config.h>".  */
-#if HAVE_CONFIG_H
+#ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
 
