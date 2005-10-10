@@ -141,13 +141,6 @@ extern char *from_current_source_encoding (const char *string,
 extern message_list_ty *exclude;
 
 
-/* Comment handling: There is a list of automatic comments that may be appended
-   to the next message.  Used by remember_a_message().  */
-extern void xgettext_comment_add (const char *str);
-extern const char *xgettext_comment (size_t n);
-extern void xgettext_comment_reset (void);
-
-
 /* Comment handling for backends which support combining adjacent strings
    even across lines.
    In these backends we cannot use the xgettext_comment* functions directly,

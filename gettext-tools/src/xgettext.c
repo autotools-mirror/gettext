@@ -1467,9 +1467,12 @@ A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s")
 }
 
 
+/* Comment handling: There is a list of automatic comments that may be appended
+   to the next message.  Used by remember_a_message().  */
+
 static string_list_ty *comment;
 
-void
+static void
 xgettext_comment_add (const char *str)
 {
   if (comment == NULL)
@@ -1477,7 +1480,7 @@ xgettext_comment_add (const char *str)
   string_list_append (comment, str);
 }
 
-const char *
+static const char *
 xgettext_comment (size_t n)
 {
   if (comment == NULL || n >= comment->nitems)
@@ -1485,7 +1488,7 @@ xgettext_comment (size_t n)
   return comment->item[n];
 }
 
-void
+static void
 xgettext_comment_reset ()
 {
   if (comment != NULL)

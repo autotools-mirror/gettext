@@ -1,5 +1,12 @@
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.h (xgettext_comment_add, xgettext_comment,
+	xgettext_comment_reset): Remove declarations.
+	* xgettext.c (xgettext_comment_add, xgettext_comment,
+	xgettext_comment_reset): Make static.
+
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
 	Use savable_comment_* API instead of xgettext_comment_* API.
 	* x-awk.c (phase2_getc): Call savable_comment_add instead of
 	xgettext_comment_add.
