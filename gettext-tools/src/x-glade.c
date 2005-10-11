@@ -268,10 +268,8 @@ start_element_handler (void *userData, const char *name,
 		  pos.file_name = logical_file_name;
 		  pos.line_number = XML_GetCurrentLineNumber (parser);
 
-		  savable_comment_to_xgettext_comment (savable_comment);
 		  remember_a_message (mlp, xstrdup (attp[1]),
-				      null_context, &pos);
-		  savable_comment_reset ();
+				      null_context, &pos, savable_comment);
 		}
 	      break;
 	    }
@@ -307,9 +305,8 @@ end_element_handler (void *userData, const char *name)
 	  pos.file_name = logical_file_name;
 	  pos.line_number = p->lineno;
 
-	  savable_comment_to_xgettext_comment (savable_comment);
-	  remember_a_message (mlp, p->buffer, null_context, &pos);
-	  savable_comment_reset ();
+	  remember_a_message (mlp, p->buffer, null_context, &pos,
+			      savable_comment);
 	  p->buffer = NULL;
 	}
     }

@@ -1383,9 +1383,8 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	    if (extract_all)
 	      {
 		xgettext_current_source_encoding = po_charset_utf8;
-		savable_comment_to_xgettext_comment (token.comment);
-		remember_a_message (mlp, token.string, inner_context, &pos);
-		savable_comment_reset ();
+		remember_a_message (mlp, token.string, inner_context, &pos,
+				    token.comment);
 		xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      }
 	    else
@@ -1398,10 +1397,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 			message_ty *mp;
 
 			xgettext_current_source_encoding = po_charset_utf8;
-			savable_comment_to_xgettext_comment (token.comment);
 			mp = remember_a_message (mlp, token.string,
-						 inner_context, &pos);
-			savable_comment_reset ();
+						 inner_context, &pos,
+						 token.comment);
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			if (plural_commas > 0)
 			  plural_mp = mp;
@@ -1411,7 +1409,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 			/* Seen an msgid_plural.  */
 			xgettext_current_source_encoding = po_charset_utf8;
 			remember_a_message_plural (plural_mp, token.string,
-						   inner_context, &pos);
+						   inner_context, &pos, NULL);
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			plural_mp = NULL;
 		      }

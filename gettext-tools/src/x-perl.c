@@ -1531,9 +1531,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		      pos.file_name = logical_file_name;
 
 		      xgettext_current_source_encoding = po_charset_utf8;
-		      savable_comment_to_xgettext_comment (savable_comment);
-		      remember_a_message (mlp, xstrdup (t1->string), context, &pos);
-		      savable_comment_reset ();
+		      remember_a_message (mlp, xstrdup (t1->string), context,
+					  &pos, savable_comment);
 		      xgettext_current_source_encoding = xgettext_global_source_encoding;
 		      free_token (t2);
 		      free_token (t1);
@@ -1954,9 +1953,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      token.string = xstrdup (buffer);
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      savable_comment_to_xgettext_comment (savable_comment);
-	      remember_a_message (mlp, token.string, context, &pos);
-	      savable_comment_reset ();
+	      remember_a_message (mlp, token.string, context, &pos,
+				  savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      /* FALLTHROUGH */
 	    default:
@@ -2985,9 +2983,8 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	      pos.line_number = tp->line_number;
 	      string = collect_message (mlp, tp, EXIT_SUCCESS);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      savable_comment_to_xgettext_comment (savable_comment);
-	      remember_a_message (mlp, string, inner_context, &pos);
-	      savable_comment_reset ();
+	      remember_a_message (mlp, string, inner_context, &pos,
+				  savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (state)
@@ -3002,9 +2999,8 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 		{
 		  string = collect_message (mlp, tp, EXIT_FAILURE);
 		  xgettext_current_source_encoding = po_charset_utf8;
-		  savable_comment_to_xgettext_comment (savable_comment);
-		  plural_mp = remember_a_message (mlp, string, inner_context, &pos);
-		  savable_comment_reset ();
+		  plural_mp = remember_a_message (mlp, string, inner_context,
+						  &pos, savable_comment);
 		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_sg = -1;
 		}
@@ -3017,9 +3013,8 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 
 		  string = collect_message (mlp, tp, EXIT_FAILURE);
 		  xgettext_current_source_encoding = po_charset_utf8;
-		  savable_comment_to_xgettext_comment (savable_comment);
-		  remember_a_message_plural (plural_mp, string, inner_context, &pos);
-		  savable_comment_reset ();
+		  remember_a_message_plural (plural_mp, string, inner_context,
+					     &pos, savable_comment);
 		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		  arg_pl = -1;
 		}

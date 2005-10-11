@@ -885,10 +885,8 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 		pos.file_name = logical_file_name;
 		pos.line_number = inner.line_number_at_start;
-		savable_comment_to_xgettext_comment (savable_comment);
 		remember_a_message (mlp, string_of_word (&inner),
-				    inner_context, &pos);
-		savable_comment_reset ();
+				    inner_context, &pos, savable_comment);
 	      }
 	  }
 
@@ -940,10 +938,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 		    pos.file_name = logical_file_name;
 		    pos.line_number = inner.line_number_at_start;
-		    savable_comment_to_xgettext_comment (savable_comment);
 		    mp = remember_a_message (mlp, string_of_word (&inner),
-					     inner_context, &pos);
-		    savable_comment_reset ();
+					     inner_context, &pos,
+					     savable_comment);
 		    if (argnum2 > 0)
 		      plural_mp = mp;
 		  }
@@ -956,10 +953,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 		    pos.file_name = logical_file_name;
 		    pos.line_number = inner.line_number_at_start;
-		    savable_comment_to_xgettext_comment (savable_comment);
 		    remember_a_message_plural (plural_mp, string_of_word (&inner),
-					       inner_context, &pos);
-		    savable_comment_reset ();
+					       inner_context, &pos,
+					       savable_comment);
 		  }
 	      }
 	  }

@@ -1,5 +1,37 @@
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.h (savable_comment_to_xgettext_comment): Remove
+	declaration.
+	(remember_a_message, remember_a_message_plural): Add a comment
+	argument.
+	* xgettext.c (savable_comment_to_xgettext_comment): Make static.
+	(remember_a_message): Add comment argument. Call
+	savable_comment_to_xgettext_comment and savable_comment_reset at the
+	end.
+	(remember_a_message_plural): Add comment argument. Call
+	savable_comment_to_xgettext_comment and xgettext_comment_reset,
+	savable_comment_reset at the end.
+	* x-awk.c (extract_parenthesized): Pass comment to remember_a_message.
+	* x-c.c (extract_parenthesized): Likewise.
+	* x-csharp.c (extract_parenthesized): Likewise.
+	* x-elisp.c (read_object): Likewise.
+	* x-glade.c (start_element_handler, end_element_handler): Likewise.
+	* x-java.c (extract_parenthesized): Likewise.
+	* x-librep.c (read_object): Likewise.
+	* x-lisp.c (read_object): Likewise.
+	* x-perl.c (extract_variable, interpolate_keywords, extract_balanced):
+	Likewise.
+	* x-php.c (extract_parenthesized): Likewise.
+	* x-python.c (extract_parenthesized): Likewise.
+	* x-scheme.c (read_object): Likewise.
+	* x-sh.c (read_word, read_command): Likewise.
+	* x-smalltalk.c (extract_smalltalk): Likewise.
+	* x-tcl.c (read_command): Likewise.
+	* x-ycp.c (extract_parenthesized): Likewise.
+	* x-rst.c (extract_rst): Update.
+
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.h (xgettext_comment_add, xgettext_comment,
 	xgettext_comment_reset): Remove declarations.
 	* xgettext.c (xgettext_comment_add, xgettext_comment,

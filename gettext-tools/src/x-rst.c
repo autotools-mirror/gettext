@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -219,7 +219,7 @@ extract_rst (FILE *f,
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
-      remember_a_message (mlp, msgid, null_context, &pos);
+      remember_a_message (mlp, msgid, null_context, &pos, NULL);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)

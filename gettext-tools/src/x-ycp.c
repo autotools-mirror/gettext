@@ -616,19 +616,17 @@ extract_parenthesized (message_list_ty *mlp,
 	      if (plural_mp == NULL)
 		{
 		  /* Seen an msgid.  */
-		  savable_comment_to_xgettext_comment (savable_comment);
 		  plural_mp = remember_a_message (mlp, token.string,
-						  inner_context, &pos);
-		  savable_comment_reset ();
+						  inner_context, &pos,
+						  savable_comment);
 		  state = 2;
 		}
 	      else
 		{
 		  /* Seen an msgid_plural.  */
-		  savable_comment_to_xgettext_comment (savable_comment);
 		  remember_a_message_plural (plural_mp, token.string,
-					     inner_context, &pos);
-		  savable_comment_reset ();
+					     inner_context, &pos,
+					     savable_comment);
 		  state = 0;
 		}
 	    }

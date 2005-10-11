@@ -541,9 +541,8 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		savable_comment_to_xgettext_comment (savable_comment);
-		remember_a_message (mlp, token.string, null_context, &pos);
-		savable_comment_reset ();
+		remember_a_message (mlp, token.string, null_context, &pos,
+				    savable_comment);
 		state = 0;
 		break;
 	      }
@@ -552,10 +551,9 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		savable_comment_to_xgettext_comment (savable_comment);
 		plural_mp = remember_a_message (mlp, token.string,
-						null_context, &pos);
-		savable_comment_reset ();
+						null_context, &pos,
+						savable_comment);
 		state = 4;
 		break;
 	      }
@@ -564,10 +562,9 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		savable_comment_to_xgettext_comment (savable_comment);
 		remember_a_message_plural (plural_mp, token.string,
-					   null_context, &pos);
-		savable_comment_reset ();
+					   null_context, &pos,
+					   savable_comment);
 		state = 0;
 		break;
 	      }

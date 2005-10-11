@@ -189,24 +189,31 @@ drop_reference (refcounted_string_list_ty *rslp)
 extern refcounted_string_list_ty *savable_comment;
 extern void savable_comment_add (const char *str);
 extern void savable_comment_reset (void);
-extern void savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp);
 
 
 /* Add a message to the list of extracted messages.
-   string must be malloc()ed string; its ownership is passed to the callee.
-   pos->file_name must be allocated with indefinite extent.  */
+   STRING must be malloc()ed string; its ownership is passed to the callee.
+   POS->file_name must be allocated with indefinite extent.
+   COMMENT may be savable_comment, or it may be a saved copy of savable_comment
+   (then add_reference must be used when saving it, and drop_reference while
+   dropping it).  Clear savable_comment.  */
 extern message_ty *remember_a_message (message_list_ty *mlp,
 				       char *string,
 				       flag_context_ty context,
-				       lex_pos_ty *pos);
+				       lex_pos_ty *pos,
+				       refcounted_string_list_ty *comment);
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
-   string must be malloc()ed string; its ownership is passed to the callee.
-   pos->file_name must be allocated with indefinite extent.  */
+   STRING must be malloc()ed string; its ownership is passed to the callee.
+   POS->file_name must be allocated with indefinite extent.
+   COMMENT may be savable_comment, or it may be a saved copy of savable_comment
+   (then add_reference must be used when saving it, and drop_reference while
+   dropping it).  Clear savable_comment.  */
 extern void remember_a_message_plural (message_ty *mp,
 				       char *string,
 				       flag_context_ty context,
-				       lex_pos_ty *pos);
+				       lex_pos_ty *pos,
+				       refcounted_string_list_ty *comment);
 
 
 #ifdef __cplusplus

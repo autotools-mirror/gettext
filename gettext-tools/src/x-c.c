@@ -1780,11 +1780,8 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case xgettext_token_type_string_literal:
 	  if (extract_all)
-	    {
-	      savable_comment_to_xgettext_comment (token.comment);
-	      remember_a_message (mlp, token.string, inner_context, &token.pos);
-	      savable_comment_reset ();
-	    }
+	    remember_a_message (mlp, token.string, inner_context, &token.pos,
+				token.comment);
 	  else
 	    {
 	      if (commas_to_skip == 0)
@@ -1792,12 +1789,10 @@ extract_parenthesized (message_list_ty *mlp,
 		  if (plural_mp == NULL)
 		    {
 		      /* Seen an msgid.  */
-		      message_ty *mp;
-
-		      savable_comment_to_xgettext_comment (token.comment);
-		      mp = remember_a_message (mlp, token.string,
-					       inner_context, &token.pos);
-		      savable_comment_reset ();
+		      message_ty *mp =
+			remember_a_message (mlp, token.string,
+					    inner_context, &token.pos,
+					    token.comment);
 		      if (plural_commas > 0)
 			plural_mp = mp;
 		    }
@@ -1805,7 +1800,8 @@ extract_parenthesized (message_list_ty *mlp,
 		    {
 		      /* Seen an msgid_plural.  */
 		      remember_a_message_plural (plural_mp, token.string,
-						 inner_context, &token.pos);
+						 inner_context, &token.pos,
+						 NULL);
 		      plural_mp = NULL;
 		    }
 		}

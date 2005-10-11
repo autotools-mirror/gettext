@@ -1320,11 +1320,8 @@ extract_parenthesized (message_list_ty *mlp,
 	    pos.line_number = token.line_number;
 
 	    if (extract_all)
-	      {
-		savable_comment_to_xgettext_comment (savable_comment);
-		remember_a_message (mlp, token.string, inner_context, &pos);
-		savable_comment_reset ();
-	      }
+	      remember_a_message (mlp, token.string, inner_context, &pos,
+				  savable_comment);
 	    else
 	      {
 		if (commas_to_skip == 0)
@@ -1332,23 +1329,19 @@ extract_parenthesized (message_list_ty *mlp,
 		    if (plural_mp == NULL)
 		      {
 			/* Seen an msgid.  */
-			message_ty *mp;
-
-			savable_comment_to_xgettext_comment (savable_comment);
-			mp =
+			message_ty *mp =
 			  remember_a_message (mlp, token.string,
-					      inner_context, &pos);
-			savable_comment_reset ();
+					      inner_context, &pos,
+					      savable_comment);
 			if (plural_commas > 0)
 			  plural_mp = mp;
 		      }
 		    else
 		      {
 			/* Seen an msgid_plural.  */
-			savable_comment_to_xgettext_comment (savable_comment);
 			remember_a_message_plural (plural_mp, token.string,
-						   inner_context, &pos);
-			savable_comment_reset ();
+						   inner_context, &pos,
+						   savable_comment);
 			plural_mp = NULL;
 		      }
 		  }

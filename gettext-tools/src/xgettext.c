@@ -1537,7 +1537,7 @@ savable_comment_reset ()
   savable_comment = NULL;
 }
 
-void
+static void
 savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
 {
   xgettext_comment_reset ();
@@ -1761,7 +1761,8 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 
 message_ty *
 remember_a_message (message_list_ty *mlp, char *string,
-		    flag_context_ty context, lex_pos_ty *pos)
+		    flag_context_ty context, lex_pos_ty *pos,
+		    refcounted_string_list_ty *comment)
 {
   enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
@@ -1780,9 +1781,12 @@ remember_a_message (message_list_ty *mlp, char *string,
       /* Tell the lexer to reset its comment buffer, so that the next
 	 message gets the correct comments.  */
       xgettext_comment_reset ();
+      savable_comment_reset ();
 
       return NULL;
     }
+
+  savable_comment_to_xgettext_comment (comment);
 
   for (i = 0; i < NFORMATS; i++)
     is_format[i] = undecided;
@@ -1986,6 +1990,7 @@ meta information, not the empty string.\n")));
   /* Tell the lexer to reset its comment buffer, so that the next
      message gets the correct comments.  */
   xgettext_comment_reset ();
+  savable_comment_reset ();
 
   return mp;
 }
@@ -1993,7 +1998,8 @@ meta information, not the empty string.\n")));
 
 void
 remember_a_message_plural (message_ty *mp, char *string,
-			   flag_context_ty context, lex_pos_ty *pos)
+			   flag_context_ty context, lex_pos_ty *pos,
+			   refcounted_string_list_ty *comment)
 {
   char *msgid_plural;
   char *msgstr1;
@@ -2002,6 +2008,8 @@ remember_a_message_plural (message_ty *mp, char *string,
   size_t i;
 
   msgid_plural = string;
+
+  savable_comment_to_xgettext_comment (comment);
 
   CONVERT_STRING (msgid_plural);
 
@@ -2071,6 +2079,11 @@ remember_a_message_plural (message_ty *mp, char *string,
     }
   else
     free (msgid_plural);
+
+  /* Tell the lexer to reset its comment buffer, so that the next
+     message gets the correct comments.  */
+  xgettext_comment_reset ();
+  savable_comment_reset ();
 }
 
 
