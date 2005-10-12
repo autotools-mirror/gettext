@@ -74,25 +74,19 @@ x_perl_keyword (const char *name)
   else
     {
       const char *end;
-      int argnum1;
-      int argnum2;
+      struct callshape shape;
       const char *colon;
 
       if (keywords.table == NULL)
 	hash_init (&keywords, 100);
 
-      split_keywordspec (name, &end, &argnum1, &argnum2);
+      split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
 	 A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	{
-	  if (argnum1 == 0)
-	    argnum1 = 1;
-	  hash_insert_entry (&keywords, name, end - name,
-			     (void *) (long) (argnum1 + (argnum2 << 10)));
-	}
+	insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -767,7 +761,7 @@ static bool extract_balanced (message_list_ty *mlp, int state,
 			      token_type_ty delim,
 			      flag_context_ty outer_context,
 			      flag_context_list_iterator_ty context_iter,
-			      int arg_sg, int arg_pl);
+			      int arg, struct arglist_parser *argparser);
 
 
 /* Extract an unsigned hexadecimal number from STRING, considering at
@@ -1374,7 +1368,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 #endif
 
       if (extract_balanced (mlp, 0, token_type_rbrace,
-			    null_context, null_context_list_iterator, -1, -1))
+			    null_context, null_context_list_iterator,
+			    1, arglist_parser_alloc (mlp, NULL)))
 	return;
       buffer[bufpos++] = c;
     }
@@ -1498,6 +1493,19 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
 			       &keyword_value) == 0)
 	    {
+	      /* TODO: Shouldn't we use the shapes of the keyword, instead
+		 of hardwiring argnum1 = 1 ?
+	      const struct callshapes *shapes =
+		(const struct callshapes *) keyword_value;
+	      */
+	      struct callshapes shapes;
+	      shapes.keyword = tp->string; /* XXX storage duration? */
+	      shapes.keyword_len = strlen (tp->string);
+	      shapes.nshapes = 1;
+	      shapes.shapes[0].argnum1 = 1;
+	      shapes.shapes[0].argnum2 = 0;
+	      shapes.shapes[0].argnumc = 0;
+
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and
 		 then by a right curly.  */
@@ -1531,8 +1539,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		      pos.file_name = logical_file_name;
 
 		      xgettext_current_source_encoding = po_charset_utf8;
-		      remember_a_message (mlp, xstrdup (t1->string), context,
-					  &pos, savable_comment);
+		      remember_a_message (mlp, NULL, xstrdup (t1->string),
+					  context, &pos, savable_comment);
 		      xgettext_current_source_encoding = xgettext_global_source_encoding;
 		      free_token (t2);
 		      free_token (t1);
@@ -1546,7 +1554,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		{
 		  x_perl_unlex (t1);
 		  if (extract_balanced (mlp, 1, token_type_rbrace,
-					null_context, context_iter, 1, -1))
+					null_context, context_iter,
+					1, arglist_parser_alloc (mlp, &shapes)))
 		    return;
 		}
 	    }
@@ -1575,7 +1584,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		   real_file_name, line_number);
 #endif
 	  extract_balanced (mlp, 0, token_type_rbrace,
-			    null_context, null_context_list_iterator, -1, -1);
+			    null_context, null_context_list_iterator,
+			    1, arglist_parser_alloc (mlp, NULL));
 	  break;
 
 	case '[':
@@ -1584,7 +1594,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		   real_file_name, line_number);
 #endif
 	  extract_balanced (mlp, 0, token_type_rbracket,
-			    null_context, null_context_list_iterator, -1, -1);
+			    null_context, null_context_list_iterator,
+			    1, arglist_parser_alloc (mlp, NULL));
 	  break;
 
 	case '-':
@@ -1953,7 +1964,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      token.string = xstrdup (buffer);
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, token.string, context, &pos,
+	      remember_a_message (mlp, NULL, token.string, context, &pos,
 				  savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      /* FALLTHROUGH */
@@ -2777,8 +2788,8 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 /* Extract messages until the next balanced closing parenthesis.
    Extracted messages are added to MLP.
 
-   When specific arguments shall be extracted, ARG_SG and ARG_PL are
-   set to the corresponding argument number or -1 if not applicable.
+   ARG is the current argument list position, starts with 1.
+   ARGPARSER is the corresponding argument list parser.
 
    Returns true for EOF, false otherwise.
 
@@ -2805,15 +2816,8 @@ static bool
 extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 		  flag_context_ty outer_context,
 		  flag_context_list_iterator_ty context_iter,
-		  int arg_sg, int arg_pl)
+		  int arg, struct arglist_parser *argparser)
 {
-  /* Remember the message containing the msgid, for msgid_plural.  */
-  message_ty *plural_mp = NULL;
-
-  /* The current argument for a possibly extracted keyword.  Counting
-     starts with 1.  */
-  int arg_count = 1;
-
   /* Number of left parentheses seen.  */
   int paren_seen = 0;
 
@@ -2850,6 +2854,9 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 
       if (delim == tp->type)
 	{
+	  xgettext_current_source_encoding = po_charset_utf8;
+	  arglist_parser_done (argparser);
+	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 #if DEBUG_PERL
 	  fprintf (stderr, "%s:%d: extract_balanced finished (%d)\n",
 		   logical_file_name, tp->line_number, --nesting_level);
@@ -2884,11 +2891,16 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	    if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
 				 &keyword_value) == 0)
 	      {
-		last_token = token_type_keyword_symbol;
+		const struct callshapes *shapes =
+		  (const struct callshapes *) keyword_value;
 
-		arg_sg = (int) (long) keyword_value & ((1 << 10) - 1);
-		arg_pl = (int) (long) keyword_value >> 10;
-		arg_count = 1;
+		xgettext_current_source_encoding = po_charset_utf8;
+		arglist_parser_done (argparser);
+		xgettext_current_source_encoding = xgettext_global_source_encoding;
+		argparser = arglist_parser_alloc (mlp, shapes);
+		arg = 1;
+
+		last_token = token_type_keyword_symbol;
 
 		state = 2;
 	      }
@@ -2920,13 +2932,21 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 
 	  if (extract_balanced (mlp, state, token_type_rparen,
 				inner_context, next_context_iter,
-				arg_sg - arg_count + 1, arg_pl - arg_count + 1))
+				arg, arglist_parser_clone (argparser)))
 	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
 	    }
 	  if (my_last_token == token_type_keyword_symbol)
-	    arg_sg = arg_pl = -1;
+	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      argparser = arglist_parser_alloc (mlp, NULL);
+	    }
 	  next_is_argument = false;
 	  next_context_iter = null_context_list_iterator;
 	  break;
@@ -2947,17 +2967,19 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  fprintf (stderr, "%s:%d: type comma (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  ++arg_count;
-	  if (arg_count > arg_sg && arg_count > arg_pl)
+	  if (arglist_parser_decidedp (argparser, arg))
 	    {
 	      /* We have missed the argument.  */
-	      arg_sg = arg_pl = -1;
-	      arg_count = 0;
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      argparser = arglist_parser_alloc (mlp, NULL);
+	      arg = 0;
 	    }
+	  arg++;
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: arg_count: %d, arg_sg: %d, arg_pl: %d\n",
-		   real_file_name, tp->line_number,
-		   arg_count, arg_sg, arg_pl);
+	  fprintf (stderr, "%s:%d: arg: %d\n",
+		   real_file_name, tp->line_number, arg);
 #endif
 	  inner_context =
 	    inherited_context (outer_context,
@@ -2976,54 +2998,34 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 
 	  if (extract_all)
 	    {
+	      char *string = collect_message (mlp, tp, EXIT_SUCCESS);
 	      lex_pos_ty pos;
-	      char *string;
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
-	      string = collect_message (mlp, tp, EXIT_SUCCESS);
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, string, inner_context, &pos,
-				  savable_comment);
+	      remember_a_message (mlp, NULL, string, inner_context, &pos, savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (state)
 	    {
-	      lex_pos_ty pos;
-	      char *string;
+	      char *string = collect_message (mlp, tp, EXIT_FAILURE);
 
-	      pos.file_name = logical_file_name;
-	      pos.line_number = tp->line_number;
-
-	      if (arg_count == arg_sg)
-		{
-		  string = collect_message (mlp, tp, EXIT_FAILURE);
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  plural_mp = remember_a_message (mlp, string, inner_context,
-						  &pos, savable_comment);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		  arg_sg = -1;
-		}
-	      else if (arg_count == arg_pl)
-		{
-		  if (plural_mp == NULL)
-		    error (EXIT_FAILURE, 0, _("\
-%s:%d: fatal: plural message seen before singular message\n"),
-			   real_file_name, tp->line_number);
-
-		  string = collect_message (mlp, tp, EXIT_FAILURE);
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  remember_a_message_plural (plural_mp, string, inner_context,
-					     &pos, savable_comment);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		  arg_pl = -1;
-		}
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_remember (argparser, arg,
+				       string, inner_context,
+				       logical_file_name, tp->line_number,
+				       savable_comment);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 
-	  if (arg_sg == -1 && arg_pl == -1)
+	  if (arglist_parser_decidedp (argparser, arg))
 	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      argparser = arglist_parser_alloc (mlp, NULL);
 	      state = 0;
-	      plural_mp = NULL;
 	    }
 
 	  next_is_argument = false;
@@ -3035,6 +3037,9 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  fprintf (stderr, "%s:%d: type EOF (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
+	  xgettext_current_source_encoding = po_charset_utf8;
+	  arglist_parser_done (argparser);
+	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  free_token (tp);
 	  return true;
 
@@ -3045,8 +3050,11 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 #endif
 	  if (extract_balanced (mlp, 0, token_type_rbrace,
 				null_context, null_context_list_iterator,
-				-1, -1))
+				1, arglist_parser_alloc (mlp, NULL)))
 	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
 	    }
@@ -3071,8 +3079,11 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 #endif
 	  if (extract_balanced (mlp, 0, token_type_rbracket,
 				null_context, null_context_list_iterator,
-				-1, -1))
+				1, arglist_parser_alloc (mlp, NULL)))
 	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
 	    }
@@ -3098,7 +3109,10 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  state = 0;
 
 	  /* The ultimate sign.  */
-	  arg_sg = arg_pl = -1;
+	  xgettext_current_source_encoding = po_charset_utf8;
+	  arglist_parser_done (argparser);
+	  xgettext_current_source_encoding = xgettext_global_source_encoding;
+	  argparser = arglist_parser_alloc (mlp, NULL);
 
 	  /* FIXME: Instead of resetting outer_context here, it may be better
 	     to recurse in the next_is_argument handling above, waiting for
@@ -3203,7 +3217,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
      due to an unbalanced closing brace, just restart it.  */
   while (!extract_balanced (mlp, 0, token_type_rbrace,
 			    null_context, null_context_list_iterator,
-			    -1, -1))
+			    1, arglist_parser_alloc (mlp, NULL)))
     ;
 
   fp = NULL;

@@ -955,63 +955,133 @@ read_exclusion_file (char *filename)
 
 void
 split_keywordspec (const char *spec,
-		   const char **endp, int *argnum1p, int *argnum2p)
+		   const char **endp, struct callshape *shapep)
 {
   const char *p;
+  int argnum1 = 0;
+  int argnum2 = 0;
+  int argnumc = 0;
 
   /* Start parsing from the end.  */
   p = spec + strlen (spec);
-  if (p > spec && isdigit ((unsigned char) p[-1]))
+  while (p > spec)
     {
-      const char *last_arg;
-
-      do
-	p--;
-      while (p > spec && isdigit ((unsigned char) p[-1]));
-
-      last_arg = p;
-
-      if (p > spec && p[-1] == ',')
+      if (isdigit ((unsigned char) p[-1])
+	  || (p[-1] == 'c' && p - 1 > spec && isdigit ((unsigned char) p[-2])))
 	{
-	  p--;
+	  bool contextp = (p[-1] == 'c');
 
-	  if (p > spec && isdigit ((unsigned char) p[-1]))
+	  do
+	    p--;
+	  while (p > spec && isdigit ((unsigned char) p[-1]));
+
+	  if (p > spec && (p[-1] == ',' || p[-1] == ':'))
 	    {
-	      const char *first_arg;
+	      char *dummy;
+	      int arg = strtol (p, &dummy, 10);
 
-	      do
-		p--;
-	      while (p > spec && isdigit ((unsigned char) p[-1]));
-
-	      first_arg = p;
-
-	      if (p > spec && p[-1] == ':')
+	      if (contextp)
 		{
-		  /* Parsed "KEYWORD:ARGNUM1,ARGNUM2".  */
-		  char *dummy;
+		  if (argnumc != 0)
+		    /* Only one context argument can be given.  */
+		    break;
+		  argnumc = arg;
+		}
+	      else
+		{
+		  if (argnum2 != 0)
+		    /* At most two normal arguments can be given.  */
+		    break;
+		  argnum2 = argnum1;
+		  argnum1 = arg;
+		}
 
-		  *endp = p - 1;
-		  *argnum1p = strtol (first_arg, &dummy, 10);
-		  *argnum2p = strtol (last_arg, &dummy, 10);
+	      p--;
+	      if (*p == ':')
+		{
+		  if (argnum1 == 0 && argnum2 == 0)
+		    /* At least one non-context argument must be given.  */
+		    break;
+		  *endp = p;
+		  shapep->argnum1 = (argnum1 > 0 ? argnum1 : 1);
+		  shapep->argnum2 = argnum2;
+		  shapep->argnumc = argnumc;
 		  return;
 		}
 	    }
+	  else
+	    break;
 	}
-      else if (p > spec && p[-1] == ':')
-	{
-	  /* Parsed "KEYWORD:ARGNUM1.  */
-	  char *dummy;
+      else
+	break;
+    }
 
-	  *endp = p - 1;
-	  *argnum1p = strtol (last_arg, &dummy, 10);
-	  *argnum2p = 0;
-	  return;
+  /* Couldn't parse the desired syntax.  */
+  *endp = spec + strlen (spec);
+  shapep->argnum1 = 1;
+  shapep->argnum2 = 0;
+  shapep->argnumc = 0;
+}
+
+
+void
+insert_keyword_callshape (hash_table *table,
+			  const char *keyword, size_t keyword_len,
+			  const struct callshape *shape)
+{
+  void *old_value;
+
+  if (hash_find_entry (table, keyword, keyword_len, &old_value))
+    {
+      /* Create a one-element 'struct callshapes'.  */
+      struct callshapes *shapes =
+	(struct callshapes *) xmalloc (sizeof (struct callshapes));
+      shapes->nshapes = 1;
+      shapes->shapes[0] = *shape;
+      keyword =
+	(const char *) hash_insert_entry (table, keyword, keyword_len, shapes);
+      if (keyword == NULL)
+	abort ();
+      shapes->keyword = keyword;
+      shapes->keyword_len = keyword_len;
+    }
+  else
+    {
+      /* Found a 'struct callshapes'.  See whether it already contains the
+	 desired shape.  */
+      struct callshapes *old_shapes = (struct callshapes *) old_value;
+      bool found;
+      size_t i;
+
+      found = false;
+      for (i = 0; i < old_shapes->nshapes; i++)
+	if (old_shapes->shapes[i].argnum1 == shape->argnum1
+	    && old_shapes->shapes[i].argnum2 == shape->argnum2
+	    && old_shapes->shapes[i].argnumc == shape->argnumc)
+	  {
+	    found = true;
+	    break;
+	  }
+
+      if (!found)
+	{
+	  /* Replace the existing 'struct callshapes' with a new one.  */
+	  struct callshapes *shapes =
+	    (struct callshapes *)
+	    xmalloc (sizeof (struct callshapes)
+		     + old_shapes->nshapes * sizeof (struct callshape));
+
+	  shapes->keyword = old_shapes->keyword;
+	  shapes->keyword_len = old_shapes->keyword_len;
+	  shapes->nshapes = old_shapes->nshapes + 1;
+	  for (i = 0; i < old_shapes->nshapes; i++)
+	    shapes->shapes[i] = old_shapes->shapes[i];
+	  shapes->shapes[i] = *shape;
+	  if (hash_set_value (table, keyword, keyword_len, shapes))
+	    abort ();
+	  free (old_shapes);
 	}
     }
-  /* Parsed "KEYWORD".  */
-  *endp = p + strlen (p);
-  *argnum1p = 0;
-  *argnum2p = 0;
 }
 
 
@@ -1760,20 +1830,15 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 
 
 message_ty *
-remember_a_message (message_list_ty *mlp, char *string,
+remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 		    flag_context_ty context, lex_pos_ty *pos,
 		    refcounted_string_list_ty *comment)
 {
   enum is_format is_format[NFORMATS];
   enum is_wrap do_wrap;
-  char *msgctxt;
-  char *msgid;
   message_ty *mp;
   char *msgstr;
   size_t i;
-
-  msgctxt = NULL;
-  msgid = string;
 
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
@@ -1782,6 +1847,10 @@ remember_a_message (message_list_ty *mlp, char *string,
 	 message gets the correct comments.  */
       xgettext_comment_reset ();
       savable_comment_reset ();
+
+      if (msgctxt != NULL)
+	free (msgctxt);
+      free (msgid);
 
       return NULL;
     }
@@ -1792,9 +1861,11 @@ remember_a_message (message_list_ty *mlp, char *string,
     is_format[i] = undecided;
   do_wrap = undecided;
 
+  if (msgctxt != NULL)
+    CONVERT_STRING (msgctxt);
   CONVERT_STRING (msgid);
 
-  if (msgid[0] == '\0' && !xgettext_omit_header)
+  if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
     {
       char buffer[21];
 
@@ -1816,6 +1887,8 @@ meta information, not the empty string.\n")));
   mp = message_list_search (mlp, msgctxt, msgid);
   if (mp != NULL)
     {
+      if (msgctxt != NULL)
+	free (msgctxt);
       free (msgid);
       for (i = 0; i < NFORMATS; i++)
 	is_format[i] = mp->is_format[i];
@@ -1839,9 +1912,9 @@ meta information, not the empty string.\n")));
 	msgstr = "";
 
       /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (NULL, msgid, NULL, msgstr, strlen (msgstr) + 1,
+      mp = message_alloc (msgctxt, msgid, NULL, msgstr, strlen (msgstr) + 1,
 			  &dummypos);
-      /* Do not free msgid.  */
+      /* Do not free msgctxt and msgid.  */
       message_list_append (mlp, mp);
     }
 
@@ -2084,6 +2157,339 @@ remember_a_message_plural (message_ty *mp, char *string,
      message gets the correct comments.  */
   xgettext_comment_reset ();
   savable_comment_reset ();
+}
+
+
+struct arglist_parser *
+arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
+{
+  if (shapes == NULL || shapes->nshapes == 0)
+    {
+      struct arglist_parser *ap =
+	(struct arglist_parser *)
+	xmalloc (offsetof (struct arglist_parser, alternative[0]));
+
+      ap->mlp = mlp;
+      ap->keyword = NULL;
+      ap->keyword_len = 0;
+      ap->nalternatives = 0;
+
+      return ap;
+    }
+  else
+    {
+      struct arglist_parser *ap =
+	(struct arglist_parser *)
+	xmalloc (sizeof (struct arglist_parser)
+		 + (shapes->nshapes - 1) * sizeof (struct partial_call));
+      size_t i;
+
+      ap->mlp = mlp;
+      ap->keyword = shapes->keyword;
+      ap->keyword_len = shapes->keyword_len;
+      ap->nalternatives = shapes->nshapes;
+      for (i = 0; i < shapes->nshapes; i++)
+	{
+	  ap->alternative[i].argnumc = shapes->shapes[i].argnumc;
+	  ap->alternative[i].argnum1 = shapes->shapes[i].argnum1;
+	  ap->alternative[i].argnum2 = shapes->shapes[i].argnum2;
+	  ap->alternative[i].msgctxt = NULL;
+	  ap->alternative[i].msgctxt_pos.file_name = NULL;
+	  ap->alternative[i].msgctxt_pos.line_number = (size_t)(-1);
+	  ap->alternative[i].msgid = NULL;
+	  ap->alternative[i].msgid_context = null_context;
+	  ap->alternative[i].msgid_pos.file_name = NULL;
+	  ap->alternative[i].msgid_pos.line_number = (size_t)(-1);
+	  ap->alternative[i].msgid_comment = NULL;
+	  ap->alternative[i].msgid_plural = NULL;
+	  ap->alternative[i].msgid_plural_context = null_context;
+	  ap->alternative[i].msgid_plural_pos.file_name = NULL;
+	  ap->alternative[i].msgid_plural_pos.line_number = (size_t)(-1);
+	}
+
+      return ap;
+    }
+}
+
+
+struct arglist_parser *
+arglist_parser_clone (struct arglist_parser *ap)
+{
+  struct arglist_parser *copy =
+    (struct arglist_parser *)
+    xmalloc (sizeof (struct arglist_parser) - sizeof (struct partial_call)
+	     + ap->nalternatives * sizeof (struct partial_call));
+  size_t i;
+
+  copy->mlp = ap->mlp;
+  copy->keyword = ap->keyword;
+  copy->keyword_len = ap->keyword_len;
+  copy->nalternatives = ap->nalternatives;
+  for (i = 0; i < ap->nalternatives; i++)
+    {
+      const struct partial_call *cp = &ap->alternative[i];
+      struct partial_call *ccp = &copy->alternative[i];
+
+      ccp->argnumc = cp->argnumc;
+      ccp->argnum1 = cp->argnum1;
+      ccp->argnum2 = cp->argnum2;
+      ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
+      ccp->msgctxt_pos = cp->msgctxt_pos;
+      ccp->msgid = (cp->msgid != NULL ? xstrdup (cp->msgid) : NULL);
+      ccp->msgid_context = cp->msgid_context;
+      ccp->msgid_pos = cp->msgctxt_pos;
+      ccp->msgid_comment = add_reference (cp->msgid_comment);
+      ccp->msgid_plural =
+	(cp->msgid_plural != NULL ? xstrdup (cp->msgid_plural) : NULL);
+      ccp->msgid_plural_context = cp->msgid_plural_context;
+      ccp->msgid_plural_pos = cp->msgid_plural_pos;
+    }
+
+  return copy;
+}
+
+
+void
+arglist_parser_remember (struct arglist_parser *ap,
+			 int argnum, char *string,
+			 flag_context_ty context,
+			 char *file_name, size_t line_number,
+			 refcounted_string_list_ty *comment)
+{
+  bool stored_string = false;
+  size_t nalternatives = ap->nalternatives;
+  size_t i;
+
+  if (!(argnum > 0))
+    abort ();
+  for (i = 0; i < nalternatives; i++)
+    {
+      struct partial_call *cp = &ap->alternative[i];
+
+      if (argnum == cp->argnumc)
+	{
+	  cp->msgctxt = string;
+	  cp->msgctxt_pos.file_name = file_name;
+	  cp->msgctxt_pos.line_number = line_number;
+	  stored_string = true;
+	  /* Mark msgctxt as done.  */
+	  cp->argnumc = 0;
+	}
+      else if (argnum == cp->argnum1)
+	{
+	  cp->msgid = string;
+	  cp->msgid_context = context;
+	  cp->msgid_pos.file_name = file_name;
+	  cp->msgid_pos.line_number = line_number;
+	  cp->msgid_comment = add_reference (comment);
+	  stored_string = true;
+	  /* Mark msgid as done.  */
+	  cp->argnum1 = 0;
+	}
+      else if (argnum == cp->argnum2)
+	{
+	  cp->msgid_plural = string;
+	  cp->msgid_plural_context = context;
+	  cp->msgid_plural_pos.file_name = file_name;
+	  cp->msgid_plural_pos.line_number = line_number;
+	  stored_string = true;
+	  /* Mark msgid_plural as done.  */
+	  cp->argnum2 = 0;
+	}
+    }
+  /* Note: There is a memory leak here: When string was stored but is later
+     not used by arglist_parser_done, we don't free it.  */
+  if (!stored_string)
+    free (string);
+}
+
+
+bool
+arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
+{
+  size_t i;
+
+  /* Test whether all alternatives are decided.
+     Note: A decided alternative can be complete
+       cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+     or it can be failed if no literal strings were found at the specified
+     argument positions:
+       cp->argnumc <= argnum && cp->argnum1 <= argnum && cp->argnum2 <= argnum
+   */
+  for (i = 0; i < ap->nalternatives; i++)
+    {
+      struct partial_call *cp = &ap->alternative[i];
+
+      if (!(cp->argnumc <= argnum
+	    && cp->argnum1 <= argnum
+	    && cp->argnum2 <= argnum))
+	/* cp is still undecided.  */
+	return false;
+    }
+  return true;
+}
+
+
+void
+arglist_parser_done (struct arglist_parser *ap)
+{
+  size_t ncomplete;
+  size_t i;
+
+  /* Determine the number of complete calls.  */
+  ncomplete = 0;
+  for (i = 0; i < ap->nalternatives; i++)
+    {
+      struct partial_call *cp = &ap->alternative[i];
+
+      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0)
+	ncomplete++;
+    }
+
+  if (ncomplete > 0)
+    {
+      struct partial_call *best_cp = NULL;
+      bool ambiguous = false;
+
+      /* Find complete calls where msgctxt, msgid, msgid_plural are all
+	 provided.  */
+      for (i = 0; i < ap->nalternatives; i++)
+	{
+	  struct partial_call *cp = &ap->alternative[i];
+
+	  if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+	      && cp->msgctxt != NULL
+	      && cp->msgid != NULL
+	      && cp->msgid_plural != NULL)
+	    {
+	      if (best_cp != NULL)
+		{
+		  ambiguous = true;
+		  break;
+		}
+	      best_cp = cp;
+	    }
+	}
+
+      if (best_cp == NULL)
+	{
+	  struct partial_call *best_cp1 = NULL;
+	  struct partial_call *best_cp2 = NULL;
+
+	  /* Find complete calls where msgctxt, msgid are provided.  */
+	  for (i = 0; i < ap->nalternatives; i++)
+	    {
+	      struct partial_call *cp = &ap->alternative[i];
+
+	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && cp->msgctxt != NULL
+		  && cp->msgid != NULL)
+		{
+		  if (best_cp1 != NULL)
+		    {
+		      ambiguous = true;
+		      break;
+		    }
+		  best_cp1 = cp;
+		}
+	    }
+
+	  /* Find complete calls where msgid, msgid_plural are provided.  */
+	  for (i = 0; i < ap->nalternatives; i++)
+	    {
+	      struct partial_call *cp = &ap->alternative[i];
+
+	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && cp->msgid != NULL
+		  && cp->msgid_plural != NULL)
+		{
+		  if (best_cp2 != NULL)
+		    {
+		      ambiguous = true;
+		      break;
+		    }
+		  best_cp2 = cp;
+		}
+	    }
+
+	  if (best_cp1 != NULL)
+	    best_cp = best_cp1;
+	  if (best_cp2 != NULL)
+	    {
+	      if (best_cp != NULL)
+		ambiguous = true;
+	      else
+		best_cp = best_cp2;
+	    }
+	}
+
+      if (best_cp == NULL)
+	{
+	  /* Find complete calls where msgid is provided.  */
+	  for (i = 0; i < ap->nalternatives; i++)
+	    {
+	      struct partial_call *cp = &ap->alternative[i];
+
+	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && cp->msgid != NULL)
+		{
+		  if (best_cp != NULL)
+		    {
+		      ambiguous = true;
+		      break;
+		    }
+		  best_cp = cp;
+		}
+	    }
+	}
+
+      if (ambiguous)
+	{
+	  error_with_progname = false;
+	  error (0, 0,
+		 _("%s:%d: ambiguous argument specification for keyword '%.*s'"),
+		 best_cp->msgid_pos.file_name, best_cp->msgid_pos.line_number,
+		 ap->keyword_len, ap->keyword);
+	  error_with_progname = true;
+	}
+
+      if (best_cp != NULL)
+	{
+	  /* best_cp indicates the best found complete call.
+	     Now call remember_a_message.  */
+	  message_ty *mp;
+
+	  mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
+				   best_cp->msgid_context,
+				   &best_cp->msgid_pos,
+				   best_cp->msgid_comment);
+	  if (best_cp->msgid_plural != NULL)
+	    remember_a_message_plural (mp, best_cp->msgid_plural,
+				       best_cp->msgid_plural_context,
+				       &best_cp->msgid_plural_pos,
+				       NULL);
+	}
+    }
+  else
+    {
+      /* No complete call was parsed.  */
+      /* Note: There is a memory leak here: When there is more than one
+	 alternative, the same string can be stored in multiple alternatives,
+	 and it's not easy to free all strings reliably.  */
+      if (ap->nalternatives == 1)
+	{
+	  if (ap->alternative[0].msgctxt != NULL)
+	    free (ap->alternative[0].msgctxt);
+	  if (ap->alternative[0].msgid != NULL)
+	    free (ap->alternative[0].msgid);
+	  if (ap->alternative[0].msgid_plural != NULL)
+	    free (ap->alternative[0].msgid_plural);
+	}
+    }
+
+  for (i = 0; i < ap->nalternatives; i++)
+    drop_reference (ap->alternative[i].msgid_comment);
+  free (ap);
 }
 
 

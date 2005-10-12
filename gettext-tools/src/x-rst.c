@@ -219,7 +219,7 @@ extract_rst (FILE *f,
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
-      remember_a_message (mlp, msgid, null_context, &pos, NULL);
+      remember_a_message (mlp, NULL, msgid, null_context, &pos, NULL);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)

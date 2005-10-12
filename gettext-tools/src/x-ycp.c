@@ -616,7 +616,7 @@ extract_parenthesized (message_list_ty *mlp,
 	      if (plural_mp == NULL)
 		{
 		  /* Seen an msgid.  */
-		  plural_mp = remember_a_message (mlp, token.string,
+		  plural_mp = remember_a_message (mlp, NULL, token.string,
 						  inner_context, &pos,
 						  savable_comment);
 		  state = 2;

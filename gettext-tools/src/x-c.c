@@ -112,25 +112,19 @@ add_keyword (const char *name, hash_table *keywords)
   else
     {
       const char *end;
-      int argnum1;
-      int argnum2;
+      struct callshape shape;
       const char *colon;
 
       if (keywords->table == NULL)
 	hash_init (keywords, 100);
 
-      split_keywordspec (name, &end, &argnum1, &argnum2);
+      split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
 	 A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	{
-	  if (argnum1 == 0)
-	    argnum1 = 1;
-	  hash_insert_entry (keywords, name, end - name,
-			     (void *) (long) (argnum1 + (argnum2 << 10)));
-	}
+	insert_keyword_callshape (keywords, name, end - name, &shape);
     }
 }
 
@@ -160,6 +154,12 @@ init_keywords ()
       x_c_keyword ("dngettext:2,3");
       x_c_keyword ("dcngettext:2,3");
       x_c_keyword ("gettext_noop");
+      x_c_keyword ("pgettext:1c,2");
+      x_c_keyword ("dpgettext:2c,3");
+      x_c_keyword ("dcpgettext:2c,3");
+      x_c_keyword ("npgettext:1c,2,3");
+      x_c_keyword ("dnpgettext:2c,3,4");
+      x_c_keyword ("dcnpgettext:2c,3,4");
 
       x_objc_keyword ("gettext");
       x_objc_keyword ("dgettext:2");
@@ -168,6 +168,12 @@ init_keywords ()
       x_objc_keyword ("dngettext:2,3");
       x_objc_keyword ("dcngettext:2,3");
       x_objc_keyword ("gettext_noop");
+      x_objc_keyword ("pgettext:1c,2");
+      x_objc_keyword ("dpgettext:2c,3");
+      x_objc_keyword ("dcpgettext:2c,3");
+      x_objc_keyword ("npgettext:1c,2,3");
+      x_objc_keyword ("dnpgettext:2c,3,4");
+      x_objc_keyword ("dcnpgettext:2c,3,4");
       x_objc_keyword ("NSLocalizedString");	  /* similar to gettext */
       x_objc_keyword ("_");			  /* similar to gettext */
       x_objc_keyword ("NSLocalizedStaticString"); /* similar to gettext_noop */
@@ -190,6 +196,16 @@ init_flag_table_c ()
   xgettext_record_flag ("dcngettext:2:pass-c-format");
   xgettext_record_flag ("dcngettext:3:pass-c-format");
   xgettext_record_flag ("gettext_noop:1:pass-c-format");
+  xgettext_record_flag ("pgettext:2:pass-c-format");
+  xgettext_record_flag ("dpgettext:3:pass-c-format");
+  xgettext_record_flag ("dcpgettext:3:pass-c-format");
+  xgettext_record_flag ("npgettext:2:pass-c-format");
+  xgettext_record_flag ("npgettext:3:pass-c-format");
+  xgettext_record_flag ("dnpgettext:3:pass-c-format");
+  xgettext_record_flag ("dnpgettext:4:pass-c-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-c-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-c-format");
+
   /* <stdio.h> */
   xgettext_record_flag ("fprintf:2:c-format");
   xgettext_record_flag ("vfprintf:2:c-format");
@@ -231,6 +247,15 @@ init_flag_table_objc ()
   xgettext_record_flag ("dcngettext:2:pass-objc-format");
   xgettext_record_flag ("dcngettext:3:pass-objc-format");
   xgettext_record_flag ("gettext_noop:1:pass-objc-format");
+  xgettext_record_flag ("pgettext:2:pass-objc-format");
+  xgettext_record_flag ("dpgettext:3:pass-objc-format");
+  xgettext_record_flag ("dcpgettext:3:pass-objc-format");
+  xgettext_record_flag ("npgettext:2:pass-objc-format");
+  xgettext_record_flag ("npgettext:3:pass-objc-format");
+  xgettext_record_flag ("dnpgettext:3:pass-objc-format");
+  xgettext_record_flag ("dnpgettext:4:pass-objc-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-objc-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-objc-format");
   xgettext_record_flag ("NSLocalizedString:1:pass-c-format");
   xgettext_record_flag ("NSLocalizedString:1:pass-objc-format");
   xgettext_record_flag ("_:1:pass-c-format");
@@ -255,6 +280,15 @@ init_flag_table_gcc_internal ()
   xgettext_record_flag ("dcngettext:2:pass-gcc-internal-format");
   xgettext_record_flag ("dcngettext:3:pass-gcc-internal-format");
   xgettext_record_flag ("gettext_noop:1:pass-gcc-internal-format");
+  xgettext_record_flag ("pgettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("dpgettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("dcpgettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("npgettext:2:pass-gcc-internal-format");
+  xgettext_record_flag ("npgettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("dnpgettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("dnpgettext:4:pass-gcc-internal-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-gcc-internal-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-gcc-internal-format");
 #if 0 /* This should better be done inside GCC.  */
   /* grepping for ATTRIBUTE_PRINTF in gcc-3.3/gcc/?*.h */
   /* c-format.c */
@@ -1525,9 +1559,8 @@ struct xgettext_token_ty
 {
   xgettext_token_type_ty type;
 
-  /* These fields are used only for xgettext_token_type_keyword.  */
-  int argnum1;
-  int argnum2;
+  /* This field is used only for xgettext_token_type_keyword.  */
+  const struct callshapes *shapes;
 
   /* This field is used only for xgettext_token_type_string_literal,
      xgettext_token_type_keyword, xgettext_token_type_symbol.  */
@@ -1570,8 +1603,7 @@ x_c_lex (xgettext_token_ty *tp)
 	      == 0)
 	    {
 	      tp->type = xgettext_token_type_keyword;
-	      tp->argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-	      tp->argnum2 = (int) (long) keyword_value >> 10;
+	      tp->shapes = (const struct callshapes *) keyword_value;
 	      tp->pos.file_name = logical_file_name;
 	      tp->pos.line_number = token.line_number;
 	    }
@@ -1652,25 +1684,19 @@ static flag_context_list_table_ty *flag_context_list_table;
 
 /* Extract messages until the next balanced closing parenthesis.
    Extracted messages are added to MLP.
-   When a specific argument shall be extracted, COMMAS_TO_SKIP >= 0 and,
-   if also a plural argument shall be extracted, PLURAL_COMMAS > 0,
-   otherwise PLURAL_COMMAS = 0.
-   When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
 		       flag_context_ty outer_context,
 		       flag_context_list_iterator_ty context_iter,
-		       int commas_to_skip, int plural_commas)
+		       struct arglist_parser *argparser)
 {
-  /* Remember the message containing the msgid, for msgid_plural.  */
-  message_ty *plural_mp = NULL;
-
+  /* Current argument number.  */
+  int arg = 1;
   /* 0 when no keyword has been seen.  1 right after a keyword is seen.  */
   int state;
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
-  int next_commas_to_skip = -1;
-  int next_plural_commas = 0;
+  const struct callshapes *next_shapes = NULL;
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
@@ -1694,9 +1720,7 @@ extract_parenthesized (message_list_ty *mlp,
       switch (token.type)
 	{
 	case xgettext_token_type_keyword:
-	  next_commas_to_skip = token.argnum1 - 1;
-	  next_plural_commas = (token.argnum2 > token.argnum1
-				? token.argnum2 - token.argnum1 : 0);
+	  next_shapes = token.shapes;
 	  state = 1;
 	  goto keyword_or_symbol;
 
@@ -1725,31 +1749,23 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case xgettext_token_type_lparen:
 	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
-				     state ? next_commas_to_skip : -1,
-				     state ? next_plural_commas : 0))
-	    return true;
+				     arglist_parser_alloc (mlp,
+							   state ? next_shapes : NULL)))
+	    {
+	      arglist_parser_done (argparser);
+	      return true;
+	    }
 	  next_context_iter = null_context_list_iterator;
 	  selectorcall_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case xgettext_token_type_rparen:
+	  arglist_parser_done (argparser);
 	  return false;
 
 	case xgettext_token_type_comma:
-	  if (commas_to_skip >= 0)
-	    {
-	      if (commas_to_skip > 0)
-		commas_to_skip--;
-	      else
-		if (plural_mp != NULL && plural_commas > 0)
-		  {
-		    commas_to_skip = plural_commas - 1;
-		    plural_commas = 0;
-		  }
-		else
-		  commas_to_skip = -1;
-	    }
+	  arg++;
 	  inner_context =
 	    inherited_context (outer_context,
 			       flag_context_list_iterator_advance (
@@ -1780,34 +1796,13 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case xgettext_token_type_string_literal:
 	  if (extract_all)
-	    remember_a_message (mlp, token.string, inner_context, &token.pos,
-				token.comment);
+	    remember_a_message (mlp, NULL, token.string, inner_context,
+				&token.pos, token.comment);
 	  else
-	    {
-	      if (commas_to_skip == 0)
-		{
-		  if (plural_mp == NULL)
-		    {
-		      /* Seen an msgid.  */
-		      message_ty *mp =
-			remember_a_message (mlp, token.string,
-					    inner_context, &token.pos,
-					    token.comment);
-		      if (plural_commas > 0)
-			plural_mp = mp;
-		    }
-		  else
-		    {
-		      /* Seen an msgid_plural.  */
-		      remember_a_message_plural (plural_mp, token.string,
-						 inner_context, &token.pos,
-						 NULL);
-		      plural_mp = NULL;
-		    }
-		}
-	      else
-		free (token.string);
-	    }
+	    arglist_parser_remember (argparser, arg, token.string,
+				     inner_context,
+				     token.pos.file_name, token.pos.line_number,
+				     token.comment);
 	  drop_reference (token.comment);
 	  next_context_iter = null_context_list_iterator;
 	  selectorcall_context_iter = null_context_list_iterator;
@@ -1821,6 +1816,7 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case xgettext_token_type_eof:
+	  arglist_parser_done (argparser);
 	  return true;
 
 	default:
@@ -1854,7 +1850,7 @@ extract_whole_file (FILE *f,
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
   while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
-				 -1, 0))
+				 arglist_parser_alloc (mlp, NULL)))
     ;
 
   /* Close scanner.  */

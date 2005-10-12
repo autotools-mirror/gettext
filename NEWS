@@ -1,4 +1,17 @@
 
+* GUI program support:
+  - PO files can now contain messages constrained to a certain context.
+    Most often such a context is a menu, dialog or panel identification.
+    The syntax in the PO file is
+      msgctxt "context"
+      msgid "original"
+      msgstr "translation"
+  - The xgettext program can be told through the --keyword flag which
+    function/macro argument has the role of a context.
+  - The (non-public) include file gettext.h defines macros pgettext, dpgettext
+    etc. that take a context argument.
+  For more information, see the node "Contexts" in the manual.
+
 * Programming languages support:
 
   - Python:

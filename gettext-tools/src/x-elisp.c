@@ -82,25 +82,19 @@ x_elisp_keyword (const char *name)
   else
     {
       const char *end;
-      int argnum1;
-      int argnum2;
+      struct callshape shape;
       const char *colon;
 
       if (keywords.table == NULL)
 	hash_init (&keywords, 100);
 
-      split_keywordspec (name, &end, &argnum1, &argnum2);
+      split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Lisp
 	 symbol.  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	{
-	  if (argnum1 == 0)
-	    argnum1 = 1;
-	  hash_insert_entry (&keywords, name, end - name,
-			     (void *) (long) (argnum1 + (argnum2 << 10)));
-	}
+	insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -646,9 +640,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 	  {
 	    int arg = 0;		/* Current argument number.  */
 	    flag_context_list_iterator_ty context_iter;
-	    int argnum1 = 0;		/* First string position.  */
-	    int argnum2 = 0;		/* Plural string position.  */
-	    message_ty *plural_mp = NULL;	/* Remember the msgid.  */
+	    const struct callshapes *shapes = NULL;
+	    struct arglist_parser *argparser = NULL;
 
 	    for (;; arg++)
 	      {
@@ -672,6 +665,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 		    op->type = t_other;
 		    /* Don't bother converting "()" to "NIL".  */
 		    last_non_comment_line = line_number;
+		    if (argparser != NULL)
+		      arglist_parser_done (argparser);
 		    return;
 		  }
 
@@ -694,10 +689,9 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 					     symbol_name, strlen (symbol_name),
 					     &keyword_value)
 			    == 0)
-			  {
-			    argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-			    argnum2 = (int) (long) keyword_value >> 10;
-			  }
+			  shapes = (const struct callshapes *) keyword_value;
+
+			argparser = arglist_parser_alloc (mlp, shapes);
 
 			context_iter =
 			  flag_context_list_iterator (
@@ -712,42 +706,21 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 		  }
 		else
 		  {
-		    /* These are the argument positions.
-		       Extract a string if we have reached the right
-		       argument position.  */
-		    if (arg == argnum1)
-		      {
-			if (inner.type == t_string)
-			  {
-			    lex_pos_ty pos;
-			    message_ty *mp;
-
-			    pos.file_name = logical_file_name;
-			    pos.line_number = inner.line_number_at_start;
-			    mp = remember_a_message (mlp, string_of_object (&inner),
-						     inner_context, &pos,
-						     savable_comment);
-			    if (argnum2 > 0)
-			      plural_mp = mp;
-			  }
-		      }
-		    else if (arg == argnum2)
-		      {
-			if (inner.type == t_string && plural_mp != NULL)
-			  {
-			    lex_pos_ty pos;
-
-			    pos.file_name = logical_file_name;
-			    pos.line_number = inner.line_number_at_start;
-			    remember_a_message_plural (plural_mp, string_of_object (&inner),
-						       inner_context, &pos,
-						       savable_comment);
-			  }
-		      }
+		    /* These are the argument positions.  */
+		    if (inner.type == t_string)
+		      arglist_parser_remember (argparser, arg,
+					       string_of_object (&inner),
+					       inner_context,
+					       logical_file_name,
+					       inner.line_number_at_start,
+					       savable_comment);
 		  }
 
 		free_object (&inner);
 	      }
+
+	    if (argparser != NULL)
+	      arglist_parser_done (argparser);
 	  }
 	  op->type = t_other;
 	  last_non_comment_line = line_number;
@@ -922,7 +895,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
 		pos.file_name = logical_file_name;
 		pos.line_number = op->line_number_at_start;
-		remember_a_message (mlp, string_of_object (op),
+		remember_a_message (mlp, NULL, string_of_object (op),
 				    null_context, &pos, savable_comment);
 	      }
 	    last_non_comment_line = line_number;

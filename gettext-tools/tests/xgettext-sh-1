@@ -466,7 +466,9 @@ EOF
 
 tmpfiles="$tmpfiles xg-sh-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location xg-sh-1.sh -d xg-sh-1
+# Here we use ngettext with two signatures: ngettext:1 and ngettext:1,2.
+${XGETTEXT} --omit-header --no-location --keyword=ngettext:1 \
+  xg-sh-1.sh -d xg-sh-1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-1.ok"

@@ -1,3 +1,11 @@
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
+	Add support for contexts in xgettext.
+	* xgettext-c-10: New file.
+	* xgettext-sh-1: Pass additional --keyword option because xgettext's
+	behaviour has changed when too few arguments are given.
+	* Makefile.am (TESTS): Add xgettext-c-10.
+
 2005-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Support for context dependent translations in PO files.

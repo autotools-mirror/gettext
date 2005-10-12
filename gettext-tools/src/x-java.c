@@ -73,26 +73,20 @@ x_java_keyword (const char *name)
   else
     {
       const char *end;
-      int argnum1;
-      int argnum2;
+      struct callshape shape;
       const char *colon;
 
       if (keywords.table == NULL)
 	hash_init (&keywords, 100);
 
-      split_keywordspec (name, &end, &argnum1, &argnum2);
+      split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Java
 	 identifier sequence with dots.
 	 A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	{
-	  if (argnum1 == 0)
-	    argnum1 = 1;
-	  hash_insert_entry (&keywords, name, end - name,
-			     (void *) (long) (argnum1 + (argnum2 << 10)));
-	}
+	insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -1177,25 +1171,19 @@ static flag_context_list_table_ty *flag_context_list_table;
 /* Extract messages until the next balanced closing parenthesis or brace,
    depending on TERMINATOR.
    Extracted messages are added to MLP.
-   When a specific argument shall be extracted, COMMAS_TO_SKIP >= 0 and,
-   if also a plural argument shall be extracted, PLURAL_COMMAS > 0,
-   otherwise PLURAL_COMMAS = 0.
-   When no specific argument shall be extracted, COMMAS_TO_SKIP < 0.
    Return true upon eof, false upon closing parenthesis or brace.  */
 static bool
 extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 		       flag_context_ty outer_context,
 		       flag_context_list_iterator_ty context_iter,
-		       int commas_to_skip, int plural_commas)
+		       struct arglist_parser *argparser)
 {
-  /* Remember the message containing the msgid, for msgid_plural.  */
-  message_ty *plural_mp = NULL;
-
+  /* Current argument number.  */
+  int arg = 1;
   /* 0 when no keyword has been seen.  1 right after a keyword is seen.  */
   int state;
   /* Parameters of the keyword just seen.  Defined only in state 1.  */
-  int next_commas_to_skip = -1;
-  int next_plural_commas = 0;
+  const struct callshapes *next_shapes = NULL;
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
@@ -1265,11 +1253,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 				     &keyword_value)
 		    == 0)
 		  {
-		    int argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-		    int argnum2 = (int) (long) keyword_value >> 10;
-
-		    next_commas_to_skip = argnum1 - 1;
-		    next_plural_commas = (argnum2 > argnum1 ? argnum2 - argnum1 : 0);
+		    next_shapes = (const struct callshapes *) keyword_value;
 		    state = 1;
 		    break;
 		  }
@@ -1306,16 +1290,26 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	case token_type_lparen:
 	  if (extract_parenthesized (mlp, token_type_rparen,
 				     inner_context, next_context_iter,
-				     state ? next_commas_to_skip : -1,
-				     state ? next_plural_commas : 0))
-	    return true;
+				     arglist_parser_alloc (mlp,
+							   state ? next_shapes : NULL)))
+	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      return true;
+	    }
 	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case token_type_rparen:
 	  if (terminator == token_type_rparen)
-	    return false;
+	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      return false;
+	    }
 	  if (terminator == token_type_rbrace)
 	    {
 	      error_with_progname = false;
@@ -1331,15 +1325,25 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	case token_type_lbrace:
 	  if (extract_parenthesized (mlp, token_type_rbrace,
 				     null_context, null_context_list_iterator,
-				     -1, 0))
-	    return true;
+				     arglist_parser_alloc (mlp, NULL)))
+	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      return true;
+	    }
 	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
 	case token_type_rbrace:
 	  if (terminator == token_type_rbrace)
-	    return false;
+	    {
+	      xgettext_current_source_encoding = po_charset_utf8;
+	      arglist_parser_done (argparser);
+	      xgettext_current_source_encoding = xgettext_global_source_encoding;
+	      return false;
+	    }
 	  if (terminator == token_type_rparen)
 	    {
 	      error_with_progname = false;
@@ -1353,19 +1357,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	  continue;
 
 	case token_type_comma:
-	  if (commas_to_skip >= 0)
-	    {
-	      if (commas_to_skip > 0)
-		commas_to_skip--;
-	      else
-		if (plural_mp != NULL && plural_commas > 0)
-		  {
-		    commas_to_skip = plural_commas - 1;
-		    plural_commas = 0;
-		  }
-		else
-		  commas_to_skip = -1;
-	    }
+	  arg++;
 	  inner_context =
 	    inherited_context (outer_context,
 			       flag_context_list_iterator_advance (
@@ -1380,43 +1372,16 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	    pos.file_name = logical_file_name;
 	    pos.line_number = token.line_number;
 
+	    xgettext_current_source_encoding = po_charset_utf8;
 	    if (extract_all)
-	      {
-		xgettext_current_source_encoding = po_charset_utf8;
-		remember_a_message (mlp, token.string, inner_context, &pos,
-				    token.comment);
-		xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      }
+	      remember_a_message (mlp, NULL, token.string, inner_context,
+				  &pos, token.comment);
 	    else
-	      {
-		if (commas_to_skip == 0)
-		  {
-		    if (plural_mp == NULL)
-		      {
-			/* Seen an msgid.  */
-			message_ty *mp;
-
-			xgettext_current_source_encoding = po_charset_utf8;
-			mp = remember_a_message (mlp, token.string,
-						 inner_context, &pos,
-						 token.comment);
-			xgettext_current_source_encoding = xgettext_global_source_encoding;
-			if (plural_commas > 0)
-			  plural_mp = mp;
-		      }
-		    else
-		      {
-			/* Seen an msgid_plural.  */
-			xgettext_current_source_encoding = po_charset_utf8;
-			remember_a_message_plural (plural_mp, token.string,
-						   inner_context, &pos, NULL);
-			xgettext_current_source_encoding = xgettext_global_source_encoding;
-			plural_mp = NULL;
-		      }
-		  }
-		else
-		  free (token.string);
-	      }
+	      arglist_parser_remember (argparser, arg, token.string,
+				       inner_context,
+				       pos.file_name, pos.line_number,
+				       token.comment);
+	    xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  }
 	  drop_reference (token.comment);
 	  next_context_iter = null_context_list_iterator;
@@ -1424,6 +1389,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	  continue;
 
 	case token_type_eof:
+	  xgettext_current_source_encoding = po_charset_utf8;
+	  arglist_parser_done (argparser);
+	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  return true;
 
 	case token_type_dot:
@@ -1467,7 +1435,7 @@ extract_java (FILE *f,
      due to an unbalanced closing parenthesis, just restart it.  */
   while (!extract_parenthesized (mlp, token_type_eof,
 				 null_context, null_context_list_iterator,
-				 -1, 0))
+				 arglist_parser_alloc (mlp, NULL)))
     ;
 
   fp = NULL;

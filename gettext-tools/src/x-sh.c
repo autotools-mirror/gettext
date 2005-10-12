@@ -85,25 +85,19 @@ x_sh_keyword (const char *name)
   else
     {
       const char *end;
-      int argnum1;
-      int argnum2;
+      struct callshape shape;
       const char *colon;
 
       if (keywords.table == NULL)
 	hash_init (&keywords, 100);
 
-      split_keywordspec (name, &end, &argnum1, &argnum2);
+      split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
 	 A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	{
-	  if (argnum1 == 0)
-	    argnum1 = 1;
-	  hash_insert_entry (&keywords, name, end - name,
-			     (void *) (long) (argnum1 + (argnum2 << 10)));
-	}
+	insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -1024,7 +1018,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 		  grow_token (&string);
 		  string.chars[string.charcount++] = (unsigned char) c;
 		}
-	      remember_a_message (mlp, string_of_token (&string),
+	      remember_a_message (mlp, NULL, string_of_token (&string),
 				  context, &pos, savable_comment);
 	      free_token (&string);
 
@@ -1132,9 +1126,8 @@ read_command (int looking_for, flag_context_ty outer_context)
   int arg = 0;			/* Current argument number.  */
   bool arg_of_redirect = false;	/* True right after a redirection operator.  */
   flag_context_list_iterator_ty context_iter;
-  int argnum1 = -1;		/* First string position.  */
-  int argnum2 = -1;		/* Plural string position.  */
-  message_ty *plural_mp = NULL;	/* Remember the msgid.  */
+  const struct callshapes *shapes = NULL;
+  struct arglist_parser *argparser = NULL;
 
   for (;;)
     {
@@ -1155,7 +1148,11 @@ read_command (int looking_for, flag_context_ty outer_context)
       if (inner.type == t_separator
 	  || inner.type == t_backquote || inner.type == t_paren
 	  || inner.type == t_eof)
-	return inner.type;
+	{
+	  if (argparser != NULL)
+	    arglist_parser_done (argparser);
+	  return inner.type;
+	}
 
       if (extract_all)
 	{
@@ -1165,7 +1162,7 @@ read_command (int looking_for, flag_context_ty outer_context)
 
 	      pos.file_name = logical_file_name;
 	      pos.line_number = inner.line_number_at_start;
-	      remember_a_message (mlp, string_of_word (&inner),
+	      remember_a_message (mlp, NULL, string_of_word (&inner),
 				  inner_context, &pos, savable_comment);
 	    }
 	}
@@ -1182,7 +1179,7 @@ read_command (int looking_for, flag_context_ty outer_context)
 	}
       else
 	{
-	  if (argnum1 < 0 && argnum2 < 0)
+	  if (argparser == NULL)
 	    {
 	      /* This is the function position.  */
 	      arg = 0;
@@ -1195,10 +1192,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 				       function_name, strlen (function_name),
 				       &keyword_value)
 		      == 0)
-		    {
-		      argnum1 = (int) (long) keyword_value & ((1 << 10) - 1);
-		      argnum2 = (int) (long) keyword_value >> 10;
-		    }
+		    shapes = (const struct callshapes *) keyword_value;
+
+		  argparser = arglist_parser_alloc (mlp, shapes);
 
 		  context_iter =
 		    flag_context_list_iterator (
@@ -1213,46 +1209,22 @@ read_command (int looking_for, flag_context_ty outer_context)
 	    }
 	  else
 	    {
-	      /* These are the argument positions.
-		 Extract a string if we have reached the right
-		 argument position.  */
-	      if (arg == argnum1)
-		{
-		  if (inner.type == t_string)
-		    {
-		      lex_pos_ty pos;
-		      message_ty *mp;
+	      /* These are the argument positions.  */
+	      if (inner.type == t_string)
+		arglist_parser_remember (argparser, arg,
+					 string_of_word (&inner),
+					 inner_context,
+					 logical_file_name,
+					 inner.line_number_at_start,
+					 savable_comment);
 
-		      pos.file_name = logical_file_name;
-		      pos.line_number = inner.line_number_at_start;
-		      mp = remember_a_message (mlp, string_of_word (&inner),
-					       inner_context, &pos,
-					       savable_comment);
-		      if (argnum2 > 0)
-			plural_mp = mp;
-		    }
-		}
-	      else if (arg == argnum2)
-		{
-		  if (inner.type == t_string && plural_mp != NULL)
-		    {
-		      lex_pos_ty pos;
-
-		      pos.file_name = logical_file_name;
-		      pos.line_number = inner.line_number_at_start;
-		      remember_a_message_plural (plural_mp, string_of_word (&inner),
-						 inner_context, &pos,
-						 savable_comment);
-		    }
-		}
-
-	      if (arg >= argnum1 && arg >= argnum2)
+	      if (arglist_parser_decidedp (argparser, arg))
 		{
 		  /* Stop looking for arguments of the last function_name.  */
 		  /* FIXME: What about context_iter?  */
-		  argnum1 = -1;
-		  argnum2 = -1;
-		  plural_mp = NULL;
+		  arglist_parser_done (argparser);
+		  shapes = NULL;
+		  argparser = NULL;
 		}
 	    }
 

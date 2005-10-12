@@ -541,8 +541,8 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		remember_a_message (mlp, token.string, null_context, &pos,
-				    savable_comment);
+		remember_a_message (mlp, NULL, token.string, null_context,
+				    &pos, savable_comment);
 		state = 0;
 		break;
 	      }
@@ -551,7 +551,7 @@ extract_smalltalk (FILE *f,
 		lex_pos_ty pos;
 		pos.file_name = logical_file_name;
 		pos.line_number = token.line_number;
-		plural_mp = remember_a_message (mlp, token.string,
+		plural_mp = remember_a_message (mlp, NULL, token.string,
 						null_context, &pos,
 						savable_comment);
 		state = 4;

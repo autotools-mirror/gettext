@@ -1,5 +1,90 @@
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
+	Add support for contexts in xgettext.
+	* xgettext.h: Include stdbool.h.
+	(struct callshape): New structure type.
+	(split_keywordspec): Return a struct callshape, not two integers,
+	by reference.
+	(struct callshapes): New structure type.
+	(insert_keyword_callshape): New declaration.
+	(remember_a_message): Add msgctxt argument.
+	(struct partial_call): New structure type.
+	(struct arglist_parser): New structure type.
+	(arglist_parser_alloc, arglist_parser_clone, arglist_parser_remember,
+	arglist_parser_decidedp, arglist_parser_done): New declarations.
+	* xgettext.c (split_keywordspec): Return a struct callshape, not two
+	integers, by reference. Handle the notation Nc for a context argument.
+	(insert_keyword_callshape): New function.
+	(remember_a_message): Add msgctxt argument. Free both strings when
+	the message is excluded.
+	(arglist_parser_alloc, arglist_parser_clone, arglist_parser_remember,
+	arglist_parser_decidedp, arglist_parser_done): New functions.
+	* x-awk.c (x_awk_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_awk): Update.
+	* x-c.c (add_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(init_keywords): Register the new functions [d[c]][n]pgettext.
+	(init_flag_table_c, init_flag_table_objc): Likewise.
+	(struct xgettext_token_ty): Replace argnum1, argnum2 with a callshapes
+	pointer.
+	(x_c_lex): Update.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_whole_file): Update.
+	* x-csharp.c (x_csharp_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_csharp): Update.
+	* x-elisp.c (x_elisp_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_object): Use arglist_parser_* API.
+	* x-glade.c (start_element_handler, end_element_handler): Update.
+	* x-java.c (x_java_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_java): Update.
+	* x-librep.c (x_librep_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_object): Use arglist_parser_* API.
+	* x-lisp.c (x_lisp_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_object): Use arglist_parser_* API.
+	* x-perl.c (x_perl_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_balanced): Replace arg_sg, arg_pl arguments with arg,
+	argparser arguments. Use arglist_parser_* API.
+	(extract_variable, interpolate_keywords, extract_perl): Update.
+	* x-php.c (x_php_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_php): Update.
+	* x-python.c (x_python_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(extract_parenthesized): Replace commas_to_skip, plural_commas
+	arguments with a single argparser argument. Use arglist_parser_* API.
+	(extract_python): Update.
+	* x-rst.c (extract_rst): Update.
+	* x-scheme.c (x_scheme_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_object): Use arglist_parser_* API.
+	* x-sh.c (x_sh_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_word): Update.
+	(read_command): Use arglist_parser_* API.
+	* x-smalltalk.c (extract_smalltalk): Update.
+	* x-tcl.c (x_tcl_keyword): Use callshape API: split_keywordspec,
+	insert_keyword_callshape.
+	(read_command): Use arglist_parser_* API.
+	* x-ycp.c (extract_parenthesized): Update.
+
+2005-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.h (savable_comment_to_xgettext_comment): Remove
 	declaration.
 	(remember_a_message, remember_a_message_plural): Add a comment

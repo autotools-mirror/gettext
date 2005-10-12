@@ -146,6 +146,7 @@ Additional keyword to be looked for (without @var{keywordspec} means not to
 use default keywords).
 
 @cindex adding keywords, @code{xgettext}
+@cindex context, argument specification in @code{xgettext}
 If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
 for strings in the first argument of each call to the function or macro
 @var{id}.  If @var{keywordspec} is of the form
@@ -154,12 +155,17 @@ for strings in the first argument of each call to the function or macro
 @samp{@var{id}:@var{argnum1},@var{argnum2}}, @code{xgettext} looks for
 strings in the @var{argnum1}st argument and in the @var{argnum2}nd argument
 of the call, and treats them as singular/plural variants for a message
-with plural handling.
+with plural handling.  Also, if @var{keywordspec} is of the form
+@samp{@var{id}:@var{contextargnum}c,@var{argnum}} or
+@samp{@var{id}:@var{argnum},@var{contextargnum}c}, @code{xgettext} treats
+strings in the @var{contextargnum}th argument as a context specifier.
 @*
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
-@code{dcngettext:2,3}, and @code{gettext_noop}.
+@code{dcngettext:2,3}, @code{gettext_noop}, and @code{pgettext:1c,2},
+@code{dpgettext:2c,3}, @code{dcpgettext:2c,3}, @code{npgettext:1c,2,3},
+@code{dnpgettext:2c,3,4}, @code{dcnpgettext:2c,3,4}.
 @*
 This option has an effect with most languages, namely C, C++, ObjectiveC,
 Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,

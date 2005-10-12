@@ -268,7 +268,7 @@ start_element_handler (void *userData, const char *name,
 		  pos.file_name = logical_file_name;
 		  pos.line_number = XML_GetCurrentLineNumber (parser);
 
-		  remember_a_message (mlp, xstrdup (attp[1]),
+		  remember_a_message (mlp, NULL, xstrdup (attp[1]),
 				      null_context, &pos, savable_comment);
 		}
 	      break;
@@ -305,7 +305,7 @@ end_element_handler (void *userData, const char *name)
 	  pos.file_name = logical_file_name;
 	  pos.line_number = p->lineno;
 
-	  remember_a_message (mlp, p->buffer, null_context, &pos,
+	  remember_a_message (mlp, NULL, p->buffer, null_context, &pos,
 			      savable_comment);
 	  p->buffer = NULL;
 	}
