@@ -1038,7 +1038,8 @@ po_file_check_all (po_file_t file, po_xerror_handler_t handler)
 	{
 	  message_ty *mp = mlp->item[j];
 
-	  check_message (mp, &mp->pos, 1, 1, 1, 0, 0, 0);
+	  if (!mp->obsolete)
+	    check_message (mp, &mp->pos, 1, 1, 1, 0, 0, 0);
 	}
 
       check_plural (mlp);
@@ -1068,7 +1069,8 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
     (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
     handler->xerror2;
 
-  check_message (mp, &mp->pos, 1, 1, 1, 0, 0, 0);
+  if (!mp->obsolete)
+    check_message (mp, &mp->pos, 1, 1, 1, 0, 0, 0);
 
   /* For plural checking, combine the message and its header into a small,
      two-element message list.  */
@@ -1131,7 +1133,8 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
     (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
     handler->xerror2;
 
-  check_message (mp, &mp->pos, 0, 1, 0, 0, 0, 0);
+  if (!mp->obsolete)
+    check_message (mp, &mp->pos, 0, 1, 0, 0, 0, 0);
 
   /* Restore error handler.  */
   po_xerror  = textmode_xerror;

@@ -32,7 +32,7 @@ extern "C" {
    Return nonzero if an error was seen.  */
 extern int check_plural (message_list_ty *mlp);
 
-/* Perform all checks on a message.
+/* Perform all checks on a non-obsolete message.
    Return nonzero if an error was seen.  */
 extern int check_message (const message_ty *mp,
 			  const lex_pos_ty *msgid_pos,

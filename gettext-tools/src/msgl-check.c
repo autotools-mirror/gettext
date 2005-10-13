@@ -251,7 +251,7 @@ check_plural (message_list_ty *mlp)
     {
       message_ty *mp = mlp->item[j];
 
-      if (mp->msgid_plural != NULL)
+      if (!mp->obsolete && mp->msgid_plural != NULL)
 	{
 	  const char *p;
 	  const char *p_end;
@@ -281,7 +281,7 @@ check_plural (message_list_ty *mlp)
   /* Look at the plural entry for this domain.
      Cf, function extract_plural_expression.  */
   header = message_list_search (mlp, NULL, "");
-  if (header != NULL)
+  if (header != NULL && !header->obsolete)
     {
       const char *nullentry;
       const char *plural;
@@ -716,7 +716,7 @@ some header fields still have the initial default value\n"));
 }
 
 
-/* Perform all checks on a message.
+/* Perform all checks on a non-obsolete message.
    Return nonzero if an error was seen.  */
 int
 check_message (const message_ty *mp,
