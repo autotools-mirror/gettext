@@ -36,7 +36,6 @@ extern int check_plural (message_list_ty *mlp);
    Return nonzero if an error was seen.  */
 extern int check_message (const message_ty *mp,
 			  const lex_pos_ty *msgid_pos,
-			  const lex_pos_ty *msgstr_pos,
 			  int check_newlines,
 			  int check_format_strings,
 			  int check_header,

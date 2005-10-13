@@ -1,3 +1,11 @@
+2005-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-check.h (check_message): Remove msgstr_pos argument.
+	* msgl-check.c (check_pair, check_message): Remove msgstr_pos argument.
+	* msgfmt.c (msgfmt_frob_new_message): Update.
+	* gettext-po.c (po_file_check_all, po_message_check_all,
+	po_message_check_format): Update.
+
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
 	Add support for contexts in xgettext.

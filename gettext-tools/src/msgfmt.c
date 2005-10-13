@@ -988,7 +988,7 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
 	    else
 	      ++msgs_translated;
 
-	  if (check_message (mp, msgid_pos, msgstr_pos,
+	  if (check_message (mp, msgid_pos,
 			     1, check_format_strings, check_header,
 			     check_compatibility,
 			     check_accelerators, accelerator_char))

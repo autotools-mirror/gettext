@@ -479,7 +479,6 @@ check_pair (const message_ty *mp,
 	    const lex_pos_ty *msgid_pos,
 	    const char *msgid_plural,
 	    const char *msgstr, size_t msgstr_len,
-	    const lex_pos_ty *msgstr_pos,
 	    const enum is_format is_format[NFORMATS],
 	    int check_newlines,
 	    int check_format_strings,
@@ -721,7 +720,7 @@ some header fields still have the initial default value\n"));
    Return nonzero if an error was seen.  */
 int
 check_message (const message_ty *mp,
-	       const lex_pos_ty *msgid_pos, const lex_pos_ty *msgstr_pos,
+	       const lex_pos_ty *msgid_pos,
 	       int check_newlines,
 	       int check_format_strings,
 	       int check_header,
@@ -733,7 +732,7 @@ check_message (const message_ty *mp,
 
   return check_pair (mp,
 		     mp->msgid, msgid_pos, mp->msgid_plural,
-		     mp->msgstr, mp->msgstr_len, msgstr_pos,
+		     mp->msgstr, mp->msgstr_len,
 		     mp->is_format,
 		     check_newlines, check_format_strings, check_compatibility,
 		     check_accelerators, accelerator_char);
