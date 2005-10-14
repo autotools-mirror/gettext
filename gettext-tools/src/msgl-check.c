@@ -737,3 +737,36 @@ check_message (const message_ty *mp,
 		     check_newlines, check_format_strings, check_compatibility,
 		     check_accelerators, accelerator_char);
 }
+
+
+/* Perform all checks on a message list.
+   Return nonzero if an error was seen.  */
+int
+check_message_list (message_list_ty *mlp,
+		    int check_newlines,
+		    int check_format_strings,
+		    int check_header,
+		    int check_compatibility,
+		    int check_accelerators, char accelerator_char)
+{
+  int seen_error = 0;
+  size_t j;
+
+  if (check_header)
+    if (check_plural (mlp))
+      seen_error = 1;
+
+  for (j = 0; j < mlp->nitems; j++)
+    {
+      message_ty *mp = mlp->item[j];
+
+      if (!mp->obsolete)
+	if (check_message (mp, &mp->pos,
+			   check_newlines, check_format_strings,
+			   check_header, check_compatibility,
+			   check_accelerators, accelerator_char))
+	  seen_error = 1;
+    }
+
+  return seen_error;
+}

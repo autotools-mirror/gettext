@@ -42,6 +42,15 @@ extern int check_message (const message_ty *mp,
 			  int check_compatibility,
 			  int check_accelerators, char accelerator_char);
 
+/* Perform all checks on a message list.
+   Return nonzero if an error was seen.  */
+extern int check_message_list (message_list_ty *mlp,
+			       int check_newlines,
+			       int check_format_strings,
+			       int check_header,
+			       int check_compatibility,
+			       int check_accelerators, char accelerator_char);
+
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,12 @@
 2005-10-04  Bruno Haible  <bruno@clisp.org>
 
+	* msgl-check.h (check_message_list): New declaration.
+	* msgl-check.c (check_message_list): New function.
+	* gettext-po.c (po_file_check_all, po_message_check_all): Call
+	check_message_list instead of check_message and check_plural.
+
+2005-10-04  Bruno Haible  <bruno@clisp.org>
+
 	Fix handling of obsolete messages.
 	* msgl-check.c (check_plural): Ignore obsolete messages.
 	* gettext-po.c (po_file_check_all, po_message_check_all,
