@@ -522,11 +522,27 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   for (domain = domain_list; domain != NULL; domain = domain->next)
     message_list_remove_if_not (domain->mlp, is_nonobsolete);
 
-  /* Check the plural expression is present if needed and has valid syntax.  */
-  if (check_header)
+  /* Perform all kinds of checks: plural expressions, format strings, ...  */
+  {
+    int nerrors = 0;
+
     for (domain = domain_list; domain != NULL; domain = domain->next)
-      if (check_plural (domain->mlp))
+      nerrors +=
+	check_message_list (domain->mlp,
+			    1, check_format_strings, check_header,
+			    check_compatibility,
+			    check_accelerators, accelerator_char);
+
+    /* Exit with status 1 on any error.  */
+    if (nerrors > 0)
+      {
+	error (0, 0,
+	       ngettext ("found %d fatal error", "found %d fatal errors",
+			 nerrors),
+	       nerrors);
 	exit_status = EXIT_FAILURE;
+      }
+  }
 
   /* Now write out all domains.  */
   for (domain = domain_list; domain != NULL; domain = domain->next)
@@ -987,12 +1003,6 @@ msgfmt_frob_new_message (default_po_reader_ty *that, message_ty *mp,
 	      ++msgs_fuzzy;
 	    else
 	      ++msgs_translated;
-
-	  if (check_message (mp, msgid_pos,
-			     1, check_format_strings, check_header,
-			     check_compatibility,
-			     check_accelerators, accelerator_char))
-	    exit_status = EXIT_FAILURE;
 	}
     }
 }

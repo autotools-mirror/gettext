@@ -28,12 +28,8 @@ extern "C" {
 #endif
 
 
-/* Perform plural expression checking.
-   Return nonzero if an error was seen.  */
-extern int check_plural (message_list_ty *mlp);
-
 /* Perform all checks on a non-obsolete message.
-   Return nonzero if an error was seen.  */
+   Return the number of errors that were seen.  */
 extern int check_message (const message_ty *mp,
 			  const lex_pos_ty *msgid_pos,
 			  int check_newlines,
@@ -43,7 +39,7 @@ extern int check_message (const message_ty *mp,
 			  int check_accelerators, char accelerator_char);
 
 /* Perform all checks on a message list.
-   Return nonzero if an error was seen.  */
+   Return the number of errors that were seen.  */
 extern int check_message_list (message_list_ty *mlp,
 			       int check_newlines,
 			       int check_format_strings,

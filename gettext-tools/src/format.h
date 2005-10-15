@@ -107,8 +107,8 @@ extern void
 				 struct interval **intervalsp, size_t *lengthp);
 
 /* Check whether both formats strings contain compatible format
-   specifications.  Return true if there is an error.  */
-extern bool
+   specifications.  Return the number of errors that were seen.  */
+extern int
        check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 				  const char *msgstr, size_t msgstr_len,
 				  const enum is_format is_format[NFORMATS],

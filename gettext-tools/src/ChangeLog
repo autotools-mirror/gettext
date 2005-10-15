@@ -1,5 +1,20 @@
 2005-10-04  Bruno Haible  <bruno@clisp.org>
 
+	Combine all msgfmt checks in a single place.
+	* format.h (check_msgid_msgstr_format): Change return type to int.
+	* format.c (check_msgid_msgstr_format): Return the number of errors.
+	* msgl-check.h (check_plural): Remove declaration.
+	* msgl-check.c (check_plural): Make static. Return the number of
+	errors.
+	(check_pair): Return the number of errors.
+	(check_message_list): Likewise.
+	* msgfmt.c (main): Perform the message checks here, after all files
+	were read. Call check_message_list instead of check_plural and
+	check_message. Emit statistics of fatal errors.
+	(msgfmt_frob_new_message): Don't call check_message here.
+
+2005-10-04  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-check.h (check_message_list): New declaration.
 	* msgl-check.c (check_message_list): New function.
 	* gettext-po.c (po_file_check_all, po_message_check_all): Call

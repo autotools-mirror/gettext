@@ -228,11 +228,11 @@ plural_help (const char *nullentry)
 
 
 /* Perform plural expression checking.
-   Return nonzero if an error was seen.  */
-int
+   Return the number of errors that were seen.  */
+static int
 check_plural (message_list_ty *mlp)
 {
-  int seen_error = 0;
+  int seen_errors = 0;
   const message_ty *has_plural;
   unsigned long min_nplurals;
   const message_ty *min_pos;
@@ -313,7 +313,7 @@ check_plural (message_list_ty *mlp)
 			has_plural, NULL, 0, 0, false, msg1,
 			header, NULL, 0, 0, false, msg2);
 
-	  seen_error = 1;
+	  seen_errors++;
 	}
       if (nplurals == NULL && has_plural != NULL)
 	{
@@ -337,7 +337,7 @@ check_plural (message_list_ty *mlp)
 			has_plural, NULL, 0, 0, false, msg1,
 			header, NULL, 0, 0, false, msg2);
 
-	  seen_error = 1;
+	  seen_errors++;
 	}
       if (plural != NULL && nplurals != NULL)
 	{
@@ -370,7 +370,7 @@ check_plural (message_list_ty *mlp)
 	      else
 		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
 
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 
 	  /* Then check the expression.  */
@@ -392,16 +392,16 @@ check_plural (message_list_ty *mlp)
 	      else
 		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
 
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 	  plural_expr = args.res;
 
 	  /* See whether nplurals and plural fit together.  */
-	  if (!seen_error)
-	    seen_error = check_plural_eval (plural_expr, nplurals_value, header);
+	  if (!seen_errors)
+	    seen_errors = check_plural_eval (plural_expr, nplurals_value, header);
 
 	  /* Check the number of plurals of the translations.  */
-	  if (!seen_error)
+	  if (!seen_errors)
 	    {
 	      if (min_nplurals < nplurals_value)
 		{
@@ -417,7 +417,7 @@ check_plural (message_list_ty *mlp)
 			      min_pos, NULL, 0, 0, false, msg2);
 		  free (msg2);
 		  free (msg1);
-		  seen_error = 1;
+		  seen_errors++;
 		}
 	      else if (max_nplurals > nplurals_value)
 		{
@@ -433,7 +433,7 @@ check_plural (message_list_ty *mlp)
 			      max_pos, NULL, 0, 0, false, msg2);
 		  free (msg2);
 		  free (msg1);
-		  seen_error = 1;
+		  seen_errors++;
 		}
 	      /* The only valid case is max_nplurals <= n <= min_nplurals,
 		 which means either has_plural == NULL or
@@ -445,10 +445,10 @@ check_plural (message_list_ty *mlp)
     {
       po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
 		 _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
-      seen_error = 1;
+      seen_errors++;
     }
 
-  return seen_error;
+  return seen_errors;
 }
 
 
@@ -485,7 +485,7 @@ check_pair (const message_ty *mp,
 	    int check_compatibility,
 	    int check_accelerators, char accelerator_char)
 {
-  int seen_error;
+  int seen_errors;
   int has_newline;
   unsigned int j;
   const char *p;
@@ -495,7 +495,7 @@ check_pair (const message_ty *mp,
   if (msgid[0] == '\0')
     return 0;
 
-  seen_error = 0;
+  seen_errors = 0;
 
   if (check_newlines)
     {
@@ -510,7 +510,7 @@ check_pair (const message_ty *mp,
 			 mp, msgid_pos->file_name, msgid_pos->line_number,
 			 (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both begin with '\\n'"));
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 	  for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	    if (TEST_NEWLINE(p) != has_newline)
@@ -522,7 +522,7 @@ check_pair (const message_ty *mp,
 			   mp, msgid_pos->file_name, msgid_pos->line_number,
 			   (size_t)(-1), false, msg);
 		free (msg);
-		seen_error = 1;
+		seen_errors++;
 	      }
 	}
       else
@@ -533,7 +533,7 @@ check_pair (const message_ty *mp,
 			 mp, msgid_pos->file_name, msgid_pos->line_number,
 			 (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 	}
 #undef TEST_NEWLINE
@@ -549,7 +549,7 @@ check_pair (const message_ty *mp,
 			 mp, msgid_pos->file_name, msgid_pos->line_number,
 			 (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both end with '\\n'"));
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 	  for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
 	    if (TEST_NEWLINE(p) != has_newline)
@@ -561,7 +561,7 @@ check_pair (const message_ty *mp,
 			   mp, msgid_pos->file_name, msgid_pos->line_number,
 			   (size_t)(-1), false, msg);
 		free (msg);
-		seen_error = 1;
+		seen_errors++;
 	      }
 	}
       else
@@ -572,7 +572,7 @@ check_pair (const message_ty *mp,
 			 mp, msgid_pos->file_name, msgid_pos->line_number,
 			 (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both end with '\\n'"));
-	      seen_error = 1;
+	      seen_errors++;
 	    }
 	}
 #undef TEST_NEWLINE
@@ -584,7 +584,7 @@ check_pair (const message_ty *mp,
 		 mp, msgid_pos->file_name, msgid_pos->line_number,
 		 (size_t)(-1), false, _("\
 plural handling is a GNU gettext extension"));
-      seen_error = 1;
+      seen_errors++;
     }
 
   if (check_format_strings)
@@ -593,9 +593,9 @@ plural handling is a GNU gettext extension"));
     {
       curr_mp = mp;
       curr_msgid_pos = *msgid_pos;
-      if (check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
-				     is_format, formatstring_error_logger))
-	seen_error = 1;
+      seen_errors +=
+	check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
+				   is_format, formatstring_error_logger);
     }
 
   if (check_accelerators && msgid_plural == NULL)
@@ -643,7 +643,7 @@ plural handling is a GNU gettext extension"));
 	}
     }
 
-  return seen_error;
+  return seen_errors;
 }
 
 
@@ -717,7 +717,7 @@ some header fields still have the initial default value\n"));
 
 
 /* Perform all checks on a non-obsolete message.
-   Return nonzero if an error was seen.  */
+   Return the number of errors that were seen.  */
 int
 check_message (const message_ty *mp,
 	       const lex_pos_ty *msgid_pos,
@@ -740,7 +740,7 @@ check_message (const message_ty *mp,
 
 
 /* Perform all checks on a message list.
-   Return nonzero if an error was seen.  */
+   Return the number of errors that were seen.  */
 int
 check_message_list (message_list_ty *mlp,
 		    int check_newlines,
@@ -749,24 +749,22 @@ check_message_list (message_list_ty *mlp,
 		    int check_compatibility,
 		    int check_accelerators, char accelerator_char)
 {
-  int seen_error = 0;
+  int seen_errors = 0;
   size_t j;
 
   if (check_header)
-    if (check_plural (mlp))
-      seen_error = 1;
+    seen_errors += check_plural (mlp);
 
   for (j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 
       if (!mp->obsolete)
-	if (check_message (mp, &mp->pos,
-			   check_newlines, check_format_strings,
-			   check_header, check_compatibility,
-			   check_accelerators, accelerator_char))
-	  seen_error = 1;
+	seen_errors += check_message (mp, &mp->pos,
+				      check_newlines, check_format_strings,
+				      check_header, check_compatibility,
+				      check_accelerators, accelerator_char);
     }
 
-  return seen_error;
+  return seen_errors;
 }

@@ -1,3 +1,7 @@
+2005-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt-10: Change expected error message, to match new line numbers.
+
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
 	Add support for contexts in xgettext.

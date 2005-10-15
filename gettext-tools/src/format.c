@@ -58,14 +58,14 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
 };
 
 /* Check whether both formats strings contain compatible format
-   specifications.  Return true if there is an error.  */
-bool
+   specifications.  Return the number of errors that were seen.  */
+int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
 			   const enum is_format is_format[NFORMATS],
 			   formatstring_error_logger_t error_logger)
 {
-  bool err = false;
+  int seen_errors = 0;
   size_t i;
   unsigned int j;
 
@@ -128,7 +128,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 		    if (parser->check (msgid_descr, msgstr_descr,
 				       strict_checking,
 				       error_logger, pretty_msgstr))
-		      err = true;
+		      seen_errors++;
 
 		    parser->free (msgstr_descr);
 		  }
@@ -138,7 +138,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 '%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"),
 				  pretty_msgstr, format_language_pretty[i],
 				  invalid_reason);
-		    err = true;
+		    seen_errors++;
 		    free (invalid_reason);
 		  }
 	      }
@@ -149,5 +149,5 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 	  free (invalid_reason);
       }
 
-  return err;
+  return seen_errors;
 }

@@ -74,7 +74,7 @@ ${MSGFMT} --check mf-test10.po2 -o /dev/null \
 
 tmpfiles="$tmpfiles mf-test10.ok"
 cat << EOF > mf-test10.ok
-mf-test10.po2:18: number of format specifications in 'msgid' and 'msgstr[1]' does not match
+mf-test10.po2:20: number of format specifications in 'msgid' and 'msgstr[1]' does not match
 msgfmt: found 1 fatal error
 EOF
 
