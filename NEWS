@@ -12,6 +12,20 @@
     etc. that take a context argument.
   For more information, see the node "Contexts" in the manual.
 
+* msgfmt's format string checking is now stricter in the presence of plural
+  forms.  For example, in German, with  nplurals=2  and  plural=(n != 1),
+  the translation
+
+     #, c-format
+     msgid "%d fatal error"
+     msgid_plural "%d fatal errors"
+     msgstr[0] "ein fataler Fehler"
+     msgstr[1] "fatale Fehler"
+
+  was earlier considered valid and now gives an error when "msgfmt --check"
+  is used:
+    "number of format specifications in 'msgid' and 'msgstr[1]' does not match"
+
 * Programming languages support:
 
   - Python:

@@ -1,3 +1,20 @@
+2005-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (check_msgid_msgstr_format): Add plural_distribution
+	argument.
+	* format.c (check_msgid_msgstr_format): Add plural_distribution
+	argument. Use it for index dependent strictness.
+	* msgl-check.h (check_message): Add plural_distribution argument.
+	* msgl-check.c: Include xalloc.h.
+	(check_plural_eval): Create a plural_distribution array as additional
+	output parameter.
+	(check_plural): Return plural_distribution array as additional output
+	parameter.
+	(check_pair, check_message): Add plural_distribution argument.
+	(check_message_list): Pass the plural_distribution from check_plural
+	to check_message.
+	* gettext-po.c (po_message_check_format): Update.
+
 2005-10-04  Bruno Haible  <bruno@clisp.org>
 
 	Combine all msgfmt checks in a single place.

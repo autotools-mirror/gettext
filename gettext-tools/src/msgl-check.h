@@ -29,11 +29,14 @@ extern "C" {
 
 
 /* Perform all checks on a non-obsolete message.
+   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
+   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
+   infinitely often by the plural formula.
    Return the number of errors that were seen.  */
 extern int check_message (const message_ty *mp,
 			  const lex_pos_ty *msgid_pos,
 			  int check_newlines,
-			  int check_format_strings,
+			  int check_format_strings, const unsigned char *plural_distribution,
 			  int check_header,
 			  int check_compatibility,
 			  int check_accelerators, char accelerator_char);

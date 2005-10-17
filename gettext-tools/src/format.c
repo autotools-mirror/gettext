@@ -58,11 +58,16 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
 };
 
 /* Check whether both formats strings contain compatible format
-   specifications.  Return the number of errors that were seen.  */
+   specifications.
+   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
+   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
+   infinitely often by the plural formula.
+   Return the number of errors that were seen.  */
 int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
 			   const enum is_format is_format[NFORMATS],
+			   const unsigned char *plural_distribution,
 			   formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
@@ -99,15 +104,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 	  {
 	    char buf[18+1];
 	    const char *pretty_msgstr = "msgstr";
-	    /* Use strict checking (require same number of format directives
-	       on both sides) if the message has no plurals, or if msgid_plural
-	       exists but on the msgstr[] side there is only msgstr[0].
-	       Use relaxed checking when there are at least two msgstr[] forms.
-	       We are too lazy to check which of the plural forms applies to
-	       infinitely many values of N.  */
 	    bool has_plural_translations = (strlen (msgstr) + 1 < msgstr_len);
-	    bool strict_checking =
-	      (msgid_plural == NULL || !has_plural_translations);
 	    const char *p_end = msgstr + msgstr_len;
 	    const char *p;
 
@@ -125,6 +122,20 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 
 		if (msgstr_descr != NULL)
 		  {
+		    /* Use strict checking (require same number of format
+		       directives on both sides) if the message has no plurals,
+		       or if msgid_plural exists but on the msgstr[] side
+		       there is only msgstr[0], or if plural_distribution[j]
+		       indicates that the variant applies to infinitely many
+		       values of N.
+		       Use relaxed checking when there are at least two
+		       msgstr[] forms and the plural_distribution array does
+		       not give more precise information.  */
+		    bool strict_checking =
+		      (msgid_plural == NULL
+		       || !has_plural_translations
+		       || (plural_distribution != NULL && plural_distribution[j]));
+
 		    if (parser->check (msgid_descr, msgstr_descr,
 				       strict_checking,
 				       error_logger, pretty_msgstr))

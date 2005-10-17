@@ -107,11 +107,16 @@ extern void
 				 struct interval **intervalsp, size_t *lengthp);
 
 /* Check whether both formats strings contain compatible format
-   specifications.  Return the number of errors that were seen.  */
+   specifications.
+   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
+   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
+   infinitely often by the plural formula.
+   Return the number of errors that were seen.  */
 extern int
        check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 				  const char *msgstr, size_t msgstr_len,
 				  const enum is_format is_format[NFORMATS],
+				  const unsigned char *plural_distribution,
 				  formatstring_error_logger_t error_logger);
 
 

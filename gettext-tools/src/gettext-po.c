@@ -1118,7 +1118,7 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
     handler->xerror2;
 
   if (!mp->obsolete)
-    check_message (mp, &mp->pos, 0, 1, 0, 0, 0, 0);
+    check_message (mp, &mp->pos, 0, 1, NULL, 0, 0, 0, 0);
 
   /* Restore error handler.  */
   po_xerror  = textmode_xerror;
@@ -1156,7 +1156,7 @@ po_message_check_format (po_message_t message, po_error_handler_t handler)
 
   check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
 			     mp->msgstr, mp->msgstr_len,
-			     mp->is_format, po_error_logger);
+			     mp->is_format, NULL, po_error_logger);
 
   /* Restore error handler.  */
   po_error = error;
