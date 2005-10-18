@@ -63,9 +63,6 @@ _nl_find_domain (const char *dirname, char *locale,
   const char *territory;
   const char *codeset;
   const char *normalized_codeset;
-  const char *special;
-  const char *sponsor;
-  const char *revision;
   const char *alias_value;
   int mask;
 
@@ -73,21 +70,14 @@ _nl_find_domain (const char *dirname, char *locale,
 
 		language[_territory[.codeset]][@modifier]
 
-     and six parts for the CEN syntax:
-
-	language[_territory][+audience][+special][,[sponsor][_revision]]
-
      Beside the first part all of them are allowed to be missing.  If
      the full specified locale is not found, the less specific one are
      looked for.  The various parts will be stripped off according to
      the following order:
-		(1) revision
-		(2) sponsor
-		(3) special
-		(4) codeset
-		(5) normalized codeset
-		(6) territory
-		(7) audience/modifier
+		(1) codeset
+		(2) normalized codeset
+		(3) territory
+		(4) modifier
    */
 
   /* We need to protect modifying the _NL_LOADED_DOMAINS data.  */
@@ -98,7 +88,7 @@ _nl_find_domain (const char *dirname, char *locale,
      be one data set in the list of loaded domains.  */
   retval = _nl_make_l10nflist (&_nl_loaded_domains, dirname,
 			       strlen (dirname) + 1, 0, locale, NULL, NULL,
-			       NULL, NULL, NULL, NULL, NULL, domainname, 0);
+			       NULL, NULL, domainname, 0);
 
   __libc_rwlock_unlock (lock);
 
@@ -147,11 +137,9 @@ _nl_find_domain (const char *dirname, char *locale,
     }
 
   /* Now we determine the single parts of the locale name.  First
-     look for the language.  Termination symbols are `_' and `@' if
-     we use XPG4 style, and `_', `+', and `,' if we use CEN syntax.  */
+     look for the language.  Termination symbols are `_' and `@'.  */
   mask = _nl_explode_name (locale, &language, &modifier, &territory,
-			   &codeset, &normalized_codeset, &special,
-			   &sponsor, &revision);
+			   &codeset, &normalized_codeset);
 
   /* We need to protect modifying the _NL_LOADED_DOMAINS data.  */
   __libc_rwlock_wrlock (lock);
@@ -160,8 +148,8 @@ _nl_find_domain (const char *dirname, char *locale,
      generalization.  */
   retval = _nl_make_l10nflist (&_nl_loaded_domains, dirname,
 			       strlen (dirname) + 1, mask, language, territory,
-			       codeset, normalized_codeset, modifier, special,
-			       sponsor, revision, domainname, 1);
+			       codeset, normalized_codeset, modifier,
+			       domainname, 1);
 
   __libc_rwlock_unlock (lock);
 

@@ -640,7 +640,7 @@ catalogname_for_locale (const char *locale)
       const char *codeset_end;
       char *shorter_locale;
 
-      codeset_end = strpbrk (dot + 1, "_@+,");
+      codeset_end = strpbrk (dot + 1, "_@");
       if (codeset_end == NULL)
 	codeset_end = dot + strlen (dot);
 
@@ -680,7 +680,7 @@ language_of_locale (const char *locale)
 {
   const char *language_end;
 
-  language_end = strpbrk (locale, "_.@+,");
+  language_end = strpbrk (locale, "_.@");
   if (language_end != NULL)
     {
       size_t len;

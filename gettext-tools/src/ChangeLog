@@ -1,3 +1,8 @@
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (catalogname_for_locale, language_of_locale): Drop support
+	of CEN locale name syntax.
+
 2005-10-05  Bruno Haible  <bruno@clisp.org>
 
 	* format.h (check_msgid_msgstr_format): Add plural_distribution

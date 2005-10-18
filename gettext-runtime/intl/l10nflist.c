@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-1999, 2000-2004 Free Software Foundation, Inc.
+/* Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -170,8 +170,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 		    const char *dirlist, size_t dirlist_len,
 		    int mask, const char *language, const char *territory,
 		    const char *codeset, const char *normalized_codeset,
-		    const char *modifier, const char *special,
-		    const char *sponsor, const char *revision,
+		    const char *modifier,
 		    const char *filename, int do_allocate)
 {
   char *abs_filename;
@@ -190,23 +189,14 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   /* Allocate room for the full file name.  */
   abs_filename = (char *) malloc (dirlist_len
 				  + strlen (language)
-				  + ((mask & TERRITORY) != 0
+				  + ((mask & XPG_TERRITORY) != 0
 				     ? strlen (territory) + 1 : 0)
 				  + ((mask & XPG_CODESET) != 0
 				     ? strlen (codeset) + 1 : 0)
 				  + ((mask & XPG_NORM_CODESET) != 0
 				     ? strlen (normalized_codeset) + 1 : 0)
-				  + (((mask & XPG_MODIFIER) != 0
-				      || (mask & CEN_AUDIENCE) != 0)
+				  + ((mask & XPG_MODIFIER) != 0
 				     ? strlen (modifier) + 1 : 0)
-				  + ((mask & CEN_SPECIAL) != 0
-				     ? strlen (special) + 1 : 0)
-				  + (((mask & CEN_SPONSOR) != 0
-				      || (mask & CEN_REVISION) != 0)
-				     ? (1 + ((mask & CEN_SPONSOR) != 0
-					     ? strlen (sponsor) : 0)
-					+ ((mask & CEN_REVISION) != 0
-					   ? strlen (revision) + 1 : 0)) : 0)
 				  + 1 + strlen (filename) + 1);
 
   if (abs_filename == NULL)
@@ -224,7 +214,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 
   cp = stpcpy (cp, language);
 
-  if ((mask & TERRITORY) != 0)
+  if ((mask & XPG_TERRITORY) != 0)
     {
       *cp++ = '_';
       cp = stpcpy (cp, territory);
@@ -239,28 +229,10 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
       *cp++ = '.';
       cp = stpcpy (cp, normalized_codeset);
     }
-  if ((mask & (XPG_MODIFIER | CEN_AUDIENCE)) != 0)
+  if ((mask & XPG_MODIFIER) != 0)
     {
-      /* This component can be part of both syntaces but has different
-	 leading characters.  For CEN we use `+', else `@'.  */
-      *cp++ = (mask & CEN_AUDIENCE) != 0 ? '+' : '@';
+      *cp++ = '@';
       cp = stpcpy (cp, modifier);
-    }
-  if ((mask & CEN_SPECIAL) != 0)
-    {
-      *cp++ = '+';
-      cp = stpcpy (cp, special);
-    }
-  if ((mask & (CEN_SPONSOR | CEN_REVISION)) != 0)
-    {
-      *cp++ = ',';
-      if ((mask & CEN_SPONSOR) != 0)
-	cp = stpcpy (cp, sponsor);
-      if ((mask & CEN_REVISION) != 0)
-	{
-	  *cp++ = '_';
-	  cp = stpcpy (cp, revision);
-	}
     }
 
   *cp++ = '/';
@@ -332,8 +304,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
      normalized_codeset.  */
   for (cnt = dirlist_count > 1 ? mask : mask - 1; cnt >= 0; --cnt)
     if ((cnt & ~mask) == 0
-	&& ((cnt & CEN_SPECIFIC) == 0 || (cnt & XPG_SPECIFIC) == 0)
-	&& ((cnt & XPG_CODESET) == 0 || (cnt & XPG_NORM_CODESET) == 0))
+	&& !((cnt & XPG_CODESET) != 0 && (cnt & XPG_NORM_CODESET) != 0))
       {
 	if (dirlist_count > 1)
 	  {
@@ -345,15 +316,14 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 	      retval->successor[entries++]
 		= _nl_make_l10nflist (l10nfile_list, dir, strlen (dir) + 1,
 				      cnt, language, territory, codeset,
-				      normalized_codeset, modifier, special,
-				      sponsor, revision, filename, 1);
+				      normalized_codeset, modifier, filename,
+				      1);
 	  }
 	else
 	  retval->successor[entries++]
 	    = _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len,
 				  cnt, language, territory, codeset,
-				  normalized_codeset, modifier, special,
-				  sponsor, revision, filename, 1);
+				  normalized_codeset, modifier, filename, 1);
       }
   retval->successor[entries] = NULL;
 

@@ -1,3 +1,15 @@
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+2002-07-24  Ulrich Drepper  <drepper@redhat.com>
+
+	* explodename.c (_nl_find_language, _nl_explode_name): Remove support
+	for CEN-style locale variables. It was never used and shouldn't be
+	since it's not portable.
+	* finddomain.c (_nl_find_domain): Likewise.
+	* l10nflist.c (_nl_make_l10nflist): Likewise.
+	* loadinfo.h (_nl_make_l10nflist, _nl_explode_name): Likewise.
+	(CEN_*, XPG_SPECIFIC): Remove macros.
+	(XPG_TERRITORY): Renamed from TERRITORY.
+
 2005-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in: Add IN_LIBGLOCALE conditional.
