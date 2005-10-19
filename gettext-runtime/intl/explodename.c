@@ -45,7 +45,7 @@ static char *_nl_find_language (const char *name);
 static char *
 _nl_find_language (const char *name)
 {
-  while (name[0] != '\0' && name[0] != '_' && name[0] != '@')
+  while (name[0] != '\0' && name[0] != '_' && name[0] != '@' && name[0] != '.')
     ++name;
 
   return (char *) name;
@@ -67,7 +67,7 @@ _nl_explode_name (char *name,
   *normalized_codeset = NULL;
 
   /* Now we determine the single parts of the locale name.  First
-     look for the language.  Termination symbols are `_' and `@'.  */
+     look for the language.  Termination symbols are `_', '.', and `@'.  */
   mask = 0;
   *language = cp = name;
   cp = _nl_find_language (*language);
@@ -76,16 +76,19 @@ _nl_explode_name (char *name,
     /* This does not make sense: language has to be specified.  Use
        this entry as it is without exploding.  Perhaps it is an alias.  */
     cp = strchr (*language, '\0');
-  else if (cp[0] == '_')
+  else
     {
-      /* Next is the territory.  */
-      cp[0] = '\0';
-      *territory = ++cp;
+      if (cp[0] == '_')
+	{
+	  /* Next is the territory.  */
+	  cp[0] = '\0';
+	  *territory = ++cp;
 
-      while (cp[0] != '\0' && cp[0] != '.' && cp[0] != '@' && cp[0] != '_')
-	++cp;
+	  while (cp[0] != '\0' && cp[0] != '.' && cp[0] != '@')
+	    ++cp;
 
-      mask |= XPG_TERRITORY;
+	  mask |= XPG_TERRITORY;
+	}
 
       if (cp[0] == '.')
 	{

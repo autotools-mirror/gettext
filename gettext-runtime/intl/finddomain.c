@@ -68,7 +68,7 @@ _nl_find_domain (const char *dirname, char *locale,
 
   /* LOCALE can consist of up to four recognized parts for the XPG syntax:
 
-		language[_territory[.codeset]][@modifier]
+		language[_territory][.codeset][@modifier]
 
      Beside the first part all of them are allowed to be missing.  If
      the full specified locale is not found, the less specific one are
@@ -137,7 +137,7 @@ _nl_find_domain (const char *dirname, char *locale,
     }
 
   /* Now we determine the single parts of the locale name.  First
-     look for the language.  Termination symbols are `_' and `@'.  */
+     look for the language.  Termination symbols are `_', '.', and `@'.  */
   mask = _nl_explode_name (locale, &language, &modifier, &territory,
 			   &codeset, &normalized_codeset);
 

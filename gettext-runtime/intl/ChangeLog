@@ -1,6 +1,17 @@
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 2002-07-24  Ulrich Drepper  <drepper@redhat.com>
 
+	* explodename.c: Recognize the syntax
+	  language[_territory][.codeset][@modifier]
+	instead of only
+	  language[_territory[.codeset]][@modifier]
+	(_nl_find_language): Accept '.' as terminator.
+	(_nl_explode_name): Accept to parse a codeset without a territory.
+	Accept an underscore in the territory.
+
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+2002-07-24  Ulrich Drepper  <drepper@redhat.com>
+
 	* explodename.c (_nl_find_language, _nl_explode_name): Remove support
 	for CEN-style locale variables. It was never used and shouldn't be
 	since it's not portable.
