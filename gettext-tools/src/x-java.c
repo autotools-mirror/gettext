@@ -1294,7 +1294,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 							   state ? next_shapes : NULL)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      return true;
 	    }
@@ -1306,7 +1306,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	  if (terminator == token_type_rparen)
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      return false;
 	    }
@@ -1328,7 +1328,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 				     arglist_parser_alloc (mlp, NULL)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      return true;
 	    }
@@ -1340,7 +1340,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	  if (terminator == token_type_rbrace)
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      return false;
 	    }
@@ -1390,7 +1390,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
 	case token_type_eof:
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  return true;
 

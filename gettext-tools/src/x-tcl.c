@@ -872,7 +872,7 @@ read_command (int looking_for, flag_context_ty outer_context)
 	    || inner.type == t_brace || inner.type == t_eof)
 	  {
 	    if (argparser != NULL)
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	    return inner.type;
 	  }
 

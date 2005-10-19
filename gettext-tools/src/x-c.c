@@ -1752,7 +1752,7 @@ extract_parenthesized (message_list_ty *mlp,
 				     arglist_parser_alloc (mlp,
 							   state ? next_shapes : NULL)))
 	    {
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      return true;
 	    }
 	  next_context_iter = null_context_list_iterator;
@@ -1761,7 +1761,7 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case xgettext_token_type_rparen:
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  return false;
 
 	case xgettext_token_type_comma:
@@ -1816,7 +1816,7 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case xgettext_token_type_eof:
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  return true;
 
 	default:

@@ -1505,6 +1505,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      shapes.shapes[0].argnum1 = 1;
 	      shapes.shapes[0].argnum2 = 0;
 	      shapes.shapes[0].argnumc = 0;
+	      shapes.shapes[0].argtotal = 0;
 
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and
@@ -2855,7 +2856,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
       if (delim == tp->type)
 	{
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 #if DEBUG_PERL
 	  fprintf (stderr, "%s:%d: extract_balanced finished (%d)\n",
@@ -2895,7 +2896,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 		  (const struct callshapes *) keyword_value;
 
 		xgettext_current_source_encoding = po_charset_utf8;
-		arglist_parser_done (argparser);
+		arglist_parser_done (argparser, arg);
 		xgettext_current_source_encoding = xgettext_global_source_encoding;
 		argparser = arglist_parser_alloc (mlp, shapes);
 		arg = 1;
@@ -2935,7 +2936,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 				arg, arglist_parser_clone (argparser)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
@@ -2943,7 +2944,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  if (my_last_token == token_type_keyword_symbol)
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      argparser = arglist_parser_alloc (mlp, NULL);
 	    }
@@ -2971,7 +2972,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	    {
 	      /* We have missed the argument.  */
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      argparser = arglist_parser_alloc (mlp, NULL);
 	      arg = 0;
@@ -3022,7 +3023,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  if (arglist_parser_decidedp (argparser, arg))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      argparser = arglist_parser_alloc (mlp, NULL);
 	      state = 0;
@@ -3038,7 +3039,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  free_token (tp);
 	  return true;
@@ -3053,7 +3054,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 				1, arglist_parser_alloc (mlp, NULL)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
@@ -3082,7 +3083,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 				1, arglist_parser_alloc (mlp, NULL)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      free_token (tp);
 	      return true;
@@ -3110,7 +3111,7 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 
 	  /* The ultimate sign.  */
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_global_source_encoding;
 	  argparser = arglist_parser_alloc (mlp, NULL);
 

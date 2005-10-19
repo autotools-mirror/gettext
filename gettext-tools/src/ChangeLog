@@ -1,3 +1,33 @@
+2005-10-18  Bruno Haible  <bruno@clisp.org>
+
+	Disambiguate overloaded function calls according to argument count.
+	* xgettext.h (struct callshape): Add field 'argtotal'.
+	(struct partial_call): Likewise.
+	(arglist_parser_done): Add argnum argument.
+	* xgettext.c (split_keywordspec): Recognize NNt syntax and fill
+	argtotal.
+	(insert_keyword_callshape, arglist_parser_alloc, arglist_parser_clone):
+	Update.
+	(arglist_parser_decidedp): Compare also the argtotal if given.
+	(arglist_parser_done): Add argnum argument.
+	* x-awk.c (extract_parenthesized): Pass arg count to
+	arglist_parser_done.
+	* x-c.c (extract_parenthesized): Likewise.
+	* x-csharp.c (extract_parenthesized): Likewise.
+	* x-elisp.c (read_object): Likewise.
+	* x-java.c (extract_parenthesized): Likewise.
+	* x-librep.c (read_object): Likewise.
+	* x-lisp.c (read_object): Likewise.
+	* x-perl.c (extract_variable): Update.
+	(extract_balanced): Pass arg count to arglist_parser_done.
+	* x-php.c (extract_parenthesized): Likewise.
+	* x-python.c (extract_parenthesized): Likewise.
+	* x-scheme.c (read_object): Likewise.
+	* x-sh.c (read_command): Likewise.
+	* x-tcl.c (read_command): Likewise.
+	Stimulated by a patch from
+	Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>.
+
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (catalogname_for_locale, language_of_locale): Drop support

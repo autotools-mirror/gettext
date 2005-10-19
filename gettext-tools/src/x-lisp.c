@@ -1033,7 +1033,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 			/* Don't bother converting "()" to "NIL".  */
 			last_non_comment_line = line_number;
 			if (argparser != NULL)
-			  arglist_parser_done (argparser);
+			  arglist_parser_done (argparser, arg);
 			return;
 		      }
 
@@ -1098,7 +1098,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 		  }
 
 		if (argparser != NULL)
-		  arglist_parser_done (argparser);
+		  arglist_parser_done (argparser, arg);
 	      }
 	      op->type = t_other;
 	      last_non_comment_line = line_number;

@@ -1701,7 +1701,7 @@ extract_parenthesized (message_list_ty *mlp,
 							   state ? next_shapes : NULL)))
 	    {
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser);
+	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 	      return true;
 	    }
@@ -1711,7 +1711,7 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case token_type_rparen:
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 	  return false;
 
@@ -1749,7 +1749,7 @@ extract_parenthesized (message_list_ty *mlp,
 
 	case token_type_eof:
 	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser);
+	  arglist_parser_done (argparser, arg);
 	  xgettext_current_source_encoding = xgettext_current_file_source_encoding;
 	  return true;
 

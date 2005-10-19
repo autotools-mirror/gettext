@@ -54,6 +54,7 @@ struct callshape
   int argnum1; /* argument number to use for msgid */
   int argnum2; /* argument number to use for msgid_plural */
   int argnumc; /* argument number to use for msgctxt */
+  int argtotal; /* total number of arguments */
 };
 
 /* Split keyword spec into keyword, argnum1, argnum2, argnumc.  */
@@ -250,6 +251,7 @@ struct partial_call
   int argnumc;                  /* number of context argument, 0 when seen */
   int argnum1;                  /* number of singular argument, 0 when seen */
   int argnum2;                  /* number of plural argument, 0 when seen */
+  int argtotal;                 /* total number of arguments, 0 if unspecified */
   char *msgctxt;                /* context - owned string, or NULL */
   lex_pos_ty msgctxt_pos;
   char *msgid;                  /* msgid - owned string, or NULL */
@@ -292,8 +294,9 @@ extern void arglist_parser_remember (struct arglist_parser *ap,
 /* Tests whether an arglist_parser has is not waiting for more arguments after
    argument ARGNUM.  */
 extern bool arglist_parser_decidedp (struct arglist_parser *ap, int argnum);
-/* Terminates the processing of an arglist_parser and deletes it.  */
-extern void arglist_parser_done (struct arglist_parser *ap);
+/* Terminates the processing of an arglist_parser after argument ARGNUM and
+   deletes it.  */
+extern void arglist_parser_done (struct arglist_parser *ap, int argnum);
 
 
 #ifdef __cplusplus

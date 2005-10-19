@@ -961,15 +961,18 @@ split_keywordspec (const char *spec,
   int argnum1 = 0;
   int argnum2 = 0;
   int argnumc = 0;
+  int argtotal = 0;
 
   /* Start parsing from the end.  */
   p = spec + strlen (spec);
   while (p > spec)
     {
       if (isdigit ((unsigned char) p[-1])
-	  || (p[-1] == 'c' && p - 1 > spec && isdigit ((unsigned char) p[-2])))
+	  || ((p[-1] == 'c' || p[-1] == 't')
+	      && p - 1 > spec && isdigit ((unsigned char) p[-2])))
 	{
 	  bool contextp = (p[-1] == 'c');
+	  bool totalp = (p[-1] == 't');
 
 	  do
 	    p--;
@@ -986,6 +989,13 @@ split_keywordspec (const char *spec,
 		    /* Only one context argument can be given.  */
 		    break;
 		  argnumc = arg;
+		}
+	      else if (totalp)
+		{
+		  if (argtotal != 0)
+		    /* Only one total number of arguments can be given.  */
+		    break;
+		  argtotal = arg;
 		}
 	      else
 		{
@@ -1006,6 +1016,7 @@ split_keywordspec (const char *spec,
 		  shapep->argnum1 = (argnum1 > 0 ? argnum1 : 1);
 		  shapep->argnum2 = argnum2;
 		  shapep->argnumc = argnumc;
+		  shapep->argtotal = argtotal;
 		  return;
 		}
 	    }
@@ -1021,6 +1032,7 @@ split_keywordspec (const char *spec,
   shapep->argnum1 = 1;
   shapep->argnum2 = 0;
   shapep->argnumc = 0;
+  shapep->argtotal = 0;
 }
 
 
@@ -1057,7 +1069,8 @@ insert_keyword_callshape (hash_table *table,
       for (i = 0; i < old_shapes->nshapes; i++)
 	if (old_shapes->shapes[i].argnum1 == shape->argnum1
 	    && old_shapes->shapes[i].argnum2 == shape->argnum2
-	    && old_shapes->shapes[i].argnumc == shape->argnumc)
+	    && old_shapes->shapes[i].argnumc == shape->argnumc
+	    && old_shapes->shapes[i].argtotal == shape->argtotal)
 	  {
 	    found = true;
 	    break;
@@ -2193,6 +2206,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
 	  ap->alternative[i].argnumc = shapes->shapes[i].argnumc;
 	  ap->alternative[i].argnum1 = shapes->shapes[i].argnum1;
 	  ap->alternative[i].argnum2 = shapes->shapes[i].argnum2;
+	  ap->alternative[i].argtotal = shapes->shapes[i].argtotal;
 	  ap->alternative[i].msgctxt = NULL;
 	  ap->alternative[i].msgctxt_pos.file_name = NULL;
 	  ap->alternative[i].msgctxt_pos.line_number = (size_t)(-1);
@@ -2233,6 +2247,7 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->argnumc = cp->argnumc;
       ccp->argnum1 = cp->argnum1;
       ccp->argnum2 = cp->argnum2;
+      ccp->argtotal = cp->argtotal;
       ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
       ccp->msgctxt_pos = cp->msgctxt_pos;
       ccp->msgid = (cp->msgid != NULL ? xstrdup (cp->msgid) : NULL);
@@ -2312,17 +2327,21 @@ arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
   /* Test whether all alternatives are decided.
      Note: A decided alternative can be complete
        cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+       && cp->argtotal == 0
      or it can be failed if no literal strings were found at the specified
      argument positions:
        cp->argnumc <= argnum && cp->argnum1 <= argnum && cp->argnum2 <= argnum
+     or it can be failed if the number of arguments is exceeded:
+       cp->argtotal > 0 && cp->argtotal < argnum
    */
   for (i = 0; i < ap->nalternatives; i++)
     {
       struct partial_call *cp = &ap->alternative[i];
 
-      if (!(cp->argnumc <= argnum
-	    && cp->argnum1 <= argnum
-	    && cp->argnum2 <= argnum))
+      if (!((cp->argnumc <= argnum
+	     && cp->argnum1 <= argnum
+	     && cp->argnum2 <= argnum)
+	    || (cp->argtotal > 0 && cp->argtotal < argnum)))
 	/* cp is still undecided.  */
 	return false;
     }
@@ -2331,7 +2350,7 @@ arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
 
 
 void
-arglist_parser_done (struct arglist_parser *ap)
+arglist_parser_done (struct arglist_parser *ap, int argnum)
 {
   size_t ncomplete;
   size_t i;
@@ -2342,7 +2361,8 @@ arglist_parser_done (struct arglist_parser *ap)
     {
       struct partial_call *cp = &ap->alternative[i];
 
-      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0)
+      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+	  && (cp->argtotal == 0 || cp->argtotal == argnum))
 	ncomplete++;
     }
 
@@ -2358,6 +2378,7 @@ arglist_parser_done (struct arglist_parser *ap)
 	  struct partial_call *cp = &ap->alternative[i];
 
 	  if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+	      && (cp->argtotal == 0 || cp->argtotal == argnum)
 	      && cp->msgctxt != NULL
 	      && cp->msgid != NULL
 	      && cp->msgid_plural != NULL)
@@ -2382,6 +2403,7 @@ arglist_parser_done (struct arglist_parser *ap)
 	      struct partial_call *cp = &ap->alternative[i];
 
 	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && (cp->argtotal == 0 || cp->argtotal == argnum)
 		  && cp->msgctxt != NULL
 		  && cp->msgid != NULL)
 		{
@@ -2400,6 +2422,7 @@ arglist_parser_done (struct arglist_parser *ap)
 	      struct partial_call *cp = &ap->alternative[i];
 
 	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && (cp->argtotal == 0 || cp->argtotal == argnum)
 		  && cp->msgid != NULL
 		  && cp->msgid_plural != NULL)
 		{
@@ -2431,6 +2454,7 @@ arglist_parser_done (struct arglist_parser *ap)
 	      struct partial_call *cp = &ap->alternative[i];
 
 	      if (cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
+		  && (cp->argtotal == 0 || cp->argtotal == argnum)
 		  && cp->msgid != NULL)
 		{
 		  if (best_cp != NULL)

@@ -1,3 +1,8 @@
+2005-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.texi (--keyword): Document how to specify the total number
+	of arguments.
+
 2005-10-03  Bruno Haible  <bruno@clisp.org>
 
 	Add support for contexts in xgettext.

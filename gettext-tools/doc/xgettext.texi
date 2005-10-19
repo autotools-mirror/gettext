@@ -160,6 +160,12 @@ with plural handling.  Also, if @var{keywordspec} is of the form
 @samp{@var{id}:@var{argnum},@var{contextargnum}c}, @code{xgettext} treats
 strings in the @var{contextargnum}th argument as a context specifier.
 @*
+Furthermore, if @var{keywordspec} is of the form
+@samp{@var{id}:@dots{},@var{totalnumargs}t}, @code{xgettext} recognizes this
+argument specification only if the number of actual arguments is equal to
+@var{totalnumargs}.  This is useful for disambiguating overloaded function
+calls in C++.
+@*
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
