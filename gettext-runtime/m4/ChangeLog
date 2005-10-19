@@ -1,3 +1,7 @@
+2005-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* po.m4 (AM_PO_SUBDIRS): Remove redundant checks.
+
 2005-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Remove AC_HEADER_STDC, AC_TYPE_OFF_T
