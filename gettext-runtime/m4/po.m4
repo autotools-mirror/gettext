@@ -1,4 +1,4 @@
-# po.m4 serial 9 (gettext-0.15)
+# po.m4 serial 10 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -39,6 +39,22 @@ AC_DEFUN([AM_PO_SUBDIRS],
     :)
   AC_PATH_PROG(GMSGFMT, gmsgfmt, $MSGFMT)
 
+  dnl Test whether it is GNU msgfmt >= 0.15.
+changequote(,)dnl
+  case `$MSGFMT --version | sed 1q | sed -e 's,^[^0-9]*,,'` in
+    '' | 0.[0-9] | 0.[0-9].* | 0.1[0-4] | 0.1[0-4].*) MSGFMT_015=: ;;
+    *) MSGFMT_015=$MSGFMT ;;
+  esac
+changequote([,])dnl
+  AC_SUBST([MSGFMT_015])
+changequote(,)dnl
+  case `$GMSGFMT --version | sed 1q | sed -e 's,^[^0-9]*,,'` in
+    '' | 0.[0-9] | 0.[0-9].* | 0.1[0-4] | 0.1[0-4].*) GMSGFMT_015=: ;;
+    *) GMSGFMT_015=$GMSGFMT ;;
+  esac
+changequote([,])dnl
+  AC_SUBST([GMSGFMT_015])
+
   dnl Search for GNU xgettext 0.12 or newer in the PATH.
   dnl The first test excludes Solaris xgettext and early GNU xgettext versions.
   dnl The second test excludes FreeBSD xgettext.
@@ -48,6 +64,15 @@ AC_DEFUN([AM_PO_SUBDIRS],
     :)
   dnl Remove leftover from FreeBSD xgettext call.
   rm -f messages.po
+
+  dnl Test whether it is GNU xgettext >= 0.15.
+changequote(,)dnl
+  case `$XGETTEXT --version | sed 1q | sed -e 's,^[^0-9]*,,'` in
+    '' | 0.[0-9] | 0.[0-9].* | 0.1[0-4] | 0.1[0-4].*) XGETTEXT_015=: ;;
+    *) XGETTEXT_015=$XGETTEXT ;;
+  esac
+changequote([,])dnl
+  AC_SUBST([XGETTEXT_015])
 
   dnl Search for GNU msgmerge 0.11 or newer in the PATH.
   AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,

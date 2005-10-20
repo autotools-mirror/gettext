@@ -1,3 +1,13 @@
+2005-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-c-gnome/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-c++/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-c++-gnome/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-c++-kde/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-objc/po/Makevars (USE_MSGCTXT): New macro.
+	* hello-objc-gnome/po/Makevars (USE_MSGCTXT): New macro.
+
 2005-09-19  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/autogen.sh: Also install m4/progtest.m4.

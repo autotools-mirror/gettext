@@ -1,5 +1,10 @@
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
+	* po.m4 (AM_PO_SUBDIRS): Also define MSGFMT_015, GMSGFMT_015,
+	XGETTEXT_015.
+
+2005-10-18  Bruno Haible  <bruno@clisp.org>
+
 	* po.m4 (AM_PO_SUBDIRS): Remove redundant checks.
 
 2005-08-28  Bruno Haible  <bruno@clisp.org>
