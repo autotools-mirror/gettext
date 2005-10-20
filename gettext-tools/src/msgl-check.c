@@ -23,7 +23,6 @@
 /* Specification.  */
 #include "msgl-check.h"
 
-#include <ctype.h>
 #include <limits.h>
 #include <setjmp.h>
 #include <signal.h>
@@ -31,6 +30,7 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include "c-ctype.h"
 #include "xalloc.h"
 #include "xerror.h"
 #include "po-xerror.h"
@@ -387,7 +387,7 @@ check_plural (message_list_ty *mlp, unsigned char **plural_distribution)
 
 	  /* First check the number.  */
 	  nplurals += 9;
-	  while (*nplurals != '\0' && isspace ((unsigned char) *nplurals))
+	  while (*nplurals != '\0' && c_isspace ((unsigned char) *nplurals))
 	    ++nplurals;
 	  endp = nplurals;
 	  nplurals_value = 0;

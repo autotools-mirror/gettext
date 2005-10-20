@@ -21,13 +21,13 @@
 # include "config.h"
 #endif
 
-#include <ctype.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
 #include "x-librep.h"
@@ -376,7 +376,7 @@ read_token (struct token *tp, const int *first)
 			    break;
 			  if ((radix <= 10
 			       && !(c >= '0' && c <= '0' + radix - 1))
-			      || (radix == 16 && !isxdigit (c)))
+			      || (radix == 16 && !c_isxdigit (c)))
 			    radix = 0;
 			  break;
 			}

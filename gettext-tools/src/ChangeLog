@@ -1,5 +1,15 @@
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
+	* msgl-check.c: Include c-ctype.h instead of ctype.h.
+	(check_plural): Use c_isspace instead of isspace.
+	* x-librep.c: Include c-ctype.h instead of ctype.h.
+	(read_token): Use c_isxdigit instead of isxdigit.
+	* x-rst.c: Include c-ctype.h instead of ctype.h.
+	(extract_rst): Use c_isdigit instead of isdigit.
+	* x-ycp.c: Don't include ctype.h.
+
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
 	* plural-exp.c: Renamed from plural.c.
 	* Makefile.am (libgettextsrc_la_SOURCES): Update.
 

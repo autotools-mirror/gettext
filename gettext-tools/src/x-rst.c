@@ -21,11 +21,11 @@
 # include "config.h"
 #endif
 
-#include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stddef.h>
 
+#include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
 #include "x-rst.h"
@@ -165,7 +165,7 @@ extract_rst (FILE *f,
 	      c = getc (f);
 	      if (c == EOF && ferror (f))
 		goto bomb;
-	      if (c == EOF || !isdigit (c))
+	      if (c == EOF || !c_isdigit (c))
 		{
 		  error_with_progname = false;
 		  error (EXIT_FAILURE, 0, _("%s:%d: missing number after #"),
@@ -176,7 +176,7 @@ extract_rst (FILE *f,
 	      for (;;)
 		{
 		  c = getc (f);
-		  if (c == EOF || !isdigit (c))
+		  if (c == EOF || !c_isdigit (c))
 		    break;
 		  n = n * 10 + (c - '0');
 		}
