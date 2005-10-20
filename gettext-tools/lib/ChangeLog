@@ -1,3 +1,9 @@
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* c-strcasestr.h: New file.
+	* c-strcasestr.c: New file, based on gnulib's strcasestr.c.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+
 2005-10-06  Bruno Haible  <bruno@clisp.org>
 
 	* addext.c: Test HAVE_CONFIG_H using #ifdef.

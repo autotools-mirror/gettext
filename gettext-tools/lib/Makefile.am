@@ -39,6 +39,7 @@ libgettextlib_la_SOURCES = \
   binary-io.h \
   c-ctype.h c-ctype.c \
   c-strcase.h c-strcasecmp.c c-strncasecmp.c \
+  c-strcasestr.h c-strcasestr.c \
   classpath.h classpath.c \
   closeout.h closeout.c \
   copy-file.h copy-file.c \
