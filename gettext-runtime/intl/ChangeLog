@@ -1,6 +1,11 @@
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 2002-07-24  Ulrich Drepper  <drepper@redhat.com>
 
+	* explodename.c (_nl_explode_name): Simplify.
+
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+2002-07-24  Ulrich Drepper  <drepper@redhat.com>
+
 	* explodename.c: Recognize the syntax
 	  language[_territory][.codeset][@modifier]
 	instead of only

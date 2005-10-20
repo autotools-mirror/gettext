@@ -119,7 +119,8 @@ _nl_explode_name (char *name,
       cp[0] = '\0';
       *modifier = ++cp;
 
-      mask |= XPG_MODIFIER;
+      if (cp[0] != '\0')
+	mask |= XPG_MODIFIER;
     }
 
   if (*territory != NULL && (*territory)[0] == '\0')
@@ -127,9 +128,6 @@ _nl_explode_name (char *name,
 
   if (*codeset != NULL && (*codeset)[0] == '\0')
     mask &= ~XPG_CODESET;
-
-  if (*modifier != NULL && (*modifier)[0] == '\0')
-    mask &= ~XPG_MODIFIER;
 
   return mask;
 }
