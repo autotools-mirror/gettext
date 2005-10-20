@@ -113,7 +113,7 @@ format-php.c format-gcc-internal.c format-qt.c
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-po.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c msgl-check.c \
-file-list.c msgl-charset.c po-time.c plural.c plural-eval.c plural-table.c \
+file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c plural-table.c \
 $(FORMAT_SOURCE)
 
 # libgettextpo contains the public API for PO files.

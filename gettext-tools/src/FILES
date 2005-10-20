@@ -209,7 +209,7 @@ format-gcc-internal.c  Format string handling GCC internal.
 format-qt.c            Format string handling for Qt.
 format.c        Table of the language dependent format string handlers.
 
-plural.c
+plural-exp.c
                 Parsing plural expressions.
 plural-eval.c
                 Evaluating plural expressions.

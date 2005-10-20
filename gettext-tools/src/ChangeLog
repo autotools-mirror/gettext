@@ -1,3 +1,8 @@
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* plural-exp.c: Renamed from plural.c.
+	* Makefile.am (libgettextsrc_la_SOURCES): Update.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	Disambiguate overloaded function calls according to argument count.
