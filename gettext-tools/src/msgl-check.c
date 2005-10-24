@@ -36,6 +36,7 @@
 #include "po-xerror.h"
 #include "format.h"
 #include "plural-exp.h"
+#include "plural-eval.h"
 #include "plural-table.h"
 #include "strstr.h"
 #include "vasprintf.h"
@@ -47,75 +48,6 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-/* Some platforms don't have the sigjmp_buf type in <setjmp.h>.  */
-#if defined _MSC_VER || defined __MINGW32__
-/* Native Woe32 API.  */
-# define sigjmp_buf jmp_buf
-# define sigsetjmp(env,savesigs) setjmp (env)
-# define siglongjmp longjmp
-#endif
-
-/* We use siginfo to get precise information about the signal.
-   But siginfo doesn't work on Irix 6.5.  */
-#if HAVE_SIGINFO && !defined (__sgi)
-# define USE_SIGINFO 1
-#endif
-
-
-static sigjmp_buf sigfpe_exit;
-
-#if USE_SIGINFO
-
-static int sigfpe_code;
-
-/* Signal handler called in case of arithmetic exception (e.g. division
-   by zero) during plural_eval.  */
-static void
-sigfpe_handler (int sig, siginfo_t *sip, void *scp)
-{
-  sigfpe_code = sip->si_code;
-  siglongjmp (sigfpe_exit, 1);
-}
-
-#else
-
-/* Signal handler called in case of arithmetic exception (e.g. division
-   by zero) during plural_eval.  */
-static void
-sigfpe_handler (int sig)
-{
-  siglongjmp (sigfpe_exit, 1);
-}
-
-#endif
-
-static void
-install_sigfpe_handler ()
-{
-#if USE_SIGINFO
-  struct sigaction action;
-  action.sa_sigaction = sigfpe_handler;
-  action.sa_flags = SA_SIGINFO;
-  sigemptyset (&action.sa_mask);
-  sigaction (SIGFPE, &action, (struct sigaction *) NULL);
-#else
-  signal (SIGFPE, sigfpe_handler);
-#endif
-}
-
-static void
-uninstall_sigfpe_handler ()
-{
-#if USE_SIGINFO
-  struct sigaction action;
-  action.sa_handler = SIG_DFL;
-  action.sa_flags = 0;
-  sigemptyset (&action.sa_mask);
-  sigaction (SIGFPE, &action, (struct sigaction *) NULL);
-#else
-  signal (SIGFPE, SIG_DFL);
-#endif
-}
 
 /* Check the values returned by plural_eval.
    Return the number of errors that were seen.

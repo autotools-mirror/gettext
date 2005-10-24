@@ -1,5 +1,18 @@
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
+	* plural-eval.h: New file.
+	* plural-eval.c: Include plural-eval.h.
+	(sigfpe_exit, sigfpe_code, sigfpe_handler, install_sigfpe_handler,
+	uninstall_sigfpe_handler): New definitions, moved here from
+	msgl-check.c.
+	* msgl-check.c: Include plural.eval.h.
+	(sigjmp_buf, sigsetjmp, siglongjmp, USE_SIGINFO): Move to plural-eval.h.
+	(sigfpe_exit, sigfpe_code, sigfpe_handler, install_sigfpe_handler,
+	uninstall_sigfpe_handler): Move to plural-eval.c.
+	* Makefile.am (noinst_HEADERS): Add plural-eval.h.
+
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-check.c: Include c-ctype.h instead of ctype.h.
 	(check_plural): Use c_isspace instead of isspace.
 	* x-librep.c: Include c-ctype.h instead of ctype.h.

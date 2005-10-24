@@ -211,6 +211,7 @@ format.c        Table of the language dependent format string handlers.
 
 plural-exp.c
                 Parsing plural expressions.
+plural-eval.h
 plural-eval.c
                 Evaluating plural expressions.
 msgl-check.h
