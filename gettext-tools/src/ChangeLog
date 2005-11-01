@@ -1,3 +1,10 @@
+2005-11-01  Bruno Haible  <bruno@clisp.org>
+
+	* write-csharp.c (write_csharp_code): Add culture_name argument.
+	Emit an AssemblyCulture note for it.
+	(msgdomain_write_csharp): Update.
+	Suggested by Pepa <cerna.zelva@seznam.cz>.
+
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* plural-eval.h: New file.
