@@ -1,4 +1,4 @@
-# gettext.m4 serial 43 (gettext-0.15)
+# gettext.m4 serial 44 (gettext-0.15)
 dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -417,9 +417,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_SUBST([HAVE_WPRINTF])
 
   AM_LANGINFO_CODESET
-  if test $ac_cv_header_locale_h = yes; then
-    gt_LC_MESSAGES
-  fi
+  gt_LC_MESSAGES
 
   dnl Rename some macros and functions used for locking.
   AH_BOTTOM([

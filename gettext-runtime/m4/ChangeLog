@@ -1,3 +1,9 @@
+2005-11-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Invoke gt_LC_MESSAGES always, since we
+	assume that <locale.h> always exists.
+	Fixes bug introduced on 2005-08-28.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* po.m4 (AM_PO_SUBDIRS): Also define MSGFMT_015, GMSGFMT_015,
