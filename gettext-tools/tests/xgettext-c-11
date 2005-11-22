@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles xg-c-11.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location \
   --keyword=i18n:1 --keyword=i18n:1c,2,2t --keyword=i18n:1,2,3t \
-  xg-c-11.c -d xg-c-11
+  -d xg-c-11 xg-c-11.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-11.ok"

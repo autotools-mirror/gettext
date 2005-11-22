@@ -118,7 +118,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-sh-4.err xg-sh-4.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location xg-sh-4.sh -d xg-sh-4 2>xg-sh-4.err
+${XGETTEXT} --omit-header --no-location -d xg-sh-4 xg-sh-4.sh 2>xg-sh-4.err
 test $? = 0 || { cat xg-sh-4.err; rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-4.ok"

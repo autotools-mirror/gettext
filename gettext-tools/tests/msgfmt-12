@@ -29,7 +29,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-12.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} mf-12.mo -o mf-12.out
+${MSGUNFMT} -o mf-12.out mf-12.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-12.ok"

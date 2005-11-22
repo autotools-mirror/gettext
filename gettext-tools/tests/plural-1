@@ -45,7 +45,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/cake.mo fr.po
 
 tmpfiles="$tmpfiles fr.po.tmp"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} fr/LC_MESSAGES/cake.mo -o fr.po.tmp
+${MSGUNFMT} -o fr.po.tmp fr/LC_MESSAGES/cake.mo
 
 tmpfiles="$tmpfiles fr.po.strip"
 sed 1,2d < fr.po > fr.po.strip

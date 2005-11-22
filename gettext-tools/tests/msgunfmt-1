@@ -34,12 +34,12 @@ EOF
 
 tmpfiles="$tmpfiles mu-test1.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} mu-test1.in -o mu-test1.mo
+${MSGFMT} -o mu-test1.mo mu-test1.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mu-test1.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} mu-test1.mo -o mu-test1.out
+${MSGUNFMT} -o mu-test1.out mu-test1.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

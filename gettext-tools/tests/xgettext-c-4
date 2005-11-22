@@ -12,7 +12,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-c-4.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --trigraphs xg-c-4.in.c -d xg-c-4
+${XGETTEXT} --omit-header --no-location --trigraphs -d xg-c-4 xg-c-4.in.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-4.ok"

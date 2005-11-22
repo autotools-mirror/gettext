@@ -26,7 +26,7 @@ EOF
 tmpfiles="$tmpfiles xg-j-5.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  xg-j-5.java -d xg-j-5
+  -d xg-j-5 xg-j-5.java
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-j-5.ok"

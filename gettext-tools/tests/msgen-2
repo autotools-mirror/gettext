@@ -16,7 +16,7 @@ EOF
 
 tmpfiles="$tmpfiles men-test2.out"
 : ${MSGEN=msgen}
-${MSGEN} --properties-input --properties-output men-test2.properties -o men-test2.out
+${MSGEN} --properties-input --properties-output -o men-test2.out men-test2.properties
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles men-test2.ok"

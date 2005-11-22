@@ -46,7 +46,7 @@ ${MSGUNFMT} --java -d . -r prog -l fr -o prog.out || exit 1
 
 tmpfiles="$tmpfiles prog.sort"
 : ${MSGCAT=msgcat}
-${MSGCAT} -s prog.out -o prog.sort || exit 1
+${MSGCAT} -s -o prog.sort prog.out || exit 1
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<\EOF > prog.ok

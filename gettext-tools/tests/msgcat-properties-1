@@ -23,7 +23,7 @@ rm -f mcat-p-1.out
 
 : ${MSGCAT=msgcat}
 ${MSGCAT} --use-first --more-than=0 --properties-input --properties-output \
-    mcat-p-1.in1 mcat-p-1.in2 -o mcat-p-1.out
+    -o mcat-p-1.out mcat-p-1.in1 mcat-p-1.in2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-p-1.ok"

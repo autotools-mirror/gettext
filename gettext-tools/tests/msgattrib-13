@@ -58,7 +58,7 @@ EOF
 
 tmpfiles="$tmpfiles ma-test13.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --obsolete ma-test13.po -o ma-test13.out
+${MSGATTRIB} --obsolete -o ma-test13.out ma-test13.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test13.ok"

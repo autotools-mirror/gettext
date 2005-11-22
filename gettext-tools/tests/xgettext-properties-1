@@ -44,8 +44,8 @@ EOF
 
 tmpfiles="$tmpfiles xg-pr-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -n xg-pr-1.in.properties \
-  xg-pr-1.c xg-pr-1.cc -d xg-pr-1
+${XGETTEXT} --omit-header -n \
+  -d xg-pr-1 xg-pr-1.in.properties xg-pr-1.c xg-pr-1.cc
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pr-1.ok"

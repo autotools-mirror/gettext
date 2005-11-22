@@ -35,7 +35,7 @@ EOF
 
 tmpfiles="$tmpfiles mcat-test11.out"
 : ${MSGCAT=msgcat}
-${MSGCAT} mcat-test11.in -o mcat-test11.out
+${MSGCAT} -o mcat-test11.out mcat-test11.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

@@ -21,7 +21,7 @@ EOF
 tmpfiles="$tmpfiles xg-t-2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
-  xg-t-2.tcl -d xg-t-2
+  -d xg-t-2 xg-t-2.tcl
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-t-2.ok"

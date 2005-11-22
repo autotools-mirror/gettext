@@ -22,8 +22,8 @@ EOF
 
 tmpfiles="$tmpfiles xg-c-6.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --add-comments=XXX xg-c-6.in.C \
-  -d xg-c-6
+${XGETTEXT} --omit-header --no-location --add-comments=XXX \
+  -d xg-c-6 xg-c-6.in.C
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-6.ok"

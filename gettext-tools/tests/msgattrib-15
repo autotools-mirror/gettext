@@ -53,7 +53,7 @@ EOF
 
 tmpfiles="$tmpfiles ma-test15.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --clear-fuzzy ma-test15.po -o ma-test15.out
+${MSGATTRIB} --clear-fuzzy -o ma-test15.out ma-test15.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

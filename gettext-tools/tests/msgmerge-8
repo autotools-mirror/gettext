@@ -40,7 +40,7 @@ EOF
 
 tmpfiles="$tmpfiles mm-test8.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} --multi-domain -q mm-test8.po mm-test8.pot -o mm-test8.out
+${MSGMERGE} --multi-domain -q -o mm-test8.out mm-test8.po mm-test8.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test8.ok"

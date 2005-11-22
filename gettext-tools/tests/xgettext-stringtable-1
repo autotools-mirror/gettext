@@ -25,7 +25,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-st-1.tmp xg-st-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} xg-st-1.strings -o xg-st-1.tmp
+${XGETTEXT} -o xg-st-1.tmp xg-st-1.strings
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 grep -v 'POT-Creation-Date' < xg-st-1.tmp > xg-st-1.po
 

@@ -36,7 +36,7 @@ ${MSGFMT} -o fa/LC_MESSAGES/fc5.mo fa.po
 
 tmpfiles="$tmpfiles fa.po.tmp"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} fa/LC_MESSAGES/fc5.mo -o fa.po.tmp
+${MSGUNFMT} -o fa.po.tmp fa/LC_MESSAGES/fc5.mo
 
 tmpfiles="$tmpfiles fa.po.strip"
 sed 1d < fa.po > fa.po.strip

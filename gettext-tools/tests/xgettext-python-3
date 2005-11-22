@@ -49,10 +49,10 @@ EOF
 tmpfiles="$tmpfiles xg-py-3a.tmp xg-py-3a.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location \
-  xg-py-3a.py -d xg-py-3a > /dev/null 2>&1
+  -d xg-py-3a xg-py-3a.py > /dev/null 2>&1
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location --from-code=euc-jp \
-  xg-py-3a.py -o xg-py-3a.tmp
+  -o xg-py-3a.tmp xg-py-3a.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 grep -v 'POT-Creation-Date' < xg-py-3a.tmp > xg-py-3a.pot
 
@@ -64,7 +64,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-py-3b.tmp xg-py-3b.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location \
-  xg-py-3b.py -o xg-py-3b.tmp
+  -o xg-py-3b.tmp xg-py-3b.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 grep -v 'POT-Creation-Date' < xg-py-3b.tmp > xg-py-3b.pot
 
@@ -76,7 +76,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-py-3c.tmp xg-py-3c.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location --from-code=iso-8859-1 \
-  xg-py-3b.py -o xg-py-3c.tmp
+  -o xg-py-3c.tmp xg-py-3b.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 grep -v 'POT-Creation-Date' < xg-py-3c.tmp > xg-py-3c.pot
 
@@ -96,7 +96,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-py-3d.tmp xg-py-3d.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: \
-  xg-py-3d.py -o xg-py-3d.tmp
+  -o xg-py-3d.tmp xg-py-3d.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 grep -v 'POT-Creation-Date' < xg-py-3d.tmp > xg-py-3d.pot
 

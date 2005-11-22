@@ -31,7 +31,7 @@ tmpfiles="$tmpfiles mcat-s-1.out mcat-s-1.err"
 rm -f mcat-s-1.out
 : ${MSGCAT=msgcat}
 LC_MESSAGES=C LC_ALL= \
-${MSGCAT} --stringtable-input mcat-s-1.in -o mcat-s-1.out >mcat-s-1.err 2>&1
+${MSGCAT} --stringtable-input -o mcat-s-1.out mcat-s-1.in >mcat-s-1.err 2>&1
 result=$?
 cat mcat-s-1.err | grep -v ': internationalized messages'
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }

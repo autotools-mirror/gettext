@@ -42,7 +42,7 @@ EOF
 tmpfiles="$tmpfiles mm-test5.out mm-test5.err"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
-${MSGMERGE} -q mm-test5.in1.po mm-test5.in2.po -o mm-test5.out >mm-test5.err 2>&1
+${MSGMERGE} -q -o mm-test5.out mm-test5.in1.po mm-test5.in2.po >mm-test5.err 2>&1
 result=$?
 cat mm-test5.err | grep -v 'warning: Charset' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }

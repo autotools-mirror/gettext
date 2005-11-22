@@ -24,7 +24,7 @@ EOF
 tmpfiles="$tmpfiles mm-test9.err"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
-${MSGMERGE} -q mm-test9.in1 mm-test9.in2 -o /dev/null \
+${MSGMERGE} -q -o /dev/null mm-test9.in1 mm-test9.in2 \
     2>&1 | grep -v '^==' > mm-test9.err
 
 tmpfiles="$tmpfiles mm-test9.ok"

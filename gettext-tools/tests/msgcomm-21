@@ -25,7 +25,7 @@ EOF
 
 tmpfiles="$tmpfiles mcomm-test21.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=0 mcomm-test21.in1 mcomm-test21.in2 -o mcomm-test21.out
+${MSGCOMM} --more-than=0 -o mcomm-test21.out mcomm-test21.in1 mcomm-test21.in2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test21.ok"

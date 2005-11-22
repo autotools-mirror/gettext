@@ -157,7 +157,7 @@ EOF
 
 tmpfiles="$tmpfiles mg-test1.out"
 : ${MSGGREP=msggrep}
-${MSGGREP} -N pipe-bidi.c mg-test1.po -o mg-test1.out
+${MSGGREP} -N pipe-bidi.c -o mg-test1.out mg-test1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test1.ok"

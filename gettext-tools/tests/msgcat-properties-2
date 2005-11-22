@@ -14,7 +14,7 @@ EOF
 
 tmpfiles="$tmpfiles mcat-p-2.out"
 : ${MSGCAT=msgcat}
-${MSGCAT} --properties-input --properties-output -t Big5 mcat-p-2.properties -o mcat-p-2.out
+${MSGCAT} --properties-input --properties-output -t Big5 -o mcat-p-2.out mcat-p-2.properties
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

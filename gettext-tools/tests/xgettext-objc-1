@@ -30,7 +30,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-ob-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header -k_ -kNSLocalizedString xg-ob-1.m -d xg-ob-1
+${XGETTEXT} --omit-header -k_ -kNSLocalizedString -d xg-ob-1 xg-ob-1.m
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ob-1.ok"

@@ -53,7 +53,7 @@ EOF
 
 tmpfiles="$tmpfiles mco-test5.out"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=UTF-8 mco-test5.po -o mco-test5.out
+${MSGCONV} --to-code=UTF-8 -o mco-test5.out mco-test5.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mco-test5.ok"

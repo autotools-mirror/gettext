@@ -36,7 +36,7 @@ msgstr "...but this $s not"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} mf-test4.po -o /dev/null 2> /dev/null
+${MSGFMT} -o /dev/null mf-test4.po 2> /dev/null
 result=$?
 
 rm -fr $tmpfiles

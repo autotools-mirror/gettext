@@ -122,7 +122,7 @@ test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test18.new.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q mm-test18.po mm-test18.pot -o mm-test18.new.po
+${MSGMERGE} -q -o mm-test18.new.po mm-test18.po mm-test18.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test18.ok"

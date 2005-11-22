@@ -39,7 +39,7 @@ EOF
 
 tmpfiles="$tmpfiles mm-p-1.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --properties-input --properties-output mm-p-1.in1 mm-p-1.in2 -o mm-p-1.out
+${MSGMERGE} -q --properties-input --properties-output -o mm-p-1.out mm-p-1.in1 mm-p-1.in2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-p-1.ok"

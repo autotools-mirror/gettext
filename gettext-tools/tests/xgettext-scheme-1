@@ -19,7 +19,7 @@ EOF
 tmpfiles="$tmpfiles xg-sc-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -k_ --omit-header --no-location --add-comments=TRANSLATORS: \
-  xg-sc-1.scm -d xg-sc-1
+  -d xg-sc-1 xg-sc-1.scm
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sc-1.ok"

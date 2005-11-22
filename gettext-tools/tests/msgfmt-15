@@ -39,7 +39,7 @@ msgstr[2] "%d der unnützen Nichtterminale"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-15.po1 -o /dev/null
+${MSGFMT} --check -o /dev/null mf-15.po1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-15.po2"
@@ -69,7 +69,7 @@ msgstr[2] "%d der unnützen Nichtterminale"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-15.po2 -o /dev/null 2>/dev/null
+${MSGFMT} --check -o /dev/null mf-15.po2 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-15.po3"
@@ -99,7 +99,7 @@ msgstr[2] "%d der unnützen Nichtterminale"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-15.po3 -o /dev/null
+${MSGFMT} --check -o /dev/null mf-15.po3
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-15.po4"
@@ -129,7 +129,7 @@ msgstr[2] "der unnützen Nichtterminale"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-15.po4 -o /dev/null 2>/dev/null
+${MSGFMT} --check -o /dev/null mf-15.po4 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
 rm -fr $tmpfiles

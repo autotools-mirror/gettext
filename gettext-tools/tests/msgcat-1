@@ -43,7 +43,7 @@ EOF
 
 tmpfiles="$tmpfiles mcat-test1.out"
 : ${MSGCAT=msgcat}
-${MSGCAT} mcat-test1.in1 mcat-test1.in2 -o mcat-test1.out
+${MSGCAT} -o mcat-test1.out mcat-test1.in1 mcat-test1.in2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test1.ok"

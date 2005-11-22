@@ -34,7 +34,7 @@ EOF
 
 tmpfiles="$tmpfiles ma-s-1.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --translated --properties-input --properties-output ma-s-1.properties -o ma-s-1.out
+${MSGATTRIB} --translated --properties-input --properties-output -o ma-s-1.out ma-s-1.properties
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-s-1.ok"

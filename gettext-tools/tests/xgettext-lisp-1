@@ -22,7 +22,7 @@ EOF
 tmpfiles="$tmpfiles xg-ls-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  xg-ls-1.lisp -d xg-ls-1
+  -d xg-ls-1 xg-ls-1.lisp
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ls-1.ok"

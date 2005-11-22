@@ -12,7 +12,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-sh-3.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location xg-sh-3.sh -d xg-sh-3
+${XGETTEXT} --omit-header --no-location -d xg-sh-3 xg-sh-3.sh
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-3.ok"

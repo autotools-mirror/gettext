@@ -117,7 +117,7 @@ EOF
 tmpfiles="$tmpfiles mg-test6.out"
 : ${MSGGREP=msggrep}
 LC_MESSAGES=C LC_ALL= \
-${MSGGREP} --properties-input --properties-output -K -e error -T -e Speicher mg-test6.properties -o mg-test6.out
+${MSGGREP} --properties-input --properties-output -K -e error -T -e Speicher -o mg-test6.out mg-test6.properties
 result=$?
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
 

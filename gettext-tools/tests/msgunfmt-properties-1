@@ -26,12 +26,12 @@ EOF
 
 tmpfiles="$tmpfiles mu-p-1.mo"
 : ${MSGFMT=msgfmt}
-${MSGFMT} --properties-input mu-p-1.in -o mu-p-1.mo
+${MSGFMT} --properties-input -o mu-p-1.mo mu-p-1.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mu-p-1.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} --properties-output mu-p-1.mo -o mu-p-1.out
+${MSGUNFMT} --properties-output -o mu-p-1.out mu-p-1.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

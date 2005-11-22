@@ -38,7 +38,7 @@ msgstr[1] "%d yararsýz kurals"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check mf-test10.po1 -o /dev/null
+${MSGFMT} --check -o /dev/null mf-test10.po1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-test10.po2"
@@ -69,7 +69,7 @@ EOF
 tmpfiles="$tmpfiles mf-test10.err"
 : ${MSGFMT=msgfmt}
 LC_MESSAGES=C LC_ALL= \
-${MSGFMT} --check mf-test10.po2 -o /dev/null \
+${MSGFMT} --check -o /dev/null mf-test10.po2 \
     2>&1 | grep -v '^==' > mf-test10.err
 
 tmpfiles="$tmpfiles mf-test10.ok"

@@ -39,7 +39,7 @@ ${MSGFMT} -o de/LC_MESSAGES/fc4.mo de.po
 
 tmpfiles="$tmpfiles de.po.tmp"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} de/LC_MESSAGES/fc4.mo -o de.po.tmp
+${MSGUNFMT} -o de.po.tmp de/LC_MESSAGES/fc4.mo
 
 tmpfiles="$tmpfiles de.po.strip"
 sed 1d < de.po > de.po.strip

@@ -14,7 +14,7 @@ EOF
 
 tmpfiles="$tmpfiles mco-test4.out"
 : ${MSGCONV=msgconv}
-${MSGCONV} --properties-input --properties-output -t Big5 mco-test4.properties -o mco-test4.out
+${MSGCONV} --properties-input --properties-output -t Big5 -o mco-test4.out mco-test4.properties
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

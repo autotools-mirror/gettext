@@ -39,9 +39,9 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles foo-de.out foo-fr.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} foo-de.mo -o foo-de.out
+${MSGUNFMT} -o foo-de.out foo-de.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-${MSGUNFMT} foo-fr.mo -o foo-fr.out
+${MSGUNFMT} -o foo-fr.out foo-fr.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles foo-de.ok"
