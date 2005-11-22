@@ -1,3 +1,7 @@
+2005-11-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-4: Skip the test if there is no de_DE.ISO-8859-1 locale.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-c-11: New file.

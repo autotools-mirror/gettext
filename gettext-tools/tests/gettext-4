@@ -5,6 +5,9 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+# This test works only on systems that have a de_DE.ISO-8859-1 locale installed.
+LC_ALL=de_DE.ISO-8859-1 ./testlocale || exit 77
+
 tmpfiles="$tmpfiles de_DE"
 test -d de_DE || mkdir de_DE
 test -d de_DE/LC_MESSAGES || mkdir de_DE/LC_MESSAGES
