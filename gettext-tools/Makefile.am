@@ -54,6 +54,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
 	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	     -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
+	     -e 's/#undef HAVE_FWPRINTF$$/#define HAVE_FWPRINTF 1/' \
 	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	     -e 's/#undef HAVE_GETEGID$$/#define HAVE_GETEGID 1/' \
 	     -e 's/#undef HAVE_GETEUID$$/#define HAVE_GETEUID 1/' \
@@ -169,6 +170,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
 	    -e 's/#undef HAVE_FCNTL_H$$/#define HAVE_FCNTL_H 1/' \
+	    -e 's/#undef HAVE_FWPRINTF$$/#define HAVE_FWPRINTF 1/' \
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	    -e 's/#undef HAVE_GETHOSTBYNAME$$/#define HAVE_GETHOSTBYNAME 1/' \
 	    -e 's/#undef HAVE_GETHOSTNAME$$/#define HAVE_GETHOSTNAME 1/' \

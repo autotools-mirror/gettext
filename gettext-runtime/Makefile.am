@@ -56,6 +56,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
 	     -e 's/#undef HAVE_DLFCN_H$$/#define HAVE_DLFCN_H 1/' \
 	     -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
+	     -e 's/#undef HAVE_FWPRINTF$$/#define HAVE_FWPRINTF 1/' \
 	     -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	     -e 's/#undef HAVE_GETEGID$$/#define HAVE_GETEGID 1/' \
 	     -e 's/#undef HAVE_GETEUID$$/#define HAVE_GETEUID 1/' \
@@ -137,6 +138,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_DECL__SNWPRINTF$$/#define HAVE_DECL__SNWPRINTF 1/' \
 	    -e 's/#undef HAVE_ENVIRON_DECL$$/#define HAVE_ENVIRON_DECL 1/' \
 	    -e 's/#undef HAVE_ERRNO_DECL$$/#define HAVE_ERRNO_DECL 1/' \
+	    -e 's/#undef HAVE_FWPRINTF$$/#define HAVE_FWPRINTF 1/' \
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	    -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \

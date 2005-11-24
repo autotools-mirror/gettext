@@ -1,3 +1,9 @@
+2005-11-24  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (config.h_vms, config.h.msvc): Treat HAVE_FWPRINTF like
+	HAVE_WPRINTF. Needed since 2003-09-17.
+	Reported by Svante Seleborg <svante@axantum.com>.
+
 2005-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Remove gl_STRCASE invocation.
