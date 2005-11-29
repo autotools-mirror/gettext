@@ -50,3 +50,5 @@ Things we plan to do. Comments welcome.
 
 - AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/version.sh'])
 
+- Use #(mkdir_p) instead of $(mkinstalldirs) in 2006.
+
