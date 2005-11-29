@@ -63,6 +63,9 @@
 /* Force output of PO file even if empty.  */
 static int force_po;
 
+/* Output only non-matching messages.  */
+static bool invert_match = false;
+
 /* Selected source files.  */
 static string_list_ty *location_files;
 
@@ -95,6 +98,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "ignore-case", no_argument, NULL, 'i' },
   { "indent", no_argument, NULL, CHAR_MAX + 2 },
+  { "invert-match", no_argument, NULL, 'v' },
   { "location", required_argument, NULL, 'N' },
   { "msgctxt", no_argument, NULL, 'J' },
   { "msgid", no_argument, NULL, 'K' },
@@ -182,7 +186,7 @@ main (int argc, char **argv)
       gt->case_insensitive = false;
     }
 
-  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:N:o:pPTVw:",
+  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:N:o:pPTvVw:",
 			     long_options, NULL))
 	 != EOF)
     switch (opt)
@@ -318,6 +322,10 @@ error while reading \"%s\""), optarg);
 
       case 'T':
 	grep_pass = 2;
+	break;
+
+      case 'v':
+	invert_match = true;
 	break;
 
       case 'V':
@@ -537,6 +545,8 @@ expressions if -E is given, or fixed strings if -F is given.\n\
   -e, --regexp=PATTERN        use PATTERN as a regular expression\n\
   -f, --file=FILE             obtain PATTERN from FILE\n\
   -i, --ignore-case           ignore case distinctions\n\
+  -v, --invert-match          output only the messages that do not match any\n\
+                              selection criterion\n\
 "));
       printf ("\n");
       printf (_("\
@@ -649,18 +659,15 @@ is_string_selected (int grep_pass, const char *str, size_t len)
 }
 
 
-/* Return true if a message matches.  */
+/* Return true if a message matches, considering only the positive selection
+   criteria and ignoring --invert-match.  */
 static bool
-is_message_selected (const message_ty *mp)
+is_message_selected_no_invert (const message_ty *mp)
 {
   size_t i;
   const char *msgstr;
   size_t msgstr_len;
   const char *p;
-
-  /* Always keep the header entry.  */
-  if (is_header (mp))
-    return true;
 
   /* Test whether one of mp->filepos[] is selected.  */
   for (i = 0; i < mp->filepos_count; i++)
@@ -729,6 +736,25 @@ is_message_selected (const message_ty *mp)
     }
 
   return false;
+}
+
+
+/* Return true if a message matches.  */
+static bool
+is_message_selected (const message_ty *mp)
+{
+  bool result;
+
+  /* Always keep the header entry.  */
+  if (is_header (mp))
+    return true;
+
+  result = is_message_selected_no_invert (mp);
+
+  if (invert_match)
+    return !result;
+  else
+    return result;
 }
 
 

@@ -1,3 +1,7 @@
+2005-11-29  Colin Watson  <cjwatson@ubuntu.com>
+
+	* msggrep.texi: Document --invert-match option.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.texi (--keyword): Document how to specify the total number

@@ -140,6 +140,13 @@ Obtain @var{pattern} from @var{file}.
 @opindex --ignore-case@r{, @code{msggrep} option}
 Ignore case distinctions.
 
+@item -v
+@itemx --invert-match
+@opindex -v@r{, @code{msggrep} option}
+@opindex --invert-match@r{, @code{msggrep} option}
+Output only the messages that do not match any selection criterion, instead
+of the messages that match a selection criterion.
+
 @end table
 
 @subsection Input file syntax

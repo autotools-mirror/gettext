@@ -1,3 +1,13 @@
+2005-11-29  Colin Watson  <cjwatson@ubuntu.com>
+
+	* msggrep.c (invert_match): New variable.
+	(long_options): Add --invert-match option.
+	(main): Handle --invert-match option.
+	(usage): Document --invert-match option.
+	(is_message_selected_no_invert): New function, extracted from
+	is_message_selected.
+	(is_message_selected): Call it. Handle match inversion.
+
 2005-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* write-csharp.c (write_csharp_code): Add culture_name argument.

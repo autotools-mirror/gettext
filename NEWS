@@ -26,6 +26,8 @@
   is used:
     "number of format specifications in 'msgid' and 'msgstr[1]' does not match"
 
+* msggrep has a new option -v/--invert-match that acts like grep's -v option.
+
 * Programming languages support:
 
   - Python:
