@@ -1,3 +1,8 @@
+2005-11-23  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* configure.ac: Invoke gl_WOE32_DLL.
+
 2005-07-07  Bruno Haible  <bruno@clisp.org>
 
 	Add ability to create shared library on BeOS.

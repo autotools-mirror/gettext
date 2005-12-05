@@ -1,3 +1,9 @@
+2005-11-23  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* build-aux/install-reloc: Expect additional exeext argument. On
+	Cygwin, use suffix ".bin.exe" instead of just ".bin".
+
 2005-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/ltmain.sh: Upgrade to libtool-1.5.20.

@@ -37,6 +37,7 @@ AC_OBJEXT
 AC_EXEEXT
 
 dnl Check for build configuration.
+gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 case "$host_os" in

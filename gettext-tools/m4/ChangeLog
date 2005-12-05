@@ -1,3 +1,9 @@
+2005-11-24  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* relocatable.m4 (AC_RELOCATABLE): Require AC_EXEEXT. Arrange to set
+	RELOC_EXEEXT while invoking install-reloc.
+
 2005-09-20  Bruno Haible  <bruno@clisp.org>
 
 	* bison-i18n.m4: New file, from bison-2.1.

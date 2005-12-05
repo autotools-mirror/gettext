@@ -1,6 +1,6 @@
 #!/bin/sh
 # install-reloc - install a program including a relocating wrapper
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2003.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,7 +18,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 # Usage:
-#   install-reloc library_path_var library_path_value prefix compile_command srcdir config_h_dir install_command... destprog
+#   install-reloc library_path_var library_path_value prefix compile_command srcdir config_h_dir exeext install_command... destprog
 # where
 #   - library_path_var is the platform dependent runtime library path variable
 #   - library_path_value is a colon separated list of directories that contain
@@ -29,6 +29,7 @@
 #   - builddir is the directory where to find built dependencies (namely,
 #     alloca.h and stdbool.h)
 #   - config_h_dir is the directory where to find config.h
+#   - exeext is platform dependent suffix of executables
 #   - install-command is the install command line, excluding the final destprog
 #   - destprog is the destination program name
 # install-reloc renames destprog to destprog.bin and installs a relocating
@@ -45,6 +46,7 @@ if test $# -eq 2; then
   srcdir=$RELOC_SRCDIR
   builddir=$RELOC_BUILDDIR
   config_h_dir=$RELOC_CONFIG_H_DIR
+  exeext=$RELOC_EXEEXT
   install_prog=$RELOC_INSTALL_PROG # including the "-c" option
 else
   if test $# -ge 9; then
@@ -56,7 +58,9 @@ else
     srcdir=$5
     builddir=$6
     config_h_dir=$7
-    install_prog=$8 # maybe not including the "-c" option
+    exeext=$8
+    install_prog=$9 # maybe not including the "-c" option
+    shift
     shift
     shift
     shift
@@ -66,7 +70,7 @@ else
     shift
     shift
   else
-    echo "Usage: $0 library_path_var library_path_value prefix compile_command srcdir builddir config_h_dir install_command... destprog" 1>&2
+    echo "Usage: $0 library_path_var library_path_value prefix compile_command srcdir builddir config_h_dir exeext install_command... destprog" 1>&2
     exit 1
   fi
 fi
@@ -77,6 +81,11 @@ for arg
 do
   destprog=$arg
 done
+# Remove trailing $exeext, if present.
+if test -n "$exeext"; then
+  sedexpr='s|'`echo "$exeext" | sed -e 's,\.,\\\.,g'`'$||'
+  destprog=`echo "$destprog" | sed -e "$sedexpr"`
+fi
 
 # Outputs a command and runs it.
 func_verbose ()
@@ -110,10 +119,10 @@ test -n "$libdirs" || exit 0
 
 # Compile wrapper.
 installdir=`echo "$destprog" | sed -e 's,/[^/]*$,,'`
-func_verbose $compile_command -I"$builddir" -I"$srcdir" -I"$config_h_dir" -DHAVE_CONFIG_H -DNO_XMALLOC -D"INSTALLPREFIX=\"$prefix\"" -D"INSTALLDIR=\"$installdir\"" -D"LIBPATHVAR=\"$library_path_var\"" -D"LIBDIRS=$libdirs" "$srcdir"/relocwrapper.c "$srcdir"/progname.c "$srcdir"/progreloc.c "$srcdir"/xreadlink.c "$srcdir"/readlink.c "$srcdir"/canonicalize.c "$srcdir"/allocsa.c "$srcdir"/relocatable.c "$srcdir"/setenv.c "$srcdir"/strerror.c -o $destprog.wrapper || exit $?
+func_verbose $compile_command -I"$builddir" -I"$srcdir" -I"$config_h_dir" -DHAVE_CONFIG_H -DNO_XMALLOC -D"INSTALLPREFIX=\"$prefix\"" -D"INSTALLDIR=\"$installdir\"" -D"LIBPATHVAR=\"$library_path_var\"" -D"LIBDIRS=$libdirs" -D"EXEEXT=\"$exeext\"" "$srcdir"/relocwrapper.c "$srcdir"/progname.c "$srcdir"/progreloc.c "$srcdir"/xreadlink.c "$srcdir"/readlink.c "$srcdir"/canonicalize.c "$srcdir"/allocsa.c "$srcdir"/relocatable.c "$srcdir"/setenv.c "$srcdir"/strerror.c -o "$destprog.wrapper$exeext" || exit $?
 
 # Rename $destprog.wrapper -> $destprog -> $destprog.bin.
-ln -f $destprog $destprog.bin || exit 1
-mv $destprog.wrapper $destprog || exit 1
+ln -f "$destprog$exeext" "$destprog.bin$exeext" || exit 1
+mv "$destprog.wrapper$exeext" "$destprog$exeext" || exit 1
 
 exit 0

@@ -1,3 +1,11 @@
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* relocatable.c: Include <windows.h> also on Cygwin.
+	(DllMain): Add support for Cygwin.
+	(get_shared_library_fullname): Update.
+	Patches partially from Charles Wilson <cygwin@cwilson.fastmail.fm>.
+
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 2002-07-24  Ulrich Drepper  <drepper@redhat.com>
 

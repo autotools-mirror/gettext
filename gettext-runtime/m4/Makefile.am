@@ -31,4 +31,5 @@ ulonglong.m4 \
 visibility.m4 \
 wchar_t.m4 \
 wint_t.m4 \
+woe32-dll.m4 \
 xsize.m4

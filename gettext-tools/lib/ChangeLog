@@ -1,3 +1,17 @@
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* progreloc.c: Include <windows.h> also on Cygwin.
+	(find_executable): Add support for Cygwin.
+	(set_program_name_and_installdir): Handle also platforms with nonempty
+	EXEEXT.
+	* relocatable.c: Include <windows.h> also on Cygwin.
+	(DllMain): Add support for Cygwin.
+	(get_shared_library_fullname): Update.
+	* relocwrapper.c (add_dotbin): Handle also platforms with nonempty
+	EXEEXT.
+	Patches partially from Charles Wilson <cygwin@cwilson.fastmail.fm>.
+
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* c-strcasestr.h: New file.

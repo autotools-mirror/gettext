@@ -94,6 +94,7 @@ AC_GNU_SOURCE
 gl_USE_SYSTEM_EXTENSIONS
 
 dnl Check for build configuration.
+gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 case "$host_os" in
