@@ -1,5 +1,9 @@
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
+	* csharpexec.sh.in: Add support for 'clix' launcher (untested).
+
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
 	* csharpcomp.sh.in: Suffix for resources is .resources, not .resource.
 
 2005-12-04  Bruno Haible  <bruno@clisp.org>
