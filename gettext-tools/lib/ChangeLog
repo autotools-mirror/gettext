@@ -1,5 +1,9 @@
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
+	* csharpcomp.sh.in: Suffix for resources is .resources, not .resource.
+
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
 	Cygwin portability.
 	* progreloc.c: Include <windows.h> also on Cygwin.
 	(find_executable): Add support for Cygwin.

@@ -1,3 +1,7 @@
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CSHARPCOMPFLAGS): Use value set by csharpcomp.m4.
+
 2005-11-29  Colin Watson  <cjwatson@ubuntu.com>
 
 	* msggrep.c (invert_match): New variable.

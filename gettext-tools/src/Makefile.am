@@ -87,7 +87,7 @@ GCJFLAGS = @GCJFLAGS@
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../lib/javacomp.sh
 CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
-CSHARPCOMPFLAGS = -O -g
+CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
 
 # All programs deal with message lists.

@@ -113,7 +113,7 @@ while test $# != 0; do
       echo "csharpcomp: unknown option '$1'" 1>&2
       exit 1
       ;;
-    *.resource)
+    *.resources)
       options_cscc="$options_cscc -fresources="`echo "$1" | sed -e "$sed_quote_subst"`
       options_mcs="$options_mcs -resource:"`echo "$1" | sed -e "$sed_quote_subst"`
       options_csc="$options_csc -resource:"`echo "$1" | sed -e "$sed_quote_subst"`

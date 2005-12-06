@@ -129,9 +129,9 @@ compile_csharp_using_pnet (const char * const *sources,
       for (i = 0; i < sources_count; i++)
 	{
 	  const char *source_file = sources[i];
-	  if (strlen (source_file) >= 9
-	      && memcmp (source_file + strlen (source_file) - 9, ".resource",
-			 9) == 0)
+	  if (strlen (source_file) >= 10
+	      && memcmp (source_file + strlen (source_file) - 10, ".resources",
+			 10) == 0)
 	    {
 	      char *option = (char *) xallocsa (12 + strlen (source_file) + 1);
 
@@ -239,9 +239,9 @@ compile_csharp_using_mono (const char * const *sources,
       for (i = 0; i < sources_count; i++)
 	{
 	  const char *source_file = sources[i];
-	  if (strlen (source_file) >= 9
-	      && memcmp (source_file + strlen (source_file) - 9, ".resource",
-			 9) == 0)
+	  if (strlen (source_file) >= 10
+	      && memcmp (source_file + strlen (source_file) - 10, ".resources",
+			 10) == 0)
 	    {
 	      char *option = (char *) xallocsa (10 + strlen (source_file) + 1);
 
@@ -417,9 +417,9 @@ compile_csharp_using_sscli (const char * const *sources,
       for (i = 0; i < sources_count; i++)
 	{
 	  const char *source_file = sources[i];
-	  if (strlen (source_file) >= 9
-	      && memcmp (source_file + strlen (source_file) - 9, ".resource",
-			 9) == 0)
+	  if (strlen (source_file) >= 10
+	      && memcmp (source_file + strlen (source_file) - 10, ".resources",
+			 10) == 0)
 	    {
 	      char *option = (char *) xallocsa (10 + strlen (source_file) + 1);
 

@@ -1,3 +1,7 @@
+2005-12-04  Bruno Haible  <bruno@clisp.org>
+
+	* csharpcomp.m4 (gt_CSHARPCOMP): Also set CSHARPCOMPFLAGS.
+
 2005-11-24  Bruno Haible  <bruno@clisp.org>
 
 	Cygwin portability.

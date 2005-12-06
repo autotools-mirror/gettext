@@ -27,7 +27,7 @@ docdir = @docdir@
 htmldir = $(docdir)
 
 CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
-CSHARPCOMPFLAGS = -O -g
+CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
 
 all-local: all-dll all-doc
