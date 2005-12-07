@@ -3,6 +3,8 @@
 	Cygwin portability.
 	* build-aux/install-reloc: Expect additional exeext argument. On
 	Cygwin, use suffix ".bin.exe" instead of just ".bin".
+	* m4/woe32-dll.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
 
 2005-09-18  Bruno Haible  <bruno@clisp.org>
 
