@@ -429,7 +429,7 @@ some different msgids become equal."),
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
 This version was built without iconv()."),
 				canon_from_code, canon_to_code,
-				basename (program_name));
+				basename (program_name)));
 #endif
     }
 
