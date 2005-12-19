@@ -1,6 +1,13 @@
 2005-12-19  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.sh.in: Fix behaviour when the sourceing script has a name
+	ending in gettext.sh.
+	Reported by Andreas Schwab <schwab@suse.de>.
+
+2005-12-19  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.sh.in: Make it work when sourced by zsh.
+	Reported by Sergio Talens-Oliag <sto@debian.org>.
 
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 

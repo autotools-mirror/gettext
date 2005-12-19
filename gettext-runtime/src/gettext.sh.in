@@ -46,7 +46,7 @@ if test -z "$ZSH_VERSION"; then
   # being sourced, not executed, because hardly anyone is crazy enough to
   # install zsh as /bin/sh.
   case "$0" in
-    gettext.sh | */gettext.sh | *\gettext.sh)
+    gettext.sh | */gettext.sh | *\\gettext.sh)
       progname=$0
       package=@PACKAGE@
       version=@VERSION@
