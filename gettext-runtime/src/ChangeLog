@@ -1,3 +1,7 @@
+2005-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.sh.in: Make it work when sourced by zsh.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.
