@@ -1,3 +1,14 @@
+2005-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* build-aux/ltmain.sh: Upgrade to libtool-1.5.22.
+	2001-11-03  Bruno Haible  <bruno@clisp.org>
+		* build-aux/ltmain.sh: chmod 777 the .libs directory, so that
+		"make install" succeeds.
+	* m4/libtool.m4: Upgrade to libtool-1.5.22.
+	2004-02-22  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4: Add support for Comeau C++ on Linux.
+		Reported by Prof. Roberto Bagnara <bagnara@cs.unipr.it>.
+
 2005-11-23  Bruno Haible  <bruno@clisp.org>
 
 	Cygwin portability.
