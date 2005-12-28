@@ -106,6 +106,10 @@ extern void
        get_sysdep_c_format_directives (const char *string, bool translated,
 				 struct interval **intervalsp, size_t *lengthp);
 
+/* Returns the number of unnamed arguments consumed by a Python format
+   string.  */
+extern unsigned int get_python_format_unnamed_arg_count (const char *string);
+
 /* Check whether both formats strings contain compatible format
    specifications.
    PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,

@@ -1,3 +1,12 @@
+2005-12-25  Bruno Haible  <bruno@clisp.org>
+
+	Tell Python developers to use named arguments in format strings.
+	* format.h (get_python_format_unnamed_arg_count): New declaration.
+	* format-python.c (get_python_format_unnamed_arg_count): New function.
+	* xgettext.c (warn_format_string): New function.
+	(remember_a_message, remember_a_message_plural): Call it.
+	Suggested by Martin von Löwis.
+
 2005-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-iconv.c (iconv_message_list): Fix syntax error.

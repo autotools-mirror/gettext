@@ -511,6 +511,29 @@ struct formatstring_parser formatstring_python =
 };
 
 
+unsigned int
+get_python_format_unnamed_arg_count (const char *string)
+{
+  /* Parse the format string.  */
+  char *invalid_reason = NULL;
+  struct spec *descr =
+    (struct spec *) format_parse (string, false, &invalid_reason);
+
+  if (descr != NULL)
+    {
+      unsigned int result = descr->unnamed_arg_count;
+
+      format_free (descr);
+      return result;
+    }
+  else
+    {
+      free (invalid_reason);
+      return 0;
+    }
+}
+
+
 #ifdef TEST
 
 /* Test program: Print the argument list specification returned by
