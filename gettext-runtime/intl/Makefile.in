@@ -473,6 +473,11 @@ bindtextdom.$lo dcigettext.$lo finddomain.$lo loadmsgcat.$lo localealias.$lo loc
 localealias.$lo localcharset.$lo relocatable.$lo: $(srcdir)/relocatable.h
 printf.$lo: $(srcdir)/printf-args.h $(srcdir)/printf-args.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/printf-parse.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/vasnprintf.c
 
+# A bison-2.1 generated plural.c includes <libintl.h> if ENABLE_NLS.
+PLURAL_DEPS_yes = libintl.h
+PLURAL_DEPS_no =
+plural.$lo: $(PLURAL_DEPS_@USE_INCLUDED_LIBINTL@)
+
 tags: TAGS
 
 TAGS: $(HEADERS) $(SOURCES)
