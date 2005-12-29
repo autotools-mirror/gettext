@@ -1,3 +1,7 @@
+2005-12-29  Bruno Haible  <bruno@clisp.org>
+
+	* progreloc.c (set_program_name_and_installdir): Fix compilation error.
+
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
 	* csharpexec.sh.in: Add support for 'clix' launcher (untested).

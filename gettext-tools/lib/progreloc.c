@@ -326,6 +326,7 @@ set_program_name_and_installdir (const char *argv0,
 		argv0_stripped = shorter;
 	      }
 	  }
+	 done_stripping: ;
       }
   }
 
