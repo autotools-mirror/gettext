@@ -1,3 +1,8 @@
+2006-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.c: Assume ANSI C. Fixes a gcc warning.
+	Reported by Werner Lemberg <wl@gnu.org>.
+
 2005-12-29  Bruno Haible  <bruno@clisp.org>
 
 	* progreloc.c (set_program_name_and_installdir): Fix compilation error.
