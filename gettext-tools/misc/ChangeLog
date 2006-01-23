@@ -6,6 +6,7 @@
 	(func_version): Bump copyright year.
 	* autopoint.in (func_tmpdir): Invoke mktemp without option -q.
 	(func_version): Bump copyright year.
+	Patch by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
 
 2005-09-18  Bruno Haible  <bruno@clisp.org>
 
