@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002-2005 Free Software Foundation, Inc.
+# Copyright (C) 2002-2006 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@ func_tmpdir ()
   {
     # Use the mktemp program if available. If not available, hide the error
     # message.
-    tmp=`(umask 077 && mktemp -d -q "$TMPDIR/gtXXXXXX") 2>/dev/null` &&
+    tmp=`(umask 077 && mktemp -d "$TMPDIR/gtXXXXXX") 2>/dev/null` &&
     test -n "$tmp" && test -d "$tmp"
   } ||
   {
@@ -168,7 +168,7 @@ Report bugs to <bug-gnu-gettext@gnu.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Copyright (C) 2002-2005 Free Software Foundation, Inc.
+  echo "Copyright (C) 2002-2006 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
   echo "Written by" "Bruno Haible"

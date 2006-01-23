@@ -1,3 +1,12 @@
+2006-01-23  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (func_tmpdir): Invoke mktemp without option -q, because
+	in some versions of mktemp this option has the effect that mktemp
+	outputs nothing at all.
+	(func_version): Bump copyright year.
+	* autopoint.in (func_tmpdir): Invoke mktemp without option -q.
+	(func_version): Bump copyright year.
+
 2005-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in (func_find_curr_installdir): Really remove the temporary
