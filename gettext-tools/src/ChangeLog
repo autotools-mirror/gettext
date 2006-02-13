@@ -1,3 +1,21 @@
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* msgattrib.c (main): Update year in --version output.
+	* msgcat.c (main): Likewise.
+	* msgcmp.c (main): Likewise.
+	* msgcomm.c (main): Likewise.
+	* msgconv.c (main): Likewise.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msgfilter.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msggrep.c (main): Likewise.
+	* msginit.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* msguniq.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+
 2006-01-25  Bruno Haible  <bruno@clisp.org>
 
 	* x-php.c (x_php_lex): Treat byte values >= 127 like alphabetic.
