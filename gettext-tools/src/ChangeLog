@@ -1,5 +1,11 @@
 2006-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (xgettext_record_flag): When asked to set "qt-format",
+	really set "qt-format", not "c-format". Fixes bug introduced on
+	2003-10-19.
+
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
 	Reduce the number of false positives produced by the c-format guessing
 	heuristics.
 	* format.h (struct formatstring_parser): Add 'is_unlikely_intentional'
