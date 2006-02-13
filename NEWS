@@ -30,6 +30,10 @@
 
 * Programming languages support:
 
+  - C++ with Boost:
+    xgettext has a new option --boost that triggers the recognition and marking
+    of boost::format strings.
+
   - Python:
     xgettext now recognizes the source encoding from a "coding:" comment
     among the first two lines.  The default encoding is now ASCII, no longer

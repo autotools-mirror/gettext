@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -107,7 +107,7 @@ FORMAT_SOURCE = format.c format-invalid.h \
 format-c.c format-sh.c format-python.c format-lisp.c format-elisp.c \
 format-librep.c format-scheme.c format-java.c format-csharp.c format-awk.c \
 format-pascal.c format-ycp.c format-tcl.c format-perl.c format-perl-brace.c \
-format-php.c format-gcc-internal.c format-qt.c
+format-php.c format-gcc-internal.c format-qt.c format-boost.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \

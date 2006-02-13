@@ -148,7 +148,8 @@ OBJECTS = \
   format-perl-brace.obj \
   format-php.obj \
   format-gcc-internal.obj \
-  format-qt.obj
+  format-qt.obj \
+  format-boost.obj
 
 msgcmp_OBJECTS = msgcmp.obj
 msgfmt_OBJECTS = msgfmt.obj write-mo.obj write-java.obj write-csharp.obj write-resources.obj write-tcl.obj write-qt.obj plural-eval.obj hash-string.obj
@@ -304,6 +305,9 @@ format-gcc-internal.obj : format-gcc-internal.c
 
 format-qt.obj : format-qt.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-qt.c
+
+format-boost.obj : format-boost.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c format-boost.c
 
 !if !$(DLL)
 

@@ -241,6 +241,13 @@ Recognize Qt format strings.
 @*
 This option has an effect only with the language C++.
 
+@item --boost
+@opindex --boost@r{, @code{xgettext} option}
+@cindex Boost format strings
+Recognize Boost format strings.
+@*
+This option has an effect only with the language C++.
+
 @item --debug
 @opindex --debug@r{, @code{xgettext} option}
 @cindex debugging messages marked as format strings

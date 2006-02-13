@@ -93,6 +93,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
 extern DLL_VARIABLE struct formatstring_parser formatstring_php;
 extern DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
 extern DLL_VARIABLE struct formatstring_parser formatstring_qt;
+extern DLL_VARIABLE struct formatstring_parser formatstring_boost;
 
 /* Table of all format string parsers.  */
 extern DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -63,9 +63,10 @@ enum format_type
   format_perl_brace,
   format_php,
   format_gcc_internal,
-  format_qt
+  format_qt,
+  format_boost
 };
-#define NFORMATS 20	/* Number of format_type enum values.  */
+#define NFORMATS 21	/* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

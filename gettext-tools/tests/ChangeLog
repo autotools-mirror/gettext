@@ -1,5 +1,12 @@
 2006-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext-c-14: New file.
+	* format-boost-1: New file.
+	* format-boost-2: New file.
+	* Makefile.am (TESTS): Add them.
+
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext-c-13: New file.
 	* Makefile.am (TESTS): Add it.
 

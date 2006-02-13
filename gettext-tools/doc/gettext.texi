@@ -361,6 +361,7 @@ The Translator's View
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* boost-format::                Boost Format Strings
 
 Individual Programming Languages
 
@@ -1300,6 +1301,12 @@ Likewise for the GCC sources, see @ref{gcc-internal-format}.
 @itemx no-qt-format
 @kwindex no-qt-format@r{ flag}
 Likewise for Qt, see @ref{qt-format}.
+
+@item boost-format
+@kwindex boost-format@r{ flag}
+@itemx no-boost-format
+@kwindex no-boost-format@r{ flag}
+Likewise for Boost, see @ref{boost-format}.
 
 @end table
 
@@ -7603,6 +7610,7 @@ strings.
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* boost-format::                Boost Format Strings
 @end menu
 
 @node c-format, objc-format, Translators for other Languages, Translators for other Languages
@@ -7811,13 +7819,24 @@ denotes a programming language, @samp{O} denotes a binary operator,
 @samp{P} denotes a function parameter, @samp{Q} denotes an assignment
 operator, @samp{V} denotes a const/volatile qualifier.
 
-@node qt-format,  , gcc-internal-format, Translators for other Languages
+@node qt-format, boost-format, gcc-internal-format, Translators for other Languages
 @subsection Qt Format Strings
 
 Qt format strings are described in the documentation of the QString class
 @uref{file:/usr/lib/qt-3.0.5/doc/html/qstring.html}.
 In summary, a directive consists of a @samp{%} followed by a digit. The same
 directive cannot occur more than once in a format string.
+
+@node boost-format,  , qt-format, Translators for other Languages
+@subsection Boost Format Strings
+
+Boost format strings are described in the documentation of the
+@code{boost::format} class, at
+@uref{http://www.boost.org/libs/format/doc/format.html}.
+In summary, a directive has either the same syntax as in a C format string,
+such as @samp{%1$+5d}, or may be surrounded by vertical bars, such as
+@samp{%|1$+5d|} or @samp{%|1$+5|}, or consists of just an argument number
+between percent signs, such as @samp{%1%}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View

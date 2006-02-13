@@ -64,7 +64,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-awk-1 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 xgettext-c-10 \
-	xgettext-c-11 xgettext-c-12 xgettext-c-13 \
+	xgettext-c-11 xgettext-c-12 xgettext-c-13 xgettext-c-14 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 \
 	xgettext-elisp-1 \
@@ -87,6 +87,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-tcl-1 xgettext-tcl-2 \
 	xgettext-ycp-1 xgettext-ycp-2 \
 	format-awk-1 format-awk-2 \
+	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
 	format-csharp-1 format-csharp-2 \
 	format-elisp-1 format-elisp-2 \

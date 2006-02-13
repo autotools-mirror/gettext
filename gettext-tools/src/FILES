@@ -207,6 +207,7 @@ format-perl-brace.c    Format string handling for Perl, braced syntax.
 format-php.c           Format string handling for PHP.
 format-gcc-internal.c  Format string handling GCC internal.
 format-qt.c            Format string handling for Qt.
+format-boost.c         Format string handling for Boost.
 format.c        Table of the language dependent format string handlers.
 
 plural-exp.c

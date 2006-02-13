@@ -138,6 +138,8 @@ int xgettext_omit_header;
 
 /* Table of flag_context_list_ty tables.  */
 static flag_context_list_table_ty flag_table_c;
+static flag_context_list_table_ty flag_table_cxx_qt;
+static flag_context_list_table_ty flag_table_cxx_boost;
 static flag_context_list_table_ty flag_table_objc;
 static flag_context_list_table_ty flag_table_gcc_internal;
 static flag_context_list_table_ty flag_table_sh;
@@ -156,6 +158,9 @@ static flag_context_list_table_ty flag_table_php;
 
 /* If true, recognize Qt format strings.  */
 static bool recognize_format_qt;
+
+/* If true, recognize Boost format strings.  */
+static bool recognize_format_boost;
 
 /* Canonicalized encoding name for all input files.  */
 const char *xgettext_global_source_encoding;
@@ -180,6 +185,7 @@ static const struct option long_options[] =
 {
   { "add-comments", optional_argument, NULL, 'c' },
   { "add-location", no_argument, &line_comment, 1 },
+  { "boost", no_argument, NULL, CHAR_MAX + 10 },
   { "c++", no_argument, NULL, 'C' },
   { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
   { "debug", no_argument, &do_debug, 1 },
@@ -491,6 +497,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 9:	/* --qt */
 	recognize_format_qt = true;
 	break;
+      case CHAR_MAX + 10:	/* --boost */
+	recognize_format_boost = true;
+	break;
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -522,6 +531,13 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
+
+  if (recognize_format_qt && recognize_format_boost)
+    /* We cannot support both Qt and Boost format strings, because there are
+       only two formatstring parsers per language, and formatstring_c is the
+       first one for C++.  */
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--qt", "--boost");
 
   if (join_existing && strcmp (default_domain, "-") == 0)
     error (EXIT_FAILURE, 0, _("\
@@ -814,6 +830,10 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC)\n"));
       printf (_("\
       --qt                    recognize Qt format strings\n"));
+      printf (_("\
+                                (only language C++)\n"));
+      printf (_("\
+      --boost                 recognize Boost format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
       printf (_("\
@@ -1439,6 +1459,12 @@ xgettext_record_flag (const char *optionstring)
 		    flag_context_list_table_insert (&flag_table_c, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
+		    flag_context_list_table_insert (&flag_table_cxx_qt, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    flag_context_list_table_insert (&flag_table_cxx_boost, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    flag_context_list_table_insert (&flag_table_objc, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
@@ -1528,7 +1554,12 @@ xgettext_record_flag (const char *optionstring)
 						    argnum, value, pass);
 		    break;
 		  case format_qt:
-		    flag_context_list_table_insert (&flag_table_c, 1,
+		    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
+		  case format_boost:
+		    flag_context_list_table_insert (&flag_table_cxx_boost, 1,
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
@@ -2063,7 +2094,12 @@ meta information, not the empty string.\n")));
 	      || formatstring_parsers[i] == current_formatstring_parser2)
 	  /* But avoid redundancy: objc-format is stronger than c-format.  */
 	  && !(i == format_c && possible_format_p (is_format[format_objc]))
-	  && !(i == format_objc && possible_format_p (is_format[format_c])))
+	  && !(i == format_objc && possible_format_p (is_format[format_c]))
+	  /* Avoid flagging a string as c-format when it's known to be a
+	     qt-format or boost-format string.  */
+	  && !(i == format_c
+	       && (possible_format_p (is_format[format_qt])
+		   || possible_format_p (is_format[format_boost]))))
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
 	  char *invalid_reason = NULL;
@@ -2173,7 +2209,12 @@ remember_a_message_plural (message_ty *mp, char *string,
 	    && !(i == format_c
 		 && possible_format_p (mp->is_format[format_objc]))
 	    && !(i == format_objc
-		 && possible_format_p (mp->is_format[format_c])))
+		 && possible_format_p (mp->is_format[format_c]))
+	    /* Avoid flagging a string as c-format when it's known to be a
+	       qt-format or boost-format string.  */
+	    && !(i == format_c
+		 && (possible_format_p (mp->is_format[format_qt])
+		     || possible_format_p (mp->is_format[format_boost]))))
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
 	    char *invalid_reason = NULL;
@@ -2754,7 +2795,16 @@ language_to_extractor (const char *name)
 	   than through an option --language=C++/Qt because the latter would
 	   conflict with the language "C++" regarding the file extensions.  */
 	if (recognize_format_qt && strcmp (tp->name, "C++") == 0)
-	  result.formatstring_parser2 = &formatstring_qt;
+	  {
+	    result.flag_table = &flag_table_cxx_qt;
+	    result.formatstring_parser2 = &formatstring_qt;
+	  }
+	/* Likewise for --boost.  */
+	if (recognize_format_boost && strcmp (tp->name, "C++") == 0)
+	  {
+	    result.flag_table = &flag_table_cxx_boost;
+	    result.formatstring_parser2 = &formatstring_boost;
+	  }
 
 	return result;
       }

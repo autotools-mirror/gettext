@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -230,6 +230,29 @@ init_flag_table_c ()
   xgettext_record_flag ("argp_error:2:c-format");
   xgettext_record_flag ("argp_failure:2:c-format");
 #endif
+
+  xgettext_record_flag ("gettext:1:pass-boost-format");
+  xgettext_record_flag ("dgettext:2:pass-boost-format");
+  xgettext_record_flag ("dcgettext:2:pass-boost-format");
+  xgettext_record_flag ("ngettext:1:pass-boost-format");
+  xgettext_record_flag ("ngettext:2:pass-boost-format");
+  xgettext_record_flag ("dngettext:2:pass-boost-format");
+  xgettext_record_flag ("dngettext:3:pass-boost-format");
+  xgettext_record_flag ("dcngettext:2:pass-boost-format");
+  xgettext_record_flag ("dcngettext:3:pass-boost-format");
+  xgettext_record_flag ("gettext_noop:1:pass-boost-format");
+  xgettext_record_flag ("pgettext:2:pass-boost-format");
+  xgettext_record_flag ("dpgettext:3:pass-boost-format");
+  xgettext_record_flag ("dcpgettext:3:pass-boost-format");
+  xgettext_record_flag ("npgettext:2:pass-boost-format");
+  xgettext_record_flag ("npgettext:3:pass-boost-format");
+  xgettext_record_flag ("dnpgettext:3:pass-boost-format");
+  xgettext_record_flag ("dnpgettext:4:pass-boost-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-boost-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-boost-format");
+
+  /* <boost/format.hpp> */
+  xgettext_record_flag ("format:1:boost-format");
 }
 
 void

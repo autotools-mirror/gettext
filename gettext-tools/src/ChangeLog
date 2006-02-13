@@ -1,5 +1,33 @@
 2006-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* message.h (format_type): New enum value 'format_boost'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_boost entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_boost): New declaration.
+	* format-boost.c: New file, based on format-c.c.
+	* format.c (formatstring_parsers): Add formatstring_boost.
+	* x-c.c (init_flag_table_c): Also register flags for boost-format.
+	* xgettext.c (flag_table_cxx_qt, flag_table_cxx_boost): New variables.
+	(recognize_format_boost): New variable.
+	(main): Handle --boost option.
+	(usage): Document --boost option.
+	(xgettext_record_flag): Also fill flag_table_cxx_qt,
+	flag_table_cxx_boost.
+	(remember_a_message, remember_a_message_plural): In the heuristics,
+	don't mark a string as c-format that is already known to be a qt-format
+	or boost-format.
+	(language_to_extractor): Use a flag_table_cxx_qt or
+	flag_table_cxx_boost that is different from flag_table_c.
+	* Makefile.am (FORMAT_SOURCE): Add format-boost.c.
+	* Makefile.msvc (OBJECTS): Add format-boost.obj.
+	(format-boost.obj): New rule.
+	* Makefile.vms (OBJECTS): Add format-boost.obj.
+	(format-boost.obj): New rule.
+	* FILES: Update.
+
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (xgettext_record_flag): When asked to set "qt-format",
 	really set "qt-format", not "c-format". Fixes bug introduced on
 	2003-10-19.
