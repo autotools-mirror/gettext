@@ -1,3 +1,8 @@
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-c-12: New file.
+	* Makefile.am (TESTS): Add it.
+
 2005-11-21  Bruno Haible  <bruno@clisp.org>
 
 	* format-c-3: Put all non-option arguments after all option arguments,

@@ -2079,7 +2079,9 @@ meta information, not the empty string.\n")));
 		 "xgettext: no-c-format" anywhere where a translator wishes
 		 to use a percent sign.  So, the msgfmt checking will not be
 		 perfect.  Oh well.  */
-	      if (parser->get_number_of_directives (descr) > 0)
+	      if (parser->get_number_of_directives (descr) > 0
+		  && !(parser->is_unlikely_intentional != NULL
+		       && parser->is_unlikely_intentional (descr)))
 		is_format[i] = possible;
 
 	      parser->free (descr);
@@ -2181,7 +2183,9 @@ remember_a_message_plural (message_ty *mp, char *string,
 	    if (descr != NULL)
 	      {
 		/* Same heuristic as in remember_a_message.  */
-		if (parser->get_number_of_directives (descr) > 0)
+		if (parser->get_number_of_directives (descr) > 0
+		    && !(parser->is_unlikely_intentional != NULL
+			 && parser->is_unlikely_intentional (descr)))
 		  mp->is_format[i] = possible;
 
 		parser->free (descr);

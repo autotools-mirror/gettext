@@ -1,5 +1,5 @@
 /* Scheme format strings.
-   Copyright (C) 2001-2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -3308,6 +3308,7 @@ struct formatstring_parser formatstring_scheme =
   format_parse,
   format_free,
   format_get_number_of_directives,
+  NULL,
   format_check
 };
 

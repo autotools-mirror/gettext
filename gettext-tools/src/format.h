@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -57,6 +57,11 @@ struct formatstring_parser
   /* Return the number of format directives.
      A string that can be output literally has 0 format directives.  */
   int (*get_number_of_directives) (void *descr);
+
+  /* Return true if the format string, although valid, contains directives that
+     make it appear unlikely that the string was meant as a format string.
+     A NULL function is equivalent to a function that always returns false.  */
+  bool (*is_unlikely_intentional) (void *descr);
 
   /* Verify that the argument types/names in msgid_descr and those in
      msgstr_descr are the same (if equality=true), or (if equality=false)

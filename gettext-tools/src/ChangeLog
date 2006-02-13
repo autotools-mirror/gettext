@@ -1,5 +1,37 @@
 2006-02-12  Bruno Haible  <bruno@clisp.org>
 
+	Reduce the number of false positives produced by the c-format guessing
+	heuristics.
+	* format.h (struct formatstring_parser): Add 'is_unlikely_intentional'
+	field.
+	* format-awk.c (formatstring_awk): Update.
+	* format-c.c (struct spec): Add 'unlikely_unintentional' field.
+	(format_parse): Set unlikely_unintentional to true when encountering
+	a "%...%" directive other than "%%".
+	(format_is_unlikely_intentional): New function.
+	(formatstring_c, formatstring_objc): Use it.
+	* format-csharp.c (formatstring_csharp): Update.
+	* format-elisp.c (formatstring_elisp): Update.
+	* format-gcc-internal.c (formatstring_gcc_internal): Update.
+	* format-java.c (formatstring_java): Update.
+	* format-librep.c (formatstring_librep): Update.
+	* format-lisp.c (formatstring_lisp): Update.
+	* format-pascal.c (formatstring_pascal): Update.
+	* format-perl.c (formatstring_perl): Update.
+	* format-perl-brace.c (formatstring_perl_brace): Update.
+	* format-php.c (format_php): Update.
+	* format-python.c (formatstring_python): Update.
+	* format-qt.c (formatstring_qt): Update.
+	* format-scheme.c (formatstring_scheme): Update
+	* format-sh.c (formatstring_sh): Update.
+	* format-tcl.c (formatstring_tcl): Update.
+	* format-ycp.c (formatstring_ycp, formatstring_smalltalk): Update.
+	* xgettext.c (remember_a_message, remember_a_message_plural): Don't
+	mark the message as c-format if the validity as c-format looks
+	unintentional.
+
+2006-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* msgattrib.c (main): Update year in --version output.
 	* msgcat.c (main): Likewise.
 	* msgcmp.c (main): Likewise.

@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001-2004 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -152,6 +152,7 @@ struct spec
   unsigned int unnumbered_arg_count;
   unsigned int allocated;
   struct unnumbered_arg *unnumbered;
+  bool unlikely_intentional;
   unsigned int sysdep_directives_count;
   const char **sysdep_directives;
 };
@@ -190,6 +191,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
   spec.allocated = 0;
   numbered = NULL;
   spec.unnumbered = NULL;
+  spec.unlikely_intentional = false;
   spec.sysdep_directives_count = 0;
   spec.sysdep_directives = NULL;
 
@@ -608,6 +610,13 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 	    switch (*format)
 	      {
 	      case '%':
+		/* Programmers writing _("%2%") most often will not want to
+		   use this string as a c-format string, but rather as a
+		   literal or as a different kind of format string.  */
+		if (format[-1] != '%')
+		  spec.unlikely_intentional = true;
+		type = FAT_NONE;
+		break;
 	      case 'm': /* glibc extension */
 		type = FAT_NONE;
 		break;
@@ -820,6 +829,14 @@ format_free (void *descr)
   free (spec);
 }
 
+static bool
+format_is_unlikely_intentional (void *descr)
+{
+  struct spec *spec = (struct spec *) descr;
+
+  return spec->unlikely_intentional;
+}
+
 static int
 format_get_number_of_directives (void *descr)
 {
@@ -867,6 +884,7 @@ struct formatstring_parser formatstring_c =
   format_c_parse,
   format_free,
   format_get_number_of_directives,
+  format_is_unlikely_intentional,
   format_check
 };
 
@@ -876,6 +894,7 @@ struct formatstring_parser formatstring_objc =
   format_objc_parse,
   format_free,
   format_get_number_of_directives,
+  format_is_unlikely_intentional,
   format_check
 };
 
