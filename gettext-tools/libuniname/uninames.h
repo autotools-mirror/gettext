@@ -1,5 +1,5 @@
 /*
- * uninames.h.new
+ * uninames.h
  *
  * Unicode character name table.
  * Generated automatically by the gen-uninames utility.
