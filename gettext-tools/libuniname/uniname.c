@@ -1,5 +1,5 @@
 /* Association between Unicode characters and their names.
-   Copyright (C) 2000-2002, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000-2002, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,16 +35,16 @@
 #define uint32_t unsigned int
 #include "uninames.h"
 /* It contains:
-  static const char unicode_name_words[26496] = ...;
-  #define UNICODE_CHARNAME_NUM_WORDS 4725
+  static const char unicode_name_words[34594] = ...;
+  #define UNICODE_CHARNAME_NUM_WORDS 5906
   static const struct { uint16_t extra_offset; uint16_t ind_offset; } unicode_name_by_length[26] = ...;
-  #define UNICODE_CHARNAME_WORD_HANGUL 3030
-  #define UNICODE_CHARNAME_WORD_SYLLABLE 3891
-  #define UNICODE_CHARNAME_WORD_CJK 367
-  #define UNICODE_CHARNAME_WORD_COMPATIBILITY 4585
-  static const uint16_t unicode_names[53315] = ...;
-  static const struct { uint16_t code; uint16_t name; } unicode_name_to_code[12886] = ...;
-  static const struct { uint16_t code; uint16_t name; } unicode_code_to_name[12886] = ...;
+  #define UNICODE_CHARNAME_WORD_HANGUL 3624
+  #define UNICODE_CHARNAME_WORD_SYLLABLE 4654
+  #define UNICODE_CHARNAME_WORD_CJK 401
+  #define UNICODE_CHARNAME_WORD_COMPATIBILITY 5755
+  static const uint16_t unicode_names[62620] = ...;
+  static const struct { uint16_t code; uint16_t name; } unicode_name_to_code[15257] = ...;
+  static const struct { uint16_t code; uint16_t name; } unicode_code_to_name[15257] = ...;
   #define UNICODE_CHARNAME_MAX_LENGTH 83
   #define UNICODE_CHARNAME_MAX_WORDS 13
 */
@@ -180,7 +180,7 @@ unicode_character_name (unsigned int c, char *buf)
       return buf;
     }
   else if ((c >= 0xF900 && c <= 0xFA2D) || (c >= 0xFA30 && c <= 0xFA6A)
-	   || (c >= 0x2F800 && c <= 0x2FA1D))
+	   || (c >= 0xFA70 && c <= 0xFAD9) || (c >= 0x2F800 && c <= 0x2FA1D))
     {
       /* Special case for CJK compatibility ideographs. Keeps the tables
 	 small.  */
@@ -206,25 +206,25 @@ unicode_character_name (unsigned int c, char *buf)
       /* Transform the code so that it fits in 16 bits.  */
       switch (c >> 12)
 	{
-	case 0x00: case 0x01: case 0x02: case 0x03:
+	case 0x00: case 0x01: case 0x02: case 0x03: case 0x04:
 	  break;
 	case 0x0A:
-	  c -= 0x06000;
+	  c -= 0x05000;
 	  break;
 	case 0x0F:
-	  c -= 0x0A000;
+	  c -= 0x09000;
 	  break;
 	case 0x10:
-	  c -= 0x0A000;
+	  c -= 0x09000;
 	  break;
 	case 0x1D:
-	  c -= 0x16000;
+	  c -= 0x15000;
 	  break;
 	case 0x2F:
-	  c -= 0x27000;
+	  c -= 0x26000;
 	  break;
 	case 0xE0:
-	  c -= 0xD7000;
+	  c -= 0xD6000;
 	  break;
 	default:
 	  return NULL;
@@ -432,6 +432,7 @@ unicode_name_character (const char *name)
 			      {
 				if ((c >= 0xF900 && c <= 0xFA2D)
 				    || (c >= 0xFA30 && c <= 0xFA6A)
+				    || (c >= 0xFA70 && c <= 0xFAD9)
 				    || (c >= 0x2F800 && c <= 0x2FA1D))
 				  return c;
 				else
@@ -488,10 +489,11 @@ unicode_name_character (const char *name)
 			    unsigned int c = unicode_name_to_code[i].code;
 
 			    /* Undo the transformation to 16-bit space.  */
-			    static const unsigned int offset[10] =
+			    static const unsigned int offset[11] =
 			      {
-				0x00000, 0x00000, 0x00000, 0x00000, 0x06000,
-				0x0A000, 0x0A000, 0x16000, 0x27000, 0xD7000
+				0x00000, 0x00000, 0x00000, 0x00000, 0x00000,
+				0x05000, 0x09000, 0x09000, 0x15000, 0x26000,
+				0xD6000
 			      };
 			    return c + offset[c >> 12];
 			  }

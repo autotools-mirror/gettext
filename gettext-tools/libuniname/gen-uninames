@@ -40,26 +40,26 @@
                 ; Also ignore CJK compatibility ideographs; they are treated
                 ; specially as well.
                 (unless (or (<= #xF900 code #xFA2D) (<= #xFA30 code #xFA6A)
-                            (<= #x2F800 code #x2FA1D))
+                            (<= #xFA70 code #xFAD9) (<= #x2F800 code #x2FA1D))
                   ; Transform the code so that it fits in 16 bits. In
                   ; Unicode 3.1 the following ranges are used.
-                  ;   0x00000..0x033FF  >>12=  0x00..0x03  -> 0x0..0x3
-                  ;   0x0A000..0x0A4FF  >>12=  0x0A        -> 0x4
-                  ;   0x0F900..0x0FFFF  >>12=  0x0F        -> 0x5
-                  ;   0x10300..0x104FF  >>12=  0x10        -> 0x6
-                  ;   0x1D000..0x1D7DD  >>12=  0x1D        -> 0x7
-                  ;   0x2F800..0x2FAFF  >>12=  0x2F        -> 0x8
-                  ;   0xE0000..0xE00FF  >>12=  0xE0        -> 0x9
+                  ;   0x00000..0x04DFF  >>12=  0x00..0x04  -> 0x0..0x4
+                  ;   0x0A000..0x0A4FF  >>12=  0x0A        -> 0x5
+                  ;   0x0F900..0x0FFFF  >>12=  0x0F        -> 0x6
+                  ;   0x10300..0x104FF  >>12=  0x10        -> 0x7
+                  ;   0x1D000..0x1D7DD  >>12=  0x1D        -> 0x8
+                  ;   0x2F800..0x2FAFF  >>12=  0x2F        -> 0x9
+                  ;   0xE0000..0xE00FF  >>12=  0xE0        -> 0xA
                   (flet ((transform (x)
                            (dpb
                              (case (ash x -12)
-                               ((#x00 #x01 #x02 #x03) (ash x -12))
-                               (#x0A 4)
-                               (#x0F 5)
-                               (#x10 6)
-                               (#x1D 7)
-                               (#x2F 8)
-                               (#xE0 9)
+                               ((#x00 #x01 #x02 #x03 #x04) (ash x -12))
+                               (#x0A 5)
+                               (#x0F 6)
+                               (#x10 7)
+                               (#x1D 8)
+                               (#x2F 9)
+                               (#xE0 #xA)
                                (t (error "Update the transform function for 0x~5,'0X" x))
                              )
                              (byte 8 12)
