@@ -1,5 +1,5 @@
-# gettext.m4 serial 44 (gettext-0.15)
-dnl Copyright (C) 1995-2005 Free Software Foundation, Inc.
+# gettext.m4 serial 45 (gettext-0.15)
+dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -94,7 +94,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
   gt_INTL_MACOSX
 
   dnl Set USE_NLS.
-  AM_NLS
+  AC_REQUIRE([AM_NLS])
 
   ifelse(gt_included_intl, yes, [
     BUILD_INCLUDED_LIBINTL=no

@@ -1,3 +1,9 @@
+2006-02-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Invoke AM_NLS through AC_REQUIRE, not
+	directly.
+	Reported by Ron <ron@debian.org>.
+
 2005-11-21  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Invoke gt_LC_MESSAGES always, since we
