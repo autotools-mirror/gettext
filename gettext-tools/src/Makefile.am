@@ -89,6 +89,11 @@ JAVACOMP = $(SHELL) ../lib/javacomp.sh
 CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
+# Linking with C++ libraries is needed _only_ on mingw.
+if !MINGW
+@MINGW_FALSE@CXXLINK = $(LINK)
+endif
+
 
 # All programs deal with message lists.
 # All programs must read PO files. (msgunfmt also, for read-java.c,

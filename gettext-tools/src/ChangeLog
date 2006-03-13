@@ -1,3 +1,8 @@
+2006-03-09  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CXXLINK) [!mingw]: Overwrite automake's value. Fixes
+	unintended dependency on libstdc++ introduced on 2005-07-05.
+
 2005-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* lang-table.h: New file.
