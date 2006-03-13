@@ -48,7 +48,7 @@ read-csharp.h write-csharp.h \
 read-resources.h write-resources.h \
 read-tcl.h write-tcl.h \
 write-qt.h \
-po-time.h plural-table.h format.h \
+po-time.h plural-table.h lang-table.h format.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
 x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
@@ -191,7 +191,7 @@ else
 msggrep_SOURCES = ../mingw/c++msggrep.cc
 endif
 msginit_SOURCES = msginit.c
-msginit_SOURCES +=  plural-count.c ../../gettext-runtime/intl/localealias.c
+msginit_SOURCES += lang-table.c plural-count.c ../../gettext-runtime/intl/localealias.c
 if !MINGW
 msguniq_SOURCES = msguniq.c
 else

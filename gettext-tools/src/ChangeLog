@@ -1,3 +1,16 @@
+2005-10-09  Bruno Haible  <bruno@clisp.org>
+
+	* lang-table.h: New file.
+	* lang-table.c: New file, extracted from msginit.c.
+	* msginit.c: Include lang-table.h.
+	(englishname_of_language): Use language_table.
+	* Makefile.am (noinst_HEADERS): Add lang-table.h.
+	(msginit_SOURCES): Add lang-table.c.
+	* Makefile.msvc (MSGINIT_OBJECTS): Add lang-table.obj.
+	(lang-table.obj): New rule.
+	* Makefile.vms (MSGINIT_OBJECTS): Add lang-table.obj.
+	(lang-table.obj): New rule.
+
 2006-02-12  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_boost'.

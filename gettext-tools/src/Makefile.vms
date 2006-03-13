@@ -110,7 +110,7 @@ msgen_OBJECTS = msgen.obj
 msgexec_OBJECTS = msgexec.obj
 msgfilter_OBJECTS = msgfilter.obj
 msggrep_OBJECTS = msggrep.obj
-msginit_OBJECTS = msginit.obj, plural-count.obj, localealias.obj
+msginit_OBJECTS = msginit.obj, lang-table.obj, plural-count.obj, localealias.obj
 msguniq_OBJECTS = msguniq.obj
 
 all : gettextsrc.olb,$(PROGRAMS),gettextpo.olb
@@ -395,6 +395,9 @@ msggrep.obj : msggrep.c
 
 msginit.obj : msginit.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msginit.c
+
+lang-table.obj : lang-table.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) lang-table.c
 
 localealias.obj : [-.-.gettext-runtime.intl]localealias.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"LOCALE_ALIAS_PATH=""$(aliaspath)]""") [-.-.gettext-runtime.intl]localealias.c

@@ -19,6 +19,10 @@ file-list.c
                 Reading a file list from a file. Used by those programs which
                 accept multiple file arguments and have a --files-from option.
 
+lang-table.h
+lang-table.c
+                Language names according to ISO 639.
+
 pos.h
                 Source file positions.
 

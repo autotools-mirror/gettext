@@ -164,7 +164,7 @@ msgen_OBJECTS = msgen.obj
 msgexec_OBJECTS = msgexec.obj
 msgfilter_OBJECTS = msgfilter.obj
 msggrep_OBJECTS = msggrep.obj
-msginit_OBJECTS = msginit.obj plural-count.obj localealias.obj
+msginit_OBJECTS = msginit.obj lang-table.obj plural-count.obj localealias.obj
 msguniq_OBJECTS = msguniq.obj
 LDADD =
 
@@ -465,6 +465,9 @@ msggrep.obj : msggrep.c
 
 msginit.obj : msginit.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c msginit.c
+
+lang-table.obj : lang-table.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c lang-table.c
 
 localealias.obj : ..\..\gettext-runtime\intl\localealias.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DLOCALE_ALIAS_PATH=\"$(IIaliaspath)\" -c ..\..\gettext-runtime\intl\localealias.c
