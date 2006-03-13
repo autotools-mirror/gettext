@@ -1,5 +1,5 @@
 /* Functions to make fuzzy comparisons between strings
-   Copyright (C) 1988-1989, 1992-1993, 1995, 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 1988-1989, 1992-1993, 1995, 2001-2003, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,6 +17,14 @@
 
 
    Derived from GNU diff 2.7, analyze.c et al.
+
+   The basic idea is to consider two strings as similar if, when
+   transforming the first string into the second string through a
+   sequence of edits (inserts and deletes of one character each),
+   this sequence is short - or equivalently, if the ordered list
+   of characters that are untouched by these edits is long.  For a
+   good introduction to the subject, read about the "Levenshtein
+   distance" in Wikipedia.
 
    The basic algorithm is described in:
    "An O(ND) Difference Algorithm and its Variations", Eugene Myers,
@@ -113,7 +121,7 @@ struct partition
 
    SYNOPSIS
 	int diag(int xoff, int xlim, int yoff, int ylim, int minimal,
-		struct partition *part);
+		 struct partition *part);
 
    DESCRIPTION
 	Find the midpoint of the shortest edit script for a specified
@@ -172,9 +180,9 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
   int odd = (fmid - bmid) & 1;
 
   /*
-	 * True if southeast corner is on an odd diagonal with respect
-	 * to the northwest.
-	 */
+   * True if southeast corner is on an odd diagonal with respect
+   * to the northwest.
+   */
   fd[fmid] = xoff;
   bd[bmid] = xlim;
   for (c = 1;; ++c)
