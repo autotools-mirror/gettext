@@ -1,0 +1,21 @@
+#! /bin/sh
+
+# Test compendium option with a large compendium.
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+tmpfiles="$tmpfiles mm-c-5.out"
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} -q -o mm-c-5.out \
+  --compendium ${top_srcdir}/tests/msgmerge-v.comp.po \
+  /dev/null ${top_srcdir}/tests/msgmerge-v.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+: ${DIFF=diff}
+${DIFF} ${top_srcdir}/tests/msgmerge-v.out mm-c-5.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result
