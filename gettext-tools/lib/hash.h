@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000-2003, 2005 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    The GNU C Library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public License as
@@ -66,7 +66,7 @@ extern int hash_set_value (hash_table *htab,
 /* Steps *PTR forward to the next used entry in the given hash table.  *PTR
    should be initially set to NULL.  Store information about the next entry
    in *KEY, *KEYLEN, *DATA.
-   Return 0.  */
+   Return 0 normally, -1 when the whole hash table has been traversed.  */
 extern int hash_iterate (hash_table *htab, void **ptr,
 			 const void **key, size_t *keylen,
 			 void **data);

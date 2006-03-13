@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994-1995, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software; you can redistribute it and/or modify
@@ -323,7 +323,7 @@ hash_set_value (hash_table *htab,
 /* Steps *PTR forward to the next used entry in the given hash table.  *PTR
    should be initially set to NULL.  Store information about the next entry
    in *KEY, *KEYLEN, *DATA.
-   Return 0.  */
+   Return 0 normally, -1 when the whole hash table has been traversed.  */
 int
 hash_iterate (hash_table *htab, void **ptr, const void **key, size_t *keylen,
 	      void **data)
