@@ -588,7 +588,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	}
 
       /* List is not used anymore.  */
-      message_list_free (domain->mlp);
+      message_list_free (domain->mlp, 0);
     }
 
   /* Print statistics if requested.  */

@@ -41,7 +41,8 @@ str-list.h \
 write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h \
-msgl-english.h msgl-check.h msgfmt.h msgunfmt.h plural-count.h plural-eval.h \
+msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
+plural-count.h plural-eval.h \
 read-mo.h write-mo.h \
 read-java.h write-java.h \
 read-csharp.h write-csharp.h \
@@ -146,7 +147,7 @@ msgmerge_SOURCES = msgmerge.c
 else
 msgmerge_SOURCES = ../mingw/c++msgmerge.cc
 endif
-msgmerge_SOURCES += plural-count.c
+msgmerge_SOURCES += msgl-fsearch.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
@@ -247,7 +248,7 @@ libgettextpo_la_DEPENDENCIES = libgettextsrc.la
 # For msginit, it is also needed because of localename.c.
 msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
 msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@
 msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
 xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@
 msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@

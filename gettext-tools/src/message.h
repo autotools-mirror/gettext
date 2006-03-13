@@ -196,8 +196,11 @@ struct message_list_ty
    known that the message list will not contain duplicate msgids.  */
 extern message_list_ty *
        message_list_alloc (bool use_hashtable);
+/* Free a message list.
+   If keep_messages = 0, also free the messages.  If keep_messages = 1, don't
+   free the messages.  */
 extern void
-       message_list_free (message_list_ty *mlp);
+       message_list_free (message_list_ty *mlp, int keep_messages);
 extern void
        message_list_append (message_list_ty *mlp, message_ty *mp);
 extern void
@@ -232,8 +235,12 @@ struct message_list_list_ty
 
 extern message_list_list_ty *
        message_list_list_alloc (void);
+/* Free a list of message lists.
+   If keep_level = 0, also free the messages.  If keep_level = 1, don't free
+   the messages but free the lists.  If keep_level = 2, don't free the
+   the messages and the lists.  */
 extern void
-       message_list_list_free (message_list_list_ty *mllp);
+       message_list_list_free (message_list_list_ty *mllp, int keep_level);
 extern void
        message_list_list_append (message_list_list_ty *mllp,
 				 message_list_ty *mlp);
@@ -289,6 +296,17 @@ extern message_ty *
 extern message_ty *
        msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp,
 				    const char *msgctxt, const char *msgid);
+
+
+/* The goal function used in fuzzy search.
+   Higher values indicate a closer match.  */
+extern double
+       fuzzy_search_goal_function (const message_ty *mp,
+				   const char *msgctxt, const char *msgid);
+
+/* The threshold for fuzzy-searching.
+   A message is considered only if  fstrcmp (msg, given) > FUZZY_THRESHOLD.  */
+#define FUZZY_THRESHOLD 0.6
 
 
 #ifdef __cplusplus

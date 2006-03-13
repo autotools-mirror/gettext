@@ -1,3 +1,8 @@
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (MSGMERGE_LIBM): New variable. Test for presence of
+	ceil() and sqrt().
+
 2005-11-23  Bruno Haible  <bruno@clisp.org>
 
 	Cygwin portability.

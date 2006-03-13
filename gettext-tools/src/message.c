@@ -237,12 +237,13 @@ message_list_alloc (bool use_hashtable)
 
 
 void
-message_list_free (message_list_ty *mlp)
+message_list_free (message_list_ty *mlp, int keep_messages)
 {
   size_t j;
 
-  for (j = 0; j < mlp->nitems; ++j)
-    message_free (mlp->item[j]);
+  if (keep_messages == 0)
+    for (j = 0; j < mlp->nitems; ++j)
+      message_free (mlp->item[j]);
   if (mlp->item)
     free (mlp->item);
   if (mlp->use_hashtable)
@@ -494,6 +495,23 @@ message_list_search (message_list_ty *mlp,
 }
 
 
+double
+fuzzy_search_goal_function (const message_ty *mp,
+			    const char *msgctxt, const char *msgid)
+{
+  return
+    fstrcmp (msgid, mp->msgid)
+    /* A translation for a context is a good proposal also for
+       another.  But give mp a small advantage if mp is valid
+       regardless of any context or has the same context as the
+       one being looked up.  */
+    + ((mp->msgctxt == NULL
+	|| (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
+       ? 0.00001
+       : 0);
+}
+
+
 static message_ty *
 message_list_search_fuzzy_inner (message_list_ty *mlp,
 				 const char *msgctxt, const char *msgid,
@@ -511,16 +529,7 @@ message_list_search_fuzzy_inner (message_list_ty *mlp,
 
       if (mp->msgstr != NULL && mp->msgstr[0] != '\0')
 	{
-	  double weight =
-	    fstrcmp (msgid, mp->msgid)
-	    /* A translation for a context is a good proposal also for
-	       another.  But give mp a small advantage if mp is valid
-	       regardless of any context or has the same context as the
-	       one being looked up.  */
-	    + ((mp->msgctxt == NULL
-		|| (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
-	       ? 0.00001
-	       : 0);
+	  double weight = fuzzy_search_goal_function (mp, msgctxt, msgid);
 	  if (weight > *best_weight_p)
 	    {
 	      *best_weight_p = weight;
@@ -538,7 +547,7 @@ message_list_search_fuzzy (message_list_ty *mlp,
 {
   double best_weight;
 
-  best_weight = 0.6;
+  best_weight = FUZZY_THRESHOLD;
   return message_list_search_fuzzy_inner (mlp, msgctxt, msgid, &best_weight);
 }
 
@@ -556,19 +565,18 @@ message_list_list_alloc ()
 }
 
 
-#if 0 /* unused */
 void
-message_list_list_free (message_list_list_ty *mllp)
+message_list_list_free (message_list_list_ty *mllp, int keep_level)
 {
   size_t j;
 
-  for (j = 0; j < mllp->nitems; ++j)
-    message_list_free (mllp->item[j]);
+  if (keep_level < 2)
+    for (j = 0; j < mllp->nitems; ++j)
+      message_list_free (mllp->item[j], keep_level);
   if (mllp->item)
     free (mllp->item);
   free (mllp);
 }
-#endif
 
 
 void
@@ -628,6 +636,7 @@ message_list_list_search (message_list_list_ty *mllp,
 }
 
 
+#if 0 /* unused */
 message_ty *
 message_list_list_search_fuzzy (message_list_list_ty *mllp,
 				const char *msgctxt, const char *msgid)
@@ -636,7 +645,7 @@ message_list_list_search_fuzzy (message_list_list_ty *mllp,
   double best_weight;
   message_ty *best_mp;
 
-  best_weight = 0.6;
+  best_weight = FUZZY_THRESHOLD;
   best_mp = NULL;
   for (j = 0; j < mllp->nitems; ++j)
     {
@@ -650,6 +659,7 @@ message_list_list_search_fuzzy (message_list_list_ty *mllp,
     }
   return best_mp;
 }
+#endif
 
 
 msgdomain_ty*
@@ -667,7 +677,7 @@ msgdomain_alloc (const char *domain, bool use_hashtable)
 void
 msgdomain_free (msgdomain_ty *mdp)
 {
-  message_list_free (mdp->messages);
+  message_list_free (mdp->messages, 0);
   free (mdp);
 }
 
@@ -783,7 +793,7 @@ msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp,
   double best_weight;
   message_ty *best_mp;
 
-  best_weight = 0.6;
+  best_weight = FUZZY_THRESHOLD;
   best_mp = NULL;
   for (j = 0; j < mdlp->nitems; ++j)
     {

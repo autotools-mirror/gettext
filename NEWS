@@ -28,6 +28,8 @@
 
 * msggrep has a new option -v/--invert-match that acts like grep's -v option.
 
+* msgmerge is much faster now, when using a large compendium.
+
 * Programming languages support:
 
   - C++ with Boost:

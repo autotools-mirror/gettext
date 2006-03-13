@@ -1,3 +1,50 @@
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
+	Speed up msgmerge with large compendia.
+	* message.h (message_list_free): Add keep_messages argument.
+	(message_list_list_free): Add keep_level argument.
+	(fuzzy_search_goal_function): New declaration.
+	(FUZZY_THRESHOLD): New macro.
+	* message.c (message_list_free): Add keep_messages argument.
+	(fuzzy_search_goal_function): New function, extracted from
+	message_list_search_fuzzy_inner.
+	(message_list_search_fuzzy_inner): Use it.
+	(message_list_search_fuzzy): Use symbolic value FUZZY_THRESHOLD.
+	(message_list_list_free): Comment in. Add keep_level argument.
+	(message_list_list_search_fuzzy): Comment out. Use symbolic value
+	FUZZY_THRESHOLD.
+	(msgdomain_free): Update.
+	(msgdomain_list_search_fuzzy): Use symbolic value FUZZY_THRESHOLD.
+	* po-charset.h: Include stddef.h.
+	(character_iterator_t): New type.
+	(po_charset_character_iterator): New declaration.
+	* po-charset.c (char_iterator, euc_character_iterator,
+	euc_jp_character_iterator, euc_tw_character_iterator,
+	big5_character_iterator, big5hkscs_character_iterator,
+	gbk_character_iterator, gb18030_character_iterator,
+	shift_jis_character_iterator, johab_character_iterator,
+	utf8_character_iterator, po_charset_character_iterator): New functions.
+	* msgl-fsearch.h: New file.
+	* msgl-fsearch.c: New file.
+	* msgmerge.c: Include po-charset.h, msgl-fsearch.h.
+	(compendium_filenames): New variable.
+	(compendium): Also put the filename into compendium_filenames.
+	(definitions_ty): New structure type.
+	(definitions_init, definitions_init_findex, definitions_current_list,
+	definitions_set_current_list, definitions_search,
+	definitions_search_fuzzy, definitions_destroy): New functions.
+	(match_domain): Change type of 'definitions' argument.
+	(merge): Also convert the compendium to UTF-8. Use definitions_init,
+	definitions_set_current_list, definitions_destroy.
+	* msgfmt.c (main): Update.
+	* Makefile.am (noinst_HEADERS): Add msgl-fsearch.h.
+	(msgmerge_SOURCES): Add msgl-fsearch.c.
+	(msgmerge_LDADD): Link with MSGMERGE_LIBM.
+	* Makefile.msvc (msgmerge_OBJECTS): Add msgl-fsearch.obj.
+	(msgl-fsearch.obj): New rule.
+	* Makefile.vms (msgmerge_OBJECTS): Add msgl-fsearch.obj.
+	(msgl-fsearch.obj): New rule.
+
 2006-03-09  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (CXXLINK) [!mingw]: Overwrite automake's value. Fixes

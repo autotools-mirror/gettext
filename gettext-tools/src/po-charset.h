@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 #define _PO_CHARSET_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 #if HAVE_ICONV
 #include <iconv.h>
@@ -54,6 +55,13 @@ extern bool po_is_charset_weird (const char *canon_charset);
    of single bytes in the range 0x{00..7F} and of byte pairs in the range
    0x{80..FF}{30..FF}.  */
 extern bool po_is_charset_weird_cjk (const char *canon_charset);
+
+/* Returns a character iterator for a given encoding.
+   Given a pointer into a string, it returns the number occupied by the next
+   single character.  If the piece of string is not valid or if the *s == '\0',
+   it returns 1.  */
+typedef size_t (*character_iterator_t) (const char *s);
+extern character_iterator_t po_charset_character_iterator (const char *canon_charset);
 
 
 /* The PO file's encoding, as specified in the header entry.  */

@@ -346,3 +346,33 @@ hash_iterate (hash_table *htab, void **ptr, const void **key, size_t *keylen,
   *data = ((hash_entry *) *ptr)->data;
   return 0;
 }
+
+
+/* Steps *PTR forward to the next used entry in the given hash table.  *PTR
+   should be initially set to NULL.  Store information about the next entry
+   in *KEY, *KEYLEN, *DATAP.  *DATAP is set to point to the storage of the
+   value; modifying **DATAP will modify the value of the entry.
+   Return 0 normally, -1 when the whole hash table has been traversed.  */
+int
+hash_iterate_modify (hash_table *htab, void **ptr,
+		     const void **key, size_t *keylen,
+		     void ***datap)
+{
+  if (*ptr == NULL)
+    {
+      if (htab->first == NULL)
+	return -1;
+      *ptr = (void *) ((hash_entry *) htab->first)->next;
+    }
+  else
+    {
+      if (*ptr == htab->first)
+	return -1;
+      *ptr = (void *) ((hash_entry *) *ptr)->next;
+    }
+
+  *key = ((hash_entry *) *ptr)->key;
+  *keylen = ((hash_entry *) *ptr)->keylen;
+  *datap = &((hash_entry *) *ptr)->data;
+  return 0;
+}

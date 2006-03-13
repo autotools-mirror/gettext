@@ -71,6 +71,15 @@ extern int hash_iterate (hash_table *htab, void **ptr,
 			 const void **key, size_t *keylen,
 			 void **data);
 
+/* Steps *PTR forward to the next used entry in the given hash table.  *PTR
+   should be initially set to NULL.  Store information about the next entry
+   in *KEY, *KEYLEN, *DATAP.  *DATAP is set to point to the storage of the
+   value; modifying **DATAP will modify the value of the entry.
+   Return 0 normally, -1 when the whole hash table has been traversed.  */
+extern int hash_iterate_modify (hash_table *htab, void **ptr,
+				const void **key, size_t *keylen,
+				void ***datap);
+
 /* Given SEED > 1, return the smallest odd prime number >= SEED.  */
 extern unsigned long int next_prime (unsigned long int seed);
 

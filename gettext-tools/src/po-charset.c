@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -167,6 +167,268 @@ bool po_is_charset_weird_cjk (const char *canon_charset)
     if (strcmp (canon_charset, weird_cjk_charsets[i]) == 0)
       return true;
   return false;
+}
+
+/* Hardcoded iterator functions for all kinds of encodings.
+   We could also implement a general iterator function with iconv(),
+   but we need a fast one.  */
+
+/* Character iterator for 8-bit encodings.  */
+static size_t
+char_iterator (const char *s)
+{
+  return 1;
+}
+
+/* Character iterator for GB2312.  See libiconv/lib/euc_cn.h.  */
+/* Character iterator for EUC-KR.  See libiconv/lib/euc_kr.h.  */
+static size_t
+euc_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0xa1 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 < 0xff)
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for EUC-JP.  See libiconv/lib/euc_jp.h.  */
+static size_t
+euc_jp_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0xa1 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 < 0xff)
+	return 2;
+    }
+  else if (c == 0x8e)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 < 0xe0)
+	return 2;
+    }
+  else if (c == 0x8f)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 < 0xff)
+	{
+	  unsigned char c3 = s[2];
+	  if (c3 >= 0xa1 && c3 < 0xff)
+	    return 3;
+	}
+    }
+  return 1;
+}
+
+/* Character iterator for EUC-TW.  See libiconv/lib/euc_tw.h.  */
+static size_t
+euc_tw_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0xa1 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 < 0xff)
+	return 2;
+    }
+  else if (c == 0x8e)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0xa1 && c2 <= 0xb0)
+	{
+	  unsigned char c3 = s[2];
+	  if (c3 >= 0xa1 && c3 < 0xff)
+	    {
+	      unsigned char c4 = s[3];
+	      if (c4 >= 0xa1 && c4 < 0xff)
+		return 4;
+	    }
+	}
+    }
+  return 1;
+}
+
+/* Character iterator for BIG5.  See libiconv/lib/ces_big5.h.  */
+static size_t
+big5_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0xa1 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0xa1 && c2 < 0xff))
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for BIG5-HKSCS.  See libiconv/lib/big5hkscs.h.  */
+static size_t
+big5hkscs_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0x88 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0xa1 && c2 < 0xff))
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for GBK.  See libiconv/lib/ces_gbk.h and
+   libiconv/lib/gbk.h.  */
+static size_t
+gbk_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0x81 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0x80 && c2 < 0xff))
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for GB18030.  See libiconv/lib/gb18030.h.  */
+static size_t
+gb18030_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0x81 && c < 0xff)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0x80 && c2 < 0xff))
+	return 2;
+    }
+  if (c >= 0x81 && c <= 0x84)
+    {
+      unsigned char c2 = s[1];
+      if (c2 >= 0x30 && c2 <= 0x39)
+	{
+	  unsigned char c3 = s[2];
+	  if (c3 >= 0x81 && c3 < 0xff)
+	    {
+	      unsigned char c4 = s[3];
+	      if (c4 >= 0x30 && c4 <= 0x39)
+		return 4;
+	    }
+	}
+    }
+  return 1;
+}
+
+/* Character iterator for SHIFT_JIS.  See libiconv/lib/sjis.h.  */
+static size_t
+shift_jis_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if ((c >= 0x81 && c <= 0x9f) || (c >= 0xe0 && c <= 0xf9))
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x40 && c2 <= 0x7e) || (c2 >= 0x80 && c2 <= 0xfc))
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for JOHAB.  See libiconv/lib/johab.h and
+   libiconv/lib/johab_hangul.h.  */
+static size_t
+johab_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0x84 && c <= 0xd3)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x41 && c2 < 0x7f) || (c2 >= 0x81 && c2 < 0xff))
+	return 2;
+    }
+  else if (c >= 0xd9 && c <= 0xf9)
+    {
+      unsigned char c2 = s[1];
+      if ((c2 >= 0x31 && c2 <= 0x7e) || (c2 >= 0x91 && c2 <= 0xfe))
+	return 2;
+    }
+  return 1;
+}
+
+/* Character iterator for UTF-8.  See libiconv/lib/utf8.h.  */
+static size_t
+utf8_character_iterator (const char *s)
+{
+  unsigned char c = *s;
+  if (c >= 0xc2)
+    {
+      if (c < 0xe0)
+	{
+	  unsigned char c2 = s[1];
+	  if (c2 >= 0x80 && c2 < 0xc0)
+	    return 2;
+	}
+      else if (c < 0xf0)
+	{
+	  unsigned char c2 = s[1];
+	  if (c2 >= 0x80 && c2 < 0xc0)
+	    {
+	      unsigned char c3 = s[2];
+	      if (c3 >= 0x80 && c3 < 0xc0)
+		return 3;
+	    }
+	}
+      else if (c < 0xf8)
+	{
+	  unsigned char c2 = s[1];
+	  if (c2 >= 0x80 && c2 < 0xc0)
+	    {
+	      unsigned char c3 = s[2];
+	      if (c3 >= 0x80 && c3 < 0xc0)
+		{
+		  unsigned char c4 = s[3];
+		  if (c4 >= 0x80 && c4 < 0xc0)
+		    return 4;
+		}
+	    }
+	}
+    }
+  return 1;
+}
+
+/* Returns a character iterator for a given encoding.
+   Given a pointer into a string, it returns the number occupied by the next
+   single character.  If the piece of string is not valid or if the *s == '\0',
+   it returns 1.  */
+character_iterator_t
+po_charset_character_iterator (const char *canon_charset)
+{
+  if (canon_charset == utf8)
+    return utf8_character_iterator;
+  if (strcmp (canon_charset, "GB2312") == 0
+      || strcmp (canon_charset, "EUC-KR") == 0)
+    return euc_character_iterator;
+  if (strcmp (canon_charset, "EUC-JP") == 0)
+    return euc_jp_character_iterator;
+  if (strcmp (canon_charset, "EUC-TW") == 0)
+    return euc_tw_character_iterator;
+  if (strcmp (canon_charset, "BIG5") == 0)
+    return big5_character_iterator;
+  if (strcmp (canon_charset, "BIG5-HKSCS") == 0)
+    return big5hkscs_character_iterator;
+  if (strcmp (canon_charset, "GBK") == 0)
+    return gbk_character_iterator;
+  if (strcmp (canon_charset, "GB18030") == 0)
+    return gb18030_character_iterator;
+  if (strcmp (canon_charset, "SHIFT_JIS") == 0)
+    return shift_jis_character_iterator;
+  if (strcmp (canon_charset, "JOHAB") == 0)
+    return johab_character_iterator;
+  return char_iterator;
 }
 
 
