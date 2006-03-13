@@ -499,16 +499,20 @@ double
 fuzzy_search_goal_function (const message_ty *mp,
 			    const char *msgctxt, const char *msgid)
 {
-  return
-    fstrcmp (msgid, mp->msgid)
-    /* A translation for a context is a good proposal also for
-       another.  But give mp a small advantage if mp is valid
-       regardless of any context or has the same context as the
-       one being looked up.  */
-    + ((mp->msgctxt == NULL
-	|| (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
-       ? 0.00001
-       : 0);
+  /* The use of 'volatile' guarantees that excess precision bits are dropped
+     before the addition and before the following comparison at the caller's
+     site.  It is necessary on x86 systems where double-floats are not IEEE
+     compliant by default, to avoid that msgmerge results become platform and
+     compiler option dependent.  'volatile' is a portable alternative to gcc's
+     -ffloat-store option.  */
+  volatile double weight = fstrcmp (msgid, mp->msgid);
+  /* A translation for a context is a good proposal also for another.  But
+     give mp a small advantage if mp is valid regardless of any context or
+     has the same context as the one being looked up.  */
+  if (mp->msgctxt == NULL
+      || (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
+    weight += 0.00001;
+  return weight;
 }
 
 

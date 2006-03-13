@@ -1,5 +1,9 @@
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
+	* message.c (fuzzy_search_goal_function): Use 'volatile double'.
+
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
 	Speed up msgmerge with large compendia.
 	* message.h (message_list_free): Add keep_messages argument.
 	(message_list_list_free): Add keep_level argument.
