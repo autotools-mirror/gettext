@@ -451,7 +451,7 @@ This chapter explains the goals sought in the creation
 of GNU @code{gettext} and the free Translation Project.
 Then, it explains a few broad concepts around
 Native Language Support, and positions message translation with regard
-to other aspects of national and cultural variance, as they apply to
+to other aspects of national and cultural variance, as they apply
 to programs.  It also surveys those files used to convey the
 translations.  It explains how the various tools interact in the
 initial generation of these files, and later, how the maintenance
