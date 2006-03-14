@@ -1,5 +1,16 @@
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
+	Avoid gcc-4.x warnings.
+	* hash.h (struct hash_entry): New declaration.
+	(struct hash_table): Use it, instead of 'void *'.
+	* hash.c (hash_init): Update.
+	(lookup, hash_find_entry, insert_entry_2): Remove casts.
+	(resize): Update.
+	(hash_insert_entry, hash_set_value): Remove casts.
+	(hash_iterate, hash_iterate_modify): Likewise.
+
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
 	* hash.h (hash_iterate_modify): New declaration.
 	* hash.c (hash_iterate_modify): New function.
 

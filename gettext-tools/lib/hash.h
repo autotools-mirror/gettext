@@ -24,12 +24,14 @@
 extern "C" {
 #endif
 
+struct hash_entry;
+
 typedef struct hash_table
 {
   unsigned long int size;   /* Number of allocated entries.  */
   unsigned long int filled; /* Number of used entries.  */
-  void *first;              /* Pointer to head of list of entries.  */
-  void *table;              /* Pointer to array of entries.  */
+  struct hash_entry *first; /* Pointer to head of list of entries.  */
+  struct hash_entry *table; /* Pointer to array of entries.  */
   struct obstack mem_pool;  /* Memory pool holding the keys.  */
 }
 hash_table;

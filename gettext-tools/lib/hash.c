@@ -98,7 +98,7 @@ hash_init (hash_table *htab, unsigned long int init_size)
   htab->size = init_size;
   htab->filled = 0;
   htab->first = NULL;
-  htab->table = (void *) xcalloc (init_size + 1, sizeof (hash_entry));
+  htab->table = (hash_entry *) xcalloc (init_size + 1, sizeof (hash_entry));
 
   obstack_init (&htab->mem_pool);
 
@@ -153,7 +153,7 @@ lookup (hash_table *htab,
 {
   unsigned long int hash;
   size_t idx;
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
 
   /* First hash function: simply take the modul but prevent zero.  */
   hash = 1 + hval % htab->size;
@@ -193,7 +193,7 @@ int
 hash_find_entry (hash_table *htab, const void *key, size_t keylen,
 		 void **result)
 {
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
   size_t idx = lookup (htab, key, keylen, compute_hashval (key, keylen));
 
   if (table[idx].used == 0)
@@ -212,7 +212,7 @@ insert_entry_2 (hash_table *htab,
 		const void *key, size_t keylen,
 		unsigned long int hval, size_t idx, void *data)
 {
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
 
   table[idx].used = hval;
   table[idx].key = key;
@@ -220,16 +220,16 @@ insert_entry_2 (hash_table *htab,
   table[idx].data = data;
 
   /* List the new value in the list.  */
-  if ((hash_entry *) htab->first == NULL)
+  if (htab->first == NULL)
     {
       table[idx].next = &table[idx];
-      *(hash_entry **) &htab->first = &table[idx];
+      htab->first = &table[idx];
     }
   else
     {
-      table[idx].next = ((hash_entry *) htab->first)->next;
-      ((hash_entry *) htab->first)->next = &table[idx];
-      *(hash_entry **) &htab->first = &table[idx];
+      table[idx].next = htab->first->next;
+      htab->first->next = &table[idx];
+      htab->first = &table[idx];
     }
 
   ++htab->filled;
@@ -241,13 +241,13 @@ static void
 resize (hash_table *htab)
 {
   unsigned long int old_size = htab->size;
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
   size_t idx;
 
   htab->size = next_prime (htab->size * 2);
   htab->filled = 0;
   htab->first = NULL;
-  htab->table = (void *) xcalloc (1 + htab->size, sizeof (hash_entry));
+  htab->table = (hash_entry *) xcalloc (1 + htab->size, sizeof (hash_entry));
 
   for (idx = 1; idx <= old_size; ++idx)
     if (table[idx].used)
@@ -271,7 +271,7 @@ hash_insert_entry (hash_table *htab,
 		   void *data)
 {
   unsigned long int hval = compute_hashval (key, keylen);
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
   size_t idx = lookup (htab, key, keylen, hval);
 
   if (table[idx].used)
@@ -298,7 +298,7 @@ hash_set_value (hash_table *htab,
 		void *data)
 {
   unsigned long int hval = compute_hashval (key, keylen);
-  hash_entry *table = (hash_entry *) htab->table;
+  hash_entry *table = htab->table;
   size_t idx = lookup (htab, key, keylen, hval);
 
   if (table[idx].used)
@@ -328,22 +328,26 @@ int
 hash_iterate (hash_table *htab, void **ptr, const void **key, size_t *keylen,
 	      void **data)
 {
+  hash_entry *curr;
+
   if (*ptr == NULL)
     {
       if (htab->first == NULL)
 	return -1;
-      *ptr = (void *) ((hash_entry *) htab->first)->next;
+      curr = htab->first;
     }
   else
     {
       if (*ptr == htab->first)
 	return -1;
-      *ptr = (void *) ((hash_entry *) *ptr)->next;
+      curr = (hash_entry *) *ptr;
     }
+  curr = curr->next;
+  *ptr = (void *) curr;
 
-  *key = ((hash_entry *) *ptr)->key;
-  *keylen = ((hash_entry *) *ptr)->keylen;
-  *data = ((hash_entry *) *ptr)->data;
+  *key = curr->key;
+  *keylen = curr->keylen;
+  *data = curr->data;
   return 0;
 }
 
@@ -358,21 +362,25 @@ hash_iterate_modify (hash_table *htab, void **ptr,
 		     const void **key, size_t *keylen,
 		     void ***datap)
 {
+  hash_entry *curr;
+
   if (*ptr == NULL)
     {
       if (htab->first == NULL)
 	return -1;
-      *ptr = (void *) ((hash_entry *) htab->first)->next;
+      curr = htab->first;
     }
   else
     {
       if (*ptr == htab->first)
 	return -1;
-      *ptr = (void *) ((hash_entry *) *ptr)->next;
+      curr = (hash_entry *) *ptr;
     }
+  curr = curr->next;
+  *ptr = (void *) curr;
 
-  *key = ((hash_entry *) *ptr)->key;
-  *keylen = ((hash_entry *) *ptr)->keylen;
-  *datap = &((hash_entry *) *ptr)->data;
+  *key = curr->key;
+  *keylen = curr->keylen;
+  *datap = &curr->data;
   return 0;
 }
