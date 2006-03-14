@@ -1,3 +1,9 @@
+2006-03-12  Bruno Haible  <bruno@clisp.org>
+
+	* javaexec.m4 (gt_JAVAEXEC): Make the result of the test available as
+	variable CONF_JAVA, for subsequent autoconf tests. Also log error
+	output in config.log.
+
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* javacomp.m4 (gt_JAVACOMP): Treat gcj-4.x like gcj-3.x.
