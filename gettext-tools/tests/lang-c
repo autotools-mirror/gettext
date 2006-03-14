@@ -48,7 +48,10 @@ EOF
 top_builddir=..
 
 tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
-${LIBTOOL} --quiet --mode=link ${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.c -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${LTLIBINTL} \
+# Put the -I flags before ${CFLAGS} ${CPPFLAGS}, to make sure that libintl.h
+# is found in the build directory, regardless of -I options present in
+# ${CFLAGS} or ${CPPFLAGS}.
+${LIBTOOL} --quiet --mode=link ${CC} -I.. -I$top_srcdir/lib ../lib/libgettextlib.la -I../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o prog prog.c ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"

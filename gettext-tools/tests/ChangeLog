@@ -1,5 +1,11 @@
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
+	* lang-c: Put the -I flags before ${CFLAGS} ${CPPFLAGS}.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
 	* format-python-1: Hide xgettext warnings.
 
 2006-03-11  Bruno Haible  <bruno@clisp.org>
