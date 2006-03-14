@@ -1,5 +1,5 @@
-# javacomp.m4 serial 6 (gettext-0.13)
-dnl Copyright (C) 2001-2003 Free Software Foundation, Inc.
+# javacomp.m4 serial 7 (gettext-0.15)
+dnl Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -32,14 +32,14 @@ changequote(,)dnl
     # Test for a good gcj version (>= 3.0).
     # Exclude some versions of gcj: gcj 3.0.4 compiles GetURL.java to invalid
     # bytecode, that crashes with an IllegalAccessError when executed by
-    # gij 3.0.4 or with a VerifyError when executed by Sun Java. Likewise for
-    # gcj 3.1.
-    # I also exclude gcj 3.2, 3.3 etc. because I have no idea when this bug
+    # gij 3.0.4 or with a VerifyError when executed by Sun Java 1.3.1. Likewise
+    # for gcj 3.1 ... 4.1.
+    # I also exclude gcj 4.2, 4.3 etc. because I have no idea when this bug
     # will be fixed. The bug is registered as java/7066, see
     # http://gcc.gnu.org/bugzilla/show_bug.cgi?id=7066
     # FIXME: Check new versions of gcj as they come out.
     if test -n "$HAVE_GCJ_IN_PATH" \
-       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^3\.[0123456789]/d' | grep '^[3-9]' >/dev/null \
+       && gcj --version 2>/dev/null | sed -e 's,^[^0-9]*,,' -e 1q | sed -e '/^[34]\.[0123456789]/d' | grep '^[3-9]' >/dev/null \
        && (
         # See if libgcj.jar is well installed.
         cat > conftest.java <<EOF
