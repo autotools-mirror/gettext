@@ -1,5 +1,13 @@
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
+	Make the gettext-4 test work on MacOS X.
+	* gettext-4-prg.c: Include xsetenv.h instead of setenv.h.
+	(main): Clear also the LC_ALL, LC_MESSAGES, LC_CTYPE, LANG environment
+	variables. Set LANGUAGE explicitly. Disable first test on MacOS X and
+	BeOS. Add a third test instead.
+
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge-compendium-5: New file.
 	* msgmerge-v.comp.po: New file, from Clytie Siddall.
 	* msgmerge-v.pot: New file, from KDE project.
