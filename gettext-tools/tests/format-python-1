@@ -97,6 +97,7 @@ cat <<\EOF > f-p-1.data
 "abc%(addr).*x"
 EOF
 
+tmpfiles="$tmpfiles f-p-1.err"
 : ${XGETTEXT=xgettext}
 n=0
 while read comment; do
@@ -106,7 +107,9 @@ while read comment; do
   cat <<EOF > f-p-1-$n.in
 gettext(${string});
 EOF
-  ${XGETTEXT} -L Python -o f-p-1-$n.po f-p-1-$n.in || exit 1
+  # Hide xgettext's "The translator cannot reorder the arguments." warnings.
+  ${XGETTEXT} -L Python -o f-p-1-$n.po f-p-1-$n.in 2> f-p-1.err \
+    || { cat f-p-1.err 1>&2; exit 1; }
   test -f f-p-1-$n.po || exit 1
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then

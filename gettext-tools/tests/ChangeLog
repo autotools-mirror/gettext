@@ -1,5 +1,9 @@
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
+	* format-python-1: Hide xgettext warnings.
+
+2006-03-11  Bruno Haible  <bruno@clisp.org>
+
 	Make the gettext-4 test work on MacOS X.
 	* gettext-4-prg.c: Include xsetenv.h instead of setenv.h.
 	(main): Clear also the LC_ALL, LC_MESSAGES, LC_CTYPE, LANG environment
