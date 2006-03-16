@@ -1858,7 +1858,9 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 		      sprintf (buffer, ":%ld", (long) pos->line_number);
 		    multiline_warning (xasprintf (_("%s%s: warning: "),
 						  pos->file_name, buffer),
-				       xasprintf (is_format[i] == yes_according_to_context ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n") : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
+				       xasprintf (is_format[i] == yes_according_to_context
+						  ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n")
+						  : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
 						  pretty_msgstr,
 						  format_language_pretty[i],
 						  invalid_reason));

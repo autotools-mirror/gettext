@@ -1,3 +1,7 @@
+2006-03-16  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (set_format_flags_from_context): Break long line.
+
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* message.c (fuzzy_search_goal_function): Use 'volatile double'.
