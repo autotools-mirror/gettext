@@ -981,6 +981,8 @@ split_keywordspec (const char *spec,
   int argnum1 = 0;
   int argnum2 = 0;
   int argnumc = 0;
+  bool argnum1_glib_context = false;
+  bool argnum2_glib_context = false;
   int argtotal = 0;
 
   /* Start parsing from the end.  */
@@ -988,10 +990,11 @@ split_keywordspec (const char *spec,
   while (p > spec)
     {
       if (isdigit ((unsigned char) p[-1])
-	  || ((p[-1] == 'c' || p[-1] == 't')
+	  || ((p[-1] == 'c' || p[-1] == 'g' || p[-1] == 't')
 	      && p - 1 > spec && isdigit ((unsigned char) p[-2])))
 	{
 	  bool contextp = (p[-1] == 'c');
+	  bool glibp = (p[-1] == 'g');
 	  bool totalp = (p[-1] == 't');
 
 	  do
@@ -1023,7 +1026,9 @@ split_keywordspec (const char *spec,
 		    /* At most two normal arguments can be given.  */
 		    break;
 		  argnum2 = argnum1;
+		  argnum2_glib_context = argnum1_glib_context;
 		  argnum1 = arg;
+		  argnum1_glib_context = glibp;
 		}
 
 	      p--;
@@ -1032,10 +1037,16 @@ split_keywordspec (const char *spec,
 		  if (argnum1 == 0 && argnum2 == 0)
 		    /* At least one non-context argument must be given.  */
 		    break;
+		  if (argnumc != 0
+		      && (argnum1_glib_context || argnum2_glib_context))
+		    /* Incompatible ways to specify the context.  */
+		    break;
 		  *endp = p;
 		  shapep->argnum1 = (argnum1 > 0 ? argnum1 : 1);
 		  shapep->argnum2 = argnum2;
 		  shapep->argnumc = argnumc;
+		  shapep->argnum1_glib_context = argnum1_glib_context;
+		  shapep->argnum2_glib_context = argnum2_glib_context;
 		  shapep->argtotal = argtotal;
 		  return;
 		}
@@ -1052,6 +1063,8 @@ split_keywordspec (const char *spec,
   shapep->argnum1 = 1;
   shapep->argnum2 = 0;
   shapep->argnumc = 0;
+  shapep->argnum1_glib_context = false;
+  shapep->argnum2_glib_context = false;
   shapep->argtotal = 0;
 }
 
@@ -1090,6 +1103,10 @@ insert_keyword_callshape (hash_table *table,
 	if (old_shapes->shapes[i].argnum1 == shape->argnum1
 	    && old_shapes->shapes[i].argnum2 == shape->argnum2
 	    && old_shapes->shapes[i].argnumc == shape->argnumc
+	    && old_shapes->shapes[i].argnum1_glib_context
+	       == shape->argnum1_glib_context
+	    && old_shapes->shapes[i].argnum2_glib_context
+	       == shape->argnum2_glib_context
 	    && old_shapes->shapes[i].argtotal == shape->argtotal)
 	  {
 	    found = true;
@@ -2288,6 +2305,10 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
 	  ap->alternative[i].argnumc = shapes->shapes[i].argnumc;
 	  ap->alternative[i].argnum1 = shapes->shapes[i].argnum1;
 	  ap->alternative[i].argnum2 = shapes->shapes[i].argnum2;
+	  ap->alternative[i].argnum1_glib_context =
+	    shapes->shapes[i].argnum1_glib_context;
+	  ap->alternative[i].argnum2_glib_context =
+	    shapes->shapes[i].argnum2_glib_context;
 	  ap->alternative[i].argtotal = shapes->shapes[i].argtotal;
 	  ap->alternative[i].msgctxt = NULL;
 	  ap->alternative[i].msgctxt_pos.file_name = NULL;
@@ -2329,6 +2350,8 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->argnumc = cp->argnumc;
       ccp->argnum1 = cp->argnum1;
       ccp->argnum2 = cp->argnum2;
+      ccp->argnum1_glib_context = cp->argnum1_glib_context;
+      ccp->argnum2_glib_context = cp->argnum2_glib_context;
       ccp->argtotal = cp->argtotal;
       ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
       ccp->msgctxt_pos = cp->msgctxt_pos;
@@ -2564,6 +2587,76 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	  /* best_cp indicates the best found complete call.
 	     Now call remember_a_message.  */
 	  message_ty *mp;
+
+	  /* Split strings in the GNOME glib syntax "msgctxt|msgid".  */
+	  if (best_cp->argnum1_glib_context || best_cp->argnum2_glib_context)
+	    /* split_keywordspec should not allow the context to be specified
+	       in two different ways.  */
+	    if (best_cp->msgctxt != NULL)
+	      abort ();
+	  if (best_cp->argnum1_glib_context)
+	    {
+	      const char *separator = strchr (best_cp->msgid, '|');
+
+	      if (separator == NULL)
+		{
+		  error_with_progname = false;
+		  error (0, 0,
+			 _("%s:%d: warning: missing context for keyword '%.*s'"),
+			 best_cp->msgid_pos.file_name, best_cp->msgid_pos.line_number,
+			 ap->keyword_len, ap->keyword);
+		  error_with_progname = true;
+		}
+	      else
+		{
+		  size_t ctxt_len = separator - best_cp->msgid;
+		  char *ctxt = (char *) xmalloc (ctxt_len + 1);
+
+		  memcpy (ctxt, best_cp->msgid, ctxt_len);
+		  ctxt[ctxt_len] = '\0';
+		  best_cp->msgctxt = ctxt;
+		  best_cp->msgid = xstrdup (separator + 1);
+		}
+	    }
+	  if (best_cp->msgid_plural != NULL && best_cp->argnum2_glib_context)
+	    {
+	      const char *separator = strchr (best_cp->msgid_plural, '|');
+
+	      if (separator == NULL)
+		{
+		  error_with_progname = false;
+		  error (0, 0,
+			 _("%s:%d: warning: missing context for plural argument of keyword '%.*s'"),
+			 best_cp->msgid_plural_pos.file_name,
+			 best_cp->msgid_plural_pos.line_number,
+			 ap->keyword_len, ap->keyword);
+		  error_with_progname = true;
+		}
+	      else
+		{
+		  size_t ctxt_len = separator - best_cp->msgid_plural;
+		  char *ctxt = (char *) xmalloc (ctxt_len + 1);
+
+		  memcpy (ctxt, best_cp->msgid_plural, ctxt_len);
+		  ctxt[ctxt_len] = '\0';
+		  if (best_cp->msgctxt == NULL)
+		    best_cp->msgctxt = ctxt;
+		  else
+		    {
+		      if (strcmp (ctxt, best_cp->msgctxt) != 0)
+			{
+			  error_with_progname = false;
+			  error (0, 0,
+				 _("%s:%d: context mismatch between singular and plural form"),
+				 best_cp->msgid_plural_pos.file_name,
+				 best_cp->msgid_plural_pos.line_number);
+			  error_with_progname = true;
+			}
+		      free (ctxt);
+		    }
+		  best_cp->msgid_plural = xstrdup (separator + 1);
+		}
+	    }
 
 	  mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
 				   best_cp->msgid_context,

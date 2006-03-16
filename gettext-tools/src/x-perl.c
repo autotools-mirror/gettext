@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2005 Free Software Foundation, Inc.
+   Copyright (C) 2002-2006 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -1505,6 +1505,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      shapes.shapes[0].argnum1 = 1;
 	      shapes.shapes[0].argnum2 = 0;
 	      shapes.shapes[0].argnumc = 0;
+	      shapes.shapes[0].argnum1_glib_context = false;
+	      shapes.shapes[0].argnum2_glib_context = false;
 	      shapes.shapes[0].argtotal = 0;
 
 	      /* Extract a possible string from the key.  Before proceeding

@@ -7,7 +7,9 @@
       msgid "original"
       msgstr "translation"
   - The xgettext program can be told through the --keyword flag which
-    function/macro argument has the role of a context.
+    function/macro argument has the role of a context.  It also supports
+    the GNOME glib convention to specify the context and original string
+    in the same string literal: "context|original".
   - The (non-public) include file gettext.h defines macros pgettext, dpgettext
     etc. that take a context argument.
   For more information, see the node "Contexts" in the manual.

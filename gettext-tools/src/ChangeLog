@@ -1,5 +1,20 @@
 2006-03-16  Bruno Haible  <bruno@clisp.org>
 
+	Handle GNOME glib context syntax.
+	* xgettext.h (struct callshape): Add fields argnum1_glib_context,
+	argnum2_glib_context.
+	(struct partial_call): Add fields argnum1_glib_context,
+	argnum2_glib_context.
+	* xgettext.c (split_keywordspec): Recognize suffix 'g' and set the
+	argnum1_glib_context, argnum2_glib_context fields.
+	(insert_keyword_callshape, arglist_parser_alloc, arglist_parser_clone):
+	Update.
+	(arglist_parser_done): When suffix 'g' was specified, split off the
+	context from the msgid and/or msgid_plural.
+	* x-perl.c (extract_variable): Update.
+
+2006-03-16  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (set_format_flags_from_context): Break long line.
 
 2006-03-11  Bruno Haible  <bruno@clisp.org>

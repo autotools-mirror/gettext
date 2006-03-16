@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -54,6 +54,8 @@ struct callshape
   int argnum1; /* argument number to use for msgid */
   int argnum2; /* argument number to use for msgid_plural */
   int argnumc; /* argument number to use for msgctxt */
+  bool argnum1_glib_context; /* argument argnum1 has the syntax "ctxt|msgid" */
+  bool argnum2_glib_context; /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal; /* total number of arguments */
 };
 
@@ -251,6 +253,8 @@ struct partial_call
   int argnumc;                  /* number of context argument, 0 when seen */
   int argnum1;                  /* number of singular argument, 0 when seen */
   int argnum2;                  /* number of plural argument, 0 when seen */
+  bool argnum1_glib_context;    /* argument argnum1 has the syntax "ctxt|msgid" */
+  bool argnum2_glib_context;    /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal;                 /* total number of arguments, 0 if unspecified */
   char *msgctxt;                /* context - owned string, or NULL */
   lex_pos_ty msgctxt_pos;

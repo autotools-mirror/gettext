@@ -159,6 +159,10 @@ with plural handling.  Also, if @var{keywordspec} is of the form
 @samp{@var{id}:@var{contextargnum}c,@var{argnum}} or
 @samp{@var{id}:@var{argnum},@var{contextargnum}c}, @code{xgettext} treats
 strings in the @var{contextargnum}th argument as a context specifier.
+And, as a special-purpose support for GNOME, if @var{keywordspec} is of the
+form @samp{@var{id}:@var{argnum}g}, @code{xgettext} recognizes the
+@var{argnum}th argument as a string with context, using the GNOME @code{glib}
+syntax @samp{"msgctxt|msgid"}.
 @*
 Furthermore, if @var{keywordspec} is of the form
 @samp{@var{id}:@dots{},@var{totalnumargs}t}, @code{xgettext} recognizes this
