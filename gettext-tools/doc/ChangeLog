@@ -1,5 +1,11 @@
 2006-03-16  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (PO Files): Clarify the terms "automatic comments" and
+	"extracted comments".
+	* msggrep.texi: Document the -X/--extracted-comment option.
+
+2006-03-16  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.texi (--keyword): Document suffix 'g'.
 
 2006-02-26  Bruno Haible  <bruno@clisp.org>

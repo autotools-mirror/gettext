@@ -30,6 +30,9 @@
 
 * msggrep has a new option -v/--invert-match that acts like grep's -v option.
 
+* msggrep has a new option -X/--extracted-comment that allows to search for a
+  pattern in the extracted comments.
+
 * msgmerge is much faster now, when using a large compendium.
 
 * Programming languages support:

@@ -81,7 +81,7 @@ struct grep_task {
   bool case_insensitive;
   void *compiled_patterns;
 };
-static struct grep_task grep_task[4];
+static struct grep_task grep_task[5];
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -92,6 +92,7 @@ static const struct option long_options[] =
   { "domain", required_argument, NULL, 'M' },
   { "escape", no_argument, NULL, CHAR_MAX + 1 },
   { "extended-regexp", no_argument, NULL, 'E' },
+  { "extracted-comment", no_argument, NULL, 'X' },
   { "file", required_argument, NULL, 'f' },
   { "fixed-strings", no_argument, NULL, 'F' },
   { "force-po", no_argument, &force_po, 1 },
@@ -175,7 +176,7 @@ main (int argc, char **argv)
   location_files = string_list_alloc ();
   domain_names = string_list_alloc ();
 
-  for (i = 0; i < 4; i++)
+  for (i = 0; i < 5; i++)
     {
       struct grep_task *gt = &grep_task[i];
 
@@ -186,7 +187,7 @@ main (int argc, char **argv)
       gt->case_insensitive = false;
     }
 
-  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:N:o:pPTvVw:",
+  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:N:o:pPTvVw:X",
 			     long_options, NULL))
 	 != EOF)
     switch (opt)
@@ -342,6 +343,10 @@ error while reading \"%s\""), optarg);
 	}
 	break;
 
+      case 'X':
+	grep_pass = 4;
+	break;
+
       case CHAR_MAX + 1:
 	message_print_style_escape (true);
 	break;
@@ -418,7 +423,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Compile the patterns.  */
-  for (grep_pass = 0; grep_pass < 4; grep_pass++)
+  for (grep_pass = 0; grep_pass < 5; grep_pass++)
     {
       struct grep_task *gt = &grep_task[grep_pass];
 
@@ -442,7 +447,8 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   if (grep_task[0].pattern_count > 0
       || grep_task[1].pattern_count > 0
       || grep_task[2].pattern_count > 0
-      || grep_task[3].pattern_count > 0)
+      || grep_task[3].pattern_count > 0
+      || grep_task[4].pattern_count > 0)
     {
       /* Warn if the current locale is not suitable for this PO file.  */
       compare_po_locale_charsets (result);
@@ -468,7 +474,7 @@ static void
 no_pass (int opt)
 {
   error (EXIT_SUCCESS, 0,
-	 _("option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' has been specified"),
+	 _("option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been specified"),
 	 opt);
   usage (EXIT_FAILURE);
 }
@@ -518,18 +524,20 @@ or if it is -.\n"));
 Message selection:\n\
   [-N SOURCEFILE]... [-M DOMAINNAME]...\n\
   [-J MSGCTXT-PATTERN] [-K MSGID-PATTERN] [-T MSGSTR-PATTERN]\n\
-  [-C COMMENT-PATTERN]\n\
+  [-C COMMENT-PATTERN] [-X EXTRACTED-COMMENT-PATTERN]\n\
 A message is selected if it comes from one of the specified source files,\n\
 or if it comes from one of the specified domains,\n\
 or if -J is given and its context (msgctxt) matches MSGCTXT-PATTERN,\n\
 or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n\
 or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n\
-or if -C is given and the translator's comment matches COMMENT-PATTERN.\n\
+or if -C is given and the translator's comment matches COMMENT-PATTERN,\n\
+or if -X is given and the extracted comment matches EXTRACTED-COMMENT-PATTERN.\n\
 \n\
 When more than one selection criterion is specified, the set of selected\n\
 messages is the union of the selected messages of each criterion.\n\
 \n\
-MSGCTXT-PATTERN or MSGID-PATTERN or MSGSTR-PATTERN or COMMENT-PATTERN syntax:\n\
+MSGCTXT-PATTERN or MSGID-PATTERN or MSGSTR-PATTERN or COMMENT-PATTERN or\n\
+EXTRACTED-COMMENT-PATTERN syntax:\n\
   [-E | -F] [-e PATTERN | -f FILE]...\n\
 PATTERNs are basic regular expressions by default, or extended regular\n\
 expressions if -E is given, or fixed strings if -F is given.\n\
@@ -540,6 +548,7 @@ expressions if -E is given, or fixed strings if -F is given.\n\
   -K, --msgid                 start of patterns for the msgid\n\
   -T, --msgstr                start of patterns for the msgstr\n\
   -C, --comment               start of patterns for the translator's comment\n\
+  -X, --extracted-comment     start of patterns for the extracted comment\n\
   -E, --extended-regexp       PATTERN is an extended regular expression\n\
   -F, --fixed-strings         PATTERN is a set of newline-separated strings\n\
   -e, --regexp=PATTERN        use PATTERN as a regular expression\n\
@@ -728,6 +737,41 @@ is_message_selected_no_invert (const message_ty *mp)
 	abort ();
 
       selected = is_string_selected (3, total_comment, length);
+
+      freesa (total_comment);
+
+      if (selected)
+	return true;
+    }
+
+  /* Test extracted comments using the --extracted-comment arguments.  */
+  if (grep_task[4].pattern_count > 0
+      && mp->comment_dot != NULL && mp->comment_dot->nitems > 0)
+    {
+      size_t length;
+      char *total_comment;
+      char *q;
+      size_t j;
+      bool selected;
+
+      length = 0;
+      for (j = 0; j < mp->comment_dot->nitems; j++)
+	length += strlen (mp->comment_dot->item[j]) + 1;
+      total_comment = (char *) xallocsa (length);
+
+      q = total_comment;
+      for (j = 0; j < mp->comment_dot->nitems; j++)
+	{
+	  size_t l = strlen (mp->comment_dot->item[j]);
+
+	  memcpy (q, mp->comment_dot->item[j], l);
+	  q += l;
+	  *q++ = '\n';
+	}
+      if (q != total_comment + length)
+	abort ();
+
+      selected = is_string_selected (4, total_comment, length);
 
       freesa (total_comment);
 

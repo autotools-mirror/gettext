@@ -1,5 +1,15 @@
 2006-03-16  Bruno Haible  <bruno@clisp.org>
 
+	* msggrep.c (grep_task): Increment size.
+	(long_options): Add --extracted-comment option.
+	(main): Handle --extracted-comment option.
+	(no_pass, usage): Update.
+	(is_message_selected_no_invert): Implement matching on extracted
+	comments.
+	Suggested by Behdad Esfahbod <behdad@cs.toronto.edu>.
+
+2006-03-16  Bruno Haible  <bruno@clisp.org>
+
 	Handle GNOME glib context syntax.
 	* xgettext.h (struct callshape): Add fields argnum1_glib_context,
 	argnum2_glib_context.
@@ -12,6 +22,7 @@
 	(arglist_parser_done): When suffix 'g' was specified, split off the
 	context from the msgid and/or msgid_plural.
 	* x-perl.c (extract_variable): Update.
+	Suggested by Danilo Šegan <danilo@gnome.org>.
 
 2006-03-16  Bruno Haible  <bruno@clisp.org>
 
@@ -67,6 +78,7 @@
 	(msgl-fsearch.obj): New rule.
 	* Makefile.vms (msgmerge_OBJECTS): Add msgl-fsearch.obj.
 	(msgl-fsearch.obj): New rule.
+	Reported by Clytie Siddall <clytie@riverland.net.au>.
 
 2006-03-09  Bruno Haible  <bruno@clisp.org>
 

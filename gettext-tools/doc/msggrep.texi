@@ -110,6 +110,12 @@ Start of patterns for the msgstr.
 @opindex --comment@r{, @code{msggrep} option}
 Start of patterns for the translator's comment.
 
+@item -X
+@itemx --extracted-comment
+@opindex -X@r{, @code{msggrep} option}
+@opindex --extracted-comment@r{, @code{msggrep} option}
+Start of patterns for the extracted comments.
+
 @item -E
 @itemx --extended-regexp
 @opindex -E@r{, @code{msggrep} option}

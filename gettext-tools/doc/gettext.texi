@@ -1103,7 +1103,7 @@ structure:
 @example
 @var{white-space}
 #  @var{translator-comments}
-#. @var{automatic-comments}
+#. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
 msgid @var{untranslated-string}
@@ -1122,14 +1122,24 @@ msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 @end example
 
+@cindex comments, translator
+@cindex comments, automatic
+@cindex comments, extracted
 Entries begin with some optional white space.  Usually, when generated
 through GNU @code{gettext} tools, there is exactly one blank line
 between entries.  Then comments follow, on lines all starting with the
 character @code{#}.  There are two kinds of comments: those which have
-some white space immediately following the @code{#}, which comments are
-created and maintained exclusively by the translator, and those which
-have some non-white character just after the @code{#}, which comments
-are created and maintained automatically by GNU @code{gettext} tools.
+some white space immediately following the @code{#} - the @var{translator
+comments} -, which comments are created and maintained exclusively by the
+translator, and those which have some non-white character just after the
+@code{#} - the @var{automatic comments} -, which comments are created and
+maintained automatically by GNU @code{gettext} tools.  Comment lines
+starting with @code{#.} contain comments given by the programmer, directed
+at the translator; these comments are called @var{extracted comments}
+because the @code{xgettext} program extracts them from the program's
+source code.  Comment lines starting with @code{#:} contain references to
+the program's source code.  Comment lines starting with @code{#,} contain
+flags; more about these below.
 All comments, of either kind, are optional.
 
 @kwindex msgid
@@ -1318,7 +1328,7 @@ this:
 @example
 @var{white-space}
 #  @var{translator-comments}
-#. @var{automatic-comments}
+#. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
 msgctxt @var{context}
@@ -1340,7 +1350,7 @@ plural forms.
 @example
 @var{white-space}
 #  @var{translator-comments}
-#. @var{automatic-comments}
+#. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
 msgid @var{untranslated-string-singular}
