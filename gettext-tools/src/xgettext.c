@@ -2575,10 +2575,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
       if (ambiguous)
 	{
 	  error_with_progname = false;
-	  error (0, 0,
-		 _("%s:%d: ambiguous argument specification for keyword '%.*s'"),
-		 best_cp->msgid_pos.file_name, best_cp->msgid_pos.line_number,
-		 ap->keyword_len, ap->keyword);
+	  error_at_line (0, 0,
+			 best_cp->msgid_pos.file_name,
+			 best_cp->msgid_pos.line_number,
+			 _("ambiguous argument specification for keyword '%.*s'"),
+			 ap->keyword_len, ap->keyword);
 	  error_with_progname = true;
 	}
 
@@ -2601,10 +2602,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	      if (separator == NULL)
 		{
 		  error_with_progname = false;
-		  error (0, 0,
-			 _("%s:%d: warning: missing context for keyword '%.*s'"),
-			 best_cp->msgid_pos.file_name, best_cp->msgid_pos.line_number,
-			 ap->keyword_len, ap->keyword);
+		  error_at_line (0, 0,
+				 best_cp->msgid_pos.file_name,
+				 best_cp->msgid_pos.line_number,
+				 _("warning: missing context for keyword '%.*s'"),
+				 ap->keyword_len, ap->keyword);
 		  error_with_progname = true;
 		}
 	      else
@@ -2625,11 +2627,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	      if (separator == NULL)
 		{
 		  error_with_progname = false;
-		  error (0, 0,
-			 _("%s:%d: warning: missing context for plural argument of keyword '%.*s'"),
-			 best_cp->msgid_plural_pos.file_name,
-			 best_cp->msgid_plural_pos.line_number,
-			 ap->keyword_len, ap->keyword);
+		  error_at_line (0, 0,
+				 best_cp->msgid_plural_pos.file_name,
+				 best_cp->msgid_plural_pos.line_number,
+				 _("warning: missing context for plural argument of keyword '%.*s'"),
+				 ap->keyword_len, ap->keyword);
 		  error_with_progname = true;
 		}
 	      else
@@ -2646,10 +2648,10 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 		      if (strcmp (ctxt, best_cp->msgctxt) != 0)
 			{
 			  error_with_progname = false;
-			  error (0, 0,
-				 _("%s:%d: context mismatch between singular and plural form"),
-				 best_cp->msgid_plural_pos.file_name,
-				 best_cp->msgid_plural_pos.line_number);
+			  error_at_line (0, 0,
+					 best_cp->msgid_plural_pos.file_name,
+					 best_cp->msgid_plural_pos.line_number,
+					 _("%s:%d: context mismatch between singular and plural form"));
 			  error_with_progname = true;
 			}
 		      free (ctxt);
