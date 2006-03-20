@@ -170,6 +170,13 @@ argument specification only if the number of actual arguments is equal to
 @var{totalnumargs}.  This is useful for disambiguating overloaded function
 calls in C++.
 @*
+Finally, if @var{keywordspec} is of the form
+@samp{@var{id}:@var{argnum}...,"@var{xcomment}"}, @code{xgettext}, when
+extracting a message from the specified argument strings, adds an extracted
+comment @var{xcomment} to the message.  Note that when used through a normal
+shell command line, the double-quotes around the @var{xcomment} need to be
+escaped.
+@*
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},

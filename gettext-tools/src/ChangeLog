@@ -1,5 +1,17 @@
 2006-03-19  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.h (struct callshape): New field 'xcomments'.
+	(struct partial_call): New field 'xcomments'.
+	* xgettext.c (split_keywordspec): Accept the ID:ARGNUM...,"XCOMMENT"
+	syntax.
+	(insert_keyword_callshape): Store the xcomments from the new shape.
+	(arglist_parser_alloc, arglist_parser_clone): Update.
+	(arglist_parser_done): After calling remember_a_message, attach the
+	specified extracted comments.
+	* x-perl.c (extract_variable): Update.
+
+2006-03-19  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (arglist_parser_done): Use error_at_line instead of error.
 
 2006-03-16  Bruno Haible  <bruno@clisp.org>

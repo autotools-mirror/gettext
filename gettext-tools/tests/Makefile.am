@@ -61,7 +61,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgunfmt-tcl-1 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 msguniq-5 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
-	xgettext-7 xgettext-8 \
+	xgettext-7 xgettext-8 xgettext-9 \
 	xgettext-awk-1 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 xgettext-c-10 \

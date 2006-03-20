@@ -1508,6 +1508,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      shapes.shapes[0].argnum1_glib_context = false;
 	      shapes.shapes[0].argnum2_glib_context = false;
 	      shapes.shapes[0].argtotal = 0;
+	      string_list_init (&shapes.shapes[0].xcomments);
 
 	      /* Extract a possible string from the key.  Before proceeding
 		 we check whether the open curly is followed by a symbol and

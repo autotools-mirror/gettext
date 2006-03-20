@@ -1,3 +1,7 @@
+2006-03-19  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.texi (--keyword): Document the extracted comments syntax.
+
 2006-03-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Clarify the terms "automatic comments" and

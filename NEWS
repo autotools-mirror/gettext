@@ -33,6 +33,9 @@
 * msggrep has a new option -X/--extracted-comment that allows to search for a
   pattern in the extracted comments.
 
+* xgettext's --keyword now allows to specify an extracted comment on the
+  command line, rather than in program's source code.
+
 * msgmerge is much faster now, when using a large compendium.
 
 * Programming languages support:

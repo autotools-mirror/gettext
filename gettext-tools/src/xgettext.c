@@ -984,6 +984,9 @@ split_keywordspec (const char *spec,
   bool argnum1_glib_context = false;
   bool argnum2_glib_context = false;
   int argtotal = 0;
+  string_list_ty xcomments;
+
+  string_list_init (&xcomments);
 
   /* Start parsing from the end.  */
   p = spec + strlen (spec);
@@ -1030,32 +1033,73 @@ split_keywordspec (const char *spec,
 		  argnum1 = arg;
 		  argnum1_glib_context = glibp;
 		}
+	    }
+	  else
+	    break;
+	}
+      else if (p[-1] == '"')
+	{
+	  const char *xcomment_end;
 
+	  p--;
+	  xcomment_end = p;
+
+	  while (p > spec && p[-1] != '"')
+	    p--;
+
+	  if (p > spec /* && p[-1] == '"' */)
+	    {
+	      const char *xcomment_start;
+
+	      xcomment_start = p;
 	      p--;
-	      if (*p == ':')
+	      if (p > spec && (p[-1] == ',' || p[-1] == ':'))
 		{
-		  if (argnum1 == 0 && argnum2 == 0)
-		    /* At least one non-context argument must be given.  */
-		    break;
-		  if (argnumc != 0
-		      && (argnum1_glib_context || argnum2_glib_context))
-		    /* Incompatible ways to specify the context.  */
-		    break;
-		  *endp = p;
-		  shapep->argnum1 = (argnum1 > 0 ? argnum1 : 1);
-		  shapep->argnum2 = argnum2;
-		  shapep->argnumc = argnumc;
-		  shapep->argnum1_glib_context = argnum1_glib_context;
-		  shapep->argnum2_glib_context = argnum2_glib_context;
-		  shapep->argtotal = argtotal;
-		  return;
+		  size_t xcomment_len = xcomment_end - xcomment_start;
+		  char *xcomment = (char *) xmalloc (xcomment_len + 1);
+
+		  memcpy (xcomment, xcomment_start, xcomment_len);
+		  xcomment[xcomment_len] = '\0';
+		  string_list_append (&xcomments, xcomment);
 		}
+	      else
+		break;
 	    }
 	  else
 	    break;
 	}
       else
 	break;
+
+      /* Here an element of the comma-separated list has been parsed.  */
+      if (!(p > spec && (p[-1] == ',' || p[-1] == ':')))
+	abort ();
+      p--;
+      if (*p == ':')
+	{
+	  size_t i;
+
+	  if (argnum1 == 0 && argnum2 == 0)
+	    /* At least one non-context argument must be given.  */
+	    break;
+	  if (argnumc != 0
+	      && (argnum1_glib_context || argnum2_glib_context))
+	    /* Incompatible ways to specify the context.  */
+	    break;
+	  *endp = p;
+	  shapep->argnum1 = (argnum1 > 0 ? argnum1 : 1);
+	  shapep->argnum2 = argnum2;
+	  shapep->argnumc = argnumc;
+	  shapep->argnum1_glib_context = argnum1_glib_context;
+	  shapep->argnum2_glib_context = argnum2_glib_context;
+	  shapep->argtotal = argtotal;
+	  /* Reverse the order of the xcomments.  */
+	  string_list_init (&shapep->xcomments);
+	  for (i = xcomments.nitems; i > 0; )
+	    string_list_append (&shapep->xcomments, xcomments.item[--i]);
+	  string_list_destroy (&xcomments);
+	  return;
+	}
     }
 
   /* Couldn't parse the desired syntax.  */
@@ -1066,6 +1110,8 @@ split_keywordspec (const char *spec,
   shapep->argnum1_glib_context = false;
   shapep->argnum2_glib_context = false;
   shapep->argtotal = 0;
+  string_list_init (&shapep->xcomments);
+  string_list_destroy (&xcomments);
 }
 
 
@@ -1109,6 +1155,7 @@ insert_keyword_callshape (hash_table *table,
 	       == shape->argnum2_glib_context
 	    && old_shapes->shapes[i].argtotal == shape->argtotal)
 	  {
+	    old_shapes->shapes[i].xcomments = shape->xcomments;
 	    found = true;
 	    break;
 	  }
@@ -2310,6 +2357,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
 	  ap->alternative[i].argnum2_glib_context =
 	    shapes->shapes[i].argnum2_glib_context;
 	  ap->alternative[i].argtotal = shapes->shapes[i].argtotal;
+	  ap->alternative[i].xcomments = shapes->shapes[i].xcomments;
 	  ap->alternative[i].msgctxt = NULL;
 	  ap->alternative[i].msgctxt_pos.file_name = NULL;
 	  ap->alternative[i].msgctxt_pos.line_number = (size_t)(-1);
@@ -2353,6 +2401,7 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->argnum1_glib_context = cp->argnum1_glib_context;
       ccp->argnum2_glib_context = cp->argnum2_glib_context;
       ccp->argtotal = cp->argtotal;
+      ccp->xcomments = cp->xcomments;
       ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
       ccp->msgctxt_pos = cp->msgctxt_pos;
       ccp->msgid = (cp->msgid != NULL ? xstrdup (cp->msgid) : NULL);
@@ -2669,6 +2718,32 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 				       best_cp->msgid_plural_context,
 				       &best_cp->msgid_plural_pos,
 				       NULL);
+	  if (best_cp->xcomments.nitems > 0)
+	    {
+	      /* Add best_cp->xcomments to mp->comment_dot, unless already
+		 present.  */
+	      size_t i;
+
+	      for (i = 0; i < best_cp->xcomments.nitems; i++)
+		{
+		  const char *xcomment = best_cp->xcomments.item[i];
+		  bool found = false;
+
+		  if (mp->comment_dot != NULL)
+		    {
+		      size_t j;
+
+		      for (j = 0; j < mp->comment_dot->nitems; j++)
+			if (strcmp (xcomment, mp->comment_dot->item[j]) == 0)
+			  {
+			    found = true;
+			    break;
+			  }
+		    }
+		  if (!found)
+		    message_comment_dot_append (mp, xcomment);
+		}
+	    }
 	}
     }
   else

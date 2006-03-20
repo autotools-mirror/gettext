@@ -57,6 +57,7 @@ struct callshape
   bool argnum1_glib_context; /* argument argnum1 has the syntax "ctxt|msgid" */
   bool argnum2_glib_context; /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal; /* total number of arguments */
+  string_list_ty xcomments; /* auto-extracted comments */
 };
 
 /* Split keyword spec into keyword, argnum1, argnum2, argnumc.  */
@@ -256,6 +257,7 @@ struct partial_call
   bool argnum1_glib_context;    /* argument argnum1 has the syntax "ctxt|msgid" */
   bool argnum2_glib_context;    /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal;                 /* total number of arguments, 0 if unspecified */
+  string_list_ty xcomments;     /* auto-extracted comments */
   char *msgctxt;                /* context - owned string, or NULL */
   lex_pos_ty msgctxt_pos;
   char *msgid;                  /* msgid - owned string, or NULL */
