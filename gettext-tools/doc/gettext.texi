@@ -8010,8 +8010,8 @@ yes
 
 The following examples are available in the @file{examples} directory:
 @code{hello-c}, @code{hello-c-gnome}, @code{hello-c++}, @code{hello-c++-qt}, 
-@code{hello-c++-kde}, @code{hello-c++-gnome}, @code{hello-objc}, 
-@code{hello-objc-gnustep}, @code{hello-objc-gnome}.
+@code{hello-c++-kde}, @code{hello-c++-gnome}, @code{hello-c++-wxwidgets},
+@code{hello-objc}, @code{hello-objc-gnustep}, @code{hello-objc-gnome}.
 
 @node sh, bash, C, List of Programming Languages
 @subsection sh - Shell Script

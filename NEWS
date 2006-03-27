@@ -57,6 +57,10 @@
     Binary compatibility is guaranteed, however.
 
 * Portability to mingw.
+
+* Documentation:
+  A complete example showing the use of GNU gettext with the wxWidgets GUI
+  toolkit has been added.
 
 Version 0.14.5 - May 2005
 

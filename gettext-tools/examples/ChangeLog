@@ -1,3 +1,15 @@
+2006-03-25  Bruno Haible  <bruno@clisp.org>
+
+	New example for wxWidgets.
+	* hello-c++-wxwidgets: New subdirectory.
+	* README: Mention it.
+	* Makefile.am (EXAMPLESFILES): Add the files in hello-c++-wxwidgets.
+	* po/Makefile.am (POTFILES): Add hello-c++-wxwidgets source.
+	(SMALLPOTS): Add hello-c++-wxwidgets.pot.
+	(hello-c++-wxwidgets.pot): New rule.
+	(SMALLPOFILES_FOR_lang): Add hello-c++-wxwidgets elements.
+	(../hello-c++-wxwidgets/po/$(LL).po): New rule.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c/po/Makevars (USE_MSGCTXT): New macro.

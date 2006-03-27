@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2005 Free Software Foundation, Inc.
+## Copyright (C) 2001-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -255,6 +255,38 @@ EXAMPLESFILES = \
   hello-c++-gnome/po/vi.po \
   hello-c++-gnome/po/zh_CN.po \
   hello-c++-gnome/po/zh_TW.po \
+  \
+  hello-c++-wxwidgets/INSTALL \
+  hello-c++-wxwidgets/autogen.sh \
+  hello-c++-wxwidgets/autoclean.sh \
+  hello-c++-wxwidgets/hello.cc \
+  hello-c++-wxwidgets/Makefile.am \
+  hello-c++-wxwidgets/configure.ac \
+  hello-c++-wxwidgets/m4/Makefile.am \
+  hello-c++-wxwidgets/m4/wxwidgets.m4 \
+  hello-c++-wxwidgets/po/Makefile.am \
+  hello-c++-wxwidgets/po/LINGUAS \
+  hello-c++-wxwidgets/po/af.po \
+  hello-c++-wxwidgets/po/ca.po \
+  hello-c++-wxwidgets/po/de.po \
+  hello-c++-wxwidgets/po/el.po \
+  hello-c++-wxwidgets/po/es.po \
+  hello-c++-wxwidgets/po/fr.po \
+  hello-c++-wxwidgets/po/ga.po \
+  hello-c++-wxwidgets/po/it.po \
+  hello-c++-wxwidgets/po/ja.po \
+  hello-c++-wxwidgets/po/nl.po \
+  hello-c++-wxwidgets/po/pl.po \
+  hello-c++-wxwidgets/po/ro.po \
+  hello-c++-wxwidgets/po/ru.po \
+  hello-c++-wxwidgets/po/sk.po \
+  hello-c++-wxwidgets/po/sr.po \
+  hello-c++-wxwidgets/po/sv.po \
+  hello-c++-wxwidgets/po/tr.po \
+  hello-c++-wxwidgets/po/uk.po \
+  hello-c++-wxwidgets/po/vi.po \
+  hello-c++-wxwidgets/po/zh_CN.po \
+  hello-c++-wxwidgets/po/zh_TW.po \
   \
   hello-objc/INSTALL \
   hello-objc/autogen.sh \

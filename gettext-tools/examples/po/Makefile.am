@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ POTFILES = \
   examples/hello-c++-kde/hellowindow.h \
   examples/hello-c++-kde/hellowindow.cc \
   examples/hello-c++-gnome/hello.cc \
+  examples/hello-c++-wxwidgets/hello.cc \
   examples/hello-objc/hello.m \
   examples/hello-objc-gnustep/main.m \
   examples/hello-objc-gnustep/AppController.h \
@@ -64,6 +65,7 @@ SMALLPOTS = \
   hello-c++-qt.pot \
   hello-c++-kde.pot \
   hello-c++-gnome.pot \
+  hello-c++-wxwidgets.pot \
   hello-objc.pot \
   hello-objc-gnustep.pot \
   hello-objc-gnome.pot \
@@ -221,6 +223,9 @@ hello-c++-kde.pot : $(POTFILES_DEPS)
 hello-c++-gnome.pot : $(POTFILES_DEPS)
 	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome
 
+hello-c++-wxwidgets.pot : $(POTFILES_DEPS)
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-wxwidgets
+
 hello-objc.pot : $(POTFILES_DEPS)
 	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc
 
@@ -369,6 +374,7 @@ SMALLPOFILES_FOR_lang = \
   ../hello-c++-qt/po/$$lang.po \
   ../hello-c++-kde/po/$$lang.po \
   ../hello-c++-gnome/po/$$lang.po \
+  ../hello-c++-wxwidgets/po/$$lang.po \
   ../hello-objc/po/$$lang.po \
   ../hello-objc-gnustep/po/$$lang.po \
   ../hello-objc-gnome/po/$$lang.po \
@@ -408,6 +414,9 @@ SMALLPOFILES_FOR_lang = \
 
 ../hello-c++-gnome/po/$(LL).po: hello-c++-gnome.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-c++-gnome $(LL)
+
+../hello-c++-wxwidgets/po/$(LL).po: hello-c++-wxwidgets.pot $(LL).po
+	$(SHELL) mmsmallpo.sh hello-c++-wxwidgets $(LL)
 
 ../hello-objc/po/$(LL).po: hello-objc.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-objc $(LL)
