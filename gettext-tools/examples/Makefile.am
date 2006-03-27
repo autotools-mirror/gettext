@@ -707,6 +707,7 @@ EXAMPLESFILES = \
   hello-csharp/po/zh_TW.po \
   \
   hello-csharp-forms/INSTALL \
+  hello-csharp-forms/README \
   hello-csharp-forms/BUGS \
   hello-csharp-forms/autogen.sh \
   hello-csharp-forms/autoclean.sh \
