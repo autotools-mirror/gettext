@@ -1,3 +1,7 @@
+2006-03-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Java): Recommend a simpler idiom for Java 1.5.
+
 2006-03-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (C): Also mention the hello-c++-wxwidgets example.
