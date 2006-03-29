@@ -1,0 +1,48 @@
+#! /bin/sh
+
+# Test recode-sr-latin on some input in EUC-JP encoding.
+# (Apart from UTF-8 and GB18030, EUC-JP is the only common encoding that is
+# a superset of both ISO-8859-5 and ISO-8859-2.)
+
+tmpfiles=""
+trap 'rm -fr $tmpfiles' 1 2 3 15
+
+# Test whether a specific EUC-JP locale is installed.
+: ${LOCALE_JA_EUCJP=ja_JP.EUC-JP}
+if test $LOCALE_JA_EUCJP != none; then
+  LC_ALL=$LOCALE_JA_EUCJP ./testlocale 2>/dev/null
+  case $? in
+    0) ;;
+    77) LOCALE_JA_EUCJP=none;;
+    *) exit 1;;
+  esac
+fi
+if test $LOCALE_JA_EUCJP = none; then
+  rm -fr $tmpfiles; exit 77
+fi
+
+tmpfiles="$tmpfiles rec-srl-2.in"
+cat <<\EOF > rec-srl-2.in
+§ª§ã§á§â§Ñ§Ó§ß§Ú §Ñ§â§Ô§å§Ş§Ö§ß§ä§Ú §ã§å
+§ß§Ö§ø§Ö§Õ§ß§à§Ù§ß§Ñ§é§Ñ§ß §Ñ§â§Ô§å§Ş§Ö§ß§ä
+EOF
+
+tmpfiles="$tmpfiles rec-srl-2.out"
+: ${RECODE=recode}
+LC_ALL=$LOCALE_JA_EUCJP \
+${RECODE}-sr-latin < rec-srl-2.in > rec-srl-2.out \
+  || { rm -fr $tmpfiles; exit 1; }
+
+tmpfiles="$tmpfiles rec-srl-2.ok"
+cat <<\EOF > rec-srl-2.ok
+Ispravni argumenti su
+nejednozna«­an argument
+EOF
+
+: ${DIFF=diff}
+${DIFF} rec-srl-2.ok rec-srl-2.out
+result=$?
+
+rm -fr $tmpfiles
+
+exit $result
