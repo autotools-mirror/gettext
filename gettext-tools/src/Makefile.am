@@ -26,7 +26,8 @@ RM = rm -f
 
 bin_PROGRAMS = \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq
+msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq \
+recode-sr-latin
 
 noinst_PROGRAMS = hostname urlget
 
@@ -49,7 +50,7 @@ read-csharp.h write-csharp.h \
 read-resources.h write-resources.h \
 read-tcl.h write-tcl.h \
 write-qt.h \
-po-time.h plural-table.h lang-table.h format.h \
+po-time.h plural-table.h lang-table.h format.h filters.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
 x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
@@ -191,6 +192,7 @@ msgfilter_SOURCES = msgfilter.c
 else
 msgfilter_SOURCES = ../mingw/c++msgfilter.cc
 endif
+msgfilter_SOURCES += filter-sr-latin.c
 if !MINGW
 msggrep_SOURCES = msggrep.c
 else
@@ -203,6 +205,7 @@ msguniq_SOURCES = msguniq.c
 else
 msguniq_SOURCES = ../mingw/c++msguniq.cc
 endif
+recode_sr_latin_SOURCES = recode-sr-latin.c filter-sr-latin.c
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 
@@ -262,6 +265,7 @@ msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 libgettextsrc.la @INTL_MACOSX_LIBS@
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
+recode_sr_latin_LDADD = ../lib/libgettextlib.la @INTL_MACOSX_LIBS@
 
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
@@ -279,6 +283,7 @@ msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
+recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 if RELOCATABLE_VIA_LD
@@ -297,6 +302,7 @@ msgfilter_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msggrep_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msginit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
 urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
 endif

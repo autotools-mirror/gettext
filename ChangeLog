@@ -1,3 +1,7 @@
+2006-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Mention bin/recode* programs.
+
 2005-12-29  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/install-reloc: If hard linking is not possible, use a

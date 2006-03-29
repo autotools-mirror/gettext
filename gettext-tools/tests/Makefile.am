@@ -38,6 +38,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgen-1 msgen-2 msgen-3 \
 	msgexec-1 msgexec-2 msgexec-3 msgexec-4 \
 	msgfilter-1 msgfilter-2 msgfilter-3 msgfilter-4 \
+	msgfilter-sr-latin-1 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
 	msgfmt-15 \
@@ -60,6 +61,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgunfmt-properties-1 \
 	msgunfmt-tcl-1 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 msguniq-5 \
+	recode-sr-latin-1 recode-sr-latin-2 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 \
 	xgettext-awk-1 \
@@ -150,6 +152,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    MSGMERGE="$(CHECKER) msgmerge" \
 		    MSGUNFMT="$(CHECKER) msgunfmt" \
 		    MSGUNIQ="$(CHECKER) msguniq" \
+		    RECODE="$(CHECKER) recode" \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
 		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \

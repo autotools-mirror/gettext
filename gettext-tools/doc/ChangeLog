@@ -1,3 +1,7 @@
+2006-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.texi: Explain built-in filters and recode-sr-latin.
+
 2006-03-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Java): Recommend a simpler idiom for Java 1.5.

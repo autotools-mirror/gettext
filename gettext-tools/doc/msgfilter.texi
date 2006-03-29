@@ -47,10 +47,12 @@ or if it is @samp{-}.
 
 The @var{filter} can be any program that reads a translation from standard
 input and writes a modified translation to standard output.  A frequently
-used filter is @samp{sed}.
+used filter is @samp{sed}.  A few particular built-in filters are also
+recognized.
 
 @cindex @code{msgfilter} filter and catalog encoding
-Note: It is your responsibility to ensure that the @var{filter} can cope
+Note: If the filter is not a built-in filter, you have to care about encodings:
+It is your responsibility to ensure that the @var{filter} can cope
 with input encoded in the translation catalog's encoding.  If the
 @var{filter} wants input in a particular encoding, you can in a first step
 convert the translation catalog to that encoding using the @samp{msgconv}
@@ -93,6 +95,21 @@ Add the contents of @var{scriptfile} to the commands to be executed.
 Suppress automatic printing of pattern space.
 
 @end table
+
+@subsection Built-in @var{filter}s
+
+@pindex recode-sr-latin
+@cindex @code{recode-sr-latin} program
+The filter @samp{recode-sr-latin} is recognized as a built-in filter.
+The command @samp{recode-sr-latin} converts Serbian text, written in the
+Cyrillic script, to the Latin script.
+The command @samp{msgfilter recode-sr-latin} applies this conversion to the
+translations of a PO file.  Thus, it can be used to convert an @file{sr.po}
+file to an @file{sr@@latin.po} file.
+
+The use of built-in filters is not sensitive to the current locale's encoding.
+Moreover, when used with a built-in filter, @samp{msgfilter} can automatically
+convert the message catalog to the UTF-8 encoding when needed.
 
 @subsection Input file syntax
 

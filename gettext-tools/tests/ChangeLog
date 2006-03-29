@@ -1,3 +1,11 @@
+2006-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* recode-sr-latin-1: New file.
+	* recode-sr-latin-2: New file.
+	* msgfilter-sr-latin-1: New file.
+	* Makefile.am (TESTS): Add them.
+	(TESTS_ENVIRONMENT): Also set the RECODE variable.
+
 2006-03-19  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-9: New file.

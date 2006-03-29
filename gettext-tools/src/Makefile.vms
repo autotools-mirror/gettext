@@ -48,7 +48,7 @@ INSTALL_DATA = copy
 
 #### End of system configuration section. ####
 
-PROGRAMS = msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe, xgettext.exe, msgattrib.exe, msgcat.exe, msgcomm.exe, msgconv.exe, msgen.exe, msgexec.exe, msgfilter.exe, msggrep.exe, msginit.exe, msguniq.exe
+PROGRAMS = msgcmp.exe, msgfmt.exe, msgmerge.exe, msgunfmt.exe, xgettext.exe, msgattrib.exe, msgcat.exe, msgcomm.exe, msgconv.exe, msgen.exe, msgexec.exe, msgfilter.exe, msggrep.exe, msginit.exe, msguniq.exe, recode-sr-latin.exe
 
 OBJECTS = \
   message.obj, \
@@ -108,10 +108,11 @@ msgcomm_OBJECTS = msgcomm.obj
 msgconv_OBJECTS = msgconv.obj
 msgen_OBJECTS = msgen.obj
 msgexec_OBJECTS = msgexec.obj
-msgfilter_OBJECTS = msgfilter.obj
+msgfilter_OBJECTS = msgfilter.obj, filter-sr-latin.obj
 msggrep_OBJECTS = msggrep.obj
 msginit_OBJECTS = msginit.obj, lang-table.obj, plural-count.obj, localealias.obj
 msguniq_OBJECTS = msguniq.obj
+recode_sr_latin_OBJECTS = recode-sr-latin.obj, filter-sr-latin.obj
 
 all : gettextsrc.olb,$(PROGRAMS),gettextpo.olb
 	write sys$output "Nothing else to be done for 'all'."
@@ -408,6 +409,12 @@ localealias.obj : [-.-.gettext-runtime.intl]localealias.c
 msguniq.obj : msguniq.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") msguniq.c
 
+filter-sr-latin.obj : filter-sr-latin.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) filter-sr-latin.c
+
+recode-sr-latin.obj : recode-sr-latin.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS),"INSTALLPREFIX=""$(prefix)]""","INSTALLDIR=""$(bindir)]""") recode-sr-latin.c
+
 libiconv.opt :
 	if f$search("sys$library:libiconv.olb") .nes. "" then $(LN) [-.-.vms]with-libiconv.opt libiconv.opt
 	if f$search("sys$library:libiconv.olb") .eqs. "" then $(LN) [-.-.vms]without-libiconv.opt libiconv.opt
@@ -457,6 +464,9 @@ msginit.exe : $(msginit_OBJECTS),libiconv.opt
 msguniq.exe : $(msguniq_OBJECTS),libiconv.opt
 	link /executable=msguniq.exe $(msguniq_OBJECTS),gettextsrc.olb/lib,[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
 
+recode-sr-latin.exe : $(recode_sr_latin_OBJECTS),libiconv.opt
+	link /executable=recode-sr-latin.exe $(recode_sr_latin_OBJECTS),[-.lib]gettextlib.olb/lib,[-.intl]intl.olb/lib,$(LDADD)
+
 # Compilation rules for gettextpo.olb objects.
 
 gettext-po.obj : gettext-po.c
@@ -483,6 +493,7 @@ install : all
 	$(INSTALL_PROGRAM) msggrep.exe $(bindir)]msggrep.exe
 	$(INSTALL_PROGRAM) msginit.exe $(bindir)]msginit.exe
 	$(INSTALL_PROGRAM) msguniq.exe $(bindir)]msguniq.exe
+	$(INSTALL_PROGRAM) recode-sr-latin.exe $(bindir)]recode-sr-latin.exe
 	create /directory $(datadir)]
 	create /directory $(pkgdatadir)]
 	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)]msgunfmt.tcl
@@ -515,6 +526,7 @@ uninstall :
 	$(RM) $(bindir)]msggrep.exe;
 	$(RM) $(bindir)]msginit.exe;
 	$(RM) $(bindir)]msguniq.exe;
+	$(RM) $(bindir)]recode-sr-latin.exe;
 	$(RM) $(pkgdatadir)]msgunfmt.tcl;
 	$(RM) $(includedir)]gettext-po.h
 	$(RM) $(libdir)]gettextpo.olb

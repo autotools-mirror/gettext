@@ -102,7 +102,8 @@ SHELL = /bin/sh
 
 PROGRAMS = \
 msgcmp.exe msgfmt.exe msgmerge.exe msgunfmt.exe xgettext.exe \
-msgattrib.exe msgcat.exe msgcomm.exe msgconv.exe msgen.exe msgexec.exe msgfilter.exe msggrep.exe msginit.exe msguniq.exe
+msgattrib.exe msgcat.exe msgcomm.exe msgconv.exe msgen.exe msgexec.exe msgfilter.exe msggrep.exe msginit.exe msguniq.exe \
+recode-sr-latin.exe
 
 OBJECTS = \
   message.obj \
@@ -162,10 +163,11 @@ msgcomm_OBJECTS = msgcomm.obj
 msgconv_OBJECTS = msgconv.obj
 msgen_OBJECTS = msgen.obj
 msgexec_OBJECTS = msgexec.obj
-msgfilter_OBJECTS = msgfilter.obj
+msgfilter_OBJECTS = msgfilter.obj filter-sr-latin.obj
 msggrep_OBJECTS = msggrep.obj
 msginit_OBJECTS = msginit.obj lang-table.obj plural-count.obj localealias.obj
 msguniq_OBJECTS = msguniq.obj
+recode_sr_latin_OBJECTS = recode-sr-latin.obj filter-sr-latin.obj
 LDADD =
 
 RESOURCES = gettextsrc.res
@@ -478,6 +480,12 @@ localealias.obj : ..\..\gettext-runtime\intl\localealias.c
 msguniq.obj : msguniq.c
 	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c -Tp msguniq.c
 
+filter-sr-latin.obj : filter-sr-latin.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c filter-sr-latin.c
+
+recode-sr-latin.obj : recode-sr-latin.c
+	$(CC) $(INCLUDES) $(CFLAGS) -DINSTALLPREFIX=\"$(IIprefix)\" -DINSTALLDIR=\"$(IIbindir)\" -c recode-sr-latin.c
+
 msgcmp.exe : $(msgcmp_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msgcmp_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsgcmp.exe
 
@@ -523,6 +531,9 @@ msginit.exe : $(msginit_OBJECTS)
 msguniq.exe : $(msguniq_OBJECTS)
 	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(msguniq_OBJECTS) gettextsrc.lib ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Femsguniq.exe
 
+recode-sr-latin.exe : $(recode_sr_latin_OBJECTS)
+	$(CC) $(MFLAGS) $(DEBUGFLAGS) $(recode_sr_latin_OBJECTS) ..\lib\gettextlib.lib ..\intl\intl.lib $(libdir)\iconv.lib $(LDADD) -Ferecode-sr-latin.exe
+
 # Compilation rules for gettextpo.lib objects, with $(PICFLAGS).
 
 gettext-po.obj : gettext-po.c
@@ -567,6 +578,7 @@ install : all force
 	$(INSTALL_PROGRAM) msggrep.exe $(bindir)\msggrep.exe
 	$(INSTALL_PROGRAM) msginit.exe $(bindir)\msginit.exe
 	$(INSTALL_PROGRAM) msguniq.exe $(bindir)\msguniq.exe
+	$(INSTALL_PROGRAM) recode-sr-latin.exe $(bindir)\recode-sr-latin.exe
 	-mkdir $(datadir)
 	-mkdir $(pkgdatadir)
 	$(INSTALL_DATA) msgunfmt.tcl $(pkgdatadir)\msgunfmt.tcl
@@ -608,6 +620,7 @@ uninstall : force
 	$(RM) $(bindir)\msggrep.exe
 	$(RM) $(bindir)\msginit.exe
 	$(RM) $(bindir)\msguniq.exe
+	$(RM) $(bindir)\recode-sr-latin.exe
 	$(RM) $(pkgdatadir)\msgunfmt.tcl
 	$(RM) $(includedir)\gettext-po.h
 !if $(DLL)

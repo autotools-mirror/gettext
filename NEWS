@@ -38,6 +38,11 @@
 
 * msgmerge is much faster now, when using a large compendium.
 
+* A new program recode-sr-latin is provided, that converts Serbian text from
+  the Cyrillic script to the Latin script.
+  The command "msgfilter recode-sr-latin" can be used to convert a Serbian
+  Cyrillic PO file (sr.po) to a Serbian Latin PO file (sr@latin.po).
+
 * Programming languages support:
 
   - C++ with Boost:

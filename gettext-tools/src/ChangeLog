@@ -1,5 +1,35 @@
 2006-03-28  Bruno Haible  <bruno@clisp.org>
 
+	* filters.h: New file.
+	* filter-sr-latin.c: New file, based on code from Danilo Šegan.
+	* recode-sr-latin.c: New file.
+	* msgfilter.c: Include filters.h, msgl-iconv.h, po-charset.h.
+	(filter): New variable.
+	(main): Recognize recode-sr-latin as built-in.
+	(generic_filter): New function, extracted from process_string.
+	(process_string): Call the filter.
+	* Makefile.am (bin_PROGRAMS): Add recode-sr-latin.
+	(noinst_HEADERS): Add filters.h.
+	(msgfilter_SOURCES): Add filter-sr-latin.c.
+	(recode_sr_latin_SOURCES, recode_sr_latin_LDADD,
+	recode_sr_latin_CPPFLAGS, recode_sr_latin_LDFLAGS): New variables.
+	* Makefile.msvc (PROGRAMS): Add recode-sr-latin.exe.
+	(msgfilter_OBJECTS): Add filter-sr-latin.obj.
+	(recode_sr_latin_OBJECTS): New variable.
+	(filter-sr-latin.obj, recode-sr-latin.obj): New rules.
+	(recode-sr-latin.exe): New rule.
+	(install): Also install recode-sr-latin.exe.
+	(uninstall): Also uninstall recode-sr-latin.exe.
+	* Makefile.vms (PROGRAMS): Add recode-sr-latin.exe.
+	(msgfilter_OBJECTS): Add filter-sr-latin.obj.
+	(recode_sr_latin_OBJECTS): New variable.
+	(filter-sr-latin.obj, recode-sr-latin.obj): New rules.
+	(recode-sr-latin.exe): New rule.
+	(install): Also install recode-sr-latin.exe.
+	(uninstall): Also uninstall recode-sr-latin.exe.
+
+2006-03-28  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-iconv.c: Include iconvstring.h. Don't include <errno.h>.
 	(iconv_string): Remove function, moved to ../lib/.
 

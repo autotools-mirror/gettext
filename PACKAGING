@@ -87,6 +87,7 @@ following file list.
       $prefix/bin/xgettext
       $prefix/bin/gettextize
       $prefix/bin/autopoint
+      $prefix/bin/recode*
       $prefix/share/man/man1/msg*.1
       $prefix/share/man/man1/xgettext.1
       $prefix/share/man/man1/gettextize.1
