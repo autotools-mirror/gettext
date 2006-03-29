@@ -60,6 +60,7 @@ OBJECTS = \
   fwriteerror.obj, \
   gcd.obj, \
   hash.obj, \
+  iconvstring.obj, \
   javacomp.obj, \
   javaexec.obj, \
   linebreak.obj, \
@@ -168,6 +169,9 @@ gcd.obj : gcd.c
 
 hash.obj : hash.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) hash.c
+
+iconvstring.obj : iconvstring.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) iconvstring.c
 
 javacomp.obj : javacomp.c,alloca.h
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) javacomp.c

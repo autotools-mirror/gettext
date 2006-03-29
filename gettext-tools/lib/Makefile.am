@@ -56,6 +56,7 @@ libgettextlib_la_SOURCES = \
   fwriteerror.h fwriteerror.c \
   gcd.h gcd.c \
   hash.h hash.c \
+  iconvstring.h iconvstring.c \
   javacomp.h javacomp.c \
   javaexec.h javaexec.c \
   linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \

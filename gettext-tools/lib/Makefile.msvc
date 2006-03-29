@@ -102,6 +102,7 @@ OBJECTS = \
   fwriteerror.obj \
   gcd.obj \
   hash.obj \
+  iconvstring.obj \
   javacomp.obj \
   javaexec.obj \
   linebreak.obj \
@@ -206,6 +207,9 @@ gcd.obj : gcd.c
 
 hash.obj : hash.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c hash.c
+
+iconvstring.obj : iconvstring.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c iconvstring.c
 
 javacomp.obj : javacomp.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c javacomp.c

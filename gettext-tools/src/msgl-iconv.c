@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -25,7 +25,6 @@
 /* Specification.  */
 #include "msgl-iconv.h"
 
-#include <errno.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,6 +37,7 @@
 #include "basename.h"
 #include "message.h"
 #include "po-charset.h"
+#include "iconvstring.h"
 #include "msgl-ascii.h"
 #include "xalloc.h"
 #include "xallocsa.h"
@@ -50,126 +50,6 @@
 
 
 #if HAVE_ICONV
-
-/* Converts an entire string from one encoding to another, using iconv.
-   Return value: 0 if successful, otherwise -1 and errno set.  */
-static int
-iconv_string (iconv_t cd, const char *start, const char *end,
-	      char **resultp, size_t *lengthp)
-{
-#define tmpbufsize 4096
-  size_t length;
-  char *result;
-
-  /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
-# if defined _LIBICONV_VERSION \
-    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
-  /* Set to the initial state.  */
-  iconv (cd, NULL, NULL, NULL, NULL);
-# endif
-
-  /* Determine the length we need.  */
-  {
-    size_t count = 0;
-    char tmpbuf[tmpbufsize];
-    const char *inptr = start;
-    size_t insize = end - start;
-
-    while (insize > 0)
-      {
-	char *outptr = tmpbuf;
-	size_t outsize = tmpbufsize;
-	size_t res = iconv (cd,
-			    (ICONV_CONST char **) &inptr, &insize,
-			    &outptr, &outsize);
-
-	if (res == (size_t)(-1))
-	  {
-	    if (errno == E2BIG)
-	      ;
-	    else if (errno == EINVAL)
-	      break;
-	    else
-	      return -1;
-	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.  */
-	else if (res > 0)
-	  return -1;
-# endif
-	count += outptr - tmpbuf;
-      }
-    /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
-# if defined _LIBICONV_VERSION \
-    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
-    {
-      char *outptr = tmpbuf;
-      size_t outsize = tmpbufsize;
-      size_t res = iconv (cd, NULL, NULL, &outptr, &outsize);
-
-      if (res == (size_t)(-1))
-	return -1;
-      count += outptr - tmpbuf;
-    }
-# endif
-    length = count;
-  }
-
-  *lengthp = length;
-  *resultp = result = xrealloc (*resultp, length);
-  if (length == 0)
-    return 0;
-
-  /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
-# if defined _LIBICONV_VERSION \
-    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
-  /* Return to the initial state.  */
-  iconv (cd, NULL, NULL, NULL, NULL);
-# endif
-
-  /* Do the conversion for real.  */
-  {
-    const char *inptr = start;
-    size_t insize = end - start;
-    char *outptr = result;
-    size_t outsize = length;
-
-    while (insize > 0)
-      {
-	size_t res = iconv (cd,
-			    (ICONV_CONST char **) &inptr, &insize,
-			    &outptr, &outsize);
-
-	if (res == (size_t)(-1))
-	  {
-	    if (errno == EINVAL)
-	      break;
-	    else
-	      return -1;
-	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.  */
-	else if (res > 0)
-	  return -1;
-# endif
-      }
-    /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
-# if defined _LIBICONV_VERSION \
-    || !((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) || defined __sun)
-    {
-      size_t res = iconv (cd, NULL, NULL, &outptr, &outsize);
-
-      if (res == (size_t)(-1))
-	return -1;
-    }
-# endif
-    if (outsize != 0)
-      abort ();
-  }
-
-  return 0;
-#undef tmpbufsize
-}
 
 static void conversion_error (const struct conversion_context* context)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)

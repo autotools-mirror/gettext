@@ -1,3 +1,13 @@
+2006-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* iconvstring.h: New file.
+	* iconvstring.c: New file, mostly extracted from ../src/msgl-iconv.c.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	* Makefile.msvc (OBJECTS): Add iconvstring.obj.
+	(iconvstring.obj): New rule.
+	* Makefile.vms (OBJECTS): Add iconvstring.obj.
+	(iconvstring.obj): New rule.
+
 2006-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* javaexec.sh.in: Update for changed javaexec.m4.
