@@ -9,9 +9,12 @@
 #                                                                              #
 #-##############################################################################
 
-# @(#)texi2html	1.52a 01/05/98	Written (mainly) by Lionel Cons, Lionel.Cons@cern.ch
+# @(#)texi2html	1.52b 01/05/98	Written (mainly) by Lionel Cons, Lionel.Cons@cern.ch
 # 1.52a: Use acute accent instead of apostrophe. Add support for ISO-8859-1
 #        characters with cedilla, circumflex etc.
+# 1.52b: Add option -expandtex. Expand @ifhtml by default, not @ifinfo.
+#        Use Unicode quotation marks instead of grave and acute accents.
+#        Emit charset=UTF-8 declaration.
 
 # The man page for this program is included at the end of this file and can be
 # viewed using the command 'nroff -man texi2html'.
@@ -39,7 +42,7 @@ $NODESRE = '[^@{}:\'`"]+';		# RE for a list of node names
 $XREFRE = '[^@{}]+';			# RE for a xref (should use NODERE)
 
 $ERROR = "***";			        # prefix for errors and warnings
-$THISPROG = "texi2html 1.52a";			# program name and version
+$THISPROG = "texi2html 1.52b";			# program name and version
 $HOMEPAGE = "http://wwwinfo.cern.ch/dis/texi2html/"; # program home page
 $TODAY = &pretty_date;			# like "20 September 1993"
 $SPLITTAG = "<!-- SPLIT HERE -->\n";	# tag to know where to split
@@ -315,6 +318,7 @@ $debug = 0;
 $doctype = '';
 $check = 0;
 $expandinfo = 0;
+$expandtex = 0;
 $use_glossary = 0;
 $invisible_mark = '';
 $use_iso = 0;
@@ -329,7 +333,8 @@ $usage = <<EOT;
 This is $THISPROG
 To convert a Texinfo file to HMTL: $0 [options] file
   where options can be:
-    -expandinfo    : use \@ifinfo sections, not \@iftex
+    -expandinfo    : use \@ifinfo sections, not \@ifhtml
+    -expandtex     : use \@iftex sections, not \@ifhtml
     -glossary      : handle a glossary
     -invisible name: use 'name' as an invisible anchor
     -Dname         : define name like with \@set
@@ -350,7 +355,8 @@ while (@ARGV && $ARGV[0] =~ /^-/) {
     if (/^-d(ebug)?(\d+)?$/) { $debug = $2 || shift(@ARGV); next; }
     if (/^-doctype$/)        { $doctype = shift(@ARGV); next; }
     if (/^-c(heck)?$/)       { $check = 1; next; }
-    if (/^-e(xpandinfo)?$/)  { $expandinfo = 1; next; }
+    if (/^-expandi(nfo)?$/)  { $expandinfo = 1; next; }
+    if (/^-expandt(ex)?$/)   { $expandtex = 1; next; }
     if (/^-g(lossary)?$/)    { $use_glossary = 1; next; }
     if (/^-i(nvisible)?$/)   { $invisible_mark = shift(@ARGV); next; }
     if (/^-iso$/)            { $use_iso = 1; next; }
@@ -383,9 +389,24 @@ if (($split_node || $split_chapter) && $monolithic) {
 if ($expandinfo) {
     $to_skip{'ifinfo'}++;
     $to_skip{'end ifinfo'}++;
-} else {
+    $to_skip{'ifnottex'}++;
+    $to_skip{'end ifnottex'}++;
+    $to_skip{'ifnothtml'}++;
+    $to_skip{'end ifnothtml'}++;
+} elsif ($expandtex) {
+    $to_skip{'ifnotinfo'}++;
+    $to_skip{'end ifnotinfo'}++;
     $to_skip{'iftex'}++;
     $to_skip{'end iftex'}++;
+    $to_skip{'ifnothtml'}++;
+    $to_skip{'end ifnothtml'}++;
+} else {
+    $to_skip{'ifnotinfo'}++;
+    $to_skip{'end ifnotinfo'}++;
+    $to_skip{'ifnottex'}++;
+    $to_skip{'end ifnottex'}++;
+    $to_skip{'ifhtml'}++;
+    $to_skip{'end ifhtml'}++;
 }
 $invisible_mark = '<IMG SRC="invisible.xbm">' if $invisible_mark eq 'xbm';
 die $usage unless @ARGV == 1;
@@ -412,7 +433,7 @@ if ($monolithic) {
 # variables
 #
 $value{'html'} = 1;			# predefine html (the output format)
-$value{'texi2html'} = '1.52a';		# predefine texi2html (the translator)
+$value{'texi2html'} = '1.52b';		# predefine texi2html (the translator)
 # _foo: internal to track @foo
 foreach ('_author', '_title', '_subtitle',
 	 '_settitle', '_setfilename') {
@@ -582,8 +603,8 @@ while ($_ = &next_line) {
     s/((^|[^\@])(\@\@)*)\@c(omment)? .*/$1/;
     # non-@ substitutions cf. texinfmt.el
     unless ($in_pre) {
-	s/``/\"/g;
-	s/''/\"/g;
+	s/``/“/g;
+	s/''/”/g;
 	s/([\w ])---([\w ])/$1--$2/g;
     }
     #
@@ -593,9 +614,17 @@ while ($_ = &next_line) {
 	# skip lines
 	&skip_until($tag), next if $tag eq 'ignore';
 	if ($expandinfo) {
+	    &skip_until($tag), next if $tag eq 'ifnotinfo';
 	    &skip_until($tag), next if $tag eq 'iftex';
+	    &skip_until($tag), next if $tag eq 'ifhtml';
+	} elsif ($expandtex) {
+	    &skip_until($tag), next if $tag eq 'ifinfo';
+	    &skip_until($tag), next if $tag eq 'ifnottex';
+	    &skip_until($tag), next if $tag eq 'ifhtml';
 	} else {
 	    &skip_until($tag), next if $tag eq 'ifinfo';
+	    &skip_until($tag), next if $tag eq 'iftex';
+	    &skip_until($tag), next if $tag eq 'ifnothtml';
 	}
 	&skip_until($tag), next if $tag eq 'tex';
 	# handle special tables
@@ -1224,11 +1253,11 @@ while (@lines) {
 	if (@args == 5) { # reference to another manual
 	    $sec = $args[2] || $node;
 	    $man = $args[4] || $args[3];
-	    $_ = "${before}${type}section `$sec' in \@cite{$man}$after";
+	    $_ = "${before}${type}section ‘$sec’ in \@cite{$man}$after";
 	} elsif ($type =~ /Info/) { # inforef
 	    warn "$ERROR Wrong number of arguments: $_" unless @args == 3;
 	    ($nn, $_, $in) = @args;
-	    $_ = "${before}${type} file `$in', node `$nn'$after";
+	    $_ = "${before}${type} file ‘$in’, node ‘$nn’$after";
 	} elsif ($sec) {
 	    $href = $node2href{$node};
 	    $_ = "${before}${type}section " . &anchor('', $href, $sec) . $after;
@@ -1751,7 +1780,7 @@ sub apply_style {
     if (defined($style)) { # known style
 	if ($style =~ /^\"/) { # add quotes
 	    $style = $';
-	    $text = "\`$text\&acute;";
+	    $text = "\&lsquo;$text\&rsquo;";
 	}
 	if ($style =~ /^\&/) { # custom
 	    $style = $';
@@ -1863,6 +1892,7 @@ sub print_header {
 <HTML>
 <HEAD>
 $header
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>$_</TITLE>
 </HEAD>
 <BODY>
@@ -1906,7 +1936,7 @@ sub print_toplevel_footer {
     print FILE <<EOT;
 This document was generated on $TODAY using the
 <A HREF=\"$HOMEPAGE\">texi2html</A>
-translator version 1.52a.</P>
+translator version 1.52b.</P>
 EOT
     &print_footer;
 }
@@ -1990,8 +2020,8 @@ The HTML files created by
 .I texi2html
 are closer to TeX than to Info, that's why
 .I texi2html
-converts @iftex sections and not @ifinfo ones by default. You can reverse
-this with the \-expandinfo option.
+converts @ifhtml sections and not @ifinfo or @iftex ones by default. You can
+change this with the \-expandinfo or \-expandtex options.
 .SH OPTIONS
 .TP 12
 .B \-check
@@ -2001,7 +2031,10 @@ This may be used to check the output of
 to find the Texinfo commands that have been left in the HTML file.
 .TP
 .B \-expandinfo
-Expand @ifinfo sections, not @iftex ones.
+Expand @ifinfo sections, not @ifhtml ones.
+.TP
+.B \-expandtex
+Expand @iftex sections, not @ifhtml ones.
 .TP
 .B \-glossary
 Use the section named 'Glossary' to build a list of terms and put links in the HTML
@@ -2079,7 +2112,7 @@ without any modification.
 .B @end ifhtml
 This indicates the end of an HTML section.
 .SH VERSION
-This is \fItexi2html\fP version 1.52a, 01/05/98.
+This is \fItexi2html\fP version 1.52b, 01/05/98.
 .PP
 The latest version of \fItexi2html\fP can be found in WWW, cf. URL
 http://wwwinfo.cern.ch/dis/texi2html/
@@ -2100,7 +2133,4 @@ HyperText Markup Language (HTML),
 World Wide Web (WWW).
 .SH BUGS
 This program does not understand all Texinfo commands (yet).
-.PP
-TeX specific commands (normally enclosed in @iftex) will be
-passed unmodified.
 .ex
