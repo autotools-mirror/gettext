@@ -1,5 +1,12 @@
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.h (_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS, pgettext_expr,
+	dpgettext_expr, npgettext_expr, dnpgettext_expr): New macros.
+	(dcpgettext_expr, dcnpgettext_expr): New inline functions.
+	Reported by Chusslove Illich <caslav.ilic@gmx.net>.
+
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
 	Support for non-ASCII author names.
 	* propername.h: New file.
 	* propername.c: New file.

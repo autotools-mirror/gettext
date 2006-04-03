@@ -1,5 +1,10 @@
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Contexts): Document the macros pgettext_expr,
+	dpgettext_expr, dcpgettext_expr.
+
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Plural Forms): More details about the expression
 	syntax.
 	Reported by Martin von Löwis <martin@v.loewis.de>.

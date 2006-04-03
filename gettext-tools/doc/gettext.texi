@@ -5036,6 +5036,26 @@ pgettext ("Menu|Printer|", "Connect")
 Whether or not to use the @samp{|} character at the end of the context is a
 matter of style.
 
+For more complex cases, where the @var{msgctxt} or @var{msgid} are not
+string literals, more general macros are available:
+
+@findex pgettext_expr
+@findex dpgettext_expr
+@findex dcpgettext_expr
+@example
+const char *pgettext_expr (const char *msgctxt, const char *msgid);
+const char *dpgettext_expr (const char *domain_name,
+                            const char *msgctxt, const char *msgid);
+const char *dcpgettext_expr (const char *domain_name,
+                             const char *msgctxt, const char *msgid,
+                             int category);
+@end example
+
+Here @var{msgctxt} and @var{msgid} can be arbitrary string-valued expressions.
+These macros are more general.  But in the case that both argument expressions
+are string literals, the macros without the @samp{_expr} suffix are more
+efficient.
+
 @node Plural forms, Optimized gettext, Contexts, gettext
 @subsection Additional functions for plural forms
 @cindex plural forms
