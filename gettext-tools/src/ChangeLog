@@ -1,3 +1,7 @@
+2006-04-01  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (main): Treat --keyword= like --keyword.
+
 2006-03-28  Bruno Haible  <bruno@clisp.org>
 
 	* filters.h: New file.

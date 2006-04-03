@@ -386,28 +386,28 @@ main (int argc, char *argv[])
 	join_existing = true;
 	break;
       case 'k':
-	if (optarg == NULL || *optarg != '\0')
-	  {
-	    x_c_keyword (optarg);
-	    x_objc_keyword (optarg);
-	    x_sh_keyword (optarg);
-	    x_python_keyword (optarg);
-	    x_lisp_keyword (optarg);
-	    x_elisp_keyword (optarg);
-	    x_librep_keyword (optarg);
-	    x_scheme_keyword (optarg);
-	    x_java_keyword (optarg);
-	    x_csharp_keyword (optarg);
-	    x_awk_keyword (optarg);
-	    x_tcl_keyword (optarg);
-	    x_perl_keyword (optarg);
-	    x_php_keyword (optarg);
-	    x_glade_keyword (optarg);
-	    if (optarg == NULL)
-	      no_default_keywords = true;
-	    else
-	      some_additional_keywords = true;
-	  }
+	if (optarg != NULL && *optarg == '\0')
+	  /* Make "--keyword=" work like "--keyword" and "-k".  */
+	  optarg = NULL;
+	x_c_keyword (optarg);
+	x_objc_keyword (optarg);
+	x_sh_keyword (optarg);
+	x_python_keyword (optarg);
+	x_lisp_keyword (optarg);
+	x_elisp_keyword (optarg);
+	x_librep_keyword (optarg);
+	x_scheme_keyword (optarg);
+	x_java_keyword (optarg);
+	x_csharp_keyword (optarg);
+	x_awk_keyword (optarg);
+	x_tcl_keyword (optarg);
+	x_perl_keyword (optarg);
+	x_php_keyword (optarg);
+	x_glade_keyword (optarg);
+	if (optarg == NULL)
+	  no_default_keywords = true;
+	else
+	  some_additional_keywords = true;
 	break;
       case 'l':
 	/* Accepted for backward compatibility with 0.10.35.  */
