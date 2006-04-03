@@ -1,5 +1,10 @@
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (wxWidgets): Renamed from wxWindows. Clarify formatting
+	with positions.
+
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Contexts): Document the macros pgettext_expr,
 	dpgettext_expr, dcpgettext_expr.
 

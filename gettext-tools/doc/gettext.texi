@@ -382,7 +382,7 @@ Individual Programming Languages
 * C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
-* wxWindows::                   wxWindows library
+* wxWidgets::                   wxWidgets library
 * YCP::                         YCP - YaST2 scripting language
 * Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
@@ -8022,7 +8022,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * C#::                          C#
 * gawk::                        GNU awk
 * Pascal::                      Pascal - Free Pascal Compiler
-* wxWindows::                   wxWindows library
+* wxWidgets::                   wxWidgets library
 * YCP::                         YCP - YaST2 scripting language
 * Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
@@ -9231,7 +9231,7 @@ yourself.
 
 An example is available in the @file{examples} directory: @code{hello-gawk}.
 
-@node Pascal, wxWindows, gawk, List of Programming Languages
+@node Pascal, wxWidgets, gawk, List of Programming Languages
 @subsection Pascal - Free Pascal Compiler
 @cindex Pascal
 @cindex Free Pascal
@@ -9290,9 +9290,9 @@ can be loaded using the @code{TranslateResourceStrings} function in the
 
 An example is available in the @file{examples} directory: @code{hello-pascal}.
 
-@node wxWindows, YCP, Pascal, List of Programming Languages
-@subsection wxWindows library
-@cindex @code{wxWindows} library
+@node wxWidgets, YCP, Pascal, List of Programming Languages
+@subsection wxWidgets library
+@cindex @code{wxWidgets} library
 
 @table @asis
 @item RPMs
@@ -9329,7 +9329,9 @@ emulate, see @code{include/wx/intl.h} and @code{src/common/intl.cpp}
 @code{xgettext}
 
 @item Formatting with positions
----
+wxString::Format supports positions if and only if the system has
+@code{wprintf()}, @code{vswprintf()} functions and they support positions
+according to POSIX.
 
 @item Portability
 fully portable
@@ -9338,7 +9340,7 @@ fully portable
 yes
 @end table
 
-@node YCP, Tcl, wxWindows, List of Programming Languages
+@node YCP, Tcl, wxWidgets, List of Programming Languages
 @subsection YCP - YaST2 scripting language
 @cindex YCP
 @cindex YaST2 scripting language
