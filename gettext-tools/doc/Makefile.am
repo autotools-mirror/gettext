@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -181,14 +181,14 @@ html-split: gettext_toc.html
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	$(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
+	$(TEXI2HTML) $(TEXINCLUDES) -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	case "@PERL@" in \
 	  *"/missing perl") \
-	     $(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
-	     $(TEXI2HTML) $(TEXINCLUDES) -expandinfo -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
 	esac
 
 install-html-monolithic: gettext.html

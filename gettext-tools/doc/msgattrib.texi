@@ -54,11 +54,25 @@ Keep untranslated messages, remove translated messages.
 
 @item --no-fuzzy
 @opindex --no-fuzzy@r{, @code{msgattrib} option}
-Remove `fuzzy' marked messages.
+Remove
+@ifhtml
+‘fuzzy’
+@end ifhtml
+@ifnothtml
+`fuzzy'
+@end ifnothtml
+marked messages.
 
 @item --only-fuzzy
 @opindex --only-fuzzy@r{, @code{msgattrib} option}
-Keep `fuzzy' marked messages, remove all other messsages.
+Keep
+@ifhtml
+‘fuzzy’
+@end ifhtml
+@ifnothtml
+`fuzzy'
+@end ifnothtml
+marked messages, remove all other messsages.
 
 @item --no-obsolete
 @opindex --no-obsolete@r{, @code{msgattrib} option}
@@ -82,11 +96,23 @@ that are listed in the @var{only-file} and not listed in the
 @table @samp
 @item --set-fuzzy
 @opindex --set-fuzzy@r{, @code{msgattrib} option}
-Set all messages `fuzzy'.
+Set all messages
+@ifhtml
+‘fuzzy’.
+@end ifhtml
+@ifnothtml
+`fuzzy'.
+@end ifnothtml
 
 @item --clear-fuzzy
 @opindex --clear-fuzzy@r{, @code{msgattrib} option}
-Set all messages non-`fuzzy'.
+Set all messages
+@ifhtml
+non-‘fuzzy’.
+@end ifhtml
+@ifnothtml
+non-`fuzzy'.
+@end ifnothtml
 
 @item --set-obsolete
 @opindex --set-obsolete@r{, @code{msgattrib} option}
@@ -109,7 +135,14 @@ Limit the attribute changes to entries that are not listed in @var{file}.
 @item --fuzzy
 @opindex --fuzzy@r{, @code{msgattrib} option}
 Synonym for @samp{--only-fuzzy --clear-fuzzy}: It keeps only the fuzzy
-messages and removes their `fuzzy' mark.
+messages and removes their
+@ifhtml
+‘fuzzy’
+@end ifhtml
+@ifnothtml
+`fuzzy'
+@end ifnothtml
+mark.
 
 @item --obsolete
 @opindex --obsolete@r{, @code{msgattrib} option}

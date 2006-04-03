@@ -1,5 +1,8 @@
 \input texinfo          @c -*-texinfo-*-
 @c %**start of header
+@ifhtml
+@documentencoding UTF-8
+@end ifhtml
 @setfilename gettext.info
 @settitle GNU @code{gettext} utilities
 @finalout
@@ -810,6 +813,31 @@ of these interrelations will surely help programmers, translators
 and maintainers.
 
 @example
+@ifhtml
+@group
+Original C Sources ───> Preparation ───> Marked C Sources ───╮
+                                                             │
+              ╭─────────<─── GNU gettext Library             │
+╭─── make <───┤                                              │
+│             ╰─────────<────────────────────┬───────────────╯
+│                                            │
+│   ╭─────<─── PACKAGE.pot <─── xgettext <───╯   ╭───<─── PO Compendium
+│   │                                            │              ↑
+│   │                                            ╰───╮          │
+│   ╰───╮                                            ├───> PO editor ───╮
+│       ├────> msgmerge ──────> LANG.po ────>────────╯                  │
+│   ╭───╯                                                               │
+│   │                                                                   │
+│   ╰─────────────<───────────────╮                                     │
+│                                 ├─── New LANG.po <────────────────────╯
+│   ╭─── LANG.gmo <─── msgfmt <───╯
+│   │
+│   ╰───> install ───> /.../LANG/PACKAGE.mo ───╮
+│                                              ├───> "Hello world!"
+╰───────> install ───> /.../bin/PROGRAM ───────╯
+@end group
+@end ifhtml
+@ifnothtml
 @group
 Original C Sources ---> Preparation ---> Marked C Sources ---.
                                                              |
@@ -832,6 +860,7 @@ Original C Sources ---> Preparation ---> Marked C Sources ---.
 |                                              +---> "Hello world!"
 `-------> install ---> /.../bin/PROGRAM -------'
 @end group
+@end ifnothtml
 @end example
 
 @cindex marking translatable strings
@@ -5038,8 +5067,14 @@ tries to solve the problem correctly looked like this:
 @end smallexample
 
 But this does not solve the problem.  It helps languages where the
-plural form of a noun is not simply constructed by adding an `s' but
-that is all.  Once again people fell into the trap of believing the
+plural form of a noun is not simply constructed by adding an
+@ifhtml
+‘s’
+@end ifhtml
+@ifnothtml
+`s'
+@end ifnothtml
+but that is all.  Once again people fell into the trap of believing the
 rules their language is using are universal.  But the handling of plural
 forms differs widely between the language families.  For example,
 Rafal Maszkowski @code{<rzm@@mat.uni.torun.pl>} reports:
@@ -5066,7 +5101,14 @@ The form how plural forms are built differs.  This is a problem with
 languages which have many irregularities.  German, for instance, is a
 drastic case.  Though English and German are part of the same language
 family (Germanic), the almost regular forming of plural noun forms
-(appending an `s') is hardly found in German.
+(appending an
+@ifhtml
+‘s’)
+@end ifhtml
+@ifnothtml
+`s')
+@end ifnothtml
+is hardly found in German.
 
 @item
 The number of plural forms differ.  This is somewhat surprising for

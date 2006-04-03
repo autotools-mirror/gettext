@@ -1,5 +1,16 @@
 2006-04-01  Bruno Haible  <bruno@clisp.org>
 
+	* texi2html: Add option -expandtex. Expand @ifhtml by default, not
+	@ifinfo. Use Unicode quotation marks instead of grave and acute
+	accents. Emit charset=UTF-8 declaration. Bump version number to 1.52b.
+	* Makefile.am (gettext.html, gettext_toc.html): Remove -expandinfo
+	option.
+	* gettext.texi: If in HTML mode, use Unicode quotation marks and
+	box drawing characters.
+	* msgattrib.texi: Likewise.
+
+2006-04-01  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Introduction): Swap paragraphs.
 
 2006-04-01  Bruno Haible  <bruno@clisp.org>
