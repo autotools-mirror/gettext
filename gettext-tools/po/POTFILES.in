@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995, 1998, 2001-2005 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1998, 2001-2006 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
 #   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {lib,src}/*.[chly]
@@ -17,6 +17,7 @@ lib/javacomp.c
 lib/javaexec.c
 lib/obstack.c
 lib/pipe.c
+lib/quotearg.c
 lib/w32spawn.h
 lib/wait-process.c
 lib/xerror.c
@@ -27,6 +28,7 @@ lib/xsetenv.c
 src/file-list.c
 src/format.c
 src/format-awk.c
+src/format-boost.c
 src/format-c.c
 src/format-csharp.c
 src/format-elisp.c
@@ -41,6 +43,7 @@ src/format-perl-brace.c
 src/format-php.c
 src/format-python.c
 src/format-qt.c
+src/format-scheme.c
 src/format-sh.c
 src/format-tcl.c
 src/format-ycp.c
@@ -59,6 +62,7 @@ src/msggrep.c
 src/msginit.c
 src/msgl-cat.c
 src/msgl-charset.c
+src/msgl-check.c
 src/msgl-iconv.c
 src/msgmerge.c
 src/msgunfmt.c
@@ -66,8 +70,8 @@ src/msguniq.c
 src/open-po.c
 src/po-charset.c
 src/po-gram-gen.y
-src/po-lex.h
 src/po-lex.c
+src/po-xerror.c
 src/read-csharp.c
 src/read-java.c
 src/read-mo.c
@@ -76,6 +80,7 @@ src/read-properties.c
 src/read-resources.c
 src/read-stringtable.c
 src/read-tcl.c
+src/recode-sr-latin.c
 src/urlget.c
 src/write-csharp.c
 src/write-java.c
@@ -97,6 +102,7 @@ src/x-php.c
 src/x-po.c
 src/x-python.c
 src/x-rst.c
+src/x-scheme.c
 src/x-sh.c
 src/x-smalltalk.c
 src/x-tcl.c

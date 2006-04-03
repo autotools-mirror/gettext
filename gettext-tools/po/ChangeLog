@@ -1,5 +1,11 @@
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
+	* POTFILES.in: Add lib/quotearg.c, src/format-boost.c,
+	src/format-scheme.c, src/msgl-check.c, src/po-xerror.c,
+	src/recode-sr-latin.c, src/x-scheme.c. Remove src/po-lex.h.
+
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
 	* Makevars (XGETTEXT_OPTIONS): Add keywords 'proper_name' and
 	'proper_name_utf8'.
 
