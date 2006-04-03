@@ -1,5 +1,5 @@
 /* xgettext Lisp backend.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -167,6 +167,8 @@ init_keywords ()
 {
   if (default_keywords)
     {
+      /* When adding new keywords here, also update the documentation in
+	 xgettext.texi!  */
       x_lisp_keyword ("gettext");	/* I18N:GETTEXT */
       x_lisp_keyword ("ngettext:1,2");	/* I18N:NGETTEXT */
       x_lisp_keyword ("gettext-noop");

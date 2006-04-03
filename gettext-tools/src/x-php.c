@@ -94,6 +94,8 @@ init_keywords ()
 {
   if (default_keywords)
     {
+      /* When adding new keywords here, also update the documentation in
+	 xgettext.texi!  */
       x_php_keyword ("_");
       x_php_keyword ("gettext");
       x_php_keyword ("dgettext:2");

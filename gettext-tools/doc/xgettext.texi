@@ -176,17 +176,77 @@ extracting a message from the specified argument strings, adds an extracted
 comment @var{xcomment} to the message.  Note that when used through a normal
 shell command line, the double-quotes around the @var{xcomment} need to be
 escaped.
-@*
+
+This option has an effect with most languages, namely C, C++, ObjectiveC,
+Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
+GCC-source, Glade.
+
 The default keyword specifications, which are always looked for if not
-explicitly disabled, are @code{gettext}, @code{dgettext:2},
+explicitly disabled, are language dependent.  They are:
+
+@itemize
+@item
+For C, C++, and GCC-source: @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
 @code{dcngettext:2,3}, @code{gettext_noop}, and @code{pgettext:1c,2},
 @code{dpgettext:2c,3}, @code{dcpgettext:2c,3}, @code{npgettext:1c,2,3},
 @code{dnpgettext:2c,3,4}, @code{dcnpgettext:2c,3,4}.
-@*
-This option has an effect with most languages, namely C, C++, ObjectiveC,
-Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
-GCC-source, Glade.
+
+@item
+For Objective C: Like for C, and also @code{NSLocalizedString}, @code{_},
+@code{NSLocalizedStaticString}, @code{__}.
+
+@item
+For Shell scripts: @code{gettext}, @code{ngettext:1,2}, @code{eval_gettext},
+@code{eval_ngettext:1,2}.
+
+@item
+For Python: @code{gettext}, @code{ugettext}, @code{dgettext:2},
+@code{ngettext:1,2}, @code{ungettext:1,2}, @code{dngettext:2,3}, @code{_}.
+
+@item
+For Lisp: @code{gettext}, @code{ngettext:1,2}, @code{gettext-noop}.
+
+@item
+For EmacsLisp: @code{_}.
+
+@item
+For librep: @code{_}.
+
+@item
+For Scheme: @code{gettext}, @code{ngettext:1,2}, @code{gettext-noop}.
+
+@item
+For Java: @code{GettextResource.gettext:2},
+@code{GettextResource.ngettext:2,3}, @code{gettext}, @code{ngettext:1,2},
+@code{getString}.
+
+@item
+For C#: @code{GetString}, @code{GetPluralString:1,2}.
+
+@item
+For awk: @code{dcgettext}, @code{dcngettext:1,2}.
+
+@item
+For Tcl: @code{::msgcat::mc}.
+
+@item
+For Perl: @code{gettext}, @code{%gettext}, @code{$gettext}, @code{dgettext:2},
+@code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
+@code{dcngettext:2,3}, @code{gettext_noop}.
+
+@item
+For PHP: @code{_}, @code{gettext}, @code{dgettext:2}, @code{dcgettext:2},
+@code{ngettext:1,2}, @code{dngettext:2,3}, @code{dcngettext:2,3}.
+
+@item
+For Glade 1: @code{label}, @code{title}, @code{text}, @code{format},
+@code{copyright}, @code{comments}, @code{preview_text}, @code{tooltip}.
+@end itemize
+
+To disable the default keyword specifications, the option @samp{-k} or
+@samp{--keyword} or @samp{--keyword=}, without a @var{keywordspec}, can be
+used.
 
 @item --flag=@var{word}:@var{arg}:@var{flag}
 @opindex --flag@r{, @code{xgettext} option}

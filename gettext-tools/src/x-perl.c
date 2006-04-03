@@ -97,6 +97,8 @@ init_keywords ()
 {
   if (default_keywords)
     {
+      /* When adding new keywords here, also update the documentation in
+	 xgettext.texi!  */
       x_perl_keyword ("gettext");
       x_perl_keyword ("%gettext");
       x_perl_keyword ("$gettext");
