@@ -1,3 +1,13 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* envsubst.c: Include propername.h.
+	(main): Call proper_name. Bump copyright year.
+	* gettext.c: Include propername.h.
+	(main): Call proper_name. Bump copyright year.
+	* ngettext.c: Include propername.h.
+	(main): Call proper_name. Bump copyright year.
+	* Makefile.am (LDADD): Add LTLIBICONV.
+
 2005-12-19  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.sh.in: Fix behaviour when the sourceing script has a name

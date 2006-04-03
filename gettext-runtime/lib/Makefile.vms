@@ -2,6 +2,11 @@
 
 #### Start of system configuration section. ####
 
+# Directories used by "make install":
+prefix = SYS$DATA:[
+exec_prefix = $(prefix)
+libdir = $(exec_prefix).lib
+
 # Programs used by "make":
 
 CC = cc
@@ -15,7 +20,7 @@ WARN_CFLAGS = /warning
 OPTIMFLAGS = /optimize
 
 CFLAGS = $(ABIFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS)
-DEFS = "VMS=1","HAVE_CONFIG_H=1"
+DEFS = "VMS=1","HAVE_CONFIG_H=1","LIBDIR=""$(libdir)]"""
 
 INCLUDES = /include=([],[-],[-.intl],[-.-.gettext-tools.lib])
 
@@ -27,13 +32,16 @@ RM = delete
 
 #### End of system configuration section. ####
 
-OBJECTS = basename.obj,closeout.obj,error.obj,fwriteerror.obj,getopt.obj,getopt1.obj,progname.obj,progreloc.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
+OBJECTS = basename.obj,c-strcasecmp.obj,closeout.obj,error.obj,fwriteerror.obj,getopt.obj,getopt1.obj,iconvstring.obj,localcharset.obj,progname.obj,progreloc.obj,propername.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
 
 all : grt.olb
 	write sys$output "Nothing else to be done for 'all'."
 
 basename.obj : [-.-.gettext-tools.lib]basename.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]basename.c
+
+c-strcasecmp.obj : [-.-.gettext-tools.lib]c-strcasecmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]c-strcasecmp.c
 
 closeout.obj : [-.-.gettext-tools.lib]closeout.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]closeout.c
@@ -50,11 +58,20 @@ getopt.obj : [-.-.gettext-tools.lib]getopt.c
 getopt1.obj : [-.-.gettext-tools.lib]getopt1.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]getopt1.c
 
+iconvstring.obj : [-.-.gettext-tools.lib]iconvstring.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]iconvstring.c
+
+localcharset.obj : [-.-.gettext-tools.lib]localcharset.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]localcharset.c
+
 progname.obj : [-.-.gettext-tools.lib]progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]progname.c
 
 progreloc.obj : [-.-.gettext-tools.lib]progreloc.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]progreloc.c
+
+propername.obj : [-.-.gettext-tools.lib]propername.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]propername.c
 
 relocatable.obj : [-.-.gettext-tools.lib]relocatable.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]relocatable.c

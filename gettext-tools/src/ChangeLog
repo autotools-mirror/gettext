@@ -1,3 +1,42 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* hostname.c: Include propername.h.
+	(main): Call proper_name.
+	* msgattrib.c: Include propername.h.
+	(main): Call proper_name.
+	* msgcat.c: Include propername.h.
+	(main): Call proper_name.
+	* msgcmp.c: Include propername.h.
+	(main): Call proper_name.
+	* msgcomm.c: Include propername.h.
+	(main): Call proper_name.
+	* msgconv.c: Include propername.h.
+	(main): Call proper_name.
+	* msgen.c: Include propername.h.
+	(main): Call proper_name.
+	* msgexec.c: Include propername.h.
+	(main): Call proper_name.
+	* msgfilter.c: Include propername.h.
+	(main): Call proper_name.
+	* msgfmt.c: Include propername.h.
+	(main): Call proper_name.
+	* msggrep.c: Include propername.h.
+	(main): Call proper_name.
+	* msginit.c: Include propername.h.
+	(main): Call proper_name.
+	* msgmerge.c: Include propername.h.
+	(main): Call proper_name.
+	* msgunfmt.c: Include propername.h.
+	(main): Call proper_name.
+	* msguniq.c: Include propername.h.
+	(main): Call proper_name.
+	* recode-sr-latin.c: Include propername.h.
+	(main): Call proper_name and proper_name_utf8.
+	* urlget.c: Include propername.h.
+	(main): Call proper_name.
+	* xgettext.c: Include propername.h.
+	(main): Call proper_name.
+
 2006-04-01  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c (main): Treat --keyword= like --keyword.

@@ -1,3 +1,20 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Add c-strcase*, gettext.h,
+	iconvstring.*, localcharset.*, propername.*, strstr.h.
+	(DEFS): Also define LIBDIR.
+	* Makefile.msvc (libdir): New variable.
+	(OBJECTS): Add c-strcasecmp.obj, iconvstring.obj, localcharset.obj,
+	propername.obj.
+	(c-strcasecmp.obj, iconvstring.obj, localcharset.obj, propername.obj):
+	New rules.
+	* Makefile.vms (prefix, exec_prefix, libdir): New variables.
+	(DEFS): Also define LIBDIR.
+	(OBJECTS): Add c-strcasecmp.obj, iconvstring.obj, localcharset.obj,
+	propername.obj.
+	(c-strcasecmp.obj, iconvstring.obj, localcharset.obj, propername.obj):
+	New rules.
+
 2005-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Remove rules depending on @STDBOOL_H@, @ALLOCA_H@,

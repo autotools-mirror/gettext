@@ -67,6 +67,7 @@ libgettextlib_la_SOURCES = \
   pathname.h concatpath.c \
   pipe.h pipe.c w32spawn.h \
   progname.h progname.c progreloc.c \
+  propername.h propername.c \
   quote.h quote.c \
   quotearg.h quotearg.c \
   safe-read.h safe-read.c \
@@ -119,7 +120,7 @@ UNUSED_SOURCE = \
 libgettextlib_la_LIBADD = @LTLIBOBJS@
 
 # Need @LTLIBINTL@ because many source files use gettext().
-# Need @LTLIBICONV@ because linebreak.c uses iconv().
+# Need @LTLIBICONV@ because linebreak.c and iconvstring.c use iconv().
 libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@

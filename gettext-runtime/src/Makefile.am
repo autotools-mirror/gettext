@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -41,7 +41,8 @@ ngettext_SOURCES = ngettext.c
 envsubst_SOURCES = envsubst.c
 
 # Link dependencies.
-LDADD = ../lib/libgrt.a @LTLIBINTL@
+# Need @LTLIBICONV@ because iconvstring.c uses iconv().
+LDADD = ../lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@
 
 # Specify installation directory, for --enable-relocatable.
 gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"

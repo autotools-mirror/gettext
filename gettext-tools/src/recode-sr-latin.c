@@ -42,6 +42,7 @@
 #include "c-strcase.h"
 #include "iconvstring.h"
 #include "filters.h"
+#include "propername.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -113,7 +114,12 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
 	      "2006");
-      printf (_("Written by %s and %s.\n"), "Danilo Segan", "Bruno Haible");
+      printf (_("Written by %s and %s.\n"),
+	      /* TRANSLATORS: This is a proper name. The last name is
+		 (with Unicode escapes) "\u0160egan" or (with HTML entities)
+		 "&Scaron;egan".  */
+	      proper_name_utf8 ("Danilo Segan", "Danilo \305\240egan"),
+	      proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
 

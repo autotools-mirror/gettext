@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -29,11 +29,17 @@ noinst_LIBRARIES = libgrt.a
 libgrt_a_SOURCES = \
   ../../gettext-tools/lib/allocsa.h ../../gettext-tools/lib/allocsa.c \
   ../../gettext-tools/lib/basename.h ../../gettext-tools/lib/basename.c \
+  ../../gettext-tools/lib/c-strcase.h ../../gettext-tools/lib/c-strcasecmp.c \
   ../../gettext-tools/lib/closeout.h ../../gettext-tools/lib/closeout.c \
   ../../gettext-tools/lib/exit.h \
   ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
+  ../../gettext-tools/lib/gettext.h \
+  ../../gettext-tools/lib/iconvstring.h ../../gettext-tools/lib/iconvstring.c \
+  ../../gettext-tools/lib/localcharset.h ../../gettext-tools/lib/localcharset.c \
   ../../gettext-tools/lib/pathmax.h \
   ../../gettext-tools/lib/progname.h ../../gettext-tools/lib/progname.c ../../gettext-tools/lib/progreloc.c \
+  ../../gettext-tools/lib/propername.h ../../gettext-tools/lib/propername.c \
+  ../../gettext-tools/lib/strstr.h \
   ../../gettext-tools/lib/unlocked-io.h \
   ../../gettext-tools/lib/xalloc.h ../../gettext-tools/lib/xmalloc.c ../../gettext-tools/lib/xstrdup.c \
   ../../gettext-tools/lib/xreadlink.h ../../gettext-tools/lib/xreadlink.c
@@ -103,6 +109,11 @@ getopt.h: ../../gettext-tools/lib/getopt_.h
 	cp $(srcdir)/../../gettext-tools/lib/getopt_.h getopt.h
 MOSTLYCLEANFILES += getopt.h
 # <<< gnulib module getopt.
+
+
+# >>> gnulib module localcharset.
+DEFS += -DLIBDIR=\"$(libdir)\"
+# <<< gnulib module localcharset.
 
 
 # VMS support.

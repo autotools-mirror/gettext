@@ -1,5 +1,5 @@
 /* Display hostname in various forms.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -90,6 +90,7 @@
 #include "basename.h"
 #include "xalloc.h"
 #include "exit.h"
+#include "propername.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -184,7 +185,7 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
 	      "2001-2003");
-      printf (_("Written by %s.\n"), "Bruno Haible");
+      printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
 

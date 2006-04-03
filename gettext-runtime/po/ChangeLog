@@ -1,3 +1,8 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (XGETTEXT_OPTIONS): Add keywords 'proper_name' and
+	'proper_name_utf8'.
+
 2005-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (USE_MSGCTXT): New macro.

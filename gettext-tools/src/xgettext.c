@@ -60,6 +60,7 @@
 #include "po-time.h"
 #include "write-po.h"
 #include "format.h"
+#include "propername.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
@@ -515,7 +516,7 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
 	      "1995-1998, 2000-2006");
-      printf (_("Written by %s.\n"), "Ulrich Drepper");
+      printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
 

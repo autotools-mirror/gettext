@@ -1,3 +1,15 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	Support for non-ASCII author names.
+	* propername.h: New file.
+	* propername.c: New file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add propername.h,
+	propername.c.
+	* Makefile.msvc (OBJECTS): Add propername.obj.
+	(propername.obj): New rule.
+	* Makefile.vms (OBJECTS): Add propername.obj.
+	(propername.obj): New rule.
+
 2006-03-28  Bruno Haible  <bruno@clisp.org>
 
 	* iconvstring.h: New file.

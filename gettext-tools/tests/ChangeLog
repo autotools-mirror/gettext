@@ -1,3 +1,10 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c: Include propername.h.
+	(main): Call proper_name. Bump copyright year.
+	* tstngettext.c: Include propername.h.
+	(main): Call proper_name. Bump copyright year.
+
 2006-03-28  Bruno Haible  <bruno@clisp.org>
 
 	* recode-sr-latin-1: New file.

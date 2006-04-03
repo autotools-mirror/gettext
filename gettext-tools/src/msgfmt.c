@@ -46,13 +46,13 @@
 #include "write-resources.h"
 #include "write-tcl.h"
 #include "write-qt.h"
-
-#include "gettext.h"
+#include "propername.h"
 #include "message.h"
 #include "open-po.h"
 #include "read-po.h"
 #include "po-charset.h"
 #include "msgl-check.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 
@@ -363,7 +363,7 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
 	      "1995-1998, 2000-2006");
-      printf (_("Written by %s.\n"), "Ulrich Drepper");
+      printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
 

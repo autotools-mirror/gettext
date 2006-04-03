@@ -1,5 +1,5 @@
 /* Substitution of environment variables in shell format strings.
-   Copyright (C) 2003-2005 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -35,6 +35,7 @@
 #include "basename.h"
 #include "xalloc.h"
 #include "exit.h"
+#include "propername.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -114,8 +115,8 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "2003-2005");
-      printf (_("Written by %s.\n"), "Bruno Haible");
+	      "2003-2006");
+      printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
 

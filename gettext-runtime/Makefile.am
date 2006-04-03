@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -89,6 +89,7 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
 	     -e 's/#undef HAVE_STRINGS_H$$/#define HAVE_STRINGS_H 1/' \
 	     -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	     -e 's/#undef HAVE_STRSTR$$/#define HAVE_STRSTR 1/' \
 	     -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
 	     -e 's/#undef HAVE_SYS_PARAM_H$$/#define HAVE_SYS_PARAM_H 1/' \
 	     -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
@@ -154,6 +155,7 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_STRDUP$$/#define HAVE_STRDUP 1/' \
 	    -e 's/#undef HAVE_STRERROR$$/#define HAVE_STRERROR 1/' \
 	    -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
+	    -e 's/#undef HAVE_STRSTR$$/#define HAVE_STRSTR 1/' \
 	    -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
 	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
 	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \

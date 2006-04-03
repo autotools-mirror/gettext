@@ -54,6 +54,7 @@
 #include "plural-count.h"
 #include "backupfile.h"
 #include "copy-file.h"
+#include "propername.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -305,7 +306,7 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
 	      "1995-1998, 2000-2006");
-      printf (_("Written by %s.\n"), "Peter Miller");
+      printf (_("Written by %s.\n"), proper_name ("Peter Miller"));
       exit (EXIT_SUCCESS);
     }
 

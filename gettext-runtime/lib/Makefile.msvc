@@ -21,6 +21,8 @@ PREFIX = c:\usr
 
 # Directories used by "make install":
 prefix = $(PREFIX)
+exec_prefix = $(prefix)
+libdir = $(exec_prefix)\lib
 includedir = $(prefix)\include
 
 # Programs used by "make":
@@ -52,12 +54,15 @@ RM = -del
 
 SHELL = /bin/sh
 
-OBJECTS = basename.obj closeout.obj error.obj fwriteerror.obj getopt.obj getopt1.obj progname.obj progreloc.obj relocatable.obj xmalloc.obj xstrdup.obj
+OBJECTS = basename.obj c-strcasecmp.obj closeout.obj error.obj fwriteerror.obj getopt.obj getopt1.obj iconvstring.obj localcharset.obj progname.obj progreloc.obj propername.obj relocatable.obj xmalloc.obj xstrdup.obj
 
 all : grt.lib
 
 basename.obj : ..\..\gettext-tools\lib\basename.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\basename.c
+
+c-strcasecmp.obj : ..\..\gettext-tools\lib\c-strcasecmp.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\c-strcasecmp.c
 
 closeout.obj : ..\..\gettext-tools\lib\closeout.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\closeout.c
@@ -74,11 +79,20 @@ getopt.obj : ..\..\gettext-tools\lib\getopt.c
 getopt1.obj : ..\..\gettext-tools\lib\getopt1.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\getopt1.c
 
+iconvstring.obj : ..\..\gettext-tools\lib\iconvstring.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\iconvstring.c
+
+localcharset.obj : ..\..\gettext-tools\lib\localcharset.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\localcharset.c
+
 progname.obj : ..\..\gettext-tools\lib\progname.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\progname.c
 
 progreloc.obj : ..\..\gettext-tools\lib\progreloc.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\progreloc.c
+
+propername.obj : ..\..\gettext-tools\lib\propername.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\propername.c
 
 relocatable.obj : ..\..\gettext-tools\lib\relocatable.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c ..\..\gettext-tools\lib\relocatable.c
