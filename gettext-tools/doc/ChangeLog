@@ -1,3 +1,9 @@
+2006-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural Forms): More details about the expression
+	syntax.
+	Reported by Martin von Löwis <martin@v.loewis.de>.
+
 2006-04-01  Bruno Haible  <bruno@clisp.org>
 
 	* texi2html: Add option -expandtex. Expand @ifhtml by default, not

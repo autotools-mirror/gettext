@@ -5204,8 +5204,10 @@ The @code{nplurals} value must be a decimal number which specifies how
 many different plural forms exist for this language.  The string
 following @code{plural} is an expression which is using the C language
 syntax.  Exceptions are that no negative numbers are allowed, numbers
-must be decimal, and the only variable allowed is @code{n}.  This
-expression will be evaluated whenever one of the functions
+must be decimal, and the only variable allowed is @code{n}.  Spaces are
+allowed in the expression, but backslash-newlines are not; in the
+examples below the backslash-newlines are present for formatting purposes
+only.  This expression will be evaluated whenever one of the functions
 @code{ngettext}, @code{dngettext}, or @code{dcngettext} is called.  The
 numeric value passed to these functions is then substituted for all uses
 of the variable @code{n} in the expression.  The resulting value then
