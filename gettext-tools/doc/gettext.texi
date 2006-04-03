@@ -428,12 +428,15 @@ Concluding Remarks
 @node Introduction, Users, Top, Top
 @chapter Introduction
 
-@quotation
-This manual is still in @emph{DRAFT} state.  Some sections are still
-empty, or almost.  We keep merging material from other sources
-(essentially e-mail folders) while the proper integration of this
-material is delayed.
-@end quotation
+This chapter explains the goals sought in the creation
+of GNU @code{gettext} and the free Translation Project.
+Then, it explains a few broad concepts around
+Native Language Support, and positions message translation with regard
+to other aspects of national and cultural variance, as they apply
+to programs.  It also surveys those files used to convey the
+translations.  It explains how the various tools interact in the
+initial generation of these files, and later, how the maintenance
+cycle should usually operate.
 
 @cindex sex
 @cindex he, she, and they
@@ -446,16 +449,6 @@ This is only a convenience for clarifying the documentation.  It is
 to males or females.  Besides, as you might guess, GNU @code{gettext}
 is meant to be useful for people using computers, whatever their sex,
 race, religion or nationality!
-
-This chapter explains the goals sought in the creation
-of GNU @code{gettext} and the free Translation Project.
-Then, it explains a few broad concepts around
-Native Language Support, and positions message translation with regard
-to other aspects of national and cultural variance, as they apply
-to programs.  It also surveys those files used to convey the
-translations.  It explains how the various tools interact in the
-initial generation of these files, and later, how the maintenance
-cycle should usually operate.
 
 @cindex bug report address
 Please send suggestions and corrections to:
