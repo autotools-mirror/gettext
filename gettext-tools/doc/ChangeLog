@@ -1,5 +1,11 @@
 2006-04-01  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (gettext grok, Temp Programmers, Trans Intro 0,
+	Trans Intro 1, Discussions, Organization, Information Flow,
+	References): Mark as outdated.
+
+2006-04-01  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.texi (--keyword): Document the default keywords.
 	Suggested by Bjoern Voigt <bjoern@cs.tu-berlin.de>.
 

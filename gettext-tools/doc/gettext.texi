@@ -5558,6 +5558,9 @@ and the library in directories selected using the @code{$(prefix)}.
 @node gettext grok, Temp Programmers, Using libintl.a, Programmers
 @section Being a @code{gettext} grok
 
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
+
 To fully exploit the functionality of the GNU @code{gettext} library it
 is surely helpful to read the source code.  But for those who don't want
 to spend that much time in reading the (sometimes complicated) code here
@@ -5632,6 +5635,9 @@ system's native gettext implementation.
 
 @node Temp Programmers,  , gettext grok, Programmers
 @section Temporary Notes for the Programmers Chapter
+
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
 
 @menu
 * Temp Implementations::        Temporary - Two Possible Implementations
@@ -5763,6 +5769,9 @@ Solaris is not the only system having @code{gettext}.
 @node Trans Intro 0, Trans Intro 1, Translators, Translators
 @section Introduction 0
 
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
+
 Free software is going international!  The Translation Project is a way
 to get maintainers, translators and users all together, so free software
 will gradually become able to speak many native languages.
@@ -5824,6 +5833,9 @@ you can work on.
 @node Trans Intro 1, Discussions, Trans Intro 0, Translators
 @section Introduction 1
 
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
+
 This is now official, GNU is going international!  Here is the
 announcement submitted for the January 1995 GNU Bulletin:
 
@@ -5860,6 +5872,9 @@ document, please e-mail to @file{translation@@iro.umontreal.ca}.
 
 @node Discussions, Organization, Trans Intro 1, Translators
 @section Discussions
+
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
 
 Facing this internationalization effort, a few users expressed their
 concerns.  Some of these doubts are presented and discussed, here.
@@ -5934,6 +5949,9 @@ software.
 
 @node Organization, Information Flow, Discussions, Translators
 @section Organization
+
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
 
 On a larger scale, the true solution would be to organize some kind of
 fairly precise set up in which volunteers could participate.  I gave
@@ -6132,6 +6150,9 @@ subscribe as they see fit, as long as each team is represented in it.
 
 @node Information Flow, Prioritizing messages, Organization, Translators
 @section Information Flow
+
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
 
 There will surely be some discussion about this messages after the
 packages are finally released.  If people now send you some proposals
@@ -10505,6 +10526,9 @@ manipulating PO files.
 @section Related Readings
 @cindex related reading
 @cindex bibliography
+
+@strong{ NOTE: } This documentation section is outdated and needs to be
+revised.
 
 Eugene H. Dorr (@file{dorre@@well.com}) maintains an interesting
 bibliography on internationalization matters, called
