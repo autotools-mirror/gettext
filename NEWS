@@ -63,6 +63,8 @@
 
 * Portability to mingw.
 
+* Interoperability with expat version 2.0.0.
+
 * Documentation:
   A complete example showing the use of GNU gettext with the wxWidgets GUI
   toolkit has been added.

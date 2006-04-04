@@ -1,3 +1,12 @@
+2006-04-03  Bruno Haible  <bruno@clisp.org>
+
+	* x-glade.c (p_XML_GetCurrentLineNumber, p_XML_GetCurrentColumnNumber):
+	Declare differently for expat >= 2.0.0.
+	(load_libexpat): Search for a differently library name for expat >=
+	2.0.0.
+	(do_extract_glade): Update.
+	Reported by Mike Frysinger <vapier@gentoo.org>.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c: Include propername.h.

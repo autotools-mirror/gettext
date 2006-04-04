@@ -125,8 +125,13 @@ static void (*p_XML_SetCharacterDataHandler) (XML_Parser parser, XML_CharacterDa
 static void (*p_XML_SetCommentHandler) (XML_Parser parser, XML_CommentHandler handler);
 static int (*p_XML_Parse) (XML_Parser parser, const char *s, int len, int isFinal);
 static enum XML_Error (*p_XML_GetErrorCode) (XML_Parser parser);
+#if XML_MAJOR_VERSION >= 2
+static XML_Size (*p_XML_GetCurrentLineNumber) (XML_Parser parser);
+static XML_Size (*p_XML_GetCurrentColumnNumber) (XML_Parser parser);
+#else
 static int (*p_XML_GetCurrentLineNumber) (XML_Parser parser);
 static int (*p_XML_GetCurrentColumnNumber) (XML_Parser parser);
+#endif
 static void (*p_XML_ParserFree) (XML_Parser parser);
 static const XML_LChar * (*p_XML_ErrorString) (int code);
 
@@ -148,7 +153,14 @@ load_libexpat ()
 {
   if (libexpat_loaded == 0)
     {
-      void *handle = dlopen ("libexpat.so.0", RTLD_LAZY);
+      void *handle;
+      /* Be careful to use exactly the version of libexpat that matches the
+	 binary interface declared in <expat.h>.  */
+#if XML_MAJOR_VERSION >= 2
+      handle = dlopen ("libexpat.so.1", RTLD_LAZY);
+#else
+      handle = dlopen ("libexpat.so.0", RTLD_LAZY);
+#endif
       if (handle != NULL
 	  && (p_XML_ParserCreate = dlsym (handle, "XML_ParserCreate")) != NULL
 	  && (p_XML_SetElementHandler = dlsym (handle, "XML_SetElementHandler")) != NULL
@@ -413,16 +425,16 @@ error while reading \"%s\""), real_filename);
 	}
 
       if (XML_Parse (parser, buf, count, 0) == 0)
-	error (EXIT_FAILURE, 0, _("%s:%d:%d: %s"), logical_filename,
-	       XML_GetCurrentLineNumber (parser),
-	       XML_GetCurrentColumnNumber (parser) + 1,
+	error (EXIT_FAILURE, 0, _("%s:%lu:%lu: %s"), logical_filename,
+	       (unsigned long) XML_GetCurrentLineNumber (parser),
+	       (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
 	       XML_ErrorString (XML_GetErrorCode (parser)));
     }
 
   if (XML_Parse (parser, NULL, 0, 1) == 0)
-    error (EXIT_FAILURE, 0, _("%s:%d:%d: %s"), logical_filename,
-	   XML_GetCurrentLineNumber (parser),
-	   XML_GetCurrentColumnNumber (parser) + 1,
+    error (EXIT_FAILURE, 0, _("%s:%lu:%lu: %s"), logical_filename,
+	   (unsigned long) XML_GetCurrentLineNumber (parser),
+	   (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
 	   XML_ErrorString (XML_GetErrorCode (parser)));
 
   XML_ParserFree (parser);
