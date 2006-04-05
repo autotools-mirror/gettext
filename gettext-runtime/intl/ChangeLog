@@ -1,3 +1,7 @@
+2006-04-05  Bruno Haible  <bruno@clisp.org>
+
+	* config.charset: Update Juan Manuel Guerrero's address.
+
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (_INTL_MAY_RETURN_STRING_ARG): Define to empty when

@@ -1,7 +1,7 @@
 #! /bin/sh
 # Output a system dependent table of character encoding aliases.
 #
-#   Copyright (C) 2000-2004 Free Software Foundation, Inc.
+#   Copyright (C) 2000-2004, 2006 Free Software Foundation, Inc.
 #
 #   This program is free software; you can redistribute it and/or modify it
 #   under the terms of the GNU Library General Public License as published
@@ -480,7 +480,7 @@ case "$os" in
 	echo "# If you find that the encoding given for your language and"
 	echo "# country is not the one your DOS machine actually uses, just"
 	echo "# correct it in this file, and send a mail to"
-	echo "# Juan Manuel Guerrero <st001906@hrz1.hrz.tu-darmstadt.de>"
+	echo "# Juan Manuel Guerrero <juan.guerrero@gmx.de>"
 	echo "# and Bruno Haible <bruno@clisp.org>."
 	echo "#"
 	echo "C ASCII"
