@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.14\n"
+"Project-Id-Version: GNU gettext-runtime 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2004-01-29 13:59-0600\n"
+"PO-Revision-Date: 2005-06-22 19:36-0600\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "error de escritura"
 # por eso es (además) desconocido.
 #: ../gettext-tools/lib/error.c:121
 msgid "Unknown system error"
-msgstr "Error del sistema desconocido"
+msgstr "Hay un error del sistema desconocido"
 
 #: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format

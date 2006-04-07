@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.3\n"
+"Project-Id-Version: gettext-runtime 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2005-04-13 16:34+0800\n"
+"PO-Revision-Date: 2005-08-10 12:29+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -30,59 +30,59 @@ msgstr "不明的系統錯誤"
 #: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s：選項‘%s’是不明確的\n"
+msgstr "%s：選項 ‘%s’ 不明確\n"
 
 #: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s：選項‘--%s’不允許有參數\n"
+msgstr "%s：選項 ‘--%s’ 不允許有參數\n"
 
 #: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s：選項‘%c%s’不允許有參數\n"
+msgstr "%s：選項 ‘%c%s’ 不允許有參數\n"
 
 #: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
 #: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s：選項‘%s’需要參數\n"
+msgstr "%s：選項 ‘%s’ 需要參數\n"
 
 #: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s：無法識別選項‘--%s’\n"
+msgstr "%s：無法識別選項 ‘--%s’\n"
 
 #: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s：無法識別選項‘%c%s’\n"
+msgstr "%s：無法識別選項 ‘%c%s’\n"
 
 #: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s：不合法的選項 ─ %c\n"
+msgstr "%s：不合法的選項 -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
-msgstr "%s：選項無效 ─ %c\n"
+msgstr "%s：選項無效 -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
 #: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s：選項需要參數 ─ %c\n"
+msgstr "%s：選項需要參數 -- %c\n"
 
 #: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s：選項‘-W %s’是不明確的\n"
+msgstr "%s：選項 ‘-W %s’ 不明確\n"
 
 #: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s：選項‘-W %s’不允許有參數\n"
+msgstr "%s：選項 ‘-W %s’ 不允許有參數\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
@@ -118,7 +118,7 @@ msgstr "缺少了參數"
 #: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "試試‘%s --help’來獲取更多資訊。\n"
+msgstr "試試 ‘%s --help’ 獲取額外資訊。\n"
 
 #: src/envsubst.c:176
 #, c-format, no-wrap
@@ -180,12 +180,12 @@ msgstr ""
 
 #: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "請回報錯誤至 <bug-gnu-gettext@gnu.org>。\n"
+msgstr "請向 <bug-gnu-gettext@gnu.org> 回報錯誤。\n"
 
 #: src/envsubst.c:438
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "讀取“%s”時出現錯誤"
+msgstr "讀取 “%s” 時出現錯誤"
 
 #: src/envsubst.c:439
 msgid "standard input"
@@ -218,7 +218,7 @@ msgid ""
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 "  -d, --domain=文字領域     由<文字領域>讀取翻譯後的訊息\n"
-"  -e                        允許展開某類溢出序列字元\n"
+"  -e                        允許展開某類 escape sequence\n"
 "  -E                        (為了相容性存在的選項，不會造成任何影響)\n"
 "  -h, --help                顯示此段說明訊息並離開\n"
 "  -n                        去除末端的 newline 字元\n"
@@ -240,7 +240,7 @@ msgstr ""
 "假如沒有指定<文字領域>參數，程式會根據 TEXTDOMAIN 環境變數來設定<文字領域>。\n"
 "假如訊息資料檔不在正常的目錄下，可以用環境變數 TEXTDOMAINDIR 指定訊息資料檔\n"
 "的所在的位置。\n"
-"使用選項‘-s’時此程式和‘echo’指令類似。但它不是直接把參數複製至標準輸出，\n"
+"使用選項 ‘-s’ 時本程式和 ‘echo’ 指令類似。但不是直接顯示參數，\n"
 "而是尋找訊息資料檔裡翻譯過的訊息。\n"
 "標準的搜尋目錄為：%s\n"
 
@@ -269,7 +269,7 @@ msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  -d, --domain=文字領域     由<文字領域>讀取翻譯後的訊息。\n"
-"  -e                        允許展開某類溢出序列字元\n"
+"  -e                        允許展開某類 escape sequence\n"
 "  -E                        (為了相容性存在的選項，不會造成任何影響)\n"
 "  -h, --help                顯示此段說明並離開\n"
 "  -V, --version             顯示版本資訊並離開\n"

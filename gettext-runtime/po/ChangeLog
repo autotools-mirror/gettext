@@ -1,3 +1,12 @@
+2006-04-07  Bruno Haible  <bruno@clisp.org>
+
+	* es.po: Update from Max de Mendizábal <max@upn.mx>.
+	* pt.po: Update from Helder Correia <helder.pereira.correia@gmail.com>.
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+	* zh_TW.po: Update from Abel Cheung <abelcheung@gmail.com>.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (XGETTEXT_OPTIONS): Add keywords 'proper_name' and
