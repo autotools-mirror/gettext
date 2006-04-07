@@ -1,3 +1,15 @@
+2006-04-07  Bruno Haible  <bruno@clisp.org>
+
+	* po/hu.po: New file, from Kiss Tamás <atomi@inf.elte.hu>.
+	* po/pt.po: New file, from
+	Helder Correia <helder.pereira.correia@gmail.com>.
+	* po/sl.po: New file, from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* po/vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+	* po/LINGUAS: Add hu, pt, sl.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2006-03-25  Bruno Haible  <bruno@clisp.org>
 
 	* hello-csharp-forms/README: New file.
