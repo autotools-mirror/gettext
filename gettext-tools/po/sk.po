@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.14.2-pre4\n"
+"Project-Id-Version: GNU gettext-tools 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-03-16 22:41+0100\n"
-"PO-Revision-Date: 2005-02-15 21:50+0100\n"
+"PO-Revision-Date: 2005-05-23 22:16+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -286,12 +286,12 @@ msgstr "Reťazec obsahuje osamotené '}' po direktíve číslo %u."
 #: src/format-gcc-internal.c:216
 #, c-format
 msgid "The %%J directive is only allowed at the beginning of the string."
-msgstr ""
+msgstr "Direktíva %%J je povolená len na začiatku reťazca."
 
 #: src/format-gcc-internal.c:217
 #, c-format
 msgid "The %%J directive does not support flags."
-msgstr ""
+msgstr "Direktíva %%J nepodporuje príznaky."
 
 #: src/format-gcc-internal.c:259
 #, c-format
@@ -301,12 +301,12 @@ msgstr "V direktíve číslo %u, príznaky nie sú povolené pred '%c'."
 #: src/format-gcc-internal.c:342
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
-msgstr ""
+msgstr "'msgid' používa %%m, ale '%s' nie"
 
 #: src/format-gcc-internal.c:345
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
-msgstr ""
+msgstr "'msgid' nepoužíva %%m, ale '%s' používa %%m"
 
 #: src/format-invalid.h:23
 msgid "The string ends in the middle of a directive."
@@ -3575,14 +3575,14 @@ msgid "%s:%d: ambiguous argument specification for keyword '%.*s'"
 msgstr "nejednoznačný parameter %s pre %s"
 
 #: src/xgettext.c:2605
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: missing context for keyword '%.*s'"
-msgstr "nejednoznačný parameter %s pre %s"
+msgstr ""
 
 #: src/xgettext.c:2629
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: missing context for plural argument of keyword '%.*s'"
-msgstr "nejednoznačný parameter %s pre %s"
+msgstr ""
 
 #: src/xgettext.c:2650
 #, c-format
@@ -3749,6 +3749,9 @@ msgstr "Prosím zadajte vašu adresu elektronickej pošty."
 #~ msgid "field `%s' still has initial default value\n"
 #~ msgstr "položka `%s' ešte obsahuje počiatočnú štandardnú hodnotu\n"
 
+#~ msgid "conversion failure"
+#~ msgstr "konverzia zlyhala"
+
 #~ msgid "%s: warning: "
 #~ msgstr "%s: upozornenie: "
 
@@ -3762,6 +3765,3 @@ msgstr "Prosím zadajte vašu adresu elektronickej pošty."
 #~ msgstr ""
 #~ "%s:%d: závažné: správa v množnom čísle je uvedená pred správou v "
 #~ "jednotnom čísle\n"
-
-#~ msgid "conversion failure"
-#~ msgstr "konverzia zlyhala"

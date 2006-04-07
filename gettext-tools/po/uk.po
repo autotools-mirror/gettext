@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.14.1\n"
+"Project-Id-Version: gettext-tools 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-03-16 22:41+0100\n"
-"PO-Revision-Date: 2004-07-03 01:19+0200\n"
+"PO-Revision-Date: 2005-07-21 12:19+0200\n"
 "Last-Translator: Maxim V. Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,14 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: lib/argmatch.c:136
-#, fuzzy, c-format
+#, c-format
 msgid "invalid argument %s for %s"
-msgstr "неправильний аргумент `%s' для `%s'"
+msgstr "неправильний аргумент %s для %s"
 
 #: lib/argmatch.c:137
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument %s for %s"
-msgstr "неоднозначний аргумент `%s' для `%s'"
+msgstr "неоднозначний аргумент %s для %s"
 
 #: lib/argmatch.c:156
 #, c-format
@@ -71,17 +71,14 @@ msgid "fdopen() failed"
 msgstr "помилка у функції fdopen()"
 
 #: lib/csharpcomp.c:527
-#, fuzzy, c-format
+#, c-format
 msgid "C# compiler not found, try installing pnet"
-msgstr ""
-"Компілятор Java не знайдено, встановіть gcj або встановіть змінну $JAVAC"
+msgstr "Компілятор C# не знайдено, спробуйте встановити pnet"
 
 #: lib/csharpexec.c:346
-#, fuzzy, c-format
+#, c-format
 msgid "C# virtual machine not found, try installing pnet"
-msgstr ""
-"Не знайдено віртуальну машину Java, встановіть gij або встановіть змінну "
-"$JAVA"
+msgstr "Не знайдено віртуальну машину pnet, спробуйте встановити pnet"
 
 #: lib/error.c:121
 msgid "Unknown system error"
@@ -258,9 +255,9 @@ msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "У директиві з номером %u, дужка '{' не завершується номером аргументу."
 
 #: src/format-csharp.c:106
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
-msgstr "У директиві з номером %u, дужка '{' не завершується номером аргументу."
+msgstr "У директиві з номером %u, знак ',' не завершується числом."
 
 #: src/format-csharp.c:125 src/format-java.c:190
 msgid ""
@@ -270,16 +267,16 @@ msgstr ""
 "'}'."
 
 #: src/format-csharp.c:133
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
-msgstr "У директиві з номером %u, символ '%c' не є цифрою від 1 до 9."
+msgstr ""
+"Директива з номером %u закінчується неправильним символом '%c' замість '}'."
 
 #: src/format-csharp.c:134
-#, fuzzy, c-format
+#, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
-msgstr ""
-"У директиві з номером %u, '~;' використовується у неправильній позиції."
+msgstr "Директива з номером %u закінчується неправильним символом замість '}'."
 
 #: src/format-csharp.c:152 src/format-java.c:333
 msgid ""
@@ -290,19 +287,19 @@ msgstr ""
 "'{'."
 
 #: src/format-csharp.c:153
-#, fuzzy, c-format
+#, c-format
 msgid "The string contains a lone '}' after directive number %u."
-msgstr "Рядок закінчується в середині директиви."
+msgstr "Рядок містить одну дужку '}' після директиви %u."
 
 #: src/format-gcc-internal.c:216
 #, c-format
 msgid "The %%J directive is only allowed at the beginning of the string."
-msgstr ""
+msgstr "Директива %%J допустима лише на початку рядка."
 
 #: src/format-gcc-internal.c:217
 #, c-format
 msgid "The %%J directive does not support flags."
-msgstr ""
+msgstr "Директива %%J не підтримує параметри."
 
 #: src/format-gcc-internal.c:259
 #, c-format
@@ -312,12 +309,12 @@ msgstr "У директиві з номером %u, ознаки не дозво
 #: src/format-gcc-internal.c:342
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
-msgstr ""
+msgstr "'msgid' використовує %%m, а '%s' не використовує"
 
 #: src/format-gcc-internal.c:345
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
-msgstr ""
+msgstr "'msgid' не використовує %%m а '%s' використовує %%m"
 
 #: src/format-invalid.h:23
 msgid "The string ends in the middle of a directive."
@@ -620,7 +617,7 @@ msgstr "Символ, що завершує директиву з номером
 
 #: src/gettext-po.c:83
 msgid "<unnamed>"
-msgstr ""
+msgstr "<без назви>"
 
 #: src/gettext-po.c:101 src/gettext-po.c:145 src/gettext-po.c:189
 #: src/open-po.c:56
@@ -1970,13 +1967,13 @@ msgid ""
 "                              selection criterion\n"
 msgstr ""
 "Вибір повідомлень:\n"
-"  [-N ВХІДНИЙ_ФАЙЛ]... [-M ДОМЕН]...\n"
-"  [-K MSGID-ШАБЛОН] [-T MSGSTR-ШАБЛОН] [-C ШАБЛОН_КОМЕНТАРЯ]\n"
+"  [-N ВХІДНИЙФАЙЛ]... [-M ДОМЕН]...\n"
+"  [-K MSGID-ШАБЛОН] [-T MSGSTR-ШАБЛОН] [-C ШАБЛОНКОМЕНТАРЯ]\n"
 "Повідомлення вибирається, якщо воно є у одному з вказаних вхідних файлів,\n"
 "або належить до одного з вказаних доменів,\n"
 "або вказано -K, та ключ (msgid або msgid_plural) відповідає MSGID-ШАБЛОН,\n"
 "або вказано -T, та переклад (msgstr) відповідає MSGSTR-ШАБЛОН,\n"
-"або вказано -C, та коментар перекладача відповідає ШАБЛОН_КОМЕНТАРЯ.\n"
+"або вказано -C, та коментар перекладача відповідає ШАБЛОНКОМЕНТАРЯ.\n"
 "\n"
 "Якщо вказано більш ніж один критерій, набір відібраних повідомлень\n"
 "є об'єднанням повідомлень відібраних за кожним критерієм.\n"
@@ -1986,7 +1983,7 @@ msgstr ""
 "Типово ШАБЛОН є регулярним виразом, або розширеним регулярним виразом,\n"
 "коли вказано -E, або фіксований рядком, коли вказано -F.\n"
 "\n"
-"  -N, --location=ВХІДНИЙ_ФАЙЛ вибрати повідомлення, що отримані з ВХІДНИЙ_ФАЙЛ\n"
+"  -N, --location=ВХІДНИЙФАЙЛ вибрати повідомлення, що отримані з ВХІДНИЙФАЙЛ\n"
 "  -M, --domain=ДОМЕН          вибрати повідомлення, що належать до домену ДОМЕН\n"
 "  -K, --msgid                 початок шаблонів для msgid\n"
 "  -T, --msgstr                початок шаблонів для для msgstr\n"
@@ -2818,7 +2815,7 @@ msgid ""
 "but the C# .dll format doesn't support contexts\n"
 msgstr ""
 "каталог повідомлень має переклад з множинними формами\n"
-"але формат каталогу повідомлень Qt не підтримує множинні форми\n"
+"але формат каталогу ресурсів C# не підтримує множинні форми\n"
 
 #: src/write-csharp.c:694 src/write-java.c:1002
 #, c-format
@@ -2831,9 +2828,9 @@ msgid "cannot create a temporary directory using template \"%s\""
 msgstr "не вдається створити тимчасовий каталог використовуючи шаблон \"%s\""
 
 #: src/write-csharp.c:755
-#, fuzzy, c-format
+#, c-format
 msgid "failed to create directory \"%s\""
-msgstr "не вдається створити \"%s\""
+msgstr "не вдається створити каталог \"%s\""
 
 #: src/write-csharp.c:790 src/write-java.c:1083 src/write-java.c:1096
 #, c-format
@@ -2847,10 +2844,9 @@ msgid "error while writing \"%s\" file"
 msgstr "помилка при записуванні файлу \"%s\""
 
 #: src/write-csharp.c:816
-#, fuzzy, c-format
+#, c-format
 msgid "compilation of C# class failed, please try --verbose"
-msgstr ""
-"помилка при компіляції класу Java, спробуйте --verbose або встановіть $JAVAC"
+msgstr "помилка при компіляції класу C#, спробуйте --verbose"
 
 #: src/write-java.c:973
 #, fuzzy
@@ -2859,7 +2855,7 @@ msgid ""
 "but the Java ResourceBundle format doesn't support contexts\n"
 msgstr ""
 "каталог повідомлень має переклад з множинними формами\n"
-"але формат каталогу повідомлень Qt не підтримує множинні форми\n"
+"але формат каталогу ресурсів C# не підтримує множинні форми\n"
 
 #: src/write-java.c:1025
 #, c-format
@@ -2997,9 +2993,9 @@ msgstr ""
 "рядках\n"
 
 #: src/write-resources.c:96
-#, fuzzy, c-format
+#, c-format
 msgid "error while writing to %s subprocess"
-msgstr "помилка при записуванні файлу \"%s\""
+msgstr "помилка при записуванні у \"%s\" дочірній процес"
 
 #: src/write-resources.c:132
 #, fuzzy
@@ -3008,16 +3004,15 @@ msgid ""
 "but the C# .resources format doesn't support contexts\n"
 msgstr ""
 "каталог повідомлень має переклад з множинними формами\n"
-"але формат каталогу повідомлень Qt не підтримує множинні форми\n"
+"але формат каталогу ресурсів C# не підтримує множинні форми\n"
 
 #: src/write-resources.c:151
-#, fuzzy
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
 msgstr ""
 "каталог повідомлень має переклад з множинними формами\n"
-"але формат каталогу повідомлень Qt не підтримує множинні форми\n"
+"але формат каталогу ресурсів C# не підтримує множинні форми\n"
 
 #: src/write-tcl.c:158
 #, fuzzy
@@ -3066,53 +3061,53 @@ msgstr ""
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:260
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Неправильна мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:276
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Довга незавершена мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:288
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Незавершена мультибайтова послідовність наприкінці файлу.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Незавершена мультибайтова послідовність наприкінці рядка.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:306 src/x-python.c:329
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: iconv failure"
-msgstr "помилка при iconv"
+msgstr "%s:%d: помилка iconv"
 
 #: src/x-csharp.c:329
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Неправильна мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-csharp.c:1379 src/x-python.c:1256
@@ -3201,7 +3196,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Неправильна мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-python.c:296
@@ -3211,7 +3206,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Довга незавершена мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-python.c:309
@@ -3221,7 +3216,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Незавершена мультибайтова послідовність наприкінці файлу.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-python.c:319
@@ -3231,7 +3226,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Незавершена мультибайтова послідовність наприкінці рядка.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-python.c:352
@@ -3241,7 +3236,7 @@ msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Не-ASCII рядок у %s%s.\n"
+"%s:%d: Неправильна мультибайтова послідовність.\n"
 "Вкажіть вхідне кодування у параметрі --from-code.\n"
 
 #: src/x-python.c:672
@@ -3324,7 +3319,7 @@ msgid "Choice of input file language:\n"
 msgstr "Вибір мови вхідного файлу:\n"
 
 #: src/xgettext.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3337,7 +3332,7 @@ msgstr ""
 "  -L, --language=НАЗВА         розпізнавати вказану мову\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
-"                                EmacsLisp, librep, Smalltalk, Java,\n"
+"                                EmacsLisp, librep, Scheme, Smalltalk, Java,\n"
 "                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
 "PHP,\n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
@@ -3401,7 +3396,7 @@ msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           витягнути усі рядки\n"
 
 #: src/xgettext.c:809 src/xgettext.c:816
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
@@ -3409,9 +3404,9 @@ msgid ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 msgstr ""
 "                                (лише мови C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade)\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:813
 #, c-format
@@ -3435,7 +3430,7 @@ msgstr ""
 "                              аргументу АРГ ключового слова СЛОВО\n"
 
 #: src/xgettext.c:823
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
 "                                Python, Lisp, EmacsLisp, librep, Scheme, "
@@ -3443,9 +3438,9 @@ msgid ""
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 msgstr ""
 "                                (лише мови C, C++, ObjectiveC, Shell,\n"
-"                                Python, Lisp, EmacsLisp, librep, Java, C#, "
-"awk,\n"
-"                                YCP, Tcl, Perl, PHP, GCC-source)\n"
+"                                Python, Lisp, EmacsLisp, librep, Scheme, "
+"Java,\n"
+"                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 
 #: src/xgettext.c:827
 #, c-format
@@ -3582,17 +3577,17 @@ msgstr ""
 #: src/xgettext.c:2579
 #, fuzzy, c-format
 msgid "%s:%d: ambiguous argument specification for keyword '%.*s'"
-msgstr "неоднозначний аргумент `%s' для `%s'"
+msgstr "неоднозначний аргумент %s для %s"
 
 #: src/xgettext.c:2605
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: missing context for keyword '%.*s'"
-msgstr "неоднозначний аргумент `%s' для `%s'"
+msgstr ""
 
 #: src/xgettext.c:2629
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: missing context for plural argument of keyword '%.*s'"
-msgstr "неоднозначний аргумент `%s' для `%s'"
+msgstr ""
 
 #: src/xgettext.c:2650
 #, c-format
@@ -3760,6 +3755,9 @@ msgstr "Введіть вашу адресу електронної пошти."
 #~ msgid "field `%s' still has initial default value\n"
 #~ msgstr "поле `%s' досі має початкове типове значення\n"
 
+#~ msgid "conversion failure"
+#~ msgstr "помилка при перетворенні"
+
 #~ msgid "%s: warning: "
 #~ msgstr "%s: попередження: "
 
@@ -3773,9 +3771,6 @@ msgstr "Введіть вашу адресу електронної пошти."
 #~ msgstr ""
 #~ "%s:%d: критична помилка: перед повідомленням з множинною формою знайдено "
 #~ "звичайне повідомлення\n"
-
-#~ msgid "conversion failure"
-#~ msgstr "помилка при перетворенні"
 
 #~ msgid "write to grep subprocess failed"
 #~ msgstr "помилка запису у створений процес grep"
