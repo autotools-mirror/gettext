@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.14.3\n"
+"Project-Id-Version: gettext-examples 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2005-01-29 17:39+0100\n"
-"PO-Revision-Date: 2005-04-17 17:08+0800\n"
+"PO-Revision-Date: 2005-08-10 12:25+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
