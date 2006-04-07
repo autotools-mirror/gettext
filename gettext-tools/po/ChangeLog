@@ -1,3 +1,19 @@
+2006-04-07  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* es.po: Update from Max de Mendizábal <max@upn.mx>.
+	* fr.po: Update from Michel Robitaille <robitail@iro.umontreal.ca>.
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* ru.po: Update from Oleg S. Tihonov <ost@tatnipi.ru>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sl.po: Update from Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* uk.po: Update from Maxim V. Dziumanenko <mvd@mylinux.com.ua>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+	* zh_CN.po: Update from Funda Wang <fundawang@linux.net.cn>.
+	* zh_TW.po: Update from Abel Cheung <abelcheung@gmail.com>.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add lib/quotearg.c, src/format-boost.c,
