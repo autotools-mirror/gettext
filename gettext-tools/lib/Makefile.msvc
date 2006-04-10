@@ -88,6 +88,7 @@ OBJECTS = \
   c-strcasecmp.obj \
   c-strncasecmp.obj \
   classpath.obj \
+  clean-temp.obj \
   closeout.obj \
   copy-file.obj \
   csharpcomp.obj \
@@ -166,6 +167,9 @@ c-strncasecmp.obj : c-strncasecmp.c
 
 classpath.obj : classpath.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c classpath.c
+
+clean-temp.obj : clean-temp.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c clean-temp.c
 
 closeout.obj : closeout.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c closeout.c

@@ -1,3 +1,16 @@
+2006-04-09  Bruno Haible  <bruno@clisp.org>
+
+	* write-csharp.c: Include clean-temp.h. Don't include unistd.h,
+	mkdtemp.h, tmpdir.h, pathmax.h, fatal-signal.h, xallocsa.h.
+	(cleanup_list): Remove variable.
+	(cleanup): Remove function.
+	(msgdomain_write_csharp): Simplify handling of temporary directory.
+	* write-java.c: Include clean-temp.h. Don't include unistd.h,
+	mkdtemp.h, tmpdir.h, pathmax.h, fatal-signal.h.
+	(cleanup_list): Remove variable.
+	(cleanup): Remove function.
+	(msgdomain_write_java): Simplify handling of temporary directory.
+
 2006-04-03  Bruno Haible  <bruno@clisp.org>
 
 	* x-glade.c (p_XML_GetCurrentLineNumber, p_XML_GetCurrentColumnNumber):

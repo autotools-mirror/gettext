@@ -41,6 +41,7 @@ libgettextlib_la_SOURCES = \
   c-strcase.h c-strcasecmp.c c-strncasecmp.c \
   c-strcasestr.h c-strcasestr.c \
   classpath.h classpath.c \
+  clean-temp.h clean-temp.c \
   closeout.h closeout.c \
   copy-file.h copy-file.c \
   csharpcomp.h csharpcomp.c \

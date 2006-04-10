@@ -1,5 +1,15 @@
 2006-04-09  Bruno Haible  <bruno@clisp.org>
 
+	* clean-temp.h: New file.
+	* clean-temp.c: New file.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	* Makefile.msvc (OBJECTS): Add clean-temp.obj.
+	(clean-temp.obj): New rule.
+	* Makefile.vms (OBJECTS): Add clean-temp.obj.
+	(clean-temp.obj): New rule.
+
+2006-04-09  Bruno Haible  <bruno@clisp.org>
+
 	* fatal-signal.c: Don't include string.h.
 	(at_fatal_signal): Use a copying loop instead of memcpy.
 

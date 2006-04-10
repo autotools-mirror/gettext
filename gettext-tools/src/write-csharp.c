@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2005 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -74,10 +74,6 @@
 # define S_IXOTH (S_IXUSR >> 6)
 #endif
 
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#endif
-
 #ifdef __MINGW32__
 /* mingw's mkdir() function has 1 argument, but we pass 2 arguments.
    Therefore we have to disable the argument count checking.  */
@@ -90,18 +86,14 @@
 #include "xerror.h"
 #include "csharpcomp.h"
 #include "message.h"
-#include "mkdtemp.h"
 #include "msgfmt.h"
 #include "msgl-iconv.h"
-#include "pathmax.h"
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "xallocsa.h"
 #include "pathname.h"
-#include "fatal-signal.h"
 #include "fwriteerror.h"
-#include "tmpdir.h"
+#include "clean-temp.h"
 #include "utf8-ucs4.h"
 #include "gettext.h"
 
@@ -592,46 +584,13 @@ write_csharp_code (FILE *stream, const char *culture_name, const char *class_nam
 }
 
 
-/* Asynchronously cleaning up temporary files, when we receive any of the
-   usually occurring signals whose default action is to terminate the
-   program.  */
-
-static struct
-{
-  const char *tmpdir;
-  const char *file_name;
-} cleanup_list;
-
-/* The signal handler.  It gets called asynchronously.  */
-static void
-cleanup ()
-{
-  /* First cleanup the files in the subdirectory.  */
-  {
-    const char *filename = cleanup_list.file_name;
-
-    if (filename != NULL)
-      unlink (filename);
-  }
-
-  /* Then cleanup the main temporary directory.  */
-  {
-    const char *filename = cleanup_list.tmpdir;
-
-    if (filename != NULL)
-      rmdir (filename);
-  }
-}
-
-
 int
 msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
 			const char *resource_name, const char *locale_name,
 			const char *directory)
 {
   int retval;
-  char *template;
-  char *tmpdir;
+  struct temp_dir *tmpdir;
   char *culture_name;
   char *output_file;
   char *class_name;
@@ -670,41 +629,15 @@ but the C# .dll format doesn't support contexts\n")));
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
-  cleanup_list.tmpdir = NULL;
-  cleanup_list.file_name = NULL;
-  {
-    static bool cleanup_already_registered = false;
-    if (!cleanup_already_registered)
-      {
-	at_fatal_signal (&cleanup);
-	cleanup_already_registered = true;
-      }
-  }
-
   /* Create a temporary directory where we can put the C# file.
      A simple temporary file would also be possible but would require us to
      define our own variant of mkstemp(): On one hand the functions mktemp(),
      tmpnam(), tempnam() present a security risk, and on the other hand the
      function mkstemp() doesn't allow to specify a fixed suffix of the file.
      It is simpler to create a temporary directory.  */
-  template = (char *) xallocsa (PATH_MAX);
-  if (path_search (template, PATH_MAX, NULL, "msg", 1))
-    {
-      error (0, errno,
-	     _("cannot find a temporary directory, try setting $TMPDIR"));
-      goto quit1;
-    }
-  block_fatal_signals ();
-  tmpdir = mkdtemp (template);
-  cleanup_list.tmpdir = tmpdir;
-  unblock_fatal_signals ();
+  tmpdir = create_temp_dir ("msg");
   if (tmpdir == NULL)
-    {
-      error (0, errno,
-	     _("cannot create a temporary directory using template \"%s\""),
-	     template);
-      goto quit1;
-    }
+    goto quit1;
 
   /* Assign a default value to the resource name.  */
   if (resource_name == NULL)
@@ -738,7 +671,6 @@ but the C# .dll format doesn't support contexts\n")));
 	culture_name = xstrdup ("uz-UZ-Latn");
       }
   }
-  
 
   /* Compute the output file name.  This code must be kept consistent with
      intl.cs, function GetSatelliteAssembly().  */
@@ -754,7 +686,7 @@ but the C# .dll format doesn't support contexts\n")));
 	{
 	  error (0, errno, _("failed to create directory \"%s\""), output_dir);
 	  free (output_dir);
-	  goto quit3;
+	  goto quit2;
 	}
 
     output_file =
@@ -780,15 +712,17 @@ but the C# .dll format doesn't support contexts\n")));
 
   /* Compute the temporary C# file name.  It must end in ".cs", so that
      the C# compiler recognizes that it is C# source code.  */
-  csharp_file_name = concatenated_pathname (tmpdir, "resset.cs", NULL);
+  csharp_file_name =
+    concatenated_pathname (tmpdir->dir_name, "resset.cs", NULL);
 
   /* Create the C# file.  */
-  cleanup_list.file_name = csharp_file_name;
+  enqueue_temp_file (tmpdir, csharp_file_name);
   csharp_file = fopen (csharp_file_name, "w");
   if (csharp_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), csharp_file_name);
-      goto quit4;
+      dequeue_temp_file (tmpdir, csharp_file_name);
+      goto quit3;
     }
 
   write_csharp_code (csharp_file, culture_name, class_name, mlp);
@@ -797,7 +731,7 @@ but the C# .dll format doesn't support contexts\n")));
     {
       error (0, errno, _("error while writing \"%s\" file"), csharp_file_name);
       fclose (csharp_file);
-      goto quit5;
+      goto quit3;
     }
 
   /* Make it possible to override the .dll location.  This is
@@ -814,24 +748,18 @@ but the C# .dll format doesn't support contexts\n")));
 			    output_file, true, false, verbose))
     {
       error (0, 0, _("compilation of C# class failed, please try --verbose"));
-      goto quit5;
+      goto quit3;
     }
 
   retval = 0;
 
- quit5:
-  unlink (csharp_file_name);
- quit4:
-  cleanup_list.file_name = NULL;
+ quit3:
   free (csharp_file_name);
   free (class_name);
   free (output_file);
- quit3:
+ quit2:
   free (culture_name);
-  rmdir (tmpdir);
+  cleanup_temp_dir (tmpdir);
  quit1:
-  cleanup_list.tmpdir = NULL;
-  freesa (template);
-  /* Here we could unregister the cleanup() handler.  */
   return retval;
 }
