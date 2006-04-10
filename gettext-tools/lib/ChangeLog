@@ -1,3 +1,8 @@
+2006-04-09  Bruno Haible  <bruno@clisp.org>
+
+	* fatal-signal.c: Don't include string.h.
+	(at_fatal_signal): Use a copying loop instead of memcpy.
+
 2006-04-05  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Update Juan Manuel Guerrero's address.

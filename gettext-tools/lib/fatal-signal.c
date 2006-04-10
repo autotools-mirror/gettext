@@ -1,5 +1,5 @@
 /* Emergency actions in case of a fatal signal.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,7 +27,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <string.h>
 #if HAVE_UNISTD_H
 # include <unistd.h>
 #endif
@@ -203,12 +202,17 @@ at_fatal_signal (action_t action)
 	 because then the cleanup() function could access an already
 	 deallocated array.  */
       actions_entry_t *old_actions = actions;
+      size_t old_actions_allocated = actions_allocated;
       size_t new_actions_allocated = 2 * actions_allocated;
       actions_entry_t *new_actions =
 	xmalloc (new_actions_allocated * sizeof (actions_entry_t));
+      size_t k;
 
-      memcpy (new_actions, old_actions,
-	      actions_allocated * sizeof (actions_entry_t));
+      /* Don't use memcpy() here, because memcpy takes non-volatile arguments
+	 and is therefore not guaranteed to complete all memory stores before
+	 the next statement.  */
+      for (k = 0; k < old_actions_allocated; k++)
+	new_actions[k] = old_actions[k];
       actions = new_actions;
       actions_allocated = new_actions_allocated;
       /* Now we can free the old actions array.  */
