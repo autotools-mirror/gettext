@@ -23,28 +23,27 @@
 @ifinfo
 This file provides documentation for GNU @code{autosprintf} library.
 
+@copying
 Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
-Permission is granted to make and distribute verbatim copies of
-this manual provided the copyright notice and this permission notice
-are preserved on all copies.
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
 
-@ignore
-Permission is granted to process this file through TeX and print the
-results, provided the printed document carries copying permission
-notice identical to this one except for the removal of this paragraph
-(this paragraph not being relevant to the printed manual).
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is at @url{http://www.gnu.org/licenses/fdl.html}.
 
-@end ignore
-Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
-
-Permission is granted to copy and distribute translations of this manual
-into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation approved
-by the Foundation.
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is at @url{http://www.gnu.org/licenses/gpl.html}.
+@end copying
 @end ifinfo
 
 @titlepage
@@ -54,21 +53,26 @@ by the Foundation.
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 2002-2003 Free Software Foundation, Inc.
+@c @insertcopying
+Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
-Permission is granted to make and distribute verbatim copies of
-this manual provided the copyright notice and this permission notice
-are preserved on all copies.
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
 
-Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is at @url{http://www.gnu.org/licenses/fdl.html}.
 
-Permission is granted to copy and distribute translations of this manual
-into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation approved
-by the Foundation.
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is at @url{http://www.gnu.org/licenses/gpl.html}.
 @end titlepage
 
 @ifinfo

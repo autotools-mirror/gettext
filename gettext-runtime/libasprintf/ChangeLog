@@ -1,3 +1,7 @@
+2006-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* autosprintf.texi: Change license terms to FDL | GPL.
+
 2006-04-01  Bruno Haible  <bruno@clisp.org>
 
 	* texi2html: Add option -expandtex. Expand @ifhtml by default, not
