@@ -1,3 +1,8 @@
+2006-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Comment out @documentencoding, since we are using
+	texi2html, not makeinfo, to produce the HTML documentation.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (wxWidgets): Renamed from wxWindows. Clarify formatting

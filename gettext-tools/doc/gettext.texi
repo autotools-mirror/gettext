@@ -1,8 +1,9 @@
 \input texinfo          @c -*-texinfo-*-
 @c %**start of header
-@ifhtml
-@documentencoding UTF-8
-@end ifhtml
+@c The @documentencoding is needed for makeinfo, but not for texi2html.
+@c @ifhtml
+@c @documentencoding UTF-8
+@c @end ifhtml
 @setfilename gettext.info
 @settitle GNU @code{gettext} utilities
 @finalout
