@@ -41,6 +41,7 @@ gettext_TEXINFOS = \
   msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
   gettextize.texi autopoint.texi iso-639.texi iso-3166.texi \
+  gpl.texi lgpl.texi fdl.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi

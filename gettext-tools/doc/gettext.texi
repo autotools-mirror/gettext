@@ -35,6 +35,7 @@
 
 @include version.texi
 
+@ifinfo
 @dircategory GNU Gettext Utilities
 @direntry
 * gettext: (gettext).                          GNU gettext utilities.
@@ -60,33 +61,33 @@
 * ISO639: (gettext)Language Codes.             ISO 639 language codes.
 * ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
 @end direntry
+@end ifinfo
 
 @ifinfo
 This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
-Copyright (C) 1995-1998, 2001-2005 Free Software Foundation, Inc.
+@copying
+Copyright (C) 1995-1998, 2001-2006 Free Software Foundation, Inc.
 
-Permission is granted to make and distribute verbatim copies of
-this manual provided the copyright notice and this permission notice
-are preserved on all copies.
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
 
-@ignore
-Permission is granted to process this file through TeX and print the
-results, provided the printed document carries copying permission
-notice identical to this one except for the removal of this paragraph
-(this paragraph not being relevant to the printed manual).
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is included in @ref{GNU FDL}.
 
-@end ignore
-Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
-
-Permission is granted to copy and distribute translations of this manual
-into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation approved
-by the Foundation.
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is included in @ref{GNU GPL}.
+@end copying
 @end ifinfo
 
 @titlepage
@@ -98,23 +99,30 @@ by the Foundation.
 @author Fran@,{c}ois Pinard
 @author Bruno Haible
 
+@ifnothtml
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 1995-1998, 2001-2003 Free Software Foundation, Inc.
+@c @insertcopying
+Copyright (C) 1995-1998, 2001-2006 Free Software Foundation, Inc.
 
-Permission is granted to make and distribute verbatim copies of
-this manual provided the copyright notice and this permission notice
-are preserved on all copies.
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
 
-Permission is granted to copy and distribute modified versions of this
-manual under the conditions for verbatim copying, provided that the entire
-resulting derived work is distributed under the terms of a permission
-notice identical to this one.
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is included in @ref{GNU FDL}.
 
-Permission is granted to copy and distribute translations of this manual
-into another language, under the above conditions for modified versions,
-except that this permission notice may be stated in a translation approved
-by the Foundation.
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is included in @ref{GNU GPL}.
+@end ifnothtml
 @end titlepage
 
 @ifnottex
@@ -149,6 +157,7 @@ version @value{VERSION}.
 
 * Language Codes::              ISO 639 language codes
 * Country Codes::               ISO 3166 country codes
+* Licenses::                    Licenses
 
 * Program Index::               Index of Programs
 * Option Index::                Index of Command-Line Options
@@ -423,6 +432,12 @@ Concluding Remarks
 
 * History::                     History of GNU @code{gettext}
 * References::                  Related Readings
+
+Licenses
+
+* GNU GPL::                     GNU General Public License
+* GNU LGPL::                    GNU Lesser General Public License
+* GNU FDL::                     GNU Free Documentation License
 
 @end detailmenu
 @end menu
@@ -10644,7 +10659,7 @@ come from this standard.
 @include iso-639.texi
 @end table
 
-@node Country Codes, Program Index, Language Codes, Top
+@node Country Codes, Licenses, Language Codes, Top
 @appendix Country Codes
 @cindex country codes
 @cindex ISO 3166
@@ -10657,7 +10672,58 @@ Project should come from this standard.
 @include iso-3166.texi
 @end table
 
-@node Program Index, Option Index, Country Codes, Top
+@node Licenses, Program Index, Country Codes, Top
+@appendix Licenses
+@cindex Licenses
+
+The files of this package are covered by the licenses indicated in each
+particular file or directory.  Here is a summary:
+
+@itemize @bullet
+@item
+The @code{libintl} and @code{libasprintf} libraries are covered by the
+GNU Library General Public License (LGPL).  
+A copy of the license is included in @ref{GNU LGPL}.
+
+@item
+The executable programs of this package and the @code{libgettextpo} library
+are covered by the GNU General Public License (GPL).
+A copy of the license is included in @ref{GNU GPL}.
+
+@item
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
+@*
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is included in @ref{GNU FDL}.
+@*
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is included in @ref{GNU GPL}.
+@end itemize
+
+@menu
+* GNU GPL::                     GNU General Public License
+* GNU LGPL::                    GNU Lesser General Public License
+* GNU FDL::                     GNU Free Documentation License
+@end menu
+
+@page
+@include gpl.texi
+@page
+@include lgpl.texi
+@page
+@include fdl.texi
+
+@node Program Index, Option Index, Licenses, Top
 @unnumbered Program Index
 
 @printindex pg

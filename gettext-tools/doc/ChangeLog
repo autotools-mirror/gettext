@@ -1,5 +1,14 @@
 2006-04-11  Bruno Haible  <bruno@clisp.org>
 
+	* gpl.texi: New file, from GNU with typesetting modifications.
+	* lgpl.texi: New file, from GNU with typesetting modifications.
+	* fdl.texi: New file, from GNU with typesetting modifications.
+	* gettext.texi: Change license terms to FDL | GPL. Don't reproduce
+	the @direntry statement in the HTML documentation.
+	(Licenses): New appendix chapter.
+
+2006-04-11  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi: Comment out @documentencoding, since we are using
 	texi2html, not makeinfo, to produce the HTML documentation.
 
