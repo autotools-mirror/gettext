@@ -101,11 +101,17 @@ func_find_curr_installdir ()
     *) curr_executable=`pwd`/"$curr_executable" ;;
   esac
   # Resolve symlinks.
+  sed_dirname='s,/[^/]*$,,'
+  sed_linkdest='s,^.* -> \(.*\),\1,p'
   while : ; do
     lsline=`LC_ALL=C ls -l "$curr_executable"`
     case "$lsline" in
       *" -> "*)
-        curr_executable=`echo "$curr_executable" | sed -e 's,/[^/]*$,,'`/`echo "$lsline" | sed -n -e 's,^.* -> \(.*\),\1,p'` ;;
+        linkdest=`echo "$lsline" | sed -n -e "$sed_linkdest"`
+        case "$linkdest" in
+          /* | ?:/* | ?:\\*) curr_executable="$linkdest" ;;
+          *) curr_executable=`echo "$curr_executable" | sed -e "$sed_dirname"`/"$linkdest" ;;
+        esac ;;
       *) break ;;
     esac
   done
