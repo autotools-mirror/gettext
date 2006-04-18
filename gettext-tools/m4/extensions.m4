@@ -1,9 +1,12 @@
 # Enable extensions on systems that normally disable them.
 
-dnl Copyright (C) 2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
+
+dnl This file is only needed in autoconf <= 2.59.  Newer versions of autoconf
+dnl have a macro AC_USE_SYSTEM_EXTENSIONS with identical semantics.
 
 # gl_USE_SYSTEM_EXTENSIONS
 # ------------------------

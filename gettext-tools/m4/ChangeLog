@@ -1,3 +1,9 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Prepare for autoconf-2.60.
+	* regex.m4 (gl_INCLUDED_REGEX): Include <stdlib.h>, for exit()
+	declaration.
+
 2006-03-12  Bruno Haible  <bruno@clisp.org>
 
 	* javaexec.m4 (gt_JAVAEXEC): Make the result of the test available as

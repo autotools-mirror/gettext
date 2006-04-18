@@ -1,5 +1,5 @@
 dnl Example for use of GNU gettext.
-dnl Copyright (C) 2003 Free Software Foundation, Inc.
+dnl Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
@@ -24,6 +24,7 @@ else
 fi
 save_prefix="$prefix"
 prefix="$final_prefix"
+eval "datarootdir=\"${datarootdir}\""
 eval "localedir=\"${datadir}/locale\""
 prefix="$save_prefix"
 AC_SUBST(localedir)

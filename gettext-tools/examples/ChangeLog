@@ -1,3 +1,18 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Prepare for autoconf-2.60.
+	* hello-clisp/configure.ac: Set datarootdir before evaluating
+	${datadir}.
+	* hello-gawk/configure.ac: Likewise.
+	* hello-guile/configure.ac: Likewise.
+	* hello-librep/configure.ac: Likewise.
+	* hello-pascal/configure.ac: Likewise.
+	* hello-perl/configure.ac: Likewise.
+	* hello-php/configure.ac: Likewise.
+	* hello-python/configure.ac: Likewise.
+	* hello-sh/configure.ac: Likewise.
+	* hello-smalltalk/configure.ac: Likewise.
+
 2006-04-07  Bruno Haible  <bruno@clisp.org>
 
 	* po/hu.po: New file, from Kiss Tamás <atomi@inf.elte.hu>.
