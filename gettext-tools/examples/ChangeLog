@@ -1,5 +1,17 @@
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
+	* hello-c/configure.ac: Use gettext-0.15 infrastructure.
+	* hello-c-gnome/configure.ac: Likewise.
+	* hello-objc/configure.ac: Likewise.
+	* hello-objc-gnome/configure.ac: Likewise.
+	* hello-c++/configure.ac: Likewise.
+	* hello-c++-kde/configure.in.in: Likewise.
+	* hello-c++-gnome/configure.ac: Likewise.
+	* hello-c-gnome/m4/Makefile.am (EXTRA_DIST): Add lock.m4.
+	* hello-c++-kde/m4/Makefile.am (EXTRA_DIST): Likewise.
+
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
 	Prepare for autoconf-2.60.
 	* hello-clisp/configure.ac: Set datarootdir before evaluating
 	${datadir}.
