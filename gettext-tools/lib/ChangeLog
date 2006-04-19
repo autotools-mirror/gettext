@@ -1,3 +1,7 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (byteswap.h): Don't use $(srcdir)/$<, for portability.
+
 2006-04-09  Bruno Haible  <bruno@clisp.org>
 
 	* clean-temp.h: New file.
