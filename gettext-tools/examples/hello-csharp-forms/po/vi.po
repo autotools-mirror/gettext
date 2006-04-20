@@ -1,13 +1,13 @@
-# Vietnamese Translation for hello-csharp-forms-0.14.3.
+# Vietnamese Translation for hello-csharp-forms-0.14.5.
 # Copyright © 2005 Yoyodyne, Inc.
 # Copyright © 2005 Free Software Foundation, Inc.
 # Clytie Siddall <clytie@riverland.net.au>, 2005.
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: hello-csharp-forms 0.14.3\n"
+"Project-Id-Version: hello-csharp-forms 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"PO-Revision-Date: 2005-04-06 14:09+0930\n"
+"PO-Revision-Date: 2005-05-24 12:52+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net> \n"
 "MIME-Version: 1.0\n"
@@ -21,4 +21,4 @@ msgstr "Chào thế giới!"
 #: hello.cs:37
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Chương trình này đang chạy với số xử lý {0}."
+msgstr "Chương trình này đang chạy với số hiệu xử lý «{0}»."
