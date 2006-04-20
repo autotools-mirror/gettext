@@ -1,5 +1,31 @@
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
+	Don't ignore the --localedir option from autoconf >= 2.60.
+	* hello-c/Makefile.am (localedir): Remove variable.
+	* hello-c-gnome/Makefile.am (localedir): Likewise.
+	* hello-objc/Makefile.am (localedir): Likewise.
+	* hello-objc-gnome/Makefile.am (localedir): Likewise.
+	* hello-c++/Makefile.am (localedir): Likewise.
+	* hello-c++-kde/Makefile.am (localedir): Likewise.
+	* hello-c++-gnome/Makefile.am (localedir): Likewise.
+	* hello-c++-qt/Makefile.am (localedir): Likewise.
+	* hello-c++-qt/po/Makefile.am (localedir): Likewise.
+	* hello-c++-wxwidgets/Makefile.am (localedir): Likewise.
+	* hello-c++-wxwidgets/po/Makefile.am (localedir): Likewise.
+	* hello-clisp/po/Makefile.am (localedir): Likewise.
+	* hello-gawk/po/Makefile.am (localedir): Likewise.
+	* hello-guile/po/Makefile.am (localedir): Likewise.
+	* hello-librep/po/Makefile.am (localedir): Likewise.
+	* hello-pascal/po/Makefile.am (localedir): Likewise.
+	* hello-perl/po/Makefile.am (localedir): Likewise.
+	* hello-php/po/Makefile.am (localedir): Likewise.
+	* hello-python/po/Makefile.am (localedir): Likewise.
+	* hello-sh/po/Makefile.am (localedir): Likewise.
+	* hello-smalltalk/po/Makefile.am (localedir): Likewise.
+	* hello-ycp/po/Makefile.am (localedir): Likewise.
+
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
 	* hello-c/configure.ac: Use gettext-0.15 infrastructure.
 	* hello-c-gnome/configure.ac: Likewise.
 	* hello-objc/configure.ac: Likewise.

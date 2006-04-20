@@ -18,7 +18,6 @@ bin_PROGRAMS = hello
 hello_SOURCES = hello.cc
 
 # Define a C macro LOCALEDIR indicating where catalogs will be installed.
-localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 CPPFLAGS += $(WX_CPPFLAGS)

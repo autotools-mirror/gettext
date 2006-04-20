@@ -1,3 +1,9 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Don't ignore the --localedir option from autoconf >= 2.60.
+	* Makefile.in.in (localedir): Set to the value determined by the
+	configure script.
+
 2006-04-07  Bruno Haible  <bruno@clisp.org>
 
 	* es.po: Update from Max de Mendizábal <max@upn.mx>.

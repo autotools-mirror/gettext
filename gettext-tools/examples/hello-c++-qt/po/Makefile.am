@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -46,8 +46,6 @@ COPYRIGHT_HOLDER = Yoyodyne, Inc.
 # can write to without being subscribed, or the URL of a web page through
 # which the translators can contact you.
 MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
-
-localedir = $(datadir)/locale
 
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update

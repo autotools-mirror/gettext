@@ -1,8 +1,13 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Prepare for autoconf-2.60.
+	* po.m4 (AM_PO_SUBDIRS): Set localedir if not already defined.
+
 2006-02-21  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_GNU_GETTEXT): Invoke AM_NLS through AC_REQUIRE, not
 	directly.
-	Reported by Ron <ron@debian.org>.
+	Reported by Ron Lee <ron@debian.org>.
 
 2005-11-21  Bruno Haible  <bruno@clisp.org>
 

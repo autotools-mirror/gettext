@@ -50,8 +50,6 @@ MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
 # message catalogs shall be used.  It is usually empty.
 EXTRA_LOCALE_CATEGORIES =
 
-localedir = $(datadir)/locale
-
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit

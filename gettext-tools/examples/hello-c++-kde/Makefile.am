@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -21,7 +21,6 @@ hello_SOURCES = hello.cc hellowindow.cc
 METASOURCES = AUTO
 
 # Define a C macro LOCALEDIR indicating where catalogs will be installed.
-localedir = $(datadir)/locale
 DEFS = -DPREFIX=\"$(prefix)\" @DEFS@
 
 # Make sure the KDE, Qt, X include file is found.
