@@ -1,3 +1,8 @@
+2006-04-20  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Also regenerate examples PO files.
+	Reported by Charles Wilson <cygwin@cwilson.fastmail.fm>.
+
 2006-03-28  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Mention bin/recode* programs.

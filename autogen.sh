@@ -4,7 +4,7 @@
 #
 # This script requires autoconf-2.58..2.59 and automake-1.8.2..1.9 in the PATH.
 
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  autoconf
  autoheader && touch config.h.in
  automake
+ (cd examples/po && make update-po)
 )
 
 cp -p autoconf-lib-link/config.rpath build-aux/config.rpath
