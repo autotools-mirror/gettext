@@ -1,3 +1,7 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
+
 2006-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* autosprintf.texi: Change license terms to FDL | GPL.

@@ -1,3 +1,17 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (all-local): Remove depedency on build-aux/mkinstalldirs.
+	(build-aux/mkinstalldirs): Remove rule.
+	(DISTCLEANFILES): Remove build-aux/mkinstalldirs.
+	* tests/rpathlx/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathly/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathlyx/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathlz/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathlzyx/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathx/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathy/Makefile.am (mkinstalldirs): Remove variable.
+	* tests/rpathz/Makefile.am (mkinstalldirs): Remove variable.
+
 2005-12-27  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: Upgrade to libtool-1.5.22.

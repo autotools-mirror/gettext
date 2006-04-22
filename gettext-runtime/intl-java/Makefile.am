@@ -57,13 +57,13 @@ CLEANFILES += libintl.jar gnu/gettext/*.class
 
 install-classes: install-classes-@BUILDJAVA@
 install-classes-no:
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 install-classes-yes: all-classes-yes
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 	$(INSTALL_DATA) libintl.jar $(DESTDIR)$(jardir)/libintl.jar
 
 installdirs-classes:
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 
 uninstall-classes:
 	$(RM) $(DESTDIR)$(jardir)/libintl.jar
@@ -100,16 +100,16 @@ JAVADOC1_FILES = \
 EXTRA_DIST += $(JAVADOC1_FILES)
 
 install-javadoc1: all-javadoc1
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1/images
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1/images
 	@for f in $(JAVADOC1_FILES); do \
 	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
 	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
 	done
 
 installdirs-javadoc1:
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc1/images
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1/images
 
 uninstall-javadoc1:
 	@for f in $(JAVADOC1_FILES); do \
@@ -144,16 +144,16 @@ JAVADOC2_FILES = \
 EXTRA_DIST += $(JAVADOC2_FILES)
 
 install-javadoc2: all-javadoc2
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2/gnu/gettext
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc2
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc2/gnu/gettext
 	@for f in $(JAVADOC2_FILES); do \
 	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
 	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
 	done
 
 installdirs-javadoc2:
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)/javadoc2/gnu/gettext
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc2
+	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc2/gnu/gettext
 
 uninstall-javadoc2:
 	@for f in $(JAVADOC2_FILES); do \

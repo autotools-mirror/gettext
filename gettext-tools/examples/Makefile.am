@@ -1046,10 +1046,10 @@ EXAMPLESFILES = \
   README
 
 install-data-local: $(EXAMPLESFILES)
-	$(mkinstalldirs) $(DESTDIR)$(examplesdir)
+	$(mkdir_p) $(DESTDIR)$(examplesdir)
 	for f in $(EXAMPLESFILES); do \
 	  d=`echo /$$f | sed -e 's,/[^/]*$$,,'`; \
-	  test -z "$$d" || $(mkinstalldirs) $(DESTDIR)$(examplesdir)$$d || exit 1; \
+	  test -z "$$d" || $(mkdir_p) $(DESTDIR)$(examplesdir)$$d || exit 1; \
 	  b=`echo $$f | sed -e 's,^.*/,,'`; \
 	  if test $$b = autogen.sh || test $$b = autoclean.sh; then \
 	    echo "$(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(examplesdir)/$$f"; \
@@ -1061,10 +1061,10 @@ install-data-local: $(EXAMPLESFILES)
 	done
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(examplesdir)
+	$(mkdir_p) $(DESTDIR)$(examplesdir)
 	for f in $(EXAMPLESFILES); do \
 	  d=`echo /$$f | sed -e 's,/[^/]*$$,,'`; \
-	  test -z "$$d" || $(mkinstalldirs) $(DESTDIR)$(examplesdir)$$d || exit 1; \
+	  test -z "$$d" || $(mkdir_p) $(DESTDIR)$(examplesdir)$$d || exit 1; \
 	done
 
 uninstall-local:
@@ -1080,7 +1080,7 @@ distdir1:
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
 	  if test "$$dir" != "$$file" && test "$$dir" != "."; then \
-	    $(mkinstalldirs) "$(distdir)/$$dir"; \
+	    $(mkdir_p) "$(distdir)/$$dir"; \
 	  fi; \
 	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
 	done

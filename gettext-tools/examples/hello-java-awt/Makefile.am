@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -94,19 +94,19 @@ hello.sh:
 	} > $@
 
 install-exec-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	$(mkdir_p) $(DESTDIR)$(bindir)
 	$(INSTALL_SCRIPT) hello.sh $(DESTDIR)$(bindir)/hello
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $(hello_MAINCLASS)$(EXEEXT) $(DESTDIR)$(pkglibdir)/$(hello_MAINCLASS)$(EXEEXT)
 
 install-data-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 	$(INSTALL_DATA) hello-resources.jar $(DESTDIR)$(jardir)/hello-resources.jar
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(bindir)
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(bindir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/hello
@@ -142,18 +142,18 @@ hello.sh:
 	} > $@
 
 install-exec-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	$(mkdir_p) $(DESTDIR)$(bindir)
 	$(INSTALL_SCRIPT) hello.sh $(DESTDIR)$(bindir)/hello
 
 install-data-local: all-local
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 	$(INSTALL_DATA) hello.jar $(DESTDIR)$(jardir)/hello.jar
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DATA) javaexec.sh $(DESTDIR)$(pkgdatadir)/javaexec.sh
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/hello

@@ -45,7 +45,7 @@ $(srcdir)/../build-aux/config.rpath: $(srcdir)/config.rpath
 # We choose this argument to be '../../../build-aux', for case 1, and therefore
 # we need to make a local copy of the build-aux directory, for case 2.
 
-all-local: build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/mkinstalldirs build-aux/missing build-aux/config.rpath
+all-local: build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/missing build-aux/config.rpath
 
 build-aux-dir:
 	test -d build-aux || mkdir build-aux
@@ -63,16 +63,13 @@ build-aux/install-sh: $(srcdir)/../build-aux/install-sh build-aux-dir
 build-aux/ltmain.sh: $(srcdir)/../build-aux/ltmain.sh build-aux-dir
 	cp $(srcdir)/../build-aux/ltmain.sh build-aux/ltmain.sh
 
-build-aux/mkinstalldirs: $(srcdir)/../build-aux/mkinstalldirs build-aux-dir
-	cp $(srcdir)/../build-aux/mkinstalldirs build-aux/mkinstalldirs
-
 build-aux/missing: $(srcdir)/../build-aux/missing build-aux-dir
 	cp $(srcdir)/../build-aux/missing build-aux/missing
 
 build-aux/config.rpath: $(srcdir)/config.rpath build-aux-dir
 	cp $(srcdir)/config.rpath build-aux/config.rpath
 
-DISTCLEANFILES += build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/mkinstalldirs build-aux/missing build-aux/config.rpath
+DISTCLEANFILES += build-aux/config.guess build-aux/config.sub build-aux/install-sh build-aux/ltmain.sh build-aux/missing build-aux/config.rpath
 
 distclean-local:
 	rm -rf build-aux build-aux-dir

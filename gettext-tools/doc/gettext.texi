@@ -6773,10 +6773,9 @@ GNU @code{libtool} packages.
 Normally, @file{config.guess} and @file{config.sub} are put at the
 top level of a distribution.  But it is also possible to put them in a
 subdirectory, altogether with other configuration support files like
-@file{install-sh}, @file{ltconfig}, @file{ltmain.sh},
-@file{mkinstalldirs} or @file{missing}.  All you need to do, other than
-moving the files, is to add the following line to your
-@file{configure.in}.
+@file{install-sh}, @file{ltconfig}, @file{ltmain.sh} or @file{missing}.
+All you need to do, other than moving the files, is to add the following line
+to your @file{configure.in}.
 
 @example
 AC_CONFIG_AUX_DIR([@var{subdir}])
@@ -6786,20 +6785,10 @@ AC_CONFIG_AUX_DIR([@var{subdir}])
 @subsection @file{mkinstalldirs} at top level
 @cindex @file{mkinstalldirs} file
 
-If @code{gettextize} has not already done it, you need to add the GNU
-@file{mkinstalldirs} script to your distribution.  It is needed because
-@samp{mkdir -p} is not portable enough.  You find this script in the
-GNU @code{automake} distribution.
-
-Normally, @file{mkinstalldirs} is put at the top level of a distribution.
-But it is also possible to put it in a subdirectory, altogether with other
-configuration support files like @file{install-sh}, @file{ltconfig},
-@file{ltmain.sh} or @file{missing}.  All you need to do, other than
-moving the files, is to add the following line to your @file{configure.in}.
-
-@example
-AC_CONFIG_AUX_DIR([@var{subdir}])
-@end example
+With earlier versions of GNU gettext, you needed to add the GNU
+@file{mkinstalldirs} script to your distribution.  This is not needed any
+more.  You can remove it if you not also using an automake version older than
+automake 1.9.
 
 @node aclocal, acconfig, mkinstalldirs, Adjusting Files
 @subsection @file{aclocal.m4} at top level

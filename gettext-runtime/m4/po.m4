@@ -1,4 +1,4 @@
-# po.m4 serial 11 (gettext-0.15)
+# po.m4 serial 12 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -24,7 +24,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
 [
   AC_REQUIRE([AC_PROG_MAKE_SET])dnl
   AC_REQUIRE([AC_PROG_INSTALL])dnl
-  AC_REQUIRE([AM_MKINSTALLDIRS])dnl
+  AC_REQUIRE([AM_PROG_MKDIR_P])dnl defined by automake
   AC_REQUIRE([AM_NLS])dnl
 
   dnl Perform the following tests also if --disable-nls has been given,

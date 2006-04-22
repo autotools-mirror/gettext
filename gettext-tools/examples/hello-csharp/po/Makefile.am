@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -153,10 +153,10 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 install-data-local: install-data-local-@USE_NLS@
 install-data-local-no: all-local
 install-data-local-yes: all-local
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
-	  $(mkinstalldirs) $(DESTDIR)$(pkglibdir)/`echo $$cat | sed -e 's,/[^/]*$$,,'`; \
+	  $(mkdir_p) $(DESTDIR)$(pkglibdir)/`echo $$cat | sed -e 's,/[^/]*$$,,'`; \
 	  if test -r $$cat; then realcat=$$cat; else realcat=$(srcdir)/$$cat; fi; \
 	  $(INSTALL_DATA) $$realcat $(DESTDIR)$(pkglibdir)/$$cat; \
 	  echo "installing $$realcat as $(DESTDIR)$(pkglibdir)/$$cat"; \
@@ -165,10 +165,10 @@ install-data-local-yes: all-local
 installdirs-local: installdirs-local-@USE_NLS@
 installdirs-local-no:
 installdirs-local-yes:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
-	  $(mkinstalldirs) $(DESTDIR)$(pkglibdir)/`echo $$cat | sed -e 's,/[^/]*$$,,'`; \
+	  $(mkdir_p) $(DESTDIR)$(pkglibdir)/`echo $$cat | sed -e 's,/[^/]*$$,,'`; \
 	done
 
 uninstall-local: uninstall-local-@USE_NLS@

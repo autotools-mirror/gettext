@@ -291,7 +291,7 @@ if test $force -eq 0; then
   fi
 fi
 
-# Check in which directory config.rpath, mkinstalldirs etc. belong.
+# Check in which directory config.rpath etc. belong.
 auxdir=`cat "$configure_in" | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
 if test -n "$auxdir"; then
   auxdir="$auxdir/"
@@ -576,7 +576,7 @@ test -d "$srcdir/po" || {
   added_directories="$added_directories po"
 }
 
-# Create the directory for config.rpath, mkinstalldirs, if needed.
+# Create the directory for config.rpath, if needed.
 # This is for consistency with autoreconf and automake.
 # Note that $auxdir is either empty or ends in a slash.
 test -d "$srcdir/$auxdir" || {
@@ -594,7 +594,7 @@ for file in *; do
     ABOUT-NLS)
       func_linkorcopy $file "$gettext_dir/$file" $file
       ;;
-    config.rpath | mkinstalldirs)
+    config.rpath)
       if test -f "$srcdir/$auxdir$file"; then
         :
       else

@@ -1,3 +1,31 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
+	* hello-csharp/Makefile.am: Likewise.
+	* hello-csharp-forms/Makefile.am: Likewise.
+	* hello-java/Makefile.am: Likewise.
+	* hello-java-awt/Makefile.am: Likewise.
+	* hello-java-swing/Makefile.am: Likewise.
+	* hello-pascal/Makefile.am: Likewise.
+	* hello-c++-qt/po/Makefile.am: Likewise.
+	* hello-c++-wxwidgets/po/Makefile.am: Likewise.
+	* hello-clisp/po/Makefile.am: Likewise.
+	* hello-csharp/po/Makefile.am: Likewise.
+	* hello-csharp-forms/po/Makefile.am: Likewise.
+	* hello-gawk/po/Makefile.am: Likewise.
+	* hello-guile/po/Makefile.am: Likewise.
+	* hello-librep/po/Makefile.am: Likewise.
+	* hello-pascal/po/Makefile.am: Likewise.
+	* hello-perl/po/Makefile.am: Likewise.
+	* hello-php/po/Makefile.am: Likewise.
+	* hello-python/po/Makefile.am: Likewise.
+	* hello-sh/po/Makefile.am: Likewise.
+	* hello-smalltalk/po/Makefile.am: Likewise.
+	* hello-tcl/po/Makefile.am: Likewise.
+	* hello-tcl-tk/po/Makefile.am: Likewise.
+	* hello-ycp/po/Makefile.am: Likewise.
+	* hello-*/autoclean.sh: Don't remove mkinstalldirs.
+
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
 	Don't ignore the --localedir option from autoconf >= 2.60.

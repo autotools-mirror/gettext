@@ -1,3 +1,11 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
+	* gettext.texi (config.guess): Don't mention mkinstalldirs file any
+	more.
+	(mkinstalldirs): Say it's obsolete.
+	* gettextize.texi: Don't mention mkinstalldirs.
+
 2006-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* gpl.texi: New file, from GNU with typesetting modifications.

@@ -1,5 +1,5 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
@@ -151,7 +151,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 install-data-local: install-data-local-@USE_NLS@
 install-data-local-no: all-local
 install-data-local-yes: all-local
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/msgs
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/msgs
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
@@ -163,7 +163,7 @@ install-data-local-yes: all-local
 installdirs-local: installdirs-local-@USE_NLS@
 installdirs-local-no:
 installdirs-local-yes:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/msgs
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/msgs
 
 uninstall-local: uninstall-local-@USE_NLS@
 uninstall-local-no:

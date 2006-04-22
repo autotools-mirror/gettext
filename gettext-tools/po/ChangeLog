@@ -1,3 +1,10 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (MKINSTALLDIRS, mkinstalldirs): Remove variables.
+	(mkdir_p): New variable.
+	(install-data, install-data-yes, installdirs-data,
+	installdirs-data-yes): Use $(mkdir_p) instead of $(mkinstalldirs).
+
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
 	Don't ignore the --localedir option from autoconf >= 2.60.

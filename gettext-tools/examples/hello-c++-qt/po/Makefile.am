@@ -164,7 +164,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 install-data-local: install-data-local-@USE_NLS@
 install-data-local-no: all-local
 install-data-local-yes: all-local
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/locale
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/locale
 	@catalogs='$(CATALOGS)'; \
 	for cat in $$catalogs; do \
 	  cat=`basename $$cat`; \
@@ -176,7 +176,7 @@ install-data-local-yes: all-local
 installdirs-local: installdirs-local-@USE_NLS@
 installdirs-local-no:
 installdirs-local-yes:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/locale
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)/locale
 
 uninstall-local: uninstall-local-@USE_NLS@
 uninstall-local-no:

@@ -129,9 +129,9 @@ distribution.  Also, if option @code{--force} (@code{-f}) is given,
 the @file{intl/} directory is emptied first.
 
 @item
-The files @file{config.rpath} and @file{mkinstalldirs} are copied into
-the directory containing configuration support files.  It is needed by
-the @code{AM_GNU_GETTEXT} autoconf macro.
+The file @file{config.rpath} is copied into the directory containing
+configuration support files.  It is needed by the @code{AM_GNU_GETTEXT}
+autoconf macro.
 
 @item
 Only if the project is using GNU @code{automake}:

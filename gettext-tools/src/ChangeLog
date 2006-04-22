@@ -1,3 +1,7 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
+
 2006-04-09  Bruno Haible  <bruno@clisp.org>
 
 	* write-csharp.c: Include clean-temp.h. Don't include unistd.h,

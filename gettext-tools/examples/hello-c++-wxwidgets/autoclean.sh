@@ -28,7 +28,6 @@ rm -f Makefile.in
 rm -f m4/Makefile.in
 rm -f po/Makefile.in
 rm -f install-sh
-rm -f mkinstalldirs
 rm -f missing
 rm -f config.guess
 rm -f config.sub

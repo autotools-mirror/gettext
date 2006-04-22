@@ -61,6 +61,9 @@
     their code.
     Binary compatibility is guaranteed, however.
 
+* The 'mkinstalldirs' shell script is no longer needed and no longer installed
+  by gettextize.
+
 * Portability to mingw.
 
 * Interoperability with expat version 2.0.0.

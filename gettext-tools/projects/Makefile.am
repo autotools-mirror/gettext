@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/projects subdirectory of GNU gettext
-## Copyright (C) 2001-2003 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -37,10 +37,10 @@ DATAFILES = index \
 EXTRA_DIST += $(SCRIPTFILES) $(DATAFILES)
 
 install-data-local:
-	$(mkinstalldirs) $(DESTDIR)$(projectsdir)
+	$(mkdir_p) $(DESTDIR)$(projectsdir)
 	@for p in $(PROJECTS); do \
-	  echo "$(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p"; \
-	  $(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p; \
+	  echo "$(mkdir_p) $(DESTDIR)$(projectsdir)/$$p"; \
+	  $(mkdir_p) $(DESTDIR)$(projectsdir)/$$p; \
 	done
 	@for f in $(SCRIPTFILES); do \
 	  echo "$(INSTALL_SCRIPT) $(srcdir)/$$f $(DESTDIR)$(projectsdir)/$$f"; \
@@ -52,10 +52,10 @@ install-data-local:
 	done
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(projectsdir)
+	$(mkdir_p) $(DESTDIR)$(projectsdir)
 	@for p in $(PROJECTS); do \
-	  echo "$(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p"; \
-	  $(mkinstalldirs) $(DESTDIR)$(projectsdir)/$$p; \
+	  echo "$(mkdir_p) $(DESTDIR)$(projectsdir)/$$p"; \
+	  $(mkdir_p) $(DESTDIR)$(projectsdir)/$$p; \
 	done
 
 uninstall-local:

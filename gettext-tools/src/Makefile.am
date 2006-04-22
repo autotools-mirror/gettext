@@ -321,14 +321,14 @@ po-gram-gen2.h: po-gram-gen.h
 # Special rules for installation of auxiliary programs.
 
 install-exec-local:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
 	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(pkglibdir)/user-email
 	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibdir)/project-id
 
 installdirs-local:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 
 uninstall-local:
 	$(RM) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
@@ -373,7 +373,7 @@ CLEANFILES += gnu.gettext.DumpResource$(EXEEXT) gnu.gettext.GetURL$(EXEEXT) \
 
 install-exec-local: install-exec-java-@BUILDJAVAEXE@
 install-exec-java-yes: all-java-yes
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) gnu.gettext.DumpResource$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.DumpResource$(EXEEXT)
 	$(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) gnu.gettext.GetURL$(EXEEXT) $(DESTDIR)$(pkglibdir)/gnu.gettext.GetURL$(EXEEXT)
 install-exec-java-no:
@@ -387,10 +387,10 @@ install-data-java-no-no:
 
 installdirs-local: installdirs-java-@BUILDJAVAEXE@
 installdirs-java-yes:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 installdirs-java-no: installdirs-java-no-@BUILDJAVA@
 installdirs-java-no-yes:
-	$(mkinstalldirs) $(DESTDIR)$(jardir)
+	$(mkdir_p) $(DESTDIR)$(jardir)
 installdirs-java-no-no:
 
 uninstall-local: uninstall-java-@BUILDJAVAEXE@
@@ -421,15 +421,15 @@ msgunfmt.net.exe: msgunfmt.cs
 
 install-exec-local: install-exec-csharp-@BUILDCSHARP@
 install-exec-csharp-yes: all-csharp-yes
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_DATA) msgfmt.net.exe $(DESTDIR)$(pkglibdir)/msgfmt.net.exe
 	$(INSTALL_DATA) msgunfmt.net.exe $(DESTDIR)$(pkglibdir)/msgunfmt.net.exe
 install-exec-csharp-no:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 
 installdirs-local: install-csharp
 installdirs-csharp:
-	$(mkinstalldirs) $(DESTDIR)$(pkglibdir)
+	$(mkdir_p) $(DESTDIR)$(pkglibdir)
 
 uninstall-local: uninstall-csharp-@BUILDCSHARP@
 uninstall-csharp-yes: all-csharp-yes
@@ -444,12 +444,12 @@ EXTRA_DIST += msgunfmt.tcl
 
 install-data-local: install-tcl
 install-tcl:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 	$(INSTALL_DATA) $(srcdir)/msgunfmt.tcl $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
 
 installdirs-local: installdirs-tcl
 installdirs-tcl:
-	$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)
+	$(mkdir_p) $(DESTDIR)$(pkgdatadir)
 
 uninstall-local: uninstall-tcl
 uninstall-tcl:

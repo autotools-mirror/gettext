@@ -1,3 +1,10 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (MKINSTALLDIRS, mkinstalldirs): Remove variables.
+	(mkdir_p): New variable.
+	(install-exec, install-data, installdirs): Use $(mkdir_p) instead of
+	$(mkinstalldirs).
+
 2006-04-05  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Update Juan Manuel Guerrero's address.

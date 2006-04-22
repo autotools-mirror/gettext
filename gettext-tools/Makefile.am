@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ EXTRA_DIST = misc/DISCLAIM
 # Files installed for use by gettextize.
 
 gettextsrcdir = $(datadir)/gettext
-gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath ../build-aux/mkinstalldirs
+gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath
 
 
 # Files copied from other directories.

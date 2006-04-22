@@ -115,11 +115,11 @@ CLEANFILES = autosprintf.pdf
 # Documentation in DVI format.
 
 install-dvi: autosprintf.dvi
-	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+	$(mkdir_p) $(DESTDIR)$(dvidir)
 	$(INSTALL_DATA) `if test -f autosprintf.dvi; then echo .; else echo $(srcdir); fi`/autosprintf.dvi $(DESTDIR)$(dvidir)/autosprintf.dvi
 
 installdirs-dvi:
-	$(mkinstalldirs) $(DESTDIR)$(dvidir)
+	$(mkdir_p) $(DESTDIR)$(dvidir)
 
 uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/autosprintf.dvi
@@ -138,11 +138,11 @@ autosprintf.ps: autosprintf.dvi
 	$(DVIPS) -o $@ `if test -f autosprintf.dvi; then echo autosprintf.dvi; else echo $(srcdir)/autosprintf.dvi; fi`
 
 install-ps: autosprintf.ps
-	$(mkinstalldirs) $(DESTDIR)$(psdir)
+	$(mkdir_p) $(DESTDIR)$(psdir)
 	$(INSTALL_DATA) `if test -f autosprintf.ps; then echo .; else echo $(srcdir); fi`/autosprintf.ps $(DESTDIR)$(psdir)/autosprintf.ps
 
 installdirs-ps:
-	$(mkinstalldirs) $(DESTDIR)$(psdir)
+	$(mkdir_p) $(DESTDIR)$(psdir)
 
 uninstall-ps:
 	$(RM) $(DESTDIR)$(psdir)/autosprintf.ps
@@ -153,11 +153,11 @@ uninstall-ps:
 SUFFIXES = .pdf
 
 install-pdf: autosprintf.pdf
-	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(mkdir_p) $(DESTDIR)$(pdfdir)
 	$(INSTALL_DATA) `if test -f autosprintf.pdf; then echo .; else echo $(srcdir); fi`/autosprintf.pdf $(DESTDIR)$(pdfdir)/autosprintf.pdf
 
 installdirs-pdf:
-	$(mkinstalldirs) $(DESTDIR)$(pdfdir)
+	$(mkdir_p) $(DESTDIR)$(pdfdir)
 
 uninstall-pdf:
 	$(RM) $(DESTDIR)$(pdfdir)/autosprintf.pdf
@@ -176,11 +176,11 @@ autosprintf_all.html: autosprintf.texi
 	mv autosprintf.html autosprintf_all.html
 
 install-html: autosprintf_all.html
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	$(mkdir_p) $(DESTDIR)$(htmldir)
 	$(INSTALL_DATA) `if test -f autosprintf_all.html; then echo .; else echo $(srcdir); fi`/autosprintf_all.html $(DESTDIR)$(htmldir)/autosprintf.html
 
 installdirs-html:
-	$(mkinstalldirs) $(DESTDIR)$(htmldir)
+	$(mkdir_p) $(DESTDIR)$(htmldir)
 
 uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html

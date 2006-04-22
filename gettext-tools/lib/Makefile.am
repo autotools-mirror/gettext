@@ -239,7 +239,7 @@ all-local: charset.alias ref-add.sed ref-del.sed
 charset_alias = $(DESTDIR)$(libdir)/charset.alias
 charset_tmp = $(DESTDIR)$(libdir)/charset.tmp
 install-exec-local: all-local
-	test @GLIBC21@ != no || $(mkinstalldirs) $(DESTDIR)$(libdir)
+	test @GLIBC21@ != no || $(mkdir_p) $(DESTDIR)$(libdir)
 	if test -f $(charset_alias); then \
 	  sed -f ref-add.sed $(charset_alias) > $(charset_tmp) ; \
 	  $(INSTALL_DATA) $(charset_tmp) $(charset_alias) ; \

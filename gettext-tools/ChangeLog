@@ -1,3 +1,7 @@
+2006-04-17  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (gettextsrc_SCRIPTS): Remove mkinstalldirs.
+
 2006-03-11  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (MSGMERGE_LIBM): New variable. Test for presence of
