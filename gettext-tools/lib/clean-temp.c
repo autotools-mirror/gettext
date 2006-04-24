@@ -28,9 +28,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <unistd.h>
 
 #include "error.h"
 #include "fatal-signal.h"

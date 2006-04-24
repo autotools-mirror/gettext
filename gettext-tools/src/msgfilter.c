@@ -35,9 +35,8 @@
 # include <sys/time.h>
 #endif
 
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#elif defined _MSC_VER || defined __MINGW32__
+#include <unistd.h>
+#if defined _MSC_VER || defined __MINGW32__
 # include <io.h>
 #endif
 

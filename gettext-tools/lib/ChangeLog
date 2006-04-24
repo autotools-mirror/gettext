@@ -1,3 +1,24 @@
+2006-04-23  Bruno Haible  <bruno@clisp.org>
+
+	* addext.c: Include <unistd.h> unconditionally.
+	* clean-temp.c: Likewise.
+	* copy-file.c: Likewise.
+	* execute.c: Likewise.
+	* fatal-signal.c: Likewise.
+	* findprog.c: Likewise.
+	* getopt_.h: Likewise.
+	* mkdtemp.c: Likewise.
+	* pathmax.h: Likewise.
+	* pipe.h: Likewise.
+	* pipe.c: Likewise.
+	* safe-read.c: Likewise.
+	* unsetenv.c: Likewise.
+	* wait-process.h: Likewise.
+	* xgetcwd.c: Likewise.
+	* Makefile.am (BUILT_SOURCES): Conditionally add unistd.h.
+	(unistd.h): New rule.
+	(MOSTLYCLEANFILES): Add unistd.h.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).

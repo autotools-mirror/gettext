@@ -1,6 +1,6 @@
 /* An interface to read and write that retries after interrupts.
 
-   Copyright (C) 1993-1994, 1998, 2002-2005 Free Software Foundation, Inc.
+   Copyright (C) 1993-1994, 1998, 2002-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,9 +29,7 @@
 
 /* Get ssize_t.  */
 #include <sys/types.h>
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <unistd.h>
 
 #include <errno.h>
 

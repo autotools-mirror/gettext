@@ -34,9 +34,7 @@
 #endif
 
 /* Get gethostname().  */
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <unistd.h>
 
 #ifdef WIN32
 /* Native Woe32 API lacks gethostname() but has GetComputerName() instead.  */

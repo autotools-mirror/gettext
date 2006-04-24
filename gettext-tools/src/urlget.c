@@ -28,10 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-
-#ifdef HAVE_UNISTD_H
-# include <unistd.h>
-#endif
+#include <unistd.h>
 
 #include "closeout.h"
 #include "error.h"
