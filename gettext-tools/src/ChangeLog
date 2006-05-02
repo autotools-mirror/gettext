@@ -1,3 +1,9 @@
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* write-java.c (msgdomain_write_java): Don't fclose the FILE after
+	fwriteerror signalled a failure.
+	* write-csharp.c (msgdomain_write_csharp): Likewise.
+
 2006-04-23  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c: Include <unistd.h> unconditionally.

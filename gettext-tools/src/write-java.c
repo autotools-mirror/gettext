@@ -1021,7 +1021,6 @@ but the Java ResourceBundle format doesn't support contexts\n")));
   if (fwriteerror (java_file))
     {
       error (0, errno, _("error while writing \"%s\" file"), java_file_name);
-      fclose (java_file);
       goto quit3;
     }
 
