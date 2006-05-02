@@ -34,6 +34,7 @@
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "exit.h"
 #include "hash.h"
 #include "po-charset.h"

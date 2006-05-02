@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,6 +34,7 @@
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "po-error.h"
 #include "gettext.h"
 

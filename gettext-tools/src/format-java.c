@@ -29,7 +29,7 @@
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "format-invalid.h"
 #include "gettext.h"
 

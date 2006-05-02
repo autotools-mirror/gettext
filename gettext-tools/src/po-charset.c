@@ -29,7 +29,7 @@
 #include <string.h>
 
 #include "xallocsa.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "basename.h"
 #include "progname.h"

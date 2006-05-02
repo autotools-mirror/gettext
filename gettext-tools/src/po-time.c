@@ -1,5 +1,5 @@
 /* PO/POT file timestamps.
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
 /* Specification.  */
 #include "po-time.h"
 
-#include "xerror.h"
+#include "xvasprintf.h"
 
 
 #define TM_YEAR_ORIGIN 1900

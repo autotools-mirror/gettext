@@ -1,3 +1,20 @@
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* xvasprintf.h: New file, from gnulib.
+	* xvasprintf.c: New file, from gnulib.
+	* xasprintf.c: New file, from gnulib.
+	* xerror.h (xasprintf): Remove declaration.
+	* xerror.c: Don't include stdarg.h, error.h, exit.h, vasprintf.h,
+	gettext.h.
+	(_): Remove macro.
+	(xasprintf): Remove function.
+	* Makefile.am (libgettextlib_la_SOURCES): Add xvasprintf.h,
+	xvasprintf.c, xasprintf.c.
+	* Makefile.msvc (OBJECTS): Add xvasprintf.obj, xasprintf.obj.
+	(xvasprintf.obj, xasprintf.obj): New rules.
+	* Makefile.vms (OBJECTS): Add xvasprintf.obj, xasprintf.obj.
+	(xvasprintf.obj, xasprintf.obj): New rules.
+
 2006-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* javacomp.sh.in: Update for changed javacomp.m4.

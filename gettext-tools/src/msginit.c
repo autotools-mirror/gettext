@@ -89,6 +89,7 @@
 #include "exit.h"
 #include "pathname.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "msgl-english.h"
 #include "plural-count.h"
 #include "pipe.h"

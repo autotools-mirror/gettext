@@ -42,7 +42,7 @@
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "strstr.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
 

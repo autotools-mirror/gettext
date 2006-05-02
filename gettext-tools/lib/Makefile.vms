@@ -82,6 +82,7 @@ OBJECTS = \
   xallocsa.obj, \
   xerror.obj, \
   xsetenv.obj, \
+  xvasprintf.obj, xasprintf.obj, \
   \
   error.obj, \
   fnmatch.obj, \
@@ -243,6 +244,12 @@ xerror.obj : xerror.c
 
 xsetenv.obj : xsetenv.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xsetenv.c
+
+xvasprintf.obj : xvasprintf.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xvasprintf.c
+
+xasprintf.obj : xasprintf.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) xasprintf.c
 
 error.obj : error.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) error.c

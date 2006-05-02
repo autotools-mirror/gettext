@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -46,7 +46,7 @@
 #include "strstr.h"
 #include "fwriteerror.h"
 #include "error-progname.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
 

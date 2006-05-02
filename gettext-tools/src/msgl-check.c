@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 
 #include "c-ctype.h"
 #include "xalloc.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "format.h"
 #include "plural-exp.h"

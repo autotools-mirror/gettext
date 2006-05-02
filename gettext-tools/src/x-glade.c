@@ -39,6 +39,7 @@
 #include "x-glade.h"
 #include "error.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "basename.h"
 #include "progname.h"
 #include "xalloc.h"

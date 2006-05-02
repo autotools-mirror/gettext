@@ -83,7 +83,8 @@ libgettextlib_la_SOURCES = \
   xerror.h xerror.c \
   xreadlink.h xreadlink.c \
   xsetenv.h xsetenv.c \
-  xsize.h
+  xsize.h \
+  xvasprintf.h xvasprintf.c xasprintf.c
 
 # Sources that are compiled only on platforms that lack the functions.
 

@@ -36,6 +36,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "xalloc.h"
 #include "stpcpy.h"
 #include "exit.h"

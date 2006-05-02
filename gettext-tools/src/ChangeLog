@@ -1,5 +1,39 @@
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c: Include xvasprintf.h.
+	* msginit.c: Likewise.
+	* msgl-cat.c: Likewise.
+	* msgl-charset.c: Likewise.
+	* po-xerror.c: Likewise.
+	* x-csharp.c: Likewise.
+	* x-glade.c: Likewise.
+	* x-python.c: Likewise.
+	* xgettext.c: Likewise.
+	* format-boost.c: Include xvasprintf.h instead of xerror.h.
+	* format-c.c: Likewise.
+	* format-csharp.c: Likewise.
+	* format-gcc-internal.c: Likewise.
+	* format-java.c: Likewise.
+	* format-lisp.c: Likewise.
+	* format-perl.c: Likewise.
+	* format-python.c: Likewise.
+	* format-qt.c: Likewise.
+	* format-scheme.c: Likewise.
+	* format-ycp.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgl-check.c: Likewise.
+	* msgl-iconv.c: Likewise.
+	* open-po.c: Likewise.
+	* po-charset.c: Likewise.
+	* po-lex.c: Likewise.
+	* po-time.c: Likewise.
+	* read-po-abstract.c: Likewise.
+	* read-properties.c: Likewise.
+	* read-stringtable.c: Likewise.
+	* write-po.c: Likewise.
+
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.c (project_id, project_id_version, get_user_email): Close
 	the FILE in case of I/O error.
 

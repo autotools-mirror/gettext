@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995-1996, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2000-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 #include "dir-list.h"
 #include "pathname.h"
 #include "xalloc.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
 

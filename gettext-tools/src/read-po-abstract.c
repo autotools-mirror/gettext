@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -32,7 +32,7 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xalloc.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
 

@@ -25,7 +25,7 @@
 
 #include "format.h"
 #include "xalloc.h"
-#include "xerror.h"
+#include "xvasprintf.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

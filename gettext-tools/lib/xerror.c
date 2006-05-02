@@ -1,5 +1,5 @@
 /* Multiline error-reporting functions.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -27,31 +27,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
 
-#include "error.h"
 #include "progname.h"
 #include "error-progname.h"
-#include "exit.h"
 #include "mbswidth.h"
-#include "vasprintf.h"
-#include "gettext.h"
-
-#define _(str) gettext (str)
-
-/* Format a message and return the freshly allocated resulting string.  */
-char *
-xasprintf (const char *format, ...)
-{
-  va_list args;
-  char *result;
-
-  va_start (args, format);
-  if (vasprintf (&result, format, args) < 0)
-    error (EXIT_FAILURE, 0, _("memory exhausted"));
-  va_end (args);
-  return result;
-}
 
 /* Emit a multiline warning to stderr, consisting of MESSAGE, with the
    first line prefixed with PREFIX and the remaining lines prefixed with
