@@ -136,7 +136,7 @@ asprintf (char **result, const char *format, ...)
   va_end (args);
 
   return done;
-} 
+}
 
 /* ========================= test program ========================= */
 
