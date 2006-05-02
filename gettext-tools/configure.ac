@@ -46,7 +46,8 @@ else
 fi
 AC_SUBST(BUILDJAVAEXE)
 
-gt_JAVACOMP
+gt_JAVAEXEC
+gt_JAVACOMP([1.3])
 AC_CHECK_PROG(JAR, jar, jar)
 if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
   BUILDJAVA=yes
@@ -54,8 +55,6 @@ else
   BUILDJAVA=no
 fi
 AC_SUBST(BUILDJAVA)
-
-gt_JAVAEXEC
 if test -n "$HAVE_JAVAEXEC" && test $BUILDJAVA = yes; then
   TESTJAVA=yes
 else

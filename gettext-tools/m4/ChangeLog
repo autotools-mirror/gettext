@@ -1,3 +1,13 @@
+2006-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.m4 (gt_JAVACOMP): Accept a source-version and an optional
+	target-version argument. Verify that the compiler groks source of the
+	specified source-version, or add -source option as necessary. Verify
+	that the compiler produces bytecode in the specified target-version,
+	or add -target and -source options as necessary. Make the result of
+	the test available as variable CONF_JAVAC. Also log error output in
+	config.log.
+
 2006-04-23  Bruno Haible  <bruno@clisp.org>
 
 	* unistd_h.m4: New file, from gnulib.

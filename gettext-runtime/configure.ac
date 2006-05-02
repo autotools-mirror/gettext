@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ AC_PROG_YACC
 
 gt_JAVA_CHOICE
 
-gt_JAVACOMP
+gt_JAVACOMP([1.3], [1.1])
 AC_CHECK_PROG(JAR, jar, jar)
 if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
   BUILDJAVA=yes

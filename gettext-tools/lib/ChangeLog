@@ -1,3 +1,7 @@
+2006-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.sh.in: Update for changed javacomp.m4.
+
 2006-04-23  Bruno Haible  <bruno@clisp.org>
 
 	* addext.c: Include <unistd.h> unconditionally.

@@ -1,3 +1,10 @@
+2006-05-01  Bruno Haible  <bruno@clisp.org>
+
+	* hello-java/configure.ac: Pass a source-version to gt_JAVACOMP. Move
+	gt_JAVAEXEC call before the gt_JAVACOMP call.
+	* hello-java-awt/configure.ac: Likewise.
+	* hello-java-swing/configure.ac: Likewise.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
