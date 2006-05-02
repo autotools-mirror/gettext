@@ -1,5 +1,10 @@
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
+	* msginit.c (project_id, project_id_version, get_user_email): Close
+	the FILE in case of I/O error.
+
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
 	* write-java.c (msgdomain_write_java): Don't fclose the FILE after
 	fwriteerror signalled a failure.
 	* write-csharp.c (msgdomain_write_csharp): Likewise.

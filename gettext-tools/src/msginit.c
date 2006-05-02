@@ -800,6 +800,7 @@ project_id ()
   if (linelen == (size_t)(-1))
     {
       error (0, 0, _("%s subprocess I/O error"), prog);
+      fclose (fp);
       goto failed;
     }
   if (linelen > 0 && line[linelen - 1] == '\n')
@@ -867,6 +868,7 @@ project_id_version ()
   if (linelen == (size_t)(-1))
     {
       error (0, 0, _("%s subprocess I/O error"), prog);
+      fclose (fp);
       goto failed;
     }
   if (linelen > 0 && line[linelen - 1] == '\n')
@@ -1025,6 +1027,7 @@ you in case of unexpected technical problems.\n");
   if (linelen == (size_t)(-1))
     {
       error (0, 0, _("%s subprocess I/O error"), prog);
+      fclose (fp);
       goto failed;
     }
   if (linelen > 0 && line[linelen - 1] == '\n')
