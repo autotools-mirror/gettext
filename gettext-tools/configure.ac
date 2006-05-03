@@ -134,6 +134,7 @@ AC_SUBST([MSGMERGE_LIBM])
 dnl Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)
+gl_STDARG_H
 AM_STDBOOL_H
 gl_HEADER_UNISTD
 

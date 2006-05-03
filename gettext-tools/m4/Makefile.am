@@ -91,6 +91,7 @@ sig_atomic_t.m4 \
 siginfo.m4 \
 signalblocking.m4 \
 ssize_t.m4 \
+stdarg.m4 \
 stdbool.m4 \
 stpncpy.m4 \
 strdup.m4 \

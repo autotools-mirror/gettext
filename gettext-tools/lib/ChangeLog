@@ -1,3 +1,10 @@
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* xvasprintf.c: Include limits.h, string.h, xsize.h.
+	(EOVERFLOW): Define fallback value.
+	(xstrcat): New function.
+	(xvasprintf): Recognize the special case of a string concatenation.
+
 2006-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* javaversion.h: New file.
