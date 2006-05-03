@@ -1,3 +1,23 @@
+2006-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* javaversion.h: New file.
+	* javaversion.c: New file.
+	* javaversion.java: New file.
+	* javaversion.class: New file, generated from javaversion.java.
+	* Makefile.am (libgettextlib_la_SOURCES): Add javaversion.h,
+	javaversion.c.
+	(pkgdatadir, pkgdata_DATA): New variables.
+	(EXTRA_DIST): Add javaversion.java.
+	(DEFS): Also define PKGDATADIR.
+	* Makefile.msvc (pkgdatadir, IIpkgdatadir): New variables.
+	(CFLAGS): Also define PKGDATADIR.
+	(OBJECTS): Add javaversion.obj.
+	(javaversion.obj): New rule.
+	* Makefile.vms (pkgdatadir): New variable.
+	(CFLAGS): Also define PKGDATADIR.
+	(OBJECTS): Add javaversion.obj.
+	(javaversion.obj): New rule.
+
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* xvasprintf.h: New file, from gnulib.

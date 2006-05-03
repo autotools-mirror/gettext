@@ -34,6 +34,8 @@ exec_prefix = $(prefix)
 bindir = $(exec_prefix)\bin
 libdir = $(exec_prefix)\lib
 includedir = $(prefix)\include
+pkgdatadir = $(datadir)\gettext
+IIpkgdatadir = $(IIdatadir)\\gettext
 
 # Programs used by "make":
 
@@ -60,7 +62,7 @@ OPTIMFLAGS = -D_NDEBUG -O1
 DEBUGFLAGS =
 !endif
 
-CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DEXEEXT=\".exe\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1
+CFLAGS = $(MFLAGS) $(WARN_CFLAGS) $(OPTIMFLAGS) -DHAVE_CONFIG_H -DPKGDATADIR=\"$(IIpkgdatadir)\" -DEXEEXT=\".exe\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1
 
 INCLUDES = -I. -I.. -I..\intl -I..\windows -I$(includedir)
 
@@ -106,6 +108,7 @@ OBJECTS = \
   iconvstring.obj \
   javacomp.obj \
   javaexec.obj \
+  javaversion.obj \
   linebreak.obj \
   mbswidth.obj \
   obstack.obj \
@@ -222,6 +225,9 @@ javacomp.obj : javacomp.c
 
 javaexec.obj : javaexec.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c javaexec.c
+
+javaversion.obj : javaversion.c
+	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c javaversion.c
 
 linebreak.obj : linebreak.c
 	$(CC) $(INCLUDES) $(CFLAGS) $(PICFLAGS) -c linebreak.c

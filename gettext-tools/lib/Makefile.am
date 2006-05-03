@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -60,6 +60,7 @@ libgettextlib_la_SOURCES = \
   iconvstring.h iconvstring.c \
   javacomp.h javacomp.c \
   javaexec.h javaexec.c \
+  javaversion.h javaversion.c \
   linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \
   mbswidth.h mbswidth.c \
   minmax.h \
@@ -140,6 +141,10 @@ install-exec-clean:
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_DATA = gettext.h
 
+pkgdatadir = $(datadir)/gettext
+pkgdata_DATA = javaversion.class
+EXTRA_DIST += javaversion.java
+
 # Files installed for the examples.
 
 docdir = @docdir@
@@ -159,7 +164,9 @@ EXTRA_DIST += \
 
 AM_CPPFLAGS = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
-DEFS = -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 @DEFS@
+DEFS = \
+  -DPKGDATADIR=\"$(pkgdatadir)\" \
+  -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 @DEFS@
 
 
 # >>> gnulib module stdbool.

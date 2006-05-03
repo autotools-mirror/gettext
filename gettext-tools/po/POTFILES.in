@@ -15,6 +15,7 @@ lib/execute.c
 lib/getopt.c
 lib/javacomp.c
 lib/javaexec.c
+lib/javaversion.c
 lib/obstack.c
 lib/pipe.c
 lib/quotearg.c

@@ -1,3 +1,7 @@
+2006-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add lib/javaversion.c.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (MKINSTALLDIRS, mkinstalldirs): Remove variables.
