@@ -1,5 +1,16 @@
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
+	* msginit.c (main): Simplify by use of xasprintf().
+	* write-java.c: Include xvasprintf.h.
+	(msgdomain_write_java): Simplify by use of xasprintf().
+	* x-c.c: Include xvasprintf.h.
+	(phase8a_get): Simplify by use of xasprintf().
+	* xgettext.c: Don't include stpcpy.h.
+	(remember_a_message, remember_a_message_plural): Simplify by use of
+	xasprintf().
+
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c: Include xvasprintf.h.
 	* msginit.c: Likewise.
 	* msgl-cat.c: Likewise.

@@ -313,11 +313,7 @@ file.  This is necessary so you can test your translations.\n")));
   /* Default output file name is CATALOGNAME.po.  */
   if (output_file == NULL)
     {
-      size_t cnlen = strlen (catalogname);
-
-      output_file = (char *) xmalloc (cnlen + 3 + 1);
-      memcpy (output_file, catalogname, cnlen);
-      memcpy (output_file + cnlen, ".po", 3 + 1);
+      output_file = xasprintf ("%s.po", catalogname);
 
       /* But don't overwrite existing PO files.  */
       if (access (output_file, F_OK) == 0)

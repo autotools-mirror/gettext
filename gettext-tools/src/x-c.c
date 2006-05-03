@@ -33,6 +33,7 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
+#include "xvasprintf.h"
 #include "exit.h"
 #include "hash.h"
 #include "gettext.h"
@@ -1445,12 +1446,7 @@ phase8a_get (token_ty *tp)
   if (tp->type == token_type_name && is_inttypes_macro (tp->string))
     {
       /* Turn PRIdXXX into "<PRIdXXX>".  */
-      size_t len = strlen (tp->string);
-      char *new_string = (char *) xmalloc (len + 3);
-      new_string[0] = '<';
-      memcpy (new_string + 1, tp->string, len);
-      new_string[len + 1] = '>';
-      new_string[len + 2] = '\0';
+      char *new_string = xasprintf ("<%s>", tp->string);
       free (tp->string);
       tp->string = new_string;
       tp->comment = add_reference (savable_comment);

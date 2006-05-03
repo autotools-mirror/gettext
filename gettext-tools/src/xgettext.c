@@ -51,7 +51,6 @@
 #include "exit.h"
 #include "pathname.h"
 #include "c-strcase.h"
-#include "stpcpy.h"
 #include "open-po.h"
 #include "read-po-abstract.h"
 #include "message.h"
@@ -2040,13 +2039,7 @@ meta information, not the empty string.\n")));
       /* Construct the msgstr from the prefix and suffix, otherwise use the
 	 empty string.  */
       if (msgstr_prefix)
-	{
-	  msgstr = (char *) xmalloc (strlen (msgstr_prefix)
-				     + strlen (msgid)
-				     + strlen (msgstr_suffix) + 1);
-	  stpcpy (stpcpy (stpcpy (msgstr, msgstr_prefix), msgid),
-		  msgstr_suffix);
-	}
+	msgstr = xasprintf ("%s%s%s", msgstr_prefix, msgid, msgstr_suffix);
       else
 	msgstr = "";
 
@@ -2245,13 +2238,8 @@ remember_a_message_plural (message_ty *mp, char *string,
 	 otherwise use the empty string.  The translator will have to
 	 provide additional plural forms.  */
       if (msgstr_prefix)
-	{
-	  msgstr1 = (char *) xmalloc (strlen (msgstr_prefix)
-				      + strlen (msgid_plural)
-				      + strlen (msgstr_suffix) + 1);
-	  stpcpy (stpcpy (stpcpy (msgstr1, msgstr_prefix), msgid_plural),
-		  msgstr_suffix);
-	}
+	msgstr1 =
+	  xasprintf ("%s%s%s", msgstr_prefix, msgid_plural, msgstr_suffix);
       else
 	msgstr1 = "";
       msgstr1_len = strlen (msgstr1) + 1;

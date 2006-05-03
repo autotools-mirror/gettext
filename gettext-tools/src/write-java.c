@@ -66,6 +66,7 @@
 #include "c-ctype.h"
 #include "error.h"
 #include "xerror.h"
+#include "xvasprintf.h"
 #include "javacomp.h"
 #include "message.h"
 #include "msgfmt.h"
@@ -948,11 +949,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
     }
 
   if (locale_name != NULL)
-    {
-      class_name =
-	(char *) xmalloc (strlen (resource_name) + 1 + strlen (locale_name) + 1);
-      sprintf (class_name, "%s_%s", resource_name, locale_name);
-    }
+    class_name = xasprintf ("%s_%s", resource_name, locale_name);
   else
     class_name = xstrdup (resource_name);
 
@@ -979,8 +976,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
 
     if (locale_name != NULL)
       {
-	char *suffix = (char *) xmalloc (1 + strlen (locale_name) + 5 + 1);
-	sprintf (suffix, "_%s.java", locale_name);
+	char *suffix = xasprintf ("_%s.java", locale_name);
 	java_file_name = concatenated_pathname (last_dir, p, suffix);
 	free (suffix);
       }
