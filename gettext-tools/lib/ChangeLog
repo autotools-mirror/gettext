@@ -1,5 +1,12 @@
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
+	* javacomp.h (compile_java_class): Add source_version, target_version
+	arguments.
+	* javacomp.c: Rewritten to choose only a compiler that respects the
+	specified source_version and target_version.
+
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
 	* xvasprintf.c: Include limits.h, string.h, xsize.h.
 	(EOVERFLOW): Define fallback value.
 	(xstrcat): New function.

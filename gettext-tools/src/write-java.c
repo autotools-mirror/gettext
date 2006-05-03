@@ -1025,8 +1025,8 @@ but the Java ResourceBundle format doesn't support contexts\n")));
      Java compilers create the class files in the source file's directory -
      which is in a temporary directory in our case.  */
   java_sources[0] = java_file_name;
-  if (compile_java_class (java_sources, 1, NULL, 0, directory, true, false,
-			  true, verbose))
+  if (compile_java_class (java_sources, 1, NULL, 0, "1.3", "1.1", directory,
+			  true, false, true, verbose))
     {
       error (0, 0, _("\
 compilation of Java class failed, please try --verbose or set $JAVAC"));
