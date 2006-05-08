@@ -1,5 +1,5 @@
 /* Provide relocatable programs.
-   Copyright (C) 2003-2005 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify it
@@ -91,7 +91,8 @@ static int executable_fd = -1;
 static bool
 maybe_executable (const char *filename)
 {
-#if !defined WIN32
+  /* Woe32 lacks the access() function, but Cygwin doesn't.  */
+#if !(defined WIN32 && !defined __CYGWIN__)
   if (access (filename, X_OK) < 0)
     return false;
 
