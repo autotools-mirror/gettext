@@ -1,3 +1,8 @@
+2006-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (windows/stdbool.h): Create directory if needed.
+	Based on a patch by Charles Wilson.
+
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gl_STDARG_H.

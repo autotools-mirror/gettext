@@ -231,6 +231,7 @@ config.h.msvc: config.h.in ../version.sh
 	  < $(srcdir)/config.h.in > $@
 
 windows/stdbool.h: lib/stdbool_.h
+	test -d windows || mkdir windows
 	sed -e 's/@''HAVE__BOOL''@/0/' < $(srcdir)/lib/stdbool_.h > $@
 
 all-local : windows/stdbool.h
