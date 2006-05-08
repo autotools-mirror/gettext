@@ -1,3 +1,8 @@
+2006-05-06  Charles Wilson  <cygwin@cwilson.fastmail.fm>
+
+	* m4/libtool.m4: On Cygwin, like on mingw, define DLL_EXPORT when
+	compiling a shared library object.
+
 2006-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4 (AC_LIBTOOL_LANG_CXX_CONFIG): Add support for Sun C++
