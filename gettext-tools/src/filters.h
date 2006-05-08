@@ -17,6 +17,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Convert a string INPUT of INPUT_LEN bytes containing Serbian input
    to Latin script (not Latin language :-)), converting Cyrillic letters to
    Latin letters.
@@ -25,3 +29,8 @@
    Input and output are in UTF-8 encoding.  */
 extern void serbian_to_latin (const char *input, size_t input_len,
 			      char **output_p, size_t *output_len_p);
+
+#ifdef __cplusplus
+}
+#endif
+

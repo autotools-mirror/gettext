@@ -1,3 +1,7 @@
+2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
+
+	* filters.h: Add C++ guards.
+
 2006-05-07  Bruno Haible  <bruno@clisp.org>
 
 	* x-perl.c (extract_variable): Fix syntax error introduced on
