@@ -1512,58 +1512,60 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	      shapes.shapes[0].argtotal = 0;
 	      string_list_init (&shapes.shapes[0].xcomments);
 
-	      /* Extract a possible string from the key.  Before proceeding
-		 we check whether the open curly is followed by a symbol and
-		 then by a right curly.  */
-	      flag_context_list_iterator_ty context_iter =
-		flag_context_list_iterator (
-		  flag_context_list_table_lookup (
-		    flag_context_list_table,
-		    tp->string, strlen (tp->string)));
-	      token_ty *t1 = x_perl_lex (mlp);
+	      {
+		/* Extract a possible string from the key.  Before proceeding
+		   we check whether the open curly is followed by a symbol and
+		   then by a right curly.  */
+		flag_context_list_iterator_ty context_iter =
+		  flag_context_list_iterator (
+		    flag_context_list_table_lookup (
+		      flag_context_list_table,
+		      tp->string, strlen (tp->string)));
+		token_ty *t1 = x_perl_lex (mlp);
 
 #if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: extracting string key\n",
-		       real_file_name, line_number);
+		fprintf (stderr, "%s:%d: extracting string key\n",
+			 real_file_name, line_number);
 #endif
 
-	      if (t1->type == token_type_symbol
-		  || t1->type == token_type_named_op)
-		{
-		  token_ty *t2 = x_perl_lex (mlp);
-		  if (t2->type == token_type_rbrace)
-		    {
-		      flag_context_ty context;
-		      lex_pos_ty pos;
+		if (t1->type == token_type_symbol
+		    || t1->type == token_type_named_op)
+		  {
+		    token_ty *t2 = x_perl_lex (mlp);
+		    if (t2->type == token_type_rbrace)
+		      {
+			flag_context_ty context;
+			lex_pos_ty pos;
 
-		      context =
-			inherited_context (null_context,
-					   flag_context_list_iterator_advance (
-					     &context_iter));
+			context =
+			  inherited_context (null_context,
+					     flag_context_list_iterator_advance (
+					       &context_iter));
 
-		      pos.line_number = line_number;
-		      pos.file_name = logical_file_name;
+			pos.line_number = line_number;
+			pos.file_name = logical_file_name;
 
-		      xgettext_current_source_encoding = po_charset_utf8;
-		      remember_a_message (mlp, NULL, xstrdup (t1->string),
-					  context, &pos, savable_comment);
-		      xgettext_current_source_encoding = xgettext_global_source_encoding;
-		      free_token (t2);
-		      free_token (t1);
-		    }
-		  else
-		    {
-		      x_perl_unlex (t2);
-		    }
-		}
-	      else
-		{
-		  x_perl_unlex (t1);
-		  if (extract_balanced (mlp, 1, token_type_rbrace,
-					null_context, context_iter,
-					1, arglist_parser_alloc (mlp, &shapes)))
-		    return;
-		}
+			xgettext_current_source_encoding = po_charset_utf8;
+			remember_a_message (mlp, NULL, xstrdup (t1->string),
+					    context, &pos, savable_comment);
+			xgettext_current_source_encoding = xgettext_global_source_encoding;
+			free_token (t2);
+			free_token (t1);
+		      }
+		    else
+		      {
+			x_perl_unlex (t2);
+		      }
+		  }
+		else
+		  {
+		    x_perl_unlex (t1);
+		    if (extract_balanced (mlp, 1, token_type_rbrace,
+					  null_context, context_iter,
+					  1, arglist_parser_alloc (mlp, &shapes)))
+		      return;
+		  }
+	      }
 	    }
 	  else
 	    {
