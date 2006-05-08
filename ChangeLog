@@ -1,6 +1,14 @@
+2006-05-05  Bruno Haible  <bruno@clisp.org>
+
+	* m4/libtool.m4 (AC_LIBTOOL_LANG_CXX_CONFIG): Add support for Sun C++
+	5.9 on Linux.
+	(AC_LIBTOOL_PROG_COMPILER_PIC): Add support for Sun C 5.9 and
+	Sun C++ 5.9.
+	(AC_LIBTOOL_PROG_LD_SHLIBS): Add support for Sun C 5.9.
+
 2006-04-26  Bruno Haible  <bruno@clisp.org>
 
-	* config/config.guess, config/config.sub: Update to GNU version
+	* build-aux/config.guess, build-aux/config.sub: Update to GNU version
 	2006-04-26.
 
 2006-04-17  Bruno Haible  <bruno@clisp.org>
