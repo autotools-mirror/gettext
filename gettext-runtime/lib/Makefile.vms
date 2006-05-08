@@ -32,13 +32,16 @@ RM = delete
 
 #### End of system configuration section. ####
 
-OBJECTS = basename.obj,c-strcasecmp.obj,closeout.obj,error.obj,fwriteerror.obj,getopt.obj,getopt1.obj,iconvstring.obj,localcharset.obj,progname.obj,progreloc.obj,propername.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
+OBJECTS = basename.obj,c-ctype.obj,c-strcasecmp.obj,closeout.obj,error.obj,fwriteerror.obj,getopt.obj,getopt1.obj,iconvstring.obj,localcharset.obj,progname.obj,progreloc.obj,propername.obj,relocatable.obj,xmalloc.obj,xstrdup.obj
 
 all : grt.olb
 	write sys$output "Nothing else to be done for 'all'."
 
 basename.obj : [-.-.gettext-tools.lib]basename.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]basename.c
+
+c-ctype.obj : [-.-.gettext-tools.lib]c-ctype.c
+	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]c-ctype.c
 
 c-strcasecmp.obj : [-.-.gettext-tools.lib]c-strcasecmp.c
 	$(CC) $(INCLUDES) $(CFLAGS) /define=($(DEFS)) [-.-.gettext-tools.lib]c-strcasecmp.c

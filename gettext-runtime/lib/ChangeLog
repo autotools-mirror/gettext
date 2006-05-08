@@ -1,3 +1,11 @@
+2006-05-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Add c-ctype.h and c-ctype.c.
+	* Makefile.msvc (OBJECTS): Add c-ctype.obj.
+	(c-ctype.obj): New rule.
+	* Makefile.vms (OBJECTS): Add c-ctype.obj.
+	(c-ctype.obj): New rule.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgrt_a_SOURCES): Add c-strcase*, gettext.h,
