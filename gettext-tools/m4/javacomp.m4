@@ -123,13 +123,13 @@ changequote([,])dnl
     # Use POSIX od.
     func_classfile_version ()
     {
-      od -A n -t d1 -j 7 -N 1 "$1"
+      od -A n -t d1 -j 7 -N 1 "[$]1"
     }
   else
     # Use BSD hexdump.
     func_classfile_version ()
     {
-      dd if="$1" bs=1 count=1 skip=7 2>/dev/null | hexdump -e '1/1 "%3d "'
+      dd if="[$]1" bs=1 count=1 skip=7 2>/dev/null | hexdump -e '1/1 "%3d "'
       echo
     }
   fi
