@@ -1,4 +1,4 @@
-# gettext.m4 serial 46 (gettext-0.15)
+# gettext.m4 serial 47 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -492,7 +492,7 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   AC_REQUIRE([gt_INTTYPES_PRI])dnl
   AC_REQUIRE([gl_LOCK])dnl
 
-  AC_TRY_COMPILE(
+  AC_TRY_LINK(
     [int foo (int a) { a = __builtin_expect (a, 10); return a == 10 ? 0 : 1; }],
     [],
     [AC_DEFINE([HAVE_BUILTIN_EXPECT], 1,
