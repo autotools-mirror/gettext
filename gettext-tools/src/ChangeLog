@@ -1,3 +1,12 @@
+2006-05-07  Bruno Haible  <bruno@clisp.org>
+
+	* format-awk.c: Include xvasprintf.h instead of xerror.h.
+	* format-elisp.c: Likewise.
+	* format-librep.c: Likewise.
+	* format-pascal.c: Likewise.
+	* format-php.c: Likewise.
+	* format-tcl.c: Likewise.
+
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* write-java.c (msgdomain_write_java): Specify source-version 1.3 and
