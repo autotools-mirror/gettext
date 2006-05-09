@@ -1,5 +1,10 @@
 2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
 
+	* write-mo.h: Remove DLL_VARIABLE declarations, not needed since
+	write-mo.c is not compiled into a shared library.
+
+2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
+
 	* filters.h: Add C++ guards.
 
 2006-05-07  Bruno Haible  <bruno@clisp.org>
