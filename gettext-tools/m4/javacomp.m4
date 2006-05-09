@@ -58,6 +58,11 @@ dnl with or without modifications, as long as this notice is preserved.
 AC_DEFUN([gt_JAVACOMP],
 [
   ifelse([$2], [], [AC_REQUIRE([gt_JAVAEXEC])], [])
+  AC_EGREP_CPP(yes, [
+#if defined _WIN32 || defined __WIN32__ || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
+  yes
+#endif
+], CLASSPATH_SEPARATOR=';', CLASSPATH_SEPARATOR=':')
   source_version=$1
   test -n "$source_version" || {
     AC_MSG_ERROR([missing source-version argument to gt_@&t@JAVACOMP])
@@ -87,8 +92,8 @@ changequote([,])dnl
          > conftestver.class
        target_version=`{
          unset JAVA_HOME
-         echo "$as_me:__oline__: CLASSPATH=.:$CLASSPATH $CONF_JAVA conftestver" >&AS_MESSAGE_LOG_FD
-         CLASSPATH=.:$CLASSPATH $CONF_JAVA conftestver 2>&AS_MESSAGE_LOG_FD
+         echo "$as_me:__oline__: CLASSPATH=.${CLASSPATH:+$CLASSPATH_SEPARATOR$CLASSPATH} $CONF_JAVA conftestver" >&AS_MESSAGE_LOG_FD
+         CLASSPATH=.${CLASSPATH:+$CLASSPATH_SEPARATOR$CLASSPATH} $CONF_JAVA conftestver 2>&AS_MESSAGE_LOG_FD
        }`
        case "$target_version" in
          1.1 | 1.2 | 1.3 | 1.4 | 1.5 | 1.6) ;;
@@ -134,11 +139,6 @@ changequote([,])dnl
     }
   fi
   AC_MSG_CHECKING([for Java compiler])
-  AC_EGREP_CPP(yes, [
-#if defined _WIN32 || defined __WIN32__ || defined __EMX__ || defined __DJGPP__
-  yes
-#endif
-], CLASSPATH_SEPARATOR=';', CLASSPATH_SEPARATOR=':')
   dnl
   dnl The support of GNU gcj for target-version and source-version:
   dnl
