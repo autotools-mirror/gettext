@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2005 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2006 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -41,7 +41,9 @@ gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 case "$host_os" in
-  beos*) LTNOUNDEF='-no-undefined' ;;
+  # On Cygwin, without -no-undefined, a warning is emitted and only a static
+  # library is built.
+  beos* | mingw* | cygwin*) LTNOUNDEF='-no-undefined' ;;
   *) LTNOUNDEF='' ;;
 esac
 AC_SUBST([LTNOUNDEF])

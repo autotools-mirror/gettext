@@ -1,3 +1,8 @@
+2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
+
+	* configure.ac (LTNOUNDEF): Set to -no-undefined also on mingw and
+	Cygwin.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am: Use $(mkdir_p) instead of $(mkinstalldirs).
