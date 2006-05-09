@@ -1,3 +1,9 @@
+2006-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* xvasprintf.c (xstrcat): Handle overflow. Suggested by Paul Eggert.
+	Optimize away a va_copy call. Suggested by Eric Blake. Add missing
+	va_end call.
+
 2006-05-06  Charles Wilson  <cygwin@cwilson.fastmail.fm>
 
 	* progreloc.c (maybe_executable) [CYGWIN]: Use the access() function.

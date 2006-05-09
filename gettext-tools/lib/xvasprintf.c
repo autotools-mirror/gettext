@@ -54,10 +54,12 @@ xstrcat (size_t argcount, va_list args)
       const char *next = va_arg (ap, const char *);
       totalsize = xsum (totalsize, strlen (next));
     }
+  va_end (ap);
 
-  /* Don't return a string longer than INT_MAX, for consistency with
+  /* Test for overflow in the summing pass above or in (totalsize + 1) below.
+     Also, don't return a string longer than INT_MAX, for consistency with
      vasprintf().  */
-  if (totalsize > INT_MAX)
+  if (totalsize == SIZE_MAX || totalsize > INT_MAX)
     {
       errno = EOVERFLOW;
       return NULL;
@@ -66,10 +68,9 @@ xstrcat (size_t argcount, va_list args)
   /* Allocate and fill the result string.  */
   result = (char *) xmalloc (totalsize + 1);
   p = result;
-  va_copy (ap, args);
   for (i = argcount; i > 0; i--)
     {
-      const char *next = va_arg (ap, const char *);
+      const char *next = va_arg (args, const char *);
       size_t len = strlen (next);
       memcpy (p, next, len);
       p += len;
