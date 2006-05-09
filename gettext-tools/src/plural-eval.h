@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software; you can redistribute it and/or modify
@@ -38,8 +38,8 @@
 #endif
 
 /* We use siginfo to get precise information about the signal.
-   But siginfo doesn't work on Irix 6.5.  */
-#if HAVE_SIGINFO && !defined (__sgi)
+   But siginfo doesn't work on Irix 6.5 and on Cygwin 2005.  */
+#if HAVE_SIGINFO && !defined (__sgi) && !defined (__CYGWIN__)
 # define USE_SIGINFO 1
 #endif
 

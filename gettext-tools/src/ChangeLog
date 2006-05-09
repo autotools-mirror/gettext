@@ -1,3 +1,7 @@
+2006-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* plural-eval.h (USE_SIGINFO): Don't define on Cygwin.
+
 2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
 
 	* write-mo.h: Remove DLL_VARIABLE declarations, not needed since
