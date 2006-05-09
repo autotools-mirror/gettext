@@ -97,7 +97,9 @@ gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 case "$host_os" in
-  beos*) LTNOUNDEF='-no-undefined' ;;
+  # On Cygwin, without -no-undefined, a warning is emitted and only a static
+  # library is built.
+  beos* | mingw* | cygwin*) LTNOUNDEF='-no-undefined' ;;
   *) LTNOUNDEF='' ;;
 esac
 AC_SUBST([LTNOUNDEF])
