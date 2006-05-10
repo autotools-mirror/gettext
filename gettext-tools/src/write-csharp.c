@@ -730,7 +730,6 @@ but the C# .dll format doesn't support contexts\n")));
   if (fwriteerror (csharp_file))
     {
       error (0, errno, _("error while writing \"%s\" file"), csharp_file_name);
-      fclose (csharp_file);
       goto quit3;
     }
 
