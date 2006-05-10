@@ -4,7 +4,7 @@
 
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
-	* Makefile.am (all-local): Remove depedency on build-aux/mkinstalldirs.
+	* Makefile.am (all-local): Remove dependency on build-aux/mkinstalldirs.
 	(build-aux/mkinstalldirs): Remove rule.
 	(DISTCLEANFILES): Remove build-aux/mkinstalldirs.
 	* tests/rpathlx/Makefile.am (mkinstalldirs): Remove variable.
