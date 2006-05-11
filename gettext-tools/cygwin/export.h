@@ -111,19 +111,9 @@
   extern int x;								\
   void * IMP(x) = &x;
 
- /* Ensure that the function x is exported from the library.  */
-# define FUNCTION(x) \
-  /* Export x without redefining x.  This code was found by compiling a	\
-     snippet:								\
-       extern __declspec(dllexport) void x (void);  */			\
-  asm (".section .drectve\n");						\
-  asm (".ascii \" -export:" #x "\"\n");					\
-  asm (".data\n");
-
 #else
   /* Compiling for a static library.  */
 
 # define VARIABLE(x)
-# define FUNCTION(x)
 
 #endif
