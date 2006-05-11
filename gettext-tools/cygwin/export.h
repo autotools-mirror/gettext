@@ -90,30 +90,18 @@
    the effect of no longer exporting the functions! - until the option
    --export-all-symbols is used.  */
 
-/* libtool defines the symbol DLL_EXPORT when compiling the object files that
-   will go into a shared library.  */
-#ifdef DLL_EXPORT
- /* Compiling for a shared library.  */
-
  /* IMP(x) is a symbol that contains the address of x.  */
-# define IMP(x) _imp__##x
+#define IMP(x) _imp__##x
 
  /* Ensure that the variable x is exported from the library, and that a
     pseudo-variable IMP(x) is available.  */
-# define VARIABLE(x) \
-  /* Export x without redefining x.  This code was found by compiling a	\
-     snippet:								\
-       extern __declspec(dllexport) int x; int x = 42;  */		\
-  asm (".section .drectve\n");						\
-  asm (".ascii \" -export:" #x ",data\"\n");				\
-  asm (".data\n");							\
-  /* Allocate a pseudo-variable IMP(x).  */				\
-  extern int x;								\
-  void * IMP(x) = &x;
-
-#else
-  /* Compiling for a static library.  */
-
-# define VARIABLE(x)
-
-#endif
+#define VARIABLE(x) \
+ /* Export x without redefining x.  This code was found by compiling a	\
+    snippet:								\
+      extern __declspec(dllexport) int x; int x = 42;  */		\
+ asm (".section .drectve\n");						\
+ asm (".ascii \" -export:" #x ",data\"\n");				\
+ asm (".data\n");							\
+ /* Allocate a pseudo-variable IMP(x).  */				\
+ extern int x;								\
+ void * IMP(x) = &x;
