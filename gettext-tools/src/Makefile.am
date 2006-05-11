@@ -91,9 +91,9 @@ JAVACOMP = $(SHELL) ../lib/javacomp.sh
 CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
-# Linking with C++ libraries is needed _only_ on mingw.
-if !MINGW
-@MINGW_FALSE@CXXLINK = $(LINK)
+# Linking with C++ libraries is needed _only_ on mingw and Cygwin.
+if !WOE32DLL
+@WOE32DLL_FALSE@CXXLINK = $(LINK)
 endif
 
 
@@ -110,10 +110,10 @@ read-po-abstract.c po-lex.c po-gram-gen.y po-charset.c \
 read-properties.c read-stringtable.c open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
-if !MINGW
+if !WOE32DLL
 FORMAT_SOURCE = format.c
 else
-FORMAT_SOURCE = ../mingw/c++format.cc
+FORMAT_SOURCE = ../woe32dll/c++format.cc
 endif
 FORMAT_SOURCE += format-invalid.h \
 format-c.c format-sh.c format-python.c format-lisp.c format-elisp.c \
@@ -148,67 +148,67 @@ msgfmt_SOURCES = msgfmt.c
 msgfmt_SOURCES += \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
   write-qt.c ../../gettext-runtime/intl/hash-string.c
-if !MINGW
+if !WOE32DLL
 msgmerge_SOURCES = msgmerge.c
 else
-msgmerge_SOURCES = ../mingw/c++msgmerge.cc
+msgmerge_SOURCES = ../woe32dll/c++msgmerge.cc
 endif
 msgmerge_SOURCES += msgl-fsearch.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
-if !MINGW
+if !WOE32DLL
 xgettext_SOURCES = xgettext.c
 else
-xgettext_SOURCES = ../mingw/c++xgettext.cc
+xgettext_SOURCES = ../woe32dll/c++xgettext.cc
 endif
 xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c
-if !MINGW
+if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
 else
-msgattrib_SOURCES = ../mingw/c++msgattrib.cc
+msgattrib_SOURCES = ../woe32dll/c++msgattrib.cc
 endif
-if !MINGW
+if !WOE32DLL
 msgcat_SOURCES = msgcat.c
 else
-msgcat_SOURCES = ../mingw/c++msgcat.cc
+msgcat_SOURCES = ../woe32dll/c++msgcat.cc
 endif
-if !MINGW
+if !WOE32DLL
 msgcomm_SOURCES = msgcomm.c
 else
-msgcomm_SOURCES = ../mingw/c++msgcomm.cc
+msgcomm_SOURCES = ../woe32dll/c++msgcomm.cc
 endif
-if !MINGW
+if !WOE32DLL
 msgconv_SOURCES = msgconv.c
 else
-msgconv_SOURCES = ../mingw/c++msgconv.cc
+msgconv_SOURCES = ../woe32dll/c++msgconv.cc
 endif
-if !MINGW
+if !WOE32DLL
 msgen_SOURCES = msgen.c
 else
-msgen_SOURCES = ../mingw/c++msgen.cc
+msgen_SOURCES = ../woe32dll/c++msgen.cc
 endif
 msgexec_SOURCES = msgexec.c
-if !MINGW
+if !WOE32DLL
 msgfilter_SOURCES = msgfilter.c
 else
-msgfilter_SOURCES = ../mingw/c++msgfilter.cc
+msgfilter_SOURCES = ../woe32dll/c++msgfilter.cc
 endif
 msgfilter_SOURCES += filter-sr-latin.c
-if !MINGW
+if !WOE32DLL
 msggrep_SOURCES = msggrep.c
 else
-msggrep_SOURCES = ../mingw/c++msggrep.cc
+msggrep_SOURCES = ../woe32dll/c++msggrep.cc
 endif
 msginit_SOURCES = msginit.c
 msginit_SOURCES += lang-table.c plural-count.c ../../gettext-runtime/intl/localealias.c
-if !MINGW
+if !WOE32DLL
 msguniq_SOURCES = msguniq.c
 else
-msguniq_SOURCES = ../mingw/c++msguniq.cc
+msguniq_SOURCES = ../woe32dll/c++msguniq.cc
 endif
 recode_sr_latin_SOURCES = recode-sr-latin.c filter-sr-latin.c
 hostname_SOURCES = hostname.c
@@ -222,6 +222,12 @@ urlget_SOURCES = urlget.c
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+
+# Tell the Cygwin linker which symbols to export.
+if CYGWINDLL
+libgettextsrc_la_SOURCES += ../cygwin/gettextsrc-exports.c
+libgettextsrc_la_LDFLAGS += -Wl,--export-all-symbols
+endif
 
 # No need to install libgettextsrc.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
@@ -240,6 +246,12 @@ libgettextpo_la_LDFLAGS = \
   libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 # Build order. Only needed for "make -j[N]".
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
+
+# Tell the Cygwin linker which symbols to export.
+if CYGWINDLL
+libgettextpo_la_SOURCES += ../cygwin/gettextpo-exports.c
+libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
+endif
 
 # Link dependencies.
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
@@ -312,6 +324,18 @@ po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
 	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
+
+# Special rules for installable include files that export variables.
+
+EXTRA_DIST += gettext-po.h.in
+BUILT_SOURCES += gettext-po.h
+gettext-po.h: gettext-po.h.in
+if CYGWINDLL
+	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.h.in > gettext-po.h-tmp
+else
+	cp $(srcdir)/gettext-po.h.in gettext-po.h-tmp
+endif
+	mv gettext-po.h-tmp gettext-po.h
 
 
 # Special rules for installation of auxiliary programs.

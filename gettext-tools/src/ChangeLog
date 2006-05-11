@@ -1,5 +1,16 @@
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-po.h.in: Renamed from gettext-po.h.
+	* Makefile.am: Treat condition WOE32DLL like MINGW. Update file names.
+	(libgettextsrc_la_SOURCES, libgettextsrc_la_LDFLAGS): Modify for
+	Cygwin.
+	libgettextpo_la_SOURCES, libgettextpo_la_LDFLAGS): Likewise.
+	(BUILT_SOURCES): Add gettext-po.h.
+	(EXTRA_DIST): Add gettext-po.h.in.
+	(gettext-po.h): New rule.
+
+2006-05-11  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (format_CFLAGS): Remove variable.
 	(format.lo): Remove variable.
 	(FORMAT_SOURCE) [MINGW]: Use ../mingw/c++format.cc instead of format.c.
