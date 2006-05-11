@@ -218,15 +218,6 @@ libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
-# Special rules for mingw.
-if MINGW
-format_CFLAGS = -x c++
-# Work around an automake 1.9 bug: *_CFLAGS settings are ignored for elements
-# of a libtool library.
-format.lo: format.c
-	$(LTCOMPILE) $(format_CFLAGS) -c -o format.lo format.c
-endif
-
 # No need to install libgettextsrc.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
