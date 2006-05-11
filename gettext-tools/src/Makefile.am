@@ -110,7 +110,12 @@ read-po-abstract.c po-lex.c po-gram-gen.y po-charset.c \
 read-properties.c read-stringtable.c open-po.c dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
-FORMAT_SOURCE = format.c format-invalid.h \
+if !MINGW
+FORMAT_SOURCE = format.c
+else
+FORMAT_SOURCE = ../mingw/c++format.cc
+endif
+FORMAT_SOURCE += format-invalid.h \
 format-c.c format-sh.c format-python.c format-lisp.c format-elisp.c \
 format-librep.c format-scheme.c format-java.c format-csharp.c format-awk.c \
 format-pascal.c format-ycp.c format-tcl.c format-perl.c format-perl-brace.c \

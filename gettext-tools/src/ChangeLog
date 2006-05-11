@@ -2,6 +2,7 @@
 
 	* Makefile.am (format_CFLAGS): Remove variable.
 	(format.lo): Remove variable.
+	(FORMAT_SOURCE) [MINGW]: Use ../mingw/c++format.cc instead of format.c.
 
 2006-05-09  Bruno Haible  <bruno@clisp.org>
 
