@@ -1,3 +1,7 @@
+2006-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Set variable CYGWINDLL.
+
 2006-05-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (gt_INTL_SUBDIR_CORE): Fix test of __builtin_expect so

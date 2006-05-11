@@ -1,4 +1,4 @@
-# gettext.m4 serial 47 (gettext-0.15)
+# gettext.m4 serial 48 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -418,6 +418,24 @@ AC_DEFUN([AM_INTL_SUBDIR],
 
   AM_LANGINFO_CODESET
   gt_LC_MESSAGES
+
+  dnl Compilation on Cygwin needs special Makefile rules, because
+  dnl 1. when we install a shared library, we must arrange to export
+  dnl    auxiliary pointer variables for every exported variable,
+  dnl 2. when we install a shared library and a static library simultaneously,
+  dnl    the include file specifies __declspec(dllimport) and therefore we
+  dnl    must arrange to define the auxiliary pointer variables for the
+  dnl    exported variables _also_ in the static library.
+  if test "$enable_shared" = yes; then
+    case "$host_os" in
+      cygwin*) is_cygwindll=yes ;;
+      *) is_cygwindll=no ;;
+    esac
+  else
+    is_cygwindll=no
+  fi
+  CYGWINDLL=$is_cygwindll
+  AC_SUBST([CYGWINDLL])
 
   dnl Rename some macros and functions used for locking.
   AH_BOTTOM([
