@@ -237,3 +237,8 @@ windows/stdbool.h: lib/stdbool_.h
 all-local : windows/stdbool.h
 
 EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/alloca.h windows/fnmatch.h windows/getopt.h windows/stdbool.h windows/gettextlib.def windows/gettextsrc.def windows/gettextpo.def windows/gettextlib.rc windows/gettextsrc.rc windows/gettextpo.rc
+
+
+# Cygwin support.
+
+EXTRA_DIST += cygwin/export.h

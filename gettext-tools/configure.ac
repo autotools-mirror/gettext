@@ -204,13 +204,37 @@ AC_DEFINE_UNQUOTED([ENDIANNESS], [$endianness],
 
 gt_PREREQ_HOSTNAME
 
-dnl Compilation on mingw needs special Makefile rules, because of variables
-dnl being exported from or imported into shared libraries.
-case "$host_os" in
-  mingw*) is_mingw=yes ;;
-  *) is_mingw=no ;;
-esac
-AM_CONDITIONAL([MINGW], [test $is_mingw = yes])
+dnl Compilation on mingw and Cygwin needs special Makefile rules, because of
+dnl variables being exported from or imported into shared libraries.
+if test "$enable_shared" = yes; then
+  case "$host_os" in
+    mingw* | cygwin*) is_woe32dll=yes ;;
+    *) is_woe32dll=no ;;
+  esac
+else
+  is_woe32dll=no
+fi
+AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
+
+dnl Compilation on Cygwin needs special Makefile rules, because
+dnl 1. when we install a shared library, we must arrange to export
+dnl    auxiliary pointer variables for every exported variable,
+dnl 2. when we install a shared library and a static library simultaneously,
+dnl    the include file specifies __declspec(dllimport) and therefore we
+dnl    must arrange to define the auxiliary pointer variables for the
+dnl    exported variables _also_ in the static library.
+if test "$enable_shared" = yes; then
+  case "$host_os" in
+    cygwin*) is_cygwindll=yes ;;
+    *) is_cygwindll=no ;;
+  esac
+else
+  is_cygwindll=no
+fi
+AM_CONDITIONAL([CYGWINDLL], [test $is_cygwindll = yes])
+if test $is_cygwindll = yes; then
+  AC_DEFINE([CYGWINDLL], 1, [Define when --enable-shared is used on Cygwin.])
+fi
 
 dnl Put some default definitions into config.h.
 AH_TOP([
@@ -243,7 +267,7 @@ AH_BOTTOM([
 #define PAGE_WIDTH 79
 
 /* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined _DLL) || (defined __MINGW32__ && defined DLL_EXPORT)
+#if (defined _MSC_VER && defined _DLL) || (defined __MINGW32__ && defined DLL_EXPORT) || defined CYGWINDLL
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE

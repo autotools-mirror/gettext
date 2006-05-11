@@ -1,5 +1,19 @@
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
+	* woe32dll: Directory renamed from mingw.
+	* cygwin/export.h: New file.
+	* cygwin/gettextlib-exports.c: New file.
+	* cygwin/gettextsrc-exports.c: New file.
+	* cygwin/gettextpo-exports.c: New file.
+	* configure.ac (WOE32DLL): Condition renamed from MINGW. Activate it
+	also on Cygwin. Only activate it when compiling shared libraries.
+	(CYGWINDLL): New condition.
+	(CYGWINDLL): New define.
+	(DLL_VARIABLE): Use dllimport also on Cygwin.
+	* Makefile.am (EXTRA_DIST): Add cygwin/export.h.
+
+2006-05-11  Bruno Haible  <bruno@clisp.org>
+
 	* woe32dll/c++format.cc: New file.
 
 2006-05-02  Charles Wilson  <cygwin@cwilson.fastmail.fm>
