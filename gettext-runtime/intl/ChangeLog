@@ -1,3 +1,13 @@
+2006-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* intl-exports.c: New file.
+	* osdep.c: Include it on Cygwin.
+	* Makefile.in (LDFLAGS_yes, LDFLAGS_no): New variables.
+	(LDFLAGS): Use it.
+	(SOURCES): Add intl-exports.c.
+	(libgnuintl.h): When compiling a DLL on Cygwin, mark all exported
+	variables as to be imported.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (MKINSTALLDIRS, mkinstalldirs): Remove variables.

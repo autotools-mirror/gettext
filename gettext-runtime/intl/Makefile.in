@@ -72,7 +72,9 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
 -DDEPENDS_ON_LIBICONV=1 @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@ @CFLAG_VISIBILITY@
-LDFLAGS = @LDFLAGS@
+LDFLAGS = @LDFLAGS@ $(LDFLAGS_@CYGWINDLL@)
+LDFLAGS_yes = -Wl,--export-all-symbols
+LDFLAGS_no =
 LIBS = @LIBS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
@@ -121,6 +123,7 @@ SOURCES = \
   version.c \
   osdep.c \
   os2compat.c \
+  intl-exports.c \
   intl-compat.c
 OBJECTS = \
   bindtextdom.$lo \
@@ -270,6 +273,11 @@ libgnuintl.h: $(srcdir)/libgnuintl.h.in
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
 	  < $(srcdir)/libgnuintl.h.in \
+	| if test '@CYGWINDLL@' = yes; then \
+	    sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/'; \
+	  else \
+	    cat; \
+	  fi \
 	| sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
 	      -e "/#define _LIBINTL_H/r $(srcdir)/export.h" \
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
