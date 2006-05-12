@@ -1,3 +1,10 @@
+2006-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* write-csharp.c [MINGW]: Include <io.h>.
+	(mkdir): Define using _mkdir.
+	* write-java.c [MINGW]: Include <io.h>.
+	(mkdir): Define using _mkdir.
+
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in: Renamed from gettext-po.h.
