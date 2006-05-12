@@ -128,6 +128,12 @@ libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
+# Tell the Cygwin linker which symbols to export.
+if CYGWINDLL
+libgettextlib_la_SOURCES += ../cygwin/gettextlib-exports.c
+libgettextlib_la_LDFLAGS += -Wl,--export-all-symbols
+endif
+
 # No need to install libgettextlib.a, except on AIX.
 install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:

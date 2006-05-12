@@ -1,3 +1,8 @@
+2006-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextlib_la_SOURCES, libgettextlib_la_LDFLAGS):
+	Modify for Cygwin.
+
 2006-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* xvasprintf.c (xstrcat): Handle overflow. Suggested by Paul Eggert.
