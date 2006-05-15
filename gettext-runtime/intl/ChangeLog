@@ -1,5 +1,9 @@
 2006-05-15  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in (LDFLAGS, libgnuintl.h): Treat mingw like Cygwin.
+
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
 	* libgnuintl.h.in: Move the _INTL_MAY_RETURN_STRING_ARG annotations
 	from the function definition to the function declaration. Needed in
 	C++ mode.

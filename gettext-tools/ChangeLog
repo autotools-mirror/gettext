@@ -1,3 +1,14 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* woe32dll/export.h: Renamed from cygwin/export.h.
+	* woe32dll/gettextlib-exports: Renamed from cygwin/gettextlib-exports.h.
+	* woe32dll/gettextsrc-exports: Renamed from cygwin/gettextsrc-exports.h.
+	* woe32dll/gettextpo-exports: Renamed from cygwin/gettextpo-exports.h.
+	* configure.ac (WOE32DLL): Renamed from CYGWINDLL.
+	(DLL_VARIABLE): Define as nonempty on mingw if and only if
+	--enable-shared was specified.
+	* Makefile.am (EXTRA_DIST): Update.
+
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll: Directory renamed from mingw.

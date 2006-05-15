@@ -72,7 +72,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
 -DDEPENDS_ON_LIBICONV=1 @DEFS@
 CPPFLAGS = @CPPFLAGS@
 CFLAGS = @CFLAGS@ @CFLAG_VISIBILITY@
-LDFLAGS = @LDFLAGS@ $(LDFLAGS_@CYGWINDLL@)
+LDFLAGS = @LDFLAGS@ $(LDFLAGS_@WOE32DLL@)
 LDFLAGS_yes = -Wl,--export-all-symbols
 LDFLAGS_no =
 LIBS = @LIBS@
@@ -273,7 +273,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.h.in
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
 	  < $(srcdir)/libgnuintl.h.in \
-	| if test '@CYGWINDLL@' = yes; then \
+	| if test '@WOE32DLL@' = yes; then \
 	    sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/'; \
 	  else \
 	    cat; \

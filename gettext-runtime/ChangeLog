@@ -1,3 +1,8 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (DLL_VARIABLE): Define as empty on mingw, like on
+	Cygwin.
+
 2006-05-01  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Pass a source-version and a target-version to

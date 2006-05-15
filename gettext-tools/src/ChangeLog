@@ -1,3 +1,7 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Test flag WOE32DLL instead of CYGWINDLL.
+
 2006-05-14  Bruno Haible  <bruno@clisp.org>
 
 	* x-php.c (x_php_lex): Fix handling of here documents.

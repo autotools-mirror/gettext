@@ -128,9 +128,9 @@ libgettextlib_la_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
-# Tell the Cygwin linker which symbols to export.
-if CYGWINDLL
-libgettextlib_la_SOURCES += ../cygwin/gettextlib-exports.c
+# Tell the mingw or Cygwin linker which symbols to export.
+if WOE32DLL
+libgettextlib_la_SOURCES += ../woe32dll/gettextlib-exports.c
 libgettextlib_la_LDFLAGS += -Wl,--export-all-symbols
 endif
 

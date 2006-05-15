@@ -1,3 +1,7 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Test flag WOE32DLL instead of CYGWINDLL.
+
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* progreloc.c: Include <mach-o/dyld.h> if available.

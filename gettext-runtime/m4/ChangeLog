@@ -1,3 +1,8 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_INTL_SUBDIR): Set variable WOE32DLL instead of
+	CYGWINDLL.
+
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Set variable CYGWINDLL.

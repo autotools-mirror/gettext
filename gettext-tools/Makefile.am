@@ -241,4 +241,4 @@ EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc windows/alloca.h windows/
 
 # Cygwin support.
 
-EXTRA_DIST += cygwin/export.h
+EXTRA_DIST += woe32dll/export.h

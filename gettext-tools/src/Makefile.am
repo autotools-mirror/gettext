@@ -223,9 +223,9 @@ libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
-# Tell the Cygwin linker which symbols to export.
-if CYGWINDLL
-libgettextsrc_la_SOURCES += ../cygwin/gettextsrc-exports.c
+# Tell the mingw or Cygwin linker which symbols to export.
+if WOE32DLL
+libgettextsrc_la_SOURCES += ../woe32dll/gettextsrc-exports.c
 libgettextsrc_la_LDFLAGS += -Wl,--export-all-symbols
 endif
 
@@ -247,9 +247,9 @@ libgettextpo_la_LDFLAGS = \
 # Build order. Only needed for "make -j[N]".
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
 
-# Tell the Cygwin linker which symbols to export.
-if CYGWINDLL
-libgettextpo_la_SOURCES += ../cygwin/gettextpo-exports.c
+# Tell the mingw or Cygwin linker which symbols to export.
+if WOE32DLL
+libgettextpo_la_SOURCES += ../woe32dll/gettextpo-exports.c
 libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
 endif
 
@@ -330,7 +330,7 @@ po-gram-gen2.h: po-gram-gen.h
 EXTRA_DIST += gettext-po.h.in
 BUILT_SOURCES += gettext-po.h
 gettext-po.h: gettext-po.h.in
-if CYGWINDLL
+if WOE32DLL
 	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.h.in > gettext-po.h-tmp
 else
 	cp $(srcdir)/gettext-po.h.in gettext-po.h-tmp
