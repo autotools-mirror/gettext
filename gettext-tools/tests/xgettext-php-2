@@ -36,6 +36,7 @@ Augustus
 echo _("Goths");
 echo <<<EOTMARKER
 Odoakar
+Theoderich
 EOTMARKER
 echo _("Franks");
 ?>
