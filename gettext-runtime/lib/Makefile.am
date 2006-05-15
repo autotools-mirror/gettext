@@ -69,7 +69,7 @@ AM_CPPFLAGS = \
   -I../intl -I$(srcdir)/../intl \
   -I../../gettext-tools/lib -I$(srcdir)/../../gettext-tools/lib
 
-DEFS = -DDEPENDS_ON_LIBINTL=1 @DEFS@
+DEFS = -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 @DEFS@
 
 # List of files to be distributed.
 

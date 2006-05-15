@@ -1,3 +1,8 @@
+2006-05-14  Bruno Haible  <bruno@clisp.org>
+
+	Fix --enable-relocatable on non-glibc platforms, broken on 2005-12-04.
+	* Makefile.am (DEFS): Define EXEEXT.
+
 2006-05-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgrt_a_SOURCES): Add c-ctype.h and c-ctype.c.
