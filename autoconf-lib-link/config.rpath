@@ -88,8 +88,12 @@ else
         como)
           wl='-lopt='
           ;;
-        c89* | c99*)
-          wl='-Wl,'
+        *)
+          case `$CC -V 2>&1 | sed 5q` in
+            *Sun\ C*)
+              wl='-Wl,'
+              ;;
+          esac
           ;;
       esac
       ;;
