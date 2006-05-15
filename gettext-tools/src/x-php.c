@@ -1138,13 +1138,17 @@ x_php_lex (token_ty *tp)
 				    phase1_ungetc (c);
 				    break;
 				  }
+				bufidx++;
 			      }
-			    c = phase1_getc ();
-			    if (c != ';')
-			      phase1_ungetc (c);
-			    c = phase1_getc ();
-			    if (c == '\n' || c == '\r')
-			      break;
+			    if (bufidx == bufpos)
+			      {
+				c = phase1_getc ();
+				if (c != ';')
+				  phase1_ungetc (c);
+				c = phase1_getc ();
+				if (c == '\n' || c == '\r')
+				  break;
+			      }
 			  }
 		      }
 

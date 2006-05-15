@@ -1,3 +1,8 @@
+2006-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* x-php.c (x_php_lex): Fix handling of here documents.
+	Reported by Gaëtan Frenoy <gaetan@frenoy.net>.
+
 2006-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* write-csharp.c [MINGW]: Include <io.h>.
