@@ -35,6 +35,11 @@
 #endif
 #include <sys/stat.h>
 
+/* Get declaration of _NSGetExecutablePath on MacOS X 10.2 or newer.  */
+#if HAVE_MACH_O_DYLD_H
+# include <mach-o/dyld.h>
+#endif
+
 #if defined _WIN32 || defined __WIN32__
 # undef WIN32   /* avoid warning on mingw32 */
 # define WIN32
@@ -184,6 +189,16 @@ find_executable (const char *argv0)
 	executable_fd = open (buf, O_RDONLY, 0);
     }
   }
+#endif
+#if HAVE_MACH_O_DYLD_H && HAVE__NSGETEXECUTABLEPATH
+  /* On MacOS X 10.2 or newer, the function
+       int _NSGetExecutablePath (char *buf, unsigned long *bufsize);
+     can be used to retrieve the executable's full path.  */
+  char location[4096];
+  unsigned long length = sizeof (location);
+  if (_NSGetExecutablePath (location, &length) == 0
+      && location[0] == '/')
+    return canonicalize_file_name (location);
 #endif
   /* Guess the executable's full path.  We assume the executable has been
      called via execlp() or execvp() with properly set up argv[0].  The

@@ -1,3 +1,8 @@
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.m4 (AC_RELOCATABLE): Also test for availability of
+	<unistd.h>, <mach-o/dyld.h>. _NSGetExecutablePath.
+
 2006-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* javaexec.m4 (gt_JAVAEXEC): On Cygwin, set CLASSPATH_SEPARATOR to a

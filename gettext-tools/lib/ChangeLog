@@ -1,3 +1,8 @@
+2006-04-30  Bruno Haible  <bruno@clisp.org>
+
+	* progreloc.c: Include <mach-o/dyld.h> if available.
+	(find_executable): Use _NSGetExecutablePath when possible.
+
 2006-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* mkdtemp.c [MINGW]: Include <io.h>.
