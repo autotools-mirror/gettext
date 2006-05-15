@@ -120,9 +120,9 @@ extern int libintl_version;
    LC_MESSAGES locale.  If not found, returns MSGID itself (the default
    text).  */
 #ifdef _INTL_REDIRECT_INLINE
-extern char *libintl_gettext (const char *__msgid);
+extern char *libintl_gettext (const char *__msgid)
+       _INTL_MAY_RETURN_STRING_ARG (1);
 static inline char *gettext (const char *__msgid)
-       _INTL_MAY_RETURN_STRING_ARG (1)
 {
   return libintl_gettext (__msgid);
 }
@@ -138,9 +138,9 @@ extern char *gettext (const char *__msgid)
 /* Look up MSGID in the DOMAINNAME message catalog for the current
    LC_MESSAGES locale.  */
 #ifdef _INTL_REDIRECT_INLINE
-extern char *libintl_dgettext (const char *__domainname, const char *__msgid);
+extern char *libintl_dgettext (const char *__domainname, const char *__msgid)
+       _INTL_MAY_RETURN_STRING_ARG (2);
 static inline char *dgettext (const char *__domainname, const char *__msgid)
-       _INTL_MAY_RETURN_STRING_ARG (2)
 {
   return libintl_dgettext (__domainname, __msgid);
 }
@@ -157,10 +157,10 @@ extern char *dgettext (const char *__domainname, const char *__msgid)
    locale.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dcgettext (const char *__domainname, const char *__msgid,
-				int __category);
+				int __category)
+       _INTL_MAY_RETURN_STRING_ARG (2);
 static inline char *dcgettext (const char *__domainname, const char *__msgid,
 			       int __category)
-       _INTL_MAY_RETURN_STRING_ARG (2)
 {
   return libintl_dcgettext (__domainname, __msgid, __category);
 }
@@ -179,10 +179,10 @@ extern char *dcgettext (const char *__domainname, const char *__msgid,
    number N.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2,
-			       unsigned long int __n);
+			       unsigned long int __n)
+       _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2);
 static inline char *ngettext (const char *__msgid1, const char *__msgid2,
 			      unsigned long int __n)
-       _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2)
 {
   return libintl_ngettext (__msgid1, __msgid2, __n);
 }
@@ -200,10 +200,10 @@ extern char *ngettext (const char *__msgid1, const char *__msgid2,
    number N.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dngettext (const char *__domainname, const char *__msgid1,
-				const char *__msgid2, unsigned long int __n);
+				const char *__msgid2, unsigned long int __n)
+       _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3);
 static inline char *dngettext (const char *__domainname, const char *__msgid1,
 			       const char *__msgid2, unsigned long int __n)
-       _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 {
   return libintl_dngettext (__domainname, __msgid1, __msgid2, __n);
 }
@@ -223,11 +223,11 @@ extern char *dngettext (const char *__domainname,
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dcngettext (const char *__domainname,
 				 const char *__msgid1, const char *__msgid2,
-				 unsigned long int __n, int __category);
+				 unsigned long int __n, int __category)
+       _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3);
 static inline char *dcngettext (const char *__domainname,
 				const char *__msgid1, const char *__msgid2,
 				unsigned long int __n, int __category)
-       _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 {
   return libintl_dcngettext (__domainname, __msgid1, __msgid2, __n, __category);
 }

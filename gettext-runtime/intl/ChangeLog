@@ -1,3 +1,9 @@
+2006-05-15  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in: Move the _INTL_MAY_RETURN_STRING_ARG annotations
+	from the function definition to the function declaration. Needed in
+	C++ mode.
+
 2006-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* intl-exports.c: New file.
