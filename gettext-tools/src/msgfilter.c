@@ -151,7 +151,7 @@ main (int argc, char **argv)
   msgdomain_list_ty *result;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
-  size_t i;
+  int i;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
