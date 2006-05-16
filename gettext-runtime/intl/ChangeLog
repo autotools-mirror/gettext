@@ -1,3 +1,11 @@
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.c [CYGWIN]: Include <windows.h>.
+	(get_charset_aliases): For Cygwin, return the same CPxxx aliases list
+	as under WIN32.
+	(locale_charset) [CYGWIN]: Try to retrieve the encoding from the
+	environment variables. Fall back to GetACP().
+
 2006-05-15  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (LDFLAGS, libgnuintl.h): Treat mingw like Cygwin.

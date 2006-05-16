@@ -1,5 +1,13 @@
 2006-05-16  Bruno Haible  <bruno@clisp.org>
 
+	* localcharset.c [CYGWIN]: Include <windows.h>.
+	(get_charset_aliases): For Cygwin, return the same CPxxx aliases list
+	as under WIN32.
+	(locale_charset) [CYGWIN]: Try to retrieve the encoding from the
+	environment variables. Fall back to GetACP().
+
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
 	* javacomp.c (is_envjavac_gcj_14_14_usable,
 	is_envjavac_gcj_14_13_usable, is_envjavac_nongcj_usable,
 	is_gcj_present, is_gcj_14_14_usable, is_gcj_14_13_usable,
