@@ -1,5 +1,11 @@
 2006-05-16  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (main): Use a size_t index variable for looping over the
+	files.
+	(arglist_parser_done): Fix a format string.
+
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
 	* msgfilter.c (main): Change type of i.
 
 2006-05-15  Bruno Haible  <bruno@clisp.org>

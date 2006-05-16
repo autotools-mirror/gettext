@@ -264,7 +264,6 @@ static const char *extension_to_language (const char *extension);
 int
 main (int argc, char *argv[])
 {
-  int cnt;
   int optchar;
   bool do_help = false;
   bool do_version = false;
@@ -280,6 +279,8 @@ main (int argc, char *argv[])
   char *output_file = NULL;
   const char *language = NULL;
   extractor_ty extractor = { NULL, NULL, NULL, NULL };
+  int cnt;
+  size_t i;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -651,12 +652,12 @@ This version was built without iconv()."),
     }
 
   /* Process all input files.  */
-  for (cnt = 0; cnt < file_list->nitems; ++cnt)
+  for (i = 0; i < file_list->nitems; i++)
     {
       const char *filename;
       extractor_ty this_file_extractor;
 
-      filename = file_list->item[cnt];
+      filename = file_list->item[i];
 
       if (extractor.func)
 	this_file_extractor = extractor;
@@ -2690,7 +2691,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 			  error_at_line (0, 0,
 					 best_cp->msgid_plural_pos.file_name,
 					 best_cp->msgid_plural_pos.line_number,
-					 _("%s:%d: context mismatch between singular and plural form"));
+					 _("context mismatch between singular and plural form"));
 			  error_with_progname = true;
 			}
 		      free (ctxt);
