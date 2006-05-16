@@ -1,5 +1,9 @@
 2006-05-16  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (CLEANFILES): Add gettext-po.h.
+
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c (main): Use a size_t index variable for looping over the
 	files.
 	(arglist_parser_done): Fix a format string.

@@ -329,6 +329,7 @@ po-gram-gen2.h: po-gram-gen.h
 
 EXTRA_DIST += gettext-po.h.in
 BUILT_SOURCES += gettext-po.h
+CLEANFILES += gettext-po.h
 gettext-po.h: gettext-po.h.in
 if WOE32DLL
 	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.h.in > gettext-po.h-tmp
