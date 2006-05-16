@@ -602,7 +602,6 @@ is_envjavac_gcj_14_14_usable (const char *javac, bool *usablep)
       /* Try $JAVAC.  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
@@ -661,7 +660,6 @@ is_envjavac_gcj_14_13_usable (const char *javac,
 	 it makes a difference.  (It could already be part of $JAVAC.)  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
@@ -805,7 +803,6 @@ is_envjavac_nongcj_usable (const char *javac,
       /* Try $JAVAC.  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
@@ -1109,7 +1106,6 @@ is_gcj_present (void)
 	  else
 	    {
 	      char *conftest_file_name;
-	      FILE *conftest_file;
 
 	      conftest_file_name =
 		concatenated_pathname (tmpdir->dir_name, "conftestlib.java",
@@ -1164,7 +1160,6 @@ is_gcj_14_14_usable (bool *usablep)
       /* Try gcj.  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
@@ -1222,7 +1217,6 @@ is_gcj_14_13_usable (bool *usablep, bool *need_no_assert_option_p)
 	 it works (not gcj < 3.3).  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
@@ -1330,7 +1324,6 @@ is_javac_usable (const char *source_version, const char *target_version,
       /* Try javac.  */
       struct temp_dir *tmpdir;
       char *conftest_file_name;
-      FILE *conftest_file;
       char *compiled_file_name;
       const char *java_sources[1];
       struct stat statbuf;
