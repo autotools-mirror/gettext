@@ -46,11 +46,8 @@ main (void)
   unsetenv ("LANG");
   unsetenv ("OUTPUT_CHARSET");
 
-  setlocale (LC_ALL, "de_DE.ISO-8859-1");
-  /* Need to set LANGUAGE explicitly, because on MacOS X, when no LC_*
-     environment variable is set, LANGUAGE defaults to the value of
-     _nl_language_preferences_default (), which is not under our control.  */
-  xsetenv ("LANGUAGE", "de_DE", 1);
+  xsetenv ("LC_ALL", "de_DE.ISO-8859-1", 1);
+  setlocale (LC_ALL, "");
   textdomain ("codeset");
   bindtextdomain ("codeset", ".");
 

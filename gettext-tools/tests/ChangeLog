@@ -1,3 +1,9 @@
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-4-prg.c: Set the LC_ALL environment variable, not just LANG.
+	Needed on non-glibc Unix systems where !HAVE_LOCALE_NULL and
+	_nl_locale_name_default() = "C".
+
 2006-05-14  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-php-2: New file.
