@@ -4,7 +4,7 @@
    internationalization features.)
 
    Copyright (C) 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001,
-   2002, 2003, 2004 Free Software Foundation, Inc.
+   2002, 2003, 2004, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -74,6 +74,7 @@
 #  define wcslen __wcslen
 #  define wcscoll __wcscoll
 #  define wcrtomb __wcrtomb
+#  define mempcpy __mempcpy
 
 /* We are also using some library internals.  */
 #  include <locale/localeinfo.h>
@@ -8179,7 +8180,7 @@ regerror (int errcode, const regex_t *preg, char *errbuf, size_t errbuf_size)
       if (msg_size > errbuf_size)
         {
 #if defined HAVE_MEMPCPY || defined _LIBC
-	  *((char *) __mempcpy (errbuf, msg, errbuf_size - 1)) = '\0';
+	  *((char *) mempcpy (errbuf, msg, errbuf_size - 1)) = '\0';
 #else
           memcpy (errbuf, msg, errbuf_size - 1);
           errbuf[errbuf_size - 1] = 0;

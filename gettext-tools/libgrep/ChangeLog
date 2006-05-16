@@ -1,3 +1,8 @@
+2006-05-16  Bruno Haible  <bruno@clisp.org>
+
+	* regex.c (mempcpy) [_LIBC]: New macro.
+	(regerror): Use it instead of __mempcpy.
+
 2005-10-06  Bruno Haible  <bruno@clisp.org>
 
 	* hard-locale.c: Test HAVE_CONFIG_H using #ifdef.
