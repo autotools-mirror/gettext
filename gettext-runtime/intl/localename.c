@@ -1,5 +1,5 @@
 /* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -38,11 +38,10 @@
 #endif
 
 #if defined _WIN32 || defined __WIN32__
-# undef WIN32   /* avoid warning on mingw32 */
-# define WIN32
+# define WIN32_NATIVE
 #endif
 
-#ifdef WIN32
+#ifdef WIN32_NATIVE
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 /* List of language codes, sorted by value:
@@ -1023,7 +1022,7 @@ _nl_locale_name_default (void)
       locale, customizing it for each location.  POSIX:2001 does not require
       such a facility.  */
 
-#if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32))
+#if !(HAVE_CFLOCALECOPYCURRENT || HAVE_CFPREFERENCESCOPYAPPVALUE || defined(WIN32_NATIVE))
 
   /* The system does not have a way of setting the locale, other than the
      POSIX specified environment variables.  We use C as default locale.  */
@@ -1077,7 +1076,7 @@ _nl_locale_name_default (void)
 
 # endif
 
-# if defined(WIN32) /* WIN32 */
+# if defined(WIN32_NATIVE) /* WIN32, not Cygwin */
   {
     LCID lcid;
     LANGID langid;
