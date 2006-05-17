@@ -41,8 +41,7 @@
 #endif
 
 #if defined _WIN32 || defined __WIN32__
-# undef WIN32   /* avoid warning on mingw32 */
-# define WIN32
+# define WIN32_NATIVE
 #endif
 
 #if defined __EMX__
@@ -50,7 +49,7 @@
 # define OS2
 #endif
 
-#if !defined WIN32
+#if !defined WIN32_NATIVE
 # if HAVE_LANGINFO_CODESET
 #  include <langinfo.h>
 # else
@@ -62,7 +61,7 @@
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 # endif
-#elif defined WIN32
+#elif defined WIN32_NATIVE
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 #endif
@@ -118,7 +117,7 @@ get_charset_aliases (void)
   cp = charset_aliases;
   if (cp == NULL)
     {
-#if !(defined VMS || defined WIN32 || defined __CYGWIN__)
+#if !(defined VMS || defined WIN32_NATIVE || defined __CYGWIN__)
       FILE *fp;
       const char *dir;
       const char *base = "charset.alias";
@@ -244,7 +243,7 @@ get_charset_aliases (void)
 	   "DECKOREAN" "\0" "EUC-KR" "\0";
 # endif
 
-# if defined WIN32 || defined __CYGWIN__
+# if defined WIN32_NATIVE || defined __CYGWIN__
       /* To avoid the troubles of installing a separate file in the same
 	 directory as the DLL and of retrieving the DLL's directory at
 	 runtime, simply inline the aliases here.  */
@@ -296,7 +295,7 @@ locale_charset (void)
   const char *codeset;
   const char *aliases;
 
-#if !(defined WIN32 || defined OS2)
+#if !(defined WIN32_NATIVE || defined OS2)
 
 # if HAVE_LANGINFO_CODESET
 
@@ -380,7 +379,7 @@ locale_charset (void)
 
 # endif
 
-#elif defined WIN32
+#elif defined WIN32_NATIVE
 
   static char buf[2 + 10 + 1];
 

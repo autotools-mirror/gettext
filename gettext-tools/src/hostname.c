@@ -29,14 +29,13 @@
 #include <locale.h>
 
 #if defined _WIN32 || defined __WIN32__
-# undef WIN32   /* avoid warning on mingw32 */
-# define WIN32
+# define WIN32_NATIVE
 #endif
 
 /* Get gethostname().  */
 #include <unistd.h>
 
-#ifdef WIN32
+#ifdef WIN32_NATIVE
 /* Native Woe32 API lacks gethostname() but has GetComputerName() instead.  */
 # include <windows.h>
 #else
@@ -245,7 +244,7 @@ Informative output:\n"));
 static char *
 xgethostname ()
 {
-#ifdef WIN32
+#ifdef WIN32_NATIVE
   char hostname[MAX_COMPUTERNAME_LENGTH+1];
   DWORD size = sizeof (hostname);
 

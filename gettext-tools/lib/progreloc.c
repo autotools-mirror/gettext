@@ -41,11 +41,10 @@
 #endif
 
 #if defined _WIN32 || defined __WIN32__
-# undef WIN32   /* avoid warning on mingw32 */
-# define WIN32
+# define WIN32_NATIVE
 #endif
 
-#if defined WIN32 || defined __CYGWIN__
+#if defined WIN32_NATIVE || defined __CYGWIN__
 # define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 #endif
@@ -97,7 +96,7 @@ static bool
 maybe_executable (const char *filename)
 {
   /* Woe32 lacks the access() function, but Cygwin doesn't.  */
-#if !(defined WIN32 && !defined __CYGWIN__)
+#if !(defined WIN32_NATIVE && !defined __CYGWIN__)
   if (access (filename, X_OK) < 0)
     return false;
 
@@ -132,7 +131,7 @@ maybe_executable (const char *filename)
 static char *
 find_executable (const char *argv0)
 {
-#if defined WIN32 || defined __CYGWIN__
+#if defined WIN32_NATIVE || defined __CYGWIN__
   char location[MAX_PATH];
   int length = GetModuleFileName (NULL, location, sizeof (location));
   if (length < 0)

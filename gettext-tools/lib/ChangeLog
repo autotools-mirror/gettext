@@ -1,3 +1,12 @@
+2006-05-17  Bruno Haible  <bruno@clisp.org>
+
+	Cygwin portability.
+	* classpath.c (PATH_SEPARATOR) [CYGWIN]: Define as ':'.
+	* javaexec.c (execute_java_class): Test for jview program also on
+	Cygwin.
+	* localcharset.c (WIN32_NATIVE): Renamed from WIN32.
+	* progreloc.c (WIN32_NATIVE): Renamed from WIN32.
+
 2006-05-16  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c [CYGWIN]: Include <windows.h>.
