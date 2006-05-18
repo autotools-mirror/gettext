@@ -1,3 +1,8 @@
+2005-12-21  Roland McGrath  <roland@redhat.com>
+
+	* l10nflist.c (_nl_make_l10nflist): Free ABS_FILENAME when later malloc
+	fails.
+
 2006-05-17  Bruno Haible  <bruno@clisp.org>
 
 	Cygwin portability.
