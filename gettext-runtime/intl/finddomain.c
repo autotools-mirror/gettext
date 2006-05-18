@@ -1,5 +1,5 @@
 /* Handle list of needed message catalogs
-   Copyright (C) 1995-1999, 2000-2001, 2003-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2001, 2003-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.org>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -112,7 +112,7 @@ _nl_find_domain (const char *dirname, char *locale,
 	    break;
 	}
 
-      return cnt >= 0 ? retval : NULL;
+      return retval;
       /* NOTREACHED */
     }
 

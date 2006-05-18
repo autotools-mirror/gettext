@@ -1,3 +1,8 @@
+2006-04-06  Ulrich Drepper  <drepper@redhat.com>
+
+	* finddomain.c (_nl_find_domain): We never return NULL if we found the
+	locale.
+
 2005-12-21  Roland McGrath  <roland@redhat.com>
 
 	* l10nflist.c (_nl_make_l10nflist): Free ABS_FILENAME when later malloc
