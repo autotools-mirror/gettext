@@ -1,3 +1,8 @@
+2006-05-15  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (category_to_name): Adjust for _nl_category_names
+	change.
+
 2006-04-06  Ulrich Drepper  <drepper@redhat.com>
 
 	* finddomain.c (_nl_find_domain): We never return NULL if we found the
