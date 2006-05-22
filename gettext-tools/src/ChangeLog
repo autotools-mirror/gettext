@@ -1,3 +1,8 @@
+2006-05-22  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.c: Include <sys/select.h> also on Minix.
+	Reported by Leonard den Ottolander <leonard@den.ottolander.nl>.
+
 2006-05-17  Bruno Haible  <bruno@clisp.org>
 
 	Cygwin portability.

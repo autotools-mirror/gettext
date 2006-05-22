@@ -40,8 +40,8 @@
 # include <io.h>
 #endif
 
-/* Get fd_set (on AIX) or select() declaration (on EMX).  */
-#if defined (_AIX) || defined (__EMX__)
+/* Get fd_set (on AIX or Minix) or select() declaration (on EMX).  */
+#if defined (_AIX) || defined (_MINIX) || defined (__EMX__)
 # include <sys/select.h>
 #endif
 
