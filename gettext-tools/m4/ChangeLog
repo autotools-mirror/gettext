@@ -1,3 +1,7 @@
+2006-05-30  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* regex.m4 (gl_INCLUDED_REGEX): Fix M4 underquoting.
+
 2006-04-30  Bruno Haible  <bruno@clisp.org>
 
 	* relocatable.m4 (AC_RELOCATABLE): Also test for availability of

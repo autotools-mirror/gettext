@@ -32,7 +32,7 @@ AC_DEFUN([gl_INCLUDED_REGEX],
     # test #75' in grep-2.3.
     AC_CACHE_CHECK([for working re_compile_pattern],
 		   jm_cv_func_working_re_compile_pattern,
-      AC_TRY_RUN(
+      [AC_TRY_RUN(
 [#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -84,7 +84,7 @@ AC_DEFUN([gl_INCLUDED_REGEX],
 	       jm_cv_func_working_re_compile_pattern=yes,
 	       jm_cv_func_working_re_compile_pattern=no,
 	       dnl When crosscompiling, assume it's broken.
-	       jm_cv_func_working_re_compile_pattern=no))
+	       jm_cv_func_working_re_compile_pattern=no)])
     if test $jm_cv_func_working_re_compile_pattern = yes; then
       ac_use_included_regex=no
     fi
