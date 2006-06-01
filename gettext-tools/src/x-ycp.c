@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -41,7 +41,8 @@
 
 
 /* The YCP syntax is defined in libycp/doc/syntax.html.
-   See also libycp/src/scanner.ll.  */
+   See also libycp/src/scanner.ll.
+   Both are part of the yast2-core package in SuSE Linux distributions.  */
 
 
 void
@@ -404,14 +405,22 @@ phase7_getc ()
 
 /* Combine characters into tokens.  Discard whitespace.  */
 
+static token_ty phase5_pushback[1];
+static int phase5_pushback_length;
+
 static void
-x_ycp_lex (token_ty *tp)
+phase5_get (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
   int bufpos;
   int c;
 
+  if (phase5_pushback_length)
+    {
+      *tp = phase5_pushback[--phase5_pushback_length];
+      return;
+    }
   for (;;)
     {
       tp->line_number = line_number;
@@ -545,6 +554,46 @@ x_ycp_lex (token_ty *tp)
     }
 }
 
+/* Supports only one pushback token.  */
+static void
+phase5_unget (token_ty *tp)
+{
+  if (tp->type != token_type_eof)
+    {
+      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+	abort ();
+      phase5_pushback[phase5_pushback_length++] = *tp;
+    }
+}
+
+
+/* Concatenate adjacent string literals to form single string literals.
+   (See libycp/src/parser.yy, rule 'string' vs. terminal 'STRING'.)  */
+
+static void
+phase8_get (token_ty *tp)
+{
+  phase5_get (tp);
+  if (tp->type != token_type_string_literal)
+    return;
+  for (;;)
+    {
+      token_ty tmp;
+      size_t len;
+
+      phase5_get (&tmp);
+      if (tmp.type != token_type_string_literal)
+	{
+	  phase5_unget (&tmp);
+	  return;
+	}
+      len = strlen (tp->string);
+      tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
+      strcpy (tp->string + len, tmp.string);
+      free (tmp.string);
+    }
+}
+
 
 /* ========================= Extracting strings.  ========================== */
 
@@ -594,7 +643,11 @@ extract_parenthesized (message_list_ty *mlp,
     {
       token_ty token;
 
-      x_ycp_lex (&token);
+      if (in_i18n)
+	phase8_get (&token);
+      else
+	phase5_get (&token);
+
       switch (token.type)
 	{
 	case token_type_i18n:

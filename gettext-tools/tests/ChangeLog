@@ -1,3 +1,8 @@
+2006-05-31  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-ycp-3: New file, from Karl Eichwalder <ke@suse.de>.
+	* Makefile.am (TESTS): Add it.
+
 2006-05-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-4-prg.c: Set the LC_ALL environment variable, not just LANG.

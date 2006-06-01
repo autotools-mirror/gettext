@@ -1,3 +1,13 @@
+2006-05-31  Bruno Haible  <bruno@clisp.org>
+
+	* x-ycp.c (phase5_pushback, phase5_pushback_length): New variables.
+	(phase5_get): Renamed from x_ycp_lex.
+	(phase5_unget): New function.
+	(phase8_get): New function.
+	(extract_parenthesized): Inside i18n construct, use phase8_get
+	instead of phase5_get.
+	Reported by Karl Eichwalder <ke@suse.de>.
+
 2006-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* msgfilter.c: Include <sys/select.h> also on Minix.

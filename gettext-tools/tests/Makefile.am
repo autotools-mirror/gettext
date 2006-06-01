@@ -88,7 +88,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-smalltalk-1 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 \
-	xgettext-ycp-1 xgettext-ycp-2 \
+	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
