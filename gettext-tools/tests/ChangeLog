@@ -1,5 +1,9 @@
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
+        * recode-sr-latin-2: Skip the test on MacOS X and BeOS.
+
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* lang-php: Skip the test if php does not have the 'gettext' module
 	built-in.
 

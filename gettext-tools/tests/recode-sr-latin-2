@@ -26,6 +26,16 @@ if test $LOCALE_JA_EUCJP = none; then
   rm -fr $tmpfiles; exit 77
 fi
 
+# Test whether locale_charset() in this locale really returns EUC-JP.
+# (On some systems, config.charset supports only UTF-8 locales.)
+case "$host_os" in
+  darwin[56]*) ;;
+  darwin* | beos*)
+    echo "Skipping test: no EUC-JP locale is supported"
+    rm -fr $tmpfiles; exit 77
+    ;;
+esac
+
 tmpfiles="$tmpfiles rec-srl-2.in"
 cat <<\EOF > rec-srl-2.in
 §ª§ã§á§â§Ñ§Ó§ß§Ú §Ñ§â§Ô§å§Þ§Ö§ß§ä§Ú §ã§å
