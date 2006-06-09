@@ -1,5 +1,9 @@
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
+	* lang-gawk: Require gawk-3.1.3 or newer.
+
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
 	Provide better SKIP explanations.
 	* lang-pascal (UTF8_LOCALE_UNSUPPORTED): New variable.
 	* lang-python-1: Likewise.
