@@ -143,7 +143,11 @@ npgettext_aux (const char *domain,
 #include <string.h>
 
 #define _LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS \
-  __GNUC__ >= 3 || defined __cplusplus
+  (__GNUC__ >= 3 || defined __cplusplus)
+
+#if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
+#include <stdlib.h>
+#endif
 
 #define pgettext_expr(Msgctxt, Msgid) \
   dcpgettext_expr (NULL, Msgctxt, Msgid, LC_MESSAGES)
@@ -180,7 +184,7 @@ dcpgettext_expr (const char *domain,
       msg_ctxt_id[msgctxt_len - 1] = '\004';
       memcpy (msg_ctxt_id + msgctxt_len, msgid, msgid_len);
       translation = dcgettext (domain, msg_ctxt_id, category);
-#if !(_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS)
+#if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
       if (msg_ctxt_id != buf)
 	free (msg_ctxt_id);
 #endif
@@ -226,7 +230,7 @@ dcnpgettext_expr (const char *domain,
       msg_ctxt_id[msgctxt_len - 1] = '\004';
       memcpy (msg_ctxt_id + msgctxt_len, msgid, msgid_len);
       translation = dcngettext (domain, msg_ctxt_id, msgid_plural, n, category);
-#if !(_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS)
+#if !_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS
       if (msg_ctxt_id != buf)
 	free (msg_ctxt_id);
 #endif
