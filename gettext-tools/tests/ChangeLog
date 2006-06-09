@@ -1,5 +1,10 @@
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
+	* lang-php: Skip the test if php does not have the 'gettext' module
+	built-in.
+
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* lang-gawk: Require gawk-3.1.3 or newer.
 
 2006-06-04  Bruno Haible  <bruno@clisp.org>
