@@ -6,7 +6,7 @@
 # Note: This test fails with fpk 1.0.10 when an UTF-8 locale is present,
 # because fpk ignores the locale's encoding. It supports only unibyte locales.
 # This here is a quick workaround:
-LOCALE_FR_UTF8=none
+UTF8_LOCALE_UNSUPPORTED=yes
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -102,18 +102,29 @@ if test $LOCALE_FR != none; then
   : ${DIFF=diff}
   ${DIFF} prog.ok prog.out || exit 1
 fi
-if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR_UTF8 ./prog > prog.out || exit 1
-  : ${DIFF=diff}
-  ${DIFF} prog.oku prog.out || exit 1
-fi
-if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
-  if test -f /usr/bin/localedef; then
-    echo "Skipping test: no french locale is installed"
-  else
-    echo "Skipping test: no french locale is supported"
+if test -z "$UTF8_LOCALE_UNSUPPORTED"; then
+  if test $LOCALE_FR_UTF8 != none; then
+    LANGUAGE= LC_ALL= LC_MESSAGES= LC_CTYPE= LANG=$LOCALE_FR_UTF8 ./prog > prog.out || exit 1
+    : ${DIFF=diff}
+    ${DIFF} prog.oku prog.out || exit 1
   fi
-  rm -fr $tmpfiles; exit 77
+  if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+    if test -f /usr/bin/localedef; then
+      echo "Skipping test: no french locale is installed"
+    else
+      echo "Skipping test: no french locale is supported"
+    fi
+    rm -fr $tmpfiles; exit 77
+  fi
+else
+  if test $LOCALE_FR = none; then
+    if test -f /usr/bin/localedef; then
+      echo "Skipping test: no traditional french locale is installed"
+    else
+      echo "Skipping test: no traditional french locale is supported"
+    fi
+    rm -fr $tmpfiles; exit 77
+  fi
 fi
 
 rm -fr $tmpfiles

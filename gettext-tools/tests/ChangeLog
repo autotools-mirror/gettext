@@ -1,3 +1,10 @@
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
+	Provide better SKIP explanations.
+	* lang-pascal (UTF8_LOCALE_UNSUPPORTED): New variable.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+
 2006-06-03  Bruno Haible  <bruno@clisp.org>
 
 	* lang-php: Fix version recognition for PHP 4.
