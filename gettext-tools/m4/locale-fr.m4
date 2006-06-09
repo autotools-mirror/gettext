@@ -1,5 +1,5 @@
-# locale-fr.m4 serial 2 (gettext-0.14.2)
-dnl Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+# locale-fr.m4 serial 3 (gettext-0.15)
+dnl Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -10,6 +10,7 @@ dnl Determine the name of a french locale with traditional encoding.
 AC_DEFUN([gt_LOCALE_FR],
 [
   AC_REQUIRE([AC_CANONICAL_HOST])
+  AC_REQUIRE([AM_LANGINFO_CODESET])
   AC_CACHE_CHECK([for a traditional french locale], gt_cv_locale_fr, [
     macosx=
     case "$host_os" in
@@ -27,15 +28,24 @@ AC_DEFUN([gt_LOCALE_FR],
       # See the comments in config.charset. Therefore we bypass the test.
       gt_cv_locale_fr=none
     else
+      AC_LANG_CONFTEST([AC_LANG_SOURCE([
 changequote(,)dnl
-      cat <<EOF > conftest.$ac_ext
 #include <locale.h>
 #include <time.h>
+#if HAVE_LANGINFO_CODESET
+# include <langinfo.h>
+#endif
 struct tm t;
 char buf[16];
 int main () {
   /* Check whether the given locale name is recognized by the system.  */
   if (setlocale (LC_ALL, "") == NULL) return 1;
+  /* Check whether nl_langinfo(CODESET) is nonempty.
+     On MacOS X 10.3.5 (Darwin 7.5) in the fr_FR locale, nl_langinfo(CODESET)
+     is empty, and the behaviour of Tcl 8.4 in this locale is not useful.  */
+#if HAVE_LANGINFO_CODESET
+  if (nl_langinfo (CODESET) [0] == '\0') return 1;
+#endif
   /* Check whether in the abbreviation of the second month, the second
      character (should be U+00E9: LATIN SMALL LETTER E WITH ACUTE) is only
      one byte long. This excludes the UTF-8 encoding.  */
@@ -43,30 +53,31 @@ int main () {
   if (strftime (buf, sizeof (buf), "%b", &t) < 3 || buf[2] != 'v') return 1;
   return 0;
 }
-EOF
 changequote([,])dnl
+        ])])
       if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
         # Setting LC_ALL is not enough. Need to set LC_TIME to empty, because
         # otherwise on MacOS X 10.3.5 the LC_TIME=C from the beginning of the
-        # configure script would override the LC_ALL setting.
+        # configure script would override the LC_ALL setting. Likewise for
+        # LC_CTYPE, which is also set at the beginning of the configure script.
         # Test for the usual locale name.
-        if (LC_ALL=fr_FR LC_TIME= ./conftest; exit) 2>/dev/null; then
+        if (LC_ALL=fr_FR LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
           gt_cv_locale_fr=fr_FR
         else
           # Test for the locale name with explicit encoding suffix.
-          if (LC_ALL=fr_FR.ISO-8859-1 LC_TIME= ./conftest; exit) 2>/dev/null; then
+          if (LC_ALL=fr_FR.ISO-8859-1 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
             gt_cv_locale_fr=fr_FR.ISO-8859-1
           else
             # Test for the AIX, OSF/1, FreeBSD, NetBSD locale name.
-            if (LC_ALL=fr_FR.ISO8859-1 LC_TIME= ./conftest; exit) 2>/dev/null; then
+            if (LC_ALL=fr_FR.ISO8859-1 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
               gt_cv_locale_fr=fr_FR.ISO8859-1
             else
               # Test for the HP-UX locale name.
-              if (LC_ALL=fr_FR.iso88591 LC_TIME= ./conftest; exit) 2>/dev/null; then
+              if (LC_ALL=fr_FR.iso88591 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
                 gt_cv_locale_fr=fr_FR.iso88591
               else
                 # Test for the Solaris 7 locale name.
-                if (LC_ALL=fr LC_TIME= ./conftest; exit) 2>/dev/null; then
+                if (LC_ALL=fr LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
                   gt_cv_locale_fr=fr
                 else
                   # Special test for NetBSD 1.6.
@@ -92,11 +103,15 @@ changequote([,])dnl
 dnl Determine the name of a french locale with UTF-8 encoding.
 AC_DEFUN([gt_LOCALE_FR_UTF8],
 [
+  AC_REQUIRE([AM_LANGINFO_CODESET])
   AC_CACHE_CHECK([for a french Unicode locale], gt_cv_locale_fr_utf8, [
+    AC_LANG_CONFTEST([AC_LANG_SOURCE([
 changequote(,)dnl
-    cat <<EOF > conftest.$ac_ext
 #include <locale.h>
 #include <time.h>
+#if HAVE_LANGINFO_CODESET
+# include <langinfo.h>
+#endif
 struct tm t;
 char buf[16];
 int main () {
@@ -106,6 +121,12 @@ int main () {
 #if !defined(__BEOS__)
   /* Check whether the given locale name is recognized by the system.  */
   if (setlocale (LC_ALL, "") == NULL) return 1;
+  /* Check whether nl_langinfo(CODESET) is nonempty.
+     On MacOS X 10.3.5 (Darwin 7.5) in the fr_FR locale, nl_langinfo(CODESET)
+     is empty, and the behaviour of Tcl 8.4 in this locale is not useful.  */
+# if HAVE_LANGINFO_CODESET
+  if (nl_langinfo (CODESET) [0] == '\0') return 1;
+# endif
   /* Check whether in the abbreviation of the second month, the second
      character (should be U+00E9: LATIN SMALL LETTER E WITH ACUTE) is
      two bytes long, with UTF-8 encoding.  */
@@ -116,22 +137,23 @@ int main () {
 #endif
   return 0;
 }
-EOF
 changequote([,])dnl
+      ])])
     if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
       # Setting LC_ALL is not enough. Need to set LC_TIME to empty, because
       # otherwise on MacOS X 10.3.5 the LC_TIME=C from the beginning of the
-      # configure script would override the LC_ALL setting.
+      # configure script would override the LC_ALL setting. Likewise for
+      # LC_CTYPE, which is also set at the beginning of the configure script.
       # Test for the usual locale name.
-      if (LC_ALL=fr_FR LC_TIME= ./conftest; exit) 2>/dev/null; then
+      if (LC_ALL=fr_FR LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
         gt_cv_locale_fr_utf8=fr_FR
       else
         # Test for the locale name with explicit encoding suffix.
-        if (LC_ALL=fr_FR.UTF-8 LC_TIME= ./conftest; exit) 2>/dev/null; then
+        if (LC_ALL=fr_FR.UTF-8 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
           gt_cv_locale_fr_utf8=fr_FR.UTF-8
         else
           # Test for the Solaris 7 locale name.
-          if (LC_ALL=fr.UTF-8 LC_TIME= ./conftest; exit) 2>/dev/null; then
+          if (LC_ALL=fr.UTF-8 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
             gt_cv_locale_fr_utf8=fr.UTF-8
           else
             # None found.

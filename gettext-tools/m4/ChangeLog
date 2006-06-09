@@ -1,3 +1,11 @@
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* locale-fr.m4 (gt_LOCALE_FR): Require AM_LANGINFO_CODESET. Verify
+	that nl_langinfo(CODESET) is nonempty. Set LC_CTYPE to empty for the
+	test.
+	(gt_LOCALE_FR_UTF8): Likewise.
+	Needed for MacOS X 10.3.x, to make the lang-tcl test work.
+
 2006-05-30  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* regex.m4 (gl_INCLUDED_REGEX): Fix M4 underquoting.
