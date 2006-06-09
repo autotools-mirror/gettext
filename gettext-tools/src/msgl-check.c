@@ -63,7 +63,7 @@ check_plural_eval (struct expression *plural_expr,
   /* Do as if the plural formula assumes a value N infinitely often if it
      assumes it at least 5 times.  */
 #define OFTEN 5
-  unsigned char *distribution;
+  unsigned char * volatile distribution;
 
   /* Allocate a distribution array.  */
   if (nplurals_value <= 100)
