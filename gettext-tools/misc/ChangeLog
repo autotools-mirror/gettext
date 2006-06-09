@@ -1,3 +1,7 @@
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Replace inttypes.m4 with inttypes-h.m4.
+
 2006-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* add-to-archive: Remove special handling of mkinstalldirs file.

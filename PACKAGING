@@ -122,8 +122,8 @@ following file list.
       $prefix/share/aclocal/iconv.m4
       $prefix/share/aclocal/intdiv0.m4
       $prefix/share/aclocal/intmax.m4
-      $prefix/share/aclocal/inttypes.m4
       $prefix/share/aclocal/inttypes_h.m4
+      $prefix/share/aclocal/inttypes-h.m4
       $prefix/share/aclocal/inttypes-pri.m4
       $prefix/share/aclocal/isc-posix.m4
       $prefix/share/aclocal/lcmessage.m4

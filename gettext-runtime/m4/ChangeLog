@@ -1,3 +1,11 @@
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* inttypes-h.m4: Renamed from inttypes.m4.
+	(gl_HEADER_INTTYPES_H): Renamed from gt_HEADER_INTTYPES_H.
+	* inttypes-pri.m4 (gt_INTTYPES_PRI): Update.
+	* gettext.m4 (gt_INTL_SUBDIR_CORE): Update.
+	* Makefile.am (EXTRA_DIST): Update.
+
 2006-05-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4 (AM_INTL_SUBDIR): Set variable WOE32DLL instead of

@@ -1,5 +1,9 @@
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (aclocal_DATA): Remove inttypes.m4, add inttypes-h.m4.
+
+2006-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* locale-fr.m4 (gt_LOCALE_FR): Require AM_LANGINFO_CODESET. Verify
 	that nl_langinfo(CODESET) is nonempty. Set LC_CTYPE to empty for the
 	test.

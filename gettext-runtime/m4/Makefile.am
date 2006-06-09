@@ -11,8 +11,8 @@ glibc21.m4 \
 iconv.m4 \
 intdiv0.m4 \
 intmax.m4 \
+inttypes-h.m4 \
 inttypes-pri.m4 \
-inttypes.m4 \
 inttypes_h.m4 \
 isc-posix.m4 \
 lcmessage.m4 \
