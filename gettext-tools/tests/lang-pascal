@@ -30,7 +30,10 @@ end.
 EOF
 
 tmpfiles="$tmpfiles prog.o prog.rst prog"
-(ppc386 prog.pp) >/dev/null 2>&1 || { rm -fr $tmpfiles; exit 77; }
+(ppc386 prog.pp) >/dev/null 2>&1 || {
+  echo "Skipping test: ppc386 compiler not found"
+  rm -fr $tmpfiles; exit 77
+}
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
@@ -105,6 +108,11 @@ if test $LOCALE_FR_UTF8 != none; then
   ${DIFF} prog.oku prog.out || exit 1
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

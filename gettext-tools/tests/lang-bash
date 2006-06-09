@@ -83,10 +83,10 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of bash version 2.0 or newer.
 (bash -c :) >/dev/null 2>/dev/null \
-  || { rm -fr $tmpfiles; exit 77; }
+  || { echo "Skipping test: bash not found"; rm -fr $tmpfiles; exit 77; }
 case `bash -c 'echo $BASH_VERSION'` in
   [2-9].*) ;;
-  *) rm -fr $tmpfiles; exit 77;;
+  *) echo "Skipping test: bash version too old"; rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test which of the fr_FR locales are installed.
@@ -109,6 +109,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 
@@ -133,13 +138,19 @@ EOF
 if test $LOCALE_FR != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR bash ./prog.sh 2 > prog.out || exit 1
   : ${DIFF=diff}
-  ${DIFF} prog.nok prog.out > /dev/null && { rm -fr $tmpfiles; exit 77; }
+  ${DIFF} prog.nok prog.out > /dev/null && {
+    echo "Skipping test: bash is built without i18n support"
+    rm -fr $tmpfiles; exit 77
+  }
   ${DIFF} prog.ok prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 bash ./prog.sh 2 > prog.out || exit 1
   : ${DIFF=diff}
-  ${DIFF} prog.nok prog.out > /dev/null && { rm -fr $tmpfiles; exit 77; }
+  ${DIFF} prog.nok prog.out > /dev/null && {
+    echo "Skipping test: bash is built without i18n support"
+    rm -fr $tmpfiles; exit 77
+  }
   ${DIFF} prog.oku prog.out || exit 1
 fi
 

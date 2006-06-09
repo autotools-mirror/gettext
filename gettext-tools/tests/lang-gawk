@@ -87,10 +87,10 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of gawk version 3.1.1 or newer.
 (gawk --version) >/dev/null 2>/dev/null \
-  || { rm -fr $tmpfiles; exit 77; }
+  || { echo "Skipping test: gawk not found"; rm -fr $tmpfiles; exit 77; }
 case `gawk --version 2>&1 | sed -e 's/^[^0-9]*//'` in
   0.* | 1.* | 2.* | 3.0* | 3.1.0*)
-    rm -fr $tmpfiles; exit 77;;
+    echo "Skipping test: gawk version too old"; rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test which of the fr_FR locales are installed.
@@ -113,6 +113,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 
@@ -121,11 +126,17 @@ fi
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR gawk --version | grep logiciel > /dev/null
-  test $? = 0 || { rm -fr $tmpfiles; exit 77; }
+  test $? = 0 || {
+    echo "Skipping test: gawk was built without i18n support"
+    rm -fr $tmpfiles; exit 77
+  }
 fi
 if test $LOCALE_FR_UTF8 != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 gawk --version | grep logiciel > /dev/null
-  test $? = 0 || { rm -fr $tmpfiles; exit 77; }
+  test $? = 0 || {
+    echo "Skipping test: gawk was built without i18n support"
+    rm -fr $tmpfiles; exit 77
+  }
 fi
 
 tmpfiles="$tmpfiles prog.ok prog.oku prog.out"

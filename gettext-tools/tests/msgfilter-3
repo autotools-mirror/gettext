@@ -19,13 +19,19 @@ fi
 
 # Some fold programs (like SunOS4 and FreeBSD) don't have an option to wrap at
 # spaces.
-echo abc | fold -b -s -w 20 >/dev/null 2>&1 || { rm -fr $tmpfiles; exit 77; }
+echo abc | fold -b -s -w 20 >/dev/null 2>&1 || {
+  echo "Skipping test: fold program not POSIX compliant"
+  rm -fr $tmpfiles; exit 77
+}
 
 # Some fold programs (like HP-UX) insert a newline at the end, if the last
 # line was not terminated with a newline and the -s option was given.
 foldoutputcount=`echo $ac_n "abc$ac_c" | fold -b -s -w 20 | wc -c`
 foldoutputcount=`echo "$foldoutputcount" | sed -e 's/[ 	]//g'`
-test "$foldoutputcount" = 3 || { rm -fr $tmpfiles; exit 77; }
+test "$foldoutputcount" = 3 || {
+  echo "Skipping test: fold program inserts extra newline"
+  rm -fr $tmpfiles; exit 77
+}
 
 tmpfiles="$tmpfiles mfi-test3.properties"
 cat <<\EOF > mfi-test3.properties

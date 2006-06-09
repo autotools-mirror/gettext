@@ -12,7 +12,18 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether we can build and test C# programs.
-test "${TESTCSHARP}" = yes || exit 77
+test "${CSHARP_CHOICE}" != no || {
+  echo "Skipping test: configured with --disable-csharp"
+  exit 77
+}
+test "${BUILDCSHARP}" = yes || {
+  echo "Skipping test: C# compiler not found"
+  exit 77
+}
+test "${TESTCSHARP}" = yes || {
+  echo "Skipping test: C# engine not found"
+  exit 77
+}
 
 tmpfiles="$tmpfiles program.cs"
 cat <<\EOF > program.cs
@@ -118,6 +129,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

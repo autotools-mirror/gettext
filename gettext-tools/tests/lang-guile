@@ -86,10 +86,10 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of guile version 1.7 or newer.
 (guile --version) >/dev/null 2>/dev/null \
-  || { rm -fr $tmpfiles; exit 77; }
+  || { echo "Skipping test: guile not found"; rm -fr $tmpfiles; exit 77; }
 case `guile --version | sed -e 1q | sed -e 's/^[^0-9]*//'` in
   0.* | 1.[0-6] | 1.[0-6].* )
-    rm -fr $tmpfiles; exit 77;;
+    echo "Skipping test: guile version too old"; rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test which of the fr_FR locales are installed.
@@ -112,6 +112,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

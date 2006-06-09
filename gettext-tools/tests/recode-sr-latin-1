@@ -16,6 +16,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french UTF-8 locale is installed"
+  else
+    echo "Skipping test: no french UTF-8 locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

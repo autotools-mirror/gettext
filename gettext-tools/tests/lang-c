@@ -23,10 +23,8 @@ int main (int argc, char *argv[])
 
   xsetenv ("LC_ALL", argv[1], 1);
   if (setlocale (LC_ALL, "") == NULL)
-    {
-      fprintf (stderr, "Couldn't set locale.\n");
-      exit (77);
-    }
+    /* Couldn't set locale.  */
+    exit (77);
 
   textdomain ("prog");
   bindtextdomain ("prog", ".");
@@ -148,6 +146,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

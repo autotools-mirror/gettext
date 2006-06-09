@@ -1,3 +1,49 @@
+2006-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Explain why tests are skipped.
+	* Makefile.am (TESTS_ENVIRONMENT): Also define JAVA_CHOICE, BUILDJAVA,
+	CSHARPCHOICE, BUILDCSHARP.
+	* testlocale.c (main): Don't print "Couldn't set locale.".
+	* format-c-5-prg.c (main): Likewise.
+	* format-c-5: Print a message explaining why the test is skipped.
+	* gettext-3: Likewise.
+	* gettext-4: Likewise.
+	* gettext-5: Likewise.
+	* gettext-6: Likewise.
+	* gettext-7: Likewise.
+	* lang-bash: Likewise.
+	* lang-clisp: Likewise.
+	* lang-csharp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-guile: Likewise.
+	* lang-java: Likewise.
+	* lang-librep: Likewise.
+	* lang-pascal: Likewise.
+	* lang-perl-1: Likewise.
+	* lang-perl-2: Likewise.
+	* lang-php: Likewise.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+	* lang-sh: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+	* msgfilter-1: Likewise.
+	* msgfilter-2: Likewise.
+	* msgfilter-3: Likewise.
+	* msgfilter-4: Likewise.
+	* msgunfmt-csharp-1: Likewise.
+	* msgunfmt-java-1: Likewise.
+	* msgunfmt-tcl-1: Likewise.
+	* recode-sr-latin-1: Likewise.
+	* recode-sr-latin-2: Likewise.
+	* xgettext-glade-1: Likewise.
+	* xgettext-glade-2: Likewise.
+	* xgettext-glade-3: Likewise.
+	* lang-c: Print a message explaining why the test is skipped. Don't
+	print "Couldn't set locale.".
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
 2006-05-31  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-ycp-3: New file, from Karl Eichwalder <ke@suse.de>.

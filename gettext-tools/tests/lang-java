@@ -11,7 +11,18 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether we can build and test Java programs.
-test "${TESTJAVA}" = yes || exit 77
+test "${JAVA_CHOICE}" != no || {
+  echo "Skipping test: configured with --disable-java"
+  exit 77
+}
+test "${BUILDJAVA}" = yes || {
+  echo "Skipping test: Java compiler or jar not found"
+  exit 77
+}
+test "${TESTJAVA}" = yes || {
+  echo "Skipping test: Java engine not found"
+  exit 77
+}
 
 tmpfiles="$tmpfiles Program.java"
 cat <<\EOF > Program.java
@@ -141,6 +152,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

@@ -47,7 +47,13 @@ ${DIFF} fa.po.strip fa.po.tmp || exit 1
 LANGUAGE= ./fc5 fa_IR
 case $? in
   0) ;;
-  77) rm -fr $tmpfiles; exit 77;;
+  77)
+    if test -f /usr/bin/localedef; then
+      echo "Skipping test: locale fa_IR not installed"
+    else
+      echo "Skipping test: locale fa_IR not supported"
+    fi
+    rm -fr $tmpfiles; exit 77;;
   *) exit 1;;
 esac
 

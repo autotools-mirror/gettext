@@ -101,7 +101,9 @@ EOF
 
 # Test for perl with Locale::Messages package.
 perl -e 'use Locale::Messages;' 2>/dev/null \
-  || { rm -fr $tmpfiles; exit 77; }
+  || { echo "Skipping test: perl package Locale::Messages is not installed"
+       rm -fr $tmpfiles; exit 77
+     }
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
@@ -114,6 +116,11 @@ if test $LOCALE_FR_UTF8 != none; then
   ${DIFF} prog.oku prog.out || exit 1
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

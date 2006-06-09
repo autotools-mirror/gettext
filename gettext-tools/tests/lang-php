@@ -68,7 +68,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 # Test for presence of php version 4.0 or newer.
 case `(php -v) 2>/dev/null` in
   [4-9].*) ;;
-  *) rm -fr $tmpfiles; exit 77;;
+  *) echo "Skipping test: php not found or too old"; rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test which of the fr_FR locales are installed.
@@ -91,6 +91,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

@@ -6,7 +6,18 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether we can compile and execute C# programs.
-test "${TESTCSHARP}" = yes || exit 77
+test "${CSHARP_CHOICE}" != no || {
+  echo "Skipping test: configured with --disable-csharp"
+  exit 77
+}
+test "${BUILDCSHARP}" = yes || {
+  echo "Skipping test: C# compiler not found"
+  exit 77
+}
+test "${TESTCSHARP}" = yes || {
+  echo "Skipping test: C# engine not found"
+  exit 77
+}
 
 tmpfiles="$tmpfiles fr.po"
 cat <<\EOF > fr.po

@@ -1,5 +1,5 @@
 /* Test program, used by the format-c-5 test.
-   Copyright (C) 2004 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -48,10 +48,8 @@ main (int argc, char *argv[])
 
   xsetenv ("LC_ALL", argv[1], 1);
   if (setlocale (LC_ALL, "") == NULL)
-    {
-      fprintf (stderr, "Couldn't set locale.\n");
-      exit (77);
-    }
+    /* Couldn't set locale.  */
+    exit (77);
 
   textdomain ("fc5");
   bindtextdomain ("fc5", ".");

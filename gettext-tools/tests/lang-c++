@@ -8,8 +8,14 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether a C++ compiler is found and libasprintf is built.
-test "${CXX}" != ":" || exit 77
-test "${TESTLIBASPRINTF}" = yes || exit 77
+test "${CXX}" != ":" || {
+  echo "Skipping test: no C++ compiler found"
+  exit 77
+}
+test "${TESTLIBASPRINTF}" = yes || {
+  echo "Skipping test: configured with --disable-libasprintf"
+  exit 77
+}
 
 tmpfiles="$tmpfiles prog.cc"
 cat <<\EOF > prog.cc
@@ -38,10 +44,8 @@ int main (int argc, char *argv[])
 
   xsetenv ("LC_ALL", argv[1], 1);
   if (setlocale (LC_ALL, "") == NULL)
-    {
-      cerr << "Couldn't set locale." << endl;
-      exit (77);
-    }
+    // Couldn't set locale.
+    exit (77);
 
   textdomain ("prog");
   bindtextdomain ("prog", ".");
@@ -161,6 +165,11 @@ if test $LOCALE_FR_UTF8 != none; then
   esac
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french locale is installed"
+  else
+    echo "Skipping test: no french locale is supported"
+  fi
   rm -fr $tmpfiles; exit 77
 fi
 

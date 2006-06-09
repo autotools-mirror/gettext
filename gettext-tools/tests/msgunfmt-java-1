@@ -9,7 +9,18 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether we can compile and execute Java programs.
-test "${TESTJAVA}" = yes || exit 77
+test "${JAVA_CHOICE}" != no || {
+  echo "Skipping test: configured with --disable-java"
+  exit 77
+}
+test "${BUILDJAVA}" = yes || {
+  echo "Skipping test: Java compiler or jar not found"
+  exit 77
+}
+test "${TESTJAVA}" = yes || {
+  echo "Skipping test: Java engine not found"
+  exit 77
+}
 
 tmpfiles="$tmpfiles fr.po"
 cat <<\EOF > fr.po
