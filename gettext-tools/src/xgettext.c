@@ -2619,7 +2619,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 			 best_cp->msgid_pos.file_name,
 			 best_cp->msgid_pos.line_number,
 			 _("ambiguous argument specification for keyword '%.*s'"),
-			 ap->keyword_len, ap->keyword);
+			 (int) ap->keyword_len, ap->keyword);
 	  error_with_progname = true;
 	}
 
@@ -2646,7 +2646,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 				 best_cp->msgid_pos.file_name,
 				 best_cp->msgid_pos.line_number,
 				 _("warning: missing context for keyword '%.*s'"),
-				 ap->keyword_len, ap->keyword);
+				 (int) ap->keyword_len, ap->keyword);
 		  error_with_progname = true;
 		}
 	      else
@@ -2671,7 +2671,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 				 best_cp->msgid_plural_pos.file_name,
 				 best_cp->msgid_plural_pos.line_number,
 				 _("warning: missing context for plural argument of keyword '%.*s'"),
-				 ap->keyword_len, ap->keyword);
+				 (int) ap->keyword_len, ap->keyword);
 		  error_with_progname = true;
 		}
 	      else
