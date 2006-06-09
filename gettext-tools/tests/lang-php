@@ -66,9 +66,12 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of php version 4.0 or newer.
-case `(php -v) 2>/dev/null` in
+(php -v) >/dev/null 2>/dev/null
+test $? -le 1 \
+  || { echo "Skipping test: php not found"; rm -fr $tmpfiles; exit 77; }
+case `php -v | sed -n -e 1p | sed -e 's/^[^0-9]*//'` in
   [4-9].*) ;;
-  *) echo "Skipping test: php not found or too old"; rm -fr $tmpfiles; exit 77;;
+  *) echo "Skipping test: php version too old"; rm -fr $tmpfiles; exit 77;;
 esac
 
 # Test which of the fr_FR locales are installed.

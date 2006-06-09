@@ -1,5 +1,9 @@
 2006-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* lang-php: Fix version recognition for PHP 4.
+
+2006-06-03  Bruno Haible  <bruno@clisp.org>
+
 	Explain why tests are skipped.
 	* Makefile.am (TESTS_ENVIRONMENT): Also define JAVA_CHOICE, BUILDJAVA,
 	CSHARPCHOICE, BUILDCSHARP.
