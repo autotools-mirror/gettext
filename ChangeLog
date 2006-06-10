@@ -1,3 +1,8 @@
+2006-03-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* m4/libtool.m4 (_LT_SYS_DYNAMIC_LINKER) [ linux ]: Avoid warning when
+	"parsing" /etc/ld.so.conf and empty /etc/ld.so.conf.d.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Mention inttypes-h.m4.
