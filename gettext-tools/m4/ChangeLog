@@ -1,3 +1,7 @@
+2006-06-15  Eric Blake  <ebb9@byu.net>
+
+	* ssize_t.m4 (gt_TYPE_SSIZE_T): Work in spite of -Werror.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Remove inttypes.m4, add inttypes-h.m4.
