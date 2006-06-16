@@ -321,6 +321,7 @@ Files You Must Create or Alter
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * po/Makevars::                 @file{Makevars} in @file{po/}
+* po/Rules-*::                  Extending @file{Makefile} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
@@ -6553,6 +6554,7 @@ gettext functionality.
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * po/Makevars::                 @file{Makevars} in @file{po/}
+* po/Rules-*::                  Extending @file{Makefile} in @file{po/}
 * configure.in::                @file{configure.in} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
@@ -6643,21 +6645,30 @@ need the files @file{Rules-quot}, @file{quot.sed}, @file{boldquot.sed},
 in the @file{po/} directory.  You can copy them from GNU gettext's @file{po/}
 directory; they are also installed by running @code{gettextize}.
 
-@node po/Makevars, configure.in, po/LINGUAS, Adjusting Files
+@node po/Makevars, po/Rules-*, po/LINGUAS, Adjusting Files
 @subsection @file{Makevars} in @file{po/}
 @cindex @file{Makevars} file
 
-The @file{po/} directory also has a file named @file{Makevars}.
-It can be left unmodified if your package has a single message domain
-and, accordingly, a single @file{po/} directory.  Only packages which
-have multiple @file{po/} directories at different locations need to
-adjust the three variables defined in @file{Makevars}.
+The @file{po/} directory also has a file named @file{Makevars}.  It
+contains variables that are specific to your project.  @file{po/Makevars}
+gets inserted into the @file{po/Makefile} when the latter is created.
+The variables thus take effect when the POT file is created or updated,
+and when the message catalogs get installed.
 
-@file{po/Makevars} gets inserted into the @file{po/Makefile} when the
-latter is created.  At the same time, all files called @file{Rules-*} in the
-@file{po/} directory get appended to the @file{po/Makefile}.  They present
-an opportunity to add rules for special PO files to the Makefile, without
-needing to mess with @file{po/Makefile.in.in}.
+The first three variables can be left unmodified if your package has a
+single message domain and, accordingly, a single @file{po/} directory.
+Only packages which have multiple @file{po/} directories at different
+locations need to adjust the three first variables defined in
+@file{Makevars}.
+
+@node po/Rules-*, configure.in, po/Makevars, Adjusting Files
+@subsection Extending @file{Makefile} in @file{po/}
+@cindex @file{Makefile.in.in} extensions
+
+All files called @file{Rules-*} in the @file{po/} directory get appended to
+the @file{po/Makefile} when it is created.  They present an opportunity to
+add rules for special PO files to the Makefile, without needing to mess
+with @file{po/Makefile.in.in}.
 
 @cindex quotation marks
 @vindex LANGUAGE@r{, environment variable}
@@ -6675,7 +6686,12 @@ and consoles.  This catalog is useful only for command-line programs, not
 GUI programs.  To enable it, similarly add @code{en@@boldquot} to the
 @file{po/LINGUAS} file.
 
-@node configure.in, config.guess, po/Makevars, Adjusting Files
+Similarly, you can create rules for building message catalogs for the
+@file{sr@@latin} locale -- Serbian written with the Latin alphabet --
+from those for the @file{sr} locale -- Serbian written with Cyrillic
+letters.  See @ref{msgfilter Invocation}.
+
+@node configure.in, config.guess, po/Rules-*, Adjusting Files
 @subsection @file{configure.in} at top level
 
 @file{configure.in} or @file{configure.ac} - this is the source from which
