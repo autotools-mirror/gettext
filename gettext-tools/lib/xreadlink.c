@@ -30,10 +30,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#ifndef errno
-extern int errno;
-#endif
-
 #include <limits.h>
 #include <sys/types.h>
 #if HAVE_STDLIB_H

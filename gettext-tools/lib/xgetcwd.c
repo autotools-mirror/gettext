@@ -24,10 +24,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
-#ifndef errno
-extern int errno;
-#endif
-
 #include <sys/types.h>
 #include <unistd.h>
 

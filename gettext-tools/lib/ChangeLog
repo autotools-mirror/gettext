@@ -1,3 +1,13 @@
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
+	* xgetcwd.c: Assume errno.h declares errno.
+	* xreadlink.c: Likewise.
+
+2006-06-16  Eric Blake  <ebb9@byu.net>
+
+	* unsetenv.c [!defined errno]: Assume errno.h declares errno.
+	* strtol.c [!defined errno]: Likewise.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.h (_LIBGETTEXT_HAVE_VARIABLE_SIZE_ARRAYS): Parenthesize.
