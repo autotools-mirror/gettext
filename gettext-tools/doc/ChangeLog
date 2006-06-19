@@ -1,3 +1,8 @@
+2006-06-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (configure.in): Document where to put AC_GNU_SOURCE.
+	* gettextize.texi: Refer to this explanation.
+
 2006-06-15  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (po/Makevars): Mention real purpose of this file.

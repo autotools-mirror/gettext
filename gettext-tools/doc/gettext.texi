@@ -6766,6 +6766,28 @@ add @code{intl/Makefile} to the @code{AC_OUTPUT} line.
 
 @end enumerate
 
+If, after doing the recommended modifications, a command like
+@samp{aclocal -I m4} or @samp{autoconf} or @samp{autoreconf} fails with
+a trace similar to this:
+
+@smallexample
+configure.ac:44: warning: AC_COMPILE_IFELSE was called before AC_GNU_SOURCE
+../../lib/autoconf/specific.m4:335: AC_GNU_SOURCE is expanded from...
+m4/lock.m4:224: gl_LOCK is expanded from...
+m4/gettext.m4:571: gt_INTL_SUBDIR_CORE is expanded from...
+m4/gettext.m4:472: AM_INTL_SUBDIR is expanded from...
+m4/gettext.m4:347: AM_GNU_GETTEXT is expanded from...
+configure.ac:44: the top level
+configure.ac:44: warning: AC_RUN_IFELSE was called before AC_GNU_SOURCE
+@end smallexample
+
+@noindent
+you need to add an explicit invocation of @samp{AC_GNU_SOURCE} in the
+@file{configure.ac} file - after @samp{AC_PROG_CC} but before
+@samp{AM_GNU_GETTEXT}, most likely very close to the @samp{AC_PROG_CC}
+invocation.  This is necessary because of ordering restrictions imposed
+by GNU autoconf.
+
 @node config.guess, mkinstalldirs, configure.in, Adjusting Files
 @subsection @file{config.guess}, @file{config.sub} at top level
 

@@ -173,6 +173,11 @@ amount of remaining work depends on whether the package uses GNU
 @code{automake} or not.  But in any case, the maintainer should still
 read the section @ref{Adjusting Files} after invoking @code{gettextize}.
 
+In particular, if after using @samp{gettexize}, you get an error
+@samp{AC_COMPILE_IFELSE was called before AC_GNU_SOURCE} or
+@samp{AC_RUN_IFELSE was called before AC_GNU_SOURCE}, you can fix it
+by modifying @file{configure.ac}, as described in @ref{configure.in}.
+
 It is also important to understand that @code{gettextize} is not part
 of the GNU build system, in the sense that it should not be invoked
 automatically, and not be invoked by someone who doesn't assume the
