@@ -76,8 +76,9 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 	    else
 	      return -1;
 	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.  */
+# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi || defined __NetBSD__)
+	/* Irix iconv() inserts a NUL byte if it cannot convert.
+	   NetBSD iconv() inserts a '?' byte if it cannot convert.  */
 	else if (res > 0)
 	  return -1;
 # endif
@@ -131,8 +132,9 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 	    else
 	      return -1;
 	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.  */
+# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi || defined __NetBSD__)
+	/* Irix iconv() inserts a NUL byte if it cannot convert.
+	   NetBSD iconv() inserts a '?' byte if it cannot convert.  */
 	else if (res > 0)
 	  return -1;
 # endif
