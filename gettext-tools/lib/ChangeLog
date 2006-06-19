@@ -1,5 +1,9 @@
 2006-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* config.charset: Update for NetBSD 3.0.
+
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* xgetcwd.c: Assume errno.h declares errno.
 	* xreadlink.c: Likewise.
 
