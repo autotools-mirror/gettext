@@ -33,7 +33,7 @@
 #include "libgnuintl.h"
 
 int
-main (void)
+main (int argc, char *argv[])
 {
   char *s;
   int result = 0;
@@ -46,7 +46,7 @@ main (void)
   unsetenv ("LANG");
   unsetenv ("OUTPUT_CHARSET");
 
-  xsetenv ("LC_ALL", "de_DE.ISO-8859-1", 1);
+  xsetenv ("LC_ALL", argv[1], 1);
   setlocale (LC_ALL, "");
   textdomain ("codeset");
   bindtextdomain ("codeset", ".");

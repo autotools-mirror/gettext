@@ -1,3 +1,9 @@
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-4: Use a french locale instead of a german locale. Pass
+	the locale name as an argument to gettext-4-prg.
+	* gettext-4-prg.c (main): Use the locale name passed as argument.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
         * recode-sr-latin-2: Skip the test on MacOS X and BeOS.
