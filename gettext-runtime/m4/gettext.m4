@@ -1,4 +1,4 @@
-# gettext.m4 serial 50 (gettext-0.15)
+# gettext.m4 serial 51 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -445,13 +445,6 @@ AC_DEFUN([AM_INTL_SUBDIR],
 #define __libc_lock_init                gl_lock_init
 #define __libc_lock_lock                gl_lock_lock
 #define __libc_lock_unlock              gl_lock_unlock
-#define __libc_rwlock_t                   gl_rwlock_t
-#define __libc_rwlock_define              gl_rwlock_define
-#define __libc_rwlock_define_initialized  gl_rwlock_define_initialized
-#define __libc_rwlock_init                gl_rwlock_init
-#define __libc_rwlock_rdlock              gl_rwlock_rdlock
-#define __libc_rwlock_wrlock              gl_rwlock_wrlock
-#define __libc_rwlock_unlock              gl_rwlock_unlock
 #define __libc_lock_recursive_t                   gl_recursive_lock_t
 #define __libc_lock_define_recursive              gl_recursive_lock_define
 #define __libc_lock_define_initialized_recursive  gl_recursive_lock_define_initialized

@@ -1,5 +1,5 @@
 /* Implementation of the bindtextdomain(3) function
-   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -34,6 +34,9 @@
 /* Handle multi-threaded applications.  */
 #ifdef _LIBC
 # include <bits/libc-lock.h>
+# define gl_rwlock_define __libc_rwlock_define
+# define gl_rwlock_wrlock __libc_rwlock_wrlock
+# define gl_rwlock_unlock __libc_rwlock_unlock
 #else
 # include "lock.h"
 #endif
@@ -63,7 +66,7 @@ libc_hidden_proto (_nl_default_dirname)
 extern struct binding *_nl_domain_bindings;
 
 /* Lock variable to protect the global data in the gettext implementation.  */
-__libc_rwlock_define (extern, _nl_state_lock attribute_hidden)
+gl_rwlock_define (extern, _nl_state_lock attribute_hidden)
 
 
 /* Names for the libintl functions are a problem.  They must not clash
@@ -104,7 +107,7 @@ set_binding_values (const char *domainname,
       return;
     }
 
-  __libc_rwlock_wrlock (_nl_state_lock);
+  gl_rwlock_wrlock (_nl_state_lock);
 
   modified = 0;
 
@@ -326,7 +329,7 @@ set_binding_values (const char *domainname,
   if (modified)
     ++_nl_msg_cat_cntr;
 
-  __libc_rwlock_unlock (_nl_state_lock);
+  gl_rwlock_unlock (_nl_state_lock);
 }
 
 /* Specify that the DOMAINNAME message catalog will be found

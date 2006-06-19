@@ -1,5 +1,25 @@
 2006-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* bindtextdom.c (gl_rwlock_define, gl_rwlock_wrlock, gl_rwlock_unlock)
+	[_LIBC]: New macros.
+	(_nl_state_lock, set_binding_values): Use gl_rwlock_* instead of
+	__libc_rwlock_*.
+	* dcigettext.c (gl_rwlock_define_initialized, gl_rwlock_rdlock,
+	gl_rwlock_wrlock, gl_rwlock_unlock) [_LIBC]: New macros.
+	(tree_lock, _nl_state_lock, DCIGETTEXT): Use gl_rwlock_* instead of
+	__libc_rwlock_*.
+	* finddomain.c (gl_rwlock_define_initialized, gl_rwlock_rdlock,
+	gl_rwlock_wrlock, gl_rwlock_unlock) [_LIBC]: New macros.
+	(_nl_find_domain): Use gl_rwlock_* instead of __libc_rwlock_*.
+	* textdomain.c (gl_rwlock_define, gl_rwlock_wrlock, gl_rwlock_unlock)
+	[_LIBC]: New macros.
+	(_nl_state_lock, TEXTDOMAIN): Use gl_rwlock_* instead of
+	__libc_rwlock_*.
+	Needed because NetBSD 3.0 <pthread.h> does
+	#define pthread_rwlock_rdlock __libc_rwlock_rdlock etc.
+
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* config.charset: Update for NetBSD 3.0.
 
 2006-05-24  Bruno Haible  <bruno@clisp.org>

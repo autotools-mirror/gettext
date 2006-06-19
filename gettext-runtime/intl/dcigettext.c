@@ -106,6 +106,10 @@ extern int errno;
 /* Handle multi-threaded applications.  */
 #ifdef _LIBC
 # include <bits/libc-lock.h>
+# define gl_rwlock_define_initialized __libc_rwlock_define_initialized
+# define gl_rwlock_rdlock __libc_rwlock_rdlock
+# define gl_rwlock_wrlock __libc_rwlock_wrlock
+# define gl_rwlock_unlock __libc_rwlock_unlock
 #else
 # include "lock.h"
 #endif
@@ -261,7 +265,7 @@ struct known_translation_t
 #if defined HAVE_TSEARCH || defined _LIBC
 # include <search.h>
 
-__libc_rwlock_define_initialized (static, tree_lock)
+gl_rwlock_define_initialized (static, tree_lock)
 
 static void *root;
 
@@ -430,7 +434,7 @@ typedef unsigned char transmem_block_t;
 #endif
 
 /* Lock variable to protect the global data in the gettext implementation.  */
-__libc_rwlock_define_initialized (, _nl_state_lock attribute_hidden)
+gl_rwlock_define_initialized (, _nl_state_lock attribute_hidden)
 
 /* Checking whether the binaries runs SUID must be done and glibc provides
    easier methods therefore we make a difference here.  */
@@ -517,7 +521,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	    : n == 1 ? (char *) msgid1 : (char *) msgid2);
 #endif
 
-  __libc_rwlock_rdlock (_nl_state_lock);
+  gl_rwlock_rdlock (_nl_state_lock);
 
   /* If DOMAINNAME is NULL, we are interested in the default domain.  If
      CATEGORY is not LC_MESSAGES this might not make much sense but the
@@ -572,11 +576,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
      tsearch calls can be fatal.  */
-  __libc_rwlock_rdlock (tree_lock);
+  gl_rwlock_rdlock (tree_lock);
 
   foundp = (struct known_translation_t **) tfind (search, &root, transcmp);
 
-  __libc_rwlock_unlock (tree_lock);
+  gl_rwlock_unlock (tree_lock);
 
   freea (search);
   if (foundp != NULL && (*foundp)->counter == _nl_msg_cat_cntr)
@@ -588,7 +592,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
       else
 	retval = (char *) (*foundp)->translation;
 
-      __libc_rwlock_unlock (_nl_state_lock);
+      gl_rwlock_unlock (_nl_state_lock);
       return retval;
     }
 #endif
@@ -799,13 +803,13 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		      newp->translation = retval;
 		      newp->translation_length = retlen;
 
-		      __libc_rwlock_wrlock (tree_lock);
+		      gl_rwlock_wrlock (tree_lock);
 
 		      /* Insert the entry in the search tree.  */
 		      foundp = (struct known_translation_t **)
 			tsearch (newp, &root, transcmp);
 
-		      __libc_rwlock_unlock (tree_lock);
+		      gl_rwlock_unlock (tree_lock);
 
 		      if (foundp == NULL
 			  || __builtin_expect (*foundp != newp, 0))
@@ -828,7 +832,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	      if (plural)
 		retval = plural_lookup (domain, n, retval, retlen);
 
-	      __libc_rwlock_unlock (_nl_state_lock);
+	      gl_rwlock_unlock (_nl_state_lock);
 	      return retval;
 	    }
 	}
@@ -837,7 +841,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
  return_untranslated:
   /* Return the untranslated MSGID.  */
   FREE_BLOCKS (block_list);
-  __libc_rwlock_unlock (_nl_state_lock);
+  gl_rwlock_unlock (_nl_state_lock);
 #ifndef _LIBC
   if (!ENABLE_SECURE)
     {

@@ -1,5 +1,5 @@
 /* Implementation of the textdomain(3) function.
-   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -33,6 +33,9 @@
 /* Handle multi-threaded applications.  */
 #ifdef _LIBC
 # include <bits/libc-lock.h>
+# define gl_rwlock_define __libc_rwlock_define
+# define gl_rwlock_wrlock __libc_rwlock_wrlock
+# define gl_rwlock_unlock __libc_rwlock_unlock
 #else
 # include "lock.h"
 #endif
@@ -68,7 +71,7 @@ extern const char *_nl_current_default_domain attribute_hidden;
 #endif
 
 /* Lock variable to protect the global data in the gettext implementation.  */
-__libc_rwlock_define (extern, _nl_state_lock attribute_hidden)
+gl_rwlock_define (extern, _nl_state_lock attribute_hidden)
 
 /* Set the current default message catalog to DOMAINNAME.
    If DOMAINNAME is null, return the current default.
@@ -83,7 +86,7 @@ TEXTDOMAIN (const char *domainname)
   if (domainname == NULL)
     return (char *) _nl_current_default_domain;
 
-  __libc_rwlock_wrlock (_nl_state_lock);
+  gl_rwlock_wrlock (_nl_state_lock);
 
   old_domain = (char *) _nl_current_default_domain;
 
@@ -127,7 +130,7 @@ TEXTDOMAIN (const char *domainname)
 	free (old_domain);
     }
 
-  __libc_rwlock_unlock (_nl_state_lock);
+  gl_rwlock_unlock (_nl_state_lock);
 
   return new_domain;
 }
