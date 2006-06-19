@@ -35,6 +35,21 @@
 
 #if HAVE_ICONV
 
+/* POSIX does not specify clearly what happens when a character in the
+   source encoding is valid but cannot be represented in the destination
+   encoding.
+   GNU libc and libiconv stop the conversion in this case, with errno = EINVAL.
+   Irix iconv() inserts a NUL byte in this case.  NetBSD iconv() inserts
+   a '?' byte.  For other implementations, we don't know.  Normally the
+   number of failed conversions is available as the iconv() result.
+   The problem with these implementations is that when iconv() fails, for
+   example with errno = E2BIG or = EINVAL, the number of failed conversions
+   gets lost.  As a workaround, we need to process the input string slowly,
+   byte after byte.  */
+# if !(defined __GLIBC__ || defined _LIBICONV_VERSION)
+#  define UNSAFE_ICONV
+# endif
+
 /* Converts an entire string from one encoding to another, using iconv.
    Return value: 0 if successful, otherwise -1 and errno set.  */
 int
@@ -44,6 +59,9 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 #define tmpbufsize 4096
   size_t length;
   char *result;
+# ifdef UNSAFE_ICONV
+  int expect_einval = 0;
+# endif
 
   /* Avoid glibc-2.1 bug and Solaris 2.7-2.9 bug.  */
 # if defined _LIBICONV_VERSION \
@@ -72,13 +90,16 @@ iconv_string (iconv_t cd, const char *start, const char *end,
 	    if (errno == E2BIG)
 	      ;
 	    else if (errno == EINVAL)
-	      break;
+	      {
+# ifdef UNSAFE_ICONV
+		expect_einval = 1;
+# endif
+		break;
+	      }
 	    else
 	      return -1;
 	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi || defined __NetBSD__)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.
-	   NetBSD iconv() inserts a '?' byte if it cannot convert.  */
+# ifdef UNSAFE_ICONV
 	else if (res > 0)
 	  return -1;
 # endif
@@ -115,29 +136,87 @@ iconv_string (iconv_t cd, const char *start, const char *end,
   /* Do the conversion for real.  */
   {
     const char *inptr = start;
-    size_t insize = end - start;
     char *outptr = result;
     size_t outsize = length;
 
-    while (insize > 0)
+# ifdef UNSAFE_ICONV
+    if (expect_einval)
       {
-	size_t res = iconv (cd,
-			    (ICONV_CONST char **) &inptr, &insize,
-			    &outptr, &outsize);
+	/* Process the characters one by one, so as to not lose the
+	   number of conversion failures.  */
+	const char *inptr_end = end;
 
-	if (res == (size_t)(-1))
+	while (inptr < inptr_end)
 	  {
-	    if (errno == EINVAL)
+	    size_t insize_max = inptr_end - inptr;
+	    size_t insize_avail;
+	    size_t res;
+
+	    for (insize_avail = 1; ; insize_avail++)
+	      {
+		/* Here 1 <= insize_avail <= insize_max.  */
+		size_t insize = insize_avail;
+
+		res = iconv (cd,
+			     (ICONV_CONST char **) &inptr, &insize,
+			     &outptr, &outsize);
+		if (res == (size_t)(-1))
+		  {
+		    if (errno == EINVAL)
+		      {
+			if (insize_avail < insize_max)
+			  continue;
+			else
+			  break;
+		      }
+		    else
+		      /* E2BIG and other errors shouldn't happen in this
+			 round any more.  */
+		      return -1;
+		  }
+		else
+		  break;
+	      }
+	    if (res == (size_t)(-1))
+	      /* errno = EINVAL.  Ignore the trailing incomplete character.  */
 	      break;
-	    else
+	    else if (res > 0)
 	      return -1;
 	  }
-# if !defined _LIBICONV_VERSION && (defined sgi || defined __sgi || defined __NetBSD__)
-	/* Irix iconv() inserts a NUL byte if it cannot convert.
-	   NetBSD iconv() inserts a '?' byte if it cannot convert.  */
-	else if (res > 0)
-	  return -1;
+      }
+    else
 # endif
+      {
+	size_t insize = end - start;
+
+	while (insize > 0)
+	  {
+	    size_t res = iconv (cd,
+				(ICONV_CONST char **) &inptr, &insize,
+				&outptr, &outsize);
+
+	    if (res == (size_t)(-1))
+	      {
+		if (errno == EINVAL)
+		  {
+# ifdef UNSAFE_ICONV
+		    /* EINVAL should already have occurred in the first
+		       round.  */
+		    abort ();
+# endif
+		    /* Ignore the trailing incomplete character.  */
+		    break;
+		  }
+		else
+		  /* E2BIG and other errors shouldn't happen in this round
+		     any more.  */
+		  return -1;
+	      }
+# ifdef UNSAFE_ICONV
+	    else if (res > 0)
+	      return -1;
+# endif
+	  }
       }
     /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
 # if defined _LIBICONV_VERSION \

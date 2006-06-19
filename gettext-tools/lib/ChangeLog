@@ -1,5 +1,11 @@
 2006-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* iconvstring.c (UNSAFE_ICONV): New macro.
+	(iconv_string): Add slower but safer code for UNSAFE_ICONV.
+	Needed for IRIX iconv() and NetBSD's iconv().
+
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* iconvstring.c (iconv_string): Recognize conversion failures also
 	from NetBSD's iconv().
 
