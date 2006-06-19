@@ -1,3 +1,9 @@
+2006-06-17  Bruno Haible  <bruno@clisp.org>
+
+	* po.m4 (AM_POSTPROCESS_PO_MAKEFILE): Remove double-quotes around
+	backquoted expression in assignment.
+	Fixes a problem with NetBSD /bin/sh.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* inttypes-h.m4: Renamed from inttypes.m4.

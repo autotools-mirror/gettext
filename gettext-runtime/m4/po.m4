@@ -1,4 +1,4 @@
-# po.m4 serial 12 (gettext-0.15)
+# po.m4 serial 13 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -285,7 +285,7 @@ x
 changequote([,])dnl
 
   # Set POTFILES to the value of the Makefile variable POTFILES.
-  sed_x_POTFILES="`$gt_echo \"$sed_x_variable\" | sed -e '/^ *#/d' -e 's/VARIABLE/POTFILES/g'`"
+  sed_x_POTFILES=`$gt_echo "$sed_x_variable" | sed -e '/^ *#/d' -e 's/VARIABLE/POTFILES/g'`
   POTFILES=`sed -n -e "$sed_x_POTFILES" < "$ac_file"`
   # Compute POTFILES_DEPS as
   #   $(foreach file, $(POTFILES), $(top_srcdir)/$(file))
@@ -304,7 +304,7 @@ changequote([,])dnl
     POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
   else
     # Set ALL_LINGUAS to the value of the Makefile variable LINGUAS.
-    sed_x_LINGUAS="`$gt_echo \"$sed_x_variable\" | sed -e '/^ *#/d' -e 's/VARIABLE/LINGUAS/g'`"
+    sed_x_LINGUAS=`$gt_echo "$sed_x_variable" | sed -e '/^ *#/d' -e 's/VARIABLE/LINGUAS/g'`
     ALL_LINGUAS_=`sed -n -e "$sed_x_LINGUAS" < "$ac_file"`
   fi
   # Hide the ALL_LINGUAS assigment from automake < 1.5.
