@@ -1,3 +1,9 @@
+2006-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in (libintl_printf): Define to __printf__ on NetBSD,
+	Cygwin, mingw.
+	Reported by Henry Nelson <netb@yuba.ne.jp>.
+
 2006-06-17  Bruno Haible  <bruno@clisp.org>
 
 	* bindtextdom.c (gl_rwlock_define, gl_rwlock_wrlock, gl_rwlock_unlock)
