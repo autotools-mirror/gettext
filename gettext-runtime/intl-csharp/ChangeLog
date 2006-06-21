@@ -6,6 +6,14 @@
 
 	* Makefile.am (CSHARPCOMPFLAGS): Use value set by csharpcomp.m4.
 
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CLEANFILES): Add GNU.Gettext.dll.mdb.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.
