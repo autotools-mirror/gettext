@@ -1,14 +1,3 @@
-2006-06-20  Bruno Haible  <bruno@clisp.org>
-
-	* format-gcc-internal.c (struct unnumbered_arg): Remove type.
-	(struct numbered_arg): New type.
-	(struct spec): Use it.
-	(isdigit): New macro.
-	(numbered_arg_compare): New function.
-	(format_parse, format_free, format_check, format_print): Update to
-	GCC 4.1 internal format strings.
-	Reported by Göran Uddeborg <goeran@uddeborg.se>.
-
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-check.c (check_plural_eval): Declare 'distribution' as volatile,
@@ -1311,6 +1300,30 @@
 	* po-lex.c (po_gram_error, po_gram_error_at_line): Likewise.
 	* read-stringtable.c (phase2_getc): Optimize UTF-8 code. Avoids
 	gcc-4.0 warnings.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CLEANFILES): Add msgfmt.net.exe.mdb,
+	msgunfmt.net.exe.mdb.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h (LIBGETTEXTPO_VERSION): Bump version number.
+
+2006-06-20  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c (struct unnumbered_arg): Remove type.
+	(struct numbered_arg): New type.
+	(struct spec): Use it.
+	(isdigit): New macro.
+	(numbered_arg_compare): New function.
+	(format_parse, format_free, format_check, format_print): Update to
+	GCC 4.1 internal format strings.
+	Reported by Göran Uddeborg <goeran@uddeborg.se>.
 
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
