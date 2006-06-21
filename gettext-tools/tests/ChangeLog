@@ -1,8 +1,3 @@
-2006-06-20  Bruno Haible  <bruno@clisp.org>
-
-	* format-gcc-internal-1: Update to GCC 4.1 internal format strings.
-	* format-gcc-internal-2: Likewise.
-
 2006-06-17  Bruno Haible  <bruno@clisp.org>
 
 	* recode-sr-latin-2 (LOCALE_JA_EUCJP): Determine locale name depending
@@ -445,6 +440,15 @@
 	(gettext_3_prg_SOURCES, gettext_3_prg_LDADD): New variables.
 	(gettext_4_prg_SOURCES, gettext_4_prg_LDADD): New variables.
 	(gettext_5_prg_SOURCES, gettext_5_prg_LDADD): New variables.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
+2006-06-20  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal-1: Update to GCC 4.1 internal format strings.
+	* format-gcc-internal-2: Likewise.
 
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 

@@ -119,6 +119,16 @@
 	* configure.ac: Test for field __names in struct __locale_struct.
 	Also define USE_IN_GETTEXT_TESTS.
 
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* windows/gettextlib.rc: Bump version number to 0.14.6.
+	* windows/gettextsrc.rc: Likewise.
+	* windows/gettextpo.rc: Likewise.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.

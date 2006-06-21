@@ -9,6 +9,10 @@
 	(AC_LIB_PREFIX): Require it. Use $acl_libdirstem instead of 'lib'.
 	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Likewise.
 
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.

@@ -77,6 +77,10 @@
   A complete example showing the use of GNU gettext with the wxWidgets GUI
   toolkit has been added.
 
+Version 0.14.6 - June 2006
+
+* Updated the meaning of 'gcc-internal-format' to match GCC 4.1.
+
 Version 0.14.5 - May 2005
 
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.0.

@@ -65,6 +65,10 @@
 	supported since autoconf-2.50.
 	Suggested by Alexandre Duret-Lutz <adl@src.lip6.fr>.
 
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.
