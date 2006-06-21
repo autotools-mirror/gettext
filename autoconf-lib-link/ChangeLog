@@ -42,6 +42,14 @@
 
 	* config.rpath: Upgrade to libtool-1.5.16.
 
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* tests/Makefile.am (TESTS): Remove those tests that fail on x86_64.
+
 2005-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.14.5 released.
