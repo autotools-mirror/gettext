@@ -39,9 +39,9 @@ cat <<\EOF > f-gi-1.data
 "abc%H"
 # Valid: one pointer argument
 "%J"
-# Invalid: %J not at start
+# Valid: %J not at start
 "abc%J"
-# Invalid: %J with flags
+# Valid: %J with flags
 "%qJ"
 # Valid: one pointer argument
 "abc%D"
@@ -87,8 +87,44 @@ cat <<\EOF > f-gi-1.data
 "abc%.*.*s"
 # Valid: three arguments
 "abc%d%u%u"
-# Invalid: a numbered argument
+# Valid: a numbered argument
 "abc%1$d"
+# Invalid: zero
+"abc%0$d"
+# Valid: two-digit numbered arguments
+"abc%11$def%10$dgh%9$dij%8$dkl%7$dmn%6$dop%5$dqr%4$dst%3$duv%2$dwx%1$dyz"
+# Invalid: unterminated number
+"abc%1"
+# Invalid: flags before number
+"abc%+1$d"
+# Valid: three arguments, two with same number
+"abc%1$x,%2$c,%1$u"
+# Invalid: argument with conflicting types
+"abc%1$x,%2$c,%1$s"
+# Valid: no conflict
+"abc%1$x,%2$c,%1$u"
+# Invalid: mixing of numbered and unnumbered arguments
+"abc%d%2$x"
+# Valid: numbered argument with constant precision
+"abc%1$.9s"
+# Invalid: mixing of numbered and unnumbered arguments
+"abc%1$.*s"
+# Valid: missing non-final argument
+"abc%2$x%3$s"
+# Valid: permutation
+"abc%2$ddef%1$d"
+# Valid: multiple uses of same argument
+"abc%2$xdef%1$sghi%2$x"
+# Valid: one argument with precision
+"abc%2$#.*1$s"
+# Invalid: non-string argument with precision
+"abc%2$#.*1$d"
+# Invalid: one argument with width
+"abc%2$#*1$s"
+# Invalid: one argument with width and precision
+"abc%3$*2$.*1$s"
+# Invalid: zero
+"abc%1$#.*0$s"
 EOF
 
 : ${XGETTEXT=xgettext}

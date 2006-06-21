@@ -37,12 +37,33 @@ msgstr "xyz%qs%qH"
 # Valid: same arguments, with different widths
 msgid  "abc%.*sdef"
 msgstr "xyz%i%s"
+# Valid: same arguments but in numbered syntax
+msgid  "abc%s%ddef"
+msgstr "xyz%1$s%2$d"
+# Valid: permutation
+msgid  "abc%s%d%cdef"
+msgstr "xyz%3$c%2$d%1$s"
+# Valid: permutation with width
+msgid  "abc%c%.*sdef"
+msgstr "xyz%3$.*2$s%1$c"
 # Invalid: too few arguments
 msgid  "abc%sdef%u"
 msgstr "xyz%s"
 # Invalid: too many arguments
 msgid  "abc%udef"
 msgstr "xyz%uvw%c"
+# Valid: same numbered arguments, with different widths
+msgid  "abc%2$5s%1$4s"
+msgstr "xyz%2$4s%1$5s"
+# Invalid: missing argument
+msgid  "abc%2$sdef%1$u"
+msgstr "xyz%1$u"
+# Invalid: missing argument
+msgid  "abc%1$sdef%2$u"
+msgstr "xyz%2$u"
+# Invalid: added argument
+msgid  "abc%1$udef"
+msgstr "xyz%1$uvw%2$c"
 # Valid: type compatibility
 msgid  "abc%i"
 msgstr "xyz%d"

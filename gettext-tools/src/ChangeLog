@@ -1,3 +1,14 @@
+2006-06-20  Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c (struct unnumbered_arg): Remove type.
+	(struct numbered_arg): New type.
+	(struct spec): Use it.
+	(isdigit): New macro.
+	(numbered_arg_compare): New function.
+	(format_parse, format_free, format_check, format_print): Update to
+	GCC 4.1 internal format strings.
+	Reported by Göran Uddeborg <goeran@uddeborg.se>.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-check.c (check_plural_eval): Declare 'distribution' as volatile,

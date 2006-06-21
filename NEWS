@@ -33,7 +33,7 @@
 * msggrep has a new option -X/--extracted-comment that allows to search for a
   pattern in the extracted comments.
 
-* xgettext's --keyword now allows to specify an extracted comment on the
+* xgettext's --keyword option now allows to specify an extracted comment on the
   command line, rather than in program's source code.
 
 * msgmerge is much faster now, when using a large compendium.
@@ -64,7 +64,12 @@
 * The 'mkinstalldirs' shell script is no longer needed and no longer installed
   by gettextize.
 
-* Portability to mingw.
+* Updated the meaning of 'gcc-internal-format' to match GCC 4.1.
+
+* Portability:
+  - Building on mingw is now supported.
+  - Building shared libraries (--enable-shared) on Cygwin and mingw is now
+    supported.
 
 * Interoperability with expat version 2.0.0.
 
