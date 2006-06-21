@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.13-pre1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-05-23 15:05+0200\n"
+"POT-Creation-Date: 2006-06-21 15:48+0200\n"
 "PO-Revision-Date: 2003-11-23 11:43+0200\n"
 "Last-Translator: Eugen Hoanca <eugenh@urban-grafx.ro>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -201,9 +201,10 @@ msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 "'%s' nu este un format valid de ºir %s, spre deosebire de 'msgid'. Motiv: %s"
 
-#: src/format-awk.c:489 src/format-elisp.c:337 src/format-librep.c:301
-#: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
-#: src/format-qt.c:132 src/format-tcl.c:376 src/format-ycp.c:133
+#: src/format-awk.c:489 src/format-elisp.c:337 src/format-gcc-internal.c:582
+#: src/format-librep.c:301 src/format-pascal.c:390 src/format-perl.c:567
+#: src/format-php.c:337 src/format-qt.c:132 src/format-tcl.c:376
+#: src/format-ycp.c:133
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
@@ -211,15 +212,16 @@ msgstr ""
 "o specificaþie de formatare pentru parametrul %u, ca în `%s', nu existã în "
 "'msgid'"
 
-#: src/format-awk.c:499 src/format-elisp.c:347 src/format-librep.c:311
-#: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
-#: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
+#: src/format-awk.c:499 src/format-elisp.c:347 src/format-gcc-internal.c:592
+#: src/format-librep.c:311 src/format-pascal.c:400 src/format-perl.c:577
+#: src/format-php.c:347 src/format-qt.c:131 src/format-tcl.c:386
+#: src/format-ycp.c:132
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "o specificaþie de format pentru argumentul %u nu existã în '%s'"
 
 #: src/format-awk.c:519 src/format-c.c:856 src/format-elisp.c:367
-#: src/format-gcc-internal.c:331 src/format-librep.c:331
+#: src/format-gcc-internal.c:612 src/format-librep.c:331
 #: src/format-pascal.c:420 src/format-perl.c:597 src/format-php.c:367
 #: src/format-python.c:494 src/format-tcl.c:406
 #, c-format
@@ -251,8 +253,7 @@ msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 "ªirul are referire la argumentul numãrul %u dar ignorã argumentul numãrul %u."
 
-#: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:322
-#: src/format-python.c:485
+#: src/format-c.c:847 src/format-csharp.c:195 src/format-python.c:485
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "numãrul de specificaþii de formatare din 'msgid' ºi '%s' este diferit"
@@ -298,28 +299,42 @@ msgstr ""
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "ªirul se terminã în mijlocul directivei."
 
-#: src/format-gcc-internal.c:216
-#, c-format
-msgid "The %%J directive is only allowed at the beginning of the string."
-msgstr ""
+#: src/format-gcc-internal.c:245
+#, fuzzy, c-format
+msgid "In the directive number %u, the flags combination is invalid."
+msgstr "În directiva numãrul %u parametrul %d este negativ."
 
-#: src/format-gcc-internal.c:217
-#, c-format
-msgid "The %%J directive does not support flags."
+#: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
+#, fuzzy, c-format
+msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr ""
+"În numãrul de directivã %u, marcajele(flags) nu sunt admise înainte de '%c'."
 
-#: src/format-gcc-internal.c:259
+#: src/format-gcc-internal.c:314
+#, fuzzy, c-format
+msgid ""
+"In the directive number %u, the argument number for the precision must be "
+"equal to %u."
+msgstr ""
+"În directiva numãrul %u, numãrul de argument 0 nu este un întreg pozitiv."
+
+#: src/format-gcc-internal.c:376
+#, fuzzy, c-format
+msgid "In the directive number %u, the precision specification is invalid."
+msgstr "În directiva numãrul %u parametrul %d este negativ."
+
+#: src/format-gcc-internal.c:424
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr ""
 "În numãrul de directivã %u, marcajele(flags) nu sunt admise înainte de '%c'."
 
-#: src/format-gcc-internal.c:342
+#: src/format-gcc-internal.c:630
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr ""
 
-#: src/format-gcc-internal.c:345
+#: src/format-gcc-internal.c:633
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr ""
@@ -3681,45 +3696,38 @@ msgstr ""
 msgid "language `%s' unknown"
 msgstr "limbajul `%s' este necunoscut"
 
-#: src/user-email.sh.in:340
-msgid "Which is your email address?"
-msgstr "Care este adresa voastrã de email?"
+#~ msgid "Which is your email address?"
+#~ msgstr "Care este adresa voastrã de email?"
 
-#: src/user-email.sh.in:342
-msgid "Please choose the number, or enter your email address."
-msgstr "Vã rugãm alegeþi un numãr, sau introduceþi adresa voastrã de e-mail."
+#~ msgid "Please choose the number, or enter your email address."
+#~ msgstr ""
+#~ "Vã rugãm alegeþi un numãr, sau introduceþi adresa voastrã de e-mail."
 
-#: src/user-email.sh.in:360 src/user-email.sh.in:384 src/user-email.sh.in:403
-msgid "Invalid email address: invalid character."
-msgstr "Adresã email invalidã: caracter invalid."
+#~ msgid "Invalid email address: invalid character."
+#~ msgstr "Adresã email invalidã: caracter invalid."
 
-#: src/user-email.sh.in:362 src/user-email.sh.in:386 src/user-email.sh.in:405
-msgid "Invalid email address: need a fully qualified host name or domain name."
-msgstr ""
-"Adresã email invalidã: e nevoie de un nume de host sau de domeniu complet "
-"calificat."
+#~ msgid ""
+#~ "Invalid email address: need a fully qualified host name or domain name."
+#~ msgstr ""
+#~ "Adresã email invalidã: e nevoie de un nume de host sau de domeniu complet "
+#~ "calificat."
 
-#: src/user-email.sh.in:363 src/user-email.sh.in:387 src/user-email.sh.in:406
-msgid "Invalid email address: missing @"
-msgstr "Adresã email invalidã: lipseºte @"
+#~ msgid "Invalid email address: missing @"
+#~ msgstr "Adresã email invalidã: lipseºte @"
 
-#: src/user-email.sh.in:372
-msgid "Is the following your email address?"
-msgstr "Este aceasta adresa voastrã de e-mail?"
+#~ msgid "Is the following your email address?"
+#~ msgstr "Este aceasta adresa voastrã de e-mail?"
 
-#: src/user-email.sh.in:374
-msgid "Please confirm by pressing Return, or enter your email address."
-msgstr ""
-"Vã rugãm confirmaþi prin apãsarea tastei Return, sau introduceþi adresa "
-"voastrã de email."
+#~ msgid "Please confirm by pressing Return, or enter your email address."
+#~ msgstr ""
+#~ "Vã rugãm confirmaþi prin apãsarea tastei Return, sau introduceþi adresa "
+#~ "voastrã de email."
 
-#: src/user-email.sh.in:395
-msgid "Couldn't find out about your email address."
-msgstr "Nu se poate afla nimic despre adresa voastrã de e-mail."
+#~ msgid "Couldn't find out about your email address."
+#~ msgstr "Nu se poate afla nimic despre adresa voastrã de e-mail."
 
-#: src/user-email.sh.in:397
-msgid "Please enter your email address."
-msgstr "Vã rugãm introduceþi adresa voastrã de email."
+#~ msgid "Please enter your email address."
+#~ msgstr "Vã rugãm introduceþi adresa voastrã de email."
 
 #~ msgid "write to grep subprocess failed"
 #~ msgstr "scrierea în subprocesul grep a eºuat"

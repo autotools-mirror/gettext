@@ -1,3 +1,7 @@
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.14.6 released.
+
 2006-06-20  Bruno Haible  <bruno@clisp.org>
 
 	* format-gcc-internal-1: Update to GCC 4.1 internal format strings.

@@ -1,7 +1,7 @@
 # English translations for GNU gettext-runtime package.
-# Copyright (C) 2005 Free Software Foundation, Inc.
+# Copyright (C) 2006 Free Software Foundation, Inc.
 # This file is distributed under the same license as the GNU gettext-runtime package.
-# Automatically generated, 2005.
+# Automatically generated, 2006.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation

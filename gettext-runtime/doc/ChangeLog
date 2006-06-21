@@ -1,5 +1,9 @@
 2006-06-21  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.14.6 released.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
 	* matrix.texi: Update.
 	* nls.texi (STATUS): Likewise.
 

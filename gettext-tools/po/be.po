@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-05-23 15:05+0200\n"
+"POT-Creation-Date: 2006-06-21 15:48+0200\n"
 "PO-Revision-Date: 2002-09-04 18:51+0300\n"
 "Last-Translator: Ales Nyakhaychyk <i18n@infonet.by>\n"
 "Language-Team: Belarusian <i18n@tut.by>\n"
@@ -194,23 +194,25 @@ msgstr "%s падрацэс атрымаў фатальны сігнал %d"
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr "'%s' - гэта нерэчаісны %s фармат радку, у адрозьненьне ад 'msgid'"
 
-#: src/format-awk.c:489 src/format-elisp.c:337 src/format-librep.c:301
-#: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
-#: src/format-qt.c:132 src/format-tcl.c:376 src/format-ycp.c:133
+#: src/format-awk.c:489 src/format-elisp.c:337 src/format-gcc-internal.c:582
+#: src/format-librep.c:301 src/format-pascal.c:390 src/format-perl.c:567
+#: src/format-php.c:337 src/format-qt.c:132 src/format-tcl.c:376
+#: src/format-ycp.c:133
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "спэцыфікацыя фармату для аргумэнта %u, як у '%s', ня йснуе ў 'msgid'"
 
-#: src/format-awk.c:499 src/format-elisp.c:347 src/format-librep.c:311
-#: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
-#: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
+#: src/format-awk.c:499 src/format-elisp.c:347 src/format-gcc-internal.c:592
+#: src/format-librep.c:311 src/format-pascal.c:400 src/format-perl.c:577
+#: src/format-php.c:347 src/format-qt.c:131 src/format-tcl.c:386
+#: src/format-ycp.c:132
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "спэцыфікацыя фармату для аргумэнта %u ня йснуе ў '%s'"
 
 #: src/format-awk.c:519 src/format-c.c:856 src/format-elisp.c:367
-#: src/format-gcc-internal.c:331 src/format-librep.c:331
+#: src/format-gcc-internal.c:612 src/format-librep.c:331
 #: src/format-pascal.c:420 src/format-perl.c:597 src/format-php.c:367
 #: src/format-python.c:494 src/format-tcl.c:406
 #, c-format
@@ -235,8 +237,7 @@ msgstr ""
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 
-#: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:322
-#: src/format-python.c:485
+#: src/format-c.c:847 src/format-csharp.c:195 src/format-python.c:485
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "колькасьць спэцыфікацый фармату ў 'msgid' і '%s' не супадае"
@@ -278,27 +279,39 @@ msgstr ""
 msgid "The string contains a lone '}' after directive number %u."
 msgstr ""
 
-#: src/format-gcc-internal.c:216
+#: src/format-gcc-internal.c:245
 #, c-format
-msgid "The %%J directive is only allowed at the beginning of the string."
+msgid "In the directive number %u, the flags combination is invalid."
 msgstr ""
 
-#: src/format-gcc-internal.c:217
+#: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
 #, c-format
-msgid "The %%J directive does not support flags."
+msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr ""
 
-#: src/format-gcc-internal.c:259
+#: src/format-gcc-internal.c:314
+#, c-format
+msgid ""
+"In the directive number %u, the argument number for the precision must be "
+"equal to %u."
+msgstr ""
+
+#: src/format-gcc-internal.c:376
+#, c-format
+msgid "In the directive number %u, the precision specification is invalid."
+msgstr ""
+
+#: src/format-gcc-internal.c:424
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr ""
 
-#: src/format-gcc-internal.c:342
+#: src/format-gcc-internal.c:630
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr ""
 
-#: src/format-gcc-internal.c:345
+#: src/format-gcc-internal.c:633
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr ""
@@ -1832,7 +1845,7 @@ msgid "nplurals = %lu..."
 msgstr "nplurals = %lu..."
 
 #: src/msgfmt.c:1081
-#, c-format
+#, fuzzy, c-format
 msgid "...but some messages have only one plural form"
 msgid_plural "...but some messages have only %lu plural forms"
 msgstr[0] ""
@@ -1842,7 +1855,7 @@ msgstr[2] ""
 "...але некаторыя паведамленьні маюць толькі %lu формаў множнага ліку"
 
 #: src/msgfmt.c:1096
-#, c-format
+#, fuzzy, c-format
 msgid "...but some messages have one plural form"
 msgid_plural "...but some messages have %lu plural forms"
 msgstr[0] "...але некаторыя паведамленьні маюць адну форму множнага ліку"
@@ -3361,42 +3374,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "невядомая мова `%s'"
-
-#: src/user-email.sh.in:340
-msgid "Which is your email address?"
-msgstr ""
-
-#: src/user-email.sh.in:342
-msgid "Please choose the number, or enter your email address."
-msgstr ""
-
-#: src/user-email.sh.in:360 src/user-email.sh.in:384 src/user-email.sh.in:403
-msgid "Invalid email address: invalid character."
-msgstr ""
-
-#: src/user-email.sh.in:362 src/user-email.sh.in:386 src/user-email.sh.in:405
-msgid "Invalid email address: need a fully qualified host name or domain name."
-msgstr ""
-
-#: src/user-email.sh.in:363 src/user-email.sh.in:387 src/user-email.sh.in:406
-msgid "Invalid email address: missing @"
-msgstr ""
-
-#: src/user-email.sh.in:372
-msgid "Is the following your email address?"
-msgstr ""
-
-#: src/user-email.sh.in:374
-msgid "Please confirm by pressing Return, or enter your email address."
-msgstr ""
-
-#: src/user-email.sh.in:395
-msgid "Couldn't find out about your email address."
-msgstr ""
-
-#: src/user-email.sh.in:397
-msgid "Please enter your email address."
-msgstr ""
 
 #~ msgid "write to grep subprocess failed"
 #~ msgstr "памылка запісу ў падпрацэс grep"

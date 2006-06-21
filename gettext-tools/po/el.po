@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-05-23 15:05+0200\n"
+"POT-Creation-Date: 2006-06-21 15:48+0200\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -211,25 +211,27 @@ msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 
 #
-#: src/format-awk.c:489 src/format-elisp.c:337 src/format-librep.c:301
-#: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
-#: src/format-qt.c:132 src/format-tcl.c:376 src/format-ycp.c:133
+#: src/format-awk.c:489 src/format-elisp.c:337 src/format-gcc-internal.c:582
+#: src/format-librep.c:301 src/format-pascal.c:390 src/format-perl.c:567
+#: src/format-php.c:337 src/format-qt.c:132 src/format-tcl.c:376
+#: src/format-ycp.c:133
 #, fuzzy, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "οι μορφοποιήσεις για τη παράμετρο %u δεν είναι ίδιες"
 
 #
-#: src/format-awk.c:499 src/format-elisp.c:347 src/format-librep.c:311
-#: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
-#: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
+#: src/format-awk.c:499 src/format-elisp.c:347 src/format-gcc-internal.c:592
+#: src/format-librep.c:311 src/format-pascal.c:400 src/format-perl.c:577
+#: src/format-php.c:347 src/format-qt.c:131 src/format-tcl.c:386
+#: src/format-ycp.c:132
 #, fuzzy, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "οι μορφοποιήσεις για τη παράμετρο %u δεν είναι ίδιες"
 
 #
 #: src/format-awk.c:519 src/format-c.c:856 src/format-elisp.c:367
-#: src/format-gcc-internal.c:331 src/format-librep.c:331
+#: src/format-gcc-internal.c:612 src/format-librep.c:331
 #: src/format-pascal.c:420 src/format-perl.c:597 src/format-php.c:367
 #: src/format-python.c:494 src/format-tcl.c:406
 #, fuzzy, c-format
@@ -255,8 +257,7 @@ msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 
 #
-#: src/format-c.c:847 src/format-csharp.c:195 src/format-gcc-internal.c:322
-#: src/format-python.c:485
+#: src/format-c.c:847 src/format-csharp.c:195 src/format-python.c:485
 #, fuzzy, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr ""
@@ -299,27 +300,39 @@ msgstr ""
 msgid "The string contains a lone '}' after directive number %u."
 msgstr ""
 
-#: src/format-gcc-internal.c:216
+#: src/format-gcc-internal.c:245
 #, c-format
-msgid "The %%J directive is only allowed at the beginning of the string."
+msgid "In the directive number %u, the flags combination is invalid."
 msgstr ""
 
-#: src/format-gcc-internal.c:217
+#: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
 #, c-format
-msgid "The %%J directive does not support flags."
+msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr ""
 
-#: src/format-gcc-internal.c:259
+#: src/format-gcc-internal.c:314
+#, c-format
+msgid ""
+"In the directive number %u, the argument number for the precision must be "
+"equal to %u."
+msgstr ""
+
+#: src/format-gcc-internal.c:376
+#, c-format
+msgid "In the directive number %u, the precision specification is invalid."
+msgstr ""
+
+#: src/format-gcc-internal.c:424
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr ""
 
-#: src/format-gcc-internal.c:342
+#: src/format-gcc-internal.c:630
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr ""
 
-#: src/format-gcc-internal.c:345
+#: src/format-gcc-internal.c:633
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr ""
@@ -3366,42 +3379,6 @@ msgstr ""
 #, c-format
 msgid "language `%s' unknown"
 msgstr "η γλώσσα `%s' είναι άγνωστη"
-
-#: src/user-email.sh.in:340
-msgid "Which is your email address?"
-msgstr ""
-
-#: src/user-email.sh.in:342
-msgid "Please choose the number, or enter your email address."
-msgstr ""
-
-#: src/user-email.sh.in:360 src/user-email.sh.in:384 src/user-email.sh.in:403
-msgid "Invalid email address: invalid character."
-msgstr ""
-
-#: src/user-email.sh.in:362 src/user-email.sh.in:386 src/user-email.sh.in:405
-msgid "Invalid email address: need a fully qualified host name or domain name."
-msgstr ""
-
-#: src/user-email.sh.in:363 src/user-email.sh.in:387 src/user-email.sh.in:406
-msgid "Invalid email address: missing @"
-msgstr ""
-
-#: src/user-email.sh.in:372
-msgid "Is the following your email address?"
-msgstr ""
-
-#: src/user-email.sh.in:374
-msgid "Please confirm by pressing Return, or enter your email address."
-msgstr ""
-
-#: src/user-email.sh.in:395
-msgid "Couldn't find out about your email address."
-msgstr ""
-
-#: src/user-email.sh.in:397
-msgid "Please enter your email address."
-msgstr ""
 
 #
 #, fuzzy
