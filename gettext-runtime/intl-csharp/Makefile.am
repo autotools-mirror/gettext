@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/intl-csharp subdirectory of GNU gettext
-## Copyright (C) 2003 Free Software Foundation, Inc.
+## Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ GNU.Gettext.dll: intl.cs
 
 EXTRA_DIST += intl.cs
 
-CLEANFILES += GNU.Gettext.dll
+CLEANFILES += GNU.Gettext.dll GNU.Gettext.dll.mdb
 
 install-dll: install-dll-@BUILDCSHARP@
 install-dll-no:

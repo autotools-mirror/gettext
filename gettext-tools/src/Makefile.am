@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -340,7 +340,9 @@ uninstall-java-no-no:
 
 EXTRA_DIST += msgfmt.cs msgunfmt.cs
 
-CLEANFILES += msgfmt.net.exe msgunfmt.net.exe
+CLEANFILES += \
+  msgfmt.net.exe msgfmt.net.exe.mdb \
+  msgunfmt.net.exe msgunfmt.net.exe.mdb
 
 all-local: all-csharp-@BUILDCSHARP@
 all-csharp-yes: msgfmt.net.exe msgunfmt.net.exe
