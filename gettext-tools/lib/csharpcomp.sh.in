@@ -1,7 +1,7 @@
 #!/bin/sh
 # Compile a C# program.
 
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Copyright (C) 2003-2006 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2003.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -84,19 +84,19 @@ while test $# != 0; do
           ;;
       esac
       options_cscc="$options_cscc -o "`echo "$2" | sed -e "$sed_quote_subst"`
-      options_mcs="$options_mcs -o "`echo "$2" | sed -e "$sed_quote_subst"`
+      options_mcs="$options_mcs -out:"`echo "$2" | sed -e "$sed_quote_subst"`
       options_csc="$options_csc -out:"`echo "$2" | sed -e "$sed_quote_subst"`
       shift
       ;;
     -L)
       options_cscc="$options_cscc -L "`echo "$2" | sed -e "$sed_quote_subst"`
-      options_mcs="$options_mcs -L "`echo "$2" | sed -e "$sed_quote_subst"`
+      options_mcs="$options_mcs -lib:"`echo "$2" | sed -e "$sed_quote_subst"`
       options_csc="$options_csc -lib:"`echo "$2" | sed -e "$sed_quote_subst"`
       shift
       ;;
     -l)
       options_cscc="$options_cscc -l "`echo "$2" | sed -e "$sed_quote_subst"`
-      options_mcs="$options_mcs -r "`echo "$2" | sed -e "$sed_quote_subst"`
+      options_mcs="$options_mcs -reference:"`echo "$2" | sed -e "$sed_quote_subst"`
       options_csc="$options_csc -reference:"`echo "$2" | sed -e "$sed_quote_subst"`".dll"
       shift
       ;;
