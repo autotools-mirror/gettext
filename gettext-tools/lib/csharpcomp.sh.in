@@ -106,7 +106,7 @@ while test $# != 0; do
       ;;
     -g)
       options_cscc="$options_cscc -g"
-      options_mcs="$options_mcs -g"
+      options_mcs="$options_mcs -debug"
       options_csc="$options_csc -debug+"
       ;;
     -*)

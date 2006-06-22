@@ -244,7 +244,7 @@ compile_csharp_using_mono (const char * const *sources,
 	  *argp++ = option;
 	}
       if (debug)
-	*argp++ = "-g";
+	*argp++ = "-debug";
       for (i = 0; i < sources_count; i++)
 	{
 	  const char *source_file = sources[i];

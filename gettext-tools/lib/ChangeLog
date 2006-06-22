@@ -2,7 +2,7 @@
 
 	Avoid warnings from recent versions of mcs.
 	* csharpcomp.sh.in (options_mcs): Don't use options -o, -L, -r any
-	more. Use options documented since mcs-1.0 instead.
+	more. Use options documented since mcs-1.0 instead. Similarly for -g.
 	* csharpcomp.c (compile_csharp_using_mono): Likewise.
 
 2006-06-17  Bruno Haible  <bruno@clisp.org>
