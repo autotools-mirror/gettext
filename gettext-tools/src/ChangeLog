@@ -1,5 +1,9 @@
 2006-06-21  Bruno Haible  <bruno@clisp.org>
 
+	* x-sh.c (read_word): Recognize the Bash process substitution syntax.
+
+2006-06-21  Bruno Haible  <bruno@clisp.org>
+
 	* x-sh.c (read_word): Recognize $(...) and $((...)) also inside
 	double-quoted strings. 
 	Reported by Michelle Konzack <linux4michelle@freenet.de>.

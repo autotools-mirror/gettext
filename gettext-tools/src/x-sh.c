@@ -759,21 +759,27 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
   if (c == '<' || c == '>')
     {
-      /* Recognize the redirection operators < > >| << <<- >> <> <& >&  */
+      /* Recognize the redirection operators < > >| << <<- >> <> <& >&
+	 But <( and >) are handled below, not here.  */
       int c2 = phase2_getc ();
-      if ((c == '<' ? c2 == '<' : c2 == '|') || c2 == '>' || c2 == '&')
+      if (c2 != '(')
 	{
-	  if (c == '<' && c2 == '<')
+	  if ((c == '<' ? c2 == '<' : c2 == '|') || c2 == '>' || c2 == '&')
 	    {
-	      int c3 = phase2_getc ();
-	      if (c3 != '-')
-		phase2_ungetc (c3);
+	      if (c == '<' && c2 == '<')
+		{
+		  int c3 = phase2_getc ();
+		  if (c3 != '-')
+		    phase2_ungetc (c3);
+		}
 	    }
+	  else
+	    phase2_ungetc (c2);
+	  wp->type = t_redirect;
+	  return;
 	}
       else
 	phase2_ungetc (c2);
-      wp->type = t_redirect;
-      return;
     }
 
   if (looking_for == CLOSING_BACKQUOTE && c == CLOSING_BACKQUOTE)
@@ -873,8 +879,8 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	      c3 = phase2_getc ();
 	      if (c3 == '(')
 		{
-		  /* Arithmetic expression.  Skip until the matching closing
-		     parenthesis.  */
+		  /* Arithmetic expression (Bash syntax).  Skip until the
+		     matching closing parenthesis.  */
 		  unsigned int depth = 2;
 
 		  do
@@ -890,7 +896,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 		}
 	      else
 		{
-		  /* Command substitution.  */
+		  /* Command substitution (Bash syntax).  */
 		  phase2_ungetc (c3);
 		  read_command_list (')', context);
 		}
@@ -1126,6 +1132,27 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 	}
       if (c == CLOSING_BACKQUOTE)
 	break;
+
+      if (c == '<' || c == '>')
+	{
+	  int c2;
+
+	  /* An unquoted c indicates we are not inside '...' nor "...".  */
+	  if (open_singlequote || open_doublequote)
+	    abort ();
+
+	  c2 = phase2_getc ();
+	  if (c2 == '(')
+	    {
+	      /* Process substitution (Bash syntax).  */
+	      read_command_list (')', context);
+
+	      wp->type = t_other;
+	      continue;
+	    }
+	  else
+	    phase2_ungetc (c2);
+	}
 
       if (!open_singlequote && !open_doublequote
 	  && (is_whitespace (c) || is_operator_start (c)))
