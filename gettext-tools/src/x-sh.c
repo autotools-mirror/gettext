@@ -503,6 +503,9 @@ is_operator_start (int c)
 #define OPENING_BACKQUOTE (2 * (UCHAR_MAX + 1) + '`')
 #define CLOSING_BACKQUOTE (3 * (UCHAR_MAX + 1) + '`')
 
+/* 2 characters of pushback are supported.
+   2 characters of pushback occur only when the first is an 'x'; in all
+   other cases only one character of pushback is needed.  */
 static int phase2_pushback[2];
 static int phase2_pushback_length;
 
@@ -835,10 +838,39 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
       if (c == '$')
 	{
-	  int c2 = phase2_getc ();
+	  int c2;
+
+	  /* An unquoted dollar indicates we are not inside '...'.  */
+	  if (open_singlequote)
+	    abort ();
+	  /* After reading a dollar, we know that there is no pushed back
+	     character from an earlier lookahead.  */
+	  if (phase2_pushback_length > 0)
+	    abort ();
+	  /* Therefore we can use phase1 without interfering with phase2.
+	     We need to recognize $( outside and inside double-quotes.
+	     It would be incorrect to do
+		c2 = phase2_getc ();
+		if (c2 == '(' || c2 == QUOTED ('('))
+	     because that would also trigger for $\(.  */
+	  c2 = phase1_getc ();
 	  if (c2 == '(')
 	    {
-	      int c3 = phase2_getc ();
+	      bool saved_open_doublequote;
+	      int c3;
+
+	      phase1_ungetc (c2);
+
+	      /* The entire inner command or arithmetic expression is read
+		 ignoring possible surrounding double-quotes.  */
+	      saved_open_doublequote = open_doublequote;
+	      open_doublequote = false;
+
+	      c2 = phase2_getc ();
+	      if (c2 != '(')
+		abort ();
+
+	      c3 = phase2_getc ();
 	      if (c3 == '(')
 		{
 		  /* Arithmetic expression.  Skip until the matching closing
@@ -862,178 +894,187 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 		  phase2_ungetc (c3);
 		  read_command_list (')', context);
 		}
+
+	      open_doublequote = saved_open_doublequote;
 	    }
-	  else if (c2 == '\'' && !open_singlequote)
+	  else
 	    {
-	      /* Bash builtin for string with ANSI-C escape sequences.  */
-	      saw_opening_singlequote ();
-	      for (;;)
+	      phase1_ungetc (c2);
+	      c2 = phase2_getc ();
+
+	      if (c2 == '\'' && !open_singlequote)
 		{
-		  c = phase2_getc ();
-		  if (c == EOF)
-		    break;
-		  if (c == '\'')
-		    {
-		      saw_closing_singlequote ();
-		      break;
-		    }
-		  if (c == '\\')
+		  /* Bash builtin for string with ANSI-C escape sequences.  */
+		  saw_opening_singlequote ();
+		  for (;;)
 		    {
 		      c = phase2_getc ();
-		      switch (c)
+		      if (c == EOF)
+			break;
+		      if (c == '\'')
 			{
-			default:
-			  phase2_ungetc (c);
-			  c = '\\';
+			  saw_closing_singlequote ();
 			  break;
-
-			case '\\':
-			  break;
-			case '\'':
-			  /* Don't call saw_closing_singlequote () here.  */
-			  break;
-
-			case 'a':
-			  c = '\a';
-			  break;
-			case 'b':
-			  c = '\b';
-			  break;
-			case 'e':
-			  c = 0x1b; /* ESC */
-			  break;
-			case 'f':
-			  c = '\f';
-			  break;
-			case 'n':
-			  c = '\n';
-			  break;
-			case 'r':
-			  c = '\r';
-			  break;
-			case 't':
-			  c = '\t';
-			  break;
-			case 'v':
-			  c = '\v';
-			  break;
-
-			case 'x':
+			}
+		      if (c == '\\')
+			{
 			  c = phase2_getc ();
-			  if ((c >= '0' && c <= '9')
-			      || (c >= 'A' && c <= 'F')
-			      || (c >= 'a' && c <= 'f'))
+			  switch (c)
 			    {
-			      int n;
+			    default:
+			      phase2_ungetc (c);
+			      c = '\\';
+			      break;
 
-			      if (c >= '0' && c <= '9')
-				n = c - '0';
-			      else if (c >= 'A' && c <= 'F')
-				n = 10 + c - 'A';
-			      else if (c >= 'a' && c <= 'f')
-				n = 10 + c - 'a';
-			      else
-				abort ();
+			    case '\\':
+			      break;
+			    case '\'':
+			      /* Don't call saw_closing_singlequote ()
+				 here.  */
+			      break;
 
+			    case 'a':
+			      c = '\a';
+			      break;
+			    case 'b':
+			      c = '\b';
+			      break;
+			    case 'e':
+			      c = 0x1b; /* ESC */
+			      break;
+			    case 'f':
+			      c = '\f';
+			      break;
+			    case 'n':
+			      c = '\n';
+			      break;
+			    case 'r':
+			      c = '\r';
+			      break;
+			    case 't':
+			      c = '\t';
+			      break;
+			    case 'v':
+			      c = '\v';
+			      break;
+
+			    case 'x':
 			      c = phase2_getc ();
 			      if ((c >= '0' && c <= '9')
 				  || (c >= 'A' && c <= 'F')
 				  || (c >= 'a' && c <= 'f'))
 				{
+				  int n;
+
 				  if (c >= '0' && c <= '9')
-				    n = n * 16 + c - '0';
+				    n = c - '0';
 				  else if (c >= 'A' && c <= 'F')
-				    n = n * 16 + 10 + c - 'A';
+				    n = 10 + c - 'A';
 				  else if (c >= 'a' && c <= 'f')
-				    n = n * 16 + 10 + c - 'a';
+				    n = 10 + c - 'a';
 				  else
 				    abort ();
+
+				  c = phase2_getc ();
+				  if ((c >= '0' && c <= '9')
+				      || (c >= 'A' && c <= 'F')
+				      || (c >= 'a' && c <= 'f'))
+				    {
+				      if (c >= '0' && c <= '9')
+					n = n * 16 + c - '0';
+				      else if (c >= 'A' && c <= 'F')
+					n = n * 16 + 10 + c - 'A';
+				      else if (c >= 'a' && c <= 'f')
+					n = n * 16 + 10 + c - 'a';
+				      else
+					abort ();
+				    }
+				  else
+				    phase2_ungetc (c);
+
+				  c = n;
 				}
 			      else
-				phase2_ungetc (c);
+				{
+				  phase2_ungetc (c);
+				  phase2_ungetc ('x');
+				  c = '\\';
+				}
+			      break;
 
-			      c = n;
-			    }
-			  else
-			    {
-			      phase2_ungetc (c);
-			      phase2_ungetc ('x');
-			      c = '\\';
-			    }
-			  break;
-
-			case '0': case '1': case '2': case '3':
-			case '4': case '5': case '6': case '7':
-			  {
-			    int n = c - '0';
-
-			    c = phase2_getc ();
-			    if (c >= '0' && c <= '7')
+			    case '0': case '1': case '2': case '3':
+			    case '4': case '5': case '6': case '7':
 			      {
-				n = n * 8 + c - '0';
+				int n = c - '0';
 
 				c = phase2_getc ();
 				if (c >= '0' && c <= '7')
-				  n = n * 8 + c - '0';
+				  {
+				    n = n * 8 + c - '0';
+
+				    c = phase2_getc ();
+				    if (c >= '0' && c <= '7')
+				      n = n * 8 + c - '0';
+				    else
+				      phase2_ungetc (c);
+				  }
 				else
 				  phase2_ungetc (c);
-			      }
-			    else
-			      phase2_ungetc (c);
 
-			    c = n;
-			  }
-			  break;
+				c = n;
+			      }
+			      break;
+			    }
+			}
+		      if (wp->type == t_string)
+			{
+			  grow_token (wp->token);
+			  wp->token->chars[wp->token->charcount++] =
+			    (unsigned char) c;
 			}
 		    }
-		  if (wp->type == t_string)
-		    {
-		      grow_token (wp->token);
-		      wp->token->chars[wp->token->charcount++] =
-			(unsigned char) c;
-		    }
+		  /* The result is a literal string.  Don't change wp->type.  */
+		  continue;
 		}
-	      /* The result is a literal string.  Don't change wp->type.  */
-	      continue;
-	    }
-	  else if (c2 == '"' && !open_doublequote)
-	    {
-	      /* Bash builtin for internationalized string.  */
-	      lex_pos_ty pos;
-	      struct token string;
-
-	      saw_opening_singlequote ();
-	      open_singlequote_terminator = '"';
-	      pos.file_name = logical_file_name;
-	      pos.line_number = line_number;
-	      init_token (&string);
-	      for (;;)
+	      else if (c2 == '"' && !open_doublequote)
 		{
-		  c = phase2_getc ();
-		  if (c == EOF)
-		    break;
-		  if (c == '"')
+		  /* Bash builtin for internationalized string.  */
+		  lex_pos_ty pos;
+		  struct token string;
+
+		  saw_opening_singlequote ();
+		  open_singlequote_terminator = '"';
+		  pos.file_name = logical_file_name;
+		  pos.line_number = line_number;
+		  init_token (&string);
+		  for (;;)
 		    {
-		      saw_closing_singlequote ();
-		      break;
+		      c = phase2_getc ();
+		      if (c == EOF)
+			break;
+		      if (c == '"')
+			{
+			  saw_closing_singlequote ();
+			  break;
+			}
+		      grow_token (&string);
+		      string.chars[string.charcount++] = (unsigned char) c;
 		    }
-		  grow_token (&string);
-		  string.chars[string.charcount++] = (unsigned char) c;
+		  remember_a_message (mlp, NULL, string_of_token (&string),
+				      context, &pos, savable_comment);
+		  free_token (&string);
+
+		  error_with_progname = false;
+		  error (0, 0, _("%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
+			 pos.file_name, (unsigned long) pos.line_number);
+		  error_with_progname = true;
+
+		  /* The result at runtime is not constant. Therefore we
+		     change wp->type.  */
 		}
-	      remember_a_message (mlp, NULL, string_of_token (&string),
-				  context, &pos, savable_comment);
-	      free_token (&string);
-
-	      error_with_progname = false;
-	      error (0, 0, _("%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
-		     pos.file_name, (unsigned long) pos.line_number);
-	      error_with_progname = true;
-
-	      /* The result at runtime is not constant. Therefore we
-		 change wp->type.  */
+	      else
+		phase2_ungetc (c2);
 	    }
-	  else
-	    phase2_ungetc (c2);
 	  wp->type = t_other;
 	  continue;
 	}
