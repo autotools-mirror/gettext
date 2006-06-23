@@ -30,7 +30,7 @@ rm -rf tstdir/$rp-build1
 mkdir tstdir/$rp-build1
 (cd $srcdir/rpathx && tar cf - *) | (cd tstdir/$rp-build1 && tar xf -)
 (cd tstdir/$rp-build1
- ${CONFIG_SHELL-/bin/sh} ./configure $build1_configure_flags --prefix=$builddir/$rp-prefix1 > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build1_configure_flags --prefix=$builddir/$rp-prefix1 --libdir=$builddir/$rp-prefix1/$LIBDIRSTEM > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -43,7 +43,7 @@ rm -rf tstdir/$rp-build2
 mkdir tstdir/$rp-build2
 (cd $srcdir/rpathy && tar cf - *) | (cd tstdir/$rp-build2 && tar xf -)
 (cd tstdir/$rp-build2
- ${CONFIG_SHELL-/bin/sh} ./configure $build2_configure_flags --prefix=$builddir/$rp-prefix2 --with-librpathx-prefix=$builddir/$rp-prefix1 > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build2_configure_flags --prefix=$builddir/$rp-prefix2 --libdir=$builddir/$rp-prefix2/$LIBDIRSTEM --with-librpathx-prefix=$builddir/$rp-prefix1 > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -56,7 +56,7 @@ rm -rf tstdir/$rp-build3
 mkdir tstdir/$rp-build3
 (cd $srcdir/rpathz && tar cf - *) | (cd tstdir/$rp-build3 && tar xf -)
 (cd tstdir/$rp-build3
- ${CONFIG_SHELL-/bin/sh} ./configure $build3_configure_flags --prefix=$builddir/$rp-prefix3 --with-librpathx-prefix=$builddir/$rp-prefix1 --with-librpathy-prefix=$builddir/$rp-prefix2 > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build3_configure_flags --prefix=$builddir/$rp-prefix3 --libdir=$builddir/$rp-prefix3/$LIBDIRSTEM --with-librpathx-prefix=$builddir/$rp-prefix1 --with-librpathy-prefix=$builddir/$rp-prefix2 > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -74,7 +74,7 @@ mkdir tstdir/$rp-build4
  else
    build4_configure_flags=
  fi
- ${CONFIG_SHELL-/bin/sh} ./configure --prefix=$builddir/$rp-prefix --with-librpathz-prefix=$builddir/$rp-prefix3 $build4_configure_flags > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure --prefix=$builddir/$rp-prefix --libdir=$builddir/$rp-prefix/$LIBDIRSTEM --with-librpathz-prefix=$builddir/$rp-prefix3 $build4_configure_flags > configure.log 2>&1
  make > make.log 2>&1
  make check >> make.log
 )

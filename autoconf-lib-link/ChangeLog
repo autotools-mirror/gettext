@@ -1,3 +1,15 @@
+2006-06-23  Bruno Haible  <bruno@clisp.org>
+
+	Biarch support.
+	* configure.ac: Invoke AC_LIB_PREPARE_MULTILIB. Set LIBDIRSTEM.
+	* tests/Makefile.am (TESTS_ENVIRONMENT): Set LIBDIRSTEM.
+	* tests/rpath-1: Pass --libdir to all configure invocations.
+	* tests/rpath-2_a: Likewise.
+	* tests/rpath-2_b: Likewise.
+	* tests/rpath-3_a: Likewise.
+	* tests/rpath-3_b: Likewise.
+	* tests/rpathcfg.sh: Likewise.
+
 2006-05-15  Bruno Haible  <bruno@clisp.org>
 
 	* config.rpath: Improve support for Sun C 5.9 on Linux, based on

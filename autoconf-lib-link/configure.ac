@@ -58,6 +58,10 @@ AC_SUBST(with_gnu_ld)
 aclocaldir='${datadir}/aclocal'
 AC_SUBST(aclocaldir)
 
+AC_LIB_PREPARE_MULTILIB
+LIBDIRSTEM=$acl_libdirstem
+AC_SUBST(LIBDIRSTEM)
+
 AC_CONFIG_FILES([Makefile],
                 [FIX_MAKEFILE_DISTRIB])
 

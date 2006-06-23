@@ -2,7 +2,7 @@
 # Prints information for maintaining config.rpath.
 
 # The caller should set the environment variables
-# top_srcdir, srcdir, CONFIG_SHELL, CC, GCC, LDFLAGS, LD, with_gnu_ld, host.
+# top_srcdir, srcdir, CONFIG_SHELL, CC, GCC, LDFLAGS, LD, LIBDIRSTEM, with_gnu_ld, host.
 
 echo "=============== rpathcfg for $host ==============="
 echo
@@ -25,7 +25,7 @@ mkdir tstprefix
 mkdir tstdir/build
 (cd $srcdir/rpathx && tar cf - *) | (cd tstdir/build && tar xf -)
 (cd tstdir/build
- ${CONFIG_SHELL-/bin/sh} ./configure --disable-shared --prefix=$builddir/tstprefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure --disable-shared --prefix=$builddir/tstprefix --libdir=$builddir/tstprefix/${LIBDIRSTEM-lib} > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -50,7 +50,7 @@ mkdir tstprefix
 mkdir tstdir/build
 (cd $srcdir/rpathx && tar cf - *) | (cd tstdir/build && tar xf -)
 (cd tstdir/build
- ${CONFIG_SHELL-/bin/sh} ./configure --disable-static --prefix=$builddir/tstprefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure --disable-static --prefix=$builddir/tstprefix --libdir=$builddir/tstprefix/${LIBDIRSTEM-lib} > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -75,7 +75,7 @@ mkdir tstprefix
 mkdir tstdir/build
 (cd $srcdir/rpathx && tar cf - *) | (cd tstdir/build && tar xf -)
 (cd tstdir/build
- ${CONFIG_SHELL-/bin/sh} ./configure --disable-static --prefix=$builddir/tstprefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure --disable-static --prefix=$builddir/tstprefix --libdir=$builddir/tstprefix/${LIBDIRSTEM-lib} > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )

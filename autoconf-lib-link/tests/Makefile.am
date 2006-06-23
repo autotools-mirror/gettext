@@ -60,6 +60,7 @@ TESTS_ENVIRONMENT = top_srcdir=$(srcdir)/../.. srcdir=$(srcdir) \
 		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
+		    LIBDIRSTEM='@LIBDIRSTEM@' \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 

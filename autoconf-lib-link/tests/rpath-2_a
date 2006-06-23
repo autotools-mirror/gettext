@@ -18,7 +18,7 @@ rm -rf tstdir/$rp-build1
 mkdir tstdir/$rp-build1
 (cd $srcdir/rpathx && tar cf - *) | (cd tstdir/$rp-build1 && tar xf -)
 (cd tstdir/$rp-build1
- ${CONFIG_SHELL-/bin/sh} ./configure $build1_configure_flags --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build1_configure_flags --prefix=$builddir/$rp-prefix --libdir=$builddir/$rp-prefix/$LIBDIRSTEM > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -31,7 +31,7 @@ rm -rf tstdir/$rp-build2
 mkdir tstdir/$rp-build2
 (cd $srcdir/rpathy && tar cf - *) | (cd tstdir/$rp-build2 && tar xf -)
 (cd tstdir/$rp-build2
- ${CONFIG_SHELL-/bin/sh} ./configure $build2_configure_flags --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure $build2_configure_flags --prefix=$builddir/$rp-prefix --libdir=$builddir/$rp-prefix/$LIBDIRSTEM > configure.log 2>&1
  make > make.log 2>&1
  make install > install.log 2>&1
 )
@@ -44,7 +44,7 @@ rm -rf tstdir/$rp-build3
 mkdir tstdir/$rp-build3
 (cd $srcdir/$build3_package && tar cf - *) | (cd tstdir/$rp-build3 && tar xf -)
 (cd tstdir/$rp-build3
- ${CONFIG_SHELL-/bin/sh} ./configure --prefix=$builddir/$rp-prefix > configure.log 2>&1
+ ${CONFIG_SHELL-/bin/sh} ./configure --prefix=$builddir/$rp-prefix --libdir=$builddir/$rp-prefix/$LIBDIRSTEM > configure.log 2>&1
  make > make.log 2>&1
  make check >> make.log
 )
