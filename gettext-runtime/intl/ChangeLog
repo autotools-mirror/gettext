@@ -1,3 +1,10 @@
+2006-06-23  Bruno Haible  <bruno@clisp.org>
+
+	* l10nflist.c (__argz_count, __argz_stringify, __argz_next): Define
+	using the non-underscored functions when available. Avoids warnings
+	on Cygwin.
+	Reported by Eric Blake.
+
 2006-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (libintl_printf): Define to __printf__ on NetBSD,

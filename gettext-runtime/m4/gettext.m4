@@ -1,4 +1,4 @@
-# gettext.m4 serial 51 (gettext-0.15)
+# gettext.m4 serial 52 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -511,8 +511,8 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
 
   AC_CHECK_HEADERS([argz.h limits.h unistd.h sys/param.h])
   AC_CHECK_FUNCS([getcwd getegid geteuid getgid getuid mempcpy munmap \
-    stpcpy strcasecmp strdup strtoul tsearch __argz_count __argz_stringify \
-    __argz_next __fsetlocking])
+    stpcpy strcasecmp strdup strtoul tsearch argz_count argz_stringify \
+    argz_next __fsetlocking])
 
   dnl Use the *_unlocked functions only if they are declared.
   dnl (because some of them were defined without being declared in Solaris

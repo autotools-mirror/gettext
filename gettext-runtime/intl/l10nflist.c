@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+/* Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -82,7 +82,12 @@ static char *stpcpy (char *dest, const char *src);
 
 /* Define function which are usually not available.  */
 
-#if !defined _LIBC && !defined HAVE___ARGZ_COUNT
+#ifdef _LIBC
+# define __argz_count(argz, len) INTUSE(__argz_count) (argz, len)
+#elif defined HAVE_ARGZ_COUNT
+# undef __argz_count
+# define __argz_count argz_count
+#else
 /* Returns the number of strings in ARGZ.  */
 static size_t
 argz_count__ (const char *argz, size_t len)
@@ -99,13 +104,15 @@ argz_count__ (const char *argz, size_t len)
 }
 # undef __argz_count
 # define __argz_count(argz, len) argz_count__ (argz, len)
-#else
-# ifdef _LIBC
-#  define __argz_count(argz, len) INTUSE(__argz_count) (argz, len)
-# endif
-#endif	/* !_LIBC && !HAVE___ARGZ_COUNT */
+#endif	/* !_LIBC && !HAVE_ARGZ_COUNT */
 
-#if !defined _LIBC && !defined HAVE___ARGZ_STRINGIFY
+#ifdef _LIBC
+# define __argz_stringify(argz, len, sep) \
+  INTUSE(__argz_stringify) (argz, len, sep)
+#elif defined HAVE_ARGZ_STRINGIFY
+# undef __argz_stringify
+# define __argz_stringify argz_stringify
+#else
 /* Make '\0' separated arg vector ARGZ printable by converting all the '\0's
    except the last into the character SEP.  */
 static void
@@ -122,14 +129,13 @@ argz_stringify__ (char *argz, size_t len, int sep)
 }
 # undef __argz_stringify
 # define __argz_stringify(argz, len, sep) argz_stringify__ (argz, len, sep)
-#else
-# ifdef _LIBC
-#  define __argz_stringify(argz, len, sep) \
-  INTUSE(__argz_stringify) (argz, len, sep)
-# endif
-#endif	/* !_LIBC && !HAVE___ARGZ_STRINGIFY */
+#endif	/* !_LIBC && !HAVE_ARGZ_STRINGIFY */
 
-#if !defined _LIBC && !defined HAVE___ARGZ_NEXT
+#ifdef _LIBC
+#elif defined HAVE_ARGZ_NEXT
+# undef __argz_next
+# define __argz_next argz_next
+#else
 static char *
 argz_next__ (char *argz, size_t argz_len, const char *entry)
 {
@@ -148,7 +154,7 @@ argz_next__ (char *argz, size_t argz_len, const char *entry)
 }
 # undef __argz_next
 # define __argz_next(argz, len, entry) argz_next__ (argz, len, entry)
-#endif	/* !_LIBC && !HAVE___ARGZ_NEXT */
+#endif	/* !_LIBC && !HAVE_ARGZ_NEXT */
 
 
 /* Return number of bits set in X.  */
