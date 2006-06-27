@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,11 +18,6 @@
 ## Process this file with automake to produce Makefile.in.
 
 VERSION = @VERSION@
-mandir = @mandir@
-docdir = @docdir@
-htmldir = $(docdir)
-
-localedir = $(datadir)/locale
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =

@@ -1,3 +1,8 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Assume autoconf >= 2.60.
+	* Makefile.am (docdir): Remove variable.
+
 2006-06-21  Bruno Haible  <bruno@clisp.org>
 
 	Avoid warnings from recent versions of mcs.

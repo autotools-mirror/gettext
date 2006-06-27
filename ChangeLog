@@ -1,3 +1,7 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Require autoconf-2.60.
+
 2006-03-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* m4/libtool.m4 (_LT_SYS_DYNAMIC_LINKER) [ linux ]: Avoid warning when

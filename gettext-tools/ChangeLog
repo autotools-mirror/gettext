@@ -1,3 +1,10 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Assume autoconf >= 2.60.
+	* configure.ac (localedir): Remove variable.
+	(docdir): If --docdir value was given, use that.
+	(mandir): Remove customization.
+
 2006-05-15  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll/export.h: Renamed from cygwin/export.h.

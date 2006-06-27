@@ -21,7 +21,6 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 SUBDIRS = po
 EXTRA_DIST =
 
-docdir = @docdir@
 examplesdir = $(docdir)/examples
 
 examples_DATA = installpaths

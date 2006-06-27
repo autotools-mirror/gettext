@@ -26,10 +26,7 @@ AM_INIT_AUTOMAKE(gettext-tools, $VERSION_NUMBER)
 AM_CONFIG_HEADER(config.h)
 
 dnl Installation directories.
-AC_SUBST([localedir], ['${datadir}/locale'])
-AC_SUBST([docdir], ['${datadir}/doc/gettext'])
-dnl Prefer modern Filesystem Hierarchy Standard over antiquated GNU standards.
-test "$mandir" != '${prefix}/man' || mandir='${datadir}/man'
+test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
 
 dnl Checks for programs.
 AC_PROG_CC

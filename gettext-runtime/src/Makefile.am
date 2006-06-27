@@ -25,8 +25,6 @@ RM = rm -f
 
 bin_PROGRAMS = gettext ngettext envsubst
 
-localedir = $(datadir)/locale
-
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \

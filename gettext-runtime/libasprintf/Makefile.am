@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2005 Free Software Foundation, Inc.
+## Copyright (C) 2002-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -86,12 +86,6 @@ clean-local:
 
 
 # Documentation.
-
-docdir = $(datadir)/doc/@PACKAGE@
-dvidir = $(docdir)
-psdir = $(docdir)
-pdfdir = $(docdir)
-htmldir = $(docdir)
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 MAKEINFOFLAGS = --no-split

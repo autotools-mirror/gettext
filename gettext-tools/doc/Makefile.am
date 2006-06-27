@@ -17,12 +17,6 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-docdir = @docdir@
-dvidir = $(docdir)
-psdir = $(docdir)
-pdfdir = $(docdir)
-htmldir = $(docdir)
-
 AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =
 MOSTLYCLEANFILES =

@@ -38,7 +38,6 @@ aclocal_DATA = \
 
 # Files installed for the examples.
 
-docdir = @docdir@
 examplesbuildauxdir = $(docdir)/examples/build-aux
 examplesbuildaux_DATA = \
   gcj.m4 javacomp.m4 javaexec.m4 \

@@ -153,7 +153,6 @@ EXTRA_DIST += javaversion.java
 
 # Files installed for the examples.
 
-docdir = @docdir@
 examplesbuildauxdir = $(docdir)/examples/build-aux
 examplesbuildaux_DATA = \
   javacomp.sh.in javaexec.sh.in \

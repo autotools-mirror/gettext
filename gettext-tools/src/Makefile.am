@@ -57,7 +57,6 @@ x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h
 
 EXTRA_DIST += FILES project-id ChangeLog.0
 
-localedir = $(datadir)/locale
 aliaspath = $(localedir)
 jardir = $(datadir)/gettext
 pkgdatadir = $(datadir)/gettext

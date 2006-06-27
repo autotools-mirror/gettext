@@ -1,3 +1,9 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Assume autoconf >= 2.60.
+	* Makefile.am (docdir): Remove variable.
+	* po/Makefile.am (localedir): Remove variable.
+
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c/{autoclean.sh,m4/Makefile.am}: Replace inttypes.m4 with

@@ -1,3 +1,8 @@
+2006-04-14  Bruno Haible  <bruno@clisp.org>
+
+	Assume autoconf >= 2.60.
+	* Makefile.am (localedir): Remove variable.
+
 2006-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: Include propername.h.
