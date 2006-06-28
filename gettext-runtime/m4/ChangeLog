@@ -1,3 +1,13 @@
+2006-06-15  Bruno Haible  <bruno@clisp.org>
+
+        * size_max.m4 (gl_SIZE_MAX): Make it work also when cross-compiling.
+
+2005-07-10  Bruno Haible  <bruno@clisp.org>
+
+        * size_max.m4 (gl_SIZE_MAX): Cast ~(size_t)0 back to size_t.
+        Needed when size_t is smaller than 'unsigned int'.
+        Reported by Paul Eggert.
+
 2006-01-08  Bruno Haible  <bruno@clisp.org>
 
         Ensure automatic ordering between gl_LOCK and gl_ARGP.
