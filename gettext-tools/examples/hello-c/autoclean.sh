@@ -23,7 +23,6 @@ rm -f m4/intmax.m4
 rm -f m4/inttypes-h.m4
 rm -f m4/inttypes-pri.m4
 rm -f m4/inttypes_h.m4
-rm -f m4/isc-posix.m4
 rm -f m4/lcmessage.m4
 rm -f m4/lib-ld.m4
 rm -f m4/lib-link.m4

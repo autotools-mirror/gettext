@@ -1,3 +1,13 @@
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c/{autoclean.sh,m4/Makefile.am}: Remove isc-posix.m4.
+	* hello-c-gnome/{autoclean.sh,m4/Makefile.am}: Likewise.
+	* hello-c++/{autoclean.sh,m4/Makefile.am}: Likewise.
+	* hello-c++-gnome/{autoclean.sh,m4/Makefile.am}: Likewise.
+	* hello-c++-kde/{autoclean.sh,m4/Makefile.am}: Likewise.
+	* hello-objc/{autoclean.sh,m4/Makefile.am}: Likewise.
+	* hello-objc-gnome/{autoclean.sh,m4/Makefile.am}: Likewise.
+
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
 	Assume autoconf >= 2.60.
