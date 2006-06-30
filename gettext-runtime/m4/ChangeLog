@@ -1,5 +1,10 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	* isc-posix.m4: Remove file.
+	* gettext.m4 (AM_INTL_SUBDIR): Remove AC_ISC_POSIX invocation.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume working 'const'.
 	* gettext.m4 (gt_INTL_SUBDIR_CORE): Remove AC_C_CONST invocation.
 

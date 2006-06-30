@@ -1,5 +1,9 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Remove AC_ISC_POSIX invocation.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume vprintf function.
 	* configure.ac: Remove AC_FUNC_VPRINTF invocation.
 	* Makefile.am (config.h_vms, config.h.msvc): Remove unused HAVE_VPRINTF

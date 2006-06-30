@@ -78,9 +78,6 @@ AC_SUBST(TESTCSHARP)
 dnl Check for host type.
 AC_CANONICAL_HOST
 
-dnl Checks for UNIX variants that set DEFS,
-AC_ISC_POSIX
-
 dnl Checks for compiler output filename suffixes.
 AC_OBJEXT
 AC_EXEEXT

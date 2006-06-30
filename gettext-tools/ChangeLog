@@ -1,5 +1,9 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Remove AC_ISC_POSIX invocation.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume ANSI C header files and <ctype.h> functions.
 	* configure.ac: Remove AC_HEADER_STDC invocation.
 
