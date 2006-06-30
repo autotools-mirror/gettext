@@ -1,3 +1,9 @@
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Assume correct S_ISDIR macro.
+	* write-csharp.c: Remove test of STAT_MACROS_BROKEN.
+	* write-java.c: Likewise.
+
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
 	Assume autoconf >= 2.60.

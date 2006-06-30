@@ -1,5 +1,11 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	Assume correct S_ISDIR macro.
+	* mkdtemp.c: Remove test of STAT_MACROS_BROKEN.
+	* tmpdir.c: Remove test of STAT_MACROS_BROKEN.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume ANSI C header files and <ctype.h> functions.
 	* fnmatch.c (ISASCII): Remove macro.
 	(isblank): Renamed from ISBLANK.
