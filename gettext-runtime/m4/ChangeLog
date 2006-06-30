@@ -1,6 +1,7 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* isc-posix.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
 	* gettext.m4 (AM_INTL_SUBDIR): Remove AC_ISC_POSIX invocation.
 
 2006-06-27  Bruno Haible  <bruno@clisp.org>

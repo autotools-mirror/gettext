@@ -14,7 +14,6 @@ intmax.m4 \
 inttypes-h.m4 \
 inttypes-pri.m4 \
 inttypes_h.m4 \
-isc-posix.m4 \
 lcmessage.m4 \
 lock.m4 \
 longdouble.m4 \

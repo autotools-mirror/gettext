@@ -1,5 +1,9 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (aclocal_DATA): Remove isc-posix.m4.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume correct S_ISDIR macro.
 	* tmpdir.m4 (gt_TMPDIR): Remove AC_STAT_MACROS_BROKEN invocation.
 

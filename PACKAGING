@@ -125,7 +125,6 @@ following file list.
       $prefix/share/aclocal/inttypes_h.m4
       $prefix/share/aclocal/inttypes-h.m4
       $prefix/share/aclocal/inttypes-pri.m4
-      $prefix/share/aclocal/isc-posix.m4
       $prefix/share/aclocal/lcmessage.m4
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
