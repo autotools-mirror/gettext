@@ -1,3 +1,8 @@
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Assume working 'const'.
+	* configure.ac: Remove AC_C_CONST invocation.
+
 2006-04-14  Bruno Haible  <bruno@clisp.org>
 
 	Assume autoconf >= 2.60.

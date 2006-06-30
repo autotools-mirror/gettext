@@ -1,4 +1,4 @@
-# gettext.m4 serial 52 (gettext-0.15)
+# gettext.m4 serial 53 (gettext-0.15)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -491,7 +491,6 @@ dnl   plural.y
 dnl Used by libglocale.
 AC_DEFUN([gt_INTL_SUBDIR_CORE],
 [
-  AC_REQUIRE([AC_C_CONST])dnl
   AC_REQUIRE([AC_C_INLINE])dnl
   AC_REQUIRE([AC_TYPE_SIZE_T])dnl
   AC_REQUIRE([gl_AC_HEADER_STDINT_H])

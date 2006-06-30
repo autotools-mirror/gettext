@@ -54,8 +54,7 @@ AS_IF([test $$2 = yes], [$3], [$4])
 # ------------------
 # Prepare the replacement of fnmatch.
 AC_DEFUN([_AC_LIBOBJ_FNMATCH],
-[AC_REQUIRE([AC_C_CONST])dnl
-AC_REQUIRE([AC_FUNC_ALLOCA])dnl
+[AC_REQUIRE([AC_FUNC_ALLOCA])dnl
 AC_REQUIRE([AC_TYPE_MBSTATE_T])dnl
 AC_CHECK_DECLS([getenv])
 AC_CHECK_FUNCS([btowc mbsrtowcs mempcpy wmemchr wmemcpy wmempcpy])

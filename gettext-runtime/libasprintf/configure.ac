@@ -53,7 +53,6 @@ dnl Checks for libraries.
 dnl Checks for header files.
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
 AC_C_INLINE
 bh_C_SIGNED
 AC_TYPE_SIZE_T

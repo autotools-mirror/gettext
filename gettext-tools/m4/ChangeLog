@@ -1,5 +1,10 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	Assume working 'const'.
+	* fnmatch.m4 (_AC_LIBOBJ_FNMATCH): Remove AC_C_CONST invocation.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	* setlocale.m4 (gt_SETLOCALE): Assume <locale.h> exists.
 
 2006-04-14  Bruno Haible  <bruno@clisp.org>

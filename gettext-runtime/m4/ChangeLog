@@ -1,3 +1,8 @@
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Assume working 'const'.
+	* gettext.m4 (gt_INTL_SUBDIR_CORE): Remove AC_C_CONST invocation.
+
 2006-06-15  Bruno Haible  <bruno@clisp.org>
 
         * size_max.m4 (gl_SIZE_MAX): Make it work also when cross-compiling.
