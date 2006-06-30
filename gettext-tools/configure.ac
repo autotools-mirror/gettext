@@ -155,7 +155,6 @@ fi
 
 dnl Checks for library functions.
 gl_ALLOCSA
-AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
 utime utimes waitid])
 AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn \

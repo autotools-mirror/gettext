@@ -1,5 +1,12 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	Assume vprintf function.
+	* configure.ac: Remove AC_FUNC_VPRINTF invocation.
+	* Makefile.am (config.h_vms, config.h.msvc): Remove unused HAVE_VPRINTF
+	substitution.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (config.h_vms, config.h.msvc): Drop unused HAVE_LOCALE_H
 	substitution.
 

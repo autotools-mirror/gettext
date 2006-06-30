@@ -8,7 +8,6 @@ BEGIN{
   cfg["HAVE_ALLOCA"] = 1;
   cfg["HAVE_ALLOCA_H"] = 1;
   cfg["HAVE_LONG_FILE_NAMES"] = 1;
-  cfg["HAVE_VPRINTF"] = 1;
   cfg["STDC_HEADERS"] = 1;
   cfg["HAVE_GETCWD"] = 1;
   cfg["HAVE_GETEGID"] = 1;

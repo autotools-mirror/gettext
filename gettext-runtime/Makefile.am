@@ -96,7 +96,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_UNISTD_H$$/#define HAVE_UNISTD_H 1/' \
 	     -e 's/#undef HAVE_UNSETENV$$/#define HAVE_UNSETENV 1/' \
 	     -e 's/#undef HAVE_UNSIGNED_LONG_LONG$$/#define HAVE_UNSIGNED_LONG_LONG 1/' \
-	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	     -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	     -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	     -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
@@ -157,7 +156,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_STRTOUL$$/#define HAVE_STRTOUL 1/' \
 	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
 	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
-	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \

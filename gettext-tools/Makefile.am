@@ -121,7 +121,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_UTIMES$$/#define HAVE_UTIMES 1/' \
 	     -e 's/#undef HAVE_UTIME_H$$/#define HAVE_UTIME_H 1/' \
 	     -e 's/#undef HAVE_VFORK$$/#define HAVE_VFORK 1/' \
-	     -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	     -e 's/#undef HAVE_WAITPID$$/#define HAVE_WAITPID 1/' \
 	     -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
 	     -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
@@ -200,7 +199,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_SYS_STAT_H$$/#define HAVE_SYS_STAT_H 1/' \
 	    -e 's/#undef HAVE_SYS_TYPES_H$$/#define HAVE_SYS_TYPES_H 1/' \
 	    -e 's/#undef HAVE_TIME_H$$/#define HAVE_TIME_H 1/' \
-	    -e 's/#undef HAVE_VPRINTF$$/#define HAVE_VPRINTF 1/' \
 	    -e 's/#undef HAVE_WCHAR_H$$/#define HAVE_WCHAR_H 1/' \
 	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
 	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
