@@ -1,5 +1,5 @@
 /* Determine the number of screen columns needed for a string.
-   Copyright (C) 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 2000-2004, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -74,18 +74,6 @@ int wcwidth ();
 #  define wcwidth(wc) ((wc) == 0 ? 0 : iswprint (wc) ? 1 : -1)
 # endif
 #endif
-
-/* Get ISPRINT.  */
-#if defined (STDC_HEADERS) || (!defined (isascii) && !defined (HAVE_ISASCII))
-# define IN_CTYPE_DOMAIN(c) 1
-#else
-# define IN_CTYPE_DOMAIN(c) isascii(c)
-#endif
-/* Undefine to protect against the definition in wctype.h of Solaris 2.6.   */
-#undef ISPRINT
-#define ISPRINT(c) (IN_CTYPE_DOMAIN (c) && isprint (c))
-#undef ISCNTRL
-#define ISCNTRL(c) (IN_CTYPE_DOMAIN (c) && iscntrl (c))
 
 /* Returns the number of columns needed to represent the multibyte
    character string pointed to by STRING.  If a non-printable character
@@ -208,10 +196,10 @@ mbsnwidth (const char *string, size_t nbytes, int flags)
     {
       unsigned char c = (unsigned char) *p++;
 
-      if (ISPRINT (c))
+      if (isprint (c))
 	width++;
       else if (!(flags & MBSW_REJECT_UNPRINTABLE))
-	width += (ISCNTRL (c) ? 0 : 1);
+	width += (iscntrl (c) ? 0 : 1);
       else
 	return -1;
     }

@@ -1,4 +1,4 @@
-/* Copyright (C) 1991,1992,1993,1996,1997,1998,1999,2000,2001,2002,2003,2004
+/* Copyright (C) 1991-1993,1996-1999,2000-2004,2006
 	Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -288,18 +288,18 @@ FCT (const CHAR *pattern, const CHAR *string, const CHAR *string_end,
 		      goto matched;
 # endif
 #else
-		    if ((STREQ (str, L("alnum")) && ISALNUM ((UCHAR) *n))
-			|| (STREQ (str, L("alpha")) && ISALPHA ((UCHAR) *n))
-			|| (STREQ (str, L("blank")) && ISBLANK ((UCHAR) *n))
-			|| (STREQ (str, L("cntrl")) && ISCNTRL ((UCHAR) *n))
-			|| (STREQ (str, L("digit")) && ISDIGIT ((UCHAR) *n))
-			|| (STREQ (str, L("graph")) && ISGRAPH ((UCHAR) *n))
-			|| (STREQ (str, L("lower")) && ISLOWER ((UCHAR) *n))
-			|| (STREQ (str, L("print")) && ISPRINT ((UCHAR) *n))
-			|| (STREQ (str, L("punct")) && ISPUNCT ((UCHAR) *n))
-			|| (STREQ (str, L("space")) && ISSPACE ((UCHAR) *n))
-			|| (STREQ (str, L("upper")) && ISUPPER ((UCHAR) *n))
-			|| (STREQ (str, L("xdigit")) && ISXDIGIT ((UCHAR) *n)))
+		    if ((STREQ (str, L("alnum")) && isalnum ((UCHAR) *n))
+			|| (STREQ (str, L("alpha")) && isalpha ((UCHAR) *n))
+			|| (STREQ (str, L("blank")) && isblank ((UCHAR) *n))
+			|| (STREQ (str, L("cntrl")) && iscntrl ((UCHAR) *n))
+			|| (STREQ (str, L("digit")) && isdigit ((UCHAR) *n))
+			|| (STREQ (str, L("graph")) && isgraph ((UCHAR) *n))
+			|| (STREQ (str, L("lower")) && islower ((UCHAR) *n))
+			|| (STREQ (str, L("print")) && isprint ((UCHAR) *n))
+			|| (STREQ (str, L("punct")) && ispunct ((UCHAR) *n))
+			|| (STREQ (str, L("space")) && isspace ((UCHAR) *n))
+			|| (STREQ (str, L("upper")) && isupper ((UCHAR) *n))
+			|| (STREQ (str, L("xdigit")) && isxdigit ((UCHAR) *n)))
 		      goto matched;
 #endif
 		    c = *p++;

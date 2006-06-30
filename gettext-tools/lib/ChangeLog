@@ -1,3 +1,19 @@
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
+	Assume ANSI C header files and <ctype.h> functions.
+	* fnmatch.c (ISASCII): Remove macro.
+	(isblank): Renamed from ISBLANK.
+	(isgraph): Renamed from isgraph.
+	(ISPRINT, ISDIGIT, ISALNUM, ISALPHA, ISCNTRL, ISLOWER, ISPUNCT,
+	ISSPACE, ISUPPER, ISXDIGIT): Remove macros.
+	(FOLD): Update.
+	* fnmatch_loop.c (FCT): Update.
+	* getndelim2.c: Include <stdlib.h> always.
+	* mbswidth.c (IN_CTYPE_DOMAIN, ISPRINT, ISCNTRL): Remove macros.
+	(mbsnwidth): Use isprint, iscntrl instead.
+	* strtol.c (IN_CTYPE_DOMAIN): Remove macro.
+	(ISSPACE, ISALPHA, TOUPPER): Use isspace, isalpha, toupper directly.
+
 2006-06-28  Bruno Haible  <bruno@clisp.org>
 
         * xvasprintf.h: Update from gnulib.

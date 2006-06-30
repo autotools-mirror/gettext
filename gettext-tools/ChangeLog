@@ -1,5 +1,10 @@
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
+	Assume ANSI C header files and <ctype.h> functions.
+	* configure.ac: Remove AC_HEADER_STDC invocation.
+
+2006-06-27  Bruno Haible  <bruno@clisp.org>
+
 	Assume vprintf function.
 	* configure.ac: Remove AC_FUNC_VPRINTF invocation.
 	* Makefile.am (config.h_vms, config.h.msvc): Remove unused HAVE_VPRINTF
