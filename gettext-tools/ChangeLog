@@ -1,6 +1,7 @@
 2006-06-29  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Remove AC_CONFIG_FILES for files in examples subdir.
+	Use AC_CONFIG_SUBDIRS instead.
 
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 

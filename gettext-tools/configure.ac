@@ -338,6 +338,8 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
+AC_CONFIG_SUBDIRS(examples)
+
 AC_CONFIG_FILES([Makefile])
 
 AC_CONFIG_FILES([doc/Makefile],
