@@ -53,6 +53,8 @@ struct tempdir
 {
   /* The absolute pathname of the directory.  */
   char * volatile dirname;
+  /* Whether errors during explicit cleanup are reported to standard error.  */
+  bool cleanup_verbose;
   /* Absolute pathnames of subdirectories.  */
   char * volatile * volatile subdir;
   size_t volatile subdir_count;
@@ -116,10 +118,15 @@ cleanup ()
 /* Create a temporary directory.
    PREFIX is used as a prefix for the name of the temporary directory. It
    should be short and still give an indication about the program.
+   PARENTDIR can be used to specify the parent directory; if NULL, a default
+   parent directory is used (either $TMPDIR or /tmp or similar).
+   CLEANUP_VERBOSE determines whether errors during explicit cleanup are
+   reported to standard error.
    Return a fresh 'struct temp_dir' on success.  Upon error, an error message
    is shown and NULL is returned.  */
 struct temp_dir *
-create_temp_dir (const char *prefix)
+create_temp_dir (const char *prefix, const char *parentdir,
+		 bool cleanup_verbose)
 {
   struct tempdir * volatile *tmpdirp = NULL;
   struct tempdir *tmpdir;
@@ -178,9 +185,10 @@ create_temp_dir (const char *prefix)
       cleanup_list.tempdir_count++;
     }
 
-  /* Initialize a 'struct tmpdir'.  */
+  /* Initialize a 'struct tempdir'.  */
   tmpdir = (struct tempdir *) xmalloc (sizeof (struct tempdir));
   tmpdir->dirname = NULL;
+  tmpdir->cleanup_verbose = cleanup_verbose;
   tmpdir->subdir = NULL;
   tmpdir->subdir_count = 0;
   tmpdir->subdir_allocated = 0;
@@ -190,7 +198,7 @@ create_temp_dir (const char *prefix)
 
   /* Create the temporary directory.  */
   template = (char *) xallocsa (PATH_MAX);
-  if (path_search (template, PATH_MAX, NULL, prefix, true))
+  if (path_search (template, PATH_MAX, parentdir, prefix, parentdir == NULL))
     {
       error (0, errno,
 	     _("cannot find a temporary directory, try setting $TMPDIR"));
@@ -380,12 +388,31 @@ dequeue_temp_subdir (struct temp_dir *dir,
       }
 }
 
+/* Remove a file, with optional error message.  */
+static void
+do_unlink (struct temp_dir *dir, const char *absolute_file_name)
+{
+  if (unlink (absolute_file_name) < 0 && dir->cleanup_verbose
+      && errno != ENOENT)
+    error (0, errno, _("cannot remove temporary file %s"), absolute_file_name);
+}
+
+/* Remove a directory, with optional error message.  */
+static void
+do_rmdir (struct temp_dir *dir, const char *absolute_dir_name)
+{
+  if (rmdir (absolute_dir_name) < 0 && dir->cleanup_verbose
+      && errno != ENOENT)
+    error (0, errno,
+	   _("cannot remove temporary directory %s"), absolute_dir_name);
+}
+
 /* Remove the given ABSOLUTE_FILE_NAME and unregister it.  */
 void
 cleanup_temp_file (struct temp_dir *dir,
 		   const char *absolute_file_name)
 {
-  unlink (absolute_file_name);
+  do_unlink (dir, absolute_file_name);
   dequeue_temp_file (dir, absolute_file_name);
 }
 
@@ -394,7 +421,7 @@ void
 cleanup_temp_subdir (struct temp_dir *dir,
 		     const char *absolute_dir_name)
 {
-  rmdir (absolute_dir_name);
+  do_rmdir (dir, absolute_dir_name);
   dequeue_temp_subdir (dir, absolute_dir_name);
 }
 
@@ -411,7 +438,7 @@ cleanup_temp_dir_contents (struct temp_dir *dir)
       {
 	char *file = tmpdir->file[--j];
 	if (file != NULL)
-	  unlink (file);
+	  do_unlink (dir, file);
 	tmpdir->file_count = j;
 	/* Now only we can free file.  */
 	if (file != NULL)
@@ -426,7 +453,7 @@ cleanup_temp_dir_contents (struct temp_dir *dir)
       {
 	char *subdir = tmpdir->subdir[--j];
 	if (subdir != NULL)
-	  rmdir (subdir);
+	  do_rmdir (dir, subdir);
 	tmpdir->subdir_count = j;
 	/* Now only we can free subdir.  */
 	if (subdir != NULL)
@@ -445,7 +472,7 @@ cleanup_temp_dir (struct temp_dir *dir)
   size_t i;
 
   cleanup_temp_dir_contents (dir);
-  rmdir (tmpdir->dirname);
+  do_rmdir (dir, tmpdir->dirname);
 
   for (i = 0; i < cleanup_list.tempdir_count; i++)
     if (cleanup_list.tempdir_list[i] == tmpdir)

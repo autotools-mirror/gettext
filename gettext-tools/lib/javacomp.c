@@ -606,7 +606,7 @@ is_envjavac_gcj_14_14_usable (const char *javac, bool *usablep)
       const char *java_sources[1];
       struct stat statbuf;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 
@@ -667,7 +667,7 @@ is_envjavac_gcj_14_13_usable (const char *javac,
       char *javac_noassert;
       bool javac_noassert_works;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 
@@ -807,7 +807,7 @@ is_envjavac_nongcj_usable (const char *javac,
       const char *java_sources[1];
       struct stat statbuf;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 
@@ -1100,7 +1100,7 @@ is_gcj_present (void)
 	  /* See if libgcj.jar is well installed.  */
 	  struct temp_dir *tmpdir;
 
-	  tmpdir = create_temp_dir ("java");
+	  tmpdir = create_temp_dir ("java", NULL, false);
 	  if (tmpdir == NULL)
 	    gcj_present = false;
 	  else
@@ -1164,7 +1164,7 @@ is_gcj_14_14_usable (bool *usablep)
       const char *java_sources[1];
       struct stat statbuf;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 
@@ -1221,7 +1221,7 @@ is_gcj_14_13_usable (bool *usablep, bool *need_no_assert_option_p)
       const char *java_sources[1];
       struct stat statbuf;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 
@@ -1328,7 +1328,7 @@ is_javac_usable (const char *source_version, const char *target_version,
       const char *java_sources[1];
       struct stat statbuf;
 
-      tmpdir = create_temp_dir ("java");
+      tmpdir = create_temp_dir ("java", NULL, false);
       if (tmpdir == NULL)
 	return true;
 

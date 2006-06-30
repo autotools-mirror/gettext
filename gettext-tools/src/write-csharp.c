@@ -633,7 +633,7 @@ but the C# .dll format doesn't support contexts\n")));
      tmpnam(), tempnam() present a security risk, and on the other hand the
      function mkstemp() doesn't allow to specify a fixed suffix of the file.
      It is simpler to create a temporary directory.  */
-  tmpdir = create_temp_dir ("msg");
+  tmpdir = create_temp_dir ("msg", NULL, false);
   if (tmpdir == NULL)
     goto quit1;
 

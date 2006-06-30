@@ -1,3 +1,18 @@
+2006-06-29  Bruno Haible  <bruno@clisp.org>
+
+	* clean-temp.h: Include <stdbool.h>.
+	(struct temp_dir): Add cleanup_verbose field.
+	(create_temp_dir): Add parentdir, cleanup_verbose arguments.
+	* clean-temp.c (struct tempdir): Add cleanup_verbose field.
+	(create_temp_dir): Add parentdir, cleanup_verbose arguments.
+	(do_unlink. do_rmdir): New functions.
+	(cleanup_temp_file, cleanup_temp_subdir, cleanup_temp_dir_contents,
+	cleanup_temp_dir): Use them.
+	* javacomp.c (is_envjavac_gcj_14_14_usable,
+	is_envjavac_gcj_14_13_usable, is_envjavac_nongcj_usable,
+	is_gcj_present, is_gcj_14_14_usable, is_gcj_14_13_usable,
+	is_javac_usable): Update.
+
 2006-06-28  Bruno Haible  <bruno@clisp.org>
 
 	Assume <dirent.h> on all Unix platforms. Assume closedir works.

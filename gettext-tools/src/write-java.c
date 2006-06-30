@@ -930,7 +930,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
   /* Create a temporary directory where we can put the Java file.  */
-  tmpdir = create_temp_dir ("msg");
+  tmpdir = create_temp_dir ("msg", NULL, false);
   if (tmpdir == NULL)
     goto quit1;
 

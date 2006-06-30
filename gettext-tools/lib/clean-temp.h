@@ -19,6 +19,8 @@
 #ifndef _CLEAN_TEMP_H
 #define _CLEAN_TEMP_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -38,15 +40,23 @@ struct temp_dir
 {
   /* The absolute pathname of the directory.  */
   const char * const dir_name;
+  /* Whether errors during explicit cleanup are reported to standard error.  */
+  bool cleanup_verbose;
   /* More fields are present here, but not public.  */
 };
 
 /* Create a temporary directory.
    PREFIX is used as a prefix for the name of the temporary directory. It
    should be short and still give an indication about the program.
+   PARENTDIR can be used to specify the parent directory; if NULL, a default
+   parent directory is used (either $TMPDIR or /tmp or similar).
+   CLEANUP_VERBOSE determines whether errors during explicit cleanup are
+   reported to standard error.
    Return a fresh 'struct temp_dir' on success.  Upon error, an error message
    is shown and NULL is returned.  */
-extern struct temp_dir * create_temp_dir (const char *prefix);
+extern struct temp_dir * create_temp_dir (const char *prefix,
+					  const char *parentdir,
+					  bool cleanup_verbose);
 
 /* Register the given ABSOLUTE_FILE_NAME as being a file inside DIR, that
    needs to be removed before DIR can be removed.
