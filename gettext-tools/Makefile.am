@@ -73,7 +73,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
 	     -e 's/#undef HAVE_LIBEXPAT$$/#define HAVE_LIBEXPAT 1/' \
 	     -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
-	     -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	     -e 's/#undef HAVE_LONG_FILE_NAMES$$/#define HAVE_LONG_FILE_NAMES 1/' \
 	     -e 's/#undef HAVE_MALLOC_H$$/#define HAVE_MALLOC_H 1/' \
 	     -e 's/#undef HAVE_MBRTOWC$$/#define HAVE_MBRTOWC 1/' \
@@ -179,7 +178,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_ISWCNTRL$$/#define HAVE_ISWCNTRL 1/' \
 	    -e 's/#undef HAVE_ISWPRINT$$/#define HAVE_ISWPRINT 1/' \
 	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
-	    -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	    -e 's/#undef HAVE_LONG_FILE_NAMES$$/#define HAVE_LONG_FILE_NAMES 1/' \
 	    -e 's/#undef HAVE_MEMCHR$$/#define HAVE_MEMCHR 1/' \
 	    -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \

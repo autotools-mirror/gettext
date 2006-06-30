@@ -68,7 +68,6 @@ config.h_vms: config.h.in ../version.sh
 	     -e 's/#undef HAVE_LANGINFO_CODESET$$/#define HAVE_LANGINFO_CODESET 1/' \
 	     -e 's/#undef HAVE_LC_MESSAGES$$/#define HAVE_LC_MESSAGES 1/' \
 	     -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
-	     -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	     -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
 	     -e 's/#undef HAVE_LONG_LONG$$/#define HAVE_LONG_LONG 1/' \
 	     -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
@@ -143,7 +142,6 @@ config.h.msvc: config.h.in ../version.sh
 	    -e 's/#undef HAVE_GETCWD$$/#define HAVE_GETCWD 1/' \
 	    -e 's/#undef HAVE_ICONV$$/#define HAVE_ICONV 1/' \
 	    -e 's/#undef HAVE_LIMITS_H$$/#define HAVE_LIMITS_H 1/' \
-	    -e 's/#undef HAVE_LOCALE_H$$/#define HAVE_LOCALE_H 1/' \
 	    -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
 	    -e 's/#undef HAVE_MEMMOVE$$/#define HAVE_MEMMOVE 1/' \
 	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
