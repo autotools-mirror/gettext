@@ -1,3 +1,9 @@
+2006-06-29  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: New file.
+	* Makefile.am (AUTOMAKE_OPTIONS): Drop gnits, use foreign instead.
+	* po/Makefile.am (POTFILES): Remove examples/ prefix.
+
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c/{autoclean.sh,m4/Makefile.am}: Remove isc-posix.m4.

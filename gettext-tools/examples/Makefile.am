@@ -17,7 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.2 gnits
+AUTOMAKE_OPTIONS = 1.2 foreign
 SUBDIRS = po
 EXTRA_DIST =
 

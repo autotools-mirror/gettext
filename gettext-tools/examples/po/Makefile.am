@@ -21,41 +21,41 @@ AUTOMAKE_OPTIONS = 1.5 gnits
 
 # List of files which contain translatable strings.
 POTFILES = \
-  examples/hello-c/hello.c \
-  examples/hello-c-gnome/hello.c \
-  examples/hello-c++/hello.cc \
-  examples/hello-c++-qt/hello.cc \
-  examples/hello-c++-kde/hello.cc \
-  examples/hello-c++-kde/hellowindow.h \
-  examples/hello-c++-kde/hellowindow.cc \
-  examples/hello-c++-gnome/hello.cc \
-  examples/hello-c++-wxwidgets/hello.cc \
-  examples/hello-objc/hello.m \
-  examples/hello-objc-gnustep/main.m \
-  examples/hello-objc-gnustep/AppController.h \
-  examples/hello-objc-gnustep/AppController.m \
-  examples/hello-objc-gnustep/Hello.h \
-  examples/hello-objc-gnustep/Hello.m \
-  examples/hello-objc-gnome/hello.m \
-  examples/hello-sh/hello.sh \
-  examples/hello-python/hello.py.in \
-  examples/hello-clisp/hello.lisp.in \
-  examples/hello-librep/hello.jl.in \
-  examples/hello-guile/hello.scm \
-  examples/hello-smalltalk/hello.st.in \
-  examples/hello-java/Hello.java \
-  examples/hello-java-awt/Hello.java \
-  examples/hello-java-swing/Hello.java \
-  examples/hello-csharp/hello.cs \
-  examples/hello-csharp-forms/hello.cs \
-  examples/hello-gawk/hello.awk \
-  examples/hello-pascal/hello.pas \
-  examples/hello-ycp/hello.ycp \
-  examples/hello-tcl/hello.tcl \
-  examples/hello-tcl-tk/hello.tcl \
-  examples/hello-perl/hello-1.pl.in \
-  examples/hello-perl/hello-2.pl.in \
-  examples/hello-php/hello.php
+  hello-c/hello.c \
+  hello-c-gnome/hello.c \
+  hello-c++/hello.cc \
+  hello-c++-qt/hello.cc \
+  hello-c++-kde/hello.cc \
+  hello-c++-kde/hellowindow.h \
+  hello-c++-kde/hellowindow.cc \
+  hello-c++-gnome/hello.cc \
+  hello-c++-wxwidgets/hello.cc \
+  hello-objc/hello.m \
+  hello-objc-gnustep/main.m \
+  hello-objc-gnustep/AppController.h \
+  hello-objc-gnustep/AppController.m \
+  hello-objc-gnustep/Hello.h \
+  hello-objc-gnustep/Hello.m \
+  hello-objc-gnome/hello.m \
+  hello-sh/hello.sh \
+  hello-python/hello.py.in \
+  hello-clisp/hello.lisp.in \
+  hello-librep/hello.jl.in \
+  hello-guile/hello.scm \
+  hello-smalltalk/hello.st.in \
+  hello-java/Hello.java \
+  hello-java-awt/Hello.java \
+  hello-java-swing/Hello.java \
+  hello-csharp/hello.cs \
+  hello-csharp-forms/hello.cs \
+  hello-gawk/hello.awk \
+  hello-pascal/hello.pas \
+  hello-ycp/hello.ycp \
+  hello-tcl/hello.tcl \
+  hello-tcl-tk/hello.tcl \
+  hello-perl/hello-1.pl.in \
+  hello-perl/hello-2.pl.in \
+  hello-php/hello.php
 
 # List of small POT files.
 SMALLPOTS = \

@@ -1,3 +1,8 @@
+2006-06-29  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Recurse also into the gettext-tools/examples directory
+	and update the PO files there.
+
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Don't mention isc-posix.m4.

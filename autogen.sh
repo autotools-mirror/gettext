@@ -51,7 +51,13 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  autoconf
  autoheader && touch config.h.in
  automake
- (cd examples/po && make update-po)
+)
+
+(cd gettext-tools/examples
+ aclocal -I ../../gettext-runtime/m4 -I ../../m4
+ autoconf
+ automake
+ ./configure && (cd po && make update-po) && make distclean
 )
 
 cp -p autoconf-lib-link/config.rpath build-aux/config.rpath
