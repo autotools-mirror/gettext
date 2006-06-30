@@ -64,8 +64,6 @@
 * The 'mkinstalldirs' shell script is no longer needed and no longer installed
   by gettextize.
 
-* Updated the meaning of 'gcc-internal-format' to match GCC 4.1.
-
 * Portability:
   - Building on mingw is now supported.
   - Building shared libraries (--enable-shared) on Cygwin and mingw is now
