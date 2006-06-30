@@ -1,3 +1,10 @@
+2006-06-28  Bruno Haible  <bruno@clisp.org>
+
+	Assume <dirent.h> on all Unix platforms. Assume closedir works.
+	* backupfile.c: Don't include <sys/ndir.h>, <sys/dir.h>, <ndir.h>.
+	(NLENGTH): Remove macro.
+	(max_backup_version): Use closedir directly.
+
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
 	Assume correct S_ISDIR macro.

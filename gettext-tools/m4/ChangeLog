@@ -1,3 +1,9 @@
+2006-06-28  Bruno Haible  <bruno@clisp.org>
+
+	Assume <dirent.h> on all Unix platforms. Assume closedir works.
+	* backupfile.m4 (gt_PREREQ_BACKUPFILE): Don't invoke AC_HEADER_DIRENT,
+	AC_FUNC_CLOSEDIR_VOID. Instead test for dirent.h.
+
 2006-06-27  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Remove isc-posix.m4.

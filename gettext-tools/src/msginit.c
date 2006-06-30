@@ -41,27 +41,9 @@
 
 #if HAVE_DIRENT_H
 # include <dirent.h>
-#else
-# define dirent direct
-# if HAVE_SYS_NDIR_H
-#  include <sys/ndir.h>
-# endif
-# if HAVE_SYS_DIR_H
-#  include <sys/dir.h>
-# endif
-# if HAVE_NDIR_H
-#  include <ndir.h>
-# endif
 #endif
 
-#if CLOSEDIR_VOID
-/* Fake a return value. */
-# define CLOSEDIR(d) (closedir (d), 0)
-#else
-# define CLOSEDIR(d) closedir (d)
-#endif
-
-#if HAVE_DIRENT_H || HAVE_NDIR_H || HAVE_SYS_DIR_H || HAVE_SYS_NDIR_H
+#if HAVE_DIRENT_H
 # define HAVE_DIR 1
 #else
 # define HAVE_DIR 0
@@ -468,7 +450,7 @@ Please specify the input .pot file through the --input option.\n")));
 	  else
 	    break;
 	}
-      if (CLOSEDIR (dirp))
+      if (closedir (dirp))
 	error (EXIT_FAILURE, errno, _("error reading current directory"));
 
       if (found != NULL)

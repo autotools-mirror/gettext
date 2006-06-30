@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-1999, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1990-1999, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,33 +36,13 @@
 
 #if HAVE_DIRENT_H
 # include <dirent.h>
-# define NLENGTH(direct) strlen ((direct)->d_name)
-#else
-# define dirent direct
-# define NLENGTH(direct) ((size_t) (direct)->d_namlen)
-# if HAVE_SYS_NDIR_H
-#  include <sys/ndir.h>
-# endif
-# if HAVE_SYS_DIR_H
-#  include <sys/dir.h>
-# endif
-# if HAVE_NDIR_H
-#  include <ndir.h>
-# endif
-#endif
-
-#if CLOSEDIR_VOID
-/* Fake a return value. */
-# define CLOSEDIR(d) (closedir (d), 0)
-#else
-# define CLOSEDIR(d) closedir (d)
 #endif
 
 #include <stdlib.h>
 
 #include "basename.h"
 
-#if HAVE_DIRENT_H || HAVE_NDIR_H || HAVE_SYS_DIR_H || HAVE_SYS_NDIR_H
+#if HAVE_DIRENT_H
 # define HAVE_DIR 1
 #else
 # define HAVE_DIR 0
@@ -172,14 +152,14 @@ max_backup_version (const char *file, const char *dir)
 
   while ((dp = readdir (dirp)) != 0)
     {
-      if (!REAL_DIR_ENTRY (dp) || NLENGTH (dp) < file_name_length + 4)
+      if (!REAL_DIR_ENTRY (dp) || strlen (dp->d_name) < file_name_length + 4)
 	continue;
 
       this_version = version_number (file, dp->d_name, file_name_length);
       if (this_version > highest_version)
 	highest_version = this_version;
     }
-  if (CLOSEDIR (dirp))
+  if (closedir (dirp))
     return 0;
   return highest_version;
 }
