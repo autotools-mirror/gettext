@@ -41,6 +41,7 @@ EXAMPLESFILES = \
   hello-c/po/ca.po \
   hello-c/po/de.po \
   hello-c/po/el.po \
+  hello-c/po/eo.po \
   hello-c/po/es.po \
   hello-c/po/fr.po \
   hello-c/po/ga.po \
@@ -79,6 +80,7 @@ EXAMPLESFILES = \
   hello-c-gnome/po/ca.po \
   hello-c-gnome/po/de.po \
   hello-c-gnome/po/el.po \
+  hello-c-gnome/po/eo.po \
   hello-c-gnome/po/es.po \
   hello-c-gnome/po/fr.po \
   hello-c-gnome/po/ga.po \
@@ -114,6 +116,7 @@ EXAMPLESFILES = \
   hello-c++/po/ca.po \
   hello-c++/po/de.po \
   hello-c++/po/el.po \
+  hello-c++/po/eo.po \
   hello-c++/po/es.po \
   hello-c++/po/fr.po \
   hello-c++/po/ga.po \
@@ -150,6 +153,7 @@ EXAMPLESFILES = \
   hello-c++-qt/po/ca.po \
   hello-c++-qt/po/de.po \
   hello-c++-qt/po/el.po \
+  hello-c++-qt/po/eo.po \
   hello-c++-qt/po/es.po \
   hello-c++-qt/po/fr.po \
   hello-c++-qt/po/ga.po \
@@ -212,6 +216,7 @@ EXAMPLESFILES = \
   hello-c++-kde/po/ca.po \
   hello-c++-kde/po/de.po \
   hello-c++-kde/po/el.po \
+  hello-c++-kde/po/eo.po \
   hello-c++-kde/po/es.po \
   hello-c++-kde/po/fr.po \
   hello-c++-kde/po/ga.po \
@@ -252,6 +257,7 @@ EXAMPLESFILES = \
   hello-c++-gnome/po/ca.po \
   hello-c++-gnome/po/de.po \
   hello-c++-gnome/po/el.po \
+  hello-c++-gnome/po/eo.po \
   hello-c++-gnome/po/es.po \
   hello-c++-gnome/po/fr.po \
   hello-c++-gnome/po/ga.po \
@@ -287,6 +293,7 @@ EXAMPLESFILES = \
   hello-c++-wxwidgets/po/ca.po \
   hello-c++-wxwidgets/po/de.po \
   hello-c++-wxwidgets/po/el.po \
+  hello-c++-wxwidgets/po/eo.po \
   hello-c++-wxwidgets/po/es.po \
   hello-c++-wxwidgets/po/fr.po \
   hello-c++-wxwidgets/po/ga.po \
@@ -322,6 +329,7 @@ EXAMPLESFILES = \
   hello-objc/po/ca.po \
   hello-objc/po/de.po \
   hello-objc/po/el.po \
+  hello-objc/po/eo.po \
   hello-objc/po/es.po \
   hello-objc/po/fr.po \
   hello-objc/po/ga.po \
@@ -360,6 +368,7 @@ EXAMPLESFILES = \
   hello-objc-gnustep/po/ca.po \
   hello-objc-gnustep/po/de.po \
   hello-objc-gnustep/po/el.po \
+  hello-objc-gnustep/po/eo.po \
   hello-objc-gnustep/po/es.po \
   hello-objc-gnustep/po/fr.po \
   hello-objc-gnustep/po/ga.po \
@@ -398,6 +407,7 @@ EXAMPLESFILES = \
   hello-objc-gnome/po/ca.po \
   hello-objc-gnome/po/de.po \
   hello-objc-gnome/po/el.po \
+  hello-objc-gnome/po/eo.po \
   hello-objc-gnome/po/es.po \
   hello-objc-gnome/po/fr.po \
   hello-objc-gnome/po/ga.po \
@@ -432,6 +442,7 @@ EXAMPLESFILES = \
   hello-sh/po/ca.po \
   hello-sh/po/de.po \
   hello-sh/po/el.po \
+  hello-sh/po/eo.po \
   hello-sh/po/es.po \
   hello-sh/po/fr.po \
   hello-sh/po/ga.po \
@@ -466,6 +477,7 @@ EXAMPLESFILES = \
   hello-python/po/ca.po \
   hello-python/po/de.po \
   hello-python/po/el.po \
+  hello-python/po/eo.po \
   hello-python/po/es.po \
   hello-python/po/fr.po \
   hello-python/po/ga.po \
@@ -500,6 +512,7 @@ EXAMPLESFILES = \
   hello-clisp/po/ca.po \
   hello-clisp/po/de.po \
   hello-clisp/po/el.po \
+  hello-clisp/po/eo.po \
   hello-clisp/po/es.po \
   hello-clisp/po/fr.po \
   hello-clisp/po/ga.po \
@@ -534,6 +547,7 @@ EXAMPLESFILES = \
   hello-librep/po/ca.po \
   hello-librep/po/de.po \
   hello-librep/po/el.po \
+  hello-librep/po/eo.po \
   hello-librep/po/es.po \
   hello-librep/po/fr.po \
   hello-librep/po/ga.po \
@@ -568,6 +582,7 @@ EXAMPLESFILES = \
   hello-guile/po/ca.po \
   hello-guile/po/de.po \
   hello-guile/po/el.po \
+  hello-guile/po/eo.po \
   hello-guile/po/es.po \
   hello-guile/po/fr.po \
   hello-guile/po/ga.po \
@@ -602,6 +617,7 @@ EXAMPLESFILES = \
   hello-smalltalk/po/ca.po \
   hello-smalltalk/po/de.po \
   hello-smalltalk/po/el.po \
+  hello-smalltalk/po/eo.po \
   hello-smalltalk/po/es.po \
   hello-smalltalk/po/fr.po \
   hello-smalltalk/po/ga.po \
@@ -636,6 +652,7 @@ EXAMPLESFILES = \
   hello-java/po/ca.po \
   hello-java/po/de.po \
   hello-java/po/el.po \
+  hello-java/po/eo.po \
   hello-java/po/es.po \
   hello-java/po/fr.po \
   hello-java/po/ga.po \
@@ -673,6 +690,7 @@ EXAMPLESFILES = \
   hello-java-awt/po/ca.po \
   hello-java-awt/po/de.po \
   hello-java-awt/po/el.po \
+  hello-java-awt/po/eo.po \
   hello-java-awt/po/es.po \
   hello-java-awt/po/fr.po \
   hello-java-awt/po/ga.po \
@@ -710,6 +728,7 @@ EXAMPLESFILES = \
   hello-java-swing/po/ca.po \
   hello-java-swing/po/de.po \
   hello-java-swing/po/el.po \
+  hello-java-swing/po/eo.po \
   hello-java-swing/po/es.po \
   hello-java-swing/po/fr.po \
   hello-java-swing/po/ga.po \
@@ -744,6 +763,7 @@ EXAMPLESFILES = \
   hello-csharp/po/ca.po \
   hello-csharp/po/de.po \
   hello-csharp/po/el.po \
+  hello-csharp/po/eo.po \
   hello-csharp/po/es.po \
   hello-csharp/po/fr.po \
   hello-csharp/po/ga.po \
@@ -780,6 +800,7 @@ EXAMPLESFILES = \
   hello-csharp-forms/po/ca.po \
   hello-csharp-forms/po/de.po \
   hello-csharp-forms/po/el.po \
+  hello-csharp-forms/po/eo.po \
   hello-csharp-forms/po/es.po \
   hello-csharp-forms/po/fr.po \
   hello-csharp-forms/po/ga.po \
@@ -814,6 +835,7 @@ EXAMPLESFILES = \
   hello-gawk/po/ca.po \
   hello-gawk/po/de.po \
   hello-gawk/po/el.po \
+  hello-gawk/po/eo.po \
   hello-gawk/po/es.po \
   hello-gawk/po/fr.po \
   hello-gawk/po/ga.po \
@@ -849,6 +871,7 @@ EXAMPLESFILES = \
   hello-pascal/po/ca.po \
   hello-pascal/po/de.po \
   hello-pascal/po/el.po \
+  hello-pascal/po/eo.po \
   hello-pascal/po/es.po \
   hello-pascal/po/fr.po \
   hello-pascal/po/ga.po \
@@ -883,6 +906,7 @@ EXAMPLESFILES = \
   hello-ycp/po/ca.po \
   hello-ycp/po/de.po \
   hello-ycp/po/el.po \
+  hello-ycp/po/eo.po \
   hello-ycp/po/es.po \
   hello-ycp/po/fr.po \
   hello-ycp/po/ga.po \
@@ -917,6 +941,7 @@ EXAMPLESFILES = \
   hello-tcl/po/ca.po \
   hello-tcl/po/de.po \
   hello-tcl/po/el.po \
+  hello-tcl/po/eo.po \
   hello-tcl/po/es.po \
   hello-tcl/po/fr.po \
   hello-tcl/po/ga.po \
@@ -951,6 +976,7 @@ EXAMPLESFILES = \
   hello-tcl-tk/po/ca.po \
   hello-tcl-tk/po/de.po \
   hello-tcl-tk/po/el.po \
+  hello-tcl-tk/po/eo.po \
   hello-tcl-tk/po/es.po \
   hello-tcl-tk/po/fr.po \
   hello-tcl-tk/po/ga.po \
@@ -986,6 +1012,7 @@ EXAMPLESFILES = \
   hello-perl/po/ca.po \
   hello-perl/po/de.po \
   hello-perl/po/el.po \
+  hello-perl/po/eo.po \
   hello-perl/po/es.po \
   hello-perl/po/fr.po \
   hello-perl/po/ga.po \
@@ -1021,6 +1048,7 @@ EXAMPLESFILES = \
   hello-php/po/ca.po \
   hello-php/po/de.po \
   hello-php/po/el.po \
+  hello-php/po/eo.po \
   hello-php/po/es.po \
   hello-php/po/fr.po \
   hello-php/po/ga.po \
