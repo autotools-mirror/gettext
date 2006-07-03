@@ -759,6 +759,12 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		}
 	    }
 
+	  /* Returning -1 means that some resource problem exists
+	     (likely memory) and that the strings could not be
+	     converted.  Return the original strings.  */
+	  if (__builtin_expect (retval == (char *) -1, 0))
+	    break;
+
 	  if (retval != NULL)
 	    {
 	      /* Found the translation of MSGID1 in domain DOMAIN:
@@ -863,6 +869,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 }
 
 
+/* Look up the translation of msgid within DOMAIN_FILE and DOMAINBINDING.
+   Return it if found.  Return NULL if not found or in case of a conversion
+   failure (problem in the particular message catalog).  Return (char *) -1
+   in case of a memory allocation failure during conversion (only if
+   ENCODING != NULL resp. CONVERT == true).  */
 char *
 internal_function
 #ifdef IN_LIBGLOCALE
@@ -1020,15 +1031,18 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	     : malloc ((nconversions + 1) * sizeof (struct converted_domain)));
 
 	  if (__builtin_expect (new_conversions == NULL, 0))
-	    /* Nothing we can do, no more memory.  */
-	    goto converted;
+	    /* Nothing we can do, no more memory.  We cannot use the
+	       translation because it might be encoded incorrectly.  */
+	    return (char *) -1;
+
 	  domain->conversions = new_conversions;
 
 	  /* Copy the 'encoding' string to permanent storage.  */
 	  encoding = strdup (encoding);
 	  if (__builtin_expect (encoding == NULL, 0))
-	    /* Nothing we can do, no more memory.  */
-	    goto converted;
+	    /* Nothing we can do, no more memory.  We cannot use the
+	       translation because it might be encoded incorrectly.  */
+	    return (char *) -1;
 
 	  convd = &new_conversions[nconversions];
 	  convd->encoding = encoding;
@@ -1088,10 +1102,18 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		    /* We always want to use transliteration.  */
 		    outcharset = norm_add_slashes (outcharset, "TRANSLIT");
 		    charset = norm_add_slashes (charset, "");
-		    if (__gconv_open (outcharset, charset, &convd->conv,
-				      GCONV_AVOID_NOCONV)
-			!= __GCONV_OK)
-		      convd->conv = (__gconv_t) -1;
+		    int r = __gconv_open (outcharset, charset, &convd->conv,
+					  GCONV_AVOID_NOCONV);
+		    if (__builtin_expect (r != __GCONV_OK, 0))
+		      {
+			/* If the output encoding is the same there is
+			   nothing to do.  Otherwise do not use the
+			   translation at all.  */
+			if (__builtin_expect (r != __GCONV_NOCONV, 1))
+			  return NULL;
+
+			convd->conv = (__gconv_t) -1;
+		      }
 # else
 #  if HAVE_ICONV
 		    /* When using GNU libc >= 2.2 or GNU libiconv >= 1.5,
@@ -1155,8 +1177,9 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	    convd->conv_tab = (char **) -1;
 
 	  if (__builtin_expect (convd->conv_tab == (char **) -1, 0))
-	    /* Nothing we can do, no more memory.  */
-	    goto converted;
+	    /* Nothing we can do, no more memory.  We cannot use the
+	       translation because it might be encoded incorrectly.  */
+	    return (char *) -1;
 
 	  if (convd->conv_tab[act] == NULL)
 	    {
@@ -1204,8 +1227,10 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 
 		  if (res != __GCONV_FULL_OUTPUT)
 		    {
+		      /* We should not use the translation at all, it
+			 is incorrectly encoded.  */
 		      __libc_lock_unlock (lock);
-		      goto converted;
+		      return NULL;
 		    }
 
 		  inbuf = (const unsigned char *) result;
@@ -1231,7 +1256,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		  if (errno != E2BIG)
 		    {
 		      __libc_lock_unlock (lock);
-		      goto converted;
+		      return NULL;
 		    }
 #  endif
 # endif
@@ -1267,7 +1292,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		      freemem = NULL;
 		      freemem_size = 0;
 		      __libc_lock_unlock (lock);
-		      goto converted;
+		      return (char *) -1;
 		    }
 
 # ifdef _LIBC
@@ -1306,7 +1331,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	}
     }
 
- converted:
   /* The result string is converted.  */
 
 #endif /* _LIBC || HAVE_ICONV */

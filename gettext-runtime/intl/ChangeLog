@@ -1,3 +1,11 @@
+2006-06-22  Ulrich Drepper  <drepper@redhat.com>
+
+	* dcigettext.c (DCIGETTEXT): If _nl_find_msg returns -1 don't look
+	further, return original strings.
+	(_nl_find_msg): Do not return found translation if the conversion
+	failed.  Either signal the string is unusable or that something went
+	wrong and the original should be used.
+
 2006-06-23  Bruno Haible  <bruno@clisp.org>
 
 	* l10nflist.c (__argz_count, __argz_stringify, __argz_next): Define
