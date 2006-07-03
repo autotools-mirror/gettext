@@ -1,14 +1,14 @@
 # GNU gettext-runtime의 한국어 메시지
 # Copyright (C) 1996, 1997, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Bang Jun-Young <bangjy@geocities.com>, 1995-1997.
-# Changwoo Ryu <cwryu@debian.org>, 2001-2003.
+# Changwoo Ryu <cwryu@debian.org>, 2001-2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.13-pre1\n"
+"Project-Id-Version: GNU gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2003-11-21 04:26+0900\n"
+"POT-Creation-Date: 2006-04-20 15:54+0200\n"
+"PO-Revision-Date: 2006-07-02 00:43+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
 msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
 
-#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -97,62 +97,67 @@ msgstr ""
 "이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
 "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
 
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
 
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#. This is a proper name. See the gettext manual, section Names.
+#: src/envsubst.c:119
+msgid "Bruno Haible"
+msgstr "Bruno Haible"
+
+#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "인수가 너무 많음"
 
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "인수가 빠졌음"
 
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "더 많은 정보를 보려면 `%s --help' 하십시오\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "사용법: %s [<옵션>] [<쉘-형식>]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "환경 변수 값을 치환합니다.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "동작 모드:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             <쉘-형식>에 나오는 변수를 출력합니다\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "정보 출력:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:196
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  이 도움말을 표시하고 끝납니다\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:199
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               버전 정보를 표시하고 끝납니다\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -167,7 +172,7 @@ msgstr ""
 "<쉘-형식>을 쓰면, <쉘-형식>에서 사용한 환경 변수만 치환합니다; <쉘-형식>을\n"
 "쓰지 않으면 표준 입력의 모든 환경 변수를 치환합니다.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:212
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -176,18 +181,23 @@ msgstr ""
 "--variables 옵션을 사용하면, 표준 입력을 무시하고, <쉘-형식>에 참조된 환경 변수를\n"
 "한 줄에 하나씩 출력합니다.\n"
 
-#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
 
-#: src/envsubst.c:438
+#: src/envsubst.c:439
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\"을(를) 읽는 동안 오류 발생"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:440
 msgid "standard input"
 msgstr "표준 입력"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/gettext.c:140 src/ngettext.c:130
+msgid "Ulrich Drepper"
+msgstr "Ulrich Drepper"
 
 #: src/gettext.c:244
 #, c-format, no-wrap

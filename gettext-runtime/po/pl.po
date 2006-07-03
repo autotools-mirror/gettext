@@ -1,14 +1,14 @@
 # Polish translations for the GNU gettext messages, gettext-runtime domain
-# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003 Free Software Foundation, Inc.
-# Rafa³ Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003
+# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2006 Free Software Foundation, Inc.
+# Rafa³ Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003, 2006
 # Piotr Pogorzelski <ppogorze@ippt.gov.pl>, 1995
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.13.1\n"
+"Project-Id-Version: GNU gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2003-12-18 12:00+0100\n"
+"POT-Creation-Date: 2006-04-20 15:54+0200\n"
+"PO-Revision-Date: 2006-07-01 11:00+0200\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "%s: opcja `-W %s' nie mo¿e mieæ argumentu\n"
 msgid "memory exhausted"
 msgstr "pamiêæ wyczerpana"
 
-#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -97,62 +97,67 @@ msgstr ""
 "Autorzy nie daj± ¯ADNYCH gwarancji, w tym równie¿ gwarancji MO¯LIWO¦CI\n"
 "SPRZEDA¯Y lub PRZYDATNO¦CI DO KONKRETNYCH ZASTOSOWAÑ.\n"
 
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Autor programu: %s.\n"
 
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#. This is a proper name. See the gettext manual, section Names.
+#: src/envsubst.c:119
+msgid "Bruno Haible"
+msgstr "Bruno Haible"
+
+#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "za du¿o argumentów"
 
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "brakuj±ce argumenty"
 
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Spróbuj `%s --help' ¿eby otrzymaæ wiêcej informacji.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Sk³adnia: %s [OPCJA] [FORMAT-POW£OKI]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Podstawia warto¶ci zmiennych pow³oki.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Tryb dzia³ania:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             wypisanie zmiennich z FORMATU-POW£OKI\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informacje:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:196
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  wy¶wietlenie tego opisu i zakoñczenie\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:199
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               wy¶wietlenie informacji o wersji i zakoñczenie\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -168,7 +173,7 @@ msgstr ""
 "zastepowane s± tylko zmienne tam wymienione. W przeciwnym wypadku podstawiane\n"
 "s± warto¶ci wszystkich zmiennych ¶rodowiska podanych na standardowym wej¶ciu.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:212
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -178,18 +183,23 @@ msgstr ""
 "wynik sk³ada siê ze zmiennych ¶rodowiska podanych w FORMACIE-POW£OKI, ka¿da w\n"
 "osobnej linii.\n"
 
-#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Raporty o b³êdach wysy³aj do bug-gnu-gettext@gnu.org\n"
 
-#: src/envsubst.c:438
+#: src/envsubst.c:439
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "b³±d podczas czytania \"%s\""
 
-#: src/envsubst.c:439
+#: src/envsubst.c:440
 msgid "standard input"
 msgstr "standardowe wej¶cie"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/gettext.c:140 src/ngettext.c:130
+msgid "Ulrich Drepper"
+msgstr "Ulrich Drepper"
 
 #: src/gettext.c:244
 #, c-format, no-wrap

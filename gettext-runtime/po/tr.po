@@ -1,20 +1,20 @@
 # Turkish translations for Gnu Gettext Package.
-# Copyright (C) 2003 Free Software Foundation, Inc.
-# Nilgün Belma Bugüner <nilgun@superonline.com>, 2001, 2002, 2003.
+# Copyright (C) 2006 Free Software Foundation, Inc.
+# Nilgün Belma Bugüner <nilgun@buguner.name.tr>, 2001, ..., 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13-pre1\n"
+"Project-Id-Version: gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-14 13:07+0100\n"
-"PO-Revision-Date: 2003-11-24 06:33+0300\n"
-"Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
+"POT-Creation-Date: 2006-04-20 15:54+0200\n"
+"PO-Revision-Date: 2006-07-01 08:58+0300\n"
+"Last-Translator: Nilgün Belma Bugüner <nilgun@buguner.name.tr>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../gettext-tools/lib/closeout.c:64
 msgid "write error"
@@ -86,7 +86,7 @@ msgstr "%s: `-W %s' seçeneği bir argümanla kullanılmaz\n"
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
-#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -98,62 +98,67 @@ msgstr ""
 "Hiçbir garantisi yoktur; hatta SATILABİLİRLİĞİ veya ŞAHSİ KULLANIMINIZA\n"
 "UYGUNLUĞU için bile garanti verilmez.\n"
 
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
 
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#. This is a proper name. See the gettext manual, section Names.
+#: src/envsubst.c:119
+msgid "Bruno Haible"
+msgstr "Bruno Haible"
+
+#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "argümanlar eksik"
 
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Daha fazla bilgilendirilmek için `%s --help' yazınız.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Kullanımı: %s [SEÇENEK] [KABUK-BİÇİMİ]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Ortam değişkenlerinin değerleri ikame edilir.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "İşlem kipi:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             KABUK-BİÇİMİ içindeki değişkenleri çıktılar\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Bilgilendirici çıktı:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:196
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  bu yardım iletisini gösterir ve çıkar\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:199
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -170,7 +175,7 @@ msgstr ""
 "Aksi takdirde, standart girdideki ortam değişkenlerinin tümüne bu ikame\n"
 "işlemi uygulanır.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:212
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -180,20 +185,25 @@ msgstr ""
 "her satırda bir tane olmak üzere KABUK-BİÇİMİ içindeki ortam değişkenleri\n"
 "çıktılanır.\n"
 
-#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
-"Çeviri hatalarını <gnu-tr-u12a@lists.sourceforge.net> adresine bildiriniz.\n"
+"Çeviri hatalarını <gnu-tr@belgeler.org> adresine bildiriniz.\n"
 
-#: src/envsubst.c:438
+#: src/envsubst.c:439
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:440
 msgid "standard input"
 msgstr "standart girdi"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/gettext.c:140 src/ngettext.c:130
+msgid "Ulrich Drepper"
+msgstr "Ulrich Drepper"
 
 #: src/gettext.c:244
 #, c-format, no-wrap
