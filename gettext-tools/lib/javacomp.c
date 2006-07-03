@@ -468,12 +468,12 @@ write_temp_file (struct temp_dir *tmpdir, const char *file_name,
 {
   FILE *fp;
 
-  enqueue_temp_file (tmpdir, file_name);
+  register_temp_file (tmpdir, file_name);
   fp = fopen (file_name, "w");
   if (fp == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), file_name);
-      dequeue_temp_file (tmpdir, file_name);
+      unregister_temp_file (tmpdir, file_name);
       return true;
     }
   fputs (contents, fp);
@@ -622,7 +622,7 @@ is_envjavac_gcj_14_14_usable (const char *javac, bool *usablep)
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_envjavac (javac, java_sources, 1, tmpdir->dir_name,
@@ -683,7 +683,7 @@ is_envjavac_gcj_14_13_usable (const char *javac,
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_envjavac (javac,
@@ -729,7 +729,7 @@ is_envjavac_gcj_14_13_usable (const char *javac,
 	  compiled_file_name =
 	    concatenated_pathname (tmpdir->dir_name, "conftestfail.class",
 				   NULL);
-	  enqueue_temp_file (tmpdir, compiled_file_name);
+	  register_temp_file (tmpdir, compiled_file_name);
 
 	  java_sources[0] = conftest_file_name;
 	  if (!compile_using_envjavac (javac,
@@ -823,7 +823,7 @@ is_envjavac_nongcj_usable (const char *javac,
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_envjavac (javac,
@@ -871,7 +871,7 @@ is_envjavac_nongcj_usable (const char *javac,
 		    concatenated_pathname (tmpdir->dir_name,
 					   "conftestfail.class",
 					   NULL);
-		  enqueue_temp_file (tmpdir, compiled_file_name);
+		  register_temp_file (tmpdir, compiled_file_name);
 
 		  java_sources[0] = conftest_file_name;
 		  if (!compile_using_envjavac (javac,
@@ -957,7 +957,7 @@ is_envjavac_nongcj_usable (const char *javac,
 			concatenated_pathname (tmpdir->dir_name,
 					       "conftestfail.class",
 					       NULL);
-		      enqueue_temp_file (tmpdir, compiled_file_name);
+		      register_temp_file (tmpdir, compiled_file_name);
 
 		      java_sources[0] = conftest_file_name;
 		      if (!compile_using_envjavac (javac_target,
@@ -1125,7 +1125,7 @@ is_gcj_present (void)
 		    concatenated_pathname (tmpdir->dir_name,
 					   "conftestlib.class",
 					   NULL);
-		  enqueue_temp_file (tmpdir, compiled_file_name);
+		  register_temp_file (tmpdir, compiled_file_name);
 
 		  java_sources[0] = conftest_file_name;
 		  if (compile_using_gcj (java_sources, 1, false,
@@ -1180,7 +1180,7 @@ is_gcj_14_14_usable (bool *usablep)
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_gcj (java_sources, 1, false, tmpdir->dir_name,
@@ -1237,7 +1237,7 @@ is_gcj_14_13_usable (bool *usablep, bool *need_no_assert_option_p)
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_gcj (java_sources, 1, true, tmpdir->dir_name,
@@ -1344,7 +1344,7 @@ is_javac_usable (const char *source_version, const char *target_version,
 
       compiled_file_name =
 	concatenated_pathname (tmpdir->dir_name, "conftest.class", NULL);
-      enqueue_temp_file (tmpdir, compiled_file_name);
+      register_temp_file (tmpdir, compiled_file_name);
 
       java_sources[0] = conftest_file_name;
       if (!compile_using_javac (java_sources, 1,
@@ -1390,7 +1390,7 @@ is_javac_usable (const char *source_version, const char *target_version,
 		    concatenated_pathname (tmpdir->dir_name,
 					   "conftestfail.class",
 					   NULL);
-		  enqueue_temp_file (tmpdir, compiled_file_name);
+		  register_temp_file (tmpdir, compiled_file_name);
 
 		  java_sources[0] = conftest_file_name;
 		  if (!compile_using_javac (java_sources, 1,
@@ -1472,7 +1472,7 @@ is_javac_usable (const char *source_version, const char *target_version,
 			concatenated_pathname (tmpdir->dir_name,
 					       "conftestfail.class",
 					       NULL);
-		      enqueue_temp_file (tmpdir, compiled_file_name);
+		      register_temp_file (tmpdir, compiled_file_name);
 
 		      java_sources[0] = conftest_file_name;
 		      if (!compile_using_javac (java_sources, 1,

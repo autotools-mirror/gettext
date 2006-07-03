@@ -1,3 +1,19 @@
+2006-07-02  Bruno Haible  <bruno@clisp.org>
+
+	* clean-temp.h (register_temp_file): Renamed from enqueue_temp_file.
+	(unregister_temp_file): Renamed from dequeue_temp_file.
+	(register_temp_subdir): Renamed from enqueue_temp_subdir.
+	(unregister_temp_subdir): Renamed from dequeue_temp_subdir.
+	* clean-temp.c (register_temp_file): Renamed from enqueue_temp_file.
+	(unregister_temp_file): Renamed from dequeue_temp_file.
+	(register_temp_subdir): Renamed from enqueue_temp_subdir.
+	(unregister_temp_subdir): Renamed from dequeue_temp_subdir.
+	(cleanup_temp_file, cleanup_temp_subdir): Update.
+	* javacomp.c (write_temp_file, is_envjavac_gcj_14_14_usable,
+	is_envjavac_gcj_14_13_usable, is_envjavac_nongcj_usable,
+	is_gcj_present, is_gcj_14_14_usable, is_gcj_14_13_usable,
+	is_javac_usable): Update.
+
 2006-06-29  Bruno Haible  <bruno@clisp.org>
 
 	* clean-temp.h: Include <stdbool.h>.

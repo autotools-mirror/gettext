@@ -236,13 +236,14 @@ create_temp_dir (const char *prefix, const char *parentdir,
    needs to be removed before DIR can be removed.
    Should be called before the file ABSOLUTE_FILE_NAME is created.  */
 void
-enqueue_temp_file (struct temp_dir *dir,
-		   const char *absolute_file_name)
+register_temp_file (struct temp_dir *dir,
+		    const char *absolute_file_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
   size_t j;
 
-  /* See whether it can take the slot of an earlier file already dequeued.  */
+  /* See whether it can take the slot of an earlier file already
+     unregistered.  */
   for (j = 0; j < tmpdir->file_count; j++)
     if (tmpdir->file[j] == NULL)
       {
@@ -285,8 +286,8 @@ enqueue_temp_file (struct temp_dir *dir,
    needs to be removed before DIR can be removed.
    Should be called when the file ABSOLUTE_FILE_NAME could not be created.  */
 void
-dequeue_temp_file (struct temp_dir *dir,
-		   const char *absolute_file_name)
+unregister_temp_file (struct temp_dir *dir,
+		      const char *absolute_file_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
   size_t j;
@@ -314,12 +315,12 @@ dequeue_temp_file (struct temp_dir *dir,
    that needs to be removed before DIR can be removed.
    Should be called before the subdirectory ABSOLUTE_DIR_NAME is created.  */
 void
-enqueue_temp_subdir (struct temp_dir *dir,
-		     const char *absolute_dir_name)
+register_temp_subdir (struct temp_dir *dir,
+		      const char *absolute_dir_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
 
-  /* Reusing the slot of an earlier subdirectory already dequeued is not
+  /* Reusing the slot of an earlier subdirectory already unregistered is not
      possible here, because the order of the subdirectories matter.  */
   /* See whether the array needs to be extended.  */
   if (tmpdir->subdir_count == tmpdir->subdir_allocated)
@@ -358,8 +359,8 @@ enqueue_temp_subdir (struct temp_dir *dir,
    Should be called when the subdirectory ABSOLUTE_DIR_NAME could not be
    created.  */
 void
-dequeue_temp_subdir (struct temp_dir *dir,
-		     const char *absolute_dir_name)
+unregister_temp_subdir (struct temp_dir *dir,
+			const char *absolute_dir_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
   size_t j;
@@ -413,7 +414,7 @@ cleanup_temp_file (struct temp_dir *dir,
 		   const char *absolute_file_name)
 {
   do_unlink (dir, absolute_file_name);
-  dequeue_temp_file (dir, absolute_file_name);
+  unregister_temp_file (dir, absolute_file_name);
 }
 
 /* Remove the given ABSOLUTE_DIR_NAME and unregister it.  */
@@ -422,7 +423,7 @@ cleanup_temp_subdir (struct temp_dir *dir,
 		     const char *absolute_dir_name)
 {
   do_rmdir (dir, absolute_dir_name);
-  dequeue_temp_subdir (dir, absolute_dir_name);
+  unregister_temp_subdir (dir, absolute_dir_name);
 }
 
 /* Remove all registered files and subdirectories inside DIR.  */

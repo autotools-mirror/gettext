@@ -714,12 +714,12 @@ but the C# .dll format doesn't support contexts\n")));
     concatenated_pathname (tmpdir->dir_name, "resset.cs", NULL);
 
   /* Create the C# file.  */
-  enqueue_temp_file (tmpdir, csharp_file_name);
+  register_temp_file (tmpdir, csharp_file_name);
   csharp_file = fopen (csharp_file_name, "w");
   if (csharp_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), csharp_file_name);
-      dequeue_temp_file (tmpdir, csharp_file_name);
+      unregister_temp_file (tmpdir, csharp_file_name);
       goto quit3;
     }
 

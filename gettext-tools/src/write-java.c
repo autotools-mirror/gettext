@@ -990,23 +990,23 @@ but the Java ResourceBundle format doesn't support contexts\n")));
 
     for (i = 0; i < ndots; i++)
       {
-	enqueue_temp_subdir (tmpdir, subdirs[i]);
+	register_temp_subdir (tmpdir, subdirs[i]);
 	if (mkdir (subdirs[i], S_IRUSR | S_IWUSR | S_IXUSR) < 0)
 	  {
 	    error (0, errno, _("failed to create \"%s\""), subdirs[i]);
-	    dequeue_temp_subdir (tmpdir, subdirs[i]);
+	    unregister_temp_subdir (tmpdir, subdirs[i]);
 	    goto quit3;
 	  }
       }
   }
 
   /* Create the Java file.  */
-  enqueue_temp_file (tmpdir, java_file_name);
+  register_temp_file (tmpdir, java_file_name);
   java_file = fopen (java_file_name, "w");
   if (java_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), java_file_name);
-      dequeue_temp_file (tmpdir, java_file_name);
+      unregister_temp_file (tmpdir, java_file_name);
       goto quit3;
     }
 

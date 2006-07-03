@@ -61,27 +61,27 @@ extern struct temp_dir * create_temp_dir (const char *prefix,
 /* Register the given ABSOLUTE_FILE_NAME as being a file inside DIR, that
    needs to be removed before DIR can be removed.
    Should be called before the file ABSOLUTE_FILE_NAME is created.  */
-extern void enqueue_temp_file (struct temp_dir *dir,
-			       const char *absolute_file_name);
+extern void register_temp_file (struct temp_dir *dir,
+				const char *absolute_file_name);
 
 /* Unregister the given ABSOLUTE_FILE_NAME as being a file inside DIR, that
    needs to be removed before DIR can be removed.
    Should be called when the file ABSOLUTE_FILE_NAME could not be created.  */
-extern void dequeue_temp_file (struct temp_dir *dir,
-			       const char *absolute_file_name);
+extern void unregister_temp_file (struct temp_dir *dir,
+				  const char *absolute_file_name);
 
 /* Register the given ABSOLUTE_DIR_NAME as being a subdirectory inside DIR,
    that needs to be removed before DIR can be removed.
    Should be called before the subdirectory ABSOLUTE_DIR_NAME is created.  */
-extern void enqueue_temp_subdir (struct temp_dir *dir,
-				 const char *absolute_dir_name);
+extern void register_temp_subdir (struct temp_dir *dir,
+				  const char *absolute_dir_name);
 
 /* Unregister the given ABSOLUTE_DIR_NAME as being a subdirectory inside DIR,
    that needs to be removed before DIR can be removed.
    Should be called when the subdirectory ABSOLUTE_DIR_NAME could not be
    created.  */
-extern void dequeue_temp_subdir (struct temp_dir *dir,
-				 const char *absolute_dir_name);
+extern void unregister_temp_subdir (struct temp_dir *dir,
+				    const char *absolute_dir_name);
 
 /* Remove the given ABSOLUTE_FILE_NAME and unregister it.  */
 extern void cleanup_temp_file (struct temp_dir *dir,
