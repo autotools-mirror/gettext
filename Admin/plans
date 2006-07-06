@@ -47,3 +47,11 @@ Things we plan to do. Comments welcome.
 
 - AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/version.sh'])
 
+- Generating sr@latin PO file automatically from sr.po.
+
+- XLIFF support
+
+- object-oriented locale datatype, similar to giulia/glocale
+
+- automatic download at installation time of PO files that have been
+  provided by the translators after the official release.
