@@ -55,3 +55,9 @@ Things we plan to do. Comments welcome.
 
 - automatic download at installation time of PO files that have been
   provided by the translators after the official release.
+
+- Conversion of compendia from/to TMX format.
+
+- Support some of the conversions found in the translate-toolkit package, see
+    http://translate.sourceforge.net/wiki/nonpo
+
