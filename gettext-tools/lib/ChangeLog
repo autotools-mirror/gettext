@@ -1,3 +1,8 @@
+2006-07-11  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.c: Fix a comment.
+	Reported by Jim Meyering.
+
 2006-07-02  Bruno Haible  <bruno@clisp.org>
 
 	* clean-temp.h (register_temp_file): Renamed from enqueue_temp_file.

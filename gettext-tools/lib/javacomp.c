@@ -206,8 +206,8 @@ compile_using_envjavac (const char *javac,
 {
   /* Because $JAVAC may consist of a command and options, we use the
      shell.  Because $JAVAC has been set by the user, we leave all
-     all environment variables in place, including JAVA_HOME, and
-     we don't erase the user's CLASSPATH.  */
+     environment variables in place, including JAVA_HOME, and we don't
+     erase the user's CLASSPATH.  */
   bool err;
   unsigned int command_length;
   char *command;
