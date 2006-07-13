@@ -149,7 +149,7 @@ gettextsrc_DATA = gettext.h
 
 pkgdatadir = $(datadir)/gettext
 pkgdata_DATA = javaversion.class
-EXTRA_DIST += javaversion.java
+EXTRA_DIST += javaversion.java javaversion.class
 
 # Files installed for the examples.
 
