@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 
-SUBDIRS = autoconf-lib-link gettext-runtime gettext-tools
+SUBDIRS = gettext-runtime gettext-tools autoconf-lib-link
 
 EXTRA_DIST = \
   version.sh PACKAGING ChangeLog.0 autogen.sh \
