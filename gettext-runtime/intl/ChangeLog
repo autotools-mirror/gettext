@@ -1,3 +1,9 @@
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
+	* printf.c (libintl_printf): Define to __printf__ on NetBSD, Cygwin,
+	mingw.
+	Reported by haibin zhang <dragzhb@yahoo.com.cn>.
+
 2006-06-22  Ulrich Drepper  <drepper@redhat.com>
 
 	* dcigettext.c (DCIGETTEXT): If _nl_find_msg returns -1 don't look
