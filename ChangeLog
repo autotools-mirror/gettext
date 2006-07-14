@@ -1,5 +1,9 @@
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
+	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): New macro.
+
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (SUBDIRS): Put autoconf-lib-link last.
 
 2006-06-29  Bruno Haible  <bruno@clisp.org>

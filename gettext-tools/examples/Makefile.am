@@ -1100,8 +1100,7 @@ uninstall-local:
 	  rm -f $(DESTDIR)$(examplesdir)/$$f; \
 	done
 
-# Hidden from automake, but really activated. Works around an automake-1.5 bug.
-#distdir: distdir1
+# Invoked from inside automake's distdir target.
 distdir1:
 	cd po && $(MAKE) update-po
 	for file in $(EXAMPLESFILES); do \

@@ -1,5 +1,10 @@
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac (Makefile): Invoke FIX_MAKEFILE_TOPDIR_DISTRIB instead
+	of FIX_MAKEFILE_DISTRIB.
+
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
 	* hello-c++-kde/admin/cvs.sh: Disable the search for specific
 	versions of autoconf, autoheader, autom4te, automake, aclocal.
 	Accept autoconf, autoheader versions > 2.59. Accept automake

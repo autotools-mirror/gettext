@@ -33,7 +33,7 @@ aclocaldir='${datadir}/aclocal'
 AC_SUBST(aclocaldir)
 
 AC_CONFIG_FILES([Makefile],
-                [FIX_MAKEFILE_DISTRIB])
+                [FIX_MAKEFILE_TOPDIR_DISTRIB])
 AC_CONFIG_FILES([installpaths])
 AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 
