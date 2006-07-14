@@ -73,6 +73,17 @@
 # define __secure_getenv getenv
 #endif
 
+/* Pathname support.
+   ISSLASH(C)           tests whether C is a directory separator character.
+ */
+#if defined _WIN32 || defined __WIN32__ || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
+  /* Win32, Cygwin, OS/2, DOS */
+# define ISSLASH(C) ((C) == '/' || (C) == '\\')
+#else
+  /* Unix */
+# define ISSLASH(C) ((C) == '/')
+#endif
+
 
 /* Return nonzero if DIR is an existent directory.  */
 static bool
@@ -131,7 +142,7 @@ path_search (char *tmpl, size_t tmpl_len, const char *dir, const char *pfx,
     }
 
   dlen = strlen (dir);
-  while (dlen > 1 && dir[dlen - 1] == '/')
+  while (dlen >= 1 && ISSLASH (dir[dlen - 1]))
     dlen--;			/* remove trailing slashes */
 
   /* check we have room for "${dir}/${pfx}XXXXXX\0" */

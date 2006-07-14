@@ -1,5 +1,13 @@
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
+	Fix construction of temporary directory names on mingw.
+	* tmpdir.c (ISSLASH): New macro.
+	(path_search): Use it, and remove also the first character if it is
+	a slash.
+	Reported by Steffen Macke <sdteffen@gmail.com>.
+
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (EXTRA_DIST): Add javaversion.class.
 
 2006-07-11  Bruno Haible  <bruno@clisp.org>
