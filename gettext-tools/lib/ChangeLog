@@ -1,3 +1,7 @@
+2006-07-14  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (MOSTLYCLEANFILES): Add core and *.stackdump.
+
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
 	Fix construction of temporary directory names on mingw.

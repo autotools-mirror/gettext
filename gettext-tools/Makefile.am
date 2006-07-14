@@ -23,6 +23,7 @@ ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I .
 SUBDIRS = doc intl lib libgrep libuniname src po projects misc man m4 tests examples
 
 EXTRA_DIST = misc/DISCLAIM
+MOSTLYCLEANFILES = core *.stackdump
 
 
 # Files installed for use by gettextize.

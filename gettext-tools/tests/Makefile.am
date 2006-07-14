@@ -19,6 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \

@@ -19,6 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+MOSTLYCLEANFILES = core *.stackdump
 CLEANFILES =
 DISTCLEANFILES =
 
