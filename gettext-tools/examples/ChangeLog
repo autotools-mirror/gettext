@@ -1,3 +1,8 @@
+2006-07-14  Bruno Haible  <bruno@clisp.org>
+
+	* po/Makefile.am (MOSTLYCLEANFILES): Add *.stackdump.
+	* hello-*/po/Makefile.am (MOSTLYCLEANFILES): Likewise.
+
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (Makefile): Invoke FIX_MAKEFILE_TOPDIR_DISTRIB instead

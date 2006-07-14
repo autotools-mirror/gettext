@@ -263,7 +263,7 @@ html ID:
 MOSTLYCLEANFILES =
 MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
-MOSTLYCLEANFILES += core core.* $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
+MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
 
 DISTCLEANFILES = *.mo
