@@ -29,7 +29,7 @@ check_autotool_versions()
 {
 AUTOCONF_VERSION=`$AUTOCONF --version | head -n 1`
 case $AUTOCONF_VERSION in
-  Autoconf*2.5* | autoconf*2.5* ) : ;;
+  Autoconf*2.[5-9]* | autoconf*2.[5-9]* ) : ;;
   "" )
     echo "*** AUTOCONF NOT FOUND!."
     echo "*** KDE requires autoconf 2.52, 2.53 or 2.54"
@@ -44,7 +44,7 @@ esac
  
 AUTOHEADER_VERSION=`$AUTOHEADER --version | head -n 1`
 case $AUTOHEADER_VERSION in
-  Autoconf*2.5* | autoheader*2.5* ) : ;;
+  Autoconf*2.[5-9]* | autoheader*2.[5-9]* ) : ;;
   "" )
     echo "*** AUTOHEADER NOT FOUND!."
     echo "*** KDE requires autoheader 2.52 or 2.53 (part of autoconf)"
@@ -64,7 +64,7 @@ case $AUTOMAKE_STRING in
     echo "*** KDE requires automake 1.6"
     exit 1
     ;;
-  automake*1.[678].* | automake*1.7* ) : ;;
+  automake*1.[6-9].* | automake*1.7* ) : ;;
   "" )
     echo "*** AUTOMAKE NOT FOUND!."
     echo "*** KDE requires automake 1.6"
@@ -473,8 +473,13 @@ if test -f Makefile.am.in; then
   makefile_wo=Makefile.am.in.wo
 fi
 
-# Suck in the AUTOCONF detection code
-. $admindir/detect-autoconf.sh
+# Sucking AUTOCONF detection code - commented out
+#. $admindir/detect-autoconf.sh
+AUTOCONF="autoconf"
+AUTOHEADER="autoheader"
+AUTOM4TE="autom4te"
+AUTOMAKE="automake"
+ACLOCAL="aclocal -I m4"
 
 ###
 ### Main

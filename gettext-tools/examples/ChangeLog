@@ -1,5 +1,12 @@
 2006-07-13  Bruno Haible  <bruno@clisp.org>
 
+	* hello-c++-kde/admin/cvs.sh: Disable the search for specific
+	versions of autoconf, autoheader, autom4te, automake, aclocal.
+	Accept autoconf, autoheader versions > 2.59. Accept automake
+	versions > 1.8.x.
+
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (ACLOCAL_AMFLAGS): New variable.
 
 2006-07-03  Bruno Haible  <bruno@clisp.org>
