@@ -1,3 +1,7 @@
+2006-07-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (ACLOCAL_AMFLAGS): New variable.
+
 2006-07-03  Bruno Haible  <bruno@clisp.org>
 
 	* po/eo.po: New file, from Edmund Grimley Evans <edmundo@rano.org>.
@@ -499,7 +503,7 @@
 
 2003-12-02  Bruno Haible  <bruno@clisp.org>
 
-	* examples/Makefile.am (EXTRA_DIST): Don't add the EXAMPLESFILES.
+	* Makefile.am (EXTRA_DIST): Don't add the EXAMPLESFILES.
 	(distdir1): New rule. Install the EXAMPLESFILES after 'update-po'.
 
 2003-11-30  Bruno Haible  <bruno@clisp.org>
