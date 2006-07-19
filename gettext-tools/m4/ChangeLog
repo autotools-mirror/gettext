@@ -1,3 +1,10 @@
+2006-07-19  Bruno Haible  <bruno@clisp.org>
+
+	* getline.m4 (AM_FUNC_GETLINE): When cross-compiling, assume that
+	getline works on glibc2 systems. Needed to avoid trouble in
+	relocatable.c.
+	Reported by Nils Magnus Larsgard <nmlarsgaard@atmel.no>.
+
 2006-06-28  Bruno Haible  <bruno@clisp.org>
 
 	Assume <dirent.h> on all Unix platforms. Assume closedir works.

@@ -1,6 +1,6 @@
-# getline.m4 serial 9
+# getline.m4 serial 10
 
-dnl Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003 Free Software
+dnl Copyright (C) 1998, 1999, 2000, 2001, 2002, 2003, 2006 Free Software
 dnl Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -42,7 +42,18 @@ AC_DEFUN([AM_FUNC_GETLINE],
     }
     ], am_cv_func_working_getline=yes dnl The library version works.
     , am_cv_func_working_getline=no dnl The library version does NOT work.
-    , am_cv_func_working_getline=no dnl We're cross compiling.
+    , dnl We're cross compiling. Assume ir works on glibc2 systems.
+      [AC_EGREP_CPP([Lucky GNU user],
+         [
+#include <features.h>
+#ifdef __GNU_LIBRARY__
+ #if (__GLIBC__ >= 2)
+  Lucky GNU user
+ #endif
+#endif
+         ],
+         [am_cv_func_working_getline=yes],
+         [am_cv_func_working_getline=no])]
     )])
   fi
 
