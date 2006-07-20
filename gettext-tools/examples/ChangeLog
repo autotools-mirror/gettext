@@ -1,3 +1,12 @@
+2006-07-20  Bruno Haible  <bruno@clisp.org>
+
+	* po/sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* po/vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+	* po/zh_HK.po: New file, from Abel Cheung <abelcheung@gmail.com>.
+	* po/LINGUAS: Add zh_HK.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2006-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* po/Makefile.am (MOSTLYCLEANFILES): Add *.stackdump.
