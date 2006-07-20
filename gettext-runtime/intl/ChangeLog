@@ -1,5 +1,9 @@
 2006-07-20  Bruno Haible  <bruno@clisp.org>
 
+	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.15.0.
+
+2006-07-20  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 8:0:0.
 
 2006-07-13  Bruno Haible  <bruno@clisp.org>
