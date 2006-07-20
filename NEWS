@@ -1,3 +1,4 @@
+Version 0.15 - July 2006
 
 * GUI program support:
   - PO files can now contain messages constrained to a certain context.
