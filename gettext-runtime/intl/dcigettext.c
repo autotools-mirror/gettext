@@ -27,6 +27,9 @@
 # include <config.h>
 #endif
 
+/* NL_LOCALE_NAME does not work in glibc-2.4.  Ignore it.  */
+#undef HAVE_NL_LOCALE_NAME
+
 #include <sys/types.h>
 
 #ifdef __GNUC__
