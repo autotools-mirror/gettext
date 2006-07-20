@@ -328,7 +328,7 @@ esac
 #      0.14.4                  1464
 #      0.14.5                  1508
 #      0.14.6                  1580
-#      0.15                    1704
+#      0.15                    1760
 #
 # The requirement that the user must have the CVS program available is not
 # a severe restrictions, because most of the people who use autopoint are
