@@ -132,9 +132,9 @@ $(FORMAT_SOURCE)
 libgettextpo_la_SOURCES = gettext-po.c
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".
-LTV_CURRENT=1
+LTV_CURRENT=2
 LTV_REVISION=0
-LTV_AGE=1
+LTV_AGE=2
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
