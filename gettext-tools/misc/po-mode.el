@@ -1,6 +1,6 @@
 ;;; po-mode.el -- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-1999, 2000-2002, 2005 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002, 2005-2006 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
@@ -50,7 +50,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.01" "\
+(defconst po-mode-version-string "2.02" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
