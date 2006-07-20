@@ -9,12 +9,12 @@ msgstr ""
 "Project-Id-Version: gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-07-01 00:52+0200\n"
-"PO-Revision-Date: 2006-07-01 11:29+0100\n"
+"PO-Revision-Date: 2006-07-07 09:42+0100\n"
 "Last-Translator: Marco Colombo <m.colombo@ed.ac.uk>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/argmatch.c:136
@@ -1560,7 +1560,7 @@ msgstr "nome di filtro mancante"
 #: src/msgfilter.c:317
 #, c-format
 msgid "at least one sed script must be specified"
-msgstr "deve essere specificato almeno ono script sed"
+msgstr "deve essere specificato almeno uno script sed"
 
 #: src/msgfilter.c:392
 #, c-format
@@ -2679,7 +2679,7 @@ msgstr ""
 #: src/msgmerge.c:478
 #, c-format
 msgid "Output file location in update mode:\n"
-msgstr "Posizione del file di output in modalità di aggiornameto:\n"
+msgstr "Posizione del file di output in modalità di aggiornamento:\n"
 
 # FIXME
 #: src/msgmerge.c:480
@@ -2954,7 +2954,7 @@ msgid ""
 "Message conversion to user's charset will not work.\n"
 msgstr ""
 "L'intestazione non specifica un set di caratteri.\n"
-"La conversione del messagio nel set di caratteri dell'utente non "
+"La conversione del messaggio nel set di caratteri dell'utente non "
 "funzionerà.\n"
 
 #: src/po-gram-gen.y:94
@@ -3302,7 +3302,7 @@ msgid ""
 "but the Qt message catalog format supports Unicode only in the translated\n"
 "strings, not in the context strings\n"
 msgstr ""
-"il catalogo dei messaggi contiene strighe msgctxt con caratteri non in ISO-"
+"il catalogo dei messaggi contiene stringhe msgctxt con caratteri non in ISO-"
 "8859-1,\n"
 "ma il formato dei cataloghi Qt gestisce Unicode solo nelle stringhe "
 "tradotte,\n"
@@ -3314,7 +3314,7 @@ msgid ""
 "but the Qt message catalog format supports Unicode only in the translated\n"
 "strings, not in the untranslated strings\n"
 msgstr ""
-"il catalogo dei messaggi contiene strighe msgid con caratteri non in ISO-"
+"il catalogo dei messaggi contiene stringhe msgid con caratteri non in ISO-"
 "8859-1,\n"
 "ma il formato dei cataloghi Qt gestisce Unicode solo nelle stringhe "
 "tradotte,\n"
@@ -3721,7 +3721,7 @@ msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
 "                              preceding keyword lines) in output file\n"
 msgstr ""
-"  -c, --add-comments[=TAG]    mette il blocco di commentii che contiene TAG\n"
+"  -c, --add-comments[=TAG]    mette il blocco di commenti che contiene TAG\n"
 "                              (o le righe di parole chiave che le "
 "precedono)\n"
 "                              nel file di output \n"
@@ -3892,7 +3892,7 @@ msgid ""
 "format string. Reason: %s\n"
 msgstr ""
 "Sebbene usata dove dovrebbe esserci una stringa di formato, %s non è una "
-"striga di formato %s valida. Motivo: %s\n"
+"stringa di formato %s valida. Motivo: %s\n"
 
 #: src/xgettext.c:1929
 #, c-format
