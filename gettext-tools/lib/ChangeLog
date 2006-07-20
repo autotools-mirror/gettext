@@ -1,3 +1,7 @@
+2006-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.15 released.
+
 2006-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MOSTLYCLEANFILES): Add core and *.stackdump.
