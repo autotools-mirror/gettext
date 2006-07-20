@@ -15,7 +15,7 @@ bfd                |                                                    |
 bibshelf           |                                  []                |
 binutils           |                               []                   |
 bison              |                               [] []                |
-bison-runtime      |                                                    |
+bison-runtime      |                                  []                |
 bluez-pin          | []                      []       [] []          [] |
 cflow              |                               []                   |
 clisp              |                                  []    []          |
@@ -41,8 +41,8 @@ gawk               |                      []       [] []                |
 gbiff              |                                  []                |
 gcal               |                      []                            |
 gcc                |                                  []                |
-gettext-examples   | []                   []          [] []             |
-gettext-runtime    |             []       []       [] []                |
+gettext-examples   | []                   []          [] []          [] |
+gettext-runtime    |             []       []       [] []             [] |
 gettext-tools      |                      []          []                |
 gimp-print         |                         []    [] []        []      |
 gip                |                []                                  |
@@ -119,7 +119,7 @@ libgpg-error       |                                  []                |
 libgphoto2         |                               [] []                |
 libgphoto2_port    |                               [] []                |
 libgsasl           |                                                    |
-libiconv           |                                                    |
+libiconv           |                                  []             [] |
 libidn             |                               []                [] |
 lifelines          |                               [] ()                |
 lilypond           |                                  []                |
@@ -158,7 +158,7 @@ soundtracker       |                               [] []                |
 sp                 |                                  []                |
 stardict           |                         []                         |
 system-tools-ba... |       []       [] [] [] []    [] [] []     []      |
-tar                |                                                    |
+tar                |                []                                  |
 texinfo            |                               [] []             [] |
 textutils          |                      []       [] []                |
 tin                |                                  ()        ()      |
@@ -176,7 +176,7 @@ xkeyboard-config   |                                                    |
 xpad               |                []             []                   |
                    +----------------------------------------------------+
                      af am ar az be bg bs ca cs cy da de el en en_GB eo
-                     11  0  1  2  8 20  1 42 43  2 62 97 18  1  16   13
+                     11  0  1  2  8 21  1 42 43  2 62 99 18  1  16   16
 @end group
 
 @group
@@ -296,10 +296,10 @@ libexif            | []                                               |
 libextractor       |                    []                            |
 libgpewidget       | []             []  []                [] []       |
 libgpg-error       |                                                  |
-libgphoto2         | []             []                                |
+libgphoto2         | []             []                             [] |
 libgphoto2_port    |                []                             [] |
 libgsasl           |                []  []                            |
-libiconv           |                                                  |
+libiconv           |                    []                            |
 libidn             |                []                             [] |
 lifelines          |                ()                                |
 lilypond           |                []                                |
@@ -314,7 +314,7 @@ mysecretdiary      | []             []                       []       |
 nano               |       []    () []  []                []       [] |
 nano_1_0           | []             []     []                []    [] |
 opcodes            | []          [] []  []                            |
-parted             | []                                      []    [] |
+parted             | []             []                       []    [] |
 pilot-qof          |                                                  |
 psmisc             |       []                             []       [] |
 pwdutils           |                                                  |
@@ -338,11 +338,11 @@ soundtracker       | []             []                             [] |
 sp                 |                []                                |
 stardict           |                                      []          |
 system-tools-ba... | []    []    [] []                 [] [] []    [] |
-tar                | [] []          []  []                         [] |
+tar                | [] []          []  []                []       [] |
 texinfo            |                []           []                   |
 textutils          | []             []  [] []             []          |
 tin                |    []          ()                                |
-tp-robot           |             [] []                    []          |
+tp-robot           |             [] []  []                []          |
 tuxpaint           |                    []                []          |
 unicode-han-tra... |                                                  |
 unicode-transla... |                []  []                            |
@@ -356,7 +356,7 @@ xkeyboard-config   |             [] []                    []       [] |
 xpad               | []                 []                []          |
                    +--------------------------------------------------+
                      es et eu fa fi fr  ga gl gu he hi hr hu id is it
-                     89 21 16  2 41 118 59 14  1  8  1  6 60 30  0 52
+                     89 21 16  2 41 119 61 14  1  8  1  6 61 30  0 53
 @end group
 
 @group
@@ -460,14 +460,14 @@ iso_3166_1         |                                        []     [] |
 iso_3166_2         |                                        []        |
 iso_3166_3         |                                        []        |
 iso_4217           | []                      []             []        |
-iso_639            | []                                     []  []    |
+iso_639            | []                                     []        |
 jpilot             | ()                                     ()     () |
 jtag               |                                                  |
 jwhois             |                                        []        |
 kbd                |                                        []        |
 keytouch           |                                        []        |
 keytouch-editor    |                                                  |
-keytouch-keyboa... |                                        []        |
+keytouch-keyboa... |                                                  |
 latrine            |                                        []        |
 ld                 |                                                  |
 leafpad            | []             []                                |
@@ -536,7 +536,7 @@ xkeyboard-config   |                                        []        |
 xpad               |    []                      []          []        |
                    +--------------------------------------------------+
                      ja ko ku ky lg lt lv mk mn ms mt nb ne nl  nn no
-                     40 24  2  1  1  3  1  2  3 21  0 15  1 102  6  3
+                     40 24  2  1  1  3  1  2  3 21  0 15  1 101  5  3
 @end group
 
 @group
@@ -580,7 +580,7 @@ gas                |                                                      |
 gawk               |           []     []      []                   []     |
 gbiff              |                          []                          |
 gcal               |                                               []     |
-gcc                |                                                      |
+gcc                |                                               []     |
 gettext-examples   |           [] []          [] []    [] []    [] []     |
 gettext-runtime    |           [] []          [] []    [] []    [] []     |
 gettext-tools      |           []             [] []    [] []    [] []     |
@@ -657,7 +657,7 @@ libextractor       |                          []                   []     |
 libgpewidget       |              []  []      []       [] []    [] []     |
 libgpg-error       |           []             []                          |
 libgphoto2         |           []                                         |
-libgphoto2_port    |           []                []                       |
+libgphoto2_port    |           []                []                []     |
 libgsasl           |           []             []                [] []     |
 libiconv           |                                                      |
 libidn             |           []                               [] ()     |
@@ -716,7 +716,7 @@ xkeyboard-config   |                                      []       []     |
 xpad               |                                   [] []       []     |
                    +------------------------------------------------------+
                      nso or pa pl pt pt_BR rm ro ru rw sk sl sq sr sv  ta
-                      0   2  3 58 31  53    5 76 72  5 42 48 12 51 128  2
+                      0   2  3 58 31  53    5 76 72  5 42 48 12 51 130  2
 @end group
 
 @group
@@ -735,7 +735,7 @@ bfd                |                                                   |  1
 bibshelf           |                    []                             |  7
 binutils           |          []        []                     []      |  9
 bison              |          []        []                     []      | 19
-bison-runtime      |                    []         []          []      | 15
+bison-runtime      |                    []         []          []      | 16
 bluez-pin          |          [] []     []  []     []          []      | 28
 cflow              |             []     []                             |  4
 clisp              |                                                   |  6
@@ -760,9 +760,9 @@ gas                |          []                                       |  3
 gawk               |          []        []                             | 15
 gbiff              |                    []                             |  5
 gcal               |          []                                       |  5
-gcc                |          []                   []          []      |  5
-gettext-examples   |          [] []     []         []          []      | 24
-gettext-runtime    |          [] []     []         []          []      | 26
+gcc                |          []                   []          []      |  6
+gettext-examples   |          [] []     []         []    []    []      | 26
+gettext-runtime    |          [] []     []         []    []    []      | 28
 gettext-tools      |          [] []     []         []          []      | 19
 gimp-print         |             []     []                             | 12
 gip                |                    []                     []      | 12
@@ -820,26 +820,26 @@ iso_3166_1         |          []            []                         | 20
 iso_3166_2         |                                                   |  2
 iso_3166_3         |                        []     []                  |  9
 iso_4217           |          []        []                             | 14
-iso_639            |                    []  []                         | 16
+iso_639            |                    []                             | 14
 jpilot             |          [] []     []         []                  |  7
 jtag               |                    []                             |  3
 jwhois             |          []        []                     []      | 13
 kbd                |          []        []                             | 12
 keytouch           |                    []                             |  4
 keytouch-editor    |                                                   |  2
-keytouch-keyboa... |                    []                             |  4
+keytouch-keyboa... |                                                   |  2
 latrine            |          []        []                             |  8
-ld                 |          []        []         []                  |  7
+ld                 |          []        []         []          []      |  8
 leafpad            |          []        []         []          []      | 23
 libc               |          []                   []          []      | 23
 libexif            |                    []                             |  4
 libextractor       |                    []                             |  5
 libgpewidget       |                    []  []     []                  | 19
 libgpg-error       |                    []                             |  4
-libgphoto2         |             []                                    |  7
-libgphoto2_port    |             []     []                     []      | 10
+libgphoto2         |             []                                    |  8
+libgphoto2_port    |             []     []                     []      | 11
 libgsasl           |                    []                             |  8
-libiconv           |                                                   |  0
+libiconv           |                    []                             |  4
 libidn             |                    []         []                  | 10
 lifelines          |                                                   |  4
 lilypond           |                                                   |  2
@@ -854,7 +854,7 @@ mysecretdiary      |          []        []                             | 12
 nano               |                    []                     []      | 15
 nano_1_0           |          [] []     []                             | 18
 opcodes            |          []        []                             | 10
-parted             |          [] []                            []      |  9
+parted             |          [] []                            []      | 10
 pilot-qof          |                    []                             |  3
 psmisc             |                    []                             | 10
 pwdutils           |                    []                             |  3
@@ -862,7 +862,7 @@ python             |                                                   |  0
 qof                |                    []                             |  2
 radius             |             []                                    |  6
 recode             |          []        []         []                  | 25
-rpm                |          [] []     []                             | 13
+rpm                |          [] []     []                     []      | 14
 screem             |                    []                             |  2
 scrollkeeper       |          [] []     []                     []      | 26
 sed                |          []        []                     []      | 22
@@ -878,11 +878,11 @@ soundtracker       |          []        []                             |  9
 sp                 |          []                                       |  3
 stardict           |             []     []         []          []      | 11
 system-tools-ba... |    []    [] []     []     []  []          []      | 37
-tar                |          [] []     []                     []      | 17
+tar                |          [] []     []                     []      | 19
 texinfo            |          []        []         []                  | 15
 textutils          |          []                   []          []      | 17
 tin                |                                                   |  1
-tp-robot           |                    []         []          []      |  9
+tp-robot           |                    []         []          []      | 10
 tuxpaint           |                    []  []                 []      | 16
 unicode-han-tra... |                                                   |  0
 unicode-transla... |                                                   |  2
@@ -896,6 +896,6 @@ xkeyboard-config   |          [] []     []                     []      | 11
 xpad               |                    []         []          []      | 14
                    +---------------------------------------------------+
   77 teams           tg th tk tr uk ven vi  wa xh zh_CN zh_HK zh_TW zu
- 172 domains          0  1  1 78 39  0  135 14  1  50     1    52    0  2040
+ 172 domains          0  1  1 78 39  0  135 13  1  50     3    54    0  2054
 @end group
 @end example

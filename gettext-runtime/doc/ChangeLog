@@ -1,3 +1,8 @@
+2006-07-20  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2006-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* nls.texi: Fix a mistake.
