@@ -1,16 +1,17 @@
 <HTML>
 <HEAD>
-<!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 21 July 2005 -->
+<!-- This HTML file has been created by texi2html 1.52b
+     from gettext.texi on 20 July 2006 -->
 
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 15  Other Programming Languages</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_14.html">previous</A>, <A HREF="gettext_16.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_14.html">previous</A>, <A HREF="gettext_16.html">next</A>, <A HREF="gettext_25.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
-<H1><A NAME="SEC224" HREF="gettext_toc.html#TOC224">15  Other Programming Languages</A></H1>
+<H1><A NAME="SEC227" HREF="gettext_toc.html#TOC227">15  Other Programming Languages</A></H1>
 
 <P>
 While the presentation of <CODE>gettext</CODE> focuses mostly on C and
@@ -23,10 +24,10 @@ approach.
 
 
 
-<H2><A NAME="SEC225" HREF="gettext_toc.html#TOC225">15.1  The Language Implementor's View</A></H2>
+<H2><A NAME="SEC228" HREF="gettext_toc.html#TOC228">15.1  The Language Implementor's View</A></H2>
 <P>
-<A NAME="IDX1078"></A>
-<A NAME="IDX1079"></A>
+<A NAME="IDX1104"></A>
+<A NAME="IDX1105"></A>
 
 </P>
 <P>
@@ -95,7 +96,7 @@ The language's library should have a string formatting facility where
 the arguments of a format string are denoted by a positional number or a
 name.  This is needed because for some languages and some messages with
 more than one substitutable argument, the translation will need to
-output the substituted arguments in different order.  See section <A HREF="gettext_4.html#SEC16">4.5  Special Comments preceding Keywords</A>.
+output the substituted arguments in different order.  See section <A HREF="gettext_4.html#SEC17">4.6  Special Comments preceding Keywords</A>.
 
 <LI>
 
@@ -108,9 +109,10 @@ without actually translating the strings.
 <LI>
 
 To help the programmer in the task of marking translatable strings,
-which is usually performed using the Emacs PO mode, you are welcome to
+which is sometimes performed using the Emacs PO mode (see section <A HREF="gettext_4.html#SEC16">4.5  Marking Translatable Strings</A>),
+you are welcome to
 contact the GNU <CODE>gettext</CODE> maintainers, so they can add support for
-your language to <TT>`po-mode.el&acute;</TT>.
+your language to <TT>&lsquo;po-mode.el&rsquo;</TT>.
 </OL>
 
 <P>
@@ -122,8 +124,8 @@ different effects on portability and copyright:
 <UL>
 <LI>
 
-You may integrate the GNU <CODE>gettext</CODE>'s <TT>`intl/&acute;</TT> directory in
-your package, as described in section <A HREF="gettext_13.html#SEC194">13  The Maintainer's View</A>.  This allows you to
+You may integrate the GNU <CODE>gettext</CODE>'s <TT>&lsquo;intl/&rsquo;</TT> directory in
+your package, as described in section <A HREF="gettext_13.html#SEC196">13  The Maintainer's View</A>.  This allows you to
 have internationalization on all kinds of platforms.  Note that when you
 then distribute your package, it legally falls under the GNU General
 Public License, and the GNU project will be glad about your contribution
@@ -149,11 +151,11 @@ and plural handling).
 
 
 
-<H2><A NAME="SEC226" HREF="gettext_toc.html#TOC226">15.2  The Programmer's View</A></H2>
+<H2><A NAME="SEC229" HREF="gettext_toc.html#TOC229">15.2  The Programmer's View</A></H2>
 
 <P>
 For the programmer, the general procedure is the same as for the C
-language.  The Emacs PO mode supports other languages, and the GNU
+language.  The Emacs PO mode marking supports other languages, and the GNU
 <CODE>xgettext</CODE> string extractor recognizes other languages based on the
 file extension or a command-line option.  In some languages,
 <CODE>setlocale</CODE> is not needed because it is already performed by the
@@ -162,7 +164,7 @@ underlying language runtime.
 </P>
 
 
-<H2><A NAME="SEC227" HREF="gettext_toc.html#TOC227">15.3  The Translator's View</A></H2>
+<H2><A NAME="SEC230" HREF="gettext_toc.html#TOC230">15.3  The Translator's View</A></H2>
 
 <P>
 The translator works exactly as in the C language case.  The only
@@ -174,7 +176,7 @@ strings.
 
 
 
-<H3><A NAME="SEC228" HREF="gettext_toc.html#TOC228">15.3.1  C Format Strings</A></H3>
+<H3><A NAME="SEC231" HREF="gettext_toc.html#TOC231">15.3.1  C Format Strings</A></H3>
 
 <P>
 C format strings are described in POSIX (IEEE P1003.1 2001), section
@@ -206,33 +208,33 @@ which is semantically equivalent to
 <P>
 are a POSIX/XSI feature and not specified by ISO C 99, translators can rely
 on this reordering ability: On the few platforms where <CODE>printf()</CODE>,
-<CODE>fprintf()</CODE> etc. don't support this feature natively, <TT>`libintl.a&acute;</TT>
-or <TT>`libintl.so&acute;</TT> provides replacement functions, and GNU <CODE>&#60;libintl.h&#62;</CODE>
+<CODE>fprintf()</CODE> etc. don't support this feature natively, <TT>&lsquo;libintl.a&rsquo;</TT>
+or <TT>&lsquo;libintl.so&rsquo;</TT> provides replacement functions, and GNU <CODE>&#60;libintl.h&#62;</CODE>
 activates these replacement functions automatically.
 
 </P>
 <P>
-<A NAME="IDX1080"></A>
-<A NAME="IDX1081"></A>
+<A NAME="IDX1106"></A>
+<A NAME="IDX1107"></A>
 As a special feature for Farsi (Persian) and maybe Arabic, translators can
-insert an <SAMP>`I&acute;</SAMP> flag into numeric format directives.  For example, the
+insert an <SAMP>&lsquo;I&rsquo;</SAMP> flag into numeric format directives.  For example, the
 translation of <CODE>"%d"</CODE> can be <CODE>"%Id"</CODE>.  The effect of this flag,
 on systems with GNU <CODE>libc</CODE>, is that in the output, the ASCII digits are
-replaced with the <SAMP>`outdigits&acute;</SAMP> defined in the <CODE>LC_CTYPE</CODE> locale
+replaced with the <SAMP>&lsquo;outdigits&rsquo;</SAMP> defined in the <CODE>LC_CTYPE</CODE> locale
 facet.  On other systems, the <CODE>gettext</CODE> function removes this flag,
 so that it has no effect.
 
 </P>
 <P>
 Note that the programmer should <EM>not</EM> put this flag into the
-untranslated string.  (Putting the <SAMP>`I&acute;</SAMP> format directive flag into an
+untranslated string.  (Putting the <SAMP>&lsquo;I&rsquo;</SAMP> format directive flag into an
 <VAR>msgid</VAR> string would lead to undefined behaviour on platforms without
 glibc when NLS is disabled.)
 
 </P>
 
 
-<H3><A NAME="SEC229" HREF="gettext_toc.html#TOC229">15.3.2  Objective C Format Strings</A></H3>
+<H3><A NAME="SEC232" HREF="gettext_toc.html#TOC232">15.3.2  Objective C Format Strings</A></H3>
 
 <P>
 Objective C format strings are like C format strings.  They support an
@@ -242,10 +244,10 @@ of type <CODE>Object *</CODE>.
 </P>
 
 
-<H3><A NAME="SEC230" HREF="gettext_toc.html#TOC230">15.3.3  Shell Format Strings</A></H3>
+<H3><A NAME="SEC233" HREF="gettext_toc.html#TOC233">15.3.3  Shell Format Strings</A></H3>
 
 <P>
-Shell format strings, as supported by GNU gettext and the <SAMP>`envsubst&acute;</SAMP>
+Shell format strings, as supported by GNU gettext and the <SAMP>&lsquo;envsubst&rsquo;</SAMP>
 program, are strings with references to shell variables in the form
 <CODE>$<VAR>variable</VAR></CODE> or <CODE>${<VAR>variable</VAR>}</CODE>.  References of the form
 <CODE>${<VAR>variable</VAR>-<VAR>default</VAR>}</CODE>,
@@ -264,7 +266,7 @@ a variable reference is ignored.
 </P>
 
 
-<H3><A NAME="SEC231" HREF="gettext_toc.html#TOC231">15.3.4  Python Format Strings</A></H3>
+<H3><A NAME="SEC234" HREF="gettext_toc.html#TOC234">15.3.4  Python Format Strings</A></H3>
 
 <P>
 Python format strings are described in
@@ -278,7 +280,7 @@ Python Library reference /
 </P>
 
 
-<H3><A NAME="SEC232" HREF="gettext_toc.html#TOC232">15.3.5  Lisp Format Strings</A></H3>
+<H3><A NAME="SEC235" HREF="gettext_toc.html#TOC235">15.3.5  Lisp Format Strings</A></H3>
 
 <P>
 Lisp format strings are described in the Common Lisp HyperSpec,
@@ -288,7 +290,7 @@ chapter 22.3 Formatted Output,
 </P>
 
 
-<H3><A NAME="SEC233" HREF="gettext_toc.html#TOC233">15.3.6  Emacs Lisp Format Strings</A></H3>
+<H3><A NAME="SEC236" HREF="gettext_toc.html#TOC236">15.3.6  Emacs Lisp Format Strings</A></H3>
 
 <P>
 Emacs Lisp format strings are documented in the Emacs Lisp reference,
@@ -300,7 +302,7 @@ in format strings while FSF Emacs doesn't.
 </P>
 
 
-<H3><A NAME="SEC234" HREF="gettext_toc.html#TOC234">15.3.7  librep Format Strings</A></H3>
+<H3><A NAME="SEC237" HREF="gettext_toc.html#TOC237">15.3.7  librep Format Strings</A></H3>
 
 <P>
 librep format strings are documented in the librep manual, section
@@ -311,7 +313,7 @@ Formatted Output,
 </P>
 
 
-<H3><A NAME="SEC235" HREF="gettext_toc.html#TOC235">15.3.8  Scheme Format Strings</A></H3>
+<H3><A NAME="SEC238" HREF="gettext_toc.html#TOC238">15.3.8  Scheme Format Strings</A></H3>
 
 <P>
 Scheme format strings are documented in the SLIB manual, section
@@ -320,20 +322,20 @@ Format Specification.
 </P>
 
 
-<H3><A NAME="SEC236" HREF="gettext_toc.html#TOC236">15.3.9  Smalltalk Format Strings</A></H3>
+<H3><A NAME="SEC239" HREF="gettext_toc.html#TOC239">15.3.9  Smalltalk Format Strings</A></H3>
 
 <P>
 Smalltalk format strings are described in the GNU Smalltalk documentation,
-class <CODE>CharArray</CODE>, methods <SAMP>`bindWith:&acute;</SAMP> and
-<SAMP>`bindWithArguments:&acute;</SAMP>.
+class <CODE>CharArray</CODE>, methods <SAMP>&lsquo;bindWith:&rsquo;</SAMP> and
+<SAMP>&lsquo;bindWithArguments:&rsquo;</SAMP>.
 <A HREF="http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238">http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238</A>.
-In summary, a directive starts with <SAMP>`%&acute;</SAMP> and is followed by <SAMP>`%&acute;</SAMP>
-or a nonzero digit (<SAMP>`1&acute;</SAMP> to <SAMP>`9&acute;</SAMP>).
+In summary, a directive starts with <SAMP>&lsquo;%&rsquo;</SAMP> and is followed by <SAMP>&lsquo;%&rsquo;</SAMP>
+or a nonzero digit (<SAMP>&lsquo;1&rsquo;</SAMP> to <SAMP>&lsquo;9&rsquo;</SAMP>).
 
 </P>
 
 
-<H3><A NAME="SEC237" HREF="gettext_toc.html#TOC237">15.3.10  Java Format Strings</A></H3>
+<H3><A NAME="SEC240" HREF="gettext_toc.html#TOC240">15.3.10  Java Format Strings</A></H3>
 
 <P>
 Java format strings are described in the JDK documentation for class
@@ -345,7 +347,7 @@ See also the ICU documentation
 </P>
 
 
-<H3><A NAME="SEC238" HREF="gettext_toc.html#TOC238">15.3.11  C# Format Strings</A></H3>
+<H3><A NAME="SEC241" HREF="gettext_toc.html#TOC241">15.3.11  C# Format Strings</A></H3>
 
 <P>
 C# format strings are described in the .NET documentation for class
@@ -355,7 +357,7 @@ C# format strings are described in the .NET documentation for class
 </P>
 
 
-<H3><A NAME="SEC239" HREF="gettext_toc.html#TOC239">15.3.12  awk Format Strings</A></H3>
+<H3><A NAME="SEC242" HREF="gettext_toc.html#TOC242">15.3.12  awk Format Strings</A></H3>
 
 <P>
 awk format strings are described in the gawk documentation, section
@@ -365,7 +367,7 @@ Printf,
 </P>
 
 
-<H3><A NAME="SEC240" HREF="gettext_toc.html#TOC240">15.3.13  Object Pascal Format Strings</A></H3>
+<H3><A NAME="SEC243" HREF="gettext_toc.html#TOC243">15.3.13  Object Pascal Format Strings</A></H3>
 
 <P>
 Where is this documented?
@@ -373,93 +375,107 @@ Where is this documented?
 </P>
 
 
-<H3><A NAME="SEC241" HREF="gettext_toc.html#TOC241">15.3.14  YCP Format Strings</A></H3>
+<H3><A NAME="SEC244" HREF="gettext_toc.html#TOC244">15.3.14  YCP Format Strings</A></H3>
 
 <P>
 YCP sformat strings are described in the libycp documentation
 <A HREF="file:/usr/share/doc/packages/libycp/YCP-builtins.html">file:/usr/share/doc/packages/libycp/YCP-builtins.html</A>.
-In summary, a directive starts with <SAMP>`%&acute;</SAMP> and is followed by <SAMP>`%&acute;</SAMP>
-or a nonzero digit (<SAMP>`1&acute;</SAMP> to <SAMP>`9&acute;</SAMP>).
+In summary, a directive starts with <SAMP>&lsquo;%&rsquo;</SAMP> and is followed by <SAMP>&lsquo;%&rsquo;</SAMP>
+or a nonzero digit (<SAMP>&lsquo;1&rsquo;</SAMP> to <SAMP>&lsquo;9&rsquo;</SAMP>).
 
 </P>
 
 
-<H3><A NAME="SEC242" HREF="gettext_toc.html#TOC242">15.3.15  Tcl Format Strings</A></H3>
+<H3><A NAME="SEC245" HREF="gettext_toc.html#TOC245">15.3.15  Tcl Format Strings</A></H3>
 
 <P>
-Tcl format strings are described in the <TT>`format.n&acute;</TT> manual page,
+Tcl format strings are described in the <TT>&lsquo;format.n&rsquo;</TT> manual page,
 <A HREF="http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm">http://www.scriptics.com/man/tcl8.3/TclCmd/format.htm</A>.
 
 </P>
 
 
-<H3><A NAME="SEC243" HREF="gettext_toc.html#TOC243">15.3.16  Perl Format Strings</A></H3>
+<H3><A NAME="SEC246" HREF="gettext_toc.html#TOC246">15.3.16  Perl Format Strings</A></H3>
 
 <P>
 There are two kinds format strings in Perl: those acceptable to the
-Perl built-in function <CODE>printf</CODE>, labelled as <SAMP>`perl-format&acute;</SAMP>,
+Perl built-in function <CODE>printf</CODE>, labelled as <SAMP>&lsquo;perl-format&rsquo;</SAMP>,
 and those acceptable to the <CODE>libintl-perl</CODE> function <CODE>__x</CODE>,
-labelled as <SAMP>`perl-brace-format&acute;</SAMP>.
+labelled as <SAMP>&lsquo;perl-brace-format&rsquo;</SAMP>.
 
 </P>
 <P>
 Perl <CODE>printf</CODE> format strings are described in the <CODE>sprintf</CODE>
-section of <SAMP>`man perlfunc&acute;</SAMP>.
+section of <SAMP>&lsquo;man perlfunc&rsquo;</SAMP>.
 
 </P>
 <P>
 Perl brace format strings are described in the
-<TT>`Locale::TextDomain(3pm)&acute;</TT> manual page of the CPAN package
+<TT>&lsquo;Locale::TextDomain(3pm)&rsquo;</TT> manual page of the CPAN package
 libintl-perl.  In brief, Perl format uses placeholders put between
-braces (<SAMP>`{&acute;</SAMP> and <SAMP>`}&acute;</SAMP>).  The placeholder must have the syntax
+braces (<SAMP>&lsquo;{&rsquo;</SAMP> and <SAMP>&lsquo;}&rsquo;</SAMP>).  The placeholder must have the syntax
 of simple identifiers.
 
 </P>
 
 
-<H3><A NAME="SEC244" HREF="gettext_toc.html#TOC244">15.3.17  PHP Format Strings</A></H3>
+<H3><A NAME="SEC247" HREF="gettext_toc.html#TOC247">15.3.17  PHP Format Strings</A></H3>
 
 <P>
 PHP format strings are described in the documentation of the PHP function
-<CODE>sprintf</CODE>, in <TT>`phpdoc/manual/function.sprintf.html&acute;</TT> or
+<CODE>sprintf</CODE>, in <TT>&lsquo;phpdoc/manual/function.sprintf.html&rsquo;</TT> or
 <A HREF="http://www.php.net/manual/en/function.sprintf.php">http://www.php.net/manual/en/function.sprintf.php</A>.
 
 </P>
 
 
-<H3><A NAME="SEC245" HREF="gettext_toc.html#TOC245">15.3.18  GCC internal Format Strings</A></H3>
+<H3><A NAME="SEC248" HREF="gettext_toc.html#TOC248">15.3.18  GCC internal Format Strings</A></H3>
 
 <P>
 These format strings are used inside the GCC sources.  In such a format
-string, a directive starts with <SAMP>`%&acute;</SAMP>, is optionally followed by a
-size specifier <SAMP>`l&acute;</SAMP>, an optional flag <SAMP>`+&acute;</SAMP>, another optional flag
-<SAMP>`#&acute;</SAMP>, and is finished by a specifier: <SAMP>`%&acute;</SAMP> denotes a literal
-percent sign, <SAMP>`c&acute;</SAMP> denotes a character, <SAMP>`s&acute;</SAMP> denotes a string,
-<SAMP>`i&acute;</SAMP> and <SAMP>`d&acute;</SAMP> denote an integer, <SAMP>`o&acute;</SAMP>, <SAMP>`u&acute;</SAMP>, <SAMP>`x&acute;</SAMP>
-denote an unsigned integer, <SAMP>`.*s&acute;</SAMP> denotes a string preceded by a
-width specification, <SAMP>`H&acute;</SAMP> denotes a <SAMP>`location_t *&acute;</SAMP> pointer,
-<SAMP>`D&acute;</SAMP> denotes a general declaration, <SAMP>`F&acute;</SAMP> denotes a function
-declaration, <SAMP>`T&acute;</SAMP> denotes a type, <SAMP>`A&acute;</SAMP> denotes a function argument,
-<SAMP>`C&acute;</SAMP> denotes a tree code, <SAMP>`E&acute;</SAMP> denotes an expression, <SAMP>`L&acute;</SAMP>
-denotes a programming language, <SAMP>`O&acute;</SAMP> denotes a binary operator,
-<SAMP>`P&acute;</SAMP> denotes a function parameter, <SAMP>`Q&acute;</SAMP> denotes an assignment
-operator, <SAMP>`V&acute;</SAMP> denotes a const/volatile qualifier.
+string, a directive starts with <SAMP>&lsquo;%&rsquo;</SAMP>, is optionally followed by a
+size specifier <SAMP>&lsquo;l&rsquo;</SAMP>, an optional flag <SAMP>&lsquo;+&rsquo;</SAMP>, another optional flag
+<SAMP>&lsquo;#&rsquo;</SAMP>, and is finished by a specifier: <SAMP>&lsquo;%&rsquo;</SAMP> denotes a literal
+percent sign, <SAMP>&lsquo;c&rsquo;</SAMP> denotes a character, <SAMP>&lsquo;s&rsquo;</SAMP> denotes a string,
+<SAMP>&lsquo;i&rsquo;</SAMP> and <SAMP>&lsquo;d&rsquo;</SAMP> denote an integer, <SAMP>&lsquo;o&rsquo;</SAMP>, <SAMP>&lsquo;u&rsquo;</SAMP>, <SAMP>&lsquo;x&rsquo;</SAMP>
+denote an unsigned integer, <SAMP>&lsquo;.*s&rsquo;</SAMP> denotes a string preceded by a
+width specification, <SAMP>&lsquo;H&rsquo;</SAMP> denotes a <SAMP>&lsquo;location_t *&rsquo;</SAMP> pointer,
+<SAMP>&lsquo;D&rsquo;</SAMP> denotes a general declaration, <SAMP>&lsquo;F&rsquo;</SAMP> denotes a function
+declaration, <SAMP>&lsquo;T&rsquo;</SAMP> denotes a type, <SAMP>&lsquo;A&rsquo;</SAMP> denotes a function argument,
+<SAMP>&lsquo;C&rsquo;</SAMP> denotes a tree code, <SAMP>&lsquo;E&rsquo;</SAMP> denotes an expression, <SAMP>&lsquo;L&rsquo;</SAMP>
+denotes a programming language, <SAMP>&lsquo;O&rsquo;</SAMP> denotes a binary operator,
+<SAMP>&lsquo;P&rsquo;</SAMP> denotes a function parameter, <SAMP>&lsquo;Q&rsquo;</SAMP> denotes an assignment
+operator, <SAMP>&lsquo;V&rsquo;</SAMP> denotes a const/volatile qualifier.
 
 </P>
 
 
-<H3><A NAME="SEC246" HREF="gettext_toc.html#TOC246">15.3.19  Qt Format Strings</A></H3>
+<H3><A NAME="SEC249" HREF="gettext_toc.html#TOC249">15.3.19  Qt Format Strings</A></H3>
 
 <P>
 Qt format strings are described in the documentation of the QString class
 <A HREF="file:/usr/lib/qt-3.0.5/doc/html/qstring.html">file:/usr/lib/qt-3.0.5/doc/html/qstring.html</A>.
-In summary, a directive consists of a <SAMP>`%&acute;</SAMP> followed by a digit. The same
+In summary, a directive consists of a <SAMP>&lsquo;%&rsquo;</SAMP> followed by a digit. The same
 directive cannot occur more than once in a format string.
 
 </P>
 
 
-<H2><A NAME="SEC247" HREF="gettext_toc.html#TOC247">15.4  The Maintainer's View</A></H2>
+<H3><A NAME="SEC250" HREF="gettext_toc.html#TOC250">15.3.20  Boost Format Strings</A></H3>
+
+<P>
+Boost format strings are described in the documentation of the
+<CODE>boost::format</CODE> class, at
+<A HREF="http://www.boost.org/libs/format/doc/format.html">http://www.boost.org/libs/format/doc/format.html</A>.
+In summary, a directive has either the same syntax as in a C format string,
+such as <SAMP>&lsquo;%1$+5d&rsquo;</SAMP>, or may be surrounded by vertical bars, such as
+<SAMP>&lsquo;%|1$+5d|&rsquo;</SAMP> or <SAMP>&lsquo;%|1$+5|&rsquo;</SAMP>, or consists of just an argument number
+between percent signs, such as <SAMP>&lsquo;%1%&rsquo;</SAMP>.
+
+</P>
+
+
+<H2><A NAME="SEC251" HREF="gettext_toc.html#TOC251">15.4  The Maintainer's View</A></H2>
 
 <P>
 For the maintainer, the general procedure differs from the C language
@@ -470,33 +486,33 @@ case in two ways.
 <UL>
 <LI>
 
-For those languages that don't use GNU gettext, the <TT>`intl/&acute;</TT> directory
+For those languages that don't use GNU gettext, the <TT>&lsquo;intl/&rsquo;</TT> directory
 is not needed and can be omitted.  This means that the maintainer calls the
-<CODE>gettextize</CODE> program without the <SAMP>`--intl&acute;</SAMP> option, and that he
+<CODE>gettextize</CODE> program without the <SAMP>&lsquo;--intl&rsquo;</SAMP> option, and that he
 invokes the <CODE>AM_GNU_GETTEXT</CODE> autoconf macro via
-<SAMP>`AM_GNU_GETTEXT([external])&acute;</SAMP>.
+<SAMP>&lsquo;AM_GNU_GETTEXT([external])&rsquo;</SAMP>.
 
 <LI>
 
 If only a single programming language is used, the <CODE>XGETTEXT_OPTIONS</CODE>
-variable in <TT>`po/Makevars&acute;</TT> (see section <A HREF="gettext_13.html#SEC201">13.4.3  <TT>`Makevars&acute;</TT> in <TT>`po/&acute;</TT></A>) should be adjusted to
+variable in <TT>&lsquo;po/Makevars&rsquo;</TT> (see section <A HREF="gettext_13.html#SEC203">13.4.3  <TT>&lsquo;Makevars&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A>) should be adjusted to
 match the <CODE>xgettext</CODE> options for that particular programming language.
 If the package uses more than one programming language with <CODE>gettext</CODE>
 support, it becomes necessary to change the POT file construction rule
-in <TT>`po/Makefile.in.in&acute;</TT>.  It is recommended to make one <CODE>xgettext</CODE>
+in <TT>&lsquo;po/Makefile.in.in&rsquo;</TT>.  It is recommended to make one <CODE>xgettext</CODE>
 invocation per programming language, each with the options appropriate for
 that language, and to combine the resulting files using <CODE>msgcat</CODE>.
 </UL>
 
 
 
-<H2><A NAME="SEC248" HREF="gettext_toc.html#TOC248">15.5  Individual Programming Languages</A></H2>
+<H2><A NAME="SEC252" HREF="gettext_toc.html#TOC252">15.5  Individual Programming Languages</A></H2>
 
 
 
-<H3><A NAME="SEC249" HREF="gettext_toc.html#TOC249">15.5.1  C, C++, Objective C</A></H3>
+<H3><A NAME="SEC253" HREF="gettext_toc.html#TOC253">15.5.1  C, C++, Objective C</A></H3>
 <P>
-<A NAME="IDX1082"></A>
+<A NAME="IDX1108"></A>
 
 </P>
 <DL COMPACT>
@@ -554,7 +570,7 @@ Use
 <DD>
 <CODE>fprintf "%2$d %1$d"</CODE>
 <BR>In C++: <CODE>autosprintf "%2$d %1$d"</CODE>
-(see section `Introduction' in <CITE>GNU autosprintf</CITE>)
+(see section ‘Introduction’ in <CITE>GNU autosprintf</CITE>)
 
 <DT>Portability
 <DD>
@@ -566,17 +582,17 @@ yes
 </DL>
 
 <P>
-The following examples are available in the <TT>`examples&acute;</TT> directory:
+The following examples are available in the <TT>&lsquo;examples&rsquo;</TT> directory:
 <CODE>hello-c</CODE>, <CODE>hello-c-gnome</CODE>, <CODE>hello-c++</CODE>, <CODE>hello-c++-qt</CODE>, 
-<CODE>hello-c++-kde</CODE>, <CODE>hello-c++-gnome</CODE>, <CODE>hello-objc</CODE>, 
-<CODE>hello-objc-gnustep</CODE>, <CODE>hello-objc-gnome</CODE>.
+<CODE>hello-c++-kde</CODE>, <CODE>hello-c++-gnome</CODE>, <CODE>hello-c++-wxwidgets</CODE>,
+<CODE>hello-objc</CODE>, <CODE>hello-objc-gnustep</CODE>, <CODE>hello-objc-gnome</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC250" HREF="gettext_toc.html#TOC250">15.5.2  sh - Shell Script</A></H3>
+<H3><A NAME="SEC254" HREF="gettext_toc.html#TOC254">15.5.2  sh - Shell Script</A></H3>
 <P>
-<A NAME="IDX1083"></A>
+<A NAME="IDX1109"></A>
 
 </P>
 <DL COMPACT>
@@ -599,19 +615,19 @@ bash, gettext
 
 <DT>gettext/ngettext functions
 <DD>
-<A NAME="IDX1084"></A>
-<A NAME="IDX1085"></A>
+<A NAME="IDX1110"></A>
+<A NAME="IDX1111"></A>
 <CODE>gettext</CODE>, <CODE>ngettext</CODE> programs
 <BR><CODE>eval_gettext</CODE>, <CODE>eval_ngettext</CODE> shell functions
 
 <DT>textdomain
 <DD>
-<A NAME="IDX1086"></A>
+<A NAME="IDX1112"></A>
 environment variable <CODE>TEXTDOMAIN</CODE>
 
 <DT>bindtextdomain
 <DD>
-<A NAME="IDX1087"></A>
+<A NAME="IDX1113"></A>
 environment variable <CODE>TEXTDOMAINDIR</CODE>
 
 <DT>setlocale
@@ -644,15 +660,15 @@ fully portable
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-sh</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-sh</CODE>.
 
 </P>
 
 
 
-<H4><A NAME="SEC251" HREF="gettext_toc.html#TOC251">15.5.2.1  Preparing Shell Scripts for Internationalization</A></H4>
+<H4><A NAME="SEC255" HREF="gettext_toc.html#TOC255">15.5.2.1  Preparing Shell Scripts for Internationalization</A></H4>
 <P>
-<A NAME="IDX1088"></A>
+<A NAME="IDX1114"></A>
 
 </P>
 <P>
@@ -674,8 +690,8 @@ Insert the line
 
 near the top of the script.  <CODE>gettext.sh</CODE> is a shell function library
 that provides the functions
-<CODE>eval_gettext</CODE> (see section <A HREF="gettext_15.html#SEC256">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A>) and
-<CODE>eval_ngettext</CODE> (see section <A HREF="gettext_15.html#SEC257">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A>).
+<CODE>eval_gettext</CODE> (see section <A HREF="gettext_15.html#SEC260">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A>) and
+<CODE>eval_ngettext</CODE> (see section <A HREF="gettext_15.html#SEC261">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A>).
 You have to ensure that <CODE>gettext.sh</CODE> can be found in the <CODE>PATH</CODE>.
 
 <LI>
@@ -695,7 +711,7 @@ export TEXTDOMAINDIR
 
 <LI>
 
-Prepare the strings for translation, as described in section <A HREF="gettext_4.html#SEC13">4.2  Preparing Translatable Strings</A>.
+Prepare the strings for translation, as described in section <A HREF="gettext_4.html#SEC14">4.3  Preparing Translatable Strings</A>.
 
 <LI>
 
@@ -736,16 +752,16 @@ echo "Remaining files: $filecount"
 
 <LI>
 
-For each translatable string, change the output command <SAMP>`echo&acute;</SAMP> or
-<SAMP>`$echo&acute;</SAMP> to <SAMP>`gettext&acute;</SAMP> (if the string contains no references to
-shell variables) or to <SAMP>`eval_gettext&acute;</SAMP> (if it refers to shell variables),
-followed by a no-argument <SAMP>`echo&acute;</SAMP> command (to account for the terminating
+For each translatable string, change the output command <SAMP>&lsquo;echo&rsquo;</SAMP> or
+<SAMP>&lsquo;$echo&rsquo;</SAMP> to <SAMP>&lsquo;gettext&rsquo;</SAMP> (if the string contains no references to
+shell variables) or to <SAMP>&lsquo;eval_gettext&rsquo;</SAMP> (if it refers to shell variables),
+followed by a no-argument <SAMP>&lsquo;echo&rsquo;</SAMP> command (to account for the terminating
 newline). Similarly, for cases with plural handling, replace a conditional
-<SAMP>`echo&acute;</SAMP> command with an invocation of <SAMP>`ngettext&acute;</SAMP> or
-<SAMP>`eval_ngettext&acute;</SAMP>, followed by a no-argument <SAMP>`echo&acute;</SAMP> command.
+<SAMP>&lsquo;echo&rsquo;</SAMP> command with an invocation of <SAMP>&lsquo;ngettext&rsquo;</SAMP> or
+<SAMP>&lsquo;eval_ngettext&rsquo;</SAMP>, followed by a no-argument <SAMP>&lsquo;echo&rsquo;</SAMP> command.
 
 When doing this, you also need to add an extra backslash before the dollar
-sign in references to shell variables, so that the <SAMP>`eval_gettext&acute;</SAMP>
+sign in references to shell variables, so that the <SAMP>&lsquo;eval_gettext&rsquo;</SAMP>
 function receives the translatable string before the variable values are
 substituted into it. For example,
 
@@ -761,11 +777,11 @@ becomes
 eval_gettext "Remaining files: \$filecount"; echo
 </PRE>
 
-If the output command is not <SAMP>`echo&acute;</SAMP>, you can make it use <SAMP>`echo&acute;</SAMP>
+If the output command is not <SAMP>&lsquo;echo&rsquo;</SAMP>, you can make it use <SAMP>&lsquo;echo&rsquo;</SAMP>
 nevertheless, through the use of backquotes. However, note that inside
 backquotes, backslashes must be doubled to be effective (because the
 backquoting eats one level of backslashes). For example, assuming that
-<SAMP>`error&acute;</SAMP> is a shell function that signals an error,
+<SAMP>&lsquo;error&rsquo;</SAMP> is a shell function that signals an error,
 
 
 <PRE>
@@ -790,7 +806,7 @@ error "`eval_gettext \"file not found: \\\$filename\"`"
 
 
 
-<H4><A NAME="SEC252" HREF="gettext_toc.html#TOC252">15.5.2.2  Contents of <CODE>gettext.sh</CODE></A></H4>
+<H4><A NAME="SEC256" HREF="gettext_toc.html#TOC256">15.5.2.2  Contents of <CODE>gettext.sh</CODE></A></H4>
 
 <P>
 <CODE>gettext.sh</CODE>, contained in the run-time package of GNU gettext, provides
@@ -806,20 +822,20 @@ and a newline, without interpreting backslashes in the argument string.
 
 <LI>eval_gettext
 
-See section <A HREF="gettext_15.html#SEC256">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A>.
+See section <A HREF="gettext_15.html#SEC260">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A>.
 
 <LI>eval_ngettext
 
-See section <A HREF="gettext_15.html#SEC257">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A>.
+See section <A HREF="gettext_15.html#SEC261">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A>.
 </UL>
 
 
 
-<H4><A NAME="SEC253" HREF="gettext_toc.html#TOC253">15.5.2.3  Invoking the <CODE>gettext</CODE> program</A></H4>
+<H4><A NAME="SEC257" HREF="gettext_toc.html#TOC257">15.5.2.3  Invoking the <CODE>gettext</CODE> program</A></H4>
 
 <P>
-<A NAME="IDX1089"></A>
-<A NAME="IDX1090"></A>
+<A NAME="IDX1115"></A>
+<A NAME="IDX1116"></A>
 
 <PRE>
 gettext [<VAR>option</VAR>] [[<VAR>textdomain</VAR>] <VAR>msgid</VAR>]
@@ -827,7 +843,7 @@ gettext [<VAR>option</VAR>] -s [<VAR>msgid</VAR>]...
 </PRE>
 
 <P>
-<A NAME="IDX1091"></A>
+<A NAME="IDX1117"></A>
 The <CODE>gettext</CODE> program displays the native language translation of a
 textual message.
 
@@ -838,53 +854,53 @@ textual message.
 </P>
 <DL COMPACT>
 
-<DT><SAMP>`-d <VAR>textdomain</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;-d <VAR>textdomain</VAR>&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--domain=<VAR>textdomain</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;--domain=<VAR>textdomain</VAR>&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1092"></A>
-<A NAME="IDX1093"></A>
+<A NAME="IDX1118"></A>
+<A NAME="IDX1119"></A>
 Retrieve translated messages from <VAR>textdomain</VAR>.  Usually a <VAR>textdomain</VAR>
 corresponds to a package, a program, or a module of a program.
 
-<DT><SAMP>`-e&acute;</SAMP>
+<DT><SAMP>&lsquo;-e&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1094"></A>
+<A NAME="IDX1120"></A>
 Enable expansion of some escape sequences.  This option is for compatibility
-with the <SAMP>`echo&acute;</SAMP> program or shell built-in.  The escape sequences
-<SAMP>`\a&acute;</SAMP>, <SAMP>`\b&acute;</SAMP>, <SAMP>`\c&acute;</SAMP>, <SAMP>`\f&acute;</SAMP>, <SAMP>`\n&acute;</SAMP>, <SAMP>`\r&acute;</SAMP>, <SAMP>`\t&acute;</SAMP>,
-<SAMP>`\v&acute;</SAMP>, <SAMP>`\\&acute;</SAMP>, and <SAMP>`\&acute;</SAMP> followed by one to three octal digits, are
-interpreted like the SystemV <SAMP>`echo&acute;</SAMP> program does.
+with the <SAMP>&lsquo;echo&rsquo;</SAMP> program or shell built-in.  The escape sequences
+<SAMP>&lsquo;\a&rsquo;</SAMP>, <SAMP>&lsquo;\b&rsquo;</SAMP>, <SAMP>&lsquo;\c&rsquo;</SAMP>, <SAMP>&lsquo;\f&rsquo;</SAMP>, <SAMP>&lsquo;\n&rsquo;</SAMP>, <SAMP>&lsquo;\r&rsquo;</SAMP>, <SAMP>&lsquo;\t&rsquo;</SAMP>,
+<SAMP>&lsquo;\v&rsquo;</SAMP>, <SAMP>&lsquo;\\&rsquo;</SAMP>, and <SAMP>&lsquo;\&rsquo;</SAMP> followed by one to three octal digits, are
+interpreted like the SystemV <SAMP>&lsquo;echo&rsquo;</SAMP> program does.
 
-<DT><SAMP>`-E&acute;</SAMP>
+<DT><SAMP>&lsquo;-E&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1095"></A>
-This option is only for compatibility with the <SAMP>`echo&acute;</SAMP> program or shell
+<A NAME="IDX1121"></A>
+This option is only for compatibility with the <SAMP>&lsquo;echo&rsquo;</SAMP> program or shell
 built-in.  It has no effect.
 
-<DT><SAMP>`-h&acute;</SAMP>
+<DT><SAMP>&lsquo;-h&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--help&acute;</SAMP>
+<DT><SAMP>&lsquo;--help&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1096"></A>
-<A NAME="IDX1097"></A>
+<A NAME="IDX1122"></A>
+<A NAME="IDX1123"></A>
 Display this help and exit.
 
-<DT><SAMP>`-n&acute;</SAMP>
+<DT><SAMP>&lsquo;-n&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1098"></A>
+<A NAME="IDX1124"></A>
 Suppress trailing newline.  By default, <CODE>gettext</CODE> adds a newline to
 the output.
 
-<DT><SAMP>`-V&acute;</SAMP>
+<DT><SAMP>&lsquo;-V&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--version&acute;</SAMP>
+<DT><SAMP>&lsquo;--version&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1099"></A>
-<A NAME="IDX1100"></A>
+<A NAME="IDX1125"></A>
+<A NAME="IDX1126"></A>
 Output version information and exit.
 
-<DT><SAMP>`[<VAR>textdomain</VAR>] <VAR>msgid</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;[<VAR>textdomain</VAR>] <VAR>msgid</VAR>&rsquo;</SAMP>
 <DD>
 Retrieve translated message corresponding to <VAR>msgid</VAR> from <VAR>textdomain</VAR>.
 
@@ -898,25 +914,25 @@ environment variable <CODE>TEXTDOMAINDIR</CODE>.
 
 </P>
 <P>
-When used with the <CODE>-s</CODE> option the program behaves like the <SAMP>`echo&acute;</SAMP>
+When used with the <CODE>-s</CODE> option the program behaves like the <SAMP>&lsquo;echo&rsquo;</SAMP>
 command.  But it does not simply copy its arguments to stdout.  Instead those
 messages found in the selected catalog are translated.
 
 </P>
 
 
-<H4><A NAME="SEC254" HREF="gettext_toc.html#TOC254">15.5.2.4  Invoking the <CODE>ngettext</CODE> program</A></H4>
+<H4><A NAME="SEC258" HREF="gettext_toc.html#TOC258">15.5.2.4  Invoking the <CODE>ngettext</CODE> program</A></H4>
 
 <P>
-<A NAME="IDX1101"></A>
-<A NAME="IDX1102"></A>
+<A NAME="IDX1127"></A>
+<A NAME="IDX1128"></A>
 
 <PRE>
 ngettext [<VAR>option</VAR>] [<VAR>textdomain</VAR>] <VAR>msgid</VAR> <VAR>msgid-plural</VAR> <VAR>count</VAR>
 </PRE>
 
 <P>
-<A NAME="IDX1103"></A>
+<A NAME="IDX1129"></A>
 The <CODE>ngettext</CODE> program displays the native language translation of a
 textual message whose grammatical form depends on a number.
 
@@ -927,55 +943,55 @@ textual message whose grammatical form depends on a number.
 </P>
 <DL COMPACT>
 
-<DT><SAMP>`-d <VAR>textdomain</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;-d <VAR>textdomain</VAR>&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--domain=<VAR>textdomain</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;--domain=<VAR>textdomain</VAR>&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1104"></A>
-<A NAME="IDX1105"></A>
+<A NAME="IDX1130"></A>
+<A NAME="IDX1131"></A>
 Retrieve translated messages from <VAR>textdomain</VAR>.  Usually a <VAR>textdomain</VAR>
 corresponds to a package, a program, or a module of a program.
 
-<DT><SAMP>`-e&acute;</SAMP>
+<DT><SAMP>&lsquo;-e&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1106"></A>
+<A NAME="IDX1132"></A>
 Enable expansion of some escape sequences.  This option is for compatibility
-with the <SAMP>`gettext&acute;</SAMP> program.  The escape sequences
-<SAMP>`\a&acute;</SAMP>, <SAMP>`\b&acute;</SAMP>, <SAMP>`\c&acute;</SAMP>, <SAMP>`\f&acute;</SAMP>, <SAMP>`\n&acute;</SAMP>, <SAMP>`\r&acute;</SAMP>, <SAMP>`\t&acute;</SAMP>,
-<SAMP>`\v&acute;</SAMP>, <SAMP>`\\&acute;</SAMP>, and <SAMP>`\&acute;</SAMP> followed by one to three octal digits, are
-interpreted like the SystemV <SAMP>`echo&acute;</SAMP> program does.
+with the <SAMP>&lsquo;gettext&rsquo;</SAMP> program.  The escape sequences
+<SAMP>&lsquo;\a&rsquo;</SAMP>, <SAMP>&lsquo;\b&rsquo;</SAMP>, <SAMP>&lsquo;\c&rsquo;</SAMP>, <SAMP>&lsquo;\f&rsquo;</SAMP>, <SAMP>&lsquo;\n&rsquo;</SAMP>, <SAMP>&lsquo;\r&rsquo;</SAMP>, <SAMP>&lsquo;\t&rsquo;</SAMP>,
+<SAMP>&lsquo;\v&rsquo;</SAMP>, <SAMP>&lsquo;\\&rsquo;</SAMP>, and <SAMP>&lsquo;\&rsquo;</SAMP> followed by one to three octal digits, are
+interpreted like the SystemV <SAMP>&lsquo;echo&rsquo;</SAMP> program does.
 
-<DT><SAMP>`-E&acute;</SAMP>
+<DT><SAMP>&lsquo;-E&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1107"></A>
-This option is only for compatibility with the <SAMP>`gettext&acute;</SAMP> program.  It has
+<A NAME="IDX1133"></A>
+This option is only for compatibility with the <SAMP>&lsquo;gettext&rsquo;</SAMP> program.  It has
 no effect.
 
-<DT><SAMP>`-h&acute;</SAMP>
+<DT><SAMP>&lsquo;-h&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--help&acute;</SAMP>
+<DT><SAMP>&lsquo;--help&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1108"></A>
-<A NAME="IDX1109"></A>
+<A NAME="IDX1134"></A>
+<A NAME="IDX1135"></A>
 Display this help and exit.
 
-<DT><SAMP>`-V&acute;</SAMP>
+<DT><SAMP>&lsquo;-V&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--version&acute;</SAMP>
+<DT><SAMP>&lsquo;--version&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1110"></A>
-<A NAME="IDX1111"></A>
+<A NAME="IDX1136"></A>
+<A NAME="IDX1137"></A>
 Output version information and exit.
 
-<DT><SAMP>`<VAR>textdomain</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;<VAR>textdomain</VAR>&rsquo;</SAMP>
 <DD>
 Retrieve translated message from <VAR>textdomain</VAR>.
 
-<DT><SAMP>`<VAR>msgid</VAR> <VAR>msgid-plural</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;<VAR>msgid</VAR> <VAR>msgid-plural</VAR>&rsquo;</SAMP>
 <DD>
 Translate <VAR>msgid</VAR> (English singular) / <VAR>msgid-plural</VAR> (English plural).
 
-<DT><SAMP>`<VAR>count</VAR>&acute;</SAMP>
+<DT><SAMP>&lsquo;<VAR>count</VAR>&rsquo;</SAMP>
 <DD>
 Choose singular/plural form based on this value.
 
@@ -990,20 +1006,20 @@ environment variable <CODE>TEXTDOMAINDIR</CODE>.
 </P>
 
 
-<H4><A NAME="SEC255" HREF="gettext_toc.html#TOC255">15.5.2.5  Invoking the <CODE>envsubst</CODE> program</A></H4>
+<H4><A NAME="SEC259" HREF="gettext_toc.html#TOC259">15.5.2.5  Invoking the <CODE>envsubst</CODE> program</A></H4>
 
 <P>
-<A NAME="IDX1112"></A>
-<A NAME="IDX1113"></A>
+<A NAME="IDX1138"></A>
+<A NAME="IDX1139"></A>
 
 <PRE>
 envsubst [<VAR>option</VAR>] [<VAR>shell-format</VAR>]
 </PRE>
 
 <P>
-<A NAME="IDX1114"></A>
-<A NAME="IDX1115"></A>
-<A NAME="IDX1116"></A>
+<A NAME="IDX1140"></A>
+<A NAME="IDX1141"></A>
+<A NAME="IDX1142"></A>
 The <CODE>envsubst</CODE> program substitutes the values of environment variables.
 
 </P>
@@ -1013,12 +1029,12 @@ The <CODE>envsubst</CODE> program substitutes the values of environment variable
 </P>
 <DL COMPACT>
 
-<DT><SAMP>`-v&acute;</SAMP>
+<DT><SAMP>&lsquo;-v&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--variables&acute;</SAMP>
+<DT><SAMP>&lsquo;--variables&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1117"></A>
-<A NAME="IDX1118"></A>
+<A NAME="IDX1143"></A>
+<A NAME="IDX1144"></A>
 Output the variables occurring in <VAR>shell-format</VAR>.
 
 </DL>
@@ -1029,20 +1045,20 @@ Output the variables occurring in <VAR>shell-format</VAR>.
 </P>
 <DL COMPACT>
 
-<DT><SAMP>`-h&acute;</SAMP>
+<DT><SAMP>&lsquo;-h&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--help&acute;</SAMP>
+<DT><SAMP>&lsquo;--help&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1119"></A>
-<A NAME="IDX1120"></A>
+<A NAME="IDX1145"></A>
+<A NAME="IDX1146"></A>
 Display this help and exit.
 
-<DT><SAMP>`-V&acute;</SAMP>
+<DT><SAMP>&lsquo;-V&rsquo;</SAMP>
 <DD>
-<DT><SAMP>`--version&acute;</SAMP>
+<DT><SAMP>&lsquo;--version&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1121"></A>
-<A NAME="IDX1122"></A>
+<A NAME="IDX1147"></A>
+<A NAME="IDX1148"></A>
 Output version information and exit.
 
 </DL>
@@ -1072,17 +1088,17 @@ consists of the environment variables that are referenced in
 </P>
 
 
-<H4><A NAME="SEC256" HREF="gettext_toc.html#TOC256">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A></H4>
+<H4><A NAME="SEC260" HREF="gettext_toc.html#TOC260">15.5.2.6  Invoking the <CODE>eval_gettext</CODE> function</A></H4>
 
 <P>
-<A NAME="IDX1123"></A>
+<A NAME="IDX1149"></A>
 
 <PRE>
 eval_gettext <VAR>msgid</VAR>
 </PRE>
 
 <P>
-<A NAME="IDX1124"></A>
+<A NAME="IDX1150"></A>
 This function outputs the native language translation of a textual message,
 performing dollar-substitution on the result.  Note that only shell variables
 mentioned in <VAR>msgid</VAR> will be dollar-substituted in the result.
@@ -1090,17 +1106,17 @@ mentioned in <VAR>msgid</VAR> will be dollar-substituted in the result.
 </P>
 
 
-<H4><A NAME="SEC257" HREF="gettext_toc.html#TOC257">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A></H4>
+<H4><A NAME="SEC261" HREF="gettext_toc.html#TOC261">15.5.2.7  Invoking the <CODE>eval_ngettext</CODE> function</A></H4>
 
 <P>
-<A NAME="IDX1125"></A>
+<A NAME="IDX1151"></A>
 
 <PRE>
 eval_ngettext <VAR>msgid</VAR> <VAR>msgid-plural</VAR> <VAR>count</VAR>
 </PRE>
 
 <P>
-<A NAME="IDX1126"></A>
+<A NAME="IDX1152"></A>
 This function outputs the native language translation of a textual message
 whose grammatical form depends on a number, performing dollar-substitution
 on the result.  Note that only shell variables mentioned in <VAR>msgid</VAR> or
@@ -1109,9 +1125,9 @@ on the result.  Note that only shell variables mentioned in <VAR>msgid</VAR> or
 </P>
 
 
-<H3><A NAME="SEC258" HREF="gettext_toc.html#TOC258">15.5.3  bash - Bourne-Again Shell Script</A></H3>
+<H3><A NAME="SEC262" HREF="gettext_toc.html#TOC262">15.5.3  bash - Bourne-Again Shell Script</A></H3>
 <P>
-<A NAME="IDX1127"></A>
+<A NAME="IDX1153"></A>
 
 </P>
 <P>
@@ -1124,7 +1140,7 @@ holes it opens and due to its portability problems.
 <P>
 The security holes of <CODE>$"..."</CODE> come from the fact that after looking up
 the translation of the string, <CODE>bash</CODE> processes it like it processes
-any double-quoted string: dollar and backquote processing, like <SAMP>`eval&acute;</SAMP>
+any double-quoted string: dollar and backquote processing, like <SAMP>&lsquo;eval&rsquo;</SAMP>
 does.
 
 </P>
@@ -1160,9 +1176,9 @@ that don't have the <CODE>gettext()</CODE> function in libc.
 </P>
 
 
-<H3><A NAME="SEC259" HREF="gettext_toc.html#TOC259">15.5.4  Python</A></H3>
+<H3><A NAME="SEC263" HREF="gettext_toc.html#TOC263">15.5.4  Python</A></H3>
 <P>
-<A NAME="IDX1128"></A>
+<A NAME="IDX1154"></A>
 
 </P>
 <DL COMPACT>
@@ -1179,7 +1195,7 @@ python
 <DD>
 <CODE>'abc'</CODE>, <CODE>u'abc'</CODE>, <CODE>r'abc'</CODE>, <CODE>ur'abc'</CODE>,
 <BR><CODE>"abc"</CODE>, <CODE>u"abc"</CODE>, <CODE>r"abc"</CODE>, <CODE>ur"abc"</CODE>,
-<BR><CODE>"'abc"'</CODE>, <CODE>u"'abc"'</CODE>, <CODE>r"'abc"'</CODE>, <CODE>ur"'abc"'</CODE>,
+<BR><CODE>”'abc”'</CODE>, <CODE>u”'abc”'</CODE>, <CODE>r”'abc”'</CODE>, <CODE>ur”'abc”'</CODE>,
 <BR><CODE>"""abc"""</CODE>, <CODE>u"""abc"""</CODE>, <CODE>r"""abc"""</CODE>, <CODE>ur"""abc"""</CODE>
 
 <DT>gettext shorthand
@@ -1232,16 +1248,16 @@ fully portable
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-python</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-python</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC260" HREF="gettext_toc.html#TOC260">15.5.5  GNU clisp - Common Lisp</A></H3>
+<H3><A NAME="SEC264" HREF="gettext_toc.html#TOC264">15.5.5  GNU clisp - Common Lisp</A></H3>
 <P>
-<A NAME="IDX1129"></A>
-<A NAME="IDX1130"></A>
-<A NAME="IDX1131"></A>
+<A NAME="IDX1155"></A>
+<A NAME="IDX1156"></A>
+<A NAME="IDX1157"></A>
 
 </P>
 <DL COMPACT>
@@ -1304,14 +1320,14 @@ On platforms without gettext, no translation.
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-clisp</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-clisp</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC261" HREF="gettext_toc.html#TOC261">15.5.6  GNU clisp C sources</A></H3>
+<H3><A NAME="SEC265" HREF="gettext_toc.html#TOC265">15.5.6  GNU clisp C sources</A></H3>
 <P>
-<A NAME="IDX1132"></A>
+<A NAME="IDX1158"></A>
 
 </P>
 <DL COMPACT>
@@ -1377,9 +1393,9 @@ On platforms without gettext, no translation.
 
 
 
-<H3><A NAME="SEC262" HREF="gettext_toc.html#TOC262">15.5.7  Emacs Lisp</A></H3>
+<H3><A NAME="SEC266" HREF="gettext_toc.html#TOC266">15.5.7  Emacs Lisp</A></H3>
 <P>
-<A NAME="IDX1133"></A>
+<A NAME="IDX1159"></A>
 
 </P>
 <DL COMPACT>
@@ -1443,9 +1459,9 @@ Only XEmacs.  Without <CODE>I18N3</CODE> defined at build time, no translation.
 
 
 
-<H3><A NAME="SEC263" HREF="gettext_toc.html#TOC263">15.5.8  librep</A></H3>
+<H3><A NAME="SEC267" HREF="gettext_toc.html#TOC267">15.5.8  librep</A></H3>
 <P>
-<A NAME="IDX1134"></A>
+<A NAME="IDX1160"></A>
 
 </P>
 <DL COMPACT>
@@ -1508,15 +1524,15 @@ On platforms without gettext, no translation.
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-librep</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-librep</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC264" HREF="gettext_toc.html#TOC264">15.5.9  GNU guile - Scheme</A></H3>
+<H3><A NAME="SEC268" HREF="gettext_toc.html#TOC268">15.5.9  GNU guile - Scheme</A></H3>
 <P>
-<A NAME="IDX1135"></A>
-<A NAME="IDX1136"></A>
+<A NAME="IDX1161"></A>
+<A NAME="IDX1162"></A>
 
 </P>
 <DL COMPACT>
@@ -1579,14 +1595,14 @@ On platforms without gettext, no translation.
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-guile</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-guile</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC265" HREF="gettext_toc.html#TOC265">15.5.10  GNU Smalltalk</A></H3>
+<H3><A NAME="SEC269" HREF="gettext_toc.html#TOC269">15.5.10  GNU Smalltalk</A></H3>
 <P>
-<A NAME="IDX1137"></A>
+<A NAME="IDX1163"></A>
 
 </P>
 <DL COMPACT>
@@ -1651,15 +1667,15 @@ fully portable
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory:
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory:
 <CODE>hello-smalltalk</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC266" HREF="gettext_toc.html#TOC266">15.5.11  Java</A></H3>
+<H3><A NAME="SEC270" HREF="gettext_toc.html#TOC270">15.5.11  Java</A></H3>
 <P>
-<A NAME="IDX1138"></A>
+<A NAME="IDX1164"></A>
 
 </P>
 <DL COMPACT>
@@ -1793,26 +1809,55 @@ a translation is missing, the <VAR>msgid</VAR> argument is returned unchanged.
 This has the advantage of having the <CODE>ngettext</CODE> function for plural
 handling.
 
-<A NAME="IDX1139"></A>
+<A NAME="IDX1165"></A>
 To use this API, one needs the <CODE>libintl.jar</CODE> file which is part of
 the GNU gettext package and distributed under the LGPL.
 </OL>
 
 <P>
-Three examples, using the second API, are available in the <TT>`examples&acute;</TT>
+Three examples, using the second API, are available in the <TT>&lsquo;examples&rsquo;</TT>
 directory: <CODE>hello-java</CODE>, <CODE>hello-java-awt</CODE>, <CODE>hello-java-swing</CODE>.
 
 </P>
 <P>
-Now, to make use of the API and define a shorthand for <SAMP>`getString&acute;</SAMP>,
-there are two idioms that you can choose from:
+Now, to make use of the API and define a shorthand for <SAMP>&lsquo;getString&rsquo;</SAMP>,
+there are three idioms that you can choose from:
 
 </P>
 
 <UL>
 <LI>
 
-In a unique class of your project, say <SAMP>`Util&acute;</SAMP>, define a static variable
+(This one assumes Java 1.5 or newer.)
+In a unique class of your project, say <SAMP>&lsquo;Util&rsquo;</SAMP>, define a static variable
+holding the <CODE>ResourceBundle</CODE> instance and the shorthand:
+
+
+<PRE>
+private static ResourceBundle myResources =
+  ResourceBundle.getBundle("domain-name");
+public static String _(String s) {
+  return myResources.getString(s);
+}
+</PRE>
+
+All classes containing internationalized strings then contain
+
+
+<PRE>
+import static Util._;
+</PRE>
+
+and the shorthand is used like this:
+
+
+<PRE>
+System.out.println(_("Operation completed."));
+</PRE>
+
+<LI>
+
+In a unique class of your project, say <SAMP>&lsquo;Util&rsquo;</SAMP>, define a static variable
 holding the <CODE>ResourceBundle</CODE> instance:
 
 
@@ -1838,7 +1883,7 @@ System.out.println(_("Operation completed."));
 
 <LI>
 
-You add a class with a very short name, say <SAMP>`S&acute;</SAMP>, containing just the
+You add a class with a very short name, say <SAMP>&lsquo;S&rsquo;</SAMP>, containing just the
 definition of the resource bundle and of the shorthand:
 
 
@@ -1862,16 +1907,17 @@ System.out.println(S._("Operation completed."));
 </UL>
 
 <P>
-Which of the two idioms you choose, will depend on whether copying two lines
-of codes into every class is more acceptable in your project than a class
-with a single-letter name.
+Which of the three idioms you choose, will depend on whether your project
+requires portability to Java versions prior to Java 1.5 and, if so, whether
+copying two lines of codes into every class is more acceptable in your project
+than a class with a single-letter name.
 
 </P>
 
 
-<H3><A NAME="SEC267" HREF="gettext_toc.html#TOC267">15.5.12  C#</A></H3>
+<H3><A NAME="SEC271" HREF="gettext_toc.html#TOC271">15.5.12  C#</A></H3>
 <P>
-<A NAME="IDX1140"></A>
+<A NAME="IDX1166"></A>
 
 </P>
 <DL COMPACT>
@@ -1983,9 +2029,9 @@ on any platform.
 </P>
 <P>
 To convert a PO file to a <CODE>.resources</CODE> file, the <CODE>msgfmt</CODE> program
-can be used with the option <SAMP>`--csharp-resources&acute;</SAMP>.  To convert a
+can be used with the option <SAMP>&lsquo;--csharp-resources&rsquo;</SAMP>.  To convert a
 <CODE>.resources</CODE> file back to a PO file, the <CODE>msgunfmt</CODE> program can be
-used with the option <SAMP>`--csharp-resources&acute;</SAMP>.  You can also, in some cases,
+used with the option <SAMP>&lsquo;--csharp-resources&rsquo;</SAMP>.  You can also, in some cases,
 use the <CODE>resgen</CODE> program (from the <CODE>pnet</CODE> package) or the
 <CODE>monoresgen</CODE> program (from the <CODE>mono</CODE>/<CODE>mcs</CODE> package).  These
 programs can also convert a <CODE>.resources</CODE> file back to a PO file.  But
@@ -2092,7 +2138,7 @@ a translation is missing, the <VAR>msgid</VAR> argument is returned unchanged.
 The <CODE>GetPluralString</CODE> function returns a string translation with plural
 handling, like the <CODE>ngettext</CODE> function in C.
 
-<A NAME="IDX1141"></A>
+<A NAME="IDX1167"></A>
 To use this API, one needs the <CODE>GNU.Gettext.dll</CODE> file which is part of
 the GNU gettext package and distributed under the LGPL.
 </OL>
@@ -2107,12 +2153,12 @@ but don't want to change an existing source code that uses
 
 </P>
 <P>
-Two examples, using the second API, are available in the <TT>`examples&acute;</TT>
+Two examples, using the second API, are available in the <TT>&lsquo;examples&rsquo;</TT>
 directory: <CODE>hello-csharp</CODE>, <CODE>hello-csharp-forms</CODE>.
 
 </P>
 <P>
-Now, to make use of the API and define a shorthand for <SAMP>`GetString&acute;</SAMP>,
+Now, to make use of the API and define a shorthand for <SAMP>&lsquo;GetString&rsquo;</SAMP>,
 there are two idioms that you can choose from:
 
 </P>
@@ -2120,7 +2166,7 @@ there are two idioms that you can choose from:
 <UL>
 <LI>
 
-In a unique class of your project, say <SAMP>`Util&acute;</SAMP>, define a static variable
+In a unique class of your project, say <SAMP>&lsquo;Util&rsquo;</SAMP>, define a static variable
 holding the <CODE>ResourceManager</CODE> instance:
 
 
@@ -2146,7 +2192,7 @@ Console.WriteLine(_("Operation completed."));
 
 <LI>
 
-You add a class with a very short name, say <SAMP>`S&acute;</SAMP>, containing just the
+You add a class with a very short name, say <SAMP>&lsquo;S&rsquo;</SAMP>, containing just the
 definition of the resource manager and of the shorthand:
 
 
@@ -2177,10 +2223,10 @@ with a single-letter name.
 </P>
 
 
-<H3><A NAME="SEC268" HREF="gettext_toc.html#TOC268">15.5.13  GNU awk</A></H3>
+<H3><A NAME="SEC272" HREF="gettext_toc.html#TOC272">15.5.13  GNU awk</A></H3>
 <P>
-<A NAME="IDX1142"></A>
-<A NAME="IDX1143"></A>
+<A NAME="IDX1168"></A>
+<A NAME="IDX1169"></A>
 
 </P>
 <DL COMPACT>
@@ -2245,16 +2291,16 @@ yourself.
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-gawk</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-gawk</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC269" HREF="gettext_toc.html#TOC269">15.5.14  Pascal - Free Pascal Compiler</A></H3>
+<H3><A NAME="SEC273" HREF="gettext_toc.html#TOC273">15.5.14  Pascal - Free Pascal Compiler</A></H3>
 <P>
-<A NAME="IDX1144"></A>
-<A NAME="IDX1145"></A>
-<A NAME="IDX1146"></A>
+<A NAME="IDX1170"></A>
+<A NAME="IDX1171"></A>
+<A NAME="IDX1172"></A>
 
 </P>
 <DL COMPACT>
@@ -2326,14 +2372,14 @@ can be loaded using the <CODE>TranslateResourceStrings</CODE> function in the
 
 </P>
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-pascal</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-pascal</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC270" HREF="gettext_toc.html#TOC270">15.5.15  wxWindows library</A></H3>
+<H3><A NAME="SEC274" HREF="gettext_toc.html#TOC274">15.5.15  wxWidgets library</A></H3>
 <P>
-<A NAME="IDX1147"></A>
+<A NAME="IDX1173"></A>
 
 </P>
 <DL COMPACT>
@@ -2384,7 +2430,9 @@ emulate, see <CODE>include/wx/intl.h</CODE> and <CODE>src/common/intl.cpp</CODE>
 
 <DT>Formatting with positions
 <DD>
----
+wxString::Format supports positions if and only if the system has
+<CODE>wprintf()</CODE>, <CODE>vswprintf()</CODE> functions and they support positions
+according to POSIX.
 
 <DT>Portability
 <DD>
@@ -2397,10 +2445,10 @@ yes
 
 
 
-<H3><A NAME="SEC271" HREF="gettext_toc.html#TOC271">15.5.16  YCP - YaST2 scripting language</A></H3>
+<H3><A NAME="SEC275" HREF="gettext_toc.html#TOC275">15.5.16  YCP - YaST2 scripting language</A></H3>
 <P>
-<A NAME="IDX1148"></A>
-<A NAME="IDX1149"></A>
+<A NAME="IDX1174"></A>
+<A NAME="IDX1175"></A>
 
 </P>
 <DL COMPACT>
@@ -2463,15 +2511,15 @@ fully portable
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-ycp</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-ycp</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC272" HREF="gettext_toc.html#TOC272">15.5.17  Tcl - Tk's scripting language</A></H3>
+<H3><A NAME="SEC276" HREF="gettext_toc.html#TOC276">15.5.17  Tcl - Tk's scripting language</A></H3>
 <P>
-<A NAME="IDX1150"></A>
-<A NAME="IDX1151"></A>
+<A NAME="IDX1176"></A>
+<A NAME="IDX1177"></A>
 
 </P>
 <DL COMPACT>
@@ -2535,7 +2583,7 @@ fully portable
 </DL>
 
 <P>
-Two examples are available in the <TT>`examples&acute;</TT> directory:
+Two examples are available in the <TT>&lsquo;examples&rsquo;</TT> directory:
 <CODE>hello-tcl</CODE>, <CODE>hello-tcl-tk</CODE>.
 
 </P>
@@ -2554,9 +2602,9 @@ argument is given.
 </P>
 
 
-<H3><A NAME="SEC273" HREF="gettext_toc.html#TOC273">15.5.18  Perl</A></H3>
+<H3><A NAME="SEC277" HREF="gettext_toc.html#TOC277">15.5.18  Perl</A></H3>
 <P>
-<A NAME="IDX1152"></A>
+<A NAME="IDX1178"></A>
 
 </P>
 <DL COMPACT>
@@ -2596,7 +2644,7 @@ perl
 
 <LI><CODE>$tied_hash_reference-&#62;{"message"}</CODE>
 
-<LI>etc., issue the command <SAMP>`man perlsyn&acute;</SAMP> for details
+<LI>etc., issue the command <SAMP>&lsquo;man perlsyn&rsquo;</SAMP> for details
 
 </UL>
 
@@ -2665,11 +2713,11 @@ Included in <CODE>libintl-perl</CODE>, available on CPAN
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-perl</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-perl</CODE>.
 
 </P>
 <P>
-<A NAME="IDX1153"></A>
+<A NAME="IDX1179"></A>
 
 </P>
 <P>
@@ -2684,7 +2732,7 @@ worst probably being its imperfectness.
 
 
 
-<H4><A NAME="SEC274" HREF="gettext_toc.html#TOC274">15.5.18.1  General Problems Parsing Perl Code</A></H4>
+<H4><A NAME="SEC278" HREF="gettext_toc.html#TOC278">15.5.18.1  General Problems Parsing Perl Code</A></H4>
 
 <P>
 It is often heard that only Perl can parse Perl.  This is not true.
@@ -2740,8 +2788,8 @@ use vars qw (*gettext);
 
 <P>
 In this case, the string <CODE>gettext</CODE> will be interpreted as a file
-handle again, and the above example will create a file <TT>`testfile&acute;</TT>
-and write the string "Hello world!" into it.  Even advanced
+handle again, and the above example will create a file <TT>&lsquo;testfile&rsquo;</TT>
+and write the string “Hello world!” into it.  Even advanced
 control flow analysis will not really help:
 
 </P>
@@ -2818,9 +2866,9 @@ reformulate your code in a manner less challenging to <CODE>xgettext</CODE>.
 </P>
 
 
-<H4><A NAME="SEC275" HREF="gettext_toc.html#TOC275">15.5.18.2  Which keywords will xgettext look for?</A></H4>
+<H4><A NAME="SEC279" HREF="gettext_toc.html#TOC279">15.5.18.2  Which keywords will xgettext look for?</A></H4>
 <P>
-<A NAME="IDX1154"></A>
+<A NAME="IDX1180"></A>
 
 </P>
 <P>
@@ -2867,15 +2915,15 @@ The keys of lookups into the hash reference <CODE>$gettext</CODE> will be extrac
 
 
 
-<H4><A NAME="SEC276" HREF="gettext_toc.html#TOC276">15.5.18.3  How to Extract Hash Keys</A></H4>
+<H4><A NAME="SEC280" HREF="gettext_toc.html#TOC280">15.5.18.3  How to Extract Hash Keys</A></H4>
 <P>
-<A NAME="IDX1155"></A>
+<A NAME="IDX1181"></A>
 
 </P>
 <P>
 Translating messages at runtime is normally performed by looking up the
 original string in the translation database and returning the
-translated version.  The "natural" Perl implementation is a hash
+translated version.  The “natural” Perl implementation is a hash
 lookup, and, of course, <CODE>xgettext</CODE> supports such practice.
 
 </P>
@@ -2922,9 +2970,9 @@ are <EM>not</EM> allowed, regardless of the <CODE>use utf8</CODE> pragma.
 </P>
 
 
-<H4><A NAME="SEC277" HREF="gettext_toc.html#TOC277">15.5.18.4  What are Strings And Quote-like Expressions?</A></H4>
+<H4><A NAME="SEC281" HREF="gettext_toc.html#TOC281">15.5.18.4  What are Strings And Quote-like Expressions?</A></H4>
 <P>
-<A NAME="IDX1156"></A>
+<A NAME="IDX1182"></A>
 
 </P>
 <P>
@@ -3022,9 +3070,9 @@ Delimiters that start with a digit are not supported!
 
 
 
-<H4><A NAME="SEC278" HREF="gettext_toc.html#TOC278">15.5.18.5  Invalid Uses Of String Interpolation</A></H4>
+<H4><A NAME="SEC282" HREF="gettext_toc.html#TOC282">15.5.18.5  Invalid Uses Of String Interpolation</A></H4>
 <P>
-<A NAME="IDX1157"></A>
+<A NAME="IDX1183"></A>
 
 </P>
 <P>
@@ -3084,7 +3132,7 @@ internationalization.
 
 </P>
 <P>
-Please see the manual page <SAMP>`man perlop&acute;</SAMP> for details of strings and
+Please see the manual page <SAMP>&lsquo;man perlop&rsquo;</SAMP> for details of strings and
 quote-like expressions that are subject to interpolation and those
 that are not.  Safe interpolations (that will not lead to a fatal
 error) are:
@@ -3160,9 +3208,9 @@ well write what you mean.
 </P>
 
 
-<H4><A NAME="SEC279" HREF="gettext_toc.html#TOC279">15.5.18.6  Valid Uses Of String Interpolation</A></H4>
+<H4><A NAME="SEC283" HREF="gettext_toc.html#TOC283">15.5.18.6  Valid Uses Of String Interpolation</A></H4>
 <P>
-<A NAME="IDX1158"></A>
+<A NAME="IDX1184"></A>
 
 </P>
 <P>
@@ -3218,7 +3266,7 @@ the resulting PO file will begrudgingly improve in terms of readability.
 <P>
 You can interpolate hash lookups in all strings or quote-like
 expressions that are subject to interpolation (see the manual page
-<SAMP>`man perlop&acute;</SAMP> for details).  Double interpolation is invalid, however:
+<SAMP>&lsquo;man perlop&rsquo;</SAMP> for details).  Double interpolation is invalid, however:
 
 </P>
 
@@ -3231,7 +3279,7 @@ print gettext qq{Welcome to $gettext-&#62;{"the earth"}};
 The <CODE>qq</CODE>-quoted string is recognized as an argument to <CODE>xgettext</CODE> in
 the first place, and checked for invalid variable interpolation.  The
 dollar sign of hash-dereferencing will therefore terminate the parser 
-with an "invalid interpolation" error.
+with an “invalid interpolation” error.
 
 </P>
 <P>
@@ -3248,9 +3296,9 @@ s/$gettext{"U. S. A."}/$gettext{"U. S. A."} $gettext{"(dial +0)"}/g;
 
 
 
-<H4><A NAME="SEC280" HREF="gettext_toc.html#TOC280">15.5.18.7  When To Use Parentheses</A></H4>
+<H4><A NAME="SEC284" HREF="gettext_toc.html#TOC284">15.5.18.7  When To Use Parentheses</A></H4>
 <P>
-<A NAME="IDX1159"></A>
+<A NAME="IDX1185"></A>
 
 </P>
 <P>
@@ -3294,9 +3342,9 @@ print dngettext 'package', ("one cake", "several cakes", $n), $discarded;
 
 
 
-<H4><A NAME="SEC281" HREF="gettext_toc.html#TOC281">15.5.18.8  How To Grok with Long Lines</A></H4>
+<H4><A NAME="SEC285" HREF="gettext_toc.html#TOC285">15.5.18.8  How To Grok with Long Lines</A></H4>
 <P>
-<A NAME="IDX1160"></A>
+<A NAME="IDX1186"></A>
 
 </P>
 <P>
@@ -3325,8 +3373,8 @@ POT file.
 </P>
 <P>
 Note that the future Perl 6 will probably use the underscore
-(<SAMP>`_&acute;</SAMP>) as the string concatenation operator, and the dot 
-(<SAMP>`.&acute;</SAMP>) for dereferencing.  This new syntax is not yet supported by
+(<SAMP>&lsquo;_&rsquo;</SAMP>) as the string concatenation operator, and the dot 
+(<SAMP>&lsquo;.&rsquo;</SAMP>) for dereferencing.  This new syntax is not yet supported by
 <CODE>xgettext</CODE>.
 
 </P>
@@ -3368,9 +3416,9 @@ the resulting POT file.
 </P>
 
 
-<H4><A NAME="SEC282" HREF="gettext_toc.html#TOC282">15.5.18.9  Bugs, Pitfalls, And Things That Do Not Work</A></H4>
+<H4><A NAME="SEC286" HREF="gettext_toc.html#TOC286">15.5.18.9  Bugs, Pitfalls, And Things That Do Not Work</A></H4>
 <P>
-<A NAME="IDX1161"></A>
+<A NAME="IDX1187"></A>
 
 </P>
 <P>
@@ -3413,7 +3461,7 @@ s/&#60;!--START_OF_WEEK--&#62;/gettext ("Sunday")/e;
 The modifier <CODE>e</CODE> will cause the substitution to be interpreted as
 an evaluable statement.  Consequently, at runtime the function
 <CODE>gettext()</CODE> is called, but again, the parser fails to extract the
-string "Sunday".  Use a temporary variable as a simple workaround if
+string “Sunday”.  Use a temporary variable as a simple workaround if
 you really happen to need this feature:
 
 </P>
@@ -3476,7 +3524,7 @@ die __x ("usage: {program} {OPTIONS} FILENAME...\n", program =&#62; $0);
 </PRE>
 
 <P>
-Whereas <SAMP>`{program}&acute;</SAMP> is a placeholder, <SAMP>`{OPTIONS}&acute;</SAMP>
+Whereas <SAMP>&lsquo;{program}&rsquo;</SAMP> is a placeholder, <SAMP>&lsquo;{OPTIONS}&rsquo;</SAMP>
 is not and should probably be translated. Yet, there is no way to teach
 the Perl parser in <CODE>xgettext</CODE> to recognize the first one, and leave
 the other one alone.
@@ -3520,9 +3568,9 @@ get executed.  Most of the time you will happily get along with
 </P>
 
 
-<H3><A NAME="SEC283" HREF="gettext_toc.html#TOC283">15.5.19  PHP Hypertext Preprocessor</A></H3>
+<H3><A NAME="SEC287" HREF="gettext_toc.html#TOC287">15.5.19  PHP Hypertext Preprocessor</A></H3>
 <P>
-<A NAME="IDX1162"></A>
+<A NAME="IDX1188"></A>
 
 </P>
 <DL COMPACT>
@@ -3586,14 +3634,14 @@ On platforms without gettext, the functions are not available.
 </DL>
 
 <P>
-An example is available in the <TT>`examples&acute;</TT> directory: <CODE>hello-php</CODE>.
+An example is available in the <TT>&lsquo;examples&rsquo;</TT> directory: <CODE>hello-php</CODE>.
 
 </P>
 
 
-<H3><A NAME="SEC284" HREF="gettext_toc.html#TOC284">15.5.20  Pike</A></H3>
+<H3><A NAME="SEC288" HREF="gettext_toc.html#TOC288">15.5.20  Pike</A></H3>
 <P>
-<A NAME="IDX1163"></A>
+<A NAME="IDX1189"></A>
 
 </P>
 <DL COMPACT>
@@ -3657,9 +3705,9 @@ On platforms without gettext, the functions are not available.
 
 
 
-<H3><A NAME="SEC285" HREF="gettext_toc.html#TOC285">15.5.21  GNU Compiler Collection sources</A></H3>
+<H3><A NAME="SEC289" HREF="gettext_toc.html#TOC289">15.5.21  GNU Compiler Collection sources</A></H3>
 <P>
-<A NAME="IDX1164"></A>
+<A NAME="IDX1190"></A>
 
 </P>
 <DL COMPACT>
@@ -3724,7 +3772,7 @@ yes
 
 
 
-<H2><A NAME="SEC286" HREF="gettext_toc.html#TOC286">15.6  Internationalizable Data</A></H2>
+<H2><A NAME="SEC290" HREF="gettext_toc.html#TOC290">15.6  Internationalizable Data</A></H2>
 
 <P>
 Here is a list of other data formats which can be internationalized
@@ -3734,7 +3782,7 @@ using GNU gettext.
 
 
 
-<H3><A NAME="SEC287" HREF="gettext_toc.html#TOC287">15.6.1  POT - Portable Object Template</A></H3>
+<H3><A NAME="SEC291" HREF="gettext_toc.html#TOC291">15.6.1  POT - Portable Object Template</A></H3>
 
 <DL COMPACT>
 
@@ -3753,9 +3801,9 @@ gettext
 
 
 
-<H3><A NAME="SEC288" HREF="gettext_toc.html#TOC288">15.6.2  Resource String Table</A></H3>
+<H3><A NAME="SEC292" HREF="gettext_toc.html#TOC292">15.6.2  Resource String Table</A></H3>
 <P>
-<A NAME="IDX1165"></A>
+<A NAME="IDX1191"></A>
 
 </P>
 <DL COMPACT>
@@ -3775,7 +3823,7 @@ fpk
 
 
 
-<H3><A NAME="SEC289" HREF="gettext_toc.html#TOC289">15.6.3  Glade - GNOME user interface description</A></H3>
+<H3><A NAME="SEC293" HREF="gettext_toc.html#TOC293">15.6.3  Glade - GNOME user interface description</A></H3>
 
 <DL COMPACT>
 
@@ -3793,6 +3841,6 @@ glade, libglade, glade2, libglade2, intltool
 </DL>
 
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_14.html">previous</A>, <A HREF="gettext_16.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_14.html">previous</A>, <A HREF="gettext_16.html">next</A>, <A HREF="gettext_25.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>

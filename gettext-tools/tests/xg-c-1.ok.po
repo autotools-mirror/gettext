@@ -211,6 +211,10 @@ msgid "                                (only language C++)\n"
 msgstr ""
 
 #, c-format
+msgid "      --boost                 recognize Boost format strings\n"
+msgstr ""
+
+#, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
 msgstr ""
@@ -362,10 +366,33 @@ msgid ""
 "s\n"
 msgstr ""
 
+#, c-format
+msgid ""
+"'%s' format string with unnamed arguments cannot be properly localized:\n"
+"The translator cannot reorder the arguments.\n"
+"Please consider using a format string with named arguments,\n"
+"and a mapping instead of a tuple for the arguments.\n"
+msgstr ""
+
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
 "meta information, not the empty string.\n"
+msgstr ""
+
+#, c-format
+msgid "ambiguous argument specification for keyword '%.*s'"
+msgstr ""
+
+#, c-format
+msgid "warning: missing context for keyword '%.*s'"
+msgstr ""
+
+#, c-format
+msgid "warning: missing context for plural argument of keyword '%.*s'"
+msgstr ""
+
+msgid "context mismatch between singular and plural form"
 msgstr ""
 
 msgid "warning: "
@@ -387,6 +414,10 @@ msgid "the argument to %s should be a single punctuation character"
 msgstr ""
 
 #, c-format
+msgid "invalid endianness: %s"
+msgstr ""
+
+#, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr ""
 
@@ -401,6 +432,12 @@ msgstr ""
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr ""
+
+#, c-format
+msgid "found %d fatal error"
+msgid_plural "found %d fatal errors"
+msgstr[0] ""
+msgstr[1] ""
 
 #, c-format
 msgid "%d translated message"
@@ -599,113 +636,6 @@ msgstr ""
 
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
-msgstr ""
-
-msgid "plural expression can produce negative values"
-msgstr ""
-
-#, c-format
-msgid "nplurals = %lu but plural expression can produce values as large as %lu"
-msgstr ""
-
-#, c-format
-msgid "plural expression can produce division by zero"
-msgstr ""
-
-#, c-format
-msgid "plural expression can produce integer overflow"
-msgstr ""
-
-#, c-format
-msgid ""
-"plural expression can produce arithmetic exceptions, possibly division by "
-"zero"
-msgstr ""
-
-msgid "message catalog has plural form translations..."
-msgstr ""
-
-msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
-msgstr ""
-
-msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
-msgstr ""
-
-msgid "invalid nplurals value"
-msgstr ""
-
-msgid "invalid plural expression"
-msgstr ""
-
-#, c-format
-msgid "nplurals = %lu..."
-msgstr ""
-
-#, c-format
-msgid "...but some messages have only one plural form"
-msgid_plural "...but some messages have only %lu plural forms"
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "...but some messages have one plural form"
-msgid_plural "...but some messages have %lu plural forms"
-msgstr[0] ""
-msgstr[1] ""
-
-#, c-format
-msgid "Try using the following, valid for %s:\n"
-msgstr ""
-
-msgid ""
-"message catalog has plural form translations, but lacks a header entry with "
-"\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
-msgstr ""
-
-msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
-msgstr ""
-
-#, c-format
-msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr ""
-
-#, c-format
-msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr ""
-
-msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr ""
-
-msgid "plural handling is a GNU gettext extension"
-msgstr ""
-
-#, c-format
-msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr ""
-
-#, c-format
-msgid "msgstr has too many keyboard accelerator marks '%c'"
-msgstr ""
-
-#, c-format
-msgid "headerfield `%s' missing in header\n"
-msgstr ""
-
-#, c-format
-msgid "header field `%s' should start at beginning of line\n"
-msgstr ""
-
-msgid "some header fields still have the initial default value\n"
-msgstr ""
-
-#, c-format
-msgid "field `%s' still has initial default value\n"
 msgstr ""
 
 msgid "warning: PO file header missing or invalid\n"

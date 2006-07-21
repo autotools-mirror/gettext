@@ -1,4 +1,4 @@
-This is autosprintf.info, produced by makeinfo version 4.6 from
+This is autosprintf.info, produced by makeinfo version 4.8 from
 autosprintf.texi.
 
 INFO-DIR-SECTION C++ libraries
@@ -8,21 +8,25 @@ END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `autosprintf' library.
 
-   Copyright (C) 2002 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003 Free Software Foundation, Inc.
 
-   Permission is granted to make and distribute verbatim copies of this
-manual provided the copyright notice and this permission notice are
-preserved on all copies.
+   This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
 
-   Permission is granted to copy and distribute modified versions of
-this manual under the conditions for verbatim copying, provided that
-the entire resulting derived work is distributed under the terms of a
-permission notice identical to this one.
+   This manual is covered by the GNU FDL.  Permission is granted to
+copy, distribute and/or modify this document under the terms of the GNU
+Free Documentation License (FDL), either version 1.2 of the License, or
+(at your option) any later version published by the Free Software
+Foundation (FSF); with no Invariant Sections, with no Front-Cover Text,
+and with no Back-Cover Texts.  A copy of the license is at
+`http://www.gnu.org/licenses/fdl.html'.
 
-   Permission is granted to copy and distribute translations of this
-manual into another language, under the above conditions for modified
-versions, except that this permission notice may be stated in a
-translation approved by the Foundation.
+   This manual is covered by the GNU GPL.  You can redistribute it
+and/or modify it under the terms of the GNU General Public License
+(GPL), either version 2 of the License, or (at your option) any later
+version published by the Free Software Foundation (FSF).  A copy of the
+license is at `http://www.gnu.org/licenses/gpl.html'.
 
 
 File: autosprintf.info,  Node: Top,  Next: Introduction,  Prev: (dir),  Up: (dir)
@@ -41,8 +45,8 @@ This manual documents the GNU autosprintf class, version 1.0.
 
 File: autosprintf.info,  Node: Introduction,  Next: Class autosprintf,  Prev: Top,  Up: Top
 
-Introduction
-************
+1 Introduction
+**************
 
 This package makes the C formatted output routines (`fprintf' et al.)
 usable in C++ programs, for use with the `<string>' strings and the
@@ -76,8 +80,8 @@ instead of
 
 File: autosprintf.info,  Node: Class autosprintf,  Next: Using autosprintf,  Prev: Introduction,  Up: Top
 
-The `autosprintf' class
-***********************
+2 The `autosprintf' class
+*************************
 
 An instance of class `autosprintf' just contains a string with the
 formatted output result. Such an instance is usually allocated as an
@@ -98,8 +102,8 @@ the given `ostream'.
 
 File: autosprintf.info,  Node: Using autosprintf,  Prev: Class autosprintf,  Up: Top
 
-Using `autosprintf' in own programs
-***********************************
+3 Using `autosprintf' in own programs
+*************************************
 
 To use the `autosprintf' class in your programs, you need to add
 
@@ -119,9 +123,9 @@ variable that it provides.
 
 
 Tag Table:
-Node: Top1011
-Node: Introduction1371
-Node: Class autosprintf2518
-Node: Using autosprintf3286
+Node: Top1336
+Node: Introduction1696
+Node: Class autosprintf2847
+Node: Using autosprintf3619
 
 End Tag Table

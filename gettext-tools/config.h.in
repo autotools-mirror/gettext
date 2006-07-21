@@ -5,9 +5,6 @@
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 
 
-/* Define to 1 if the `closedir' function returns void instead of `int'. */
-#undef CLOSEDIR_VOID
-
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
    */
@@ -43,8 +40,17 @@
    */
 #undef HAVE_ALLOCA_H
 
+/* Define to 1 if you have the `argz_count' function. */
+#undef HAVE_ARGZ_COUNT
+
 /* Define to 1 if you have the <argz.h> header file. */
 #undef HAVE_ARGZ_H
+
+/* Define to 1 if you have the `argz_next' function. */
+#undef HAVE_ARGZ_NEXT
+
+/* Define to 1 if you have the `argz_stringify' function. */
+#undef HAVE_ARGZ_STRINGIFY
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
@@ -60,6 +66,9 @@
 
 /* Define to 1 if you have the `btowc' function. */
 #undef HAVE_BTOWC
+
+/* Define to 1 if the compiler understands __builtin_expect. */
+#undef HAVE_BUILTIN_EXPECT
 
 /* Define to 1 if you have the <byteswap.h> header file. */
 #undef HAVE_BYTESWAP_H
@@ -162,21 +171,14 @@
    don't. */
 #undef HAVE_DECL__SNWPRINTF
 
-/* Define to 1 if you have the <dirent.h> header file, and it defines `DIR'.
-   */
+/* Define to 1 if you have the <dirent.h> header file. */
 #undef HAVE_DIRENT_H
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
-/* Define to 1 if you don't have `vprintf' but do have `_doprnt.' */
-#undef HAVE_DOPRNT
-
 /* Define if you have the declaration of environ. */
 #undef HAVE_ENVIRON_DECL
-
-/* Define if you have the declaration of errno. */
-#undef HAVE_ERRNO_DECL
 
 /* Define to 1 if you have the `fork' function. */
 #undef HAVE_FORK
@@ -263,9 +265,6 @@
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
 
-/* Define to 1 if you have the <locale.h> header file. */
-#undef HAVE_LOCALE_H
-
 /* Define if you have the 'long double' type. */
 #undef HAVE_LONG_DOUBLE
 
@@ -274,6 +273,9 @@
 
 /* Define if you have the 'long long' type. */
 #undef HAVE_LONG_LONG
+
+/* Define to 1 if you have the <mach-o/dyld.h> header file. */
+#undef HAVE_MACH_O_DYLD_H
 
 /* Define to 1 if you have the <malloc.h> header file. */
 #undef HAVE_MALLOC_H
@@ -314,15 +316,9 @@
 /* Define to 1 if you have the `munmap' function. */
 #undef HAVE_MUNMAP
 
-/* Define to 1 if you have the <ndir.h> header file, and it defines `DIR'. */
-#undef HAVE_NDIR_H
-
 /* Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if
    _GNU_SOURCE is defined. */
 #undef HAVE_NL_LOCALE_NAME
-
-/* Define to 1 if you have the <nl_types.h> header file. */
-#undef HAVE_NL_TYPES_H
 
 /* Define to 1 if you have the `pathconf' function. */
 #undef HAVE_PATHCONF
@@ -434,14 +430,6 @@
 /* Define to 1 if `__names' is member of `struct __locale_struct'. */
 #undef HAVE_STRUCT___LOCALE_STRUCT___NAMES
 
-/* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
-   */
-#undef HAVE_SYS_DIR_H
-
-/* Define to 1 if you have the <sys/ndir.h> header file, and it defines `DIR'.
-   */
-#undef HAVE_SYS_NDIR_H
-
 /* Define to 1 if you have the <sys/param.h> header file. */
 #undef HAVE_SYS_PARAM_H
 
@@ -503,9 +491,6 @@
    declarations. */
 #undef HAVE_VISIBILITY
 
-/* Define to 1 if you have the `vprintf' function. */
-#undef HAVE_VPRINTF
-
 /* Define to 1 if you have the `waitid' function. */
 #undef HAVE_WAITID
 
@@ -548,14 +533,8 @@
 /* Define to 1 if the system has the type `_Bool'. */
 #undef HAVE__BOOL
 
-/* Define to 1 if you have the `__argz_count' function. */
-#undef HAVE___ARGZ_COUNT
-
-/* Define to 1 if you have the `__argz_next' function. */
-#undef HAVE___ARGZ_NEXT
-
-/* Define to 1 if you have the `__argz_stringify' function. */
-#undef HAVE___ARGZ_STRINGIFY
+/* Define to 1 if you have the `_NSGetExecutablePath' function. */
+#undef HAVE__NSGETEXECUTABLEPATH
 
 /* Define to 1 if you have the `__fsetlocking' function. */
 #undef HAVE___FSETLOCKING
@@ -608,7 +587,7 @@
 
 /* If using the C implementation of alloca, define if you know the
    direction of stack growth for your system; otherwise it will be
-   automatically deduced at run-time.
+   automatically deduced at runtime.
 	STACK_DIRECTION > 0 => grows toward higher addresses
 	STACK_DIRECTION < 0 => grows toward lower addresses
 	STACK_DIRECTION = 0 => direction of growth unknown */
@@ -658,6 +637,12 @@
 /* Define if unsetenv() returns void, not int. */
 #undef VOID_UNSETENV
 
+/* Define when --enable-shared is used on mingw or Cygwin. */
+#undef WOE32DLL
+
+/* Define to 1 to internationalize bison runtime messages. */
+#undef YYENABLE_NLS
+
 /* Define to 1 if on AIX 3.
    System headers sometimes define this.
    We just want to avoid a redefinition error message.  */
@@ -689,9 +674,6 @@
    used. */
 #undef __GETOPT_PREFIX
 
-/* Define to empty if `const' does not conform to ANSI C. */
-#undef const
-
 /* Define as 'access' if you don't have the eaccess() function. */
 #undef eaccess
 
@@ -700,6 +682,9 @@
 
 /* Define to a replacement function name for getline(). */
 #undef getline
+
+/* A replacement for va_copy, if needed.  */
+#define gl_va_copy(a,b) ((a) = (b))
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
@@ -712,9 +697,6 @@
 
 /* Define to `int' if <sys/types.h> does not define. */
 #undef mode_t
-
-/* Define to `long' if <sys/types.h> does not define. */
-#undef off_t
 
 /* Define to `int' if <sys/types.h> does not define. */
 #undef pid_t
@@ -737,7 +719,7 @@
 /* Define to empty if the C compiler doesn't support this keyword. */
 #undef signed
 
-/* Define to `unsigned' if <sys/types.h> does not define. */
+/* Define to `unsigned int' if <sys/types.h> does not define. */
 #undef size_t
 
 /* Define as a signed type of the same size as size_t. */
@@ -746,6 +728,9 @@
 /* Define to unsigned long or unsigned long long if <stdint.h> and
    <inttypes.h> don't define. */
 #undef uintmax_t
+
+/* Define as a macro for copying va_list variables. */
+#undef va_copy
 
 /* Define as `fork' if `vfork' does not work. */
 #undef vfork
@@ -757,13 +742,6 @@
 #define __libc_lock_init                gl_lock_init
 #define __libc_lock_lock                gl_lock_lock
 #define __libc_lock_unlock              gl_lock_unlock
-#define __libc_rwlock_t                   gl_rwlock_t
-#define __libc_rwlock_define              gl_rwlock_define
-#define __libc_rwlock_define_initialized  gl_rwlock_define_initialized
-#define __libc_rwlock_init                gl_rwlock_init
-#define __libc_rwlock_rdlock              gl_rwlock_rdlock
-#define __libc_rwlock_wrlock              gl_rwlock_wrlock
-#define __libc_rwlock_unlock              gl_rwlock_unlock
 #define __libc_lock_recursive_t                   gl_recursive_lock_t
 #define __libc_lock_define_recursive              gl_recursive_lock_define
 #define __libc_lock_define_initialized_recursive  gl_recursive_lock_define_initialized
@@ -815,7 +793,7 @@
 #define PAGE_WIDTH 79
 
 /* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined _DLL) || (defined __MINGW32__ && defined DLL_EXPORT)
+#if (defined _MSC_VER && defined _DLL) || defined WOE32DLL
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE

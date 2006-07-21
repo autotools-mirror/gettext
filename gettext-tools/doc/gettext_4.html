@@ -1,18 +1,19 @@
 <HTML>
 <HEAD>
-<!-- This HTML file has been created by texi2html 1.52a
-     from gettext.texi on 21 July 2005 -->
+<!-- This HTML file has been created by texi2html 1.52b
+     from gettext.texi on 20 July 2006 -->
 
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 4  Preparing Program Sources</TITLE>
 </HEAD>
 <BODY>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_25.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 <P><HR><P>
 
 
 <H1><A NAME="SEC11" HREF="gettext_toc.html#TOC11">4  Preparing Program Sources</A></H1>
 <P>
-<A NAME="IDX96"></A>
+<A NAME="IDX102"></A>
 
 </P>
 
@@ -22,19 +23,24 @@ categories.  First, you have to make the localization functions
 known to all modules needing message translation.  Second, you should
 properly trigger the operation of GNU <CODE>gettext</CODE> when the program
 initializes, usually from the <CODE>main</CODE> function.  Last, you should
-identify and especially mark all constant strings in your program
+identify, adjust and mark all constant strings in your program
 needing translation.
 
 </P>
+
+
+
+<H2><A NAME="SEC12" HREF="gettext_toc.html#TOC12">4.1  Importing the <CODE>gettext</CODE> declaration</A></H2>
+
 <P>
 Presuming that your set of programs, or package, has been adjusted
 so all needed GNU <CODE>gettext</CODE> files are available, and your
-<TT>`Makefile&acute;</TT> files are adjusted (see section <A HREF="gettext_13.html#SEC194">13  The Maintainer's View</A>), each C module
+<TT>&lsquo;Makefile&rsquo;</TT> files are adjusted (see section <A HREF="gettext_13.html#SEC196">13  The Maintainer's View</A>), each C module
 having translated C strings should contain the line:
 
 </P>
 <P>
-<A NAME="IDX97"></A>
+<A NAME="IDX103"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -51,18 +57,12 @@ the C string comes from a different C module) should contain the line:
 #include &#60;libintl.h&#62;
 </PRE>
 
-<P>
-The remaining changes to your C sources are discussed in the further
-sections of this chapter.
-
-</P>
 
 
-
-<H2><A NAME="SEC12" HREF="gettext_toc.html#TOC12">4.1  Triggering <CODE>gettext</CODE> Operations</A></H2>
+<H2><A NAME="SEC13" HREF="gettext_toc.html#TOC13">4.2  Triggering <CODE>gettext</CODE> Operations</A></H2>
 
 <P>
-<A NAME="IDX98"></A>
+<A NAME="IDX104"></A>
 The initialization of locale data should be done with more or less
 the same code in every program, as demonstrated below:
 
@@ -82,18 +82,18 @@ main (int argc, char *argv[])
 
 <P>
 <VAR>PACKAGE</VAR> and <VAR>LOCALEDIR</VAR> should be provided either by
-<TT>`config.h&acute;</TT> or by the Makefile.  For now consult the <CODE>gettext</CODE>
+<TT>&lsquo;config.h&rsquo;</TT> or by the Makefile.  For now consult the <CODE>gettext</CODE>
 or <CODE>hello</CODE> sources for more information.
 
 </P>
 <P>
-<A NAME="IDX99"></A>
-<A NAME="IDX100"></A>
+<A NAME="IDX105"></A>
+<A NAME="IDX106"></A>
 The use of <CODE>LC_ALL</CODE> might not be appropriate for you.
 <CODE>LC_ALL</CODE> includes all locale categories and especially
 <CODE>LC_CTYPE</CODE>.  This later category is responsible for determining
 character classes with the <CODE>isalnum</CODE> etc. functions from
-<TT>`ctype.h&acute;</TT> which could especially for programs, which process some
+<TT>&lsquo;ctype.h&rsquo;</TT> which could especially for programs, which process some
 kind of input language, be wrong.  For example this would mean that a
 source code using the &ccedil; (c-cedilla character) is runnable in
 France but not in the U.S.
@@ -129,13 +129,13 @@ code above by a sequence of <CODE>setlocale</CODE> lines
 </PRE>
 
 <P>
-<A NAME="IDX101"></A>
-<A NAME="IDX102"></A>
-<A NAME="IDX103"></A>
-<A NAME="IDX104"></A>
-<A NAME="IDX105"></A>
-<A NAME="IDX106"></A>
 <A NAME="IDX107"></A>
+<A NAME="IDX108"></A>
+<A NAME="IDX109"></A>
+<A NAME="IDX110"></A>
+<A NAME="IDX111"></A>
+<A NAME="IDX112"></A>
+<A NAME="IDX113"></A>
 On all POSIX conformant systems the locale categories <CODE>LC_CTYPE</CODE>,
 <CODE>LC_MESSAGES</CODE>, <CODE>LC_COLLATE</CODE>, <CODE>LC_MONETARY</CODE>,
 <CODE>LC_NUMERIC</CODE>, and <CODE>LC_TIME</CODE> are available.  On some systems
@@ -163,10 +163,10 @@ is not multithread-safe.
 </P>
 
 
-<H2><A NAME="SEC13" HREF="gettext_toc.html#TOC13">4.2  Preparing Translatable Strings</A></H2>
+<H2><A NAME="SEC14" HREF="gettext_toc.html#TOC14">4.3  Preparing Translatable Strings</A></H2>
 
 <P>
-<A NAME="IDX108"></A>
+<A NAME="IDX114"></A>
 Before strings can be marked for translations, they sometimes need to
 be adjusted.  Usually preparing a string for translation is done right
 before marking it, during the marking phase which is described in the
@@ -198,7 +198,7 @@ Let's look at some examples of these guidelines.
 
 </P>
 <P>
-<A NAME="IDX109"></A>
+<A NAME="IDX115"></A>
 Translatable strings should be in good English style.  If slang language
 with abbreviations and shortcuts is used, often translators will not
 understand the message and will produce very inappropriate translations.
@@ -227,13 +227,13 @@ of the objects"?
 
 </P>
 <P>
-<A NAME="IDX110"></A>
+<A NAME="IDX116"></A>
 In both cases, adding more words to the message will help both the
 translator and the English speaking user.
 
 </P>
 <P>
-<A NAME="IDX111"></A>
+<A NAME="IDX117"></A>
 Translatable strings should be entire sentences.  It is often not possible
 to translate single verbs or adjectives in a substitutable way.
 
@@ -257,7 +257,7 @@ printf (rw ? "File %s is write protected" : "File %s is read protected",
 
 <P>
 This way the translator will not only understand the message, she will
-also be able to find the appropriate grammatical construction.  The French
+also be able to find the appropriate grammatical construction.  A French
 translator for example translates "write protected" like "protected
 against writing".
 
@@ -319,7 +319,7 @@ combined by xgettext, so the translator has to handle them once only.)
 
 </P>
 <P>
-<A NAME="IDX112"></A>
+<A NAME="IDX118"></A>
 Translatable strings should be limited to one paragraph; don't let a
 single message be longer than ten lines.  The reason is that when the
 translatable string changes, the translator is faced with the task of
@@ -330,8 +330,8 @@ the entire message.
 
 </P>
 <P>
-<A NAME="IDX113"></A>
-Many GNU programs have a <SAMP>`--help&acute;</SAMP> output that extends over several
+<A NAME="IDX119"></A>
+Many GNU programs have a <SAMP>&lsquo;--help&rsquo;</SAMP> output that extends over several
 screen pages.  It is a courtesy towards the translators to split such a
 message into several ones of five to ten lines each.  While doing that,
 you can also attempt to split the documented options into groups,
@@ -341,8 +341,8 @@ looking for.
 
 </P>
 <P>
-<A NAME="IDX114"></A>
-<A NAME="IDX115"></A>
+<A NAME="IDX120"></A>
+<A NAME="IDX121"></A>
 Hardcoded string concatenation is sometimes used to construct English
 strings:
 
@@ -369,10 +369,10 @@ sprintf (s, "Replace %s with %s?", object1, object2);
 </PRE>
 
 <P>
-<A NAME="IDX116"></A>
+<A NAME="IDX122"></A>
 A similar case is compile time concatenation of strings.  The ISO C 99
 include file <CODE>&#60;inttypes.h&#62;</CODE> contains a macro <CODE>PRId64</CODE> that
-can be used as a formatting directive for outputting an <SAMP>`int64_t&acute;</SAMP>
+can be used as a formatting directive for outputting an <SAMP>&lsquo;int64_t&rsquo;</SAMP>
 integer through <CODE>printf</CODE>.  It expands to a constant string, usually
 "d" or "ld" or "lld" or something like this, depending on the platform.
 Assume you have code like
@@ -402,7 +402,7 @@ contain the appropriate constant string, "d" or "ld" or "lld".
 </P>
 <P>
 This works only for the predefined <CODE>&#60;inttypes.h&#62;</CODE> macros.  If
-you have defined your own similar macros, let's say <SAMP>`MYPRId64&acute;</SAMP>,
+you have defined your own similar macros, let's say <SAMP>&lsquo;MYPRId64&rsquo;</SAMP>,
 that are not known to <CODE>xgettext</CODE>, the solution for this problem
 is to change the code like this:
 
@@ -423,8 +423,8 @@ regardless whether in decimal, octal or hexadecimal.
 
 </P>
 <P>
-<A NAME="IDX117"></A>
-<A NAME="IDX118"></A>
+<A NAME="IDX123"></A>
+<A NAME="IDX124"></A>
 All this applies to other programming languages as well.  For example, in
 Java and C#, string contenation is very frequently used, because it is a
 compiler built-in operator.  Like in C, in Java, you would change
@@ -467,9 +467,9 @@ Console.WriteLine(
 
 
 
-<H2><A NAME="SEC14" HREF="gettext_toc.html#TOC14">4.3  How Marks Appear in Sources</A></H2>
+<H2><A NAME="SEC15" HREF="gettext_toc.html#TOC15">4.4  How Marks Appear in Sources</A></H2>
 <P>
-<A NAME="IDX119"></A>
+<A NAME="IDX125"></A>
 
 </P>
 <P>
@@ -481,10 +481,10 @@ and their names are said to be marking keywords.  The marking is
 attached to strings themselves, rather than to what we do with them.
 This approach has more uses.  A blatant example is an error message
 produced by formatting.  The format string needs translation, as
-well as some strings inserted through some <SAMP>`%s&acute;</SAMP> specification
+well as some strings inserted through some <SAMP>&lsquo;%s&rsquo;</SAMP> specification
 in the format, while the result from <CODE>sprintf</CODE> may have so many
 different instances that it is impractical to list them all in some
-<SAMP>`error_string_out()&acute;</SAMP> routine, say.
+<SAMP>&lsquo;error_string_out()&rsquo;</SAMP> routine, say.
 
 </P>
 <P>
@@ -495,7 +495,7 @@ return the proper translation, as far as possible or wanted, for the
 argument string.  Most localizable strings are found in executable
 positions, that is, attached to variables or given as parameters to
 functions.  But this is not universal usage, and some translatable
-strings appear in structured initializations.  See section <A HREF="gettext_4.html#SEC17">4.6  Special Cases of Translatable Strings</A>.
+strings appear in structured initializations.  See section <A HREF="gettext_4.html#SEC18">4.7  Special Cases of Translatable Strings</A>.
 
 </P>
 <P>
@@ -506,8 +506,8 @@ of program sources and produces PO file templates.
 </P>
 <P>
 The canonical keyword for marking translatable strings is
-<SAMP>`gettext&acute;</SAMP>, it gave its name to the whole GNU <CODE>gettext</CODE>
-package.  For packages making only light use of the <SAMP>`gettext&acute;</SAMP>
+<SAMP>&lsquo;gettext&rsquo;</SAMP>, it gave its name to the whole GNU <CODE>gettext</CODE>
+package.  For packages making only light use of the <SAMP>&lsquo;gettext&rsquo;</SAMP>
 keyword, macro or function, it is easily used <EM>as is</EM>.  However,
 for packages using the <CODE>gettext</CODE> interface more heavily, it
 is usually more convenient to give the main keyword a shorter, less
@@ -520,18 +520,18 @@ sources for those trying to keep them within 79 or 80 columns.
 
 </P>
 <P>
-<A NAME="IDX120"></A>
-Many packages use <SAMP>`_&acute;</SAMP> (a simple underline) as a keyword,
-and write <SAMP>`_("Translatable string")&acute;</SAMP> instead of <SAMP>`gettext
-("Translatable string")&acute;</SAMP>.  Further, the coding rule, from GNU standards,
+<A NAME="IDX126"></A>
+Many packages use <SAMP>&lsquo;_&rsquo;</SAMP> (a simple underline) as a keyword,
+and write <SAMP>&lsquo;_("Translatable string")&rsquo;</SAMP> instead of <SAMP>&lsquo;gettext
+("Translatable string")&rsquo;</SAMP>.  Further, the coding rule, from GNU standards,
 wanting that there is a space between the keyword and the opening
 parenthesis is relaxed, in practice, for this particular usage.
 So, the textual overhead per translatable string is reduced to
 only three characters: the underline and the two parentheses.
 However, even if GNU <CODE>gettext</CODE> uses this convention internally,
 it does not offer it officially.  The real, genuine keyword is truly
-<SAMP>`gettext&acute;</SAMP> indeed.  It is fairly easy for those wanting to use
-<SAMP>`_&acute;</SAMP> instead of <SAMP>`gettext&acute;</SAMP> to declare:
+<SAMP>&lsquo;gettext&rsquo;</SAMP> indeed.  It is fairly easy for those wanting to use
+<SAMP>&lsquo;_&rsquo;</SAMP> instead of <SAMP>&lsquo;gettext&rsquo;</SAMP> to declare:
 
 </P>
 
@@ -541,22 +541,22 @@ it does not offer it officially.  The real, genuine keyword is truly
 </PRE>
 
 <P>
-instead of merely using <SAMP>`#include &#60;libintl.h&#62;&acute;</SAMP>.
+instead of merely using <SAMP>&lsquo;#include &#60;libintl.h&#62;&rsquo;</SAMP>.
 
 </P>
 <P>
 Later on, the maintenance is relatively easy.  If, as a programmer,
 you add or modify a string, you will have to ask yourself if the
 new or altered string requires translation, and include it within
-<SAMP>`_()&acute;</SAMP> if you think it should be translated.  <SAMP>`"%s: %d"&acute;</SAMP> is
+<SAMP>&lsquo;_()&rsquo;</SAMP> if you think it should be translated.  <SAMP>&lsquo;"%s: %d"&rsquo;</SAMP> is
 an example of string <EM>not</EM> requiring translation!
 
 </P>
 
 
-<H2><A NAME="SEC15" HREF="gettext_toc.html#TOC15">4.4  Marking Translatable Strings</A></H2>
+<H2><A NAME="SEC16" HREF="gettext_toc.html#TOC16">4.5  Marking Translatable Strings</A></H2>
 <P>
-<A NAME="IDX121"></A>
+<A NAME="IDX127"></A>
 
 </P>
 <P>
@@ -573,7 +573,7 @@ translation in some language, for the package being internationalized.
 
 </P>
 <P>
-<A NAME="IDX122"></A>
+<A NAME="IDX128"></A>
 The set of program sources, targetted by the PO mode commands describe
 here, should have an Emacs tags table constructed for your project,
 prior to using these PO file commands.  This is easy to do.  In any
@@ -587,22 +587,22 @@ etags src/*.[hc] lib/*.[hc]
 </PRE>
 
 <P>
-presuming here you want to process all <TT>`.h&acute;</TT> and <TT>`.c&acute;</TT> files
-from the <TT>`src/&acute;</TT> and <TT>`lib/&acute;</TT> directories.  This command will
-explore all said files and create a <TT>`TAGS&acute;</TT> file in your root
+presuming here you want to process all <TT>&lsquo;.h&rsquo;</TT> and <TT>&lsquo;.c&rsquo;</TT> files
+from the <TT>&lsquo;src/&rsquo;</TT> and <TT>&lsquo;lib/&rsquo;</TT> directories.  This command will
+explore all said files and create a <TT>&lsquo;TAGS&rsquo;</TT> file in your root
 directory, somewhat summarizing the contents using a special file
 format Emacs can understand.
 
 </P>
 <P>
-<A NAME="IDX123"></A>
+<A NAME="IDX129"></A>
 For packages following the GNU coding standards, there is
 a make goal <CODE>tags</CODE> or <CODE>TAGS</CODE> which constructs the tag files in
 all directories and for all files containing source code.
 
 </P>
 <P>
-Once your <TT>`TAGS&acute;</TT> file is ready, the following commands assist
+Once your <TT>&lsquo;TAGS&rsquo;</TT> file is ready, the following commands assist
 the programmer at marking translatable strings in his set of sources.
 But these commands are necessarily driven from within a PO file
 window, and it is likely that you do not even have such a PO file yet.
@@ -615,18 +615,18 @@ fill in while you mark strings as translatable in your program sources.
 
 <DT><KBD>,</KBD>
 <DD>
-<A NAME="IDX124"></A>
+<A NAME="IDX130"></A>
 Search through program sources for a string which looks like a
 candidate for translation (<CODE>po-tags-search</CODE>).
 
 <DT><KBD>M-,</KBD>
 <DD>
-<A NAME="IDX125"></A>
-Mark the last string found with <SAMP>`_()&acute;</SAMP> (<CODE>po-mark-translatable</CODE>).
+<A NAME="IDX131"></A>
+Mark the last string found with <SAMP>&lsquo;_()&rsquo;</SAMP> (<CODE>po-mark-translatable</CODE>).
 
 <DT><KBD>M-.</KBD>
 <DD>
-<A NAME="IDX126"></A>
+<A NAME="IDX132"></A>
 Mark the last string found with a keyword taken from a set of possible
 keywords.  This command with a prefix allows some management of these
 keywords (<CODE>po-select-mark-and-mark</CODE>).
@@ -634,7 +634,7 @@ keywords (<CODE>po-select-mark-and-mark</CODE>).
 </DL>
 
 <P>
-<A NAME="IDX127"></A>
+<A NAME="IDX133"></A>
 The <KBD>,</KBD> (<CODE>po-tags-search</CODE>) command searches for the next
 occurrence of a string which looks like a possible candidate for
 translation, and displays the program source in another Emacs window,
@@ -657,18 +657,18 @@ or strings already marked with some keyword PO mode knows (see below).
 
 </P>
 <P>
-If you have never told Emacs about some <TT>`TAGS&acute;</TT> file to use, the
+If you have never told Emacs about some <TT>&lsquo;TAGS&rsquo;</TT> file to use, the
 command will request that you specify one from the minibuffer, the
-first time you use the command.  You may later change your <TT>`TAGS&acute;</TT>
+first time you use the command.  You may later change your <TT>&lsquo;TAGS&rsquo;</TT>
 file by using the regular Emacs command <KBD>M-x visit-tags-table</KBD>,
-which will ask you to name the precise <TT>`TAGS&acute;</TT> file you want
-to use.  See section `Tag Tables' in <CITE>The Emacs Editor</CITE>.
+which will ask you to name the precise <TT>&lsquo;TAGS&rsquo;</TT> file you want
+to use.  See section ‘Tag Tables’ in <CITE>The Emacs Editor</CITE>.
 
 </P>
 <P>
 Each time you use the <KBD>,</KBD> command, the search resumes from where it was
 left by the previous search, and goes through all program sources,
-obeying the <TT>`TAGS&acute;</TT> file, until all sources have been processed.
+obeying the <TT>&lsquo;TAGS&rsquo;</TT> file, until all sources have been processed.
 However, by giving a prefix argument to the command (<KBD>C-u
 ,)</KBD>, you may request that the search be restarted all over again
 from the first program source; but in this case, strings that you
@@ -686,10 +686,10 @@ first tags file, this reinitialization might be considered spurious.
 
 </P>
 <P>
-<A NAME="IDX128"></A>
-<A NAME="IDX129"></A>
+<A NAME="IDX134"></A>
+<A NAME="IDX135"></A>
 The <KBD>M-,</KBD> (<CODE>po-mark-translatable</CODE>) command will mark the
-recently found string with the <SAMP>`_&acute;</SAMP> keyword.  The <KBD>M-.</KBD>
+recently found string with the <SAMP>&lsquo;_&rsquo;</SAMP> keyword.  The <KBD>M-.</KBD>
 (<CODE>po-select-mark-and-mark</CODE>) command will request that you type
 one keyword from the minibuffer and use that keyword for marking
 the string.  Both commands will automatically create a new PO file
@@ -738,17 +738,17 @@ simultaneously, each one has its own independent set of known keywords.
 There is no provision in PO mode, currently, for deleting a known
 keyword, you have to quit the file (maybe using <KBD>q</KBD>) and reopen
 it afresh.  When a PO file is newly brought up in an Emacs window, only
-<SAMP>`gettext&acute;</SAMP> and <SAMP>`_&acute;</SAMP> are known as keywords, and <SAMP>`gettext&acute;</SAMP>
+<SAMP>&lsquo;gettext&rsquo;</SAMP> and <SAMP>&lsquo;_&rsquo;</SAMP> are known as keywords, and <SAMP>&lsquo;gettext&rsquo;</SAMP>
 is preferred for the <KBD>M-.</KBD> command.  In fact, this is not useful to
-prefer <SAMP>`_&acute;</SAMP>, as this one is already built in the <KBD>M-,</KBD> command.
+prefer <SAMP>&lsquo;_&rsquo;</SAMP>, as this one is already built in the <KBD>M-,</KBD> command.
 
 </P>
 
 
-<H2><A NAME="SEC16" HREF="gettext_toc.html#TOC16">4.5  Special Comments preceding Keywords</A></H2>
+<H2><A NAME="SEC17" HREF="gettext_toc.html#TOC17">4.6  Special Comments preceding Keywords</A></H2>
 
 <P>
-<A NAME="IDX130"></A>
+<A NAME="IDX136"></A>
 In C programs strings are often used within calls of functions from the
 <CODE>printf</CODE> family.  The special thing about these format strings is
 that they can contain format specifiers introduced with <KBD>%</KBD>.  Assume
@@ -781,9 +781,9 @@ string is regarded as the address.
 To prevent errors at runtime caused by translations the <CODE>msgfmt</CODE>
 tool can check statically whether the arguments in the original and the
 translation string match in type and number.  If this is not the case
-and the <SAMP>`-c&acute;</SAMP> option has been passed to <CODE>msgfmt</CODE>, <CODE>msgfmt</CODE>
+and the <SAMP>&lsquo;-c&rsquo;</SAMP> option has been passed to <CODE>msgfmt</CODE>, <CODE>msgfmt</CODE>
 will give an error and refuse to produce a MO file.  Thus consequent
-use of <SAMP>`msgfmt -c&acute;</SAMP> will catch the error, so that it cannot cause
+use of <SAMP>&lsquo;msgfmt -c&rsquo;</SAMP> will catch the error, so that it cannot cause
 cause problems at runtime.
 
 </P>
@@ -803,7 +803,7 @@ The routines in <CODE>msgfmt</CODE> know about this special notation.
 </P>
 <P>
 Because not all strings in a program must be format strings it is not
-useful for <CODE>msgfmt</CODE> to test all the strings in the <TT>`.po&acute;</TT> file.
+useful for <CODE>msgfmt</CODE> to test all the strings in the <TT>&lsquo;.po&rsquo;</TT> file.
 This might cause problems because the string might contain what looks
 like a format specifier, but the string is not used in <CODE>printf</CODE>.
 
@@ -811,13 +811,13 @@ like a format specifier, but the string is not used in <CODE>printf</CODE>.
 <P>
 Therefore the <CODE>xgettext</CODE> adds a special tag to those messages it
 thinks might be a format string.  There is no absolute rule for this,
-only a heuristic.  In the <TT>`.po&acute;</TT> file the entry is marked using the
+only a heuristic.  In the <TT>&lsquo;.po&rsquo;</TT> file the entry is marked using the
 <CODE>c-format</CODE> flag in the <CODE>#,</CODE> comment line (see section <A HREF="gettext_3.html#SEC10">3  The Format of PO Files</A>).
 
 </P>
 <P>
-<A NAME="IDX131"></A>
-<A NAME="IDX132"></A>
+<A NAME="IDX137"></A>
+<A NAME="IDX138"></A>
 The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
 <CODE>xgettext</CODE> knows about a special kind of comment which lets
@@ -846,7 +846,7 @@ exists because the original code does not pass any parameters.
 <CODE>xgettext</CODE> of course could make a wrong decision the other way
 round, i.e. a string marked as a format string actually is not a format
 string.  In this case the <CODE>msgfmt</CODE> might give too many warnings and
-would prevent translating the <TT>`.po&acute;</TT> file.  The method to prevent
+would prevent translating the <TT>&lsquo;.po&rsquo;</TT> file.  The method to prevent
 this wrong decision is similar to the one used above, only the comment
 to use must contain the string <CODE>xgettext:no-c-format</CODE>.
 
@@ -854,16 +854,16 @@ to use must contain the string <CODE>xgettext:no-c-format</CODE>.
 <P>
 If a string is marked with <CODE>c-format</CODE> and this is not correct the
 user can find out who is responsible for the decision.  See
-section <A HREF="gettext_5.html#SEC21">5.1  Invoking the <CODE>xgettext</CODE> Program</A> to see how the <CODE>--debug</CODE> option can be
+section <A HREF="gettext_5.html#SEC22">5.1  Invoking the <CODE>xgettext</CODE> Program</A> to see how the <CODE>--debug</CODE> option can be
 used for solving this problem.
 
 </P>
 
 
-<H2><A NAME="SEC17" HREF="gettext_toc.html#TOC17">4.6  Special Cases of Translatable Strings</A></H2>
+<H2><A NAME="SEC18" HREF="gettext_toc.html#TOC18">4.7  Special Cases of Translatable Strings</A></H2>
 
 <P>
-<A NAME="IDX133"></A>
+<A NAME="IDX139"></A>
 The attentive reader might now point out that it is not always possible
 to mark translatable string with <CODE>gettext</CODE> or something like this.
 Consider the following case:
@@ -890,7 +890,7 @@ Consider the following case:
 While it is no problem to mark the string <CODE>"a default message"</CODE> it
 is not possible to mark the string initializers for <CODE>messages</CODE>.
 What is to be done?  We have to fulfill two tasks.  First we have to mark the
-strings so that the <CODE>xgettext</CODE> program (see section <A HREF="gettext_5.html#SEC21">5.1  Invoking the <CODE>xgettext</CODE> Program</A>)
+strings so that the <CODE>xgettext</CODE> program (see section <A HREF="gettext_5.html#SEC22">5.1  Invoking the <CODE>xgettext</CODE> Program</A>)
 can find them, and second we have to translate the string at runtime
 before printing them.
 
@@ -923,7 +923,7 @@ from the array.  So one solution can look like this:
 <P>
 Please convince yourself that the string which is written by
 <CODE>fputs</CODE> is translated in any case.  How to get <CODE>xgettext</CODE> know
-the additional keyword <CODE>gettext_noop</CODE> is explained in section <A HREF="gettext_5.html#SEC21">5.1  Invoking the <CODE>xgettext</CODE> Program</A>.
+the additional keyword <CODE>gettext_noop</CODE> is explained in section <A HREF="gettext_5.html#SEC22">5.1  Invoking the <CODE>xgettext</CODE> Program</A>.
 
 </P>
 <P>
@@ -965,12 +965,12 @@ use this second method in this situation.
 </P>
 
 
-<H2><A NAME="SEC18" HREF="gettext_toc.html#TOC18">4.7  Marking Proper Names for Translation</A></H2>
+<H2><A NAME="SEC19" HREF="gettext_toc.html#TOC19">4.8  Marking Proper Names for Translation</A></H2>
 
 <P>
 Should names of persons, cities, locations etc. be marked for translation
 or not?  People who only know languages that can be written with Latin
-letters (English, Spanish, French, German, etc.) are tempted to say "no",
+letters (English, Spanish, French, German, etc.) are tempted to say “no”,
 because names usually do not change when transported between these languages.
 However, in general when translating from one script to another, names
 are translated too, usually phonetically or by transliteration.  For
@@ -1047,7 +1047,7 @@ for translators using GNU Emacs or XEmacs with po-mode.
 </P>
 
 
-<H2><A NAME="SEC19" HREF="gettext_toc.html#TOC19">4.8  Preparing Library Sources</A></H2>
+<H2><A NAME="SEC20" HREF="gettext_toc.html#TOC20">4.9  Preparing Library Sources</A></H2>
 
 <P>
 When you are preparing a library, not a program, for the use of
@@ -1131,7 +1131,7 @@ foo_refcount (struct foo *argument)
 
 <LI>
 
-The usual declaration of the <SAMP>`_&acute;</SAMP> macro in each source file was
+The usual declaration of the <SAMP>&lsquo;_&rsquo;</SAMP> macro in each source file was
 
 
 <PRE>
@@ -1154,6 +1154,6 @@ Similary, the <CODE>dngettext</CODE> function should be used in place of the
 </OL>
 
 <P><HR><P>
-Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_24.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
+Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_3.html">previous</A>, <A HREF="gettext_5.html">next</A>, <A HREF="gettext_25.html">last</A> section, <A HREF="gettext_toc.html">table of contents</A>.
 </BODY>
 </HTML>
