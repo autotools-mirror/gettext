@@ -1,4 +1,4 @@
-# generated automatically by aclocal 1.9.5 -*- Autoconf -*-
+# generated automatically by aclocal 1.9.6 -*- Autoconf -*-
 
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
 # 2005  Free Software Foundation, Inc.
@@ -28,7 +28,7 @@ AC_DEFUN([AM_AUTOMAKE_VERSION], [am__api_version="1.9"])
 # Call AM_AUTOMAKE_VERSION so it can be traced.
 # This function is AC_REQUIREd by AC_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-	 [AM_AUTOMAKE_VERSION([1.9.5])])
+	 [AM_AUTOMAKE_VERSION([1.9.6])])
 
 # AM_AUX_DIR_EXPAND                                         -*- Autoconf -*-
 
@@ -912,6 +912,7 @@ AC_SUBST([am__untar])
 
 m4_include([../m4/fixautomake.m4])
 m4_include([../m4/libtool.m4])
+m4_include([../m4/woe32-dll.m4])
 m4_include([../autoconf-lib-link/m4/lib-ld.m4])
 m4_include([../autoconf-lib-link/m4/lib-link.m4])
 m4_include([../autoconf-lib-link/m4/lib-prefix.m4])
@@ -923,8 +924,8 @@ m4_include([../gettext-runtime/m4/glibc21.m4])
 m4_include([../gettext-runtime/m4/iconv.m4])
 m4_include([../gettext-runtime/m4/intdiv0.m4])
 m4_include([../gettext-runtime/m4/intmax.m4])
+m4_include([../gettext-runtime/m4/inttypes-h.m4])
 m4_include([../gettext-runtime/m4/inttypes-pri.m4])
-m4_include([../gettext-runtime/m4/inttypes.m4])
 m4_include([../gettext-runtime/m4/inttypes_h.m4])
 m4_include([../gettext-runtime/m4/lcmessage.m4])
 m4_include([../gettext-runtime/m4/lock.m4])
@@ -946,6 +947,7 @@ m4_include([../gettext-runtime/m4/xsize.m4])
 m4_include([m4/alloca.m4])
 m4_include([m4/allocsa.m4])
 m4_include([m4/backupfile.m4])
+m4_include([m4/bison-i18n.m4])
 m4_include([m4/byteswap.m4])
 m4_include([m4/canonicalize.m4])
 m4_include([m4/csharp.m4])
@@ -987,6 +989,7 @@ m4_include([m4/sig_atomic_t.m4])
 m4_include([m4/siginfo.m4])
 m4_include([m4/signalblocking.m4])
 m4_include([m4/ssize_t.m4])
+m4_include([m4/stdarg.m4])
 m4_include([m4/stdbool.m4])
 m4_include([m4/stpncpy.m4])
 m4_include([m4/strdup.m4])
@@ -995,5 +998,6 @@ m4_include([m4/strtol.m4])
 m4_include([m4/strtoul.m4])
 m4_include([m4/tmpdir.m4])
 m4_include([m4/unionwait.m4])
+m4_include([m4/unistd_h.m4])
 m4_include([m4/unlocked-io.m4])
 m4_include([m4/xreadlink.m4])
