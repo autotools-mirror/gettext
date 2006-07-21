@@ -4,6 +4,11 @@
 
 2006-07-21  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-4: Store the PO file under fr/, not fr_FR/. Needed on
+	Solaris 7, because there the french locale is called fr, not fr_FR.
+
+2006-07-21  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-6-prg.c: Enable the test only for glibc >= 2.3.
 	* gettext-7-prg.c: Likewise.
 	* gettext-6: Update.
