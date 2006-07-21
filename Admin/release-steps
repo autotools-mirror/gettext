@@ -11,7 +11,8 @@ Tasks not to forget before release:
 - Update {gettext-tools/lib,gettext-runtime/intl}/{localcharset.h,localcharset.c,config.charset}
   from libcharset inside libiconv.
 
-- Update -version-info arguments in gettext-runtime/intl/Makefile.in.
+- Update -version-info arguments in gettext-runtime/intl/Makefile.in
+  and in gettext-tools/src/Makefile.am.
   * increment LTV_REVISION,
   * if any functions/classes have been added, removed or changed, increment
     LTV_CURRENT and set LTV_REVISION to 0,
@@ -21,7 +22,7 @@ Tasks not to forget before release:
 - Update the version numbers in
     gettext-runtime/intl/libgnuintl.h.in
     gettext-runtime/windows/intl.rc
-    gettext-tools/src/gettext-po.h
+    gettext-tools/src/gettext-po.h.in
     gettext-tools/windows/gettextlib.rc
     gettext-tools/windows/gettextsrc.rc
     gettext-tools/windows/gettextpo.rc
