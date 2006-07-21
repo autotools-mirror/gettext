@@ -1,5 +1,5 @@
 /* Test program, used by the gettext-7 test.
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#if USE_POSIX_THREADS && (__GLIBC__ >= 2)
+#if USE_POSIX_THREADS && ((__GLIBC__ > 2) || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 3))
 
 #include <pthread.h>
 #include "setenv.h"

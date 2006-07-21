@@ -2,6 +2,13 @@
 
 	* gettext-0.15 released.
 
+2006-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-6-prg.c: Enable the test only for glibc >= 2.3.
+	* gettext-7-prg.c: Likewise.
+	* gettext-6: Update.
+	* gettext-7: Likewise.
+
 2006-07-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MOSTLYCLEANFILES): New variable.

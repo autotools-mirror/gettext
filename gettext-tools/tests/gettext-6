@@ -50,7 +50,14 @@ beauté
 EOF
 
 tmpfiles="$tmpfiles gt-6.out"
-./gettext-6-prg > gt-6.out || exit 1
+./gettext-6-prg > gt-6.out
+case $? in
+  0) ;;
+  77)
+    echo "Skipping test: not a glibc 2.3 system"
+    rm -fr $tmpfiles; exit 77
+    ;;
+esac
 
 : ${DIFF=diff}
 ${DIFF} gt-6.ok gt-6.out || exit 1

@@ -40,7 +40,14 @@ test -d de_DE/LC_MESSAGES || mkdir de_DE/LC_MESSAGES
 ${MSGFMT} -o de_DE/LC_MESSAGES/tstthread.mo ${top_srcdir}/tests/gettext-7.po
 
 tmpfiles="$tmpfiles gt-7.out"
-./gettext-7-prg > gt-7.out || exit 1
+./gettext-7-prg > gt-7.out
+case $? in
+  0) ;;
+  77)
+    echo "Skipping test: not a glibc 2.3 system"
+    rm -fr $tmpfiles; exit 77
+    ;;
+esac
 
 rm -fr $tmpfiles
 
