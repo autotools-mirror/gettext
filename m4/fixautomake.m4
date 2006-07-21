@@ -24,7 +24,10 @@ dnl Fix an automake-1.9 bug: the distrib rule is not extensible.
 dnl Insert a invocation of the distdir1 target inside the distdir commands,
 dnl after $(distdir) has been erased and re-created.
 AC_DEFUN([FIX_MAKEFILE_TOPDIR_DISTRIB], [
-  sed -e '/^	mkdir \$(distdir)$/{a\' -e '	$(MAKE) distdir1' -e '}' < $ac_file > $ac_file.tmp
+  sed_script='/^	mkdir \$(distdir)$/{a\
+	$(MAKE) distdir1
+}'
+  sed -e "$sed_script" < $ac_file > $ac_file.tmp
   mv $ac_file.tmp $ac_file
 ])
 
