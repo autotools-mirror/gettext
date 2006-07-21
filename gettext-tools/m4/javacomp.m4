@@ -1,4 +1,4 @@
-# javacomp.m4 serial 7 (gettext-0.15)
+# javacomp.m4 serial 8 (gettext-0.15)
 dnl Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -97,6 +97,9 @@ changequote([,])dnl
        }`
        case "$target_version" in
          1.1 | 1.2 | 1.3 | 1.4 | 1.5 | 1.6) ;;
+         null)
+           dnl JDK 1.1.8 on AIX returns null.
+           target_version=1.1 ;;
          *) AC_MSG_WARN([unknown target-version $target_version, please update gt_@&t@JAVACOMP macro])
             target_version=1.1 ;;
        esac

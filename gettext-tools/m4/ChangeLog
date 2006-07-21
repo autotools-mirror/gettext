@@ -2,6 +2,10 @@
 
 	* gettext-0.15 released.
 
+2006-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* javacomp.m4 (gt_JAVACOMP): Convert target_version "null" to "1.1".
+
 2006-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* getline.m4 (AM_FUNC_GETLINE): When cross-compiling, assume that
