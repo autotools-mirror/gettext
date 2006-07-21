@@ -98,7 +98,7 @@ changequote([,])dnl
        case "$target_version" in
          1.1 | 1.2 | 1.3 | 1.4 | 1.5 | 1.6) ;;
          null)
-           dnl JDK 1.1.8 on AIX returns null.
+           dnl JDK 1.1.X returns null.
            target_version=1.1 ;;
          *) AC_MSG_WARN([unknown target-version $target_version, please update gt_@&t@JAVACOMP macro])
             target_version=1.1 ;;
