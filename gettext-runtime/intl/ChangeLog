@@ -2,6 +2,10 @@
 
 	* gettext-0.15 released.
 
+2006-07-21  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (mkinstalldirs): New variable. Needed for mkdir_p.
+
 2006-07-20  Bruno Haible  <bruno@clisp.org>
 
 	* dcigettext.c (HAVE_NL_LOCALE_NAME): Undefine.
