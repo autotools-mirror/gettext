@@ -17,7 +17,7 @@ else
       /*) ;;
       *) GETTEXT_TOOLS_SRCDIR=../$GETTEXT_TOOLS_SRCDIR ;;
     esac
-    GETTEXT_TOPSRCDIR=$GETTEXT_TOOLS_SRCDIR/..
+    GETTEXT_TOPSRCDIR=$GETTEXT_TOOLS_SRCDIR/../..
   else
     # Installed under ${prefix}/share/doc/gettext/examples.
     . ../installpaths
