@@ -61,3 +61,6 @@ Things we plan to do. Comments welcome.
 - Support some of the conversions found in the translate-toolkit package, see
     http://translate.sourceforge.net/wiki/nonpo
 
+- Extend gettextize and autopoint so that they work with several PO file
+  directories.
+
