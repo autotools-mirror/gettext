@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.14.1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-14 13:07+0100\n"
+"POT-Creation-Date: 2006-04-20 15:54+0200\n"
 "PO-Revision-Date: 2004-04-27 15:11+0700\n"
 "Last-Translator: Tedi Heriyanto <tedi_h@gmx.net>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -87,7 +87,7 @@ msgid "memory exhausted"
 msgstr "Memori habis"
 
 # )
-#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -98,62 +98,67 @@ msgstr ""
 "Ini adalah free software; lihat source untuk kondisi penyalinan. Tidak ada\n"
 "jaminan; bahkan untuk PENJUALAN atau KESESUAIAN UNTUK TUJUAN TERTENTU.\n"
 
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Ditulis oleh %s.\n"
 
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#. This is a proper name. See the gettext manual, section Names.
+#: src/envsubst.c:119
+msgid "Bruno Haible"
+msgstr ""
+
+#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "terlalu banyak argumen"
 
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "Argumen hilang"
 
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Coba `%s --help' untuk informasi lebih jauh.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Penggunaan: %s [OPTION] [SHELL-FORMAT]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Gantilah nilai variabel lingkungan.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Mode operasi:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             hasilkan variabel yang muncul dalam SHELL-FORMAT\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Output informatif:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:196
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  tampilkan bantuan ini dan keluar\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:199
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               informasi versi dan keluar\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -171,7 +176,7 @@ msgstr ""
 "; bila tidak semua variabel lingkungan yang diacu yang muncul dalam \n"
 "input standar akan diganti.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:212
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -180,18 +185,23 @@ msgstr ""
 "Ketika digunakan --variables, input standar diabaikan, dan hasilnya\n"
 "terdiri dari variabel lingkungan yang direfer dalam SHELL FORMAT, satu perbaris.\n"
 
-#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Laporkan kesalahan ke <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/envsubst.c:438
+#: src/envsubst.c:439
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "kesalahan ketika membaca \"%s\""
 
-#: src/envsubst.c:439
+#: src/envsubst.c:440
 msgid "standard input"
 msgstr "standard input"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/gettext.c:140 src/ngettext.c:130
+msgid "Ulrich Drepper"
+msgstr ""
 
 #: src/gettext.c:244
 #, c-format, no-wrap

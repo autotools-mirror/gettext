@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2005-01-14 13:07+0100\n"
+"POT-Creation-Date: 2006-04-20 15:54+0200\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -99,7 +99,7 @@ msgid "memory exhausted"
 msgstr "H μνήμη εξαντλήθηκε"
 
 #
-#: src/envsubst.c:113 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -112,65 +112,70 @@ msgstr ""
 "ΛΕΙΤΟΥΡΓΙΚΟΤΗΤΑ ή ΚΑΤΑΛΛΗΛΟΤΗΤΑ ΓΙΑ ΕΝΑ ΣΥΓΚΕΚΡΙΜΕΝΟ ΣΚΟΠΟ.\n"
 
 #
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
 
+#. This is a proper name. See the gettext manual, section Names.
+#: src/envsubst.c:119
+msgid "Bruno Haible"
+msgstr ""
+
 #
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr ""
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr ""
 
-#: src/envsubst.c:185
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr ""
 
-#: src/envsubst.c:188
+#: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr ""
 
-#: src/envsubst.c:192
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
 
-#: src/envsubst.c:195
+#: src/envsubst.c:196
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
 
-#: src/envsubst.c:198
+#: src/envsubst.c:199
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/envsubst.c:202
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -181,7 +186,7 @@ msgid ""
 "standard input are substituted.\n"
 msgstr ""
 
-#: src/envsubst.c:211
+#: src/envsubst.c:212
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -189,21 +194,26 @@ msgid ""
 msgstr ""
 
 #
-#: src/envsubst.c:215 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
 #, fuzzy
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
 
 #
-#: src/envsubst.c:438
+#: src/envsubst.c:439
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "σφάλμα στην ανάγνωση του \"%s\""
 
 #
-#: src/envsubst.c:439
+#: src/envsubst.c:440
 msgid "standard input"
 msgstr "κανονική είσοδος"
+
+#. This is a proper name. See the gettext manual, section Names.
+#: src/gettext.c:140 src/ngettext.c:130
+msgid "Ulrich Drepper"
+msgstr ""
 
 #: src/gettext.c:244
 #, c-format, no-wrap
