@@ -1,5 +1,7 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
+	* fwriteerror.c: Update from gnulib.
+
 	* fnmatch_.h: Update from gnulib.
 	* fnmatch.c: Likewise.
 	* fnmatch_loop.c: Likewise.

@@ -1,4 +1,5 @@
-/* Copyright (C) 1991-1993,1996-1999,2000-2006 Free Software Foundation, Inc.
+/* Copyright (C) 1991,1992,1993,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006
+	Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -85,11 +86,8 @@ extern int fnmatch (const char *pattern, const char *string, int flags);
 #if defined _LIBC || !defined __GNU_LIBRARY__ || !HAVE_FNMATCH_GNU
 
 
-# ifndef isblank
+# if ! (defined isblank || HAVE_DECL_ISBLANK)
 #  define isblank(c) ((c) == ' ' || (c) == '\t')
-# endif
-# ifndef isgraph
-#  define isgraph(c) (isprint (c) && !isspace (c))
 # endif
 
 # define STREQ(s1, s2) ((strcmp (s1, s2) == 0))
@@ -147,18 +145,14 @@ static int posixly_correct;
 # endif
 
 /* Note that this evaluates C many times.  */
-# ifdef _LIBC
-#  define FOLD(c) ((flags & FNM_CASEFOLD) ? tolower (c) : (c))
-# else
-#  define FOLD(c) ((flags & FNM_CASEFOLD) && isupper (c) ? tolower (c) : (c))
-# endif
+# define FOLD(c) ((flags & FNM_CASEFOLD) ? tolower (c) : (c))
 # define CHAR	char
 # define UCHAR	unsigned char
 # define INT	int
 # define FCT	internal_fnmatch
 # define EXT	ext_match
 # define END	end_pattern
-# define L(CS)	CS
+# define L_(CS)	CS
 # ifdef _LIBC
 #  define BTOWC(C)	__btowc (C)
 # else
@@ -188,7 +182,7 @@ static int posixly_correct;
 #  define FCT	internal_fnwmatch
 #  define EXT	ext_wmatch
 #  define END	end_wpattern
-#  define L(CS)	L##CS
+#  define L_(CS)	L##CS
 #  define BTOWC(C)	(C)
 #  ifdef _LIBC
 #   define STRLEN(S) __wcslen (S)
@@ -297,54 +291,51 @@ fnmatch (const char *pattern, const char *string, int flags)
 	 wide characters.  */
       memset (&ps, '\0', sizeof (ps));
       patsize = mbsrtowcs (NULL, &pattern, 0, &ps) + 1;
-      if (__builtin_expect (patsize == 0, 0))
-	/* Something wrong.
-	   XXX Do we have to set `errno' to something which mbsrtows hasn't
-	   already done?  */
-	return -1;
-      assert (mbsinit (&ps));
-      strsize = mbsrtowcs (NULL, &string, 0, &ps) + 1;
-      if (__builtin_expect (strsize == 0, 0))
-	/* Something wrong.
-	   XXX Do we have to set `errno' to something which mbsrtows hasn't
-	   already done?  */
-	return -1;
-      assert (mbsinit (&ps));
-      totsize = patsize + strsize;
-      if (__builtin_expect (! (patsize <= totsize
-			       && totsize <= SIZE_MAX / sizeof (wchar_t)),
-			    0))
+      if (__builtin_expect (patsize != 0, 1))
 	{
-	  errno = ENOMEM;
-	  return -1;
-	}
-
-      /* Allocate room for the wide characters.  */
-      if (__builtin_expect (totsize < ALLOCA_LIMIT, 1))
-	wpattern = (wchar_t *) alloca (totsize * sizeof (wchar_t));
-      else
-	{
-	  wpattern = malloc (totsize * sizeof (wchar_t));
-	  if (__builtin_expect (! wpattern, 0))
+	  assert (mbsinit (&ps));
+	  strsize = mbsrtowcs (NULL, &string, 0, &ps) + 1;
+	  if (__builtin_expect (strsize != 0, 1))
 	    {
-	      errno = ENOMEM;
-	      return -1;
+	      assert (mbsinit (&ps));
+	      totsize = patsize + strsize;
+	      if (__builtin_expect (! (patsize <= totsize
+				       && totsize <= SIZE_MAX / sizeof (wchar_t)),
+				    0))
+		{
+		  errno = ENOMEM;
+		  return -1;
+		}
+
+	      /* Allocate room for the wide characters.  */
+	      if (__builtin_expect (totsize < ALLOCA_LIMIT, 1))
+		wpattern = (wchar_t *) alloca (totsize * sizeof (wchar_t));
+	      else
+		{
+		  wpattern = malloc (totsize * sizeof (wchar_t));
+		  if (__builtin_expect (! wpattern, 0))
+		    {
+		      errno = ENOMEM;
+		      return -1;
+		    }
+		}
+	      wstring = wpattern + patsize;
+
+	      /* Convert the strings into wide characters.  */
+	      mbsrtowcs (wpattern, &pattern, patsize, &ps);
+	      assert (mbsinit (&ps));
+	      mbsrtowcs (wstring, &string, strsize, &ps);
+
+	      res = internal_fnwmatch (wpattern, wstring, wstring + strsize - 1,
+				       flags & FNM_PERIOD, flags);
+
+	      if (__builtin_expect (! (totsize < ALLOCA_LIMIT), 0))
+		free (wpattern);
+	      return res;
 	    }
 	}
-      wstring = wpattern + patsize;
-
-      /* Convert the strings into wide characters.  */
-      mbsrtowcs (wpattern, &pattern, patsize, &ps);
-      assert (mbsinit (&ps));
-      mbsrtowcs (wstring, &string, strsize, &ps);
-
-      res = internal_fnwmatch (wpattern, wstring, wstring + strsize - 1,
-			       flags & FNM_PERIOD, flags);
-
-      if (__builtin_expect (! (totsize < ALLOCA_LIMIT), 0))
-	free (wpattern);
-      return res;
     }
+
 # endif /* HANDLE_MULTIBYTE */
 
   return internal_fnmatch (pattern, string, string + strlen (string),

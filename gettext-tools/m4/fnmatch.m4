@@ -3,10 +3,11 @@
 # This is a modified version of autoconf's AC_FUNC_FNMATCH.
 # This file should be simplified after Autoconf 2.57 is required.
 
-dnl Copyright (C) 2000, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
-dnl This file is free software; the Free Software Foundation
-dnl gives unlimited permission to copy and/or distribute it,
-dnl with or without modifications, as long as this notice is preserved.
+# Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software
+# Foundation, Inc.
+# This file is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
 
 # _AC_FUNC_FNMATCH_IF(STANDARD = GNU | POSIX, CACHE_VAR, IF-TRUE, IF-FALSE)
 # -------------------------------------------------------------------------
@@ -27,9 +28,15 @@ AC_DEFUN([_AC_FUNC_FNMATCH_IF],
 #	   include <fnmatch.h>
 #	   define y(a, b, c) (fnmatch (a, b, c) == 0)
 #	   define n(a, b, c) (fnmatch (a, b, c) == FNM_NOMATCH)
+	   static int
+	   fnm (char const *pattern, char const *string, int flags)
+	   {
+	     return fnmatch (pattern, string, flags);
+	   }
          ],
 	 [exit
-	   (!(y ("a*", "abc", 0)
+	   (!((fnm ? fnm : fnmatch) ("a*", "", 0) == FNM_NOMATCH
+	      && y ("a*", "abc", 0)
 	      && n ("d*/*1", "d/s/1", FNM_PATHNAME)
 	      && y ("a\\\\bc", "abc", 0)
 	      && n ("a\\\\bc", "abc", FNM_NOESCAPE)
@@ -56,7 +63,7 @@ AS_IF([test $$2 = yes], [$3], [$4])
 AC_DEFUN([_AC_LIBOBJ_FNMATCH],
 [AC_REQUIRE([AC_FUNC_ALLOCA])dnl
 AC_REQUIRE([AC_TYPE_MBSTATE_T])dnl
-AC_CHECK_DECLS([getenv])
+AC_CHECK_DECLS([isblank], [], [], [#include <ctype.h>])
 AC_CHECK_FUNCS([btowc mbsrtowcs mempcpy wmemchr wmemcpy wmempcpy])
 AC_CHECK_HEADERS([wchar.h wctype.h])
 AC_LIBOBJ([fnmatch])
