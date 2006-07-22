@@ -78,6 +78,7 @@ libgettextlib_la_SOURCES = \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
   unlocked-io.h \
+  verify.h \
   wait-process.h wait-process.c \
   xalloc.h xmalloc.c xstrdup.c \
   xallocsa.h xallocsa.c \
