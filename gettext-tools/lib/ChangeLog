@@ -1,5 +1,9 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
+	* minmax.h: Update from gnulib.
+
+	* mbswidth.c: Update from gnulib.
+
 	* wcwidth.h: New file, from gnulib.
 	* Makefile.am (libgettextlib_la_SOURCES): Add it.
 

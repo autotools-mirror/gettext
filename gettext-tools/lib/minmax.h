@@ -1,5 +1,5 @@
 /* MIN, MAX macros.
-   Copyright (C) 1995, 1998, 2001, 2003 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2001, 2003, 2005 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,10 +24,17 @@
    #include this file as the last one among the #include list.  */
 
 /* Before we define the following symbols we get the <limits.h> file
-   since otherwise we get redefinitions on some systems.  */
-#include <limits.h>
+   since otherwise we get redefinitions on some systems if <limits.h> is
+   included after this file.  Likewise for <sys/param.h>.
+   If more than one of these system headers define MIN and MAX, pick just
+   one of the headers (because the definitions most likely are the same).  */
+#if HAVE_MINMAX_IN_LIMITS_H
+# include <limits.h>
+#elif HAVE_MINMAX_IN_SYS_PARAM_H
+# include <sys/param.h>
+#endif
 
-/* Note: MIN and MAX should preferrably be used with two arguments of the
+/* Note: MIN and MAX should be used with two arguments of the
    same type.  They might not return the minimum and maximum of their two
    arguments, if the arguments have different types or have unusual
    floating-point values.  For example, on a typical host with 32-bit 'int',
@@ -42,28 +49,12 @@
 
 /* MAX(a,b) returns the maximum of A and B.  */
 #ifndef MAX
-# if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
-#  define MAX(a,b) (__extension__					    \
-		     ({__typeof__ (a) _a = (a);				    \
-		       __typeof__ (b) _b = (b);				    \
-		       _a > _b ? _a : _b;				    \
-		      }))
-# else
-#  define MAX(a,b) ((a) > (b) ? (a) : (b))
-# endif
+# define MAX(a,b) ((a) > (b) ? (a) : (b))
 #endif
 
 /* MIN(a,b) returns the minimum of A and B.  */
 #ifndef MIN
-# if __STDC__ && defined __GNUC__ && __GNUC__ >= 2
-#  define MIN(a,b) (__extension__					    \
-		     ({__typeof__ (a) _a = (a);				    \
-		       __typeof__ (b) _b = (b);				    \
-		       _a < _b ? _a : _b;				    \
-		      }))
-# else
-#  define MIN(a,b) ((a) < (b) ? (a) : (b))
-# endif
+# define MIN(a,b) ((a) < (b) ? (a) : (b))
 #endif
 
 #endif /* _MINMAX_H */

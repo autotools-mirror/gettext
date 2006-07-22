@@ -1,5 +1,5 @@
 /* Determine the number of screen columns needed for a string.
-   Copyright (C) 2000-2004, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2000-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 /* Get isprint().  */
 #include <ctype.h>
 
-/* Get mbstate_t, mbrtowc(), mbsinit(), wcwidth().  */
+/* Get mbstate_t, mbrtowc(), mbsinit().  */
 #if HAVE_WCHAR_H
 /* Tru64 with Desktop Toolkit C has a bug: <stdio.h> must be included before
    <wchar.h>.
@@ -43,12 +43,12 @@
 # include <wchar.h>
 #endif
 
-/* Get iswprint(), iswcntrl().  */
+/* Get wcwidth().  */
+#include "wcwidth.h"
+
+/* Get iswcntrl().  */
 #if HAVE_WCTYPE_H
 # include <wctype.h>
-#endif
-#if !defined iswprint && !HAVE_ISWPRINT
-# define iswprint(wc) 1
 #endif
 #if !defined iswcntrl && !HAVE_ISWCNTRL
 # define iswcntrl(wc) 0
@@ -60,26 +60,12 @@
 # endif
 #endif
 
-#ifndef HAVE_DECL_WCWIDTH
-"this configure-time declaration test was not run"
-#endif
-#if !HAVE_DECL_WCWIDTH
-int wcwidth ();
-#endif
-
-#ifndef wcwidth
-# if !HAVE_WCWIDTH
-/* wcwidth doesn't exist, so assume all printable characters have
-   width 1.  */
-#  define wcwidth(wc) ((wc) == 0 ? 0 : iswprint (wc) ? 1 : -1)
-# endif
-#endif
-
 /* Returns the number of columns needed to represent the multibyte
    character string pointed to by STRING.  If a non-printable character
    occurs, and MBSW_REJECT_UNPRINTABLE is specified, -1 is returned.
    With flags = MBSW_REJECT_INVALID | MBSW_REJECT_UNPRINTABLE, this is
-   the multibyte analogue of the wcswidth function.  */
+   the multibyte analogue of the wcswidth function.
+   If STRING is not of length < INT_MAX / 2, integer overflow can occur.  */
 int
 mbswidth (const char *string, int flags)
 {
@@ -89,7 +75,8 @@ mbswidth (const char *string, int flags)
 /* Returns the number of columns needed to represent the multibyte
    character string pointed to by STRING of length NBYTES.  If a
    non-printable character occurs, and MBSW_REJECT_UNPRINTABLE is
-   specified, -1 is returned.  */
+   specified, -1 is returned.
+   If NBYTES is not < INT_MAX / 2, integer overflow can occur.  */
 int
 mbsnwidth (const char *string, size_t nbytes, int flags)
 {
