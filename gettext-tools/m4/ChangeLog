@@ -1,5 +1,7 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
+	* strerror_r.m4: Update from gnulib.
+
 	* stdbool.m4: Update from gnulib.
 
 	* minmax.m4: New file, from gnulib.
