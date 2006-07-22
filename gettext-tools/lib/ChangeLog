@@ -1,5 +1,7 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
+	* stdbool_.h: Update from gnulib.
+
 	* quotearg.c: Update from gnulib.
 
 	* pathmax.h: Update from gnulib.
