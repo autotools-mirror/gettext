@@ -16,6 +16,9 @@
 	* wcwidth.h: New file, from gnulib.
 	* Makefile.am (libgettextlib_la_SOURCES): Add it.
 
+	* getopt.c: Update from gnulib.
+	* getopt1.c: Likewise.
+
 	* gcd.c: Update from gnulib.
 
 	* fwriteerror.c: Update from gnulib.
