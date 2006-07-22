@@ -22,6 +22,7 @@
 
 	* fatal-signal.c: Include <config.h>, not "config.h".
 	* findprog.c: Likewise.
+	* pipe.c: Likewise.
 
 	* c-strcasecmp.c: Update from gnulib. Don't assume that
 	UCHAR_MAX <= INT_MAX.
