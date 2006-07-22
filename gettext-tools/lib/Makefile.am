@@ -80,6 +80,7 @@ libgettextlib_la_SOURCES = \
   unlocked-io.h \
   verify.h \
   wait-process.h wait-process.c \
+  wcwidth.h \
   xalloc.h xmalloc.c xstrdup.c \
   xallocsa.h xallocsa.c \
   xerror.h xerror.c \
