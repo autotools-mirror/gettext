@@ -1,5 +1,9 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
+	* c-strcasecmp.c: Update from gnulib. Don't assume that
+	UCHAR_MAX <= INT_MAX.
+	* c-strncasecmp.c: Likewise.
+
 	* copy-file.c: Update from gnulib.
 
 	* atexit.c: Update from gnulib.

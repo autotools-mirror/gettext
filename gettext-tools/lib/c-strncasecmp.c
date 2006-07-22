@@ -22,6 +22,8 @@
 /* Specification.  */
 #include "c-strcase.h"
 
+#include <limits.h>
+
 #include "c-ctype.h"
 
 int
@@ -47,5 +49,11 @@ c_strncasecmp (const char *s1, const char *s2, size_t n)
     }
   while (c1 == c2);
 
-  return c1 - c2;
+  if (UCHAR_MAX <= INT_MAX)
+    return c1 - c2;
+  else
+    /* On machines where 'char' and 'int' are types of the same size, the
+       difference of two 'unsigned char' values - including the sign bit -
+       doesn't fit in an 'int'.  */
+    return (c1 > c2 ? 1 : c1 < c2 ? -1 : 0);
 }
