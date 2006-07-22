@@ -1,6 +1,6 @@
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
-	* configure.ac: Invoke gl_FUNC_WCWIDTH.
+	* configure.ac: Invoke gl_FUNC_WCWIDTH, gl_MINMAX.
 
 2006-07-21  Bruno Haible  <bruno@clisp.org>
 

@@ -186,6 +186,7 @@ gl_XREADLINK
 gl_CANONICALIZE
 gt_SETLOCALE
 gl_XSIZE
+gl_MINMAX
 gt_LIBGREP
 gl_BYTESWAP
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
