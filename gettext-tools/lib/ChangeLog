@@ -29,6 +29,7 @@
 	* pipe.c: Likewise.
 	* progname.c: Likewise.
 	* progreloc.c: Likewise.
+	* wait-process.c: Likewise.
 
 	* c-strcasecmp.c: Update from gnulib. Don't assume that
 	UCHAR_MAX <= INT_MAX.
