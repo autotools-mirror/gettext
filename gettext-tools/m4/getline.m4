@@ -42,7 +42,7 @@ AC_DEFUN([AM_FUNC_GETLINE],
     }
     ], am_cv_func_working_getline=yes dnl The library version works.
     , am_cv_func_working_getline=no dnl The library version does NOT work.
-    , dnl We're cross compiling. Assume ir works on glibc2 systems.
+    , dnl We're cross compiling. Assume it works on glibc2 systems.
       [AC_EGREP_CPP([Lucky GNU user],
          [
 #include <features.h>
