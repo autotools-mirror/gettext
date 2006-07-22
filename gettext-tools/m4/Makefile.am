@@ -74,6 +74,7 @@ mbrtowc.m4 \
 mbstate_t.m4 \
 mbswidth.m4 \
 memchr.m4 \
+minmax.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
 pathmax.m4 \
