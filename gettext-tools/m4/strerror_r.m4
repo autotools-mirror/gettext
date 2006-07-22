@@ -1,11 +1,12 @@
-#serial 1003
+#serial 1004
+# This file is not needed if you can assume Autoconf 2.54 or later.
 # Experimental replacement for the function in the latest CVS autoconf.
 # Use with the error.c file in ../lib.
 
-dnl Copyright 2001 Free Software Foundation, Inc.
-dnl This file is free software; the Free Software Foundation
-dnl gives unlimited permission to copy and/or distribute it,
-dnl with or without modifications, as long as this notice is preserved.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# This file is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
 
 undefine([AC_FUNC_STRERROR_R])
 
@@ -24,6 +25,7 @@ AC_CACHE_CHECK([whether strerror_r returns char *],
 	  char buf[100];
 	  char x = *strerror_r (0, buf, sizeof buf);
 	  char *p = strerror_r (0, buf, sizeof buf);
+	  return !p || x;
 	]])],
 			ac_cv_func_strerror_r_char_p=yes)
     else
