@@ -356,6 +356,9 @@
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
 	* csharpexec.sh.in: Add support for 'clix' launcher (untested).
+	* csharpexec.c: Likewise.
+	(execute_csharp_using_sscli): New function.
+	(execute_csharp_program): Call it.
 
 2005-12-04  Bruno Haible  <bruno@clisp.org>
 
