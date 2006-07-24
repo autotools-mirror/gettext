@@ -34,7 +34,7 @@ noinst_PROGRAMS = hostname urlget
 
 lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
 
-include_HEADERS = gettext-po.h
+nodist_include_HEADERS = gettext-po.h
 
 noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
 po-lex.h open-po.h \
