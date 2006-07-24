@@ -1,3 +1,9 @@
+2006-07-24  Bruno Haible  <bruno@clisp.org>
+
+	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): Protect the initial
+	tab with a backslash. Needed for MacOS X sed.
+	Reported by Denis Excoffier <Denis.Excoffier@free.fr>.
+
 2006-07-21  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.15 released.
