@@ -227,11 +227,6 @@ clean-local:
 	rm -rf SunWS_cache
 
 
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
-
-
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

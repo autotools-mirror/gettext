@@ -1144,11 +1144,6 @@ distdir1:
 CLEANFILES = tmp-hello-*
 
 
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
-
-
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

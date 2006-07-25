@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/misc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2000-2003, 2005 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -44,11 +44,6 @@ archive.tar.gz:
 lisp_LISP = start-po.el po-mode.el po-compat.el
 
 EXTRA_DIST += $(lisp_LISP)
-
-
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
 
 
 # Woe32 support.

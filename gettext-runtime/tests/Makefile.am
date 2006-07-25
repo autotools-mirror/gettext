@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/tests subdirectory of GNU gettext
-## Copyright (C) 2005 Free Software Foundation, Inc.
+## Copyright (C) 2005-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -33,11 +33,6 @@ test_lock_LDADD = @LIBMULTITHREAD@ @LIBSCHED@
 # Clean up after Solaris cc.
 clean-local:
 	rm -rf SunWS_cache
-
-
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
 
 
 # Woe32 support.

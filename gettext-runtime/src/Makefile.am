@@ -64,11 +64,6 @@ RELOCATABLE_CONFIG_H_DIR = ..
 @SET_RELOCATABLE@
 
 
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
-
-
 # Woe32 support.
 
 EXTRA_DIST += Makefile.msvc

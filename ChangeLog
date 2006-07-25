@@ -1,3 +1,11 @@
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
+	Remove VMS support.
+	* vms: Remove directory.
+	* Makefile.vms: Remove file.
+	* README.vms: Remove file.
+	* Makefile.am (EXTRA_DIST): Update.
+
 2006-07-24  Bruno Haible  <bruno@clisp.org>
 
 	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): Protect the initial

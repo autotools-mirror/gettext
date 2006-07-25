@@ -1,3 +1,9 @@
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.vms: Remove file.
+	* Makefile.am (config.h_vms): Remove rule.
+	(EXTRA_DIST): Remove Makefile.vms, config.h_vms.
+
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gl_FUNC_WCWIDTH, gl_MINMAX.

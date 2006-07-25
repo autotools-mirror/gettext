@@ -1,5 +1,5 @@
 ## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005 Free Software Foundation, Inc.
+## Copyright (C) 2005-2006 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -48,11 +48,6 @@ libgrep_a_DEPENDENCIES = @LIBGREPOBJS@
 EXTRA_DIST += $(LIBADD_SOURCE)
 
 AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib -I../intl
-
-
-# VMS support.
-
-EXTRA_DIST += Makefile.vms
 
 
 # Woe32 support.
