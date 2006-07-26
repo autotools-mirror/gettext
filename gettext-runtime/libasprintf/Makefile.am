@@ -184,25 +184,4 @@ EXTRA_DIST += texi2html autosprintf_all.html
 
 # Woe32 support.
 
-config.h.msvc: config.h.in
-	sed -e 's/#undef HAVE_ALLOCA$$/#define HAVE_ALLOCA 1/' \
-	    -e 's/#undef HAVE_DECL__SNPRINTF$$/#define HAVE_DECL__SNPRINTF 1/' \
-	    -e 's/#undef HAVE_LONG_DOUBLE$$/#define HAVE_LONG_DOUBLE 1/' \
-	    -e 's/#undef HAVE_PTRDIFF_T$$/#define HAVE_PTRDIFF_T 1/' \
-	    -e 's/#undef HAVE_SNPRINTF$$/#define HAVE_SNPRINTF 1/' \
-	    -e 's/#undef HAVE_STDLIB_H$$/#define HAVE_STDLIB_H 1/' \
-	    -e 's/#undef HAVE_STRING_H$$/#define HAVE_STRING_H 1/' \
-	    -e 's/#undef HAVE_WCHAR_T$$/#define HAVE_WCHAR_T 1/' \
-	    -e 's/#undef HAVE_WCSLEN$$/#define HAVE_WCSLEN 1/' \
-	    -e 's/#undef HAVE_WINT_T$$/#define HAVE_WINT_T 1/' \
-	    -e 's/#undef SIZE_MAX$$/#define SIZE_MAX 4294967295U/' \
-	    -e 's/#undef inline$$/#define inline __inline/' \
-	  < $(srcdir)/config.h.in > $@
-
-autosprintf.h.msvc-shared: autosprintf.h.in windows/dllexport.h
-	sed -e 's/extern \([^"]\)/extern LIBASPRINTF_DLL_EXPORTED \1/' \
-	    -e 's/class /class LIBASPRINTF_DLL_EXPORTED /' \
-	    -e 's/struct /struct LIBASPRINTF_DLL_EXPORTED /' \
-	    -e '/#define _AUTOSPRINTF_H/r windows/dllexport.h' < $(srcdir)/autosprintf.h.in > $@
-
-EXTRA_DIST += README.woe32 Makefile.msvc config.h.msvc autosprintf.h.msvc-shared windows/dllexport.h windows/asprintf.rc
+EXTRA_DIST += README.woe32

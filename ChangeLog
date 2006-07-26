@@ -1,5 +1,11 @@
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
+	Remove MSVC/nmake build support.
+	* Makefile.msvc: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove Makefile.msvc.
+
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
 	Remove VMS support.
 	* vms: Remove directory.
 	* Makefile.vms: Remove file.

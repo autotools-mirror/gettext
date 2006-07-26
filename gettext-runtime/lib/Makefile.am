@@ -115,8 +115,3 @@ MOSTLYCLEANFILES += getopt.h
 # >>> gnulib module localcharset.
 DEFS += -DLIBDIR=\"$(libdir)\"
 # <<< gnulib module localcharset.
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

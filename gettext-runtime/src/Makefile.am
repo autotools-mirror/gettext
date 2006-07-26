@@ -62,8 +62,3 @@ RELOCATABLE_SRC_DIR = $(top_srcdir)/../gettext-tools/lib
 RELOCATABLE_BUILD_DIR = ../lib
 RELOCATABLE_CONFIG_H_DIR = ..
 @SET_RELOCATABLE@
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

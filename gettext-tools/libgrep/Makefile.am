@@ -48,8 +48,3 @@ libgrep_a_DEPENDENCIES = @LIBGREPOBJS@
 EXTRA_DIST += $(LIBADD_SOURCE)
 
 AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib -I../intl
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

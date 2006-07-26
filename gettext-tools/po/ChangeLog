@@ -1,5 +1,10 @@
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* Rules-msvc: Remove file.
+	* Makefile.msvc.sh: Remove file.
+
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* Rules-vms: Remove file.
 	* Makefile.vms.sh: Remove file.
 

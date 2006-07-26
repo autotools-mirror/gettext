@@ -1,5 +1,13 @@
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* windows: Remove directory.
+	* Makefile.msvc: Remove file.
+	* Makefile.am (config.h.msvc, intl/libgnuintl.h.msvc-static,
+	intl/libgnuintl.h.msvc-shared): Remove rules.
+	(EXTRA_DIST): Remove Makefile.msvc, config.h.msvc, windows/*.
+
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.vms: Remove file.
 	* Makefile.am (config.h_vms, intl/libgnuintl.h_vms): Remove rules.
 	(EXTRA_DIST): Remove Makefile.vms, config.h_vms.

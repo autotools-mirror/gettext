@@ -219,8 +219,3 @@ dist-html-split:
 	for file in `cd $$d && echo gettext_*.html`; do \
 	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
 	done
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

@@ -193,8 +193,3 @@ uninstall-html:
 	for file in $(man_HTML); do \
 	  $(RM) $(DESTDIR)$(htmldir)/$$file; \
 	done
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

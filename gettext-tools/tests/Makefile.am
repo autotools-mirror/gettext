@@ -225,8 +225,3 @@ fc5_LDADD = ../lib/libgettextlib.la $(LDADD)
 # Clean up after Solaris cc.
 clean-local:
 	rm -rf SunWS_cache
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

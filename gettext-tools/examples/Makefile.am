@@ -1142,8 +1142,3 @@ distdir1:
 
 # Temporary directories created by po/Makefile.
 CLEANFILES = tmp-hello-*
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

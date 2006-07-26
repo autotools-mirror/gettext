@@ -67,8 +67,3 @@ uninstall-local:
 	  echo "$(RM) $(DESTDIR)$(projectsdir)/$$f"; \
 	  $(RM) $(DESTDIR)$(projectsdir)/$$f; \
 	done
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

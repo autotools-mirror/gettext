@@ -1,5 +1,13 @@
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.msvc: Remove file.
+	* Makefile.in (DISTFILES.gettext): Remove libgnuintl.h.msvc-static,
+	libgnuintl.h.msvc-shared, Makefile.msvc.
+	(DISTFILES.obsolete): Add libgnuintl.h.msvc-static,
+	libgnuintl.h.msvc-shared, Makefile.msvc.
+
+2006-07-25  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.vms: Remove file.
 	* Makefile.in (DISTFILES.gettext): Remove libgnuintl.h_vms,
 	Makefile.vms.

@@ -23,8 +23,3 @@ EXTRA_DIST =
 EXTRA_DIST += nls.texi matrix.texi
 
 EXTRA_DIST += rt-gettext.texi rt-ngettext.texi rt-envsubst.texi
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

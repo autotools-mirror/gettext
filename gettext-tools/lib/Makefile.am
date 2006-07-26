@@ -301,8 +301,3 @@ SUFFIXES += .sed .sin
 
 CLEANFILES += charset.alias ref-add.sed ref-del.sed
 # <<< gnulib module localcharset.
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc

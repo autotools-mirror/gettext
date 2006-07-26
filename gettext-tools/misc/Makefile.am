@@ -44,8 +44,3 @@ archive.tar.gz:
 lisp_LISP = start-po.el po-mode.el po-compat.el
 
 EXTRA_DIST += $(lisp_LISP)
-
-
-# Woe32 support.
-
-EXTRA_DIST += Makefile.msvc
