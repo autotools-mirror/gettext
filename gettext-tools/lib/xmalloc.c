@@ -1,5 +1,5 @@
 /* xmalloc.c -- malloc with out of memory checking
-   Copyright (C) 1990-1996, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1990-1996, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -71,7 +71,21 @@ xmalloc (size_t n)
   return p;
 }
 
-/* Allocate memory for N elements of S bytes, with error checking.  */
+/* Allocate SIZE bytes of memory dynamically, with error checking,
+   and zero it.  */
+
+void *
+xzalloc (size_t size)
+{
+  void *p;
+
+  p = xmalloc (size);
+  memset (p, 0, size);
+  return p;
+}
+
+/* Allocate memory for N elements of S bytes, with error checking,
+   and zero it.  */
 
 void *
 xcalloc (size_t n, size_t s)

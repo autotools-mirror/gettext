@@ -1,3 +1,8 @@
+2006-07-18  Bruno Haible  <bruno@clisp.org>
+
+	* xalloc.h (xzalloc): New declaration.
+	* xmalloc.c (xzalloc): New function.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.

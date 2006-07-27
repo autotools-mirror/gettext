@@ -1,5 +1,5 @@
 /* malloc with out of memory checking.
-   Copyright (C) 2001-2004 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,12 @@ extern "C" {
 /* Allocate SIZE bytes of memory dynamically, with error checking.  */
 extern void *xmalloc (size_t size);
 
-/* Allocate memory for NMEMB elements of SIZE bytes, with error checking.  */
+/* Allocate SIZE bytes of memory dynamically, with error checking,
+   and zero it.  */
+extern void *xzalloc (size_t size);
+
+/* Allocate memory for NMEMB elements of SIZE bytes, with error checking,
+   and zero it.  */
 extern void *xcalloc (size_t nmemb, size_t size);
 
 /* Change the size of an allocated block of memory PTR to SIZE bytes,
