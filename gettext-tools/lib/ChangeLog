@@ -1,3 +1,20 @@
+2006-07-23  Bruno Haible  <bruno@clisp.org>
+
+	Make fstrcmp multithread-safe.
+	* lock.h: New file, from gnulib.
+	* lock.c: New file, from gnulib.
+	* tls.h: New file, from gnulib.
+	* tls.c: New file, from gnulib.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	* fstrcmp.c: Include lock.h, tls.h.
+	(uintptr_t): New macro.
+	(struct context): New structure, grouping all variables.
+	(diag, compareseq): Add context argument.
+	(buffer_key, bufmax_key): New variables.
+	(keys_init): New functions.
+	(keys_init_once): New variable.
+	(fstrcmp): Establish a struct context. Allocate memory per-thread.
+
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* gl_anyhash_list1.h: New file, from gnulib.

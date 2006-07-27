@@ -66,6 +66,7 @@ libgettextlib_la_SOURCES = \
   javaexec.h javaexec.c \
   javaversion.h javaversion.c \
   linebreak.h linebreak.c lbrkprop.h utf8-ucs4.h utf16-ucs4.h \
+  lock.h lock.c \
   mbswidth.h mbswidth.c \
   minmax.h \
   obstack.h obstack.c \
@@ -80,6 +81,7 @@ libgettextlib_la_SOURCES = \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
   size_max.h \
+  tls.h tls.c \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
   unlocked-io.h \

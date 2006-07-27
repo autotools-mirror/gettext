@@ -52,56 +52,66 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 
+#include "lock.h"
+#include "tls.h"
 #include "xalloc.h"
 
-
-/*
- * Data on one input string being compared.
- */
-struct string_data
-{
-  /* The string to be compared. */
-  const char *data;
-
-  /* The length of the string to be compared. */
-  int data_length;
-
-  /* The number of characters inserted or deleted. */
-  int edit_count;
-};
-
-static struct string_data string[2];
-
-
-#ifdef MINUS_H_FLAG
-
-/* This corresponds to the diff -H flag.  With this heuristic, for
-   strings with a constant small density of changes, the algorithm is
-   linear in the strings size.  This is unlikely in typical uses of
-   fstrcmp, and so is usually compiled out.  Besides, there is no
-   interface to set it true.  */
-static int heuristic;
-
+#ifndef uintptr_t
+# define uintptr_t unsigned long
 #endif
 
 
-/* Vector, indexed by diagonal, containing 1 + the X coordinate of the
-   point furthest along the given diagonal in the forward search of the
-   edit matrix.  */
-static int *fdiag;
+/*
+ * Context of comparison operation.
+ */
+struct context
+{
+  /*
+   * Data on one input string being compared.
+   */
+  struct string_data
+  {
+    /* The string to be compared. */
+    const char *data;
 
-/* Vector, indexed by diagonal, containing the X coordinate of the point
-   furthest along the given diagonal in the backward search of the edit
-   matrix.  */
-static int *bdiag;
+    /* The length of the string to be compared. */
+    int data_length;
 
-/* Edit scripts longer than this are too expensive to compute.  */
-static int too_expensive;
+    /* The number of characters inserted or deleted. */
+    int edit_count;
+  }
+  string[2];
 
-/* Snakes bigger than this are considered `big'.  */
-#define SNAKE_LIMIT	20
+  #ifdef MINUS_H_FLAG
+
+  /* This corresponds to the diff -H flag.  With this heuristic, for
+     strings with a constant small density of changes, the algorithm is
+     linear in the strings size.  This is unlikely in typical uses of
+     fstrcmp, and so is usually compiled out.  Besides, there is no
+     interface to set it true.  */
+  int heuristic;
+
+  #endif
+
+  /* Vector, indexed by diagonal, containing 1 + the X coordinate of the
+     point furthest along the given diagonal in the forward search of the
+     edit matrix.  */
+  int *fdiag;
+
+  /* Vector, indexed by diagonal, containing the X coordinate of the point
+     furthest along the given diagonal in the backward search of the edit
+     matrix.  */
+  int *bdiag;
+
+  /* Edit scripts longer than this are too expensive to compute.  */
+  int too_expensive;
+
+  /* Snakes bigger than this are considered `big'.  */
+  #define SNAKE_LIMIT	20
+};
 
 struct partition
 {
@@ -121,7 +131,7 @@ struct partition
 
    SYNOPSIS
 	int diag(int xoff, int xlim, int yoff, int ylim, int minimal,
-		 struct partition *part);
+		 struct partition *part, struct context *ctxt);
 
    DESCRIPTION
 	Find the midpoint of the shortest edit script for a specified
@@ -162,12 +172,12 @@ struct partition
 
 static int
 diag (int xoff, int xlim, int yoff, int ylim, int minimal,
-      struct partition *part)
+      struct partition *part, struct context *ctxt)
 {
-  int *const fd = fdiag;	/* Give the compiler a chance. */
-  int *const bd = bdiag;	/* Additional help for the compiler. */
-  const char *const xv = string[0].data;	/* Still more help for the compiler. */
-  const char *const yv = string[1].data;	/* And more and more . . . */
+  int *const fd = ctxt->fdiag;	/* Give the compiler a chance. */
+  int *const bd = ctxt->bdiag;	/* Additional help for the compiler. */
+  const char *const xv = ctxt->string[0].data;	/* Still more help for the compiler. */
+  const char *const yv = ctxt->string[1].data;	/* And more and more . . . */
   const int dmin = xoff - ylim;	/* Minimum valid diagonal. */
   const int dmax = xlim - yoff;	/* Maximum valid diagonal. */
   const int fmid = xoff - yoff;	/* Center diagonal of top-down search. */
@@ -286,7 +296,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 
          With this heuristic, for strings with a constant small density
          of changes, the algorithm is linear in the strings size.  */
-      if (c > 200 && big_snake && heuristic)
+      if (c > 200 && big_snake && ctxt->heuristic)
 	{
 	  int best;
 
@@ -387,7 +397,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 
       /* Heuristic: if we've gone well beyond the call of duty, give up
 	 and report halfway between our best results so far.  */
-      if (c >= too_expensive)
+      if (c >= ctxt->too_expensive)
 	{
 	  int fxybest;
 	  int fxbest;
@@ -465,7 +475,8 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	compareseq - find edit sequence
 
    SYNOPSIS
-	void compareseq(int xoff, int xlim, int yoff, int ylim, int minimal);
+	void compareseq(int xoff, int xlim, int yoff, int ylim, int minimal,
+			struct context *ctxt);
 
    DESCRIPTION
 	Compare in detail contiguous subsequences of the two strings
@@ -481,10 +492,11 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	expensive it is.  */
 
 static void
-compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
+compareseq (int xoff, int xlim, int yoff, int ylim, int minimal,
+	    struct context *ctxt)
 {
-  const char *const xv = string[0].data;	/* Help the compiler.  */
-  const char *const yv = string[1].data;
+  const char *const xv = ctxt->string[0].data;	/* Help the compiler.  */
+  const char *const yv = ctxt->string[1].data;
 
   /* Slide down the bottom initial diagonal. */
   while (xoff < xlim && yoff < ylim && xv[xoff] == yv[yoff])
@@ -505,7 +517,7 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
     {
       while (yoff < ylim)
 	{
-	  ++string[1].edit_count;
+	  ctxt->string[1].edit_count++;
 	  ++yoff;
 	}
     }
@@ -513,7 +525,7 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
     {
       while (xoff < xlim)
 	{
-	  ++string[0].edit_count;
+	  ctxt->string[0].edit_count++;
 	  ++xoff;
 	}
     }
@@ -523,7 +535,7 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
       struct partition part;
 
       /* Find a point of correspondence in the middle of the strings.  */
-      c = diag (xoff, xlim, yoff, ylim, minimal, &part);
+      c = diag (xoff, xlim, yoff, ylim, minimal, &part, ctxt);
       if (c == 1)
 	{
 #if 0
@@ -536,19 +548,41 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
 	  /* The two subsequences differ by a single insert or delete;
 	     record it and we are done.  */
 	  if (part.xmid - part.ymid < xoff - yoff)
-	    ++string[1].edit_count;
+	    ctxt->string[1].edit_count++;
 	  else
-	    ++string[0].edit_count;
+	    ctxt->string[0].edit_count++;
 #endif
 	}
       else
 	{
 	  /* Use the partitions to split this problem into subproblems.  */
-	  compareseq (xoff, part.xmid, yoff, part.ymid, part.lo_minimal);
-	  compareseq (part.xmid, xlim, part.ymid, ylim, part.hi_minimal);
+	  compareseq (xoff, part.xmid, yoff, part.ymid, part.lo_minimal, ctxt);
+	  compareseq (part.xmid, xlim, part.ymid, ylim, part.hi_minimal, ctxt);
 	}
     }
 }
+
+
+/* Because fstrcmp is typically called multiple times, attempt to minimize
+   the number of memory allocations performed.  Thus, let a call reuse the
+   memory already allocated by the previous call, if it is sufficient.
+   To make it multithread-safe, without need for a lock that protects the
+   already allocated memory, store the allocated memory per thread.  Free
+   it only when the thread exits.  */
+
+static gl_tls_key_t buffer_key;	/* TLS key for a 'int *' */
+static gl_tls_key_t bufmax_key;	/* TLS key for a 'size_t' */
+
+static void
+keys_init (void)
+{
+  gl_tls_key_init (buffer_key, free);
+  gl_tls_key_init (bufmax_key, NULL);
+  /* The per-thread initial values are NULL and 0, respectively.  */
+}
+
+/* Ensure that keys_init is called once only.  */
+gl_once_define(static, keys_init_once);
 
 
 /* NAME
@@ -571,55 +605,68 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal)
 double
 fstrcmp (const char *string1, const char *string2)
 {
+  struct context ctxt;
   int i;
 
   size_t fdiag_len;
-  static int *fdiag_buf;
-  static size_t fdiag_max;
+  int *buffer;
+  size_t bufmax;
 
   /* set the info for each string.  */
-  string[0].data = string1;
-  string[0].data_length = strlen (string1);
-  string[1].data = string2;
-  string[1].data_length = strlen (string2);
+  ctxt.string[0].data = string1;
+  ctxt.string[0].data_length = strlen (string1);
+  ctxt.string[1].data = string2;
+  ctxt.string[1].data_length = strlen (string2);
 
   /* short-circuit obvious comparisons */
-  if (string[0].data_length == 0 && string[1].data_length == 0)
+  if (ctxt.string[0].data_length == 0 && ctxt.string[1].data_length == 0)
     return 1.0;
-  if (string[0].data_length == 0 || string[1].data_length == 0)
+  if (ctxt.string[0].data_length == 0 || ctxt.string[1].data_length == 0)
     return 0.0;
 
   /* Set TOO_EXPENSIVE to be approximate square root of input size,
      bounded below by 256.  */
-  too_expensive = 1;
-  for (i = string[0].data_length + string[1].data_length; i != 0; i >>= 2)
-    too_expensive <<= 1;
-  if (too_expensive < 256)
-    too_expensive = 256;
+  ctxt.too_expensive = 1;
+  for (i = ctxt.string[0].data_length + ctxt.string[1].data_length;
+       i != 0;
+       i >>= 2)
+    ctxt.too_expensive <<= 1;
+  if (ctxt.too_expensive < 256)
+    ctxt.too_expensive = 256;
 
-  /* Because fstrcmp is typically called multiple times, while scanning
-     symbol tables, etc, attempt to minimize the number of memory
-     allocations performed.  Thus, we use a static buffer for the
-     diagonal vectors, and never free them.  */
-  fdiag_len = string[0].data_length + string[1].data_length + 3;
-  if (fdiag_len > fdiag_max)
+  /* Allocate memory for fdiag and bdiag from a thread-local pool.  */
+  fdiag_len = ctxt.string[0].data_length + ctxt.string[1].data_length + 3;
+  gl_once (keys_init_once, keys_init);
+  buffer = (int *) gl_tls_get (buffer_key);
+  bufmax = (size_t) (uintptr_t) gl_tls_get (bufmax_key);
+  if (fdiag_len > bufmax)
     {
-      fdiag_max = fdiag_len;
-      fdiag_buf = xrealloc (fdiag_buf, fdiag_max * (2 * sizeof (int)));
+      /* Need more memory.  */
+      bufmax = 2 * bufmax;
+      if (fdiag_len > bufmax)
+	bufmax = fdiag_len;
+      /* Calling xrealloc would be a waste: buffer's contents does not need
+	 to be preserved.  */
+      if (buffer != NULL)
+	free (buffer);
+      buffer = (int *) xmalloc (bufmax * (2 * sizeof (int)));
+      gl_tls_set (buffer_key, buffer);
+      gl_tls_set (bufmax_key, (void *) (uintptr_t) bufmax);
     }
-  fdiag = fdiag_buf + string[1].data_length + 1;
-  bdiag = fdiag + fdiag_len;
+  ctxt.fdiag = buffer + ctxt.string[1].data_length + 1;
+  ctxt.bdiag = ctxt.fdiag + fdiag_len;
 
   /* Now do the main comparison algorithm */
-  string[0].edit_count = 0;
-  string[1].edit_count = 0;
-  compareseq (0, string[0].data_length, 0, string[1].data_length, 0);
+  ctxt.string[0].edit_count = 0;
+  ctxt.string[1].edit_count = 0;
+  compareseq (0, ctxt.string[0].data_length, 0, ctxt.string[1].data_length, 0,
+	      &ctxt);
 
   /* The result is
 	((number of chars in common) / (average length of the strings)).
      This is admittedly biased towards finding that the strings are
      similar, however it does produce meaningful results.  */
-  return ((double) (string[0].data_length + string[1].data_length
-		    - string[1].edit_count - string[0].edit_count)
-	  / (string[0].data_length + string[1].data_length));
+  return ((double) (ctxt.string[0].data_length + ctxt.string[1].data_length
+		    - ctxt.string[1].edit_count - ctxt.string[0].edit_count)
+	  / (ctxt.string[0].data_length + ctxt.string[1].data_length));
 }
