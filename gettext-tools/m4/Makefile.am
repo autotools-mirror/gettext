@@ -64,6 +64,7 @@ gcj.m4 \
 getline.m4 \
 getndelim2.m4 \
 getopt.m4 \
+gl_list.m4 \
 hard-locale.m4 \
 hostname.m4 \
 java.m4 \

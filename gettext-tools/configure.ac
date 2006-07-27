@@ -144,6 +144,7 @@ gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
 AC_TYPE_MODE_T
 gt_TYPE_SIG_ATOMIC_T
+gl_SIZE_MAX
 gl_GLIBC21
 if test $GLIBC21 = yes; then
   AC_CHECK_MEMBERS([struct __locale_struct.__names], , , [#include <xlocale.h>])
@@ -187,6 +188,7 @@ gl_CANONICALIZE
 gt_SETLOCALE
 gl_XSIZE
 gl_MINMAX
+gl_LIST
 gt_LIBGREP
 gl_BYTESWAP
 AC_C_BIGENDIAN([endianness=1], [endianness=0],

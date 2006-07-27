@@ -25,6 +25,7 @@
 #include "clean-temp.h"
 
 #include <errno.h>
+#include <limits.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -37,6 +38,7 @@
 #include "mkdtemp.h"
 #include "xalloc.h"
 #include "xallocsa.h"
+#include "gl_linkedhash_list.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -47,6 +49,7 @@
    values are written to memory in the order of the C statements.  So the
    signal handler can rely on these field values to be up to date.  */
 
+
 /* Registry for a single temporary directory.
    'struct temp_dir' from the public header file overlaps with this.  */
 struct tempdir
@@ -56,13 +59,9 @@ struct tempdir
   /* Whether errors during explicit cleanup are reported to standard error.  */
   bool cleanup_verbose;
   /* Absolute pathnames of subdirectories.  */
-  char * volatile * volatile subdir;
-  size_t volatile subdir_count;
-  size_t subdir_allocated;
+  gl_list_t /* <char *> */ volatile subdirs;
   /* Absolute pathnames of files.  */
-  char * volatile * volatile file;
-  size_t volatile file_count;
-  size_t file_allocated;
+  gl_list_t /* <char *> */ volatile files;
 };
 
 /* List of all temporary directories.  */
@@ -72,6 +71,84 @@ static struct
   size_t volatile tempdir_count;
   size_t tempdir_allocated;
 } cleanup_list /* = { NULL, 0, 0 } */;
+
+
+/* For the subdirs and for the files, we use a gl_list_t of type LINKEDHASH.
+   Why?  We need a data structure that
+
+     1) Can contain an arbitrary number of 'char *' values.  The strings
+        are compared via strcmp, not pointer comparison.
+     2) Has insertion and deletion operations that are fast: ideally O(1),
+        or possibly O(log n).  This is important for GNU sort, which may
+        create a large number of temporary files.
+     3) Allows iteration through all elements from within a signal handler.
+     4) May or may not allow duplicates.  It doesn't matter here, since
+        any file or subdir can only be removed once.
+
+   Criterion 1) would allow any gl_list_t or gl_oset_t implementation.
+
+   Criterion 2) leaves only GL_LINKEDHASH_LIST, GL_TREEHASH_LIST, or
+   GL_TREE_OSET.
+
+   Criterion 3) puts at disadvantage GL_TREEHASH_LIST and GL_TREE_OSET.
+   Namely, iteration through the elements of a binary tree requires access
+   to many ->left, ->right, ->parent pointers. However, the rebalancing
+   code for insertion and deletion in an AVL or red-black tree is so
+   complicated that we cannot assume that >left, ->right, ->parent pointers
+   are in a consistent state throughout these operations.  Therefore, to
+   avoid a crash in the signal handler, all destructive operations to the
+   lists would have to be protected by a
+       block_fatal_signals ();
+       ...
+       unblock_fatal_signals ();
+   pair.  Which causes extra system calls.
+
+   Criterion 3) would also discourage GL_ARRAY_LIST and GL_CARRAY_LIST,
+   if they were not already excluded.  Namely, these implementations use
+   xrealloc(), leaving a time window in which in the list->elements pointer
+   points to already deallocated memory.  To avoid a crash in the signal
+   handler at such a moment, all destructive operations would have to
+   protected by block/unblock_fatal_signals (), in this case too.
+
+   A list of type GL_LINKEDHASH_LIST without duplicates fulfills all
+   requirements:
+     2) Insertion and deletion are O(1) on average.
+     3) The gl_list_iterator, gl_list_iterator_next implementations do
+        not trigger memory allocations, nor other system calls, and are
+        therefore safe to be called from a signal handler.
+        Furthermore, since SIGNAL_SAFE_LIST is defined, the implementation
+        of the destructive functions ensures that the list structure is
+        safe to be traversed at any moment, even when interrupted by an
+        asynchronous signal.
+ */
+
+/* String equality and hash code functions used by the lists.  */
+
+static bool
+string_equals (const void *x1, const void *x2)
+{
+  const char *s1 = x1;
+  const char *s2 = x2;
+  return strcmp (s1, s2) == 0;
+}
+
+#define SIZE_BITS (sizeof (size_t) * CHAR_BIT)
+
+/* A hash function for NUL-terminated char* strings using
+   the method described by Bruno Haible.
+   See http://www.haible.de/bruno/hashfunc.html.  */
+static size_t
+string_hash (const void *x)
+{
+  const char *s = x;
+  size_t h = 0;
+
+  for (; *s; s++)
+    h = *s + ((h << 9) | (h >> (SIZE_BITS - 9)));
+
+  return h;
+}
+
 
 /* The signal handler.  It gets called asynchronously.  */
 static void
@@ -85,29 +162,26 @@ cleanup ()
 
       if (dir != NULL)
 	{
-	  size_t j;
+	  gl_list_iterator_t iter;
+	  const void *element;
 
 	  /* First cleanup the files in the subdirectories.  */
-	  for (j = dir->file_count; ; )
-	    if (j > 0)
-	      {
-		const char *file = dir->file[--j];
-		if (file != NULL)
-		  unlink (file);
-	      }
-	    else
-	      break;
+	  iter = gl_list_iterator (dir->files);
+	  while (gl_list_iterator_next (&iter, &element, NULL))
+	    {
+	      const char *file = (const char *) element;
+	      unlink (file);
+	    }
+	  gl_list_iterator_free (&iter);
 
 	  /* Then cleanup the subdirectories.  */
-	  for (j = dir->subdir_count; ; )
-	    if (j > 0)
-	      {
-		const char *subdir = dir->subdir[--j];
-		if (subdir != NULL)
-		  rmdir (subdir);
-	      }
-	    else
-	      break;
+	  iter = gl_list_iterator (dir->subdirs);
+	  while (gl_list_iterator_next (&iter, &element, NULL))
+	    {
+	      const char *subdir = (const char *) element;
+	      rmdir (subdir);
+	    }
+	  gl_list_iterator_free (&iter);
 
 	  /* Then cleanup the temporary directory itself.  */
 	  rmdir (dir->dirname);
@@ -189,12 +263,10 @@ create_temp_dir (const char *prefix, const char *parentdir,
   tmpdir = (struct tempdir *) xmalloc (sizeof (struct tempdir));
   tmpdir->dirname = NULL;
   tmpdir->cleanup_verbose = cleanup_verbose;
-  tmpdir->subdir = NULL;
-  tmpdir->subdir_count = 0;
-  tmpdir->subdir_allocated = 0;
-  tmpdir->file = NULL;
-  tmpdir->file_count = 0;
-  tmpdir->file_allocated = 0;
+  tmpdir->subdirs = gl_list_create_empty (GL_LINKEDHASH_LIST,
+					  string_equals, string_hash, false);
+  tmpdir->files = gl_list_create_empty (GL_LINKEDHASH_LIST,
+					string_equals, string_hash, false);
 
   /* Create the temporary directory.  */
   template = (char *) xallocsa (PATH_MAX);
@@ -240,46 +312,10 @@ register_temp_file (struct temp_dir *dir,
 		    const char *absolute_file_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
-  size_t j;
 
-  /* See whether it can take the slot of an earlier file already
-     unregistered.  */
-  for (j = 0; j < tmpdir->file_count; j++)
-    if (tmpdir->file[j] == NULL)
-      {
-	tmpdir->file[j] = xstrdup (absolute_file_name);
-	return;
-      }
-  /* See whether the array needs to be extended.  */
-  if (tmpdir->file_count == tmpdir->file_allocated)
-    {
-      /* Note that we cannot use xrealloc(), because then the cleanup()
-	 function could access an already deallocated array.  */
-      char * volatile * old_array = tmpdir->file;
-      size_t old_allocated = tmpdir->file_allocated;
-      size_t new_allocated = 2 * tmpdir->file_allocated + 1;
-      char * volatile * new_array =
-	(char * volatile *) xmalloc (new_allocated * sizeof (char * volatile));
-      size_t k;
-
-      /* Don't use memcpy() here, because memcpy takes non-volatile arguments
-	 and is therefore not guaranteed to complete all memory stores before
-	 the next statement.  */
-      for (k = 0; k < old_allocated; k++)
-	new_array[k] = old_array[k];
-
-      tmpdir->file = new_array;
-      tmpdir->file_allocated = new_allocated;
-
-      /* Now we can free the old array.  */
-      if (old_array != NULL)
-	free ((char **) old_array);
-    }
-
-  /* Initialize the pointer before incrementing file_count, so that cleanup()
-     will not see this entry before it is fully initialized.  */
-  tmpdir->file[tmpdir->file_count] = xstrdup (absolute_file_name);
-  tmpdir->file_count++;
+  /* Add absolute_file_name to tmpdir->files, without duplicates.  */
+  if (gl_list_search (tmpdir->files, absolute_file_name) == NULL)
+    gl_list_add_first (tmpdir->files, xstrdup (absolute_file_name));
 }
 
 /* Unregister the given ABSOLUTE_FILE_NAME as being a file inside DIR, that
@@ -290,25 +326,17 @@ unregister_temp_file (struct temp_dir *dir,
 		      const char *absolute_file_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
-  size_t j;
+  gl_list_t list = tmpdir->files;
+  gl_list_node_t node;
 
-  for (j = 0; j < tmpdir->file_count; j++)
-    if (tmpdir->file[j] != NULL
-	&& strcmp (tmpdir->file[j], absolute_file_name) == 0)
-      {
-	/* Clear tmpdir->file[j].  */
-	char *old_string = tmpdir->file[j];
-	if (j + 1 == tmpdir->file_count)
-	  {
-	    while (j > 0 && tmpdir->file[j - 1] == NULL)
-	      j--;
-	    tmpdir->file_count = j;
-	  }
-	else
-	  tmpdir->file[j] = NULL;
-	/* Now only we can free the old tmpdir->file[j].  */
-	free (old_string);
-      }
+  node = gl_list_search (list, absolute_file_name);
+  if (node != NULL)
+    {
+      char *old_string = (char *) gl_list_node_value (list, node);
+
+      gl_list_remove_node (list, node);
+      free (old_string);
+    }
 }
 
 /* Register the given ABSOLUTE_DIR_NAME as being a subdirectory inside DIR,
@@ -320,38 +348,9 @@ register_temp_subdir (struct temp_dir *dir,
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
 
-  /* Reusing the slot of an earlier subdirectory already unregistered is not
-     possible here, because the order of the subdirectories matter.  */
-  /* See whether the array needs to be extended.  */
-  if (tmpdir->subdir_count == tmpdir->subdir_allocated)
-    {
-      /* Note that we cannot use xrealloc(), because then the cleanup()
-	 function could access an already deallocated array.  */
-      char * volatile * old_array = tmpdir->subdir;
-      size_t old_allocated = tmpdir->subdir_allocated;
-      size_t new_allocated = 2 * tmpdir->subdir_allocated + 1;
-      char * volatile * new_array =
-	(char * volatile *) xmalloc (new_allocated * sizeof (char * volatile));
-      size_t k;
-
-      /* Don't use memcpy() here, because memcpy takes non-volatile arguments
-	 and is therefore not guaranteed to complete all memory stores before
-	 the next statement.  */
-      for (k = 0; k < old_allocated; k++)
-	new_array[k] = old_array[k];
-
-      tmpdir->subdir = new_array;
-      tmpdir->subdir_allocated = new_allocated;
-
-      /* Now we can free the old array.  */
-      if (old_array != NULL)
-	free ((char **) old_array);
-    }
-
-  /* Initialize the pointer before incrementing subdir_count, so that cleanup()
-     will not see this entry before it is fully initialized.  */
-  tmpdir->subdir[tmpdir->subdir_count] = xstrdup (absolute_dir_name);
-  tmpdir->subdir_count++;
+  /* Add absolute_dir_name to tmpdir->subdirs, without duplicates.  */
+  if (gl_list_search (tmpdir->subdirs, absolute_dir_name) == NULL)
+    gl_list_add_first (tmpdir->subdirs, xstrdup (absolute_dir_name));
 }
 
 /* Unregister the given ABSOLUTE_DIR_NAME as being a subdirectory inside DIR,
@@ -363,30 +362,17 @@ unregister_temp_subdir (struct temp_dir *dir,
 			const char *absolute_dir_name)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
-  size_t j;
+  gl_list_t list = tmpdir->subdirs;
+  gl_list_node_t node;
 
-  for (j = 0; j < tmpdir->subdir_count; j++)
-    if (tmpdir->subdir[j] != NULL
-	&& strcmp (tmpdir->subdir[j], absolute_dir_name) == 0)
-      {
-	/* Clear tmpdir->subdir[j].  */
-	char *old_string = tmpdir->subdir[j];
-	bool anything_beyond_index_j = false;
-	size_t k;
+  node = gl_list_search (list, absolute_dir_name);
+  if (node != NULL)
+    {
+      char *old_string = (char *) gl_list_node_value (list, node);
 
-	for (k = j + 1; k < tmpdir->subdir_count; k++)
-	  if (tmpdir->subdir[k] != NULL)
-	    {
-	      anything_beyond_index_j = true;
-	      break;
-	    }
-	if (anything_beyond_index_j)
-	  tmpdir->subdir[j] = NULL;
-	else
-	  tmpdir->subdir_count = j;
-	/* Now only we can free the old tmpdir->subdir[j].  */
-	free (old_string);
-      }
+      gl_list_remove_node (list, node);
+      free (old_string);
+    }
 }
 
 /* Remove a file, with optional error message.  */
@@ -431,37 +417,38 @@ void
 cleanup_temp_dir_contents (struct temp_dir *dir)
 {
   struct tempdir *tmpdir = (struct tempdir *)dir;
-  size_t j;
+  gl_list_t list;
+  gl_list_iterator_t iter;
+  const void *element;
+  gl_list_node_t node;
 
   /* First cleanup the files in the subdirectories.  */
-  for (j = tmpdir->file_count; ; )
-    if (j > 0)
-      {
-	char *file = tmpdir->file[--j];
-	if (file != NULL)
-	  do_unlink (dir, file);
-	tmpdir->file_count = j;
-	/* Now only we can free file.  */
-	if (file != NULL)
-	  free (file);
-      }
-    else
-      break;
+  list = tmpdir->files;
+  iter = gl_list_iterator (list);
+  while (gl_list_iterator_next (&iter, &element, &node))
+    {
+      char *file = (char *) element;
+
+      do_unlink (dir, file);
+      gl_list_remove_node (list, node);
+      /* Now only we can free file.  */
+      free (file);
+    }
+  gl_list_iterator_free (&iter);
 
   /* Then cleanup the subdirectories.  */
-  for (j = tmpdir->subdir_count; ; )
-    if (j > 0)
-      {
-	char *subdir = tmpdir->subdir[--j];
-	if (subdir != NULL)
-	  do_rmdir (dir, subdir);
-	tmpdir->subdir_count = j;
-	/* Now only we can free subdir.  */
-	if (subdir != NULL)
-	  free (subdir);
-      }
-    else
-      break;
+  list = tmpdir->subdirs;
+  iter = gl_list_iterator (list);
+  while (gl_list_iterator_next (&iter, &element, &node))
+    {
+      char *subdir = (char *) element;
+
+      do_rmdir (dir, subdir);
+      gl_list_remove_node (list, node);
+      /* Now only we can free subdir.  */
+      free (subdir);
+    }
+  gl_list_iterator_free (&iter);
 }
 
 /* Remove all registered files and subdirectories inside DIR and DIR itself.

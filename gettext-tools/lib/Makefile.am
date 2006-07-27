@@ -56,6 +56,10 @@ libgettextlib_la_SOURCES = \
   full-write.h full-write.c \
   fwriteerror.h fwriteerror.c \
   gcd.h gcd.c \
+  gl_anyhash_list1.h gl_anyhash_list2.h \
+  gl_anylinked_list1.h gl_anylinked_list2.h \
+  gl_linkedhash_list.h gl_linkedhash_list.c \
+  gl_list.h gl_list.c \
   hash.h hash.c \
   iconvstring.h iconvstring.c \
   javacomp.h javacomp.c \
@@ -75,6 +79,7 @@ libgettextlib_la_SOURCES = \
   safe-read.h safe-read.c \
   safe-write.h safe-write.c \
   sh-quote.h sh-quote.c \
+  size_max.h \
   tmpdir.h tmpdir.c \
   ucs4-utf8.h ucs4-utf16.h \
   unlocked-io.h \
@@ -173,7 +178,8 @@ AM_CPPFLAGS = -I. -I$(srcdir) -I.. -I../intl -I$(top_srcdir)/intl
 
 DEFS = \
   -DPKGDATADIR=\"$(pkgdatadir)\" \
-  -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 @DEFS@
+  -DEXEEXT=\"$(EXEEXT)\" -DDEPENDS_ON_LIBINTL=1 -DDEPENDS_ON_LIBICONV=1 \
+  -DSIGNAL_SAFE_LIST @DEFS@
 
 
 # >>> gnulib module stdbool.

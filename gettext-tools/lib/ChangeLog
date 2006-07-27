@@ -1,3 +1,26 @@
+2006-07-22  Bruno Haible  <bruno@clisp.org>
+
+	* gl_anyhash_list1.h: New file, from gnulib.
+	* gl_anyhash_list2.h: New file, from gnulib.
+	* gl_anylinked_list1.h: New file, from gnulib.
+	* gl_anylinked_list2.h: New file, from gnulib.
+	* gl_linkedhash_list.h: New file, from gnulib.
+	* gl_linkedhash_list.c: New file, from gnulib.
+	* gl_list.h: New file, from gnulib.
+	* gl_list.c: New file, from gnulib.
+	* size_max.h: New file, from gnulib.
+	* Makefile.am (libgettextlib_la_SOURCES): Add them.
+	(DEFS): Also define SIGNAL_SAFE_LIST.
+	* clean-temp.c: Include limits.h, gl_linkedhash_list.h.
+	(struct tempdir): Use gl_list_t instead of a self-made array-list.
+	(string_equals, string_hash): New functions.
+	(SIZE_BITS): New macro.
+	(cleanup): Use gl_list_iterator_t to walk through the list. No need
+	tp ignore NULLs any more.
+	(create_temp_dir, register_temp_file, unregister_temp_file,
+	register_temp_subdir, unregister_temp_subdir,
+	cleanup_temp_dir_contents): Update.
+
 2006-07-18  Bruno Haible  <bruno@clisp.org>
 
 	* xalloc.h (xzalloc): New declaration.
