@@ -20,6 +20,14 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+# Usage: ./autogen.sh [--quick]
+
+if test "x$1" = "x--quick"; then
+  quick=true
+else
+  quick=false
+fi
+
 aclocal
 autoconf
 automake
@@ -57,7 +65,10 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  aclocal -I ../../gettext-runtime/m4 -I ../../m4
  autoconf
  automake
- ./configure && (cd po && make update-po) && make distclean
+ # Rebuilding the examples PO files is only rarely needed.
+ if ! $quick; then
+   ./configure && (cd po && make update-po) && make distclean
+ fi
 )
 
 cp -p autoconf-lib-link/config.rpath build-aux/config.rpath
