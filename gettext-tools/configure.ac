@@ -189,6 +189,8 @@ gt_SETLOCALE
 gl_XSIZE
 gl_MINMAX
 gl_LIST
+gl_LOCK
+gl_TLS
 gt_LIBGREP
 gl_BYTESWAP
 AC_C_BIGENDIAN([endianness=1], [endianness=0],

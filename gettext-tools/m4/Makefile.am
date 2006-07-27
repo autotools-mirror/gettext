@@ -99,6 +99,7 @@ strerror.m4 \
 strerror_r.m4 \
 strtol.m4 \
 strtoul.m4 \
+tls.m4 \
 tmpdir.m4 \
 unionwait.m4 \
 unistd_h.m4 \
