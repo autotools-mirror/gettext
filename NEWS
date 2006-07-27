@@ -1,3 +1,6 @@
+* msgmerge is faster now on CPUs with multiple execution units, if compiled
+  with GCC 4.2 or newer.
+
 Version 0.15 - July 2006
 
 * GUI program support:

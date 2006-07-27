@@ -1,3 +1,16 @@
+2006-07-23  Bruno Haible  <bruno@clisp.org>
+
+	Exploit CPUs with multiple execution units.
+	* msgmerge.c: Include lock.h.
+	(struct definitions_ty): Add 'findex_init_lock' field.
+	(definitions_init): Initialize it.
+	(definitions_init_findex): Ensure findex is initialized by the
+	first thread who attempts so.
+	(match_domain): Split the main loop into two. Parallelize the first
+	loop using OpenMP pragmas.
+	* Makefile.am (msgmerge_CFLAGS): New variable.
+	(msgmerge_LDADD): Add OPENMP_CFLAGS.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.

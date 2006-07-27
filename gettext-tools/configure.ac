@@ -127,6 +127,9 @@ if test "$MSGMERGE_LIBM" = "?"; then
 fi
 AC_SUBST([MSGMERGE_LIBM])
 
+dnl Test for compiler flags needed to support OpenMP.
+gt_OPENMP
+
 dnl Checks for header files.
 AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)
 gl_STDARG_H

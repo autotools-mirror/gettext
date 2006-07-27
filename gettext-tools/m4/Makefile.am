@@ -78,6 +78,7 @@ memchr.m4 \
 minmax.m4 \
 mkdtemp.m4 \
 onceonly.m4 \
+openmp.m4 \
 pathmax.m4 \
 quote.m4 \
 quotearg.m4 \

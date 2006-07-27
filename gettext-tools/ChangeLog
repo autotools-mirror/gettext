@@ -1,5 +1,9 @@
 2006-07-23  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Invoke gt_OPENMP.
+
+2006-07-23  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_LOCK and gl_TLS.
 
 2006-07-22  Bruno Haible  <bruno@clisp.org>

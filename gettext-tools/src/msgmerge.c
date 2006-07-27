@@ -51,6 +51,7 @@
 #include "msgl-iconv.h"
 #include "msgl-equal.h"
 #include "msgl-fsearch.h"
+#include "lock.h"
 #include "plural-count.h"
 #include "backupfile.h"
 #include "copy-file.h"
@@ -594,6 +595,9 @@ struct definitions_ty
   /* A fuzzy index of the compendiums, for speed when doing fuzzy searches.
      Used only if use_fuzzy_matching is true and compendiums != NULL.  */
   message_fuzzy_index_ty *findex;
+  /* A once-only execution guard for the initialization of the fuzzy index.
+     Needed for OpenMP.  */
+  gl_lock_t findex_init_lock;
   /* The canonical encoding of the compendiums.  */
   const char *canon_charset;
 };
@@ -601,11 +605,14 @@ struct definitions_ty
 static inline void
 definitions_init (definitions_ty *definitions, const char *canon_charset)
 {
+  gl_lock_define (static, fresh_lock)
+
   definitions->lists = message_list_list_alloc ();
   message_list_list_append (definitions->lists, NULL);
   if (compendiums != NULL)
     message_list_list_append_list (definitions->lists, compendiums);
   definitions->findex = NULL;
+  memcpy (&definitions->findex_init_lock, &fresh_lock, sizeof (gl_lock_t));
   definitions->canon_charset = canon_charset;
 }
 
@@ -614,24 +621,30 @@ definitions_init (definitions_ty *definitions, const char *canon_charset)
 static inline void
 definitions_init_findex (definitions_ty *definitions)
 {
-  /* Combine all the compendium message lists into a single one.  Don't
-     bother checking for duplicates.  */
-  message_list_ty *all_compendium;
-  size_t i;
-
-  all_compendium = message_list_alloc (false);
-  for (i = 0; i < compendiums->nitems; i++)
+  /* Protect against concurrent execution.  */
+  gl_lock_lock (definitions->findex_init_lock);
+  if (definitions->findex == NULL)
     {
-      message_list_ty *mlp = compendiums->item[i];
-      size_t j;
+      /* Combine all the compendium message lists into a single one.  Don't
+	 bother checking for duplicates.  */
+      message_list_ty *all_compendium;
+      size_t i;
 
-      for (j = 0; j < mlp->nitems; j++)
-	message_list_append (all_compendium, mlp->item[j]);
+      all_compendium = message_list_alloc (false);
+      for (i = 0; i < compendiums->nitems; i++)
+	{
+	  message_list_ty *mlp = compendiums->item[i];
+	  size_t j;
+
+	  for (j = 0; j < mlp->nitems; j++)
+	    message_list_append (all_compendium, mlp->item[j]);
+	}
+
+      /* Create the fuzzy index from it.  */
+      definitions->findex =
+	message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
     }
-
-  /* Create the fuzzy index from it.  */
-  definitions->findex =
-    message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
+  gl_lock_unlock (definitions->findex_init_lock);
 }
 
 /* Return the current list of non-compendium messages.  */
@@ -1042,6 +1055,7 @@ match_domain (const char *fn1, const char *fn2,
   message_ty *header_entry;
   unsigned long int nplurals;
   char *untranslated_plural_msgstr;
+  struct search_result { message_ty *found; bool fuzzy; } *search_results;
   size_t j;
 
   header_entry =
@@ -1050,22 +1064,72 @@ match_domain (const char *fn1, const char *fn2,
   untranslated_plural_msgstr = (char *) xmalloc (nplurals);
   memset (untranslated_plural_msgstr, '\0', nplurals);
 
-  for (j = 0; j < refmlp->nitems; j++, (*processed)++)
+  /* Most of the time is spent in definitions_search_fuzzy.
+     Perform it in a separate loop that can be parallelized by an OpenMP
+     capable compiler.  */
+  search_results =
+    (struct search_result *)
+    xmalloc (refmlp->nitems * sizeof (struct search_result));
+  {
+    long int nn = refmlp->nitems;
+    long int jj;
+
+    /* Tell the OpenMP capable compiler to distribute this loop across
+       several threads.  The schedule is dynamic, because for some messages
+       the loop body can be executed very quickly, whereas for others it takes
+       a long time.  */
+    #ifdef _OPENMP
+    # pragma omp parallel for schedule(dynamic)
+    #endif
+    for (jj = 0; jj < nn; jj++)
+      {
+	message_ty *refmsg = refmlp->item[jj];
+	message_ty *defmsg;
+
+	/* Because merging can take a while we print something to signal
+	   we are not dead.  */
+	if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
+	  fputc ('.', stderr);
+	#ifdef _OPENMP
+	# pragma omp atomic
+	#endif
+	(*processed)++;
+
+	/* See if it is in the other file.  */
+	defmsg =
+	  definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
+	if (defmsg != NULL)
+	  {
+	    search_results[jj].found = defmsg;
+	    search_results[jj].fuzzy = false;
+	  }
+	else if (!is_header (refmsg)
+		 /* If the message was not defined at all, try to find a very
+		    similar message, it could be a typo, or the suggestion may
+		    help.  */
+		 && use_fuzzy_matching
+		 && ((defmsg =
+		        definitions_search_fuzzy (definitions,
+						  refmsg->msgctxt,
+						  refmsg->msgid)) != NULL))
+	  {
+	    search_results[jj].found = defmsg;
+	    search_results[jj].fuzzy = true;
+	  }
+	else
+	  search_results[jj].found = NULL;
+      }
+  }
+
+  for (j = 0; j < refmlp->nitems; j++)
     {
-      message_ty *refmsg;
-      message_ty *defmsg;
+      message_ty *refmsg = refmlp->item[j];
 
-      /* Because merging can take a while we print something to signal
-	 we are not dead.  */
-      if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
-	fputc ('.', stderr);
-
-      refmsg = refmlp->item[j];
-
-      /* See if it is in the other file.  */
-      defmsg = definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
-      if (defmsg)
+      /* See if it is in the other file.
+	 This used definitions_search.  */
+      if (search_results[j].found != NULL && !search_results[j].fuzzy)
 	{
+	  message_ty *defmsg = search_results[j].found;
 	  /* Merge the reference with the definition: take the #. and
 	     #: comments from the reference, take the # comments from
 	     the definition, take the msgstr from the definition.  Add
@@ -1083,13 +1147,11 @@ match_domain (const char *fn1, const char *fn2,
 	{
 	  /* If the message was not defined at all, try to find a very
 	     similar message, it could be a typo, or the suggestion may
-	     help.  */
-	  if (use_fuzzy_matching
-	      && ((defmsg =
-		     definitions_search_fuzzy (definitions,
-					       refmsg->msgctxt,
-					       refmsg->msgid)) != NULL))
+	     help.  This search assumed use_fuzzy_matching and used
+	     definitions_search_fuzzy.  */
+	  if (search_results[j].found != NULL && search_results[j].fuzzy)
 	    {
+	      message_ty *defmsg = search_results[j].found;
 	      message_ty *mp;
 
 	      if (verbosity_level > 1)
@@ -1157,6 +1219,8 @@ this message is used but not defined in %s"), fn1);
 	    }
 	}
     }
+
+  free (search_results);
 
   /* Now postprocess the problematic merges.  This is needed because we
      want the result to pass the "msgfmt -c -v" check.  */
