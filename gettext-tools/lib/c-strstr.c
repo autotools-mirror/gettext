@@ -1,4 +1,4 @@
-/* Copyright (C) 1994, 1999, 2002-2003, 2005 Free Software Foundation, Inc.
+/* Copyright (C) 1994, 1999, 2002-2003, 2005-2006 Free Software Foundation, Inc.
 This file is part of the GNU C Library.
 
 This program is free software; you can redistribute it and/or modify
@@ -32,10 +32,8 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 typedef unsigned chartype;
 
-#undef strstr
-
 char *
-strstr (const char *phaystack, const char *pneedle)
+c_strstr (const char *phaystack, const char *pneedle)
 {
   register const unsigned char *haystack, *needle;
   register chartype b, c;
