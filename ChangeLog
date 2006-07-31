@@ -1,3 +1,14 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* build-aux/csharpcomp.sh.in: Move here from
+	gettext-tools/lib/csharpcomp.sh.in.
+	* build-aux/csharpexec.sh.in: Move here from
+	gettext-tools/lib/csharpexec.sh.in.
+	* build-aux/javacomp.sh.in: Move here from
+	gettext-tools/lib/javacomp.sh.in.
+	* build-aux/javaexec.sh.in: Move here from
+	gettext-tools/lib/javaexec.sh.in.
+
 2006-07-22  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Accept option --quick.
@@ -28,8 +39,8 @@
 
 2006-07-21  Bruno Haible  <bruno@clisp.org>
 
-	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): Use a multiline -e argument
-	instead of multiple -e arguments. Needed for AIX 4.
+	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): Use a multiline -e
+	argument instead of multiple -e arguments. Needed for AIX 4.
 
 2006-07-20  Bruno Haible  <bruno@clisp.org>
 

@@ -366,8 +366,10 @@ AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
 
 AC_CONFIG_FILES([lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
-AC_CONFIG_FILES([lib/javacomp.sh lib/javaexec.sh])
-AC_CONFIG_FILES([lib/csharpcomp.sh lib/csharpexec.sh])
+AC_CONFIG_FILES([lib/javacomp.sh:../build-aux/javacomp.sh.in])
+AC_CONFIG_FILES([lib/javaexec.sh:../build-aux/javaexec.sh.in])
+AC_CONFIG_FILES([lib/csharpcomp.sh:../build-aux/csharpcomp.sh.in])
+AC_CONFIG_FILES([lib/csharpexec.sh:../build-aux/csharpexec.sh.in])
 
 AC_CONFIG_FILES([libgrep/Makefile],
                 [FIX_MAKEFILE_COMPILE])

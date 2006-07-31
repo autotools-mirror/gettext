@@ -160,8 +160,8 @@ AC_CONFIG_FILES([intl-csharp/Makefile])
 
 AC_CONFIG_FILES([lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
-AC_CONFIG_FILES([lib/javacomp.sh:../gettext-tools/lib/javacomp.sh.in])
-AC_CONFIG_FILES([lib/csharpcomp.sh:../gettext-tools/lib/csharpcomp.sh.in])
+AC_CONFIG_FILES([lib/javacomp.sh:../build-aux/javacomp.sh.in])
+AC_CONFIG_FILES([lib/csharpcomp.sh:../build-aux/csharpcomp.sh.in])
 
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])
