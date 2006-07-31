@@ -1,4 +1,4 @@
-# relocatable.m4 serial 5 (gettext-0.15)
+# relocatable.m4 serial 6 (gettext-0.15.1)
 dnl Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -10,6 +10,12 @@ dnl Support for relocateble programs.
 AC_DEFUN([AC_RELOCATABLE],
 [
   AC_REQUIRE([AC_PROG_INSTALL])
+  dnl This AC_BEFORE invocation leads to unjustified autoconf warnings
+  dnl when AC_RELOCATABLE is invoked more than once.
+  dnl We need this AC_BEFORE because AC_PROG_INSTALL is documented to
+  dnl overwrite earlier settings of INSTALL and INSTALL_PROGRAM (even
+  dnl though in autoconf-2.52..2.60 it doesn't do so), but we want this
+  dnl macro's setting of INSTALL_PROGRAM to persist.
   AC_BEFORE([AC_PROG_INSTALL],[AC_RELOCATABLE])
   AC_REQUIRE([AC_LIB_LIBPATH])
   AC_REQUIRE([AC_RELOCATABLE_LIBRARY])
