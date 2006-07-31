@@ -1,3 +1,7 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgrt_a_SOURCES): Add c-strstr.h, c-strstr.c.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.

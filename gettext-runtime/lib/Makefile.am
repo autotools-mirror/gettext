@@ -31,6 +31,7 @@ libgrt_a_SOURCES = \
   ../../gettext-tools/lib/basename.h ../../gettext-tools/lib/basename.c \
   ../../gettext-tools/lib/c-ctype.h ../../gettext-tools/lib/c-ctype.c \
   ../../gettext-tools/lib/c-strcase.h ../../gettext-tools/lib/c-strcasecmp.c \
+  ../../gettext-tools/lib/c-strstr.h ../../gettext-tools/lib/c-strstr.c \
   ../../gettext-tools/lib/closeout.h ../../gettext-tools/lib/closeout.c \
   ../../gettext-tools/lib/exit.h \
   ../../gettext-tools/lib/fwriteerror.h ../../gettext-tools/lib/fwriteerror.c \
