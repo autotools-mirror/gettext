@@ -1,5 +1,9 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* propername.c: Temporarily use c_strstr always.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* c-strstr.h: Renamed from strstr.h. Don't test HAVE_STRSTR.
 	(c_strstr): Renamed from strstr.
 	* c-strstr.c: Renamed from strstr.c.
