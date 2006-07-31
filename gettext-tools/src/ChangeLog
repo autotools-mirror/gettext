@@ -1,3 +1,31 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-cat.c: Include c-strstr.h instead of strstr.h.
+	(catenate_msgdomain_list): Use c_strstr instead of strstr.
+	* msgl-charset.c: Include c-strstr.h instead of strstr.h.
+	(compare_po_locale_charsets): Use c_strstr instead of strstr.
+	* msgl-check.c: Include c-strstr.h instead of strstr.h.
+	(plural_help, check_plural, check_header_entry): Use c_strstr instead
+	of strstr.
+	* msgl-iconv.c: Include c-strstr.h instead of strstr.h.
+	(iconv_message_list): Use c_strstr instead of strstr.
+	* po-charset.c: Include c-strstr.h instead of strstr.h.
+	(po_lex_charset_set): Use c_strstr instead of strstr.
+	* write-po.c: Include c-strstr.h instead of strstr.h.
+	(msgdomain_list_print_po): Use c_strstr instead of strstr.
+	* write-stringtable.c: Include c-strstr.h instead of strstr.h.
+	(write_message): Use c_strstr instead of strstr.
+	* msgcmp.c: Include c-strstr.h instead of strstr.h.
+	(compare): Use c_strstr instead of strstr.
+	* msginit.c: Include c-strstr.h instead of strstr.h.
+	(content_type): Use c_strstr instead of strstr.
+	* msgmerge.c: Include c-strstr.h instead of strstr.h.
+	(message_merge, merge): Use c_strstr instead of strstr.
+	* x-python.c: Include c-strstr.h instead of strstr.h.
+	(try_to_extract_coding): Use c_strstr instead of strstr.
+	* xgettext.c: Include c-strstr.h instead of strstr.h.
+	(remember_a_message, finalize_header): Use c_strstr instead of strstr.
+
 2006-07-23  Bruno Haible  <bruno@clisp.org>
 
 	Exploit CPUs with multiple execution units.

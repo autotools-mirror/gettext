@@ -46,7 +46,7 @@
 #include "xvasprintf.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "xerror.h"
 #include "exit.h"
 #include "pathname.h"
@@ -2077,7 +2077,7 @@ meta information, not the empty string.\n")));
 	/* To reduce the possibility of unwanted matches we do a two
 	   step match: the line must contain `xgettext:' and one of
 	   the possible format description strings.  */
-	if ((t = strstr (s, "xgettext:")) != NULL)
+	if ((t = c_strstr (s, "xgettext:")) != NULL)
 	  {
 	    bool tmp_fuzzy;
 	    enum is_format tmp_format[NFORMATS];
@@ -2848,7 +2848,7 @@ finalize_header (msgdomain_list_ty *mdlp)
 	message_ty *header =
 	  message_list_search (mdlp->item[0]->messages, NULL, "");
 	if (header != NULL
-	    && strstr (header->msgstr, "Plural-Forms:") == NULL)
+	    && c_strstr (header->msgstr, "Plural-Forms:") == NULL)
 	  {
 	    size_t insertpos = strlen (header->msgstr);
 	    const char *suffix;

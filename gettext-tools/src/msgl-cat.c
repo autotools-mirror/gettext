@@ -40,7 +40,7 @@
 #include "msgl-iconv.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "basename.h"
 #include "exit.h"
 #include "gettext.h"
@@ -144,7 +144,7 @@ catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
 
 		    if (header != NULL)
 		      {
-			const char *charsetstr = strstr (header, "charset=");
+			const char *charsetstr = c_strstr (header, "charset=");
 
 			if (charsetstr != NULL)
 			  {
@@ -237,7 +237,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 
 		if (header != NULL)
 		  {
-		    const char *cp = strstr (header, "Project-Id-Version:");
+		    const char *cp = c_strstr (header, "Project-Id-Version:");
 
 		    if (cp != NULL)
 		      {

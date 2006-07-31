@@ -33,7 +33,7 @@
 #include "po-xerror.h"
 #include "basename.h"
 #include "progname.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "c-strcase.h"
 #include "gettext.h"
 
@@ -461,7 +461,7 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 	0x5C bytes in the PO lexer,
      2. so that at run time, gettext() can call iconv() to convert
 	msgstr.  */
-  const char *charsetstr = strstr (header_entry, "charset=");
+  const char *charsetstr = c_strstr (header_entry, "charset=");
 
   if (charsetstr != NULL)
     {

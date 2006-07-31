@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "write-po.h"
 
 /* The format of NeXTstep/GNUstep .strings files is documented in
@@ -112,7 +112,7 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 
 	  /* Test whether it is safe to output the comment in C style, or
 	     whether we need C++ style for it.  */
-	  if (strstr (s, "*/") == NULL)
+	  if (c_strstr (s, "*/") == NULL)
 	    {
 	      fputs ("/*", fp);
 	      if (*s != '\0' && *s != '\n' && *s != ' ')
@@ -155,7 +155,7 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 
 	  /* Test whether it is safe to output the comment in C style, or
 	     whether we need C++ style for it.  */
-	  if (strstr (s, "*/") == NULL)
+	  if (c_strstr (s, "*/") == NULL)
 	    {
 	      fputs ("/* Comment: ", fp);
 	      fputs (s, fp);
@@ -237,7 +237,7 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 
 	  /* Output the msgstr as a comment, so that at runtime
 	     propertyListFromStringsFileFormat ignores it.  */
-	  if (strstr (mp->msgstr, "*/") == NULL)
+	  if (c_strstr (mp->msgstr, "*/") == NULL)
 	    {
 	      fputs (" /* = ", fp);
 	      write_escaped_string (fp, mp->msgstr);

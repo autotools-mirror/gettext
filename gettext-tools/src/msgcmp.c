@@ -38,7 +38,7 @@
 #include "exit.h"
 #include "read-po.h"
 #include "msgl-iconv.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "c-strcase.h"
 #include "propername.h"
 #include "gettext.h"
@@ -331,7 +331,7 @@ compare (const char *fn1, const char *fn2)
 
 	      if (header != NULL)
 		{
-		  const char *charsetstr = strstr (header, "charset=");
+		  const char *charsetstr = c_strstr (header, "charset=");
 
 		  if (charsetstr != NULL)
 		    {

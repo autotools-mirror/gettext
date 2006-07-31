@@ -37,7 +37,7 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "message.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "exit.h"
 #include "gettext.h"
 
@@ -68,7 +68,7 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 
 	    if (header != NULL)
 	      {
-		const char *charsetstr = strstr (header, "charset=");
+		const char *charsetstr = c_strstr (header, "charset=");
 
 		if (charsetstr != NULL)
 		  {

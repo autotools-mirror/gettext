@@ -33,6 +33,7 @@
 #include "localcharset.h"
 #include "c-strcase.h"
 #include "iconvstring.h"
+#include "c-strstr.h"
 #include "strstr.h"
 #include "xalloc.h"
 #include "gettext.h"
@@ -159,7 +160,7 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
     {
       /* See whether the translation contains the original name.
 	 A multibyte-aware strstr() is not absolutely necessary here.  */
-      if (strstr (translation, name_ascii) != NULL
+      if (c_strstr (translation, name_ascii) != NULL
 	  || (name_converted != NULL
 	      && strstr (translation, name_converted) != NULL)
 	  || (name_converted_translit != NULL

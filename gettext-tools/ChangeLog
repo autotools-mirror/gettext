@@ -1,5 +1,9 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Don't test for the strstr function.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Update for changed location of javacomp.sh.in,
 	javaexec.sh.in, csharpcomp.sh.in, csharpexec.sh.in.
 

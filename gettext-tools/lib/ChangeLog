@@ -1,3 +1,14 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* c-strstr.h: Renamed from strstr.h. Don't test HAVE_STRSTR.
+	(c_strstr): Renamed from strstr.
+	* c-strstr.c: Renamed from strstr.c.
+	(c_strstr): Renamed from strstr.
+	* javacomp.c: Include c-strstr.h instead of strstr.h.
+	(is_envjavac_gcj): Use c_strstr instead of strstr.
+	* propername.c: Include c-strstr.h.
+	(proper_name_utf8): Use c_strstr instead of strstr.
+
 2006-07-29  Bruno Haible  <bruno@clisp.org>
 
 	* xreadlink.c: Assume <stdlib.h> exists.

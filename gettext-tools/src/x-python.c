@@ -39,7 +39,7 @@
 #include "xvasprintf.h"
 #include "xalloc.h"
 #include "exit.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "uniname.h"
@@ -639,7 +639,7 @@ This version was built without iconv()."),
 static inline void
 try_to_extract_coding (const char *comment)
 {
-  const char *p = strstr (comment, "coding");
+  const char *p = c_strstr (comment, "coding");
 
   if (p != NULL)
     {

@@ -50,7 +50,7 @@
 #include "clean-temp.h"
 #include "error.h"
 #include "xvasprintf.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -570,7 +570,7 @@ is_envjavac_gcj (const char *javac)
 	  fclose (fp);
 	  goto failed;
 	}
-      envjavac_gcj = (strstr (line, "gcj") != NULL);
+      envjavac_gcj = (c_strstr (line, "gcj") != NULL);
 
       fclose (fp);
 

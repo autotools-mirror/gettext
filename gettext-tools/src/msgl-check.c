@@ -38,7 +38,7 @@
 #include "plural-exp.h"
 #include "plural-eval.h"
 #include "plural-table.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "vasprintf.h"
 #include "exit.h"
 #include "message.h"
@@ -172,7 +172,7 @@ plural_help (const char *nullentry)
   const char *language;
   size_t j;
 
-  language = strstr (nullentry, "Language-Team: ");
+  language = c_strstr (nullentry, "Language-Team: ");
   if (language != NULL)
     {
       language += 15;
@@ -260,8 +260,8 @@ check_plural (message_list_ty *mlp, unsigned char **plural_distribution)
 
       nullentry = header->msgstr;
 
-      plural = strstr (nullentry, "plural=");
-      nplurals = strstr (nullentry, "nplurals=");
+      plural = c_strstr (nullentry, "plural=");
+      nplurals = c_strstr (nullentry, "nplurals=");
       if (plural == NULL && has_plural != NULL)
 	{
 	  const char *msg1 =
@@ -656,7 +656,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
 
   for (cnt = 0; cnt < nfields; ++cnt)
     {
-      char *endp = strstr (msgstr_string, required_fields[cnt]);
+      char *endp = c_strstr (msgstr_string, required_fields[cnt]);
 
       if (endp == NULL)
 	{

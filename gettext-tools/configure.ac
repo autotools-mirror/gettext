@@ -157,8 +157,7 @@ dnl Checks for library functions.
 gl_ALLOCSA
 AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
 utime utimes waitid])
-AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn \
-strpbrk strstr vasprintf])
+AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn strpbrk vasprintf])
 AM_FUNC_GETLINE
 if test $am_cv_func_working_getline != yes; then
   AC_CHECK_FUNCS(getdelim)

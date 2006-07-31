@@ -56,7 +56,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "strpbrk.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "c-strcase.h"
 #include "message.h"
 #include "read-po.h"
@@ -1151,7 +1151,7 @@ content_type (const char *header)
   old_field = get_field (header, "Content-Type");
   if (old_field != NULL)
     {
-      const char *charsetstr = strstr (old_field, "charset=");
+      const char *charsetstr = c_strstr (old_field, "charset=");
 
       if (charsetstr != NULL)
 	{

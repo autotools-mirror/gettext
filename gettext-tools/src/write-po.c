@@ -43,7 +43,7 @@
 #include "write-stringtable.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "fwriteerror.h"
 #include "error-progname.h"
 #include "xvasprintf.h"
@@ -1036,7 +1036,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
       allocated_charset = NULL;
       if (header != NULL)
 	{
-	  const char *charsetstr = strstr (header, "charset=");
+	  const char *charsetstr = c_strstr (header, "charset=");
 
 	  if (charsetstr != NULL)
 	    {

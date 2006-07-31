@@ -42,7 +42,7 @@
 #include "format.h"
 #include "xalloc.h"
 #include "obstack.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "exit.h"
 #include "c-strcase.h"
 #include "stpcpy.h"
@@ -876,7 +876,7 @@ message_merge (message_ty *def, message_ty *ref)
       {
 	const char *msgid_bugs_ptr;
 
-	msgid_bugs_ptr = strstr (ref->msgstr, "Report-Msgid-Bugs-To:");
+	msgid_bugs_ptr = c_strstr (ref->msgstr, "Report-Msgid-Bugs-To:");
 	if (msgid_bugs_ptr != NULL)
 	  {
 	    size_t msgid_bugs_len;
@@ -906,7 +906,7 @@ message_merge (message_ty *def, message_ty *ref)
       {
 	const char *pot_date_ptr;
 
-	pot_date_ptr = strstr (ref->msgstr, "POT-Creation-Date:");
+	pot_date_ptr = c_strstr (ref->msgstr, "POT-Creation-Date:");
 	if (pot_date_ptr != NULL)
 	  {
 	    size_t pot_date_len;
@@ -1346,7 +1346,7 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 
 	      if (header != NULL)
 		{
-		  const char *charsetstr = strstr (header, "charset=");
+		  const char *charsetstr = c_strstr (header, "charset=");
 
 		  if (charsetstr != NULL)
 		    {

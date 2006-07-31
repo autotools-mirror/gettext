@@ -41,7 +41,7 @@
 #include "msgl-ascii.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "strstr.h"
+#include "c-strstr.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -178,7 +178,7 @@ iconv_message_list (message_list_ty *mlp,
 
 	if (header != NULL)
 	  {
-	    const char *charsetstr = strstr (header, "charset=");
+	    const char *charsetstr = c_strstr (header, "charset=");
 
 	    if (charsetstr != NULL)
 	      {
