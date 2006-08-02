@@ -1,0 +1,12 @@
+*** quote.bak	2005-03-21 23:07:25.000000000 +0100
+--- quote	2006-07-30 19:56:30.000000000 +0200
+***************
+*** 13,18 ****
+--- 13,19 ----
+  gl_QUOTE
+  
+  Makefile.am:
++ lib_SOURCES += quote.h quote.c
+  
+  Include:
+  "quote.h"

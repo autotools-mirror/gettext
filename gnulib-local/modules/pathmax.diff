@@ -1,0 +1,12 @@
+*** modules/pathmax.bak	2005-09-19 19:44:46.000000000 +0200
+--- modules/pathmax	2006-07-30 21:25:20.000000000 +0200
+***************
+*** 11,16 ****
+--- 11,17 ----
+  gl_PATHMAX
+  
+  Makefile.am:
++ lib_SOURCES += pathmax.h
+  
+  Include:
+  "pathmax.h"

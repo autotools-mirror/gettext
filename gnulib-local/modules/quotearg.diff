@@ -1,0 +1,12 @@
+*** quotearg.bak	2005-07-06 17:58:47.000000000 +0200
+--- quotearg	2006-07-30 19:56:48.000000000 +0200
+***************
+*** 17,22 ****
+--- 17,23 ----
+  gl_QUOTEARG
+  
+  Makefile.am:
++ lib_SOURCES += quotearg.h quotearg.c
+  
+  Include:
+  "quotearg.h"

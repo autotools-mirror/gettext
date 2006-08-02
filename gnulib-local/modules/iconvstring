@@ -1,0 +1,25 @@
+Description:
+Charset conversion.
+
+Files:
+lib/iconvstring.h
+lib/iconvstring.c
+
+Depends-on:
+iconv
+xalloc
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += iconvstring.h iconvstring.c
+
+Include:
+"iconvstring.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
