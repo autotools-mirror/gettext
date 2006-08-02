@@ -68,9 +68,9 @@ tmpfiles="$tmpfiles prog.${OBJEXT} prog${EXEEXT}"
 # Put the -I flags before ${CXXFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
 # ${CXXFLAGS} or ${CPPFLAGS}.
-${CXX} -I.. -I../../gettext-runtime/libasprintf -I$top_srcdir/lib -I../intl ${CXXFLAGS} ${CPPFLAGS} -c prog.cc \
+${CXX} -I.. -I../../gettext-runtime/libasprintf -I$top_srcdir/gnulib-lib -I../intl ${CXXFLAGS} ${CPPFLAGS} -c prog.cc \
   || exit 1
-${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${LDFLAGS} -o prog prog.${OBJEXT} ../../gettext-runtime/libasprintf/libasprintf.la ../lib/libgettextlib.la ${LTLIBINTL} \
+${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${LDFLAGS} -o prog prog.${OBJEXT} ../../gettext-runtime/libasprintf/libasprintf.la ../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
