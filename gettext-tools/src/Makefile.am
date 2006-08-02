@@ -69,7 +69,7 @@ AM_CPPFLAGS = \
   -I.. \
   -I$(top_srcdir)/libgrep \
   -I$(top_srcdir)/libuniname \
-  -I../lib -I$(top_srcdir)/lib \
+  -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
@@ -80,15 +80,15 @@ DEFS = \
   -DLIBDIR=\"$(libdir)\" \
   -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
   -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
-LDADD = ../lib/libgettextlib.la @LTLIBINTL@
+LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
 YACC = @YACC@ -d
 GCJ = @GCJ@
 GCJFLAGS = @GCJFLAGS@
 JAR = @JAR@
-JAVACOMP = $(SHELL) ../lib/javacomp.sh
-CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
+JAVACOMP = $(SHELL) ../javacomp.sh
+CSHARPCOMP = $(SHELL) ../csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
@@ -215,13 +215,13 @@ hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 
 # How to build libgettextsrc.la.
-# Need ../lib/libgettextlib.la.
+# Need ../gnulib-lib/libgettextlib.la.
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+  ../gnulib-lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL
@@ -239,11 +239,11 @@ install-exec-clean:
 
 # How to build libgettextpo.la.
 # Need libgettextsrc.la.
-# Need ../lib/libgettextlib.la because of xmalloc.
+# Need ../gnulib-lib/libgettextlib.la because of xmalloc.
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  libgettextsrc.la ../lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+  libgettextsrc.la ../gnulib-lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 # Build order. Only needed for "make -j[N]".
 libgettextpo_la_DEPENDENCIES = libgettextsrc.la
 
@@ -276,7 +276,7 @@ msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
                 libgettextsrc.la @INTL_MACOSX_LIBS@
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-recode_sr_latin_LDADD = ../lib/libgettextlib.la @INTL_MACOSX_LIBS@
+recode_sr_latin_LDADD = ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@
 
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
@@ -484,7 +484,7 @@ uninstall-tcl:
 
 # Support for relocatability.
 RELOCATABLE_LIBRARY_PATH = $(libdir)
-RELOCATABLE_SRC_DIR = $(top_srcdir)/lib
-RELOCATABLE_BUILD_DIR = ../lib
+RELOCATABLE_SRC_DIR = $(top_srcdir)/gnulib-lib
+RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
 @SET_RELOCATABLE@

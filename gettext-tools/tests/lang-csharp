@@ -48,7 +48,7 @@ class Program {
 EOF
 
 tmpfiles="$tmpfiles program.exe"
-: ${CSHARPCOMP="/bin/sh ../lib/csharpcomp.sh"}
+: ${CSHARPCOMP="/bin/sh ../csharpcomp.sh"}
 ${CSHARPCOMP} -o program.exe -L ../../gettext-runtime/intl-csharp -l GNU.Gettext program.cs || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
@@ -152,7 +152,7 @@ EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
-: ${CSHARPEXEC="/bin/sh ../lib/csharpexec.sh"}
+: ${CSHARPEXEC="/bin/sh ../csharpexec.sh"}
 if test $LOCALE_FR != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../gettext-runtime/intl-csharp program.exe 2 > prog.out || exit 1
   ${DIFF} prog.ok prog.out || exit 1

@@ -2,28 +2,28 @@
 # Copyright (C) 1995, 1998, 2001-2006 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
-#   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {lib,src}/*.[chly]
+#   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {gnulib-lib,src}/*.[chly]
 
-# Files from the compatibility library
-lib/argmatch.c
-lib/closeout.c
-lib/copy-file.c
-lib/csharpcomp.c
-lib/csharpexec.c
-lib/error.c
-lib/execute.c
-lib/getopt.c
-lib/javacomp.c
-lib/javaexec.c
-lib/javaversion.c
-lib/obstack.c
-lib/pipe.c
-lib/quotearg.c
-lib/w32spawn.h
-lib/wait-process.c
-lib/xerror.c
-lib/xmalloc.c
-lib/xsetenv.c
+# Files from the portability library
+gnulib-lib/argmatch.c
+gnulib-lib/clean-temp.c
+gnulib-lib/closeout.c
+gnulib-lib/copy-file.c
+gnulib-lib/csharpcomp.c
+gnulib-lib/csharpexec.c
+gnulib-lib/error.c
+gnulib-lib/execute.c
+gnulib-lib/getopt.c
+gnulib-lib/javacomp.c
+gnulib-lib/javaexec.c
+gnulib-lib/javaversion.c
+gnulib-lib/obstack.c
+gnulib-lib/pipe.c
+gnulib-lib/quotearg.c
+gnulib-lib/w32spawn.h
+gnulib-lib/wait-process.c
+gnulib-lib/xmalloc.c
+gnulib-lib/xsetenv.c
 
 # Package source files
 src/file-list.c

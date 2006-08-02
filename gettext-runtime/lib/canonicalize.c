@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/canonicalize.c"
+#include "../../gettext-tools/gnulib-lib/canonicalize.c"

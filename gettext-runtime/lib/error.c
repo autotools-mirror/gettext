@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/error.c"
+#include "../../gettext-tools/gnulib-lib/error.c"

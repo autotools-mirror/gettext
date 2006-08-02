@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/getopt.c"
+#include "../../gettext-tools/gnulib-lib/getopt.c"

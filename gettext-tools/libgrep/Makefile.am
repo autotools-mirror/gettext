@@ -47,4 +47,4 @@ libgrep_a_DEPENDENCIES = @LIBGREPOBJS@
 
 EXTRA_DIST += $(LIBADD_SOURCE)
 
-AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib -I../intl
+AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../intl

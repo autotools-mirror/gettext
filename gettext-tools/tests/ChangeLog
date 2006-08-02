@@ -1,3 +1,10 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (AM_CPPFLAGS, *_LDADD*): Replace ../lib with
+	../gnulib-lib.
+	* lang-csharp (CSHARPCOMP, CSHARPEXEC): Remove lib/ from pathname.
+	* lang-java (JAVACOMP, JAVAEXEC): Remove lib/ from pathname.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.

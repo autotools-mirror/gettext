@@ -25,7 +25,7 @@ noinst_LIBRARIES = libuniname.a
 
 libuniname_a_SOURCES = uniname.h uniname.c uninames.h
 
-AM_CPPFLAGS = -I.. -I../lib -I$(top_srcdir)/lib
+AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib
 
 EXTRA_DIST += gen-uninames
 
@@ -36,6 +36,6 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) $(SHELL)
 noinst_PROGRAMS = test-names
 # INTL_MACOSX_LIBS is needed because libgettextlib.la depends on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
-test_names_LDADD = libuniname.a ../lib/libgettextlib.la @INTL_MACOSX_LIBS@
+test_names_LDADD = libuniname.a ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@
 
 EXTRA_DIST += $(TESTS) UnicodeDataNames.txt

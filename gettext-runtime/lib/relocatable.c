@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/relocatable.c"
+#include "../../gettext-tools/gnulib-lib/relocatable.c"

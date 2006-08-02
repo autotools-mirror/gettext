@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/strtoul.c"
+#include "../../gettext-tools/gnulib-lib/strtoul.c"

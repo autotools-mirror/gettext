@@ -17,7 +17,7 @@ dnl Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.57)
+AC_PREREQ([2.59])
 AC_INIT
 AC_CONFIG_SRCDIR(src/msgfmt.c)
 AC_CONFIG_AUX_DIR(../build-aux)
@@ -83,8 +83,7 @@ AC_OBJEXT
 AC_EXEEXT
 
 dnl Make sure we see all GNU and Solaris extensions.
-AC_GNU_SOURCE
-gl_USE_SYSTEM_EXTENSIONS
+gl_EARLY
 
 dnl Check for build configuration.
 gl_WOE32_DLL
@@ -130,11 +129,11 @@ AC_SUBST([MSGMERGE_LIBM])
 dnl Test for compiler flags needed to support OpenMP.
 gt_OPENMP
 
+dnl Checks for header files, functions and declarations.
+gl_INIT
+
 dnl Checks for header files.
-AC_CHECK_HEADERS(limits.h malloc.h pwd.h string.h unistd.h utime.h values.h)
-gl_STDARG_H
-AM_STDBOOL_H
-gl_HEADER_UNISTD
+AC_CHECK_HEADERS(pwd.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
@@ -142,59 +141,19 @@ bh_C_SIGNED
 gl_AC_TYPE_UNSIGNED_LONG_LONG
 AC_TYPE_SIZE_T
 AC_CHECK_TYPES(ptrdiff_t)
-gl_AC_TYPE_UINTMAX_T
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
-AC_TYPE_MODE_T
-gt_TYPE_SIG_ATOMIC_T
-gl_SIZE_MAX
 gl_GLIBC21
 if test $GLIBC21 = yes; then
   AC_CHECK_MEMBERS([struct __locale_struct.__names], , , [#include <xlocale.h>])
 fi
 
 dnl Checks for library functions.
-gl_ALLOCSA
-AC_CHECK_FUNCS([chown getcwd posix_spawn raise select strerror strtoul uname \
-utime utimes waitid])
-AC_REPLACE_FUNCS([atexit memmove memset stpcpy strcspn strpbrk vasprintf])
-AM_FUNC_GETLINE
-if test $am_cv_func_working_getline != yes; then
-  AC_CHECK_FUNCS(getdelim)
-fi
-gl_EXITFAIL
-gl_FUNC_FNMATCH_POSIX
-gl_GETOPT
-gl_FUNC_EACCESS
-gl_FUNC_STPNCPY
-gl_FUNC_STRTOUL
-gl_FUNC_WCWIDTH
-gl_MBSWIDTH
-gt_PREREQ_BACKUPFILE
+AC_CHECK_FUNCS([select])
 AC_FUNC_VFORK
-gt_UNION_WAIT
-gt_TMPDIR
-gt_FUNC_MKDTEMP
-gt_SIGNALBLOCKING
 gt_SIGINFO
-gt_FUNC_SETENV
-gl_FUNC_STRERROR
-gl_FUNC_GLIBC_UNLOCKED_IO
-gl_ERROR
-gl_QUOTEARG
-gl_QUOTE
-gl_PATHMAX
-gl_FUNC_READLINK
-gl_XREADLINK
-gl_CANONICALIZE
 gt_SETLOCALE
-gl_XSIZE
-gl_MINMAX
-gl_LIST
-gl_LOCK
-gl_TLS
 gt_LIBGREP
-gl_BYTESWAP
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
   [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
    echo "Please report this as a bug to bug-autoconf@gnu.org" 1>&2
@@ -363,12 +322,8 @@ AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   mv intl/Makefile.tmp intl/Makefile
   ])
 
-AC_CONFIG_FILES([lib/Makefile],
+AC_CONFIG_FILES([gnulib-lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
-AC_CONFIG_FILES([lib/javacomp.sh:../build-aux/javacomp.sh.in])
-AC_CONFIG_FILES([lib/javaexec.sh:../build-aux/javaexec.sh.in])
-AC_CONFIG_FILES([lib/csharpcomp.sh:../build-aux/csharpcomp.sh.in])
-AC_CONFIG_FILES([lib/csharpexec.sh:../build-aux/csharpexec.sh.in])
 
 AC_CONFIG_FILES([libgrep/Makefile],
                 [FIX_MAKEFILE_COMPILE])

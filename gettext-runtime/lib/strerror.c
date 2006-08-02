@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/strerror.c"
+#include "../../gettext-tools/gnulib-lib/strerror.c"

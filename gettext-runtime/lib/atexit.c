@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/atexit.c"
+#include "../../gettext-tools/gnulib-lib/atexit.c"

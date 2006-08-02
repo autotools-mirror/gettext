@@ -1,0 +1,18 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (examplesbuildaux_DATA): Refer to ../gnulib-m4 directory.
+
+	* alloca.m4: Moved to ../../gnulib-local/m4/alloca.m4.
+	* backupfile.m4: Moved to ../../gnulib-local/m4/backupfile.m4.
+	* bison-i18n.m4: Moved to ../../gnulib-local/m4/bison-i18n.m4.
+	* canonicalize.m4: Moved to ../../gnulib-local/m4/canonicalize.m4.
+	* gcj.m4: Moved to ../../gnulib-local/m4/gcj.m4.
+	* getline.m4: Moved to ../../gnulib-local/m4/getline.m4.
+	* getndelim2.m4: Moved to ../../gnulib-local/m4/getndelim2.m4.
+	* java.m4: Moved to ../../gnulib-local/m4/java.m4.
+	* relocatable.m4: Moved to ../../gnulib-local/m4/relocatable.m4.
+	* unionwait.m4: Moved to ../../gnulib-local/m4/unionwait.m4.
+	* xreadlink.m4: Moved to ../../gnulib-local/m4/xreadlink.m4.
+
+
+See gnulib-local/m4/ChangeLog.1 for earlier changes.

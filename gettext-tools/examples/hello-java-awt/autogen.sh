@@ -32,8 +32,8 @@ cp -p ${GETTEXTSRCPODIR-$GETTEXT_TOPSRCDIR/gettext-runtime/po}/remove-potcdate.s
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/gcj.m4 m4/gcj.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/javacomp.m4 m4/javacomp.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/javaexec.m4 m4/javaexec.m4
-cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/lib}/javacomp.sh.in javacomp.sh.in
-cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/lib}/javaexec.sh.in javaexec.sh.in
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/build-aux}/javacomp.sh.in javacomp.sh.in
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/build-aux}/javaexec.sh.in javaexec.sh.in
 
 aclocal -I m4
 

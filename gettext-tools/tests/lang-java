@@ -72,7 +72,7 @@ cat <<\EOF >> Program.java
 EOF
 
 tmpfiles="$tmpfiles Program.class"
-: ${JAVACOMP="/bin/sh ../lib/javacomp.sh"}
+: ${JAVACOMP="/bin/sh ../javacomp.sh"}
 CLASSPATH=../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d . Program.java || exit 1
 
 tmpfiles="$tmpfiles prog.pot"
@@ -175,7 +175,7 @@ EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
-: ${JAVAEXEC="/bin/sh ../lib/javaexec.sh"}
+: ${JAVAEXEC="/bin/sh ../javaexec.sh"}
 if test $LOCALE_FR != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
   ${DIFF} prog.ok prog.out || exit 1

@@ -18,9 +18,9 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
+ACLOCAL_AMFLAGS = -I m4 -I gnulib-m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
 
-SUBDIRS = doc intl lib libgrep libuniname src po projects misc man m4 tests examples
+SUBDIRS = doc intl gnulib-lib libgrep libuniname src po projects misc man m4 tests examples
 
 EXTRA_DIST = misc/DISCLAIM
 MOSTLYCLEANFILES = core *.stackdump
@@ -30,6 +30,14 @@ MOSTLYCLEANFILES = core *.stackdump
 
 gettextsrcdir = $(datadir)/gettext
 gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath
+
+
+# Files installed for the examples.
+
+examplesbuildauxdir = $(docdir)/examples/build-aux
+examplesbuildaux_DATA = \
+  ../build-aux/javacomp.sh.in ../build-aux/javaexec.sh.in \
+  ../build-aux/csharpcomp.sh.in ../build-aux/csharpexec.sh.in
 
 
 # Files copied from other directories.

@@ -131,7 +131,7 @@ XGETTEXT = ../src/xgettext
 # For debugging memory leaks and memory allocation bugs.
 # You should build with --disable-shared when using valgrind.
 CHECKER =
-#CHECKER = valgrind --tool=memcheck --suppressions=$(srcdir)/../lib/allocsa.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
+#CHECKER = valgrind --tool=memcheck --suppressions=$(srcdir)/../gnulib-lib/allocsa.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
 #CHECKER = valgrind --tool=massif --format=html --depth=10 --alloc-fn=xmalloc --alloc-fn=xrealloc --stacks=no
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
@@ -181,7 +181,7 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 # Three auxiliary programs used by the tests.
 AM_CPPFLAGS = \
   -I.. \
-  -I../lib -I$(top_srcdir)/lib \
+  -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
@@ -192,35 +192,35 @@ LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
 noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
-tstgettext_LDADD = ../lib/libgettextlib.la $(LDADD)
+tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
-tstngettext_LDADD = ../lib/libgettextlib.la $(LDADD)
+tstngettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 testlocale_SOURCES = testlocale.c
 gettext_3_prg_SOURCES = gettext-3-prg.c
-gettext_3_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_3_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_4_prg_SOURCES = gettext-4-prg.c
-gettext_4_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_4_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_5_prg_SOURCES = gettext-5-prg.c
-gettext_5_prg_LDADD = ../lib/libgettextlib.la $(LDADD)
+gettext_5_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_6_prg_SOURCES = gettext-6-prg.c
 gettext_6_prg_CFLAGS = $(gettext_6_prg_CFLAGS_@GLIBC2@)
 gettext_6_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
 gettext_6_prg_LDADD = $(gettext_6_prg_LDADD_@GLIBC2@)
-gettext_6_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
+gettext_6_prg_LDADD_yes = ../gnulib-lib/libgettextlib.la $(LDADD) -lpthread
 gettext_7_prg_SOURCES = gettext-7-prg.c
 gettext_7_prg_CFLAGS = $(gettext_7_prg_CFLAGS_@GLIBC2@)
 gettext_7_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
 gettext_7_prg_LDADD = $(gettext_7_prg_LDADD_@GLIBC2@)
-gettext_7_prg_LDADD_yes = ../lib/libgettextlib.la $(LDADD) -lpthread
+gettext_7_prg_LDADD_yes = ../gnulib-lib/libgettextlib.la $(LDADD) -lpthread
 cake_SOURCES = plural-1-prg.c setlocale.c
-cake_LDADD = ../lib/libgettextlib.la $(LDADD)
+cake_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c
-fc3_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc3_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc4_SOURCES = format-c-4-prg.c setlocale.c
-fc4_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc4_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc5_SOURCES = format-c-5-prg.c
-fc5_LDADD = ../lib/libgettextlib.la $(LDADD)
+fc5_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 
 # Clean up after Solaris cc.
 clean-local:

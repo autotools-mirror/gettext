@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/setenv.c"
+#include "../../gettext-tools/gnulib-lib/setenv.c"

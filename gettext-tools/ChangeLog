@@ -1,5 +1,32 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (ACLOCAL_AMFLAGS): Append gnulib-m4 to search path.
+	(SUBDIRS): Replace lib with gnulib-lib.
+	(examplesbuildauxdir, examplesbuildaux_DATA): New variables.
+	* configure.ac (AC_PREREQ): Bump to 2.59.
+	(gl_EARLY): Invoke.
+	(AC_GNU_SOURCE, gl_USE_SYSTEM_EXTENSIONS): Remove invocations.
+	(gl_INIT): Invoke.
+	(limits.h, malloc.h, string.h, unistd.h, utime.h, values.h,
+	gl_STDARG_H, AM_STDBOOL_H, gl_HEADER_UNISTD, gl_AC_TYPE_UINTMAX_T,
+	AC_TYPE_MODE_T, gt_TYPE_SIG_ATOMIC_T, gl_SIZE_MAX, gl_ALLOCSA,
+	chown, getcwd, posix_spawn, raise, strerror, strtoul, uname, utime,
+	utimes, waitid, atexit, memmove, memset, stpcpy, strcspn, strpbrk,
+	vasprintf, AM_FUNC_GETLINE, getdelim, gl_EXITFAIL,
+	gl_FUNC_FNMATCH_POSIX, gl_GETOPT, gl_FUNC_EACCESS, gl_FUNC_STPNCPY,
+	gl_FUNC_STRTOUL, gl_FUNC_WCWIDTH, gl_MBSWIDTH, gt_PREREQ_BACKUPFILE,
+	gt_UNION_WAIT, gt_TMPDIR, gt_FUNC_MKDTEMP, gt_SIGNALBLOCKING,
+	gt_FUNC_SETENV, gl_FUNC_STRERROR, gl_FUNC_GLIBC_UNLOCKED_IO, gl_ERROR,
+	gl_QUOTEARG, gl_QUOTE, gl_PATHMAX, gl_FUNC_READLINK, gl_XREADLINK,
+	gl_CANONICALIZE, gl_XSIZE, gl_MINMAX, gl_LIST, gl_LOCK, gl_TLS,
+	gl_BYTESWAP): Remove tests done directly or indirectly by gl_INIT
+	or that are now unused.
+	(AC_CONFIG_FILES): Add gnulib-lib/Makefile, remove lib/Makefile.
+	Remove lib/javacomp.sh, lib/javaexec.sh, lib/csharpcomp.sh,
+	lib/csharpexec.sh.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Don't test for the strstr function.
 
 2006-07-30  Bruno Haible  <bruno@clisp.org>

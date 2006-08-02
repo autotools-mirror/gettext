@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/memmove.c"
+#include "../../gettext-tools/gnulib-lib/memmove.c"

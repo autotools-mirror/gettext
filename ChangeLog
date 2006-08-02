@@ -1,5 +1,11 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* gnulib-local: New directory.
+	* autogen.sh: Invoke gnulib-tool inside gettext-tools directory.
+	Append gettext-tools/gnulib-m4 to the macro search path.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/csharpcomp.sh.in: Move here from
 	gettext-tools/lib/csharpcomp.sh.in.
 	* build-aux/csharpexec.sh.in: Move here from

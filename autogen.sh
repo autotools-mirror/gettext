@@ -3,6 +3,8 @@
 # configure files with new versions of autoconf or automake.
 #
 # This script requires autoconf-2.60 and automake-1.8.2..1.9 in the PATH.
+# It also requires the GNULIB_TOOL environment variable pointing to the
+# gnulib-tool script in a gnulib checkout.
 
 # Copyright (C) 2003-2006 Free Software Foundation, Inc.
 #
@@ -28,6 +30,98 @@ else
   quick=false
 fi
 
+if test -n "$GNULIB_TOOL"; then
+  # In gettext-runtime:
+  # In gettext-tools:
+  GNULIB_MODULES_FOR_SRC='
+  alloca-opt
+  atexit
+  backupfile
+  basename
+  binary-io
+  bison-i18n
+  byteswap
+  c-ctype
+  c-strcase
+  c-strcasestr
+  c-strstr
+  clean-temp
+  closeout
+  copy-file
+  csharpcomp
+  csharpexec
+  error
+  error-progname
+  execute
+  exit
+  findprog
+  fnmatch-posix
+  fstrcmp
+  full-write
+  fwriteerror
+  gcd
+  getline
+  getopt
+  gettext-h
+  hash
+  iconv
+  iconvstring
+  javacomp
+  javaexec
+  linebreak
+  localcharset
+  lock
+  memmove
+  memset
+  minmax
+  obstack
+  pathname
+  pipe
+  progname
+  propername
+  relocatable
+  relocwrapper
+  sh-quote
+  stdbool
+  stpcpy
+  stpncpy
+  strcspn
+  strpbrk
+  strtol
+  strtoul
+  ucs4-utf8
+  unistd
+  unlocked-io
+  utf8-ucs4
+  utf16-ucs4
+  vasprintf
+  wait-process
+  xalloc
+  xallocsa
+  xerror
+  xsetenv
+  xvasprintf
+  '
+  # Not yet used. Add some files to gettext-tools-misc instead.
+  GNULIB_MODULES_FOR_LIBGREP='
+  error
+  exitfail
+  gettext-h
+  hard-locale
+  obstack
+  regex
+  stdbool
+  xalloc
+  '
+  GNULIB_MODULES_OTHER='
+  gettext-tools-misc
+  gcj
+  java
+  '
+  $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --libtool --local-dir=gnulib-local \
+    --import $GNULIB_MODULES_FOR_SRC $GNULIB_MODULES_OTHER
+fi
+
 aclocal
 autoconf
 automake
@@ -39,7 +133,7 @@ automake
 )
 
 (cd gettext-runtime
- aclocal -I m4 -I ../gettext-tools/m4 -I ../autoconf-lib-link/m4 -I ../m4
+ aclocal -I m4 -I ../gettext-tools/m4 -I ../gettext-tools/gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
  autoconf
  autoheader && touch config.h.in
  automake
@@ -55,7 +149,7 @@ automake
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools
- aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
+ aclocal -I m4 -I gnulib-m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
  autoconf
  autoheader && touch config.h.in
  automake

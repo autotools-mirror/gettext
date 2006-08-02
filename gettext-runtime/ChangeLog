@@ -1,5 +1,9 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (ACLOCAL_AMFLAGS): Append ../gettext-tools/gnulib-m4.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Update for changed location of javacomp.sh.in and
 	csharpcomp.sh.in.
 

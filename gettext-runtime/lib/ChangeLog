@@ -1,5 +1,24 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (libgrt_a_SOURCES, LIBADD_SOURCE, AM_CPPFLAGS,
+	EXTRA_DIST, stdbool.h, alloca.h, getopt.h): Replace gettext-tools/lib
+	with gettext-tools/gnulib-lib.
+	* atexit.c: Refer to ../../gettext-tools/gnulib-lib directory.
+	* canonicalize.c: Likewise.
+	* error.h: Likewise.
+	* error.c: Likewise.
+	* getopt.c: Likewise.
+	* getopt1.c: Likewise.
+	* memmove.c: Likewise.
+	* readlink.c: Likewise.
+	* relocatable.c: Likewise.
+	* setenv.c: Likewise.
+	* strerror.c: Likewise.
+	* strtoul.c: Likewise.
+	* unsetenv.c: Likewise.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (libgrt_a_SOURCES): Add c-strstr.h, c-strstr.c.
 
 2006-07-25  Bruno Haible  <bruno@clisp.org>

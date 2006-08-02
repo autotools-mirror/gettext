@@ -1,5 +1,12 @@
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (AM_CPPFLAGS, LDADD, libgettextsrc_la_LDFLAGS,
+	libgettextpo_la_LDFLAGS, recode_sr_latin_LDADD, RELOCATABLE_SRC_DIR,
+	RELOCATABLE_BUILD_DIR): Replace ../lib with ../gnulib-lib.
+	(JAVACOMP, CSHARPCOMP): Remove lib/ from pathname.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-cat.c: Include c-strstr.h instead of strstr.h.
 	(catenate_msgdomain_list): Use c_strstr instead of strstr.
 	* msgl-charset.c: Include c-strstr.h instead of strstr.h.

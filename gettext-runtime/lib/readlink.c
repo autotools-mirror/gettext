@@ -1,1 +1,1 @@
-#include "../../gettext-tools/lib/readlink.c"
+#include "../../gettext-tools/gnulib-lib/readlink.c"

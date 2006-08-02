@@ -1,3 +1,10 @@
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* hello-csharp*/autogen.sh: Update for changed location of
+	csharpcomp.sh.in and csharpexec.sh.in.
+	* hello-java*/autogen.sh: Update for changed location of
+	javacomp.sh.in and javaexec.sh.in.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.

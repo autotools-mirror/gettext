@@ -30,7 +30,7 @@ AM_CPPFLAGS = \
   -I.. \
   -I../intl -I$(srcdir)/../intl \
   -I../lib -I$(srcdir)/../lib \
-  -I../../gettext-tools/lib -I$(srcdir)/../../gettext-tools/lib
+  -I../../gettext-tools/gnulib-lib -I$(srcdir)/../../gettext-tools/gnulib-lib
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 # Source dependencies.
