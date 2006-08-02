@@ -24,7 +24,7 @@ else
   fi
 fi
 
-cp -p ${GETTEXTSRCDIR-$GETTEXT_TOPSRCDIR/gettext-tools/lib}/gettext.h gettext.h
+cp -p ${GETTEXTSRCDIR-$GETTEXT_TOPSRCDIR/gettext-tools/gnulib-lib}/gettext.h gettext.h
 
 autopoint -f # was: gettextize -f -c
 rm po/Makevars.template

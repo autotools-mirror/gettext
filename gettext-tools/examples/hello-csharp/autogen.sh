@@ -29,10 +29,10 @@ cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/m4}/po.m4 m4/po.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/m4}/progtest.m4 m4/progtest.m4
 cp -p ${GETTEXTSRCPODIR-$GETTEXT_TOPSRCDIR/gettext-runtime/po}/remove-potcdate.sin po/remove-potcdate.sin
 
-cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpcomp.m4 m4/csharpcomp.m4
-cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpexec.m4 m4/csharpexec.m4
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/gnulib-m4}/csharpcomp.m4 m4/csharpcomp.m4
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/gnulib-m4}/csharpexec.m4 m4/csharpexec.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharpexec-test.exe m4/csharpexec-test.exe
-cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/m4}/csharp.m4 m4/csharp.m4
+cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/gettext-tools/gnulib-m4}/csharp.m4 m4/csharp.m4
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/build-aux}/csharpcomp.sh.in csharpcomp.sh.in
 cp -p ${EXAMPLESCONFIGDIR-$GETTEXT_TOPSRCDIR/build-aux}/csharpexec.sh.in csharpexec.sh.in
 

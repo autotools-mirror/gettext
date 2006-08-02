@@ -1,3 +1,15 @@
+2006-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c/autogen.sh: Replace gettext-tools/lib with
+	gettext-tools/gnulib-lib.
+	* hello-c++/autogen.sh: Likewise.
+	* hello-objc/autogen.sh: Likewise.
+	* hello-csharp/autogen.sh: Update for changed locations of *.m4 files.
+	* hello-csharp-forms/autogen.sh: Likewise.
+	* hello-java/autogen.sh: Likewise.
+	* hello-java-awt/autogen.sh: Likewise.
+	* hello-java-swing/autogen.sh: Likewise.
+
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
 	* hello-csharp*/autogen.sh: Update for changed location of
