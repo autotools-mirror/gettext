@@ -1,0 +1,60 @@
+2006-08-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: New file.
+
+2006-07-30  Bruno Haible  <bruno@clisp.org>
+
+	* lib/argmatch.h.diff: New file.
+	* lib/error.h.diff: New file.
+	* lib/exitfail.h.diff: New file.
+	* lib/fnmatch.c.diff: New file.
+	* lib/fnmatch_loop.c.diff: New file.
+	* lib/getopt_.h.diff: New file.
+	* lib/javacomp.c.diff: New file.
+	* lib/linebreak.c.diff: New file.
+	* lib/obstack.h.diff: New file.
+	* lib/progname.h.diff: New file.
+	* lib/strerror.c.diff: New file.
+	* m4/exitfail.m4.diff: New file.
+	* m4/hard-locale.m4.diff: New file.
+	* m4/pathmax.m4.diff: New file.
+	* m4/quote.m4.diff: New file.
+	* m4/quotearg.m4.diff: New file.
+	* m4/strdup.m4.diff: New file.
+	* m4/unlocked-io.m4.diff: New file.
+	* m4/vasprintf.m4: New file.
+	* modules/backupfile: New file.
+	* modules/basename: New file.
+	* modules/bison-i18n: New file.
+	* modules/c-strstr: New file.
+	* modules/canonicalize: New file.
+	* modules/closeout: New file.
+	* modules/error-progname: New file.
+	* modules/exitfail.diff: New file.
+	* modules/fnmatch.diff: New file.
+	* modules/fstrcmp: New file.
+	* modules/gcj: New file.
+	* modules/gen-lbrkprop: New file.
+	* modules/getline: New file.
+	* modules/getndelim2: New file.
+	* modules/gettext-tools-misc: New file.
+	* modules/hash: New file.
+	* modules/iconvstring: New file.
+	* modules/java: New file.
+	* modules/javacomp.diff: New file.
+	* modules/pathmax.diff: New file.
+	* modules/progreloc: New file.
+	* modules/propername: New file.
+	* modules/quote.diff: New file.
+	* modules/quotearg.diff: New file.
+	* modules/relocatable: New file.
+	* modules/relocwrapper: New file.
+	* modules/unlocked-io.diff: New file.
+	* modules/vasprintf.diff: New file.
+	* modules/wait-process.diff: New file.
+	* modules/xalloc: New file.
+	* modules/xalloc-die: New file.
+	* modules/xerror: New file.
+	* modules/xgetcwd: New file.
+	* modules/xreadlink: New file.
+
