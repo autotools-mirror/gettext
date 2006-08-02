@@ -3,8 +3,10 @@
 # configure files with new versions of autoconf or automake.
 #
 # This script requires autoconf-2.60 and automake-1.8.2..1.9 in the PATH.
-# It also requires the GNULIB_TOOL environment variable pointing to the
-# gnulib-tool script in a gnulib checkout.
+# It also requires either
+#   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
+#     in a gnulib checkout, or
+#   - the cvs program in the PATH and an internet connection.
 
 # Copyright (C) 2003-2006 Free Software Foundation, Inc.
 #
@@ -30,6 +32,23 @@ else
   quick=false
 fi
 
+if test -z "$GNULIB_TOOL"; then
+  # Check out gnulib in a subdirectory 'gnulib'.
+  GNULIB_CVS_ROOT=':pserver:anonymous@cvs.savannah.gnu.org:/sources/gnulib'
+  GNULIB_CVS_REPOSITORY='gnulib'
+  if test -d gnulib; then
+    (cd gnulib && cvs update -d -P)
+  else
+    cvs -d "$GNULIB_CVS_ROOT" checkout $GNULIB_CVS_REPOSITORY
+  fi
+  # Now it should contain a gnulib-tool.
+  if test -f gnulib/gnulib-tool; then
+    GNULIB_TOOL=`pwd`/gnulib/gnulib-tool
+  else
+    echo "** warning: gnulib-tool not found" 1>&2
+  fi
+fi
+# Skip the gnulib-tool step if gnulib-tool was not found.
 if test -n "$GNULIB_TOOL"; then
   # In gettext-runtime:
   # In gettext-tools:
