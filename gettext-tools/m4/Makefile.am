@@ -44,66 +44,11 @@ examplesbuildaux_DATA = \
 
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
-EXTRA_DIST = README ChangeLog.0 csharpexec-test.exe \
-alloca.m4 \
-allocsa.m4 \
-backupfile.m4 \
-bison-i18n.m4 \
-byteswap.m4 \
-canonicalize.m4 \
-csharp.m4 \
-csharpcomp.m4 \
-csharpexec.m4 \
-eaccess.m4 \
-eealloc.m4 \
-error.m4 \
-exitfail.m4 \
-extensions.m4 \
-fnmatch.m4 \
-gcj.m4 \
-getline.m4 \
-getndelim2.m4 \
-getopt.m4 \
-gl_list.m4 \
-hard-locale.m4 \
+EXTRA_DIST = README csharpexec-test.exe \
 hostname.m4 \
-java.m4 \
-javacomp.m4 \
-javaexec.m4 \
+libgrep.m4 \
 locale-fr.m4 \
-mbrtowc.m4 \
-mbstate_t.m4 \
-mbswidth.m4 \
-memchr.m4 \
-minmax.m4 \
-mkdtemp.m4 \
-onceonly.m4 \
 openmp.m4 \
-pathmax.m4 \
-quote.m4 \
-quotearg.m4 \
-readlink.m4 \
 regex.m4 \
-relocatable.m4 \
-restrict.m4 \
-setenv.m4 \
 setlocale.m4 \
-sig_atomic_t.m4 \
-siginfo.m4 \
-signalblocking.m4 \
-ssize_t.m4 \
-stdarg.m4 \
-stdbool.m4 \
-stpncpy.m4 \
-strdup.m4 \
-strerror.m4 \
-strerror_r.m4 \
-strtol.m4 \
-strtoul.m4 \
-tls.m4 \
-tmpdir.m4 \
-unionwait.m4 \
-unistd_h.m4 \
-unlocked-io.m4 \
-wcwidth.m4 \
-xreadlink.m4
+siginfo.m4
