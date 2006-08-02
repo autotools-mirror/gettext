@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2003, 2005 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -47,5 +47,7 @@ dnl Some influential environment variables: AC_ARG_VAR calls
 esyscmd([{ cd autoconf-lib-link && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd gettext-runtime && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd gettext-tools && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; } | sed -f build-aux/ac-help.sed ])
 
 AC_CONFIG_FILES([Makefile])
+
+AC_CONFIG_FILES([gnulib-local/Makefile])
 
 AC_OUTPUT

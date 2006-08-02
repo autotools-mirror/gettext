@@ -19,7 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 
-SUBDIRS = gettext-runtime gettext-tools autoconf-lib-link
+SUBDIRS = gnulib-local gettext-runtime gettext-tools autoconf-lib-link
 
 EXTRA_DIST = \
   version.sh PACKAGING ChangeLog.0 autogen.sh \
