@@ -141,10 +141,6 @@ if test -n "$GNULIB_TOOL"; then
     --import $GNULIB_MODULES_FOR_SRC $GNULIB_MODULES_OTHER
 fi
 
-aclocal
-autoconf
-automake
-
 (cd autoconf-lib-link
  aclocal -I m4 -I ../m4
  autoconf
@@ -183,5 +179,9 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
    ./configure && (cd po && make update-po) && make distclean
  fi
 )
+
+aclocal
+autoconf
+automake
 
 cp -p autoconf-lib-link/config.rpath build-aux/config.rpath

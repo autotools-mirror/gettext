@@ -1,5 +1,11 @@
 2006-07-31  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: Process the top-level directory after its subdirectories,
+	not before. Needed because of the recursive autoconf invocation in
+	the top-level configure.ac.
+
+2006-07-31  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: If GNULIB_TOOL is not set, make an anonymous checkout
 	of gnulib.
 
