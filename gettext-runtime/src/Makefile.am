@@ -29,8 +29,7 @@ AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. \
   -I../intl -I$(srcdir)/../intl \
-  -I../lib -I$(srcdir)/../lib \
-  -I../../gettext-tools/gnulib-lib -I$(srcdir)/../../gettext-tools/gnulib-lib
+  -I../gnulib-lib -I$(srcdir)/../gnulib-lib
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 # Source dependencies.
@@ -40,7 +39,7 @@ envsubst_SOURCES = envsubst.c
 
 # Link dependencies.
 # Need @LTLIBICONV@ because iconvstring.c uses iconv().
-LDADD = ../lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@
+LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@
 
 # Specify installation directory, for --enable-relocatable.
 gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
@@ -58,7 +57,7 @@ DISTCLEANFILES += gettext.sh
 
 # Support for relocatability.
 RELOCATABLE_LIBRARY_PATH = $(libdir)
-RELOCATABLE_SRC_DIR = $(top_srcdir)/../gettext-tools/lib
-RELOCATABLE_BUILD_DIR = ../lib
+RELOCATABLE_SRC_DIR = $(top_srcdir)/gnulib-lib
+RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
 @SET_RELOCATABLE@

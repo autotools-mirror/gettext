@@ -18,7 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I m4 -I ../gettext-tools/m4 -I ../gettext-tools/gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
+ACLOCAL_AMFLAGS = -I m4 -I gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
@@ -29,7 +29,7 @@ SUBDIR_libasprintf = libasprintf
 else
 SUBDIR_libasprintf =
 endif
-SUBDIRS = doc intl intl-java intl-csharp lib $(SUBDIR_libasprintf) src po man m4 tests
+SUBDIRS = doc intl intl-java intl-csharp gnulib-lib $(SUBDIR_libasprintf) src po man m4 tests
 
 EXTRA_DIST = BUGS
 

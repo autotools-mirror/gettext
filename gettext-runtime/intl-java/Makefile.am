@@ -26,7 +26,7 @@ RM = rm -f
 jardir = $(datadir)/gettext
 
 JAR = @JAR@
-JAVACOMP = $(SHELL) ../lib/javacomp.sh
+JAVACOMP = $(SHELL) ../javacomp.sh
 JAVADOC1 = test ! -d /usr/lib/jdk1.1.8 || env PATH=/usr/lib/jdk1.1.8/bin:$$PATH javadoc
 JAVADOC2 = test ! -d /usr/lib/jdk1.3.1 || env PATH=/usr/lib/jdk1.3.1/bin:$$PATH javadoc
 

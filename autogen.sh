@@ -51,6 +51,32 @@ fi
 # Skip the gnulib-tool step if gnulib-tool was not found.
 if test -n "$GNULIB_TOOL"; then
   # In gettext-runtime:
+  GNULIB_MODULES_FOR_SRC='
+  atexit
+  basename
+  closeout
+  error
+  exit
+  getopt
+  gettext-h
+  memmove
+  progname
+  propername
+  relocatable
+  relocwrapper
+  stdbool
+  strtoul
+  unlocked-io
+  xalloc
+  '
+  GNULIB_MODULES_OTHER='
+  gettext-runtime-misc
+  csharpcomp-script
+  java
+  javacomp-script
+  '
+  $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local \
+    --import $GNULIB_MODULES_FOR_SRC $GNULIB_MODULES_OTHER
   # In gettext-tools:
   GNULIB_MODULES_FOR_SRC='
   alloca-opt
@@ -148,7 +174,7 @@ fi
 )
 
 (cd gettext-runtime
- aclocal -I m4 -I ../gettext-tools/m4 -I ../gettext-tools/gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
+ aclocal -I m4 -I gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
  autoconf
  autoheader && touch config.h.in
  automake

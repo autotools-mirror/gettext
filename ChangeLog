@@ -1,3 +1,9 @@
+2006-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Invoke gnulib-tool inside gettext-runtime directory.
+	Append gettext-runtime/gnulib-m4 to the macro search path; remove
+	references to gettext-tools from gettext-runtime.
+
 2006-08-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (SUBDIRS): Add gnulib-local.

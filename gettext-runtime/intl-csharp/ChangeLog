@@ -1,3 +1,8 @@
+2006-07-31  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (CSHARPCOMP): Update for changed location of
+	csharpcomp.sh.
+
 2006-07-21  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.15 released.

@@ -112,6 +112,7 @@ modules/gcj \
 modules/gen-lbrkprop \
 modules/getline \
 modules/getndelim2 \
+modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/hash \
 modules/iconvstring \

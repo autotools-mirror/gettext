@@ -17,7 +17,7 @@ dnl Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.57)
+AC_PREREQ([2.59])
 AC_INIT
 AC_CONFIG_SRCDIR(intl/dcigettext.c)
 AC_CONFIG_AUX_DIR(../build-aux)
@@ -60,8 +60,7 @@ AC_OBJEXT
 AC_EXEEXT
 
 dnl Make sure we see all GNU and Solaris extensions.
-AC_GNU_SOURCE
-gl_USE_SYSTEM_EXTENSIONS
+gl_EARLY
 
 dnl Check for build configuration.
 gl_WOE32_DLL
@@ -76,27 +75,10 @@ dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT(use-libtool, need-ngettext)
 
-dnl Checks for header files.
-AC_CHECK_HEADERS(string.h)
-AM_STDBOOL_H
-
-dnl Checks for typedefs, structures, and compiler characteristics.
+dnl Checks for header files, functions and declarations.
+gl_INIT
 AC_TYPE_SIZE_T
-
-dnl Checks for library functions.
-gl_ALLOCSA
-AC_CHECK_FUNCS([setlocale strerror strstr])
-AC_REPLACE_FUNCS([atexit memmove])
-gl_GETOPT
-gt_FUNC_SETENV
-gl_FUNC_STRERROR
-gl_FUNC_STRTOUL
-gl_FUNC_GLIBC_UNLOCKED_IO
-gl_ERROR
-gl_PATHMAX
-gl_FUNC_READLINK
-gl_XREADLINK
-gl_CANONICALIZE
+AC_CHECK_FUNCS([setlocale])
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
@@ -158,10 +140,8 @@ AC_CONFIG_FILES([intl-java/Makefile])
 
 AC_CONFIG_FILES([intl-csharp/Makefile])
 
-AC_CONFIG_FILES([lib/Makefile],
+AC_CONFIG_FILES([gnulib-lib/Makefile],
                 [FIX_MAKEFILE_COMPILE])
-AC_CONFIG_FILES([lib/javacomp.sh:../build-aux/javacomp.sh.in])
-AC_CONFIG_FILES([lib/csharpcomp.sh:../build-aux/csharpcomp.sh.in])
 
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])

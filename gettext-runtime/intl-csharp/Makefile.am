@@ -23,7 +23,7 @@ CLEANFILES =
 
 RM = rm -f
 
-CSHARPCOMP = $(SHELL) ../lib/csharpcomp.sh
+CSHARPCOMP = $(SHELL) ../csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
 
