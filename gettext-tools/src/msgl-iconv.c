@@ -339,3 +339,204 @@ target charset \"%s\" is not a portable encoding name."),
   mdlp->encoding = canon_to_code;
   return mdlp;
 }
+
+#if HAVE_ICONV
+
+static bool
+iconvable_string (iconv_t cd, const char *string)
+{
+  size_t len = strlen (string) + 1;
+  char *result = NULL;
+  size_t resultlen;
+
+  if (iconv_string (cd, string, string + len, &result, &resultlen) == 0)
+    {
+      /* Test if the result has exactly one NUL byte, at the end.  */
+      bool ok = (resultlen > 0 && result[resultlen - 1] == '\0'
+		 && strlen (result) == resultlen - 1);
+      free (result);
+      return ok;
+    }
+  return false;
+}
+
+static bool
+iconvable_string_list (iconv_t cd, string_list_ty *slp)
+{
+  size_t i;
+
+  if (slp != NULL)
+    for (i = 0; i < slp->nitems; i++)
+      if (!iconvable_string (cd, slp->item[i]))
+	return false;
+  return true;
+}
+
+static bool
+iconvable_msgid (iconv_t cd, message_ty *mp)
+{
+  if (mp->msgctxt != NULL)
+    if (!iconvable_string (cd, mp->msgctxt))
+      return false;
+  if (!iconvable_string (cd, mp->msgid))
+    return false;
+  if (mp->msgid_plural != NULL)
+    if (!iconvable_string (cd, mp->msgid_plural))
+      return false;
+  return true;
+}
+
+static bool
+iconvable_msgstr (iconv_t cd, message_ty *mp)
+{
+  char *result = NULL;
+  size_t resultlen;
+
+  if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
+    abort ();
+
+  if (iconv_string (cd, mp->msgstr, mp->msgstr + mp->msgstr_len,
+		    &result, &resultlen) == 0)
+    {
+      bool ok = false;
+
+      /* Test if the result has a NUL byte at the end.  */
+      if (resultlen > 0 && result[resultlen - 1] == '\0')
+	/* Test if the result has the same number of NUL bytes.  */
+	{
+	  const char *p;
+	  const char *pend;
+	  int nulcount1;
+	  int nulcount2;
+
+	  for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
+	       p < pend;
+	       p += strlen (p) + 1, nulcount1++);
+	  for (p = result, pend = p + resultlen, nulcount2 = 0;
+	       p < pend;
+	       p += strlen (p) + 1, nulcount2++);
+
+	  if (nulcount1 == nulcount2)
+	    ok = true;
+	}
+
+      free (result);
+      return ok;
+    }
+  return false;
+}
+
+#endif
+
+bool
+is_message_list_iconvable (message_list_ty *mlp,
+			   const char *canon_from_code,
+			   const char *canon_to_code)
+{
+  bool canon_from_code_overridden = (canon_from_code != NULL);
+  size_t j;
+
+  /* If the list is empty, nothing to check.  */
+  if (mlp->nitems == 0)
+    return true;
+
+  /* Search the header entry, and extract the charset name.  */
+  for (j = 0; j < mlp->nitems; j++)
+    if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+      {
+	const char *header = mlp->item[j]->msgstr;
+
+	if (header != NULL)
+	  {
+	    const char *charsetstr = c_strstr (header, "charset=");
+
+	    if (charsetstr != NULL)
+	      {
+		size_t len;
+		char *charset;
+		const char *canon_charset;
+
+		charsetstr += strlen ("charset=");
+		len = strcspn (charsetstr, " \t\n");
+		charset = (char *) xallocsa (len + 1);
+		memcpy (charset, charsetstr, len);
+		charset[len] = '\0';
+
+		canon_charset = po_charset_canonicalize (charset);
+		if (canon_charset == NULL)
+		  {
+		    if (!canon_from_code_overridden)
+		      {
+			/* Don't give an error for POT files, because POT
+			   files usually contain only ASCII msgids.  */
+			if (strcmp (charset, "CHARSET") == 0)
+			  canon_charset = po_charset_ascii;
+			else
+			  {
+			    /* charset is not a portable encoding name.  */
+			    freesa (charset);
+			    return false;
+			  }
+		      }
+		  }
+		else
+		  {
+		    if (canon_from_code == NULL)
+		      canon_from_code = canon_charset;
+		    else if (canon_from_code != canon_charset)
+		      {
+			/* Two different charsets in input file.  */
+			freesa (charset);
+			return false;
+		      }
+		  }
+		freesa (charset);
+	      }
+	  }
+      }
+  if (canon_from_code == NULL)
+    {
+      if (is_ascii_message_list (mlp))
+	canon_from_code = po_charset_ascii;
+      else
+	/* Input file lacks a header entry with a charset specification.  */
+	return false;
+    }
+
+  /* If the two encodings are the same, nothing to check.  */
+  if (canon_from_code != canon_to_code)
+    {
+#if HAVE_ICONV
+      iconv_t cd;
+
+      /* Avoid glibc-2.1 bug with EUC-KR.  */
+# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+      if (strcmp (canon_from_code, "EUC-KR") == 0)
+	cd = (iconv_t)(-1);
+      else
+# endif
+      cd = iconv_open (canon_to_code, canon_from_code);
+      if (cd == (iconv_t)(-1))
+	/* iconv() doesn't support this conversion.  */
+	return false;
+
+      for (j = 0; j < mlp->nitems; j++)
+	{
+	  message_ty *mp = mlp->item[j];
+
+	  if (!(iconvable_string_list (cd, mp->comment)
+		&& iconvable_string_list (cd, mp->comment_dot)
+		&& iconvable_msgid (cd, mp)
+		&& iconvable_msgstr (cd, mp)))
+	    return false;
+	}
+
+      iconv_close (cd);
+#else
+      /* This version was built without iconv().  */
+      return false;
+#endif
+    }
+
+  return true;
+}

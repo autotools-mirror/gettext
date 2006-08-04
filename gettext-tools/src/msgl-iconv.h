@@ -1,5 +1,5 @@
 /* Message list character set conversion.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -65,6 +65,15 @@ extern msgdomain_list_ty *
        iconv_msgdomain_list (msgdomain_list_ty *mdlp,
 			     const char *to_code,
 			     const char *from_filename);
+
+/* Tests whether the message list MLP could be converted to CANON_TO_CODE.
+   The (already canonicalized) encoding before conversion can be passed as
+   CANON_FROM_CODE; if NULL is passed instead, the encoding is looked up
+   in the header entry.  */
+extern bool
+       is_message_list_iconvable (message_list_ty *mlp,
+				  const char *canon_from_code,
+				  const char *canon_to_code);
 
 
 #ifdef __cplusplus
