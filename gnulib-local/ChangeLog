@@ -1,5 +1,9 @@
 2006-07-31  Bruno Haible  <bruno@clisp.org>
 
+	* lib/propername.c: Remove temporary hack.
+
+2006-07-31  Bruno Haible  <bruno@clisp.org>
+
 	* modules/gettext-runtime-misc: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
 

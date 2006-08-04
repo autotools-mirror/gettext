@@ -38,10 +38,6 @@
 #include "xalloc.h"
 #include "gettext.h"
 
-/* Temporary hack.  */
-#undef strstr
-#define strstr c_strstr
-
 
 /* Return the localization of NAME.  NAME is written in ASCII.  */
 
