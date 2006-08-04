@@ -118,7 +118,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok \
-	msgmerge-v.comp.po msgmerge-v.pot msgmerge-v.out \
+	mm-viet.comp.po mm-viet.pot mm-viet.out \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \
 	qttest_pl.po qttest_pl.qm \
 	qttest2_de.po qttest2_de.qm qttest2_de.ts \

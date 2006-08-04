@@ -1,3 +1,11 @@
+2006-08-01  Bruno Haible  <bruno@clisp.org>
+
+	* mm-viet.comp.po: Renamed from msgmerge-v.comp.po.
+	* mm-viet.out: Renamed from msgmerge-v.out.
+	* mm-viet.pot: msgmerge-v.pot.
+	* msgmerge-compendium-5: Update.
+	* Makefile.am (EXTRA_DIST): Update.
+
 2006-08-04  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (TESTS): Really add msgfmt-qt-2.
