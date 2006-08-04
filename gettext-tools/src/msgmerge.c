@@ -41,6 +41,7 @@
 #include "write-po.h"
 #include "format.h"
 #include "xalloc.h"
+#include "xallocsa.h"
 #include "obstack.h"
 #include "c-strstr.h"
 #include "exit.h"
@@ -1369,9 +1370,152 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
 	    iconv_message_list (compendiums->item[k], NULL, po_charset_utf8,
 				compendium_filenames->item[k]);
       }
-    else
+    else if (compendiums != NULL && compendiums->nitems > 0)
       {
-	/* TODO: Convert all compendiums->item[k] to the same encoding.  */
+	/* Ensure that the definitions and the compendiums are in the same
+	   encoding.  Prefer the encoding of the definitions file, if
+	   possible; otherwise, if the definitions file is empty and the
+	   compendiums are all in the same encoding, use that encoding;
+	   otherwise, use UTF-8.  */
+	bool conversion_done = false;
+	{
+	  char *charset = NULL;
+
+	  /* Get the encoding of the definitions file.  */
+	  for (k = 0; k < def->nitems; k++)
+	    {
+	      message_list_ty *mlp = def->item[k]->messages;
+
+	      for (j = 0; j < mlp->nitems; j++)
+		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+		  {
+		    const char *header = mlp->item[j]->msgstr;
+
+		    if (header != NULL)
+		      {
+			const char *charsetstr = c_strstr (header, "charset=");
+
+			if (charsetstr != NULL)
+			  {
+			    size_t len;
+
+			    charsetstr += strlen ("charset=");
+			    len = strcspn (charsetstr, " \t\n");
+			    charset = (char *) xallocsa (len + 1);
+			    memcpy (charset, charsetstr, len);
+			    charset[len] = '\0';
+			    break;
+			  }
+		      }
+		  }
+	      if (charset != NULL)
+		break;
+	    }
+	  if (charset != NULL)
+	    {
+	      const char *canon_charset = po_charset_canonicalize (charset);
+
+	      if (canon_charset != NULL)
+		{
+		  bool all_compendiums_iconvable = true;
+
+		  if (compendiums != NULL)
+		    for (k = 0; k < compendiums->nitems; k++)
+		      if (!is_message_list_iconvable (compendiums->item[k],
+						      NULL, canon_charset))
+			{
+			  all_compendiums_iconvable = false;
+			  break;
+			}
+
+		  if (all_compendiums_iconvable)
+		    {
+		      /* Convert the compendiums to def's encoding.  */
+		      if (compendiums != NULL)
+			for (k = 0; k < compendiums->nitems; k++)
+			  iconv_message_list (compendiums->item[k],
+					      NULL, canon_charset,
+					      compendium_filenames->item[k]);
+		      conversion_done = true;
+		    }
+		}
+	      freesa (charset);
+	    }
+	}
+	if (!conversion_done)
+	  {
+	    if (def->nitems == 0
+		|| (def->nitems == 1 && def->item[0]->messages->nitems == 0))
+	      {
+		/* The definitions file is empty.
+		   Compare the encodings of the compendiums.  */
+		const char *common_canon_charset = NULL;
+
+		for (k = 0; k < compendiums->nitems; k++)
+		  {
+		    message_list_ty *mlp = compendiums->item[k];
+		    char *charset = NULL;
+		    const char *canon_charset = NULL;
+
+		    for (j = 0; j < mlp->nitems; j++)
+		      if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+			{
+			  const char *header = mlp->item[j]->msgstr;
+
+			  if (header != NULL)
+			    {
+			      const char *charsetstr =
+				c_strstr (header, "charset=");
+
+			      if (charsetstr != NULL)
+				{
+				  size_t len;
+
+				  charsetstr += strlen ("charset=");
+				  len = strcspn (charsetstr, " \t\n");
+				  charset = (char *) xallocsa (len + 1);
+				  memcpy (charset, charsetstr, len);
+				  charset[len] = '\0';
+
+				  break;
+				}
+			    }
+			}
+		    if (charset != NULL)
+		      {
+			canon_charset = po_charset_canonicalize (charset);
+			freesa (charset);
+		      }
+		    /* If no charset declaration was found in this file,
+		       or if it is not a valid encoding name, or if it
+		       differs from the common charset found so far,
+		       we have no common charset.  */
+		    if (canon_charset == NULL
+			|| (common_canon_charset != NULL
+			    && canon_charset != common_canon_charset))
+		      {
+			common_canon_charset = NULL;
+			break;
+		      }
+		    common_canon_charset = canon_charset;
+		  }
+
+		if (common_canon_charset != NULL)
+		  /* No conversion needed in this case.  */
+		  conversion_done = true;
+	      }
+	    if (!conversion_done)
+	      {
+		/* It's too hairy to find out what would be the optimal target
+		   encoding.  So, convert everything to UTF-8.  */
+		def = iconv_msgdomain_list (def, "UTF-8", fn1);
+		if (compendiums != NULL)
+		  for (k = 0; k < compendiums->nitems; k++)
+		    iconv_message_list (compendiums->item[k],
+					NULL, po_charset_utf8,
+					compendium_filenames->item[k]);
+	      }
+	  }
       }
   }
 

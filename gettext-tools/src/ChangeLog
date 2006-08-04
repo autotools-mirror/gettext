@@ -1,3 +1,16 @@
+2006-08-01  Bruno Haible  <bruno@clisp.org>
+
+	Fix behaviour of msgmerge when the PO file and the compendium are
+	in different encodings.
+	* msgl-iconv.h (is_message_list_iconvable): New declaration.
+	* msgl-iconv.c (iconvable_string, iconvable_string_list,
+	iconvable_msgid, iconvable_msgstr, is_message_list_iconvable): New
+	functions.
+	* msgmerge.c: Include xallocsa.h.
+	(merge): In the case that the .pot file is ASCII, not UTF-8, convert
+	the definitions and the compendia contents to a common encoding.
+	Reported by Stanislav Brabec <sbrabec@suse.cz>.
+
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AM_CPPFLAGS, LDADD, libgettextsrc_la_LDFLAGS,
