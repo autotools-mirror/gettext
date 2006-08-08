@@ -1,3 +1,10 @@
+2006-08-08  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* gettext.texi: Reduce spacing after "i.e." and "e.g.".
+	* msgcat.texi: Likewise.
+	* msgcomm.texi: Likewise.
+	* msgfilter.texi: Likewise.
+
 2006-08-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* gettext.texi: Fix 17 typos.

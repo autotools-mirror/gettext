@@ -2156,7 +2156,7 @@ happens if the translation introduces a valid format specifier?  The
 exists because the original code does not pass any parameters.
 
 @code{xgettext} of course could make a wrong decision the other way
-round, i.e. a string marked as a format string actually is not a format
+round, i.e.@: a string marked as a format string actually is not a format
 string.  In this case the @code{msgfmt} might give too many warnings and
 would prevent translating the @file{.po} file.  The method to prevent
 this wrong decision is similar to the one used above, only the comment
@@ -4614,7 +4614,7 @@ some others do@dots{})
 But we must not forget one point: after all the trouble with transferring
 the rights on Unix(tm) they at last came to X/Open, the very same who
 published this specification.  This leads me to making the prediction
-that this interface will be in future Unix standards (e.g. Spec1170) and
+that this interface will be in future Unix standards (e.g.@: Spec1170) and
 therefore part of all Unix implementation (implementations, which are
 @emph{allowed} to wear this name).
 
@@ -4898,7 +4898,7 @@ character set.
 The output character set is, by default, the value of @code{nl_langinfo
 (CODESET)}, which depends on the @code{LC_CTYPE} part of the current
 locale.  But programs which store strings in a locale independent way
-(e.g. UTF-8) can request that @code{gettext} and related functions
+(e.g.@: UTF-8) can request that @code{gettext} and related functions
 return the translations in that encoding, by use of the
 @code{bind_textdomain_codeset} function.
 
@@ -5117,7 +5117,7 @@ forms differs widely between the language families.  For example,
 Rafal Maszkowski @code{<rzm@@mat.uni.torun.pl>} reports:
 
 @quotation
-In Polish we use e.g. plik (file) this way:
+In Polish we use e.g.@: plik (file) this way:
 @example
 1 plik
 2,3,4 pliki
@@ -5495,7 +5495,7 @@ string is always the same.  One way to use this is:
 @end example
 
 @noindent
-But this solution is not usable in all situation (e.g. when the locale
+But this solution is not usable in all situation (e.g.@: when the locale
 selection changes) nor does it lead to legible code.
 
 For this reason, GNU @code{gettext} caches previous translation results.
@@ -6002,9 +6002,9 @@ the GNU Library General Public License, when they do not want to make
 their program free, or want other kinds of freedom.  The simplest
 answer is ``normally not''.
 
-The @code{gettext-runtime} part of GNU @code{gettext}, i.e. the
+The @code{gettext-runtime} part of GNU @code{gettext}, i.e.@: the
 contents of @code{libintl}, is covered by the GNU Library General Public
-License.  The @code{gettext-tools} part of GNU @code{gettext}, i.e. the
+License.  The @code{gettext-tools} part of GNU @code{gettext}, i.e.@: the
 rest of the GNU @code{gettext} package, is covered by the GNU General
 Public License.
 
@@ -9131,7 +9131,7 @@ The creation of the @code{ResourceManager} is done through
 @noindent
 
 The @code{GetString} function returns a string's translation.  Note that this
-function returns null when a translation is missing (i.e. not even found in
+function returns null when a translation is missing (i.e.@: not even found in
 the fallback resource file).
 
 @item
@@ -9795,7 +9795,7 @@ print $gettext@{Error@};
 @end example
 
 The exact rule is: You can omit the surrounding quotes, when the hash
-key is a valid C (!) identifier, i.e. when it starts with an
+key is a valid C (!) identifier, i.e.@: when it starts with an
 underscore or an ASCII letter and is followed by an arbitrary number
 of underscores, ASCII letters or digits.  Other Unicode characters
 are @emph{not} allowed, regardless of the @code{use utf8} pragma.
@@ -10158,7 +10158,7 @@ EOF
 @end group
 @end example
 
-Please do not forget, that the line breaks are real, i.e. they
+Please do not forget, that the line breaks are real, i.e.@: they
 translate into newline characters that will consequently show up in
 the resulting POT file.
 

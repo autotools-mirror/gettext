@@ -126,7 +126,7 @@ single string for a sentence than with multiple string pieces.
 
 @item
 It reduces the risk of programming errors due to forgotten state in the
-output stream (e.g. @code{cout << hex;} not followed by @code{cout << dec;}).
+output stream (e.g.@: @code{cout << hex;} not followed by @code{cout << dec;}).
 @end itemize
 
 @node Class autosprintf, Using autosprintf, Introduction, Top
@@ -134,7 +134,7 @@ output stream (e.g. @code{cout << hex;} not followed by @code{cout << dec;}).
 
 An instance of class @code{autosprintf} just contains a string with the
 formatted output result. Such an instance is usually allocated as an
-automatic storage variable, i.e. on the stack, not with @code{new} on the
+automatic storage variable, i.e.@: on the stack, not with @code{new} on the
 heap.
 
 The constructor @code{autosprintf (const char *format, ...)} takes a format

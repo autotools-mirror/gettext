@@ -143,7 +143,7 @@ Write the .po file using indented style.
 
 @item --keep-header
 @opindex --keep-header@r{, @code{msgfilter} option}
-Keep the header entry, i.e. the message with @samp{msgid ""}, unmodified,
+Keep the header entry, i.e.@: the message with @samp{msgid ""}, unmodified,
 instead of filtering it.  By default, the header entry is subject to
 filtering like any other message.
 
