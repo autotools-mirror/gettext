@@ -19,8 +19,8 @@ diffs or instructions to the address given in the `README' so they can
 be considered for the next release.  If at some point `config.cache'
 contains results you don't want to keep, you may remove or edit it.
 
-   The file `configure.in' is used to create `configure' by a program
-called `autoconf'.  You only need `configure.in' if you want to change
+   The file `configure.ac' is used to create `configure' by a program
+called `autoconf'.  You only need `configure.ac' if you want to change
 it or regenerate `configure' using a newer version of `autoconf'.
 
 The simplest way to compile this package is:
@@ -170,6 +170,16 @@ is not installed, it is recommended to use the following options in order
 to use an ANSI C compiler:
 
      env CC="cc -Ae" ./configure
+
+   On OSF/1 a.k.a. Tru64, some versions of the default C compiler don't grok
+its <wchar.h> header file.  The option -nodtk can be used as a workaround.
+If GNU CC is not installed, it is therefore recommended to try
+
+     env CC="cc" ./configure
+
+and if that doesn't work, try
+
+     env CC="cc -nodtk" ./configure
 
    On AIX 3, the C include files by default don't define some necessary
 prototype declarations.  If GNU CC is not installed, it is recommended to
