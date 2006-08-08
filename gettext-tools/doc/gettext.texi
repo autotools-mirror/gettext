@@ -1653,7 +1653,7 @@ This is nearly untranslatable: Is the displayed item @emph{a} parameter or
 @end example
 
 @noindent
-The ambiguity in this message makes it ununderstandable: Is the program
+The ambiguity in this message makes it unintelligible: Is the program
 attempting to set something on fire? Does it mean "The given object does
 not match the template"? Does it mean "The template does not fit for any
 of the objects"?
@@ -1818,7 +1818,7 @@ regardless whether in decimal, octal or hexadecimal.
 @cindex Java, string concatenation
 @cindex C#, string concatenation
 All this applies to other programming languages as well.  For example, in
-Java and C#, string contenation is very frequently used, because it is a
+Java and C#, string concatenation is very frequently used, because it is a
 compiler built-in operator.  Like in C, in Java, you would change
 
 @example
@@ -1935,7 +1935,7 @@ strings in the program sources, while simultaneously producing a set of
 translation in some language, for the package being internationalized.
 
 @emindex @code{etags}, using for marking strings
-The set of program sources, targetted by the PO mode commands describe
+The set of program sources, targeted by the PO mode commands describe
 here, should have an Emacs tags table constructed for your project,
 prior to using these PO file commands.  This is easy to do.  In any
 shell window, change the directory to the root of your project, then
@@ -2287,7 +2287,7 @@ printf (_("Written by %s.\n"),
            manual, section Names.  Note this is actually a non-ASCII
            name: The first name is (with Unicode escapes)
            "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
-           Pronounciation is like "fraa-swa pee-nar".  */
+           Pronunciation is like "fraa-swa pee-nar".  */
         _("Francois Pinard"));
 @end group
 @end example
@@ -2309,7 +2309,7 @@ script.  Here is an example, using Greek as the target script:
 #. manual, section Names.  Note this is actually a non-ASCII
 #. name: The first name is (with Unicode escapes)
 #. "Fran\u00e7ois" or (with HTML entities) "Fran&ccedil;ois".
-#. Pronounciation is like "fraa-swa pee-nar".
+#. Pronunciation is like "fraa-swa pee-nar".
 msgid "Francois Pinard"
 msgstr "\phi\rho\alpha\sigma\omicron\alpha \pi\iota\nu\alpha\rho"
        " (Francois Pinard)"
@@ -2323,7 +2323,7 @@ The translation project @url{http://sourceforge.net/projects/translation}
 has set up a POT file and translation domain consisting of program author
 names, with better facilities for the translator than those presented here.
 Namely, there the original name is written directly in Unicode (rather
-than with Unicode escapes or HTML entities), and the pronounciation is
+than with Unicode escapes or HTML entities), and the pronunciation is
 denoted using the International Phonetic Alphabet (see
 @url{http://www.wikipedia.org/wiki/International_Phonetic_Alphabet}).
 
@@ -2428,7 +2428,7 @@ it reads like this:
 @end smallexample
 
 In other words, @code{dgettext} is used instead of @code{gettext}.
-Similary, the @code{dngettext} function should be used in place of the
+Similarly, the @code{dngettext} function should be used in place of the
 @code{ngettext} function.
 @end enumerate
 
@@ -4041,7 +4041,7 @@ msgcat -o compendium.po file1.po file2.po
 @end example
 
 By default, @code{msgcat} will accumulate divergent translations
-for the same string.  Those occurences will be marked as @code{fuzzy}
+for the same string.  Those occurrences will be marked as @code{fuzzy}
 and highly visible decorated; calling @code{msgcat} on
 @file{file1.po}:
 
@@ -4275,7 +4275,7 @@ write other specialized programs that process PO files.
 For the tasks for which a combination of @samp{msgattrib}, @samp{msgcat} etc.
 is not sufficient, a set of C functions is provided in a library, to make it
 possible to process PO files in your own programs.  When you use this library,
-you don't need to write routines to parse the PO file; instead, you retreive
+you don't need to write routines to parse the PO file; instead, you retrieve
 a pointer in memory to each of messages contained in the PO file.  Functions
 for writing PO files are not provided at this time.
 
@@ -4503,7 +4503,7 @@ that strings are @key{NUL} terminated, so embedded @key{NUL}s are
 somewhat useless.  But the MO file format is general enough so other
 interfaces would be later possible, if for example, we ever want to
 implement wide characters right in MO files, where @key{NUL} bytes may
-accidently appear.  (No, we don't want to have wide characters in MO
+accidentally appear.  (No, we don't want to have wide characters in MO
 files.  They would make the file unnecessarily large, and the
 @samp{wchar_t} type being platform dependent, MO files would be
 platform dependent as well.)
@@ -4611,7 +4611,7 @@ using this interface.  It is a fast, memory-saving implementation, an
 user can happily live with it.  But programmers hate it (at least I and
 some others do@dots{})
 
-But we must not forget one point: after all the trouble with transfering
+But we must not forget one point: after all the trouble with transferring
 the rights on Unix(tm) they at last came to X/Open, the very same who
 published this specification.  This leads me to making the prediction
 that this interface will be in future Unix standards (e.g. Spec1170) and
@@ -7175,7 +7175,7 @@ some older versions of GCC (older than 3.0).
 @item
 When the package does not include the @code{intl/} subdirectory, and the
 libintl.h header (with its associated libintl library, if any) is not
-already installed on the system, it is preferrable that the package builds
+already installed on the system, it is preferable that the package builds
 without internationalization support, rather than to give a compilation
 error.
 @end itemize
@@ -8406,7 +8406,7 @@ will, during its conversion from the translator's encoding to the user's
 locale's encoding, produce the dangerous @code{\x60} bytes.
 
 @item
-A translator could - voluntarily or inadvertantly - use backquotes
+A translator could - voluntarily or inadvertently - use backquotes
 @code{"`...`"} or dollar-parentheses @code{"$(...)"} in her translations.
 The enclosed strings would be executed as command lists by the shell.
 @end enumerate
@@ -9795,7 +9795,7 @@ print $gettext@{Error@};
 @end example
 
 The exact rule is: You can omit the surrounding quotes, when the hash
-key is a valid C (!) identifier, i. e. when it starts with an
+key is a valid C (!) identifier, i.e. when it starts with an
 underscore or an ASCII letter and is followed by an arbitrary number
 of underscores, ASCII letters or digits.  Other Unicode characters
 are @emph{not} allowed, regardless of the @code{use utf8} pragma.
@@ -10064,7 +10064,7 @@ s/$gettext@{"U. S. A."@}/$gettext@{"U. S. A."@} $gettext@{"(dial +0)"@}/g;
 
 In Perl, parentheses around function arguments are mostly optional.
 @code{xgettext} will always assume that all
-recognized keywords (except for hashs and hash references) are names
+recognized keywords (except for hashes and hash references) are names
 of properly prototyped functions, and will (hopefully) only require
 parentheses where Perl itself requires them.  All constructs in the
 following example are therefore ok to use:
@@ -10158,7 +10158,7 @@ EOF
 @end group
 @end example
 
-Please do not forget, that the line breaks are real, i. e. they
+Please do not forget, that the line breaks are real, i.e. they
 translate into newline characters that will consequently show up in
 the resulting POT file.
 
@@ -10580,7 +10580,7 @@ While Jim took some distance and time and became dad for a second
 time, Roland wanted to get GNU @code{libc} internationalized, and
 got Ulrich Drepper involved in that project.  Instead of starting
 from @code{glocale}, Ulrich rewrote something from scratch, but
-more conformant to the set of guidelines who emerged out of the
+more conforming to the set of guidelines who emerged out of the
 @code{glocale} effort.  Then, Ulrich got people from the previous
 forum to involve themselves into this new project, and the switch
 from @code{glocale} to what was first named @code{msgutils}, renamed

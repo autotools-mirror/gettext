@@ -211,8 +211,8 @@ do or how to get started, please write to
 coordinator for all translator teams.
 
 The English team is special.  It works at improving and uniformizing
-the terminology in use.  Proven linguistic skill are praised
-more than programming skill, here.
+the terminology in use.  Proven linguistic skills are praised
+more than programming skills, here.
 
 @node Available Packages
 @section Available Packages

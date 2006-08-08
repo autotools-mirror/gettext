@@ -147,7 +147,7 @@ use default keywords).
 
 @cindex adding keywords, @code{xgettext}
 @cindex context, argument specification in @code{xgettext}
-If @var{keywordspec} is a C identifer @var{id}, @code{xgettext} looks
+If @var{keywordspec} is a C identifier @var{id}, @code{xgettext} looks
 for strings in the first argument of each call to the function or macro
 @var{id}.  If @var{keywordspec} is of the form
 @samp{@var{id}:@var{argnum}}, @code{xgettext} looks for strings in the

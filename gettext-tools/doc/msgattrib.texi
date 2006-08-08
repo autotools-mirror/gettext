@@ -72,7 +72,7 @@ Keep
 @ifnothtml
 `fuzzy'
 @end ifnothtml
-marked messages, remove all other messsages.
+marked messages, remove all other messages.
 
 @item --no-obsolete
 @opindex --no-obsolete@r{, @code{msgattrib} option}
@@ -86,7 +86,7 @@ Keep obsolete #~ messages, remove all other messages.
 
 @subsection Attribute manipulation
 
-@cindex modify message attrributes
+@cindex modify message attributes
 Attributes are modified after the message selection/removal has been
 performed.  If the @samp{--only-file} or @samp{--ignore-file} option is
 specified, the attribute modification is applied only to those messages

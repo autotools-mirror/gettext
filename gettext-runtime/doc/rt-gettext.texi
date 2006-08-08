@@ -25,7 +25,7 @@ Enable expansion of some escape sequences.  This option is for compatibility
 with the @samp{echo} program or shell built-in.  The escape sequences
 @samp{\a}, @samp{\b}, @samp{\c}, @samp{\f}, @samp{\n}, @samp{\r}, @samp{\t},
 @samp{\v}, @samp{\\}, and @samp{\} followed by one to three octal digits, are
-interpreted like the SystemV @samp{echo} program does.
+interpreted like the System V @samp{echo} program did.
 
 @item -E
 @opindex -E@r{, @code{gettext} option}

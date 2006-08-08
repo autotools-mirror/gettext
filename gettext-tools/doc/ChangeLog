@@ -1,3 +1,9 @@
+2006-08-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* gettext.texi: Fix 17 typos.
+	* msgattrib.texi: Fix 2 typos.
+	* xgettext.texi: Fix 1 typo.
+
 2006-07-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.msvc: Remove file.
