@@ -2035,8 +2035,6 @@ meta information, not the empty string.\n")));
     }
   else
     {
-      static lex_pos_ty dummypos = { __FILE__, __LINE__ };
-
       /* Construct the msgstr from the prefix and suffix, otherwise use the
 	 empty string.  */
       if (msgstr_prefix)
@@ -2046,7 +2044,7 @@ meta information, not the empty string.\n")));
 
       /* Allocate a new message and append the message to the list.  */
       mp = message_alloc (msgctxt, msgid, NULL, msgstr, strlen (msgstr) + 1,
-			  &dummypos);
+			  pos);
       /* Do not free msgctxt and msgid.  */
       message_list_append (mlp, mp);
     }

@@ -1,3 +1,9 @@
+2006-08-07  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c (remember_a_message): Use the position passed as argument
+	instead of a dummypos.
+	Reported by Paul Eggert <eggert@cs.ucla.edu>.
+
 2006-08-01  Bruno Haible  <bruno@clisp.org>
 
 	Fix behaviour of msgmerge when the PO file and the compendium are
