@@ -3999,7 +3999,7 @@ their @code{msgid} entries written by the same GNU @code{gettext} tools.
 @efindex normalize@r{, PO Mode command}
 However, PO files initially created by PO mode itself, while marking
 strings in source files, are normalised differently.  So are PO
-files resulting of the the @samp{M-x normalize} command.  Until these
+files resulting of the @samp{M-x normalize} command.  Until these
 discrepancies between PO mode and other GNU @code{gettext} tools get
 fully resolved, the translator should stay aware of normalisation issues.
 
@@ -10158,7 +10158,7 @@ EOF
 @end group
 @end example
 
-Please do not forget, that the line breaks are real, i.e.@: they
+Please do not forget that the line breaks are real, i.e.@: they
 translate into newline characters that will consequently show up in
 the resulting POT file.
 
