@@ -93,7 +93,7 @@ run configure without an option for your new package, @code{configure}
 will probably detect the previously built and installed @file{libintl.a}
 file and will decide to use this.  This might not be desirable.
 You should use the more recent version of the GNU @code{gettext}
-library.  I.e. if the file @file{intl/VERSION} shows that the library
+library.  I.e.@: if the file @file{intl/VERSION} shows that the library
 which comes with this package is more recent, you should use
 
 @example

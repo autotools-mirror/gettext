@@ -1,3 +1,7 @@
+2006-08-09  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* nls.texi: Reduce spacing after "i.e.".
+
 2006-08-06  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* nls.texi: Fix 2 typos.
