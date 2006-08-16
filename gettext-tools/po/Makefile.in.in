@@ -8,7 +8,7 @@
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
 #
-# Origin: gettext-0.15
+# Origin: gettext-0.15.1
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -31,6 +31,7 @@ gettextsrcdir = $(datadir)/gettext/po
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 mkinstalldirs = $(SHELL) @install_sh@ -d
+MKDIR_P = @MKDIR_P@
 mkdir_p = @mkdir_p@
 
 GMSGFMT_ = @GMSGFMT@
