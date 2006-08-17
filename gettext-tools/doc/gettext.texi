@@ -5198,6 +5198,17 @@ printf (ngettext ("%d file removed", "%d files removed", n), n);
 Please note that the numeric value @var{n} has to be passed to the
 @code{printf} function as well.  It is not sufficient to pass it only to
 @code{ngettext}.
+
+It is also possible to use this function when the strings don't contain a
+cardinal number:
+
+@smallexample
+puts (ngettext ("Delete the selected file?",
+                "Delete the selected files?",
+                n));
+@end smallexample
+
+In this case the number @var{n} is only used to choose the plural form.
 @end deftypefun
 
 @deftypefun {char *} dngettext (const char *@var{domain}, const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n})
@@ -5257,7 +5268,7 @@ The following rules are known at this point.  The language with families
 are listed.  But this does not necessarily mean the information can be
 generalized for the whole family (as can be easily seen in the table
 below).@footnote{Additions are welcome.  Send appropriate information to
-@email{bug-glibc-manual@@gnu.org}.}
+@email{bug-gnu-gettext@@gnu.org} and @email{bug-glibc-manual@@gnu.org}.}
 
 @table @asis
 @item Only one form:

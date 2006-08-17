@@ -1,3 +1,9 @@
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural Forms): Mention the use of ngettext without
+	cardinal numbers.
+	Reported by Arpad Biro <biro_arpad@yahoo.com>.
+
 2006-08-08  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* gettext.texi: Fix 2 typos.
