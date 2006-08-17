@@ -5328,7 +5328,7 @@ Hungarian
 @end table
 
 Hungarian does not appear to have a plural if you look at sentences involving
-ordinal numbers.  For example, ``1 apple'' is ``1 alma'', and ``123 apples'' is
+cardinal numbers.  For example, ``1 apple'' is ``1 alma'', and ``123 apples'' is
 ``123 alma''.  But when the number is not explicit, the distinction between
 singular and plural exists: ``the apple'' is ``az alma'', and ``the apples'' is
 ``az alm@'{a}k''.  Since @code{ngettext} has to support both types of sentences,
