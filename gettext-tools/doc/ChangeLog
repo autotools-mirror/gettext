@@ -1,5 +1,11 @@
 2006-08-16  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Plural forms): Document how to deal with bignums,
+	negative numbers and floating-point numbers.
+	Suggested by Paul Eggert <eggert@cs.ucla.edu>.
+
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Plural Forms): Put Hungarian under nplurals=2, and
 	explain why.
 	Reported by Arpad Biro <biro_arpad@yahoo.com> and

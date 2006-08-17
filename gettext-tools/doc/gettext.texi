@@ -5479,6 +5479,51 @@ Slovenian
 @end table
 @end table
 
+You might now ask, @code{ngettext} handles only numbers @var{n} of type
+@samp{unsigned long}.  What about larger integer types?  What about negative
+numbers?  What about floating-point numbers?
+
+About larger integer types, such as @samp{uintmax_t} or 
+@samp{unsigned long long}: they can be handled by reducing the value to a
+range that fits in an @samp{unsigned long}.  Simply casting the value to
+@samp{unsigned long} would not do the right thing, since it would treat
+@code{ULONG_MAX + 1} like zero, @code{ULONG_MAX + 2} like singular, and
+the like.  Here you can exploit the fact that all mentioned plural form
+formulas eventually become periodic, with a period that is a divisor of 100
+(or 1000 or 1000000).  So, when you reduce a large value to another one in
+the range [1000000, 1999999] that ends in the same 6 decimal digits, you
+can assume that it will lead to the same plural form selection.  This code
+does this:
+
+@smallexample
+#include <inttypes.h>
+uintmax_t nbytes = ...;
+printf (ngettext ("The file has %"PRIuMAX" byte.",
+                  "The file has %"PRIuMAX" bytes.",
+                  (nbytes > ULONG_MAX
+                   ? (nbytes % 1000000) + 1000000
+                   : nbytes)),
+        nbytes);
+@end smallexample
+
+Negative and floating-point values usually represent physical entities for
+which singular and plural don't clearly apply.  In such cases, there is no
+need to use @code{ngettext}; a simple @code{gettext} call with a form suitable
+for all values will do.  For example:
+
+@smallexample
+printf (gettext ("Time elapsed: %.3f seconds"),
+        num_milliseconds * 0.001);
+@end smallexample
+
+@noindent
+Even if @var{num_milliseconds} happens to be a multiple of 1000, the output
+@smallexample
+Time elapsed: 1.000 seconds
+@end smallexample
+@noindent
+is acceptable in English, and similarly for other languages.
+
 @node Optimized gettext,  , Plural forms, gettext
 @subsection Optimization of the *gettext functions
 @cindex optimization of @code{gettext} functions
