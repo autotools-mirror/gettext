@@ -1,4 +1,4 @@
-#serial 23
+#serial 24
 
 dnl Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2006 Free
 dnl Software Foundation, Inc.
@@ -118,7 +118,7 @@ AC_DEFUN([gl_PREREQ_REGEX],
   dnl Persuade glibc <string.h> to declare mempcpy().
   AC_REQUIRE([AC_GNU_SOURCE])
 
-  AC_REQUIRE([gl_C_RESTRICT])
+  AC_REQUIRE([AC_C_RESTRICT])
   AC_REQUIRE([AC_FUNC_ALLOCA])
   AC_REQUIRE([AC_HEADER_STDC])
   AC_CHECK_HEADERS_ONCE(wchar.h wctype.h)

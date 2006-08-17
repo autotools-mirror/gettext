@@ -1,3 +1,8 @@
+2006-08-16  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* regex.m4 (gl_PREREQ_REGEX): Adjust to gnulib change: use
+	AC_C_RESTRICT instead of gl_C_RESTRICT.
+
 2006-07-31  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Remove files now taken from gnulib or

@@ -1,3 +1,8 @@
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
+	* modules/gettext-tools-misc (Files): Remove m4/restrict.m4, no longer
+	in gnulib.
+
 2006-07-31  Bruno Haible  <bruno@clisp.org>
 
 	* lib/propername.c: Remove temporary hack.
