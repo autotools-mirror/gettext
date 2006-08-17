@@ -1,5 +1,12 @@
 2006-08-16  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Plural Forms): Put Hungarian under nplurals=2, and
+	explain why.
+	Reported by Arpad Biro <biro_arpad@yahoo.com> and
+	Gabor Kelemen <kelemeng@gnome.hu>.
+
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Plural Forms): Mention the use of ngettext without
 	cardinal numbers.
 	Reported by Arpad Biro <biro_arpad@yahoo.com>.

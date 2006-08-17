@@ -5284,8 +5284,6 @@ Plural-Forms: nplurals=1; plural=0;
 Languages with this property include:
 
 @table @asis
-@item Finno-Ugric family
-Hungarian
 @item Asian family
 Japanese, Korean, Vietnamese
 @item Turkic/Altaic family
@@ -5320,6 +5318,21 @@ Italian, Portuguese, Spanish
 @item Artificial
 Esperanto
 @end table
+
+@noindent
+Another language using the same header entry is:
+
+@table @asis
+@item Finno-Ugric family
+Hungarian
+@end table
+
+Hungarian does not appear to have a plural if you look at sentences involving
+ordinal numbers.  For example, ``1 apple'' is ``1 alma'', and ``123 apples'' is
+``123 apples''.  But when the number is not explicit, the distinction between
+singular and plural exists: ``the apple'' is ``az alma'', and ``the apples'' is
+``az alm@'{a}k''.  Since @code{ngettext} has to support both types of sentences,
+it is classified here, under ``two forms''.
 
 @item Two forms, singular used for zero and one
 Exceptional case in the language family.  The header entry would be:

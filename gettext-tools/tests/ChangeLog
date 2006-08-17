@@ -1,5 +1,9 @@
 2006-08-16  Bruno Haible  <bruno@clisp.org>
 
+	* plural-2: Use Japanese, not Hungarian, as a test case for nplurals=1.
+
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
 	* msgunfmt-2: New file.
 	* Makefile.am (TESTS): Add it.
 
