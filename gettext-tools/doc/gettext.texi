@@ -5199,6 +5199,17 @@ Please note that the numeric value @var{n} has to be passed to the
 @code{printf} function as well.  It is not sufficient to pass it only to
 @code{ngettext}.
 
+In the English singular case, the number -- always 1 -- can be replaced with
+"one":
+
+@smallexample
+printf (ngettext ("One file removed", "%d files removed", n), n);
+@end smallexample
+
+@noindent
+This works because the @samp{printf} function discards excess arguments that
+are not consumed by the format string.
+
 It is also possible to use this function when the strings don't contain a
 cardinal number:
 

@@ -1,6 +1,13 @@
+2006-08-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural Forms): Mention the use of ngettext with a
+	singular format string that doesn't need as many format arguments as
+	the plural string.
+	Suggested by Paul Eggert <eggert@cs.ucla.edu>.
+
 2006-08-16  Bruno Haible  <bruno@clisp.org>
 
-	* gettext.texi (Plural forms): Document how to deal with bignums,
+	* gettext.texi (Plural Forms): Document how to deal with bignums,
 	negative numbers and floating-point numbers.
 	Suggested by Paul Eggert <eggert@cs.ucla.edu>.
 
