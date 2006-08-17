@@ -56,7 +56,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgmerge-compendium-4 msgmerge-compendium-5 msgmerge-compendium-6 \
 	msgmerge-properties-1 msgmerge-properties-2 \
 	msgmerge-update-1 msgmerge-update-2 msgmerge-update-3 \
-	msgunfmt-1 \
+	msgunfmt-1 msgunfmt-2 \
 	msgunfmt-csharp-1 \
 	msgunfmt-java-1 \
 	msgunfmt-properties-1 \

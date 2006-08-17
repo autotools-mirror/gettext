@@ -1,3 +1,10 @@
+2006-08-16  Bruno Haible  <bruno@clisp.org>
+
+	* read-mo.c: Include stdbool.h, stdlib.h, format.h.
+	(read_mo_file): Mark messages with system-dependent segments as
+	"#, c-format" or "#, objc-format", as appropriate.
+	Reported by Egmont Koblinger <egmont@uhulinux.hu>.
+
 2006-08-07  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c (remember_a_message): Use the position passed as argument

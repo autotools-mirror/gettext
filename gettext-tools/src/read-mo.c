@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -24,8 +24,10 @@
 #include "read-mo.h"
 
 #include <errno.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <string.h>
 
 /* This include file describes the main part of binary .mo format.  */
@@ -36,6 +38,7 @@
 #include "binary-io.h"
 #include "exit.h"
 #include "message.h"
+#include "format.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -349,6 +352,7 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 	      char *msgstr;
 	      size_t msgstr_len;
 	      nls_uint32 offset;
+	      size_t f;
 
 	      /* Read the msgctxt and msgid.  */
 	      offset = get_uint32 (&bf, header.orig_sysdep_tab_offset + i * 4);
@@ -377,6 +381,66 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 				   : NULL),
 				  msgstr, msgstr_len,
 				  &pos);
+
+	      /* Only messages with c-format or objc-format annotation are
+		 recognized as having system-dependent strings by msgfmt.
+		 Which one of the two, we don't know.  We have to guess,
+		 assuming that c-format is more probable than objc-format and
+		 that the .mo was likely produced by "msgfmt -c".  */
+	      for (f = format_c; ; f = format_objc)
+		{
+		  bool valid = true;
+		  struct formatstring_parser *parser = formatstring_parsers[f];
+		  const char *str_end;
+		  const char *str;
+
+		  str_end = msgid + msgid_len;
+		  for (str = msgid; str < str_end; str += strlen (str) + 1)
+		    {
+		      char *invalid_reason = NULL;
+		      void *descr = parser->parse (str, false, &invalid_reason);
+
+		      if (descr != NULL)
+			parser->free (descr);
+		      else
+			{
+			  free (invalid_reason);
+			  valid = false;
+			  break;
+			}
+		    }
+		  if (valid)
+		    {
+		      str_end = msgstr + msgstr_len;
+		      for (str = msgstr; str < str_end; str += strlen (str) + 1)
+			{
+			  char *invalid_reason = NULL;
+			  void *descr =
+			    parser->parse (str, true, &invalid_reason);
+
+			  if (descr != NULL)
+			    parser->free (descr);
+			  else
+			    {
+			      free (invalid_reason);
+			      valid = false;
+			      break;
+			    }
+			}
+		    }
+
+		  if (valid)
+		    {
+		      /* Found the most likely among c-format, objc-format.  */
+		      mp->is_format[f] = yes;
+		      break;
+		    }
+
+		  /* Try next f.  */
+		  if (f == format_objc)
+		    break;
+		}
+
 	      message_list_append (mlp, mp);
 	    }
 	  break;
