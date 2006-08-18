@@ -79,7 +79,6 @@ lib/xreadlink.h \
 lib/xstrdup.c \
 m4/alloca.m4 \
 m4/backupfile.m4 \
-m4/bison-i18n.m4 \
 m4/canonicalize.m4 \
 m4/ChangeLog.0 \
 m4/ChangeLog.1 \
@@ -100,7 +99,6 @@ m4/vasprintf.m4 \
 m4/xreadlink.m4 \
 modules/backupfile \
 modules/basename \
-modules/bison-i18n \
 modules/canonicalize \
 modules/closeout \
 modules/c-strstr \
