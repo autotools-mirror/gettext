@@ -16,13 +16,8 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 
-/* The functions defined in this file assume the "C" locale and a character
-   set without diacritics (ASCII-US or EBCDIC-US or something like that).
-   Even if the "C" locale on a particular system is an extension of the ASCII
-   character set (like on BeOS, where it is UTF-8, or on AmigaOS, where it
-   is ISO-8859-1), the functions in this file recognize only the ASCII
-   characters.  More precisely, one of the string arguments must be an ASCII
-   string with additional restrictions.  */
+/* The functions defined in this file assume a nearly ASCII compatible
+   character set.  */
 
 
 #ifdef __cplusplus
@@ -39,7 +34,10 @@ extern "C" {
         [this restriction is needed because of BIG5, BIG5-HKSCS, GBK, GB18030,
          Shift_JIS, JOHAB], and
      3. does not consist entirely of decimal digits, or has at least length 4
-        [this restricion is needed because of GB18030].  */
+        [this restricion is needed because of GB18030].
+   This function is also safe to be called, even in a multibyte locale, if
+   HAYSTACK and NEEDLE are known to both consist solely of printable ASCII
+   characters excluding '\\' and '~'.  */
 extern char *c_strstr (const char *haystack, const char *needle);
 
 #ifdef __cplusplus
