@@ -52,6 +52,7 @@ subdir = intl
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 mkinstalldirs = @install_sh@ -d
+MKDIR_P = @MKDIR_P@
 mkdir_p = @mkdir_p@
 
 l = @INTL_LIBTOOL_SUFFIX_PREFIX@
