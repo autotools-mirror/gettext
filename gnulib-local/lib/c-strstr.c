@@ -111,7 +111,7 @@ jin:	  a = *++haystack;
         }
     }
 foundneedle:
-  return (char*) haystack;
+  return (char *) haystack;
 ret0:
   return 0;
 }
