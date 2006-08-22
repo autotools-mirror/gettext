@@ -17,6 +17,9 @@ AM_CPPFLAGS += -I$(top_builddir)/intl -I$(top_srcdir)/intl
 # Parametrization of the 'relocatable' module.
 AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1
 
+# Specify that libgettextlib should installed in $(libdir).
+lib_LTLIBRARIES = libgettextlib.la
+
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because linebreak.c and iconvstring.c use iconv().
 lib_LDFLAGS = \
