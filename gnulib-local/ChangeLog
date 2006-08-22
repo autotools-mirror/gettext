@@ -5,6 +5,7 @@
 	* modules/exitfail.diff: Update.
 	* modules/quote.diff: Update.
 	* modules/quotearg.diff: Update.
+	* m4/pathmax.m4.diff: Remove file.
 
 2006-08-22  Bruno Haible  <bruno@clisp.org>
 
