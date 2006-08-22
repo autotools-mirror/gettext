@@ -1,5 +1,13 @@
 2006-08-22  Bruno Haible  <bruno@clisp.org>
 
+	* modules/pathmax.diff: Remove file.
+	* modules/unlocked-io.diff: Remove file.
+	* modules/exitfail.diff: Update.
+	* modules/quote.diff: Update.
+	* modules/quotearg.diff: Update.
+
+2006-08-22  Bruno Haible  <bruno@clisp.org>
+
 	* modules/gettext-tools-misc (Makefile.am): New variable
 	lib_LTLIBRARIES.
 
