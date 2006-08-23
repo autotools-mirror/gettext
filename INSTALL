@@ -56,13 +56,8 @@ Compilers and Options
 
    Some systems require unusual options for compilation or linking that
 the `configure' script does not know about.  You can give `configure'
-initial values for variables by setting them in the environment.  Using
-a Bourne-compatible shell, you can do that on the command line like
-this:
-     CC=c89 CFLAGS=-O2 LIBS=-lposix ./configure
-
-Or on systems that have the `env' program, you can do it like this:
-     env CPPFLAGS=-I/usr/local/include LDFLAGS=-s ./configure
+initial values for variables as arguments.  You can do it like this:
+     ./configure CC=c89 CFLAGS=-O2 LIBS=-lposix
 
 Compiling For Multiple Architectures
 ====================================
@@ -169,23 +164,23 @@ Particular Systems
 is not installed, it is recommended to use the following options in order
 to use an ANSI C compiler:
 
-     env CC="cc -Ae" ./configure
+     ./configure CC="cc -Ae"
 
    On OSF/1 a.k.a. Tru64, some versions of the default C compiler don't grok
 its <wchar.h> header file.  The option -nodtk can be used as a workaround.
 If GNU CC is not installed, it is therefore recommended to try
 
-     env CC="cc" ./configure
+     ./configure CC="cc"
 
 and if that doesn't work, try
 
-     env CC="cc -nodtk" ./configure
+     ./configure CC="cc -nodtk"
 
    On AIX 3, the C include files by default don't define some necessary
 prototype declarations.  If GNU CC is not installed, it is recommended to
 use the following options:
 
-     env CC="xlc -D_ALL_SOURCE" ./configure
+     ./configure CC="xlc -D_ALL_SOURCE"
 
    On BeOS, user installed software goes in /boot/home/config, not
 /usr/local.  It is recommended to use the following options:
