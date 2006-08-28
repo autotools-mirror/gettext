@@ -25,7 +25,6 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/po.m4 \
   ../../gettext-runtime/m4/printf-posix.m4 \
   ../../gettext-runtime/m4/progtest.m4 \
-  ../../gettext-runtime/m4/signed.m4 \
   ../../gettext-runtime/m4/size_max.m4 \
   ../../gettext-runtime/m4/stdint_h.m4 \
   ../../gettext-runtime/m4/uintmax_t.m4 \

@@ -1,3 +1,7 @@
+2006-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Update file list.
+
 2006-08-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Plural Forms): Mention the use of ngettext with a

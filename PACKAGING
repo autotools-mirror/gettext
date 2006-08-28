@@ -136,7 +136,6 @@ following file list.
       $prefix/share/aclocal/po.m4
       $prefix/share/aclocal/printf-posix.m4
       $prefix/share/aclocal/progtest.m4
-      $prefix/share/aclocal/signed.m4
       $prefix/share/aclocal/size_max.m4
       $prefix/share/aclocal/stdint_h.m4
       $prefix/share/aclocal/uintmax_t.m4

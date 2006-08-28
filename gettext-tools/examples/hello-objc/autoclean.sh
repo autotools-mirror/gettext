@@ -34,7 +34,6 @@ rm -f m4/nls.m4
 rm -f m4/po.m4
 rm -f m4/printf-posix.m4
 rm -f m4/progtest.m4
-rm -f m4/signed.m4
 rm -f m4/size_max.m4
 rm -f m4/stdint_h.m4
 rm -f m4/uintmax_t.m4
