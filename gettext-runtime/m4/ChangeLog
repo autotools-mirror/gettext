@@ -1,3 +1,8 @@
+2006-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* signed.m4: Remove file.
+	* gettext.m4 (AM_INTL_SUBDIR): Remove bh_C_SIGNED invocation.
+
 2006-08-22  Eric Blake  <ebb9@byu.net>
 
 	* stdint_h.m4 (gl_AC_HEADER_STDINT_H): Avoid compiler warning.
