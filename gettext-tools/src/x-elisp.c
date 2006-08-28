@@ -709,7 +709,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 		else
 		  {
 		    /* These are the argument positions.  */
-		    if (inner.type == t_string)
+		    if (argparser != NULL && inner.type == t_string)
 		      arglist_parser_remember (argparser, arg,
 					       string_of_object (&inner),
 					       inner_context,

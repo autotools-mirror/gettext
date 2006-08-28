@@ -1,3 +1,11 @@
+2006-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* x-scheme.c (read_object): Don't call arglist_parser_remember if
+	argparser is NULL.
+	* x-elisp.c (read_object): Likewise.
+	* x-librep.c (read_object): Likewise.
+	Reported by Kevin Ryde <user42@zip.com.au>.
+
 2006-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Put Hungarian under nplurals=2.
