@@ -204,7 +204,13 @@ else
 msggrep_SOURCES = ../woe32dll/c++msggrep.cc
 endif
 msginit_SOURCES = msginit.c
-msginit_SOURCES += lang-table.c plural-count.c ../../gettext-runtime/intl/localealias.c
+msginit_SOURCES += lang-table.c plural-count.c
+msginit_SOURCES += ../../gettext-runtime/intl/localealias.c
+# This is needed because on Solaris, localealias.c requires the symbol
+# libintl_thread_in_use which is defined in lock.c. The copy of lock.c inside
+# libintl.so is not sufficient, because libintl.so doesn't export the symbol
+# libintl_thread_in_use.
+msginit_SOURCES += ../../gettext-runtime/intl/lock.c
 if !WOE32DLL
 msguniq_SOURCES = msguniq.c
 else
