@@ -1,3 +1,8 @@
+2006-08-30  Bruno Haible  <bruno@clisp.org>
+
+	* lib/xerror.h: Don't include error.h.
+	* lib/xerror.c: Include error.h here.
+
 2006-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* modules/c-strstr: Remove file, now in gnulib.

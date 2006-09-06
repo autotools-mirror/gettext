@@ -19,9 +19,6 @@
 #ifndef _XERROR_H
 #define _XERROR_H
 
-/* Get fallback definition of __attribute__.  */
-#include "error.h"
-
 
 #ifdef __cplusplus
 extern "C" {

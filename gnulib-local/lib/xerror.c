@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "error.h"
 #include "progname.h"
 #include "error-progname.h"
 #include "mbswidth.h"
