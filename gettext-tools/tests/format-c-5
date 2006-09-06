@@ -38,11 +38,8 @@ tmpfiles="$tmpfiles fa.po.tmp"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o fa.po.tmp fa/LC_MESSAGES/fc5.mo
 
-tmpfiles="$tmpfiles fa.po.strip"
-sed 1d < fa.po > fa.po.strip
-
 : ${DIFF=diff}
-${DIFF} fa.po.strip fa.po.tmp || exit 1
+${DIFF} fa.po fa.po.tmp || exit 1
 
 LANGUAGE= ./fc5 fa_IR
 case $? in

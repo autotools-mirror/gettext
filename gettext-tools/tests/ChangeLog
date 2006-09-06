@@ -1,3 +1,10 @@
+2006-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* msgfmt-12: Update expected output.
+	* format-c-3: Likewise.
+	* format-c-4: Likewise.
+	* format-c-5: Likewise.
+
 2006-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-scheme-2: New file.

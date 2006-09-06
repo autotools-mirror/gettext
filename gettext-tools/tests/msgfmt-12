@@ -40,9 +40,11 @@ msgstr "Content-Type: text/plain; charset=ISO-8859-1\n"
 msgid "<PRIXFAST16> errors"
 msgstr "<PRIXFAST16> Fehler"
 
+#, c-format
 msgid "File size is: %<PRId64>"
 msgstr "Dateigröße ist: %<PRId64>"
 
+#, c-format
 msgid "File age is %10<PRIdMAX> microseconds"
 msgstr "Datei ist %10<PRIdMAX> Mikrosekunden alt."
 EOF

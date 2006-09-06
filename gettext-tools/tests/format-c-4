@@ -41,11 +41,8 @@ tmpfiles="$tmpfiles de.po.tmp"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o de.po.tmp de/LC_MESSAGES/fc4.mo
 
-tmpfiles="$tmpfiles de.po.strip"
-sed 1d < de.po > de.po.strip
-
 : ${DIFF=diff}
-${DIFF} de.po.strip de.po.tmp || exit 1
+${DIFF} de.po de.po.tmp || exit 1
 
 LANGUAGE= ./fc4 de_DE
 result=$?
