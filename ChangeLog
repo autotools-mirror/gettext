@@ -1,3 +1,7 @@
+2006-08-26  Bruno Haible  <bruno@clisp.org>
+
+	* m4/woe32-dll.m4: Update comments.
+
 2006-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* PACKAGING: Remove signed.m4.

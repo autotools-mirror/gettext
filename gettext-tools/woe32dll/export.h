@@ -24,7 +24,7 @@
      dictate the code style on all platforms.  This is unacceptable.
 
    - Use the GNU ld --enable-auto-import option.  It is the default on Cygwin
-     since July 2005. But it three fatal drawbacks:
+     since July 2005. But it has three fatal drawbacks:
        - It produces executables and shared libraries with relocations in the
          .text segment, defeating the principles of virtual memory.
        - For some constructs such as
