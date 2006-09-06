@@ -38,7 +38,7 @@ ngettext_SOURCES = ngettext.c
 envsubst_SOURCES = envsubst.c
 
 # Link dependencies.
-# Need @LTLIBICONV@ because iconvstring.c uses iconv().
+# Need @LTLIBICONV@ because striconv.c uses iconv().
 LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@
 
 # Specify installation directory, for --enable-relocatable.

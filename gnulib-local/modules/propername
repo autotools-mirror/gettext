@@ -9,7 +9,7 @@ Depends-on:
 iconv
 localcharset
 c-strcase
-iconvstring
+xstriconv
 c-strstr
 strstr
 xalloc

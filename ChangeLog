@@ -1,3 +1,8 @@
+2006-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_FOR_SRC): Add xstriconv, remove
+	iconvstring.
+
 2006-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* m4/woe32-dll.m4: Update comments.

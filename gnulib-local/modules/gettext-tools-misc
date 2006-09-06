@@ -21,7 +21,7 @@ AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1
 lib_LTLIBRARIES = libgettextlib.la
 
 # Need @LTLIBINTL@ because many source files use gettext().
-# Need @LTLIBICONV@ because linebreak.c and iconvstring.c use iconv().
+# Need @LTLIBICONV@ because linebreak.c and striconv.c use iconv().
 lib_LDFLAGS = \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@

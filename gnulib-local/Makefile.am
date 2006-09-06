@@ -55,8 +55,6 @@ lib/getopt_.h.diff \
 lib/gettext.h \
 lib/hash.c \
 lib/hash.h \
-lib/iconvstring.c \
-lib/iconvstring.h \
 lib/javacomp.c.diff \
 lib/linebreak.c.diff \
 lib/obstack.h.diff \
@@ -113,7 +111,6 @@ modules/getndelim2 \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/hash \
-modules/iconvstring \
 modules/java \
 modules/javacomp.diff \
 modules/pathmax.diff \

@@ -1,3 +1,16 @@
+2006-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* modules/iconvstring: Remove file.
+	* lib/iconvstring.h: Remove file.
+	* lib/iconvstring.c: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove modules/iconvstring,
+	lib/iconvstring.h, lib/iconvstring.c.
+
+	* lib/propername.c: Include xstriconv.h instead of iconvstring.h.
+	(convert_name): Remove function.
+	(proper_name_utf8): Use xstr_iconv instead of convert_name.
+	* modules/propername: Depend on xstriconv instead of iconvstring.
+
 2006-08-30  Bruno Haible  <bruno@clisp.org>
 
 	* lib/xerror.h: Don't include error.h.

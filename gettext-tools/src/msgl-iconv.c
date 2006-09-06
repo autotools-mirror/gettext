@@ -37,7 +37,7 @@
 #include "basename.h"
 #include "message.h"
 #include "po-charset.h"
-#include "iconvstring.h"
+#include "xstriconv.h"
 #include "msgl-ascii.h"
 #include "xalloc.h"
 #include "xallocsa.h"
@@ -82,7 +82,7 @@ convert_string (iconv_t cd, const char *string,
   char *result = NULL;
   size_t resultlen;
 
-  if (iconv_string (cd, string, string + len, &result, &resultlen) == 0)
+  if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
     /* Verify the result has exactly one NUL byte, at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0'
 	&& strlen (result) == resultlen - 1)
@@ -125,8 +125,7 @@ convert_msgstr (iconv_t cd, message_ty *mp,
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
 
-  if (iconv_string (cd, mp->msgstr, mp->msgstr + mp->msgstr_len,
-		    &result, &resultlen) == 0)
+  if (xmem_cd_iconv (mp->msgstr, mp->msgstr_len, cd, &result, &resultlen) == 0)
     /* Verify the result has a NUL byte at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0')
       /* Verify the result has the same number of NUL bytes.  */
@@ -349,7 +348,7 @@ iconvable_string (iconv_t cd, const char *string)
   char *result = NULL;
   size_t resultlen;
 
-  if (iconv_string (cd, string, string + len, &result, &resultlen) == 0)
+  if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
     {
       /* Test if the result has exactly one NUL byte, at the end.  */
       bool ok = (resultlen > 0 && result[resultlen - 1] == '\0'
@@ -395,8 +394,7 @@ iconvable_msgstr (iconv_t cd, message_ty *mp)
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
 
-  if (iconv_string (cd, mp->msgstr, mp->msgstr + mp->msgstr_len,
-		    &result, &resultlen) == 0)
+  if (xmem_cd_iconv (mp->msgstr, mp->msgstr_len, cd, &result, &resultlen) == 0)
     {
       bool ok = false;
 

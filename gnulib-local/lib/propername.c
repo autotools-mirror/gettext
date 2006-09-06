@@ -32,7 +32,7 @@
 
 #include "localcharset.h"
 #include "c-strcase.h"
-#include "iconvstring.h"
+#include "xstriconv.h"
 #include "c-strstr.h"
 #include "strstr.h"
 #include "xalloc.h"
@@ -66,38 +66,6 @@ proper_name (const char *name)
     return name;
 }
 
-#if HAVE_ICONV
-
-static char *
-convert_name (const char *locale_code, const char *name_utf8)
-{
-  /* Open conversion descriptor.  */
-  iconv_t conv_from_utf8 = iconv_open (locale_code, "UTF-8");
-
-  if (conv_from_utf8 != (iconv_t)(-1))
-    {
-      char *name_converted = NULL;
-      size_t length;
-
-      /* Convert the name to the locale encoding.  */
-      if (iconv_string (conv_from_utf8,
-			name_utf8, name_utf8 + strlen (name_utf8) + 1,
-			&name_converted, &length) == 0)
-	/* Verify that the converted string is terminated.  */
-	if (!(length > 0 && name_converted[length - 1] == '\0'))
-	  abort ();
-
-      /* Free the conversion descriptor.  */
-      iconv_close (conv_from_utf8);
-
-      return name_converted;
-    }
-  else
-    return NULL;
-}
-
-#endif
-
 /* Return the localization of a name whose original writing is not ASCII.
    NAME_UTF8 is the real name, written in UTF-8 with octal or hexadecimal
    escape sequences.  NAME_ASCII is a fallback written only with ASCII
@@ -120,29 +88,23 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
   if (c_strcasecmp (locale_code, "UTF-8") != 0)
     {
 #if HAVE_ICONV
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-      if (strcmp (locale_code, "EUC-KR") != 0)
-# endif
-	{
-	  name_converted = alloc_name_converted =
-	    convert_name (locale_code, name_utf8);
+      name_converted = alloc_name_converted =
+	xstr_iconv (name_utf8, "UTF-8", locale_code);
 
 # if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
      || _LIBICONV_VERSION >= 0x0105
-	  {
-	    size_t len = strlen (locale_code);
-	    char *locale_code_translit = (char *) xmalloc (len + 10 + 1);
-	    memcpy (locale_code_translit, locale_code, len);
-	    memcpy (locale_code_translit + len, "//TRANSLIT", 10 + 1);
+      {
+	size_t len = strlen (locale_code);
+	char *locale_code_translit = (char *) xmalloc (len + 10 + 1);
+	memcpy (locale_code_translit, locale_code, len);
+	memcpy (locale_code_translit + len, "//TRANSLIT", 10 + 1);
 
-	    name_converted_translit = alloc_name_converted_translit =
-	      convert_name (locale_code_translit, name_utf8);
+	name_converted_translit = alloc_name_converted_translit =
+	  xstr_iconv (name_utf8, "UTF-8", locale_code_translit);
 
-	    free (locale_code_translit);
-	  }
+	free (locale_code_translit);
+      }
 # endif
-	}
 #endif
     }
   else

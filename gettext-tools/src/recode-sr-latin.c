@@ -40,7 +40,7 @@
 #include "exit.h"
 #include "localcharset.h"
 #include "c-strcase.h"
-#include "iconvstring.h"
+#include "xstriconv.h"
 #include "filters.h"
 #include "propername.h"
 #include "gettext.h"
@@ -326,8 +326,8 @@ This version was built without iconv()."),
       /* Convert it to UTF-8.  */
       if (need_code_conversion)
 	{
-	  if (iconv_string (conv_to_utf8, line, line + line_len,
-			    &utf8_line, &utf8_line_len) != 0)
+	  if (xmem_cd_iconv (line, line_len, conv_to_utf8,
+			     &utf8_line, &utf8_line_len) != 0)
 	    error (EXIT_FAILURE, errno,
 		   _("input is not valid in \"%s\" encoding"),
 		   locale_code);
@@ -343,9 +343,8 @@ This version was built without iconv()."),
       /* Convert it back to the original encoding.  */
       if (need_code_conversion)
 	{
-	  if (iconv_string (conv_from_utf8,
-			    filtered_line, filtered_line + filtered_line_len,
-			    &backconv_line, &backconv_line_len) != 0)
+	  if (xmem_cd_iconv (filtered_line, filtered_line_len, conv_from_utf8,
+			     &backconv_line, &backconv_line_len) != 0)
 	    error (EXIT_FAILURE, errno,
 		   _("error while converting from \"%s\" encoding to \"%s\" encoding"),
 		   "UTF-8", locale_code);

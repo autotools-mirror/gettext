@@ -1,3 +1,11 @@
+2006-09-06  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-iconv.c: Include xstriconv.h instead of iconvstring.h.
+	(convert_string, convert_msgstr, iconvable_string, iconvable_msgstr):
+	Use xmem_cd_iconv instead of iconv_string.
+	* recode-sr-latin.c: Include xstriconv.h instead of iconvstring.h.
+	(process): Use xmem_cd_iconv instead of iconv_string.
+
 2006-09-04  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msginit_SOURCES): Add ../../gettext-runtime/intl/lock.c.

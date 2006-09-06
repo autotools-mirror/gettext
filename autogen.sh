@@ -110,7 +110,6 @@ if test -n "$GNULIB_TOOL"; then
   gettext-h
   hash
   iconv
-  iconvstring
   javacomp
   javaexec
   linebreak
@@ -131,6 +130,7 @@ if test -n "$GNULIB_TOOL"; then
   stpcpy
   stpncpy
   strcspn
+  xstriconv
   strpbrk
   strtol
   strtoul
