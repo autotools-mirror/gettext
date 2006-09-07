@@ -17,6 +17,7 @@
 	argparser is NULL.
 	* x-elisp.c (read_object): Likewise.
 	* x-librep.c (read_object): Likewise.
+	* x-lisp.c (read_object): Likewise.
 	Reported by Kevin Ryde <user42@zip.com.au>.
 
 2006-08-16  Bruno Haible  <bruno@clisp.org>
