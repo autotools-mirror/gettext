@@ -1630,6 +1630,9 @@ Split at paragraphs.
 
 @item
 Use format strings instead of string concatenation.
+
+@item
+Avoid unusual markup and unusual control characters.
 @end itemize
 
 @noindent
@@ -1848,6 +1851,32 @@ into a statement involving a format string:
 Console.WriteLine(
     String.Format("Replace @{0@} with @{1@}?", object1, object2));
 @end example
+
+@cindex markup
+@cindex control characters
+Unusual markup or control characters should not be used in translatable
+strings.  Translators will likely not understand the particular meaning
+of the markup or control characters.
+
+For example, if you have a convention that @samp{|} delimits the
+left-hand and right-hand part of some GUI elements, translators will
+often not understand it without specific comments.  It might be
+better to have the translator translate the left-hand and right-hand
+part separately.
+
+Another example is the @samp{argp} convention to use a single @samp{\v}
+(vertical tab) control character to delimit two sections inside a
+string.  This is flawed.  Some translators may convert it to a simple
+newline, some to blank lines.  With some PO file editors it may not be
+easy to even enter a vertical tab control character.  So, you cannot
+be sure that the translation will contain a @samp{\v} character, at the
+corresponding position.  The solution is, again, to let the translator
+translate two separate strings and combine at run-time the two translated
+strings with the @samp{\v} required by the convention.
+
+HTML markup, however, is common enough that it's probably ok to use in
+translatable strings.  But please bear in mind that the GNU gettext tools
+don't verify that the translations are well-formed HTML.
 
 @node Mark Keywords, Marking, Preparing Strings, Sources
 @section How Marks Appear in Sources
