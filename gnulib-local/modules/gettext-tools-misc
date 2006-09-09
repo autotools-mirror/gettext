@@ -22,7 +22,7 @@ lib_LTLIBRARIES = libgettextlib.la
 
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because linebreak.c and striconv.c use iconv().
-lib_LDFLAGS = \
+lib_LDFLAGS += \
   -release @VERSION@ \
   @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
