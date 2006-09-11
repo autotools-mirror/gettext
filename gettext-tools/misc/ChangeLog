@@ -1,5 +1,11 @@
 2006-09-11  Bruno Haible  <bruno@clisp.org>
 
+	* gettextize.in (have_automake19, min_automake_version): New variables.
+	(m4filelist): Use the minimum needed file list if --intl was not
+	specified and automake version is >= 1.9.
+
+2006-09-11  Bruno Haible  <bruno@clisp.org>
+
 	* gettextize.in (m4filelist): Add intl.m4.
 
 2006-08-28  Bruno Haible  <bruno@clisp.org>

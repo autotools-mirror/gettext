@@ -2,6 +2,10 @@
 
 * msgmerge is faster now on CPUs with multiple execution units, if compiled
   with GCC 4.2 or newer.
+
+* gettextize, when invoked without --intl option, now installs only the .m4
+  files that are needed: gettext.m4, iconv.m4, lib-ld.m4, lib-link.m4,
+  lib-prefix.m4, nls.m4, po.m4, progtest.m4.
 
 Version 0.15 - July 2006
 
@@ -80,6 +84,8 @@ Version 0.15 - July 2006
 * Documentation:
   A complete example showing the use of GNU gettext with the wxWidgets GUI
   toolkit has been added.
+
+* The gettext autoconf macros now assume 'aclocal' from automake 1.8 or newer.
 
 Version 0.14.6 - June 2006
 

@@ -6947,15 +6947,19 @@ the simplest is to concatenate the files @file{codeset.m4},
 @file{intdiv0.m4}, @file{intl.m4}, @file{intmax.m4}, @file{inttypes_h.m4},
 @file{inttypes-h.m4}, @file{inttypes-pri.m4}, @file{lcmessage.m4},
 @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{lock.m4},
-@file{longdouble.m4}, @file{longlong.m4}, @file{printf-posix.m4},
-@file{progtest.m4}, @file{size_max.m4},
+@file{longdouble.m4}, @file{longlong.m4}, @file{nls.m4}, @file{po.m4},
+@file{printf-posix.m4}, @file{progtest.m4}, @file{size_max.m4},
 @file{stdint_h.m4}, @file{uintmax_t.m4}, @file{ulonglong.m4},
 @file{visibility.m4}, @file{wchar_t.m4}, @file{wint_t.m4}, @file{xsize.m4}
 from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
 @file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
 @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
-@file{progtest.m4} need to be concatenated.
+@file{nls.m4}, @file{po.m4}, @file{progtest.m4} need to be concatenated.
+
+If you are not using GNU @code{automake} 1.8 or newer, you will need to
+add a file @file{mkdirp.m4} from a newer automake distribution to the
+list of files above.
 
 If you already have an @file{aclocal.m4} file, then you will have
 to merge the said macro files into your @file{aclocal.m4}.  Note that if

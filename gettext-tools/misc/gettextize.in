@@ -724,19 +724,29 @@ Please fill po/POTFILES.in as described in the documentation.
 fi
 $do_changelog && func_poChangeLog_finish
 
-m4filelist='  codeset.m4 gettext.m4 glibc2.m4 glibc21.m4 iconv.m4 intdiv0.m4
-  intl.m4 intmax.m4 inttypes_h.m4 inttypes-h.m4 inttypes-pri.m4 lcmessage.m4
-  lib-ld.m4 lib-link.m4 lib-prefix.m4 lock.m4 longdouble.m4 longlong.m4
-  nls.m4 po.m4 printf-posix.m4 progtest.m4 size_max.m4 stdint_h.m4
-  uintmax_t.m4 ulonglong.m4 visibility.m4 wchar_t.m4 wint_t.m4 xsize.m4'
-# We cannot omit codeset.m4, glibc2.m4, glibc21.m4, intdiv0.m4, intl.m4,
-# intmax.m4, inttypes_h.m4, inttypes-h.m4, inttypes-pri.m4, lcmessage.m4,
-# lock.m4, longdouble.m4, longlong.m4, nls.m4, po.m4, printf-posix.m4,
-# size_max.m4, stdint_h.m4, uintmax_t.m4, ulonglong.m4, visibility.m4,
-# wchar_t.m4, wint_t.m4, xsize.m4
-# if test -z "$intldir", otherwise "aclocal -I m4" might give an error.
-# (aclocal doesn't know which macros are really needed, it looks which macros
-# are potentially needed.)
+# Determine whether we can assume automake 1.9 or newer.
+have_automake19=
+if (aclocal --version) >/dev/null 2>/dev/null; then
+  aclocal_version=`aclocal --version | sed -n -e 1p | sed -e 's/^[^0-9]*//'`
+  case $aclocal_version in
+    1.9* | 1.[1-9][0-9]* | [2-9]*) have_automake19=yes ;;
+  esac
+fi
+
+m4filelist='gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 nls.m4
+ po.m4 progtest.m4'
+# With aclocal versions < 1.9 we need all m4 files, otherwise "aclocal -I m4"
+# might give an error. (aclocal < 1.9 didn't know which macros are really
+# needed, it looked which macros are potentially needed.)
+min_automake_version=1.9
+if test -n "$intldir" || test -z "$have_automake19"; then
+  # Add intl.m4 and its dependencies.
+  m4filelist=$m4filelist' codeset.m4 glibc2.m4 glibc21.m4 intdiv0.m4 intl.m4
+   intmax.m4 inttypes_h.m4 inttypes-h.m4 inttypes-pri.m4 lcmessage.m4 lock.m4
+   longdouble.m4 longlong.m4 printf-posix.m4 size_max.m4 stdint_h.m4
+   uintmax_t.m4 ulonglong.m4 visibility.m4 wchar_t.m4 wint_t.m4 xsize.m4'
+  min_automake_version=1.8
+fi
 
 # All sorts of bugs could occur if the configure file was remade with the wrong
 # version of gettext.m4 et al. (because then the configure and the po/Makefile.in.in
@@ -982,7 +992,7 @@ if test -f "$srcdir/Makefile.am"; then
   fi
   please="$please
 Please run 'aclocal -I $m4dir' to regenerate the aclocal.m4 file.
-You need aclocal from GNU automake 1.5 (or newer) to do this.
+You need aclocal from GNU automake $min_automake_version (or newer) to do this.
 Then run 'autoconf' to regenerate the configure file.
 "
 
