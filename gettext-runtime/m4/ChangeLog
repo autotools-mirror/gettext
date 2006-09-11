@@ -1,3 +1,9 @@
+2006-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4: New file, extracted from gettext.m4.
+	* gettext.m4 (AM_INTL_SUBDIR, gt_INTL_SUBDIR_CORE, gt_CHECK_DECL):
+	Move out to intl.m4.
+
 2006-08-26  Bruno Haible  <bruno@clisp.org>
 
 	* inttypes-pri.m4 (gt_INTTYPES_PRI): Also AC_SUBST PRI_MACROS_BROKEN.

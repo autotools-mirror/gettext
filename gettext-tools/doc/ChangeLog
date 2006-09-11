@@ -1,3 +1,7 @@
+2006-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Add intl.m4 to file list.
+
 2006-09-08  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Preparing strings): Also discourage unusual markup.

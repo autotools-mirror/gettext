@@ -1,3 +1,7 @@
+2006-09-11  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (aclocal_DATA): Add intl.m4.
+
 2006-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Remove signed.m4.
