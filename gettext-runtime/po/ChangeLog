@@ -1,3 +1,10 @@
+2006-09-10  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (install_sh): New variable.
+	Fixes "make install" errors in packages that have no 'mkinstalldirs'
+	file and use automake <= 1.9.x, on platforms where 'mkdir' does not
+	support the -p option.
+
 2006-08-16  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* Makefile.in.in (MKDIR_P): New variable. Needed by $(mkdir_p) with
