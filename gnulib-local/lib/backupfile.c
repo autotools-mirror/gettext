@@ -19,9 +19,7 @@
 /* Written by David MacKenzie <djm@gnu.ai.mit.edu>.
    Some algorithms adapted from GNU Emacs. */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include "argmatch.h"
 #include "backupfile.h"

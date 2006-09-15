@@ -1,5 +1,5 @@
 /* Relocating wrapper program.
-   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -42,9 +42,7 @@
    libc functions, no gettext(), no error(), no xmalloc(), no xsetenv().
  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>

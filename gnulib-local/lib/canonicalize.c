@@ -1,5 +1,5 @@
 /* Return the canonical absolute name of a given file.
-   Copyright (C) 1996-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1996-2003, 2005-2006 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -17,9 +17,7 @@
    Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
    MA 02110-1301, USA.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 /* Avoid a clash of our rpl_realpath() function with the prototype in
    <stdlib.h> on Solaris 2.5.1.  */

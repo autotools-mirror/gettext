@@ -43,9 +43,7 @@
    Modified to work on strings rather than files
    by Peter Miller <pmiller@agso.gov.au>, October 1995 */
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-#endif
+#include <config.h>
 
 /* Specification.  */
 #include "fstrcmp.h"

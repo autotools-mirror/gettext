@@ -18,9 +18,7 @@
 
 /* Written by David MacKenzie <djm@gnu.ai.mit.edu> and Paul Eggert */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #ifndef HAVE_DOS_FILE_NAMES
 # define HAVE_DOS_FILE_NAMES 0

@@ -1,3 +1,25 @@
+2006-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* lib/addext.c: Include <config.h> unconditionally.
+	* lib/backupfile.c: Likewise.
+	* lib/basename.c: Likewise.
+	* lib/canonicalize.c: Likewise.
+	* lib/closeout.c: Likewise.
+	* lib/error-progname.c: Likewise.
+	* lib/fstrcmp.c: Likewise.
+	* lib/getline.c: Likewise.
+	* lib/getndelim2.c: Likewise.
+	* lib/hash.c: Likewise.
+	* lib/propername.c: Likewise.
+	* lib/relocatable.c: Likewise.
+	* lib/relocwrapper.c: Likewise.
+	* lib/vasprintf.c: Likewise.
+	* lib/xerror.c: Likewise.
+	* lib/xgetcwd.c: Likewise.
+	* lib/xmalloc.c: Likewise.
+	* lib/xreadlink.c: Likewise.
+	* lib/xstrdup.c: Likewise.
+
 2006-09-09  Bruno Haible  <bruno@clisp.org>
 
 	* modules/gettext-tools-misc (Makefile.am): Augment lib_LDFLAGS
