@@ -21,7 +21,6 @@ rm -f m4/iconv.m4
 rm -f m4/intdiv0.m4
 rm -f m4/intl.m4
 rm -f m4/intmax.m4
-rm -f m4/inttypes-h.m4
 rm -f m4/inttypes-pri.m4
 rm -f m4/inttypes_h.m4
 rm -f m4/lcmessage.m4
