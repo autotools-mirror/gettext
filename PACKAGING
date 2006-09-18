@@ -124,7 +124,6 @@ following file list.
       $prefix/share/aclocal/intl.m4
       $prefix/share/aclocal/intmax.m4
       $prefix/share/aclocal/inttypes_h.m4
-      $prefix/share/aclocal/inttypes-h.m4
       $prefix/share/aclocal/inttypes-pri.m4
       $prefix/share/aclocal/lcmessage.m4
       $prefix/share/aclocal/lib-ld.m4
