@@ -1,3 +1,7 @@
+2006-09-22  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+
+	* lock.m4 (gl_LOCK_BODY): Avoid unused variables warning.
+
 2006-09-18  Bruno Haible  <bruno@clisp.org>
 
 	Assume autoconf-2.52 or newer.
