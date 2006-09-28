@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-07-01 00:52+0200\n"
-"PO-Revision-Date: 2006-07-02 13:54+0800\n"
+"PO-Revision-Date: 2006-08-22 23:09+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -148,12 +148,12 @@ msgstr "%s：选项“-W %s”不允许参数\n"
 #: lib/javacomp.c:125 lib/javacomp.c:139 lib/javacomp.c:155
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
-msgstr ""
+msgstr "compile_java_class 中有无效的 source_version 参数"
 
 #: lib/javacomp.c:170 lib/javacomp.c:191
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
-msgstr ""
+msgstr "compile_java_class 中有无效的 target_version 参数"
 
 #: lib/javacomp.c:475 src/write-csharp.c:721 src/write-java.c:996
 #: src/write-java.c:1008
@@ -197,11 +197,11 @@ msgstr "无法创建管道"
 
 #: lib/quotearg.c:239
 msgid "`"
-msgstr ""
+msgstr "“"
 
 #: lib/quotearg.c:240
 msgid "'"
-msgstr ""
+msgstr "”"
 
 #: lib/w32spawn.h:48
 #, c-format
@@ -326,19 +326,19 @@ msgid "In the directive number %u, the flags combination is invalid."
 msgstr "第 %u 条指令中，标志组合无效。"
 
 #: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
-msgstr "第 %u 条指令中，“%c”前不允许有标志。"
+msgstr "第 %u 条指令中，“%c”前不允许有精度。"
 
 #: src/format-gcc-internal.c:314
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
 "equal to %u."
-msgstr "第 %u 条指令中，第 0 个参数不是正整数。"
+msgstr "第 %u 条指令中，精度的参数个数必须是 %u 个。"
 
 #: src/format-gcc-internal.c:376
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, the precision specification is invalid."
 msgstr "第 %u 条指令中，精度指定无效。"
 
@@ -1501,12 +1501,12 @@ msgstr "%s 的参数应该是一个标点符号"
 #: src/msgfmt.c:347
 #, c-format
 msgid "invalid endianness: %s"
-msgstr ""
+msgstr "无效的 endianness：%s"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgfmt.c:367 src/msgunfmt.c:253 src/xgettext.c:520
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 #: src/msgfmt.c:420 src/msgfmt.c:442 src/msgfmt.c:464 src/msgunfmt.c:315
 #: src/msgunfmt.c:338
@@ -1903,7 +1903,8 @@ msgstr ""
 "或者如果给出 -J 并且它的环境(msgctxt)符合<MSGCTXT-模式>，\n"
 "或者如果给出 -K 并且它的关键字(msgid 或 msgid_plural)符合<MSGID-模式>，\n"
 "或者如果给出 -T 并且它的翻译(msgstr)符合<MSGSTR-模式>，\n"
-"或者如果给出 -C 并且译者的注释符合<注释-模式>，或者如果给出 -X 并且提取的注释符合<提取的注释模式>。\n"
+"或者如果给出 -C 并且译者的注释符合<注释-模式>，\n"
+"或者如果给出 -X 并且提取的注释符合<提取的注释模式>。\n"
 "\n"
 "如果指定了多余一种选择标准，最后所选择的消息将是每个标准所选择\n"
 "消息的集合。\n"
@@ -1916,7 +1917,8 @@ msgstr ""
 "\n"
 "  -N, --location=源文件       选择的消息提取自<源文件>\n"
 "  -M, --domain=域名           选择的消息属于名为<域名>的域\n"
-"  -J, --msgctxt               msgctxt 的起始  -K, --msgid                 msgid 的起始\n"
+"  -J, --msgctxt               msgctxt 的起始\n"
+"  -K, --msgid                 msgid 的起始\n"
 "  -T, --msgstr                msgstr 的起始\n"
 "  -C, --comment               翻译者注释的起始\n"
 "  -X, --extracted-comment     提取的注释的起始\n"
@@ -2126,6 +2128,9 @@ msgid ""
 "Either change all msgids and msgctxts to be pure ASCII, or ensure they are\n"
 "UTF-8 encoded from the beginning, i.e. already in your source code files.\n"
 msgstr ""
+"将文件 %s 由 %s 编码转换为 %s 编码将更改某些 msgid 或 msgctxt。\n"
+"请将全部的 msgid 和 msgctxt 都转换为纯 ASCII，或者从源代码上保证这些字符串\n"
+"都是 UTF-8 编码的。\n"
 
 #: src/msgl-charset.c:95
 #, c-format
@@ -2808,24 +2813,24 @@ msgstr "由 %s 和 %s 编写。\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/recode-sr-latin.c:121
 msgid "Danilo Segan"
-msgstr ""
+msgstr "Danilo Segan"
 
 #: src/recode-sr-latin.c:154
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
-msgstr ""
+msgstr "将塞尔维亚语由西里尔文转换为拉丁文。\n"
 
 #: src/recode-sr-latin.c:157
 #, c-format, no-wrap
 msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
 "standard output.\n"
-msgstr ""
+msgstr "输入文本从标准输入读取。转换后的文本输出到标准输出。\n"
 
 #: src/recode-sr-latin.c:332
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
-msgstr ""
+msgstr "输入无法用“%s”编码表示"
 
 #: src/recode-sr-latin.c:350
 #, c-format
@@ -3551,6 +3556,9 @@ msgid ""
 "Please consider using a format string with named arguments,\n"
 "and a mapping instead of a tuple for the arguments.\n"
 msgstr ""
+"带有未命名参数的“%s”格式字符串无法正确本地化：\n"
+"翻译者无法重新编排参数的顺序。\n"
+"请考虑使用带有命名参数和映射的格式字符串，而不是使用参数数组。\n"
 
 #: src/xgettext.c:2018
 msgid ""
@@ -3563,9 +3571,9 @@ msgstr ""
 "是空字符串。\n"
 
 #: src/xgettext.c:2621
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
-msgstr "%2$s 的参数 %1$s 含糊"
+msgstr "关键字“%.*s”的参数指定含糊"
 
 #: src/xgettext.c:2648
 #, c-format

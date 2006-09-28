@@ -1,14 +1,14 @@
 # Swedish messages for gettext-tools
 # Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006.
-# Revision: 1.16
+# Revision: 1.17
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-07-01 00:52+0200\n"
-"PO-Revision-Date: 2006-07-04 12:36+0200\n"
+"PO-Revision-Date: 2006-08-20 18:24+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -2349,7 +2349,7 @@ msgstr "pluraluttryck kan ge division med noll"
 
 #: src/msgl-check.c:148
 msgid "plural expression can produce integer overflow"
-msgstr "pluraluttryck kan ge överflöde av heltal"
+msgstr "pluraluttryck kan ge heltalsspill"
 
 #: src/msgl-check.c:153
 msgid ""
@@ -3003,7 +3003,7 @@ msgstr "Danilo Šegan"
 #: src/recode-sr-latin.c:154
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
-msgstr "Omkoda serbisk text från cyrillisk till latinsk kodning.\n"
+msgstr "Omkoda serbisk text från kyrillisk till latinsk kodning.\n"
 
 #: src/recode-sr-latin.c:157
 #, c-format, no-wrap
@@ -3055,7 +3055,7 @@ msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .dll format doesn't support contexts\n"
 msgstr ""
-"meddelandekatalog har översättningar med kontext, men .dll-formatet för\n"
+"meddelandekatalog har kontextberoende översättningar, men .dll-formatet för\n"
 "C# stöder inte kontext\n"
 
 #: src/write-csharp.c:685
@@ -3073,7 +3073,7 @@ msgid ""
 "message catalog has context dependent translations\n"
 "but the Java ResourceBundle format doesn't support contexts\n"
 msgstr ""
-"meddelandekatalog har översättningar med kontext, men Javas \n"
+"meddelandekatalog har kontextberoende översättningar, men Javas \n"
 "ResourceBundle-format stöder inte kontext\n"
 
 #: src/write-java.c:945
@@ -3108,8 +3108,8 @@ msgid ""
 "%s\n"
 msgstr ""
 "Följande kontext (msgctxt) innehåller tecken som inte är ASCII.\n"
-"Detta förorsakar problem för översättare som använder en teckenuppsättning\n"
-"som är en annan än din.  Försök använda en ren ASCII-msgctxt istället.\n"
+"Detta förorsakar problem för översättare som använder en annan\n"
+"teckenuppsättning än du.  Försök använda en ren ASCII-msgctxt istället.\n"
 "%s\n"
 
 #: src/write-po.c:873 src/write-po.c:963
@@ -3121,8 +3121,8 @@ msgid ""
 "%s\n"
 msgstr ""
 "Följande meddelande-id (msgid) innehåller tecken som inte är ASCII.\n"
-"Detta förorsakar problem för översättare som använder en teckenuppsättning\n"
-"som är en annan än din.  Försök använda en ren ASCII-msgid istället.\n"
+"Detta förorsakar problem för översättare som använder en annan\n"
+"teckenuppsättning än du.  Försök använda en ren ASCII-msgid istället.\n"
 "%s\n"
 
 #: src/write-po.c:1114
@@ -3146,7 +3146,7 @@ msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
 msgstr ""
-"meddelandekatalog har översättningar med kontext, men resultatformatet "
+"meddelandekatalog har kontextberoende översättningar, men resultatformatet "
 "stödjer inte dem."
 
 #: src/write-po.c:1167
@@ -3182,7 +3182,7 @@ msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
 msgstr ""
-"meddelandekatalog har översättningar med pluralformer, men formatet för\n"
+"meddelandekatalog har översättningar med pluralformer men formatet för\n"
 "Qt-meddelandekataloger stöder inte pluralhantering\n"
 
 #: src/write-qt.c:697
@@ -3194,7 +3194,7 @@ msgid ""
 msgstr ""
 "meddelandekatalogen har msgctxt-strängar med tecken utanför ISO-8859-1\n"
 "men formatet för meddelandekataloger i Qt stöder Unicode endast i de\n"
-"översatta strängarna, inte i de oöversatta strängarna\n"
+"översatta strängarna, inte i kontextsträngarna.\n"
 
 #: src/write-qt.c:721
 msgid ""
@@ -3216,15 +3216,15 @@ msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
 msgstr ""
-"meddelandekatalog har översättningar med kontext, men formatet för\n"
-"C# .resources stöder inte kontexthantering\n"
+"meddelandekatalog har kontextberoende översättningar men formatet för\n"
+"C# .resources stödjer inte kontexter\n"
 
 #: src/write-resources.c:151
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
 msgstr ""
-"meddelandekatalog har översättningar med pluralformer, men formatet för\n"
+"meddelandekatalog har översättningar med pluralformer men formatet för\n"
 "C# .resources stöder inte pluralhantering\n"
 
 #: src/write-tcl.c:158
@@ -3232,15 +3232,15 @@ msgid ""
 "message catalog has context dependent translations\n"
 "but the Tcl message catalog format doesn't support contexts\n"
 msgstr ""
-"meddelandekatalog har översättningar med kontext, men formatet för\n"
-"Tcl-meddelandekataloger stöder inte kontexthantering\n"
+"meddelandekatalog har kontextberoende översättningar men formatet för\n"
+"Tcl-meddelandekataloger stödjer inte kontexter\n"
 
 #: src/write-tcl.c:177
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
 msgstr ""
-"meddelandekatalog har översättningar med pluralformer, men formatet för\n"
+"meddelandekatalog har översättningar med pluralformer men formatet för\n"
 "Tcl-meddelandekataloger stöder inte pluralhantering\n"
 
 #: src/x-awk.c:341 src/x-python.c:1059
@@ -3423,7 +3423,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"%s:%d: Lång ogiltig multibytesekvens.\n"
+"%s:%d: Lång ofullständig multibytesekvens.\n"
 "Ange korrekt källkodning med --from-code eller med en kommentar enligt\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
@@ -3437,7 +3437,6 @@ msgstr ""
 "%s:%d: Ofullständig multibytesekvens vid filslut.\n"
 "Ange korrekt källkodning med --from-code eller med en kommentar enligt\n"
 "http://www.python.org/peps/pep-0263.html.\n"
-"\n"
 
 #: src/x-python.c:322
 #, c-format
@@ -3460,7 +3459,6 @@ msgstr ""
 "%s:%d: Ogiltig multibytesekvens.\n"
 "Ange korrekt källkodning med --from-code eller med en kommentar enligt\n"
 "http://www.python.org/peps/pep-0263.html.\n"
-"\n"
 
 #: src/x-python.c:675
 #, c-format

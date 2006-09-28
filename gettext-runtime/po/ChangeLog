@@ -1,3 +1,9 @@
+2006-09-28  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* id.po: Update from Tedi Heriyanto <tedi_heriyanto@yahoo.com>.
+	* zh_CN.po: Update from Funda Wang <fundawang@linux.net.cn>.
+
 2006-09-10  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (install_sh): New variable.

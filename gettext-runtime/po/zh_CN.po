@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13-pre1\n"
+"Project-Id-Version: gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-04-20 15:54+0200\n"
-"PO-Revision-Date: 2003-11-19 21:43+0800\n"
+"PO-Revision-Date: 2006-08-22 23:02+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -107,7 +107,7 @@ msgstr "由 %s 编写。\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/envsubst.c:119
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
 #: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
@@ -198,7 +198,7 @@ msgstr "标准输入"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/gettext.c:140 src/ngettext.c:130
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 #: src/gettext.c:244
 #, c-format, no-wrap

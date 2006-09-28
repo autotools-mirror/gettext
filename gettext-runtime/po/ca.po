@@ -1,42 +1,57 @@
-# Catalan messages for gettext-runtime.
+# Catalan messages for GNU gettext-tools.
 # Copyright (C) 2001, 2002, 2003 Free Software Foundation, Inc.
-# This file is distributed under the same license as the gettext-runtime package.
-# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006.
 #
-# Sóc Ivan, aquestes són les convencions que adopte per la 4.5.1:
-#   * Use 2 espais després d'un punt.
-#   * Missatges d'ajuda:
-#       * Forma d'ús: ...
-#               o bé: ...
+# Sóc Ivan, aquestes són les convencions que adopte per a la 0.15-pre5:
+#   * Sempre que es puga s’usaran els caràcters adequats per al text en català:
+#     l’apòstrof (’), ela geminada (ŀ, Ŀ), cometes («, », “, ”, ‘, ’, en aquest
+#     ordre de d’aparició), guionet (‐), guionet dur (‑), guió (—) i punts
+#     suspensius (…).  Compte, perquè *cap*, repetesc, *CAP* dels anteriors és
+#     el caràcter que s’obté teclejant directament; vegeu
+#     http://www.selidor.net/~ivan/blog/bits/20060304T0023-ortotipografia.html.
+#   * Use 2 espais després d’un punt.
+#   * Missatges d’ajuda:
+#       * Forma d’ús: …
+#               o bé: …
 #       * ARGUMENT_COMPOST, però ARGCOMP
 #       * FILE(s) -> cada FITXER (si és possible)
-#       * Cada línia de descripció d'una opció comença en la columna 24, i
-#         sempre es manté com a mínim a 4 espais del nom de l'opció.  Quan
-#         l'opció arriba a la columna 24, la descripció comença en la línia
+#       * Cada línia de descripció d’una opció comença en la columna 24, i
+#         sempre es manté com a mínim a 4 espais del nom de l’opció.  Quan
+#         l’opció arriba a la columna 24, la descripció comença en la línia
 #         inferior.  Les descripcions que no caben en una línia es parteixen i
 #         continuen en la columna 24 de la línia següent.
-#       * Les descripcions d'ítems que no són opcions es mantenen alineades a
-#         4 espais de l'ítem més llarg del bloc.  Les que no caben en una línia
+#       * Les descripcions d’ítems que no són opcions es mantenen alineades a
+#         4 espais de l’ítem més llarg del bloc.  Les que no caben en una línia
 #         es parteixen i continuen en la mateixa columna on comencen.
+#       o Excepció: ajudes de «pr», quin format vos agrada més?
 #   * Errors i avisos:
-#       * no és igual «no es pot obrir» que «no s'ha pogut obrir»
-#       * no és igual «s'està obrint X» que «en obrir X» (error)
+#       * no és igual «no es pot obrir» que «no s’ha pogut obrir»
+#       * no és igual «s’està obrint X» que «en obrir X» (error)
 #       * «avís:» comença amb minúscula, la cadena següent també
 #       * sempre van en una sola línia, a no ser que els retorns importen; en
 #         aquest cas, les noves línies comencen amb un caràcter de tabulació
 #   * VARIABLE_ENTORN, però «valor de variable»
 #   * Noms de funció: printf()
 #   * Noms de fitxer: «fitxer»
-#   * Noms d'opcions: «--opció=ARGUMENT»
+#   * Noms d’opcions: «--opció=ARGUMENT»
 #   * El text com a molt arriba a la columna 78, amb el caràcter de nova línia
-#     en la 79.  Les línies es parteixen de forma automàtica (no per que quede
+#     en la 79.  Les línies es parteixen de forma automàtica (no per a que quede
 #     bonic, excepte quan quede realment horrend o porte a confusió).
+#   * Els missatges marcats com a multilínia només arriben fins a la columna
+#     70.  A sovint contenen marques de format; en aquest cas s’hi inserta una
+#     nova línia perquè no hi ha forma de saber com serà de llarga la línia.
+#
+# FIXME: Lots of strings should be marked «no-wrap», not only those which
+#   are split between lines in English, but also those which would need to
+#   be splitted in its translation into other languages (this includes lines
+#   describing single options).  Also strings used in multiline error and
+#   warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13-pre1\n"
+"Project-Id-Version: gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-04-20 15:54+0200\n"
-"PO-Revision-Date: 2003-11-22 22:57+0100\n"
+"PO-Revision-Date: 2006-08-20 19:11+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -46,7 +61,7 @@ msgstr ""
 
 #: ../gettext-tools/lib/closeout.c:64
 msgid "write error"
-msgstr "error d'escriptura"
+msgstr "error d’escriptura"
 
 # Amb el mateix format que els errors de la libc.  ivb
 #: ../gettext-tools/lib/error.c:121
@@ -56,64 +71,64 @@ msgstr "Error desconegut del sistema"
 #: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: l'opció «%s» és ambígua\n"
+msgstr "%s: l’opció «%s» és ambígua\n"
 
 #: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: l'opció «--%s» no admet arguments\n"
+msgstr "%s: l’opció «--%s» no admet arguments\n"
 
 #: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: l'opció «%c%s» no admet arguments\n"
+msgstr "%s: l’opció «%c%s» no admet arguments\n"
 
 #: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
 #: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: l'opció «%s» necessita un argument\n"
+msgstr "%s: l’opció «%s» necessita un argument\n"
 
 #: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: l'opció «--%s» no és reconeguda\n"
+msgstr "%s: l’opció «--%s» no és reconeguda\n"
 
 #: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: l'opció «%c%s» no és reconeguda\n"
+msgstr "%s: l’opció «%c%s» no és reconeguda\n"
 
 #: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s: no es permet l'opció «%c»\n"
+msgstr "%s: no es permet l’opció «%c»\n"
 
 #: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
 #, c-format
 msgid "%s: invalid option -- %c\n"
-msgstr "%s: l'opció «%c» no és vàlida\n"
+msgstr "%s: l’opció «%c» no és vàlida\n"
 
 #: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
 #: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: l'opció «%c» necessita un argument\n"
+msgstr "%s: l’opció «%c» necessita un argument\n"
 
 #: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: l'opció «-W %s» és ambígua\n"
+msgstr "%s: l’opció «-W %s» és ambígua\n"
 
 #: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: l'opció «-W %s» no admet arguments\n"
+msgstr "%s: l’opció «-W %s» no admet arguments\n"
 
 #: ../gettext-tools/lib/xmalloc.c:41
 #, c-format
 msgid "memory exhausted"
-msgstr "la memòria s'ha exhaurit"
+msgstr "la memòria s’ha exhaurit"
 
 #: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
@@ -123,8 +138,8 @@ msgid ""
 "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
-"Aquest és programari lliure; vegeu el codi font per les condicions de còpia.\n"
-"No hi ha CAP garantia; ni tan sols de COMERCIABILITAT o ADEQUACIÓ PER UN\n"
+"Aquest és programari lliure; vegeu el codi font per a les condicions de còpia.\n"
+"No hi ha CAP garantia; ni tan sols de COMERCIABILITAT o ADEQUACIÓ PER A UN\n"
 "PROPÒSIT PARTICULAR.\n"
 
 #: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
@@ -135,7 +150,7 @@ msgstr "Escrit per %s.\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/envsubst.c:119
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
 #: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
@@ -150,19 +165,19 @@ msgstr "manquen arguments"
 #: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Proveu «%s --help» per obtenir més informació.\n"
+msgstr "Proveu «%s --help» per a obtenir més informació.\n"
 
-# Molt més clar que l'original...  ivb
+# Molt més clar que l’original…  ivb
 #: src/envsubst.c:177
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Forma d'ús: %s [OPCIÓ] [CADENA]...\n"
+msgstr "Forma d’ús: %s [OPCIÓ] [CADENA]…\n"
 
 # No és literal però queda més clar.  ivb
 #: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr "Substitueix variables d'entorn pels seus valors.\n"
+msgstr "Substitueix variables d’entorn pels seus valors.\n"
 
 #: src/envsubst.c:186
 #, c-format, no-wrap
@@ -172,7 +187,7 @@ msgstr "Mode de funcionament:\n"
 #: src/envsubst.c:189
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr "  -v, --variables      Mostra les variables que es troben en la CADENA.\n"
+msgstr "  -v, --variables      Mostra les variables que es troben a la CADENA.\n"
 
 #: src/envsubst.c:193
 #, c-format, no-wrap
@@ -199,11 +214,11 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
-"En el mode normal de funcionament es copia l'entrada estàndard a l'eixida\n"
-"estàndard, reemplaçant les referències a variables d'entorn amb la forma\n"
-"«$VARIABLE» o «${VARIABLE}» per llurs valors.  Si s'especifica una CADENA,\n"
-"només es substituiran les variables d'entorn referides en ella; altrament,\n"
-"es substituiran totes les variables d'entorn que apareguen en l'entrada\n"
+"En el mode normal de funcionament es copia l’entrada estàndard a l’eixida\n"
+"estàndard, reemplaçant les referències a variables d’entorn amb la forma\n"
+"«$VARIABLE» o «${VARIABLE}» per llurs valors.  Si s’especifica una CADENA,\n"
+"només es substituiran les variables d’entorn referides en ella; altrament,\n"
+"es substituiran totes les variables d’entorn que apareguen a l’entrada\n"
 "estàndard.\n"
 
 #: src/envsubst.c:212
@@ -212,7 +227,7 @@ msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
-"En usar l'opció «--variables», es descartarà l'entrada estàndard i l'eixida\n"
+"En emprar l’opció «--variables», es descartarà l’entrada estàndard i l’eixida\n"
 "consistirà en les variables referides en la CADENA, una per línia.\n"
 
 #: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
@@ -231,7 +246,7 @@ msgstr "entrada estàndard"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/gettext.c:140 src/ngettext.c:130
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 # FIXME: The first syntax is badly described.  ivb
 #: src/gettext.c:244
@@ -240,13 +255,13 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Forma d'ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG\n"
-"         o: %s [OPCIÓ] -s [IDMSG]...\n"
+"Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG\n"
+"         o: %s [OPCIÓ] -s [IDMSG]…\n"
 
 #: src/gettext.c:250
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "Mostra la traducció a idioma natiu d'un missatge textual.\n"
+msgstr "Mostra la traducció a idioma natiu d’un missatge textual.\n"
 
 #: src/gettext.c:254
 #, c-format, no-wrap
@@ -262,14 +277,14 @@ msgid ""
 msgstr ""
 "  -d, --domain=DOMINI_TEXTUAL\n"
 "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
-"  -e                   Habilita l'expansió d'algunes seqüències d'escapada.\n"
-"  -E                   (No es té en compte, s'accepta per compatibilitat).\n"
+"  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
+"  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
 "  -h, --help           Mostra aquesta ajuda i ix.\n"
 "  -n                   Elimina el caràcter de nova línia final.\n"
 "  -V, --version        Mostra informació sobre la versió i ix.\n"
 "  [DOMINI_TEXTUAL] IDMSG\n"
 "                       Obté del DOMINI_TEXTUAL el missatge traduït\n"
-"                       corresponent a l'IDMSG.\n"
+"                       corresponent a l’IDMSG.\n"
 
 #: src/gettext.c:265
 #, c-format, no-wrap
@@ -283,19 +298,19 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Si no s'especifica el paràmetre DOMINI_TEXTUAL, la variable d'entorn\n"
-"TEXTDOMAIN determinarà el domini a usar.  Si el catàleg de missatges no es\n"
-"troba en el directori habitual, es pot especificar una altra ubicació amb la\n"
-"variable d'entorn TEXTDOMAINDIR.\n"
-"Quan s'usa l'opció «-s» el programa es comporta com l'ordre «echo».  Però, no\n"
-"només còpia els seus arguments en l'eixida estàndard, sinò que tradueix els\n"
-"missatges que troba en el catàleg seleccionat.\n"
-"Directori estàndard de recerca: %s\n"
+"Si no s’especifica el paràmetre DOMINI_TEXTUAL, la variable d’entorn\n"
+"TEXTDOMAIN determinarà el domini a emprar.  Si el catàleg de missatges no es\n"
+"troba al directori habitual, es pot especificar una altra ubicació amb la\n"
+"variable d’entorn TEXTDOMAINDIR.\n"
+"Quan s’empra l’opció «-s» el programa es comporta com l’ordre «echo».  Però,\n"
+"no només còpia els seus arguments en l’eixida estàndard, sinò que tradueix els\n"
+"missatges que troba al catàleg seleccionat.\n"
+"Directori estàndard de cerca: %s\n"
 
 #: src/ngettext.c:213
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "Forma d'ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG IDMSG_PLURAL NOMBRE\n"
+msgstr "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG IDMSG_PLURAL NOMBRE\n"
 
 #: src/ngettext.c:218
 #, c-format, no-wrap
@@ -303,7 +318,7 @@ msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
-"Mostra la traducció a idioma natiu d'un missatge textual la forma gramatical\n"
+"Mostra la traducció a idioma natiu d’un missatge textual la forma gramatical\n"
 "del qual depén del nombre.\n"
 
 #: src/ngettext.c:223
@@ -320,13 +335,13 @@ msgid ""
 msgstr ""
 "  -d, --domain=DOMINI_TEXTUAL\n"
 "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
-"  -e                   Habilita l'expansió d'algunes seqüències d'escapada.\n"
-"  -E                   (No es té en compte, s'accepta per compatibilitat.)\n"
+"  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
+"  -E                   (No es té en compte, s’accepta per compatibilitat.)\n"
 "  -h, --help           Mostra aquesta ajuda i ix.\n"
 "  -V, --version        Mostra informació sobre la versió i ix.\n"
 "  [DOMINI_TEXTUAL]     Obté del DOMINI_TEXTUAL el missatge traduït.\n"
 "  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
-"  NOMBRE               Escull la forma singular o la plural basant-se en\n"
+"  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
 "                       aquest valor.\n"
 
 #: src/ngettext.c:234
@@ -338,8 +353,8 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Si no s'especifica el paràmetre DOMINI_TEXTUAL, la variable d'entorn\n"
-"TEXTDOMAIN determinarà el domini a usar.  Si el catàleg de missatges no es\n"
-"troba en el directori habitual, es pot especificar una altra ubicació amb la\n"
-"variable d'entorn TEXTDOMAINDIR.\n"
-"Directori estàndard de recerca: %s\n"
+"Si no s’especifica el paràmetre DOMINI_TEXTUAL, la variable d’entorn\n"
+"TEXTDOMAIN determinarà el domini a emprar.  Si el catàleg de missatges no es\n"
+"troba al directori habitual, es pot especificar una altra ubicació amb la\n"
+"variable d’entorn TEXTDOMAINDIR.\n"
+"Directori estàndard de cerca: %s\n"
