@@ -1,4 +1,4 @@
-/* closeout.c - close standard output
+/* closeout.c - close standard output and standard error
    Copyright (C) 1998-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,10 +23,6 @@
 #include <stdio.h>
 #include <errno.h>
 
-#if 0
-#include "unlocked-io.h"
-#include "__fpending.h"
-#endif
 #include "error.h"
 #include "fwriteerror.h"
 #include "exit.h"
@@ -51,22 +47,36 @@
    that writes to stdout -- just let the internal stream state record
    the failure.  That's what the ferror test is checking below.
 
+   If the stdout file descriptor was initially closed (such as when executing
+   a program through "program 1>&-"), it is a failure if and only if some
+   output was made to stdout.
+
+   Likewise for standard error.
+
    It's important to detect such failures and exit nonzero because many
    tools (most notably `make' and other build-management systems) depend
    on being able to detect failure in other tools via their exit status.  */
 
-static void
-close_stdout_status (int status)
-{
-  if (fwriteerror (stdout))
-    error (status, errno, "%s", _("write error"));
-}
-
-/* Close standard output, exiting with status EXIT_FAILURE on failure.  */
+/* Close standard output and standard error, exiting with status EXIT_FAILURE
+   on failure.  */
 void
 close_stdout (void)
 {
-  close_stdout_status (EXIT_FAILURE);
+  /* Close standard output.  */
+  if (fwriteerror_no_ebadf (stdout))
+    error (EXIT_FAILURE, errno, "%s", _("write error"));
+
+  /* Close standard error.  This is simpler than fwriteerror_no_ebadf, because
+     upon failure we don't need an errno - all we can do at this point is to
+     set an exit status.  */
+  errno = 0;
+  if (ferror (stderr) || fflush (stderr))
+    {
+      fclose (stderr);
+      exit (EXIT_FAILURE);
+    }
+  if (fclose (stderr) && errno != EBADF)
+    exit (EXIT_FAILURE);
 }
 
 /* Note: When exit (...) calls the atexit-registered
