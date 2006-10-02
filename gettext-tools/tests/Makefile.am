@@ -79,7 +79,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-lisp-1 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
-	xgettext-perl-5 \
+	xgettext-perl-5 xgettext-perl-6 \
 	xgettext-php-1 xgettext-php-2 \
 	xgettext-po-1 \
 	xgettext-properties-1 \
