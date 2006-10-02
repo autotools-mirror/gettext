@@ -60,6 +60,7 @@
 	* modules/c-strstr: Remove file, now in gnulib.
 	* lib/c-strstr.h: Remove file, now in gnulib.
 	* lib/c-strstr.c: Remove file, now in gnulib.
+	* Makefile.am (EXTRA_DIST): Remove them.
 
 2006-08-22  Bruno Haible  <bruno@clisp.org>
 
