@@ -8,8 +8,19 @@ Tasks not to forget before release:
     wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.guess'
     wget 'http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/config/config/config.sub'
 - Update gettext-runtime/intl/locale.alias from glibc's intl/locale.alias.
-- Update {gettext-tools/lib,gettext-runtime/intl}/{localcharset.h,localcharset.c,config.charset}
+- Update gettext-runtime/intl/{localcharset.h,localcharset.c,config.charset}
   from libcharset inside libiconv.
+  Check that gnulib/lib/{localcharset.h,localcharset.c,config.charset}
+  agrees with it, except for copyright header changes.
+
+- Update the version numbers in
+    gettext-runtime/intl/libgnuintl.h.in
+    gettext-tools/src/gettext-po.h.in
+
+- Update Origin version in
+    gettext-runtime/po/Makefile.in.in and
+    gettext-tools/po/Makefile.in.in
+  if these files have changed since the last release.
 
 - Update -version-info arguments in gettext-runtime/intl/Makefile.in
   and in gettext-tools/src/Makefile.am.
@@ -18,19 +29,6 @@ Tasks not to forget before release:
     LTV_CURRENT and set LTV_REVISION to 0,
   * if any functions/classes have been added, increment LTV_AGE,
   * if backwards compatibility has been broken, set LTV_AGE to 0.
-
-- Update the version numbers in
-    gettext-runtime/intl/libgnuintl.h.in
-    gettext-runtime/windows/intl.rc
-    gettext-tools/src/gettext-po.h.in
-    gettext-tools/windows/gettextlib.rc
-    gettext-tools/windows/gettextsrc.rc
-    gettext-tools/windows/gettextpo.rc
-
-- Update Origin version in
-    gettext-runtime/po/Makefile.in.in and
-    gettext-tools/po/Makefile.in.in
-  if these files have changed since the last release.
 
 - Remove README-alpha from EXTRA_DIST in Makefile.am.
 
