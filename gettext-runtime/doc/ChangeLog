@@ -1,3 +1,8 @@
+2006-10-02  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2006-08-09  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* nls.texi: Reduce spacing after "i.e.".
