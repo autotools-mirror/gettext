@@ -1,3 +1,11 @@
+2006-10-01  Bruno Haible  <bruno@clisp.org>
+
+	* intldir.m4: New file.
+	* gettext.m4 (AM_GNU_GETTEXT): Define gt_included_intl to yes if
+	AM_GNU_GETTEXT_INTL_SUBDIR is present among the macros selected by
+	aclocal.
+	* Makefile.am (EXTRA_DIST): Add intl.m4, intldir.m4.
+
 2006-09-28  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* intmax.m4 (gt_TYPE_INTMAX_T): Avoid unused variables warning.

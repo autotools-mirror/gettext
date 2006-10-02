@@ -1,3 +1,9 @@
+2006-10-01  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Mention intldir.m4.
+	(AM_GNU_GETTEXT): Mention the effect of AM_GNU_GETTEXT_INTL_SUBDIR.
+	(AM_GNU_GETTEXT_INTL_SUBDIR): New subsection.
+
 2006-09-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Don't mention inttypes-h.m4.

@@ -14,6 +14,7 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/iconv.m4 \
   ../../gettext-runtime/m4/intdiv0.m4 \
   ../../gettext-runtime/m4/intl.m4 \
+  ../../gettext-runtime/m4/intldir.m4 \
   ../../gettext-runtime/m4/intmax.m4 \
   ../../gettext-runtime/m4/inttypes_h.m4 \
   ../../gettext-runtime/m4/inttypes-pri.m4 \

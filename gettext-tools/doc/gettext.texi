@@ -336,6 +336,7 @@ Autoconf macros for use in @file{configure.in}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 
@@ -6944,8 +6945,8 @@ automake 1.9.
 If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{codeset.m4},
 @file{gettext.m4}, @file{glibc2.m4}, @file{glibc21.m4}, @file{iconv.m4},
-@file{intdiv0.m4}, @file{intl.m4}, @file{intmax.m4}, @file{inttypes_h.m4},
-@file{inttypes-pri.m4}, @file{lcmessage.m4},
+@file{intdiv0.m4}, @file{intl.m4}, @file{intldir.m4}, @file{intmax.m4},
+@file{inttypes_h.m4}, @file{inttypes-pri.m4}, @file{lcmessage.m4},
 @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{lock.m4},
 @file{longdouble.m4}, @file{longlong.m4}, @file{nls.m4}, @file{po.m4},
 @file{printf-posix.m4}, @file{progtest.m4}, @file{size_max.m4},
@@ -7341,6 +7342,7 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 @menu
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 @end menu
@@ -7368,10 +7370,13 @@ AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}], [@var{intldir}])
 @c then it is in order to install shared libraries that depend on libintl.)
 @var{intlsymbol} can be @samp{external} or @samp{no-libtool}.  The default
 (if it is not specified or empty) is @samp{no-libtool}.  @var{intlsymbol}
-should be @samp{external} for packages with no @file{intl/} directory,
-and @samp{no-libtool} for packages with an @file{intl/} directory.  In
-the latter case, a static library @code{$(top_builddir)/intl/libintl.a}
-will be created.
+should be @samp{external} for packages with no @file{intl/} directory.
+For packages with an @file{intl/} directory, you can either use an
+@var{intlsymbol} equal to @samp{no-libtool}, or you can use @samp{external}
+and override by using the macro @code{AM_GNU_GETTEXT_INTL_SUBDIR} elsewhere.
+The two ways to specify the existence of an @file{intl/} directory are
+equivalent.  At build time, a static library
+@code{$(top_builddir)/intl/libintl.a} will then be created.
 
 If @var{needsymbol} is specified and is @samp{need-ngettext}, then GNU
 gettext implementations (in libc or libintl) without the @code{ngettext()}
@@ -7431,7 +7436,7 @@ linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
 
-@node AM_GNU_GETTEXT_VERSION, AM_PO_SUBDIRS, AM_GNU_GETTEXT, autoconf macros
+@node AM_GNU_GETTEXT_VERSION, AM_GNU_GETTEXT_INTL_SUBDIR, AM_GNU_GETTEXT, autoconf macros
 @subsection AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 
 @amindex AM_GNU_GETTEXT_VERSION
@@ -7441,7 +7446,22 @@ the GNU gettext infrastructure that is used by the package.
 The use of this macro is optional; only the @code{autopoint} program makes
 use of it (@pxref{CVS Issues}).
 
-@node AM_PO_SUBDIRS, AM_ICONV, AM_GNU_GETTEXT_VERSION, autoconf macros
+@node AM_GNU_GETTEXT_INTL_SUBDIR, AM_PO_SUBDIRS, AM_GNU_GETTEXT_VERSION, autoconf macros
+@subsection AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
+
+@amindex AM_GNU_GETTEXT_INTL_SUBDIR
+The @code{AM_GNU_GETTEXT_INTL_SUBDIR} macro specifies that the
+@code{AM_GNU_GETTEXT} macro, although invoked with the first argument
+@samp{external}, should also prepare for building the @file{intl/}
+subdirectory.
+
+The @code{AM_GNU_GETTEXT_INTL_SUBDIR} invocation can occur before or after
+the @code{AM_GNU_GETTEXT} invocation; the order doesn't matter.
+
+The use of this macro requires GNU automake 1.10 or newer and
+GNU autoconf 2.61 or newer.
+
+@node AM_PO_SUBDIRS, AM_ICONV, AM_GNU_GETTEXT_INTL_SUBDIR, autoconf macros
 @subsection AM_PO_SUBDIRS in @file{po.m4}
 
 @amindex AM_PO_SUBDIRS
