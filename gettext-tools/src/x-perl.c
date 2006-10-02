@@ -2782,7 +2782,7 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
-   looking at a valid C or C++ program, and leave the complaints about
+   looking at a valid Perl program, and leave the complaints about
    the grammar to the compiler.
 
      Normal handling: Look for
@@ -2791,7 +2791,56 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
        keyword ( ... msgid ... msgid_plural ... )
 
    We use recursion because the arguments before msgid or between msgid
-   and msgid_plural can contain subexpressions of the same form.  */
+   and msgid_plural can contain subexpressions of the same form.
+
+   In Perl, parentheses around function arguments can be omitted.
+
+   The general rules are:
+     1) Functions declared with a prototype take exactly the specified number
+        of arguments.
+          sub one_arg ($) { ... }
+          sub two_args ($$) { ... }
+     2) When a function name is immediately followed by an opening parenthesis,
+        the argument list ends at the corresponding closing parenthesis.
+
+   If rule 1 and rule 2 are contradictory, i.e. when the program calls a
+   function with an explicit argument list and the wrong number of arguments,
+   the program is invalid:
+     sub two_args ($$) { ... }
+     foo two_args (x), y             - invalid due to rules 1 and 2
+
+   Ambiguities are resolved as follows:
+     3) Some built-ins, such as 'abs', 'sqrt', 'sin', 'cos', ..., and functions
+        declared with a prototype of exactly one argument take exactly one
+        argument:
+          foo sin x, y  ==>  foo (sin (x), y)
+          sub one_arg ($) { ... }
+          foo one_arg x, y, z  ==>  foo (one_arg (x), y, z)
+     4) Other identifiers, if not immediately followed by an opening
+        parenthesis, consume the entire remaining argument list:
+          foo bar x, y  ==>  foo (bar (x, y))
+          sub two_args ($$) { ... }
+          foo two_args x, y  ==>  foo (two_args (x, y))
+
+   Other series of comma separated expressions without a function name at
+   the beginning are comma expressions:
+          sub two_args ($$) { ... }
+          foo two_args x, (y, z)  ==>  foo (two_args (x, (y, z)))
+   Note that the evaluation of comma expressions returns a list of values
+   when in list context (e.g. inside the argument list of a function without
+   prototype) but only one value when inside the argument list of a function
+   with a prototype:
+          sub print3 ($$$) { print @_ }
+          print3 5, (6, 7), 8  ==>  578
+          print 5, (6, 7), 8  ==>  5678
+
+   Where rule 3 or 4 contradict rule 1 or 2, the program is invalid:
+     sin (x, y)                      - invalid due to rules 2 and 3
+     sub one_arg ($) { ... }
+     one_arg (x, y)                  - invalid due to rules 2 and 3
+     sub two_args ($$) { ... }
+     foo two_args x, y, z            - invalid due to rules 1 and 4
+ */
 
 /* Extract messages until the next balanced closing parenthesis.
    Extracted messages are added to MLP.
