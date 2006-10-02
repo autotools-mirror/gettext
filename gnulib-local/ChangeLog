@@ -76,6 +76,7 @@
 	* m4/hard-locale.m4.diff: Update.
 	* m4/quote.m4.diff: Update.
 	* m4/quotearg.m4.diff: Update.
+	* Makefile.am (EXTRA_DIST): Remove the removed files.
 
 2006-08-22  Bruno Haible  <bruno@clisp.org>
 
