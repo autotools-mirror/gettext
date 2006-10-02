@@ -48,6 +48,10 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 	    -I $(srcdir)/doc --no-validate nls.texi
 
 
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
+
+
 # Woe32 support.
 
 EXTRA_DIST += README.woe32

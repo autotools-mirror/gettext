@@ -47,6 +47,10 @@ $(srcdir)/ABOUT-NLS: $(srcdir)/../gettext-runtime/ABOUT-NLS
 	cp $(srcdir)/../gettext-runtime/ABOUT-NLS $(srcdir)/ABOUT-NLS
 
 
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
+
+
 # Woe32 support.
 
 EXTRA_DIST += README.woe32
