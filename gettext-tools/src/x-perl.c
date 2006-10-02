@@ -2904,7 +2904,6 @@ extract_balanced (message_list_ty *mlp,
 
   for (;;)
     {
-      int my_last_token = last_token;
       /* The current token.  */
       token_ty *tp;
 
@@ -3082,14 +3081,6 @@ extract_balanced (message_list_ty *mlp,
 		    free (next_argparser);
 		  free_token (tp);
 		  return true;
-		}
-	      /* FIXME: Is this still needed?  */
-	      if (my_last_token == token_type_keyword_symbol)
-		{
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  arglist_parser_done (argparser, arg);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		  argparser = arglist_parser_alloc (mlp, NULL);
 		}
 	      next_is_argument = false;
 	      if (next_argparser != NULL)

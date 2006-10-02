@@ -1,5 +1,7 @@
 2006-10-01  Bruno Haible  <bruno@clisp.org>
 
+	* x-perl.c (extract_balanced): Remove unused variable prev_last_token.
+
 	Fix Perl parsing bug introduced between 0.14.6 and 0.15.
 	* x-perl.c (extract_balanced): Add eat_delim and comma_delim arguments.
 	Use recursion to handle the case of a keyword not followed by an
