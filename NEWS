@@ -7,7 +7,14 @@
   files that are needed: gettext.m4, iconv.m4, lib-ld.m4, lib-link.m4,
   lib-prefix.m4, nls.m4, po.m4, progtest.m4.
 
-* The gettext autoconf macros now require autoconf 2.52 or newer.
+* Autoconf macros:
+  - The gettext autoconf macros now require autoconf 2.52 or newer.
+  - A new autoconf macro AM_GNU_GETTEXT_INTL_SUBDIR is added. It allows to
+    specify the presence of an intl/ subdirectory outside the AM_GNU_GETTEXT
+    invocation.
+  - A new autoconf macro AM_GNU_GETTEXT_NEED is added. It allows to specify
+    the requirements relating to the GNU gettext implementation outside the
+    AM_GNU_GETTEXT invocation.
 
 * Vastly improved French translations. Thanks to Christophe Combelles.
 
