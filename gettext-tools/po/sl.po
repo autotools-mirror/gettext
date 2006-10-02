@@ -1,15 +1,15 @@
 # -*- mode:po; coding:utf-8; -*- Slovenian messages for GNU gettext package
-# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002, 2003 Free Software Foundation, Inc.
-# Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2003.
+# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002, 2003, 2006 Free Software Foundation, Inc.
+# Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2003, 2006.
 #
-# $Id: gettext-tools-0.14.5.sl.po,v 1.5 2005/09/22 09:51:32 peterlin Exp $
+# $Id: gettext-tools-0.15-pre5.sl.po,v 1.1 2006/09/28 12:32:34 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.14.5\n"
+"Project-Id-Version: GNU gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-07-01 00:52+0200\n"
-"PO-Revision-Date: 2005-09-22 11:51+0200\n"
+"PO-Revision-Date: 2006-09-28 14:32+0200\n"
 "Last-Translator: Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -150,12 +150,12 @@ msgstr "%s: izbira »-W %s« ne dovoljuje argumenta\n"
 #: lib/javacomp.c:125 lib/javacomp.c:139 lib/javacomp.c:155
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
-msgstr ""
+msgstr "neveljaven argument source_version za compile_java_class"
 
 #: lib/javacomp.c:170 lib/javacomp.c:191
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
-msgstr ""
+msgstr "neveljaven argument target_version za compile_java_class"
 
 #: lib/javacomp.c:475 src/write-csharp.c:721 src/write-java.c:996
 #: src/write-java.c:1008
@@ -201,11 +201,11 @@ msgstr "cevovoda ni mogoče ustvariti"
 
 #: lib/quotearg.c:239
 msgid "`"
-msgstr ""
+msgstr "»"
 
 #: lib/quotearg.c:240
 msgid "'"
-msgstr ""
+msgstr "«"
 
 #: lib/w32spawn.h:48
 #, c-format
@@ -259,10 +259,9 @@ msgid ""
 msgstr "formatni določili v »msgid« in »%s« za argument %u nista enaki"
 
 #: src/format-boost.c:427
-#, fuzzy, c-format
+#, c-format
 msgid "The directive number %u starts with | but does not end with |."
-msgstr ""
-"Direktivo številka %u zaključuje neveljaven znak namesto zaklepaja »}«.<"
+msgstr "Direktiva številka %u se začenja z »|«, vendar se ne zaključuje z »|«."
 
 #: src/format-c.c:177
 #, c-format
@@ -331,26 +330,27 @@ msgid "The string contains a lone '}' after directive number %u."
 msgstr "Niz vsebuje zaklepaj »}« brez para za direktivo številka %u."
 
 #: src/format-gcc-internal.c:245
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, the flags combination is invalid."
-msgstr "V direktivi številka %u je argument %d negativen."
+msgstr "V direktivi številka %u je kombinacija modifikatorjev neveljavna."
 
 #: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
-msgstr "V direktivi številka %u modifikatorji niso dovoljeni pred »%c«."
+msgstr "V direktivi številka %u natančnost pred »%c« ni dovoljena."
 
 #: src/format-gcc-internal.c:314
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
 "equal to %u."
-msgstr "V direktivi številka %u argument številka 0 ni pozitivno celo število."
+msgstr ""
+"V direktivi številka %u mora biti številka argumenta za natančnost enaka %u."
 
 #: src/format-gcc-internal.c:376
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, the precision specification is invalid."
-msgstr "V direktivi številka %u je argument %d negativen."
+msgstr "V direktivi številka %u je določitev natančnosti neveljavna."
 
 #: src/format-gcc-internal.c:424
 #, c-format
@@ -709,7 +709,7 @@ msgstr "Avtor %s.\n"
 #: src/msginit.c:257 src/msguniq.c:246 src/recode-sr-latin.c:122
 #: src/urlget.c:137
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
 #: src/hostname.c:195 src/msginit.c:267 src/recode-sr-latin.c:131
 #, c-format
@@ -1256,7 +1256,7 @@ msgstr ""
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:147 src/msgcomm.c:267 src/msgmerge.c:309
 msgid "Peter Miller"
-msgstr ""
+msgstr "Peter Miller"
 
 #: src/msgcmp.c:158 src/msgmerge.c:320
 #, c-format
@@ -1617,12 +1617,12 @@ msgstr "argument %s mora biti eno samo ločilo"
 #: src/msgfmt.c:347
 #, c-format
 msgid "invalid endianness: %s"
-msgstr ""
+msgstr "neveljaven vrstni red bajtov: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgfmt.c:367 src/msgunfmt.c:253 src/xgettext.c:520
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 #: src/msgfmt.c:420 src/msgfmt.c:442 src/msgfmt.c:464 src/msgunfmt.c:315
 #: src/msgunfmt.c:338
@@ -1988,11 +1988,12 @@ msgid "error while reading \"%s\""
 msgstr "napaka pri branju \"%s\""
 
 #: src/msggrep.c:477
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
-msgstr "izbire »%c« ni moč uporabiti, preden je izbran »K«, »T« ali »C«"
+msgstr ""
+"izbire »%c« ni moč uporabiti, preden je izbrano »J«, »K«, »T«, »C« ali »X«"
 
 #: src/msggrep.c:497
 #, c-format, no-wrap
@@ -2004,7 +2005,7 @@ msgstr ""
 "pripadajo dani izvorni datoteki.\n"
 
 #: src/msggrep.c:523
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -2044,14 +2045,19 @@ msgid ""
 msgstr ""
 "Izbira sporočil:\n"
 "  [-N IZVORNA_DATOTEKA]... [-M DOMENA]... \n"
-"  [-K VZOREC-MSGID] [-T VZOREC-MSGSTR] [-C VZOREC_KOMENTARJA]\n"
+"  [-J VZOREC-MSGCTXT] [-K VZOREC-MSGID] [-T VZOREC-MSGSTR]\n"
+"  [-C VZOREC_KOMENTARJA] [-X VZOREC_IZVLEČENEGA_KOMENTARJA]\n"
 "Sporočilo izberemo, če izvira iz ene od navedenih izvornih datotek,\n"
 "ali če izvira iz ene od navedenih domen,\n"
+"ali če je podana izbira -J in izvorna sporočila (msgctct) \n"
+"ustrezajo podanemu vzorcu,\n"
 "ali če je podana izbira -K in izvorna sporočila (msgid ali msgid_plural)\n"
 "ustrezajo podanemu vzorcu,\n"
 "ali če je podana izbira -T in prevodi sporočil (msgstr) ustrezajo podanemu\n"
 "vzorcu,\n"
 "ali če je podana izbira -C in in prevajačevi komentarji ustrezajo podanemu\n"
+"vzorcu,\n"
+"ali če je podana izbira -X in in izvlečeni komentarji ustrezajo podanemu\n"
 "vzorcu.\n"
 "\n"
 "Če je podan več kot en pogoj, je množica izbranih sporočil unija izbranih\n"
@@ -2064,16 +2070,20 @@ msgstr ""
 "\n"
 "  -N, --location=IZVORNA_DATOTEKA  izberemo sporočila, izvlečena iz navedene\n"
 "                                IZVORNE DATOTEKE\n"
-"  -M, --domain=DOMENA         izberemo sporočila iz podane DOMENE\n"
+"  -M, --domain=DOMENA         izberi sporočila iz podane DOMENE\n"
+"  -J, --msgctxt               začetek vzorca msgctxt\n"
 "  -K, --msgid                 začetek vzorca msgid\n"
 "  -T, --msgstr                začetek vzorca msgstr\n"
-"  -C, --comment               začetek vzorca komentarja\n"
+"  -C, --comment               začetek vzorca prevajalčevega komentarja\n"
+"  -X, --extracted-comment     začetek vzorca izvlečenega komentarja\n"
 "  -E, --extended-regexp       VZOREC je razširjeni regularni izraz\n"
 "  -F, --fixed-strings         VZOREC je množica nizov znakov, ločenih z\n"
 "                                znakom za novo vrstico\n"
-"  -e, --regexp=VZOREC         uporabimo VZOREC kot regularni izraz\n"
-"  -f, --file=DATOTEKA         VZOREC preberemo iz navedene datoteke\n"
-"  -i, --ignore-case           ne razlikujemo med velikimi in malimi črkami\n"
+"  -e, --regexp=VZOREC         uporabi VZOREC kot regularni izraz\n"
+"  -f, --file=DATOTEKA         VZOREC preberi iz navedene datoteke\n"
+"  -i, --ignore-case           ne razlikuj med velikimi in malimi črkami\n"
+"  -v, --invert-match          izpiši le sporočila, ki ne ustrezajo nobenemu\n"
+"                              od podanih kriterijev\n"
 
 #: src/msggrep.c:572
 #, c-format
@@ -2289,6 +2299,12 @@ msgid ""
 "Either change all msgids and msgctxts to be pure ASCII, or ensure they are\n"
 "UTF-8 encoded from the beginning, i.e. already in your source code files.\n"
 msgstr ""
+"Pretvorba datoteke %s iz nabora znakov %s v nabor %s\n"
+"spremeni nekatere nize msgid in msgctxt.\n"
+"Bodisi spremenite vse nize msgid in msgctxt v čisti ASCII, ali pa "
+"zagotovite, da\n"
+"so kodirani skladno z UTF-8 od samega začetka, torej v datotekah z izvorno "
+"kodo.\n"
 
 #: src/msgl-charset.c:95
 #, c-format
@@ -2370,24 +2386,21 @@ msgstr ""
 "deljenje z nič"
 
 #: src/msgl-check.c:185
-#, fuzzy, c-format
+#, c-format
 msgid "Try using the following, valid for %s:"
-msgstr "Poskusite uporabiti naslednje, veljavno za %s:\n"
+msgstr "Poskusite uporabiti naslednje, veljavno za %s:"
 
 #: src/msgl-check.c:268 src/msgl-check.c:292
-#, fuzzy
 msgid "message catalog has plural form translations"
-msgstr "katalog sporočil vsebuje množinske oblike prevodov..."
+msgstr "katalog sporočil vsebuje množinske oblike prevodov,"
 
 #: src/msgl-check.c:270
-#, fuzzy
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
-msgstr "...v glavi pa manjka določilo \"plural=IZRAZ\""
+msgstr "v glavi pa manjka določilo \"plural=IZRAZ\""
 
 #: src/msgl-check.c:294
-#, fuzzy
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
-msgstr "...v glavi pa manjka določilo \"nplurals=ŠTEVILO\""
+msgstr "v glavi pa manjka določilo \"nplurals=ŠTEVILO\""
 
 #: src/msgl-check.c:330
 msgid "invalid nplurals value"
@@ -2398,9 +2411,9 @@ msgid "invalid plural expression"
 msgstr "neveljaven izraz za množinske oblike"
 
 #: src/msgl-check.c:382 src/msgl-check.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "nplurals = %lu"
-msgstr "nplurals = %lu..."
+msgstr "nplurals = %lu"
 
 # This message needs msgid_plural form!
 # msgstr[0] "...nekatera sporočila pa imajo samo %lu množinskih oblik"
@@ -2408,13 +2421,13 @@ msgstr "nplurals = %lu..."
 # msgstr[2] "...nekatera sporočila pa imajo samo %lu množinski obliki"
 # msgstr[3] "...nekatera sporočila pa imajo samo %lu množinske oblike"
 #: src/msgl-check.c:384
-#, fuzzy, c-format
+#, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
-msgstr[0] "...nekatera sporočila pa imajo samo %lu množinskih oblik"
-msgstr[1] "...nekatera sporočila pa imajo samo %lu množinsko obliko"
-msgstr[2] "...nekatera sporočila pa imajo samo %lu množinski obliki"
-msgstr[3] "...nekatera sporočila pa imajo samo %lu množinske oblike"
+msgstr[0] "nekatera sporočila pa imajo samo %lu množinskih oblik"
+msgstr[1] "nekatera sporočila pa imajo samo %lu množinsko obliko"
+msgstr[2] "nekatera sporočila pa imajo samo %lu množinski obliki"
+msgstr[3] "nekatera sporočila pa imajo samo %lu množinske oblike"
 
 # This message needs msgid_plural form!
 # msgstr[0] "...nekatera sporočila pa imajo %lu množinskih oblik"
@@ -2422,13 +2435,13 @@ msgstr[3] "...nekatera sporočila pa imajo samo %lu množinske oblike"
 # msgstr[2] "...nekatera sporočila pa imajo %lu množinski obliki"
 # msgstr[3] "...nekatera sporočila pa imajo %lu množinske oblike"
 #: src/msgl-check.c:400
-#, fuzzy, c-format
+#, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
-msgstr[0] "...nekatera sporočila pa imajo %lu množinskih oblik"
-msgstr[1] "...nekatera sporočila pa imajo %lu množinsko obliko"
-msgstr[2] "...nekatera sporočila pa imajo %lu množinski obliki"
-msgstr[3] "...nekatera sporočila pa imajo %lu množinske oblike"
+msgstr[0] "nekatera sporočila pa imajo %lu množinskih oblik"
+msgstr[1] "nekatera sporočila pa imajo %lu množinsko obliko"
+msgstr[2] "nekatera sporočila pa imajo %lu množinski obliki"
+msgstr[3] "nekatera sporočila pa imajo %lu množinske oblike"
 
 #: src/msgl-check.c:420
 msgid ""
@@ -2500,12 +2513,12 @@ msgstr "polje ,%s' ima še vedno začetno privzeto vrednost\n"
 #: src/msgl-iconv.c:65
 #, c-format
 msgid "%s: input is not valid in \"%s\" encoding"
-msgstr ""
+msgstr "%s: vhod ni veljaven v kodnem naboru »%s«"
 
 #: src/msgl-iconv.c:69
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
-msgstr "datoteke \"%s\" ni moč odpreti za branje"
+msgstr "%s: napaka pri pretvorbi iz nabora znakov \"%s\" v nabor \"%s\""
 
 #: src/msgl-iconv.c:251
 msgid "input file doesn't contain a header entry with a charset specification"
@@ -2953,7 +2966,7 @@ msgstr "znak za konec vrstice sredi niza"
 #: src/po-lex.c:976
 #, c-format
 msgid "context separator <EOT> within string"
-msgstr ""
+msgstr "razmejilnik konteksta <EOT> znotraj niza"
 
 #: src/read-mo.c:98 src/read-mo.c:119 src/read-mo.c:165 src/read-mo.c:192
 #, c-format
@@ -2989,39 +3002,33 @@ msgid "this is the location of the first definition"
 msgstr "to je kraj prve definicije"
 
 #: src/read-properties.c:223
-#, fuzzy
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
-msgstr "%s:%lu: opozorilo: neveljavna skladnja \\uxxxx za unikodni znak"
+msgstr "opozorilo: neveljavna skladnja \\uxxxx za unikodni znak"
 
 #: src/read-stringtable.c:804
-#, fuzzy
 msgid "warning: unterminated string"
-msgstr "%s:%d: opozorilo: nezaključen niz"
+msgstr "opozorilo: nezaključen niz"
 
 #: src/read-stringtable.c:812
-#, fuzzy
 msgid "warning: syntax error"
-msgstr "%s:%lu: opozorilo: napaka v skladnji"
+msgstr "opozorilo: napaka v skladnji"
 
 #: src/read-stringtable.c:873 src/read-stringtable.c:894
-#, fuzzy
 msgid "warning: unterminated key/value pair"
-msgstr "%s:%lu: opozorilo: nezaključen par ključ/vrednost"
+msgstr "opozorilo: nezaključen par ključ/vrednost"
 
 #: src/read-stringtable.c:939
-#, fuzzy
 msgid "warning: syntax error, expected ';' after string"
-msgstr "%s:%lu: opozorilo: napaka v skladnji, za nizom pričakovan »;«"
+msgstr "opozorilo: napaka v skladnji, za nizom pričakovan »;«"
 
 #: src/read-stringtable.c:948
-#, fuzzy
 msgid "warning: syntax error, expected '=' or ';' after string"
-msgstr "%s:%lu: opozorilo: napaka v skladnji, za nizom pričakovan »=« ali »;«"
+msgstr "opozorilo: napaka v skladnji, za nizom pričakovan »=« ali »;«"
 
 #: src/recode-sr-latin.c:117
-#, fuzzy, c-format
+#, c-format
 msgid "Written by %s and %s.\n"
-msgstr "Avtor %s.\n"
+msgstr "Avtorja %s in %s.\n"
 
 #. TRANSLATORS: This is a proper name. The last name is
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
@@ -3029,12 +3036,12 @@ msgstr "Avtor %s.\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/recode-sr-latin.c:121
 msgid "Danilo Segan"
-msgstr ""
+msgstr "Danilo Šegan"
 
 #: src/recode-sr-latin.c:154
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
-msgstr ""
+msgstr "Pretvori besedilo v srbščini iz cirilice v latinico.\n"
 
 #: src/recode-sr-latin.c:157
 #, c-format, no-wrap
@@ -3042,16 +3049,18 @@ msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
 "standard output.\n"
 msgstr ""
+"Vhodno besedilo se bere s standardnega vhoda. Pretvorjeno besedilo se zapisuje\n"
+"na standardni izhod.\n"
 
 #: src/recode-sr-latin.c:332
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
-msgstr ""
+msgstr "vhod ni veljaven v naboru znakov »%s«"
 
 #: src/recode-sr-latin.c:350
-#, fuzzy, c-format
+#, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
-msgstr "datoteke \"%s\" ni moč odpreti za branje"
+msgstr "napaka pri pretvorbi iz nabora znakov \"%s\" v nabor \"%s\""
 
 #: src/urlget.c:147
 #, c-format
@@ -3078,13 +3087,12 @@ msgid "error writing stdout"
 msgstr "napaka pri pisanju na standardni izhod"
 
 #: src/write-csharp.c:618
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .dll format doesn't support contexts\n"
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, vendar oblika virov C#\n"
-"ne podpira množinskih oblik\n"
+"katalog sporočil vsebuje od konteksta odvisne prevode,\n"
+"vendar zapis C# .dll ne podpira kontekstov\n"
 
 #: src/write-csharp.c:685
 #, c-format
@@ -3097,13 +3105,12 @@ msgid "compilation of C# class failed, please try --verbose"
 msgstr "prevajanje razreda C# neuspešno, poskusite z --verbose"
 
 #: src/write-java.c:920
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Java ResourceBundle format doesn't support contexts\n"
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, vendar oblika virov C#\n"
-"ne podpira množinskih oblik\n"
+"katalog sporočil vsebuje od konteksta odvisne prevode,\n"
+"vendar Java ResourceBundle ne podpira kontekstov\n"
 
 #: src/write-java.c:945
 #, c-format
@@ -3130,15 +3137,14 @@ msgstr ""
 "internacionalizirana sporočila ne smejo vsebovati ubežne sekvence ,\\%c'"
 
 #: src/write-po.c:861 src/write-po.c:951
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
 "This will cause problems to translators who use a character encoding\n"
 "different from yours. Consider using a pure ASCII msgctxt instead.\n"
 "%s\n"
 msgstr ""
-"Naslednje izvorno sporočilo (msgid) vsebuje znake, ki niso del nabora "
-"ASCII.\n"
+"Naslednji msgctxt vsebuje znake, ki niso del nabora ASCII.\n"
 "To bo povzročilo težave prevajalcem, ki uporabljajo drugačen nabor znakov "
 "kot\n"
 "vi. Razmislite o uporabi sporočil v naboru znakov ASCII.\n"
@@ -3176,13 +3182,12 @@ msgstr ""
 "GNUstep datoteke .strings."
 
 #: src/write-po.c:1144
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, izbrani izhodni zapis pa jih ne "
-"podpira"
+"katalog sporočil vsebuje od konteksta odvisne prevode, izbrani izhodni zapis "
+"pa jih ne podpira"
 
 #: src/write-po.c:1167
 msgid ""
@@ -3221,14 +3226,14 @@ msgstr ""
 "ne podpira množinskih oblik\n"
 
 #: src/write-qt.c:697
-#, fuzzy
 msgid ""
 "message catalog has msgctxt strings containing characters outside ISO-8859-"
 "1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
 "strings, not in the context strings\n"
 msgstr ""
-"katalog sporočil obsega nize, ki vsebujejo znake izven nabora ISO 8859-1,\n"
+"katalog sporočil obsega nize msgxtxt, ki vsebujejo znake izven nabora ISO "
+"8859-1,\n"
 "katalog sporočil Qt pa podpira ISO 10646/Unicode le v prevedenih nizih, v\n"
 "izvirnikih pa ne\n"
 
@@ -3248,30 +3253,28 @@ msgid "error while writing to %s subprocess"
 msgstr "napaka pri pisanju v podproces %s"
 
 #: src/write-resources.c:132
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, vendar oblika virov C#\n"
-"ne podpira množinskih oblik\n"
+"katalog sporočil vsebuje od konteksta odvisne prevode\n"
+" vendar zapis virov C# ne podpira kontekstov\n"
 
 #: src/write-resources.c:151
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, vendar oblika virov C#\n"
+"katalog sporočil vsebuje množinske oblike, vendar zapis virov C#\n"
 "ne podpira množinskih oblik\n"
 
 #: src/write-tcl.c:158
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Tcl message catalog format doesn't support contexts\n"
 msgstr ""
-"katalog sporočil vsebuje množinske oblike, vendar katalog sporočil TCL\n"
-"ne podpira množinskih oblik\n"
+"katalog sporočil vsebuje od konteksta odvisne prevode,\n"
+"vendar katalog sporočil TCL ne podpira kontekstov\n"
 
 #: src/write-tcl.c:177
 msgid ""
@@ -3383,9 +3386,9 @@ msgstr ""
 "%s:%d: opozorilo: zaviti zaklepaj »}« na mestu, kjer pričakujemo zaklepaj »)«"
 
 #: src/x-glade.c:429 src/x-glade.c:436
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%lu:%lu: %s"
-msgstr "%s:%d:%d: %s"
+msgstr "%s:%lu:%lu: %s"
 
 #: src/x-glade.c:463
 #, c-format
@@ -3432,69 +3435,81 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: neveljavna interpolacija (\"\\U\") osembitnega znaka \"%c\"<"
 
 #: src/x-python.c:234
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "Ne-ASCII niz na %s%s.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:282
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "%s:%d: Neveljavno večbajtno zaporedje.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:299
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "%s:%d: Nepopolno dolgo večbajtno zaporedje.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:312
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "%s:%d: Nezaključeno večbajtno zaporedje na koncu datoteke.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:322
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "%s:%d: Nezaključeno večbajtno zaporedje na koncu vrstice.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:355
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "%s:%d: Neveljavno večbajtno zaporedje.\n"
-"Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
+"Prosim, določite vhodni nabor znakov z izbiro --from-code ali s "
+"komentarjem,\n"
+"kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
 #: src/x-python.c:675
 #, c-format
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
-msgstr ""
+msgstr "Neznani nabor znakov »%s«. Nadaljujemo z ASCII."
 
 #: src/x-rst.c:107
 #, c-format
@@ -3716,9 +3731,9 @@ msgid "                                (only language C++)\n"
 msgstr "                                (samo jezik C++)\n"
 
 #: src/xgettext.c:837
-#, fuzzy, c-format
+#, c-format
 msgid "      --boost                 recognize Boost format strings\n"
-msgstr "      --qt                    prepoznaj oblikovne nize Qt\n"
+msgstr "      --boost                 prepoznaj oblikovne nize Boost\n"
 
 #: src/xgettext.c:841
 #, c-format
@@ -3813,6 +3828,10 @@ msgid ""
 "Please consider using a format string with named arguments,\n"
 "and a mapping instead of a tuple for the arguments.\n"
 msgstr ""
+"Oblikovnega niza »%s« z nepoimenovanimi argumenti ni mogoče pravilno\n"
+"lokalizirati. Prevajalec ne more spremeniti vrstnega reda argumentov.\n"
+"Prosimo, razmislite o uporabi oblikovnega niza s poimenovanimi argumenti\n"
+"ter preslikave namesto n-terčka argumentov.\n"
 
 #: src/xgettext.c:2018
 msgid ""
@@ -3825,24 +3844,25 @@ msgstr ""
 "praznega niza.\n"
 
 #: src/xgettext.c:2621
-#, fuzzy, c-format
+#, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
-msgstr "dvoumen argument %s za %s"
+msgstr "dvoumno določen argument za ključno besede »%.*s«"
 
 #: src/xgettext.c:2648
-#, fuzzy, c-format
+#, c-format
 msgid "warning: missing context for keyword '%.*s'"
-msgstr "%s:%d: opozorilo: gnezdena ključna beseda v argumentu"
+msgstr "opozorilo: manjkajoči kontekst za ključno besedo »%.*s«"
 
 #: src/xgettext.c:2673
-#, fuzzy, c-format
+#, c-format
 msgid "warning: missing context for plural argument of keyword '%.*s'"
-msgstr "%s:%d: opozorilo: gnezdena ključna beseda v argumentu"
+msgstr ""
+"opozorilo: manjkajoči kontekst za množinski argument ključne besede »%.*s«"
 
 #: src/xgettext.c:2694
 #, c-format
 msgid "context mismatch between singular and plural form"
-msgstr ""
+msgstr "neujemanje kontekstov med edninsko in množinsko obliko"
 
 #: src/xgettext.c:2774
 msgid ""
@@ -3866,6 +3886,30 @@ msgstr "jezik »%s« ni poznan"
 
 #~ msgid "The %%J directive does not support flags."
 #~ msgstr "Direktiva %%J ne dovoljuje modifikatorjev."
+
+#~ msgid "conversion failure"
+#~ msgstr "pretvorba neuspešna"
+
+#~ msgid "%s: warning: "
+#~ msgstr "%s: opozorilo: "
+
+#~ msgid "%s\n"
+#~ msgstr "%s\n"
+
+#~ msgid "...this is the location of the first definition"
+#~ msgstr "...to je kraj prve definicije"
+
+#~ msgid "%s:%lu: warning: unterminated string"
+#~ msgstr "%s:%lu: opozorilo: nezaključen niz"
+
+#~ msgid "cannot find a temporary directory, try setting $TMPDIR"
+#~ msgstr "začasnega imenika ni mogoče najti, poskusite nastaviti $TMPDIR"
+
+#~ msgid "cannot create a temporary directory using template \"%s\""
+#~ msgstr "ni mogoče ustvariti začasnega imenika z vzorcem \"%s\""
+
+#~ msgid "%s:%d: fatal: plural message seen before singular message\n"
+#~ msgstr "%s:%d: usodna napaka: množinska oblika sporočila pred edninsko\n"
 
 #~ msgid "Which is your email address?"
 #~ msgstr "Kakšen je vaš epoštni naslov?"
@@ -3896,30 +3940,6 @@ msgstr "jezik »%s« ni poznan"
 
 #~ msgid "Please enter your email address."
 #~ msgstr "Prosimo, vnesite vaš epoštni naslov."
-
-#~ msgid "cannot find a temporary directory, try setting $TMPDIR"
-#~ msgstr "začasnega imenika ni mogoče najti, poskusite nastaviti $TMPDIR"
-
-#~ msgid "cannot create a temporary directory using template \"%s\""
-#~ msgstr "ni mogoče ustvariti začasnega imenika z vzorcem \"%s\""
-
-#~ msgid "conversion failure"
-#~ msgstr "pretvorba neuspešna"
-
-#~ msgid "%s: warning: "
-#~ msgstr "%s: opozorilo: "
-
-#~ msgid "%s\n"
-#~ msgstr "%s\n"
-
-#~ msgid "...this is the location of the first definition"
-#~ msgstr "...to je kraj prve definicije"
-
-#~ msgid "%s:%lu: warning: unterminated string"
-#~ msgstr "%s:%lu: opozorilo: nezaključen niz"
-
-#~ msgid "%s:%d: fatal: plural message seen before singular message\n"
-#~ msgstr "%s:%d: usodna napaka: množinska oblika sporočila pred edninsko\n"
 
 #~ msgid "write to grep subprocess failed"
 #~ msgstr "pisanje podprocesu grep neuspešno"
@@ -5040,6 +5060,9 @@ msgstr "jezik »%s« ni poznan"
 #~ "  -x, --exclude-file=DATOTEKA    entries from FILE are not extracted\n"
 #~ "\n"
 #~ "Če je ime vhodne datoteke - (minus), beremo s standardnega vhoda.\n"
+
+#~ msgid "%s:%d: warning: keyword nested in keyword arg"
+#~ msgstr "%s:%d: opozorilo: gnezdena ključna beseda v argumentu"
 
 #~ msgid "%s:%d: warning: keyword between outer keyword and its arg"
 #~ msgstr ""
