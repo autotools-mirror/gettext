@@ -30,6 +30,7 @@
 	ac_cv_header_inttypes_h instead of gl_cv_header_inttypes_h.
 	* intl.m4: Require autoconf >= 2.52.
 	(gt_INTL_SUBDIR_CORE): Invoke AC_CHECK_HEADERS on inttypes.h.
+	* Makefile.am (EXTRA_DIST): Remove inttypes-h.m4.
 
 2006-09-11  Bruno Haible  <bruno@clisp.org>
 

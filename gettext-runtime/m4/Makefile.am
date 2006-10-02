@@ -13,7 +13,6 @@ intdiv0.m4 \
 intl.m4 \
 intldir.m4 \
 intmax.m4 \
-inttypes-h.m4 \
 inttypes-pri.m4 \
 inttypes_h.m4 \
 lcmessage.m4 \
