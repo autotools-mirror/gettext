@@ -6,6 +6,10 @@
 * gettextize, when invoked without --intl option, now installs only the .m4
   files that are needed: gettext.m4, iconv.m4, lib-ld.m4, lib-link.m4,
   lib-prefix.m4, nls.m4, po.m4, progtest.m4.
+
+* The gettext autoconf macros now require autoconf 2.52 or newer.
+
+* Vastly improved French translations. Thanks to Christophe Combelles.
 
 Version 0.15 - July 2006
 
