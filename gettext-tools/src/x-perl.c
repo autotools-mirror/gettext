@@ -2845,6 +2845,9 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 /* Extract messages until the next balanced closing parenthesis.
    Extracted messages are added to MLP.
 
+   DELIM can be either token_type_rbrace, token_type_rbracket,
+   token_type_rparen.
+
    ARG is the current argument list position, starts with 1.
    ARGPARSER is the corresponding argument list parser.
 
@@ -2875,9 +2878,6 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 		  flag_context_list_iterator_ty context_iter,
 		  int arg, struct arglist_parser *argparser)
 {
-  /* Number of left parentheses seen.  */
-  int paren_seen = 0;
-
   /* Whether to implicitly assume the next tokens are arguments even without
      a '('.  */
   bool next_is_argument = false;
@@ -2985,8 +2985,6 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  fprintf (stderr, "%s:%d: type left parentheses (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  ++paren_seen;
-
 	  if (extract_balanced (mlp, state, token_type_rparen,
 				inner_context, next_context_iter,
 				arg, arglist_parser_clone (argparser)))
@@ -3013,7 +3011,6 @@ extract_balanced (message_list_ty *mlp, int state, token_type_ty delim,
 	  fprintf (stderr, "%s:%d: type right parentheses(%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  --paren_seen;
 	  next_is_argument = false;
 	  next_context_iter = null_context_list_iterator;
 	  break;
