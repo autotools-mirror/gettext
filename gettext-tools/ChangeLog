@@ -1,3 +1,8 @@
+2006-10-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (ACLOCAL_AMFLAGS): Move gnulib-m4 to the end, since
+	sometime we have newer m4 files than gnulib.
+
 2006-08-28  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Remove bh_C_SIGNED invocation.
