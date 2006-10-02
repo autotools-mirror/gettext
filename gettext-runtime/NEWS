@@ -1,3 +1,16 @@
+Version 0.15.1 - October 2006
+
+* Interoperability with automake-1.10.
+
+* Autoconf macros:
+  - The gettext autoconf macros now require autoconf 2.52 or newer.
+  - A new autoconf macro AM_GNU_GETTEXT_INTL_SUBDIR is added. It allows to
+    specify the presence of an intl/ subdirectory outside the AM_GNU_GETTEXT
+    invocation.
+  - A new autoconf macro AM_GNU_GETTEXT_NEED is added. It allows to specify
+    the requirements relating to the GNU gettext implementation outside the
+    AM_GNU_GETTEXT invocation.
+
 Version 0.14.4 - April 2005
 
 * The gettext autoconf macros will now work with the forthcoming g++ 4.0.

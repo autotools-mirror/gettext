@@ -1,5 +1,9 @@
 2006-10-02  Bruno Haible  <bruno@clisp.org>
 
+	* version.sh: Bump version number to 0.15.1.
+
+2006-10-02  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/config.sub: Update to GNU version 2006-09-20.
 
 2006-10-01  Bruno Haible  <bruno@clisp.org>

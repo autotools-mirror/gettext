@@ -1,3 +1,5 @@
+Version 0.15.1 - October 2006
+
 * Interoperability with automake-1.10.
 
 * msgmerge is faster now on CPUs with multiple execution units, if compiled
