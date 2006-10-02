@@ -1,5 +1,12 @@
 2006-10-01  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.m4 (gt_NEEDS_INIT, AM_GNU_GETTEXT_NEED): New macros.
+	(AM_GNU_GETTEXT): Invoke them. Convert gt_api_version,
+	gt_cv_func_gnugettext_libc, gt_cv_func_gnugettext_libintl from
+	m4-time variables to sh-time variables.
+
+2006-10-01  Bruno Haible  <bruno@clisp.org>
+
 	* intldir.m4: New file.
 	* gettext.m4 (AM_GNU_GETTEXT): Define gt_included_intl to yes if
 	AM_GNU_GETTEXT_INTL_SUBDIR is present among the macros selected by

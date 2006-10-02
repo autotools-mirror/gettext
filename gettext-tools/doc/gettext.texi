@@ -336,6 +336,7 @@ Autoconf macros for use in @file{configure.in}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
 * AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
@@ -7342,6 +7343,7 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 @menu
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
+* AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
 * AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
@@ -7383,9 +7385,11 @@ gettext implementations (in libc or libintl) without the @code{ngettext()}
 function will be ignored.  If @var{needsymbol} is specified and is
 @samp{need-formatstring-macros}, then GNU gettext implementations that don't
 support the ISO C 99 @file{<inttypes.h>} formatstring macros will be ignored.
-Only one @var{needsymbol} can be specified.  To specify more than one
-requirement, just specify the strongest one among them.  The hierarchy among
-the various alternatives is as follows: @samp{need-formatstring-macros}
+Only one @var{needsymbol} can be specified.  These requirements can also be
+specified by using the macro @code{AM_GNU_GETTEXT_NEED} elsewhere.  To specify
+more than one requirement, just specify the strongest one among them, or
+invoke the @code{AM_GNU_GETTEXT_NEED} macro several times.  The hierarchy
+among the various alternatives is as follows: @samp{need-formatstring-macros}
 implies @samp{need-ngettext}.
 
 @var{intldir} is used to find the intl libraries.  If empty, the value
@@ -7436,7 +7440,7 @@ linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
 
-@node AM_GNU_GETTEXT_VERSION, AM_GNU_GETTEXT_INTL_SUBDIR, AM_GNU_GETTEXT, autoconf macros
+@node AM_GNU_GETTEXT_VERSION, AM_GNU_GETTEXT_NEED, AM_GNU_GETTEXT, autoconf macros
 @subsection AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 
 @amindex AM_GNU_GETTEXT_VERSION
@@ -7446,7 +7450,31 @@ the GNU gettext infrastructure that is used by the package.
 The use of this macro is optional; only the @code{autopoint} program makes
 use of it (@pxref{CVS Issues}).
 
-@node AM_GNU_GETTEXT_INTL_SUBDIR, AM_PO_SUBDIRS, AM_GNU_GETTEXT_VERSION, autoconf macros
+
+@node AM_GNU_GETTEXT_NEED, AM_GNU_GETTEXT_INTL_SUBDIR, AM_GNU_GETTEXT_VERSION, autoconf macros
+@subsection AM_GNU_GETTEXT_NEED in @file{gettext.m4}
+
+@amindex AM_GNU_GETTEXT_NEED
+The @code{AM_GNU_GETTEXT_NEED} macro declares a constraint regarding the
+GNU gettext implementation.  The syntax is
+
+@example
+AM_GNU_GETTEXT_NEED([@var{needsymbol}])
+@end example
+
+If @var{needsymbol} is @samp{need-ngettext}, then GNU gettext implementations
+(in libc or libintl) without the @code{ngettext()} function will be ignored.
+If @var{needsymbol} is @samp{need-formatstring-macros}, then GNU gettext
+implementations that don't support the ISO C 99 @file{<inttypes.h>}
+formatstring macros will be ignored.
+
+The optional second argument of @code{AM_GNU_GETTEXT} is also taken into
+account.
+
+The @code{AM_GNU_GETTEXT_NEED} invocations can occur before or after
+the @code{AM_GNU_GETTEXT} invocation; the order doesn't matter.
+
+@node AM_GNU_GETTEXT_INTL_SUBDIR, AM_PO_SUBDIRS, AM_GNU_GETTEXT_NEED, autoconf macros
 @subsection AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 
 @amindex AM_GNU_GETTEXT_INTL_SUBDIR
