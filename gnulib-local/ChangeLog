@@ -1,3 +1,9 @@
+2006-10-02  Bruno Haible  <bruno@clisp.org>
+
+	* modules/gettext-runtime-misc (Makefile.am): Add no-dependencies to
+	AUTOMAKE_OPTIONS.
+	* modules/gettext-tools-misc (Makefile.am): Likewise.
+
 2006-09-29  Bruno Haible  <bruno@clisp.org>
 
 	* lib/closeout.c (close_stdout_status): Remove function.

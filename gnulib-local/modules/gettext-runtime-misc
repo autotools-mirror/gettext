@@ -7,6 +7,8 @@ Depends-on:
 configure.ac:
 
 Makefile.am:
+AUTOMAKE_OPTIONS += no-dependencies
+
 # Hmm... is this still necessary?
 AM_CPPFLAGS += -I$(top_builddir)/intl -I$(top_srcdir)/intl
 
