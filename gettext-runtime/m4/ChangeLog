@@ -46,6 +46,7 @@
 
 	* signed.m4: Remove file.
 	* gettext.m4 (AM_INTL_SUBDIR): Remove bh_C_SIGNED invocation.
+	* Makefile.am (EXTRA_DIST): Remove signed.m4.
 
 2006-08-22  Eric Blake  <ebb9@byu.net>
 

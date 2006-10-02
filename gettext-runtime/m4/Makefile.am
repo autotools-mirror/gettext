@@ -23,7 +23,6 @@ nls.m4 \
 po.m4 \
 printf-posix.m4 \
 progtest.m4 \
-signed.m4 \
 size_max.m4 \
 stdint_h.m4 \
 uintmax_t.m4 \
