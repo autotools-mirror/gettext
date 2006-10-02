@@ -22,8 +22,8 @@ ACLOCAL_AMFLAGS = -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 
-# The list of subdirectories depends on whether --disable-libasprintf or
-# --disable-glocale was specified.
+# The list of subdirectories depends on whether --disable-libasprintf was
+# specified.
 if ENABLE_LIBASPRINTF
 SUBDIR_libasprintf = libasprintf
 else
