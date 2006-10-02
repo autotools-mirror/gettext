@@ -759,7 +759,7 @@ static void interpolate_keywords (message_list_ty *mlp, const char *string,
 				  int lineno);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
-static bool extract_balanced (message_list_ty *mlp, int state,
+static bool extract_balanced (message_list_ty *mlp,
 			      token_type_ty delim, bool eat_delim,
 			      bool comma_delim,
 			      flag_context_ty outer_context,
@@ -1370,7 +1370,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	       real_file_name, line_number);
 #endif
 
-      if (extract_balanced (mlp, 0, token_type_rbrace, true, false,
+      if (extract_balanced (mlp, token_type_rbrace, true, false,
 			    null_context, null_context_list_iterator,
 			    1, arglist_parser_alloc (mlp, NULL)))
 	return;
@@ -1561,7 +1561,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 		else
 		  {
 		    x_perl_unlex (t1);
-		    if (extract_balanced (mlp, 1, token_type_rbrace, true, false,
+		    if (extract_balanced (mlp, token_type_rbrace, true, false,
 					  null_context, context_iter,
 					  1, arglist_parser_alloc (mlp, &shapes)))
 		      return;
@@ -1592,7 +1592,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  fprintf (stderr, "%s:%d: extracting balanced '{' after varname\n",
 		   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, 0, token_type_rbrace, true, false,
+	  extract_balanced (mlp, token_type_rbrace, true, false,
 			    null_context, null_context_list_iterator,
 			    1, arglist_parser_alloc (mlp, NULL));
 	  break;
@@ -1602,7 +1602,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 	  fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
 		   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, 0, token_type_rbracket, true, false,
+	  extract_balanced (mlp, token_type_rbracket, true, false,
 			    null_context, null_context_list_iterator,
 			    1, arglist_parser_alloc (mlp, NULL));
 	  break;
@@ -2853,22 +2853,10 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
    ARG is the current argument list position, starts with 1.
    ARGPARSER is the corresponding argument list parser.
 
-   Returns true for EOF, false otherwise.
-
-   States are:
-
-   0 - initial state
-   1 - keyword has been seen
-
-   States 1 is "fragile". The parser will remain in state 1
-   as long as only opening parentheses are seen. All other tokens
-   will cause the parser to fall back to state 1 or 0, eventually
-   with an error message about invalid intermixing of constant and
-   non-constant strings.  */
+   Returns true for EOF, false otherwise.  */
 
 static bool
 extract_balanced (message_list_ty *mlp,
-		  int state,
 		  token_type_ty delim, bool eat_delim, bool comma_delim,
 		  flag_context_ty outer_context,
 		  flag_context_list_iterator_ty context_iter,
@@ -2980,7 +2968,7 @@ extract_balanced (message_list_ty *mlp,
 	       best results.  */
 	    next_comma_delim = true;
 
-	  if (extract_balanced (mlp, state, delim, false, next_comma_delim,
+	  if (extract_balanced (mlp, delim, false, next_comma_delim,
 				inner_context, next_context_iter,
 				1, next_argparser))
 	    {
@@ -3017,13 +3005,11 @@ extract_balanced (message_list_ty *mlp,
 		last_token = token_type_keyword_symbol;
 		next_shapes = shapes;
 		next_argparser = arglist_parser_alloc (mlp, shapes);
-		state = 1;
 	      }
 	    else
 	      {
 		next_shapes = NULL;
 		next_argparser = arglist_parser_alloc (mlp, NULL);
-		state = 0;
 	      }
 	  }
 	  next_is_argument = true;
@@ -3055,7 +3041,7 @@ extract_balanced (message_list_ty *mlp,
 	  if (next_is_argument)
 	    {
 	      /* Parse the argument list of a function call.  */
-	      if (extract_balanced (mlp, state, token_type_rparen, true, false,
+	      if (extract_balanced (mlp, token_type_rparen, true, false,
 				    inner_context, next_context_iter,
 				    1, next_argparser))
 		{
@@ -3070,7 +3056,7 @@ extract_balanced (message_list_ty *mlp,
 	  else
 	    {
 	      /* Parse a parenthesized expression or comma expression.  */
-	      if (extract_balanced (mlp, state, token_type_rparen, true, false,
+	      if (extract_balanced (mlp, token_type_rparen, true, false,
 				    inner_context, next_context_iter,
 				    arg, arglist_parser_clone (argparser)))
 		{
@@ -3154,7 +3140,7 @@ extract_balanced (message_list_ty *mlp,
 	      remember_a_message (mlp, NULL, string, inner_context, &pos, savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
-	  else if (/* state != 0 && */ !skip_until_comma)
+	  else if (!skip_until_comma)
 	    {
 	      /* Need to collect the complete string, with error checking,
 		 only if the argument ARG is used in ARGPARSER.  */
@@ -3192,7 +3178,6 @@ extract_balanced (message_list_ty *mlp,
 	      arglist_parser_done (argparser, arg);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      argparser = arglist_parser_alloc (mlp, NULL);
-	      state = 0;
 	    }
 
 	  next_is_argument = false;
@@ -3221,7 +3206,7 @@ extract_balanced (message_list_ty *mlp,
 	  fprintf (stderr, "%s:%d: type lbrace (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (extract_balanced (mlp, 0, token_type_rbrace, true, false,
+	  if (extract_balanced (mlp, token_type_rbrace, true, false,
 				null_context, null_context_list_iterator,
 				1, arglist_parser_alloc (mlp, NULL)))
 	    {
@@ -3250,7 +3235,6 @@ extract_balanced (message_list_ty *mlp,
 	    free (next_argparser);
 	  next_argparser = NULL;
 	  next_context_iter = null_context_list_iterator;
-	  state = 0;
 	  break;
 
 	case token_type_lbracket:
@@ -3258,7 +3242,7 @@ extract_balanced (message_list_ty *mlp,
 	  fprintf (stderr, "%s:%d: type lbracket (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (extract_balanced (mlp, 0, token_type_rbracket, true, false,
+	  if (extract_balanced (mlp, token_type_rbracket, true, false,
 				null_context, null_context_list_iterator,
 				1, arglist_parser_alloc (mlp, NULL)))
 	    {
@@ -3287,7 +3271,6 @@ extract_balanced (message_list_ty *mlp,
 	    free (next_argparser);
 	  next_argparser = NULL;
 	  next_context_iter = null_context_list_iterator;
-	  state = 0;
 	  break;
 
 	case token_type_semicolon:
@@ -3295,7 +3278,6 @@ extract_balanced (message_list_ty *mlp,
 	  fprintf (stderr, "%s:%d: type semicolon (%d)\n",
 		   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  state = 0;
 
 	  /* The ultimate sign.  */
 	  xgettext_current_source_encoding = po_charset_utf8;
@@ -3341,7 +3323,6 @@ extract_balanced (message_list_ty *mlp,
 	    free (next_argparser);
 	  next_argparser = NULL;
 	  next_context_iter = null_context_list_iterator;
-	  state = 0;
 	  break;
 
 	case token_type_named_op:
@@ -3355,7 +3336,6 @@ extract_balanced (message_list_ty *mlp,
 	    free (next_argparser);
 	  next_argparser = NULL;
 	  next_context_iter = null_context_list_iterator;
-	  state = 0;
 	  break;
 
 	case token_type_regex_op:
@@ -3380,7 +3360,6 @@ extract_balanced (message_list_ty *mlp,
 	    free (next_argparser);
 	  next_argparser = NULL;
 	  next_context_iter = null_context_list_iterator;
-	  state = 0;
 	  break;
 
 	default:
@@ -3422,7 +3401,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */
-  while (!extract_balanced (mlp, 0, token_type_rbrace, true, false,
+  while (!extract_balanced (mlp, token_type_rbrace, true, false,
 			    null_context, null_context_list_iterator,
 			    1, arglist_parser_alloc (mlp, NULL)))
     ;

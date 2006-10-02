@@ -1,5 +1,7 @@
 2006-10-01  Bruno Haible  <bruno@clisp.org>
 
+	* x-perl.c (extract_balanced): Remove state argument.
+
 	* x-perl.c (extract_balanced): Remove unused variable prev_last_token.
 
 	Fix Perl parsing bug introduced between 0.14.6 and 0.15.
