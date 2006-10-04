@@ -40,6 +40,17 @@ searched relative to this list of directories.
 @opindex --multi-domain@r{, @code{msgcmp} option}
 Apply @var{ref}.pot to each of the domains in @var{def}.po.
 
+@item --use-fuzzy
+@opindex --use-fuzzy@r{, @code{msgcmp} option}
+Consider fuzzy messages in the @var{def}.po file like translated messages.
+Note that using this option is usually wrong, because fuzzy messages are
+exactly those which have not been validated by a human translator.
+
+@item --use-untranslated
+@opindex --use-untranslated@r{, @code{msgcmp} option}
+Consider untranslated messages in the @var{def}.po file like translated
+messages.  Note that using this option is usually wrong.
+
 @end table
 
 @subsection Input file syntax

@@ -1,3 +1,11 @@
+2006-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* msgcmp.c (include_fuzzies, include_untranslated): New variables.
+	(long_options): Add options --use-fuzzy, --use-untranslated.
+	(main): Handle them.
+	(usage): Document them.
+	(match_domain): Consider include_fuzzies and include_untranslated.
+
 2006-10-02  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in (LIBGETTEXTPO_VERSION): Bump version number.

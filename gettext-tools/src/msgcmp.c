@@ -49,6 +49,12 @@
 /* Apply the .pot file to each of the domains in the PO file.  */
 static bool multi_domain_mode = false;
 
+/* Whether to consider fuzzy messages as translations.  */
+static bool include_fuzzies = false;
+
+/* Whether to consider untranslated messages as translations.  */
+static bool include_untranslated = false;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -57,6 +63,8 @@ static const struct option long_options[] =
   { "multi-domain", no_argument, NULL, 'm' },
   { "properties-input", no_argument, NULL, 'P' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
+  { "use-fuzzy", no_argument, NULL, CHAR_MAX + 2 },
+  { "use-untranslated", no_argument, NULL, CHAR_MAX + 3 },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -125,8 +133,16 @@ main (int argc, char *argv[])
 	do_version = true;
 	break;
 
-      case CHAR_MAX + 1: /* --stringtable-input */
+      case CHAR_MAX + 1:	/* --stringtable-input */
 	input_syntax = syntax_stringtable;
+	break;
+
+      case CHAR_MAX + 2:	/* --use-fuzzy */
+	include_fuzzies = true;
+	break;
+
+      case CHAR_MAX + 3:	/* --use-untranslated */
+	include_untranslated = true;
 	break;
 
       default:
@@ -209,6 +225,10 @@ Input file location:\n"));
 Operation modifiers:\n"));
       printf (_("\
   -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"));
+      printf (_("\
+      --use-fuzzy             consider fuzzy entries\n"));
+      printf (_("\
+      --use-untranslated      consider untranslated entries\n"));
       printf ("\n");
       printf (_("\
 Input file syntax:\n"));
@@ -274,7 +294,22 @@ match_domain (const char *fn1, const char *fn2,
       /* See if it is in the other file.  */
       defmsg = message_list_search (defmlp, refmsg->msgctxt, refmsg->msgid);
       if (defmsg)
-	defmsg->used = 1;
+	{
+	  if (!include_untranslated && defmsg->msgstr[0] == '\0')
+	    {
+	      (*nerrors)++;
+	      po_gram_error_at_line (&defmsg->pos, _("\
+this message is untranslated"));
+	    }
+	  else if (!include_fuzzies && defmsg->is_fuzzy && !is_header (defmsg))
+	    {
+	      (*nerrors)++;
+	      po_gram_error_at_line (&defmsg->pos, _("\
+this message needs to be reviewed by the translator"));
+	    }
+	  else
+	    defmsg->used = 1;
+	}
       else
 	{
 	  /* If the message was not defined at all, try to find a very

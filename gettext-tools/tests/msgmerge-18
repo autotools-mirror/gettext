@@ -117,7 +117,7 @@ msgstr ""
 EOF
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} mm-test18.po mm-test18.pot 2>/dev/null
+${MSGCMP} --use-fuzzy --use-untranslated mm-test18.po mm-test18.pot 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test18.new.po"
@@ -196,7 +196,7 @@ ${DIFF} mm-test18.ok mm-test18.new.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} mm-test18.new.po mm-test18.pot
+${MSGCMP} --use-fuzzy --use-untranslated mm-test18.new.po mm-test18.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 rm -fr $tmpfiles

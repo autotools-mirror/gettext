@@ -5,6 +5,11 @@ Version 0.15.1 - October 2006
 * msgmerge is faster now on CPUs with multiple execution units, if compiled
   with GCC 4.2 or newer.
 
+* msgcmp now ignores fuzzy and untranslated messages in the PO file.
+  Previously it considered fuzzy and untranslated messages the same way as
+  translated messages, which was hardly useful.  The previous behaviour can
+  be obtained through the options --use-fuzzy --use-untranslated.
+
 * gettextize, when invoked without --intl option, now installs only the .m4
   files that are needed: gettext.m4, iconv.m4, lib-ld.m4, lib-link.m4,
   lib-prefix.m4, nls.m4, po.m4, progtest.m4.
