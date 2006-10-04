@@ -606,7 +606,7 @@ struct definitions_ty
 static inline void
 definitions_init (definitions_ty *definitions, const char *canon_charset)
 {
-  gl_lock_define (static, fresh_lock)
+  gl_lock_define_initialized (static, fresh_lock)
 
   definitions->lists = message_list_list_alloc ();
   message_list_list_append (definitions->lists, NULL);

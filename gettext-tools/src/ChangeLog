@@ -1,5 +1,9 @@
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* msgmerge.c (definitions_init): Fix initialization of fresh_lock.
+
+2006-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* msgcmp.c (include_fuzzies, include_untranslated): New variables.
 	(long_options): Add options --use-fuzzy, --use-untranslated.
 	(main): Handle them.
