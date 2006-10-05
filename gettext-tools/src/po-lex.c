@@ -602,6 +602,7 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 static mbfile_t mbf;
 unsigned int gram_max_allowed_errors = 20;
 static bool po_lex_obsolete;
+static bool po_lex_previous;
 static bool pass_comments = false;
 bool pass_obsolete_entries = false;
 
@@ -620,6 +621,7 @@ lex_start (FILE *fp, const char *real_filename, const char *logical_filename)
   gram_pos_column = 0;
   signal_eilseq = true;
   po_lex_obsolete = false;
+  po_lex_previous = false;
   po_lex_charset_init ();
 }
 
@@ -633,6 +635,7 @@ lex_end ()
   gram_pos_column = 0;
   signal_eilseq = false;
   po_lex_obsolete = false;
+  po_lex_previous = false;
   po_lex_charset_close ();
 }
 
@@ -718,16 +721,29 @@ lex_ungetc (const mbchar_t mbc)
 static int
 keyword_p (const char *s)
 {
-  if (!strcmp (s, "domain"))
-    return DOMAIN;
-  if (!strcmp (s, "msgid"))
-    return MSGID;
-  if (!strcmp (s, "msgid_plural"))
-    return MSGID_PLURAL;
-  if (!strcmp (s, "msgstr"))
-    return MSGSTR;
-  if (!strcmp (s, "msgctxt"))
-    return MSGCTXT;
+  if (!po_lex_previous)
+    {
+      if (!strcmp (s, "domain"))
+	return DOMAIN;
+      if (!strcmp (s, "msgid"))
+	return MSGID;
+      if (!strcmp (s, "msgid_plural"))
+	return MSGID_PLURAL;
+      if (!strcmp (s, "msgstr"))
+	return MSGSTR;
+      if (!strcmp (s, "msgctxt"))
+	return MSGCTXT;
+    }
+  else
+    {
+      /* Inside a "#|" context, the keywords have a different meaning.  */
+      if (!strcmp (s, "msgid"))
+	return PREV_MSGID;
+      if (!strcmp (s, "msgid_plural"))
+	return PREV_MSGID_PLURAL;
+      if (!strcmp (s, "msgctxt"))
+	return PREV_MSGCTXT;
+    }
   po_gram_error_at_line (&gram_pos, _("keyword \"%s\" unknown"), s);
   return NAME;
 }
@@ -866,6 +882,7 @@ po_gram_lex ()
 	  {
 	  case '\n':
 	    po_lex_obsolete = false;
+	    po_lex_previous = false;
 	    /* Ignore whitespace, not relevant for the grammar.  */
 	    break;
 
@@ -886,6 +903,24 @@ po_gram_lex ()
 		 characters are expected to be well formed.  */
 	      {
 		po_lex_obsolete = true;
+		/* A pseudo-comment beginning with #~| denotes a previous
+		   untranslated string in an obsolete entry.  This does not
+		   make much sense semantically, and is implemented here
+		   for completeness only.  */
+		lex_getc (mbc);
+		if (mb_iseq (mbc, '|'))
+		  po_lex_previous = true;
+		else
+		  lex_ungetc (mbc);
+		break;
+	      }
+	    if (mb_iseq (mbc, '|'))
+	      /* A pseudo-comment beginning with #| is found.  This is
+		 the previous untranslated string.  We discard the "#|"
+		 prefix, but change the keywords and string returns
+		 accordingly.  */
+	      {
+		po_lex_previous = true;
 		break;
 	      }
 
@@ -924,7 +959,7 @@ po_gram_lex ()
 	      {
 		/* We do this in separate loop because collecting large
 		   comments while they get not passed to the upper layers
-		   is not very effective.  */
+		   is not very efficient.  */
 		while (!mb_iseof (mbc) && !mb_iseq (mbc, '\n'))
 		  lex_getc (mbc);
 		po_lex_obsolete = false;
@@ -979,7 +1014,7 @@ po_gram_lex ()
 	    po_gram_lval.string.string = xstrdup (buf);
 	    po_gram_lval.string.pos = gram_pos;
 	    po_gram_lval.string.obsolete = po_lex_obsolete;
-	    return STRING;
+	    return (po_lex_previous ? PREV_STRING : STRING);
 
 	  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
 	  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':

@@ -524,6 +524,9 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		  for (i = 0; i < NFORMATS; i++)
 		    tmp->is_format[i] = mp->is_format[i];
 		  tmp->do_wrap = mp->do_wrap;
+		  tmp->prev_msgctxt = mp->prev_msgctxt;
+		  tmp->prev_msgid = mp->prev_msgid;
+		  tmp->prev_msgid_plural = mp->prev_msgid_plural;
 		  tmp->obsolete = mp->obsolete;
 		}
 	      else if (msgcomm_mode)
@@ -535,6 +538,9 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		      tmp->msgstr_len = mp->msgstr_len;
 		      tmp->pos = mp->pos;
 		      tmp->is_fuzzy = mp->is_fuzzy;
+		      tmp->prev_msgctxt = mp->prev_msgctxt;
+		      tmp->prev_msgid = mp->prev_msgid;
+		      tmp->prev_msgid_plural = mp->prev_msgid_plural;
 		    }
 		  if (mp->comment && tmp->comment == NULL)
 		    for (i = 0; i < mp->comment->nitems; i++)
@@ -588,6 +594,7 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		      tmp->is_format[i] = no;
 		  if (mp->do_wrap == no)
 		    tmp->do_wrap = no;
+		  /* Don't fill tmp->prev_msgid in this case.  */
 		  if (!mp->obsolete)
 		    tmp->obsolete = false;
 		}

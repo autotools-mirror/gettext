@@ -65,7 +65,8 @@ enum
   SET_FUZZY		= 1 << 0,
   RESET_FUZZY		= 1 << 1,
   SET_OBSOLETE		= 1 << 2,
-  RESET_OBSOLETE	= 1 << 3
+  RESET_OBSOLETE	= 1 << 3,
+  REMOVE_PREV		= 1 << 4
 };
 static int to_change;
 
@@ -75,6 +76,7 @@ static const struct option long_options[] =
   { "add-location", no_argument, &line_comment, 1 },
   { "clear-fuzzy", no_argument, NULL, CHAR_MAX + 8 },
   { "clear-obsolete", no_argument, NULL, CHAR_MAX + 10 },
+  { "clear-previous", no_argument, NULL, CHAR_MAX + 18 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
   { "force-po", no_argument, &force_po, 1 },
@@ -300,6 +302,10 @@ main (int argc, char **argv)
 	message_print_syntax_stringtable ();
 	break;
 
+      case CHAR_MAX + 18: /* --clear-previous */
+	to_change |= REMOVE_PREV;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -430,6 +436,8 @@ Attribute manipulation:\n"));
       printf (_("\
       --clear-obsolete        set all messages non-obsolete\n"));
       printf (_("\
+      --clear-previous        remove the \"previous msgid\" from all messages\n"));
+      printf (_("\
       --only-file=FILE.po     manipulate only entries listed in FILE.po\n"));
       printf (_("\
       --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"));
@@ -554,6 +562,12 @@ process_message_list (message_list_ty *mlp,
 		mp->obsolete = true;
 	      if (to_change & RESET_OBSOLETE)
 		mp->obsolete = false;
+	      if (to_change & REMOVE_PREV)
+		{
+		  mp->prev_msgctxt = NULL;
+		  mp->prev_msgid = NULL;
+		  mp->prev_msgid_plural = NULL;
+		}
 	    }
 	}
     }

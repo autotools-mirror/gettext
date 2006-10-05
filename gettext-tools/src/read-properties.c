@@ -538,6 +538,7 @@ properties_parse (abstract_po_reader_ty *this, FILE *file,
 
 	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
 				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
+				   NULL, NULL, NULL,
 				   force_fuzzy, false);
 	    }
 	}

@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software; you can redistribute it and/or modify
@@ -59,6 +59,9 @@ struct default_po_reader_class_ty
 		       char *msgctxt,
 		       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		       char *prev_msgctxt,
+		       char *prev_msgid,
+		       char *prev_msgid_plural,
 		       bool force_fuzzy, bool obsolete);
 
   /* How to modify a new message before adding it to the list.  */
@@ -129,6 +132,9 @@ extern void default_directive_message (abstract_po_reader_ty *that,
 				       char *msgid_plural,
 				       char *msgstr, size_t msgstr_len,
 				       lex_pos_ty *msgstr_pos,
+				       char *prev_msgctxt,
+				       char *prev_msgid,
+				       char *prev_msgid_plural,
 				       bool force_fuzzy, bool obsolete);
 extern void default_comment (abstract_po_reader_ty *that, const char *s);
 extern void default_comment_dot (abstract_po_reader_ty *that, const char *s);
@@ -144,6 +150,9 @@ extern void default_add_message (default_po_reader_ty *this,
 				 char *msgid_plural,
 				 char *msgstr, size_t msgstr_len,
 				 lex_pos_ty *msgstr_pos,
+				 char *prev_msgctxt,
+				 char *prev_msgid,
+				 char *prev_msgid_plural,
 				 bool force_fuzzy, bool obsolete);
 
 /* Allocate a fresh default_po_reader_ty (or derived class) instance and

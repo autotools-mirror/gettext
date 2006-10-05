@@ -99,12 +99,18 @@ call_directive_message (abstract_po_reader_ty *pop,
 			char *msgid_plural,
 			char *msgstr, size_t msgstr_len,
 			lex_pos_ty *msgstr_pos,
+			char *prev_msgctxt,
+			char *prev_msgid,
+			char *prev_msgid_plural,
 			bool force_fuzzy, bool obsolete)
 {
   if (pop->methods->directive_message)
     pop->methods->directive_message (pop, msgctxt,
 				     msgid, msgid_pos, msgid_plural,
 				     msgstr, msgstr_len, msgstr_pos,
+				     prev_msgctxt,
+				     prev_msgid,
+				     prev_msgid_plural,
 				     force_fuzzy, obsolete);
 }
 
@@ -221,12 +227,16 @@ void
 po_callback_message (char *msgctxt,
 		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		     char *prev_msgctxt,
+		     char *prev_msgid,
+		     char *prev_msgid_plural,
 		     bool force_fuzzy, bool obsolete)
 {
   /* assert(callback_arg); */
   call_directive_message (callback_arg, msgctxt,
 			  msgid, msgid_pos, msgid_plural,
 			  msgstr, msgstr_len, msgstr_pos,
+			  prev_msgctxt, prev_msgid, prev_msgid_plural,
 			  force_fuzzy, obsolete);
 }
 

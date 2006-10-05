@@ -418,7 +418,7 @@ memcpy_small (void *dst, const void *src, size_t n)
 
 
 static void
-wrap (const message_ty *mp, FILE *fp, const char *line_prefix,
+wrap (const message_ty *mp, FILE *fp, const char *line_prefix, int extra_indent,
       const char *name, const char *value, enum is_wrap do_wrap,
       const char *charset)
 {
@@ -711,7 +711,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	 See INDENT-S.  */
       startcol_after_break = (line_prefix ? strlen (line_prefix) : 0);
       if (indent)
-	startcol_after_break = (startcol_after_break + 8) & ~7;
+	startcol_after_break = (startcol_after_break + extra_indent + 8) & ~7;
       startcol_after_break++;
 
       /* The line width.  Allow room for the closing quote character.  */
@@ -728,14 +728,14 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	{
 	  startcol += strlen (name);
 	  if (indent)
-	    startcol = (startcol + 8) & ~7;
+	    startcol = (startcol + extra_indent + 8) & ~7;
 	  else
 	    startcol++;
 	}
       else
 	{
 	  if (indent)
-	    startcol = (startcol + 8) & ~7;
+	    startcol = (startcol + extra_indent + 8) & ~7;
 	}
       /* Allow room for the opening quote character.  */
       startcol++;
@@ -772,13 +772,24 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       if (first_line)
 	{
 	  fputs (name, fp);
-	  putc (indent ? '\t' : ' ', fp);
+	  if (indent)
+	    {
+	      if (extra_indent > 0)
+		fwrite ("        ", 1, extra_indent, fp);
+	      putc ('\t', fp);
+	    }
+	  else
+	    putc (' ', fp);
 	  first_line = false;
 	}
       else
 	{
 	  if (indent)
-	    putc ('\t', fp);
+	    {
+	      if (extra_indent > 0)
+		fwrite ("        ", 1, extra_indent, fp);
+	      putc ('\t', fp);
+	    }
 	}
 
       /* Print the portion itself, with linebreaks where necessary.  */
@@ -829,6 +840,8 @@ static void
 message_print (const message_ty *mp, FILE *fp, const char *charset,
 	       bool blank_line, bool debug)
 {
+  int extra_indent;
+
   /* Separate messages with a blank line.  Uniforum doesn't like blank
      lines, so use an empty comment (unless there already is one).  */
   if (blank_line && (!uniforum
@@ -850,6 +863,20 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
 
   /* Print flag information in special comment.  */
   message_print_comment_flags (mp, fp, debug);
+
+  /* Print the previous msgid.  This helps the translator when the msgid has
+     only slightly changed.  */
+  if (mp->prev_msgctxt != NULL)
+    wrap (mp, fp, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap, charset);
+  if (mp->prev_msgid != NULL)
+    wrap (mp, fp, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, fp, "#| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
+	  charset);
+  extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
+		  || mp->prev_msgid_plural != NULL
+		  ? 3
+		  : 0);
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
@@ -879,13 +906,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, fp, NULL, "msgctxt", mp->msgctxt, mp->do_wrap, charset);
-  wrap (mp, fp, NULL, "msgid", mp->msgid, mp->do_wrap, charset);
+    wrap (mp, fp, NULL, extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
+	  charset);
+  wrap (mp, fp, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap, charset);
   if (mp->msgid_plural != NULL)
-    wrap (mp, fp, NULL, "msgid_plural", mp->msgid_plural, mp->do_wrap, charset);
+    wrap (mp, fp, NULL, extra_indent, "msgid_plural", mp->msgid_plural,
+	  mp->do_wrap, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, fp, NULL, "msgstr", mp->msgstr, mp->do_wrap, charset);
+    wrap (mp, fp, NULL, extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
+	  charset);
   else
     {
       char prefix_buf[20];
@@ -897,7 +927,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, fp, NULL, prefix_buf, p, mp->do_wrap, charset);
+	  wrap (mp, fp, NULL, extra_indent, prefix_buf, p, mp->do_wrap,
+		charset);
 	}
     }
 }
@@ -907,6 +938,8 @@ static void
 message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
 			bool blank_line)
 {
+  int extra_indent;
+
   /* If msgstr is the empty string we print nothing.  */
   if (mp->msgstr[0] == '\0')
     return;
@@ -942,6 +975,20 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
       putc ('\n', fp);
     }
 
+  /* Print the previous msgid.  This helps the translator when the msgid has
+     only slightly changed.  */
+  if (mp->prev_msgctxt != NULL)
+    wrap (mp, fp, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap, charset);
+  if (mp->prev_msgid != NULL)
+    wrap (mp, fp, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, fp, "#~| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
+	  charset);
+  extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
+		  || mp->prev_msgid_plural != NULL
+		  ? 1
+		  : 0);
+
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
   if (mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt)
@@ -969,14 +1016,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, fp, "#~ ", "msgctxt", mp->msgctxt, mp->do_wrap, charset);
-  wrap (mp, fp, "#~ ", "msgid", mp->msgid, mp->do_wrap, charset);
-  if (mp->msgid_plural != NULL)
-    wrap (mp, fp, "#~ ", "msgid_plural", mp->msgid_plural, mp->do_wrap,
+    wrap (mp, fp, "#~ ", extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
 	  charset);
+  wrap (mp, fp, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap, charset);
+  if (mp->msgid_plural != NULL)
+    wrap (mp, fp, "#~ ", extra_indent, "msgid_plural", mp->msgid_plural,
+	  mp->do_wrap, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, fp, "#~ ", "msgstr", mp->msgstr, mp->do_wrap, charset);
+    wrap (mp, fp, "#~ ", extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
+	  charset);
   else
     {
       char prefix_buf[20];
@@ -988,7 +1037,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, fp, "#~ ", prefix_buf, p, mp->do_wrap, charset);
+	  wrap (mp, fp, "#~ ", extra_indent, prefix_buf, p, mp->do_wrap,
+		charset);
 	}
     }
 }

@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2005 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -903,6 +903,98 @@ po_message_add_filepos (po_message_t message, const char *file, size_t start_lin
   message_ty *mp = (message_ty *) message;
 
   message_comment_filepos (mp, file, start_line);
+}
+
+
+/* Return the previous context of a message, or NULL for none.  */
+
+const char *
+po_message_prev_msgctxt (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return mp->prev_msgctxt;
+}
+
+
+/* Change the previous context of a message.  NULL is allowed.  */
+
+void
+po_message_set_prev_msgctxt (po_message_t message, const char *prev_msgctxt)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (prev_msgctxt != mp->prev_msgctxt)
+    {
+      char *old_prev_msgctxt = (char *) mp->prev_msgctxt;
+
+      mp->prev_msgctxt = (prev_msgctxt != NULL ? xstrdup (prev_msgctxt) : NULL);
+      if (old_prev_msgctxt != NULL)
+	free (old_prev_msgctxt);
+    }
+}
+
+
+/* Return the previous msgid (untranslated English string) of a message, or
+   NULL for none.  */
+
+const char *
+po_message_prev_msgid (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return mp->prev_msgid;
+}
+
+
+/* Change the previous msgid (untranslated English string) of a message.
+   NULL is allowed.  */
+
+void
+po_message_set_prev_msgid (po_message_t message, const char *prev_msgid)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (prev_msgid != mp->prev_msgid)
+    {
+      char *old_prev_msgid = (char *) mp->prev_msgid;
+
+      mp->prev_msgid = (prev_msgid != NULL ? xstrdup (prev_msgid) : NULL);
+      if (old_prev_msgid != NULL)
+	free (old_prev_msgid);
+    }
+}
+
+
+/* Return the previous msgid_plural (untranslated English plural string) of a
+   message, or NULL for none.  */
+
+const char *
+po_message_prev_msgid_plural (po_message_t message)
+{
+  message_ty *mp = (message_ty *) message;
+
+  return mp->prev_msgid_plural;
+}
+
+
+/* Change the previous msgid_plural (untranslated English plural string) of a
+   message.  NULL is allowed.  */
+
+void
+po_message_set_prev_msgid_plural (po_message_t message, const char *prev_msgid_plural)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (prev_msgid_plural != mp->prev_msgid_plural)
+    {
+      char *old_prev_msgid_plural = (char *) mp->prev_msgid_plural;
+
+      mp->prev_msgid_plural =
+	(prev_msgid_plural != NULL ? xstrdup (prev_msgid_plural) : NULL);
+      if (old_prev_msgid_plural != NULL)
+	free (old_prev_msgid_plural);
+    }
 }
 
 

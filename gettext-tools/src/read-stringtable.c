@@ -881,6 +881,7 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	  msgstr_pos = msgid_pos;
 	  po_callback_message (NULL, msgid, &msgid_pos, NULL,
 			       msgstr, strlen (msgstr) + 1, &msgstr_pos,
+			       NULL, NULL, NULL,
 			       false, next_is_obsolete);
 	}
       else if (c == '=')
@@ -930,6 +931,7 @@ stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
 	      /* A key/value pair.  */
 	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
 				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
+				   NULL, NULL, NULL,
 				   false, next_is_obsolete);
 	    }
 	  else

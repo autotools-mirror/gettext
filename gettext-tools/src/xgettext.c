@@ -914,6 +914,9 @@ exclude_directive_message (abstract_po_reader_ty *pop,
 			   char *msgid_plural,
 			   char *msgstr, size_t msgstr_len,
 			   lex_pos_ty *msgstr_pos,
+			   char *prev_msgctxt,
+			   char *prev_msgid,
+			   char *prev_msgid_plural,
 			   bool force_fuzzy, bool obsolete)
 {
   message_ty *mp;

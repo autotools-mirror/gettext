@@ -1,5 +1,5 @@
 /* xgettext PO and JavaProperties backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -53,6 +53,9 @@ extract_add_message (default_po_reader_ty *this,
 		     char *msgid_plural,
 		     char *msgstr, size_t msgstr_len,
 		     lex_pos_ty *msgstr_pos,
+		     char *prev_msgctxt,
+		     char *prev_msgid,
+		     char *prev_msgid_plural,
 		     bool force_fuzzy, bool obsolete)
 {
   /* See whether we shall exclude this message.  */
@@ -87,13 +90,23 @@ extract_add_message (default_po_reader_ty *this,
       if (msgctxt != NULL)
 	free (msgctxt);
       free (msgid);
+      if (msgid_plural != NULL)
+	free (msgid_plural);
       free (msgstr);
+      if (prev_msgctxt != NULL)
+	free (prev_msgctxt);
+      if (prev_msgid != NULL)
+	free (prev_msgid);
+      if (prev_msgid_plural != NULL)
+	free (prev_msgid_plural);
       return;
     }
 
   /* Invoke superclass method.  */
   default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
-		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
+		       msgstr, msgstr_len, msgstr_pos,
+		       prev_msgctxt, prev_msgid, prev_msgid_plural,
+		       force_fuzzy, obsolete);
 }
 
 

@@ -126,6 +126,11 @@ Apply @var{ref}.pot to each of the domains in @var{def}.po.
 @opindex --no-fuzzy-matching@r{, @code{msgmerge} option}
 Do not use fuzzy matching when an exact match is not found.  This may speed
 up the operation considerably.
+
+@item --previous
+@opindex --previous@r{, @code{msgmerge} option}
+Keep the previous msgids of translated messages, marked with @samp{#|}, when
+adding the fuzzy marker to such messages.
 @end table
 
 @subsection Input file syntax

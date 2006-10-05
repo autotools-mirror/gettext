@@ -122,6 +122,10 @@ Set all messages obsolete.
 @opindex --clear-obsolete@r{, @code{msgattrib} option}
 Set all messages non-obsolete.
 
+@item --clear-previous
+@opindex --clear-previous@r{, @code{msgattrib} option}
+Remove the ``previous msgid'' (@samp{#|}) comments from all messages.
+
 @item --only-file=@var{file}
 @opindex --only-file@r{, @code{msgattrib} option}
 Limit the attribute changes to entries that are listed in @var{file}.

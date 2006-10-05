@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -97,6 +97,8 @@ static inline void
 do_callback_message (char *msgctxt,
 		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		     char *prev_msgctxt,
+		     char *prev_msgid, char *prev_msgid_plural,
 		     bool obsolete)
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
@@ -106,14 +108,29 @@ do_callback_message (char *msgctxt,
   po_callback_message (msgctxt,
 		       msgid, msgid_pos, msgid_plural,
 		       msgstr, msgstr_len, msgstr_pos,
+		       prev_msgctxt, prev_msgid, prev_msgid_plural,
 		       false, obsolete);
 }
+
+#define free_message_intro(value) \
+  if ((value).prev_ctxt != NULL)	\
+    free ((value).prev_ctxt);		\
+  if ((value).prev_id != NULL)		\
+    free ((value).prev_id);		\
+  if ((value).prev_id_plural != NULL)	\
+    free ((value).prev_id_plural);	\
+  if ((value).ctxt != NULL)		\
+    free ((value).ctxt);
 
 %}
 
 %token	COMMENT
 %token	DOMAIN
 %token	JUNK
+%token	PREV_MSGCTXT
+%token	PREV_MSGID
+%token	PREV_MSGID_PLURAL
+%token	PREV_STRING
 %token	MSGCTXT
 %token	MSGID
 %token	MSGID_PLURAL
@@ -129,26 +146,42 @@ do_callback_message (char *msgctxt,
   struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { lex_pos_ty pos; bool obsolete; } pos;
+  struct { char *ctxt; char *id; char *id_plural; lex_pos_ty pos; bool obsolete; } prev;
+  struct { char *prev_ctxt; char *prev_id; char *prev_id_plural; char *ctxt; lex_pos_ty pos; bool obsolete; } message_intro;
   struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 }
 
-%type <string> STRING COMMENT NAME message_intro msgid_pluralform
-%type <stringlist> string_list
+%type <string> STRING PREV_STRING COMMENT NAME
+               msg_intro prev_msg_intro msgid_pluralform prev_msgid_pluralform
+%type <stringlist> string_list prev_string_list
 %type <number> NUMBER
-%type <pos> DOMAIN MSGCTXT MSGID MSGID_PLURAL MSGSTR '[' ']'
+%type <pos> DOMAIN
+            PREV_MSGCTXT PREV_MSGID PREV_MSGID_PLURAL
+            MSGCTXT MSGID MSGID_PLURAL MSGSTR '[' ']'
+%type <prev> prev
+%type <message_intro> message_intro
 %type <rhs> pluralform pluralform_list
 
 %right MSGSTR
 
 %%
 
-msgfmt
+po_file
 	: /* empty */
-	| msgfmt comment
-	| msgfmt domain
-	| msgfmt message
-	| msgfmt error
+	| po_file comment
+	| po_file domain
+	| po_file message
+	| po_file error
 	;
+
+
+comment
+	: COMMENT
+		{
+		  po_callback_comment_dispatcher ($1.string);
+		}
+	;
+
 
 domain
 	: DOMAIN STRING
@@ -156,6 +189,7 @@ domain
 		   po_callback_domain ($2.string);
 		}
 	;
+
 
 message
 	: message_intro string_list MSGSTR string_list
@@ -167,11 +201,14 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    do_callback_message ($1.string, string2, &$1.pos, NULL,
+		    do_callback_message ($1.ctxt, string2, &$1.pos, NULL,
 					 string4, strlen (string4) + 1, &$3.pos,
+					 $1.prev_ctxt,
+					 $1.prev_id, $1.prev_id_plural,
 					 $1.obsolete);
 		  else
 		    {
+		      free_message_intro ($1);
 		      free (string2);
 		      free (string4);
 		    }
@@ -184,11 +221,14 @@ message
 		  check_obsolete ($1, $3);
 		  check_obsolete ($1, $4);
 		  if (!$1.obsolete || pass_obsolete_entries)
-		    do_callback_message ($1.string, string2, &$1.pos, $3.string,
+		    do_callback_message ($1.ctxt, string2, &$1.pos, $3.string,
 					 $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
+					 $1.prev_ctxt,
+					 $1.prev_id, $1.prev_id_plural,
 					 $1.obsolete);
 		  else
 		    {
+		      free_message_intro ($1);
 		      free (string2);
 		      free ($3.string);
 		      free ($4.rhs.msgstr);
@@ -199,6 +239,7 @@ message
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgstr[]' section"));
+		  free_message_intro ($1);
 		  string_list_destroy (&$2.stringlist);
 		  free ($3.string);
 		}
@@ -207,6 +248,7 @@ message
 		  check_obsolete ($1, $2);
 		  check_obsolete ($1, $3);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgid_plural' section"));
+		  free_message_intro ($1);
 		  string_list_destroy (&$2.stringlist);
 		  free ($3.rhs.msgstr);
 		}
@@ -214,11 +256,59 @@ message
 		{
 		  check_obsolete ($1, $2);
 		  po_gram_error_at_line (&$1.pos, _("missing `msgstr' section"));
+		  free_message_intro ($1);
 		  string_list_destroy (&$2.stringlist);
 		}
 	;
 
+
 message_intro
+	: msg_intro
+		{
+		  $$.prev_ctxt = NULL;
+		  $$.prev_id = NULL;
+		  $$.prev_id_plural = NULL;
+		  $$.ctxt = $1.string;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	| prev msg_intro
+		{
+		  check_obsolete ($1, $2);
+		  $$.prev_ctxt = $1.ctxt;
+		  $$.prev_id = $1.id;
+		  $$.prev_id_plural = $1.id_plural;
+		  $$.ctxt = $2.string;
+		  $$.pos = $2.pos;
+		  $$.obsolete = $2.obsolete;
+		}
+	;
+
+
+prev
+	: prev_msg_intro prev_string_list
+		{
+		  check_obsolete ($1, $2);
+		  $$.ctxt = $1.string;
+		  $$.id = string_list_concat_destroy (&$2.stringlist);
+		  $$.id_plural = NULL;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	| prev_msg_intro prev_string_list prev_msgid_pluralform
+		{
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  $$.ctxt = $1.string;
+		  $$.id = string_list_concat_destroy (&$2.stringlist);
+		  $$.id_plural = $3.string;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	;
+
+
+msg_intro
 	: MSGID
 		{
 		  $$.string = NULL;
@@ -235,6 +325,24 @@ message_intro
 		}
 	;
 
+prev_msg_intro
+	: PREV_MSGID
+		{
+		  $$.string = NULL;
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	| PREV_MSGCTXT prev_string_list PREV_MSGID
+		{
+		  check_obsolete ($1, $2);
+		  check_obsolete ($1, $3);
+		  $$.string = string_list_concat_destroy (&$2.stringlist);
+		  $$.pos = $3.pos;
+		  $$.obsolete = $3.obsolete;
+		}
+	;
+
+
 msgid_pluralform
 	: MSGID_PLURAL string_list
 		{
@@ -245,6 +353,17 @@ msgid_pluralform
 		  $$.obsolete = $1.obsolete;
 		}
 	;
+
+prev_msgid_pluralform
+	: PREV_MSGID_PLURAL prev_string_list
+		{
+		  check_obsolete ($1, $2);
+		  $$.string = string_list_concat_destroy (&$2.stringlist);
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	;
+
 
 pluralform_list
 	: pluralform
@@ -287,6 +406,7 @@ pluralform
 		}
 	;
 
+
 string_list
 	: STRING
 		{
@@ -305,9 +425,20 @@ string_list
 		}
 	;
 
-comment
-	: COMMENT
+prev_string_list
+	: PREV_STRING
 		{
-		  po_callback_comment_dispatcher ($1.string);
+		  string_list_init (&$$.stringlist);
+		  string_list_append (&$$.stringlist, $1.string);
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
+		}
+	| prev_string_list PREV_STRING
+		{
+		  check_obsolete ($1, $2);
+		  $$.stringlist = $1.stringlist;
+		  string_list_append (&$$.stringlist, $2.string);
+		  $$.pos = $1.pos;
+		  $$.obsolete = $1.obsolete;
 		}
 	;

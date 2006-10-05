@@ -1147,6 +1147,7 @@ structure:
 #. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
+#| msgid @var{previous-untranslated-string}
 msgid @var{untranslated-string}
 msgstr @var{translated-string}
 @end example
@@ -1180,7 +1181,10 @@ at the translator; these comments are called @var{extracted comments}
 because the @code{xgettext} program extracts them from the program's
 source code.  Comment lines starting with @code{#:} contain references to
 the program's source code.  Comment lines starting with @code{#,} contain
-flags; more about these below.
+flags; more about these below.  Comment lines starting with @code{#|}
+contain the previous untranslated string for which the translator gave
+a translation.
+
 All comments, of either kind, are optional.
 
 @kwindex msgid
@@ -1372,6 +1376,8 @@ this:
 #. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
+#| msgctxt @var{previous-context}
+#| msgid @var{previous-untranslated-string}
 msgctxt @var{context}
 msgid @var{untranslated-string}
 msgstr @var{translated-string}
@@ -1394,6 +1400,8 @@ plural forms.
 #. @var{extracted-comments}
 #: @var{reference}@dots{}
 #, @var{flag}@dots{}
+#| msgid @var{previous-untranslated-string-singular}
+#| msgid_plural @var{previous-untranslated-string-plural}
 msgid @var{untranslated-string-singular}
 msgid_plural @var{untranslated-string-plural}
 msgstr[0] @var{translated-string-case-0}
@@ -1414,6 +1422,11 @@ msgstr[1] "s'han trobat %d errors fatals"
 
 Here also, a @code{msgctxt} context can be specified before @code{msgid},
 like above.
+
+The @var{previous-untranslated-string} is optionally inserted by the
+@code{msgmerge} program, at the same time when it marks a message fuzzy.
+It helps the translator to see which changes were done by the developers
+on the @var{untranslated-string}.
 
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,

@@ -2,6 +2,21 @@ Version 0.15.1 - October 2006
 
 * Interoperability with automake-1.10.
 
+* msgmerge has a new option --previous that has the effect of saving the
+  previous msgid of message when making them fuzzy. These previous msgids are
+  stored in the resulting PO file, using a pseudo-comment syntax like this:
+
+     #, fuzzy
+     #| msgid "too many arguments"
+     msgid "too few arguments"
+     msgstr "trop d'arguments"
+
+  The translator then only needs to compare the previous and the current
+  msgid ("too many arguments" and "too few arguments"), and infer which
+  parts of the translation she needs to change.
+
+  msgattrib has a new option --clear-previous that removes these #| lines.
+
 * msgmerge is faster now on CPUs with multiple execution units, if compiled
   with GCC 4.2 or newer.
 

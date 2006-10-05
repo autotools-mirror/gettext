@@ -105,6 +105,18 @@ convert_string_list (iconv_t cd, string_list_ty *slp,
 }
 
 static void
+convert_prev_msgid (iconv_t cd, message_ty *mp,
+		    const struct conversion_context* context)
+{
+  if (mp->prev_msgctxt != NULL)
+    mp->prev_msgctxt = convert_string (cd, mp->prev_msgctxt, context);
+  if (mp->prev_msgid != NULL)
+    mp->prev_msgid = convert_string (cd, mp->prev_msgid, context);
+  if (mp->prev_msgid_plural != NULL)
+    mp->prev_msgid_plural = convert_string (cd, mp->prev_msgid_plural, context);
+}
+
+static void
 convert_msgid (iconv_t cd, message_ty *mp,
 	       const struct conversion_context* context)
 {
@@ -289,6 +301,7 @@ and iconv() does not support this conversion."),
 	  context.message = mp;
 	  convert_string_list (cd, mp->comment, &context);
 	  convert_string_list (cd, mp->comment_dot, &context);
+	  convert_prev_msgid (cd, mp, &context);
 	  convert_msgid (cd, mp, &context);
 	  convert_msgstr (cd, mp, &context);
 	}
@@ -368,6 +381,21 @@ iconvable_string_list (iconv_t cd, string_list_ty *slp)
     for (i = 0; i < slp->nitems; i++)
       if (!iconvable_string (cd, slp->item[i]))
 	return false;
+  return true;
+}
+
+static bool
+iconvable_prev_msgid (iconv_t cd, message_ty *mp)
+{
+  if (mp->prev_msgctxt != NULL)
+    if (!iconvable_string (cd, mp->prev_msgctxt))
+      return false;
+  if (mp->prev_msgid != NULL)
+    if (!iconvable_string (cd, mp->prev_msgid))
+      return false;
+  if (mp->msgid_plural != NULL)
+    if (!iconvable_string (cd, mp->prev_msgid_plural))
+      return false;
   return true;
 }
 
@@ -524,6 +552,7 @@ is_message_list_iconvable (message_list_ty *mlp,
 
 	  if (!(iconvable_string_list (cd, mp->comment)
 		&& iconvable_string_list (cd, mp->comment_dot)
+		&& iconvable_prev_msgid (cd, mp)
 		&& iconvable_msgid (cd, mp)
 		&& iconvable_msgstr (cd, mp)))
 	    return false;

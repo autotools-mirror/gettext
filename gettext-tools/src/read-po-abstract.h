@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -80,6 +80,8 @@ struct abstract_po_reader_class_ty
 			     char *msgid_plural,
 			     char *msgstr, size_t msgstr_len,
 			     lex_pos_ty *msgstr_pos,
+			     char *prev_msgctxt,
+			     char *prev_msgid, char *prev_msgid_plural,
 			     bool force_fuzzy, bool obsolete);
 
   /* What to do with a plain-vanilla comment - the expectation is that
@@ -159,6 +161,8 @@ extern void po_callback_message (char *msgctxt,
 				 char *msgid_plural,
 				 char *msgstr, size_t msgstr_len,
 				 lex_pos_ty *msgstr_pos,
+				 char *prev_msgctxt,
+				 char *prev_msgid, char *prev_msgid_plural,
 				 bool force_fuzzy, bool obsolete);
 extern void po_callback_comment (const char *s);
 extern void po_callback_comment_dot (const char *s);

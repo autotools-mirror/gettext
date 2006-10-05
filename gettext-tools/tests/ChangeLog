@@ -1,5 +1,19 @@
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* msgattrib-16: New file.
+	* msgattrib-17: New file.
+	* msgcat-15: New file.
+	* msgcat-16: New file.
+	* msgcmp-4: New file.
+	* msgcomm-26: New file.
+	* msgconv-6: New file.
+	* msgfmt-16: New file.
+	* msgmerge-19: New file.
+	* msguniq-6: New file.
+	* Makefile.am (TESTS): Add them.
+
+2006-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge-18: Invoke msgcmp with options --use-fuzzy and
 	--use-untranslated.
 

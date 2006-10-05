@@ -936,6 +936,9 @@ msgfmt_add_message (default_po_reader_ty *this,
 		    char *msgid_plural,
 		    char *msgstr, size_t msgstr_len,
 		    lex_pos_ty *msgstr_pos,
+		    char *prev_msgctxt,
+		    char *prev_msgid,
+		    char *prev_msgid_plural,
 		    bool force_fuzzy, bool obsolete)
 {
   /* Check whether already a domain is specified.  If not, use default
@@ -951,7 +954,9 @@ msgfmt_add_message (default_po_reader_ty *this,
 
   /* Invoke superclass method.  */
   default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
-		       msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
+		       msgstr, msgstr_len, msgstr_pos,
+		       prev_msgctxt, prev_msgid, prev_msgid_plural,
+		       force_fuzzy, obsolete);
 }
 
 

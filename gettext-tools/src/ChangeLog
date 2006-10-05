@@ -1,5 +1,81 @@
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* message.h (struct message_ty): New fields prev_msgctxt, prev_msgid,
+	prev_msgid_plural.
+	* message.c (message_alloc): Initialize the prev_msg* fields.
+	(message_free): Free the prev_msg* fields.
+	(message_copy): Copy the prev_msg* fields.
+	* msgl-ascii.c (is_ascii_message): Consider also the prev_msg* fields.
+	* msgl-cat.c (catenate_msgdomain_list): Copy the prev_msg* fields if
+	a message is copied, not merged.
+	* msgl-equal.c (message_equal): Consider also the prev_msg* fields.
+	* msgl-iconv.c (convert_prev_msgid): New function.
+	(iconv_message_list): Call it.
+	iconvable_prev_msgid): New function.
+	(is_message_list_iconvable): Call it.
+
+	* po-lex.c (po_lex_previous): New variable.
+	(lex_start, lex_end): Reset it.
+	(keyword_p): Test it. New return values PREV_MSGID, PREV_MSGID_PLURAL,
+	PREV_MSGCTXT.
+	(po_gram_lex): Recognize #| and #~| syntax. New return value
+	PREV_STRING.
+	* po-gram-gen.y (do_callback_message): Add prev_msgctxt, prev_msgid,
+	prev_msgid_plural arguments.
+	(free_message_intro): New macro.
+	(PREV_MSGCTXT, PREV_MSGID, PREV_MSGID_PLURAL, PREV_STRING): New tokens.
+	(prev, message_intro): New structures.
+	(po_file): Renamed from msgfmt.
+	(message): Pass prev_* fields around. Call free_message_intro.
+	(message_intro, prev): New rules.
+	(msg_intro): Renamed from message_intro.
+	(prev_msg_intro, prev_msgid_pluralform, prev_string_list): New rules.
+	* read-po-abstract.h (struct abstract_po_reader_class_ty): Add
+	prev_msgctxt, prev_msgid, prev_msgid_plural arguments to the
+	'directive_message' method.
+	(po_callback_message): Add prev_msgctxt, prev_msgid,
+	prev_msgid_plural arguments.
+	* read-po-abstract.c (call_directive_message, po_callback_message): Add
+	prev_msgctxt, prev_msgid, prev_msgid_plural arguments.
+	* read-po.h (struct default_po_reader_class_ty): Add prev_msgctxt,
+	prev_msgid, prev_msgid_plural arguments to the 'add_message' method.
+	(default_directive_message, default_add_message): Add prev_msgctxt,
+	prev_msgid, prev_msgid_plural arguments.
+	* read-po.c (call_add_message, default_directive_message,
+	default_add_message): Add prev_msgctxt, prev_msgid, prev_msgid_plural
+	arguments.
+	* read-properties.c (properties_parse): Update.
+	* read-stringtable.c (stringtable_parse): Update.
+	* xgettext.c (exclude_directive_message): Add prev_msgctxt, prev_msgid,
+	prev_msgid_plural arguments.
+	* x-po.c (extract_add_message): Add prev_msgctxt, prev_msgid,
+	prev_msgid_plural arguments.
+
+	* write-po.c (wrap): Add extra_indent argument.
+	(message_print, message_print_obsolete): Print the prev_msgctxt,
+	prev_msgid, prev_msgid_plural fields. Compute an extra_indent.
+
+	* msgmerge.c (keep_previous): New variable.
+	(long_options): Add --previous option.
+	(main): Handle it.
+	(usage): Document --previous option.
+	(message_merge): Add force_fuzzy argument. Set the new message's
+	prev_msg* fields.
+	(match_domain): Update.
+	* msgattrib.c (REMOVE_PREV): New enum item.
+	(long_options): Add --clear-previous option.
+	(main): Handle it.
+	(usage): Document --clear-previous option.
+	(process_message_list): Handle REMOVE_PREV.
+	* msgfmt.c (msgfmt_add_message): Add prev_msgctxt, prev_msgid,
+	prev_msgid_plural arguments.
+	* gettext-po.c (po_message_prev_msgctxt, po_message_set_prev_msgctxt,
+	po_message_prev_msgid, po_message_set_prev_msgid,
+	po_message_prev_msgid_plural, po_message_set_prev_msgid_plural): New
+	functions.
+
+2006-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge.c (definitions_init): Fix initialization of fresh_lock.
 
 2006-10-03  Bruno Haible  <bruno@clisp.org>

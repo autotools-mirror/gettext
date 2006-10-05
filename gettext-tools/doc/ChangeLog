@@ -1,5 +1,11 @@
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (PO Files): Document the "previous msgid" syntax.
+	* msgmerge.texi: Document the --previous option.
+	* msgattrib.texi: Document the --clear-previous option.
+
+2006-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* msgcmp.texi: Document --use-fuzzy and --use-untranslated options.
 
 2006-10-01  Bruno Haible  <bruno@clisp.org>

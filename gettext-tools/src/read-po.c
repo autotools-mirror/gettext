@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -54,6 +54,7 @@ call_add_message (struct default_po_reader_ty *this,
 		  char *msgctxt,
 		  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		  char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		  char *prev_msgctxt, char *prev_msgid, char *prev_msgid_plural,
 		  bool force_fuzzy, bool obsolete)
 {
   default_po_reader_class_ty *methods =
@@ -63,6 +64,7 @@ call_add_message (struct default_po_reader_ty *this,
     methods->add_message (this, msgctxt,
 			  msgid, msgid_pos, msgid_plural,
 			  msgstr, msgstr_len, msgstr_pos,
+			  prev_msgctxt, prev_msgid, prev_msgid_plural,
 			  force_fuzzy, obsolete);
 }
 
@@ -236,12 +238,16 @@ default_directive_message (abstract_po_reader_ty *that,
 			   char *msgid_plural,
 			   char *msgstr, size_t msgstr_len,
 			   lex_pos_ty *msgstr_pos,
+			   char *prev_msgctxt,
+			   char *prev_msgid, char *prev_msgid_plural,
 			   bool force_fuzzy, bool obsolete)
 {
   default_po_reader_ty *this = (default_po_reader_ty *) that;
 
   call_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
-		    msgstr, msgstr_len, msgstr_pos, force_fuzzy, obsolete);
+		    msgstr, msgstr_len, msgstr_pos,
+		    prev_msgctxt, prev_msgid, prev_msgid_plural,
+		    force_fuzzy, obsolete);
 
   /* Prepare for next message.  */
   default_reset_comment_state (this);
@@ -334,6 +340,9 @@ default_add_message (default_po_reader_ty *this,
 		     char *msgid_plural,
 		     char *msgstr, size_t msgstr_len,
 		     lex_pos_ty *msgstr_pos,
+		     char *prev_msgctxt,
+		     char *prev_msgid,
+		     char *prev_msgid_plural,
 		     bool force_fuzzy, bool obsolete)
 {
   message_ty *mp;
@@ -367,10 +376,18 @@ default_add_message (default_po_reader_ty *this,
 	}
       /* We don't need the just constructed entries' parameter string
 	 (allocated in po-gram-gen.y).  */
-      free (msgstr);
       free (msgid);
+      if (msgid_plural != NULL)
+	free (msgid_plural);
+      free (msgstr);
       if (msgctxt != NULL)
 	free (msgctxt);
+      if (prev_msgctxt != NULL)
+	free (prev_msgctxt);
+      if (prev_msgid != NULL)
+	free (prev_msgid);
+      if (prev_msgid_plural != NULL)
+	free (prev_msgid_plural);
 
       /* Add the accumulated comments to the message.  */
       default_copy_comment_state (this, mp);
@@ -383,6 +400,9 @@ default_add_message (default_po_reader_ty *this,
 	 appropriate.  */
       mp = message_alloc (msgctxt, msgid, msgid_plural, msgstr, msgstr_len,
 			  msgstr_pos);
+      mp->prev_msgctxt = prev_msgctxt;
+      mp->prev_msgid = prev_msgid;
+      mp->prev_msgid_plural = prev_msgid_plural;
       mp->obsolete = obsolete;
       default_copy_comment_state (this, mp);
       if (force_fuzzy)

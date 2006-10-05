@@ -117,6 +117,9 @@ message_alloc (const char *msgctxt,
   for (i = 0; i < NFORMATS; i++)
     mp->is_format[i] = undecided;
   mp->do_wrap = undecided;
+  mp->prev_msgctxt = NULL;
+  mp->prev_msgid = NULL;
+  mp->prev_msgid_plural = NULL;
   mp->used = 0;
   mp->obsolete = false;
   return mp;
@@ -140,6 +143,12 @@ message_free (message_ty *mp)
     free ((char *) mp->filepos[j].file_name);
   if (mp->filepos != NULL)
     free (mp->filepos);
+  if (mp->prev_msgctxt != NULL)
+    free ((char *) mp->prev_msgctxt);
+  if (mp->prev_msgid != NULL)
+    free ((char *) mp->prev_msgid);
+  if (mp->prev_msgid_plural != NULL)
+    free ((char *) mp->prev_msgid_plural);
   free (mp);
 }
 
@@ -217,6 +226,12 @@ message_copy (message_ty *mp)
       lex_pos_ty *pp = &mp->filepos[j];
       message_comment_filepos (result, pp->file_name, pp->line_number);
     }
+  result->prev_msgctxt =
+    (mp->prev_msgctxt != NULL ? xstrdup (mp->prev_msgctxt) : NULL);
+  result->prev_msgid =
+    (mp->prev_msgid != NULL ? xstrdup (mp->prev_msgid) : NULL);
+  result->prev_msgid_plural =
+    (mp->prev_msgid_plural != NULL ? xstrdup (mp->prev_msgid_plural) : NULL);
   return result;
 }
 
