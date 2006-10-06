@@ -715,7 +715,7 @@ but the C# .dll format doesn't support contexts\n")));
 
   /* Create the C# file.  */
   register_temp_file (tmpdir, csharp_file_name);
-  csharp_file = fopen (csharp_file_name, "w");
+  csharp_file = fopen_temp (csharp_file_name, "w");
   if (csharp_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), csharp_file_name);
@@ -725,7 +725,7 @@ but the C# .dll format doesn't support contexts\n")));
 
   write_csharp_code (csharp_file, culture_name, class_name, mlp);
 
-  if (fwriteerror (csharp_file))
+  if (fwriteerror_temp (csharp_file))
     {
       error (0, errno, _("error while writing \"%s\" file"), csharp_file_name);
       goto quit3;

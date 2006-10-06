@@ -1,5 +1,11 @@
 2006-10-06  Bruno Haible  <bruno@clisp.org>
 
+	* write-java.c (msgdomain_write_java): Use fopen_temp, fwriteerror_temp
+	instead of fopen, fwriteerror.
+	* write-csharp.c (msgdomain_write_csharp): Likewise.
+
+2006-10-06  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 3:0:3.
 
 2006-10-03  Bruno Haible  <bruno@clisp.org>

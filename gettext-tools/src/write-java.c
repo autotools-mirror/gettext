@@ -1002,7 +1002,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
 
   /* Create the Java file.  */
   register_temp_file (tmpdir, java_file_name);
-  java_file = fopen (java_file_name, "w");
+  java_file = fopen_temp (java_file_name, "w");
   if (java_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), java_file_name);
@@ -1012,7 +1012,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
 
   write_java_code (java_file, class_name, mlp, assume_java2);
 
-  if (fwriteerror (java_file))
+  if (fwriteerror_temp (java_file))
     {
       error (0, errno, _("error while writing \"%s\" file"), java_file_name);
       goto quit3;
