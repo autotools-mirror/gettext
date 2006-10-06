@@ -1,3 +1,7 @@
+2006-10-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 3:0:3.
+
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (struct message_ty): New fields prev_msgctxt, prev_msgid,
