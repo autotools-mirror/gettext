@@ -499,6 +499,7 @@ catalogname_for_locale (const char *locale)
     "co_FR",	/* Corsican	France */
     "cr_CA",	/* Cree		Canada */
     "cs_CZ",	/* Czech	Czech Republic */
+    "csb_PL",	/* Kashubian	Poland */
     "cy_GB",	/* Welsh	Britain */
     "da_DK",	/* Danish	Denmark */
     "de_DE",	/* German	Germany */
@@ -515,6 +516,7 @@ catalogname_for_locale (const char *locale)
     "fj_FJ",	/* Fijian	Fiji */
     "fo_FO",	/* Faroese	Faeroe Islands */
     "fr_FR",	/* French	France */
+    "fy_NL",	/* Western Frisian	Netherlands */
     "ga_IE",	/* Irish	Ireland */
     "gd_GB",	/* Scots	Britain */
     "gu_IN",	/* Gujarati	India */
@@ -568,6 +570,7 @@ catalogname_for_locale (const char *locale)
     "nl_NL",	/* Dutch	Netherlands */
     "nn_NO",	/* Norwegian Nynorsk	Norway */
     "no_NO",	/* Norwegian	Norway */
+    "nr_ZA",	/* South Ndebele	South Africa */
     "nso_ZA",	/* Northern Sotho	South Africa */
     "oc_FR",	/* Occitan	France */
     "oj_CA",	/* Ojibwa	Canada */
@@ -583,13 +586,13 @@ catalogname_for_locale (const char *locale)
     "ru_RU",	/* Russian	Russia */
     "sa_IN",	/* Sanskrit	India */
     "sc_IT",	/* Sardinian	Italy */
-    "sg_CF",	/* Sango	Central African Rep. */
-    "si_LK",	/* Sinhalese	Sri Lanka */
+    "sg_CF",	/* Sango	Central African Republic */
+    "si_LK",	/* Sinhala	Sri Lanka */
     "sk_SK",	/* Slovak	Slovakia */
     "sl_SI",	/* Slovenian	Slovenia */
     "so_SO",	/* Somali	Somalia */
     "sq_AL",	/* Albanian	Albania */
-    "sr_CS",	/* Serbian	Serbia & Montenegro */
+    "sr_RS",	/* Serbian	Serbia */
     "sr_YU",	/* Serbian	Yugoslavia */
     "sv_SE",	/* Swedish	Sweden */
     "te_IN",	/* Telugu	India */

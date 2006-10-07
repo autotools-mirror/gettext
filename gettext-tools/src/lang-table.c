@@ -1,5 +1,5 @@
 /* Table of languages.
-   Copyright (C) 2001-2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2005.
 
    This program is free software; you can redistribute it and/or modify
@@ -28,6 +28,7 @@ struct language_table_entry language_table[] =
   {
     { "aa", "Afar" },
     { "ab", "Abkhazian" },
+    { "ad", "Adangme" },
     { "ae", "Avestan" },
     { "af", "Afrikaans" },
     { "ak", "Akan" },
@@ -55,6 +56,7 @@ struct language_table_entry language_table[] =
     { "co", "Corsican" },
     { "cr", "Cree" },
     { "cs", "Czech" },
+    { "csb", "Kashubian" },
     { "cu", "Church Slavic" },
     { "cv", "Chuvash" },
     { "cy", "Welsh" },
@@ -75,7 +77,7 @@ struct language_table_entry language_table[] =
     { "fj", "Fijian" },
     { "fo", "Faroese" },
     { "fr", "French" },
-    { "fy", "Frisian" },
+    { "fy", "Western Frisian" },
     { "ga", "Irish" },
     { "gd", "Scots" },
     { "gl", "Galician" },
@@ -133,7 +135,7 @@ struct language_table_entry language_table[] =
     { "lv", "Latvian" },
     { "mai", "Maithili" },
     { "mg", "Malagasy" },
-    { "mh", "Marshall" },
+    { "mh", "Marshallese" },
     { "mi", "Maori" },
     { "mk", "Macedonian" },
     { "ml", "Malayalam" },
@@ -181,7 +183,7 @@ struct language_table_entry language_table[] =
     { "sd", "Sindhi" },
     { "se", "Northern Sami" },
     { "sg", "Sango" },
-    { "si", "Sinhalese" },
+    { "si", "Sinhala" },
     { "sk", "Slovak" },
     { "sl", "Slovenian" },
     { "sm", "Samoan" },

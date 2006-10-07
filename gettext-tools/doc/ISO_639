@@ -11,6 +11,8 @@ Sinhalese corrected, 1995-10-10 by Michael Everson
 Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
 Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
 2004-01-18 by Bruno Haible
+Updated from http://www.loc.gov/standards/iso639-2/index.html
+2006-10-05 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -18,6 +20,7 @@ Normungsinstitut (ON), Postfach 130, A-1021 Vienna, Austria.
 
 aa Afar
 ab Abkhazian
+ad Adangme
 ae Avestan
 af Afrikaans
 ak Akan
@@ -52,7 +55,7 @@ cy Welsh
 
 da Danish
 de German
-dv Divehi
+dv Divehi; Maldivian
 dz Dzongkha; Bhutani
 
 ee @'Ew@'e
@@ -69,16 +72,16 @@ fi Finnish
 fj Fijian; Fiji
 fo Faroese
 fr French
-fy Frisian
+fy Western Frisian
 
 ga Irish
 gd Scots; Gaelic
-gl Gallegan; Galician
+gl Galician
 gn Guarani
 gu Gujarati
 gv Manx
 
-ha Hausa (?)
+ha Hausa
 he Hebrew (formerly iw)
 hi Hindi
 ho Hiri Motu
@@ -93,7 +96,7 @@ id Indonesian (formerly in)
 ie Interlingue
 ig Igbo
 ii Sichuan Yi
-ik Inupiak
+ik Inupiak; Inupiaq
 io Ido
 is Icelandic
 it Italian
@@ -104,8 +107,8 @@ jv Javanese
 
 ka Georgian
 kg Kongo
-ki Kikuyu
-kj Kuanyama
+ki Kikuyu; Gikuyu
+kj Kuanyama; Kwanyama
 kk Kazakh
 kl Kalaallisut; Greenlandic
 km Khmer; Cambodian
@@ -119,7 +122,7 @@ kw Cornish
 ky Kirghiz
 
 la Latin
-lb Letzeburgesch
+lb Letzeburgesch; Luxembourgish
 lg Ganda
 li Limburgish; Limburger; Limburgan
 ln Lingala
@@ -129,7 +132,7 @@ lu Luba-Katanga
 lv Latvian; Lettish
 
 mg Malagasy
-mh Marshall
+mh Marshallese
 mi Maori
 mk Macedonian
 ml Malayalam
@@ -149,7 +152,7 @@ nl Dutch
 nn Norwegian Nynorsk
 no Norwegian
 nr Ndebele, South
-nv Navajo
+nv Navajo; Navaho
 ny Chichewa; Nyanja
 
 oc Occitan; Proven@,{c}al
@@ -177,7 +180,7 @@ sc Sardinian
 sd Sindhi
 se Northern Sami
 sg Sango; Sangro
-si Sinhalese
+si Sinhala; Sinhalese
 sk Slovak
 sl Slovenian
 sm Samoan
@@ -199,7 +202,7 @@ ti Tigrinya
 tk Turkmen
 tl Tagalog
 tn Tswana; Setswana
-to Tonga (?)
+to Tonga
 tr Turkish
 ts Tsonga
 tt Tatar

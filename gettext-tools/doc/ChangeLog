@@ -1,3 +1,9 @@
+2006-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* ISO_639: Add Adangme. Fix the names of Western Frisian, Galician,
+	Marshallese, Sinhala.
+	* ISO_3166: Add AX, GG, IM, JE, ME, RS. Remove CS.
+
 2006-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Document the "previous msgid" syntax.

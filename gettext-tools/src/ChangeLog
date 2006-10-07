@@ -1,3 +1,11 @@
+2006-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* lang-table.c (language_table): Add Adangme, Kashubian. Fix the
+	names of Western Frisian, Marshallese, Sinhala.
+	* msginit.c (catalogname_for_locale): Add entries for Kashubian,
+	Western Frisian, South Ndebele. Change entry for Serbian from sr_CS to
+	sr_RS.
+
 2006-10-06  Bruno Haible  <bruno@clisp.org>
 
 	* write-java.c (msgdomain_write_java): Use fopen_temp, fwriteerror_temp
