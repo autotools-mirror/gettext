@@ -1,3 +1,16 @@
+2006-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* lock.c: Include <config.h> unconditionally.
+	* printf-args.c: Likewise.
+	* printf-parse.c: Likewise.
+	* relocatable.c: Likewise.
+	* vasnprintf.c: Likewise.
+
+2006-08-26  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (EOVERFLOW): Remove definition.
+	(VASNPRINTF): Return a string of length > INT_MAX without failing.
+
 2006-10-02  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.15.1.

@@ -1,3 +1,8 @@
+2006-09-13  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* memchr.c: Include <config.h> unconditionally.
+	* strdup.c: Likewise.
+
 2006-07-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AM_CPPFLAGS): Replace ../lib with ../gnulib-lib.
