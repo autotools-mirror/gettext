@@ -1,3 +1,17 @@
+2006-10-08  Bruno Haible  <bruno@clisp.org>
+
+	* printf.c: Include errno.h, limits.h.
+	(EOVERFLOW): New fallback definition.
+	(libintl_vfprintf): Test whether the output length is > INT_MAX.
+	(libintl_vsprintf): Likewise.
+	(libintl_vsnprintf): Fix bug when vasnprintf requested more space than
+	needed. Fix return value when the entire result string would be larger
+	than the provided buffer. Test whether the output length is > INT_MAX.
+	(libintl_vasprintf): Test whether the output length is > INT_MAX.
+	(libintl_vfwprintf): Likewise.
+	(libintl_vswprintf): Fix bug when vasnwprintf requested more space than
+	needed. Test whether the output length is > INT_MAX.
+
 2006-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* lock.c: Include <config.h> unconditionally.
