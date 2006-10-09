@@ -43,16 +43,6 @@ gettextize [ @var{option}@dots{} ] [ @var{directory} ]
 and accepts the following options:
 
 @table @samp
-@item -c
-@itemx --copy
-@opindex -c@r{, @code{gettextize} option}
-@opindex --copy@r{, @code{gettextize} option}
-Copy the needed files instead of making symbolic links.  Using links
-would allow the package to always use the latest @code{gettext} code
-available on the system, but it might disturb some mechanism the
-maintainer is used to apply to the sources.  Because running
-@code{gettextize} is easy there shouldn't be problems with using copies.
-
 @item -f
 @itemx --force
 @opindex -f@r{, @code{gettextize} option}
@@ -73,6 +63,14 @@ be enabled on systems lacking GNU gettext.
 Don't update or create ChangeLog files.  By default, @code{gettextize}
 logs all changes (file additions, modifications and removals) in a
 file called @samp{ChangeLog} in each affected directory.
+
+@item --symlink
+@opindex --symlink@r{, @code{gettextize} option}
+Make symbolic links instead of copying the needed files.  This can be
+useful to save a few kilobytes of disk space, but it requires extra
+effort to create self-contained tarballs, it may disturb some mechanism
+the maintainer applies to the sources, and it is likely to introduce
+bugs when a newer version of @code{gettext} is installed on the system.
 
 @item -n
 @itemx --dry-run
