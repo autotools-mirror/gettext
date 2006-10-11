@@ -1,3 +1,26 @@
+2006-10-11  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (AM_INTL_SUBDIR): Invoke AC_TYPE_LONG_LONG_INT instead of
+	gl_AC_TYPE_LONG_LONG.
+
+2006-10-11  Bruno Haible  <bruno@clisp.org>
+
+	* longlong.m4: Add comments.
+	* ulonglong.m4: Likewise.
+
+2006-08-22  Eric Blake  <ebb9@byu.net>
+
+	* longlong.m4 (AC_TYPE_LONG_LONG_INT): Avoid compiler warning.
+
+2006-07-01  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* longlong.m4 (AC_TYPE_LONG_LONG_INT): Backport from Autoconf 2.60,
+	but fix a bug, by requiring at least 64 bits.
+	* ulonglong.m4 (AC_TYPE_UNSIGNED_LONG_LONG_INT): Likewise.
+	* longlong.m4 (gl_AC_TYPE_LONG_LONG): Now just call
+	AC_TYPE_LONG_LONG_INT.  This macro is obsolete and will go soon.
+	* ulonglong.m4 (gl_AC_TYPE_UNSIGNED_LONG_LONG) Likewise.
+
 2006-10-01  Bruno Haible  <bruno@clisp.org>
 
 	Make it possible to invoke AC_GNU_SOURCE after gl_LOCK_EARLY.
