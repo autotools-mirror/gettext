@@ -16,7 +16,7 @@ configure.ac:
 gl_CANONICALIZE
 
 Makefile.am:
-lib_SOURCES += canonicalize.h
+EXTRA_DIST += canonicalize.h canonicalize.c
 
 Include:
 "canonicalize.h"

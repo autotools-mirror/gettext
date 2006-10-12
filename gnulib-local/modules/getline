@@ -13,7 +13,7 @@ configure.ac:
 AM_FUNC_GETLINE
 
 Makefile.am:
-lib_SOURCES += getline.h
+EXTRA_DIST += getline.h getline.c
 
 Include:
 "getline.h"

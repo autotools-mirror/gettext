@@ -1,3 +1,11 @@
+2006-10-12  Bruno Haible  <bruno@clisp.org>
+
+	* modules/canonicalize (Makefile.am): Destribute all files in lib/
+	through EXTRA_DIST.
+	* modules/getline (Makefile.am): Likewise.
+	* modules/getndelim2 (Makefile.am): Likewise.
+	* modules/relocatable (Makefile.am): Likewise.
+
 2006-10-02  Bruno Haible  <bruno@clisp.org>
 
 	* modules/gettext-runtime-misc (Makefile.am): Add no-dependencies to
