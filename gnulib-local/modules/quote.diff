@@ -1,12 +1,19 @@
-*** quote	2006-08-22 14:50:25.000000000 +0200
---- quote	2006-08-22 20:17:39.000000000 +0200
+*** quote.bak	2006-10-12 19:55:25.000000000 +0200
+--- quote	2006-10-12 21:55:51.000000000 +0200
 ***************
-*** 14,19 ****
---- 14,20 ----
+*** 13,19 ****
+  gl_QUOTE
   
   Makefile.am:
-  EXTRA_DIST += quote.h
-+ lib_SOURCES += quote.c
+! EXTRA_DIST += quote.h quote.c
+  
+  Include:
+  "quote.h"
+--- 13,19 ----
+  gl_QUOTE
+  
+  Makefile.am:
+! lib_SOURCES += quote.h quote.c
   
   Include:
   "quote.h"

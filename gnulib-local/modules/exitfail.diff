@@ -1,12 +1,19 @@
-*** exitfail	2006-08-22 14:50:24.000000000 +0200
---- exitfail	2006-08-22 20:06:08.000000000 +0200
+*** exitfail.bak	2006-10-12 19:44:17.000000000 +0200
+--- exitfail	2006-10-12 21:55:12.000000000 +0200
 ***************
-*** 14,19 ****
---- 14,20 ----
+*** 13,19 ****
+  gl_EXITFAIL
   
   Makefile.am:
-  EXTRA_DIST += exitfail.h
-+ lib_SOURCES += exitfail.c
+! EXTRA_DIST += exitfail.h exitfail.c
+  
+  Include:
+  "exitfail.h"
+--- 13,19 ----
+  gl_EXITFAIL
+  
+  Makefile.am:
+! lib_SOURCES += exitfail.h exitfail.c
   
   Include:
   "exitfail.h"

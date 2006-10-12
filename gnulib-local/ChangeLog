@@ -1,5 +1,11 @@
 2006-10-12  Bruno Haible  <bruno@clisp.org>
 
+	* modules/exitfail: Update.
+	* modules/quote: Update.
+	* modules/quotearg: Update.
+
+2006-10-12  Bruno Haible  <bruno@clisp.org>
+
 	* modules/canonicalize (Makefile.am): Destribute all files in lib/
 	through EXTRA_DIST.
 	* modules/getline (Makefile.am): Likewise.

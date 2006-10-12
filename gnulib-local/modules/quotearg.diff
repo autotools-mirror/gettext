@@ -1,12 +1,19 @@
-*** quotearg	2006-08-22 14:50:25.000000000 +0200
---- quotearg	2006-08-22 20:17:54.000000000 +0200
+*** quotearg.bak	2006-10-12 19:55:21.000000000 +0200
+--- quotearg	2006-10-12 21:55:37.000000000 +0200
 ***************
-*** 18,23 ****
---- 18,24 ----
+*** 17,23 ****
+  gl_QUOTEARG
   
   Makefile.am:
-  EXTRA_DIST += quotearg.h
-+ lib_SOURCES += quotearg.c
+! EXTRA_DIST += quotearg.h quotearg.c
+  
+  Include:
+  "quotearg.h"
+--- 17,23 ----
+  gl_QUOTEARG
+  
+  Makefile.am:
+! lib_SOURCES += quotearg.h quotearg.c
   
   Include:
   "quotearg.h"
