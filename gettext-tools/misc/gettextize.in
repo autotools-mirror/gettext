@@ -769,6 +769,7 @@ if test -f "$srcdir/Makefile.am"; then
   # Extract the macro directory name from Makefile.am.
   aclocal_amflags=`grep '^ACLOCAL_AMFLAGS[ 	]*=' "$srcdir/Makefile.am" | sed -e 's/^ACLOCAL_AMFLAGS[ 	]*=\(.*\)$/\1/'`
   m4dir=m4
+  m4dir_defaulted=yes
   m4dir_is_next=
   for arg in $aclocal_amflags; do
     if test -n "$m4dir_is_next"; then
@@ -777,9 +778,11 @@ if test -f "$srcdir/Makefile.am"; then
         /*) ;;
         *)
           m4dir="$arg"
+          m4dir_defaulted=
           break
           ;;
       esac
+      m4dir_is_next=
     else
       if test "X$arg" = "X-I"; then
         m4dir_is_next=yes
@@ -961,7 +964,7 @@ if test -f "$srcdir/Makefile.am"; then
     }' < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
     func_modify_Makefile_am "(DIST_SUBDIRS): Remove $removed_directory."
   fi
-  if test -z "$m4dir_is_next"; then
+  if test -n "$m4dir_defaulted"; then
     if grep '^ACLOCAL_AMFLAGS[ 	]*=' "$srcdir/Makefile.am" > /dev/null; then
       sed -e "s%^\(ACLOCAL_AMFLAGS[ 	]*=\) \\?%\\1 -I $m4dir %" < "$srcdir/Makefile.am" > "$srcdir/Makefile.am.tmp"
       func_modify_Makefile_am "(ACLOCAL_AMFLAGS): Add -I $m4dir."
@@ -992,8 +995,24 @@ if test -f "$srcdir/Makefile.am"; then
       func_modify_Makefile_am "(EXTRA_DIST): New variable."
     fi
   fi
+  # Extract the aclocal options name from Makefile.am.
+  aclocal_amflags=`grep '^ACLOCAL_AMFLAGS[ 	]*=' "$srcdir/Makefile.am" | sed -e 's/^ACLOCAL_AMFLAGS[ 	]*=\(.*\)$/\1/'`
+  aclocal_options=
+  m4dir_is_next=
+  for arg in $aclocal_amflags; do
+    if test -n "$m4dir_is_next"; then
+      aclocal_options="$aclocal_options -I $arg"
+      m4dir_is_next=
+    else
+      if test "X$arg" = "X-I"; then
+        m4dir_is_next=yes
+      else
+        m4dir_is_next=
+      fi
+    fi
+  done
   please="$please
-Please run 'aclocal -I $m4dir' to regenerate the aclocal.m4 file.
+Please run 'aclocal$aclocal_options' to regenerate the aclocal.m4 file.
 You need aclocal from GNU automake $min_automake_version (or newer) to do this.
 Then run 'autoconf' to regenerate the configure file.
 "
