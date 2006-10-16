@@ -1,3 +1,8 @@
+2006-10-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Don't use 'eval' on commands, only on
+	variable assignments. Fixes bug introduced on 2006-10-01.
+
 2006-10-11  Bruno Haible  <bruno@clisp.org>
 
 	* intl.m4 (AM_INTL_SUBDIR): Invoke AC_TYPE_LONG_LONG_INT instead of

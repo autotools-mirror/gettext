@@ -1,4 +1,4 @@
-# gettext.m4 serial 57 (gettext-0.15.1)
+# gettext.m4 serial 58 (gettext-0.15.1)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -83,7 +83,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
   dnl Sometimes libintl requires libiconv, so first search for libiconv.
   dnl Ideally we would do this search only after the
   dnl      if test "$USE_NLS" = "yes"; then
-  dnl        if eval test "\$$gt_func_gnugettext_libc" != "yes"; then
+  dnl        if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" != "yes"; }; then
   dnl tests. But if configure.in invokes AM_ICONV after AM_GNU_GETTEXT
   dnl the configure script would need to contain the same shell code
   dnl again, outside any 'if'. There are two solutions:
@@ -162,7 +162,7 @@ return * gettext ("")$gt_expression_test_code + _nl_msg_cat_cntr + *_nl_domain_b
             [eval "$gt_func_gnugettext_libc=yes"],
             [eval "$gt_func_gnugettext_libc=no"])])
 
-        if eval test "\$$gt_func_gnugettext_libc" != "yes"; then
+        if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" != "yes"; }; then
           dnl Sometimes libintl requires libiconv, so first search for libiconv.
           ifelse(gt_included_intl, yes, , [
             AM_ICONV_LINK
@@ -192,7 +192,7 @@ return * gettext ("")$gt_expression_test_code + _nl_msg_cat_cntr + *_nl_expand_a
               [eval "$gt_func_gnugettext_libintl=yes"],
               [eval "$gt_func_gnugettext_libintl=no"])
             dnl Now see whether libintl exists and depends on libiconv.
-            if eval test "\$$gt_func_gnugettext_libintl" != yes && test -n "$LIBICONV"; then
+            if { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" != yes; } && test -n "$LIBICONV"; then
               LIBS="$LIBS $LIBICONV"
               AC_TRY_LINK([#include <libintl.h>
 $gt_revision_test_code
@@ -217,8 +217,8 @@ return * gettext ("")$gt_expression_test_code + _nl_msg_cat_cntr + *_nl_expand_a
         dnl use it.  But if this macro is used in GNU gettext, and GNU
         dnl gettext is already preinstalled in libintl, we update this
         dnl libintl.  (Cf. the install rule in intl/Makefile.in.)
-        if eval test "\$$gt_func_gnugettext_libc" = "yes" \
-           || { eval test "\$$gt_func_gnugettext_libintl" = "yes" \
+        if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" = "yes"; } \
+           || { { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" = "yes"; } \
                 && test "$PACKAGE" != gettext-runtime \
                 && test "$PACKAGE" != gettext-tools; }; then
           gt_use_preinstalled_gnugettext=yes
@@ -278,7 +278,7 @@ return * gettext ("")$gt_expression_test_code + _nl_msg_cat_cntr + *_nl_expand_a
   if test "$USE_NLS" = "yes"; then
     AC_MSG_CHECKING([where the gettext function comes from])
     if test "$gt_use_preinstalled_gnugettext" = "yes"; then
-      if eval test "\$$gt_func_gnugettext_libintl" = "yes"; then
+      if { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" = "yes"; }; then
         gt_source="external libintl"
       else
         gt_source="libc"
@@ -292,7 +292,7 @@ return * gettext ("")$gt_expression_test_code + _nl_msg_cat_cntr + *_nl_expand_a
   if test "$USE_NLS" = "yes"; then
 
     if test "$gt_use_preinstalled_gnugettext" = "yes"; then
-      if eval test "\$$gt_func_gnugettext_libintl" = "yes"; then
+      if { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" = "yes"; }; then
         AC_MSG_CHECKING([how to link with libintl])
         AC_MSG_RESULT([$LIBINTL])
         AC_LIB_APPENDTOVAR([CPPFLAGS], [$INCINTL])
