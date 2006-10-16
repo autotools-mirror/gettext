@@ -225,7 +225,7 @@ func_fatal_error ()
         shift
         do_changelog=false ;;
       --symlink | --symlin | --symli | --syml | --sym | --sy | --s )
-        shift ;;
+        shift
         try_ln_s=: ;;
       --version | --versio | --versi | --vers | --ver | --ve | --v )
         func_version
