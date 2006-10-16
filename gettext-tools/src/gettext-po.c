@@ -243,7 +243,7 @@ po_file_write (po_file_t file, const char *filename, po_error_handler_t handler)
   po_multiline_warning = handler->multiline_warning;
   po_multiline_error   = handler->multiline_error;
 
-  msgdomain_list_print (file->mdlp, filename, true, false);
+  msgdomain_list_print (file->mdlp, filename, &output_format_po, true, false);
 
   /* Restore error handler.  */
   po_error             = error;
