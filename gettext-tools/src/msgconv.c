@@ -36,7 +36,10 @@
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "msgl-iconv.h"
 #include "localcharset.h"
 #include "exit.h"
@@ -96,7 +99,7 @@ main (int argc, char **argv)
   char *output_file;
   const char *input_file;
   msgdomain_list_ty *result;
-  input_syntax_ty output_syntax = syntax_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
 
@@ -160,8 +163,7 @@ main (int argc, char **argv)
 	break;
 
       case 'p':
-	message_print_syntax_properties ();
-	output_syntax = syntax_properties;
+	output_syntax = &output_format_properties;
 	break;
 
       case 'P':
@@ -203,7 +205,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 3: /* --stringtable-output */
-	message_print_syntax_stringtable ();
+	output_syntax = &output_format_stringtable;
 	break;
 
       default:
@@ -257,8 +259,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   result = read_po_file (input_file);
 
   /* Convert if and only if the output syntax supports different encodings.  */
-  if (output_syntax != syntax_properties
-      && output_syntax != syntax_stringtable)
+  if (!output_syntax->requires_utf8)
     result = iconv_msgdomain_list (result, to_code, input_file);
 
   /* Sort the results.  */
@@ -268,7 +269,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
 
   exit (EXIT_SUCCESS);
 }

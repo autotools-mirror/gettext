@@ -297,7 +297,7 @@ write_stringtable (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
 }
 
 /* Output the contents of a PO file in .strings syntax.  */
-void
+static void
 msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, FILE *fp,
 				  size_t page_width, bool debug)
 {
@@ -309,3 +309,15 @@ msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, FILE *fp,
     mlp = message_list_alloc (false);
   write_stringtable (fp, mlp, mdlp->encoding, page_width, debug);
 }
+
+/* Describes a PO file in .strings syntax.  */
+const struct catalog_output_format output_format_stringtable =
+{
+  msgdomain_list_print_stringtable,	/* print */
+  true,					/* requires_utf8 */
+  false,				/* supports_multiple_domains */
+  false,				/* supports_contexts */
+  false,				/* supports_plurals */
+  false,				/* alternative_is_po */
+  false					/* alternative_is_java_class */
+};

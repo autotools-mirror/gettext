@@ -38,7 +38,10 @@
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "format.h"
 #include "xalloc.h"
 #include "xallocsa.h"
@@ -159,6 +162,7 @@ main (int argc, char **argv)
   char *output_file;
   msgdomain_list_ty *def;
   msgdomain_list_ty *result;
+  catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
 
@@ -236,7 +240,7 @@ main (int argc, char **argv)
 	break;
 
       case 'p':
-	message_print_syntax_properties ();
+	output_syntax = &output_format_properties;
 	break;
 
       case 'P':
@@ -294,7 +298,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 6: /* --stringtable-output */
-	message_print_syntax_stringtable ();
+	output_syntax = &output_format_stringtable;
 	break;
 
       case CHAR_MAX + 7: /* --previous */
@@ -371,10 +375,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* In update mode, --properties-input implies --properties-output.  */
   if (update_mode && input_syntax == syntax_properties)
-    message_print_syntax_properties ();
+    output_syntax = &output_format_properties;
   /* In update mode, --stringtable-input implies --stringtable-output.  */
   if (update_mode && input_syntax == syntax_stringtable)
-    message_print_syntax_stringtable ();
+    output_syntax = &output_format_stringtable;
 
   /* Merge the two files.  */
   result = merge (argv[optind], argv[optind + 1], &def);
@@ -417,13 +421,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	    }
 
 	  /* Write the merged message list out.  */
-	  msgdomain_list_print (result, output_file, true, false);
+	  msgdomain_list_print (result, output_file, output_syntax, true,
+				false);
 	}
     }
   else
     {
       /* Write the merged message list out.  */
-      msgdomain_list_print (result, output_file, force_po, false);
+      msgdomain_list_print (result, output_file, output_syntax, force_po,
+			    false);
     }
 
   exit (EXIT_SUCCESS);

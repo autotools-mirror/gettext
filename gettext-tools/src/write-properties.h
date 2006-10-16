@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,15 +19,9 @@
 #ifndef _WRITE_PROPERTIES_H
 #define _WRITE_PROPERTIES_H
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stddef.h>
+#include "write-catalog.h"
 
-#include "message.h"
-
-/* Output the contents of a PO file in Java .properties syntax.  */
-extern void
-       msgdomain_list_print_properties (msgdomain_list_ty *mdlp, FILE *fp,
-					size_t page_width, bool debug);
+/* Describes a PO file in Java .properties syntax.  */
+extern const struct catalog_output_format output_format_properties;
 
 #endif /* _WRITE_PROPERTIES_H */

@@ -33,6 +33,7 @@
 #include "message.h"
 #include "xalloc.h"
 #include "read-po.h"
+#include "write-catalog.h"
 #include "write-po.h"
 #include "error.h"
 #include "xerror.h"
@@ -222,7 +223,7 @@ po_file_write (po_file_t file, const char *filename, po_xerror_handler_t handler
     (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
     handler->xerror2;
 
-  msgdomain_list_print (file->mdlp, filename, true, false);
+  msgdomain_list_print (file->mdlp, filename, &output_format_po, true, false);
 
   /* Restore error handler.  */
   po_xerror  = textmode_xerror;

@@ -1,3 +1,95 @@
+2006-10-15  Bruno Haible  <bruno@clisp.org>
+
+	* write-catalog.h: New file.
+	* write-catalog.c: New file, mostly extracted from write-po.c.
+	* write-po.h (message_page_width_set): Move declaration to
+	write-catalog.h.
+	(message_print_syntax_properties, message_print_syntax_stringtable):
+	Remove declarations.
+	(msgdomain_list_print): Move out to write-catalog.h, adding a
+	catalog_output_format_ty argument.
+	(msgdomain_list_sort_by_msgid, msgdomain_list_sort_by_filepos): Move
+	out to write-catalog.h.
+	(output_format_po): New declaration.
+	* write-po.c: Don't include fwriteerror.h, error-progname.h.
+	(page_width, message_page_width_set): Move out to write-catalog.c.
+	(use_syntax_properties): Remove variable.
+	(message_print_syntax_properties): Remove function.
+	(use_syntax_stringtable): Remove variable.
+	(message_print_syntax_stringtable): Remove function.
+	(wrap, message_print, message_print_obsolete, msgdomain_list_print_po):
+	Add page_width argument.
+	(msgdomain_list_print): Move out to write-catalog.c, adding a
+	catalog_output_format_ty argument.
+	(cmp_by_msgid, msgdomain_list_sort_by_msgid,
+	cmp_filepos, msgdomain_list_sort_filepos,
+	cmp_by_filepos, msgdomain_list_sort_by_filepos): Move out to
+	write-catalog.c.
+	(output_format_po): New variable.
+	* write-properties.h (msgdomain_list_print_properties): Remove
+	declaration.
+	(output_format_properties): New declaration.
+	* write-properties.c (msgdomain_list_print_properties): Make static.
+	(output_format_properties): New variable.
+	* write-stringtable.h (msgdomain_list_print_stringtable): Remove
+	declaration.
+	(output_format_stringtable): New declaration.
+	* write-stringtable.c (msgdomain_list_print_stringtable): Make static.
+	(output_format_stringtable): New variable.
+	* msgattrib.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgcat.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgcomm.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgconv.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgen.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgfilter.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msggrep.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msginit.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgmerge.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msgunfmt.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* msguniq.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(main): Change handling of --properties-output, --stringtable-output
+	options. Pass the output_syntax to msgdomain_list_print.
+	* xgettext.c: Include write-catalog.h, write-properties.h,
+	write-stringtable.h.
+	(output_syntax): Change type to catalog_output_format_ty.
+	(main): Update. Pass the output_syntax to msgdomain_list_print.
+	(finalize_header): Update.
+	* gettext-po.c: Include write-catalog.h.
+	(po_file_write): Specify PO syntax.
+	* Makefile.am (noinst_HEADERS): Add write-catalog.h.
+	(libgettextsrc_la_SOURCES): Add write.catalog.c.
+
 2006-10-05  Bruno Haible  <bruno@clisp.org>
 
 	* lang-table.c (language_table): Add Adangme, Kashubian. Fix the

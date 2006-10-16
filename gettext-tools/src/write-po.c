@@ -44,8 +44,6 @@
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "c-strstr.h"
-#include "fwriteerror.h"
-#include "error-progname.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -317,28 +315,7 @@ message_print_comment_flags (const message_ty *mp, FILE *fp, bool debug)
 }
 
 
-/* =========== Some parameters for use by 'msgdomain_list_print'. ========== */
-
-
-/* This variable controls the page width when printing messages.
-   Defaults to PAGE_WIDTH if not set.  Zero (0) given to message_page_-
-   width_set will result in no wrapping being performed.  */
-static size_t page_width = PAGE_WIDTH;
-
-void
-message_page_width_set (size_t n)
-{
-  if (n == 0)
-    {
-      page_width = INT_MAX;
-      return;
-    }
-
-  if (n < 20)
-    n = 20;
-
-  page_width = n;
-}
+/* ========= Some parameters for use by 'msgdomain_list_print_po'. ========= */
 
 
 /* This variable controls the extent to which the page width applies.
@@ -378,27 +355,7 @@ message_print_style_escape (bool flag)
 }
 
 
-/* Whether to output a file in Java .properties syntax.  */
-static bool use_syntax_properties = false;
-
-void
-message_print_syntax_properties ()
-{
-  use_syntax_properties = true;
-}
-
-
-/* Whether to output a file in NeXTstep/GNUstep .strings syntax.  */
-static bool use_syntax_stringtable = false;
-
-void
-message_print_syntax_stringtable ()
-{
-  use_syntax_stringtable = true;
-}
-
-
-/* ================ msgdomain_list_print() and subroutines. ================ */
+/* =============== msgdomain_list_print_po() and subroutines. =============== */
 
 
 /* A version of memcpy optimized for the case n <= 1.  */
@@ -419,7 +376,8 @@ memcpy_small (void *dst, const void *src, size_t n)
 
 static void
 wrap (const message_ty *mp, FILE *fp, const char *line_prefix, int extra_indent,
-      const char *name, const char *value, enum is_wrap do_wrap,
+      const char *name, const char *value,
+      enum is_wrap do_wrap, size_t page_width,
       const char *charset)
 {
   const char *canon_charset;
@@ -838,7 +796,7 @@ print_blank_line (FILE *fp)
 
 static void
 message_print (const message_ty *mp, FILE *fp, const char *charset,
-	       bool blank_line, bool debug)
+	       size_t page_width, bool blank_line, bool debug)
 {
   int extra_indent;
 
@@ -867,12 +825,14 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, fp, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap, charset);
+    wrap (mp, fp, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
+	  page_width, charset);
   if (mp->prev_msgid != NULL)
-    wrap (mp, fp, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, charset);
+    wrap (mp, fp, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, page_width,
+	  charset);
   if (mp->prev_msgid_plural != NULL)
     wrap (mp, fp, "#| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
-	  charset);
+	  page_width, charset);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 3
@@ -907,15 +867,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
     }
   if (mp->msgctxt != NULL)
     wrap (mp, fp, NULL, extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
-	  charset);
-  wrap (mp, fp, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap, charset);
+	  page_width, charset);
+  wrap (mp, fp, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap,
+	  page_width, charset);
   if (mp->msgid_plural != NULL)
     wrap (mp, fp, NULL, extra_indent, "msgid_plural", mp->msgid_plural,
-	  mp->do_wrap, charset);
+	  mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
     wrap (mp, fp, NULL, extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
-	  charset);
+	  page_width, charset);
   else
     {
       char prefix_buf[20];
@@ -928,7 +889,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
 	  wrap (mp, fp, NULL, extra_indent, prefix_buf, p, mp->do_wrap,
-		charset);
+		page_width, charset);
 	}
     }
 }
@@ -936,7 +897,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 static void
 message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
-			bool blank_line)
+			size_t page_width, bool blank_line)
 {
   int extra_indent;
 
@@ -978,12 +939,14 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, fp, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap, charset);
+    wrap (mp, fp, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
+	  page_width, charset);
   if (mp->prev_msgid != NULL)
-    wrap (mp, fp, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, charset);
+    wrap (mp, fp, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, page_width,
+	  charset);
   if (mp->prev_msgid_plural != NULL)
     wrap (mp, fp, "#~| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
-	  charset);
+	  page_width, charset);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 1
@@ -1017,15 +980,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
     }
   if (mp->msgctxt != NULL)
     wrap (mp, fp, "#~ ", extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
-	  charset);
-  wrap (mp, fp, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap, charset);
+	  page_width, charset);
+  wrap (mp, fp, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap,
+	page_width, charset);
   if (mp->msgid_plural != NULL)
     wrap (mp, fp, "#~ ", extra_indent, "msgid_plural", mp->msgid_plural,
-	  mp->do_wrap, charset);
+	  mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
     wrap (mp, fp, "#~ ", extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
-	  charset);
+	  page_width, charset);
   else
     {
       char prefix_buf[20];
@@ -1038,14 +1002,15 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
 	  wrap (mp, fp, "#~ ", extra_indent, prefix_buf, p, mp->do_wrap,
-		charset);
+		page_width, charset);
 	}
     }
 }
 
 
 static void
-msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
+msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
+			 bool debug)
 {
   size_t j, k;
   bool blank_line;
@@ -1108,7 +1073,8 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
       for (j = 0; j < mlp->nitems; ++j)
 	if (!mlp->item[j]->obsolete)
 	  {
-	    message_print (mlp->item[j], fp, charset, blank_line, debug);
+	    message_print (mlp->item[j], fp, charset, page_width, blank_line,
+			   debug);
 	    blank_line = true;
 	  }
 
@@ -1116,7 +1082,8 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
       for (j = 0; j < mlp->nitems; ++j)
 	if (mlp->item[j]->obsolete)
 	  {
-	    message_print_obsolete (mlp->item[j], fp, charset, blank_line);
+	    message_print_obsolete (mlp->item[j], fp, charset, page_width,
+				    blank_line);
 	    blank_line = true;
 	  }
 
@@ -1126,265 +1093,14 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, bool debug)
 }
 
 
-void
-msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
-		      bool force, bool debug)
+/* Describes a PO file in .po syntax.  */
+const struct catalog_output_format output_format_po =
 {
-  FILE *fp;
-
-  /* We will not write anything if, for every domain, we have no message
-     or only the header entry.  */
-  if (!force)
-    {
-      bool found_nonempty = false;
-      size_t k;
-
-      for (k = 0; k < mdlp->nitems; k++)
-	{
-	  message_list_ty *mlp = mdlp->item[k]->messages;
-
-	  if (!(mlp->nitems == 0
-		|| (mlp->nitems == 1 && is_header (mlp->item[0]))))
-	    {
-	      found_nonempty = true;
-	      break;
-	    }
-	}
-
-      if (!found_nonempty)
-	return;
-    }
-
-  /* Check whether the output format can accomodate all messages.  */
-  if (use_syntax_properties || use_syntax_stringtable)
-    {
-      if (mdlp->nitems > 1)
-	{
-	  if (use_syntax_properties)
-	    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
-Cannot output multiple translation domains into a single file with Java .properties syntax. Try using PO file syntax instead."));
-	  if (use_syntax_stringtable)
-	    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
-Cannot output multiple translation domains into a single file with NeXTstep/GNUstep .strings syntax."));
-	}
-      if (mdlp->nitems == 1)
-	{
-	  message_list_ty *mlp = mdlp->item[0]->messages;
-	  const lex_pos_ty *has_context;
-	  const lex_pos_ty *has_plural;
-	  size_t j;
-
-	  has_context = NULL;
-	  for (j = 0; j < mlp->nitems; j++)
-	    {
-	      message_ty *mp = mlp->item[j];
-
-	      if (mp->msgctxt != NULL)
-		{
-		  has_context = &mp->pos;
-		  break;
-		}
-	    }
-
-	  if (has_context != NULL)
-	    {
-	      error_with_progname = false;
-	      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-			 has_context->file_name, has_context->line_number,
-			 (size_t)(-1), false, _("\
-message catalog has context dependent translations, but the output format does not support them."));
-	      error_with_progname = true;
-	    }
-
-	  has_plural = NULL;
-	  for (j = 0; j < mlp->nitems; j++)
-	    {
-	      message_ty *mp = mlp->item[j];
-
-	      if (mp->msgid_plural != NULL)
-		{
-		  has_plural = &mp->pos;
-		  break;
-		}
-	    }
-
-	  if (has_plural != NULL)
-	    {
-	      error_with_progname = false;
-	      if (use_syntax_properties)
-		po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-			   has_plural->file_name, has_plural->line_number,
-			   (size_t)(-1), false, _("\
-message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
-	      if (use_syntax_stringtable)
-		po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-			   has_plural->file_name, has_plural->line_number,
-			   (size_t)(-1), false, _("\
-message catalog has plural form translations, but the output format does not support them."));
-	      error_with_progname = true;
-	    }
-	}
-    }
-
-  /* Open the output file.  */
-  if (filename != NULL && strcmp (filename, "-") != 0
-      && strcmp (filename, "/dev/stdout") != 0)
-    {
-      fp = fopen (filename, "w");
-      if (fp == NULL)
-	{
-	  const char *errno_description = strerror (errno);
-	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		     xasprintf ("%s: %s",
-				xasprintf (_("cannot create output file \"%s\""),
-					   filename),
-				errno_description));
-	}
-    }
-  else
-    {
-      fp = stdout;
-      /* xgettext:no-c-format */
-      filename = _("standard output");
-    }
-
-  if (use_syntax_properties)
-    msgdomain_list_print_properties (mdlp, fp, page_width, debug);
-  else if (use_syntax_stringtable)
-    msgdomain_list_print_stringtable (mdlp, fp, page_width, debug);
-  else
-    msgdomain_list_print_po (mdlp, fp, debug);
-
-  /* Make sure nothing went wrong.  */
-  if (fwriteerror (fp))
-    {
-      const char *errno_description = strerror (errno);
-      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		 xasprintf ("%s: %s",
-			    xasprintf (_("error while writing \"%s\" file"),
-				       filename),
-			    errno_description));
-    }
-}
-
-
-/* =============================== Sorting. ================================ */
-
-
-static int
-cmp_by_msgid (const void *va, const void *vb)
-{
-  const message_ty *a = *(const message_ty **) va;
-  const message_ty *b = *(const message_ty **) vb;
-  /* Because msgids normally contain only ASCII characters, it is OK to
-     sort them as if we were in the C locale. And strcoll() in the C locale
-     is the same as strcmp().  */
-  return strcmp (a->msgid, b->msgid);
-}
-
-
-void
-msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp)
-{
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = mdlp->item[k]->messages;
-
-      if (mlp->nitems > 0)
-	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), cmp_by_msgid);
-    }
-}
-
-
-/* Sort the file positions of every message.  */
-
-static int
-cmp_filepos (const void *va, const void *vb)
-{
-  const lex_pos_ty *a = (const lex_pos_ty *) va;
-  const lex_pos_ty *b = (const lex_pos_ty *) vb;
-  int cmp;
-
-  cmp = strcmp (a->file_name, b->file_name);
-  if (cmp == 0)
-    cmp = (int) a->line_number - (int) b->line_number;
-
-  return cmp;
-}
-
-static void
-msgdomain_list_sort_filepos (msgdomain_list_ty *mdlp)
-{
-  size_t j, k;
-
-  for (k = 0; k < mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = mdlp->item[k]->messages;
-
-      for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
-
-	  if (mp->filepos_count > 0)
-	    qsort (mp->filepos, mp->filepos_count, sizeof (mp->filepos[0]),
-		   cmp_filepos);
-	}
-    }
-}
-
-
-/* Sort the messages according to the file position.  */
-
-static int
-cmp_by_filepos (const void *va, const void *vb)
-{
-  const message_ty *a = *(const message_ty **) va;
-  const message_ty *b = *(const message_ty **) vb;
-  int cmp;
-
-  /* No filepos is smaller than any other filepos.  */
-  if (a->filepos_count == 0)
-    {
-      if (b->filepos_count != 0)
-	return -1;
-    }
-  if (b->filepos_count == 0)
-    return 1;
-
-  /* Compare on the file names...  */
-  cmp = strcmp (a->filepos[0].file_name, b->filepos[0].file_name);
-  if (cmp != 0)
-    return cmp;
-
-  /* If they are equal, compare on the line numbers...  */
-  cmp = a->filepos[0].line_number - b->filepos[0].line_number;
-  if (cmp != 0)
-    return cmp;
-
-  /* If they are equal, compare on the msgid strings.  */
-  /* Because msgids normally contain only ASCII characters, it is OK to
-     sort them as if we were in the C locale. And strcoll() in the C locale
-     is the same as strcmp().  */
-  return strcmp (a->msgid, b->msgid);
-}
-
-
-void
-msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp)
-{
-  size_t k;
-
-  /* It makes sense to compare filepos[0] of different messages only after
-     the filepos[] array of each message has been sorted.  Sort it now.  */
-  msgdomain_list_sort_filepos (mdlp);
-
-  for (k = 0; k < mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = mdlp->item[k]->messages;
-
-      if (mlp->nitems > 0)
-	qsort (mlp->item, mlp->nitems, sizeof (mlp->item[0]), cmp_by_filepos);
-    }
-}
+  msgdomain_list_print_po,		/* print */
+  false,				/* requires_utf8 */
+  true,					/* supports_multiple_domains */
+  true,					/* supports_contexts */
+  true,					/* supports_plurals */
+  false,				/* alternative_is_po */
+  false					/* alternative_is_java_class */
+};

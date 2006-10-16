@@ -41,7 +41,10 @@
 #include "read-csharp.h"
 #include "read-resources.h"
 #include "read-tcl.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -117,6 +120,7 @@ main (int argc, char **argv)
   bool do_version = false;
   const char *output_file = "-";
   msgdomain_list_ty *result;
+  catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_msgid = false;
 
   /* Set program name for messages.  */
@@ -181,7 +185,7 @@ main (int argc, char **argv)
 	break;
 
       case 'p':
-	message_print_syntax_properties ();
+	output_syntax = &output_format_properties;
 	break;
 
       case 'r':
@@ -224,7 +228,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 3: /* --stringtable-output */
-	message_print_syntax_stringtable ();
+	output_syntax = &output_format_stringtable;
 	break;
 
       case CHAR_MAX + 4: /* --csharp */
@@ -393,7 +397,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the resulting message list to the given .po file.  */
-  msgdomain_list_print (result, output_file, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
 
   /* No problems.  */
   exit (EXIT_SUCCESS);

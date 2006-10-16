@@ -38,7 +38,10 @@
 #include "basename.h"
 #include "message.h"
 #include "read-po.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "msgl-cat.h"
 #include "exit.h"
 #include "propername.h"
@@ -104,7 +107,7 @@ main (int argc, char **argv)
   const char *files_from;
   string_list_ty *file_list;
   msgdomain_list_ty *result;
-  input_syntax_ty output_syntax = syntax_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
 
@@ -198,8 +201,7 @@ main (int argc, char **argv)
 	break;
 
       case 'p':
-	message_print_syntax_properties ();
-	output_syntax = syntax_properties;
+	output_syntax = &output_format_properties;
 	break;
 
       case 'P':
@@ -249,7 +251,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 4: /* --stringtable-output */
-	message_print_syntax_stringtable ();
+	output_syntax = &output_format_stringtable;
 	break;
 
       default:
@@ -300,11 +302,9 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Read input files, then filter, convert and merge messages.  */
-  result = catenate_msgdomain_list (file_list,
-				    output_syntax != syntax_properties
-				    && output_syntax != syntax_stringtable
-				    ? to_code
-				    : "UTF-8");
+  result =
+    catenate_msgdomain_list (file_list,
+			     output_syntax->requires_utf8 ? "UTF-8" : to_code);
 
   string_list_free (file_list);
 
@@ -315,7 +315,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the PO file.  */
-  msgdomain_list_print (result, output_file, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
 
   exit (EXIT_SUCCESS);
 }

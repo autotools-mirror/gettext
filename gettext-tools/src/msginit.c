@@ -60,7 +60,10 @@
 #include "c-strcase.h"
 #include "message.h"
 #include "read-po.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "po-charset.h"
 #include "localcharset.h"
 #include "po-time.h"
@@ -148,6 +151,7 @@ main (int argc, char **argv)
   char *output_file;
   const char *input_file;
   msgdomain_list_ty *result;
+  catalog_output_format_ty output_syntax = &output_format_po;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -202,7 +206,7 @@ main (int argc, char **argv)
 	break;
 
       case 'p':
-	message_print_syntax_properties ();
+	output_syntax = &output_format_properties;
 	break;
 
       case 'P':
@@ -236,7 +240,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 4: /* --stringtable-output */
-	message_print_syntax_stringtable ();
+	output_syntax = &output_format_stringtable;
 	break;
 
       default:
@@ -323,7 +327,7 @@ the output .po file through the --output-file option.\n"),
     result = update_msgstr_plurals (result);
 
   /* Write the modified message list out.  */
-  msgdomain_list_print (result, output_file, true, false);
+  msgdomain_list_print (result, output_file, output_syntax, true, false);
 
   if (!no_translator)
     fprintf (stderr, "\n");

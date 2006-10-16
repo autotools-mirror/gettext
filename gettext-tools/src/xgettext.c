@@ -58,7 +58,10 @@
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
 #include "po-time.h"
+#include "write-catalog.h"
 #include "write-po.h"
+#include "write-properties.h"
+#include "write-stringtable.h"
 #include "format.h"
 #include "propername.h"
 #include "gettext.h"
@@ -132,7 +135,7 @@ static const char *msgstr_suffix;
 static char *output_dir;
 
 /* The output syntax: .pot or .properties or .strings.  */
-static input_syntax_ty output_syntax = syntax_po;
+static catalog_output_format_ty output_syntax = &output_format_po;
 
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
@@ -486,12 +489,10 @@ main (int argc, char *argv[])
 	msgid_bugs_address = optarg;
 	break;
       case CHAR_MAX + 6:	/* --properties-output */
-	message_print_syntax_properties ();
-	output_syntax = syntax_properties;
+	output_syntax = &output_format_properties;
 	break;
       case CHAR_MAX + 7:	/* --stringtable-output */
-	message_print_syntax_stringtable ();
-	output_syntax = syntax_stringtable;
+	output_syntax = &output_format_stringtable;
 	break;
       case CHAR_MAX + 8:	/* --flag */
 	xgettext_record_flag (optarg);
@@ -722,7 +723,7 @@ warning: file `%s' extension `%s' is unknown; will try C"), filename, extension)
     msgdomain_list_sort_by_msgid (mdlp);
 
   /* Write the PO file.  */
-  msgdomain_list_print (mdlp, file_name, force_po, do_debug);
+  msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
 
   exit (EXIT_SUCCESS);
 }
@@ -2888,9 +2889,7 @@ finalize_header (msgdomain_list_ty *mdlp)
 	  has_nonascii = true;
       }
 
-    if (has_nonascii
-	|| output_syntax == syntax_properties
-	|| output_syntax == syntax_stringtable)
+    if (has_nonascii || output_syntax->requires_utf8)
       {
 	message_list_ty *mlp = mdlp->item[0]->messages;
 

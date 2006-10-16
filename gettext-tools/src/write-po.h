@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -51,9 +51,7 @@ extern void
        message_print_comment_flags (const message_ty *mp, FILE *fp,
 				    bool debug);
 
-/* These functions set some parameters for use by 'msgdomain_list_print'.  */
-extern void
-       message_page_width_set (size_t width);
+/* These functions set some parameters for use by 'output_format_po.print'.  */
 extern void
        message_page_width_ignore (void);
 extern void
@@ -62,23 +60,9 @@ extern void
        message_print_style_uniforum (void);
 extern void
        message_print_style_escape (bool flag);
-extern void
-       message_print_syntax_properties (void);
-extern void
-       message_print_syntax_stringtable (void);
 
-/* Output MDLP into a PO file with the given FILENAME, according to the
-   parameters set by the functions above.  */
-extern void
-       msgdomain_list_print (msgdomain_list_ty *mdlp,
-			     const char *filename,
-			     bool force, bool debug);
-
-/* Sort MDLP destructively according to the given criterion.  */
-extern void
-       msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp);
-extern void
-       msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp);
+/* Describes a PO file in .po syntax.  */
+extern const struct catalog_output_format output_format_po;
 
 
 #ifdef __cplusplus

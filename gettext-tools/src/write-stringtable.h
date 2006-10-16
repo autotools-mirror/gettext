@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,15 +19,9 @@
 #ifndef _WRITE_STRINGTABLE_H
 #define _WRITE_STRINGTABLE_H
 
-#include <stdbool.h>
-#include <stdio.h>
-#include <stddef.h>
+#include "write-catalog.h"
 
-#include "message.h"
-
-/* Output the contents of a PO file in .strings syntax.  */
-extern void
-       msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, FILE *fp,
-					 size_t page_width, bool debug);
+/* Describes a PO file in .strings syntax.  */
+extern const struct catalog_output_format output_format_stringtable;
 
 #endif /* _WRITE_STRINGTABLE_H */

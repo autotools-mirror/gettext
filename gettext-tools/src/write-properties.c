@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -273,7 +273,7 @@ write_properties (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
 }
 
 /* Output the contents of a PO file in Java .properties syntax.  */
-void
+static void
 msgdomain_list_print_properties (msgdomain_list_ty *mdlp, FILE *fp,
 				 size_t page_width, bool debug)
 {
@@ -285,3 +285,15 @@ msgdomain_list_print_properties (msgdomain_list_ty *mdlp, FILE *fp,
     mlp = message_list_alloc (false);
   write_properties (fp, mlp, mdlp->encoding, page_width, debug);
 }
+
+/* Describes a PO file in Java .properties syntax.  */
+const struct catalog_output_format output_format_properties =
+{
+  msgdomain_list_print_properties,	/* print */
+  true,					/* requires_utf8 */
+  false,				/* supports_multiple_domains */
+  false,				/* supports_contexts */
+  false,				/* supports_plurals */
+  true,					/* alternative_is_po */
+  true					/* alternative_is_java_class */
+};
