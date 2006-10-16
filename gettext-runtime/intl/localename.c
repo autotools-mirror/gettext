@@ -978,7 +978,7 @@ _nl_locale_name_canonicalize (char *name)
 #endif
 
 /* Determine the current locale's name, and canonicalize it into XPG syntax
-     language[_territory[.codeset]][@modifier]
+     language[_territory][.codeset][@modifier]
    The codeset part in the result is not reliable; the locale_charset()
    should be used for codeset information instead.
    The result must not be freed; it is statically allocated.  */
