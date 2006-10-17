@@ -1,3 +1,16 @@
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
+	Use newer modules from gnulib.
+	* lib/getline.h: Remove file.
+	* lib/getline.c: Remove file.
+	* m4/getline.m4: Remove file.
+	* modules/getline: Remove file.
+	* lib/getndelim2.h: Remove file.
+	* lib/getndelim2.c: Remove file.
+	* m4/getndelim2.m4: Remove file.
+	* modules/getndelim2: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
 2006-10-13  Bruno Haible  <bruno@clisp.org>
 
 	* modules/exitfail.diff: Update.

@@ -45,10 +45,6 @@ lib/fnmatch_loop.c.diff \
 lib/fstrcmp.c \
 lib/fstrcmp.h \
 lib/gen-lbrkprop.c \
-lib/getline.c \
-lib/getline.h \
-lib/getndelim2.c \
-lib/getndelim2.h \
 lib/getopt_.h.diff \
 lib/gettext.h \
 lib/hash.c \
@@ -80,8 +76,6 @@ m4/ChangeLog.0 \
 m4/ChangeLog.1 \
 m4/exitfail.m4.diff \
 m4/gcj.m4 \
-m4/getline.m4 \
-m4/getndelim2.m4 \
 m4/hard-locale.m4.diff \
 m4/java.m4 \
 m4/quotearg.m4.diff \
@@ -100,8 +94,6 @@ modules/fnmatch.diff \
 modules/fstrcmp \
 modules/gcj \
 modules/gen-lbrkprop \
-modules/getline \
-modules/getndelim2 \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/hash \
