@@ -145,6 +145,7 @@ if test -n "$GNULIB_TOOL"; then
   xallocsa
   xerror
   xsetenv
+  xstriconv
   xvasprintf
   '
   # Not yet used. Add some files to gettext-tools-misc instead.
