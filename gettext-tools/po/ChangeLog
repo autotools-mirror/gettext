@@ -1,5 +1,10 @@
 2006-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* POTFILES.in: Add src/read-catalog.c, remove src/read-po.c.
+	Add src/open-catalog.c, remove src/open-po.c.
+
+2006-10-15  Bruno Haible  <bruno@clisp.org>
+
 	* POTFILES.in: Add src/write-catalog.c.
 
 2006-10-02  Bruno Haible  <bruno@clisp.org>

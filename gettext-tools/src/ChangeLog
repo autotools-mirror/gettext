@@ -1,5 +1,16 @@
 2006-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* read-catalog-abstract.h: Renamed from read-po-abstract.h.
+	* read-catalog-abstract.c: Renamed from read-po-abstract.c.
+	* read-catalog.h: Renamed from read-po.h.
+	* read-catalog.c: Renamed from read-po.c.
+	* open-catalog.h: Renamed from open-po.h.
+	* open-catalog.c: Renamed from open-po.c.
+	* Makefile.am (noinst_HEADERS, COMMON_SOURCE, libgettextsrc_la_SOURCES):
+	Update.
+
+2006-10-15  Bruno Haible  <bruno@clisp.org>
+
 	* write-catalog.h: New file.
 	* write-catalog.c: New file, mostly extracted from write-po.c.
 	* write-po.h (message_page_width_set): Move declaration to
