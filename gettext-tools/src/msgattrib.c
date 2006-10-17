@@ -35,7 +35,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -354,11 +354,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Read input file.  */
-  result = read_po_file (input_file);
+  result = read_catalog_file (input_file);
 
   /* Read optional files that limit the extent of the attribute changes.  */
-  only_mdlp = (only_file != NULL ? read_po_file (only_file) : NULL);
-  ignore_mdlp = (ignore_file != NULL ? read_po_file (ignore_file) : NULL);
+  only_mdlp = (only_file != NULL ? read_catalog_file (only_file) : NULL);
+  ignore_mdlp = (ignore_file != NULL ? read_catalog_file (ignore_file) : NULL);
 
   /* Filter the messages and manipulate the attributes.  */
   result = process_msgdomain_list (result, only_mdlp, ignore_mdlp);

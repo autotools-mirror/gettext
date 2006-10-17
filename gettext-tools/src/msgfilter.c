@@ -53,7 +53,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -342,7 +342,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     input_file = "-";
 
   /* Read input file.  */
-  result = read_po_file (input_file);
+  result = read_catalog_file (input_file);
 
   /* Recognize special programs as built-ins.  */
   if (strcmp (sub_name, "recode-sr-latin") == 0 && sub_argc == 1)

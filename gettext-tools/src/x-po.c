@@ -32,7 +32,7 @@
 #include "x-properties.h"
 #include "x-stringtable.h"
 #include "xalloc.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "po-lex.h"
 #include "gettext.h"
 
@@ -43,10 +43,10 @@
 /* The charset found in the header entry.  */
 static char *header_charset;
 
-/* Define a subclass extract_po_reader_ty of default_po_reader_ty.  */
+/* Define a subclass extract_catalog_reader_ty of default_catalog_reader_ty.  */
 
 static void
-extract_add_message (default_po_reader_ty *this,
+extract_add_message (default_catalog_reader_ty *this,
 		     char *msgctxt,
 		     char *msgid,
 		     lex_pos_ty *msgid_pos,
@@ -116,10 +116,10 @@ extract_add_message (default_po_reader_ty *this,
    and all actions resulting from the parse will be through
    invocations of method functions of that object.  */
 
-static default_po_reader_class_ty extract_methods =
+static default_catalog_reader_class_ty extract_methods =
 {
   {
-    sizeof (default_po_reader_ty),
+    sizeof (default_catalog_reader_ty),
     default_constructor,
     default_destructor,
     default_parse_brief,
@@ -143,11 +143,11 @@ extract (FILE *fp,
 	 input_syntax_ty syntax,
 	 msgdomain_list_ty *mdlp)
 {
-  default_po_reader_ty *pop;
+  default_catalog_reader_ty *pop;
 
   header_charset = NULL;
 
-  pop = default_po_reader_alloc (&extract_methods);
+  pop = default_catalog_reader_alloc (&extract_methods);
   pop->handle_comments = true;
   pop->handle_filepos_comments = (line_comment != 0);
   pop->allow_domain_directives = false;
@@ -155,9 +155,9 @@ extract (FILE *fp,
   pop->allow_duplicates_if_same_msgstr = true;
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
-  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,
-	   syntax);
-  po_reader_free ((abstract_po_reader_ty *) pop);
+  catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
+			logical_filename, syntax);
+  catalog_reader_free ((abstract_catalog_reader_ty *) pop);
 
   if (header_charset != NULL)
     {

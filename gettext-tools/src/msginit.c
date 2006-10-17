@@ -59,7 +59,7 @@
 #include "c-strstr.h"
 #include "c-strcase.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -315,7 +315,7 @@ the output .po file through the --output-file option.\n"),
     }
 
   /* Read input file.  */
-  result = read_po_file (input_file);
+  result = read_catalog_file (input_file);
 
   /* Fill the header entry.  */
   result = fill_header (result);

@@ -1,5 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,7 +33,7 @@
 #include "javaexec.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "error.h"
 #include "exit.h"
 #include "gettext.h"
@@ -71,7 +71,7 @@ execute_and_read_po_output (const char *progname,
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Read the message list.  */
-  l->mdlp = read_po (fp, "(pipe)", "(pipe)");
+  l->mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)");
 
   fclose (fp);
 

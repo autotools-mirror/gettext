@@ -32,7 +32,7 @@
 
 #include "error.h"
 #include "error-progname.h"
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
@@ -826,9 +826,9 @@ read_string (lex_pos_ty *pos)
 
 
 /* Read a .strings file from a stream, and dispatch to the various
-   abstract_po_reader_class_ty methods.  */
+   abstract_catalog_reader_class_ty methods.  */
 void
-stringtable_parse (abstract_po_reader_ty *pop, FILE *file,
+stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
 		   const char *real_filename, const char *logical_filename)
 {
   fp = file;

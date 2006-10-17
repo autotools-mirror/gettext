@@ -59,8 +59,8 @@ po-xerror.c
 +-------------- Writing PO files
 
 +-------------- Reading PO files
-| open-po.h
-| open-po.c
+| open-catalog.h
+| open-catalog.c
 |               Opening PO files for reading.
 |
 | po-charset.h
@@ -71,17 +71,17 @@ po-xerror.c
 | po-lex.c
 |               Lexical analysis of PO files.
 |
-| read-po-abstract.h
+| read-catalog-abstract.h
 | po-gram.h
 | po-gram-gen.y
 | read-properties.h
 | read-properties.c
 | read-stringtable.h
 | read-stringtable.c
-| read-po-abstract.c
+| read-catalog-abstract.c
 |               Parsing of PO files and Java .properties and NeXTstep/GNUstep
 |              .strings files.
-|         read-po-abstract.h
+|         read-catalog-abstract.h
 |                       General parser structure.
 |         po-gram.h
 |         po-gram-gen.y
@@ -92,11 +92,11 @@ po-xerror.c
 |         read-stringtable.h
 |         read-stringtable.c
 |                       Parsing of NeXTstep/GNUstep .strings files.
-|         read-po-abstract.c
+|         read-catalog-abstract.c
 |                       Top-level parser functions and callbacks.
 |
-| read-po.h
-| read-po.c
+| read-catalog.h
+| read-catalog.c
 |               Reading of a PO file, returning a list-of-messages.
 |
 +-------------- Reading PO files

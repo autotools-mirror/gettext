@@ -1,5 +1,112 @@
 2006-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* read-catalog-abstract.h (abstract_catalog_reader_ty): Renamed from
+	abstract_po_reader_ty.
+	(abstract_catalog_reader_class_ty): Renamed from
+	abstract_po_reader_class_ty. Update.
+	(ABSTRACT_CATALOG_READER_TY): Renamed from ABSTRACT_PO_READER_TY.
+	Update.
+	(abstract_catalog_reader_ty): Renamed from abstract_po_reader_ty.
+	Update.
+	(catalog_reader_alloc): Renamed from po_reader_alloc.
+	(catalog_reader_parse): Renamed from po_scan.
+	(catalog_reader_free): Renamed from po_reader_free.
+	* read-catalog.h: Update.
+	(default_catalog_reader_class_ty): Renamed from
+	default_po_reader_class_ty.
+	(DEFAULT_CATALOG_READER_TY): Renamed from DEFAULT_PO_READER_TY. Update.
+	(default_catalog_reader_ty): Renamed from default_po_reader_ty. Update.
+	(default_constructor, default_destructor, default_parse_brief,
+	default_parse_debrief, default_directive_domain,
+	default_directive_message, default_comment, default_comment_dot,
+	default_comment_filepos, default_comment_special, default_set_domain,
+	default_add_message): Update.
+	(default_catalog_reader_alloc): Renamed from default_po_reader_alloc.
+	Update.
+	(read_catalog_stream): Renamed from read_po.
+	(read_catalog_file): Renamed from read_po_file.
+	* open-catalog.h (open_catalog_file): Renamed from open_po_file.
+	* msgattrib.c: Update.
+	(main): Update.
+	* msgcat.c: Update.
+	* msgcmp.c: Update.
+	(compare): Update.
+	* msgcomm.c: Update.
+	* msgconv.c: Update.
+	(main): Update.
+	* msgen.c: Update.
+	(main): Update.
+	* msgexec.c: Update.
+	(main): Update.
+	* msgfilter.c: Update.
+	(main): Update.
+	* msgfmt.c: Update.
+	(read_catalog_file_msgfmt): Renamed from read_po_file_msgfmt. Update.
+	(main): Update.
+	(msgfmt_catalog_reader_ty): Renamed from msgfmt_po_reader_ty. Update.
+	(msgfmt_constructor, msgfmt_parse_debrief, msgfmt_set_domain,
+	msgfmt_add_message, msgfmt_frob_new_message, msgfmt_comment_special,
+	msgfmt_methods): Update.
+	(read_catalog_file_msgfmt): Renamed from read_po_file_msgfmt. Update.
+	* msggrep.c: Update.
+	(main): Update.
+	* msginit.c: Update.
+	(main): Update.
+	* msgl-cat.c: Update.
+	(catenate_msgdomain_list): Update.
+	* msgmerge.c: Update.
+	(compendium, merge): Update.
+	* msguniq.c: Update.
+	* open-catalog.c: Update.
+	(try_open_catalog_file): Renamed from try_open_po_file.
+	(open_catalog_file): Renamed from open_po_file. Update.
+	* po-gram-gen.y: Update.
+	* read-catalog-abstract.c: Update.
+	(callback_arg): Update.
+	(catalog_reader_alloc): Renamed from po_reader_alloc.
+	(catalog_reader_free): Renamed from po_reader_free.
+	(call_parse_brief, call_parse_debrief, call_directive_domain,
+	call_directive_message, call_comment, call_comment_dot,
+	call_comment_filepos, call_comment_special): Update.
+	(parse_start): Renamed from po_scan_start.
+	(parse_end): Renamed from po_scan_end.
+	(catalog_reader_parse): Renamed from po_scan.
+	* read-catalog.c: Update.
+	(call_set_domain, call_add_message, call_frob_new_message): Update.
+	(default_constructor, default_destructor, default_parse_brief,
+	default_parse_debrief, default_copy_comment_state,
+	default_reset_comment_state, default_directive_domain,
+	default_directive_message, default_comment, default_comment_dot,
+	default_comment_filepos, default_comment_special, default_set_domain,
+	default_add_message, default_methods): Update.
+	(default_catalog_reader_alloc): Renamed from default_po_reader_alloc.
+	(read_catalog_stream): Renamed from read_po. Update.
+	(read_catalog_file): Renamed from read_po_file. Update.
+	* read-csharp.c: Update.
+	(execute_and_read_po_output): Update.
+	* read-java.c: Update.
+	(execute_and_read_po_output): Update.
+	* read-properties.c: Update.
+	(properties_parse): Update.
+	* read-properties.h: Update.
+	(properties_parse): Update.
+	* read-resources.c: Update.
+	(execute_and_read_po_output): Update.
+	* read-stringtable.c: Update.
+	(stringtable_parse): Update.
+	* read-stringtable.h: Update.
+	(stringtable_parse): Update.
+	* read-tcl.c: Update.
+	(msgdomain_read_tcl): Update.
+	* x-po.c: Update.
+	(extract_add_message, extract_methods, extract): Update.
+	* xgettext.c: Update.
+	(exclude_directive_domain, exclude_directive_message, exclude_methods,
+	read_exclusion_file): Update.
+	* xgettext.h: Update.
+	* gettext-po.c: Update.
+	(po_file_read_v3, po_file_read_v2, po_file_read): Update.
+
 	* read-catalog-abstract.h: Renamed from read-po-abstract.h.
 	* read-catalog-abstract.c: Renamed from read-po-abstract.c.
 	* read-catalog.h: Renamed from read-po.h.

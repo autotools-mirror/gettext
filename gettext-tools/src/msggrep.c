@@ -46,7 +46,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -446,7 +446,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Read input file.  */
-  result = read_po_file (input_file);
+  result = read_catalog_file (input_file);
 
   if (grep_task[0].pattern_count > 0
       || grep_task[1].pattern_count > 0

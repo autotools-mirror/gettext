@@ -1,5 +1,5 @@
 /* Reading Java .properties files.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -19,11 +19,11 @@
 #ifndef _READ_PROPERTIES_H
 #define _READ_PROPERTIES_H
 
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 
 /* Read a .properties file from a stream, and dispatch to the various
-   abstract_po_reader_class_ty methods.  */
-extern void properties_parse (abstract_po_reader_ty *pop, FILE *fp,
+   abstract_catalog_reader_class_ty methods.  */
+extern void properties_parse (abstract_catalog_reader_ty *pop, FILE *fp,
 			      const char *real_filename,
 			      const char *logical_filename);
 

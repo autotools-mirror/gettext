@@ -21,7 +21,7 @@
 #endif
 
 /* Specification.  */
-#include "open-po.h"
+#include "open-catalog.h"
 
 #include <errno.h>
 #include <stdbool.h>
@@ -42,7 +42,7 @@
 #define SIZEOF(a) (sizeof(a)/sizeof(a[0]))
 
 static FILE *
-try_open_po_file (const char *input_name, char **real_file_name_p)
+try_open_catalog_file (const char *input_name, char **real_file_name_p)
 {
   static const char *extension[] = { "", ".po", ".pot", };
   char *file_name;
@@ -109,10 +109,10 @@ try_open_po_file (const char *input_name, char **real_file_name_p)
    file's pathname is returned in *REAL_FILE_NAME_P, for error message
    purposes.  */
 FILE *
-open_po_file (const char *input_name, char **real_file_name_p,
-	      bool exit_on_error)
+open_catalog_file (const char *input_name, char **real_file_name_p,
+		   bool exit_on_error)
 {
-  FILE *fp = try_open_po_file (input_name, real_file_name_p);
+  FILE *fp = try_open_catalog_file (input_name, real_file_name_p);
 
   if (fp == NULL && exit_on_error)
     {

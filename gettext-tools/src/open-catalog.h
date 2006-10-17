@@ -1,5 +1,5 @@
 /* Opening PO files.
-   Copyright (C) 1995-1997, 2000-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2003, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _OPEN_PO_H
-#define _OPEN_PO_H
+#ifndef _OPEN_CATALOG_H
+#define _OPEN_CATALOG_H
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -32,8 +32,8 @@ extern "C" {
    not found, the list of directories in "dir-list.h" is searched.  The
    file's pathname is returned in *REAL_FILE_NAME_P, for error message
    purposes.  */
-extern FILE *open_po_file (const char *input_name, char **real_file_name_p,
-			   bool exit_on_error);
+extern FILE *open_catalog_file (const char *input_name,
+				char **real_file_name_p, bool exit_on_error);
 
 
 #ifdef __cplusplus
@@ -41,4 +41,4 @@ extern FILE *open_po_file (const char *input_name, char **real_file_name_p,
 #endif
 
 
-#endif /* _OPEN_PO_H */
+#endif /* _OPEN_CATALOG_H */

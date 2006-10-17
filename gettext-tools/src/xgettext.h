@@ -33,7 +33,7 @@
 #include "str-list.h"
 
 /* Declare 'line_comment' and 'input_syntax'.  */
-#include "read-po.h"
+#include "read-catalog.h"
 
 
 #ifdef __cplusplus

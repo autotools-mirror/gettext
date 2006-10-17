@@ -40,7 +40,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "xalloc.h"
 #include "exit.h"
 #include "full-write.h"
@@ -203,7 +203,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     input_file = "-";
 
   /* Read input file.  */
-  result = read_po_file (input_file);
+  result = read_catalog_file (input_file);
 
   if (strcmp (sub_name, "0") != 0)
     {

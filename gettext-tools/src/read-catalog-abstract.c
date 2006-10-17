@@ -23,7 +23,7 @@
 #endif
 
 /* Specification.  */
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -37,19 +37,19 @@
 #include "gettext.h"
 
 /* Local variables.  */
-static abstract_po_reader_ty *callback_arg;
+static abstract_catalog_reader_ty *callback_arg;
 
 
 /* ========================================================================= */
-/* Allocating and freeing instances of abstract_po_reader_ty.  */
+/* Allocating and freeing instances of abstract_catalog_reader_ty.  */
 
 
-abstract_po_reader_ty *
-po_reader_alloc (abstract_po_reader_class_ty *method_table)
+abstract_catalog_reader_ty *
+catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table)
 {
-  abstract_po_reader_ty *pop;
+  abstract_catalog_reader_ty *pop;
 
-  pop = (abstract_po_reader_ty *) xmalloc (method_table->size);
+  pop = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
   pop->methods = method_table;
   if (method_table->constructor)
     method_table->constructor (pop);
@@ -58,7 +58,7 @@ po_reader_alloc (abstract_po_reader_class_ty *method_table)
 
 
 void
-po_reader_free (abstract_po_reader_ty *pop)
+catalog_reader_free (abstract_catalog_reader_ty *pop)
 {
   if (pop->methods->destructor)
     pop->methods->destructor (pop);
@@ -71,28 +71,28 @@ po_reader_free (abstract_po_reader_ty *pop)
 
 
 static inline void
-call_parse_brief (abstract_po_reader_ty *pop)
+call_parse_brief (abstract_catalog_reader_ty *pop)
 {
   if (pop->methods->parse_brief)
     pop->methods->parse_brief (pop);
 }
 
 static inline void
-call_parse_debrief (abstract_po_reader_ty *pop)
+call_parse_debrief (abstract_catalog_reader_ty *pop)
 {
   if (pop->methods->parse_debrief)
     pop->methods->parse_debrief (pop);
 }
 
 static inline void
-call_directive_domain (abstract_po_reader_ty *pop, char *name)
+call_directive_domain (abstract_catalog_reader_ty *pop, char *name)
 {
   if (pop->methods->directive_domain)
     pop->methods->directive_domain (pop, name);
 }
 
 static inline void
-call_directive_message (abstract_po_reader_ty *pop,
+call_directive_message (abstract_catalog_reader_ty *pop,
 			char *msgctxt,
 			char *msgid,
 			lex_pos_ty *msgid_pos,
@@ -115,28 +115,29 @@ call_directive_message (abstract_po_reader_ty *pop,
 }
 
 static inline void
-call_comment (abstract_po_reader_ty *pop, const char *s)
+call_comment (abstract_catalog_reader_ty *pop, const char *s)
 {
   if (pop->methods->comment != NULL)
     pop->methods->comment (pop, s);
 }
 
 static inline void
-call_comment_dot (abstract_po_reader_ty *pop, const char *s)
+call_comment_dot (abstract_catalog_reader_ty *pop, const char *s)
 {
   if (pop->methods->comment_dot != NULL)
     pop->methods->comment_dot (pop, s);
 }
 
 static inline void
-call_comment_filepos (abstract_po_reader_ty *pop, const char *name, size_t line)
+call_comment_filepos (abstract_catalog_reader_ty *pop, const char *name,
+		      size_t line)
 {
   if (pop->methods->comment_filepos)
     pop->methods->comment_filepos (pop, name, line);
 }
 
 static inline void
-call_comment_special (abstract_po_reader_ty *pop, const char *s)
+call_comment_special (abstract_catalog_reader_ty *pop, const char *s)
 {
   if (pop->methods->comment_special != NULL)
     pop->methods->comment_special (pop, s);
@@ -148,7 +149,7 @@ call_comment_special (abstract_po_reader_ty *pop, const char *s)
 
 
 static inline void
-po_scan_start (abstract_po_reader_ty *pop)
+parse_start (abstract_catalog_reader_ty *pop)
 {
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
@@ -160,7 +161,7 @@ po_scan_start (abstract_po_reader_ty *pop)
 }
 
 static inline void
-po_scan_end (abstract_po_reader_ty *pop)
+parse_end (abstract_catalog_reader_ty *pop)
 {
   call_parse_debrief (pop);
   callback_arg = NULL;
@@ -168,33 +169,29 @@ po_scan_end (abstract_po_reader_ty *pop)
 
 
 void
-po_scan (abstract_po_reader_ty *pop, FILE *fp,
-	 const char *real_filename, const char *logical_filename,
-	 input_syntax_ty syntax)
+catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
+		      const char *real_filename, const char *logical_filename,
+		      input_syntax_ty syntax)
 {
   /* Parse the stream's content.  */
+  parse_start (pop);
   switch (syntax)
     {
     case syntax_po:
       lex_start (fp, real_filename, logical_filename);
-      po_scan_start (pop);
       po_gram_parse ();
-      po_scan_end (pop);
       lex_end ();
       break;
     case syntax_properties:
-      po_scan_start (pop);
       properties_parse (pop, fp, real_filename, logical_filename);
-      po_scan_end (pop);
       break;
     case syntax_stringtable:
-      po_scan_start (pop);
       stringtable_parse (pop, fp, real_filename, logical_filename);
-      po_scan_end (pop);
       break;
     default:
       abort ();
     }
+  parse_end (pop);
 
   if (error_message_count > 0)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
@@ -208,7 +205,8 @@ po_scan (abstract_po_reader_ty *pop, FILE *fp,
 
 
 /* ========================================================================= */
-/* Callbacks used by po-gram.y or po-lex.c, indirectly from po_scan.  */
+/* Callbacks used by po-gram.y or po-lex.c, indirectly from
+   catalog_reader_parse.  */
 
 
 /* This function is called by po_gram_lex() whenever a domain directive

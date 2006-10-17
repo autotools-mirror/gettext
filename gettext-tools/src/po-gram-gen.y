@@ -36,7 +36,7 @@
 #include "error.h"
 #include "xalloc.h"
 #include "gettext.h"
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 
 #define _(str) gettext (str)
 

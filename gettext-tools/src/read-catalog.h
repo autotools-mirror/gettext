@@ -16,11 +16,11 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _READ_PO_H
-#define _READ_PO_H
+#ifndef _READ_CATALOG_H
+#define _READ_CATALOG_H
 
 #include "message.h"
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -37,25 +37,25 @@ extern "C" {
 
 
 /* The following pair of structures cooperate to create a derived class from
-   class abstract_po_reader_ty.  (See read-po-abstract.h for an explanation.)
-   It implements the default behaviour of reading a PO file and converting it
-   to an 'msgdomain_list_ty *'.  */
+   class abstract_catalog_reader_ty.  (See read-catalog-abstract.h for an
+   explanation.)  It implements the default behaviour of reading a PO file
+   and converting it to an 'msgdomain_list_ty *'.  */
 
 /* Forward declaration.  */
-struct default_po_reader_ty;
+struct default_catalog_reader_ty;
 
 
-typedef struct default_po_reader_class_ty default_po_reader_class_ty;
-struct default_po_reader_class_ty
+typedef struct default_catalog_reader_class_ty default_catalog_reader_class_ty;
+struct default_catalog_reader_class_ty
 {
   /* Methods inherited from superclass.  */
-  struct abstract_po_reader_class_ty super;
+  struct abstract_catalog_reader_class_ty super;
 
   /* How to change the current domain.  */
-  void (*set_domain) (struct default_po_reader_ty *pop, char *name);
+  void (*set_domain) (struct default_catalog_reader_ty *pop, char *name);
 
   /* How to add a message to the list.  */
-  void (*add_message) (struct default_po_reader_ty *pop,
+  void (*add_message) (struct default_catalog_reader_ty *pop,
 		       char *msgctxt,
 		       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
@@ -65,14 +65,15 @@ struct default_po_reader_class_ty
 		       bool force_fuzzy, bool obsolete);
 
   /* How to modify a new message before adding it to the list.  */
-  void (*frob_new_message) (struct default_po_reader_ty *pop, message_ty *mp,
+  void (*frob_new_message) (struct default_catalog_reader_ty *pop,
+			    message_ty *mp,
 			    const lex_pos_ty *msgid_pos,
 			    const lex_pos_ty *msgstr_pos);
 };
 
 
-#define DEFAULT_PO_READER_TY \
-  ABSTRACT_PO_READER_TY							\
+#define DEFAULT_CATALOG_READER_TY \
+  ABSTRACT_CATALOG_READER_TY						\
 									\
   /* If true, pay attention to comments and filepos comments.  */	\
   bool handle_comments;							\
@@ -114,18 +115,19 @@ struct default_po_reader_class_ty
   enum is_format is_format[NFORMATS];					\
   enum is_wrap do_wrap;							\
 
-typedef struct default_po_reader_ty default_po_reader_ty;
-struct default_po_reader_ty
+typedef struct default_catalog_reader_ty default_catalog_reader_ty;
+struct default_catalog_reader_ty
 {
-  DEFAULT_PO_READER_TY
+  DEFAULT_CATALOG_READER_TY
 };
 
-extern void default_constructor (abstract_po_reader_ty *that);
-extern void default_destructor (abstract_po_reader_ty *that);
-extern void default_parse_brief (abstract_po_reader_ty *that);
-extern void default_parse_debrief (abstract_po_reader_ty *that);
-extern void default_directive_domain (abstract_po_reader_ty *that, char *name);
-extern void default_directive_message (abstract_po_reader_ty *that,
+extern void default_constructor (abstract_catalog_reader_ty *that);
+extern void default_destructor (abstract_catalog_reader_ty *that);
+extern void default_parse_brief (abstract_catalog_reader_ty *that);
+extern void default_parse_debrief (abstract_catalog_reader_ty *that);
+extern void default_directive_domain (abstract_catalog_reader_ty *that,
+				      char *name);
+extern void default_directive_message (abstract_catalog_reader_ty *that,
 				       char *msgctxt,
 				       char *msgid,
 				       lex_pos_ty *msgid_pos,
@@ -136,14 +138,15 @@ extern void default_directive_message (abstract_po_reader_ty *that,
 				       char *prev_msgid,
 				       char *prev_msgid_plural,
 				       bool force_fuzzy, bool obsolete);
-extern void default_comment (abstract_po_reader_ty *that, const char *s);
-extern void default_comment_dot (abstract_po_reader_ty *that, const char *s);
-extern void default_comment_filepos (abstract_po_reader_ty *that,
+extern void default_comment (abstract_catalog_reader_ty *that, const char *s);
+extern void default_comment_dot (abstract_catalog_reader_ty *that,
+				 const char *s);
+extern void default_comment_filepos (abstract_catalog_reader_ty *that,
 				     const char *name, size_t line);
-extern void default_comment_special (abstract_po_reader_ty *that,
+extern void default_comment_special (abstract_catalog_reader_ty *that,
 				     const char *s);
-extern void default_set_domain (default_po_reader_ty *this, char *name);
-extern void default_add_message (default_po_reader_ty *this,
+extern void default_set_domain (default_catalog_reader_ty *this, char *name);
+extern void default_add_message (default_catalog_reader_ty *this,
 				 char *msgctxt,
 				 char *msgid,
 				 lex_pos_ty *msgid_pos,
@@ -155,10 +158,10 @@ extern void default_add_message (default_po_reader_ty *this,
 				 char *prev_msgid_plural,
 				 bool force_fuzzy, bool obsolete);
 
-/* Allocate a fresh default_po_reader_ty (or derived class) instance and
+/* Allocate a fresh default_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
-extern default_po_reader_ty *
-       default_po_reader_alloc (default_po_reader_class_ty *method_table);
+extern default_catalog_reader_ty *
+       default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table);
 
 
 /* If nonzero, remember comments for file name and line number for each
@@ -174,14 +177,15 @@ extern DLL_VARIABLE bool allow_duplicates;
 extern DLL_VARIABLE input_syntax_ty input_syntax;
 
 /* Read the input file from a stream.  Returns a list of messages.  */
-extern msgdomain_list_ty *read_po (FILE *fp, const char *real_filename,
-				   const char *logical_filename);
+extern msgdomain_list_ty *read_catalog_stream (FILE *fp,
+					       const char *real_filename,
+					       const char *logical_filename);
 
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  Returns
    a list of messages.  */
-extern msgdomain_list_ty *read_po_file (const char *input_name);
+extern msgdomain_list_ty *read_catalog_file (const char *input_name);
 
 
 #ifdef __cplusplus
@@ -189,4 +193,4 @@ extern msgdomain_list_ty *read_po_file (const char *input_name);
 #endif
 
 
-#endif /* _READ_PO_H */
+#endif /* _READ_CATALOG_H */

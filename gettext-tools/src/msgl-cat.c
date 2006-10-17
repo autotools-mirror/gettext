@@ -33,7 +33,7 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
 #include "msgl-equal.h"
@@ -119,7 +119,7 @@ catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
   mdlps =
     (msgdomain_list_ty **) xmalloc (nfiles * sizeof (msgdomain_list_ty *));
   for (n = 0; n < nfiles; n++)
-    mdlps[n] = read_po_file (files[n]);
+    mdlps[n] = read_catalog_file (files[n]);
 
   /* Determine the canonical name of each input file's encoding.  */
   canon_charsets = (const char ***) xmalloc (nfiles * sizeof (const char **));

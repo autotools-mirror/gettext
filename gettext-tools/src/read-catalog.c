@@ -21,13 +21,13 @@
 #endif
 
 /* Specification.  */
-#include "read-po.h"
+#include "read-catalog.h"
 
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "open-po.h"
+#include "open-catalog.h"
 #include "po-charset.h"
 #include "po-xerror.h"
 #include "xalloc.h"
@@ -40,25 +40,25 @@
 /* Inline functions to invoke the methods.  */
 
 static inline void
-call_set_domain (struct default_po_reader_ty *this, char *name)
+call_set_domain (struct default_catalog_reader_ty *this, char *name)
 {
-  default_po_reader_class_ty *methods =
-    (default_po_reader_class_ty *) this->methods;
+  default_catalog_reader_class_ty *methods =
+    (default_catalog_reader_class_ty *) this->methods;
 
   if (methods->set_domain)
     methods->set_domain (this, name);
 }
 
 static inline void
-call_add_message (struct default_po_reader_ty *this,
+call_add_message (struct default_catalog_reader_ty *this,
 		  char *msgctxt,
 		  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		  char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
 		  char *prev_msgctxt, char *prev_msgid, char *prev_msgid_plural,
 		  bool force_fuzzy, bool obsolete)
 {
-  default_po_reader_class_ty *methods =
-    (default_po_reader_class_ty *) this->methods;
+  default_catalog_reader_class_ty *methods =
+    (default_catalog_reader_class_ty *) this->methods;
 
   if (methods->add_message)
     methods->add_message (this, msgctxt,
@@ -69,12 +69,12 @@ call_add_message (struct default_po_reader_ty *this,
 }
 
 static inline void
-call_frob_new_message (struct default_po_reader_ty *this, message_ty *mp,
+call_frob_new_message (struct default_catalog_reader_ty *this, message_ty *mp,
 		       const lex_pos_ty *msgid_pos,
 		       const lex_pos_ty *msgstr_pos)
 {
-  default_po_reader_class_ty *methods =
-    (default_po_reader_class_ty *) this->methods;
+  default_catalog_reader_class_ty *methods =
+    (default_catalog_reader_class_ty *) this->methods;
 
   if (methods->frob_new_message)
     methods->frob_new_message (this, mp, msgid_pos, msgstr_pos);
@@ -82,7 +82,7 @@ call_frob_new_message (struct default_po_reader_ty *this, message_ty *mp,
 
 
 /* ========================================================================= */
-/* Implementation of default_po_reader_ty's methods.  */
+/* Implementation of default_catalog_reader_ty's methods.  */
 
 
 /* Implementation of methods declared in the superclass.  */
@@ -90,9 +90,9 @@ call_frob_new_message (struct default_po_reader_ty *this, message_ty *mp,
 
 /* Prepare for first message.  */
 void
-default_constructor (abstract_po_reader_ty *that)
+default_constructor (abstract_catalog_reader_ty *that)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
   size_t i;
 
   this->domain = MESSAGE_DOMAIN_DEFAULT;
@@ -108,9 +108,9 @@ default_constructor (abstract_po_reader_ty *that)
 
 
 void
-default_destructor (abstract_po_reader_ty *that)
+default_destructor (abstract_catalog_reader_ty *that)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   /* Do not free this->mdlp and this->mlp.  */
   if (this->handle_comments)
@@ -133,7 +133,7 @@ default_destructor (abstract_po_reader_ty *that)
 
 
 void
-default_parse_brief (abstract_po_reader_ty *that)
+default_parse_brief (abstract_catalog_reader_ty *that)
 {
   /* We need to parse comments, because even if this->handle_comments and
      this->handle_filepos_comments are false, we need to know which messages
@@ -143,14 +143,14 @@ default_parse_brief (abstract_po_reader_ty *that)
 
 
 void
-default_parse_debrief (abstract_po_reader_ty *that)
+default_parse_debrief (abstract_catalog_reader_ty *that)
 {
 }
 
 
 /* Add the accumulated comments to the message.  */
 static void
-default_copy_comment_state (default_po_reader_ty *this, message_ty *mp)
+default_copy_comment_state (default_catalog_reader_ty *this, message_ty *mp)
 {
   size_t j, i;
 
@@ -181,7 +181,7 @@ default_copy_comment_state (default_po_reader_ty *this, message_ty *mp)
 
 
 static void
-default_reset_comment_state (default_po_reader_ty *this)
+default_reset_comment_state (default_catalog_reader_ty *this)
 {
   size_t j, i;
 
@@ -216,9 +216,9 @@ default_reset_comment_state (default_po_reader_ty *this)
 
 /* Process 'domain' directive from .po file.  */
 void
-default_directive_domain (abstract_po_reader_ty *that, char *name)
+default_directive_domain (abstract_catalog_reader_ty *that, char *name)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   call_set_domain (this, name);
 
@@ -231,7 +231,7 @@ default_directive_domain (abstract_po_reader_ty *that, char *name)
 
 /* Process ['msgctxt'/]'msgid'/'msgstr' pair from .po file.  */
 void
-default_directive_message (abstract_po_reader_ty *that,
+default_directive_message (abstract_catalog_reader_ty *that,
 			   char *msgctxt,
 			   char *msgid,
 			   lex_pos_ty *msgid_pos,
@@ -242,7 +242,7 @@ default_directive_message (abstract_po_reader_ty *that,
 			   char *prev_msgid, char *prev_msgid_plural,
 			   bool force_fuzzy, bool obsolete)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   call_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
 		    msgstr, msgstr_len, msgstr_pos,
@@ -255,9 +255,9 @@ default_directive_message (abstract_po_reader_ty *that,
 
 
 void
-default_comment (abstract_po_reader_ty *that, const char *s)
+default_comment (abstract_catalog_reader_ty *that, const char *s)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   if (this->handle_comments)
     {
@@ -269,9 +269,9 @@ default_comment (abstract_po_reader_ty *that, const char *s)
 
 
 void
-default_comment_dot (abstract_po_reader_ty *that, const char *s)
+default_comment_dot (abstract_catalog_reader_ty *that, const char *s)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   if (this->handle_comments)
     {
@@ -283,10 +283,10 @@ default_comment_dot (abstract_po_reader_ty *that, const char *s)
 
 
 void
-default_comment_filepos (abstract_po_reader_ty *that,
+default_comment_filepos (abstract_catalog_reader_ty *that,
 			 const char *name, size_t line)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   if (this->handle_filepos_comments)
     {
@@ -304,9 +304,9 @@ default_comment_filepos (abstract_po_reader_ty *that,
 
 /* Test for '#, fuzzy' comments and warn.  */
 void
-default_comment_special (abstract_po_reader_ty *that, const char *s)
+default_comment_special (abstract_catalog_reader_ty *that, const char *s)
 {
-  default_po_reader_ty *this = (default_po_reader_ty *) that;
+  default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   po_parse_comment_special (s, &this->is_fuzzy, this->is_format,
 			    &this->do_wrap);
@@ -317,7 +317,7 @@ default_comment_special (abstract_po_reader_ty *that, const char *s)
 
 
 void
-default_set_domain (default_po_reader_ty *this, char *name)
+default_set_domain (default_catalog_reader_ty *this, char *name)
 {
   if (this->allow_domain_directives)
     /* Override current domain name.  Don't free memory.  */
@@ -333,7 +333,7 @@ default_set_domain (default_po_reader_ty *this, char *name)
 }
 
 void
-default_add_message (default_po_reader_ty *this,
+default_add_message (default_catalog_reader_ty *this,
 		     char *msgctxt,
 		     char *msgid,
 		     lex_pos_ty *msgid_pos,
@@ -421,10 +421,10 @@ default_add_message (default_po_reader_ty *this,
    and all actions resulting from the parse will be through
    invocations of method functions of that object.  */
 
-static default_po_reader_class_ty default_methods =
+static default_catalog_reader_class_ty default_methods =
 {
   {
-    sizeof (default_po_reader_ty),
+    sizeof (default_catalog_reader_ty),
     default_constructor,
     default_destructor,
     default_parse_brief,
@@ -442,10 +442,11 @@ static default_po_reader_class_ty default_methods =
 };
 
 
-default_po_reader_ty *
-default_po_reader_alloc (default_po_reader_class_ty *method_table)
+default_catalog_reader_ty *
+default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table)
 {
-  return (default_po_reader_ty *) po_reader_alloc (&method_table->super);
+  return
+    (default_catalog_reader_ty *) catalog_reader_alloc (&method_table->super);
 }
 
 
@@ -467,12 +468,13 @@ input_syntax_ty input_syntax = syntax_po;
 
 
 msgdomain_list_ty *
-read_po (FILE *fp, const char *real_filename, const char *logical_filename)
+read_catalog_stream (FILE *fp, const char *real_filename,
+		     const char *logical_filename)
 {
-  default_po_reader_ty *pop;
+  default_catalog_reader_ty *pop;
   msgdomain_list_ty *mdlp;
 
-  pop = default_po_reader_alloc (&default_methods);
+  pop = default_catalog_reader_alloc (&default_methods);
   pop->handle_comments = true;
   pop->handle_filepos_comments = (line_comment != 0);
   pop->allow_domain_directives = true;
@@ -485,22 +487,22 @@ read_po (FILE *fp, const char *real_filename, const char *logical_filename)
        convert strings to UTF-8.  */
     pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
-  po_scan ((abstract_po_reader_ty *) pop, fp, real_filename, logical_filename,
-	   input_syntax);
+  catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
+			logical_filename, input_syntax);
   mdlp = pop->mdlp;
-  po_reader_free ((abstract_po_reader_ty *) pop);
+  catalog_reader_free ((abstract_catalog_reader_ty *) pop);
   return mdlp;
 }
 
 
 msgdomain_list_ty *
-read_po_file (const char *filename)
+read_catalog_file (const char *filename)
 {
   char *real_filename;
-  FILE *fp = open_po_file (filename, &real_filename, true);
+  FILE *fp = open_catalog_file (filename, &real_filename, true);
   msgdomain_list_ty *result;
 
-  result = read_po (fp, real_filename, filename);
+  result = read_catalog_stream (fp, real_filename, filename);
 
   if (fp != stdin)
     fclose (fp);

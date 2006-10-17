@@ -37,7 +37,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"

@@ -51,8 +51,8 @@
 #include "exit.h"
 #include "pathname.h"
 #include "c-strcase.h"
-#include "open-po.h"
-#include "read-po-abstract.h"
+#include "open-catalog.h"
+#include "read-catalog-abstract.h"
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
@@ -900,7 +900,7 @@ Informative output:\n"));
 
 
 static void
-exclude_directive_domain (abstract_po_reader_ty *pop, char *name)
+exclude_directive_domain (abstract_catalog_reader_ty *pop, char *name)
 {
   po_gram_error_at_line (&gram_pos,
 			 _("this file may not contain domain directives"));
@@ -908,7 +908,7 @@ exclude_directive_domain (abstract_po_reader_ty *pop, char *name)
 
 
 static void
-exclude_directive_message (abstract_po_reader_ty *pop,
+exclude_directive_message (abstract_catalog_reader_ty *pop,
 			   char *msgctxt,
 			   char *msgid,
 			   lex_pos_ty *msgid_pos,
@@ -947,9 +947,9 @@ exclude_directive_message (abstract_po_reader_ty *pop,
    and all actions resulting from the parse will be through
    invocations of method functions of that object.  */
 
-static abstract_po_reader_class_ty exclude_methods =
+static abstract_catalog_reader_class_ty exclude_methods =
 {
-  sizeof (abstract_po_reader_ty),
+  sizeof (abstract_catalog_reader_ty),
   NULL, /* constructor */
   NULL, /* destructor */
   NULL, /* parse_brief */
@@ -967,12 +967,12 @@ static void
 read_exclusion_file (char *filename)
 {
   char *real_filename;
-  FILE *fp = open_po_file (filename, &real_filename, true);
-  abstract_po_reader_ty *pop;
+  FILE *fp = open_catalog_file (filename, &real_filename, true);
+  abstract_catalog_reader_ty *pop;
 
-  pop = po_reader_alloc (&exclude_methods);
-  po_scan (pop, fp, real_filename, filename, input_syntax);
-  po_reader_free (pop);
+  pop = catalog_reader_alloc (&exclude_methods);
+  catalog_reader_parse (pop, fp, real_filename, filename, input_syntax);
+  catalog_reader_free (pop);
 
   if (fp != stdin)
     fclose (fp);

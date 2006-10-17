@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@
 #include "sh-quote.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "xallocsa.h"
 #include "error.h"
 #include "exit.h"
@@ -111,7 +111,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Read the message list.  */
-  mdlp = read_po (fp, "(pipe)", "(pipe)");
+  mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)");
 
   fclose (fp);
 

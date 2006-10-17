@@ -32,7 +32,7 @@
 
 #include "message.h"
 #include "xalloc.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "error.h"
@@ -109,7 +109,7 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
 	return NULL;
     }
 
-  /* Establish error handler around read_po().  */
+  /* Establish error handler around read_catalog_stream().  */
   po_xerror =
     (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
     handler->xerror;
@@ -121,7 +121,8 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
+  file->mdlp =
+    read_catalog_stream (fp, file->real_filename, file->logical_filename);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -153,7 +154,7 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
 	return NULL;
     }
 
-  /* Establish error handler around read_po().  */
+  /* Establish error handler around read_catalog_stream().  */
   po_error             = handler->error;
   po_error_at_line     = handler->error_at_line;
   po_multiline_warning = handler->multiline_warning;
@@ -163,7 +164,8 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
+  file->mdlp =
+    read_catalog_stream (fp, file->real_filename, file->logical_filename);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -200,7 +202,8 @@ po_file_read (const char *filename)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp = read_po (fp, file->real_filename, file->logical_filename);
+  file->mdlp =
+    read_catalog_stream (fp, file->real_filename, file->logical_filename);
   file->domains = NULL;
 
   if (fp != stdin)

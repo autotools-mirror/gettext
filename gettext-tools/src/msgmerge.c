@@ -37,7 +37,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -583,7 +583,7 @@ compendium (const char *filename)
   msgdomain_list_ty *mdlp;
   size_t k;
 
-  mdlp = read_po_file (filename);
+  mdlp = read_catalog_file (filename);
   if (compendiums == NULL)
     {
       compendiums = message_list_list_alloc ();
@@ -1365,11 +1365,11 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
   stats.merged = stats.fuzzied = stats.missing = stats.obsolete = 0;
 
   /* This is the definitions file, created by a human.  */
-  def = read_po_file (fn1);
+  def = read_catalog_file (fn1);
 
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
-  ref = read_po_file (fn2);
+  ref = read_catalog_file (fn2);
   /* Add a dummy header entry, if the references file contains none.  */
   for (k = 0; k < ref->nitems; k++)
     if (message_list_search (ref->item[k]->messages, NULL, "") == NULL)

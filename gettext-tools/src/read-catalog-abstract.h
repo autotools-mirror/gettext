@@ -17,8 +17,8 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
-#ifndef _READ_PO_ABSTRACT_H
-#define _READ_PO_ABSTRACT_H
+#ifndef _READ_CATALOG_ABSTRACT_H
+#define _READ_CATALOG_ABSTRACT_H
 
 #include "po-lex.h"
 #include "message.h"
@@ -40,7 +40,7 @@ extern "C" {
    and inheritance - more than enough for the immediate needs.  */
 
 /* Forward declaration.  */
-struct abstract_po_reader_ty;
+struct abstract_catalog_reader_ty;
 
 
 /* This first structure, playing the role of the "Class" in OO sense,
@@ -48,33 +48,34 @@ struct abstract_po_reader_ty;
    class (base or derived).  Use a NULL pointer where no action is
    required.  */
 
-typedef struct abstract_po_reader_class_ty abstract_po_reader_class_ty;
-struct abstract_po_reader_class_ty
+typedef struct abstract_catalog_reader_class_ty
+        abstract_catalog_reader_class_ty;
+struct abstract_catalog_reader_class_ty
 {
   /* how many bytes to malloc for an instance of this class */
   size_t size;
 
   /* what to do immediately after the instance is malloc()ed */
-  void (*constructor) (struct abstract_po_reader_ty *pop);
+  void (*constructor) (struct abstract_catalog_reader_ty *pop);
 
   /* what to do immediately before the instance is free()ed */
-  void (*destructor) (struct abstract_po_reader_ty *pop);
+  void (*destructor) (struct abstract_catalog_reader_ty *pop);
 
   /* This method is invoked before the parse, but after the file is
      opened by the lexer.  */
-  void (*parse_brief) (struct abstract_po_reader_ty *pop);
+  void (*parse_brief) (struct abstract_catalog_reader_ty *pop);
 
   /* This method is invoked after the parse, but before the file is
      closed by the lexer.  The intention is to make consistency checks
      against the file here, and emit the errors through the lex_error*
      functions.  */
-  void (*parse_debrief) (struct abstract_po_reader_ty *pop);
+  void (*parse_debrief) (struct abstract_catalog_reader_ty *pop);
 
   /* what to do with a domain directive */
-  void (*directive_domain) (struct abstract_po_reader_ty *pop, char *name);
+  void (*directive_domain) (struct abstract_catalog_reader_ty *pop, char *name);
 
   /* what to do with a message directive */
-  void (*directive_message) (struct abstract_po_reader_ty *pop,
+  void (*directive_message) (struct abstract_catalog_reader_ty *pop,
 			     char *msgctxt,
 			     char *msgid, lex_pos_ty *msgid_pos,
 			     char *msgid_plural,
@@ -87,25 +88,26 @@ struct abstract_po_reader_class_ty
   /* What to do with a plain-vanilla comment - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment) (struct abstract_po_reader_ty *pop, const char *s);
+  void (*comment) (struct abstract_catalog_reader_ty *pop, const char *s);
 
   /* What to do with a comment that starts with a dot (i.e.  extracted
      by xgettext) - the expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
-  void (*comment_dot) (struct abstract_po_reader_ty *pop, const char *s);
+  void (*comment_dot) (struct abstract_catalog_reader_ty *pop, const char *s);
 
   /* What to do with a file position seen in a comment (i.e. a message
      location comment extracted by xgettext) - the expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment_filepos) (struct abstract_po_reader_ty *pop,
+  void (*comment_filepos) (struct abstract_catalog_reader_ty *pop,
 			   const char *s, size_t line);
 
   /* What to do with a comment that starts with a ',' or '!' - this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
-  void (*comment_special) (struct abstract_po_reader_ty *pop, const char *s);
+  void (*comment_special) (struct abstract_catalog_reader_ty *pop,
+			   const char *s);
 };
 
 
@@ -113,24 +115,24 @@ struct abstract_po_reader_class_ty
    Derived methods will often need to cast their first argument before
    using it (this corresponds to the implicit ``this'' argument in C++).
 
-   When declaring derived classes, use the ABSTRACT_PO_READER_TY define
+   When declaring derived classes, use the ABSTRACT_CATALOG_READER_TY define
    at the start of the structure, to declare inherited instance variables,
    etc.  */
 
-#define ABSTRACT_PO_READER_TY \
-  abstract_po_reader_class_ty *methods;
+#define ABSTRACT_CATALOG_READER_TY \
+  abstract_catalog_reader_class_ty *methods;
 
-typedef struct abstract_po_reader_ty abstract_po_reader_ty;
-struct abstract_po_reader_ty
+typedef struct abstract_catalog_reader_ty abstract_catalog_reader_ty;
+struct abstract_catalog_reader_ty
 {
-  ABSTRACT_PO_READER_TY
+  ABSTRACT_CATALOG_READER_TY
 };
 
 
-/* Allocate a fresh abstract_po_reader_ty (or derived class) instance and
+/* Allocate a fresh abstract_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
-extern abstract_po_reader_ty *
-       po_reader_alloc (abstract_po_reader_class_ty *method_table);
+extern abstract_catalog_reader_ty *
+       catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table);
 
 /* Kinds of PO file input syntaxes.  */
 enum input_syntax_ty
@@ -142,19 +144,21 @@ enum input_syntax_ty
 typedef enum input_syntax_ty input_syntax_ty;
 
 /* Read a PO file from a stream, and dispatch to the various
-   abstract_po_reader_class_ty methods.  */
+   abstract_catalog_reader_class_ty methods.  */
 extern void
-       po_scan (abstract_po_reader_ty *pop, FILE *fp,
-		const char *real_filename, const char *logical_filename,
-		input_syntax_ty syntax);
+       catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
+			     const char *real_filename,
+			     const char *logical_filename,
+			     input_syntax_ty syntax);
 
-/* Call the destructor and deallocate a abstract_po_reader_ty (or derived
+/* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived
    class) instance.  */
 extern void
-       po_reader_free (abstract_po_reader_ty *pop);
+       catalog_reader_free (abstract_catalog_reader_ty *pop);
 
 
-/* Callbacks used by po-gram.y or po-lex.c, indirectly from po_scan.  */
+/* Callbacks used by po-gram.y or po-lex.c, indirectly from
+   catalog_reader_parse.  */
 extern void po_callback_domain (char *name);
 extern void po_callback_message (char *msgctxt,
 				 char *msgid, lex_pos_ty *msgid_pos,
@@ -181,4 +185,4 @@ extern void po_parse_comment_special (const char *s, bool *fuzzyp,
 #endif
 
 
-#endif /* _READ_PO_ABSTRACT_H */
+#endif /* _READ_CATALOG_ABSTRACT_H */

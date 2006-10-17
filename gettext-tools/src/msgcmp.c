@@ -36,7 +36,7 @@
 #include "basename.h"
 #include "message.h"
 #include "exit.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "msgl-iconv.h"
 #include "c-strstr.h"
 #include "c-strcase.h"
@@ -345,11 +345,11 @@ compare (const char *fn1, const char *fn2)
   message_list_ty *empty_list;
 
   /* This is the master file, created by a human.  */
-  def = remove_obsoletes (read_po_file (fn1));
+  def = remove_obsoletes (read_catalog_file (fn1));
 
   /* This is the generated file, created by groping the sources with
      the xgettext program.  */
-  ref = remove_obsoletes (read_po_file (fn2));
+  ref = remove_obsoletes (read_catalog_file (fn2));
 
   /* The references file can be either in ASCII or in UTF-8.  If it is
      in UTF-8, we have to convert the definitions to UTF-8 as well.  */

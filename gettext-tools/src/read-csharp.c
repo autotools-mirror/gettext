@@ -1,5 +1,5 @@
 /* Reading C# satellite assemblies.
-   Copyright (C) 2003-2004 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,7 +33,7 @@
 #include "csharpexec.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "xalloc.h"
 #include "pathname.h"
 #include "error.h"
@@ -73,7 +73,7 @@ execute_and_read_po_output (const char *progname,
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Read the message list.  */
-  l->mdlp = read_po (fp, "(pipe)", "(pipe)");
+  l->mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)");
 
   fclose (fp);
 

@@ -35,7 +35,7 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "read-po.h"
+#include "read-catalog.h"
 #include "msgl-english.h"
 #include "write-catalog.h"
 #include "write-po.h"
@@ -241,7 +241,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Read input file and add English translations.  */
-  result = msgdomain_list_english (read_po_file (argv[optind]));
+  result = msgdomain_list_english (read_catalog_file (argv[optind]));
 
   /* Sort the results.  */
   if (sort_by_filepos)
