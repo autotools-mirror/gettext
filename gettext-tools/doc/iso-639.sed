@@ -1,6 +1,6 @@
 #! /usr/bin/sed -f
 #
-# each line of the form ^.. .* contains the code for a country.
+# each line of the form ^.. .* contains the code for a language.
 #
 /^.. / {
   h
