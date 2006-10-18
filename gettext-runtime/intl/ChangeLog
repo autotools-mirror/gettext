@@ -1,3 +1,7 @@
+2006-10-17  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* localcharset.c: Do not check HAVE_SETLOCALE.
+
 2006-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* langprefs.c: Update comment about locale name syntax.

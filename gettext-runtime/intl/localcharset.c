@@ -42,7 +42,7 @@
 # if HAVE_LANGINFO_CODESET
 #  include <langinfo.h>
 # else
-#  if HAVE_SETLOCALE
+#  if 0 /* see comment below */
 #   include <locale.h>
 #  endif
 # endif
@@ -352,7 +352,7 @@ locale_charset (void)
      (like SunOS 4 or DJGPP) have only the C locale.  Therefore we don't
      use setlocale here; it would return "C" when it doesn't support the
      locale name the user has set.  */
-#  if HAVE_SETLOCALE && 0
+#  if 0
   locale = setlocale (LC_CTYPE, NULL);
 #  endif
   if (locale == NULL || locale[0] == '\0')
