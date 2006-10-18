@@ -37,8 +37,8 @@ lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
 nodist_include_HEADERS = gettext-po.h
 
 noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
-po-lex.h open-catalog.h \
-read-catalog-abstract.h read-catalog.h read-properties.h read-stringtable.h \
+po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
+read-po.h read-properties.h read-stringtable.h \
 str-list.h \
 write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
@@ -107,7 +107,8 @@ endif
 # (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
 COMMON_SOURCE = message.c po-error.c po-xerror.c \
 read-catalog-abstract.c po-lex.c po-gram-gen.y po-charset.c \
-read-properties.c read-stringtable.c open-catalog.c dir-list.c str-list.c
+read-po.c read-properties.c read-stringtable.c open-catalog.c \
+dir-list.c str-list.c
 
 # xgettext and msgfmt deal with format strings.
 if !WOE32DLL

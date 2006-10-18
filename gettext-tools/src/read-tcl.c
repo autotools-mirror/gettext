@@ -35,6 +35,7 @@
 #include "pipe.h"
 #include "wait-process.h"
 #include "read-catalog.h"
+#include "read-po.h"
 #include "xallocsa.h"
 #include "error.h"
 #include "exit.h"
@@ -111,7 +112,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Read the message list.  */
-  mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)");
+  mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)", &input_format_po);
 
   fclose (fp);
 

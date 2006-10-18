@@ -21,10 +21,7 @@
 
 #include "read-catalog-abstract.h"
 
-/* Read a .properties file from a stream, and dispatch to the various
-   abstract_catalog_reader_class_ty methods.  */
-extern void properties_parse (abstract_catalog_reader_ty *pop, FILE *fp,
-			      const char *real_filename,
-			      const char *logical_filename);
+/* Describes a .properties file parser.  */
+extern const struct catalog_input_format input_format_properties;
 
 #endif /* _READ_PROPERTIES_H */

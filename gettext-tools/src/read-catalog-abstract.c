@@ -28,9 +28,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "po-gram.h"
-#include "read-properties.h"
-#include "read-stringtable.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
@@ -171,26 +168,11 @@ parse_end (abstract_catalog_reader_ty *pop)
 void
 catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
 		      const char *real_filename, const char *logical_filename,
-		      input_syntax_ty syntax)
+		      catalog_input_format_ty input_syntax)
 {
   /* Parse the stream's content.  */
   parse_start (pop);
-  switch (syntax)
-    {
-    case syntax_po:
-      lex_start (fp, real_filename, logical_filename);
-      po_gram_parse ();
-      lex_end ();
-      break;
-    case syntax_properties:
-      properties_parse (pop, fp, real_filename, logical_filename);
-      break;
-    case syntax_stringtable:
-      stringtable_parse (pop, fp, real_filename, logical_filename);
-      break;
-    default:
-      abort ();
-    }
+  input_syntax->parse (pop, fp, real_filename, logical_filename);
   parse_end (pop);
 
   if (error_message_count > 0)

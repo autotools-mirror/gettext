@@ -33,6 +33,7 @@
 #include "message.h"
 #include "xalloc.h"
 #include "read-catalog.h"
+#include "read-po.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "error.h"
@@ -121,8 +122,8 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp =
-    read_catalog_stream (fp, file->real_filename, file->logical_filename);
+  file->mdlp = read_catalog_stream (fp, file->real_filename,
+				    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -164,8 +165,8 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp =
-    read_catalog_stream (fp, file->real_filename, file->logical_filename);
+  file->mdlp = read_catalog_stream (fp, file->real_filename,
+				    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -202,8 +203,8 @@ po_file_read (const char *filename)
   file = (struct po_file *) xmalloc (sizeof (struct po_file));
   file->real_filename = filename;
   file->logical_filename = filename;
-  file->mdlp =
-    read_catalog_stream (fp, file->real_filename, file->logical_filename);
+  file->mdlp = read_catalog_stream (fp, file->real_filename,
+				    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   if (fp != stdin)

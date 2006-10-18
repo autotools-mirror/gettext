@@ -34,6 +34,7 @@
 #include "pipe.h"
 #include "wait-process.h"
 #include "read-catalog.h"
+#include "read-po.h"
 #include "message.h"
 #include "pathname.h"
 #include "error.h"
@@ -74,7 +75,7 @@ execute_and_read_po_output (const char *progname,
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Read the message list.  */
-  l->mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)");
+  l->mdlp = read_catalog_stream (fp, "(pipe)", "(pipe)", &input_format_po);
 
   fclose (fp);
 

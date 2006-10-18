@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 
 #include "message.h"
 #include "str-list.h"
+#include "read-catalog-abstract.h"
 
 
 #ifdef __cplusplus
@@ -48,6 +49,7 @@ extern DLL_VARIABLE bool omit_header;
 
 extern msgdomain_list_ty *
        catenate_msgdomain_list (string_list_ty *file_list,
+				catalog_input_format_ty input_syntax,
 				const char *to_code);
 
 

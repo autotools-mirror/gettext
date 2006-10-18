@@ -51,6 +51,9 @@
 #include "message.h"
 #include "open-catalog.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "po-charset.h"
 #include "msgl-check.h"
 #include "gettext.h"
@@ -188,7 +191,8 @@ static void usage (int status)
 static const char *add_mo_suffix (const char *);
 static struct msg_domain *new_domain (const char *name, const char *file_name);
 static bool is_nonobsolete (const message_ty *mp);
-static void read_catalog_file_msgfmt (char *filename);
+static void read_catalog_file_msgfmt (char *filename,
+				      catalog_input_format_ty input_syntax);
 
 
 int
@@ -198,6 +202,7 @@ main (int argc, char *argv[])
   bool do_help = false;
   bool do_version = false;
   bool strict_uniforum = false;
+  catalog_input_format_ty input_syntax = &input_format_po;
   const char *canon_encoding;
   struct msg_domain *domain;
 
@@ -273,7 +278,7 @@ main (int argc, char *argv[])
 	output_file_name = optarg;
 	break;
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
       case 'r':
 	java_resource_name = optarg;
@@ -321,7 +326,7 @@ main (int argc, char *argv[])
 	tcl_mode = true;
 	break;
       case CHAR_MAX + 8: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
       case CHAR_MAX + 9: /* --qt */
 	qt_mode = true;
@@ -506,17 +511,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	current_domain = NULL;
 
       /* And process the input file.  */
-      read_catalog_file_msgfmt (argv[optind]);
+      read_catalog_file_msgfmt (argv[optind], input_syntax);
 
       ++optind;
     }
 
-  /* We know a priori that properties_parse() and stringtable_parse() convert
+  /* We know a priori that some input_syntax->parse() functions convert
      strings to UTF-8.  */
-  canon_encoding =
-    (input_syntax == syntax_properties || input_syntax == syntax_stringtable
-     ? po_charset_utf8
-     : NULL);
+  canon_encoding = (input_syntax->produces_utf8 ? po_charset_utf8 : NULL);
 
   /* Remove obsolete messages.  They were only needed for duplicate
      checking.  */
@@ -1067,7 +1069,7 @@ static default_catalog_reader_class_ty msgfmt_methods =
 
 /* Read .po file FILENAME and store translation pairs.  */
 static void
-read_catalog_file_msgfmt (char *filename)
+read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);

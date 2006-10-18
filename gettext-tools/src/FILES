@@ -74,6 +74,8 @@ po-xerror.c
 | read-catalog-abstract.h
 | po-gram.h
 | po-gram-gen.y
+| read-po.h
+| read-po.c
 | read-properties.h
 | read-properties.c
 | read-stringtable.h
@@ -86,6 +88,9 @@ po-xerror.c
 |         po-gram.h
 |         po-gram-gen.y
 |                       Parsing of PO files, based on po-lex.{h,c}.
+|         read-po.h
+|         read-po.c
+|                       Parsing of PO files.
 |         read-properties.h
 |         read-properties.c
 |                       Parsing of Java .properties files.

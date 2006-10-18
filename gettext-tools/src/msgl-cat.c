@@ -104,7 +104,9 @@ is_message_first_needed (const message_ty *mp)
 
 
 msgdomain_list_ty *
-catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
+catenate_msgdomain_list (string_list_ty *file_list,
+			 catalog_input_format_ty input_syntax,
+			 const char *to_code)
 {
   const char * const *files = file_list->item;
   size_t nfiles = file_list->nitems;
@@ -119,7 +121,7 @@ catenate_msgdomain_list (string_list_ty *file_list, const char *to_code)
   mdlps =
     (msgdomain_list_ty **) xmalloc (nfiles * sizeof (msgdomain_list_ty *));
   for (n = 0; n < nfiles; n++)
-    mdlps[n] = read_catalog_file (files[n]);
+    mdlps[n] = read_catalog_file (files[n], input_syntax);
 
   /* Determine the canonical name of each input file's encoding.  */
   canon_charsets = (const char ***) xmalloc (nfiles * sizeof (const char **));

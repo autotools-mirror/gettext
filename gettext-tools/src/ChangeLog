@@ -1,5 +1,94 @@
 2006-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* read-catalog-abstract.h (input_syntax_ty): Remove type.
+	(catalog_input_format): New structure type.
+	(catalog_input_format_ty): New type.
+	(catalog_reader_parse): Change type of input_syntax argument.
+	* read-catalog.h (input_syntax): Remove variable.
+	(read_catalog_stream, read_catalog_file): Add input_syntax argument.
+	* msgl-cat.h: Include read-catalog-abstract.h.
+	(catenate_msgdomain_list): Add input_syntax argument.
+	* read-po.h: New file.
+	* read-po.c: New file, extracted from read-catalog-abstract.c.
+	* msgattrib.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file calls.
+	* msgcat.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update catenate_msgdomain_list call.
+	* msgcmp.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update compare call.
+	(compare): Add input_syntax argument.
+	* msgcomm.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update catenate_msgdomain_list call.
+	* msgconv.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msgen.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msgexec.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msgfilter.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msgfmt.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file_msgfmt call.
+	(read_catalog_file_msgfmt): Add input_syntax argument.
+	* msggrep.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msginit.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update read_catalog_file call.
+	* msgl-cat.c (catenate_msgdomain_list): Add input_syntax argument.
+	* msgmerge.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update merge call.
+	(compendium): Read it in PO syntax.
+	(merge): Add input_syntax argument.
+	* msguniq.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(main): Change handling of --properties-input, --stringtable-input
+	options. Update catenate_msgdomain_list call.
+	* read-catalog-abstract.c: Don't include po-gram.h, read-properties.h,
+	read-stringtable.h.
+	(catalog_reader_parse): Change type of input_syntax argument. Invoke
+	the parser indirectly.
+	* read-catalog.c (input_syntax): Remove variable.
+	(read_catalog_stream, read_catalog_file): Add input_syntax argument.
+	* read-csharp.c: Include read-po.h.
+	(execute_and_read_po_output): Update read_catalog_stream call.
+	* read-java.c: Include read-po.h.
+	(execute_and_read_po_output): Update read_catalog_stream call.
+	* read-properties.c (properties_parse): Make static.
+	(input_format_properties): New variable.
+	* read-properties.h (properties_parse): Remove declaration.
+	(input_format_properties): New declaration.
+	* read-resources.c: Include read-po.h.
+	(execute_and_read_po_output): Update read_catalog_stream call.
+	* read-stringtable.c (stringtable_parse): Make static.
+	(input_format_stringtable): New variable.
+	* read-stringtable.h (stringtable_parse): Remove declaration.
+	(input_format_stringtable): New declaration.
+	* read-tcl.c: Include read-po.h.
+	(msgdomain_read_tcl): Update read_catalog_stream call.
+	* x-po.c: Include read-po.h, read-properties.h, read-stringtable.h.
+	(extract): Change type of input_syntax argument.
+	(extract_po, extract_properties, extract_stringtable): Update.
+	* xgettext.c: Include read-po.h.
+	(read_exclusion_file): Read it in PO syntax.
+	* gettext-po.c: Include read-po.h.
+	(po_file_read_v3, po_file_read_v2, po_file_read): Update
+	read_catalog_stream call.
+	* Makefile.am (noinst_HEADERS): Add read-po.h.
+	(COMMON_SOURCE): Add read-po.c.
+
+2006-10-15  Bruno Haible  <bruno@clisp.org>
+
 	* read-catalog-abstract.h (abstract_catalog_reader_ty): Renamed from
 	abstract_po_reader_ty.
 	(abstract_catalog_reader_class_ty): Renamed from

@@ -445,7 +445,7 @@ read_escaped_string (bool in_key)
 
 /* Read a .properties file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
-void
+static void
 properties_parse (abstract_catalog_reader_ty *this, FILE *file,
 		  const char *real_filename, const char *logical_filename)
 {
@@ -548,3 +548,9 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
   real_file_name = NULL;
   gram_pos.line_number = 0;
 }
+
+const struct catalog_input_format input_format_properties =
+{
+  properties_parse,			/* parse */
+  true					/* produces_utf8 */
+};

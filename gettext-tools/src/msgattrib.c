@@ -36,6 +36,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -138,6 +141,7 @@ main (int argc, char **argv)
   msgdomain_list_ty *only_mdlp;
   msgdomain_list_ty *ignore_mdlp;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
@@ -211,7 +215,7 @@ main (int argc, char **argv)
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 's':
@@ -299,7 +303,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 16: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       case CHAR_MAX + 17: /* --stringtable-output */
@@ -354,11 +358,15 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* Read input file.  */
-  result = read_catalog_file (input_file);
+  result = read_catalog_file (input_file, input_syntax);
 
   /* Read optional files that limit the extent of the attribute changes.  */
-  only_mdlp = (only_file != NULL ? read_catalog_file (only_file) : NULL);
-  ignore_mdlp = (ignore_file != NULL ? read_catalog_file (ignore_file) : NULL);
+  only_mdlp = (only_file != NULL
+	       ? read_catalog_file (only_file, input_syntax)
+	       : NULL);
+  ignore_mdlp = (ignore_file != NULL
+		 ? read_catalog_file (ignore_file, input_syntax)
+		 : NULL);
 
   /* Filter the messages and manipulate the attributes.  */
   result = process_msgdomain_list (result, only_mdlp, ignore_mdlp);

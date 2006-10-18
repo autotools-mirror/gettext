@@ -173,19 +173,20 @@ extern DLL_VARIABLE int line_comment;
    appropriately.  Defaults to false.  */
 extern DLL_VARIABLE bool allow_duplicates;
 
-/* Expected syntax of the input files.  */
-extern DLL_VARIABLE input_syntax_ty input_syntax;
-
 /* Read the input file from a stream.  Returns a list of messages.  */
-extern msgdomain_list_ty *read_catalog_stream (FILE *fp,
-					       const char *real_filename,
-					       const char *logical_filename);
+extern msgdomain_list_ty *
+       read_catalog_stream (FILE *fp,
+			    const char *real_filename,
+			    const char *logical_filename,
+			    catalog_input_format_ty input_syntax);
 
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
    not found, the list of directories in "dir-list.h" is searched.  Returns
    a list of messages.  */
-extern msgdomain_list_ty *read_catalog_file (const char *input_name);
+extern msgdomain_list_ty *
+       read_catalog_file (const char *input_name,
+			  catalog_input_format_ty input_syntax);
 
 
 #ifdef __cplusplus

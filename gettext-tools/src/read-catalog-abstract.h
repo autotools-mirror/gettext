@@ -129,19 +129,25 @@ struct abstract_catalog_reader_ty
 };
 
 
+/* This structure describes a textual catalog input format.  */
+struct catalog_input_format
+{
+  /* Parses the contents of FP, invoking the appropriate callbacks.  */
+  void (*parse) (abstract_catalog_reader_ty *pop, FILE *fp,
+		 const char *real_filename, const char *logical_filename);
+
+  /* Whether the parse function always produces messages encoded in UTF-8
+     encoding.  */
+  bool produces_utf8;
+};
+
+typedef const struct catalog_input_format * catalog_input_format_ty;
+
+
 /* Allocate a fresh abstract_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
 extern abstract_catalog_reader_ty *
        catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table);
-
-/* Kinds of PO file input syntaxes.  */
-enum input_syntax_ty
-{
-  syntax_po,
-  syntax_properties,
-  syntax_stringtable
-};
-typedef enum input_syntax_ty input_syntax_ty;
 
 /* Read a PO file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
@@ -149,7 +155,7 @@ extern void
        catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
 			     const char *real_filename,
 			     const char *logical_filename,
-			     input_syntax_ty syntax);
+			     catalog_input_format_ty input_syntax);
 
 /* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived
    class) instance.  */

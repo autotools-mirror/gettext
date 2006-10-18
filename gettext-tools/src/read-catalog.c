@@ -463,13 +463,11 @@ int line_comment = 1;
    appropriately.  Defaults to false.  */
 bool allow_duplicates = false;
 
-/* Expected syntax of the input files.  */
-input_syntax_ty input_syntax = syntax_po;
-
 
 msgdomain_list_ty *
 read_catalog_stream (FILE *fp, const char *real_filename,
-		     const char *logical_filename)
+		     const char *logical_filename,
+		     catalog_input_format_ty input_syntax)
 {
   default_catalog_reader_ty *pop;
   msgdomain_list_ty *mdlp;
@@ -482,9 +480,8 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   pop->allow_duplicates_if_same_msgstr = false;
   pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
   pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
-  if (input_syntax == syntax_properties || input_syntax == syntax_stringtable)
-    /* We know a priori that properties_parse() and stringtable_parse()
-       convert strings to UTF-8.  */
+  if (input_syntax->produces_utf8)
+    /* We know a priori that input_syntax->parse convert strings to UTF-8.  */
     pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
@@ -496,13 +493,13 @@ read_catalog_stream (FILE *fp, const char *real_filename,
 
 
 msgdomain_list_ty *
-read_catalog_file (const char *filename)
+read_catalog_file (const char *filename, catalog_input_format_ty input_syntax)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
   msgdomain_list_ty *result;
 
-  result = read_catalog_stream (fp, real_filename, filename);
+  result = read_catalog_stream (fp, real_filename, filename, input_syntax);
 
   if (fp != stdin)
     fclose (fp);

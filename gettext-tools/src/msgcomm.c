@@ -38,6 +38,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -107,6 +110,7 @@ main (int argc, char *argv[])
   bool do_help = false;
   bool do_version = false;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
@@ -204,7 +208,7 @@ main (int argc, char *argv[])
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 's':
@@ -246,7 +250,7 @@ main (int argc, char *argv[])
 	break;
 
       case CHAR_MAX + 3: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       case CHAR_MAX + 4: /* --stringtable-output */
@@ -314,7 +318,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Read input files, then filter, convert and merge messages.  */
   allow_duplicates = true;
   msgcomm_mode = true;
-  result = catenate_msgdomain_list (file_list, to_code);
+  result = catenate_msgdomain_list (file_list, input_syntax, to_code);
 
   string_list_free (file_list);
 

@@ -47,6 +47,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -149,6 +152,7 @@ main (int argc, char **argv)
   const char *input_file;
   int grep_pass;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
@@ -318,7 +322,7 @@ error while reading \"%s\""), optarg);
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 'S':
@@ -376,7 +380,7 @@ error while reading \"%s\""), optarg);
 	break;
 
       case CHAR_MAX + 7: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       case CHAR_MAX + 8: /* --stringtable-output */
@@ -446,7 +450,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     }
 
   /* Read input file.  */
-  result = read_catalog_file (input_file);
+  result = read_catalog_file (input_file, input_syntax);
 
   if (grep_task[0].pattern_count > 0
       || grep_task[1].pattern_count > 0

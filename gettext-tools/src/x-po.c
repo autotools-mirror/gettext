@@ -33,6 +33,9 @@
 #include "x-stringtable.h"
 #include "xalloc.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "po-lex.h"
 #include "gettext.h"
 
@@ -140,7 +143,7 @@ static default_catalog_reader_class_ty extract_methods =
 static void
 extract (FILE *fp,
 	 const char *real_filename, const char *logical_filename,
-	 input_syntax_ty syntax,
+	 catalog_input_format_ty input_syntax,
 	 msgdomain_list_ty *mdlp)
 {
   default_catalog_reader_ty *pop;
@@ -156,7 +159,7 @@ extract (FILE *fp,
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-			logical_filename, syntax);
+			logical_filename, input_syntax);
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
 
   if (header_charset != NULL)
@@ -208,7 +211,7 @@ extract_po (FILE *fp,
 	    flag_context_list_table_ty *flag_table,
 	    msgdomain_list_ty *mdlp)
 {
-  extract (fp, real_filename,  logical_filename, syntax_po, mdlp);
+  extract (fp, real_filename,  logical_filename, &input_format_po, mdlp);
 }
 
 
@@ -218,7 +221,8 @@ extract_properties (FILE *fp,
 		    flag_context_list_table_ty *flag_table,
 		    msgdomain_list_ty *mdlp)
 {
-  extract (fp, real_filename,  logical_filename, syntax_properties, mdlp);
+  extract (fp, real_filename,  logical_filename, &input_format_properties,
+	   mdlp);
 }
 
 
@@ -228,5 +232,6 @@ extract_stringtable (FILE *fp,
 		     flag_context_list_table_ty *flag_table,
 		     msgdomain_list_ty *mdlp)
 {
-  extract (fp, real_filename,  logical_filename, syntax_stringtable, mdlp);
+  extract (fp, real_filename,  logical_filename, &input_format_stringtable,
+	   mdlp);
 }

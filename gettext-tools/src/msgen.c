@@ -36,6 +36,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "msgl-english.h"
 #include "write-catalog.h"
 #include "write-po.h"
@@ -93,6 +96,7 @@ main (int argc, char **argv)
   bool do_version;
   char *output_file;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
@@ -159,7 +163,7 @@ main (int argc, char **argv)
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 's':
@@ -189,7 +193,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 2: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       case CHAR_MAX + 3: /* --stringtable-output */
@@ -240,8 +244,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
-  /* Read input file and add English translations.  */
-  result = msgdomain_list_english (read_catalog_file (argv[optind]));
+  /* Read input file.  */
+  result = read_catalog_file (argv[optind], input_syntax);
+
+  /* Add English translations.  */
+  result = msgdomain_list_english (result);
 
   /* Sort the results.  */
   if (sort_by_filepos)

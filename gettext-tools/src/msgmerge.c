@@ -38,6 +38,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -150,6 +153,7 @@ static void usage (int status)
 ;
 static void compendium (const char *filename);
 static msgdomain_list_ty *merge (const char *fn1, const char *fn2,
+				 catalog_input_format_ty input_syntax,
 				 msgdomain_list_ty **defp);
 
 
@@ -162,6 +166,7 @@ main (int argc, char **argv)
   char *output_file;
   msgdomain_list_ty *def;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
@@ -244,7 +249,7 @@ main (int argc, char **argv)
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 'q':
@@ -294,7 +299,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 5: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       case CHAR_MAX + 6: /* --stringtable-output */
@@ -374,14 +379,14 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 	   "--sort-output", "--sort-by-file");
 
   /* In update mode, --properties-input implies --properties-output.  */
-  if (update_mode && input_syntax == syntax_properties)
+  if (update_mode && input_syntax == &input_format_properties)
     output_syntax = &output_format_properties;
   /* In update mode, --stringtable-input implies --stringtable-output.  */
-  if (update_mode && input_syntax == syntax_stringtable)
+  if (update_mode && input_syntax == &input_format_stringtable)
     output_syntax = &output_format_stringtable;
 
   /* Merge the two files.  */
-  result = merge (argv[optind], argv[optind + 1], &def);
+  result = merge (argv[optind], argv[optind + 1], input_syntax, &def);
 
   /* Sort the results.  */
   if (sort_by_filepos)
@@ -583,7 +588,7 @@ compendium (const char *filename)
   msgdomain_list_ty *mdlp;
   size_t k;
 
-  mdlp = read_catalog_file (filename);
+  mdlp = read_catalog_file (filename, &input_format_po);
   if (compendiums == NULL)
     {
       compendiums = message_list_list_alloc ();
@@ -1351,7 +1356,8 @@ this message should not define plural forms"));
 }
 
 static msgdomain_list_ty *
-merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
+merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
+       msgdomain_list_ty **defp)
 {
   msgdomain_list_ty *def;
   msgdomain_list_ty *ref;
@@ -1365,11 +1371,11 @@ merge (const char *fn1, const char *fn2, msgdomain_list_ty **defp)
   stats.merged = stats.fuzzied = stats.missing = stats.obsolete = 0;
 
   /* This is the definitions file, created by a human.  */
-  def = read_catalog_file (fn1);
+  def = read_catalog_file (fn1, input_syntax);
 
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
-  ref = read_catalog_file (fn2);
+  ref = read_catalog_file (fn2, input_syntax);
   /* Add a dummy header entry, if the references file contains none.  */
   for (k = 0; k < ref->nitems; k++)
     if (message_list_search (ref->item[k]->messages, NULL, "") == NULL)

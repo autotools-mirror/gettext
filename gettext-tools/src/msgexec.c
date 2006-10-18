@@ -41,6 +41,9 @@
 #include "basename.h"
 #include "message.h"
 #include "read-catalog.h"
+#include "read-po.h"
+#include "read-properties.h"
+#include "read-stringtable.h"
 #include "xalloc.h"
 #include "exit.h"
 #include "full-write.h"
@@ -101,6 +104,7 @@ main (int argc, char **argv)
   bool do_version;
   const char *input_file;
   msgdomain_list_ty *result;
+  catalog_input_format_ty input_syntax = &input_format_po;
   size_t i;
 
   /* Set program name for messages.  */
@@ -152,7 +156,7 @@ main (int argc, char **argv)
 	break;
 
       case 'P':
-	input_syntax = syntax_properties;
+	input_syntax = &input_format_properties;
 	break;
 
       case 'V':
@@ -160,7 +164,7 @@ main (int argc, char **argv)
 	break;
 
       case CHAR_MAX + 1: /* --stringtable-input */
-	input_syntax = syntax_stringtable;
+	input_syntax = &input_format_stringtable;
 	break;
 
       default:
@@ -203,7 +207,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
     input_file = "-";
 
   /* Read input file.  */
-  result = read_catalog_file (input_file);
+  result = read_catalog_file (input_file, input_syntax);
 
   if (strcmp (sub_name, "0") != 0)
     {

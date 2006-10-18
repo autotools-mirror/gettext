@@ -827,7 +827,7 @@ read_string (lex_pos_ty *pos)
 
 /* Read a .strings file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
-void
+static void
 stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
 		   const char *real_filename, const char *logical_filename)
 {
@@ -957,3 +957,9 @@ warning: syntax error, expected '=' or ';' after string"));
   real_file_name = NULL;
   gram_pos.line_number = 0;
 }
+
+const struct catalog_input_format input_format_stringtable =
+{
+  stringtable_parse,			/* parse */
+  true					/* produces_utf8 */
+};
