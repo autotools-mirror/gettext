@@ -32,9 +32,7 @@ recode-sr-latin
 
 noinst_PROGRAMS = hostname urlget
 
-lib_LTLIBRARIES = libgettextsrc.la libgettextpo.la
-
-nodist_include_HEADERS = gettext-po.h
+lib_LTLIBRARIES = libgettextsrc.la
 
 noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
 po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
@@ -129,14 +127,6 @@ write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c msgl-check.c \
 file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c plural-table.c \
 $(FORMAT_SOURCE)
-
-# libgettextpo contains the public API for PO files.
-libgettextpo_la_SOURCES = gettext-po.c
-# Libtool's library version information for libgettextpo.
-# See the libtool documentation, section "Library interface versions".
-LTV_CURRENT=3
-LTV_REVISION=0
-LTV_AGE=3
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
@@ -245,22 +235,6 @@ install-exec-clean:
 	  *) $(RM) $(DESTDIR)$(libdir)/libgettextsrc.a ;; \
 	esac
 
-# How to build libgettextpo.la.
-# Need libgettextsrc.la.
-# Need ../gnulib-lib/libgettextlib.la because of xmalloc.
-libgettextpo_la_LDFLAGS = \
-  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
-  -rpath $(libdir) \
-  libgettextsrc.la ../gnulib-lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
-# Build order. Only needed for "make -j[N]".
-libgettextpo_la_DEPENDENCIES = libgettextsrc.la
-
-# Tell the mingw or Cygwin linker which symbols to export.
-if WOE32DLL
-libgettextpo_la_SOURCES += ../woe32dll/gettextpo-exports.c
-libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
-endif
-
 # Compile-time flags for particular source files.
 msgmerge_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
 
@@ -335,19 +309,6 @@ po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
 	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > $@-tmp
 	mv $@-tmp $@
-
-# Special rules for installable include files that export variables.
-
-EXTRA_DIST += gettext-po.h.in
-BUILT_SOURCES += gettext-po.h
-CLEANFILES += gettext-po.h
-gettext-po.h: gettext-po.h.in
-if WOE32DLL
-	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.h.in > gettext-po.h-tmp
-else
-	cp $(srcdir)/gettext-po.h.in gettext-po.h-tmp
-endif
-	mv gettext-po.h-tmp gettext-po.h
 
 
 # Special rules for installation of auxiliary programs.

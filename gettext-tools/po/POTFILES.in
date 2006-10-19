@@ -2,7 +2,7 @@
 # Copyright (C) 1995, 1998, 2001-2006 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
-#   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {gnulib-lib,src}/*.[chly]
+#   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {gnulib-lib,src,libgettextpo}/*.[chly]
 
 # Files from the portability library
 gnulib-lib/argmatch.c
@@ -48,7 +48,6 @@ src/format-scheme.c
 src/format-sh.c
 src/format-tcl.c
 src/format-ycp.c
-src/gettext-po.c
 src/hostname.c
 src/msgattrib.c
 src/msgcat.c
@@ -111,3 +110,4 @@ src/x-tcl.c
 src/x-ycp.c
 src/xgettext.c
 src/user-email.sh.in
+libgettextpo/gettext-po.c

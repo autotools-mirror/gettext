@@ -1,3 +1,15 @@
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h.in: Move to ../libgettextpo/.
+	* gettext-po.c: Move to ../libgettextpo/.
+	* Makefile.am (lib_LTLIBRARIES): Remove libgettextpo.la.
+	(nodist_include_HEADERS): Remove variable.
+	(libgettextpo_la_SOURCES, LTV_CURRENT, LTV_REVISION, LTV_AGE,
+	libgettextpo_la_LDFLAGS, libgettextpo_la_DEPENDENCIES,
+	libgettextpo_la_LDFLAGS): Remove variables.
+	(EXTRA_DIST, BUILT_SOURCES, CLEANFILES): Remove gettext-po.h support.
+	(gettext-po.h): Remove rule.
+
 2006-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* po-error.h (__attribute__, __format__, __printf__): New macros.

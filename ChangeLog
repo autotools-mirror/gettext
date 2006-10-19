@@ -1,5 +1,10 @@
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_FOR_LIBGETTEXTPO): New variable.
+	Invoke gnulib-tool also for libgettextpo.
+
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh (GNULIB_MODULES_FOR_SRC): Add xstriconv.
 
 2006-10-07  Bruno Haible  <bruno@clisp.org>

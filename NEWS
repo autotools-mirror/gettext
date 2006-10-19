@@ -42,6 +42,9 @@ Version 0.15.1 - October 2006
     the requirements relating to the GNU gettext implementation outside the
     AM_GNU_GETTEXT invocation.
 
+* The libgettextpo library no longer exports symbols that could clash with
+  symbols of the application that uses it.
+
 * Vastly improved French translations. Thanks to Christophe Combelles.
 
 Version 0.15 - July 2006

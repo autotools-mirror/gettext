@@ -166,6 +166,42 @@ if test -n "$GNULIB_TOOL"; then
   '
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --libtool --local-dir=gnulib-local \
     --import $GNULIB_MODULES_FOR_SRC $GNULIB_MODULES_OTHER
+  # In gettext-tools/libgettextpo:
+  # This is a subset of the GNULIB_MODULES_FOR_SRC.
+  GNULIB_MODULES_FOR_LIBGETTEXTPO='
+  basename
+  c-ctype
+  c-strcase
+  c-strstr
+  error
+  error-progname
+  exit
+  fstrcmp
+  fwriteerror
+  gcd
+  getline
+  gettext-h
+  hash
+  iconv
+  linebreak
+  minmax
+  pathname
+  progname
+  stdbool
+  ucs4-utf8
+  utf8-ucs4
+  utf16-ucs4
+  vasprintf
+  xalloc
+  xallocsa
+  xerror
+  xstriconv
+  xvasprintf
+  '
+  GNULIB_MODULES_OTHER=''
+  $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local \
+    --import $GNULIB_MODULES_FOR_LIBGETTEXTPO $GNULIB_MODULES_OTHER
+  rm -rf gettext-tools/libgettextpo/gnulib-m4
 fi
 
 (cd autoconf-lib-link

@@ -324,11 +324,3 @@ msgl-check.c
 |               Main source for the 'xgettext' program.
 |
 +-------------- The 'xgettext' program
-
-+-------------- The 'gettextpo' library
-|
-| gettext-po.h
-| gettext-po.c
-|               Public API for reading PO files.
-|
-+-------------- The 'gettextpo' library
