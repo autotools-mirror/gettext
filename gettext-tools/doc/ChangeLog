@@ -1,3 +1,13 @@
+2006-10-17  Bruno Haible  <bruno@clisp.org>
+
+	* ISO_639-2: New file.
+	* iso-639-2.sed: New file.
+	* Makefile.am (gettext_TEXINFOS): Add iso-639-2.texi.
+	(EXTRA_DIST): Add iso-639-2.sed, ISO_639-2.
+	(iso-639-2.texi): New rule.
+	* gettext.texi (Language codes): Split into two nodes "Usual Language
+	Codes" and "Rare Language Codes". Include iso-639-2.texi.
+
 2006-10-08  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.texi: Document the --symlink option instead of the --copy

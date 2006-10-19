@@ -436,6 +436,11 @@ Concluding Remarks
 * History::                     History of GNU @code{gettext}
 * References::                  Related Readings
 
+Language Codes
+
+* Usual Language Codes::        Two-letter ISO 639 language codes
+* Rare Language Codes::         Three-letter ISO 639 language codes
+
 Licenses
 
 * GNU GPL::                     GNU General Public License
@@ -10852,12 +10857,35 @@ together with French translations of many Linux-related documents.
 @cindex language codes
 @cindex ISO 639
 
-The @w{ISO 639} standard defines two character codes for many languages.
+The @w{ISO 639} standard defines two-letter codes for many languages, and
+three-letter codes for more rarely used languages.
 All abbreviations for languages used in the Translation Project should
 come from this standard.
 
+@menu
+* Usual Language Codes::        Two-letter ISO 639 language codes
+* Rare Language Codes::         Three-letter ISO 639 language codes
+@end menu
+
+@node Usual Language Codes, Rare Language Codes, Language Codes, Language Codes
+@appendixsec Usual Language Codes
+
+For the commonly used languages, the @w{ISO 639-1} standard defines two-letter
+codes.
+
 @table @samp
 @include iso-639.texi
+@end table
+
+@node Rare Language Codes,  , Usual Language Codes, Language Codes
+@appendixsec Rare Language Codes
+
+For rarely used languages, the @w{ISO 639-2} standard defines three-letter
+codes.  Here is the current list, reduced to only living languages with at least
+one million of speakers.
+
+@table @samp
+@include iso-639-2.texi
 @end table
 
 @node Country Codes, Licenses, Language Codes, Top

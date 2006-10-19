@@ -487,6 +487,7 @@ catalogname_for_locale (const char *locale)
 {
   static const char *locales_with_principal_territory[] = {
 		/* Language	Main territory */
+    "ace_ID",	/* Achinese	Indonesia */
     "af_ZA",	/* Afrikaans	South Africa */
     "ak_GH",	/* Akan		Ghana */
     "am_ET",	/* Amharic	Ethiopia */
@@ -494,16 +495,23 @@ catalogname_for_locale (const char *locale)
     "ang_GB",	/* Old English	Britain */
     "as_IN",	/* Assamese	India */
     "av_RU",	/* Avaric	Russia */
+    "awa_IN",	/* Awadhi	India */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
+    "ban_ID",	/* Balinese	Indonesia */
     "be_BY",	/* Belarusian	Belarus */
+    "bem_ZM",	/* Bemba	Zambia */
     "bg_BG",	/* Bulgarian	Bulgaria */
+    "bho_IN",	/* Bhojpuri	India */
+    "bin_NG",	/* Bini		Nigeria */
     "bm_ML",	/* Bambara	Mali */
     "bn_IN",	/* Bengali	India */
     "bo_CN",	/* Tibetan	China */
     "br_FR",	/* Breton	France */
     "bs_BA",	/* Bosnian	Bosnia */
+    "bug_ID",	/* Buginese	Indonesia */
     "ca_ES",	/* Catalan	Spain */
     "ce_RU",	/* Chechen	Russia */
+    "ceb_PH",	/* Cebuano	Philippines */
     "co_FR",	/* Corsican	France */
     "cr_CA",	/* Cree		Canada */
     "cs_CZ",	/* Czech	Czech Republic */
@@ -521,15 +529,19 @@ catalogname_for_locale (const char *locale)
     "et_EE",	/* Estonian	Estonia */
     "fa_IR",	/* Persian	Iran */
     "fi_FI",	/* Finnish	Finland */
+    "fil_PH",	/* Filipino	Philippines */
     "fj_FJ",	/* Fijian	Fiji */
     "fo_FO",	/* Faroese	Faeroe Islands */
+    "fon_BJ",	/* Fon		Benin */
     "fr_FR",	/* French	France */
     "fy_NL",	/* Western Frisian	Netherlands */
     "ga_IE",	/* Irish	Ireland */
     "gd_GB",	/* Scots	Britain */
+    "gsw_CH",	/* Swiss German	Switzerland */
     "gu_IN",	/* Gujarati	India */
     "he_IL",	/* Hebrew	Israel */
     "hi_IN",	/* Hindi	India */
+    "hil_PH",	/* Hiligaynon	Philippines */
     "hr_HR",	/* Croatian	Croatia */
     "ht_HT",	/* Haitian	Haiti */
     "hu_HU",	/* Hungarian	Hungary */
@@ -537,13 +549,17 @@ catalogname_for_locale (const char *locale)
     "id_ID",	/* Indonesian	Indonesia */
     "ig_NG",	/* Igbo		Nigeria */
     "ii_CN",	/* Sichuan Yi	China */
+    "ilo_PH",	/* Iloko	Philippines */
     "is_IS",	/* Icelandic	Iceland */
     "it_IT",	/* Italian	Italy */
     "ja_JP",	/* Japanese	Japan */
     "jab_NG",	/* Hyam		Nigeria */
     "jv_ID",	/* Javanese	Indonesia */
     "ka_GE",	/* Georgian	Georgia */
+    "kab_DZ",	/* Kabyle	Algeria */
     "kaj_NG",	/* Jju		Nigeria */
+    "kam_KE",	/* Kamba	Kenya */
+    "kmb_AO",	/* Kimbundu	Angola */
     "kcg_NG",	/* Tyap		Nigeria */
     "kdm_NG",	/* Kagoma	Nigeria */
     "kg_CD",	/* Kongo	Democratic Republic of Congo */
@@ -554,24 +570,36 @@ catalogname_for_locale (const char *locale)
     "ko_KR",	/* Korean	Korea (South) */
     "kok_IN",	/* Konkani	India */
     "kr_NG",	/* Kanuri	Nigeria */
+    "kru_IN",	/* Kurukh	India */
     "lg_UG",	/* Ganda	Uganda */
     "li_BE",	/* Limburgish	Belgium */
     "lo_LA",	/* Laotian	Laos */
     "lt_LT",	/* Lithuanian	Lithuania */
     "lu_CD",	/* Luba-Katanga	Democratic Republic of Congo */
+    "lua_CD",	/* Luba-Lulua	Democratic Republic of Congo */
+    "luo_KE",	/* Luo		Kenya */
     "lv_LV",	/* Latvian	Latvia */
+    "mad_ID",	/* Madurese	Indonesia */
+    "mag_IN",	/* Magahi	India */
     "mai_IN",	/* Maithili	India */
+    "mak_ID",	/* Makasar	Indonesia */
+    "man_ML",	/* Mandingo	Mali */
+    "men_SL",	/* Mende	Sierra Leone */
     "mg_MG",	/* Malagasy	Madagascar */
+    "min_ID",	/* Minangkabau	Indonesia */
     "mk_MK",	/* Macedonian	Macedonia */
     "ml_IN",	/* Malayalam	India */
     "mn_MN",	/* Mongolian	Mongolia */
     "mni_IN",	/* Manipuri	India */
+    "mos_BF",	/* Mossi	Burkina Faso */
     "mr_IN",	/* Marathi	India */
     "ms_MY",	/* Malay	Malaysia */
     "mt_MT",	/* Maltese	Malta */
+    "mwr_IN",	/* Marwari	India */
     "my_MM",	/* Burmese	Myanmar */
     "na_NR",	/* Nauru	Nauru */
     "nah_MX",	/* Nahuatl	Mexico */
+    "nap_IT",	/* Neapolitan	Italy */
     "nb_NO",	/* Norwegian Bokmål	Norway */
     "nds_DE",	/* Low Saxon	Germany */
     "ne_NP",	/* Nepali	Nepal */
@@ -580,44 +608,64 @@ catalogname_for_locale (const char *locale)
     "no_NO",	/* Norwegian	Norway */
     "nr_ZA",	/* South Ndebele	South Africa */
     "nso_ZA",	/* Northern Sotho	South Africa */
+    "nym_TZ",	/* Nyamwezi	Tanzania */
+    "nyn_UG",	/* Nyankole	Uganda */
     "oc_FR",	/* Occitan	France */
     "oj_CA",	/* Ojibwa	Canada */
     "or_IN",	/* Oriya	India */
     "pa_IN",	/* Punjabi	India */
+    "pag_PH",	/* Pangasinan	Philippines */
+    "pam_PH",	/* Pampanga	Philippines */
     "pbb_CO",	/* Páez		Colombia */
     "pl_PL",	/* Polish	Poland */
     "ps_AF",	/* Pashto	Afghanistan */
     "pt_PT",	/* Portuguese	Portugal */
+    "raj_IN",	/* Rajasthani	India */
     "rm_CH",	/* Rhaeto-Roman	Switzerland */
     "rn_BI",	/* Kirundi	Burundi */
     "ro_RO",	/* Romanian	Romania */
     "ru_RU",	/* Russian	Russia */
     "sa_IN",	/* Sanskrit	India */
+    "sas_ID",	/* Sasak	Indonesia */
+    "sat_IN",	/* Santali	India */
     "sc_IT",	/* Sardinian	Italy */
+    "scn_IT",	/* Sicilian	Italy */
     "sg_CF",	/* Sango	Central African Republic */
+    "shn_MM",	/* Shan		Myanmar */
     "si_LK",	/* Sinhala	Sri Lanka */
+    "sid_ET",	/* Sidamo	Ethiopia */
     "sk_SK",	/* Slovak	Slovakia */
     "sl_SI",	/* Slovenian	Slovenia */
     "so_SO",	/* Somali	Somalia */
     "sq_AL",	/* Albanian	Albania */
     "sr_RS",	/* Serbian	Serbia */
     "sr_YU",	/* Serbian	Yugoslavia */
+    "srr_SN",	/* Serer	Senegal */
+    "suk_TZ",	/* Sukuma	Tanzania */
+    "sus_GN",	/* Susu		Guinea */
     "sv_SE",	/* Swedish	Sweden */
     "te_IN",	/* Telugu	India */
+    "tem_SL",	/* Timne	Sierra Leone */
     "tet_ID",	/* Tetum	Indonesia */
     "tg_TJ",	/* Tajik	Tajikistan */
     "th_TH",	/* Thai		Thailand */
+    "tiv_NG",	/* Tiv		Nigeria */
     "tk_TM",	/* Turkmen	Turkmenistan */
     "tl_PH",	/* Tagalog	Philippines */
     "to_TO",	/* Tonga	Tonga */
     "tr_TR",	/* Turkish	Turkey */
+    "tum_MW",	/* Tumbuka	Malawi */
     "uk_UA",	/* Ukrainian	Ukraine */
+    "umb_AO",	/* Umbundu	Angola */
     "ur_PK",	/* Urdu		Pakistan */
     "uz_UZ",	/* Uzbek	Uzbekistan */
     "ve_ZA",	/* Venda	South Africa */
     "vi_VN",	/* Vietnamese	Vietnam */
     "wa_BE",	/* Walloon	Belgium */
+    "wal_ET",	/* Walamo	Ethiopia */
+    "war_PH",	/* Waray	Philippines */
     "wen_DE",	/* Sorbian	Germany */
+    "yao_MW",	/* Yao		Malawi */
     "zap_MX"	/* Zapotec	Mexico */
   };
   const char *dot;

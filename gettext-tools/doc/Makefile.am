@@ -34,7 +34,7 @@ gettext_TEXINFOS = \
   xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
   msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
   msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
-  gettextize.texi autopoint.texi iso-639.texi iso-3166.texi \
+  gettextize.texi autopoint.texi iso-639.texi iso-639-2.texi iso-3166.texi \
   gpl.texi lgpl.texi fdl.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
@@ -46,13 +46,20 @@ doc_DATA = FAQ.html tutorial.html
 EXTRA_DIST += $(doc_DATA)
 
 EXTRA_DIST += \
-  iso-639.sed iso-3166.sed ISO_639 ISO_3166 ISO_3166_de texi2html \
+  iso-639.sed iso-639-2.sed iso-3166.sed \
+  ISO_639 ISO_639-2 ISO_3166 ISO_3166_de \
+  texi2html \
   ChangeLog.0
 
 iso-639.texi: ISO_639 iso-639.sed
 	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
 	rm -f $(srcdir)/iso-639.texi
 	mv iso-639.tmp $(srcdir)/iso-639.texi
+
+iso-639-2.texi: ISO_639-2 iso-639-2.sed
+	$(SED) -f $(srcdir)/iso-639-2.sed $(srcdir)/ISO_639-2 > iso-639-2.tmp
+	rm -f $(srcdir)/iso-639-2.texi
+	mv iso-639-2.tmp $(srcdir)/iso-639-2.texi
 
 iso-3166.texi: ISO_3166 iso-3166.sed
 	$(SED) -f $(srcdir)/iso-3166.sed $(srcdir)/ISO_3166 > iso-3166.tmp
