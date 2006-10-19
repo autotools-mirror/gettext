@@ -29,7 +29,7 @@ alt   Southern Altai                                             20000  Russia
 ang   English, Old (ca.450-1100)                            X
 anp   Angika                                                    740000  India
 apa   Apache languages                                      F
-arc   Aramaic                                               U           Syria, Turkey, Iraq, Iran
+arc   Aramaic                                               U      few  Syria, Turkey, Iraq, Iran
 arn   Araucanian                                                300000  Chile
 arp   Arapaho                                                     1000  United States
 art   Artificial (Other)                                    S
@@ -38,9 +38,9 @@ ast   Asturian; Bable                                           125000  Spain
 ath   Athapascan languages                                  F
 aus   Australian languages                                  F
 awa   Awadhi                                                  20000000  India
-bad   Banda                                                 U
+bad   Banda                                                 U  1100000  Central African Republic, Dem. Rep. Congo
 bai   Bamileke languages                                    F
-bal   Baluchi                                               U           Pakistan?
+bal   Baluchi                                               U  5000000  Pakistan, Iran, Afghanistan
 ban   Balinese                                                 3900000  Indonesia
 bas   Basa                                                      230000  Cameroon
 bat   Baltic (Other)                                        F
@@ -48,13 +48,13 @@ bej   Beja                                                      950000  Sudan
 bem   Bemba                                                    3600000  Zambia
 ber   Berber (Other)                                        F
 bho   Bhojpuri                                                26600000  India
-bik   Bikol                                                 U
+bik   Bikol                                                 U  3500000  Philippines
 bin   Bini                                                     1000000  Nigeria
-bla   Siksika                                               
+bla   Siksika                                                     5000  Canada
 bnt   Bantu (Other)                                         F
 bra   Braj                                                       44000  India
-btk   Batak (Indonesia)                                     U           Indonesia
-bua   Buriat                                                U
+btk   Batak (Indonesia)                                     U  6230000  Indonesia
+bua   Buriat                                                U   450000  Russia
 bug   Buginese                                                 3500000  Indonesia
 byn   Blin; Bilin                                                70000  Eritrea
 cad   Caddo                                                         25  United States
@@ -66,7 +66,7 @@ cel   Celtic (Other)                                        F
 chb   Chibcha                                               X
 chg   Chagatai                                              X
 chk   Chuukese                                                   38000  Micronesia
-chm   Mari                                                  U           Russia?
+chm   Mari                                                  U   590000  Russia
 chn   Chinook jargon                                               100  Canada
 cho   Choctaw                                                     9000  United States
 chp   Chipewyan                                                   4000  Canada
@@ -84,11 +84,11 @@ cus   Cushitic (Other)                                      F
 dak   Dakota                                                     15000  United States
 dar   Dargwa                                                    370000  Russia
 day   Dayak                                                 U           Malaysia, Indonesia
-del   Delaware                                              U           United States?
-den   Slave (Athapascan)                                    U           United States?
+del   Delaware                                              U        7  United States
+den   Slave (Athapascan)                                    U           United States, Canada
 dgr   Dogrib                                                      2000  Dogrib
-din   Dinka                                                 U           Sudan?
-doi   Dogri                                                 U           United States?
+din   Dinka                                                 U  1350000  Sudan
+doi   Dogri                                                 U  2100000  India
 dra   Dravidian (Other)                                     FX
 dsb   Lower Sorbian                                              14000  Germany
 dua   Duala                                                      88000  Cameroon
@@ -102,7 +102,7 @@ enm   English, Middle (1100-1500)                           X
 ewo   Ewondo                                                    580000  Cameroon
 fan   Fang                                                      450000  Equatorial Guinea
 fat   Fanti                                                 U
-fil   Filipino; Pilipino                                      official  Philippines
+fil   Filipino; Pilipino                                      88000000  Philippines
 fiu   Finno-Ugrian (Other)                                  F
 fon   Fon                                                      1700000  Benin
 frm   French, Middle (ca.1400-1600)                         X
@@ -112,16 +112,16 @@ frs   Eastern Frisian                                            11000  Germany
 fur   Friulian                                                  800000  Italy
 gaa   Ga                                                        600000  Ghana
 gay   Gayo                                                      180000  Indonesia
-gba   Gbaya                                                 U           Africa
+gba   Gbaya                                                 U   570000  Central African Republic
 gem   Germanic (Other)                                      F
 gez   Geez                                                  X
 gil   Gilbertese                                                 68000  Kiribati
 gmh   German, Middle High (ca.1050-1500)                    X
 goh   German, Old High (ca.750-1050)                        X
-gon   Gondi                                                 U           India
+gon   Gondi                                                 U  2200000  India
 gor   Gorontalo                                                 900000  Indonesia
 got   Gothic                                                X
-grb   Grebo                                                 U
+grb   Grebo                                                 U   220000  Liberia
 grc   Greek, Ancient (to 1453)                              X
 gsw   Alemani; Swiss German                                    6000000  Switzerland
 gwi   Gwich´in                                                     700  Canada
@@ -130,7 +130,7 @@ haw   Hawaiian                                                    1000  United S
 hil   Hiligaynon                                               7000000  Philippines
 him   Himachali                                             U
 hit   Hittite                                               X
-hmn   Hmong                                                 U           China, Laos, Myanmar, Thailand, Vietnam
+hmn   Hmong                                                 U  4000000  China, Laos, Myanmar, Thailand, Vietnam
 hsb   Upper Sorbian                                              15000  Germany
 hup   Hupa                                                           8  United States
 iba   Iban                                                      400000  Malaysia
@@ -225,7 +225,7 @@ ota   Turkish, Ottoman (1500-1928)                          X
 oto   Otomian languages                                     F
 paa   Papuan (Other)                                        F
 pag   Pangasinan                                               1160000  Philippines
-pal   Pahlavi                                               U
+pal   Pahlavi                                               X
 pam   Pampanga                                                 1900000  Philippines
 pap   Papiamento                                                320000  Netherlands Antilles
 pau   Palauan                                                    15000  Palau
