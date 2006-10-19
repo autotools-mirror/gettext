@@ -2252,6 +2252,8 @@ remember_a_message_plural (message_ty *mp, char *string,
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
       mp->msgstr = msgstr;
       mp->msgstr_len = mp->msgstr_len + msgstr1_len;
+      if (msgstr_prefix)
+	free (msgstr1);
 
       /* Determine whether the context specifies that the msgid_plural is a
 	 format string.  */

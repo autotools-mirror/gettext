@@ -441,6 +441,9 @@ static const message_ty *curr_mp;
 static lex_pos_ty curr_msgid_pos;
 static void
 formatstring_error_logger (const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 1, 2)));
+static void
+formatstring_error_logger (const char *format, ...)
 {
   va_list args;
   char *msg;
@@ -475,7 +478,6 @@ check_pair (const message_ty *mp,
   int seen_errors;
   int has_newline;
   unsigned int j;
-  const char *p;
 
   /* If the msgid string is empty we have the special entry reserved for
      information about the translation.  */
@@ -491,6 +493,8 @@ check_pair (const message_ty *mp,
 #define TEST_NEWLINE(p) (p[0] == '\n')
       if (msgid_plural != NULL)
 	{
+	  const char *p;
+
 	  if (TEST_NEWLINE(msgid_plural) != has_newline)
 	    {
 	      po_xerror (PO_SEVERITY_ERROR,
@@ -530,6 +534,8 @@ check_pair (const message_ty *mp,
 #define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
       if (msgid_plural != NULL)
 	{
+	  const char *p;
+
 	  if (TEST_NEWLINE(msgid_plural) != has_newline)
 	    {
 	      po_xerror (PO_SEVERITY_ERROR,

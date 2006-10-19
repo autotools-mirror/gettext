@@ -115,7 +115,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
   const char ***identifications;
   msgdomain_list_ty *total_mdlp;
   const char *canon_to_code;
-  size_t n, j, k;
+  size_t n, j;
 
   /* Read input files.  */
   mdlps =
@@ -284,6 +284,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
   for (n = 0; n < nfiles; n++)
     {
       msgdomain_list_ty *mdlp = mdlps[n];
+      size_t k;
 
       for (k = 0; k < mdlp->nitems; k++)
 	{
@@ -338,6 +339,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
   for (n = 0; n < nfiles; n++)
     {
       msgdomain_list_ty *mdlp = mdlps[n];
+      size_t k;
 
       for (k = 0; k < mdlp->nitems; k++)
 	{
@@ -353,12 +355,16 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 	    canon_charsets[n][k] = NULL;
 	}
     }
-  for (k = 0; k < total_mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = total_mdlp->item[k]->messages;
+  {
+    size_t k;
 
-      message_list_remove_if_not (mlp, is_message_selected);
-    }
+    for (k = 0; k < total_mdlp->nitems; k++)
+      {
+	message_list_ty *mlp = total_mdlp->item[k]->messages;
+
+	message_list_remove_if_not (mlp, is_message_selected);
+      }
+  }
 
   /* Determine the common known a-priori encoding, if any.  */
   if (nfiles > 0)
@@ -399,6 +405,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
       for (n = 0; n < nfiles; n++)
 	{
 	  msgdomain_list_ty *mdlp = mdlps[n];
+	  size_t k;
 
 	  for (k = 0; k < mdlp->nitems; k++)
 	    if (canon_charsets[n][k] != NULL)
@@ -466,6 +473,7 @@ To select a different output encoding, use the --to-code option.\n\
     for (n = 0; n < nfiles; n++)
       {
 	msgdomain_list_ty *mdlp = mdlps[n];
+	size_t k;
 
 	for (k = 0; k < mdlp->nitems; k++)
 	  if (canon_charsets[n][k] != NULL)
@@ -493,6 +501,7 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
   for (n = 0; n < nfiles; n++)
     {
       msgdomain_list_ty *mdlp = mdlps[n];
+      size_t k;
 
       for (k = 0; k < mdlp->nitems; k++)
 	{
@@ -603,154 +612,158 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 	    }
 	}
     }
-  for (k = 0; k < total_mdlp->nitems; k++)
-    {
-      message_list_ty *mlp = total_mdlp->item[k]->messages;
+  {
+    size_t k;
 
-      for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *tmp = mlp->item[j];
+    for (k = 0; k < total_mdlp->nitems; k++)
+      {
+	message_list_ty *mlp = total_mdlp->item[k]->messages;
 
-	  if (tmp->alternative_count > 0)
-	    {
-	      /* Test whether all alternative translations are equal.  */
-	      struct altstr *first = &tmp->alternative[0];
-	      size_t i;
+	for (j = 0; j < mlp->nitems; j++)
+	  {
+	    message_ty *tmp = mlp->item[j];
 
-	      for (i = 0; i < tmp->alternative_count; i++)
-		if (!(tmp->alternative[i].msgstr_len == first->msgstr_len
-		      && memcmp (tmp->alternative[i].msgstr, first->msgstr,
-				 first->msgstr_len) == 0))
-		  break;
+	    if (tmp->alternative_count > 0)
+	      {
+		/* Test whether all alternative translations are equal.  */
+		struct altstr *first = &tmp->alternative[0];
+		size_t i;
 
-	      if (i == tmp->alternative_count)
-		{
-		  /* All alternatives are equal.  */
-		  tmp->msgstr = first->msgstr;
-		  tmp->msgstr_len = first->msgstr_len;
-		}
-	      else
-		{
-		  /* Concatenate the alternative msgstrs into a single one,
-		     separated by markers.  */
-		  size_t len;
-		  const char *p;
-		  const char *p_end;
-		  char *new_msgstr;
-		  char *np;
+		for (i = 0; i < tmp->alternative_count; i++)
+		  if (!(tmp->alternative[i].msgstr_len == first->msgstr_len
+		        && memcmp (tmp->alternative[i].msgstr, first->msgstr,
+				   first->msgstr_len) == 0))
+		    break;
 
-		  len = 0;
-		  for (i = 0; i < tmp->alternative_count; i++)
-		    {
-		      size_t id_len = strlen (tmp->alternative[i].id);
+		if (i == tmp->alternative_count)
+		  {
+		    /* All alternatives are equal.  */
+		    tmp->msgstr = first->msgstr;
+		    tmp->msgstr_len = first->msgstr_len;
+		  }
+		else
+		  {
+		    /* Concatenate the alternative msgstrs into a single one,
+		       separated by markers.  */
+		    size_t len;
+		    const char *p;
+		    const char *p_end;
+		    char *new_msgstr;
+		    char *np;
 
-		      len += tmp->alternative[i].msgstr_len;
+		    len = 0;
+		    for (i = 0; i < tmp->alternative_count; i++)
+		      {
+			size_t id_len = strlen (tmp->alternative[i].id);
 
-		      p = tmp->alternative[i].msgstr;
-		      p_end = tmp->alternative[i].msgstr_end;
-		      for (; p < p_end; p += strlen (p) + 1)
-		        len += id_len + 2;
-		    }
+			len += tmp->alternative[i].msgstr_len;
 
-		  new_msgstr = (char *) xmalloc (len);
-		  np = new_msgstr;
-		  for (;;)
-		    {
-		      /* Test whether there's one more plural form to
-			 process.  */
-		      for (i = 0; i < tmp->alternative_count; i++)
-			if (tmp->alternative[i].msgstr
-			    < tmp->alternative[i].msgstr_end)
+			p = tmp->alternative[i].msgstr;
+			p_end = tmp->alternative[i].msgstr_end;
+			for (; p < p_end; p += strlen (p) + 1)
+			  len += id_len + 2;
+		      }
+
+		    new_msgstr = (char *) xmalloc (len);
+		    np = new_msgstr;
+		    for (;;)
+		      {
+			/* Test whether there's one more plural form to
+			   process.  */
+			for (i = 0; i < tmp->alternative_count; i++)
+			  if (tmp->alternative[i].msgstr
+			      < tmp->alternative[i].msgstr_end)
+			    break;
+			if (i == tmp->alternative_count)
 			  break;
-		      if (i == tmp->alternative_count)
-			break;
 
-		      /* Process next plural form.  */
-		      for (i = 0; i < tmp->alternative_count; i++)
-			if (tmp->alternative[i].msgstr
-			    < tmp->alternative[i].msgstr_end)
-			  {
-			    if (np > new_msgstr && np[-1] != '\0'
-				&& np[-1] != '\n')
+			/* Process next plural form.  */
+			for (i = 0; i < tmp->alternative_count; i++)
+			  if (tmp->alternative[i].msgstr
+			      < tmp->alternative[i].msgstr_end)
+			    {
+			      if (np > new_msgstr && np[-1] != '\0'
+				  && np[-1] != '\n')
+				*np++ = '\n';
+
+			      len = strlen (tmp->alternative[i].id);
+			      memcpy (np, tmp->alternative[i].id, len);
+			      np += len;
 			      *np++ = '\n';
 
-			    len = strlen (tmp->alternative[i].id);
-			    memcpy (np, tmp->alternative[i].id, len);
-			    np += len;
-			    *np++ = '\n';
+			      len = strlen (tmp->alternative[i].msgstr);
+			      memcpy (np, tmp->alternative[i].msgstr, len);
+			      np += len;
+			      tmp->alternative[i].msgstr += len + 1;
+			    }
 
-			    len = strlen (tmp->alternative[i].msgstr);
-			    memcpy (np, tmp->alternative[i].msgstr, len);
-			    np += len;
-			    tmp->alternative[i].msgstr += len + 1;
-			  }
+			/* Plural forms are separated by NUL bytes.  */
+			*np++ = '\0';
+		      }
+		    tmp->msgstr = new_msgstr;
+		    tmp->msgstr_len = np - new_msgstr;
 
-		      /* Plural forms are separated by NUL bytes.  */
-		      *np++ = '\0';
+		    tmp->is_fuzzy = true;
+		  }
+
+		/* Test whether all alternative comments are equal.  */
+		for (i = 0; i < tmp->alternative_count; i++)
+		  if (tmp->alternative[i].comment == NULL
+		      || !string_list_equal (tmp->alternative[i].comment,
+					     first->comment))
+		    break;
+
+		if (i == tmp->alternative_count)
+		  /* All alternatives are equal.  */
+		  tmp->comment = first->comment;
+		else
+		  /* Concatenate the alternative comments into a single one,
+		     separated by markers.  */
+		  for (i = 0; i < tmp->alternative_count; i++)
+		    {
+		      string_list_ty *slp = tmp->alternative[i].comment;
+
+		      if (slp != NULL)
+			{
+			  size_t l;
+
+			  message_comment_append (tmp, tmp->alternative[i].id);
+			  for (l = 0; l < slp->nitems; l++)
+			    message_comment_append (tmp, slp->item[l]);
+			}
 		    }
-		  tmp->msgstr = new_msgstr;
-		  tmp->msgstr_len = np - new_msgstr;
 
-		  tmp->is_fuzzy = true;
-		}
-
-	      /* Test whether all alternative comments are equal.  */
-	      for (i = 0; i < tmp->alternative_count; i++)
-		if (tmp->alternative[i].comment == NULL
-		    || !string_list_equal (tmp->alternative[i].comment,
-					   first->comment))
-		  break;
-
-	      if (i == tmp->alternative_count)
-		/* All alternatives are equal.  */
-		tmp->comment = first->comment;
-	      else
-		/* Concatenate the alternative comments into a single one,
-		   separated by markers.  */
+		/* Test whether all alternative dot comments are equal.  */
 		for (i = 0; i < tmp->alternative_count; i++)
-		  {
-		    string_list_ty *slp = tmp->alternative[i].comment;
+		  if (tmp->alternative[i].comment_dot == NULL
+		      || !string_list_equal (tmp->alternative[i].comment_dot,
+					     first->comment_dot))
+		    break;
 
-		    if (slp != NULL)
-		      {
-			size_t l;
+		if (i == tmp->alternative_count)
+		  /* All alternatives are equal.  */
+		  tmp->comment_dot = first->comment_dot;
+		else
+		  /* Concatenate the alternative dot comments into a single one,
+		     separated by markers.  */
+		  for (i = 0; i < tmp->alternative_count; i++)
+		    {
+		      string_list_ty *slp = tmp->alternative[i].comment_dot;
 
-			message_comment_append (tmp, tmp->alternative[i].id);
-			for (l = 0; l < slp->nitems; l++)
-			  message_comment_append (tmp, slp->item[l]);
-		      }
-		  }
+		      if (slp != NULL)
+			{
+			  size_t l;
 
-	      /* Test whether all alternative dot comments are equal.  */
-	      for (i = 0; i < tmp->alternative_count; i++)
-		if (tmp->alternative[i].comment_dot == NULL
-		    || !string_list_equal (tmp->alternative[i].comment_dot,
-					   first->comment_dot))
-		  break;
-
-	      if (i == tmp->alternative_count)
-		/* All alternatives are equal.  */
-		tmp->comment_dot = first->comment_dot;
-	      else
-		/* Concatenate the alternative dot comments into a single one,
-		   separated by markers.  */
-		for (i = 0; i < tmp->alternative_count; i++)
-		  {
-		    string_list_ty *slp = tmp->alternative[i].comment_dot;
-
-		    if (slp != NULL)
-		      {
-			size_t l;
-
-			message_comment_dot_append (tmp,
-						    tmp->alternative[i].id);
-			for (l = 0; l < slp->nitems; l++)
-			  message_comment_dot_append (tmp, slp->item[l]);
-		      }
-		  }
-	    }
-	}
-    }
+			  message_comment_dot_append (tmp,
+						      tmp->alternative[i].id);
+			  for (l = 0; l < slp->nitems; l++)
+			    message_comment_dot_append (tmp, slp->item[l]);
+			}
+		    }
+	      }
+	  }
+      }
+  }
 
   return total_mdlp;
 }

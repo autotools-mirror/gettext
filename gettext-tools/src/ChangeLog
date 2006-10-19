@@ -1,3 +1,22 @@
+2006-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* po-error.h (__attribute__, __format__, __printf__): New macros.
+	(po_error, po_error_at_line): Declare format string argument.
+	* po-lex.h (__attribute__, __format__, __printf__): New macros.
+	(po_gram_error, po_gram_error_at_line): Declare format string argument.
+
+	* msgl-cat.c (catenate_msgdomain_list): Avoid "gcc -Wshadow" warning.
+	* msgl-check.c (formatstring_error_logger): Avoid "gcc
+	-Wmissing-format-attribute" warning.
+	(check_pair): Avoid "gcc -Wshadow" warning.
+
+	* read-stringtable.c (stringtable_parse): Pass a mutable string as
+	msgstr to po_callback_message.
+	* write-po.c (msgdomain_list_print_po): Avoid "gcc -Wwrite-strings"
+	warning.
+	* xgettext.c (remember_a_message_plural): Free a temporary string
+	after use.
+
 2006-10-17  Bruno Haible  <bruno@clisp.org>
 
 	* lang-table.c (language_table): Add the most important languages that

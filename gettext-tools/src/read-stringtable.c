@@ -877,7 +877,7 @@ stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
 	{
 	  /* "key"; is an abbreviation for "key"=""; and does not
 	     necessarily designate an untranslated entry.  */
-	  msgstr = "";
+	  msgstr = xstrdup ("");
 	  msgstr_pos = msgid_pos;
 	  po_callback_message (NULL, msgid, &msgid_pos, NULL,
 			       msgstr, strlen (msgstr) + 1, &msgstr_pos,

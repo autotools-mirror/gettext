@@ -1021,7 +1021,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
     {
       message_list_ty *mlp;
       const char *header;
-      char *charset;
+      const char *charset;
       char *allocated_charset;
 
       /* If the first domain is the default, don't bother emitting
@@ -1059,9 +1059,10 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
 
 	      charsetstr += strlen ("charset=");
 	      len = strcspn (charsetstr, " \t\n");
-	      charset = allocated_charset = (char *) xallocsa (len + 1);
-	      memcpy (charset, charsetstr, len);
-	      charset[len] = '\0';
+	      allocated_charset = (char *) xallocsa (len + 1);
+	      memcpy (allocated_charset, charsetstr, len);
+	      allocated_charset[len] = '\0';
+	      charset = allocated_charset;
 
 	      /* Treat the dummy default value as if it were absent.  */
 	      if (strcmp (charset, "CHARSET") == 0)
