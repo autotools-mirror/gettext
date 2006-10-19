@@ -1,0 +1,7 @@
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h.in: New file, moved here from ../src/.
+	* gettext-po.c: New file, moved here from ../src/.
+	* Makefile.am: New file, includings parts of ../src/Makefile.am.
+	* exported.sh.in: New file.
+
