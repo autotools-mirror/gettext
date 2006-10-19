@@ -1,3 +1,7 @@
+2006-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* lock.h [C++]: Wrap definitions in extern "C".
+
 2006-10-17  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* localcharset.c: Do not check HAVE_SETLOCALE.
