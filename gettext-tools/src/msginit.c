@@ -497,17 +497,20 @@ catalogname_for_locale (const char *locale)
     "av_RU",	/* Avaric	Russia */
     "awa_IN",	/* Awadhi	India */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
+    "bad_CF",	/* Banda	Central African Republic */
     "ban_ID",	/* Balinese	Indonesia */
     "be_BY",	/* Belarusian	Belarus */
     "bem_ZM",	/* Bemba	Zambia */
     "bg_BG",	/* Bulgarian	Bulgaria */
     "bho_IN",	/* Bhojpuri	India */
+    "bik_PH",	/* Bikol	Philippines */
     "bin_NG",	/* Bini		Nigeria */
     "bm_ML",	/* Bambara	Mali */
     "bn_IN",	/* Bengali	India */
     "bo_CN",	/* Tibetan	China */
     "br_FR",	/* Breton	France */
     "bs_BA",	/* Bosnian	Bosnia */
+    "btk_ID",	/* Batak	Indonesia */
     "bug_ID",	/* Buginese	Indonesia */
     "ca_ES",	/* Catalan	Spain */
     "ce_RU",	/* Chechen	Russia */
@@ -519,6 +522,8 @@ catalogname_for_locale (const char *locale)
     "cy_GB",	/* Welsh	Britain */
     "da_DK",	/* Danish	Denmark */
     "de_DE",	/* German	Germany */
+    "din_SD",	/* Dinka	Sudan */
+    "doi_IN",	/* Dogri	India */
     "dv_MV",	/* Divehi	Maldives */
     "dz_BT",	/* Dzongkha	Bhutan */
     "ee_GH",	/* Éwé		Ghana */
@@ -537,6 +542,7 @@ catalogname_for_locale (const char *locale)
     "fy_NL",	/* Western Frisian	Netherlands */
     "ga_IE",	/* Irish	Ireland */
     "gd_GB",	/* Scots	Britain */
+    "gon_IN",	/* Gondi	India */
     "gsw_CH",	/* Swiss German	Switzerland */
     "gu_IN",	/* Gujarati	India */
     "he_IL",	/* Hebrew	Israel */
