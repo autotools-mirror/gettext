@@ -1962,11 +1962,25 @@ it does not offer it officially.  The real, genuine keyword is truly
 @noindent
 instead of merely using @samp{#include <libintl.h>}.
 
+The marking keywords @samp{gettext} and @samp{_} take the translatable
+string as sole argument.  It is also possible to define marking functions
+that take it at another argument position.  It is even possible to make
+the marked argument position depend on the total number of arguments of
+the function call; this is useful in C++.  All this is achieved using
+@code{xgettext}'s @samp{--keyword} option.
+
+Note also that long strings can be split across lines, into multiple
+adjacent string tokens.  Automatic string concatenation is performed
+at compile time according to ISO C and ISO C++; @code{xgettext} also
+supports this syntax.
+
 Later on, the maintenance is relatively easy.  If, as a programmer,
 you add or modify a string, you will have to ask yourself if the
 new or altered string requires translation, and include it within
-@samp{_()} if you think it should be translated.  @samp{"%s: %d"} is
-an example of string @emph{not} requiring translation!
+@samp{_()} if you think it should be translated.  For example, @samp{"%s"}
+is an example of string @emph{not} requiring translation.  But
+@samp{"%s: %d"} @emph{does} require translation, because in French, unlike
+in English, it's customary to put a space before a colon.
 
 @node Marking, c-format Flag, Mark Keywords, Sources
 @section Marking Translatable Strings
