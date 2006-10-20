@@ -1,3 +1,7 @@
+2006-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* woe32dll/gettextsrc-exports.c: Add {input,output}_format_*.
+
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
 	* libgettextpo: New directory.

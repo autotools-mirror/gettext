@@ -62,7 +62,7 @@ extern void
        message_print_style_escape (bool flag);
 
 /* Describes a PO file in .po syntax.  */
-extern const struct catalog_output_format output_format_po;
+extern DLL_VARIABLE const struct catalog_output_format output_format_po;
 
 
 #ifdef __cplusplus

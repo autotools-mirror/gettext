@@ -22,6 +22,6 @@
 #include "read-catalog-abstract.h"
 
 /* Describes a .properties file parser.  */
-extern const struct catalog_input_format input_format_properties;
+extern DLL_VARIABLE const struct catalog_input_format input_format_properties;
 
 #endif /* _READ_PROPERTIES_H */

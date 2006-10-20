@@ -22,6 +22,6 @@
 #include "read-catalog-abstract.h"
 
 /* Describes a .strings file parser.  */
-extern const struct catalog_input_format input_format_stringtable;
+extern DLL_VARIABLE const struct catalog_input_format input_format_stringtable;
 
 #endif /* _READ_STRINGTABLE_H */

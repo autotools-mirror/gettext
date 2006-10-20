@@ -22,6 +22,6 @@
 #include "write-catalog.h"
 
 /* Describes a PO file in Java .properties syntax.  */
-extern const struct catalog_output_format output_format_properties;
+extern DLL_VARIABLE const struct catalog_output_format output_format_properties;
 
 #endif /* _WRITE_PROPERTIES_H */

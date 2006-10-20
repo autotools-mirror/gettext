@@ -1,3 +1,12 @@
+2006-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* read-po.h (input_format_po): Mark as DLL_VARIABLE.
+	* read-properties.h (input_format_properties): Likewise.
+	* read-stringtable.h (input_format_stringtable): Likewise.
+	* write-po.h (output_format_po): Likewise.
+	* write-properties.h (output_format_properties): Likewise.
+	* write-stringtable.h (output_format_stringtable): Likewise.
+
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in: Move to ../libgettextpo/.
