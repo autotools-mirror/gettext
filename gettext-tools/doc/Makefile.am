@@ -96,7 +96,11 @@ uninstall-local: uninstall-html
 #distdir: dist-html
 
 html-local: html-split
+# Override of automake's definition. The HTML files we want to distribute are
+# not the ones that automake knows about, and we cannot define HTMLS to a value
+# containing wildcards.
 install-html: install-html-split
+	@:
 uninstall-html: uninstall-html-split
 dist-html: dist-html-split
 
@@ -111,9 +115,7 @@ MAINTAINERCLEANFILES = gettext_*.html
 #TEXI2DVI = texi2dvi
 TEXI2DVI = texi2dvi $(TEXINCLUDES)
 
-install-dvi: gettext.dvi
-	$(mkdir_p) $(DESTDIR)$(dvidir)
-	$(INSTALL_DATA) `if test -f gettext.dvi; then echo .; else echo $(srcdir); fi`/gettext.dvi $(DESTDIR)$(dvidir)/gettext.dvi
+# The install-dvi target is already defined by automake.
 
 installdirs-dvi:
 	$(mkdir_p) $(DESTDIR)$(dvidir)
@@ -144,9 +146,7 @@ DVIPS = @DVIPS@ -D600
 gettext.ps: gettext.dvi
 	$(DVIPS) -o $@ `if test -f gettext.dvi; then echo gettext.dvi; else echo $(srcdir)/gettext.dvi; fi`
 
-install-ps: gettext.ps
-	$(mkdir_p) $(DESTDIR)$(psdir)
-	$(INSTALL_DATA) `if test -f gettext.ps; then echo .; else echo $(srcdir); fi`/gettext.ps $(DESTDIR)$(psdir)/gettext.ps
+# The install-ps target is already defined by automake.
 
 installdirs-ps:
 	$(mkdir_p) $(DESTDIR)$(psdir)
@@ -162,9 +162,7 @@ uninstall-ps:
 TEXI2PDF = @TEXI2PDF@ $(TEXINCLUDES)
 SUFFIXES = .pdf
 
-install-pdf: gettext.pdf
-	$(mkdir_p) $(DESTDIR)$(pdfdir)
-	$(INSTALL_DATA) `if test -f gettext.pdf; then echo .; else echo $(srcdir); fi`/gettext.pdf $(DESTDIR)$(pdfdir)/gettext.pdf
+# The install-pdf target is already defined by automake.
 
 installdirs-pdf:
 	$(mkdir_p) $(DESTDIR)$(pdfdir)

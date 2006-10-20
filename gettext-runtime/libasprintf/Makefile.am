@@ -108,9 +108,7 @@ CLEANFILES = autosprintf.pdf
 
 # Documentation in DVI format.
 
-install-dvi: autosprintf.dvi
-	$(mkdir_p) $(DESTDIR)$(dvidir)
-	$(INSTALL_DATA) `if test -f autosprintf.dvi; then echo .; else echo $(srcdir); fi`/autosprintf.dvi $(DESTDIR)$(dvidir)/autosprintf.dvi
+# The install-dvi target is already defined by automake.
 
 installdirs-dvi:
 	$(mkdir_p) $(DESTDIR)$(dvidir)
@@ -131,9 +129,7 @@ DVIPS = @DVIPS@ -D600
 autosprintf.ps: autosprintf.dvi
 	$(DVIPS) -o $@ `if test -f autosprintf.dvi; then echo autosprintf.dvi; else echo $(srcdir)/autosprintf.dvi; fi`
 
-install-ps: autosprintf.ps
-	$(mkdir_p) $(DESTDIR)$(psdir)
-	$(INSTALL_DATA) `if test -f autosprintf.ps; then echo .; else echo $(srcdir); fi`/autosprintf.ps $(DESTDIR)$(psdir)/autosprintf.ps
+# The install-ps target is already defined by automake.
 
 installdirs-ps:
 	$(mkdir_p) $(DESTDIR)$(psdir)
@@ -146,9 +142,7 @@ uninstall-ps:
 
 SUFFIXES = .pdf
 
-install-pdf: autosprintf.pdf
-	$(mkdir_p) $(DESTDIR)$(pdfdir)
-	$(INSTALL_DATA) `if test -f autosprintf.pdf; then echo .; else echo $(srcdir); fi`/autosprintf.pdf $(DESTDIR)$(pdfdir)/autosprintf.pdf
+# The install-pdf target is already defined by automake.
 
 installdirs-pdf:
 	$(mkdir_p) $(DESTDIR)$(pdfdir)
@@ -161,7 +155,9 @@ uninstall-pdf:
 
 TEXI2HTML = @PERL@ $(srcdir)/texi2html
 
-html-local: autosprintf_all.html
+HTMLS = autosprintf_all.html
+
+html-local: $(HTMLS)
 
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
@@ -169,9 +165,7 @@ autosprintf_all.html: autosprintf.texi
 	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
 	mv autosprintf.html autosprintf_all.html
 
-install-html: autosprintf_all.html
-	$(mkdir_p) $(DESTDIR)$(htmldir)
-	$(INSTALL_DATA) `if test -f autosprintf_all.html; then echo .; else echo $(srcdir); fi`/autosprintf_all.html $(DESTDIR)$(htmldir)/autosprintf.html
+# The install-html target is already defined by automake.
 
 installdirs-html:
 	$(mkdir_p) $(DESTDIR)$(htmldir)

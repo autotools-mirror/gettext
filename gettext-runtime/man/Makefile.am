@@ -159,7 +159,7 @@ bind_textdomain_codeset.3.html: bind_textdomain_codeset.3.in
 	$(MAN2HTML) $(srcdir)/bind_textdomain_codeset.3.in | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 
-install-html:
+install-html-local:
 	$(mkdir_p) $(DESTDIR)$(htmldir)
 	for file in $(man_HTML); do \
 	  if test -f $$file; then dir=.; else dir=$(srcdir); fi; \

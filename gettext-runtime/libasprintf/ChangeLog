@@ -1,3 +1,11 @@
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
+	Switch to automake-1.10.
+	* Makefile.am (install-dvi, install-ps, install-pdf): Remove rules.
+	(HTMLS): New variable.
+	(html-local): Use it.
+	(install-html): Remove rule.
+
 2006-10-11  Paul Eggert  <eggert@cs.ucla.edu>
             Bruno Haible  <bruno@clisp.org>
 
