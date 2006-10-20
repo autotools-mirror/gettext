@@ -1,3 +1,7 @@
+2006-10-19  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* gettext.texi (Mark Keywords): keyword are -> keyword is.
+
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
 	Switch to automake-1.10.

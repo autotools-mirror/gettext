@@ -1917,7 +1917,7 @@ different instances that it is impractical to list them all in some
 
 This marking operation has two goals.  The first goal of marking
 is for triggering the retrieval of the translation, at run time.
-The keyword are possibly resolved into a routine able to dynamically
+The keyword is possibly resolved into a routine able to dynamically
 return the proper translation, as far as possible or wanted, for the
 argument string.  Most localizable strings are found in executable
 positions, that is, attached to variables or given as parameters to
