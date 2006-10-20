@@ -89,11 +89,6 @@ JAVACOMP = $(SHELL) ../javacomp.sh
 CSHARPCOMP = $(SHELL) ../csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
-# Linking with C++ libraries is needed _only_ on mingw and Cygwin.
-if !WOE32DLL
-@WOE32DLL_FALSE@CXXLINK = $(LINK)
-endif
-
 
 # All programs deal with message lists.
 # All programs must read PO files. (msgunfmt also, for read-java.c,
@@ -237,6 +232,7 @@ install-exec-clean:
 
 # Compile-time flags for particular source files.
 msgmerge_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
+msgmerge_CXXFLAGS = $(AM_CXXFLAGS) $(OPENMP_CFLAGS)
 
 # Link dependencies.
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
@@ -298,6 +294,99 @@ msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
 urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
+endif
+
+# Linking with C++ libraries is needed _only_ on mingw and Cygwin.
+if !WOE32DLL
+libgettextsrc_la_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(libgettextsrc_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgattrib_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgattrib_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgcat_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgcat_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgcomm_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgcomm_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgconv_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgconv_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgen_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgen_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgfilter_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msgfilter_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msggrep_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msggrep_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgmerge_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(msgmerge_CFLAGS) $(CFLAGS) $(msgmerge_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msguniq_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(msguniq_LDFLAGS) $(LDFLAGS) \
+	-o $@
+xgettext_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(xgettext_LDFLAGS) $(LDFLAGS) \
+	-o $@
+else
+libgettextsrc_la_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(libgettextsrc_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgattrib_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgattrib_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgcat_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgcat_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgcomm_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgcomm_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgconv_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgconv_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgen_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgen_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgfilter_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msgfilter_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msggrep_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msggrep_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msgmerge_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(msgmerge_CXXFLAGS) $(CXXFLAGS) $(msgmerge_LDFLAGS) $(LDFLAGS) \
+	-o $@
+msguniq_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(msguniq_LDFLAGS) $(LDFLAGS) \
+	-o $@
+xgettext_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(xgettext_LDFLAGS) $(LDFLAGS) \
+	-o $@
 endif
 
 # Special rules for bison and flex generated files.

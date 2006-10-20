@@ -1,3 +1,13 @@
+2006-10-16  Bruno Haible  <bruno@clisp.org>
+
+	Work around automake-1.10 problem described in
+	http://lists.gnu.org/archive/html/bug-automake/2006-08/msg00025.html.
+	* Makefile.am (CXXLINK): Remove variable.
+	(msgmerge_CXXFLAGS): New variable.
+	(libgettextsrc_la_LINK, msgattrib_LINK, msgcat_LINK, msgcomm_LINK,
+	msgconv_LINK, msgen_LINK, msgfilter_LINK, msggrep_LINK, msgmerge_LINK,
+	msguniq_LINK, xgettext_LINK): New variables.
+
 2006-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* read-po.h (input_format_po): Mark as DLL_VARIABLE.
