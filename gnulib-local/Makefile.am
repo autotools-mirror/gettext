@@ -51,7 +51,6 @@ lib/hash.c \
 lib/hash.h \
 lib/javacomp.c.diff \
 lib/linebreak.c.diff \
-lib/obstack.c.diff \
 lib/obstack.h.diff \
 lib/progname.h.diff \
 lib/propername.c \

@@ -1,3 +1,10 @@
+2006-10-23  Bruno Haible  <bruno@clisp.org>
+
+	Moved last change to gnulib.
+	* lib/obstack.h.diff: Undo last change.
+	* lib/obstack.c.diff: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
 2006-10-20  Bruno Haible  <bruno@clisp.org>
 
 	* lib/obstack.h.diff: Use _obstack_free instead of obstack_free, but
