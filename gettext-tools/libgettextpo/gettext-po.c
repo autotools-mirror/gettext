@@ -1228,6 +1228,9 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
 /* An error logger based on the po_error function pointer.  */
 static void
 po_error_logger (const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 1, 2)));
+static void
+po_error_logger (const char *format, ...)
 {
   va_list args;
   char *error_message;

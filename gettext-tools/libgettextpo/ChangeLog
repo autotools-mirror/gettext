@@ -1,3 +1,9 @@
+2006-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.h.in (struct po_error_handler): Add format attribute to
+	error, error_at_line fields.
+	* gettext-po.c (po_error_logger): Declare with format attribute.
+
 2006-10-20  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h): Treat .lo files like .o files. Define

@@ -55,7 +55,11 @@ struct po_error_handler
      Must increment the error_message_count variable declared in error.h.
      Must not return if STATUS is nonzero.  */
   void (*error) (int status, int errnum,
-		 const char *format, ...);
+		 const char *format, ...)
+#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
+  __attribute__ ((__format__ (__printf__, 3, 4)))
+#endif
+  ;
 
   /* Signal an error.  The error message is built from FORMAT and the following
      arguments.  The error location is at FILENAME line LINENO. ERRNUM, if
@@ -64,7 +68,11 @@ struct po_error_handler
      Must not return if STATUS is nonzero.  */
   void (*error_at_line) (int status, int errnum,
 			 const char *filename, unsigned int lineno,
-			 const char *format, ...);
+			 const char *format, ...)
+#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
+  __attribute__ ((__format__ (__printf__, 5, 6)))
+#endif
+  ;
 
   /* Signal a multiline warning.  The PREFIX applies to all lines of the
      MESSAGE.  Free the PREFIX and MESSAGE when done.  */
