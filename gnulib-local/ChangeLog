@@ -1,3 +1,10 @@
+2006-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* lib/obstack.h.diff: Use _obstack_free instead of obstack_free, but
+	define _obstack_free to obstack_free by default.
+	* lib/obstack.c.diff: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2006-10-17  Bruno Haible  <bruno@clisp.org>
 
 	* lib/gettext.h (gettext, ngettext, pgettext, npgettext): Define

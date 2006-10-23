@@ -1,5 +1,27 @@
-*** gnulib/lib/obstack.h	2005-10-15 01:23:50.000000000 +0200
---- gettext-tools/lib/obstack.h	2006-07-22 17:48:51.000000000 +0200
+*** obstack.h	2005-10-15 01:23:50.000000000 +0200
+--- obstack.h	2006-07-22 17:48:51.000000000 +0200
+***************
+*** 186,192 ****
+  			     void (*) (void *, void *), void *);
+  extern int _obstack_memory_used (struct obstack *);
+  
+! void obstack_free (struct obstack *obstack, void *block);
+  
+  
+  /* Error handler called when `obstack_chunk_alloc' failed to allocate
+--- 186,197 ----
+  			     void (*) (void *, void *), void *);
+  extern int _obstack_memory_used (struct obstack *);
+  
+! /* The default name of the function for freeing a chunk is 'obstack_free',
+!    but gnulib users can override this by defining '_obstack_free'.  */
+! #ifndef _obstack_free
+! # define _obstack_free obstack_free
+! #endif
+! void _obstack_free (struct obstack *obstack, void *block);
+  
+  
+  /* Error handler called when `obstack_chunk_alloc' failed to allocate
 ***************
 *** 193,202 ****
      more memory.  This can be set to a user defined function which
@@ -23,3 +45,37 @@
   
   /* Pointer to beginning of object being allocated or to be allocated next.
      Note that this might not be the final address of the object
+***************
+*** 399,405 ****
+     void *__obj = (OBJ);							\
+     if (__obj > (void *)__o->chunk && __obj < (void *)__o->chunk_limit)  \
+       __o->next_free = __o->object_base = (char *)__obj;			\
+!    else (obstack_free) (__o, __obj); })
+  
+  #else /* not __GNUC__ or not __STDC__ */
+  
+--- 404,410 ----
+     void *__obj = (OBJ);							\
+     if (__obj > (void *)__o->chunk && __obj < (void *)__o->chunk_limit)  \
+       __o->next_free = __o->object_base = (char *)__obj;			\
+!    else (_obstack_free) (__o, __obj); })
+  
+  #else /* not __GNUC__ or not __STDC__ */
+  
+***************
+*** 497,503 ****
+      && (h)->temp.tempint < (h)->chunk_limit - (char *) (h)->chunk))	\
+     ? (int) ((h)->next_free = (h)->object_base				\
+  	    = (h)->temp.tempint + (char *) (h)->chunk)			\
+!    : (((obstack_free) ((h), (h)->temp.tempint + (char *) (h)->chunk), 0), 0)))
+  
+  #endif /* not __GNUC__ or not __STDC__ */
+  
+--- 502,508 ----
+      && (h)->temp.tempint < (h)->chunk_limit - (char *) (h)->chunk))	\
+     ? (int) ((h)->next_free = (h)->object_base				\
+  	    = (h)->temp.tempint + (char *) (h)->chunk)			\
+!    : (((_obstack_free) ((h), (h)->temp.tempint + (char *) (h)->chunk), 0), 0)))
+  
+  #endif /* not __GNUC__ or not __STDC__ */
+  

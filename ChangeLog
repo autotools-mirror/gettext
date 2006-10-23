@@ -1,3 +1,9 @@
+2006-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Don't remove gettext-tools/libgettextpo/gnulib-m4.
+	Move the "-I gnulib-m4" to the end of the aclocal command lines.
+	Also add "-I libgettextpo/gnulib-m4".
+
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_FOR_LIBGETTEXTPO): New variable.

@@ -84,6 +84,7 @@ AC_EXEEXT
 
 dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
+gtpo_EARLY
 
 dnl Check for build configuration.
 gl_WOE32_DLL
@@ -131,6 +132,7 @@ gt_OPENMP
 
 dnl Checks for header files, functions and declarations.
 gl_INIT
+gtpo_INIT
 
 dnl Checks for header files.
 AC_CHECK_HEADERS(pwd.h)

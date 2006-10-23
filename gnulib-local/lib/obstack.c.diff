@@ -1,0 +1,29 @@
+*** obstack.c	2006-09-19 00:51:16.000000000 +0200
+--- obstack.c	2006-10-21 02:57:17.000000000 +0200
+***************
+*** 342,348 ****
+  # undef obstack_free
+  
+  void
+! obstack_free (struct obstack *h, void *obj)
+  {
+    register struct _obstack_chunk *lp;	/* below addr of any objects in this chunk */
+    register struct _obstack_chunk *plp;	/* point to previous chunk if any */
+--- 342,348 ----
+  # undef obstack_free
+  
+  void
+! _obstack_free (struct obstack *h, void *obj)
+  {
+    register struct _obstack_chunk *lp;	/* below addr of any objects in this chunk */
+    register struct _obstack_chunk *plp;	/* point to previous chunk if any */
+***************
+*** 372,377 ****
+--- 372,378 ----
+  }
+  
+  # ifdef _LIBC
++ #  undef _obstack_free
+  /* Older versions of libc used a function _obstack_free intended to be
+     called by non-GCC compilers.  */
+  strong_alias (obstack_free, _obstack_free)

@@ -201,7 +201,6 @@ if test -n "$GNULIB_TOOL"; then
   GNULIB_MODULES_OTHER=''
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local \
     --import $GNULIB_MODULES_FOR_LIBGETTEXTPO $GNULIB_MODULES_OTHER
-  rm -rf gettext-tools/libgettextpo/gnulib-m4
 fi
 
 (cd autoconf-lib-link
@@ -211,7 +210,7 @@ fi
 )
 
 (cd gettext-runtime
- aclocal -I m4 -I gnulib-m4 -I ../autoconf-lib-link/m4 -I ../m4
+ aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake
@@ -227,7 +226,7 @@ fi
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools
- aclocal -I m4 -I gnulib-m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4
+ aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake
