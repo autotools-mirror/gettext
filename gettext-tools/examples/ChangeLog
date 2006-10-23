@@ -1,3 +1,7 @@
+2006-10-23  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c++-kde/admin/cvs.sh: Accept automake versions > 1.9.x.
+
 2006-10-01  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/autoclean.sh: Remove also intldir.m4.
