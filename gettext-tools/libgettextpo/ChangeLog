@@ -1,3 +1,9 @@
+2006-10-23  Bruno Haible  <bruno@clisp.org>
+
+	Fix "make dist".
+	* Makefile.am (nodist_noinst_HEADERS): Renamed from noinst_HEADERS.
+	(libgettextpo_la_SOURCES): Remove gettext-po.h.
+
 2006-10-21  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in (struct po_error_handler): Add format attribute to

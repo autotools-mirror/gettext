@@ -31,7 +31,7 @@ nodist_include_HEADERS = gettext-po.h
 
 noinst_LTLIBRARIES =
 
-noinst_HEADERS = config.h
+nodist_noinst_HEADERS = config.h
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
@@ -41,7 +41,7 @@ AM_CPPFLAGS = \
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = \
-  gettext-po.h gettext-po.c \
+  gettext-po.c \
   $(libgettextpo_la_AUXSOURCES)
 # These are auxiliary sources whose symbols should not be exported.
 libgettextpo_la_AUXSOURCES = \
