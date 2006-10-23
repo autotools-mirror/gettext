@@ -1,4 +1,4 @@
-# fixautomake.m4 serial 5 (gettext-0.15.1)
+# fixautomake.m4 serial 6 (gettext-0.15.1)
 dnl Copyright (C) 2002-2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -20,11 +20,11 @@ AC_DEFUN([FIX_MAKEFILE_DISTRIB], [
   mv $ac_file.tmp $ac_file
 ])
 
-dnl Fix an automake-1.9 bug: the distrib rule is not extensible.
+dnl Fix an automake-1.9-1.10 bug: the distrib rule is not extensible.
 dnl Insert a invocation of the distdir1 target inside the distdir commands,
 dnl after $(distdir) has been erased and re-created.
 AC_DEFUN([FIX_MAKEFILE_TOPDIR_DISTRIB], [
-  sed_script='/^	mkdir \$(distdir)$/{a\
+  sed_script='/mkdir \$(distdir)$/{a\
 \	$(MAKE) distdir1
 }'
   sed -e "$sed_script" < $ac_file > $ac_file.tmp
