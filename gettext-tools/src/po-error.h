@@ -46,12 +46,18 @@ extern "C" {
 extern DLL_VARIABLE
        void (*po_error) (int status, int errnum,
 			 const char *format, ...)
-       __attribute__ ((__format__ (__printf__, 3, 4)));
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+       __attribute__ ((__format__ (__printf__, 3, 4)))
+#endif
+       ;
 extern DLL_VARIABLE
        void (*po_error_at_line) (int status, int errnum,
 				 const char *filename, unsigned int lineno,
 				 const char *format, ...)
-       __attribute__ ((__format__ (__printf__, 5, 6)));
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+       __attribute__ ((__format__ (__printf__, 5, 6)))
+#endif
+       ;
 
 /* Both functions must work like the xerror.h multiline_warning(),
    multiline_error() functions.  In particular,
