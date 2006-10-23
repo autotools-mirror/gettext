@@ -619,7 +619,7 @@ struct definitions_ty
   message_fuzzy_index_ty *findex;
   /* A once-only execution guard for the initialization of the fuzzy index.
      Needed for OpenMP.  */
-  gl_lock_t findex_init_lock;
+  gl_lock_define(, findex_init_lock);
   /* The canonical encoding of the compendiums.  */
   const char *canon_charset;
 };
@@ -627,14 +627,12 @@ struct definitions_ty
 static inline void
 definitions_init (definitions_ty *definitions, const char *canon_charset)
 {
-  gl_lock_define_initialized (static, fresh_lock)
-
   definitions->lists = message_list_list_alloc ();
   message_list_list_append (definitions->lists, NULL);
   if (compendiums != NULL)
     message_list_list_append_list (definitions->lists, compendiums);
   definitions->findex = NULL;
-  memcpy (&definitions->findex_init_lock, &fresh_lock, sizeof (gl_lock_t));
+  gl_lock_init (definitions->findex_init_lock);
   definitions->canon_charset = canon_charset;
 }
 

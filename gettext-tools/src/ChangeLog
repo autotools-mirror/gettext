@@ -1,3 +1,10 @@
+2006-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.c (struct definitions_ty): Use gl_lock_define to declare
+	the findex_init_lock field.
+	(definitions_init): Use gl_lock_init to initialize it, instead of
+	memcpy hack.
+
 2006-10-16  Bruno Haible  <bruno@clisp.org>
 
 	Work around automake-1.10 problem described in
