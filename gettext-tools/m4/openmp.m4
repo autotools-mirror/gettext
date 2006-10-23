@@ -1,4 +1,4 @@
-# openmp.m4 serial 1 (gettext-0.15.1)
+# openmp.m4 serial 2 (gettext-0.15.1)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -36,6 +36,7 @@ AC_DEFUN([gt_OPENMP],
         dnl   Tru64 Compaq C       -omp
         dnl   AIX IBM C            -qsmp=omp
         if test "$GCC" = yes; then
+          dnl --- Test for GCC.
           gt_save_CFLAGS="$CFLAGS"
           CFLAGS="$CFLAGS -fopenmp"
           AC_COMPILE_IFELSE([
@@ -45,6 +46,7 @@ AC_DEFUN([gt_OPENMP],
             ], [gt_cv_prog_cc_openmp="-fopenmp"])
           CFLAGS="$gt_save_CFLAGS"
         else
+          dnl --- Test for SunPRO C.
           AC_EGREP_CPP([Brand], [
 #if defined __SUNPRO_C || defined __SUNPRO_CC
  Brand
@@ -60,6 +62,7 @@ AC_DEFUN([gt_OPENMP],
               ], [gt_cv_prog_cc_openmp="-xopenmp"])
             CFLAGS="$gt_save_CFLAGS"
           else
+            dnl --- Test for Intel C.
             AC_EGREP_CPP([Brand], [
 #if defined __INTEL_COMPILER
  Brand
@@ -75,15 +78,58 @@ AC_DEFUN([gt_OPENMP],
                 ], [gt_cv_prog_cc_openmp="-openmp"])
               CFLAGS="$gt_save_CFLAGS"
             else
-              for flag in -mp -omp -qsmp=omp; do
+              dnl --- Test for SGI C, PGI C.
+              AC_EGREP_CPP([Brand], [
+#if defined __sgi || defined __PGIC__
+ Brand
+#endif
+                ], result=yes, result=no)
+              if test $result = yes; then
                 gt_save_CFLAGS="$CFLAGS"
-                CFLAGS="$CFLAGS $flag"
+                CFLAGS="$CFLAGS -mp"
                 AC_COMPILE_IFELSE([
 #ifndef _OPENMP
  Unlucky
 #endif
-                  ], [gt_cv_prog_cc_openmp="$flag"; break])
-              done
+                  ], [gt_cv_prog_cc_openmp="-mp"])
+                CFLAGS="$gt_save_CFLAGS"
+              else
+                dnl --- Test for Compaq C.
+                AC_EGREP_CPP([Brand], [
+#if defined __DECC || defined __DECCXX
+ Brand
+#endif
+                  ], result=yes, result=no)
+                if test $result = yes; then
+                  gt_save_CFLAGS="$CFLAGS"
+                  CFLAGS="$CFLAGS -omp"
+                  AC_COMPILE_IFELSE([
+#ifndef _OPENMP
+ Unlucky
+#endif
+                    ], [gt_cv_prog_cc_openmp="-omp"])
+                  CFLAGS="$gt_save_CFLAGS"
+                else
+                  dnl --- Test for AIX IBM C.
+                  AC_EGREP_CPP([Brand], [
+#if defined _AIX
+ Brand
+#endif
+                    ], result=yes, result=no)
+                  if test $result = yes; then
+                    gt_save_CFLAGS="$CFLAGS"
+                    CFLAGS="$CFLAGS -qsmp=omp"
+                    AC_COMPILE_IFELSE([
+#ifndef _OPENMP
+ Unlucky
+#endif
+                      ], [gt_cv_prog_cc_openmp="-qsmp=omp"])
+                    CFLAGS="$gt_save_CFLAGS"
+                  else
+                    :
+                  fi
+                fi
+              fi
             fi
           fi
         fi
