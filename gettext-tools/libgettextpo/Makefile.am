@@ -36,7 +36,6 @@ nodist_noinst_HEADERS = config.h
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I../src -I$(top_srcdir)/src \
-  -Ignulib-lib -I$(srcdir)/gnulib-lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 
 # libgettextpo contains the public API for PO files.
