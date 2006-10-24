@@ -1,3 +1,7 @@
+2006-10-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16 released.
+
 2006-10-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in (LIBGETTEXTPO_VERSION): Bump version number.
