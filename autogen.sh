@@ -189,6 +189,7 @@ if test -n "$GNULIB_TOOL"; then
   progname
   stdbool
   ucs4-utf8
+  unlocked-io
   utf8-ucs4
   utf16-ucs4
   vasprintf
