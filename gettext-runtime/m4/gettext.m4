@@ -1,4 +1,4 @@
-# gettext.m4 serial 58 (gettext-0.15.1)
+# gettext.m4 serial 58 (gettext-0.16)
 dnl Copyright (C) 1995-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,

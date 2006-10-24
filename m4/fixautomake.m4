@@ -1,4 +1,4 @@
-# fixautomake.m4 serial 6 (gettext-0.15.1)
+# fixautomake.m4 serial 6 (gettext-0.16)
 dnl Copyright (C) 2002-2003, 2006 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
