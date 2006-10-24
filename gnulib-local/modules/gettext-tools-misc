@@ -39,7 +39,7 @@ install-exec-local: install-libLTLIBRARIES install-exec-clean
 install-exec-clean:
 	case "@host_os@" in \
 	  aix*) ;; \
-	  *) $(RM) $(DESTDIR)$(libdir)/libgettextlib.a ;; \
+	  *) rm -f $(DESTDIR)$(libdir)/libgettextlib.a ;; \
 	esac
 
 # Extra files to be installed.
