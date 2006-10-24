@@ -580,7 +580,7 @@ keys_init (void)
 }
 
 /* Ensure that keys_init is called once only.  */
-gl_once_define(static, keys_init_once);
+gl_once_define(static, keys_init_once)
 
 
 /* NAME
