@@ -1,5 +1,9 @@
 2006-10-23  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h): Update obstack_free hack.
+
+2006-10-23  Bruno Haible  <bruno@clisp.org>
+
 	Fix "make dist".
 	* Makefile.am (nodist_noinst_HEADERS): Renamed from noinst_HEADERS.
 	(libgettextpo_la_SOURCES): Remove gettext-po.h.

@@ -141,7 +141,7 @@ config.h:
 	    done; \
 	  } 5>&1 \
 	    | sed -e 's,.* ,,' | LC_ALL=C sort | LC_ALL=C uniq \
-	    | sed -e 's,^obstack_free$$,_obstack_free,' \
+	    | sed -e 's,^obstack_free$$,__obstack_free,' \
 	    | sed -e 's,^\(.*\)$$,#define \1 libgettextpo_\1,' > config.h-t; \
 	  cat config.h-t >> config.h; \
 	fi
