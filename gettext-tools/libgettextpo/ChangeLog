@@ -1,5 +1,9 @@
 2006-10-24  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-po.h.in (LIBGETTEXTPO_VERSION): Bump version number.
+
+2006-10-24  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (AM_CPPFLAGS): Remove useless -I options.
 
 2006-10-23  Bruno Haible  <bruno@clisp.org>

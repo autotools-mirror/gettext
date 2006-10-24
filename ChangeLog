@@ -1,5 +1,9 @@
 2006-10-24  Bruno Haible  <bruno@clisp.org>
 
+	* version.sh: Bump version number to 0.16.
+
+2006-10-24  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh (GNULIB_MODULES_FOR_LIBGETTEXTPO): Add unlocked-io.
 	Needed because gettext-tools/configure ends up setting USE_UNLOCKED_IO
 	in gettext-tools/config.h.
