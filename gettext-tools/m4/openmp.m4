@@ -1,4 +1,4 @@
-# openmp.m4 serial 2 (gettext-0.16)
+# openmp.m4 serial 3 (gettext-0.16)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -80,7 +80,7 @@ AC_DEFUN([gt_OPENMP],
             else
               dnl --- Test for SGI C, PGI C.
               AC_EGREP_CPP([Brand], [
-#if defined __sgi || defined __PGIC__
+#if defined __sgi || defined __PGI || defined __PGIC__
  Brand
 #endif
                 ], result=yes, result=no)
