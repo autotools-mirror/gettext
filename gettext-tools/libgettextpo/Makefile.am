@@ -35,6 +35,7 @@ nodist_noinst_HEADERS = config.h
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
+  -I.. -I$(top_srcdir) \
   -I../src -I$(top_srcdir)/src \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 

@@ -64,7 +64,7 @@ pkglibdir = $(libdir)/gettext
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
-  -I.. \
+  -I.. -I$(top_srcdir) \
   -I$(top_srcdir)/libgrep \
   -I$(top_srcdir)/libuniname \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \

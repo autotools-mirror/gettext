@@ -4,6 +4,13 @@
 
 2006-10-24  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (AM_CPPFLAGS): Add also $(top_srcdir). Needed so that
+	woe32dll/export.h is found while compiling gettextsrc-exports.c in a
+	VPATH build.
+	Reported by Charles Wilson <cygwin@cwilson.fastmail.fm>.
+
+2006-10-24  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge.c (struct definitions_ty): Remove semicolon after
 	gl_lock_define invocation.
 
