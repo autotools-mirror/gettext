@@ -973,7 +973,7 @@ _nl_locale_name_canonicalize (char *name)
    However it does not specify the exact format.  Neither do SUSV2 and
    ISO C 99.  So we can use this feature only on selected systems (e.g.
    those using GNU C Library).  */
-#if defined _LIBC || (defined __GNU_LIBRARY__ && __GNU_LIBRARY__ >= 2)
+#if defined _LIBC || (defined __GLIBC__ && __GLIBC__ >= 2)
 # define HAVE_LOCALE_NULL
 #endif
 

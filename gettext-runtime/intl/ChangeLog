@@ -4,6 +4,11 @@
 
 2006-10-24  Bruno Haible  <bruno@clisp.org>
 
+	* localename.c (HAVE_LOCALE_NULL): Test __GLIBC__ instead of
+	__GNU_LIBRARY__.
+
+2006-10-24  Bruno Haible  <bruno@clisp.org>
+
 	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.16.
 
 2006-10-18  Bruno Haible  <bruno@clisp.org>
