@@ -2,6 +2,11 @@
 
 	* gettext-0.16 released.
 
+2006-10-25  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (DLL_VARIABLE): Define to empty if IN_RELOCWRAPPER is
+	defined.
+
 2006-10-20  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ACLOCAL_AMFLAGS): Add -I libgettextpo/gnulib-m4.
