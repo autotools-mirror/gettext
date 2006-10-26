@@ -96,6 +96,7 @@ modules/gcj \
 modules/gen-lbrkprop \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
+modules/gettext-tools-libgettextpo-misc \
 modules/hash \
 modules/java \
 modules/javacomp.diff \

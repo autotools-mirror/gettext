@@ -199,7 +199,9 @@ if test -n "$GNULIB_TOOL"; then
   xstriconv
   xvasprintf
   '
-  GNULIB_MODULES_OTHER=''
+  GNULIB_MODULES_OTHER='
+  gettext-tools-libgettextpo-misc
+  '
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local \
     --import $GNULIB_MODULES_FOR_LIBGETTEXTPO $GNULIB_MODULES_OTHER
 fi

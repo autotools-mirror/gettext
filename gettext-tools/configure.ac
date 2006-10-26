@@ -98,8 +98,6 @@ case "$host_os" in
 esac
 AC_SUBST([LTNOUNDEF])
 
-AC_RELOCATABLE
-
 dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.

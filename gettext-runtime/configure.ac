@@ -67,8 +67,6 @@ gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
-AC_RELOCATABLE
-
 dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.

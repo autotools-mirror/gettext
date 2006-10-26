@@ -1,4 +1,4 @@
-# relocatable.m4 serial 6 (gettext-0.16)
+# relocatable.m4 serial 7 (gettext-0.16)
 dnl Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -9,14 +9,22 @@ dnl From Bruno Haible.
 dnl Support for relocateble programs.
 AC_DEFUN([AC_RELOCATABLE],
 [
+  AC_REQUIRE([AC_RELOCATABLE_BODY])
+  if test $RELOCATABLE = yes; then
+    AC_LIBOBJ([relocatable])
+  fi
+])
+dnl The guts of AC_RELOCATABLE. Needs to be expanded only once.
+AC_DEFUN([AC_RELOCATABLE_BODY],
+[
   AC_REQUIRE([AC_PROG_INSTALL])
   dnl This AC_BEFORE invocation leads to unjustified autoconf warnings
-  dnl when AC_RELOCATABLE is invoked more than once.
+  dnl when AC_RELOCATABLE_BODY is invoked more than once.
   dnl We need this AC_BEFORE because AC_PROG_INSTALL is documented to
   dnl overwrite earlier settings of INSTALL and INSTALL_PROGRAM (even
   dnl though in autoconf-2.52..2.60 it doesn't do so), but we want this
   dnl macro's setting of INSTALL_PROGRAM to persist.
-  AC_BEFORE([AC_PROG_INSTALL],[AC_RELOCATABLE])
+  AC_BEFORE([AC_PROG_INSTALL],[AC_RELOCATABLE_BODY])
   AC_REQUIRE([AC_LIB_LIBPATH])
   AC_REQUIRE([AC_RELOCATABLE_LIBRARY])
   AC_REQUIRE([AC_EXEEXT])
@@ -25,7 +33,6 @@ AC_DEFUN([AC_RELOCATABLE],
   if test $RELOCATABLE = yes; then
     # --enable-relocatable implies --disable-rpath
     enable_rpath=no
-    AC_LIBOBJ([relocatable])
     AC_DEFINE([ENABLE_RELOCATABLE], 1,
       [Define to 1 if the package shall run at any location in the filesystem.])
     AC_CHECK_HEADERS([unistd.h mach-o/dyld.h])

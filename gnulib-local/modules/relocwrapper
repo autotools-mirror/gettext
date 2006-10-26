@@ -13,9 +13,7 @@ setenv
 strerror
 
 configure.ac:
-dnl Use AC_REQUIRE here, because autoconf warns when AC_RELOCATABLE is
-dnl expanded more than once.
-AC_REQUIRE([AC_RELOCATABLE])
+AC_RELOCATABLE
 
 Makefile.am:
 EXTRA_DIST += relocwrapper.c
