@@ -10,7 +10,6 @@ Depends-on:
 configure.ac:
 
 Makefile.am:
-EXTRA_DIST += relocatable.h relocatable.c
 
 Include:
 "relocatable.h"

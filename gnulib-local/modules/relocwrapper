@@ -16,7 +16,6 @@ configure.ac:
 AC_RELOCATABLE
 
 Makefile.am:
-EXTRA_DIST += relocwrapper.c
 
 Include:
 
