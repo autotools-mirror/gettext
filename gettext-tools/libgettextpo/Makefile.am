@@ -124,8 +124,8 @@ config.h:
 	  echo '#define DLL_VARIABLE'; \
 	  echo; \
 	  echo '#endif /* GTPO_CONFIG_H */'; \
-	} > config.h; \
-	$(MAKE) $(BUILT_SOURCES) || { rm -f config.h; exit 1; }; \
+	} > config.h && \
+	{ $(MAKE) $(BUILT_SOURCES) || { rm -f config.h; exit 1; }; } && \
 	if test -n "$(HAVE_GLOBAL_SYMBOL_PIPE)"; then \
 	  { \
 	    for f in $(libgettextpo_la_AUXSOURCES) $(libgnu_la_SOURCES) $(libgnu_la_LIBADD); do \
@@ -142,8 +142,14 @@ config.h:
 	  } 5>&1 \
 	    | sed -e 's,.* ,,' | LC_ALL=C sort | LC_ALL=C uniq \
 	    | sed -e 's,^obstack_free$$,__obstack_free,' \
-	    | sed -e 's,^\(.*\)$$,#define \1 libgettextpo_\1,' > config.h-t; \
-	  cat config.h-t >> config.h; \
+	    | sed -e 's,^\(.*\)$$,#define \1 libgettextpo_\1,' > config.h-t && \
+	  if test -f config.h; then \
+	    cat config.h-t >> config.h; \
+	    rm -f config.h-t; \
+	  else \
+	    rm -f config.h-t; \
+	    exit 1; \
+	  fi \
 	fi
 MOSTLYCLEANFILES += config.h config.h-t
 
