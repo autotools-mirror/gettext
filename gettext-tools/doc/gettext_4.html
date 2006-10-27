@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52b
-     from gettext.texi on 20 July 2006 -->
+     from gettext.texi on 25 October 2006 -->
 
 <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 4  Preparing Program Sources</TITLE>
@@ -191,6 +191,10 @@ Split at paragraphs.
 <LI>
 
 Use format strings instead of string concatenation.
+
+<LI>
+
+Avoid unusual markup and unusual control characters.
 </UL>
 
 <P>
@@ -220,7 +224,7 @@ This is nearly untranslatable: Is the displayed item <EM>a</EM> parameter or
 </PRE>
 
 <P>
-The ambiguity in this message makes it ununderstandable: Is the program
+The ambiguity in this message makes it unintelligible: Is the program
 attempting to set something on fire? Does it mean "The given object does
 not match the template"? Does it mean "The template does not fit for any
 of the objects"?
@@ -426,7 +430,7 @@ regardless whether in decimal, octal or hexadecimal.
 <A NAME="IDX123"></A>
 <A NAME="IDX124"></A>
 All this applies to other programming languages as well.  For example, in
-Java and C#, string contenation is very frequently used, because it is a
+Java and C#, string concatenation is very frequently used, because it is a
 compiler built-in operator.  Like in C, in Java, you would change
 
 </P>
@@ -465,11 +469,45 @@ Console.WriteLine(
     String.Format("Replace {0} with {1}?", object1, object2));
 </PRE>
 
+<P>
+<A NAME="IDX125"></A>
+<A NAME="IDX126"></A>
+Unusual markup or control characters should not be used in translatable
+strings.  Translators will likely not understand the particular meaning
+of the markup or control characters.
+
+</P>
+<P>
+For example, if you have a convention that <SAMP>&lsquo;|&rsquo;</SAMP> delimits the
+left-hand and right-hand part of some GUI elements, translators will
+often not understand it without specific comments.  It might be
+better to have the translator translate the left-hand and right-hand
+part separately.
+
+</P>
+<P>
+Another example is the <SAMP>&lsquo;argp&rsquo;</SAMP> convention to use a single <SAMP>&lsquo;\v&rsquo;</SAMP>
+(vertical tab) control character to delimit two sections inside a
+string.  This is flawed.  Some translators may convert it to a simple
+newline, some to blank lines.  With some PO file editors it may not be
+easy to even enter a vertical tab control character.  So, you cannot
+be sure that the translation will contain a <SAMP>&lsquo;\v&rsquo;</SAMP> character, at the
+corresponding position.  The solution is, again, to let the translator
+translate two separate strings and combine at run-time the two translated
+strings with the <SAMP>&lsquo;\v&rsquo;</SAMP> required by the convention.
+
+</P>
+<P>
+HTML markup, however, is common enough that it's probably ok to use in
+translatable strings.  But please bear in mind that the GNU gettext tools
+don't verify that the translations are well-formed HTML.
+
+</P>
 
 
 <H2><A NAME="SEC15" HREF="gettext_toc.html#TOC15">4.4  How Marks Appear in Sources</A></H2>
 <P>
-<A NAME="IDX125"></A>
+<A NAME="IDX127"></A>
 
 </P>
 <P>
@@ -490,7 +528,7 @@ different instances that it is impractical to list them all in some
 <P>
 This marking operation has two goals.  The first goal of marking
 is for triggering the retrieval of the translation, at run time.
-The keyword are possibly resolved into a routine able to dynamically
+The keyword is possibly resolved into a routine able to dynamically
 return the proper translation, as far as possible or wanted, for the
 argument string.  Most localizable strings are found in executable
 positions, that is, attached to variables or given as parameters to
@@ -520,7 +558,7 @@ sources for those trying to keep them within 79 or 80 columns.
 
 </P>
 <P>
-<A NAME="IDX126"></A>
+<A NAME="IDX128"></A>
 Many packages use <SAMP>&lsquo;_&rsquo;</SAMP> (a simple underline) as a keyword,
 and write <SAMP>&lsquo;_("Translatable string")&rsquo;</SAMP> instead of <SAMP>&lsquo;gettext
 ("Translatable string")&rsquo;</SAMP>.  Further, the coding rule, from GNU standards,
@@ -545,18 +583,36 @@ instead of merely using <SAMP>&lsquo;#include &#60;libintl.h&#62;&rsquo;</SAMP>.
 
 </P>
 <P>
+The marking keywords <SAMP>&lsquo;gettext&rsquo;</SAMP> and <SAMP>&lsquo;_&rsquo;</SAMP> take the translatable
+string as sole argument.  It is also possible to define marking functions
+that take it at another argument position.  It is even possible to make
+the marked argument position depend on the total number of arguments of
+the function call; this is useful in C++.  All this is achieved using
+<CODE>xgettext</CODE>'s <SAMP>&lsquo;--keyword&rsquo;</SAMP> option.
+
+</P>
+<P>
+Note also that long strings can be split across lines, into multiple
+adjacent string tokens.  Automatic string concatenation is performed
+at compile time according to ISO C and ISO C++; <CODE>xgettext</CODE> also
+supports this syntax.
+
+</P>
+<P>
 Later on, the maintenance is relatively easy.  If, as a programmer,
 you add or modify a string, you will have to ask yourself if the
 new or altered string requires translation, and include it within
-<SAMP>&lsquo;_()&rsquo;</SAMP> if you think it should be translated.  <SAMP>&lsquo;"%s: %d"&rsquo;</SAMP> is
-an example of string <EM>not</EM> requiring translation!
+<SAMP>&lsquo;_()&rsquo;</SAMP> if you think it should be translated.  For example, <SAMP>&lsquo;"%s"&rsquo;</SAMP>
+is an example of string <EM>not</EM> requiring translation.  But
+<SAMP>&lsquo;"%s: %d"&rsquo;</SAMP> <EM>does</EM> require translation, because in French, unlike
+in English, it's customary to put a space before a colon.
 
 </P>
 
 
 <H2><A NAME="SEC16" HREF="gettext_toc.html#TOC16">4.5  Marking Translatable Strings</A></H2>
 <P>
-<A NAME="IDX127"></A>
+<A NAME="IDX129"></A>
 
 </P>
 <P>
@@ -573,8 +629,8 @@ translation in some language, for the package being internationalized.
 
 </P>
 <P>
-<A NAME="IDX128"></A>
-The set of program sources, targetted by the PO mode commands describe
+<A NAME="IDX130"></A>
+The set of program sources, targeted by the PO mode commands describe
 here, should have an Emacs tags table constructed for your project,
 prior to using these PO file commands.  This is easy to do.  In any
 shell window, change the directory to the root of your project, then
@@ -595,7 +651,7 @@ format Emacs can understand.
 
 </P>
 <P>
-<A NAME="IDX129"></A>
+<A NAME="IDX131"></A>
 For packages following the GNU coding standards, there is
 a make goal <CODE>tags</CODE> or <CODE>TAGS</CODE> which constructs the tag files in
 all directories and for all files containing source code.
@@ -615,18 +671,18 @@ fill in while you mark strings as translatable in your program sources.
 
 <DT><KBD>,</KBD>
 <DD>
-<A NAME="IDX130"></A>
+<A NAME="IDX132"></A>
 Search through program sources for a string which looks like a
 candidate for translation (<CODE>po-tags-search</CODE>).
 
 <DT><KBD>M-,</KBD>
 <DD>
-<A NAME="IDX131"></A>
+<A NAME="IDX133"></A>
 Mark the last string found with <SAMP>&lsquo;_()&rsquo;</SAMP> (<CODE>po-mark-translatable</CODE>).
 
 <DT><KBD>M-.</KBD>
 <DD>
-<A NAME="IDX132"></A>
+<A NAME="IDX134"></A>
 Mark the last string found with a keyword taken from a set of possible
 keywords.  This command with a prefix allows some management of these
 keywords (<CODE>po-select-mark-and-mark</CODE>).
@@ -634,7 +690,7 @@ keywords (<CODE>po-select-mark-and-mark</CODE>).
 </DL>
 
 <P>
-<A NAME="IDX133"></A>
+<A NAME="IDX135"></A>
 The <KBD>,</KBD> (<CODE>po-tags-search</CODE>) command searches for the next
 occurrence of a string which looks like a possible candidate for
 translation, and displays the program source in another Emacs window,
@@ -686,8 +742,8 @@ first tags file, this reinitialization might be considered spurious.
 
 </P>
 <P>
-<A NAME="IDX134"></A>
-<A NAME="IDX135"></A>
+<A NAME="IDX136"></A>
+<A NAME="IDX137"></A>
 The <KBD>M-,</KBD> (<CODE>po-mark-translatable</CODE>) command will mark the
 recently found string with the <SAMP>&lsquo;_&rsquo;</SAMP> keyword.  The <KBD>M-.</KBD>
 (<CODE>po-select-mark-and-mark</CODE>) command will request that you type
@@ -748,7 +804,7 @@ prefer <SAMP>&lsquo;_&rsquo;</SAMP>, as this one is already built in the <KBD>M-
 <H2><A NAME="SEC17" HREF="gettext_toc.html#TOC17">4.6  Special Comments preceding Keywords</A></H2>
 
 <P>
-<A NAME="IDX136"></A>
+<A NAME="IDX138"></A>
 In C programs strings are often used within calls of functions from the
 <CODE>printf</CODE> family.  The special thing about these format strings is
 that they can contain format specifiers introduced with <KBD>%</KBD>.  Assume
@@ -816,8 +872,8 @@ only a heuristic.  In the <TT>&lsquo;.po&rsquo;</TT> file the entry is marked us
 
 </P>
 <P>
-<A NAME="IDX137"></A>
-<A NAME="IDX138"></A>
+<A NAME="IDX139"></A>
+<A NAME="IDX140"></A>
 The careful reader now might say that this again can cause problems.
 The heuristic might guess it wrong.  This is true and therefore
 <CODE>xgettext</CODE> knows about a special kind of comment which lets
@@ -863,7 +919,7 @@ used for solving this problem.
 <H2><A NAME="SEC18" HREF="gettext_toc.html#TOC18">4.7  Special Cases of Translatable Strings</A></H2>
 
 <P>
-<A NAME="IDX139"></A>
+<A NAME="IDX141"></A>
 The attentive reader might now point out that it is not always possible
 to mark translatable string with <CODE>gettext</CODE> or something like this.
 Consider the following case:
@@ -994,7 +1050,7 @@ printf (_("Written by %s.\n"),
            manual, section Names.  Note this is actually a non-ASCII
            name: The first name is (with Unicode escapes)
            "Fran\u00e7ois" or (with HTML entities) "Fran&#38;ccedil;ois".
-           Pronounciation is like "fraa-swa pee-nar".  */
+           Pronunciation is like "fraa-swa pee-nar".  */
         _("Francois Pinard"));
 </PRE>
 
@@ -1017,7 +1073,7 @@ script.  Here is an example, using Greek as the target script:
 #. manual, section Names.  Note this is actually a non-ASCII
 #. name: The first name is (with Unicode escapes)
 #. "Fran\u00e7ois" or (with HTML entities) "Fran&#38;ccedil;ois".
-#. Pronounciation is like "fraa-swa pee-nar".
+#. Pronunciation is like "fraa-swa pee-nar".
 msgid "Francois Pinard"
 msgstr "\phi\rho\alpha\sigma\omicron\alpha \pi\iota\nu\alpha\rho"
        " (Francois Pinard)"
@@ -1033,7 +1089,7 @@ The translation project <A HREF="http://sourceforge.net/projects/translation">ht
 has set up a POT file and translation domain consisting of program author
 names, with better facilities for the translator than those presented here.
 Namely, there the original name is written directly in Unicode (rather
-than with Unicode escapes or HTML entities), and the pronounciation is
+than with Unicode escapes or HTML entities), and the pronunciation is
 denoted using the International Phonetic Alphabet (see
 <A HREF="http://www.wikipedia.org/wiki/International_Phonetic_Alphabet">http://www.wikipedia.org/wiki/International_Phonetic_Alphabet</A>).
 
@@ -1149,7 +1205,7 @@ it reads like this:
 </PRE>
 
 In other words, <CODE>dgettext</CODE> is used instead of <CODE>gettext</CODE>.
-Similary, the <CODE>dngettext</CODE> function should be used in place of the
+Similarly, the <CODE>dngettext</CODE> function should be used in place of the
 <CODE>ngettext</CODE> function.
 </OL>
 

@@ -6,13 +6,17 @@
 # define	COMMENT	257
 # define	DOMAIN	258
 # define	JUNK	259
-# define	MSGCTXT	260
-# define	MSGID	261
-# define	MSGID_PLURAL	262
-# define	MSGSTR	263
-# define	NAME	264
-# define	NUMBER	265
-# define	STRING	266
+# define	PREV_MSGCTXT	260
+# define	PREV_MSGID	261
+# define	PREV_MSGID_PLURAL	262
+# define	PREV_STRING	263
+# define	MSGCTXT	264
+# define	MSGID	265
+# define	MSGID_PLURAL	266
+# define	MSGSTR	267
+# define	NAME	268
+# define	NUMBER	269
+# define	STRING	270
 
 #line 20 "po-gram-gen.y"
 
@@ -34,7 +38,7 @@
 #include "error.h"
 #include "xalloc.h"
 #include "gettext.h"
-#include "read-po-abstract.h"
+#include "read-catalog-abstract.h"
 
 #define _(str) gettext (str)
 
@@ -95,6 +99,8 @@ static inline void
 do_callback_message (char *msgctxt,
 		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
 		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+		     char *prev_msgctxt,
+		     char *prev_msgid, char *prev_msgid_plural,
 		     bool obsolete)
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
@@ -104,11 +110,22 @@ do_callback_message (char *msgctxt,
   po_callback_message (msgctxt,
 		       msgid, msgid_pos, msgid_plural,
 		       msgstr, msgstr_len, msgstr_pos,
+		       prev_msgctxt, prev_msgid, prev_msgid_plural,
 		       false, obsolete);
 }
 
+#define free_message_intro(value) \
+  if ((value).prev_ctxt != NULL)	\
+    free ((value).prev_ctxt);		\
+  if ((value).prev_id != NULL)		\
+    free ((value).prev_id);		\
+  if ((value).prev_id_plural != NULL)	\
+    free ((value).prev_id_plural);	\
+  if ((value).ctxt != NULL)		\
+    free ((value).ctxt);
 
-#line 126 "po-gram-gen.y"
+
+#line 143 "po-gram-gen.y"
 #ifndef YYSTYPE
 typedef union
 {
@@ -116,6 +133,8 @@ typedef union
   struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { lex_pos_ty pos; bool obsolete; } pos;
+  struct { char *ctxt; char *id; char *id_plural; lex_pos_ty pos; bool obsolete; } prev;
+  struct { char *prev_ctxt; char *prev_id; char *prev_id_plural; char *ctxt; lex_pos_ty pos; bool obsolete; } message_intro;
   struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 } yystype;
 # define YYSTYPE yystype
@@ -127,12 +146,12 @@ typedef union
 
 
 
-#define	YYFINAL		32
+#define	YYFINAL		46
 #define	YYFLAG		-32768
-#define	YYNTBASE	15
+#define	YYNTBASE	19
 
 /* YYTRANSLATE(YYLEX) -- Bison token number corresponding to YYLEX. */
-#define YYTRANSLATE(x) ((unsigned)(x) <= 266 ? yytranslate[x] : 24)
+#define YYTRANSLATE(x) ((unsigned)(x) <= 270 ? yytranslate[x] : 33)
 
 /* YYTRANSLATE[YYLEX] -- Bison token number corresponding to YYLEX. */
 static const char yytranslate[] =
@@ -146,7 +165,7 @@ static const char yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    11,     2,    12,     2,     2,     2,     2,     2,     2,
+       2,    15,     2,    16,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -163,25 +182,28 @@ static const char yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     3,     4,     5,
-       6,     7,     8,     9,    10,    13,    14
+       6,     7,     8,     9,    10,    11,    12,    13,    14,    17,
+      18
 };
 
 #if YYDEBUG
 static const short yyprhs[] =
 {
-       0,     0,     1,     4,     7,    10,    13,    16,    21,    26,
-      30,    34,    37,    39,    43,    46,    48,    51,    57,    59,
-      62
+       0,     0,     1,     4,     7,    10,    13,    15,    18,    23,
+      28,    32,    36,    39,    41,    44,    47,    51,    53,    57,
+      59,    63,    66,    69,    71,    74,    80,    82,    85,    87
 };
 static const short yyrhs[] =
 {
-      -1,    15,    23,     0,    15,    16,     0,    15,    17,     0,
-      15,     1,     0,     4,    14,     0,    18,    22,     9,    22,
-       0,    18,    22,    19,    20,     0,    18,    22,    19,     0,
-      18,    22,    20,     0,    18,    22,     0,     7,     0,     6,
-      22,     7,     0,     8,    22,     0,    21,     0,    20,    21,
-       0,     9,    11,    13,    12,    22,     0,    14,     0,    22,
-      14,     0,     3,     0
+      -1,    19,    20,     0,    19,    21,     0,    19,    22,     0,
+      19,     1,     0,     3,     0,     4,    18,     0,    23,    31,
+      13,    31,     0,    23,    31,    27,    29,     0,    23,    31,
+      27,     0,    23,    31,    29,     0,    23,    31,     0,    25,
+       0,    24,    25,     0,    26,    32,     0,    26,    32,    28,
+       0,    11,     0,    10,    31,    11,     0,     7,     0,     6,
+      32,     7,     0,    12,    31,     0,     8,    32,     0,    30,
+       0,    29,    30,     0,    13,    15,    17,    16,    31,     0,
+      18,     0,    31,    18,     0,     9,     0,    32,     9,     0
 };
 
 #endif
@@ -190,9 +212,9 @@ static const short yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined. */
 static const short yyrline[] =
 {
-       0,   146,   147,   148,   149,   150,   154,   161,   179,   197,
-     205,   213,   222,   228,   239,   250,   254,   269,   291,   298,
-     309
+       0,   170,   171,   172,   173,   174,   179,   187,   195,   216,
+     237,   246,   255,   266,   275,   289,   298,   312,   318,   329,
+     335,   347,   358,   369,   373,   388,   411,   418,   429,   436
 };
 #endif
 
@@ -202,28 +224,30 @@ static const short yyrline[] =
 /* YYTNAME[TOKEN_NUM] -- String name of the token TOKEN_NUM. */
 static const char *const yytname[] =
 {
-  "$", "error", "$undefined.", "COMMENT", "DOMAIN", "JUNK", "MSGCTXT", 
-  "MSGID", "MSGID_PLURAL", "MSGSTR", "NAME", "'['", "']'", "NUMBER", 
-  "STRING", "msgfmt", "domain", "message", "message_intro", 
-  "msgid_pluralform", "pluralform_list", "pluralform", "string_list", 
-  "comment", 0
+  "$", "error", "$undefined.", "COMMENT", "DOMAIN", "JUNK", "PREV_MSGCTXT", 
+  "PREV_MSGID", "PREV_MSGID_PLURAL", "PREV_STRING", "MSGCTXT", "MSGID", 
+  "MSGID_PLURAL", "MSGSTR", "NAME", "'['", "']'", "NUMBER", "STRING", 
+  "po_file", "comment", "domain", "message", "message_intro", "prev", 
+  "msg_intro", "prev_msg_intro", "msgid_pluralform", 
+  "prev_msgid_pluralform", "pluralform_list", "pluralform", "string_list", 
+  "prev_string_list", 0
 };
 #endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives. */
 static const short yyr1[] =
 {
-       0,    15,    15,    15,    15,    15,    16,    17,    17,    17,
-      17,    17,    18,    18,    19,    20,    20,    21,    22,    22,
-      23
+       0,    19,    19,    19,    19,    19,    20,    21,    22,    22,
+      22,    22,    22,    23,    23,    24,    24,    25,    25,    26,
+      26,    27,    28,    29,    29,    30,    31,    31,    32,    32
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN. */
 static const short yyr2[] =
 {
-       0,     0,     2,     2,     2,     2,     2,     4,     4,     3,
-       3,     2,     1,     3,     2,     1,     2,     5,     1,     2,
-       1
+       0,     0,     2,     2,     2,     2,     1,     2,     4,     4,
+       3,     3,     2,     1,     2,     2,     3,     1,     3,     1,
+       3,     2,     2,     1,     2,     5,     1,     2,     1,     2
 };
 
 /* YYDEFACT[S] -- default rule to reduce with in state S when YYTABLE
@@ -231,46 +255,54 @@ static const short yyr2[] =
    error. */
 static const short yydefact[] =
 {
-       1,     0,     5,    20,     0,     0,    12,     3,     4,     0,
-       2,     6,    18,     0,    11,    13,    19,     0,     0,     9,
-      10,    15,    14,     0,     7,     0,     8,    16,     0,     0,
-      17,     0,     0
+       1,     0,     5,     6,     0,     0,    19,     0,    17,     2,
+       3,     4,     0,     0,    13,     0,     7,    28,     0,    26,
+       0,    12,    14,    15,    20,    29,    18,    27,     0,     0,
+      10,    11,    23,     0,    16,    21,     0,     8,     0,     9,
+      24,    22,     0,     0,    25,     0,     0
 };
 
 static const short yydefgoto[] =
 {
-       1,     7,     8,     9,    19,    20,    21,    13,    10
+       1,     9,    10,    11,    12,    13,    14,    15,    30,    34,
+      31,    32,    20,    18
 };
 
 static const short yypact[] =
 {
-  -32768,    10,-32768,-32768,   -10,     4,-32768,-32768,-32768,     4,
-  -32768,-32768,-32768,    -2,    -7,-32768,-32768,     4,    -8,    13,
-      13,-32768,     5,    11,     5,    12,    13,-32768,    14,     4,
-       5,    25,-32768
+  -32768,     2,-32768,-32768,    -8,     5,-32768,     0,-32768,-32768,
+  -32768,-32768,     0,    13,-32768,     5,-32768,-32768,    20,-32768,
+      -7,     8,-32768,    24,-32768,-32768,-32768,-32768,     0,     7,
+      15,    15,-32768,     5,-32768,    12,    17,    12,    21,    15,
+  -32768,    26,    22,     0,    12,    37,-32768
 };
 
 static const short yypgoto[] =
 {
-  -32768,-32768,-32768,-32768,-32768,     8,    -5,    -9,-32768
+  -32768,-32768,-32768,-32768,-32768,-32768,    27,-32768,-32768,-32768,
+       9,   -24,   -12,   -14
 };
 
 
-#define	YYLAST		27
+#define	YYLAST		40
 
 
 static const short yytable[] =
 {
-      14,    17,    18,    23,    11,    15,    12,    16,    22,    24,
-      31,     2,    16,     3,     4,    27,     5,     6,    12,    16,
-      30,    27,    25,    23,    28,    32,    29,    26
+      21,    23,    45,     2,    26,     3,     4,    40,     5,     6,
+      16,    27,     7,     8,    17,    40,    35,    37,    19,    41,
+      28,    29,    36,     7,     8,    19,    27,    24,    38,    25,
+      27,    44,    33,    25,    42,    25,    36,    46,    43,    39,
+      22
 };
 
 static const short yycheck[] =
 {
-       9,     8,     9,    11,    14,     7,    14,    14,    17,    18,
-       0,     1,    14,     3,     4,    20,     6,     7,    14,    14,
-      29,    26,     9,    11,    13,     0,    12,    19
+      12,    15,     0,     1,    11,     3,     4,    31,     6,     7,
+      18,    18,    10,    11,     9,    39,    28,    29,    18,    33,
+      12,    13,    15,    10,    11,    18,    18,     7,    13,     9,
+      18,    43,     8,     9,    17,     9,    15,     0,    16,    30,
+      13
 };
 /* -*-C-*-  Note some compilers choke on comments on `#line' lines.  */
 #line 3 "bison.simple"
@@ -980,89 +1012,150 @@ yyreduce:
   switch (yyn) {
 
 case 6:
-#line 155 "po-gram-gen.y"
+#line 180 "po-gram-gen.y"
+{
+		  po_callback_comment_dispatcher (yyvsp[0].string.string);
+		}
+    break;
+case 7:
+#line 188 "po-gram-gen.y"
 {
 		   po_callback_domain (yyvsp[0].string.string);
 		}
     break;
-case 7:
-#line 162 "po-gram-gen.y"
+case 8:
+#line 196 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 		  char *string4 = string_list_concat_destroy (&yyvsp[0].stringlist.stringlist);
 
-		  check_obsolete (yyvsp[-3].string, yyvsp[-2].stringlist);
-		  check_obsolete (yyvsp[-3].string, yyvsp[-1].pos);
-		  check_obsolete (yyvsp[-3].string, yyvsp[0].stringlist);
-		  if (!yyvsp[-3].string.obsolete || pass_obsolete_entries)
-		    do_callback_message (yyvsp[-3].string.string, string2, &yyvsp[-3].string.pos, NULL,
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[-2].stringlist);
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[-1].pos);
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[0].stringlist);
+		  if (!yyvsp[-3].message_intro.obsolete || pass_obsolete_entries)
+		    do_callback_message (yyvsp[-3].message_intro.ctxt, string2, &yyvsp[-3].message_intro.pos, NULL,
 					 string4, strlen (string4) + 1, &yyvsp[-1].pos.pos,
-					 yyvsp[-3].string.obsolete);
+					 yyvsp[-3].message_intro.prev_ctxt,
+					 yyvsp[-3].message_intro.prev_id, yyvsp[-3].message_intro.prev_id_plural,
+					 yyvsp[-3].message_intro.obsolete);
 		  else
 		    {
+		      free_message_intro (yyvsp[-3].message_intro);
 		      free (string2);
 		      free (string4);
 		    }
 		}
     break;
-case 8:
-#line 180 "po-gram-gen.y"
+case 9:
+#line 217 "po-gram-gen.y"
 {
 		  char *string2 = string_list_concat_destroy (&yyvsp[-2].stringlist.stringlist);
 
-		  check_obsolete (yyvsp[-3].string, yyvsp[-2].stringlist);
-		  check_obsolete (yyvsp[-3].string, yyvsp[-1].string);
-		  check_obsolete (yyvsp[-3].string, yyvsp[0].rhs);
-		  if (!yyvsp[-3].string.obsolete || pass_obsolete_entries)
-		    do_callback_message (yyvsp[-3].string.string, string2, &yyvsp[-3].string.pos, yyvsp[-1].string.string,
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[-2].stringlist);
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[-1].string);
+		  check_obsolete (yyvsp[-3].message_intro, yyvsp[0].rhs);
+		  if (!yyvsp[-3].message_intro.obsolete || pass_obsolete_entries)
+		    do_callback_message (yyvsp[-3].message_intro.ctxt, string2, &yyvsp[-3].message_intro.pos, yyvsp[-1].string.string,
 					 yyvsp[0].rhs.rhs.msgstr, yyvsp[0].rhs.rhs.msgstr_len, &yyvsp[0].rhs.pos,
-					 yyvsp[-3].string.obsolete);
+					 yyvsp[-3].message_intro.prev_ctxt,
+					 yyvsp[-3].message_intro.prev_id, yyvsp[-3].message_intro.prev_id_plural,
+					 yyvsp[-3].message_intro.obsolete);
 		  else
 		    {
+		      free_message_intro (yyvsp[-3].message_intro);
 		      free (string2);
 		      free (yyvsp[-1].string.string);
 		      free (yyvsp[0].rhs.rhs.msgstr);
 		    }
 		}
     break;
-case 9:
-#line 198 "po-gram-gen.y"
+case 10:
+#line 238 "po-gram-gen.y"
 {
-		  check_obsolete (yyvsp[-2].string, yyvsp[-1].stringlist);
-		  check_obsolete (yyvsp[-2].string, yyvsp[0].string);
-		  po_gram_error_at_line (&yyvsp[-2].string.pos, _("missing `msgstr[]' section"));
+		  check_obsolete (yyvsp[-2].message_intro, yyvsp[-1].stringlist);
+		  check_obsolete (yyvsp[-2].message_intro, yyvsp[0].string);
+		  po_gram_error_at_line (&yyvsp[-2].message_intro.pos, _("missing `msgstr[]' section"));
+		  free_message_intro (yyvsp[-2].message_intro);
 		  string_list_destroy (&yyvsp[-1].stringlist.stringlist);
 		  free (yyvsp[0].string.string);
 		}
     break;
-case 10:
-#line 206 "po-gram-gen.y"
+case 11:
+#line 247 "po-gram-gen.y"
 {
-		  check_obsolete (yyvsp[-2].string, yyvsp[-1].stringlist);
-		  check_obsolete (yyvsp[-2].string, yyvsp[0].rhs);
-		  po_gram_error_at_line (&yyvsp[-2].string.pos, _("missing `msgid_plural' section"));
+		  check_obsolete (yyvsp[-2].message_intro, yyvsp[-1].stringlist);
+		  check_obsolete (yyvsp[-2].message_intro, yyvsp[0].rhs);
+		  po_gram_error_at_line (&yyvsp[-2].message_intro.pos, _("missing `msgid_plural' section"));
+		  free_message_intro (yyvsp[-2].message_intro);
 		  string_list_destroy (&yyvsp[-1].stringlist.stringlist);
 		  free (yyvsp[0].rhs.rhs.msgstr);
 		}
     break;
-case 11:
-#line 214 "po-gram-gen.y"
+case 12:
+#line 256 "po-gram-gen.y"
 {
-		  check_obsolete (yyvsp[-1].string, yyvsp[0].stringlist);
-		  po_gram_error_at_line (&yyvsp[-1].string.pos, _("missing `msgstr' section"));
+		  check_obsolete (yyvsp[-1].message_intro, yyvsp[0].stringlist);
+		  po_gram_error_at_line (&yyvsp[-1].message_intro.pos, _("missing `msgstr' section"));
+		  free_message_intro (yyvsp[-1].message_intro);
 		  string_list_destroy (&yyvsp[0].stringlist.stringlist);
 		}
     break;
-case 12:
-#line 223 "po-gram-gen.y"
+case 13:
+#line 267 "po-gram-gen.y"
+{
+		  yyval.message_intro.prev_ctxt = NULL;
+		  yyval.message_intro.prev_id = NULL;
+		  yyval.message_intro.prev_id_plural = NULL;
+		  yyval.message_intro.ctxt = yyvsp[0].string.string;
+		  yyval.message_intro.pos = yyvsp[0].string.pos;
+		  yyval.message_intro.obsolete = yyvsp[0].string.obsolete;
+		}
+    break;
+case 14:
+#line 276 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-1].prev, yyvsp[0].string);
+		  yyval.message_intro.prev_ctxt = yyvsp[-1].prev.ctxt;
+		  yyval.message_intro.prev_id = yyvsp[-1].prev.id;
+		  yyval.message_intro.prev_id_plural = yyvsp[-1].prev.id_plural;
+		  yyval.message_intro.ctxt = yyvsp[0].string.string;
+		  yyval.message_intro.pos = yyvsp[0].string.pos;
+		  yyval.message_intro.obsolete = yyvsp[0].string.obsolete;
+		}
+    break;
+case 15:
+#line 290 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-1].string, yyvsp[0].stringlist);
+		  yyval.prev.ctxt = yyvsp[-1].string.string;
+		  yyval.prev.id = string_list_concat_destroy (&yyvsp[0].stringlist.stringlist);
+		  yyval.prev.id_plural = NULL;
+		  yyval.prev.pos = yyvsp[-1].string.pos;
+		  yyval.prev.obsolete = yyvsp[-1].string.obsolete;
+		}
+    break;
+case 16:
+#line 299 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-2].string, yyvsp[-1].stringlist);
+		  check_obsolete (yyvsp[-2].string, yyvsp[0].string);
+		  yyval.prev.ctxt = yyvsp[-2].string.string;
+		  yyval.prev.id = string_list_concat_destroy (&yyvsp[-1].stringlist.stringlist);
+		  yyval.prev.id_plural = yyvsp[0].string.string;
+		  yyval.prev.pos = yyvsp[-2].string.pos;
+		  yyval.prev.obsolete = yyvsp[-2].string.obsolete;
+		}
+    break;
+case 17:
+#line 313 "po-gram-gen.y"
 {
 		  yyval.string.string = NULL;
 		  yyval.string.pos = yyvsp[0].pos.pos;
 		  yyval.string.obsolete = yyvsp[0].pos.obsolete;
 		}
     break;
-case 13:
-#line 229 "po-gram-gen.y"
+case 18:
+#line 319 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
 		  check_obsolete (yyvsp[-2].pos, yyvsp[0].pos);
@@ -1071,8 +1164,26 @@ case 13:
 		  yyval.string.obsolete = yyvsp[0].pos.obsolete;
 		}
     break;
-case 14:
-#line 240 "po-gram-gen.y"
+case 19:
+#line 330 "po-gram-gen.y"
+{
+		  yyval.string.string = NULL;
+		  yyval.string.pos = yyvsp[0].pos.pos;
+		  yyval.string.obsolete = yyvsp[0].pos.obsolete;
+		}
+    break;
+case 20:
+#line 336 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-2].pos, yyvsp[-1].stringlist);
+		  check_obsolete (yyvsp[-2].pos, yyvsp[0].pos);
+		  yyval.string.string = string_list_concat_destroy (&yyvsp[-1].stringlist.stringlist);
+		  yyval.string.pos = yyvsp[0].pos.pos;
+		  yyval.string.obsolete = yyvsp[0].pos.obsolete;
+		}
+    break;
+case 21:
+#line 348 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
 		  plural_counter = 0;
@@ -1081,14 +1192,23 @@ case 14:
 		  yyval.string.obsolete = yyvsp[-1].pos.obsolete;
 		}
     break;
-case 15:
-#line 251 "po-gram-gen.y"
+case 22:
+#line 359 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-1].pos, yyvsp[0].stringlist);
+		  yyval.string.string = string_list_concat_destroy (&yyvsp[0].stringlist.stringlist);
+		  yyval.string.pos = yyvsp[-1].pos.pos;
+		  yyval.string.obsolete = yyvsp[-1].pos.obsolete;
+		}
+    break;
+case 23:
+#line 370 "po-gram-gen.y"
 {
 		  yyval.rhs = yyvsp[0].rhs;
 		}
     break;
-case 16:
-#line 255 "po-gram-gen.y"
+case 24:
+#line 374 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].rhs, yyvsp[0].rhs);
 		  yyval.rhs.rhs.msgstr = (char *) xmalloc (yyvsp[-1].rhs.rhs.msgstr_len + yyvsp[0].rhs.rhs.msgstr_len);
@@ -1101,8 +1221,8 @@ case 16:
 		  yyval.rhs.obsolete = yyvsp[-1].rhs.obsolete;
 		}
     break;
-case 17:
-#line 270 "po-gram-gen.y"
+case 25:
+#line 389 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-3].pos);
 		  check_obsolete (yyvsp[-4].pos, yyvsp[-2].number);
@@ -1122,8 +1242,8 @@ case 17:
 		  yyval.rhs.obsolete = yyvsp[-4].pos.obsolete;
 		}
     break;
-case 18:
-#line 292 "po-gram-gen.y"
+case 26:
+#line 412 "po-gram-gen.y"
 {
 		  string_list_init (&yyval.stringlist.stringlist);
 		  string_list_append (&yyval.stringlist.stringlist, yyvsp[0].string.string);
@@ -1131,8 +1251,8 @@ case 18:
 		  yyval.stringlist.obsolete = yyvsp[0].string.obsolete;
 		}
     break;
-case 19:
-#line 299 "po-gram-gen.y"
+case 27:
+#line 419 "po-gram-gen.y"
 {
 		  check_obsolete (yyvsp[-1].stringlist, yyvsp[0].string);
 		  yyval.stringlist.stringlist = yyvsp[-1].stringlist.stringlist;
@@ -1141,10 +1261,23 @@ case 19:
 		  yyval.stringlist.obsolete = yyvsp[-1].stringlist.obsolete;
 		}
     break;
-case 20:
-#line 310 "po-gram-gen.y"
+case 28:
+#line 430 "po-gram-gen.y"
 {
-		  po_callback_comment_dispatcher (yyvsp[0].string.string);
+		  string_list_init (&yyval.stringlist.stringlist);
+		  string_list_append (&yyval.stringlist.stringlist, yyvsp[0].string.string);
+		  yyval.stringlist.pos = yyvsp[0].string.pos;
+		  yyval.stringlist.obsolete = yyvsp[0].string.obsolete;
+		}
+    break;
+case 29:
+#line 437 "po-gram-gen.y"
+{
+		  check_obsolete (yyvsp[-1].stringlist, yyvsp[0].string);
+		  yyval.stringlist.stringlist = yyvsp[-1].stringlist.stringlist;
+		  string_list_append (&yyval.stringlist.stringlist, yyvsp[0].string.string);
+		  yyval.stringlist.pos = yyvsp[-1].stringlist.pos;
+		  yyval.stringlist.obsolete = yyvsp[-1].stringlist.obsolete;
 		}
     break;
 }
@@ -1380,4 +1513,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 314 "po-gram-gen.y"
+#line 445 "po-gram-gen.y"

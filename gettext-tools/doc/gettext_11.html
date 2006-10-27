@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52b
-     from gettext.texi on 20 July 2006 -->
+     from gettext.texi on 25 October 2006 -->
 
 <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 11  The Programmer's View</TITLE>
@@ -31,7 +31,7 @@ later explain our solution of this dilemma.
 
 <H2><A NAME="SEC165" HREF="gettext_toc.html#TOC165">11.1  About <CODE>catgets</CODE></A></H2>
 <P>
-<A NAME="IDX1000"></A>
+<A NAME="IDX1006"></A>
 
 </P>
 <P>
@@ -53,7 +53,7 @@ some others do...)
 
 </P>
 <P>
-But we must not forget one point: after all the trouble with transfering
+But we must not forget one point: after all the trouble with transferring
 the rights on Unix(tm) they at last came to X/Open, the very same who
 published this specification.  This leads me to making the prediction
 that this interface will be in future Unix standards (e.g. Spec1170) and
@@ -66,7 +66,7 @@ therefore part of all Unix implementation (implementations, which are
 
 <H3><A NAME="SEC166" HREF="gettext_toc.html#TOC166">11.1.1  The Interface</A></H3>
 <P>
-<A NAME="IDX1001"></A>
+<A NAME="IDX1007"></A>
 
 </P>
 <P>
@@ -79,7 +79,7 @@ for the functions and the needed definitions are in the
 
 </P>
 <P>
-<A NAME="IDX1002"></A>
+<A NAME="IDX1008"></A>
 <CODE>catopen</CODE> is used like in this:
 
 </P>
@@ -98,7 +98,7 @@ message catalog, equivalent to handles to file returned by <CODE>open</CODE>.
 
 </P>
 <P>
-<A NAME="IDX1003"></A>
+<A NAME="IDX1009"></A>
 This handle is of course used in the <CODE>catgets</CODE> function which can
 be used like this:
 
@@ -130,7 +130,7 @@ should better be <CODE>const char *</CODE>, but the standard is published in
 
 </P>
 <P>
-<A NAME="IDX1004"></A>
+<A NAME="IDX1010"></A>
 The last of these functions is used and behaves as expected:
 
 </P>
@@ -147,7 +147,7 @@ After this no <CODE>catgets</CODE> call using the descriptor is legal anymore.
 
 <H3><A NAME="SEC167" HREF="gettext_toc.html#TOC167">11.1.2  Problems with the <CODE>catgets</CODE> Interface?!</A></H3>
 <P>
-<A NAME="IDX1005"></A>
+<A NAME="IDX1011"></A>
 
 </P>
 <P>
@@ -168,7 +168,7 @@ more easy to manage.
 
 <H2><A NAME="SEC168" HREF="gettext_toc.html#TOC168">11.2  About <CODE>gettext</CODE></A></H2>
 <P>
-<A NAME="IDX1006"></A>
+<A NAME="IDX1012"></A>
 
 </P>
 <P>
@@ -199,7 +199,7 @@ in using this library will be interested in this description.
 
 <H3><A NAME="SEC169" HREF="gettext_toc.html#TOC169">11.2.1  The Interface</A></H3>
 <P>
-<A NAME="IDX1007"></A>
+<A NAME="IDX1013"></A>
 
 </P>
 <P>
@@ -270,9 +270,9 @@ your language.
 
 <H3><A NAME="SEC170" HREF="gettext_toc.html#TOC170">11.2.2  Solving Ambiguities</A></H3>
 <P>
-<A NAME="IDX1008"></A>
-<A NAME="IDX1009"></A>
-<A NAME="IDX1010"></A>
+<A NAME="IDX1014"></A>
+<A NAME="IDX1015"></A>
+<A NAME="IDX1016"></A>
 
 </P>
 <P>
@@ -348,7 +348,7 @@ unreliabilities.
 
 <H3><A NAME="SEC171" HREF="gettext_toc.html#TOC171">11.2.3  Locating Message Catalog Files</A></H3>
 <P>
-<A NAME="IDX1011"></A>
+<A NAME="IDX1017"></A>
 
 </P>
 <P>
@@ -388,8 +388,8 @@ The value of the locale is determined through
 
 <H3><A NAME="SEC172" HREF="gettext_toc.html#TOC172">11.2.4  How to specify the output character set <CODE>gettext</CODE> uses</A></H3>
 <P>
-<A NAME="IDX1012"></A>
-<A NAME="IDX1013"></A>
+<A NAME="IDX1018"></A>
+<A NAME="IDX1019"></A>
 
 </P>
 <P>
@@ -421,7 +421,7 @@ recommended that all <VAR>msgid</VAR>s be US-ASCII strings.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>bind_textdomain_codeset</B> <I>(const char *<VAR>domainname</VAR>, const char *<VAR>codeset</VAR>)</I>
-<DD><A NAME="IDX1014"></A>
+<DD><A NAME="IDX1020"></A>
 The <CODE>bind_textdomain_codeset</CODE> function can be used to specify the
 output character set for message catalogs for domain <VAR>domainname</VAR>.
 The <VAR>codeset</VAR> argument must be a valid codeset name which can be used
@@ -455,10 +455,10 @@ global variable <VAR>errno</VAR> is set accordingly.
 
 <H3><A NAME="SEC173" HREF="gettext_toc.html#TOC173">11.2.5  Using contexts for solving ambiguities</A></H3>
 <P>
-<A NAME="IDX1015"></A>
-<A NAME="IDX1016"></A>
-<A NAME="IDX1017"></A>
-<A NAME="IDX1018"></A>
+<A NAME="IDX1021"></A>
+<A NAME="IDX1022"></A>
+<A NAME="IDX1023"></A>
+<A NAME="IDX1024"></A>
 
 </P>
 <P>
@@ -496,7 +496,7 @@ over the functions from <CODE>&#60;libintl.h&#62;</CODE>.
 
 </P>
 <P>
-<A NAME="IDX1019"></A>
+<A NAME="IDX1025"></A>
 
 <PRE>
 const char *pgettext (const char *msgctxt, const char *msgid);
@@ -531,8 +531,8 @@ fetches a particular translation of the <VAR>msgid</VAR>.
 
 </P>
 <P>
-<A NAME="IDX1020"></A>
-<A NAME="IDX1021"></A>
+<A NAME="IDX1026"></A>
+<A NAME="IDX1027"></A>
 
 <PRE>
 const char *dpgettext (const char *domain_name,
@@ -617,9 +617,9 @@ string literals, more general macros are available:
 
 </P>
 <P>
-<A NAME="IDX1022"></A>
-<A NAME="IDX1023"></A>
-<A NAME="IDX1024"></A>
+<A NAME="IDX1028"></A>
+<A NAME="IDX1029"></A>
+<A NAME="IDX1030"></A>
 
 <PRE>
 const char *pgettext_expr (const char *msgctxt, const char *msgid);
@@ -641,7 +641,7 @@ efficient.
 
 <H3><A NAME="SEC174" HREF="gettext_toc.html#TOC174">11.2.6  Additional functions for plural forms</A></H3>
 <P>
-<A NAME="IDX1025"></A>
+<A NAME="IDX1031"></A>
 
 </P>
 <P>
@@ -764,7 +764,7 @@ purpose.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>ngettext</B> <I>(const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>)</I>
-<DD><A NAME="IDX1026"></A>
+<DD><A NAME="IDX1032"></A>
 The <CODE>ngettext</CODE> function is similar to the <CODE>gettext</CODE> function
 as it finds the message catalogs in the same way.  But it takes two
 extra arguments.  The <VAR>msgid1</VAR> parameter must contain the singular
@@ -788,13 +788,44 @@ printf (ngettext ("%d file removed", "%d files removed", n), n);
 Please note that the numeric value <VAR>n</VAR> has to be passed to the
 <CODE>printf</CODE> function as well.  It is not sufficient to pass it only to
 <CODE>ngettext</CODE>.
+
+</P>
+<P>
+In the English singular case, the number -- always 1 -- can be replaced with
+"one":
+
+</P>
+
+<PRE>
+printf (ngettext ("One file removed", "%d files removed", n), n);
+</PRE>
+
+<P>
+This works because the <SAMP>&lsquo;printf&rsquo;</SAMP> function discards excess arguments that
+are not consumed by the format string.
+
+</P>
+<P>
+It is also possible to use this function when the strings don't contain a
+cardinal number:
+
+</P>
+
+<PRE>
+puts (ngettext ("Delete the selected file?",
+                "Delete the selected files?",
+                n));
+</PRE>
+
+<P>
+In this case the number <VAR>n</VAR> is only used to choose the plural form.
 </DL>
 
 </P>
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>dngettext</B> <I>(const char *<VAR>domain</VAR>, const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>)</I>
-<DD><A NAME="IDX1027"></A>
+<DD><A NAME="IDX1033"></A>
 The <CODE>dngettext</CODE> is similar to the <CODE>dgettext</CODE> function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
@@ -805,7 +836,7 @@ parameters are handled in the same way <CODE>ngettext</CODE> handles them.
 <P>
 <DL>
 <DT><U>Function:</U> char * <B>dcngettext</B> <I>(const char *<VAR>domain</VAR>, const char *<VAR>msgid1</VAR>, const char *<VAR>msgid2</VAR>, unsigned long int <VAR>n</VAR>, int <VAR>category</VAR>)</I>
-<DD><A NAME="IDX1028"></A>
+<DD><A NAME="IDX1034"></A>
 The <CODE>dcngettext</CODE> is similar to the <CODE>dcgettext</CODE> function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
@@ -830,9 +861,9 @@ possibility of extensions to not prevent the use of new languages).
 
 </P>
 <P>
-<A NAME="IDX1029"></A>
-<A NAME="IDX1030"></A>
-<A NAME="IDX1031"></A>
+<A NAME="IDX1035"></A>
+<A NAME="IDX1036"></A>
+<A NAME="IDX1037"></A>
 The information about the plural form selection has to be stored in the
 header entry of the PO file (the one with the empty <CODE>msgid</CODE> string).
 The plural form information looks like this:
@@ -860,7 +891,7 @@ value of <CODE>nplurals</CODE>.
 
 </P>
 <P>
-<A NAME="IDX1032"></A>
+<A NAME="IDX1038"></A>
 The following rules are known at this point.  The language with families
 are listed.  But this does not necessarily mean the information can be
 generalized for the whole family (as can be easily seen in the table
@@ -884,9 +915,6 @@ Languages with this property include:
 
 <DL COMPACT>
 
-<DT>Finno-Ugric family
-<DD>
-Hungarian
 <DT>Asian family
 <DD>
 Japanese, Korean, Vietnamese
@@ -931,6 +959,22 @@ Italian, Portuguese, Spanish
 <DD>
 Esperanto
 </DL>
+
+Another language using the same header entry is:
+
+<DL COMPACT>
+
+<DT>Finno-Ugric family
+<DD>
+Hungarian
+</DL>
+
+Hungarian does not appear to have a plural if you look at sentences involving
+cardinal numbers.  For example, “1 apple” is “1 alma”, and “123 apples” is
+“123 alma”.  But when the number is not explicit, the distinction between
+singular and plural exists: “the apple” is “az alma”, and “the apples” is
+“az alm'{a}k”.  Since <CODE>ngettext</CODE> has to support both types of sentences,
+it is classified here, under “two forms”.
 
 <DT>Two forms, singular used for zero and one
 <DD>
@@ -1104,11 +1148,67 @@ Slovenian
 </DL>
 </DL>
 
+<P>
+You might now ask, <CODE>ngettext</CODE> handles only numbers <VAR>n</VAR> of type
+<SAMP>&lsquo;unsigned long&rsquo;</SAMP>.  What about larger integer types?  What about negative
+numbers?  What about floating-point numbers?
+
+</P>
+<P>
+About larger integer types, such as <SAMP>&lsquo;uintmax_t&rsquo;</SAMP> or 
+<SAMP>&lsquo;unsigned long long&rsquo;</SAMP>: they can be handled by reducing the value to a
+range that fits in an <SAMP>&lsquo;unsigned long&rsquo;</SAMP>.  Simply casting the value to
+<SAMP>&lsquo;unsigned long&rsquo;</SAMP> would not do the right thing, since it would treat
+<CODE>ULONG_MAX + 1</CODE> like zero, <CODE>ULONG_MAX + 2</CODE> like singular, and
+the like.  Here you can exploit the fact that all mentioned plural form
+formulas eventually become periodic, with a period that is a divisor of 100
+(or 1000 or 1000000).  So, when you reduce a large value to another one in
+the range [1000000, 1999999] that ends in the same 6 decimal digits, you
+can assume that it will lead to the same plural form selection.  This code
+does this:
+
+</P>
+
+<PRE>
+#include &#60;inttypes.h&#62;
+uintmax_t nbytes = ...;
+printf (ngettext ("The file has %"PRIuMAX" byte.",
+                  "The file has %"PRIuMAX" bytes.",
+                  (nbytes &#62; ULONG_MAX
+                   ? (nbytes % 1000000) + 1000000
+                   : nbytes)),
+        nbytes);
+</PRE>
+
+<P>
+Negative and floating-point values usually represent physical entities for
+which singular and plural don't clearly apply.  In such cases, there is no
+need to use <CODE>ngettext</CODE>; a simple <CODE>gettext</CODE> call with a form suitable
+for all values will do.  For example:
+
+</P>
+
+<PRE>
+printf (gettext ("Time elapsed: %.3f seconds"),
+        num_milliseconds * 0.001);
+</PRE>
+
+<P>
+Even if <VAR>num_milliseconds</VAR> happens to be a multiple of 1000, the output
+
+<PRE>
+Time elapsed: 1.000 seconds
+</PRE>
+
+<P>
+is acceptable in English, and similarly for other languages.
+
+</P>
 
 
 <H3><A NAME="SEC175" HREF="gettext_toc.html#TOC175">11.2.7  Optimization of the *gettext functions</A></H3>
 <P>
-<A NAME="IDX1033"></A>
+<A NAME="IDX1039"></A>
 
 </P>
 <P>
@@ -1163,8 +1263,8 @@ find the result through a single cache lookup.
 
 <H2><A NAME="SEC176" HREF="gettext_toc.html#TOC176">11.3  Comparing the Two Interfaces</A></H2>
 <P>
-<A NAME="IDX1034"></A>
-<A NAME="IDX1035"></A>
+<A NAME="IDX1040"></A>
+<A NAME="IDX1041"></A>
 
 </P>
 
@@ -1214,7 +1314,7 @@ by
 
 </P>
 <P>
-<A NAME="IDX1036"></A>
+<A NAME="IDX1042"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -1229,7 +1329,7 @@ can use any that becomes available.
 
 </P>
 <P>
-<A NAME="IDX1037"></A>
+<A NAME="IDX1043"></A>
 The same procedure can be done for the <CODE>gettext_noop</CODE> invocations
 (see section <A HREF="gettext_4.html#SEC18">4.7  Special Cases of Translatable Strings</A>).  One usually defines <CODE>gettext_noop</CODE> as a
 no-op macro.  So you should consider the following code for your project:
@@ -1342,7 +1442,7 @@ is a list comments:
 <UL>
 <LI>Changing the language at runtime
 
-<A NAME="IDX1038"></A>
+<A NAME="IDX1044"></A>
 
 For interactive programs it might be useful to offer a selection of the
 used language at runtime.  To understand how to do this one need to know
@@ -1359,20 +1459,20 @@ priority:
 <OL>
 <LI><CODE>LANGUAGE</CODE>
 
-<A NAME="IDX1039"></A>
+<A NAME="IDX1045"></A>
  
-<A NAME="IDX1040"></A>
+<A NAME="IDX1046"></A>
 <LI><CODE>LC_ALL</CODE>
 
-<A NAME="IDX1041"></A>
-<A NAME="IDX1042"></A>
-<A NAME="IDX1043"></A>
-<A NAME="IDX1044"></A>
-<A NAME="IDX1045"></A>
-<A NAME="IDX1046"></A>
+<A NAME="IDX1047"></A>
+<A NAME="IDX1048"></A>
+<A NAME="IDX1049"></A>
+<A NAME="IDX1050"></A>
+<A NAME="IDX1051"></A>
+<A NAME="IDX1052"></A>
 <LI><CODE>LC_xxx</CODE>, according to selected locale
 
-<A NAME="IDX1047"></A>
+<A NAME="IDX1053"></A>
 <LI><CODE>LANG</CODE>
 
 </OL>
@@ -1406,7 +1506,7 @@ language switching function.
   }
 </PRE>
 
-<A NAME="IDX1048"></A>
+<A NAME="IDX1054"></A>
 The variable <CODE>_nl_msg_cat_cntr</CODE> is defined in <TT>&lsquo;loadmsgcat.c&rsquo;</TT>.
 You don't need to know what this is for.  But it can be used to detect
 whether a <CODE>gettext</CODE> implementation is GNU gettext and not non-GNU
