@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime-0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-04-20 15:54+0200\n"
+"POT-Creation-Date: 2006-10-02 16:24+0200\n"
 "PO-Revision-Date: 2006-09-27 20:10+0700\n"
 "Last-Translator: Tedi Heriyanto <tedi_heriyanto@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -17,72 +17,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../gettext-tools/lib/closeout.c:64
+#: gnulib-lib/closeout.c:67
 msgid "write error"
 msgstr "kesalahan penulisan"
 
-#: ../gettext-tools/lib/error.c:121
+#: gnulib-lib/error.c:125
 msgid "Unknown system error"
 msgstr "Kesalahan sistem tak dikenal"
 
-#: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
+#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: pilihan `%s' rancu\n"
 
-#: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
+#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: pilihan `--%s' tidak membolehkan argumen\n"
 
-#: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
+#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: pilihan `%c%s' tidak membolehkan argumen\n"
 
-#: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
-#: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
+#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
+#: gnulib-lib/getopt.c:995
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "pilihan %s: `%s' memerlukan sebuah argumen\n"
 
-#: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
+#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: pilihan tak dikenal `--%s'\n"
 
-#: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
+#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: pilihan tak dikenal `%c%s'\n"
 
-#: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
+#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: pilihan ilegal -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
+#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: pilihan tidak valid -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
-#: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
+#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
+#: gnulib-lib/getopt.c:1066
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: pilihan membutuhkan sebuah argumen -- %c\n"
 
-#: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
+#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: pilihan `-W %s' rancu\n"
 
-#: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
+#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: pilihan `-W %s' tidak membolehkan sebuah argumen\n"
 
-#: ../gettext-tools/lib/xmalloc.c:41
+#: gnulib-lib/xmalloc.c:39
 #, c-format
 msgid "memory exhausted"
 msgstr "Memori habis"
