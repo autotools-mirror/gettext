@@ -294,7 +294,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			spec.allocated = 2 * spec.allocated + 1;
 			spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
 		      }
-		    spec.numbered[unnumbered_arg_count].type = unnumbered_arg_count + 1;
+		    spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
 		    spec.numbered[unnumbered_arg_count].type = FAT_INTEGER;
 		    unnumbered_arg_count++;
 		  }
