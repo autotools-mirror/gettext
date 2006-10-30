@@ -1,3 +1,11 @@
+2006-10-28  Bruno Haible  <bruno@clisp.org>
+
+	Fix for parallel makes.
+	* Makefile.am (BUILT_SOURCES): Don't add config.h.
+	(all, check, install): Depend on config.h.
+	(config.h): Depend on the BUILT_SOURCES. Don't invoke make recursively.
+	Reported by Ralf Wildenhues.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

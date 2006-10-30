@@ -108,8 +108,8 @@ endif
 
 # Hide symbols that are defined by libgettextpo_la_AUXSOURCES or libgnu.la
 # from the global namespace, by prefixing them with "libgettextpo_".
-BUILT_SOURCES += config.h
-config.h:
+all check install: config.h
+config.h: $(BUILT_SOURCES)
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  : "Avoid double inclusion, to avoid a warning about redefinition of DLL_VARIABLE."; \
 	  echo '#ifndef GTPO_CONFIG_H'; \
@@ -125,7 +125,6 @@ config.h:
 	  echo; \
 	  echo '#endif /* GTPO_CONFIG_H */'; \
 	} > config.h && \
-	{ $(MAKE) $(BUILT_SOURCES) || { rm -f config.h; exit 1; }; } && \
 	if test -n "$(HAVE_GLOBAL_SYMBOL_PIPE)"; then \
 	  { \
 	    for f in $(libgettextpo_la_AUXSOURCES) $(libgnu_la_SOURCES) $(libgnu_la_LIBADD); do \
