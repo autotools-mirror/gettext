@@ -1,5 +1,47 @@
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
+	* x-awk.h: Make includable without prerequisites.
+	* x-c.h: Likewise.
+	* x-csharp.h: Likewise.
+	* x-elisp.h: Likewise.
+	* x-glade.h: Likewise.
+	* x-java.h: Likewise.
+	* x-librep.h: Likewise.
+	* x-lisp.h: Likewise.
+	* x-perl.h: Likewise.
+	* x-php.h: Likewise.
+	* x-po.h: Likewise.
+	* x-properties.h: Likewise.
+	* x-python.h: Likewise.
+	* x-rst.h: Likewise.
+	* x-scheme.h: Likewise.
+	* x-sh.h: Likewise.
+	* x-smalltalk.h: Likewise.
+	* x-stringtable.h: Likewise.
+	* x-tcl.h: Likewise.
+	* x-ycp.h: Likewise.
+	* x-awk.c: Include x-awk.h.
+	* x-c.c: Include x-c.h.
+	* x-csharp.c: Include x-csharp.h.
+	* x-elisp.c: Include x-elisp.h.
+	* x-glade.c: Include x-glade.h.
+	* x-java.c: Include x-java.h.
+	* x-librep.c: Include x-librep.h.
+	* x-lisp.c: Include x-lisp.h.
+	* x-perl.c: Include x-perl.h.
+	* x-php.c: Include x-php.h.
+	* x-po.c: Include x-po.h, x-properties.h, x-stringtable.h.
+	* x-python.c: Include x-python.h.
+	* x-rst.c: Include x-rst.h.
+	* x-scheme.c: Include x-scheme.h.
+	* x-sh.c: Include x-sh.h.
+	* x-smalltalk.c: Include x-smalltalk.h.
+	* x-tcl.c: Include x-tcl.h.
+	* x-ycp.c: Include x-ycp.h.
+	* xgettext.c: Remove extern "C" around x-*.h includes.
+
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
 	* format-awk.c (format_parse): Fix bug with unnumbered argument in
 	precision field.
 

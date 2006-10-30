@@ -20,6 +20,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "x-java.h"
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>

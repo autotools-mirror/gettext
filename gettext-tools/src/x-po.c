@@ -21,6 +21,11 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "x-po.h"
+#include "x-properties.h"
+#include "x-stringtable.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

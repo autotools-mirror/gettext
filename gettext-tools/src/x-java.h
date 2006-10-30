@@ -1,5 +1,5 @@
 /* xgettext Java backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Tommy Johansson <tommy.johansson@kanalen.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,6 +15,18 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+
+
+#include <stdio.h>
+
+#include "message.h"
+#include "xgettext.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 #define EXTENSIONS_JAVA \
   { "java",    "Java"  },						\
@@ -32,3 +44,8 @@ extern void x_java_keyword (const char *keyword);
 extern void x_java_extract_all (void);
 
 extern void init_flag_table_java (void);
+
+
+#ifdef __cplusplus
+}
+#endif

@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2004.
 
    This program is free software; you can redistribute it and/or modify
@@ -15,6 +15,17 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
+
+
+#include <stdio.h>
+
+#include "message.h"
+#include "xgettext.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 
 #define EXTENSIONS_SCHEME \
@@ -37,3 +48,8 @@ extern void x_scheme_extract_all (void);
 extern void x_scheme_keyword (const char *name);
 
 extern void init_flag_table_scheme (void);
+
+
+#ifdef __cplusplus
+}
+#endif

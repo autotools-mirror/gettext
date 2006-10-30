@@ -21,6 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "x-tcl.h"
+
 #include <assert.h>
 #include <errno.h>
 #include <limits.h>

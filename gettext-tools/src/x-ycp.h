@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -17,6 +17,17 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 
+#include <stdio.h>
+
+#include "message.h"
+#include "xgettext.h"
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 #define EXTENSIONS_YCP \
   { "ycp",    "YCP"   },						\
 
@@ -31,3 +42,8 @@ extern void extract_ycp (FILE *fp, const char *real_filename,
 			 msgdomain_list_ty *mdlp);
 
 extern void init_flag_table_ycp (void);
+
+
+#ifdef __cplusplus
+}
+#endif

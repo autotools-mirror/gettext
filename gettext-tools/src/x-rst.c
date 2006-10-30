@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -20,6 +20,9 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+
+/* Specification.  */
+#include "x-rst.h"
 
 #include <errno.h>
 #include <stdio.h>

@@ -71,10 +71,6 @@
 #define _(str) gettext (str)
 
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "x-c.h"
 #include "x-po.h"
 #include "x-sh.h"
@@ -95,10 +91,6 @@ extern "C" {
 #include "x-stringtable.h"
 #include "x-rst.h"
 #include "x-glade.h"
-
-#ifdef __cplusplus
-}
-#endif
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */

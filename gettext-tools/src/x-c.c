@@ -21,6 +21,9 @@
 # include "config.h"
 #endif
 
+/* Specification.  */
+#include "x-c.h"
+
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
