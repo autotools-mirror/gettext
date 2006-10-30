@@ -1,3 +1,10 @@
+2006-10-27  Bruno Haible  <bruno@clisp.org>
+
+	Work around automake-1.10 annoyance.
+	* build-aux/fixaclocal: New file.
+	* autogen.sh: Use it for every aclocal invocation.
+	* Makefile.am (ACLOCAL): New macro.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

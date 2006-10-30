@@ -18,6 +18,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
+ACLOCAL = build-aux/fixaclocal @ACLOCAL@
 
 SUBDIRS = gnulib-local gettext-runtime gettext-tools autoconf-lib-link
 

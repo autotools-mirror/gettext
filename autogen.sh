@@ -207,20 +207,20 @@ if test -n "$GNULIB_TOOL"; then
 fi
 
 (cd autoconf-lib-link
- aclocal -I m4 -I ../m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../m4
  autoconf
  automake
 )
 
 (cd gettext-runtime
- aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake
 )
 
 (cd gettext-runtime/libasprintf
- aclocal -I ../../m4 -I ../m4
+ ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4
  autoconf
  autoheader && touch config.h.in
  automake
@@ -229,14 +229,14 @@ fi
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools
- aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake
 )
 
 (cd gettext-tools/examples
- aclocal -I ../../gettext-runtime/m4 -I ../../m4
+ ../../build-aux/fixaclocal aclocal -I ../../gettext-runtime/m4 -I ../../m4
  autoconf
  automake
  # Rebuilding the examples PO files is only rarely needed.
@@ -245,7 +245,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  fi
 )
 
-aclocal
+build-aux/fixaclocal aclocal
 autoconf
 automake
 
