@@ -134,16 +134,21 @@ enum format_arg_type
 			   | FAT_SIZE_INTMAX_T | FAT_SIZE_INTPTR_T
 			   | FAT_SIZE_SIZE_T | FAT_SIZE_PTRDIFF_T)
 };
+#ifdef __cplusplus
+typedef int format_arg_type_t;
+#else
+typedef enum format_arg_type format_arg_type_t;
+#endif
 
 struct numbered_arg
 {
   unsigned int number;
-  enum format_arg_type type;
+  format_arg_type_t type;
 };
 
 struct unnumbered_arg
 {
-  enum format_arg_type type;
+  format_arg_type_t type;
 };
 
 struct spec
@@ -200,8 +205,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
       {
 	/* A directive.  */
 	unsigned int number = 0;
-	enum format_arg_type type;
-	enum format_arg_type size;
+	format_arg_type_t type;
+	format_arg_type_t size;
 
 	spec.directives++;
 
@@ -733,9 +738,9 @@ format_parse (const char *format, bool translated, bool objc_extensions,
       for (i = j = 0; i < numbered_arg_count; i++)
 	if (j > 0 && numbered[i].number == numbered[j-1].number)
 	  {
-	    enum format_arg_type type1 = numbered[i].type;
-	    enum format_arg_type type2 = numbered[j-1].type;
-	    enum format_arg_type type_both;
+	    format_arg_type_t type1 = numbered[i].type;
+	    format_arg_type_t type2 = numbered[j-1].type;
+	    format_arg_type_t type_both;
 
 	    if (type1 == type2)
 	      type_both = type1;

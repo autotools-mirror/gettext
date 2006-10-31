@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-1999, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -106,8 +106,12 @@ extern char *libintl_dcigettext (const char *__domainname,
 # define SWAP(i) bswap_32 (i)
 #else
 static inline nls_uint32
+# ifdef __cplusplus
+SWAP (nls_uint32 i)
+# else
 SWAP (i)
      nls_uint32 i;
+# endif
 {
   return (i << 24) | ((i & 0xff00) << 8) | ((i >> 8) & 0xff00) | (i >> 24);
 }

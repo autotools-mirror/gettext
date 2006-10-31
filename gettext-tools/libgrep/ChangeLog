@@ -1,3 +1,28 @@
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
+	Make it compile in C++ mode.
+	* dfa.h (token): Typedef as int.
+	* dfa.c (remove): Renamed from delete.
+	(epsclosure): Update.
+	(match_mb_charset): Cast strncpy argument.
+	(dfaexec): Add cast.
+	(dfacomp): Cast malloc result.
+	(icatalloc): Rename argument names to 'stem', 'suffix'.
+	(enlist): Rename 'new' argument to 'suffix'.
+	(addlists): Rename 'new' argument to 'suffixes'.
+	(dfamust): Cast malloc results. Rename local variable 'new' to 'common'.
+	* kwset.c (kwsprep): Cast obstack_alloc result.
+	(bmexec): Cast memchr result.
+	* m-fgrep.c (Fexecute): Rename local variable 'try' to 'curr'. Cast
+	memchr result.
+	* m-regex.c (struct patterns): Move out of the scope of struct
+	compiled_regex.
+	(Gcompile, compile, EGexecute): Cast memchr results.
+	* regex.c (EXTEND_BUFFER): Cast REALLOC result.
+	(byte_re_match_2_internal): Limit the scope of same_str_p variable.
+	Rename local variable 'not' to 'invert'.
+	(regcomp): Cast malloc results.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

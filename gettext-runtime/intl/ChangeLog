@@ -1,3 +1,19 @@
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
+	Make it compile in C++ mode.
+	* gettextP.h (SWAP): Don't use K&R syntax in C++ mode.
+	* gmo.h (struct segment_pair): Move out of the scope of struct
+	sysdep_string.
+	* dcigettext.c (DCIGETTEXT): Cast mempcpy results.
+	* loadmsgcat.c (_nl_load_domain): Cast alloca result.
+	* localealias.c (read_alias_file): Cast memcpy result.
+	* plural-exp.h (enum expression_operator): Move out of the scope of
+	struct expression. Rename from 'enum operator'.
+	* plural-exp.c (plvar, plone, GERMANIC_PLURAL): Don't use C99 named
+	initializer syntax in C++ mode.
+	* plural.y (%union, new_exp, new_exp_0, new_exp_1, new_exp_2,
+	new_exp_3): Update.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

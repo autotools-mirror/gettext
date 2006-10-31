@@ -43,6 +43,15 @@ extern void *xcalloc (size_t nmemb, size_t size);
 /* Change the size of an allocated block of memory PTR to SIZE bytes,
    with error checking.  If PTR is NULL, run xmalloc.  */
 extern void *xrealloc (void *ptr, size_t size);
+#ifdef __cplusplus
+}
+template <typename T>
+  inline T * xrealloc (T * ptr, size_t size)
+  {
+    return (T *) xrealloc((void *) ptr, size);
+  }
+extern "C" {
+#endif
 
 /* This function is always triggered when memory is exhausted.  It is
    in charge of honoring the three previous items.  This is the

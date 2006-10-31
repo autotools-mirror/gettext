@@ -1,5 +1,5 @@
 /* Expression parsing for plural form selection.
-   Copyright (C) 2000-2001, 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000-2001, 2003, 2005-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@
 
 #include "plural-exp.h"
 
-#if (defined __GNUC__ && !(__APPLE_CC__ > 1)) \
+#if (defined __GNUC__ && !(__APPLE_CC__ > 1) && !defined __cplusplus) \
     || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
 
 /* These structs are the constant expression for the germanic plural

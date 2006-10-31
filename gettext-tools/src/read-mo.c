@@ -44,6 +44,12 @@
 #define _(str) gettext (str)
 
 
+enum mo_endianness
+{
+  MO_LITTLE_ENDIAN,
+  MO_BIG_ENDIAN
+};
+
 /* We read the file completely into memory.  This is more efficient than
    lots of lseek().  This struct represents the .mo file in memory.  */
 struct binary_mo_file
@@ -51,7 +57,7 @@ struct binary_mo_file
   const char *filename;
   char *data;
   size_t size;
-  enum { MO_LITTLE_ENDIAN, MO_BIG_ENDIAN } endian;
+  enum mo_endianness endian;
 };
 
 

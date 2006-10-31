@@ -326,13 +326,13 @@ mb_setascii (mbchar_t mbc, char sc)
 
 /* Copying a character.  */
 static inline void
-mb_copy (mbchar_t new, const mbchar_t old)
+mb_copy (mbchar_t new_mbc, const mbchar_t old_mbc)
 {
-  memcpy_small (&new->buf[0], &old->buf[0], old->bytes);
-  new->bytes = old->bytes;
+  memcpy_small (&new_mbc->buf[0], &old_mbc->buf[0], old_mbc->bytes);
+  new_mbc->bytes = old_mbc->bytes;
 #if HAVE_ICONV
-  if ((new->uc_valid = old->uc_valid))
-    new->uc = old->uc;
+  if ((new_mbc->uc_valid = old_mbc->uc_valid))
+    new_mbc->uc = old_mbc->uc;
 #endif
 }
 

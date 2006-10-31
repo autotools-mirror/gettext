@@ -166,16 +166,44 @@ load_libexpat ()
       handle = dlopen ("libexpat.so.0", RTLD_LAZY);
 #endif
       if (handle != NULL
-	  && (p_XML_ParserCreate = dlsym (handle, "XML_ParserCreate")) != NULL
-	  && (p_XML_SetElementHandler = dlsym (handle, "XML_SetElementHandler")) != NULL
-	  && (p_XML_SetCharacterDataHandler = dlsym (handle, "XML_SetCharacterDataHandler")) != NULL
-	  && (p_XML_SetCommentHandler = dlsym (handle, "XML_SetCommentHandler")) != NULL
-	  && (p_XML_Parse = dlsym (handle, "XML_Parse")) != NULL
-	  && (p_XML_GetErrorCode = dlsym (handle, "XML_GetErrorCode")) != NULL
-	  && (p_XML_GetCurrentLineNumber = dlsym (handle, "XML_GetCurrentLineNumber")) != NULL
-	  && (p_XML_GetCurrentColumnNumber = dlsym (handle, "XML_GetCurrentColumnNumber")) != NULL
-	  && (p_XML_ParserFree = dlsym (handle, "XML_ParserFree")) != NULL
-	  && (p_XML_ErrorString = dlsym (handle, "XML_ErrorString")) != NULL)
+	  && (p_XML_ParserCreate =
+		(XML_Parser (*) (const XML_Char *))
+		dlsym (handle, "XML_ParserCreate")) != NULL
+	  && (p_XML_SetElementHandler =
+		(void (*) (XML_Parser, XML_StartElementHandler, XML_EndElementHandler))
+		dlsym (handle, "XML_SetElementHandler")) != NULL
+	  && (p_XML_SetCharacterDataHandler =
+		(void (*) (XML_Parser, XML_CharacterDataHandler))
+		dlsym (handle, "XML_SetCharacterDataHandler")) != NULL
+	  && (p_XML_SetCommentHandler =
+		(void (*) (XML_Parser, XML_CommentHandler))
+		dlsym (handle, "XML_SetCommentHandler")) != NULL
+	  && (p_XML_Parse =
+		(int (*) (XML_Parser, const char *, int, int))
+		dlsym (handle, "XML_Parse")) != NULL
+	  && (p_XML_GetErrorCode =
+		(enum XML_Error (*) (XML_Parser))
+		dlsym (handle, "XML_GetErrorCode")) != NULL
+	  && (p_XML_GetCurrentLineNumber =
+#if XML_MAJOR_VERSION >= 2
+		(XML_Size (*) (XML_Parser))
+#else
+		(int (*) (XML_Parser))
+#endif
+		dlsym (handle, "XML_GetCurrentLineNumber")) != NULL
+	  && (p_XML_GetCurrentColumnNumber =
+#if XML_MAJOR_VERSION >= 2
+		(XML_Size (*) (XML_Parser))
+#else
+		(int (*) (XML_Parser))
+#endif
+		dlsym (handle, "XML_GetCurrentColumnNumber")) != NULL
+	  && (p_XML_ParserFree =
+		(void (*) (XML_Parser))
+		dlsym (handle, "XML_ParserFree")) != NULL
+	  && (p_XML_ErrorString =
+		(const XML_LChar * (*) (int))
+		dlsym (handle, "XML_ErrorString")) != NULL)
 	libexpat_loaded = 1;
       else
 	libexpat_loaded = -1;

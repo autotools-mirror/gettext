@@ -97,7 +97,8 @@ find_backup_file_name (const char *file, enum backup_type backup_type)
   if (HAVE_DIR && backup_suffix_size_max < numbered_suffix_size_max)
     backup_suffix_size_max = numbered_suffix_size_max;
 
-  s = malloc (file_len + backup_suffix_size_max + numbered_suffix_size_max);
+  s = (char *) malloc (file_len + backup_suffix_size_max
+		       + numbered_suffix_size_max);
   if (s)
     {
       strcpy (s, file);

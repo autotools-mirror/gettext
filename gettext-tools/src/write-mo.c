@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2005 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -706,7 +706,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   offset = end_offset;
 
   /* A few zero bytes for padding.  */
-  null = alloca (alignment);
+  null = (char *) alloca (alignment);
   memset (null, '\0', alignment);
 
   /* Now write the original strings.  */

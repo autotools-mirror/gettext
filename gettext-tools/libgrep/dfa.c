@@ -1,5 +1,5 @@
 /* dfa.c - deterministic extended regexp routines for GNU
-   Copyright 1988, 1998, 2000, 2005 Free Software Foundation, Inc.
+   Copyright 1988, 1998, 2000, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -1442,7 +1442,7 @@ merge (position_set const *s1, position_set const *s2, position_set *m)
 
 /* Delete a position from a set. */
 static void
-delete (position p, position_set *s)
+remove (position p, position_set *s)
 {
   int i;
 
@@ -1550,7 +1550,7 @@ epsclosure (position_set *s, struct dfa const *d)
       {
 	old = s->elems[i];
 	p.constraint = old.constraint;
-	delete(s->elems[i], s);
+	remove(s->elems[i], s);
 	if (visited[old.index])
 	  {
 	    --i;
@@ -2489,14 +2489,14 @@ match_mb_charset (struct dfa *d, int s, position pos, int index)
 	goto charset_matched;
     }
 
-  strncpy(buffer, buf_begin + index, match_len);
+  strncpy(buffer, (const char *) (buf_begin + index), match_len);
   buffer[match_len] = '\0';
 
   /* match with an equivalent class?  */
   for (i = 0; i<work_mbc->nequivs; i++)
     {
       op_len = strlen(work_mbc->equivs[i]);
-      strncpy(buffer, buf_begin + index, op_len);
+      strncpy(buffer, (const char *) (buf_begin + index), op_len);
       buffer[op_len] = '\0';
       if (strcoll(work_mbc->equivs[i], buffer) == 0)
 	{
@@ -2509,7 +2509,7 @@ match_mb_charset (struct dfa *d, int s, position pos, int index)
   for (i = 0; i<work_mbc->ncoll_elems; i++)
     {
       op_len = strlen(work_mbc->coll_elems[i]);
-      strncpy(buffer, buf_begin + index, op_len);
+      strncpy(buffer, (const char *) (buf_begin + index), op_len);
       buffer[op_len] = '\0';
 
       if (strcoll(work_mbc->coll_elems[i], buffer) == 0)
@@ -2762,7 +2762,7 @@ dfaexec (struct dfa *d, char const *begin, size_t size, int *backref)
   if (MB_CUR_MAX > 1)
     {
       int remain_bytes, i;
-      buf_begin = begin;
+      buf_begin = (unsigned char const *)begin;
       buf_end = end;
 
       /* initialize mblen_buf, and inputwcs.  */
@@ -2943,7 +2943,7 @@ dfacomp (char const *s, size_t len, struct dfa *d, int searchflag)
       char *lcopy;
       int i;
 
-      lcopy = malloc(len);
+      lcopy = (char *) malloc(len);
       if (!lcopy)
 	dfaerror(_("out of memory"));
 
@@ -3122,23 +3122,23 @@ dfafree (struct dfa *d)
    'psi|epsilon' is likelier)? */
 
 static char *
-icatalloc (char *old, char *new)
+icatalloc (char *stem, char *suffix)
 {
   char *result;
-  size_t oldsize, newsize;
+  size_t stemsize, suffixsize;
 
-  newsize = (new == NULL) ? 0 : strlen(new);
-  if (old == NULL)
-    oldsize = 0;
-  else if (newsize == 0)
-    return old;
-  else	oldsize = strlen(old);
-  if (old == NULL)
-    result = (char *) malloc(newsize + 1);
+  suffixsize = (suffix == NULL) ? 0 : strlen(suffix);
+  if (stem == NULL)
+    stemsize = 0;
+  else if (suffixsize == 0)
+    return stem;
+  else	stemsize = strlen(stem);
+  if (stem == NULL)
+    result = (char *) malloc(suffixsize + 1);
   else
-    result = (char *) realloc((void *) old, oldsize + newsize + 1);
-  if (result != NULL && new != NULL)
-    (void) strcpy(result + oldsize, new);
+    result = (char *) realloc((void *) stem, stemsize + suffixsize + 1);
+  if (result != NULL && suffix != NULL)
+    (void) strcpy(result + stemsize, suffix);
   return result;
 }
 
@@ -3183,29 +3183,29 @@ freelist (char **cpp)
 }
 
 static char **
-enlist (char **cpp, char *new, size_t len)
+enlist (char **cpp, char *suffix, size_t len)
 {
   int i, j;
 
   if (cpp == NULL)
     return NULL;
-  if ((new = icpyalloc(new)) == NULL)
+  if ((suffix = icpyalloc(suffix)) == NULL)
     {
       freelist(cpp);
       return NULL;
     }
-  new[len] = '\0';
-  /* Is there already something in the list that's new (or longer)? */
+  suffix[len] = '\0';
+  /* Is there already something in the list that's suffix (or longer)? */
   for (i = 0; cpp[i] != NULL; ++i)
-    if (istrstr(cpp[i], new) != NULL)
+    if (istrstr(cpp[i], suffix) != NULL)
       {
-	free(new);
+	free(suffix);
 	return cpp;
       }
   /* Eliminate any obsoleted strings. */
   j = 0;
   while (cpp[j] != NULL)
-    if (istrstr(new, cpp[j]) == NULL)
+    if (istrstr(suffix, cpp[j]) == NULL)
       ++j;
     else
       {
@@ -3219,7 +3219,7 @@ enlist (char **cpp, char *new, size_t len)
   cpp = (char **) realloc((char *) cpp, (i + 2) * sizeof *cpp);
   if (cpp == NULL)
     return NULL;
-  cpp[i] = new;
+  cpp[i] = suffix;
   cpp[i + 1] = NULL;
   return cpp;
 }
@@ -3262,15 +3262,15 @@ comsubs (char *left, char *right)
 }
 
 static char **
-addlists (char **old, char **new)
+addlists (char **old, char **suffixes)
 {
   int i;
 
-  if (old == NULL || new == NULL)
+  if (old == NULL || suffixes == NULL)
     return NULL;
-  for (i = 0; new[i] != NULL; ++i)
+  for (i = 0; suffixes[i] != NULL; ++i)
     {
-      old = enlist(old, new[i], strlen(new[i]));
+      old = enlist(old, suffixes[i], strlen(suffixes[i]));
       if (old == NULL)
 	break;
     }
@@ -3352,9 +3352,9 @@ dfamust (struct dfa *dfa)
   for (i = 0; i <= dfa->tindex; ++i)
     {
       mp[i].in = (char **) malloc(sizeof *mp[i].in);
-      mp[i].left = malloc(2);
-      mp[i].right = malloc(2);
-      mp[i].is = malloc(2);
+      mp[i].left = (char *) malloc(2);
+      mp[i].right = (char *) malloc(2);
+      mp[i].is = (char *) malloc(2);
       if (mp[i].in == NULL || mp[i].left == NULL ||
 	  mp[i].right == NULL || mp[i].is == NULL)
 	goto done;
@@ -3399,7 +3399,7 @@ dfamust (struct dfa *dfa)
 	  if (mp < &musts[2])
 	    goto done;		/* "cannot happen" */
 	  {
-	    char **new;
+	    char **common;
 	    must *lmp;
 	    must *rmp;
 	    int j, ln, rn, n;
@@ -3426,12 +3426,12 @@ dfamust (struct dfa *dfa)
 	    for (j = 0; j < i; ++j)
 	      lmp->right[j] = lmp->right[(ln - i) + j];
 	    lmp->right[j] = '\0';
-	    new = inboth(lmp->in, rmp->in);
-	    if (new == NULL)
+	    common = inboth(lmp->in, rmp->in);
+	    if (common == NULL)
 	      goto done;
 	    freelist(lmp->in);
 	    free((char *) lmp->in);
-	    lmp->in = new;
+	    lmp->in = common;
 	  }
 	  break;
 	case PLUS:
@@ -3556,7 +3556,7 @@ dfamust (struct dfa *dfa)
     {
       dm = (struct dfamust *) malloc(sizeof (struct dfamust));
       dm->exact = exact;
-      dm->must = malloc(strlen(result) + 1);
+      dm->must = (char *) malloc(strlen(result) + 1);
       strcpy(dm->must, result);
       dm->next = dfa->musts;
       dfa->musts = dm;

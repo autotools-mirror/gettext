@@ -119,11 +119,16 @@ enum format_arg_type
   /* Bitmasks */
   FAT_SIZE_MASK		= (FAT_SIZE_LONG | FAT_SIZE_LONGLONG | FAT_SIZE_WIDE)
 };
+#ifdef __cplusplus
+typedef int format_arg_type_t;
+#else
+typedef enum format_arg_type format_arg_type_t;
+#endif
 
 struct numbered_arg
 {
   unsigned int number;
-  enum format_arg_type type;
+  format_arg_type_t type;
 };
 
 struct spec
@@ -184,8 +189,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    unsigned int flag_w = 0;
 	    unsigned int flag_plus = 0;
 	    unsigned int flag_sharp = 0;
-	    enum format_arg_type size;
-	    enum format_arg_type type;
+	    format_arg_type_t size;
+	    format_arg_type_t type;
 
 	    if (isdigit (*format))
 	      {
@@ -490,9 +495,9 @@ format_parse (const char *format, bool translated, char **invalid_reason)
       for (i = j = 0; i < spec.numbered_arg_count; i++)
 	if (j > 0 && spec.numbered[i].number == spec.numbered[j-1].number)
 	  {
-	    enum format_arg_type type1 = spec.numbered[i].type;
-	    enum format_arg_type type2 = spec.numbered[j-1].type;
-	    enum format_arg_type type_both;
+	    format_arg_type_t type1 = spec.numbered[i].type;
+	    format_arg_type_t type2 = spec.numbered[j-1].type;
+	    format_arg_type_t type_both;
 
 	    if (type1 == type2)
 	      type_both = type1;

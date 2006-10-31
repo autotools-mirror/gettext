@@ -76,23 +76,25 @@ extract_add_message (default_catalog_reader_ty *this,
      because the old header may contain a charset= directive.  */
   if (msgctxt == NULL && *msgid == '\0' && !xgettext_omit_header)
     {
-      const char *charsetstr = strstr (msgstr, "charset=");
+      {
+	const char *charsetstr = strstr (msgstr, "charset=");
 
-      if (charsetstr != NULL)
-	{
-	  size_t len;
-	  char *charset;
+	if (charsetstr != NULL)
+	  {
+	    size_t len;
+	    char *charset;
 
-	  charsetstr += strlen ("charset=");
-	  len = strcspn (charsetstr, " \t\n");
-	  charset = (char *) xmalloc (len + 1);
-	  memcpy (charset, charsetstr, len);
-	  charset[len] = '\0';
+	    charsetstr += strlen ("charset=");
+	    len = strcspn (charsetstr, " \t\n");
+	    charset = (char *) xmalloc (len + 1);
+	    memcpy (charset, charsetstr, len);
+	    charset[len] = '\0';
 
-	  if (header_charset != NULL)
-	    free (header_charset);
-	  header_charset = charset;
-	}
+	    if (header_charset != NULL)
+	      free (header_charset);
+	    header_charset = charset;
+	  }
+      }
 
      discard:
       if (msgctxt != NULL)

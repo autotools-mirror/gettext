@@ -98,6 +98,17 @@ enum is_wrap
 #endif
 
 
+struct altstr
+{
+  const char *msgstr;
+  size_t msgstr_len;
+  const char *msgstr_end;
+  string_list_ty *comment;
+  string_list_ty *comment_dot;
+  char *id;
+};
+
+
 typedef struct message_ty message_ty;
 struct message_ty
 {
@@ -156,16 +167,7 @@ struct message_ty
 
   /* Used for combining alternative translations, in the msgcat program.  */
   int alternative_count;
-  struct altstr
-    {
-      const char *msgstr;
-      size_t msgstr_len;
-      const char *msgstr_end;
-      string_list_ty *comment;
-      string_list_ty *comment_dot;
-      char *id;
-    }
-    *alternative;
+  struct altstr *alternative;
 };
 
 extern message_ty *

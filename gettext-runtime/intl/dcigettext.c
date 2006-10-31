@@ -683,8 +683,8 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 				 + domainname_len + 5);
   ADD_BLOCK (block_list, xdomainname);
 
-  stpcpy (mempcpy (stpcpy (stpcpy (xdomainname, categoryname), "/"),
-		  domainname, domainname_len),
+  stpcpy ((char *) mempcpy (stpcpy (stpcpy (xdomainname, categoryname), "/"),
+			    domainname, domainname_len),
 	  ".mo");
 
   /* Creating working area.  */
@@ -793,7 +793,8 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		      char *new_localename;
 # endif
 
-		      new_domainname = mempcpy (newp->msgid, msgid1, msgid_len);
+		      new_domainname =
+			(char *) mempcpy (newp->msgid, msgid1, msgid_len);
 		      memcpy (new_domainname, domainname, domainname_len + 1);
 # ifdef HAVE_PER_THREAD_LOCALE
 		      new_localename = new_domainname + domainname_len + 1;

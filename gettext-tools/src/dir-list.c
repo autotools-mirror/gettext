@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1996, 1998, 2000-2002 Free Software Foundation, Inc.
+   Copyright (C) 1996, 1998, 2000-2002, 2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -82,5 +82,5 @@ dir_list_restore (void *saved_value)
       free (directory);
     }
 
-  directory = saved_value;
+  directory = (string_list_ty *) saved_value;
 }

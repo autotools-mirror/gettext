@@ -81,6 +81,15 @@ struct format_arg
   struct format_arg_list *list;	/* For FAT_LIST: List elements.  */
 };
 
+struct segment
+{
+  unsigned int count;	/* Number of format_arg records used.  */
+  unsigned int allocated;
+  struct format_arg *element;	/* Argument constraints.  */
+  unsigned int length; /* Number of arguments represented by this segment.
+			  This is the sum of all repcounts in the segment.  */
+};
+
 struct format_arg_list
 {
   /* The constraints for the potentially infinite argument list are assumed
@@ -93,16 +102,8 @@ struct format_arg_list
      A finite sequence is represented entirely in the initial segment; the
      loop segment is empty.  */
 
-  struct segment
-  {
-    unsigned int count;	/* Number of format_arg records used.  */
-    unsigned int allocated;
-    struct format_arg *element;	/* Argument constraints.  */
-    unsigned int length; /* Number of arguments represented by this segment.
-			    This is the sum of all repcounts in the segment.  */
-  }
-  initial,	/* Initial arguments segment.  */
-  repeated;	/* Endlessly repeated segment.  */
+  struct segment initial;	/* Initial arguments segment.  */
+  struct segment repeated;	/* Endlessly repeated segment.  */
 };
 
 struct spec

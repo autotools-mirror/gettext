@@ -1,3 +1,11 @@
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
+	Make it compile in C++ mode.
+	* lib/backupfile.c (find_backup_file_name): Cast malloc result.
+	* lib/xalloc.h (xrealloc): Define as template with appropriate return
+	type.
+	* lib/xstrdup.c (xstrdup): Cast xmalloc result.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

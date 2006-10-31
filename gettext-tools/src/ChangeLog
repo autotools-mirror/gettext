@@ -1,5 +1,33 @@
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
+	Make it compile in C++ mode.
+	* dir-list.c (dir_list_restore): Add cast.
+	* format-c.c (format_arg_type_t): New type. Use it instead of
+	'enum format_arg_type'.
+	* format-gcc-internal.c (format_arg_type_t): New type. Use it instead of
+	'enum format_arg_type'.
+	* format-perl.c (format_arg_type_t): New type. Use it instead of
+	'enum format_arg_type'.
+	* format-lisp.c (struct segment): Move out of the scope of struct
+	format_arg_list.
+	* format-scheme.c (struct segment): Likewise.
+	* message.h (struct altstr): Move out of the scope of struct message_ty.
+	* msgl-equal.c (msgstr_equal_ignoring_potcdate): Cast memchr results.
+	* po-lex.c (mb_copy): Rename arguments to new_mbc, old_mbc.
+	* read-mo.c (enum mo_endianness): Move out of the scope of struct
+	binary_mo_file.
+	* read-po.c (this): New macro.
+	* read-properties.c (this): New macro.
+	* write-mo.c (write_table): Cast alloca result.
+	* x-glade.c (load_libexpat): Cast dlsym results.
+	* x-perl.c (get_here_document): Use xmalloc instead of
+	xrealloc (NULL...). Cast its result.
+	* x-po.c (extract_add_message): Limit the scope of variable
+	'charsetstr'.
+	* x-smalltalk.c (phase2_get): Cast xmalloc results.
+
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
 	* x-awk.h: Make includable without prerequisites.
 	* x-c.h: Likewise.
 	* x-csharp.h: Likewise.

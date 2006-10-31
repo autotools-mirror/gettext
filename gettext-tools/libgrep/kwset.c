@@ -1,5 +1,5 @@
 /* kwset.c - search for any of a set of keywords.
-   Copyright 1989, 1998, 2000, 2005 Free Software Foundation, Inc.
+   Copyright 1989, 1998, 2000, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -400,7 +400,7 @@ kwsprep (kwset_t kws)
   if (kwset->words == 1 && kwset->trans == 0)
     {
       /* Looking for just one string.  Extract it from the trie. */
-      kwset->target = obstack_alloc(&kwset->obstack, kwset->mind);
+      kwset->target = (char *) obstack_alloc(&kwset->obstack, kwset->mind);
       for (i = kwset->mind - 1, curr = kwset->trie; i >= 0; --i)
 	{
 	  kwset->target[i] = curr->links->label;
@@ -508,7 +508,7 @@ bmexec (kwset_t kws, char const *text, size_t size)
     return -1;
   if (len == 1)
     {
-      tp = memchr (text, kwset->target[0], size);
+      tp = (const char *) memchr (text, kwset->target[0], size);
       return tp ? tp - text : -1;
     }
 

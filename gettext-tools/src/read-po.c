@@ -25,6 +25,12 @@
 #include "po-lex.h"
 #include "po-gram.h"
 
+/* For compiling this file in C++ mode.  */
+#ifdef __cplusplus
+# define this thiss
+#endif
+
+
 /* Read a .po / .pot file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
 static void

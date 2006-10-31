@@ -2080,7 +2080,7 @@ static reg_errcode_t byte_compile_range (unsigned int range_start,
     bufp->allocated <<= 1;						\
     if (bufp->allocated > MAX_BUF_SIZE)					\
       bufp->allocated = MAX_BUF_SIZE;					\
-    bufp->buffer = REALLOC (COMPILED_BUFFER_VAR, bufp->allocated);	\
+    bufp->buffer = (UCHAR_T *) REALLOC (COMPILED_BUFFER_VAR, bufp->allocated); \
     if (COMPILED_BUFFER_VAR == NULL)					\
       return REG_ESPACE;						\
     /* If the buffer moved, move all the pointers into it.  */		\
@@ -6011,19 +6011,21 @@ byte_re_match_2_internal (struct re_pattern_buffer *bufp,
 	     longest match, try backtracking.  */
 	  if (d != end_match_2)
 	    {
-	      /* 1 if this match ends in the same string (string1 or string2)
-		 as the best previous match.  */
-	      boolean same_str_p = (FIRST_STRING_P (match_end)
-				    == MATCHING_IN_FIRST_STRING);
 	      /* 1 if this match is the best seen so far.  */
 	      boolean best_match_p;
+	      {
+		/* 1 if this match ends in the same string (string1 or string2)
+		   as the best previous match.  */
+		boolean same_str_p = (FIRST_STRING_P (match_end)
+				      == MATCHING_IN_FIRST_STRING);
 
-	      /* AIX compiler got confused when this was combined
-		 with the previous declaration.  */
-	      if (same_str_p)
-		best_match_p = d > match_end;
-	      else
-		best_match_p = !MATCHING_IN_FIRST_STRING;
+		/* AIX compiler got confused when this was combined
+		   with the previous declaration.  */
+		if (same_str_p)
+		  best_match_p = d > match_end;
+		else
+		  best_match_p = !MATCHING_IN_FIRST_STRING;
+	      }
 
 	      DEBUG_PRINT1 ("backtracking.\n");
 
@@ -6278,9 +6280,9 @@ byte_re_match_2_internal (struct re_pattern_buffer *bufp,
 	    uint32_t nrules;
 # endif /* _LIBC */
 #endif /* WCHAR */
-	    boolean not = (re_opcode_t) *(p - 1) == charset_not;
+	    boolean invert = (re_opcode_t) *(p - 1) == charset_not;
 
-            DEBUG_PRINT2 ("EXECUTING charset%s.\n", not ? "_not" : "");
+            DEBUG_PRINT2 ("EXECUTING charset%s.\n", invert ? "_not" : "");
 	    PREFETCH ();
 	    c = TRANSLATE (*d); /* The character to match.  */
 #ifdef WCHAR
@@ -6613,20 +6615,20 @@ byte_re_match_2_internal (struct re_pattern_buffer *bufp,
 	      if (c == *workp)
 		goto char_set_matched;
 
-	    not = !not;
+	    invert = !invert;
 
 	  char_set_matched:
-	    if (not) goto fail;
+	    if (invert) goto fail;
 #else
             /* Cast to `unsigned' instead of `unsigned char' in case the
                bit list is a full 32 bytes long.  */
 	    if (c < (unsigned) (*p * BYTEWIDTH)
 		&& p[1 + c / BYTEWIDTH] & (1 << (c % BYTEWIDTH)))
-	      not = !not;
+	      invert = !invert;
 
 	    p += 1 + *p;
 
-	    if (!not) goto fail;
+	    if (!invert) goto fail;
 #undef WORK_BUFFER_SIZE
 #endif /* WCHAR */
 	    SET_REGS_MATCHED ();
@@ -7126,15 +7128,15 @@ byte_re_match_2_internal (struct re_pattern_buffer *bufp,
 		else if ((re_opcode_t) p1[3] == charset
 			 || (re_opcode_t) p1[3] == charset_not)
 		  {
-		    int not = (re_opcode_t) p1[3] == charset_not;
+		    int invert = (re_opcode_t) p1[3] == charset_not;
 
 		    if (c < (unsigned) (p1[4] * BYTEWIDTH)
 			&& p1[5 + c / BYTEWIDTH] & (1 << (c % BYTEWIDTH)))
-		      not = !not;
+		      invert = !invert;
 
                     /* `not' is equal to 1 if c would match, which means
                         that we can't change to pop_failure_jump.  */
-		    if (!not)
+		    if (!invert)
                       {
   		        p[-3] = (unsigned char) pop_failure_jump;
                         DEBUG_PRINT1 ("  No match => pop_failure_jump.\n");
@@ -8015,14 +8017,15 @@ regcomp (regex_t *preg, const char *pattern, int cflags)
   preg->used = 0;
 
   /* Try to allocate space for the fastmap.  */
-  preg->fastmap = malloc (1 << BYTEWIDTH);
+  preg->fastmap = (char *) malloc (1 << BYTEWIDTH);
 
   if (cflags & REG_ICASE)
     {
       unsigned i;
 
-      preg->translate = malloc (CHAR_SET_SIZE
-				* sizeof (*(RE_TRANSLATE_TYPE)0));
+      preg->translate =
+	(RE_TRANSLATE_TYPE)
+	malloc (CHAR_SET_SIZE * sizeof (*(RE_TRANSLATE_TYPE)0));
       if (preg->translate == NULL)
         return (int) REG_ESPACE;
 

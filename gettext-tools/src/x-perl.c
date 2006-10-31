@@ -286,7 +286,7 @@ get_here_document (const char *delimiter)
   /* Allocate the initial buffer.  Later on, bufmax > 0.  */
   if (bufmax == 0)
     {
-      buffer = xrealloc (NULL, 1);
+      buffer = (char *) xmalloc (1);
       buffer[0] = '\0';
       bufmax = 1;
     }

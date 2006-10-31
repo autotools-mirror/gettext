@@ -44,6 +44,12 @@
 
 #define _(str) gettext (str)
 
+/* For compiling this file in C++ mode.  */
+#ifdef __cplusplus
+# define this thiss
+#endif
+
+
 /* The format of the Java .properties files is documented in the JDK
    documentation for class java.util.Properties.  In the case of .properties
    files for PropertyResourceBundle, each non-comment line contains a

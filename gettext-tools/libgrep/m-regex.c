@@ -1,5 +1,5 @@
 /* Pattern Matchers for Regular Expressions.
-   Copyright (C) 1992, 1998, 2000, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1992, 1998, 2000, 2005-2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -41,6 +41,14 @@
 #endif
 #define ISALNUM(C) (IN_CTYPE_DOMAIN (C) && isalnum (C))
 
+struct patterns
+{
+  /* Regex compiled regexp. */
+  struct re_pattern_buffer regexbuf;
+  struct re_registers regs; /* This is here on account of a BRAIN-DEAD
+			       Q@#%!# library interface in regex.c.  */
+};
+
 struct compiled_regex {
   bool match_words;
   bool match_lines;
@@ -50,13 +58,7 @@ struct compiled_regex {
   struct dfa dfa;
 
   /* The Regex compiled patterns.  */
-  struct patterns
-  {
-    /* Regex compiled regexp. */
-    struct re_pattern_buffer regexbuf;
-    struct re_registers regs; /* This is here on account of a BRAIN-DEAD
-				 Q@#%!# library interface in regex.c.  */
-  } *patterns;
+  struct patterns *patterns;
   size_t pcount;
 
   /* KWset compiled pattern.  We compile a list of strings, at least one of
@@ -143,7 +145,7 @@ Gcompile (const char *pattern, size_t pattern_size,
   do
     {
       size_t len;
-      sep = memchr (motif, '\n', total);
+      sep = (const char *) memchr (motif, '\n', total);
       if (sep)
 	{
 	  len = sep - motif;
@@ -229,7 +231,7 @@ compile (const char *pattern, size_t pattern_size,
   do
     {
       size_t len;
-      sep = memchr (motif, '\n', total);
+      sep = (const char *) memchr (motif, '\n', total);
       if (sep)
 	{
 	  len = sep - motif;
@@ -345,7 +347,7 @@ EGexecute (const void *compiled_pattern,
 	      beg += offset;
 	      /* Narrow down to the line containing the candidate, and
 		 run it through DFA. */
-	      end = memchr (beg, eol, buflim - beg);
+	      end = (const char *) memchr (beg, eol, buflim - beg);
 	      if (end != NULL)
 		end++;
 	      else
@@ -369,7 +371,7 @@ EGexecute (const void *compiled_pattern,
 		break;
 	      /* Narrow down to the line we've found. */
 	      beg += offset;
-	      end = memchr (beg, eol, buflim - beg);
+	      end = (const char *) memchr (beg, eol, buflim - beg);
 	      if (end != NULL)
 		end++;
 	      else

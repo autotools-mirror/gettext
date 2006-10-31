@@ -94,11 +94,16 @@ enum format_arg_type
   FAT_SIZE_MASK		= (FAT_SIZE_SHORT | FAT_SIZE_V | FAT_SIZE_PTR
 			   | FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
 };
+#ifdef __cplusplus
+typedef int format_arg_type_t;
+#else
+typedef enum format_arg_type format_arg_type_t;
+#endif
 
 struct numbered_arg
 {
   unsigned int number;
-  enum format_arg_type type;
+  format_arg_type_t type;
 };
 
 struct spec
@@ -150,8 +155,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	/* A directive.  */
 	unsigned int number = 0;
 	bool vectorize = false;
-	enum format_arg_type type;
-	enum format_arg_type size;
+	format_arg_type_t type;
+	format_arg_type_t size;
 
 	directives++;
 
@@ -472,9 +477,9 @@ format_parse (const char *format, bool translated, char **invalid_reason)
       for (i = j = 0; i < numbered_arg_count; i++)
 	if (j > 0 && numbered[i].number == numbered[j-1].number)
 	  {
-	    enum format_arg_type type1 = numbered[i].type;
-	    enum format_arg_type type2 = numbered[j-1].type;
-	    enum format_arg_type type_both;
+	    format_arg_type_t type1 = numbered[i].type;
+	    format_arg_type_t type2 = numbered[j-1].type;
+	    format_arg_type_t type_both;
 
 	    if (type1 == type2)
 	      type_both = type1;

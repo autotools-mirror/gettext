@@ -1,5 +1,5 @@
 /* Expression parsing and evaluation for plural form selection.
-   Copyright (C) 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003, 2005-2006 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software; you can redistribute it and/or modify it
@@ -29,35 +29,37 @@
 #endif
 
 
+enum expression_operator
+{
+  /* Without arguments:  */
+  var,				/* The variable "n".  */
+  num,				/* Decimal number.  */
+  /* Unary operators:  */
+  lnot,				/* Logical NOT.  */
+  /* Binary operators:  */
+  mult,				/* Multiplication.  */
+  divide,			/* Division.  */
+  module,			/* Modulo operation.  */
+  plus,				/* Addition.  */
+  minus,			/* Subtraction.  */
+  less_than,			/* Comparison.  */
+  greater_than,			/* Comparison.  */
+  less_or_equal,		/* Comparison.  */
+  greater_or_equal,		/* Comparison.  */
+  equal,			/* Comparison for equality.  */
+  not_equal,			/* Comparison for inequality.  */
+  land,				/* Logical AND.  */
+  lor,				/* Logical OR.  */
+  /* Ternary operators:  */
+  qmop				/* Question mark operator.  */
+};
+
 /* This is the representation of the expressions to determine the
    plural form.  */
 struct expression
 {
   int nargs;			/* Number of arguments.  */
-  enum operator
-  {
-    /* Without arguments:  */
-    var,			/* The variable "n".  */
-    num,			/* Decimal number.  */
-    /* Unary operators:  */
-    lnot,			/* Logical NOT.  */
-    /* Binary operators:  */
-    mult,			/* Multiplication.  */
-    divide,			/* Division.  */
-    module,			/* Modulo operation.  */
-    plus,			/* Addition.  */
-    minus,			/* Subtraction.  */
-    less_than,			/* Comparison.  */
-    greater_than,		/* Comparison.  */
-    less_or_equal,		/* Comparison.  */
-    greater_or_equal,		/* Comparison.  */
-    equal,			/* Comparison for equality.  */
-    not_equal,			/* Comparison for inequality.  */
-    land,			/* Logical AND.  */
-    lor,			/* Logical OR.  */
-    /* Ternary operators:  */
-    qmop			/* Question mark operator.  */
-  } operation;
+  enum expression_operator operation;
   union
   {
     unsigned long int num;	/* Number value for `num'.  */
