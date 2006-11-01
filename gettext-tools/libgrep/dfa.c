@@ -1442,7 +1442,7 @@ merge (position_set const *s1, position_set const *s2, position_set *m)
 
 /* Delete a position from a set. */
 static void
-remove (position p, position_set *s)
+delete_pos (position p, position_set *s)
 {
   int i;
 
@@ -1550,7 +1550,7 @@ epsclosure (position_set *s, struct dfa const *d)
       {
 	old = s->elems[i];
 	p.constraint = old.constraint;
-	remove(s->elems[i], s);
+	delete_pos(s->elems[i], s);
 	if (visited[old.index])
 	  {
 	    --i;
