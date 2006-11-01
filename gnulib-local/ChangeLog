@@ -1,5 +1,9 @@
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.h: Wrap declarations in extern "C".
+
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
 	Make it compile in C++ mode.
 	* lib/backupfile.c (find_backup_file_name): Cast malloc result.
 	* lib/xalloc.h (xrealloc): Define as template with appropriate return

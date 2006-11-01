@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2002-2003, 2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -20,6 +20,14 @@
 #ifndef _PO_GRAM_H
 #define _PO_GRAM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern int po_gram_parse (void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

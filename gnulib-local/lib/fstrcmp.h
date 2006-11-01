@@ -1,5 +1,5 @@
 /* Fuzzy string comparison.
-   Copyright (C) 1995, 2000, 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2000, 2002-2003, 2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -20,8 +20,16 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 #ifndef _FSTRCMP_H
 #define _FSTRCMP_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Fuzzy compare of S1 and S2.  Return a measure for the similarity of S1
    and S1.  The higher the result, the more similar the strings are.  */
 extern double fstrcmp (const char *s1, const char *s2);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

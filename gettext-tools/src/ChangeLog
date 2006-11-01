@@ -1,5 +1,10 @@
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
+	Clean up libgettextpo exports in C++ mode.
+	* po-gram.h: Wrap declarations in extern "C".
+
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
 	Make it compile in C++ mode.
 	* dir-list.c (dir_list_restore): Add cast.
 	* format-c.c (format_arg_type_t): New type. Use it instead of
