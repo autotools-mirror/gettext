@@ -2,6 +2,7 @@
 
 	* dfa.c (delete_pos): Renamed from remove.
 	(epsclosure): Update.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
 
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
