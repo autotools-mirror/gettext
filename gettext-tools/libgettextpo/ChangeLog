@@ -1,5 +1,11 @@
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
+	Don't name mangle exported symbols in C++ mode.
+	* gettext-po.c (po_file_read_v2, po_file_read, po_file_write,
+	po_message_check_format) [C++]: Declare as extern "C".
+
+2006-10-29  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-po.h.in (po_message_prev_msgctxt, po_message_set_prev_msgctxt,
 	po_message_prev_msgid, po_message_set_prev_msgid,
 	po_message_prev_msgid_plural, po_message_set_prev_msgid_plural): New

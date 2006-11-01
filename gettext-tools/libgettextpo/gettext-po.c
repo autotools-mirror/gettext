@@ -137,6 +137,9 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
 }
 #undef po_file_read
 
+#ifdef __cplusplus
+extern "C" po_file_t po_file_read_v2 (const char *filename, po_error_handler_t handler);
+#endif
 po_file_t
 po_file_read_v2 (const char *filename, po_error_handler_t handler)
 {
@@ -182,6 +185,9 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
 }
 
 /* Older version for binary backward compatibility.  */
+#ifdef __cplusplus
+extern "C" po_file_t po_file_read (const char *filename);
+#endif
 po_file_t
 po_file_read (const char *filename)
 {
@@ -238,6 +244,9 @@ po_file_write (po_file_t file, const char *filename, po_xerror_handler_t handler
 #undef po_file_write
 
 /* Older version for binary backward compatibility.  */
+#ifdef __cplusplus
+extern "C" po_file_t po_file_write (po_file_t file, const char *filename, po_error_handler_t handler);
+#endif
 po_file_t
 po_file_write (po_file_t file, const char *filename, po_error_handler_t handler)
 {
@@ -1246,6 +1255,9 @@ po_error_logger (const char *format, ...)
 /* Test whether the message translation is a valid format string if the message
    is marked as being a format string.  If it is invalid, pass the reasons to
    the handler.  */
+#ifdef __cplusplus
+extern "C" void po_message_check_format (po_message_t message, po_error_handler_t handler);
+#endif
 void
 po_message_check_format (po_message_t message, po_error_handler_t handler)
 {
