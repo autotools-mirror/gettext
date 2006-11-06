@@ -48,7 +48,7 @@ fixup_null_alloc (size_t n)
 {
   void *p;
 
-  p = 0;
+  p = NULL;
   if (n == 0)
     p = malloc ((size_t) 1);
   if (p == NULL)
@@ -63,6 +63,24 @@ xmalloc (size_t n)
 {
   void *p;
 
+  p = malloc (n);
+  if (p == NULL)
+    p = fixup_null_alloc (n);
+  return p;
+}
+
+/* Allocate memory for NMEMB elements of SIZE bytes, with error checking.
+   SIZE must be > 0.  */
+
+void *
+xnmalloc (size_t nmemb, size_t size)
+{
+  size_t n;
+  void *p;
+
+  if (xalloc_oversized (nmemb, size))
+    xalloc_die ();
+  n = nmemb * size;
   p = malloc (n);
   if (p == NULL)
     p = fixup_null_alloc (n);

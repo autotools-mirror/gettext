@@ -1,3 +1,9 @@
+2006-11-02  Bruno Haible  <bruno@clisp.org>
+
+	* lib/xalloc.h (xnmalloc): New declaration. From gnulib xalloc.h.
+	* lib/xmalloc.c (fixup_null_alloc): Write NULL, not 0.
+	(xnmalloc): New function.
+
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
 	* lib/fstrcmp.h: Wrap declarations in extern "C".

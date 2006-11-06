@@ -32,6 +32,10 @@ extern "C" {
 /* Allocate SIZE bytes of memory dynamically, with error checking.  */
 extern void *xmalloc (size_t size);
 
+/* Allocate memory for NMEMB elements of SIZE bytes, with error checking.
+   SIZE must be > 0.  */
+extern void *xnmalloc (size_t nmemb, size_t size);
+
 /* Allocate SIZE bytes of memory dynamically, with error checking,
    and zero it.  */
 extern void *xzalloc (size_t size);
