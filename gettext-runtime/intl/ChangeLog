@@ -1,3 +1,9 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Move declarations to header files.
+	* dcigettext.c: Include localcharset.h.
+	(get_output_charset): Remove locale_charset declaration.
+
 2006-10-30  Bruno Haible  <bruno@clisp.org>
 
 	Move declarations to header files.

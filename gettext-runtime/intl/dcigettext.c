@@ -90,8 +90,11 @@ extern int errno;
 # include <sys/param.h>
 #endif
 
-#if !defined _LIBC && HAVE_NL_LOCALE_NAME
-# include <langinfo.h>
+#if !defined _LIBC
+# if HAVE_NL_LOCALE_NAME
+#  include <langinfo.h>
+# endif
+# include "localcharset.h"
 #endif
 
 #include "gettextP.h"
@@ -1575,7 +1578,6 @@ get_output_charset (struct binding *domainbinding)
 	  return _NL_CURRENT (LC_CTYPE, CODESET);
 # else
 #  if HAVE_ICONV
-	  extern const char *locale_charset (void);
 	  return locale_charset ();
 #  endif
 # endif
