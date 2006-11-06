@@ -1,5 +1,13 @@
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 
+	Moved canonicalize to gnulib.
+	* modules/canonicalize: Remove file.
+	* lib/canonicalize.h: Remove file.
+	* lib/canonicalize.c: Remove file.
+	* m4/canonicalize.m4: Remove file.
+
+2006-11-06  Bruno Haible  <bruno@clisp.org>
+
 	* lib/canonicalize.h (canonicalize_file_name): Fix wrong comment
 	borrowed from glibc.
 
