@@ -28,6 +28,10 @@
 # define attribute_hidden
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 enum expression_operator
 {
@@ -115,6 +119,11 @@ extern void EXTRACT_PLURAL_EXPRESSION (const char *nullentry,
 #if !defined (_LIBC) && !defined (IN_LIBINTL) && !defined (IN_LIBGLOCALE)
 extern unsigned long int plural_eval (struct expression *pexp,
 				      unsigned long int n);
+#endif
+
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* _PLURAL_EXP_H */

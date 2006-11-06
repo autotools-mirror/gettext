@@ -43,6 +43,10 @@
 # define USE_SIGINFO 1
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* Exit point.  Must be set before calling install_sigfpe_handler().  */
 extern sigjmp_buf sigfpe_exit;
 
@@ -55,6 +59,10 @@ extern int sigfpe_code;
    calls to plural_eval().  Must be called in pairs.  */
 extern void install_sigfpe_handler (void);
 extern void uninstall_sigfpe_handler (void);
+
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* _PLURAL_EVAL_H */

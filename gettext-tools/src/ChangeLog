@@ -1,3 +1,7 @@
+2006-10-30  Bruno Haible  <bruno@clisp.org>
+
+	* plural-eval.h [C++]: Define functions without name mangling.
+
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
 	Clean up libgettextpo exports in C++ mode.
