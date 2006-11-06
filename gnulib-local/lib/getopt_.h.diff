@@ -1,19 +1,6 @@
 *** gnulib/lib/getopt_.h	2005-09-23 06:15:13.000000000 +0200
 --- gettext-tools/lib/getopt_.h	2006-04-24 03:08:25.000000000 +0200
 ***************
-*** 1,5 ****
-  /* Declarations for getopt.
-!    Copyright (C) 1989-1994,1996-1999,2001,2003,2004,2005
-     Free Software Foundation, Inc.
-     This file is part of the GNU C Library.
-  
---- 1,5 ----
-  /* Declarations for getopt.
-!    Copyright (C) 1989-1994,1996-1999,2001,2003-2006
-     Free Software Foundation, Inc.
-     This file is part of the GNU C Library.
-  
-***************
 *** 23,28 ****
 --- 23,36 ----
   # define _GETOPT_H 1

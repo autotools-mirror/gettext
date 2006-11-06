@@ -1,5 +1,9 @@
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 
+	* lib/getopt_.h.diff: Update.
+
+2006-11-06  Bruno Haible  <bruno@clisp.org>
+
 	Moved canonicalize to gnulib.
 	* modules/canonicalize: Remove file.
 	* lib/canonicalize.h: Remove file.
