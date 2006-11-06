@@ -6,6 +6,8 @@
 	* lib/canonicalize.c: Remove file.
 	* m4/canonicalize.m4: Remove file.
 	* Makefile.am (EXTRA_DIST): Remove these files.
+	* modules/progreloc (Depends-on): Replace 'canonicalize' with
+	'canonicalize-lgpl'.
 
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 

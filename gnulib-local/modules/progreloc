@@ -5,7 +5,7 @@ Files:
 lib/progreloc.c
 
 Depends-on:
-canonicalize
+canonicalize-lgpl
 relocatable
 stdbool
 xreadlink
