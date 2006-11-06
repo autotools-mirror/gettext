@@ -111,8 +111,16 @@ xnboundedmalloc (size_t n, size_t bound, size_t s)
 #define XCALLOC(N,T) \
   ((T *) xcalloc (N, sizeof (T)))
 
+/* Return a pointer to a new buffer of N bytes.  This is like xmalloc,
+   except it returns char *.  */
+#define xcharalloc(N) \
+  XNMALLOC (N, char)
+
 
 /* Defined in xstrdup.c.  */
+
+/* Return a newly allocated copy of the N bytes of memory starting at P.  */
+extern void *xmemdup (const void *p, size_t n);
 
 /* Return a newly allocated copy of STRING.  */
 extern char *xstrdup (const char *string);

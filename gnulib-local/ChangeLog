@@ -1,3 +1,9 @@
+2006-11-06  Bruno Haible  <bruno@clisp.org>
+
+	* lib/xalloc.h (xcharalloc): New macro.
+	(xmemdup): New declaration.
+	* lib/xstrdup.c (xmemdup): New function.
+
 2006-11-03  Bruno Haible  <bruno@clisp.org>
 
 	* lib/xalloc.h (XMALLOC, XNMALLOC, XZALLOC, XCALLOC): New macros.
