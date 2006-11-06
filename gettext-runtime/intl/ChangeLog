@@ -1,3 +1,17 @@
+2006-10-30  Bruno Haible  <bruno@clisp.org>
+
+	Move declarations to header files.
+	* gettextP.h (_nl_default_dirname, _nl_domain_bindings): New
+	declarations and aliases.
+	(_nl_default_default_domain, _nl_current_default_domain): New
+	declarations and aliases.
+	* bindtextdom.c (_nl_default_dirname, _nl_domain_bindings): Remove
+	declarations and aliases.
+	* dcigettext.c (_nl_default_default_domain, _nl_current_default_domain,
+	_nl_default_dirname, _nl_domain_bindings): Remove aliases.
+	* textdomain.c (_nl_default_default_domain, _nl_current_default_domain):
+	Remove declarations and aliases.
+
 2006-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* printf-parse.c (PRINTF_PARSE): Cast malloc/realloc results.

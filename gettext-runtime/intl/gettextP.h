@@ -246,6 +246,37 @@ char *_nl_find_msg (struct loaded_l10nfile *domain_file,
      internal_function;
 #endif
 
+/* The internal variables in the standalone libintl.a must have different
+   names than the internal variables in GNU libc, otherwise programs
+   using libintl.a cannot be linked statically.  */
+#if !defined _LIBC
+# define _nl_default_dirname libintl_nl_default_dirname
+# define _nl_domain_bindings libintl_nl_domain_bindings
+#endif
+
+/* Contains the default location of the message catalogs.  */
+extern const char _nl_default_dirname[];
+#ifdef _LIBC
+libc_hidden_proto (_nl_default_dirname)
+#endif
+
+/* List with bindings of specific domains.  */
+extern struct binding *_nl_domain_bindings;
+
+/* The internal variables in the standalone libintl.a must have different
+   names than the internal variables in GNU libc, otherwise programs
+   using libintl.a cannot be linked statically.  */
+#if !defined _LIBC
+# define _nl_default_default_domain libintl_nl_default_default_domain
+# define _nl_current_default_domain libintl_nl_current_default_domain
+#endif
+
+/* Name of the default text domain.  */
+extern const char _nl_default_default_domain[] attribute_hidden;
+
+/* Default text domain in which entries for gettext(3) are to be found.  */
+extern const char *_nl_current_default_domain attribute_hidden;
+
 /* @@ begin of epilog @@ */
 
 #endif /* gettextP.h  */
