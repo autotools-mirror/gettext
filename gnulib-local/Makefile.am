@@ -29,8 +29,6 @@ lib/backupfile.c \
 lib/backupfile.h \
 lib/basename.c \
 lib/basename.h \
-lib/canonicalize.c \
-lib/canonicalize.h \
 lib/ChangeLog.0 \
 lib/ChangeLog.1 \
 lib/closeout.c \
@@ -71,7 +69,6 @@ lib/xreadlink.h \
 lib/xstrdup.c \
 m4/alloca.m4 \
 m4/backupfile.m4 \
-m4/canonicalize.m4 \
 m4/ChangeLog.0 \
 m4/ChangeLog.1 \
 m4/exitfail.m4.diff \
@@ -86,7 +83,6 @@ m4/vasprintf.m4 \
 m4/xreadlink.m4 \
 modules/backupfile \
 modules/basename \
-modules/canonicalize \
 modules/closeout \
 modules/error-progname \
 modules/exitfail.diff \

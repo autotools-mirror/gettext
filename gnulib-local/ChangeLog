@@ -5,6 +5,7 @@
 	* lib/canonicalize.h: Remove file.
 	* lib/canonicalize.c: Remove file.
 	* m4/canonicalize.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove these files.
 
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 
