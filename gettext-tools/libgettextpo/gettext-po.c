@@ -80,7 +80,7 @@ po_file_create (void)
 {
   po_file_t file;
 
-  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file = XMALLOC (struct po_file);
   file->mdlp = msgdomain_list_alloc (false);
   file->real_filename = _("<unnamed>");
   file->logical_filename = file->real_filename;
@@ -119,7 +119,7 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
     handler->xerror2;
   gram_max_allowed_errors = UINT_MAX;
 
-  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
@@ -165,7 +165,7 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
   po_multiline_error   = handler->multiline_error;
   gram_max_allowed_errors = UINT_MAX;
 
-  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
@@ -206,7 +206,7 @@ po_file_read (const char *filename)
 	return NULL;
     }
 
-  file = (struct po_file *) xmalloc (sizeof (struct po_file));
+  file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
@@ -288,8 +288,7 @@ po_file_domains (po_file_t file)
   if (file->domains == NULL)
     {
       size_t n = file->mdlp->nitems;
-      const char **domains =
-	(const char **) xmalloc ((n + 1) * sizeof (const char *));
+      const char **domains = XNMALLOC (n + 1, const char *);
       size_t j;
 
       for (j = 0; j < n; j++)
@@ -355,7 +354,7 @@ po_header_field (const char *header, const char *field)
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
 
-	  value = (char *) xmalloc (value_end - value_start + 1);
+	  value = XNMALLOC (value_end - value_start + 1, char);
 	  memcpy (value, value_start, value_end - value_start);
 	  value[value_end - value_start] = '\0';
 
@@ -410,7 +409,7 @@ po_header_set_field (const char *header, const char *field, const char *value)
 	    header_part3_len = header + header_len - oldvalue_end;
 	    result_len = header_part1_len + value_len + header_part3_len;
 		    /* = header_len - oldvalue_len + value_len */
-	    result = (char *) xmalloc (result_len + 1);
+	    result = XNMALLOC (result_len + 1, char);
 	    memcpy (result, header, header_part1_len);
 	    memcpy (result + header_part1_len, value, value_len);
 	    memcpy (result + header_part1_len + value_len, oldvalue_end,
@@ -434,7 +433,7 @@ po_header_set_field (const char *header, const char *field, const char *value)
 
     newline = (header_len > 0 && header[header_len - 1] != '\n' ? 1 : 0);
     result_len = header_len + newline + field_len + 2 + value_len + 1;
-    result = (char *) xmalloc (result_len + 1);
+    result = XNMALLOC (result_len + 1, char);
     memcpy (result, header, header_len);
     if (newline)
       *(result + header_len) = '\n';
@@ -461,9 +460,7 @@ po_message_iterator (po_file_t file, const char *domain)
   if (domain == NULL)
     domain = MESSAGE_DOMAIN_DEFAULT;
 
-  iterator =
-    (struct po_message_iterator *)
-    xmalloc (sizeof (struct po_message_iterator));
+  iterator = XMALLOC (struct po_message_iterator);
   iterator->file = file;
   iterator->domain = xstrdup (domain);
   iterator->mlp = msgdomain_list_sublist (file->mdlp, domain, false);

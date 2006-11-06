@@ -147,7 +147,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		*invalid_reason = INVALID_EMPTY_VARIABLE ();
 		goto bad_format;
 	      }
-	    name = (char *) xmalloc (n + 1);
+	    name = XNMALLOC (n + 1, char);
 	    memcpy (name, name_start, n);
 	    name[n] = '\0';
 	  }
@@ -164,7 +164,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    name_end = format;
 
 	    n = name_end - name_start;
-	    name = (char *) xmalloc (n + 1);
+	    name = XNMALLOC (n + 1, char);
 	    memcpy (name, name_start, n);
 	    name[n] = '\0';
 	  }
@@ -218,7 +218,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
       spec.named_arg_count = j;
     }
 
-  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 

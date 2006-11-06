@@ -336,7 +336,7 @@ conv_from_ucs4 (const int *buffer, size_t buflen)
   unsigned char *q;
 
   /* Each UCS-4 word needs 6 bytes at worst.  */
-  utf8_string = (unsigned char *) xmalloc (6 * buflen + 1);
+  utf8_string = XNMALLOC (6 * buflen + 1, unsigned char);
 
   for (pos = 0, q = utf8_string; pos < buflen; )
     {

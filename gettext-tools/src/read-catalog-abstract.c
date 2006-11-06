@@ -407,7 +407,7 @@ po_parse_comment_filepos (const char *s)
 			/* Parsed a GNU style file comment with spaces.  */
 			const char *string_end = s;
 			size_t string_length = string_end - string_start;
-			char *string = (char *) xmalloc (string_length + 1);
+			char *string = XNMALLOC (string_length + 1, char);
 
 			memcpy (string, string_start, string_length);
 			string[string_length] = '\0';
@@ -449,7 +449,7 @@ po_parse_comment_filepos (const char *s)
 		      /* Parsed a GNU style file comment with spaces.  */
 		      const char *string_end = s - 1;
 		      size_t string_length = string_end - string_start;
-		      char *string = (char *) xmalloc (string_length + 1);
+		      char *string = XNMALLOC (string_length + 1, char);
 
 		      memcpy (string, string_start, string_length);
 		      string[string_length] = '\0';
@@ -502,7 +502,7 @@ po_parse_comment_filepos (const char *s)
 
 		  {
 		    size_t string_length = string_end - string_start;
-		    char *string = (char *) xmalloc (string_length + 1);
+		    char *string = XNMALLOC (string_length + 1, char);
 
 		    memcpy (string, string_start, string_length);
 		    string[string_length] = '\0';
@@ -521,7 +521,7 @@ po_parse_comment_filepos (const char *s)
 	  {
 	    const char *string_end = s;
 	    size_t string_length = string_end - string_start;
-	    char *string = (char *) xmalloc (string_length + 1);
+	    char *string = XNMALLOC (string_length + 1, char);
 
 	    memcpy (string, string_start, string_length);
 	    string[string_length] = '\0';
@@ -620,7 +620,7 @@ po_parse_comment_solaris_filepos (const char *s)
 			      /* Parsed a Sun style file comment.  */
 			      size_t string_length = string_end - string_start;
 			      char *string =
-				(char *) xmalloc (string_length + 1);
+				XNMALLOC (string_length + 1, char);
 
 			      memcpy (string, string_start, string_length);
 			      string[string_length] = '\0';

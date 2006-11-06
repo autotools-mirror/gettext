@@ -250,7 +250,7 @@ conv_from_iso_8859_1 (char *string)
     {
       size_t length = strlen (string);
       /* Each ISO-8859-1 character needs 2 bytes at worst.  */
-      unsigned char *utf8_string = (unsigned char *) xmalloc (2 * length + 1);
+      unsigned char *utf8_string = XNMALLOC (2 * length + 1, unsigned char);
       unsigned char *q = utf8_string;
       const char *str = string;
       const char *str_limit = str + length;
@@ -430,7 +430,7 @@ read_escaped_string (bool in_key)
     unsigned char *q;
 
     /* Each UTF-16 word needs 3 bytes at worst.  */
-    utf8_string = (unsigned char *) xmalloc (3 * buflen + 1);
+    utf8_string = XNMALLOC (3 * buflen + 1, unsigned char);
     for (pos = 0, q = utf8_string; pos < buflen; )
       {
 	unsigned int uc;

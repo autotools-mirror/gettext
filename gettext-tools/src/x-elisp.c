@@ -180,7 +180,7 @@ static inline void
 init_token (struct token *tp)
 {
   tp->allocated = 10;
-  tp->chars = (char *) xmalloc (tp->allocated * sizeof (char));
+  tp->chars = XNMALLOC (tp->allocated, char);
   tp->charcount = 0;
 }
 
@@ -424,7 +424,7 @@ string_of_object (const struct object *op)
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
   n = op->token->charcount;
-  str = (char *) xmalloc (n + 1);
+  str = XNMALLOC (n + 1, char);
   memcpy (str, op->token->chars, n);
   str[n] = '\0';
   return str;
@@ -856,7 +856,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
 	case '"':
 	  {
-	    op->token = (struct token *) xmalloc (sizeof (struct token));
+	    op->token = XMALLOC (struct token);
 	    init_token (op->token);
 	    op->line_number_at_start = line_number;
 	    for (;;)
@@ -1193,7 +1193,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 	  {
 	    bool symbol;
 
-	    op->token = (struct token *) xmalloc (sizeof (struct token));
+	    op->token = XMALLOC (struct token);
 	    symbol = read_token (op->token, c);
 	    if (symbol)
 	      {

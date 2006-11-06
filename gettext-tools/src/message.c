@@ -102,7 +102,7 @@ message_alloc (const char *msgctxt,
   message_ty *mp;
   size_t i;
 
-  mp = (message_ty *) xmalloc (sizeof (message_ty));
+  mp = XMALLOC (message_ty);
   mp->msgctxt = msgctxt;
   mp->msgid = msgid;
   mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
@@ -241,7 +241,7 @@ message_list_alloc (bool use_hashtable)
 {
   message_list_ty *mlp;
 
-  mlp = (message_list_ty *) xmalloc (sizeof (message_list_ty));
+  mlp = XMALLOC (message_list_ty);
   mlp->nitems = 0;
   mlp->nitems_max = 0;
   mlp->item = NULL;
@@ -576,7 +576,7 @@ message_list_list_alloc ()
 {
   message_list_list_ty *mllp;
 
-  mllp = (message_list_list_ty *) xmalloc (sizeof (message_list_list_ty));
+  mllp = XMALLOC (message_list_list_ty);
   mllp->nitems = 0;
   mllp->nitems_max = 0;
   mllp->item = NULL;
@@ -686,7 +686,7 @@ msgdomain_alloc (const char *domain, bool use_hashtable)
 {
   msgdomain_ty *mdp;
 
-  mdp = (msgdomain_ty *) xmalloc (sizeof (msgdomain_ty));
+  mdp = XMALLOC (msgdomain_ty);
   mdp->domain = domain;
   mdp->messages = message_list_alloc (use_hashtable);
   return mdp;
@@ -706,13 +706,12 @@ msgdomain_list_alloc (bool use_hashtable)
 {
   msgdomain_list_ty *mdlp;
 
-  mdlp = (msgdomain_list_ty *) xmalloc (sizeof (msgdomain_list_ty));
+  mdlp = XMALLOC (msgdomain_list_ty);
   /* Put the default domain first, so that when we output it,
      we can omit the 'domain' directive.  */
   mdlp->nitems = 1;
   mdlp->nitems_max = 1;
-  mdlp->item =
-    (msgdomain_ty **) xmalloc (mdlp->nitems_max * sizeof (msgdomain_ty *));
+  mdlp->item = XNMALLOC (mdlp->nitems_max, msgdomain_ty *);
   mdlp->item[0] = msgdomain_alloc (MESSAGE_DOMAIN_DEFAULT, use_hashtable);
   mdlp->use_hashtable = use_hashtable;
   mdlp->encoding = NULL;

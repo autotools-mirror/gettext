@@ -160,7 +160,7 @@ serbian_to_latin (const char *input, size_t input_len,
   /* Since sequences of 2 bytes are sequences of at most 3 bytes, the size
      of the output will be at most 1.5 * input_len.  */
   size_t allocated = input_len + (input_len >> 1);
-  char *output = (char *) xmalloc (allocated);
+  char *output = XNMALLOC (allocated, char);
 
   const char *input_end = input + input_len;
   const char *ip;

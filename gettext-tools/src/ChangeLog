@@ -1,3 +1,116 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Simplify xmalloc expressions. Add overflow check in xmalloc arguments.
+	* filter-sr-latin.c (serbian_to_latin): Use XNMALLOC instead of xmalloc.
+	* format-awk.c (format_parse): Use XMALLOC instead of xmalloc.
+	* format-boost.c (format_parse): Likewise.
+	* format-c.c (format_parse): Use XMALLOC, XNMALLOC instead of xmalloc.
+	(get_sysdep_c_format_directives): Use XNMALLOC instead of xmalloc.
+	* format-csharp.c (format_parse): Use XMALLOC instead of xmalloc.
+	* format-elisp.c (format_parse): Likewise.
+	* format-gcc-internal.c (format_parse): Likewise.
+	* format-java.c (format_parse): Likewise.
+	* format-librep.c (format_parse): Likewise.
+	* format-lisp.c (copy_list): Use XMALLOC, XNMALLOC instead of xmalloc.
+	(make_unconstrained_list): Likewise.
+	(make_empty_list): Use XMALLOC instead of xmalloc.
+	(rotate_loop): Use XNMALLOC instead of xmalloc.
+	(make_intersected_list): Use XMALLOC instead of xmalloc.
+	(make_union_list): Use XMALLOC, XNMALLOC instead of xmalloc.
+	(make_repeated_list_of_lists): Likewise.
+	(make_repeated_list): Likewise.
+	(format_parse): Use XMALLOC instead of xmalloc.
+	* format-pascal.c (format_parse): Likewise.
+	* format-perl.c (format_parse): Likewise.
+	* format-perl-brace.c (format_parse): Use XMALLOC, XNMALLOC instead of
+	xmalloc.
+	* format-php.c (format_parse): Use XMALLOC instead of xmalloc.
+	* format-python.c (format_parse): Use XMALLOC, XNMALLOC instead of
+	xmalloc.
+	* format-qt.c (format_parse): Use XMALLOC instead of xmalloc.
+	* format-scheme.c (copy_list): Use XMALLOC, XNMALLOC instead of xmalloc.
+	(make_unconstrained_list): Likewise.
+	(make_empty_list): Use XMALLOC instead of xmalloc.
+	(rotate_loop): Use XNMALLOC instead of xmalloc.
+	(make_intersected_list): Use XMALLOC instead of xmalloc.
+	(make_union_list): Use XMALLOC, XNMALLOC instead of xmalloc.
+	(make_repeated_list_of_lists): Likewise.
+	(make_repeated_list): Likewise.
+	(format_parse): Use XMALLOC instead of xmalloc.
+	* format-sh.c (format_parse): Use XMALLOC, XNMALLOC instead of xmalloc.
+	* format-tcl.c (format_parse): Use XMALLOC instead of xmalloc.
+	* format-ycp.c (format_parse): Likewise.
+	* message.c (message_alloc, message_list_list_alloc, msgdomain_alloc):
+	Use XMALLOC instead of xmalloc.
+	(msgdomain_list_alloc): Use XMALLOC, XNMALLOC instead of xmalloc.
+	* msgexec.c (main): Use XNMALLOC instead of xmalloc.
+	* msgfilter.c (main, generic_filter, process_message): Likewise.
+	* msgfmt.c (add_mo_suffix): Likewise.
+	(new_domain): Use XMALLOC instead of xmalloc.
+	* msginit.c (catalogname_for_locale, language_of_locale,
+	get_user_fullname, get_field, put_field, subst_string,
+	update_msgstr_plurals): Use XNMALLOC instead of xmalloc.
+	* msgl-cat.c (catenate_msgdomain_list): Likewise.
+	* msgl-check.c (check_plural_eval): Use XCALLOC instead of xcalloc.
+	* msgl-english.c (msgdomain_list_english): Use XNMALLOC instead of
+	xmalloc.
+	* msgl-fsearch.c (new_index): Likewise.
+	(message_fuzzy_index_alloc): Use XMALLOC instead of xmalloc.
+	(mult_index_list_accumulate): Use XNMALLOC instead of xmalloc.
+	* msgl-iconv.c (iconv_message_list): Likewise.
+	* msgmerge.c (message_merge, match_domain): Likewise.
+	* po-gram-gen.y (plural_form_list): Likewise.
+	* read-catalog-abstract.c (po_parse_comment_filepos,
+	po_parse_comment_solaris_filepos): Likewise.
+	* read-mo.c (get_sysdep_string): Likewise.
+	* read-properties.c (conv_from_iso_8859_1, read_escaped_string):
+	Likewise.
+	* read-stringtable.c (conv_from_ucs4): Likewise.
+	* str-list.c (string_list_alloc): Use XMALLOC instead of xmalloc.
+	(string_list_concat, string_list_join): Use XNMALLOC instead of xmalloc.
+	* write-csharp.c (construct_class_name, msgdomain_write_csharp):
+	Likewise.
+	* write-java.c (compute_hashsize, compute_table_items): Likewise.
+	* write-mo.c: Include xsize.h.
+	(write_table): Use XNMALLOC instead of xmalloc. Use xsum, xtimes in
+	xmalloc argument.
+	* write-po.c (wrap): Use XNMALLOC instead of xmalloc.
+	* write-properties.c (conv_to_java): Likewise.
+	* write-qt.c (conv_to_iso_8859_1, conv_to_utf16): Likewise.
+	* x-elisp.c (init_token, string_of_object): Likewise.
+	(read_object): Use XMALLOC instead of xmalloc.
+	* x-librep.c (init_token, string_of_object): Use XNMALLOC instead of
+	xmalloc.
+	(read_object): Use XMALLOC instead of xmalloc.
+	* x-lisp.c (x_lisp_keyword, init_token, string_of_object): Use XNMALLOC
+	instead of xmalloc.
+	(read_object): Use XMALLOC instead of xmalloc.
+	* x-perl.c (get_here_document, extract_quotelike_pass1,
+	extract_quotelike_pass3): Use XNMALLOC instead of xmalloc.
+	(x_perl_lex): Use XMALLOC instead of xmalloc.
+	* x-po.c (strextract_add_message, extract): Use XNMALLOC instead of
+	xmalloc.
+	* x-python.c (try_to_extract_coding): Use XNMALLOC instead of xmalloc.
+	* x-scheme.c (init_token, string_of_object): Use XNMALLOC
+	instead of xmalloc.
+	(read_object): Use XMALLOC instead of xmalloc.
+	* x-sh.c (init_token, string_of_token, string_of_word): Use XNMALLOC
+	instead of xmalloc.
+	(read_word): Use XMALLOC instead of xmalloc.
+	* x-smalltalk.c (phase2_get): Use XNMALLOC instead of xmalloc.
+	* x-tcl.c (init_token, string_of_word): Use XNMALLOC instead of xmalloc.
+	(read_word): Use XMALLOC instead of xmalloc.
+	* xgettext.c: Include xsize.h.
+	(split_keywordspec): Use XNMALLOC instead of xmalloc.
+	(insert_keyword_callshape): Use XMALLOC instead of xmalloc. Use xsum,
+	xtimes to avoid overflow.
+	(flag_context_list_table_insert): Use XMALLOC instead of xmalloc.
+	(savable_comment_add): Likewise.
+	(remember_a_message_plural): Use XNMALLOC instead of xmalloc.
+	(arglist_parser_alloc, arglist_parser_clone): Use xsum, xtimes.
+	(arglist_parser_done): Use XNMALLOC instead of xmalloc.
+	(finalize_header): Likewise.
+
 2006-10-30  Bruno Haible  <bruno@clisp.org>
 
 	* plural-eval.h [C++]: Define functions without name mangling.

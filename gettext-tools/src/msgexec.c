@@ -197,7 +197,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
-  sub_argv = (char **) xmalloc ((sub_argc + 1) * sizeof (char *));
+  sub_argv = XNMALLOC (sub_argc + 1, char *);
   for (i = 0; i < sub_argc; i++)
     sub_argv[i] = argv[optind + i];
   sub_argv[i] = NULL;

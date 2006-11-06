@@ -206,7 +206,7 @@ static inline void
 init_token (struct token *tp)
 {
   tp->allocated = 10;
-  tp->chars = (char *) xmalloc (tp->allocated * sizeof (char));
+  tp->chars = XNMALLOC (tp->allocated, char);
   tp->charcount = 0;
 }
 
@@ -669,7 +669,7 @@ string_of_object (const struct object *op)
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
   n = op->token->charcount;
-  str = (char *) xmalloc (n + 1);
+  str = XNMALLOC (n + 1, char);
   memcpy (str, op->token->chars, n);
   str[n] = '\0';
   return str;
@@ -977,7 +977,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 	      case '{':
 		/* Symbol with multiple escapes: #{...}#  */
 		{
-		  op->token = (struct token *) xmalloc (sizeof (struct token));
+		  op->token = XMALLOC (struct token);
 
 		  init_token (op->token);
 
@@ -1078,7 +1078,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 
 	case '"':
 	  {
-	    op->token = (struct token *) xmalloc (sizeof (struct token));
+	    op->token = XMALLOC (struct token);
 	    init_token (op->token);
 	    op->line_number_at_start = line_number;
 	    for (;;)
@@ -1146,7 +1146,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 	case '5': case '6': case '7': case '8': case '9':
 	case '+': case '-': case '.':
 	  /* Read a number or symbol token.  */
-	  op->token = (struct token *) xmalloc (sizeof (struct token));
+	  op->token = XMALLOC (struct token);
 	  read_token (op->token, c);
 	  if (op->token->charcount == 1 && op->token->chars[0] == '.')
 	    {
@@ -1172,7 +1172,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 	case ':':
 	default:
 	  /* Read a symbol token.  */
-	  op->token = (struct token *) xmalloc (sizeof (struct token));
+	  op->token = XMALLOC (struct token);
 	  read_token (op->token, c);
 	  op->type = t_symbol;
 	  last_non_comment_line = line_number;

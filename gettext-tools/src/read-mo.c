@@ -185,7 +185,7 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
     }
 
   /* Allocate and fill the string.  */
-  string = (char *) xmalloc (length);
+  string = XNMALLOC (length, char);
   p = string;
   s_offset = get_uint32 (bfp, offset);
   for (i = 4; ; i += 8)

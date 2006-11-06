@@ -244,7 +244,7 @@ two different charsets \"%s\" and \"%s\" in input file"),
 		len1 = charsetstr - header;
 		len2 = strlen (canon_to_code);
 		len3 = (header + strlen (header)) - (charsetstr + len);
-		new_header = (char *) xmalloc (len1 + len2 + len3 + 1);
+		new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
 		memcpy (new_header, header, len1);
 		memcpy (new_header + len1, canon_to_code, len2);
 		memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);

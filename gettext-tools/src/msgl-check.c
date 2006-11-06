@@ -67,7 +67,7 @@ check_plural_eval (struct expression *plural_expr,
 
   /* Allocate a distribution array.  */
   if (nplurals_value <= 100)
-    distribution = (unsigned char *) xcalloc (nplurals_value, 1);
+    distribution = XCALLOC (nplurals_value, unsigned char);
   else
     /* nplurals_value is nonsense.  Don't risk an out-of-memory.  */
     distribution = NULL;

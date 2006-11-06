@@ -54,7 +54,7 @@ proper_name (const char *name)
 	{
 	  /* Return "TRANSLATION (NAME)".  */
 	  char *result =
-	    (char *) xmalloc (strlen (translation) + 2 + strlen (name) + 1 + 1);
+	    XNMALLOC (strlen (translation) + 2 + strlen (name) + 1 + 1, char);
 
 	  sprintf (result, "%s (%s)", translation, name);
 	  return result;
@@ -93,7 +93,7 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
      || _LIBICONV_VERSION >= 0x0105
       {
 	size_t len = strlen (locale_code);
-	char *locale_code_translit = (char *) xmalloc (len + 10 + 1);
+	char *locale_code_translit = XNMALLOC (len + 10 + 1, char);
 	memcpy (locale_code_translit, locale_code, len);
 	memcpy (locale_code_translit + len, "//TRANSLIT", 10 + 1);
 
@@ -136,7 +136,7 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
 	{
 	  /* Return "TRANSLATION (NAME)".  */
 	  char *result =
-	    (char *) xmalloc (strlen (translation) + 2 + strlen (name) + 1 + 1);
+	    XNMALLOC (strlen (translation) + 2 + strlen (name) + 1 + 1, char);
 
 	  sprintf (result, "%s (%s)", translation, name);
 

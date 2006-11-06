@@ -963,7 +963,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy)
 	  len += known_fields[cnt].len + header_fields[cnt].len;
       len += header_fields[UNKNOWN].len;
 
-      cp = newp = (char *) xmalloc (len + 1);
+      cp = newp = XNMALLOC (len + 1, char);
       newp[len] = '\0';
 
 #define IF_FILLED(idx)							      \
@@ -1116,15 +1116,13 @@ match_domain (const char *fn1, const char *fn2,
   header_entry =
     message_list_search (definitions_current_list (definitions), NULL, "");
   nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
-  untranslated_plural_msgstr = (char *) xmalloc (nplurals);
+  untranslated_plural_msgstr = XNMALLOC (nplurals, char);
   memset (untranslated_plural_msgstr, '\0', nplurals);
 
   /* Most of the time is spent in definitions_search_fuzzy.
      Perform it in a separate loop that can be parallelized by an OpenMP
      capable compiler.  */
-  search_results =
-    (struct search_result *)
-    xmalloc (refmlp->nitems * sizeof (struct search_result));
+  search_results = XNMALLOC (refmlp->nitems, struct search_result);
   {
     long int nn = refmlp->nitems;
     long int jj;
@@ -1320,7 +1318,7 @@ this message should define plural forms"));
 		  }
 
 		new_msgstr_len = nplurals * mp->msgstr_len;
-		new_msgstr = (char *) xmalloc (new_msgstr_len);
+		new_msgstr = XNMALLOC (new_msgstr_len, char);
 		for (i = 0, p = new_msgstr; i < nplurals; i++)
 		  {
 		    memcpy (p, mp->msgstr, mp->msgstr_len);

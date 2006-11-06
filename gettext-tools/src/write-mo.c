@@ -43,6 +43,7 @@
 #include "hash.h"
 #include "message.h"
 #include "format.h"
+#include "xsize.h"
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "binary-io.h"
@@ -170,15 +171,11 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* First pass: Move the static string pairs into an array, for sorting,
      and at the same time, compute the segments of the system dependent
      strings.  */
-  msgctid_arr = (char **) xmalloc (mlp->nitems * sizeof (char *));
+  msgctid_arr = XNMALLOC (mlp->nitems, char *);
   nstrings = 0;
-  msg_arr =
-    (struct pre_message *)
-    xmalloc (mlp->nitems * sizeof (struct pre_message));
+  msg_arr = XNMALLOC (mlp->nitems, struct pre_message);
   n_sysdep_strings = 0;
-  sysdep_msg_arr =
-    (struct pre_sysdep_message *)
-    xmalloc (mlp->nitems * sizeof (struct pre_sysdep_message));
+  sysdep_msg_arr = XNMALLOC (mlp->nitems, struct pre_sysdep_message);
   n_sysdep_segments = 0;
   sysdep_segments = NULL;
   have_outdigits = false;
@@ -192,7 +189,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       /* Concatenate mp->msgctxt and mp->msgid into msgctid.  */
       msgctlen = (mp->msgctxt != NULL ? strlen (mp->msgctxt) + 1 : 0);
-      msgctid = (char *) xmalloc (msgctlen + strlen (mp->msgid) + 1);
+      msgctid = XNMALLOC (msgctlen + strlen (mp->msgid) + 1, char);
       if (mp->msgctxt != NULL)
 	{
 	  memcpy (msgctid, mp->msgctxt, msgctlen - 1);
@@ -274,8 +271,9 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	    {
 	      struct pre_sysdep_string *pre =
 		(struct pre_sysdep_string *)
-		xmalloc (sizeof (struct pre_sysdep_string)
-			 + nintervals[m] * sizeof (struct pre_segment_pair));
+		xmalloc (xsum (sizeof (struct pre_sysdep_string),
+			       xtimes (nintervals[m],
+				       sizeof (struct pre_segment_pair))));
 	      const char *str;
 	      size_t str_len;
 	      size_t lastpos;
@@ -436,14 +434,12 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Offset of table for original string offsets.  */
   header.orig_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
-  orig_tab =
-    (struct string_desc *) xmalloc (nstrings * sizeof (struct string_desc));
+  orig_tab = XNMALLOC (nstrings, struct string_desc);
 
   /* Offset of table for translated string offsets.  */
   header.trans_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
-  trans_tab =
-    (struct string_desc *) xmalloc (nstrings * sizeof (struct string_desc));
+  trans_tab = XNMALLOC (nstrings, struct string_desc);
 
   /* Size of hash table.  */
   header.hash_tab_size = hash_tab_size;
@@ -556,7 +552,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Here output_file is at position header.hash_tab_offset.  */
 
       /* Allocate room for the hashing table to be written out.  */
-      hash_tab = (nls_uint32 *) xmalloc (hash_tab_size * sizeof (nls_uint32));
+      hash_tab = XNMALLOC (hash_tab_size, nls_uint32);
       memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
 
       /* Insert all value in the hash table, following the algorithm described
@@ -601,8 +597,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Here output_file is at position header.sysdep_segments_offset.  */
 
       sysdep_segments_tab =
-	(struct sysdep_segment *)
-	xmalloc (n_sysdep_segments * sizeof (struct sysdep_segment));
+	XNMALLOC (n_sysdep_segments, struct sysdep_segment);
       for (i = 0; i < n_sysdep_segments; i++)
 	{
 	  offset = roundup (offset, alignment);
@@ -624,8 +619,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       free (sysdep_segments_tab);
 
-      sysdep_tab =
-	(nls_uint32 *) xmalloc (n_sysdep_strings * sizeof (nls_uint32));
+      sysdep_tab = XNMALLOC (n_sysdep_strings, nls_uint32);
       stoffset = sysdep_tab_offset;
 
       for (m = 0; m < 2; m++)

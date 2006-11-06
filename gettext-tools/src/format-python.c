@@ -163,7 +163,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    name_end = format++;
 
 	    n = name_end - name_start;
-	    name = (char *) xmalloc (n + 1);
+	    name = XNMALLOC (n + 1, char);
 	    memcpy (name, name_start, n);
 	    name[n] = '\0';
 	  }
@@ -346,7 +346,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	goto bad_format;
     }
 
-  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 

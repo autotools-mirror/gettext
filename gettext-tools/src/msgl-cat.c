@@ -118,20 +118,18 @@ catenate_msgdomain_list (string_list_ty *file_list,
   size_t n, j;
 
   /* Read input files.  */
-  mdlps =
-    (msgdomain_list_ty **) xmalloc (nfiles * sizeof (msgdomain_list_ty *));
+  mdlps = XNMALLOC (nfiles, msgdomain_list_ty *);
   for (n = 0; n < nfiles; n++)
     mdlps[n] = read_catalog_file (files[n], input_syntax);
 
   /* Determine the canonical name of each input file's encoding.  */
-  canon_charsets = (const char ***) xmalloc (nfiles * sizeof (const char **));
+  canon_charsets = XNMALLOC (nfiles, const char **);
   for (n = 0; n < nfiles; n++)
     {
       msgdomain_list_ty *mdlp = mdlps[n];
       size_t k;
 
-      canon_charsets[n] =
-	(const char **) xmalloc (mdlp->nitems * sizeof (const char *));
+      canon_charsets[n] = XNMALLOC (mdlp->nitems, const char *);
       for (k = 0; k < mdlp->nitems; k++)
 	{
 	  message_list_ty *mlp = mdlp->item[k]->messages;
@@ -217,15 +215,14 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
     }
 
   /* Determine textual identifications of each file/domain combination.  */
-  identifications = (const char ***) xmalloc (nfiles * sizeof (const char **));
+  identifications = XNMALLOC (nfiles, const char **);
   for (n = 0; n < nfiles; n++)
     {
       const char *filename = basename (files[n]);
       msgdomain_list_ty *mdlp = mdlps[n];
       size_t k;
 
-      identifications[n] =
-	(const char **) xmalloc (mdlp->nitems * sizeof (const char *));
+      identifications[n] = XNMALLOC (mdlp->nitems, const char *);
       for (k = 0; k < mdlp->nitems; k++)
 	{
 	  const char *domain = mdlp->item[k]->domain;
@@ -257,7 +254,7 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 			if (cp < endp)
 			  {
 			    size_t len = endp - cp;
-			    project_id = (char *) xmalloc (len + 1);
+			    project_id = XNMALLOC (len + 1, char);
 			    memcpy (project_id, cp, len);
 			    project_id[len] = '\0';
 			  }
@@ -664,7 +661,7 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 			  len += id_len + 2;
 		      }
 
-		    new_msgstr = (char *) xmalloc (len);
+		    new_msgstr = XNMALLOC (len, char);
 		    np = new_msgstr;
 		    for (;;)
 		      {

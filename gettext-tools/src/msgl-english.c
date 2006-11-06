@@ -1,5 +1,5 @@
 /* Message translation initialization for English.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -57,7 +57,7 @@ msgdomain_list_english (msgdomain_list_ty *mdlp)
 		{
 		  size_t len0 = strlen (mp->msgid) + 1;
 		  size_t len1 = strlen (mp->msgid_plural) + 1;
-		  char *cp = (char *) xmalloc (len0 + len1);
+		  char *cp = XNMALLOC (len0 + len1, char);
 		  memcpy (cp, mp->msgid, len0);
 		  memcpy (cp + len0, mp->msgid_plural, len1);
 		  mp->msgstr = cp;

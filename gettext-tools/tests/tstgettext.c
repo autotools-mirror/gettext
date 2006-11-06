@@ -327,7 +327,7 @@ expand_escape (const char *str)
       ++cp;
     }
 
-  retval = (char *) xmalloc (strlen (str));
+  retval = XNMALLOC (strlen (str), char);
 
   rp = retval + (cp - str);
   memcpy (retval, str, cp - str);

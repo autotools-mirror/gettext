@@ -536,8 +536,8 @@ wrap (const message_ty *mp, FILE *fp, const char *line_prefix, int extra_indent,
 		}
 	    }
 	}
-      portion = (char *) xmalloc (portion_len);
-      overrides = (char *) xmalloc (portion_len);
+      portion = XNMALLOC (portion_len, char);
+      overrides = XNMALLOC (portion_len, char);
       memset (overrides, UC_BREAK_UNDEFINED, portion_len);
       for (ep = s, pp = portion, op = overrides; ep < es; ep++)
 	{
@@ -663,7 +663,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       if (es > s && es[-1] == '\n')
 	overrides[portion_len - 2] = UC_BREAK_PROHIBITED;
 
-      linebreaks = (char *) xmalloc (portion_len);
+      linebreaks = XNMALLOC (portion_len, char);
 
       /* Subsequent lines after a break are all indented.
 	 See INDENT-S.  */

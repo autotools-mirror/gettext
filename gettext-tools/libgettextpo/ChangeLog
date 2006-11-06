@@ -1,3 +1,12 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Simplify xmalloc expressions. Add overflow check in xmalloc arguments.
+	* gettext-po.c (po_file_create, po_file_read): Use XMALLOC instead of
+	xmalloc.
+	(po_file_domains, po_header_field, po_header_set_field): Use XNMALLOC
+	instead of xmalloc.
+	(po_message_iterator: Use XMALLOC instead of xmalloc.
+
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
 	Don't name mangle exported symbols in C++ mode.

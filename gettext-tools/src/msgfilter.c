@@ -312,7 +312,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
-  sub_argv = (char **) xmalloc ((sub_argc + 1) * sizeof (char *));
+  sub_argv = XNMALLOC (sub_argc + 1, char *);
   for (i = 0; i < sub_argc; i++)
     sub_argv[i] = argv[optind + i];
   sub_argv[i] = NULL;
@@ -618,7 +618,7 @@ generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp)
   }
 
   allocated = len + (len >> 2) + 1;
-  result = (char *) xmalloc (allocated);
+  result = XNMALLOC (allocated, char);
   length = 0;
 
   for (;;)
@@ -776,7 +776,7 @@ process_message (message_ty *mp)
        p += strlen (p) + 1, nsubstrings++);
 
   /* Process each NUL delimited substring separately.  */
-  substrings = (char **) xmalloc (nsubstrings * sizeof (char *));
+  substrings = XNMALLOC (nsubstrings, char *);
   for (p = msgstr, k = 0, total_len = 0; k < nsubstrings; k++)
     {
       char *result;
@@ -792,7 +792,7 @@ process_message (message_ty *mp)
     }
 
   /* Concatenate the results, including the NUL after each.  */
-  total_str = (char *) xmalloc (total_len);
+  total_str = XNMALLOC (total_len, char);
   for (k = 0, q = total_str; k < nsubstrings; k++)
     {
       size_t length = strlen (substrings[k]);

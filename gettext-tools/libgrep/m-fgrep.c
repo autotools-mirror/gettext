@@ -46,7 +46,7 @@ Fcompile (const char *pattern, size_t pattern_size,
   struct compiled_kwset *ckwset;
   const char *beg, *lim, *err;
 
-  ckwset = (struct compiled_kwset *) xmalloc (sizeof (struct compiled_kwset));
+  ckwset = XMALLOC (struct compiled_kwset);
   kwsinit (ckwset, match_icase, match_words, match_lines, eolbyte);
 
   beg = pattern;

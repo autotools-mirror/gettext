@@ -1,3 +1,10 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Simplify xmalloc expressions. Add overflow check in xmalloc arguments.
+	* envsubst.c (note_variable): Use XNMALLOC instead of xmalloc.
+	* gettext.c (expand_escape): Likewise.
+	* ngettext.c (expand_escape): Likewise.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

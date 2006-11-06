@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1998, 2000-2004, 2006 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -47,7 +47,7 @@ string_list_alloc ()
 {
   string_list_ty *slp;
 
-  slp = (string_list_ty *) xmalloc (sizeof (*slp));
+  slp = XMALLOC (string_list_ty);
   slp->item = NULL;
   slp->nitems = 0;
   slp->nitems_max = 0;
@@ -141,7 +141,7 @@ string_list_concat (const string_list_ty *slp)
   len = 1;
   for (j = 0; j < slp->nitems; ++j)
     len += strlen (slp->item[j]);
-  result = (char *) xmalloc (len);
+  result = XNMALLOC (len, char);
   pos = 0;
   for (j = 0; j < slp->nitems; ++j)
     {
@@ -199,7 +199,7 @@ string_list_join (const string_list_ty *slp, char separator,
     }
   if (terminator)
     ++len;
-  result = (char *) xmalloc (len);
+  result = XNMALLOC (len, char);
   pos = 0;
   for (j = 0; j < slp->nitems; ++j)
     {

@@ -127,7 +127,7 @@ Gcompile (const char *pattern, size_t pattern_size,
   size_t total = pattern_size;
   const char *motif = pattern;
 
-  cregex = (struct compiled_regex *) xmalloc (sizeof (struct compiled_regex));
+  cregex = XMALLOC (struct compiled_regex);
   memset (cregex, '\0', sizeof (struct compiled_regex));
   cregex->match_words = match_words;
   cregex->match_lines = match_lines;
@@ -184,7 +184,7 @@ Gcompile (const char *pattern, size_t pattern_size,
       static const char line_end[] = "\\)$";
       static const char word_beg[] = "\\(^\\|[^[:alnum:]_]\\)\\(";
       static const char word_end[] = "\\)\\([^[:alnum:]_]\\|$\\)";
-      char *n = (char *) xmalloc (sizeof word_beg - 1 + pattern_size + sizeof word_end);
+      char *n = XNMALLOC (sizeof word_beg - 1 + pattern_size + sizeof word_end, char);
       size_t i;
       strcpy (n, match_lines ? line_beg : word_beg);
       i = strlen (n);
@@ -213,7 +213,7 @@ compile (const char *pattern, size_t pattern_size,
   size_t total = pattern_size;
   const char *motif = pattern;
 
-  cregex = (struct compiled_regex *) xmalloc (sizeof (struct compiled_regex));
+  cregex = XMALLOC (struct compiled_regex);
   memset (cregex, '\0', sizeof (struct compiled_regex));
   cregex->match_words = match_words;
   cregex->match_lines = match_lines;
@@ -270,7 +270,7 @@ compile (const char *pattern, size_t pattern_size,
       static const char line_end[] = ")$";
       static const char word_beg[] = "(^|[^[:alnum:]_])(";
       static const char word_end[] = ")([^[:alnum:]_]|$)";
-      char *n = (char *) xmalloc (sizeof word_beg - 1 + pattern_size + sizeof word_end);
+      char *n = XNMALLOC (sizeof word_beg - 1 + pattern_size + sizeof word_end, char);
       size_t i;
       strcpy (n, match_lines ? line_beg : word_beg);
       i = strlen(n);

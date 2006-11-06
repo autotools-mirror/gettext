@@ -242,8 +242,7 @@ copy_list (const struct format_arg_list *list)
 
   VERIFY_LIST (list);
 
-  newlist =
-    (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  newlist = XMALLOC (struct format_arg_list);
 
   newlist->initial.count = newlist->initial.allocated = list->initial.count;
   length = 0;
@@ -252,8 +251,7 @@ copy_list (const struct format_arg_list *list)
   else
     {
       newlist->initial.element =
-	(struct format_arg *)
-	xmalloc (newlist->initial.allocated * sizeof (struct format_arg));
+	XNMALLOC (newlist->initial.allocated, struct format_arg);
       for (i = 0; i < list->initial.count; i++)
 	{
 	  copy_element (&newlist->initial.element[i],
@@ -271,8 +269,7 @@ copy_list (const struct format_arg_list *list)
   else
     {
       newlist->repeated.element =
-	(struct format_arg *)
-	xmalloc (newlist->repeated.allocated * sizeof (struct format_arg));
+	XNMALLOC (newlist->repeated.allocated, struct format_arg);
       for (i = 0; i < list->repeated.count; i++)
 	{
 	  copy_element (&newlist->repeated.element[i],
@@ -601,15 +598,14 @@ make_unconstrained_list ()
 {
   struct format_arg_list *list;
 
-  list = (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  list = XMALLOC (struct format_arg_list);
   list->initial.count = 0;
   list->initial.allocated = 0;
   list->initial.element = NULL;
   list->initial.length = 0;
   list->repeated.count = 1;
   list->repeated.allocated = 1;
-  list->repeated.element =
-    (struct format_arg *) xmalloc (1 * sizeof (struct format_arg));
+  list->repeated.element = XNMALLOC (1, struct format_arg);
   list->repeated.element[0].repcount = 1;
   list->repeated.element[0].presence = FCT_OPTIONAL;
   list->repeated.element[0].type = FAT_OBJECT;
@@ -628,7 +624,7 @@ make_empty_list ()
 {
   struct format_arg_list *list;
 
-  list = (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  list = XMALLOC (struct format_arg_list);
   list->initial.count = 0;
   list->initial.allocated = 0;
   list->initial.element = NULL;
@@ -763,9 +759,7 @@ rotate_loop (struct format_arg_list *list, unsigned int m)
 
 	  oldcount = list->repeated.count;
 	  newcount = list->repeated.count + (t > 0 ? 1 : 0);
-	  newelement =
-	    (struct format_arg *)
-	    xmalloc (newcount * sizeof (struct format_arg));
+	  newelement = XNMALLOC (newcount, struct format_arg);
 	  i = 0;
 	  for (j = s; j < oldcount; j++, i++)
 	    newelement[i] = list->repeated.element[j];
@@ -1173,8 +1167,7 @@ make_intersected_list (struct format_arg_list *list1,
     }
 
   /* Step 3: Allocate the result.  */
-  result =
-    (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  result = XMALLOC (struct format_arg_list);
   result->initial.count = 0;
   result->initial.allocated = 0;
   result->initial.element = NULL;
@@ -1561,8 +1554,7 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
     }
 
   /* Step 3: Allocate the result.  */
-  result =
-    (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  result = XMALLOC (struct format_arg_list);
   result->initial.count = 0;
   result->initial.allocated = 0;
   result->initial.element = NULL;
@@ -1742,8 +1734,7 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
       result->repeated.count = list1->repeated.count;
       result->repeated.allocated = result->repeated.count;
       result->repeated.element =
-	(struct format_arg *)
-	xmalloc (result->repeated.allocated * sizeof (struct format_arg));
+	XNMALLOC (result->repeated.allocated, struct format_arg);
       for (i = 0; i < list1->repeated.count; i++)
 	copy_element (&result->repeated.element[i],
 		      &list1->repeated.element[i]);
@@ -1758,8 +1749,7 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
       result->repeated.count = list2->repeated.count;
       result->repeated.allocated = result->repeated.count;
       result->repeated.element =
-	(struct format_arg *)
-	xmalloc (result->repeated.allocated * sizeof (struct format_arg));
+	XNMALLOC (result->repeated.allocated, struct format_arg);
       for (i = 0; i < list2->repeated.count; i++)
 	copy_element (&result->repeated.element[i],
 		      &list2->repeated.element[i]);
@@ -2081,8 +2071,7 @@ make_repeated_list_of_lists (struct format_arg_list *sublist)
     {
       struct format_arg_list *listlist;
 
-      listlist =
-	(struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+      listlist = XMALLOC (struct format_arg_list);
 
       listlist->initial.count = 0;
       listlist->initial.allocated = 0;
@@ -2090,8 +2079,7 @@ make_repeated_list_of_lists (struct format_arg_list *sublist)
       listlist->initial.length = 0;
       listlist->repeated.count = 1;
       listlist->repeated.allocated = 1;
-      listlist->repeated.element =
-	(struct format_arg *) xmalloc (1 * sizeof (struct format_arg));
+      listlist->repeated.element = XNMALLOC (1, struct format_arg);
       listlist->repeated.element[0].repcount = 1;
       listlist->repeated.element[0].presence = FCT_OPTIONAL;
       listlist->repeated.element[0].type = FAT_LIST;
@@ -2154,9 +2142,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
 	 segment.  */
       tmp.count = sublist->initial.count + sublist->repeated.count;
       tmp.allocated = tmp.count;
-      tmp.element =
-	(struct format_arg *)
-	xmalloc (tmp.allocated * sizeof (struct format_arg));
+      tmp.element = XNMALLOC (tmp.allocated, struct format_arg);
       for (i = 0; i < sublist->initial.count; i++)
 	tmp.element[i] = sublist->initial.element[i];
       for (j = 0; j < sublist->repeated.count; i++, j++)
@@ -2181,7 +2167,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
      Or by a single incremental intersection operation, going from left
      to right.  */
 
-  list = (struct format_arg_list *) xmalloc (sizeof (struct format_arg_list));
+  list = XMALLOC (struct format_arg_list);
   list->initial.count = 0;
   list->initial.allocated = 0;
   list->initial.element = NULL;
@@ -2298,8 +2284,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       if (newcount > list->repeated.allocated)
 	{
 	  list->repeated.allocated = newcount;
-	  list->repeated.element =
-	    (struct format_arg *) xmalloc (newcount * sizeof (struct format_arg));
+	  list->repeated.element = XNMALLOC (newcount, struct format_arg);
 	}
       for (i = splitindex, j = 0; i < n; i++, j++)
 	list->repeated.element[j] = list->initial.element[i];
@@ -3243,7 +3228,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
   /* Normalize the result.  */
   normalize_list (spec.list);
 
-  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 }

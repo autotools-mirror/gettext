@@ -775,7 +775,7 @@ add_mo_suffix (const char *fname)
     return fname;
   if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
     return fname;
-  result = (char *) xmalloc (len + 4);
+  result = XNMALLOC (len + 4, char);
   stpcpy (stpcpy (result, fname), ".mo");
   return result;
 }
@@ -793,7 +793,7 @@ new_domain (const char *name, const char *file_name)
     {
       struct msg_domain *domain;
 
-      domain = (struct msg_domain *) xmalloc (sizeof (struct msg_domain));
+      domain = XMALLOC (struct msg_domain);
       domain->mlp = message_list_alloc (true);
       domain->domain_name = name;
       domain->file_name = file_name;

@@ -86,7 +86,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	  }
       }
 
-  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 

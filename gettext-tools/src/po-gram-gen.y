@@ -373,7 +373,7 @@ pluralform_list
 	| pluralform_list pluralform
 		{
 		  check_obsolete ($1, $2);
-		  $$.rhs.msgstr = (char *) xmalloc ($1.rhs.msgstr_len + $2.rhs.msgstr_len);
+		  $$.rhs.msgstr = XNMALLOC ($1.rhs.msgstr_len + $2.rhs.msgstr_len, char);
 		  memcpy ($$.rhs.msgstr, $1.rhs.msgstr, $1.rhs.msgstr_len);
 		  memcpy ($$.rhs.msgstr + $1.rhs.msgstr_len, $2.rhs.msgstr, $2.rhs.msgstr_len);
 		  $$.rhs.msgstr_len = $1.rhs.msgstr_len + $2.rhs.msgstr_len;

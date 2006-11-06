@@ -180,7 +180,7 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
       if (hashsize >= best_score)
 	break;
 
-      bitmap = (char *) xmalloc (hashsize);
+      bitmap = XNMALLOC (hashsize, char);
       memset (bitmap, 0, hashsize);
 
       score = 0;
@@ -293,12 +293,11 @@ static struct table_item *
 compute_table_items (message_list_ty *mlp, unsigned int hashsize)
 {
   unsigned int n = mlp->nitems;
-  struct table_item *arr =
-    (struct table_item *) xmalloc (n * sizeof (struct table_item));
+  struct table_item *arr = XNMALLOC (n, struct table_item);
   char *bitmap;
   size_t j;
 
-  bitmap = (char *) xmalloc (hashsize);
+  bitmap = XNMALLOC (hashsize, char);
   memset (bitmap, 0, hashsize);
 
   for (j = 0; j < n; j++)

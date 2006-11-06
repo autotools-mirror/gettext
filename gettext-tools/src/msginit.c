@@ -688,7 +688,7 @@ catalogname_for_locale (const char *locale)
       if (codeset_end == NULL)
 	codeset_end = dot + strlen (dot);
 
-      shorter_locale = (char *) xmalloc (strlen (locale));
+      shorter_locale = XNMALLOC (strlen (locale), char);
       memcpy (shorter_locale, locale, dot - locale);
       strcpy (shorter_locale + (dot - locale), codeset_end);
       locale = shorter_locale;
@@ -707,7 +707,7 @@ catalogname_for_locale (const char *locale)
 	  abort ();
 
 	len = language_end - locale;
-	shorter_locale = (char *) xmalloc (len + 1);
+	shorter_locale = XNMALLOC (len + 1, char);
 	memcpy (shorter_locale, locale, len);
 	shorter_locale[len] = '\0';
 	locale = shorter_locale;
@@ -731,7 +731,7 @@ language_of_locale (const char *locale)
       char *result;
 
       len = language_end - locale;
-      result = (char *) xmalloc (len + 1);
+      result = XNMALLOC (len + 1, char);
       memcpy (result, locale, len);
       result[len] = '\0';
 
@@ -1019,7 +1019,7 @@ get_user_fullname ()
       if (fullname_end == NULL)
 	fullname_end = fullname + strlen (fullname);
 
-      result = (char *) xmalloc (fullname_end - fullname + 1);
+      result = XNMALLOC (fullname_end - fullname + 1, char);
       memcpy (result, fullname, fullname_end - fullname);
       result[fullname_end - fullname] = '\0';
 
@@ -1300,7 +1300,7 @@ get_field (const char *header, const char *field)
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
 
-	  value = (char *) xmalloc (value_end - value_start + 1);
+	  value = XNMALLOC (value_end - value_start + 1, char);
 	  memcpy (value, value_start, value_end - value_start);
 	  value[value_end - value_start] = '\0';
 
@@ -1339,11 +1339,12 @@ put_field (const char *old_header, const char *field, const char *value)
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
 
-	  new_header = (char *) xmalloc (strlen (old_header)
-					 - (value_end - value_start)
-					 + strlen (value)
-					 + (*value_end != '\n' ? 1 : 0)
-					 + 1);
+	  new_header = XNMALLOC (strlen (old_header)
+				 - (value_end - value_start)
+				 + strlen (value)
+				 + (*value_end != '\n' ? 1 : 0)
+				 + 1,
+				 char);
 	  p = new_header;
 	  memcpy (p, old_header, value_start - old_header);
 	  p += value_start - old_header;
@@ -1363,9 +1364,10 @@ put_field (const char *old_header, const char *field, const char *value)
 	break;
     }
 
-  new_header = (char *) xmalloc (strlen (old_header) + 1
-				 + len + 2 + strlen (value) + 1
-				 + 1);
+  new_header = XNMALLOC (strlen (old_header) + 1
+			 + len + 2 + strlen (value) + 1
+			 + 1,
+			 char);
   p = new_header;
   memcpy (p, old_header, strlen (old_header));
   p += strlen (old_header);
@@ -1502,7 +1504,7 @@ subst_string (const char *str,
 	      {
 		size_t replacement_len = strlen (subst[j][1]);
 		size_t new_len = strlen (str) - substlen[j] + replacement_len;
-		char *new_str = (char *) xmalloc (new_len + 1);
+		char *new_str = XNMALLOC (new_len + 1, char);
 		memcpy (new_str, str, i);
 		memcpy (new_str + i, subst[j][1], replacement_len);
 		strcpy (new_str + i + replacement_len, str + i + substlen[j]);
@@ -1644,7 +1646,7 @@ update_msgstr_plurals (msgdomain_list_ty *mdlp)
 
       header_entry = message_list_search (mlp, NULL, "");
       nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
-      untranslated_plural_msgstr = (char *) xmalloc (nplurals);
+      untranslated_plural_msgstr = XNMALLOC (nplurals, char);
       memset (untranslated_plural_msgstr, '\0', nplurals);
 
       for (j = 0; j < mlp->nitems; j++)

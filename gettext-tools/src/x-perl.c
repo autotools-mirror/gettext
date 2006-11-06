@@ -286,7 +286,7 @@ get_here_document (const char *delimiter)
   /* Allocate the initial buffer.  Later on, bufmax > 0.  */
   if (bufmax == 0)
     {
-      buffer = (char *) xmalloc (1);
+      buffer = XNMALLOC (1, char);
       buffer[0] = '\0';
       bufmax = 1;
     }
@@ -636,7 +636,7 @@ extract_quotelike_pass1 (int delim)
      statically.  Also alloca() is inappropriate due to limited stack
      size on some platforms.  So we use malloc().  */
   int bufmax = 10;
-  char *buffer = (char *) xmalloc (bufmax);
+  char *buffer = XNMALLOC (bufmax, char);
   int bufpos = 0;
   bool nested = true;
   int counter_delim;
@@ -1093,7 +1093,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 		      char *name;
 		      unsigned int unicode;
 
-		      name = (char *) xmalloc (end - (crs + 1) + 1);
+		      name = XNMALLOC (end - (crs + 1) + 1, char);
 		      memcpy (name, crs + 1, end - (crs + 1));
 		      name[end - (crs + 1)] = '\0';
 
@@ -2624,7 +2624,7 @@ x_perl_lex (message_list_ty *mlp)
 
   if (!tp)
     {
-      tp = (token_ty *) xmalloc (sizeof (token_ty));
+      tp = XMALLOC (token_ty);
       x_perl_prelex (mlp, tp);
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: x_perl_prelex returned %s\n",

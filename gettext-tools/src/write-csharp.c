@@ -133,7 +133,7 @@ construct_class_name (const char *resource_name)
       static const char hexdigit[] = "0123456789abcdef";
       const char *str = resource_name;
       const char *str_limit = str + strlen (str);
-      char *class_name = (char *) xmalloc (12 + 6 * (str_limit - str) + 1);
+      char *class_name = XNMALLOC (12 + 6 * (str_limit - str) + 1, char);
       char *b;
 
       b = class_name;
@@ -700,7 +700,7 @@ but the C# .dll format doesn't support contexts\n")));
     char *p;
 
     class_name =
-      (char *) xmalloc (strlen (class_name_part1) + 1 + strlen (culture_name) + 1);
+      XNMALLOC (strlen (class_name_part1) + 1 + strlen (culture_name) + 1, char);
     sprintf (class_name, "%s_%s", class_name_part1, culture_name);
     for (p = class_name + strlen (class_name_part1) + 1; *p != '\0'; p++)
       if (*p == '-')

@@ -789,14 +789,14 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 	 of unnumbered arguments.  */
       spec.unnumbered_arg_count = numbered_arg_count;
       spec.allocated = spec.unnumbered_arg_count;
-      spec.unnumbered = (struct unnumbered_arg *) xmalloc (spec.allocated * sizeof (struct unnumbered_arg));
+      spec.unnumbered = XNMALLOC (spec.allocated, struct unnumbered_arg);
       for (i = 0; i < spec.unnumbered_arg_count; i++)
 	spec.unnumbered[i].type = numbered[i].type;
       free (numbered);
       numbered_arg_count = 0;
     }
 
-  result = (struct spec *) xmalloc (sizeof (struct spec));
+  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -918,8 +918,7 @@ get_sysdep_c_format_directives (const char *string, bool translated,
   if (descr != NULL && descr->sysdep_directives_count > 0)
     {
       unsigned int n = descr->sysdep_directives_count;
-      struct interval *intervals =
-	(struct interval *) xmalloc (n * sizeof (struct interval));
+      struct interval *intervals = XNMALLOC (n, struct interval);
       unsigned int i;
 
       for (i = 0; i < n; i++)

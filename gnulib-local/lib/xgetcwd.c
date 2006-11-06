@@ -63,7 +63,7 @@ xgetcwd ()
 
   for (;;)
     {
-      char *cwd = (char *) xmalloc (path_max);
+      char *cwd = XNMALLOC (path_max, char);
 
       errno = 0;
       ret = getcwd (cwd, path_max);

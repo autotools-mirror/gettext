@@ -92,7 +92,7 @@ typedef index_ty *index_list_ty;
 static inline index_list_ty
 new_index (index_ty idx)
 {
-  index_ty *list = (index_ty *) xmalloc ((2 + 1) * sizeof (index_ty));
+  index_ty *list = XNMALLOC (2 + 1, index_ty);
   list[IL_ALLOCATED] = 1;
   list[IL_LENGTH] = 1;
   list[2] = idx;
@@ -203,8 +203,7 @@ message_fuzzy_index_ty *
 message_fuzzy_index_alloc (const message_list_ty *mlp,
 			   const char *canon_charset)
 {
-  message_fuzzy_index_ty *findex =
-    (message_fuzzy_index_ty *) xmalloc (sizeof (message_fuzzy_index_ty));
+  message_fuzzy_index_ty *findex = XMALLOC (message_fuzzy_index_ty);
   size_t count = mlp->nitems;
   size_t j;
   size_t l;
@@ -386,8 +385,7 @@ mult_index_list_accumulate (struct mult_index_list *accu, index_list_ty list)
 	new_max = need;
       if (accu->item2 != NULL)
 	free (accu->item2);
-      accu->item2 =
-	(struct mult_index *) xmalloc (new_max * sizeof (struct mult_index));
+      accu->item2 = XNMALLOC (new_max, struct mult_index);
       accu->nitems2_max = new_max;
     }
 

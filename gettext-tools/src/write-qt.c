@@ -1,5 +1,5 @@
 /* Writing Qt .qm files.
-   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -290,7 +290,7 @@ conv_to_iso_8859_1 (const char *string)
   const char *str = string;
   const char *str_limit = string + length;
   /* Conversion to ISO-8859-1 can only reduce the number of bytes.  */
-  char *result = (char *) xmalloc (length + 1);
+  char *result = XNMALLOC (length + 1, char);
   char *q = result;
 
   while (str < str_limit)
@@ -318,7 +318,7 @@ conv_to_utf16 (const char *string, size_t *sizep)
   const char *str = string;
   const char *str_limit = string + length;
   /* Conversion to UTF-16 can at most double the number of bytes.  */
-  unsigned short *result = (unsigned short *) xmalloc (2 * length);
+  unsigned short *result = XNMALLOC (length, unsigned short);
   unsigned short *q = result;
 
   while (str < str_limit)
@@ -518,12 +518,10 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 	{
 	  struct list_cell { const char *context; struct list_cell *next; };
 	  struct list_cell *list_memory =
-	    (struct list_cell *)
-	    xmalloc (table_size * sizeof (struct list_cell));
+	    XNMALLOC (table_size, struct list_cell);
 	  struct list_cell *freelist;
 	  struct bucket { struct list_cell *head; struct list_cell **tail; };
-	  struct bucket *buckets =
-	    (struct bucket *) xmalloc (table_size * sizeof (struct bucket));
+	  struct bucket *buckets = XNMALLOC (table_size, struct bucket);
 	  size_t i;
 
 	  freelist = list_memory;

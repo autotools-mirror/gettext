@@ -154,7 +154,7 @@ x_lisp_keyword (const char *name)
 
       /* Uppercase it.  */
       len = end - name;
-      symname = (char *) xmalloc (len);
+      symname = XNMALLOC (len, char);
       for (i = 0; i < len; i++)
 	symname[i] =
 	  (name[i] >= 'a' && name[i] <= 'z' ? name[i] - 'a' + 'A' : name[i]);
@@ -368,8 +368,7 @@ static inline void
 init_token (struct token *tp)
 {
   tp->allocated = 10;
-  tp->chars =
-    (struct token_char *) xmalloc (tp->allocated * sizeof (struct token_char));
+  tp->chars = XNMALLOC (tp->allocated, struct token_char);
   tp->charcount = 0;
 }
 
@@ -922,7 +921,7 @@ string_of_object (const struct object *op)
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
   n = op->token->charcount;
-  str = (char *) xmalloc (n + 1);
+  str = XNMALLOC (n + 1, char);
   q = str;
   for (p = op->token->chars; n > 0; p++, n--)
     *q++ = p->ch;
@@ -966,7 +965,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 	case syntax_multi_esc:
 	case syntax_constituent:
 	  /* Start reading a token.  */
-	  op->token = (struct token *) xmalloc (sizeof (struct token));
+	  op->token = XMALLOC (struct token);
 	  read_token (op->token, &curr);
 	  last_non_comment_line = line_number;
 
@@ -1168,7 +1167,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 
 	    case '"':
 	      {
-		op->token = (struct token *) xmalloc (sizeof (struct token));
+		op->token = XMALLOC (struct token);
 		init_token (op->token);
 		op->line_number_at_start = line_number;
 		for (;;)

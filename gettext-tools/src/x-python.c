@@ -664,7 +664,7 @@ try_to_extract_coding (const char *comment)
 		{
 		  /* Extract the encoding string.  */
 		  size_t encoding_len = encoding_end - encoding_start;
-		  char *encoding = (char *) xmalloc (encoding_len + 1);
+		  char *encoding = XNMALLOC (encoding_len + 1, char);
 
 		  memcpy (encoding, encoding_start, encoding_len);
 		  encoding[encoding_len] = '\0';

@@ -1,3 +1,14 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	* lib/xalloc.h (XMALLOC, XNMALLOC, XZALLOC, XCALLOC): New macros.
+	(xnboundedmalloc): New inline function.
+	* lib/fstrcmp.c (fstrcmp): Use xnmalloc instead of xmalloc.
+	* lib/hash.c (hash_init, resize): Use XCALLOC instead of xcalloc.
+	* lib/propername.c (proper_name, proper_name_utf8): Use XNMALLOC
+	instead of xmalloc.
+	* lib/xgetcwd.c (xgetcwd): Use XNMALLOC instead of xmalloc.
+	* lib/xstrdup.c (xstrdup): Likewise.
+
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 
 	* lib/getopt_.h.diff: Update.

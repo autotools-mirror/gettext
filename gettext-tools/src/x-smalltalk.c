@@ -326,7 +326,7 @@ phase2_get (token_ty *tp)
 	      case '@':
 	      case '?':
 	      case '%':
-		name = (char *) xmalloc (3);
+		name = XNMALLOC (3, char);
 		name[0] = c;
 		name[1] = c2;
 		name[2] = '\0';
@@ -337,7 +337,7 @@ phase2_get (token_ty *tp)
 		phase1_ungetc (c2);
 		break;
 	      }
-	    name = (char *) xmalloc (2);
+	    name = XNMALLOC (2, char);
 	    name[0] = c;
 	    name[1] = '\0';
 	    tp->type = token_type_symbol;

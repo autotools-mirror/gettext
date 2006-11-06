@@ -1,3 +1,11 @@
+2006-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Simplify xmalloc expressions. Add overflow check in xmalloc arguments.
+	* m-common.c (kwsinit): Use XNMALLOC instead of xmalloc.
+	* m-fgrep.c (Fcompile): Use XMALLOC instead of xmalloc.
+	* m-regex.c (Gcompile, compile): Use XMALLOC, XNMALLOC instead of
+	xmalloc.
+
 2006-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* dfa.c (delete_pos): Renamed from remove.

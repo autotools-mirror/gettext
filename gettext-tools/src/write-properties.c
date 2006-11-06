@@ -76,7 +76,7 @@ conv_to_java (const char *string)
       }
   }
 
-  result = (char *) xmalloc (length + 1);
+  result = XNMALLOC (length + 1, char);
 
   {
     char *newstr = result;

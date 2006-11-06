@@ -86,7 +86,7 @@ extract_add_message (default_catalog_reader_ty *this,
 
 	    charsetstr += strlen ("charset=");
 	    len = strcspn (charsetstr, " \t\n");
-	    charset = (char *) xmalloc (len + 1);
+	    charset = XNMALLOC (len + 1, char);
 	    memcpy (charset, charsetstr, len);
 	    charset[len] = '\0';
 
@@ -196,7 +196,7 @@ extract (FILE *fp,
 		      len1 = charsetstr - header;
 		      len2 = strlen (header_charset);
 		      len3 = (header + strlen (header)) - (charsetstr + len);
-		      new_header = (char *) xmalloc (len1 + len2 + len3 + 1);
+		      new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
 		      memcpy (new_header, header, len1);
 		      memcpy (new_header + len1, header_charset, len2);
 		      memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);

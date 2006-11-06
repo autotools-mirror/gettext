@@ -96,7 +96,7 @@ hash_init (hash_table *htab, unsigned long int init_size)
   htab->size = init_size;
   htab->filled = 0;
   htab->first = NULL;
-  htab->table = (hash_entry *) xcalloc (init_size + 1, sizeof (hash_entry));
+  htab->table = XCALLOC (init_size + 1, hash_entry);
 
   obstack_init (&htab->mem_pool);
 
@@ -245,7 +245,7 @@ resize (hash_table *htab)
   htab->size = next_prime (htab->size * 2);
   htab->filled = 0;
   htab->first = NULL;
-  htab->table = (hash_entry *) xcalloc (1 + htab->size, sizeof (hash_entry));
+  htab->table = XCALLOC (1 + htab->size, hash_entry);
 
   for (idx = 1; idx <= old_size; ++idx)
     if (table[idx].used)

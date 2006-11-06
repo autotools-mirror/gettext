@@ -335,7 +335,7 @@ static inline void
 init_token (struct token *tp)
 {
   tp->allocated = 10;
-  tp->chars = (char *) xmalloc (tp->allocated * sizeof (char));
+  tp->chars = XNMALLOC (tp->allocated, char);
   tp->charcount = 0;
 }
 
@@ -453,7 +453,7 @@ string_of_word (const struct word *wp)
   if (!(wp->type == t_string))
     abort ();
   n = wp->token->charcount;
-  str = (char *) xmalloc (n + 1);
+  str = XNMALLOC (n + 1, char);
   memcpy (str, wp->token->chars, n);
   str[n] = '\0';
   return str;
@@ -781,7 +781,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
     }
 
   wp->type = t_string;
-  wp->token = (struct token *) xmalloc (sizeof (struct token));
+  wp->token = XMALLOC (struct token);
   init_token (wp->token);
   wp->line_number_at_start = line_number;
 

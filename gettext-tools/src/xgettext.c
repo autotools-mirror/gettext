@@ -44,6 +44,7 @@
 #include "basename.h"
 #include "xerror.h"
 #include "xvasprintf.h"
+#include "xsize.h"
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "c-strstr.h"
@@ -1055,7 +1056,7 @@ split_keywordspec (const char *spec,
 	      if (p > spec && (p[-1] == ',' || p[-1] == ':'))
 		{
 		  size_t xcomment_len = xcomment_end - xcomment_start;
-		  char *xcomment = (char *) xmalloc (xcomment_len + 1);
+		  char *xcomment = XNMALLOC (xcomment_len + 1, char);
 
 		  memcpy (xcomment, xcomment_start, xcomment_len);
 		  xcomment[xcomment_len] = '\0';
@@ -1124,8 +1125,7 @@ insert_keyword_callshape (hash_table *table,
   if (hash_find_entry (table, keyword, keyword_len, &old_value))
     {
       /* Create a one-element 'struct callshapes'.  */
-      struct callshapes *shapes =
-	(struct callshapes *) xmalloc (sizeof (struct callshapes));
+      struct callshapes *shapes = XMALLOC (struct callshapes);
       shapes->nshapes = 1;
       shapes->shapes[0] = *shape;
       keyword =
@@ -1164,8 +1164,9 @@ insert_keyword_callshape (hash_table *table,
 	  /* Replace the existing 'struct callshapes' with a new one.  */
 	  struct callshapes *shapes =
 	    (struct callshapes *)
-	    xmalloc (sizeof (struct callshapes)
-		     + old_shapes->nshapes * sizeof (struct callshape));
+	    xmalloc (xsum (sizeof (struct callshapes),
+			   xtimes (old_shapes->nshapes,
+				   sizeof (struct callshape))));
 
 	  shapes->keyword = old_shapes->keyword;
 	  shapes->keyword_len = old_shapes->keyword_len;
@@ -1316,8 +1317,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
     if (hash_find_entry (table, name_start, name_end - name_start, &entry) != 0)
       {
 	/* Create new hash table entry.  */
-	flag_context_list_ty *list =
-	  (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	flag_context_list_ty *list = XMALLOC (flag_context_list_ty);
 	list->argnum = argnum;
 	memset (&list->flags, '\0', sizeof (list->flags));
 	switch (index)
@@ -1366,8 +1366,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	else if (lastp != NULL)
 	  {
 	    /* Add a new list entry for this argument number.  */
-	    list =
-	      (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	    list = XMALLOC (flag_context_list_ty);
 	    list->argnum = argnum;
 	    memset (&list->flags, '\0', sizeof (list->flags));
 	    switch (index)
@@ -1392,8 +1391,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	       of the list.  Since we don't have an API for replacing the
 	       value of a key in the hash table, we have to copy the first
 	       list element.  */
-	    flag_context_list_ty *copy =
-	      (flag_context_list_ty *) xmalloc (sizeof (flag_context_list_ty));
+	    flag_context_list_ty *copy = XMALLOC (flag_context_list_ty);
 	    *copy = *list;
 
 	    list->argnum = argnum;
@@ -1683,8 +1681,7 @@ savable_comment_add (const char *str)
 {
   if (savable_comment == NULL)
     {
-      savable_comment =
-	(refcounted_string_list_ty *) xmalloc (sizeof (*savable_comment));
+      savable_comment = XMALLOC (refcounted_string_list_ty);
       savable_comment->refcount = 1;
       string_list_init (&savable_comment->contents);
     }
@@ -1697,8 +1694,7 @@ savable_comment_add (const char *str)
       savable_comment->refcount--;
       oldcontents = &savable_comment->contents;
 
-      savable_comment =
-	(refcounted_string_list_ty *) xmalloc (sizeof (*savable_comment));
+      savable_comment = XMALLOC (refcounted_string_list_ty);
       savable_comment->refcount = 1;
       string_list_init (&savable_comment->contents);
       for (i = 0; i < oldcontents->nitems; i++)
@@ -2239,7 +2235,7 @@ remember_a_message_plural (message_ty *mp, char *string,
       else
 	msgstr1 = "";
       msgstr1_len = strlen (msgstr1) + 1;
-      msgstr = (char *) xmalloc (mp->msgstr_len + msgstr1_len);
+      msgstr = XNMALLOC (mp->msgstr_len + msgstr1_len, char);
       memcpy (msgstr, mp->msgstr, mp->msgstr_len);
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
       mp->msgstr = msgstr;
@@ -2327,8 +2323,9 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
     {
       struct arglist_parser *ap =
 	(struct arglist_parser *)
-	xmalloc (sizeof (struct arglist_parser)
-		 + (shapes->nshapes - 1) * sizeof (struct partial_call));
+	xmalloc (xsum (sizeof (struct arglist_parser),
+		       xtimes (shapes->nshapes - 1,
+			       sizeof (struct partial_call))));
       size_t i;
 
       ap->mlp = mlp;
@@ -2370,8 +2367,8 @@ arglist_parser_clone (struct arglist_parser *ap)
 {
   struct arglist_parser *copy =
     (struct arglist_parser *)
-    xmalloc (sizeof (struct arglist_parser) - sizeof (struct partial_call)
-	     + ap->nalternatives * sizeof (struct partial_call));
+    xmalloc (xsum (sizeof (struct arglist_parser) - sizeof (struct partial_call),
+		   xtimes (ap->nalternatives, sizeof (struct partial_call))));
   size_t i;
 
   copy->mlp = ap->mlp;
@@ -2649,7 +2646,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	      else
 		{
 		  size_t ctxt_len = separator - best_cp->msgid;
-		  char *ctxt = (char *) xmalloc (ctxt_len + 1);
+		  char *ctxt = XNMALLOC (ctxt_len + 1, char);
 
 		  memcpy (ctxt, best_cp->msgid, ctxt_len);
 		  ctxt[ctxt_len] = '\0';
@@ -2674,7 +2671,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	      else
 		{
 		  size_t ctxt_len = separator - best_cp->msgid_plural;
-		  char *ctxt = (char *) xmalloc (ctxt_len + 1);
+		  char *ctxt = XNMALLOC (ctxt_len + 1, char);
 
 		  memcpy (ctxt, best_cp->msgid_plural, ctxt_len);
 		  ctxt[ctxt_len] = '\0';
@@ -2856,7 +2853,7 @@ finalize_header (msgdomain_list_ty *mdlp)
 	    if (insertpos == 0 || header->msgstr[insertpos-1] == '\n')
 	      suffix++;
 	    suffix_len = strlen (suffix);
-	    new_msgstr = (char *) xmalloc (header->msgstr_len + suffix_len);
+	    new_msgstr = XNMALLOC (header->msgstr_len + suffix_len, char);
 	    memcpy (new_msgstr, header->msgstr, insertpos);
 	    memcpy (new_msgstr + insertpos, suffix, suffix_len);
 	    memcpy (new_msgstr + insertpos + suffix_len,
