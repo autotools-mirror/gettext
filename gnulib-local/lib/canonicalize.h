@@ -1,5 +1,5 @@
 /* Return the canonical absolute name of a given file.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,6 +16,6 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 /* Return a malloc'd string containing the canonical absolute name of the
-   named file.  The last file name component need not exist, and may be a
-   symlink to a nonexistent file.  */ 
+   named file.  If any file name component does not exist or is a symlink
+   to a nonexistent file, return NULL.  */
 extern char *canonicalize_file_name (const char *name);
