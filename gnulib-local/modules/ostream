@@ -1,0 +1,28 @@
+Description:
+Abstract output stream data type.
+
+Files:
+lib/ostream.oo.h
+lib/ostream.oo.c
+
+Depends-on:
+moo
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += ostream.c
+ostream.h ostream.c : $(top_srcdir)/build-aux/moopp ostream.oo.h ostream.oo.c
+	$(top_srcdir)/build-aux/moopp $(srcdir)/ostream.oo.c $(srcdir)/ostream.oo.h
+BUILT_SOURCES += ostream.h ostream.c ostream.priv.h ostream.vt.h
+CLEANFILES += ostream.h ostream.c ostream.priv.h ostream.vt.h
+
+Include:
+"ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
