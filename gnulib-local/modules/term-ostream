@@ -1,0 +1,38 @@
+Description:
+Output stream for attributed text, producing ANSI escape sequences.
+
+Files:
+lib/term-ostream.oo.h
+lib/term-ostream.oo.c
+m4/term-ostream.m4
+
+Depends-on:
+ostream
+error
+exit
+fatal-signal
+full-write
+gettext-h
+termcap
+xalloc
+xsize
+
+configure.ac:
+gl_TERM_OSTREAM
+
+Makefile.am:
+lib_SOURCES += term-ostream.c
+term-ostream.h term-ostream.c : $(top_srcdir)/build-aux/moopp term-ostream.oo.h term-ostream.oo.c ostream.oo.h
+	$(top_srcdir)/build-aux/moopp $(srcdir)/term-ostream.oo.c $(srcdir)/term-ostream.oo.h $(srcdir)/ostream.oo.h
+BUILT_SOURCES += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
+CLEANFILES += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
+
+Include:
+"term-ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
