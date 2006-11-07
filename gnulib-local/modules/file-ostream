@@ -1,0 +1,29 @@
+Description:
+Output stream referring to an stdio FILE.
+
+Files:
+lib/file-ostream.oo.h
+lib/file-ostream.oo.c
+
+Depends-on:
+ostream
+xalloc
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += file-ostream.c
+file-ostream.h file-ostream.c : $(top_srcdir)/build-aux/moopp file-ostream.oo.h file-ostream.oo.c ostream.oo.h
+	$(top_srcdir)/build-aux/moopp $(srcdir)/file-ostream.oo.c $(srcdir)/file-ostream.oo.h $(srcdir)/ostream.oo.h
+BUILT_SOURCES += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
+CLEANFILES += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
+
+Include:
+"file-ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
