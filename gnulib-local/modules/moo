@@ -1,0 +1,23 @@
+Description:
+Minimal object-oriented programming style.
+
+Files:
+build-aux/moopp
+lib/moo.h
+
+Depends-on:
+
+configure.ac:
+AC_REQUIRE([AC_C_INLINE])
+
+Makefile.am:
+
+Include:
+"moo.h"
+
+License:
+LGPL
+
+Maintainer:
+Bruno Haible
+
