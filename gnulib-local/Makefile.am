@@ -21,6 +21,7 @@
 # find . '(' -name CVS -o -name Makefile.am ')' -prune -o -type f '!' '(' -name '*.orig' -or -name '*~' ')' -printf '%P\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
 EXTRA_DIST = \
 ChangeLog \
+build-aux/moopp \
 lib/3level.h \
 lib/addext.c \
 lib/alloca_.h \
@@ -38,6 +39,10 @@ lib/error.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \
 lib/exitfail.h.diff \
+lib/fd-ostream.oo.c \
+lib/fd-ostream.oo.h \
+lib/file-ostream.oo.c \
+lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
 lib/fnmatch_loop.c.diff \
 lib/fstrcmp.c \
@@ -47,9 +52,18 @@ lib/getopt_.h.diff \
 lib/gettext.h \
 lib/hash.c \
 lib/hash.h \
+lib/html-ostream.oo.c \
+lib/html-ostream.oo.h \
+lib/iconv-ostream.oo.c \
+lib/iconv-ostream.oo.h \
 lib/javacomp.c.diff \
 lib/linebreak.c.diff \
+lib/memory-ostream.oo.c \
+lib/memory-ostream.oo.h \
+lib/moo.h \
 lib/obstack.h.diff \
+lib/ostream.oo.c \
+lib/ostream.oo.h \
 lib/progname.h.diff \
 lib/propername.c \
 lib/propername.h \
@@ -57,6 +71,8 @@ lib/relocatable.c \
 lib/relocatable.h \
 lib/relocwrapper.c \
 lib/strerror.c.diff \
+lib/term-ostream.oo.c \
+lib/term-ostream.oo.h \
 lib/vasprintf.c \
 lib/xalloc.h \
 lib/xerror.c \
@@ -78,6 +94,8 @@ m4/java.m4 \
 m4/quotearg.m4.diff \
 m4/quote.m4.diff \
 m4/relocatable.m4 \
+m4/termcap.m4 \
+m4/term-ostream.m4 \
 m4/unionwait.m4 \
 m4/vasprintf.m4 \
 m4/xreadlink.m4 \
@@ -86,6 +104,8 @@ modules/basename \
 modules/closeout \
 modules/error-progname \
 modules/exitfail.diff \
+modules/fd-ostream \
+modules/file-ostream \
 modules/fnmatch.diff \
 modules/fstrcmp \
 modules/gcj \
@@ -94,14 +114,21 @@ modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/gettext-tools-libgettextpo-misc \
 modules/hash \
+modules/html-ostream \
+modules/iconv-ostream \
 modules/java \
 modules/javacomp.diff \
+modules/memory-ostream \
+modules/moo \
+modules/ostream \
 modules/progreloc \
 modules/propername \
 modules/quotearg.diff \
 modules/quote.diff \
 modules/relocatable \
 modules/relocwrapper \
+modules/termcap \
+modules/term-ostream \
 modules/vasprintf.diff \
 modules/wait-process.diff \
 modules/xalloc \

@@ -1,3 +1,50 @@
+2006-11-05  Bruno Haible  <bruno@clisp.org>
+
+	* modules/term-ostream: New file.
+	* m4/term-ostream.m4: New file.
+	* lib/term-ostream.oo.h: New file.
+	* lib/term-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/termcap: New file.
+	* m4/termcap.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/memory-ostream: New file.
+	* lib/memory-ostream.oo.h: New file.
+	* lib/memory-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/iconv-ostream: New file.
+	* lib/iconv-ostream.oo.h: New file.
+	* lib/iconv-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/html-ostream: New file.
+	* lib/html-ostream.oo.h: New file.
+	* lib/html-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/file-ostream: New file.
+	* lib/file-ostream.oo.h: New file.
+	* lib/file-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/fd-ostream: New file.
+	* lib/fd-ostream.oo.h: New file.
+	* lib/fd-ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/ostream: New file.
+	* lib/ostream.oo.h: New file.
+	* lib/ostream.oo.c: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+	* modules/moo: New file.
+	* build-aux/moopp: New file.
+	* lib/moo.h: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2006-11-06  Bruno Haible  <bruno@clisp.org>
 
 	* lib/xalloc.h (xcharalloc): New macro.
