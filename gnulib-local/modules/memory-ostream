@@ -1,0 +1,33 @@
+Description:
+Output stream that accumulates the output in memory.
+
+Files:
+lib/memory-ostream.oo.h
+lib/memory-ostream.oo.c
+
+Depends-on:
+ostream
+error
+exit
+gettext
+xalloc
+xsize
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += memory-ostream.c
+memory-ostream.h memory-ostream.c : $(top_srcdir)/build-aux/moopp memory-ostream.oo.h memory-ostream.oo.c ostream.oo.h
+	$(top_srcdir)/build-aux/moopp $(srcdir)/memory-ostream.oo.c $(srcdir)/memory-ostream.oo.h $(srcdir)/ostream.oo.h
+BUILT_SOURCES += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
+CLEANFILES += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
+
+Include:
+"memory-ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
