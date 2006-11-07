@@ -1,0 +1,22 @@
+Description:
+Information about terminal capabilities.
+
+Files:
+m4/termcap.m4
+
+Depends-on:
+havelib
+
+configure.ac:
+gl_TERMCAP
+
+Makefile.am:
+
+Include:
+
+License:
+LGPL
+
+Maintainer:
+Bruno Haible
+
