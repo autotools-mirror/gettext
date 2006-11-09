@@ -34,7 +34,8 @@ Version 0.16 - October 2006
   symlinking behaviour by specifying the --symlink option.
 
 * Autoconf macros:
-  - The gettext autoconf macros now require autoconf 2.52 or newer.
+  - The gettext autoconf macros now require autoconf 2.52 or newer and
+    GNU m4 1.4.5 or newer.
   - A new autoconf macro AM_GNU_GETTEXT_INTL_SUBDIR is added. It allows to
     specify the presence of an intl/ subdirectory outside the AM_GNU_GETTEXT
     invocation.
