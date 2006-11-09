@@ -1,3 +1,8 @@
+2006-11-08  Bruno Haible  <bruno@clisp.org>
+
+	* build-aux/install-reloc: Use canonicalize-lgpl.c instead of
+	canonicalize.c.
+
 2006-11-05  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC): Renamed from
