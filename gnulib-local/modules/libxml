@@ -1,0 +1,500 @@
+Description:
+Substitute for libxml2 version 2.6.27.
+
+Files:
+lib/libxml/COPYING
+lib/libxml/DOCBparser.c
+lib/libxml/DOCBparser_.h
+lib/libxml/HTMLparser.c
+lib/libxml/HTMLparser_.h
+lib/libxml/HTMLtree.c
+lib/libxml/HTMLtree_.h
+lib/libxml/SAX.c
+lib/libxml/SAX2.c
+lib/libxml/SAX2_.h
+lib/libxml/SAX_.h
+lib/libxml/c14n.c
+lib/libxml/c14n_.h
+lib/libxml/catalog.c
+lib/libxml/catalog_.h
+lib/libxml/chvalid.c
+lib/libxml/chvalid_.h
+lib/libxml/debugXML.c
+lib/libxml/debugXML_.h
+lib/libxml/dict.c
+lib/libxml/dict_.h
+lib/libxml/elfgcchack.h
+lib/libxml/encoding.c
+lib/libxml/encoding_.h
+lib/libxml/entities.c
+lib/libxml/entities_.h
+lib/libxml/error.c
+lib/libxml/globals.c
+lib/libxml/globals_.h
+lib/libxml/hash.c
+lib/libxml/hash_.h
+lib/libxml/legacy.c
+lib/libxml/libxml.h
+lib/libxml/list.c
+lib/libxml/list_.h
+lib/libxml/nanoftp.c
+lib/libxml/nanoftp_.h
+lib/libxml/nanohttp.c
+lib/libxml/nanohttp_.h
+lib/libxml/parser.c
+lib/libxml/parser_.h
+lib/libxml/parserInternals.c
+lib/libxml/parserInternals_.h
+lib/libxml/pattern.c
+lib/libxml/pattern_.h
+lib/libxml/relaxng.c
+lib/libxml/relaxng_.h
+lib/libxml/schemasInternals_.h
+lib/libxml/schematron.c
+lib/libxml/schematron_.h
+lib/libxml/threads.c
+lib/libxml/threads_.h
+lib/libxml/tree.c
+lib/libxml/tree_.h
+lib/libxml/uri.c
+lib/libxml/uri_.h
+lib/libxml/valid.c
+lib/libxml/valid_.h
+lib/libxml/xinclude.c
+lib/libxml/xinclude_.h
+lib/libxml/xlink.c
+lib/libxml/xlink_.h
+lib/libxml/xmlIO.c
+lib/libxml/xmlIO_.h
+lib/libxml/xmlautomata_.h
+lib/libxml/xmlerror_.h
+lib/libxml/xmlexports_.h
+lib/libxml/xmlmemory.c
+lib/libxml/xmlmemory_.h
+lib/libxml/xmlmodule.c
+lib/libxml/xmlmodule_.h
+lib/libxml/xmlreader.c
+lib/libxml/xmlreader_.h
+lib/libxml/xmlregexp.c
+lib/libxml/xmlregexp_.h
+lib/libxml/xmlsave.c
+lib/libxml/xmlsave_.h
+lib/libxml/xmlschemas.c
+lib/libxml/xmlschemas_.h
+lib/libxml/xmlschemastypes.c
+lib/libxml/xmlschemastypes_.h
+lib/libxml/xmlstring.c
+lib/libxml/xmlstring_.h
+lib/libxml/xmlunicode.c
+lib/libxml/xmlunicode_.h
+lib/libxml/xmlversion_.h
+lib/libxml/xmlwriter.c
+lib/libxml/xmlwriter_.h
+lib/libxml/xpath.c
+lib/libxml/xpath_.h
+lib/libxml/xpathInternals_.h
+lib/libxml/xpointer.c
+lib/libxml/xpointer_.h
+m4/libxml.m4
+m4/absolute-header.m4
+
+Depends-on:
+iconv
+
+configure.ac:
+gl_LIBXML
+
+Makefile.am:
+BUILT_SOURCES += $(LIBXML_H)
+
+libxml/DOCBparser.h: libxml/DOCBparser_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/DOCBparser_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/HTMLparser.h: libxml/HTMLparser_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/HTMLparser_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/HTMLtree.h: libxml/HTMLtree_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/HTMLtree_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/SAX.h: libxml/SAX_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/SAX_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/SAX2.h: libxml/SAX2_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/SAX2_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/c14n.h: libxml/c14n_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/c14n_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/catalog.h: libxml/catalog_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/catalog_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/chvalid.h: libxml/chvalid_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/chvalid_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/debugXML.h: libxml/debugXML_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/debugXML_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/dict.h: libxml/dict_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/dict_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/encoding.h: libxml/encoding_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/encoding_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/entities.h: libxml/entities_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/entities_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/globals.h: libxml/globals_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/globals_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/hash.h: libxml/hash_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/hash_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/list.h: libxml/list_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/list_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/nanoftp.h: libxml/nanoftp_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/nanoftp_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/nanohttp.h: libxml/nanohttp_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/nanohttp_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/parser.h: libxml/parser_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/parser_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/parserInternals.h: libxml/parserInternals_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/parserInternals_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/pattern.h: libxml/pattern_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/pattern_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/relaxng.h: libxml/relaxng_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/relaxng_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/schemasInternals.h: libxml/schemasInternals_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/schemasInternals_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/schematron.h: libxml/schematron_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/schematron_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/threads.h: libxml/threads_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/threads_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/tree.h: libxml/tree_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/tree_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/uri.h: libxml/uri_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/uri_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/valid.h: libxml/valid_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/valid_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xinclude.h: libxml/xinclude_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xinclude_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xlink.h: libxml/xlink_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xlink_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlIO.h: libxml/xmlIO_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlIO_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlautomata.h: libxml/xmlautomata_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlautomata_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlerror.h: libxml/xmlerror_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlerror_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlexports.h: libxml/xmlexports_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlexports_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlmemory.h: libxml/xmlmemory_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlmemory_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlmodule.h: libxml/xmlmodule_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlmodule_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlreader.h: libxml/xmlreader_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlreader_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlregexp.h: libxml/xmlregexp_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlregexp_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlsave.h: libxml/xmlsave_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlsave_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlschemas.h: libxml/xmlschemas_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlschemas_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlschemastypes.h: libxml/xmlschemastypes_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlschemastypes_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlstring.h: libxml/xmlstring_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlstring_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlunicode.h: libxml/xmlunicode_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlunicode_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlversion.h: libxml/xmlversion_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlversion_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xmlwriter.h: libxml/xmlwriter_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xmlwriter_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xpath.h: libxml/xpath_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xpath_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xpathInternals.h: libxml/xpathInternals_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xpathInternals_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+libxml/xpointer.h: libxml/xpointer_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/libxml/xpointer_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+MOSTLYCLEANFILES += \
+  libxml/DOCBparser.h \
+  libxml/HTMLparser.h \
+  libxml/HTMLtree.h \
+  libxml/SAX.h \
+  libxml/SAX2.h \
+  libxml/c14n.h \
+  libxml/catalog.h \
+  libxml/chvalid.h \
+  libxml/debugXML.h \
+  libxml/dict.h \
+  libxml/encoding.h \
+  libxml/entities.h \
+  libxml/globals.h \
+  libxml/hash.h \
+  libxml/list.h \
+  libxml/nanoftp.h \
+  libxml/nanohttp.h \
+  libxml/parser.h \
+  libxml/parserInternals.h \
+  libxml/pattern.h \
+  libxml/relaxng.h \
+  libxml/schemasInternals.h \
+  libxml/schematron.h \
+  libxml/threads.h \
+  libxml/tree.h \
+  libxml/uri.h \
+  libxml/valid.h \
+  libxml/xinclude.h \
+  libxml/xlink.h \
+  libxml/xmlIO.h \
+  libxml/xmlautomata.h \
+  libxml/xmlerror.h \
+  libxml/xmlexports.h \
+  libxml/xmlmemory.h \
+  libxml/xmlmodule.h \
+  libxml/xmlreader.h \
+  libxml/xmlregexp.h \
+  libxml/xmlsave.h \
+  libxml/xmlschemas.h \
+  libxml/xmlschemastypes.h \
+  libxml/xmlstring.h \
+  libxml/xmlunicode.h \
+  libxml/xmlversion.h \
+  libxml/xmlwriter.h \
+  libxml/xpath.h \
+  libxml/xpathInternals.h \
+  libxml/xpointer.h
+MOSTLYCLEANFILES += libxml/*.h-t libxml/*.$(OBJEXT) libxml/*.lo
+
+clean: clean-libxml
+clean-libxml:
+	rm -rf libxml/.libs libxml/_libs
+
+Include:
+#include <libxml/DOCBparser.h>
+#include <libxml/HTMLparser.h>
+#include <libxml/HTMLtree.h>
+#include <libxml/SAX.h>
+#include <libxml/SAX2.h>
+#include <libxml/c14n.h>
+#include <libxml/catalog.h>
+#include <libxml/chvalid.h>
+#include <libxml/debugXML.h>
+#include <libxml/dict.h>
+#include <libxml/encoding.h>
+#include <libxml/entities.h>
+#include <libxml/globals.h>
+#include <libxml/hash.h>
+#include <libxml/list.h>
+#include <libxml/nanoftp.h>
+#include <libxml/nanohttp.h>
+#include <libxml/parser.h>
+#include <libxml/parserInternals.h>
+#include <libxml/pattern.h>
+#include <libxml/relaxng.h>
+#include <libxml/schemasInternals.h>
+#include <libxml/schematron.h>
+#include <libxml/threads.h>
+#include <libxml/tree.h>
+#include <libxml/uri.h>
+#include <libxml/valid.h>
+#include <libxml/xinclude.h>
+#include <libxml/xlink.h>
+#include <libxml/xmlIO.h>
+#include <libxml/xmlautomata.h>
+#include <libxml/xmlerror.h>
+#include <libxml/xmlexports.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/xmlmodule.h>
+#include <libxml/xmlreader.h>
+#include <libxml/xmlregexp.h>
+#include <libxml/xmlsave.h>
+#include <libxml/xmlschemas.h>
+#include <libxml/xmlschemastypes.h>
+#include <libxml/xmlstring.h>
+#include <libxml/xmlunicode.h>
+#include <libxml/xmlversion.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
+#include <libxml/xpointer.h>
+
+License:
+LGPL
+
+Maintainer:
+libxml2
+

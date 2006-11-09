@@ -1,5 +1,106 @@
 2006-11-05  Bruno Haible  <bruno@clisp.org>
 
+	Include libxml2 as a fallback.
+	* modules/libxml: New file.
+	* m4/libxml.m4: New file.
+	* lib/libxml/elfgcchack.h: New empty file.
+	* lib/libxml/xmlversion_.h: New file, from libxml2-2.6.27 with
+	modifications.
+	* lib/libxml/libxml.h: New file, from libxml2-2.6.27.
+	* lib/libxml/COPYING: New file, from libxml2-2.6.27.
+	* lib/libxml/DOCBparser.c: New file, from libxml2-2.6.27.
+	* lib/libxml/DOCBparser_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/HTMLparser.c: New file, from libxml2-2.6.27.
+	* lib/libxml/HTMLparser_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/HTMLtree.c: New file, from libxml2-2.6.27.
+	* lib/libxml/HTMLtree_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/SAX.c: New file, from libxml2-2.6.27.
+	* lib/libxml/SAX2.c: New file, from libxml2-2.6.27.
+	* lib/libxml/SAX2_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/SAX_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/c14n.c: New file, from libxml2-2.6.27.
+	* lib/libxml/c14n_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/catalog.c: New file, from libxml2-2.6.27.
+	* lib/libxml/catalog_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/chvalid.c: New file, from libxml2-2.6.27.
+	* lib/libxml/chvalid_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/debugXML.c: New file, from libxml2-2.6.27.
+	* lib/libxml/debugXML_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/dict.c: New file, from libxml2-2.6.27.
+	* lib/libxml/dict_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/encoding.c: New file, from libxml2-2.6.27.
+	* lib/libxml/encoding_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/entities.c: New file, from libxml2-2.6.27.
+	* lib/libxml/entities_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/error.c: New file, from libxml2-2.6.27.
+	* lib/libxml/globals.c: New file, from libxml2-2.6.27.
+	* lib/libxml/globals_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/hash.c: New file, from libxml2-2.6.27.
+	* lib/libxml/hash_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/legacy.c: New file, from libxml2-2.6.27.
+	* lib/libxml/list.c: New file, from libxml2-2.6.27.
+	* lib/libxml/list_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/nanoftp.c: New file, from libxml2-2.6.27.
+	* lib/libxml/nanoftp_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/nanohttp.c: New file, from libxml2-2.6.27.
+	* lib/libxml/nanohttp_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/parser.c: New file, from libxml2-2.6.27.
+	* lib/libxml/parserInternals.c: New file, from libxml2-2.6.27.
+	* lib/libxml/parserInternals_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/parser_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/pattern.c: New file, from libxml2-2.6.27.
+	* lib/libxml/pattern_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/relaxng.c: New file, from libxml2-2.6.27.
+	* lib/libxml/relaxng_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/schemasInternals_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/schematron.c: New file, from libxml2-2.6.27.
+	* lib/libxml/schematron_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/threads.c: New file, from libxml2-2.6.27.
+	* lib/libxml/threads_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/tree.c: New file, from libxml2-2.6.27.
+	* lib/libxml/tree_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/uri.c: New file, from libxml2-2.6.27.
+	* lib/libxml/uri_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/valid.c: New file, from libxml2-2.6.27.
+	* lib/libxml/valid_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xinclude.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xinclude_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xlink.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xlink_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlIO.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlIO_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlautomata_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlerror_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlexports_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlmemory.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlmemory_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlmodule.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlmodule_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlreader.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlreader_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlregexp.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlregexp_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlsave.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlsave_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlschemas.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlschemas_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlschemastypes.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlschemastypes_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlstring.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlstring_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlunicode.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlunicode_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlwriter.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xmlwriter_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xpath.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xpathInternals_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xpath_.h: New file, from libxml2-2.6.27.
+	* lib/libxml/xpointer.c: New file, from libxml2-2.6.27.
+	* lib/libxml/xpointer_.h: New file, from libxml2-2.6.27.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
+2006-11-05  Bruno Haible  <bruno@clisp.org>
+
 	* modules/term-ostream: New file.
 	* m4/term-ostream.m4: New file.
 	* lib/term-ostream.oo.h: New file.
