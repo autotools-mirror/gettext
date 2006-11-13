@@ -439,6 +439,10 @@ MOSTLYCLEANFILES += \
   libxml/xpointer.h
 MOSTLYCLEANFILES += libxml/*.h-t
 
+if GL_COND_LIBTOOL
+lib_LDFLAGS += $(LTLIBXML)
+endif
+
 Include:
 #include <libxml/DOCBparser.h>
 #include <libxml/HTMLparser.h>
