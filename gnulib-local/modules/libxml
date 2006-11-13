@@ -437,11 +437,7 @@ MOSTLYCLEANFILES += \
   libxml/xpath.h \
   libxml/xpathInternals.h \
   libxml/xpointer.h
-MOSTLYCLEANFILES += libxml/*.h-t libxml/*.$(OBJEXT) libxml/*.lo
-
-clean: clean-libxml
-clean-libxml:
-	rm -rf libxml/.libs libxml/_libs
+MOSTLYCLEANFILES += libxml/*.h-t
 
 Include:
 #include <libxml/DOCBparser.h>
