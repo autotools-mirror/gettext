@@ -1,3 +1,8 @@
+2006-11-12  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Pass --local-symlink option to all gnulib-tool
+	invocations.
+
 2006-11-08  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/install-reloc: Use canonicalize-lgpl.c instead of

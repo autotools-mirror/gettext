@@ -75,7 +75,7 @@ if test -n "$GNULIB_TOOL"; then
   java
   javacomp-script
   '
-  $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local \
+  $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
   # In gettext-tools:
   GNULIB_MODULES_TOOLS_FOR_SRC='
@@ -164,7 +164,7 @@ if test -n "$GNULIB_TOOL"; then
   gcj
   java
   '
-  $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --libtool --local-dir=gnulib-local \
+  $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
   # In gettext-tools/libgettextpo:
   # This is a subset of the GNULIB_MODULES_FOR_SRC.
@@ -202,7 +202,7 @@ if test -n "$GNULIB_TOOL"; then
   GNULIB_MODULES_LIBGETTEXTPO_OTHER='
   gettext-tools-libgettextpo-misc
   '
-  $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local \
+  $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER
 fi
 
