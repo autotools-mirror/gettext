@@ -1,5 +1,9 @@
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac (am__tar): Override automake's definition.
+
+2006-11-12  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: Pass --local-symlink option to all gnulib-tool
 	invocations.
 

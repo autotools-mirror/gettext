@@ -24,6 +24,9 @@ AC_CONFIG_AUX_DIR(build-aux)
 . $srcdir/version.sh
 AM_INIT_AUTOMAKE(gettext, $VERSION_NUMBER)
 
+dnl Override automake's tar command used for creating distributions.
+am__tar='${AMTAR} chof - --owner=root --group=root "$$tardir"'
+
 dnl Checks for programs.
 
 dnl Checks for libraries.
