@@ -62,40 +62,40 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test15.ok"
 cat <<\EOF > mcat-test15.ok
-msgid	""
-msgstr	"Report-Msgid-Bugs-To: \n"
-	"Content-Type: text/plain; charset=UTF-8\n"
-	"Content-Transfer-Encoding: 8bit\n"
+msgid   ""
+msgstr  "Report-Msgid-Bugs-To: \n"
+        "Content-Type: text/plain; charset=UTF-8\n"
+        "Content-Transfer-Encoding: 8bit\n"
 
 #. TRANSLATORS: An error message.
 #: src/args.c:242
 #, fuzzy, c-format
-#| msgid	"too many arguments"
-msgid   	"Too many arguments."
-msgstr   	"zu viele Argumente"
+#| msgid        "too many arguments"
+msgid           "Too many arguments."
+msgstr          "zu viele Argumente"
 
 #. TRANSLATORS: An error message.
 #: src/args.c:247
 #, fuzzy, c-format
-#| msgid	"too many arguments"
-msgid   	"Too few arguments."
-msgstr   	"zu viele Argumente"
+#| msgid        "too many arguments"
+msgid           "Too few arguments."
+msgstr          "zu viele Argumente"
 
 # Oder besser "fehlende Argumente"?
 #. TRANSLATORS: An error message.
 #: src/args.c:273
 #, c-format
-#| msgid	"missing arguments"
-msgid   	"Missing arguments."
-msgstr   	"Argumente fehlen."
+#| msgid        "missing arguments"
+msgid           "Missing arguments."
+msgstr          "Argumente fehlen."
 
 #, fuzzy
-#~| msgid	"%s: invalid option -- %c\n"
-#~ msgid 	"%s: illegal option -- %c\n"
-#~ msgstr 	"%s: ungültige Option -- %c\n"
+#~| msgid       "%s: invalid option -- %c\n"
+#~ msgid        "%s: illegal option -- %c\n"
+#~ msgstr       "%s: ungültige Option -- %c\n"
 
-#~ msgid	"%s: invalid option -- %c\n"
-#~ msgstr	"%s: ungültige Option -- %c\n"
+#~ msgid        "%s: invalid option -- %c\n"
+#~ msgstr       "%s: ungültige Option -- %c\n"
 EOF
 
 : ${DIFF=diff}

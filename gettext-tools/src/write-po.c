@@ -725,30 +725,45 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       /* Print the beginning of the line.  This will depend on whether
 	 this is the first line, and if the indented style is being
 	 used.  INDENT-F.  */
-      if (line_prefix != NULL)
-	fputs (line_prefix, fp);
-      if (first_line)
-	{
-	  fputs (name, fp);
-	  if (indent)
-	    {
-	      if (extra_indent > 0)
-		fwrite ("        ", 1, extra_indent, fp);
-	      putc ('\t', fp);
-	    }
-	  else
-	    putc (' ', fp);
-	  first_line = false;
-	}
-      else
-	{
-	  if (indent)
-	    {
-	      if (extra_indent > 0)
-		fwrite ("        ", 1, extra_indent, fp);
-	      putc ('\t', fp);
-	    }
-	}
+      {
+	int currcol = 0;
+
+	if (line_prefix != NULL)
+	  {
+	    fputs (line_prefix, fp);
+	    currcol = strlen (line_prefix);
+	  }
+	if (first_line)
+	  {
+	    fputs (name, fp);
+	    currcol += strlen (name);
+	    if (indent)
+	      {
+		if (extra_indent > 0)
+		  fwrite ("        ", 1, extra_indent, fp);
+		currcol += extra_indent;
+		fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		currcol = (currcol + 8) & ~7;
+	      }
+	    else
+	      {
+		putc (' ', fp);
+		currcol++;
+	      }
+	    first_line = false;
+	  }
+	else
+	  {
+	    if (indent)
+	      {
+		if (extra_indent > 0)
+		  fwrite ("        ", 1, extra_indent, fp);
+		currcol += extra_indent;
+		fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		currcol = (currcol + 8) & ~7;
+	      }
+	  }
+      }
 
       /* Print the portion itself, with linebreaks where necessary.  */
       putc ('"', fp);
@@ -756,12 +771,21 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	{
 	  if (linebreaks[i] == UC_BREAK_POSSIBLE)
 	    {
+	      int currcol;
+
 	      fputs ("\"\n", fp);
+	      currcol = 0;
 	      /* INDENT-S.  */
 	      if (line_prefix != NULL)
-		fputs (line_prefix, fp);
+		{
+		  fputs (line_prefix, fp);
+		  currcol = strlen (line_prefix);
+		}
 	      if (indent)
-		putc ('\t', fp);
+		{
+		  fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		  currcol = (currcol + 8) & ~7;
+		}
 	      putc ('"', fp);
 	    }
 	  putc (portion[i], fp);
