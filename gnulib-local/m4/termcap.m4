@@ -78,4 +78,7 @@ AC_DEFUN([gl_TERMCAP_BODY],
     libtermcap)
       ;;
   esac
+  AC_SUBST([LIBTERMCAP])
+  AC_SUBST([LTLIBTERMCAP])
+  AC_SUBST([INCTERMCAP])
 ])
