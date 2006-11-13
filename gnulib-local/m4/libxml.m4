@@ -73,7 +73,7 @@ AC_DEFUN([gl_LIBXML],
       LIBS="$gl_save_LIBS"
     ])
     AC_MSG_CHECKING([for libxml])
-    AC_MSG_RESULT([gl_cv_libxml])
+    AC_MSG_RESULT([$gl_cv_libxml])
     if test $gl_cv_libxml = yes; then
       LIBXML="$gl_cv_LIBXML"
       LTLIBXML="$gl_cv_LTLIBXML"
