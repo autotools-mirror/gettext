@@ -1,3 +1,7 @@
+2006-11-12  Bruno Haible  <bruno@clisp.org>
+
+	* modules/xalloc (Depends-on): Add error, gettext-h, exit.
+
 2006-11-09  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* lib/gettext.h (dgettext, dcgettext, ngettext) [! ENABLE_NLS]:

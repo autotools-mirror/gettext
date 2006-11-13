@@ -7,6 +7,9 @@ lib/xmalloc.c
 lib/xstrdup.c
 
 Depends-on:
+error
+gettext-h
+exit
 
 configure.ac:
 
