@@ -50,6 +50,20 @@ lib/fstrcmp.h \
 lib/gen-lbrkprop.c \
 lib/getopt_.h.diff \
 lib/gettext.h \
+lib/glib_.h \
+lib/glibconfig_.h \
+lib/glib/ghash.c \
+lib/glib/ghash_.h \
+lib/glib/glist.c \
+lib/glib/glist_.h \
+lib/glib/gmessages.c \
+lib/glib/gprimes.c \
+lib/glib/gprimes_.h \
+lib/glib/gstrfuncs.c \
+lib/glib/gstrfuncs_.h \
+lib/glib/gstring.c \
+lib/glib/gstring_.h \
+lib/glib/gtypes_.h \
 lib/hash.c \
 lib/hash.h \
 lib/html-ostream.oo.c \
@@ -183,6 +197,7 @@ m4/ChangeLog.1 \
 m4/exitfail.m4.diff \
 m4/gcj.m4 \
 m4/hard-locale.m4.diff \
+m4/libglib.m4 \
 m4/libxml.m4 \
 m4/java.m4 \
 m4/quotearg.m4.diff \
@@ -212,6 +227,7 @@ modules/html-ostream \
 modules/iconv-ostream \
 modules/java \
 modules/javacomp.diff \
+modules/libglib \
 modules/libxml \
 modules/memory-ostream \
 modules/moo \

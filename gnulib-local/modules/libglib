@@ -1,0 +1,103 @@
+Description:
+Substitute for a part of glib version 2.12.4.
+
+Files:
+lib/glib_.h
+lib/glibconfig_.h
+lib/glib/ghash.c
+lib/glib/ghash_.h
+lib/glib/glist.c
+lib/glib/glist_.h
+lib/glib/gmessages.c
+lib/glib/gprimes.c
+lib/glib/gprimes_.h
+lib/glib/gstrfuncs.c
+lib/glib/gstrfuncs_.h
+lib/glib/gstring.c
+lib/glib/gstring_.h
+lib/glib/gtypes_.h
+m4/libglib.m4
+
+Depends-on:
+vasprintf
+xalloc
+xvasprintf
+
+configure.ac:
+gl_LIBGLIB
+
+Makefile.am:
+BUILT_SOURCES += $(LIBGLIB_H)
+
+glib.h: glib_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glibconfig.h: glibconfig_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glibconfig_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/ghash.h: glib/ghash_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/ghash_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/glist.h: glib/glist_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/glist_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/gprimes.h: glib/gprimes_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gprimes_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/gstrfuncs.h: glib/gstrfuncs_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gstrfuncs_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/gstring.h: glib/gstring_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gstring_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/gtypes.h: glib/gtypes_.h
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gtypes_.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+MOSTLYCLEANFILES += \
+  glib.h \
+  glibconfig.h \
+  glib/ghash.h \
+  glib/glist.h \
+  glib/gprimes.h \
+  glib/gstrfuncs.h \
+  glib/gstring.h \
+  glib/gtypes.h
+MOSTLYCLEANFILES += glib/*.h-t
+
+if GL_COND_LIBTOOL
+lib_LDFLAGS += $(LTLIBGLIB)
+endif
+
+Include:
+#include <glib.h>
+
+License:
+LGPL
+
+Maintainer:
+GNOME, Bruno Haible
+

@@ -1,5 +1,25 @@
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
+	* modules/libglib: New file.
+	* m4/libglib.m4: New file.
+	* lib/glib_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glibconfig_.h: New file, based on glib-2.12.4.
+	* lib/glib/ghash.c: New file, from glib-2.12.4 with modifications.
+	* lib/glib/ghash_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glib/glist.c: New file, from glib-2.12.4 with modifications.
+	* lib/glib/glist_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gmessages.c: New file.
+	* lib/glib/gprimes.c: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gprimes_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gstrfuncs.c: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gstrfuncs_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gstring.c: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gstring_.h: New file, from glib-2.12.4 with modifications.
+	* lib/glib/gtypes_.h: New file, from glib-2.12.4 with modifications.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
+2006-11-12  Bruno Haible  <bruno@clisp.org>
+
 	* modules/xalloc (Depends-on): Add error, gettext-h, exit.
 
 2006-11-09  Paul Eggert  <eggert@cs.ucla.edu>
