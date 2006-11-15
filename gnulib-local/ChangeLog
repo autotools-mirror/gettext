@@ -1,5 +1,65 @@
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
+	* modules/libcroco: New file.
+	* m4/libcroco.m4: New file.
+	* lib/libcroco/cr-additional-sel.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-additional-sel.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-attr-sel.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-attr-sel.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-cascade.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-cascade.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-declaration.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-declaration.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-doc-handler.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-doc-handler.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-enc-handler.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-enc-handler.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-fonts.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-fonts.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-input.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-input.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-num.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-num.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-om-parser.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-om-parser.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-parser.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-parser.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-parsing-location.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-parsing-location.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-prop-list.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-prop-list.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-pseudo.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-pseudo.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-rgb.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-rgb.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-sel-eng.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-sel-eng.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-selector.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-selector.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-simple-sel.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-simple-sel.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-statement.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-statement.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-string.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-string.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-style.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-style.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-stylesheet.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-stylesheet.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-term.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-term.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-tknzr.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-tknzr.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-token.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-token.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-utils.c: New file, from libcroco-0.6.1.
+	* lib/libcroco/cr-utils.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/libcroco-config.h: New file, from libcroco-0.6.1.
+	* lib/libcroco/libcroco.h: New file, from libcroco-0.6.1.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
+2006-11-12  Bruno Haible  <bruno@clisp.org>
+
 	* modules/libglib: New file.
 	* m4/libglib.m4: New file.
 	* lib/glib_.h: New file, from glib-2.12.4 with modifications.
