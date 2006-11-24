@@ -24,7 +24,6 @@
 #include "write-stringtable.h"
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -33,6 +32,8 @@
 #include "msgl-iconv.h"
 #include "po-charset.h"
 #include "c-strstr.h"
+#include "ostream.h"
+#include "xvasprintf.h"
 #include "write-po.h"
 
 /* The format of NeXTstep/GNUstep .strings files is documented in
@@ -55,51 +56,46 @@
    UTF-16 instead of UCS-2, we use UTF-8 with BOM.  BOMs are bad because they
    get in the way when concatenating files, but here we have no choice.  */
 
-/* Writes a key or value to the file, without newline.  */
+/* Writes a key or value to the stream, without newline.  */
 static void
-write_escaped_string (FILE *fp, const char *str)
+write_escaped_string (ostream_t stream, const char *str)
 {
   const char *str_limit = str + strlen (str);
 
-  putc ('"', fp);
+  ostream_write_str (stream, "\"");
   while (str < str_limit)
     {
       unsigned char c = (unsigned char) *str++;
 
       if (c == '\t')
-	{
-	  putc ('\\', fp);
-	  putc ('t', fp);
-	}
+	ostream_write_str (stream, "\\t");
       else if (c == '\n')
-	{
-	  putc ('\\', fp);
-	  putc ('n', fp);
-	}
+	ostream_write_str (stream, "\\n");
       else if (c == '\r')
-	{
-	  putc ('\\', fp);
-	  putc ('r', fp);
-	}
+	ostream_write_str (stream, "\\r");
       else if (c == '\f')
-	{
-	  putc ('\\', fp);
-	  putc ('f', fp);
-	}
+	ostream_write_str (stream, "\\f");
       else if (c == '\\' || c == '"')
 	{
-	  putc ('\\', fp);
-	  putc (c, fp);
+	  char seq[2];
+	  seq[0] = '\\';
+	  seq[1] = c;
+	  ostream_write_mem (stream, seq, 2);
 	}
       else
-	putc (c, fp);
+	{
+	  char seq[1];
+	  seq[0] = c;
+	  ostream_write_mem (stream, seq, 1);
+	}
     }
-  putc ('"', fp);
+  ostream_write_str (stream, "\"");
 }
 
-/* Writes a message to the file.  */
+/* Writes a message to the stream.  */
 static void
-write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
+write_message (ostream_t stream, const message_ty *mp,
+	       size_t page_width, bool debug)
 {
   /* Print translator comment if available.  */
   if (mp->comment != NULL)
@@ -114,31 +110,31 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 	     whether we need C++ style for it.  */
 	  if (c_strstr (s, "*/") == NULL)
 	    {
-	      fputs ("/*", fp);
+	      ostream_write_str (stream, "/*");
 	      if (*s != '\0' && *s != '\n' && *s != ' ')
-		putc (' ', fp);
-	      fputs (s, fp);
-	      fputs (" */\n", fp);
+		ostream_write_str (stream, " ");
+	      ostream_write_str (stream, s);
+	      ostream_write_str (stream, " */\n");
 	    }
 	  else
 	    do
 	      {
 		const char *e;
-		fputs ("//", fp);
+		ostream_write_str (stream, "//");
 		if (*s != '\0' && *s != '\n' && *s != ' ')
-		  putc (' ', fp);
+		  ostream_write_str (stream, " ");
 		e = strchr (s, '\n');
 		if (e == NULL)
 		  {
-		    fputs (s, fp);
+		    ostream_write_str (stream, s);
 		    s = NULL;
 		  }
 		else
 		  {
-		    fwrite (s, 1, e - s, fp);
+		    ostream_write_mem (stream, s, e - s);
 		    s = e + 1;
 		  }
-		putc ('\n', fp);
+		ostream_write_str (stream, "\n");
 	      }
 	    while (s != NULL);
 	}
@@ -157,9 +153,9 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 	     whether we need C++ style for it.  */
 	  if (c_strstr (s, "*/") == NULL)
 	    {
-	      fputs ("/* Comment: ", fp);
-	      fputs (s, fp);
-	      fputs (" */\n", fp);
+	      ostream_write_str (stream, "/* Comment: ");
+	      ostream_write_str (stream, s);
+	      ostream_write_str (stream, " */\n");
 	    }
 	  else
 	    {
@@ -167,23 +163,23 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 	      do
 		{
 		  const char *e;
-		  fputs ("//", fp);
+		  ostream_write_str (stream, "//");
 		  if (first || (*s != '\0' && *s != '\n' && *s != ' '))
-		    putc (' ', fp);
+		    ostream_write_str (stream, " ");
 		  if (first)
-		    fputs ("Comment: ", fp);
+		    ostream_write_str (stream, "Comment: ");
 		  e = strchr (s, '\n');
 		  if (e == NULL)
 		    {
-		      fputs (s, fp);
+		      ostream_write_str (stream, s);
 		      s = NULL;
 		    }
 		  else
 		    {
-		      fwrite (s, 1, e - s, fp);
+		      ostream_write_mem (stream, s, e - s);
 		      s = e + 1;
 		    }
-		  putc ('\n', fp);
+		  ostream_write_str (stream, "\n");
 		  first = false;
 		}
 	      while (s != NULL);
@@ -200,73 +196,78 @@ write_message (FILE *fp, const message_ty *mp, size_t page_width, bool debug)
 	{
 	  lex_pos_ty *pp = &mp->filepos[j];
 	  char *cp = pp->file_name;
+	  char *str;
+
 	  while (cp[0] == '.' && cp[1] == '/')
 	    cp += 2;
-	  fprintf (fp, "/* File: %s:%ld */\n", cp, (long) pp->line_number);
+	  str = xasprintf ("/* File: %s:%ld */\n", cp, (long) pp->line_number);
+	  ostream_write_str (stream, str);
+	  free (str);
 	}
     }
 
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy || mp->msgstr[0] == '\0')
-    fputs ("/* Flag: untranslated */\n", fp);
+    ostream_write_str (stream, "/* Flag: untranslated */\n");
   if (mp->obsolete)
-    fputs ("/* Flag: unmatched */\n", fp);
+    ostream_write_str (stream, "/* Flag: unmatched */\n");
   {
     size_t i;
     for (i = 0; i < NFORMATS; i++)
       if (significant_format_p (mp->is_format[i]))
 	{
-	  fputs ("/* Flag:", fp);
-	  fputs (make_format_description_string (mp->is_format[i],
-						 format_language[i], debug),
-		 fp);
-	  fputs (" */\n", fp);
+	  ostream_write_str (stream, "/* Flag:");
+	  ostream_write_str (stream,
+			     make_format_description_string (mp->is_format[i],
+							     format_language[i],
+							     debug));
+	  ostream_write_str (stream, " */\n");
 	}
   }
 
   /* Now write the untranslated string and the translated string.  */
-  write_escaped_string (fp, mp->msgid);
-  fputs (" = ", fp);
+  write_escaped_string (stream, mp->msgid);
+  ostream_write_str (stream, " = ");
   if (mp->msgstr[0] != '\0')
     {
       if (mp->is_fuzzy)
 	{
 	  /* Output the msgid as value, so that at runtime the untranslated
 	     string is returned.  */
-	  write_escaped_string (fp, mp->msgid);
+	  write_escaped_string (stream, mp->msgid);
 
 	  /* Output the msgstr as a comment, so that at runtime
 	     propertyListFromStringsFileFormat ignores it.  */
 	  if (c_strstr (mp->msgstr, "*/") == NULL)
 	    {
-	      fputs (" /* = ", fp);
-	      write_escaped_string (fp, mp->msgstr);
-	      fputs (" */", fp);
+	      ostream_write_str (stream, " /* = ");
+	      write_escaped_string (stream, mp->msgstr);
+	      ostream_write_str (stream, " */");
 	    }
 	  else
 	    {
-	      fputs ("; // = ", fp);
-	      write_escaped_string (fp, mp->msgstr);
+	      ostream_write_str (stream, "; // = ");
+	      write_escaped_string (stream, mp->msgstr);
 	    }
 	}
       else
-	write_escaped_string (fp, mp->msgstr);
+	write_escaped_string (stream, mp->msgstr);
     }
   else
     {
       /* Output the msgid as value, so that at runtime the untranslated
 	 string is returned.  */
-      write_escaped_string (fp, mp->msgid);
+      write_escaped_string (stream, mp->msgid);
     }
-  putc (';', fp);
+  ostream_write_str (stream, ";");
 
-  putc ('\n', fp);
+  ostream_write_str (stream, "\n");
 }
 
-/* Writes an entire message list to the file.  */
+/* Writes an entire message list to the stream.  */
 static void
-write_stringtable (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
-		   size_t page_width, bool debug)
+write_stringtable (ostream_t stream, message_list_ty *mlp,
+		   const char *canon_encoding, size_t page_width, bool debug)
 {
   bool blank_line;
   size_t j;
@@ -276,7 +277,7 @@ write_stringtable (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
 
   /* Output the BOM.  */
   if (!is_ascii_message_list (mlp))
-    fputs ("\xef\xbb\xbf", fp);
+    ostream_write_str (stream, "\xef\xbb\xbf");
 
   /* Loop through the messages.  */
   blank_line = false;
@@ -287,9 +288,9 @@ write_stringtable (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
       if (mp->msgid_plural == NULL)
 	{
 	  if (blank_line)
-	    putc ('\n', fp);
+	    ostream_write_str (stream, "\n");
 
-	  write_message (fp, mp, page_width, debug);
+	  write_message (stream, mp, page_width, debug);
 
 	  blank_line = true;
 	}
@@ -298,7 +299,7 @@ write_stringtable (FILE *fp, message_list_ty *mlp, const char *canon_encoding,
 
 /* Output the contents of a PO file in .strings syntax.  */
 static void
-msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, FILE *fp,
+msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, ostream_t stream,
 				  size_t page_width, bool debug)
 {
   message_list_ty *mlp;
@@ -307,7 +308,7 @@ msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, FILE *fp,
     mlp = mdlp->item[0]->messages;
   else
     mlp = message_list_alloc (false);
-  write_stringtable (fp, mlp, mdlp->encoding, page_width, debug);
+  write_stringtable (stream, mlp, mdlp->encoding, page_width, debug);
 }
 
 /* Describes a PO file in .strings syntax.  */

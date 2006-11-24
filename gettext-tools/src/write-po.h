@@ -20,10 +20,10 @@
 #ifndef _WRITE_PO_H
 #define _WRITE_PO_H
 
+#include "ostream.h"
 #include "message.h"
 
 #include <stdbool.h>
-#include <stdio.h>
 
 
 #ifdef __cplusplus
@@ -41,14 +41,14 @@ extern bool
 
 /* These functions output parts of a message, as comments.  */
 extern void
-       message_print_comment (const message_ty *mp, FILE *fp);
+       message_print_comment (const message_ty *mp, ostream_t stream);
 extern void
-       message_print_comment_dot (const message_ty *mp, FILE *fp);
+       message_print_comment_dot (const message_ty *mp, ostream_t stream);
 extern void
-       message_print_comment_filepos (const message_ty *mp, FILE *fp,
+       message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 				      bool uniforum, size_t page_width);
 extern void
-       message_print_comment_flags (const message_ty *mp, FILE *fp,
+       message_print_comment_flags (const message_ty *mp, ostream_t stream,
 				    bool debug);
 
 /* These functions set some parameters for use by 'output_format_po.print'.  */

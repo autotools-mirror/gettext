@@ -1,3 +1,29 @@
+2006-11-23  Bruno Haible  <bruno@clisp.org>
+
+	* write-catalog.h: Include ostream.h. Don't include <stdio.h>.
+	(struct catalog_output_format): Use ostream_t instead of 'FILE *'.
+	* write-catalog.c: Include ostream.h, file-ostream.h.
+	(msgdomain_list_print): Open a temporary file_ostream_t.
+	* write-po.h: Include ostream.h. Don't include <stdio.h>.
+	(message_print_comment, message_print_comment_dot,
+	message_print_comment_filepos, message_print_comment_flags): Replace
+	'FILE *' argument with an 'ostream_t' argument.
+	* write-po.c: Include ostream.h.
+	(message_print_comment, message_print_comment_dot,
+	message_print_comment_filepos, message_print_comment_flags, wrap,
+	print_blank_line, message_print, message_print_obsolete,
+	msgdomain_list_print_po): Replace 'FILE *' argument with an 'ostream_t'
+	argument.
+	* write-properties.c: Include ostream.h.
+	(write_escaped_string, write_message, write_properties,
+	msgdomain_list_print_properties): Replace 'FILE *' argument with an
+	'ostream_t' argument.
+	* write-stringtable.c: Include ostream.h, xvasprintf.h. Don't include
+	<stdio.h>.
+	(write_escaped_string, write_message, write_stringtable,
+	msgdomain_list_print_stringtable): Replace 'FILE *' argument with an
+	'ostream_t' argument.
+
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Indent by use of spaces, not tabs.

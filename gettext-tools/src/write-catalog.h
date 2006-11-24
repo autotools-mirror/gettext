@@ -19,8 +19,8 @@
 #define _WRITE_CATALOG_H
 
 #include <stdbool.h>
-#include <stdio.h>
 
+#include "ostream.h"
 #include "message.h"
 
 
@@ -32,8 +32,8 @@ extern "C" {
 /* This structure describes a textual catalog output format.  */
 struct catalog_output_format
 {
-  /* Outputs a list of domains of messages to a file.  */
-  void (*print) (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width, bool debug);
+  /* Outputs a list of domains of messages to a stream.  */
+  void (*print) (msgdomain_list_ty *mdlp, ostream_t stream, size_t page_width, bool debug);
 
   /* Whether the print function requires the MDLP to be encoded in UTF-8
      encoding.  */

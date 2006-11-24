@@ -99,6 +99,7 @@ if test -n "$GNULIB_TOOL"; then
   error-progname
   execute
   exit
+  file-ostream
   findprog
   fnmatch-posix
   fstrcmp
@@ -119,6 +120,7 @@ if test -n "$GNULIB_TOOL"; then
   memset
   minmax
   obstack
+  ostream
   pathname
   pipe
   progname
@@ -176,6 +178,7 @@ if test -n "$GNULIB_TOOL"; then
   error
   error-progname
   exit
+  file-ostream
   fstrcmp
   fwriteerror
   gcd
@@ -185,6 +188,7 @@ if test -n "$GNULIB_TOOL"; then
   iconv
   linebreak
   minmax
+  ostream
   pathname
   progname
   stdbool

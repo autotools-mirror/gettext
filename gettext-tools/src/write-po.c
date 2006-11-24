@@ -44,6 +44,7 @@
 #include "xalloc.h"
 #include "xallocsa.h"
 #include "c-strstr.h"
+#include "ostream.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -146,7 +147,7 @@ make_c_width_description_string (enum is_wrap do_wrap)
 /* Output mp->comment as a set of comment lines.  */
 
 void
-message_print_comment (const message_ty *mp, FILE *fp)
+message_print_comment (const message_ty *mp, ostream_t stream)
 {
   if (mp->comment != NULL)
     {
@@ -158,21 +159,21 @@ message_print_comment (const message_ty *mp, FILE *fp)
 	  do
 	    {
 	      const char *e;
-	      putc ('#', fp);
+	      ostream_write_str (stream, "#");
 	      if (*s != '\0' && *s != ' ')
-		putc (' ', fp);
+		ostream_write_str (stream, " ");
 	      e = strchr (s, '\n');
 	      if (e == NULL)
 		{
-		  fputs (s, fp);
+		  ostream_write_str (stream, s);
 		  s = NULL;
 		}
 	      else
 		{
-		  fwrite (s, 1, e - s, fp);
+		  ostream_write_mem (stream, s, e - s);
 		  s = e + 1;
 		}
-	      putc ('\n', fp);
+	      ostream_write_str (stream, "\n");
 	    }
 	  while (s != NULL);
 	}
@@ -183,7 +184,7 @@ message_print_comment (const message_ty *mp, FILE *fp)
 /* Output mp->comment_dot as a set of comment lines.  */
 
 void
-message_print_comment_dot (const message_ty *mp, FILE *fp)
+message_print_comment_dot (const message_ty *mp, ostream_t stream)
 {
   if (mp->comment_dot != NULL)
     {
@@ -192,12 +193,11 @@ message_print_comment_dot (const message_ty *mp, FILE *fp)
       for (j = 0; j < mp->comment_dot->nitems; ++j)
 	{
 	  const char *s = mp->comment_dot->item[j];
-	  putc ('#', fp);
-	  putc ('.', fp);
+	  ostream_write_str (stream, "#.");
 	  if (*s != '\0' && *s != ' ')
-	    putc (' ', fp);
-	  fputs (s, fp);
-	  putc ('\n', fp);
+	    ostream_write_str (stream, " ");
+	  ostream_write_str (stream, s);
+	  ostream_write_str (stream, "\n");
 	}
     }
 }
@@ -206,7 +206,7 @@ message_print_comment_dot (const message_ty *mp, FILE *fp)
 /* Output mp->filepos as a set of comment lines.  */
 
 void
-message_print_comment_filepos (const message_ty *mp, FILE *fp,
+message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 			       bool uniforum, size_t page_width)
 {
   if (mp->filepos_count != 0)
@@ -219,12 +219,16 @@ message_print_comment_filepos (const message_ty *mp, FILE *fp,
 	    {
 	      lex_pos_ty *pp = &mp->filepos[j];
 	      char *cp = pp->file_name;
+	      char *str;
+
 	      while (cp[0] == '.' && cp[1] == '/')
 		cp += 2;
 	      /* There are two Sun formats to choose from: SunOS and
 		 Solaris.  Use the Solaris form here.  */
-	      fprintf (fp, "# File: %s, line: %ld\n",
-		       cp, (long) pp->line_number);
+	      str = xasprintf ("# File: %s, line: %ld\n",
+			       cp, (long) pp->line_number);
+	      ostream_write_str (stream, str);
+	      free (str);
 	    }
 	}
       else
@@ -232,7 +236,7 @@ message_print_comment_filepos (const message_ty *mp, FILE *fp,
 	  size_t column;
 	  size_t j;
 
-	  fputs ("#:", fp);
+	  ostream_write_str (stream, "#:");
 	  column = 2;
 	  for (j = 0; j < mp->filepos_count; ++j)
 	    {
@@ -253,13 +257,15 @@ message_print_comment_filepos (const message_ty *mp, FILE *fp,
 	      len = strlen (cp) + strlen (buffer) + 1;
 	      if (column > 2 && column + len >= page_width)
 		{
-		  fputs ("\n#:", fp);
+		  ostream_write_str (stream, "\n#:");
 		  column = 2;
 		}
-	      fprintf (fp, " %s%s", cp, buffer);
+	      ostream_write_str (stream, " ");
+	      ostream_write_str (stream, cp);
+	      ostream_write_str (stream, buffer);
 	      column += len;
 	    }
-	  putc ('\n', fp);
+	  ostream_write_str (stream, "\n");
 	}
     }
 }
@@ -268,7 +274,7 @@ message_print_comment_filepos (const message_ty *mp, FILE *fp,
 /* Output mp->is_fuzzy, mp->is_format, mp->do_wrap as a comment line.  */
 
 void
-message_print_comment_flags (const message_ty *mp, FILE *fp, bool debug)
+message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 {
   if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
       || has_significant_format_p (mp->is_format)
@@ -277,15 +283,14 @@ message_print_comment_flags (const message_ty *mp, FILE *fp, bool debug)
       bool first_flag = true;
       size_t i;
 
-      putc ('#', fp);
-      putc (',', fp);
+      ostream_write_str (stream, "#,");
 
       /* We don't print the fuzzy flag if the msgstr is empty.  This
 	 might be introduced by the user but we want to normalize the
 	 output.  */
       if (mp->is_fuzzy && mp->msgstr[0] != '\0')
 	{
-	  fputs (" fuzzy", fp);
+	  ostream_write_str (stream, " fuzzy");
 	  first_flag = false;
 	}
 
@@ -293,24 +298,26 @@ message_print_comment_flags (const message_ty *mp, FILE *fp, bool debug)
 	if (significant_format_p (mp->is_format[i]))
 	  {
 	    if (!first_flag)
-	      putc (',', fp);
+	      ostream_write_str (stream, ",");
 
-	    fputs (make_format_description_string (mp->is_format[i],
-						   format_language[i], debug),
-		   fp);
+	    ostream_write_str (stream,
+			       make_format_description_string (mp->is_format[i],
+							       format_language[i],
+							       debug));
 	    first_flag = false;
 	  }
 
       if (mp->do_wrap == no)
 	{
 	  if (!first_flag)
-	    putc (',', fp);
+	    ostream_write_str (stream, ",");
 
-	  fputs (make_c_width_description_string (mp->do_wrap), fp);
+	  ostream_write_str (stream,
+			     make_c_width_description_string (mp->do_wrap));
 	  first_flag = false;
 	}
 
-      putc ('\n', fp);
+      ostream_write_str (stream, "\n");
     }
 }
 
@@ -375,7 +382,8 @@ memcpy_small (void *dst, const void *src, size_t n)
 
 
 static void
-wrap (const message_ty *mp, FILE *fp, const char *line_prefix, int extra_indent,
+wrap (const message_ty *mp, ostream_t stream,
+      const char *line_prefix, int extra_indent,
       const char *name, const char *value,
       enum is_wrap do_wrap, size_t page_width,
       const char *charset)
@@ -714,9 +722,9 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      || memchr (linebreaks, UC_BREAK_POSSIBLE, portion_len) != NULL))
 	{
 	  if (line_prefix != NULL)
-	    fputs (line_prefix, fp);
-	  fputs (name, fp);
-	  fputs (" \"\"\n", fp);
+	    ostream_write_str (stream, line_prefix);
+	  ostream_write_str (stream, name);
+	  ostream_write_str (stream, " \"\"\n");
 	  first_line = false;
 	  /* Recompute startcol and linebreaks.  */
 	  goto recompute;
@@ -730,24 +738,24 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 
 	if (line_prefix != NULL)
 	  {
-	    fputs (line_prefix, fp);
+	    ostream_write_str (stream, line_prefix);
 	    currcol = strlen (line_prefix);
 	  }
 	if (first_line)
 	  {
-	    fputs (name, fp);
+	    ostream_write_str (stream, name);
 	    currcol += strlen (name);
 	    if (indent)
 	      {
 		if (extra_indent > 0)
-		  fwrite ("        ", 1, extra_indent, fp);
+		  ostream_write_mem (stream, "        ", extra_indent);
 		currcol += extra_indent;
-		fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		ostream_write_mem (stream, "        ", 8 - (currcol & 7));
 		currcol = (currcol + 8) & ~7;
 	      }
 	    else
 	      {
-		putc (' ', fp);
+		ostream_write_str (stream, " ");
 		currcol++;
 	      }
 	    first_line = false;
@@ -757,40 +765,40 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	    if (indent)
 	      {
 		if (extra_indent > 0)
-		  fwrite ("        ", 1, extra_indent, fp);
+		  ostream_write_mem (stream, "        ", extra_indent);
 		currcol += extra_indent;
-		fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		ostream_write_mem (stream, "        ", 8 - (currcol & 7));
 		currcol = (currcol + 8) & ~7;
 	      }
 	  }
       }
 
       /* Print the portion itself, with linebreaks where necessary.  */
-      putc ('"', fp);
+      ostream_write_str (stream, "\"");
       for (i = 0; i < portion_len; i++)
 	{
 	  if (linebreaks[i] == UC_BREAK_POSSIBLE)
 	    {
 	      int currcol;
 
-	      fputs ("\"\n", fp);
+	      ostream_write_str (stream, "\"\n");
 	      currcol = 0;
 	      /* INDENT-S.  */
 	      if (line_prefix != NULL)
 		{
-		  fputs (line_prefix, fp);
+		  ostream_write_str (stream, line_prefix);
 		  currcol = strlen (line_prefix);
 		}
 	      if (indent)
 		{
-		  fwrite ("        ", 1, 8 - (currcol & 7), fp);
+		  ostream_write_mem (stream, "        ", 8 - (currcol & 7));
 		  currcol = (currcol + 8) & ~7;
 		}
-	      putc ('"', fp);
+	      ostream_write_str (stream, "\"");
 	    }
-	  putc (portion[i], fp);
+	  ostream_write_mem (stream, &portion[i], 1);
 	}
-      fputs ("\"\n", fp);
+      ostream_write_str (stream, "\"\n");
 
       free (linebreaks);
       free (overrides);
@@ -809,18 +817,19 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 
 
 static void
-print_blank_line (FILE *fp)
+print_blank_line (ostream_t stream)
 {
   if (uniforum)
-    fputs ("#\n", fp);
+    ostream_write_str (stream, "#\n");
   else
-    putc ('\n', fp);
+    ostream_write_str (stream, "\n");
 }
 
 
 static void
-message_print (const message_ty *mp, FILE *fp, const char *charset,
-	       size_t page_width, bool blank_line, bool debug)
+message_print (const message_ty *mp, ostream_t stream,
+	       const char *charset, size_t page_width, bool blank_line,
+	       bool debug)
 {
   int extra_indent;
 
@@ -830,33 +839,33 @@ message_print (const message_ty *mp, FILE *fp, const char *charset,
 		     || mp->comment == NULL
 		     || mp->comment->nitems == 0
 		     || mp->comment->item[0][0] != '\0'))
-    print_blank_line (fp);
+    print_blank_line (stream);
 
   /* Print translator comment if available.  */
-  message_print_comment (mp, fp);
+  message_print_comment (mp, stream);
 
   /* Print xgettext extracted comments.  */
-  message_print_comment_dot (mp, fp);
+  message_print_comment_dot (mp, stream);
 
   /* Print the file position comments.  This will help a human who is
      trying to navigate the sources.  There is no problem of getting
      repeated positions, because duplicates are checked for.  */
-  message_print_comment_filepos (mp, fp, uniforum, page_width);
+  message_print_comment_filepos (mp, stream, uniforum, page_width);
 
   /* Print flag information in special comment.  */
-  message_print_comment_flags (mp, fp, debug);
+  message_print_comment_flags (mp, stream, debug);
 
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, fp, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
+    wrap (mp, stream, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
 	  page_width, charset);
   if (mp->prev_msgid != NULL)
-    wrap (mp, fp, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, page_width,
-	  charset);
-  if (mp->prev_msgid_plural != NULL)
-    wrap (mp, fp, "#| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
+    wrap (mp, stream, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap,
 	  page_width, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, stream, "#| ", 0, "msgid_plural", mp->prev_msgid_plural,
+	  mp->do_wrap, page_width, charset);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 3
@@ -890,16 +899,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, fp, NULL, extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
+    wrap (mp, stream, NULL, extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
 	  page_width, charset);
-  wrap (mp, fp, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap,
-	  page_width, charset);
+  wrap (mp, stream, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap,
+	page_width, charset);
   if (mp->msgid_plural != NULL)
-    wrap (mp, fp, NULL, extra_indent, "msgid_plural", mp->msgid_plural,
+    wrap (mp, stream, NULL, extra_indent, "msgid_plural", mp->msgid_plural,
 	  mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, fp, NULL, extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
+    wrap (mp, stream, NULL, extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
 	  page_width, charset);
   else
     {
@@ -912,7 +921,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, fp, NULL, extra_indent, prefix_buf, p, mp->do_wrap,
+	  wrap (mp, stream, NULL, extra_indent, prefix_buf, p, mp->do_wrap,
 		page_width, charset);
 	}
     }
@@ -920,8 +929,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 
 static void
-message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
-			size_t page_width, bool blank_line)
+message_print_obsolete (const message_ty *mp, ostream_t stream,
+			const char *charset, size_t page_width, bool blank_line)
 {
   int extra_indent;
 
@@ -932,45 +941,44 @@ message_print_obsolete (const message_ty *mp, FILE *fp, const char *charset,
   /* Separate messages with a blank line.  Uniforum doesn't like blank
      lines, so use an empty comment (unless there already is one).  */
   if (blank_line)
-    print_blank_line (fp);
+    print_blank_line (stream);
 
   /* Print translator comment if available.  */
-  message_print_comment (mp, fp);
+  message_print_comment (mp, stream);
 
   /* Print xgettext extracted comments (normally empty).  */
-  message_print_comment_dot (mp, fp);
+  message_print_comment_dot (mp, stream);
 
   /* Print the file position comments (normally empty).  */
-  message_print_comment_filepos (mp, fp, uniforum, page_width);
+  message_print_comment_filepos (mp, stream, uniforum, page_width);
 
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy)
     {
       bool first = true;
 
-      putc ('#', fp);
-      putc (',', fp);
+      ostream_write_str (stream, "#,");
 
       if (mp->is_fuzzy)
 	{
-	  fputs (" fuzzy", fp);
+	  ostream_write_str (stream, " fuzzy");
 	  first = false;
 	}
 
-      putc ('\n', fp);
+      ostream_write_str (stream, "\n");
     }
 
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, fp, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
+    wrap (mp, stream, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
 	  page_width, charset);
   if (mp->prev_msgid != NULL)
-    wrap (mp, fp, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap, page_width,
-	  charset);
-  if (mp->prev_msgid_plural != NULL)
-    wrap (mp, fp, "#~| ", 0, "msgid_plural", mp->prev_msgid_plural, mp->do_wrap,
+    wrap (mp, stream, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap,
 	  page_width, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, stream, "#~| ", 0, "msgid_plural", mp->prev_msgid_plural,
+	  mp->do_wrap, page_width, charset);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 1
@@ -1003,16 +1011,16 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, fp, "#~ ", extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
+    wrap (mp, stream, "#~ ", extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
 	  page_width, charset);
-  wrap (mp, fp, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap,
+  wrap (mp, stream, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap,
 	page_width, charset);
   if (mp->msgid_plural != NULL)
-    wrap (mp, fp, "#~ ", extra_indent, "msgid_plural", mp->msgid_plural,
+    wrap (mp, stream, "#~ ", extra_indent, "msgid_plural", mp->msgid_plural,
 	  mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, fp, "#~ ", extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
+    wrap (mp, stream, "#~ ", extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
 	  page_width, charset);
   else
     {
@@ -1025,7 +1033,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, fp, "#~ ", extra_indent, prefix_buf, p, mp->do_wrap,
+	  wrap (mp, stream, "#~ ", extra_indent, prefix_buf, p, mp->do_wrap,
 		page_width, charset);
 	}
     }
@@ -1033,8 +1041,8 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 
 static void
-msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
-			 bool debug)
+msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
+			 size_t page_width, bool debug)
 {
   size_t j, k;
   bool blank_line;
@@ -1054,8 +1062,10 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
 	    && strcmp (mdlp->item[k]->domain, MESSAGE_DOMAIN_DEFAULT) == 0))
 	{
 	  if (blank_line)
-	    print_blank_line (fp);
-	  fprintf (fp, "domain \"%s\"\n", mdlp->item[k]->domain);
+	    print_blank_line (stream);
+	  ostream_write_str (stream, "domain \"");
+	  ostream_write_str (stream, mdlp->item[k]->domain);
+	  ostream_write_str (stream, "\"\n");
 	  blank_line = true;
 	}
 
@@ -1098,8 +1108,8 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
       for (j = 0; j < mlp->nitems; ++j)
 	if (!mlp->item[j]->obsolete)
 	  {
-	    message_print (mlp->item[j], fp, charset, page_width, blank_line,
-			   debug);
+	    message_print (mlp->item[j], stream, charset, page_width,
+			   blank_line, debug);
 	    blank_line = true;
 	  }
 
@@ -1107,7 +1117,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, FILE *fp, size_t page_width,
       for (j = 0; j < mlp->nitems; ++j)
 	if (mlp->item[j]->obsolete)
 	  {
-	    message_print_obsolete (mlp->item[j], fp, charset, page_width,
+	    message_print_obsolete (mlp->item[j], stream, charset, page_width,
 				    blank_line);
 	    blank_line = true;
 	  }

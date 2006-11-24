@@ -28,6 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "ostream.h"
+#include "file-ostream.h"
 #include "fwriteerror.h"
 #include "error-progname.h"
 #include "xvasprintf.h"
@@ -71,6 +73,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 		      bool force, bool debug)
 {
   FILE *fp;
+  file_ostream_t stream;
 
   /* We will not write anything if, for every domain, we have no message
      or only the header entry.  */
@@ -204,7 +207,9 @@ message catalog has plural form translations, but the output format does not sup
       filename = _("standard output");
     }
 
-  output_syntax->print (mdlp, fp, page_width, debug);
+  stream = file_ostream_create (fp);
+  output_syntax->print (mdlp, stream, page_width, debug);
+  ostream_free (stream);
 
   /* Make sure nothing went wrong.  */
   if (fwriteerror (fp))
