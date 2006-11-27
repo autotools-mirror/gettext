@@ -1,3 +1,9 @@
+2006-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* lib/glibconfig_.h (g_return_if_fail, g_return_val_if_fail,
+	g_return_if_reached, g_return_val_if_reached): Return instead of
+	calling abort().
+
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
 	* modules/libcroco: New file.

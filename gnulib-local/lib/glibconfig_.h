@@ -147,10 +147,10 @@ typedef ssize_t gssize;
 #define g_assert(expr)                 if (!(expr)) abort ()
 #define g_assert_not_reached()         abort ()
 
-#define g_return_if_fail(expr)         if (!(expr)) abort ()
-#define g_return_val_if_fail(expr,val) if (!(expr)) abort ()
-#define g_return_if_reached()          abort ()
-#define g_return_val_if_reached(val)   abort ()
+#define g_return_if_fail(expr)         if (!(expr)) return
+#define g_return_val_if_fail(expr,val) if (!(expr)) return (val)
+#define g_return_if_reached()          return
+#define g_return_val_if_reached(val)   return (val)
 
 #define G_LOG_LEVEL_CRITICAL 0
 #define G_LOG_LEVEL_INFO     0
