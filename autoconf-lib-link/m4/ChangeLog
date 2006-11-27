@@ -11,6 +11,10 @@
 	(AC_LIB_LINKFLAGS_BODY) [autoconf < 2.61]: Turn dots into the library
 	name to underscores for the --with option.
 
+2006-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16.1 released.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

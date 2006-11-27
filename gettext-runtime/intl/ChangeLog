@@ -42,6 +42,10 @@
 	* plural.y (%union, new_exp, new_exp_0, new_exp_1, new_exp_2,
 	new_exp_3): Update.
 
+2006-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16.1 released.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

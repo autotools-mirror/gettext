@@ -5,6 +5,10 @@
 	* gettext.c (expand_escape): Likewise.
 	* ngettext.c (expand_escape): Likewise.
 
+2006-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16.1 released.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.

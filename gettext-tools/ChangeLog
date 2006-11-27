@@ -3,6 +3,10 @@
 	Work around automake-1.10 annoyance.
 	* Makefile.am (ACLOCAL): New macro.
 
+2006-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16.1 released.
+
 2006-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16 released.
