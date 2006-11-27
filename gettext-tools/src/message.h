@@ -225,6 +225,11 @@ extern void
    changed.  */
 extern bool
        message_list_msgids_changed (message_list_ty *mlp);
+/* Copy a message list.
+   If copy_level = 0, also copy the messages.  If copy_level = 1, share the
+   messages.  */
+extern message_list_ty *
+       message_list_copy (message_list_ty *mlp, int copy_level);
 extern message_ty *
        message_list_search (message_list_ty *mlp,
 			    const char *msgctxt, const char *msgid);
@@ -298,6 +303,11 @@ extern void
 extern message_list_ty *
        msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
 			       bool create);
+/* Copy a message domain list.
+   If copy_level = 0, also copy the messages.  If copy_level = 1, share the
+   messages but copy the domains.  If copy_level = 2, share the domains.  */
+extern msgdomain_list_ty *
+       msgdomain_list_copy (msgdomain_list_ty *mdlp, int copy_level);
 extern message_ty *
        msgdomain_list_search (msgdomain_list_ty *mdlp,
 			      const char *msgctxt, const char *msgid);

@@ -448,6 +448,24 @@ message_list_msgids_changed (message_list_ty *mlp)
 }
 
 
+message_list_ty *
+message_list_copy (message_list_ty *mlp, int copy_level)
+{
+  message_list_ty *result;
+  size_t j;
+
+  result = message_list_alloc (mlp->use_hashtable);
+  for (j = 0; j < mlp->nitems; j++)
+    {
+      message_ty *mp = mlp->item[j];
+
+      message_list_append (result, copy_level ? mp : message_copy (mp));
+    }
+
+  return result;
+}
+
+
 message_ty *
 message_list_search (message_list_ty *mlp,
 		     const char *msgctxt, const char *msgid)
@@ -777,6 +795,43 @@ msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
     }
   else
     return NULL;
+}
+
+
+/* Copy a message domain list.
+   If copy_level = 0, also copy the messages.  If copy_level = 1, share the
+   messages but copy the domains.  If copy_level = 2, share the domains.  */
+msgdomain_list_ty *
+msgdomain_list_copy (msgdomain_list_ty *mdlp, int copy_level)
+{
+  msgdomain_list_ty *result;
+  size_t j;
+
+  result = XMALLOC (msgdomain_list_ty);
+  result->nitems = 0;
+  result->nitems_max = 0;
+  result->item = NULL;
+  result->use_hashtable = mdlp->use_hashtable;
+  result->encoding = mdlp->encoding;
+
+  for (j = 0; j < mdlp->nitems; j++)
+    {
+      msgdomain_ty *mdp = mdlp->item[j];
+
+      if (copy_level < 2)
+	{
+	  msgdomain_ty *result_mdp = XMALLOC (msgdomain_ty);
+
+	  result_mdp->domain = mdp->domain;
+	  result_mdp->messages = message_list_copy (mdp->messages, copy_level);
+
+	  msgdomain_list_append (result, result_mdp);
+	}
+      else
+	msgdomain_list_append (result, mdp);
+    }
+
+  return result;
 }
 
 

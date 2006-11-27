@@ -1,5 +1,10 @@
 2006-11-25  Bruno Haible  <bruno@clisp.org>
 
+	* message.h (message_list_copy, msgdomain_list_copy): New declarations.
+	* message.c (message_list_copy, msgdomain_list_copy): New functions.
+
+2006-11-25  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-iconv.h (iconv_msgdomain_list): Add update_header argument.
 	* msgl-iconv.c (iconv_message_list_internal): Renamed from
 	iconv_msgdomain_list. Add update_header argument.
