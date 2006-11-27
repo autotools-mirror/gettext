@@ -1,5 +1,10 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* write-po.c: Include write-catalog.h instead of write-properties.h,
+	write-stringtable.h.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	* format.h (FMTDIR_START, FMTDIR_END, FMTDIR_ERROR): New enum values.
 	(FDI_SET): New macro.
 	(struct formatstring_parser): Add fdi argument to 'parse' method.
