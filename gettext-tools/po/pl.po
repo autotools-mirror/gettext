@@ -1,20 +1,20 @@
 # Polish translations for the GNU gettext messages, tools domain
-# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2004, 2005 Free Software Foundation, Inc.
-# Rafa³ Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2005
+# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Rafa³ Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2006
 # Piotr Pogorzelski <ppogorze@ippt.gov.pl>, 1995
 # Jakub Bogusz <qboosh@pld.org.pl>, 2002, 2003
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.14.5\n"
+"Project-Id-Version: GNU gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-10-23 23:07+0200\n"
-"PO-Revision-Date: 2005-05-23 21:45+0200\n"
+"PO-Revision-Date: 2006-11-05 00:00+0200\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -175,12 +175,12 @@ msgstr "%s: opcja `-W %s' nie mo¿e mieæ argumentu\n"
 #: gnulib-lib/javacomp.c:153
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
-msgstr ""
+msgstr "b³êdny argument source_version do compile_java_class"
 
 #: gnulib-lib/javacomp.c:168 gnulib-lib/javacomp.c:189
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
-msgstr ""
+msgstr "b³êdny argument target_version do compile_java_class"
 
 #: gnulib-lib/javacomp.c:473 src/write-csharp.c:721 src/write-java.c:996
 #: src/write-java.c:1008
@@ -248,11 +248,11 @@ msgstr "nie mo¿na utworzyæ potoku"
 #. and use glyphs suitable for your language.
 #: gnulib-lib/quotearg.c:245
 msgid "`"
-msgstr ""
+msgstr "\""
 
 #: gnulib-lib/quotearg.c:246
 msgid "'"
-msgstr ""
+msgstr "\""
 
 #: gnulib-lib/w32spawn.h:48
 #, c-format
@@ -311,9 +311,9 @@ msgid ""
 msgstr "ró¿ni±ce siê specyfikacje formatu w 'msgid' i '%s' dla argumentu %u"
 
 #: src/format-boost.c:427
-#, fuzzy, c-format
+#, c-format
 msgid "The directive number %u starts with | but does not end with |."
-msgstr "Dyrektywa numer %u koñczy siê b³êdnym znakiem zamiast '}'."
+msgstr "Dyrektywa numer %u zaczyna siê od |, ale nie koñczy |."
 
 #: src/format-c.c:177
 #, c-format
@@ -382,27 +382,29 @@ msgid "The string contains a lone '}' after directive number %u."
 msgstr "£añcuch zawiera samotny '}' po numerze dyrektywy %u."
 
 #: src/format-gcc-internal.c:245
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, the flags combination is invalid."
-msgstr "W dyrektywie numer %u argument %d jest ujemny."
+msgstr "B³êdny po³±czenie flag w dyrektywie numer %u."
 
 #: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
-msgstr "W dyrektywie numer %u flagi nie s± dozwolone przed '%c'."
+msgstr ""
+"W dyrektywie numer %u specyfikacja dok³adno¶ci nie jest dozwolona przed '%c'."
 
 #: src/format-gcc-internal.c:314
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
 "equal to %u."
 msgstr ""
-"W dyrektywie numer %u numer argumentu 0 nie jest dodatni± liczb± ca³kowit±."
+"W dyrektywie numer %u numer argumentu specyfikacji dok³adno¶ci musi byæ "
+"równy %u."
 
 #: src/format-gcc-internal.c:376
-#, fuzzy, c-format
+#, c-format
 msgid "In the directive number %u, the precision specification is invalid."
-msgstr "W dyrektywie numer %u argument %d jest ujemny."
+msgstr "W dyrektywie numer %u jest b³êdna specyfikacja dok³adno¶ci."
 
 #: src/format-gcc-internal.c:424
 #, c-format
@@ -756,7 +758,7 @@ msgstr "Program napisa³ %s.\n"
 #: src/msginit.c:265 src/msguniq.c:254 src/recode-sr-latin.c:122
 #: src/urlget.c:137
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
 #: src/hostname.c:195 src/msginit.c:275 src/recode-sr-latin.c:131
 #, c-format
@@ -1318,7 +1320,7 @@ msgstr ""
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:168 src/msgcomm.c:275 src/msgmerge.c:328
 msgid "Peter Miller"
-msgstr ""
+msgstr "Peter Miller"
 
 #: src/msgcmp.c:179 src/msgmerge.c:339
 #, c-format
@@ -1707,12 +1709,12 @@ msgstr "argument dla %s powinien byæ pojedynczym znakiem przestankowym"
 #: src/msgfmt.c:352
 #, c-format
 msgid "invalid endianness: %s"
-msgstr ""
+msgstr "b³êdna endianness: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgfmt.c:372 src/msgunfmt.c:257 src/xgettext.c:522
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 #: src/msgfmt.c:425 src/msgfmt.c:447 src/msgfmt.c:469 src/msgunfmt.c:319
 #: src/msgunfmt.c:342
@@ -2086,11 +2088,12 @@ msgid "error while reading \"%s\""
 msgstr "b³±d w czasie czytania \"%s\""
 
 #: src/msggrep.c:485
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
-msgstr "opcja '%c' nie mo¿e byæ u¿yta przed podaniem 'K', 'T' lub 'C'"
+msgstr ""
+"opcja '%c' nie mo¿e byæ u¿yta przed podaniem 'J', 'K', 'T', 'C' lub 'X'"
 
 #: src/msggrep.c:505
 #, c-format, no-wrap
@@ -2102,7 +2105,7 @@ msgstr ""
 "wzorca lub nale¿±cych do podanego pliku ¼ród³owego.\n"
 
 #: src/msggrep.c:531
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Message selection:\n"
 "  [-N SOURCEFILE]... [-M DOMAINNAME]...\n"
@@ -2142,31 +2145,39 @@ msgid ""
 msgstr ""
 "Wybór komunikatów:\n"
 "  [-N PLIK-¬RÓD£OWY]... [-M DOMENA]...\n"
-"  [-K WZORZEC-MSGID] [-T WZORZEC-MSGSTR] [-C WZORZEC-KOMENTARZA]\n"
+"  [-J WZORZEC-KONTEKST] [-K WZORZEC-MSGID] [-T WZORZEC-MSGSTR]\n"
+"  [-C WZORZEC-KOMENTARZA] [-X WZORZEC-WYDOB-KOMENTARZA]\n"
 "Komunikat jest wybierany je¶li pochodzi z jednego z podanych plików\n"
 "¼ród³owych lub pochodzi z jednej z podanych domen,\n"
+"lub, je¶li podano -J i kontekst (msgctxt) pasuje do WZORCA-KONTEKST\n"
 "lub, je¶li podano -K i klucz (msgid lub msgid_plural), pasuje do WZORCA-MSGID,\n"
 "lub, je¶li podano -T i to t³umaczenie (msgstr) pasuje do WZORCA-MSGSTR,\n"
 "lub, je¶li podano -C i komentarz t³umacza pasuje do WZORCA-KOMENTARZA.\n"
+"lub, je¶li podano -X i wydobyty komentarz pasuje do WZORCA-WYDOB-KOMENTARZA.\n"
 "\n"
 "Je¶li podano wiêcej ni¿ jedno kryterium wyboru, zbiór wybranych komunikatów\n"
 "jest sum± komunikatów wybranych dla ka¿dego kryterium.\n"
 "\n"
-"Sk³adnia dla WZORCA-MSGID lub WZORCA-MSGSTR:\n"
+"Sk³adnia WZORCA-KONTEKST, WZORCA-MSGID, WZORCA-MSGSTR, WZORCA-KOMENTARZA i\n"
+"WZORCA-WYDOB-KOMENTARZA:\n"
 "  [-E | -F] [-e WZORZEC | -f PLIK]...\n"
 "WZORCE s± domy¶lnie podstawowymi wyra¿eniami regularnymi, lub rozszerzonymi\n"
 "wyra¿eniami regularnymi je¶li podano -E, lub sta³ymi ci±gami je¶li podano -F.\n"
 "\n"
-"  -N, --location=PLIK-¬RÓD£   wybranie komunikatów wyci±gniêtych z PLIKU-¬RÓD£\n"
+"  -N, --location=PLIK-¬RÓD£   wybranie komunikatów wydobytych z PLIKU-¬RÓD£\n"
 "  -M, --domain=DOMENA         wybranie komunikatów nale¿±cych do DOMENY\n"
+"  -J, --msgctxt               pocz±tek wzorców msgctxt\n"
 "  -K, --msgid                 pocz±tek wzorców dla msgid\n"
 "  -T, --msgstr                pocz±tek wzorców dla msgstr\n"
 "  -C, --comment               pocz±tek wzorców dla komentarza t³umacza\n"
+"  -X, --extracted-comment     pocz±tek wzorców dla wydobytego komentarza\n"
 "  -E, --extended-regexp       WZORZEC jest rozszerzonym wyra¿eniem regularnym\n"
 "  -F, --fixed-strings         WZORZEC jest zbiorem ³añcuchów oddzielonych \\n\n"
 "  -e, --regexp=WZORZEC        u¿ycie WZORCA jako wyra¿enia regularnego\n"
 "  -f, --file=PLIK             pobranie WZORCA z PLIKU\n"
 "  -i, --ignore-case           nie rozró¿nianie wielko¶ci liter\n"
+"  -v, --invert-match          wypisanie tylko komunikatów, które nie pasuj± do\n"
+"                              kryteriów wyboru\n"
 
 #: src/msggrep.c:580
 #, c-format
@@ -2465,24 +2476,21 @@ msgstr ""
 "dzielenie przez zero"
 
 #: src/msgl-check.c:185
-#, fuzzy, c-format
+#, c-format
 msgid "Try using the following, valid for %s:"
-msgstr "Proszê spróbowaæ tego, poprawnego dla %s:\n"
+msgstr "Proszê spróbowaæ tego, poprawnego dla %s:"
 
 #: src/msgl-check.c:268 src/msgl-check.c:292
-#, fuzzy
 msgid "message catalog has plural form translations"
-msgstr "katalog komunikatów zawiera t³umaczenia form mnogich..."
+msgstr "katalog komunikatów zawiera t³umaczenia form mnogich"
 
 #: src/msgl-check.c:270
-#, fuzzy
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
-msgstr "...ale wpis nag³ówka nie ma atrybutu \"plural=WYRA¯ENIE\""
+msgstr "ale wpis nag³ówka nie ma atrybutu \"plural=WYRA¯ENIE\""
 
 #: src/msgl-check.c:294
-#, fuzzy
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
-msgstr "...ale wpis nag³ówka nie ma atrybutu \"nplurals=LICZBA\""
+msgstr "ale wpis nag³ówka nie ma atrybutu \"nplurals=LICZBA\""
 
 #: src/msgl-check.c:330
 msgid "invalid nplurals value"
@@ -2493,25 +2501,25 @@ msgid "invalid plural expression"
 msgstr "b³êdne wyra¿enie do wyliczania liczby mnogiej"
 
 #: src/msgl-check.c:382 src/msgl-check.c:398
-#, fuzzy, c-format
+#, c-format
 msgid "nplurals = %lu"
-msgstr "nplurals = %lu..."
+msgstr "nplurals = %lu"
 
 #: src/msgl-check.c:384
 #, fuzzy, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
-msgstr[0] "...ale niektóre komunikaty maj± tylko jedn± formê mnog±"
-msgstr[1] "...ale niektóre komunikaty maj± tylko %lu formy mnogie"
-msgstr[2] "...ale niektóre komunikaty maj± tylko %lu form mnogich"
+msgstr[0] "ale niektóre komunikaty maj± tylko jedn± formê mnog±"
+msgstr[1] "ale niektóre komunikaty maj± tylko %lu formy mnogie"
+msgstr[2] "ale niektóre komunikaty maj± tylko %lu form mnogich"
 
 #: src/msgl-check.c:400
-#, fuzzy, c-format
+#, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
-msgstr[0] "...ale niektóre komunikaty maj± jedn± formê mnog±"
-msgstr[1] "...ale niektóre komunikaty maj± %lu formy mnogie"
-msgstr[2] "...ale niektóre komunikaty maj± %lu form mnogich"
+msgstr[0] "ale niektóre komunikaty maj± jedn± formê mnog±"
+msgstr[1] "ale niektóre komunikaty maj± %lu formy mnogie"
+msgstr[2] "ale niektóre komunikaty maj± %lu form mnogich"
 
 #: src/msgl-check.c:420
 msgid ""
@@ -2586,9 +2594,9 @@ msgid "%s: input is not valid in \"%s\" encoding"
 msgstr ""
 
 #: src/msgl-iconv.c:69
-#, fuzzy, c-format
+#, c-format
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
-msgstr "b³±d w czasie otwierania \"%s\" do czytania"
+msgstr "%s: b³±d w czasie zamiany kodowania z \"%s\" na \"%s\""
 
 #: src/msgl-iconv.c:262
 msgid "input file doesn't contain a header entry with a charset specification"
@@ -3064,9 +3072,8 @@ msgid "duplicate message definition"
 msgstr "podwójna definicja komunikatu"
 
 #: src/read-catalog.c:375
-#, fuzzy
 msgid "this is the location of the first definition"
-msgstr "...to jest po³o¿enie pierwszej definicji"
+msgstr "to jest po³o¿enie pierwszej definicji"
 
 #: src/read-mo.c:101 src/read-mo.c:122 src/read-mo.c:168 src/read-mo.c:195
 #, c-format
@@ -3090,39 +3097,33 @@ msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "plik \"%s\" zawiera ³añcuch znaków nie zakoñczony znakiem NUL pod %s"
 
 #: src/read-properties.c:223
-#, fuzzy
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
-msgstr "%s:%lu: uwaga: b³êdna sk³adnia znaku Unicode: \\uxxxx"
+msgstr "uwaga: b³êdna sk³adnia znaku Unicode: \\uxxxx"
 
 #: src/read-stringtable.c:804
-#, fuzzy
 msgid "warning: unterminated string"
-msgstr "%s:%d: uwaga: niezakoñczony ³añcuch"
+msgstr "uwaga: niezakoñczony ³añcuch"
 
 #: src/read-stringtable.c:812
-#, fuzzy
 msgid "warning: syntax error"
-msgstr "%s:%lu: uwaga: b³±d sk³adniowy"
+msgstr "uwaga: b³±d sk³adniowy"
 
 #: src/read-stringtable.c:873 src/read-stringtable.c:895
-#, fuzzy
 msgid "warning: unterminated key/value pair"
-msgstr "%s:%lu: uwaga: niezakoñczona para klucz/warto¶æ"
+msgstr "uwaga: niezakoñczona para klucz/warto¶æ"
 
 #: src/read-stringtable.c:941
-#, fuzzy
 msgid "warning: syntax error, expected ';' after string"
-msgstr "%s:%lu: uwaga: b³±d sk³adniowy, oczekiwano ';' po ³añcuchu"
+msgstr "uwaga: b³±d sk³adniowy, oczekiwano ';' po ³añcuchu"
 
 #: src/read-stringtable.c:950
-#, fuzzy
 msgid "warning: syntax error, expected '=' or ';' after string"
-msgstr "%s:%lu: uwaga: b³±d sk³±dniowy, oczekiwano '=' albo ';' po ³añcuchu"
+msgstr "uwaga: b³±d sk³±dniowy, oczekiwano '=' albo ';' po ³añcuchu"
 
 #: src/recode-sr-latin.c:117
-#, fuzzy, c-format
+#, c-format
 msgid "Written by %s and %s.\n"
-msgstr "Program napisa³ %s.\n"
+msgstr "Program napisany przez %s i %s.\n"
 
 #. TRANSLATORS: This is a proper name. The last name is
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
@@ -3130,12 +3131,12 @@ msgstr "Program napisa³ %s.\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/recode-sr-latin.c:121
 msgid "Danilo Segan"
-msgstr ""
+msgstr "Danilo Segana"
 
 #: src/recode-sr-latin.c:154
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
-msgstr ""
+msgstr "Przekodowanie serbskiego tekstu z cyrylicy na alfabet ³aciñski.\n"
 
 #: src/recode-sr-latin.c:157
 #, c-format, no-wrap
@@ -3150,9 +3151,9 @@ msgid "input is not valid in \"%s\" encoding"
 msgstr ""
 
 #: src/recode-sr-latin.c:349
-#, fuzzy, c-format
+#, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
-msgstr "b³±d w czasie otwierania \"%s\" do czytania"
+msgstr "b³±d w czasie zmiany kodowania z \"%s\" na \"%s\""
 
 #: src/urlget.c:147
 #, c-format
@@ -3232,13 +3233,12 @@ msgid "standard output"
 msgstr "standardowe wyj¶cie"
 
 #: src/write-csharp.c:618
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .dll format doesn't support contexts\n"
 msgstr ""
-"katalog komunikatów ma formy mnogie,\n"
-"ale katalog komunikatów C# nie umie ich u¿ywaæ\n"
+"katalog komunikatów ma formy zale¿ne od kontekstu,\n"
+"ale katalog komunikatów C# nie uwzglêdnia kontekstu\n"
 
 #: src/write-csharp.c:685
 #, c-format
@@ -3251,13 +3251,12 @@ msgid "compilation of C# class failed, please try --verbose"
 msgstr "kompilacja klasy C# nie uda³a siê, proszê u¿yæ --verbose"
 
 #: src/write-java.c:920
-#, fuzzy
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Java ResourceBundle format doesn't support contexts\n"
 msgstr ""
-"katalog komunikatów ma formy mnogie,\n"
-"ale katalog komunikatów C# nie umie ich u¿ywaæ\n"
+"katalog komunikatów ma formy zale¿ne od kontekstu,\n"
+"ale katalog komunikatów Java ResourceBundle nie uwzglêdnia kontekstu\n"
 
 #: src/write-java.c:945
 #, c-format
@@ -3926,7 +3925,7 @@ msgstr "niejednoznaczny argument %s opcji %s"
 #: src/xgettext.c:2653
 #, c-format
 msgid "warning: missing context for keyword '%.*s'"
-msgstr ""
+msgstr "uwaga: brak kontekstu s³owa kluczowego '%.*s'"
 
 #: src/xgettext.c:2678
 #, c-format
@@ -3965,6 +3964,23 @@ msgstr "<nienazwany>"
 #~ msgid "The %%J directive does not support flags."
 #~ msgstr "Dyrektywa %%J nie mo¿e mieæ flag."
 
+#~ msgid "conversion failure"
+#~ msgstr "konwersja nie powiod³a siê"
+
+#~ msgid "%s: warning: "
+#~ msgstr "%s: uwaga: "
+
+#~ msgid "%s\n"
+#~ msgstr "%s\n"
+
+#~ msgid "%s:%lu: warning: unterminated string"
+#~ msgstr "%s:%lu: uwaga: niezakoñczona sta³a ³añcuchowa"
+
+#~ msgid "%s:%d: fatal: plural message seen before singular message\n"
+#~ msgstr ""
+#~ "%s:%d: b³±d: komunikat w liczbie mnogiej przed komunikatem w liczbie "
+#~ "pojedynczej\n"
+
 #~ msgid "Which is your email address?"
 #~ msgstr "Jaki jest twój adres e-mail?"
 
@@ -3995,23 +4011,6 @@ msgstr "<nienazwany>"
 
 #~ msgid "Please enter your email address."
 #~ msgstr "Prosze podaæ swój adres e-mail."
-
-#~ msgid "conversion failure"
-#~ msgstr "konwersja nie powiod³a siê"
-
-#~ msgid "%s: warning: "
-#~ msgstr "%s: uwaga: "
-
-#~ msgid "%s\n"
-#~ msgstr "%s\n"
-
-#~ msgid "%s:%lu: warning: unterminated string"
-#~ msgstr "%s:%lu: uwaga: niezakoñczona sta³a ³añcuchowa"
-
-#~ msgid "%s:%d: fatal: plural message seen before singular message\n"
-#~ msgstr ""
-#~ "%s:%d: b³±d: komunikat w liczbie mnogiej przed komunikatem w liczbie "
-#~ "pojedynczej\n"
 
 #~ msgid "write to grep subprocess failed"
 #~ msgstr "pisanie do podprocesu grep nie powiod³o siê"
