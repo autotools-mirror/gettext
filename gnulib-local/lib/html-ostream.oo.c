@@ -62,7 +62,7 @@ emit_pending_spans (html_ostream_t stream, bool shrink_stack)
 
 	  ostream_write_str (stream->destination, "<span class=\"");
 	  ostream_write_str (stream->destination, classname);
-	  ostream_write_str (stream->destination, ">");
+	  ostream_write_str (stream->destination, "\">");
 	}
       stream->last_class_stack_size = stream->curr_class_stack_size;
     }
@@ -95,8 +95,6 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
       #define BUFFERSIZE 2048
       char inbuffer[BUFFERSIZE];
       size_t inbufcount;
-
-      emit_pending_spans (stream, true);
 
       inbufcount = stream->buflen;
       if (inbufcount > 0)
@@ -135,51 +133,56 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
 
 		nbytes = u8_mbtouc (&uc, (const unsigned char *) inptr, insize);
 
-		switch (uc)
+		if (uc == '\n')
 		  {
-		  case '"':
-		    ostream_write_str (stream->destination, "&quot;");
-		    break;
-		  case '&':
-		    ostream_write_str (stream->destination, "&amp;");
-		    break;
-		  case '<':
-		    ostream_write_str (stream->destination, "&lt;");
-		    break;
-		  case '>':
-		    /* Needed to avoid "]]>" in the output.  */
-		    ostream_write_str (stream->destination, "&gt;");
-		    break;
-		  case ' ':
-		    /* Needed because HTML viewers merge adjacent spaces and
-		       drop spaces adjacent to <br> and similar.  */
-		    ostream_write_str (stream->destination, "&nbsp;");
-		    break;
-		  case '\n':
-		    {
-		      size_t prev_class_stack_size = stream->curr_class_stack_size;
-		      stream->curr_class_stack_size = 0;
-		      emit_pending_spans (stream, false);
-		      ostream_write_str (stream->destination, "<br/>");
-		      stream->curr_class_stack_size = prev_class_stack_size;
-		    }
-		    break;
-		  default:
-		    if (uc >= 0x20 && uc < 0x7F)
+		    size_t prev_class_stack_size = stream->curr_class_stack_size;
+		    stream->curr_class_stack_size = 0;
+		    emit_pending_spans (stream, false);
+		    ostream_write_str (stream->destination, "<br/>");
+		    stream->curr_class_stack_size = prev_class_stack_size;
+		  }
+		else
+		  {
+		    emit_pending_spans (stream, true);
+
+		    switch (uc)
 		      {
-			/* Output ASCII characters as such.  */
-		        char bytes[1];
-			bytes[0] = uc;
-			ostream_write_mem (stream->destination, bytes, 1);
+		      case '"':
+			ostream_write_str (stream->destination, "&quot;");
+			break;
+		      case '&':
+			ostream_write_str (stream->destination, "&amp;");
+			break;
+		      case '<':
+			ostream_write_str (stream->destination, "&lt;");
+			break;
+		      case '>':
+			/* Needed to avoid "]]>" in the output.  */
+			ostream_write_str (stream->destination, "&gt;");
+			break;
+		      case ' ':
+			/* Needed because HTML viewers merge adjacent spaces
+			   and drop spaces adjacent to <br> and similar.  */
+			ostream_write_str (stream->destination, "&nbsp;");
+			break;
+		      default:
+			if (uc >= 0x20 && uc < 0x7F)
+			  {
+			    /* Output ASCII characters as such.  */
+			    char bytes[1];
+			    bytes[0] = uc;
+			    ostream_write_mem (stream->destination, bytes, 1);
+			  }
+			else
+			  {
+			    /* Output non-ASCII characters in #&nnn;
+			       notation.  */
+			    char bytes[32];
+			    sprintf (bytes, "&#%d;", uc);
+			    ostream_write_str (stream->destination, bytes);
+			  }
+			break;
 		      }
-		    else
-		      {
-			/* Output non-ASCII characters in #&nnn; notation.  */
-			char bytes[32];
-			sprintf (bytes, "&#%d;", uc);
-			ostream_write_str (stream->destination, bytes);
-		      }
-		    break;
 		  }
 
 		inptr += nbytes;
