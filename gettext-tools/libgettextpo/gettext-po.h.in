@@ -261,6 +261,28 @@ extern void po_message_remove_filepos (po_message_t message, int i);
    line number is available.  */
 extern void po_message_add_filepos (po_message_t message, const char *file, size_t start_line);
 
+/* Return the previous context of a message, or NULL for none.  */
+extern const char * po_message_prev_msgctxt (po_message_t message);
+
+/* Change the previous context of a message.  NULL is allowed.  */
+extern void po_message_set_prev_msgctxt (po_message_t message, const char *prev_msgctxt);
+
+/* Return the previous msgid (untranslated English string) of a message, or
+   NULL for none.  */
+extern const char * po_message_prev_msgid (po_message_t message);
+
+/* Change the previous msgid (untranslated English string) of a message.
+   NULL is allowed.  */
+extern void po_message_set_prev_msgid (po_message_t message, const char *prev_msgid);
+
+/* Return the previous msgid_plural (untranslated English plural string) of a
+   message, or NULL for none.  */
+extern const char * po_message_prev_msgid_plural (po_message_t message);
+
+/* Change the previous msgid_plural (untranslated English plural string) of a
+   message.  NULL is allowed.  */
+extern void po_message_set_prev_msgid_plural (po_message_t message, const char *prev_msgid_plural);
+
 /* Return true if the message is marked obsolete.  */
 extern int po_message_is_obsolete (po_message_t message);
 
