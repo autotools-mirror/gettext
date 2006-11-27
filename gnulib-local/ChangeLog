@@ -1,5 +1,9 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* lib/moo.h (IS_INSTANCE): Fix reference to vtable.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/moopp: In the C++ class definition, add 'operator ==',
 	'operator !=' members, and add constructors for downcasting.
 

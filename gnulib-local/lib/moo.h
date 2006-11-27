@@ -229,10 +229,10 @@ typedef struct
    the file that implements CLASSNAME but is better optimized.  */
 #define IS_INSTANCE(obj,rootclassname,classname) \
   (((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-   >= classname##_implementation.superclasses_length \
+   >= classname##_vtable.superclasses_length \
    && ((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses \
       [((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-       - classname##_implementation.superclasses_length] \
+       - classname##_vtable.superclasses_length] \
       == & classname##_typeinfo)
 #define IS_INSTANCE_PRIVATE(obj,rootclassname,classname) \
   (((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
