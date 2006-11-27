@@ -29,6 +29,7 @@
  *of the #CRNum class.
  */
 
+#include <config.h>
 #include "cr-num.h"
 #include "string.h"
 

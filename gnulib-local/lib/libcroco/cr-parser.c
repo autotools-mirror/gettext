@@ -29,6 +29,7 @@
  *The definition of the #CRParser class.
  */
 
+#include <config.h>
 #include "string.h"
 #include "cr-parser.h"
 #include "cr-num.h"

@@ -21,7 +21,7 @@
  */
 
 /*
- *$Id: cr-enc-handler.c,v 1.8 2005/05/10 19:48:56 dodji Exp $
+ *$Id: cr-enc-handler.c,v 1.1 2006/11/15 13:07:14 haible Exp $
  */
 
 /**
@@ -29,6 +29,7 @@
  *The definition of the #CREncHandler class.
  */
 
+#include <config.h>
 #include "cr-enc-handler.h"
 #include "cr-utils.h"
 

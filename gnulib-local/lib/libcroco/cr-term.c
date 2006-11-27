@@ -21,6 +21,7 @@
  * See COPYRIGHTS file for copyright information.
  */
 
+#include <config.h>
 #include <stdio.h>
 #include <string.h>
 #include "cr-term.h"

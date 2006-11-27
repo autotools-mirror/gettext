@@ -23,9 +23,10 @@
  */
 
 /*
- *$Id: cr-cascade.c,v 1.7 2005/05/10 19:48:56 dodji Exp $
+ *$Id: cr-cascade.c,v 1.1 2006/11/15 13:07:14 haible Exp $
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-cascade.h"
 

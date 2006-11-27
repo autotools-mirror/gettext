@@ -19,6 +19,7 @@
  * See COPYRIGHTS file for copyrights information.
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-prop-list.h"
 

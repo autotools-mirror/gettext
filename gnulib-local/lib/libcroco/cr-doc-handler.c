@@ -20,6 +20,7 @@
  * See COPRYRIGHTS file for copyright information.
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-doc-handler.h"
 #include "cr-parser.h"

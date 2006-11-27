@@ -27,6 +27,7 @@
  *class.
  */
 
+#include <config.h>
 #include "string.h"
 #include "cr-tknzr.h"
 #include "cr-doc-handler.h"

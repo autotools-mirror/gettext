@@ -21,6 +21,7 @@
  * See the COPYRIGHTS file for copyright information.
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-parsing-location.h"
 

@@ -23,6 +23,7 @@
  * see COPYRIGTHS file for copyright information
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-style.h"
 

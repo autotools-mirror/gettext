@@ -23,6 +23,7 @@
  *See COPYRIGHTS file for copyright information
  */
 
+#include <config.h>
 #include "cr-fonts.h"
 #include <string.h>
 

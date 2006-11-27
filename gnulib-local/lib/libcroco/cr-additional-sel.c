@@ -22,6 +22,7 @@
  *
  */
 
+#include <config.h>
 #include "cr-additional-sel.h"
 #include "string.h"
 

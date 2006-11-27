@@ -1,5 +1,35 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	libcroco uses vasprintf.h, which requires <config.h>.
+	* lib/libcroco/cr-additional-sel.c: Include <config.h>.
+	* lib/libcroco/cr-attr-sel.c: Likewise.
+	* lib/libcroco/cr-cascade.c: Likewise.
+	* lib/libcroco/cr-declaration.c: Likewise.
+	* lib/libcroco/cr-doc-handler.c: Likewise.
+	* lib/libcroco/cr-enc-handler.c: Likewise.
+	* lib/libcroco/cr-fonts.c: Likewise.
+	* lib/libcroco/cr-input.c: Likewise.
+	* lib/libcroco/cr-num.c: Likewise.
+	* lib/libcroco/cr-om-parser.c: Likewise.
+	* lib/libcroco/cr-parser.c: Likewise.
+	* lib/libcroco/cr-parsing-location.c: Likewise.
+	* lib/libcroco/cr-prop-list.c: Likewise.
+	* lib/libcroco/cr-pseudo.c: Likewise.
+	* lib/libcroco/cr-rgb.c: Likewise.
+	* lib/libcroco/cr-sel-eng.c: Likewise.
+	* lib/libcroco/cr-selector.c: Likewise.
+	* lib/libcroco/cr-simple-sel.c: Likewise.
+	* lib/libcroco/cr-statement.c: Likewise.
+	* lib/libcroco/cr-string.c: Likewise.
+	* lib/libcroco/cr-style.c: Likewise.
+	* lib/libcroco/cr-stylesheet.c: Likewise.
+	* lib/libcroco/cr-term.c: Likewise.
+	* lib/libcroco/cr-tknzr.c: Likewise.
+	* lib/libcroco/cr-token.c: Likewise.
+	* lib/libcroco/cr-utils.c: Likewise.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	* modules/no-c++: New file.
 	* m4/no-c++.m4: New file.
 	* Makefile.am (EXTRA_DIST): Add them.

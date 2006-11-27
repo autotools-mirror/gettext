@@ -26,6 +26,8 @@
  *The definition of the #CRToken class.
  *Abstracts a css2 token.
  */
+
+#include <config.h>
 #include <string.h>
 #include "cr-token.h"
 

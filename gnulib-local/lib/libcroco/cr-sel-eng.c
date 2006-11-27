@@ -21,6 +21,7 @@
  * See  COPYRIGHTS file for copyright informations.
  */
 
+#include <config.h>
 #include <string.h>
 #include "cr-sel-eng.h"
 
