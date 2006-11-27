@@ -354,7 +354,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
       filter = serbian_to_latin;
 
       /* Convert the input to UTF-8 first.  */
-      result = iconv_msgdomain_list (result, po_charset_utf8, input_file);
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
     }
   else
     {

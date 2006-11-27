@@ -264,7 +264,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 
   /* Convert if and only if the output syntax supports different encodings.  */
   if (!output_syntax->requires_utf8)
-    result = iconv_msgdomain_list (result, to_code, input_file);
+    result = iconv_msgdomain_list (result, to_code, true, input_file);
 
   /* Sort the results.  */
   if (sort_by_filepos)

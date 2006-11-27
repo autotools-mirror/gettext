@@ -168,10 +168,12 @@ convert_msgstr (iconv_t cd, message_ty *mp,
 #endif
 
 
-bool
-iconv_message_list (message_list_ty *mlp,
-		    const char *canon_from_code, const char *canon_to_code,
-		    const char *from_filename)
+static bool
+iconv_message_list_internal (message_list_ty *mlp,
+			     const char *canon_from_code,
+			     const char *canon_to_code,
+			     bool update_header,
+			     const char *from_filename)
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
   bool msgids_changed;
@@ -196,8 +198,6 @@ iconv_message_list (message_list_ty *mlp,
 		size_t len;
 		char *charset;
 		const char *canon_charset;
-		size_t len1, len2, len3;
-		char *new_header;
 
 		charsetstr += strlen ("charset=");
 		len = strcspn (charsetstr, " \t\n");
@@ -241,15 +241,22 @@ two different charsets \"%s\" and \"%s\" in input file"),
 		  }
 		freesa (charset);
 
-		len1 = charsetstr - header;
-		len2 = strlen (canon_to_code);
-		len3 = (header + strlen (header)) - (charsetstr + len);
-		new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
-		memcpy (new_header, header, len1);
-		memcpy (new_header + len1, canon_to_code, len2);
-		memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);
-		mlp->item[j]->msgstr = new_header;
-		mlp->item[j]->msgstr_len = len1 + len2 + len3 + 1;
+		if (update_header)
+		  {
+		    size_t len1, len2, len3;
+		    char *new_header;
+
+		    len1 = charsetstr - header;
+		    len2 = strlen (canon_to_code);
+		    len3 = (header + strlen (header)) - (charsetstr + len);
+		    new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
+		    memcpy (new_header, header, len1);
+		    memcpy (new_header + len1, canon_to_code, len2);
+		    memcpy (new_header + len1 + len2, charsetstr + len,
+			    len3 + 1);
+		    mlp->item[j]->msgstr = new_header;
+		    mlp->item[j]->msgstr_len = len1 + len2 + len3 + 1;
+		  }
 	      }
 	  }
       }
@@ -328,9 +335,20 @@ This version was built without iconv()."),
   return msgids_changed;
 }
 
+bool
+iconv_message_list (message_list_ty *mlp,
+		    const char *canon_from_code, const char *canon_to_code,
+		    const char *from_filename)
+{
+  return iconv_message_list_internal (mlp,
+				      canon_from_code, canon_to_code, true,
+				      from_filename);
+}
+
 msgdomain_list_ty *
 iconv_msgdomain_list (msgdomain_list_ty *mdlp,
 		      const char *to_code,
+		      bool update_header,
 		      const char *from_filename)
 {
   const char *canon_to_code;
@@ -345,8 +363,9 @@ target charset \"%s\" is not a portable encoding name."),
 			  to_code));
 
   for (k = 0; k < mdlp->nitems; k++)
-    iconv_message_list (mdlp->item[k]->messages, mdlp->encoding, canon_to_code,
-			from_filename);
+    iconv_message_list_internal (mdlp->item[k]->messages,
+				 mdlp->encoding, canon_to_code, update_header,
+				 from_filename);
 
   mdlp->encoding = canon_to_code;
   return mdlp;

@@ -1,3 +1,16 @@
+2006-11-25  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-iconv.h (iconv_msgdomain_list): Add update_header argument.
+	* msgl-iconv.c (iconv_message_list_internal): Renamed from
+	iconv_msgdomain_list. Add update_header argument.
+	(iconv_message_list): New function.
+	(iconv_msgdomain_list): Add update_header argument.
+	* msgcmp.c (compare): Update iconv_msgdomain_list call.
+	* msgconv.c (main): Likewise.
+	* msgfilter.c (main): Likewise.
+	* msgmerge.c (merge): Likewise.
+	* xgettext.c (main): Likewise.
+
 2006-11-23  Bruno Haible  <bruno@clisp.org>
 
 	* write-catalog.h: Include ostream.h. Don't include <stdio.h>.

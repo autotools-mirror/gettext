@@ -387,7 +387,7 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 	    }
 	}
     if (was_utf8)
-      def = iconv_msgdomain_list (def, "UTF-8", fn1);
+      def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
   }
 
   empty_list = message_list_alloc (false);

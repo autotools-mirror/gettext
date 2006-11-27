@@ -1415,7 +1415,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 	}
     if (was_utf8)
       {
-	def = iconv_msgdomain_list (def, "UTF-8", fn1);
+	def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
 	if (compendiums != NULL)
 	  for (k = 0; k < compendiums->nitems; k++)
 	    iconv_message_list (compendiums->item[k], NULL, po_charset_utf8,
@@ -1559,7 +1559,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 	      {
 		/* It's too hairy to find out what would be the optimal target
 		   encoding.  So, convert everything to UTF-8.  */
-		def = iconv_msgdomain_list (def, "UTF-8", fn1);
+		def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
 		if (compendiums != NULL)
 		  for (k = 0; k < compendiums->nitems; k++)
 		    iconv_message_list (compendiums->item[k],

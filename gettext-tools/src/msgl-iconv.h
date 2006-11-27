@@ -60,10 +60,13 @@ extern bool
 			   const char *canon_to_code,
 			   const char *from_filename);
 
-/* Converts all the message lists in MDLP to the encoding TO_CODE.  */
+/* Converts all the message lists in MDLP to the encoding TO_CODE.
+   UPDATE_HEADER specifies whether to update the "charset=..." specification
+   in the header; it should normally be true.  */
 extern msgdomain_list_ty *
        iconv_msgdomain_list (msgdomain_list_ty *mdlp,
 			     const char *to_code,
+			     bool update_header,
 			     const char *from_filename);
 
 /* Tests whether the message list MLP could be converted to CANON_TO_CODE.

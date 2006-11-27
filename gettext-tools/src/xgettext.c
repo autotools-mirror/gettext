@@ -641,7 +641,7 @@ This version was built without iconv()."),
 
       extract_from_file (file_name, po_extractor, mdlp);
       if (!is_ascii_msgdomain_list (mdlp))
-	mdlp = iconv_msgdomain_list (mdlp, "UTF-8", file_name);
+	mdlp = iconv_msgdomain_list (mdlp, "UTF-8", true, file_name);
 
       dir_list_restore (saved_directory_list);
     }
