@@ -1,5 +1,10 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* lib/xalloc.h (xmemdup): Add a typesafe C++ template variant.
+	Based on a patch from Paul Eggert in gnulib.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	Optimize IS_INSTANCE.
 	* build-aux/moopp: Emit also a classname_SUPERCLASSES_LENGTH macro.
 	* lib/moo.h (IS_INSTANCE): Use the value of this macro, known at

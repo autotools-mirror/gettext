@@ -52,7 +52,7 @@ extern void *xrealloc (void *ptr, size_t size);
 template <typename T>
   inline T * xrealloc (T * ptr, size_t size)
   {
-    return (T *) xrealloc((void *) ptr, size);
+    return (T *) xrealloc ((void *) ptr, size);
   }
 extern "C" {
 #endif
@@ -121,6 +121,15 @@ xnboundedmalloc (size_t n, size_t bound, size_t s)
 
 /* Return a newly allocated copy of the N bytes of memory starting at P.  */
 extern void *xmemdup (const void *p, size_t n);
+#ifdef __cplusplus
+}
+template <typename T>
+  inline T * xmemdup (const T * p, size_t n)
+  {
+    return (T *) xmemdup ((const void *) p, n);
+  }
+extern "C" {
+#endif
 
 /* Return a newly allocated copy of STRING.  */
 extern char *xstrdup (const char *string);
