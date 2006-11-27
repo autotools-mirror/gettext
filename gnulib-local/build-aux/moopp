@@ -368,6 +368,9 @@ func_start_creation "$newfile"
   done
   # The 'operator void *' is needed to avoid ambiguous conversion chains.
   echo "  operator void * () { return _pointer; }"
+  # The 'operator ==' and 'operator !=' are needed to avoid ambiguous comparisons with NULL.
+  echo "  bool operator == (const void *p) { return _pointer == p; }"
+  echo "  bool operator != (const void *p) { return _pointer != p; }"
   atroot=yes
   for classname in $all_superclasses; do
     if test -n "$atroot"; then
@@ -375,7 +378,9 @@ func_start_creation "$newfile"
     else
       repclassalias="${classname}_representation"
     fi
-    echo "  operator ${classname}_t () { return (${classname}_t) ($struct ${repclassalias} *) _pointer; }"
+    echo "  operator ${classname}_t () { return (${classname}_t) (struct ${repclassalias} *) _pointer; }"
+    # The 'explicit' constructors allow to downcast.
+    echo "  explicit ${main_classname}_t (${classname}_t x) : _pointer ((struct ${main_repclassalias} *) (void *) x) {}"
     atroot=
   done
   echo "};"
