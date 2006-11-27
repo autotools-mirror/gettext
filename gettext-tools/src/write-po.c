@@ -74,16 +74,16 @@ make_format_description_string (enum is_format is_format, const char *lang,
     case possible:
       if (debug)
 	{
-	  sprintf (result, " possible-%s-format", lang);
+	  sprintf (result, "possible-%s-format", lang);
 	  break;
 	}
       /* FALLTHROUGH */
     case yes_according_to_context:
     case yes:
-      sprintf (result, " %s-format", lang);
+      sprintf (result, "%s-format", lang);
       break;
     case no:
-      sprintf (result, " no-%s-format", lang);
+      sprintf (result, "no-%s-format", lang);
       break;
     default:
       /* The others have already been filtered out by significant_format_p.  */
@@ -127,10 +127,10 @@ make_c_width_description_string (enum is_wrap do_wrap)
   switch (do_wrap)
     {
     case yes:
-      result = " wrap";
+      result = "wrap";
       break;
     case no:
-      result = " no-wrap";
+      result = "no-wrap";
       break;
     default:
       abort ();
@@ -299,6 +299,7 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	    if (!first_flag)
 	      ostream_write_str (stream, ",");
 
+	    ostream_write_str (stream, " ");
 	    ostream_write_str (stream,
 			       make_format_description_string (mp->is_format[i],
 							       format_language[i],
@@ -311,6 +312,7 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	  if (!first_flag)
 	    ostream_write_str (stream, ",");
 
+	  ostream_write_str (stream, " ");
 	  ostream_write_str (stream,
 			     make_c_width_description_string (mp->do_wrap));
 	  first_flag = false;

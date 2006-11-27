@@ -216,7 +216,7 @@ write_message (ostream_t stream, const message_ty *mp,
     for (i = 0; i < NFORMATS; i++)
       if (significant_format_p (mp->is_format[i]))
 	{
-	  ostream_write_str (stream, "/* Flag:");
+	  ostream_write_str (stream, "/* Flag: ");
 	  ostream_write_str (stream,
 			     make_format_description_string (mp->is_format[i],
 							     format_language[i],

@@ -1,5 +1,12 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* write-po.c (make_format_description_string,
+	make_c_width_description_string): Strip off the leading space.
+	(message_print_comment_flags): Print the space here.
+	* write-stringtable.c (write_message): Print the space here.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	* write-po.c: Include write-catalog.h instead of write-properties.h,
 	write-stringtable.h.
 
