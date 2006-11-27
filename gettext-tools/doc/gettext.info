@@ -57,7 +57,7 @@ GNU `gettext' utilities
 ***********************
 
 This manual documents the GNU gettext tools and the GNU libintl library,
-version 0.16.
+version 0.16.1.
 
 * Menu:
 
@@ -8529,7 +8529,7 @@ each.
 
    So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-`gettext' 0.16 distribution itself, or from the GNU `hello'
+`gettext' 0.16.1 distribution itself, or from the GNU `hello'
 distribution (`http://www.franken.de/users/gnu/ke/hello' or
 `http://www.gnu.franken.de/ke/hello/')  You may indeed refer to the
 source code of the GNU `gettext' and GNU `hello' packages, as they are
@@ -8682,7 +8682,7 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Rules-*,
      This is done by a set of lines like these:
 
           PACKAGE=gettext
-          VERSION=0.16
+          VERSION=0.16.1
           AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
           AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
           AC_SUBST(PACKAGE)
@@ -8690,12 +8690,12 @@ File: gettext.info,  Node: configure.in,  Next: config.guess,  Prev: po/Rules-*,
 
      or, if you are using GNU `automake', by a line like this:
 
-          AM_INIT_AUTOMAKE(gettext, 0.16)
+          AM_INIT_AUTOMAKE(gettext, 0.16.1)
 
      Of course, you replace `gettext' with the name of your package,
-     and `0.16' by its version numbers, exactly as they should appear
+     and `0.16.1' by its version numbers, exactly as they should appear
      in the packaged `tar' file name of your distribution
-     (`gettext-0.16.tar.gz', here).
+     (`gettext-0.16.1.tar.gz', here).
 
   2. Check for internationalization support.
 
@@ -9430,7 +9430,7 @@ repository all the files that `gettextize' mentions as "copy".
 Instead, he adds to the `configure.in' or `configure.ac' a line of the
 form
 
-     AM_GNU_GETTEXT_VERSION(0.16)
+     AM_GNU_GETTEXT_VERSION(0.16.1)
 
 and adds to the package's pre-build script an invocation of
 `autopoint'.  For everyone who checks out the CVS, this `autopoint'
@@ -9489,8 +9489,8 @@ into the package.
 
 
    `autopoint' supports the GNU `gettext' versions from 0.10.35 to the
-current one, 0.16.  In order to apply `autopoint' to a package using a
-`gettext' version newer than 0.16, you need to install this same
+current one, 0.16.1.  In order to apply `autopoint' to a package using
+a `gettext' version newer than 0.16.1, you need to install this same
 version of GNU `gettext' at least.
 
    In packages using GNU `automake', an invocation of `autopoint'
@@ -16798,220 +16798,220 @@ General Index
 
 Tag Table:
 Node: Top2955
-Node: Introduction16245
-Node: Why17865
-Ref: Why-Footnote-121075
-Node: Concepts21231
-Node: Aspects24649
-Node: Files30507
-Node: Overview32413
-Node: Users42331
-Node: Matrix43763
-Node: End Users44971
-Node: PO Files45620
-Ref: PO Files-Footnote-156968
-Node: Sources57095
-Node: Importing58248
-Node: Triggering58928
-Node: Preparing Strings61965
-Node: Mark Keywords71005
-Node: Marking75315
-Node: c-format Flag83042
-Node: Special cases86958
-Node: Names89684
-Node: Libraries93282
-Node: Template96314
-Node: xgettext Invocation97035
-Node: Creating111351
-Node: msginit Invocation112233
-Node: Header Entry114859
-Node: Updating121865
-Node: msgmerge Invocation122080
-Node: Editing127232
-Node: KBabel127530
-Node: Gtranslator127668
-Node: PO Mode127810
-Node: Installation129502
-Node: Main PO Commands131463
-Node: Entry Positioning136548
-Node: Normalizing142014
-Node: Translated Entries146505
-Node: Fuzzy Entries147860
-Node: Untranslated Entries151037
-Node: Obsolete Entries152966
-Node: Modifying Translations156188
-Node: Modifying Comments164154
-Node: Subedit168578
-Node: C Sources Context172471
-Node: Auxiliary177592
-Node: Compendium180824
-Node: Creating Compendia181444
-Node: Using Compendia183929
-Node: Manipulating184862
-Node: msgcat Invocation188624
-Node: msgconv Invocation192874
-Node: msggrep Invocation196053
-Node: msgfilter Invocation201234
-Node: msguniq Invocation206858
-Node: msgcomm Invocation210747
-Node: msgcmp Invocation214792
-Node: msgattrib Invocation216804
-Node: msgen Invocation221486
-Node: msgexec Invocation224821
-Node: libgettextpo227402
-Node: Binaries232524
-Node: msgfmt Invocation232868
-Node: msgunfmt Invocation239873
-Node: MO Files244035
-Node: Programmers252276
-Node: catgets253455
-Node: Interface to catgets254866
-Node: Problems with catgets256872
-Node: gettext257784
-Node: Interface to gettext259284
-Node: Ambiguities261641
-Node: Locating Catalogs264345
-Ref: Locating Catalogs-Footnote-1265503
-Ref: Locating Catalogs-Footnote-2265728
-Node: Charset conversion265877
-Node: Contexts268328
-Node: Plural forms273828
-Ref: Plural forms-Footnote-1288024
-Node: Optimized gettext288146
-Node: Comparison289482
-Node: Using libintl.a293749
-Node: gettext grok294189
-Node: Temp Programmers296818
-Node: Temp Implementations297343
-Node: Temp catgets298720
-Node: Temp WSI300418
-Node: Temp Notes302417
-Node: Translators302917
-Node: Trans Intro 0303380
-Node: Trans Intro 1306114
-Node: Discussions308063
-Node: Organization311718
-Node: Central Coordination313784
-Node: National Teams314923
-Node: Sub-Cultures317447
-Node: Organizational Ideas318381
-Node: Mailing Lists319399
-Node: Information Flow321213
-Node: Prioritizing messages323461
-Node: Maintainers327757
-Node: Flat and Non-Flat329710
-Node: Prerequisites331200
-Node: gettextize Invocation335347
-Node: Adjusting Files342311
-Node: po/POTFILES.in344095
-Node: po/LINGUAS345341
-Node: po/Makevars347030
-Node: po/Rules-*347778
-Node: configure.in349246
-Node: config.guess352257
-Node: mkinstalldirs353610
-Node: aclocal354012
-Node: acconfig356009
-Node: config.h.in356506
-Node: Makefile357971
-Node: src/Makefile360565
-Node: lib/gettext.h364952
-Node: autoconf macros367197
-Node: AM_GNU_GETTEXT367974
-Node: AM_GNU_GETTEXT_VERSION371936
-Node: AM_GNU_GETTEXT_NEED372388
-Node: AM_GNU_GETTEXT_INTL_SUBDIR373278
-Node: AM_PO_SUBDIRS373930
-Node: AM_ICONV374712
-Node: CVS Issues376919
-Node: Distributed CVS377507
-Node: Files under CVS379432
-Node: autopoint Invocation382703
-Node: Release Management384543
-Node: Installers385053
-Node: Programming Languages386277
-Node: Language Implementors387100
-Node: Programmers for other Languages391914
-Node: Translators for other Languages392495
-Node: c-format394021
-Node: objc-format395734
-Node: sh-format396086
-Node: python-format396888
-Node: lisp-format397326
-Node: elisp-format397652
-Node: librep-format398142
-Node: scheme-format398542
-Node: smalltalk-format398818
-Node: java-format399318
-Node: csharp-format399766
-Node: awk-format400141
-Node: object-pascal-format400466
-Node: ycp-format400695
-Node: tcl-format401094
-Node: perl-format401389
-Node: php-format402134
-Node: gcc-internal-format402499
-Node: qt-format403541
-Node: boost-format403975
-Node: Maintainers for other Languages404519
-Node: List of Programming Languages405754
-Node: C407037
-Node: sh408337
-Node: Preparing Shell Scripts409611
-Node: gettext.sh413000
-Node: gettext Invocation413547
-Node: ngettext Invocation415302
-Node: envsubst Invocation416890
-Node: eval_gettext Invocation418311
-Node: eval_ngettext Invocation418772
-Node: bash419286
-Node: Python421262
-Node: Common Lisp422412
-Node: clisp C423212
-Node: Emacs Lisp423927
-Node: librep424653
-Node: Scheme425388
-Node: Smalltalk426172
-Node: Java427206
-Node: C#432914
-Node: gawk441331
-Node: Pascal442243
-Node: wxWidgets443551
-Node: YCP444458
-Node: Tcl445197
-Node: Perl446607
-Node: General Problems449615
-Node: Default Keywords453273
-Node: Special Keywords454225
-Node: Quote-like Expressions455738
-Node: Interpolation I458013
-Node: Interpolation II461803
-Node: Parentheses464168
-Node: Long Lines465686
-Node: Perl Pitfalls467531
-Node: PHP471773
-Node: Pike472704
-Node: GCC-source473365
-Node: List of Data Formats474112
-Node: POT474578
-Node: RST474836
-Node: Glade475062
-Node: Conclusion475422
-Node: History475925
-Node: References480191
-Node: Language Codes481835
-Node: Usual Language Codes482347
-Node: Rare Language Codes486718
-Node: Country Codes488375
-Node: Licenses494261
-Node: GNU GPL496103
-Node: GNU LGPL515280
-Node: GNU FDL543413
-Node: Program Index565799
-Node: Option Index567685
-Node: Variable Index613915
-Node: PO Mode Index615453
-Node: Autoconf Macro Index629289
-Node: Index630023
+Node: Introduction16247
+Node: Why17867
+Ref: Why-Footnote-121077
+Node: Concepts21233
+Node: Aspects24651
+Node: Files30509
+Node: Overview32415
+Node: Users42333
+Node: Matrix43765
+Node: End Users44973
+Node: PO Files45622
+Ref: PO Files-Footnote-156970
+Node: Sources57097
+Node: Importing58250
+Node: Triggering58930
+Node: Preparing Strings61967
+Node: Mark Keywords71007
+Node: Marking75317
+Node: c-format Flag83044
+Node: Special cases86960
+Node: Names89686
+Node: Libraries93284
+Node: Template96316
+Node: xgettext Invocation97037
+Node: Creating111353
+Node: msginit Invocation112235
+Node: Header Entry114861
+Node: Updating121867
+Node: msgmerge Invocation122082
+Node: Editing127234
+Node: KBabel127532
+Node: Gtranslator127670
+Node: PO Mode127812
+Node: Installation129504
+Node: Main PO Commands131465
+Node: Entry Positioning136550
+Node: Normalizing142016
+Node: Translated Entries146507
+Node: Fuzzy Entries147862
+Node: Untranslated Entries151039
+Node: Obsolete Entries152968
+Node: Modifying Translations156190
+Node: Modifying Comments164156
+Node: Subedit168580
+Node: C Sources Context172473
+Node: Auxiliary177594
+Node: Compendium180826
+Node: Creating Compendia181446
+Node: Using Compendia183931
+Node: Manipulating184864
+Node: msgcat Invocation188626
+Node: msgconv Invocation192876
+Node: msggrep Invocation196055
+Node: msgfilter Invocation201236
+Node: msguniq Invocation206860
+Node: msgcomm Invocation210749
+Node: msgcmp Invocation214794
+Node: msgattrib Invocation216806
+Node: msgen Invocation221488
+Node: msgexec Invocation224823
+Node: libgettextpo227404
+Node: Binaries232526
+Node: msgfmt Invocation232870
+Node: msgunfmt Invocation239875
+Node: MO Files244037
+Node: Programmers252278
+Node: catgets253457
+Node: Interface to catgets254868
+Node: Problems with catgets256874
+Node: gettext257786
+Node: Interface to gettext259286
+Node: Ambiguities261643
+Node: Locating Catalogs264347
+Ref: Locating Catalogs-Footnote-1265505
+Ref: Locating Catalogs-Footnote-2265730
+Node: Charset conversion265879
+Node: Contexts268330
+Node: Plural forms273830
+Ref: Plural forms-Footnote-1288026
+Node: Optimized gettext288148
+Node: Comparison289484
+Node: Using libintl.a293751
+Node: gettext grok294191
+Node: Temp Programmers296820
+Node: Temp Implementations297345
+Node: Temp catgets298722
+Node: Temp WSI300420
+Node: Temp Notes302419
+Node: Translators302919
+Node: Trans Intro 0303382
+Node: Trans Intro 1306116
+Node: Discussions308065
+Node: Organization311720
+Node: Central Coordination313786
+Node: National Teams314925
+Node: Sub-Cultures317449
+Node: Organizational Ideas318383
+Node: Mailing Lists319401
+Node: Information Flow321215
+Node: Prioritizing messages323463
+Node: Maintainers327759
+Node: Flat and Non-Flat329712
+Node: Prerequisites331202
+Node: gettextize Invocation335349
+Node: Adjusting Files342313
+Node: po/POTFILES.in344099
+Node: po/LINGUAS345345
+Node: po/Makevars347034
+Node: po/Rules-*347782
+Node: configure.in349250
+Node: config.guess352269
+Node: mkinstalldirs353622
+Node: aclocal354024
+Node: acconfig356021
+Node: config.h.in356518
+Node: Makefile357983
+Node: src/Makefile360577
+Node: lib/gettext.h364964
+Node: autoconf macros367209
+Node: AM_GNU_GETTEXT367986
+Node: AM_GNU_GETTEXT_VERSION371948
+Node: AM_GNU_GETTEXT_NEED372400
+Node: AM_GNU_GETTEXT_INTL_SUBDIR373290
+Node: AM_PO_SUBDIRS373942
+Node: AM_ICONV374724
+Node: CVS Issues376931
+Node: Distributed CVS377519
+Node: Files under CVS379444
+Node: autopoint Invocation382717
+Node: Release Management384561
+Node: Installers385071
+Node: Programming Languages386295
+Node: Language Implementors387118
+Node: Programmers for other Languages391932
+Node: Translators for other Languages392513
+Node: c-format394039
+Node: objc-format395752
+Node: sh-format396104
+Node: python-format396906
+Node: lisp-format397344
+Node: elisp-format397670
+Node: librep-format398160
+Node: scheme-format398560
+Node: smalltalk-format398836
+Node: java-format399336
+Node: csharp-format399784
+Node: awk-format400159
+Node: object-pascal-format400484
+Node: ycp-format400713
+Node: tcl-format401112
+Node: perl-format401407
+Node: php-format402152
+Node: gcc-internal-format402517
+Node: qt-format403559
+Node: boost-format403993
+Node: Maintainers for other Languages404537
+Node: List of Programming Languages405772
+Node: C407055
+Node: sh408355
+Node: Preparing Shell Scripts409629
+Node: gettext.sh413018
+Node: gettext Invocation413565
+Node: ngettext Invocation415320
+Node: envsubst Invocation416908
+Node: eval_gettext Invocation418329
+Node: eval_ngettext Invocation418790
+Node: bash419304
+Node: Python421280
+Node: Common Lisp422430
+Node: clisp C423230
+Node: Emacs Lisp423945
+Node: librep424671
+Node: Scheme425406
+Node: Smalltalk426190
+Node: Java427224
+Node: C#432932
+Node: gawk441349
+Node: Pascal442261
+Node: wxWidgets443569
+Node: YCP444476
+Node: Tcl445215
+Node: Perl446625
+Node: General Problems449633
+Node: Default Keywords453291
+Node: Special Keywords454243
+Node: Quote-like Expressions455756
+Node: Interpolation I458031
+Node: Interpolation II461821
+Node: Parentheses464186
+Node: Long Lines465704
+Node: Perl Pitfalls467549
+Node: PHP471791
+Node: Pike472722
+Node: GCC-source473383
+Node: List of Data Formats474130
+Node: POT474596
+Node: RST474854
+Node: Glade475080
+Node: Conclusion475440
+Node: History475943
+Node: References480209
+Node: Language Codes481853
+Node: Usual Language Codes482365
+Node: Rare Language Codes486736
+Node: Country Codes488393
+Node: Licenses494279
+Node: GNU GPL496121
+Node: GNU LGPL515298
+Node: GNU FDL543431
+Node: Program Index565817
+Node: Option Index567703
+Node: Variable Index613933
+Node: PO Mode Index615471
+Node: Autoconf Macro Index629307
+Node: Index630041
 
 End Tag Table
