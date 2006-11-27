@@ -1,3 +1,7 @@
+2006-11-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.16.1 released.
+
 2006-10-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.h.in (po_message_prev_msgctxt, po_message_set_prev_msgctxt,
