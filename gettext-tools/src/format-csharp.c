@@ -57,8 +57,10 @@ struct spec
 };
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -71,6 +73,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 
       if (c == '{')
 	{
+	  FDI_SET (format - 1, FMTDIR_START);
 	  if (*format == '{')
 	    format++;
 	  else
@@ -84,6 +87,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		{
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec.directives);
+		  FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		  return NULL;
 		}
 	      number = 0;
@@ -104,6 +108,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    {
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, ',' is not followed by a number."), spec.directives);
+		      FDI_SET (*format == '\0' ? format - 1 : format,
+			       FMTDIR_ERROR);
 		      return NULL;
 		    }
 		  do
@@ -123,6 +129,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		{
 		  *invalid_reason =
 		    xstrdup (_("The string ends in the middle of a directive: found '{' without matching '}'."));
+		  FDI_SET (format - 1, FMTDIR_ERROR);
 		  return NULL;
 		}
 
@@ -132,6 +139,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    (c_isprint (*format)
 		     ? xasprintf (_("The directive number %u ends with an invalid character '%c' instead of '}'."), spec.directives, *format)
 		     : xasprintf (_("The directive number %u ends with an invalid character instead of '}'."), spec.directives));
+		  FDI_SET (format, FMTDIR_ERROR);
 		  return NULL;
 		}
 
@@ -140,9 +148,11 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	      if (spec.numbered_arg_count <= number)
 		spec.numbered_arg_count = number + 1;
 	    }
+	  FDI_SET (format - 1, FMTDIR_END);
 	}
       else if (c == '}')
 	{
+	  FDI_SET (format - 1, FMTDIR_START);
 	  if (*format == '}')
 	    format++;
 	  else
@@ -151,8 +161,10 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		(spec.directives == 0
 		 ? xstrdup (_("The string starts in the middle of a directive: found '}' without matching '{'."))
 		 : xasprintf (_("The string contains a lone '}' after directive number %u."), spec.directives));
+	      FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 	      return NULL;
 	    }
+	  FDI_SET (format - 1, FMTDIR_END);
 	}
     }
 
@@ -259,7 +271,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

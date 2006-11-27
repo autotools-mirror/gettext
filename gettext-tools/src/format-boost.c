@@ -114,8 +114,10 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   unsigned int unnumbered_arg_count;
   struct spec *result;
@@ -130,6 +132,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
     if (*format++ == '%')
       {
 	/* A directive.  */
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (*format == '%')
@@ -164,6 +167,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (m == 0) /* can happen if m overflows */
 		      {
 			*invalid_reason = INVALID_ARGNO_0 (spec.directives);
+			FDI_SET (f, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    number = m;
@@ -215,6 +219,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			      {
 				*invalid_reason =
 				  INVALID_WIDTH_ARGNO_0 (spec.directives);
+				FDI_SET (f, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 			    width_number = m;
@@ -232,6 +237,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			  {
 			    *invalid_reason =
 			      INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 
@@ -254,6 +260,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			  {
 			    *invalid_reason =
 			      INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 
@@ -301,6 +308,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 				  {
 				    *invalid_reason =
 				      INVALID_PRECISION_ARGNO_0 (spec.directives);
+				    FDI_SET (f, FMTDIR_ERROR);
 				    goto bad_format;
 				  }
 				precision_number = m;
@@ -318,6 +326,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			      {
 				*invalid_reason =
 				  INVALID_MIXES_NUMBERED_UNNUMBERED ();
+				FDI_SET (format - 1, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 
@@ -340,6 +349,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			      {
 				*invalid_reason =
 				  INVALID_MIXES_NUMBERED_UNNUMBERED ();
+				FDI_SET (format - 1, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 
@@ -392,6 +402,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (*format == '\0')
 		      {
 			*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    format++;
@@ -410,22 +421,36 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    /*FALLTHROUGH*/
 		  default:
 		    --format;
-		    *invalid_reason =
-		      (*format == '\0'
-		       ? INVALID_UNTERMINATED_DIRECTIVE ()
-		       : INVALID_CONVERSION_SPECIFIER (spec.directives,
-						       *format));
+		    if (*format == '\0')
+		      {
+			*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
+		      }
+		    else
+		      {
+			*invalid_reason =
+			  INVALID_CONVERSION_SPECIFIER (spec.directives,
+							*format);
+			FDI_SET (format, FMTDIR_ERROR);
+		      }
 		    goto bad_format;
 		  }
 		if (brackets)
 		  {
 		    if (*format != '|')
 		      {
-			*invalid_reason =
-			  (*format == '\0'
-			   ? INVALID_UNTERMINATED_DIRECTIVE ()
-			   : xasprintf (_("The directive number %u starts with | but does not end with |."),
-					spec.directives));
+			if (*format == '\0')
+			  {
+			    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
+			  }
+			else
+			  {
+			    *invalid_reason =
+			      xasprintf (_("The directive number %u starts with | but does not end with |."),
+					 spec.directives);
+			    FDI_SET (format, FMTDIR_ERROR);
+			  }
 			goto bad_format;
 		      }
 		    format++;
@@ -442,6 +467,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (unnumbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -462,6 +488,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (spec.numbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -476,6 +503,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		  }
 	      }
 	  }
+
+	FDI_SET (format - 1, FMTDIR_END);
       }
 
   /* Convert the unnumbered argument array to numbered arguments.  */
@@ -718,7 +747,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

@@ -94,8 +94,10 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   unsigned int directives;
   unsigned int numbered_arg_count;
   unsigned int allocated;
@@ -113,6 +115,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
     if (*format++ == '%')
       {
 	/* A directive.  */
+	FDI_SET (format - 1, FMTDIR_START);
 	directives++;
 
 	if (*format != '%')
@@ -139,6 +142,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (m == 0)
 		      {
 			*invalid_reason = INVALID_ARGNO_0 (directives);
+			FDI_SET (f, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    number = m;
@@ -158,6 +162,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (*format == '\0')
 		      {
 			*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    format++;
@@ -208,10 +213,17 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		type = FAT_STRING;
 		break;
 	      default:
-		*invalid_reason =
-		  (*format == '\0'
-		   ? INVALID_UNTERMINATED_DIRECTIVE ()
-		   : INVALID_CONVERSION_SPECIFIER (directives, *format));
+		if (*format == '\0')
+		  {
+		    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
+		  }
+		else
+		  {
+		    *invalid_reason =
+		      INVALID_CONVERSION_SPECIFIER (directives, *format);
+		    FDI_SET (format, FMTDIR_ERROR);
+		  }
 		goto bad_format;
 	      }
 
@@ -224,6 +236,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    numbered[numbered_arg_count].type = type;
 	    numbered_arg_count++;
 	  }
+
+	FDI_SET (format, FMTDIR_END);
 
 	format++;
       }
@@ -463,7 +477,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

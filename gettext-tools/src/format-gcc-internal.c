@@ -157,8 +157,10 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   unsigned int unnumbered_arg_count;
   struct spec *result;
@@ -174,6 +176,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
     if (*format++ == '%')
       {
 	/* A directive.  */
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (*format == '%' || *format == '<' || *format == '>'
@@ -209,6 +212,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (m == 0)
 		      {
 			*invalid_reason = INVALID_ARGNO_0 (spec.directives);
+			FDI_SET (f, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    number = m;
@@ -248,6 +252,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    continue;
 		  invalid_flags:
 		    *invalid_reason = xasprintf (_("In the directive number %u, the flags combination is invalid."), spec.directives);
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  default:
 		    break;
@@ -275,10 +280,17 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 
 		    if (*format != 's')
 		      {
-			*invalid_reason =
-			  (*format == '\0'
-			   ? INVALID_UNTERMINATED_DIRECTIVE ()
-			   : xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format));
+			if (*format == '\0')
+			  {
+			    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
+			  }
+			else
+			  {
+			    *invalid_reason =
+			      xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format);
+			    FDI_SET (format, FMTDIR_ERROR);
+			  }
 			goto bad_format;
 		      }
 
@@ -307,16 +319,19 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			    if (m == 0)
 			      {
 				*invalid_reason = INVALID_WIDTH_ARGNO_0 (spec.directives);
+				FDI_SET (f, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 			    if (unnumbered_arg_count > 0 || number == 0)
 			      {
 				*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+				FDI_SET (f, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 			    if (m != number - 1)
 			      {
 				*invalid_reason = xasprintf (_("In the directive number %u, the argument number for the precision must be equal to %u."), spec.directives, number - 1);
+				FDI_SET (f, FMTDIR_ERROR);
 				goto bad_format;
 			      }
 			    precision_number = m;
@@ -332,6 +347,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			if (unnumbered_arg_count > 0)
 			  {
 			    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 
@@ -352,6 +368,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			if (spec.numbered_arg_count > 0)
 			  {
 			    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 
@@ -369,16 +386,25 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		      type = FAT_STRING;
 		    else
 		      {
-			*invalid_reason =
-			  (*format == '\0'
-			   ? INVALID_UNTERMINATED_DIRECTIVE ()
-			   : xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format));
+			if (*format == '\0')
+			  {
+			    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			    FDI_SET (format - 1, FMTDIR_ERROR);
+			  }
+			else
+			  {
+			    *invalid_reason =
+			      xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format);
+			    FDI_SET (format, FMTDIR_ERROR);
+			  }
 			goto bad_format;
 		      }
 		  }
 		else
 		  {
 		    *invalid_reason = xasprintf (_("In the directive number %u, the precision specification is invalid."), spec.directives);
+		    FDI_SET (*format == '\0' ? format - 1 : format,
+			     FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 	      }
@@ -418,17 +444,24 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		  type = FAT_TREE | FAT_TREE_CV;
 		else
 		  {
-		    *invalid_reason =
-		      (*format == '\0'
-		       ? INVALID_UNTERMINATED_DIRECTIVE ()
-		       : (*format == 'c'
-			  || *format == 's'
-			  || *format == 'i' || *format == 'd'
-			  || *format == 'o' || *format == 'u' || *format == 'x'
-			  || *format == 'H'
-			  ? xasprintf (_("In the directive number %u, flags are not allowed before '%c'."), spec.directives, *format)
-			  : INVALID_CONVERSION_SPECIFIER (spec.directives,
-							  *format)));
+		    if (*format == '\0')
+		      {
+			*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
+		      }
+		    else
+		      {
+			*invalid_reason =
+			  (*format == 'c'
+			   || *format == 's'
+			   || *format == 'i' || *format == 'd'
+			   || *format == 'o' || *format == 'u' || *format == 'x'
+			   || *format == 'H'
+			   ? xasprintf (_("In the directive number %u, flags are not allowed before '%c'."), spec.directives, *format)
+			   : INVALID_CONVERSION_SPECIFIER (spec.directives,
+							   *format));
+			FDI_SET (format, FMTDIR_ERROR);
+		      }
 		    goto bad_format;
 		  }
 	      }
@@ -441,6 +474,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (unnumbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -461,6 +495,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (spec.numbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -474,6 +509,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		unnumbered_arg_count++;
 	      }
 	  }
+
+	FDI_SET (format, FMTDIR_END);
 
 	format++;
       }
@@ -784,7 +821,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

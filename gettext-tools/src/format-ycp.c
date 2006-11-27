@@ -48,8 +48,10 @@ struct spec
 
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -60,6 +62,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
     if (*format++ == '%')
       {
 	/* A directive.  */
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (*format == '%')
@@ -76,14 +79,23 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	  }
 	else
 	  {
-	    *invalid_reason =
-	      (*format == '\0'
-	       ? INVALID_UNTERMINATED_DIRECTIVE ()
-	       : (c_isprint (*format)
-		  ? xasprintf (_("In the directive number %u, the character '%c' is not a digit between 1 and 9."), spec.directives, *format)
-		  : xasprintf (_("The character that terminates the directive number %u is not a digit between 1 and 9."), spec.directives)));
+	    if (*format == '\0')
+	      {
+		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
+	      }
+	    else
+	      {
+		*invalid_reason =
+	          (c_isprint (*format)
+		   ? xasprintf (_("In the directive number %u, the character '%c' is not a digit between 1 and 9."), spec.directives, *format)
+		   : xasprintf (_("The character that terminates the directive number %u is not a digit between 1 and 9."), spec.directives));
+		FDI_SET (format, FMTDIR_ERROR);
+	      }
 	    goto bad_format;
 	  }
+
+	FDI_SET (format - 1, FMTDIR_END);
       }
 
   result = XMALLOC (struct spec);
@@ -212,7 +224,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

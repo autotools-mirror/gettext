@@ -113,8 +113,10 @@ named_arg_compare (const void *p1, const void *p2)
   xstrdup (_("The string refers to arguments both through argument names and through unnamed argument specifications."))
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -132,6 +134,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	char *name = NULL;
 	enum format_arg_type type;
 
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (*format == '(')
@@ -158,6 +161,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (*format == '\0')
 	      {
 		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    name_end = format++;
@@ -180,6 +184,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (spec.named_arg_count > 0)
 	      {
 		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 
@@ -208,6 +213,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (spec.named_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -246,10 +252,17 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    type = FAT_FLOAT;
 	    break;
 	  default:
-	    *invalid_reason =
-	      (*format == '\0'
-	       ? INVALID_UNTERMINATED_DIRECTIVE ()
-	       : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
+	    if (*format == '\0')
+	      {
+		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
+	      }
+	    else
+	      {
+		*invalid_reason =
+		  INVALID_CONVERSION_SPECIFIER (spec.directives, *format);
+		FDI_SET (format, FMTDIR_ERROR);
+	      }
 	    goto bad_format;
 	  }
 
@@ -261,6 +274,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (spec.unnamed_arg_count > 0)
 	      {
 		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		FDI_SET (format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 
@@ -281,6 +295,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (spec.named_arg_count > 0)
 	      {
 		*invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
+		FDI_SET (format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 
@@ -292,6 +307,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    spec.unnamed[spec.unnamed_arg_count].type = type;
 	    spec.unnamed_arg_count++;
 	  }
+
+	FDI_SET (format, FMTDIR_END);
 
 	format++;
       }
@@ -518,7 +535,7 @@ get_python_format_unnamed_arg_count (const char *string)
   /* Parse the format string.  */
   char *invalid_reason = NULL;
   struct spec *descr =
-    (struct spec *) format_parse (string, false, &invalid_reason);
+    (struct spec *) format_parse (string, false, NULL, &invalid_reason);
 
   if (descr != NULL)
     {
@@ -639,7 +656,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

@@ -183,8 +183,9 @@ numbered_arg_compare (const void *p1, const void *p2)
 
 static void *
 format_parse (const char *format, bool translated, bool objc_extensions,
-	      char **invalid_reason)
+	      char *fdi, char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   unsigned int numbered_arg_count;
   struct numbered_arg *numbered;
@@ -208,6 +209,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 	format_arg_type_t type;
 	format_arg_type_t size;
 
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (isdigit (*format))
@@ -227,6 +229,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		if (m == 0)
 		  {
 		    *invalid_reason = INVALID_ARGNO_0 (spec.directives);
+		    FDI_SET (f, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 		number = m;
@@ -281,6 +284,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		      {
 			*invalid_reason =
 			  INVALID_WIDTH_ARGNO_0 (spec.directives);
+			FDI_SET (f, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    width_number = m;
@@ -296,6 +300,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		if (spec.unnumbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -316,6 +321,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		if (numbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -362,6 +368,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 			  {
 			    *invalid_reason =
 			      INVALID_PRECISION_ARGNO_0 (spec.directives);
+			    FDI_SET (f, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 			precision_number = m;
@@ -377,6 +384,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		    if (spec.unnumbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -397,6 +405,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		    if (numbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -432,18 +441,21 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 	    if (*format != 'P')
 	      {
 		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    format++;
 	    if (*format != 'R')
 	      {
 		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    format++;
 	    if (*format != 'I')
 	      {
 		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    format++;
@@ -458,6 +470,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		break;
 	      default:
 		*invalid_reason = INVALID_C99_MACRO (spec.directives);
+		FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    format++;
@@ -501,6 +514,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		    else
 		      {
 			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			FDI_SET (*format == '\0' ? format - 1 : format,
+				 FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		  }
@@ -531,6 +546,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		    else
 		      {
 			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			FDI_SET (*format == '\0' ? format - 1 : format,
+				 FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		  }
@@ -559,6 +576,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		    else
 		      {
 			*invalid_reason = INVALID_C99_MACRO (spec.directives);
+			FDI_SET (*format == '\0' ? format - 1 : format,
+				 FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		  }
@@ -568,6 +587,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 	      {
 		*invalid_reason =
 		  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), spec.directives);
+		FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 
@@ -670,10 +690,17 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		break;
 	      other:
 	      default:
-		*invalid_reason =
-		  (*format == '\0'
-		   ? INVALID_UNTERMINATED_DIRECTIVE ()
-		   : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
+		if (*format == '\0')
+		  {
+		    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
+		  }
+		else
+		  {
+		    *invalid_reason =
+		      INVALID_CONVERSION_SPECIFIER (spec.directives, *format);
+		    FDI_SET (format, FMTDIR_ERROR);
+		  }
 		goto bad_format;
 	      }
 	  }
@@ -688,6 +715,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		if (spec.unnumbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -708,6 +736,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		if (numbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -720,6 +749,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 		spec.unnumbered_arg_count++;
 	      }
 	  }
+
+	FDI_SET (format, FMTDIR_END);
 
 	format++;
       }
@@ -811,15 +842,17 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 }
 
 static void *
-format_c_parse (const char *format, bool translated, char **invalid_reason)
+format_c_parse (const char *format, bool translated, char *fdi,
+		char **invalid_reason)
 {
-  return format_parse (format, translated, false, invalid_reason);
+  return format_parse (format, translated, false, fdi, invalid_reason);
 }
 
 static void *
-format_objc_parse (const char *format, bool translated, char **invalid_reason)
+format_objc_parse (const char *format, bool translated, char *fdi,
+		   char **invalid_reason)
 {
-  return format_parse (format, translated, true, invalid_reason);
+  return format_parse (format, translated, true, fdi, invalid_reason);
 }
 
 static void
@@ -913,7 +946,8 @@ get_sysdep_c_format_directives (const char *string, bool translated,
      particular language.)  */
   char *invalid_reason = NULL;
   struct spec *descr =
-    (struct spec *) format_parse (string, translated, true, &invalid_reason);
+    (struct spec *)
+    format_parse (string, translated, true, NULL, &invalid_reason);
 
   if (descr != NULL && descr->sysdep_directives_count > 0)
     {
@@ -1084,7 +1118,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_c_parse (line, false, &invalid_reason);
+      descr = format_c_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

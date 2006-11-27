@@ -149,9 +149,10 @@ static bool choice_format_parse (const char *format, struct spec *spec,
 /* Return true if a format is a valid messageFormatPattern.
    Extracts argument type information into spec.  */
 static bool
-message_format_parse (const char *format, struct spec *spec,
+message_format_parse (const char *format, char *fdi, struct spec *spec,
 		      char **invalid_reason)
 {
+  const char *const format_start = format;
   bool quoting = false;
 
   for (;;)
@@ -168,6 +169,7 @@ message_format_parse (const char *format, struct spec *spec,
 	  unsigned int number;
 	  enum format_arg_type type;
 
+	  FDI_SET (format, FMTDIR_START);
 	  spec->directives++;
 
 	  element_start = ++format;
@@ -188,6 +190,7 @@ message_format_parse (const char *format, struct spec *spec,
 	    {
 	      *invalid_reason =
 		xstrdup (_("The string ends in the middle of a directive: found '{' without matching '}'."));
+	      FDI_SET (format - 1, FMTDIR_ERROR);
 	      return false;
 	    }
 	  element_end = format++;
@@ -201,6 +204,7 @@ message_format_parse (const char *format, struct spec *spec,
 	    {
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec->directives);
+	      FDI_SET (format - 1, FMTDIR_ERROR);
 	      freesa (element_alloced);
 	      return false;
 	    }
@@ -235,6 +239,7 @@ message_format_parse (const char *format, struct spec *spec,
 		    {
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
+		      FDI_SET (format - 1, FMTDIR_ERROR);
 		      freesa (element_alloced);
 		      return false;
 		    }
@@ -245,6 +250,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 4;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  FDI_SET (format - 1, FMTDIR_ERROR);
 		  freesa (element_alloced);
 		  return false;
 		}
@@ -267,6 +273,7 @@ message_format_parse (const char *format, struct spec *spec,
 		    {
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid number style."), spec->directives, element);
+		      FDI_SET (format - 1, FMTDIR_ERROR);
 		      freesa (element_alloced);
 		      return false;
 		    }
@@ -277,6 +284,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 6;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  FDI_SET (format - 1, FMTDIR_ERROR);
 		  freesa (element_alloced);
 		  return false;
 		}
@@ -294,6 +302,7 @@ message_format_parse (const char *format, struct spec *spec,
 		    ;
 		  else
 		    {
+		      FDI_SET (format - 1, FMTDIR_ERROR);
 		      freesa (element_alloced);
 		      return false;
 		    }
@@ -304,6 +313,7 @@ message_format_parse (const char *format, struct spec *spec,
 		  element -= 6;
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+		  FDI_SET (format - 1, FMTDIR_ERROR);
 		  freesa (element_alloced);
 		  return false;
 		}
@@ -312,6 +322,7 @@ message_format_parse (const char *format, struct spec *spec,
 	    {
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
+	      FDI_SET (format - 1, FMTDIR_ERROR);
 	      freesa (element_alloced);
 	      return false;
 	    }
@@ -325,12 +336,16 @@ message_format_parse (const char *format, struct spec *spec,
 	  spec->numbered[spec->numbered_arg_count].number = number;
 	  spec->numbered[spec->numbered_arg_count].type = type;
 	  spec->numbered_arg_count++;
+
+	  FDI_SET (format - 1, FMTDIR_END);
 	}
       /* The doc says "ab}de" is invalid.  Even though JDK accepts it.  */
       else if (!quoting && *format == '}')
 	{
+	  FDI_SET (format, FMTDIR_START);
 	  *invalid_reason =
 	    xstrdup (_("The string starts in the middle of a directive: found '}' without matching '{'."));
+	  FDI_SET (format, FMTDIR_ERROR);
 	  return false;
 	}
       else if (*format != '\0')
@@ -581,7 +596,8 @@ choice_format_parse (const char *format, struct spec *spec,
 	}
       *mp = '\0';
 
-      msgformat_valid = message_format_parse (msgformat, spec, invalid_reason);
+      msgformat_valid =
+	message_format_parse (msgformat, NULL, spec, invalid_reason);
 
       freesa (msgformat);
 
@@ -608,7 +624,8 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -618,7 +635,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
   spec.allocated = 0;
   spec.numbered = NULL;
 
-  if (!message_format_parse (format, &spec, invalid_reason))
+  if (!message_format_parse (format, fdi, &spec, invalid_reason))
     goto bad_format;
 
   /* Sort the numbered argument array, and eliminate duplicates.  */
@@ -852,7 +869,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

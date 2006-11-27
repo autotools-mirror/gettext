@@ -99,7 +99,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 	char *invalid_reason = NULL;
 	void *msgid_descr =
 	  parser->parse (msgid_plural != NULL ? msgid_plural : msgid,
-			 false, &invalid_reason);
+			 false, NULL, &invalid_reason);
 
 	if (msgid_descr != NULL)
 	  {
@@ -119,7 +119,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 		    pretty_msgstr = buf;
 		  }
 
-		msgstr_descr = parser->parse (p, true, &invalid_reason);
+		msgstr_descr = parser->parse (p, true, NULL, &invalid_reason);
 
 		if (msgstr_descr != NULL)
 		  {

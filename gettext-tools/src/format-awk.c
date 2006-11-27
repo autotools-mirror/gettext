@@ -94,8 +94,10 @@ numbered_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   unsigned int unnumbered_arg_count;
   struct spec *result;
@@ -113,6 +115,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	unsigned int number = 0;
 	enum format_arg_type type;
 
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (isdigit (*format))
@@ -132,6 +135,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (m == 0)
 		  {
 		    *invalid_reason = INVALID_ARGNO_0 (spec.directives);
+		    FDI_SET (f, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 		number = m;
@@ -169,6 +173,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		      {
 			*invalid_reason =
 			  INVALID_WIDTH_ARGNO_0 (spec.directives);
+			FDI_SET (f, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 		    width_number = m;
@@ -184,6 +189,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (unnumbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -204,6 +210,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (spec.numbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format - 1, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -251,6 +258,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			  {
 			    *invalid_reason =
 			      INVALID_PRECISION_ARGNO_0 (spec.directives);
+			    FDI_SET (f, FMTDIR_ERROR);
 			    goto bad_format;
 			  }
 			precision_number = m;
@@ -266,6 +274,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (unnumbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -286,6 +295,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		    if (spec.numbered_arg_count > 0)
 		      {
 			*invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+			FDI_SET (format - 1, FMTDIR_ERROR);
 			goto bad_format;
 		      }
 
@@ -326,10 +336,17 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    type = FAT_FLOAT;
 	    break;
 	  default:
-	    *invalid_reason =
-	      (*format == '\0'
-	       ? INVALID_UNTERMINATED_DIRECTIVE ()
-	       : INVALID_CONVERSION_SPECIFIER (spec.directives, *format));
+	    if (*format == '\0')
+	      {
+		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
+	      }
+	    else
+	      {
+		*invalid_reason =
+		  INVALID_CONVERSION_SPECIFIER (spec.directives, *format);
+		FDI_SET (format, FMTDIR_ERROR);
+	      }
 	    goto bad_format;
 	  }
 
@@ -343,6 +360,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (unnumbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -363,6 +381,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (spec.numbered_arg_count > 0)
 		  {
 		    *invalid_reason = INVALID_MIXES_NUMBERED_UNNUMBERED ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 
@@ -376,6 +395,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		unnumbered_arg_count++;
 	      }
 	  }
+
+	FDI_SET (format, FMTDIR_END);
 
 	format++;
       }
@@ -618,7 +639,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

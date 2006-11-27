@@ -86,8 +86,10 @@ named_arg_compare (const void *p1, const void *p2)
   xstrdup (_("The string refers to a shell variable with an empty name."))
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -102,6 +104,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	/* A variable substitution.  */
 	char *name;
 
+	FDI_SET (format - 1, FMTDIR_START);
 	spec.directives++;
 
 	if (*format == '{')
@@ -118,6 +121,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		if (!c_isascii (*format))
 		  {
 		    *invalid_reason = INVALID_NON_ASCII_VARIABLE ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 		if (format > name_start
@@ -125,18 +129,21 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 			|| *format == '?' || *format == ':'))
 		  {
 		    *invalid_reason = INVALID_SHELL_SYNTAX ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 		if (!(c_isalnum (*format) || *format == '_')
 		    || (format == name_start && c_isdigit (*format)))
 		  {
 		    *invalid_reason = INVALID_CONTEXT_DEPENDENT_VARIABLE ();
+		    FDI_SET (format, FMTDIR_ERROR);
 		    goto bad_format;
 		  }
 	      }
 	    if (*format == '\0')
 	      {
 		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    name_end = format++;
@@ -145,6 +152,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (n == 0)
 	      {
 		*invalid_reason = INVALID_EMPTY_VARIABLE ();
+		FDI_SET (format - 1, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    name = XNMALLOC (n + 1, char);
@@ -173,17 +181,20 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    if (!c_isascii (*format))
 	      {
 		*invalid_reason = INVALID_NON_ASCII_VARIABLE ();
+		FDI_SET (format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	    else
 	      {
 		*invalid_reason = INVALID_CONTEXT_DEPENDENT_VARIABLE ();
+		FDI_SET (format, FMTDIR_ERROR);
 		goto bad_format;
 	      }
 	  }
 	else
 	  {
 	    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+	    FDI_SET (format - 1, FMTDIR_ERROR);
 	    goto bad_format;
 	  }
 
@@ -195,6 +206,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	  }
 	spec.named[spec.named_arg_count].name = name;
 	spec.named_arg_count++;
+
+	FDI_SET (format - 1, FMTDIR_END);
       }
 
   /* Sort the named argument array, and eliminate duplicates.  */
@@ -367,7 +380,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

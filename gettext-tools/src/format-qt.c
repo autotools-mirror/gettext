@@ -51,8 +51,10 @@ struct spec
 
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -66,6 +68,7 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	  /* A directive.  */
 	  unsigned int number;
 
+	  FDI_SET (format - 1, FMTDIR_START);
 	  spec.directives++;
 
 	  number = *format - '0';
@@ -76,9 +79,12 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 	    {
 	      *invalid_reason =
 		xasprintf (_("Multiple references to %%%c."), *format);
+	      FDI_SET (format, FMTDIR_ERROR);
 	      goto bad_format;
 	    }
 	  spec.args_used[number] = true;
+
+	  FDI_SET (format, FMTDIR_END);
 
 	  format++;
 	}
@@ -201,7 +207,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

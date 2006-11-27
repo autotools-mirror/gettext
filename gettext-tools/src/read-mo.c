@@ -404,7 +404,8 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 		  for (str = msgid; str < str_end; str += strlen (str) + 1)
 		    {
 		      char *invalid_reason = NULL;
-		      void *descr = parser->parse (str, false, &invalid_reason);
+		      void *descr =
+			parser->parse (str, false, NULL, &invalid_reason);
 
 		      if (descr != NULL)
 			parser->free (descr);
@@ -422,7 +423,7 @@ read_mo_file (message_list_ty *mlp, const char *filename)
 			{
 			  char *invalid_reason = NULL;
 			  void *descr =
-			    parser->parse (str, true, &invalid_reason);
+			    parser->parse (str, true, NULL, &invalid_reason);
 
 			  if (descr != NULL)
 			    parser->free (descr);

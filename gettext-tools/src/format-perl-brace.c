@@ -60,8 +60,10 @@ named_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char **invalid_reason)
+format_parse (const char *format, bool translated, char *fdi,
+	      char **invalid_reason)
 {
+  const char *const format_start = format;
   struct spec spec;
   struct spec *result;
 
@@ -91,6 +93,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		const char *name_end = f;
 		size_t n = name_end - name_start;
 
+		FDI_SET (format - 1, FMTDIR_START);
+
 		name = XNMALLOC (n + 1, char);
 		memcpy (name, name_start, n);
 		name[n] = '\0';
@@ -104,6 +108,8 @@ format_parse (const char *format, bool translated, char **invalid_reason)
 		  }
 		spec.named[spec.named_arg_count].name = name;
 		spec.named_arg_count++;
+
+		FDI_SET (f, FMTDIR_END);
 
 		format = ++f;
 	      }
@@ -266,7 +272,7 @@ main ()
 	line[--line_len] = '\0';
 
       invalid_reason = NULL;
-      descr = format_parse (line, false, &invalid_reason);
+      descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

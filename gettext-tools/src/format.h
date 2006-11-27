@@ -31,6 +31,26 @@ extern "C" {
 #endif
 
 
+/* These indicators are set by the parse function at the appropriate
+   positions.  */
+enum
+{
+  /* Set on the first byte of a format directive.  */
+  FMTDIR_START  = 1 << 0,
+  /* Set on the last byte of a format directive.  */
+  FMTDIR_END    = 1 << 1,
+  /* Set on the last byte of an invalid format directive, where a parse error
+     was recognized.  */
+  FMTDIR_ERROR  = 1 << 2
+};
+
+/* Macro for use inside a parser:
+   Sets an indicator at the position corresponding to PTR.
+   Assumes local variables 'fdi' and 'format_start' are defined.  */
+#define FDI_SET(ptr, flag) \
+  if (fdi != NULL) \
+    fdi[(ptr) - format_start] |= (flag)/*;*/
+
 /* This type of callback is responsible for showing an error.  */
 typedef void (*formatstring_error_logger_t) (const char *format, ...)
 #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
@@ -44,12 +64,14 @@ struct formatstring_parser
   /* Parse the given string as a format string.
      If translated is true, some extensions available only to msgstr but not
      to msgid strings are recognized.
+     If fdi is non-NULL, it must be a an array of strlen (string) zero bytes.
      Return a freshly allocated structure describing
        1. the argument types/names needed for the format string,
        2. the total number of format directives.
      Return NULL if the string is not a valid format string. In this case,
-     also set *invalid_reason to an error message explaining why.  */
-  void * (*parse) (const char *string, bool translated, char **invalid_reason);
+     also set *invalid_reason to an error message explaining why.
+     In both cases, set FMTDIR_* bits at the appropriate positions in fdi.  */
+  void * (*parse) (const char *string, bool translated, char *fdi, char **invalid_reason);
 
   /* Free a format string descriptor, returned by parse().  */
   void (*free) (void *descr);
