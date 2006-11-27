@@ -1,3 +1,7 @@
+Version 0.16.1 - November 2006
+
+* Bug fix in the gettext.m4 autoconf macros.
+
 Version 0.16 - October 2006
 
 * Interoperability with automake-1.10.
