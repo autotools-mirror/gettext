@@ -254,6 +254,7 @@ m4/hard-locale.m4.diff \
 m4/libcroco.m4 \
 m4/libglib.m4 \
 m4/libxml.m4 \
+m4/no-c++.m4 \
 m4/java.m4 \
 m4/quotearg.m4.diff \
 m4/quote.m4.diff \
@@ -287,6 +288,7 @@ modules/libglib \
 modules/libxml \
 modules/memory-ostream \
 modules/moo \
+modules/no-c++ \
 modules/ostream \
 modules/progreloc \
 modules/propername \

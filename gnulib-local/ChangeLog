@@ -1,5 +1,11 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* modules/no-c++: New file.
+	* m4/no-c++.m4: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	Support for VPATH builds.
 	* modules/libglib (glib/*.h): Create the glib directory if necessary.
 	* modules/libxml (libxml/*.h): Create the libxml directory if
