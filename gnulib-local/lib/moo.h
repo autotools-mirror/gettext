@@ -157,6 +157,9 @@
        each being a typeinfo_t instance.
      - A declaration of 'ROOTFOO_SUPERCLASSES' or 'SUBCLASS_SUPERCLASSES',
        respectively, each being an initializer for an array of typeinfo_t.
+     - A declaration of 'ROOTFOO_SUPERCLASSES_LENGTH' or
+       'SUBCLASS_SUPERCLASSES_LENGTH', respectively, each denoting the length
+       of that initializer.
      - A declaration of 'rootfoo_vtable' or 'subclass_vtable', respectively,
        being an instance of 'struct rootfoo_implementation' or
        'struct subclass_implementation', respectively.
@@ -222,24 +225,14 @@ typedef struct
 } typeinfo_t;
 
 /* IS_INSTANCE (OBJ, ROOTCLASSNAME, CLASSNAME)
-   IS_INSTANCE_PRIVATE (OBJ, ROOTCLASSNAME, CLASSNAME)
-   test whether an object is instance of a given class, given as lower case
-   class name.
-   IS_INSTANCE can be used anywhere; IS_INSTANCE_PRIVATE can only be used in
-   the file that implements CLASSNAME but is better optimized.  */
+   tests whether an object is instance of a given class, given as lower case
+   class name.  */
 #define IS_INSTANCE(obj,rootclassname,classname) \
   (((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-   >= classname##_vtable.superclasses_length \
+   >= classname##_SUPERCLASSES_LENGTH \
    && ((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses \
       [((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-       - classname##_vtable.superclasses_length] \
-      == & classname##_typeinfo)
-#define IS_INSTANCE_PRIVATE(obj,rootclassname,classname) \
-  (((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-   >= sizeof (classname##_superclasses) / sizeof (classname##_superclasses[0]) \
-   && ((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses \
-      [((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses_length \
-       - sizeof (classname##_superclasses) / sizeof (classname##_superclasses[0])] \
+       - classname##_SUPERCLASSES_LENGTH] \
       == & classname##_typeinfo)
 /* This instance test consists of two comparisons.  One could even optimize
    this to a single comparison, by limiting the inheritance depth to a fixed
@@ -247,9 +240,9 @@ typedef struct
    need to be stored in reverse order, from the root down to the class itself,
    and be filled up with NULLs so that the array has length 10.  The instance
    test would look like this:
-     #define IS_INSTANCE_PRIVATE(obj,rootclassname,classname) \
+     #define IS_INSTANCE(obj,rootclassname,classname) \
        (((const struct rootclassname##_representation_header *)(const struct any_##rootclassname##_representation *)(obj))->vtable->superclasses \
-        [classname##_superclasses_length - 1] \
+        [classname##_SUPERCLASSES_LENGTH - 1] \
         == & classname##_typeinfo)
    but the classname##_superclasses_length would no longer be available as a
    simple sizeof expression.  */

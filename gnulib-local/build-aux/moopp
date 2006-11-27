@@ -453,6 +453,11 @@ func_start_creation "$newfile"
     superclasses_array_initializer="NULL"
   fi
   echo "#define ${main_classname}_SUPERCLASSES &${main_classname}_typeinfo, ${superclasses_array_initializer}"
+  if test -n "${main_superclassname}"; then
+    echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + ${main_superclassname}_SUPERCLASSES_LENGTH)"
+  else
+    echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + 1)"
+  fi
   echo
   echo "extern const struct ${main_classname}_implementation ${main_classname}_vtable;"
   echo
