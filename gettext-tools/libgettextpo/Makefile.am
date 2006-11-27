@@ -135,7 +135,7 @@ config.h: $(BUILT_SOURCES)
 	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
 	          $(COMPILE) -c $$sf || { rm -f config.h; exit 1; }; \
 	          sh ./exported.sh $$of 1>&5; \
-	          rm -f $$of; \
+	          rm -f $$of `echo "$$of" | sed -e 's,\\.$(OBJEXT)$$,.lo,'`; \
 	          ;; \
 	      esac; \
 	    done; \

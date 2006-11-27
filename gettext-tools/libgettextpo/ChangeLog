@@ -1,5 +1,10 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (config.h): When removing an object file, also remove
+	the corresponding .lo file.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	Support for VPATH builds.
 	* Makefile.am (config.h): Don't prepend "$(srcdir)/" to the source
 	file name if it is present in the build directory.
