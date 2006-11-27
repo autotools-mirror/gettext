@@ -1,4 +1,4 @@
-# libglib.m4 serial 1 (gettext-0.16.1)
+# libglib.m4 serial 2 (gettext-0.16.1)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -95,12 +95,6 @@ AC_DEFUN([gl_LIBGLIB],
     LIBGLIB_H="$LIBGLIB_H glib/gstrfuncs.h"
     LIBGLIB_H="$LIBGLIB_H glib/gstring.h"
     LIBGLIB_H="$LIBGLIB_H glib/gtypes.h"
-    AC_LIBOBJ([glib/ghash])
-    AC_LIBOBJ([glib/glist])
-    AC_LIBOBJ([glib/gmessages])
-    AC_LIBOBJ([glib/gprimes])
-    AC_LIBOBJ([glib/gstrfuncs])
-    AC_LIBOBJ([glib/gstring])
     AC_REQUIRE([AC_GNU_SOURCE])
     AC_CHECK_HEADERS([unistd.h])
     dnl Don't bother checking for pthread.h and other multithread facilities.
@@ -108,4 +102,7 @@ AC_DEFUN([gl_LIBGLIB],
     LIBGLIB_H=
   fi
   AC_SUBST([LIBGLIB_H])
+
+  AM_CONDITIONAL([INCLUDED_LIBGLIB],
+    [test "$gl_cv_libglib_use_included" = yes])
 ])

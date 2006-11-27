@@ -22,11 +22,27 @@ Depends-on:
 vasprintf
 xalloc
 xvasprintf
+no-c++
 
 configure.ac:
 gl_LIBGLIB
 
 Makefile.am:
+if INCLUDED_LIBGLIB
+lib_LIBADD += libglib_rpl.la
+lib_DEPENDENCIES += libglib_rpl.la
+noinst_LTLIBRARIES += libglib_rpl.la
+endif
+
+libglib_rpl_la_SOURCES = \
+  glib/ghash.c \
+  glib/glist.c \
+  glib/gmessages.c \
+  glib/gprimes.c \
+  glib/gstrfuncs.c \
+  glib/gstring.c
+libglib_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
+
 BUILT_SOURCES += $(LIBGLIB_H)
 
 glib.h: glib_.h

@@ -1,4 +1,4 @@
-# libcroco.m4 serial 1 (gettext-0.16.1)
+# libcroco.m4 serial 2 (gettext-0.16.1)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -89,34 +89,6 @@ AC_DEFUN([gl_LIBCROCO],
   AC_MSG_CHECKING([whether to use the included libcroco])
   AC_MSG_RESULT([$gl_cv_libcroco_use_included])
 
-  if test "$gl_cv_libcroco_use_included" = yes; then
-    AC_LIBOBJ([libcroco/cr-additional-sel])
-    AC_LIBOBJ([libcroco/cr-attr-sel])
-    AC_LIBOBJ([libcroco/cr-cascade])
-    AC_LIBOBJ([libcroco/cr-declaration])
-    AC_LIBOBJ([libcroco/cr-doc-handler])
-    AC_LIBOBJ([libcroco/cr-enc-handler])
-    AC_LIBOBJ([libcroco/cr-fonts])
-    AC_LIBOBJ([libcroco/cr-input])
-    AC_LIBOBJ([libcroco/cr-num])
-    AC_LIBOBJ([libcroco/cr-om-parser])
-    AC_LIBOBJ([libcroco/cr-parser])
-    AC_LIBOBJ([libcroco/cr-parsing-location])
-    AC_LIBOBJ([libcroco/cr-prop-list])
-    AC_LIBOBJ([libcroco/cr-pseudo])
-    AC_LIBOBJ([libcroco/cr-rgb])
-    AC_LIBOBJ([libcroco/cr-sel-eng])
-    AC_LIBOBJ([libcroco/cr-selector])
-    AC_LIBOBJ([libcroco/cr-simple-sel])
-    AC_LIBOBJ([libcroco/cr-statement])
-    AC_LIBOBJ([libcroco/cr-string])
-    AC_LIBOBJ([libcroco/cr-style])
-    AC_LIBOBJ([libcroco/cr-stylesheet])
-    AC_LIBOBJ([libcroco/cr-term])
-    AC_LIBOBJ([libcroco/cr-tknzr])
-    AC_LIBOBJ([libcroco/cr-token])
-    AC_LIBOBJ([libcroco/cr-utils])
-  fi
   AM_CONDITIONAL([INCLUDED_LIBCROCO],
     [test "$gl_cv_libcroco_use_included" = yes])
 ])

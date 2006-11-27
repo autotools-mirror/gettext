@@ -62,6 +62,7 @@ m4/absolute-header.m4
 Depends-on:
 libglib
 libxml
+no-c++
 
 configure.ac:
 gl_LIBCROCO
@@ -71,7 +72,39 @@ AM_CPPFLAGS += $(INCGLIB)
 AM_CPPFLAGS += $(INCXML)
 if INCLUDED_LIBCROCO
 AM_CPPFLAGS += -I$(srcdir)/libcroco
+lib_LIBADD += libcroco_rpl.la
+lib_DEPENDENCIES += libcroco_rpl.la
+noinst_LTLIBRARIES += libcroco_rpl.la
 endif
+
+libcroco_rpl_la_SOURCES = \
+  libcroco/cr-additional-sel.c \
+  libcroco/cr-attr-sel.c \
+  libcroco/cr-cascade.c \
+  libcroco/cr-declaration.c \
+  libcroco/cr-doc-handler.c \
+  libcroco/cr-enc-handler.c \
+  libcroco/cr-fonts.c \
+  libcroco/cr-input.c \
+  libcroco/cr-num.c \
+  libcroco/cr-om-parser.c \
+  libcroco/cr-parser.c \
+  libcroco/cr-parsing-location.c \
+  libcroco/cr-prop-list.c \
+  libcroco/cr-pseudo.c \
+  libcroco/cr-rgb.c \
+  libcroco/cr-sel-eng.c \
+  libcroco/cr-selector.c \
+  libcroco/cr-simple-sel.c \
+  libcroco/cr-statement.c \
+  libcroco/cr-string.c \
+  libcroco/cr-style.c \
+  libcroco/cr-stylesheet.c \
+  libcroco/cr-term.c \
+  libcroco/cr-tknzr.c \
+  libcroco/cr-token.c \
+  libcroco/cr-utils.c
+libcroco_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
 
 if GL_COND_LIBTOOL
 lib_LDFLAGS += $(LTLIBCROCO)

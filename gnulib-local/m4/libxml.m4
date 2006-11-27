@@ -1,4 +1,4 @@
-# libxml.m4 serial 1 (gettext-0.16.1)
+# libxml.m4 serial 2 (gettext-0.16.1)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -137,49 +137,6 @@ AC_DEFUN([gl_LIBXML],
     LIBXML_H="$LIBXML_H libxml/xpath.h"
     LIBXML_H="$LIBXML_H libxml/xpathInternals.h"
     LIBXML_H="$LIBXML_H libxml/xpointer.h"
-    AC_LIBOBJ([libxml/DOCBparser])
-    AC_LIBOBJ([libxml/HTMLparser])
-    AC_LIBOBJ([libxml/HTMLtree])
-    AC_LIBOBJ([libxml/SAX])
-    AC_LIBOBJ([libxml/SAX2])
-    AC_LIBOBJ([libxml/c14n])
-    AC_LIBOBJ([libxml/catalog])
-    AC_LIBOBJ([libxml/chvalid])
-    AC_LIBOBJ([libxml/debugXML])
-    AC_LIBOBJ([libxml/dict])
-    AC_LIBOBJ([libxml/encoding])
-    AC_LIBOBJ([libxml/entities])
-    AC_LIBOBJ([libxml/error])
-    AC_LIBOBJ([libxml/globals])
-    AC_LIBOBJ([libxml/hash])
-    AC_LIBOBJ([libxml/legacy])
-    AC_LIBOBJ([libxml/list])
-    AC_LIBOBJ([libxml/nanoftp])
-    AC_LIBOBJ([libxml/nanohttp])
-    AC_LIBOBJ([libxml/parser])
-    AC_LIBOBJ([libxml/parserInternals])
-    AC_LIBOBJ([libxml/pattern])
-    AC_LIBOBJ([libxml/relaxng])
-    AC_LIBOBJ([libxml/schematron])
-    AC_LIBOBJ([libxml/threads])
-    AC_LIBOBJ([libxml/tree])
-    AC_LIBOBJ([libxml/uri])
-    AC_LIBOBJ([libxml/valid])
-    AC_LIBOBJ([libxml/xinclude])
-    AC_LIBOBJ([libxml/xlink])
-    AC_LIBOBJ([libxml/xmlIO])
-    AC_LIBOBJ([libxml/xmlmemory])
-    AC_LIBOBJ([libxml/xmlmodule])
-    AC_LIBOBJ([libxml/xmlreader])
-    AC_LIBOBJ([libxml/xmlregexp])
-    AC_LIBOBJ([libxml/xmlsave])
-    AC_LIBOBJ([libxml/xmlschemas])
-    AC_LIBOBJ([libxml/xmlschemastypes])
-    AC_LIBOBJ([libxml/xmlstring])
-    AC_LIBOBJ([libxml/xmlunicode])
-    AC_LIBOBJ([libxml/xmlwriter])
-    AC_LIBOBJ([libxml/xpath])
-    AC_LIBOBJ([libxml/xpointer])
     AC_CHECK_HEADERS([arpa/inet.h arpa/nameser.h ctype.h dlfcn.h dl.h errno.h \
                       fcntl.h float.h limits.h malloc.h math.h netdb.h \
                       netinet/in.h resolv.h signal.h stdlib.h string.h \
@@ -193,4 +150,7 @@ AC_DEFUN([gl_LIBXML],
     LIBXML_H=
   fi
   AC_SUBST([LIBXML_H])
+
+  AM_CONDITIONAL([INCLUDED_LIBXML],
+    [test "$gl_cv_libxml_use_included" = yes])
 ])

@@ -100,11 +100,64 @@ m4/absolute-header.m4
 
 Depends-on:
 iconv
+no-c++
 
 configure.ac:
 gl_LIBXML
 
 Makefile.am:
+if INCLUDED_LIBXML
+lib_LIBADD += libxml_rpl.la
+lib_DEPENDENCIES += libxml_rpl.la
+noinst_LTLIBRARIES += libxml_rpl.la
+endif
+
+libxml_rpl_la_SOURCES = \
+  libxml/DOCBparser.c \
+  libxml/HTMLparser.c \
+  libxml/HTMLtree.c \
+  libxml/SAX.c \
+  libxml/SAX2.c \
+  libxml/c14n.c \
+  libxml/catalog.c \
+  libxml/chvalid.c \
+  libxml/debugXML.c \
+  libxml/dict.c \
+  libxml/encoding.c \
+  libxml/entities.c \
+  libxml/error.c \
+  libxml/globals.c \
+  libxml/hash.c \
+  libxml/legacy.c \
+  libxml/list.c \
+  libxml/nanoftp.c \
+  libxml/nanohttp.c \
+  libxml/parser.c \
+  libxml/parserInternals.c \
+  libxml/pattern.c \
+  libxml/relaxng.c \
+  libxml/schematron.c \
+  libxml/threads.c \
+  libxml/tree.c \
+  libxml/uri.c \
+  libxml/valid.c \
+  libxml/xinclude.c \
+  libxml/xlink.c \
+  libxml/xmlIO.c \
+  libxml/xmlmemory.c \
+  libxml/xmlmodule.c \
+  libxml/xmlreader.c \
+  libxml/xmlregexp.c \
+  libxml/xmlsave.c \
+  libxml/xmlschemas.c \
+  libxml/xmlschemastypes.c \
+  libxml/xmlstring.c \
+  libxml/xmlunicode.c \
+  libxml/xmlwriter.c \
+  libxml/xpath.c \
+  libxml/xpointer.c
+libxml_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
+
 BUILT_SOURCES += $(LIBXML_H)
 
 libxml/DOCBparser.h: libxml/DOCBparser_.h

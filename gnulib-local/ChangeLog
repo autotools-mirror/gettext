@@ -1,5 +1,27 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	Build the imported libraries with a C compiler, even when CC=g++.
+
+	* modules/libcroco (Depends-on): Add no-c++.
+	(Makefile.am): Define libcroco_rpl_la_SOURCES,
+	libcroco_rpl_la_CPPFLAGS.
+	Augment lib_LIBADD, lib_DEPENDENCIES, noinst_LTLIBRARIES.
+	* m4/libcroco.m4 (gl_LIBCROCO): Don't use AC_LIBOBJ.
+
+	* modules/libglib (Depends-on): Add no-c++.
+	(Makefile.am): Define libglib_rpl_la_SOURCES, libglib_rpl_la_CPPFLAGS.
+	Augment lib_LIBADD, lib_DEPENDENCIES, noinst_LTLIBRARIES.
+	* m4/libglib.m4 (gl_LIBGLIB): Don't use AC_LIBOBJ. New condition
+	INCLUDED_LIBGLIB.
+
+	* modules/libxml (Depends-on): Add no-c++.
+	(Makefile.am): Define libxml_rpl_la_SOURCES, libxml_rpl_la_CPPFLAGS.
+	Augment lib_LIBADD, lib_DEPENDENCIES, noinst_LTLIBRARIES.
+	* m4/libxml.m4 (gl_LIBXML): Don't use AC_LIBOBJ. New condition
+	INCLUDED_LIBXML.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	libcroco uses vasprintf.h, which requires <config.h>.
 	* lib/libcroco/cr-additional-sel.c: Include <config.h>.
 	* lib/libcroco/cr-attr-sel.c: Likewise.
