@@ -108,282 +108,329 @@ Makefile.am:
 BUILT_SOURCES += $(LIBXML_H)
 
 libxml/DOCBparser.h: libxml/DOCBparser_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/DOCBparser_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/HTMLparser.h: libxml/HTMLparser_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/HTMLparser_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/HTMLtree.h: libxml/HTMLtree_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/HTMLtree_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/SAX.h: libxml/SAX_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/SAX_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/SAX2.h: libxml/SAX2_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/SAX2_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/c14n.h: libxml/c14n_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/c14n_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/catalog.h: libxml/catalog_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/catalog_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/chvalid.h: libxml/chvalid_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/chvalid_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/debugXML.h: libxml/debugXML_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/debugXML_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/dict.h: libxml/dict_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/dict_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/encoding.h: libxml/encoding_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/encoding_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/entities.h: libxml/entities_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/entities_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/globals.h: libxml/globals_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/globals_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/hash.h: libxml/hash_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/hash_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/list.h: libxml/list_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/list_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/nanoftp.h: libxml/nanoftp_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/nanoftp_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/nanohttp.h: libxml/nanohttp_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/nanohttp_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/parser.h: libxml/parser_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/parser_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/parserInternals.h: libxml/parserInternals_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/parserInternals_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/pattern.h: libxml/pattern_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/pattern_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/relaxng.h: libxml/relaxng_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/relaxng_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/schemasInternals.h: libxml/schemasInternals_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/schemasInternals_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/schematron.h: libxml/schematron_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/schematron_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/threads.h: libxml/threads_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/threads_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/tree.h: libxml/tree_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/tree_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/uri.h: libxml/uri_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/uri_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/valid.h: libxml/valid_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/valid_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xinclude.h: libxml/xinclude_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xinclude_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xlink.h: libxml/xlink_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xlink_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlIO.h: libxml/xmlIO_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlIO_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlautomata.h: libxml/xmlautomata_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlautomata_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlerror.h: libxml/xmlerror_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlerror_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlexports.h: libxml/xmlexports_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlexports_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlmemory.h: libxml/xmlmemory_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlmemory_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlmodule.h: libxml/xmlmodule_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlmodule_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlreader.h: libxml/xmlreader_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlreader_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlregexp.h: libxml/xmlregexp_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlregexp_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlsave.h: libxml/xmlsave_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlsave_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlschemas.h: libxml/xmlschemas_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlschemas_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlschemastypes.h: libxml/xmlschemastypes_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlschemastypes_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlstring.h: libxml/xmlstring_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlstring_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlunicode.h: libxml/xmlunicode_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlunicode_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlversion.h: libxml/xmlversion_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlversion_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xmlwriter.h: libxml/xmlwriter_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xmlwriter_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xpath.h: libxml/xpath_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xpath_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xpathInternals.h: libxml/xpathInternals_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xpathInternals_.h; \
 	} > $@-t
 	mv -f $@-t $@
 
 libxml/xpointer.h: libxml/xpointer_.h
+	test -d libxml || mkdir libxml
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/libxml/xpointer_.h; \
 	} > $@-t

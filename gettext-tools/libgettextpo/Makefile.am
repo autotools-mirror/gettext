@@ -131,8 +131,9 @@ config.h: $(BUILT_SOURCES)
 	      case $$f in \
 	        *.c | *.$(OBJEXT) | *.lo ) \
 	          sf=`echo "$$f" | sed -e 's,\\.[^.]*$$,,'`.c; \
+	          test -f $$sf || sf=$(srcdir)/$$sf; \
 	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
-	          $(COMPILE) -c $(srcdir)/$$sf || { rm -f config.h; exit 1; }; \
+	          $(COMPILE) -c $$sf || { rm -f config.h; exit 1; }; \
 	          sh ./exported.sh $$of 1>&5; \
 	          rm -f $$of; \
 	          ;; \

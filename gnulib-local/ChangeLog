@@ -1,5 +1,12 @@
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
+	Support for VPATH builds.
+	* modules/libglib (glib/*.h): Create the glib directory if necessary.
+	* modules/libxml (libxml/*.h): Create the libxml directory if
+	necessary.
+
+2006-11-26  Bruno Haible  <bruno@clisp.org>
+
 	* lib/xalloc.h (xmemdup): Add a typesafe C++ template variant.
 	Based on a patch from Paul Eggert in gnulib.
 
