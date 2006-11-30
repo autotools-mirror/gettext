@@ -1,5 +1,9 @@
 2006-11-28  Bruno Haible  <bruno@clisp.org>
 
+	* lib/term-ostream.oo.c (out_attr_change): Fix uses of color_bgr.
+
+2006-11-28  Bruno Haible  <bruno@clisp.org>
+
 	Guard against interruption with Ctrl-Z.
 	* lib/term-ostream.oo.c: Include also signal.h and sigprocmask.h.
 	(SIZEOF): New macro.

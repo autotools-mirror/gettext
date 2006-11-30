@@ -285,7 +285,9 @@ equal_attributes (attributes_t attr1, attributes_t attr2)
 	  && attr1.underline == attr2.underline);
 }
 
-/* Convert a color in RGB encoding to BGR encoding.  */
+/* Convert a color in RGB encoding to BGR encoding.
+   See the ncurses terminfo.5 manual page, section "Color Handling", for an
+   explanation why this is needed.  */
 static inline int
 color_bgr (term_color_t color)
 {
@@ -329,9 +331,10 @@ out_attr_change (term_ostream_t stream,
       assert (stream->supports_foreground);
       assert (new_attr.color != COLOR_DEFAULT);
       if (stream->set_a_foreground != NULL)
-	tputs (tparm (stream->set_a_foreground, new_attr.color), 1, out_char);
+	tputs (tparm (stream->set_a_foreground, color_bgr (new_attr.color)),
+	       1, out_char);
       else
-	tputs (tparm (stream->set_foreground, color_bgr (new_attr.color)),
+	tputs (tparm (stream->set_foreground, new_attr.color),
 	       1, out_char);
     }
   if (new_attr.bgcolor != old_attr.bgcolor)
@@ -339,9 +342,10 @@ out_attr_change (term_ostream_t stream,
       assert (stream->supports_background);
       assert (new_attr.bgcolor != COLOR_DEFAULT);
       if (stream->set_a_background != NULL)
-	tputs (tparm (stream->set_a_background, new_attr.bgcolor), 1, out_char);
+	tputs (tparm (stream->set_a_background, color_bgr (new_attr.bgcolor)),
+	       1, out_char);
       else
-	tputs (tparm (stream->set_background, color_bgr (new_attr.bgcolor)),
+	tputs (tparm (stream->set_background, new_attr.bgcolor),
 	       1, out_char);
     }
 
