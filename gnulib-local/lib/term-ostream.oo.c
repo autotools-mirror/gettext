@@ -23,6 +23,7 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,11 +32,14 @@
 #include "exit.h"
 #include "fatal-signal.h"
 #include "full-write.h"
+#include "sigprocmask.h"
 #include "xalloc.h"
 #include "xsize.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* Including <curses.h> or <term.h> is dangerous, because it also declares
@@ -219,6 +223,57 @@ restore (void)
     }
 }
 
+/* The list of signals whose default behaviour is to stop the program.  */
+static int stopping_signals[] =
+  {
+#ifdef SIGTSTP
+    SIGTSTP,
+#endif
+#ifdef SIGTTIN
+    SIGTTIN,
+#endif
+#ifdef SIGTTOU
+    SIGTTOU,
+#endif
+    0
+  };
+
+#define num_stopping_signals (SIZEOF (stopping_signals) - 1)
+
+static sigset_t stopping_signal_set;
+
+static void
+init_stopping_signal_set ()
+{
+  static bool stopping_signal_set_initialized = false;
+  if (!stopping_signal_set_initialized)
+    {
+      size_t i;
+
+      sigemptyset (&stopping_signal_set);
+      for (i = 0; i < num_stopping_signals; i++)
+	sigaddset (&stopping_signal_set, stopping_signals[i]);
+
+      stopping_signal_set_initialized = true;
+    }
+}
+
+/* Temporarily delay the stopping signals.  */
+void
+block_stopping_signals ()
+{
+  init_stopping_signal_set ();
+  sigprocmask (SIG_BLOCK, &stopping_signal_set, NULL);
+}
+
+/* Stop delaying the stopping signals.  */
+void
+unblock_stopping_signals ()
+{
+  init_stopping_signal_set ();
+  sigprocmask (SIG_UNBLOCK, &stopping_signal_set, NULL);
+}
+
 /* Compare two sets of attributes for equality.  */
 static inline bool
 equal_attributes (attributes_t attr1, attributes_t attr2)
@@ -379,6 +434,8 @@ output_buffer (term_ostream_t stream)
       /* Block fatal signals, so that a SIGINT or similar doesn't interrupt
 	 us without the possibility of restoring the terminal's state.  */
       block_fatal_signals ();
+      /* Likewise for SIGTSTP etc.  */
+      block_stopping_signals ();
 
       /* Enable the exit handler for restoring the terminal's state.  */
       restore_colors =
@@ -426,7 +483,8 @@ output_buffer (term_ostream_t stream)
       out_fd = -1;
       out_filename = NULL;
 
-      /* Unblock fatal signals.  */
+      /* Unblock fatal and stopping signals.  */
+      unblock_stopping_signals ();
       unblock_fatal_signals ();
     }
   stream->buflen = 0;

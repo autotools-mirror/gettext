@@ -1,5 +1,18 @@
 2006-11-28  Bruno Haible  <bruno@clisp.org>
 
+	Guard against interruption with Ctrl-Z.
+	* lib/term-ostream.oo.c: Include also signal.h and sigprocmask.h.
+	(SIZEOF): New macro.
+	(stopping_signals): New variable.
+	(num_stopping_signals): New macro.
+	(stopping_signal_set): New variable.
+	(init_stopping_signal_set): New function.
+	(block_stopping_signals, unblock_stopping_signals): New functions.
+	(output_buffer): Use them.
+	* modules/term-ostream (Depends-on): Add sigprocmask.
+
+2006-11-28  Bruno Haible  <bruno@clisp.org>
+
 	* lib/libcroco/cr-fonts.h: Fix double-inclusion guard.
 
 2006-11-27  Paul Eggert  <eggert@cs.ucla.edu>
