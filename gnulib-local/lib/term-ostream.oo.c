@@ -259,7 +259,7 @@ init_stopping_signal_set ()
 }
 
 /* Temporarily delay the stopping signals.  */
-void
+static inline void
 block_stopping_signals ()
 {
   init_stopping_signal_set ();
@@ -267,7 +267,7 @@ block_stopping_signals ()
 }
 
 /* Stop delaying the stopping signals.  */
-void
+static inline void
 unblock_stopping_signals ()
 {
   init_stopping_signal_set ();
