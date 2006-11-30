@@ -2,7 +2,7 @@
 # Convenience script for regenerating all aclocal.m4, config.h.in, Makefile.in,
 # configure files with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.60 and automake-1.10 in the PATH.
+# This script requires autoconf-2.60..2.61 and automake-1.10 in the PATH.
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
