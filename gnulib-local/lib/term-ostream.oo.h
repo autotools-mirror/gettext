@@ -30,18 +30,13 @@
    For example, xterm cannot render POSTURE_ITALIC nor the combination of
    WEIGHT_BOLD and UNDERLINE_ON.  */
 
-typedef enum
-{                     /* RGB components */
-  COLOR_BLACK = 0,    /* 000 */
-  COLOR_BLUE,         /* 001 */
-  COLOR_GREEN,        /* 010 */
-  COLOR_CYAN,         /* 011 */
-  COLOR_RED,          /* 100 */
-  COLOR_MAGENTA,      /* 101 */
-  COLOR_YELLOW,       /* 110 */
-  COLOR_WHITE,        /* 111 */
+/* Colors are represented by indices >= 0 in a stream dependent format.  */
+typedef int term_color_t;
+/* The value -1 denotes the default (foreground or background) color.  */
+enum
+{
   COLOR_DEFAULT = -1  /* unknown */
-} term_color_t;
+};
 
 typedef enum
 {
@@ -67,6 +62,11 @@ typedef enum
 struct term_ostream : struct ostream
 {
 methods:
+
+  /* Convert an RGB value (red, green, blue in [0..255]) to a color, valid
+     for this stream only.  */
+  term_color_t rgb_to_color (term_ostream_t stream,
+			     int red, int green, int blue);
 
   /* Get/set the text color.  */
   term_color_t get_color (term_ostream_t stream);

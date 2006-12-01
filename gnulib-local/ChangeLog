@@ -1,3 +1,32 @@
+2006-11-30  Bruno Haible  <bruno@clisp.org>
+
+	Add special color support for xterm-16color, xterm-88color,
+	xterm-256color.
+	* lib/term-ostream.oo.h (term_color_t): Define as int.
+	(COLOR_BLACK, COLOR_BLUE, COLOR_GREEN, COLOR_CYAN, COLOR_RED,
+	COLOR_MAGENTA, COLOR_YELLOW, COLOR_WHITE): Remove enum items.
+	(term_ostream): Add method rgb_to_color.
+	* lib/term-ostream.oo.c (rgb_t, hsv_t): New types.
+	(rgb_to_hsv, color_distance, nearest_color, color_luminance): New
+	functions.
+	(colormodel_t): New type.
+	(rgb_to_color_monochrome): New function.
+	(rgb_to_color_common8): New function.
+	(rgb_to_color_xterm8): New function.
+	(colors_of_xterm16): New variable.
+	(rgb_to_color_xterm16): New function.
+	(colors_of_xterm88): New variable.
+	(rgb_to_color_xterm88): New function.
+	(colors_of_xterm256): New variable.
+	(rgb_to_color_xterm256): New function.
+	(attributes_t): Reserve more bits for the colors.
+	(term_ostream): Add colormodel field.
+	(out_error): New function.
+	(out_char): Use it.
+	(out_attr_change): Add support for the xterm color models.
+	(term_ostream::rgb_to_color): New function.
+	(term_ostream_create): Initialize the colormodel field.
+
 2006-11-28  Bruno Haible  <bruno@clisp.org>
 
 	* lib/term-ostream.oo.c (out_attr_change): Fix uses of color_bgr.
