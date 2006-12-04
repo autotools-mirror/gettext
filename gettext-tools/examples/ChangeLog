@@ -6,6 +6,7 @@
 	(EXAMPLESDIRS, EXAMPLESPOFILES): New variables.
 	(install-data-local, installdirs-local, uninstall-local, distdir1): Use
 	doubly-nested loop for the common files in po directories.
+	Reported by Paul Martinolich <martinol@nrlssc.navy.mil>.
 
 2006-10-27  Bruno Haible  <bruno@clisp.org>
 
