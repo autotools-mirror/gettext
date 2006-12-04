@@ -1,5 +1,21 @@
 2006-12-01  Bruno Haible  <bruno@clisp.org>
 
+	* modules/moo-tests: New file.
+	* tests/test-moo-aroot.oo.c: New file.
+	* tests/test-moo-aroot.oo.h: New file.
+	* tests/test-moo-assign.c: New file.
+	* tests/test-moo-asub1.oo.c: New file.
+	* tests/test-moo-asub1.oo.h: New file.
+	* tests/test-moo-root.oo.c: New file.
+	* tests/test-moo-root.oo.h: New file.
+	* tests/test-moo-sub1.oo.c: New file.
+	* tests/test-moo-sub1.oo.h: New file.
+	* tests/test-moo-sub2.oo.c: New file.
+	* tests/test-moo-sub2.oo.h: New file.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
+2006-12-01  Bruno Haible  <bruno@clisp.org>
+
 	* modules/term-ostream-tests: New file.
 	* tests/test-term-ostream.c: New file.
 	* tests/test-term-ostream-xterm: New file.

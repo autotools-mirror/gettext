@@ -288,6 +288,7 @@ modules/libglib \
 modules/libxml \
 modules/memory-ostream \
 modules/moo \
+modules/moo-tests \
 modules/no-c++ \
 modules/ostream \
 modules/progreloc \
@@ -306,6 +307,17 @@ modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd \
 modules/xreadlink \
+tests/test-moo-aroot.oo.c \
+tests/test-moo-aroot.oo.h \
+tests/test-moo-assign.c \
+tests/test-moo-asub1.oo.c \
+tests/test-moo-asub1.oo.h \
+tests/test-moo-root.oo.c \
+tests/test-moo-root.oo.h \
+tests/test-moo-sub1.oo.c \
+tests/test-moo-sub1.oo.h \
+tests/test-moo-sub2.oo.c \
+tests/test-moo-sub2.oo.h \
 tests/test-term-ostream.c \
 tests/test-term-ostream-xterm \
 tests/test-term-ostream-xterm.out \
