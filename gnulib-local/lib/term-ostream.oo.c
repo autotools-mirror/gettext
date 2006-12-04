@@ -1768,7 +1768,13 @@ term_ostream_create (int fd, const char *filename)
      && stream->orig_pair != NULL);
   stream->colormodel =
     (stream->supports_foreground || stream->supports_background
-     ? (term != NULL && strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0
+     ? (term != NULL
+	&& (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
+	    (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
+	    || /* Recognize rxvt-16color.  */
+	       (strlen (term) >= 4 && memcmp (term, "rxvt", 7) == 0)
+	    || /* Recognize konsole-16color.  */
+	       (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
 	? (stream->max_colors == 256 ? cm_xterm256 :
 	   stream->max_colors == 88 ? cm_xterm88 :
 	   stream->max_colors == 16 ? cm_xterm16 :
