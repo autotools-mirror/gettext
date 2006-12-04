@@ -310,10 +310,40 @@ rgb_to_color_monochrome ()
    COLOR_MAGENTA       101
    COLOR_YELLOW        110
    COLOR_WHITE         111 */
+static const rgb_t colors_of_common8[8] =
+{
+  /* R    G    B        grey  index */
+  {   0,   0,   0 }, /* 0.000   0 */
+  {   0,   0, 255 },
+  {   0, 255,   0 },
+  {   0, 255, 255 },
+  { 255,   0,   0 },
+  { 255,   0, 255 },
+  { 255, 255,   0 },
+  { 255, 255, 255 }  /* 1.000   7 */
+};
+
 static inline term_color_t
 rgb_to_color_common8 (int r, int g, int b)
 {
-  return (r >= 128 ? 4 : 0) + (g >= 128 ? 2 : 0) + (b >= 128 ? 1 : 0);
+  rgb_t color;
+  hsv_t hsv;
+
+  color.red = r; color.green = g; color.blue = b;
+  rgb_to_hsv (color, &hsv);
+
+  if (hsv.saturation < 0.065f)
+    {
+      /* Greyscale approximation.  */
+      float luminance = color_luminance (r, g, b);
+      if (luminance < 0.500f)
+	return 0;
+      else
+	return 7;
+    }
+  else
+    /* Color approximation.  */
+    return nearest_color (color, colors_of_common8, 8);
 }
 
 /* Convert a cm_common8 color in RGB encoding to BGR encoding.
@@ -337,10 +367,41 @@ color_bgr (term_color_t color)
    COLOR_MAGENTA       101
    COLOR_CYAN          110
    COLOR_WHITE         111 */
+static const rgb_t colors_of_xterm8[8] =
+{
+  /* The real xterm's colors are dimmed; assume full-brightness instead.  */
+  /* R    G    B        grey  index */
+  {   0,   0,   0 }, /* 0.000   0 */
+  { 255,   0,   0 },
+  {   0, 255,   0 },
+  { 255, 255,   0 },
+  {   0,   0, 255 },
+  { 255,   0, 255 },
+  {   0, 255, 255 },
+  { 255, 255, 255 }  /* 1.000   7 */
+};
+
 static inline term_color_t
 rgb_to_color_xterm8 (int r, int g, int b)
 {
-  return (r >= 128 ? 1 : 0) + (g >= 128 ? 2 : 0) + (b >= 128 ? 4 : 0);
+  rgb_t color;
+  hsv_t hsv;
+
+  color.red = r; color.green = g; color.blue = b;
+  rgb_to_hsv (color, &hsv);
+
+  if (hsv.saturation < 0.065f)
+    {
+      /* Greyscale approximation.  */
+      float luminance = color_luminance (r, g, b);
+      if (luminance < 0.500f)
+	return 0;
+      else
+	return 7;
+    }
+  else
+    /* Color approximation.  */
+    return nearest_color (color, colors_of_xterm8, 8);
 }
 
 /* ------------------------ cm_xterm16 color model ------------------------ */
