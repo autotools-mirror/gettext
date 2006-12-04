@@ -1,0 +1,17 @@
+Files:
+tests/test-term-ostream.c
+tests/test-term-ostream-xterm
+tests/test-term-ostream-xterm.out
+tests/test-term-ostream-xterm-16color.out
+tests/test-term-ostream-xterm-88color.out
+tests/test-term-ostream-xterm-256color.out
+
+Depends-on:
+
+configure.ac:
+
+Makefile.am:
+TESTS += test-term-ostream-xterm
+TESTS_ENVIRONMENT += srcdir='$(srcdir)'
+check_PROGRAMS += test-term-ostream
+test_term_ostream_LDADD = $(LIBTERMCAP) $(LDADD)

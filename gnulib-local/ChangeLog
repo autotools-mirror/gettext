@@ -1,3 +1,14 @@
+2006-12-01  Bruno Haible  <bruno@clisp.org>
+
+	* modules/term-ostream-tests: New file.
+	* tests/test-term-ostream.c: New file.
+	* tests/test-term-ostream-xterm: New file.
+	* tests/test-term-ostream-xterm.out: New file.
+	* tests/test-term-ostream-xterm-16color.out: New file.
+	* tests/test-term-ostream-xterm-88color.out: New file.
+	* tests/test-term-ostream-xterm-256color.out: New file.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
 2006-12-02  Bruno Haible  <bruno@clisp.org>
 
 	* lib/term-ostream.oo.c (term_ostream_create): Recognize also the

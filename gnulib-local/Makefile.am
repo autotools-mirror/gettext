@@ -298,10 +298,17 @@ modules/relocatable \
 modules/relocwrapper \
 modules/termcap \
 modules/term-ostream \
+modules/term-ostream-tests \
 modules/vasprintf.diff \
 modules/wait-process.diff \
 modules/xalloc \
 modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd \
-modules/xreadlink
+modules/xreadlink \
+tests/test-term-ostream.c \
+tests/test-term-ostream-xterm \
+tests/test-term-ostream-xterm.out \
+tests/test-term-ostream-xterm-16color.out \
+tests/test-term-ostream-xterm-88color.out \
+tests/test-term-ostream-xterm-256color.out
