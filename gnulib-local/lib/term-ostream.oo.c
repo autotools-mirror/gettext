@@ -1254,7 +1254,7 @@ out_attr_change (term_ostream_t stream,
 	    bytes[0] = 0x1B; bytes[1] = '[';
 	    if (new_attr.bgcolor < 8)
 	      {
-		bytes[2] = '3'; bytes[3] = '0' + new_attr.bgcolor;
+		bytes[2] = '4'; bytes[3] = '0' + new_attr.bgcolor;
 		bytes[4] = 'm';
 		if (full_write (out_fd, bytes, 5) < 5)
 		  out_error ();
