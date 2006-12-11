@@ -14,7 +14,7 @@ fatal-signal
 sigprocmask
 full-write
 gettext-h
-termcap
+termcap-h
 xalloc
 xsize
 

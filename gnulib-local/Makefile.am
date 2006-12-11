@@ -234,6 +234,7 @@ lib/relocwrapper.c \
 lib/strerror.c.diff \
 lib/term-ostream.oo.c \
 lib/term-ostream.oo.h \
+lib/termcap.h \
 lib/vasprintf.c \
 lib/xalloc.h \
 lib/xerror.c \
@@ -298,6 +299,7 @@ modules/quote.diff \
 modules/relocatable \
 modules/relocwrapper \
 modules/termcap \
+modules/termcap-h \
 modules/term-ostream \
 modules/term-ostream-tests \
 modules/vasprintf.diff \
