@@ -1295,6 +1295,7 @@ out_attr_change (term_ostream_t stream,
 	  else
 	    tputs (tparm (stream->set_background, new_attr.bgcolor),
 		   1, out_char);
+	  break;
 	/* When we are dealing with an xterm, there is no need to go through
 	   tputs() because we know there is no padding and sleeping.  */
 	case cm_xterm8:
