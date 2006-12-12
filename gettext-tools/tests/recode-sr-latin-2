@@ -8,25 +8,16 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether a specific EUC-JP locale is installed.
-case "$host_os" in
-  aix*)
-    LOCALE_JA_EUCJP=ja_JP ;;
-  hpux* | osf* | netbsd*)
-    LOCALE_JA_EUCJP=ja_JP.eucJP ;;
-  irix* | freebsd* | darwin*)
-    LOCALE_JA_EUCJP=ja_JP.EUC ;;
-  *)
-    LOCALE_JA_EUCJP=ja_JP.EUC-JP ;;
-esac
-if test $LOCALE_JA_EUCJP != none; then
-  LC_ALL=$LOCALE_JA_EUCJP ./testlocale 2>/dev/null
-  case $? in
-    0) ;;
-    77) LOCALE_JA_EUCJP=none;;
-    *) exit 1;;
-  esac
-fi
-if test $LOCALE_JA_EUCJP = none; then
+: ${LOCALE_JA=ja_JP}
+#if test $LOCALE_JA != none; then
+#  LC_ALL=$LOCALE_JA ./testlocale 2>/dev/null
+#  case $? in
+#    0) ;;
+#    77) LOCALE_JA=none;;
+#    *) exit 1;;
+#  esac
+#fi
+if test $LOCALE_JA = none; then
   if test -f /usr/bin/localedef; then
     echo "Skipping test: no japanese EUC-JP locale is installed"
   else
@@ -37,13 +28,13 @@ fi
 
 # Test whether locale_charset() in this locale really returns EUC-JP.
 # (On some systems, config.charset supports only UTF-8 locales.)
-case "$host_os" in
-  darwin[56]*) ;;
-  darwin* | beos*)
-    echo "Skipping test: no EUC-JP locale is supported"
-    rm -fr $tmpfiles; exit 77
-    ;;
-esac
+#case "$host_os" in
+#  darwin[56]*) ;;
+#  darwin* | beos*)
+#    echo "Skipping test: no EUC-JP locale is supported"
+#    rm -fr $tmpfiles; exit 77
+#    ;;
+#esac
 
 tmpfiles="$tmpfiles rec-srl-2.in"
 cat <<\EOF > rec-srl-2.in
@@ -53,7 +44,7 @@ EOF
 
 tmpfiles="$tmpfiles rec-srl-2.out"
 : ${RECODE=recode}
-LC_ALL=$LOCALE_JA_EUCJP \
+LC_ALL=$LOCALE_JA \
 ${RECODE}-sr-latin < rec-srl-2.in > rec-srl-2.out \
   || { rm -fr $tmpfiles; exit 1; }
 

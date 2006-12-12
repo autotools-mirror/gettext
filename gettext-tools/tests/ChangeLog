@@ -1,3 +1,10 @@
+2006-12-10  Bruno Haible  <bruno@clisp.org>
+
+	Fix a test failure on Solaris.
+	* Makefile.am (TESTS_ENVIRONMENT): Also set LOCALE_JA.
+	* recode-sr-latin-2: Use the LOCALE_JA value from the Makefile,
+	instead of using the 'testlocale' program.
+
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-15: Update expected test output.
