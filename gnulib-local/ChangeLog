@@ -1,3 +1,14 @@
+2006-12-02  Bruno Haible  <bruno@clisp.org>
+
+	Support 'text-decoration: underline' in terminal mode.
+	* lib/term-styled-ostream.oo.c: Include cr-string.h.
+	(enum CRXTextDecorationType): New type.
+	(CRXStyle): New type.
+	(crx_style_new, crx_style_destroy, crx_sel_eng_get_matched_style): New
+	functions.
+	(style_compute_text_underline_value): Take a CRXStyle as argument.
+	(match): Build a chain of CRXStyle instead of CRStyle.
+
 2006-12-01  Bruno Haible  <bruno@clisp.org>
 
 	* modules/term-styled-ostream: New file.

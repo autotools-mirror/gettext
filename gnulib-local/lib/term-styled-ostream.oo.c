@@ -28,6 +28,7 @@
 #include <cr-style.h>
 #include <cr-rgb.h>
 #include <cr-fonts.h>
+#include <cr-string.h>
 
 #include "term-ostream.h"
 #include "hash.h"
@@ -121,6 +122,149 @@ term_styled_ostream::free (term_styled_ostream_t stream)
 }
 
 /* Implementation of styled_ostream_t methods.  */
+
+/* CRStyle doesn't contain a value for the 'text-decoration' property.
+   So we have to extend it.  */
+
+enum CRXTextDecorationType
+{
+  TEXT_DECORATION_NONE,
+  TEXT_DECORATION_UNDERLINE,
+  TEXT_DECORATION_OVERLINE,
+  TEXT_DECORATION_LINE_THROUGH,
+  TEXT_DECORATION_BLINK,
+  TEXT_DECORATION_INHERIT
+};
+
+typedef struct _CRXStyle
+{
+  struct _CRXStyle *parent_style;
+  CRStyle *base;
+  enum CRXTextDecorationType text_decoration;
+} CRXStyle;
+
+/* An extended version of cr_style_new.  */
+static CRXStyle *
+crx_style_new (gboolean a_set_props_to_initial_values)
+{
+  CRStyle *base;
+  CRXStyle *result;
+
+  base = cr_style_new (a_set_props_to_initial_values);
+  if (base == NULL)
+    return NULL;
+
+  result = XMALLOC (CRXStyle);
+  result->base = base;
+  if (a_set_props_to_initial_values)
+    result->text_decoration = TEXT_DECORATION_NONE;
+  else
+    result->text_decoration = TEXT_DECORATION_INHERIT;
+
+  return result;
+}
+
+/* An extended version of cr_style_destroy.  */
+static void
+crx_style_destroy (CRXStyle *a_style)
+{
+  cr_style_destroy (a_style->base);
+  free (a_style);
+}
+
+/* An extended version of cr_sel_eng_get_matched_style.  */
+static enum CRStatus
+crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
+			       xmlNode * a_node,
+			       CRXStyle * a_parent_style, CRXStyle ** a_style,
+			       gboolean a_set_props_to_initial_values)
+{
+  enum CRStatus status;
+  CRPropList *props = NULL;
+
+  if (!(a_this && a_cascade && a_node && a_style))
+    return CR_BAD_PARAM_ERROR;
+
+  status = cr_sel_eng_get_matched_properties_from_cascade (a_this, a_cascade,
+							   a_node, &props);
+  if (!(status == CR_OK))
+    return status;
+
+  if (props)
+    {
+      CRXStyle *style;
+
+      if (!*a_style)
+	{
+	  *a_style = crx_style_new (a_set_props_to_initial_values);
+	  if (!*a_style)
+	    return CR_ERROR;
+	}
+      else
+	{
+	  if (a_set_props_to_initial_values)
+	    {
+	      cr_style_set_props_to_initial_values ((*a_style)->base);
+	      (*a_style)->text_decoration = TEXT_DECORATION_NONE;
+	    }
+	  else
+	    {
+	      cr_style_set_props_to_default_values ((*a_style)->base);
+	      (*a_style)->text_decoration = TEXT_DECORATION_INHERIT;
+	    }
+	}
+      style = *a_style;
+      style->parent_style = a_parent_style;
+      style->base->parent_style =
+	(a_parent_style != NULL ? a_parent_style->base : NULL);
+
+      {
+	CRPropList *cur;
+
+	for (cur = props; cur != NULL; cur = cr_prop_list_get_next (cur))
+	  {
+	    CRDeclaration *decl = NULL;
+
+	    cr_prop_list_get_decl (cur, &decl);
+	    cr_style_set_style_from_decl (style->base, decl);
+	    if (decl != NULL
+		&& decl->property != NULL
+		&& decl->property->stryng != NULL
+		&& decl->property->stryng->str != NULL)
+	      {
+		if (strcmp (decl->property->stryng->str, "text-decoration") == 0
+		    && decl->value != NULL
+		    && decl->value->type == TERM_IDENT
+		    && decl->value->content.str != NULL)
+		  {
+		    const char *value =
+		      cr_string_peek_raw_str (decl->value->content.str);
+
+		    if (value != NULL)
+		      {
+			if (strcmp (value, "none") == 0)
+			  style->text_decoration = TEXT_DECORATION_NONE;
+			else if (strcmp (value, "underline") == 0)
+			  style->text_decoration = TEXT_DECORATION_UNDERLINE;
+			else if (strcmp (value, "overline") == 0)
+			  style->text_decoration = TEXT_DECORATION_OVERLINE;
+			else if (strcmp (value, "line-through") == 0)
+			  style->text_decoration = TEXT_DECORATION_LINE_THROUGH;
+			else if (strcmp (value, "blink") == 0)
+			  style->text_decoration = TEXT_DECORATION_BLINK;
+			else if (strcmp (value, "inherit") == 0)
+			  style->text_decoration = TEXT_DECORATION_INHERIT;
+		      }
+		  }
+	      }
+	  }
+      }
+
+      cr_prop_list_destroy (props);
+    }
+
+  return CR_OK;
+}
 
 /* According to the CSS2 spec, sections 6.1 and 6.2, we need to do a
    propagation: specified values -> computed values -> actual values.
@@ -245,10 +389,28 @@ style_compute_font_posture_value (const CRStyle *style)
 }
 
 static term_underline_t
-style_compute_text_underline_value (const CRStyle *style)
+style_compute_text_underline_value (const CRXStyle *style)
 {
-  /* Not supported by libcroco's CRStyle type!  */
-  return UNDERLINE_DEFAULT;
+  for (;;)
+    {
+      if (style == NULL)
+	return UNDERLINE_DEFAULT;
+      switch (style->text_decoration)
+	{
+	case TEXT_DECORATION_INHERIT:
+	  style = style->parent_style;
+	  break;
+	case TEXT_DECORATION_NONE:
+	case TEXT_DECORATION_OVERLINE:
+	case TEXT_DECORATION_LINE_THROUGH:
+	case TEXT_DECORATION_BLINK:
+	  return UNDERLINE_OFF;
+	case TEXT_DECORATION_UNDERLINE:
+	  return UNDERLINE_ON;
+	default:
+	  abort ();
+	}
+    }
 }
 
 /* Match the current list of CSS classes to the CSS and return the result.  */
@@ -259,7 +421,8 @@ match (term_styled_ostream_t stream)
   xmlNodePtr curr;
   char *p_end;
   char *p_start;
-  CRStyle *curr_style;
+  CRXStyle *curr_style;
+  CRStyle *curr_style_base;
   attributes_t *attr;
 
   /* Create a hierarchy of XML nodes.  */
@@ -295,20 +458,20 @@ match (term_styled_ostream_t stream)
     }
 
   /* Retrieve the matching CSS declarations.  */
-  /* Not curr_style = cr_style_new (TRUE); because that assumes that the
+  /* Not curr_style = crx_style_new (TRUE); because that assumes that the
      default foreground color is black and that the default background color
      is white, which is not necessarily true in a terminal context.  */
   curr_style = NULL;
   for (curr = root; curr != NULL; curr = curr->children)
     {
-      CRStyle *parent_style = curr_style;
+      CRXStyle *parent_style = curr_style;
       curr_style = NULL;
 
-      if (cr_sel_eng_get_matched_style (stream->css_engine,
-					stream->css_document,
-					curr,
-					parent_style, &curr_style,
-					FALSE) != CR_OK)
+      if (crx_sel_eng_get_matched_style (stream->css_engine,
+					 stream->css_document,
+					 curr,
+					 parent_style, &curr_style,
+					 FALSE) != CR_OK)
 	abort ();
       if (curr_style == NULL)
 	/* No declarations matched this node.  Inherit all values.  */
@@ -317,25 +480,26 @@ match (term_styled_ostream_t stream)
 	/* curr_style is a new style, inheriting from parent_style.  */
 	;
     }
+  curr_style_base = (curr_style != NULL ? curr_style->base : NULL);
 
   /* Extract the CSS declarations that we can use.  */
   attr = XMALLOC (attributes_t);
   attr->color =
-    style_compute_color_value (curr_style, RGB_PROP_COLOR,
+    style_compute_color_value (curr_style_base, RGB_PROP_COLOR,
 			       stream->destination);
   attr->bgcolor =
-    style_compute_color_value (curr_style, RGB_PROP_BACKGROUND_COLOR,
+    style_compute_color_value (curr_style_base, RGB_PROP_BACKGROUND_COLOR,
 			       stream->destination);
-  attr->weight = style_compute_font_weight_value (curr_style);
-  attr->posture = style_compute_font_posture_value (curr_style);
+  attr->weight = style_compute_font_weight_value (curr_style_base);
+  attr->posture = style_compute_font_posture_value (curr_style_base);
   attr->underline = style_compute_text_underline_value (curr_style);
 
   /* Free the style chain.  */
   while (curr_style != NULL)
     {
-      CRStyle *parent_style = curr_style->parent_style;
+      CRXStyle *parent_style = curr_style->parent_style;
 
-      cr_style_destroy (curr_style);
+      crx_style_destroy (curr_style);
       curr_style = parent_style;
     }
 
