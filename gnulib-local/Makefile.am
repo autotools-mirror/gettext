@@ -232,6 +232,8 @@ lib/relocatable.c \
 lib/relocatable.h \
 lib/relocwrapper.c \
 lib/strerror.c.diff \
+lib/styled-ostream.oo.c \
+lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
 lib/term-ostream.oo.h \
 lib/termcap.h \
@@ -298,6 +300,7 @@ modules/quotearg.diff \
 modules/quote.diff \
 modules/relocatable \
 modules/relocwrapper \
+modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
 modules/term-ostream \

@@ -1,0 +1,28 @@
+Description:
+Abstract output stream for CSS styled text.
+
+Files:
+lib/styled-ostream.oo.h
+lib/styled-ostream.oo.c
+
+Depends-on:
+ostream
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += styled-ostream.c
+styled-ostream.h styled-ostream.c : $(top_srcdir)/build-aux/moopp styled-ostream.oo.h styled-ostream.oo.c ostream.oo.h
+	$(top_srcdir)/build-aux/moopp $(srcdir)/styled-ostream.oo.c $(srcdir)/styled-ostream.oo.h $(srcdir)/ostream.oo.h
+BUILT_SOURCES += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
+CLEANFILES += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
+
+Include:
+"styled-ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+

@@ -1,3 +1,10 @@
+2006-12-01  Bruno Haible  <bruno@clisp.org>
+
+	* modules/styled-ostream: New file.
+	* lib/styled-ostream.oo.c: New file.
+	* lib/styled-ostream.oo.h: New file.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
 2006-12-11  Bruno Haible  <bruno@clisp.org>
 
 	Portability to BeOS.
