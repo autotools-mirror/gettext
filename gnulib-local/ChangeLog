@@ -1,5 +1,11 @@
 2006-12-11  Bruno Haible  <bruno@clisp.org>
 
+	Portability to BeOS.
+	* lib/term-ostream.oo.c (term_ostream_create) [BeOS]: Correct the
+	values of stream->set_a_foreground and stream->set_a_background.
+
+2006-12-11  Bruno Haible  <bruno@clisp.org>
+
 	Portability to systems with GNU termcap.
 	* m4/termcap.m4 (gl_TERMCAP_BODY): Also test for the tparam function.
 	* lib/termcap.h (tparam): New declaration.

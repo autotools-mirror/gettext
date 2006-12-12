@@ -1717,6 +1717,24 @@ term_ostream_create (int fd, const char *filename)
       stream->enter_underline_mode = xstrdup0 (tgetstr ("us", NULL));
       stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", NULL));
       stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", NULL));
+
+#ifdef __BEOS__
+      /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB" it
+	 contains balues in terminfo syntax but the system's tparam() function
+	 understands only the termcap syntax.  */
+      if (stream->set_a_foreground != NULL
+	  && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
+	{
+	  free (stream->set_a_foreground);
+	  stream->set_a_foreground = xstrdup ("\033[3%dm");
+	}
+      if (stream->set_a_background != NULL
+	  && strcmp (stream->set_a_background, "\033[4%p1%dm") == 0)
+	{
+	  free (stream->set_a_background);
+	  stream->set_a_background = xstrdup ("\033[4%dm");
+	}
+#endif
     }
 
   /* Infer the capabilities.  */
