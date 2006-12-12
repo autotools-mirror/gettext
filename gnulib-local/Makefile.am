@@ -68,6 +68,8 @@ lib/hash.c \
 lib/hash.h \
 lib/html-ostream.oo.c \
 lib/html-ostream.oo.h \
+lib/html-styled-ostream.oo.c \
+lib/html-styled-ostream.oo.h \
 lib/iconv-ostream.oo.c \
 lib/iconv-ostream.oo.h \
 lib/javacomp.c.diff \
@@ -283,6 +285,7 @@ modules/gettext-tools-misc \
 modules/gettext-tools-libgettextpo-misc \
 modules/hash \
 modules/html-ostream \
+modules/html-styled-ostream \
 modules/iconv-ostream \
 modules/java \
 modules/javacomp.diff \

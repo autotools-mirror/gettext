@@ -1,0 +1,36 @@
+Description:
+Output stream for CSS styled text, producing HTML output.
+
+Files:
+lib/html-styled-ostream.oo.h
+lib/html-styled-ostream.oo.c
+
+Depends-on:
+styled-ostream
+unistd
+html-ostream
+binary-io
+error
+safe-read
+exit
+xalloc
+gettext-h
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += html-styled-ostream.c
+html-styled-ostream.h html-styled-ostream.c : $(top_srcdir)/build-aux/moopp html-styled-ostream.oo.h html-styled-ostream.oo.c styled-ostream.oo.h ostream.oo.h
+	$(top_srcdir)/build-aux/moopp $(srcdir)/html-styled-ostream.oo.c $(srcdir)/html-styled-ostream.oo.h $(srcdir)/styled-ostream.oo.h $(srcdir)/ostream.oo.h
+BUILT_SOURCES += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
+CLEANFILES += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
+
+Include:
+"html-styled-ostream.h"
+
+License:
+GPL
+
+Maintainer:
+Bruno Haible
+
