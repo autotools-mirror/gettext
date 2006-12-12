@@ -4,6 +4,7 @@
 	* Makefile.am (TESTS_ENVIRONMENT): Also set LOCALE_JA.
 	* recode-sr-latin-2: Use the LOCALE_JA value from the Makefile,
 	instead of using the 'testlocale' program.
+	Reported by Ralf Menzel <menzel@ls6.cs.uni-dortmund.de>.
 
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
