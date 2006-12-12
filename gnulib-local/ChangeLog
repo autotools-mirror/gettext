@@ -1,3 +1,11 @@
+2006-12-11  Bruno Haible  <bruno@clisp.org>
+
+	Portability to systems with GNU termcap.
+	* m4/termcap.m4 (gl_TERMCAP_BODY): Also test for the tparam function.
+	* lib/termcap.h (tparam): New declaration.
+	* lib/term-ostream.oo.c (tparambuf): New variable.
+	(tparm): Define in terms of tparam when tparam exists.
+
 2006-12-01  Bruno Haible  <bruno@clisp.org>
 
 	* modules/term-ostream: Depend on termcap-h, not termcap.

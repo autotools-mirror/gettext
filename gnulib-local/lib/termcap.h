@@ -43,9 +43,27 @@ extern int tgetflag (const char *id);
    Also, if AREA != NULL, stores it at *AREA and advances *AREA.  */
 extern const char * tgetstr (const char *id, char **area);
 
+#if HAVE_TPARAM
+
+/* API provided by GNU termcap in <termcap.h>.  */
+
+/* Instantiates a string capability with format strings.
+   BUF must be a buffer having room for BUFSIZE bytes.
+   The return value is either equal to BUF or freshly malloc()ed.  */
+extern char * tparam (const char *str, void *buf, int bufsize, ...);
+
+#else
+
+/* API provided by
+     - GNU ncurses in <term.h>, <curses.h>, <ncurses.h>,
+     - OSF/1 curses in <term.h>, <curses.h>,
+     - Solaris, AIX, HP-UX, IRIX curses in <term.h>.  */
+
 /* Instantiates a string capability with format strings.
    The return value is statically allocated and must not be freed.  */
 extern char * tparm (const char *str, ...);
+
+#endif
 
 /* Retrieves a string that causes cursor positioning to (column, row).
    This function is necessary because the string returned by tgetstr ("cm")

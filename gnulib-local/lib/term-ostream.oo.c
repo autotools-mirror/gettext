@@ -40,6 +40,16 @@
 
 #define _(str) gettext (str)
 
+#if HAVE_TPARAM
+/* GNU termcap's tparam() function requires a buffer argument.  Make it so
+   large that there is no risk that tparam() needs to call malloc().  */
+static char tparambuf[100];
+/* Define tparm in terms of tparam.  In the scope of this file, it is called
+   with at most one argument after the string.  */
+# define tparm(str, arg1) \
+  tparam (str, tparambuf, sizeof (tparambuf), arg1)
+#endif
+
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
