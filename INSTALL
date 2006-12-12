@@ -1,7 +1,14 @@
+These are generic installation instructions.
+
+Prerequisites
+=============
+
+   This package depends on a few other packages.  They are listed in
+the file `DEPENDENCIES'.  It is recommended to install the listed
+packages before installing this package.
+
 Basic Installation
 ==================
-
-   These are generic installation instructions.
 
    The `configure' shell script attempts to guess correct values for
 various system-dependent variables used during compilation.  It uses

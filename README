@@ -84,11 +84,12 @@ have all the features the included libintl has.
 
 Other files you might look into:
 
-`ABOUT-NLS' -	current state of the GNU internationalization effort
-`COPYING' -	copying conditions
-`INSTALL' -	general compilation and installation rules
-`NEWS' -	major changes in the current version
-`THANKS' -	list of contributors
+`ABOUT-NLS' -	 current state of the GNU internationalization effort
+`COPYING' -	 copying conditions
+`DEPENDENCIES' - list of prerequisite packages, to be installed before this one
+`INSTALL' -	 general compilation and installation rules
+`NEWS' -	 major changes in the current version
+`THANKS' -	 list of contributors
 
 
 Some points you might be interested in before installing the package:

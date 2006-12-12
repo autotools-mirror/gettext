@@ -1,0 +1,96 @@
+The following packages should be installed before GNU gettext is installed:
+
+* GNU libiconv
+  + Not needed on systems with
+      - glibc 2.2 or newer, or
+      - MacOS X 10.3 or newer, or
+      - NetBSD 3.0 or newer.
+    But highly recommended on all other systems.
+    Needed for character set conversion of PO files from/to Unicode.
+  + Homepage:
+    http://www.gnu.org/software/libiconv/
+  + Download:
+    http://ftp.gnu.org/gnu/libiconv/
+    ftp://ftp.gnu.org/gnu/libiconv/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libintl-prefix=DIR to 'configure'.
+
+* GNU ncurses (preferred) or libtermcap (discouraged).
+  + Required.
+    Needed for the --color option of the various programs.
+  + Homepage:
+    http://www.gnu.org/software/ncurses/
+  + Download:
+    http://ftp.gnu.org/gnu/ncurses/
+    ftp://ftp.gnu.org/gnu/ncurses/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-ncurses-prefix=DIR or --with-libtermcap-prefix to 'configure'.
+
+* expat 1.95 or newer
+  + Recommended.
+    Needed for 'xgettext', so that it can parse Glade XML files.
+  + Homepage:
+    http://expat.sourceforge.net/
+  + Download:
+    http://sourceforge.net/project/showfiles.php?group_id=10127
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libexpat-prefix to 'configure'.
+
+* A Java runtime and compiler (e.g. GNU gcj or kaffe).
+  + Recommended.
+    Needed for building libintl.jar.  Also needed for 'msgfmt' and
+    'msgunfmt', so that they can handle Java classes and properties files.
+  + Homepage:
+    http://gcc.gnu.org/java/
+    http://www.kaffe.org/
+  + Download:
+    http://ftp.gnu.org/gnu/gcc/
+    http://www.kaffe.org/ftp/pub/kaffe/v1.1.x-development/
+
+* A C# runtime and compiler (e.g. pnet or mono).
+  + Recommended
+    Needed for building GNU.Gettext.dll. Also needed for 'msgfmt' and
+    'msgunfmt', so that they can handle C# resources and assemblies.
+  + Homepage:
+    http://www.southern-storm.com.au/portable_net.html
+  + Download:
+    http://www.southern-storm.com.au/portable_net.html#download
+    http://www.mono-project.com/Downloads
+  + If more than one C# is installed, pass the option --enable-csharp=IMPL
+    to 'configure', to disambiguate.
+
+* libxml2
+  + Optional.
+    Needed for the --color option of the various programs.
+    If not present, a subset of libxml2 (included in this package) will be
+    compiled into libgettextlib.
+  + Homepage:
+    http://xmlsoft.org/
+  + Download:
+    ftp://xmlsoft.org/libxml2/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libxml2-prefix=DIR to 'configure'.
+
+* GNOME glib2
+  + Optional.
+    Needed for the --color option of the various programs.
+    If not present, a subset of libglib2 (included in this package) will be
+    compiled into libgettextlib.
+  + Homepage:
+    http://developer.gnome.org/arch/gtk/glib.html
+  + Download:
+    http://ftp.gnome.org/pub/GNOME/sources/glib/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libglib-2.0-prefix=DIR to 'configure'.
+
+* GNOME libcroco 0.6.1 or newer
+  + Optional.
+    Needed for the --color option of the various programs.
+    If not present, a copy of libcroco-0.6.1 (included in this package) will
+    be compiled into libgettextlib.
+  + Homepage:
+    http://www.freespiders.org/projects/libcroco/
+  + Download:
+    http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libcroco-0.6-prefix=DIR to 'configure'.
