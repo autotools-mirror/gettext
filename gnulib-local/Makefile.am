@@ -238,6 +238,8 @@ lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
 lib/term-ostream.oo.h \
+lib/term-styled-ostream.oo.c \
+lib/term-styled-ostream.oo.h \
 lib/termcap.h \
 lib/vasprintf.c \
 lib/xalloc.h \
@@ -308,6 +310,7 @@ modules/termcap \
 modules/termcap-h \
 modules/term-ostream \
 modules/term-ostream-tests \
+modules/term-styled-ostream \
 modules/vasprintf.diff \
 modules/wait-process.diff \
 modules/xalloc \

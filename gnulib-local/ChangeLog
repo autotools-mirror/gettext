@@ -1,5 +1,12 @@
 2006-12-01  Bruno Haible  <bruno@clisp.org>
 
+	* modules/term-styled-ostream: New file.
+	* lib/term-styled-ostream.oo.c: New file.
+	* lib/term-styled-ostream.oo.h: New file.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
+2006-12-01  Bruno Haible  <bruno@clisp.org>
+
 	* modules/html-styled-ostream: New file.
 	* lib/html-styled-ostream.oo.c: New file.
 	* lib/html-styled-ostream.oo.h: New file.
