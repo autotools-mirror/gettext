@@ -610,15 +610,22 @@ func_emit_source_c ()
   } > "$newfile"
 }
 
+# Generate the source.h file first. The Makefile.am snippets rely on the
+# fact that the other generated files have the same or a newer timestamp.
+#
+# Also, generate the source.c file last. The Makefile.am snippets don't know
+# about the other generated files; they assume that when the source.c file
+# is finished, this command is complete.
+
+new_source_header_file=`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
+func_start_creation "$new_source_header_file"
+func_emit_source_h "$new_source_header_file" || func_fatal_error "failed"
+
 func_start_creation "${main_classname}.priv.h"
 func_emit_priv_h "${main_classname}.priv.h" || func_fatal_error "failed"
 
 func_start_creation "${main_classname}.vt.h"
 func_emit_vt_h "${main_classname}.vt.h" || func_fatal_error "failed"
-
-new_source_header_file=`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
-func_start_creation "$new_source_header_file"
-func_emit_source_h "$new_source_header_file" || func_fatal_error "failed"
 
 new_source_impl_file=`echo "$source_impl_file_base" | sed -e 's,\.oo\.c$,.c,'`
 func_start_creation "$new_source_impl_file"
