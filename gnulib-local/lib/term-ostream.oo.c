@@ -1694,7 +1694,9 @@ term_ostream_create (int fd, const char *filename)
   if (term != NULL && term[0] != '\0')
     {
       struct { char buf[1024]; char canary[4]; } termcapbuf;
+      struct { char buf[1024]; char canary[4]; } termentrybuf;
       int retval;
+      char *termentryptr;
 
       /* Call tgetent, being defensive against buffer overflow.  */
       memcpy (termcapbuf.canary, "CnRy", 4);
@@ -1703,20 +1705,26 @@ term_ostream_create (int fd, const char *filename)
 	/* Buffer overflow!  */
 	abort ();
 
+      /* Prepare for calling tgetstr, being defensive against buffer
+	 overflow.  ncurses' tgetstr() supports a second argument NULL,
+	 but NetBSD's tgetstr() doesn't.  */
+      memcpy (termentrybuf.canary, "CnRz", 4);
+      #define TEBP ((termentryptr = termentrybuf.buf), &termentryptr)
+
       /* Retrieve particular values depending on the terminal type.  */
       stream->max_colors = tgetnum ("Co");
       stream->no_color_video = tgetnum ("nc");
-      stream->set_a_foreground = xstrdup0 (tgetstr ("AF", NULL));
-      stream->set_foreground = xstrdup0 (tgetstr ("Sf", NULL));
-      stream->set_a_background = xstrdup0 (tgetstr ("AB", NULL));
-      stream->set_background = xstrdup0 (tgetstr ("Sb", NULL));
-      stream->orig_pair = xstrdup0 (tgetstr ("op", NULL));
-      stream->enter_bold_mode = xstrdup0 (tgetstr ("md", NULL));
-      stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", NULL));
-      stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", NULL));
-      stream->enter_underline_mode = xstrdup0 (tgetstr ("us", NULL));
-      stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", NULL));
-      stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", NULL));
+      stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
+      stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
+      stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
+      stream->set_background = xstrdup0 (tgetstr ("Sb", TEBP));
+      stream->orig_pair = xstrdup0 (tgetstr ("op", TEBP));
+      stream->enter_bold_mode = xstrdup0 (tgetstr ("md", TEBP));
+      stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", TEBP));
+      stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", TEBP));
+      stream->enter_underline_mode = xstrdup0 (tgetstr ("us", TEBP));
+      stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
+      stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
 
 #ifdef __BEOS__
       /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB" it
@@ -1735,6 +1743,12 @@ term_ostream_create (int fd, const char *filename)
 	  stream->set_a_background = xstrdup ("\033[4%dm");
 	}
 #endif
+
+      /* Done with tgetstr.  Detect possible buffer overflow.  */
+      #undef TEBP
+      if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
+	/* Buffer overflow!  */
+	abort ();
     }
 
   /* Infer the capabilities.  */

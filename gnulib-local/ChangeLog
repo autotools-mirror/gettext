@@ -1,5 +1,11 @@
 2006-12-13  Bruno Haible  <bruno@clisp.org>
 
+	Avoid crash on NetBSD.
+	* lib/term-ostream.oo.c (term_ostream_create): Pass a non-NULL area
+	pointer to tgetstr.
+
+2006-12-13  Bruno Haible  <bruno@clisp.org>
+
 	* lib/tparm.c: New file, based on a public-domain implementation part
 	of Cygwin.
 	* m4/termcap.m4 (gl_TERMCAP): AC_LIBOBJ of tparm.c if needed.
