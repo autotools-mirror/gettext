@@ -12,6 +12,7 @@ configure.ac:
 Makefile.am:
 
 Include:
+"termcap.h"
 
 License:
 LGPL
