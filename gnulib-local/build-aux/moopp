@@ -281,39 +281,49 @@ func_start_creation ()
   fi
 }
 
-func_start_creation "${main_classname}.priv.h"
+# func_emit_priv_h newfile
+# outputs to $newfile the contents of class.priv.h.
+func_emit_priv_h ()
 {
-  echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
-  echo
-  if test -n "${main_superclassname}"; then
-    echo "/* Field layout of superclass.  */"
-    echo "#include \"${main_superclassname}.priv.h\""
+  newfile="$1"
+  {
+    echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
-  fi
-  echo "/* Field layout of ${main_classname} class.  */"
-  echo "struct ${main_classname}_representation"
-  echo "{"
-  if test -n "${main_superclassname}"; then
-    echo "  struct ${main_superclassname}_representation base;"
-  else
-    echo "  const void *vtable;"
-  fi
-  echo "$fields" | sed -e "$sed_remove_empty_lines"
-  echo "};"
-} > "${main_classname}.priv.h" || func_fatal_error "failed"
+    if test -n "${main_superclassname}"; then
+      echo "/* Field layout of superclass.  */"
+      echo "#include \"${main_superclassname}.priv.h\""
+      echo
+    fi
+    echo "/* Field layout of ${main_classname} class.  */"
+    echo "struct ${main_classname}_representation"
+    echo "{"
+    if test -n "${main_superclassname}"; then
+      echo "  struct ${main_superclassname}_representation base;"
+    else
+      echo "  const void *vtable;"
+    fi
+    echo "$fields" | sed -e "$sed_remove_empty_lines"
+    echo "};"
+  } > "$newfile"
+}
 
-func_start_creation "${main_classname}.vt.h"
+# func_emit_vt_h newfile
+# outputs to $newfile the contents of class.vt.h.
+func_emit_vt_h ()
 {
-  echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
-  echo
-  if test -n "${main_superclassname}"; then
-    echo "/* Virtual function table layout of superclass.  */"
-    echo "#include \"${main_superclassname}.vt.h\""
+  newfile="$1"
+  {
+    echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
-  fi
-  echo "/* Virtual function table layout of ${main_classname} class.  */"
-  echo "$main_methods" | sed -e "$sed_remove_empty_lines" -e 's/\([^A-Za-z_0-9]\)\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*([^,)]*/\1(*\2) (THIS_ARG/' -e 's,$,;,'
-} > "${main_classname}.vt.h" || func_fatal_error "failed"
+    if test -n "${main_superclassname}"; then
+      echo "/* Virtual function table layout of superclass.  */"
+      echo "#include \"${main_superclassname}.vt.h\""
+      echo
+    fi
+    echo "/* Virtual function table layout of ${main_classname} class.  */"
+    echo "$main_methods" | sed -e "$sed_remove_empty_lines" -e 's/\([^A-Za-z_0-9]\)\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*([^,)]*/\1(*\2) (THIS_ARG/' -e 's,$,;,'
+  } > "$newfile"
+}
 
 # In C++ mode, we have a precise type checking. But in C mode, we have only
 # loose type checking: So that rootclass_t and subclass_t are assignment
@@ -333,261 +343,283 @@ sed_extract_method_name='s,^.*[^A-Za-z_0-9]\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*(.*
 sed_extract_method_arglist='s,^.*[^A-Za-z_0-9][A-Za-z_0-9][A-Za-z_0-9]*[ 	]*([^,)]*\(.*\)).*$,'"${main_classname}_t"' first_arg\1,'
 sed_extract_method_args='s,^.*[^A-Za-z_0-9]\([A-Za-z_0-9][A-Za-z_0-9]*\)$,\1,'
 
+# func_emit_source_h newfile
+# outputs to $newfile the contents of source.h.
 source_header_file_base=`echo "$source_header_file" | sed -e 's,^.*/,,'`
-newfile=`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
-func_start_creation "$newfile"
+func_emit_source_h ()
 {
-  echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
-  echo
-  echo "#line 1 \"${source_header_file_base}\""
-  cat "$source_header_file" | sed -e "${main_class_decl_lineno}"',$d'
-  echo "#line "`expr 3 + ${main_class_decl_lineno} + 1`" \"$newfile\""
-  echo "struct ${main_repclassalias};"
-  echo "/* ${main_classname}_t is defined as a pointer to struct ${main_repclassalias}."
-  echo "   In C++ mode, we use a smart pointer class."
-  echo "   In C mode, we have no other choice than a typedef to the root class type.  */"
-  echo "#ifdef __cplusplus"
-  echo "struct ${main_classname}_t"
-  echo "{"
-  echo "private:"
-  echo "  struct ${main_repclassalias} *_pointer;"
-  echo "public:"
-  echo "  ${main_classname}_t () : _pointer (NULL) {}"
-  echo "  ${main_classname}_t (struct ${main_repclassalias} *pointer) : _pointer (pointer) {}"
-  echo "  struct ${main_repclassalias} * operator -> () { return _pointer; }"
-  echo "  operator struct ${main_repclassalias} * () { return _pointer; }"
-  atroot=yes
-  for classname in $all_superclasses; do
-    if test -n "$atroot"; then
-      repclassalias="any_${classname}_representation"
-    else
-      repclassalias="${classname}_representation"
-    fi
-    echo "  operator struct ${repclassalias} * () { return (struct ${repclassalias} *) _pointer; }"
-    atroot=
-  done
-  # The 'operator void *' is needed to avoid ambiguous conversion chains.
-  echo "  operator void * () { return _pointer; }"
-  # The 'operator ==' and 'operator !=' are needed to avoid ambiguous comparisons with NULL.
-  echo "  bool operator == (const void *p) { return _pointer == p; }"
-  echo "  bool operator != (const void *p) { return _pointer != p; }"
-  atroot=yes
-  for classname in $all_superclasses; do
-    if test -n "$atroot"; then
-      repclassalias="any_${classname}_representation"
-    else
-      repclassalias="${classname}_representation"
-    fi
-    echo "  operator ${classname}_t () { return (${classname}_t) (struct ${repclassalias} *) _pointer; }"
-    # The 'explicit' constructors allow to downcast.
-    echo "  explicit ${main_classname}_t (${classname}_t x) : _pointer ((struct ${main_repclassalias} *) (void *) x) {}"
-    atroot=
-  done
-  echo "};"
-  echo "#else"
-  if test -n "${main_superclassname}"; then
-    echo "typedef ${main_superclassname}_t ${main_classname}_t;"
-  else
-    echo "typedef struct ${main_repclassalias} * ${main_classname}_t;"
-  fi
-  echo "#endif"
-  echo
-  echo "/* Functions that invoke the methods.  */"
-  echo "$all_methods" | sed -e "$sed_remove_empty_lines" -e 's/\([^A-Za-z_0-9]\)\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*([^,)]*/\1'"${main_classname}_"'\2 ('"${main_classname}_t first_arg"'/' -e 's,^,extern ,' -e 's,$,;,'
-  echo
-  # Now come the implementation details.
-  echo "/* Type representing an implementation of ${main_classname}_t.  */"
-  echo "struct ${main_classname}_implementation"
-  echo "{"
-  echo "  const typeinfo_t * const *superclasses;"
-  echo "  size_t superclasses_length;"
-  echo "  size_t instance_size;"
-  echo "#define THIS_ARG ${main_classname}_t first_arg"
-  echo "#include \"${main_classname}.vt.h\""
-  echo "#undef THIS_ARG"
-  echo "};"
-  echo
-  echo "/* Public portion of the object pointed to by a ${main_classname}_t.  */"
-  echo "struct ${main_classname}_representation_header"
-  echo "{"
-  echo "  const struct ${main_classname}_implementation *vtable;"
-  echo "};"
-  echo
-  echo "#if HAVE_INLINE"
-  echo
-  echo "/* Define the functions that invoke the methods as inline accesses to"
-  echo "   the ${main_classname}_implementation."
-  echo "   Use #define to avoid a warning because of extern vs. static.  */"
-  echo
-  echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
-    while read method; do
-      rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
-      name=`echo "$method" | sed -e "$sed_extract_method_name"`
-      arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
-      if test "$arglist" = "void"; then
-        args=
-      else
-        args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
-      fi
-      if test "$rettype" = "void"; then
-        return=
-      else
-        return="return "
-      fi
-      echo "# define ${main_classname}_${name} ${main_classname}_${name}_inline"
-      echo "static inline $rettype"
-      echo "${main_classname}_${name} ($arglist)"
-      echo "{"
-      echo "  const struct ${main_classname}_implementation *vtable ="
-      echo "    ((struct ${main_classname}_representation_header *) (struct ${main_repclassalias} *) first_arg)->vtable;"
-      echo "  ${return}vtable->${name} ($args);"
-      echo "}"
-      echo
-    done
-  echo "#endif"
-  echo
-  echo "extern const typeinfo_t ${main_classname}_typeinfo;"
-  if test -n "${main_superclassname}"; then
-    superclasses_array_initializer="${main_superclassname}_SUPERCLASSES"
-  else
-    superclasses_array_initializer="NULL"
-  fi
-  echo "#define ${main_classname}_SUPERCLASSES &${main_classname}_typeinfo, ${superclasses_array_initializer}"
-  if test -n "${main_superclassname}"; then
-    echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + ${main_superclassname}_SUPERCLASSES_LENGTH)"
-  else
-    echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + 1)"
-  fi
-  echo
-  echo "extern const struct ${main_classname}_implementation ${main_classname}_vtable;"
-  echo
-  echo "#line "`expr $main_class_end_lineno + 1`" \"${source_header_file_base}\""
-  cat "$source_header_file" | sed -e "1,${main_class_end_lineno}d"
-} > "$newfile" || func_fatal_error "failed"
-
-source_impl_file_base=`echo "$source_impl_file" | sed -e 's,^.*/,,'`
-newfile=`echo "$source_impl_file_base" | sed -e 's,\.oo\.c$,.c,'`
-func_start_creation "$newfile"
-{
-  echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
-  echo
-  echo "#line 1 \"${source_impl_file_base}\""
-  cat "$source_impl_file" | sed -e "${impl_decl_lineno}"',$d'
-  echo "#line "`expr 3 + ${impl_decl_lineno} + 1`" \"$newfile\""
-  # In C mode, where subclass_t is identical to rootclass_t, we define the
-  # any_rootclass_representation type to the right one for subclass.
-  if test -n "$all_superclasses"; then
-    for classname in $all_superclasses; do
-      rootclassname="$classname"
-      break
-    done
-  else
-    rootclassname="$main_classname"
-  fi
-  echo "#ifndef __cplusplus"
-  echo "#define ${main_classname}_representation any_${rootclassname}_representation"
-  echo "#endif"
-  echo "#include \"${main_classname}.priv.h\""
-  echo
-  echo "const typeinfo_t ${main_classname}_typeinfo = { \"${main_classname}\" };"
-  echo
-  echo "static const typeinfo_t * const ${main_classname}_superclasses[] ="
-  echo "  { ${main_classname}_SUPERCLASSES };"
-  echo
-  if test -n "${main_superclassname}"; then
-    echo "#define super ${main_superclassname}_vtable"
+  newfile="$1"
+  {
+    echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
-  fi
-  echo "#line "`expr $impl_end_lineno + 1`" \"${source_impl_file_base}\""
-  cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "s,${main_classname}::,${main_classname}__,g"
-  echo
-  lineno=`wc -l < "$newfile"`
-  echo "#line "`expr $lineno + 2`" \"$newfile\""
-  # Define trivial stubs for methods that are not defined or overridden.
-  inherited_method_names=`echo "$inherited_methods" | sed -e "$sed_remove_empty_lines" | sed -e "$sed_extract_method_name"`
-  echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
-    while read method; do
-      rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
-      name=`echo "$method" | sed -e "$sed_extract_method_name"`
-      arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
-      if test "$arglist" = "void"; then
-        args=
+    echo "#line 1 \"${source_header_file_base}\""
+    cat "$source_header_file" | sed -e "${main_class_decl_lineno}"',$d'
+    echo "#line "`expr 3 + ${main_class_decl_lineno} + 1`" \"$newfile\""
+    echo "struct ${main_repclassalias};"
+    echo "/* ${main_classname}_t is defined as a pointer to struct ${main_repclassalias}."
+    echo "   In C++ mode, we use a smart pointer class."
+    echo "   In C mode, we have no other choice than a typedef to the root class type.  */"
+    echo "#ifdef __cplusplus"
+    echo "struct ${main_classname}_t"
+    echo "{"
+    echo "private:"
+    echo "  struct ${main_repclassalias} *_pointer;"
+    echo "public:"
+    echo "  ${main_classname}_t () : _pointer (NULL) {}"
+    echo "  ${main_classname}_t (struct ${main_repclassalias} *pointer) : _pointer (pointer) {}"
+    echo "  struct ${main_repclassalias} * operator -> () { return _pointer; }"
+    echo "  operator struct ${main_repclassalias} * () { return _pointer; }"
+    atroot=yes
+    for classname in $all_superclasses; do
+      if test -n "$atroot"; then
+        repclassalias="any_${classname}_representation"
       else
-        args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
+        repclassalias="${classname}_representation"
       fi
-      if test "$rettype" = "void"; then
-        return=
+      echo "  operator struct ${repclassalias} * () { return (struct ${repclassalias} *) _pointer; }"
+      atroot=
+    done
+    # The 'operator void *' is needed to avoid ambiguous conversion chains.
+    echo "  operator void * () { return _pointer; }"
+    # The 'operator ==' and 'operator !=' are needed to avoid ambiguous comparisons with NULL.
+    echo "  bool operator == (const void *p) { return _pointer == p; }"
+    echo "  bool operator != (const void *p) { return _pointer != p; }"
+    atroot=yes
+    for classname in $all_superclasses; do
+      if test -n "$atroot"; then
+        repclassalias="any_${classname}_representation"
       else
-        return="return "
+        repclassalias="${classname}_representation"
       fi
-      if cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "$sed_remove_comments" | grep "${main_classname}::${name} *(" > /dev/null; then
-        # The class defines or overrides the method.
-        :
-      else
-        # Add a stub for the method.
-        inherited=
-        for i in $inherited_method_names; do
-          if test "$i" = "$name"; then
-            inherited=yes
-          fi
-        done
-        echo "$rettype"
-        echo "${main_classname}__${name} ($arglist)"
-        echo "{"
-        if test -n "$inherited"; then
-          echo "  ${return}super.${name} ($args);"
+      echo "  operator ${classname}_t () { return (${classname}_t) (struct ${repclassalias} *) _pointer; }"
+      # The 'explicit' constructors allow to downcast.
+      echo "  explicit ${main_classname}_t (${classname}_t x) : _pointer ((struct ${main_repclassalias} *) (void *) x) {}"
+      atroot=
+    done
+    echo "};"
+    echo "#else"
+    if test -n "${main_superclassname}"; then
+      echo "typedef ${main_superclassname}_t ${main_classname}_t;"
+    else
+      echo "typedef struct ${main_repclassalias} * ${main_classname}_t;"
+    fi
+    echo "#endif"
+    echo
+    echo "/* Functions that invoke the methods.  */"
+    echo "$all_methods" | sed -e "$sed_remove_empty_lines" -e 's/\([^A-Za-z_0-9]\)\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*([^,)]*/\1'"${main_classname}_"'\2 ('"${main_classname}_t first_arg"'/' -e 's,^,extern ,' -e 's,$,;,'
+    echo
+    # Now come the implementation details.
+    echo "/* Type representing an implementation of ${main_classname}_t.  */"
+    echo "struct ${main_classname}_implementation"
+    echo "{"
+    echo "  const typeinfo_t * const *superclasses;"
+    echo "  size_t superclasses_length;"
+    echo "  size_t instance_size;"
+    echo "#define THIS_ARG ${main_classname}_t first_arg"
+    echo "#include \"${main_classname}.vt.h\""
+    echo "#undef THIS_ARG"
+    echo "};"
+    echo
+    echo "/* Public portion of the object pointed to by a ${main_classname}_t.  */"
+    echo "struct ${main_classname}_representation_header"
+    echo "{"
+    echo "  const struct ${main_classname}_implementation *vtable;"
+    echo "};"
+    echo
+    echo "#if HAVE_INLINE"
+    echo
+    echo "/* Define the functions that invoke the methods as inline accesses to"
+    echo "   the ${main_classname}_implementation."
+    echo "   Use #define to avoid a warning because of extern vs. static.  */"
+    echo
+    echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
+      while read method; do
+        rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
+        name=`echo "$method" | sed -e "$sed_extract_method_name"`
+        arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
+        if test "$arglist" = "void"; then
+          args=
         else
-          echo "  /* Abstract (unimplemented) method called.  */"
-          echo "  abort ();"
-          # Avoid C++ compiler warning about missing return value.
-          echo "  #ifndef __GNUC__"
-          echo "  ${return}${main_classname}__${name} ($args);"
-          echo "  #endif"
+          args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
         fi
+        if test "$rettype" = "void"; then
+          return=
+        else
+          return="return "
+        fi
+        echo "# define ${main_classname}_${name} ${main_classname}_${name}_inline"
+        echo "static inline $rettype"
+        echo "${main_classname}_${name} ($arglist)"
+        echo "{"
+        echo "  const struct ${main_classname}_implementation *vtable ="
+        echo "    ((struct ${main_classname}_representation_header *) (struct ${main_repclassalias} *) first_arg)->vtable;"
+        echo "  ${return}vtable->${name} ($args);"
         echo "}"
         echo
-      fi
-    done
-  echo
-  echo "const struct ${main_classname}_implementation ${main_classname}_vtable ="
-  echo "{"
-  echo "  ${main_classname}_superclasses,"
-  echo "  sizeof (${main_classname}_superclasses) / sizeof (${main_classname}_superclasses[0]),"
-  echo "  sizeof (struct ${main_classname}_representation),"
-  echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
-    while read method; do
-      name=`echo "$method" | sed -e "$sed_extract_method_name"`
-      echo "  ${main_classname}__${name},"
-    done
-  echo "};"
-  echo
-  echo "#if !HAVE_INLINE"
-  echo
-  echo "/* Define the functions that invoke the methods.  */"
-  echo
-  echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
-    while read method; do
-      rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
-      name=`echo "$method" | sed -e "$sed_extract_method_name"`
-      arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
-      if test "$arglist" = "void"; then
-        args=
-      else
-        args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
-      fi
-      if test "$rettype" = "void"; then
-        return=
-      else
-        return="return "
-      fi
-      echo "$rettype"
-      echo "${main_classname}_${name} ($arglist)"
-      echo "{"
-      echo "  const struct ${main_classname}_implementation *vtable ="
-      echo "    ((struct ${main_classname}_representation_header *) (struct ${main_repclassalias} *) first_arg)->vtable;"
-      echo "  ${return}vtable->${name} ($args);"
-      echo "}"
+      done
+    echo "#endif"
+    echo
+    echo "extern const typeinfo_t ${main_classname}_typeinfo;"
+    if test -n "${main_superclassname}"; then
+      superclasses_array_initializer="${main_superclassname}_SUPERCLASSES"
+    else
+      superclasses_array_initializer="NULL"
+    fi
+    echo "#define ${main_classname}_SUPERCLASSES &${main_classname}_typeinfo, ${superclasses_array_initializer}"
+    if test -n "${main_superclassname}"; then
+      echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + ${main_superclassname}_SUPERCLASSES_LENGTH)"
+    else
+      echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + 1)"
+    fi
+    echo
+    echo "extern const struct ${main_classname}_implementation ${main_classname}_vtable;"
+    echo
+    echo "#line "`expr $main_class_end_lineno + 1`" \"${source_header_file_base}\""
+    cat "$source_header_file" | sed -e "1,${main_class_end_lineno}d"
+  } > "$newfile"
+}
+
+# func_emit_source_c newfile
+# outputs to $newfile the contents of source.c.
+source_impl_file_base=`echo "$source_impl_file" | sed -e 's,^.*/,,'`
+func_emit_source_c ()
+{
+  newfile="$1"
+  {
+    echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
+    echo
+    echo "#line 1 \"${source_impl_file_base}\""
+    cat "$source_impl_file" | sed -e "${impl_decl_lineno}"',$d'
+    echo "#line "`expr 3 + ${impl_decl_lineno} + 1`" \"$newfile\""
+    # In C mode, where subclass_t is identical to rootclass_t, we define the
+    # any_rootclass_representation type to the right one for subclass.
+    if test -n "$all_superclasses"; then
+      for classname in $all_superclasses; do
+        rootclassname="$classname"
+        break
+      done
+    else
+      rootclassname="$main_classname"
+    fi
+    echo "#ifndef __cplusplus"
+    echo "#define ${main_classname}_representation any_${rootclassname}_representation"
+    echo "#endif"
+    echo "#include \"${main_classname}.priv.h\""
+    echo
+    echo "const typeinfo_t ${main_classname}_typeinfo = { \"${main_classname}\" };"
+    echo
+    echo "static const typeinfo_t * const ${main_classname}_superclasses[] ="
+    echo "  { ${main_classname}_SUPERCLASSES };"
+    echo
+    if test -n "${main_superclassname}"; then
+      echo "#define super ${main_superclassname}_vtable"
       echo
-    done
-  echo "#endif"
-} > "$newfile" || func_fatal_error "failed"
+    fi
+    echo "#line "`expr $impl_end_lineno + 1`" \"${source_impl_file_base}\""
+    cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "s,${main_classname}::,${main_classname}__,g"
+    echo
+    lineno=`wc -l < "$newfile"`
+    echo "#line "`expr $lineno + 2`" \"$newfile\""
+    # Define trivial stubs for methods that are not defined or overridden.
+    inherited_method_names=`echo "$inherited_methods" | sed -e "$sed_remove_empty_lines" | sed -e "$sed_extract_method_name"`
+    echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
+      while read method; do
+        rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
+        name=`echo "$method" | sed -e "$sed_extract_method_name"`
+        arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
+        if test "$arglist" = "void"; then
+          args=
+        else
+          args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
+        fi
+        if test "$rettype" = "void"; then
+          return=
+        else
+          return="return "
+        fi
+        if cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "$sed_remove_comments" | grep "${main_classname}::${name} *(" > /dev/null; then
+          # The class defines or overrides the method.
+          :
+        else
+          # Add a stub for the method.
+          inherited=
+          for i in $inherited_method_names; do
+            if test "$i" = "$name"; then
+              inherited=yes
+            fi
+          done
+          echo "$rettype"
+          echo "${main_classname}__${name} ($arglist)"
+          echo "{"
+          if test -n "$inherited"; then
+            echo "  ${return}super.${name} ($args);"
+          else
+            echo "  /* Abstract (unimplemented) method called.  */"
+            echo "  abort ();"
+            # Avoid C++ compiler warning about missing return value.
+            echo "  #ifndef __GNUC__"
+            echo "  ${return}${main_classname}__${name} ($args);"
+            echo "  #endif"
+          fi
+          echo "}"
+          echo
+        fi
+      done
+    echo
+    echo "const struct ${main_classname}_implementation ${main_classname}_vtable ="
+    echo "{"
+    echo "  ${main_classname}_superclasses,"
+    echo "  sizeof (${main_classname}_superclasses) / sizeof (${main_classname}_superclasses[0]),"
+    echo "  sizeof (struct ${main_classname}_representation),"
+    echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
+      while read method; do
+        name=`echo "$method" | sed -e "$sed_extract_method_name"`
+        echo "  ${main_classname}__${name},"
+      done
+    echo "};"
+    echo
+    echo "#if !HAVE_INLINE"
+    echo
+    echo "/* Define the functions that invoke the methods.  */"
+    echo
+    echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
+      while read method; do
+        rettype=`echo "$method" | sed -e "$sed_extract_method_rettype"`
+        name=`echo "$method" | sed -e "$sed_extract_method_name"`
+        arglist=`echo "$method" | sed -e "$sed_extract_method_arglist"`
+        if test "$arglist" = "void"; then
+          args=
+        else
+          args=`{ echo "$arglist" | tr ',' '\n' | sed -e "$sed_extract_method_args" | tr '\n' ','; echo; } | sed -e 's/,$//'`
+        fi
+        if test "$rettype" = "void"; then
+          return=
+        else
+          return="return "
+        fi
+        echo "$rettype"
+        echo "${main_classname}_${name} ($arglist)"
+        echo "{"
+        echo "  const struct ${main_classname}_implementation *vtable ="
+        echo "    ((struct ${main_classname}_representation_header *) (struct ${main_repclassalias} *) first_arg)->vtable;"
+        echo "  ${return}vtable->${name} ($args);"
+        echo "}"
+        echo
+      done
+    echo "#endif"
+  } > "$newfile"
+}
+
+func_start_creation "${main_classname}.priv.h"
+func_emit_priv_h "${main_classname}.priv.h" || func_fatal_error "failed"
+
+func_start_creation "${main_classname}.vt.h"
+func_emit_vt_h "${main_classname}.vt.h" || func_fatal_error "failed"
+
+new_source_header_file=`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
+func_start_creation "$new_source_header_file"
+func_emit_source_h "$new_source_header_file" || func_fatal_error "failed"
+
+new_source_impl_file=`echo "$source_impl_file_base" | sed -e 's,\.oo\.c$,.c,'`
+func_start_creation "$new_source_impl_file"
+func_emit_source_c "$new_source_impl_file" || func_fatal_error "failed"
