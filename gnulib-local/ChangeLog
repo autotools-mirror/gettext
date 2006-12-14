@@ -1,3 +1,17 @@
+2006-12-13  Bruno Haible  <bruno@clisp.org>
+
+	* modules/ostream (Makefile.am): List all generated files in the moopp
+	rule.
+	* modules/fd-ostream (Makefile.am): Likewise.
+	* modules/file-ostream (Makefile.am): Likewise.
+	* modules/html-ostream (Makefile.am): Likewise.
+	* modules/iconv-ostream (Makefile.am): Likewise.
+	* modules/memory-ostream (Makefile.am): Likewise.
+	* modules/term-ostream (Makefile.am): Likewise.
+	* modules/styled-ostream (Makefile.am): Likewise.
+	* modules/html-styled-ostream (Makefile.am): Likewise.
+	* modules/term-styled-ostream (Makefile.am): Likewise.
+
 2006-12-12  Bruno Haible  <bruno@clisp.org>
 
 	Fix moopp rules for parallel make.

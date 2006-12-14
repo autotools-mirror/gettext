@@ -27,7 +27,7 @@ lib_SOURCES += term-ostream.c
 # automake documentation, node "Multiple Outputs", for details.
 term-ostream.h : $(top_srcdir)/build-aux/moopp term-ostream.oo.h term-ostream.oo.c ostream.oo.h
 	$(top_srcdir)/build-aux/moopp $(srcdir)/term-ostream.oo.c $(srcdir)/term-ostream.oo.h $(srcdir)/ostream.oo.h
-term-ostream.c : term-ostream.h
+term-ostream.c term_ostream.priv.h term_ostream.vt.h : term-ostream.h
 	@test -f $@ || { \
 	  trap 'rm -rf term-ostream.lock' 1 2 13 15; \
 	  if mkdir term-ostream.lock 2>/dev/null; then \

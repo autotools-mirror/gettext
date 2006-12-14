@@ -22,7 +22,7 @@ lib_SOURCES += iconv-ostream.c
 # automake documentation, node "Multiple Outputs", for details.
 iconv-ostream.h : $(top_srcdir)/build-aux/moopp iconv-ostream.oo.h iconv-ostream.oo.c ostream.oo.h
 	$(top_srcdir)/build-aux/moopp $(srcdir)/iconv-ostream.oo.c $(srcdir)/iconv-ostream.oo.h $(srcdir)/ostream.oo.h
-iconv-ostream.c : iconv-ostream.h
+iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h : iconv-ostream.h
 	@test -f $@ || { \
 	  trap 'rm -rf iconv-ostream.lock' 1 2 13 15; \
 	  if mkdir iconv-ostream.lock 2>/dev/null; then \
