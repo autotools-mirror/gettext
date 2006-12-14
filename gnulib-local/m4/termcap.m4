@@ -1,4 +1,4 @@
-# termcap.m4 serial 2 (gettext-0.16.2)
+# termcap.m4 serial 3 (gettext-0.16.2)
 dnl Copyright (C) 2000-2002, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -9,6 +9,9 @@ dnl From Bruno Haible.
 AC_DEFUN([gl_TERMCAP],
 [
   AC_REQUIRE([gl_TERMCAP_BODY])
+  if test $gl_func_tparam = no && test $gl_cv_func_tparm = no; then
+    AC_LIBOBJ([tparm])
+  fi
 ])
 
 AC_DEFUN([gl_TERMCAP_BODY],
@@ -105,5 +108,23 @@ AC_DEFUN([gl_TERMCAP_BODY],
   if test $gl_cv_func_tparam = yes; then
     AC_DEFINE([HAVE_TPARAM], 1,
       [Define if tparam() is among the termcap library functions.])
+  else
+    dnl Test whether a tparm() function is provided. It is missing e.g.
+    dnl in NetBSD 3.0 libtermcap.
+    AC_CACHE_CHECK([for tparm], [gl_cv_func_tparm], [
+      gl_save_LIBS="$LIBS"
+      LIBS="$LIBS $LIBTERMCAP"
+      gl_save_CPPFLAGS="$CPPFLAGS"
+      CPPFLAGS="$CPPFLAGS $INCTERMCAP"
+      AC_TRY_LINK([extern
+        #ifdef __cplusplus
+        "C"
+        #endif
+        char * tparm (const char *, ...);
+        ], [return tparm ("\033\133%dm", 8);],
+        [gl_cv_func_tparm=yes], [gl_cv_func_tparm=no])
+      CPPFLAGS="$gl_save_CPPFLAGS"
+      LIBS="$gl_save_LIBS"
+    ])
   fi
 ])

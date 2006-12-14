@@ -3,9 +3,11 @@ Information about terminal capabilities.
 
 Files:
 m4/termcap.m4
+lib/tparm.c
 
 Depends-on:
 havelib
+c-ctype
 
 configure.ac:
 gl_TERMCAP
