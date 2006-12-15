@@ -39,6 +39,9 @@ struct catalog_output_format
      encoding.  */
   bool requires_utf8;
 
+  /* Whether the print function supports styled output.  */
+  bool supports_color;
+
   /* Whether the format supports multiple domains in a single file.  */
   bool supports_multiple_domains;
 

@@ -38,7 +38,7 @@ noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
 po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
 read-po.h read-properties.h read-stringtable.h \
 str-list.h \
-write-catalog.h write-po.h write-properties.h write-stringtable.h \
+color.h write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h \
 msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
@@ -118,7 +118,7 @@ format-php.c format-gcc-internal.c format-qt.c format-boost.c
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-catalog.c \
-write-catalog.c write-properties.c write-stringtable.c write-po.c \
+color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c msgl-check.c \
 file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c plural-table.c \
 $(FORMAT_SOURCE)

@@ -23,10 +23,16 @@
 #include "write-catalog.h"
 
 #include <errno.h>
+#include <fcntl.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <unistd.h>
+#ifndef STDOUT_FILENO
+# define STDOUT_FILENO 1
+#endif
 
 #include "ostream.h"
 #include "file-ostream.h"
@@ -38,6 +44,23 @@
 
 /* Our regular abbreviation.  */
 #define _(str) gettext (str)
+
+/* When compiled in src, enable color support.
+   When compiled in libgettextpo, don't enable color support.  */
+#ifdef GETTEXTDATADIR
+
+# define ENABLE_COLOR 1
+
+# include "styled-ostream.h"
+# include "term-styled-ostream.h"
+# include "html-styled-ostream.h"
+# include "fd-ostream.h"
+
+# include "color.h"
+# include "po-charset.h"
+# include "msgl-iconv.h"
+
+#endif
 
 
 /* =========== Some parameters for use by 'msgdomain_list_print'. ========== */
@@ -72,8 +95,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 		      catalog_output_format_ty output_syntax,
 		      bool force, bool debug)
 {
-  FILE *fp;
-  file_ostream_t stream;
+  bool to_stdout;
 
   /* We will not write anything if, for every domain, we have no message
      or only the header entry.  */
@@ -185,41 +207,118 @@ message catalog has plural form translations, but the output format does not sup
 	}
     }
 
-  /* Open the output file.  */
-  if (filename != NULL && strcmp (filename, "-") != 0
-      && strcmp (filename, "/dev/stdout") != 0)
+  to_stdout = (filename == NULL || strcmp (filename, "-") == 0
+	       || strcmp (filename, "/dev/stdout") == 0);
+
+#if ENABLE_COLOR
+  if (output_syntax->supports_color
+      && (color_mode == color_yes
+	  || (color_mode == color_tty && to_stdout && isatty (STDOUT_FILENO))))
     {
-      fp = fopen (filename, "w");
-      if (fp == NULL)
+      int fd;
+      ostream_t stream;
+
+      /* Open the output file.  */
+      if (!to_stdout)
+	{
+	  fd = open (filename, O_WRONLY | O_CREAT);
+	  if (fd < 0)
+	    {
+	      const char *errno_description = strerror (errno);
+	      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+			 xasprintf ("%s: %s",
+				    xasprintf (_("cannot create output file \"%s\""),
+					       filename),
+				    errno_description));
+	    }
+	}
+      else
+	{
+	  fd = STDOUT_FILENO;
+	  filename = _("standard output");
+	}
+
+      style_file_prepare ();
+      stream = term_styled_ostream_create (fd, filename, style_file_name);
+      if (stream == NULL)
+	stream = fd_ostream_create (fd, filename, true);
+      output_syntax->print (mdlp, stream, page_width, debug);
+      ostream_free (stream);
+
+      /* Make sure nothing went wrong.  */
+      if (close (fd) < 0)
 	{
 	  const char *errno_description = strerror (errno);
 	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
 		     xasprintf ("%s: %s",
-				xasprintf (_("cannot create output file \"%s\""),
+				xasprintf (_("error while writing \"%s\" file"),
 					   filename),
 				errno_description));
 	}
     }
   else
+#endif
     {
-      fp = stdout;
-      /* xgettext:no-c-format */
-      filename = _("standard output");
-    }
+      FILE *fp;
+      file_ostream_t stream;
 
-  stream = file_ostream_create (fp);
-  output_syntax->print (mdlp, stream, page_width, debug);
-  ostream_free (stream);
+      /* Open the output file.  */
+      if (!to_stdout)
+	{
+	  fp = fopen (filename, "w");
+	  if (fp == NULL)
+	    {
+	      const char *errno_description = strerror (errno);
+	      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+			 xasprintf ("%s: %s",
+				    xasprintf (_("cannot create output file \"%s\""),
+					       filename),
+				    errno_description));
+	    }
+	}
+      else
+	{
+	  fp = stdout;
+	  filename = _("standard output");
+	}
 
-  /* Make sure nothing went wrong.  */
-  if (fwriteerror (fp))
-    {
-      const char *errno_description = strerror (errno);
-      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		 xasprintf ("%s: %s",
-			    xasprintf (_("error while writing \"%s\" file"),
-				       filename),
-			    errno_description));
+      stream = file_ostream_create (fp);
+
+#if ENABLE_COLOR
+      if (output_syntax->supports_color && color_mode == color_html)
+	{
+	  html_styled_ostream_t html_stream;
+
+	  /* Convert mdlp to UTF-8 encoding.  */
+	  if (mdlp->encoding != po_charset_utf8)
+	    {
+	      mdlp = msgdomain_list_copy (mdlp, 0);
+	      mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, false, NULL);
+	    }
+
+	  style_file_prepare ();
+	  html_stream = html_styled_ostream_create (stream, style_file_name);
+	  output_syntax->print (mdlp, html_stream, page_width, debug);
+	  ostream_free (html_stream);
+	}
+      else
+#endif
+	{
+	  output_syntax->print (mdlp, stream, page_width, debug);
+	}
+
+      ostream_free (stream);
+
+      /* Make sure nothing went wrong.  */
+      if (fwriteerror (fp))
+	{
+	  const char *errno_description = strerror (errno);
+	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+		     xasprintf ("%s: %s",
+				xasprintf (_("error while writing \"%s\" file"),
+					   filename),
+				errno_description));
+	}
     }
 }
 

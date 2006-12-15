@@ -1,3 +1,44 @@
+2006-12-01  Bruno Haible  <bruno@clisp.org>
+
+	Add styling support to the PO output routines.
+	* color.h: New file.
+	* color.c: New file.
+	* write-catalog.h (struct catalog_output_format): Add field
+	'supports_color'.
+	* write-catalog.c: Include fcntl.h, unistd.h, styled-ostream.h,
+	term-styled-ostream.h, html-styled-ostream.h, fd-ostream.h, color.h,
+	po-charset.h, msgl-iconv.h.
+	(STDOUT_FILENO): New macro.
+	(ENABLE_COLOR): New macro.
+	(msgdomain_list_print): Use a styled_ostream_t that uses the
+	style_file_name.
+	* write-po.c: Include format.h, styled-ostream.h.
+	(is_stylable, begin_css_class, end_css_class): New functions or macros.
+	(class_header, class_translated, class_untranslated, class_fuzzy,
+	class_obsolete, class_comment, class_translator_comment,
+	class_extracted_comment, class_reference_comment, class_reference,
+	class_flag_comment, class_flag, class_fuzzy_flag,
+	class_previous_comment, class_previous, class_msgid, class_msgstr,
+	class_keyword, class_string, class_text, class_escape_sequence,
+	class_format_directive, class_invalid_format_directive): New variables.
+	(ATTR_ESCAPE_SEQUENCE, ATTR_FORMAT_DIRECTIVE,
+	ATTR_INVALID_FORMAT_DIRECTIVE): New enum items.
+	(message_print_comment, message_print_comment_dot,
+	message_print_comment_filepos, message_print_comment_flags): Call
+	begin/end_css_class.
+	(memset_small): New function.
+	(wrap): Add css_class argument. Determine the extent of format
+	string directives. Call begin/end_css_class.
+	(print_blank_line): Call begin/end_css_class.
+	(message_print, message_print_obsolete): Likewise. Pass a css_class
+	argument to 'wrap'.
+	(msgdomain_list_print_po): Call begin/end_css_class.
+	(output_format_po): Update.
+	* write-properties.c (output_format_properties): Update.
+	* write-stringtable.c (output_format_stringtable): Update.
+	* Makefile.am (noinst_HEADERS): Add color.h.
+	(libgettextsrc_la_SOURCES): Add color.c.
+
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (make_format_description_string,

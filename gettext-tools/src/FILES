@@ -43,6 +43,9 @@ po-xerror.c
                 Error handling during writing and reading of PO files.
 
 +-------------- Writing PO files
+| color.h
+| color.c
+|               Color and style handling.
 | write-catalog.h
 | write-catalog.c
 |               Output of a list-of-messages.

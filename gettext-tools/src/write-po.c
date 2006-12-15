@@ -37,6 +37,7 @@
 
 #include "c-ctype.h"
 #include "po-charset.h"
+#include "format.h"
 #include "linebreak.h"
 #include "msgl-ascii.h"
 #include "write-catalog.h"
@@ -44,6 +45,9 @@
 #include "xallocsa.h"
 #include "c-strstr.h"
 #include "ostream.h"
+#ifdef GETTEXTDATADIR
+# include "styled-ostream.h"
+#endif
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -140,6 +144,88 @@ make_c_width_description_string (enum is_wrap do_wrap)
 }
 
 
+/* ========================== Styling primitives. ========================== */
+
+
+/* When compiled in src, enable styling support.
+   When compiled in libgettextpo, don't enable styling support.  */
+#ifdef GETTEXTDATADIR
+
+/* Return true if the stream is an instance of styled_ostream_t.  */
+static inline bool
+is_stylable (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, styled_ostream);
+}
+
+/* Start a run of text belonging to a given CSS class.  */
+static void
+begin_css_class (ostream_t stream, const char *classname)
+{
+  if (is_stylable (stream))
+    styled_ostream_begin_use_class ((styled_ostream_t) stream, classname);
+}
+
+/* End a run of text belonging to a given CSS class.  */
+static void
+end_css_class (ostream_t stream, const char *classname)
+{
+  if (is_stylable (stream))
+    styled_ostream_end_use_class ((styled_ostream_t) stream, classname);
+}
+
+#else
+
+#define is_stylable(stream) false
+#define begin_css_class(stream,classname) /* empty */
+#define end_css_class(stream,classname) /* empty */
+
+#endif
+
+/* CSS classes at message level.  */
+static const char class_header[] = "header";
+static const char class_translated[] = "translated";
+static const char class_untranslated[] = "untranslated";
+static const char class_fuzzy[] = "fuzzy";
+static const char class_obsolete[] = "obsolete";
+
+/* CSS classes describing the parts of a message.  */
+static const char class_comment[] = "comment";
+static const char class_translator_comment[] = "translator-comment";
+static const char class_extracted_comment[] = "extracted-comment";
+static const char class_reference_comment[] = "reference-comment";
+static const char class_reference[] = "reference";
+static const char class_flag_comment[] = "flag-comment";
+static const char class_flag[] = "flag";
+static const char class_fuzzy_flag[] = "fuzzy-flag";
+static const char class_previous_comment[] = "previous-comment";
+static const char class_previous[] = "previous";
+static const char class_msgid[] = "msgid";
+static const char class_msgstr[] = "msgstr";
+static const char class_keyword[] = "keyword";
+static const char class_string[] = "string";
+
+/* CSS classes for the contents of strings.  */
+static const char class_text[] = "text";
+static const char class_escape_sequence[] = "escape-sequence";
+static const char class_format_directive[] = "format-directive";
+static const char class_invalid_format_directive[] = "invalid-format-directive";
+#if 0
+static const char class_added[] = "added";
+static const char class_changed[] = "changed";
+static const char class_removed[] = "removed";
+#endif
+
+/* Per-character attributes.  */
+enum
+{
+  ATTR_ESCAPE_SEQUENCE          = 1 << 0,
+  /* The following two are exclusive.  */
+  ATTR_FORMAT_DIRECTIVE         = 1 << 1,
+  ATTR_INVALID_FORMAT_DIRECTIVE = 1 << 2
+};
+
+
 /* ================ Output parts of a message, as comments. ================ */
 
 
@@ -151,6 +237,8 @@ message_print_comment (const message_ty *mp, ostream_t stream)
   if (mp->comment != NULL)
     {
       size_t j;
+
+      begin_css_class (stream, class_translator_comment);
 
       for (j = 0; j < mp->comment->nitems; ++j)
 	{
@@ -176,6 +264,8 @@ message_print_comment (const message_ty *mp, ostream_t stream)
 	    }
 	  while (s != NULL);
 	}
+
+      end_css_class (stream, class_translator_comment);
     }
 }
 
@@ -189,6 +279,8 @@ message_print_comment_dot (const message_ty *mp, ostream_t stream)
     {
       size_t j;
 
+      begin_css_class (stream, class_extracted_comment);
+
       for (j = 0; j < mp->comment_dot->nitems; ++j)
 	{
 	  const char *s = mp->comment_dot->item[j];
@@ -198,6 +290,8 @@ message_print_comment_dot (const message_ty *mp, ostream_t stream)
 	  ostream_write_str (stream, s);
 	  ostream_write_str (stream, "\n");
 	}
+
+      end_css_class (stream, class_extracted_comment);
     }
 }
 
@@ -210,6 +304,8 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 {
   if (mp->filepos_count != 0)
     {
+      begin_css_class (stream, class_reference_comment);
+
       if (uniforum)
 	{
 	  size_t j;
@@ -222,11 +318,15 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 
 	      while (cp[0] == '.' && cp[1] == '/')
 		cp += 2;
+	      ostream_write_str (stream, "# ");
+	      begin_css_class (stream, class_reference);
 	      /* There are two Sun formats to choose from: SunOS and
 		 Solaris.  Use the Solaris form here.  */
-	      str = xasprintf ("# File: %s, line: %ld\n",
+	      str = xasprintf ("File: %s, line: %ld",
 			       cp, (long) pp->line_number);
 	      ostream_write_str (stream, str);
+	      end_css_class (stream, class_reference);
+	      ostream_write_str (stream, "\n");
 	      free (str);
 	    }
 	}
@@ -260,12 +360,16 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 		  column = 2;
 		}
 	      ostream_write_str (stream, " ");
+	      begin_css_class (stream, class_reference);
 	      ostream_write_str (stream, cp);
 	      ostream_write_str (stream, buffer);
+	      end_css_class (stream, class_reference);
 	      column += len;
 	    }
 	  ostream_write_str (stream, "\n");
 	}
+
+      end_css_class (stream, class_reference_comment);
     }
 }
 
@@ -282,6 +386,8 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
       bool first_flag = true;
       size_t i;
 
+      begin_css_class (stream, class_flag_comment);
+
       ostream_write_str (stream, "#,");
 
       /* We don't print the fuzzy flag if the msgstr is empty.  This
@@ -289,7 +395,12 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	 output.  */
       if (mp->is_fuzzy && mp->msgstr[0] != '\0')
 	{
-	  ostream_write_str (stream, " fuzzy");
+	  ostream_write_str (stream, " ");
+	  begin_css_class (stream, class_flag);
+	  begin_css_class (stream, class_fuzzy_flag);
+	  ostream_write_str (stream, "fuzzy");
+	  end_css_class (stream, class_fuzzy_flag);
+	  end_css_class (stream, class_flag);
 	  first_flag = false;
 	}
 
@@ -300,10 +411,12 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	      ostream_write_str (stream, ",");
 
 	    ostream_write_str (stream, " ");
+	    begin_css_class (stream, class_flag);
 	    ostream_write_str (stream,
 			       make_format_description_string (mp->is_format[i],
 							       format_language[i],
 							       debug));
+	    end_css_class (stream, class_flag);
 	    first_flag = false;
 	  }
 
@@ -313,12 +426,16 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	    ostream_write_str (stream, ",");
 
 	  ostream_write_str (stream, " ");
+	  begin_css_class (stream, class_flag);
 	  ostream_write_str (stream,
 			     make_c_width_description_string (mp->do_wrap));
+	  end_css_class (stream, class_flag);
 	  first_flag = false;
 	}
 
       ostream_write_str (stream, "\n");
+
+      end_css_class (stream, class_flag_comment);
     }
 }
 
@@ -382,14 +499,30 @@ memcpy_small (void *dst, const void *src, size_t n)
 }
 
 
+/* A version of memset optimized for the case n <= 1.  */
+static inline void
+memset_small (void *dst, char c, size_t n)
+{
+  if (n > 0)
+    {
+      char *p = (char *) dst;
+
+      *p = c;
+      if (--n > 0)
+	do *++p = c; while (--n > 0);
+    }
+}
+
+
 static void
 wrap (const message_ty *mp, ostream_t stream,
-      const char *line_prefix, int extra_indent,
+      const char *line_prefix, int extra_indent, const char *css_class,
       const char *name, const char *value,
       enum is_wrap do_wrap, size_t page_width,
       const char *charset)
 {
   const char *canon_charset;
+  char *fmtdir;
   const char *s;
   bool first_line;
 #if HAVE_ICONV
@@ -449,6 +582,58 @@ wrap (const message_ty *mp, ostream_t stream,
   if (canon_charset == NULL)
     canon_charset = po_charset_ascii;
 
+  /* Determine the extent of format string directives.  */
+  fmtdir = NULL;
+  if (is_stylable (stream) && value[0] != '\0')
+    {
+      bool is_msgstr =
+	(strlen (name) >= 6 && memcmp (name, "msgstr", 6) == 0);
+	/* or equivalent: = (css_class == class_msgstr) */
+      size_t i;
+
+      for (i = 0; i < NFORMATS; i++)
+	if (possible_format_p (mp->is_format[i]))
+	  {
+	    size_t len = strlen (value);
+	    struct formatstring_parser *parser = formatstring_parsers[i];
+	    char *invalid_reason = NULL;
+	    void *descr;
+	    char *fdp;
+	    char *fd_end;
+
+	    fmtdir = XCALLOC (len, char);
+	    descr = parser->parse (value, is_msgstr, fmtdir, &invalid_reason);
+	    if (descr != NULL)
+	      parser->free (descr);
+
+	    /* Locate the FMTDIR_* bits and transform the array to an array
+	       of attributes.  */
+	    fd_end = fmtdir + len;
+	    for (fdp = fmtdir; fdp < fd_end; fdp++)
+	      if (*fdp & FMTDIR_START)
+		{
+		  char *fdq;
+		  for (fdq = fdp; fdq < fd_end; fdq++)
+		    if (*fdq & (FMTDIR_END | FMTDIR_ERROR))
+		      break;
+		  if (!(fdq < fd_end))
+		    /* The ->parse method has determined the start of a
+		       formatstring directive but not stored a bit indicating
+		       its end. It is a bug in the ->parse method.  */
+		    abort ();
+		  if (*fdq & FMTDIR_ERROR)
+		    memset (fdp, ATTR_INVALID_FORMAT_DIRECTIVE, fdq - fdp + 1);
+		  else
+		    memset (fdp, ATTR_FORMAT_DIRECTIVE, fdq - fdp + 1);
+		  fdp = fdq;
+		}
+	      else
+		*fdp = 0;
+
+	    break;
+	  }
+    }
+
   /* Loop over the '\n' delimited portions of value.  */
   s = value;
   first_line = true;
@@ -464,9 +649,11 @@ wrap (const message_ty *mp, ostream_t stream,
       size_t portion_len;
       char *portion;
       char *overrides;
+      char *attributes;
       char *linebreaks;
       char *pp;
       char *op;
+      char *ap;
       int startcol, startcol_after_break, width;
       size_t i;
 
@@ -548,9 +735,11 @@ wrap (const message_ty *mp, ostream_t stream,
       portion = XNMALLOC (portion_len, char);
       overrides = XNMALLOC (portion_len, char);
       memset (overrides, UC_BREAK_UNDEFINED, portion_len);
-      for (ep = s, pp = portion, op = overrides; ep < es; ep++)
+      attributes = XNMALLOC (portion_len, char);
+      for (ep = s, pp = portion, op = overrides, ap = attributes; ep < es; ep++)
 	{
 	  char c = *ep;
+	  char attr = (fmtdir != NULL ? fmtdir[ep - value] : 0);
 	  if (is_escape (c))
 	    {
 	      switch (c)
@@ -568,6 +757,8 @@ wrap (const message_ty *mp, ostream_t stream,
 	      *pp++ = c;
 	      op++;
 	      *op++ = UC_BREAK_PROHIBITED;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
 	      /* We warn about any use of escape sequences beside
 		 '\n' and '\t'.  */
 	      if (c != 'n' && c != 't')
@@ -591,6 +782,10 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *op++ = UC_BREAK_PROHIBITED;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
 	    }
 	  else if (c == '\\' || c == '"')
 	    {
@@ -598,6 +793,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      *pp++ = c;
 	      op++;
 	      *op++ = UC_BREAK_PROHIBITED;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
+	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
 	    }
 	  else
 	    {
@@ -643,6 +840,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		  memcpy_small (pp, ep, insize);
 		  pp += insize;
 		  op += insize;
+		  memset_small (ap, attr, insize);
+		  ap += insize;
 		  ep += insize - 1;
 		}
 	      else
@@ -658,11 +857,14 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		      ep += 1;
 		      *pp++ = *ep;
 		      op += 2;
+		      *ap++ = attr;
+		      *ap++ = attr;
 		    }
 		  else
 		    {
 		      *pp++ = c;
 		      op++;
+		      *ap++ = attr;
 		    }
 		}
 	    }
@@ -724,8 +926,16 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	{
 	  if (line_prefix != NULL)
 	    ostream_write_str (stream, line_prefix);
+	  begin_css_class (stream, css_class);
+	  begin_css_class (stream, class_keyword);
 	  ostream_write_str (stream, name);
-	  ostream_write_str (stream, " \"\"\n");
+	  end_css_class (stream, class_keyword);
+	  ostream_write_str (stream, " ");
+	  begin_css_class (stream, class_string);
+	  ostream_write_str (stream, "\"\"");
+	  end_css_class (stream, class_string);
+	  end_css_class (stream, css_class);
+	  ostream_write_str (stream, "\n");
 	  first_line = false;
 	  /* Recompute startcol and linebreaks.  */
 	  goto recompute;
@@ -742,10 +952,13 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	    ostream_write_str (stream, line_prefix);
 	    currcol = strlen (line_prefix);
 	  }
+	begin_css_class (stream, css_class);
 	if (first_line)
 	  {
+	    begin_css_class (stream, class_keyword);
 	    ostream_write_str (stream, name);
 	    currcol += strlen (name);
+	    end_css_class (stream, class_keyword);
 	    if (indent)
 	      {
 		if (extra_indent > 0)
@@ -775,33 +988,129 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       }
 
       /* Print the portion itself, with linebreaks where necessary.  */
-      ostream_write_str (stream, "\"");
-      for (i = 0; i < portion_len; i++)
-	{
-	  if (linebreaks[i] == UC_BREAK_POSSIBLE)
-	    {
-	      int currcol;
+      {
+	char currattr = 0;
 
-	      ostream_write_str (stream, "\"\n");
-	      currcol = 0;
-	      /* INDENT-S.  */
-	      if (line_prefix != NULL)
-		{
-		  ostream_write_str (stream, line_prefix);
-		  currcol = strlen (line_prefix);
-		}
-	      if (indent)
-		{
-		  ostream_write_mem (stream, "        ", 8 - (currcol & 7));
-		  currcol = (currcol + 8) & ~7;
-		}
-	      ostream_write_str (stream, "\"");
-	    }
-	  ostream_write_mem (stream, &portion[i], 1);
-	}
-      ostream_write_str (stream, "\"\n");
+	begin_css_class (stream, class_string);
+	ostream_write_str (stream, "\"");
+	begin_css_class (stream, class_text);
+
+	for (i = 0; i < portion_len; i++)
+	  {
+	    if (linebreaks[i] == UC_BREAK_POSSIBLE)
+	      {
+		int currcol;
+
+		/* Change currattr so that it becomes 0.  */
+		if (currattr & ATTR_ESCAPE_SEQUENCE)
+		  {
+		    end_css_class (stream, class_escape_sequence);
+		    currattr &= ~ATTR_ESCAPE_SEQUENCE;
+		  }
+		if (currattr & ATTR_FORMAT_DIRECTIVE)
+		  {
+		    end_css_class (stream, class_format_directive);
+		    currattr &= ~ATTR_FORMAT_DIRECTIVE;
+		  }
+		else if (currattr & ATTR_INVALID_FORMAT_DIRECTIVE)
+		  {
+		    end_css_class (stream, class_invalid_format_directive);
+		    currattr &= ~ATTR_INVALID_FORMAT_DIRECTIVE;
+		  }
+		if (!(currattr == 0))
+		  abort ();
+
+		end_css_class (stream, class_text);
+		ostream_write_str (stream, "\"");
+		end_css_class (stream, class_string);
+		end_css_class (stream, css_class);
+		ostream_write_str (stream, "\n");
+		currcol = 0;
+		/* INDENT-S.  */
+		if (line_prefix != NULL)
+		  {
+		    ostream_write_str (stream, line_prefix);
+		    currcol = strlen (line_prefix);
+		  }
+		begin_css_class (stream, css_class);
+		if (indent)
+		  {
+		    ostream_write_mem (stream, "        ", 8 - (currcol & 7));
+		    currcol = (currcol + 8) & ~7;
+		  }
+		begin_css_class (stream, class_string);
+		ostream_write_str (stream, "\"");
+		begin_css_class (stream, class_text);
+	      }
+	    /* Change currattr so that it matches attributes[i].  */
+	    if (attributes[i] != currattr)
+	      {
+		/* class_escape_sequence occurs inside class_format_directive
+		   and class_invalid_format_directive, so clear it first.  */
+		if (currattr & ATTR_ESCAPE_SEQUENCE)
+		  {
+		    end_css_class (stream, class_escape_sequence);
+		    currattr &= ~ATTR_ESCAPE_SEQUENCE;
+		  }
+		if (~attributes[i] & currattr & ATTR_FORMAT_DIRECTIVE)
+		  {
+		    end_css_class (stream, class_format_directive);
+		    currattr &= ~ATTR_FORMAT_DIRECTIVE;
+		  }
+		else if (~attributes[i] & currattr & ATTR_INVALID_FORMAT_DIRECTIVE)
+		  {
+		    end_css_class (stream, class_invalid_format_directive);
+		    currattr &= ~ATTR_INVALID_FORMAT_DIRECTIVE;
+		  }
+		if (attributes[i] & ~currattr & ATTR_FORMAT_DIRECTIVE)
+		  {
+		    begin_css_class (stream, class_format_directive);
+		    currattr |= ATTR_FORMAT_DIRECTIVE;
+		  }
+		else if (attributes[i] & ~currattr & ATTR_INVALID_FORMAT_DIRECTIVE)
+		  {
+		    begin_css_class (stream, class_invalid_format_directive);
+		    currattr |= ATTR_INVALID_FORMAT_DIRECTIVE;
+		  }
+		/* class_escape_sequence occurs inside class_format_directive
+		   and class_invalid_format_directive, so set it last.  */
+		if (attributes[i] & ~currattr & ATTR_ESCAPE_SEQUENCE)
+		  {
+		    begin_css_class (stream, class_escape_sequence);
+		    currattr |= ATTR_ESCAPE_SEQUENCE;
+		  }
+	      }
+	    ostream_write_mem (stream, &portion[i], 1);
+	  }
+
+	/* Change currattr so that it becomes 0.  */
+	if (currattr & ATTR_ESCAPE_SEQUENCE)
+	  {
+	    end_css_class (stream, class_escape_sequence);
+	    currattr &= ~ATTR_ESCAPE_SEQUENCE;
+	  }
+	if (currattr & ATTR_FORMAT_DIRECTIVE)
+	  {
+	    end_css_class (stream, class_format_directive);
+	    currattr &= ~ATTR_FORMAT_DIRECTIVE;
+	  }
+	else if (currattr & ATTR_INVALID_FORMAT_DIRECTIVE)
+	  {
+	    end_css_class (stream, class_invalid_format_directive);
+	    currattr &= ~ATTR_INVALID_FORMAT_DIRECTIVE;
+	  }
+	if (!(currattr == 0))
+	  abort ();
+
+	end_css_class (stream, class_text);
+	ostream_write_str (stream, "\"");
+	end_css_class (stream, class_string);
+	end_css_class (stream, css_class);
+	ostream_write_str (stream, "\n");
+      }
 
       free (linebreaks);
+      free (attributes);
       free (overrides);
       free (portion);
 
@@ -809,6 +1118,9 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 #     undef is_escape
     }
   while (*s);
+
+  if (fmtdir != NULL)
+    free (fmtdir);
 
 #if HAVE_ICONV
   if (conv != (iconv_t)(-1))
@@ -821,7 +1133,11 @@ static void
 print_blank_line (ostream_t stream)
 {
   if (uniforum)
-    ostream_write_str (stream, "#\n");
+    {
+      begin_css_class (stream, class_comment);
+      ostream_write_str (stream, "#\n");
+      end_css_class (stream, class_comment);
+    }
   else
     ostream_write_str (stream, "\n");
 }
@@ -842,6 +1158,17 @@ message_print (const message_ty *mp, ostream_t stream,
 		     || mp->comment->item[0][0] != '\0'))
     print_blank_line (stream);
 
+  if (is_header (mp))
+    begin_css_class (stream, class_header);
+  else if (mp->msgstr[0] == '\0')
+    begin_css_class (stream, class_untranslated);
+  else if (mp->is_fuzzy)
+    begin_css_class (stream, class_fuzzy);
+  else
+    begin_css_class (stream, class_translated);
+
+  begin_css_class (stream, class_comment);
+
   /* Print translator comment if available.  */
   message_print_comment (mp, stream);
 
@@ -858,19 +1185,23 @@ message_print (const message_ty *mp, ostream_t stream,
 
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
+  begin_css_class (stream, class_previous_comment);
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, stream, "#| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
-	  page_width, charset);
-  if (mp->prev_msgid != NULL)
-    wrap (mp, stream, "#| ", 0, "msgid", mp->prev_msgid, mp->do_wrap,
-	  page_width, charset);
-  if (mp->prev_msgid_plural != NULL)
-    wrap (mp, stream, "#| ", 0, "msgid_plural", mp->prev_msgid_plural,
+    wrap (mp, stream, "#| ", 0, class_previous, "msgctxt", mp->prev_msgctxt,
 	  mp->do_wrap, page_width, charset);
+  if (mp->prev_msgid != NULL)
+    wrap (mp, stream, "#| ", 0, class_previous, "msgid", mp->prev_msgid,
+	  mp->do_wrap, page_width, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, stream, "#| ", 0, class_previous, "msgid_plural",
+	  mp->prev_msgid_plural, mp->do_wrap, page_width, charset);
+  end_css_class (stream, class_previous_comment);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 3
 		  : 0);
+
+  end_css_class (stream, class_comment);
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  If there is no recorded msgstr for
@@ -900,17 +1231,17 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, stream, NULL, extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
-	  page_width, charset);
-  wrap (mp, stream, NULL, extra_indent, "msgid", mp->msgid, mp->do_wrap,
-	page_width, charset);
-  if (mp->msgid_plural != NULL)
-    wrap (mp, stream, NULL, extra_indent, "msgid_plural", mp->msgid_plural,
+    wrap (mp, stream, NULL, extra_indent, class_msgid, "msgctxt", mp->msgctxt,
 	  mp->do_wrap, page_width, charset);
+  wrap (mp, stream, NULL, extra_indent, class_msgid, "msgid", mp->msgid,
+	mp->do_wrap, page_width, charset);
+  if (mp->msgid_plural != NULL)
+    wrap (mp, stream, NULL, extra_indent, class_msgid, "msgid_plural",
+	  mp->msgid_plural, mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, stream, NULL, extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
-	  page_width, charset);
+    wrap (mp, stream, NULL, extra_indent, class_msgstr, "msgstr", mp->msgstr,
+	  mp->do_wrap, page_width, charset);
   else
     {
       char prefix_buf[20];
@@ -922,10 +1253,19 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, stream, NULL, extra_indent, prefix_buf, p, mp->do_wrap,
-		page_width, charset);
+	  wrap (mp, stream, NULL, extra_indent, class_msgstr, prefix_buf, p,
+		mp->do_wrap, page_width, charset);
 	}
     }
+
+  if (is_header (mp))
+    end_css_class (stream, class_header);
+  else if (mp->msgstr[0] == '\0')
+    end_css_class (stream, class_untranslated);
+  else if (mp->is_fuzzy)
+    end_css_class (stream, class_fuzzy);
+  else
+    end_css_class (stream, class_translated);
 }
 
 
@@ -943,6 +1283,10 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
      lines, so use an empty comment (unless there already is one).  */
   if (blank_line)
     print_blank_line (stream);
+
+  begin_css_class (stream, class_obsolete);
+
+  begin_css_class (stream, class_comment);
 
   /* Print translator comment if available.  */
   message_print_comment (mp, stream);
@@ -971,19 +1315,23 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
 
   /* Print the previous msgid.  This helps the translator when the msgid has
      only slightly changed.  */
+  begin_css_class (stream, class_previous_comment);
   if (mp->prev_msgctxt != NULL)
-    wrap (mp, stream, "#~| ", 0, "msgctxt", mp->prev_msgctxt, mp->do_wrap,
-	  page_width, charset);
-  if (mp->prev_msgid != NULL)
-    wrap (mp, stream, "#~| ", 0, "msgid", mp->prev_msgid, mp->do_wrap,
-	  page_width, charset);
-  if (mp->prev_msgid_plural != NULL)
-    wrap (mp, stream, "#~| ", 0, "msgid_plural", mp->prev_msgid_plural,
+    wrap (mp, stream, "#~| ", 0, class_previous, "msgctxt", mp->prev_msgctxt,
 	  mp->do_wrap, page_width, charset);
+  if (mp->prev_msgid != NULL)
+    wrap (mp, stream, "#~| ", 0, class_previous, "msgid", mp->prev_msgid,
+	  mp->do_wrap, page_width, charset);
+  if (mp->prev_msgid_plural != NULL)
+    wrap (mp, stream, "#~| ", 0, class_previous, "msgid_plural",
+	  mp->prev_msgid_plural, mp->do_wrap, page_width, charset);
+  end_css_class (stream, class_previous_comment);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
 		  || mp->prev_msgid_plural != NULL
 		  ? 1
 		  : 0);
+
+  end_css_class (stream, class_comment);
 
   /* Print each of the message components.  Wrap them nicely so they
      are as readable as possible.  */
@@ -1012,17 +1360,17 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
-    wrap (mp, stream, "#~ ", extra_indent, "msgctxt", mp->msgctxt, mp->do_wrap,
-	  page_width, charset);
-  wrap (mp, stream, "#~ ", extra_indent, "msgid", mp->msgid, mp->do_wrap,
-	page_width, charset);
-  if (mp->msgid_plural != NULL)
-    wrap (mp, stream, "#~ ", extra_indent, "msgid_plural", mp->msgid_plural,
+    wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgctxt", mp->msgctxt,
 	  mp->do_wrap, page_width, charset);
+  wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgid", mp->msgid,
+	mp->do_wrap, page_width, charset);
+  if (mp->msgid_plural != NULL)
+    wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgid_plural",
+	  mp->msgid_plural, mp->do_wrap, page_width, charset);
 
   if (mp->msgid_plural == NULL)
-    wrap (mp, stream, "#~ ", extra_indent, "msgstr", mp->msgstr, mp->do_wrap,
-	  page_width, charset);
+    wrap (mp, stream, "#~ ", extra_indent, class_msgstr, "msgstr", mp->msgstr,
+	  mp->do_wrap, page_width, charset);
   else
     {
       char prefix_buf[20];
@@ -1034,10 +1382,12 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 	   p += strlen (p) + 1, i++)
 	{
 	  sprintf (prefix_buf, "msgstr[%u]", i);
-	  wrap (mp, stream, "#~ ", extra_indent, prefix_buf, p, mp->do_wrap,
-		page_width, charset);
+	  wrap (mp, stream, "#~ ", extra_indent, class_msgstr, prefix_buf, p,
+		mp->do_wrap, page_width, charset);
 	}
     }
+
+  end_css_class (stream, class_obsolete);
 }
 
 
@@ -1064,9 +1414,18 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
 	{
 	  if (blank_line)
 	    print_blank_line (stream);
-	  ostream_write_str (stream, "domain \"");
+	  begin_css_class (stream, class_keyword);
+	  ostream_write_str (stream, "domain");
+	  end_css_class (stream, class_keyword);
+	  ostream_write_str (stream, " ");
+	  begin_css_class (stream, class_string);
+	  ostream_write_str (stream, "\"");
+	  begin_css_class (stream, class_text);
 	  ostream_write_str (stream, mdlp->item[k]->domain);
-	  ostream_write_str (stream, "\"\n");
+	  end_css_class (stream, class_text);
+	  ostream_write_str (stream, "\"");
+	  end_css_class (stream, class_string);
+	  ostream_write_str (stream, "\n");
 	  blank_line = true;
 	}
 
@@ -1134,6 +1493,7 @@ const struct catalog_output_format output_format_po =
 {
   msgdomain_list_print_po,		/* print */
   false,				/* requires_utf8 */
+  true,					/* supports_color */
   true,					/* supports_multiple_domains */
   true,					/* supports_contexts */
   true,					/* supports_plurals */

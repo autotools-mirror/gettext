@@ -316,6 +316,7 @@ const struct catalog_output_format output_format_stringtable =
 {
   msgdomain_list_print_stringtable,	/* print */
   true,					/* requires_utf8 */
+  false,				/* supports_color */
   false,				/* supports_multiple_domains */
   false,				/* supports_contexts */
   false,				/* supports_plurals */

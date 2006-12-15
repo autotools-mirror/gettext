@@ -99,6 +99,7 @@ if test -n "$GNULIB_TOOL"; then
   error-progname
   execute
   exit
+  fd-ostream
   file-ostream
   findprog
   fnmatch-posix
@@ -110,6 +111,7 @@ if test -n "$GNULIB_TOOL"; then
   getopt
   gettext-h
   hash
+  html-styled-ostream
   iconv
   javacomp
   javaexec
@@ -136,6 +138,8 @@ if test -n "$GNULIB_TOOL"; then
   strpbrk
   strtol
   strtoul
+  styled-ostream
+  term-styled-ostream
   ucs4-utf8
   unistd
   unlocked-io
