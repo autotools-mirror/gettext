@@ -1,3 +1,11 @@
+2006-12-03  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat.c: Include color.h.
+	(long_options): Add --color, --style options.
+	(main): Handle them. Invoke print_color_test when --color=test was
+	given.
+	(usage): Document --color, --style options.
+
 2006-12-01  Bruno Haible  <bruno@clisp.org>
 
 	Add styling support to the PO output routines.

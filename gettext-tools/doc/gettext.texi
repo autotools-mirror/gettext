@@ -247,7 +247,16 @@ Manipulating PO Files
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
+* Colorizing::                  Highlighting parts of PO files
 * libgettextpo::                Writing your own programs that process PO files
+
+Highlighting parts of PO files
+
+* The --color option::          Triggering colorized output
+* The TERM variable::           The environment variable @code{TERM}
+* The --style option::          The @code{--style} option
+* Style rules::                 Style rules for PO files
+* Customizing less::            Customizing @code{less} for viewing PO files
 
 Producing Binary MO Files
 
@@ -4279,6 +4288,7 @@ write other specialized programs that process PO files.
 * msgattrib Invocation::        Invoking the @code{msgattrib} Program
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
+* Colorizing::                  Highlighting parts of PO files
 * libgettextpo::                Writing your own programs that process PO files
 @end menu
 
@@ -4327,12 +4337,381 @@ write other specialized programs that process PO files.
 
 @include msgen.texi
 
-@node msgexec Invocation, libgettextpo, msgen Invocation, Manipulating
+@node msgexec Invocation, Colorizing, msgen Invocation, Manipulating
 @section Invoking the @code{msgexec} Program
 
 @include msgexec.texi
 
-@node libgettextpo,  , msgexec Invocation, Manipulating
+@node Colorizing, libgettextpo, msgexec Invocation, Manipulating
+@section Highlighting parts of PO files
+
+Translators are usually only interested in seeing the untranslated and
+fuzzy messages of a PO file.  Also, when a message is set fuzzy because
+the msgid changed, they want to see the differences between the previous
+msgid and the current one (especially if the msgid is long and only few
+words in it have changed).  Finally, it's always welcome to highlight the
+different sections of a message in a PO file (comments, msgid, msgstr, etc.).
+
+Such highlighting is possible through the @code{msgcat} options
+@samp{--color} and @samp{--style}.
+
+@menu
+* The --color option::          Triggering colorized output
+* The TERM variable::           The environment variable @code{TERM}
+* The --style option::          The @code{--style} option
+* Style rules::                 Style rules for PO files
+* Customizing less::            Customizing @code{less} for viewing PO files
+@end menu
+
+@node The --color option, The TERM variable,  , Colorizing
+@subsection The @code{--color} option
+
+@opindex --color@r{, @code{msgcat} option}
+The @samp{--color=@var{when}} option specifies under which conditions
+colorized output should be generated.  The @var{when} part can be one of
+the following:
+
+@table @code
+@item always
+@itemx yes
+The output will be colorized.
+
+@item never
+@itemx no
+The output will not be colorized.
+
+@item auto
+@itemx tty
+The output will be colorized if the output device is a tty, i.e.@: when the
+output goes directly to a text screen or terminal emulator window.
+
+@item html
+The output will be colorized and be in HTML format.
+@end table
+
+@noindent
+@samp{--color} is equivalent to @samp{--color=yes}.  The default is
+@samp{--color=auto}.
+
+Thus, a command like @samp{msgcat vi.po} will produce colorized output
+when called by itself in a command window.  Whereas in a pipe, such as
+@samp{msgcat vi.po | less -R}, it will not produce colorized output.  To
+get colorized output in this situation nevertheless, use the command
+@samp{msgcat --color vi.po | less -R}.
+
+The @samp{--color=html} option will produce output that can be viewed in
+a browser.  This can be useful, for example, for Indic languages,
+because the renderic of Indic scripts in browser is usually better than
+in terminal emulators.
+
+Note that the output produced with the @code{--color} option is @emph{not}
+a valid PO file in itself.  It contains additional terminal-specific escape
+sequences or HTML tags.  A PO file reader will give a syntax error when
+confronted with such content.  Except for the @samp{--color=html} case,
+you therefore normally don't need to save output produced with the
+@code{--color} option in a file.
+
+@node The TERM variable, The --style option, The --color option, Colorizing
+@subsection The environment variable @code{TERM}
+
+@vindex TERM@r{, environment variable}
+The environment variable @code{TERM} contains a identifier for the text
+window's capabilities.  You can get a detailed list of these cababilities
+by using the @samp{infocmp} command, using @samp{man 5 terminfo} as a
+reference.
+
+When producing text with embedded color directives, @code{msgcat} looks
+at the @code{TERM} variable.  Text windows today typically support at least
+8 colors.  Often, however, the text window supports 16 or more colors,
+even though the @code{TERM} variable is set to a identifier denoting only
+8 supported colors.  It can be worth setting the @code{TERM} variable to
+a different value in these cases:
+
+@table @code
+@item xterm
+@code{xterm} is in most cases built with support for 16 colors.  It can also
+be built with support for 88 or 256 colors (but not both).  You can try to
+set @code{TERM} to either @code{xterm-16color}, @code{xterm-88color}, or
+@code{xterm-256color}.
+
+@item rxvt
+@code{rxvt} is often built with support for 16 colors.  You can try to set
+@code{TERM} to @code{rxvt-16color}.
+
+@item konsole
+@code{konsole} too is often built with support for 16 colors.  You can try to
+set @code{TERM} to @code{konsole-16color} or @code{xterm-16color}.
+@end table
+
+After setting @code{TERM}, you can verify it by invoking
+@samp{msgcat --color=test} and seeing whether the output looks like a
+reasonable color map.
+
+@node The --style option, Style rules, The TERM variable, Colorizing
+@subsection The @code{--style} option
+
+@opindex --style@r{, @code{msgcat} option}
+The @samp{--style=@var{style_file}} option specifies the style file to use
+when colorizing.  It has an effect only when the @code{--color} option is
+effective.
+
+@vindex PO_STYLE@r{, environment variable}
+If the @code{--style} option is not specified, the environment variable
+@code{PO_STYLE} is considered.  It is meant to point to the user's
+preferred style for PO files.
+
+The default style file is @file{$prefix/share/gettext/styles/po-default.css},
+where @code{$prefix} is the installation location.
+
+@node Style rules, Customizing less, The --style option, Colorizing
+@subsection Style rules for PO files
+
+The same style file can be used for styling of a PO file, for terminal
+output and for HTML output.  It is written in CSS (Cascading Style Sheet)
+syntax.  See @url{http://www.w3.org/TR/css2/cover.html} for a formal
+definition of CSS.  Many HTML authoring tutorials also contain explanations
+of CSS.
+
+In the case of HTML output, the style file is embedded in the HTML output.
+In the case of text output, the style file is interpreted by the
+@code{msgcat} program.  This means, in particular, that when
+@code{@@import} is used with relative file names, the file names are
+
+@itemize @minus
+@item
+relative to the resulting HTML file, in the case of HTML output,
+
+@item
+relative to the style sheet containing the @code{@@import}, in the case of
+text output.  (Actually, @code{@@import}s are not yet supported in this case,
+due to a limitation in @code{libcroco}.)
+@end itemize
+
+CSS rules are built up from selectors and declarations.  The declarations
+specify graphical properties; the selectors specify specify when they apply.
+
+In PO files, the following simple selectors (based on "CSS classes", see
+the CSS2 spec, section 5.8.3) are supported.
+
+@itemize @bullet
+@item
+Selectors that apply to entire messages:
+
+@table @code
+@item .header
+This matches the header entry of a PO file.
+
+@item .translated
+This matches a translated message.
+
+@item .untranslated
+This matches an untranslated message (i.e.@: a message with empty translation).
+
+@item .fuzzy
+This matches a fuzzy message (i.e.@: a message which has a translation that
+needs review by the translator).
+
+@item .obsolete
+This matches an obsolete message (i.e.@: a message that was translated but is
+not needed by the current POT file any more).
+@end table
+
+@item
+Selectors that apply to parts of a message in PO syntax.  Recall the general
+structure of a message in PO syntax:
+
+@example
+@var{white-space}
+#  @var{translator-comments}
+#. @var{extracted-comments}
+#: @var{reference}@dots{}
+#, @var{flag}@dots{}
+#| msgid @var{previous-untranslated-string}
+msgid @var{untranslated-string}
+msgstr @var{translated-string}
+@end example
+
+@table @code
+@item .comment
+This matches all comments (translator comments, extracted comments,
+source file reference comments, flag comments, previous message comments,
+as well as the entire obsolete messages).
+
+@item .translator-comment
+This matches the translator comments.
+
+@item .extracted-comment
+This matches the extracted comments, i.e.@: the comments placed by the
+programmer at the attention of the translator.
+
+@item .reference-comment
+This matches the source file reference comments (entire lines).
+
+@item .reference
+This matches the individual source file references inside the source file
+reference comment lines.
+
+@item .flag-comment
+This matches the flag comment lines (entire lines).
+
+@item .flag
+This matches the individual flags inside flag comment lines.
+
+@item .fuzzy-flag
+This matches the `fuzzy' flag inside flag comment lines.
+
+@item .previous-comment
+This matches the comments containing the previous untranslated string (entire
+lines).
+
+@item .previous
+This matches the previous untranslated string including the string delimiters,
+the associated keywords (@code{msgid} etc.) and the spaces between them.
+
+@item .msgid
+This matches the untranslated string including the string delimiters,
+the associated keywords (@code{msgid} etc.) and the spaces between them.
+
+@item .msgstr
+This matches the translated string including the string delimiters,
+the associated keywords (@code{msgstr} etc.) and the spaces between them.
+
+@item .keyword
+This matches the keywords (@code{msgid}, @code{msgstr}, etc.).
+
+@item .string
+This matches strings, including the string delimiters (double quotes).
+@end table
+
+@item
+Selectors that apply to parts of strings:
+
+@table @code
+@item .text
+This matches the entire contents of a string (excluding the string delimiters,
+i.e.@: the double quotes).
+
+@item .escape-sequence
+This matches an escape sequence (starting with a backslash).
+
+@item .format-directive
+This matches a format string directive (starting with a @samp{%} sign in the
+case of most programming languages, with a @samp{@{} in the case of
+@code{java-format} and @code{csharp-format}, with a @samp{~} in the case of
+@code{lisp-format} and @code{scheme-format}, or with @samp{$} in the case of
+@code{sh-format}).
+
+@item .invalid-format-directive
+This matches an invalid format string directive.
+
+@item .added
+In an untranslated string, this matches a part of the string that was not
+present in the previous untranslated string.
+
+@item .changed
+In an untranslated string or in a previous untranslated string, this matches
+a part of the string that is changed or replaced.
+
+@item .removed
+In a previous untranslated string, this matches a part of the string that
+is not present in the current untranslated string.
+@end table
+@end itemize
+
+These selectors can be combined to hierarchical selectors.  For example,
+
+@smallexample
+.msgstr .invalid-format-directive @{ color: red; @}
+@end smallexample
+
+@noindent
+will highlight the invalid format directives in the translated strings.
+
+In text mode, pseudo-classes (CSS2 spec, section 5.11) and pseudo-elements
+(CSS2 spec, section 5.12) are not supported.
+
+The declarations in HTML mode are not limited; any graphical attribute
+supported by the browsers can be used.
+
+The declarations in text mode are limited to the following properties.  Other
+properties will be silently ignored.
+
+@table @asis
+@item @code{color} (CSS2 spec, section 14.1)
+@itemx @code{background-color} (CSS2 spec, section 14.2.1)
+These properties is supported.  Colors will be adjusted to match the terminal's
+capabilities.  Note that many terminals support only 8 colors.
+
+@item @code{font-weight} (CSS2 spec, section 15.2.3)
+This property is supported, but most terminals can only render two different
+weights: @code{normal} and @code{bold}.  Values >= 600 are rendered as
+@code{bold}.
+
+@item @code{font-style} (CSS2 spec, section 15.2.3)
+This property is supported.  The values @code{italic} and @code{oblique} are
+rendered the same way.
+
+@item @code{text-decoration} (CSS2 spec, section 16.3.1)
+This property is supported, limited to the values @code{none} and
+@code{underline}.
+@end table
+
+@node Customizing less,  , Style rules, Colorizing
+@subsection Customizing @code{less} for viewing PO files
+
+The @samp{less} program is a popular text file browser for use in a text
+screen or terminal emulator.  It also supports text with embedded escape
+sequences for colors and text decorations.
+
+You can use @code{less} to view a PO file like this (assuming an UTF-8
+environment):
+
+@smallexample
+msgcat --to-code=UTF-8 --color xyz.po | less -R
+@end smallexample
+
+You can simplify this to this simple command:
+
+@smallexample
+less xyz.po
+@end smallexample
+
+@noindent
+after these three preparations:
+
+@enumerate
+@item
+Add the options @samp{-R} and @samp{-f} to the @code{LESS} environment
+variable.  In sh shells:
+@smallexample
+$ LESS="$LESS -R -f"
+$ export LESS
+@end smallexample
+
+@item
+If your system does not already have the @file{lessopen.sh} and
+@file{lessclose.sh} scripts, create them and set the @code{LESSOPEN} and
+@code{LESSCLOSE} environment variables, as indicated in the manual page
+(@samp{man less}).
+
+@item
+Add to @file{lessopen.sh} a piece of script that recognizes PO files
+through their file extension and invokes @code{msgcat} on them, producing
+a temporary file.  Like this:
+
+@smallexample
+case "$1" in
+  *.po)
+    tmpfile=`mktemp "$@{TMPDIR-/tmp@}/less.XXXXXX"`
+    msgcat --to-code=UTF-8 --color "$1" > "$tmpfile"
+    echo "$tmpfile"
+    exit 0
+    ;;
+esac
+@end smallexample
+@end enumerate
+
+@node libgettextpo,  , Colorizing, Manipulating
 @section Writing your own programs that process PO files
 
 For the tasks for which a combination of @samp{msgattrib}, @samp{msgcat} etc.

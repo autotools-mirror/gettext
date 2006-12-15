@@ -1,3 +1,8 @@
+2006-12-03  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat.texi: Document the --color and --style options.
+	* gettext.texi (Colorizing): New section.
+
 2006-11-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16.1 released.
