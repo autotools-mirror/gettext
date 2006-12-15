@@ -31,11 +31,12 @@ iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h : iconv-ostream.h
 	    result=$$?; rm -rf iconv-ostream.lock; exit $$result; \
 	  else \
 	    while test -d iconv-ostream.lock; do sleep 1; done; \
-	    test -f iconv-ostream.h; \
+	    test -f $(srcdir)/iconv-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += iconv-ostream.h iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h
-CLEANFILES += iconv-ostream.h iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h
+MAINTAINERCLEANFILES += iconv-ostream.h iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h
+EXTRA_DIST += iconv-ostream.h iconv-ostream.c iconv_ostream.priv.h iconv_ostream.vt.h
 
 Include:
 "iconv-ostream.h"

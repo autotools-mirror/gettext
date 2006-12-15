@@ -36,11 +36,12 @@ term-ostream.c term_ostream.priv.h term_ostream.vt.h : term-ostream.h
 	    result=$$?; rm -rf term-ostream.lock; exit $$result; \
 	  else \
 	    while test -d term-ostream.lock; do sleep 1; done; \
-	    test -f term-ostream.h; \
+	    test -f $(srcdir)/term-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
-CLEANFILES += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
+MAINTAINERCLEANFILES += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
+EXTRA_DIST += term-ostream.h term-ostream.c term_ostream.priv.h term_ostream.vt.h
 
 Include:
 "term-ostream.h"

@@ -25,11 +25,12 @@ styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h : styled-ostream.h
 	    result=$$?; rm -rf styled-ostream.lock; exit $$result; \
 	  else \
 	    while test -d styled-ostream.lock; do sleep 1; done; \
-	    test -f styled-ostream.h; \
+	    test -f $(srcdir)/styled-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
-CLEANFILES += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
+MAINTAINERCLEANFILES += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
+EXTRA_DIST += styled-ostream.h styled-ostream.c styled_ostream.priv.h styled_ostream.vt.h
 
 Include:
 "styled-ostream.h"

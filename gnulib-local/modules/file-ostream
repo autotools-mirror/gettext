@@ -26,11 +26,12 @@ file-ostream.c file_ostream.priv.h file_ostream.vt.h : file-ostream.h
 	    result=$$?; rm -rf file-ostream.lock; exit $$result; \
 	  else \
 	    while test -d file-ostream.lock; do sleep 1; done; \
-	    test -f file-ostream.h; \
+	    test -f $(srcdir)/file-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
-CLEANFILES += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
+MAINTAINERCLEANFILES += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
+EXTRA_DIST += file-ostream.h file-ostream.c file_ostream.priv.h file_ostream.vt.h
 
 Include:
 "file-ostream.h"

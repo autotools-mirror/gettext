@@ -30,11 +30,12 @@ fd-ostream.c fd_ostream.priv.h fd_ostream.vt.h : fd-ostream.h
 	    result=$$?; rm -rf fd-ostream.lock; exit $$result; \
 	  else \
 	    while test -d fd-ostream.lock; do sleep 1; done; \
-	    test -f fd-ostream.h; \
+	    test -f $(srcdir)/fd-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += fd-ostream.h fd-ostream.c fd_ostream.priv.h fd_ostream.vt.h
-CLEANFILES += fd-ostream.h fd-ostream.c fd_ostream.priv.h fd_ostream.vt.h
+MAINTAINERCLEANFILES += fd-ostream.h fd-ostream.c fd_ostream.priv.h fd_ostream.vt.h
+EXTRA_DIST += fd-ostream.h fd-ostream.c fd_ostream.priv.h fd_ostream.vt.h
 
 Include:
 "fd-ostream.h"

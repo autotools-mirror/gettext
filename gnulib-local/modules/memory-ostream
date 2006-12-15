@@ -30,11 +30,12 @@ memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h : memory-ostream.h
 	    result=$$?; rm -rf memory-ostream.lock; exit $$result; \
 	  else \
 	    while test -d memory-ostream.lock; do sleep 1; done; \
-	    test -f memory-ostream.h; \
+	    test -f $(srcdir)/memory-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
-CLEANFILES += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
+MAINTAINERCLEANFILES += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
+EXTRA_DIST += memory-ostream.h memory-ostream.c memory_ostream.priv.h memory_ostream.vt.h
 
 Include:
 "memory-ostream.h"

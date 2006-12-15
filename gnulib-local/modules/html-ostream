@@ -29,11 +29,12 @@ html-ostream.c html_ostream.priv.h html_ostream.vt.h : html-ostream.h
 	    result=$$?; rm -rf html-ostream.lock; exit $$result; \
 	  else \
 	    while test -d html-ostream.lock; do sleep 1; done; \
-	    test -f html-ostream.h; \
+	    test -f $(srcdir)/html-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += html-ostream.h html-ostream.c html_ostream.priv.h html_ostream.vt.h
-CLEANFILES += html-ostream.h html-ostream.c html_ostream.priv.h html_ostream.vt.h
+MAINTAINERCLEANFILES += html-ostream.h html-ostream.c html_ostream.priv.h html_ostream.vt.h
+EXTRA_DIST += html-ostream.h html-ostream.c html_ostream.priv.h html_ostream.vt.h
 
 Include:
 "html-ostream.h"

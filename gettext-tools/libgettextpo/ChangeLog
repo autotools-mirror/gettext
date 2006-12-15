@@ -1,3 +1,7 @@
+2006-12-13  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (MAINTAINERCLEANFILES): New variable.
+
 2006-11-26  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (config.h): When removing an object file, also remove

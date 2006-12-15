@@ -33,11 +33,12 @@ html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h : html
 	    result=$$?; rm -rf html-styled-ostream.lock; exit $$result; \
 	  else \
 	    while test -d html-styled-ostream.lock; do sleep 1; done; \
-	    test -f html-styled-ostream.h; \
+	    test -f $(srcdir)/html-styled-ostream.h; \
 	  fi; \
 	}
 BUILT_SOURCES += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
-CLEANFILES += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
+MAINTAINERCLEANFILES += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
+EXTRA_DIST += html-styled-ostream.h html-styled-ostream.c html_styled_ostream.priv.h html_styled_ostream.vt.h
 
 Include:
 "html-styled-ostream.h"
