@@ -9,7 +9,7 @@ dnl From Bruno Haible.
 AC_DEFUN([gl_TERMCAP],
 [
   AC_REQUIRE([gl_TERMCAP_BODY])
-  if test $gl_func_tparam = no && test $gl_cv_func_tparm = no; then
+  if test $gl_cv_func_tparam = no && test $gl_cv_func_tparm = no; then
     AC_LIBOBJ([tparm])
   fi
 ])
