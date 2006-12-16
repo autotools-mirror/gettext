@@ -1,3 +1,12 @@
+2006-12-16  Bruno Haible  <bruno@clisp.org>
+
+	* modules/libxml (Depends-on): Add stdarg.
+	* m4/libxml.m4 (gl_LIBXML): Define VA_COPY, needed for xmlwriter.c.
+
+2006-12-16  Bruno Haible  <bruno@clisp.org>
+
+	* lib/libxml/xmlwriter.c: Include libxml.h first, not after string.h.
+
 2006-12-13  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/moopp: Add check for GNU sed. Generate the 4 files in the

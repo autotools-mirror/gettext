@@ -1,4 +1,4 @@
-# libxml.m4 serial 2 (gettext-0.16.2)
+# libxml.m4 serial 3 (gettext-0.16.2)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -142,8 +142,10 @@ AC_DEFUN([gl_LIBXML],
                       netinet/in.h resolv.h signal.h stdlib.h string.h \
                       strings.h sys/select.h sys/socket.h sys/stat.h \
                       sys/time.h sys/types.h time.h unistd.h])
-    AC_CHECK_FUNCS([dlopen getaddrinfo localtime shlload stat _stat strftime \
-                    va_copy __va_copy])
+    AC_CHECK_FUNCS([dlopen getaddrinfo localtime shlload stat _stat strftime])
+    dnl This relies on the va_copy replacement from the stdarg module.
+    AC_DEFINE([VA_COPY], [va_copy],
+      [Define to a working va_copy macro or replacement.])
     dnl Don't bother checking for pthread.h and other multithread facilities.
     dnl Don't bother checking for zlib.h and how to link with libz.
   else
