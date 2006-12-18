@@ -1,5 +1,7 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Rename macro MINUS_H_FLAG to USE_HEURISTIC. Use bool.
+
 	* lib/fstrcmp.c: Update comments. Talk about vectors instead of
 	strings, and about elements instead of characters.
 
