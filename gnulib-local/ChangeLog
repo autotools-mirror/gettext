@@ -1,5 +1,10 @@
 2006-12-16  Bruno Haible  <bruno@clisp.org>
 
+	* lib/term-ostream.oo.c (term_ostream_create): Don't ignore tgetent's
+	return value.
+
+2006-12-16  Bruno Haible  <bruno@clisp.org>
+
 	* lib/libcroco/cr-style.h (enum CRPositionType): Remove trailing
 	comma. Needed for compilation on AIX with xlc.
 
