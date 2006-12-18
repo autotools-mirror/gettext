@@ -4,6 +4,7 @@ Fuzzy string comparison.
 Files:
 lib/fstrcmp.h
 lib/fstrcmp.c
+lib/diffseq.h
 
 Depends-on:
 lock
