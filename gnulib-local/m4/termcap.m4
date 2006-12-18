@@ -1,4 +1,4 @@
-# termcap.m4 serial 3 (gettext-0.16.2)
+# termcap.m4 serial 4 (gettext-0.16.2)
 dnl Copyright (C) 2000-2002, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -23,6 +23,8 @@ AC_DEFUN([gl_TERMCAP_BODY],
   dnl because libtermcap is unsecure by design and obsolete since 1994.
   dnl libcurses is useless: all platforms which have libcurses also have
   dnl libtermcap, and libcurses is unusable on some old Unices.
+  dnl Some systems have the terminfo functions setupterm(), tigetnum(),
+  dnl tigetstr(), tigetflag() in the same library.
   dnl Some systems, like BeOS, use GNU termcap, which has tparam() instead of
   dnl tparm().
 
@@ -86,6 +88,44 @@ AC_DEFUN([gl_TERMCAP_BODY],
   AC_SUBST([LIBTERMCAP])
   AC_SUBST([LTLIBTERMCAP])
   AC_SUBST([INCTERMCAP])
+
+  dnl Test whether the terminfo functions are available from the same library.
+  AC_CACHE_CHECK([for terminfo functions], [gl_cv_func_terminfo], [
+    gl_save_LIBS="$LIBS"
+    LIBS="$LIBS $LIBTERMCAP"
+    gl_save_CPPFLAGS="$CPPFLAGS"
+    CPPFLAGS="$CPPFLAGS $INCTERMCAP"
+    AC_TRY_LINK([extern
+      #ifdef __cplusplus
+      "C"
+      #endif
+      int setupterm (const char *, int, int *);
+      extern
+      #ifdef __cplusplus
+      "C"
+      #endif
+      int tigetnum (const char *);
+      extern
+      #ifdef __cplusplus
+      "C"
+      #endif
+      int tigetflag (const char *);
+      extern
+      #ifdef __cplusplus
+      "C"
+      #endif
+      const char * tigetstr (const char *);
+      ], [return setupterm ("xterm", 0, (int *)0)
+                 + tigetnum ("colors") + tigetflag ("hc") + * tigetstr("oc");],
+      [gl_cv_func_terminfo=yes], [gl_cv_func_terminfo=no])
+    CPPFLAGS="$gl_save_CPPFLAGS"
+    LIBS="$gl_save_LIBS"
+  ])
+  if test $gl_cv_func_terminfo = yes; then
+    AC_DEFINE([HAVE_TERMINFO], 1,
+      [Define if setupterm(), tigetnum(), tigetstr(), tigetflag()
+       are among the termcap library functions.])
+  fi
 
   dnl Test against the old GNU termcap, which provides a tparam() function
   dnl instead of the classical tparm() function.

@@ -43,6 +43,27 @@ extern int tgetflag (const char *id);
    Also, if AREA != NULL, stores it at *AREA and advances *AREA.  */
 extern const char * tgetstr (const char *id, char **area);
 
+#if HAVE_TERMINFO
+
+/* Gets the capability information for terminal type TYPE and prepares FD.
+   Returns 0 if successful, -1 upon error.  If ERRP is non-NULL, also returns
+   an error indicator in *ERRP; otherwise an error is signalled.  */
+extern int setupterm (const char *type, int fd, int *errp);
+
+/* Retrieves the value of a numerical capability.
+   Returns -1 if it is not available, -2 if ID is invalid.  */
+extern int tigetnum (const char *id);
+
+/* Retrieves the value of a boolean capability.
+   Returns 1 if it available, 0 if not available, -1 if ID is invalid.  */
+extern int tigetflag (const char *id);
+
+/* Retrieves the value of a string capability.
+   Returns NULL if it is not available, (char *)(-1) if ID is invalid.  */
+extern const char * tigetstr (const char *id);
+
+#endif
+
 #if HAVE_TPARAM
 
 /* API provided by GNU termcap in <termcap.h>.  */

@@ -1661,7 +1661,13 @@ term_ostream::set_underline (term_ostream_t stream, term_underline_t underline)
 static inline char *
 xstrdup0 (const char *str)
 {
-  return (str != NULL ? xstrdup (str) : NULL);
+  if (str == NULL)
+    return NULL;
+#if HAVE_TERMINFO
+  if (str == (const char *)(-1))
+    return NULL;
+#endif
+  return xstrdup (str);
 }
 
 term_ostream_t
@@ -1693,6 +1699,33 @@ term_ostream_create (int fd, const char *filename)
   term = getenv ("TERM");
   if (term != NULL && term[0] != '\0')
     {
+      /* When the terminfo function are available, we prefer them over the
+	 termcap functions because
+	   1. they don't risk a buffer overflow,
+	   2. on OSF/1, for TERM=xterm, the tiget* functions provide access
+	      to the number of colors and the color escape sequences, whereas
+	      the tget* functions don't provide them.  */
+#if HAVE_TERMINFO
+      int err = 1;
+
+      if (setupterm (term, fd, &err) || err == 1)
+	{
+	  /* Retrieve particular values depending on the terminal type.  */
+	  stream->max_colors = tigetnum ("colors");
+	  stream->no_color_video = tigetnum ("ncv");
+	  stream->set_a_foreground = xstrdup0 (tigetstr ("setaf"));
+	  stream->set_foreground = xstrdup0 (tigetstr ("setf"));
+	  stream->set_a_background = xstrdup0 (tigetstr ("setab"));
+	  stream->set_background = xstrdup0 (tigetstr ("setb"));
+	  stream->orig_pair = xstrdup0 (tigetstr ("op"));
+	  stream->enter_bold_mode = xstrdup0 (tigetstr ("bold"));
+	  stream->enter_italics_mode = xstrdup0 (tigetstr ("sitm"));
+	  stream->exit_italics_mode = xstrdup0 (tigetstr ("ritm"));
+	  stream->enter_underline_mode = xstrdup0 (tigetstr ("smul"));
+	  stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
+	  stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
+	}
+#else
       struct { char buf[1024]; char canary[4]; } termcapbuf;
       int retval;
 
@@ -1729,7 +1762,7 @@ term_ostream_create (int fd, const char *filename)
 	  stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
 	  stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
 
-#ifdef __BEOS__
+# ifdef __BEOS__
 	  /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB"
 	     it contains balues in terminfo syntax but the system's tparam()
 	     function understands only the termcap syntax.  */
@@ -1745,7 +1778,7 @@ term_ostream_create (int fd, const char *filename)
 	      free (stream->set_a_background);
 	      stream->set_a_background = xstrdup ("\033[4%dm");
 	    }
-#endif
+# endif
 
 	  /* Done with tgetstr.  Detect possible buffer overflow.  */
 	  #undef TEBP
@@ -1753,6 +1786,7 @@ term_ostream_create (int fd, const char *filename)
 	    /* Buffer overflow!  */
 	    abort ();
 	}
+#endif
     }
 
   /* Infer the capabilities.  */
