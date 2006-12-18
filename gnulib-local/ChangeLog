@@ -1,5 +1,8 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Include <stdbool.h>. Use bool where appropriate.
+	Rename 'minimal' to 'find_minimal'.
+
 	* lib/fstrcmp.c: Make generic.
 	(ELEMENT, EQUAL, OFFSET): New macros.
 

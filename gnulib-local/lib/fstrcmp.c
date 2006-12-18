@@ -49,6 +49,7 @@
 #include "fstrcmp.h"
 
 #include <string.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -128,11 +129,11 @@ struct partition
   /* Midpoints of this partition.  */
   int xmid, ymid;
 
-  /* Nonzero if low half will be analyzed minimally.  */
-  int lo_minimal;
+  /* True if low half will be analyzed minimally.  */
+  bool lo_minimal;
 
   /* Likewise for high half.  */
-  int hi_minimal;
+  bool hi_minimal;
 };
 
 
@@ -140,7 +141,7 @@ struct partition
 	diag - find diagonal path
 
    SYNOPSIS
-	int diag(int xoff, int xlim, int yoff, int ylim, int minimal,
+	int diag(int xoff, int xlim, int yoff, int ylim, bool find_minimal,
 		 struct partition *part, struct context *ctxt);
 
    DESCRIPTION
@@ -152,7 +153,7 @@ struct partition
 	edit-sequence.  When the two searches meet, we have found the
 	midpoint of the shortest edit sequence.
 
-	If MINIMAL is nonzero, find the minimal edit script regardless
+	If FIND_MINIMAL is true, find the minimal edit script regardless
 	of expense.  Otherwise, if the search is too expensive, use
 	heuristics to stop the search and report a suboptimal answer.
 
@@ -178,7 +179,7 @@ struct partition
 	output.  */
 
 static void
-diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
+diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
       struct partition *part, struct context *ctxt)
 {
   OFFSET *const fd = ctxt->fdiag;	/* Give the compiler a chance. */
@@ -194,7 +195,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
   OFFSET bmin = bmid;
   OFFSET bmax = bmid;		/* Limits of bottom-up search. */
   OFFSET c;			/* Cost. */
-  int odd = (fmid - bmid) & 1;
+  bool odd = (fmid - bmid) & 1;
 
   /*
    * True if southeast corner is on an odd diagonal with respect
@@ -205,9 +206,9 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
   for (c = 1;; ++c)
     {
       OFFSET d;			/* Active diagonal. */
-      int big_snake;
+      bool big_snake;
 
-      big_snake = 0;
+      big_snake = false;
       /* Extend the top-down search by an edit step in each diagonal. */
       if (fmin > dmin)
 	fd[--fmin - 1] = -1;
@@ -240,13 +241,13 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	      ++y;
 	    }
 	  if (x - oldx > SNAKE_LIMIT)
-	    big_snake = 1;
+	    big_snake = true;
 	  fd[d] = x;
 	  if (odd && bmin <= d && d <= bmax && bd[d] <= x)
 	    {
 	      part->xmid = x;
 	      part->ymid = y;
-	      part->lo_minimal = part->hi_minimal = 1;
+	      part->lo_minimal = part->hi_minimal = true;
 	      return;
 	    }
 	}
@@ -281,18 +282,18 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	      --y;
 	    }
 	  if (oldx - x > SNAKE_LIMIT)
-	    big_snake = 1;
+	    big_snake = true;
 	  bd[d] = x;
 	  if (!odd && fmin <= d && d <= fmax && x <= fd[d])
 	    {
 	      part->xmid = x;
 	      part->ymid = y;
-	      part->lo_minimal = part->hi_minimal = 1;
+	      part->lo_minimal = part->hi_minimal = true;
 	      return;
 	    }
 	}
 
-      if (minimal)
+      if (find_minimal)
 	continue;
 
 #ifdef MINUS_H_FLAG
@@ -354,8 +355,8 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	    }
 	  if (best > 0)
 	    {
-	      part->lo_minimal = 1;
-	      part->hi_minimal = 0;
+	      part->lo_minimal = true;
+	      part->hi_minimal = false;
 	      return;
 	    }
 	  best = 0;
@@ -395,8 +396,8 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	    }
 	  if (best > 0)
 	    {
-	      part->lo_minimal = 0;
-	      part->hi_minimal = 1;
+	      part->lo_minimal = false;
+	      part->hi_minimal = true;
 	      return;
 	    }
 	}
@@ -462,15 +463,15 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	    {
 	      part->xmid = fxbest;
 	      part->ymid = fxybest - fxbest;
-	      part->lo_minimal = 1;
-	      part->hi_minimal = 0;
+	      part->lo_minimal = true;
+	      part->hi_minimal = false;
 	    }
 	  else
 	    {
 	      part->xmid = bxbest;
 	      part->ymid = bxybest - bxbest;
-	      part->lo_minimal = 0;
-	      part->hi_minimal = 1;
+	      part->lo_minimal = false;
+	      part->hi_minimal = true;
 	    }
 	  return;
 	}
@@ -482,7 +483,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	compareseq - find edit sequence
 
    SYNOPSIS
-	void compareseq(int xoff, int xlim, int yoff, int ylim, int minimal,
+	void compareseq(int xoff, int xlim, int yoff, int ylim, bool find_minimal,
 			struct context *ctxt);
 
    DESCRIPTION
@@ -495,12 +496,12 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
 	Note that XLIM, YLIM are exclusive bounds.  All character
 	numbers are origin-0.
 
-	If MINIMAL is nonzero, find a minimal difference no matter how
+	If FIND_MINIMAL is nonzero, find a minimal difference no matter how
 	expensive it is.  */
 
 static void
-compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, int minimal,
-	    struct context *ctxt)
+compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim,
+	    bool find_minimal, struct context *ctxt)
 {
   const ELEMENT *const xv = ctxt->string[0].data;	/* Help the compiler.  */
   const ELEMENT *const yv = ctxt->string[1].data;
@@ -541,7 +542,7 @@ compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, int minimal,
       struct partition part;
 
       /* Find a point of correspondence in the middle of the strings.  */
-      diag (xoff, xlim, yoff, ylim, minimal, &part, ctxt);
+      diag (xoff, xlim, yoff, ylim, find_minimal, &part, ctxt);
 
       /* Use the partitions to split this problem into subproblems.  */
       compareseq (xoff, part.xmid, yoff, part.ymid, part.lo_minimal, ctxt);
