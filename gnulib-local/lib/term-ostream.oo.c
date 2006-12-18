@@ -1716,7 +1716,7 @@ term_ostream_create (int fd, const char *filename)
 
 	  /* Retrieve particular values depending on the terminal type.  */
 	  stream->max_colors = tgetnum ("Co");
-	  stream->no_color_video = tgetnum ("nc");
+	  stream->no_color_video = tgetnum ("NC");
 	  stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
 	  stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
 	  stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
