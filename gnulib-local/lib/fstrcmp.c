@@ -80,6 +80,15 @@
 #define OFFSET_MAX \
   ((((OFFSET)1 << (sizeof (OFFSET) * CHAR_BIT - 2)) - 1) * 2 + 1)
 
+/* Use this to suppress gcc's `...may be used before initialized' warnings. */
+#ifndef IF_LINT
+# ifdef lint
+#  define IF_LINT(Code) Code
+# else
+#  define IF_LINT(Code) /* empty */
+# endif
+#endif
+
 /*
  * Context of comparison operation.
  */
@@ -368,13 +377,9 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
       if (c >= ctxt->too_expensive)
 	{
 	  OFFSET fxybest;
-	  OFFSET fxbest;
+	  OFFSET fxbest IF_LINT (= 0);
 	  OFFSET bxybest;
-	  OFFSET bxbest;
-
-	  /* Pacify `gcc -Wall'. */
-	  fxbest = 0;
-	  bxbest = 0;
+	  OFFSET bxbest IF_LINT (= 0);
 
 	  /* Find forward diagonal that maximizes X + Y.  */
 	  fxybest = -1;
