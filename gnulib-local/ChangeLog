@@ -1,5 +1,8 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Update comments. Talk about vectors instead of
+	strings, and about elements instead of characters.
+
 	* lib/fstrcmp.c: Make generic.
 	(OFFSET_MAX): New macro.
 

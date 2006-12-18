@@ -18,11 +18,11 @@
 
    Derived from GNU diff 2.7, analyze.c et al.
 
-   The basic idea is to consider two strings as similar if, when
-   transforming the first string into the second string through a
-   sequence of edits (inserts and deletes of one character each),
+   The basic idea is to consider two sequences as similar if, when
+   transforming the first sequence into the second sequence through a
+   sequence of edits (inserts and deletes of one element each),
    this sequence is short - or equivalently, if the ordered list
-   of characters that are untouched by these edits is long.  For a
+   of elements that are untouched by these edits is long.  For a
    good introduction to the subject, read about the "Levenshtein
    distance" in Wikipedia.
 
@@ -35,13 +35,10 @@
    "Algorithms for Approximate String Matching", E. Ukkonen,
    Information and Control Vol. 64, 1985, pp. 100-118.
 
-   Unless the 'minimal' flag is set, this code uses the TOO_EXPENSIVE
+   Unless the 'find_minimal' flag is set, this code uses the TOO_EXPENSIVE
    heuristic, by Paul Eggert, to limit the cost to O(N**1.5 log N)
    at the price of producing suboptimal output for large inputs with
-   many differences.
-
-   Modified to work on strings rather than files
-   by Peter Miller <pmiller@agso.gov.au>, October 1995 */
+   many differences.  */
 
 #include <config.h>
 
@@ -95,7 +92,7 @@ struct context
     /* The length of the string to be compared. */
     int data_length;
 
-    /* The number of characters inserted or deleted. */
+    /* The number of elements inserted or deleted. */
     int edit_count;
   }
   string[2];
@@ -103,8 +100,8 @@ struct context
   #ifdef MINUS_H_FLAG
 
   /* This corresponds to the diff -H flag.  With this heuristic, for
-     strings with a constant small density of changes, the algorithm is
-     linear in the strings size.  This is unlikely in typical uses of
+     vectors with a constant small density of changes, the algorithm is
+     linear in the vectors size.  This is unlikely in typical uses of
      fstrcmp, and so is usually compiled out.  Besides, there is no
      interface to set it true.  */
   int heuristic;
@@ -150,9 +147,9 @@ struct partition
 
    DESCRIPTION
 	Find the midpoint of the shortest edit script for a specified
-	portion of the two strings.
+	portion of the two vectors.
 
-	Scan from the beginnings of the strings, and simultaneously from
+	Scan from the beginnings of the vectors, and simultaneously from
 	the ends, doing a breadth-first search through the space of
 	edit-sequence.  When the two searches meet, we have found the
 	midpoint of the shortest edit sequence.
@@ -163,19 +160,19 @@ struct partition
 
    RETURNS
 	Set PART->(XMID,YMID) to the midpoint (XMID,YMID).  The diagonal
-	number XMID - YMID equals the number of inserted characters
-	minus the number of deleted characters (counting only characters
+	number XMID - YMID equals the number of inserted elements
+	minus the number of deleted elements (counting only elements
 	before the midpoint).
 
-	Set PART->LEFT_MINIMAL to nonzero iff the minimal edit script
+	Set PART->lo_minimal to nonzero iff the minimal edit script
 	for the left half of the partition is known; similarly for
-	PART->RIGHT_MINIMAL.
+	PART->hi_minimal.
 
    CAVEAT
-	This function assumes that the first characters of the specified
-	portions of the two strings do not match, and likewise that the
-	last characters do not match.  The caller must trim matching
-	characters from the beginning and end of the portions it is
+	This function assumes that the first elements of the specified
+	portions of the two vectors do not match, and likewise that the
+	last elements do not match.  The caller must trim matching
+	elements from the beginning and end of the portions it is
 	going to specify.
 
 	If we return the "wrong" partitions, the worst this can do is
@@ -307,8 +304,8 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
          such, find the one that has made the most progress and return
          it as if it had succeeded.
 
-         With this heuristic, for strings with a constant small density
-         of changes, the algorithm is linear in the strings size.  */
+         With this heuristic, for vectors with a constant small density
+         of changes, the algorithm is linear in the vector size.  */
       if (c > 200 && big_snake && ctxt->heuristic)
 	{
 	  OFFSET best;
@@ -484,13 +481,13 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 			struct context *ctxt);
 
    DESCRIPTION
-	Compare in detail contiguous subsequences of the two strings
+	Compare in detail contiguous subsequences of the two vectors
 	which are known, as a whole, to match each other.
 
-	The subsequence of string 0 is [XOFF, XLIM) and likewise for
-	string 1.
+	The subsequence of vector 0 is [XOFF, XLIM) and likewise for
+	vector 1.
 
-	Note that XLIM, YLIM are exclusive bounds.  All character
+	Note that XLIM, YLIM are exclusive bounds.  All element
 	numbers are origin-0.
 
 	If FIND_MINIMAL is nonzero, find a minimal difference no matter how
@@ -538,7 +535,7 @@ compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim,
     {
       struct partition part;
 
-      /* Find a point of correspondence in the middle of the strings.  */
+      /* Find a point of correspondence in the middle of the vectors.  */
       diag (xoff, xlim, yoff, ylim, find_minimal, &part, ctxt);
 
       /* Use the partitions to split this problem into subproblems.  */
