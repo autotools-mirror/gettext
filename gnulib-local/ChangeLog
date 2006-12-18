@@ -1,5 +1,8 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Make comments and variable syntax closer to GNU
+	diff's analyze.c.
+
 	* lib/fstrcmp.c: Fix FSF address in copyright header.
 
 	* lib/fstrcmp.c: Rename macro MINUS_H_FLAG to USE_HEURISTIC. Use bool.
