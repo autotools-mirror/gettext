@@ -148,10 +148,7 @@ struct partition
 	Set PART->(XMID,YMID) to the midpoint (XMID,YMID).  The diagonal
 	number XMID - YMID equals the number of inserted characters
 	minus the number of deleted characters (counting only characters
-	before the midpoint).  Return the approximate edit cost; this is
-	the total number of characters inserted or deleted (counting
-	only characters before the midpoint), unless a heuristic is used
-	to terminate the search prematurely.
+	before the midpoint).
 
 	Set PART->LEFT_MINIMAL to nonzero iff the minimal edit script
 	for the left half of the partition is known; similarly for
@@ -168,7 +165,7 @@ struct partition
 	cause suboptimal diff output.  It cannot cause incorrect diff
 	output.  */
 
-static int
+static void
 diag (int xoff, int xlim, int yoff, int ylim, int minimal,
       struct partition *part, struct context *ctxt)
 {
@@ -238,7 +235,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	      part->xmid = x;
 	      part->ymid = y;
 	      part->lo_minimal = part->hi_minimal = 1;
-	      return 2 * c - 1;
+	      return;
 	    }
 	}
       /* Similarly extend the bottom-up search.  */
@@ -279,7 +276,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	      part->xmid = x;
 	      part->ymid = y;
 	      part->lo_minimal = part->hi_minimal = 1;
-	      return 2 * c;
+	      return;
 	    }
 	}
 
@@ -347,7 +344,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	    {
 	      part->lo_minimal = 1;
 	      part->hi_minimal = 0;
-	      return 2 * c - 1;
+	      return;
 	    }
 	  best = 0;
 	  for (d = bmax; d >= bmin; d -= 2)
@@ -388,7 +385,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	    {
 	      part->lo_minimal = 0;
 	      part->hi_minimal = 1;
-	      return 2 * c - 1;
+	      return;
 	    }
 	}
 #endif /* MINUS_H_FLAG */
@@ -463,7 +460,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	      part->lo_minimal = 0;
 	      part->hi_minimal = 1;
 	    }
-	  return 2 * c - 1;
+	  return;
 	}
     }
 }
@@ -529,34 +526,14 @@ compareseq (int xoff, int xlim, int yoff, int ylim, int minimal,
     }
   else
     {
-      int c;
       struct partition part;
 
       /* Find a point of correspondence in the middle of the strings.  */
-      c = diag (xoff, xlim, yoff, ylim, minimal, &part, ctxt);
-      if (c == 1)
-	{
-#if 0
-	  /* This should be impossible, because it implies that one of
-	     the two subsequences is empty, and that case was handled
-	     above without calling `diag'.  Let's verify that this is
-	     true.  */
-	  abort ();
-#else
-	  /* The two subsequences differ by a single insert or delete;
-	     record it and we are done.  */
-	  if (part.xmid - part.ymid < xoff - yoff)
-	    ctxt->string[1].edit_count++;
-	  else
-	    ctxt->string[0].edit_count++;
-#endif
-	}
-      else
-	{
-	  /* Use the partitions to split this problem into subproblems.  */
-	  compareseq (xoff, part.xmid, yoff, part.ymid, part.lo_minimal, ctxt);
-	  compareseq (part.xmid, xlim, part.ymid, ylim, part.hi_minimal, ctxt);
-	}
+      diag (xoff, xlim, yoff, ylim, minimal, &part, ctxt);
+
+      /* Use the partitions to split this problem into subproblems.  */
+      compareseq (xoff, part.xmid, yoff, part.ymid, part.lo_minimal, ctxt);
+      compareseq (part.xmid, xlim, part.ymid, ylim, part.hi_minimal, ctxt);
     }
 }
 
