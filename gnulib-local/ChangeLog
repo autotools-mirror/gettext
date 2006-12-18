@@ -1,5 +1,8 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Include minmax.h.
+	* modules/fstrcmp (Depends-on): Add minmax.
+
 	* lib/fstrcmp.c (IF_LINT): New macro.
 
 	* lib/fstrcmp.c: Make comments and variable syntax closer to GNU

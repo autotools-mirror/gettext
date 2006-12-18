@@ -53,6 +53,7 @@
 
 #include "lock.h"
 #include "tls.h"
+#include "minmax.h"
 #include "xalloc.h"
 
 #ifndef uintptr_t
@@ -388,7 +389,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 	      OFFSET x;
 	      OFFSET y;
 
-	      x = fd[d] < xlim ? fd[d] : xlim;
+	      x = MIN (fd[d], xlim);
 	      y = x - d;
 	      if (ylim < y)
 		{
@@ -409,7 +410,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 	      OFFSET x;
 	      OFFSET y;
 
-	      x = xoff > bd[d] ? xoff : bd[d];
+	      x = MAX (xoff, bd[d]);
 	      y = x - d;
 	      if (y < yoff)
 		{
