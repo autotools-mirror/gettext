@@ -1,5 +1,8 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Make generic.
+	(OFFSET_MAX): New macro.
+
 	* lib/fstrcmp.c: Modernize the coding style.
 
 	* lib/fstrcmp.c: Include <stdbool.h>. Use bool where appropriate.
