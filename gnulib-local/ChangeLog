@@ -1,5 +1,7 @@
 2006-10-07  Bruno Haible  <bruno@clisp.org>
 
+	* lib/fstrcmp.c: Modernize the coding style.
+
 	* lib/fstrcmp.c: Include <stdbool.h>. Use bool where appropriate.
 	Rename 'minimal' to 'find_minimal'.
 
