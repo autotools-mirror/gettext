@@ -4,19 +4,15 @@
 # (Apart from UTF-8 and GB18030, EUC-JP is the only common encoding that is
 # a superset of both ISO-8859-5 and ISO-8859-2.)
 
+# Note: This test fails on AIX 4 because when LC_ALL=ja_JP,
+# setlocale (LC_ALL, "") works fine in the test program of locale-ja.m4 but
+# fails in the recode-sr-latin program. I don't know why.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 # Test whether a specific EUC-JP locale is installed.
 : ${LOCALE_JA=ja_JP}
-#if test $LOCALE_JA != none; then
-#  LC_ALL=$LOCALE_JA ./testlocale 2>/dev/null
-#  case $? in
-#    0) ;;
-#    77) LOCALE_JA=none;;
-#    *) exit 1;;
-#  esac
-#fi
 if test $LOCALE_JA = none; then
   if test -f /usr/bin/localedef; then
     echo "Skipping test: no japanese EUC-JP locale is installed"
@@ -25,16 +21,6 @@ if test $LOCALE_JA = none; then
   fi
   rm -fr $tmpfiles; exit 77
 fi
-
-# Test whether locale_charset() in this locale really returns EUC-JP.
-# (On some systems, config.charset supports only UTF-8 locales.)
-#case "$host_os" in
-#  darwin[56]*) ;;
-#  darwin* | beos*)
-#    echo "Skipping test: no EUC-JP locale is supported"
-#    rm -fr $tmpfiles; exit 77
-#    ;;
-#esac
 
 tmpfiles="$tmpfiles rec-srl-2.in"
 cat <<\EOF > rec-srl-2.in
