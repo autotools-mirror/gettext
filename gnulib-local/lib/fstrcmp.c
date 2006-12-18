@@ -62,6 +62,18 @@
 #endif
 
 
+#define ELEMENT char
+#define EQUAL(x,y) ((x) == (y))
+#define OFFSET int
+
+/* Before including this file, you need to define:
+     ELEMENT                 The element type of the sequences being compared.
+     EQUAL                   A two-argument macro that tests two elements for
+                             equality.
+     OFFSET                  A signed integer type sufficient to hold the
+                             difference between two indices. Usually
+                             something like ssize_t.  */
+
 /*
  * Context of comparison operation.
  */
@@ -73,7 +85,7 @@ struct context
   struct string_data
   {
     /* The string to be compared. */
-    const char *data;
+    const ELEMENT *data;
 
     /* The length of the string to be compared. */
     int data_length;
@@ -97,15 +109,15 @@ struct context
   /* Vector, indexed by diagonal, containing 1 + the X coordinate of the
      point furthest along the given diagonal in the forward search of the
      edit matrix.  */
-  int *fdiag;
+  OFFSET *fdiag;
 
   /* Vector, indexed by diagonal, containing the X coordinate of the point
      furthest along the given diagonal in the backward search of the edit
      matrix.  */
-  int *bdiag;
+  OFFSET *bdiag;
 
   /* Edit scripts longer than this are too expensive to compute.  */
-  int too_expensive;
+  OFFSET too_expensive;
 
   /* Snakes bigger than this are considered `big'.  */
   #define SNAKE_LIMIT	20
@@ -166,22 +178,22 @@ struct partition
 	output.  */
 
 static void
-diag (int xoff, int xlim, int yoff, int ylim, int minimal,
+diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, OFFSET minimal,
       struct partition *part, struct context *ctxt)
 {
-  int *const fd = ctxt->fdiag;	/* Give the compiler a chance. */
-  int *const bd = ctxt->bdiag;	/* Additional help for the compiler. */
-  const char *const xv = ctxt->string[0].data;	/* Still more help for the compiler. */
-  const char *const yv = ctxt->string[1].data;	/* And more and more . . . */
-  const int dmin = xoff - ylim;	/* Minimum valid diagonal. */
-  const int dmax = xlim - yoff;	/* Maximum valid diagonal. */
-  const int fmid = xoff - yoff;	/* Center diagonal of top-down search. */
-  const int bmid = xlim - ylim;	/* Center diagonal of bottom-up search. */
-  int fmin = fmid;
-  int fmax = fmid;		/* Limits of top-down search. */
-  int bmin = bmid;
-  int bmax = bmid;		/* Limits of bottom-up search. */
-  int c;			/* Cost. */
+  OFFSET *const fd = ctxt->fdiag;	/* Give the compiler a chance. */
+  OFFSET *const bd = ctxt->bdiag;	/* Additional help for the compiler. */
+  const ELEMENT *const xv = ctxt->string[0].data;	/* Still more help for the compiler. */
+  const ELEMENT *const yv = ctxt->string[1].data;	/* And more and more . . . */
+  const OFFSET dmin = xoff - ylim;	/* Minimum valid diagonal. */
+  const OFFSET dmax = xlim - yoff;	/* Maximum valid diagonal. */
+  const OFFSET fmid = xoff - yoff;	/* Center diagonal of top-down search. */
+  const OFFSET bmid = xlim - ylim;	/* Center diagonal of bottom-up search. */
+  OFFSET fmin = fmid;
+  OFFSET fmax = fmid;		/* Limits of top-down search. */
+  OFFSET bmin = bmid;
+  OFFSET bmax = bmid;		/* Limits of bottom-up search. */
+  OFFSET c;			/* Cost. */
   int odd = (fmid - bmid) & 1;
 
   /*
@@ -192,7 +204,7 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
   bd[bmid] = xlim;
   for (c = 1;; ++c)
     {
-      int d;			/* Active diagonal. */
+      OFFSET d;			/* Active diagonal. */
       int big_snake;
 
       big_snake = 0;
@@ -207,11 +219,11 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	--fmax;
       for (d = fmax; d >= fmin; d -= 2)
 	{
-	  int x;
-	  int y;
-	  int oldx;
-	  int tlo;
-	  int thi;
+	  OFFSET x;
+	  OFFSET y;
+	  OFFSET oldx;
+	  OFFSET tlo;
+	  OFFSET thi;
 
 	  tlo = fd[d - 1],
 	    thi = fd[d + 1];
@@ -249,11 +261,11 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	--bmax;
       for (d = bmax; d >= bmin; d -= 2)
 	{
-	  int x;
-	  int y;
-	  int oldx;
-	  int tlo;
-	  int thi;
+	  OFFSET x;
+	  OFFSET y;
+	  OFFSET oldx;
+	  OFFSET tlo;
+	  OFFSET thi;
 
 	  tlo = bd[d - 1],
 	    thi = bd[d + 1];
@@ -293,15 +305,15 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
          of changes, the algorithm is linear in the strings size.  */
       if (c > 200 && big_snake && ctxt->heuristic)
 	{
-	  int best;
+	  OFFSET best;
 
 	  best = 0;
 	  for (d = fmax; d >= fmin; d -= 2)
 	    {
-	      int dd;
-	      int x;
-	      int y;
-	      int v;
+	      OFFSET dd;
+	      OFFSET x;
+	      OFFSET y;
+	      OFFSET v;
 
 	      dd = d - fmid;
 	      x = fd[d];
@@ -349,10 +361,10 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	  best = 0;
 	  for (d = bmax; d >= bmin; d -= 2)
 	    {
-	      int dd;
-	      int x;
-	      int y;
-	      int v;
+	      OFFSET dd;
+	      OFFSET x;
+	      OFFSET y;
+	      OFFSET v;
 
 	      dd = d - bmid;
 	      x = bd[d];
@@ -394,10 +406,10 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	 and report halfway between our best results so far.  */
       if (c >= ctxt->too_expensive)
 	{
-	  int fxybest;
-	  int fxbest;
-	  int bxybest;
-	  int bxbest;
+	  OFFSET fxybest;
+	  OFFSET fxbest;
+	  OFFSET bxybest;
+	  OFFSET bxbest;
 
 	  /* Pacify `gcc -Wall'. */
 	  fxbest = 0;
@@ -407,8 +419,8 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	  fxybest = -1;
 	  for (d = fmax; d >= fmin; d -= 2)
 	    {
-	      int x;
-	      int y;
+	      OFFSET x;
+	      OFFSET y;
 
 	      x = fd[d] < xlim ? fd[d] : xlim;
 	      y = x - d;
@@ -428,8 +440,8 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	  bxybest = INT_MAX;
 	  for (d = bmax; d >= bmin; d -= 2)
 	    {
-	      int x;
-	      int y;
+	      OFFSET x;
+	      OFFSET y;
 
 	      x = xoff > bd[d] ? xoff : bd[d];
 	      y = x - d;
@@ -487,11 +499,11 @@ diag (int xoff, int xlim, int yoff, int ylim, int minimal,
 	expensive it is.  */
 
 static void
-compareseq (int xoff, int xlim, int yoff, int ylim, int minimal,
+compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, int minimal,
 	    struct context *ctxt)
 {
-  const char *const xv = ctxt->string[0].data;	/* Help the compiler.  */
-  const char *const yv = ctxt->string[1].data;
+  const ELEMENT *const xv = ctxt->string[0].data;	/* Help the compiler.  */
+  const ELEMENT *const yv = ctxt->string[1].data;
 
   /* Slide down the bottom initial diagonal. */
   while (xoff < xlim && yoff < ylim && xv[xoff] == yv[yoff])

@@ -1,3 +1,8 @@
+2006-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* lib/fstrcmp.c: Make generic.
+	(ELEMENT, EQUAL, OFFSET): New macros.
+
 2006-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* lib/fstrcmp.c (diag): Change return type to void.
