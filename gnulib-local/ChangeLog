@@ -1,5 +1,10 @@
 2006-12-19  Bruno Haible  <bruno@clisp.org>
 
+	* m4/libxml.m4 (gl_LIBXML): Check for arpa/nameser.h and resolv.h
+	with some prerequisite headers. Needed for AIX 4.3.2.
+
+2006-12-19  Bruno Haible  <bruno@clisp.org>
+
 	* lib/term-ostream.oo.c (term_ostream_create): Add color information
 	about xterm if the platform lacks it.
 

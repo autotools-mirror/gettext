@@ -1,4 +1,4 @@
-# libxml.m4 serial 3 (gettext-0.16.2)
+# libxml.m4 serial 4 (gettext-0.16.2)
 dnl Copyright (C) 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -137,11 +137,27 @@ AC_DEFUN([gl_LIBXML],
     LIBXML_H="$LIBXML_H libxml/xpath.h"
     LIBXML_H="$LIBXML_H libxml/xpathInternals.h"
     LIBXML_H="$LIBXML_H libxml/xpointer.h"
-    AC_CHECK_HEADERS([arpa/inet.h arpa/nameser.h ctype.h dlfcn.h dl.h errno.h \
+    AC_CHECK_HEADERS([arpa/inet.h ctype.h dlfcn.h dl.h errno.h \
                       fcntl.h float.h limits.h malloc.h math.h netdb.h \
-                      netinet/in.h resolv.h signal.h stdlib.h string.h \
+                      netinet/in.h signal.h stdlib.h string.h \
                       strings.h sys/select.h sys/socket.h sys/stat.h \
                       sys/time.h sys/types.h time.h unistd.h])
+    AC_CHECK_HEADERS([arpa/nameser.h] [], [], [
+      #if HAVE_SYS_TYPES_H
+      # include <sys/types.h>
+      #endif
+    ])
+    AC_CHECK_HEADERS([resolv.h], [], [], [
+      #if HAVE_SYS_TYPES_H
+      # include <sys/types.h>
+      #endif
+      #if HAVE_NETINET_IN_H
+      # include <netinet/in.h>
+      #endif 
+      #if HAVE_ARPA_NAMESER_H 
+      # include <arpa/nameser.h>
+      #endif
+    ])
     AC_CHECK_FUNCS([dlopen getaddrinfo localtime shlload stat _stat strftime])
     dnl This relies on the va_copy replacement from the stdarg module.
     AC_DEFINE([VA_COPY], [va_copy],
