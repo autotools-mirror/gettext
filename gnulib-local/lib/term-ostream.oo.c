@@ -1787,6 +1787,19 @@ term_ostream_create (int fd, const char *filename)
 	    abort ();
 	}
 #endif
+
+      /* AIX 4.3.2, IRIX 6.5, HP-UX 11, Solaris 7..10 all lack the
+	 description of color capabilities of "xterm" and "xterms"
+	 in their terminfo database.  But it is important to have
+	 color in xterm.  So we provide the color capabilities here.  */
+      if (stream->max_colors <= 1
+	  && (strcmp (term, "xterm") == 0 || strcmp (term, "xterms") == 0))
+	{
+	  stream->max_colors = 8;
+	  stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
+	  stream->set_a_background = xstrdup ("\033[4%p1%dm");
+	  stream->orig_pair = xstrdup ("\033[39;49m");
+	}
     }
 
   /* Infer the capabilities.  */
