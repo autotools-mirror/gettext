@@ -25,7 +25,7 @@ SUBDIRS = gnulib-local gettext-runtime gettext-tools autoconf-lib-link
 EXTRA_DIST = \
   version.sh DEPENDENCIES PACKAGING ChangeLog.0 autogen.sh \
   build-aux/config.libpath build-aux/reloc-ldflags build-aux/install-reloc \
-  build-aux/ac-help.sed \
+  build-aux/ac-help.sed build-aux/moopp \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
 
