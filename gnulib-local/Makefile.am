@@ -241,6 +241,7 @@ lib/term-ostream.oo.h \
 lib/term-styled-ostream.oo.c \
 lib/term-styled-ostream.oo.h \
 lib/termcap.h \
+lib/terminfo.h \
 lib/vasprintf.c \
 lib/xalloc.h \
 lib/xerror.c \
@@ -310,6 +311,7 @@ modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
 modules/terminfo \
+modules/terminfo-h \
 modules/term-ostream \
 modules/term-ostream-tests \
 modules/term-styled-ostream \
