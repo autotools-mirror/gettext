@@ -142,7 +142,7 @@ AC_DEFUN([gl_LIBXML],
                       netinet/in.h signal.h stdlib.h string.h \
                       strings.h sys/select.h sys/socket.h sys/stat.h \
                       sys/time.h sys/types.h time.h unistd.h])
-    AC_CHECK_HEADERS([arpa/nameser.h] [], [], [
+    AC_CHECK_HEADERS([arpa/nameser.h], [], [], [
       #if HAVE_SYS_TYPES_H
       # include <sys/types.h>
       #endif
