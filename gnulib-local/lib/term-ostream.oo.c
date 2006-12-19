@@ -33,7 +33,7 @@
 #include "fatal-signal.h"
 #include "full-write.h"
 #include "sigprocmask.h"
-#include "termcap.h"
+#include "terminfo.h"
 #include "xalloc.h"
 #include "xsize.h"
 #include "gettext.h"
