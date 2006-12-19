@@ -1,3 +1,7 @@
+2006-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* m4/termcap.m4 (gl_TERMCAP, gl_TERMCAP_BODY): Rename cache variables.
+
 2006-12-17  Bruno Haible  <bruno@clisp.org>
 
 	* lib/diffseq.h: New file, extracted from fstrcmp.c and GNU diff's

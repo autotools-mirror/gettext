@@ -1,4 +1,4 @@
-# termcap.m4 serial 4 (gettext-0.16.2)
+# termcap.m4 serial 5 (gettext-0.16.2)
 dnl Copyright (C) 2000-2002, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -9,7 +9,7 @@ dnl From Bruno Haible.
 AC_DEFUN([gl_TERMCAP],
 [
   AC_REQUIRE([gl_TERMCAP_BODY])
-  if test $gl_cv_func_tparam = no && test $gl_cv_func_tparm = no; then
+  if test $gl_cv_termcap_tparam = no && test $gl_cv_termcap_tparm = no; then
     AC_LIBOBJ([tparm])
   fi
 ])
@@ -129,7 +129,7 @@ AC_DEFUN([gl_TERMCAP_BODY],
 
   dnl Test against the old GNU termcap, which provides a tparam() function
   dnl instead of the classical tparm() function.
-  AC_CACHE_CHECK([for tparam], [gl_cv_func_tparam], [
+  AC_CACHE_CHECK([for tparam], [gl_cv_termcap_tparam], [
     gl_save_LIBS="$LIBS"
     LIBS="$LIBS $LIBTERMCAP"
     gl_save_CPPFLAGS="$CPPFLAGS"
@@ -141,17 +141,17 @@ AC_DEFUN([gl_TERMCAP_BODY],
       char * tparam (const char *, void *, int, ...);
       char buf;
       ], [return tparam ("\033\133%dm", &buf, 1, 8);],
-      [gl_cv_func_tparam=yes], [gl_cv_func_tparam=no])
+      [gl_cv_termcap_tparam=yes], [gl_cv_termcap_tparam=no])
     CPPFLAGS="$gl_save_CPPFLAGS"
     LIBS="$gl_save_LIBS"
   ])
-  if test $gl_cv_func_tparam = yes; then
+  if test $gl_cv_termcap_tparam = yes; then
     AC_DEFINE([HAVE_TPARAM], 1,
       [Define if tparam() is among the termcap library functions.])
   else
     dnl Test whether a tparm() function is provided. It is missing e.g.
     dnl in NetBSD 3.0 libtermcap.
-    AC_CACHE_CHECK([for tparm], [gl_cv_func_tparm], [
+    AC_CACHE_CHECK([for tparm], [gl_cv_termcap_tparm], [
       gl_save_LIBS="$LIBS"
       LIBS="$LIBS $LIBTERMCAP"
       gl_save_CPPFLAGS="$CPPFLAGS"
@@ -162,7 +162,7 @@ AC_DEFUN([gl_TERMCAP_BODY],
         #endif
         char * tparm (const char *, ...);
         ], [return tparm ("\033\133%dm", 8);],
-        [gl_cv_func_tparm=yes], [gl_cv_func_tparm=no])
+        [gl_cv_termcap_tparm=yes], [gl_cv_termcap_tparm=no])
       CPPFLAGS="$gl_save_CPPFLAGS"
       LIBS="$gl_save_LIBS"
     ])
