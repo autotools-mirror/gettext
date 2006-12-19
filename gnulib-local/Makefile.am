@@ -267,6 +267,7 @@ m4/quotearg.m4.diff \
 m4/quote.m4.diff \
 m4/relocatable.m4 \
 m4/termcap.m4 \
+m4/terminfo.m4 \
 m4/term-ostream.m4 \
 m4/unionwait.m4 \
 m4/vasprintf.m4 \
@@ -308,6 +309,7 @@ modules/relocwrapper \
 modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
+modules/terminfo \
 modules/term-ostream \
 modules/term-ostream-tests \
 modules/term-styled-ostream \
