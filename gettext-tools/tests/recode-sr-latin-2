@@ -4,9 +4,8 @@
 # (Apart from UTF-8 and GB18030, EUC-JP is the only common encoding that is
 # a superset of both ISO-8859-5 and ISO-8859-2.)
 
-# Note: This test fails on AIX 4 because when LC_ALL=ja_JP,
-# setlocale (LC_ALL, "") works fine in the test program of locale-ja.m4 but
-# fails in the recode-sr-latin program. I don't know why.
+# Note: This test fails on AIX 4 with libiconv < 1.12, due to an interaction
+# between libiconv and the setlocale() function. It is fixed in libiconv-1.12.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
