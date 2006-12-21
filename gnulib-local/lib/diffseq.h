@@ -192,7 +192,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 	    x = thi;
 	  oldx = x;
 	  y = x - d;
-	  while (x < xlim && y < ylim && xv[x] == yv[y])
+	  while (x < xlim && y < ylim && EQUAL (xv[x], yv[y]))
 	    {
 	      ++x;
 	      ++y;
@@ -232,7 +232,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 	    x = thi - 1;
 	  oldx = x;
 	  y = x - d;
-	  while (x > xoff && y > yoff && xv[x - 1] == yv[y - 1])
+	  while (x > xoff && y > yoff && EQUAL (xv[x - 1], yv[y - 1]))
 	    {
 	      --x;
 	      --y;
@@ -283,7 +283,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 			 that it end with a significant snake.  */
 		      int k;
 
-		      for (k = 1; xv[x - k] == yv[y - k]; k++)
+		      for (k = 1; EQUAL (xv[x - k], yv[y - k]); k++)
 			if (k == SNAKE_LIMIT)
 			  {
 			    best = v;
@@ -319,7 +319,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim, bool find_minimal,
 			 that it end with a significant snake.  */
 		      int k;
 
-		      for (k = 0; xv[x + k] == yv[y + k]; k++)
+		      for (k = 0; EQUAL (xv[x + k], yv[y + k]); k++)
 			if (k == SNAKE_LIMIT - 1)
 			  {
 			    best = v;
@@ -432,14 +432,14 @@ compareseq (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim,
   const ELEMENT *const yv = ctxt->yvec;
 
   /* Slide down the bottom initial diagonal. */
-  while (xoff < xlim && yoff < ylim && xv[xoff] == yv[yoff])
+  while (xoff < xlim && yoff < ylim && EQUAL (xv[xoff], yv[yoff]))
     {
       ++xoff;
       ++yoff;
     }
 
   /* Slide up the top initial diagonal. */
-  while (xlim > xoff && ylim > yoff && xv[xlim - 1] == yv[ylim - 1])
+  while (xlim > xoff && ylim > yoff && EQUAL (xv[xlim - 1], yv[ylim - 1]))
     {
       --xlim;
       --ylim;
