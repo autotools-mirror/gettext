@@ -68,7 +68,7 @@ changequote([,])dnl
           if (LC_ALL=fr_FR.ISO-8859-1 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
             gt_cv_locale_fr=fr_FR.ISO-8859-1
           else
-            # Test for the AIX, OSF/1, FreeBSD, NetBSD locale name.
+            # Test for the AIX, OSF/1, FreeBSD, NetBSD, OpenBSD locale name.
             if (LC_ALL=fr_FR.ISO8859-1 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
               gt_cv_locale_fr=fr_FR.ISO8859-1
             else
