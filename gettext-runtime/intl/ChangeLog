@@ -1,3 +1,19 @@
+2006-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (SUBLANG_BENGALI_INDIA): Change value from 0 to 1.
+	(SUBLANG_BENGALI_BANGLADESH): Change value from 1 to 2.
+	(SUBLANG_PUNJABI_INDIA): Change value from 0 to 1.
+	(SUBLANG_PUNJABI_PAKISTAN): Change value from 1 to 2.
+	(SUBLANG_ROMANIAN_ROMANIA): Change value from 0 to 1.
+	(SUBLANG_ROMANIAN_MOLDOVA): Change value from 1 to 2.
+	(SUBLANG_SINDHI_INDIA): Remove macro.
+	(SUBLANG_SINDHI_AFGHANISTAN): New macro.
+	(SUBLANG_TAMAZIGHT_ALGERIA_LATIN): Renamed from
+	SUBLANG_TAMAZIGHT_LATIN.
+	(SUBLANG_TIGRINYA_ETHIOPIA): Change value from 0 to 1.
+	(SUBLANG_TIGRINYA_ERITREA): Change value from 1 to 2.
+	(_nl_locale_name_default): Update.
+
 2006-10-30  Bruno Haible  <bruno@clisp.org>
 
 	* plural-exp.h [C++]: Define functions without name mangling.
