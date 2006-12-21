@@ -19,6 +19,7 @@
 #include "woe32dll/export.h"
 
 VARIABLE(allow_duplicates)
+VARIABLE(color_mode)
 VARIABLE(format_language)
 VARIABLE(format_language_pretty)
 VARIABLE(formatstring_awk)
@@ -71,4 +72,5 @@ VARIABLE(po_multiline_error)
 VARIABLE(po_multiline_warning)
 VARIABLE(po_xerror)
 VARIABLE(po_xerror2)
+VARIABLE(style_file_name)
 VARIABLE(use_first)

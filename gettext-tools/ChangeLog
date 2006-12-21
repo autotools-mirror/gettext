@@ -1,3 +1,7 @@
+2006-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* woe32dll/gettextsrc-exports.c: Export color_mode, style_file_name.
+
 2006-12-10  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Invoke gt_LOCALE_JA.
