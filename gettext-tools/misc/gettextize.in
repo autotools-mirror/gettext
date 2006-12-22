@@ -321,7 +321,7 @@ if test -n "$auxdir"; then
 fi
 
 # For simplicity we change to the gettext source directory.
-cd $gettext_dir ||
+cd "$gettext_dir" ||
   func_fatal_error "gettext source directory '${gettext_dir}' doesn't exist"
 
 # Variables which keep track what has been modified.
@@ -724,7 +724,7 @@ You can then remove $podir/Makevars.template.
           fi
         fi
         func_backup "$podir/$file"
-        func_linkorcopy $file $gettext_dir/po/$file "$podir/$file"
+        func_linkorcopy $file "$gettext_dir/po/$file" "$podir/$file"
         ;;
     esac
   done
