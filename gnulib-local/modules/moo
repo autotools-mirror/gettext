@@ -11,6 +11,7 @@ configure.ac:
 AC_REQUIRE([AC_C_INLINE])
 
 Makefile.am:
+MOOPPFLAGS =
 
 Include:
 "moo.h"
