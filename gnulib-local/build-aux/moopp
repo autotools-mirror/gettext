@@ -44,6 +44,39 @@
 #   - ...
 # Someday this should be rewritten to use a proper tokenizer and parser.
 
+# func_usage
+# outputs to stdout the --help usage message.
+func_usage ()
+{
+  echo "\
+Usage: moopp [OPTION]... SOURCE.oo.c SOURCE.oo.h SUPERCLASS.oo.h ...
+
+Preprocesses SOURCE.oo.c into CLASS.c and SOURCE.oo.h into CLASS.h,
+where CLASS is the name of the class defined in these files.
+
+See moo.h for the object-oriented features and the syntax of the input files.
+
+Options:
+      --help           print this help and exit
+      --version        print version information and exit
+      --dllexport=NAME Arrange so that the specified class name can be accessed
+                       from outside the shared library it is compiled into.
+                       This option can be repeated.
+
+Report bugs to <bruno@clisp.org>."
+}
+
+# func_version
+# outputs to stdout the --version message.
+func_version ()
+{
+  echo "$progname (GNU $package) $version"
+  echo "Copyright (C) 2006 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
+  echo "Written by" "Bruno Haible"
+}
+
 # func_fatal_error message
 # outputs to stderr a fatal error message, and terminates the program.
 func_fatal_error ()
@@ -53,8 +86,44 @@ func_fatal_error ()
   exit 1
 }
 
+# Command-line option processing.
+# Removes the OPTIONS from the arguments. Sets the variables:
+# - dllexports      list of class names to export from Woe32 DLLs
+dllexports=
+while test $# -gt 0; do
+  case "$1" in
+    --dllexport | --dllexpor | --dllexpo | --dllexp | --dllex | --dlle )
+      shift
+      if test $# = 0; then
+        func_fatal_error "missing argument for --dllexport"
+      fi
+      case "$1" in
+        -*) func_fatal_error "missing argument for --dllexport" ;;
+      esac
+      dllexports="$dllexports $1"
+      shift ;;
+    --dllexport=* )
+      arg=`echo "X$1" | sed -e 's/^X--dllexport=//'`
+      dllexports="$dllexports $arg"
+      shift ;;
+    --help | --hel | --he | --h )
+      func_usage
+      exit 0 ;;
+   --version | --versio | --versi | --vers | --ver | --ve | --v )
+      func_version
+      exit 0 ;;
+    -- )      # Stop option prcessing
+      shift; break ;;
+    -* )
+      func_fatal_error "unrecognized option: $option"
+      ;;
+    * )
+      break ;;
+  esac
+done
+
 if test $# -lt 2; then
-  func_fatal_error "Usage: $0 source.oo.c source.oo.h superclass.oo.h ..."
+  func_fatal_error "Usage: $0 [OPTION]... source.oo.c source.oo.h superclass.oo.h ..."
 fi
 
 # Check that all files exist.
@@ -380,6 +449,15 @@ source_header_file_base=`echo "$source_header_file" | sed -e 's,^.*/,,'`
 func_emit_source_h ()
 {
   newfile="$1"
+  # Use DLL_VARIABLE if and only if the main classname is among the names
+  # specified with --dllexport options.
+  dllexport_for_variables=
+  for name in $dllexports; do
+    if test "${main_classname}" = "${name}"; then
+      dllexport_for_variables=" DLL_VARIABLE"
+      break
+    fi
+  done
   {
     echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
@@ -490,7 +568,7 @@ func_emit_source_h ()
       done
     echo "#endif"
     echo
-    echo "extern const typeinfo_t ${main_classname}_typeinfo;"
+    echo "extern${dllexport_for_variables} const typeinfo_t ${main_classname}_typeinfo;"
     if test -n "${main_superclassname}"; then
       superclasses_array_initializer="${main_superclassname}_SUPERCLASSES"
     else
@@ -503,7 +581,7 @@ func_emit_source_h ()
       echo "#define ${main_classname}_SUPERCLASSES_LENGTH (1 + 1)"
     fi
     echo
-    echo "extern const struct ${main_classname}_implementation ${main_classname}_vtable;"
+    echo "extern${dllexport_for_variables} const struct ${main_classname}_implementation ${main_classname}_vtable;"
     echo
     echo "#line "`expr $main_class_end_lineno + 1`" \"${source_header_file_base}\""
     cat "$source_header_file" | sed -e "1,${main_class_end_lineno}d"

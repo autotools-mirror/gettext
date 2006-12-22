@@ -1,5 +1,13 @@
 2006-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* build-aux/moopp (func_usage, func_version): New functions.
+	(dllexports): New variable.
+	Parse command-line options.
+	(func_emit_source_h): Emit DLL_VARIABLE marks if the class is to be
+	exported.
+
+2006-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* modules/moo (Makefile.am): Declare MOOPPFLAGS.
 	* modules/moo-tests (Makefile.am): Pass the MOOPPFLAGS to every moopp
 	invocation.
