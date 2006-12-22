@@ -162,6 +162,7 @@ Options:
       --version        print version information and exit
   -f, --force          force writing of new files even if old exist
       --intl           install libintl in a subdirectory
+      --po-dir=DIR     specify directory with PO files
       --no-changelog   don't update or create ChangeLog files
       --symlink        make symbolic links instead of copying files
   -n, --dry-run        print modifications but don't perform them
@@ -196,12 +197,14 @@ func_fatal_error ()
 # Removes the OPTIONS from the arguments. Sets the variables:
 # - force           1 if --force was given, 0 otherwise
 # - intldir         yes if --intl was given, empty otherwise
+# - podirs          list of directories specified with --po-dir
 # - try_ln_s        : if --symlink was given, false otherwise
 # - do_changelog    false if --no-changelog was given, : otherwise
 # - doit            false if --dry-run was given, : otherwise
 {
   force=0
   intldir=
+  podirs=
   try_ln_s=false
   do_changelog=:
   doit=:
@@ -221,6 +224,20 @@ func_fatal_error ()
       --intl | --int | --in | --i )
         shift
         intldir=yes ;;
+      --po-dir | --po-di | --po-d | --po- | --po | --p )
+        shift 
+        if test $# = 0; then
+          func_fatal_error "missing argument for --po-dir"
+        fi
+        case "$1" in
+          -*) func_fatal_error "missing argument for --po-dir" ;;
+        esac
+        podirs="$podirs $1"
+        shift ;;
+      --po-dir=* )
+        arg=`echo "X$1" | sed -e 's/^X--po-dir=//'`
+        podirs="$podirs $arg"
+        shift ;;
       --no-changelog | --no-changelo | --no-changel | --no-change | --no-chang | --no-chan | --no-cha | --no-ch | --no-c )
         shift
         do_changelog=false ;;
@@ -240,6 +257,8 @@ func_fatal_error ()
         break ;;
     esac
   done
+  # podirs defaults to "po".
+  test -n "$podirs" || podirs="po"
 }
 
 # Command-line argument processing.
@@ -285,9 +304,11 @@ if test $force -eq 0; then
   if test -d intl; then
     func_fatal_error "intl/ subdirectory exists: use option -f if you really want to delete it."
   fi
-  if test -f po/Makefile.in.in; then
-    func_fatal_error "po/Makefile.in.in exists: use option -f if you really want to delete it."
-  fi
+  for podir in $podirs; do
+    if test -f "$podir/Makefile.in.in"; then
+      func_fatal_error "$podir/Makefile.in.in exists: use option -f if you really want to delete it."
+    fi
+  done
   if test -f ABOUT-NLS; then
     func_fatal_error "ABOUT-NLS exists: use option -f if you really want to delete it."
   fi
@@ -428,7 +449,7 @@ func_ChangeLog_finish ()
 # func_poChangeLog_init
 # func_poChangeLog_add_entry line
 # func_poChangeLog_finish
-# manage the po/ChangeLog file, relative to $srcdir.
+# manage the $podir/ChangeLog file, relative to $srcdir.
 func_poChangeLog_init ()
 {
   modified_poChangeLog=
@@ -437,11 +458,11 @@ func_poChangeLog_add_entry ()
 {
   if $doit; then
     if test -z "$modified_poChangeLog"; then
-      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/po/ChangeLog.tmp"
-      echo >> "$srcdir/po/ChangeLog.tmp"
+      echo "$date  gettextize  <bug-gnu-gettext@gnu.org>" > "$srcdir/$podir/ChangeLog.tmp"
+      echo >> "$srcdir/$podir/ChangeLog.tmp"
       modified_poChangeLog=yes
     fi
-    echo "$1" >> "$srcdir/po/ChangeLog.tmp"
+    echo "$1" >> "$srcdir/$podir/ChangeLog.tmp"
   else
     modified_poChangeLog=yes
   fi
@@ -450,22 +471,22 @@ func_poChangeLog_finish ()
 {
   if test -n "$modified_poChangeLog"; then
     if $doit; then
-      echo >> "$srcdir/po/ChangeLog.tmp"
-      if test -f "$srcdir/po/ChangeLog"; then
-        echo "Adding an entry to po/ChangeLog (backup is in po/ChangeLog~)"
-        cat "$srcdir/po/ChangeLog" >> "$srcdir/po/ChangeLog.tmp"
-        rm -f "$srcdir/po/ChangeLog~"
-        cp -p "$srcdir/po/ChangeLog" "$srcdir/po/ChangeLog~"
+      echo >> "$srcdir/$podir/ChangeLog.tmp"
+      if test -f "$srcdir/$podir/ChangeLog"; then
+        echo "Adding an entry to $podir/ChangeLog (backup is in $podir/ChangeLog~)"
+        cat "$srcdir/$podir/ChangeLog" >> "$srcdir/$podir/ChangeLog.tmp"
+        rm -f "$srcdir/$podir/ChangeLog~"
+        cp -p "$srcdir/$podir/ChangeLog" "$srcdir/$podir/ChangeLog~"
       else
-        echo "Creating po/ChangeLog"
+        echo "Creating $podir/ChangeLog"
       fi
-      cp "$srcdir/po/ChangeLog.tmp" "$srcdir/po/ChangeLog"
-      rm -f "$srcdir/po/ChangeLog.tmp"
+      cp "$srcdir/$podir/ChangeLog.tmp" "$srcdir/$podir/ChangeLog"
+      rm -f "$srcdir/$podir/ChangeLog.tmp"
     else
-      if test -f "$srcdir/po/ChangeLog"; then
-        echo "Add an entry to po/ChangeLog"
+      if test -f "$srcdir/$podir/ChangeLog"; then
+        echo "Add an entry to $podir/ChangeLog"
       else
-        echo "Create po/ChangeLog"
+        echo "Create $podir/ChangeLog"
       fi
     fi
   fi
@@ -568,15 +589,17 @@ fi
 
 $do_changelog && func_ChangeLog_init
 
-test -d "$srcdir/po" || {
-  if $doit; then
-    echo "Creating po/ subdirectory"
-    mkdir "$srcdir/po" || func_fatal_error "failed to create po/ subdirectory"
-  else
-    echo "Create po/ subdirectory"
-  fi
-  added_directories="$added_directories po"
-}
+for podir in $podirs; do
+  test -d "$srcdir/$podir" || {
+    if $doit; then
+      echo "Creating $podir/ subdirectory"
+      mkdir "$srcdir/$podir" || func_fatal_error "failed to create $podir/ subdirectory"
+    else
+      echo "Create $podir/ subdirectory"
+    fi
+    added_directories="$added_directories $podir"
+  }
+done
 
 # Create the directory for config.rpath, if needed.
 # This is for consistency with autoreconf and automake.
@@ -638,93 +661,95 @@ to look for an external libintl.
 fi
 
 # Copy files to po/ subdirectory.
-$do_changelog && func_poChangeLog_init
 cd po
-for file in Makefile.in.in; do
-  same=no
-  if test -f "$srcdir/po/$file"; then
-    if cmp -s $file "$srcdir/po/$file"; then
-      same=yes
-    fi
-  else
-    added_acoutput="$added_acoutput po/Makefile.in"
-  fi
-  if $do_changelog && test $same = no; then
-    if test -f "$srcdir/po/$file"; then
-      func_poChangeLog_add_entry "	* $file: Upgrade to gettext-${version}."
+for podir in $podirs; do
+  $do_changelog && func_poChangeLog_init
+  for file in Makefile.in.in; do
+    same=no
+    if test -f "$srcdir/$podir/$file"; then
+      if cmp -s $file "$srcdir/$podir/$file"; then
+        same=yes
+      fi
     else
-      func_poChangeLog_add_entry "	* $file: New file, from gettext-${version}."
+      added_acoutput="$added_acoutput $podir/Makefile.in"
     fi
-  fi
-  func_backup po/$file
-  func_linkorcopy $file "$gettext_dir/po/$file" po/$file
-done
-for file in *; do
-  case $file in
-    Makefile.in.in)
-      # Already handled above.
-      ;;
-    Makevars.template)
-      func_linkorcopy Makevars.template "$gettext_dir/po/Makevars.template" po/Makevars.template
-      if test -f "$srcdir/po/Makevars"; then
-        LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp1"
-        LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/po/Makevars.template" | LC_ALL=C sort > "$srcdir/po/Makevars.tmp2"
-        missingvars=`LC_ALL=C comm -13 "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"`
-        rm -f "$srcdir/po/Makevars.tmp1" "$srcdir/po/Makevars.tmp2"
-        if test -n "$missingvars"; then
-          please="$please
-Please update po/Makevars so that it defines all the variables mentioned
-in po/Makevars.template.
-You can then remove po/Makevars.template.
-"
-        fi
+    if $do_changelog && test $same = no; then
+      if test -f "$srcdir/$podir/$file"; then
+        func_poChangeLog_add_entry "	* $file: Upgrade to gettext-${version}."
       else
-        please="$please
-Please create po/Makevars from the template in po/Makevars.template.
-You can then remove po/Makevars.template.
+        func_poChangeLog_add_entry "	* $file: New file, from gettext-${version}."
+      fi
+    fi
+    func_backup "$podir/$file"
+    func_linkorcopy $file "$gettext_dir/po/$file" "$podir/$file"
+  done
+  for file in *; do
+    case $file in
+      Makefile.in.in)
+        # Already handled above.
+        ;;
+      Makevars.template)
+        func_linkorcopy Makevars.template "$gettext_dir/po/Makevars.template" "$podir/Makevars.template"
+        if test -f "$srcdir/po/Makevars"; then
+          LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/$podir/Makevars" | LC_ALL=C sort > "$srcdir/$podir/Makevars.tmp1"
+          LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/$podir/Makevars.template" | LC_ALL=C sort > "$srcdir/$podir/Makevars.tmp2"
+          missingvars=`LC_ALL=C comm -13 "$srcdir/$podir/Makevars.tmp1" "$srcdir/$podir/Makevars.tmp2"`
+          rm -f "$srcdir/$podir/Makevars.tmp1" "$srcdir/$podir/Makevars.tmp2"
+          if test -n "$missingvars"; then
+            please="$please
+Please update $podir/Makevars so that it defines all the variables mentioned
+in $podir/Makevars.template.
+You can then remove $podir/Makevars.template.
 "
-      fi
-      ;;
-    *)
-      same=no
-      if test -f "$srcdir/po/$file"; then
-        if cmp -s $file "$srcdir/po/$file"; then
-          same=yes
-        fi
-      fi
-      if $do_changelog && test $same = no; then
-        if test -f "$srcdir/po/$file"; then
-          func_poChangeLog_add_entry "	* $file: Upgrade to gettext-${version}."
+          fi
         else
-          func_poChangeLog_add_entry "	* $file: New file, from gettext-${version}."
-        fi
-      fi
-      func_backup po/$file
-      func_linkorcopy $file $gettext_dir/po/$file po/$file
-      ;;
-  esac
-done
-if test -f "$srcdir/po/cat-id-tbl.c"; then
-  func_remove po/cat-id-tbl.c
-  $do_changelog && func_poChangeLog_add_entry "	* cat-id-tbl.c: Remove file."
-fi
-if test -f "$srcdir/po/stamp-cat-id"; then
-  func_remove po/stamp-cat-id
-  $do_changelog && func_poChangeLog_add_entry "	* stamp-cat-id: Remove file."
-fi
-if test ! -f "$srcdir/po/POTFILES.in"; then
-  if $doit; then
-    echo "Creating initial po/POTFILES.in"
-    echo '# List of source files which contain translatable strings.' > "$srcdir/po/POTFILES.in"
-  else
-    echo "Create initial po/POTFILES.in"
-  fi
-  $do_changelog && func_poChangeLog_add_entry "	* POTFILES.in: New file."
-  please="$please
-Please fill po/POTFILES.in as described in the documentation.
+          please="$please
+Please create $podir/Makevars from the template in $podir/Makevars.template.
+You can then remove $podir/Makevars.template.
 "
-fi
-$do_changelog && func_poChangeLog_finish
+        fi
+        ;;
+      *)
+        same=no
+        if test -f "$srcdir/$podir/$file"; then
+          if cmp -s $file "$srcdir/$podir/$file"; then
+            same=yes
+          fi
+        fi
+        if $do_changelog && test $same = no; then
+          if test -f "$srcdir/$podir/$file"; then
+            func_poChangeLog_add_entry "	* $file: Upgrade to gettext-${version}."
+          else
+            func_poChangeLog_add_entry "	* $file: New file, from gettext-${version}."
+          fi
+        fi
+        func_backup "$podir/$file"
+        func_linkorcopy $file $gettext_dir/po/$file "$podir/$file"
+        ;;
+    esac
+  done
+  if test -f "$srcdir/$podir/cat-id-tbl.c"; then
+    func_remove "$podir/cat-id-tbl.c"
+    $do_changelog && func_poChangeLog_add_entry "	* cat-id-tbl.c: Remove file."
+  fi
+  if test -f "$srcdir/$podir/stamp-cat-id"; then
+    func_remove "$podir/stamp-cat-id"
+    $do_changelog && func_poChangeLog_add_entry "	* stamp-cat-id: Remove file."
+  fi
+  if test ! -f "$srcdir/$podir/POTFILES.in"; then
+    if $doit; then
+      echo "Creating initial $podir/POTFILES.in"
+      echo '# List of source files which contain translatable strings.' > "$srcdir/$podir/POTFILES.in"
+    else
+      echo "Create initial $podir/POTFILES.in"
+    fi
+    $do_changelog && func_poChangeLog_add_entry "	* POTFILES.in: New file."
+    please="$please
+Please fill $podir/POTFILES.in as described in the documentation.
+"
+  fi
+  $do_changelog && func_poChangeLog_finish
+done
 
 # Determine whether we can assume automake 1.9 or newer.
 have_automake19=

@@ -58,6 +58,13 @@ the call to @code{AM_GNU_GETTEXT} in @file{configure.in} should read:
 @samp{AM_GNU_GETTEXT([external])}, and internationalization will not
 be enabled on systems lacking GNU gettext.
 
+@item --po-dir=@var{dir}
+@opindex --po-dir@r{, @code{gettextize} option}
+Specify a directory containing PO files.  Such a directory contains the
+translations into various languages of a particular POT file.  This
+option can be specified multiple times, once for each translation domain.
+If it is not specified, the directory named @file{po/} is updated.
+
 @item --no-changelog
 @opindex --no-changelog@r{, @code{gettextize} option}
 Don't update or create ChangeLog files.  By default, @code{gettextize}
@@ -118,6 +125,9 @@ all translation files, but initially only containing the file
 files.  If the @file{po/} directory already exists, it will be preserved
 along with the files it contains, and only @file{Makefile.in.in} and
 the auxiliary files will be overwritten.
+
+If @samp{--po-dir} has been specified, this holds for every directory
+specified through @samp{--po-dir}, instead of @file{po/}.
 
 @item
 Only if @samp{--intl} has been specified:

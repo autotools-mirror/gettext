@@ -1,3 +1,10 @@
+2006-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (func_usage): Document --po-dir.
+	Handle the --po-dir option. Loop over each specified --po-dir value
+	instead of hardcoding po/.
+	Reported by Daniel Leidert <daniel.leidert.spam@gmx.net>.
+
 2006-11-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16.1 released.
