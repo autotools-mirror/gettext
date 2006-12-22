@@ -11,15 +11,6 @@ Depends-on:
 configure.ac:
 
 Makefile.am:
-AUTOMAKE_OPTIONS += no-dependencies
-
-# Hmm... is this still necessary?
-AM_CPPFLAGS += -I$(top_builddir)/intl -I$(top_srcdir)/intl
-# Needed so that config.h and woe32dll/export.h are found.
-AM_CPPFLAGS += -I$(top_builddir) -I$(top_srcdir)
-
-# Parametrization of the 'relocatable' module.
-AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1
 
 # Specify that libgettextlib should installed in $(libdir).
 lib_LTLIBRARIES = libgettextlib.la
@@ -43,14 +34,6 @@ install-exec-clean:
 	  aix*) ;; \
 	  *) rm -f $(DESTDIR)$(libdir)/libgettextlib.a ;; \
 	esac
-
-# Extra files to be installed.
-
-gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = gettext.h
-
-# Where to install javaversion.class.
-pkgdatadir = $(datadir)/gettext
 
 Include:
 

@@ -1,5 +1,11 @@
 2006-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* modules/gettext-tools-misc (Makefile.am): Move modifications of
+	AUTOMAKE_OPTIONS, AM_CPPFLAGS and settings of gettextsrcdir,
+	gettextsrc_DATA, pkgdatadir to ../gettext-tools/gnulib-lib/Makefile.am.
+
+2006-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/moopp (func_usage, func_version): New functions.
 	(dllexports): New variable.
 	Parse command-line options.

@@ -1,5 +1,10 @@
 2006-12-21  Bruno Haible  <bruno@clisp.org>
 
+	* gnulib-lib/Makefile.am: New file, partially taken from
+	../gnulib-local/modules/gettext-tools-misc.
+
+2006-12-21  Bruno Haible  <bruno@clisp.org>
+
 	* woe32dll/gettextlib-exports.c: Export styled_ostream_typeinfo.
 	* woe32dll/gettextsrc-exports.c: Export color_mode, style_file_name.
 
