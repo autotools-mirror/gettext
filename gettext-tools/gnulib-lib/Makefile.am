@@ -60,3 +60,17 @@ include Makefile.gnulib
 
 # Which classes to export from the shared library.
 MOOPPFLAGS += --dllexport=styled_ostream
+
+# Linking with C++ libraries is needed _only_ on mingw and Cygwin.
+if !WOE32DLL
+libgettextlib_la_LINK = $(LIBTOOL) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(libgettextlib_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
+else
+libgettextlib_la_LINK = $(LIBTOOL) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
+	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(libgettextlib_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
+endif
+
