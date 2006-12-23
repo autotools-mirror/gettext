@@ -4,11 +4,12 @@ Minimal object-oriented programming style.
 Files:
 build-aux/moopp
 lib/moo.h
+m4/moo.m4
 
 Depends-on:
 
 configure.ac:
-AC_REQUIRE([AC_C_INLINE])
+gl_MOO
 
 Makefile.am:
 MOOPPFLAGS =

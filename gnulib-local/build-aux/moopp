@@ -468,7 +468,7 @@ func_emit_source_h ()
     echo "/* ${main_classname}_t is defined as a pointer to struct ${main_repclassalias}."
     echo "   In C++ mode, we use a smart pointer class."
     echo "   In C mode, we have no other choice than a typedef to the root class type.  */"
-    echo "#ifdef __cplusplus"
+    echo "#if IS_CPLUSPLUS"
     echo "struct ${main_classname}_t"
     echo "{"
     echo "private:"
@@ -610,7 +610,7 @@ func_emit_source_c ()
     else
       rootclassname="$main_classname"
     fi
-    echo "#ifndef __cplusplus"
+    echo "#if !IS_CPLUSPLUS"
     echo "#define ${main_classname}_representation any_${rootclassname}_representation"
     echo "#endif"
     echo "#include \"${main_classname}.priv.h\""

@@ -265,6 +265,7 @@ m4/libcroco.m4 \
 m4/libglib.m4 \
 m4/libxml.m4 \
 m4/java.m4 \
+m4/moo.m4 \
 m4/quotearg.m4.diff \
 m4/quote.m4.diff \
 m4/relocatable.m4 \
