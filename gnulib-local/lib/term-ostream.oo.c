@@ -1780,6 +1780,11 @@ term_ostream_create (int fd, const char *filename)
 	    }
 # endif
 
+	  /* The termcap entry for cygwin is broken: It has no "ncv" value,
+	     but bold and underline are actually rendered through colors.  */
+	  if (strcmp (term, "cygwin") == 0)
+	    stream->no_color_video |= 2 | 32;
+
 	  /* Done with tgetstr.  Detect possible buffer overflow.  */
 	  #undef TEBP
 	  if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
