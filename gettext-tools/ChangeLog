@@ -1,3 +1,8 @@
+2006-12-23  Bruno Haible  <bruno@clisp.org>
+
+	* gnulib-lib/Makefile.am (AM_CPPFLAGS): Define LIBXML_STATIC.
+	Needed for mingw and cygwin.
+
 2006-12-22  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll/c++html-styled-ostream.cc: New file.

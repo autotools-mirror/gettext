@@ -48,6 +48,13 @@ AM_CPPFLAGS += -I$(top_builddir) -I$(top_srcdir)
 # Parametrization of the 'relocatable' module.
 AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1
 
+# Parametrization of the 'libxml' module:
+# When building a shared library, don't export the variables
+# xmlMalloc, xmlMallocAtomic, xmlRealloc, xmlFree, xmlMemStrdup.
+if INCLUDED_LIBXML
+AM_CPPFLAGS += -DLIBXML_STATIC
+endif
+
 # Rules generated and collected by gnulib-tool.
 include Makefile.gnulib
 
