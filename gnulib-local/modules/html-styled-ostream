@@ -19,7 +19,11 @@ gettext-h
 configure.ac:
 
 Makefile.am:
+if !WOE32DLL
 lib_SOURCES += html-styled-ostream.c
+else
+lib_SOURCES += ../woe32dll/c++html-styled-ostream.cc
+endif
 # This is a Makefile rule that generates multiple files at once; see the
 # automake documentation, node "Multiple Outputs", for details.
 html-styled-ostream.h : $(top_srcdir)/build-aux/moopp html-styled-ostream.oo.h html-styled-ostream.oo.c styled-ostream.oo.h ostream.oo.h

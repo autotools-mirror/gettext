@@ -1,5 +1,11 @@
 2006-12-22  Bruno Haible  <bruno@clisp.org>
 
+	* modules/html-styled-ostream (Makefile.am) [WOE32DLL]: Use a C++
+	wrapper file.
+	* modules/term-styled-ostream (Makefile.am) [WOE32DLL]: Likewise.
+
+2006-12-22  Bruno Haible  <bruno@clisp.org>
+
 	Test for CC=c++ at configure-time.
 	* m4/moo.m4: New file.
 	* build-aux/moopp: Emit test of IS_CPLUSPLUS instead of __cplusplus.
