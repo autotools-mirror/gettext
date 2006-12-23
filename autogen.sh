@@ -169,6 +169,7 @@ if test -n "$GNULIB_TOOL"; then
   gettext-tools-misc
   gcj
   java
+  stdint
   '
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER

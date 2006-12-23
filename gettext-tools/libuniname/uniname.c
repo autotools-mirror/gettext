@@ -24,6 +24,7 @@
 
 #include <assert.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -31,8 +32,6 @@
 
 
 /* Table of Unicode character names, derived from UnicodeData.txt.  */
-#define uint16_t unsigned short
-#define uint32_t unsigned int
 #include "uninames.h"
 /* It contains:
   static const char unicode_name_words[34594] = ...;
