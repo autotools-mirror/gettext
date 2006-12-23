@@ -1,5 +1,29 @@
 2006-12-23  Bruno Haible  <bruno@clisp.org>
 
+	Support platforms with neither terminfo nor termcap functions, like
+	mingw.
+	* lib/tputs.c: New file.
+
+	* modules/termcap (Files): Add lib/tputs.c.
+	* m4/termcap.m4 (gl_TERMCAP): Add tputs replacement.
+	(gl_TERMCAP_BODY): Define HAVE_TERMCAP if tgetent is available.
+	* lib/termcap.h (tgetent, tgetnum, tgetflag, tgetstr): Declare only
+	if HAVE_TERMCAP.
+	(tgoto): Declare only if HAVE_TERMCAP || HAVE_TERMINFO.
+
+	* modules/terminfo (Files): Add lib/tputs.c.
+	* m4/terminfo.m4 (gl_TERMINFO): Add tputs replacement.
+	(gl_TERMINFO_BODY): Define HAVE_TERMCAP if tgetent is available.
+	* lib/terminfo.h (tgetent, tgetnum, tgetflag, tgetstr): Declare only
+	if HAVE_TERMCAP.
+	(tgoto): Declare only if HAVE_TERMINFO || HAVE_TERMCAP.
+
+	* lib/term-ostream.oo.c (term_ostream_create): Use ANSI color escape
+	sequences when neither terminfo nor termcap functions exist.
+	* Makefile.am (EXTRA_DIST): Add lib/tputs.c.
+
+2006-12-23  Bruno Haible  <bruno@clisp.org>
+
 	Improve cross-compilation support.
 	* m4/gcj.m4 (gt_GCJ): Use AC_CHECK_TOOL instead of AC_CHECK_PROGS.
 

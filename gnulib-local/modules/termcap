@@ -4,6 +4,7 @@ Information about terminal capabilities.
 Files:
 m4/termcap.m4
 lib/tparm.c
+lib/tputs.c
 
 Depends-on:
 havelib

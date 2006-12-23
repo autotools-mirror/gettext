@@ -26,6 +26,8 @@
 extern "C" {
 #endif
 
+#if HAVE_TERMCAP
+
 /* Gets the capability information for terminal type TYPE.
    Returns 1 if successful, 0 if TYPE is unknown, -1 on other error.  */
 extern int tgetent (char *bp, const char *type);
@@ -42,6 +44,8 @@ extern int tgetflag (const char *id);
    Returns NULL if it is not available.
    Also, if AREA != NULL, stores it at *AREA and advances *AREA.  */
 extern const char * tgetstr (const char *id, char **area);
+
+#endif
 
 #if HAVE_TERMINFO
 
@@ -87,10 +91,14 @@ extern char * tparm (const char *str, ...);
 
 #endif
 
+#if HAVE_TERMCAP || HAVE_TERMINFO
+
 /* Retrieves a string that causes cursor positioning to (column, row).
    This function is necessary because the string returned by tgetstr ("cm")
    is in a special format.  */
 extern const char * tgoto (const char *cm, int column, int row);
+
+#endif
 
 /* Retrieves the value of a string capability.
    OUTCHARFUN is called in turn for each 'char' of the result.

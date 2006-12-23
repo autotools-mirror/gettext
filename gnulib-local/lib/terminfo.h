@@ -45,7 +45,7 @@ extern int tigetflag (const char *id);
    Returns NULL if it is not available, (char *)(-1) if ID is invalid.  */
 extern const char * tigetstr (const char *id);
 
-#else
+#elif HAVE_TERMCAP
 
 /* Gets the capability information for terminal type TYPE.
    Returns 1 if successful, 0 if TYPE is unknown, -1 on other error.  */
@@ -89,10 +89,14 @@ extern char * tparm (const char *str, ...);
 
 #endif
 
+#if HAVE_TERMINFO || HAVE_TERMCAP
+
 /* Retrieves a string that causes cursor positioning to (column, row).
    This function is necessary because the string returned by tgetstr ("cm")
    is in a special format.  */
 extern const char * tgoto (const char *cm, int column, int row);
+
+#endif
 
 /* Retrieves the value of a string capability.
    OUTCHARFUN is called in turn for each 'char' of the result.

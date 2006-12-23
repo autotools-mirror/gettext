@@ -15,9 +15,10 @@ The following packages should be installed before GNU gettext is installed:
   + If it is installed in a nonstandard directory, pass the option
     --with-libintl-prefix=DIR to 'configure'.
 
-* GNU ncurses (preferred) or libtermcap (discouraged).
-  + Required.
-    Needed for the --color option of the various programs.
+* GNU ncurses (preferred)
+  or libtermcap (discouraged) or a curses library (legacy).
+  + Highly recommended.
+    Needed for the --color option of the 'msgcat' program.
   + Homepage:
     http://www.gnu.org/software/ncurses/
   + Download:

@@ -1725,7 +1725,7 @@ term_ostream_create (int fd, const char *filename)
 	  stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
 	  stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
 	}
-#else
+#elif HAVE_TERMCAP
       struct { char buf[1024]; char canary[4]; } termcapbuf;
       int retval;
 
@@ -1791,6 +1791,20 @@ term_ostream_create (int fd, const char *filename)
 	    /* Buffer overflow!  */
 	    abort ();
 	}
+#else
+    /* Fallback code for platforms with neither the terminfo nor the termcap
+       functions, such as mingw.
+       Assume the ANSI escape sequences.  Extracted through
+       "TERM=ansi infocmp", replacing \E with \033.  */
+      stream->max_colors = 8;
+      stream->no_color_video = 3;
+      stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
+      stream->set_a_background = xstrdup ("\033[4%p1%dm");
+      stream->orig_pair = xstrdup ("\033[39;49m");
+      stream->enter_bold_mode = xstrdup ("\033[1m");
+      stream->enter_underline_mode = xstrdup ("\033[4m");
+      stream->exit_underline_mode = xstrdup ("\033[m");
+      stream->exit_attribute_mode = xstrdup ("\033[0;10m");
 #endif
 
       /* AIX 4.3.2, IRIX 6.5, HP-UX 11, Solaris 7..10 all lack the

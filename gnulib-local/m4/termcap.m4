@@ -1,4 +1,4 @@
-# termcap.m4 serial 5 (gettext-0.16.2)
+# termcap.m4 serial 6 (gettext-0.16.2)
 dnl Copyright (C) 2000-2002, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -12,6 +12,11 @@ AC_DEFUN([gl_TERMCAP],
   if test $gl_cv_termcap_tparam = no && test $gl_cv_termcap_tparm = no; then
     AC_LIBOBJ([tparm])
   fi
+  case "$gl_cv_termcap" in
+    no*)
+      AC_LIBOBJ([tputs])
+      ;;
+  esac
 ])
 
 AC_DEFUN([gl_TERMCAP_BODY],
@@ -27,6 +32,7 @@ AC_DEFUN([gl_TERMCAP_BODY],
   dnl tigetstr(), tigetflag() in the same library.
   dnl Some systems, like BeOS, use GNU termcap, which has tparam() instead of
   dnl tparm().
+  dnl Some systems, like mingw, have nothing at all.
 
   dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
@@ -83,6 +89,13 @@ AC_DEFUN([gl_TERMCAP_BODY],
       INCTERMCAP="$INCNCURSES"
       ;;
     libtermcap)
+      ;;
+  esac
+  case "$gl_cv_termcap" in
+    libc | libncurses | libtermcap)
+      AC_DEFINE([HAVE_TERMCAP], 1,
+        [Define if tgetent(), tgetnum(), tgetstr(), tgetflag()
+         are among the termcap library functions.])
       ;;
   esac
   AC_SUBST([LIBTERMCAP])
