@@ -1,5 +1,5 @@
-# gcj.m4 serial 1 (gettext-0.11.3)
-dnl Copyright (C) 2002 Free Software Foundation, Inc.
+# gcj.m4 serial 2 (gettext-0.16.2)
+dnl Copyright (C) 2002, 2006 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -19,7 +19,7 @@ AC_DEFUN([gt_GCJ],
     pushdef([AC_MSG_CHECKING],[:])dnl
     pushdef([AC_CHECKING],[:])dnl
     pushdef([AC_MSG_RESULT],[:])dnl
-    AC_CHECK_PROGS(GCJ, [gcj], [none])
+    AC_CHECK_TOOL([GCJ], [gcj], [none])
     popdef([AC_MSG_RESULT])dnl
     popdef([AC_CHECKING])dnl
     popdef([AC_MSG_CHECKING])dnl

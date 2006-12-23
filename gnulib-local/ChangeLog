@@ -1,5 +1,10 @@
 2006-12-23  Bruno Haible  <bruno@clisp.org>
 
+	Improve cross-compilation support.
+	* m4/gcj.m4 (gt_GCJ): Use AC_CHECK_TOOL instead of AC_CHECK_PROGS.
+
+2006-12-23  Bruno Haible  <bruno@clisp.org>
+
 	* lib/term-ostream.oo.c (term_ostream_create): Fix up the
 	no_color_video value for cygwin.
 
