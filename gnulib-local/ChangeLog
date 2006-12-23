@@ -183,6 +183,7 @@
 	(gl_TERMCAP_BODY): Test whether the system has tparm().
 	* modules/termcap (Files): Add lib/tparm.c.
 	(Depends-on): Add c-ctype.
+	* Makefile.am (EXTRA_DIST): Add lib/tparm.c.
 
 2006-12-13  Bruno Haible  <bruno@clisp.org>
 

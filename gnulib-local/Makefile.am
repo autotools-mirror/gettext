@@ -242,6 +242,7 @@ lib/term-styled-ostream.oo.c \
 lib/term-styled-ostream.oo.h \
 lib/termcap.h \
 lib/terminfo.h \
+lib/tparm.c \
 lib/vasprintf.c \
 lib/xalloc.h \
 lib/xerror.c \
