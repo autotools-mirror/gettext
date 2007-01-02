@@ -443,12 +443,13 @@ sed_extract_method_name='s,^.*[^A-Za-z_0-9]\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*(.*
 sed_extract_method_arglist='s,^.*[^A-Za-z_0-9][A-Za-z_0-9][A-Za-z_0-9]*[ 	]*([^,)]*\(.*\)).*$,'"${main_classname}_t"' first_arg\1,'
 sed_extract_method_args='s,^.*[^A-Za-z_0-9]\([A-Za-z_0-9][A-Za-z_0-9]*\)$,\1,'
 
-# func_emit_source_h newfile
+# func_emit_source_h newfile newfile_base
 # outputs to $newfile the contents of source.h.
 source_header_file_base=`echo "$source_header_file" | sed -e 's,^.*/,,'`
 func_emit_source_h ()
 {
   newfile="$1"
+  newfile_base="$2"
   # Use DLL_VARIABLE if and only if the main classname is among the names
   # specified with --dllexport options.
   dllexport_for_variables=
@@ -463,7 +464,7 @@ func_emit_source_h ()
     echo
     echo "#line 1 \"${source_header_file_base}\""
     cat "$source_header_file" | sed -e "${main_class_decl_lineno}"',$d'
-    echo "#line "`expr 3 + ${main_class_decl_lineno} + 1`" \"$newfile\""
+    echo "#line "`expr 3 + ${main_class_decl_lineno} + 1`" \"$newfile_base\""
     echo "struct ${main_repclassalias};"
     echo "/* ${main_classname}_t is defined as a pointer to struct ${main_repclassalias}."
     echo "   In C++ mode, we use a smart pointer class."
@@ -588,18 +589,19 @@ func_emit_source_h ()
   } > "$newfile"
 }
 
-# func_emit_source_c newfile
+# func_emit_source_c newfile newfile_base
 # outputs to $newfile the contents of source.c.
 source_impl_file_base=`echo "$source_impl_file" | sed -e 's,^.*/,,'`
 func_emit_source_c ()
 {
   newfile="$1"
+  newfile_base="$2"
   {
     echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
     echo "#line 1 \"${source_impl_file_base}\""
     cat "$source_impl_file" | sed -e "${impl_decl_lineno}"',$d'
-    echo "#line "`expr 3 + ${impl_decl_lineno} + 1`" \"$newfile\""
+    echo "#line "`expr 3 + ${impl_decl_lineno} + 1`" \"$newfile_base\""
     # In C mode, where subclass_t is identical to rootclass_t, we define the
     # any_rootclass_representation type to the right one for subclass.
     if test -n "$all_superclasses"; then
@@ -628,7 +630,7 @@ func_emit_source_c ()
     cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "s,${main_classname}::,${main_classname}__,g"
     echo
     lineno=`wc -l < "$newfile"`
-    echo "#line "`expr $lineno + 2`" \"$newfile\""
+    echo "#line "`expr $lineno + 2`" \"$newfile_base\""
     # Define trivial stubs for methods that are not defined or overridden.
     inherited_method_names=`echo "$inherited_methods" | sed -e "$sed_remove_empty_lines" | sed -e "$sed_extract_method_name"`
     echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
@@ -733,18 +735,24 @@ destdir=`echo "$source_impl_file" | sed -e "$sed_butbase"`
 # about the other generated files; they assume that when the source.c file
 # is finished, this command is complete.
 
-new_source_header_file="${destdir}"`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
+new_source_header_file_base=`echo "$source_header_file_base" | sed -e 's,\.oo\.h$,.h,'`
+new_source_header_file="${destdir}$new_source_header_file_base"
 func_start_creation "$new_source_header_file"
-func_emit_source_h "$new_source_header_file" || func_fatal_error "failed"
+func_emit_source_h "$new_source_header_file" "$new_source_header_file_base" \
+  || func_fatal_error "failed"
 
 new_priv_header_file="${destdir}${main_classname}.priv.h"
 func_start_creation "$new_priv_header_file"
-func_emit_priv_h "$new_priv_header_file" || func_fatal_error "failed"
+func_emit_priv_h "$new_priv_header_file" \
+  || func_fatal_error "failed"
 
 new_vt_header_file="${destdir}${main_classname}.vt.h"
 func_start_creation "$new_vt_header_file"
-func_emit_vt_h "$new_vt_header_file" || func_fatal_error "failed"
+func_emit_vt_h "$new_vt_header_file" \
+  || func_fatal_error "failed"
 
-new_source_impl_file="${destdir}"`echo "$source_impl_file_base" | sed -e 's,\.oo\.c$,.c,'`
+new_source_impl_file_base=`echo "$source_impl_file_base" | sed -e 's,\.oo\.c$,.c,'`
+new_source_impl_file="${destdir}$new_source_impl_file_base"
 func_start_creation "$new_source_impl_file"
-func_emit_source_c "$new_source_impl_file" || func_fatal_error "failed"
+func_emit_source_c "$new_source_impl_file" "$new_source_impl_file_base" \
+  || func_fatal_error "failed"
