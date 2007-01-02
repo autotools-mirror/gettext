@@ -1154,7 +1154,68 @@ out_attr_change (term_ostream_t stream,
       old_attr.color = COLOR_DEFAULT;
       old_attr.bgcolor = COLOR_DEFAULT;
     }
-  if (new_attr.color != old_attr.color)
+
+  /* To turn off WEIGHT_BOLD, the only way is to output the exit_attribute_mode
+     sequence.  (With xterm, you can also do it with "Esc [ 0 m", but this
+     escape sequence is not contained in the terminfo description.)  It may
+     also clear the colors; this is the case e.g. when TERM="xterm" or
+     TERM="ansi".
+     To turn off UNDERLINE_ON, we can use the exit_underline_mode or the
+     exit_attribute_mode sequence.  In the latter case, it will not only
+     turn off UNDERLINE_ON, but also the other attributes, and possibly also
+     the colors.
+     To turn off POSTURE_ITALIC, we can use the exit_italics_mode or the
+     exit_attribute_mode sequence.  Again, in the latter case, it will not
+     only turn off POSTURE_ITALIC, but also the other attributes, and possibly
+     also the colors.
+     There is no point in setting an attribute just before emitting an
+     escape sequence that may again turn off the attribute.  Therefore we
+     proceed in two steps: First, clear the attributes that need to be
+     cleared; then - taking into account that this may have cleared all
+     attributes and all colors - set the colors and the attributes.
+     The variable 'cleared_attributes' tells whether an escape sequence
+     has been output that may have cleared all attributes and all color
+     settings.  */
+  cleared_attributes = false;
+  if (old_attr.posture != POSTURE_NORMAL
+      && new_attr.posture == POSTURE_NORMAL
+      && stream->exit_italics_mode != NULL)
+    {
+      tputs (stream->exit_italics_mode, 1, out_char);
+      old_attr.posture = POSTURE_NORMAL;
+      cleared_attributes = true;
+    }
+  if (old_attr.underline != UNDERLINE_OFF
+      && new_attr.underline == UNDERLINE_OFF
+      && stream->exit_underline_mode != NULL)
+    {
+      tputs (stream->exit_underline_mode, 1, out_char);
+      old_attr.underline = UNDERLINE_OFF;
+      cleared_attributes = true;
+    }
+  if ((old_attr.weight != WEIGHT_NORMAL
+       && new_attr.weight == WEIGHT_NORMAL)
+      || (old_attr.posture != POSTURE_NORMAL
+	  && new_attr.posture == POSTURE_NORMAL
+	  /* implies stream->exit_italics_mode == NULL */)
+      || (old_attr.underline != UNDERLINE_OFF
+	  && new_attr.underline == UNDERLINE_OFF
+	  /* implies stream->exit_underline_mode == NULL */))
+    {
+      tputs (stream->exit_attribute_mode, 1, out_char);
+      /* We don't know exactly what effects exit_attribute_mode has, but
+	 this is the minimum effect:  */
+      old_attr.weight = WEIGHT_NORMAL;
+      if (stream->exit_italics_mode == NULL)
+	old_attr.posture = POSTURE_NORMAL;
+      if (stream->exit_underline_mode == NULL)
+	old_attr.underline = UNDERLINE_OFF;
+      cleared_attributes = true;
+    }
+
+  /* Turn on the colors.  */
+  if (new_attr.color != old_attr.color
+      || (cleared_attributes && new_attr.color != COLOR_DEFAULT))
     {
       assert (stream->supports_foreground);
       assert (new_attr.color != COLOR_DEFAULT);
@@ -1241,7 +1302,8 @@ out_attr_change (term_ostream_t stream,
 	  abort ();
 	}
     }
-  if (new_attr.bgcolor != old_attr.bgcolor)
+  if (new_attr.bgcolor != old_attr.bgcolor
+      || (cleared_attributes && new_attr.bgcolor != COLOR_DEFAULT))
     {
       assert (stream->supports_background);
       assert (new_attr.bgcolor != COLOR_DEFAULT);
@@ -1332,50 +1394,32 @@ out_attr_change (term_ostream_t stream,
 	}
     }
 
-  cleared_attributes = false;
-  if (new_attr.weight != old_attr.weight)
+  if (new_attr.weight != old_attr.weight
+      || (cleared_attributes && new_attr.weight != WEIGHT_DEFAULT))
     {
       assert (stream->supports_weight);
-      if (new_attr.weight == WEIGHT_BOLD)
-	tputs (stream->enter_bold_mode, 1, out_char);
-      else
-	{
-	  /* The simplest way to clear bold mode is exit_attribute_mode.
-	     With xterm, you can also do it with "Esc [ 0 m", but this escape
-	     sequence is not contained in the terminfo description.  */
-	  tputs (stream->exit_attribute_mode, 1, out_char);
-	  /* We don't know whether exit_attribute_mode clears also the
-	     italics or underline mode.  */
-	  cleared_attributes = true;
-	}
+      assert (new_attr.weight != WEIGHT_DEFAULT);
+      /* This implies:  */
+      assert (new_attr.weight == WEIGHT_BOLD);
+      tputs (stream->enter_bold_mode, 1, out_char);
     }
   if (new_attr.posture != old_attr.posture
       || (cleared_attributes && new_attr.posture != POSTURE_DEFAULT))
     {
       assert (stream->supports_posture);
-      if (new_attr.posture == POSTURE_ITALIC)
-	tputs (stream->enter_italics_mode, 1, out_char);
-      else
-	{
-	  if (stream->exit_italics_mode != NULL)
-	    tputs (stream->exit_italics_mode, 1, out_char);
-	  else if (!cleared_attributes)
-	    tputs (stream->exit_attribute_mode, 1, out_char);
-	}
+      assert (new_attr.posture != POSTURE_DEFAULT);
+      /* This implies:  */
+      assert (new_attr.posture == POSTURE_ITALIC);
+      tputs (stream->enter_italics_mode, 1, out_char);
     }
   if (new_attr.underline != old_attr.underline
       || (cleared_attributes && new_attr.underline != UNDERLINE_DEFAULT))
     {
       assert (stream->supports_underline);
-      if (new_attr.underline == UNDERLINE_ON)
-	tputs (stream->enter_underline_mode, 1, out_char);
-      else
-	{
-	  if (stream->exit_underline_mode != NULL)
-	    tputs (stream->exit_underline_mode, 1, out_char);
-	  else if (!cleared_attributes)
-	    tputs (stream->exit_attribute_mode, 1, out_char);
-	}
+      assert (new_attr.underline != UNDERLINE_DEFAULT);
+      /* This implies:  */
+      assert (new_attr.underline == UNDERLINE_ON);
+      tputs (stream->enter_underline_mode, 1, out_char);
     }
 }
 
