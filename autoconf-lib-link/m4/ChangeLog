@@ -1,3 +1,10 @@
+2006-12-24  Bruno Haible  <bruno@clisp.org>
+
+	Improve support for OpenBSD.
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Extract libname_spec and
+	library_names_spec from the config.rpath output. Locate shared library
+	through the name pattern in library_names_spec.
+
 2006-11-12  Bruno Haible  <bruno@clisp.org>
 
 	* lib-link.m4 (AC_LIB_LINKFLAGS, AC_LIB_HAVE_LINKFLAGS,
