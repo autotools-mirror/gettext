@@ -145,6 +145,7 @@ print_color_test ()
   /* Hue from 0 to 1.  */
   for (row = 0; row <= 17; row++)
     {
+      ostream_write_str (stream, row == 0 ? "red:     " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int r = 255;
@@ -160,6 +161,7 @@ print_color_test ()
   /* Hue from 1 to 2.  */
   for (row = 17; row >= 0; row--)
     {
+      ostream_write_str (stream, row == 17 ? "yellow:  " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int g = 255;
@@ -175,6 +177,7 @@ print_color_test ()
   /* Hue from 2 to 3.  */
   for (row = 0; row <= 17; row++)
     {
+      ostream_write_str (stream, row == 0 ? "green:   " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int g = 255;
@@ -190,6 +193,7 @@ print_color_test ()
   /* Hue from 3 to 4.  */
   for (row = 17; row >= 0; row--)
     {
+      ostream_write_str (stream, row == 17 ? "cyan:    " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int b = 255;
@@ -205,6 +209,7 @@ print_color_test ()
   /* Hue from 4 to 5.  */
   for (row = 0; row <= 17; row++)
     {
+      ostream_write_str (stream, row == 0 ? "blue:    " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int b = 255;
@@ -220,6 +225,8 @@ print_color_test ()
   /* Hue from 5 to 6.  */
   for (row = 17; row >= 0; row--)
     {
+      ostream_write_str (stream, row == 17 ? "magenta: " :
+				 row == 0 ? "red:     " : "         ");
       for (col = 0; col <= 64; col++)
 	{
 	  int r = 255;
@@ -277,6 +284,100 @@ print_color_test ()
   if (term_ostream_get_underline (stream) != UNDERLINE_DEFAULT)
     abort ();
   ostream_write_str (stream, "default \n");
+  ostream_write_str (stream, "\n");
+
+  ostream_write_str (stream, "Colors (foreground) mixed with attributes:\n");
+  for (row = 0; row <= 8; row++)
+    {
+      const char *name = colors[row].name;
+      ostream_write_str (stream, name);
+      ostream_write_mem (stream, "        ", 7 - strlen (name));
+      term_ostream_set_color (stream, colors[row].c);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      ostream_write_str (stream, "bold");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      ostream_write_str (stream, "italic");
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "underlined");
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_color (stream, COLOR_DEFAULT);
+      ostream_write_str (stream, "\n       ");
+      term_ostream_set_color (stream, colors[row].c);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      ostream_write_str (stream, "bold+italic");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "bold+underl");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "italic+underl");
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_color (stream, COLOR_DEFAULT);
+      ostream_write_str (stream, "\n");
+    }
+  ostream_write_str (stream, "\n");
+
+  ostream_write_str (stream, "Colors (background) mixed with attributes:\n");
+  for (row = 0; row <= 8; row++)
+    {
+      const char *name = colors[row].name;
+      ostream_write_str (stream, name);
+      ostream_write_mem (stream, "        ", 7 - strlen (name));
+      term_ostream_set_bgcolor (stream, colors[row].c);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      ostream_write_str (stream, "bold");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      ostream_write_str (stream, "italic");
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "underlined");
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+      ostream_write_str (stream, "\n       ");
+      term_ostream_set_bgcolor (stream, colors[row].c);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      ostream_write_str (stream, "bold+italic");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_weight (stream, WEIGHT_BOLD);
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "bold+underl");
+      term_ostream_set_weight (stream, WEIGHT_NORMAL);
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_posture (stream, POSTURE_ITALIC);
+      term_ostream_set_underline (stream, UNDERLINE_ON);
+      ostream_write_str (stream, "italic+underl");
+      term_ostream_set_posture (stream, POSTURE_NORMAL);
+      term_ostream_set_underline (stream, UNDERLINE_OFF);
+      ostream_write_str (stream, "|normal|");
+      term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+      ostream_write_str (stream, "\n");
+    }
   ostream_write_str (stream, "\n");
 
   ostream_free (stream);

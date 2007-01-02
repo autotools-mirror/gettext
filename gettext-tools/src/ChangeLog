@@ -1,3 +1,8 @@
+2006-12-23  Bruno Haible  <bruno@clisp.org>
+
+	* color.c (print_color_test): Print labels before the hue/saturation
+	rectangle. Show also a few lines that mix colors and attributes.
+
 2006-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat.c: Include color.h.
