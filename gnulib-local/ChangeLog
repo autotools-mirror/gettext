@@ -47,6 +47,13 @@
 	* lib/term-ostream.oo.c (term_ostream_create): Fix up the
 	no_color_video value for cygwin.
 
+2006-12-22  Bruno Haible  <bruno@clisp.org>
+
+	Move no-c++ module to gnulib.
+	* modules/no-c++: Remove file.
+	* m4/no-c++.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
 2006-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* modules/gettext-tools-misc (Makefile.am): Move modifications of
@@ -404,13 +411,6 @@
 2006-11-28  Bruno Haible  <bruno@clisp.org>
 
 	* lib/term-ostream.oo.c (out_attr_change): Fix uses of color_bgr.
-
-2006-12-22  Bruno Haible  <bruno@clisp.org>
-
-	Move no-c++ module to gnulib.
-	* modules/no-c++: Remove file.
-	* m4/no-c++.m4: Remove file.
-	* Makefile.am (EXTRA_DIST): Remove them.
 
 2006-11-28  Bruno Haible  <bruno@clisp.org>
 
