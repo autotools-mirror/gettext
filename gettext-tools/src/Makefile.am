@@ -78,6 +78,8 @@ DEFS = \
   -DLIBDIR=\"$(libdir)\" \
   -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
   -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
+# Ensure that <stdint.h> defines SIZE_MAX in C++ mode, like it does in C mode.
+AM_CXXFLAGS = -D__STDC_LIMIT_MACROS
 LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@
 
 SED = sed
