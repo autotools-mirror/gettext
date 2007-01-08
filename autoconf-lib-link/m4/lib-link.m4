@@ -232,7 +232,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                   ver=`(cd "$dir" && \
                         for f in "$libname$shrext".*; do echo "$f"; done \
                         | sed -e "s,^$libname$shrext\\\\.,," \
-                        | sort -t ',' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                        | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
                         | sed 1q ) 2>/dev/null`
                   if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
                     found_dir="$dir"
@@ -279,7 +279,7 @@ AC_DEFUN([AC_LIB_LINKFLAGS_BODY],
                         ver=`(cd "$dir" && \
                               for f in "$libname$shrext".*; do echo "$f"; done \
                               | sed -e "s,^$libname$shrext\\\\.,," \
-                              | sort -t ',' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
+                              | sort -t '.' -n -r -k1,1 -k2,2 -k3,3 -k4,4 -k5,5 \
                               | sed 1q ) 2>/dev/null`
                         if test -n "$ver" && test -f "$dir/$libname$shrext.$ver"; then
                           found_dir="$dir"
