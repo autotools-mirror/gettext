@@ -1,3 +1,7 @@
+2007-01-08  Bruno Haible  <bruno@clisp.org>
+
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Simplify the sorting command.
+
 2006-12-24  Bruno Haible  <bruno@clisp.org>
 
 	Improve support for OpenBSD.
