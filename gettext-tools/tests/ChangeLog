@@ -1,3 +1,9 @@
+2007-01-07  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-20: New file.
+	* Makefile.am (TESTS): Add it.
+	Reported by Leonardo Fontenelle <leo.fontenelle@gmail.com>.
+
 2006-12-16  Bruno Haible  <bruno@clisp.org>
 
 	Make it work with autoconf > 2.61.
