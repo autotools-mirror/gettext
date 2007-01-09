@@ -1,5 +1,5 @@
 /* Determine the current selected locale.
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -1084,6 +1084,12 @@ _nl_locale_name_default (void)
 
     /* Use native Win32 API locale ID.  */
     lcid = GetThreadLocale ();
+
+    /* We cannot use the Win32 API function GetLocaleInfo() because it
+       does not exist on Windows 95/98/ME unless "Microsoft Layer for Unicode"
+       is installed.
+       Also, we cannot use the Win32 API function GetLocaleInfoEx() because
+       it does not exist on Windows 95/98/ME/NT/2000/XP.  */
 
     /* Strip off the sorting rules, keep only the language part.  */
     langid = LANGIDFROMLCID (lcid);
