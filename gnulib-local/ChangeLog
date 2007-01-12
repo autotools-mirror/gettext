@@ -1,3 +1,8 @@
+2007-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* lib/xreadlink.c (xreadlink): Handle an ERANGE error. Needed for
+	AIX and HP-UX. Based on a gnulib patch from Paul Eggert on 2004-11-03.
+
 2006-12-23  Bruno Haible  <bruno@clisp.org>
 
 	* term-ostream.oo.c (out_attr_change): Consider the side effects of

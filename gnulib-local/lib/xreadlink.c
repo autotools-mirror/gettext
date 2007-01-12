@@ -1,6 +1,6 @@
 /* xreadlink.c -- readlink wrapper to return the link name in malloc'd storage
 
-   Copyright (C) 2001, 2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001, 2003-2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -74,7 +74,9 @@ xreadlink (char const *filename)
       /* Attempt to read the link into the current buffer.  */
       ssize_t link_length = readlink (filename, buffer, buf_size);
 
-      if (link_length < 0)
+      /* On AIX 5L v5.3 and HP-UX 11i v2 04/09, readlink returns -1
+	 with errno == ERANGE if the buffer is too small.  */
+      if (link_length < 0 && errno != ERANGE)
 	{
 	  if (buffer != initial_buf)
 	    {
