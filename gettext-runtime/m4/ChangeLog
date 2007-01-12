@@ -1,6 +1,12 @@
+2007-01-10  Eric Blake  <ebb9@byu.net>
+
+	* wint_t.m4 (gt_TYPE_WINT_T): Include <stddef.h> before <wchar.h>, to
+	work around BSDI bug in BSD/OS 4.0.1.
+	Reported by Chris McGuire.
+
 2006-11-21  Bruno Haible  <bruno@clisp.org>
 
-	* m4/size_max.m4 (gl_SIZE_MAX): Use AC_COMPUTE_INT instead of
+	* size_max.m4 (gl_SIZE_MAX): Use AC_COMPUTE_INT instead of
 	_AC_COMPUTE_INT.
 	(AC_COMPUTE_INT): Add fallback definition for autoconf < 2.61.
 
