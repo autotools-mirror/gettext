@@ -1,0 +1,5 @@
+We use a quite old texinfo.tex version.
+The version 2003-02-03 on SuSE 9.0 produces mouse-click sensitive page numbers
+in the table of contents, but unfortunately it also produces wrong page numbers
+(one too low) for sections that happen to start on the top of a page.
+
