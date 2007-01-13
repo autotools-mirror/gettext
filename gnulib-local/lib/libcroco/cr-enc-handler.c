@@ -21,7 +21,7 @@
  */
 
 /*
- *$Id: cr-enc-handler.c,v 1.1 2006/11/15 13:07:14 haible Exp $
+ *$Id: cr-enc-handler.c,v 1.8 2005/05/10 19:48:56 dodji Exp $
  */
 
 /**
