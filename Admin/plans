@@ -64,3 +64,5 @@ Things we plan to do. Comments welcome.
 - Extend gettextize and autopoint so that they work with several PO file
   directories. (2 votes)
 
+- xgettext should have a simpler way to specify the --flags.
+
