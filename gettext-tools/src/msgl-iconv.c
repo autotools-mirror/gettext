@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -80,7 +80,7 @@ convert_string (iconv_t cd, const char *string,
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
-  size_t resultlen;
+  size_t resultlen = 0;
 
   if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
     /* Verify the result has exactly one NUL byte, at the end.  */
@@ -132,7 +132,7 @@ convert_msgstr (iconv_t cd, message_ty *mp,
 		const struct conversion_context* context)
 {
   char *result = NULL;
-  size_t resultlen;
+  size_t resultlen = 0;
 
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
@@ -378,7 +378,7 @@ iconvable_string (iconv_t cd, const char *string)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
-  size_t resultlen;
+  size_t resultlen = 0;
 
   if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
     {
@@ -436,7 +436,7 @@ static bool
 iconvable_msgstr (iconv_t cd, message_ty *mp)
 {
   char *result = NULL;
-  size_t resultlen;
+  size_t resultlen = 0;
 
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();

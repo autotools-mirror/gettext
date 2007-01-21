@@ -1,3 +1,9 @@
+2007-01-21  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-iconv.c (convert_string, convert_msgstr, iconvable_string,
+	iconvable_msgstr): Update for changed calling convention of
+	xmem_cd_iconv.
+
 2007-01-07  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge.c (message_merge): Copy the obsolete bit from the ref
