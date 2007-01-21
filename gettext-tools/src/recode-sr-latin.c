@@ -259,10 +259,10 @@ process (FILE *stream)
 #if HAVE_ICONV
   iconv_t conv_to_utf8 = (iconv_t)(-1);
   iconv_t conv_from_utf8 = (iconv_t)(-1);
-  char *utf8_line;
-  size_t utf8_line_len;
-  char *backconv_line;
-  size_t backconv_line_len;
+  char *last_utf8_line;
+  size_t last_utf8_line_len;
+  char *last_backconv_line;
+  size_t last_backconv_line_len;
 #endif
 
   init_linebuffer (&lb);
@@ -290,10 +290,10 @@ and iconv() does not support this conversion."),
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
 and iconv() does not support this conversion."),
 	       "UTF-8", locale_code, basename (program_name));
-      utf8_line = NULL;
-      utf8_line_len = 0;
-      backconv_line = NULL;
-      backconv_line_len = 0;
+      last_utf8_line = NULL;
+      last_utf8_line_len = 0;
+      last_backconv_line = NULL;
+      last_backconv_line_len = 0;
 #else
       error (EXIT_FAILURE, 0, _("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
@@ -326,11 +326,22 @@ This version was built without iconv()."),
       /* Convert it to UTF-8.  */
       if (need_code_conversion)
 	{
+	  char *utf8_line = last_utf8_line;
+	  size_t utf8_line_len = last_utf8_line_len;
+
 	  if (xmem_cd_iconv (line, line_len, conv_to_utf8,
 			     &utf8_line, &utf8_line_len) != 0)
 	    error (EXIT_FAILURE, errno,
 		   _("input is not valid in \"%s\" encoding"),
 		   locale_code);
+	  if (utf8_line != last_utf8_line)
+	    {
+	      if (last_utf8_line != NULL)
+		free (last_utf8_line);
+	      last_utf8_line = utf8_line;
+	      last_utf8_line_len = utf8_line_len;
+	    }
+
 	  line = utf8_line;
 	  line_len = utf8_line_len;
 	}
@@ -343,11 +354,22 @@ This version was built without iconv()."),
       /* Convert it back to the original encoding.  */
       if (need_code_conversion)
 	{
+	  char *backconv_line = last_backconv_line;
+	  size_t backconv_line_len = last_backconv_line_len;
+
 	  if (xmem_cd_iconv (filtered_line, filtered_line_len, conv_from_utf8,
 			     &backconv_line, &backconv_line_len) != 0)
 	    error (EXIT_FAILURE, errno,
 		   _("error while converting from \"%s\" encoding to \"%s\" encoding"),
 		   "UTF-8", locale_code);
+	  if (backconv_line != last_backconv_line)
+	    {
+	      if (last_backconv_line != NULL)
+		free (last_backconv_line);
+	      last_backconv_line = backconv_line;
+	      last_backconv_line_len = backconv_line_len;
+	    }
+
 	  fwrite (backconv_line, 1, backconv_line_len, stdout);
 	}
       else

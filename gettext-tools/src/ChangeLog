@@ -3,6 +3,7 @@
 	* msgl-iconv.c (convert_string, convert_msgstr, iconvable_string,
 	iconvable_msgstr): Update for changed calling convention of
 	xmem_cd_iconv.
+	* recode-sr-latin.c (process): Likewise.
 
 2007-01-07  Bruno Haible  <bruno@clisp.org>
 
