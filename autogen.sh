@@ -139,6 +139,7 @@ if test -n "$GNULIB_TOOL"; then
   strtol
   strtoul
   styled-ostream
+  sys_time
   term-styled-ostream
   ucs4-utf8
   unistd

@@ -1,5 +1,5 @@
 /* Edit translations using a subprocess.
-   Copyright (C) 2001-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -30,11 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
-
-#if HAVE_SYS_TIME_H
-# include <sys/time.h>
-#endif
-
+#include <sys/time.h>
 #include <unistd.h>
 #if defined _MSC_VER || defined __MINGW32__
 # include <io.h>

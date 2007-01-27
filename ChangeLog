@@ -1,3 +1,7 @@
+2007-01-26  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add sys_time.
+
 2006-12-23  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_OTHER): Add stdint.
