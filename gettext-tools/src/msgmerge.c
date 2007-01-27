@@ -52,7 +52,6 @@
 #include "c-strstr.h"
 #include "exit.h"
 #include "c-strcase.h"
-#include "stpncpy.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-equal.h"

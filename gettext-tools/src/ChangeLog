@@ -1,5 +1,9 @@
 2007-01-26  Bruno Haible  <bruno@clisp.org>
 
+	* msgmerge.c: Don't include stpncpy.h, use <string.h> instead.
+
+2007-01-26  Bruno Haible  <bruno@clisp.org>
+
 	* msgfmt.c: Don't include stpcpy.h, use <string.h> instead.
 	* msgmerge.c: Likewise.
 
