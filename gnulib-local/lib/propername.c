@@ -1,5 +1,5 @@
 /* Localization of proper names.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,6 @@
 #include "c-strcase.h"
 #include "xstriconv.h"
 #include "c-strstr.h"
-#include "strstr.h"
 #include "xalloc.h"
 #include "gettext.h"
 
