@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling library of GNU gettext
-# Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -100,6 +100,7 @@ HEADERS = \
   localcharset.h \
   lock.h \
   relocatable.h \
+  tsearch.h tsearch.c \
   xsize.h \
   printf-args.h printf-args.c \
   printf-parse.h wprintf-parse.h printf-parse.c \

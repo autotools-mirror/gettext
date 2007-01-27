@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -163,6 +163,22 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 # endif
 #endif
 
+/* Use a replacement if the system does not provide the `tsearch' function
+   family.  */
+#if HAVE_TSEARCH || defined _LIBC
+# include <search.h>
+#else
+# define tsearch libintl_tsearch
+# define tfind libintl_tfind
+# define tdelete libintl_tdelete
+# define twalk libintl_twalk
+# include "tsearch.h"
+#endif
+
+#ifdef _LIBC
+# define tsearch __tsearch
+#endif
+
 /* Amount to increase buffer size by in each try.  */
 #define PATH_INCR 32
 
@@ -256,18 +272,10 @@ struct known_translation_t
   char msgid[ZERO];
 };
 
-/* Root of the search tree with known translations.  We can use this
-   only if the system provides the `tsearch' function family.  */
-#if defined HAVE_TSEARCH || defined _LIBC
-# include <search.h>
-
 gl_rwlock_define_initialized (static, tree_lock)
 
+/* Root of the search tree with known translations.  */
 static void *root;
-
-# ifdef _LIBC
-#  define tsearch __tsearch
-# endif
 
 /* Function to compare two entries in the table of known translations.  */
 static int
@@ -305,7 +313,6 @@ transcmp (const void *p1, const void *p2)
 
   return result;
 }
-#endif
 
 /* Name of the default domain used for gettext(3) prior any call to
    textdomain(3).  The default value for this is "messages".  */
@@ -494,13 +501,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   char *retval;
   size_t retlen;
   int saved_errno;
-#if defined HAVE_TSEARCH || defined _LIBC
   struct known_translation_t *search;
   struct known_translation_t **foundp = NULL;
   size_t msgid_len;
-# if defined HAVE_PER_THREAD_LOCALE && !defined IN_LIBGLOCALE
+#if defined HAVE_PER_THREAD_LOCALE && !defined IN_LIBGLOCALE
   const char *localename;
-# endif
 #endif
   size_t domainname_len;
 
@@ -531,7 +536,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     category = LC_MESSAGES;
 #endif
 
-#if defined HAVE_TSEARCH || defined _LIBC
   msgid_len = strlen (msgid1) + 1;
 
   /* Try to find the translation among those which we found at
@@ -541,16 +545,16 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   memcpy (search->msgid, msgid1, msgid_len);
   search->domainname = domainname;
   search->category = category;
-# ifdef HAVE_PER_THREAD_LOCALE
-#  ifndef IN_LIBGLOCALE
-#   ifdef _LIBC
+#ifdef HAVE_PER_THREAD_LOCALE
+# ifndef IN_LIBGLOCALE
+#  ifdef _LIBC
   localename = __current_locale_name (category);
-#   else
-#    if HAVE_NL_LOCALE_NAME
+#  else
+#   if HAVE_NL_LOCALE_NAME
   /* NL_LOCALE_NAME is public glibc API introduced in glibc-2.4.  */
   localename = nl_langinfo (NL_LOCALE_NAME (category));
-#    else
-#     if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
+#   else
+#    if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
   /* The __names field is not public glibc API and must therefore not be used
      in code that is installed in public locations.  */
   {
@@ -560,14 +564,13 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     else
       localename = "";
   }
-#     endif
 #    endif
 #   endif
 #  endif
+# endif
   search->localename = localename;
-#  ifdef IN_LIBGLOCALE
+# ifdef IN_LIBGLOCALE
   search->encoding = encoding;
-#  endif
 # endif
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
@@ -766,7 +769,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	      /* Found the translation of MSGID1 in domain DOMAIN:
 		 starting at RETVAL, RETLEN bytes.  */
 	      FREE_BLOCKS (block_list);
-#if defined HAVE_TSEARCH || defined _LIBC
 	      if (foundp == NULL)
 		{
 		  /* Create a new entry and add it to the search tree.  */
@@ -775,32 +777,32 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
 		  size = offsetof (struct known_translation_t, msgid)
 			 + msgid_len + domainname_len + 1;
-# ifdef HAVE_PER_THREAD_LOCALE
+#ifdef HAVE_PER_THREAD_LOCALE
 		  size += strlen (localename) + 1;
-# endif
+#endif
 		  newp = (struct known_translation_t *) malloc (size);
 		  if (newp != NULL)
 		    {
 		      char *new_domainname;
-# ifdef HAVE_PER_THREAD_LOCALE
+#ifdef HAVE_PER_THREAD_LOCALE
 		      char *new_localename;
-# endif
+#endif
 
 		      new_domainname =
 			(char *) mempcpy (newp->msgid, msgid1, msgid_len);
 		      memcpy (new_domainname, domainname, domainname_len + 1);
-# ifdef HAVE_PER_THREAD_LOCALE
+#ifdef HAVE_PER_THREAD_LOCALE
 		      new_localename = new_domainname + domainname_len + 1;
 		      strcpy (new_localename, localename);
-# endif
+#endif
 		      newp->domainname = new_domainname;
 		      newp->category = category;
-# ifdef HAVE_PER_THREAD_LOCALE
+#ifdef HAVE_PER_THREAD_LOCALE
 		      newp->localename = new_localename;
-# endif
-# ifdef IN_LIBGLOCALE
+#endif
+#ifdef IN_LIBGLOCALE
 		      newp->encoding = encoding;
-# endif
+#endif
 		      newp->counter = _nl_msg_cat_cntr;
 		      newp->domain = domain;
 		      newp->translation = retval;
@@ -828,7 +830,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		  (*foundp)->translation = retval;
 		  (*foundp)->translation_length = retlen;
 		}
-#endif
+
 	      __set_errno (saved_errno);
 
 	      /* Now deal with plural.  */
@@ -1608,6 +1610,10 @@ mempcpy (void *dest, const void *src, size_t n)
 {
   return (void *) ((char *) memcpy (dest, src, n) + n);
 }
+#endif
+
+#if !_LIBC && !HAVE_TSEARCH
+# include "tsearch.c"
 #endif
 
 

@@ -1,3 +1,12 @@
+2007-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* tsearch.h: New file, from gnulib.
+	* tsearch.c: New file, from gnulib.
+	* dcigettext.c [!HAVE_TSEARCH]: Include tsearch.h and tsearch.c.
+	(root, transcmp): Define unconditionally.
+	(DCIGETTEXT): Assume tsearch exists.
+	* Makefile.in (HEADERS): Add tsearch.h, tsearch.c.
+
 2006-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c (SUBLANG_BENGALI_INDIA): Change value from 0 to 1.
