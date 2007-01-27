@@ -1,3 +1,8 @@
+2007-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* lang-smalltalk: Update expected result so that it works with GNU
+	smalltalk 2.3 as well.
+
 2007-01-07  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge-20: New file.
