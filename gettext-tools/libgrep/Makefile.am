@@ -1,5 +1,5 @@
 ## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005-2006 Free Software Foundation, Inc.
+## Copyright (C) 2005-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ libgrep_a_SOURCES = \
 LIBADD_SOURCE = \
   memchr.c \
   regex.h regex.c \
-  strdup.h strdup.c
+  strdup.c
 
 # How to build libgrep.a.
 libgrep_a_LIBADD = @LIBGREPOBJS@
