@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006 Free Software Foundation, Inc.
+## Copyright (C) 2006-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -72,7 +72,6 @@ lib/html-styled-ostream.oo.c \
 lib/html-styled-ostream.oo.h \
 lib/iconv-ostream.oo.c \
 lib/iconv-ostream.oo.h \
-lib/javacomp.c.diff \
 lib/libcroco/cr-additional-sel.c \
 lib/libcroco/cr-additional-sel.h \
 lib/libcroco/cr-attr-sel.c \
