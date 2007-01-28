@@ -1,3 +1,7 @@
+2007-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* lib/linebreak.c.diff: Update.
+
 2007-01-27  Bruno Haible  <bruno@clisp.org>
 
 	Move a patch to gnulib.

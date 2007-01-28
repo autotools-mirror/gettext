@@ -3,9 +3,9 @@
 ***************
 *** 30,38 ****
   
-  #include "utf8-ucs4.h"
+  #include "utf8-ucs4-unsafe.h"
   
-  #include "utf16-ucs4.h"
+  #include "utf16-ucs4-unsafe.h"
   
 - #ifdef unused
   static inline int
@@ -13,10 +13,10 @@
   {
 --- 30,38 ----
   
-  #include "utf8-ucs4.h"
+  #include "utf8-ucs4-unsafe.h"
   
 + #ifdef unused
-  #include "utf16-ucs4.h"
+  #include "utf16-ucs4-unsafe.h"
   
   static inline int
   u32_mbtouc (unsigned int *puc, const unsigned int *s, size_t n)
