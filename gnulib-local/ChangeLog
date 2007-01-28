@@ -1,8 +1,9 @@
-2007-01-26  Bruno Haible  <bruno@clisp.org>
+2007-01-27  Bruno Haible  <bruno@clisp.org>
 
 	Move a patch to gnulib.
 	* lib/javacomp.c.diff: Remove file.
-	* Makefile.am (EXTRA_DIST): Remove it.
+	* modules/javacomp.diff: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
 
 2007-01-26  Bruno Haible  <bruno@clisp.org>
 

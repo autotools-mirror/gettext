@@ -293,7 +293,6 @@ modules/html-ostream \
 modules/html-styled-ostream \
 modules/iconv-ostream \
 modules/java \
-modules/javacomp.diff \
 modules/libcroco \
 modules/libglib \
 modules/libxml \
