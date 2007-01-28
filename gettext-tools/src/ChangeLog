@@ -1,5 +1,10 @@
 2007-01-28  Bruno Haible  <bruno@clisp.org>
 
+	* x-java.c (string_buffer_append_lone_surrogate): New function.
+	(string_buffer_flush_utf16_surr, string_buffer_append): Use it.
+
+2007-01-28  Bruno Haible  <bruno@clisp.org>
+
 	* x-java.c (string_buffer_flush_utf16_surr): Give a warning when
 	converting a surrogate code point to U+FFFD.
 	(string_buffer_append): Convert a lone high surrogate code point to

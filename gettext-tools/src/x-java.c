@@ -452,41 +452,49 @@ string_buffer_append_unicode (struct string_buffer *bp, unsigned int uc)
   bp->utf8_buflen += count;
 }
 
+/* Auxiliary function: Handle the attempt to append a lone surrogate to
+   bp->utf8.  */
+static void
+string_buffer_append_lone_surrogate (struct string_buffer *bp, unsigned int uc)
+{
+  /* A half surrogate is invalid, therefore use U+FFFD instead.
+     It appears to be valid Java: The Java Language Specification,
+     3rd ed., says "The Java programming language represents text
+     in sequences of 16-bit code units, using the UTF-16 encoding."
+     but does not impose constraints on the use of \uxxxx escape
+     sequences for surrogates.  And the JDK's javac happily groks
+     half surrogates.
+     But a half surrogate is invalid in UTF-8:
+       - RFC 3629 says
+	   "The definition of UTF-8 prohibits encoding character
+	    numbers between U+D800 and U+DFFF".
+       - Unicode 4.0 chapter 3
+	 <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
+	 section 3.9, p.77, says
+	   "Because surrogate code points are not Unicode scalar
+	    values, any UTF-8 byte sequence that would otherwise
+	    map to code points D800..DFFF is ill-formed."
+	 and in table 3-6, p. 78, does not mention D800..DFFF.
+       - The unicode.org FAQ question "How do I convert an unpaired
+	 UTF-16 surrogate to UTF-8?" has the answer
+	   "By representing such an unpaired surrogate on its own
+	    as a 3-byte sequence, the resulting UTF-8 data stream
+	    would become ill-formed."
+     So use U+FFFD instead.  */
+  error_with_progname = false;
+  error (0, 0, _("%s:%d: warning: lone surrogate U+%04X"),
+	 logical_file_name, line_number, uc);
+  error_with_progname = true;
+  string_buffer_append_unicode (bp, 0xfffd);
+}
+
 /* Auxiliary function: Flush bp->utf16_surr into bp->utf8_buffer.  */
 static inline void
 string_buffer_flush_utf16_surr (struct string_buffer *bp)
 {
   if (bp->utf16_surr != 0)
     {
-      /* A half surrogate is invalid, therefore use U+FFFD instead.
-	 It appears to be valid Java: The Java Language Specification,
-	 3rd ed., says "The Java programming language represents text
-	 in sequences of 16-bit code units, using the UTF-16 encoding."
-	 but does not impose constraints on the use of \uxxxx escape
-	 sequences for surrogates.  And the JDK's javac happily groks
-	 half surrogates.
-	 But a half surrogate is invalid in UTF-8:
-	   - RFC 3629 says
-	       "The definition of UTF-8 prohibits encoding character
-		numbers between U+D800 and U+DFFF".
-	   - Unicode 4.0 chapter 3
-	     <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
-	     section 3.9, p.77, says
-	       "Because surrogate code points are not Unicode scalar
-		values, any UTF-8 byte sequence that would otherwise
-		map to code points D800..DFFF is ill-formed."
-	     and in table 3-6, p. 78, does not mention D800..DFFF.
-	   - The unicode.org FAQ question "How do I convert an unpaired
-	     UTF-16 surrogate to UTF-8?" has the answer
-	       "By representing such an unpaired surrogate on its own
-		as a 3-byte sequence, the resulting UTF-8 data stream
-		would become ill-formed."
-	 So use U+FFFD instead.  */
-      error_with_progname = false;
-      error (0, 0, _("%s:%d: warning: lone surrogate U+%04X"),
-	     logical_file_name, line_number, bp->utf16_surr);
-      error_with_progname = true;
-      string_buffer_append_unicode (bp, 0xfffd);
+      string_buffer_append_lone_surrogate (bp, bp->utf16_surr);
       bp->utf16_surr = 0;
     }
 }
@@ -552,37 +560,7 @@ string_buffer_append (struct string_buffer *bp, int c)
 	  if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
 	    bp->utf16_surr = UTF16_VALUE (c);
 	  else if (c >= UNICODE (0xdc00) && c < UNICODE (0xe000))
-	    {
-	      /* A half surrogate is invalid, therefore use U+FFFD instead.
-		 It appears to be valid Java: The Java Language Specification,
-		 3rd ed., says "The Java programming language represents text
-		 in sequences of 16-bit code units, using the UTF-16 encoding."
-		 but does not impose constraints on the use of \uxxxx escape
-		 sequences for surrogates.  And the JDK's javac happily groks
-		 half surrogates.
-		 But a half surrogate is invalid in UTF-8:
-		   - RFC 3629 says
-		       "The definition of UTF-8 prohibits encoding character
-			numbers between U+D800 and U+DFFF".
-		   - Unicode 4.0 chapter 3
-		     <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
-		     section 3.9, p.77, says
-		       "Because surrogate code points are not Unicode scalar
-			values, any UTF-8 byte sequence that would otherwise
-			map to code points D800..DFFF is ill-formed."
-		     and in table 3-6, p. 78, does not mention D800..DFFF.
-		   - The unicode.org FAQ question "How do I convert an unpaired
-		     UTF-16 surrogate to UTF-8?" has the answer
-		       "By representing such an unpaired surrogate on its own
-			as a 3-byte sequence, the resulting UTF-8 data stream
-			would become ill-formed."
-		 So use U+FFFD instead.  */
-	      error_with_progname = false;
-	      error (0, 0, _("%s:%d: warning: lone surrogate U+%04X"),
-		     logical_file_name, line_number, UTF16_VALUE (c));
-	      error_with_progname = true;
-	      string_buffer_append_unicode (bp, 0xfffd);
-	    }
+	    string_buffer_append_lone_surrogate (bp, UTF16_VALUE (c));
 	  else
 	    string_buffer_append_unicode (bp, UTF16_VALUE (c));
 	}
