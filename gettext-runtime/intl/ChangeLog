@@ -1,3 +1,10 @@
+2007-01-29  Bruno Haible  <bruno@clisp.org>
+
+	* lib/printf-args.h: Use '#if HAVE_*' instead of '#ifdef HAVE_*'.
+	* lib/printf-args.c: Likewise.
+	* lib/printf-parse.c: Likewise.
+	* lib/vasnprintf.c: Likewise.
+
 2007-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* tsearch.h: New file, from gnulib.

@@ -1,3 +1,10 @@
+2007-01-29  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.h: Use '#if HAVE_*' instead of '#ifdef HAVE_*'.
+	* printf-args.c: Likewise.
+	* printf-parse.c: Likewise.
+	* vasnprintf.c: Likewise.
+
 2006-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* printf-parse.c (PRINTF_PARSE): Cast malloc/realloc results.
