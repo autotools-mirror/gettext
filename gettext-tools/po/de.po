@@ -82,7 +82,7 @@ msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-10-23 23:07+0200\n"
-"PO-Revision-Date: 2006-07-15 11:33+0200\n"
+"PO-Revision-Date: 2007-01-22 13:36+0100\n"
 "Last-Translator: Karl Eichwalder <ke@suse.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -3311,6 +3311,8 @@ msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
 "standard output.\n"
 msgstr ""
+"Der Eingabetext wird von der Standardeingabe gelesen.  Der umgewandelte Text\n"
+"wird nach der Standardausgabe ausgegeben.\n"
 
 #: src/recode-sr-latin.c:332
 #, c-format
