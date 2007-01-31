@@ -1,3 +1,11 @@
+2007-01-30  Bruno Haible  <bruno@clisp.org>
+
+	* po/ms.po: New file, from
+	Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>.
+	* po/LINGUAS: Add ms.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+
 2006-12-04  Bruno Haible  <bruno@clisp.org>
 
 	Work around small sh argument length limit on IRIX.
