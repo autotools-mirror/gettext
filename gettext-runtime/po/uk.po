@@ -1,15 +1,15 @@
 # Ukrainian translation to gettext-runtime
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext-runtime package.
-# Maxim V. Dziumanenko <mvd@mylinux.com.ua>, 2004.
+# Maxim V. Dziumanenko <dziumanenko@gmail.com>, 2004-2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.14.5\n"
+"Project-Id-Version: gettext-runtime 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2006-10-02 16:24+0200\n"
-"PO-Revision-Date: 2005-07-21 17:30+0200\n"
-"Last-Translator: Maxim V. Dziumanenko <mvd@mylinux.com.ua>\n"
+"PO-Revision-Date: 2006-12-27 17:30+0200\n"
+"Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -105,7 +105,7 @@ msgstr "Автор програми - %s.\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/envsubst.c:119
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
 #: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
 #, c-format
@@ -199,7 +199,7 @@ msgstr "стандартний ввід"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/gettext.c:140 src/ngettext.c:130
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
 #: src/gettext.c:244
 #, c-format, no-wrap
