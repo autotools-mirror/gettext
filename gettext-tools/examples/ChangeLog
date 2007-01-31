@@ -4,7 +4,7 @@
 	Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>.
 	* po/LINGUAS: Add ms.
 	* hello-*/po/LINGUAS: Update.
-	* Makefile.am (EXAMPLESFILES): Add the new message catalogs.
+	* Makefile.am (EXAMPLESPOFILES): Add the new message catalogs.
 
 2006-12-04  Bruno Haible  <bruno@clisp.org>
 
