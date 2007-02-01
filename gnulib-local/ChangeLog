@@ -1,3 +1,9 @@
+2007-01-31  Bruno Haible  <bruno@clisp.org>
+
+	* modules/gettext-tools-misc (Makefile.am): Add @LIBACL@ to
+	lib_LDFLAGS.
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
 2007-01-28  Bruno Haible  <bruno@clisp.org>
 
 	* lib/linebreak.c.diff: Update.
