@@ -20,7 +20,7 @@ lib_LTLIBRARIES = libgettextlib.la
 # Need @LIB_ACL@ because copy-file.c uses acl.h.
 lib_LDFLAGS += \
   -release @VERSION@ \
-  @LTLIBINTL@ @LTLIBICONV@ @LIBACL@ -lc @LTNOUNDEF@
+  @LTLIBINTL@ @LTLIBICONV@ @LIB_ACL@ -lc @LTNOUNDEF@
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL

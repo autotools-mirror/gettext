@@ -1,6 +1,6 @@
-2007-01-31  Bruno Haible  <bruno@clisp.org>
+2007-02-01  Bruno Haible  <bruno@clisp.org>
 
-	* modules/gettext-tools-misc (Makefile.am): Add @LIBACL@ to
+	* modules/gettext-tools-misc (Makefile.am): Add @LIB_ACL@ to
 	lib_LDFLAGS.
 	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
 
