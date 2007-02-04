@@ -71,9 +71,10 @@ cat <<\EOF >> Program.java
 }
 EOF
 
-tmpfiles="$tmpfiles Program.class"
+tmpfiles="$tmpfiles Program.class prog.err"
 : ${JAVACOMP="/bin/sh ../javacomp.sh"}
-CLASSPATH=../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d . Program.java || exit 1
+CLASSPATH=../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d . Program.java 2>prog.err \
+  || { cat prog.err 1>&2; exit 1; }
 
 tmpfiles="$tmpfiles prog.pot"
 : ${XGETTEXT=xgettext}
