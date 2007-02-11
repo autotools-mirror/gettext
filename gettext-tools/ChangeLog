@@ -1,3 +1,9 @@
+2007-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (MSGMERGE_LIBM): Avoid inlining of the ceil, sqrt calls
+	on glibc systems.
+	Reported by I. Thomas Cundiff <tcundiff@eclipse.net>.
+
 2006-12-23  Bruno Haible  <bruno@clisp.org>
 
 	* gnulib-lib/Makefile.am (libgettextlib_la_LINK): New variable.

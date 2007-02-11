@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -111,12 +111,24 @@ dnl Test whether msgmerge must be linked against libm. This is the case on
 dnl most systems; but BeOS has all <math.h> functions in libc and doesn't have
 dnl a libm.
 MSGMERGE_LIBM=?
-AC_TRY_LINK([#include <math.h>], [static double x; x = ceil(x); x = sqrt(x);],
+AC_TRY_LINK([
+   #ifndef __NO_MATH_INLINES
+   # define __NO_MATH_INLINES 1 /* for glibc */
+   #endif
+   #include <math.h>
+   double x;],
+  [x = ceil(x); x = sqrt(x);],
   [MSGMERGE_LIBM=])
 if test "$MSGMERGE_LIBM" = "?"; then
   save_LIBS="$LIBS" 
   LIBS="$LIBS -lm"
-  AC_TRY_LINK([#include <math.h>], [static double x; x = ceil(x); x = sqrt(x);],
+  AC_TRY_LINK([
+     #ifndef __NO_MATH_INLINES
+     # define __NO_MATH_INLINES 1 /* for glibc */
+     #endif
+     #include <math.h>
+     double x;],
+    [x = ceil(x); x = sqrt(x);],
     [MSGMERGE_LIBM="-lm"])
   LIBS="$save_LIBS"
 fi
