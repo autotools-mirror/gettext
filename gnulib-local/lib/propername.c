@@ -118,7 +118,7 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
   if (translation != name_ascii)
     {
       /* See whether the translation contains the original name.
-	 A multibyte-aware strstr() is not absolutely necessary here.  */
+	 The multibyte-aware mbsstr() is not absolutely necessary here.  */
       if (c_strstr (translation, name_ascii) != NULL
 	  || (name_converted != NULL
 	      && strstr (translation, name_converted) != NULL)
