@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing HTML output.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "html-ostream.h"
@@ -34,7 +35,6 @@
 
 #include "error.h"
 #include "safe-read.h"
-#include "exit.h"
 #include "xalloc.h"
 #include "gettext.h"
 
