@@ -1,3 +1,56 @@
+2007-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* file-list.c: Don't include exit.h.
+	* hostname.c: Likewise.
+	* msgattrib.c: Likewise.
+	* msgcat.c: Likewise.
+	* msgcmp.c: Likewise.
+	* msgcomm.c: Likewise.
+	* msgconv.c: Likewise.
+	* msgen.c: Likewise.
+	* msgexec.c: Likewise.
+	* msgfilter.c: Likewise.
+	* msgfmt.c: Likewise.
+	* msggrep.c: Likewise.
+	* msginit.c: Likewise.
+	* msgl-cat.c: Include <stdlib.h> instead of exit.h.
+	* msgl-charset.c: Likewise.
+	* msgl-check.c: Don't include exit.h.
+	* msgmerge.c: Likewise.
+	* msgunfmt.c: Likewise.
+	* msguniq.c: Likewise.
+	* po-lex.c: Likewise.
+	* po-xerror.c: Likewise.
+	* read-csharp.c: Likewise.
+	* read-java.c: Likewise.
+	* read-mo.c: Likewise.
+	* read-resources.c: Likewise.
+	* read-tcl.c: Likewise.
+	* recode-sr-latin.c: Likewise.
+	* urlget.c: Likewise.
+	* write-mo.c: Likewise.
+	* write-qt.c: Likewise.
+	* write-resources.c: Likewise.
+	* write-tcl.c: Include <stdlib.h> instead of exit.h.
+	* x-awk.c: Don't include exit.h.
+	* x-c.c: Likewise.
+	* x-csharp.c: Likewise.
+	* x-elisp.c: Likewise.
+	* x-glade.c: Likewise.
+	* x-java.c: Likewise.
+	* x-librep.c: Likewise.
+	* x-lisp.c: Likewise.
+	* x-perl.c: Likewise.
+	* x-php.c: Likewise.
+	* x-python.c: Likewise.
+	* x-rst.c: Include <stdlib.h> instead of exit.h.
+	* x-scheme.c: Don't include exit.h.
+	* x-sh.c: Likewise.
+	* x-smalltalk.c: Likewise.
+	* x-tcl.c: Likewise.
+	* x-ycp.c: Likewise.
+	* xgettext.c: Likewise.
+
 2007-01-28  Bruno Haible  <bruno@clisp.org>
 
 	* x-java.c (string_buffer_append_lone_surrogate): New function.

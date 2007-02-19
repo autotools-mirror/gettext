@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -43,7 +43,6 @@
 #include "gettext.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xvasprintf.h"

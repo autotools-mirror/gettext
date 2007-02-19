@@ -1,5 +1,5 @@
 /* Pass translations to a subprocess.
-   Copyright (C) 2001-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -45,7 +45,6 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "full-write.h"
 #include "findprog.h"
 #include "pipe.h"

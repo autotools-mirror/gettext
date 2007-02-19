@@ -59,7 +59,6 @@
 #include "write-stringtable.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "findprog.h"
 #include "pipe.h"
 #include "wait-process.h"

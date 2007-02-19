@@ -1,5 +1,5 @@
 /* Recode Serbian text from Cyrillic to Latin script.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -37,7 +37,6 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "localcharset.h"
 #include "c-strcase.h"
 #include "xstriconv.h"

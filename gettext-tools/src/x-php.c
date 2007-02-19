@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -34,7 +34,6 @@
 #include "x-php.h"
 #include "error.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

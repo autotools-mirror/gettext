@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -27,6 +27,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 #include "c-ctype.h"
 #include "message.h"
@@ -35,7 +36,6 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

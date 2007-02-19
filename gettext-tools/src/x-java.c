@@ -34,7 +34,6 @@
 #include "x-java.h"
 #include "error.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "hash.h"
 #include "po-charset.h"
 #include "utf16-ucs4.h"

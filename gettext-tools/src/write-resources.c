@@ -1,5 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005, 2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -42,7 +42,6 @@
 #include "xalloc.h"
 #include "pathname.h"
 #include "fwriteerror.h"
-#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

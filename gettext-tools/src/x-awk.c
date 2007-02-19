@@ -1,5 +1,5 @@
 /* xgettext awk backend.
-   Copyright (C) 2002-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2007 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -36,7 +36,6 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

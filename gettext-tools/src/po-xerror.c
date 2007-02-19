@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2005-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "exit.h"
 #include "message.h"
 #include "progname.h"
 #include "error-progname.h"

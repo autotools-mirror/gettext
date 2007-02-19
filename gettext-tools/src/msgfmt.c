@@ -38,7 +38,6 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "msgfmt.h"
 #include "write-mo.h"
 #include "write-java.h"

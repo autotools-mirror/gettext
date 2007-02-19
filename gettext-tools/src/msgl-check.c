@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,6 @@
 #include "plural-table.h"
 #include "c-strstr.h"
 #include "vasprintf.h"
-#include "exit.h"
 #include "message.h"
 #include "gettext.h"
 

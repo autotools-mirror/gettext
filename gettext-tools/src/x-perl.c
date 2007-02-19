@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2006 Free Software Foundation, Inc.
+   Copyright (C) 2002-2007 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -36,7 +36,6 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "po-charset.h"
 #include "ucs4-utf8.h"
 #include "uniname.h"

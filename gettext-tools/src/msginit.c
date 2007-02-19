@@ -73,7 +73,6 @@
 #include "lang-table.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "exit.h"
 #include "pathname.h"
 #include "xerror.h"
 #include "xvasprintf.h"

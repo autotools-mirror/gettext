@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -36,7 +36,6 @@
 #include "error.h"
 #include "xalloc.h"
 #include "binary-io.h"
-#include "exit.h"
 #include "message.h"
 #include "format.h"
 #include "gettext.h"

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,6 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "message.h"
-#include "exit.h"
 #include "read-catalog.h"
 #include "read-po.h"
 #include "read-properties.h"

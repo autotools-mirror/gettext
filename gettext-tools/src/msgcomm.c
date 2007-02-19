@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1997-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1997-1998, 2000-2007 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -46,7 +46,6 @@
 #include "write-properties.h"
 #include "write-stringtable.h"
 #include "msgl-cat.h"
-#include "exit.h"
 #include "propername.h"
 #include "gettext.h"
 

@@ -50,7 +50,6 @@
 #include "xallocsa.h"
 #include "obstack.h"
 #include "c-strstr.h"
-#include "exit.h"
 #include "c-strcase.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"

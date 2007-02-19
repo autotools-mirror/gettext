@@ -1,5 +1,5 @@
 /* xgettext Lisp backend.
-   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -35,7 +35,6 @@
 #include "x-lisp.h"
 #include "error.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "hash.h"
 #include "gettext.h"
 

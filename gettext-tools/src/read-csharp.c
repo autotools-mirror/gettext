@@ -1,5 +1,5 @@
 /* Reading C# satellite assemblies.
-   Copyright (C) 2003-2004, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004, 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,6 @@
 #include "xalloc.h"
 #include "pathname.h"
 #include "error.h"
-#include "exit.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
