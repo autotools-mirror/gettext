@@ -28,6 +28,10 @@ error.h
 exit.h
 exitfail.c
 exitfail.h
+file-ostream.c
+file-ostream.h
+file_ostream.priv.h
+file_ostream.vt.h
 fstrcmp.c
 fstrcmp.h
 fwriteerror.c
@@ -53,6 +57,10 @@ mbswidth.h
 minmax.h
 obstack.c
 obstack.h
+ostream.c
+ostream.h
+ostream.priv.h
+ostream.vt.h
 pathname.h
 progname.c
 progname.h
