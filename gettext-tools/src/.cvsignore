@@ -1,3 +1,5 @@
+Makefile.in
+
 Makefile
 po-gram-gen2.h
 .libs
