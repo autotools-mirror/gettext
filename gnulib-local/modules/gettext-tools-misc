@@ -5,6 +5,7 @@ m4/hard-locale.m4
 m4/mbrtowc.m4
 m4/memchr.m4
 m4/strdup.m4
+m4/locale-fr.m4
 
 Depends-on:
 

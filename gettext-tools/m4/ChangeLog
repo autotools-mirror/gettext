@@ -1,5 +1,10 @@
 2007-02-12  Bruno Haible  <bruno@clisp.org>
 
+	* locale-fr.m4: Remove file, moved to gnulib.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
+2007-02-12  Bruno Haible  <bruno@clisp.org>
+
 	* locale-fr.m4 (gt_LOCALE_FR): Fix m4 quoting bug.
 	* locale-ja.m4 (gt_LOCALE_JA): Likewise.
 	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
