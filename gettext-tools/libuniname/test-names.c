@@ -1,5 +1,5 @@
 /* Test the Unicode character name functions.
-   Copyright (C) 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003, 2005, 2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "exit.h"
 #include "xalloc.h"
 #include "uniname.h"
 

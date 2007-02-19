@@ -1,5 +1,5 @@
 /* gettext - retrieve text string from message catalog and print it.
-   Copyright (C) 1995-1997, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2007 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
    This program is free software; you can redistribute it and/or modify
@@ -33,7 +33,6 @@
 #include "relocatable.h"
 #include "basename.h"
 #include "xalloc.h"
-#include "exit.h"
 #include "propername.h"
 #include "gettext.h"
 
