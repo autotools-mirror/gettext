@@ -1,5 +1,10 @@
+Makefile.in
+aclocal.m4
+config.h.in
+configure
 gnulib-lib
 gnulib-m4
+
 Makefile
 config.cache
 config.h
