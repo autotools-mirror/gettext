@@ -36,7 +36,7 @@
 #include "read-catalog.h"
 #include "read-po.h"
 #include "xalloc.h"
-#include "pathname.h"
+#include "filename.h"
 #include "error.h"
 #include "gettext.h"
 
@@ -151,7 +151,7 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
     gettextlibdir = relocate (LIBDIR);
 
   /* Dump the resource and retrieve the resulting output.  */
-  assembly_path = concatenated_pathname (gettextexedir, "msgunfmt.net", ".exe");
+  assembly_path = concatenated_filename (gettextexedir, "msgunfmt.net", ".exe");
   libdirs[0] = gettextlibdir;
   if (execute_csharp_program (assembly_path, libdirs, 1,
 			      args,

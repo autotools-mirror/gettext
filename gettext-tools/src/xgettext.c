@@ -49,7 +49,7 @@
 #include "xallocsa.h"
 #include "c-strstr.h"
 #include "xerror.h"
-#include "pathname.h"
+#include "filename.h"
 #include "c-strcase.h"
 #include "open-catalog.h"
 #include "read-catalog-abstract.h"
@@ -575,12 +575,12 @@ xgettext cannot work without keywords to look for"));
 	file_name = xstrdup (output_file);
       else
 	/* Please do NOT add a .po suffix! */
-	file_name = concatenated_pathname (output_dir, output_file, NULL);
+	file_name = concatenated_filename (output_dir, output_file, NULL);
     }
   else if (strcmp (default_domain, "-") == 0)
     file_name = "-";
   else
-    file_name = concatenated_pathname (output_dir, default_domain, ".po");
+    file_name = concatenated_filename (output_dir, default_domain, ".po");
 
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
@@ -1759,7 +1759,7 @@ error while opening \"%s\" for reading"), fn);
 	    error (EXIT_FAILURE, ENOENT, _("\
 error while opening \"%s\" for reading"), fn);
 
-	  new_name = concatenated_pathname (dir, fn, NULL);
+	  new_name = concatenated_filename (dir, fn, NULL);
 
 	  fp = fopen (new_name, "r");
 	  if (fp != NULL)

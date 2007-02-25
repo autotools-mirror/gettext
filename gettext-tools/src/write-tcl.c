@@ -37,7 +37,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xallocsa.h"
-#include "pathname.h"
+#include "filename.h"
 #include "fwriteerror.h"
 #include "utf8-ucs4.h"
 #include "gettext.h"
@@ -205,7 +205,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 	  break;
 	}
 
-    file_name = concatenated_pathname (directory, frobbed_locale_name, ".msg");
+    file_name = concatenated_filename (directory, frobbed_locale_name, ".msg");
 
     output_file = fopen (file_name, "w");
     if (output_file == NULL)

@@ -36,7 +36,7 @@
 #include "read-catalog.h"
 #include "read-po.h"
 #include "message.h"
-#include "pathname.h"
+#include "filename.h"
 #include "error.h"
 #include "gettext.h"
 
@@ -115,7 +115,7 @@ read_resources_file (message_list_ty *mlp, const char *filename)
     gettextlibdir = relocate (LIBDIR);
 
   /* Dump the resource and retrieve the resulting output.  */
-  assembly_path = concatenated_pathname (gettextexedir, "msgunfmt.net", ".exe");
+  assembly_path = concatenated_filename (gettextexedir, "msgunfmt.net", ".exe");
   libdirs[0] = gettextlibdir;
   if (execute_csharp_program (assembly_path, libdirs, 1,
 			      args,

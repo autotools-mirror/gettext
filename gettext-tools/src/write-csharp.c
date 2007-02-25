@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -89,7 +89,7 @@
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "pathname.h"
+#include "filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
 #include "utf8-ucs4.h"
@@ -673,7 +673,7 @@ but the C# .dll format doesn't support contexts\n")));
   /* Compute the output file name.  This code must be kept consistent with
      intl.cs, function GetSatelliteAssembly().  */
   {
-    char *output_dir = concatenated_pathname (directory, culture_name, NULL);
+    char *output_dir = concatenated_filename (directory, culture_name, NULL);
     struct stat statbuf;
 
     /* Try to create the output directory if it does not yet exist.  */
@@ -688,7 +688,7 @@ but the C# .dll format doesn't support contexts\n")));
 	}
 
     output_file =
-      concatenated_pathname (output_dir, resource_name, ".resources.dll");
+      concatenated_filename (output_dir, resource_name, ".resources.dll");
 
     free (output_dir);
   }
@@ -711,7 +711,7 @@ but the C# .dll format doesn't support contexts\n")));
   /* Compute the temporary C# file name.  It must end in ".cs", so that
      the C# compiler recognizes that it is C# source code.  */
   csharp_file_name =
-    concatenated_pathname (tmpdir->dir_name, "resset.cs", NULL);
+    concatenated_filename (tmpdir->dir_name, "resset.cs", NULL);
 
   /* Create the C# file.  */
   register_temp_file (tmpdir, csharp_file_name);

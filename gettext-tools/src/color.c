@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@
 #include "term-ostream.h"
 #include "xalloc.h"
 #include "relocatable.h"
-#include "pathname.h"
+#include "filename.h"
 
 
 /* Whether to output a test page.  */
@@ -404,7 +404,7 @@ style_file_prepare ()
 	    gettextdatadir = relocate (GETTEXTDATADIR);
 
 	  style_file_name =
-	    concatenated_pathname (gettextdatadir, "styles/po-default.css",
+	    concatenated_filename (gettextdatadir, "styles/po-default.css",
 				   NULL);
 	}
     }

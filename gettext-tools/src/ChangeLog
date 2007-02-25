@@ -1,3 +1,28 @@
+2007-02-25  Bruno Haible  <bruno@clisp.org>
+
+	* color.c: Include filename.h instead of pathname.h.
+	(style_file_prepare): Update.
+	* msginit.c: Include filename.h instead of pathname.h.
+	(project_id, project_id_version): Update.
+	* open-catalog.c: Include filename.h instead of pathname.h.
+	(try_open_catalog_file): Update.
+	* read-csharp.c: Include filename.h instead of pathname.h.
+	(msgdomain_read_csharp): Update.
+	* read-resources.c: Include filename.h instead of pathname.h.
+	(read_resources_file): Update.
+	* read-tcl.c: Include filename.h instead of pathname.h.
+	(msgdomain_read_tcl): Update.
+	* write-csharp.c: Include filename.h instead of pathname.h.
+	(msgdomain_write_csharp): Update.
+	* write-java.c Include filename.h instead of pathname.h.
+	(msgdomain_write_java): Update.
+	* write-resources.c: Include filename.h instead of pathname.h.
+	(msgdomain_write_csharp_resources): Update.
+	* write-tcl.c: Include filename.h instead of pathname.h.
+	(msgdomain_write_tcl): Update.
+	* xgettext.c: Include filename.h instead of pathname.h.
+	(main, xgettext_open): Update.
+
 2007-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* file-list.c: Don't include exit.h.

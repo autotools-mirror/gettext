@@ -40,7 +40,7 @@
 #include "msgl-iconv.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "pathname.h"
+#include "filename.h"
 #include "fwriteerror.h"
 #include "gettext.h"
 
@@ -175,7 +175,7 @@ but the C# .resources format doesn't support plural handling\n")));
 	  gettextexedir = relocate (LIBDIR "/gettext");
 
 	assembly_path =
-	  concatenated_pathname (gettextexedir, "msgfmt.net", ".exe");
+	  concatenated_filename (gettextexedir, "msgfmt.net", ".exe");
 
 	locals.mlp = mlp;
 
