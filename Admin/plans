@@ -66,3 +66,5 @@ Things we plan to do. Comments welcome.
 
 - xgettext should have a simpler way to specify the --flags.
 
+- man page pgettext.3
+
