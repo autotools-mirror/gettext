@@ -229,9 +229,6 @@ lib/ostream.oo.h \
 lib/progname.h.diff \
 lib/propername.c \
 lib/propername.h \
-lib/relocatable.c \
-lib/relocatable.h \
-lib/relocwrapper.c \
 lib/strerror.c.diff \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
@@ -265,7 +262,6 @@ m4/java.m4 \
 m4/moo.m4 \
 m4/quotearg.m4.diff \
 m4/quote.m4.diff \
-m4/relocatable.m4 \
 m4/termcap.m4 \
 m4/terminfo.m4 \
 m4/term-ostream.m4 \
