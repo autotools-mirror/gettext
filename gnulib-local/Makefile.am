@@ -250,8 +250,6 @@ lib/xerror.h \
 lib/xgetcwd.c \
 lib/xgetcwd.h \
 lib/xmalloc.c \
-lib/xreadlink.c \
-lib/xreadlink.h \
 lib/xstrdup.c \
 m4/alloca.m4 \
 m4/backupfile.m4 \
@@ -273,7 +271,6 @@ m4/terminfo.m4 \
 m4/term-ostream.m4 \
 m4/unionwait.m4 \
 m4/vasprintf.m4 \
-m4/xreadlink.m4 \
 modules/backupfile \
 modules/basename \
 modules/closeout \
@@ -320,7 +317,6 @@ modules/xalloc \
 modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd \
-modules/xreadlink \
 tests/test-moo-aroot.oo.c \
 tests/test-moo-aroot.oo.h \
 tests/test-moo-assign.c \

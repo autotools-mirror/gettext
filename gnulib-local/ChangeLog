@@ -1,3 +1,12 @@
+2007-02-28  Bruno Haible  <bruno@clisp.org>
+
+	Move module xreadlink to gnulib.
+	* modules/xreadlink: Remove file.
+	* lib/xreadlink.h: Remove file.
+	* lib/xreadlink.c: Remove file.
+	* m4/xreadlink.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove these files.
+
 2007-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* lib/closeout.c: Include <stdlib.h> instead of exit.h.
