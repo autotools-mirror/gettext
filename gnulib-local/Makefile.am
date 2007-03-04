@@ -229,7 +229,6 @@ lib/ostream.oo.h \
 lib/progname.h.diff \
 lib/propername.c \
 lib/propername.h \
-lib/strerror.c.diff \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
@@ -280,7 +279,6 @@ modules/gcj \
 modules/gen-lbrkprop \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
-modules/gettext-tools-libgettextpo-misc \
 modules/hash \
 modules/html-ostream \
 modules/html-styled-ostream \
@@ -293,12 +291,9 @@ modules/memory-ostream \
 modules/moo \
 modules/moo-tests \
 modules/ostream \
-modules/progreloc \
 modules/propername \
 modules/quotearg.diff \
 modules/quote.diff \
-modules/relocatable \
-modules/relocwrapper \
 modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
