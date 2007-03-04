@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -60,4 +60,3 @@ RELOCATABLE_LIBRARY_PATH = $(libdir)
 RELOCATABLE_SRC_DIR = $(top_srcdir)/gnulib-lib
 RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
-@SET_RELOCATABLE@

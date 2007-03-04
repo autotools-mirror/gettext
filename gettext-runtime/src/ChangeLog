@@ -1,3 +1,8 @@
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
+	Moved --enable-relocatable infrastructure to gnulib.
+	* Makefile.am: Remove SET_RELOCATABLE invocation.
+
 2007-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c: Don't include exit.h.
