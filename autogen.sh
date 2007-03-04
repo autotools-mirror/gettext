@@ -8,7 +8,7 @@
 #     in a gnulib checkout, or
 #   - the cvs program in the PATH and an internet connection.
 
-# Copyright (C) 2003-2006 Free Software Foundation, Inc.
+# Copyright (C) 2003-2007 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ fi
 # Skip the gnulib-tool step if gnulib-tool was not found.
 if test -n "$GNULIB_TOOL"; then
   # In gettext-runtime:
+  mv -f gettext-runtime/gnulib-m4/gnulib-cache.m4 gettext-runtime/gnulib-m4/gnulib-cache.m4~
   GNULIB_MODULES_RUNTIME_FOR_SRC='
   atexit
   basename
@@ -78,6 +79,7 @@ if test -n "$GNULIB_TOOL"; then
   $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
   # In gettext-tools:
+  mv -f gettext-tools/gnulib-m4/gnulib-cache.m4 gettext-tools/gnulib-m4/gnulib-cache.m4~
   GNULIB_MODULES_TOOLS_FOR_SRC='
   alloca-opt
   atexit
@@ -175,6 +177,7 @@ if test -n "$GNULIB_TOOL"; then
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
   # In gettext-tools/libgettextpo:
+  mv -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4 gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4~
   # This is a subset of the GNULIB_MODULES_FOR_SRC.
   GNULIB_MODULES_LIBGETTEXTPO='
   basename
