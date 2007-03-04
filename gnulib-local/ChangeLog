@@ -1,5 +1,11 @@
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
+	* lib/propername.c (proper_name, proper_name_utf8): Use mbsstr instead
+	of strstr.
+	* modules/propername (Depends-on): Remove strstr. Add mbsstr.
+
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
 	Moved --enable-relocatable infrastructure to gnulib.
 	* modules/gettext-tools-libgettextpo-misc: Remove file.
 	* modules/progreloc: Remove file.

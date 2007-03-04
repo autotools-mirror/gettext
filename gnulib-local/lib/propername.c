@@ -47,7 +47,7 @@ proper_name (const char *name)
   if (translation != name)
     {
       /* See whether the translation contains the original name.  */
-      if (strstr (translation, name) != NULL)
+      if (mbsstr (translation, name) != NULL)
 	return translation;
       else
 	{
@@ -121,9 +121,9 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
 	 The multibyte-aware mbsstr() is not absolutely necessary here.  */
       if (c_strstr (translation, name_ascii) != NULL
 	  || (name_converted != NULL
-	      && strstr (translation, name_converted) != NULL)
+	      && mbsstr (translation, name_converted) != NULL)
 	  || (name_converted_translit != NULL
-	      && strstr (translation, name_converted_translit) != NULL))
+	      && mbsstr (translation, name_converted_translit) != NULL))
 	{
 	  if (alloc_name_converted != NULL)
 	    free (alloc_name_converted);

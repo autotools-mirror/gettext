@@ -11,7 +11,7 @@ localcharset
 c-strcase
 xstriconv
 c-strstr
-strstr
+mbsstr
 xalloc
 gettext-h
 
