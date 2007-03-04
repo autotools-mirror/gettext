@@ -1,5 +1,11 @@
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC,
+	GNULIB_MODULES_LIBGETTEXTPO): Use module 'filename' instead of
+	'pathname'.
+
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: Remove gnulib-cache.m4 files before running gnulib-tool,
 	so that removed modules are really dropped.
 
