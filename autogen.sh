@@ -63,8 +63,7 @@ if test -n "$GNULIB_TOOL"; then
   memmove
   progname
   propername
-  relocatable
-  relocwrapper
+  relocatable-prog
   stdbool
   strtoul
   unlocked-io
@@ -129,8 +128,8 @@ if test -n "$GNULIB_TOOL"; then
   pipe
   progname
   propername
-  relocatable
-  relocwrapper
+  relocatable-prog
+  relocatable-script
   sh-quote
   stdbool
   stpcpy
@@ -200,6 +199,7 @@ if test -n "$GNULIB_TOOL"; then
   minmax
   ostream
   progname
+  relocatable-lib
   stdbool
   ucs4-utf8
   unlocked-io
@@ -213,7 +213,6 @@ if test -n "$GNULIB_TOOL"; then
   xvasprintf
   '
   GNULIB_MODULES_LIBGETTEXTPO_OTHER='
-  gettext-tools-libgettextpo-misc
   '
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER

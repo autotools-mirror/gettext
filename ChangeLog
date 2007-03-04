@@ -1,5 +1,15 @@
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
+	Moved --enable-relocatable infrastructure to gnulib.
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC): Add relocatable-prog.
+	Remove relocatable, relocwrapper.
+	(GNULIB_MODULES_TOOLS_FOR_SRC): Likewise.
+	(GNULIB_MODULES_LIBGETTEXTPO): Add relocatable-lib.
+	(GNULIB_MODULES_LIBGETTEXTPO_OTHER): Remove
+	gettext-tools-libgettextpo-misc.
+
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC,
 	GNULIB_MODULES_LIBGETTEXTPO): Use module 'filename' instead of
 	'pathname'.
