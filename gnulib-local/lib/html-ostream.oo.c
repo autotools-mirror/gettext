@@ -1,5 +1,5 @@
 /* Output stream that produces HTML output.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -268,7 +268,8 @@ html_ostream_create (ostream_t destination)
 
   stream->base.vtable = &html_ostream_vtable;
   stream->destination = destination;
-  stream->class_stack = gl_list_create_empty (GL_ARRAY_LIST, NULL, NULL, true);
+  stream->class_stack =
+    gl_list_create_empty (GL_ARRAY_LIST, NULL, NULL, NULL, true);
   stream->curr_class_stack_size = 0;
   stream->last_class_stack_size = 0;
   stream->buflen = 0;
