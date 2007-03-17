@@ -1,3 +1,9 @@
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in (libintl_printf): Treat BeOS like NetBSD and Woe32
+	systems.
+	* printf.c (libintl_printf): Likewise.
+
 2007-02-25  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Fix estimate of size needed for a 'a' or

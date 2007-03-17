@@ -1,3 +1,8 @@
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
+	* printf-posix.m4 (gt_PRINTF_POSIX): Treat BeOS like NetBSD and Woe32
+	systems.
+
 2007-02-13  Bruno Haible  <bruno@clisp.org>
 
 	* intdiv0.m4 (gt_INTDIV0): Assume ANSI C. Fix underquoting bug.
