@@ -107,3 +107,12 @@ xstriconv.c
 xstriconv.h
 xvasprintf.c
 xvasprintf.h
+concat-filename.c
+diffseq.h
+file-ostream.oo.c
+file-ostream.oo.h
+filename.h
+moo.h
+ostream.oo.c
+ostream.oo.h
+stdlib_.h

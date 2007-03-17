@@ -14,3 +14,4 @@ stamp-vti
 *.log
 *.cps
 *.fns
+relocatable.texi
