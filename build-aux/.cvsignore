@@ -1,0 +1,6 @@
+config.libpath
+install-reloc
+link-warning.h
+moopp
+reloc-ldflags
+relocatable.sh.in
