@@ -739,6 +739,8 @@ enum token_type_ty
   token_type_lparen,		/* ( */
   token_type_rparen,		/* ) */
   token_type_comma,		/* , */
+  token_type_lbracket,		/* [ */
+  token_type_rbracket,		/* ] */
   token_type_string_literal,	/* "abc" */
   token_type_symbol,		/* symbol, number */
   token_type_other		/* misc. operator */
@@ -1092,6 +1094,14 @@ x_php_lex (token_ty *tp)
 	  tp->type = token_type_comma;
 	  return;
 
+	case '[':
+	  tp->type = token_type_lbracket;
+	  return;
+
+	case ']':
+	  tp->type = token_type_rbracket;
+	  return;
+
 	case '<':
 	  {
 	    int c2 = phase1_getc ();
@@ -1261,14 +1271,17 @@ static flag_context_list_table_ty *flag_context_list_table;
    and msgid_plural can contain subexpressions of the same form.  */
 
 
-/* Extract messages until the next balanced closing parenthesis.
+/* Extract messages until the next balanced closing parenthesis or bracket.
    Extracted messages are added to MLP.
+   DELIM can be either token_type_rparen or token_type_rbracket, or
+   token_type_eof to accept both.
    Return true upon eof, false upon closing parenthesis.  */
 static bool
-extract_parenthesized (message_list_ty *mlp,
-		       flag_context_ty outer_context,
-		       flag_context_list_iterator_ty context_iter,
-		       struct arglist_parser *argparser)
+extract_balanced (message_list_ty *mlp,
+		  token_type_ty delim,
+		  flag_context_ty outer_context,
+		  flag_context_list_iterator_ty context_iter,
+		  struct arglist_parser *argparser)
 {
   /* Current argument number.  */
   int arg = 1;
@@ -1317,9 +1330,10 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case token_type_lparen:
-	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
-				     arglist_parser_alloc (mlp,
-							   state ? next_shapes : NULL)))
+	  if (extract_balanced (mlp, token_type_rparen,
+				inner_context, next_context_iter,
+				arglist_parser_alloc (mlp,
+						      state ? next_shapes : NULL)))
 	    {
 	      arglist_parser_done (argparser, arg);
 	      return true;
@@ -1329,8 +1343,14 @@ extract_parenthesized (message_list_ty *mlp,
 	  continue;
 
 	case token_type_rparen:
-	  arglist_parser_done (argparser, arg);
-	  return false;
+	  if (delim == token_type_rparen || delim == token_type_eof)
+	    {
+	      arglist_parser_done (argparser, arg);
+	      return false;
+	    }
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
+	  continue;
 
 	case token_type_comma:
 	  arg++;
@@ -1339,6 +1359,25 @@ extract_parenthesized (message_list_ty *mlp,
 			       flag_context_list_iterator_advance (
 				 &context_iter));
 	  next_context_iter = passthrough_context_list_iterator;
+	  state = 0;
+	  continue;
+
+	case token_type_lbracket:
+	  if (extract_balanced (mlp, token_type_rbracket,
+				null_context, null_context_list_iterator,
+				arglist_parser_alloc (mlp, NULL)))
+	    {
+	      arglist_parser_done (argparser, arg);
+	      return true;
+	    }
+
+	case token_type_rbracket:
+	  if (delim == token_type_rbracket || delim == token_type_eof)
+	    {
+	      arglist_parser_done (argparser, arg);
+	      return false;
+	    }
+	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
@@ -1400,10 +1439,11 @@ extract_php (FILE *f,
   /* Initial mode is HTML mode, not PHP mode.  */
   skip_html ();
 
-  /* Eat tokens until eof is seen.  When extract_parenthesized returns
+  /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
-				 arglist_parser_alloc (mlp, NULL)))
+  while (!extract_balanced (mlp, token_type_eof,
+			    null_context, null_context_list_iterator,
+			    arglist_parser_alloc (mlp, NULL)))
     ;
 
   /* Close scanner.  */

@@ -1,3 +1,13 @@
+2007-03-17  Bruno Haible  <bruno@clisp.org>
+
+	* x-php.c (enum token_type_ty): New values token_type_lbracket,
+	token_type_rbracket.
+	(x_php_lex): Recognize also token_type_lbracket, token_type_rbracket.
+	(extract_balanced): Renamed from extract_parenthesized. Add 'delim'
+	argument. Handle token_type_lbracket and token_type_rbracket.
+	(extract_php): Update.
+	Reported by Robert Vock <RobertVock@gmx.de>.
+
 2007-03-10  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (get_user_fullname): Reduce scope of local variables.
