@@ -1003,14 +1003,15 @@ static const char *
 get_user_fullname ()
 {
   struct passwd *pwd;
-  const char *fullname;
-  const char *fullname_end;
-  char *result;
 
   pwd = get_user_pwd ();
 #if HAVE_PWD_H
   if (pwd != NULL)
     {
+      const char *fullname;
+      const char *fullname_end;
+      char *result;
+
       /* Return the pw_gecos field, upto the first comma (if any).  */
       fullname = pwd->pw_gecos;
       fullname_end = strchr (fullname, ',');

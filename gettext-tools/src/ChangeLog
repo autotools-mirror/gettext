@@ -1,3 +1,7 @@
+2007-03-10  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (get_user_fullname): Reduce scope of local variables.
+
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
 	Moved --enable-relocatable infrastructure to gnulib.
