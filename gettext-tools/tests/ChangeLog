@@ -1,3 +1,9 @@
+2007-03-19  Bruno Haible  <bruno@clisp.org>
+
+	* lang-php: Use <?php instead of <?, since the latter does not work
+	when php is configured with short_open_tag = off.
+	Patch by Jens Petersen <petersen@redhat.com>.
+
 2007-03-17  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-php-1: Test that strings [ ] are not extracted for an outer
