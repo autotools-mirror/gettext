@@ -1,5 +1,4 @@
 // Example for use of GNU gettext.
-// Copyright (C) 2003-2004 Free Software Foundation, Inc.
 // This file is in the public domain.
 //
 // Source code of the C#/Forms program.

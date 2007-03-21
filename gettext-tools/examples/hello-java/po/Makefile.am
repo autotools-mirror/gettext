@@ -1,5 +1,4 @@
 # Example for use of GNU gettext.
-# Copyright (C) 2003-2005 Free Software Foundation, Inc.
 # This file is in the public domain.
 #
 # Makefile configuration - processed by automake.
