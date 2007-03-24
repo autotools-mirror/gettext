@@ -56,7 +56,7 @@
 #define _(str) gettext(str)
 
 #if HAVE_ICONV
-# include "utf8-ucs4.h"
+# include "unistr.h"
 #endif
 
 #if HAVE_DECL_GETC_UNLOCKED

@@ -36,8 +36,7 @@
 #include "xalloc.h"
 #include "hash.h"
 #include "po-charset.h"
-#include "utf16-ucs4.h"
-#include "ucs4-utf8.h"
+#include "unistr.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

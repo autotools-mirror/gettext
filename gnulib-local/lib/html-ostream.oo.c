@@ -27,7 +27,7 @@
 
 #include "gl_list.h"
 #include "gl_array_list.h"
-#include "utf8-ucs4.h"
+#include "unistr.h"
 #include "xalloc.h"
 
 struct html_ostream : struct ostream

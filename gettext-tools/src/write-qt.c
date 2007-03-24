@@ -36,7 +36,7 @@
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "hash-string.h"
-#include "utf8-ucs4.h"
+#include "unistr.h"
 #include "xalloc.h"
 #include "obstack.h"
 #include "hash.h"

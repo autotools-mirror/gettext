@@ -45,9 +45,7 @@
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "uniname.h"
-#include "utf16-ucs4.h"
-#include "utf8-ucs4.h"
-#include "ucs4-utf8.h"
+#include "unistr.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

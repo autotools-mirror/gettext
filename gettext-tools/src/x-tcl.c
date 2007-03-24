@@ -40,7 +40,7 @@
 #include "hash.h"
 #include "c-ctype.h"
 #include "po-charset.h"
-#include "ucs4-utf8.h"
+#include "unistr.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

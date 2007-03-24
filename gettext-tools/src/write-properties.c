@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
-#include "utf8-ucs4.h"
+#include "unistr.h"
 #include "ostream.h"
 #include "write-po.h"
 #include "xalloc.h"

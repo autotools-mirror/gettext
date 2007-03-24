@@ -39,7 +39,7 @@
 #include "xallocsa.h"
 #include "filename.h"
 #include "fwriteerror.h"
-#include "utf8-ucs4.h"
+#include "unistr.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

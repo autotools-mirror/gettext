@@ -1,3 +1,22 @@
+2007-03-24  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c: Include unistr.h instead of utf8-ucs4.h.
+	* read-properties.c: Include unistr.h instead of utf16-ucs4.h,
+	ucs4-utf8.h.
+	* x-java.c: Likewise.
+	* read-stringtable.c: Include unistr.h instead of utf8-ucs4.h,
+	ucs4-utf8.h.
+	* x-csharp.c: Likewise.
+	* write-csharp.c: Include unistr.h instead of utf8-ucs4.h.
+	* write-java.c: Likewise.
+	* write-properties.c: Likewise.
+	* write-qt.c: Likewise.
+	* write-tcl.c: Likewise.
+	* x-perl.c: Likewise.
+	* x-python.c: Include unistr.h instead of utf8-ucs4.h, utf16-ucs4.h,
+	ucs4-utf8.h.
+	* x-tcl.c: Include unistr.h instead of ucs4-utf8.h.
+
 2007-03-17  Bruno Haible  <bruno@clisp.org>
 
 	* x-php.c (enum token_type_ty): New values token_type_lbracket,
