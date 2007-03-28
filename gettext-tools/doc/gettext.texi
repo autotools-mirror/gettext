@@ -2350,7 +2350,7 @@ forward translation bug reports, nor even keep a list of the addresses of
 the translators or their translation teams.
 
 Every program has a place where is shows the bug report address.  For
-GNU programs, it is the code which handles the ``--usage'' option,
+GNU programs, it is the code which handles the ``--help'' option,
 typically in a function called ``usage''.  In this place, instruct the
 translator to add her own bug reporting address.  For example, if that
 code has a statement
