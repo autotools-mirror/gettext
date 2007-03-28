@@ -1,3 +1,9 @@
+2007-03-27  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (usage): Ask translators to specify a translation bug
+	report address.
+	* tstngettext.c (usage): Likewise.
+
 2007-03-19  Bruno Haible  <bruno@clisp.org>
 
 	* lang-php: Use <?php instead of <?, since the latter does not work

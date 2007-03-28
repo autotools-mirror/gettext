@@ -1,3 +1,10 @@
+2007-03-27  Bruno Haible  <bruno@clisp.org>
+
+	* envsubst.c (usage): Ask translators to specify a translation bug
+	report address.
+	* gettext.c (usage): Likewise.
+	* ngettext.c (usage): Likewise.
+
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
 	Moved --enable-relocatable infrastructure to gnulib.
