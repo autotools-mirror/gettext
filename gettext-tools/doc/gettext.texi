@@ -191,6 +191,7 @@ Preparing Program Sources
 * Marking::                     Marking Translatable Strings
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
+* Bug Report Address::          Letting Users Report Translation Bugs
 * Names::                       Marking Proper Names for Translation
 * Libraries::                   Preparing Library Sources
 
@@ -1522,6 +1523,7 @@ needing translation.
 * Marking::                     Marking Translatable Strings
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
+* Bug Report Address::          Letting Users Report Translation Bugs
 * Names::                       Marking Proper Names for Translation
 * Libraries::                   Preparing Library Sources
 @end menu
@@ -2333,7 +2335,61 @@ sure the output is really translated in any case.  But this analysis is
 generally not very difficult.  If it should be in any situation you can
 use this second method in this situation.
 
-@node Names, Libraries, Special cases, Sources
+@node Bug Report Address, Names, Special cases, Sources
+@section Letting Users Report Translation Bugs
+
+Code sometimes has bugs, but translations sometimes have bugs too.  The
+users need to be able to report them.  Reporting translation bugs to the
+programmer or maintainer of a package is not very useful, since the
+maintainer must never change a translation, except on behalf of the
+translator.  Hence the translation bugs must be reported to the
+translators.
+
+Here is a way to organize this so that the maintainer does not need to
+forward translation bug reports, nor even keep a list of the addresses of
+the translators or their translation teams.
+
+Every program has a place where is shows the bug report address.  For
+GNU programs, it is the code which handles the ``--usage'' option,
+typically in a function called ``usage''.  In this place, instruct the
+translator to add her own bug reporting address.  For example, if that
+code has a statement
+
+@example
+@group
+printf (_("Report bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+@end group
+@end example
+
+you can add some translator instructions like this:
+
+@example
+@group
+/* TRANSLATORS: The placeholder indicates the bug-reporting address
+   for this package.  Please add _another line_ saying
+   "Report translation bugs to <...>\n" with the address for translation
+   bugs (typically your translation team's web or email address).  */
+printf (_("Report bugs to <%s>.\n"), PACKAGE_BUGREPORT);
+@end group
+@end example
+
+These will be extracted by @samp{xgettext}, leading to a .pot file that
+contains this:
+
+@example
+@group
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/hello.c:178
+#, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr ""
+@end group
+@end example
+
+@node Names, Libraries, Bug Report Address, Sources
 @section Marking Proper Names for Translation
 
 Should names of persons, cities, locations etc. be marked for translation
