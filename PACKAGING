@@ -68,7 +68,6 @@ following file list.
       $prefix/share/doc/gettext/*.3.html
 
       $prefix/share/gettext/libintl.jar
-      $prefix/share/doc/gettext/javadoc1/*
       $prefix/share/doc/gettext/javadoc2/*
 
       $prefix/lib/GNU.Gettext.dll
