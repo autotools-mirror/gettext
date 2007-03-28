@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/intl-java subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -27,14 +27,13 @@ jardir = $(datadir)/gettext
 
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../javacomp.sh
-JAVADOC1 = test ! -d /usr/lib/jdk1.1.8 || env PATH=/usr/lib/jdk1.1.8/bin:$$PATH javadoc
 JAVADOC2 = test ! -d /usr/lib/jdk1.3.1 || env PATH=/usr/lib/jdk1.3.1/bin:$$PATH javadoc
 
 
-all-local: all-classes all-javadoc1 all-javadoc2
-install-data-local: install-classes install-javadoc1 install-javadoc2
-installdirs-local: installdirs-classes installdirs-javadoc1 installdirs-javadoc2
-uninstall-local: uninstall-classes uninstall-javadoc1 uninstall-javadoc2
+all-local: all-classes all-javadoc2
+install-data-local: install-classes install-javadoc2
+installdirs-local: installdirs-classes installdirs-javadoc2
+uninstall-local: uninstall-classes uninstall-javadoc2
 
 
 # Special rules for Java compilation.
@@ -65,55 +64,6 @@ installdirs-classes:
 
 uninstall-classes:
 	$(RM) $(DESTDIR)$(jardir)/libintl.jar
-
-
-# Special rules for Javadoc (JDK 1.1) documentation.
-
-all-javadoc1: $(srcdir)/javadoc1/tree.html
-
-$(srcdir)/javadoc1/tree.html: $(srcdir)/gnu/gettext/GettextResource.java
-	cd $(srcdir) && $(JAVADOC1) -d javadoc1 gnu/gettext/*.java
-
-JAVADOC1_FILES = \
-  javadoc1/packages.html javadoc1/tree.html javadoc1/AllNames.html \
-  javadoc1/gnu.gettext.GettextResource.html \
-  javadoc1/images/blue-ball-small.gif javadoc1/images/blue-ball.gif \
-  javadoc1/images/class-index.gif \
-  javadoc1/images/constructor-index.gif \
-  javadoc1/images/constructors.gif \
-  javadoc1/images/cyan-ball-small.gif javadoc1/images/cyan-ball.gif \
-  javadoc1/images/error-index.gif \
-  javadoc1/images/exception-index.gif \
-  javadoc1/images/green-ball-small.gif javadoc1/images/green-ball.gif \
-  javadoc1/images/interface-index.gif \
-  javadoc1/images/magenta-ball-small.gif javadoc1/images/magenta-ball.gif \
-  javadoc1/images/method-index.gif \
-  javadoc1/images/methods.gif \
-  javadoc1/images/package-index.gif \
-  javadoc1/images/red-ball-small.gif javadoc1/images/red-ball.gif \
-  javadoc1/images/variable-index.gif \
-  javadoc1/images/variables.gif \
-  javadoc1/images/yellow-ball-small.gif javadoc1/images/yellow-ball.gif
-
-EXTRA_DIST += $(JAVADOC1_FILES)
-
-install-javadoc1: all-javadoc1
-	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1
-	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1/images
-	@for f in $(JAVADOC1_FILES); do \
-	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
-	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
-	done
-
-installdirs-javadoc1:
-	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1
-	$(mkdir_p) $(DESTDIR)$(htmldir)/javadoc1/images
-
-uninstall-javadoc1:
-	@for f in $(JAVADOC1_FILES); do \
-	  echo "$(RM) $(DESTDIR)$(htmldir)/$$f"; \
-	  $(RM) $(DESTDIR)$(htmldir)/$$f; \
-	done
 
 
 # Special rules for Javadoc (JDK 1.2) documentation.
