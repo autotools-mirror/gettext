@@ -71,7 +71,7 @@ uninstall-classes:
 all-javadoc2: $(srcdir)/javadoc2/index.html
 
 $(srcdir)/javadoc2/index.html: $(srcdir)/gnu/gettext/GettextResource.java
-	cd $(srcdir) && $(JAVADOC2) -d javadoc2 gnu/gettext/*.java
+	cd $(srcdir) && $(JAVADOC2) -d javadoc2 gnu.gettext gnu/gettext/*.java
 
 JAVADOC2_FILES = \
   javadoc2/index.html \

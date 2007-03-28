@@ -1,5 +1,6 @@
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (javadoc2/index.html): Pass the package name to javadoc.
 	* javadoc2/package-list: Mention package gnu.gettext.
 	Reported by Jens Petersen <petersen@redhat.com>.
 
