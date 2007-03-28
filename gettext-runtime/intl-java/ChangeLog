@@ -1,5 +1,10 @@
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
+	* javadoc2/package-list: Mention package gnu.gettext.
+	Reported by Jens Petersen <petersen@redhat.com>.
+
+2007-03-27  Bruno Haible  <bruno@clisp.org>
+
 	* javadoc1/**: Remove files.
 	* Makefile.am (JAVADOC1, JAVADOC1_FILES): Remove variables.
 	(all-javadoc1, javadoc1/tree.html, install-javadoc1,
