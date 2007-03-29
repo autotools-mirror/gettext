@@ -1,3 +1,8 @@
+2007-03-25  Bruno Haible  <bruno@clisp.org>
+
+	* lib/printf-parse.c [!IN_LIBINTL]: Include <stdint.h>, for intmax_t.
+	(PRINTF_PARSE): Make the support for size specifier 'j' unconditional.
+
 2007-02-25  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Fix estimate of size needed for a 'a' or
