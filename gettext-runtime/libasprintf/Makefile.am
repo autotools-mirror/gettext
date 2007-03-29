@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2006 Free Software Foundation, Inc.
+## Copyright (C) 2002-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -25,6 +25,8 @@ EXTRA_DIST =
 MOSTLYCLEANFILES =
 
 RM = rm -f
+
+DEFS = -DIN_LIBASPRINTF @DEFS@
 
 
 # Library include file.
