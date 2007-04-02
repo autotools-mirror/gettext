@@ -49,7 +49,7 @@ The following packages should be installed before GNU gettext is installed:
     http://www.kaffe.org/ftp/pub/kaffe/v1.1.x-development/
 
 * A C# runtime and compiler (e.g. pnet or mono).
-  + Recommended
+  + Recommended.
     Needed for building GNU.Gettext.dll. Also needed for 'msgfmt' and
     'msgunfmt', so that they can handle C# resources and assemblies.
   + Homepage:
@@ -95,3 +95,14 @@ The following packages should be installed before GNU gettext is installed:
     http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/
   + If it is installed in a nonstandard directory, pass the option
     --with-libcroco-0.6-prefix=DIR to 'configure'.
+
+The following packages should be installed when GNU gettext is installed:
+
+* CVS 1.11 or newer
+  + Recommended.
+    Needed by the 'autopoint' program.
+  + Homepage:
+    http://ximbiot.com/cvs/wiki/index.php?title=Main_Page
+    http://www.nongnu.org/cvs/
+  + Download:
+    http://ftp.gnu.org/non-gnu/cvs/
