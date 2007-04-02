@@ -1,3 +1,7 @@
+2007-03-27  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Don't mention share/doc/gettext/javadoc1/ any more.
+
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
 	Moved --enable-relocatable infrastructure to gnulib.
