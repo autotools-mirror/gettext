@@ -1,4 +1,4 @@
-2007-01-10  Bruno Haible  <bruno@clisp.org>
+2007-02-10  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (MSGMERGE_LIBM): Avoid inlining of the ceil, sqrt calls
 	on glibc systems.
