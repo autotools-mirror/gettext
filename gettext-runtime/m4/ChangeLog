@@ -1,3 +1,9 @@
+2007-04-06  Bruno Haible  <bruno@clisp.org>
+
+	Assume the 'long double' type.
+	* longdouble.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
 	* printf-posix.m4 (gt_PRINTF_POSIX): Treat BeOS like NetBSD and Woe32

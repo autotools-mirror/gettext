@@ -17,7 +17,6 @@ inttypes-pri.m4 \
 inttypes_h.m4 \
 lcmessage.m4 \
 lock.m4 \
-longdouble.m4 \
 longlong.m4 \
 nls.m4 \
 po.m4 \
