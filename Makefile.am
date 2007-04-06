@@ -55,7 +55,6 @@ distcheck-hook:
 	cmp -s gettext-runtime/m4/inttypes_h.m4 gettext-tools/gnulib-m4/inttypes_h.m4
 	cmp -s gettext-runtime/m4/lcmessage.m4 gettext-tools/gnulib-m4/lcmessage.m4
 	cmp -s gettext-runtime/m4/lock.m4 gettext-tools/gnulib-m4/lock.m4
-	cmp -s gettext-runtime/m4/longdouble.m4 gettext-tools/gnulib-m4/longdouble.m4
 	cmp -s gettext-runtime/m4/longlong.m4 gettext-tools/gnulib-m4/longlong.m4
 	cmp -s gettext-runtime/m4/nls.m4 gettext-tools/gnulib-m4/nls.m4
 	cmp -s gettext-runtime/m4/po.m4 gettext-tools/gnulib-m4/po.m4

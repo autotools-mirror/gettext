@@ -1,3 +1,7 @@
+2007-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/autoclean.sh: Don't remove longdouble.m4 any more.
+
 2007-03-20  Bruno Haible  <bruno@clisp.org>
 
 	Remove all "Copyright (C) ..." notices from files that are in the

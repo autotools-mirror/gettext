@@ -28,7 +28,6 @@ rm -f m4/lib-ld.m4
 rm -f m4/lib-link.m4
 rm -f m4/lib-prefix.m4
 rm -f m4/lock.m4
-rm -f m4/longdouble.m4
 rm -f m4/longlong.m4
 rm -f m4/nls.m4
 rm -f m4/po.m4
