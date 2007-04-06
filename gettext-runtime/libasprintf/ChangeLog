@@ -1,3 +1,10 @@
+2007-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.h: Assume HAVE_LONG_DOUBLE to be true.
+	* printf-args.c: Likewise.
+	* printf-parse.c: Likewise.
+	* vasnprintf.c: Likewise.
+
 2007-03-29  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (DEFS): New variable.
@@ -6,7 +13,7 @@
 
 2007-03-25  Bruno Haible  <bruno@clisp.org>
 
-	* lib/printf-parse.c [!IN_LIBINTL]: Include <stdint.h>, for intmax_t.
+	* printf-parse.c [!IN_LIBINTL]: Include <stdint.h>, for intmax_t.
 	(PRINTF_PARSE): Make the support for size specifier 'j' unconditional.
 
 2007-02-25  Bruno Haible  <bruno@clisp.org>

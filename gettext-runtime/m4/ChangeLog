@@ -2,7 +2,8 @@
 
 	Assume the 'long double' type.
 	* longdouble.m4: Remove file.
-	* Makefile.am (EXTRA_DIST): Remove it.
+	* intl.m4: Remove gt_TYPE_LONGDOUBLE invocation.
+	* Makefile.am (EXTRA_DIST): Remove longdouble.m4.
 
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
