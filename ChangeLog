@@ -1,3 +1,8 @@
+2007-04-10  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add module 'locale'.
+	Reported by Dennis Schridde <devurandom@gmx.net>.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (distcheck-hook): Don't compare longdouble.m4.

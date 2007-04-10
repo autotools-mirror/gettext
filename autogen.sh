@@ -123,6 +123,7 @@ if test -n "$GNULIB_TOOL"; then
   javaexec
   linebreak
   localcharset
+  locale
   lock
   memmove
   memset
