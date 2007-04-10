@@ -5,6 +5,17 @@
 	* intl.m4: Remove gt_TYPE_LONGDOUBLE invocation.
 	* Makefile.am (EXTRA_DIST): Remove longdouble.m4.
 
+2007-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* intdiv0.m4 (gt_INTDIV0): Avoid performing the test for real on x86
+	or x86_64 platforms running MacOS X.
+	Reported by Ryan Schmidt <@ryandesign.com>.
+
+2007-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* intdiv0.m4 (gt_INTDIV0): When cross-compiling, treat x86_64 like
+	i386.
+
 2007-03-04  Bruno Haible  <bruno@clisp.org>
 
 	* printf-posix.m4 (gt_PRINTF_POSIX): Treat BeOS like NetBSD and Woe32
