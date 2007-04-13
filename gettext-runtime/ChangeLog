@@ -1,3 +1,8 @@
+2007-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: For LIBSCHED, try also -lposix4.
+	Reported by Arto C. Nirkko <anirkko@insel.ch>.
+
 2006-10-27  Bruno Haible  <bruno@clisp.org>
 
 	Work around automake-1.10 annoyance.

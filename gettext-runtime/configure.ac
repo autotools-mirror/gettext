@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 dnl
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -108,7 +108,10 @@ dnl Checks for special libraries for the tests/test-lock test.
 dnl On some systems, sched_yield is in librt, rather than in libpthread.
 LIBSCHED=
 if test $gl_threads_api = posix; then
-  AC_CHECK_LIB(rt, sched_yield, [LIBSCHED=-lrt])
+  dnl Solaris has sched_yield in librt, not in libpthread or libc.
+  AC_CHECK_LIB(rt, sched_yield, [LIBSCHED=-lrt],
+    [dnl Solaris 2.5.1, 2.6 has sched_yield in libposix4, not librt.
+     AC_CHECK_LIB(posix4, sched_yield, [LIBSCHED=-lposix4])])
 fi
 AC_SUBST([LIBSCHED])
 
