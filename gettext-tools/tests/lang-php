@@ -15,7 +15,7 @@ cat <<\EOF > prog.php
   bindtextdomain ("prog", ".");
   echo _("'Your command, please?', asked the waiter.");
   echo "\n";
-  echo printf(_("%s is replaced by %s."), "FF", "EUR");
+  printf(_("%s is replaced by %s."), "FF", "EUR");
   echo "\n";
 ?>
 EOF
