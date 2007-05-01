@@ -31,7 +31,6 @@
 #include "error.h"
 #include "fatal-signal.h"
 #include "full-write.h"
-#include "sigprocmask.h"
 #include "terminfo.h"
 #include "xalloc.h"
 #include "xsize.h"
