@@ -1,6 +1,9 @@
 \input texinfo          @c -*-texinfo-*-
 @c %**start of header
 @setfilename autosprintf.info
+@c The @ifmakeinfo ... @end ifnottex conditional evaluates to true in makeinfo
+@c for info and html output, but to false in texi2html.
+@alias ifmakeinfo = ifnottex
 @settitle GNU @code{autosprintf}
 @finalout
 @c Indices:
@@ -75,7 +78,7 @@ by the Free Software Foundation (FSF).
 A copy of the license is at @url{http://www.gnu.org/licenses/gpl.html}.
 @end titlepage
 
-@ifinfo
+@ifmakeinfo
 @node Top, Introduction, (dir), (dir)
 @top GNU autosprintf
 
@@ -87,7 +90,7 @@ This manual documents the GNU autosprintf class, version @value{VERSION}.
 * Using autosprintf::           Using @code{autosprintf} in own programs
 @end menu
 
-@end ifinfo
+@end ifnottex
 
 @node Introduction, Class autosprintf, Top, Top
 @chapter Introduction

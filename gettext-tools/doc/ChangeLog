@@ -1,5 +1,11 @@
 2007-05-03  Bruno Haible  <bruno@clisp.org>
 
+	Add support for both "makeinfo --html" and texi2html.
+	* gettext.texi (ifmakeinfo): New alias.
+	(Top): Use it instead of @ifinfo.
+
+2007-05-03  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Bug Report Address): Fix cross references.
 
 2007-04-06  Bruno Haible  <bruno@clisp.org>

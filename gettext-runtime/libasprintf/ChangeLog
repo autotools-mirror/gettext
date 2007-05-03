@@ -1,3 +1,9 @@
+2007-05-03  Bruno Haible  <bruno@clisp.org>
+
+	Add support for both "makeinfo --html" and texi2html.
+	* autosprintf.texi (ifmakeinfo): New alias.
+	(Top): Use it instead of @ifinfo.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* printf-args.h: Assume HAVE_LONG_DOUBLE to be true.

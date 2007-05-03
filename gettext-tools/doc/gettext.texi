@@ -1,10 +1,13 @@
 \input texinfo          @c -*-texinfo-*-
 @c %**start of header
-@c The @documentencoding is needed for makeinfo, but not for texi2html.
-@c @ifhtml
-@c @documentencoding UTF-8
-@c @end ifhtml
 @setfilename gettext.info
+@c The @ifmakeinfo ... @end ifnottex conditional evaluates to true in makeinfo
+@c for info and html output, but to false in texi2html.
+@alias ifmakeinfo = ifnottex
+@c The @documentencoding is needed for makeinfo, but not for texi2html.
+@ifmakeinfo
+@documentencoding UTF-8
+@end ifnottex
 @settitle GNU @code{gettext} utilities
 @finalout
 @c Indices:
@@ -130,7 +133,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @contents
 @end ifnottex
 
-@ifinfo
+@ifmakeinfo
 @node Top, Introduction, (dir), (dir)
 @top GNU @code{gettext} utilities
 
@@ -460,7 +463,7 @@ Licenses
 @end detailmenu
 @end menu
 
-@end ifinfo
+@end ifnottex
 
 @node Introduction, Users, Top, Top
 @chapter Introduction
