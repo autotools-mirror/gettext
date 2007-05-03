@@ -2241,7 +2241,7 @@ user can find out who is responsible for the decision.  See
 @ref{xgettext Invocation} to see how the @code{--debug} option can be
 used for solving this problem.
 
-@node Special cases, Names, c-format Flag, Sources
+@node Special cases, Bug Report Address, c-format Flag, Sources
 @section Special Cases of Translatable Strings
 
 @cindex marking string initializers
