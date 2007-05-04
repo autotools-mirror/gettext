@@ -847,8 +847,8 @@ read while keeping an eye on the diagram.  Having a clear understanding
 of these interrelations will surely help programmers, translators
 and maintainers.
 
-@example
 @ifhtml
+@example
 @group
 Original C Sources ───> Preparation ───> Marked C Sources ───╮
                                                              │
@@ -871,8 +871,10 @@ Original C Sources ───> Preparation ───> Marked C Sources ───�
 │                                              ├───> "Hello world!"
 ╰───────> install ───> /.../bin/PROGRAM ───────╯
 @end group
+@end example
 @end ifhtml
 @ifnothtml
+@example
 @group
 Original C Sources ---> Preparation ---> Marked C Sources ---.
                                                              |
@@ -895,8 +897,8 @@ Original C Sources ---> Preparation ---> Marked C Sources ---.
 |                                              +---> "Hello world!"
 `-------> install ---> /.../bin/PROGRAM -------'
 @end group
-@end ifnothtml
 @end example
+@end ifnothtml
 
 @cindex marking translatable strings
 As a programmer, the first step to bringing GNU @code{gettext}

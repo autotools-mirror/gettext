@@ -1,5 +1,12 @@
 2007-05-04  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Overview of GNU gettext): Put @ifhtml outside @example,
+	not @inside. Fixes an indentation problem of the first line when
+	"makeinfo --html" is used.
+	Reported by Noah Slater <nslater@gmail.com>.
+
+2007-05-04  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi: Make the @documentencoding command unconditional.
 
 2007-05-03  Bruno Haible  <bruno@clisp.org>
