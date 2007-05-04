@@ -4,10 +4,8 @@
 @c The @ifmakeinfo ... @end ifnottex conditional evaluates to true in makeinfo
 @c for info and html output, but to false in texi2html.
 @alias ifmakeinfo = ifnottex
-@c The @documentencoding is needed for makeinfo, but not for texi2html.
-@ifmakeinfo
+@c The @documentencoding is needed for makeinfo; texi2html accepts it as well.
 @documentencoding UTF-8
-@end ifnottex
 @settitle GNU @code{gettext} utilities
 @finalout
 @c Indices:
