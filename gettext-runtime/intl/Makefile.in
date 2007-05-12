@@ -400,6 +400,8 @@ install-data: all
 
 install-strip: install
 
+install-dvi install-html install-info install-ps install-pdf:
+
 installdirs:
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
 	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
