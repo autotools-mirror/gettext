@@ -1,6 +1,7 @@
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 
-	* lib/glibconfig_.h: Include stdio.h instead of vasprintf.h.
+	* lib/vasprintf.c: Include stdio.h instead of vasprintf.h.
+	* lib/glibconfig_.h: Likewise.
 
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 

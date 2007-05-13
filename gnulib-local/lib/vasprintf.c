@@ -1,6 +1,6 @@
 /* Like vsprintf but provides a pointer to malloc'd storage, which must
    be freed by the caller.
-   Copyright (C) 1994, 1998, 1999, 2000-2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 1994, 1998-1999, 2000-2003, 2006-2007 Free Software Foundation, Inc.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 #include <config.h>
 
 /* Specification.  */
-#include "vasprintf.h"
+#include <stdio.h>
 
 #include <stdio.h>
 #include <string.h>
