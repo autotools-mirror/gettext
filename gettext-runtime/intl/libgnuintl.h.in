@@ -330,7 +330,7 @@ extern int fprintf (FILE *, const char *, ...);
 extern int vfprintf (FILE *, const char *, va_list);
 
 #undef printf
-#if defined __NetBSD__ || define __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
+#if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
 /* Don't break __attribute__((format(printf,M,N))).
    This redefinition is only possible because the libc in NetBSD, Cygwin,
    mingw does not have a function __printf__.  */
