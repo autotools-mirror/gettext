@@ -1,29 +1,8 @@
-*** gnulib/lib/linebreak.c	2006-07-22 17:27:19.000000000 +0200
---- gettext-tools/lib/linebreak.c	2005-05-21 00:19:09.000000000 +0200
+*** linebreak.c.orig	2007-05-13 18:54:06.000000000 +0200
+--- linebreak.c	2007-05-13 18:54:20.000000000 +0200
 ***************
-*** 30,38 ****
-  
-  #include "utf8-ucs4-unsafe.h"
-  
-  #include "utf16-ucs4-unsafe.h"
-  
-- #ifdef unused
-  static inline int
-  u32_mbtouc (unsigned int *puc, const unsigned int *s, size_t n)
-  {
---- 30,38 ----
-  
-  #include "utf8-ucs4-unsafe.h"
-  
-+ #ifdef unused
-  #include "utf16-ucs4-unsafe.h"
-  
-  static inline int
-  u32_mbtouc (unsigned int *puc, const unsigned int *s, size_t n)
-  {
-***************
-*** 460,465 ****
---- 460,467 ----
+*** 455,460 ****
+--- 455,462 ----
   }
   
   
@@ -33,8 +12,8 @@
      (or fewer if S ends before this) in S.  */
   
 ***************
-*** 533,538 ****
---- 535,542 ----
+*** 528,533 ****
+--- 530,537 ----
     return width;
   }
   
@@ -44,8 +23,8 @@
   /* Determine the line break points in S, and store the result at p[0..n-1].  */
   /* We don't support line breaking of complex-context dependent characters
 ***************
-*** 741,746 ****
---- 745,752 ----
+*** 736,741 ****
+--- 740,747 ----
       }
   }
   
@@ -55,8 +34,8 @@
   u16_possible_linebreaks (const unsigned short *s, size_t n, const char *encoding, char *p)
   {
 ***************
-*** 961,966 ****
---- 967,974 ----
+*** 956,961 ****
+--- 962,969 ----
       }
   }
   
@@ -66,8 +45,8 @@
   /* Choose the best line breaks, assuming the uc_width function.
      Return the column after the end of the string.  */
 ***************
-*** 1049,1054 ****
---- 1057,1064 ----
+*** 1044,1049 ****
+--- 1052,1059 ----
     return last_column + piece_width;
   }
   
@@ -77,8 +56,8 @@
   u16_width_linebreaks (const unsigned short *s, size_t n,
                         int width, int start_column, int at_end_columns,
 ***************
-*** 1216,1221 ****
---- 1226,1233 ----
+*** 1211,1216 ****
+--- 1221,1228 ----
     return last_column + piece_width;
   }
   
@@ -88,8 +67,8 @@
   #ifdef TEST1
   
 ***************
-*** 1481,1486 ****
---- 1493,1500 ----
+*** 1476,1481 ****
+--- 1488,1495 ----
   
   #endif /* C_CTYPE_ASCII */
   
@@ -99,8 +78,8 @@
   mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
                            char *p)
 ***************
-*** 1574,1579 ****
---- 1588,1595 ----
+*** 1569,1574 ****
+--- 1583,1590 ----
       }
   }
   
