@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,6 @@
 #include "xerror.h"
 #include "po-error.h"
 #include "po-xerror.h"
-#include "vasprintf.h"
 #include "format.h"
 #include "msgl-check.h"
 #include "gettext.h"
