@@ -162,7 +162,7 @@ extern void g_log (const char *domain, int level, const char *format, ...) G_GNU
 
 /* ==================== Substitute for <glib/gprintf.h> ==================== */
 
-#include "vasprintf.h"
+#include <stdio.h>
 
 #define g_printf printf
 #define g_fprintf fprintf
