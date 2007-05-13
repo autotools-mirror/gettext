@@ -1,3 +1,8 @@
+2007-05-13  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-check.c: Include stdio.h instead of vasprintf.h.
+	* po-lex.c: Don't include vasprintf.h.
+
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (usage): Ask translators to specify a translation bug

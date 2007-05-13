@@ -39,7 +39,6 @@
 
 #include "c-ctype.h"
 #include "linebreak.h"
-#include "vasprintf.h"
 #include "gettext.h"
 #include "po-charset.h"
 #include "xalloc.h"

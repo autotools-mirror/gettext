@@ -26,6 +26,7 @@
 #include <limits.h>
 #include <setjmp.h>
 #include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
@@ -39,7 +40,6 @@
 #include "plural-eval.h"
 #include "plural-table.h"
 #include "c-strstr.h"
-#include "vasprintf.h"
 #include "message.h"
 #include "gettext.h"
 
