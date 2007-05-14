@@ -128,7 +128,6 @@ if test -n "$GNULIB_TOOL"; then
   memmove
   memset
   minmax
-  mkdir
   obstack
   ostream
   pipe
@@ -146,6 +145,7 @@ if test -n "$GNULIB_TOOL"; then
   strtol
   strtoul
   styled-ostream
+  sys_stat
   sys_time
   term-styled-ostream
   ucs4-utf8

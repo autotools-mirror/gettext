@@ -1,6 +1,6 @@
-2007-05-13  Bruno Haible  <bruno@clisp.org>
+2007-05-14  Bruno Haible  <bruno@clisp.org>
 
-	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add module 'mkdir'.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add module 'sys_stat'.
 
 2007-04-10  Bruno Haible  <bruno@clisp.org>
 
