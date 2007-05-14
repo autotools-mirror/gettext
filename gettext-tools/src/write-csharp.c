@@ -71,13 +71,6 @@
 # define S_IXOTH (S_IXUSR >> 6)
 #endif
 
-#ifdef __MINGW32__
-# include <io.h>
-/* mingw's _mkdir() function has 1 argument, but we pass 2 arguments.
-   Therefore we have to disable the argument count checking.  */
-# define mkdir ((int (*)()) _mkdir)
-#endif
-
 #include "c-ctype.h"
 #include "relocatable.h"
 #include "error.h"

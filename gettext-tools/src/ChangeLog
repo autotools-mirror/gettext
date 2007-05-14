@@ -1,5 +1,10 @@
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 
+	* write-java.c (mkdir): Remove definition. Now done by gnulib.
+	* write-csharp.c (mkdir): Remove definition. Now done by gnulib.
+
+2007-05-13  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-check.c: Include stdio.h instead of vasprintf.h.
 	* po-lex.c: Don't include vasprintf.h.
 
