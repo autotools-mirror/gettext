@@ -80,9 +80,11 @@ msgid "%s: invalid option -- %c\n"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test19.new1.po"
+tmpfiles="$tmpfiles mm-test19.tmp.po mm-test19.new1.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --previous -o mm-test19.new1.po mm-test19.po mm-test19.pot
+${MSGMERGE} -q --previous -o mm-test19.tmp.po mm-test19.po mm-test19.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test19.tmp.po > mm-test19.new1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test19.ok1"
@@ -168,9 +170,11 @@ msgid "Missing arguments."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test19.new2.po"
+tmpfiles="$tmpfiles mm-test19.tmp.po mm-test19.new2.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --previous -o mm-test19.new2.po mm-test19.new1.po mm-test19.pot
+${MSGMERGE} -q --previous -o mm-test19.tmp.po mm-test19.new1.po mm-test19.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test19.tmp.po > mm-test19.new2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test19.ok2"

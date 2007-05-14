@@ -51,9 +51,11 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer sous"
 EOF
 
-tmpfiles="$tmpfiles ma-test15.out"
+tmpfiles="$tmpfiles ma-test15.tmp ma-test15.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --clear-fuzzy -o ma-test15.out ma-test15.po
+${MSGATTRIB} --clear-fuzzy -o ma-test15.tmp ma-test15.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < ma-test15.tmp > ma-test15.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

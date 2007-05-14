@@ -13,9 +13,11 @@ print (_("John\n"
 "Ringo"));
 EOF
 
-tmpfiles="$tmpfiles xg-y-3.po"
+tmpfiles="$tmpfiles xg-y-3.tmp.po xg-y-3.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-y-3 xg-y-3.ycp
+${XGETTEXT} --omit-header --no-location -d xg-y-3.tmp xg-y-3.ycp
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-y-3.tmp.po > xg-y-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-y-3.ok"

@@ -5,9 +5,12 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles fc3.pot"
+tmpfiles="$tmpfiles fc3.tmp fc3.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc3.pot --omit-header --no-location ${top_srcdir}/tests/format-c-3-prg.c
+${XGETTEXT} -o fc3.tmp --omit-header --no-location ${top_srcdir}/tests/format-c-3-prg.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < fc3.tmp > fc3.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles fc3.ok"
 cat <<EOF > fc3.ok
@@ -33,12 +36,15 @@ test -d de/LC_MESSAGES || mkdir de/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o de/LC_MESSAGES/fc3.mo de.po
 
-tmpfiles="$tmpfiles de.po.tmp"
+tmpfiles="$tmpfiles de.po.tmp de.po.un"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o de.po.tmp de/LC_MESSAGES/fc3.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < de.po.tmp > de.po.un
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} de.po de.po.tmp || exit 1
+${DIFF} de.po de.po.un || exit 1
 
 LANGUAGE= ./fc3 de_DE
 result=$?

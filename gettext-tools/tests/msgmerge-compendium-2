@@ -28,9 +28,11 @@ msgid "one, two, three..."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-c-2.out"
+tmpfiles="$tmpfiles mm-c-2.tmp mm-c-2.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -C mm-c-2.com -o mm-c-2.out mm-c-2.in1 mm-c-2.pot
+${MSGMERGE} -q -C mm-c-2.com -o mm-c-2.tmp mm-c-2.in1 mm-c-2.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-c-2.tmp > mm-c-2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-c-2.ok"

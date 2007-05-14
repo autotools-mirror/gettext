@@ -19,10 +19,12 @@ cat <<EOF > xg-ls-1.lisp
 (write-line (gettext "The Fabulous Four"))
 EOF
 
-tmpfiles="$tmpfiles xg-ls-1.po"
+tmpfiles="$tmpfiles xg-ls-1.tmp.po xg-ls-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-ls-1 xg-ls-1.lisp
+  -d xg-ls-1.tmp xg-ls-1.lisp
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-ls-1.tmp.po > xg-ls-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ls-1.ok"

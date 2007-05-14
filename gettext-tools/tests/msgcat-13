@@ -68,10 +68,12 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer l'as"
 EOF
 
-tmpfiles="$tmpfiles mcat-test13.out"
-rm -f mcat-test13.out
+tmpfiles="$tmpfiles mcat-test13.tmp mcat-test13.out"
+rm -f mcat-test13.tmp
 : ${MSGCAT=msgcat}
-${MSGCAT} -o mcat-test13.out mcat-test13.in1 mcat-test13.in2
+${MSGCAT} -o mcat-test13.tmp mcat-test13.in1 mcat-test13.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcat-test13.tmp > mcat-test13.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test13.ok"

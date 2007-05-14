@@ -18,10 +18,12 @@ cat <<EOF > xg-el-1.el
 (princ (_ "The Fabulous Four"))
 EOF
 
-tmpfiles="$tmpfiles xg-el-1.po"
+tmpfiles="$tmpfiles xg-el-1.tmp.po xg-el-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-el-1 xg-el-1.el
+  -d xg-el-1.tmp xg-el-1.el
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-el-1.tmp.po > xg-el-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-el-1.ok"

@@ -56,9 +56,11 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer sous"
 EOF
 
-tmpfiles="$tmpfiles msguniq-5.out"
+tmpfiles="$tmpfiles msguniq-5.tmp msguniq-5.out"
 : ${MSGUNIQ-msguniq}
-${MSGUNIQ} -o msguniq-5.out msguniq-5.po
+${MSGUNIQ} -o msguniq-5.tmp msguniq-5.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < msguniq-5.tmp > msguniq-5.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles msguniq-5.ok"

@@ -114,12 +114,14 @@ cannot\ create\ pipe=Es ist nicht m\u00f6glich, eine Pipe zu erzeugen
 GSG-9=Antiterror-Einheit
 EOF
 
-tmpfiles="$tmpfiles mg-test6.out"
+tmpfiles="$tmpfiles mg-test6.tmp mg-test6.out"
 : ${MSGGREP=msggrep}
 LC_MESSAGES=C LC_ALL= \
-${MSGGREP} --properties-input --properties-output -K -e error -T -e Speicher -o mg-test6.out mg-test6.properties
+${MSGGREP} --properties-input --properties-output -K -e error -T -e Speicher -o mg-test6.tmp mg-test6.properties
 result=$?
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mg-test6.tmp > mg-test6.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test6.ok"
 cat <<\EOF > mg-test6.ok

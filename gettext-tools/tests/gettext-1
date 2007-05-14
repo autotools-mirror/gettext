@@ -13,7 +13,7 @@ cp $top_srcdir/tests/test.mo LC_MESSAGES
 tmpfiles="$tmpfiles gt-test1.out"
 : ${GETTEXT=gettext}
 TEXTDOMAINDIR=.. LANGUAGE=tests \
-${GETTEXT} --env LC_ALL=en -e test 'SYS_(C)\n' > gt-test1.out
+${GETTEXT} --env LC_ALL=en -e test 'SYS_(C)\n' | tr -d '\r' > gt-test1.out
 
 # Create correct file.
 tmpfile="$tmpfiles gtmf-test1.ok"

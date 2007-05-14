@@ -13,9 +13,11 @@ main(){printf(gettext("Hello, World!\n"));}
 gettext("nothing");
 EOF
 
-tmpfiles="$tmpfiles xg-c-3.po"
+tmpfiles="$tmpfiles xg-c-3.tmp.po xg-c-3.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --add-location -d xg-c-3 xg-c-3.in.c
+${XGETTEXT} --omit-header --add-location -d xg-c-3.tmp xg-c-3.in.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-3.tmp.po > xg-c-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-3.ok"

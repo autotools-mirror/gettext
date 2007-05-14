@@ -37,9 +37,11 @@ still\ existing=here is normally no comment
 # trailing comments should be removed, even here
 EOF
 
-tmpfiles="$tmpfiles mm-p-1.out"
+tmpfiles="$tmpfiles mm-p-1.tmp mm-p-1.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --properties-input --properties-output -o mm-p-1.out mm-p-1.in1 mm-p-1.in2
+${MSGMERGE} -q --properties-input --properties-output -o mm-p-1.tmp mm-p-1.in1 mm-p-1.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-p-1.tmp > mm-p-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-p-1.ok"

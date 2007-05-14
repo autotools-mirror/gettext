@@ -73,9 +73,12 @@ ${CXX} -I.. -I../../gettext-runtime/libasprintf -I$top_srcdir/gnulib-lib -I../in
 ${LIBTOOL} --quiet --mode=link ${CXX} ${CXXFLAGS} ${LDFLAGS} -o prog prog.${OBJEXT} ../../gettext-runtime/libasprintf/libasprintf.la ../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
   || exit 1
 
-tmpfiles="$tmpfiles prog.pot"
+tmpfiles="$tmpfiles prog.tmp prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.pot --omit-header --no-location -k_ prog.cc
+${XGETTEXT} -o prog.tmp --omit-header --no-location -k_ prog.cc
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < prog.tmp > prog.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok
@@ -119,9 +122,12 @@ msgid "%s is replaced by %s."
 msgstr "%2$s remplace %1$s."
 EOF
 
-tmpfiles="$tmpfiles fr.po.new"
+tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o fr.po.new fr.po prog.pot
+${MSGMERGE} -q -o fr.po.tmp fr.po prog.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < fr.po.tmp > fr.po.new
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} fr.po fr.po.new || exit 1

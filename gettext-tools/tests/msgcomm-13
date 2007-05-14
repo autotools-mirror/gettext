@@ -66,13 +66,15 @@ msgid "2"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mcomm-test13.out"
+tmpfiles="$tmpfiles mcomm-test13.tmp mcomm-test13.out"
 : ${MSGCOMM=msgcomm}
 
 # --unique is shorthand for --less-than=2; do we've to test both
 # switches?  Are 'for' loops allowed? -ke-
-${MSGCOMM} --less-than=2 --no-location --force-po -o mcomm-test13.out \
+${MSGCOMM} --less-than=2 --no-location --force-po -o mcomm-test13.tmp \
     mcomm-test13.in1 mcomm-test13.in2 mcomm-test13.in3
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test13.tmp > mcomm-test13.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test13.ok"

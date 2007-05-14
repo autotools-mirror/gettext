@@ -14,9 +14,11 @@ color\ cannot\ be\ transparent=colour cannot be transparent
 width\ must\ be\ positive=
 EOF
 
-tmpfiles="$tmpfiles men-test2.out"
+tmpfiles="$tmpfiles men-test2.tmp men-test2.out"
 : ${MSGEN=msgen}
-${MSGEN} --properties-input --properties-output -o men-test2.out men-test2.properties
+${MSGEN} --properties-input --properties-output -o men-test2.tmp men-test2.properties
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < men-test2.tmp > men-test2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles men-test2.ok"

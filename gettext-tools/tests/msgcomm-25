@@ -68,9 +68,11 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer l'as"
 EOF
 
-tmpfiles="$tmpfiles mcomm-test25.out"
+tmpfiles="$tmpfiles mcomm-test25.tmp mcomm-test25.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=0 -o mcomm-test25.out mcomm-test25.in1 mcomm-test25.in2
+${MSGCOMM} --more-than=0 -o mcomm-test25.tmp mcomm-test25.in1 mcomm-test25.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test25.tmp > mcomm-test25.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test25.ok"

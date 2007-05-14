@@ -11,9 +11,11 @@ cat <<\EOF > xg-c-12.c
 gettext ("%1% on, %2% off");
 EOF
 
-tmpfiles="$tmpfiles xg-c-12.po"
+tmpfiles="$tmpfiles xg-c-12.tmp.po xg-c-12.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-c-12 xg-c-12.c
+${XGETTEXT} --omit-header --no-location -d xg-c-12.tmp xg-c-12.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-12.tmp.po > xg-c-12.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-12.ok"

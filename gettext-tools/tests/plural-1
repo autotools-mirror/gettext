@@ -3,9 +3,12 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles cake.pot"
+tmpfiles="$tmpfiles cake.tmp cake.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o cake.pot --omit-header --no-location ${top_srcdir}/tests/plural-1-prg.c
+${XGETTEXT} -o cake.tmp --omit-header --no-location ${top_srcdir}/tests/plural-1-prg.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < cake.tmp > cake.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles cake.ok"
 cat <<EOF > cake.ok
@@ -29,9 +32,12 @@ msgstr[0] "un morceau de gateau"
 msgstr[1] "%d morceaux de gateau"
 EOF
 
-tmpfiles="$tmpfiles fr.po.new"
+tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o fr.po.new fr.po cake.pot
+${MSGMERGE} -q -o fr.po.tmp fr.po cake.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < fr.po.tmp > fr.po.new
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} fr.po fr.po.new || exit 1

@@ -44,20 +44,24 @@ msgstr "Argumente fehlen."
 #~ msgstr "%s: ungültige Option -- %c\n"
 EOF
 
-tmpfiles="$tmpfiles mcat-test15.out1"
-rm -f mcat-test15.out1
+tmpfiles="$tmpfiles mcat-test15.tmp1 mcat-test15.out1"
+rm -f mcat-test15.tmp1
 : ${MSGCAT=msgcat}
-${MSGCAT} -o mcat-test15.out1 mcat-test15.in
+${MSGCAT} -o mcat-test15.tmp1 mcat-test15.in
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcat-test15.tmp1 > mcat-test15.out1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} mcat-test15.in mcat-test15.out1
 result=$?
 
-tmpfiles="$tmpfiles mcat-test15.out2"
-rm -f mcat-test15.out2
+tmpfiles="$tmpfiles mcat-test15.tmp2 mcat-test15.out2"
+rm -f mcat-test15.tmp2
 : ${MSGCAT=msgcat}
-${MSGCAT} --indent -o mcat-test15.out2 mcat-test15.in
+${MSGCAT} --indent -o mcat-test15.tmp2 mcat-test15.in
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcat-test15.tmp2 > mcat-test15.out2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test15.ok"

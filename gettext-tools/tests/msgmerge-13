@@ -87,9 +87,11 @@ msgid "%age"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test13.out"
+tmpfiles="$tmpfiles mm-test13.tmp mm-test13.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test13.out mm-test13.po mm-test13.pot
+${MSGMERGE} -q -o mm-test13.tmp mm-test13.po mm-test13.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test13.tmp > mm-test13.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test13.ok"

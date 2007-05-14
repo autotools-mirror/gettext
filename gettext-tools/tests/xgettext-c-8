@@ -16,9 +16,11 @@ void foo ()
 }
 EOF
 
-tmpfiles="$tmpfiles xg-c-8.po"
+tmpfiles="$tmpfiles xg-c-8.tmp xg-c-8.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -k_ -o xg-c-8.po xg-c-8.c
+${XGETTEXT} --omit-header --no-location -k_ -o xg-c-8.tmp xg-c-8.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-8.tmp > xg-c-8.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-8.ok"

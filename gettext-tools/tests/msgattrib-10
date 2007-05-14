@@ -57,9 +57,11 @@ msgstr ""
 #~ msgstr "das einen verheirateten Mann liebt"
 EOF
 
-tmpfiles="$tmpfiles ma-test10.out"
+tmpfiles="$tmpfiles ma-test10.tmp ma-test10.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --set-obsolete -o ma-test10.out ma-test10.po
+${MSGATTRIB} --set-obsolete -o ma-test10.tmp ma-test10.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < ma-test10.tmp > ma-test10.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test10.ok"

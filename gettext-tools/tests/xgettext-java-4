@@ -16,9 +16,12 @@ class TestCase {
 }
 EOF
 
-tmpfiles="$tmpfiles xg-j-4.po"
+tmpfiles="$tmpfiles xg-j-4.tmp.po xg-j-4.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --keyword=ngettext:2,3 -d xg-j-4 xg-j-4.java
+${XGETTEXT} --omit-header --no-location --keyword=ngettext:2,3 \
+  -d xg-j-4.tmp xg-j-4.java
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-j-4.tmp.po > xg-j-4.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-j-4.ok"

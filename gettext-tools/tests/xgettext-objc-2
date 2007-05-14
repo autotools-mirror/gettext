@@ -27,10 +27,12 @@ print (NSLocalizedString (@ "there is not enough"
 @ "verbose string"));
 EOF
 
-tmpfiles="$tmpfiles xg-ob-2.po"
+tmpfiles="$tmpfiles xg-ob-2.tmp.po xg-ob-2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-ob-2 xg-ob-2.m
+  -d xg-ob-2.tmp xg-ob-2.m
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-ob-2.tmp.po > xg-ob-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ob-2.ok"

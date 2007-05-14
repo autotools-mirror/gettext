@@ -27,9 +27,11 @@ tmpfiles="$tmpfiles mf-12.mo"
 ${MSGFMT} -o mf-12.mo mf-12.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mf-12.out"
+tmpfiles="$tmpfiles mf-12.tmp mf-12.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} -o mf-12.out mf-12.mo
+${MSGUNFMT} -o mf-12.tmp mf-12.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mf-12.tmp > mf-12.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-12.ok"

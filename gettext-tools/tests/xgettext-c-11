@@ -16,11 +16,13 @@ print (i18n ("Help", "about"));
 print (i18n ("error", "errors", 7));
 EOF
 
-tmpfiles="$tmpfiles xg-c-11.po"
+tmpfiles="$tmpfiles xg-c-11.tmp.po xg-c-11.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location \
   --keyword=i18n:1 --keyword=i18n:1c,2,2t --keyword=i18n:1,2,3t \
-  -d xg-c-11 xg-c-11.c
+  -d xg-c-11.tmp xg-c-11.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-11.tmp.po > xg-c-11.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-11.ok"

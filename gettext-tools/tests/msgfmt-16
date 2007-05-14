@@ -49,9 +49,11 @@ tmpfiles="$tmpfiles mf-16.mo"
 ${MSGFMT} -o mf-16.mo mf-16.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mf-16.out"
+tmpfiles="$tmpfiles mf-16.tmp mf-16.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} -o mf-16.out mf-16.mo
+${MSGUNFMT} -o mf-16.tmp mf-16.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mf-16.tmp > mf-16.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-16.ok"

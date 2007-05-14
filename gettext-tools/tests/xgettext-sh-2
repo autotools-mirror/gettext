@@ -18,10 +18,12 @@ gettext "Hey Jude"
 gettext "The Fabulous Four"
 EOF
 
-tmpfiles="$tmpfiles xg-sh-2.po"
+tmpfiles="$tmpfiles xg-sh-2.tmp.po xg-sh-2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-sh-2 xg-sh-2.sh
+  -d xg-sh-2.tmp xg-sh-2.sh
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-sh-2.tmp.po > xg-sh-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-2.ok"

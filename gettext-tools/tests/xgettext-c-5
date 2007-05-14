@@ -10,9 +10,11 @@ cat <<EOF > xg-c-5.in.cc
 main(){printf(gettext/*puke*/(/*barf*/"Hello, " "World!" "\n")); }
 EOF
 
-tmpfiles="$tmpfiles xg-c-5.po"
+tmpfiles="$tmpfiles xg-c-5.tmp.po xg-c-5.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-5 xg-c-5.in.cc
+${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-5.tmp xg-c-5.in.cc
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-5.tmp.po > xg-c-5.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-5.ok"

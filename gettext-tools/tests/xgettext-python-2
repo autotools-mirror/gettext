@@ -22,10 +22,12 @@ print gettext.gettext("there is not enough"
 "verbose string")
 EOF
 
-tmpfiles="$tmpfiles xg-py-2.po"
+tmpfiles="$tmpfiles xg-py-2.tmp.po xg-py-2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-py-2 xg-py-2.py
+  -d xg-py-2.tmp xg-py-2.py
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-py-2.tmp.po > xg-py-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-py-2.ok"

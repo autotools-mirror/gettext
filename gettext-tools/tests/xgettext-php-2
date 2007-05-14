@@ -42,9 +42,11 @@ echo _("Franks");
 ?>
 EOF
 
-tmpfiles="$tmpfiles xg-ph-2.po"
+tmpfiles="$tmpfiles xg-ph-2.tmp.po xg-ph-2.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-ph-2 xg-ph-2.php
+${XGETTEXT} --omit-header --no-location -d xg-ph-2.tmp xg-ph-2.php
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-ph-2.tmp.po > xg-ph-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ph-2.ok"

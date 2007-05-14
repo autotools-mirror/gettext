@@ -32,9 +32,11 @@ with\ wives\ who\ never\ understand=und ihre Frauen verstehen sie nicht
 !They\ warn\ you\ and\ darn\ you=
 EOF
 
-tmpfiles="$tmpfiles ma-s-1.out"
+tmpfiles="$tmpfiles ma-s-1.tmp ma-s-1.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --translated --properties-input --properties-output -o ma-s-1.out ma-s-1.properties
+${MSGATTRIB} --translated --properties-input --properties-output -o ma-s-1.tmp ma-s-1.properties
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < ma-s-1.tmp > ma-s-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-s-1.ok"

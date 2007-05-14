@@ -16,9 +16,11 @@ cat <<EOF > mcomm-test24.in2
 2=2x
 EOF
 
-tmpfiles="$tmpfiles mcomm-test24.out"
+tmpfiles="$tmpfiles mcomm-test24.tmp mcomm-test24.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=0 --properties-input --properties-output -o mcomm-test24.out mcomm-test24.in1 mcomm-test24.in2
+${MSGCOMM} --more-than=0 --properties-input --properties-output -o mcomm-test24.tmp mcomm-test24.in1 mcomm-test24.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test24.tmp > mcomm-test24.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test24.ok"

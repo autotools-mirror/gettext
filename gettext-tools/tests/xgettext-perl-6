@@ -66,10 +66,12 @@ print dgettext foo (17), "extracted15";
 print dgettext foo 17, "extracted16";
 EOPERL
 
-tmpfiles="$tmpfiles xg-pl-6.pot"
+tmpfiles="$tmpfiles xg-pl-6.tmp xg-pl-6.pot"
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \
-${XGETTEXT} --omit-header --no-location -o xg-pl-6.pot xg-pl-6.pl
+${XGETTEXT} --omit-header --no-location -o xg-pl-6.tmp xg-pl-6.pl
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-pl-6.tmp > xg-pl-6.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pl-6.ok"

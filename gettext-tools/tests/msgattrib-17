@@ -44,9 +44,11 @@ msgstr "Argumente fehlen."
 #~ msgstr "%s: ungültige Option -- %c\n"
 EOF
 
-tmpfiles="$tmpfiles ma-test17.out"
+tmpfiles="$tmpfiles ma-test17.tmp ma-test17.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --clear-previous -o ma-test17.out ma-test17.po
+${MSGATTRIB} --clear-previous -o ma-test17.tmp ma-test17.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < ma-test17.tmp > ma-test17.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test17.ok"

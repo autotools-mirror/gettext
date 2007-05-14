@@ -38,9 +38,11 @@ msgid "Hello"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test8.out"
+tmpfiles="$tmpfiles mm-test8.tmp mm-test8.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} --multi-domain -q -o mm-test8.out mm-test8.po mm-test8.pot
+${MSGMERGE} --multi-domain -q -o mm-test8.tmp mm-test8.po mm-test8.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test8.tmp > mm-test8.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test8.ok"

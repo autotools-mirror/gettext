@@ -56,10 +56,12 @@ msgid "was correct."
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test6.out"
+tmpfiles="$tmpfiles mm-test6.tmp mm-test6.out"
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
-${MSGMERGE} -q -o mm-test6.out mm-test6.in1.po mm-test6.in2.po
+${MSGMERGE} -q -o mm-test6.tmp mm-test6.in1.po mm-test6.in2.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test6.tmp > mm-test6.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test6.ok"

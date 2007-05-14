@@ -44,10 +44,12 @@ msgid "1"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mcomm-test11.out"
+tmpfiles="$tmpfiles mcomm-test11.tmp mcomm-test11.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=1 --no-location --omit-header -o mcomm-test11.out \
+${MSGCOMM} --more-than=1 --no-location --omit-header -o mcomm-test11.tmp \
     mcomm-test11.in1 mcomm-test11.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test11.tmp > mcomm-test11.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test11.ok"

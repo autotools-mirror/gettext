@@ -54,16 +54,18 @@ msgstr ""
 "Glückwunsch!"
 EOF
 
-tmpfiles="$tmpfiles mcat-test4.out mcat-test4.err"
-rm -f mcat-test4.out
+tmpfiles="$tmpfiles mcat-test4.tmp mcat-test4.err mcat-test4.out"
+rm -f mcat-test4.tmp
 
 : ${MSGCAT=msgcat}
 LC_MESSAGES=C LC_ALL= \
-${MSGCAT} --use-first --more-than=0 -o mcat-test4.out \
+${MSGCAT} --use-first --more-than=0 -o mcat-test4.tmp \
     mcat-test4.in1 mcat-test4.in2 >mcat-test4.err 2>&1
 result=$?
 cat mcat-test4.err | grep -v 'warning: .* encodings' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcat-test4.tmp > mcat-test4.out
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test4.ok"
 cat << \EOF > mcat-test4.ok

@@ -33,9 +33,12 @@ run
 Main new run!
 EOF
 
-tmpfiles="$tmpfiles prog.pot"
+tmpfiles="$tmpfiles prog.tmp prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.pot --omit-header --no-location prog.st
+${XGETTEXT} -o prog.tmp --omit-header --no-location prog.st
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < prog.tmp > prog.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok
@@ -79,9 +82,12 @@ msgid "%1 is replaced by %2."
 msgstr "%2 remplace %1."
 EOF
 
-tmpfiles="$tmpfiles fr.po.new"
+tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o fr.po.new fr.po prog.pot
+${MSGMERGE} -q -o fr.po.tmp fr.po prog.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < fr.po.tmp > fr.po.new
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
 ${DIFF} fr.po fr.po.new || exit 1

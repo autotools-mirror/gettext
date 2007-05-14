@@ -10,9 +10,11 @@ cat <<\EOF > xg-sh-3.sh
 echo `gettext 'abc\"def'`
 EOF
 
-tmpfiles="$tmpfiles xg-sh-3.po"
+tmpfiles="$tmpfiles xg-sh-3.tmp.po xg-sh-3.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-sh-3 xg-sh-3.sh
+${XGETTEXT} --omit-header --no-location -d xg-sh-3.tmp xg-sh-3.sh
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-sh-3.tmp.po > xg-sh-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-3.ok"

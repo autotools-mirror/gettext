@@ -22,12 +22,14 @@ label ("pigeon");
 label ("pigeon");
 EOF
 
-tmpfiles="$tmpfiles xg-test9.po"
+tmpfiles="$tmpfiles xg-test9.tmp.po xg-test9.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header \
   --keyword=label:1,\"xhtml-format\",\"xml-format\" \
   --keyword=title:1,\"xhtml-format\",\"xml-format\" \
-  -d xg-test9 xg-test9.c
+  -d xg-test9.tmp xg-test9.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-test9.tmp.po > xg-test9.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test9.ok"

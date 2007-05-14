@@ -20,9 +20,11 @@ gettext ("abc");
 gettext ("abc");
 EOF
 
-tmpfiles="$tmpfiles xg-test7.po"
+tmpfiles="$tmpfiles xg-test7.tmp.po xg-test7.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --add-comments -d xg-test7 xg-test7.c
+${XGETTEXT} --omit-header --add-comments -d xg-test7.tmp xg-test7.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-test7.tmp.po > xg-test7.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test7.ok"

@@ -87,13 +87,15 @@ printf (_ ("php-format positive1"), _ ("php-format negative1"));
 printk (_ ("php-format negative2"));
 EOF
 
-tmpfiles="$tmpfiles xg-test6.po"
+tmpfiles="$tmpfiles xg-test6.tmp.po xg-test6.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-test6 \
+${XGETTEXT} --omit-header --no-location -d xg-test6.tmp \
   --flag=my_printf:1:python-format \
   xg-test6.c xg-test6.sh xg-test6.py xg-test6.lisp xg-test6.el \
   xg-test6.jl xg-test6.java xg-test6.awk xg-test6.ycp xg-test6.tcl \
   xg-test6.pl xg-test6.php 
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-test6.tmp.po > xg-test6.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test6.ok"

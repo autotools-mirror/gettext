@@ -19,9 +19,11 @@ gettext("heuristic %|1$| on, %|2$| off");
 gettext("heuristic %1% on, %2% off");
 EOF
 
-tmpfiles="$tmpfiles xg-c-14.po"
+tmpfiles="$tmpfiles xg-c-14.tmp.po xg-c-14.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-c-14 --boost xg-c-14.cc
+${XGETTEXT} --omit-header --no-location -d xg-c-14.tmp --boost xg-c-14.cc
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-14.tmp.po > xg-c-14.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 # The first 4 are not marked as c-format, because they are known as

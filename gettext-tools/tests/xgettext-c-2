@@ -20,9 +20,11 @@ _
 )
 EOF
 
-tmpfiles="$tmpfiles xg-c-2.po"
+tmpfiles="$tmpfiles xg-c-2.tmp.po xg-c-2.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -d xg-c-2 -k_ --omit-header --no-location xg-c-2.in.c
+${XGETTEXT} -d xg-c-2.tmp -k_ --omit-header --no-location xg-c-2.in.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-2.tmp.po > xg-c-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-2.ok"

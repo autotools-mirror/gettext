@@ -45,10 +45,12 @@ main (int argc, char *argv[])
 }
 EOF
 
-tmpfiles="$tmpfiles xg-po-1.po"
+tmpfiles="$tmpfiles xg-po-1.tmp.po xg-po-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header -n \
-  -d xg-po-1 xg-po-1.in.po xg-po-1.c xg-po-1.cc
+  -d xg-po-1.tmp xg-po-1.in.po xg-po-1.c xg-po-1.cc
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-po-1.tmp.po > xg-po-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-po-1.ok"

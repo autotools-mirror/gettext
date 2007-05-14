@@ -18,10 +18,12 @@ puts [_ "Hey Jude"]
 puts [_ "The Fabulous Four"]
 EOF
 
-tmpfiles="$tmpfiles xg-t-2.po"
+tmpfiles="$tmpfiles xg-t-2.tmp.po xg-t-2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
-  -d xg-t-2 xg-t-2.tcl
+  -d xg-t-2.tmp xg-t-2.tcl
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-t-2.tmp.po > xg-t-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-t-2.ok"

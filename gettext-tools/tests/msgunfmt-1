@@ -37,9 +37,11 @@ tmpfiles="$tmpfiles mu-test1.mo"
 ${MSGFMT} -o mu-test1.mo mu-test1.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mu-test1.out"
+tmpfiles="$tmpfiles mu-test1.tmp mu-test1.out"
 : ${MSGUNFMT=msgunfmt}
-${MSGUNFMT} -o mu-test1.out mu-test1.mo
+${MSGUNFMT} -o mu-test1.tmp mu-test1.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mu-test1.tmp > mu-test1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

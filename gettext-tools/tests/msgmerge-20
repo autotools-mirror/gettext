@@ -75,9 +75,11 @@ msgstr ""
 #~ msgstr "Dieses Programm läuft mit der Prozeß-Nummer {pid}."
 EOF
 
-tmpfiles="$tmpfiles mm-test20.new.po"
+tmpfiles="$tmpfiles mm-test20.tmp.po mm-test20.new.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test20.new.po mm-test20.po mm-test20.pot
+${MSGMERGE} -q -o mm-test20.tmp.po mm-test20.po mm-test20.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test20.tmp.po > mm-test20.new.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test20.ok"

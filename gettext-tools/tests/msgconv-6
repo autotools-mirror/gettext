@@ -24,9 +24,11 @@ msgid "full turn"
 msgstr "Volle 360 Grad"
 EOF
 
-tmpfiles="$tmpfiles mco-test6.out"
+tmpfiles="$tmpfiles mco-test6.tmp mco-test6.out"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=ISO-8859-1 -o mco-test6.out mco-test6.po
+${MSGCONV} --to-code=ISO-8859-1 -o mco-test6.tmp mco-test6.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mco-test6.tmp > mco-test6.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mco-test6.ok"

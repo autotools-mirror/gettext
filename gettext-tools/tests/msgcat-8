@@ -56,12 +56,14 @@ msgstr ""
 "Glückwunsch!"
 EOF
 
-tmpfiles="$tmpfiles mcat-test8.out"
-rm -f mcat-test8.out
+tmpfiles="$tmpfiles mcat-test8.tmp mcat-test8.out"
+rm -f mcat-test8.tmp
 
 : ${MSGCAT=msgcat}
-${MSGCAT} --more-than=0 -o mcat-test8.out \
+${MSGCAT} --more-than=0 -o mcat-test8.tmp \
     mcat-test8.in1 mcat-test8.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcat-test8.tmp > mcat-test8.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test8.ok"

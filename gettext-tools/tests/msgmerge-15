@@ -29,9 +29,11 @@ msgid "invalid argument `%s' for `%s'"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-test15.out"
+tmpfiles="$tmpfiles mm-test15.tmp mm-test15.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test15.out mm-test15.pot mm-test15.po
+${MSGMERGE} -q -o mm-test15.tmp mm-test15.pot mm-test15.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test15.tmp > mm-test15.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test15.ok"

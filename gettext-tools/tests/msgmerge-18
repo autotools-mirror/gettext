@@ -120,9 +120,11 @@ EOF
 ${MSGCMP} --use-fuzzy --use-untranslated mm-test18.po mm-test18.pot 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mm-test18.new.po"
+tmpfiles="$tmpfiles mm-test18.tmp.po mm-test18.new.po"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test18.new.po mm-test18.po mm-test18.pot
+${MSGMERGE} -q -o mm-test18.tmp.po mm-test18.po mm-test18.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test18.tmp.po > mm-test18.new.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test18.ok"

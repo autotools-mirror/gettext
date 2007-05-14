@@ -22,9 +22,12 @@ rstconv.NoOutFilename='No output filename specified'
 rstconv.InvalidOutputFormat='Invalid output format -'
 EOF
 
-tmpfiles="$tmpfiles prog.pot"
+tmpfiles="$tmpfiles prog.tmp prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.pot --omit-header --add-location prog.rst
+${XGETTEXT} -o prog.tmp --omit-header --add-location prog.rst
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < prog.tmp > prog.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles prog.ok"
 cat <<EOF > prog.ok

@@ -18,10 +18,12 @@ print _"Hey Jude"
 print _"The Fabulous Four"
 EOF
 
-tmpfiles="$tmpfiles xg-a-1.po"
+tmpfiles="$tmpfiles xg-a-1.tmp.po xg-a-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-a-1 xg-a-1.awk
+  -d xg-a-1.tmp xg-a-1.awk
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-a-1.tmp.po > xg-a-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-a-1.ok"

@@ -51,9 +51,12 @@ msgid "white"
 msgstr ""
 EOF
 
-tmpfiles="$tmpfiles mm-u-2.po~"
+tmpfiles="$tmpfiles mm-u-2.po~ mm-u-2.tmp"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q --update mm-u-2.po mm-u-2.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+mv mm-u-2.po mm-u-2.tmp || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-u-2.tmp > mm-u-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-u-2.ok"

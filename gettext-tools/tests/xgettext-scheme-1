@@ -16,10 +16,12 @@ cat <<EOF > xg-sc-1.scm
 (display (_ "The Fabulous Four"))
 EOF
 
-tmpfiles="$tmpfiles xg-sc-1.po"
+tmpfiles="$tmpfiles xg-sc-1.tmp.po xg-sc-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -k_ --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-sc-1 xg-sc-1.scm
+  -d xg-sc-1.tmp xg-sc-1.scm
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-sc-1.tmp.po > xg-sc-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sc-1.ok"

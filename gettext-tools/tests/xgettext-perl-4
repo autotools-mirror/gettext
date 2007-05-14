@@ -57,10 +57,12 @@ print "\U\x70\LO\154\x{69}\x{004E}a \Q\lRu\LLeS\E\041\n";
 #      "\x{430}\x{447}\x{43a}\x{430}\n";
 EOPERL
 
-tmpfiles="$tmpfiles xg-pl-4.pot"
+tmpfiles="$tmpfiles xg-pl-4.tmp.pot xg-pl-4.pot"
 : ${XGETTEXT=xgettext}
 LC_MESSAGES=C LC_ALL= \
-${XGETTEXT} -a --omit-header --no-location -o xg-pl-4.pot xg-pl-4.pl
+${XGETTEXT} -a --omit-header --no-location -o xg-pl-4.tmp.pot xg-pl-4.pl
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-pl-4.tmp.pot > xg-pl-4.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pl-4.ok"

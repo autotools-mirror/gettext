@@ -148,13 +148,15 @@ __END__
 gettext "Discarded!";
 EOF
 
-tmpfiles="$tmpfiles xg-pl-1.po"
+tmpfiles="$tmpfiles xg-pl-1.tmp.po xg-pl-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header -n \
   -k_ --flag=_:1:pass-perl-format --flag=_:1:pass-perl-brace-format \
   -k%__ --flag=%__:1:pass-perl-format --flag=%__:1:pass-perl-brace-format \
   -k\$__ --flag=\$__:1:pass-perl-format --flag=\$__:1:pass-perl-brace-format \
-  -d xg-pl-1 xg-pl-1.pl
+  -d xg-pl-1.tmp xg-pl-1.pl
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-pl-1.tmp.po > xg-pl-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pl-1.ok"

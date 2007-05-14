@@ -71,9 +71,11 @@ msgid "%s: illegal option -- %c\n"
 msgstr "%s: ungültige Optionen -- %c\n"
 EOF
 
-tmpfiles="$tmpfiles mcomm-test26.out"
+tmpfiles="$tmpfiles mcomm-test26.tmp mcomm-test26.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} -o mcomm-test26.out mcomm-test26.in1 mcomm-test26.in2
+${MSGCOMM} -o mcomm-test26.tmp mcomm-test26.in1 mcomm-test26.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test26.tmp > mcomm-test26.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test26.ok"

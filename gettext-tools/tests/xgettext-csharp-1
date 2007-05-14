@@ -29,9 +29,11 @@ class TestCase {
 }
 EOF
 
-tmpfiles="$tmpfiles xg-cs-1.po"
+tmpfiles="$tmpfiles xg-cs-1.tmp.po xg-cs-1.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c -d xg-cs-1 xg-cs-1.cs
+${XGETTEXT} --omit-header --no-location -c -d xg-cs-1.tmp xg-cs-1.cs
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-cs-1.tmp.po > xg-cs-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-cs-1.ok"

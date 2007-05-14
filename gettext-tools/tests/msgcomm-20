@@ -22,10 +22,12 @@ msgid "1"
 msgstr "1x"
 EOF
 
-tmpfiles="$tmpfiles mcomm-test20.out"
+tmpfiles="$tmpfiles mcomm-test20.tmp mcomm-test20.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=0 -o mcomm-test20.out \
+${MSGCOMM} --more-than=0 -o mcomm-test20.tmp \
     mcomm-test20.in1 mcomm-test20.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test20.tmp > mcomm-test20.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test20.ok"

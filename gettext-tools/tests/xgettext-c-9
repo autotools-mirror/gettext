@@ -23,10 +23,12 @@ print (gettext ("there is not enough"
 "verbose string"));
 EOF
 
-tmpfiles="$tmpfiles xg-c-9.po"
+tmpfiles="$tmpfiles xg-c-9.tmp.po xg-c-9.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-c-9 xg-c-9.c
+  -d xg-c-9.tmp xg-c-9.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-9.tmp.po > xg-c-9.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-9.ok"

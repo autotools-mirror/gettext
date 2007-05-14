@@ -43,7 +43,7 @@ tmpfiles="$tmpfiles mf-test1.out"
 : ${GETTEXT=gettext}
 TEXTDOMAINDIR=.. LANGUAGE=tests \
 ${GETTEXT} --env LC_ALL=en gen 'SYS_(C)
-' > mf-test1.out
+' | tr -d '\r' > mf-test1.out
 
 tmpfiles="$tmpfiles gtmf-test1.ok"
 cat <<EOF > gtmf-test1.ok

@@ -40,9 +40,11 @@ main()
 }
 EOF
 
-tmpfiles="$tmpfiles xg-c-7.po"
+tmpfiles="$tmpfiles xg-c-7.tmp.po xg-c-7.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c --c++ -d xg-c-7 xg-c-7.c
+${XGETTEXT} --omit-header --no-location -c --c++ -d xg-c-7.tmp xg-c-7.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-7.tmp.po > xg-c-7.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-7.ok"

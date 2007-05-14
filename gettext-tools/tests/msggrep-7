@@ -51,10 +51,12 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer sous"
 EOF
 
-tmpfiles="$tmpfiles mg-test7.out"
+tmpfiles="$tmpfiles mg-test7.tmp mg-test7.out"
 : ${MSGGREP=msggrep}
 LC_MESSAGES=C LC_ALL= \
-${MSGGREP} -J -e "File|" -o mg-test7.out mg-test7.po
+${MSGGREP} -J -e "File|" -o mg-test7.tmp mg-test7.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mg-test7.tmp > mg-test7.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test7.ok"

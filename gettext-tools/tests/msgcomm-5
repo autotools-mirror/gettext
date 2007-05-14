@@ -29,10 +29,12 @@ msgid "2"
 msgstr "2x"
 EOF
 
-tmpfiles="$tmpfiles mcomm-test5.out"
+tmpfiles="$tmpfiles mcomm-test5.tmp mcomm-test5.out"
 : ${MSGCOMM=msgcomm}
-${MSGCOMM} --more-than=0 --omit-header -o mcomm-test5.out \
+${MSGCOMM} --more-than=0 --omit-header -o mcomm-test5.tmp \
     mcomm-test5.in1 mcomm-test5.in2
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mcomm-test5.tmp > mcomm-test5.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test5.ok"

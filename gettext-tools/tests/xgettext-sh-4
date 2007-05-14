@@ -116,10 +116,12 @@ echo "`echo "\`echo $"depth_2_11_bashquote_7_\\\\\\\$var"\`"`"
 echo "`echo "\`echo $"depth_2_11_bashquote_8_\\\\\\\\$var"\`"`"
 EOF
 
-tmpfiles="$tmpfiles xg-sh-4.err xg-sh-4.po"
+tmpfiles="$tmpfiles xg-sh-4.err xg-sh-4.tmp.po xg-sh-4.po"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-sh-4 xg-sh-4.sh 2>xg-sh-4.err
+${XGETTEXT} --omit-header --no-location -d xg-sh-4.tmp xg-sh-4.sh 2>xg-sh-4.err
 test $? = 0 || { cat xg-sh-4.err; rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-sh-4.tmp.po > xg-sh-4.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-4.ok"
 cat <<\EOF > xg-sh-4.ok

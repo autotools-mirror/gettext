@@ -54,9 +54,11 @@ msgstr[0] ""
 msgstr[1] ""
 EOF
 
-tmpfiles="$tmpfiles mm-test10.out"
+tmpfiles="$tmpfiles mm-test10.tmp mm-test10.out"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test10.out mm-test10.po mm-test10.pot
+${MSGMERGE} -q -o mm-test10.tmp mm-test10.po mm-test10.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mm-test10.tmp > mm-test10.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test10.ok"

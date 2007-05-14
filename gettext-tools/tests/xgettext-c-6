@@ -20,10 +20,12 @@ dcgettext ("foo", "quick", LC_MESSAGES);
 dgettext ("bar", "!");
 EOF
 
-tmpfiles="$tmpfiles xg-c-6.po"
+tmpfiles="$tmpfiles xg-c-6.tmp.po xg-c-6.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=XXX \
-  -d xg-c-6 xg-c-6.in.C
+  -d xg-c-6.tmp xg-c-6.in.C
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-c-6.tmp.po > xg-c-6.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-6.ok"

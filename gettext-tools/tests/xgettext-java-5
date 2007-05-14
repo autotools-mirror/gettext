@@ -23,10 +23,12 @@ System.out.println(gettext("there is not enough" +
 + "verbose string"));
 EOF
 
-tmpfiles="$tmpfiles xg-j-5.po"
+tmpfiles="$tmpfiles xg-j-5.tmp.po xg-j-5.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-j-5 xg-j-5.java
+  -d xg-j-5.tmp xg-j-5.java
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-j-5.tmp.po > xg-j-5.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-j-5.ok"

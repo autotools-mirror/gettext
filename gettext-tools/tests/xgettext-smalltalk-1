@@ -19,10 +19,12 @@ Transcript showCr: (NLS ? 'Hey Jude').
 Transcript showCr: (NLS ? 'The Fabulous Four').
 EOF
 
-tmpfiles="$tmpfiles xg-st-1.po"
+tmpfiles="$tmpfiles xg-st-1.tmp.po xg-st-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-st-1 xg-st-1.st
+  -d xg-st-1.tmp xg-st-1.st
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-st-1.tmp.po > xg-st-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-st-1.ok"

@@ -25,10 +25,12 @@ echo _(table["key"]);
 ?>
 EOF
 
-tmpfiles="$tmpfiles xg-ph-1.po"
+tmpfiles="$tmpfiles xg-ph-1.tmp.po xg-ph-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-ph-1 xg-ph-1.php
+  -d xg-ph-1.tmp xg-ph-1.php
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-ph-1.tmp.po > xg-ph-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ph-1.ok"

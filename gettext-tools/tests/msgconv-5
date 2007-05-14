@@ -51,9 +51,11 @@ msgstr "photocopieur"
 #~ msgstr "Enregistrer sous"
 EOF
 
-tmpfiles="$tmpfiles mco-test5.out"
+tmpfiles="$tmpfiles mco-test5.tmp mco-test5.out"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=UTF-8 -o mco-test5.out mco-test5.po
+${MSGCONV} --to-code=UTF-8 -o mco-test5.tmp mco-test5.po
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < mco-test5.tmp > mco-test5.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mco-test5.ok"
