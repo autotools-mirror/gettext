@@ -1,3 +1,8 @@
+2007-05-14  Bruno Haible  <bruno@clisp.org>
+
+	* restrict.m4: New file, taken from autoconf CVS.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Remove longdouble.m4.
