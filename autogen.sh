@@ -128,6 +128,7 @@ if test -n "$GNULIB_TOOL"; then
   memmove
   memset
   minmax
+  mkdir
   obstack
   ostream
   pipe
