@@ -1,5 +1,11 @@
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 
+	* m4/vasprintf.m4 (gl_REPLACE_VASPRINTF, gl_PREREQ_VASPRINTF_H): New
+	macros, partially copied from gnulib.
+	(gl_FUNC_VASPRINTF): Copied from gnulib.
+
+2007-05-13  Bruno Haible  <bruno@clisp.org>
+
 	* lib/vasprintf.c: Include stdio.h instead of vasprintf.h.
 	* lib/glibconfig_.h: Likewise.
 
