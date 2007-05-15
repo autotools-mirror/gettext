@@ -49,15 +49,18 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/cake.mo fr.po
 
-tmpfiles="$tmpfiles fr.po.tmp"
+tmpfiles="$tmpfiles fr.po.tmp fr.po.un"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o fr.po.tmp fr/LC_MESSAGES/cake.mo
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < fr.po.tmp > fr.po.un
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles fr.po.strip"
 sed 1,2d < fr.po > fr.po.strip
 
 : ${DIFF=diff}
-${DIFF} fr.po.strip fr.po.tmp || exit 1
+${DIFF} fr.po.strip fr.po.un || exit 1
 
 tmpfiles="$tmpfiles cake.ok cake.out"
 : ${DIFF=diff}
