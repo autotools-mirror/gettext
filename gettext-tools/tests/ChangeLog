@@ -1,6 +1,18 @@
 2007-05-14  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test suite failures on mingw.
+	* msgcmp-2: Reduce the file name in the error output.
+	* msgcmp-3: Likewise.
+	* msgfmt-7: Likewise.
+	* msgfmt-8: Likewise.
+	* msgfmt-9: Likewise.
+	* msgfmt-10: Likewise.
+	* msgmerge-2: Likewise.
+	* msgmerge-9: Likewise.
+
+2007-05-14  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test suite failures on mingw.
 	* gettext-1: Convert CR/LF to LF before applying DIFF.
 	* msgattrib-1: Likewise.
 	* msgattrib-2: Likewise.
