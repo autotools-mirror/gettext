@@ -1,3 +1,14 @@
+2007-05-20  Bruno Haible  <bruno@clisp.org>
+
+	* longlong.m4: Update from gnulib.
+	2006-11-08  Bruno Haible  <bruno@clisp.org>
+		* longlong.m4 (AC_TYPE_LONG_LONG_INT): Set
+		ac_cv_type_long_long_int to 'yes' instead of 'cross-compiling'.
+	2006-11-07  Paul Eggert  <eggert@cs.ucla.edu>
+		* longlong.m4 (AC_TYPE_LONG_LONG_INT): Detect bug in Tandem
+		NonStop Kernel (OSS) cc -O circa 2004, reported by Matthew
+		Woehlke.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	Assume the 'long double' type.
