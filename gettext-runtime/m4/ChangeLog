@@ -1,5 +1,13 @@
 2007-05-20  Bruno Haible  <bruno@clisp.org>
 
+	* iconv.m4: Update from gnulib.
+	2007-03-31  Bruno Haible  <bruno@clisp.org>
+		* iconv.m4 (AM_ICONV_LINK): Fix 2007-03-29 patch. Test also
+		against a bug in HP-UX iconv_open().
+	2007-03-29  Bruno Haible  <bruno@clisp.org>
+		* iconv.m4 (AM_ICONV_LINK): Require AC_CANONICAL_HOST. Test
+		against a bug in AIX iconv().
+
 	* longlong.m4: Update from gnulib.
 	2006-11-08  Bruno Haible  <bruno@clisp.org>
 		* longlong.m4 (AC_TYPE_LONG_LONG_INT): Set
