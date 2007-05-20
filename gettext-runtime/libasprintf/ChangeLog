@@ -1,3 +1,140 @@
+2007-05-20  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Use NEED_PRINTF_INFINITE_DOUBLE instead of
+	NEED_PRINTF_INFINITE.
+	(is_infinitel): New function.
+	(VASNPRINTF): Handle NEED_PRINTF_INFINITE_LONG_DOUBLE case.
+
+2007-05-19  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include math.h and isnan.h.
+	(is_infinite_or_zero): New function.
+	(VASNPRINTF): Fix also the handling of infinite or zero 'double'
+	values in the %f, %F, %e, %E, %g, %G directives.
+
+2007-05-19  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (convert_to_decimal): Add an extra_zeroes argument.
+	(scale10_round_decimal_long_double): Inline scale10_round_long_double.
+	Instead of multiplying with 10^k, set extra_zeroes to k.
+	(scale10_round_long_double): Remove function.
+
+2007-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF) [NEED_PRINTF_FLAG_ZERO]: Fix logic bug
+	introduced on 2007-05-06.
+
+2007-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include math.h and float+.h.
+	(mp_limb_t): New type.
+	(GMP_LIMB_BITS): New macro.
+	(mp_twolimb_t): New type.
+	(GMP_TWOLIMB_BITS): New macro.
+	(mpn_t): New type.
+	(multiply, divide, convert_to_decimal, decode_long_double,
+	scale10_round_long_double, scale10_round_decimal_long_double,
+	floorlog10l): New functions.
+	(VASNPRINTF) [NEED_PRINTF_LONG_DOUBLE]: Implement 'long double' support
+	for the %f, %F, %e, %E, %g, %G directives.
+
+2007-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (USE_SNPRINTF): Define to 0 on BeOS.
+
+2007-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF) [WIN32]: Use %I64d instead of %lld for
+	printing 64-bit integers. Needed for mingw.
+
+2007-05-06  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF) [NEED_PRINTF_FLAG_ZERO]: Perform the
+	padding ourselves for the floating-point directives.
+
+2007-05-06  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF) [NEED_PRINTF_FLAG_GROUPING]: Don't pass
+	the ' flag character to sprintf or snprintf.
+
+2007-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Implement the %F directive using the %f
+	directive, if NEED_PRINTF_DIRECTIVE_F is defined.
+
+2007-04-06  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include <math.h>. Don't include float+.h.
+	(VASNPRINTF): Use signbit for faster determination whether to print a
+	minus sign.
+
+2007-03-27  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (decimal_point_char): New function.
+	(VASNPRINTF): Use it.
+
+2007-03-25  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include langinfo.h.
+	(VASNPRINTF): Prefer nl_langinfo over localeconv, since it's more
+	multithread-safe.
+
+2007-03-24  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include fpucw.h.
+	(VASNPRINTF): Invoke BEGIN/END_LONG_DOUBLE_ROUNDING around the
+	'long double' calculations.
+
+2007-03-24  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include float+.h.
+	(VASNPRINTF): When comparing agains +0.0L or +0.0, compare only
+	SIZEOF_LDBL or SIZEOF_DBL bytes.
+
+2007-03-24  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c [!HAVE_LONG_DOUBLE]: Include printf-frexp.h. Don't
+	include isnanl-nolibm.h.
+
+2007-03-21  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Update after isnanl.h was renamed to isnanl-nolibm.h.
+
+2007-03-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Undo first part of last patch.
+
+2007-03-17  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (EOVERFLOW): New fallback definition.
+	(VASNPRINTF): Fail with EOVERFLOW when the given allocated size is
+	larger than INT_MAX, or when it grow to a value larger than INT_MAX.
+
+2007-03-17  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Clear out the memory used for arg_mem
+	before comparing it. Needed because on some platforms (e.g. x86) a
+	'long double' occupies less bytes than sizeof (long double).
+
+2007-03-11  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (sprintf): Undefine.
+
+2007-03-11  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (snprintf): Undefine. Avoids an endless recursion.
+
+2007-03-09  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): For the 'a' and 'A' directives, use a
+	locale dependent decimal point, rather than always '.'.
+
+2007-03-04  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Include isnan.h, isnanl.h, printf-frexp.h,
+	printf-frexpl.h.
+	(VASNPRINTF): Handle the 'a' and 'A' directives here, if needed.
+
 2007-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* alloca_.h: Change prefix of double-inclusion guard macro to _GL_.
