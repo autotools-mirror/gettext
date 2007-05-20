@@ -1,14 +1,14 @@
 2007-03-30  Bruno Haible  <bruno@clisp.org>
 
-	* lib/alloca_.h: Change prefix of double-inclusion guard macro to _GL_.
+	* alloca_.h: Change prefix of double-inclusion guard macro to _GL_.
 
 2006-06-19  Paul Eggert  <eggert@cs.ucla.edu>
 
-	* lib/alloca_.h (alloca) [defined alloca]: Don't define or declare.
+	* alloca_.h (alloca) [defined alloca]: Don't define or declare.
 
 2007-03-08  Bruno Haible  <bruno@clisp.org>
 
-	* lib/vasnprintf.h: Convert tabs in the middle of lines to spaces.
+	* vasnprintf.h: Convert tabs in the middle of lines to spaces.
 
 2007-05-03  Bruno Haible  <bruno@clisp.org>
 
