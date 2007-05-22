@@ -1,3 +1,7 @@
+2007-05-21  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Update comments.
+
 2007-03-24  Bruno Haible  <bruno@clisp.org>
 
 	* tsearch.c [!IN_LIBINTL]: Include search.h instead of tsearch.h.

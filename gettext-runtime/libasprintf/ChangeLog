@@ -1,3 +1,7 @@
+2007-05-21  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Update comments.
+
 2007-05-20  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c: Use NEED_PRINTF_INFINITE_DOUBLE instead of
