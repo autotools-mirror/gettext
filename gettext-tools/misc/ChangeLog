@@ -1,3 +1,8 @@
+2007-05-24  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-mode-map): Bind po-undo also to Ctrl-_.
+	Suggested by Kevin Ryde <user42@zip.com.au>.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in (m4filelist): Remove longdouble.m4 from the list.
