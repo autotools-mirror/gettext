@@ -1,3 +1,8 @@
+2007-05-05  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (ifmakeinfo): Remove alias.
+	(makeinfo): New variable.
+
 2007-05-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Overview of GNU gettext): Put @ifhtml outside @example,
