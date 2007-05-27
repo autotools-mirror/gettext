@@ -137,9 +137,6 @@ if test "$MSGMERGE_LIBM" = "?"; then
 fi
 AC_SUBST([MSGMERGE_LIBM])
 
-dnl Test for compiler flags needed to support OpenMP.
-gt_OPENMP
-
 dnl Checks for header files, functions and declarations.
 gl_INIT
 gtpo_INIT
