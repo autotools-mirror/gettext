@@ -545,7 +545,7 @@ string_buffer_append (struct string_buffer *bp, int c)
 
 	  utf16buf[0] = bp->utf16_surr;
 	  utf16buf[1] = UTF16_VALUE (c);
-	  if (u16_mbtouc_aux (&uc, utf16buf, 2) != 2)
+	  if (u16_mbtouc (&uc, utf16buf, 2) != 2)
 	    abort ();
 
 	  string_buffer_append_unicode (bp, uc);

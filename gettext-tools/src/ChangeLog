@@ -1,3 +1,10 @@
+2007-05-27  Bruno Haible  <bruno@clisp.org>
+
+	Avoid link error; u16_mbtouc_aux is no longer a public API.
+	* x-java.c (string_buffer_append): Use u16_mbtouc instead of
+	u16_mbtouc_aux.
+	* x-python.c (mixed_string_buffer_append): Likewise.
+
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 
 	* write-java.c (mkdir): Remove definition. Now done by gnulib.
