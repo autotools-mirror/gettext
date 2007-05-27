@@ -129,6 +129,7 @@ if test -n "$GNULIB_TOOL"; then
   memset
   minmax
   obstack
+  openmp
   ostream
   pipe
   progname
