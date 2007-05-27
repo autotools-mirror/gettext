@@ -47,7 +47,6 @@ EXTRA_DIST = README csharpexec-test.exe \
 hostname.m4 \
 libgrep.m4 \
 locale-ja.m4 \
-openmp.m4 \
 regex.m4 \
 restrict.m4 \
 setlocale.m4 \
