@@ -1,9 +1,13 @@
 \input texinfo          @c -*-texinfo-*-
 @c %**start of header
 @setfilename autosprintf.info
-@c The @ifmakeinfo ... @end ifnottex conditional evaluates to true in makeinfo
+@c The @ifset makeinfo ... @end ifset conditional evaluates to true in makeinfo
 @c for info and html output, but to false in texi2html.
-@alias ifmakeinfo = ifnottex
+@ifnottex
+@ifclear texi2html
+@set makeinfo
+@end ifclear
+@end ifnottex
 @settitle GNU @code{autosprintf}
 @finalout
 @c Indices:
@@ -18,10 +22,12 @@
 @c %**end of header
 @set VERSION 1.0
 
+@ifinfo
 @dircategory C++ libraries
 @direntry
 * autosprintf: (autosprintf).   Support for printf format strings in C++.
 @end direntry
+@end ifinfo
 
 @ifinfo
 This file provides documentation for GNU @code{autosprintf} library.
@@ -78,7 +84,7 @@ by the Free Software Foundation (FSF).
 A copy of the license is at @url{http://www.gnu.org/licenses/gpl.html}.
 @end titlepage
 
-@ifmakeinfo
+@ifset makeinfo
 @node Top, Introduction, (dir), (dir)
 @top GNU autosprintf
 
@@ -90,7 +96,7 @@ This manual documents the GNU autosprintf class, version @value{VERSION}.
 * Using autosprintf::           Using @code{autosprintf} in own programs
 @end menu
 
-@end ifnottex
+@end ifset
 
 @node Introduction, Class autosprintf, Top, Top
 @chapter Introduction

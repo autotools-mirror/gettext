@@ -165,7 +165,7 @@ html-local: $(HTMLS)
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
 autosprintf_all.html: autosprintf.texi
-	$(TEXI2HTML) -expandinfo -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
+	$(TEXI2HTML) -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
 	mv autosprintf.html autosprintf_all.html
 
 # The install-html target is already defined by automake.
