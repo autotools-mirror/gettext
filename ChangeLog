@@ -1,4 +1,9 @@
-2007-07-27  Bruno Haible  <bruno@clisp.org>
+2007-05-27  Bruno Haible  <bruno@clisp.org>
+
+	* m4/libtool.m4 (AC_LIBTOOL_PROG_LD_SHLIBS): Fix support for Sun C 5.9
+	on Linux.
+
+2007-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add module 'openmp'.
 
