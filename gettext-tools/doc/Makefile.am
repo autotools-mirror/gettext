@@ -180,6 +180,7 @@ html-split: gettext_toc.html
 
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
+# Newer versions of texi2html also need the options --no-menu --no-sec-nav.
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	$(TEXI2HTML) $(TEXINCLUDES) -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
 
