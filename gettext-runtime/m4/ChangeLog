@@ -1,3 +1,7 @@
+2007-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (AM_INTL_SUBDIR): Substitute variables WOE32, WINDRES.
+
 2007-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* iconv.m4: Update from gnulib.
