@@ -116,4 +116,4 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 # Woe32 support.
 
-EXTRA_DIST += README.woe32
+EXTRA_DIST += README.woe32 windows/windres-options windows/gettext.rc
