@@ -80,7 +80,7 @@ DEFS = \
   -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 # Ensure that <stdint.h> defines SIZE_MAX in C++ mode, like it does in C mode.
 AM_CXXFLAGS = -D__STDC_LIMIT_MACROS
-LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@
+LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@ $(WOE32_LDADD)
 
 SED = sed
 YACC = @YACC@ -d
@@ -240,23 +240,23 @@ msgmerge_CXXFLAGS = $(AM_CXXFLAGS) $(OPENMP_CFLAGS)
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
 # For msginit, it is also needed because of localename.c.
-msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(OPENMP_CFLAGS)
-msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@
-msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgconv_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgen_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgexec_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@
+msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD) $(OPENMP_CFLAGS)
+msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@ $(WOE32_LDADD)
+msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgconv_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgen_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgexec_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msginit_LDADD = ../intl/localename.@INTL_LIBTOOL_SUFFIX_PREFIX@o \
-                libgettextsrc.la @INTL_MACOSX_LIBS@
-msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@
-recode_sr_latin_LDADD = ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@
+                libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+recode_sr_latin_LDADD = ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
@@ -547,3 +547,13 @@ RELOCATABLE_LIBRARY_PATH = $(libdir)
 RELOCATABLE_SRC_DIR = $(top_srcdir)/gnulib-lib
 RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
+
+# Version information according to Woe32 conventions.
+if WOE32
+WOE32_LDADD = gettext.res
+gettext.res : $(top_srcdir)/../windows/gettext.rc
+	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff
+MOSTLYCLEANFILES += gettext.res
+else
+WOE32_LDADD =
+endif

@@ -1,3 +1,14 @@
+2007-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (WOE32_LDADD): New variable.
+	(LDADD, msgcmp_LDADD, msgfmt_LDADD, msgmerge_LDADD, msgunfmt_LDADD,
+	xgettext_LDADD, msgattrib_LDADD, msgcat_LDADD, msgcomm_LDADD,
+	msgconv_LDADD, msgen_LDADD, msgexec_LDADD, msgfilter_LDADD,
+	msggrep_LDADD, msginit_LDADD, msguniq_LDADD, recode_sr_latin_LDADD):
+	Include it.
+	(gettext.res): New rule.
+	(MOSTLYCLEANFILES): Add gettext.res.
+
 2007-05-27  Bruno Haible  <bruno@clisp.org>
 
 	Avoid link error; u16_mbtouc_aux is no longer a public API.

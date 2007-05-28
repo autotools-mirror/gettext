@@ -19,6 +19,8 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+MOSTLYCLEANFILES = core *.stackdump
+CLEANFILES =
 DISTCLEANFILES =
 
 RM = rm -f
@@ -39,7 +41,7 @@ envsubst_SOURCES = envsubst.c
 
 # Link dependencies.
 # Need @LTLIBICONV@ because striconv.c uses iconv().
-LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@
+LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@ $(WOE32_LDADD)
 
 # Specify installation directory, for --enable-relocatable.
 gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
@@ -60,3 +62,13 @@ RELOCATABLE_LIBRARY_PATH = $(libdir)
 RELOCATABLE_SRC_DIR = $(top_srcdir)/gnulib-lib
 RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
+
+# Version information according to Woe32 conventions.
+if WOE32
+WOE32_LDADD = gettext.res
+gettext.res : $(top_srcdir)/../windows/gettext.rc
+	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff
+MOSTLYCLEANFILES += gettext.res
+else
+WOE32_LDADD =
+endif

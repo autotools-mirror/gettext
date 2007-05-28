@@ -1,3 +1,9 @@
+2007-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (MOSTLYCLEANFILES, CLEANFILES): New variables.
+	(WOE32_LDADD): New variable.
+	(LDADD): Include it.
+
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c (usage): Ask translators to specify a translation bug
