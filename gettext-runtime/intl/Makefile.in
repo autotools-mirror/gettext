@@ -72,6 +72,7 @@ LIBTOOL = @LIBTOOL@
 RANLIB = @RANLIB@
 YACC = @INTLBISON@ -y -d
 YFLAGS = --name-prefix=__gettext
+WINDRES = @WINDRES@
 
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
@@ -165,8 +166,10 @@ OBJECTS = \
   version.$lo \
   osdep.$lo \
   intl-compat.$lo
+OBJECTS_RES_yes = libintl.res
+OBJECTS_RES_no =
 DISTFILES.common = Makefile.in \
-config.charset locale.alias ref-add.sin ref-del.sin export.h \
+config.charset locale.alias ref-add.sin ref-del.sin export.h libintl.rc \
 $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
@@ -187,10 +190,11 @@ libintl.a libgnuintl.a: $(OBJECTS)
 	$(AR) cru $@ $(OBJECTS)
 	$(RANLIB) $@
 
-libintl.la libgnuintl.la: $(OBJECTS)
+libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
 	$(LIBTOOL) --mode=link \
 	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@ \
 	  $(OBJECTS) @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(LIBS) @LTLIBTHREAD@ -lc \
+	  $(OBJECTS_RES_@WOE32@) \
 	  -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
 	  -rpath $(libdir) \
 	  -no-undefined
@@ -268,6 +272,20 @@ osdep.lo: $(srcdir)/osdep.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
+
+libintl.res: $(srcdir)/libintl.rc
+	sed_extract_major='/^[0-9]/{s/^\([0-9]*\).*/\1/p;q};a\
+	0'; \
+	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{s/^[0-9]*[.]\([0-9]*\).*/\1/p;q};a\
+	0'; \
+	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p;q};a\
+	0'; \
+	$(WINDRES) \
+	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	  -i $(srcdir)/libintl.rc -o libintl.res --output-format=coff
 
 ref-add.sed: $(srcdir)/ref-add.sin
 	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-add.sin > t-ref-add.sed
@@ -516,7 +534,7 @@ ID: $(HEADERS) $(SOURCES)
 
 
 mostlyclean:
-	rm -f *.a *.la *.o *.obj *.lo core core.*
+	rm -f *.a *.la *.o *.obj *.lo libintl.res core core.*
 	rm -f libgnuintl.h libintl.h charset.alias ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
 

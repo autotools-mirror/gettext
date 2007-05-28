@@ -1,3 +1,13 @@
+2007-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* libintl.rc: New file.
+	* Makefile.in (DISTFILES.common): Add it.
+	(WINDRES): New variable.
+	(OBJECTS_RES_yes, OBJECTS_RES_no): New variables.
+	(libintl.la, libgnuintl.la): Include also $((OBJECTS_RES_...).
+	(libintl.res): New rule.
+	(mostlyclean): Remove also libintl.res.
+
 2007-05-21  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c: Update comments.
