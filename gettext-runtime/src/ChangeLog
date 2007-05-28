@@ -3,6 +3,7 @@
 	* Makefile.am (MOSTLYCLEANFILES, CLEANFILES): New variables.
 	(WOE32_LDADD): New variable.
 	(LDADD): Include it.
+	(gettext.res): New rule.
 
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
