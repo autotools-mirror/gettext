@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@ AM_CPPFLAGS = \
   -I.. -I$(top_srcdir) \
   -I../src -I$(top_srcdir)/src \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
+LDADD = $(WOE32_LDADD)
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = \
@@ -105,6 +106,16 @@ libgettextpo_la_LDFLAGS = \
 if WOE32DLL
 libgettextpo_la_SOURCES += ../woe32dll/gettextpo-exports.c
 libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
+endif
+
+# Version information according to Woe32 conventions.
+if WOE32
+WOE32_LDADD = libgettextpo.res
+libgettextpo.res : $(srcdir)/libgettextpo.rc
+	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res --output-format=coff
+MOSTLYCLEANFILES += libgettextpo.res
+else
+WOE32_LDADD =
 endif
 
 # Hide symbols that are defined by libgettextpo_la_AUXSOURCES or libgnu.la
