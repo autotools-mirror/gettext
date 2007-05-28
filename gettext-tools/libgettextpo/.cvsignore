@@ -111,3 +111,16 @@ moo.h
 ostream.oo.c
 ostream.oo.h
 stdlib_.h
+stdio_.h
+unistd_.h
+unistr.h
+iconv_.h
+iconv_open-aix.gperf
+iconv_open-aix.h
+iconv_open-hpux.gperf
+iconv_open-hpux.h
+iconv_open-irix.gperf
+iconv_open-irix.h
+iconv_open-osf.gperf
+iconv_open-osf.h
+iconv_open.c
