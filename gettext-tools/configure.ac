@@ -87,6 +87,7 @@ gl_EARLY
 gtpo_EARLY
 
 dnl Check for build configuration.
+
 gl_WOE32_DLL
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
@@ -97,6 +98,14 @@ case "$host_os" in
   *) LTNOUNDEF='' ;;
 esac
 AC_SUBST([LTNOUNDEF])
+
+dnl On mingw and Cygwin, we can activate special Makefile rules which add
+dnl version information to the shared libraries and executables.
+case "$host_os" in
+  mingw* | cygwin*) is_woe32=yes ;;
+  *) is_woe32=no ;;
+esac
+AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 
 dnl Checks for libraries.
 

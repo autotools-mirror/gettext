@@ -1,3 +1,7 @@
+2007-05-28  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (WOE32): New conditional.
+
 2007-04-13  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: For LIBSCHED, try also -lposix4.
