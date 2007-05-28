@@ -1,4 +1,5 @@
 config.libpath
+config.rpath
 install-reloc
 link-warning.h
 moopp
