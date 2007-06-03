@@ -1645,14 +1645,18 @@ On all POSIX conformant systems the locale categories @code{LC_CTYPE},
 @code{LC_MESSAGES}, @code{LC_COLLATE}, @code{LC_MONETARY},
 @code{LC_NUMERIC}, and @code{LC_TIME} are available.  On some systems
 which are only ISO C compliant, @code{LC_MESSAGES} is missing, but
-a substitute for it is defined in GNU gettext's @code{<libintl.h>}.
+a substitute for it is defined in GNU gettext's @code{<libintl.h>} and
+in GNU gnulib's @code{<locale.h>}.
 
 Note that changing the @code{LC_CTYPE} also affects the functions
-declared in the @code{<ctype.h>} standard header.  If this is not
+declared in the @code{<ctype.h>} standard header and some functions
+declared in the @code{<string.h>} and @code{<stdlib.h>} standard headers.
+If this is not
 desirable in your application (for example in a compiler's parser),
 you can use a set of substitute functions which hardwire the C locale,
-such as found in the @code{<c-ctype.h>} and @code{<c-ctype.c>} files
-in the gettext source distribution.
+such as found in the modules @samp{c-ctype}, @samp{c-strcase},
+@samp{c-strcasestr}, @samp{c-strtod}, @samp{c-strtold} in the GNU gnulib
+source distribution.
 
 It is also possible to switch the locale forth and back between the
 environment dependent locale and the C locale, but this approach is
@@ -5393,7 +5397,7 @@ library, and for packages adhering to its conventions, it's:
 @var{locale} is the name of the locale category which is designated by
 @code{LC_@var{category}}.  For @code{gettext} and @code{dgettext} this
 @code{LC_@var{category}} is always @code{LC_MESSAGES}.@footnote{Some
-system, eg Ultrix, don't have @code{LC_MESSAGES}.  Here we use a more or
+system, e.g.@: mingw, don't have @code{LC_MESSAGES}.  Here we use a more or
 less arbitrary value for it, namely 1729, the smallest positive integer
 which can be represented in two different ways as the sum of two cubes.}
 The name of the locale category is determined through
