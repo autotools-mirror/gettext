@@ -121,9 +121,11 @@ which languages are allowed.
 @node Using This Package
 @section Using This Package
 
-@c --
-@c FIXME: rewrite to document the aliases.
-@c --
+@c Note: We don't document the locale aliases, because they are less and less
+@c used - locale.alias contains not a single UTF-8 locale and still lists
+@c ISO-8859-1 for countries which have long adopted the Euro and switched to
+@c ISO-8859-15.
+@c
 As a user, if your language has been installed for this package, you
 only have to set the @code{LANG} environment variable to the appropriate
 @samp{@var{ll}_@var{CC}} combination.  Here @samp{@var{ll}} is an
