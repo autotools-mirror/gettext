@@ -187,8 +187,16 @@ Introduction
 
 The User's View
 
-* Matrix::                      The Current @file{ABOUT-NLS} Matrix
-* End Users::                   Magic for End Users
+* System Installation::         Questions During Operating System Installation
+* Setting the GUI Locale::      How to Specify the Locale Used by GUI Programs
+* Setting the POSIX Locale::    How to Specify the Locale According to POSIX
+* Installing Localizations::    How to Install Additional Translations
+
+Setting the POSIX Locale
+
+* Locale Names::                How a Locale Specification Looks Like
+* Locale Environment Variables:: Which Environment Variable Specfies What
+* The LANGUAGE variable::       How to Specify a Priority List of Languages
 
 Preparing Program Sources
 
@@ -1083,8 +1091,8 @@ with the GNU @code{gettext} library, usually through the operation of
 @code{make}, given a suitable @file{Makefile} exists for the project,
 and the resulting executable is installed somewhere users will find it.
 The MO files themselves should also be properly installed.  Given the
-appropriate environment variables are set (@pxref{End Users}), the
-program should localize itself automatically, whenever it executes.
+appropriate environment variables are set (@pxref{Setting the POSIX Locale}),
+the program should localize itself automatically, whenever it executes.
 
 The remainder of this manual has the purpose of explaining in depth the various
 steps outlined above.
@@ -1092,74 +1100,241 @@ steps outlined above.
 @node Users, PO Files, Introduction, Top
 @chapter The User's View
 
-When GNU @code{gettext} will truly have reached its goal, average users
-should feel some kind of astonished pleasure, seeing the effect of
-that strange kind of magic that just makes their own native language
-appear everywhere on their screens.  As for naive users, they would
-ideally have no special pleasure about it, merely taking their own
-language for @emph{granted}, and becoming rather unhappy otherwise.
+Nowadays, when users log into a computer, they usually find that all
+their programs show messages in their native language -- at least for
+users of languages with an active free software community, like French or
+German; to a lesser extent for languages with a smaller participation in
+free software and the GNU project, like Hindi and Filipino.
 
-So, let's try to describe here how we would like the magic to operate,
-as we want the users' view to be the simplest, among all ways one
-could look at GNU @code{gettext}.  All other software engineers:
-programmers, translators, maintainers, should work together in such a
-way that the magic becomes possible.  This is a long and progressive
-undertaking, and information is available about the progress of the
-Translation Project.
-
-When a package is distributed, there are two kinds of users:
-@dfn{installers} who fetch the distribution, unpack it, configure
-it, compile it and install it for themselves or others to use; and
-@dfn{end users} that call programs of the package, once these have
-been installed at their site.  GNU @code{gettext} is offering magic
-for both installers and end users.
+How does this work?  How can the user influence the language that is used
+by the programs?  This chapter will answer it.
 
 @menu
-* Matrix::                      The Current @file{ABOUT-NLS} Matrix
-* End Users::                   Magic for End Users
+* System Installation::         Questions During Operating System Installation
+* Setting the GUI Locale::      How to Specify the Locale Used by GUI Programs
+* Setting the POSIX Locale::    How to Specify the Locale According to POSIX
+* Installing Localizations::    How to Install Additional Translations
 @end menu
 
-@node Matrix, End Users, Users, Users
-@section The Current @file{ABOUT-NLS} Matrix
-@cindex Translation Matrix
-@cindex available translations
-@cindex @file{ABOUT-NLS} file
+@node System Installation, Setting the GUI Locale, Users, Users
+@section Operating System Installation
 
-Languages are not equally supported in all packages using GNU
-@code{gettext}.  To know if some package uses GNU @code{gettext}, one
-may check the distribution for the @file{ABOUT-NLS} information file, for
-some @file{@var{ll}.po} files, often kept together into some @file{po/}
-directory, or for an @file{intl/} directory.  Internationalized packages
-have usually many @file{@var{ll}.po} files, where @var{ll} represents
-the language.  @ref{End Users} for a complete description of the format
-for @var{ll}.
+The default language is often already specified during operating system
+installation.  When the operating system is installed, the installer
+typically asks for the language used for the installation process and,
+separately, for the language to use in the installed system.  Some OS
+installers only ask for the language once.
 
-More generally, a matrix is available for showing the current state
-of the Translation Project, listing which packages are prepared for
-multi-lingual messages, and which languages are supported by each.
-Because this information changes often, this matrix is not kept within
-this GNU @code{gettext} manual.  This information is often found in
-file @file{ABOUT-NLS} from various distributions, but is also as old as
-the distribution itself.  A recent copy of this @file{ABOUT-NLS} file,
-containing up-to-date information, should generally be found on the
-Translation Project sites, and also on most GNU archive sites.
+This determines the system-wide default language for all users.  But the
+installers often give the possibility to install extra localizations for
+additional languages.  For example, the localizations of KDE (the K
+Desktop Environment) and OpenOffice.org are often bundled separately,
+as one installable package per language.
 
-@node End Users,  , Matrix, Users
-@section Magic for End Users
+At this point it is good to consider the intended use of the machine: If
+it is a machine designated for personal use, additional localizations are
+probably not necessary.  If, however, the machine is in use in an
+organization or company that has international relationships, one can
+consider the needs of guest users.  If you have a guest from abroad, for
+a week, what could be his preferred locales?  It may be worth installing
+these additional localizations ahead of time, since they cost only a bit
+of disk space at this point.
+
+The system-wide default language is the locale configuration that is used
+when a new user account is created.  But the user can have his own locale
+configuration that is different from the one of the other users of the
+same machine.  He can specify it, typically after the first login, as
+described in the next section.
+
+@node Setting the GUI Locale, Setting the POSIX Locale, System Installation, Users
+@section Setting the Locale Used by GUI Programs
+
+The immediately available programs in a user's desktop come from a group
+of programs called a ``desktop environment''; it usually includes the window
+manager, a web browser, a text editor, and more.  The most common free
+desktop environments are KDE, GNOME, and Xfce.
+
+The locale used by GUI programs of the desktop environment can be specified
+in a configuration screen called ``control center'', ``language settings''
+or ``country settings''.
+
+Individual GUI programs that are not part of the desktop environment can
+have their locale specified either in a settings panel, or through environment
+variables.
+
+For some programs, it is possible to specify the locale through environment
+variables, possibly even to a different locale than the desktop's locale.
+This means, instead of starting a program through a menu or from the file
+system, you can start it from the command-line, after having set some
+environment variables.  The environment variables can be those specified
+in the next section (@ref{Setting the POSIX Locale}); for some versions of
+KDE, however, the locale is specified through a variable @code{KDE_LANG},
+rather than @code{LANG} or @code{LC_ALL}.
+
+@node Setting the POSIX Locale, Installing Localizations, Setting the GUI Locale, Users
+@section Setting the Locale through Environment Variables
+
+As a user, if your language has been installed for this package, in the
+simplest case, you only have to set the @code{LANG} environment variable
+to the appropriate @samp{@var{ll}_@var{CC}} combination.  For example,
+let's suppose that you speak German and live in Germany.  At the shell
+prompt, merely execute 
+@w{@samp{setenv LANG de_DE}} (in @code{csh}),
+@w{@samp{export LANG; LANG=de_DE}} (in @code{sh}) or
+@w{@samp{export LANG=de_DE}} (in @code{bash}).  This can be done from your
+@file{.login} or @file{.profile} file, once and for all.
+
+@menu
+* Locale Names::                How a Locale Specification Looks Like
+* Locale Environment Variables:: Which Environment Variable Specfies What
+* The LANGUAGE variable::       How to Specify a Priority List of Languages
+@end menu
+
+@node Locale Names, Locale Environment Variables, Setting the POSIX Locale, Setting the POSIX Locale
+@subsection Locale Names
+
+A locale name usually has the form @samp{@var{ll}_@var{CC}}.  Here
+@samp{@var{ll}} is an @w{ISO 639} two-letter language code, and
+@samp{@var{CC}} is an @w{ISO 3166} two-letter country code.  For example,
+for German in Germany, @var{ll} is @code{de}, and @var{CC} is @code{DE}.
+You find a list of the language codes in appendix @ref{Language Codes} and
+a list of the country codes in appendix @ref{Country Codes}.
+
+You might think that the country code specification is redundant.  But in
+fact, some languages have dialects in different countries.  For example,
+@samp{de_AT} is used for Austria, and @samp{pt_BR} for Brazil.  The country
+code serves to distinguish the dialects.
+
+Many locale names have an extended syntax
+@samp{@var{ll}_@var{CC}.@var{encoding}} that also specifies the character
+encoding.  These are in use because between 2000 and 2005, most users have
+switched to locales in UTF-8 encoding.  For example, the German locale on
+glibc systems is nowadays @samp{de_DE.UTF-8}.  The older name @samp{de_DE}
+still refers to the German locale as of 2000 that stores characters in
+ISO-8859-1 encoding -- a text encoding that cannot even accomodate the Euro
+currency sign.
+
+On other systems, some variations of this scheme are used, such as
+@samp{@var{ll}}.  You can get the list of locales supported by your system
+for your language by running the command @samp{locale -a | grep '^@var{ll}'}.
+
+@node Locale Environment Variables, The LANGUAGE variable, Locale Names, Setting the POSIX Locale
+@subsection Locale Environment Variables
 @cindex setting up @code{gettext} at run time
 @cindex selecting message language
 @cindex language selection
 
+A locale is composed of several @emph{locale categories}, see @ref{Aspects}.
+When a program looks up locale dependent values, it does this according to
+the following environment variables, in priority order:
+
+@enumerate
+@vindex LANGUAGE@r{, environment variable}
+@item @code{LANGUAGE}
+@vindex LC_ALL@r{, environment variable}
+@item @code{LC_ALL}
+@vindex LC_CTYPE@r{, environment variable}
+@vindex LC_NUMERIC@r{, environment variable}
+@vindex LC_TIME@r{, environment variable}
+@vindex LC_COLLATE@r{, environment variable}
+@vindex LC_MONETARY@r{, environment variable}
+@vindex LC_MESSAGES@r{, environment variable}
+@item @code{LC_xxx}, according to selected locale category:
+@code{LC_CTYPE}, @code{LC_NUMERIC}, @code{LC_TIME}, @code{LC_COLLATE},
+@code{LC_MONETARY}, @code{LC_MESSAGES}, ...
 @vindex LANG@r{, environment variable}
-We consider here those packages using GNU @code{gettext} internally,
-and for which the installers did not disable translation at
-@emph{configure} time.  Then, users only have to set the @code{LANG}
-environment variable to the appropriate @samp{@var{ll}_@var{CC}}
-combination prior to using the programs in the package.  @xref{Matrix}.
-For example, let's presume a German site.  At the shell prompt, users
-merely have to execute @w{@samp{setenv LANG de_DE}} (in @code{csh}) or
-@w{@samp{export LANG; LANG=de_DE}} (in @code{sh}).  They could even do
-this from their @file{.login} or @file{.profile} file.
+@item @code{LANG}
+@end enumerate
+
+Variables whose value is set but is empty are ignored in this lookup.
+
+@code{LANG} is the normal environment variable for specifying a locale.
+As a user, you normally set this variable (unless some of the other variables
+have already been set by the system, in @file{/etc/profile} or similar
+initialization files).
+
+@code{LC_CTYPE}, @code{LC_NUMERIC}, @code{LC_TIME}, @code{LC_COLLATE},
+@code{LC_MONETARY}, @code{LC_MESSAGES}, and so on, are the environment
+variables meant to override @code{LANG} and affecting a single locale
+category only.  For example, assume you are a Swedish user in Spain, and you
+want your programs to handle numbers and dates according to Spanish
+conventions, and only the messages should be in Swedish.  Then you could
+create a locale named @samp{sv_ES} or @samp{sv_ES.UTF-8} by use of the
+@code{localedef} program.  But it is simpler, and achieves the same effect,
+to set the @code{LANG} variable to @code{es_ES.UTF-8} and the
+@code{LC_MESSAGES} variable to @code{sv_SE.UTF-8}; these two locales come
+already preinstalled with the operating system.
+
+@code{LC_ALL} is an environment variable that overrides all of these.
+It is typically used in scripts that run particular programs.  For example,
+@code{configure} scripts generated by GNU autoconf use @code{LC_ALL} to make
+sure that the configuration tests don't operate in locale dependent ways.
+
+Some systems, unfortunately, set @code{LC_ALL} in @file{/etc/profile} or in
+similar initialization files.  As a user, you therefore have to unset this
+variable if you want to set @code{LANG} and optionally some of the other
+@code{LC_xxx} variables.
+
+The @code{LANGUAGE} variable is described in the next subsection.
+
+@node The LANGUAGE variable,  , Locale Environment Variables, Setting the POSIX Locale
+@subsection Specifying a Priority List of Languages
+
+Not all programs have translations for all languages.  By default, an
+English message is shown in place of a nonexistent translation.  If you
+understand other languages, you can set up a priority list of languages.
+This is done through a different environment variable, called
+@code{LANGUAGE}.  GNU @code{gettext} gives preference to @code{LANGUAGE}
+over @code{LC_ALL} and @code{LANG} for the purpose of message handling,
+but you still need to have @code{LANG} (or @code{LC_ALL}) set to the primary
+language; this is required by other parts of the system libraries.
+For example, some Swedish users who would rather read translations in
+German than English for when Swedish is not available, set @code{LANGUAGE}
+to @samp{sv:de} while leaving @code{LANG} to @samp{sv_SE}.
+
+Special advice for Norwegian users: The language code for Norwegian
+bokm@ringaccent{a}l changed from @samp{no} to @samp{nb} recently (in 2003).
+During the transition period, while some message catalogs for this language
+are installed under @samp{nb} and some older ones under @samp{no}, it is
+recommended for Norwegian users to set @code{LANGUAGE} to @samp{nb:no} so that
+both newer and older translations are used.
+
+In the @code{LANGUAGE} environment variable, but not in the other
+environment variables, @samp{@var{ll}_@var{CC}} combinations can be
+abbreviated as @samp{@var{ll}} to denote the language's main dialect.
+For example, @samp{de} is equivalent to @samp{de_DE} (German as spoken in
+Germany), and @samp{pt} to @samp{pt_PT} (Portuguese as spoken in Portugal)
+in this context.
+
+@node Installing Localizations,  , Setting the POSIX Locale, Users
+@section Installing Translations for Particular Programs
+@cindex Translation Matrix
+@cindex available translations
+
+Languages are not equally well supported in all packages using GNU
+@code{gettext}, and more translations are added over time.  Usually, you
+use the translations that are shipped with the operating system
+or with particular packages that you install afterwards.  But you can also
+install newer localizations directly.  For doing this, you will need an
+understanding where each localization file is stored on the file system.
+
+@cindex @file{ABOUT-NLS} file
+For programs that participate in the Translation Project, you can start
+looking for translations here:
+@url{http://www.iro.umontreal.ca/translation/registry.cgi?team=index}.
+A snapshot of this information is also found in the @file{ABOUT-NLS} file
+that is shipped with GNU gettext.
+
+For programs that are part of the KDE project, the starting point is:
+@url{http://i18n.kde.org/}.
+
+For programs that are part of the GNOME project, the starting point is:
+@url{http://www.gnome.org/i18n/}.
+
+For other programs, you may check whether the program's source code package
+contains some @file{@var{ll}.po} files; often they are kept together in a
+directory called @file{po/}.  Each @file{@var{ll}.po} file contains the
+message translations for the language whose abbreviation of @var{ll}.
 
 @node PO Files, Sources, Users, Top
 @chapter The Format of PO Files

@@ -1,5 +1,16 @@
 2007-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Users): Chapter completely rewritten.
+	Reported by Karl Berry <karl@freefriends.org>.
+
+2007-06-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Triggering): Talk about gnulib instead of the gettext
+	source code.
+	(Loading Catalogs): Update footnote.
+
+2007-06-03  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Aspects): Talk about POSIX:2001 instead of SUSV2.
 
 2007-06-03  Bruno Haible  <bruno@clisp.org>
