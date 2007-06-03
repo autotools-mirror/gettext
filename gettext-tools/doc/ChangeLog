@@ -1,5 +1,9 @@
 2007-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Aspects): Talk about POSIX:2001 instead of SUSV2.
+
+2007-06-03  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi: Talk about "locale categories" instead of "locale
 	facets" everwhere, and instead of "locales" where appropriate.
 	(Aspects): Explain the term "locale categories".

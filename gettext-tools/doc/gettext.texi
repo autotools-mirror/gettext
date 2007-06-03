@@ -813,7 +813,8 @@ the locale category containing the translated messages, and so on.
 
 @cindex Linux
 Components of locale outside of message handling are standardized in
-the ISO C standard and the SUSV2 specification.  GNU @code{libc}
+the ISO C standard and the POSIX:2001 standard (also known as the SUSV3
+specification).  GNU @code{libc}
 fully implements this, and most other modern systems provide a more
 or less reasonable support for at least some of the missing components.
 
