@@ -2,6 +2,9 @@ Version 0.16.2 - January 2007
 
 * gettextize now has a --po-dir option that allows several PO directories to
   be updated all together.
+
+* Documentation:
+  The "Users" chapter has been completely rewritten.
 
 Version 0.16.1 - November 2006
 
