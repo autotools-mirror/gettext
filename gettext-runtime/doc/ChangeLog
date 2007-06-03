@@ -1,3 +1,8 @@
+2007-06-03  Bruno Haible  <bruno@clisp.org>
+
+	* nls.texi (Using This Package): Recommend also to unset LC_ALL etc.
+	Reported by Karl Berry <karl@freefriends.org>.
+
 2006-11-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16.1 released.

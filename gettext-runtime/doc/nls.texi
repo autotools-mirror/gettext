@@ -128,7 +128,10 @@ which languages are allowed.
 @c
 As a user, if your language has been installed for this package, you
 only have to set the @code{LANG} environment variable to the appropriate
-@samp{@var{ll}_@var{CC}} combination.  Here @samp{@var{ll}} is an
+@samp{@var{ll}_@var{CC}} combination.  If you happen to have the @code{LC_ALL}
+or some other @code{LC_xxx} environment variables set, you should unset them
+before setting @code{LANG}, otherwise the setting of @code{LANG} will not
+have the desired effect.  Here @samp{@var{ll}} is an
 @w{ISO 639} two-letter language code, and @samp{@var{CC}} is an
 @w{ISO 3166} two-letter country code.  For example, let's suppose that you
 speak German and live in Germany.  At the shell prompt, merely execute
