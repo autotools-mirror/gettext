@@ -724,7 +724,7 @@ numbers, the symbols for currency, etc.  These local @dfn{rules} are
 termed the country's locale.  The locale represents the knowledge
 needed to support the country's native attributes.
 
-@cindex locale facets
+@cindex locale categories
 There are a few major areas which may vary between countries and
 hence, define what a locale must describe.  The following list helps
 putting multi-lingual messages into the proper context of other tasks
@@ -736,7 +736,7 @@ related to locales.  See the GNU @code{libc} manual for details.
 @cindex codeset
 @cindex encoding
 @cindex character encoding
-@cindex locale facet, LC_CTYPE
+@cindex locale category, LC_CTYPE
 
 The codeset most commonly used through out the USA and most English
 speaking parts of the world is the ASCII codeset.  However, there are
@@ -751,7 +751,7 @@ the codeset.
 
 @item Currency
 @cindex currency symbols
-@cindex locale facet, LC_MONETARY
+@cindex locale category, LC_MONETARY
 
 The symbols used vary from country to country as does the position
 used by the symbol.  Software needs to be able to transparently
@@ -759,7 +759,7 @@ display currency figures in the native mode for each locale.
 
 @item Dates
 @cindex date format
-@cindex locale facet, LC_TIME
+@cindex locale category, LC_TIME
 
 The format of date varies between locales.  For example, Christmas day
 in 1994 is written as 12/25/94 in the USA and as 25/12/94 in Australia.
@@ -772,7 +772,7 @@ of the Daylight Saving correction vary widely between countries.
 
 @item Numbers
 @cindex number format
-@cindex locale facet, LC_NUMERIC
+@cindex locale category, LC_NUMERIC
 
 Numbers can be represented differently in different locales.
 For example, the following numbers are all written correctly for
@@ -791,7 +791,7 @@ about how numbers are spelled in full.
 
 @item Messages
 @cindex messages
-@cindex locale facet, LC_MESSAGES
+@cindex locale category, LC_MESSAGES
 
 The most obvious area is the language support within a locale.  This is
 where GNU @code{gettext} provides the means for developers and users to
@@ -799,6 +799,17 @@ easily change the language that the software uses to communicate to
 the user.
 
 @end table
+
+@cindex locale categories
+These areas of cultural conventions are called @emph{locale categories}.
+It is an unfortunate term; @emph{locale aspects} or @emph{locale feature
+categories} would be a better term, because each ``locale category''
+describes an area or task that requires localization.  The concrete data
+that describes the cultural conventions for such an area and for a particular
+culture is also called a @emph{locale category}.  In this sense, a locale
+is composed of several locale categories: the locale category describing
+the codeset, the locale category describing the formatting of numbers,
+the locale category containing the translated messages, and so on.
 
 @cindex Linux
 Components of locale outside of message handling are standardized in
@@ -1584,11 +1595,11 @@ main (int argc, char *argv[])
 @file{config.h} or by the Makefile.  For now consult the @code{gettext}
 or @code{hello} sources for more information.
 
-@cindex locale facet, LC_ALL
-@cindex locale facet, LC_CTYPE
+@cindex locale category, LC_ALL
+@cindex locale category, LC_CTYPE
 The use of @code{LC_ALL} might not be appropriate for you.
 @code{LC_ALL} includes all locale categories and especially
-@code{LC_CTYPE}.  This later category is responsible for determining
+@code{LC_CTYPE}.  This latter category is responsible for determining
 character classes with the @code{isalnum} etc. functions from
 @file{ctype.h} which could especially for programs, which process some
 kind of input language, be wrong.  For example this would mean that a
@@ -1596,8 +1607,8 @@ source code using the @,{c} (c-cedilla character) is runnable in
 France but not in the U.S.
 
 Some systems also have problems with parsing numbers using the
-@code{scanf} functions if an other but the @code{LC_ALL} locale is used.
-The standards say that additional formats but the one known in the
+@code{scanf} functions if an other but the @code{LC_ALL} locale category is
+used.  The standards say that additional formats but the one known in the
 @code{"C"} locale might be recognized.  But some systems seem to reject
 numbers in the @code{"C"} locale format.  In some situation, it might
 also be a problem with the notation itself which makes it impossible to
@@ -1621,13 +1632,13 @@ code above by a sequence of @code{setlocale} lines
 @end group
 @end example
 
-@cindex locale facet, LC_CTYPE
-@cindex locale facet, LC_COLLATE
-@cindex locale facet, LC_MONETARY
-@cindex locale facet, LC_NUMERIC
-@cindex locale facet, LC_TIME
-@cindex locale facet, LC_MESSAGES
-@cindex locale facet, LC_RESPONSES
+@cindex locale category, LC_CTYPE
+@cindex locale category, LC_COLLATE
+@cindex locale category, LC_MONETARY
+@cindex locale category, LC_NUMERIC
+@cindex locale category, LC_TIME
+@cindex locale category, LC_MESSAGES
+@cindex locale category, LC_RESPONSES
 @noindent
 On all POSIX conformant systems the locale categories @code{LC_CTYPE},
 @code{LC_MESSAGES}, @code{LC_COLLATE}, @code{LC_MONETARY},
@@ -5281,8 +5292,8 @@ in the current domain.  If it is not available, the argument itself is
 returned.  If the argument is @code{NULL} the result is undefined.
 
 One thing which should come into mind is that no explicit dependency to
-the used domain is given.  The current value of the domain for the
-@code{LC_MESSAGES} locale is used.  If this changes between two
+the used domain is given.  The current value of the domain is used.
+If this changes between two
 executions of the same @code{gettext} call in the program, both calls
 reference a different message catalog.
 
@@ -5322,7 +5333,7 @@ char *dcgettext (const char *domain_name, const char *msgid,
 
 Both take an additional argument at the first place, which corresponds
 to the argument of @code{textdomain}.  The third argument of
-@code{dcgettext} allows to use another locale but @code{LC_MESSAGES}.
+@code{dcgettext} allows to use another locale category but @code{LC_MESSAGES}.
 But I really don't know where this can be useful.  If the
 @var{domain_name} is @code{NULL} or @var{category} has an value beside
 the known ones, the result is undefined.  It should also be noted that
@@ -5364,8 +5375,8 @@ stored we need some way to add these information to file message catalog
 files.  The way usually used in Unix environments is have this encoding
 in the file name.  This is also done here.  The directory name given in
 @code{bindtextdomain}s second argument (or the default directory),
-followed by the value and name of the locale and the domain name are
-concatenated:
+followed by the name of the locale, the locale category, and the domain name
+are concatenated:
 
 @example
 @var{dir_name}/@var{locale}/LC_@var{category}/@var{domain_name}.mo
@@ -5378,18 +5389,19 @@ library, and for packages adhering to its conventions, it's:
 @end example
 
 @noindent
-@var{locale} is the value of the locale whose name is this
+@var{locale} is the name of the locale category which is designated by
 @code{LC_@var{category}}.  For @code{gettext} and @code{dgettext} this
 @code{LC_@var{category}} is always @code{LC_MESSAGES}.@footnote{Some
 system, eg Ultrix, don't have @code{LC_MESSAGES}.  Here we use a more or
 less arbitrary value for it, namely 1729, the smallest positive integer
 which can be represented in two different ways as the sum of two cubes.}
-The value of the locale is determined through
+The name of the locale category is determined through
 @code{setlocale (LC_@var{category}, NULL)}.
 @footnote{When the system does not support @code{setlocale} its behavior
 in setting the locale values is simulated by looking at the environment
 variables.}
-@code{dcgettext} specifies the locale category by the third argument.
+When using the function @code{dcgettext}, you can specify the locale category
+through the third argument.
 
 @node Charset conversion, Contexts, Locating Catalogs, gettext
 @subsection How to specify the output character set @code{gettext} uses
@@ -5510,7 +5522,7 @@ const char *dcpgettext (const char *domain_name,
 These are generalizations of @code{pgettext}.  They behave similarly to
 @code{dgettext} and @code{dcgettext}, respectively.  The @var{domain_name}
 argument defines the translation domain.  The @var{category} argument
-allows to use another locale facet than @code{LC_MESSAGES}.
+allows to use another locale category than @code{LC_MESSAGES}.
 
 As as example consider the following fictional situation.  A GUI program
 has a menu bar with the following entries:
@@ -6254,7 +6266,7 @@ priority:
 @vindex LC_COLLATE@r{, environment variable}
 @vindex LC_MONETARY@r{, environment variable}
 @vindex LC_MESSAGES@r{, environment variable}
-@item @code{LC_xxx}, according to selected locale
+@item @code{LC_xxx}, according to selected locale category
 @vindex LANG@r{, environment variable}
 @item @code{LANG}
 @end enumerate
@@ -6394,7 +6406,7 @@ access routines) with their software instead of just including the
 @code{libintl} code with their software.
 
 Message catalog support is however only the tip of the iceberg.
-What about the data for the other locale categories.  They also have
+What about the data for the other locale categories?  They also have
 a number of deficiencies.  Are we going to abandon them as well and
 develop another duplicate set of routines (should @code{libintl}
 expand beyond message catalog support)?
@@ -8262,7 +8274,7 @@ Similarly, you should make the functions @code{ngettext},
 @code{dcgettext}, @code{dcngettext} available from within the language.
 These functions are less often used, but are nevertheless necessary for
 particular purposes: @code{ngettext} for correct plural handling, and
-@code{dcgettext} and @code{dcngettext} for obeying other locale
+@code{dcgettext} and @code{dcngettext} for obeying other locale-related
 environment variables than @code{LC_MESSAGES}, such as @code{LC_TIME} or
 @code{LC_MONETARY}.  For these latter functions, you need to make the
 @code{LC_*} constants, available in the C header @code{<locale.h>},
@@ -8281,7 +8293,7 @@ function.
 You should either perform a @code{setlocale (LC_ALL, "")} call during
 the startup of your language runtime, or allow the programmer to do so.
 Remember that gettext will act as a no-op if the @code{LC_MESSAGES} and
-@code{LC_CTYPE} locale facets are not both set.
+@code{LC_CTYPE} locale categories are not both set.
 
 @item
 A programmer should have a way to extract translatable strings from a
@@ -8419,7 +8431,7 @@ insert an @samp{I} flag into numeric format directives.  For example, the
 translation of @code{"%d"} can be @code{"%Id"}.  The effect of this flag,
 on systems with GNU @code{libc}, is that in the output, the ASCII digits are
 replaced with the @samp{outdigits} defined in the @code{LC_CTYPE} locale
-facet.  On other systems, the @code{gettext} function removes this flag,
+category.  On other systems, the @code{gettext} function removes this flag,
 so that it has no effect.
 
 Note that the programmer should @emph{not} put this flag into the

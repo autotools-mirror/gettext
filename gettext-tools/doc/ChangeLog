@@ -1,3 +1,10 @@
+2007-06-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Talk about "locale categories" instead of "locale
+	facets" everwhere, and instead of "locales" where appropriate.
+	(Aspects): Explain the term "locale categories".
+	Reported by Karl Berry <karl@freefriends.org>.
+
 2007-05-05  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (ifmakeinfo): Remove alias.
