@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -219,10 +219,16 @@ extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
 #endif
 
 #ifndef _LIBC
-const char *_nl_language_preferences_default (void);
-const char *_nl_locale_name_posix (int category, const char *categoryname);
-const char *_nl_locale_name_default (void);
-const char *_nl_locale_name (int category, const char *categoryname);
+extern const char *_nl_language_preferences_default (void);
+# define gl_locale_name_canonicalize _nl_locale_name_canonicalize
+extern void _nl_locale_name_canonicalize (char *name);
+# define gl_locale_name_posix _nl_locale_name_posix
+extern const char *_nl_locale_name_posix (int category,
+					  const char *categoryname);
+# define gl_locale_name_default _nl_locale_name_default
+extern const char *_nl_locale_name_default (void);
+# define gl_locale_name _nl_locale_name_default
+extern const char *_nl_locale_name (int category, const char *categoryname);
 #endif
 
 struct loaded_l10nfile *_nl_find_domain (const char *__dirname, char *__locale,
