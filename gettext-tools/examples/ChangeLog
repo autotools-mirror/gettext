@@ -1,3 +1,7 @@
+2007-06-07  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/autoclean.sh: Remove also intlmacosx.m4.
+
 2007-04-06  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/autoclean.sh: Don't remove longdouble.m4 any more.
