@@ -1,3 +1,9 @@
+2007-06-07  Bruno Haible  <bruno@clisp.org>
+
+	* intlmacosx.m4: New file, extracted from gettext.m4.
+	* gettext.m4 (gt_INTL_MACOSX): Remove macro, moved to intlmacosx.m4.
+	* Makefile.am (EXTRA_DIST): Add intlmacosx.m4.
+
 2007-05-28  Bruno Haible  <bruno@clisp.org>
 
 	* intl.m4 (AM_INTL_SUBDIR): Substitute variables WOE32, WINDRES.
