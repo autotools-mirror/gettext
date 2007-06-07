@@ -410,14 +410,16 @@ Sort output by file location.
 
 @item --omit-header
 @opindex --omit-header@r{, @code{xgettext} option}
-Don't write header with @samp{msgid ""} entry.  Note that using this option
-will lead to an error if the resulting file would not entirely be in ASCII.
+Don't write header with @samp{msgid ""} entry.
 
 @cindex testing @file{.po} files for equivalence
 This is useful for testing purposes because it eliminates a source
 of variance for generated @code{.gmo} files.  With @code{--omit-header},
 two invocations of @code{xgettext} on the same files with the same
 options at different times are guaranteed to produce the same results.
+
+Note that using this option will lead to an error if the resulting file
+would not entirely be in ASCII.
 
 @item --copyright-holder=@var{string}
 @opindex --copyright-holder@r{, @code{xgettext} option}
