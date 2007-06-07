@@ -353,7 +353,9 @@ Write the .po file using indented style.
 
 @item --no-location
 @opindex --no-location@r{, @code{xgettext} option}
-Do not write @samp{#: @var{filename}:@var{line}} lines.
+Do not write @samp{#: @var{filename}:@var{line}} lines.  Note that using
+this option makes it harder for technically skilled translators to understand
+each message's context.
 
 @item -n
 @itemx --add-location
@@ -408,7 +410,8 @@ Sort output by file location.
 
 @item --omit-header
 @opindex --omit-header@r{, @code{xgettext} option}
-Don't write header with @samp{msgid ""} entry.
+Don't write header with @samp{msgid ""} entry.  Note that using this option
+will lead to an error if the resulting file would not entirely be in ASCII.
 
 @cindex testing @file{.po} files for equivalence
 This is useful for testing purposes because it eliminates a source
