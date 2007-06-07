@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -175,7 +175,7 @@ Report bugs to <bug-gnu-gettext@gnu.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+  echo "Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
   echo "Written by" "Ulrich Drepper"
@@ -769,8 +769,8 @@ min_automake_version=1.9
 if test -n "$intldir" || test -z "$have_automake19"; then
   # Add intldir.m4, intl.m4 and its dependencies.
   m4filelist=$m4filelist' codeset.m4 glibc2.m4 glibc21.m4 intdiv0.m4 intl.m4
-   intldir.m4 intmax.m4 inttypes_h.m4 inttypes-pri.m4 lcmessage.m4 lock.m4
-   longlong.m4 printf-posix.m4 size_max.m4 stdint_h.m4
+   intldir.m4 intlmacosx.m4 intmax.m4 inttypes_h.m4 inttypes-pri.m4
+   lcmessage.m4 lock.m4 longlong.m4 printf-posix.m4 size_max.m4 stdint_h.m4
    uintmax_t.m4 ulonglong.m4 visibility.m4 wchar_t.m4 wint_t.m4 xsize.m4'
   min_automake_version=1.8
 fi

@@ -1,3 +1,8 @@
+2007-06-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Add intlmacosx.m4 to the list.
+	(func_version): Update copyright year.
+
 2007-05-24  Bruno Haible  <bruno@clisp.org>
 
 	* po-mode.el (po-mode-map): Bind po-undo also to Ctrl-_.

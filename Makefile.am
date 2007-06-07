@@ -50,6 +50,7 @@ distcheck-hook:
 	cmp -s gettext-runtime/m4/intdiv0.m4 gettext-tools/gnulib-m4/intdiv0.m4
 	cmp -s gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4
 	cmp -s gettext-runtime/m4/intldir.m4 gettext-tools/gnulib-m4/intldir.m4
+	cmp -s gettext-runtime/m4/intlmacosx.m4 gettext-tools/gnulib-m4/intlmacosx.m4
 	cmp -s gettext-runtime/m4/intmax.m4 gettext-tools/gnulib-m4/intmax.m4
 	cmp -s gettext-runtime/m4/inttypes-pri.m4 gettext-tools/gnulib-m4/inttypes-pri.m4
 	cmp -s gettext-runtime/m4/inttypes_h.m4 gettext-tools/gnulib-m4/inttypes_h.m4
