@@ -112,7 +112,7 @@ main (int argc, char *argv[])
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 "),
-	      "2006");
+	      "2006-2007");
       printf (_("Written by %s and %s.\n"),
 	      /* TRANSLATORS: This is a proper name. The last name is
 		 (with Unicode escapes) "\u0160egan" or (with HTML entities)

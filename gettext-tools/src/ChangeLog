@@ -1,5 +1,26 @@
 2007-06-08  Bruno Haible  <bruno@clisp.org>
 
+	* msgattrib.c (main): Update year in --version output.
+	* msgcat.c (main): Likewise.
+	* msgcmp.c (main): Likewise.
+	* msgcomm.c (main): Likewise.
+	* msgconv.c (main): Likewise.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msgfilter.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msggrep.c (main): Likewise.
+	* msginit.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* msguniq.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+	* recode-sr-latin.c (main): Likewise.
+	* hostname.c (main): Likewise.
+	* urlget.c (main): Likewise.
+
+2007-06-08  Bruno Haible  <bruno@clisp.org>
+
 	* msginit.c: Include localename.h.
 	(_nl_locale_name): Remove declaration.
 	(main): Use gl_locale_name instead of _nl_locale_name.
