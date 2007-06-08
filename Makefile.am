@@ -72,6 +72,7 @@ distcheck-hook:
 	test "`sed 1,19d gettext-runtime/intl/config.charset | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/config.charset | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/localcharset.h | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.h | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/localcharset.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.c | md5sum`"
+	cmp -s gettext-runtime/intl/localename.c gettext-tools/gnulib-lib/localename.c
 	test "`sed 1,17d gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.h | md5sum`"
 	test "`sed 1,17d gettext-runtime/intl/lock.c | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.c | md5sum`"
 	cmp -s gettext-runtime/intl/printf-args.h gettext-runtime/libasprintf/printf-args.h

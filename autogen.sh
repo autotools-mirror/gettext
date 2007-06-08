@@ -124,6 +124,7 @@ if test -n "$GNULIB_TOOL"; then
   linebreak
   localcharset
   locale
+  localename
   lock
   memmove
   memset
