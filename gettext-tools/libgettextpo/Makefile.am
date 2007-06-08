@@ -39,7 +39,6 @@ AM_CPPFLAGS = \
   -I.. -I$(top_srcdir) \
   -I../src -I$(top_srcdir)/src \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
-LDADD = $(WOE32_LDADD)
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = \
@@ -96,7 +95,7 @@ LTV_AGE=3
 # How to build libgettextpo.la.
 # Don't make it depend on libgettextsrc.la or libgettextlib.la, since they
 # define an uncontrolled amount of symbols.
-libgettextpo_la_LIBADD = libgnu.la
+libgettextpo_la_LIBADD = libgnu.la $(WOE32_LDADD)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \

@@ -1,3 +1,8 @@
+2007-06-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (LDADD): Remove variable.
+	(libgettextpo_la_LIBADD): Use WOE32_LDADD here.
+
 2007-05-28  Bruno Haible  <bruno@clisp.org>
 
 	* libgettextpo.rc: New file.
