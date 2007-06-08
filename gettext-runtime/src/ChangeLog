@@ -1,3 +1,9 @@
+2007-06-08  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.c (main): Update year in --version output.
+	* ngettext.c (main): Likewise.
+	* envsubst.c (main): Likewise.
+
 2007-05-28  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (MOSTLYCLEANFILES, CLEANFILES): New variables.
