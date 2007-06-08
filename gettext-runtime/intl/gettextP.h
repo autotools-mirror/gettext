@@ -227,7 +227,7 @@ extern const char *_nl_locale_name_posix (int category,
 					  const char *categoryname);
 # define gl_locale_name_default _nl_locale_name_default
 extern const char *_nl_locale_name_default (void);
-# define gl_locale_name _nl_locale_name_default
+# define gl_locale_name _nl_locale_name
 extern const char *_nl_locale_name (int category, const char *categoryname);
 #endif
 
