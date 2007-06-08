@@ -68,6 +68,7 @@
 #include "write-stringtable.h"
 #include "po-charset.h"
 #include "localcharset.h"
+#include "localename.h"
 #include "po-time.h"
 #include "plural-table.h"
 #include "lang-table.h"
@@ -96,7 +97,6 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-extern const char * _nl_locale_name (int category, const char *categoryname);
 extern const char * _nl_expand_alias (const char *name);
 
 /* Locale name.  */
@@ -279,7 +279,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
   /* Determine target locale.  */
   if (locale == NULL)
     {
-      locale = _nl_locale_name (LC_MESSAGES, "LC_MESSAGES");
+      locale = gl_locale_name (LC_MESSAGES, "LC_MESSAGES");
       if (strcmp (locale, "C") == 0)
 	{
 	  multiline_error (xstrdup (""),
