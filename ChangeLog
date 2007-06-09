@@ -1,3 +1,9 @@
+2007-06-09  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Use xmalloca instead of
+	xallocsa.
+	(GNULIB_MODULES_LIBGETTEXTPO): Likewise.
+
 2007-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add module 'localename'.

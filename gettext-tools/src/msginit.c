@@ -73,7 +73,7 @@
 #include "plural-table.h"
 #include "lang-table.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "filename.h"
 #include "xerror.h"
 #include "xvasprintf.h"
@@ -1489,7 +1489,7 @@ subst_string (const char *str,
       size_t i;
       unsigned int j;
 
-      substlen = (size_t *) xallocsa (nsubst * sizeof (size_t));
+      substlen = (size_t *) xmalloca (nsubst * sizeof (size_t));
       for (j = 0; j < nsubst; j++)
 	{
 	  substlen[j] = strlen (subst[j][0]);
@@ -1522,7 +1522,7 @@ subst_string (const char *str,
 	    i++;
 	}
 
-      freesa (substlen);
+      freea (substlen);
     }
 
   return str;

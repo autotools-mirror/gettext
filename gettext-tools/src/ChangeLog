@@ -1,3 +1,44 @@
+2007-06-09  Bruno Haible  <bruno@clisp.org>
+
+	* format-java.c: Include xmalloca.h instead of xallocsa.h.
+	(message_format_parse): Use xmalloca/freea instead of xallocsa/freesa.
+	* message.c: Include xmalloca.h instead of xallocsa.h.
+	(message_list_hash_insert_entry, message_list_search): Use
+	xmalloca/freea instead of xallocsa/freesa.
+	* msggrep.c: Include xmalloca.h instead of xallocsa.h.
+	(is_message_selected_no_invert): Use xmalloca/freea instead of
+	xallocsa/freesa.
+	* msginit.c: Include xmalloca.h instead of xallocsa.h.
+	(subst_string): Use xmalloca/freea instead of xallocsa/freesa.
+	* msgl-cat.c: Include xmalloca.h instead of xallocsa.h.
+	(catenate_msgdomain_list): Use xmalloca/freea instead of
+	xallocsa/freesa.
+	* msgl-charset.c: Include xmalloca.h instead of xallocsa.h.
+	(compare_po_locale_charsets): Use xmalloca/freea instead of
+	xallocsa/freesa.
+	* msgl-iconv.c: Include xmalloca.h instead of xallocsa.h.
+	(iconv_message_list_internal, is_message_list_iconvable): Use
+	xmalloca/freea instead of xallocsa/freesa.
+	* msgmerge.c: Include xmalloca.h instead of xallocsa.h.
+	(merge): Use xmalloca/freea instead of xallocsa/freesa.
+	* po-charset.c: Include xmalloca.h instead of xallocsa.h.
+	(po_lex_charset_set): Use xmalloca/freea instead of xallocsa/freesa.
+	* read-tcl.c: Include xmalloca.h instead of xallocsa.h.
+	(msgdomain_read_tcl): Use xmalloca/freea instead of xallocsa/freesa.
+	* write-java.c: Include xmalloca.h instead of xallocsa.h.
+	(compute_hashsize, msgdomain_write_java): Use xmalloca/freea instead of
+	xallocsa/freesa.
+	* write-mo.c: Include xmalloca.h instead of xallocsa.h.
+	(write_table): Use xmalloca/freea instead of xallocsa/freesa.
+	* write-po.c: Include xmalloca.h instead of xallocsa.h.
+	(msgdomain_list_print_po): Use xmalloca/freea instead of
+	xallocsa/freesa.
+	* write-tcl.c: Include xmalloca.h instead of xallocsa.h.
+	(msgdomain_write_tcl): Use xmalloca/freea instead of xallocsa/freesa.
+	* xgettext.c: Include xmalloca.h instead of xallocsa.h.
+	(flag_context_list_table_insert): Use xmalloca/freea instead of
+	xallocsa/freesa.
+
 2007-06-08  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (main): Update year in --version output.

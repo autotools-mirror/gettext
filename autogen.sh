@@ -158,7 +158,7 @@ if test -n "$GNULIB_TOOL"; then
   vasprintf
   wait-process
   xalloc
-  xallocsa
+  xmalloca
   xerror
   xsetenv
   xstriconv
@@ -217,7 +217,7 @@ if test -n "$GNULIB_TOOL"; then
   utf16-ucs4
   vasprintf
   xalloc
-  xallocsa
+  xmalloca
   xerror
   xstriconv
   xvasprintf

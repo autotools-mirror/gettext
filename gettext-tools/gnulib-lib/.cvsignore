@@ -2,9 +2,6 @@ Makefile.gnulib
 Makefile.in
 acl.c
 acl.h
-allocsa.c
-allocsa.h
-allocsa.valgrind
 argmatch.c
 argmatch.h
 atexit.c
@@ -191,8 +188,6 @@ wait-process.h
 wchar_.h
 wctype_.h
 wcwidth.h
-xallocsa.c
-xallocsa.h
 xasprintf.c
 xsetenv.c
 xsetenv.h

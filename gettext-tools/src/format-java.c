@@ -1,5 +1,5 @@
 /* Java format strings.
-   Copyright (C) 2001-2004, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
 #include "format.h"
 #include "c-ctype.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "xvasprintf.h"
 #include "format-invalid.h"
 #include "gettext.h"
@@ -196,7 +196,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 	  element_end = format++;
 
 	  n = element_end - element_start;
-	  element = element_alloced = (char *) xallocsa (n + 1);
+	  element = element_alloced = (char *) xmalloca (n + 1);
 	  memcpy (element, element_start, n);
 	  element[n] = '\0';
 
@@ -205,7 +205,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec->directives);
 	      FDI_SET (format - 1, FMTDIR_ERROR);
-	      freesa (element_alloced);
+	      freea (element_alloced);
 	      return false;
 	    }
 	  number = 0;
@@ -240,7 +240,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
 		      FDI_SET (format - 1, FMTDIR_ERROR);
-		      freesa (element_alloced);
+		      freea (element_alloced);
 		      return false;
 		    }
 		}
@@ -251,7 +251,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
 		  FDI_SET (format - 1, FMTDIR_ERROR);
-		  freesa (element_alloced);
+		  freea (element_alloced);
 		  return false;
 		}
 	    }
@@ -274,7 +274,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		      *invalid_reason =
 			xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid number style."), spec->directives, element);
 		      FDI_SET (format - 1, FMTDIR_ERROR);
-		      freesa (element_alloced);
+		      freea (element_alloced);
 		      return false;
 		    }
 		}
@@ -285,7 +285,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
 		  FDI_SET (format - 1, FMTDIR_ERROR);
-		  freesa (element_alloced);
+		  freea (element_alloced);
 		  return false;
 		}
 	    }
@@ -303,7 +303,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		  else
 		    {
 		      FDI_SET (format - 1, FMTDIR_ERROR);
-		      freesa (element_alloced);
+		      freea (element_alloced);
 		      return false;
 		    }
 		}
@@ -314,7 +314,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 		  *invalid_reason =
 		    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
 		  FDI_SET (format - 1, FMTDIR_ERROR);
-		  freesa (element_alloced);
+		  freea (element_alloced);
 		  return false;
 		}
 	    }
@@ -323,10 +323,10 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
 	      *invalid_reason =
 		xasprintf (_("In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
 	      FDI_SET (format - 1, FMTDIR_ERROR);
-	      freesa (element_alloced);
+	      freea (element_alloced);
 	      return false;
 	    }
-	  freesa (element_alloced);
+	  freea (element_alloced);
 
 	  if (spec->allocated == spec->numbered_arg_count)
 	    {
@@ -586,7 +586,7 @@ choice_format_parse (const char *format, struct spec *spec,
 	}
       HANDLE_QUOTE;
 
-      msgformat = (char *) xallocsa (strlen (format) + 1);
+      msgformat = (char *) xmalloca (strlen (format) + 1);
       mp = msgformat;
 
       while (*format != '\0' && !(!quoting && *format == '|'))
@@ -599,7 +599,7 @@ choice_format_parse (const char *format, struct spec *spec,
       msgformat_valid =
 	message_format_parse (msgformat, NULL, spec, invalid_reason);
 
-      freesa (msgformat);
+      freea (msgformat);
 
       if (!msgformat_valid)
 	return false;

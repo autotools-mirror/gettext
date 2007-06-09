@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -30,7 +30,7 @@
 #include "fstrcmp.h"
 #include "hash.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 
 
 const char *const format_language[NFORMATS] =
@@ -281,7 +281,7 @@ message_list_hash_insert_entry (hash_table *htable, message_ty *mp)
       size_t msgctxt_len = strlen (mp->msgctxt);
       size_t msgid_len = strlen (mp->msgid);
       keylen = msgctxt_len + 1 + msgid_len + 1;
-      alloced_key = (char *) xallocsa (keylen);
+      alloced_key = (char *) xmalloca (keylen);
       memcpy (alloced_key, mp->msgctxt, msgctxt_len);
       alloced_key[msgctxt_len] = MSGCTXT_SEPARATOR;
       memcpy (alloced_key + msgctxt_len + 1, mp->msgid, msgid_len + 1);
@@ -297,7 +297,7 @@ message_list_hash_insert_entry (hash_table *htable, message_ty *mp)
   found = (hash_insert_entry (htable, key, keylen, mp) == NULL);
 
   if (mp->msgctxt != NULL)
-    freesa (alloced_key);
+    freea (alloced_key);
 
   return found;
 }
@@ -482,7 +482,7 @@ message_list_search (message_list_ty *mlp,
 	  size_t msgctxt_len = strlen (msgctxt);
 	  size_t msgid_len = strlen (msgid);
 	  keylen = msgctxt_len + 1 + msgid_len + 1;
-	  alloced_key = (char *) xallocsa (keylen);
+	  alloced_key = (char *) xmalloca (keylen);
 	  memcpy (alloced_key, msgctxt, msgctxt_len);
 	  alloced_key[msgctxt_len] = MSGCTXT_SEPARATOR;
 	  memcpy (alloced_key + msgctxt_len + 1, msgid, msgid_len + 1);
@@ -500,7 +500,7 @@ message_list_search (message_list_ty *mlp,
 	int found = !hash_find_entry (&mlp->htable, key, keylen, &htable_value);
 
 	if (msgctxt != NULL)
-	  freesa (alloced_key);
+	  freea (alloced_key);
 
 	if (found)
 	  return (message_ty *) htable_value;

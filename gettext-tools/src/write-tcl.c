@@ -36,7 +36,7 @@
 #include "msgl-iconv.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "filename.h"
 #include "fwriteerror.h"
 #include "unistr.h"
@@ -194,7 +194,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 
     /* Convert the locale name to lowercase and remove any encoding.  */
     len = strlen (locale_name);
-    frobbed_locale_name = (char *) xallocsa (len + 1);
+    frobbed_locale_name = (char *) xmalloca (len + 1);
     memcpy (frobbed_locale_name, locale_name, len + 1);
     for (p = frobbed_locale_name; *p != '\0'; p++)
       if (*p >= 'A' && *p <= 'Z')
@@ -212,7 +212,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
       {
 	error (0, errno, _("error while opening \"%s\" for writing"),
 	       file_name);
-	freesa (frobbed_locale_name);
+	freea (frobbed_locale_name);
 	return 1;
       }
 
@@ -223,7 +223,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
       error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
 	     file_name);
 
-    freesa (frobbed_locale_name);
+    freea (frobbed_locale_name);
   }
 
   return 0;

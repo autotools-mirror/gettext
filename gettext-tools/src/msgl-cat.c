@@ -40,7 +40,7 @@
 #include "msgl-equal.h"
 #include "msgl-iconv.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "c-strstr.h"
 #include "basename.h"
 #include "gettext.h"
@@ -154,7 +154,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
 
 			    charsetstr += strlen ("charset=");
 			    len = strcspn (charsetstr, " \t\n");
-			    charset = (char *) xallocsa (len + 1);
+			    charset = (char *) xmalloca (len + 1);
 			    memcpy (charset, charsetstr, len);
 			    charset[len] = '\0';
 
@@ -179,7 +179,7 @@ present charset \"%s\" is not a portable encoding name"),
 					 charset);
 			      }
 
-			    freesa (charset);
+			    freea (charset);
 
 			    if (canon_from_code == NULL)
 			      canon_from_code = canon_charset;

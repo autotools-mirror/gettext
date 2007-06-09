@@ -57,7 +57,7 @@
 #include "str-list.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "libgrep.h"
 #include "propername.h"
 #include "gettext.h"
@@ -733,7 +733,7 @@ is_message_selected_no_invert (const message_ty *mp)
       length = 0;
       for (j = 0; j < mp->comment->nitems; j++)
 	length += strlen (mp->comment->item[j]) + 1;
-      total_comment = (char *) xallocsa (length);
+      total_comment = (char *) xmalloca (length);
 
       q = total_comment;
       for (j = 0; j < mp->comment->nitems; j++)
@@ -749,7 +749,7 @@ is_message_selected_no_invert (const message_ty *mp)
 
       selected = is_string_selected (3, total_comment, length);
 
-      freesa (total_comment);
+      freea (total_comment);
 
       if (selected)
 	return true;
@@ -768,7 +768,7 @@ is_message_selected_no_invert (const message_ty *mp)
       length = 0;
       for (j = 0; j < mp->comment_dot->nitems; j++)
 	length += strlen (mp->comment_dot->item[j]) + 1;
-      total_comment = (char *) xallocsa (length);
+      total_comment = (char *) xmalloca (length);
 
       q = total_comment;
       for (j = 0; j < mp->comment_dot->nitems; j++)
@@ -784,7 +784,7 @@ is_message_selected_no_invert (const message_ty *mp)
 
       selected = is_string_selected (4, total_comment, length);
 
-      freesa (total_comment);
+      freea (total_comment);
 
       if (selected)
 	return true;

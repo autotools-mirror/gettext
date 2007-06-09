@@ -7,9 +7,6 @@ _libs
 *.lo
 *.la
 alloca_.h
-allocsa.c
-allocsa.h
-allocsa.valgrind
 basename.c
 basename.h
 c-ctype.c
@@ -90,8 +87,6 @@ wchar_.h
 wctype_.h
 wcwidth.h
 xalloc.h
-xallocsa.c
-xallocsa.h
 xasprintf.c
 xerror.c
 xerror.h

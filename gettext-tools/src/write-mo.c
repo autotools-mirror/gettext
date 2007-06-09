@@ -45,7 +45,7 @@
 #include "format.h"
 #include "xsize.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "binary-io.h"
 #include "fwriteerror.h"
 #include "gettext.h"
@@ -653,7 +653,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 	    struct pre_sysdep_string *pre = msg->str[m];
 	    struct sysdep_string *str =
 	      (struct sysdep_string *)
-	      xallocsa (sizeof (struct sysdep_string)
+	      xmalloca (sizeof (struct sysdep_string)
 			+ pre->segmentcount * sizeof (struct segment_pair));
 	    unsigned int i;
 
@@ -684,7 +684,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 		    + pre->segmentcount * sizeof (struct segment_pair),
 		    1, output_file);
 
-	    freesa (str);
+	    freea (str);
 	  }
     }
 

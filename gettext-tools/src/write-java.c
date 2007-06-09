@@ -65,7 +65,7 @@
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
@@ -146,7 +146,7 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
 #define XXS 3  /* can be tweaked */
   unsigned int n = mlp->nitems;
   unsigned int *hashcodes =
-    (unsigned int *) xallocsa (n * sizeof (unsigned int));
+    (unsigned int *) xmalloca (n * sizeof (unsigned int));
   unsigned int hashsize;
   unsigned int best_hashsize;
   unsigned int best_score;
@@ -263,7 +263,7 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
   if (best_hashsize == 0 || best_score < best_hashsize)
     abort ();
 
-  freesa (hashcodes);
+  freea (hashcodes);
 
   /* There are collisions if and only if best_score > best_hashsize.  */
   *collisionp = (best_score > best_hashsize);
@@ -943,7 +943,7 @@ but the Java ResourceBundle format doesn't support contexts\n")));
   else
     class_name = xstrdup (resource_name);
 
-  subdirs = (ndots > 0 ? (char **) xallocsa (ndots * sizeof (char *)) : NULL);
+  subdirs = (ndots > 0 ? (char **) xmalloca (ndots * sizeof (char *)) : NULL);
   {
     const char *p;
     const char *last_dir;
@@ -955,11 +955,11 @@ but the Java ResourceBundle format doesn't support contexts\n")));
       {
 	const char *q = strchr (p, '.');
 	size_t n = q - p;
-	char *part = (char *) xallocsa (n + 1);
+	char *part = (char *) xmalloca (n + 1);
 	memcpy (part, p, n);
 	part[n] = '\0';
 	subdirs[i] = concatenated_filename (last_dir, part, NULL);
-	freesa (part);
+	freea (part);
 	last_dir = subdirs[i];
 	p = q + 1;
       }
@@ -1032,7 +1032,7 @@ compilation of Java class failed, please try --verbose or set $JAVAC"));
     for (i = 0; i < ndots; i++)
       free (subdirs[i]);
   }
-  freesa (subdirs);
+  freea (subdirs);
   free (class_name);
  quit2:
   cleanup_temp_dir (tmpdir);

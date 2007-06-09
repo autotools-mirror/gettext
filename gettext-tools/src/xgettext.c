@@ -46,7 +46,7 @@
 #include "xvasprintf.h"
 #include "xsize.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "c-strstr.h"
 #include "xerror.h"
 #include "filename.h"
@@ -1292,7 +1292,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
     {
       /* Convert NAME to upper case.  */
       size_t name_len = name_end - name_start;
-      char *name = allocated_name = (char *) xallocsa (name_len);
+      char *name = allocated_name = (char *) xmalloca (name_len);
       size_t i;
 
       for (i = 0; i < name_len; i++)
@@ -1418,7 +1418,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
   }
 
   if (allocated_name != NULL)
-    freesa (allocated_name);
+    freea (allocated_name);
 }
 
 

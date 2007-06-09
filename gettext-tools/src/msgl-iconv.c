@@ -40,7 +40,7 @@
 #include "xstriconv.h"
 #include "msgl-ascii.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "c-strstr.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
@@ -201,7 +201,7 @@ iconv_message_list_internal (message_list_ty *mlp,
 
 		charsetstr += strlen ("charset=");
 		len = strcspn (charsetstr, " \t\n");
-		charset = (char *) xallocsa (len + 1);
+		charset = (char *) xmalloca (len + 1);
 		memcpy (charset, charsetstr, len);
 		charset[len] = '\0';
 
@@ -239,7 +239,7 @@ present charset \"%s\" is not a portable encoding name"),
 two different charsets \"%s\" and \"%s\" in input file"),
 					    canon_from_code, canon_charset));
 		  }
-		freesa (charset);
+		freea (charset);
 
 		if (update_header)
 		  {
@@ -503,7 +503,7 @@ is_message_list_iconvable (message_list_ty *mlp,
 
 		charsetstr += strlen ("charset=");
 		len = strcspn (charsetstr, " \t\n");
-		charset = (char *) xallocsa (len + 1);
+		charset = (char *) xmalloca (len + 1);
 		memcpy (charset, charsetstr, len);
 		charset[len] = '\0';
 
@@ -519,7 +519,7 @@ is_message_list_iconvable (message_list_ty *mlp,
 			else
 			  {
 			    /* charset is not a portable encoding name.  */
-			    freesa (charset);
+			    freea (charset);
 			    return false;
 			  }
 		      }
@@ -531,11 +531,11 @@ is_message_list_iconvable (message_list_ty *mlp,
 		    else if (canon_from_code != canon_charset)
 		      {
 			/* Two different charsets in input file.  */
-			freesa (charset);
+			freea (charset);
 			return false;
 		      }
 		  }
-		freesa (charset);
+		freea (charset);
 	      }
 	  }
       }

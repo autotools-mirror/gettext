@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -42,7 +42,7 @@
 #include "msgl-ascii.h"
 #include "write-catalog.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "c-strstr.h"
 #include "ostream.h"
 #ifdef GETTEXTDATADIR
@@ -1453,7 +1453,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
 
 	      charsetstr += strlen ("charset=");
 	      len = strcspn (charsetstr, " \t\n");
-	      allocated_charset = (char *) xallocsa (len + 1);
+	      allocated_charset = (char *) xmalloca (len + 1);
 	      memcpy (allocated_charset, charsetstr, len);
 	      allocated_charset[len] = '\0';
 	      charset = allocated_charset;
@@ -1483,7 +1483,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
 	  }
 
       if (allocated_charset != NULL)
-	freesa (allocated_charset);
+	freea (allocated_charset);
     }
 }
 

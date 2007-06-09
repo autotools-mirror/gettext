@@ -47,7 +47,7 @@
 #include "write-stringtable.h"
 #include "format.h"
 #include "xalloc.h"
-#include "xallocsa.h"
+#include "xmalloca.h"
 #include "obstack.h"
 #include "c-strstr.h"
 #include "c-strcase.h"
@@ -1460,7 +1460,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 
 			    charsetstr += strlen ("charset=");
 			    len = strcspn (charsetstr, " \t\n");
-			    charset = (char *) xallocsa (len + 1);
+			    charset = (char *) xmalloca (len + 1);
 			    memcpy (charset, charsetstr, len);
 			    charset[len] = '\0';
 			    break;
@@ -1498,7 +1498,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 		      conversion_done = true;
 		    }
 		}
-	      freesa (charset);
+	      freea (charset);
 	    }
 	}
 	if (!conversion_done)
@@ -1532,7 +1532,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 
 				  charsetstr += strlen ("charset=");
 				  len = strcspn (charsetstr, " \t\n");
-				  charset = (char *) xallocsa (len + 1);
+				  charset = (char *) xmalloca (len + 1);
 				  memcpy (charset, charsetstr, len);
 				  charset[len] = '\0';
 
@@ -1543,7 +1543,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 		    if (charset != NULL)
 		      {
 			canon_charset = po_charset_canonicalize (charset);
-			freesa (charset);
+			freea (charset);
 		      }
 		    /* If no charset declaration was found in this file,
 		       or if it is not a valid encoding name, or if it
