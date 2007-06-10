@@ -273,6 +273,11 @@ osdep.lo: $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
 
+# The following sed expressions contain a minimal amount of newlines, so that
+# they can be written in a Makefile without requiring a temporary file. It is
+# not POSIX compliant to use semicolons instead of newlines inside a group of
+# sed commands {...}. But this rule is executed only on Woe32 systems, which
+# can assume the presence of GNU sed (and GNU make).
 libintl.res: $(srcdir)/libintl.rc
 	sed_extract_major='/^[0-9]/{s/^\([0-9]*\).*/\1/p;q};a\
 	0'; \
