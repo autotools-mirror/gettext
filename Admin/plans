@@ -68,3 +68,5 @@ Things we plan to do. Comments welcome.
 
 - man page pgettext.3
 
+- po-mode.el: Editing of msgstr[i] plural forms, and setting of formula.
+
