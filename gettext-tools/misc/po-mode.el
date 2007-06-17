@@ -1895,13 +1895,9 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
 
 ;;; Killing and yanking comments.
 
-(defvar po-active-comment-regexp
+(defvar po-comment-regexp
   "^\\(#\n\\|# .*\n\\)+"
-  "Regexp matching the whole editable comment part of an active entry.")
-
-(defvar po-obsolete-comment-regexp
-  "^\\(#~ #\n\\|#~ # .*\n\\)+"
-  "Regexp matching the whole editable comment part of an obsolete entry.")
+  "Regexp matching the whole editable comment part of an entry.")
 
 (defun po-get-comment (kill-flag)
   "Extract and return the editable comment string, uncommented.
@@ -1910,14 +1906,12 @@ If KILL-FLAG, then add the unquoted comment to the kill ring."
 	(obsolete (eq po-entry-type 'obsolete)))
     (save-excursion
       (goto-char po-start-of-entry)
-      (if (re-search-forward (if obsolete po-obsolete-comment-regexp
-			         po-active-comment-regexp)
-			     po-end-of-entry t)
+      (if (re-search-forward po-comment-regexp po-end-of-entry t)
 	  (po-with-temp-buffer
 	    (insert-buffer-substring buffer (match-beginning 0) (match-end 0))
 	    (goto-char (point-min))
 	    (while (not (eobp))
-	      (if (looking-at (if obsolete "#~ # ?" "# ?"))
+	      (if (looking-at (if obsolete "#\\(\n\\| \\)" "# ?"))
 		  (replace-match "" t t))
 	      (forward-line 1))
 	    (and kill-flag (copy-region-as-kill (point-min) (point-max)))
@@ -1940,15 +1934,11 @@ The string is properly recommented before the replacement occurs."
 	  (insert "\n"))
       (goto-char (point-min))
       (while (not (eobp))
-	(insert (if (= (following-char) ?\n)
-		    (if obsolete "#~ #" "#")
-		  (if obsolete "#~ # " "# ")))
+	(insert (if (= (following-char) ?\n) "#" "# "))
 	(search-forward "\n"))
       (setq string (buffer-string)))
     (goto-char po-start-of-entry)
-    (if (re-search-forward
-	 (if obsolete po-obsolete-comment-regexp po-active-comment-regexp)
-	 po-end-of-entry t)
+    (if (re-search-forward po-comment-regexp po-end-of-entry t)
 	(if (not (string-equal (po-match-string 0) string))
 	    (let ((buffer-read-only po-read-only))
 	      (replace-match string t t)))

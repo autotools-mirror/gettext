@@ -1,5 +1,13 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	Fix '#' command on obsolete entries.
+	* po-mode.el (po-comment-regexp): Renamed from po-active-comment-regexp.
+	(po-obsolete-comment-regexp): Remove variable.
+	(po-get-comment, po-set-comment): Fix syntax assumptions about comments
+	for obsolete entries.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-msgid-to-msgstr): Fix English message.
 
 2007-06-17  Bruno Haible  <bruno@clisp.org>
