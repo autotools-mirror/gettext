@@ -1,5 +1,10 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-font-lock-keywords): Stop recognizing "msg" as a
+	keyword.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	Fix '#' command on obsolete entries.
 	* po-mode.el (po-comment-regexp): Renamed from po-active-comment-regexp.
 	(po-obsolete-comment-regexp): Remove variable.

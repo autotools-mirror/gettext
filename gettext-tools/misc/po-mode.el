@@ -927,7 +927,7 @@ Initialize or replace current translation with the original message"))])
     ;; (regexp-opt
     ;;  '("msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
     ("\
-^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)?\\) \\)?\"\\|\"$"
+^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
      . font-lock-keyword-face)
     ("\\\\.\\|%\\*?[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
