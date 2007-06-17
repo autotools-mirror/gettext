@@ -1,6 +1,6 @@
 ;;; po-mode.el -- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-1999, 2000-2002, 2005-2006 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002, 2005-2007 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
@@ -3123,8 +3123,8 @@ Leave point after marked string."
 	  (function (lambda (mode-name)
 		      (concat "*" mode-name " validation*"))))
 	 (compile-command (concat po-msgfmt-program
-                                 " --statistics -c -v -o " dev-null " "
-                                 buffer-file-name)))
+                                  " --statistics -c -v -o " dev-null " "
+                                  (shell-quote-argument buffer-file-name))))
     (po-msgfmt-version-check)
     (compile compile-command)))
 
@@ -3144,11 +3144,12 @@ Leave point after marked string."
 	(file-error nil))
 
       ;; Make sure there's a version number in the output:
-      ;; 0.11 or 0.10.36 or 0.11-pre1
+      ;; 0.11 or 0.10.36 or 0.11-pre1 or 0.16.2-pre1
       (progn (goto-char (point-min))
              (or (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)$")
                  (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")
-		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")))
+		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")
+		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")))
 
       ;; Make sure the version is recent enough.
       (>= (string-to-number
