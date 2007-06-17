@@ -2018,8 +2018,9 @@ The string is properly recommented before the replacement occurs."
 (defun po-edit-out-full ()
   "Get out of PO mode, leaving PO file buffer in fundamental mode."
   (interactive)
-  (if (and (po-check-all-pending-edits)
-           (yes-or-no-p (_"Should I let you edit the whole PO file? ")))
+  (if (po-check-all-pending-edits)
+      ;; Don't ask the user for confirmation, since he has explicitly asked
+      ;; for it.
       (progn
         (setq buffer-read-only po-read-only)
         (fundamental-mode)
