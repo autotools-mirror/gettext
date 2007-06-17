@@ -1,5 +1,9 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el: Untabify.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-font-lock-keywords): Stop recognizing "msg" as a
 	keyword.
 

@@ -36,14 +36,14 @@
 ;;   (autoload 'po-mode "po-mode"
 ;;             "Major mode for translators to edit PO files" t)
 ;;   (setq auto-mode-alist (cons '("\\.po\\'\\|\\.po\\." . po-mode)
-;;				  auto-mode-alist))
+;;                               auto-mode-alist))
 ;;
 ;; To use the right coding system automatically under Emacs 20 or newer,
 ;; also add:
 ;;
 ;;   (autoload 'po-find-file-coding-system "po-compat")
 ;;   (modify-coding-system-alist 'file "\\.po\\'\\|\\.po\\."
-;;				  'po-find-file-coding-system)
+;;                               'po-find-file-coding-system)
 ;;
 ;; You may also adjust some variables, below, by defining them in your
 ;; '.emacs' file, either directly or through command 'M-x customize'.
@@ -63,10 +63,10 @@ Version number of this version of po-mode.el.")
 ;;   - GNU Emacs (version 19) -> no flag.
 (eval-and-compile
   (cond ((string-match "XEmacs\\|Lucid" emacs-version)
-	 (setq po-EMACS20 nil po-XEMACS t))
-	((and (string-lessp "19" emacs-version) (featurep 'faces))
-	 (setq po-EMACS20 t po-XEMACS nil))
-	(t (setq po-EMACS20 nil po-XEMACS nil))))
+         (setq po-EMACS20 nil po-XEMACS t))
+        ((and (string-lessp "19" emacs-version) (featurep 'faces))
+         (setq po-EMACS20 t po-XEMACS nil))
+        (t (setq po-EMACS20 nil po-XEMACS nil))))
 
 ;; Experiment with Emacs LISP message internationalisation.
 (eval-and-compile
@@ -113,8 +113,8 @@ Version number of this version of po-mode.el.")
 (defcustom po-auto-replace-revision-date t
   "*Automatically revise date in headers.  Value is nil, t, or ask."
   :type '(choice (const nil)
-		 (const t)
-		 (const ask))
+                 (const t)
+                 (const ask))
   :group 'po)
 
 (defcustom po-default-file-header "\
@@ -387,9 +387,9 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
 ;; Protect string comparisons from text properties if possible.
 (eval-and-compile
   (fset 'po-buffer-substring
-	(symbol-function (if (fboundp 'buffer-substring-no-properties)
-			     'buffer-substring-no-properties
-			   'buffer-substring)))
+        (symbol-function (if (fboundp 'buffer-substring-no-properties)
+                             'buffer-substring-no-properties
+                           'buffer-substring)))
 
   (if (fboundp 'match-string-no-properties)
       (fset 'po-match-string (symbol-function 'match-string-no-properties))
@@ -405,17 +405,17 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
     (defmacro po-with-temp-buffer (&rest forms)
       "Create a temporary buffer, and evaluate FORMS there like 'progn'."
       (let ((curr-buffer (make-symbol "curr-buffer"))
-	    (temp-buffer (make-symbol "temp-buffer")))
-	`(let ((,curr-buffer (current-buffer))
-	       (,temp-buffer (get-buffer-create
-			      (generate-new-buffer-name " *po-temp*"))))
-	   (unwind-protect
-	       (progn
-		 (set-buffer ,temp-buffer)
-		 ,@forms)
-	     (set-buffer ,curr-buffer)
-	     (and (buffer-name ,temp-buffer)
-		  (kill-buffer ,temp-buffer))))))))
+            (temp-buffer (make-symbol "temp-buffer")))
+        `(let ((,curr-buffer (current-buffer))
+               (,temp-buffer (get-buffer-create
+                              (generate-new-buffer-name " *po-temp*"))))
+           (unwind-protect
+               (progn
+                 (set-buffer ,temp-buffer)
+                 ,@forms)
+             (set-buffer ,curr-buffer)
+             (and (buffer-name ,temp-buffer)
+                  (kill-buffer ,temp-buffer))))))))
 
 ;; Handle missing 'kill-new' function.
 (eval-and-compile
@@ -425,27 +425,27 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
     (defun po-kill-new (string)
       "Push STRING onto the kill ring, for Emacs 18 where kill-new is missing."
       (po-with-temp-buffer
-	(insert string)
-	(kill-region (point-min) (point-max))))))
+        (insert string)
+        (kill-region (point-min) (point-max))))))
 
 ;; Handle missing 'read-event' function.
 (eval-and-compile
   (fset 'po-read-event
-	(cond ((fboundp 'read-event)
-	       ;; GNU Emacs.
-	       'read-event)
-	      ((fboundp 'next-command-event)
-	       ;; XEmacs.
-	       'next-command-event)
-	      (t
-	       ;; Older Emacses.
-	       'read-char))))
+        (cond ((fboundp 'read-event)
+               ;; GNU Emacs.
+               'read-event)
+              ((fboundp 'next-command-event)
+               ;; XEmacs.
+               'next-command-event)
+              (t
+               ;; Older Emacses.
+               'read-char))))
 
 ;; Handle missing 'force-mode-line-update' function.
 (eval-and-compile
   (if (fboundp 'force-mode-line-update)
       (fset 'po-force-mode-line-update
-	    (symbol-function 'force-mode-line-update))
+            (symbol-function 'force-mode-line-update))
 
     (defun po-force-mode-line-update ()
       "Force the mode-line of the current buffer to be redisplayed."
@@ -461,11 +461,11 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
       "Create and return a deleted overlay structure.
 The variable 'po-highlight-face' selects the face to use for highlighting."
       (let ((overlay (make-overlay (point) (point))))
-	(overlay-put overlay 'face po-highlight-face)
-	;; The fun thing is that a deleted overlay retains its face, and is
-	;; movable.
-	(delete-overlay overlay)
-	overlay))
+        (overlay-put overlay 'face po-highlight-face)
+        ;; The fun thing is that a deleted overlay retains its face, and is
+        ;; movable.
+        (delete-overlay overlay)
+        overlay))
 
     (defun po-highlight (overlay start end &optional buffer)
       "Use OVERLAY to highlight the string from START to END.
@@ -490,8 +490,8 @@ The current buffer should be in PO mode, when this function is called."
       ;; already detached, so there's no need to "delete" it
       ;; explicitly.
       (let ((extent (make-extent nil nil)))
-	(set-extent-face extent po-highlight-face)
-	extent))
+        (set-extent-face extent po-highlight-face)
+        extent))
 
     (defun po-highlight (extent start end &optional buffer)
       "Use EXTENT to highlight the string from START to END.
@@ -518,57 +518,57 @@ If limits are not relative to the current buffer, use optional BUFFER."
 If limits are not relative to the current buffer, use optional BUFFER.
 No doubt that highlighting, when Emacs does not allow it, is a kludge."
       (save-excursion
-	(and buffer (set-buffer buffer))
-	(let ((modified (buffer-modified-p))
-	      (buffer-read-only nil)
-	      (inhibit-quit t)
-	      (buffer-undo-list t)
-	      (text (buffer-substring start end)))
-	  (goto-char start)
-	  (delete-region start end)
-	  (insert-char ?  (- end start))
-	  (sit-for 0)
-	  (setq inverse-video (not inverse-video))
-	  (delete-region start end)
-	  (insert text)
-	  (sit-for 0)
-	  (setq inverse-video (not inverse-video))
-	  (set-buffer-modified-p modified)))
+        (and buffer (set-buffer buffer))
+        (let ((modified (buffer-modified-p))
+              (buffer-read-only nil)
+              (inhibit-quit t)
+              (buffer-undo-list t)
+              (text (buffer-substring start end)))
+          (goto-char start)
+          (delete-region start end)
+          (insert-char ?  (- end start))
+          (sit-for 0)
+          (setq inverse-video (not inverse-video))
+          (delete-region start end)
+          (insert text)
+          (sit-for 0)
+          (setq inverse-video (not inverse-video))
+          (set-buffer-modified-p modified)))
       (set-marker (car overlay) start (or buffer (current-buffer)))
       (set-marker (cdr overlay) end (or buffer (current-buffer))))
 
     (defun po-rehighlight (overlay)
       "Ensure OVERLAY is highlighted."
       (let ((buffer (marker-buffer (car overlay)))
-	    (start (marker-position (car overlay)))
-	    (end (marker-position (cdr overlay))))
-	(and buffer
-	     (buffer-name buffer)
-	     (po-highlight overlay start end buffer))))
+            (start (marker-position (car overlay)))
+            (end (marker-position (cdr overlay))))
+        (and buffer
+             (buffer-name buffer)
+             (po-highlight overlay start end buffer))))
 
     (defun po-dehighlight (overlay)
       "Display normally the last string which OVERLAY highlighted."
       (let ((buffer (marker-buffer (car overlay)))
-	    (start (marker-position (car overlay)))
-	    (end (marker-position (cdr overlay))))
-	(if buffer
-	    (save-excursion
-	      (set-buffer buffer)
-	      (let ((modified (buffer-modified-p))
-		    (buffer-read-only nil)
-		    (inhibit-quit t)
-		    (buffer-undo-list t))
-		(let ((text (buffer-substring start end)))
-		  (goto-char start)
-		  (delete-region start end)
-		  (insert-char ?  (- end start))
-		  (sit-for 0)
-		  (delete-region start end)
-		  (insert text)
-		  (sit-for 0)
-		  (set-buffer-modified-p modified)))))
-	(setcar overlay (make-marker))
-	(setcdr overlay (make-marker))))
+            (start (marker-position (car overlay)))
+            (end (marker-position (cdr overlay))))
+        (if buffer
+            (save-excursion
+              (set-buffer buffer)
+              (let ((modified (buffer-modified-p))
+                    (buffer-read-only nil)
+                    (inhibit-quit t)
+                    (buffer-undo-list t))
+                (let ((text (buffer-substring start end)))
+                  (goto-char start)
+                  (delete-region start end)
+                  (insert-char ?  (- end start))
+                  (sit-for 0)
+                  (delete-region start end)
+                  (insert text)
+                  (sit-for 0)
+                  (set-buffer-modified-p modified)))))
+        (setcar overlay (make-marker))
+        (setcdr overlay (make-marker))))
 
     )))
 
@@ -692,118 +692,118 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ("Moving around"
      ["Auto select" po-auto-select-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next interesting entry"))]
+          '(:help "Jump to next interesting entry"))]
      "---"
      "Forward"
      ["Any next" po-next-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next entry"))]
+          '(:help "Jump to next entry"))]
      ["Next translated" po-next-translated-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next translated entry"))]
+          '(:help "Jump to next translated entry"))]
      ["Next fuzzy" po-next-fuzzy-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next fuzzy entry"))]
+          '(:help "Jump to next fuzzy entry"))]
      ["Next obsolete" po-next-obsolete-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next obsolete entry"))]
+          '(:help "Jump to next obsolete entry"))]
      ["Next untranslated" po-next-untranslated-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to next untranslated entry"))]
+          '(:help "Jump to next untranslated entry"))]
      ["Last file entry" po-last-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to last entry"))]
+          '(:help "Jump to last entry"))]
      "---"
      "Backward"
      ["Any previous" po-previous-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to previous entry"))]
+          '(:help "Jump to previous entry"))]
      ["Previous translated" po-previous-translated-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to previous translated entry"))]
+          '(:help "Jump to previous translated entry"))]
      ["Previous fuzzy" po-previous-fuzzy-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to previous fuzzy entry"))]
+          '(:help "Jump to previous fuzzy entry"))]
      ["Previous obsolete" po-previous-obsolete-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to previous obsolete entry"))]
+          '(:help "Jump to previous obsolete entry"))]
      ["Previous untranslated" po-previous-untranslated-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to previous untranslated entry"))]
+          '(:help "Jump to previous untranslated entry"))]
      ["First file entry" po-first-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to first entry"))]
+          '(:help "Jump to first entry"))]
      "---"
      "Position stack"
      ["Mark and push current" po-push-location
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Remember current location"))]
+          '(:help "Remember current location"))]
      ["Pop and return" po-pop-location
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to last remembered location and forget about it"))]
+          '(:help "Jump to last remembered location and forget about it"))]
      ["Exchange current/top" po-exchange-location
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Jump to last remembered location and remember current location"))]
+          '(:help "Jump to last remembered location and remember current location"))]
      "---"
      ["Redisplay" po-current-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Make current entry properly visible"))]
+          '(:help "Make current entry properly visible"))]
      ["Current index" po-statistics
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Statistical info on current translation file"))])
+          '(:help "Statistical info on current translation file"))])
     ("Modifying entries"
      ["Undo" po-undo
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Revoke last changed entry"))]
+          '(:help "Revoke last changed entry"))]
      "---"
      "Msgstr"
      ["Edit msgstr" po-edit-msgstr
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Edit current translation"))]
+          '(:help "Edit current translation"))]
      ["Ediff and merge msgstr" po-edit-msgstr-and-ediff
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Call `ediff' on current translation for merging"))]
+          '(:help "Call `ediff' on current translation for merging"))]
      ["Cut msgstr" po-kill-msgstr
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Cut (kill) current translation"))]
+          '(:help "Cut (kill) current translation"))]
      ["Copy msgstr" po-kill-ring-save-msgstr
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Copy current translation"))]
+          '(:help "Copy current translation"))]
      ["Paste msgstr" po-yank-msgstr
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Paste (yank) text most recently cut/copied translation"))]
+          '(:help "Paste (yank) text most recently cut/copied translation"))]
      "---"
      "Comments"
      ["Edit comment" po-edit-comment
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Edit current comment"))]
+          '(:help "Edit current comment"))]
      ["Ediff and merge comment" po-edit-comment-and-ediff
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Call `ediff' on current comment for merging"))]
+          '(:help "Call `ediff' on current comment for merging"))]
      ["Cut comment" po-kill-comment
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Cut (kill) current comment"))]
+          '(:help "Cut (kill) current comment"))]
      ["Copy comment" po-kill-ring-save-comment
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Copy current translation"))]
+          '(:help "Copy current translation"))]
      ["Paste comment" po-yank-comment
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Paste (yank) text most recently cut/copied"))]
+          '(:help "Paste (yank) text most recently cut/copied"))]
      "---"
      ["Remove fuzzy mark" po-unfuzzy
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Remove \"#, fuzzy\""))]
+          '(:help "Remove \"#, fuzzy\""))]
      ["Fuzzy or fade out" po-fade-out-entry
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Set current entry fuzzy, or if already fuzzy delete it"))]
+          '(:help "Set current entry fuzzy, or if already fuzzy delete it"))]
      ["Init with msgid" po-msgid-to-msgstr
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "\
+          '(:help "\
 Initialize or replace current translation with the original message"))])
     ("Other files"
      ["Other window" po-other-window
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Select other window; if necessay split current frame"))]
+          '(:help "Select other window; if necessay split current frame"))]
      "---"
      "Program sources"
      ["Cycle reference" po-cycle-source-reference t]
@@ -836,41 +836,41 @@ Initialize or replace current translation with the original message"))])
     "---"
     ["Version info" po-mode-version
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Display version number of PO mode"))]
+          '(:help "Display version number of PO mode"))]
     ["Help page" po-help
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Show the PO mode help screen"))]
+          '(:help "Show the PO mode help screen"))]
     ["Validate" po-validate
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Check validity of current translation file using `msgfmt'"))]
+          '(:help "Check validity of current translation file using `msgfmt'"))]
     ["Mail officially" po-send-mail
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Send current translation file to the Translation Robot by mail"))]
+          '(:help "Send current translation file to the Translation Robot by mail"))]
     ["Edit out full" po-edit-out-full
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Leave PO mode to edit translation file using fundamental mode"))]
+          '(:help "Leave PO mode to edit translation file using fundamental mode"))]
     "---"
     ["Forceful quit" po-quit
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Close (kill) current translation file without saving"))]
+          '(:help "Close (kill) current translation file without saving"))]
     ["Soft quit" po-confirm-and-quit
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Save current translation file, than close (kill) it"))])
+          '(:help "Save current translation file, than close (kill) it"))])
   "Menu layout for PO mode.")
 
 (defconst po-subedit-mode-menu-layout
   `("PO-Edit"
     ["Ediff and merge translation variants" po-subedit-ediff
       ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Call `ediff' for merging variants"))]
+          '(:help "Call `ediff' for merging variants"))]
     ["Cycle through auxiliary files" po-subedit-cycle-auxiliary t]
     "---"
     ["Abort edit" po-subedit-abort
      ,@(if (featurep 'xemacs) '(t)
-	  '(:help "Don't change the translation"))]
+          '(:help "Don't change the translation"))]
     ["Exit edit" po-subedit-exit
      ,@(if (featurep 'xemacs) '(t)
-	 '(:help "Use this text as the translation and close current edit buffer"))])
+         '(:help "Use this text as the translation and close current edit buffer"))])
   "Menu layout for PO subedit mode.")
 
 (defconst po-subedit-message
@@ -885,23 +885,23 @@ Initialize or replace current translation with the original message"))])
 
 (defvar po-compose-mail-function
   (let ((functions '(compose-mail-other-window
-		     message-mail-other-window
-		     compose-mail
-		     message-mail))
-	result)
+                     message-mail-other-window
+                     compose-mail
+                     message-mail))
+        result)
     (while (and (not result) functions)
       (if (fboundp (car functions))
-	  (setq result (car functions))
-	(setq functions (cdr functions))))
+          (setq result (car functions))
+        (setq functions (cdr functions))))
     (cond (result)
-	  ((fboundp 'mail-other-window)
-	   (function (lambda (to subject)
-		       (mail-other-window nil to subject))))
-	  ((fboundp 'mail)
-	   (function (lambda (to subject)
-		       (mail nil to subject))))
-	  (t (function (lambda (to subject)
-			 (error (_"I do not know how to mail to '%s'") to))))))
+          ((fboundp 'mail-other-window)
+           (function (lambda (to subject)
+                       (mail-other-window nil to subject))))
+          ((fboundp 'mail)
+           (function (lambda (to subject)
+                       (mail nil to subject))))
+          (t (function (lambda (to subject)
+                         (error (_"I do not know how to mail to '%s'") to))))))
   "Function to start composing an electronic message.")
 
 (defvar po-any-msgid-regexp
@@ -946,10 +946,10 @@ Initialize or replace current translation with the original message"))])
 ;;
 ;;(if (fboundp 'hilit-set-mode-patterns)
 ;;    (hilit-set-mode-patterns 'po-mode
-;;			     '(("^# .*\\|^#$" nil comment)
-;;			       ("^#[.,:].*" nil include)
-;;			       ("^\\(msgid\\|msgstr\\) *\"" nil keyword)
-;;			       ("^\"\\|\"$" nil keyword))))
+;;                             '(("^# .*\\|^#$" nil comment)
+;;                               ("^#[.,:].*" nil include)
+;;                               ("^\\(msgid\\|msgstr\\) *\"" nil keyword)
+;;                               ("^\"\\|\"$" nil keyword))))
 
 ;;; Mode activation.
 
@@ -1040,12 +1040,12 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (interactive)
   (kill-all-local-variables)
   (setq major-mode 'po-mode
-	mode-name "PO")
+        mode-name "PO")
   (use-local-map po-mode-map)
   (if (fboundp 'easy-menu-define)
       (progn
-	(easy-menu-define po-mode-menu po-mode-map "" po-mode-menu-layout)
-	(and po-XEMACS (easy-menu-add po-mode-menu))))
+        (easy-menu-define po-mode-menu po-mode-map "" po-mode-menu-layout)
+        (and po-XEMACS (easy-menu-add po-mode-menu))))
   (set (make-local-variable 'font-lock-defaults) '(po-font-lock-keywords t))
 
   (set (make-local-variable 'po-read-only) buffer-read-only)
@@ -1118,22 +1118,22 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 (defun po-update-mode-line-string ()
   "Compute a new statistics string to display in mode line."
   (setq po-mode-line-string
-	(concat (format "%dt" po-translated-counter)
-		(if (> po-fuzzy-counter 0)
-		    (format "+%df" po-fuzzy-counter))
-		(if (> po-untranslated-counter 0)
-		    (format "+%du" po-untranslated-counter))
-		(if (> po-obsolete-counter 0)
-		    (format "+%do" po-obsolete-counter))))
+        (concat (format "%dt" po-translated-counter)
+                (if (> po-fuzzy-counter 0)
+                    (format "+%df" po-fuzzy-counter))
+                (if (> po-untranslated-counter 0)
+                    (format "+%du" po-untranslated-counter))
+                (if (> po-obsolete-counter 0)
+                    (format "+%do" po-obsolete-counter))))
   (po-force-mode-line-update))
 
 (defun po-type-counter ()
   "Return the symbol name of the counter appropriate for the current entry."
   (cond ((eq po-entry-type 'obsolete) 'po-obsolete-counter)
-	((eq po-entry-type 'fuzzy) 'po-fuzzy-counter)
-	((eq po-entry-type 'translated) 'po-translated-counter)
-	((eq po-entry-type 'untranslated) 'po-untranslated-counter)
-	(t (error (_"Unknown entry type")))))
+        ((eq po-entry-type 'fuzzy) 'po-fuzzy-counter)
+        ((eq po-entry-type 'translated) 'po-translated-counter)
+        ((eq po-entry-type 'untranslated) 'po-untranslated-counter)
+        (t (error (_"Unknown entry type")))))
 
 (defun po-decrease-type-counter ()
   "Decrease the counter corresponding to the nature of the current entry."
@@ -1155,9 +1155,9 @@ Then, update the mode line counters."
   "Prepare counters for mode line display.  If FLAG, also echo entry position."
   (and flag (po-find-span-of-entry))
   (setq po-translated-counter 0
-	po-fuzzy-counter 0
-	po-untranslated-counter 0
-	po-obsolete-counter 0)
+        po-fuzzy-counter 0
+        po-untranslated-counter 0
+        po-obsolete-counter 0)
   (let ((position 0) (total 0) current here)
     ;; FIXME 'here' looks obsolete / 2001-08-23 03:54:26 CEST -ke-
     (save-excursion
@@ -1167,41 +1167,41 @@ Then, update the mode line counters."
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
       (if (string-equal (po-get-msgid nil) "")
-	  (goto-char po-end-of-entry))
+          (goto-char po-end-of-entry))
       (if (re-search-forward "^msgid" (point-max) t)
-	  (progn
-	    ;; Start counting
-	    (while (re-search-forward po-any-msgstr-regexp nil t)
-	      (and (= (% total 20) 0)
-		   (if flag
-		       (message (_"Position %d/%d") position total)
-		     (message (_"Position %d") total)))
-	      (setq here (point))
-	      (goto-char (match-beginning 0))
-	      (setq total (1+ total))
-	      (and flag (eq (point) current) (setq position total))
-	      (cond ((eq (following-char) ?#)
-		     (setq po-obsolete-counter (1+ po-obsolete-counter)))
-		    ((looking-at po-untranslated-regexp)
-		     (setq po-untranslated-counter (1+ po-untranslated-counter)))
-		    (t (setq po-translated-counter (1+ po-translated-counter))))
-	      (goto-char here))
+          (progn
+            ;; Start counting
+            (while (re-search-forward po-any-msgstr-regexp nil t)
+              (and (= (% total 20) 0)
+                   (if flag
+                       (message (_"Position %d/%d") position total)
+                     (message (_"Position %d") total)))
+              (setq here (point))
+              (goto-char (match-beginning 0))
+              (setq total (1+ total))
+              (and flag (eq (point) current) (setq position total))
+              (cond ((eq (following-char) ?#)
+                     (setq po-obsolete-counter (1+ po-obsolete-counter)))
+                    ((looking-at po-untranslated-regexp)
+                     (setq po-untranslated-counter (1+ po-untranslated-counter)))
+                    (t (setq po-translated-counter (1+ po-translated-counter))))
+              (goto-char here))
 
-	    ;; Make another pass just for the fuzzy entries, kind of kludgey.
-	    ;; FIXME: Counts will be wrong if untranslated entries are fuzzy, yet
-	    ;; this should not normally happen.
-	    (goto-char (point-min))
-	    (while (re-search-forward po-fuzzy-regexp nil t)
-	      (setq po-fuzzy-counter (1+ po-fuzzy-counter)))
-	    (setq po-translated-counter (- po-translated-counter po-fuzzy-counter)))
-	'()))
+            ;; Make another pass just for the fuzzy entries, kind of kludgey.
+            ;; FIXME: Counts will be wrong if untranslated entries are fuzzy, yet
+            ;; this should not normally happen.
+            (goto-char (point-min))
+            (while (re-search-forward po-fuzzy-regexp nil t)
+              (setq po-fuzzy-counter (1+ po-fuzzy-counter)))
+            (setq po-translated-counter (- po-translated-counter po-fuzzy-counter)))
+        '()))
 
     ;; Push the results out.
     (if flag
-	(message (_"\
+        (message (_"\
 Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
-		 position total po-translated-counter po-fuzzy-counter
-		 po-untranslated-counter po-obsolete-counter)
+                 position total po-translated-counter po-fuzzy-counter
+                 po-untranslated-counter po-obsolete-counter)
       (message "")))
   (po-update-mode-line-string))
 
@@ -1218,8 +1218,8 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
   (interactive)
   (if (one-window-p t)
       (progn
-	(split-window)
-	(switch-to-buffer (other-buffer)))
+        (split-window)
+        (switch-to-buffer (other-buffer)))
     (other-window 1)))
 
 ;;; Processing the PO file header entry.
@@ -1228,61 +1228,61 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
   "Create a missing PO mode file header, or replace an oldish one."
   (save-excursion
     (let ((buffer-read-only po-read-only)
-	  insert-flag end-of-header)
+          insert-flag end-of-header)
       (goto-char (point-min))
       (if (re-search-forward po-any-msgstr-regexp nil t)
-	  (progn
-	    ;; There is at least one entry.
-	    (goto-char (match-beginning 0))
-	    (previous-line 1)
-	    (setq end-of-header (match-end 0))
-	    (if (looking-at "msgid \"\"\n")
-		;; There is indeed a PO file header.
-		(if (re-search-forward "\n\"PO-Revision-Date: "
-				       end-of-header t)
-		    nil
-		  ;; This is an oldish header.  Replace it all.
-		  (goto-char end-of-header)
-		  (while (> (point) (point-min))
-		    (previous-line 1)
-		    (insert "#~ ")
-		    (beginning-of-line))
-		  (beginning-of-line)
-		  (setq insert-flag t))
-	      ;; The first entry is not a PO file header, insert one.
-	      (setq insert-flag t)))
-	;; Not a single entry found.
-	(setq insert-flag t))
+          (progn
+            ;; There is at least one entry.
+            (goto-char (match-beginning 0))
+            (previous-line 1)
+            (setq end-of-header (match-end 0))
+            (if (looking-at "msgid \"\"\n")
+                ;; There is indeed a PO file header.
+                (if (re-search-forward "\n\"PO-Revision-Date: "
+                                       end-of-header t)
+                    nil
+                  ;; This is an oldish header.  Replace it all.
+                  (goto-char end-of-header)
+                  (while (> (point) (point-min))
+                    (previous-line 1)
+                    (insert "#~ ")
+                    (beginning-of-line))
+                  (beginning-of-line)
+                  (setq insert-flag t))
+              ;; The first entry is not a PO file header, insert one.
+              (setq insert-flag t)))
+        ;; Not a single entry found.
+        (setq insert-flag t))
       (goto-char (point-min))
       (if insert-flag
-	  (progn
-	    (insert po-default-file-header)
-	    (if (not (eobp))
-		(insert "\n")))))))
+          (progn
+            (insert po-default-file-header)
+            (if (not (eobp))
+                (insert "\n")))))))
 
 (defun po-replace-revision-date ()
   "Replace the revision date by current time in the PO file header."
   (if (fboundp 'format-time-string)
       (if (or (eq po-auto-replace-revision-date t)
-	      (and (eq po-auto-replace-revision-date 'ask)
-		   (y-or-n-p (_"May I set PO-Revision-Date? "))))
-	  (save-excursion
-	    (goto-char (point-min))
-	    (if (re-search-forward "^\"PO-Revision-Date:.*" nil t)
-		(let* ((buffer-read-only po-read-only)
-		       (time (current-time))
-		       (seconds (or (car (current-time-zone time)) 0))
-		       (minutes (/ (abs seconds) 60))
-		       (zone (format "%c%02d%02d"
-				     (if (< seconds 0) ?- ?+)
-				     (/ minutes 60)
-				     (% minutes 60))))
-		  (replace-match
-		       (concat "\"PO-Revision-Date: "
-			       (format-time-string "%Y-%m-%d %H:%M" time)
-			       zone "\\n\"")
-		       t t))))
-	(message ""))
+              (and (eq po-auto-replace-revision-date 'ask)
+                   (y-or-n-p (_"May I set PO-Revision-Date? "))))
+          (save-excursion
+            (goto-char (point-min))
+            (if (re-search-forward "^\"PO-Revision-Date:.*" nil t)
+                (let* ((buffer-read-only po-read-only)
+                       (time (current-time))
+                       (seconds (or (car (current-time-zone time)) 0))
+                       (minutes (/ (abs seconds) 60))
+                       (zone (format "%c%02d%02d"
+                                     (if (< seconds 0) ?- ?+)
+                                     (/ minutes 60)
+                                     (% minutes 60))))
+                  (replace-match
+                       (concat "\"PO-Revision-Date: "
+                               (format-time-string "%Y-%m-%d %H:%M" time)
+                               zone "\\n\"")
+                       t t))))
+        (message ""))
     (message (_"PO-Revision-Date should be adjusted..."))))
 
 ;;; Handling span of entry, entry type and entry attributes.
@@ -1294,68 +1294,68 @@ PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful values.  Decreasing priority
 of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (let ((here (point)))
     (if (re-search-backward po-any-msgstr-regexp nil t)
-	(progn
-	  ;; After a backward match, (match-end 0) will not extend
-	  ;; beyond point, in case point was *inside* the regexp.  We
-	  ;; need a dependable (match-end 0), so we redo the match in
-	  ;; the forward direction.
-	  (re-search-forward po-any-msgstr-regexp)
-	  (if (<= (match-end 0) here)
-	      (progn
-		;; We most probably found the msgstr of the previous
-		;; entry.  The current entry then starts just after
-		;; its end, save this information just in case.
-		(setq po-start-of-entry (match-end 0))
-		;; However, it is also possible that we are located in
-		;; the crumb after the last entry in the file.  If
-		;; yes, we know the middle and end of last PO entry.
-		(setq po-start-of-msgstr (match-beginning 0)
-		      po-end-of-entry (match-end 0))
-		(if (re-search-forward po-any-msgstr-regexp nil t)
-		    (progn
-		      ;; We definitely were not in the crumb.
-		      (setq po-start-of-msgstr (match-beginning 0)
-			    po-end-of-entry (match-end 0)))
-		  ;; We were in the crumb.  The start of the last PO
-		  ;; file entry is the end of the previous msgstr if
-		  ;; any, or else, the beginning of the file.
-		  (goto-char po-start-of-msgstr)
-		  (setq po-start-of-entry
-			(if (re-search-backward po-any-msgstr-regexp nil t)
-			    (match-end 0)
-			  (point-min)))))
-	    ;; The cursor was inside msgstr of the current entry.
-	    (setq po-start-of-msgstr (match-beginning 0)
-		  po-end-of-entry (match-end 0))
-	    ;; The start of this entry is the end of the previous
-	    ;; msgstr if any, or else, the beginning of the file.
-	    (goto-char po-start-of-msgstr)
-	    (setq po-start-of-entry
-		  (if (re-search-backward po-any-msgstr-regexp nil t)
-		      (match-end 0)
-		    (point-min)))))
+        (progn
+          ;; After a backward match, (match-end 0) will not extend
+          ;; beyond point, in case point was *inside* the regexp.  We
+          ;; need a dependable (match-end 0), so we redo the match in
+          ;; the forward direction.
+          (re-search-forward po-any-msgstr-regexp)
+          (if (<= (match-end 0) here)
+              (progn
+                ;; We most probably found the msgstr of the previous
+                ;; entry.  The current entry then starts just after
+                ;; its end, save this information just in case.
+                (setq po-start-of-entry (match-end 0))
+                ;; However, it is also possible that we are located in
+                ;; the crumb after the last entry in the file.  If
+                ;; yes, we know the middle and end of last PO entry.
+                (setq po-start-of-msgstr (match-beginning 0)
+                      po-end-of-entry (match-end 0))
+                (if (re-search-forward po-any-msgstr-regexp nil t)
+                    (progn
+                      ;; We definitely were not in the crumb.
+                      (setq po-start-of-msgstr (match-beginning 0)
+                            po-end-of-entry (match-end 0)))
+                  ;; We were in the crumb.  The start of the last PO
+                  ;; file entry is the end of the previous msgstr if
+                  ;; any, or else, the beginning of the file.
+                  (goto-char po-start-of-msgstr)
+                  (setq po-start-of-entry
+                        (if (re-search-backward po-any-msgstr-regexp nil t)
+                            (match-end 0)
+                          (point-min)))))
+            ;; The cursor was inside msgstr of the current entry.
+            (setq po-start-of-msgstr (match-beginning 0)
+                  po-end-of-entry (match-end 0))
+            ;; The start of this entry is the end of the previous
+            ;; msgstr if any, or else, the beginning of the file.
+            (goto-char po-start-of-msgstr)
+            (setq po-start-of-entry
+                  (if (re-search-backward po-any-msgstr-regexp nil t)
+                      (match-end 0)
+                    (point-min)))))
       ;; The cursor was before msgstr in the first entry in the file.
       (setq po-start-of-entry (point-min))
       (goto-char po-start-of-entry)
       ;; There is at least the PO file header, so this should match.
       (re-search-forward po-any-msgstr-regexp)
       (setq po-start-of-msgstr (match-beginning 0)
-	    po-end-of-entry (match-end 0)))
+            po-end-of-entry (match-end 0)))
     ;; Find start of msgid.
     (goto-char po-start-of-entry)
     (re-search-forward po-any-msgid-regexp)
     (setq po-start-of-msgid (match-beginning 0))
     ;; Classify the entry.
     (setq po-entry-type
-	  (if (eq (following-char) ?#)
-	      'obsolete
-	    (goto-char po-start-of-entry)
-	    (if (re-search-forward po-fuzzy-regexp po-start-of-msgid t)
-		'fuzzy
-	      (goto-char po-start-of-msgstr)
-	      (if (looking-at po-untranslated-regexp)
-		  'untranslated
-		'translated))))
+          (if (eq (following-char) ?#)
+              'obsolete
+            (goto-char po-start-of-entry)
+            (if (re-search-forward po-fuzzy-regexp po-start-of-msgid t)
+                'fuzzy
+              (goto-char po-start-of-msgstr)
+              (if (looking-at po-untranslated-regexp)
+                  'untranslated
+                'translated))))
     ;; Put the cursor back where it was.
     (goto-char here)))
 
@@ -1365,17 +1365,17 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
       (if (re-search-forward "\n#, .*" po-start-of-msgid t)
-	  (save-restriction
-	    (narrow-to-region (match-beginning 0) (match-end 0))
-	    (goto-char (point-min))
-	    (if (re-search-forward (concat "\\b" name "\\b") nil t)
-		nil
-	      (goto-char (point-max))
-	      (insert ", " name)))
-	(skip-chars-forward "\n")
-	(while (eq (following-char) ?#)
-	  (next-line 1))
-	(insert "#, " name "\n")))))
+          (save-restriction
+            (narrow-to-region (match-beginning 0) (match-end 0))
+            (goto-char (point-min))
+            (if (re-search-forward (concat "\\b" name "\\b") nil t)
+                nil
+              (goto-char (point-max))
+              (insert ", " name)))
+        (skip-chars-forward "\n")
+        (while (eq (following-char) ?#)
+          (next-line 1))
+        (insert "#, " name "\n")))))
 
 (defun po-delete-attribute (name)
   "Delete attribute NAME from the current entry, if any."
@@ -1383,13 +1383,13 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
       (if (re-search-forward "\n#, .*" po-start-of-msgid t)
-	  (save-restriction
-	    (narrow-to-region (match-beginning 0) (match-end 0))
-	    (goto-char (point-min))
-	    (if (re-search-forward
-		 (concat "\\(\n#, " name "$\\|, " name "$\\| " name ",\\)")
-		 nil t)
-		(replace-match "" t t)))))))
+          (save-restriction
+            (narrow-to-region (match-beginning 0) (match-end 0))
+            (goto-char (point-min))
+            (if (re-search-forward
+                 (concat "\\(\n#, " name "$\\|, " name "$\\| " name ",\\)")
+                 nil t)
+                (replace-match "" t t)))))))
 
 ;;; Entry positionning.
 
@@ -1397,8 +1397,8 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   "Tell how many entries in the entry location stack."
   (let ((depth (length po-marker-stack)))
     (cond ((= depth 0) (message (_"Empty location stack")))
-	  ((= depth 1) (message (_"One entry in location stack")))
-	  (t (message (_"%d entries in location stack") depth)))))
+          ((= depth 1) (message (_"One entry in location stack")))
+          (t (message (_"%d entries in location stack") depth)))))
 
 (defun po-push-location ()
   "Stack the location of the current entry, for later return."
@@ -1414,10 +1414,10 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (interactive)
   (if po-marker-stack
       (progn
-	(goto-char (car po-marker-stack))
-	(setq po-marker-stack (cdr po-marker-stack))
-	(po-current-entry)
-	(po-say-location-depth))
+        (goto-char (car po-marker-stack))
+        (setq po-marker-stack (cdr po-marker-stack))
+        (po-current-entry)
+        (po-say-location-depth))
     (error (_"The entry location stack is empty"))))
 
 (defun po-exchange-location ()
@@ -1425,13 +1425,13 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (interactive)
   (if po-marker-stack
       (progn
-	(po-find-span-of-entry)
-	(goto-char po-start-of-msgid)
-	(let ((location (point-marker)))
-	  (goto-char (car po-marker-stack))
-	  (setq po-marker-stack (cons location (cdr po-marker-stack))))
-	(po-current-entry)
-	(po-say-location-depth))
+        (po-find-span-of-entry)
+        (goto-char po-start-of-msgid)
+        (let ((location (point-marker)))
+          (goto-char (car po-marker-stack))
+          (setq po-marker-stack (cons location (cdr po-marker-stack))))
+        (po-current-entry)
+        (po-say-location-depth))
     (error (_"The entry location stack is empty"))))
 
 (defun po-current-entry ()
@@ -1445,9 +1445,9 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (let ((here (point)))
     (goto-char (point-min))
     (if (re-search-forward regexp nil t)
-	(progn
-	  (goto-char (match-beginning 0))
-	  (po-current-entry))
+        (progn
+          (goto-char (match-beginning 0))
+          (po-current-entry))
       (goto-char here)
       (error (_"There is no such entry")))))
 
@@ -1456,7 +1456,7 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (let ((here (point)))
     (goto-char (point-max))
     (if (re-search-backward regexp nil t)
-	(po-current-entry)
+        (po-current-entry)
       (goto-char here)
       (error (_"There is no such entry")))))
 
@@ -1467,19 +1467,19 @@ If WRAP is not nil, the search may wrap around the buffer."
   (let ((here (point)))
     (goto-char po-end-of-entry)
     (if (re-search-forward regexp nil t)
-	(progn
-	  (goto-char (match-beginning 0))
-	  (po-current-entry))
+        (progn
+          (goto-char (match-beginning 0))
+          (po-current-entry))
       (if (and wrap
-	       (progn
-		 (goto-char (point-min))
-		 (re-search-forward regexp po-start-of-entry t)))
-	  (progn
-	    (goto-char (match-beginning 0))
-	    (po-current-entry)
-	    (message (_"Wrapping around the buffer")))
-	(goto-char here)
-	(error (_"There is no such entry"))))))
+               (progn
+                 (goto-char (point-min))
+                 (re-search-forward regexp po-start-of-entry t)))
+          (progn
+            (goto-char (match-beginning 0))
+            (po-current-entry)
+            (message (_"Wrapping around the buffer")))
+        (goto-char here)
+        (error (_"There is no such entry"))))))
 
 (defun po-previous-entry-with-regexp (regexp wrap)
   "Redisplay the entry preceding the current entry which msgstr matches REGEXP.
@@ -1488,16 +1488,16 @@ If WRAP is not nil, the search may wrap around the buffer."
   (let ((here (point)))
     (goto-char po-start-of-entry)
     (if (re-search-backward regexp nil t)
-	(po-current-entry)
+        (po-current-entry)
       (if (and wrap
-	       (progn
-		 (goto-char (point-max))
-		 (re-search-backward regexp po-end-of-entry t)))
-	  (progn
-	    (po-current-entry)
-	    (message (_"Wrapping around the buffer")))
-	(goto-char here)
-	(error (_"There is no such entry"))))))
+               (progn
+                 (goto-char (point-max))
+                 (re-search-backward regexp po-end-of-entry t)))
+          (progn
+            (po-current-entry)
+            (message (_"Wrapping around the buffer")))
+        (goto-char here)
+        (error (_"There is no such entry"))))))
 
 ;; Any entries.
 
@@ -1546,8 +1546,8 @@ If WRAP is not nil, the search may wrap around the buffer."
   (interactive)
   (po-find-span-of-entry)
   (if (or (eq po-entry-type 'untranslated)
-	  (eq po-entry-type 'obsolete)
-	  (y-or-n-p (_"Really lose previous translation? ")))
+          (eq po-entry-type 'obsolete)
+          (y-or-n-p (_"Really lose previous translation? ")))
       (po-set-msgstr (po-get-msgid nil)))
   (message ""))
 
@@ -1588,10 +1588,10 @@ which does not match exactly.")
   (interactive)
   (po-find-span-of-entry)
   (cond ((eq po-entry-type 'fuzzy)
-	 (po-decrease-type-counter)
-	 (po-delete-attribute "fuzzy")
-	 (po-current-entry)
-	 (po-increase-type-counter)))
+         (po-decrease-type-counter)
+         (po-delete-attribute "fuzzy")
+         (po-current-entry)
+         (po-increase-type-counter)))
   (if po-auto-select-on-unfuzzy
       (po-auto-select-entry))
   (po-update-mode-line-string))
@@ -1632,46 +1632,46 @@ no entries of the other types."
   (po-find-span-of-entry)
   (goto-char po-end-of-entry)
   (if (and (= po-untranslated-counter 0)
-	   (= po-fuzzy-counter 0)
-	   (= po-obsolete-counter 0))
+           (= po-fuzzy-counter 0)
+           (= po-obsolete-counter 0))
       ;; All entries are plain translated.  Next entry will do, or
       ;; wrap around if there is none.
       (if (re-search-forward po-any-msgstr-regexp nil t)
-	  (goto-char (match-beginning 0))
-	(goto-char (point-min)))
+          (goto-char (match-beginning 0))
+        (goto-char (point-min)))
     ;; If over a translated entry, look for an untranslated one first.
     ;; Else, look for an entry of the same type first.
     (let ((goal (if (eq po-entry-type 'translated)
-		    'untranslated
-		  po-entry-type)))
+                    'untranslated
+                  po-entry-type)))
       (while goal
-	;; Find an untranslated entry, or wrap up for a fuzzy entry.
-	(if (eq goal 'untranslated)
-	    (if (and (> po-untranslated-counter 0)
-		     (re-search-forward po-untranslated-regexp nil t))
-		(progn
-		  (goto-char (match-beginning 0))
-		  (setq goal nil))
-	      (goto-char (point-min))
-	      (setq goal 'fuzzy)))
-	;; Find a fuzzy entry, or wrap up for an obsolete entry.
-	(if (eq goal 'fuzzy)
-	    (if (and (> po-fuzzy-counter 0)
-		     (re-search-forward po-fuzzy-regexp nil t))
-		(progn
-		  (goto-char (match-beginning 0))
-		  (setq goal nil))
-	      (goto-char (point-min))
-	      (setq goal 'obsolete)))
-	;; Find an obsolete entry, or wrap up for an untranslated entry.
-	(if (eq goal 'obsolete)
-	    (if (and (> po-obsolete-counter 0)
-		     (re-search-forward po-obsolete-msgstr-regexp nil t))
-		(progn
-		  (goto-char (match-beginning 0))
-		  (setq goal nil))
-	      (goto-char (point-min))
-	      (setq goal 'untranslated))))))
+        ;; Find an untranslated entry, or wrap up for a fuzzy entry.
+        (if (eq goal 'untranslated)
+            (if (and (> po-untranslated-counter 0)
+                     (re-search-forward po-untranslated-regexp nil t))
+                (progn
+                  (goto-char (match-beginning 0))
+                  (setq goal nil))
+              (goto-char (point-min))
+              (setq goal 'fuzzy)))
+        ;; Find a fuzzy entry, or wrap up for an obsolete entry.
+        (if (eq goal 'fuzzy)
+            (if (and (> po-fuzzy-counter 0)
+                     (re-search-forward po-fuzzy-regexp nil t))
+                (progn
+                  (goto-char (match-beginning 0))
+                  (setq goal nil))
+              (goto-char (point-min))
+              (setq goal 'obsolete)))
+        ;; Find an obsolete entry, or wrap up for an untranslated entry.
+        (if (eq goal 'obsolete)
+            (if (and (> po-obsolete-counter 0)
+                     (re-search-forward po-obsolete-msgstr-regexp nil t))
+                (progn
+                  (goto-char (match-beginning 0))
+                  (setq goal nil))
+              (goto-char (point-min))
+              (setq goal 'untranslated))))))
   ;; Display this entry nicely.
   (po-current-entry))
 
@@ -1706,18 +1706,18 @@ Surrounding quotes are already excluded by the position of START and END."
    (goto-char (point-min))
    (while (re-search-forward "\\\\[\"abfnt\\0-7]" nil t)
      (cond ((eq (preceding-char) ?\") (replace-match "\"" t t))
-	   ((eq (preceding-char) ?a) (replace-match "\a" t t))
-	   ((eq (preceding-char) ?b) (replace-match "\b" t t))
-	   ((eq (preceding-char) ?f) (replace-match "\f" t t))
-	   ((eq (preceding-char) ?n) (replace-match "\n" t t))
-	   ((eq (preceding-char) ?t) (replace-match "\t" t t))
-	   ((eq (preceding-char) ?\\) (replace-match "\\" t t))
-	   (t (let ((value (- (preceding-char) ?0)))
-		(replace-match "" t t)
-		(while (looking-at "[0-7]")
-		  (setq value (+ (* 8 value) (- (following-char) ?0)))
-		  (replace-match "" t t))
-		(insert value)))))
+           ((eq (preceding-char) ?a) (replace-match "\a" t t))
+           ((eq (preceding-char) ?b) (replace-match "\b" t t))
+           ((eq (preceding-char) ?f) (replace-match "\f" t t))
+           ((eq (preceding-char) ?n) (replace-match "\n" t t))
+           ((eq (preceding-char) ?t) (replace-match "\t" t t))
+           ((eq (preceding-char) ?\\) (replace-match "\\" t t))
+           (t (let ((value (- (preceding-char) ?0)))
+                (replace-match "" t t)
+                (while (looking-at "[0-7]")
+                  (setq value (+ (* 8 value) (- (following-char) ?0)))
+                  (replace-match "" t t))
+                (insert value)))))
    (buffer-string)))
 
 (defun po-eval-requoted (form prefix obsolete)
@@ -1728,25 +1728,25 @@ wanted string in the buffer which is current at the time of evaluation.
 If FORM is itself a string, then this string is used for insertion."
   (po-with-temp-buffer
     (if (stringp form)
-	(insert form)
+        (insert form)
       (push-mark)
       (eval form))
     (goto-char (point-min))
     (let ((multi-line (re-search-forward "[^\n]\n+[^\n]" nil t)))
       (goto-char (point-min))
       (while (re-search-forward "[\"\a\b\f\n\r\t\\]" nil t)
-	(cond ((eq (preceding-char) ?\") (replace-match "\\\"" t t))
-	      ((eq (preceding-char) ?\a) (replace-match "\\a" t t))
-	      ((eq (preceding-char) ?\b) (replace-match "\\b" t t))
-	      ((eq (preceding-char) ?\f) (replace-match "\\f" t t))
-	      ((eq (preceding-char) ?\n)
-	       (replace-match (if (or (not multi-line) (eobp))
-				  "\\n"
-				"\\n\"\n\"")
-			      t t))
-	      ((eq (preceding-char) ?\r) (replace-match "\\r" t t))
-	      ((eq (preceding-char) ?\t) (replace-match "\\t" t t))
-	      ((eq (preceding-char) ?\\) (replace-match "\\\\" t t))))
+        (cond ((eq (preceding-char) ?\") (replace-match "\\\"" t t))
+              ((eq (preceding-char) ?\a) (replace-match "\\a" t t))
+              ((eq (preceding-char) ?\b) (replace-match "\\b" t t))
+              ((eq (preceding-char) ?\f) (replace-match "\\f" t t))
+              ((eq (preceding-char) ?\n)
+               (replace-match (if (or (not multi-line) (eobp))
+                                  "\\n"
+                                "\\n\"\n\"")
+                              t t))
+              ((eq (preceding-char) ?\r) (replace-match "\\r" t t))
+              ((eq (preceding-char) ?\t) (replace-match "\\t" t t))
+              ((eq (preceding-char) ?\\) (replace-match "\\\\" t t))))
       (goto-char (point-min))
       (if prefix (insert prefix " "))
       (insert (if multi-line "\"\"\n\"" "\""))
@@ -1754,18 +1754,18 @@ If FORM is itself a string, then this string is used for insertion."
       (insert "\"")
       (if prefix (insert "\n"))
       (if obsolete
-	  (progn
-	    (goto-char (point-min))
-	    (while (not (eobp))
-	      (or (eq (following-char) ?\n) (insert "#~ "))
-	      (search-forward "\n"))))
+          (progn
+            (goto-char (point-min))
+            (while (not (eobp))
+              (or (eq (following-char) ?\n) (insert "#~ "))
+              (search-forward "\n"))))
       (buffer-string))))
 
 (defun po-get-msgid (kill)
   "Extract and return the unquoted msgid string.
 If KILL, then add the unquoted string to the kill ring."
   (let ((string (po-extract-unquoted (current-buffer)
-				     po-start-of-msgid po-start-of-msgstr)))
+                                     po-start-of-msgid po-start-of-msgstr)))
     (if kill (po-kill-new string))
     string))
 
@@ -1773,7 +1773,7 @@ If KILL, then add the unquoted string to the kill ring."
   "Extract and return the unquoted msgstr string.
 If KILL, then add the unquoted string to the kill ring."
   (let ((string (po-extract-unquoted (current-buffer)
-				     po-start-of-msgstr po-end-of-entry)))
+                                     po-start-of-msgstr po-end-of-entry)))
     (if kill (po-kill-new string))
     string))
 
@@ -1790,11 +1790,11 @@ described by FORM is merely identical to the msgid already in place."
       (goto-char po-start-of-entry)
       (re-search-forward po-any-msgid-regexp po-start-of-msgstr)
       (and (not (string-equal (po-match-string 0) string))
-	   (let ((buffer-read-only po-read-only))
-	     (replace-match string t t)
-	     (goto-char po-start-of-msgid)
-	     (po-find-span-of-entry)
-	     t)))))
+           (let ((buffer-read-only po-read-only))
+             (replace-match string t t)
+             (goto-char po-start-of-msgid)
+             (po-find-span-of-entry)
+             t)))))
 
 (defun po-set-msgstr (form)
   "Replace the current msgstr or msgstr[], using FORM to get a string.
@@ -1810,24 +1810,24 @@ described by FORM is merely identical to the msgstr already in place."
       (goto-char po-start-of-entry)
       (save-excursion                   ; check for an indexed msgstr
         (if (re-search-forward po-msgstr-idx-keyword-regexp
-			       po-end-of-entry t)
-	    (setq msgstr-idx (buffer-substring-no-properties
-			      (match-beginning 0) (match-end 0)))))
+                               po-end-of-entry t)
+            (setq msgstr-idx (buffer-substring-no-properties
+                              (match-beginning 0) (match-end 0)))))
       (re-search-forward po-any-msgstr-regexp po-end-of-entry)
       (and (not (string-equal (po-match-string 0) string))
-	   (let ((buffer-read-only po-read-only))
-	     (po-decrease-type-counter)
-	     (replace-match string t t)
+           (let ((buffer-read-only po-read-only))
+             (po-decrease-type-counter)
+             (replace-match string t t)
              (goto-char (match-beginning 0))
              (if (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
-		 nil
-	       (insert msgstr-idx)
-	       (looking-at "\\(#~[ \t]*\\)?msgstr")
-	       (replace-match ""))
-	     (goto-char po-start-of-msgid)
-	     (po-find-span-of-entry)
-	     (po-increase-type-counter)
-	     t)))))
+                 nil
+               (insert msgstr-idx)
+               (looking-at "\\(#~[ \t]*\\)?msgstr")
+               (replace-match ""))
+             (goto-char po-start-of-msgid)
+             (po-find-span-of-entry)
+             (po-increase-type-counter)
+             t)))))
 
 (defun po-kill-ring-save-msgstr ()
   "Push the msgstr string from current entry on the kill ring."
@@ -1855,43 +1855,43 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
   (po-find-span-of-entry)
 
   (cond ((eq po-entry-type 'translated)
-	 (po-decrease-type-counter)
-	 (po-add-attribute "fuzzy")
-	 (po-current-entry)
-	 (po-increase-type-counter))
+         (po-decrease-type-counter)
+         (po-add-attribute "fuzzy")
+         (po-current-entry)
+         (po-increase-type-counter))
 
-	((or (eq po-entry-type 'fuzzy)
-	     (eq po-entry-type 'untranslated))
-	 (if (y-or-n-p (_"Should I really obsolete this entry? "))
-	     (progn
-	       (po-decrease-type-counter)
-	       (save-excursion
-		 (save-restriction
-		   (narrow-to-region po-start-of-entry po-end-of-entry)
-		   (let ((buffer-read-only po-read-only))
-		     (goto-char (point-min))
-		     (skip-chars-forward "\n")
-		     (while (not (eobp))
-		       (insert "#~ ")
-		       (search-forward "\n")))))
-	       (po-current-entry)
-	       (po-increase-type-counter)))
-	 (message ""))
+        ((or (eq po-entry-type 'fuzzy)
+             (eq po-entry-type 'untranslated))
+         (if (y-or-n-p (_"Should I really obsolete this entry? "))
+             (progn
+               (po-decrease-type-counter)
+               (save-excursion
+                 (save-restriction
+                   (narrow-to-region po-start-of-entry po-end-of-entry)
+                   (let ((buffer-read-only po-read-only))
+                     (goto-char (point-min))
+                     (skip-chars-forward "\n")
+                     (while (not (eobp))
+                       (insert "#~ ")
+                       (search-forward "\n")))))
+               (po-current-entry)
+               (po-increase-type-counter)))
+         (message ""))
 
-	((and (eq po-entry-type 'obsolete)
-	      (po-check-for-pending-edit po-start-of-msgid)
-	      (po-check-for-pending-edit po-start-of-msgstr))
-	 (po-decrease-type-counter)
-	 (po-update-mode-line-string)
-	 (po-get-msgstr t)
-	 (let ((buffer-read-only po-read-only))
-	   (delete-region po-start-of-entry po-end-of-entry))
-	 (goto-char po-start-of-entry)
-	 (if (re-search-forward po-any-msgstr-regexp nil t)
-	     (goto-char (match-beginning 0))
-	   (re-search-backward po-any-msgstr-regexp nil t))
-	 (po-current-entry)
-	 (message ""))))
+        ((and (eq po-entry-type 'obsolete)
+              (po-check-for-pending-edit po-start-of-msgid)
+              (po-check-for-pending-edit po-start-of-msgstr))
+         (po-decrease-type-counter)
+         (po-update-mode-line-string)
+         (po-get-msgstr t)
+         (let ((buffer-read-only po-read-only))
+           (delete-region po-start-of-entry po-end-of-entry))
+         (goto-char po-start-of-entry)
+         (if (re-search-forward po-any-msgstr-regexp nil t)
+             (goto-char (match-beginning 0))
+           (re-search-backward po-any-msgstr-regexp nil t))
+         (po-current-entry)
+         (message ""))))
 
 ;;; Killing and yanking comments.
 
@@ -1903,20 +1903,20 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
   "Extract and return the editable comment string, uncommented.
 If KILL-FLAG, then add the unquoted comment to the kill ring."
   (let ((buffer (current-buffer))
-	(obsolete (eq po-entry-type 'obsolete)))
+        (obsolete (eq po-entry-type 'obsolete)))
     (save-excursion
       (goto-char po-start-of-entry)
       (if (re-search-forward po-comment-regexp po-end-of-entry t)
-	  (po-with-temp-buffer
-	    (insert-buffer-substring buffer (match-beginning 0) (match-end 0))
-	    (goto-char (point-min))
-	    (while (not (eobp))
-	      (if (looking-at (if obsolete "#\\(\n\\| \\)" "# ?"))
-		  (replace-match "" t t))
-	      (forward-line 1))
-	    (and kill-flag (copy-region-as-kill (point-min) (point-max)))
-	    (buffer-string))
-	""))))
+          (po-with-temp-buffer
+            (insert-buffer-substring buffer (match-beginning 0) (match-end 0))
+            (goto-char (point-min))
+            (while (not (eobp))
+              (if (looking-at (if obsolete "#\\(\n\\| \\)" "# ?"))
+                  (replace-match "" t t))
+              (forward-line 1))
+            (and kill-flag (copy-region-as-kill (point-min) (point-max)))
+            (buffer-string))
+        ""))))
 
 (defun po-set-comment (form)
   "Using FORM to get a string, replace the current editable comment.
@@ -1924,27 +1924,27 @@ Evaluating FORM should insert the wanted string in the current buffer.
 If FORM is itself a string, then this string is used for insertion.
 The string is properly recommented before the replacement occurs."
   (let ((obsolete (eq po-entry-type 'obsolete))
-	string)
+        string)
     (po-with-temp-buffer
       (if (stringp form)
-	  (insert form)
-	(push-mark)
-	(eval form))
+          (insert form)
+        (push-mark)
+        (eval form))
       (if (not (or (bobp) (= (preceding-char) ?\n)))
-	  (insert "\n"))
+          (insert "\n"))
       (goto-char (point-min))
       (while (not (eobp))
-	(insert (if (= (following-char) ?\n) "#" "# "))
-	(search-forward "\n"))
+        (insert (if (= (following-char) ?\n) "#" "# "))
+        (search-forward "\n"))
       (setq string (buffer-string)))
     (goto-char po-start-of-entry)
     (if (re-search-forward po-comment-regexp po-end-of-entry t)
-	(if (not (string-equal (po-match-string 0) string))
-	    (let ((buffer-read-only po-read-only))
-	      (replace-match string t t)))
+        (if (not (string-equal (po-match-string 0) string))
+            (let ((buffer-read-only po-read-only))
+              (replace-match string t t)))
       (skip-chars-forward " \t\n")
       (let ((buffer-read-only po-read-only))
-	(insert string))))
+        (insert string))))
   (po-current-entry))
 
 (defun po-kill-ring-save-comment ()
@@ -1981,24 +1981,24 @@ The string is properly recommented before the replacement occurs."
   (let ((cursor po-edited-fields))
     (while cursor
       (let ((slot (car cursor)))
-	(setq cursor (cdr cursor))
-	(if (buffer-name (nth 1 slot))
-	    nil
-	  (let ((overlay (nth 2 slot)))
-	    (and overlay (po-dehighlight overlay)))
-	  (setq po-edited-fields (delete slot po-edited-fields)))))))
+        (setq cursor (cdr cursor))
+        (if (buffer-name (nth 1 slot))
+            nil
+          (let ((overlay (nth 2 slot)))
+            (and overlay (po-dehighlight overlay)))
+          (setq po-edited-fields (delete slot po-edited-fields)))))))
 
 (defun po-check-all-pending-edits ()
   "Resume any pending edit.  Return nil if some remains."
   (po-clean-out-killed-edits)
   (or (null po-edited-fields)
       (let ((slot (car po-edited-fields)))
-	(goto-char (nth 0 slot))
-	(pop-to-buffer (nth 1 slot))
-	(let ((overlay (nth 2 slot)))
-	  (and overlay (po-rehighlight overlay)))
-	(message po-subedit-message)
-	nil)))
+        (goto-char (nth 0 slot))
+        (pop-to-buffer (nth 1 slot))
+        (let ((overlay (nth 2 slot)))
+          (and overlay (po-rehighlight overlay)))
+        (message po-subedit-message)
+        nil)))
 
 (defun po-check-for-pending-edit (position)
   "Resume any pending edit at POSITION.  Return nil if such edit exists."
@@ -2007,23 +2007,23 @@ The string is properly recommented before the replacement occurs."
     (set-marker marker position)
     (let ((slot (assoc marker po-edited-fields)))
       (if slot
-	  (progn
-	    (goto-char marker)
-	    (pop-to-buffer (nth 1 slot))
-	    (let ((overlay (nth 2 slot)))
-	      (and overlay (po-rehighlight overlay)))
-	    (message po-subedit-message)))
+          (progn
+            (goto-char marker)
+            (pop-to-buffer (nth 1 slot))
+            (let ((overlay (nth 2 slot)))
+              (and overlay (po-rehighlight overlay)))
+            (message po-subedit-message)))
       (not slot))))
 
 (defun po-edit-out-full ()
   "Get out of PO mode, leaving PO file buffer in fundamental mode."
   (interactive)
   (if (and (po-check-all-pending-edits)
-	   (yes-or-no-p (_"Should I let you edit the whole PO file? ")))
+           (yes-or-no-p (_"Should I let you edit the whole PO file? ")))
       (progn
-	(setq buffer-read-only po-read-only)
-	(fundamental-mode)
-	(message (_"Type 'M-x po-mode RET' once done")))))
+        (setq buffer-read-only po-read-only)
+        (fundamental-mode)
+        (message (_"Type 'M-x po-mode RET' once done")))))
 
 (defun po-ediff-quit ()
   "Quit ediff and exit `recursive-edit'."
@@ -2032,8 +2032,8 @@ The string is properly recommented before the replacement occurs."
   (exit-recursive-edit))
 
 (add-hook 'ediff-keymap-setup-hook
-	  '(lambda ()
-	     (define-key ediff-mode-map "Q" 'po-ediff-quit)))
+          '(lambda ()
+             (define-key ediff-mode-map "Q" 'po-ediff-quit)))
 
 (defun po-ediff-buffers-exit-recursive (b1 b2 oldbuf end)
   "Ediff buffer B1 and B2, pop back to OLDBUF and replace the old variants.
@@ -2067,58 +2067,58 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
 `recursive-edit', or call \\[po-ediff-quit] (`Q') in the ediff control panel."
   (interactive)
   (let* ((marker-regex "^#-#-#-#-#  \\(.*\\)  #-#-#-#-#\n")
-	 (buf1 " *po-msgstr-1") ; default if first marker is missing
-	 buf2 start-1 end-1 start-2 end-2
-	 (back-pointer po-subedit-back-pointer)
-	 (entry-marker (nth 0 back-pointer))
-	 (entry-buffer (marker-buffer entry-marker)))
+         (buf1 " *po-msgstr-1") ; default if first marker is missing
+         buf2 start-1 end-1 start-2 end-2
+         (back-pointer po-subedit-back-pointer)
+         (entry-marker (nth 0 back-pointer))
+         (entry-buffer (marker-buffer entry-marker)))
     (goto-char (point-min))
     (if (looking-at marker-regex)
-	(and (setq buf1 (match-string-no-properties 1))
-	     (forward-line 1)))
+        (and (setq buf1 (match-string-no-properties 1))
+             (forward-line 1)))
     (setq start-1 (point))
     (if (not (re-search-forward marker-regex (point-max) t))
-	(error "Only 1 msgstr found")
+        (error "Only 1 msgstr found")
       (setq buf2 (match-string-no-properties 1)
-	    end-1 (match-beginning 0))
+            end-1 (match-beginning 0))
       (let ((oldbuf (current-buffer)))
-	(save-current-buffer
-	  (set-buffer (get-buffer-create
-		       (generate-new-buffer-name buf1)))
-	  (setq buffer-read-only nil)
-	  (erase-buffer)
-	  (insert-buffer-substring oldbuf start-1 end-1)
-	  (setq buffer-read-only t))
-	
-	(setq start-2 (point))
-	(save-excursion
-	  ;; check for a third variant; if found ignore it
-	  (if (re-search-forward marker-regex (point-max) t)
-	      (setq end-2 (match-beginning 0))
-	    (setq end-2 (goto-char (1- (point-max))))))
-	(save-current-buffer
-	  (set-buffer (get-buffer-create
-		       (generate-new-buffer-name buf2)))
-	  (erase-buffer)
-	  (insert-buffer-substring oldbuf start-2 end-2))
+        (save-current-buffer
+          (set-buffer (get-buffer-create
+                       (generate-new-buffer-name buf1)))
+          (setq buffer-read-only nil)
+          (erase-buffer)
+          (insert-buffer-substring oldbuf start-1 end-1)
+          (setq buffer-read-only t))
+        
+        (setq start-2 (point))
+        (save-excursion
+          ;; check for a third variant; if found ignore it
+          (if (re-search-forward marker-regex (point-max) t)
+              (setq end-2 (match-beginning 0))
+            (setq end-2 (goto-char (1- (point-max))))))
+        (save-current-buffer
+          (set-buffer (get-buffer-create
+                       (generate-new-buffer-name buf2)))
+          (erase-buffer)
+          (insert-buffer-substring oldbuf start-2 end-2))
 
-	(if (not (string-equal (buffer-substring-no-properties start-1 end-1)
-			       (buffer-substring-no-properties start-2 end-2)))
-	    (po-ediff-buffers-exit-recursive buf1 buf2 oldbuf end-2)
-	  (message "Variants are equal; delete %s" buf1)
-	  (forward-line -1)
-	  (delete-region (point-min) (point)))))))
+        (if (not (string-equal (buffer-substring-no-properties start-1 end-1)
+                               (buffer-substring-no-properties start-2 end-2)))
+            (po-ediff-buffers-exit-recursive buf1 buf2 oldbuf end-2)
+          (message "Variants are equal; delete %s" buf1)
+          (forward-line -1)
+          (delete-region (point-min) (point)))))))
 
 (defun po-subedit-abort ()
   "Exit the subedit buffer, merely discarding its contents."
   (interactive)
   (let* ((edit-buffer (current-buffer))
-	 (back-pointer po-subedit-back-pointer)
-	 (entry-marker (nth 0 back-pointer))
-	 (overlay-info (nth 2 back-pointer))
-	 (entry-buffer (marker-buffer entry-marker)))
+         (back-pointer po-subedit-back-pointer)
+         (entry-marker (nth 0 back-pointer))
+         (overlay-info (nth 2 back-pointer))
+         (entry-buffer (marker-buffer entry-marker)))
     (if (null entry-buffer)
-	(error (_"Corresponding PO buffer does not exist anymore"))
+        (error (_"Corresponding PO buffer does not exist anymore"))
       (or (one-window-p) (delete-window))
       (switch-to-buffer entry-buffer)
       (goto-char entry-marker)
@@ -2138,19 +2138,19 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
     (po-subedit-abort)
     (po-find-span-of-entry)
     (cond ((= (point) po-start-of-msgid)
-	   (po-set-comment string)
-	   (po-redisplay))
-	  ((= (point) po-start-of-msgstr)
-	   (let ((replaced (po-set-msgstr string)))
-	     (if (and replaced
-		      po-auto-fuzzy-on-edit
-		      (eq po-entry-type 'translated))
-		 (progn
-		   (po-decrease-type-counter)
-		   (po-add-attribute "fuzzy")
-		   (po-current-entry)
-		   (po-increase-type-counter)))))
-	  (t (debug)))))
+           (po-set-comment string)
+           (po-redisplay))
+          ((= (point) po-start-of-msgstr)
+           (let ((replaced (po-set-msgstr string)))
+             (if (and replaced
+                      po-auto-fuzzy-on-edit
+                      (eq po-entry-type 'translated))
+                 (progn
+                   (po-decrease-type-counter)
+                   (po-add-attribute "fuzzy")
+                   (po-current-entry)
+                   (po-increase-type-counter)))))
+          (t (debug)))))
 
 (defun po-edit-string (string type expand-tabs)
   "Prepare a pop up buffer for editing STRING, which is of a given TYPE.
@@ -2158,46 +2158,46 @@ TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
 Run functions on po-subedit-mode-hook."
   (let ((marker (make-marker)))
     (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
-			     ((eq type 'msgstr) po-start-of-msgstr)))
+                             ((eq type 'msgstr) po-start-of-msgstr)))
     (if (po-check-for-pending-edit marker)
-	(let ((edit-buffer (generate-new-buffer
-			    (concat "*" (buffer-name) "*")))
-	      (edit-coding buffer-file-coding-system)
-	      (buffer (current-buffer))
-	      overlay slot)
-	  (if (and (eq type 'msgstr) po-highlighting)
-	      ;; ;; Try showing all of msgid in the upper window while editing.
-	      ;; (goto-char (1- po-start-of-msgstr))
-	      ;; (recenter -1)
-	      (save-excursion
-		(goto-char po-start-of-entry)
-		(re-search-forward po-any-msgid-regexp nil t)
-		(let ((end (1- (match-end 0))))
-		  (goto-char (match-beginning 0))
-		  (re-search-forward "msgid +" nil t)
-		  (setq overlay (po-create-overlay))
-		  (po-highlight overlay (point) end buffer))))
-	  (setq slot (list marker edit-buffer overlay)
-		po-edited-fields (cons slot po-edited-fields))
-	  (pop-to-buffer edit-buffer)
-	  (set (make-local-variable 'po-subedit-back-pointer) slot)
-	  (set (make-local-variable 'indent-line-function)
-	       'indent-relative)
-	  (setq buffer-file-coding-system edit-coding)
-	  (setq local-abbrev-table po-mode-abbrev-table)
-	  (erase-buffer)
-	  (insert string "<")
-	  (goto-char (point-min))
-	  (and expand-tabs (setq indent-tabs-mode nil))
-	  (use-local-map po-subedit-mode-map)
-	  (if (fboundp 'easy-menu-define)
-	      (progn
-		(easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
-		  po-subedit-mode-menu-layout)
-		(and po-XEMACS (easy-menu-add po-subedit-mode-menu))))
-	  (set-syntax-table po-subedit-mode-syntax-table)
-	  (run-hooks 'po-subedit-mode-hook)
-	  (message po-subedit-message)))))
+        (let ((edit-buffer (generate-new-buffer
+                            (concat "*" (buffer-name) "*")))
+              (edit-coding buffer-file-coding-system)
+              (buffer (current-buffer))
+              overlay slot)
+          (if (and (eq type 'msgstr) po-highlighting)
+              ;; ;; Try showing all of msgid in the upper window while editing.
+              ;; (goto-char (1- po-start-of-msgstr))
+              ;; (recenter -1)
+              (save-excursion
+                (goto-char po-start-of-entry)
+                (re-search-forward po-any-msgid-regexp nil t)
+                (let ((end (1- (match-end 0))))
+                  (goto-char (match-beginning 0))
+                  (re-search-forward "msgid +" nil t)
+                  (setq overlay (po-create-overlay))
+                  (po-highlight overlay (point) end buffer))))
+          (setq slot (list marker edit-buffer overlay)
+                po-edited-fields (cons slot po-edited-fields))
+          (pop-to-buffer edit-buffer)
+          (set (make-local-variable 'po-subedit-back-pointer) slot)
+          (set (make-local-variable 'indent-line-function)
+               'indent-relative)
+          (setq buffer-file-coding-system edit-coding)
+          (setq local-abbrev-table po-mode-abbrev-table)
+          (erase-buffer)
+          (insert string "<")
+          (goto-char (point-min))
+          (and expand-tabs (setq indent-tabs-mode nil))
+          (use-local-map po-subedit-mode-map)
+          (if (fboundp 'easy-menu-define)
+              (progn
+                (easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
+                  po-subedit-mode-menu-layout)
+                (and po-XEMACS (easy-menu-add po-subedit-mode-menu))))
+          (set-syntax-table po-subedit-mode-syntax-table)
+          (run-hooks 'po-subedit-mode-hook)
+          (message po-subedit-message)))))
 
 (defun po-edit-comment ()
   "Use another window to edit the current translator comment."
@@ -2218,11 +2218,11 @@ read `po-subedit-ediff' documentation."
   (interactive)
   (po-find-span-of-entry)
   (po-edit-string (if (and po-auto-edit-with-msgid
-			   (eq po-entry-type 'untranslated))
-		      (po-get-msgid nil)
-		    (po-get-msgstr nil))
-		  'msgstr
-		  t))
+                           (eq po-entry-type 'untranslated))
+                      (po-get-msgid nil)
+                    (po-get-msgstr nil))
+                  'msgstr
+                  t))
 
 (defun po-edit-msgstr-and-ediff ()
   "Use `ediff' to edit the current msgstr.
@@ -2238,15 +2238,15 @@ read `po-subedit-ediff' documentation."
   "Normalize old gettext style fields using K&R C multiline string syntax.
 To minibuffer messages sent while normalizing, add the EXPLAIN string."
   (let ((here (point-marker))
-	(counter 0)
-	(buffer-read-only po-read-only))
+        (counter 0)
+        (buffer-read-only po-read-only))
     (goto-char (point-min))
     (message (_"Normalizing %d, %s") counter explain)
     (while (re-search-forward
-	    "\\(^#?[ \t]*msg\\(id\\|str\\)[ \t]*\"\\|[^\" \t][ \t]*\\)\\\\\n"
-	    nil t)
+            "\\(^#?[ \t]*msg\\(id\\|str\\)[ \t]*\"\\|[^\" \t][ \t]*\\)\\\\\n"
+            nil t)
       (if (= (% counter 10) 0)
-	  (message (_"Normalizing %d, %s") counter explain))
+          (message (_"Normalizing %d, %s") counter explain))
       (replace-match "\\1\"\n\"" t nil)
       (setq counter (1+ counter)))
     (goto-char here)
@@ -2256,15 +2256,15 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   "Normalize FIELD of all entries.  FIELD is either the symbol msgid or msgstr.
 To minibuffer messages sent while normalizing, add the EXPLAIN string."
   (let ((here (point-marker))
-	(counter 0))
+        (counter 0))
     (goto-char (point-min))
     (while (re-search-forward po-any-msgstr-regexp nil t)
       (if (= (% counter 10) 0)
-	  (message (_"Normalizing %d, %s") counter explain))
+          (message (_"Normalizing %d, %s") counter explain))
       (goto-char (match-beginning 0))
       (po-find-span-of-entry)
       (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid nil)))
-	    ((eq field 'msgstr) (po-set-msgstr (po-get-msgstr nil))))
+            ((eq field 'msgstr) (po-set-msgstr (po-get-msgstr nil))))
       (goto-char po-end-of-entry)
       (setq counter (1+ counter)))
     (goto-char here)
@@ -2282,7 +2282,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   ;; The last PO file entry has just been processed.
   (if (not (= po-end-of-entry (point-max)))
       (let ((buffer-read-only po-read-only))
-	(kill-region po-end-of-entry (point-max))))
+        (kill-region po-end-of-entry (point-max))))
   ;; A bizarre format might have fooled the counters, so recompute
   ;; them to make sure their value is dependable.
   (po-compute-counters nil))
@@ -2293,15 +2293,15 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   "Echo the current auxiliary list in the message area."
   (if po-auxiliary-list
       (let ((cursor po-auxiliary-cursor)
-	    string)
-	(while cursor
-	  (setq string (concat string (if string " ") (car (car cursor)))
-		cursor (cdr cursor)))
-	(setq cursor po-auxiliary-list)
-	(while (not (eq cursor po-auxiliary-cursor))
-	  (setq string (concat string (if string " ") (car (car cursor)))
-		cursor (cdr cursor)))
-	(message string))
+            string)
+        (while cursor
+          (setq string (concat string (if string " ") (car (car cursor)))
+                cursor (cdr cursor)))
+        (setq cursor po-auxiliary-list)
+        (while (not (eq cursor po-auxiliary-cursor))
+          (setq string (concat string (if string " ") (car (car cursor)))
+                cursor (cdr cursor)))
+        (message string))
     (message (_"No auxiliary files."))))
 
 (defun po-consider-as-auxiliary ()
@@ -2310,16 +2310,16 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   (if (member (list buffer-file-name) po-auxiliary-list)
       nil
     (setq po-auxiliary-list
-	  (nconc po-auxiliary-list (list (list buffer-file-name))))
+          (nconc po-auxiliary-list (list (list buffer-file-name))))
     (or po-auxiliary-cursor
-	(setq po-auxiliary-cursor po-auxiliary-list)))
+        (setq po-auxiliary-cursor po-auxiliary-list)))
   (po-show-auxiliary-list))
 
 (defun po-ignore-as-auxiliary ()
   "Delete the current PO file from the list of auxiliary files."
   (interactive)
   (setq po-auxiliary-list (delete (list buffer-file-name) po-auxiliary-list)
-	po-auxiliary-cursor po-auxiliary-list)
+        po-auxiliary-cursor po-auxiliary-list)
   (po-show-auxiliary-list))
 
 (defun po-seek-equivalent-translation (name string)
@@ -2329,38 +2329,38 @@ found, display the file over the current window, with the 'msgstr' field
 possibly highlighted, the cursor at start of msgid, then return 't'.
 Otherwise, move nothing, and just return 'nil'."
   (let ((current (current-buffer))
-	(buffer (find-file-noselect name)))
+        (buffer (find-file-noselect name)))
     (set-buffer buffer)
     (let ((start (point))
-	  found)
+          found)
       (goto-char (point-min))
       (while (and (not found) (search-forward string nil t))
-	;; Screen out longer 'msgid's.
-	(if (looking-at "^msgstr ")
-	    (progn
-	      (po-find-span-of-entry)
-	      ;; Ignore an untranslated entry.
-	      (or (string-equal
-		   (buffer-substring po-start-of-msgstr po-end-of-entry)
-		   "msgstr \"\"\n")
-		  (setq found t)))))
+        ;; Screen out longer 'msgid's.
+        (if (looking-at "^msgstr ")
+            (progn
+              (po-find-span-of-entry)
+              ;; Ignore an untranslated entry.
+              (or (string-equal
+                   (buffer-substring po-start-of-msgstr po-end-of-entry)
+                   "msgstr \"\"\n")
+                  (setq found t)))))
       (if found
-	  (progn
-	    (switch-to-buffer buffer)
-	    (po-find-span-of-entry)
-	    (if po-highlighting
-		(progn
-		  (goto-char po-start-of-entry)
-		  (re-search-forward po-any-msgstr-regexp nil t)
-		  (let ((end (1- (match-end 0))))
-		    (goto-char (match-beginning 0))
-		    (re-search-forward "msgstr +" nil t)
-		    ;; Just "borrow" the marking overlay.
-		    (po-highlight po-marking-overlay (point) end))))
-	    (goto-char po-start-of-msgid))
-	(goto-char start)
-	(po-find-span-of-entry)
-	(set-buffer current))
+          (progn
+            (switch-to-buffer buffer)
+            (po-find-span-of-entry)
+            (if po-highlighting
+                (progn
+                  (goto-char po-start-of-entry)
+                  (re-search-forward po-any-msgstr-regexp nil t)
+                  (let ((end (1- (match-end 0))))
+                    (goto-char (match-beginning 0))
+                    (re-search-forward "msgstr +" nil t)
+                    ;; Just "borrow" the marking overlay.
+                    (po-highlight po-marking-overlay (point) end))))
+            (goto-char po-start-of-msgid))
+        (goto-char start)
+        (po-find-span-of-entry)
+        (set-buffer current))
       found)))
 
 (defun po-cycle-auxiliary ()
@@ -2369,32 +2369,32 @@ Otherwise, move nothing, and just return 'nil'."
   (po-find-span-of-entry)
   (if po-auxiliary-list
       (let ((string (buffer-substring po-start-of-msgid po-start-of-msgstr))
-	    (cursor po-auxiliary-cursor)
-	    found name)
-	(while (and (not found) cursor)
-	  (setq name (car (car cursor)))
-	  (if (and (not (string-equal buffer-file-name name))
-		   (po-seek-equivalent-translation name string))
-	      (setq found t
-		    po-auxiliary-cursor cursor))
-	  (setq cursor (cdr cursor)))
-	(setq cursor po-auxiliary-list)
-	(while (and (not found) cursor)
-	  (setq name (car (car cursor)))
-	  (if (and (not (string-equal buffer-file-name name))
-		   (po-seek-equivalent-translation name string))
-	      (setq found t
-		    po-auxiliary-cursor cursor))
-	  (setq cursor (cdr cursor)))
-	(or found (message (_"No other translation found")))
+            (cursor po-auxiliary-cursor)
+            found name)
+        (while (and (not found) cursor)
+          (setq name (car (car cursor)))
+          (if (and (not (string-equal buffer-file-name name))
+                   (po-seek-equivalent-translation name string))
+              (setq found t
+                    po-auxiliary-cursor cursor))
+          (setq cursor (cdr cursor)))
+        (setq cursor po-auxiliary-list)
+        (while (and (not found) cursor)
+          (setq name (car (car cursor)))
+          (if (and (not (string-equal buffer-file-name name))
+                   (po-seek-equivalent-translation name string))
+              (setq found t
+                    po-auxiliary-cursor cursor))
+          (setq cursor (cdr cursor)))
+        (or found (message (_"No other translation found")))
         found)))
 
 (defun po-subedit-cycle-auxiliary ()
   "Cycle auxiliary file, but from the translation edit buffer."
   (interactive)
   (let* ((entry-marker (nth 0 po-subedit-back-pointer))
-	 (entry-buffer (marker-buffer entry-marker))
-	 (buffer (current-buffer)))
+         (entry-buffer (marker-buffer entry-marker))
+         (buffer (current-buffer)))
     (pop-to-buffer entry-buffer)
     (po-cycle-auxiliary)
     (pop-to-buffer buffer)))
@@ -2407,12 +2407,12 @@ without moving its cursor."
   (po-find-span-of-entry)
   (if po-auxiliary-list
       (let ((string (buffer-substring po-start-of-msgid po-start-of-msgstr))
-	    (name (car (assoc (completing-read (_"Which auxiliary file? ")
-					       po-auxiliary-list nil t)
-			      po-auxiliary-list))))
-	(po-consider-as-auxiliary)
-	(or (po-seek-equivalent-translation name string)
-	    (find-file name)))))
+            (name (car (assoc (completing-read (_"Which auxiliary file? ")
+                                               po-auxiliary-list nil t)
+                              po-auxiliary-list))))
+        (po-consider-as-auxiliary)
+        (or (po-seek-equivalent-translation name string)
+            (find-file name)))))
 
 ;;; Original program sources as context.
 
@@ -2420,20 +2420,20 @@ without moving its cursor."
   "Echo the current source search path in the message area."
   (if po-search-path
       (let ((cursor po-search-path)
-	    string)
-	(while cursor
-	  (setq string (concat string (if string " ") (car (car cursor)))
-		cursor (cdr cursor)))
-	(message string))
+            string)
+        (while cursor
+          (setq string (concat string (if string " ") (car (car cursor)))
+                cursor (cdr cursor)))
+        (message string))
     (message (_"Empty source path."))))
 
 (defun po-consider-source-path (directory)
   "Add a given DIRECTORY, requested interactively, to the source search path."
   (interactive "DDirectory for search path: ")
   (setq po-search-path (cons (list (if (string-match "/$" directory)
-					 directory
-				       (concat directory "/")))
-			     po-search-path))
+                                         directory
+                                       (concat directory "/")))
+                             po-search-path))
   (setq po-reference-check 0)
   (po-show-source-path))
 
@@ -2441,9 +2441,9 @@ without moving its cursor."
   "Delete a directory, selected with completion, from the source search path."
   (interactive)
   (setq po-search-path
-	(delete (list (completing-read (_"Directory to remove? ")
-				       po-search-path nil t))
-		po-search-path))
+        (delete (list (completing-read (_"Directory to remove? ")
+                                       po-search-path nil t))
+                po-search-path))
   (setq po-reference-check 0)
   (po-show-source-path))
 
@@ -2456,28 +2456,28 @@ without moving its cursor."
     (save-excursion
       (goto-char po-start-of-entry)
       (if (re-search-forward "^#:" po-start-of-msgid t)
-	  (let (current name line path file)
-	    (while (looking-at "\\(\n#:\\)? *\\([^: ]*\\):\\([0-9]+\\)")
-	      (goto-char (match-end 0))
-	      (setq name (po-match-string 2)
-		    line (po-match-string 3)
-		    path po-search-path)
-	      (if (string-equal name "")
-		  nil
-		(while (and (not (file-exists-p
-				  (setq file (concat (car (car path)) name))))
-			    path)
-		  (setq path (cdr path)))
-		(setq current (and path file)))
-	      (if current
-		  (setq po-reference-alist
-			(cons (list (concat current ":" line)
-				    current
-				    (string-to-number line))
-			      po-reference-alist)))))))
+          (let (current name line path file)
+            (while (looking-at "\\(\n#:\\)? *\\([^: ]*\\):\\([0-9]+\\)")
+              (goto-char (match-end 0))
+              (setq name (po-match-string 2)
+                    line (po-match-string 3)
+                    path po-search-path)
+              (if (string-equal name "")
+                  nil
+                (while (and (not (file-exists-p
+                                  (setq file (concat (car (car path)) name))))
+                            path)
+                  (setq path (cdr path)))
+                (setq current (and path file)))
+              (if current
+                  (setq po-reference-alist
+                        (cons (list (concat current ":" line)
+                                    current
+                                    (string-to-number line))
+                              po-reference-alist)))))))
     (setq po-reference-alist (nreverse po-reference-alist)
-	  po-reference-cursor po-reference-alist
-	  po-reference-check po-start-of-entry)))
+          po-reference-cursor po-reference-alist
+          po-reference-check po-start-of-entry)))
 
 (defun po-show-source-context (triplet)
   "Show the source context given a TRIPLET which is (PROMPT FILE LINE)."
@@ -2485,16 +2485,16 @@ without moving its cursor."
   (goto-line (car (cdr (cdr triplet))))
   (other-window 1)
   (let ((maximum 0)
-	position
-	(cursor po-reference-alist))
+        position
+        (cursor po-reference-alist))
     (while (not (eq triplet (car cursor)))
       (setq maximum (1+ maximum)
-	    cursor (cdr cursor)))
+            cursor (cdr cursor)))
     (setq position (1+ maximum)
-	  po-reference-cursor cursor)
+          po-reference-cursor cursor)
     (while cursor
       (setq maximum (1+ maximum)
-	    cursor (cdr cursor)))
+            cursor (cdr cursor)))
     (message (_"Displaying %d/%d: \"%s\"") position maximum (car triplet))))
 
 (defun po-cycle-source-reference ()
@@ -2505,8 +2505,8 @@ If the command is repeated many times in a row, cycle through contexts."
   (if po-reference-cursor
       (po-show-source-context
        (car (if (eq last-command 'po-cycle-source-reference)
-		(or (cdr po-reference-cursor) po-reference-alist)
-	      po-reference-cursor)))
+                (or (cdr po-reference-cursor) po-reference-alist)
+              po-reference-cursor)))
     (error (_"No resolved source references"))))
 
 (defun po-select-source-reference ()
@@ -2516,8 +2516,8 @@ If the command is repeated many times in a row, cycle through contexts."
   (if po-reference-alist
       (po-show-source-context
        (assoc
-	(completing-read (_"Which source context? ") po-reference-alist nil t)
-	po-reference-alist))
+        (completing-read (_"Which source context? ") po-reference-alist nil t)
+        po-reference-alist))
     (error (_"No resolved source references"))))
 
 ;;; String marking in program sources, through TAGS table.
@@ -2546,35 +2546,35 @@ With prefix argument, restart search at first file."
   (setq po-string-contents nil)
   ;; Search for a string which might later be marked for translation.
   (let ((po-current-po-buffer (current-buffer))
-	(po-current-po-keywords po-keywords))
+        (po-current-po-keywords po-keywords))
     (pop-to-buffer po-string-buffer)
     (if (and (not restart)
-	     (eq (car tags-loop-operate) 'po-tags-loop-operate))
-	;; Continue last po-tags-search.
-	(tags-loop-continue nil)
+             (eq (car tags-loop-operate) 'po-tags-loop-operate))
+        ;; Continue last po-tags-search.
+        (tags-loop-continue nil)
       ;; Start or restart po-tags-search all over.
       (setq tags-loop-scan '(po-tags-loop-scan)
-	    tags-loop-operate '(po-tags-loop-operate))
+            tags-loop-operate '(po-tags-loop-operate))
       (tags-loop-continue t))
     (select-window (get-buffer-window po-current-po-buffer)))
   (if po-string-contents
       (let ((window (selected-window))
-	    (buffer po-string-buffer)
-	    (start po-string-start)
-	    (end po-string-end))
-	;; Try to fit the string in the displayed part of its window.
-	(select-window (get-buffer-window buffer))
-	(goto-char start)
-	(or (pos-visible-in-window-p start)
-	    (recenter '(nil)))
-	(if (pos-visible-in-window-p end)
-	    (goto-char end)
-	  (goto-char end)
-	  (recenter -1))
-	(select-window window)
-	;; Highlight the string as found.
-	(and po-highlighting
-	     (po-highlight po-marking-overlay start end buffer)))))
+            (buffer po-string-buffer)
+            (start po-string-start)
+            (end po-string-end))
+        ;; Try to fit the string in the displayed part of its window.
+        (select-window (get-buffer-window buffer))
+        (goto-char start)
+        (or (pos-visible-in-window-p start)
+            (recenter '(nil)))
+        (if (pos-visible-in-window-p end)
+            (goto-char end)
+          (goto-char end)
+          (recenter -1))
+        (select-window window)
+        ;; Highlight the string as found.
+        (and po-highlighting
+             (po-highlight po-marking-overlay start end buffer)))))
 
 (defun po-tags-loop-scan ()
   "Decide if the current buffer is still interesting for PO mode strings."
@@ -2589,38 +2589,38 @@ With prefix argument, restart search at first file."
 Disregard some simple strings which are most probably non-translatable."
   (po-preset-string-functions)
   (let ((continue t)
-	data)
+        data)
     (while continue
       (setq data (apply po-find-string-function po-current-po-keywords nil))
       (if data
-	  ;; Push the string just found into a work buffer for study.
-	  (po-with-temp-buffer
-	   (insert (nth 0 data))
-	   (goto-char (point-min))
-	   ;; Accept if at least three letters in a row.
-	   (if (re-search-forward "[A-Za-z][A-Za-z][A-Za-z]" nil t)
-	       (setq continue nil)
-	     ;; Disregard if single letters or no letters at all.
-	     (if (re-search-forward "[A-Za-z][A-Za-z]" nil t)
-		 ;; Here, we have two letters in a row, but never more.
-		 ;; Accept only if more letters than punctuations.
-		 (let ((total (buffer-size)))
-		   (goto-char (point-min))
-		   (while (re-search-forward "[A-Za-z]+" nil t)
-		     (replace-match "" t t))
-		   (if (< (* 2 (buffer-size)) total)
-		       (setq continue nil))))))
-	;; No string left in this buffer.
-	(setq continue nil)))
+          ;; Push the string just found into a work buffer for study.
+          (po-with-temp-buffer
+           (insert (nth 0 data))
+           (goto-char (point-min))
+           ;; Accept if at least three letters in a row.
+           (if (re-search-forward "[A-Za-z][A-Za-z][A-Za-z]" nil t)
+               (setq continue nil)
+             ;; Disregard if single letters or no letters at all.
+             (if (re-search-forward "[A-Za-z][A-Za-z]" nil t)
+                 ;; Here, we have two letters in a row, but never more.
+                 ;; Accept only if more letters than punctuations.
+                 (let ((total (buffer-size)))
+                   (goto-char (point-min))
+                   (while (re-search-forward "[A-Za-z]+" nil t)
+                     (replace-match "" t t))
+                   (if (< (* 2 (buffer-size)) total)
+                       (setq continue nil))))))
+        ;; No string left in this buffer.
+        (setq continue nil)))
     (if data
-	;; Save information for marking functions.
-	(let ((buffer (current-buffer)))
-	  (save-excursion
-	    (set-buffer po-current-po-buffer)
-	    (setq po-string-contents (nth 0 data)
-		  po-string-buffer buffer
-		  po-string-start (nth 1 data)
-		  po-string-end (nth 2 data))))
+        ;; Save information for marking functions.
+        (let ((buffer (current-buffer)))
+          (save-excursion
+            (set-buffer po-current-po-buffer)
+            (setq po-string-contents (nth 0 data)
+                  po-string-buffer buffer
+                  po-string-start (nth 1 data)
+                  po-string-end (nth 2 data))))
       (goto-char (point-max)))
     ;; If nothing was found, trigger scanning of next file.
     (not data)))
@@ -2631,10 +2631,10 @@ Disregard some simple strings which are most probably non-translatable."
     (error (_"No such string")))
   (and po-highlighting (po-dehighlight po-marking-overlay))
   (let ((contents po-string-contents)
-	(buffer po-string-buffer)
-	(start po-string-start)
-	(end po-string-end)
-	line string)
+        (buffer po-string-buffer)
+        (start po-string-start)
+        (end po-string-end)
+        line string)
     ;; Mark string in program sources.
     (save-excursion
       (set-buffer buffer)
@@ -2644,10 +2644,10 @@ Disregard some simple strings which are most probably non-translatable."
     (let ((buffer-read-only po-read-only))
       (goto-char (point-max))
       (insert "\n" (format "#: %s:%d\n"
-			   (buffer-file-name po-string-buffer)
-			   line))
+                           (buffer-file-name po-string-buffer)
+                           line))
       (save-excursion
-	(insert (po-eval-requoted contents "msgid" nil) "msgstr \"\"\n"))
+        (insert (po-eval-requoted contents "msgid" nil) "msgstr \"\"\n"))
       (setq po-untranslated-counter (1+ po-untranslated-counter))
       (po-update-mode-line-string))
     (setq po-string-contents nil)))
@@ -2664,12 +2664,12 @@ keyword for subsequent commands, also added to possible completions."
   (interactive "P")
   (if arg
       (let ((keyword (list (read-from-minibuffer (_"Keyword: ")))))
-	(setq po-keywords (cons keyword (delete keyword po-keywords))))
+        (setq po-keywords (cons keyword (delete keyword po-keywords))))
     (or po-string-contents (error (_"No such string")))
     (let* ((default (car (car po-keywords)))
-	   (keyword (completing-read (format (_"Mark with keywoard? [%s] ")
-					     default)
-				     po-keywords nil t )))
+           (keyword (completing-read (format (_"Mark with keywoard? [%s] ")
+                                             default)
+                                     po-keywords nil t )))
       (if (string-equal keyword "") (setq keyword default))
       (po-mark-found-string keyword))))
 
@@ -2679,21 +2679,21 @@ keyword for subsequent commands, also added to possible completions."
   "Preset FIND-STRING-FUNCTION and MARK-STRING-FUNCTION according to mode.
 These variables are locally set in source buffer only when not already bound."
   (let ((pair (cond ((string-equal mode-name "AWK")
-		     '(po-find-awk-string . po-mark-awk-string))
-		    ((member mode-name '("C" "C++"))
-		     '(po-find-c-string . po-mark-c-string))
-		    ((string-equal mode-name "Emacs-Lisp")
-		     '(po-find-emacs-lisp-string . po-mark-emacs-lisp-string))
-		    ((string-equal mode-name "Python")
-		     '(po-find-python-string . po-mark-python-string))
-		    ((and (string-equal mode-name "Shell-script")
-			  (string-equal mode-line-process "[bash]"))
-		     '(po-find-bash-string . po-mark-bash-string))
-		    (t '(po-find-unknown-string . po-mark-unknown-string)))))
+                     '(po-find-awk-string . po-mark-awk-string))
+                    ((member mode-name '("C" "C++"))
+                     '(po-find-c-string . po-mark-c-string))
+                    ((string-equal mode-name "Emacs-Lisp")
+                     '(po-find-emacs-lisp-string . po-mark-emacs-lisp-string))
+                    ((string-equal mode-name "Python")
+                     '(po-find-python-string . po-mark-python-string))
+                    ((and (string-equal mode-name "Shell-script")
+                          (string-equal mode-line-process "[bash]"))
+                     '(po-find-bash-string . po-mark-bash-string))
+                    (t '(po-find-unknown-string . po-mark-unknown-string)))))
     (or (boundp 'po-find-string-function)
-	(set (make-local-variable 'po-find-string-function) (car pair)))
+        (set (make-local-variable 'po-find-string-function) (car pair)))
     (or (boundp 'po-mark-string-function)
-	(set (make-local-variable 'po-mark-string-function) (cdr pair)))))
+        (set (make-local-variable 'po-mark-string-function) (cdr pair)))))
 
 (defun po-find-unknown-string (keywords)
   "Dummy function to skip over a file, finding no string in it."
@@ -2710,53 +2710,53 @@ These variables are locally set in source buffer only when not already bound."
 Return (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
-		(re-search-forward "[#/\"]" nil t))
+                (re-search-forward "[#/\"]" nil t))
       (cond ((= (preceding-char) ?#)
-	     ;; Disregard comments.
-	     (or (search-forward "\n" nil t)
-		 (goto-char (point-max))))
-	    ((= (preceding-char) ?/)
-	     ;; Skip regular expressions.
-	     (while (not (= (following-char) ?/))
-	       (skip-chars-forward "^/\\\\")
-	       (if (= (following-char) ?\\) (forward-char 2)))
-	     (forward-char 1))
-	    ;; Else find the end of the string.
-	    (t (setq start (1- (point)))
-	       (while (not (= (following-char) ?\"))
-		 (skip-chars-forward "^\"\\\\")
-		 (if (= (following-char) ?\\) (forward-char 2)))
-	       (forward-char 1)
-	       (setq end (point))
-	       ;; Check before string either for underline, or for keyword
-	       ;; and opening parenthesis.
-	       (save-excursion
-		 (goto-char start)
-		 (cond ((= (preceding-char) ?_)
-			;; Disregard already marked strings.
-			(setq start nil
-			      end nil))
-		       ((= (preceding-char) ?\()
-			(backward-char 1)
-			(let ((end-keyword (point)))
-			  (skip-chars-backward "_A-Za-z0-9")
-			  (if (member (list (po-buffer-substring
-					     (point) end-keyword))
-				      keywords)
-			      ;; Disregard already marked strings.
-			      (setq start nil
-				    end nil)))))))))
+             ;; Disregard comments.
+             (or (search-forward "\n" nil t)
+                 (goto-char (point-max))))
+            ((= (preceding-char) ?/)
+             ;; Skip regular expressions.
+             (while (not (= (following-char) ?/))
+               (skip-chars-forward "^/\\\\")
+               (if (= (following-char) ?\\) (forward-char 2)))
+             (forward-char 1))
+            ;; Else find the end of the string.
+            (t (setq start (1- (point)))
+               (while (not (= (following-char) ?\"))
+                 (skip-chars-forward "^\"\\\\")
+                 (if (= (following-char) ?\\) (forward-char 2)))
+               (forward-char 1)
+               (setq end (point))
+               ;; Check before string either for underline, or for keyword
+               ;; and opening parenthesis.
+               (save-excursion
+                 (goto-char start)
+                 (cond ((= (preceding-char) ?_)
+                        ;; Disregard already marked strings.
+                        (setq start nil
+                              end nil))
+                       ((= (preceding-char) ?\()
+                        (backward-char 1)
+                        (let ((end-keyword (point)))
+                          (skip-chars-backward "_A-Za-z0-9")
+                          (if (member (list (po-buffer-substring
+                                             (point) end-keyword))
+                                      keywords)
+                              ;; Disregard already marked strings.
+                              (setq start nil
+                                    end nil)))))))))
     (and start end
-	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+         (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-awk-string (start end keyword)
   "Mark the Awk string, from START to END, with KEYWORD.
 Leave point after marked string."
   (if (string-equal keyword "_")
       (progn
-	(goto-char start)
-	(insert "_")
-	(goto-char (1+ end)))
+        (goto-char start)
+        (insert "_")
+        (goto-char (1+ end)))
     (goto-char end)
     (insert ")")
     (save-excursion
@@ -2770,33 +2770,33 @@ Leave point after marked string."
 Return (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
-		(re-search-forward "[#'\"]" nil t))
+                (re-search-forward "[#'\"]" nil t))
       (cond ((= (preceding-char) ?#)
-	     ;; Disregard comments.
-	     (or (search-forward "\n" nil t)
-		 (goto-char (point-max))))
-	    ((= (preceding-char) ?')
-	     ;; Skip single quoted strings.
-	     (while (not (= (following-char) ?'))
-	       (skip-chars-forward "^'\\\\")
-	       (if (= (following-char) ?\\) (forward-char 2)))
-	     (forward-char 1))
-	    ;; Else find the end of the double quoted string.
-	    (t (setq start (1- (point)))
-	       (while (not (= (following-char) ?\"))
-		 (skip-chars-forward "^\"\\\\")
-		 (if (= (following-char) ?\\) (forward-char 2)))
-	       (forward-char 1)
-	       (setq end (point))
-	       ;; Check before string for dollar sign.
-	       (save-excursion
-		 (goto-char start)
-		 (if (= (preceding-char) ?$)
-		     ;; Disregard already marked strings.
-		     (setq start nil
-			   end nil))))))
+             ;; Disregard comments.
+             (or (search-forward "\n" nil t)
+                 (goto-char (point-max))))
+            ((= (preceding-char) ?')
+             ;; Skip single quoted strings.
+             (while (not (= (following-char) ?'))
+               (skip-chars-forward "^'\\\\")
+               (if (= (following-char) ?\\) (forward-char 2)))
+             (forward-char 1))
+            ;; Else find the end of the double quoted string.
+            (t (setq start (1- (point)))
+               (while (not (= (following-char) ?\"))
+                 (skip-chars-forward "^\"\\\\")
+                 (if (= (following-char) ?\\) (forward-char 2)))
+               (forward-char 1)
+               (setq end (point))
+               ;; Check before string for dollar sign.
+               (save-excursion
+                 (goto-char start)
+                 (if (= (preceding-char) ?$)
+                     ;; Disregard already marked strings.
+                     (setq start nil
+                           end nil))))))
     (and start end
-	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+         (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-bash-string (start end keyword)
   "Mark the Bash string, from START to END, with '$'.  KEYWORD is ignored.
@@ -2830,57 +2830,57 @@ Leave point after marked string."
 Returns (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
-		(re-search-forward "\\([\"']\\|/\\*\\|//\\)" nil t))
+                (re-search-forward "\\([\"']\\|/\\*\\|//\\)" nil t))
       (cond ((= (preceding-char) ?*)
-	     ;; Disregard comments.
-	     (search-forward "*/"))
-	    ((= (preceding-char) ?/)
-	     ;; Disregard C++ comments.
-	     (end-of-line)
-	     (forward-char 1))
-	    ((= (preceding-char) ?\')
-	     ;; Disregard character constants.
-	     (forward-char (if (= (following-char) ?\\) 3 2)))
-	    ((save-excursion
-	       (beginning-of-line)
-	       (looking-at "^# *\\(include\\|line\\)"))
-	     ;; Disregard lines being #include or #line directives.
-	     (end-of-line))
-	    ;; Else, find the end of the (possibly concatenated) string.
-	    (t (setq start (1- (point))
-		     end nil)
-	       (while (not end)
-		 (cond ((= (following-char) ?\")
-			(if (looking-at "\"[ \t\n\\\\]*\"")
-			    (goto-char (match-end 0))
-			  (forward-char 1)
-			  (setq end (point))))
-		       ((= (following-char) ?\\) (forward-char 2))
-		       (t (skip-chars-forward "^\"\\\\"))))
-	       ;; Check before string for keyword and opening parenthesis.
-	       (goto-char start)
-	       (skip-chars-backward " \n\t")
-	       (if (= (preceding-char) ?\()
-		   (progn
-		     (backward-char 1)
-		     (skip-chars-backward " \n\t")
-		     (let ((end-keyword (point)))
-		       (skip-chars-backward "_A-Za-z0-9")
-		       (if (member (list (po-buffer-substring (point)
-							      end-keyword))
-				   keywords)
-			   ;; Disregard already marked strings.
-			   (progn
-			     (goto-char end)
-			     (setq start nil
-				   end nil))
-			 ;; String found.  Prepare to resume search.
-			 (goto-char end))))
-		 ;; String found.  Prepare to resume search.
-		 (goto-char end)))))
+             ;; Disregard comments.
+             (search-forward "*/"))
+            ((= (preceding-char) ?/)
+             ;; Disregard C++ comments.
+             (end-of-line)
+             (forward-char 1))
+            ((= (preceding-char) ?\')
+             ;; Disregard character constants.
+             (forward-char (if (= (following-char) ?\\) 3 2)))
+            ((save-excursion
+               (beginning-of-line)
+               (looking-at "^# *\\(include\\|line\\)"))
+             ;; Disregard lines being #include or #line directives.
+             (end-of-line))
+            ;; Else, find the end of the (possibly concatenated) string.
+            (t (setq start (1- (point))
+                     end nil)
+               (while (not end)
+                 (cond ((= (following-char) ?\")
+                        (if (looking-at "\"[ \t\n\\\\]*\"")
+                            (goto-char (match-end 0))
+                          (forward-char 1)
+                          (setq end (point))))
+                       ((= (following-char) ?\\) (forward-char 2))
+                       (t (skip-chars-forward "^\"\\\\"))))
+               ;; Check before string for keyword and opening parenthesis.
+               (goto-char start)
+               (skip-chars-backward " \n\t")
+               (if (= (preceding-char) ?\()
+                   (progn
+                     (backward-char 1)
+                     (skip-chars-backward " \n\t")
+                     (let ((end-keyword (point)))
+                       (skip-chars-backward "_A-Za-z0-9")
+                       (if (member (list (po-buffer-substring (point)
+                                                              end-keyword))
+                                   keywords)
+                           ;; Disregard already marked strings.
+                           (progn
+                             (goto-char end)
+                             (setq start nil
+                                   end nil))
+                         ;; String found.  Prepare to resume search.
+                         (goto-char end))))
+                 ;; String found.  Prepare to resume search.
+                 (goto-char end)))))
     ;; Return the found string, if any.
     (and start end
-	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+         (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-c-string (start end keyword)
   "Mark the C string, from START to END, with KEYWORD.
@@ -2900,37 +2900,37 @@ Leave point after marked string."
 Returns (CONTENTS START END) for the found string, or nil if none found."
   (let (start end)
     (while (and (not start)
-		(re-search-forward "[;\"?]" nil t))
+                (re-search-forward "[;\"?]" nil t))
       (cond ((= (preceding-char) ?\;)
-	     ;; Disregard comments.
-	     (search-forward "\n"))
-	    ((= (preceding-char) ?\?)
-	     ;; Disregard character constants.
-	     (forward-char (if (= (following-char) ?\\) 2 1)))
-	    ;; Else, find the end of the string.
-	    (t (setq start (1- (point)))
-	       (while (not (= (following-char) ?\"))
-		 (skip-chars-forward "^\"\\\\")
-		 (if (= (following-char) ?\\) (forward-char 2)))
-	       (forward-char 1)
-	       (setq end (point))
-	       ;; Check before string for keyword and opening parenthesis.
-	       (goto-char start)
-	       (skip-chars-backward " \n\t")
-	       (let ((end-keyword (point)))
-		 (skip-chars-backward "-_A-Za-z0-9")
-		 (if (and (= (preceding-char) ?\()
-			  (member (list (po-buffer-substring (point)
-							     end-keyword))
-				  keywords))
-		     ;; Disregard already marked strings.
-		     (progn
-		       (goto-char end)
-		       (setq start nil
-			     end nil)))))))
+             ;; Disregard comments.
+             (search-forward "\n"))
+            ((= (preceding-char) ?\?)
+             ;; Disregard character constants.
+             (forward-char (if (= (following-char) ?\\) 2 1)))
+            ;; Else, find the end of the string.
+            (t (setq start (1- (point)))
+               (while (not (= (following-char) ?\"))
+                 (skip-chars-forward "^\"\\\\")
+                 (if (= (following-char) ?\\) (forward-char 2)))
+               (forward-char 1)
+               (setq end (point))
+               ;; Check before string for keyword and opening parenthesis.
+               (goto-char start)
+               (skip-chars-backward " \n\t")
+               (let ((end-keyword (point)))
+                 (skip-chars-backward "-_A-Za-z0-9")
+                 (if (and (= (preceding-char) ?\()
+                          (member (list (po-buffer-substring (point)
+                                                             end-keyword))
+                                  keywords))
+                     ;; Disregard already marked strings.
+                     (progn
+                       (goto-char end)
+                       (setq start nil
+                             end nil)))))))
     ;; Return the found string, if any.
     (and start end
-	 (list (po-extract-unquoted (current-buffer) start end) start end))))
+         (list (po-extract-unquoted (current-buffer) start end) start end))))
 
 (defun po-mark-emacs-lisp-string (start end keyword)
   "Mark the Emacs LISP string, from START to END, with KEYWORD.
@@ -2950,41 +2950,41 @@ Also disregard strings when preceded by an empty string of the other type.
 Returns (CONTENTS START END) for the found string, or nil if none found."
   (let (contents start end)
     (while (and (not contents)
-		(re-search-forward "[#\"']" nil t))
+                (re-search-forward "[#\"']" nil t))
       (forward-char -1)
       (cond ((= (following-char) ?\#)
-	     ;; Disregard comments.
-	     (search-forward "\n"))
-	    ((looking-at "\"\"'")
-	     ;; Quintuple-quoted string
-	     (po-skip-over-python-string))
-	    ((looking-at "''\"")
-	     ;; Quadruple-quoted string
-	     (po-skip-over-python-string))
-	    (t
-	     ;; Simple-, double-, triple- or sextuple-quoted string.
-	     (if (memq (preceding-char) '(?r ?R))
-		 (forward-char -1))
-	     (setq start (point)
-		   contents (po-skip-over-python-string)
-		   end (point))
-	     (goto-char start)
-	     (skip-chars-backward " \n\t")
-	     (cond ((= (preceding-char) ?\[)
-		    ;; Disregard a string used as a dictionary index.
-		    (setq contents nil))
-		   ((= (preceding-char) ?\()
-		    ;; Isolate the keyword which precedes string.
-		    (backward-char 1)
-		    (skip-chars-backward " \n\t")
-		    (let ((end-keyword (point)))
-		      (skip-chars-backward "_A-Za-z0-9")
-		      (if (member (list (po-buffer-substring (point)
-							     end-keyword))
-				  keywords)
-			  ;; Disregard already marked strings.
-			  (setq contents nil)))))
-	     (goto-char end))))
+             ;; Disregard comments.
+             (search-forward "\n"))
+            ((looking-at "\"\"'")
+             ;; Quintuple-quoted string
+             (po-skip-over-python-string))
+            ((looking-at "''\"")
+             ;; Quadruple-quoted string
+             (po-skip-over-python-string))
+            (t
+             ;; Simple-, double-, triple- or sextuple-quoted string.
+             (if (memq (preceding-char) '(?r ?R))
+                 (forward-char -1))
+             (setq start (point)
+                   contents (po-skip-over-python-string)
+                   end (point))
+             (goto-char start)
+             (skip-chars-backward " \n\t")
+             (cond ((= (preceding-char) ?\[)
+                    ;; Disregard a string used as a dictionary index.
+                    (setq contents nil))
+                   ((= (preceding-char) ?\()
+                    ;; Isolate the keyword which precedes string.
+                    (backward-char 1)
+                    (skip-chars-backward " \n\t")
+                    (let ((end-keyword (point)))
+                      (skip-chars-backward "_A-Za-z0-9")
+                      (if (member (list (po-buffer-substring (point)
+                                                             end-keyword))
+                                  keywords)
+                          ;; Disregard already marked strings.
+                          (setq contents nil)))))
+             (goto-char end))))
     ;; Return the found string, if any.
     (and contents (list contents start end))))
 
@@ -2992,65 +2992,65 @@ Returns (CONTENTS START END) for the found string, or nil if none found."
   "Skip over a Python string, possibly made up of many concatenated parts.
 Leave point after string.  Return unquoted overall string contents."
   (let ((continue t)
-	(contents "")
-	raw start end resume)
+        (contents "")
+        raw start end resume)
     (while continue
-      (skip-chars-forward " \t\n")	; whitespace
-      (cond ((= (following-char) ?#)	; comment
-	     (setq start nil)
-	     (search-forward "\n"))
-	    ((looking-at "\\\n")	; escaped newline
-	     (setq start nil)
-	     (forward-char 2))
-	    ((looking-at "[rR]?\"\"\"")	; sextuple-quoted string
-	     (setq raw (memq (following-char) '(?r ?R))
-		   start (match-end 0))
-	     (goto-char start)
-	     (search-forward "\"\"\"")
-	     (setq resume (point)
-		   end (- resume 3)))
-	    ((looking-at "[rr]?'''")	; triple-quoted string
-	     (setq raw (memq (following-char) '(?r ?R))
-		   start (match-end 0))
-	     (goto-char start)
-	     (search-forward "'''")
-	     (setq resume (point)
-		   end (- resume 3)))
-	    ((looking-at "[rR]?\"")	; double-quoted string
-	     (setq raw (memq (following-char) '(?r ?R))
-		   start (match-end 0))
-	     (goto-char start)
-	     (while (not (memq (following-char) '(0 ?\")))
-	       (skip-chars-forward "^\"\\\\")
-	       (if (= (following-char) ?\\) (forward-char 2)))
-	     (if (eobp)
-		 (setq contents nil
-		       start nil)
-	       (setq end (point))
-	       (forward-char 1))
-	     (setq resume (point)))
-	    ((looking-at "[rR]?'")	; single-quoted string
-	     (setq raw (memq (following-char) '(?r ?R))
-		   start (match-end 0))
-	     (goto-char start)
-	     (while (not (memq (following-char) '(0 ?\')))
-	       (skip-chars-forward "^'\\\\")
-	       (if (= (following-char) ?\\) (forward-char 2)))
-	     (if (eobp)
-		 (setq contents nil
-		       start nil)
-	       (setq end (point))
-	       (forward-char 1))
-	     (setq resume (point)))
-	    (t				; no string anymore
-	     (setq start nil
-		   continue nil)))
+      (skip-chars-forward " \t\n")      ; whitespace
+      (cond ((= (following-char) ?#)    ; comment
+             (setq start nil)
+             (search-forward "\n"))
+            ((looking-at "\\\n")        ; escaped newline
+             (setq start nil)
+             (forward-char 2))
+            ((looking-at "[rR]?\"\"\"") ; sextuple-quoted string
+             (setq raw (memq (following-char) '(?r ?R))
+                   start (match-end 0))
+             (goto-char start)
+             (search-forward "\"\"\"")
+             (setq resume (point)
+                   end (- resume 3)))
+            ((looking-at "[rr]?'''")    ; triple-quoted string
+             (setq raw (memq (following-char) '(?r ?R))
+                   start (match-end 0))
+             (goto-char start)
+             (search-forward "'''")
+             (setq resume (point)
+                   end (- resume 3)))
+            ((looking-at "[rR]?\"")     ; double-quoted string
+             (setq raw (memq (following-char) '(?r ?R))
+                   start (match-end 0))
+             (goto-char start)
+             (while (not (memq (following-char) '(0 ?\")))
+               (skip-chars-forward "^\"\\\\")
+               (if (= (following-char) ?\\) (forward-char 2)))
+             (if (eobp)
+                 (setq contents nil
+                       start nil)
+               (setq end (point))
+               (forward-char 1))
+             (setq resume (point)))
+            ((looking-at "[rR]?'")      ; single-quoted string
+             (setq raw (memq (following-char) '(?r ?R))
+                   start (match-end 0))
+             (goto-char start)
+             (while (not (memq (following-char) '(0 ?\')))
+               (skip-chars-forward "^'\\\\")
+               (if (= (following-char) ?\\) (forward-char 2)))
+             (if (eobp)
+                 (setq contents nil
+                       start nil)
+               (setq end (point))
+               (forward-char 1))
+             (setq resume (point)))
+            (t                          ; no string anymore
+             (setq start nil
+                   continue nil)))
       (if start
-	  (setq contents (concat contents
-				 (if raw
-				     (buffer-substring start end)
-				   (po-extract-part-unquoted (current-buffer)
-							     start end))))))
+          (setq contents (concat contents
+                                 (if raw
+                                     (buffer-substring start end)
+                                   (po-extract-part-unquoted (current-buffer)
+                                                             start end))))))
     (goto-char resume)
     contents))
 
@@ -3059,17 +3059,17 @@ Leave point after string.  Return unquoted overall string contents."
 If KEYWORD is '.', prefix the string with an empty string of the other type.
 Leave point after marked string."
   (cond ((string-equal keyword ".")
-	 (goto-char end)
-	 (save-excursion
-	   (goto-char start)
-	   (insert (cond ((= (following-char) ?\') "\"\"")
-			 ((= (following-char) ?\") "''")
-			 (t "??")))))
-	(t (goto-char end)
-	   (insert ")")
-	   (save-excursion
-	     (goto-char start)
-	     (insert keyword "(")))))
+         (goto-char end)
+         (save-excursion
+           (goto-char start)
+           (insert (cond ((= (following-char) ?\') "\"\"")
+                         ((= (following-char) ?\") "''")
+                         (t "??")))))
+        (t (goto-char end)
+           (insert ")")
+           (save-excursion
+             (goto-char start)
+             (insert keyword "(")))))
 
 ;;; Miscellaneous features.
 
@@ -3106,13 +3106,13 @@ Leave point after marked string."
   ; terminates.
   (require 'compile)
   (let* ((dev-null
-	  (cond ((boundp 'null-device) null-device) ; since Emacs 20.3
-		((memq system-type '(windows-nt windows-95)) "NUL")
-		(t "/dev/null")))
-	 (compilation-buffer-name-function
-	  (function (lambda (mode-name)
-		      (concat "*" mode-name " validation*"))))
-	 (compile-command (concat po-msgfmt-program
+          (cond ((boundp 'null-device) null-device) ; since Emacs 20.3
+                ((memq system-type '(windows-nt windows-95)) "NUL")
+                (t "/dev/null")))
+         (compilation-buffer-name-function
+          (function (lambda (mode-name)
+                      (concat "*" mode-name " validation*"))))
+         (compile-command (concat po-msgfmt-program
                                   " --statistics -c -v -o " dev-null " "
                                   (shell-quote-argument buffer-file-name))))
     (po-msgfmt-version-check)
@@ -3130,24 +3130,24 @@ Leave point after marked string."
       ;; Make sure 'msgfmt' is available.
       (condition-case nil
           (call-process po-msgfmt-program
-			nil t nil "--verbose" "--version")
-	(file-error nil))
+                        nil t nil "--verbose" "--version")
+        (file-error nil))
 
       ;; Make sure there's a version number in the output:
       ;; 0.11 or 0.10.36 or 0.11-pre1 or 0.16.2-pre1
       (progn (goto-char (point-min))
              (or (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)$")
                  (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)$")
-		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")
-		 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")))
+                 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")
+                 (looking-at ".* \\([0-9]+\\)\\.\\([0-9]+\\)\\.\\([0-9]+\\)[-_A-Za-z0-9]+$")))
 
       ;; Make sure the version is recent enough.
       (>= (string-to-number
-	   (format "%d%03d%03d"
-		   (string-to-number (match-string 1))
-		   (string-to-number (match-string 2))
-		   (string-to-number (or (match-string 3) "0"))))
-	  010036)
+           (format "%d%03d%03d"
+                   (string-to-number (match-string 1))
+                   (string-to-number (match-string 2))
+                   (string-to-number (or (match-string 3) "0"))))
+          010036)
 
       ;; Remember the outcome.
       (setq po-msgfmt-version-checked t))
@@ -3157,51 +3157,51 @@ Leave point after marked string."
 (defun po-guess-archive-name ()
   "Return the ideal file name for this PO file in the central archives."
   (let ((filename (file-name-nondirectory buffer-file-name))
-	start-of-header end-of-header package version team)
+        start-of-header end-of-header package version team)
     (save-excursion
       ;; Find the PO file header entry.
       (goto-char (point-min))
       (re-search-forward po-any-msgstr-regexp)
       (setq start-of-header (match-beginning 0)
-	    end-of-header (match-end 0))
+            end-of-header (match-end 0))
       ;; Get the package and version.
       (goto-char start-of-header)
       (if (re-search-forward "\n\
 \"Project-Id-Version: \\(GNU \\|Free \\)?\\([^\n ]+\\) \\([^\n ]+\\)\\\\n\"$"
-	   end-of-header t)
-	  (setq package (po-match-string 2)
-		version (po-match-string 3)))
+           end-of-header t)
+          (setq package (po-match-string 2)
+                version (po-match-string 3)))
       (if (or (not package) (string-equal package "PACKAGE")
-	      (not version) (string-equal version "VERSION"))
-	  (error (_"Project-Id-Version field does not have a proper value")))
+              (not version) (string-equal version "VERSION"))
+          (error (_"Project-Id-Version field does not have a proper value")))
       ;; File name version and Project-Id-Version must match
       (cond (;; A `filename' w/o package and version info at all
-	     (string-match "^[^\\.]*\\.po\\'" filename))
-	    (;; TP Robot compatible `filename': PACKAGE-VERSION.LL.po
-	     (string-match (concat (regexp-quote package)
-				   "-\\(.*\\)\\.[^\\.]*\\.po\\'") filename)
-	     (if (not (equal version (po-match-string 1 filename)))
-		 (error (_"\
+             (string-match "^[^\\.]*\\.po\\'" filename))
+            (;; TP Robot compatible `filename': PACKAGE-VERSION.LL.po
+             (string-match (concat (regexp-quote package)
+                                   "-\\(.*\\)\\.[^\\.]*\\.po\\'") filename)
+             (if (not (equal version (po-match-string 1 filename)))
+                 (error (_"\
 Version mismatch: file name: %s; header: %s.\n\
 Adjust Project-Id-Version field to match file name and try again")
-			(po-match-string 1 filename) version))))
+                        (po-match-string 1 filename) version))))
       ;; Get the team.
       (if (stringp po-team-name-to-code)
-	  (setq team po-team-name-to-code)
-	(goto-char start-of-header)
-	(if (re-search-forward "\n\
+          (setq team po-team-name-to-code)
+        (goto-char start-of-header)
+        (if (re-search-forward "\n\
 \"Language-Team: \\([^ ].*[^ ]\\) <.+@.+>\\\\n\"$"
-			       end-of-header t)
-	    (let ((name (po-match-string 1)))
-	      (if name
-		  (let ((pair (assoc name po-team-name-to-code)))
-		    (if pair
-			(setq team (cdr pair))
-		      (setq team (read-string (format "\
+                               end-of-header t)
+            (let ((name (po-match-string 1)))
+              (if name
+                  (let ((pair (assoc name po-team-name-to-code)))
+                    (if pair
+                        (setq team (cdr pair))
+                      (setq team (read-string (format "\
 Team name '%s' unknown.  What is the team code? "
-						      name)))))))))
+                                                      name)))))))))
       (if (or (not team) (string-equal team "LL"))
-	  (error (_"Language-Team field does not have a proper value")))
+          (error (_"Language-Team field does not have a proper value")))
       ;; Compose the name.
       (concat package "-" version "." team ".po"))))
 
@@ -3213,58 +3213,58 @@ Team name '%s' unknown.  What is the team code? "
       (re-search-forward po-any-msgstr-regexp)
       (goto-char (match-beginning 0))
       (if (re-search-forward
-	   "\n\"Language-Team: +\\(.*<\\(.*\\)@.*>\\)\\\\n\"$"
-	   (match-end 0) t)
-	  (setq team (po-match-string 2)))
+           "\n\"Language-Team: +\\(.*<\\(.*\\)@.*>\\)\\\\n\"$"
+           (match-end 0) t)
+          (setq team (po-match-string 2)))
       (if (or (not team) (string-equal team "LL"))
-	  (error (_"Language-Team field does not have a proper value")))
+          (error (_"Language-Team field does not have a proper value")))
       (po-match-string 1))))
 
 (defun po-send-mail ()
   "Start composing a letter, possibly including the current PO file."
   (interactive)
   (let* ((team-flag (y-or-n-p
-		     (_"\
+                     (_"\
 Write to your team?  ('n' if writing to the Translation Project robot) ")))
-	 (address (if team-flag
-		      (po-guess-team-address)
-		    po-translation-project-address)))
+         (address (if team-flag
+                      (po-guess-team-address)
+                    po-translation-project-address)))
     (if (not (y-or-n-p (_"Include current PO file in mail? ")))
-	(apply po-compose-mail-function address
-	       (read-string (_"Subject? ")) nil)
+        (apply po-compose-mail-function address
+               (read-string (_"Subject? ")) nil)
       (if (buffer-modified-p)
-	  (error (_"The file is not even saved, you did not validate it.")))
+          (error (_"The file is not even saved, you did not validate it.")))
       (if (and (y-or-n-p (_"You validated ('V') this file, didn't you? "))
-	       (or (zerop po-untranslated-counter)
-		   (y-or-n-p
-		    (format (_"%d entries are untranslated, include anyway? ")
-			    po-untranslated-counter)))
-	       (or (zerop po-fuzzy-counter)
-		   (y-or-n-p
-		    (format (_"%d entries are still fuzzy, include anyway? ")
-			    po-fuzzy-counter)))
-	       (or (zerop po-obsolete-counter)
-		   (y-or-n-p
-		    (format (_"%d entries are obsolete, include anyway? ")
-			    po-obsolete-counter))))
-	  (let ((buffer (current-buffer))
-		(name (po-guess-archive-name))
-		(transient-mark-mode nil)
-		(coding-system-for-read buffer-file-coding-system)
-		(coding-system-for-write buffer-file-coding-system))
-	    (apply po-compose-mail-function address
-		   (if team-flag
-		       (read-string (_"Subject? "))
-		     (format "%s %s" po-translation-project-mail-label name))
-		   nil)
-	    (goto-char (point-min))
-	    (re-search-forward
-	     (concat "^" (regexp-quote mail-header-separator) "\n"))
-	    (save-excursion
-	      (insert-buffer buffer)
-	      (shell-command-on-region
-	       (region-beginning) (region-end)
-	       (concat po-gzip-uuencode-command " " name ".gz") t))))))
+               (or (zerop po-untranslated-counter)
+                   (y-or-n-p
+                    (format (_"%d entries are untranslated, include anyway? ")
+                            po-untranslated-counter)))
+               (or (zerop po-fuzzy-counter)
+                   (y-or-n-p
+                    (format (_"%d entries are still fuzzy, include anyway? ")
+                            po-fuzzy-counter)))
+               (or (zerop po-obsolete-counter)
+                   (y-or-n-p
+                    (format (_"%d entries are obsolete, include anyway? ")
+                            po-obsolete-counter))))
+          (let ((buffer (current-buffer))
+                (name (po-guess-archive-name))
+                (transient-mark-mode nil)
+                (coding-system-for-read buffer-file-coding-system)
+                (coding-system-for-write buffer-file-coding-system))
+            (apply po-compose-mail-function address
+                   (if team-flag
+                       (read-string (_"Subject? "))
+                     (format "%s %s" po-translation-project-mail-label name))
+                   nil)
+            (goto-char (point-min))
+            (re-search-forward
+             (concat "^" (regexp-quote mail-header-separator) "\n"))
+            (save-excursion
+              (insert-buffer buffer)
+              (shell-command-on-region
+               (region-beginning) (region-end)
+               (concat po-gzip-uuencode-command " " name ".gz") t))))))
   (message ""))
 
 (defun po-confirm-and-quit ()
@@ -3273,13 +3273,13 @@ This is a failsafe.  Confirmation is asked if only the real quit would not."
   (interactive)
   (if (po-check-all-pending-edits)
       (progn
-	(if (or (buffer-modified-p)
-		(> po-untranslated-counter 0)
-		(> po-fuzzy-counter 0)
-		(> po-obsolete-counter 0)
-		(y-or-n-p (_"Really quit editing this PO file? ")))
-	    (po-quit))
-	(message ""))))
+        (if (or (buffer-modified-p)
+                (> po-untranslated-counter 0)
+                (> po-fuzzy-counter 0)
+                (> po-obsolete-counter 0)
+                (y-or-n-p (_"Really quit editing this PO file? ")))
+            (po-quit))
+        (message ""))))
 
 (defun po-quit ()
   "Save the PO file and kill buffer.
@@ -3288,37 +3288,42 @@ strings remain."
   (interactive)
   (if (po-check-all-pending-edits)
       (let ((quit t))
-	;; Offer validation of newly modified entries.
-	(if (and (buffer-modified-p)
-		 (not (y-or-n-p
-		       (_"File was modified; skip validation step? "))))
-	    (progn
-	      (message "")
-	      (po-validate)
-	      ;; If we knew that the validation was all successful, we should
-	      ;; just quit.  But since we do not know yet, as the validation
-	      ;; might be asynchronous with PO mode commands, the safest is to
-	      ;; stay within PO mode, even if this implies that another
-	      ;; 'po-quit' command will be later required to exit for true.
-	      (setq quit nil)))
-	;; Offer to work on untranslated entries.
-	(if (and quit
-		 (or (> po-untranslated-counter 0)
-		     (> po-fuzzy-counter 0)
-		     (> po-obsolete-counter 0))
-		 (not (y-or-n-p
-		       (_"Unprocessed entries remain; quit anyway? "))))
-	    (progn
-	      (setq quit nil)
-	      (po-auto-select-entry)))
-	;; Clear message area.
-	(message "")
-	;; Or else, kill buffers and quit for true.
-	(if quit
-	    (progn
-	      (save-buffer)
-	      (kill-buffer (current-buffer)))))))
+        ;; Offer validation of newly modified entries.
+        (if (and (buffer-modified-p)
+                 (not (y-or-n-p
+                       (_"File was modified; skip validation step? "))))
+            (progn
+              (message "")
+              (po-validate)
+              ;; If we knew that the validation was all successful, we should
+              ;; just quit.  But since we do not know yet, as the validation
+              ;; might be asynchronous with PO mode commands, the safest is to
+              ;; stay within PO mode, even if this implies that another
+              ;; 'po-quit' command will be later required to exit for true.
+              (setq quit nil)))
+        ;; Offer to work on untranslated entries.
+        (if (and quit
+                 (or (> po-untranslated-counter 0)
+                     (> po-fuzzy-counter 0)
+                     (> po-obsolete-counter 0))
+                 (not (y-or-n-p
+                       (_"Unprocessed entries remain; quit anyway? "))))
+            (progn
+              (setq quit nil)
+              (po-auto-select-entry)))
+        ;; Clear message area.
+        (message "")
+        ;; Or else, kill buffers and quit for true.
+        (if quit
+            (progn
+              (save-buffer)
+              (kill-buffer (current-buffer)))))))
 
 (provide 'po-mode)
+
+;; Hey Emacs!
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
 
 ;;; po-mode.el ends here
