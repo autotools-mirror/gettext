@@ -1,5 +1,9 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-mode-map): Bind po-undo also to Ctrl-x u.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-any-msgstr-regexp): Add support for plural forms.
 	The patch from 2001-03-10 did not work.
 	(po-untranslated-regexp): Recognize also empty msgstr[i] values.
