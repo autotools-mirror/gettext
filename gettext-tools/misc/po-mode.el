@@ -1547,7 +1547,7 @@ If WRAP is not nil, the search may wrap around the buffer."
   (po-find-span-of-entry)
   (if (or (eq po-entry-type 'untranslated)
 	  (eq po-entry-type 'obsolete)
-	  (y-or-n-p (_"Really loose previous translation? ")))
+	  (y-or-n-p (_"Really lose previous translation? ")))
       (po-set-msgstr (po-get-msgid nil)))
   (message ""))
 
