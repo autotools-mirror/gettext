@@ -1364,7 +1364,7 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (save-excursion
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
-      (if (re-search-forward "\n#[,!] .*" po-start-of-msgid t)
+      (if (re-search-forward "\n#, .*" po-start-of-msgid t)
 	  (save-restriction
 	    (narrow-to-region (match-beginning 0) (match-end 0))
 	    (goto-char (point-min))
@@ -1382,12 +1382,12 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (save-excursion
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
-      (if (re-search-forward "\n#[,!] .*" po-start-of-msgid t)
+      (if (re-search-forward "\n#, .*" po-start-of-msgid t)
 	  (save-restriction
 	    (narrow-to-region (match-beginning 0) (match-end 0))
 	    (goto-char (point-min))
 	    (if (re-search-forward
-		 (concat "\\(\n#[,!] " name "$\\|, " name "$\\| " name ",\\)")
+		 (concat "\\(\n#, " name "$\\|, " name "$\\| " name ",\\)")
 		 nil t)
 		(replace-match "" t t)))))))
 
@@ -1569,7 +1569,7 @@ If WRAP is not nil, the search may wrap around the buffer."
 
 ;; Fuzzy entries.
 
-(defvar po-fuzzy-regexp "^#[,!] .*fuzzy"
+(defvar po-fuzzy-regexp "^#, .*fuzzy"
   "Regexp matching the string inserted by msgmerge for translations
 which does not match exactly.")
 

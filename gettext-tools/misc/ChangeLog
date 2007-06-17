@@ -1,5 +1,10 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-add-attribute, po-delete-attribute, po-fuzzy-regexp):
+	Don't recognize the syntax "#! fuzzy" any more.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-validate): Protect the buffer-file-name against
 	shell interpretation.
 	Reported by Laurynas Biveinis <laurynas.biveinis@gmail.com>.
