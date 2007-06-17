@@ -1,5 +1,15 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-any-msgstr-regexp): Add support for plural forms.
+	The patch from 2001-03-10 did not work.
+	(po-untranslated-regexp): Recognize also empty msgstr[i] values.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-edit-out-full): Don't ask the user for confirmation.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el: Untabify.
 
 2007-06-17  Bruno Haible  <bruno@clisp.org>

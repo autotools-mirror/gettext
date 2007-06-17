@@ -909,8 +909,7 @@ Initialize or replace current translation with the original message"))])
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
 (defvar po-any-msgstr-regexp
-  ;; "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
-  "^\\(#~[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
 (defvar po-msgstr-idx-keyword-regexp
@@ -1528,7 +1527,7 @@ If WRAP is not nil, the search may wrap around the buffer."
   "Regexp which should be true after a full msgstr string matched.")
 
 (defvar po-untranslated-regexp
-  (concat "^msgstr[ \t]*\"\"\n" po-after-entry-regexp)
+  (concat "^msgstr\\(\\[[0-9]\\]\\)?[ \t]*\"\"\n" po-after-entry-regexp)
   "Regexp matching a whole msgstr field, but only if active and empty.")
 
 (defun po-next-untranslated-entry ()
