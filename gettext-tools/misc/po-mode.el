@@ -50,7 +50,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.02" "\
+(defconst po-mode-version-string "2.1" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -591,6 +591,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 ;; start of keyword lines are START-OF-MSGID and START-OF-MSGSTR.
 ;; ENTRY-TYPE classifies the entry.
 (defvar po-start-of-entry)
+(defvar po-start-of-msgctxt) ; = po-start-of-msgid if there is no msgctxt
 (defvar po-start-of-msgid)
 (defvar po-start-of-msgstr)
 (defvar po-end-of-entry)
@@ -904,6 +905,10 @@ Initialize or replace current translation with the original message"))])
                          (error (_"I do not know how to mail to '%s'") to))))))
   "Function to start composing an electronic message.")
 
+(defvar po-any-msgctxt-msgid-regexp
+  "^\\(#~[ \t]*\\)?msg\\(ctxt\\|id\\).*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "Regexp matching a whole msgctxt or msgid field, whether obsolete or not.")
+
 (defvar po-any-msgid-regexp
   "^\\(#~[ \t]*\\)?msgid.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgid field, whether obsolete or not.")
@@ -922,11 +927,10 @@ Initialize or replace current translation with the original message"))])
 ;; Font lock based highlighting code.
 (defconst po-font-lock-keywords
   '(
-    ;; ("^\\(msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
+    ;; ("^\\(msgctxt \\|msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
     ;; (regexp-opt
-    ;;  '("msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
-    ("\
-^\\(\\(msg\\(id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
+    ;;  '("msgctxt " "msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
+    ("^\\(\\(msg\\(ctxt\\|id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
      . font-lock-keyword-face)
     ("\\\\.\\|%\\*?[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
@@ -1052,6 +1056,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (setq buffer-read-only t)
 
   (make-local-variable 'po-start-of-entry)
+  (make-local-variable 'po-start-of-msgctxt)
   (make-local-variable 'po-start-of-msgid)
   (make-local-variable 'po-start-of-msgstr)
   (make-local-variable 'po-end-of-entry)
@@ -1289,9 +1294,10 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 
 (defun po-find-span-of-entry ()
   "Find the extent of the PO file entry where the cursor is.
-Set variables PO-START-OF-ENTRY, PO-START-OF-MSGID, PO-START-OF-MSGSTR,
-PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful values.  Decreasing priority
-of type interpretation is: obsolete, fuzzy, untranslated or translated."
+Set variables PO-START-OF-ENTRY, PO-START-OF-MSGCTXT, PO-START-OF-MSGID,
+PO-START-OF-MSGSTR, PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful values.
+Decreasing priority of type interpretation is: obsolete, fuzzy, untranslated
+or translated."
   (let ((here (point)))
     (if (re-search-backward po-any-msgstr-regexp nil t)
         (progn
@@ -1343,6 +1349,9 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
             po-end-of-entry (match-end 0)))
     ;; Find start of msgid.
     (goto-char po-start-of-entry)
+    (re-search-forward po-any-msgctxt-msgid-regexp)
+    (setq po-start-of-msgctxt (match-beginning 0))
+    (goto-char po-start-of-entry)
     (re-search-forward po-any-msgid-regexp)
     (setq po-start-of-msgid (match-beginning 0))
     ;; Classify the entry.
@@ -1350,7 +1359,7 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
           (if (eq (following-char) ?#)
               'obsolete
             (goto-char po-start-of-entry)
-            (if (re-search-forward po-fuzzy-regexp po-start-of-msgid t)
+            (if (re-search-forward po-fuzzy-regexp po-start-of-msgctxt t)
                 'fuzzy
               (goto-char po-start-of-msgstr)
               (if (looking-at po-untranslated-regexp)
@@ -1364,7 +1373,7 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (save-excursion
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
-      (if (re-search-forward "\n#, .*" po-start-of-msgid t)
+      (if (re-search-forward "\n#, .*" po-start-of-msgctxt t)
           (save-restriction
             (narrow-to-region (match-beginning 0) (match-end 0))
             (goto-char (point-min))
@@ -1382,7 +1391,7 @@ of type interpretation is: obsolete, fuzzy, untranslated or translated."
   (save-excursion
     (let ((buffer-read-only po-read-only))
       (goto-char po-start-of-entry)
-      (if (re-search-forward "\n#, .*" po-start-of-msgid t)
+      (if (re-search-forward "\n#, .*" po-start-of-msgctxt t)
           (save-restriction
             (narrow-to-region (match-beginning 0) (match-end 0))
             (goto-char (point-min))

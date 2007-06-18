@@ -1,5 +1,16 @@
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
+	Support for the msgctxt syntax.
+	* po-mode.el (po-mode-version-string): Bump version number to 2.1.
+	(po-start-of-msgctxt): New variable.
+	(po-any-msgctxt-msgid-regexp): New variable.
+	(po-font-lock-keywords): Add msgctxt.
+	(po-mode): Make variable po-start-of-msgctxt local.
+	(po-find-span-of-entry): Set also po-start-of-msgctxt.
+	(po-add-attribute, po-delete-attribute): Use po-start-of-msgctxt.
+
+2007-06-17  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-mode-map): Bind po-undo also to Ctrl-x u.
 
 2007-06-17  Bruno Haible  <bruno@clisp.org>
