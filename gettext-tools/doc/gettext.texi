@@ -1214,6 +1214,17 @@ still refers to the German locale as of 2000 that stores characters in
 ISO-8859-1 encoding -- a text encoding that cannot even accomodate the Euro
 currency sign.
 
+Some locale names use @samp{@var{ll}_@var{CC}.@@@var{variant}} instead of
+@samp{@var{ll}_@var{CC}}.  The @samp{@@@var{variant}} can denote any kind of
+characteristics that is not already implied by the language @var{ll} and
+the country @var{CC}.  It can denote a particular monetary unit.  For example,
+on glibc systems, @samp{de_DE@@euro} denotes the locale that uses the Euro
+currency, in contrast to the older locale @samp{de_DE} which implies the use
+of the currency before 2002.  It can also denote a dialect of the language,
+or the script used to write text (for example, @samp{sr_RS@@latin} uses the
+Latin script, whereas @samp{sr_RS} uses the Cyrillic script to write Serbian),
+or the orthography rules, or similar.
+
 On other systems, some variations of this scheme are used, such as
 @samp{@var{ll}}.  You can get the list of locales supported by your system
 for your language by running the command @samp{locale -a | grep '^@var{ll}'}.
