@@ -647,7 +647,7 @@ catalogname_for_locale (const char *locale)
     "so_SO",	/* Somali	Somalia */
     "sq_AL",	/* Albanian	Albania */
     "sr_RS",	/* Serbian	Serbia */
-    "sr_YU",	/* Serbian	Yugoslavia */
+    "sr_YU",	/* Serbian	Yugoslavia - this line can be removed in 2010 */
     "srr_SN",	/* Serer	Senegal */
     "suk_TZ",	/* Sukuma	Tanzania */
     "sus_GN",	/* Susu		Guinea */
