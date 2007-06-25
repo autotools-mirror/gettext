@@ -1,3 +1,24 @@
+2007-06-25  Bruno Haible  <bruno@clisp.org>
+
+	Change boundary of extracted comments.
+	* x-perl.c (struct token_ty): Add comment field.
+	(free_token): Release tp->comment.
+	(extract_quotelike): Fill in tp->comment.
+	(x_perl_prelex): Set or release tp->comment when constructing tokens.
+	(x_perl_lex): Likewise.
+	(extract_balanced): Pass token's comment to remember_a_message.
+
+2007-06-18  Bruno Haible  <bruno@clisp.org>
+
+	Change boundary of extracted comments.
+	* x-ycp.c (struct token_ty): Add comment field.
+	(free_token): New function.
+	(phase5_get): Fill in tp->comment.
+	(phase8_get): Use free_token.
+	(extract_parenthesized): Pass token's comment to remember_a_message.
+	Use free_token.
+	Reported by Karl Eichwalder <ke@suse.de>.
+
 2007-06-09  Bruno Haible  <bruno@clisp.org>
 
 	* format-java.c: Include xmalloca.h instead of xallocsa.h.

@@ -555,6 +555,7 @@ struct token_ty
 				   token_type_symbol	ASCII
 				   token_type_variable	global_source_encoding
 				 */
+  refcounted_string_list_ty *comment; /* for token_type_string */
   int line_number;
 };
 
@@ -621,6 +622,8 @@ free_token (token_ty *tp)
     default:
       break;
     }
+  if (tp->type == token_type_string)
+    drop_reference (tp->comment);
   free (tp);
 }
 
@@ -843,6 +846,7 @@ extract_quotelike (token_ty *tp, int delim)
   string[len - 1] = '\0';
   tp->string = xstrdup (string + 1);
   free (string);
+  tp->comment = add_reference (savable_comment);
 }
 
 /* Extract the quotelike constructs with double delimiters, like
@@ -882,7 +886,8 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 
 /* Perform pass 3 of quotelike extraction (interpolation).
    *tp is a token of type token_type_string.
-   This function replaces tp->string.  */
+   This function replaces tp->string.
+   This function does not access tp->comment.  */
 /* FIXME: Currently may writes null-bytes into the string.  */
 static void
 extract_quotelike_pass3 (token_ty *tp, int error_level)
@@ -1696,6 +1701,10 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
   token.type = token_type_string;
   token.sub_type = string_type_qq;
   token.line_number = line_number;
+  /* No need for  token.comment = add_reference (savable_comment);  here.
+     We can let token.comment uninitialized here, and use savable_comment
+     directly, because this function only parses the given string and does
+     not call phase2_getc.  */
   pos.file_name = logical_file_name;
   pos.line_number = lineno;
 
@@ -2208,6 +2217,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	      if (delim != '\'')
 		interpolate_keywords (mlp, tp->string, line_number);
 	      free (tp->string);
+	      drop_reference (tp->comment);
 	      tp->type = token_type_regex_op;
 	      prefer_division_over_regexp = true;
 
@@ -2265,9 +2275,11 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		  interpolate_keywords (mlp, tp->string, line_number);
 		  break;
 		case 'r':
+		  drop_reference (tp->comment);
 		  tp->type = token_type_regex_op;
 		  break;
 		case 'w':
+		  drop_reference (tp->comment);
 		  tp->type = token_type_symbol;
 		  tp->sub_type = symbol_type_none;
 		  break;
@@ -2457,6 +2469,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 		      tp->string = string;
 		      tp->type = token_type_string;
 		      tp->sub_type = string_type_qq;
+		      tp->comment = add_reference (savable_comment);
 		      tp->line_number = line_number + 1;
 		      interpolate_keywords (mlp, tp->string, line_number + 1);
 		      return;
@@ -2502,6 +2515,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	      extract_quotelike (tp, c);
 	      interpolate_keywords (mlp, tp->string, line_number);
 	      free (tp->string);
+	      drop_reference (tp->comment);
 	      tp->type = token_type_other;
 	      prefer_division_over_regexp = true;
 	      /* Eat the following modifiers.  */
@@ -2669,6 +2683,7 @@ x_perl_lex (message_list_ty *mlp)
 	{
 	  tp->type = token_type_string;
 	  tp->sub_type = string_type_q;
+	  tp->comment = add_reference (savable_comment);
 #if DEBUG_PERL
 	  fprintf (stderr,
 		   "%s:%d: token %s mutated to token_type_string\n",
@@ -3139,7 +3154,8 @@ extract_balanced (message_list_ty *mlp,
 	      pos.file_name = logical_file_name;
 	      pos.line_number = tp->line_number;
 	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, NULL, string, inner_context, &pos, savable_comment);
+	      remember_a_message (mlp, NULL, string, inner_context, &pos,
+				  tp->comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (!skip_until_comma)
@@ -3169,7 +3185,7 @@ extract_balanced (message_list_ty *mlp,
 		  arglist_parser_remember (argparser, arg,
 					   string, inner_context,
 					   logical_file_name, tp->line_number,
-					   savable_comment);
+					   tp->comment);
 		  xgettext_current_source_encoding = xgettext_global_source_encoding;
 		}
 	    }

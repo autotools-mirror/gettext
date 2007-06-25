@@ -329,6 +329,7 @@ struct token_ty
 {
   token_type_ty type;
   char *string;		/* for token_type_string_literal, token_type_symbol */
+  refcounted_string_list_ty *comment;	/* for token_type_string_literal */
   int line_number;
 };
 
@@ -402,6 +403,17 @@ phase7_getc ()
 	    return c;
 	  }
     }
+}
+
+
+/* Free the memory pointed to by a 'struct token_ty'.  */
+static inline void
+free_token (token_ty *tp)
+{
+  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+    free (tp->string);
+  if (tp->type == token_type_string_literal)
+    drop_reference (tp->comment);
 }
 
 
@@ -532,6 +544,7 @@ phase5_get (token_ty *tp)
 	  buffer[bufpos] = '\0';
 	  tp->string = xstrdup (buffer);
 	  tp->type = token_type_string_literal;
+	  tp->comment = add_reference (savable_comment);
 	  return;
 
 	case '(':
@@ -592,7 +605,7 @@ phase8_get (token_ty *tp)
       len = strlen (tp->string);
       tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
       strcpy (tp->string + len, tmp.string);
-      free (tmp.string);
+      free_token (&tmp);
     }
 }
 
@@ -672,7 +685,7 @@ extract_parenthesized (message_list_ty *mlp,
 		  /* Seen an msgid.  */
 		  plural_mp = remember_a_message (mlp, NULL, token.string,
 						  inner_context, &pos,
-						  savable_comment);
+						  token.comment);
 		  state = 2;
 		}
 	      else
@@ -680,13 +693,14 @@ extract_parenthesized (message_list_ty *mlp,
 		  /* Seen an msgid_plural.  */
 		  remember_a_message_plural (plural_mp, token.string,
 					     inner_context, &pos,
-					     savable_comment);
+					     token.comment);
 		  state = 0;
 		}
+	      drop_reference (token.comment);
 	    }
 	  else
 	    {
-	      free (token.string);
+	      free_token (&token);
 	      state = 0;
 	    }
 	  next_context_iter = null_context_list_iterator;
@@ -698,7 +712,7 @@ extract_parenthesized (message_list_ty *mlp,
 	      flag_context_list_table_lookup (
 		flag_context_list_table,
 		token.string, strlen (token.string)));
-	  free (token.string);
+	  free_token (&token);
 	  state = 0;
 	  continue;
 
