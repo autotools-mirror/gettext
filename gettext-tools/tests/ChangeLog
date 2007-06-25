@@ -1,3 +1,22 @@
+2007-06-25  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-awk-2: New file.
+	* xgettext-c-16: New file.
+	* xgettext-csharp-6: New file.
+	* xgettext-elisp-2: New file.
+	* xgettext-java-6: New file.
+	* xgettext-librep-2: New file.
+	* xgettext-lisp-2: New file.
+	* xgettext-perl-7: New file.
+	* xgettext-php-3: New file.
+	* xgettext-python-4: New file.
+	* xgettext-scheme-3: New file.
+	* xgettext-sh-6: New file.
+	* xgettext-smalltalk-2: New file.
+	* xgettext-tcl-3: New file.
+	* xgettext-ycp-4: New file.
+	* Makefile.am (TESTS): Add them.
+
 2007-05-14  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test suite failures on mingw.

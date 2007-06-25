@@ -68,31 +68,34 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	recode-sr-latin-1 recode-sr-latin-2 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 \
-	xgettext-awk-1 \
+	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 xgettext-c-10 \
 	xgettext-c-11 xgettext-c-12 xgettext-c-13 xgettext-c-14 xgettext-c-15 \
+	xgettext-c-16 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
-	xgettext-csharp-4 xgettext-csharp-5 \
-	xgettext-elisp-1 \
+	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
+	xgettext-elisp-1 xgettext-elisp-2 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
-	xgettext-java-5 \
-	xgettext-librep-1 \
-	xgettext-lisp-1 \
+	xgettext-java-5 xgettext-java-6 \
+	xgettext-librep-1 xgettext-librep-2 \
+	xgettext-lisp-1 xgettext-lisp-2 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
-	xgettext-perl-5 xgettext-perl-6 \
-	xgettext-php-1 xgettext-php-2 \
+	xgettext-perl-5 xgettext-perl-6 xgettext-perl-7 \
+	xgettext-php-1 xgettext-php-2 xgettext-php-3 \
 	xgettext-po-1 \
 	xgettext-properties-1 \
 	xgettext-python-1 xgettext-python-2 xgettext-python-3 \
-	xgettext-scheme-1 xgettext-scheme-2 \
+	xgettext-python-4 \
+	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
-	xgettext-smalltalk-1 \
+	xgettext-sh-6 \
+	xgettext-smalltalk-1 xgettext-smalltalk-2 \
 	xgettext-stringtable-1 \
-	xgettext-tcl-1 xgettext-tcl-2 \
-	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 \
+	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 \
+	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
