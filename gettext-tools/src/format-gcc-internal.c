@@ -1,5 +1,5 @@
 /* GCC internal format strings.
-   Copyright (C) 2003-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify
@@ -394,7 +394,7 @@ format_parse (const char *format, bool translated, char *fdi,
 			else
 			  {
 			    *invalid_reason =
-			      xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format);
+			      xasprintf (_("In the directive number %u, a precision specification is not allowed before '%c'."), spec.directives, *format);
 			    FDI_SET (format, FMTDIR_ERROR);
 			  }
 			goto bad_format;

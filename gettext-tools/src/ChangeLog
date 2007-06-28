@@ -1,5 +1,10 @@
 2007-06-28  Bruno Haible  <bruno@clisp.org>
 
+	* format-gcc-internal.c (format_parse): Tweak an error message.
+	Reported by Karl Eichwalder.
+
+2007-06-28  Bruno Haible  <bruno@clisp.org>
+
 	* lang-table.h (language_variant_table, language_variant_table_size):
 	New declarations.
 	* lang-table.c (language_variant_table, language_variant_table_size):
