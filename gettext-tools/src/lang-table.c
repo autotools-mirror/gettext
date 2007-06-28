@@ -1,5 +1,5 @@
 /* Table of languages.
-   Copyright (C) 2001-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2005.
 
    This program is free software; you can redistribute it and/or modify
@@ -286,3 +286,20 @@ struct language_table_entry language_table[] =
     { "zap", "Zapotec" }
   };
 const size_t language_table_size = sizeof (language_table) / sizeof (language_table[0]);
+
+/* The language names for variants of languages, according to the catalog name
+   (usually built from the language code and territory code).
+   Should be consistent with the list of languages found on the TP site, see
+   the URL contained in gettext-tools/projects/TP/teams.url.  */
+struct language_table_entry language_variant_table[] =
+  {
+    { "de_AT", "Austrian" },
+    { "en_GB", "English (British)" },
+    { "es_AR", "Argentinian" },
+    { "es_IC", "Spanish (Canary Islands)" },
+    { "pt_BR", "Brazilian Portuguese" },
+    { "zh_CN", "Chinese (simplified)" },
+    { "zh_HK", "Chinese (Hong Kong)" },
+    { "zh_TW", "Chinese (traditional)" }
+  };
+const size_t language_variant_table_size = sizeof (language_variant_table) / sizeof (language_variant_table[0]);

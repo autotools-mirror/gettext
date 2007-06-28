@@ -1,3 +1,13 @@
+2007-06-28  Bruno Haible  <bruno@clisp.org>
+
+	* lang-table.h (language_variant_table, language_variant_table_size):
+	New declarations.
+	* lang-table.c (language_variant_table, language_variant_table_size):
+	New variables.
+	* msginit.c (language_team_englishname): New function.
+	(language_team): Use it instead of englishname_of_language.
+	Reported by Li Daobing <lidaobing@gmail.com>.
+
 2007-06-25  Bruno Haible  <bruno@clisp.org>
 
 	Change boundary of extracted comments.

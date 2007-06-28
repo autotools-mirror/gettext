@@ -795,7 +795,7 @@ englishname_of_language ()
 {
   size_t i;
 
-  for (i = 0; i < language_table_size; i ++)
+  for (i = 0; i < language_table_size; i++)
     if (strcmp (language_table[i].code, language) == 0)
       return language_table[i].english;
 
@@ -1117,6 +1117,22 @@ last_translator ()
 }
 
 
+/* Return the name of the language used by the language team, in English.  */
+static const char *
+language_team_englishname ()
+{
+  size_t i;
+
+  /* Search for a name depending on the catalogname.  */
+  for (i = 0; i < language_variant_table_size; i++)
+    if (strcmp (language_variant_table[i].code, catalogname) == 0)
+      return language_variant_table[i].english;
+
+  /* Search for a name depending on the language only.  */
+  return englishname_of_language ();
+}
+
+
 /* Return the language team's mailing list address or homepage URL.  */
 static const char *
 language_team_address ()
@@ -1185,7 +1201,7 @@ language_team ()
     return "none";
   else
     {
-      const char *englishname = englishname_of_language ();
+      const char *englishname = language_team_englishname ();
       const char *address = language_team_address ();
 
       if (address != NULL && address[0] != '\0')
