@@ -7,7 +7,8 @@ catalog="$3"  # e.g. "pt_BR"
 language="$4" # e.g. "pt"
 
 url=`cat "$projectsdir/TP/teams.url"`
-html=`"$progdir/urlget" "$url" "$projectsdir/TP/teams.html"`
+sed_absolute_dotdot_urls="s,href=\"\\.\\./,href="`echo "$url" | sed -e 's,/[^/]*/[^/]*\$,/,'`",g"
+html=`"$progdir/urlget" "$url" "$projectsdir/TP/teams.html" | sed -e "$sed_absolute_dotdot_urls"`
 sed_addnl='s,</tr>,</tr>\
 ,g'
 address=`echo "$html" | tr '\012' '|' | sed -e "$sed_addnl" | sed -n -e "s,^.*<td>$catalog</td>[^<>]*<td>[^|]*</td>[^<>]*<td><a href=\"\\([^\"]*\\)\">[^<>]*</a></td>.*\$,\\1,p" | sed 1q`

@@ -1,3 +1,10 @@
+2007-06-28  Bruno Haible  <bruno@clisp.org>
+
+	Update after the TP site has moved.
+	* TP/teams.url: Put in new URL.
+	* TP/teams.html: Re-fetched.
+	* TP/team-address: Absolutize relative ../ URLs in the HTML.
+
 2006-11-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.16.1 released.
