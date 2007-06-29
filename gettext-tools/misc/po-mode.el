@@ -695,7 +695,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Jump to next interesting entry"))]
      "---"
-     "Forward"
+     ;; Forward
      ["Any next" po-next-entry
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Jump to next entry"))]
@@ -715,7 +715,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Jump to last entry"))]
      "---"
-     "Backward"
+     ;; Backward
      ["Any previous" po-previous-entry
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Jump to previous entry"))]
@@ -735,7 +735,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Jump to first entry"))]
      "---"
-     "Position stack"
+     ;; "Position stack"
      ["Mark and push current" po-push-location
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Remember current location"))]
@@ -757,7 +757,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Revoke last changed entry"))]
      "---"
-     "Msgstr"
+     ;; "Msgstr"
      ["Edit msgstr" po-edit-msgstr
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Edit current translation"))]
@@ -774,7 +774,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Paste (yank) text most recently cut/copied translation"))]
      "---"
-     "Comments"
+     ;; "Comments"
      ["Edit comment" po-edit-comment
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Edit current comment"))]
@@ -806,58 +806,58 @@ Initialize or replace current translation with the original message"))])
       ,@(if (featurep 'xemacs) '(t)
           '(:help "Select other window; if necessay split current frame"))]
      "---"
-     "Program sources"
-     ["Cycle reference" po-cycle-source-reference t]
+     ;; "Program sources"
+     ["Cycle reference in source file" po-cycle-source-reference t]
      ["Select reference" po-select-source-reference t]
      ["Consider path" po-consider-source-path t]
      ["Ignore path" po-ignore-source-path t]
+     ;; "---"
+     ;; ;; "Compendiums"
+     ;; ["To add entry to compendium" po-save-entry nil]
+     ;; ["Select from compendium, save" po-select-and-save-entry nil]
      "---"
-     "Compendiums"
-     ["To compendium" po-save-entry nil]
-     ["Select, save" po-select-and-save-entry nil]
+     ;; "Auxiliary files"
+     ["Cycle through auxilicary file" po-cycle-auxiliary t]
+     ["Select auxilicary file" po-select-auxiliary t]
+     ["Consider as auxilicary file" po-consider-as-auxiliary t]
+     ["Ignore as auxilicary file" po-ignore-as-auxiliary t]
+     ;; "---"
+     ;; ;; "Lexicography"
+     ;; ["Lookup translation" po-lookup-lexicons nil]
+     ;; ["Add/edit translation" po-edit-lexicon-entry nil]
+     ;; ["Consider lexicon" po-consider-lexicon-file nil]
+     ;; ["Ignore lexicon" po-ignore-lexicon-file nil])
      "---"
-     "Auxiliary files"
-     ["Cycle file" po-cycle-auxiliary t]
-     ["Select file" po-select-auxiliary t]
-     ["Consider file" po-consider-as-auxiliary t]
-     ["Ignore file" po-ignore-as-auxiliary t]
+     "Source marking"
+     ["Find first string" (po-tags-search '(nil)) t]
+     ["Prefer keyword" (po-select-mark-and-mark '(nil)) t]
+     ["Find next string" po-tags-search t]
+     ["Mark preferred" po-mark-translatable t]
+     ["Mark with keyword" po-select-mark-and-mark t])
      "---"
-     "Lexicography"
-     ["Lookup translation" po-lookup-lexicons nil]
-     ["Add/edit translation" po-edit-lexicon-entry nil]
-     ["Consider lexicon" po-consider-lexicon-file nil]
-     ["Ignore lexicon" po-ignore-lexicon-file nil])
-    "---"
-    "Source marking"
-    ["Find first string" (po-tags-search '(nil)) t]
-    ["Prefer keyword" (po-select-mark-and-mark '(nil)) t]
-    ["Find next string" po-tags-search t]
-    ["Mark preferred" po-mark-translatable t]
-    ["Mark with keyword" po-select-mark-and-mark t]
-    "---"
-    ["Version info" po-mode-version
-     ,@(if (featurep 'xemacs) '(t)
+     ["Version info" po-mode-version
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Display version number of PO mode"))]
-    ["Help page" po-help
-     ,@(if (featurep 'xemacs) '(t)
+     ["Help page" po-help
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Show the PO mode help screen"))]
-    ["Validate" po-validate
-     ,@(if (featurep 'xemacs) '(t)
+     ["Validate" po-validate
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Check validity of current translation file using `msgfmt'"))]
-    ["Mail officially" po-send-mail
-     ,@(if (featurep 'xemacs) '(t)
+     ["Mail officially" po-send-mail
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Send current translation file to the Translation Robot by mail"))]
-    ["Edit out full" po-edit-out-full
-     ,@(if (featurep 'xemacs) '(t)
+     ["Edit out full" po-edit-out-full
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Leave PO mode to edit translation file using fundamental mode"))]
-    "---"
-    ["Forceful quit" po-quit
-     ,@(if (featurep 'xemacs) '(t)
+     "---"
+     ["Forceful quit" po-quit
+      ,@(if (featurep 'xemacs) '(t)
           '(:help "Close (kill) current translation file without saving"))]
-    ["Soft quit" po-confirm-and-quit
-     ,@(if (featurep 'xemacs) '(t)
-          '(:help "Save current translation file, than close (kill) it"))])
-  "Menu layout for PO mode.")
+     ["Soft quit" po-confirm-and-quit
+      ,@(if (featurep 'xemacs) '(t)
+          '(:help "Save current translation file, than close (kill) it"))]))
+
 
 (defconst po-subedit-mode-menu-layout
   `("PO-Edit"
@@ -871,8 +871,7 @@ Initialize or replace current translation with the original message"))])
           '(:help "Don't change the translation"))]
     ["Exit edit" po-subedit-exit
      ,@(if (featurep 'xemacs) '(t)
-         '(:help "Use this text as the translation and close current edit buffer"))])
-  "Menu layout for PO subedit mode.")
+         '(:help "Use this text as the translation and close current edit buffer"))]))
 
 (defconst po-subedit-message
   (_"Type 'C-c C-c' once done, or 'C-c C-k' to abort edit")

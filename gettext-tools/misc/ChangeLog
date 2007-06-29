@@ -1,3 +1,11 @@
+2007-06-29  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-subedit-mode-menu-layout, po-mode-menu-layout):
+	Remove trailing string.
+	* po-mode.el (po-mode-menu-layout): Make "Source marking" a submenu.
+	Remove subtitles from menus.
+	Comment unimplemented features.  Reorganize entry hierarchy.
+
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
 	Support for the msgctxt syntax.
