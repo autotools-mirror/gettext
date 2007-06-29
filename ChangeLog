@@ -1,3 +1,8 @@
+2007-06-28  Bruno Haible  <bruno@clisp.org>
+
+	* HACKING: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2007-06-09  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Use xmalloca instead of
