@@ -48,6 +48,28 @@
 ;; You may also adjust some variables, below, by defining them in your
 ;; '.emacs' file, either directly or through command 'M-x customize'.
 
+;; TODO:
+;; Plural form editing:
+;;  - When in edit mode, currently it highlights (in green) the msgid;
+;;    it should also highlight the msgid_plural string, I would say, since
+;;    the translator has to look at both.
+;;  - After the translator finished the translation of msgstr[0], it would
+;;    be nice if the cursor would automatically move to the beginning of the
+;;    msgstr[1] line, so that the translator just needs to press RET to edit
+;;    that.
+;;  - If msgstr[1] is empty but msgstr[0] is not, it would be ergonomic if the
+;;    contents of msgstr[0] would be copied. (Not sure if this should happen
+;;    at the end of the editing msgstr[0] or at the beginning of the editing
+;;    of msgstr[1].) Reason: These two strings are usually very similar.
+;; Rename po-any-msgstr-regexp-old to po-any-msgstr-form-regexp.
+;; Rename po-any-msgstr-regexp to po-any-msgstr-block-regexp.
+;; Make po-find-this-msgstr call po-find-span-of-entry, not vice versa.
+;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
+;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
+;; Remove old po-subedit-exit-old.
+;; Remove old po-edit-string, rename po-edit-string-new to po-edit-string.
+;; Remove old po-edit-msgstr-old.
+
 ;;; Code:
 
 (defconst po-mode-version-string "2.1" "\
