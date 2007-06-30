@@ -1,3 +1,19 @@
+2007-06-29  Karl Eichwalder  <ke@suse.de>
+
+	* po-mode.el (po-find-this-msgstr): New function.
+	(po-find-span-of-entry): Use it.
+
+	* po-mode.el (po-get-msgstr-flavor): New function.
+	(po-any-msgstr-regexp-old): New variable.
+	(po-set-msgstr-new): New function, based on po-set-msgstr.
+	(po-subedit-exit-old): New function, renamed from po-subedit-exit.
+	(po-edit-msgstr-old): New function, renamed from po-edit-msgstr.
+	(po-get-msgstr-new): New function, based on po-get-msgstr.
+	(po-set-msgstr-new): New function, based on po-set-msgstr.
+	(po-edit-string-new): New function, based on po-edit-string.
+	(po-edit-msgstr): Use po-get-msgstr-new.
+	(po-subedit-exit): Use po-set-msgstr-new.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* po-mode.el (po-translation-project-address): Update email address

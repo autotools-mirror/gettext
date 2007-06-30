@@ -912,6 +912,11 @@ Initialize or replace current translation with the original message"))])
   "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
+(defvar po-any-msgstr-regexp-old
+  ;; "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "^\\(#~[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "Regexp matching just one msgstr or msgstr[] field, whether obsolete or not.")
+
 (defvar po-msgstr-idx-keyword-regexp
   "^\\(#~[ \t]*\\)?msgstr\\[[0-9]\\]"
   "Regexp matching an indexed msgstr keyword, whether obsolete or not.")
@@ -1349,6 +1354,8 @@ or translated."
     (goto-char po-start-of-entry)
     (re-search-forward po-any-msgid-regexp)
     (setq po-start-of-msgid (match-beginning 0))
+    (save-excursion
+      (po-find-this-msgstr here))
     ;; Classify the entry.
     (setq po-entry-type
           (if (eq (following-char) ?#)
@@ -1362,6 +1369,18 @@ or translated."
                 'translated))))
     ;; Put the cursor back where it was.
     (goto-char here)))
+
+(defun po-find-this-msgstr (here)
+  "Locate msgstr following point or at point."
+  (when (>= here po-start-of-msgstr)
+    ;; point was somewhere inside of msgstr*
+    (goto-char here)
+    (end-of-line)
+    (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
+  ;; detect the bounderies of the msgstr we are interested in
+  (re-search-forward po-any-msgstr-regexp-old)
+  (setq po-start-of-this-msgstr (match-beginning 0)
+        po-end-of-this-msgstr (match-end 0)))
 
 (defun po-add-attribute (name)
   "Add attribute NAME to the current entry, unless it is already there."
@@ -1781,6 +1800,23 @@ If KILL, then add the unquoted string to the kill ring."
     (if kill (po-kill-new string))
     string))
 
+(defun po-get-msgstr-flavor ()
+  "Helper function to detect msgstr and msgstr[] variants."
+  (beginning-of-line)
+  (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
+  (match-string 2))
+
+(defun po-get-msgstr-new (kill)
+  "Extract and return the unquoted msgstr string.
+If KILL, then add the unquoted string to the kill ring."
+  (let ((flavor (po-get-msgstr-flavor))
+        (string (po-extract-unquoted (current-buffer)
+                                     po-start-of-this-msgstr
+                                     po-end-of-this-msgstr)))
+    (setq po-this-msgstr-flavor flavor)
+    (if kill (po-kill-new string))
+    string))
+
 (defun po-set-msgid (form)
   "Replace the current msgid, using FORM to get a string.
 Evaluating FORM should insert the wanted string in the current buffer.  If
@@ -1828,6 +1864,29 @@ described by FORM is merely identical to the msgstr already in place."
                (insert msgstr-idx)
                (looking-at "\\(#~[ \t]*\\)?msgstr")
                (replace-match ""))
+             (goto-char po-start-of-msgid)
+             (po-find-span-of-entry)
+             (po-increase-type-counter)
+             t)))))
+
+(defun po-set-msgstr-new (form)
+  "Replace the current msgstr or msgstr[], using FORM to get a string.
+Evaluating FORM should insert the wanted string in the current buffer.  If
+FORM is itself a string, then this string is used for insertion.  The string
+is properly requoted before the replacement occurs.
+
+Returns 'nil' if the buffer has not been modified, for if the new msgstr
+described by FORM is merely identical to the msgstr already in place."
+  (let ((string (po-eval-requoted form
+                                  po-this-msgstr-flavor
+                                  (eq po-entry-type 'obsolete))))
+    (save-excursion
+      (goto-char po-start-of-this-msgstr)
+      (re-search-forward po-any-msgstr-regexp-old po-end-of-this-msgstr)
+      (and (not (string-equal (po-match-string 0) string))
+           (let ((buffer-read-only po-read-only))
+             (po-decrease-type-counter)
+             (replace-match string t t)
              (goto-char po-start-of-msgid)
              (po-find-span-of-entry)
              (po-increase-type-counter)
@@ -2131,6 +2190,32 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
       (kill-buffer edit-buffer)
       (setq po-edited-fields (delete back-pointer po-edited-fields)))))
 
+(defun po-subedit-exit-old ()
+  "Exit the subedit buffer, replacing the string in the PO buffer."
+  (interactive)
+  (goto-char (point-max))
+  (skip-chars-backward " \t\n")
+  (if (eq (preceding-char) ?<)
+      (delete-region (1- (point)) (point-max)))
+  (run-hooks 'po-subedit-exit-hook)
+  (let ((string (buffer-string)))
+    (po-subedit-abort)
+    (po-find-span-of-entry)
+    (cond ((= (point) po-start-of-msgid)
+           (po-set-comment string)
+           (po-redisplay))
+          ((= (point) po-start-of-this-msgstr)
+           (let ((replaced (po-set-msgstr-new string)))
+             (if (and replaced
+                      po-auto-fuzzy-on-edit
+                      (eq po-entry-type 'translated))
+                 (progn
+                   (po-decrease-type-counter)
+                   (po-add-attribute "fuzzy")
+                   (po-current-entry)
+                   (po-increase-type-counter)))))
+          (t (debug)))))
+
 (defun po-subedit-exit ()
   "Exit the subedit buffer, replacing the string in the PO buffer."
   (interactive)
@@ -2145,8 +2230,8 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
     (cond ((= (point) po-start-of-msgid)
            (po-set-comment string)
            (po-redisplay))
-          ((= (point) po-start-of-msgstr)
-           (let ((replaced (po-set-msgstr string)))
+          ((= (point) po-start-of-this-msgstr)
+           (let ((replaced (po-set-msgstr-new string)))
              (if (and replaced
                       po-auto-fuzzy-on-edit
                       (eq po-entry-type 'translated))
@@ -2204,6 +2289,53 @@ Run functions on po-subedit-mode-hook."
           (run-hooks 'po-subedit-mode-hook)
           (message po-subedit-message)))))
 
+(defun po-edit-string-new (string type expand-tabs)
+  "Prepare a pop up buffer for editing STRING, which is of a given TYPE.
+TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
+Run functions on po-subedit-mode-hook."
+  (let ((marker (make-marker)))
+    (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
+                             ((eq type 'msgstr) po-start-of-this-msgstr)))
+    (if (po-check-for-pending-edit marker)
+        (let ((edit-buffer (generate-new-buffer
+                            (concat "*" (buffer-name) "*")))
+              (edit-coding buffer-file-coding-system)
+              (buffer (current-buffer))
+              overlay slot)
+          (if (and (eq type 'msgstr) po-highlighting)
+              ;; ;; Try showing all of msgid in the upper window while editing.
+              ;; (goto-char (1- po-start-of-msgstr))
+              ;; (recenter -1)
+              (save-excursion
+                (goto-char po-start-of-entry)
+                (re-search-forward po-any-msgid-regexp nil t)
+                (let ((end (1- (match-end 0))))
+                  (goto-char (match-beginning 0))
+                  (re-search-forward "msgid +" nil t)
+                  (setq overlay (po-create-overlay))
+                  (po-highlight overlay (point) end buffer))))
+          (setq slot (list marker edit-buffer overlay)
+                po-edited-fields (cons slot po-edited-fields))
+          (pop-to-buffer edit-buffer)
+          (set (make-local-variable 'po-subedit-back-pointer) slot)
+          (set (make-local-variable 'indent-line-function)
+               'indent-relative)
+          (setq buffer-file-coding-system edit-coding)
+          (setq local-abbrev-table po-mode-abbrev-table)
+          (erase-buffer)
+          (insert string "<")
+          (goto-char (point-min))
+          (and expand-tabs (setq indent-tabs-mode nil))
+          (use-local-map po-subedit-mode-map)
+          (if (fboundp 'easy-menu-define)
+              (progn
+                (easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
+                  po-subedit-mode-menu-layout)
+                (and po-XEMACS (easy-menu-add po-subedit-mode-menu))))
+          (set-syntax-table po-subedit-mode-syntax-table)
+          (run-hooks 'po-subedit-mode-hook)
+          (message po-subedit-message)))))
+
 (defun po-edit-comment ()
   "Use another window to edit the current translator comment."
   (interactive)
@@ -2218,7 +2350,7 @@ read `po-subedit-ediff' documentation."
   (po-edit-comment)
   (po-subedit-ediff))
 
-(defun po-edit-msgstr ()
+(defun po-edit-msgstr-old ()
   "Use another window to edit the current msgstr."
   (interactive)
   (po-find-span-of-entry)
@@ -2226,6 +2358,17 @@ read `po-subedit-ediff' documentation."
                            (eq po-entry-type 'untranslated))
                       (po-get-msgid nil)
                     (po-get-msgstr nil))
+                  'msgstr
+                  t))
+
+(defun po-edit-msgstr ()
+  "Use another window to edit the current msgstr."
+  (interactive)
+  (po-find-span-of-entry)
+  (po-edit-string-new (if (and po-auto-edit-with-msgid
+                           (eq po-entry-type 'untranslated))
+                      (po-get-msgid nil)
+                    (po-get-msgstr-new nil))
                   'msgstr
                   t))
 
