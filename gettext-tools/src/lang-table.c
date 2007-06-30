@@ -125,7 +125,7 @@ struct language_table_entry language_table[] =
     { "iu", "Inuktitut" },
     { "ja", "Japanese" },
     { "jab", "Hyam" },
-    { "jw", "Javanese" },
+    { "jv", "Javanese" },
     { "ka", "Georgian" },
     { "kab", "Kabyle" },
     { "kaj", "Jju" },
