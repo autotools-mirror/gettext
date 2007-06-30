@@ -1,3 +1,7 @@
+2007-06-30  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-team-name-to-code): Add a few more entries.
+
 2007-06-29  Karl Eichwalder  <ke@suse.de>
 
 	* po-mode.el (po-find-this-msgstr): New function.
