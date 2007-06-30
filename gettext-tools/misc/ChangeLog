@@ -1,5 +1,11 @@
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-check-file-header): Use save-restriction.
+	Report and patch by Sven Joachim <sven_joachim@web.de> in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2006-08/msg00110.html>.
+
+2007-06-30  Bruno Haible  <bruno@clisp.org>
+
 	* po-mode.el (po-team-name-to-code): Add a few more entries.
 
 2007-06-29  Karl Eichwalder  <ke@suse.de>

@@ -1339,38 +1339,40 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 (defun po-check-file-header ()
   "Create a missing PO mode file header, or replace an oldish one."
   (save-excursion
-    (let ((buffer-read-only po-read-only)
-          insert-flag end-of-header)
-      (goto-char (point-min))
-      (if (re-search-forward po-any-msgstr-regexp nil t)
-          (progn
-            ;; There is at least one entry.
-            (goto-char (match-beginning 0))
-            (previous-line 1)
-            (setq end-of-header (match-end 0))
-            (if (looking-at "msgid \"\"\n")
-                ;; There is indeed a PO file header.
-                (if (re-search-forward "\n\"PO-Revision-Date: "
-                                       end-of-header t)
-                    nil
-                  ;; This is an oldish header.  Replace it all.
-                  (goto-char end-of-header)
-                  (while (> (point) (point-min))
-                    (previous-line 1)
-                    (insert "#~ ")
-                    (beginning-of-line))
-                  (beginning-of-line)
-                  (setq insert-flag t))
-              ;; The first entry is not a PO file header, insert one.
-              (setq insert-flag t)))
-        ;; Not a single entry found.
-        (setq insert-flag t))
-      (goto-char (point-min))
-      (if insert-flag
-          (progn
-            (insert po-default-file-header)
-            (if (not (eobp))
-                (insert "\n")))))))
+    (save-restriction
+      (widen) ; in case of a narrowed view to the buffer
+      (let ((buffer-read-only po-read-only)
+            insert-flag end-of-header)
+        (goto-char (point-min))
+        (if (re-search-forward po-any-msgstr-regexp nil t)
+            (progn
+              ;; There is at least one entry.
+              (goto-char (match-beginning 0))
+              (previous-line 1)
+              (setq end-of-header (match-end 0))
+              (if (looking-at "msgid \"\"\n")
+                  ;; There is indeed a PO file header.
+                  (if (re-search-forward "\n\"PO-Revision-Date: "
+                                         end-of-header t)
+                      nil
+                    ;; This is an oldish header.  Replace it all.
+                    (goto-char end-of-header)
+                    (while (> (point) (point-min))
+                      (previous-line 1)
+                      (insert "#~ ")
+                      (beginning-of-line))
+                    (beginning-of-line)
+                    (setq insert-flag t))
+                ;; The first entry is not a PO file header, insert one.
+                (setq insert-flag t)))
+          ;; Not a single entry found.
+          (setq insert-flag t))
+        (goto-char (point-min))
+        (if insert-flag
+            (progn
+              (insert po-default-file-header)
+              (if (not (eobp))
+                  (insert "\n"))))))))
 
 (defun po-replace-revision-date ()
   "Replace the revision date by current time in the PO file header."
