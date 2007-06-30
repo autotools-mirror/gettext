@@ -31,6 +31,10 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       http://www.gnu.org/software/gperf/
 
+  * GNU groff 1.17 or newer
+    + Homepage:
+      http://www.gnu.org/software/groff/
+
   * GNU texinfo
     + Homepage:
       http://www.gnu.org/software/texinfo/
