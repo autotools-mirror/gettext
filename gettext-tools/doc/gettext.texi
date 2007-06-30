@@ -1346,7 +1346,7 @@ understanding where each localization file is stored on the file system.
 @cindex @file{ABOUT-NLS} file
 For programs that participate in the Translation Project, you can start
 looking for translations here:
-@url{http://www.iro.umontreal.ca/translation/registry.cgi?team=index}.
+@url{http://translationproject.org/team/index.html}.
 A snapshot of this information is also found in the @file{ABOUT-NLS} file
 that is shipped with GNU gettext.
 
@@ -2899,8 +2899,8 @@ but also to coordinate difficult linguistic issues.
 @cindex list of translation teams, where to find
 In the Free Translation Project, each translation team has its own mailing
 list.  The up-to-date list of teams can be found at the Free Translation
-Project's homepage, @uref{http://www.iro.umontreal.ca/contrib/po/HTML/},
-in the "National teams" area.
+Project's homepage, @uref{http://translationproject.org/}, in the "Teams"
+area.
 
 @item Content-Type
 @cindex encoding of PO files
@@ -6697,7 +6697,7 @@ subscribe
 Keep in mind that team members should be interested in @emph{working}
 at translations, or at solving translational difficulties, rather than
 merely lurking around.  If your team does not exist yet and you want to
-start one, please write to @w{@file{translation@@iro.umontreal.ca}};
+start one, please write to @w{@file{coordinator@@translationproject.org}};
 you will then reach the coordinator for all translator teams.
 
 A handful of GNU packages have already been adapted and provided
@@ -6706,7 +6706,7 @@ teams have begun to organize, using these packages as a starting
 point.  But there are many more packages and many languages for
 which we have no volunteer translators.  If you would like to
 volunteer to work at translating messages, please send mail to
-@file{translation@@iro.umontreal.ca} indicating what language(s)
+@file{coordinator@@translationproject.org} indicating what language(s)
 you can work on.
 
 @node Trans Intro 1, Discussions, Trans Intro 0, Translators
@@ -6725,7 +6725,7 @@ teams have begun to organize, using these packages as a starting
 point.  But there are many more packages and many languages
 for which we have no volunteer translators.  If you'd like to
 volunteer to work at translating messages, please send mail to
-@samp{translation@@iro.umontreal.ca} indicating what language(s)
+@samp{coordinator@@translationproject.org} indicating what language(s)
 you can work on.
 @end quotation
 
@@ -6747,7 +6747,7 @@ an enthusiastic response from pretesters, so we believe that
 internationalization of free software is dedicated to succeed.
 
 For suggestion clarifications, additions or corrections to this
-document, please e-mail to @file{translation@@iro.umontreal.ca}.
+document, please e-mail to @file{coordinator@@translationproject.org}.
 
 @node Discussions, Organization, Trans Intro 1, Translators
 @section Discussions
@@ -6859,7 +6859,7 @@ become a permanent and continuous activity in the free software community,
 once well started.
 The setup should be minimally completed and tested before GNU
 @code{gettext} becomes an official reality.  The e-mail address
-@file{translation@@iro.umontreal.ca} has been setup for receiving
+@file{coordinator@@translationproject.org} has been setup for receiving
 offers from volunteers and general e-mail on these topics.  This address
 reaches the Translation Project coordinator.
 
@@ -6993,7 +6993,7 @@ this also seems to work).
 If we get any inquiries about GNU @code{gettext}, send them on to:
 
 @example
-@file{translation@@iro.umontreal.ca}
+@file{coordinator@@translationproject.org}
 @end example
 
 The @file{*-pretest} lists are quite useful to me, maybe the idea could
@@ -7307,7 +7307,7 @@ It is worth adding here a few words about how the maintainer should
 ideally behave with PO files submissions.  As a maintainer, your role is
 to authenticate the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
-the submission to @file{translation@@iro.umontreal.ca} in case of doubt),
+the submission to @file{coordinator@@translationproject.org} in case of doubt),
 to ensure that the PO file format is not severely broken and does not
 prevent successful installation, and for the rest, to merely put these
 PO files in @file{po/} for distribution.

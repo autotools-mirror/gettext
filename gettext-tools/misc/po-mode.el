@@ -138,7 +138,7 @@ msgstr \"\"
   :group 'po)
 
 (defcustom po-translation-project-address
-  "translation@iro.umontreal.ca"
+  "robot@translationproject.org"
   "*Electronic mail address of the Translation Project.
 Typing \\[po-send-mail] (normally bound to `M') the user will send the PO file
 to this email address."
@@ -146,11 +146,7 @@ to this email address."
   :group 'po)
 
 (defcustom po-translation-project-mail-label "TP-Robot"
-  "*Subject label when sending the PO file to `po-translation-project-address'.
-Don't change it when you send PO files to \"translation@iro.umontreal.ca\", the
-Translation Project Robot at http://www.iro.umontreal.ca/contrib/po/HTML/.  If
-the label is different, your submission will be consiedered as a regular mail
-and not stored at the TP site and also not forwarded to the package maintainer."
+  "*Subject label when sending the PO file to `po-translation-project-address'."
   :type 'string
   :group 'po)
 

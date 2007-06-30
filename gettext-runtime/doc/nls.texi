@@ -194,8 +194,7 @@ people who like their own language and write it well, and who are also
 able to synergize with other translators speaking the same language.
 Each translation team has its own mailing list.  The up-to-date list
 of teams can be found at the Free Translation Project's homepage,
-@file{http://www.iro.umontreal.ca/contrib/po/HTML/}, in the
-"National teams" area.
+@file{http://translationproject.org/}, in the "Teams" area.
 
 If you'd like to volunteer to @emph{work} at translating messages, you
 should become a member of the translating team for your own language.
@@ -212,7 +211,7 @@ Keep in mind that team members are expected to participate
 difficulties, rather than merely lurking around.  If your team does not
 exist yet and you want to start one, or if you are unsure about what to
 do or how to get started, please write to
-@w{@file{translation@@iro.umontreal.ca}} to reach the
+@w{@file{coordinator@@translationproject.org}} to reach the
 coordinator for all translator teams.
 
 The English team is special.  It works at improving and uniformizing
@@ -242,7 +241,7 @@ mere existence a PO file and its wide availability in a distribution.
 If @value{STATUS} seems to be old, you may fetch a more recent copy
 of this @file{ABOUT-NLS} file on most GNU archive sites.  The most
 up-to-date matrix with full percentage details can be found at
-@file{http://www.iro.umontreal.ca/contrib/po/HTML/matrix.html}.
+@file{http://translationproject.org/extra/matrix.html}.
 
 
 @node Using gettext in own code
@@ -261,5 +260,5 @@ use of @code{gettext} the only thing missing are the translations.  The
 Free Translation Project is also available for packages which are not
 developed inside the GNU project.  Therefore the information given above
 applies also for every other Free Software Project.  Contact
-@w{@file{translation@@iro.umontreal.ca}} to make the @file{.pot} files
+@w{@file{coordinator@@translationproject.org}} to make the @file{.pot} files
 available to the translation teams.

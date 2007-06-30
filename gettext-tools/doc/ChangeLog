@@ -1,3 +1,10 @@
+2007-06-30  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Installing Localizations, Header Entry, Trans Intro 0,
+	Trans Intro 1, Organization, Mailing Lists, Prerequisites): Update
+	email addresses and URLs after the Translation Project moved.
+	* FAQ.html: Likewise.
+
 2007-06-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Locale Names): Explain the variant syntax.
