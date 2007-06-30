@@ -1,3 +1,9 @@
+2007-06-30  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (main): Use the standard --version output, see
+	<http://lists.gnu.org/archive/html/bug-gnulib/2007-03/msg00302.html>.
+	* tstngettext.c (main): Likewise.
+
 2007-06-25  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-awk-2: New file.
