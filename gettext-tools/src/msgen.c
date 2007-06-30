@@ -210,8 +210,9 @@ main (int argc, char **argv)
       printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
       /* xgettext: no-wrap */
       printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
-This is free software; see the source for copying conditions.  There is NO\n\
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
+License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>\n\
+This is free software: you are free to change and redistribute it.\n\
+There is NO WARRANTY, to the extent permitted by law.\n\
 "),
 	      "2001-2007");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
