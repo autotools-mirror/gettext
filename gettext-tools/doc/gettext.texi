@@ -6859,7 +6859,7 @@ become a permanent and continuous activity in the free software community,
 once well started.
 The setup should be minimally completed and tested before GNU
 @code{gettext} becomes an official reality.  The e-mail address
-@file{coordinator@@translationproject.org} has been setup for receiving
+@file{coordinator@@translationproject.org} has been set up for receiving
 offers from volunteers and general e-mail on these topics.  This address
 reaches the Translation Project coordinator.
 
@@ -6872,7 +6872,7 @@ reaches the Translation Project coordinator.
 @node Central Coordination, National Teams, Organization, Organization
 @subsection Central Coordination
 
-I also think GNU will need sooner than it thinks, that someone setup
+I also think GNU will need sooner than it thinks, that someone set up
 a way to organize and coordinate these groups.  Some kind of group
 of groups.  My opinion is that it would be good that GNU delegates
 this task to a small group of collaborating volunteers, shortly.

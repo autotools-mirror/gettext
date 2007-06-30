@@ -1,5 +1,10 @@
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi: Fix English typo.
+	Reported by Benno Schulenberg <bensberg@justemail.net>.
+
+2007-06-30  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Installing Localizations, Header Entry, Trans Intro 0,
 	Trans Intro 1, Organization, Mailing Lists, Prerequisites): Update
 	email addresses and URLs after the Translation Project moved.
