@@ -1,3 +1,9 @@
+2007-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* build-aux/moopp (func_version): Use the standard --version output,
+	see
+	<http://lists.gnu.org/archive/html/bug-gnulib/2007-03/msg00302.html>.
+
 2007-05-13  Bruno Haible  <bruno@clisp.org>
 
 	* m4/vasprintf.m4 (gl_REPLACE_VASPRINTF, gl_PREREQ_VASPRINTF_H): New

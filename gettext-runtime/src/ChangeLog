@@ -1,3 +1,8 @@
+2007-07-01  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.sh.in (func_version): Use the standard --version output, see
+	<http://lists.gnu.org/archive/html/bug-gnulib/2007-03/msg00302.html>.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* envsubst.c (main): Use the standard --version output, see
