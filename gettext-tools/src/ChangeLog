@@ -1,3 +1,22 @@
+2007-07-04  Bruno Haible  <bruno@clisp.org>
+
+	Recognize the PHP string concatenation operator.
+	* x-php.c (enum token_type_ty): New elements token_type_dot,
+	token_type_operator1, token_type_operator2.
+	(struct token_ty): Add comment field.
+	(free_token): Drop reference to comment field.
+	(phase4_pushback, phase4_pushback_length): New variables.
+	(phase4_get): Renamed from x_php_lex. Return last pushed-back token if
+	available. Recognize tokens '.', '+', '-', '*', '/', '%', '++', '--',
+	'!', '~', '@'. Fill in tp->comment.
+	(phase4_unget): New function.
+	(phase5_last): New variable.
+	(x_php_lex): New function.
+	(extract_balanced): Handle the new token types. Pass token's comment
+	to remember_a_message.
+	(extract_php): Initialize phase5_last.
+	Reported by Jan Engelhardt <jengelh@computergmbh.de>.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (main): Use the standard --version output, see

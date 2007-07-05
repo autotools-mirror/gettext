@@ -42,7 +42,8 @@
 
 
 /* The PHP syntax is defined in phpdoc/manual/langref.html.
-   See also php-4.1.0/Zend/zend_language_scanner.l.
+   See also php-4.1.0/Zend/zend_language_scanner.l
+   and      php-4.1.0/Zend/zend_language_parser.y.
    Note that variable and function names can contain bytes in the range
    0x7f..0xff; see
      http://www.php.net/manual/en/language.variables.php
@@ -741,6 +742,9 @@ enum token_type_ty
   token_type_comma,		/* , */
   token_type_lbracket,		/* [ */
   token_type_rbracket,		/* ] */
+  token_type_dot,		/* . */
+  token_type_operator1,		/* * / % ++ -- */
+  token_type_operator2,		/* + - ! ~ @ */
   token_type_string_literal,	/* "abc" */
   token_type_symbol,		/* symbol, number */
   token_type_other		/* misc. operator */
@@ -752,6 +756,7 @@ struct token_ty
 {
   token_type_ty type;
   char *string;		/* for token_type_string_literal, token_type_symbol */
+  refcounted_string_list_ty *comment;	/* for token_type_string_literal */
   int line_number;
 };
 
@@ -762,19 +767,29 @@ free_token (token_ty *tp)
 {
   if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
     free (tp->string);
+  if (tp->type == token_type_string_literal)
+    drop_reference (tp->comment);
 }
 
 
 /* 4. Combine characters into tokens.  Discard whitespace.  */
 
+static token_ty phase4_pushback[3];
+static int phase4_pushback_length;
+
 static void
-x_php_lex (token_ty *tp)
+phase4_get (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
   int bufpos;
   int c;
 
+  if (phase4_pushback_length)
+    {
+      *tp = phase4_pushback[--phase4_pushback_length];
+      return;
+    }
   tp->string = NULL;
 
   for (;;)
@@ -927,6 +942,7 @@ x_php_lex (token_ty *tp)
 	  buffer[bufpos] = 0;
 	  tp->type = token_type_string_literal;
 	  tp->string = xstrdup (buffer);
+	  tp->comment = add_reference (savable_comment);
 	  return;
 
 	case '"':
@@ -1063,7 +1079,10 @@ x_php_lex (token_ty *tp)
 	    }
 	  buffer[bufpos] = 0;
 	  if (tp->type == token_type_string_literal)
-	    tp->string = xstrdup (buffer);
+	    {
+	      tp->string = xstrdup (buffer);
+	      tp->comment = add_reference (savable_comment);
+	    }
 	  return;
 
 	case '?':
@@ -1075,10 +1094,13 @@ x_php_lex (token_ty *tp)
 		/* ?> and %> terminate PHP mode and switch back to HTML
 		   mode.  */
 		skip_html ();
+		tp->type = token_type_other;
 	      }
 	    else
-	      phase1_ungetc (c2);
-	    tp->type = token_type_other;
+	      {
+		phase1_ungetc (c2);
+		tp->type = (c == '%' ? token_type_operator1 : token_type_other);
+	      }
 	    return;
 	  }
 
@@ -1100,6 +1122,37 @@ x_php_lex (token_ty *tp)
 
 	case ']':
 	  tp->type = token_type_rbracket;
+	  return;
+
+	case '.':
+	  tp->type = token_type_dot;
+	  return;
+
+	case '*':
+	case '/':
+	  tp->type = token_type_operator1;
+	  return;
+
+	case '+':
+	case '-':
+	  {
+	    int c2 = phase1_getc ();
+	    if (c2 == c)
+	      /* ++ or -- */
+	      tp->type = token_type_operator1;
+	    else
+	      /* + or - */
+	      {
+		phase1_ungetc (c2);
+		tp->type = token_type_operator2;
+	      }
+	    return;
+	  }
+
+	case '!':
+	case '~':
+	case '@':
+	  tp->type = token_type_operator2;
 	  return;
 
 	case '<':
@@ -1248,6 +1301,88 @@ x_php_lex (token_ty *tp)
     }
 }
 
+/* Supports 3 tokens of pushback.  */
+static void
+phase4_unget (token_ty *tp)
+{
+  if (tp->type != token_type_eof)
+    {
+      if (phase4_pushback_length == SIZEOF (phase4_pushback))
+	abort ();
+      phase4_pushback[phase4_pushback_length++] = *tp;
+    }
+}
+
+
+/* 5. Compile-time optimization of string literal concatenation.
+   Combine "string1" . ... . "stringN" to the concatenated string if
+     - the token before this expression is none of
+       '+' '-' '.' '*' '/' '%' '!' '~' '++' '--' ')' '@'
+       (because then the first string could be part of an expression with
+       the same or higher precedence as '.', such as an additive,
+       multiplicative, negation, preincrement, or cast expression),
+     - the token after this expression is none of
+       '*' '/' '%' '++' '--'
+       (because then the last string could be part of an expression with
+       higher precedence as '.', such as a multiplicative or postincrement
+       expression).  */
+
+static token_type_ty phase5_last;
+
+static void
+x_php_lex (token_ty *tp)
+{
+  phase4_get (tp);
+  if (tp->type == token_type_string_literal
+      && !(phase5_last == token_type_dot
+	   || phase5_last == token_type_operator1
+	   || phase5_last == token_type_operator2
+	   || phase5_last == token_type_rparen))
+    {
+      char *sum = tp->string;
+      size_t sum_len = strlen (sum);
+
+      for (;;)
+	{
+	  token_ty token2;
+
+	  phase4_get (&token2);
+	  if (token2.type == token_type_dot)
+	    {
+	      token_ty token3;
+
+	      phase4_get (&token3);
+	      if (token3.type == token_type_string_literal)
+		{
+		  token_ty token_after;
+
+		  phase4_get (&token_after);
+		  if (token_after.type != token_type_operator1)
+		    {
+		      char *addend = token3.string;
+		      size_t addend_len = strlen (addend);
+
+		      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
+		      memcpy (sum + sum_len, addend, addend_len + 1);
+		      sum_len += addend_len;
+
+		      phase4_unget (&token_after);
+		      free_token (&token3);
+		      free_token (&token2);
+		      continue;
+		    }
+		  phase4_unget (&token_after);
+		}
+	      phase4_unget (&token3);
+	    }
+	  phase4_unget (&token2);
+	  break;
+	}
+      tp->string = sum;
+    }
+  phase5_last = tp->type;
+}
+
 
 /* ========================= Extracting strings.  ========================== */
 
@@ -1389,17 +1524,21 @@ extract_balanced (message_list_ty *mlp,
 
 	    if (extract_all)
 	      remember_a_message (mlp, NULL, token.string, inner_context,
-				  &pos, savable_comment);
+				  &pos, token.comment);
 	    else
 	      arglist_parser_remember (argparser, arg, token.string,
 				       inner_context,
 				       pos.file_name, pos.line_number,
-				       savable_comment);
+				       token.comment);
+	    drop_reference (token.comment);
 	  }
 	  next_context_iter = null_context_list_iterator;
 	  state = 0;
 	  continue;
 
+	case token_type_dot:
+	case token_type_operator1:
+	case token_type_operator2:
 	case token_type_other:
 	  next_context_iter = null_context_list_iterator;
 	  state = 0;
@@ -1431,6 +1570,8 @@ extract_php (FILE *f,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase5_last = token_type_eof;
 
   flag_context_list_table = flag_table;
 
