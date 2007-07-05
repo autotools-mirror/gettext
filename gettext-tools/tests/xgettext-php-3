@@ -11,7 +11,7 @@ cat <<\EOF > xg-ph-3.php
 /* a */
 /* b */ string = /* c */
 /* d */
-/* e */ _( /* f */ "hello world" /* g */ );
+/* e */ _( /* f */ "hello " /* g */ . /* h */ "world" /* i */ );
 ?>
 EOF
 
