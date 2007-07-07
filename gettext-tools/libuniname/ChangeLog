@@ -1,3 +1,14 @@
+2007-07-07  Bruno Haible  <bruno@clisp.org>
+
+	* uniname.h: Remove file, moved to gnulib.
+	* gen-uninames: Remove file, moved to gnulib as gen-uninames.lisp.
+	* uninames.h: Remove file, moved to gnulib.
+	* uniname.c: Remove file, moved to gnulib.
+	* test-names.sh: Remove file, moved to gnulib as test-uninames.sh.
+	* test-names.c: Remove file, moved to gnulib as test-uninames.c.
+	* UnicodeDataNames.txt: Remove file, moved to gnulib.
+	* Makefile.am: Remove file.
+
 2007-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* test-names.c: Don't include exit.h.
