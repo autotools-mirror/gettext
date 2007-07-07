@@ -165,6 +165,7 @@ if test $skip_gnulib = false; then
       sys_time
       term-styled-ostream
       ucs4-utf8
+      uniname/uniname
       unistd
       unlocked-io
       utf8-ucs4
