@@ -1,6 +1,8 @@
 #!/bin/sh
-# Convenience script for regenerating all aclocal.m4, config.h.in, Makefile.in,
-# configure files with new versions of autoconf or automake.
+# Convenience script for regenerating all autogeneratable files that are
+# omitted from the version control repository. In particular, this script
+# also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
+# with new versions of autoconf or automake.
 #
 # This script requires autoconf-2.60..2.61 and automake-1.10 in the PATH.
 # It also requires either
@@ -24,208 +26,221 @@
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
-# Usage: ./autogen.sh [--quick]
+# Usage: ./autogen.sh [--quick] [--skip-gnulib]
+#
+# Usage after a first-time CVS checkout:     ./autogen.sh
+# Usage after a CVS update:                  ./autogen.sh --quick
+# This uses an up-to-date gnulib checkout.
+#
+# Usage from a released tarball:             ./autogen.sh --quick --skip-gnulib
+# This does not use a gnulib checkout.
 
-if test "x$1" = "x--quick"; then
-  quick=true
-else
-  quick=false
-fi
+quick=false
+skip_gnulib=false
+while :; do
+  case "$1" in
+    --quick) quick=true; shift;;
+    --skip-gnulib) skip_gnulib=true; shift;;
+    *) break ;;
+  esac
+done
 
-if test -z "$GNULIB_TOOL"; then
-  # Check out gnulib in a subdirectory 'gnulib'.
-  GNULIB_CVS_ROOT=':pserver:anonymous@cvs.savannah.gnu.org:/sources/gnulib'
-  GNULIB_CVS_REPOSITORY='gnulib'
-  if test -d gnulib; then
-    (cd gnulib && cvs update -d -P)
-  else
-    cvs -d "$GNULIB_CVS_ROOT" checkout $GNULIB_CVS_REPOSITORY
+if test $skip_gnulib = false; then
+  if test -z "$GNULIB_TOOL"; then
+    # Check out gnulib in a subdirectory 'gnulib'.
+    GNULIB_CVS_ROOT=':pserver:anonymous@cvs.savannah.gnu.org:/sources/gnulib'
+    GNULIB_CVS_REPOSITORY='gnulib'
+    if test -d gnulib; then
+      (cd gnulib && cvs update -d -P)
+    else
+      cvs -d "$GNULIB_CVS_ROOT" checkout $GNULIB_CVS_REPOSITORY
+    fi
+    # Now it should contain a gnulib-tool.
+    if test -f gnulib/gnulib-tool; then
+      GNULIB_TOOL=`pwd`/gnulib/gnulib-tool
+    else
+      echo "** warning: gnulib-tool not found" 1>&2
+    fi
   fi
-  # Now it should contain a gnulib-tool.
-  if test -f gnulib/gnulib-tool; then
-    GNULIB_TOOL=`pwd`/gnulib/gnulib-tool
-  else
-    echo "** warning: gnulib-tool not found" 1>&2
+  # Skip the gnulib-tool step if gnulib-tool was not found.
+  if test -n "$GNULIB_TOOL"; then
+    # In gettext-runtime:
+    if test -f gettext-runtime/gnulib-m4/gnulib-cache.m4; then
+      mv -f gettext-runtime/gnulib-m4/gnulib-cache.m4 gettext-runtime/gnulib-m4/gnulib-cache.m4~
+    fi
+    GNULIB_MODULES_RUNTIME_FOR_SRC='
+      atexit
+      basename
+      closeout
+      error
+      exit
+      getopt
+      gettext-h
+      memmove
+      progname
+      propername
+      relocatable-prog
+      stdbool
+      strtoul
+      unlocked-io
+      xalloc
+    '
+    GNULIB_MODULES_RUNTIME_OTHER='
+      gettext-runtime-misc
+      csharpcomp-script
+      java
+      javacomp-script
+    '
+    $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
+      --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
+    # In gettext-tools:
+    if test -f gettext-tools/gnulib-m4/gnulib-cache.m4; then
+      mv -f gettext-tools/gnulib-m4/gnulib-cache.m4 gettext-tools/gnulib-m4/gnulib-cache.m4~
+    fi
+    GNULIB_MODULES_TOOLS_FOR_SRC='
+      alloca-opt
+      atexit
+      backupfile
+      basename
+      binary-io
+      bison-i18n
+      byteswap
+      c-ctype
+      c-strcase
+      c-strcasestr
+      c-strstr
+      clean-temp
+      closeout
+      copy-file
+      csharpcomp
+      csharpexec
+      error
+      error-progname
+      execute
+      exit
+      fd-ostream
+      file-ostream
+      filename
+      findprog
+      fnmatch-posix
+      fstrcmp
+      full-write
+      fwriteerror
+      gcd
+      getline
+      getopt
+      gettext-h
+      hash
+      html-styled-ostream
+      iconv
+      javacomp
+      javaexec
+      linebreak
+      localcharset
+      locale
+      localename
+      lock
+      memmove
+      memset
+      minmax
+      obstack
+      openmp
+      ostream
+      pipe
+      progname
+      propername
+      relocatable-prog
+      relocatable-script
+      sh-quote
+      stdbool
+      stpcpy
+      stpncpy
+      strcspn
+      xstriconv
+      strpbrk
+      strtol
+      strtoul
+      styled-ostream
+      sys_stat
+      sys_time
+      term-styled-ostream
+      ucs4-utf8
+      unistd
+      unlocked-io
+      utf8-ucs4
+      utf16-ucs4
+      vasprintf
+      wait-process
+      xalloc
+      xmalloca
+      xerror
+      xsetenv
+      xstriconv
+      xvasprintf
+    '
+    # Not yet used. Add some files to gettext-tools-misc instead.
+    GNULIB_MODULES_TOOLS_FOR_LIBGREP='
+      error
+      exitfail
+      gettext-h
+      hard-locale
+      obstack
+      regex
+      stdbool
+      xalloc
+    '
+    GNULIB_MODULES_TOOLS_OTHER='
+      gettext-tools-misc
+      gcj
+      java
+      stdint
+    '
+    $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+      --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
+    # In gettext-tools/libgettextpo:
+    if test -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4; then
+      mv -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4 gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4~
+    fi
+    # This is a subset of the GNULIB_MODULES_FOR_SRC.
+    GNULIB_MODULES_LIBGETTEXTPO='
+      basename
+      c-ctype
+      c-strcase
+      c-strstr
+      error
+      error-progname
+      exit
+      file-ostream
+      filename
+      fstrcmp
+      fwriteerror
+      gcd
+      getline
+      gettext-h
+      hash
+      iconv
+      linebreak
+      minmax
+      ostream
+      progname
+      relocatable-lib
+      stdbool
+      ucs4-utf8
+      unlocked-io
+      utf8-ucs4
+      utf16-ucs4
+      vasprintf
+      xalloc
+      xmalloca
+      xerror
+      xstriconv
+      xvasprintf
+    '
+    GNULIB_MODULES_LIBGETTEXTPO_OTHER='
+    '
+    $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+      --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER
   fi
-fi
-# Skip the gnulib-tool step if gnulib-tool was not found.
-if test -n "$GNULIB_TOOL"; then
-  # In gettext-runtime:
-  if test -f gettext-runtime/gnulib-m4/gnulib-cache.m4; then
-    mv -f gettext-runtime/gnulib-m4/gnulib-cache.m4 gettext-runtime/gnulib-m4/gnulib-cache.m4~
-  fi
-  GNULIB_MODULES_RUNTIME_FOR_SRC='
-  atexit
-  basename
-  closeout
-  error
-  exit
-  getopt
-  gettext-h
-  memmove
-  progname
-  propername
-  relocatable-prog
-  stdbool
-  strtoul
-  unlocked-io
-  xalloc
-  '
-  GNULIB_MODULES_RUNTIME_OTHER='
-  gettext-runtime-misc
-  csharpcomp-script
-  java
-  javacomp-script
-  '
-  $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
-    --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
-  # In gettext-tools:
-  if test -f gettext-tools/gnulib-m4/gnulib-cache.m4; then
-    mv -f gettext-tools/gnulib-m4/gnulib-cache.m4 gettext-tools/gnulib-m4/gnulib-cache.m4~
-  fi
-  GNULIB_MODULES_TOOLS_FOR_SRC='
-  alloca-opt
-  atexit
-  backupfile
-  basename
-  binary-io
-  bison-i18n
-  byteswap
-  c-ctype
-  c-strcase
-  c-strcasestr
-  c-strstr
-  clean-temp
-  closeout
-  copy-file
-  csharpcomp
-  csharpexec
-  error
-  error-progname
-  execute
-  exit
-  fd-ostream
-  file-ostream
-  filename
-  findprog
-  fnmatch-posix
-  fstrcmp
-  full-write
-  fwriteerror
-  gcd
-  getline
-  getopt
-  gettext-h
-  hash
-  html-styled-ostream
-  iconv
-  javacomp
-  javaexec
-  linebreak
-  localcharset
-  locale
-  localename
-  lock
-  memmove
-  memset
-  minmax
-  obstack
-  openmp
-  ostream
-  pipe
-  progname
-  propername
-  relocatable-prog
-  relocatable-script
-  sh-quote
-  stdbool
-  stpcpy
-  stpncpy
-  strcspn
-  xstriconv
-  strpbrk
-  strtol
-  strtoul
-  styled-ostream
-  sys_stat
-  sys_time
-  term-styled-ostream
-  ucs4-utf8
-  unistd
-  unlocked-io
-  utf8-ucs4
-  utf16-ucs4
-  vasprintf
-  wait-process
-  xalloc
-  xmalloca
-  xerror
-  xsetenv
-  xstriconv
-  xvasprintf
-  '
-  # Not yet used. Add some files to gettext-tools-misc instead.
-  GNULIB_MODULES_TOOLS_FOR_LIBGREP='
-  error
-  exitfail
-  gettext-h
-  hard-locale
-  obstack
-  regex
-  stdbool
-  xalloc
-  '
-  GNULIB_MODULES_TOOLS_OTHER='
-  gettext-tools-misc
-  gcj
-  java
-  stdint
-  '
-  $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-    --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
-  # In gettext-tools/libgettextpo:
-  if test -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4; then
-    mv -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4 gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4~
-  fi
-  # This is a subset of the GNULIB_MODULES_FOR_SRC.
-  GNULIB_MODULES_LIBGETTEXTPO='
-  basename
-  c-ctype
-  c-strcase
-  c-strstr
-  error
-  error-progname
-  exit
-  file-ostream
-  filename
-  fstrcmp
-  fwriteerror
-  gcd
-  getline
-  gettext-h
-  hash
-  iconv
-  linebreak
-  minmax
-  ostream
-  progname
-  relocatable-lib
-  stdbool
-  ucs4-utf8
-  unlocked-io
-  utf8-ucs4
-  utf16-ucs4
-  vasprintf
-  xalloc
-  xmalloca
-  xerror
-  xstriconv
-  xvasprintf
-  '
-  GNULIB_MODULES_LIBGETTEXTPO_OTHER='
-  '
-  $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-    --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER
 fi
 
 (cd autoconf-lib-link
