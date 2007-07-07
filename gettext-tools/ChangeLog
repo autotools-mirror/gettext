@@ -1,5 +1,6 @@
 2007-07-07  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Don't create libuniname/Makefile.
 	* Makefile.am (SUBDIRS): Remove libuniname.
 
 2007-05-28  Bruno Haible  <bruno@clisp.org>

@@ -1,3 +1,9 @@
+2007-07-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (AM_CPPFLAGS): Remove reference to libuniname directory.
+	(LIBUNINAME): Remove variable.
+	(xgettext_LDADD): Update.
+
 2007-07-04  Bruno Haible  <bruno@clisp.org>
 
 	Recognize the PHP string concatenation operator.

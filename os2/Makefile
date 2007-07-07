@@ -115,13 +115,6 @@ LIB.SOURCES = $(addprefix $(ROOT)lib/, error.c stpcpy.c stpncpy.c mkdtemp.c getl
   $(shell sed $(ROOT)lib/Makefile.am -ne "/^libgettextlib_la_SOURCES =/,/[^\]$$/p"))))))
 LIB.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(LIB.SOURCES:.c=.o)))
 
-LIBUNINAME.SOURCES = $(addprefix $(ROOT)libuniname/, \
-  $(subst libuniname_a_SOURCES = ,,\
-  $(subst \,,\
-  $(patsubst %.h,,\
-  $(shell sed $(ROOT)libuniname/Makefile.am -ne "/^libuniname_a_SOURCES =/,/^$$/p")))))
-LIBUNINAME.OBJECTS = $(addprefix $(OUT),$(subst $(ROOT),,$(LIBUNINAME.SOURCES:.c=.o)))
-
 OUTDIRS = $(OUT) $(sort $(dir $(INTL.OBJECTS) $(SRC.OBJECTS) $(LIB.OBJECTS) \
   $(LIBUNINAME.OBJECTS) $(INSTALL.FILES)))
 

@@ -66,7 +66,6 @@ AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. -I$(top_srcdir) \
   -I$(top_srcdir)/libgrep \
-  -I$(top_srcdir)/libuniname \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
@@ -127,9 +126,6 @@ $(FORMAT_SOURCE)
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
-
-# x-python needs table of Unicode character names.
-LIBUNINAME = ../libuniname/libuniname.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
@@ -244,7 +240,7 @@ msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD) $(OPENMP_CFLAGS)
 msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
-xgettext_LDADD = $(LIBUNINAME) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@ $(WOE32_LDADD)
+xgettext_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@ $(WOE32_LDADD)
 msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)

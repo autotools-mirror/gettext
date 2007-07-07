@@ -362,9 +362,6 @@ AC_CONFIG_FILES([gnulib-lib/Makefile],
 AC_CONFIG_FILES([libgrep/Makefile],
                 [FIX_MAKEFILE_COMPILE])
 
-AC_CONFIG_FILES([libuniname/Makefile],
-                [FIX_MAKEFILE_COMPILE])
-
 AC_CONFIG_FILES([src/Makefile],
                 [FIX_MAKEFILE_COMPILE])
 AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
