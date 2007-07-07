@@ -47,7 +47,7 @@ INST = emx/
 # Tools
 CC = gcc -c
 CFLAGS = -Wall -Zmt $(INCLUDE) $(DEFS)
-INCLUDE = -I. -I$(ROOT) -I$(ROOT)intl -I$(ROOT)src -I$(ROOT)lib -I$(ROOT)libuniname
+INCLUDE = -I. -I$(ROOT) -I$(ROOT)intl -I$(ROOT)src -I$(ROOT)lib
 DEFS = -DHAVE_CONFIG_H -DLIBDIR=\"/usr/lib\" \
   -DLOCALEDIR=\"/usr/share/locale\" -DLOCALE_ALIAS_PATH=\"/usr/share/locale\" \
   -DGETTEXTDATADIR=\"/usr/share/gettext\" \
