@@ -13,7 +13,7 @@ The following packages should be installed before GNU gettext is installed:
     http://ftp.gnu.org/gnu/libiconv/
     ftp://ftp.gnu.org/gnu/libiconv/
   + If it is installed in a nonstandard directory, pass the option
-    --with-libintl-prefix=DIR to 'configure'.
+    --with-libiconv-prefix=DIR to 'configure'.
 
 * GNU ncurses (preferred)
   or libtermcap (discouraged) or a curses library (legacy).
