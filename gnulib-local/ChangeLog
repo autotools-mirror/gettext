@@ -1,3 +1,11 @@
+2007-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* modules/fstrcmp: Remove file, moved to gnulib.
+	* lib/fstrcmp.h: Remove file, moved to gnulib.
+	* lib/fstrcmp.c: Remove file, moved to gnulib.
+	* lib/diffseq.h: Remove file, moved to gnulib.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
 2007-07-01  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/moopp (func_version): Use the standard --version output,
