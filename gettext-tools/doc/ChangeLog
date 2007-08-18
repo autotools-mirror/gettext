@@ -1,3 +1,9 @@
+2007-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Why): Don't oppose commercial software to free
+	software.
+	Reported by Kaloian Doganov <kaloian@doganov.org>.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi: Fix English typo.

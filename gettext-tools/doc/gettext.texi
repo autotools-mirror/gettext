@@ -529,7 +529,7 @@ Please include the manual's edition number and update date in your messages.
 
 Usually, programs are written and documented in English, and use
 English at execution time to interact with users.  This is true
-not only of GNU software, but also of a great deal of commercial
+not only of GNU software, but also of a great deal of proprietary
 and free software.  Using a common language is quite handy for
 communication between developers, maintainers and users from all
 countries.  On the other hand, most people are less comfortable with
