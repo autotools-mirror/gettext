@@ -1018,8 +1018,12 @@ but the Java ResourceBundle format doesn't support contexts\n")));
   if (compile_java_class (java_sources, 1, NULL, 0, "1.3", "1.1", directory,
 			  true, false, true, verbose))
     {
-      error (0, 0, _("\
+      if (!verbose)
+	error (0, 0, _("\
 compilation of Java class failed, please try --verbose or set $JAVAC"));
+      else
+	error (0, 0, _("\
+compilation of Java class failed, please try to set $JAVAC"));
       goto quit3;
     }
 

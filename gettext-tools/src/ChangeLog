@@ -1,3 +1,10 @@
+2007-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* write-csharp.c (msgdomain_write_csharp): Don't recommend to use
+	--verbose if it is already in use.
+	* write-java.c (msgdomain_write_java): Likewise.
+	Reported by Karsten Kousgaard <karsten@f-kousgaard.dk>.
+
 2007-07-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AM_CPPFLAGS): Remove reference to libuniname directory.

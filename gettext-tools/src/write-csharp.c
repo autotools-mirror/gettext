@@ -737,7 +737,10 @@ but the C# .dll format doesn't support contexts\n")));
   if (compile_csharp_class (csharp_sources, 1, libdirs, 1, libraries, 1,
 			    output_file, true, false, verbose))
     {
-      error (0, 0, _("compilation of C# class failed, please try --verbose"));
+      if (!verbose)
+	error (0, 0, _("compilation of C# class failed, please try --verbose"));
+      else
+	error (0, 0, _("compilation of C# class failed"));
       goto quit3;
     }
 
