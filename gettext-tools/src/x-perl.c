@@ -39,7 +39,6 @@
 #include "po-charset.h"
 #include "unistr.h"
 #include "uniname.h"
-#include "getline.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)

@@ -29,7 +29,6 @@
 
 #include "str-list.h"
 #include "error.h"
-#include "getline.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */

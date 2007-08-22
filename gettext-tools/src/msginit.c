@@ -81,7 +81,6 @@
 #include "plural-count.h"
 #include "pipe.h"
 #include "wait-process.h"
-#include "getline.h"
 #include "xsetenv.h"
 #include "str-list.h"
 #include "propername.h"

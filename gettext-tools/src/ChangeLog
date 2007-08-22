@@ -1,3 +1,28 @@
+2007-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* file-list.c: Don't include getline.h.
+	* format-awk.c: Likewise.
+	* format-boost.c: Likewise.
+	* format-c.c: Likewise.
+	* format-csharp.c: Likewise.
+	* format-elisp.c: Likewise.
+	* format-gcc-internal.c: Likewise.
+	* format-java.c: Likewise.
+	* format-librep.c: Likewise.
+	* format-lisp.c: Likewise.
+	* format-pascal.c: Likewise.
+	* format-perl-brace.c: Likewise.
+	* format-perl.c: Likewise.
+	* format-php.c: Likewise.
+	* format-python.c: Likewise.
+	* format-qt.c: Likewise.
+	* format-scheme.c: Likewise.
+	* format-sh.c: Likewise.
+	* format-tcl.c: Likewise.
+	* format-ycp.c: Likewise.
+	* msginit.c: Likewise.
+	* x-perl.c: Likewise.
+
 2007-08-18  Bruno Haible  <bruno@clisp.org>
 
 	* write-csharp.c (msgdomain_write_csharp): Don't recommend to use

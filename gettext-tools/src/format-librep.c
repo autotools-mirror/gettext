@@ -1,5 +1,5 @@
 /* librep format strings.
-   Copyright (C) 2001-2004, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software; you can redistribute it and/or modify
@@ -372,7 +372,6 @@ struct formatstring_parser formatstring_librep =
    format_parse for strings read from standard input.  */
 
 #include <stdio.h>
-#include "getline.h"
 
 static void
 format_print (void *descr)

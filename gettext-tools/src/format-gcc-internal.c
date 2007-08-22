@@ -698,7 +698,6 @@ struct formatstring_parser formatstring_gcc_internal =
    format_parse for strings read from standard input.  */
 
 #include <stdio.h>
-#include "getline.h"
 
 static void
 format_print (void *descr)
