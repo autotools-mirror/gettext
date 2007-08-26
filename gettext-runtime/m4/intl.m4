@@ -1,4 +1,4 @@
-# intl.m4 serial 5 (gettext-0.16.2)
+# intl.m4 serial 6 (gettext-0.16.2)
 dnl Copyright (C) 1995-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -209,7 +209,9 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
     [AC_TRY_LINK([#include <langinfo.h>
 #include <locale.h>],
-      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));],
+      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));
+       return !cs;
+      ],
       gt_cv_nl_locale_name=yes,
       gt_cv_nl_locale_name=no)
     ])

@@ -1,3 +1,9 @@
+2007-08-26  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (gl_INTL_SUBDIR_CORE): Avoid an "unused variable" warning
+	in the _NL_LOCALE_NAME test.
+	Mentioned by Marti Raudsepp <marti@juffo.org>.
+
 2007-06-07  Bruno Haible  <bruno@clisp.org>
 
 	* intlmacosx.m4: New file, extracted from gettext.m4.
