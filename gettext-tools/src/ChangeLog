@@ -1,3 +1,9 @@
+2007-08-27  Bruno Haible  <bruno@clisp.org>
+
+	* x-python.c (phase7_getuc): Interpret octal and hexadecimal escapes
+	as Unicode code points inside Unicode strings.
+	Reported and patch by Jakub Wilk <ubanus@users.sf.net>.
+
 2007-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* file-list.c: Don't include getline.h.

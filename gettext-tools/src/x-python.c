@@ -1002,7 +1002,8 @@ struct token_ty
     u"abc"    \<nl> \\ \' \" \a\b\f\n\r\t\v \ooo \xnn \unnnn \Unnnnnnnn \N{...}
     ur"abc"                                           \unnnn
    The \unnnn values are UTF-16 values; a single \Unnnnnnnn can expand to two
-   \unnnn items.  The \ooo and \xnn values are in the current source encoding.
+   \unnnn items.  The \ooo and \xnn values are in the current source encoding
+   for byte strings, and Unicode code points for Unicode strings.
  */
 
 static int
@@ -1140,7 +1141,10 @@ phase7_getuc (int quote_char,
 		    phase2_ungetc (c);
 		}
 	      *backslash_counter = 0;
-	      return (unsigned char) n;
+	      if (interpret_unicode)
+		return UNICODE (n);
+	      else
+		return (unsigned char) n;
 	    }
 	  case 'x':
 	    {
@@ -1172,8 +1176,12 @@ phase7_getuc (int quote_char,
 
 		  if (n2 >= 0)
 		    {
+		      int n = (n1 << 4) + n2;
 		      *backslash_counter = 0;
-		      return (unsigned char) ((n1 << 4) + n2);
+		      if (interpret_unicode)
+			return UNICODE (n);
+		      else
+			return (unsigned char) n;
 		    }
 
 		  phase2_ungetc (c2);
