@@ -285,7 +285,12 @@ libintl_asprintf (char **resultp, const char *format, ...)
 
 #define WIDE_CHAR_VERSION 1
 
+#include "wprintf-parse.h"
 /* Define auxiliary functions declared in "wprintf-parse.h".  */
+#define CHAR_T wchar_t
+#define DIRECTIVE wchar_t_directive
+#define DIRECTIVES wchar_t_directives
+#define PRINTF_PARSE wprintf_parse
 #include "printf-parse.c"
 
 /* Define functions declared in "vasnprintf.h".  */
