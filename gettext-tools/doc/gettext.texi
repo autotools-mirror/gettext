@@ -9651,7 +9651,8 @@ java, java2
 _("abc")
 
 @item gettext/ngettext functions
-@code{GettextResource.gettext}, @code{GettextResource.ngettext}
+@code{GettextResource.gettext}, @code{GettextResource.ngettext},
+@code{GettextResource.pgettext}, @code{GettextResource.npgettext}
 
 @item textdomain
 ---, use @code{ResourceBundle.getResource} instead
@@ -9729,16 +9730,15 @@ a PO file with plural handling.
 @item
 The @code{gnu.gettext.GettextResource} API.
 
-Reference documentation in Javadoc 1.1 style format
-is in the @uref{javadoc1/tree.html,javadoc1 directory} and
-in Javadoc 2 style format
-in the @uref{javadoc2/index.html,javadoc2 directory}.
+Reference documentation in Javadoc 1.1 style format is in the
+@uref{javadoc2/index.html,javadoc2 directory}.
 
 Its @code{gettext} function returns a string translation.  Note that when
 a translation is missing, the @var{msgid} argument is returned unchanged.
 
 This has the advantage of having the @code{ngettext} function for plural
-handling.
+handling and the @code{pgettext} and @code{npgettext} for strings constraint
+to a particular context.
 
 @cindex @code{libintl} for Java
 To use this API, one needs the @code{libintl.jar} file which is part of

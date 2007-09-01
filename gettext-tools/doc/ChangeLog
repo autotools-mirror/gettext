@@ -1,3 +1,10 @@
+2007-09-01  Bruno Haible  <bruno@clisp.org>
+
+	Implement msgctxt for Java ResourceBundles.
+	* gettext.texi (Java): Mention pgettext and npgettext.
+	* xgettext.texi (--keyword): Update defaults for Java.
+	Suggested by Felix Berger.
+
 2007-08-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Why): Don't oppose commercial software to free

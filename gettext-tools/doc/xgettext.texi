@@ -218,8 +218,9 @@ For Scheme: @code{gettext}, @code{ngettext:1,2}, @code{gettext-noop}.
 
 @item
 For Java: @code{GettextResource.gettext:2},
-@code{GettextResource.ngettext:2,3}, @code{gettext}, @code{ngettext:1,2},
-@code{getString}.
+@code{GettextResource.ngettext:2,3}, @code{GettextResource.pgettext:2c,3},
+@code{GettextResource.npgettext:2c,3,4}, @code{gettext}, @code{ngettext:1,2},
+@code{pgettext:1c,2}, @code{npgettext:1c,2,3}, @code{getString}.
 
 @item
 For C#: @code{GetString}, @code{GetPluralString:1,2}.
