@@ -156,7 +156,6 @@ if test $skip_gnulib = false; then
       stpcpy
       stpncpy
       strcspn
-      xstriconv
       strpbrk
       strtol
       strtoul
@@ -167,6 +166,7 @@ if test $skip_gnulib = false; then
       ucs4-utf8
       uniname/uniname
       unistd
+      uniwidth/width
       unlocked-io
       utf8-ucs4
       utf16-ucs4
@@ -227,6 +227,7 @@ if test $skip_gnulib = false; then
       relocatable-lib
       stdbool
       ucs4-utf8
+      uniwidth/width
       unlocked-io
       utf8-ucs4
       utf16-ucs4
