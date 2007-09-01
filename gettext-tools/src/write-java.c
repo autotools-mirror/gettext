@@ -399,7 +399,7 @@ write_java_string (FILE *stream, const char *str)
 }
 
 
-/* Write a (msgctxt, msgid pair) as a string in Java Unicode notation to the
+/* Write a (msgctxt, msgid) pair as a string in Java Unicode notation to the
    given stream.  */
 static void
 write_java_msgid (FILE *stream, message_ty *mp)
