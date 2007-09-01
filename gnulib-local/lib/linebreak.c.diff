@@ -1,30 +1,8 @@
-*** linebreak.c.orig	2007-05-13 18:54:06.000000000 +0200
---- linebreak.c	2007-05-13 18:54:20.000000000 +0200
+*** linebreak.c.orig	2007-09-01 17:41:07.000000000 +0200
+--- linebreak.c	2007-09-01 17:41:26.000000000 +0200
 ***************
-*** 455,460 ****
---- 455,462 ----
-  }
-  
-  
-+ #ifdef unused
-+ 
-  /* Determine number of column positions required for first N units
-     (or fewer if S ends before this) in S.  */
-  
-***************
-*** 528,533 ****
---- 530,537 ----
-    return width;
-  }
-  
-+ #endif
-+ 
-  
-  /* Determine the line break points in S, and store the result at p[0..n-1].  */
-  /* We don't support line breaking of complex-context dependent characters
-***************
-*** 736,741 ****
---- 740,747 ----
+*** 247,252 ****
+--- 247,254 ----
       }
   }
   
@@ -34,8 +12,8 @@
   u16_possible_linebreaks (const unsigned short *s, size_t n, const char *encoding, char *p)
   {
 ***************
-*** 956,961 ****
---- 962,969 ----
+*** 467,472 ****
+--- 469,476 ----
       }
   }
   
@@ -45,8 +23,8 @@
   /* Choose the best line breaks, assuming the uc_width function.
      Return the column after the end of the string.  */
 ***************
-*** 1044,1049 ****
---- 1052,1059 ----
+*** 555,560 ****
+--- 559,566 ----
     return last_column + piece_width;
   }
   
@@ -56,8 +34,8 @@
   u16_width_linebreaks (const unsigned short *s, size_t n,
                         int width, int start_column, int at_end_columns,
 ***************
-*** 1211,1216 ****
---- 1221,1228 ----
+*** 722,727 ****
+--- 728,735 ----
     return last_column + piece_width;
   }
   
@@ -67,8 +45,8 @@
   #ifdef TEST1
   
 ***************
-*** 1476,1481 ****
---- 1488,1495 ----
+*** 987,992 ****
+--- 995,1002 ----
   
   #endif /* C_CTYPE_ASCII */
   
@@ -78,8 +56,8 @@
   mbs_possible_linebreaks (const char *s, size_t n, const char *encoding,
                            char *p)
 ***************
-*** 1569,1574 ****
---- 1583,1590 ----
+*** 1080,1085 ****
+--- 1090,1097 ----
       }
   }
   
