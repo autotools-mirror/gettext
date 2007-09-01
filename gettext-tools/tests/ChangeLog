@@ -1,3 +1,12 @@
+2007-09-01  Bruno Haible  <bruno@clisp.org>
+
+	Implement msgctxt for Java ResourceBundles.
+	* xgettext-java-7: New file.
+	* msgunfmt-java-1: Add a few messages with context.
+	* lang-java: Likewise.
+	* Makefile.am (TESTS): Add xgettext-java-7.
+	Suggested by Felix Berger.
+
 2007-07-04  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-php-3: Use string concatenation in the test.
