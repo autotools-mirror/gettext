@@ -136,6 +136,34 @@ string_hashcode (const char *str)
 }
 
 
+/* Return the Java hash code of a (msgctxt, msgid) pair mod 2^31.  */
+static unsigned int
+msgid_hashcode (const char *msgctxt, const char *msgid)
+{
+  if (msgctxt == NULL)
+    return string_hashcode (msgid);
+  else
+    {
+      size_t msgctxt_len = strlen (msgctxt);
+      size_t msgid_len = strlen (msgid);
+      size_t combined_len = msgctxt_len + 1 + msgid_len;
+      char *combined;
+      unsigned int result;
+
+      combined = (char *) xmalloca (combined_len);
+      memcpy (combined, msgctxt, msgctxt_len);
+      combined[msgctxt_len] = MSGCTXT_SEPARATOR;
+      memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);
+
+      result = string_hashcode (combined);
+
+      freea (combined);
+
+      return result;
+    }
+}
+
+
 /* Compute a good hash table size for the given set of msgids.  */
 static unsigned int
 compute_hashsize (message_list_ty *mlp, bool *collisionp)
@@ -153,7 +181,7 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
   size_t j;
 
   for (j = 0; j < n; j++)
-    hashcodes[j] = string_hashcode (mlp->item[j]->msgid);
+    hashcodes[j] = msgid_hashcode (mlp->item[j]->msgctxt, mlp->item[j]->msgid);
 
   /* Try all numbers between n and 3*n.  The score depends on the size of the
      table -- the smaller the better -- and the number of collision lookups,
@@ -295,7 +323,8 @@ compute_table_items (message_list_ty *mlp, unsigned int hashsize)
 
   for (j = 0; j < n; j++)
     {
-      unsigned int hashcode = string_hashcode (mlp->item[j]->msgid);
+      unsigned int hashcode =
+	msgid_hashcode (mlp->item[j]->msgctxt, mlp->item[j]->msgid);
       unsigned int idx = hashcode % hashsize;
 
       if (bitmap[idx] != 0)
@@ -367,6 +396,35 @@ write_java_string (FILE *stream, const char *str)
 	}
     }
   fprintf (stream, "\"");
+}
+
+
+/* Write a (msgctxt, msgid pair) as a string in Java Unicode notation to the
+   given stream.  */
+static void
+write_java_msgid (FILE *stream, message_ty *mp)
+{
+  const char *msgctxt = mp->msgctxt;
+  const char *msgid = mp->msgid;
+
+  if (msgctxt == NULL)
+    write_java_string (stream, msgid);
+  else
+    {
+      size_t msgctxt_len = strlen (msgctxt);
+      size_t msgid_len = strlen (msgid);
+      size_t combined_len = msgctxt_len + 1 + msgid_len;
+      char *combined;
+
+      combined = (char *) xmalloca (combined_len);
+      memcpy (combined, msgctxt, msgctxt_len);
+      combined[msgctxt_len] = MSGCTXT_SEPARATOR;
+      memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);
+
+      write_java_string (stream, combined);
+
+      freea (combined);
+    }
 }
 
 
@@ -714,7 +772,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
 	  struct table_item *ti = &table_items[j];
 
 	  fprintf (stream, "    t[%d] = ", 2 * ti->index);
-	  write_java_string (stream, ti->mp->msgid);
+	  write_java_msgid (stream, ti->mp);
 	  fprintf (stream, ";\n");
 	  fprintf (stream, "    t[%d] = ", 2 * ti->index + 1);
 	  write_java_msgstr (stream, ti->mp);
@@ -797,7 +855,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       for (j = 0; j < mlp->nitems; j++)
 	{
 	  fprintf (stream, "    t.put(");
-	  write_java_string (stream, mlp->item[j]->msgid);
+	  write_java_msgid (stream, mlp->item[j]);
 	  fprintf (stream, ",");
 	  write_java_msgstr (stream, mlp->item[j]);
 	  fprintf (stream, ");\n");
@@ -814,7 +872,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
 	    if (mlp->item[j]->msgid_plural != NULL)
 	      {
 		fprintf (stream, "    p.put(");
-		write_java_string (stream, mlp->item[j]->msgid);
+		write_java_msgid (stream, mlp->item[j]);
 		fprintf (stream, ",");
 		write_java_string (stream, mlp->item[j]->msgid_plural);
 		fprintf (stream, ");\n");
@@ -896,25 +954,6 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
   /* If no entry for this resource/domain, don't even create the file.  */
   if (mlp->nitems == 0)
     return 0;
-
-  /* Determine whether mlp has entries with context.  */
-  {
-    bool has_context;
-    size_t j;
-
-    has_context = false;
-    for (j = 0; j < mlp->nitems; j++)
-      if (mlp->item[j]->msgctxt != NULL)
-	has_context = true;
-    if (has_context)
-      {
-	multiline_error (xstrdup (""),
-			 xstrdup (_("\
-message catalog has context dependent translations\n\
-but the Java ResourceBundle format doesn't support contexts\n")));
-	return 1;
-      }
-  }
 
   retval = 1;
 

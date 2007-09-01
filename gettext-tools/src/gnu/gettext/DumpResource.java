@@ -1,5 +1,5 @@
 /* GNU gettext for Java
- * Copyright (C) 2001-2003 Free Software Foundation, Inc.
+ * Copyright (C) 2001-2003, 2007 Free Software Foundation, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +53,12 @@ public class DumpResource {
     out.write('"');
   }
   private void dumpMessage (String msgid, String msgid_plural, Object msgstr) throws IOException {
+    int separatorPos = msgid.indexOf('\u0004');
+    if (separatorPos >= 0) {
+      String msgctxt = msgid.substring(0,separatorPos);
+      msgid = msgid.substring(separatorPos+1);
+      out.write("msgctxt "); dumpString(msgctxt);
+    }
     out.write("msgid "); dumpString(msgid); out.write('\n');
     if (msgid_plural != null) {
       out.write("msgid_plural "); dumpString(msgid_plural); out.write('\n');

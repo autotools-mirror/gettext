@@ -100,10 +100,14 @@ init_keywords ()
     {
       /* When adding new keywords here, also update the documentation in
 	 xgettext.texi!  */
-      x_java_keyword ("GettextResource.gettext:2");	/* static method */
-      x_java_keyword ("GettextResource.ngettext:2,3");	/* static method */
+      x_java_keyword ("GettextResource.gettext:2");        /* static method */
+      x_java_keyword ("GettextResource.ngettext:2,3");     /* static method */
+      x_java_keyword ("GettextResource.pgettext:2c,3");    /* static method */
+      x_java_keyword ("GettextResource.npgettext:2c,3,4"); /* static method */
       x_java_keyword ("gettext");
       x_java_keyword ("ngettext:1,2");
+      x_java_keyword ("pgettext:1c,2");
+      x_java_keyword ("npgettext:1c,2,3");
       x_java_keyword ("getString");	/* ResourceBundle.getString */
       default_keywords = false;
     }
@@ -115,9 +119,15 @@ init_flag_table_java ()
   xgettext_record_flag ("GettextResource.gettext:2:pass-java-format");
   xgettext_record_flag ("GettextResource.ngettext:2:pass-java-format");
   xgettext_record_flag ("GettextResource.ngettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.pgettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.npgettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.npgettext:4:pass-java-format");
   xgettext_record_flag ("gettext:1:pass-java-format");
   xgettext_record_flag ("ngettext:1:pass-java-format");
   xgettext_record_flag ("ngettext:2:pass-java-format");
+  xgettext_record_flag ("pgettext:2:pass-java-format");
+  xgettext_record_flag ("npgettext:2:pass-java-format");
+  xgettext_record_flag ("npgettext:3:pass-java-format");
   xgettext_record_flag ("getString:1:pass-java-format");
   xgettext_record_flag ("MessageFormat:1:java-format");
   xgettext_record_flag ("MessageFormat.format:1:java-format");
