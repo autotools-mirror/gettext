@@ -1,3 +1,13 @@
+2007-09-01  Bruno Haible  <bruno@clisp.org>
+
+	Implement msgctxt for Java ResourceBundles.
+	* gnu/gettext/GettextResource.java (gettextnull): New method.
+	(gettext): Use it.
+	(ngettextnull): New method, extracted from ngettext.
+	(ngettext): Use it.
+	(pgettext, npgettext): New methods.
+	Suggested by Felix Berger.
+
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (javadoc2/index.html): Pass the package name to javadoc.
