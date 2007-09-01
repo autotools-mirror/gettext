@@ -45,8 +45,6 @@ lib/file-ostream.oo.c \
 lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
 lib/fnmatch_loop.c.diff \
-lib/fstrcmp.c \
-lib/fstrcmp.h \
 lib/gen-lbrkprop.c \
 lib/getopt_.h.diff \
 lib/gettext.h \
@@ -274,7 +272,6 @@ modules/exitfail.diff \
 modules/fd-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
-modules/fstrcmp \
 modules/gcj \
 modules/gen-lbrkprop \
 modules/gettext-runtime-misc \
