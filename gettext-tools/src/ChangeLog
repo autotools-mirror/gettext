@@ -1,3 +1,7 @@
+2007-09-01  Bruno Haible  <bruno@clisp.org>
+
+	* po-lex.c: Include uniwidth.h.
+
 2007-06-19  Bruno Haible  <bruno@clisp.org>
 
 	* x-c.c (phase8_get): Call free_token, so that the reference to

@@ -39,6 +39,7 @@
 
 #include "c-ctype.h"
 #include "linebreak.h"
+#include "uniwidth.h"
 #include "gettext.h"
 #include "po-charset.h"
 #include "xalloc.h"
