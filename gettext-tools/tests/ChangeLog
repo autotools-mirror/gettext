@@ -1,3 +1,9 @@
+2007-07-04  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-php-3: Use string concatenation in the test.
+	* xgettext-php-4: New file.
+	* Makefile.am (TESTS): Add it.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* tstgettext.c (main): Use the standard --version output, see
