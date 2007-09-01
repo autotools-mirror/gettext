@@ -1,3 +1,8 @@
+2007-06-19  Bruno Haible  <bruno@clisp.org>
+
+	* x-c.c (phase8_get): Call free_token, so that the reference to
+	tmp.comment gets dropped.
+
 2007-08-27  Bruno Haible  <bruno@clisp.org>
 
 	* x-python.c (phase7_getuc): Interpret octal and hexadecimal escapes

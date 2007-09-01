@@ -1555,7 +1555,7 @@ phase8_get (token_ty *tp)
       len = strlen (tp->string);
       tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
       strcpy (tp->string + len, tmp.string);
-      free (tmp.string);
+      free_token (&tmp);
     }
 }
 
