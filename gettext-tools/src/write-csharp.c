@@ -82,6 +82,7 @@
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
+#include "xmalloca.h"
 #include "filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
@@ -213,6 +214,35 @@ write_csharp_string (FILE *stream, const char *str)
 		 hexdigit[(uc >> 4) & 0x0f], hexdigit[uc & 0x0f]);
     }
   fprintf (stream, "\"");
+}
+
+
+/* Write a (msgctxt, msgid) pair as a string in C# Unicode notation to the
+   given stream.  */
+static void
+write_csharp_msgid (FILE *stream, message_ty *mp)
+{
+  const char *msgctxt = mp->msgctxt;
+  const char *msgid = mp->msgid;
+
+  if (msgctxt == NULL)
+    write_csharp_string (stream, msgid);
+  else
+    {
+      size_t msgctxt_len = strlen (msgctxt);
+      size_t msgid_len = strlen (msgid);
+      size_t combined_len = msgctxt_len + 1 + msgid_len;
+      char *combined;
+
+      combined = (char *) xmalloca (combined_len);
+      memcpy (combined, msgctxt, msgctxt_len);
+      combined[msgctxt_len] = MSGCTXT_SEPARATOR;
+      memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);
+
+      write_csharp_string (stream, combined);
+
+      freea (combined);
+    }
 }
 
 
@@ -523,7 +553,7 @@ write_csharp_code (FILE *stream, const char *culture_name, const char *class_nam
   for (j = 0; j < mlp->nitems; j++)
     {
       fprintf (stream, "    t.Add(");
-      write_csharp_string (stream, mlp->item[j]->msgid);
+      write_csharp_msgid (stream, mlp->item[j]);
       fprintf (stream, ",");
       write_csharp_msgstr (stream, mlp->item[j]);
       fprintf (stream, ");\n");
@@ -539,7 +569,7 @@ write_csharp_code (FILE *stream, const char *culture_name, const char *class_nam
 	if (mlp->item[j]->msgid_plural != NULL)
 	  {
 	    fprintf (stream, "    t.Add(");
-	    write_csharp_string (stream, mlp->item[j]->msgid);
+	    write_csharp_msgid (stream, mlp->item[j]);
 	    fprintf (stream, ",");
 	    write_csharp_string (stream, mlp->item[j]->msgid_plural);
 	    fprintf (stream, ");\n");
@@ -595,25 +625,6 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   /* If no entry for this resource/domain, don't even create the file.  */
   if (mlp->nitems == 0)
     return 0;
-
-  /* Determine whether mlp has entries with context.  */
-  {
-    bool has_context;
-    size_t j;
-
-    has_context = false;
-    for (j = 0; j < mlp->nitems; j++)
-      if (mlp->item[j]->msgctxt != NULL)
-	has_context = true;
-    if (has_context)
-      {
-	multiline_error (xstrdup (""),
-			 xstrdup (_("\
-message catalog has context dependent translations\n\
-but the C# .dll format doesn't support contexts\n")));
-	return 1;
-      }
-  }
 
   retval = 1;
 

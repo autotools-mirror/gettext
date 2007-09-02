@@ -40,6 +40,15 @@ msgstr[1] "{0} morceaux de gateau"
 #, csharp-format
 msgid "{0} is replaced by {1}."
 msgstr "{1} remplace {0}."
+
+# A proximity measure.
+msgid "Close"
+msgstr "Proche"
+
+# A menu entry.
+msgctxt "File"
+msgid "Close"
+msgstr "Fermer"
 EOF
 
 tmpfiles="$tmpfiles fr/prog.resources.dll"
@@ -66,6 +75,13 @@ msgstr ""
 
 msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
+
+msgid "Close"
+msgstr "Proche"
+
+msgctxt "File"
+msgid "Close"
+msgstr "Fermer"
 
 msgid "a piece of cake"
 msgid_plural "{0} pieces of cake"

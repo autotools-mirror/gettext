@@ -1,5 +1,5 @@
 /* GNU gettext for C#
- * Copyright (C) 2003-2004 Free Software Foundation, Inc.
+ * Copyright (C) 2003-2004, 2007 Free Software Foundation, Inc.
  * Written by Bruno Haible <bruno@clisp.org>, 2003.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -56,6 +56,12 @@ namespace GNU.Gettext {
       Out.Write('"');
     }
     private void DumpMessage (String msgid, String msgid_plural, Object msgstr) {
+      int separatorPos = msgid.IndexOf('\u0004');
+      if (separatorPos >= 0) {
+        String msgctxt = msgid.Substring(0,separatorPos);
+        msgid = msgid.Substring(separatorPos+1);
+        Out.Write("msgctxt "); DumpString(msgctxt);
+      }
       Out.Write("msgid "); DumpString(msgid); Out.Write('\n');
       if (msgid_plural != null) {
         Out.Write("msgid_plural "); DumpString(msgid_plural); Out.Write('\n');

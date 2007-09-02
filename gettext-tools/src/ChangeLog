@@ -1,3 +1,17 @@
+2007-09-02  Bruno Haible  <bruno@clisp.org>
+
+	Implement msgctxt for C# ResourceManagers.
+	* x-csharp.c (init_keywords): Also register GetParticularString and
+	GetParticularPluralString.
+	(init_flag_table_csharp): Update accordingly.
+	* write-csharp.c: Include xmalloca.h.
+	(write_csharp_msgid): New function.
+	(write_csharp_code): Use it instead of write_csharp_string.
+	(msgdomain_write_csharp): Remove error message if mlp has entries with
+	context.
+	* msgunfmt.cs (DumpResource.DumpMessage): Emit an msgctxt line
+	if the message contain the context separator.
+
 2007-09-01  Bruno Haible  <bruno@clisp.org>
 
 	Implement msgctxt for Java ResourceBundles.

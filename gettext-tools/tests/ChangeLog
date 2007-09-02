@@ -1,3 +1,11 @@
+2007-09-02  Bruno Haible  <bruno@clisp.org>
+
+	Implement msgctxt for C# ResourceManagers.
+	* xgettext-csharp-7: New file.
+	* msgunfmt-csharp-1: Add a few messages with context.
+	* lang-csharp: Likewise.
+	* Makefile.am (TESTS): Add xgettext-csharp-7.
+
 2007-09-01  Bruno Haible  <bruno@clisp.org>
 
 	Implement msgctxt for Java ResourceBundles.

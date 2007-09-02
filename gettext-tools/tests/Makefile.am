@@ -75,6 +75,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-c-16 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
+	xgettext-csharp-7 \
 	xgettext-elisp-1 xgettext-elisp-2 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \

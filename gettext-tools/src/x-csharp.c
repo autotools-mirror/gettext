@@ -105,6 +105,8 @@ init_keywords ()
 	 xgettext.texi!  */
       x_csharp_keyword ("GetString");	/* Resource{Manager,Set}.GetString */
       x_csharp_keyword ("GetPluralString:1,2");	/* GettextResource{Manager,Set}.GetPluralString */
+      x_csharp_keyword ("GetParticularString:1c,2"); /* Resource{Manager,Set}.GetParticularString */
+      x_csharp_keyword ("GetParticularPluralString:1c,2,3"); /* Resource{Manager,Set}.GetParticularPluralString */
       default_keywords = false;
     }
 }
@@ -115,6 +117,9 @@ init_flag_table_csharp ()
   xgettext_record_flag ("GetString:1:pass-csharp-format");
   xgettext_record_flag ("GetPluralString:1:pass-csharp-format");
   xgettext_record_flag ("GetPluralString:2:pass-csharp-format");
+  xgettext_record_flag ("GetParticularString:2:pass-csharp-format");
+  xgettext_record_flag ("GetParticularPluralString:2:pass-csharp-format");
+  xgettext_record_flag ("GetParticularPluralString:3:pass-csharp-format");
   xgettext_record_flag ("String.Format:1:csharp-format");
 }
 

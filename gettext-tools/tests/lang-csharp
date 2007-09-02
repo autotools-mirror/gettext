@@ -43,6 +43,8 @@ class Program {
     Console.WriteLine(catalog.GetString("'Your command, please?', asked the waiter."));
     Console.WriteLine(String.Format(catalog.GetPluralString("a piece of cake","{0} pieces of cake",n), n));
     Console.WriteLine(String.Format(catalog.GetString("{0} is replaced by {1}."), "FF", "EUR"));
+    Console.WriteLine(String.Format(catalog.GetParticularPluralString("++","a piece of cake","{0} pieces of cake",n), n));
+    Console.WriteLine(String.Format(catalog.GetParticularString("++","{0} is replaced by {1}."), "FF", "EUR"));
   }
 }
 EOF
@@ -72,6 +74,18 @@ msgstr[1] ""
 #, csharp-format
 msgid "{0} is replaced by {1}."
 msgstr ""
+
+#, csharp-format
+msgctxt "++"
+msgid "a piece of cake"
+msgid_plural "{0} pieces of cake"
+msgstr[0] ""
+msgstr[1] ""
+
+#, csharp-format
+msgctxt "++"
+msgid "{0} is replaced by {1}."
+msgstr ""
 EOF
 
 : ${DIFF=diff}
@@ -98,6 +112,20 @@ msgstr[1] "{0} morceaux de gateau"
 #, csharp-format
 msgid "{0} is replaced by {1}."
 msgstr "{1} remplace {0}."
+
+# Euphemistic formulation.
+#, csharp-format
+msgctxt "++"
+msgid "a piece of cake"
+msgid_plural "{0} pieces of cake"
+msgstr[0] "un morceau de gateau succulent"
+msgstr[1] "{0} morceaux de gateau succulent"
+
+# Euphemistic formulation.
+#, csharp-format
+msgctxt "++"
+msgid "{0} is replaced by {1}."
+msgstr "Le nouveau {1} remplace le vieux {0}."
 EOF
 
 tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
@@ -149,11 +177,15 @@ cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
 EUR remplace FF.
+2 morceaux de gateau succulent
+Le nouveau EUR remplace le vieux FF.
 EOF
 cat <<\EOF > prog.oku
 Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
 2 morceaux de gateau
 EUR remplace FF.
+2 morceaux de gateau succulent
+Le nouveau EUR remplace le vieux FF.
 EOF
 
 : ${LOCALE_FR=fr_FR}
