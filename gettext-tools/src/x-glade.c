@@ -26,6 +26,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -109,10 +110,103 @@ init_keywords ()
 }
 
 
+/* ======================= Different libexpat ABIs.  ======================= */
+
+/* There are three different ABIs of libexpat, regarding the functions
+   XML_GetCurrentLineNumber and XML_GetCurrentColumnNumber.
+   In expat < 2.0, they return an 'int'.
+   In expat >= 2.0, they return
+     - a 'long' if expat was compiled with the default flags, or
+     - a 'long long' if expat was compiled with -DXML_LARGE_SIZE.
+   But the <expat.h> include file does not contain the information whether
+   expat was compiled with -DXML_LARGE_SIZE; so the include file is lying!
+   For this information, we need to call XML_GetFeatureList(), for
+   expat >= 2.0.1; for expat = 2.0.0, we have to assume the default flags.  */
+
+#if !DYNLOAD_LIBEXPAT
+
+# if XML_MAJOR_VERSION >= 2
+
+/* expat >= 2.0 -> Return type is 'int64_t' worst-case.  */
+
+/* Put the function pointers into variables, because some GCC 4 versions
+   generate an abort when we convert symbol address to different function
+   pointer types.  */
+static void *p_XML_GetCurrentLineNumber = (void *) &XML_GetCurrentLineNumber;
+static void *p_XML_GetCurrentColumnNumber = (void *) &XML_GetCurrentColumnNumber;
+
+/* Return true if libexpat was compiled with -DXML_LARGE_SIZE.  */
+static bool
+is_XML_LARGE_SIZE_ABI (void)
+{
+  static bool tested;
+  static bool is_large;
+
+  if (!tested)
+    {
+      const XML_Feature *features;
+
+      is_large = false;
+      for (features = XML_GetFeatureList (); features->name != NULL; features++)
+	if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
+	  {
+	    is_large = true;
+	    break;
+	  }
+
+      tested = true;
+    }
+  return is_large;
+}
+
+static int64_t
+GetCurrentLineNumber (XML_Parser parser)
+{
+  if (is_XML_LARGE_SIZE_ABI ())
+    return ((int64_t (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
+  else
+    return ((long (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
+}
+#  define XML_GetCurrentLineNumber GetCurrentLineNumber
+
+static int64_t
+GetCurrentColumnNumber (XML_Parser parser)
+{
+  if (is_XML_LARGE_SIZE_ABI ())
+    return ((int64_t (*) (XML_Parser)) p_XML_GetCurrentColumnNumber) (parser);
+  else
+    return ((long (*) (XML_Parser)) p_XML_GetCurrentColumnNumber) (parser);
+}
+#  define XML_GetCurrentColumnNumber GetCurrentColumnNumber
+
+# else
+
+/* expat < 2.0 -> Return type is 'int'.  */
+
+# endif
+
+#endif
+
+
 /* ===================== Dynamic loading of libexpat.  ===================== */
 
 #if DYNLOAD_LIBEXPAT
 
+typedef struct
+  {
+    int major;
+    int minor;
+    int micro;
+  }
+  XML_Expat_Version;
+enum XML_FeatureEnum { XML_FEATURE_END = 0 };
+typedef struct
+  {
+    enum XML_FeatureEnum feature;
+    const char *name;
+    long int value;
+  }
+  XML_Feature;
 typedef void *XML_Parser;
 typedef char XML_Char;
 typedef char XML_LChar;
@@ -122,21 +216,54 @@ typedef void (*XML_EndElementHandler) (void *userData, const XML_Char *name);
 typedef void (*XML_CharacterDataHandler) (void *userData, const XML_Char *s, int len);
 typedef void (*XML_CommentHandler) (void *userData, const XML_Char *data);
 
+static XML_Expat_Version (*p_XML_ExpatVersionInfo) (void);
+static const XML_Feature * (*p_XML_GetFeatureList) (void);
 static XML_Parser (*p_XML_ParserCreate) (const XML_Char *encoding);
 static void (*p_XML_SetElementHandler) (XML_Parser parser, XML_StartElementHandler start, XML_EndElementHandler end);
 static void (*p_XML_SetCharacterDataHandler) (XML_Parser parser, XML_CharacterDataHandler handler);
 static void (*p_XML_SetCommentHandler) (XML_Parser parser, XML_CommentHandler handler);
 static int (*p_XML_Parse) (XML_Parser parser, const char *s, int len, int isFinal);
 static enum XML_Error (*p_XML_GetErrorCode) (XML_Parser parser);
-#if XML_MAJOR_VERSION >= 2
-static XML_Size (*p_XML_GetCurrentLineNumber) (XML_Parser parser);
-static XML_Size (*p_XML_GetCurrentColumnNumber) (XML_Parser parser);
-#else
-static int (*p_XML_GetCurrentLineNumber) (XML_Parser parser);
-static int (*p_XML_GetCurrentColumnNumber) (XML_Parser parser);
-#endif
+static void *p_XML_GetCurrentLineNumber;
+static void *p_XML_GetCurrentColumnNumber;
 static void (*p_XML_ParserFree) (XML_Parser parser);
 static const XML_LChar * (*p_XML_ErrorString) (int code);
+
+#define XML_ExpatVersionInfo (*p_XML_ExpatVersionInfo)
+#define XML_GetFeatureList (*p_XML_GetFeatureList)
+
+enum XML_Size_ABI { is_int, is_long, is_int64_t };
+
+static enum XML_Size_ABI
+get_XML_Size_ABI (void)
+{
+  static bool tested;
+  static enum XML_Size_ABI abi;
+
+  if (!tested)
+    {
+      if (XML_ExpatVersionInfo () .major >= 2)
+	/* expat >= 2.0 -> XML_Size is 'int64_t' or 'long'.  */
+	{
+	  const XML_Feature *features;
+
+	  abi = is_long;
+	  for (features = XML_GetFeatureList ();
+	       features->name != NULL;
+	       features++)
+	    if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
+	      {
+		abi = is_int64_t;
+		break;
+	      }
+	}
+      else
+	/* expat < 2.0 -> XML_Size is 'int'.  */
+	abi = is_int;
+      tested = true;
+    }
+  return abi;
+}
 
 #define XML_ParserCreate (*p_XML_ParserCreate)
 #define XML_SetElementHandler (*p_XML_SetElementHandler)
@@ -144,8 +271,39 @@ static const XML_LChar * (*p_XML_ErrorString) (int code);
 #define XML_SetCommentHandler (*p_XML_SetCommentHandler)
 #define XML_Parse (*p_XML_Parse)
 #define XML_GetErrorCode (*p_XML_GetErrorCode)
-#define XML_GetCurrentLineNumber (*p_XML_GetCurrentLineNumber)
-#define XML_GetCurrentColumnNumber (*p_XML_GetCurrentColumnNumber)
+
+static int64_t
+XML_GetCurrentLineNumber (XML_Parser parser)
+{
+  switch (get_XML_Size_ABI ())
+    {
+    case is_int:
+      return ((int (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
+    case is_long:
+      return ((long (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
+    case is_int64_t:
+      return ((int64_t (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
+    default:
+      abort ();
+    }
+}
+
+static int64_t
+XML_GetCurrentColumnNumber (XML_Parser parser)
+{
+  switch (get_XML_Size_ABI ())
+    {
+    case is_int:
+      return ((int (*) (XML_Parser)) p_XML_GetCurrentColumnNumber) (parser);
+    case is_long:
+      return ((long (*) (XML_Parser)) p_XML_GetCurrentColumnNumber) (parser);
+    case is_int64_t:
+      return ((int64_t (*) (XML_Parser)) p_XML_GetCurrentColumnNumber) (parser);
+    default:
+      abort ();
+    }
+}
+
 #define XML_ParserFree (*p_XML_ParserFree)
 #define XML_ErrorString (*p_XML_ErrorString)
 
@@ -157,14 +315,19 @@ load_libexpat ()
   if (libexpat_loaded == 0)
     {
       void *handle;
-      /* Be careful to use exactly the version of libexpat that matches the
-	 binary interface declared in <expat.h>.  */
-#if XML_MAJOR_VERSION >= 2
+
+      /* Try to load libexpat-2.x.  */
       handle = dlopen ("libexpat.so.1", RTLD_LAZY);
-#else
-      handle = dlopen ("libexpat.so.0", RTLD_LAZY);
-#endif
+      if (handle == NULL)
+	/* Try to load libexpat-1.x.  */
+	handle = dlopen ("libexpat.so.0", RTLD_LAZY);
       if (handle != NULL
+	  && (p_XML_ExpatVersionInfo =
+		(XML_Expat_Version (*) (void))
+		dlsym (handle, "XML_ExpatVersionInfo")) != NULL
+	  && (p_XML_GetFeatureList =
+		(const XML_Feature * (*) (void))
+		dlsym (handle, "XML_GetFeatureList")) != NULL
 	  && (p_XML_ParserCreate =
 		(XML_Parser (*) (const XML_Char *))
 		dlsym (handle, "XML_ParserCreate")) != NULL
@@ -184,18 +347,8 @@ load_libexpat ()
 		(enum XML_Error (*) (XML_Parser))
 		dlsym (handle, "XML_GetErrorCode")) != NULL
 	  && (p_XML_GetCurrentLineNumber =
-#if XML_MAJOR_VERSION >= 2
-		(XML_Size (*) (XML_Parser))
-#else
-		(int (*) (XML_Parser))
-#endif
 		dlsym (handle, "XML_GetCurrentLineNumber")) != NULL
 	  && (p_XML_GetCurrentColumnNumber =
-#if XML_MAJOR_VERSION >= 2
-		(XML_Size (*) (XML_Parser))
-#else
-		(int (*) (XML_Parser))
-#endif
 		dlsym (handle, "XML_GetCurrentColumnNumber")) != NULL
 	  && (p_XML_ParserFree =
 		(void (*) (XML_Parser))

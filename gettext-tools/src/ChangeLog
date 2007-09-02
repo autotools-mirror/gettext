@@ -1,5 +1,25 @@
 2007-09-02  Bruno Haible  <bruno@clisp.org>
 
+	Correct handling of different libexpat ABIs.
+	* x-glade.c: Include <stdint.h>.
+	(p_XML_GetCurrentLineNumber, p_XML_GetCurrentColumnNumber): New
+	variables.
+	(is_XML_LARGE_SIZE_ABI, GetCurrentLineNumber, GetCurrentColumnNumber):
+	New functions.
+	(XML_GetCurrentLineNumber, XML_GetCurrentColumnNumber): Redefine.
+	(XML_Expat_Version, XML_FeatureEnum, XML_Feature): New types.
+	(p_XML_ExpatVersionInfo, p_XML_GetFeatureList): New variables.
+	(p_XML_GetCurrentLineNumber, p_XML_GetCurrentColumnNumber): Change
+	type to 'void *'.
+	(XML_ExpatVersionInfo, XML_GetFeatureList): New macros.
+	(XML_Size_ABI): New type.
+	(get_XML_Size_ABI): New function.
+	(XML_GetCurrentLineNumber, XML_GetCurrentColumnNumber): New functions.
+	(load_libexpat): Try both version 2 and version 1. Initialize
+	p_XML_ExpatVersionInfo, p_XML_GetFeatureList.
+
+2007-09-02  Bruno Haible  <bruno@clisp.org>
+
 	Implement msgctxt for C# ResourceManagers.
 	* x-csharp.c (init_keywords): Also register GetParticularString and
 	GetParticularPluralString.
