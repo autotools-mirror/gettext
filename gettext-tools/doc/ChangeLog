@@ -1,5 +1,11 @@
 2007-09-02  Bruno Haible  <bruno@clisp.org>
 
+	* msggrep.texi: Add some examples.
+	* msgfilter.texi: Likewise.
+	Suggested by Guido at <https://savannah.gnu.org/bugs/?18293>.
+
+2007-09-02  Bruno Haible  <bruno@clisp.org>
+
 	Implement msgctxt for C# ResourceManagers.
 	* gettext.texi (Java): Mention GetParticularString and
 	GetParticularPluralString.

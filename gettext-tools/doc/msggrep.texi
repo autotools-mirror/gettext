@@ -44,7 +44,7 @@ or if it is @samp{-}.
 
 @example
   [-N @var{sourcefile}]... [-M @var{domainname}]...
-  [-J @var{msgctxt-pattern} [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}]
+  [-J @var{msgctxt-pattern}] [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}]
   [-C @var{comment-pattern}]
 @end example
 
@@ -65,7 +65,7 @@ A message is selected if
 When more than one selection criterion is specified, the set of selected
 messages is the union of the selected messages of each criterion.
 
-@var{msgid-pattern} or @var{msgstr-pattern} syntax:
+@var{msgctxt-pattern} or @var{msgid-pattern} or @var{msgstr-pattern} syntax:
 @example
   [-E | -F] [-e @var{pattern} | -f @var{file}]...
 @end example
@@ -253,3 +253,33 @@ Display this help and exit.
 Output version information and exit.
 
 @end table
+
+@subsection Examples
+
+To extract the messages that come from the source files
+@code{gnulib-lib/error.c} and @code{gnulib-lib/getopt.c}:
+
+@smallexample
+msggrep -N gnulib-lib/error.c -N gnulib-lib/getopt.c input.po
+@end smallexample
+
+To extract the messages that contain the string ``Please specify'' in the
+original string:
+
+@smallexample
+msggrep --msgid -F -e 'Please specify' input.po
+@end smallexample
+
+To extract the messages that have a context specifier of either ``Menu>File''
+or ``Menu>Edit'' or a submenu of them:
+
+@smallexample
+msggrep --msgctxt -E -e '^Menu>(File|Edit)' input.po
+@end smallexample
+
+To extract the messages whose translation contains one of the strings in the
+file @code{wordlist.txt}:
+
+@smallexample
+msggrep --msgstr -F -f wordlist.txt input.po
+@end smallexample

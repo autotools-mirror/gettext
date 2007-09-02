@@ -219,3 +219,17 @@ Display this help and exit.
 Output version information and exit.
 
 @end table
+
+@subsection Examples
+
+To convert German translations to Swiss orthography (in an UTF-8 locale):
+
+@smallexample
+msgconv -t UTF-8 de.po | msgfilter sed -e 's/@ss{}/ss/g'
+@end smallexample
+
+To convert Serbian translations in Cyrillic script to Latin script:
+
+@smallexample
+msgfilter recode-sr-latin sr.po
+@end smallexample
