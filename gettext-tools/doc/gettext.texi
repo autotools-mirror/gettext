@@ -9848,6 +9848,8 @@ _("abc")
 @item gettext/ngettext functions
 @code{GettextResourceManager.GetString},
 @code{GettextResourceManager.GetPluralString}
+@code{GettextResourceManager.GetParticularString}
+@code{GettextResourceManager.GetParticularPluralString}
 
 @item textdomain
 @code{new GettextResourceManager(domain)}
@@ -9950,6 +9952,12 @@ handling function @code{GetPluralString}.  Whereas @code{.resources} files can
 only contain data and only support lookups that depend on a single string.
 
 @item
+Context handling: A message catalog in @code{.dll} format supports the
+query-with-context functions @code{GetParticularString} and
+@code{GetParticularPluralString}.  Whereas @code{.resources} files can
+only contain data and only support lookups that depend on a single string.
+
+@item
 The @code{GettextResourceManager} that loads the message catalogs in
 @code{.dll} format also provides for inheritance on a per-message basis.
 For example, in Austrian (@code{de_AT}) locale, translations from the German
@@ -10007,6 +10015,15 @@ a translation is missing, the @var{msgid} argument is returned unchanged.
 
 The @code{GetPluralString} function returns a string translation with plural
 handling, like the @code{ngettext} function in C.
+
+The @code{GetParticularString} function returns a string's translation,
+specific to a particular context, like the @code{pgettext} function in C.
+Note that when a translation is missing, the @var{msgid} argument is returned
+unchanged.
+
+The @code{GetParticularPluralString} function returns a string translation,
+specific to a particular context, with plural handling, like the
+@code{npgettext} function in C.
 
 @cindex @code{libintl} for C#
 To use this API, one needs the @code{GNU.Gettext.dll} file which is part of

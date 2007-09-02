@@ -223,7 +223,8 @@ For Java: @code{GettextResource.gettext:2},
 @code{pgettext:1c,2}, @code{npgettext:1c,2,3}, @code{getString}.
 
 @item
-For C#: @code{GetString}, @code{GetPluralString:1,2}.
+For C#: @code{GetString}, @code{GetPluralString:1,2},
+@code{GetParticularString:1c,2}, @code{GetParticularPluralString:1c,2,3}.
 
 @item
 For awk: @code{dcgettext}, @code{dcngettext:1,2}.
