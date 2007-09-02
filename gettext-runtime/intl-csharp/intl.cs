@@ -1,5 +1,5 @@
 /* GNU gettext for C#
- * Copyright (C) 2003, 2005 Free Software Foundation, Inc.
+ * Copyright (C) 2003, 2005, 2007 Free Software Foundation, Inc.
  * Written by Bruno Haible <bruno@clisp.org>, 2003.
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -39,6 +39,9 @@
  *   returns the (English) message key in that case.
  * - In the .NET resource approach, there is no support for plural handling.
  *   In the GNU gettext approach, we have the GetPluralString function.
+ * - In the .NET resource approach, there is no support for context specific
+ *   translations.
+ *   In the GNU gettext approach, we have the GetParticularString function.
  *
  * To compile GNU gettext message catalogs into C# assemblies, the msgfmt
  * program can be used.
@@ -296,6 +299,53 @@ namespace GNU.Gettext {
     // ======================== Public Methods ========================
 
     /// <summary>
+    /// Returns the translation of <paramref name="msgid"/> in the context
+    /// of <paramref name="msgctxt"/> a given culture.
+    /// </summary>
+    /// <param name="msgctxt">the context for the key string, an ASCII
+    ///                       string</param>
+    /// <param name="msgid">the key string to be translated, an ASCII
+    ///                     string</param>
+    /// <returns>the translation of <paramref name="msgid"/>, or
+    ///          <paramref name="msgid"/> if none is found</returns>
+    public String GetParticularString (String msgctxt, String msgid, CultureInfo culture) {
+      String combined = msgctxt + "\u0004" + msgid;
+      foreach (GettextResourceSet rs in GetResourceSetsFor(culture)) {
+        String translation = rs.GetString(combined);
+        if (translation != null)
+          return translation;
+      }
+      // Fallback.
+      return msgid;
+    }
+
+    /// <summary>
+    /// Returns the translation of <paramref name="msgid"/> and
+    /// <paramref name="msgidPlural"/> in the context of
+    /// <paramref name="msgctxt"/> in a given culture, choosing the right
+    /// plural form depending on the number <paramref name="n"/>.
+    /// </summary>
+    /// <param name="msgctxt">the context for the key string, an ASCII
+    ///                       string</param>
+    /// <param name="msgid">the key string to be translated, an ASCII
+    ///                     string</param>
+    /// <param name="msgidPlural">the English plural of <paramref name="msgid"/>,
+    ///                           an ASCII string</param>
+    /// <param name="n">the number, should be &gt;= 0</param>
+    /// <returns>the translation, or <paramref name="msgid"/> or
+    ///          <paramref name="msgidPlural"/> if none is found</returns>
+    public virtual String GetParticularPluralString (String msgctxt, String msgid, String msgidPlural, long n, CultureInfo culture) {
+      String combined = msgctxt + "\u0004" + msgid;
+      foreach (GettextResourceSet rs in GetResourceSetsFor(culture)) {
+        String translation = rs.GetPluralString(combined, msgidPlural, n);
+        if (translation != null)
+          return translation;
+      }
+      // Fallback: Germanic plural form.
+      return (n == 1 ? msgid : msgidPlural);
+    }
+
+    /// <summary>
     /// Returns the translation of <paramref name="msgid"/> in the current
     /// culture.
     /// </summary>
@@ -321,6 +371,39 @@ namespace GNU.Gettext {
     ///          <paramref name="msgidPlural"/> if none is found</returns>
     public virtual String GetPluralString (String msgid, String msgidPlural, long n) {
       return GetPluralString(msgid, msgidPlural, n, CultureInfo.CurrentUICulture);
+    }
+
+    /// <summary>
+    /// Returns the translation of <paramref name="msgid"/> in the context
+    /// of <paramref name="msgctxt"/> in the current culture.
+    /// </summary>
+    /// <param name="msgctxt">the context for the key string, an ASCII
+    ///                       string</param>
+    /// <param name="msgid">the key string to be translated, an ASCII
+    ///                     string</param>
+    /// <returns>the translation of <paramref name="msgid"/>, or
+    ///          <paramref name="msgid"/> if none is found</returns>
+    public String GetParticularString (String msgctxt, String msgid) {
+      return GetParticularString(msgctxt, msgid, CultureInfo.CurrentUICulture);
+    }
+
+    /// <summary>
+    /// Returns the translation of <paramref name="msgid"/> and
+    /// <paramref name="msgidPlural"/> in the context of
+    /// <paramref name="msgctxt"/> in the current culture, choosing the
+    /// right plural form depending on the number <paramref name="n"/>.
+    /// </summary>
+    /// <param name="msgctxt">the context for the key string, an ASCII
+    ///                       string</param>
+    /// <param name="msgid">the key string to be translated, an ASCII
+    ///                     string</param>
+    /// <param name="msgidPlural">the English plural of <paramref name="msgid"/>,
+    ///                           an ASCII string</param>
+    /// <param name="n">the number, should be &gt;= 0</param>
+    /// <returns>the translation, or <paramref name="msgid"/> or
+    ///          <paramref name="msgidPlural"/> if none is found</returns>
+    public virtual String GetParticularPluralString (String msgctxt, String msgid, String msgidPlural, long n) {
+      return GetParticularPluralString(msgctxt, msgid, msgidPlural, n, CultureInfo.CurrentUICulture);
     }
 
   }
