@@ -3,6 +3,9 @@ Version 0.16.2 - January 2007
 * gettextize now has a --po-dir option that allows several PO directories to
   be updated all together.
 
+* Programming languages support:
+  Contexts (msgctxt) are now also supported for Java and C#.
+
 * Documentation:
   The "Users" chapter has been completely rewritten.
 
