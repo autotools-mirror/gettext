@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# Test C support: extraction of contexts.
+# Test Java support: extraction of contexts.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
