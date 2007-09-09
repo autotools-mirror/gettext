@@ -1,5 +1,10 @@
 2007-09-09  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Compendium): Upgrade node from a subsection to a
+	section.
+
+2007-09-09  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Using Compendia): Use "msgattrib --no-obsolete"
 	instead of "sed -e '/^#~/d'".
 	Suggested by Benno Schulenberg <bensberg@justemail.net>.

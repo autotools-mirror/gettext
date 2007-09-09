@@ -229,6 +229,7 @@ Editing PO Files
 * KBabel::                      KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
 * PO Mode::                     Emacs's PO File Editor
+* Compendium::                  Using Translation Compendia
 
 Emacs's PO File Editor
 
@@ -245,7 +246,6 @@ Emacs's PO File Editor
 * Subedit::                     Mode for Editing Translations
 * C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendia
 
 Using Translation Compendia
 
@@ -3033,6 +3033,7 @@ format of the plural forms field is described in @ref{Plural forms}.
 * KBabel::                      KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
 * PO Mode::                     Emacs's PO File Editor
+* Compendium::                  Using Translation Compendia
 @end menu
 
 @node KBabel, Gtranslator, Editing, Editing
@@ -3043,7 +3044,7 @@ format of the plural forms field is described in @ref{Plural forms}.
 @section GNOME's PO File Editor
 @cindex GNOME PO file editor
 
-@node PO Mode,  , Gtranslator, Editing
+@node PO Mode, Compendium, Gtranslator, Editing
 @section Emacs's PO File Editor
 @cindex Emacs PO Mode
 
@@ -3078,7 +3079,6 @@ For the beginning, besides main PO mode commands
 * Subedit::                     Mode for Editing Translations
 * C Sources Context::           C Sources Context
 * Auxiliary::                   Consulting Auxiliary PO Files
-* Compendium::                  Using Translation Compendia
 @end menu
 
 @node Installation, Main PO Commands, PO Mode, PO Mode
@@ -4273,7 +4273,7 @@ enter a new directory at the front of the search path, and the command
 @kbd{M-S} (@code{po-ignore-source-path}) is used to select, with completion,
 one of the directories she does not want anymore on the search path.
 
-@node Auxiliary, Compendium, C Sources Context, PO Mode
+@node Auxiliary,  , C Sources Context, PO Mode
 @subsection Consulting Auxiliary PO Files
 @emindex consulting translations to other languages
 
@@ -4357,8 +4357,8 @@ files resulting of the @samp{M-x normalize} command.  Until these
 discrepancies between PO mode and other GNU @code{gettext} tools get
 fully resolved, the translator should stay aware of normalisation issues.
 
-@node Compendium,  , Auxiliary, PO Mode
-@subsection Using Translation Compendia
+@node Compendium,  , PO Mode, Editing
+@section Using Translation Compendia
 @emindex using translation compendia
 
 @cindex compendium
@@ -4374,7 +4374,7 @@ already translated entries, from translations kept in the compendium.
 @end menu
 
 @node Creating Compendia, Using Compendia, Compendium, Compendium
-@subsubsection Creating Compendia
+@subsection Creating Compendia
 @cindex creating compendia
 @cindex compendium, creating
 
@@ -4462,7 +4462,7 @@ msggrep --location src/getopt.c -o compendium.po file.po
 @end example
 
 @node Using Compendia,  , Creating Compendia, Compendium
-@subsubsection Using Compendia
+@subsection Using Compendia
 
 You can use a compendium file to initialize a translation from scratch
 or to update an already existing translation.
