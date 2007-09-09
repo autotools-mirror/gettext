@@ -4486,7 +4486,7 @@ here done using @samp{sed}):
 
 @example
 msgcat --use-first -o update.po compendium1.po compendium2.po file.po
-msgmerge update.po file.pot | sed -e '/^#~/d' > file.po
+msgmerge update.po file.pot | msgattrib --no-obsolete > file.po
 @end example
 
 @node Manipulating, Binaries, Editing, Top
