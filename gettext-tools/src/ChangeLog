@@ -1,3 +1,14 @@
+2007-09-09  Bruno Haible  <bruno@clisp.org>
+
+	Add support for Qt 4 format strings.
+	* format-qt.c (struct spec): Increase args_used field size to 100.
+	Add 'simple' field.
+	(format_parse): Update for Qt 4 syntax. Remove error message when the
+	same format argument is used more than once.
+	(format_check): Add check: If the msgid is simple, the msgstr must be
+	simple as well.
+	Reported by Chusslove Illich <caslav.ilic@gmx.net>.
+
 2007-09-02  Bruno Haible  <bruno@clisp.org>
 
 	Correct handling of different libexpat ABIs.

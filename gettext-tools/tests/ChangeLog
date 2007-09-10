@@ -1,3 +1,10 @@
+2007-09-09  Bruno Haible  <bruno@clisp.org>
+
+	Add support for Qt 4 format strings.
+	* format-qt-1: Update for Qt 4 syntax.
+	* format-qt-2: Likewise.
+	Based on input by by Chusslove Illich <caslav.ilic@gmx.net>.
+
 2007-09-02  Bruno Haible  <bruno@clisp.org>
 
 	Implement msgctxt for C# ResourceManagers.

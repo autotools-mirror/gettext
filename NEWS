@@ -4,7 +4,8 @@ Version 0.16.2 - January 2007
   be updated all together.
 
 * Programming languages support:
-  Contexts (msgctxt) are now also supported for Java and C#.
+  - Contexts (msgctxt) are now also supported for Java and C#.
+  - C# with Qt: The support for Qt format strings has been updated for Qt 4.
 
 * Documentation:
   The "Users" chapter has been completely rewritten.

@@ -13,16 +13,28 @@ cat <<\EOF > f-qt-1.data
 "abc%1def"
 # Valid: one argument
 "abc%9def"
+# Valid: one argument specified by two digits
+"abc%09def"
+# Valid: one argument specified by two digits
+"abc%99def"
 # Valid: unterminated
 "abc%1def%"
+# Valid: unterminated
+"abc%1def%L"
 # Valid: non-digit
 "abc%1def%x"
 # Valid: zero
 "abc%1def%0"
+# Valid: zero specified by two digits
+"abc%1def%00"
 # Valid: permutation
 "abc%2def%1"
-# Invalid: multiple uses of same argument
+# Valid: multiple uses of same argument
 "abc%2def%1ghi%2"
+# Valid: an argument with locale-dependency flag
+"abc%L1def"
+# Valid: an argument with locale-dependency flag and two digits
+"abc%L12def"
 EOF
 
 : ${XGETTEXT=xgettext}

@@ -10,12 +10,27 @@ cat <<\EOF > f-qt-2.data
 # Valid: %% doesn't count
 msgid  "abc%%def"
 msgstr "xyz"
-# Invalid: invalid msgstr
-msgid  "abc%1def"
-msgstr "xyz%1%1"
 # Valid: same arguments
 msgid  "abc%2def"
 msgstr "xyz%2"
+# Valid: same arguments, msgstr may be simpler than msgid
+msgid  "abc%L2def"
+msgstr "xyz%2"
+# Valid: same arguments, msgstr may be simpler than msgid
+msgid  "abc%02def"
+msgstr "xyz%2"
+# Invalid: msgid is simple but msgstr is not
+msgid  "abc%2def"
+msgstr "xyz%L2"
+# Invalid: msgid is simple but msgstr is not
+msgid  "abc%2def"
+msgstr "xyz%02"
+# Valid: repetition of an argument in the translation
+msgid  "abc%2def"
+msgstr "xyz%2uvw%2"
+# Valid: removing repeated argument in the translation
+msgid  "abc%2def%2"
+msgstr "xyz%2uvw"
 # Valid: permutation
 msgid  "abc%3%1%2def"
 msgstr "xyz%2%1%3"

@@ -31,22 +31,37 @@
 #define _(str) gettext (str)
 
 /* Qt format strings are processed by QString::arg and are documented in
-   qt-3.0.5/doc/html/qstring.html.
-   A directive starts with '%' and is followed by a digit ('0' to '9').
-   Each %n must occur only once in the given string.
+   qt-4.3.0/doc/html/qstring.html.
+   A directive
+     - starts with '%',
+     - is optionally followed by 'L' (indicates locale-dependent processing),
+     - is followed by one or two digits ('0' to '9'). %0n is equivalent to %n.
+   An unterminated directive ('%' or '%L' not followed by a digit or at the
+   end) is not an error.
    The first .arg() invocation replaces the %n with the lowest numbered n,
    the next .arg() invocation then replaces the %n with the second-lowest
    numbered n, and so on.
-   (This is inherently buggy because a '%' in the first replacement confuses
-   the second .arg() invocation.)
+   This is inherently buggy because a '%' in the first replacement confuses
+   the second .arg() invocation.
+   To reduce this problem and introduce another one, there are also .arg()
+   methods that take up to 9 strings and perform the replacements in one swoop.
+   But this method works only on strings that contain no 'L' flags and only
+   single-digit argument designators.
    Although %0 is supported, usually %1 denotes the first argument, %2 the
    second argument etc.  */
 
 struct spec
 {
+  /* Number of format directives.  */
   unsigned int directives;
+
+  /* True if the string supports the multi-argument .arg() methods, i.e. if it
+     contains no 'L' flags and only single-digit argument designators.  */
+  bool simple;
+
+  /* Booleans telling which %nn was seen.  */
   unsigned int arg_count;
-  bool args_used[10];
+  bool args_used[100];
 };
 
 
@@ -59,42 +74,51 @@ format_parse (const char *format, bool translated, char *fdi,
   struct spec *result;
 
   spec.directives = 0;
+  spec.simple = true;
   spec.arg_count = 0;
 
   for (; *format != '\0';)
     if (*format++ == '%')
-      if (*format >= '0' && *format <= '9')
-	{
-	  /* A directive.  */
-	  unsigned int number;
+      {
+	const char *dir_start = format - 1;
+	bool locale_flag = false;
 
-	  FDI_SET (format - 1, FMTDIR_START);
-	  spec.directives++;
+	if (*format == 'L')
+	  {
+	    locale_flag = true;
+	    format++;
+	  }
+	if (*format >= '0' && *format <= '9')
+	  {
+	    /* A directive.  */
+	    unsigned int number;
 
-	  number = *format - '0';
+	    FDI_SET (dir_start, FMTDIR_START);
+	    spec.directives++;
+	    if (locale_flag)
+	      spec.simple = false;
 
-	  while (spec.arg_count <= number)
-	    spec.args_used[spec.arg_count++] = false;
-	  if (spec.args_used[number])
-	    {
-	      *invalid_reason =
-		xasprintf (_("Multiple references to %%%c."), *format);
-	      FDI_SET (format, FMTDIR_ERROR);
-	      goto bad_format;
-	    }
-	  spec.args_used[number] = true;
+	    number = *format - '0';
+	    if (format[1] >= '0' && format[1] <= '9')
+	      {
+		number = 10 * number + (format[1] - '0');
+		spec.simple = false;
+		format++;
+	      }
 
-	  FDI_SET (format, FMTDIR_END);
+	    while (spec.arg_count <= number)
+	      spec.args_used[spec.arg_count++] = false;
+	    spec.args_used[number] = true;
 
-	  format++;
-	}
+	    FDI_SET (format, FMTDIR_END);
+
+	    format++;
+	  }
+      }
 
   result = XMALLOC (struct spec);
   *result = spec;
   return result;
-
- bad_format:
-  return NULL;
 }
 
 static void
@@ -123,24 +147,33 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   bool err = false;
   unsigned int i;
 
-  for (i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
+  if (spec1->simple && !spec2->simple)
     {
-      bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
-      bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
-
-      /* The translator cannot omit a %n from the msgstr because that would
-	 yield a "Argument missing" warning at runtime.  */
-      if (arg_used1 != arg_used2)
-	{
-	  if (error_logger)
-	    error_logger (arg_used1
-			  ? _("a format specification for argument %u doesn't exist in '%s'")
-			  : _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
-			  i, pretty_msgstr);
-	  err = true;
-	  break;
-	}
+      if (error_logger)
+	error_logger (_("'msgid' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"),
+		      pretty_msgstr);
+      err = true;
     }
+
+  if (!err)
+    for (i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
+      {
+	bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
+	bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
+
+	/* The translator cannot omit a %n from the msgstr because that would
+	   yield a "Argument missing" warning at runtime.  */
+	if (arg_used1 != arg_used2)
+	  {
+	    if (error_logger)
+	      error_logger (arg_used1
+			    ? _("a format specification for argument %u doesn't exist in '%s'")
+			    : _("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
+			    i, pretty_msgstr);
+	    err = true;
+	    break;
+	  }
+      }
 
   return err;
 }
