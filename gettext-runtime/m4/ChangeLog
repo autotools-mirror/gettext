@@ -1,7 +1,7 @@
 2007-09-08  Bruno Haible  <bruno@clisp.org>
 
 	* po.m4 (AM_PO_SUBDIRS): Define GETTEXT_MACRO_VERSION.
-	Suggested by Daniel Leidert <daniel.leidert@gmx.net>.
+	Suggested by Daniel Leidert <daniel.leidert.spam@gmx.net>.
 
 2007-08-26  Bruno Haible  <bruno@clisp.org>
 

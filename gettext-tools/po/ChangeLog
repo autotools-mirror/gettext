@@ -4,7 +4,7 @@
 	* Makefile.in.in (GETTEXT_MACRO_VERSION): New macro.
 	(check-macro-version): New target.
 	(all): Depend on it.
-	Suggested by Daniel Leidert <daniel.leidert@gmx.net>.
+	Suggested by Daniel Leidert <daniel.leidert.spam@gmx.net>.
 
 2007-06-11  Bruno Haible  <bruno@clisp.org>
 
