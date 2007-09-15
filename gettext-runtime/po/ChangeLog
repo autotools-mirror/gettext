@@ -1,3 +1,9 @@
+2007-09-15  Bruno Haible  <bruno@clisp.org>
+
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* uk.po: Update from Maxim V. Dziumanenko <dziumanenko@gmail.com>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
 2007-09-08  Bruno Haible  <bruno@clisp.org>
 
 	Check that the gettext macros and Makefile.in.in are in sync.

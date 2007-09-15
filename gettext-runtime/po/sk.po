@@ -1,14 +1,14 @@
 # Slovak translations for GNU gettext-runtime package.
-# Copyright (C) 1999, 2001, 2002, 2003, 2004 Free Software Foundation, Inc.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2007 Free Software Foundation, Inc.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2007.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.14-pre1\n"
+"Project-Id-Version: GNU gettext-runtime 0.16\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-02 16:24+0200\n"
-"PO-Revision-Date: 2004-01-22 00:24+0100\n"
+"POT-Creation-Date: 2007-05-13 21:44+0200\n"
+"PO-Revision-Date: 2007-06-24 20:09+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -81,12 +81,12 @@ msgstr "%s: voľba `-W %s' nie je jednoznačná\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: voľba `-W %s' nedovoľuje použitie parametra\n"
 
-#: gnulib-lib/xmalloc.c:39
+#: gnulib-lib/xmalloc.c:38
 #, c-format
 msgid "memory exhausted"
 msgstr "pamäť je vyčerpaná"
 
-#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:113 src/gettext.c:134 src/ngettext.c:124
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -98,67 +98,67 @@ msgstr ""
 "Neposkytuje sa ŽIADNA záruka; ani čo sa týka OBCHODOVATEĽNOSTI alebo VHODNOSTI\n"
 "NA KONKRÉTNY ÚČEL.\n"
 
-#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napísal %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "príliš veľa parametrov"
 
-#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "chýbajúce parametre"
 
-#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Skúste `%s --help' a dozviete sa viac informácií.\n"
 
-#: src/envsubst.c:177
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Použitie: %s [VOĽBA] [SHELL-FORMAT]\n"
 
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Nahradí hodnoty premenných prostredia.\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Režim operácie:\n"
 
-#: src/envsubst.c:189
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             vypísať premenné nachádzajúce sa v SHELL-FORMAT\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informatívny výstup:\n"
 
-#: src/envsubst.c:196
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  zobraziť túto pomoc a skončiť\n"
 
-#: src/envsubst.c:199
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               vypísať informácie o verzii a skončiť\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -174,7 +174,7 @@ msgstr ""
 "len tie premenné prostredia, ktoré sú uvedené v SHELL-FORMAT. V opačnom prípade\n"
 "sú nahradené všetky odkazy na premenné prostredia v štandardnom vstupe.\n"
 
-#: src/envsubst.c:212
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -184,7 +184,11 @@ msgstr ""
 "z premenných prostredia, ktoré sú uvedené v SHELL-FORMAT, každá premenná je\n"
 "na samostatnom riadku.\n"
 
-#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Správy o chybách zasielajte na adresu <bug-gnu-gettext@gnu.org> (iba "
@@ -192,21 +196,21 @@ msgstr ""
 "Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux."
 "sk>.\n"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "chyba pri čítaní \"%s\""
 
-#: src/envsubst.c:440
+#: src/envsubst.c:443
 msgid "standard input"
 msgstr "štandardný vstup"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
-#: src/gettext.c:244
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -215,12 +219,12 @@ msgstr ""
 "Použitie: %s [VOĽBA] [[DOMÉNA] ID_SPRÁVY]\n"
 "alebo:    %s [VOĽBA] -s [ID_SPRÁVY]...\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Zobraziť preklad textovej správy do natívneho jazyka.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -242,7 +246,7 @@ msgstr ""
 "  [DOMÉNA] ID_SPRÁVY        vybrať preloženú správu zodpovedajúcu ID_SPRÁVY\n"
 "                            z DOMÉNY\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:264
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -262,12 +266,12 @@ msgstr ""
 "ktoré sa nachádzajú vo vybranom katalógu správ budú preložené.\n"
 "Štandardný adresár, v ktorom sa budú hľadať katalógy: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Použitie: %s [VOĽBA] [DOMÉNA] ID_SPRÁVY ID_SPRÁVY-MNČ POČET\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -276,7 +280,7 @@ msgstr ""
 "Zobraziť preklad textovej správy, ktorej gramatický tvar závisí od čísla,\n"
 "do natívneho jazyka.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -299,7 +303,7 @@ msgstr ""
 "                            (množné číslo)\n"
 "  POČET                     vybrať jednotné/množné číslo na základe tejto hodnoty\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
