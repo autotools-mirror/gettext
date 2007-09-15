@@ -1,3 +1,17 @@
+2007-09-15  Bruno Haible  <bruno@clisp.org>
+
+	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* de.po: Update from Karl Eichwalder <ke@suse.de>.
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* ru.po: Update from Oleg S. Tihonov <ost@tatnipi.ru>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* tr.po: Update from Nilgün Belma Bugüner <nilgun@buguner.name.tr>.
+	* uk.po: Update from Maxim V. Dziumanenko <dziumanenko@gmail.com>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
 2007-09-08  Bruno Haible  <bruno@clisp.org>
 
 	Check that the gettext macros and Makefile.in.in are in sync.

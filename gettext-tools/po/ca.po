@@ -1,6 +1,6 @@
 # Catalan messages for GNU gettext-tools.
 # Copyright (C) 2001, 2002, 2003 Free Software Foundation, Inc.
-# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
 #
 # Sóc Ivan, aquestes són les convencions que adopte per a la 0.15-pre5:
 #   * Sempre que es puga s’usaran els caràcters adequats per al text en català:
@@ -48,10 +48,10 @@
 #   warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.15-pre5\n"
+"Project-Id-Version: gettext-tools 0.16\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-23 23:07+0200\n"
-"PO-Revision-Date: 2006-08-20 22:16+0200\n"
+"POT-Creation-Date: 2007-05-15 02:10+0200\n"
+"PO-Revision-Date: 2007-06-21 09:21+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -60,83 +60,89 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 # Usa quote() en les 2.  ivb
-#: gnulib-lib/argmatch.c:135
+#: gnulib-lib/argmatch.c:134
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "l’argument %s no és vàlid per a %s"
 
 # Usa quote() en les 2.  ivb
-#: gnulib-lib/argmatch.c:136
+#: gnulib-lib/argmatch.c:135
 #, c-format
 msgid "ambiguous argument %s for %s"
 msgstr "l’argument %s és ambigu per a %s"
 
-#: gnulib-lib/argmatch.c:155
+#: gnulib-lib/argmatch.c:154
 #, c-format
 msgid "Valid arguments are:"
 msgstr "Els arguments vàlids són:"
 
-#: gnulib-lib/clean-temp.c:322
+#: gnulib-lib/clean-temp.c:334
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr ""
+"no s’ha trobat un directori temporal, proveu d’establir la variable d’entorn "
+"TMPDIR"
 
-#: gnulib-lib/clean-temp.c:336
-#, fuzzy, c-format
+# No usa quote().  ivb
+#: gnulib-lib/clean-temp.c:348
+#, c-format
 msgid "cannot create a temporary directory using template \"%s\""
-msgstr "no s’ha pogut crear el fitxer d’eixida «%s»"
+msgstr "no s’ha pogut crear un directori temporal amb la plantilla «%s»"
 
-#: gnulib-lib/clean-temp.c:432
-#, fuzzy, c-format
+# No usa quote().  ivb
+#: gnulib-lib/clean-temp.c:444
+#, c-format
 msgid "cannot remove temporary file %s"
-msgstr "no s’ha pogut crear el fitxer d’eixida «%s»"
+msgstr "no s’ha pogut eliminar el fitxer temporal «%s»"
 
-#: gnulib-lib/clean-temp.c:447
+# No usa quote().  ivb
+#: gnulib-lib/clean-temp.c:459
 #, c-format
 msgid "cannot remove temporary directory %s"
-msgstr ""
+msgstr "no s’ha pogut eliminar el directori temporal «%s»"
 
 #: gnulib-lib/closeout.c:67
 msgid "write error"
 msgstr "error d’escriptura"
 
-#: gnulib-lib/copy-file.c:60 src/file-list.c:56 src/msggrep.c:246
-#: src/open-catalog.c:122 src/read-mo.c:248 src/read-tcl.c:126
-#: src/urlget.c:198 src/xgettext.c:1759 src/xgettext.c:1772
-#: src/xgettext.c:1782
+#: gnulib-lib/copy-file.c:67 src/file-list.c:55 src/msggrep.c:245
+#: src/open-catalog.c:122 src/read-mo.c:253 src/read-tcl.c:125
+#: src/urlget.c:201 src/xgettext.c:1750 src/xgettext.c:1763
+#: src/xgettext.c:1773
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "error en obrir «%s» per a llegir"
 
-#: gnulib-lib/copy-file.c:67
+#: gnulib-lib/copy-file.c:74
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "no s’ha pogut obrir el fitxer còpia de seguretat «%s» per a escriure"
 
-#: gnulib-lib/copy-file.c:75 src/urlget.c:210
+#: gnulib-lib/copy-file.c:82 src/urlget.c:213
 #, c-format
 msgid "error reading \"%s\""
 msgstr "error en llegir «%s»"
 
-#: gnulib-lib/copy-file.c:80 gnulib-lib/copy-file.c:84
+#: gnulib-lib/copy-file.c:87 gnulib-lib/copy-file.c:92
+#: gnulib-lib/copy-file.c:131
 #, c-format
 msgid "error writing \"%s\""
 msgstr "error en escriure «%s»"
 
-#: gnulib-lib/copy-file.c:86 src/urlget.c:220
+#: gnulib-lib/copy-file.c:94 gnulib-lib/copy-file.c:133 src/urlget.c:223
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "error després d’haver llegit «%s»"
 
-#: gnulib-lib/csharpcomp.c:280 gnulib-lib/javaversion.c:78 src/msginit.c:838
-#: src/msginit.c:906 src/msginit.c:1065 src/msginit.c:1148
-#: src/read-csharp.c:74 src/read-java.c:72 src/read-resources.c:75
-#: src/read-tcl.c:112 src/write-resources.c:79
+#: gnulib-lib/csharpcomp.c:280 gnulib-lib/javaversion.c:78 src/msginit.c:840
+#: src/msginit.c:908 src/msginit.c:1068 src/msginit.c:1151
+#: src/read-csharp.c:73 src/read-java.c:71 src/read-resources.c:74
+#: src/read-tcl.c:111 src/write-resources.c:78
 #, c-format
 msgid "fdopen() failed"
 msgstr "ha fallat fdopen()"
 
-#: gnulib-lib/csharpcomp.c:539
+#: gnulib-lib/csharpcomp.c:540
 #, c-format
 msgid "C# compiler not found, try installing pnet"
 msgstr "no s’ha trobat cap compiŀlador de C#, instaŀleu «pnet»"
@@ -151,8 +157,8 @@ msgstr "no s’ha trobat cap màquina virtual de C#, instaŀleu «pnet»"
 msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 
-#: gnulib-lib/execute.c:181 gnulib-lib/execute.c:257 gnulib-lib/execute.c:299
-#: gnulib-lib/pipe.c:226 gnulib-lib/pipe.c:344 gnulib-lib/pipe.c:404
+#: gnulib-lib/execute.c:185 gnulib-lib/execute.c:261 gnulib-lib/execute.c:303
+#: gnulib-lib/pipe.c:230 gnulib-lib/pipe.c:348 gnulib-lib/pipe.c:408
 #: gnulib-lib/wait-process.c:334 gnulib-lib/wait-process.c:401
 #, c-format
 msgid "%s subprocess failed"
@@ -215,31 +221,31 @@ msgstr "%s: l’opció «-W %s» és ambígua\n"
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: l’opció «-W %s» no admet arguments\n"
 
-#: gnulib-lib/javacomp.c:123 gnulib-lib/javacomp.c:137
-#: gnulib-lib/javacomp.c:153
+#: gnulib-lib/javacomp.c:128 gnulib-lib/javacomp.c:142
+#: gnulib-lib/javacomp.c:158
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
 msgstr "l’argument «source_version» passat a compile_java_class() no és vàlid"
 
-#: gnulib-lib/javacomp.c:168 gnulib-lib/javacomp.c:189
+#: gnulib-lib/javacomp.c:173 gnulib-lib/javacomp.c:194
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
 msgstr "l’argument «target_version» passat a compile_java_class() no és vàlid"
 
-#: gnulib-lib/javacomp.c:473 src/write-csharp.c:721 src/write-java.c:996
-#: src/write-java.c:1008
+#: gnulib-lib/javacomp.c:505 src/write-csharp.c:714 src/write-java.c:988
+#: src/write-java.c:1000
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "no s’ha pogut crear «%s»"
 
-#: gnulib-lib/javacomp.c:480 src/write-catalog.c:215 src/write-csharp.c:730
-#: src/write-java.c:1017 src/write-mo.c:819 src/write-qt.c:752
-#: src/write-tcl.c:223
+#: gnulib-lib/javacomp.c:512 src/write-catalog.c:254 src/write-catalog.c:318
+#: src/write-csharp.c:723 src/write-java.c:1009 src/write-mo.c:812
+#: src/write-qt.c:749 src/write-tcl.c:223
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "error en escriure el fitxer «%s»"
 
-#: gnulib-lib/javacomp.c:1795
+#: gnulib-lib/javacomp.c:2343
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
@@ -253,21 +259,21 @@ msgstr ""
 "no s’ha trobat cap màquina virtual de Java, instaŀleu «gij» o establiu la "
 "variable d’entorn JAVA"
 
-#: gnulib-lib/javaversion.c:86 src/msginit.c:846 src/msginit.c:914
-#: src/msginit.c:1073
+#: gnulib-lib/javaversion.c:86 src/msginit.c:848 src/msginit.c:916
+#: src/msginit.c:1076
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "error d’E/S amb el subprocés «%s»"
 
-#: gnulib-lib/obstack.c:424 gnulib-lib/obstack.c:426 gnulib-lib/xmalloc.c:39
-#: gnulib-lib/xsetenv.c:38 src/msgl-check.c:453 src/po-lex.c:86
-#: src/po-lex.c:105 src/x-glade.c:406 libgettextpo/gettext-po.c:1240
+#: gnulib-lib/obstack.c:424 gnulib-lib/obstack.c:426 gnulib-lib/xmalloc.c:38
+#: gnulib-lib/xsetenv.c:39 src/msgl-check.c:452 src/po-lex.c:84
+#: src/po-lex.c:103 src/x-glade.c:436 libgettextpo/gettext-po.c:1245
 #, c-format
 msgid "memory exhausted"
 msgstr "la memòria s’ha exhaurit"
 
-#: gnulib-lib/pipe.c:152 gnulib-lib/pipe.c:155 gnulib-lib/pipe.c:259
-#: gnulib-lib/pipe.c:262
+#: gnulib-lib/pipe.c:156 gnulib-lib/pipe.c:159 gnulib-lib/pipe.c:263
+#: gnulib-lib/pipe.c:266
 #, c-format
 msgid "cannot create pipe"
 msgstr "no s’ha pogut crear una canonada"
@@ -291,11 +297,11 @@ msgstr "no s’ha pogut crear una canonada"
 #. If you don't know what to put here, please see
 #. <http://en.wikipedia.org/wiki/Quotation_mark#Glyphs>
 #. and use glyphs suitable for your language.
-#: gnulib-lib/quotearg.c:245
+#: gnulib-lib/quotearg.c:229
 msgid "`"
 msgstr "«"
 
-#: gnulib-lib/quotearg.c:246
+#: gnulib-lib/quotearg.c:230
 msgid "'"
 msgstr "»"
 
@@ -331,30 +337,30 @@ msgstr ""
 "«%s» no és una cadena vàlida de format de %s, com la de «msgid».  Motiu: %s"
 
 # «%s» és «msgstr».  ivb
-#: src/format-awk.c:489 src/format-boost.c:589 src/format-elisp.c:337
-#: src/format-gcc-internal.c:582 src/format-librep.c:301
-#: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
-#: src/format-qt.c:132 src/format-tcl.c:376 src/format-ycp.c:133
+#: src/format-awk.c:510 src/format-boost.c:618 src/format-elisp.c:349
+#: src/format-gcc-internal.c:624 src/format-librep.c:313
+#: src/format-pascal.c:402 src/format-perl.c:585 src/format-php.c:351
+#: src/format-qt.c:138 src/format-tcl.c:391 src/format-ycp.c:145
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr ""
-"no existeix, com en «%2$s», una especificació de format de l’argument %1$u "
-"en «msgid»"
+"no existeix, com en «%2$s», una especificació de format de l’argument %1$u en "
+"«msgid»"
 
 # «%s» és «msgstr».  ivb
-#: src/format-awk.c:499 src/format-boost.c:599 src/format-elisp.c:347
-#: src/format-gcc-internal.c:592 src/format-librep.c:311
-#: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
-#: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
+#: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
+#: src/format-gcc-internal.c:634 src/format-librep.c:323
+#: src/format-pascal.c:412 src/format-perl.c:595 src/format-php.c:361
+#: src/format-qt.c:137 src/format-tcl.c:401 src/format-ycp.c:144
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "no existeix una especificació de format de l’argument %u en «%s»"
 
-#: src/format-awk.c:519 src/format-boost.c:619 src/format-c.c:873
-#: src/format-elisp.c:367 src/format-gcc-internal.c:612
-#: src/format-librep.c:331 src/format-pascal.c:420 src/format-perl.c:597
-#: src/format-php.c:367 src/format-python.c:494 src/format-tcl.c:406
+#: src/format-awk.c:540 src/format-boost.c:648 src/format-c.c:911
+#: src/format-elisp.c:379 src/format-gcc-internal.c:654
+#: src/format-librep.c:343 src/format-pascal.c:432 src/format-perl.c:615
+#: src/format-php.c:381 src/format-python.c:511 src/format-tcl.c:421
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
@@ -362,12 +368,12 @@ msgstr ""
 "les especificacions de format en «msgid» i «%s» de l’argument %u no són les "
 "mateixes"
 
-#: src/format-boost.c:427
+#: src/format-boost.c:450
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr "La directiva número %u comença amb «|» però no acaba en «|»."
 
-#: src/format-c.c:177
+#: src/format-c.c:182
 #, c-format
 msgid ""
 "In the directive number %u, the token after '<' is not the name of a format "
@@ -377,54 +383,54 @@ msgstr ""
 "macro d’especificació de format.  Els noms vàlids de macro es troben "
 "llistats en ISO C 99, secció 7.8.1."
 
-#: src/format-c.c:565
+#: src/format-c.c:589
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr ""
 "A la directiva número %u, el component que segueix «<» no està seguit de «>»."
 
-#: src/format-c.c:779
+#: src/format-c.c:815
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 "La cadena es refereix a l’argument número %u però passa per alt l’argument "
 "número %u."
 
-#: src/format-c.c:864 src/format-csharp.c:195 src/format-python.c:485
+#: src/format-c.c:902 src/format-csharp.c:207 src/format-python.c:502
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "el nombre d’especificacions de format en «msgid» i «%s» no coincideix"
 
-#: src/format-csharp.c:86 src/format-java.c:203
+#: src/format-csharp.c:89 src/format-java.c:206
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "A la directiva número %u, «{» no està seguit d’un número d’argument."
 
-#: src/format-csharp.c:106
+#: src/format-csharp.c:110
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
 msgstr "A la directiva número %u, «,» no està seguit d’un número."
 
-#: src/format-csharp.c:125 src/format-java.c:190
+#: src/format-csharp.c:131 src/format-java.c:192
 msgid ""
 "The string ends in the middle of a directive: found '{' without matching '}'."
 msgstr ""
 "La cadena acaba emmig d’una directiva: s’ha trobat una «{» sense la «}» "
 "corresponent."
 
-#: src/format-csharp.c:133
+#: src/format-csharp.c:140
 #, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
 msgstr ""
 "La directiva número %u acaba en el caràcter no vàlid «%c», en lloc de «}»."
 
-#: src/format-csharp.c:134
+#: src/format-csharp.c:141
 #, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
 msgstr "La directiva número %u acaba en un caràcter no vàlid, en lloc de «}»."
 
-#: src/format-csharp.c:152 src/format-java.c:333
+#: src/format-csharp.c:162 src/format-java.c:347
 msgid ""
 "The string starts in the middle of a directive: found '}' without matching "
 "'{'."
@@ -432,22 +438,22 @@ msgstr ""
 "La cadena comença emmig d’una directiva: s’ha trobat una «}» sense la «{» "
 "corresponent."
 
-#: src/format-csharp.c:153
+#: src/format-csharp.c:163
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "La cadena conté un «}» solt després de la directiva número %u."
 
-#: src/format-gcc-internal.c:245
+#: src/format-gcc-internal.c:254
 #, c-format
 msgid "In the directive number %u, the flags combination is invalid."
 msgstr "A la directiva número %u, la combinació d’indicadors no és vàlida."
 
-#: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
+#: src/format-gcc-internal.c:291 src/format-gcc-internal.c:397
 #, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr "A la directiva número %u, no es pot indicar la precisió abans de «%c»."
 
-#: src/format-gcc-internal.c:314
+#: src/format-gcc-internal.c:333
 #, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
@@ -456,22 +462,22 @@ msgstr ""
 "A la directiva número %u, el número d’argument per a la precisió ha de ser "
 "igual a %u."
 
-#: src/format-gcc-internal.c:376
+#: src/format-gcc-internal.c:405
 #, c-format
 msgid "In the directive number %u, the precision specification is invalid."
 msgstr "A la directiva número %u, l’especificació de precisió no és vàlida."
 
-#: src/format-gcc-internal.c:424
+#: src/format-gcc-internal.c:460
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "A la directiva número %u, no es permeten indicadors abans de «%c»."
 
-#: src/format-gcc-internal.c:630
+#: src/format-gcc-internal.c:672
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr "«msgid» empra %%m però «%s» no ho fa"
 
-#: src/format-gcc-internal.c:633
+#: src/format-gcc-internal.c:675
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr "«msgid» no empra %%m però «%s» empra %%m"
@@ -536,28 +542,27 @@ msgstr ""
 msgid "The string refers to argument number %u in incompatible ways."
 msgstr "La cadena es refereix a l’argument número %u de formes incompatibles."
 
-#: src/format-java.c:237
+#: src/format-java.c:241
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
 "style."
 msgstr ""
-"A la directiva número %u, la subcadena «%s» no té un estil de data/hora "
-"vàlid."
+"A la directiva número %u, la subcadena «%s» no té un estil de data/hora vàlid."
 
-#: src/format-java.c:247 src/format-java.c:279 src/format-java.c:306
+#: src/format-java.c:252 src/format-java.c:286 src/format-java.c:315
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
 msgstr "A la directiva número %u, «%s» no està seguit d’una coma."
 
-#: src/format-java.c:269
+#: src/format-java.c:275
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
 msgstr ""
 "A la directiva número %u, la subcadena «%s» no és un estil numèric vàlid."
 
-#: src/format-java.c:314
+#: src/format-java.c:324
 #, c-format
 msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
@@ -567,44 +572,44 @@ msgstr ""
 "una de «%s», «%s», «%s» o «%s»."
 
 # «choice» és el que apareix literalment en la directiva.  ivb
-#: src/format-java.c:558
+#: src/format-java.c:573
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
 msgstr "A la directiva número %u, una selecció («choice») no conté cap número."
 
-#: src/format-java.c:569
+#: src/format-java.c:584
 #, c-format
 msgid ""
 "In the directive number %u, a choice contains a number that is not followed "
 "by '<', '#' or '%s'."
 msgstr ""
-"A la directiva número %u, una selecció («choice») conté un número que no "
-"està seguit per «<», «#» o «%s»."
+"A la directiva número %u, una selecció («choice») conté un número que no està "
+"seguit per «<», «#» o «%s»."
 
-#: src/format-java.c:729
+#: src/format-java.c:746
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr ""
-"no existeix una especificació de format de l’argument {%u} en «msgid», com "
-"en «%s»"
+"no existeix una especificació de format de l’argument {%u} en «msgid», com en "
+"«%s»"
 
-#: src/format-java.c:739
+#: src/format-java.c:756
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "no existeix una especificació de format de l’argument {%u} en «%s»"
 
-#: src/format-java.c:759
+#: src/format-java.c:776
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr ""
-"les especificacions de format de l’argument {%2$u} en «msgid» i «%1$s» no "
-"són les mateixes"
+"les especificacions de format de l’argument {%2$u} en «msgid» i «%1$s» no són "
+"les mateixes"
 
-#: src/format-lisp.c:2352 src/format-lisp.c:2364 src/format-scheme.c:2378
-#: src/format-scheme.c:2390
+#: src/format-lisp.c:2338 src/format-lisp.c:2350 src/format-scheme.c:2364
+#: src/format-scheme.c:2376
 #, c-format
 msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
@@ -613,7 +618,7 @@ msgstr ""
 "A la directiva número %u, el paràmetre %u és de tipus «%s», però se "
 "n’esperava un de tipus «%s»."
 
-#: src/format-lisp.c:2387 src/format-scheme.c:2413
+#: src/format-lisp.c:2373 src/format-scheme.c:2399
 #, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
@@ -628,65 +633,64 @@ msgstr[1] ""
 "A la directiva número %u, s’han especificat massa paràmetres; se n’esperaven "
 "%u com a molt."
 
-#: src/format-lisp.c:2502 src/format-scheme.c:2505
+#: src/format-lisp.c:2497 src/format-scheme.c:2500
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "A la directiva número %u, «%c» no està seguit d’un dígit."
 
-#: src/format-lisp.c:2700 src/format-scheme.c:2715
+#: src/format-lisp.c:2737 src/format-scheme.c:2755
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "A la directiva número %u, l’argument %d és negatiu."
 
-#: src/format-lisp.c:2762
+#: src/format-lisp.c:2806
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "La cadena acaba emmig d’una directiva «~/…/»."
 
 # Són parèntesis.  ivb
-#: src/format-lisp.c:2792 src/format-lisp.c:3025 src/format-lisp.c:3131
-#: src/format-lisp.c:3180 src/format-lisp.c:3266 src/format-scheme.c:2790
-#: src/format-scheme.c:3023 src/format-scheme.c:3129 src/format-scheme.c:3204
+#: src/format-lisp.c:2844 src/format-lisp.c:3109 src/format-lisp.c:3226
+#: src/format-lisp.c:3286 src/format-lisp.c:3398 src/format-scheme.c:2841
+#: src/format-scheme.c:3106 src/format-scheme.c:3223 src/format-scheme.c:3321
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "S’ha trobat «~%c» sense el «~%c» corresponent."
 
-#: src/format-lisp.c:2808 src/format-scheme.c:2806
+#: src/format-lisp.c:2864 src/format-scheme.c:2861
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr ""
-"A la directiva número %u, s’han especificat tant el modificador «@» com el "
-"«:»."
+"A la directiva número %u, s’han especificat tant el modificador «@» com el «:»."
 
-#: src/format-lisp.c:2906 src/format-scheme.c:2904
+#: src/format-lisp.c:2977 src/format-scheme.c:2974
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
 "by '~;'."
 msgstr ""
-"A la directiva número %u, «~[» no està seguit de dues clàusules separades "
-"per «~;»."
+"A la directiva número %u, «~[» no està seguit de dues clàusules separades per "
+"«~;»."
 
-#: src/format-lisp.c:3214 src/format-scheme.c:3163
+#: src/format-lisp.c:3327 src/format-scheme.c:3264
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "A la directiva número %u, «~;» s’empra en una posició no vàlida."
 
-#: src/format-lisp.c:3300 src/format-scheme.c:3238
+#: src/format-lisp.c:3433 src/format-scheme.c:3356
 msgid "The string refers to some argument in incompatible ways."
 msgstr "La cadena es refereix a algun argument de formes incompatibles."
 
-#: src/format-lisp.c:3342 src/format-scheme.c:3280
+#: src/format-lisp.c:3475 src/format-scheme.c:3398
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "les especificacions de format en «msgid» i «%s» no són equivalents"
 
-#: src/format-lisp.c:3358 src/format-scheme.c:3296
+#: src/format-lisp.c:3491 src/format-scheme.c:3414
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr ""
 "les especificacions de format de «%s» no són un subconjunt de les de «msgid»"
 
-#: src/format-perl.c:426
+#: src/format-perl.c:434
 #, c-format
 msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
@@ -695,7 +699,7 @@ msgstr ""
 "A la directiva número %u, l’especificador de mida no és compatible amb "
 "l’especificador de conversió «%c»."
 
-#: src/format-perl-brace.c:194 src/format-python.c:443 src/format-sh.c:295
+#: src/format-perl-brace.c:200 src/format-python.c:460 src/format-sh.c:308
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "no existeix una especificació de format de l’argument «%s» en «%s»"
@@ -708,13 +712,13 @@ msgstr ""
 "La subcadena es refereix a arguments tant pel seu nom com per "
 "especificacions d’argument sense nom."
 
-#: src/format-python.c:327
+#: src/format-python.c:344
 #, c-format
 msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr ""
 "La cadena es refereix a l’argument anomenat «%s» de formes incompatibles."
 
-#: src/format-python.c:403
+#: src/format-python.c:420
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
@@ -723,33 +727,33 @@ msgstr ""
 "les especificacions de format de «msgid» necessiten un mapa, les de «%s» una "
 "tupla"
 
-#: src/format-python.c:410
+#: src/format-python.c:427
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr ""
-"les especificacions de format de «msgid» necessiten una tupla, les de «%s» "
-"un mapa"
+"les especificacions de format de «msgid» necessiten una tupla, les de «%s» un "
+"mapa"
 
-#: src/format-python.c:433 src/format-sh.c:285
+#: src/format-python.c:450 src/format-sh.c:298
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr ""
-"no existeix una especificació de format de l’argument «%s» en «msgid», com "
-"en «%s»"
+"no existeix una especificació de format de l’argument «%s» en «msgid», com en «%"
+"s»"
 
-#: src/format-python.c:463
+#: src/format-python.c:480
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr ""
-"les especificacions de format de l’argument «%2$s» en «msgid» i «%1$s» no "
-"són les mateixes"
+"les especificacions de format de l’argument «%2$s» en «msgid» i «%1$s» no són "
+"les mateixes"
 
-#: src/format-qt.c:78
+#: src/format-qt.c:81
 #, c-format
 msgid "Multiple references to %%%c."
 msgstr "Hi ha múltiples referències a «%%%c»."
@@ -778,14 +782,14 @@ msgstr ""
 msgid "The string refers to a shell variable with an empty name."
 msgstr "La cadena es refereix a una variable d’intèrpret amb un nom buit."
 
-#: src/format-ycp.c:83
+#: src/format-ycp.c:91
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
 msgstr "A la directiva número %u, el caràcter «%c» no és un dígit entre 1 i 9."
 
-#: src/format-ycp.c:84
+#: src/format-ycp.c:92
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a digit between "
@@ -793,11 +797,11 @@ msgid ""
 msgstr ""
 "El caràcter que termina la directiva número %u no és un dígit entre 1 i 9."
 
-#: src/hostname.c:180 src/msgattrib.c:327 src/msgcat.c:271 src/msgcmp.c:163
-#: src/msgcomm.c:270 src/msgconv.c:225 src/msgen.c:213 src/msgexec.c:180
-#: src/msgfilter.c:286 src/msgfmt.c:367 src/msggrep.c:400 src/msginit.c:260
-#: src/msgmerge.c:323 src/msgunfmt.c:252 src/msguniq.c:249
-#: src/recode-sr-latin.c:112 src/urlget.c:132 src/xgettext.c:517
+#: src/hostname.c:179 src/msgattrib.c:326 src/msgcat.c:282 src/msgcmp.c:162
+#: src/msgcomm.c:269 src/msgconv.c:224 src/msgen.c:212 src/msgexec.c:179
+#: src/msgfilter.c:281 src/msgfmt.c:365 src/msggrep.c:399 src/msginit.c:258
+#: src/msgmerge.c:320 src/msgunfmt.c:251 src/msguniq.c:248
+#: src/recode-sr-latin.c:111 src/urlget.c:131 src/xgettext.c:509
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -809,58 +813,58 @@ msgstr ""
 "No hi ha CAP garantia; ni tan sols de COMERCIABILITAT o ADEQUACIÓ PER A UN\n"
 "PROPÒSIT PARTICULAR.\n"
 
-#: src/hostname.c:185 src/msgattrib.c:332 src/msgcat.c:276 src/msgcmp.c:168
-#: src/msgcomm.c:275 src/msgconv.c:230 src/msgen.c:218 src/msgexec.c:185
-#: src/msgfilter.c:291 src/msgfmt.c:372 src/msggrep.c:405 src/msginit.c:265
-#: src/msgmerge.c:328 src/msgunfmt.c:257 src/msguniq.c:254 src/urlget.c:137
-#: src/xgettext.c:522
+#: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgcmp.c:167
+#: src/msgcomm.c:274 src/msgconv.c:229 src/msgen.c:217 src/msgexec.c:184
+#: src/msgfilter.c:286 src/msgfmt.c:370 src/msggrep.c:404 src/msginit.c:263
+#: src/msgmerge.c:325 src/msgunfmt.c:256 src/msguniq.c:253 src/urlget.c:136
+#: src/xgettext.c:514
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/hostname.c:185 src/msgattrib.c:332 src/msgcat.c:276 src/msgconv.c:230
-#: src/msgen.c:218 src/msgexec.c:185 src/msgfilter.c:291 src/msggrep.c:405
-#: src/msginit.c:265 src/msguniq.c:254 src/recode-sr-latin.c:122
-#: src/urlget.c:137
+#: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgconv.c:229
+#: src/msgen.c:217 src/msgexec.c:184 src/msgfilter.c:286 src/msggrep.c:404
+#: src/msginit.c:263 src/msguniq.c:253 src/recode-sr-latin.c:121
+#: src/urlget.c:136
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/hostname.c:195 src/msginit.c:275 src/recode-sr-latin.c:131
+#: src/hostname.c:194 src/msginit.c:273 src/recode-sr-latin.c:130
 #, c-format
 msgid "too many arguments"
 msgstr "sobren arguments"
 
-#: src/hostname.c:208 src/msgattrib.c:392 src/msgcat.c:333 src/msgcmp.c:199
-#: src/msgcomm.c:343 src/msgconv.c:287 src/msgen.c:271 src/msgexec.c:237
-#: src/msgfilter.c:396 src/msgfmt.c:627 src/msggrep.c:496 src/msginit.c:349
-#: src/msgmerge.c:449 src/msgunfmt.c:412 src/msguniq.c:310
-#: src/recode-sr-latin.c:144 src/urlget.c:160 src/xgettext.c:738
+#: src/hostname.c:207 src/msgattrib.c:391 src/msgcat.c:350 src/msgcmp.c:198
+#: src/msgcomm.c:342 src/msgconv.c:286 src/msgen.c:270 src/msgexec.c:236
+#: src/msgfilter.c:391 src/msgfmt.c:625 src/msggrep.c:495 src/msginit.c:347
+#: src/msgmerge.c:446 src/msgunfmt.c:411 src/msguniq.c:309
+#: src/recode-sr-latin.c:143 src/urlget.c:159 src/xgettext.c:730
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Proveu «%s --help» per a obtenir més informació.\n"
 
-#: src/hostname.c:212 src/msginit.c:353 src/recode-sr-latin.c:149
+#: src/hostname.c:211 src/msginit.c:351 src/recode-sr-latin.c:148
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Forma d’ús: %s [OPCIÓ]\n"
 
-#: src/hostname.c:216
+#: src/hostname.c:215
 #, c-format
 msgid "Print the machine's hostname.\n"
 msgstr "Mostra el nom d’estació de la màquina.\n"
 
-#: src/hostname.c:219
+#: src/hostname.c:218
 #, c-format
 msgid "Output format:\n"
 msgstr "Format de l’eixida:\n"
 
-#: src/hostname.c:221
+#: src/hostname.c:220
 #, c-format
 msgid "  -s, --short                 short host name\n"
 msgstr "  -s, --short          Nom curt de l’estació.\n"
 
-#: src/hostname.c:223
+#: src/hostname.c:222
 #, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified "
@@ -870,74 +874,78 @@ msgstr ""
 "  -f, --fqdn, --long    Nom llarg de l’estació, inclou el nom de domini\n"
 "                       completament qualificat i els àlies.\n"
 
-#: src/hostname.c:226
+#: src/hostname.c:225
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
 msgstr "  -i, --ip-address     Adreces corresponents al nom d’estació.\n"
 
-#: src/hostname.c:229 src/msgattrib.c:498 src/msgcat.c:431 src/msgcmp.c:246
-#: src/msgcomm.c:437 src/msgconv.c:363 src/msgen.c:344 src/msgexec.c:279
-#: src/msgfilter.c:482 src/msgfmt.c:749 src/msggrep.c:606 src/msginit.c:405
-#: src/msgmerge.c:566 src/msgunfmt.c:510 src/msguniq.c:399
-#: src/recode-sr-latin.c:162 src/urlget.c:174 src/xgettext.c:888
+#: src/hostname.c:228 src/msgattrib.c:497 src/msgcat.c:454 src/msgcmp.c:245
+#: src/msgcomm.c:436 src/msgconv.c:362 src/msgen.c:343 src/msgexec.c:278
+#: src/msgfilter.c:477 src/msgfmt.c:747 src/msggrep.c:605 src/msginit.c:403
+#: src/msgmerge.c:563 src/msgunfmt.c:509 src/msguniq.c:398
+#: src/recode-sr-latin.c:161 src/urlget.c:173 src/xgettext.c:880
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Eixida informativa:\n"
 
-#: src/hostname.c:231 src/msgattrib.c:500 src/msgcat.c:433 src/msgcmp.c:248
-#: src/msgcomm.c:439 src/msgconv.c:365 src/msgen.c:346 src/msgexec.c:281
-#: src/msgfilter.c:484 src/msgfmt.c:751 src/msggrep.c:608 src/msginit.c:407
-#: src/msgmerge.c:568 src/msgunfmt.c:512 src/msguniq.c:401
-#: src/recode-sr-latin.c:165 src/urlget.c:176 src/xgettext.c:890
+#: src/hostname.c:230 src/msgattrib.c:499 src/msgcat.c:456 src/msgcmp.c:247
+#: src/msgcomm.c:438 src/msgconv.c:364 src/msgen.c:345 src/msgexec.c:280
+#: src/msgfilter.c:479 src/msgfmt.c:749 src/msggrep.c:607 src/msginit.c:405
+#: src/msgmerge.c:565 src/msgunfmt.c:511 src/msguniq.c:400
+#: src/recode-sr-latin.c:164 src/urlget.c:175 src/xgettext.c:882
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help           Mostra aquesta ajuda i ix.\n"
 
-#: src/hostname.c:233 src/msgattrib.c:502 src/msgcat.c:435 src/msgcmp.c:250
-#: src/msgcomm.c:441 src/msgconv.c:367 src/msgen.c:348 src/msgexec.c:283
-#: src/msgfilter.c:486 src/msgfmt.c:753 src/msggrep.c:610 src/msginit.c:409
-#: src/msgmerge.c:570 src/msgunfmt.c:514 src/msguniq.c:403
-#: src/recode-sr-latin.c:168 src/urlget.c:178 src/xgettext.c:892
+#: src/hostname.c:232 src/msgattrib.c:501 src/msgcat.c:458 src/msgcmp.c:249
+#: src/msgcomm.c:440 src/msgconv.c:366 src/msgen.c:347 src/msgexec.c:282
+#: src/msgfilter.c:481 src/msgfmt.c:751 src/msggrep.c:609 src/msginit.c:407
+#: src/msgmerge.c:567 src/msgunfmt.c:513 src/msguniq.c:402
+#: src/recode-sr-latin.c:167 src/urlget.c:177 src/xgettext.c:884
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version        Mostra informació sobre la versió i ix.\n"
 
-#: src/hostname.c:236 src/msgattrib.c:505 src/msgcat.c:438 src/msgcmp.c:253
-#: src/msgcomm.c:444 src/msgconv.c:370 src/msgen.c:351 src/msgexec.c:286
-#: src/msgfilter.c:489 src/msgfmt.c:760 src/msggrep.c:613 src/msginit.c:412
-#: src/msgmerge.c:577 src/msgunfmt.c:519 src/msguniq.c:406
-#: src/recode-sr-latin.c:171 src/urlget.c:181 src/xgettext.c:895
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/hostname.c:239 src/msgattrib.c:508 src/msgcat.c:465 src/msgcmp.c:256
+#: src/msgcomm.c:447 src/msgconv.c:373 src/msgen.c:354 src/msgexec.c:289
+#: src/msgfilter.c:488 src/msgfmt.c:762 src/msggrep.c:616 src/msginit.c:414
+#: src/msgmerge.c:578 src/msgunfmt.c:522 src/msguniq.c:409
+#: src/recode-sr-latin.c:174 src/urlget.c:184 src/xgettext.c:891
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/hostname.c:252 src/hostname.c:258 src/hostname.c:265
+#: src/hostname.c:255 src/hostname.c:261 src/hostname.c:268
 #, c-format
 msgid "could not get host name"
 msgstr "no s’ha pogut obtenir el nom d’estació"
 
-#: src/msgattrib.c:347 src/msgconv.c:245 src/msgexec.c:152 src/msgfilter.c:216
-#: src/msggrep.c:420 src/msginit.c:198 src/msguniq.c:269
+#: src/msgattrib.c:346 src/msgconv.c:244 src/msgexec.c:151 src/msgfilter.c:211
+#: src/msggrep.c:419 src/msginit.c:196 src/msguniq.c:268
 #, c-format
 msgid "at most one input file allowed"
 msgstr "es permet com a molt un fitxer d’entrada"
 
-#: src/msgattrib.c:353 src/msgattrib.c:357 src/msgcat.c:286 src/msgcat.c:290
-#: src/msgcomm.c:285 src/msgcomm.c:289 src/msgconv.c:251 src/msgconv.c:255
-#: src/msgen.c:240 src/msgen.c:244 src/msgfilter.c:306 src/msgfilter.c:310
-#: src/msgfmt.c:411 src/msgfmt.c:419 src/msgfmt.c:434 src/msgfmt.c:456
-#: src/msggrep.c:426 src/msggrep.c:430 src/msgmerge.c:353 src/msgmerge.c:374
-#: src/msgmerge.c:378 src/msgunfmt.c:288 src/msguniq.c:275 src/msguniq.c:279
-#: src/xgettext.c:532 src/xgettext.c:536 src/xgettext.c:543
+#: src/msgattrib.c:352 src/msgattrib.c:356 src/msgcat.c:303 src/msgcat.c:307
+#: src/msgcomm.c:284 src/msgcomm.c:288 src/msgconv.c:250 src/msgconv.c:254
+#: src/msgen.c:239 src/msgen.c:243 src/msgfilter.c:301 src/msgfilter.c:305
+#: src/msgfmt.c:409 src/msgfmt.c:417 src/msgfmt.c:432 src/msgfmt.c:454
+#: src/msggrep.c:425 src/msggrep.c:429 src/msgmerge.c:350 src/msgmerge.c:371
+#: src/msgmerge.c:375 src/msgunfmt.c:287 src/msguniq.c:274 src/msguniq.c:278
+#: src/xgettext.c:524 src/xgettext.c:528 src/xgettext.c:535
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "«%s» i «%s» són mútuament excloents"
 
-#: src/msgattrib.c:396 src/msgconv.c:291 src/msggrep.c:500 src/msguniq.c:314
+#: src/msgattrib.c:395 src/msgconv.c:290 src/msggrep.c:499 src/msguniq.c:313
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [FITXER_ENTRADA]\n"
 
-#: src/msgattrib.c:401
+#: src/msgattrib.c:400
 #, c-format, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -946,10 +954,10 @@ msgstr ""
 "Filtra els missatges d’un catàleg de traduccions segons els seus atributs, i\n"
 "manipula aquests atributs.\n"
 
-#: src/msgattrib.c:405 src/msgcat.c:354 src/msgcmp.c:217 src/msgcomm.c:363
-#: src/msgconv.c:299 src/msgen.c:287 src/msgexec.c:260 src/msgfilter.c:408
-#: src/msggrep.c:510 src/msginit.c:363 src/msgmerge.c:470 src/msgunfmt.c:424
-#: src/msguniq.c:330
+#: src/msgattrib.c:404 src/msgcat.c:371 src/msgcmp.c:216 src/msgcomm.c:362
+#: src/msgconv.c:298 src/msgen.c:286 src/msgexec.c:259 src/msgfilter.c:403
+#: src/msggrep.c:509 src/msginit.c:361 src/msgmerge.c:467 src/msgunfmt.c:423
+#: src/msguniq.c:329
 #, c-format
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -957,23 +965,23 @@ msgstr ""
 "Els arguments obligatoris per a les opcions llargues també ho són per a les\n"
 "opcions curtes corresponents.\n"
 
-#: src/msgattrib.c:408 src/msgcat.c:357 src/msgcmp.c:220 src/msgcomm.c:366
-#: src/msgconv.c:302 src/msgen.c:290 src/msgexec.c:263 src/msgfilter.c:411
-#: src/msgfmt.c:645 src/msggrep.c:513 src/msginit.c:366 src/msgmerge.c:473
-#: src/msgunfmt.c:438 src/msguniq.c:333 src/xgettext.c:756
+#: src/msgattrib.c:407 src/msgcat.c:374 src/msgcmp.c:219 src/msgcomm.c:365
+#: src/msgconv.c:301 src/msgen.c:289 src/msgexec.c:262 src/msgfilter.c:406
+#: src/msgfmt.c:643 src/msggrep.c:512 src/msginit.c:364 src/msgmerge.c:470
+#: src/msgunfmt.c:437 src/msguniq.c:332 src/xgettext.c:748
 #, c-format
 msgid "Input file location:\n"
 msgstr "Ubicació del fitxer d’entrada:\n"
 
-#: src/msgattrib.c:410 src/msgconv.c:304 src/msggrep.c:515 src/msguniq.c:335
+#: src/msgattrib.c:409 src/msgconv.c:303 src/msggrep.c:514 src/msguniq.c:334
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
 msgstr "  FITXER_ENTRADA       Fitxer PO d’entrada.\n"
 
-#: src/msgattrib.c:412 src/msgcat.c:363 src/msgcmp.c:226 src/msgcomm.c:372
-#: src/msgconv.c:306 src/msgen.c:294 src/msgexec.c:267 src/msgfilter.c:415
-#: src/msgfmt.c:649 src/msggrep.c:517 src/msgmerge.c:479 src/msguniq.c:337
-#: src/xgettext.c:762
+#: src/msgattrib.c:411 src/msgcat.c:380 src/msgcmp.c:225 src/msgcomm.c:371
+#: src/msgconv.c:305 src/msgen.c:293 src/msgexec.c:266 src/msgfilter.c:410
+#: src/msgfmt.c:647 src/msggrep.c:516 src/msgmerge.c:476 src/msguniq.c:336
+#: src/xgettext.c:754
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -982,34 +990,34 @@ msgstr ""
 "                       Afegeix el DIRECTORI a la llista de cerca de fitxers\n"
 "                       d’entrada.\n"
 
-#: src/msgattrib.c:414 src/msgconv.c:308 src/msgexec.c:269 src/msgfilter.c:417
-#: src/msggrep.c:519 src/msgunfmt.c:442 src/msguniq.c:339
+#: src/msgattrib.c:413 src/msgconv.c:307 src/msgexec.c:268 src/msgfilter.c:412
+#: src/msggrep.c:518 src/msgunfmt.c:441 src/msguniq.c:338
 #, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 "Si no s’especifica cap fitxer d’entrada, o si aquest és «-», es llegirà\n"
 "l’entrada estàndard.\n"
 
-#: src/msgattrib.c:417 src/msgcat.c:368 src/msgcomm.c:377 src/msgconv.c:311
-#: src/msgen.c:299 src/msgfilter.c:420 src/msgfmt.c:669 src/msggrep.c:522
-#: src/msginit.c:374 src/msgmerge.c:491 src/msgunfmt.c:478 src/msguniq.c:342
-#: src/xgettext.c:767
+#: src/msgattrib.c:416 src/msgcat.c:385 src/msgcomm.c:376 src/msgconv.c:310
+#: src/msgen.c:298 src/msgfilter.c:415 src/msgfmt.c:667 src/msggrep.c:521
+#: src/msginit.c:372 src/msgmerge.c:488 src/msgunfmt.c:477 src/msguniq.c:341
+#: src/xgettext.c:759
 #, c-format
 msgid "Output file location:\n"
 msgstr "Ubicació del fitxer d’eixida:\n"
 
-#: src/msgattrib.c:419 src/msgcat.c:370 src/msgcomm.c:379 src/msgconv.c:313
-#: src/msgen.c:301 src/msgfilter.c:422 src/msgfmt.c:671 src/msggrep.c:524
-#: src/msgmerge.c:493 src/msgunfmt.c:480 src/msguniq.c:344
+#: src/msgattrib.c:418 src/msgcat.c:387 src/msgcomm.c:378 src/msgconv.c:312
+#: src/msgen.c:300 src/msgfilter.c:417 src/msgfmt.c:669 src/msggrep.c:523
+#: src/msgmerge.c:490 src/msgunfmt.c:479 src/msguniq.c:343
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr ""
 "  -o, --output-file=FITXER\n"
 "                       Escriu l’eixida al fitxer especificat.\n"
 
-#: src/msgattrib.c:421 src/msgcat.c:372 src/msgcomm.c:381 src/msgconv.c:315
-#: src/msgen.c:303 src/msgfilter.c:424 src/msggrep.c:526 src/msgmerge.c:495
-#: src/msgunfmt.c:482 src/msguniq.c:346
+#: src/msgattrib.c:420 src/msgcat.c:389 src/msgcomm.c:380 src/msgconv.c:314
+#: src/msgen.c:302 src/msgfilter.c:419 src/msggrep.c:525 src/msgmerge.c:492
+#: src/msgunfmt.c:481 src/msguniq.c:345
 #, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
@@ -1019,12 +1027,12 @@ msgstr ""
 "fitxer\n"
 "d’eixida, o si aquest és «-».\n"
 
-#: src/msgattrib.c:425 src/msgcat.c:376 src/msgcomm.c:385 src/msguniq.c:350
+#: src/msgattrib.c:424 src/msgcat.c:393 src/msgcomm.c:384 src/msguniq.c:349
 #, c-format
 msgid "Message selection:\n"
 msgstr "Selecció dels missatges:\n"
 
-#: src/msgattrib.c:427
+#: src/msgattrib.c:426
 #, c-format
 msgid ""
 "      --translated            keep translated, remove untranslated messages\n"
@@ -1032,7 +1040,7 @@ msgstr ""
 "      --translated     Manté els missatges traduïts, elimina els no "
 "traduïts.\n"
 
-#: src/msgattrib.c:429
+#: src/msgattrib.c:428
 #, c-format
 msgid ""
 "      --untranslated          keep untranslated, remove translated messages\n"
@@ -1040,60 +1048,62 @@ msgstr ""
 "      --untranslated    Manté els missatges no traduïts, elimina els "
 "traduïts.\n"
 
-#: src/msgattrib.c:431
+#: src/msgattrib.c:430
 #, c-format
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
 msgstr "      --no-fuzzy       Elimina els missatges marcats com a «fuzzy».\n"
 
-#: src/msgattrib.c:433
+#: src/msgattrib.c:432
 #, c-format
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
 msgstr "      --only-fuzzy     Manté els missatges marcats com a «fuzzy».\n"
 
-#: src/msgattrib.c:435
+#: src/msgattrib.c:434
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
 msgstr "      --no-obsolete    Elimina els missatges obsolets («#~»).\n"
 
-#: src/msgattrib.c:437
+#: src/msgattrib.c:436
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr "      --only-obsolete    Manté els missatges obsolets («#~»).\n"
 
-#: src/msgattrib.c:440
+#: src/msgattrib.c:439
 #, c-format
 msgid "Attribute manipulation:\n"
 msgstr "Manipulació dels atributs:\n"
 
-#: src/msgattrib.c:442
+#: src/msgattrib.c:441
 #, c-format
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
 msgstr "      --set-fuzzy      Marca tots els missatges com a «fuzzy».\n"
 
-#: src/msgattrib.c:444
+#: src/msgattrib.c:443
 #, c-format
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 msgstr "      --clear-fuzzy    Marca tots els missatges com a no‐«fuzzy».\n"
 
-#: src/msgattrib.c:446
+#: src/msgattrib.c:445
 #, c-format
 msgid "      --set-obsolete          set all messages obsolete\n"
 msgstr "      --set-obsolete    Marca tots els missatges com a obsolets.\n"
 
-#: src/msgattrib.c:448
+#: src/msgattrib.c:447
 #, c-format
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
 msgstr ""
 "      --clear-obsolete    Marca tots els missatges com a no obsolets.\n"
 
-#: src/msgattrib.c:450
-#, fuzzy, c-format
+#: src/msgattrib.c:449
+#, c-format
 msgid ""
 "      --clear-previous        remove the \"previous msgid\" from all "
 "messages\n"
-msgstr "      --clear-fuzzy    Marca tots els missatges com a no‐«fuzzy».\n"
+msgstr ""
+"      --clear-previous    Elimina de tots els missatges el comentari amb el\n"
+"                       «msgid» anterior.\n"
 
-#: src/msgattrib.c:452
+#: src/msgattrib.c:451
 #, c-format
 msgid ""
 "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
@@ -1102,7 +1112,7 @@ msgstr ""
 "                       Només manipula les entrades llistades al FITXER.po\n"
 "                       indicat.\n"
 
-#: src/msgattrib.c:454
+#: src/msgattrib.c:453
 #, c-format
 msgid ""
 "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
@@ -1112,27 +1122,27 @@ msgstr ""
 "po\n"
 "                       indicat.\n"
 
-#: src/msgattrib.c:456
+#: src/msgattrib.c:455
 #, c-format
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 msgstr "      --fuzzy          Equival a «--only-fuzzy --clear-fuzzy».\n"
 
-#: src/msgattrib.c:458
+#: src/msgattrib.c:457
 #, c-format
 msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr "      --obsolete       Equival a «--only-obsolete --clear-obsolete».\n"
 
-#: src/msgattrib.c:461 src/msgcat.c:388 src/msgcmp.c:238 src/msgcomm.c:397
-#: src/msgconv.c:326 src/msgen.c:307 src/msgexec.c:272 src/msgfilter.c:443
-#: src/msgfmt.c:714 src/msggrep.c:569 src/msginit.c:382 src/msgmerge.c:528
-#: src/msguniq.c:357
+#: src/msgattrib.c:460 src/msgcat.c:405 src/msgcmp.c:237 src/msgcomm.c:396
+#: src/msgconv.c:325 src/msgen.c:306 src/msgexec.c:271 src/msgfilter.c:438
+#: src/msgfmt.c:712 src/msggrep.c:568 src/msginit.c:380 src/msgmerge.c:525
+#: src/msguniq.c:356
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "Sintaxi del fitxer d’entrada:\n"
 
-#: src/msgattrib.c:463 src/msgconv.c:328 src/msgen.c:309 src/msgexec.c:274
-#: src/msgfilter.c:445 src/msggrep.c:571 src/msginit.c:384 src/msguniq.c:359
+#: src/msgattrib.c:462 src/msgconv.c:327 src/msgen.c:308 src/msgexec.c:273
+#: src/msgfilter.c:440 src/msggrep.c:570 src/msginit.c:382 src/msguniq.c:358
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
@@ -1142,8 +1152,8 @@ msgstr ""
 "de\n"
 "                       Java.\n"
 
-#: src/msgattrib.c:465 src/msgconv.c:330 src/msgen.c:311 src/msgexec.c:276
-#: src/msgfilter.c:447 src/msggrep.c:573 src/msginit.c:386 src/msguniq.c:361
+#: src/msgattrib.c:464 src/msgconv.c:329 src/msgen.c:310 src/msgexec.c:275
+#: src/msgfilter.c:442 src/msggrep.c:572 src/msginit.c:384 src/msguniq.c:360
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
@@ -1153,17 +1163,17 @@ msgstr ""
 "                       El fitxer d’entrada segueix la sintaxi «.strings» de\n"
 "                       NeXTstep/GNUstep.\n"
 
-#: src/msgattrib.c:468 src/msgcat.c:396 src/msgcomm.c:405 src/msgconv.c:333
-#: src/msgen.c:314 src/msgfilter.c:450 src/msgfmt.c:742 src/msggrep.c:576
-#: src/msginit.c:389 src/msgmerge.c:536 src/msgunfmt.c:486 src/msguniq.c:364
-#: src/xgettext.c:846
+#: src/msgattrib.c:467 src/msgcat.c:413 src/msgcomm.c:404 src/msgconv.c:332
+#: src/msgen.c:313 src/msgfilter.c:445 src/msgfmt.c:740 src/msggrep.c:575
+#: src/msginit.c:387 src/msgmerge.c:533 src/msgunfmt.c:485 src/msguniq.c:363
+#: src/xgettext.c:838
 #, c-format
 msgid "Output details:\n"
 msgstr "Detalls de l’eixida:\n"
 
-#: src/msgattrib.c:470 src/msgcat.c:403 src/msgcomm.c:407 src/msgconv.c:335
-#: src/msgen.c:316 src/msgmerge.c:538 src/msgunfmt.c:488 src/msguniq.c:371
-#: src/xgettext.c:848
+#: src/msgattrib.c:469 src/msgcat.c:426 src/msgcomm.c:406 src/msgconv.c:334
+#: src/msgen.c:315 src/msgmerge.c:535 src/msgunfmt.c:487 src/msguniq.c:370
+#: src/xgettext.c:840
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -1171,9 +1181,9 @@ msgstr ""
 "  -e, --no-escape      No empra seqüències d’escapada de C a l’eixida (per\n"
 "                       defecte).\n"
 
-#: src/msgattrib.c:472 src/msgcat.c:405 src/msgcomm.c:409 src/msgconv.c:337
-#: src/msgen.c:318 src/msgfilter.c:454 src/msgmerge.c:540 src/msgunfmt.c:490
-#: src/msguniq.c:373 src/xgettext.c:850
+#: src/msgattrib.c:471 src/msgcat.c:428 src/msgcomm.c:408 src/msgconv.c:336
+#: src/msgen.c:317 src/msgfilter.c:449 src/msgmerge.c:537 src/msgunfmt.c:489
+#: src/msguniq.c:372 src/xgettext.c:842
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1181,27 +1191,27 @@ msgstr ""
 "  -E, --escape         Empra seqüències d’escapada de C a l’eixida, en lloc\n"
 "                       de caràcters estesos.\n"
 
-#: src/msgattrib.c:474 src/msgcat.c:407 src/msgcomm.c:411 src/msgconv.c:339
-#: src/msgen.c:320 src/msgfilter.c:456 src/msggrep.c:582 src/msgmerge.c:542
-#: src/msgunfmt.c:492 src/msguniq.c:375 src/xgettext.c:852
+#: src/msgattrib.c:473 src/msgcat.c:430 src/msgcomm.c:410 src/msgconv.c:338
+#: src/msgen.c:319 src/msgfilter.c:451 src/msggrep.c:581 src/msgmerge.c:539
+#: src/msgunfmt.c:491 src/msguniq.c:374 src/xgettext.c:844
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po       Genera el fitxer PO encara que estiga buit.\n"
 
-#: src/msgattrib.c:476 src/msgcat.c:409 src/msgcomm.c:413 src/msguniq.c:377
-#: src/xgettext.c:854
+#: src/msgattrib.c:475 src/msgcat.c:432 src/msgcomm.c:412 src/msguniq.c:376
+#: src/xgettext.c:846
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr "  -i, --indent         Genera el fitxer PO emprant l’estil indentat.\n"
 
-#: src/msgattrib.c:478 src/msgcat.c:411 src/msgcomm.c:415 src/msguniq.c:379
-#: src/xgettext.c:856
+#: src/msgattrib.c:477 src/msgcat.c:434 src/msgcomm.c:414 src/msguniq.c:378
+#: src/xgettext.c:848
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr "      --no-location    No escriu les línies «#: nom_fitxer:línia».\n"
 
-#: src/msgattrib.c:480 src/msgcat.c:413 src/msgcomm.c:417 src/msguniq.c:381
-#: src/xgettext.c:858
+#: src/msgattrib.c:479 src/msgcat.c:436 src/msgcomm.c:416 src/msguniq.c:380
+#: src/xgettext.c:850
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
@@ -1209,8 +1219,8 @@ msgstr ""
 "  -n, --add-location    Escriu les línies «#: nom_fitxer:línia» (per\n"
 "                       defecte).\n"
 
-#: src/msgattrib.c:482 src/msgcat.c:415 src/msgcomm.c:419 src/msguniq.c:383
-#: src/xgettext.c:860
+#: src/msgattrib.c:481 src/msgcat.c:438 src/msgcomm.c:418 src/msguniq.c:382
+#: src/xgettext.c:852
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
@@ -1218,18 +1228,18 @@ msgstr ""
 "      --strict         Genera un fitxer PO estrictament conforme amb "
 "Uniforum.\n"
 
-#: src/msgattrib.c:484 src/msgcat.c:417 src/msgcomm.c:421 src/msgconv.c:349
-#: src/msgen.c:330 src/msgfilter.c:468 src/msggrep.c:592 src/msginit.c:395
-#: src/msgmerge.c:552 src/msgunfmt.c:498 src/msguniq.c:385
+#: src/msgattrib.c:483 src/msgcat.c:440 src/msgcomm.c:420 src/msgconv.c:348
+#: src/msgen.c:329 src/msgfilter.c:463 src/msggrep.c:591 src/msginit.c:393
+#: src/msgmerge.c:549 src/msgunfmt.c:497 src/msguniq.c:384
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr ""
 "  -p, --properties-output\n"
 "                       Genera un fitxer amb sintaxi «.properties» de Java.\n"
 
-#: src/msgattrib.c:486 src/msgcat.c:419 src/msgcomm.c:423 src/msgconv.c:351
-#: src/msgen.c:332 src/msgfilter.c:470 src/msggrep.c:594 src/msginit.c:397
-#: src/msgmerge.c:554 src/msgunfmt.c:500 src/msguniq.c:387 src/xgettext.c:864
+#: src/msgattrib.c:485 src/msgcat.c:442 src/msgcomm.c:422 src/msgconv.c:350
+#: src/msgen.c:331 src/msgfilter.c:465 src/msggrep.c:593 src/msginit.c:395
+#: src/msgmerge.c:551 src/msgunfmt.c:499 src/msguniq.c:386 src/xgettext.c:856
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
@@ -1238,16 +1248,16 @@ msgstr ""
 "                       Genera un fitxer amb sintaxi «.strings» de\n"
 "                       NeXTstep/GNUstep.\n"
 
-#: src/msgattrib.c:488 src/msgcat.c:421 src/msgcomm.c:425 src/msgconv.c:353
-#: src/msgen.c:334 src/msgfilter.c:472 src/msggrep.c:596 src/msginit.c:399
-#: src/msgmerge.c:556 src/msgunfmt.c:502 src/msguniq.c:389 src/xgettext.c:866
+#: src/msgattrib.c:487 src/msgcat.c:444 src/msgcomm.c:424 src/msgconv.c:352
+#: src/msgen.c:333 src/msgfilter.c:467 src/msggrep.c:595 src/msginit.c:397
+#: src/msgmerge.c:553 src/msgunfmt.c:501 src/msguniq.c:388 src/xgettext.c:858
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=AMPLADA    Estableix l’amplada de pàgina de l’eixida.\n"
 
-#: src/msgattrib.c:490 src/msgcat.c:423 src/msgcomm.c:427 src/msgconv.c:355
-#: src/msgen.c:336 src/msgfilter.c:474 src/msggrep.c:598 src/msginit.c:401
-#: src/msgmerge.c:558 src/msgunfmt.c:504 src/msguniq.c:391 src/xgettext.c:868
+#: src/msgattrib.c:489 src/msgcat.c:446 src/msgcomm.c:426 src/msgconv.c:354
+#: src/msgen.c:335 src/msgfilter.c:469 src/msggrep.c:597 src/msginit.c:399
+#: src/msgmerge.c:555 src/msgunfmt.c:503 src/msguniq.c:390 src/xgettext.c:860
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1256,27 +1266,27 @@ msgstr ""
 "      --no-wrap        No parteix les línies de missatge més llargues que\n"
 "                       l’amplada de pàgina.\n"
 
-#: src/msgattrib.c:493 src/msgcat.c:426 src/msgcomm.c:430 src/msgconv.c:358
-#: src/msgen.c:339 src/msgfilter.c:477 src/msgmerge.c:561 src/msgunfmt.c:507
-#: src/msguniq.c:394 src/xgettext.c:871
+#: src/msgattrib.c:492 src/msgcat.c:449 src/msgcomm.c:429 src/msgconv.c:357
+#: src/msgen.c:338 src/msgfilter.c:472 src/msgmerge.c:558 src/msgunfmt.c:506
+#: src/msguniq.c:393 src/xgettext.c:863
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output    Genera una eixida ordenada.\n"
 
-#: src/msgattrib.c:495 src/msgcat.c:428 src/msgcomm.c:432 src/msgconv.c:360
-#: src/msgen.c:341 src/msgfilter.c:479 src/msgmerge.c:563 src/msguniq.c:396
-#: src/xgettext.c:873
+#: src/msgattrib.c:494 src/msgcat.c:451 src/msgcomm.c:431 src/msgconv.c:359
+#: src/msgen.c:340 src/msgfilter.c:474 src/msgmerge.c:560 src/msguniq.c:395
+#: src/xgettext.c:865
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
 "  -F, --sort-by-file    Ordena les eixides per llurs ubicacions en fitxer.\n"
 
-#: src/msgcat.c:296 src/msgcomm.c:315
+#: src/msgcat.c:313 src/msgcomm.c:314
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "s’ha especificat un criteri de selecció impossible (%d < n < %d)"
 
-#: src/msgcat.c:337 src/msgcomm.c:347 src/xgettext.c:742
+#: src/msgcat.c:354 src/msgcomm.c:346 src/xgettext.c:734
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [FITXER_ENTRADA]…\n"
@@ -1284,7 +1294,7 @@ msgstr "Forma d’ús: %s [OPCIÓ] [FITXER_ENTRADA]…\n"
 # ivb (2001/12/24)
 # ivb  Aquesta traducció no és completament literal però queda més clar.
 # ivb  Amb «commonality» vol dir «nombre de coincidències».
-#: src/msgcat.c:342
+#: src/msgcat.c:359
 #, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
@@ -1307,25 +1317,25 @@ msgstr ""
 "treuran del primer fitxer PO que els definesca.  Les posicions de fitxer de\n"
 "tots els fitxers PO s’acumularan.\n"
 
-#: src/msgcat.c:359 src/msgcomm.c:368 src/xgettext.c:758
+#: src/msgcat.c:376 src/msgcomm.c:367 src/xgettext.c:750
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr "  FITXER_ENTRADA…      Fitxers d’entrada.\n"
 
-#: src/msgcat.c:361 src/msgcomm.c:370 src/xgettext.c:760
+#: src/msgcat.c:378 src/msgcomm.c:369 src/xgettext.c:752
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr ""
 "  -f, --files-from=FITXER\n"
 "                       Obté la llista de fitxers d’entrada del FITXER.\n"
 
-#: src/msgcat.c:365 src/msgcomm.c:374 src/msgen.c:296 src/msgfmt.c:651
-#: src/xgettext.c:764
+#: src/msgcat.c:382 src/msgcomm.c:373 src/msgen.c:295 src/msgfmt.c:649
+#: src/xgettext.c:756
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "Si el fitxer d’entrada és «-» es llegirà l’entrada estàndard.\n"
 
-#: src/msgcat.c:378 src/msgcomm.c:387
+#: src/msgcat.c:395 src/msgcomm.c:386
 #, c-format
 msgid ""
 "  -<, --less-than=NUMBER      print messages with less than this many\n"
@@ -1335,7 +1345,7 @@ msgstr ""
 "                       Escriu els missatges amb menys de NÚMERO definicions\n"
 "                       (per defecte infinites).\n"
 
-#: src/msgcat.c:381
+#: src/msgcat.c:398
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1346,7 +1356,7 @@ msgstr ""
 "(per\n"
 "                       defecte 0).\n"
 
-#: src/msgcat.c:384 src/msgcomm.c:393
+#: src/msgcat.c:401 src/msgcomm.c:392
 #, c-format
 msgid ""
 "  -u, --unique                shorthand for --less-than=2, requests\n"
@@ -1356,8 +1366,8 @@ msgstr ""
 "s’escriguen\n"
 "                       els missatges únics.\n"
 
-#: src/msgcat.c:390 src/msgcmp.c:240 src/msgcomm.c:399 src/msgfmt.c:716
-#: src/msgmerge.c:530
+#: src/msgcat.c:407 src/msgcmp.c:239 src/msgcomm.c:398 src/msgfmt.c:714
+#: src/msgmerge.c:527
 #, c-format
 msgid ""
 "  -P, --properties-input      input files are in Java .properties syntax\n"
@@ -1367,8 +1377,8 @@ msgstr ""
 "properties»\n"
 "                       de Java.\n"
 
-#: src/msgcat.c:392 src/msgcmp.c:242 src/msgcomm.c:401 src/msgfmt.c:718
-#: src/msgmerge.c:532
+#: src/msgcat.c:409 src/msgcmp.c:241 src/msgcomm.c:400 src/msgfmt.c:716
+#: src/msgmerge.c:529
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
@@ -1379,12 +1389,12 @@ msgstr ""
 "de\n"
 "                       NeXTstep/GNUstep.\n"
 
-#: src/msgcat.c:398 src/msgconv.c:321 src/msguniq.c:366
+#: src/msgcat.c:415 src/msgconv.c:320 src/msguniq.c:365
 #, c-format
 msgid "  -t, --to-code=NAME          encoding for output\n"
 msgstr "  -t, --to-code=NOM    Codificació de l’eixida.\n"
 
-#: src/msgcat.c:400 src/msguniq.c:368
+#: src/msgcat.c:417 src/msguniq.c:367
 #, c-format
 msgid ""
 "      --use-first             use first available translation for each\n"
@@ -1394,27 +1404,41 @@ msgstr ""
 "mescla\n"
 "                       diverses traduccions.\n"
 
+#: src/msgcat.c:420
+#, c-format
+msgid ""
+"      --color                 use colors and other text attributes always\n"
+"      --color=WHEN            use colors and other text attributes if WHEN.\n"
+"                              WHEN may be 'always', 'never', 'auto', or "
+"'html'.\n"
+msgstr ""
+
+#: src/msgcat.c:424
+#, c-format
+msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
+msgstr ""
+
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:168 src/msgcomm.c:275 src/msgmerge.c:328
+#: src/msgcmp.c:167 src/msgcomm.c:274 src/msgmerge.c:325
 msgid "Peter Miller"
 msgstr "Peter Miller"
 
-#: src/msgcmp.c:179 src/msgmerge.c:339
+#: src/msgcmp.c:178 src/msgmerge.c:336
 #, c-format
 msgid "no input files given"
 msgstr "no s’ha especificat cap fitxer d’entrada"
 
-#: src/msgcmp.c:184 src/msgmerge.c:344
+#: src/msgcmp.c:183 src/msgmerge.c:341
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "cal que especifiqueu exactament dos fitxers d’entrada"
 
-#: src/msgcmp.c:203 src/msgmerge.c:453
+#: src/msgcmp.c:202 src/msgmerge.c:450
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Forma d’ús: %s [OPCIÓ] def.po ref.pot\n"
 
-#: src/msgcmp.c:208
+#: src/msgcmp.c:207
 #, c-format, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -1432,80 +1456,79 @@ msgstr ""
 "es puga trobar una coincidència exacta, s’emprarà una comparació difusa per a\n"
 "produir uns diagnòstics millors.\n"
 
-#: src/msgcmp.c:222
+#: src/msgcmp.c:221
 #, c-format
 msgid "  def.po                      translations\n"
 msgstr "  def.po               Traduccions.\n"
 
-#: src/msgcmp.c:224
+#: src/msgcmp.c:223
 #, c-format
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot              Referències al codi font.\n"
 
-#: src/msgcmp.c:229 src/msgmerge.c:519
+#: src/msgcmp.c:228 src/msgmerge.c:516
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "Modificadors del funcionament:\n"
 
-#: src/msgcmp.c:231 src/msgmerge.c:521
+#: src/msgcmp.c:230 src/msgmerge.c:518
 #, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def."
 "po\n"
 msgstr ""
-"  -m, --multi-domain    Aplica «ref.pot» a cadascun dels dominis de «def."
-"po».\n"
+"  -m, --multi-domain    Aplica «ref.pot» a cadascun dels dominis de «def.po».\n"
 
-#: src/msgcmp.c:233
-#, fuzzy, c-format
+#: src/msgcmp.c:232
+#, c-format
 msgid "      --use-fuzzy             consider fuzzy entries\n"
-msgstr "  -f, --use-fuzzy      Empra a l’eixida les entrades difuses.\n"
+msgstr "      --use-fuzzy      Té en compte les entrades difuses.\n"
 
-#: src/msgcmp.c:235
-#, fuzzy, c-format
+#: src/msgcmp.c:234
+#, c-format
 msgid "      --use-untranslated      consider untranslated entries\n"
 msgstr ""
-"      --untranslated    Manté els missatges no traduïts, elimina els "
-"traduïts.\n"
+"      --use-untranslated\n"
+"                       Té en compte les entrades no traduïdes.\n"
 
-#: src/msgcmp.c:306
-#, fuzzy, c-format
+#: src/msgcmp.c:309
+#, c-format
 msgid "this message is untranslated"
-msgstr "avís: aquest missatge no s’empra"
+msgstr "aquest missatge no està traduït"
 
-#: src/msgcmp.c:312
+#: src/msgcmp.c:315
 #, c-format
 msgid "this message needs to be reviewed by the translator"
-msgstr ""
+msgstr "aquest missatge ha de ser revisat pel traductor"
 
-#: src/msgcmp.c:328 src/msgmerge.c:1214
+#: src/msgcmp.c:331 src/msgmerge.c:1220
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "aquest missatge s’empra però no s’ha definit…"
 
-#: src/msgcmp.c:331 src/msgmerge.c:1217
+#: src/msgcmp.c:334 src/msgmerge.c:1223
 #, c-format
 msgid "...but this definition is similar"
 msgstr "…però aquesta definició és similar"
 
-#: src/msgcmp.c:336 src/msgmerge.c:1245
+#: src/msgcmp.c:339 src/msgmerge.c:1251
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "aquest missatge s’empra però no s’ha definit en «%s»"
 
-#: src/msgcmp.c:440
+#: src/msgcmp.c:443
 #, c-format
 msgid "warning: this message is not used"
 msgstr "avís: aquest missatge no s’empra"
 
-#: src/msgcmp.c:447 src/msgfmt.c:543
+#: src/msgcmp.c:450 src/msgfmt.c:541
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "s’ha trobat %d error fatal"
 msgstr[1] "s’han trobat %d errors fatals"
 
-#: src/msgcomm.c:304
+#: src/msgcomm.c:303
 #, c-format
 msgid "at least two files must be specified"
 msgstr "cal que especifiqueu almenys dos fitxers"
@@ -1513,7 +1536,7 @@ msgstr "cal que especifiqueu almenys dos fitxers"
 # ivb (2001/12/24)
 # ivb  Aquesta traducció no és completament literal però queda més clar.
 # ivb  Amb «commonality» vol dir «nombre de coincidències».
-#: src/msgcomm.c:352
+#: src/msgcomm.c:351
 #, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1534,7 +1557,7 @@ msgstr ""
 "que els definesca.  Les posicions de fitxer de tots els fitxers PO\n"
 "s’acumularan.\n"
 
-#: src/msgcomm.c:390
+#: src/msgcomm.c:389
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1545,43 +1568,43 @@ msgstr ""
 "(per\n"
 "                       defecte 1).\n"
 
-#: src/msgcomm.c:434 src/xgettext.c:875
+#: src/msgcomm.c:433 src/xgettext.c:867
 #, c-format
 msgid ""
 "      --omit-header           don't write header with `msgid \"\"' entry\n"
 msgstr ""
 "      --omit-header    No escriu la capçalera amb l’entrada «msgid \"\"».\n"
 
-#: src/msgconv.c:295
+#: src/msgconv.c:294
 #, c-format
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr ""
 "Converteix un catàleg de traduccions a una codificació de caràcters "
 "diferent.\n"
 
-#: src/msgconv.c:319
+#: src/msgconv.c:318
 #, c-format
 msgid "Conversion target:\n"
 msgstr "Objectiu de la conversió:\n"
 
-#: src/msgconv.c:323
+#: src/msgconv.c:322
 #, c-format
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "La codificació per defecte és la del locale actual.\n"
 
-#: src/msgconv.c:341 src/msgen.c:322 src/msgmerge.c:544
+#: src/msgconv.c:340 src/msgen.c:321 src/msgmerge.c:541
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr "  -i, --indent         Genera el fitxer PO emprant l’estil indentat.\n"
 
-#: src/msgconv.c:343 src/msgen.c:324 src/msgfilter.c:462 src/msggrep.c:586
-#: src/msgmerge.c:546
+#: src/msgconv.c:342 src/msgen.c:323 src/msgfilter.c:457 src/msggrep.c:585
+#: src/msgmerge.c:543
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr "      --no-location    No escriu les línies «#: nom_fitxer:línia».\n"
 
-#: src/msgconv.c:345 src/msgen.c:326 src/msgfilter.c:464 src/msggrep.c:588
-#: src/msgmerge.c:548
+#: src/msgconv.c:344 src/msgen.c:325 src/msgfilter.c:459 src/msggrep.c:587
+#: src/msgmerge.c:545
 #, c-format
 msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
@@ -1589,30 +1612,30 @@ msgstr ""
 "      --add-location    Escriu les línies «#: nom_fitxer:línia» (per\n"
 "                       defecte).\n"
 
-#: src/msgconv.c:347 src/msgen.c:328 src/msgfilter.c:466 src/msggrep.c:590
-#: src/msgmerge.c:550
+#: src/msgconv.c:346 src/msgen.c:327 src/msgfilter.c:461 src/msggrep.c:589
+#: src/msgmerge.c:547
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr ""
 "      --strict         Genera un fitxer PO estrictament conforme amb "
 "Uniforum.\n"
 
-#: src/msgen.c:229 src/msgfmt.c:383 src/xgettext.c:560
+#: src/msgen.c:228 src/msgfmt.c:381 src/xgettext.c:552
 #, c-format
 msgid "no input file given"
 msgstr "no s’ha especificat cap fitxer d’entrada"
 
-#: src/msgen.c:234
+#: src/msgen.c:233
 #, c-format
 msgid "exactly one input file required"
 msgstr "cal que especifiqueu exactament un fitxer d’entrada"
 
-#: src/msgen.c:275
+#: src/msgen.c:274
 #, c-format
 msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "Forma d’ús: %s [OPCIÓ] FITXER_ENTRADA\n"
 
-#: src/msgen.c:280
+#: src/msgen.c:279
 #, c-format, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
@@ -1625,22 +1648,22 @@ msgstr ""
 "amb «xgettext»).  S’assignarà a les entrades no traduïdes una traducció igual\n"
 "al «msgid» corresponent.\n"
 
-#: src/msgen.c:292
+#: src/msgen.c:291
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
 msgstr "  FITXER_ENTRADA       Fitxer d’entrada PO o POT.\n"
 
-#: src/msgexec.c:195
+#: src/msgexec.c:194
 #, c-format
 msgid "missing command name"
 msgstr "manca el nom d’una ordre"
 
-#: src/msgexec.c:241
+#: src/msgexec.c:240
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr "Forma d’ús: %s [OPCIÓ] ORDRE [OPCIÓ_D’ORDRE]\n"
 
-#: src/msgexec.c:246
+#: src/msgexec.c:245
 #, c-format, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -1655,7 +1678,7 @@ msgstr ""
 "esdevé l’eixida de «msgexec».  El codi de retorn de «msgexec» és el codi màxim\n"
 "de totes les invocacions del programa.\n"
 
-#: src/msgexec.c:255
+#: src/msgexec.c:254
 #, c-format, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
@@ -1664,44 +1687,44 @@ msgstr ""
 "L’ordre incorporada «0» genera la traducció seguida d’un octet nul.  L’eixida\n"
 "de «msgexec 0» és adequada com a entrada per a «xargs -0».\n"
 
-#: src/msgexec.c:265 src/msgfilter.c:413
+#: src/msgexec.c:264 src/msgfilter.c:408
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr ""
 "  -i, --input=FITXER_ENTRADA\n"
 "                       Fitxer PO d’entrada.\n"
 
-#: src/msgexec.c:325
+#: src/msgexec.c:328
 #, c-format
 msgid "write to stdout failed"
 msgstr "no s’ha pogut escriure a l’eixida estàndard"
 
-#: src/msgexec.c:352 src/msgfilter.c:665
+#: src/msgexec.c:355 src/msgfilter.c:664
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "no s’ha pogut escriure al subprocés «%s»"
 
-#: src/msgfilter.c:301
+#: src/msgfilter.c:296
 #, c-format
 msgid "missing filter name"
 msgstr "manca el nom d’un filtre"
 
-#: src/msgfilter.c:325
+#: src/msgfilter.c:320
 #, c-format
 msgid "at least one sed script must be specified"
 msgstr "cal que especifiqueu almenys un guió de «sed»"
 
-#: src/msgfilter.c:400
+#: src/msgfilter.c:395
 #, c-format
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Forma d’ús: %s [OPCIÓ] FILTRE [OPCIÓ_DE_FILTRE]\n"
 
-#: src/msgfilter.c:404
+#: src/msgfilter.c:399
 #, c-format
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Aplica un filtre a cada traducció d’un catàleg de traduccions.\n"
 
-#: src/msgfilter.c:428
+#: src/msgfilter.c:423
 #, c-format
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -1710,18 +1733,18 @@ msgstr ""
 "El FILTRE pot ser qualsevol programa que llija una traducció de l’entrada\n"
 "estàndard i n’escriga una de modificada a l’eixida estàndard.\n"
 
-#: src/msgfilter.c:433
+#: src/msgfilter.c:428
 #, c-format
 msgid "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
 msgstr "OPCIONS_DE_FILTRE útils quan el FILTRE és «sed»:\n"
 
-#: src/msgfilter.c:435
+#: src/msgfilter.c:430
 #, c-format
 msgid ""
 "  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
 msgstr "  -e, --expression=GUIÓ    Afegeix el GUIÓ a les ordres a executar.\n"
 
-#: src/msgfilter.c:437
+#: src/msgfilter.c:432
 #, c-format
 msgid ""
 "  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the "
@@ -1733,7 +1756,7 @@ msgstr ""
 "a\n"
 "                       executar.\n"
 
-#: src/msgfilter.c:440
+#: src/msgfilter.c:435
 #, c-format
 msgid ""
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
@@ -1741,7 +1764,7 @@ msgstr ""
 "  -n, --quiet, --silent    Evita la impressió automàtica de l’espai de "
 "patró.\n"
 
-#: src/msgfilter.c:452 src/msggrep.c:578
+#: src/msgfilter.c:447 src/msggrep.c:577
 #, c-format
 msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1749,12 +1772,12 @@ msgstr ""
 "      --no-escape      No empra seqüències d’escapada de C a l’eixida (per\n"
 "                       defecte).\n"
 
-#: src/msgfilter.c:458 src/msggrep.c:584
+#: src/msgfilter.c:453 src/msggrep.c:583
 #, c-format
 msgid "      --indent                indented output style\n"
 msgstr "      --indent         Genera el fitxer PO emprant l’estil indentat.\n"
 
-#: src/msgfilter.c:460
+#: src/msgfilter.c:455
 #, c-format
 msgid ""
 "      --keep-header           keep header entry unmodified, don't filter it\n"
@@ -1762,105 +1785,105 @@ msgstr ""
 "      --keep-header    Manté intacta l’entrada de capçalera, sense filtrar‐"
 "la.\n"
 
-#: src/msgfilter.c:588
+#: src/msgfilter.c:587
 #, c-format
 msgid "Not yet implemented."
 msgstr "Encara no s’ha implementat."
 
-#: src/msgfilter.c:617
+#: src/msgfilter.c:616
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "no s’ha pogut establir una E/S no blocadora amb el subprocés «%s»"
 
-#: src/msgfilter.c:645
+#: src/msgfilter.c:644
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "la comunicació amb el subprocés «%s» ha fallat"
 
-#: src/msgfilter.c:696
+#: src/msgfilter.c:695
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "no s’ha pogut llegir del subprocés «%s»"
 
-#: src/msgfilter.c:712
+#: src/msgfilter.c:711
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "el subprocés «%s» ha terminat amb codi d’eixida %d"
 
-#: src/msgfmt.c:305
+#: src/msgfmt.c:303
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "l’argument de «%s» ha de ser un sol caràcter de puntuació"
 
-#: src/msgfmt.c:352
+#: src/msgfmt.c:350
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "l’ordenació d’octets «%s» no és vàlida"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:372 src/msgunfmt.c:257 src/xgettext.c:522
+#: src/msgfmt.c:370 src/msgunfmt.c:256 src/xgettext.c:514
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/msgfmt.c:425 src/msgfmt.c:447 src/msgfmt.c:469 src/msgunfmt.c:319
-#: src/msgunfmt.c:342
+#: src/msgfmt.c:423 src/msgfmt.c:445 src/msgfmt.c:467 src/msgunfmt.c:318
+#: src/msgunfmt.c:341
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "«%s» necessita una especificació «-d directori»"
 
-#: src/msgfmt.c:440 src/msgfmt.c:462 src/msgunfmt.c:312 src/msgunfmt.c:335
+#: src/msgfmt.c:438 src/msgfmt.c:460 src/msgunfmt.c:311 src/msgunfmt.c:334
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "«%s» necessita una especificació «-l locale»"
 
 # ivb (2001/12/26)
 # ivb  Els «%s» es refereixen a opcions -> femení.
-#: src/msgfmt.c:478 src/msgunfmt.c:351 src/msgunfmt.c:357
+#: src/msgfmt.c:476 src/msgunfmt.c:350 src/msgunfmt.c:356
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "«%s» només és vàlida amb «%s» o «%s»"
 
 # ivb (2001/12/26)
 # ivb  Els «%s» es refereixen a opcions -> femení.
-#: src/msgfmt.c:484 src/msgfmt.c:490
+#: src/msgfmt.c:482 src/msgfmt.c:488
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr "«%s» només és vàlida amb «%s», «%s» o «%s»"
 
-#: src/msgfmt.c:601
+#: src/msgfmt.c:599
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d missatge traduït"
 msgstr[1] "%d missatges traduïts"
 
-#: src/msgfmt.c:606
+#: src/msgfmt.c:604
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d traducció difusa"
 msgstr[1] ", %d traduccions difuses"
 
-#: src/msgfmt.c:611
+#: src/msgfmt.c:609
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d missatge no traduït"
 msgstr[1] ", %d missatges no traduïts"
 
-#: src/msgfmt.c:631
+#: src/msgfmt.c:629
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "Forma d’ús: %s [OPCIÓ] nom_fitxer.po…\n"
 
-#: src/msgfmt.c:635
+#: src/msgfmt.c:633
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 "Genera un catàleg binari de missatges partint d’una descripció textual de\n"
 "traduccions.\n"
 
-#: src/msgfmt.c:640 src/xgettext.c:751
+#: src/msgfmt.c:638 src/xgettext.c:743
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -1869,17 +1892,17 @@ msgstr ""
 "Els arguments obligatoris per a les opcions llargues també ho són per a les\n"
 "opcions curtes corresponents.  El mateix ocorre amb els arguments opcionals.\n"
 
-#: src/msgfmt.c:647
+#: src/msgfmt.c:645
 #, c-format
 msgid "  filename.po ...             input files\n"
 msgstr "  nom_fitxer.po…       Fitxers d’entrada.\n"
 
-#: src/msgfmt.c:654 src/msgmerge.c:485 src/msgunfmt.c:427 src/xgettext.c:799
+#: src/msgfmt.c:652 src/msgmerge.c:482 src/msgunfmt.c:426 src/xgettext.c:791
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Mode de funcionament:\n"
 
-#: src/msgfmt.c:656
+#: src/msgfmt.c:654
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
@@ -1888,7 +1911,7 @@ msgstr ""
 "  -j, --java           Mode Java: genera una classe «ResourceBundle» de "
 "Java.\n"
 
-#: src/msgfmt.c:658
+#: src/msgfmt.c:656
 #, c-format
 msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
@@ -1897,13 +1920,13 @@ msgstr ""
 "      --java2          Com «--java», però assumeix Java2 (JDK 1.2 o "
 "superior).\n"
 
-#: src/msgfmt.c:660
+#: src/msgfmt.c:658
 #, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
 msgstr "      --csharp         Mode C#: genera un fitxer «.dll» de .NET.\n"
 
 # Els recursos són cosa de la plataforma .NET, no només de C#.  ivb
-#: src/msgfmt.c:662
+#: src/msgfmt.c:660
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
@@ -1915,7 +1938,7 @@ msgstr ""
 "                       .NET.\n"
 
 # Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.  ivb
-#: src/msgfmt.c:664
+#: src/msgfmt.c:662
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
@@ -1923,35 +1946,35 @@ msgstr ""
 "      --tcl            Mode Tcl: genera un fitxer «.msg» per a «msgcat» de\n"
 "                       Tcl.\n"
 
-#: src/msgfmt.c:666
+#: src/msgfmt.c:664
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr "      --qt             Mode Qt: genera un fitxer «.qm» de Qt.\n"
 
 # Ull!  En aquest cas no és un fitxer PO!  ivb
-#: src/msgfmt.c:673
+#: src/msgfmt.c:671
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr ""
 "      --strict         Genera un fitxer estrictament conforme amb Uniforum.\n"
 
-#: src/msgfmt.c:675 src/xgettext.c:775
+#: src/msgfmt.c:673 src/xgettext.c:767
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr "Si el fitxer d’eixida és «-» s’escriurà a l’eixida estàndard.\n"
 
-#: src/msgfmt.c:678
+#: src/msgfmt.c:676
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "Ubicació del fitxer d’eixida al mode Java:\n"
 
-#: src/msgfmt.c:680 src/msgfmt.c:694 src/msgunfmt.c:447 src/msgunfmt.c:458
+#: src/msgfmt.c:678 src/msgfmt.c:692 src/msgunfmt.c:446 src/msgunfmt.c:457
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=RECURS    Nom del recurs.\n"
 
-#: src/msgfmt.c:682 src/msgfmt.c:696 src/msgfmt.c:706 src/msgunfmt.c:449
-#: src/msgunfmt.c:460 src/msgunfmt.c:470
+#: src/msgfmt.c:680 src/msgfmt.c:694 src/msgfmt.c:704 src/msgunfmt.c:448
+#: src/msgunfmt.c:459 src/msgunfmt.c:469
 #, c-format
 msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
@@ -1959,7 +1982,7 @@ msgid ""
 msgstr ""
 "  -l, --locale=LOCALE    Nom del locale, bé «idioma» o bé «idioma_PAÍS».\n"
 
-#: src/msgfmt.c:684
+#: src/msgfmt.c:682
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
@@ -1967,7 +1990,7 @@ msgstr ""
 "  -d DIRECTORI         Directori base de la jerarquia de directoris de les\n"
 "                       classes.\n"
 
-#: src/msgfmt.c:686
+#: src/msgfmt.c:684
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -1980,12 +2003,12 @@ msgstr ""
 "separats per un caràcter de subratllat.  L’opció «-d» és obligatòria.  La\n"
 "classe s’escriurà sota el directori especificat.\n"
 
-#: src/msgfmt.c:692
+#: src/msgfmt.c:690
 #, c-format
 msgid "Output file location in C# mode:\n"
 msgstr "Ubicació del fitxer d’eixida al mode C#:\n"
 
-#: src/msgfmt.c:698 src/msgunfmt.c:462
+#: src/msgfmt.c:696 src/msgunfmt.c:461
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory for locale dependent .dll "
@@ -1994,44 +2017,42 @@ msgstr ""
 "  -d DIRECTORI         Directori base dels fitxers «.dll» dependents del\n"
 "                       locale.\n"
 
-#: src/msgfmt.c:700
+#: src/msgfmt.c:698
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.dll» s’escriurà sota "
-"un\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.dll» s’escriurà sota un\n"
 "subdirectori del directori especificat.  El nom del subdirectori depén del\n"
 "locale.\n"
 
-#: src/msgfmt.c:704
+#: src/msgfmt.c:702
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Ubicació del fitxer d’eixida al mode Tcl:\n"
 
-#: src/msgfmt.c:708 src/msgunfmt.c:472
+#: src/msgfmt.c:706 src/msgunfmt.c:471
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr ""
 "  -d DIRECTORI         Directori base dels catàlegs «.msg» de missatges.\n"
 
-#: src/msgfmt.c:710
+#: src/msgfmt.c:708
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» s’escriurà sota "
-"el\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» s’escriurà sota el\n"
 "directori especificat.\n"
 
-#: src/msgfmt.c:722 src/xgettext.c:791
+#: src/msgfmt.c:720 src/xgettext.c:783
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "Interpretació del fitxer d’entrada:\n"
 
-#: src/msgfmt.c:724
+#: src/msgfmt.c:722
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -2039,18 +2060,17 @@ msgid ""
 "domain\n"
 msgstr ""
 "  -c, --check          Realitza totes les comprovacions implicades per\n"
-"                       «--check-format», «--check-header» i «--check-"
-"domain».\n"
+"                       «--check-format», «--check-header» i «--check-domain».\n"
 
 # Segons la doc, quan ací diu «language» es refereix a un de programació.  ivb
-#: src/msgfmt.c:727
+#: src/msgfmt.c:725
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 "      --check-format    Comprova les cadenes de format dependents del\n"
 "                       llenguatge de programació.\n"
 
-#: src/msgfmt.c:729
+#: src/msgfmt.c:727
 #, c-format
 msgid ""
 "      --check-header          verify presence and contents of the header "
@@ -2060,7 +2080,7 @@ msgstr ""
 "                       capçalera.\n"
 
 # La directiva s’anomena «domain».  ivb
-#: src/msgfmt.c:731
+#: src/msgfmt.c:729
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
@@ -2069,7 +2089,7 @@ msgstr ""
 "      --check-domain    Comprova si hi ha conflictes entre les directives\n"
 "                       «domain» i l’opció «--output-file».\n"
 
-#: src/msgfmt.c:734
+#: src/msgfmt.c:732
 #, c-format
 msgid ""
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
@@ -2079,7 +2099,7 @@ msgstr ""
 "                       Comprova si el «msgfmt» de GNU es comporta com el\n"
 "                       «msgfmt» d’X/Open.\n"
 
-#: src/msgfmt.c:736
+#: src/msgfmt.c:734
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
@@ -2090,12 +2110,12 @@ msgstr ""
 "                       Comprova la presència d’acceleradors de teclat per a\n"
 "                       ítems de menú.\n"
 
-#: src/msgfmt.c:739
+#: src/msgfmt.c:737
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy      Empra a l’eixida les entrades difuses.\n"
 
-#: src/msgfmt.c:744
+#: src/msgfmt.c:742
 #, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
@@ -2103,7 +2123,7 @@ msgstr ""
 "  -a, --alignment=NÚMERO\n"
 "                       Alinea les cadenes a NÚMERO octets (%d per defecte).\n"
 
-#: src/msgfmt.c:746
+#: src/msgfmt.c:744
 #, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
@@ -2111,88 +2131,87 @@ msgstr ""
 "      --no-hash        Fa que el fitxer binari no incloga la taula de\n"
 "                       dispersió.\n"
 
-#: src/msgfmt.c:755
+#: src/msgfmt.c:753
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics     Mostra estadístiques sobre les traduccions.\n"
 
-#: src/msgfmt.c:757 src/msgmerge.c:572 src/msgunfmt.c:516
+#: src/msgfmt.c:755 src/msgmerge.c:569 src/msgunfmt.c:515
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose        Augmenta el nivell de descripció.\n"
 
-#: src/msgfmt.c:867
+#: src/msgfmt.c:869
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "avís: la capçalera del fitxer PO manca o no és vàlida\n"
 
-#: src/msgfmt.c:870
+#: src/msgfmt.c:872
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "avís: la conversió del joc de caràcters no funcionarà\n"
 
-#: src/msgfmt.c:880
+#: src/msgfmt.c:882
 #, c-format
 msgid "warning: PO file header fuzzy\n"
 msgstr "avís: la capçalera del fitxer PO està marcada com a difusa\n"
 
-#: src/msgfmt.c:882
+#: src/msgfmt.c:884
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "avís: les versions antigues de «msgfmt» ho indicaran com un error\n"
 
-#: src/msgfmt.c:906
+#: src/msgfmt.c:908
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "el nom de domini «%s» no és adequat com a nom de fitxer"
 
-#: src/msgfmt.c:911
+#: src/msgfmt.c:913
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "el nom de domini «%s» no és adequat com a nom de fitxer: se n’emprarà un "
 "prefix"
 
-#: src/msgfmt.c:925
+#: src/msgfmt.c:927
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "es descarta la directiva «domain %s»"
 
-#: src/msgfmt.c:985
+#: src/msgfmt.c:987
 #, c-format
 msgid "empty `msgstr' entry ignored"
 msgstr "es descarta l’entrada «msgstr» buida"
 
-#: src/msgfmt.c:986
+#: src/msgfmt.c:988
 #, c-format
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "es descarta l’entrada «msgstr» difusa"
 
-#: src/msgfmt.c:1035
+#: src/msgfmt.c:1037
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: avís: el fitxer font conté una traducció difusa"
 
-#: src/msggrep.c:257 src/po-lex.c:660 src/read-mo.c:82
-#: src/read-properties.c:85 src/read-stringtable.c:100 src/x-awk.c:139
-#: src/x-c.c:414 src/x-csharp.c:159 src/x-elisp.c:145 src/x-glade.c:422
-#: src/x-java.c:172 src/x-librep.c:147 src/x-lisp.c:212 src/x-perl.c:226
-#: src/x-perl.c:301 src/x-perl.c:394 src/x-php.c:162 src/x-python.c:176
-#: src/x-rst.c:232 src/x-scheme.c:171 src/x-sh.c:155 src/x-smalltalk.c:91
-#: src/x-tcl.c:150 src/x-ycp.c:91
+#: src/msggrep.c:256 src/po-lex.c:658 src/read-mo.c:87
+#: src/read-properties.c:90 src/read-stringtable.c:99 src/x-awk.c:141
+#: src/x-c.c:416 src/x-csharp.c:160 src/x-elisp.c:147 src/x-glade.c:452
+#: src/x-java.c:173 src/x-librep.c:149 src/x-lisp.c:214 src/x-perl.c:228
+#: src/x-perl.c:303 src/x-perl.c:396 src/x-php.c:164 src/x-python.c:176
+#: src/x-rst.c:235 src/x-scheme.c:173 src/x-sh.c:157 src/x-smalltalk.c:93
+#: src/x-tcl.c:152 src/x-ycp.c:93
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error en llegir «%s»"
 
-#: src/msggrep.c:485
+#: src/msggrep.c:484
 #, c-format
 msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
-msgstr ""
-"no es pot emprar l’opció «%c» abans d’especificar «J», «K», «T», «C» o «X»"
+msgstr "no es pot emprar l’opció «%c» abans d’especificar «J», «K», «T», «C» o «X»"
 
-#: src/msggrep.c:505
+#: src/msggrep.c:504
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -2201,7 +2220,7 @@ msgstr ""
 "Extrau d’un catàleg de traduccions tots els missatges que concorden amb\n"
 "un patró especificat o que pertanyen a uns fitxers font indicats.\n"
 
-#: src/msggrep.c:531
+#: src/msggrep.c:530
 #, c-format, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2282,7 +2301,7 @@ msgstr ""
 "  -v, --invert-match    Només tria els missatges que no concorden amb cap\n"
 "                       criteri de selecció.\n"
 
-#: src/msggrep.c:580
+#: src/msggrep.c:579
 #, c-format
 msgid ""
 "      --escape                use C escapes in output, no extended chars\n"
@@ -2291,19 +2310,19 @@ msgstr ""
 "de\n"
 "                       caràcters estesos.\n"
 
-#: src/msggrep.c:601
+#: src/msggrep.c:600
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
 msgstr "      --sort-output    Genera una eixida ordenada.\n"
 
-#: src/msggrep.c:603
+#: src/msggrep.c:602
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr ""
 "      --sort-by-file    Ordena les eixides per llurs ubicacions en fitxer.\n"
 
 # Multilínia.  ivb
-#: src/msginit.c:288
+#: src/msginit.c:286
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -2315,7 +2334,7 @@ msgstr ""
 "vostres traduccions.\n"
 
 # Multilínia.  ivb
-#: src/msginit.c:312
+#: src/msginit.c:310
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2326,12 +2345,12 @@ msgstr ""
 "Per favor, especifiqueu el locale mitjançant l’opció «--locale» o el\n"
 "fitxer PO d’eixida mitjançant l’opció «--output-file».\n"
 
-#: src/msginit.c:338
+#: src/msginit.c:336
 #, c-format
 msgid "Created %s.\n"
 msgstr "S’ha creat «%s».\n"
 
-#: src/msginit.c:358
+#: src/msginit.c:356
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -2340,14 +2359,14 @@ msgstr ""
 "Crea un fitxer PO nou, inicialitzant‐ne la metainformació amb valors obtesos\n"
 "de l’entorn de l’usuari.\n"
 
-#: src/msginit.c:368
+#: src/msginit.c:366
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr ""
 "  -i, --input=FITXER_ENTRADA\n"
 "                       Fitxer POT d’entrada.\n"
 
-#: src/msginit.c:370
+#: src/msginit.c:368
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2358,14 +2377,14 @@ msgstr ""
 "directori\n"
 "actual.  Si el fitxer d’entrada és «-» es llegirà l’entrada estàndard.\n"
 
-#: src/msginit.c:376
+#: src/msginit.c:374
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr ""
 "  -o, --output-file=FITXER\n"
 "                       Escriu l’eixida al fitxer PO especificat.\n"
 
-#: src/msginit.c:378
+#: src/msginit.c:376
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2377,13 +2396,13 @@ msgstr ""
 "s’escriuran a l’eixida estàndard.\n"
 
 # Espere que s’entenga…  ivb
-#: src/msginit.c:391
+#: src/msginit.c:389
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
 msgstr ""
 "  -l, --locale=ii_PP    Estableix el locale objectiu (idioma i país).\n"
 
-#: src/msginit.c:393
+#: src/msginit.c:391
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
@@ -2391,7 +2410,7 @@ msgstr ""
 "      --no-translator    Assumeix que el fitxer PO és generat "
 "automàticament.\n"
 
-#: src/msginit.c:449
+#: src/msginit.c:451
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2399,13 +2418,13 @@ msgstr ""
 "S’ha trobat més d’un fitxer «.pot».\n"
 "Per favor, especifiqueu el fitxer POT d’entrada amb l’opció «--input».\n"
 
-#: src/msginit.c:457 src/msginit.c:462
+#: src/msginit.c:459 src/msginit.c:464
 #, c-format
 msgid "error reading current directory"
 msgstr "error en llegir el directori actual"
 
 # Multilínia.  ivb
-#: src/msginit.c:470
+#: src/msginit.c:472
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2413,15 +2432,15 @@ msgstr ""
 "No s’ha trobat cap fitxer «.pot» al directori actual.  Per favor,\n"
 "especifiqueu el fitxer POT d’entrada amb l’opció «--input».\n"
 
-#: src/msginit.c:859 src/msginit.c:927 src/msginit.c:1086 src/msginit.c:1165
-#: src/read-csharp.c:84 src/read-java.c:82 src/read-resources.c:85
-#: src/read-tcl.c:128 src/write-resources.c:105
+#: src/msginit.c:861 src/msginit.c:929 src/msginit.c:1089 src/msginit.c:1168
+#: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
+#: src/read-tcl.c:127 src/write-resources.c:104
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "el subprocés «%s» ha fallat amb codi d’eixida %d"
 
 # Aquest missatge va directament per pantalla…  ivb
-#: src/msginit.c:1051
+#: src/msginit.c:1054
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2439,22 +2458,22 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1438
+#: src/msginit.c:1443
 #, c-format
 msgid "English translations for %s package"
 msgstr "Traduccions al català del paquet «%s»"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:88 src/msgl-iconv.c:226
+#: src/msgl-cat.c:177 src/msgl-charset.c:88 src/msgl-iconv.c:226
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "el joc de caràcters actual, «%s», no és un nom portable de codificació"
 
-#: src/msgl-cat.c:190 src/msgl-iconv.c:238
+#: src/msgl-cat.c:188 src/msgl-iconv.c:238
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "el fitxer d’entrada conté dos jocs de caràcters distints, «%s» i «%s»"
 
-#: src/msgl-cat.c:205
+#: src/msgl-cat.c:203
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
@@ -2462,30 +2481,30 @@ msgstr ""
 "el fitxer d’entrada «%s» no conté una entrada de capçalera amb una "
 "especificació de joc de caràcters"
 
-#: src/msgl-cat.c:209
+#: src/msgl-cat.c:207
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
-"el domini «%s» del fitxer d’entrada «%s» no conté una entrada de capçalera "
-"amb una especificació de joc de caràcters"
+"el domini «%s» del fitxer d’entrada «%s» no conté una entrada de capçalera amb "
+"una especificació de joc de caràcters"
 
-#: src/msgl-cat.c:392 src/msgl-iconv.c:343
+#: src/msgl-cat.c:389 src/msgl-iconv.c:361
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 "el joc de caràcters destinació, «%s», no és un nom portable de codificació"
 
-#: src/msgl-cat.c:443 src/msgl-cat.c:449 src/msgl-charset.c:94
-#: src/msgl-charset.c:129 src/po-xerror.c:123 src/po-xerror.c:148
-#: src/xgettext.c:2778
+#: src/msgl-cat.c:440 src/msgl-cat.c:446 src/msgl-charset.c:94
+#: src/msgl-charset.c:129 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:2770
 #, c-format
 msgid "warning: "
 msgstr "avís: "
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:444
+#: src/msgl-cat.c:441
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2495,7 +2514,7 @@ msgstr ""
 "«UTF-8» entre altres.  Es convertirà l’eixida a «UTF-8».\n"
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:450
+#: src/msgl-cat.c:447
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -2509,7 +2528,7 @@ msgstr ""
 "codificació, useu l’opció «--to-code».\n"
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:489
+#: src/msgl-cat.c:486
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -2584,26 +2603,26 @@ msgstr ""
 # ivb (2002/01/03)
 # ivb  En aquestes frases, tant «nplurals» com «plural» es refereixen a
 # ivb  variables del camp «Plural-Forms» de la capçalera.
-#: src/msgl-check.c:92
+#: src/msgl-check.c:91
 msgid "plural expression can produce negative values"
 msgstr "l’expressió de «plural» pot produir valors negatius"
 
-#: src/msgl-check.c:102
+#: src/msgl-check.c:101
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
-"«nplurals» és %lu, però l’expressió de «plural» pot produir valors de fins a "
-"%lu"
+"«nplurals» és %lu, però l’expressió de «plural» pot produir valors de fins a %"
+"lu"
 
-#: src/msgl-check.c:143
+#: src/msgl-check.c:142
 msgid "plural expression can produce division by zero"
 msgstr "l’expressió de «plural» pot produir una divisió entre zero"
 
-#: src/msgl-check.c:148
+#: src/msgl-check.c:147
 msgid "plural expression can produce integer overflow"
 msgstr "l’expressió de «plural» pot produir un desbordament enter"
 
-#: src/msgl-check.c:153
+#: src/msgl-check.c:152
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
@@ -2615,51 +2634,51 @@ msgstr ""
 # ivb  El «%s» es refereix a un idioma, i tot el missatge recomana usar una
 # ivb  entrada de capçalera «Plural-Forms:».
 # L’idioma és el de «Language-Team» (en anglés).  ivb
-#: src/msgl-check.c:185
+#: src/msgl-check.c:184
 #, c-format
 msgid "Try using the following, valid for %s:"
 msgstr "Proveu d’emprar açò, vàlid per a l’idioma «%s»:"
 
-#: src/msgl-check.c:268 src/msgl-check.c:292
+#: src/msgl-check.c:267 src/msgl-check.c:291
 msgid "message catalog has plural form translations"
 msgstr "el catàleg de missatges té traduccions amb forma plural"
 
-#: src/msgl-check.c:270
+#: src/msgl-check.c:269
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "però l’atribut «plural=EXPRESSIÓ» manca a l’entrada de capçalera"
 
-#: src/msgl-check.c:294
+#: src/msgl-check.c:293
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "però l’atribut «nplurals=ENTER» manca a l’entrada de capçalera"
 
-#: src/msgl-check.c:330
+#: src/msgl-check.c:329
 msgid "invalid nplurals value"
 msgstr "el valor d’«nplurals» no és vàlid"
 
-#: src/msgl-check.c:352
+#: src/msgl-check.c:351
 msgid "invalid plural expression"
 msgstr "l’expressió de «plural» no és vàlida"
 
-#: src/msgl-check.c:382 src/msgl-check.c:398
+#: src/msgl-check.c:381 src/msgl-check.c:397
 #, c-format
 msgid "nplurals = %lu"
 msgstr "«nplurals» és %lu"
 
-#: src/msgl-check.c:384
+#: src/msgl-check.c:383
 #, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
 msgstr[0] "però alguns missatges només tenen una forma plural"
 msgstr[1] "però alguns missatges només tenen %lu formes plurals"
 
-#: src/msgl-check.c:400
+#: src/msgl-check.c:399
 #, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
 msgstr[0] "però alguns missatges tenen una forma plural"
 msgstr[1] "però alguns missatges tenen %lu formes plurals"
 
-#: src/msgl-check.c:420
+#: src/msgl-check.c:419
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
@@ -2667,62 +2686,62 @@ msgstr ""
 "el catàleg de missatges té traduccions amb forma plural, però hi manca una "
 "entrada de capçalera amb «Plural-Forms: nplurals=ENTER; plural=EXPRESSIÓ;»"
 
-#: src/msgl-check.c:502
+#: src/msgl-check.c:501
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgid_plural» no comencen per «\\n»"
 
-#: src/msgl-check.c:510
+#: src/msgl-check.c:509
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgstr[%u]» no comencen per «\\n»"
 
-#: src/msgl-check.c:525
+#: src/msgl-check.c:524
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgstr» no comencen per «\\n»"
 
-#: src/msgl-check.c:543
+#: src/msgl-check.c:542
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgid_plural» no acaben en «\\n»"
 
-#: src/msgl-check.c:551
+#: src/msgl-check.c:550
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgstr[%u]» no acaben en «\\n»"
 
-#: src/msgl-check.c:566
+#: src/msgl-check.c:565
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "ambdues entrades «msgid» i «msgstr» no acaben en «\\n»"
 
-#: src/msgl-check.c:578
+#: src/msgl-check.c:577
 msgid "plural handling is a GNU gettext extension"
 msgstr "el maneig de plurals és una extensió del «gettext» de GNU"
 
-#: src/msgl-check.c:620
+#: src/msgl-check.c:619
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "manca la marca d’accelerador de teclat «%c» en «msgstr»"
 
-#: src/msgl-check.c:630
+#: src/msgl-check.c:629
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "sobren marques d’accelerador de teclat «%c» en «msgstr»"
 
-#: src/msgl-check.c:670
+#: src/msgl-check.c:669
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "manca el camp de capçalera «%s» a la capçalera\n"
 
-#: src/msgl-check.c:678
+#: src/msgl-check.c:677
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "cal que el camp de capçalera «%s» comence a l’inici de la línia\n"
 
-#: src/msgl-check.c:692
+#: src/msgl-check.c:691
 msgid "some header fields still have the initial default value\n"
 msgstr ""
 "alguns camps de la capçalera encara tenen els valors inicials per defecte\n"
 
-#: src/msgl-check.c:705
+#: src/msgl-check.c:704
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "el camp «%s» encara té el valor inicial per defecte\n"
@@ -2737,14 +2756,14 @@ msgstr "%s: l’entrada no és vàlida segons la codificació «%s»"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: error en convertir de la condificació «%s» a la codificació «%s»"
 
-#: src/msgl-iconv.c:262
+#: src/msgl-iconv.c:269
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "el fitxer d’entrada no conté una entrada de capçalera amb una especificació "
 "de joc de caràcters"
 
-#: src/msgl-iconv.c:284 src/recode-sr-latin.c:284 src/recode-sr-latin.c:289
-#: src/x-python.c:618 src/xgettext.c:618
+#: src/msgl-iconv.c:291 src/recode-sr-latin.c:287 src/recode-sr-latin.c:292
+#: src/x-python.c:618 src/xgettext.c:610
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -2754,7 +2773,7 @@ msgstr ""
 "permet l’ús d’aquesta conversió."
 
 # Es refereix a quelcom que _ha_ocorregut_.  ivb
-#: src/msgl-iconv.c:314
+#: src/msgl-iconv.c:321
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -2763,28 +2782,28 @@ msgstr ""
 "La conversió de «%s» a «%s» crea duplicats: alguns msgid diferents esdevenen "
 "iguals."
 
-#: src/msgl-iconv.c:320 src/recode-sr-latin.c:298 src/x-python.c:625
-#: src/xgettext.c:625
+#: src/msgl-iconv.c:327 src/recode-sr-latin.c:301 src/x-python.c:625
+#: src/xgettext.c:617
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
 "built without iconv()."
 msgstr ""
-"No es pot convertir de «%s» a «%s».  «%s» es basa en iconv().  Aquesta "
-"versió ha estat construïda sense iconv()."
+"No es pot convertir de «%s» a «%s».  «%s» es basa en iconv().  Aquesta versió "
+"ha estat construïda sense iconv()."
 
 # ivb (2001/12/26)
 # ivb  Els «%s» es refereixen a opcions -> femení.
-#: src/msgmerge.c:361 src/msgmerge.c:367
+#: src/msgmerge.c:358 src/msgmerge.c:364
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "«%s» només és vàlida amb «%s»"
 
-#: src/msgmerge.c:421
+#: src/msgmerge.c:418
 msgid "backup type"
 msgstr "tipus de còpia de seguretat"
 
-#: src/msgmerge.c:458
+#: src/msgmerge.c:455
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -2808,17 +2827,17 @@ msgstr ""
 "Quan no es puga trobar una coincidència exacta s’emprarà una comparació difusa\n"
 "per a produir uns resultats millors.\n"
 
-#: src/msgmerge.c:475
+#: src/msgmerge.c:472
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr "  def.po               Traduccions referents al codi font antic.\n"
 
-#: src/msgmerge.c:477
+#: src/msgmerge.c:474
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  ref.pot              Referències al nou codi font.\n"
 
-#: src/msgmerge.c:481
+#: src/msgmerge.c:478
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
@@ -2829,39 +2848,38 @@ msgstr ""
 "es\n"
 "                       pot especificar diverses voltes.\n"
 
-#: src/msgmerge.c:487
+#: src/msgmerge.c:484
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
 msgstr ""
-"  -U, --update         Actualitza «def.po», no fa res si «def.po» ja es "
-"troba\n"
+"  -U, --update         Actualitza «def.po», no fa res si «def.po» ja es troba\n"
 "                       actualitzat.\n"
 
-#: src/msgmerge.c:499
+#: src/msgmerge.c:496
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "Ubicació del fitxer d’eixida al mode d’actualització:\n"
 
-#: src/msgmerge.c:501
+#: src/msgmerge.c:498
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr "El resultat es torna a escriure sobre «def.po».\n"
 
-#: src/msgmerge.c:503
+#: src/msgmerge.c:500
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr "      --backup=CONTROL    Crea una còpia de seguretat de «def.po».\n"
 
-#: src/msgmerge.c:505
+#: src/msgmerge.c:502
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr ""
 "      --suffix=SUFIX    Substitueix el sufix habitual de còpia de "
 "seguretat.\n"
 
-#: src/msgmerge.c:507
+#: src/msgmerge.c:504
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or "
@@ -2882,43 +2900,41 @@ msgstr ""
 "                   simples en cas contrari.\n"
 "  simple, never    Fa còpies de seguretat simples sempre.\n"
 
-#: src/msgmerge.c:514
+#: src/msgmerge.c:511
 #, c-format
 msgid ""
 "The backup suffix is `~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
-"El sufix de còpia de seguretat és «~», si no s’estableix amb «--suffix» o "
-"amb\n"
+"El sufix de còpia de seguretat és «~», si no s’estableix amb «--suffix» o amb\n"
 "la variable d’entorn SIMPLE_BACKUP_SUFFIX.\n"
 
-#: src/msgmerge.c:523
+#: src/msgmerge.c:520
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr ""
 "  -N, --no-fuzzy-matching\n"
 "                       No empra la comparació difusa.\n"
 
-#: src/msgmerge.c:525
-#, fuzzy, c-format
+#: src/msgmerge.c:522
+#, c-format
 msgid ""
 "      --previous              keep previous msgids of translated messages\n"
 msgstr ""
-"      --translated     Manté els missatges traduïts, elimina els no "
-"traduïts.\n"
+"      --previous       Manté els «msgid» anteriors dels missatges traduïts.\n"
 
-#: src/msgmerge.c:574
+#: src/msgmerge.c:571
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent    No mostra els indicadors de progrés.\n"
 
-#: src/msgmerge.c:1318
+#: src/msgmerge.c:1324
 #, c-format
 msgid "this message should define plural forms"
 msgstr "cal definir formes plurals d’aquest missatge"
 
-#: src/msgmerge.c:1341
+#: src/msgmerge.c:1347
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "no s’han de definir formes plurals d’aquest missatge"
@@ -2927,7 +2943,7 @@ msgstr "no s’han de definir formes plurals d’aquest missatge"
 # ivb  Pense que «aprofitades» queda més clar que «mesclades»; es refereix
 # ivb  a les traduccions obteses directament de «def.po».  El primer «%s» és
 # ivb  (o no) una nova línia.
-#: src/msgmerge.c:1679
+#: src/msgmerge.c:1685
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -2938,27 +2954,27 @@ msgstr ""
 
 # ivb (2002/01/08)
 # ivb  Indica el final del processament, el gènere i nombre no són importants.
-#: src/msgmerge.c:1687
+#: src/msgmerge.c:1693
 msgid " done.\n"
 msgstr " fet.\n"
 
-#: src/msgunfmt.c:297 src/msgunfmt.c:306 src/msgunfmt.c:329
+#: src/msgunfmt.c:296 src/msgunfmt.c:305 src/msgunfmt.c:328
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "«%s» i els noms explícits de fitxer són mútuament excloents"
 
-#: src/msgunfmt.c:416
+#: src/msgunfmt.c:415
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [FITXER]…\n"
 
-#: src/msgunfmt.c:420
+#: src/msgunfmt.c:419
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr ""
 "Converteix un catàleg binari de missatges en un fitxer PO d’estil Uniforum.\n"
 
-#: src/msgunfmt.c:429
+#: src/msgunfmt.c:428
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
@@ -2968,14 +2984,14 @@ msgstr ""
 "de\n"
 "                       Java.\n"
 
-#: src/msgunfmt.c:431
+#: src/msgunfmt.c:430
 #, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
 msgstr ""
 "      --csharp         Mode C#: l’entrada és un fitxer «.dll» de .NET.\n"
 
 # Els recursos són cosa de la plataforma .NET, no només de C#.  ivb
-#: src/msgunfmt.c:433
+#: src/msgunfmt.c:432
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
@@ -2986,26 +3002,25 @@ msgstr ""
 "                       «.resources» de .NET.\n"
 
 # Amb «tcl/msgcat» es refereix al paquet «msgcat» de Tcl.  ivb
-#: src/msgunfmt.c:435
+#: src/msgunfmt.c:434
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
-"      --tcl            Mode Tcl: l’entrada és un fitxer «.msg» per a "
-"«msgcat»\n"
+"      --tcl            Mode Tcl: l’entrada és un fitxer «.msg» per a «msgcat»\n"
 "                       de Tcl.\n"
 
-#: src/msgunfmt.c:440
+#: src/msgunfmt.c:439
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
 msgstr "  FITXER…              Fitxers MO d’entrada.\n"
 
-#: src/msgunfmt.c:445
+#: src/msgunfmt.c:444
 #, c-format
 msgid "Input file location in Java mode:\n"
 msgstr "Ubicació del fitxer d’entrada al mode Java:\n"
 
-#: src/msgunfmt.c:451
+#: src/msgunfmt.c:450
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -3018,29 +3033,28 @@ msgstr ""
 "el\n"
 "camí a les classes, CLASSPATH.\n"
 
-#: src/msgunfmt.c:456
+#: src/msgunfmt.c:455
 #, c-format
 msgid "Input file location in C# mode:\n"
 msgstr "Ubicació del fitxer d’entrada al mode C#:\n"
 
-#: src/msgunfmt.c:464
+#: src/msgunfmt.c:463
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.dll» es trobarà en "
-"un\n"
+"Les opcions «-l» i «-d» són obligatòries.  El fitxer «.dll» es trobarà en un\n"
 "subdirectori del directori especificat.  El nom del subdirectori dependrà "
 "del\n"
 "locale.\n"
 
-#: src/msgunfmt.c:468
+#: src/msgunfmt.c:467
 #, c-format
 msgid "Input file location in Tcl mode:\n"
 msgstr "Ubicació del fitxer d’entrada al mode Tcl:\n"
 
-#: src/msgunfmt.c:474
+#: src/msgunfmt.c:473
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
@@ -3049,19 +3063,19 @@ msgstr ""
 "Les opcions «-l» i «-d» són obligatòries.  El fitxer «.msg» es trobarà al\n"
 "directori especificat.\n"
 
-#: src/msgunfmt.c:494
+#: src/msgunfmt.c:493
 #, c-format
 msgid "  -i, --indent                write indented output style\n"
 msgstr "  -i, --indent         Genera el fitxer PO emprant l’estil indentat.\n"
 
-#: src/msgunfmt.c:496
+#: src/msgunfmt.c:495
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
 msgstr ""
 "      --strict         Genera un fitxer PO estrictament conforme amb "
 "Uniforum.\n"
 
-#: src/msguniq.c:319
+#: src/msguniq.c:318
 #, c-format, no-wrap
 msgid ""
 "Unifies duplicate translations in a translation catalog.\n"
@@ -3083,12 +3097,12 @@ msgstr ""
 "de la primera traducció.  Les posicions de fitxer s’acumularan.  Quan useu\n"
 "l’opció «--unique» es descartaran els duplicats.\n"
 
-#: src/msguniq.c:352
+#: src/msguniq.c:351
 #, c-format
 msgid "  -d, --repeated              print only duplicates\n"
 msgstr "  -d, --repeated       Només mostra els missatges duplicats.\n"
 
-#: src/msguniq.c:354
+#: src/msguniq.c:353
 #, c-format
 msgid ""
 "  -u, --unique                print only unique messages, discard "
@@ -3097,8 +3111,8 @@ msgstr ""
 "  -u, --unique         Només mostra els missatges únics, descartant els\n"
 "                       duplicats.\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:103
-#: libgettextpo/gettext-po.c:148 libgettextpo/gettext-po.c:193
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:102
+#: libgettextpo/gettext-po.c:150 libgettextpo/gettext-po.c:198
 msgid "<stdin>"
 msgstr "<entrada estàndard>"
 
@@ -3191,58 +3205,58 @@ msgstr "la primera forma plural no té índex zero"
 msgid "plural form has wrong index"
 msgstr "la forma plural té un índex incorrecte"
 
-#: src/po-lex.c:93 src/po-lex.c:112
+#: src/po-lex.c:91 src/po-lex.c:110
 #, c-format
 msgid "too many errors, aborting"
 msgstr "hi ha massa errors, s’avorta"
 
-#: src/po-lex.c:440 src/po-lex.c:510 src/write-po.c:512 src/write-po.c:627
+#: src/po-lex.c:438 src/po-lex.c:508 src/write-po.c:708 src/write-po.c:833
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "la seqüència multioctet no és vàlida"
 
-#: src/po-lex.c:468
+#: src/po-lex.c:466
 #, c-format
 msgid "incomplete multibyte sequence at end of file"
 msgstr "hi ha una seqüència multioctet incompleta al final del fitxer"
 
-#: src/po-lex.c:478
+#: src/po-lex.c:476
 #, c-format
 msgid "incomplete multibyte sequence at end of line"
 msgstr "hi ha una seqüència multioctet incompleta al final de la línia"
 
-#: src/po-lex.c:490
+#: src/po-lex.c:488
 msgid "iconv failure"
 msgstr "ha fallat iconv()"
 
-#: src/po-lex.c:747
+#: src/po-lex.c:745
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "la paraula clau «%s» no és coneguda"
 
-#: src/po-lex.c:857
+#: src/po-lex.c:855
 #, c-format
 msgid "invalid control sequence"
 msgstr "la seqüència de control no és vàlida"
 
 # S’indica la posició exacta de la cadena.  ivb
-#: src/po-lex.c:984
+#: src/po-lex.c:982
 #, c-format
 msgid "end-of-file within string"
 msgstr "s’ha trobat el final de fitxer emmig de la cadena"
 
 # S’indica la posició exacta de la cadena.  ivb<
-#: src/po-lex.c:990
+#: src/po-lex.c:988
 #, c-format
 msgid "end-of-line within string"
 msgstr "s’ha trobat un final de línia emmig de la cadena"
 
-#: src/po-lex.c:1011
+#: src/po-lex.c:1009
 #, c-format
 msgid "context separator <EOT> within string"
 msgstr "s’ha trobat un separador de context «EOT» enmig de la cadena"
 
-#: src/read-catalog.c:328 src/xgettext.c:907
+#: src/read-catalog.c:328 src/xgettext.c:903
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "aquest fitxer no ha de contenir directives «domain»"
@@ -3255,53 +3269,53 @@ msgstr "la definició del missatge és duplicada"
 msgid "this is the location of the first definition"
 msgstr "aquesta és la ubicació de la primera definició"
 
-#: src/read-mo.c:101 src/read-mo.c:122 src/read-mo.c:168 src/read-mo.c:195
+#: src/read-mo.c:106 src/read-mo.c:127 src/read-mo.c:173 src/read-mo.c:200
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "el fitxer «%s» és truncat"
 
-#: src/read-mo.c:125
+#: src/read-mo.c:130
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fitxer «%s» conté una cadena no acabada en nul"
 
-#: src/read-mo.c:161 src/read-mo.c:270
+#: src/read-mo.c:166 src/read-mo.c:275
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "el fitxer «%s» no és en el format MO de GNU"
 
 # ivb (2002/08/08)
 # ivb  «%s» és una cadena amb forma «sysdep_string[%u]»
-#: src/read-mo.c:174
+#: src/read-mo.c:179
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "el fitxer «%s» conté una cadena no acabada en nul, en «%s»"
 
-#: src/read-properties.c:223
+#: src/read-properties.c:228
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "avís: la sintaxi «\\uxxxx» del caràcter Unicode no és vàlida"
 
-#: src/read-stringtable.c:804
+#: src/read-stringtable.c:803
 msgid "warning: unterminated string"
 msgstr "avís: la cadena no està terminada"
 
-#: src/read-stringtable.c:812
+#: src/read-stringtable.c:811
 msgid "warning: syntax error"
 msgstr "avís: error de sintaxi"
 
-#: src/read-stringtable.c:873 src/read-stringtable.c:895
+#: src/read-stringtable.c:872 src/read-stringtable.c:894
 msgid "warning: unterminated key/value pair"
 msgstr "avís: el parell clau/valor no està terminat"
 
-#: src/read-stringtable.c:941
+#: src/read-stringtable.c:940
 msgid "warning: syntax error, expected ';' after string"
 msgstr "avís: error de sintaxi, cal «;» després de la cadena"
 
-#: src/read-stringtable.c:950
+#: src/read-stringtable.c:949
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr "avís: error de sintaxi, cal «=» o «;» després de la cadena"
 
-#: src/recode-sr-latin.c:117
+#: src/recode-sr-latin.c:116
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "Escrit per %s i %s.\n"
@@ -3310,17 +3324,17 @@ msgstr "Escrit per %s i %s.\n"
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
 #. "&Scaron;egan".
 #. This is a proper name. See the gettext manual, section Names.
-#: src/recode-sr-latin.c:121
+#: src/recode-sr-latin.c:120
 msgid "Danilo Segan"
 msgstr "Danilo Šegan"
 
-#: src/recode-sr-latin.c:154
+#: src/recode-sr-latin.c:153
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
 msgstr "Recodifica un text en serbi de l’alfabet ciríŀlic al llatí.\n"
 
 # Missatge d’ajuda.  ivb
-#: src/recode-sr-latin.c:157
+#: src/recode-sr-latin.c:156
 #, c-format, no-wrap
 msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
@@ -3329,27 +3343,27 @@ msgstr ""
 "El text d’entrada es llegeix de l’entrada estàndard.  El text convertit\n"
 "s’escriu a l’eixida estàndard.\n"
 
-#: src/recode-sr-latin.c:332
+#: src/recode-sr-latin.c:338
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
 msgstr "l’entrada no és vàlida segons la codificació «%s»"
 
-#: src/recode-sr-latin.c:349
+#: src/recode-sr-latin.c:366
 #, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "error en convertir de la condificació «%s» a la codificació «%s»"
 
-#: src/urlget.c:147
+#: src/urlget.c:146
 #, c-format
 msgid "expected two arguments"
 msgstr "calen dos arguments"
 
-#: src/urlget.c:164
+#: src/urlget.c:163
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr "Forma d’ús: %s [OPCIÓ] URL FITXER\n"
 
-#: src/urlget.c:169
+#: src/urlget.c:168
 #, c-format, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
@@ -3358,30 +3372,28 @@ msgstr ""
 "Obté i mostra el contingut d’una URL.  Si no es pot accedir a la URL,\n"
 "s’emprarà el FITXER accessible localment en lloc d’aquella.\n"
 
-#: src/urlget.c:216
+#: src/urlget.c:219
 #, c-format
 msgid "error writing stdout"
 msgstr "error en escriure a l’eixida estàndard"
 
-#: src/write-catalog.c:102
-#, fuzzy
+#: src/write-catalog.c:127
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format. Try using PO file syntax instead."
 msgstr ""
 "No es poden generar diversos dominis de traducció dins d’un sol fitxer amb "
-"sintaxi «.properties» de Java.  Proveu d’emprar la sintaxi de fitxer PO."
+"el format d’eixida especificat.  Proveu d’emprar la sintaxi de fitxer PO."
 
-#: src/write-catalog.c:105
-#, fuzzy
+#: src/write-catalog.c:130
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format."
 msgstr ""
 "No es poden generar diversos dominis de traducció dins d’un sol fitxer amb "
-"sintaxi «.strings» de NeXTstep/GNUstep."
+"el format d’eixida especificat."
 
-#: src/write-catalog.c:138
+#: src/write-catalog.c:163
 msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
@@ -3389,7 +3401,7 @@ msgstr ""
 "El catàleg de missatges té traduccions que depenen del context, però el "
 "format d’eixida no permet l’ús de contexts."
 
-#: src/write-catalog.c:173
+#: src/write-catalog.c:198
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them. Try generating a Java class using \"msgfmt --java\", instead "
@@ -3399,7 +3411,7 @@ msgstr ""
 "d’eixida no en permet l’ús.  Proveu de generar una classe Java emprant "
 "«msgfmt --java», en lloc d’un fitxer «.properties»."
 
-#: src/write-catalog.c:178
+#: src/write-catalog.c:203
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them."
@@ -3407,18 +3419,17 @@ msgstr ""
 "El catàleg de missatges té traduccions amb forma plural, però el format "
 "d’eixida no en permet l’ús."
 
-#: src/write-catalog.c:195
+#: src/write-catalog.c:230 src/write-catalog.c:274
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "no s’ha pogut crear el fitxer d’eixida «%s»"
 
-#: src/write-catalog.c:204
-#, no-c-format
+#: src/write-catalog.c:238 src/write-catalog.c:282
 msgid "standard output"
 msgstr "eixida estàndard"
 
 # Multilínia.  ivb
-#: src/write-csharp.c:618
+#: src/write-csharp.c:611
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .dll format doesn't support contexts\n"
@@ -3426,18 +3437,18 @@ msgstr ""
 "El catàleg de missatges té traduccions que depenen del context, però\n"
 "el format «.dll» de C# no permet l’ús de contexts.\n"
 
-#: src/write-csharp.c:685
+#: src/write-csharp.c:678
 #, c-format
 msgid "failed to create directory \"%s\""
 msgstr "no s’ha pogut crear el directori «%s»"
 
-#: src/write-csharp.c:747
+#: src/write-csharp.c:740
 #, c-format
 msgid "compilation of C# class failed, please try --verbose"
 msgstr "no s’ha pogut compiŀlar la classe C#, per favor useu «--verbose»"
 
 # Multilínia.  ivb
-#: src/write-java.c:920
+#: src/write-java.c:912
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Java ResourceBundle format doesn't support contexts\n"
@@ -3445,24 +3456,24 @@ msgstr ""
 "El catàleg de missatges té traduccions que depenen del context, però\n"
 "el format ResourceBundle de Java no permet l’ús de contexts.\n"
 
-#: src/write-java.c:945
+#: src/write-java.c:937
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "«%s» no és un nom vàlid de classe Java"
 
-#: src/write-java.c:1029
+#: src/write-java.c:1021
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
-"no s’ha pogut compiŀlar la classe Java, per favor useu «--verbose» o "
-"establiu la variable d’entorn JAVAC"
+"no s’ha pogut compiŀlar la classe Java, per favor useu «--verbose» o establiu "
+"la variable d’entorn JAVAC"
 
-#: src/write-mo.c:807 src/write-qt.c:740 src/write-tcl.c:213
+#: src/write-mo.c:800 src/write-qt.c:737 src/write-tcl.c:213
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "error en obrir «%s» per a escriure"
 
-#: src/write-po.c:567
+#: src/write-po.c:767
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
@@ -3471,7 +3482,7 @@ msgstr ""
 "«%c»"
 
 # Multilínia.  ivb
-#: src/write-po.c:848 src/write-po.c:961
+#: src/write-po.c:1213 src/write-po.c:1342
 #, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
@@ -3485,7 +3496,7 @@ msgstr ""
 "%s\n"
 
 # Multilínia.  ivb
-#: src/write-po.c:860 src/write-po.c:973
+#: src/write-po.c:1225 src/write-po.c:1354
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3499,7 +3510,7 @@ msgstr ""
 "%s\n"
 
 # Multilínia.  ivb
-#: src/write-qt.c:671
+#: src/write-qt.c:668
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
@@ -3509,7 +3520,7 @@ msgstr ""
 "plurals.\n"
 
 # Multilínia.  ivb
-#: src/write-qt.c:697
+#: src/write-qt.c:694
 msgid ""
 "message catalog has msgctxt strings containing characters outside ISO-8859-"
 "1\n"
@@ -3522,7 +3533,7 @@ msgstr ""
 "context.\n"
 
 # Multilínia.  ivb
-#: src/write-qt.c:721
+#: src/write-qt.c:718
 msgid ""
 "message catalog has msgid strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -3532,13 +3543,13 @@ msgstr ""
 "d’ISO‐8859‐1, però el format de catàleg de missatges de Qt només\n"
 "permet l’ús d’Unicode a les cadenes traduïdes, no a les no traduïdes.\n"
 
-#: src/write-resources.c:96
+#: src/write-resources.c:95
 #, c-format
 msgid "error while writing to %s subprocess"
 msgstr "error en escriure al subprocés «%s»"
 
 # Multilínia.  ivb
-#: src/write-resources.c:132
+#: src/write-resources.c:131
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
@@ -3547,7 +3558,7 @@ msgstr ""
 "el format «.resources» de C# no permet l’ús de contexts.\n"
 
 # Multilínia.  ivb
-#: src/write-resources.c:151
+#: src/write-resources.c:150
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
@@ -3574,29 +3585,29 @@ msgstr ""
 "format de catàleg de missatges de Tcl no permet el tractament de\n"
 "plurals.\n"
 
-#: src/x-awk.c:341 src/x-python.c:1059
+#: src/x-awk.c:343 src/x-python.c:1059
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: avís: la cadena no està terminada"
 
-#: src/x-awk.c:592
+#: src/x-awk.c:594
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: avís: l’expressió regular no està terminada"
 
-#: src/x-c.c:1153 src/x-csharp.c:1501 src/x-java.c:822
+#: src/x-c.c:1155 src/x-csharp.c:1502 src/x-java.c:860
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: avís: la constant caràcter no està terminada"
 
-#: src/x-c.c:1177
+#: src/x-c.c:1179
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: avís: el literal cadena no està terminat"
 
 # Multilínia.  ivb
 # Cadena amb format «nom_fitxer:línia».  ivb
-#: src/x-csharp.c:216 src/xgettext.c:1854
+#: src/x-csharp.c:217 src/xgettext.c:1845
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3606,7 +3617,7 @@ msgstr ""
 "Per favor, especifiqueu la codificació d’origen correcta amb «--from-code».\n"
 
 # Multilínia.  ivb
-#: src/x-csharp.c:263
+#: src/x-csharp.c:264
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3617,7 +3628,7 @@ msgstr ""
 
 # Multilínia.  ivb
 # Hau!  ivb
-#: src/x-csharp.c:279
+#: src/x-csharp.c:280
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3627,7 +3638,7 @@ msgstr ""
 "Per favor, especifiqueu la codificació d’origen correcta amb «--from-code».\n"
 
 # Multilínia.  ivb
-#: src/x-csharp.c:291
+#: src/x-csharp.c:292
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3637,7 +3648,7 @@ msgstr ""
 "Per favor, especifiqueu la codificació d’origen correcta amb «--from-code».\n"
 
 # Multilínia.  ivb
-#: src/x-csharp.c:300
+#: src/x-csharp.c:301
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3647,13 +3658,13 @@ msgstr ""
 "Per favor, especifiqueu la codificació d’origen correcta amb «--from-code».\n"
 
 # La funció.  ivb
-#: src/x-csharp.c:309 src/x-python.c:332
+#: src/x-csharp.c:310 src/x-python.c:332
 #, c-format
 msgid "%s:%d: iconv failure"
 msgstr "%s:%d: ha fallat iconv()"
 
 # Multilínia.  ivb
-#: src/x-csharp.c:332
+#: src/x-csharp.c:333
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3662,34 +3673,34 @@ msgstr ""
 "%s:%d: La seqüència multioctet no és vàlida.\n"
 "Per favor, especifiqueu la codificació d’origen correcta amb «--from-code».\n"
 
-#: src/x-csharp.c:1382 src/x-python.c:1259
+#: src/x-csharp.c:1383 src/x-python.c:1259
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: avís: el caràcter Unicode no és vàlid"
 
-#: src/x-csharp.c:1504 src/x-java.c:825
+#: src/x-csharp.c:1505 src/x-java.c:863
 #, c-format
 msgid "%s:%d: warning: unterminated string constant"
 msgstr "%s:%d: avís: la constant cadena no està terminada"
 
-#: src/x-csharp.c:2008 src/x-java.c:1319
+#: src/x-csharp.c:2009 src/x-java.c:1357
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: avís: s’ha trobat «)» on s’esperava «}»"
 
-#: src/x-csharp.c:2042 src/x-java.c:1353
+#: src/x-csharp.c:2043 src/x-java.c:1391
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: avís: s’ha trobat «}» on s’esperava «)»"
 
 # Crec que no hauria de tenir traducció.  ivb
-#: src/x-glade.c:429 src/x-glade.c:436
+#: src/x-glade.c:459 src/x-glade.c:466
 #, c-format
 msgid "%s:%lu:%lu: %s"
 msgstr "%s:%lu:%lu: %s"
 
 # Multilínia.  L’argument és el nom del programa.  ivb
-#: src/x-glade.c:463
+#: src/x-glade.c:493
 #, c-format
 msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
@@ -3698,43 +3709,48 @@ msgstr ""
 "No es permet l’ús del llenguatge «glade».  «%s» fa ús d’«expat».\n"
 "Aquesta versió ha estat construïda sense «expat».\n"
 
-#: src/x-perl.c:307
+#: src/x-java.c:483
+#, fuzzy, c-format
+msgid "%s:%d: warning: lone surrogate U+%04X"
+msgstr "%s:%d: avís: la cadena no està terminada"
+
+#: src/x-perl.c:309
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 "%s:%d: no s’ha trobat el terminador de cadena «%s» abans del final de fitxer"
 
-#: src/x-perl.c:1033
+#: src/x-perl.c:1035
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: manca la clau dreta de «\\x{NÚMERO_HEX}»"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1153
+#: src/x-perl.c:1155
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\l» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1173
+#: src/x-perl.c:1175
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\u» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1207
+#: src/x-perl.c:1209
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: la interpolació de variable amb «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1220
+#: src/x-perl.c:1222
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\L» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1237
+#: src/x-perl.c:1239
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\U» del caràcter de 8 bits «%c» no és vàlida"
@@ -3825,23 +3841,23 @@ msgstr ""
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
 msgstr "la codificació «%s» no és coneguda, s’emprarà ASCII al seu lloc"
 
-#: src/x-rst.c:107
+#: src/x-rst.c:110
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr "%s:%d: la definició de cadena no és vàlida"
 
-#: src/x-rst.c:171
+#: src/x-rst.c:174
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr "%s:%d: manca un número després de «#»"
 
-#: src/x-rst.c:206
+#: src/x-rst.c:209
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: l’expressió de cadena no és vàlida"
 
 # És una funció d’intèrpret.  ivb
-#: src/x-sh.c:1074
+#: src/x-sh.c:1076
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
@@ -3850,29 +3866,29 @@ msgstr ""
 "%s:%lu: avís: la sintaxi «$\"…\"» està desaprovada per motius de seguretat; "
 "useu «eval_gettext» al seu lloc"
 
-#: src/xgettext.c:547
+#: src/xgettext.c:539
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "no es pot emprar «--join-existing» quan s’escriu a l’eixida estàndard"
 
-#: src/xgettext.c:552
+#: src/xgettext.c:544
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "«xgettext» no funciona sense paraules clau que cercar"
 
-#: src/xgettext.c:695
+#: src/xgettext.c:687
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr ""
 "avís: l’extensió «%2$s» del fitxer «%1$s» no és coneguda; es provarà amb el "
 "llenguatge «C»"
 
-#: src/xgettext.c:746
+#: src/xgettext.c:738
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extreu les cadenes traduïbles dels fitxers d’entrada indicats.\n"
 
-#: src/xgettext.c:769
+#: src/xgettext.c:761
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
@@ -3882,12 +3898,12 @@ msgstr ""
 "                       Empra «NOM.po» com a eixida (en lloc de «messages."
 "po»).\n"
 
-#: src/xgettext.c:771
+#: src/xgettext.c:763
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr "  -o, --output=FITXER    Escriu l’eixida al FITXER especificat.\n"
 
-#: src/xgettext.c:773
+#: src/xgettext.c:765
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
@@ -3896,12 +3912,12 @@ msgstr ""
 "                       Els fitxers d’eixida es desaran al DIRECTORI.\n"
 
 # Es refereix al llenguatge de programació.  ivb
-#: src/xgettext.c:778
+#: src/xgettext.c:770
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "Selecció del llenguatge del fitxer d’entrada:\n"
 
-#: src/xgettext.c:780
+#: src/xgettext.c:772
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -3920,12 +3936,12 @@ msgstr ""
 "                       Tcl, Perl, PHP, GCC-source, NXStringTable, RST, "
 "Glade).\n"
 
-#: src/xgettext.c:786
+#: src/xgettext.c:778
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++            Equival a «--language=C++».\n"
 
-#: src/xgettext.c:788
+#: src/xgettext.c:780
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
@@ -3935,7 +3951,7 @@ msgstr ""
 "fitxer\n"
 "d’entrada.\n"
 
-#: src/xgettext.c:793
+#: src/xgettext.c:785
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -3944,20 +3960,20 @@ msgstr ""
 "      --from-code=NOM    Codificació dels fitxers d’entrada (excepte per a\n"
 "                       Python, Tcl i Glade).\n"
 
-#: src/xgettext.c:796
+#: src/xgettext.c:788
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr ""
 "Per defecte s’assumeix que els fitxers d’entrada estan codificats en ASCII.\n"
 
-#: src/xgettext.c:801
+#: src/xgettext.c:793
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr ""
 "  -j, --join-existing    Uneix els missatges extrets amb els d’un fitxer\n"
 "                       existent.\n"
 
-#: src/xgettext.c:803
+#: src/xgettext.c:795
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
@@ -3965,7 +3981,7 @@ msgstr ""
 "                       No extreu les entrades que ja es troben al FITXER.po\n"
 "                       indicat.\n"
 
-#: src/xgettext.c:805
+#: src/xgettext.c:797
 #, c-format
 msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
@@ -3977,18 +3993,18 @@ msgstr ""
 "                       o aquells que precedeixen les línies amb una paraula\n"
 "                       clau, al fitxer d’eixida.\n"
 
-#: src/xgettext.c:809
+#: src/xgettext.c:801
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Opcions específiques del llenguatge:\n"
 
-#: src/xgettext.c:811
+#: src/xgettext.c:803
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all    Extreu totes les cadenes.\n"
 
 # No mola pq va darrere d’un punt…  ivb
-#: src/xgettext.c:813 src/xgettext.c:820
+#: src/xgettext.c:805 src/xgettext.c:812
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4002,7 +4018,7 @@ msgstr ""
 "awk,\n"
 "                       Tcl, Perl, PHP, GCC-source i Glade.)\n"
 
-#: src/xgettext.c:817
+#: src/xgettext.c:809
 #, c-format
 msgid ""
 "  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
@@ -4014,7 +4030,7 @@ msgstr ""
 "                       PARAULA no s’empraran les paraules clau per "
 "defecte).\n"
 
-#: src/xgettext.c:824
+#: src/xgettext.c:816
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -4027,7 +4043,7 @@ msgstr ""
 "                       l’argument ARG de la paraula clau PARAULA.\n"
 
 # No mola pq va darrere d’un punt…  ivb
-#: src/xgettext.c:827
+#: src/xgettext.c:819
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4041,37 +4057,37 @@ msgstr ""
 "awk,\n"
 "                       YCP, Tcl, Perl, PHP i GCC-source.)\n"
 
-#: src/xgettext.c:831
+#: src/xgettext.c:823
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 "  -T, --trigraphs      Interpreta els trígrafs del C ANSI a l’entrada.\n"
 
 # No mola pq va darrere d’un punt…  ivb
-#: src/xgettext.c:833
+#: src/xgettext.c:825
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr ""
 "                       (Només per als llenguatges C, C++ i ObjectiveC.)\n"
 
-#: src/xgettext.c:835
+#: src/xgettext.c:827
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt             Reconeix les cadenes de format de Qt.\n"
 
 # No mola pq va darrere d’un punt…  ivb
-#: src/xgettext.c:837 src/xgettext.c:841
+#: src/xgettext.c:829 src/xgettext.c:833
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                       (Només per al llenguatge C++.)\n"
 
-#: src/xgettext.c:839
+#: src/xgettext.c:831
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr "      --boost          Reconeix les cadenes de format de Boost.\n"
 
 # Simplement mireu l’info.  ivb
-#: src/xgettext.c:843
+#: src/xgettext.c:835
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
@@ -4080,14 +4096,14 @@ msgstr ""
 "de\n"
 "                       cadenes de format.\n"
 
-#: src/xgettext.c:862
+#: src/xgettext.c:854
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr ""
 "  -p, --properties-output\n"
 "                       Genera un fitxer amb sintaxi «.properties» de Java.\n"
 
-#: src/xgettext.c:877
+#: src/xgettext.c:869
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
@@ -4095,7 +4111,7 @@ msgstr ""
 "                       Estableix a l’eixida la propietària o propietari del\n"
 "                       copyright.\n"
 
-#: src/xgettext.c:879
+#: src/xgettext.c:871
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
@@ -4104,7 +4120,7 @@ msgstr ""
 "a\n"
 "                       uns usuaris diferents.\n"
 
-#: src/xgettext.c:881
+#: src/xgettext.c:873
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
@@ -4114,7 +4130,7 @@ msgstr ""
 "cadenes\n"
 "                       «msgid».\n"
 
-#: src/xgettext.c:883
+#: src/xgettext.c:875
 #, c-format
 msgid ""
 "  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr "
@@ -4124,7 +4140,7 @@ msgstr ""
 "                       Empra la CADENA, o «», com a prefix de les entrades\n"
 "                       «msgstr».\n"
 
-#: src/xgettext.c:885
+#: src/xgettext.c:877
 #, c-format
 msgid ""
 "  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr "
@@ -4135,7 +4151,7 @@ msgstr ""
 "                       «msgstr».\n"
 
 # Missatge d’error.  ivb
-#: src/xgettext.c:1649
+#: src/xgettext.c:1642
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %"
@@ -4143,11 +4159,11 @@ msgid ""
 msgstr ""
 "Un argument de «--flag» no té la sintaxi «PARCLAU:NUMARG:[pass-]INDIC»: %s"
 
-#: src/xgettext.c:1750
+#: src/xgettext.c:1741
 msgid "standard input"
 msgstr "entrada estàndard"
 
-#: src/xgettext.c:1930 src/xgettext.c:1963 src/xgettext.c:2021
+#: src/xgettext.c:1921 src/xgettext.c:1954 src/xgettext.c:2012
 #, c-format
 msgid "%s%s: warning: "
 msgstr "%s%s: avís: "
@@ -4157,7 +4173,7 @@ msgstr "%s%s: avís: "
 # ivb  Ací el segon «%s» és el nom d’un llenguatge de programació.
 # El primer és «msgid» o «msgid_plural».  ivb
 # El motiu està traduït.  ivb
-#: src/xgettext.c:1933
+#: src/xgettext.c:1924
 #, c-format
 msgid ""
 "Although being used in a format string position, the %s is not a valid %s "
@@ -4171,7 +4187,7 @@ msgstr ""
 # ivb  Ací el segon «%s» és el nom d’un llenguatge de programació.
 # El primer és «msgid» o «msgid_plural».  ivb
 # El motiu està traduït.  ivb
-#: src/xgettext.c:1934
+#: src/xgettext.c:1925
 #, c-format
 msgid ""
 "Although declared as such, the %s is not a valid %s format string. Reason: %"
@@ -4181,7 +4197,7 @@ msgstr ""
 "Motiu: %s\n"
 
 # Multilínia.  ivb
-#: src/xgettext.c:1965
+#: src/xgettext.c:1956
 #, c-format
 msgid ""
 "'%s' format string with unnamed arguments cannot be properly localized:\n"
@@ -4195,7 +4211,7 @@ msgstr ""
 "arguments amb nom, i un mapa en lloc d’una tupla per a aquests.\n"
 
 # Multilínia.  ivb
-#: src/xgettext.c:2023
+#: src/xgettext.c:2014
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -4205,29 +4221,28 @@ msgstr ""
 "«gettext(\"\")» retorna l’entrada de capçalera amb metainformació, no la\n"
 "cadena buida.\n"
 
-#: src/xgettext.c:2626
+#: src/xgettext.c:2618
 #, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
 msgstr "l’especificació d’argument per a la paraula clau «%.*s» és ambígua"
 
-#: src/xgettext.c:2653
+#: src/xgettext.c:2645
 #, c-format
 msgid "warning: missing context for keyword '%.*s'"
 msgstr "avís: manca el context de la paraula clau «%.*s»"
 
-#: src/xgettext.c:2678
+#: src/xgettext.c:2670
 #, c-format
 msgid "warning: missing context for plural argument of keyword '%.*s'"
-msgstr ""
-"avís: manca el context de l’argument «plural» de la paraula clau «%.*s»"
+msgstr "avís: manca el context de l’argument «plural» de la paraula clau «%.*s»"
 
-#: src/xgettext.c:2699
+#: src/xgettext.c:2691
 #, c-format
 msgid "context mismatch between singular and plural form"
 msgstr "els contexts de les formes singular i plural no corcorden"
 
 # Multilínia.  ivb
-#: src/xgettext.c:2779
+#: src/xgettext.c:2771
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a `Makevars' file, please specify\n"
@@ -4240,11 +4255,11 @@ msgstr ""
 "d’ordres.\n"
 
 # Llenguatge de programació.  ivb
-#: src/xgettext.c:2978
+#: src/xgettext.c:2970
 #, c-format
 msgid "language `%s' unknown"
 msgstr "el llenguatge «%s» no és conegut"
 
-#: libgettextpo/gettext-po.c:85
+#: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<sense nom>"
