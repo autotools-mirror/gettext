@@ -1,3 +1,8 @@
+2007-09-19  Bruno Haible  <bruno@clisp.org>
+
+	* eu.po: New file, from Piarres Beobide <pi@beobide.net>.
+	* LINGUAS: Add eu.
+
 2007-09-15  Bruno Haible  <bruno@clisp.org>
 
 	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
