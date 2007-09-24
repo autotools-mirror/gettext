@@ -1,7 +1,7 @@
-*** vasprintf.orig	2007-03-27 22:18:12.000000000 +0200
---- vasprintf	2007-05-13 18:48:37.000000000 +0200
+*** vasprintf.orig	2007-09-19 00:04:41.000000000 +0200
+--- vasprintf	2007-09-25 00:54:11.000000000 +0200
 ***************
-*** 3,13 ****
+*** 3,14 ****
   
   Files:
   lib/vasprintf.c
@@ -9,8 +9,20 @@
   m4/vasprintf.m4
   
   Depends-on:
-- vasnprintf
+  extensions
+! vasnprintf
   stdio
   
   configure.ac:
---- 3,11 ----
+--- 3,13 ----
+  
+  Files:
+  lib/vasprintf.c
+  m4/vasprintf.m4
+  
+  Depends-on:
+  extensions
+! stdarg
+  stdio
+  
+  configure.ac:

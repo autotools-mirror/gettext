@@ -1,3 +1,9 @@
+2007-09-24  Bruno Haible  <bruno@clisp.org>
+
+	* lib/vasprintf.c (int_vasprintf): Use va_copy.
+	* modules/vasprintf.diff: Add dependency to stdarg.
+	Reported by Cristian Baboi <cristi@ot.onrc.ro>.
+
 2007-09-01  Bruno Haible  <bruno@clisp.org>
 
 	* lib/linebreak.c.diff: Update.

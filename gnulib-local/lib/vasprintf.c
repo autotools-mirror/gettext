@@ -38,8 +38,9 @@ int_vasprintf (char **result, const char *format, va_list *args)
   /* Add one to make sure that it is never zero, which might cause malloc
      to return NULL.  */
   size_t total_width = strlen (format) + 1;
-  va_list ap = *args;
+  va_list ap;
 
+  va_copy (ap, *args);
   while (*p != '\0')
     {
       if (*p++ == '%')
