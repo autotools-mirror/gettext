@@ -108,6 +108,8 @@ int_vasprintf (char **result, const char *format, va_list *args)
 	  p++;
 	}
     }
+  va_end (ap);
+
 #ifdef TEST
   global_total_width = total_width;
 #endif

@@ -1,6 +1,6 @@
 2007-09-24  Bruno Haible  <bruno@clisp.org>
 
-	* lib/vasprintf.c (int_vasprintf): Use va_copy.
+	* lib/vasprintf.c (int_vasprintf): Use va_copy and va_end.
 	* modules/vasprintf.diff: Add dependency to stdarg.
 	Reported by Cristian Baboi <cristi@ot.onrc.ro>.
 
