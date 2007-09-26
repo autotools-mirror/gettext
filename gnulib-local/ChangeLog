@@ -1,3 +1,15 @@
+2007-09-26  Bruno Haible  <bruno@clisp.org>
+
+	* lib/vasprintf.c (int_vasprintf): Pass the args as a va_list,
+	not as a 'va_list *'. Needed on x86_64-linux, where va_list is an
+	array type: taking the address of a parameter of type va_list does
+	not yield a 'va_list *'. We have to assume that platforms where
+	passing a va_list by reference is useful (either because va_end is
+	not a no-op or because sizeof(va_list) is large) have already defined
+	va_list to an array type; no need to try to enforce passing by
+	reference.
+	Reported by Cristian Baboi <cristi@ot.onrc.ro>.
+
 2007-09-24  Bruno Haible  <bruno@clisp.org>
 
 	* lib/vasprintf.c (int_vasprintf): Use va_copy and va_end.

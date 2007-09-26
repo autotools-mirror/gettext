@@ -32,7 +32,7 @@ size_t global_total_width;
 #endif
 
 static int
-int_vasprintf (char **result, const char *format, va_list *args)
+int_vasprintf (char **result, const char *format, va_list args)
 {
   const char *p = format;
   /* Add one to make sure that it is never zero, which might cause malloc
@@ -40,7 +40,7 @@ int_vasprintf (char **result, const char *format, va_list *args)
   size_t total_width = strlen (format) + 1;
   va_list ap;
 
-  va_copy (ap, *args);
+  va_copy (ap, args);
   while (*p != '\0')
     {
       if (*p++ == '%')
@@ -115,7 +115,7 @@ int_vasprintf (char **result, const char *format, va_list *args)
 #endif
   *result = malloc (total_width);
   if (*result != NULL)
-    return vsprintf (*result, format, *args);
+    return vsprintf (*result, format, args);
   else
     return -1;
 }
@@ -123,7 +123,7 @@ int_vasprintf (char **result, const char *format, va_list *args)
 int
 vasprintf (char **result, const char *format, va_list args)
 {
-  return int_vasprintf (result, format, &args);
+  return int_vasprintf (result, format, args);
 }
 
 int
