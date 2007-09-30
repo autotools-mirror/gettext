@@ -256,7 +256,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../lib -I../intl -DHAVE_CONFIG_H -DTEST format-qt.c ../lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../intl -DHAVE_CONFIG_H -DTEST format-qt.c ../gnulib-lib/libgettextlib.la"
  * End:
  */
 
