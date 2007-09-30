@@ -1,3 +1,7 @@
+2007-09-29  Bruno Haible  <bruno@clisp.org>
+
+	* modules/fnmatch.diff: Update.
+
 2007-09-26  Bruno Haible  <bruno@clisp.org>
 
 	* lib/vasprintf.c (int_vasprintf): Pass the args as a va_list,
