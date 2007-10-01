@@ -872,8 +872,9 @@ failed:
 
 /* Construct the value for the Project-Id-Version field.  */
 static const char *
-project_id_version ()
+project_id_version (const char *header)
 {
+  const char *old_field;
   const char *gettextlibdir;
   char *prog;
   char *argv[4];
@@ -884,6 +885,12 @@ project_id_version ()
   size_t linesize;
   size_t linelen;
   int exitstatus;
+
+  /* Return the old value if present, assuming it was already filled in by
+     xgettext.  */
+  old_field = get_field (header, "Project-Id-Version");
+  if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+    return old_field;
 
   gettextlibdir = getenv ("GETTEXTLIBDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
@@ -1284,7 +1291,7 @@ static struct
 }
 fields[] =
   {
-    { "Project-Id-Version", project_id_version, NULL },
+    { "Project-Id-Version", NULL, project_id_version },
     { "PO-Revision-Date", NULL, po_revision_date },
     { "Last-Translator", last_translator, NULL },
     { "Language-Team", language_team, NULL },

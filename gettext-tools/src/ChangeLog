@@ -1,5 +1,16 @@
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.c (package_name, package_version): New variables.
+	(long_options): Add --package-name, --package-version.
+	(main): Handle options --package-name, --package-version.
+	(usage): Document them.
+	(construct_header): Use package_name if present.
+	* msginit.c (project_id_version): Take a header argument. Return the
+	old value if already present.
+	(fields): Update.
+
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
 	* message.h (format_type): New enum value 'format_kde'.
 	(NFORMATS): Increment.
 	* message.c (format_language): Add format_kde entry.

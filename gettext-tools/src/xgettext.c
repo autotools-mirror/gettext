@@ -115,6 +115,12 @@ static int force_po;
 /* Copyright holder of the output file and the translations.  */
 static const char *copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
 
+/* Package name.  */
+static const char *package_name = NULL;
+
+/* Package version.  */
+static const char *package_version = NULL;
+
 /* Email address or URL for reports of bugs in msgids.  */
 static const char *msgid_bugs_address = NULL;
 
@@ -215,6 +221,8 @@ static const struct option long_options[] =
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
+  { "package-name", required_argument, NULL, CHAR_MAX + 12 },
+  { "package-version", required_argument, NULL, CHAR_MAX + 13 },
   { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
   { "sort-by-file", no_argument, NULL, 'F' },
@@ -503,6 +511,12 @@ main (int argc, char *argv[])
 	break;
       case CHAR_MAX + 11:	/* --boost */
 	recognize_format_boost = true;
+	break;
+      case CHAR_MAX + 12:	/* --package-name */
+	package_name = optarg;
+	break;
+      case CHAR_MAX + 13:	/* --package-version */
+	package_version = optarg;
 	break;
       default:
 	usage (EXIT_FAILURE);
@@ -844,6 +858,10 @@ Language specific options:\n"));
       printf (_("\
                                 (only language C++)\n"));
       printf (_("\
+      --kde                   recognize KDE 4 format strings\n"));
+      printf (_("\
+                                (only language C++)\n"));
+      printf (_("\
       --boost                 recognize Boost format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
@@ -885,6 +903,10 @@ Output details:\n"));
       --copyright-holder=STRING  set copyright holder in output\n"));
       printf (_("\
       --foreign-user          omit FSF copyright in output for foreign user\n"));
+      printf (_("\
+      --package-name=PACKAGE  set package name in output\n"));
+      printf (_("\
+      --package-version=VERSION  set package version in output\n"));
       printf (_("\
       --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"));
       printf (_("\
@@ -2785,11 +2807,22 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 static message_ty *
 construct_header ()
 {
+  char *project_id_version;
   time_t now;
   char *timestring;
   message_ty *mp;
   char *msgstr;
   static lex_pos_ty pos = { __FILE__, __LINE__ };
+
+  if (package_name != NULL)
+    {
+      if (package_version != NULL)
+	project_id_version = xasprintf ("%s %s", package_name, package_version);
+      else
+	project_id_version = xasprintf ("%s", package_name);
+    }
+  else
+    project_id_version = xstrdup ("PACKAGE VERSION");
 
   if (msgid_bugs_address != NULL && msgid_bugs_address[0] == '\0')
     multiline_warning (xasprintf (_("warning: ")),
@@ -2804,7 +2837,7 @@ specify an --msgid-bugs-address command line option.\n\
   timestring = po_strftime (&now);
 
   msgstr = xasprintf ("\
-Project-Id-Version: PACKAGE VERSION\n\
+Project-Id-Version: %s\n\
 Report-Msgid-Bugs-To: %s\n\
 POT-Creation-Date: %s\n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
@@ -2813,9 +2846,11 @@ Language-Team: LANGUAGE <LL@li.org>\n\
 MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
 Content-Transfer-Encoding: 8bit\n",
+		      project_id_version,
 		      msgid_bugs_address != NULL ? msgid_bugs_address : "",
 		      timestring);
   free (timestring);
+  free (project_id_version);
 
   mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
