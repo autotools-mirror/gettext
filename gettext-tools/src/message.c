@@ -55,6 +55,7 @@ const char *const format_language[NFORMATS] =
   /* format_php */		"php",
   /* format_gcc_internal */	"gcc-internal",
   /* format_qt */		"qt",
+  /* format_kde */		"kde",
   /* format_boost */		"boost"
 };
 
@@ -80,6 +81,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_php */		"PHP",
   /* format_gcc_internal */	"GCC internal",
   /* format_qt */		"Qt",
+  /* format_kde */		"KDE",
   /* format_boost */		"Boost"
 };
 

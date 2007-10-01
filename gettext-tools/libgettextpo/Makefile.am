@@ -80,6 +80,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-php.c \
   ../src/format-gcc-internal.c \
   ../src/format-qt.c \
+  ../src/format-kde.c \
   ../src/format-boost.c \
   ../src/format.c \
   ../src/plural-exp.c \

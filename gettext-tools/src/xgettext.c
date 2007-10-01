@@ -136,6 +136,7 @@ int xgettext_omit_header;
 /* Table of flag_context_list_ty tables.  */
 static flag_context_list_table_ty flag_table_c;
 static flag_context_list_table_ty flag_table_cxx_qt;
+static flag_context_list_table_ty flag_table_cxx_kde;
 static flag_context_list_table_ty flag_table_cxx_boost;
 static flag_context_list_table_ty flag_table_objc;
 static flag_context_list_table_ty flag_table_gcc_internal;
@@ -155,6 +156,9 @@ static flag_context_list_table_ty flag_table_php;
 
 /* If true, recognize Qt format strings.  */
 static bool recognize_format_qt;
+
+/* If true, recognize KDE format strings.  */
+static bool recognize_format_kde;
 
 /* If true, recognize Boost format strings.  */
 static bool recognize_format_boost;
@@ -182,7 +186,7 @@ static const struct option long_options[] =
 {
   { "add-comments", optional_argument, NULL, 'c' },
   { "add-location", no_argument, &line_comment, 1 },
-  { "boost", no_argument, NULL, CHAR_MAX + 10 },
+  { "boost", no_argument, NULL, CHAR_MAX + 11 },
   { "c++", no_argument, NULL, 'C' },
   { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
   { "debug", no_argument, &do_debug, 1 },
@@ -199,6 +203,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
   { "join-existing", no_argument, NULL, 'j' },
+  { "kde", no_argument, NULL, CHAR_MAX + 10 },
   { "keyword", optional_argument, NULL, 'k' },
   { "language", required_argument, NULL, 'L' },
   { "msgid-bugs-address", required_argument, NULL, CHAR_MAX + 5 },
@@ -493,7 +498,10 @@ main (int argc, char *argv[])
       case CHAR_MAX + 9:	/* --qt */
 	recognize_format_qt = true;
 	break;
-      case CHAR_MAX + 10:	/* --boost */
+      case CHAR_MAX + 10:	/* --kde */
+	recognize_format_kde = true;
+	break;
+      case CHAR_MAX + 11:	/* --boost */
 	recognize_format_boost = true;
 	break;
       default:
@@ -529,12 +537,18 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--sort-output", "--sort-by-file");
 
+  /* We cannot support both Qt and KDE, or Qt and Boost, or KDE and Boost
+     format strings, because there are only two formatstring parsers per
+     language, and formatstring_c is the first one for C++.  */
+  if (recognize_format_qt && recognize_format_kde)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--qt", "--kde");
   if (recognize_format_qt && recognize_format_boost)
-    /* We cannot support both Qt and Boost format strings, because there are
-       only two formatstring parsers per language, and formatstring_c is the
-       first one for C++.  */
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
 	   "--qt", "--boost");
+  if (recognize_format_kde && recognize_format_boost)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+	   "--kde", "--boost");
 
   if (join_existing && strcmp (default_domain, "-") == 0)
     error (EXIT_FAILURE, 0, _("\
@@ -827,6 +841,10 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC)\n"));
       printf (_("\
       --qt                    recognize Qt format strings\n"));
+      printf (_("\
+                                (only language C++)\n"));
+      printf (_("\
+      --kde                   recognize KDE 4 format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
       printf (_("\
@@ -1527,6 +1545,9 @@ xgettext_record_flag (const char *optionstring)
 		    flag_context_list_table_insert (&flag_table_cxx_qt, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
+		    flag_context_list_table_insert (&flag_table_cxx_kde, 0,
+						    name_start, name_end,
+						    argnum, value, pass);
 		    flag_context_list_table_insert (&flag_table_cxx_boost, 0,
 						    name_start, name_end,
 						    argnum, value, pass);
@@ -1620,6 +1641,11 @@ xgettext_record_flag (const char *optionstring)
 		    break;
 		  case format_qt:
 		    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
+		  case format_kde:
+		    flag_context_list_table_insert (&flag_table_cxx_kde, 1,
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
@@ -2153,9 +2179,10 @@ meta information, not the empty string.\n")));
 	  && !(i == format_c && possible_format_p (is_format[format_objc]))
 	  && !(i == format_objc && possible_format_p (is_format[format_c]))
 	  /* Avoid flagging a string as c-format when it's known to be a
-	     qt-format or boost-format string.  */
+	     qt-format or kde-format or boost-format string.  */
 	  && !(i == format_c
 	       && (possible_format_p (is_format[format_qt])
+		   || possible_format_p (is_format[format_kde])
 		   || possible_format_p (is_format[format_boost]))))
 	{
 	  struct formatstring_parser *parser = formatstring_parsers[i];
@@ -2268,6 +2295,7 @@ remember_a_message_plural (message_ty *mp, char *string,
 	       qt-format or boost-format string.  */
 	    && !(i == format_c
 		 && (possible_format_p (mp->is_format[format_qt])
+		     || possible_format_p (mp->is_format[format_kde])
 		     || possible_format_p (mp->is_format[format_boost]))))
 	  {
 	    struct formatstring_parser *parser = formatstring_parsers[i];
@@ -2957,6 +2985,12 @@ language_to_extractor (const char *name)
 	  {
 	    result.flag_table = &flag_table_cxx_qt;
 	    result.formatstring_parser2 = &formatstring_qt;
+	  }
+	/* Likewise for --kde.  */
+	if (recognize_format_kde && strcmp (tp->name, "C++") == 0)
+	  {
+	    result.flag_table = &flag_table_cxx_kde;
+	    result.formatstring_parser2 = &formatstring_kde;
 	  }
 	/* Likewise for --boost.  */
 	if (recognize_format_boost && strcmp (tp->name, "C++") == 0)

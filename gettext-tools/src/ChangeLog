@@ -1,3 +1,27 @@
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (format_type): New enum value 'format_kde'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_kde entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_kde): New declaration.
+	* format-kde.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_kde.
+	* x-c.c (init_flag_table_c): Also register flags for qt-format and
+	kde-format.
+	* xgettext.c (flag_table_cxx_kde): New variable.
+	(recognize_format_kde): New variable.
+	(main): Handle --kde option.
+	(usage): Document --kde option.
+	(xgettext_record_flag): Also fill flag_table_cxx_kde.
+	(remember_a_message, remember_a_message_plural): In the heuristics,
+	don't mark a string as c-format that is already known to be a
+	kde-format.
+	(language_to_extractor): Use a flag_table_cxx_kde that is different
+	from flag_table_c.
+	* Makefile.am (FORMAT_SOURCE): Add format-kde.c.
+	* FILES: Update.
+
 2007-09-09  Bruno Haible  <bruno@clisp.org>
 
 	Add support for Qt 4 format strings.

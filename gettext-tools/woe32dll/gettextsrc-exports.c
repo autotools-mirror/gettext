@@ -1,5 +1,5 @@
 /* List of exported symbols of libgettextsrc on Cygwin.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software; you can redistribute it and/or modify
@@ -29,6 +29,7 @@ VARIABLE(formatstring_csharp)
 VARIABLE(formatstring_elisp)
 VARIABLE(formatstring_gcc_internal)
 VARIABLE(formatstring_java)
+VARIABLE(formatstring_kde)
 VARIABLE(formatstring_librep)
 VARIABLE(formatstring_lisp)
 VARIABLE(formatstring_objc)
