@@ -1,5 +1,11 @@
 Version 0.16.2 - January 2007
 
+* PO file format:
+  The Project-Id field in the header entry may now already be filled in the
+  POT file. In this case, the translators don't need to fill it in.
+  xgettext has new options --package-name and --package-version that allow
+  to specify the package name and version from a Makefile.
+
 * gettextize now has a --po-dir option that allows several PO directories to
   be updated all together.
 
