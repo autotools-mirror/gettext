@@ -1,0 +1,4 @@
+2007-10-01  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: New file.
+
