@@ -844,10 +844,6 @@ Language specific options:\n"));
       printf (_("\
                                 (only language C++)\n"));
       printf (_("\
-      --kde                   recognize KDE 4 format strings\n"));
-      printf (_("\
-                                (only language C++)\n"));
-      printf (_("\
       --boost                 recognize Boost format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
