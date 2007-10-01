@@ -1,3 +1,10 @@
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention kde-format.
+	(kde-format): New subsection.
+	(qt-format): Update for Qt 4.
+	* xgettext.texi: Document --kde option.
+
 2007-09-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Compendium): Upgrade node from a subsection to a

@@ -314,6 +314,13 @@ Recognize Qt format strings.
 @*
 This option has an effect only with the language C++.
 
+@item --kde
+@opindex --kde@r{, @code{xgettext} option}
+@cindex KDE format strings
+Recognize KDE 4 format strings.
+@*
+This option has an effect only with the language C++.
+
 @item --boost
 @opindex --boost@r{, @code{xgettext} option}
 @cindex Boost format strings

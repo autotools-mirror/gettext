@@ -403,6 +403,7 @@ The Translator's View
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
 
 Individual Programming Languages
@@ -1593,6 +1594,12 @@ Likewise for the GCC sources, see @ref{gcc-internal-format}.
 @itemx no-qt-format
 @kwindex no-qt-format@r{ flag}
 Likewise for Qt, see @ref{qt-format}.
+
+@item kde-format
+@kwindex kde-format@r{ flag}
+@itemx no-kde-format
+@kwindex no-kde-format@r{ flag}
+Likewise for KDE, see @ref{kde-format}.
 
 @item boost-format
 @kwindex boost-format@r{ flag}
@@ -8596,6 +8603,7 @@ strings.
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
 @end menu
 
@@ -8805,15 +8813,23 @@ denotes a programming language, @samp{O} denotes a binary operator,
 @samp{P} denotes a function parameter, @samp{Q} denotes an assignment
 operator, @samp{V} denotes a const/volatile qualifier.
 
-@node qt-format, boost-format, gcc-internal-format, Translators for other Languages
+@node qt-format, kde-format, gcc-internal-format, Translators for other Languages
 @subsection Qt Format Strings
 
 Qt format strings are described in the documentation of the QString class
-@uref{file:/usr/lib/qt-3.0.5/doc/html/qstring.html}.
+@uref{file:/usr/lib/qt-4.3.0/doc/html/qstring.html}.
 In summary, a directive consists of a @samp{%} followed by a digit. The same
 directive cannot occur more than once in a format string.
 
-@node boost-format,  , qt-format, Translators for other Languages
+@node kde-format, boost-format, qt-format, Translators for other Languages
+@subsection KDE Format Strings
+
+KDE 4 format strings are defined as follows:
+A directive consists of a @samp{%} followed by a non-zero decimal number.
+If a @samp{%n} occurs in a format strings, all of @samp{%1}, ..., @samp{%(n-1)}
+must occur as well, except possibly one of them.
+
+@node boost-format,  , kde-format, Translators for other Languages
 @subsection Boost Format Strings
 
 Boost format strings are described in the documentation of the
