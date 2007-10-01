@@ -1,3 +1,8 @@
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in ($(DOMAIN).pot-update): Pass the package name and
+	version to xgettext.
+
 2007-09-15  Bruno Haible  <bruno@clisp.org>
 
 	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
