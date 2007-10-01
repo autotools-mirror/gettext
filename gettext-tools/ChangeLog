@@ -1,3 +1,9 @@
+2007-10-01  Bruno Haible  <bruno@clisp.org>
+
+	* gnulib-tests: New directory.
+	* Makefile.am (SUBDIRS): Add gnulib-tests.
+	* configure.ac (AC_CONFIG_FILES): Add gnulib-tests/Makefile.
+
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll/gettextsrc-exports.c: Add formatstring_kde.

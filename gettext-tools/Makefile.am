@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = ../build-aux/fixaclocal @ACLOCAL@
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
 
-SUBDIRS = doc intl gnulib-lib libgrep src libgettextpo po projects misc man m4 tests examples
+SUBDIRS = doc intl gnulib-lib libgrep src libgettextpo po projects misc man m4 tests gnulib-tests examples
 
 EXTRA_DIST = misc/DISCLAIM
 MOSTLYCLEANFILES = core *.stackdump
