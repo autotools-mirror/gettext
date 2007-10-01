@@ -1,3 +1,11 @@
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
+	Add support for KDE 4 format strings.
+	* format-kde-1: New file.
+	* format-kde-2: New file.
+	* Makefile.am (TESTS): Add them.
+	Based on input by by Chusslove Illich <caslav.ilic@gmx.net>.
+
 2007-09-09  Bruno Haible  <bruno@clisp.org>
 
 	Add support for Qt 4 format strings.
