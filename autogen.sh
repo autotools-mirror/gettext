@@ -196,7 +196,7 @@ if test $skip_gnulib = false; then
       java
       stdint
     '
-    $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+    $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
     # In gettext-tools/libgettextpo:
     if test -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4; then

@@ -1,5 +1,10 @@
 2007-10-01  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: Invoke gnulib-tool with options --tests-base=gnulib-tests
+	--with-tests.
+
+2007-10-01  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/depcomp: New file, from automake-1.10. Needed for the
 	gettext-tools/gnulib-tests directory.
 
