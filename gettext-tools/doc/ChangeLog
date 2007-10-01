@@ -1,5 +1,11 @@
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
+	* xgettext.texi: Document options --package-name, --package-version.
+	* gettext.texi (Header Entry): Mention that the Project-Id-Version may
+	already be filled in.
+
+2007-09-30  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (PO Files): Mention kde-format.
 	(kde-format): New subsection.
 	(qt-format): Update for Qt 4.

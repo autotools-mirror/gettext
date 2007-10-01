@@ -2867,7 +2867,8 @@ entry.  You should fill in the following fields.
 
 @table @asis
 @item Project-Id-Version
-This is the name and version of the package.
+This is the name and version of the package.  Fill it in if it has not
+already been filled in by @code{xgettext}.
 
 @item Report-Msgid-Bugs-To
 This has already been filled in by @code{xgettext}.  It contains an email

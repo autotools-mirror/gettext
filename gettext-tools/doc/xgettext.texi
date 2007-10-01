@@ -451,6 +451,15 @@ Omit FSF copyright in output.  This option is equivalent to
 @samp{--copyright-holder=''}.  It can be useful for packages outside the GNU
 project that want their translations to be in the public domain.
 
+@item --package-name=@var{package}
+@opindex --package-name@r{, @code{xgettext} option}
+Set the package name in the header of the output.
+
+@item --package-version=@var{version}
+@opindex --package-version@r{, @code{xgettext} option}
+Set the package version in the header of the output.  This option has an
+effect only if the @samp{--package-name} option is also used.
+
 @item --msgid-bugs-address=@var{email@@address}
 @opindex --msgid-bugs-address@r{, @code{xgettext} option}
 Set the reporting address for msgid bugs.  This is the email address or URL
