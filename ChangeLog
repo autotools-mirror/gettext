@@ -1,5 +1,9 @@
 2007-10-03  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (EXTRA_DIST): Add build-aux/fixaclocal.
+
+2007-10-03  Bruno Haible  <bruno@clisp.org>
+
 	* INSTALL (Enabling Relocatability): New section, produced by
 	"LANG= LC_MESSAGES= LC_ALL= LANGUAGE= \
 	 makeinfo --no-header --no-validate --output=... relocatable.texi".
