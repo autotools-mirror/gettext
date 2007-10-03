@@ -1,3 +1,10 @@
+2007-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* INSTALL (Enabling Relocatability): New section, produced by
+	"LANG= LC_MESSAGES= LC_ALL= LANGUAGE= \
+	 makeinfo --no-header --no-validate --output=... relocatable.texi".
+	(Relocatable Installation): Remove section.
+
 2007-10-01  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Invoke gnulib-tool with options --tests-base=gnulib-tests
