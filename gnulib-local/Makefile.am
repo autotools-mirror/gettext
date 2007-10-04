@@ -24,7 +24,7 @@ ChangeLog \
 build-aux/moopp \
 lib/3level.h \
 lib/addext.c \
-lib/alloca_.h \
+lib/alloca.in.h \
 lib/argmatch.h.diff \
 lib/backupfile.c \
 lib/backupfile.h \
