@@ -46,7 +46,7 @@ lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
 lib/fnmatch_loop.c.diff \
 lib/gen-lbrkprop.c \
-lib/getopt_.h.diff \
+lib/getopt.in.h.diff \
 lib/gettext.h \
 lib/glib_.h \
 lib/glibconfig_.h \

@@ -1,5 +1,8 @@
 2007-10-04  Bruno Haible  <bruno@clisp.org>
 
+	* lib/getopt.in.h.diff: Renamed from lib/getopt_.h.diff.
+	* Makefile.am (EXTRA_DIST): Update.
+
 	* lib/alloca.in.h: Renamed from lib/alloca_.h.
 	* Makefile.am (EXTRA_DIST): Update.
 
