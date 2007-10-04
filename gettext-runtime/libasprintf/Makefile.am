@@ -72,13 +72,13 @@ libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
 
 
 # >>> gnulib module alloca.
-EXTRA_DIST += alloca_.h
+EXTRA_DIST += alloca.in.h
 
 # The following is needed in order to create an <alloca.h> when the system
 # doesn't have one that works with the given compiler.
 all-local $(libasprintf_la_OBJECTS): @ALLOCA_H@
-alloca.h: alloca_.h
-	cp $(srcdir)/alloca_.h alloca.h
+alloca.h: alloca.in.h
+	cp $(srcdir)/alloca.in.h alloca.h
 MOSTLYCLEANFILES += alloca.h
 # <<< gnulib module alloca.
 
