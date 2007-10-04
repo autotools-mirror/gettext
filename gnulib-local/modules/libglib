@@ -2,20 +2,20 @@ Description:
 Substitute for a part of glib version 2.12.4.
 
 Files:
-lib/glib_.h
-lib/glibconfig_.h
+lib/glib.in.h
+lib/glibconfig.in.h
 lib/glib/ghash.c
-lib/glib/ghash_.h
+lib/glib/ghash.in.h
 lib/glib/glist.c
-lib/glib/glist_.h
+lib/glib/glist.in.h
 lib/glib/gmessages.c
 lib/glib/gprimes.c
-lib/glib/gprimes_.h
+lib/glib/gprimes.in.h
 lib/glib/gstrfuncs.c
-lib/glib/gstrfuncs_.h
+lib/glib/gstrfuncs.in.h
 lib/glib/gstring.c
-lib/glib/gstring_.h
-lib/glib/gtypes_.h
+lib/glib/gstring.in.h
+lib/glib/gtypes.in.h
 m4/libglib.m4
 
 Depends-on:
@@ -45,57 +45,57 @@ libglib_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
 
 BUILT_SOURCES += $(LIBGLIB_H)
 
-glib.h: glib_.h
+glib.h: glib.in.h
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib_.h; \
+	  cat $(srcdir)/glib.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glibconfig.h: glibconfig_.h
+glibconfig.h: glibconfig.in.h
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glibconfig_.h; \
+	  cat $(srcdir)/glibconfig.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/ghash.h: glib/ghash_.h
+glib/ghash.h: glib/ghash.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/ghash_.h; \
+	  cat $(srcdir)/glib/ghash.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/glist.h: glib/glist_.h
+glib/glist.h: glib/glist.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/glist_.h; \
+	  cat $(srcdir)/glib/glist.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/gprimes.h: glib/gprimes_.h
+glib/gprimes.h: glib/gprimes.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/gprimes_.h; \
+	  cat $(srcdir)/glib/gprimes.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/gstrfuncs.h: glib/gstrfuncs_.h
+glib/gstrfuncs.h: glib/gstrfuncs.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/gstrfuncs_.h; \
+	  cat $(srcdir)/glib/gstrfuncs.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/gstring.h: glib/gstring_.h
+glib/gstring.h: glib/gstring.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/gstring_.h; \
+	  cat $(srcdir)/glib/gstring.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
-glib/gtypes.h: glib/gtypes_.h
+glib/gtypes.h: glib/gtypes.in.h
 	test -d glib || mkdir glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  cat $(srcdir)/glib/gtypes_.h; \
+	  cat $(srcdir)/glib/gtypes.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
