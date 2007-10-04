@@ -1,5 +1,55 @@
 2007-10-04  Bruno Haible  <bruno@clisp.org>
 
+	* lib/libxml/c14n.in.h: Renamed from lib/libxml/c14n_.h.
+	* lib/libxml/catalog.in.h: Renamed from lib/libxml/catalog_.h.
+	* lib/libxml/chvalid.in.h: Renamed from lib/libxml/chvalid_.h.
+	* lib/libxml/debugXML.in.h: Renamed from lib/libxml/debugXML_.h.
+	* lib/libxml/dict.in.h: Renamed from lib/libxml/dict_.h.
+	* lib/libxml/DOCBparser.in.h: Renamed from lib/libxml/DOCBparser_.h.
+	* lib/libxml/encoding.in.h: Renamed from lib/libxml/encoding_.h.
+	* lib/libxml/entities.in.h: Renamed from lib/libxml/entities_.h.
+	* lib/libxml/globals.in.h: Renamed from lib/libxml/globals_.h.
+	* lib/libxml/hash.in.h: Renamed from lib/libxml/hash_.h.
+	* lib/libxml/HTMLparser.in.h: Renamed from lib/libxml/HTMLparser_.h.
+	* lib/libxml/HTMLtree.in.h: Renamed from lib/libxml/HTMLtree_.h.
+	* lib/libxml/list.in.h: Renamed from lib/libxml/list_.h.
+	* lib/libxml/nanoftp.in.h: Renamed from lib/libxml/nanoftp_.h.
+	* lib/libxml/nanohttp.in.h: Renamed from lib/libxml/nanohttp_.h.
+	* lib/libxml/parser.in.h: Renamed from lib/libxml/parser_.h.
+	* lib/libxml/parserInternals.in.h: Renamed from lib/libxml/parserInternals_.h.
+	* lib/libxml/pattern.in.h: Renamed from lib/libxml/pattern_.h.
+	* lib/libxml/relaxng.in.h: Renamed from lib/libxml/relaxng_.h.
+	* lib/libxml/SAX2.in.h: Renamed from lib/libxml/SAX2_.h.
+	* lib/libxml/SAX.in.h: Renamed from lib/libxml/SAX_.h.
+	* lib/libxml/schemasInternals.in.h: Renamed from lib/libxml/schemasInternals_.h.
+	* lib/libxml/schematron.in.h: Renamed from lib/libxml/schematron_.h.
+	* lib/libxml/threads.in.h: Renamed from lib/libxml/threads_.h.
+	* lib/libxml/tree.in.h: Renamed from lib/libxml/tree_.h.
+	* lib/libxml/uri.in.h: Renamed from lib/libxml/uri_.h.
+	* lib/libxml/valid.in.h: Renamed from lib/libxml/valid_.h.
+	* lib/libxml/xinclude.in.h: Renamed from lib/libxml/xinclude_.h.
+	* lib/libxml/xlink.in.h: Renamed from lib/libxml/xlink_.h.
+	* lib/libxml/xmlautomata.in.h: Renamed from lib/libxml/xmlautomata_.h.
+	* lib/libxml/xmlerror.in.h: Renamed from lib/libxml/xmlerror_.h.
+	* lib/libxml/xmlexports.in.h: Renamed from lib/libxml/xmlexports_.h.
+	* lib/libxml/xmlIO.in.h: Renamed from lib/libxml/xmlIO_.h.
+	* lib/libxml/xmlmemory.in.h: Renamed from lib/libxml/xmlmemory_.h.
+	* lib/libxml/xmlmodule.in.h: Renamed from lib/libxml/xmlmodule_.h.
+	* lib/libxml/xmlreader.in.h: Renamed from lib/libxml/xmlreader_.h.
+	* lib/libxml/xmlregexp.in.h: Renamed from lib/libxml/xmlregexp_.h.
+	* lib/libxml/xmlsave.in.h: Renamed from lib/libxml/xmlsave_.h.
+	* lib/libxml/xmlschemas.in.h: Renamed from lib/libxml/xmlschemas_.h.
+	* lib/libxml/xmlschemastypes.in.h: Renamed from lib/libxml/xmlschemastypes_.h.
+	* lib/libxml/xmlstring.in.h: Renamed from lib/libxml/xmlstring_.h.
+	* lib/libxml/xmlunicode.in.h: Renamed from lib/libxml/xmlunicode_.h.
+	* lib/libxml/xmlversion.in.h: Renamed from lib/libxml/xmlversion_.h.
+	* lib/libxml/xmlwriter.in.h: Renamed from lib/libxml/xmlwriter_.h.
+	* lib/libxml/xpath.in.h: Renamed from lib/libxml/xpath_.h.
+	* lib/libxml/xpathInternals.in.h: Renamed from lib/libxml/xpathInternals_.h.
+	* lib/libxml/xpointer.in.h: Renamed from lib/libxml/xpointer_.h.
+	* modules/libxml (Files, Makefile.am): Update.
+	* Makefile.am (EXTRA_DIST): Update.
+
 	* lib/glib/ghash.in.h: Renamed from lib/glib/ghash_.h.
 	* lib/glib/glist.in.h: Renamed from lib/glib/glist_.h.
 	* lib/glib/gprimes.in.h: Renamed from lib/glib/gprimes_.h.
