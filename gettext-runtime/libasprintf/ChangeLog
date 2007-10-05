@@ -1,3 +1,12 @@
+2007-06-10  Bruno Haible  <bruno@clisp.org>
+
+	* printf-parse.c: Don't include config.h and the specification
+	header if PRINTF_PARSE is already defined. Eliminate the set of
+	parameters for WIDE_CHAR_VERSION; the user of this file must provide
+	them now. Include c-ctype.h.
+	(PRINTF_PARSE) [ENABLE_UNISTDIO]: Add code implementing the 'U'
+	directive and CHAR_T_ONLY_ASCII.
+
 2007-09-04  Bruno Haible  <bruno@clisp.org>
 
 	* alloca.in.h: Renamed from alloca_.h.
