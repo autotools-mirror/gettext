@@ -1,3 +1,17 @@
+2007-10-06  Bruno Haible  <bruno@clisp.org>
+
+	* tests/test-term-ostream-xterm-r6.out: New file.
+	* tests/test-term-ostream-xterm-xf86-v32.out: New file.
+	* tests/test-term-ostream-xterm-basic.out: New file.
+	* tests/test-term-ostream-xterm-8bit.out: New file.
+	* tests/test-term-ostream-xterm.out: Remove file.
+	* tests/test-term-ostream-xterm: Test against 4 possible expected
+	results.
+	* modules/term-ostream-tests (Files): Replace
+	tests/test-term-ostream-xterm.out with
+	tests/test-term-ostream-xterm-*.out.
+	* Makefile.am (EXTRA_DIST): Update.
+
 2007-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* alloca.in.h: Change prefix of double-inclusion guard macro to _GL_.

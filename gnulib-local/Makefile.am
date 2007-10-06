@@ -318,7 +318,10 @@ tests/test-moo-sub2.oo.c \
 tests/test-moo-sub2.oo.h \
 tests/test-term-ostream.c \
 tests/test-term-ostream-xterm \
-tests/test-term-ostream-xterm.out \
+tests/test-term-ostream-xterm-r6.out \
+tests/test-term-ostream-xterm-xf86-v32.out \
+tests/test-term-ostream-xterm-basic.out \
+tests/test-term-ostream-xterm-8bit.out \
 tests/test-term-ostream-xterm-16color.out \
 tests/test-term-ostream-xterm-88color.out \
 tests/test-term-ostream-xterm-256color.out
