@@ -1,3 +1,8 @@
+2007-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi: Enforce normal indentation of the first paragraph of each
+	section.
+
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.texi: Document options --package-name, --package-version.

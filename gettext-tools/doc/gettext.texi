@@ -39,6 +39,9 @@
 @syncodeindex ev em
 @syncodeindex fn cp
 @syncodeindex kw cp
+@ifclear texi2html
+@firstparagraphindent insert
+@end ifclear
 @c %**end of header
 
 @include version.texi
@@ -76,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2006 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2007 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -111,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2006 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2007 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
