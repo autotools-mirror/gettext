@@ -109,6 +109,7 @@ libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
 endif
 
 # Version information according to Woe32 conventions.
+EXTRA_DIST += libgettextpo.rc
 if WOE32
 WOE32_LDADD = libgettextpo.res
 libgettextpo.res : $(srcdir)/libgettextpo.rc

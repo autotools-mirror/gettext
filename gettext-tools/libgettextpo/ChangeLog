@@ -1,3 +1,7 @@
+2007-10-06  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Add libgettextpo.rc.
+
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgettextpo_la_AUXSOURCES): Add format-kde.c.
