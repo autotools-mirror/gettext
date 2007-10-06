@@ -1,3 +1,9 @@
+2007-10-05  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (distcheck-hook): Update check of relocatable.h,
+	relocatable.c. Check alloca.in.h instead of alloca_.h. Remove check of
+	strdup.h.
+
 2007-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add build-aux/fixaclocal.

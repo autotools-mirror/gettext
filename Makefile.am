@@ -81,8 +81,8 @@ distcheck-hook:
 	cmp -s gettext-runtime/intl/printf-parse.c gettext-runtime/libasprintf/printf-parse.c
 	test "`sed 1,18d gettext-runtime/intl/ref-add.sin | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/ref-add.sin | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/ref-del.sin | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/ref-del.sin | md5sum`"
-	cmp -s gettext-runtime/intl/relocatable.h gnulib-local/lib/relocatable.h
-	cmp -s gettext-runtime/intl/relocatable.c gnulib-local/lib/relocatable.c
+	cmp -s gettext-runtime/intl/relocatable.h gettext-tools/gnulib-lib/relocatable.h
+	cmp -s gettext-runtime/intl/relocatable.c gettext-tools/gnulib-lib/relocatable.c
 	cmp -s gettext-runtime/intl/vasnprintf.h gettext-runtime/libasprintf/vasnprintf.h
 	cmp -s gettext-runtime/intl/vasnprintf.c gettext-runtime/libasprintf/vasnprintf.c
 	cmp -s gettext-runtime/intl/xsize.h gettext-runtime/libasprintf/xsize.h
@@ -96,9 +96,8 @@ distcheck-hook:
 	cmp -s gettext-runtime/libasprintf/texi2html gettext-tools/doc/texi2html
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.java gettext-tools/examples/hello-java-swing/m4/TestAWT.java
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.class gettext-tools/examples/hello-java-swing/m4/TestAWT.class
-	test "`sed 1,17d gnulib-local/lib/alloca_.h | md5sum`" = "`sed 1,17d gettext-runtime/libasprintf/alloca_.h | md5sum`"
+	test "`sed 1,17d gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,17d gettext-runtime/libasprintf/alloca.in.h | md5sum`"
 	cmp -s gettext-tools/libgrep/memchr.c gettext-tools/gnulib-lib/memchr.c
-	cmp -s gettext-tools/libgrep/strdup.h gettext-tools/gnulib-lib/strdup.h
 	cmp -s gettext-tools/libgrep/strdup.c gettext-tools/gnulib-lib/strdup.c
 
 # DJGPP port.
