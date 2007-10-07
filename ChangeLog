@@ -1,5 +1,11 @@
 2007-10-06  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add open, fopen.
+	(GNULIB_MODULES_LIBGETTEXTPO): Add fopen.
+	Reported by Mark Moriarty <mfmbusiness@earthlink.net>.
+
+2007-10-06  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/texinfo.tex: Upgrade to texinfo-4.11.
 	Needed because the original texinfo.tex does not support the
 	@documentencoding macro and the texinfo-4.11 texi2dvi then fails due to

@@ -123,6 +123,7 @@ if test $skip_gnulib = false; then
       filename
       findprog
       fnmatch-posix
+      fopen
       fstrcmp
       full-write
       fwriteerror
@@ -144,6 +145,7 @@ if test $skip_gnulib = false; then
       memset
       minmax
       obstack
+      open
       openmp
       ostream
       pipe
@@ -213,6 +215,7 @@ if test $skip_gnulib = false; then
       exit
       file-ostream
       filename
+      fopen
       fstrcmp
       fwriteerror
       gcd
