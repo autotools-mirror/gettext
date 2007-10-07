@@ -95,7 +95,7 @@ distcheck-hook:
 	cmp -s gettext-runtime/libasprintf/texi2html gettext-tools/doc/texi2html
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.java gettext-tools/examples/hello-java-swing/m4/TestAWT.java
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.class gettext-tools/examples/hello-java-swing/m4/TestAWT.class
-	test "`sed 1,17d gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,17d gettext-runtime/libasprintf/alloca.in.h | md5sum`"
+	test "`sed 1,15d gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,17d gettext-runtime/libasprintf/alloca.in.h | md5sum`"
 	cmp -s gettext-tools/libgrep/memchr.c gettext-tools/gnulib-lib/memchr.c
 	cmp -s gettext-tools/libgrep/strdup.c gettext-tools/gnulib-lib/strdup.c
 

@@ -2,6 +2,7 @@
 
 	* COPYING: Replace with GPL 3.
 	* windows/gettext.rc (Comments): Update.
+	* Makefile.am (distcheck-hook): Update.
 
 2007-10-06  Bruno Haible  <bruno@clisp.org>
 
