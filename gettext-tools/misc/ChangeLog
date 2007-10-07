@@ -1,3 +1,8 @@
+2007-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in (func_version): In the --version output, say GPLv3+.
+	* gettexize.in (func_version): Likewise.
+
 2007-09-01  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (archive.tar.gz): Provide an explicit error message if

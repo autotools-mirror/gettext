@@ -1,5 +1,10 @@
 Version 0.16.2 - January 2007
 
+* License:
+  The gettext related programs and tools are now licensed under the GPL
+  version 3, instead of the GPL version 2. The libintl library continues
+  to be licensed under LGPL.
+
 * PO file format:
   The Project-Id-Version field in the header entry may now already be filled
   in the POT file. In this case, the translators don't need to fill it in.

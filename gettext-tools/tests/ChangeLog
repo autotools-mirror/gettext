@@ -1,3 +1,8 @@
+2007-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* tstgettext.c (main): In the --version output, say GPLv3+.
+	* tstngettext.c (main): Likewise.
+
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
 	Add support for KDE 4 format strings.

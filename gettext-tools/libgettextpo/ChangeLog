@@ -1,3 +1,7 @@
+2007-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* libgettextpo.rc (Comments): Update.
+
 2007-10-06  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add libgettextpo.rc.

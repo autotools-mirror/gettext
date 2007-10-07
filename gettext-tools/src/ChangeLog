@@ -1,3 +1,24 @@
+2007-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* hostname.c (main): In the --version output, say GPLv3+.
+	* msgattrib.c (main): Likewise.
+	* msgcat.c (main): Likewise.
+	* msgcmp.c (main): Likewise.
+	* msgcomm.c (main): Likewise.
+	* msgconv.c (main): Likewise.
+	* msgen.c (main): Likewise.
+	* msgexec.c (main): Likewise.
+	* msgfilter.c (main): Likewise.
+	* msgfmt.c (main): Likewise.
+	* msggrep.c (main): Likewise.
+	* msginit.c (main): Likewise.
+	* msgmerge.c (main): Likewise.
+	* msgunfmt.c (main): Likewise.
+	* msguniq.c (main): Likewise.
+	* recode-sr-latin.c (main): Likewise.
+	* urlget.c (main): Likewise.
+	* xgettext.c (main): Likewise.
+
 2007-09-30  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.c (package_name, package_version): New variables.
