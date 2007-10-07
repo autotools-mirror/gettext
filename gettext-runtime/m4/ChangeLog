@@ -1,3 +1,9 @@
+2007-10-07  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (AM_INTL_SUBDIR): Set WOE32DLL on mingw like on Cygwin.
+	Fixes incomplete 2006-05-15 patch.
+	Patch from Charles Wilson.
+
 2007-09-12  Bruno Haible  <bruno@clisp.org>
 
 	* lock.m4: Don't provide an AC_USE_SYSTEM_EXTENSIONS definition.

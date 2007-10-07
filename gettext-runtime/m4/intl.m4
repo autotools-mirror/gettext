@@ -1,4 +1,4 @@
-# intl.m4 serial 6 (gettext-0.16.2)
+# intl.m4 serial 7 (gettext-0.16.2)
 dnl Copyright (C) 1995-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -97,7 +97,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   dnl    exported variables _also_ in the static library.
   if test "$enable_shared" = yes; then
     case "$host_os" in
-      cygwin*) is_woe32dll=yes ;;
+      mingw* | cygwin*) is_woe32dll=yes ;;
       *) is_woe32dll=no ;;
     esac
   else
