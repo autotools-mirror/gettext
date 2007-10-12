@@ -1,163 +1,163 @@
-# Dutch translation of gettext-runtime.
-# Copyright (C) 2004 Free Software Foundation, Inc.
+# Translation of gettext-runtime-0.16 to Dutch.
+# Copyright (C) 2004, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext-runtime package.
+#
 # Elros Cyriatan <cyriatan@fastmail.fm>, 2004.
-# 
-# 
+# Benno Schulenberg <benno@vertaalt.nl>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13.1\n"
+"Project-Id-Version: gettext-runtime-0.16\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-02 16:24+0200\n"
-"PO-Revision-Date: 2004-01-04 21:26+0100\n"
-"Last-Translator: Elros Cyriatan <cyriatan@fastmail.fm>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"POT-Creation-Date: 2007-10-07 23:09+0200\n"
+"PO-Revision-Date: 2007-10-12 00:30+0200\n"
+"Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
+"Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gnulib-lib/closeout.c:67
+#: gnulib-lib/closeout.c:66
 msgid "write error"
-msgstr "schijffout"
+msgstr "schrijffout"
 
 #: gnulib-lib/error.c:125
 msgid "Unknown system error"
 msgstr "Onbekende systeemfout"
 
-#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: optie `%s' is dubbelzinnig\n"
+msgstr "%s: optie '%s' is niet eenduidig\n"
 
-#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: optie `--%s' staat geen argument toe\n"
+msgstr "%s: optie '--%s' staat geen argument toe\n"
 
-#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: optie `%c%s' staat geen argument toe\n"
+msgstr "%s: optie '%c%s' staat geen argument toe\n"
 
-#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
-#: gnulib-lib/getopt.c:995
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: optie `%s' vereist een argument\n"
+msgstr "%s: optie '%s' vereist een argument\n"
 
-#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: niet-herkende optie `--%s'\n"
+msgstr "%s: onbekende optie '--%s'\n"
 
-#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: niet-herkende optie `%c%s'\n"
+msgstr "%s: onbekende optie '%c%s'\n"
 
-#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
-msgstr "%s: niet-toegestane optie -- %c\n"
+msgstr "%s: ongeldige optie -- %c\n"
 
-#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: ongeldige optie -- %c\n"
 
-#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
-#: gnulib-lib/getopt.c:1066
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: optie vereist een argument -- %c\n"
 
-#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: optie `-W %s' is dubbelzinnig\n"
+msgstr "%s: optie '-W %s' is niet eenduidig\n"
 
-#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: optie `-W %s' staat geen argument toe\n"
+msgstr "%s: optie '-W %s' staat geen argument toe\n"
 
-#: gnulib-lib/xmalloc.c:39
+#: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
-msgstr "geheugen is uitgeput"
+msgstr "onvoldoende geheugen beschikbaar"
 
-#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"Dit is vrije software; zie de broncode voor kopieervoorwaarden.  Er is GEEN\n"
-"garantie; zelfs niet voor VERKOOPBAARHEID of GESCHIKTHEID VOOR EEN BEPAALD DOEL.\n"
 
-#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschreven door %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
-msgstr "teveel argumenten"
+msgstr "te veel argumenten"
 
-#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "ontbrekende argumenten"
 
-#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Probeer `%s --help' voor meer informatie.\n"
+msgstr "Typ '%s --help' voor meer informatie.\n"
 
-#: src/envsubst.c:177
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Gebruik: %s [OPTIE] [SHELL-FORMAAT]\n"
+msgstr "Gebruik:  %s [OPTIE] [SHELL-OPMAAK]\n"
 
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Vervangt de waarden van omgevingsvariabelen.\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Werkingsmodus:\n"
 
-#: src/envsubst.c:189
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr "  -v, --variables             de variabelen die voorkomen in SHELL FORMAAT weergeven\n"
+msgstr "  -v, --variables     de variabelen die voorkomen in SHELL-OPMAAK tonen\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informatieve uitvoer:\n"
 
-#: src/envsubst.c:196
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr "  -h, --help                  deze hulp weergeven en afsluiten\n"
+msgstr "  -h, --help          deze hulptekst tonen en stoppen\n"
 
-#: src/envsubst.c:199
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr "  -V, --version               versie-informatie weergeven en afsluiten\n"
+msgstr "  -V, --version       versie-informatie tonen en stoppen\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -166,52 +166,63 @@ msgid ""
 "only those environment variables that are referenced in SHELL-FORMAT are\n"
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
-msgstr "In gewone werkingsmodus wordt standaard invoer gekopieerd naar standaard uitvoer, waarbij verwijzingen naar omgevingsvariabelen van de vorm $VARIABELE of ${VARIABELE} vervangen worden door de corresponderende waarden.  Als een SHELL-FORMAAT gegeven is, worden alleen de omgevingsvariabelen vervangen waarnaar verwezen wordt in SHELL FORMAAT; anders worden alle verwijzingen naar omgevingsvariabelen die in standaard invoer voorkomen vervangen.\n"
+msgstr ""
+"In gewone werkingsmodus wordt standaardinvoer gekopieerd naar standaarduitvoer,\n"
+"waarbij verwijzingen naar omgevingsvariabelen van de vorm $VARIABELE of\n"
+"${VARIABELE} worden vervangen door de corresponderende waarden.  Als een\n"
+"SHELL-OPMAAK gegeven is, worden alleen de omgevingsvariabelen vervangen\n"
+"waarnaar verwezen wordt in SHELL-OPMAAK; anders worden alle verwijzingen\n"
+"naar omgevingsvariabelen die in standaardinvoer voorkomen vervangen.\n"
 
-#: src/envsubst.c:212
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
-"Als --variables wordt gebruikt, wordt standaard invoer genegeerd, en de uitvoer bestaat uit\n"
-"de omgevingsvariabelen waarnaar wordt verwezen in SHELL FORMAAT, een per regel.\n"
+"Als '--variables' wordt gebruikt, wordt standaardinvoer genegeerd; de\n"
+"uitvoer bestaat dan uit de omgevingsvariabelen waarnaar in SHELL-OPMAAK\n"
+"wordt verwezen, één per regel.\n"
 
-#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
-"Rapporteer fouten in het programma bij <bug-gnu-gettext@gnu.org> en in de "
-"vertaling bij <vertaling@nl.linux.org>.\n"
+"Rapporteer gebreken in het programma aan <bug-gnu-gettext@gnu.org>;\n"
+"meldt fouten in de vertaling aan <vertaling@vrijschrift.org>.\n"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "fout bij lezen \"%s\""
+msgstr "fout tijdens lezen van '%s'"
 
-#: src/envsubst.c:440
+#: src/envsubst.c:443
 msgid "standard input"
-msgstr "standaard invoer"
+msgstr "standaardinvoer"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
-#: src/gettext.c:244
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Gebruik: %s [OPTIE] [[TEKSTDOMEIN] MSGID]\n"
-"of:    %s [OPTIE] -s [MSGID]...\n"
+"Gebruik:  %s [OPTIE] [[TEKSTDOMEIN] MSGID]\n"
+"     of:  %s [OPTIE] -s [MSGID]...\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "De natuurlijke-taal vertaling van een tekstbericht weergeven.\n"
+msgstr "De vertaling van een tekstbericht weergeven.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -224,15 +235,14 @@ msgid ""
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 "  -d, --domain=TEKSTDOMEIN  vertaalde berichten in TEKSTDOMEIN opzoeken\n"
-"  -e                        uitschrijving van sommige escape-reeksen aan zetten\n"
-"  -E                        (genegeerd voor compatibiliteit)\n"
-"  -h, --help                deze hulp weergeven en afsluiten\n"
+"  -e                        sommige stuurcodereeksen interpreteren\n"
+"  -E                        (genegeerd, maar herkend wegens compatibiliteit)\n"
+"  -h, --help                deze hulptekst tonen en stoppen\n"
 "  -n                        witregel aan einde onderdrukken\n"
-"  -V, --version             versie-informatie weergeven en afsluiten\n"
-"  [TEKSTDOMEIN] MSGID       vertaalde bericht opzoeken dat met\n"
-"                            MSGID uit TEKSTDOMEIN overeenkomt\n"
+"  -V, --version             versie-informatie tonen en stoppen\n"
+"  [TEKSTDOMEIN] MSGID       vertaling van MSGID opzoeken (in TEKSTDOMEIN)\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:264
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -244,24 +254,31 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Als de TEKSTDOMEIN parameter niet gegeven is, wordt het domein bepaalt uit de omgevingsvariabele TEXTDOMAIN.  Als de berichtencatalogus niet gevonden kan worden in de normale map, kan een andere lokatie worden opgegeven met de omgevingsvariabele TEXTDOMAINDIR.Als gebruikt met de -s optie, gedraagt het programma zich als de `echo'-opdracht. Het kopieert echter niet eenvoudigweg zijn argumenten naar standaard uitvoer.  De berichten die gevonden worden in de gekozen catalogus worden vertaald.\n"
-"Standaard zoekmap: %s\n"
+"Als er geen TEKSTDOMEIN gegeven is, dan bepaalt de omgevingsvariabele\n"
+"TEXTDOMAIN het domein.  Als de berichtencatalogus zich niet in de\n"
+"standaardmap bevindt, dan kan een andere locatie worden opgegeven via\n"
+"de omgevingsvariabele TEXTDOMAINDIR.\n"
+"Wanneer optie '-s' gebruikt wordt, gedraagt het programma zich als de\n"
+"opdracht 'echo'.  Het kopieert echter niet eenvoudigweg de argumenten\n"
+"naar standaarduitvoer, maar vertaalt de berichten die in de gekozen\n"
+"catalogus gevonden worden.\n"
+"De standaard zoekmap is: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "Gebruik: %s [OPTIE] [TEKSTDOMEIN] MSGID MSGID-MEERVOUD AANTAL\n"
+msgstr "Gebruik:  %s [OPTIE] [TEKSTDOMEIN] MSGID MSGID-MEERVOUD AANTAL\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
-"De natuurlijke-taal vertaling van een tekstbericht weergeven waarvan de\n"
+"De vertaling van een tekstbericht weergeven waarvan de\n"
 "grammaticale vorm afhangt van een getal.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -274,15 +291,15 @@ msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  -d, --domain=TEKSTDOMEIN  vertaalde bericht opzoeken in TEKSTDOMEIN\n"
-"  -e                        uitschrijven van bepaalde escape-reeksen aan zetten\n"
+"  -e                        uitschrijven van bepaalde escape-reeksen aanzetten\n"
 "  -E                        (genegeerd voor compatibiliteit)\n"
-"  -h, --help                deze hulp weergeven en afsluiten\n"
-"  -V, --version             versie-informatie weergeven en afsluiten\n"
+"  -h, --help                deze hulptekst tonen en stoppen\n"
+"  -V, --version             versie-informatie tonen en stoppen\n"
 "  [TEKSTDOMEIN]             vertaalde bericht opzoeken in TEKSTDOMEIN\n"
 "  MSGID MSGID-MEERVOUD      MSGID (enkelvoud) / MSGID-MEERVOUD (meervoud) vertalen\n"
-"  AANTAL                    enkelvoud/meervoud vorm kiezen gebaseerd op deze waarde\n"
+"  AANTAL                    enkel- of meervoud kiezen aan de hand van deze waarde\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -291,5 +308,18 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Als de TEKSTDOMEIN parameter niet gegeven is, wordt het domein bepaald uit de omgevingsvariabele TEXTDOMAIN.  Als de berichtencatalogus niet gevonden wordt in de gewone map, kan een andere lokatie worden opgegeven met de omgevingsvariabele TEXTDOMAINDIR.\n"
+"Als er geen argument TEKSTDOMEIN gegeven is, wordt het domein bepaald uit\n"
+"de omgevingsvariabele TEXTDOMAIN.  Als de berichtencatalogus niet gevonden\n"
+"wordt in de gewone map, kan een andere locatie worden opgegeven via de\n"
+"omgevingsvariabele TEXTDOMAINDIR.\n"
 "Standaard zoekmap: %s\n"
+
+#~ msgid ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+#~ msgstr ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "Dit is vrije software; zie de programmatekst voor de kopieervoorwaarden.\n"
+#~ "Er is GEEN garantie; zelfs niet voor VERKOOPBAARHEID of GESCHIKTHEID\n"
+#~ "VOOR EEN BEPAALD DOEL.\n"
