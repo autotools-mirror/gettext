@@ -186,7 +186,7 @@ struct loaded_domain
   struct converted_domain *conversions;
   size_t nconversions;
 
-  struct expression *plural;
+  const struct expression *plural;
   unsigned long int nplurals;
 };
 

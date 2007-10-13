@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -1304,7 +1304,7 @@ _nl_unload_domain (struct loaded_domain *domain)
   size_t i;
 
   if (domain->plural != &__gettext_germanic_plural)
-    __gettext_free_exp (domain->plural);
+    __gettext_free_exp ((struct expression *) domain->plural);
 
   for (i = 0; i < domain->nconversions; i++)
     {

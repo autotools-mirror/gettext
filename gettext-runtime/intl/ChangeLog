@@ -1,3 +1,16 @@
+2007-07-26  Jakub Jelinek  <jakub@redhat.com>
+
+	* gettextP.h (struct loaded_domain): Change plural to const
+	struct expression *.
+	* eval-plural.h (plural_eval): Change first argument to
+	const struct expression *.
+	* plural-exp.c (EXTRACT_PLURAL_EXPRESSION): Change first argument to
+	const struct expression **.
+	* plural-exp.h (EXTRACT_PLURAL_EXPRESSION, plural_eval): Adjust
+	prototypes.
+	* loadmsgcat.c (_nl_unload_domain): Cast away const in call to
+	__gettext_free_exp.
+
 2007-07-19  Jakub Jelinek  <jakub@redhat.com>
 
 	* dcigettext.c (_nl_find_msg): Return NULL even if __gconv_open
