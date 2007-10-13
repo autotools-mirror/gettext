@@ -1275,6 +1275,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   /* No caches of converted translations so far.  */
   domain->conversions = NULL;
   domain->nconversions = 0;
+  gl_rwlock_init (domain->conversions_lock);
 
   /* Get the header entry and look for a plural specification.  */
 #ifdef IN_LIBGLOCALE
@@ -1318,6 +1319,7 @@ _nl_unload_domain (struct loaded_domain *domain)
     }
   if (domain->conversions != NULL)
     free (domain->conversions);
+  __libc_rwlock_fini (domain->conversions_lock);
 
   if (domain->malloced)
     free (domain->malloced);

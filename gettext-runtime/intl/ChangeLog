@@ -1,3 +1,20 @@
+2007-10-13  Bruno Haible  <bruno@clisp.org>
+
+	* gettextP.h: Include <bits/libc-lock.h> or lock.h.
+	* dcigettext.c (_nl_find_msg): Unlock the conversions_lock when
+	exiting.
+
+2007-09-24  Ulrich Drepper  <drepper@redhat.com>
+
+	[BZ #5058]
+	http://sourceware.org/bugzilla/show_bug.cgi?id=5058
+	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=443660
+	* gettextP.h (struct loaded_domain): Add conversions_lock member.
+	* loadmsgcat.c (_nl_load_domain): Initialize conversions_lock.
+	(_nl_unload_domain): Finalize conversions_lock.
+	* dcigettext.c (_nl_find_msg): Take conversions_lock before handling
+	table of known conversions.
+
 2007-08-03  Jakub Jelinek  <jakub@redhat.com>
 
 	* dcigettext.c (_nl_find_msg): Free encoding if __gconv_open failed.

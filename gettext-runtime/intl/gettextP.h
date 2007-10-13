@@ -30,6 +30,14 @@
 # endif
 #endif
 
+/* Handle multi-threaded applications.  */
+#ifdef _LIBC
+# include <bits/libc-lock.h>
+# define gl_rwlock_define __libc_rwlock_define
+#else
+# include "lock.h"
+#endif
+
 #ifdef _LIBC
 extern char *__gettext (const char *__msgid);
 extern char *__dgettext (const char *__domainname, const char *__msgid);
@@ -185,6 +193,7 @@ struct loaded_domain
   /* Cache of charset conversions of the translated strings.  */
   struct converted_domain *conversions;
   size_t nconversions;
+  gl_rwlock_define (, conversions_lock)
 
   const struct expression *plural;
   unsigned long int nplurals;
