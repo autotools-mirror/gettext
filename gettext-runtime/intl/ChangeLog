@@ -1,3 +1,8 @@
+2007-08-03  Jakub Jelinek  <jakub@redhat.com>
+
+	* dcigettext.c (_nl_find_msg): Free encoding if __gconv_open failed.
+	* finddomain.c (_nl_find_domain): Free normalized_codeset on failure.
+
 2007-07-26  Jakub Jelinek  <jakub@redhat.com>
 
 	* gettextP.h (struct loaded_domain): Change plural to const
