@@ -1108,7 +1108,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 			/* If the output encoding is the same there is
 			   nothing to do.  Otherwise do not use the
 			   translation at all.  */
-			if (__builtin_expect (r != __GCONV_NOCONV, 1))
+			if (__builtin_expect (r != __GCONV_NULCONV, 1))
 			  return NULL;
 
 			convd->conv = (__gconv_t) -1;

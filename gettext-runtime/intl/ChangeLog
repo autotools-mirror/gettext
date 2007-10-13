@@ -1,3 +1,8 @@
+2007-07-19  Jakub Jelinek  <jakub@redhat.com>
+
+	* dcigettext.c (_nl_find_msg): Return NULL even if __gconv_open
+	returns __GCONV_NOCONV, but not for __GCONV_NULCONV.
+
 2007-07-11  Jakub Jelinek  <jakub@redhat.com>
 
 	* finddomain.c (_nl_find_domain): If _nl_explode_name returned -1,
