@@ -1,3 +1,10 @@
+2007-07-11  Jakub Jelinek  <jakub@redhat.com>
+
+	* finddomain.c (_nl_find_domain): If _nl_explode_name returned -1,
+	return NULL.
+	* explodename.c (_nl_explode_name): Return -1 if _nl_normalize_codeset
+	failed.
+
 2007-06-10  Bruno Haible  <bruno@clisp.org>
 
 	* printf-parse.c: Don't include config.h and the specification
