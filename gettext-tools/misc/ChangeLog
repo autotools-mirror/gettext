@@ -1,5 +1,8 @@
 2007-10-14  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-find-span-of-entry): Inline po-find-this-msgstr.
+	(po-find-this-msgstr): Remove function.
+
 	* po-mode.el (po-start-of-msgstr-form, po-end-of-msgstr-form): New
 	defvars.
 

@@ -61,7 +61,6 @@
 ;;    contents of msgstr[0] would be copied. (Not sure if this should happen
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
-;; Make po-find-this-msgstr call po-find-span-of-entry, not vice versa.
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
 ;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
 ;; Remove old po-subedit-exit-old.
@@ -1464,7 +1463,15 @@ untranslated or translated."
     (re-search-forward po-any-msgid-regexp)
     (setq po-start-of-msgid (match-beginning 0))
     (save-excursion
-      (po-find-this-msgstr here))
+      (when (>= here po-start-of-msgstr-block)
+        ;; point was somewhere inside of msgstr*
+        (goto-char here)
+        (end-of-line)
+        (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
+      ;; Detect the bounderies of the msgstr we are interested in.
+      (re-search-forward po-any-msgstr-form-regexp)
+      (setq po-start-of-msgstr-form (match-beginning 0)
+            po-end-of-msgstr-form (match-end 0)))
     ;; Classify the entry.
     (setq po-entry-type
           (if (eq (following-char) ?#)
@@ -1478,18 +1485,6 @@ untranslated or translated."
                 'translated))))
     ;; Put the cursor back where it was.
     (goto-char here)))
-
-(defun po-find-this-msgstr (here)
-  "Locate msgstr following point or at point."
-  (when (>= here po-start-of-msgstr-block)
-    ;; point was somewhere inside of msgstr*
-    (goto-char here)
-    (end-of-line)
-    (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
-  ;; detect the bounderies of the msgstr we are interested in
-  (re-search-forward po-any-msgstr-form-regexp)
-  (setq po-start-of-msgstr-form (match-beginning 0)
-        po-end-of-msgstr-form (match-end 0)))
 
 (defun po-add-attribute (name)
   "Add attribute NAME to the current entry, unless it is already there."
