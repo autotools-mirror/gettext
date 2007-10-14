@@ -61,7 +61,6 @@
 ;;    contents of msgstr[0] would be copied. (Not sure if this should happen
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
-;; Rename po-any-msgstr-regexp-old to po-any-msgstr-form-regexp.
 ;; Rename po-any-msgstr-regexp to po-any-msgstr-block-regexp.
 ;; Make po-find-this-msgstr call po-find-span-of-entry, not vice versa.
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
@@ -1019,7 +1018,7 @@ Initialize or replace current translation with the original message"))])
   "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
-(defvar po-any-msgstr-regexp-old
+(defvar po-any-msgstr-form-regexp
   ;; "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "^\\(#~[ \t]*\\)?msgstr\\(\\[[0-9]\\]\\)?.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching just one msgstr or msgstr[] field, whether obsolete or not.")
@@ -1487,7 +1486,7 @@ or translated."
     (end-of-line)
     (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
   ;; detect the bounderies of the msgstr we are interested in
-  (re-search-forward po-any-msgstr-regexp-old)
+  (re-search-forward po-any-msgstr-form-regexp)
   (setq po-start-of-this-msgstr (match-beginning 0)
         po-end-of-this-msgstr (match-end 0)))
 
@@ -1991,7 +1990,7 @@ described by FORM is merely identical to the msgstr already in place."
                                   (eq po-entry-type 'obsolete))))
     (save-excursion
       (goto-char po-start-of-this-msgstr)
-      (re-search-forward po-any-msgstr-regexp-old po-end-of-this-msgstr)
+      (re-search-forward po-any-msgstr-form-regexp po-end-of-this-msgstr)
       (and (not (string-equal (po-match-string 0) string))
            (let ((buffer-read-only po-read-only))
              (po-decrease-type-counter)

@@ -1,3 +1,8 @@
+2007-10-14  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-any-msgstr-form-regexp): Renamed from
+	po-any-msgstr-regexp-old.
+
 2007-10-07  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in (func_version): In the --version output, say GPLv3+.
