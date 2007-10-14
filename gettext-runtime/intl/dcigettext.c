@@ -595,7 +595,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	retval = (char *) (*foundp)->translation;
 
       gl_rwlock_unlock (_nl_state_lock);
-      errno = saved_errno;
+      __set_errno (saved_errno);
       return retval;
     }
 #endif
