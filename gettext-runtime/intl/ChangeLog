@@ -1,3 +1,9 @@
+2007-10-14  Bruno Haible  <bruno@clisp.org>
+
+	* dcigettext.c (DCIGETTEXT): Save errno also around the tfind() call.
+	Needed because Interix 3.5 tfind() clobbers errno.
+	Reported by Martin Koeppe <mkoeppe@gmx.de>.
+
 2007-10-13  Bruno Haible  <bruno@clisp.org>
 
 	* gettextP.h: Include <bits/libc-lock.h> or lock.h.

@@ -522,6 +522,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	    : n == 1 ? (char *) msgid1 : (char *) msgid2);
 #endif
 
+  /* Preserve the `errno' value.  */
+  saved_errno = errno;
+
   gl_rwlock_rdlock (_nl_state_lock);
 
   /* If DOMAINNAME is NULL, we are interested in the default domain.  If
@@ -592,12 +595,10 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	retval = (char *) (*foundp)->translation;
 
       gl_rwlock_unlock (_nl_state_lock);
+      errno = saved_errno;
       return retval;
     }
 #endif
-
-  /* Preserve the `errno' value.  */
-  saved_errno = errno;
 
   /* See whether this is a SUID binary or not.  */
   DETERMINE_SECURE;
