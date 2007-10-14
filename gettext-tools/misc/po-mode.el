@@ -695,6 +695,8 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 (defvar po-start-of-msgctxt) ; = po-start-of-msgid if there is no msgctxt
 (defvar po-start-of-msgid)
 (defvar po-start-of-msgstr-block)
+(defvar po-start-of-msgstr-form)
+(defvar po-end-of-msgstr-form)
 (defvar po-end-of-entry)
 (defvar po-entry-type)
 
