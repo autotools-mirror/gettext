@@ -1486,8 +1486,8 @@ untranslated or translated."
     (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
   ;; detect the bounderies of the msgstr we are interested in
   (re-search-forward po-any-msgstr-form-regexp)
-  (setq po-start-of-this-msgstr (match-beginning 0)
-        po-end-of-this-msgstr (match-end 0)))
+  (setq po-start-of-msgstr-form (match-beginning 0)
+        po-end-of-msgstr-form (match-end 0)))
 
 (defun po-add-attribute (name)
   "Add attribute NAME to the current entry, unless it is already there."
@@ -1920,8 +1920,8 @@ If KILL, then add the unquoted string to the kill ring."
 If KILL, then add the unquoted string to the kill ring."
   (let ((flavor (po-get-msgstr-flavor))
         (string (po-extract-unquoted (current-buffer)
-                                     po-start-of-this-msgstr
-                                     po-end-of-this-msgstr)))
+                                     po-start-of-msgstr-form
+                                     po-end-of-msgstr-form)))
     (setq po-this-msgstr-flavor flavor)
     (if kill (po-kill-new string))
     string))
@@ -1990,8 +1990,8 @@ described by FORM is merely identical to the msgstr already in place."
                                   po-this-msgstr-flavor
                                   (eq po-entry-type 'obsolete))))
     (save-excursion
-      (goto-char po-start-of-this-msgstr)
-      (re-search-forward po-any-msgstr-form-regexp po-end-of-this-msgstr)
+      (goto-char po-start-of-msgstr-form)
+      (re-search-forward po-any-msgstr-form-regexp po-end-of-msgstr-form)
       (and (not (string-equal (po-match-string 0) string))
            (let ((buffer-read-only po-read-only))
              (po-decrease-type-counter)
@@ -2313,7 +2313,7 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
     (cond ((= (point) po-start-of-msgid)
            (po-set-comment string)
            (po-redisplay))
-          ((= (point) po-start-of-this-msgstr)
+          ((= (point) po-start-of-msgstr-form)
            (let ((replaced (po-set-msgstr-new string)))
              (if (and replaced
                       po-auto-fuzzy-on-edit
@@ -2339,7 +2339,7 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
     (cond ((= (point) po-start-of-msgid)
            (po-set-comment string)
            (po-redisplay))
-          ((= (point) po-start-of-this-msgstr)
+          ((= (point) po-start-of-msgstr-form)
            (let ((replaced (po-set-msgstr-new string)))
              (if (and replaced
                       po-auto-fuzzy-on-edit
@@ -2404,7 +2404,7 @@ TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
 Run functions on po-subedit-mode-hook."
   (let ((marker (make-marker)))
     (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
-                             ((eq type 'msgstr) po-start-of-this-msgstr)))
+                             ((eq type 'msgstr) po-start-of-msgstr-form)))
     (if (po-check-for-pending-edit marker)
         (let ((edit-buffer (generate-new-buffer
                             (concat "*" (buffer-name) "*")))
