@@ -1,5 +1,8 @@
 2007-10-14  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-start-of-msgstr-block): Renamed from
+	po-start-of-msgstr.
+
 	* po-mode.el (po-any-msgstr-block-regexp): Renamed from
 	po-any-msgstr-regexp.
 

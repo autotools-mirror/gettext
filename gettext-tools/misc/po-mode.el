@@ -694,7 +694,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 (defvar po-start-of-entry)
 (defvar po-start-of-msgctxt) ; = po-start-of-msgid if there is no msgctxt
 (defvar po-start-of-msgid)
-(defvar po-start-of-msgstr)
+(defvar po-start-of-msgstr-block)
 (defvar po-end-of-entry)
 (defvar po-entry-type)
 
@@ -1163,7 +1163,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (make-local-variable 'po-start-of-entry)
   (make-local-variable 'po-start-of-msgctxt)
   (make-local-variable 'po-start-of-msgid)
-  (make-local-variable 'po-start-of-msgstr)
+  (make-local-variable 'po-start-of-msgstr-block)
   (make-local-variable 'po-end-of-entry)
   (make-local-variable 'po-entry-type)
 
@@ -1272,7 +1272,7 @@ Then, update the mode line counters."
     ;; FIXME 'here' looks obsolete / 2001-08-23 03:54:26 CEST -ke-
     (save-excursion
       (po-find-span-of-entry)
-      (setq current po-start-of-msgstr)
+      (setq current po-start-of-msgstr-block)
       (goto-char (point-min))
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
@@ -1402,9 +1402,9 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 (defun po-find-span-of-entry ()
   "Find the extent of the PO file entry where the cursor is.
 Set variables PO-START-OF-ENTRY, PO-START-OF-MSGCTXT, PO-START-OF-MSGID,
-PO-START-OF-MSGSTR, PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful values.
-Decreasing priority of type interpretation is: obsolete, fuzzy, untranslated
-or translated."
+po-start-of-msgstr-block, PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful
+values. Decreasing priority of type interpretation is: obsolete, fuzzy,
+untranslated or translated."
   (let ((here (point)))
     (if (re-search-backward po-any-msgstr-block-regexp nil t)
         (progn
@@ -1422,27 +1422,27 @@ or translated."
                 ;; However, it is also possible that we are located in
                 ;; the crumb after the last entry in the file.  If
                 ;; yes, we know the middle and end of last PO entry.
-                (setq po-start-of-msgstr (match-beginning 0)
+                (setq po-start-of-msgstr-block (match-beginning 0)
                       po-end-of-entry (match-end 0))
                 (if (re-search-forward po-any-msgstr-block-regexp nil t)
                     (progn
                       ;; We definitely were not in the crumb.
-                      (setq po-start-of-msgstr (match-beginning 0)
+                      (setq po-start-of-msgstr-block (match-beginning 0)
                             po-end-of-entry (match-end 0)))
                   ;; We were in the crumb.  The start of the last PO
                   ;; file entry is the end of the previous msgstr if
                   ;; any, or else, the beginning of the file.
-                  (goto-char po-start-of-msgstr)
+                  (goto-char po-start-of-msgstr-block)
                   (setq po-start-of-entry
                         (if (re-search-backward po-any-msgstr-block-regexp nil t)
                             (match-end 0)
                           (point-min)))))
             ;; The cursor was inside msgstr of the current entry.
-            (setq po-start-of-msgstr (match-beginning 0)
+            (setq po-start-of-msgstr-block (match-beginning 0)
                   po-end-of-entry (match-end 0))
             ;; The start of this entry is the end of the previous
             ;; msgstr if any, or else, the beginning of the file.
-            (goto-char po-start-of-msgstr)
+            (goto-char po-start-of-msgstr-block)
             (setq po-start-of-entry
                   (if (re-search-backward po-any-msgstr-block-regexp nil t)
                       (match-end 0)
@@ -1452,7 +1452,7 @@ or translated."
       (goto-char po-start-of-entry)
       ;; There is at least the PO file header, so this should match.
       (re-search-forward po-any-msgstr-block-regexp)
-      (setq po-start-of-msgstr (match-beginning 0)
+      (setq po-start-of-msgstr-block (match-beginning 0)
             po-end-of-entry (match-end 0)))
     ;; Find start of msgid.
     (goto-char po-start-of-entry)
@@ -1470,7 +1470,7 @@ or translated."
             (goto-char po-start-of-entry)
             (if (re-search-forward po-fuzzy-regexp po-start-of-msgctxt t)
                 'fuzzy
-              (goto-char po-start-of-msgstr)
+              (goto-char po-start-of-msgstr-block)
               (if (looking-at po-untranslated-regexp)
                   'untranslated
                 'translated))))
@@ -1479,7 +1479,7 @@ or translated."
 
 (defun po-find-this-msgstr (here)
   "Locate msgstr following point or at point."
-  (when (>= here po-start-of-msgstr)
+  (when (>= here po-start-of-msgstr-block)
     ;; point was somewhere inside of msgstr*
     (goto-char here)
     (end-of-line)
@@ -1895,7 +1895,8 @@ If FORM is itself a string, then this string is used for insertion."
   "Extract and return the unquoted msgid string.
 If KILL, then add the unquoted string to the kill ring."
   (let ((string (po-extract-unquoted (current-buffer)
-                                     po-start-of-msgid po-start-of-msgstr)))
+                                     po-start-of-msgid
+                                     po-start-of-msgstr-block)))
     (if kill (po-kill-new string))
     string))
 
@@ -1903,7 +1904,8 @@ If KILL, then add the unquoted string to the kill ring."
   "Extract and return the unquoted msgstr string.
 If KILL, then add the unquoted string to the kill ring."
   (let ((string (po-extract-unquoted (current-buffer)
-                                     po-start-of-msgstr po-end-of-entry)))
+                                     po-start-of-msgstr-block
+                                     po-end-of-entry)))
     (if kill (po-kill-new string))
     string))
 
@@ -1935,7 +1937,7 @@ described by FORM is merely identical to the msgid already in place."
   (let ((string (po-eval-requoted form "msgid" (eq po-entry-type 'obsolete))))
     (save-excursion
       (goto-char po-start-of-entry)
-      (re-search-forward po-any-msgid-regexp po-start-of-msgstr)
+      (re-search-forward po-any-msgid-regexp po-start-of-msgstr-block)
       (and (not (string-equal (po-match-string 0) string))
            (let ((buffer-read-only po-read-only))
              (replace-match string t t)
@@ -2050,7 +2052,7 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
 
         ((and (eq po-entry-type 'obsolete)
               (po-check-for-pending-edit po-start-of-msgid)
-              (po-check-for-pending-edit po-start-of-msgstr))
+              (po-check-for-pending-edit po-start-of-msgstr-block))
          (po-decrease-type-counter)
          (po-update-mode-line-string)
          (po-get-msgstr t)
@@ -2355,7 +2357,7 @@ TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
 Run functions on po-subedit-mode-hook."
   (let ((marker (make-marker)))
     (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
-                             ((eq type 'msgstr) po-start-of-msgstr)))
+                             ((eq type 'msgstr) po-start-of-msgstr-block)))
     (if (po-check-for-pending-edit marker)
         (let ((edit-buffer (generate-new-buffer
                             (concat "*" (buffer-name) "*")))
@@ -2364,7 +2366,7 @@ Run functions on po-subedit-mode-hook."
               overlay slot)
           (if (and (eq type 'msgstr) po-highlighting)
               ;; ;; Try showing all of msgid in the upper window while editing.
-              ;; (goto-char (1- po-start-of-msgstr))
+              ;; (goto-char (1- po-start-of-msgstr-block))
               ;; (recenter -1)
               (save-excursion
                 (goto-char po-start-of-entry)
@@ -2411,7 +2413,7 @@ Run functions on po-subedit-mode-hook."
               overlay slot)
           (if (and (eq type 'msgstr) po-highlighting)
               ;; ;; Try showing all of msgid in the upper window while editing.
-              ;; (goto-char (1- po-start-of-msgstr))
+              ;; (goto-char (1- po-start-of-msgstr-block))
               ;; (recenter -1)
               (save-excursion
                 (goto-char po-start-of-entry)
@@ -2596,7 +2598,7 @@ Otherwise, move nothing, and just return 'nil'."
               (po-find-span-of-entry)
               ;; Ignore an untranslated entry.
               (or (string-equal
-                   (buffer-substring po-start-of-msgstr po-end-of-entry)
+                   (buffer-substring po-start-of-msgstr-block po-end-of-entry)
                    "msgstr \"\"\n")
                   (setq found t)))))
       (if found
@@ -2623,7 +2625,8 @@ Otherwise, move nothing, and just return 'nil'."
   (interactive)
   (po-find-span-of-entry)
   (if po-auxiliary-list
-      (let ((string (buffer-substring po-start-of-msgid po-start-of-msgstr))
+      (let ((string (buffer-substring po-start-of-msgid
+                                      po-start-of-msgstr-block))
             (cursor po-auxiliary-cursor)
             found name)
         (while (and (not found) cursor)
@@ -2661,7 +2664,8 @@ without moving its cursor."
   (interactive)
   (po-find-span-of-entry)
   (if po-auxiliary-list
-      (let ((string (buffer-substring po-start-of-msgid po-start-of-msgstr))
+      (let ((string
+              (buffer-substring po-start-of-msgid po-start-of-msgstr-block))
             (name (car (assoc (completing-read (_"Which auxiliary file? ")
                                                po-auxiliary-list nil t)
                               po-auxiliary-list))))
