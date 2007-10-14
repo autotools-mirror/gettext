@@ -61,7 +61,6 @@
 ;;    contents of msgstr[0] would be copied. (Not sure if this should happen
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
-;; Rename po-any-msgstr-regexp to po-any-msgstr-block-regexp.
 ;; Make po-find-this-msgstr call po-find-span-of-entry, not vice versa.
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
 ;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
@@ -1014,7 +1013,7 @@ Initialize or replace current translation with the original message"))])
   "^\\(#~[ \t]*\\)?msgid.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
-(defvar po-any-msgstr-regexp
+(defvar po-any-msgstr-block-regexp
   "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
@@ -1282,7 +1281,7 @@ Then, update the mode line counters."
       (if (re-search-forward "^msgid" (point-max) t)
           (progn
             ;; Start counting
-            (while (re-search-forward po-any-msgstr-regexp nil t)
+            (while (re-search-forward po-any-msgstr-block-regexp nil t)
               (and (= (% total 20) 0)
                    (if flag
                        (message (_"Position %d/%d") position total)
@@ -1343,7 +1342,7 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
       (let ((buffer-read-only po-read-only)
             insert-flag end-of-header)
         (goto-char (point-min))
-        (if (re-search-forward po-any-msgstr-regexp nil t)
+        (if (re-search-forward po-any-msgstr-block-regexp nil t)
             (progn
               ;; There is at least one entry.
               (goto-char (match-beginning 0))
@@ -1407,13 +1406,13 @@ PO-START-OF-MSGSTR, PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful values.
 Decreasing priority of type interpretation is: obsolete, fuzzy, untranslated
 or translated."
   (let ((here (point)))
-    (if (re-search-backward po-any-msgstr-regexp nil t)
+    (if (re-search-backward po-any-msgstr-block-regexp nil t)
         (progn
           ;; After a backward match, (match-end 0) will not extend
           ;; beyond point, in case point was *inside* the regexp.  We
           ;; need a dependable (match-end 0), so we redo the match in
           ;; the forward direction.
-          (re-search-forward po-any-msgstr-regexp)
+          (re-search-forward po-any-msgstr-block-regexp)
           (if (<= (match-end 0) here)
               (progn
                 ;; We most probably found the msgstr of the previous
@@ -1425,7 +1424,7 @@ or translated."
                 ;; yes, we know the middle and end of last PO entry.
                 (setq po-start-of-msgstr (match-beginning 0)
                       po-end-of-entry (match-end 0))
-                (if (re-search-forward po-any-msgstr-regexp nil t)
+                (if (re-search-forward po-any-msgstr-block-regexp nil t)
                     (progn
                       ;; We definitely were not in the crumb.
                       (setq po-start-of-msgstr (match-beginning 0)
@@ -1435,7 +1434,7 @@ or translated."
                   ;; any, or else, the beginning of the file.
                   (goto-char po-start-of-msgstr)
                   (setq po-start-of-entry
-                        (if (re-search-backward po-any-msgstr-regexp nil t)
+                        (if (re-search-backward po-any-msgstr-block-regexp nil t)
                             (match-end 0)
                           (point-min)))))
             ;; The cursor was inside msgstr of the current entry.
@@ -1445,14 +1444,14 @@ or translated."
             ;; msgstr if any, or else, the beginning of the file.
             (goto-char po-start-of-msgstr)
             (setq po-start-of-entry
-                  (if (re-search-backward po-any-msgstr-regexp nil t)
+                  (if (re-search-backward po-any-msgstr-block-regexp nil t)
                       (match-end 0)
                     (point-min)))))
       ;; The cursor was before msgstr in the first entry in the file.
       (setq po-start-of-entry (point-min))
       (goto-char po-start-of-entry)
       ;; There is at least the PO file header, so this should match.
-      (re-search-forward po-any-msgstr-regexp)
+      (re-search-forward po-any-msgstr-block-regexp)
       (setq po-start-of-msgstr (match-beginning 0)
             po-end-of-entry (match-end 0)))
     ;; Find start of msgid.
@@ -1635,22 +1634,22 @@ If WRAP is not nil, the search may wrap around the buffer."
 (defun po-first-entry ()
   "Display the first entry."
   (interactive)
-  (po-first-entry-with-regexp po-any-msgstr-regexp))
+  (po-first-entry-with-regexp po-any-msgstr-block-regexp))
 
 (defun po-last-entry ()
   "Display the last entry."
   (interactive)
-  (po-last-entry-with-regexp po-any-msgstr-regexp))
+  (po-last-entry-with-regexp po-any-msgstr-block-regexp))
 
 (defun po-next-entry ()
   "Display the entry following the current entry."
   (interactive)
-  (po-next-entry-with-regexp po-any-msgstr-regexp nil))
+  (po-next-entry-with-regexp po-any-msgstr-block-regexp nil))
 
 (defun po-previous-entry ()
   "Display the entry preceding the current entry."
   (interactive)
-  (po-previous-entry-with-regexp po-any-msgstr-regexp nil))
+  (po-previous-entry-with-regexp po-any-msgstr-block-regexp nil))
 
 ;; Untranslated entries.
 
@@ -1734,10 +1733,10 @@ which does not match exactly.")
   (interactive)
   (if (= po-translated-counter 0)
       (error (_"There is no such entry"))
-    (po-next-entry-with-regexp po-any-msgstr-regexp t)
+    (po-next-entry-with-regexp po-any-msgstr-block-regexp t)
     (po-find-span-of-entry)
     (while (not (eq po-entry-type 'translated))
-      (po-next-entry-with-regexp po-any-msgstr-regexp t)
+      (po-next-entry-with-regexp po-any-msgstr-block-regexp t)
       (po-find-span-of-entry))))
 
 (defun po-previous-translated-entry ()
@@ -1745,7 +1744,7 @@ which does not match exactly.")
   (interactive)
   (if (= po-translated-counter 0)
       (error (_"There is no such entry"))
-    (po-previous-entry-with-regexp po-any-msgstr-regexp t)
+    (po-previous-entry-with-regexp po-any-msgstr-block-regexp t)
     (po-find-span-of-entry)
     (while (not (eq po-entry-type 'translated))
       (po-previous-entry-with-regexp po-untranslated-regexp t)
@@ -1767,7 +1766,7 @@ no entries of the other types."
            (= po-obsolete-counter 0))
       ;; All entries are plain translated.  Next entry will do, or
       ;; wrap around if there is none.
-      (if (re-search-forward po-any-msgstr-regexp nil t)
+      (if (re-search-forward po-any-msgstr-block-regexp nil t)
           (goto-char (match-beginning 0))
         (goto-char (point-min)))
     ;; If over a translated entry, look for an untranslated one first.
@@ -1961,7 +1960,7 @@ described by FORM is merely identical to the msgstr already in place."
                                po-end-of-entry t)
             (setq msgstr-idx (buffer-substring-no-properties
                               (match-beginning 0) (match-end 0)))))
-      (re-search-forward po-any-msgstr-regexp po-end-of-entry)
+      (re-search-forward po-any-msgstr-block-regexp po-end-of-entry)
       (and (not (string-equal (po-match-string 0) string))
            (let ((buffer-read-only po-read-only))
              (po-decrease-type-counter)
@@ -2058,9 +2057,9 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
          (let ((buffer-read-only po-read-only))
            (delete-region po-start-of-entry po-end-of-entry))
          (goto-char po-start-of-entry)
-         (if (re-search-forward po-any-msgstr-regexp nil t)
+         (if (re-search-forward po-any-msgstr-block-regexp nil t)
              (goto-char (match-beginning 0))
-           (re-search-backward po-any-msgstr-regexp nil t))
+           (re-search-backward po-any-msgstr-block-regexp nil t))
          (po-current-entry)
          (message ""))))
 
@@ -2514,7 +2513,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   (let ((here (point-marker))
         (counter 0))
     (goto-char (point-min))
-    (while (re-search-forward po-any-msgstr-regexp nil t)
+    (while (re-search-forward po-any-msgstr-block-regexp nil t)
       (if (= (% counter 10) 0)
           (message (_"Normalizing %d, %s") counter explain))
       (goto-char (match-beginning 0))
@@ -2607,7 +2606,7 @@ Otherwise, move nothing, and just return 'nil'."
             (if po-highlighting
                 (progn
                   (goto-char po-start-of-entry)
-                  (re-search-forward po-any-msgstr-regexp nil t)
+                  (re-search-forward po-any-msgstr-block-regexp nil t)
                   (let ((end (1- (match-end 0))))
                     (goto-char (match-beginning 0))
                     (re-search-forward "msgstr +" nil t)
@@ -3417,7 +3416,7 @@ Leave point after marked string."
     (save-excursion
       ;; Find the PO file header entry.
       (goto-char (point-min))
-      (re-search-forward po-any-msgstr-regexp)
+      (re-search-forward po-any-msgstr-block-regexp)
       (setq start-of-header (match-beginning 0)
             end-of-header (match-end 0))
       ;; Get the package and version.
@@ -3466,7 +3465,7 @@ Team name '%s' unknown.  What is the team code? "
   (let (team)
     (save-excursion
       (goto-char (point-min))
-      (re-search-forward po-any-msgstr-regexp)
+      (re-search-forward po-any-msgstr-block-regexp)
       (goto-char (match-beginning 0))
       (if (re-search-forward
            "\n\"Language-Team: +\\(.*<\\(.*\\)@.*>\\)\\\\n\"$"
