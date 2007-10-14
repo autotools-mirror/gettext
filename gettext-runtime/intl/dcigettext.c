@@ -1134,8 +1134,8 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 			   translation at all.  */
 			if (__builtin_expect (r != __GCONV_NULCONV, 1))
 			  {
-			    free ((char *) encoding);
 			    gl_rwlock_unlock (domain->conversions_lock);
+			    free ((char *) encoding);
 			    return NULL;
 			  }
 
