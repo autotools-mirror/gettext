@@ -64,7 +64,6 @@
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
 ;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
 ;; Remove old po-subedit-exit-old.
-;; Remove old po-edit-string, rename po-edit-string-new to po-edit-string.
 ;; Remove old po-edit-msgstr-old.
 
 ;;; Code:
@@ -2354,53 +2353,6 @@ TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
 Run functions on po-subedit-mode-hook."
   (let ((marker (make-marker)))
     (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
-                             ((eq type 'msgstr) po-start-of-msgstr-block)))
-    (if (po-check-for-pending-edit marker)
-        (let ((edit-buffer (generate-new-buffer
-                            (concat "*" (buffer-name) "*")))
-              (edit-coding buffer-file-coding-system)
-              (buffer (current-buffer))
-              overlay slot)
-          (if (and (eq type 'msgstr) po-highlighting)
-              ;; ;; Try showing all of msgid in the upper window while editing.
-              ;; (goto-char (1- po-start-of-msgstr-block))
-              ;; (recenter -1)
-              (save-excursion
-                (goto-char po-start-of-entry)
-                (re-search-forward po-any-msgid-regexp nil t)
-                (let ((end (1- (match-end 0))))
-                  (goto-char (match-beginning 0))
-                  (re-search-forward "msgid +" nil t)
-                  (setq overlay (po-create-overlay))
-                  (po-highlight overlay (point) end buffer))))
-          (setq slot (list marker edit-buffer overlay)
-                po-edited-fields (cons slot po-edited-fields))
-          (pop-to-buffer edit-buffer)
-          (set (make-local-variable 'po-subedit-back-pointer) slot)
-          (set (make-local-variable 'indent-line-function)
-               'indent-relative)
-          (setq buffer-file-coding-system edit-coding)
-          (setq local-abbrev-table po-mode-abbrev-table)
-          (erase-buffer)
-          (insert string "<")
-          (goto-char (point-min))
-          (and expand-tabs (setq indent-tabs-mode nil))
-          (use-local-map po-subedit-mode-map)
-          (if (fboundp 'easy-menu-define)
-              (progn
-                (easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
-                  po-subedit-mode-menu-layout)
-                (and po-XEMACS (easy-menu-add po-subedit-mode-menu))))
-          (set-syntax-table po-subedit-mode-syntax-table)
-          (run-hooks 'po-subedit-mode-hook)
-          (message po-subedit-message)))))
-
-(defun po-edit-string-new (string type expand-tabs)
-  "Prepare a pop up buffer for editing STRING, which is of a given TYPE.
-TYPE may be 'comment or 'msgstr.  If EXPAND-TABS, expand tabs to spaces.
-Run functions on po-subedit-mode-hook."
-  (let ((marker (make-marker)))
-    (set-marker marker (cond ((eq type 'comment) po-start-of-msgid)
                              ((eq type 'msgstr) po-start-of-msgstr-form)))
     (if (po-check-for-pending-edit marker)
         (let ((edit-buffer (generate-new-buffer
@@ -2471,7 +2423,7 @@ read `po-subedit-ediff' documentation."
   "Use another window to edit the current msgstr."
   (interactive)
   (po-find-span-of-entry)
-  (po-edit-string-new (if (and po-auto-edit-with-msgid
+  (po-edit-string (if (and po-auto-edit-with-msgid
                            (eq po-entry-type 'untranslated))
                       (po-get-msgid nil)
                     (po-get-msgstr-new nil))
