@@ -62,7 +62,6 @@
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
-;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
 ;; Remove old po-subedit-exit-old.
 
 ;;; Code:
@@ -1673,7 +1672,7 @@ If WRAP is not nil, the search may wrap around the buffer."
   (if (or (eq po-entry-type 'untranslated)
           (eq po-entry-type 'obsolete)
           (y-or-n-p (_"Really lose previous translation? ")))
-      (po-set-msgstr (po-get-msgid nil)))
+      (po-set-msgstr-form (po-get-msgid nil)))
   (message ""))
 
 ;; Obsolete entries.
@@ -1940,40 +1939,7 @@ described by FORM is merely identical to the msgid already in place."
              (po-find-span-of-entry)
              t)))))
 
-(defun po-set-msgstr (form)
-  "Replace the current msgstr or msgstr[], using FORM to get a string.
-Evaluating FORM should insert the wanted string in the current buffer.  If
-FORM is itself a string, then this string is used for insertion.  The string
-is properly requoted before the replacement occurs.
-
-Returns 'nil' if the buffer has not been modified, for if the new msgstr
-described by FORM is merely identical to the msgstr already in place."
-  (let ((string (po-eval-requoted form "msgstr" (eq po-entry-type 'obsolete)))
-        (msgstr-idx nil))
-    (save-excursion
-      (goto-char po-start-of-entry)
-      (save-excursion                   ; check for an indexed msgstr
-        (if (re-search-forward po-msgstr-idx-keyword-regexp
-                               po-end-of-entry t)
-            (setq msgstr-idx (buffer-substring-no-properties
-                              (match-beginning 0) (match-end 0)))))
-      (re-search-forward po-any-msgstr-block-regexp po-end-of-entry)
-      (and (not (string-equal (po-match-string 0) string))
-           (let ((buffer-read-only po-read-only))
-             (po-decrease-type-counter)
-             (replace-match string t t)
-             (goto-char (match-beginning 0))
-             (if (eq msgstr-idx nil) ; hack: replace msgstr with msgstr[d]
-                 nil
-               (insert msgstr-idx)
-               (looking-at "\\(#~[ \t]*\\)?msgstr")
-               (replace-match ""))
-             (goto-char po-start-of-msgid)
-             (po-find-span-of-entry)
-             (po-increase-type-counter)
-             t)))))
-
-(defun po-set-msgstr-new (form)
+(defun po-set-msgstr-form (form)
   "Replace the current msgstr or msgstr[], using FORM to get a string.
 Evaluating FORM should insert the wanted string in the current buffer.  If
 FORM is itself a string, then this string is used for insertion.  The string
@@ -2006,13 +1972,13 @@ described by FORM is merely identical to the msgstr already in place."
   "Empty the msgstr string from current entry, pushing it on the kill ring."
   (interactive)
   (po-kill-ring-save-msgstr)
-  (po-set-msgstr ""))
+  (po-set-msgstr-form ""))
 
 (defun po-yank-msgstr ()
   "Replace the current msgstr string by the top of the kill ring."
   (interactive)
   (po-find-span-of-entry)
-  (po-set-msgstr (if (eq last-command 'yank) '(yank-pop 1) '(yank)))
+  (po-set-msgstr-form (if (eq last-command 'yank) '(yank-pop 1) '(yank)))
   (setq this-command 'yank))
 
 (defun po-fade-out-entry ()
@@ -2309,7 +2275,7 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
            (po-set-comment string)
            (po-redisplay))
           ((= (point) po-start-of-msgstr-form)
-           (let ((replaced (po-set-msgstr-new string)))
+           (let ((replaced (po-set-msgstr-form string)))
              (if (and replaced
                       po-auto-fuzzy-on-edit
                       (eq po-entry-type 'translated))
@@ -2335,7 +2301,7 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
            (po-set-comment string)
            (po-redisplay))
           ((= (point) po-start-of-msgstr-form)
-           (let ((replaced (po-set-msgstr-new string)))
+           (let ((replaced (po-set-msgstr-form string)))
              (if (and replaced
                       po-auto-fuzzy-on-edit
                       (eq po-entry-type 'translated))
@@ -2458,7 +2424,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
       (goto-char (match-beginning 0))
       (po-find-span-of-entry)
       (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid nil)))
-            ((eq field 'msgstr) (po-set-msgstr (po-get-msgstr nil))))
+            ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr nil))))
       (goto-char po-end-of-entry)
       (setq counter (1+ counter)))
     (goto-char here)
