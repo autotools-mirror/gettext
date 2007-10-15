@@ -1272,7 +1272,7 @@ Then, update the mode line counters."
       (goto-char (point-min))
       ;; While counting, skip the header entry, for consistency with msgfmt.
       (po-find-span-of-entry)
-      (if (string-equal (po-get-msgid nil) "")
+      (if (string-equal (po-get-msgid) "")
           (goto-char po-end-of-entry))
       (if (re-search-forward "^msgid" (point-max) t)
           (progn
@@ -1670,7 +1670,7 @@ If WRAP is not nil, the search may wrap around the buffer."
   (if (or (eq po-entry-type 'untranslated)
           (eq po-entry-type 'obsolete)
           (y-or-n-p (_"Really lose previous translation? ")))
-      (po-set-msgstr-form (po-get-msgid nil)))
+      (po-set-msgstr-form (po-get-msgid)))
   (message ""))
 
 ;; Obsolete entries.
@@ -1883,13 +1883,11 @@ If FORM is itself a string, then this string is used for insertion."
               (search-forward "\n"))))
       (buffer-string))))
 
-(defun po-get-msgid (kill)
-  "Extract and return the unquoted msgid string.
-If KILL, then add the unquoted string to the kill ring."
+(defun po-get-msgid ()
+  "Extract and return the unquoted msgid string."
   (let ((string (po-extract-unquoted (current-buffer)
                                      po-start-of-msgid
                                      po-start-of-msgstr-block)))
-    (if kill (po-kill-new string))
     string))
 
 (defun po-get-msgstr-flavor ()
@@ -2343,7 +2341,7 @@ read `po-subedit-ediff' documentation."
   (po-find-span-of-entry)
   (po-edit-string (if (and po-auto-edit-with-msgid
                            (eq po-entry-type 'untranslated))
-                      (po-get-msgid nil)
+                      (po-get-msgid)
                     (po-get-msgstr-form nil))
                   'msgstr
                   t))
@@ -2387,7 +2385,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
           (message (_"Normalizing %d, %s") counter explain))
       (goto-char (match-beginning 0))
       (po-find-span-of-entry)
-      (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid nil)))
+      (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid)))
             ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr-form nil))))
       (goto-char po-end-of-entry)
       (setq counter (1+ counter)))
