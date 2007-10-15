@@ -64,7 +64,6 @@
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
 ;; Remove old po-set-msgstr, rename po-set-msgstr-new to po-set-msgstr-form.
 ;; Remove old po-subedit-exit-old.
-;; Remove old po-edit-msgstr-old.
 
 ;;; Code:
 
@@ -2407,17 +2406,6 @@ read `po-subedit-ediff' documentation."
   (interactive)
   (po-edit-comment)
   (po-subedit-ediff))
-
-(defun po-edit-msgstr-old ()
-  "Use another window to edit the current msgstr."
-  (interactive)
-  (po-find-span-of-entry)
-  (po-edit-string (if (and po-auto-edit-with-msgid
-                           (eq po-entry-type 'untranslated))
-                      (po-get-msgid nil)
-                    (po-get-msgstr nil))
-                  'msgstr
-                  t))
 
 (defun po-edit-msgstr ()
   "Use another window to edit the current msgstr."
