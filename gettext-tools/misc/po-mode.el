@@ -1896,15 +1896,13 @@ If FORM is itself a string, then this string is used for insertion."
   (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
   (match-string 2))
 
-(defun po-get-msgstr-form (kill)
-  "Extract and return the unquoted msgstr string.
-If KILL, then add the unquoted string to the kill ring."
+(defun po-get-msgstr-form ()
+  "Extract and return the unquoted msgstr string."
   (let ((flavor (po-get-msgstr-flavor))
         (string (po-extract-unquoted (current-buffer)
                                      po-start-of-msgstr-form
                                      po-end-of-msgstr-form)))
     (setq po-this-msgstr-flavor flavor)
-    (if kill (po-kill-new string))
     string))
 
 (defun po-set-msgid (form)
@@ -1953,7 +1951,9 @@ described by FORM is merely identical to the msgstr already in place."
   "Push the msgstr string from current entry on the kill ring."
   (interactive)
   (po-find-span-of-entry)
-  (po-get-msgstr-form t))
+  (let ((string (po-get-msgstr-form)))
+    (po-kill-new string)
+    string))
 
 (defun po-kill-msgstr ()
   "Empty the msgstr string from current entry, pushing it on the kill ring."
@@ -2004,7 +2004,7 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
          (po-decrease-type-counter)
          (po-update-mode-line-string)
          ;; TODO: Should save all msgstr forms here, not just one.
-         (po-get-msgstr-form t)
+         (po-kill-new (po-get-msgstr-form))
          (let ((buffer-read-only po-read-only))
            (delete-region po-start-of-entry po-end-of-entry))
          (goto-char po-start-of-entry)
@@ -2342,7 +2342,7 @@ read `po-subedit-ediff' documentation."
   (po-edit-string (if (and po-auto-edit-with-msgid
                            (eq po-entry-type 'untranslated))
                       (po-get-msgid)
-                    (po-get-msgstr-form nil))
+                    (po-get-msgstr-form))
                   'msgstr
                   t))
 
@@ -2386,7 +2386,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
       (goto-char (match-beginning 0))
       (po-find-span-of-entry)
       (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid)))
-            ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr-form nil))))
+            ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr-form))))
       (goto-char po-end-of-entry)
       (setq counter (1+ counter)))
     (goto-char here)

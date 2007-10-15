@@ -1,5 +1,8 @@
 2007-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-get-msgstr-form): Remove 'kill' argument.
+	(po-kill-ring-save-msgstr, po-fade-out-entry): Update.
+
 	* po-mode.el (po-get-msgid): Remove 'kill' argument.
 
 	* po-mode.el (po-get-msgstr-form): Renamed from po-get-msgstr-new.
