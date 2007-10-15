@@ -60,7 +60,6 @@
 
 	* po-mode.el (po-get-msgstr-flavor): New function.
 	(po-any-msgstr-regexp-old): New variable.
-	(po-set-msgstr-new): New function, based on po-set-msgstr.
 	(po-subedit-exit-old): New function, renamed from po-subedit-exit.
 	(po-edit-msgstr-old): New function, renamed from po-edit-msgstr.
 	(po-get-msgstr-new): New function, based on po-get-msgstr.
