@@ -62,7 +62,6 @@
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
 ;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
-;; Remove old po-subedit-exit-old.
 
 ;;; Code:
 
@@ -2259,32 +2258,6 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
       (and overlay-info (po-dehighlight overlay-info))
       (kill-buffer edit-buffer)
       (setq po-edited-fields (delete back-pointer po-edited-fields)))))
-
-(defun po-subedit-exit-old ()
-  "Exit the subedit buffer, replacing the string in the PO buffer."
-  (interactive)
-  (goto-char (point-max))
-  (skip-chars-backward " \t\n")
-  (if (eq (preceding-char) ?<)
-      (delete-region (1- (point)) (point-max)))
-  (run-hooks 'po-subedit-exit-hook)
-  (let ((string (buffer-string)))
-    (po-subedit-abort)
-    (po-find-span-of-entry)
-    (cond ((= (point) po-start-of-msgid)
-           (po-set-comment string)
-           (po-redisplay))
-          ((= (point) po-start-of-msgstr-form)
-           (let ((replaced (po-set-msgstr-form string)))
-             (if (and replaced
-                      po-auto-fuzzy-on-edit
-                      (eq po-entry-type 'translated))
-                 (progn
-                   (po-decrease-type-counter)
-                   (po-add-attribute "fuzzy")
-                   (po-current-entry)
-                   (po-increase-type-counter)))))
-          (t (debug)))))
 
 (defun po-subedit-exit ()
   "Exit the subedit buffer, replacing the string in the PO buffer."
