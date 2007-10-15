@@ -1,5 +1,8 @@
 2007-10-15  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-get-msgstr-form): Renamed from po-get-msgstr-new.
+	(po-get-msgstr): Remove function.
+
 	* po-mode.el (po-subedit-exit-old): Remove function.
 
 	* po-mode.el (po-set-msgstr-form): Renamed from po-set-msgstr-new.

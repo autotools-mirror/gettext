@@ -61,7 +61,6 @@
 ;;    contents of msgstr[0] would be copied. (Not sure if this should happen
 ;;    at the end of the editing msgstr[0] or at the beginning of the editing
 ;;    of msgstr[1].) Reason: These two strings are usually very similar.
-;; Remove old po-get-msgstr, rename po-get-msgstr-new to po-get-msgstr-form.
 
 ;;; Code:
 
@@ -1893,22 +1892,13 @@ If KILL, then add the unquoted string to the kill ring."
     (if kill (po-kill-new string))
     string))
 
-(defun po-get-msgstr (kill)
-  "Extract and return the unquoted msgstr string.
-If KILL, then add the unquoted string to the kill ring."
-  (let ((string (po-extract-unquoted (current-buffer)
-                                     po-start-of-msgstr-block
-                                     po-end-of-entry)))
-    (if kill (po-kill-new string))
-    string))
-
 (defun po-get-msgstr-flavor ()
   "Helper function to detect msgstr and msgstr[] variants."
   (beginning-of-line)
   (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
   (match-string 2))
 
-(defun po-get-msgstr-new (kill)
+(defun po-get-msgstr-form (kill)
   "Extract and return the unquoted msgstr string.
 If KILL, then add the unquoted string to the kill ring."
   (let ((flavor (po-get-msgstr-flavor))
@@ -1965,7 +1955,7 @@ described by FORM is merely identical to the msgstr already in place."
   "Push the msgstr string from current entry on the kill ring."
   (interactive)
   (po-find-span-of-entry)
-  (po-get-msgstr t))
+  (po-get-msgstr-form t))
 
 (defun po-kill-msgstr ()
   "Empty the msgstr string from current entry, pushing it on the kill ring."
@@ -2015,7 +2005,8 @@ or completely delete an obsolete entry, saving its msgstr on the kill ring."
               (po-check-for-pending-edit po-start-of-msgstr-block))
          (po-decrease-type-counter)
          (po-update-mode-line-string)
-         (po-get-msgstr t)
+         ;; TODO: Should save all msgstr forms here, not just one.
+         (po-get-msgstr-form t)
          (let ((buffer-read-only po-read-only))
            (delete-region po-start-of-entry po-end-of-entry))
          (goto-char po-start-of-entry)
@@ -2353,7 +2344,7 @@ read `po-subedit-ediff' documentation."
   (po-edit-string (if (and po-auto-edit-with-msgid
                            (eq po-entry-type 'untranslated))
                       (po-get-msgid nil)
-                    (po-get-msgstr-new nil))
+                    (po-get-msgstr-form nil))
                   'msgstr
                   t))
 
@@ -2397,7 +2388,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
       (goto-char (match-beginning 0))
       (po-find-span-of-entry)
       (cond ((eq field 'msgid) (po-set-msgid (po-get-msgid nil)))
-            ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr nil))))
+            ((eq field 'msgstr) (po-set-msgstr-form (po-get-msgstr-form nil))))
       (goto-char po-end-of-entry)
       (setq counter (1+ counter)))
     (goto-char here)
@@ -2410,6 +2401,7 @@ To minibuffer messages sent while normalizing, add the EXPLAIN string."
   "Normalize all entries in the PO file."
   (interactive)
   (po-normalize-old-style (_"pass 1/3"))
+  ;; FIXME: This cannot work: t and nil are not msgid and msgstr.
   (po-normalize-field t (_"pass 2/3"))
   (po-normalize-field nil (_"pass 3/3"))
   ;; The last PO file entry has just been processed.
