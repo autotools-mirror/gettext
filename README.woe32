@@ -17,9 +17,11 @@ cygwin. You can for example achieve this by using the
 configure option --prefix=/usr/local/cygwin each time you build a
 program for cygwin.
 
-Building for mingw is then achieved through the following configure
-command:
+Building for mingw is then achieved through the following preparation
+and configure commands:
 
+   PATH=/usr/local/mingw/bin:$PATH
+   export PATH
    ./configure --host=i586-pc-mingw32 --prefix=/usr/local/mingw \
      CPPFLAGS="-mno-cygwin -Wall -I/usr/local/mingw/include" \
      CFLAGS="-mno-cygwin -O2 -g" \
