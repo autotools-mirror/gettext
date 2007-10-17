@@ -1,3 +1,9 @@
+2007-10-17  Bruno Haible  <bruno@clisp.org>
+
+	* lib/gl_array_list.h.diff: New file.
+	* lib/gl_linkedhash_list.h.diff: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2007-10-07  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/moopp (func_version): In the --version output, say GPLv3+.

@@ -47,6 +47,8 @@ lib/fnmatch_loop.c.diff \
 lib/gen-lbrkprop.c \
 lib/getopt.in.h.diff \
 lib/gettext.h \
+lib/gl_array_list.h.diff \
+lib/gl_linkedhash_list.h.diff \
 lib/glib.in.h \
 lib/glibconfig.in.h \
 lib/glib/ghash.c \
