@@ -1,5 +1,10 @@
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
+	* hello-*/po/Makefile.am ($(DOMAIN).pot-update): Pass the package name
+	and version to xgettext.
+
+2007-10-17  Bruno Haible  <bruno@clisp.org>
+
 	* hello-java/po/Makefile.am (stamp-po): Test $(PROPERTIESFILES), not
 	$(GMOFILES).
 
