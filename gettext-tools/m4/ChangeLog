@@ -1,3 +1,8 @@
+2007-10-17  Bruno Haible  <bruno@clisp.org>
+
+	* locale-ja.m4 (gt_LOCALE_JA): On Cygwin, don't allow locale names
+	without encoding suffix.
+
 2007-06-07  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (aclocal_DATA): Add intlmacosx.m4.
