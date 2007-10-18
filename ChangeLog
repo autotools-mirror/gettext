@@ -1,5 +1,12 @@
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
+	* windows/windres-options (sed_extract_major, sed_extract_minor,
+	sed_extract_subminor): Use newlines instead of semicolons. Add a
+	newline also after the last command in a braced group.
+	Needed for GNU sed-3.02, which does not like "q}".
+
+2007-10-17  Bruno Haible  <bruno@clisp.org>
+
 	* README.woe32: Recommend to set PATH. Needed so that libiconv-2.dll
 	is found during autoconfiguration.
 
