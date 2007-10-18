@@ -133,13 +133,24 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	else \
 	  msgid_bugs_address='$(PACKAGE_BUGREPORT)'; \
 	fi; \
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --package-name="$${package_gnu}$(PACKAGE)" \
-	  --package-version='$(VERSION)' \
-	  --msgid-bugs-address="$$msgid_bugs_address" \
-	  $(POTFILES)
+	case `$(XGETTEXT) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
+	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	      --msgid-bugs-address="$$msgid_bugs_address" \
+	      $(POTFILES) \
+	    ;; \
+	  *) \
+	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	      --package-name="$${package_gnu}$(PACKAGE)" \
+	      --package-version='$(VERSION)' \
+	      --msgid-bugs-address="$$msgid_bugs_address" \
+	      $(POTFILES) \
+	    ;; \
+	esac
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
 	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \

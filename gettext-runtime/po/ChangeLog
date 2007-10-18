@@ -1,3 +1,8 @@
+2007-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in ($(DOMAIN).pot-update): Don't pass the package name
+	and version to xgettext if the xgettext version is < 0.16.2.
+
 2007-10-12  Bruno Haible  <bruno@clisp.org>
 
 	* nl.po: Update from Benno Schulenberg <benno@vertaalt.nl>.
