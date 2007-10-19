@@ -44,7 +44,7 @@ EOF
   fail=
   if test -n "${formats}"; then
     # Verify that the first line contains the expected #, comment.
-    if sed 1q < f-pm-1-$n.po | grep '^'"${formats}"'$' > /dev/null; then
+    if sed 1q < f-pm-1-$n.po | tr -d '\r' | grep '^'"${formats}"'$' > /dev/null; then
       :
     else
       fail=yes

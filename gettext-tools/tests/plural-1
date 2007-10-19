@@ -62,16 +62,19 @@ sed 1,2d < fr.po > fr.po.strip
 : ${DIFF=diff}
 ${DIFF} fr.po.strip fr.po.un || exit 1
 
-tmpfiles="$tmpfiles cake.ok cake.out"
+tmpfiles="$tmpfiles cake.ok cake.tmp cake.out"
 : ${DIFF=diff}
 echo 'un morceau de gateau' > cake.ok
-LANGUAGE= ./cake fr 1 > cake.out || exit 1
+LANGUAGE= ./cake fr 1 > cake.tmp || exit 1
+tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '2 morceaux de gateau' > cake.ok
-LANGUAGE= ./cake fr 2 > cake.out || exit 1
+LANGUAGE= ./cake fr 2 > cake.tmp || exit 1
+tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '10 morceaux de gateau' > cake.ok
-LANGUAGE= ./cake fr 10 > cake.out || exit 1
+LANGUAGE= ./cake fr 10 > cake.tmp || exit 1
+tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 
 rm -fr $tmpfiles
