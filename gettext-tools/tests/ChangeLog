@@ -18,6 +18,7 @@
 	* xgettext-python-3: Likewise.
 	* xgettext-stringtable-1: Likewise.
 	* xgettext-tcl-1: Likewise.
+	* format-perl-mixed-1: Likewise.
 	* plural-1: Convert CR/LF to LF before applying DIFF.
 
 2007-10-09  Bruno Haible  <bruno@clisp.org>
