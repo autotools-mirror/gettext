@@ -1,3 +1,24 @@
+2007-10-19  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test suite failures on Cygwin-hosted mingw.
+	* msginit-1: Convert CR/LF to LF after applying SED or GREP.
+	* msginit-2: Likewise.
+	* msgmerge-2: Likewise.
+	* msgmerge-9: Likewise.
+	* xgettext-3: Likewise.
+	* xgettext-4: Likewise.
+	* xgettext-5: Likewise.
+	* xgettext-8: Likewise.
+	* xgettext-csharp-2: Likewise.
+	* xgettext-perl-2: Likewise.
+	* xgettext-perl-3: Likewise.
+	* xgettext-python-1: Likewise.
+	* xgettext-csharp-3: Likewise.
+	* xgettext-java-2: Likewise.
+	* xgettext-python-3: Likewise.
+	* xgettext-stringtable-1: Likewise.
+	* xgettext-tcl-1: Likewise.
+
 2007-10-09  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-c-17: New file.

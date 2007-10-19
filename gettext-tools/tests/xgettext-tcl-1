@@ -28,7 +28,7 @@ tmpfiles="$tmpfiles xg-t-1.err xg-t-1.tmp xg-t-1.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments --no-location -k_ -o xg-t-1.tmp xg-t-1.tcl 2>xg-t-1.err
 test $? = 0 || { cat xg-t-1.err; rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-t-1.tmp > xg-t-1.pot
+grep -v 'POT-Creation-Date' < xg-t-1.tmp | tr -d '\r' > xg-t-1.pot
 
 tmpfiles="$tmpfiles xg-t-1.ok"
 cat <<\EOF > xg-t-1.ok

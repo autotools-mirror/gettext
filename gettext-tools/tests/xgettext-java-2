@@ -62,7 +62,7 @@ tmpfiles="$tmpfiles xg-j-2.tmp xg-j-2.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --from-code=ISO-8859-1 -c -o xg-j-2.tmp xg-j-2.java 2>/dev/null
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-j-2.tmp > xg-j-2.pot
+grep -v 'POT-Creation-Date' < xg-j-2.tmp | tr -d '\r' > xg-j-2.pot
 
 tmpfiles="$tmpfiles xg-j-2.ok"
 cat <<\EOF > xg-j-2.ok

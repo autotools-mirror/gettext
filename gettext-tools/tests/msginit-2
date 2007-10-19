@@ -67,7 +67,7 @@ tmpfiles="$tmpfiles mi-test2.tmp mi-test2.out mi-test2.err"
 : ${MSGINIT=msginit}
 ${MSGINIT} -i mi-test2.pot -l ga_IE --no-translator -o mi-test2.tmp 2>mi-test2.err
 test $? = 0 || { cat mi-test2.err 1>&2; rm -fr $tmpfiles; exit 1; }
-sed -e '1,15d' < mi-test2.tmp > mi-test2.out
+sed -e '1,15d' < mi-test2.tmp | tr -d '\r' > mi-test2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mi-test2.ok"

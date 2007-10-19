@@ -14,11 +14,13 @@ void foo (int option)
 }
 EOF
 
-tmpfiles="$tmpfiles xg-test5.po"
+tmpfiles="$tmpfiles xg-test5.tmp xg-test5.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --no-location -k_ -o xg-test5.po xg-test5.c 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
-${XGETTEXT} --no-location -k_ --from-code=iso-8859-2 -o xg-test5.po xg-test5.c
+${XGETTEXT} --no-location -k_ --from-code=iso-8859-2 -o xg-test5.tmp xg-test5.c
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+tr -d '\r' < xg-test5.tmp > xg-test5.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test5.pot"
