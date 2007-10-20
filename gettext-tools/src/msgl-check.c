@@ -420,12 +420,22 @@ check_plural (message_list_ty *mlp,
 		 max_nplurals = n = min_nplurals.  */
 	    }
 	}
+      else
+	goto no_plural;
     }
-  else if (has_plural != NULL)
+  else
     {
-      po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
-		 _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
-      seen_errors++;
+      if (has_plural != NULL)
+	{
+	  po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
+		     _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
+	  seen_errors++;
+	}
+     no_plural:
+      /* By default, the Germanic formula (n != 1) is used.  */
+      distribution = XCALLOC (2, unsigned char);
+      distribution[1] = 1;
+      distribution_length = 2;
     }
 
   /* distribution is not needed if we report errors.
