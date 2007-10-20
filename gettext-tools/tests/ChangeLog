@@ -1,3 +1,9 @@
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-21: New file.
+	* Makefile.am (TESTS): Add it.
+	Reported by Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>.
+
 2007-10-19  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test suite failures on Cygwin-hosted mingw.

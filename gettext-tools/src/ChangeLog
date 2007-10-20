@@ -1,5 +1,29 @@
 2007-10-20  Bruno Haible  <bruno@clisp.org>
 
+	Make msgmerge's introduction of fuzzy markers more consistent with
+	msgfmt's --check-format.
+	* format.h (check_msgid_msgstr_format_i): New declaration.
+	* format.c (check_msgid_msgstr_format_i): New function, extracted from
+	check_msgid_msgstr_format.
+	(check_msgid_msgstr_format): Use it.
+	* msgl-check.h: Include plural-eval.h.
+	(check_plural_eval): New declaration.
+	* msgl-check.c (check_plural_eval): Add const to first parameter. Make
+	non-static.
+	(check_plural): Update.
+	* msgmerge.c: Include plural-exp.h, msgl-check.h, po-xerror.h.
+	(msgfmt_check_pair_fails): Remove function.
+	(silent_error_logger, silent_xerror): New functions.
+	(message_merge): Add plural_distribution, plural_distribution_length
+	arguments. Call check_msgid_msgstr_format_i instead of
+	msgfmt_check_pair_fails.
+	(match_domain): Extract not only the plural count, but also the
+	plural expression from the header entry. Determine the plural
+	distribution from it. Pass it to message_merge.
+	Reported by Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>.
+
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
 	* msgl-check.c (check_plural): If there is no header entry, or if the
 	header entry does not contain plural= and nplurals=, return a plural
 	distribution corresponding to the Germanic plural.

@@ -55,7 +55,10 @@
 #include "msgl-equal.h"
 #include "msgl-fsearch.h"
 #include "lock.h"
+#include "plural-exp.h"
 #include "plural-count.h"
+#include "msgl-check.h"
+#include "po-xerror.h"
 #include "backupfile.h"
 #include "copy-file.h"
 #include "propername.h"
@@ -729,57 +732,31 @@ definitions_destroy (definitions_ty *definitions)
 }
 
 
-static bool
-msgfmt_check_pair_fails (const lex_pos_ty *pos,
-			 const char *msgid, const char *msgid_plural,
-			 const char *msgstr, size_t msgstr_len,
-			 size_t fmt)
+/* A silent error logger.  We are only interested in knowing whether errors
+   occurred at all.  */
+static void
+silent_error_logger (const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 1, 2)));
+static void
+silent_error_logger (const char *format, ...)
 {
-  bool failure;
-  struct formatstring_parser *parser = formatstring_parsers[fmt];
-  char *invalid_reason = NULL;
-  void *msgid_descr =
-    parser->parse (msgid_plural != NULL ? msgid_plural : msgid, false, NULL,
-		   &invalid_reason);
+}
 
-  failure = false;
-  if (msgid_descr != NULL)
-    {
-      const char *p_end = msgstr + msgstr_len;
-      const char *p;
 
-      for (p = msgstr; p < p_end; p += strlen (p) + 1)
-	{
-	  void *msgstr_descr =
-	    parser->parse (msgstr, true, NULL, &invalid_reason);
-
-	  if (msgstr_descr != NULL)
-	    {
-	      failure = parser->check (msgid_descr, msgstr_descr,
-				       msgid_plural == NULL, NULL, NULL);
-	      parser->free (msgstr_descr);
-	    }
-	  else
-	    {
-	      failure = true;
-	      free (invalid_reason);
-	    }
-
-	  if (failure)
-	    break;
-	}
-
-      parser->free (msgid_descr);
-    }
-  else
-    free (invalid_reason);
-
-  return failure;
+/* Another silent error logger.  */
+static void
+silent_xerror (int severity,
+	       const struct message_ty *message,
+	       const char *filename, size_t lineno, size_t column,
+	       int multiline_p, const char *message_text)
+{
 }
 
 
 static message_ty *
-message_merge (message_ty *def, message_ty *ref, bool force_fuzzy)
+message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
+	       const unsigned char *plural_distribution,
+	       unsigned long plural_distribution_length)
 {
   const char *msgstr;
   size_t msgstr_len;
@@ -1052,8 +1029,11 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy)
       if (!result->is_fuzzy
 	  && possible_format_p (ref->is_format[i])
 	  && !possible_format_p (def->is_format[i])
-	  && msgfmt_check_pair_fails (&def->pos, ref->msgid, ref->msgid_plural,
-				      msgstr, msgstr_len, i))
+	  && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
+					  msgstr, msgstr_len, i,
+					  plural_distribution,
+					  plural_distribution_length,
+					  silent_error_logger) > 0)
 	result->is_fuzzy = true;
     }
 
@@ -1117,15 +1097,38 @@ match_domain (const char *fn1, const char *fn2,
 {
   message_ty *header_entry;
   unsigned long int nplurals;
+  const struct expression *plural_expr;
   char *untranslated_plural_msgstr;
+  unsigned char *plural_distribution;
+  unsigned long plural_distribution_length;
   struct search_result { message_ty *found; bool fuzzy; } *search_results;
   size_t j;
 
   header_entry =
     message_list_search (definitions_current_list (definitions), NULL, "");
-  nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
+  extract_plural_expression (header_entry ? header_entry->msgstr : NULL,
+			     &plural_expr, &nplurals);
   untranslated_plural_msgstr = XNMALLOC (nplurals, char);
   memset (untranslated_plural_msgstr, '\0', nplurals);
+
+  /* Determine the plural distribution of the plural_expr formula.  */
+  {
+    /* Disable error output temporarily.  */
+    void (*old_po_xerror) (int, const struct message_ty *, const char *, size_t,
+			   size_t, int, const char *)
+      = po_xerror;
+    po_xerror = silent_xerror;
+
+    if (check_plural_eval (plural_expr, nplurals, header_entry,
+			   &plural_distribution,
+			   &plural_distribution_length) > 0)
+      {
+        plural_distribution = NULL;
+	plural_distribution_length = 0;
+      }
+
+    po_xerror = old_po_xerror;
+  }
 
   /* Most of the time is spent in definitions_search_fuzzy.
      Perform it in a separate loop that can be parallelized by an OpenMP
@@ -1195,7 +1198,9 @@ match_domain (const char *fn1, const char *fn2,
 	     #: comments from the reference, take the # comments from
 	     the definition, take the msgstr from the definition.  Add
 	     this merged entry to the output message list.  */
-	  message_ty *mp = message_merge (defmsg, refmsg, false);
+	  message_ty *mp =
+	    message_merge (defmsg, refmsg, false,
+			   plural_distribution, plural_distribution_length);
 
 	  message_list_append (resultmlp, mp);
 
@@ -1228,7 +1233,9 @@ this message is used but not defined..."));
 		 #: comments from the reference, take the # comments from
 		 the definition, take the msgstr from the definition.  Add
 		 this merged entry to the output message list.  */
-	      mp = message_merge (defmsg, refmsg, true);
+	      mp = message_merge (defmsg, refmsg, true,
+				  plural_distribution,
+				  plural_distribution_length);
 
 	      message_list_append (resultmlp, mp);
 

@@ -20,12 +20,26 @@
 
 #include "message.h"
 #include "pos.h"
+#include "plural-eval.h"
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+
+/* Check the values returned by plural_eval.
+   Signals the errors through po_xerror.
+   Return the number of errors that were seen.
+   If no errors, returns in *PLURAL_DISTRIBUTION either NULL or an array
+   of length NPLURALS_VALUE describing which plural formula values appear
+   infinitely often and in *PLURAL_DISTRIBUTION_LENGTH the length of this
+   array.  */
+extern int check_plural_eval (const struct expression *plural_expr,
+			      unsigned long nplurals_value,
+			      const message_ty *header,
+			      unsigned char **plural_distribution,
+			      unsigned long *plural_distribution_length);
 
 /* Perform all checks on a non-obsolete message.
    PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,

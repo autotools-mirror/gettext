@@ -48,13 +48,14 @@
 
 
 /* Check the values returned by plural_eval.
+   Signals the errors through po_xerror.
    Return the number of errors that were seen.
    If no errors, returns in *PLURAL_DISTRIBUTION either NULL or an array
    of length NPLURALS_VALUE describing which plural formula values appear
    infinitely often and in *PLURAL_DISTRIBUTION_LENGTH the length of this
    array.  */
-static int
-check_plural_eval (struct expression *plural_expr,
+int
+check_plural_eval (const struct expression *plural_expr,
 		   unsigned long nplurals_value,
 		   const message_ty *header,
 		   unsigned char **plural_distribution,
@@ -322,7 +323,7 @@ check_plural (message_list_ty *mlp,
 	  const char *endp;
 	  unsigned long int nplurals_value;
 	  struct parse_args args;
-	  struct expression *plural_expr;
+	  const struct expression *plural_expr;
 
 	  /* First check the number.  */
 	  nplurals += 9;
