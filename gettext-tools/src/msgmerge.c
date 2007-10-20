@@ -1015,6 +1015,15 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
      come from the definition file (fuzzy or not).  */
   result->is_fuzzy = def->is_fuzzy | force_fuzzy;
 
+  /* If ref and def have the same msgid but different msgid_plural, it's
+     a reason to mark the result fuzzy.  */
+  if (!result->is_fuzzy
+      && (ref->msgid_plural != NULL
+	  ? def->msgid_plural == NULL
+	    || strcmp (ref->msgid_plural, def->msgid_plural) != 0
+	  : def->msgid_plural != NULL))
+    result->is_fuzzy = true;
+
   for (i = 0; i < NFORMATS; i++)
     {
       result->is_format[i] = ref->is_format[i];
