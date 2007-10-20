@@ -105,7 +105,8 @@
 	* x-java.c (init_keywords): Also register pgettext and npgettext.
 	(init_flag_table_java): Update accordingly.
 	* write-java.c (msgid_hashcode): New function.
-	(compute_hashsize, compute_table_items): Use it instead of string_hashcode.
+	(compute_hashsize, compute_table_items): Use it instead of
+	string_hashcode.
 	(write_java_msgid): New function.
 	(write_java_code): Use it instead of write_java_string.
 	(msgdomain_write_java): Remove error message if mlp has entries with
