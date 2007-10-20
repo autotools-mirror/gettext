@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -45,6 +45,7 @@ POTFILES = \
   hello-java/Hello.java \
   hello-java-awt/Hello.java \
   hello-java-swing/Hello.java \
+  hello-java-qtjambi/Hello.java \
   hello-csharp/hello.cs \
   hello-csharp-forms/hello.cs \
   hello-gawk/hello.awk \
@@ -77,6 +78,7 @@ SMALLPOTS = \
   hello-java.pot \
   hello-java-awt.pot \
   hello-java-swing.pot \
+  hello-java-qtjambi.pot \
   hello-csharp.pot \
   hello-csharp-forms.pot \
   hello-gawk.pot \
@@ -259,6 +261,9 @@ hello-java-awt.pot : $(POTFILES_DEPS)
 hello-java-swing.pot : $(POTFILES_DEPS)
 	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java-swing
 
+hello-java-qtjambi.pot : $(POTFILES_DEPS)
+	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java-qtjambi
+
 hello-csharp.pot : $(POTFILES_DEPS)
 	$(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp
 
@@ -384,6 +389,7 @@ SMALLPOFILES_FOR_lang = \
   ../hello-java/po/$$lang.po \
   ../hello-java-awt/po/$$lang.po \
   ../hello-java-swing/po/$$lang.po \
+  ../hello-java-qtjambi/po/$$lang.po \
   ../hello-csharp/po/$$lang.po \
   ../hello-csharp-forms/po/$$lang.po \
   ../hello-gawk/po/$$lang.po \
@@ -450,6 +456,9 @@ SMALLPOFILES_FOR_lang = \
 
 ../hello-java-swing/po/$(LL).po: hello-java-swing.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-java-swing $(LL)
+
+../hello-java-qtjambi/po/$(LL).po: hello-java-qtjambi.pot $(LL).po
+	$(SHELL) mmsmallpo.sh hello-java-qtjambi $(LL)
 
 ../hello-csharp/po/$(LL).po: hello-csharp.pot $(LL).po
 	$(SHELL) mmsmallpo.sh hello-csharp $(LL)

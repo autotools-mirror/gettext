@@ -24,6 +24,7 @@ environment.
     hello-java                 Java
     hello-java-awt             Java              AWT
     hello-java-swing           Java              Swing
+    hello-java-qtjambi         Java              Qt
     hello-csharp               C#
     hello-csharp-forms         C#                Forms
     hello-gawk                 awk

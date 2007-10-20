@@ -1,3 +1,16 @@
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
+	New example for Qt/Jambi.
+	* hello-java-qtjambi: New subdirectory.
+	* README: Mention it.
+	* Makefile.am (EXAMPLESFILES): Add the files in hello-java-qtjambi.
+	(EXAMPLESDIRS): Add hello-java-qtjambi.
+	* po/Makefile.am (POTFILES): Add hello-java-qtjambi source.
+	(SMALLPOTS): Add hello-java-qtjambi.pot.
+	(hello-java-qtjambi.pot): New rule.
+	(SMALLPOFILES_FOR_lang): Add hello-java-qtjambi elements.
+	(../hello-java-qtjambi/po/$(LL).po): New rule.
+
 2007-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* hello-*/po/Makefile.am ($(DOMAIN).pot-update): Don't pass the package

@@ -258,6 +258,18 @@ EXAMPLESFILES = \
   hello-java-swing/m4/TestAWT.class \
   hello-java-swing/po/Makefile.am \
   \
+  hello-java-qtjambi/INSTALL \
+  hello-java-qtjambi/BUGS \
+  hello-java-qtjambi/autogen.sh \
+  hello-java-qtjambi/autoclean.sh \
+  hello-java-qtjambi/Hello.java \
+  hello-java-qtjambi/Makefile.am \
+  hello-java-qtjambi/configure.ac \
+  hello-java-qtjambi/m4/Makefile.am \
+  hello-java-qtjambi/m4/Test15.java \
+  hello-java-qtjambi/m4/Test15.class \
+  hello-java-qtjambi/po/Makefile.am \
+  \
   hello-csharp/INSTALL \
   hello-csharp/autogen.sh \
   hello-csharp/autoclean.sh \
@@ -367,6 +379,7 @@ EXAMPLESDIRS = \
   hello-java \
   hello-java-awt \
   hello-java-swing \
+  hello-java-qtjambi \
   hello-csharp \
   hello-csharp-forms \
   hello-gawk \

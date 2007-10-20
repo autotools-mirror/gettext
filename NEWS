@@ -22,7 +22,9 @@ Version 0.16.2 - January 2007
     of KDE 4 format strings.
 
 * Documentation:
-  The "Users" chapter has been completely rewritten.
+  - The "Users" chapter has been completely rewritten.
+  - A complete example showing the use of GNU gettext in Java with the Qt/Jambi
+    GUI toolkit has been added.
 
 Version 0.16.1 - November 2006
 

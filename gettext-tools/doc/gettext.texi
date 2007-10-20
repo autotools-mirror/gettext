@@ -9765,8 +9765,9 @@ To use this API, one needs the @code{libintl.jar} file which is part of
 the GNU gettext package and distributed under the LGPL.
 @end enumerate
 
-Three examples, using the second API, are available in the @file{examples}
-directory: @code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing}.
+Four examples, using the second API, are available in the @file{examples}
+directory: @code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing},
+@code{hello-java-qtjambi}.
 
 Now, to make use of the API and define a shorthand for @samp{getString},
 there are three idioms that you can choose from:
