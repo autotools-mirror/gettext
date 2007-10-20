@@ -63,12 +63,14 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
    PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
    PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
    infinitely often by the plural formula.
+   PLURAL_DISTRIBUTION_LENGTH is the length of the PLURAL_DISTRIBUTION array.
    Return the number of errors that were seen.  */
 int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
 			   const enum is_format is_format[NFORMATS],
 			   const unsigned char *plural_distribution,
+			   unsigned long plural_distribution_length,
 			   formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
@@ -135,7 +137,9 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 		    bool strict_checking =
 		      (msgid_plural == NULL
 		       || !has_plural_translations
-		       || (plural_distribution != NULL && plural_distribution[j]));
+		       || (plural_distribution != NULL
+			   && j < plural_distribution_length
+			   && plural_distribution[j]));
 
 		    if (parser->check (msgid_descr, msgstr_descr,
 				       strict_checking,

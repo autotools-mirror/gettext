@@ -1,3 +1,13 @@
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* format.h (check_msgid_msgstr_format): Add plural_distribution_length
+	argument.
+	* format.c (check_msgid_msgstr_format): Likewise.
+	* msgl-check.h (check_message): Likewise.
+	* msgl-check.c (check_plural_eval, check_plural, check_pair,
+	check_message): Likewise.
+	(check_message_list): Update.
+
 2007-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* plural-count.c (get_plural_count): Adapt to changed prototype of

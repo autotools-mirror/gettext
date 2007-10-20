@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2005, 2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,11 +31,14 @@ extern "C" {
    PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
    PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
    infinitely often by the plural formula.
+   PLURAL_DISTRIBUTION_LENGTH is the length of the PLURAL_DISTRIBUTION array.
    Return the number of errors that were seen.  */
 extern int check_message (const message_ty *mp,
 			  const lex_pos_ty *msgid_pos,
 			  int check_newlines,
-			  int check_format_strings, const unsigned char *plural_distribution,
+			  int check_format_strings,
+			  const unsigned char *plural_distribution,
+			  unsigned long plural_distribution_length,
 			  int check_header,
 			  int check_compatibility,
 			  int check_accelerators, char accelerator_char);

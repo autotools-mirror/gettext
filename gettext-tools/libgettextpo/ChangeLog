@@ -1,3 +1,8 @@
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.c (po_message_check_format): Update call to check_message,
+	check_msgid_msgstr_format.
+
 2007-10-07  Bruno Haible  <bruno@clisp.org>
 
 	* libgettextpo.rc (Comments): Update.
