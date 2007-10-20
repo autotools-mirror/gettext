@@ -1,3 +1,14 @@
+2007-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* plural-count.c (get_plural_count): Adapt to changed prototype of
+	extract_plural_expression.
+	* write-csharp.c (write_csharp_expression): Add const to parameter.
+	(write_csharp_code): Adapt to changed prototype of
+	extract_plural_expression.
+	* write-java.c (write_java_expression): Add const to parameter.
+	(write_java_code): Adapt to changed prototype of
+	extract_plural_expression.
+
 2007-10-07  Bruno Haible  <bruno@clisp.org>
 
 	* hostname.c (main): In the --version output, say GPLv3+.

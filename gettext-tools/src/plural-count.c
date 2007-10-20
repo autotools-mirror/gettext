@@ -1,5 +1,5 @@
 /* Plural form count.
-   Copyright (C) 2003 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 unsigned long int
 get_plural_count (const char *header)
 {
-  struct expression *plural;
+  const struct expression *plural;
   unsigned long int nplurals;
 
   extract_plural_expression (header, &plural, &nplurals);

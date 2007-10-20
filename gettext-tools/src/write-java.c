@@ -536,7 +536,7 @@ is_expression_boolean (struct expression *exp)
 /* Write Java code that evaluates a plural expression according to the C rules.
    The variable is called 'n'.  */
 static void
-write_java_expression (FILE *stream, struct expression *exp, bool as_boolean)
+write_java_expression (FILE *stream, const struct expression *exp, bool as_boolean)
 {
   /* We use parentheses everywhere.  This frees us from tracking the priority
      of arithmetic operators.  */
@@ -912,7 +912,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
   if (plurals)
     {
       message_ty *header_entry;
-      struct expression *plural;
+      const struct expression *plural;
       unsigned long int nplurals;
 
       header_entry = message_list_search (mlp, NULL, "");
