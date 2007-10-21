@@ -21,6 +21,10 @@ Version 0.16.2 - January 2007
     xgettext has a new option --kde that triggers the recognition and marking
     of KDE 4 format strings.
 
+* libgettextpo library:
+  - New functions are available for querying the list of supported format
+    types.
+
 * Documentation:
   - The "Users" chapter has been completely rewritten.
   - A complete example showing the use of GNU gettext in Java with the Qt/Jambi

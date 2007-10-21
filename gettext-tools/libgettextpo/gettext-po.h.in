@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files - contained in libgettextpo.
-   Copyright (C) 2003-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@ extern "C" {
 /* =========================== Meta Information ============================ */
 
 /* Version number: (major<<16) + (minor<<8) + subminor */
-#define LIBGETTEXTPO_VERSION 0x001000
+#define LIBGETTEXTPO_VERSION 0x001002
 extern int libgettextpo_version;
 
 /* ================================= Types ================================= */
@@ -310,6 +310,17 @@ extern const char * po_filepos_file (po_filepos_t filepos);
 /* Return the line number where the string starts, or (size_t)(-1) if no line
    number is available.  */
 extern size_t po_filepos_start_line (po_filepos_t filepos);
+
+
+/* ============================ Format type API ============================= */
+
+/* Return a NULL terminated array of the supported format types.  */
+extern const char * const * po_format_list (void);
+
+/* Return the pretty name associated with a format type.
+   For example, for "csharp-format", return "C#".
+   Return NULL if the argument is not a supported format type.  */
+extern const char * po_format_pretty_name (const char *format_type);
 
 
 /* ============================= Checking API ============================== */

@@ -40,6 +40,7 @@
 #include "po-error.h"
 #include "po-xerror.h"
 #include "format.h"
+#include "xvasprintf.h"
 #include "msgl-check.h"
 #include "gettext.h"
 
@@ -1109,6 +1110,45 @@ po_filepos_start_line (po_filepos_t filepos)
   lex_pos_ty *pp = (lex_pos_ty *) filepos;
 
   return pp->line_number;
+}
+
+
+/* Return a NULL terminated array of the supported format types.  */
+
+const char * const *
+po_format_list (void)
+{
+  static const char * const * whole_list /* = NULL */;
+  if (whole_list == NULL)
+    {
+      const char **list = XNMALLOC (NFORMATS + 1, const char *);
+      size_t i;
+      for (i = 0; i < NFORMATS; i++)
+	list[i] = xasprintf ("%s-format", format_language[i]);
+      list[i] = NULL;
+      whole_list = list;
+    }
+  return whole_list;
+}
+
+
+/* Return the pretty name associated with a format type.
+   For example, for "csharp-format", return "C#".
+   Return NULL if the argument is not a supported format type.  */
+
+const char *
+po_format_pretty_name (const char *format_type)
+{
+  size_t len = strlen (format_type);
+  size_t i;
+
+  if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
+    for (i = 0; i < NFORMATS; i++)
+      if (strlen (format_language[i]) == len - 7
+	  && memcmp (format_language[i], format_type, len - 7) == 0)
+	/* The given format_type corresponds to (enum format_type) i.  */
+	return format_language_pretty[i];
+  return NULL;
 }
 
 
