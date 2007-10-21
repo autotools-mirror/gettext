@@ -1,5 +1,6 @@
 2007-10-21  Bruno Haible  <bruno@clisp.org>
 
+	* tests/test-term-ostream-xterm-solaris10.out: New file.
 	* tests/test-term-ostream-xterm-aix51.out: New file.
 	* tests/test-term-ostream-xterm-osf51.out: New file.
 	* tests/test-term-ostream-xterm-irix65.out: New file.
