@@ -1002,15 +1002,17 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 # ifndef IN_LIBGLOCALE
       const char *encoding = get_output_charset (domainbinding);
 # endif
+      size_t nconversions;
+      struct converted_domain *convd;
+      size_t i;
 
       /* Protect against reallocation of the table.  */
       gl_rwlock_rdlock (domain->conversions_lock);
 
       /* Search whether a table with converted translations for this
 	 encoding has already been allocated.  */
-      size_t nconversions = domain->nconversions;
-      struct converted_domain *convd = NULL;
-      size_t i;
+      nconversions = domain->nconversions;
+      convd = NULL;
 
       for (i = nconversions; i > 0; )
 	{
@@ -1041,140 +1043,142 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		}
 	    }
 
-	  /* Allocate a table for the converted translations for this
-	     encoding.  */
-	  struct converted_domain *new_conversions =
-	    (struct converted_domain *)
-	    (domain->conversions != NULL
-	     ? realloc (domain->conversions,
-			(nconversions + 1) * sizeof (struct converted_domain))
-	     : malloc ((nconversions + 1) * sizeof (struct converted_domain)));
+	  {
+	    /* Allocate a table for the converted translations for this
+	       encoding.  */
+	    struct converted_domain *new_conversions =
+	      (struct converted_domain *)
+	      (domain->conversions != NULL
+	       ? realloc (domain->conversions,
+			  (nconversions + 1) * sizeof (struct converted_domain))
+	       : malloc ((nconversions + 1) * sizeof (struct converted_domain)));
 
-	  if (__builtin_expect (new_conversions == NULL, 0))
-	    {
+	    if (__builtin_expect (new_conversions == NULL, 0))
+	      {
+		/* Nothing we can do, no more memory.  We cannot use the
+		   translation because it might be encoded incorrectly.  */
+	      unlock_fail:
+		gl_rwlock_unlock (domain->conversions_lock);
+		return (char *) -1;
+	      }
+
+	    domain->conversions = new_conversions;
+
+	    /* Copy the 'encoding' string to permanent storage.  */
+	    encoding = strdup (encoding);
+	    if (__builtin_expect (encoding == NULL, 0))
 	      /* Nothing we can do, no more memory.  We cannot use the
 		 translation because it might be encoded incorrectly.  */
-	    unlock_fail:
-	      gl_rwlock_unlock (domain->conversions_lock);
-	      return (char *) -1;
-	    }
+	      goto unlock_fail;
 
-	  domain->conversions = new_conversions;
+	    convd = &new_conversions[nconversions];
+	    convd->encoding = encoding;
 
-	  /* Copy the 'encoding' string to permanent storage.  */
-	  encoding = strdup (encoding);
-	  if (__builtin_expect (encoding == NULL, 0))
-	    /* Nothing we can do, no more memory.  We cannot use the
-	       translation because it might be encoded incorrectly.  */
-	    goto unlock_fail;
-
-	  convd = &new_conversions[nconversions];
-	  convd->encoding = encoding;
-
-	  /* Find out about the character set the file is encoded with.
-	     This can be found (in textual form) in the entry "".  If this
-	     entry does not exist or if this does not contain the 'charset='
-	     information, we will assume the charset matches the one the
-	     current locale and we don't have to perform any conversion.  */
+	    /* Find out about the character set the file is encoded with.
+	       This can be found (in textual form) in the entry "".  If this
+	       entry does not exist or if this does not contain the 'charset='
+	       information, we will assume the charset matches the one the
+	       current locale and we don't have to perform any conversion.  */
 # ifdef _LIBC
-	  convd->conv = (__gconv_t) -1;
+	    convd->conv = (__gconv_t) -1;
 # else
 #  if HAVE_ICONV
-	  convd->conv = (iconv_t) -1;
+	    convd->conv = (iconv_t) -1;
 #  endif
 # endif
-	  {
-	    char *nullentry;
-	    size_t nullentrylen;
+	    {
+	      char *nullentry;
+	      size_t nullentrylen;
 
-	    /* Get the header entry.  This is a recursion, but it doesn't
-	       reallocate domain->conversions because we pass
-	       encoding = NULL or convert = 0, respectively.  */
-	    nullentry =
+	      /* Get the header entry.  This is a recursion, but it doesn't
+		 reallocate domain->conversions because we pass
+		 encoding = NULL or convert = 0, respectively.  */
+	      nullentry =
 # ifdef IN_LIBGLOCALE
-	      _nl_find_msg (domain_file, domainbinding, NULL, "",
-			    &nullentrylen);
+		_nl_find_msg (domain_file, domainbinding, NULL, "",
+			      &nullentrylen);
 # else
-	      _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+		_nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
 # endif
 
-	    if (nullentry != NULL)
-	      {
-		const char *charsetstr;
+	      if (nullentry != NULL)
+		{
+		  const char *charsetstr;
 
-		charsetstr = strstr (nullentry, "charset=");
-		if (charsetstr != NULL)
-		  {
-		    size_t len;
-		    char *charset;
-		    const char *outcharset;
+		  charsetstr = strstr (nullentry, "charset=");
+		  if (charsetstr != NULL)
+		    {
+		      size_t len;
+		      char *charset;
+		      const char *outcharset;
 
-		    charsetstr += strlen ("charset=");
-		    len = strcspn (charsetstr, " \t\n");
+		      charsetstr += strlen ("charset=");
+		      len = strcspn (charsetstr, " \t\n");
 
-		    charset = (char *) alloca (len + 1);
+		      charset = (char *) alloca (len + 1);
 # if defined _LIBC || HAVE_MEMPCPY
-		    *((char *) mempcpy (charset, charsetstr, len)) = '\0';
+		      *((char *) mempcpy (charset, charsetstr, len)) = '\0';
 # else
-		    memcpy (charset, charsetstr, len);
-		    charset[len] = '\0';
+		      memcpy (charset, charsetstr, len);
+		      charset[len] = '\0';
 # endif
 
-		    outcharset = encoding;
+		      outcharset = encoding;
 
 # ifdef _LIBC
-		    /* We always want to use transliteration.  */
-		    outcharset = norm_add_slashes (outcharset, "TRANSLIT");
-		    charset = norm_add_slashes (charset, "");
-		    int r = __gconv_open (outcharset, charset, &convd->conv,
-					  GCONV_AVOID_NOCONV);
-		    if (__builtin_expect (r != __GCONV_OK, 0))
-		      {
-			/* If the output encoding is the same there is
-			   nothing to do.  Otherwise do not use the
-			   translation at all.  */
-			if (__builtin_expect (r != __GCONV_NULCONV, 1))
-			  {
-			    gl_rwlock_unlock (domain->conversions_lock);
-			    free ((char *) encoding);
-			    return NULL;
-			  }
+		      /* We always want to use transliteration.  */
+		      outcharset = norm_add_slashes (outcharset, "TRANSLIT");
+		      charset = norm_add_slashes (charset, "");
+		      int r = __gconv_open (outcharset, charset, &convd->conv,
+					    GCONV_AVOID_NOCONV);
+		      if (__builtin_expect (r != __GCONV_OK, 0))
+			{
+			  /* If the output encoding is the same there is
+			     nothing to do.  Otherwise do not use the
+			     translation at all.  */
+			  if (__builtin_expect (r != __GCONV_NULCONV, 1))
+			    {
+			      gl_rwlock_unlock (domain->conversions_lock);
+			      free ((char *) encoding);
+			      return NULL;
+			    }
 
-			convd->conv = (__gconv_t) -1;
-		      }
+			  convd->conv = (__gconv_t) -1;
+			}
 # else
 #  if HAVE_ICONV
-		    /* When using GNU libc >= 2.2 or GNU libiconv >= 1.5,
-		       we want to use transliteration.  */
+		      /* When using GNU libc >= 2.2 or GNU libiconv >= 1.5,
+			 we want to use transliteration.  */
 #   if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
        || _LIBICONV_VERSION >= 0x0105
-		    if (strchr (outcharset, '/') == NULL)
-		      {
-			char *tmp;
+		      if (strchr (outcharset, '/') == NULL)
+			{
+			  char *tmp;
 
-			len = strlen (outcharset);
-			tmp = (char *) alloca (len + 10 + 1);
-			memcpy (tmp, outcharset, len);
-			memcpy (tmp + len, "//TRANSLIT", 10 + 1);
-			outcharset = tmp;
+			  len = strlen (outcharset);
+			  tmp = (char *) alloca (len + 10 + 1);
+			  memcpy (tmp, outcharset, len);
+			  memcpy (tmp + len, "//TRANSLIT", 10 + 1);
+			  outcharset = tmp;
 
-			convd->conv = iconv_open (outcharset, charset);
+			  convd->conv = iconv_open (outcharset, charset);
 
-			freea (outcharset);
-		      }
-		    else
+			  freea (outcharset);
+			}
+		      else
 #   endif
-		      convd->conv = iconv_open (outcharset, charset);
+			convd->conv = iconv_open (outcharset, charset);
 #  endif
 # endif
 
-		    freea (charset);
-		  }
-	      }
+		      freea (charset);
+		    }
+		}
+	    }
+	    convd->conv_tab = NULL;
+	    /* Here domain->conversions is still == new_conversions.  */
+	    domain->nconversions++;
 	  }
-	  convd->conv_tab = NULL;
-	  /* Here domain->conversions is still == new_conversions.  */
-	  domain->nconversions++;
 
 	found_convd:
 	  gl_rwlock_unlock (domain->conversions_lock);
