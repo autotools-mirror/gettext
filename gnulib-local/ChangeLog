@@ -1,3 +1,10 @@
+2007-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* tests/test-term-ostream-xterm-osf51.out: New file.
+	* tests/test-term-ostream-xterm-mingw.out: New file.
+	* tests/test-term-ostream-xterm: Use them as possible test results.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
 	* lib/gl_array_list.h.diff: New file.

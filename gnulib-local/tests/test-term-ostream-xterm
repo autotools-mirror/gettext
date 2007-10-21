@@ -18,7 +18,9 @@ TERM=xterm ./test-term-ostream > out
    ${DIFF} ${srcdir}/test-term-ostream-xterm-r6.out       out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-xf86-v32.out out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-basic.out    out > /dev/null \
-|| ${DIFF} ${srcdir}/test-term-ostream-xterm-8bit.out     out > /dev/null
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-8bit.out     out > /dev/null \
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-osf51.out    out > /dev/null \
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-mingw.out    out > /dev/null
 result=$?
 
 rm -fr $tmpfiles

@@ -323,6 +323,8 @@ tests/test-term-ostream-xterm-r6.out \
 tests/test-term-ostream-xterm-xf86-v32.out \
 tests/test-term-ostream-xterm-basic.out \
 tests/test-term-ostream-xterm-8bit.out \
+tests/test-term-ostream-xterm-osf51.out \
+tests/test-term-ostream-xterm-mingw.out \
 tests/test-term-ostream-xterm-16color.out \
 tests/test-term-ostream-xterm-88color.out \
 tests/test-term-ostream-xterm-256color.out
