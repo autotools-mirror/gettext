@@ -1,3 +1,8 @@
+2007-10-21  Bruno Haible  <bruno@clisp.org>
+
+	* printf-parse.c: Don't assume <stdint.h> exists in IN_LIBASPRINTF
+	context.
+
 2007-06-10  Bruno Haible  <bruno@clisp.org>
 
 	* printf-parse.c: Don't include config.h and the specification

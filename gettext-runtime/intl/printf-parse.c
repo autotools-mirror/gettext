@@ -50,7 +50,7 @@
 #include <stddef.h>
 
 /* Get intmax_t.  */
-#ifdef IN_LIBINTL
+#if defined IN_LIBINTL || defined IN_LIBASPRINTF
 # if HAVE_STDINT_H_WITH_UINTMAX
 #  include <stdint.h>
 # endif
