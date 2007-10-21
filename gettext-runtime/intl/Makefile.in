@@ -273,18 +273,17 @@ osdep.lo: $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
 
-# The following sed expressions contain a minimal amount of newlines, so that
-# they can be written in a Makefile without requiring a temporary file. It is
-# not POSIX compliant to use semicolons instead of newlines inside a group of
-# sed commands {...}. But this rule is executed only on Woe32 systems, which
-# can assume the presence of GNU sed (and GNU make).
+# This rule is executed only on Woe32 systems.
+# The following sed expressions come from the windres-options script. They are
+# inlined here, so that they can be written in a Makefile without requiring a
+# temporary file. They must contain literal newlines rather than semicolons,
+# so that they work with the sed-3.02 that is shipped with MSYS. We can use
+# GNU bash's $'\n' syntax to obtain such a newline.
 libintl.res: $(srcdir)/libintl.rc
-	sed_extract_major='/^[0-9]/{s/^\([0-9]*\).*/\1/p;q};a\
-	0'; \
-	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{s/^[0-9]*[.]\([0-9]*\).*/\1/p;q};a\
-	0'; \
-	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p;q};a\
-	0'; \
+	nl=$$'\n'; \
+	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'a\'$${nl}0$${nl}q; \
+	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'a\'$${nl}0$${nl}q; \
+	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'a\'$${nl}0$${nl}q; \
 	$(WINDRES) \
 	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
 	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
