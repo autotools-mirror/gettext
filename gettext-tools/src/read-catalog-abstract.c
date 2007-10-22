@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2007 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -649,7 +649,14 @@ void
 po_callback_comment_dispatcher (const char *s)
 {
   if (*s == '.')
-    po_callback_comment_dot (s + 1);
+    {
+      s++;
+      /* There is usually a space before the comment.  People don't
+	 consider it part of the comment, therefore remove it here.  */
+      if (*s == ' ')
+	s++;
+      po_callback_comment_dot (s);
+    }
   else if (*s == ':')
     {
       /* Parse the file location string.  The appropriate callback will be
@@ -669,6 +676,12 @@ po_callback_comment_dispatcher (const char *s)
       if (po_parse_comment_solaris_filepos (s))
 	/* Do nothing, it is a Sun-style file pos line.  */ ;
       else
-	po_callback_comment (s);
+	{
+	  /* There is usually a space before the comment.  People don't
+	     consider it part of the comment, therefore remove it here.  */
+	  if (*s == ' ')
+	    s++;
+	  po_callback_comment (s);
+	}
     }
 }

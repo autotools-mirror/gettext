@@ -24,6 +24,14 @@ Version 0.16.2 - January 2007
 * libgettextpo library:
   - New functions are available for querying the list of supported format
     types.
+  - The functions po_message_comments and po_message_extracted_comments
+    return a multiline string where each line no longer starts with a redundant
+    space. The leading space in every comment line is now stripped while
+    reading the PO file.
+  - Conversely, when you pass a multiline string to the function
+    po_message_set_comments or po_message_set_extracted_comments, you normally
+    don't pass a space at the beginning of each line, because such spaces are
+    no longer trimmed during output.
 
 * Documentation:
   - The "Users" chapter has been completely rewritten.

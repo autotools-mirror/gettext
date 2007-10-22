@@ -246,7 +246,7 @@ message_print_comment (const message_ty *mp, ostream_t stream)
 	    {
 	      const char *e;
 	      ostream_write_str (stream, "#");
-	      if (*s != '\0' && *s != ' ')
+	      if (*s != '\0')
 		ostream_write_str (stream, " ");
 	      e = strchr (s, '\n');
 	      if (e == NULL)
@@ -284,7 +284,7 @@ message_print_comment_dot (const message_ty *mp, ostream_t stream)
 	{
 	  const char *s = mp->comment_dot->item[j];
 	  ostream_write_str (stream, "#.");
-	  if (*s != '\0' && *s != ' ')
+	  if (*s != '\0')
 	    ostream_write_str (stream, " ");
 	  ostream_write_str (stream, s);
 	  ostream_write_str (stream, "\n");

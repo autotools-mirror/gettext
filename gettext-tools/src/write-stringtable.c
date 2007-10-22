@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -110,7 +110,7 @@ write_message (ostream_t stream, const message_ty *mp,
 	  if (c_strstr (s, "*/") == NULL)
 	    {
 	      ostream_write_str (stream, "/*");
-	      if (*s != '\0' && *s != '\n' && *s != ' ')
+	      if (*s != '\0' && *s != '\n')
 		ostream_write_str (stream, " ");
 	      ostream_write_str (stream, s);
 	      ostream_write_str (stream, " */\n");
@@ -120,7 +120,7 @@ write_message (ostream_t stream, const message_ty *mp,
 	      {
 		const char *e;
 		ostream_write_str (stream, "//");
-		if (*s != '\0' && *s != '\n' && *s != ' ')
+		if (*s != '\0' && *s != '\n')
 		  ostream_write_str (stream, " ");
 		e = strchr (s, '\n');
 		if (e == NULL)
@@ -163,7 +163,7 @@ write_message (ostream_t stream, const message_ty *mp,
 		{
 		  const char *e;
 		  ostream_write_str (stream, "//");
-		  if (first || (*s != '\0' && *s != '\n' && *s != ' '))
+		  if (first || (*s != '\0' && *s != '\n'))
 		    ostream_write_str (stream, " ");
 		  if (first)
 		    ostream_write_str (stream, "Comment: ");
