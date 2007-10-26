@@ -1,3 +1,7 @@
+2007-10-25  Bruno Haible  <bruno@clisp.org>
+
+	* tests/test-term-ostream-xterm: Redirect stderr into a pipe.
+
 2007-10-21  Bruno Haible  <bruno@clisp.org>
 
 	* tests/test-term-ostream-xterm-solaris10.out: New file.
@@ -6,6 +10,7 @@
 	* tests/test-term-ostream-xterm-irix65.out: New file.
 	* tests/test-term-ostream-xterm-mingw.out: New file.
 	* tests/test-term-ostream-xterm: Use them as possible test results.
+	* modules/term-ostream-tests (Files): Add the new files.
 	* Makefile.am (EXTRA_DIST): Add the new files.
 
 2007-10-17  Bruno Haible  <bruno@clisp.org>
