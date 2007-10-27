@@ -399,6 +399,7 @@ EXAMPLESPOFILES = \
   el.po \
   eo.po \
   es.po \
+  fi.po \
   fr.po \
   ga.po \
   hu.po \
