@@ -75,6 +75,8 @@ AM_CPPFLAGS += -I$(srcdir)/libcroco
 lib_LIBADD += libcroco_rpl.la
 lib_DEPENDENCIES += libcroco_rpl.la
 noinst_LTLIBRARIES += libcroco_rpl.la
+else
+AM_CPPFLAGS += $(INCCROCO)
 endif
 
 libcroco_rpl_la_SOURCES = \

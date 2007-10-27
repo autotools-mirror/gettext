@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing ANSI escape sequences.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,10 @@
 #include <cr-sel-eng.h>
 #include <cr-style.h>
 #include <cr-rgb.h>
-#include <cr-fonts.h>
+/* <cr-fonts.h> has a broken double-inclusion guard in libcroco-0.6.1.  */
+#ifndef __CR_FONTS_H__
+# include <cr-fonts.h>
+#endif
 #include <cr-string.h>
 
 #include "term-ostream.h"

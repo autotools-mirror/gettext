@@ -1,5 +1,12 @@
 2007-10-27  Bruno Haible  <bruno@clisp.org>
 
+	* modules/libcroco (Makefile.am): When using the preinstalled libcroco,
+	add INCCROCO to AM_CPPFLAGS.
+	* lib/term-styled-ostream.oo.c: Work around broken double-inclusion
+	guard in libcroco-0.6.1.
+
+2007-10-27  Bruno Haible  <bruno@clisp.org>
+
 	* modules/gettext-tools-misc (Makefile.am): Use @LTLIBC@ instead of
 	hardcoding -lc. Needed for HP-UX 11.
 
