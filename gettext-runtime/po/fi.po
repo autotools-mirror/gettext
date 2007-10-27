@@ -1,168 +1,165 @@
 # Finnish translations for GNU Gettext package.
-# Copyright © 2002 Free Software Foundation, Inc.
-# Sami J. Laine <sami.laine@iki.fi>, 2002
-# This file is distributed under the same license as the PACKAGE package.
-# Sami J. Laine <sami.laine@iki.fi>, 2002
+# Copyright ¬© 2007 Free Software Foundation, Inc.
+# Sami J. Laine <sami.laine@iki.fi>, 2002.
+# Lauri Nurmi <lanurmi@iki.fi>, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.13\n"
+"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-02 16:24+0200\n"
-"PO-Revision-Date: 2003-12-07 09:42+0200\n"
-"Last-Translator: Sami J. Laine <sami.laine@iki.fi>\n"
+"POT-Creation-Date: 2007-10-18 02:56+0200\n"
+"PO-Revision-Date: 2007-10-21 00:28+0300\n"
+"Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: gnulib-lib/closeout.c:67
+#: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "virhe kirjoitettaessa"
 
 #: gnulib-lib/error.c:125
 msgid "Unknown system error"
-msgstr "Tuntematon j‰rjestelm‰n virhe"
+msgstr "Tuntematon j√§rjestelm√§n virhe"
 
-#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: valitsin `%s' on moniselitteinen\n"
+msgstr "%s: valitsin ‚Äù%s‚Äù on moniselitteinen\n"
 
-#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: valitsin `--%s' ei salli argumenttia\n"
+msgstr "%s: valitsin ‚Äù--%s‚Äù ei salli argumenttia\n"
 
-#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: valitsin `%c%s' ei salli argumenttia\n"
+msgstr "%s: valitsin ‚Äù%c%s‚Äù ei salli argumenttia\n"
 
-#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
-#: gnulib-lib/getopt.c:995
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: valitsin `%s' vaatii argumentin\n"
+msgstr "%s: valitsin ‚Äù%s‚Äù vaatii argumentin\n"
 
-#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: tuntematon valitsin `--%s'\n"
+msgstr "%s: tuntematon valitsin ‚Äù--%s‚Äù\n"
 
-#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: tuntematon valitsin `%c%s'\n"
+msgstr "%s: tuntematon valitsin ‚Äù%c%s‚Äù\n"
 
-#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: virheellinen valitsin -- %c\n"
 
-#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: virheellinen valitsin -- %c\n"
 
-#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
-#: gnulib-lib/getopt.c:1066
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: valitsin vaatii argumentin -- %c\n"
 
-#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: valitsin `-W %s' on moniselitteinen\n"
+msgstr "%s: valitsin ‚Äù-W %s‚Äù on moniselitteinen\n"
 
-#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: valitsin `-W %s' ei salli argumenttia\n"
+msgstr "%s: valitsin ‚Äù-W %s‚Äù ei salli argumenttia\n"
 
-#: gnulib-lib/xmalloc.c:39
+#: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
 msgstr "muisti loppu"
 
-#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
+# K√§√§nnetty M. V√§lim√§en GPLv3-k√§√§nn√∂ksest√§ vihjeit√§ katsoen.
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"T‰m‰ on vapaa ohjelmisto; kts. l‰hdekoodi kopioinnin ehdoille. Ohjelmisolle\n"
-"EI myˆnnet‰ takuuta; ei edes KAUPATTAVUUDELLE tai SOVELTUVUUDELLE TIETTYYN\n"
-"tarkoitukseen.\n"
+"Tekij√§noikeudet ¬© %s Free Software Foundation, Inc.\n"
+"Lisenssi GPLv3+: GNU GPL versio 3 tai my√∂hempi <http://gnu.org/licenses/gpl.html>\n"
+"T√§m√§ on vapaa ohjelmisto ja sen muuttaminen ja levitt√§minen edelleen on sallittua.\n"
+"Ohjelmalle EI ANNETA TAKUUTA lain sallimissa rajoissa.\n"
 
-#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Kirjoittanut %s\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118
 msgid "Bruno Haible"
-msgstr ""
+msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "liian monta argumenttia"
 
-#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
-msgstr "ei riitt‰v‰sti argumentteja"
+msgstr "ei riitt√§v√§sti argumentteja"
 
-#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Yrit‰ `%s --help' saadaksesi lis‰‰ tietoja.\n"
+msgstr "Yrit√§ ‚Äù%s --help‚Äù saadaksesi lis√§√§ tietoja.\n"
 
-#: src/envsubst.c:177
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "K‰yttˆ: %s [VALITSIN] [SHELL-MUOTO]\n"
+msgstr "K√§ytt√∂: %s [VALITSIN] [SHELL-MUOTO]\n"
 
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr "Korvaa ymp‰ristˆmuuttujien arvot.\n"
+msgstr "Korvaa ymp√§rist√∂muuttujien arvot.\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Toimintatila:\n"
 
-#: src/envsubst.c:189
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr "  -v, --variables             tulostaa SHELL-MUOTO:ssa ilmenev‰t muuttujat\n"
+msgstr "  -v, --variables             tulostaa SHELL-MUODOSSA ilmenev√§t muuttujat\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
-msgstr "Selitt‰v‰ tuloste:\n"
+msgstr "Selitt√§v√§ tuloste:\n"
 
-#: src/envsubst.c:196
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr ""
-"  -h, --help                  tulosta t‰m‰ ohje ja lopeta ohjelman\n"
-"                              ohjelman suoritus\n"
+msgstr "  -h, --help                  tulosta t√§m√§ ohje ja poistu\n"
 
-#: src/envsubst.c:199
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr ""
-"  -V, --version                tulosta ohjelman versiotiedot ja\n"
-"                               ohjelman lopeta suoritus\n"
+msgstr "  -V, --version                tulosta ohjelman versiotiedot ja poistu\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -172,56 +169,65 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
-"Tavallisessa toimintatilassa vakiosyˆte kopioitaan vakiotulosteeseen\n"
-"siten, ett‰ viittaukset, muodossa $MUUTTUJA tai ${MUUTTUJA},\n"
-"ymp‰ristˆmuuttujiin korvataan vastaavilla arvoilla. Mik‰li SHELL-MUOTO\n"
-"annetaan, vain ne ymp‰ristˆmuuttujat, joihin viitataan SHELL-MUOTO:ssa\n"
-"korvataan. Muussa tapauksessa kaikki vakiosyˆtteess‰ esiintyv‰t\n"
-"ymp‰ristˆmuuttujat korvataan.\n"
+"Tavallisessa toimintatilassa vakiosy√∂te kopioidaan vakiotulosteeseen\n"
+"siten, ett√§ viittaukset ymp√§rist√∂muuttujiin, muodossa $MUUTTUJA tai\n"
+"${MUUTTUJA}, korvataan vastaavilla arvoilla. Mik√§li SHELL-MUOTO\n"
+"annetaan, vain ne ymp√§rist√∂muuttujat korvataan, joihin viitataan\n"
+"SHELL-MUODOssa. Muussa tapauksessa kaikki vakiosy√∂tteess√§ esiintyv√§t\n"
+"ymp√§rist√∂muuttujat korvataan.\n"
 
-#: src/envsubst.c:212
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
-"Jos valitsinta --variables k‰ytet‰‰n, vakiosyˆte j‰tet‰‰n huomiotta ja\n"
-"tuloste muodostuu ymp‰ristˆmuuttujista, yksi kutakin rivi‰ kohti,\n"
-"joihin viitataan SHELL-MUOTO:ssa.\n"
+"Valitsinta --variables k√§ytett√§ess√§ vakiosy√∂te j√§tet√§√§n huomiotta ja\n"
+"tuloste muodostuu ymp√§rist√∂muuttujista, yksi kutakin rivi√§ kohti,\n"
+"joihin viitataan SHELL-MUODOssa.\n"
 
-#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Ilmoita ohjelmiston vioista osoitteeseen <bug-gnu-gettext@gnu.org>.\n"
+msgstr ""
+"Ilmoita ohjelmiston vioista osoitteeseen <bug-gnu-gettext@gnu.org>.\n"
+"Ilmoita suomennoksen vioista listalle <translation-team-fi@lists.sourceforge."
+"net>.\n"
 
-#: src/envsubst.c:439
+# ainoa mahdollinen %s t√§ll√§ hetkell√§ on alla oleva "standard input"
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "virhe luettaessa \"%s\""
+msgstr "virhe luettaessa ‚Äù%s‚Äù"
 
-#: src/envsubst.c:440
+# [sic]
+#: src/envsubst.c:443
 msgid "standard input"
-msgstr "vakiosyˆte"
+msgstr "vakiosy√∂tett√§"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
-msgstr ""
+msgstr "Ulrich Drepper"
 
-#: src/gettext.c:244
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"K‰yttˆ: %s [VALITSIN] [[TEKSTIALA] VIESTI-ID]\n"
+"K√§ytt√∂: %s [VALITSIN] [[K√Ñ√ÑNN√ñSJOUKKO] VIESTI-ID]\n"
 "tai:    %s [VALITSIN] -s [VIESTI-ID]...\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "N‰yt‰ kansallinen k‰‰nnˆs tekstimuotoiselle viestille.\n"
+msgstr "N√§ytt√§√§ kotoistetun k√§√§nn√∂ksen tekstimuotoiselle viestille.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -233,17 +239,17 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=TEKSTIALA    etsi k‰‰nnetyt viestit TEKSTIALA:sta\n"
+"  -d, --domain=K√Ñ√ÑNN√ñSJOUKKO hae k√§√§nnetyt viestit K√Ñ√ÑNN√ñSJOUKOSTA\n"
 "  -e                        salli joidenkin lainauskoodien laajentaminen\n"
-"  -E                        (j‰tet‰‰n huomiotta yhteensopivuuden vuoksi)\n"
-"  -h, --help                n‰ytt‰‰ t‰m‰n ohjeen ja lopettaa suorituksen\n"
-"  -n                        j‰tt‰‰ pois rivinvaihdon rivin lopusta\n"
-"  -V, --version             n‰ytt‰‰ ohjelmiston versiotiedot ja lopettaa\n"
+"  -E                        (j√§tet√§√§n huomiotta yhteensopivuuden vuoksi)\n"
+"  -h, --help                n√§yt√§ t√§m√§ ohje ja poistu\n"
+"  -n                        j√§tt√§√§ pois rivinvaihdon rivin lopusta\n"
+"  -V, --version             n√§ytt√§√§ ohjelmiston versiotiedot ja lopettaa\n"
 "                            suorituksen\n"
-"  [TEKSTIALA] VIESTI-ID     etsii k‰‰nnetyn viestin, joka vastaa VIESTI-ID:t‰\n"
-"                            TEKSTIALA:ssa\n"
+"  [K√Ñ√ÑNN√ñSJOUKKO] VIESTI-ID  etsii k√§√§nnetyn viestin, joka vastaa VIESTI-ID:t√§\n"
+"                            K√Ñ√ÑNN√ñSJOUKOSSA\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:264
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -255,29 +261,30 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Jos parametria TEKSTIALA ei anneta, ala p‰‰tell‰‰n muuttujan TEXTDOMAIN\n"
-"sis‰llˆn perusteella. Jos viestilistaa (engl. message catalog) ei lˆydet‰\n"
-"vakinaisesta hakemistosta, muu sijainti voidaan m‰‰ritell‰ ymp‰ristˆmuuttu-\n"
+"Jos K√Ñ√ÑNN√ñSJOUKKO-parametria ei anneta, joukko p√§√§tell√§√§n TEXTDOMAIN-\n"
+"ymp√§rist√∂muuttujan perusteella. Jos viestiluettelo ei ole tavanomaisessa\n"
+"hakemistossa, vaihtoehtoinen sijainti voidaan m√§√§ritell√§ ymp√§rist√∂muuttu-\n"
 "jalla TEXTDOMAINDIR.\n"
-"K‰ytettyn‰ yhdess‰ valitsimen -s kanssa, ohjelma toimii kuten `echo'.\n"
-"T‰llˆin se ei kuitenkaan vain yksikertaisesti kopioi argumenttejaan\n"
-"vakiotulosteeseen, vaan valitusta viestilistasta lˆydetyt sanomat tulevat\n"
-"k‰‰nnetyiksi.\n"
-"Vakinainen hakemisto, josta haku suoritetaan: %s\n"
+"Valitsimen -s kanssa ohjelma toimii kuten ‚Äùecho‚Äù-komento.\n"
+"Ohjelma ei kuitenkaan vain kopioi argumenttejaan vakiotulosteeseen, vaan\n"
+"valitusta viestiluettelosta l√∂ydetyt viestit n√§ytet√§√§n k√§√§nnettyin√§.\n"
+"Perushakemisto, josta haku suoritetaan: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "K‰yttˆ: %s [VALITSIN] [TEKSTIALA] VIESTI-ID VIESTI-ID-MONIKKO MƒƒRƒ\n"
+msgstr "K√§ytt√∂: %s [VALITSIN] [K√Ñ√ÑNN√ñSJOUKKO] VIESTI-ID VIESTI-ID-MONIKKO M√Ñ√ÑR√Ñ\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
-msgstr "Sanoman kansallisen k‰‰nnˆksen esitystapa, jonka muoto riippuu numerosta.\n"
+msgstr ""
+"N√§ytt√§√§ kotoistetun k√§√§nn√∂ksen tekstimuotoiselle viestille, jonka muoto\n"
+"riippuu lukuarvosta.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -289,17 +296,16 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=TEKSTIALA    etsi k‰‰nnetyt viestit TEKSTIALA:sta\n"
+"  -d, --domain=K√Ñ√ÑNN√ñSJOUKKO hae k√§√§nnetyt viestit K√Ñ√ÑNN√ñSJOUKOSTA\n"
 "  -e                        salli joidenkin lainauskoodien laajentaminen\n"
-"  -h, --help                n‰yt‰ t‰m‰ ohje ja lopeta suoritus\n"
-"  -V, --version             n‰yt‰ versiotiedot ja lopeta suoritus\n"
-"  [TEKSTIALA]               hae k‰‰nnetty sanoma TEKSTIALA:sta\n"
-"  VIESTI-ID                 k‰‰nn‰ VIESTI-ID (yksikkˆ)\n"
-"  VIESTI-ID-MONIKKO         k‰‰nn‰ VIESTI-ID-MONIKKO (monikko)\n"
-"  COUNT                     valitse yksikkˆ/monikkomuoto t‰m‰n arvon\n"
-"                            perusteella\n"
+"  -h, --help                n√§yt√§ t√§m√§ ohje ja poistu\n"
+"  -V, --version             n√§yt√§ versiotiedot ja poistu\n"
+"  [K√Ñ√ÑNN√ñSJOUKKO]           hae k√§√§nnetty sanoma K√Ñ√ÑNN√ñSJOUKOSTA\n"
+"  VIESTI-ID VIESTI-ID-MON   k√§√§nn√§ VIESTI-ID (yksikk√∂) / VIESTI-ID-MON (monikko)\n"
+"  M√Ñ√ÑR√Ñ                     valitse yksikk√∂-/monikkomuoto t√§m√§n arvon\n"
+"                              perusteella\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -308,148 +314,8 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Jos parametria TEKSTIALA ei anneta, ala p‰‰tell‰‰n muuttujan TEXTDOMAIN\n"
-"sis‰llˆn perusteella. Jos viestilistaa (engl. message catalog) ei lˆydet‰\n"
-"vakinaisesta hakemistosta, muu sijainti voidaan m‰‰ritell‰ ymp‰ristˆmuuttu-\n"
+"Jos K√Ñ√ÑNN√ñSJOUKKO-parametria ei anneta, joukko p√§√§tell√§√§n TEXTDOMAIN-\n"
+"ymp√§rist√∂muuttujan perusteella. Jos viestiluettelo ei ole tavanomaisessa\n"
+"hakemistossa, vaihtoehtoinen sijainti voidaan m√§√§ritell√§ ymp√§rist√∂muuttu-\n"
 "jalla TEXTDOMAINDIR.\n"
-"Vakinainen hakemisto, josta haku suoritetaan: %s\n"
-
-#~ msgid "invalid argument `%s' for `%s'"
-#~ msgstr "virheellinen argumentti `%s' `%s':lle"
-
-#~ msgid "ambiguous argument `%s' for `%s'"
-#~ msgstr "moniselitteinen argumentti `%s' `%s':lle"
-
-#~ msgid "Valid arguments are:"
-#~ msgstr "Kelvolliset argumentit ovat:"
-
-#~ msgid "error while opening \"%s\" for reading"
-#~ msgstr "virhe avattaessa \"%s\" lukemista varten"
-
-#~ msgid "cannot open backup file \"%s\" for writing"
-#~ msgstr "ei voida avata varmuuskopiotiedostoa \"%s\" kirjoittamista varten"
-
-#~ msgid "error writing \"%s\""
-#~ msgstr "virhe kirjoitettaessa \"%s\""
-
-#~ msgid "error after reading \"%s\""
-#~ msgstr "virhe \"%s\" lukemisen j‰lkeen"
-
-#~ msgid "%s subprocess failed"
-#~ msgstr "%s aliprosessi ep‰onnistui"
-
-#~ msgid "Java compiler not found, try installing gcj or set $JAVAC"
-#~ msgstr ""
-#~ "Java-k‰‰nt‰j‰‰ ei lˆytynyt, yrit‰ gcj:n asentamista tai aseta $JAVAC"
-
-#~ msgid "Java virtual machine not found, try installing gij or set $JAVA"
-#~ msgstr ""
-#~ "Java virtuaalikonetta ei lˆytynyt, yrit‰ gij:n asentamista tai aseta $JAVA"
-
-#~ msgid "cannot create pipe"
-#~ msgstr "ei voi luoda putkea"
-
-#~ msgid "%s subprocess"
-#~ msgstr "%s aliprosessi"
-
-#~ msgid "%s subprocess got fatal signal %d"
-#~ msgstr "%s aliprosessi vastaanotti fataalin signaalin %d"
-
-#~ msgid "number of format specifications in 'msgid' and '%s' does not match"
-#~ msgstr "muotom‰‰rittelyiden m‰‰r‰ 'msgid':ss‰ ja '%s':ss‰ ei t‰sm‰‰"
-
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument %u are not the same"
-#~ msgstr ""
-#~ "muotom‰‰rittelyiden m‰‰r‰ 'msgid':ss‰ ja '%s':ss‰ argumentille %u ei ole "
-#~ "sama"
-
-#~ msgid ""
-#~ "a format specification for argument %u, as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr ""
-#~ "muotom‰‰rittely‰ argumentille %u ei ole olemassa 'msgid':lle '%s':ss‰"
-
-#~ msgid "a format specification for argument %u doesn't exist in '%s'"
-#~ msgstr "muotom‰‰rittely argumentille %u ei ole '%s':ss‰"
-
-#~ msgid ""
-#~ "a format specification for argument {%u}, as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr ""
-#~ "muotom‰‰rittely argumentille {%u}, kuten '%s':ss‰, ei ole 'msgid':ss‰"
-
-#~ msgid "a format specification for argument {%u} doesn't exist in '%s'"
-#~ msgstr "muotom‰‰rittely argumentille {%u} ei ole '%s':ss‰"
-
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument {%u} are not the "
-#~ "same"
-#~ msgstr ""
-#~ "muotom‰‰rittelyt 'msgid':ss‰ ja '%s':ss‰ argumentille {%u} eiv‰t ole samat"
-
-#~ msgid "format specifications in 'msgid' and '%s' are not equivalent"
-#~ msgstr "muotom‰‰rittelyt 'msgid' ja '%s' eiv‰t ole yhdenmukaiset"
-
-#~ msgid "format specifications in '%s' are not a subset of those in 'msgid'"
-#~ msgstr ""
-#~ "muotom‰‰rittelyt '%s':ss‰ eiv‰t ole 'msgid':n muotom‰‰rittelyiden "
-#~ "osajoukko"
-
-#~ msgid ""
-#~ "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
-#~ "tuple"
-#~ msgstr ""
-#~ "muotom‰‰rittelyt 'mdgid':ss‰ edellytt‰v‰t kartoitusta, m‰‰rittelyt '%s':"
-#~ "ss‰ edellytt‰v‰t "
-
-#~ msgid ""
-#~ "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
-#~ "mapping"
-#~ msgstr ""
-#~ "muotom‰‰rittelyt 'msgid':ss' edellytt‰v‰t j‰rjestetty‰ joukkoa, "
-#~ "m‰‰rittelyt '%s':ss' edellytt‰v‰t "
-
-#~ msgid ""
-#~ "a format specification for argument '%s', as in '%s', doesn't exist in "
-#~ "'msgid'"
-#~ msgstr "muotom‰‰rittely‰ argumentille '%s', kuten '%s':ss‰, ei lˆydy "
-
-#~ msgid "a format specification for argument '%s' doesn't exist in '%s'"
-#~ msgstr "muotom‰‰rittely‰ argumentille '%s' ei lˆyty '%s':st‰"
-
-#~ msgid ""
-#~ "format specifications in 'msgid' and '%s' for argument '%s' are not the "
-#~ "same"
-#~ msgstr ""
-#~ "muotom‰‰rittely 'msgid':ss‰ ja '%s':ss‰ argumentille '%s' eiv‰t ole samat"
-
-#~ msgid "Print the machine's hostname.\n"
-#~ msgstr "Tulosta laitteen is‰nt‰nimi.\n"
-
-#~ msgid ""
-#~ "Output format:\n"
-#~ "  -s, --short           short host name\n"
-#~ "  -f, --fqdn, --long    long host name, includes fully qualified domain "
-#~ "name,\n"
-#~ "                          and aliases\n"
-#~ "  -i, --ip-address      addresses for the hostname\n"
-#~ msgstr ""
-#~ "Tulostuksen muoto:\n"
-#~ "  -s, --short           lyhyt is‰nt‰nimi\n"
-#~ "  -f, --fqdn, --long    pitk‰ is‰nt‰nimi, sis‰lt‰‰ t‰yden domain-nimen "
-#~ "ja\n"
-#~ "                        sen mahdolliset lis‰nimet\n"
-#~ "  -i, --ip-address      osoitteet is‰nt‰nimelle\n"
-
-#~ msgid "could not get host name"
-#~ msgstr "ei saatu is‰nt‰nime‰"
-
-#~ msgid "at most one input file allowed"
-#~ msgstr "enint‰‰n yksi syˆtetiedosto on sallittu"
-
-#~ msgid "%s and %s are mutually exclusive"
-#~ msgstr "%s ja %s ovat toisensa poissulkevia"
-
-#~ msgid "Usage: %s [OPTION] [INPUTFILE]\n"
-#~ msgstr "K‰yttˆ: %s [VALITSIN] [SY÷TETIEDOSTO]\n"
+"Perushakemisto, josta haku suoritetaan: %s\n"

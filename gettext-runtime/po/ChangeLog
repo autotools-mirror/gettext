@@ -1,3 +1,16 @@
+2007-10-26  Bruno Haible  <bruno@clisp.org>
+
+	* eo.po: Update from D. Dale Gulledge <dsplat@rochester.rr.com>.
+	* fi.po: Update from Lauri Nurmi <lanurmi@iki.fi>.
+	* ga.po: Update from Kevin Patrick Scannell <kscanne@gmail.com>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* nl.po: Update from Benno Schulenberg <benno@vertaalt.nl>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* sl.po: Update from
+	Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
 2007-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in ($(DOMAIN).pot-update): Don't pass the package name
