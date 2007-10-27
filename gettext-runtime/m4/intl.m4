@@ -1,4 +1,4 @@
-# intl.m4 serial 7 (gettext-0.16.2)
+# intl.m4 serial 8 (gettext-0.16.2)
 dnl Copyright (C) 1995-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -118,6 +118,18 @@ AC_DEFUN([AM_INTL_SUBDIR],
     dnl Check for a program that compiles Windows resource files.
     AC_CHECK_TOOL([WINDRES], [windres])
   fi
+
+  dnl Determine whether when creating a library, "-lc" should be passed to
+  dnl libtool or not. On many platforms, it is required for the libtool option
+  dnl -no-undefined to work. On HP-UX, however, the -lc - stored by libtool
+  dnl in the *.la files - makes it impossible to create multithreaded programs,
+  dnl because libtool also reorders the -lc to come before the -pthread, and
+  dnl this disables pthread_create() <http://docs.hp.com/en/1896/pthreads.html>.
+  case "$host_os" in
+    hpux*) LTLIBC="" ;;
+    *)     LTLIBC="-lc" ;;
+  esac
+  AC_SUBST([LTLIBC])
 
   dnl Rename some macros and functions used for locking.
   AH_BOTTOM([
