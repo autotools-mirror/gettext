@@ -321,9 +321,10 @@ tests/test-term-ostream.c \
 tests/test-term-ostream-xterm \
 tests/test-term-ostream-xterm-r6.out \
 tests/test-term-ostream-xterm-xf86-v32.out \
-tests/test-term-ostream-xterm-new.out \
 tests/test-term-ostream-xterm-basic.out \
 tests/test-term-ostream-xterm-8bit.out \
+tests/test-term-ostream-xterm-linux-debian.out \
+tests/test-term-ostream-xterm-linux-mandriva.out \
 tests/test-term-ostream-xterm-netbsd3.out \
 tests/test-term-ostream-xterm-solaris10.out \
 tests/test-term-ostream-xterm-aix51.out \

@@ -5,11 +5,13 @@
 
 2007-10-27  Bruno Haible  <bruno@clisp.org>
 
-	* tests/test-term-ostream-xterm-new.out: New file.
-	* tests/test-term-ostream-xterm: Use it as possible test result.
-	* modules/term-ostream-tests (Files): Add it.
-	* Makefile.am (EXTRA_DIST): Add it.
-	Needed on Mandriva Linux Corporate Server release 2006.0.
+	* tests/test-term-ostream-xterm-linux-debian.out: New file.
+	* tests/test-term-ostream-xterm-linux-mandriva.out: New file.
+	* tests/test-term-ostream-xterm: Use them as possible test results.
+	* modules/term-ostream-tests (Files): Add the new files.
+	* Makefile.am (EXTRA_DIST): Add the new files.
+	Needed on Mandriva Linux Corporate Server release 2006.0 and
+	Debian 4.0.0.
 
 2007-10-27  Bruno Haible  <bruno@clisp.org>
 
