@@ -13,12 +13,14 @@ tmpfiles="$tmpfiles out"
 # to inspect the escape sequences of xterm on your platform.
 #   xterm-r6:       sgr0=\E[m
 #   xterm-xf86-v32: sgr0=\E[m\017
+#   xterm-new:      sgr0=\E[m\E(B
 #   xterm-basic:    sgr0=\E(B\E[m
 #   xterm-8bit:     sgr0=\2330m\E(B
 
 : ${DIFF=diff}
    ${DIFF} ${srcdir}/test-term-ostream-xterm-r6.out        out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-xf86-v32.out  out > /dev/null \
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-new.out       out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-basic.out     out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-8bit.out      out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-netbsd3.out   out > /dev/null \
