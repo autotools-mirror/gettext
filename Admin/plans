@@ -70,3 +70,8 @@ Things we plan to do. Comments welcome.
 
 - po-mode.el: Editing of msgstr[i] plural forms, and setting of formula.
 
+- The recode-* programs and msggrep should ignore the accelerator char
+  transparently.
+  a word is divided by shortcut symbol (like "Raści_ahni") that will be
+  converted incorrectly (like "Расьці_агні", not "Расьц_ягні")
+
