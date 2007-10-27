@@ -1,5 +1,5 @@
 /* Recode Serbian text from Cyrillic to Latin script.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
    Written by Danilo Šegan <danilo@gnome.org>, 2006,
    and Bruno Haible <bruno@clisp.org>, 2006.
 
@@ -156,8 +156,8 @@ serbian_to_latin (const char *input, size_t input_len,
      beginning of a character; the second and further bytes of a character are
      all in the range \x80..\xBF.  */
 
-  /* Since sequences of 2 bytes are sequences of at most 3 bytes, the size
-     of the output will be at most 1.5 * input_len.  */
+  /* Since sequences of 2 bytes are mapped to sequences of at most 3 bytes,
+     the size of the output will be at most 1.5 * input_len.  */
   size_t allocated = input_len + (input_len >> 1);
   char *output = XNMALLOC (allocated, char);
 
