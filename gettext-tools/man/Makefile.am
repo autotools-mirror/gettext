@@ -176,7 +176,7 @@ msginit.1.html: msginit.1
 msguniq.1.html: msguniq.1
 	$(MAN2HTML) `if test -f msguniq.1; then echo .; else echo $(srcdir); fi`/msguniq.1 | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
-.1recode-sr-latin.1.html: recode-sr-latin.1
+recode-sr-latin.1.html: recode-sr-latin.1
 	$(MAN2HTML) `if test -f recode-sr-latin.1; then echo .; else echo $(srcdir); fi`/recode-sr-latin.1 | sed -e '/CreationDate:/d' > t-$@
 	mv t-$@ $@
 gettextize.1.html: gettextize.1
