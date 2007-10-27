@@ -1,3 +1,8 @@
+2007-10-27  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (libintl.la): Use @LTLIBC@ instead of -lc. Needed on
+	HP-UX 11.
+
 2007-10-21  Bruno Haible  <bruno@clisp.org>
 
 	* printf-parse.c: Don't assume <stdint.h> exists in IN_LIBASPRINTF
