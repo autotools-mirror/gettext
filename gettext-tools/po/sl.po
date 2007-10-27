@@ -1,104 +1,105 @@
 # -*- mode:po; coding:utf-8; -*- Slovenian messages for GNU gettext package
-# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002, 2003, 2006 Free Software Foundation, Inc.
-# Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2003, 2006.
+# Copyright (C) 1995, 1996, 1997, 1998, 2000, 2001, 2002, 2003, 2006, 2007 Free Software Foundation, Inc.
+# Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1996, 1999-2003, 2006, 2007.
 #
-# $Id: gettext-tools-0.15-pre5.sl.po,v 1.1 2006/09/28 12:32:34 peterlin Exp $
+# $Id: gettext-tools-0.16.2-pre5.sl.po,v 1.3 2007/10/19 11:59:32 peterlin Exp $
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.15-pre5\n"
+"Project-Id-Version: GNU gettext-tools 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-23 23:07+0200\n"
-"PO-Revision-Date: 2006-09-28 14:32+0200\n"
+"POT-Creation-Date: 2007-10-23 09:10+0200\n"
+"PO-Revision-Date: 2007-10-19 14:00+0200\n"
 "Last-Translator: Primož Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 
-#: gnulib-lib/argmatch.c:135
+#: gnulib-lib/argmatch.c:133
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "neveljaven argument %s za %s"
 
-#: gnulib-lib/argmatch.c:136
+#: gnulib-lib/argmatch.c:134
 #, c-format
 msgid "ambiguous argument %s for %s"
 msgstr "dvoumen argument %s za %s"
 
-#: gnulib-lib/argmatch.c:155
+#: gnulib-lib/argmatch.c:153
 #, c-format
 msgid "Valid arguments are:"
 msgstr "Veljavni argumenti so:"
 
-#: gnulib-lib/clean-temp.c:322
+#: gnulib-lib/clean-temp.c:333
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "začasnega imenika ni mogoče najti, poskusite nastaviti $TMPDIR"
 
-#: gnulib-lib/clean-temp.c:336
+#: gnulib-lib/clean-temp.c:347
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "ni mogoče ustvariti začasnega imenika z vzorcem \"%s\""
 
-#: gnulib-lib/clean-temp.c:432
-#, fuzzy, c-format
+#: gnulib-lib/clean-temp.c:443
+#, c-format
 msgid "cannot remove temporary file %s"
-msgstr "izhodne datoteke \"%s\" ni mogoče ustvariti"
+msgstr "začasne datoteke %s ni mogoče odstraniti"
 
-#: gnulib-lib/clean-temp.c:447
-#, fuzzy, c-format
+#: gnulib-lib/clean-temp.c:458
+#, c-format
 msgid "cannot remove temporary directory %s"
-msgstr "ni mogoče ustvariti začasnega imenika z vzorcem \"%s\""
+msgstr "začasnega imenika %s ni mogoče odstraniti"
 
-#: gnulib-lib/closeout.c:67
+#: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "napaka pri pisanju"
 
-#: gnulib-lib/copy-file.c:60 src/file-list.c:56 src/msggrep.c:246
-#: src/open-catalog.c:122 src/read-mo.c:248 src/read-tcl.c:126
-#: src/urlget.c:198 src/xgettext.c:1759 src/xgettext.c:1772
-#: src/xgettext.c:1782
+#: gnulib-lib/copy-file.c:66 src/file-list.c:53 src/msggrep.c:244
+#: src/open-catalog.c:121 src/read-mo.c:252 src/read-tcl.c:124
+#: src/urlget.c:201 src/xgettext.c:1794 src/xgettext.c:1807
+#: src/xgettext.c:1817
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "datoteke \"%s\" ni moč odpreti za branje"
 
-#: gnulib-lib/copy-file.c:67
+#: gnulib-lib/copy-file.c:73
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "varnostnega izvoda \"%s\" ni mogoče odpreti za pisanje"
 
-#: gnulib-lib/copy-file.c:75 src/urlget.c:210
+#: gnulib-lib/copy-file.c:81 src/urlget.c:213
 #, c-format
 msgid "error reading \"%s\""
 msgstr "napaka pri branju »%s«"
 
-#: gnulib-lib/copy-file.c:80 gnulib-lib/copy-file.c:84
+#: gnulib-lib/copy-file.c:86 gnulib-lib/copy-file.c:91
+#: gnulib-lib/copy-file.c:130
 #, c-format
 msgid "error writing \"%s\""
 msgstr "napaka pri pisanju na »%s«"
 
-#: gnulib-lib/copy-file.c:86 src/urlget.c:220
+#: gnulib-lib/copy-file.c:93 gnulib-lib/copy-file.c:132 src/urlget.c:223
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "napaka po branju »%s«"
 
-#: gnulib-lib/csharpcomp.c:280 gnulib-lib/javaversion.c:78 src/msginit.c:838
-#: src/msginit.c:906 src/msginit.c:1065 src/msginit.c:1148
-#: src/read-csharp.c:74 src/read-java.c:72 src/read-resources.c:75
-#: src/read-tcl.c:112 src/write-resources.c:79
+#: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:839
+#: src/msginit.c:914 src/msginit.c:1074 src/msginit.c:1173
+#: src/read-csharp.c:72 src/read-java.c:70 src/read-resources.c:73
+#: src/read-tcl.c:110 src/write-resources.c:77
 #, c-format
 msgid "fdopen() failed"
 msgstr "klic fdopen() neuspešen"
 
-#: gnulib-lib/csharpcomp.c:539
+#: gnulib-lib/csharpcomp.c:570
 #, c-format
 msgid "C# compiler not found, try installing pnet"
 msgstr "Prevajalnika za C# ni najti; poskusite namestiti pnet"
 
-#: gnulib-lib/csharpexec.c:344
+#: gnulib-lib/csharpexec.c:343
 #, c-format
 msgid "C# virtual machine not found, try installing pnet"
 msgstr "Virtualnega stroja za C# ni najti; poskusite namestit pnet"
@@ -107,121 +108,121 @@ msgstr "Virtualnega stroja za C# ni najti; poskusite namestit pnet"
 msgid "Unknown system error"
 msgstr "Neznana sistemska napaka"
 
-#: gnulib-lib/execute.c:181 gnulib-lib/execute.c:257 gnulib-lib/execute.c:299
-#: gnulib-lib/pipe.c:226 gnulib-lib/pipe.c:344 gnulib-lib/pipe.c:404
-#: gnulib-lib/wait-process.c:334 gnulib-lib/wait-process.c:401
+#: gnulib-lib/execute.c:184 gnulib-lib/execute.c:260 gnulib-lib/execute.c:302
+#: gnulib-lib/pipe.c:229 gnulib-lib/pipe.c:347 gnulib-lib/pipe.c:407
+#: gnulib-lib/wait-process.c:333 gnulib-lib/wait-process.c:400
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s podproces neuspešen"
 
-#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: izbira »%s« ni enoznačna\n"
 
-#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: izbira »--%s« ne dovoljuje argumenta\n"
 
-#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: izbira »%c%s« ne dovoljuje argumenta\n"
 
-#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
-#: gnulib-lib/getopt.c:995
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: izbira »%s« zahteva argument\n"
 
-#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: neprepoznana izbira »--%s«\n"
 
-#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: neprepoznana izbira »%c%s«\n"
 
-#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: nedovoljena izbira -- %c\n"
 
-#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: neveljavna izbira -- %c\n"
 
-#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
-#: gnulib-lib/getopt.c:1066
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: izbira zahteva argument -- %c\n"
 
-#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: izbira »-W %s« je dvoumna\n"
 
-#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: izbira »-W %s« ne dovoljuje argumenta\n"
 
-#: gnulib-lib/javacomp.c:123 gnulib-lib/javacomp.c:137
-#: gnulib-lib/javacomp.c:153
+#: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
+#: gnulib-lib/javacomp.c:156
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
 msgstr "neveljaven argument source_version za compile_java_class"
 
-#: gnulib-lib/javacomp.c:168 gnulib-lib/javacomp.c:189
+#: gnulib-lib/javacomp.c:171 gnulib-lib/javacomp.c:192
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
 msgstr "neveljaven argument target_version za compile_java_class"
 
-#: gnulib-lib/javacomp.c:473 src/write-csharp.c:721 src/write-java.c:996
-#: src/write-java.c:1008
+#: gnulib-lib/javacomp.c:503 src/write-csharp.c:724 src/write-java.c:1026
+#: src/write-java.c:1038
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "ustvarjanje »%s« neuspešno"
 
-#: gnulib-lib/javacomp.c:480 src/write-catalog.c:215 src/write-csharp.c:730
-#: src/write-java.c:1017 src/write-mo.c:819 src/write-qt.c:752
-#: src/write-tcl.c:223
+#: gnulib-lib/javacomp.c:510 src/write-catalog.c:253 src/write-catalog.c:317
+#: src/write-csharp.c:733 src/write-java.c:1047 src/write-mo.c:811
+#: src/write-qt.c:748 src/write-tcl.c:222
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "napaka pri pisanju na datoteko »%s«"
 
-#: gnulib-lib/javacomp.c:1795
+#: gnulib-lib/javacomp.c:2341
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr "Prevajalnika za javo ni najti; namestite gcj ali nastavite $JAVAC"
 
-#: gnulib-lib/javaexec.c:418
+#: gnulib-lib/javaexec.c:417
 #, c-format
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "Virtualnega javanskega stroja ni najti; namestite gij ali nastavite $JAVA"
 
-#: gnulib-lib/javaversion.c:86 src/msginit.c:846 src/msginit.c:914
-#: src/msginit.c:1073
+#: gnulib-lib/javaversion.c:84 src/msginit.c:847 src/msginit.c:922
+#: src/msginit.c:1082
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "V/I napaka v podprocesu %s"
 
 #  Morda ,,Zmanjkalo pomnilnika''?
-#: gnulib-lib/obstack.c:424 gnulib-lib/obstack.c:426 gnulib-lib/xmalloc.c:39
-#: gnulib-lib/xsetenv.c:38 src/msgl-check.c:453 src/po-lex.c:86
-#: src/po-lex.c:105 src/x-glade.c:406 libgettextpo/gettext-po.c:1240
+#: gnulib-lib/obstack.c:423 gnulib-lib/obstack.c:425 gnulib-lib/xmalloc.c:37
+#: gnulib-lib/xsetenv.c:38 src/msgl-check.c:473 src/po-lex.c:84
+#: src/po-lex.c:103 src/x-glade.c:588 libgettextpo/gettext-po.c:1284
 #, c-format
 msgid "memory exhausted"
 msgstr "zmanjkalo pomnilnika"
 
-#: gnulib-lib/pipe.c:152 gnulib-lib/pipe.c:155 gnulib-lib/pipe.c:259
-#: gnulib-lib/pipe.c:262
+#: gnulib-lib/pipe.c:155 gnulib-lib/pipe.c:158 gnulib-lib/pipe.c:262
+#: gnulib-lib/pipe.c:265
 #, c-format
 msgid "cannot create pipe"
 msgstr "cevovoda ni mogoče ustvariti"
@@ -245,72 +246,72 @@ msgstr "cevovoda ni mogoče ustvariti"
 #. If you don't know what to put here, please see
 #. <http://en.wikipedia.org/wiki/Quotation_mark#Glyphs>
 #. and use glyphs suitable for your language.
-#: gnulib-lib/quotearg.c:245
+#: gnulib-lib/quotearg.c:228
 msgid "`"
 msgstr "»"
 
-#: gnulib-lib/quotearg.c:246
+#: gnulib-lib/quotearg.c:229
 msgid "'"
 msgstr "«"
 
-#: gnulib-lib/w32spawn.h:48
+#: gnulib-lib/w32spawn.h:47
 #, c-format
 msgid "DuplicateHandle failed with error code 0x%08x"
 msgstr "DuplicateHandle neuspešen z izhodno kodo 0x%08x"
 
-#: gnulib-lib/w32spawn.h:53
+#: gnulib-lib/w32spawn.h:52
 #, c-format
 msgid "_open_osfhandle failed"
 msgstr "Klic _open_osfhandle neuspešen"
 
-#: gnulib-lib/wait-process.c:277 gnulib-lib/wait-process.c:309
-#: gnulib-lib/wait-process.c:367
+#: gnulib-lib/wait-process.c:276 gnulib-lib/wait-process.c:308
+#: gnulib-lib/wait-process.c:366
 #, c-format
 msgid "%s subprocess"
 msgstr "podproces %s"
 
-#: gnulib-lib/wait-process.c:326 gnulib-lib/wait-process.c:393
+#: gnulib-lib/wait-process.c:325 gnulib-lib/wait-process.c:392
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "podproces %s prejel kritični signal %d"
 
-#: src/format.c:149
+#: src/format.c:143
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr "»%s« za razliko od »msgid« ni veljaven formatni niz %s. Razlog: %s"
 
-#: src/format-awk.c:489 src/format-boost.c:589 src/format-elisp.c:337
-#: src/format-gcc-internal.c:582 src/format-librep.c:301
-#: src/format-pascal.c:390 src/format-perl.c:567 src/format-php.c:337
-#: src/format-qt.c:132 src/format-tcl.c:376 src/format-ycp.c:133
+#: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
+#: src/format-gcc-internal.c:623 src/format-librep.c:312
+#: src/format-pascal.c:401 src/format-perl.c:584 src/format-php.c:350
+#: src/format-qt.c:170 src/format-tcl.c:390 src/format-ycp.c:144
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "formatno določilo za argument %u, kot v »%s«, v »msgid« ne obstaja"
 
-#: src/format-awk.c:499 src/format-boost.c:599 src/format-elisp.c:347
-#: src/format-gcc-internal.c:592 src/format-librep.c:311
-#: src/format-pascal.c:400 src/format-perl.c:577 src/format-php.c:347
-#: src/format-qt.c:131 src/format-tcl.c:386 src/format-ycp.c:132
+#: src/format-awk.c:519 src/format-boost.c:627 src/format-elisp.c:358
+#: src/format-gcc-internal.c:633 src/format-librep.c:322
+#: src/format-pascal.c:411 src/format-perl.c:594 src/format-php.c:360
+#: src/format-qt.c:169 src/format-tcl.c:400 src/format-ycp.c:143
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "formatno določilo za argument %u ne obstaja v »%s«"
 
-#: src/format-awk.c:519 src/format-boost.c:619 src/format-c.c:873
-#: src/format-elisp.c:367 src/format-gcc-internal.c:612
-#: src/format-librep.c:331 src/format-pascal.c:420 src/format-perl.c:597
-#: src/format-php.c:367 src/format-python.c:494 src/format-tcl.c:406
+#: src/format-awk.c:539 src/format-boost.c:647 src/format-c.c:910
+#: src/format-elisp.c:378 src/format-gcc-internal.c:653
+#: src/format-librep.c:342 src/format-pascal.c:431 src/format-perl.c:614
+#: src/format-php.c:380 src/format-python.c:510 src/format-tcl.c:420
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "formatni določili v »msgid« in »%s« za argument %u nista enaki"
 
-#: src/format-boost.c:427
+#: src/format-boost.c:449
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr "Direktiva številka %u se začenja z »|«, vendar se ne zaključuje z »|«."
 
-#: src/format-c.c:177
+#: src/format-c.c:181
 #, c-format
 msgid ""
 "In the directive number %u, the token after '<' is not the name of a format "
@@ -319,74 +320,71 @@ msgstr ""
 "V direktivi številka %u element za »<« ni ime makroukaza, ki določa obliko. "
 "Veljavna imena makroukazov so navedena v ISO C 99, razdelek 7.8.1."
 
-#: src/format-c.c:565
+#: src/format-c.c:588
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "V direktivi številka %u elementu za »<« ne sledi »>«. "
 
-#: src/format-c.c:779
+#: src/format-c.c:814
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 "Niz se sklicuje na argument številka %u, vendar ne upošteva argumenta št. %u."
 
-#: src/format-c.c:864 src/format-csharp.c:195 src/format-python.c:485
+#: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:501
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "števili formatnih določil v »msgid« in »%s« se ne ujemata"
 
-#: src/format-csharp.c:86 src/format-java.c:203
+#: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "V direktivi števika %u oklepaju »{« ne sledi število argumentov."
 
-#: src/format-csharp.c:106
+#: src/format-csharp.c:109
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
 msgstr "V direktivi številka %u vejici »,« ne sledi število."
 
-#: src/format-csharp.c:125 src/format-java.c:190
+#: src/format-csharp.c:130 src/format-java.c:191
 msgid ""
 "The string ends in the middle of a directive: found '{' without matching '}'."
-msgstr ""
-"Niz se konča sredi direktive: najden je oklepaj »{« brez zaklepaja »}«."
+msgstr "Niz se konča sredi direktive: najden je oklepaj »{« brez zaklepaja »}«."
 
-#: src/format-csharp.c:133
+#: src/format-csharp.c:139
 #, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
 msgstr ""
 "Direktivo številka %u zaključuje neveljaven znak »%c« namesto zaklepaja »}«."
 
-#: src/format-csharp.c:134
+#: src/format-csharp.c:140
 #, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
-msgstr ""
-"Direktivo številka %u zaključuje neveljaven znak namesto zaklepaja »}«.<"
+msgstr "Direktivo številka %u zaključuje neveljaven znak namesto zaklepaja »}«."
 
-#: src/format-csharp.c:152 src/format-java.c:333
+#: src/format-csharp.c:161 src/format-java.c:346
 msgid ""
 "The string starts in the middle of a directive: found '}' without matching "
 "'{'."
-msgstr ""
-"Niz se začne sredi direktive: najden je zaklepaj »}« brez oklepaja »{«."
+msgstr "Niz se začne sredi direktive: najden je zaklepaj »}« brez oklepaja »{«."
 
-#: src/format-csharp.c:153
+#: src/format-csharp.c:162
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "Niz vsebuje zaklepaj »}« brez para za direktivo številka %u."
 
-#: src/format-gcc-internal.c:245
+#: src/format-gcc-internal.c:253
 #, c-format
 msgid "In the directive number %u, the flags combination is invalid."
 msgstr "V direktivi številka %u je kombinacija modifikatorjev neveljavna."
 
-#: src/format-gcc-internal.c:276 src/format-gcc-internal.c:370
+#: src/format-gcc-internal.c:290
 #, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr "V direktivi številka %u natančnost pred »%c« ni dovoljena."
 
-#: src/format-gcc-internal.c:314
+#: src/format-gcc-internal.c:332
 #, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
@@ -394,31 +392,38 @@ msgid ""
 msgstr ""
 "V direktivi številka %u mora biti številka argumenta za natančnost enaka %u."
 
-#: src/format-gcc-internal.c:376
+#: src/format-gcc-internal.c:396
+#, c-format
+msgid ""
+"In the directive number %u, a precision specification is not allowed before "
+"'%c'."
+msgstr "V direktivi številka %u določitev natančnosti pred »%c« ni dovoljena."
+
+#: src/format-gcc-internal.c:404
 #, c-format
 msgid "In the directive number %u, the precision specification is invalid."
 msgstr "V direktivi številka %u je določitev natančnosti neveljavna."
 
-#: src/format-gcc-internal.c:424
+#: src/format-gcc-internal.c:459
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "V direktivi številka %u modifikatorji niso dovoljeni pred »%c«."
 
-#: src/format-gcc-internal.c:630
+#: src/format-gcc-internal.c:671
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr "»msgid« uporablja %%m, »%s« pa ne"
 
-#: src/format-gcc-internal.c:633
+#: src/format-gcc-internal.c:674
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr "»msgid« ne uporablja %%m, »%s« pa uporablja %%m"
 
-#: src/format-invalid.h:23
+#: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
 msgstr "Niz se konča sredi direktive."
 
-#: src/format-invalid.h:26
+#: src/format-invalid.h:25
 msgid ""
 "The string refers to arguments both through absolute argument numbers and "
 "through unnumbered argument specifications."
@@ -426,13 +431,13 @@ msgstr ""
 "Niz se sklicuje na argumente tako prek opuščenih števlik argumentov kot prek "
 "neoštevilčenih določil argumentov."
 
-#: src/format-invalid.h:29
+#: src/format-invalid.h:28
 #, c-format
 msgid ""
 "In the directive number %u, the argument number 0 is not a positive integer."
 msgstr "V direktivi številka %u argument številka 0 ni pozitivno celo število."
 
-#: src/format-invalid.h:31
+#: src/format-invalid.h:30
 #, c-format
 msgid ""
 "In the directive number %u, the width's argument number 0 is not a positive "
@@ -441,7 +446,7 @@ msgstr ""
 "V direktivi številka %u argumenta številka 0 širine ni pozitivno celo "
 "število."
 
-#: src/format-invalid.h:33
+#: src/format-invalid.h:32
 #, c-format
 msgid ""
 "In the directive number %u, the precision's argument number 0 is not a "
@@ -450,45 +455,45 @@ msgstr ""
 "V direktivi številka %u argumenta številka 0 natančnosti ni pozitivno celo "
 "število."
 
-#: src/format-invalid.h:37
+#: src/format-invalid.h:36
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a valid conversion "
 "specifier."
 msgstr "V direktivi številka %u znak »%c« ni veljavno določilo pretvorbe."
 
-#: src/format-invalid.h:38
+#: src/format-invalid.h:37
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a valid "
 "conversion specifier."
 msgstr ""
-"Znak, ki zaključuje direktivo številka %u, ni veljavno določilo pretvorbe.<"
+"Znak, ki zaključuje direktivo številka %u, ni veljavno določilo pretvorbe."
 
-#: src/format-invalid.h:41
+#: src/format-invalid.h:40
 #, c-format
 msgid "The string refers to argument number %u in incompatible ways."
 msgstr "Niz se sklicuje na argument številka %u na nezdružljive načine."
 
-#: src/format-java.c:237
+#: src/format-java.c:240
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
 "style."
 msgstr "V direktivi številka %u podniz »%s« ni veljaven slog datuma/ure."
 
-#: src/format-java.c:247 src/format-java.c:279 src/format-java.c:306
+#: src/format-java.c:251 src/format-java.c:285 src/format-java.c:314
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
 msgstr "V direktivi številka %u nizu »%s« ne sledi vejica."
 
-#: src/format-java.c:269
+#: src/format-java.c:274
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
 msgstr "V direktivi številka %u podniz »%s« ni veljaven slog števila."
 
-#: src/format-java.c:314
+#: src/format-java.c:323
 #, c-format
 msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
@@ -497,49 +502,49 @@ msgstr ""
 "V direktivi številka %u argumentu števila ne sledi vejica ali eno od "
 "naštetega: »%s«, »%s«, »%s« ali »%s«."
 
-#: src/format-java.c:558
+#: src/format-java.c:572
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
 msgstr "V direktivi številka %u izbira ne vsebuje števila."
 
-#: src/format-java.c:569
+#: src/format-java.c:583
 #, c-format
 msgid ""
 "In the directive number %u, a choice contains a number that is not followed "
 "by '<', '#' or '%s'."
 msgstr ""
-"V direktivi številka %u izbira vsebuje število, ki mu ne sledi »<«, »#« ali "
-"»%s«."
+"V direktivi številka %u izbira vsebuje število, ki mu ne sledi »<«, »#« ali »%"
+"s«."
 
-#: src/format-java.c:729
+#: src/format-java.c:745
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
-msgstr "v ,msgid` ni formatnega določila za argument {%u}, kot v ,%s`"
+msgstr "v »msgid« ni formatnega določila za argument {%u}, kot v »%s«"
 
-#: src/format-java.c:739
+#: src/format-java.c:755
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "v »%2$s« ni formatnega določila za argument {%1$u}"
 
-#: src/format-java.c:759
+#: src/format-java.c:775
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr "formatni določili v »msgid« in »%s« za argument {%u} nista enaki"
 
-#: src/format-lisp.c:2352 src/format-lisp.c:2364 src/format-scheme.c:2378
-#: src/format-scheme.c:2390
+#: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
+#: src/format-scheme.c:2375
 #, c-format
 msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
 "type '%s' is expected."
 msgstr ""
-"V direktivi številka %u je parameter %u tipa »%s«, pričakovan pa je "
-"parameter tipa »%s«."
+"V direktivi številka %u je parameter %u tipa »%s«, pričakovan pa je parameter "
+"tipa »%s«."
 
-#: src/format-lisp.c:2387 src/format-scheme.c:2413
+#: src/format-lisp.c:2372 src/format-scheme.c:2398
 #, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
@@ -560,59 +565,59 @@ msgstr[3] ""
 "V direktivi številka %u je podanih preveč parametrov; pričakovani so največ %"
 "u parametri."
 
-#: src/format-lisp.c:2502 src/format-scheme.c:2505
+#: src/format-lisp.c:2496 src/format-scheme.c:2499
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "V direktivi številka %u, »%c« ne sledi števka."
 
-#: src/format-lisp.c:2700 src/format-scheme.c:2715
+#: src/format-lisp.c:2736 src/format-scheme.c:2754
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "V direktivi številka %u je argument %d negativen."
 
-#: src/format-lisp.c:2762
+#: src/format-lisp.c:2805
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "Niz se konča sredi direktive ~/.../."
 
-#: src/format-lisp.c:2792 src/format-lisp.c:3025 src/format-lisp.c:3131
-#: src/format-lisp.c:3180 src/format-lisp.c:3266 src/format-scheme.c:2790
-#: src/format-scheme.c:3023 src/format-scheme.c:3129 src/format-scheme.c:3204
+#: src/format-lisp.c:2843 src/format-lisp.c:3108 src/format-lisp.c:3225
+#: src/format-lisp.c:3285 src/format-lisp.c:3397 src/format-scheme.c:2840
+#: src/format-scheme.c:3105 src/format-scheme.c:3222 src/format-scheme.c:3320
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "Najdeno »~%c« brez ujemajočega »~%c«."
 
-#: src/format-lisp.c:2808 src/format-scheme.c:2806
+#: src/format-lisp.c:2863 src/format-scheme.c:2860
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "V direktivi številka %u je podan tako modifikator @ kot modifikator :."
 
-#: src/format-lisp.c:2906 src/format-scheme.c:2904
+#: src/format-lisp.c:2976 src/format-scheme.c:2973
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
 "by '~;'."
 msgstr "V direktivi številka %u, »~:[« ne sledita dva člena, ločena z »~;«."
 
-#: src/format-lisp.c:3214 src/format-scheme.c:3163
+#: src/format-lisp.c:3326 src/format-scheme.c:3263
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "V direktivi številka %u je »~;« uporabljen na neveljavnem mestu."
 
-#: src/format-lisp.c:3300 src/format-scheme.c:3238
+#: src/format-lisp.c:3432 src/format-scheme.c:3355
 msgid "The string refers to some argument in incompatible ways."
 msgstr "Niz se sklicuje na nek argument na nezdružljive načine."
 
-#: src/format-lisp.c:3342 src/format-scheme.c:3280
+#: src/format-lisp.c:3474 src/format-scheme.c:3397
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "formatni določili v »msgid« in »%s« nista enakovredni"
 
-#: src/format-lisp.c:3358 src/format-scheme.c:3296
+#: src/format-lisp.c:3490 src/format-scheme.c:3413
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "formatna določila v »%s« niso podmnožica tistih v »msgid«"
 
-#: src/format-perl.c:426
+#: src/format-perl.c:433
 #, c-format
 msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
@@ -621,12 +626,12 @@ msgstr ""
 "V direktivi številka %u je določilo velikosti nezdružljivo s pretvornim "
 "faktorjem »%c«."
 
-#: src/format-perl-brace.c:194 src/format-python.c:443 src/format-sh.c:295
+#: src/format-perl-brace.c:199 src/format-python.c:459 src/format-sh.c:307
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "v »%2$s« ni formatnega določila za argument »%1$s«"
 
-#: src/format-python.c:113
+#: src/format-python.c:112
 msgid ""
 "The string refers to arguments both through argument names and through "
 "unnamed argument specifications."
@@ -634,12 +639,12 @@ msgstr ""
 "Niz se sklicuje na argumente tako prek njihovih imen kot prek nepoimenovanih "
 "določil argumentov."
 
-#: src/format-python.c:327
+#: src/format-python.c:343
 #, c-format
 msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "Niz se sklicuje na argument »%s« na nezdružljive načine."
 
-#: src/format-python.c:403
+#: src/format-python.c:419
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
@@ -648,7 +653,7 @@ msgstr ""
 "formatno določilo v »msgid« zahteva preslikavo, tisto v »%s« pa pričakuje n-"
 "terček"
 
-#: src/format-python.c:410
+#: src/format-python.c:426
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
@@ -657,31 +662,35 @@ msgstr ""
 "formatno določilo v »msgid« zahteva n-terček, tisto v »%s« pa pričakuje "
 "preslikavo"
 
-#: src/format-python.c:433 src/format-sh.c:285
+#: src/format-python.c:449 src/format-sh.c:297
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "v »msgid« ni formatnega določila za argument »%s«, kot v »%s«"
 
-#: src/format-python.c:463
+#: src/format-python.c:479
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "formatni določili v »msgid« in »%s« za argument »%s« nista enaki"
 
-#: src/format-qt.c:78
+#: src/format-qt.c:152
 #, c-format
-msgid "Multiple references to %%%c."
-msgstr "Večterni sklici na %%%c."
+msgid ""
+"'msgid' is a simple format string, but '%s' is not: it contains an 'L' flag "
+"or a double-digit argument number"
+msgstr ""
+"»msgid« je enostaven formatni niz, »%s« pa ne: vsebuje zastavico »L« ali "
+"dvoštevilčno število argumenta"
 
-#: src/format-sh.c:80
+#: src/format-sh.c:79
 msgid "The string refers to a shell variable with a non-ASCII name."
 msgstr ""
 "Niz se sklicuje na spremenljivko ukazne lupine, katere ime vsebuje ne-ASCII "
-"znake.<"
+"znake."
 
-#: src/format-sh.c:82
+#: src/format-sh.c:81
 msgid ""
 "The string refers to a shell variable with complex shell brace syntax. This "
 "syntax is unsupported here due to security reasons."
@@ -690,7 +699,7 @@ msgstr ""
 "oklepajev ukazne lupine. Ta skladnja zaradi varnostnih razlogov tu ni "
 "podprta."
 
-#: src/format-sh.c:84
+#: src/format-sh.c:83
 msgid ""
 "The string refers to a shell variable whose value may be different inside "
 "shell functions."
@@ -698,92 +707,93 @@ msgstr ""
 "Niz se sklicuje na spremenljivko ukazne lupine, katere vrednost se lahko "
 "spremeni znotraj funkcij ukazne lupine."
 
-#: src/format-sh.c:86
+#: src/format-sh.c:85
 msgid "The string refers to a shell variable with an empty name."
 msgstr "Niz se sklicuje na spremenljivko ukazne lupine s praznim imenom."
 
-#: src/format-ycp.c:83
+#: src/format-ycp.c:90
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
 msgstr "V direktivi številka %u znak »%c« ni števka med 1 in 9."
 
-#: src/format-ycp.c:84
+#: src/format-ycp.c:91
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a digit between "
 "1 and 9."
 msgstr "Znak, ki zaključuje direktivo številka %u, ni števka med 1 in 9."
 
-#: src/hostname.c:180 src/msgattrib.c:327 src/msgcat.c:271 src/msgcmp.c:163
-#: src/msgcomm.c:270 src/msgconv.c:225 src/msgen.c:213 src/msgexec.c:180
-#: src/msgfilter.c:286 src/msgfmt.c:367 src/msggrep.c:400 src/msginit.c:260
-#: src/msgmerge.c:323 src/msgunfmt.c:252 src/msguniq.c:249
-#: src/recode-sr-latin.c:112 src/urlget.c:132 src/xgettext.c:517
+#: src/hostname.c:178 src/msgattrib.c:325 src/msgcat.c:281 src/msgcmp.c:161
+#: src/msgcomm.c:268 src/msgconv.c:223 src/msgen.c:211 src/msgexec.c:178
+#: src/msgfilter.c:280 src/msgfmt.c:364 src/msggrep.c:398 src/msginit.c:256
+#: src/msgmerge.c:322 src/msgunfmt.c:250 src/msguniq.c:247
+#: src/recode-sr-latin.c:110 src/urlget.c:130 src/xgettext.c:530
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"To je prost program; pogoji, pod katerimi ga lahko razmnožujete in\n"
-"razširjate so navedeni v izvorni kodi. Za program ni NOBENEGA jamstva,\n"
-"niti jamstev USTREZNOSTI ZA PRODAJO ali PRIMERNOSTI ZA RABO.\n"
+"GPLv3+: GNU GPL različica 3 ali kasnejše, http://gnu.org/licences/gpl.html\n"
+"To je prost program; smete ga spreminjati in deliti z drugimi.\n"
+"Za program ni NOBENEGA JAMSTVA do zakonsko podanih omejitev.\n"
 
-#: src/hostname.c:185 src/msgattrib.c:332 src/msgcat.c:276 src/msgcmp.c:168
-#: src/msgcomm.c:275 src/msgconv.c:230 src/msgen.c:218 src/msgexec.c:185
-#: src/msgfilter.c:291 src/msgfmt.c:372 src/msggrep.c:405 src/msginit.c:265
-#: src/msgmerge.c:328 src/msgunfmt.c:257 src/msguniq.c:254 src/urlget.c:137
-#: src/xgettext.c:522
+#: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgcmp.c:167
+#: src/msgcomm.c:274 src/msgconv.c:229 src/msgen.c:217 src/msgexec.c:184
+#: src/msgfilter.c:286 src/msgfmt.c:370 src/msggrep.c:404 src/msginit.c:262
+#: src/msgmerge.c:328 src/msgunfmt.c:256 src/msguniq.c:253 src/urlget.c:136
+#: src/xgettext.c:536
 #, c-format
 msgid "Written by %s.\n"
-msgstr "Avtor %s.\n"
+msgstr "Avtor(ica) %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/hostname.c:185 src/msgattrib.c:332 src/msgcat.c:276 src/msgconv.c:230
-#: src/msgen.c:218 src/msgexec.c:185 src/msgfilter.c:291 src/msggrep.c:405
-#: src/msginit.c:265 src/msguniq.c:254 src/recode-sr-latin.c:122
-#: src/urlget.c:137
+#: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgconv.c:229
+#: src/msgen.c:217 src/msgexec.c:184 src/msgfilter.c:286 src/msggrep.c:404
+#: src/msginit.c:262 src/msguniq.c:253 src/recode-sr-latin.c:121
+#: src/urlget.c:136
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/hostname.c:195 src/msginit.c:275 src/recode-sr-latin.c:131
+#: src/hostname.c:194 src/msginit.c:272 src/recode-sr-latin.c:130
 #, c-format
 msgid "too many arguments"
 msgstr "preveč argumentov"
 
-#: src/hostname.c:208 src/msgattrib.c:392 src/msgcat.c:333 src/msgcmp.c:199
-#: src/msgcomm.c:343 src/msgconv.c:287 src/msgen.c:271 src/msgexec.c:237
-#: src/msgfilter.c:396 src/msgfmt.c:627 src/msggrep.c:496 src/msginit.c:349
-#: src/msgmerge.c:449 src/msgunfmt.c:412 src/msguniq.c:310
-#: src/recode-sr-latin.c:144 src/urlget.c:160 src/xgettext.c:738
+#: src/hostname.c:207 src/msgattrib.c:391 src/msgcat.c:350 src/msgcmp.c:198
+#: src/msgcomm.c:342 src/msgconv.c:286 src/msgen.c:270 src/msgexec.c:236
+#: src/msgfilter.c:391 src/msgfmt.c:625 src/msggrep.c:495 src/msginit.c:346
+#: src/msgmerge.c:449 src/msgunfmt.c:411 src/msguniq.c:309
+#: src/recode-sr-latin.c:143 src/urlget.c:159 src/xgettext.c:758
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "Poskusite ,%s --help` za izčrpnejša navodila\n"
+msgstr "Poskusite »%s --help« za izčrpnejša navodila\n"
 
-#: src/hostname.c:212 src/msginit.c:353 src/recode-sr-latin.c:149
+#: src/hostname.c:211 src/msginit.c:350 src/recode-sr-latin.c:148
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Uporaba: %s [IZBIRA]\n"
 
-#: src/hostname.c:216
+#: src/hostname.c:215
 #, c-format
 msgid "Print the machine's hostname.\n"
 msgstr "Izpis gostiteljskega imena računalnika.\n"
 
-#: src/hostname.c:219
+#: src/hostname.c:218
 #, c-format
 msgid "Output format:\n"
 msgstr "Oblika izpisa:\n"
 
-#: src/hostname.c:221
+#: src/hostname.c:220
 #, c-format
 msgid "  -s, --short                 short host name\n"
 msgstr "  -s, --short           kratka oblika gostiteljskega imena\n"
 
-#: src/hostname.c:223
+#: src/hostname.c:222
 #, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified "
@@ -794,74 +804,79 @@ msgstr ""
 "polnim\n"
 "                          internetim imenom in vzdevki\n"
 
-#: src/hostname.c:226
+#: src/hostname.c:225
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
 msgstr "  -i, --ip-address      internetni naslov za gostiteljsko ime\n"
 
-#: src/hostname.c:229 src/msgattrib.c:498 src/msgcat.c:431 src/msgcmp.c:246
-#: src/msgcomm.c:437 src/msgconv.c:363 src/msgen.c:344 src/msgexec.c:279
-#: src/msgfilter.c:482 src/msgfmt.c:749 src/msggrep.c:606 src/msginit.c:405
-#: src/msgmerge.c:566 src/msgunfmt.c:510 src/msguniq.c:399
-#: src/recode-sr-latin.c:162 src/urlget.c:174 src/xgettext.c:888
+#: src/hostname.c:228 src/msgattrib.c:497 src/msgcat.c:454 src/msgcmp.c:245
+#: src/msgcomm.c:436 src/msgconv.c:362 src/msgen.c:343 src/msgexec.c:278
+#: src/msgfilter.c:477 src/msgfmt.c:747 src/msggrep.c:605 src/msginit.c:402
+#: src/msgmerge.c:566 src/msgunfmt.c:509 src/msguniq.c:398
+#: src/recode-sr-latin.c:161 src/urlget.c:173 src/xgettext.c:916
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informativni izpis:\n"
 
-#: src/hostname.c:231 src/msgattrib.c:500 src/msgcat.c:433 src/msgcmp.c:248
-#: src/msgcomm.c:439 src/msgconv.c:365 src/msgen.c:346 src/msgexec.c:281
-#: src/msgfilter.c:484 src/msgfmt.c:751 src/msggrep.c:608 src/msginit.c:407
-#: src/msgmerge.c:568 src/msgunfmt.c:512 src/msguniq.c:401
-#: src/recode-sr-latin.c:165 src/urlget.c:176 src/xgettext.c:890
+#: src/hostname.c:230 src/msgattrib.c:499 src/msgcat.c:456 src/msgcmp.c:247
+#: src/msgcomm.c:438 src/msgconv.c:364 src/msgen.c:345 src/msgexec.c:280
+#: src/msgfilter.c:479 src/msgfmt.c:749 src/msggrep.c:607 src/msginit.c:404
+#: src/msgmerge.c:568 src/msgunfmt.c:511 src/msguniq.c:400
+#: src/recode-sr-latin.c:164 src/urlget.c:175 src/xgettext.c:918
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  ta navodila\n"
 
-#: src/hostname.c:233 src/msgattrib.c:502 src/msgcat.c:435 src/msgcmp.c:250
-#: src/msgcomm.c:441 src/msgconv.c:367 src/msgen.c:348 src/msgexec.c:283
-#: src/msgfilter.c:486 src/msgfmt.c:753 src/msggrep.c:610 src/msginit.c:409
-#: src/msgmerge.c:570 src/msgunfmt.c:514 src/msguniq.c:403
-#: src/recode-sr-latin.c:168 src/urlget.c:178 src/xgettext.c:892
+#: src/hostname.c:232 src/msgattrib.c:501 src/msgcat.c:458 src/msgcmp.c:249
+#: src/msgcomm.c:440 src/msgconv.c:366 src/msgen.c:347 src/msgexec.c:282
+#: src/msgfilter.c:481 src/msgfmt.c:751 src/msggrep.c:609 src/msginit.c:406
+#: src/msgmerge.c:570 src/msgunfmt.c:513 src/msguniq.c:402
+#: src/recode-sr-latin.c:167 src/urlget.c:177 src/xgettext.c:920
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               različica programa\n"
 
-#: src/hostname.c:236 src/msgattrib.c:505 src/msgcat.c:438 src/msgcmp.c:253
-#: src/msgcomm.c:444 src/msgconv.c:370 src/msgen.c:351 src/msgexec.c:286
-#: src/msgfilter.c:489 src/msgfmt.c:760 src/msggrep.c:613 src/msginit.c:412
-#: src/msgmerge.c:577 src/msgunfmt.c:519 src/msguniq.c:406
-#: src/recode-sr-latin.c:171 src/urlget.c:181 src/xgettext.c:895
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/hostname.c:239 src/msgattrib.c:508 src/msgcat.c:465 src/msgcmp.c:256
+#: src/msgcomm.c:447 src/msgconv.c:373 src/msgen.c:354 src/msgexec.c:289
+#: src/msgfilter.c:488 src/msgfmt.c:762 src/msggrep.c:616 src/msginit.c:413
+#: src/msgmerge.c:581 src/msgunfmt.c:522 src/msguniq.c:409
+#: src/recode-sr-latin.c:174 src/urlget.c:184 src/xgettext.c:927
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Morebitne napake v programu sporočite na <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/hostname.c:252 src/hostname.c:258 src/hostname.c:265
+#: src/hostname.c:255 src/hostname.c:261 src/hostname.c:268
 #, c-format
 msgid "could not get host name"
 msgstr "gostiteljskega imena ni moč ugotoviti"
 
-#: src/msgattrib.c:347 src/msgconv.c:245 src/msgexec.c:152 src/msgfilter.c:216
-#: src/msggrep.c:420 src/msginit.c:198 src/msguniq.c:269
+#: src/msgattrib.c:346 src/msgconv.c:244 src/msgexec.c:150 src/msgfilter.c:210
+#: src/msggrep.c:419 src/msginit.c:194 src/msguniq.c:268
 #, c-format
 msgid "at most one input file allowed"
 msgstr "dovoljena je največ ena vhodna datoteka"
 
-#: src/msgattrib.c:353 src/msgattrib.c:357 src/msgcat.c:286 src/msgcat.c:290
-#: src/msgcomm.c:285 src/msgcomm.c:289 src/msgconv.c:251 src/msgconv.c:255
-#: src/msgen.c:240 src/msgen.c:244 src/msgfilter.c:306 src/msgfilter.c:310
-#: src/msgfmt.c:411 src/msgfmt.c:419 src/msgfmt.c:434 src/msgfmt.c:456
-#: src/msggrep.c:426 src/msggrep.c:430 src/msgmerge.c:353 src/msgmerge.c:374
-#: src/msgmerge.c:378 src/msgunfmt.c:288 src/msguniq.c:275 src/msguniq.c:279
-#: src/xgettext.c:532 src/xgettext.c:536 src/xgettext.c:543
+#: src/msgattrib.c:352 src/msgattrib.c:356 src/msgcat.c:303 src/msgcat.c:307
+#: src/msgcomm.c:284 src/msgcomm.c:288 src/msgconv.c:250 src/msgconv.c:254
+#: src/msgen.c:239 src/msgen.c:243 src/msgfilter.c:301 src/msgfilter.c:305
+#: src/msgfmt.c:409 src/msgfmt.c:417 src/msgfmt.c:432 src/msgfmt.c:454
+#: src/msggrep.c:425 src/msggrep.c:429 src/msgmerge.c:353 src/msgmerge.c:374
+#: src/msgmerge.c:378 src/msgunfmt.c:287 src/msguniq.c:274 src/msguniq.c:278
+#: src/xgettext.c:546 src/xgettext.c:550 src/xgettext.c:557 src/xgettext.c:560
+#: src/xgettext.c:563
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s in %s se med seboj izključujeta"
 
-#: src/msgattrib.c:396 src/msgconv.c:291 src/msggrep.c:500 src/msguniq.c:314
+#: src/msgattrib.c:395 src/msgconv.c:290 src/msggrep.c:499 src/msguniq.c:313
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Uporaba: %s [IZBIRA] [VHODNA_DATOTEKA]\n"
 
-#: src/msgattrib.c:401
+#: src/msgattrib.c:400
 #, c-format, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -870,10 +885,10 @@ msgstr ""
 "Filtriranje sporočil iz kataloga prevodov glede na njihova določila\n"
 "in rokovanje z njimi.\n"
 
-#: src/msgattrib.c:405 src/msgcat.c:354 src/msgcmp.c:217 src/msgcomm.c:363
-#: src/msgconv.c:299 src/msgen.c:287 src/msgexec.c:260 src/msgfilter.c:408
-#: src/msggrep.c:510 src/msginit.c:363 src/msgmerge.c:470 src/msgunfmt.c:424
-#: src/msguniq.c:330
+#: src/msgattrib.c:404 src/msgcat.c:371 src/msgcmp.c:216 src/msgcomm.c:362
+#: src/msgconv.c:298 src/msgen.c:286 src/msgexec.c:259 src/msgfilter.c:403
+#: src/msggrep.c:509 src/msginit.c:360 src/msgmerge.c:470 src/msgunfmt.c:423
+#: src/msguniq.c:329
 #, c-format
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -881,23 +896,23 @@ msgstr ""
 "Če je pri dolgi obliki izbire naveden obvezen argument, je ta obvezen\n"
 "tudi za kratko obliko.\n"
 
-#: src/msgattrib.c:408 src/msgcat.c:357 src/msgcmp.c:220 src/msgcomm.c:366
-#: src/msgconv.c:302 src/msgen.c:290 src/msgexec.c:263 src/msgfilter.c:411
-#: src/msgfmt.c:645 src/msggrep.c:513 src/msginit.c:366 src/msgmerge.c:473
-#: src/msgunfmt.c:438 src/msguniq.c:333 src/xgettext.c:756
+#: src/msgattrib.c:407 src/msgcat.c:374 src/msgcmp.c:219 src/msgcomm.c:365
+#: src/msgconv.c:301 src/msgen.c:289 src/msgexec.c:262 src/msgfilter.c:406
+#: src/msgfmt.c:643 src/msggrep.c:512 src/msginit.c:363 src/msgmerge.c:473
+#: src/msgunfmt.c:437 src/msguniq.c:332 src/xgettext.c:776
 #, c-format
 msgid "Input file location:\n"
 msgstr "Izbira vhodne datoteke:\n"
 
-#: src/msgattrib.c:410 src/msgconv.c:304 src/msggrep.c:515 src/msguniq.c:335
+#: src/msgattrib.c:409 src/msgconv.c:303 src/msggrep.c:514 src/msguniq.c:334
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
 msgstr "  VHODNA_DATOTEKA             vhodna datoteka PO\n"
 
-#: src/msgattrib.c:412 src/msgcat.c:363 src/msgcmp.c:226 src/msgcomm.c:372
-#: src/msgconv.c:306 src/msgen.c:294 src/msgexec.c:267 src/msgfilter.c:415
-#: src/msgfmt.c:649 src/msggrep.c:517 src/msgmerge.c:479 src/msguniq.c:337
-#: src/xgettext.c:762
+#: src/msgattrib.c:411 src/msgcat.c:380 src/msgcmp.c:225 src/msgcomm.c:371
+#: src/msgconv.c:305 src/msgen.c:293 src/msgexec.c:266 src/msgfilter.c:410
+#: src/msgfmt.c:647 src/msggrep.c:516 src/msgmerge.c:479 src/msguniq.c:336
+#: src/xgettext.c:782
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -905,31 +920,31 @@ msgstr ""
 "  -D, --directory=IMENIK      vhodne datoteke iščemo tudi v navedenem "
 "IMENIKU\n"
 
-#: src/msgattrib.c:414 src/msgconv.c:308 src/msgexec.c:269 src/msgfilter.c:417
-#: src/msggrep.c:519 src/msgunfmt.c:442 src/msguniq.c:339
+#: src/msgattrib.c:413 src/msgconv.c:307 src/msgexec.c:268 src/msgfilter.c:412
+#: src/msggrep.c:518 src/msgunfmt.c:441 src/msguniq.c:338
 #, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 "Če vhodna datoteka ni podana ali je enaka -, se bere standardni vhod.\n"
 
-#: src/msgattrib.c:417 src/msgcat.c:368 src/msgcomm.c:377 src/msgconv.c:311
-#: src/msgen.c:299 src/msgfilter.c:420 src/msgfmt.c:669 src/msggrep.c:522
-#: src/msginit.c:374 src/msgmerge.c:491 src/msgunfmt.c:478 src/msguniq.c:342
-#: src/xgettext.c:767
+#: src/msgattrib.c:416 src/msgcat.c:385 src/msgcomm.c:376 src/msgconv.c:310
+#: src/msgen.c:298 src/msgfilter.c:415 src/msgfmt.c:667 src/msggrep.c:521
+#: src/msginit.c:371 src/msgmerge.c:491 src/msgunfmt.c:477 src/msguniq.c:341
+#: src/xgettext.c:787
 #, c-format
 msgid "Output file location:\n"
 msgstr "Izbira izhodne datoteke:\n"
 
-#: src/msgattrib.c:419 src/msgcat.c:370 src/msgcomm.c:379 src/msgconv.c:313
-#: src/msgen.c:301 src/msgfilter.c:422 src/msgfmt.c:671 src/msggrep.c:524
-#: src/msgmerge.c:493 src/msgunfmt.c:480 src/msguniq.c:344
+#: src/msgattrib.c:418 src/msgcat.c:387 src/msgcomm.c:378 src/msgconv.c:312
+#: src/msgen.c:300 src/msgfilter.c:417 src/msgfmt.c:669 src/msggrep.c:523
+#: src/msgmerge.c:493 src/msgunfmt.c:479 src/msguniq.c:343
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=DATOTEKA  izhod zapisujemo v navedeno DATOTEKO\n"
 
-#: src/msgattrib.c:421 src/msgcat.c:372 src/msgcomm.c:381 src/msgconv.c:315
-#: src/msgen.c:303 src/msgfilter.c:424 src/msggrep.c:526 src/msgmerge.c:495
-#: src/msgunfmt.c:482 src/msguniq.c:346
+#: src/msgattrib.c:420 src/msgcat.c:389 src/msgcomm.c:380 src/msgconv.c:314
+#: src/msgen.c:302 src/msgfilter.c:419 src/msggrep.c:525 src/msgmerge.c:495
+#: src/msgunfmt.c:481 src/msguniq.c:345
 #, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
@@ -939,12 +954,12 @@ msgstr ""
 "standardni\n"
 "izhod.\n"
 
-#: src/msgattrib.c:425 src/msgcat.c:376 src/msgcomm.c:385 src/msguniq.c:350
+#: src/msgattrib.c:424 src/msgcat.c:393 src/msgcomm.c:384 src/msguniq.c:349
 #, c-format
 msgid "Message selection:\n"
 msgstr "Izbira sporočil:\n"
 
-#: src/msgattrib.c:427
+#: src/msgattrib.c:426
 #, c-format
 msgid ""
 "      --translated            keep translated, remove untranslated messages\n"
@@ -952,7 +967,7 @@ msgstr ""
 "      --translated            obdržimo prevedena sporočila, zavržemo "
 "neprevedena\n"
 
-#: src/msgattrib.c:429
+#: src/msgattrib.c:428
 #, c-format
 msgid ""
 "      --untranslated          keep untranslated, remove translated messages\n"
@@ -960,72 +975,73 @@ msgstr ""
 "      --untranslated          obdržimo neprevedena sporočila, zavržemo "
 "prevedena\n"
 
-#: src/msgattrib.c:431
+#: src/msgattrib.c:430
 #, c-format
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
 msgstr ""
 "      --no-fuzzy              brez ohlapnih samodejno prevedenih sporočil\n"
 
-#: src/msgattrib.c:433
+#: src/msgattrib.c:432
 #, c-format
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
 msgstr ""
 "      --only-fuzzy            zgolj ohlapna samodejno prevedena sporočila\n"
 
-#: src/msgattrib.c:435
+#: src/msgattrib.c:434
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
 msgstr "      --no-obsolete           brez zastarelih (#~) sporočil\n"
 
-#: src/msgattrib.c:437
+#: src/msgattrib.c:436
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr "      --only-obsolete         zgolj zastarela (#~) sporočila\n"
 
-#: src/msgattrib.c:440
+#: src/msgattrib.c:439
 #, c-format
 msgid "Attribute manipulation:\n"
 msgstr "Rokovanje z določili:\n"
 
-#: src/msgattrib.c:442
+#: src/msgattrib.c:441
 #, c-format
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
 msgstr ""
 "      --set-fuzzy             vsa sporočila označimo kot ohlapno pprevedena\n"
 
-#: src/msgattrib.c:444
+#: src/msgattrib.c:443
 #, c-format
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 msgstr ""
 "      --clear-fuzzy           izbrišemo vse oznake o ohlapnosti prevodov\n"
 
-#: src/msgattrib.c:446
+#: src/msgattrib.c:445
 #, c-format
 msgid "      --set-obsolete          set all messages obsolete\n"
 msgstr "      --set-obsolete          vsa sporočila označimo kot zastarela\n"
 
-#: src/msgattrib.c:448
+#: src/msgattrib.c:447
 #, c-format
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
 msgstr ""
 "      --clear-obsolete        izbrišemo vse oznake o zastarelosti prevodov\n"
 
-#: src/msgattrib.c:450
-#, fuzzy, c-format
+#: src/msgattrib.c:449
+#, c-format
 msgid ""
 "      --clear-previous        remove the \"previous msgid\" from all "
 "messages\n"
 msgstr ""
-"      --clear-fuzzy           izbrišemo vse oznake o ohlapnosti prevodov\n"
+"      --clear-previous        izbrišemo oznake \"previous msgid\" iz vseh "
+"sporočil\n"
 
-#: src/msgattrib.c:452
+#: src/msgattrib.c:451
 #, c-format
 msgid ""
 "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
 msgstr ""
 "      --only-file=DATOTEKA.po  obdelamo le vnose, navedene v DATOTEKI.po\n"
 
-#: src/msgattrib.c:454
+#: src/msgattrib.c:453
 #, c-format
 msgid ""
 "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
@@ -1033,28 +1049,28 @@ msgstr ""
 "      --ignore-file=DATOTEKA.po  obdelamo vnose razen navedenih v DATOTEKI."
 "po\n"
 
-#: src/msgattrib.c:456
+#: src/msgattrib.c:455
 #, c-format
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 msgstr "      --fuzzy                 isto kot --only-fuzzy --clear-fuzzy\n"
 
-#: src/msgattrib.c:458
+#: src/msgattrib.c:457
 #, c-format
 msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
 "      --obsolete              isto kot --only-obsolete --clear-obsolete\n"
 
-#: src/msgattrib.c:461 src/msgcat.c:388 src/msgcmp.c:238 src/msgcomm.c:397
-#: src/msgconv.c:326 src/msgen.c:307 src/msgexec.c:272 src/msgfilter.c:443
-#: src/msgfmt.c:714 src/msggrep.c:569 src/msginit.c:382 src/msgmerge.c:528
-#: src/msguniq.c:357
+#: src/msgattrib.c:460 src/msgcat.c:405 src/msgcmp.c:237 src/msgcomm.c:396
+#: src/msgconv.c:325 src/msgen.c:306 src/msgexec.c:271 src/msgfilter.c:438
+#: src/msgfmt.c:712 src/msggrep.c:568 src/msginit.c:379 src/msgmerge.c:528
+#: src/msguniq.c:356
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "Skladnja vhodne datoteke:\n"
 
-#: src/msgattrib.c:463 src/msgconv.c:328 src/msgen.c:309 src/msgexec.c:274
-#: src/msgfilter.c:445 src/msggrep.c:571 src/msginit.c:384 src/msguniq.c:359
+#: src/msgattrib.c:462 src/msgconv.c:327 src/msgen.c:308 src/msgexec.c:273
+#: src/msgfilter.c:440 src/msggrep.c:570 src/msginit.c:381 src/msguniq.c:358
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
@@ -1062,8 +1078,8 @@ msgstr ""
 "  -P, --properties-input      skladnja vhodne datoteke je javanska ."
 "properties\n"
 
-#: src/msgattrib.c:465 src/msgconv.c:330 src/msgen.c:311 src/msgexec.c:276
-#: src/msgfilter.c:447 src/msggrep.c:573 src/msginit.c:386 src/msguniq.c:361
+#: src/msgattrib.c:464 src/msgconv.c:329 src/msgen.c:310 src/msgexec.c:275
+#: src/msgfilter.c:442 src/msggrep.c:572 src/msginit.c:383 src/msguniq.c:360
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
@@ -1072,17 +1088,17 @@ msgstr ""
 "      --stringtable-input     skladnja vhodne datoteke je NeXTstep/GNUstep ."
 "strings\n"
 
-#: src/msgattrib.c:468 src/msgcat.c:396 src/msgcomm.c:405 src/msgconv.c:333
-#: src/msgen.c:314 src/msgfilter.c:450 src/msgfmt.c:742 src/msggrep.c:576
-#: src/msginit.c:389 src/msgmerge.c:536 src/msgunfmt.c:486 src/msguniq.c:364
-#: src/xgettext.c:846
+#: src/msgattrib.c:467 src/msgcat.c:413 src/msgcomm.c:404 src/msgconv.c:332
+#: src/msgen.c:313 src/msgfilter.c:445 src/msgfmt.c:740 src/msggrep.c:575
+#: src/msginit.c:386 src/msgmerge.c:536 src/msgunfmt.c:485 src/msguniq.c:363
+#: src/xgettext.c:870
 #, c-format
 msgid "Output details:\n"
 msgstr "Podrobnosti izpisa:\n"
 
-#: src/msgattrib.c:470 src/msgcat.c:403 src/msgcomm.c:407 src/msgconv.c:335
-#: src/msgen.c:316 src/msgmerge.c:538 src/msgunfmt.c:488 src/msguniq.c:371
-#: src/xgettext.c:848
+#: src/msgattrib.c:469 src/msgcat.c:426 src/msgcomm.c:406 src/msgconv.c:334
+#: src/msgen.c:315 src/msgmerge.c:538 src/msgunfmt.c:487 src/msguniq.c:370
+#: src/xgettext.c:872
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -1090,9 +1106,9 @@ msgstr ""
 "  -e, --no-escape          brez ubežnih sekvenc v skladnji jezika C "
 "(privzeto)\n"
 
-#: src/msgattrib.c:472 src/msgcat.c:405 src/msgcomm.c:409 src/msgconv.c:337
-#: src/msgen.c:318 src/msgfilter.c:454 src/msgmerge.c:540 src/msgunfmt.c:490
-#: src/msguniq.c:373 src/xgettext.c:850
+#: src/msgattrib.c:471 src/msgcat.c:428 src/msgcomm.c:408 src/msgconv.c:336
+#: src/msgen.c:317 src/msgfilter.c:449 src/msgmerge.c:540 src/msgunfmt.c:489
+#: src/msguniq.c:372 src/xgettext.c:874
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1100,37 +1116,36 @@ msgstr ""
 "  -E, --escape             z ubežnimi sekvencami v skladnji C, brez \n"
 "                             razširjenega nabora znakov\n"
 
-#: src/msgattrib.c:474 src/msgcat.c:407 src/msgcomm.c:411 src/msgconv.c:339
-#: src/msgen.c:320 src/msgfilter.c:456 src/msggrep.c:582 src/msgmerge.c:542
-#: src/msgunfmt.c:492 src/msguniq.c:375 src/xgettext.c:852
+#: src/msgattrib.c:473 src/msgcat.c:430 src/msgcomm.c:410 src/msgconv.c:338
+#: src/msgen.c:319 src/msgfilter.c:451 src/msggrep.c:581 src/msgmerge.c:542
+#: src/msgunfmt.c:491 src/msguniq.c:374 src/xgettext.c:876
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po           vedno izpišemo datoteko PO, četudi prazno\n"
 
-#: src/msgattrib.c:476 src/msgcat.c:409 src/msgcomm.c:413 src/msguniq.c:377
-#: src/xgettext.c:854
+#: src/msgattrib.c:475 src/msgcat.c:432 src/msgcomm.c:412 src/msguniq.c:376
+#: src/xgettext.c:878
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr "  -i, --indent             izpis datoteke PO z zamiki\n"
 
-#: src/msgattrib.c:478 src/msgcat.c:411 src/msgcomm.c:415 src/msguniq.c:379
-#: src/xgettext.c:856
+#: src/msgattrib.c:477 src/msgcat.c:434 src/msgcomm.c:414 src/msguniq.c:378
+#: src/xgettext.c:880
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
-msgstr ""
-"      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
+msgstr "      --no-location        brez vrstic »#: datoteka:vrstica« v izpisu\n"
 
-#: src/msgattrib.c:480 src/msgcat.c:413 src/msgcomm.c:417 src/msguniq.c:381
-#: src/xgettext.c:858
+#: src/msgattrib.c:479 src/msgcat.c:436 src/msgcomm.c:416 src/msguniq.c:380
+#: src/xgettext.c:882
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
-"  -n, --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu "
+"  -n, --add-location       z vrsticami »#: datoteka:vrstica« v izpisu "
 "(privzeto)\n"
 
-#: src/msgattrib.c:482 src/msgcat.c:415 src/msgcomm.c:419 src/msguniq.c:383
-#: src/xgettext.c:860
+#: src/msgattrib.c:481 src/msgcat.c:438 src/msgcomm.c:418 src/msguniq.c:382
+#: src/xgettext.c:884
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
@@ -1138,32 +1153,32 @@ msgstr ""
 "      --strict             izpis v strogi obliki Uniforum, brez razširitev "
 "GNU\n"
 
-#: src/msgattrib.c:484 src/msgcat.c:417 src/msgcomm.c:421 src/msgconv.c:349
-#: src/msgen.c:330 src/msgfilter.c:468 src/msggrep.c:592 src/msginit.c:395
-#: src/msgmerge.c:552 src/msgunfmt.c:498 src/msguniq.c:385
+#: src/msgattrib.c:483 src/msgcat.c:440 src/msgcomm.c:420 src/msgconv.c:348
+#: src/msgen.c:329 src/msgfilter.c:463 src/msggrep.c:591 src/msginit.c:392
+#: src/msgmerge.c:552 src/msgunfmt.c:497 src/msguniq.c:384
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     zapiši javansko datoteko .properties\n"
 
-#: src/msgattrib.c:486 src/msgcat.c:419 src/msgcomm.c:423 src/msgconv.c:351
-#: src/msgen.c:332 src/msgfilter.c:470 src/msggrep.c:594 src/msginit.c:397
-#: src/msgmerge.c:554 src/msgunfmt.c:500 src/msguniq.c:387 src/xgettext.c:864
+#: src/msgattrib.c:485 src/msgcat.c:442 src/msgcomm.c:422 src/msgconv.c:350
+#: src/msgen.c:331 src/msgfilter.c:465 src/msggrep.c:593 src/msginit.c:394
+#: src/msgmerge.c:554 src/msgunfmt.c:499 src/msguniq.c:386 src/xgettext.c:888
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
 msgstr ""
 "      --stringtable-output    zapiši NeXTstep/GNUstep datoteko .strings\n"
 
-#: src/msgattrib.c:488 src/msgcat.c:421 src/msgcomm.c:425 src/msgconv.c:353
-#: src/msgen.c:334 src/msgfilter.c:472 src/msggrep.c:596 src/msginit.c:399
-#: src/msgmerge.c:556 src/msgunfmt.c:502 src/msguniq.c:389 src/xgettext.c:866
+#: src/msgattrib.c:487 src/msgcat.c:444 src/msgcomm.c:424 src/msgconv.c:352
+#: src/msgen.c:333 src/msgfilter.c:467 src/msggrep.c:595 src/msginit.c:396
+#: src/msgmerge.c:556 src/msgunfmt.c:501 src/msguniq.c:388 src/xgettext.c:890
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=ŠTEVILO      širina strani pri izpisu, v znakih\n"
 
-#: src/msgattrib.c:490 src/msgcat.c:423 src/msgcomm.c:427 src/msgconv.c:355
-#: src/msgen.c:336 src/msgfilter.c:474 src/msggrep.c:598 src/msginit.c:401
-#: src/msgmerge.c:558 src/msgunfmt.c:504 src/msguniq.c:391 src/xgettext.c:868
+#: src/msgattrib.c:489 src/msgcat.c:446 src/msgcomm.c:426 src/msgconv.c:354
+#: src/msgen.c:335 src/msgfilter.c:469 src/msggrep.c:597 src/msginit.c:398
+#: src/msgmerge.c:558 src/msgunfmt.c:503 src/msguniq.c:390 src/xgettext.c:892
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1171,32 +1186,32 @@ msgid ""
 msgstr ""
 "      --no-wrap            brez deljenja dolgih sporočil v več vrstic\n"
 
-#: src/msgattrib.c:493 src/msgcat.c:426 src/msgcomm.c:430 src/msgconv.c:358
-#: src/msgen.c:339 src/msgfilter.c:477 src/msgmerge.c:561 src/msgunfmt.c:507
-#: src/msguniq.c:394 src/xgettext.c:871
+#: src/msgattrib.c:492 src/msgcat.c:449 src/msgcomm.c:429 src/msgconv.c:357
+#: src/msgen.c:338 src/msgfilter.c:472 src/msgmerge.c:561 src/msgunfmt.c:506
+#: src/msguniq.c:393 src/xgettext.c:895
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output        izhod abecedno urejen po sporočilih\n"
 
-#: src/msgattrib.c:495 src/msgcat.c:428 src/msgcomm.c:432 src/msgconv.c:360
-#: src/msgen.c:341 src/msgfilter.c:479 src/msgmerge.c:563 src/msguniq.c:396
-#: src/xgettext.c:873
+#: src/msgattrib.c:494 src/msgcat.c:451 src/msgcomm.c:431 src/msgconv.c:359
+#: src/msgen.c:340 src/msgfilter.c:474 src/msgmerge.c:563 src/msguniq.c:395
+#: src/xgettext.c:897
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
 "  -F, --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msgcat.c:296 src/msgcomm.c:315
+#: src/msgcat.c:313 src/msgcomm.c:314
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "določeni kriteriji izbire niso mogoči (%d < n < %d)"
 
-#: src/msgcat.c:337 src/msgcomm.c:347 src/xgettext.c:742
+#: src/msgcat.c:354 src/msgcomm.c:346 src/xgettext.c:762
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Uporaba: %s [IZBIRA] [VHODNA_DATOTEKA]...\n"
 
-#: src/msgcat.c:342
+#: src/msgcat.c:359
 #, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
@@ -1218,26 +1233,26 @@ msgstr ""
 "zahtevamo, da se ohranijo samo iz prve datoteke PO, ki jih definira. Mesta\n"
 "v datotekah iz vseh datotek PO se ohranijo.\n"
 
-#: src/msgcat.c:359 src/msgcomm.c:368 src/xgettext.c:758
+#: src/msgcat.c:376 src/msgcomm.c:367 src/xgettext.c:778
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr ""
 "  VHODNA_DATOTEKA ...            vhodna datoteka (ali več vhodnih datotek)\n"
 
-#: src/msgcat.c:361 src/msgcomm.c:370 src/xgettext.c:760
+#: src/msgcat.c:378 src/msgcomm.c:369 src/xgettext.c:780
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr ""
 "  -f, --files-from=DATOTEKA      seznam vhodnih datotek preberemo iz "
 "DATOTEKE\n"
 
-#: src/msgcat.c:365 src/msgcomm.c:374 src/msgen.c:296 src/msgfmt.c:651
-#: src/xgettext.c:764
+#: src/msgcat.c:382 src/msgcomm.c:373 src/msgen.c:295 src/msgfmt.c:649
+#: src/xgettext.c:784
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "Če je vhodna datoteka enaka -, se bere standardni vhod.\n"
 
-#: src/msgcat.c:378 src/msgcomm.c:387
+#: src/msgcat.c:395 src/msgcomm.c:386
 #, c-format
 msgid ""
 "  -<, --less-than=NUMBER      print messages with less than this many\n"
@@ -1247,7 +1262,7 @@ msgstr ""
 "definicij\n"
 "                                 (privzeta vrednost je neskončno)\n"
 
-#: src/msgcat.c:381
+#: src/msgcat.c:398
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1257,7 +1272,7 @@ msgstr ""
 "definicij\n"
 "                                 (privzeta vrednost je 1)\n"
 
-#: src/msgcat.c:384 src/msgcomm.c:393
+#: src/msgcat.c:401 src/msgcomm.c:392
 #, c-format
 msgid ""
 "  -u, --unique                shorthand for --less-than=2, requests\n"
@@ -1266,7 +1281,7 @@ msgstr ""
 "  -u, --unique                   okrajšava za --less-than=2, izpišemo samo\n"
 "                                 enolično definirana sporočila\n"
 
-#: src/msgcat.c:390 src/msgcmp.c:240 src/msgcomm.c:399 src/msgfmt.c:716
+#: src/msgcat.c:407 src/msgcmp.c:239 src/msgcomm.c:398 src/msgfmt.c:714
 #: src/msgmerge.c:530
 #, c-format
 msgid ""
@@ -1275,7 +1290,7 @@ msgstr ""
 "  -P, --properties-input      skladnja vhodnih datotek je javanska ."
 "properties\n"
 
-#: src/msgcat.c:392 src/msgcmp.c:242 src/msgcomm.c:401 src/msgfmt.c:718
+#: src/msgcat.c:409 src/msgcmp.c:241 src/msgcomm.c:400 src/msgfmt.c:716
 #: src/msgmerge.c:532
 #, c-format
 msgid ""
@@ -1285,12 +1300,12 @@ msgstr ""
 "      --stringtable-input     skladnja vhodnih datotek je NeXTstep/GNUstep \n"
 "                              .strings\n"
 
-#: src/msgcat.c:398 src/msgconv.c:321 src/msguniq.c:366
+#: src/msgcat.c:415 src/msgconv.c:320 src/msguniq.c:365
 #, c-format
 msgid "  -t, --to-code=NAME          encoding for output\n"
 msgstr "  -t, --to-code=NABOR      nabor znakov izhodne datoteke\n"
 
-#: src/msgcat.c:400 src/msguniq.c:368
+#: src/msgcat.c:417 src/msguniq.c:367
 #, c-format
 msgid ""
 "      --use-first             use first available translation for each\n"
@@ -1299,27 +1314,47 @@ msgstr ""
 "      --use-first          uporabimo prvi prevod sporočila, na katerega\n"
 "                             naletimo; ne združujemo več prevodov\n"
 
+#: src/msgcat.c:420
+#, c-format
+msgid ""
+"      --color                 use colors and other text attributes always\n"
+"      --color=WHEN            use colors and other text attributes if WHEN.\n"
+"                              WHEN may be 'always', 'never', 'auto', or "
+"'html'.\n"
+msgstr ""
+"      --color                 vedno uporabimo barve in druge besedilne "
+"atribute\n"
+"      --color=POGOJ           barve in druge besedilne atribute uporabimo "
+"pri\n"
+"                              POGOJU; POGOJ je lahko »always«, »never«, »auto«\n"
+"                              ali »html«\n"
+
+#: src/msgcat.c:424
+#, c-format
+msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
+msgstr "      --style=DATOTEKA-CSS    določi slogovna pravila CSS za --color\n"
+
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:168 src/msgcomm.c:275 src/msgmerge.c:328
+#: src/msgcmp.c:167 src/msgcomm.c:274 src/msgmerge.c:328
 msgid "Peter Miller"
 msgstr "Peter Miller"
 
-#: src/msgcmp.c:179 src/msgmerge.c:339
+#: src/msgcmp.c:178 src/msgmerge.c:339
 #, c-format
 msgid "no input files given"
 msgstr "vhodni datoteki nista podani"
 
-#: src/msgcmp.c:184 src/msgmerge.c:344
+#: src/msgcmp.c:183 src/msgmerge.c:344
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "potrebni sta natančno dve vhodni datoteki"
 
-#: src/msgcmp.c:203 src/msgmerge.c:453
+#: src/msgcmp.c:202 src/msgmerge.c:453
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Uporaba: %s [IZBIRA] def.po ref.po\n"
 
-#: src/msgcmp.c:208
+#: src/msgcmp.c:207
 #, c-format, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -1336,22 +1371,22 @@ msgstr ""
 "v programu.  Kadar ne najdemo natančnega ujemanja msgid, zaradi boljše\n"
 "diagnostike poskusimo z ohlapnim (fuzzy) algoritmom.\n"
 
-#: src/msgcmp.c:222
+#: src/msgcmp.c:221
 #, c-format
 msgid "  def.po                      translations\n"
 msgstr "  def.po                      prevodi\n"
 
-#: src/msgcmp.c:224
+#: src/msgcmp.c:223
 #, c-format
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot                     sklici na vire\n"
 
-#: src/msgcmp.c:229 src/msgmerge.c:519
+#: src/msgcmp.c:228 src/msgmerge.c:519
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "Modifikatorji delovanja:\n"
 
-#: src/msgcmp.c:231 src/msgmerge.c:521
+#: src/msgcmp.c:230 src/msgmerge.c:521
 #, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def."
@@ -1359,50 +1394,48 @@ msgid ""
 msgstr ""
 "  -m, --multi-domain          ref.po uporabimo na vseh domenah iz def.po\n"
 
-#: src/msgcmp.c:233
-#, fuzzy, c-format
+#: src/msgcmp.c:232
+#, c-format
 msgid "      --use-fuzzy             consider fuzzy entries\n"
 msgstr ""
-"  -f, --use-fuzzy             uporabimo ohlapne samodejno prevedene prevode\n"
+"      --use-fuzzy             uporabimo ohlapne samodejno prevedene prevode\n"
 
-#: src/msgcmp.c:235
-#, fuzzy, c-format
+#: src/msgcmp.c:234
+#, c-format
 msgid "      --use-untranslated      consider untranslated entries\n"
-msgstr ""
-"      --untranslated          obdržimo neprevedena sporočila, zavržemo "
-"prevedena\n"
+msgstr "      --use-untranslated      obdržimo neprevedena sporočila\n"
 
-#: src/msgcmp.c:306
-#, fuzzy, c-format
+#: src/msgcmp.c:309
+#, c-format
 msgid "this message is untranslated"
-msgstr "opozorilo: to sporočilo ni uporabljeno"
+msgstr "to sporočilo ni prevedeno"
 
-#: src/msgcmp.c:312
+#: src/msgcmp.c:315
 #, c-format
 msgid "this message needs to be reviewed by the translator"
-msgstr ""
+msgstr "to sporočilo mora pregledati prevajalec"
 
-#: src/msgcmp.c:328 src/msgmerge.c:1214
+#: src/msgcmp.c:331 src/msgmerge.c:1234
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "to sporočilo je uporabljeno, a ne definirano..."
 
-#: src/msgcmp.c:331 src/msgmerge.c:1217
+#: src/msgcmp.c:334 src/msgmerge.c:1237
 #, c-format
 msgid "...but this definition is similar"
 msgstr "...a ta definicija je podobna"
 
-#: src/msgcmp.c:336 src/msgmerge.c:1245
+#: src/msgcmp.c:339 src/msgmerge.c:1267
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "to sporočilo je uporabljeno, a ne definirano v %s"
 
-#: src/msgcmp.c:440
+#: src/msgcmp.c:443
 #, c-format
 msgid "warning: this message is not used"
 msgstr "opozorilo: to sporočilo ni uporabljeno"
 
-#: src/msgcmp.c:447 src/msgfmt.c:543
+#: src/msgcmp.c:450 src/msgfmt.c:541
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -1411,12 +1444,12 @@ msgstr[1] "%d kritična napaka"
 msgstr[2] "%d kritični napaki"
 msgstr[3] "%d kritične napake"
 
-#: src/msgcomm.c:304
+#: src/msgcomm.c:303
 #, c-format
 msgid "at least two files must be specified"
 msgstr "podani morata biti vsaj dve datoteki"
 
-#: src/msgcomm.c:352
+#: src/msgcomm.c:351
 #, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1435,7 +1468,7 @@ msgstr ""
 "pri izvlačenju se ohranijo samo iz prve podane datoteke PO. Mesta v datotekah \n"
 "se ohranijo iz vseh datotek PO.\n"
 
-#: src/msgcomm.c:390
+#: src/msgcomm.c:389
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1445,72 +1478,72 @@ msgstr ""
 "definicij\n"
 "                                 (privzeta vrednost je 1)\n"
 
-#: src/msgcomm.c:434 src/xgettext.c:875
+#: src/msgcomm.c:433 src/xgettext.c:899
 #, c-format
 msgid ""
 "      --omit-header           don't write header with `msgid \"\"' entry\n"
-msgstr "      --omit-header        brez glave z vnosom \"msgid\"\n"
+msgstr "      --omit-header           brez glave z vnosom »msgid \"\"«\n"
 
-#: src/msgconv.c:295
+#: src/msgconv.c:294
 #, c-format
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr "Pretvarjanje kataloga sporočil v drug kodni nabor.\n"
 
-#: src/msgconv.c:319
+#: src/msgconv.c:318
 #, c-format
 msgid "Conversion target:\n"
 msgstr "Cilj pretvorbe:\n"
 
-#: src/msgconv.c:323
+#: src/msgconv.c:322
 #, c-format
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "Privzeta vrednost je kodni nabor izbrane krajevne nastavitve.\n"
 
-#: src/msgconv.c:341 src/msgen.c:322 src/msgmerge.c:544
+#: src/msgconv.c:340 src/msgen.c:321 src/msgmerge.c:544
 #, c-format
 msgid "  -i, --indent                indented output style\n"
-msgstr "  -i, --indent             izpis datoteke PO z zamiki\n"
+msgstr "  -i, --indent                izpis datoteke PO z zamiki\n"
 
-#: src/msgconv.c:343 src/msgen.c:324 src/msgfilter.c:462 src/msggrep.c:586
+#: src/msgconv.c:342 src/msgen.c:323 src/msgfilter.c:457 src/msggrep.c:585
 #: src/msgmerge.c:546
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr ""
-"      --no-location        brez vrstic ,#: datoteka:vrstica` v izpisu\n"
+"      --no-location           brez vrstic »#: datoteka:vrstica« v izpisu\n"
 
-#: src/msgconv.c:345 src/msgen.c:326 src/msgfilter.c:464 src/msggrep.c:588
+#: src/msgconv.c:344 src/msgen.c:325 src/msgfilter.c:459 src/msggrep.c:587
 #: src/msgmerge.c:548
 #, c-format
 msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
 msgstr ""
-"      --add-location       z vrsticami ,#: datoteka:vrstica` v izpisu "
+"      --add-location          z vrsticami »#: datoteka:vrstica« v izpisu "
 "(privzeto)\n"
 
-#: src/msgconv.c:347 src/msgen.c:328 src/msgfilter.c:466 src/msggrep.c:590
+#: src/msgconv.c:346 src/msgen.c:327 src/msgfilter.c:461 src/msggrep.c:589
 #: src/msgmerge.c:550
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr ""
-"      --strict             izpis v strogi obliki Uniforum, brez razširitev "
-"GNU\n"
+"      --strict                izpis v strogi obliki Uniforum brez "
+"razširitev\n"
 
-#: src/msgen.c:229 src/msgfmt.c:383 src/xgettext.c:560
+#: src/msgen.c:228 src/msgfmt.c:381 src/xgettext.c:580
 #, c-format
 msgid "no input file given"
 msgstr "vhodna datoteka ni podana"
 
-#: src/msgen.c:234
+#: src/msgen.c:233
 #, c-format
 msgid "exactly one input file required"
 msgstr "zahtevana je natančno ena vhodna datoteka"
 
-#: src/msgen.c:275
+#: src/msgen.c:274
 #, c-format
 msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "Uporaba: %s [IZBIRA] VHODNA_DATOTEKA\n"
 
-#: src/msgen.c:280
+#: src/msgen.c:279
 #, c-format, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
@@ -1523,22 +1556,22 @@ msgstr ""
 "ukazom xgettext). Neprevedenim sporočilom se pripiše prevod, enak izvirniku\n"
 "msgid.\n"
 
-#: src/msgen.c:292
+#: src/msgen.c:291
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
 msgstr "  VHODNA_DATOTEKA             vhodna datoteka PO\n"
 
-#: src/msgexec.c:195
+#: src/msgexec.c:194
 #, c-format
 msgid "missing command name"
 msgstr "manjka ime ukaza"
 
-#: src/msgexec.c:241
+#: src/msgexec.c:240
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr "Uporaba: %s [IZBIRA] UKAZ [IZBIRA-UKAZA]\n"
 
-#: src/msgexec.c:246
+#: src/msgexec.c:245
 #, c-format, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -1552,51 +1585,51 @@ msgstr ""
 "prevod posebej. Izhod programa postane izhod programa msgexec. Izhodna\n"
 "koda programa msgexec je največja od izhodnih kod pri klicu ukaza.\n"
 
-#: src/msgexec.c:255
+#: src/msgexec.c:254
 #, c-format, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
 "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
 msgstr ""
-"Poseben vgrajen ukaz ,0` izpiše prevod in izpis zaključi z znakom s kodo nič.\n"
+"Poseben vgrajen ukaz »0« izpiše prevod in izpis zaključi z znakom s kodo nič.\n"
 "Izhod ukaza \"msgexec 0\" je primeren kot vhod za ukaz \"xargs -0\".\n"
 
-#: src/msgexec.c:265 src/msgfilter.c:413
+#: src/msgexec.c:264 src/msgfilter.c:408
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr "  -i, --input=DATOTEKA        vhodna datoteka PO\n"
 
-#: src/msgexec.c:325
+#: src/msgexec.c:328
 #, c-format
 msgid "write to stdout failed"
 msgstr "izpis na standardni izhod neuspešen"
 
-#: src/msgexec.c:352 src/msgfilter.c:665
+#: src/msgexec.c:355 src/msgfilter.c:664
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "posredovanje podatkov podprocesu %s neuspešno"
 
-#: src/msgfilter.c:301
+#: src/msgfilter.c:296
 #, c-format
 msgid "missing filter name"
 msgstr "manjka ime filtra"
 
-#: src/msgfilter.c:325
+#: src/msgfilter.c:320
 #, c-format
 msgid "at least one sed script must be specified"
 msgstr "podan mora biti vsaj en skript v sed"
 
-#: src/msgfilter.c:400
+#: src/msgfilter.c:395
 #, c-format
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Uporaba: %s [IZBIRA] FILTER [IZBIRA-FILTRA]\n"
 
-#: src/msgfilter.c:404
+#: src/msgfilter.c:399
 #, c-format
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Na vsakem prevodu iz kataloga uporabimo dani filter.\n"
 
-#: src/msgfilter.c:428
+#: src/msgfilter.c:423
 #, c-format
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -1605,18 +1638,18 @@ msgstr ""
 "FILTER je lahko ime kateregakoli programa, ki prebere prevod s standardnega\n"
 "vhoda in izpiše spremnjen prevod na standardni izhod.\n"
 
-#: src/msgfilter.c:433
+#: src/msgfilter.c:428
 #, c-format
 msgid "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
-msgstr "Uporabne IZBIRE FILTRA, kadar je FILTER ,sed`:\n"
+msgstr "Uporabne IZBIRE FILTRA, kadar je FILTER »sed«:\n"
 
-#: src/msgfilter.c:435
+#: src/msgfilter.c:430
 #, c-format
 msgid ""
 "  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
 msgstr "  -e, --expression=SKRIPT     dodaj SKRIPT med ukaze, ki se izvedejo\n"
 
-#: src/msgfilter.c:437
+#: src/msgfilter.c:432
 #, c-format
 msgid ""
 "  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the "
@@ -1626,14 +1659,14 @@ msgstr ""
 "  -f, --file=SKRIPTNA_DATOTEKA  dodaj vsebino SKRIPTNE DATOTEKE med ukaze,\n"
 "                                ki se izvedejo\n"
 
-#: src/msgfilter.c:440
+#: src/msgfilter.c:435
 #, c-format
 msgid ""
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
 "  -n, --quiet, --silent       brez samodejnega izpisa prostora vzorcev\n"
 
-#: src/msgfilter.c:452 src/msggrep.c:578
+#: src/msgfilter.c:447 src/msggrep.c:577
 #, c-format
 msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
@@ -1641,80 +1674,80 @@ msgstr ""
 "      --no-escape          brez ubežnih sekvenc v skladnji jezika C "
 "(privzeto)\n"
 
-#: src/msgfilter.c:458 src/msggrep.c:584
+#: src/msgfilter.c:453 src/msggrep.c:583
 #, c-format
 msgid "      --indent                indented output style\n"
 msgstr "      --indent             izpis datoteke PO z zamiki\n"
 
-#: src/msgfilter.c:460
+#: src/msgfilter.c:455
 #, c-format
 msgid ""
 "      --keep-header           keep header entry unmodified, don't filter it\n"
 msgstr ""
 "      --keep-header        ohrani glavo nespremenjeno, ne filtriraj je\n"
 
-#: src/msgfilter.c:588
+#: src/msgfilter.c:587
 #, c-format
 msgid "Not yet implemented."
 msgstr "Funkcija še ni izvedena."
 
-#: src/msgfilter.c:617
+#: src/msgfilter.c:616
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "s podprocesom %s ni mogoče vzpostaviti nebločne V/I povezave"
 
-#: src/msgfilter.c:645
+#: src/msgfilter.c:644
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "povezava s podprocesom %s neuspešna"
 
-#: src/msgfilter.c:696
+#: src/msgfilter.c:695
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "branje izhoda podprocesa %s neuspešno"
 
-#: src/msgfilter.c:712
+#: src/msgfilter.c:711
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "podproces %s zaključil z izhodno kodo %d"
 
-#: src/msgfmt.c:305
+#: src/msgfmt.c:302
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "argument %s mora biti eno samo ločilo"
 
-#: src/msgfmt.c:352
+#: src/msgfmt.c:349
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "neveljaven vrstni red bajtov: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:372 src/msgunfmt.c:257 src/xgettext.c:522
+#: src/msgfmt.c:370 src/msgunfmt.c:256 src/xgettext.c:536
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/msgfmt.c:425 src/msgfmt.c:447 src/msgfmt.c:469 src/msgunfmt.c:319
-#: src/msgunfmt.c:342
+#: src/msgfmt.c:423 src/msgfmt.c:445 src/msgfmt.c:467 src/msgunfmt.c:318
+#: src/msgunfmt.c:341
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s zahteva določitev \"-d directory\""
 
-#: src/msgfmt.c:440 src/msgfmt.c:462 src/msgunfmt.c:312 src/msgunfmt.c:335
+#: src/msgfmt.c:438 src/msgfmt.c:460 src/msgunfmt.c:311 src/msgunfmt.c:334
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s zahteva določitev \"-l locale\""
 
-#: src/msgfmt.c:478 src/msgunfmt.c:351 src/msgunfmt.c:357
+#: src/msgfmt.c:476 src/msgunfmt.c:350 src/msgunfmt.c:356
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s je veljavno edino z %s ali %s"
 
-#: src/msgfmt.c:484 src/msgfmt.c:490
+#: src/msgfmt.c:482 src/msgfmt.c:488
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr "%s je veljavno edino z %s, %s ali %s"
 
-#: src/msgfmt.c:601
+#: src/msgfmt.c:599
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
@@ -1723,7 +1756,7 @@ msgstr[1] "%d prevedeno sporočilo"
 msgstr[2] "%d prevedeni sporočili"
 msgstr[3] "%d prevedena sporočila"
 
-#: src/msgfmt.c:606
+#: src/msgfmt.c:604
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
@@ -1732,7 +1765,7 @@ msgstr[1] ", %d ohlapni prevod"
 msgstr[2] ", %d ohlapna prevoda"
 msgstr[3] ", %d ohlapni prevodi"
 
-#: src/msgfmt.c:611
+#: src/msgfmt.c:609
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
@@ -1741,17 +1774,17 @@ msgstr[1] ", %d neprevedeno sporočilo"
 msgstr[2] ", %d neprevedeni sporočili"
 msgstr[3] ", %d neprevedena sporočila"
 
-#: src/msgfmt.c:631
+#: src/msgfmt.c:629
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "Uporaba: %s [IZBIRA] datoteka.po ...\n"
 
-#: src/msgfmt.c:635
+#: src/msgfmt.c:633
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr "Besedilni opis prevodov pretvorimo v binarni katalog sporočil.\n"
 
-#: src/msgfmt.c:640 src/xgettext.c:751
+#: src/msgfmt.c:638 src/xgettext.c:771
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -1760,17 +1793,17 @@ msgstr ""
 "Če je pri dolgi obliki izbire naveden obvezen argument, je ta obvezen\n"
 "tudi za kratko obliko. Enako za neobvezne argumente.\n"
 
-#: src/msgfmt.c:647
+#: src/msgfmt.c:645
 #, c-format
 msgid "  filename.po ...             input files\n"
 msgstr "  datoteka.po ...             vhodne datoteke\n"
 
-#: src/msgfmt.c:654 src/msgmerge.c:485 src/msgunfmt.c:427 src/xgettext.c:799
+#: src/msgfmt.c:652 src/msgmerge.c:485 src/msgunfmt.c:426 src/xgettext.c:819
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Način delovanja:\n"
 
-#: src/msgfmt.c:656
+#: src/msgfmt.c:654
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
@@ -1779,7 +1812,7 @@ msgstr ""
 "  -j, --java                  javanski način: ustvarimo javanski razred\n"
 "                                ResourceBundle\n"
 
-#: src/msgfmt.c:658
+#: src/msgfmt.c:656
 #, c-format
 msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
@@ -1788,12 +1821,12 @@ msgstr ""
 "      --java2                 kot --java, privzeta je java2 (JDK 1.2 ali "
 "več)\n"
 
-#: src/msgfmt.c:660
+#: src/msgfmt.c:658
 #, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
 msgstr "      --csharp                način C#: ustvarimo .NET-datoteko .dll\n"
 
-#: src/msgfmt.c:662
+#: src/msgfmt.c:660
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
@@ -1801,43 +1834,43 @@ msgid ""
 msgstr ""
 "      --csharp-resources      način C#: ustvarimo .NET-datoteko z viri\n"
 
-#: src/msgfmt.c:664
+#: src/msgfmt.c:662
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 "      --tcl                   način tcl: ustvarimo datoteko tcl/msgcat .msg\n"
 
-#: src/msgfmt.c:666
+#: src/msgfmt.c:664
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr "      --qt                    način Qt: ustvarimo datoteko .qm za Qt\n"
 
-#: src/msgfmt.c:673
+#: src/msgfmt.c:671
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr ""
 "      --strict                izpis v strogi obliki Uniforum brez razširitev "
 "GNU\n"
 
-#: src/msgfmt.c:675 src/xgettext.c:775
+#: src/msgfmt.c:673 src/xgettext.c:795
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr ""
 "Če je izhodna datoteka enaka -, se rezultat izpiše na standardni izhod.\n"
 
-#: src/msgfmt.c:678
+#: src/msgfmt.c:676
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "Izbira izhodne datoteke v javanskem načinu:\n"
 
-#: src/msgfmt.c:680 src/msgfmt.c:694 src/msgunfmt.c:447 src/msgunfmt.c:458
+#: src/msgfmt.c:678 src/msgfmt.c:692 src/msgunfmt.c:446 src/msgunfmt.c:457
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=SREDSTVO     ime sredstva\n"
 
-#: src/msgfmt.c:682 src/msgfmt.c:696 src/msgfmt.c:706 src/msgunfmt.c:449
-#: src/msgunfmt.c:460 src/msgunfmt.c:470
+#: src/msgfmt.c:680 src/msgfmt.c:694 src/msgfmt.c:704 src/msgunfmt.c:448
+#: src/msgunfmt.c:459 src/msgunfmt.c:469
 #, c-format
 msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
@@ -1845,13 +1878,13 @@ msgid ""
 msgstr ""
 "  -l, --locale=JJ_DD          jezikovno okolje (jezik ali jezik_država)\n"
 
-#: src/msgfmt.c:684
+#: src/msgfmt.c:682
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
 msgstr "  -d IMENIK                   korenski imenik hierarhije razredov\n"
 
-#: src/msgfmt.c:686
+#: src/msgfmt.c:684
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -1865,12 +1898,12 @@ msgstr ""
 "podani\n"
 "imenik.\n"
 
-#: src/msgfmt.c:692
+#: src/msgfmt.c:690
 #, c-format
 msgid "Output file location in C# mode:\n"
 msgstr "Položaj izhodne datoteke v načinu C#:\n"
 
-#: src/msgfmt.c:698 src/msgunfmt.c:462
+#: src/msgfmt.c:696 src/msgunfmt.c:461
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory for locale dependent .dll "
@@ -1879,7 +1912,7 @@ msgstr ""
 "  -d IMENIK                   korenski imenik za krajevno odvisne datoteke ."
 "dll\n"
 
-#: src/msgfmt.c:700
+#: src/msgfmt.c:698
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
@@ -1888,17 +1921,17 @@ msgstr ""
 "Izbiri -l in -d sta obvezni. Datoteka .dll se zapiše v podimenik podanega\n"
 "imenika; ime podimenika ustreza oznaki izbrane krajevne prilagoditve.\n"
 
-#: src/msgfmt.c:704
+#: src/msgfmt.c:702
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Izbira izhodne datoteke v načinu tcl:\n"
 
-#: src/msgfmt.c:708 src/msgunfmt.c:472
+#: src/msgfmt.c:706 src/msgunfmt.c:471
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr "  -d IMENIK                   korenski imenik hierarhije razredov\n"
 
-#: src/msgfmt.c:710
+#: src/msgfmt.c:708
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
@@ -1906,12 +1939,12 @@ msgid ""
 msgstr ""
 "Izbiri -l in  -d sta obvezni. Datoteka .msg se zapiše v podani imenik.\n"
 
-#: src/msgfmt.c:722 src/xgettext.c:791
+#: src/msgfmt.c:720 src/xgettext.c:811
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "Interpretacija vhodne datoteke:\n"
 
-#: src/msgfmt.c:724
+#: src/msgfmt.c:722
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -1922,20 +1955,20 @@ msgstr ""
 "                                --check-format, --check-header, --check-"
 "domain\n"
 
-#: src/msgfmt.c:727
+#: src/msgfmt.c:725
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 "      --check-format          preverimo od jezika odvisne formatne nize\n"
 
-#: src/msgfmt.c:729
+#: src/msgfmt.c:727
 #, c-format
 msgid ""
 "      --check-header          verify presence and contents of the header "
 "entry\n"
 msgstr "      --check-header          preverimo obstoj in vsebino glave\n"
 
-#: src/msgfmt.c:731
+#: src/msgfmt.c:729
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
@@ -1944,7 +1977,7 @@ msgstr ""
 "      --check-domain          preverimo morebitna nesoglasja med direktivo\n"
 "                                domene in izbiro --output-file\n"
 
-#: src/msgfmt.c:734
+#: src/msgfmt.c:732
 #, c-format
 msgid ""
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
@@ -1953,7 +1986,7 @@ msgstr ""
 "  -C, --check-compatibility   preverimo združljivost GNU gettext z X/Open "
 "msgfmt\n"
 
-#: src/msgfmt.c:736
+#: src/msgfmt.c:734
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
@@ -1963,13 +1996,13 @@ msgstr ""
 "      --check-accelerators[=ZNAK]  preverimo, ali obstajajo bližnjice za\n"
 "                                menujske izbire\n"
 
-#: src/msgfmt.c:739
+#: src/msgfmt.c:737
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr ""
 "  -f, --use-fuzzy             uporabimo ohlapne samodejno prevedene prevode\n"
 
-#: src/msgfmt.c:744
+#: src/msgfmt.c:742
 #, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
@@ -1977,7 +2010,7 @@ msgstr ""
 "  -a, --alignment=ŠTEVILO     poravnava nizov na dano ŠTEVILO bajtov "
 "(privzeto %d)\n"
 
-#: src/msgfmt.c:746
+#: src/msgfmt.c:744
 #, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
@@ -1985,86 +2018,85 @@ msgstr ""
 "      --no-hash               binarni katalog sporočil bo brez razpršene "
 "tabele\n"
 
-#: src/msgfmt.c:755
+#: src/msgfmt.c:753
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            s statistiko glede prevodov\n"
 
-#: src/msgfmt.c:757 src/msgmerge.c:572 src/msgunfmt.c:516
+#: src/msgfmt.c:755 src/msgmerge.c:572 src/msgunfmt.c:515
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               z dodatnimi sporočili med izvajanjem\n"
 
-#: src/msgfmt.c:867
+#: src/msgfmt.c:869
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "opozorilo: glava datoteke PO ni veljavna ali pa manjka\n"
 
-#: src/msgfmt.c:870
+#: src/msgfmt.c:872
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "opozorilo: pretvorba v navedeni nabor znakov ne bo delovala\n"
 
-#: src/msgfmt.c:880
+#: src/msgfmt.c:882
 #, c-format
 msgid "warning: PO file header fuzzy\n"
 msgstr "opozorilo: glava datoteke PO ni razberljiva\n"
 
-#: src/msgfmt.c:882
+#: src/msgfmt.c:884
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "opozorilo: starejše izdaje msgfmt bodo pri tem javile napako\n"
 
-#: src/msgfmt.c:906
+#: src/msgfmt.c:908
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke"
 
-#: src/msgfmt.c:911
+#: src/msgfmt.c:913
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "ime domene \"%s\" ni primerno kot ime datoteke: uporabimo predpono"
 
-#: src/msgfmt.c:925
+#: src/msgfmt.c:927
 #, c-format
 msgid "`domain %s' directive ignored"
 msgstr "direktiva »domain %s« ni bila upoštevana"
 
-#: src/msgfmt.c:985
+#: src/msgfmt.c:987
 #, c-format
 msgid "empty `msgstr' entry ignored"
 msgstr "prazno polje »msgstr« zavrženo"
 
-#: src/msgfmt.c:986
+#: src/msgfmt.c:988
 #, c-format
 msgid "fuzzy `msgstr' entry ignored"
 msgstr "ohlapni vnos za polje »msgstr« zavržen"
 
-#: src/msgfmt.c:1035
+#: src/msgfmt.c:1037
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: opozorilo: vhodna datoteka vsebuje ohlapne (fuzzy) prevode"
 
-#: src/msggrep.c:257 src/po-lex.c:660 src/read-mo.c:82
-#: src/read-properties.c:85 src/read-stringtable.c:100 src/x-awk.c:139
-#: src/x-c.c:414 src/x-csharp.c:159 src/x-elisp.c:145 src/x-glade.c:422
-#: src/x-java.c:172 src/x-librep.c:147 src/x-lisp.c:212 src/x-perl.c:226
-#: src/x-perl.c:301 src/x-perl.c:394 src/x-php.c:162 src/x-python.c:176
-#: src/x-rst.c:232 src/x-scheme.c:171 src/x-sh.c:155 src/x-smalltalk.c:91
-#: src/x-tcl.c:150 src/x-ycp.c:91
+#: src/msggrep.c:255 src/po-lex.c:658 src/read-mo.c:86
+#: src/read-properties.c:89 src/read-stringtable.c:98 src/x-awk.c:140
+#: src/x-c.c:455 src/x-csharp.c:164 src/x-elisp.c:146 src/x-glade.c:604
+#: src/x-java.c:182 src/x-librep.c:148 src/x-lisp.c:213 src/x-perl.c:226
+#: src/x-perl.c:301 src/x-perl.c:394 src/x-php.c:164 src/x-python.c:175
+#: src/x-rst.c:234 src/x-scheme.c:172 src/x-sh.c:156 src/x-smalltalk.c:92
+#: src/x-tcl.c:151 src/x-ycp.c:92
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "napaka pri branju \"%s\""
 
-#: src/msggrep.c:485
+#: src/msggrep.c:484
 #, c-format
 msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
-msgstr ""
-"izbire »%c« ni moč uporabiti, preden je izbrano »J«, »K«, »T«, »C« ali »X«"
+msgstr "izbire »%c« ni moč uporabiti, preden je izbrano »J«, »K«, »T«, »C« ali »X«"
 
-#: src/msggrep.c:505
+#: src/msggrep.c:504
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -2073,7 +2105,7 @@ msgstr ""
 "Izvlečemo vsa sporočila iz kataloga prevodov, ki ustrezajo danemu vzorcu ali\n"
 "pripadajo dani izvorni datoteki.\n"
 
-#: src/msggrep.c:531
+#: src/msggrep.c:530
 #, c-format, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2154,7 +2186,7 @@ msgstr ""
 "  -v, --invert-match          izpiši le sporočila, ki ne ustrezajo nobenemu\n"
 "                              od podanih kriterijev\n"
 
-#: src/msggrep.c:580
+#: src/msggrep.c:579
 #, c-format
 msgid ""
 "      --escape                use C escapes in output, no extended chars\n"
@@ -2162,18 +2194,18 @@ msgstr ""
 "      --escape             z ubežnimi sekvencami v skladnji C, brez \n"
 "                             razširjenega nabora znakov\n"
 
-#: src/msggrep.c:601
+#: src/msggrep.c:600
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
 msgstr "      --sort-output        izhod abecedno urejen po sporočilih\n"
 
-#: src/msggrep.c:603
+#: src/msggrep.c:602
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr ""
 "      --sort-by-file       izhod abecedno urejen po izvornih datotekah\n"
 
-#: src/msginit.c:288
+#: src/msginit.c:285
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -2183,7 +2215,7 @@ msgstr ""
 "spremenljivko LANG, kot je opisano v datoteki ABOUT-NLS.\n"
 "Brez tega ne morete preizkusiti vaših prevodov.\n"
 
-#: src/msginit.c:312
+#: src/msginit.c:309
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2194,12 +2226,12 @@ msgstr ""
 "Prosim, izberite jezikovno okolje z izbiro --locale, ali pa\n"
 "določite izhodno datoteko PO z izbiro --output-file.\n"
 
-#: src/msginit.c:338
+#: src/msginit.c:335
 #, c-format
 msgid "Created %s.\n"
 msgstr "Ustvarjena datoteka %s.\n"
 
-#: src/msginit.c:358
+#: src/msginit.c:355
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -2208,12 +2240,12 @@ msgstr ""
 "Ustvarimo novo datoteko PO in metainformacije dopolnimo z vrednostmi iz\n"
 "uporabnikovega jezikovnega okolja.\n"
 
-#: src/msginit.c:368
+#: src/msginit.c:365
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=DATOTEKA        vhodna datoteka POT\n"
 
-#: src/msginit.c:370
+#: src/msginit.c:367
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2224,12 +2256,12 @@ msgstr ""
 "imeniku.\n"
 "Če je enaka -, se bere standardni vhod.\n"
 
-#: src/msginit.c:376
+#: src/msginit.c:373
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr "  -o, --output-file=DATOTEKA  izhod zapisujemo v navedeno DATOTEKO\n"
 
-#: src/msginit.c:378
+#: src/msginit.c:375
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2239,12 +2271,12 @@ msgstr ""
 "nastavitev uporabnikovega jezikovnega okolja. Če je kot izhodna datoteka \n"
 "podan -, se rezultat izpiše na standardni izhod.\n"
 
-#: src/msginit.c:391
+#: src/msginit.c:388
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
 msgstr "  -l, --locale=JJ_DD          določitev ciljnega jezikovnega okolja\n"
 
-#: src/msginit.c:393
+#: src/msginit.c:390
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
@@ -2252,7 +2284,7 @@ msgstr ""
 "      --no-translator         privzamemo, da je datoteka PO samodejno "
 "ustvarjena\n"
 
-#: src/msginit.c:449
+#: src/msginit.c:450
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2260,12 +2292,12 @@ msgstr ""
 "Našli smo več kot eno datoteko .pot.\n"
 "Prosim, določite vhodno datoteko .pot z izbiro --input.\n"
 
-#: src/msginit.c:457 src/msginit.c:462
+#: src/msginit.c:458 src/msginit.c:463
 #, c-format
 msgid "error reading current directory"
 msgstr "napaka pri branju trenutnega imenika"
 
-#: src/msginit.c:470
+#: src/msginit.c:471
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2273,14 +2305,14 @@ msgstr ""
 "V trenutnem imeniku ni najti nobene datoteke .pot.\n"
 "Prosim, določite vhodno datoteko .pot z izbiro --input.\n"
 
-#: src/msginit.c:859 src/msginit.c:927 src/msginit.c:1086 src/msginit.c:1165
-#: src/read-csharp.c:84 src/read-java.c:82 src/read-resources.c:85
-#: src/read-tcl.c:128 src/write-resources.c:105
+#: src/msginit.c:860 src/msginit.c:935 src/msginit.c:1095 src/msginit.c:1190
+#: src/read-csharp.c:82 src/read-java.c:80 src/read-resources.c:83
+#: src/read-tcl.c:126 src/write-resources.c:103
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "podproces %s neuspešen z izhodno kodo %d"
 
-#: src/msginit.c:1051
+#: src/msginit.c:1060
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2295,49 +2327,49 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1438
+#: src/msginit.c:1465
 #, c-format
 msgid "English translations for %s package"
 msgstr "Slovenski prevodi paketa %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:88 src/msgl-iconv.c:226
+#: src/msgl-cat.c:176 src/msgl-charset.c:87 src/msgl-iconv.c:225
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "trenutno izbrani nabor \"%s\" ni prenosljivo ime kodnega nabora"
 
-#: src/msgl-cat.c:190 src/msgl-iconv.c:238
+#: src/msgl-cat.c:187 src/msgl-iconv.c:237
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "v vhodni datoteki sta dva različna nabora znakov, \"%s\" in \"%s\""
 
-#: src/msgl-cat.c:205
+#: src/msgl-cat.c:202
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
-msgstr "vhodna datoteka ,%s` ne vsebuje glave z določitvijo nabora znakov"
+msgstr "vhodna datoteka »%s« ne vsebuje glave z določitvijo nabora znakov"
 
-#: src/msgl-cat.c:209
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
-"domena \"%s\" v vhodni datoteki ,%s` ne vsebuje glave z določitvijo nabora "
-"znakov<"
+"domena \"%s\" v vhodni datoteki »%s« ne vsebuje glave z določitvijo nabora "
+"znakov"
 
-#: src/msgl-cat.c:392 src/msgl-iconv.c:343
+#: src/msgl-cat.c:388 src/msgl-iconv.c:360
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "ciljni nabor \"%s\" ni prenosljivo ime kodnega nabora."
 
-#: src/msgl-cat.c:443 src/msgl-cat.c:449 src/msgl-charset.c:94
-#: src/msgl-charset.c:129 src/po-xerror.c:123 src/po-xerror.c:148
-#: src/xgettext.c:2778
+#: src/msgl-cat.c:439 src/msgl-cat.c:445 src/msgl-charset.c:93
+#: src/msgl-charset.c:128 src/po-xerror.c:121 src/po-xerror.c:146
+#: src/xgettext.c:2827
 #, c-format
 msgid "warning: "
 msgstr "opozorilo: "
 
-#: src/msgl-cat.c:444
+#: src/msgl-cat.c:440
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2347,7 +2379,7 @@ msgstr ""
 "UTF8.\n"
 "Izhod je pretvorjen v UTF8.\n"
 
-#: src/msgl-cat.c:450
+#: src/msgl-cat.c:446
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -2360,7 +2392,7 @@ msgstr ""
 "Izhod je pretvorjen v UTF8.\n"
 "Drugačen kodni nabor lahko določite z izbiro --to-code.\n"
 
-#: src/msgl-cat.c:489
+#: src/msgl-cat.c:485
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -2375,7 +2407,7 @@ msgstr ""
 "so kodirani skladno z UTF-8 od samega začetka, torej v datotekah z izvorno "
 "kodo.\n"
 
-#: src/msgl-charset.c:95
+#: src/msgl-charset.c:94
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -2385,15 +2417,15 @@ msgid ""
 msgstr ""
 "Kodni nabor jezikovnega okolja \"%s\" se razlikuje od\n"
 "kodnega nabora \"%s\" vhodne datoteke.\n"
-"Izhod ,%s` bo morda napačen.\n"
+"Izhod »%s« bo morda napačen.\n"
 "Predlagane rešitve za to težavo so:\n"
 
-#: src/msgl-charset.c:102
+#: src/msgl-charset.c:101
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- Nastavite LC_ALL na jezikovno okolje s kodnim naborom %s.\n"
 
-#: src/msgl-charset.c:107
+#: src/msgl-charset.c:106
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -2401,10 +2433,10 @@ msgid ""
 "  then convert back to %s using 'msgconv'.\n"
 msgstr ""
 "- Katalog prevodov z ukazom ,msgconv` pretvorite v %s,\n"
-"  zatem uporabite ,%s`,\n"
-"  in ga končno z ukazom ,msgconv` pretvorite nazaj v %s.\n"
+"  zatem uporabite »%s«,\n"
+"  in ga končno z ukazom »msgconv« pretvorite nazaj v %s.\n"
 
-#: src/msgl-charset.c:116
+#: src/msgl-charset.c:115
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -2414,10 +2446,10 @@ msgid ""
 msgstr ""
 "- Nastavite LC_ALL na jezikovno okolje s kodnim naborom %s,\n"
 "  katalog prevodov z ukazom ,msgconv` pretvorite v %s,\n"
-"  zatem uporabite ,%s`,\n"
-"  in ga končno z ukazom ,msgconv` pretvorite nazaj v %s.\n"
+"  zatem uporabite »%s«,\n"
+"  in ga končno z ukazom »msgconv« pretvorite nazaj v %s.\n"
 
-#: src/msgl-charset.c:130
+#: src/msgl-charset.c:129
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -2425,28 +2457,28 @@ msgid ""
 "A possible workaround is to set LC_ALL=C.\n"
 msgstr ""
 "Nabor jezikovnega okolja \"%s\" ni prenosljivo ime kodnega nabora.\n"
-"Izhod ,%s` bo morda napačen.\n"
+"Izhod »%s« bo morda napačen.\n"
 "Mogoča rešitev za to težavo je, da nastavite LC_ALL=C.\n"
 
-#: src/msgl-check.c:92
+#: src/msgl-check.c:93
 msgid "plural expression can produce negative values"
 msgstr "rezultat izraza za izbiro množinske oblike je lahko negativna vrednost"
 
-#: src/msgl-check.c:102
+#: src/msgl-check.c:103
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr ""
 "nplurals = %lu, izraz za izbiro množinske oblike pa lahko da vrednosti do %lu"
 
-#: src/msgl-check.c:143
+#: src/msgl-check.c:147
 msgid "plural expression can produce division by zero"
 msgstr "izraz za izbiro množinske oblike lahko povzroči deljenje z nič"
 
-#: src/msgl-check.c:148
+#: src/msgl-check.c:152
 msgid "plural expression can produce integer overflow"
 msgstr "izraz za izbiro množinske oblike lahko povzroči prekoračitev obsega"
 
-#: src/msgl-check.c:153
+#: src/msgl-check.c:157
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
@@ -2454,32 +2486,32 @@ msgstr ""
 "izraz za izbiro množinske oblike lahko povzroči aritmetične napake, morda\n"
 "deljenje z nič"
 
-#: src/msgl-check.c:185
+#: src/msgl-check.c:189
 #, c-format
 msgid "Try using the following, valid for %s:"
 msgstr "Poskusite uporabiti naslednje, veljavno za %s:"
 
-#: src/msgl-check.c:268 src/msgl-check.c:292
+#: src/msgl-check.c:276 src/msgl-check.c:300
 msgid "message catalog has plural form translations"
 msgstr "katalog sporočil vsebuje množinske oblike prevodov,"
 
-#: src/msgl-check.c:270
+#: src/msgl-check.c:278
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "v glavi pa manjka določilo \"plural=IZRAZ\""
 
-#: src/msgl-check.c:294
+#: src/msgl-check.c:302
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "v glavi pa manjka določilo \"nplurals=ŠTEVILO\""
 
-#: src/msgl-check.c:330
+#: src/msgl-check.c:338
 msgid "invalid nplurals value"
 msgstr "neveljavna vrednost nplurals"
 
-#: src/msgl-check.c:352
+#: src/msgl-check.c:360
 msgid "invalid plural expression"
 msgstr "neveljaven izraz za množinske oblike"
 
-#: src/msgl-check.c:382 src/msgl-check.c:398
+#: src/msgl-check.c:390 src/msgl-check.c:406
 #, c-format
 msgid "nplurals = %lu"
 msgstr "nplurals = %lu"
@@ -2489,7 +2521,7 @@ msgstr "nplurals = %lu"
 # msgstr[1] "...nekatera sporočila pa imajo samo %lu množinsko obliko"
 # msgstr[2] "...nekatera sporočila pa imajo samo %lu množinski obliki"
 # msgstr[3] "...nekatera sporočila pa imajo samo %lu množinske oblike"
-#: src/msgl-check.c:384
+#: src/msgl-check.c:392
 #, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
@@ -2503,7 +2535,7 @@ msgstr[3] "nekatera sporočila pa imajo samo %lu množinske oblike"
 # msgstr[1] "...nekatera sporočila pa imajo %lu množinsko obliko"
 # msgstr[2] "...nekatera sporočila pa imajo %lu množinski obliki"
 # msgstr[3] "...nekatera sporočila pa imajo %lu množinske oblike"
-#: src/msgl-check.c:400
+#: src/msgl-check.c:408
 #, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
@@ -2512,7 +2544,7 @@ msgstr[1] "nekatera sporočila pa imajo %lu množinsko obliko"
 msgstr[2] "nekatera sporočila pa imajo %lu množinski obliki"
 msgstr[3] "nekatera sporočila pa imajo %lu množinske oblike"
 
-#: src/msgl-check.c:420
+#: src/msgl-check.c:432
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
@@ -2520,81 +2552,81 @@ msgstr ""
 "katalog sporočil vsebuje množinske oblike, manjka pa glava z določili\n"
 "\"Plural-Forms: nplurals=ŠTEVILO; plural=IZRAZ;\""
 
-#: src/msgl-check.c:502
+#: src/msgl-check.c:526
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "polji ,msgid` in ,msgid_plural` se ne začneta obe z ,\\n`"
 
-#: src/msgl-check.c:510
+#: src/msgl-check.c:534
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "polji ,msgid` in ,msgstr[%u]` se ne začneta obe z ,\\n`"
+msgstr "polji »msgid« in »msgstr[%u]« se ne začneta obe z »\\n«"
 
-#: src/msgl-check.c:525
+#: src/msgl-check.c:549
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
-msgstr "polji ,msgid` in ,msgstr` se ne začneta obe z ,\\n`"
+msgstr "polji »msgid« in »msgstr« se ne začneta obe z »\\n«"
 
-#: src/msgl-check.c:543
+#: src/msgl-check.c:567
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
-msgstr "polji ,msgid` in ,msgid_plural` se ne končata obe z ,\\n`"
+msgstr "polji »msgid« in »msgid_plural« se ne končata obe z »\\n«"
 
-#: src/msgl-check.c:551
+#: src/msgl-check.c:575
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
-msgstr "polji ,msgid` in ,msgstr[%u]` se ne končata obe z ,\\n`"
+msgstr "polji »msgid« in »msgstr[%u]« se ne končata obe z »\\n«"
 
-#: src/msgl-check.c:566
+#: src/msgl-check.c:590
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
-msgstr "polji ,msgid' in ,msgstr` se ne končata obe z ,\\n`"
+msgstr "polji »msgid« in »msgstr« se ne končata obe z »\\n«"
 
-#: src/msgl-check.c:578
+#: src/msgl-check.c:602
 msgid "plural handling is a GNU gettext extension"
 msgstr "rokovanje z množinskimi oblikami je razširitev GNU gettext"
 
-#: src/msgl-check.c:620
+#: src/msgl-check.c:645
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
-msgstr "v msgstr manjka oznaka bližnjice ,%c`"
+msgstr "v msgstr manjka oznaka bližnjice »%c«"
 
-#: src/msgl-check.c:630
+#: src/msgl-check.c:655
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
-msgstr "v msgstr je preveč oznak bližnjic ,%c`"
+msgstr "v msgstr je preveč oznak bližnjic »%c«"
 
-#: src/msgl-check.c:670
+#: src/msgl-check.c:695
 #, c-format
 msgid "headerfield `%s' missing in header\n"
-msgstr "v glavi manjka polje ,%s`\n"
+msgstr "v glavi manjka polje »%s«\n"
 
-#: src/msgl-check.c:678
+#: src/msgl-check.c:703
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "polje ,%s` v glavi se mora začeti na začetku vrstice\n"
+msgstr "polje »%s« v glavi se mora začeti na začetku vrstice\n"
 
-#: src/msgl-check.c:692
+#: src/msgl-check.c:717
 msgid "some header fields still have the initial default value\n"
 msgstr "nekatera polja v glavi imajo še vedno začetne privzete vrednosti\n"
 
-#: src/msgl-check.c:705
+#: src/msgl-check.c:730
 #, c-format
 msgid "field `%s' still has initial default value\n"
-msgstr "polje ,%s' ima še vedno začetno privzeto vrednost\n"
+msgstr "polje »%s« ima še vedno začetno privzeto vrednost\n"
 
-#: src/msgl-iconv.c:65
+#: src/msgl-iconv.c:64
 #, c-format
 msgid "%s: input is not valid in \"%s\" encoding"
 msgstr "%s: vhod ni veljaven v kodnem naboru »%s«"
 
-#: src/msgl-iconv.c:69
+#: src/msgl-iconv.c:68
 #, c-format
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: napaka pri pretvorbi iz nabora znakov \"%s\" v nabor \"%s\""
 
-#: src/msgl-iconv.c:262
+#: src/msgl-iconv.c:268
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "v vhodni datoteki manjka glava z določilom kodnega nabora"
 
-#: src/msgl-iconv.c:284 src/recode-sr-latin.c:284 src/recode-sr-latin.c:289
-#: src/x-python.c:618 src/xgettext.c:618
+#: src/msgl-iconv.c:290 src/recode-sr-latin.c:287 src/recode-sr-latin.c:292
+#: src/x-python.c:617 src/xgettext.c:638
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -2603,7 +2635,7 @@ msgstr ""
 "Pretvorba iz »%s« v »%s« ni mogoča. %s kliče iconv(), ta pa ne podpira te "
 "pretvorbe."
 
-#: src/msgl-iconv.c:314
+#: src/msgl-iconv.c:320
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -2612,15 +2644,15 @@ msgstr ""
 "Pretvorba iz »%s« v »%s« privede do podvojevanje: nekateri različni ključi "
 "msgid postanejo enaki."
 
-#: src/msgl-iconv.c:320 src/recode-sr-latin.c:298 src/x-python.c:625
-#: src/xgettext.c:625
+#: src/msgl-iconv.c:326 src/recode-sr-latin.c:301 src/x-python.c:624
+#: src/xgettext.c:645
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
 "built without iconv()."
 msgstr ""
-"Pretvorba iz »%s« v »%s« ni mogoča. %s kliče iconv(), vendar ta izvod "
-"programa ni preveden za uporabo iconv()."
+"Pretvorba iz »%s« v »%s« ni mogoča. %s kliče iconv(), vendar ta izvod programa "
+"ni preveden za uporabo iconv()."
 
 #: src/msgmerge.c:361 src/msgmerge.c:367
 #, c-format
@@ -2731,7 +2763,7 @@ msgid ""
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
-"Varnostna kopija ima pripono ,~`, razen če ni z izbiro --suffix ali\n"
+"Varnostna kopija ima pripono »~«, razen če ni z izbiro --suffix ali\n"
 "spremenljivko SIMPLE_BACKUP_SUFFIX nastavljeno drugače. \n"
 
 #: src/msgmerge.c:523
@@ -2740,29 +2772,29 @@ msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr "  -N, --no-fuzzy-matching     ne uporabljamo ohlapnega ujemanja\n"
 
 #: src/msgmerge.c:525
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --previous              keep previous msgids of translated messages\n"
 msgstr ""
-"      --translated            obdržimo prevedena sporočila, zavržemo "
-"neprevedena\n"
+"      --previous              obdržimo prejšnja polja msgid prevedenih "
+"sporočil\n"
 
 #: src/msgmerge.c:574
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       brez kazalnika poteka\n"
 
-#: src/msgmerge.c:1318
+#: src/msgmerge.c:1340
 #, c-format
 msgid "this message should define plural forms"
 msgstr "pri tem sporočilu bi morale biti določene množinske oblike"
 
-#: src/msgmerge.c:1341
+#: src/msgmerge.c:1363
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "pri tem sporočilu ne bi smele biti določene množinske oblike"
 
-#: src/msgmerge.c:1679
+#: src/msgmerge.c:1701
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -2771,27 +2803,27 @@ msgstr ""
 "%sPrebrano %ld starih + %ld referenčnih, združenih %ld, ohlapnih %ld, "
 "manjkajočih %ld, opuščenih %ld.\n"
 
-#: src/msgmerge.c:1687
+#: src/msgmerge.c:1709
 msgid " done.\n"
 msgstr " opravljeno.\n"
 
-#: src/msgunfmt.c:297 src/msgunfmt.c:306 src/msgunfmt.c:329
+#: src/msgunfmt.c:296 src/msgunfmt.c:305 src/msgunfmt.c:328
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s in izrecna imena datotek se med seboj izključujejo"
 
-#: src/msgunfmt.c:416
+#: src/msgunfmt.c:415
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
 msgstr "Uporaba: %s [IZBIRA] [DATOTEKA]...\n"
 
-#: src/msgunfmt.c:420
+#: src/msgunfmt.c:419
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr ""
 "Pretvorba kataloga sporočil iz binarne oblike .mo v obliko Uniforum .po.\n"
 
-#: src/msgunfmt.c:429
+#: src/msgunfmt.c:428
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
@@ -2800,12 +2832,12 @@ msgstr ""
 "  -j, --java                  javanski način: ustvarimo javanski razred\n"
 "                                ResourceBundle\n"
 
-#: src/msgunfmt.c:431
+#: src/msgunfmt.c:430
 #, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
 msgstr "      --csharp                način C#: vhod je .NET-datoteka .dll\n"
 
-#: src/msgunfmt.c:433
+#: src/msgunfmt.c:432
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
@@ -2814,24 +2846,24 @@ msgstr ""
 "      --csharp-resources      način virov C#: vhod je .NET-datoteka ."
 "resources\n"
 
-#: src/msgunfmt.c:435
+#: src/msgunfmt.c:434
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "      --tcl                   način tcl: vhod je datoteka tcl/msgcat .msg\n"
 
-#: src/msgunfmt.c:440
+#: src/msgunfmt.c:439
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
 msgstr "  DATOTEKA ...                datoteka MO (ali več datotek MO)\n"
 
-#: src/msgunfmt.c:445
+#: src/msgunfmt.c:444
 #, c-format
 msgid "Input file location in Java mode:\n"
 msgstr "Izbira izhodne datoteke v javanskem načinu:\n"
 
-#: src/msgunfmt.c:451
+#: src/msgunfmt.c:450
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -2842,12 +2874,12 @@ msgstr ""
 "podčrtajem,\n"
 "pridá ime jezikovnega okolja. Razred je določen s spremenljivko CLASSPATH.\n"
 
-#: src/msgunfmt.c:456
+#: src/msgunfmt.c:455
 #, c-format
 msgid "Input file location in C# mode:\n"
 msgstr "Mesto izhodne datoteke v načinu C#:\n"
 
-#: src/msgunfmt.c:464
+#: src/msgunfmt.c:463
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
@@ -2856,12 +2888,12 @@ msgstr ""
 "Izbiri -l in -d sta obvezni. Datoteka .dll se nahaja v podimeniku podanega\n"
 "imenika; ime podimenika ustreza oznaki izbrane krajevne prilagoditve.\n"
 
-#: src/msgunfmt.c:468
+#: src/msgunfmt.c:467
 #, c-format
 msgid "Input file location in Tcl mode:\n"
 msgstr "Izbira izhodne datoteke v načinu tcl:\n"
 
-#: src/msgunfmt.c:474
+#: src/msgunfmt.c:473
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
@@ -2869,18 +2901,18 @@ msgid ""
 msgstr ""
 "Izbiri -l in -d sta obvezni. Datoteka .msg se zapiše v podani imenik.\n"
 
-#: src/msgunfmt.c:494
+#: src/msgunfmt.c:493
 #, c-format
 msgid "  -i, --indent                write indented output style\n"
 msgstr "  -i, --indent             izpis datoteke PO z zamiki\n"
 
-#: src/msgunfmt.c:496
+#: src/msgunfmt.c:495
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
 msgstr ""
 "      --strict             izpis v strogi obliki Uniforum, brez razširitev\n"
 
-#: src/msguniq.c:319
+#: src/msguniq.c:318
 #, c-format, no-wrap
 msgid ""
 "Unifies duplicate translations in a translation catalog.\n"
@@ -2901,12 +2933,12 @@ msgstr ""
 "ohranijo le komentarji prvega prevoda. Ohranijo se vsi podatki o mestu\n"
 "sporočila v izvorni datoteki. Z izbiro --unique se podvojena sporočila zavržejo.\n"
 
-#: src/msguniq.c:352
+#: src/msguniq.c:351
 #, c-format
 msgid "  -d, --repeated              print only duplicates\n"
 msgstr "  -d, --repeated                 izpišemo le podvojena sporočila\n"
 
-#: src/msguniq.c:354
+#: src/msguniq.c:353
 #, c-format
 msgid ""
 "  -u, --unique                print only unique messages, discard "
@@ -2915,12 +2947,12 @@ msgstr ""
 "  -u, --unique                   vsako sporočilo izpišemo le enkrat,\n"
 "                                   dvojnike zavržemo\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:103
-#: libgettextpo/gettext-po.c:148 libgettextpo/gettext-po.c:193
+#: src/open-catalog.c:55 libgettextpo/gettext-po.c:102
+#: libgettextpo/gettext-po.c:150 libgettextpo/gettext-po.c:198
 msgid "<stdin>"
 msgstr "<st. vhod>"
 
-#: src/po-charset.c:490
+#: src/po-charset.c:489
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
@@ -2929,7 +2961,7 @@ msgstr ""
 "Nabor \"%s\" ni prenosljivo ime kodnega nabora.\n"
 "Pretvorba sporočil v uporabnikov kodni nabor morda ne bo delovala.\n"
 
-#: src/po-charset.c:557
+#: src/po-charset.c:556
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -2938,7 +2970,7 @@ msgstr ""
 "Nabor \"%s\" ni podprt. %s se naslanja na iconv(),\n"
 "in iconv() ne podpira \"%s\".\n"
 
-#: src/po-charset.c:564 src/po-charset.c:612
+#: src/po-charset.c:563 src/po-charset.c:611
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
@@ -2946,15 +2978,15 @@ msgstr ""
 "Namestitev knjižnice GNU libiconv in ponovno prevajanje paketa\n"
 "GNU Gettext bi moralo odpraviti to težavo.\n"
 
-#: src/po-charset.c:578 src/po-charset.c:616
+#: src/po-charset.c:577 src/po-charset.c:615
 msgid "Continuing anyway, expect parse errors."
 msgstr "Težavam navzlic nadaljujemo, pričakujte napake pri razčlembi."
 
-#: src/po-charset.c:580
+#: src/po-charset.c:579
 msgid "Continuing anyway."
 msgstr "Težavam navzlic nadaljujemo."
 
-#: src/po-charset.c:607
+#: src/po-charset.c:606
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -2963,7 +2995,7 @@ msgstr ""
 "Nabor \"%s\" ni podprt. %s se naslanja na iconv().\n"
 "Ta izdaja je bila prevedena brez iconv().\n"
 
-#: src/po-charset.c:644
+#: src/po-charset.c:643
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -2971,143 +3003,143 @@ msgstr ""
 "V glavi ni naveden nabor znakov.\n"
 "Pretvorba sporočil v uporabnikov nabor znakov ne bo delovala.\n"
 
-#: src/po-gram-gen.y:94
+#: src/po-gram-gen.y:93
 #, c-format
 msgid "inconsistent use of #~"
 msgstr "neskladna raba #~"
 
-#: src/po-gram-gen.y:241
+#: src/po-gram-gen.y:240
 #, c-format
 msgid "missing `msgstr[]' section"
-msgstr "manjkajoč razdelek ,msgstr[]`"
+msgstr "manjkajoč razdelek »msgstr[]«"
 
-#: src/po-gram-gen.y:250
+#: src/po-gram-gen.y:249
 #, c-format
 msgid "missing `msgid_plural' section"
-msgstr "manjkajoč razdelek ,msgid_plural`"
+msgstr "manjkajoč razdelek »msgid_plural«"
 
-#: src/po-gram-gen.y:258
+#: src/po-gram-gen.y:257
 #, c-format
 msgid "missing `msgstr' section"
-msgstr "manjkajoč razdelek ,msgstr`"
+msgstr "manjkajoč razdelek »msgstr«"
 
-#: src/po-gram-gen.y:397
+#: src/po-gram-gen.y:396
 #, c-format
 msgid "first plural form has nonzero index"
 msgstr "prva množinska oblika ima indeks različen od nič"
 
-#: src/po-gram-gen.y:399
+#: src/po-gram-gen.y:398
 #, c-format
 msgid "plural form has wrong index"
 msgstr "množinska oblika ima napačen indeks"
 
-#: src/po-lex.c:93 src/po-lex.c:112
+#: src/po-lex.c:91 src/po-lex.c:110
 #, c-format
 msgid "too many errors, aborting"
 msgstr "preveč napak, nadaljevanje ni možno"
 
-#: src/po-lex.c:440 src/po-lex.c:510 src/write-po.c:512 src/write-po.c:627
+#: src/po-lex.c:438 src/po-lex.c:508 src/write-po.c:707 src/write-po.c:832
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "neveljavno večzložno zaporedje"
 
-#: src/po-lex.c:468
+#: src/po-lex.c:466
 #, c-format
 msgid "incomplete multibyte sequence at end of file"
 msgstr "nepopolno večzložno zaporedje na koncu datoteke"
 
-#: src/po-lex.c:478
+#: src/po-lex.c:476
 #, c-format
 msgid "incomplete multibyte sequence at end of line"
 msgstr "nepopolno večzložno zaporedje na koncu vrstice"
 
-#: src/po-lex.c:490
+#: src/po-lex.c:488
 msgid "iconv failure"
 msgstr "iconv neuspešen"
 
-#: src/po-lex.c:747
+#: src/po-lex.c:745
 #, c-format
 msgid "keyword \"%s\" unknown"
 msgstr "ključna beseda \"%s\" neprepoznana"
 
-#: src/po-lex.c:857
+#: src/po-lex.c:855
 #, c-format
 msgid "invalid control sequence"
 msgstr "neveljavno krmilno zaporedje"
 
-#: src/po-lex.c:984
+#: src/po-lex.c:982
 #, c-format
 msgid "end-of-file within string"
 msgstr "znak za konec datoteke sredi niza"
 
-#: src/po-lex.c:990
+#: src/po-lex.c:988
 #, c-format
 msgid "end-of-line within string"
 msgstr "znak za konec vrstice sredi niza"
 
-#: src/po-lex.c:1011
+#: src/po-lex.c:1009
 #, c-format
 msgid "context separator <EOT> within string"
 msgstr "razmejilnik konteksta <EOT> znotraj niza"
 
-#: src/read-catalog.c:328 src/xgettext.c:907
+#: src/read-catalog.c:327 src/xgettext.c:939
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "ta datoteka morda ne vsebuje direktiv domene"
 
-#: src/read-catalog.c:373
+#: src/read-catalog.c:372
 msgid "duplicate message definition"
 msgstr "podvojena definicija sporočila"
 
-#: src/read-catalog.c:375
+#: src/read-catalog.c:374
 msgid "this is the location of the first definition"
 msgstr "to je kraj prve definicije"
 
-#: src/read-mo.c:101 src/read-mo.c:122 src/read-mo.c:168 src/read-mo.c:195
+#: src/read-mo.c:105 src/read-mo.c:126 src/read-mo.c:172 src/read-mo.c:199
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "datoteka \"%s\" je okrnjena"
 
-#: src/read-mo.c:125
+#: src/read-mo.c:129
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "datoteka \"%s\" vsebuje niz, ki ni zaključen z NUL"
 
-#: src/read-mo.c:161 src/read-mo.c:270
+#: src/read-mo.c:165 src/read-mo.c:274
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "datoteka \"%s\" ni v obliki GNU .mo"
 
-#: src/read-mo.c:174
+#: src/read-mo.c:178
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "datoteka \"%s\" vsebuje pri %s niz, ki ni zaključen z NUL"
 
-#: src/read-properties.c:223
+#: src/read-properties.c:227
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "opozorilo: neveljavna skladnja \\uxxxx za unikodni znak"
 
-#: src/read-stringtable.c:804
+#: src/read-stringtable.c:802
 msgid "warning: unterminated string"
 msgstr "opozorilo: nezaključen niz"
 
-#: src/read-stringtable.c:812
+#: src/read-stringtable.c:810
 msgid "warning: syntax error"
 msgstr "opozorilo: napaka v skladnji"
 
-#: src/read-stringtable.c:873 src/read-stringtable.c:895
+#: src/read-stringtable.c:871 src/read-stringtable.c:893
 msgid "warning: unterminated key/value pair"
 msgstr "opozorilo: nezaključen par ključ/vrednost"
 
-#: src/read-stringtable.c:941
+#: src/read-stringtable.c:939
 msgid "warning: syntax error, expected ';' after string"
 msgstr "opozorilo: napaka v skladnji, za nizom pričakovan »;«"
 
-#: src/read-stringtable.c:950
+#: src/read-stringtable.c:948
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr "opozorilo: napaka v skladnji, za nizom pričakovan »=« ali »;«"
 
-#: src/recode-sr-latin.c:117
+#: src/recode-sr-latin.c:116
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "Avtorja %s in %s.\n"
@@ -3116,16 +3148,16 @@ msgstr "Avtorja %s in %s.\n"
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
 #. "&Scaron;egan".
 #. This is a proper name. See the gettext manual, section Names.
-#: src/recode-sr-latin.c:121
+#: src/recode-sr-latin.c:120
 msgid "Danilo Segan"
 msgstr "Danilo Šegan"
 
-#: src/recode-sr-latin.c:154
+#: src/recode-sr-latin.c:153
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
 msgstr "Pretvori besedilo v srbščini iz cirilice v latinico.\n"
 
-#: src/recode-sr-latin.c:157
+#: src/recode-sr-latin.c:156
 #, c-format, no-wrap
 msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
@@ -3134,27 +3166,27 @@ msgstr ""
 "Vhodno besedilo se bere s standardnega vhoda. Pretvorjeno besedilo se zapisuje\n"
 "na standardni izhod.\n"
 
-#: src/recode-sr-latin.c:332
+#: src/recode-sr-latin.c:338
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
 msgstr "vhod ni veljaven v naboru znakov »%s«"
 
-#: src/recode-sr-latin.c:349
+#: src/recode-sr-latin.c:366
 #, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "napaka pri pretvorbi iz nabora znakov \"%s\" v nabor \"%s\""
 
-#: src/urlget.c:147
+#: src/urlget.c:146
 #, c-format
 msgid "expected two arguments"
 msgstr "pričakujemo dva argumenta"
 
-#: src/urlget.c:164
+#: src/urlget.c:163
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr "Uporaba: %s [IZBIRA] URL DATOTEKA\n"
 
-#: src/urlget.c:169
+#: src/urlget.c:168
 #, c-format, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
@@ -3163,30 +3195,28 @@ msgstr ""
 "Prinese in izpiše vsebino podanega URL. Če URL ni dosegljiv, se uporabni\n"
 "krajevno dostopna DATOTEKA.\n"
 
-#: src/urlget.c:216
+#: src/urlget.c:219
 #, c-format
 msgid "error writing stdout"
 msgstr "napaka pri pisanju na standardni izhod"
 
-#: src/write-catalog.c:102
-#, fuzzy
+#: src/write-catalog.c:126
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format. Try using PO file syntax instead."
 msgstr ""
-"Več domen prevodov ne moremo zapisati kot eno datoteko s skladnjo javanske "
-"datoteke .properties. Poskusite uporabiti skladnjo PO."
+"V izbranem izhodnem zapisu ni mogoče zapisati več domen prevodov kot eno "
+"datoteko. Poskusite uporabiti skladnjo PO."
 
-#: src/write-catalog.c:105
-#, fuzzy
+#: src/write-catalog.c:129
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format."
 msgstr ""
-"Več domen prevodov ne moremo zapisati kot eno datoteko s skladnjo NeXTstep/"
-"GNUstep datoteke .strings."
+"V izbranem izhodnem zapisu ni mogoče zapisati več domen prevodov kot eno "
+"datoteko."
 
-#: src/write-catalog.c:138
+#: src/write-catalog.c:162
 msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
@@ -3194,7 +3224,7 @@ msgstr ""
 "katalog sporočil vsebuje od konteksta odvisne prevode, izbrani izhodni zapis "
 "pa jih ne podpira"
 
-#: src/write-catalog.c:173
+#: src/write-catalog.c:197
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them. Try generating a Java class using \"msgfmt --java\", instead "
@@ -3204,7 +3234,7 @@ msgstr ""
 "podpira. Poskusite namesto datoteke .properties ustvariti javanski razred z "
 "\"msgfmt --java\"."
 
-#: src/write-catalog.c:178
+#: src/write-catalog.c:202
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them."
@@ -3212,67 +3242,60 @@ msgstr ""
 "katalog sporočil vsebuje množinske oblike, izbrani izhodni zapis pa jih ne "
 "podpira"
 
-#: src/write-catalog.c:195
+#: src/write-catalog.c:229 src/write-catalog.c:273
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "izhodne datoteke \"%s\" ni mogoče ustvariti"
 
-#: src/write-catalog.c:204
-#, no-c-format
+#: src/write-catalog.c:237 src/write-catalog.c:281
 msgid "standard output"
 msgstr "standardni izhod"
 
-#: src/write-csharp.c:618
-msgid ""
-"message catalog has context dependent translations\n"
-"but the C# .dll format doesn't support contexts\n"
-msgstr ""
-"katalog sporočil vsebuje od konteksta odvisne prevode,\n"
-"vendar zapis C# .dll ne podpira kontekstov\n"
-
-#: src/write-csharp.c:685
+#: src/write-csharp.c:688
 #, c-format
 msgid "failed to create directory \"%s\""
 msgstr "ustvarjanje imenika »%s« neuspešno"
 
-#: src/write-csharp.c:747
+#: src/write-csharp.c:751
 #, c-format
 msgid "compilation of C# class failed, please try --verbose"
 msgstr "prevajanje razreda C# neuspešno, poskusite z --verbose"
 
-#: src/write-java.c:920
-msgid ""
-"message catalog has context dependent translations\n"
-"but the Java ResourceBundle format doesn't support contexts\n"
-msgstr ""
-"katalog sporočil vsebuje od konteksta odvisne prevode,\n"
-"vendar Java ResourceBundle ne podpira kontekstov\n"
+#: src/write-csharp.c:753
+#, c-format
+msgid "compilation of C# class failed"
+msgstr "prevajanje razreda C# neuspešno"
 
-#: src/write-java.c:945
+#: src/write-java.c:975
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "ni veljavno javansko ime razreda: %s"
 
-#: src/write-java.c:1029
+#: src/write-java.c:1060
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "prevajanje javanskega razreda neuspešno, uporabite --verbose ali nastavite "
 "$JAVAC"
 
-#: src/write-mo.c:807 src/write-qt.c:740 src/write-tcl.c:213
+#: src/write-java.c:1063
+#, c-format
+msgid "compilation of Java class failed, please try to set $JAVAC"
+msgstr "prevajanje javanskega razreda neuspešno, poskusite nastaviti $JAVAC"
+
+#: src/write-mo.c:799 src/write-qt.c:736 src/write-tcl.c:212
 #, c-format
 msgid "error while opening \"%s\" for writing"
-msgstr "napaka pri pisanju na \"%s\""
+msgstr "napaka pri odpiranju \"%s\" za pisanje"
 
-#: src/write-po.c:567
+#: src/write-po.c:766
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr ""
-"internacionalizirana sporočila ne smejo vsebovati ubežne sekvence ,\\%c'"
+"internacionalizirana sporočila ne smejo vsebovati ubežne sekvence »\\%c«"
 
-#: src/write-po.c:848 src/write-po.c:961
+#: src/write-po.c:1212 src/write-po.c:1341
 #, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
@@ -3286,7 +3309,7 @@ msgstr ""
 "vi. Razmislite o uporabi sporočil v naboru znakov ASCII.\n"
 "%s\n"
 
-#: src/write-po.c:860 src/write-po.c:973
+#: src/write-po.c:1224 src/write-po.c:1353
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3301,7 +3324,7 @@ msgstr ""
 "vi. Razmislite o uporabi sporočil v naboru znakov ASCII.\n"
 "%s\n"
 
-#: src/write-qt.c:671
+#: src/write-qt.c:667
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
@@ -3309,7 +3332,7 @@ msgstr ""
 "katalog sporočil vsebuje množinske oblike, vendar katalog sporočil Qt\n"
 "ne podpira množinskih oblik\n"
 
-#: src/write-qt.c:697
+#: src/write-qt.c:693
 msgid ""
 "message catalog has msgctxt strings containing characters outside ISO-8859-"
 "1\n"
@@ -3321,7 +3344,7 @@ msgstr ""
 "katalog sporočil Qt pa podpira ISO 10646/Unicode le v prevedenih nizih, v\n"
 "izvirnikih pa ne\n"
 
-#: src/write-qt.c:721
+#: src/write-qt.c:717
 msgid ""
 "message catalog has msgid strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -3331,12 +3354,12 @@ msgstr ""
 "katalog sporočil Qt pa podpira ISO 10646/Unicode le v prevedenih nizih, v\n"
 "izvirnikih pa ne\n"
 
-#: src/write-resources.c:96
+#: src/write-resources.c:94
 #, c-format
 msgid "error while writing to %s subprocess"
 msgstr "napaka pri pisanju v podproces %s"
 
-#: src/write-resources.c:132
+#: src/write-resources.c:130
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
@@ -3344,7 +3367,7 @@ msgstr ""
 "katalog sporočil vsebuje od konteksta odvisne prevode\n"
 " vendar zapis virov C# ne podpira kontekstov\n"
 
-#: src/write-resources.c:151
+#: src/write-resources.c:149
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
@@ -3352,7 +3375,7 @@ msgstr ""
 "katalog sporočil vsebuje množinske oblike, vendar zapis virov C#\n"
 "ne podpira množinskih oblik\n"
 
-#: src/write-tcl.c:158
+#: src/write-tcl.c:157
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Tcl message catalog format doesn't support contexts\n"
@@ -3360,7 +3383,7 @@ msgstr ""
 "katalog sporočil vsebuje od konteksta odvisne prevode,\n"
 "vendar katalog sporočil TCL ne podpira kontekstov\n"
 
-#: src/write-tcl.c:177
+#: src/write-tcl.c:176
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
@@ -3368,27 +3391,27 @@ msgstr ""
 "katalog sporočil vsebuje množinske oblike, vendar katalog sporočil TCL\n"
 "ne podpira množinskih oblik\n"
 
-#: src/x-awk.c:341 src/x-python.c:1059
+#: src/x-awk.c:342 src/x-python.c:1059
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: opozorilo: nezaključen niz"
 
-#: src/x-awk.c:592
+#: src/x-awk.c:593
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: opozorilo: nezaključen regularni izraz"
 
-#: src/x-c.c:1153 src/x-csharp.c:1501 src/x-java.c:822
+#: src/x-c.c:1194 src/x-csharp.c:1506 src/x-java.c:869
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: opozorilo: nezaključena znakovna konstanta"
 
-#: src/x-c.c:1177
+#: src/x-c.c:1218
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: opozorilo: nezaključen niz"
 
-#: src/x-csharp.c:216 src/xgettext.c:1854
+#: src/x-csharp.c:221 src/xgettext.c:1889
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3397,7 +3420,7 @@ msgstr ""
 "Ne-ASCII niz na %s%s.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:263
+#: src/x-csharp.c:268
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3406,7 +3429,7 @@ msgstr ""
 "%s:%d: Neveljavno večbajtno zaporedje.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:279
+#: src/x-csharp.c:284
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3415,7 +3438,7 @@ msgstr ""
 "%s:%d: Nepopolno dolgo večbajtno zaporedje.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:291
+#: src/x-csharp.c:296
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3424,7 +3447,7 @@ msgstr ""
 "%s:%d: Nezaključeno večbajtno zaporedje na koncu datoteke.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:300
+#: src/x-csharp.c:305
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3433,12 +3456,12 @@ msgstr ""
 "%s:%d: Nezaključeno večbajtno zaporedje na koncu vrstice.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:309 src/x-python.c:332
+#: src/x-csharp.c:314 src/x-python.c:331
 #, c-format
 msgid "%s:%d: iconv failure"
 msgstr "%s:%d: napaka v iconv"
 
-#: src/x-csharp.c:332
+#: src/x-csharp.c:337
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3447,34 +3470,34 @@ msgstr ""
 "%s:%d: Neveljavno večbajtno zaporedje.\n"
 "Prosim, določite vhodni nabor znakov z izbiro --from-code.\n"
 
-#: src/x-csharp.c:1382 src/x-python.c:1259
+#: src/x-csharp.c:1387 src/x-python.c:1266
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: opozorilo: neveljavni unikodni znak"
 
-#: src/x-csharp.c:1504 src/x-java.c:825
+#: src/x-csharp.c:1509 src/x-java.c:872
 #, c-format
 msgid "%s:%d: warning: unterminated string constant"
 msgstr "%s:%d: opozorilo: nezaključen konstanten nit"
 
-#: src/x-csharp.c:2008 src/x-java.c:1319
+#: src/x-csharp.c:2013 src/x-java.c:1366
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr ""
 "%s:%d: opozorilo: zaklepaj »)« na mestu, kjer pričakujemo zaviti zaklepaj »}«"
 
-#: src/x-csharp.c:2042 src/x-java.c:1353
+#: src/x-csharp.c:2047 src/x-java.c:1400
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr ""
 "%s:%d: opozorilo: zaviti zaklepaj »}« na mestu, kjer pričakujemo zaklepaj »)«"
 
-#: src/x-glade.c:429 src/x-glade.c:436
+#: src/x-glade.c:611 src/x-glade.c:618
 #, c-format
 msgid "%s:%lu:%lu: %s"
 msgstr "%s:%lu:%lu: %s"
 
-#: src/x-glade.c:463
+#: src/x-glade.c:645
 #, c-format
 msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
@@ -3483,42 +3506,47 @@ msgstr ""
 "Programski jezik \"glade\" ni podprt. %s se naslanja na expat().\n"
 "Ta izdaja je bila prevedena brez expat().\n"
 
+#: src/x-java.c:492
+#, c-format
+msgid "%s:%d: warning: lone surrogate U+%04X"
+msgstr "%s:%d: opozorilo: osamljen surogat U+%04X"
+
 #: src/x-perl.c:307
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: zaključka niza \"%s\" ni najti pred koncem datoteke"
 
-#: src/x-perl.c:1033
+#: src/x-perl.c:1038
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: manjkajoči zaviti zaklepaj v \\x{ŠESTNAJSTIŠKO}"
 
-#: src/x-perl.c:1153
+#: src/x-perl.c:1158
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: neveljavna interpolacija (\"\\l\") osembitnega znaka \"%c\""
 
-#: src/x-perl.c:1173
+#: src/x-perl.c:1178
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
-msgstr "%s:%d: neveljavna interpolacija (\"\\u\") osembitnega znaka \"%c\"<"
+msgstr "%s:%d: neveljavna interpolacija (\"\\u\") osembitnega znaka \"%c\""
 
-#: src/x-perl.c:1207
+#: src/x-perl.c:1212
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: neveljavna interpolacija spremenljivke pri »%c«"
 
-#: src/x-perl.c:1220
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
-msgstr "%s:%d: neveljavna interpolacija (\"\\L\") osembitnega znaka \"%c\"<"
+msgstr "%s:%d: neveljavna interpolacija (\"\\L\") osembitnega znaka \"%c\""
 
-#: src/x-perl.c:1237
+#: src/x-perl.c:1242
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
-msgstr "%s:%d: neveljavna interpolacija (\"\\U\") osembitnega znaka \"%c\"<"
+msgstr "%s:%d: neveljavna interpolacija (\"\\U\") osembitnega znaka \"%c\""
 
-#: src/x-python.c:234
+#: src/x-python.c:233
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3530,7 +3558,7 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:282
+#: src/x-python.c:281
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3542,7 +3570,7 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:299
+#: src/x-python.c:298
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3554,7 +3582,7 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:312
+#: src/x-python.c:311
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3566,7 +3594,7 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:322
+#: src/x-python.c:321
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3578,7 +3606,7 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:355
+#: src/x-python.c:354
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3590,27 +3618,27 @@ msgstr ""
 "komentarjem,\n"
 "kot je opisano na http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:675
+#: src/x-python.c:674
 #, c-format
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
 msgstr "Neznani nabor znakov »%s«. Nadaljujemo z ASCII."
 
-#: src/x-rst.c:107
+#: src/x-rst.c:109
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr "%s:%d: neveljavna definicija niza"
 
-#: src/x-rst.c:171
+#: src/x-rst.c:173
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr "%s:%d: za # manjka številka"
 
-#: src/x-rst.c:206
+#: src/x-rst.c:208
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: niz ni veljaven izraz"
 
-#: src/x-sh.c:1074
+#: src/x-sh.c:1075
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
@@ -3619,28 +3647,27 @@ msgstr ""
 "%s:%lu: opozorilo: skladnja $\"...\" je odsvetovana iz varnostnih razlogov, "
 "uporabite raje eval_gettext"
 
-#: src/xgettext.c:547
+#: src/xgettext.c:567
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "pri izpisu na standardni izhod ne moremo uporabiti --join-existing"
 
-#: src/xgettext.c:552
+#: src/xgettext.c:572
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext ne deluje brez ključnih besed, ki naj jih išče"
 
-#: src/xgettext.c:695
+#: src/xgettext.c:715
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
-msgstr ""
-"opozorilo: vrsta datoteka ,%s' s pripono ,%s' ni prepoznana; poskušamo C"
+msgstr "opozorilo: vrsta datoteka »%s« s pripono »%s« ni prepoznana; poskušamo C"
 
-#: src/xgettext.c:746
+#: src/xgettext.c:766
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Iz vhodnih datotek izvlečemo prevedljive nize znakov.\n"
 
-#: src/xgettext.c:769
+#: src/xgettext.c:789
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
@@ -3648,25 +3675,25 @@ msgid ""
 msgstr ""
 "  -d, --default-domain=DOMENA    namesto messages.po je privzeta  DOMENA.po\n"
 
-#: src/xgettext.c:771
+#: src/xgettext.c:791
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr ""
 "  -o, --output-file=DATOTEKA     izhod zapisujemo v navedeno DATOTEKO\n"
 
-#: src/xgettext.c:773
+#: src/xgettext.c:793
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr ""
 "  -p, --output-dir=IMENIK        izhodne datoteke pišemo v navedeni IMENIK\n"
 
-#: src/xgettext.c:778
+#: src/xgettext.c:798
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "Izbira vhodnega jezika:\n"
 
-#: src/xgettext.c:780
+#: src/xgettext.c:800
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -3687,19 +3714,19 @@ msgstr ""
 "NXStringTable,\n"
 "                                   RST, glade)\n"
 
-#: src/xgettext.c:786
+#: src/xgettext.c:806
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++                      okrajšava za --language=C++\n"
 
-#: src/xgettext.c:788
+#: src/xgettext.c:808
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
 msgstr "Privzeto se jezik poskusi uganiti iz pripone vhodne datoteke.\n"
 
-#: src/xgettext.c:793
+#: src/xgettext.c:813
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -3708,24 +3735,24 @@ msgstr ""
 "      --from-code=NABOR          nabor znakov vhodnih datotek\n"
 "                                   (razen za Python, Tcl in Glade)\n"
 
-#: src/xgettext.c:796
+#: src/xgettext.c:816
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr "Privzeti nabor znakov vhodnih datotek je ASCII.\n"
 
-#: src/xgettext.c:801
+#: src/xgettext.c:821
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr ""
 "  -j, --join-existing            združi sporočila z obstoječo datoteko\n"
 
-#: src/xgettext.c:803
+#: src/xgettext.c:823
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
 "  -x, --exclude-file=DATOTEKA.po  vnosov iz navedene DATOTEKE ne izvlečemo\n"
 
-#: src/xgettext.c:805
+#: src/xgettext.c:825
 #, c-format
 msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
@@ -3735,17 +3762,17 @@ msgstr ""
 "navedeno\n"
 "                                  ZNAČKO\n"
 
-#: src/xgettext.c:809
+#: src/xgettext.c:829
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Izbire, specifične za jezik:\n"
 
-#: src/xgettext.c:811
+#: src/xgettext.c:831
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all              iz datotek potegnemo vse nize\n"
 
-#: src/xgettext.c:813 src/xgettext.c:820
+#: src/xgettext.c:833 src/xgettext.c:840
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3759,7 +3786,7 @@ msgstr ""
 "java,\n"
 "                                C#, awk, TCL, perl, PHP, GCC-vir, glade)\n"
 
-#: src/xgettext.c:817
+#: src/xgettext.c:837
 #, c-format
 msgid ""
 "  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
@@ -3770,7 +3797,7 @@ msgstr ""
 "                                   niz BESEDA pomeni brez uporabe privzetih\n"
 "                                   ključnih besed)\n"
 
-#: src/xgettext.c:824
+#: src/xgettext.c:844
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -3780,7 +3807,7 @@ msgstr ""
 "      --flag=BESEDA:ARG:STIKALO  dodatno stikalo za nize znotraj argumenta\n"
 "                                 številka ARG ključne besede BESEDA\n"
 
-#: src/xgettext.c:827
+#: src/xgettext.c:847
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3794,32 +3821,37 @@ msgstr ""
 "java,\n"
 "                                C#, awk, YCP, TCL, perl, PHP, GCC-vir)\n"
 
-#: src/xgettext.c:831
+#: src/xgettext.c:851
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr "  -T, --trigraphs             razumi trigrafe ANSI C na vhodu\n"
 
-#: src/xgettext.c:833
+#: src/xgettext.c:853
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr "                                (samo jeziki C, C++ in predmetni C)\n"
 
-#: src/xgettext.c:835
+#: src/xgettext.c:855
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt                    prepoznaj oblikovne nize Qt\n"
 
-#: src/xgettext.c:837 src/xgettext.c:841
+#: src/xgettext.c:857 src/xgettext.c:861 src/xgettext.c:865
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (samo jezik C++)\n"
 
-#: src/xgettext.c:839
+#: src/xgettext.c:859
+#, c-format
+msgid "      --kde                   recognize KDE 4 format strings\n"
+msgstr "      --kde                   prepoznaj oblikovne nize KDE 4\n"
+
+#: src/xgettext.c:863
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr "      --boost                 prepoznaj oblikovne nize Boost\n"
 
-#: src/xgettext.c:843
+#: src/xgettext.c:867
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
@@ -3827,19 +3859,19 @@ msgstr ""
 "      --debug                    bolj razčlenjen rezultat razpoznave\n"
 "                                   oblikovnega niza\n"
 
-#: src/xgettext.c:862
+#: src/xgettext.c:886
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr "      --properties-output     zapiši javansko datoteko .properties\n"
 
-#: src/xgettext.c:877
+#: src/xgettext.c:901
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
 "      --copyright-holder=NIZ     v izhodu nastavimo nosilca avtorskih pravic "
 "na NIZ\n"
 
-#: src/xgettext.c:879
+#: src/xgettext.c:903
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
@@ -3847,7 +3879,18 @@ msgstr ""
 "      --foreign-user          brez copyrighta FSF v izpisu za tuje "
 "uporabnike\n"
 
-#: src/xgettext.c:881
+#: src/xgettext.c:905
+#, c-format
+msgid "      --package-name=PACKAGE  set package name in output\n"
+msgstr "      --package-name=PAKET    nastavi ime PAKETA na izhodu\n"
+
+#: src/xgettext.c:907
+#, c-format
+msgid "      --package-version=VERSION  set package version in output\n"
+msgstr ""
+"      --package-version=NIZ      v izhodu nastavimo različico paketa na NIZ\n"
+
+#: src/xgettext.c:909
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
@@ -3855,21 +3898,21 @@ msgstr ""
 "      --msgid-bugs-address=EPOŠTA@NASLOV  naslov za sporočila o napakah "
 "msgid\n"
 
-#: src/xgettext.c:883
+#: src/xgettext.c:911
 #, c-format
 msgid ""
 "  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr "
 "entries\n"
 msgstr "  -m, --msgstr-prefix[=NIZ]     NIZ ali \"\" kot predpona za msgstr\n"
 
-#: src/xgettext.c:885
+#: src/xgettext.c:913
 #, c-format
 msgid ""
 "  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr "
 "entries\n"
 msgstr "  -M, --msgstr-suffix[=NIZ]     NIZ ali \"\" kot pripona za msgstr\n"
 
-#: src/xgettext.c:1649
+#: src/xgettext.c:1686
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %"
@@ -3877,16 +3920,16 @@ msgid ""
 msgstr ""
 "Argument --flag nima skladnje <ključna-beseda>:<št-arg>:[pass-]<stikalo>: %s"
 
-#: src/xgettext.c:1750
+#: src/xgettext.c:1785
 msgid "standard input"
 msgstr "standardni vhod"
 
-#: src/xgettext.c:1930 src/xgettext.c:1963 src/xgettext.c:2021
+#: src/xgettext.c:1965 src/xgettext.c:1998 src/xgettext.c:2056
 #, c-format
 msgid "%s%s: warning: "
 msgstr "%s%s: opozorilo: "
 
-#: src/xgettext.c:1933
+#: src/xgettext.c:1968
 #, c-format
 msgid ""
 "Although being used in a format string position, the %s is not a valid %s "
@@ -3895,7 +3938,7 @@ msgstr ""
 "Čeprav je uporabljen na mestu oblikovnega niza, %s ni veljaven oblikovni niz "
 "%s. Razlog: %s\n"
 
-#: src/xgettext.c:1934
+#: src/xgettext.c:1969
 #, c-format
 msgid ""
 "Although declared as such, the %s is not a valid %s format string. Reason: %"
@@ -3904,7 +3947,7 @@ msgstr ""
 "Čeprav je deklariran kot tak, %s ni veljaven oblikovni niz za %s. Razlog: %"
 "s\n"
 
-#: src/xgettext.c:1965
+#: src/xgettext.c:2000
 #, c-format
 msgid ""
 "'%s' format string with unnamed arguments cannot be properly localized:\n"
@@ -3917,7 +3960,7 @@ msgstr ""
 "Prosimo, razmislite o uporabi oblikovnega niza s poimenovanimi argumenti\n"
 "ter preslikave namesto n-terčka argumentov.\n"
 
-#: src/xgettext.c:2023
+#: src/xgettext.c:2058
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -3927,28 +3970,28 @@ msgstr ""
 "gettext(\"\") vrne glavo z metapodatki, ne pa\n"
 "praznega niza.\n"
 
-#: src/xgettext.c:2626
+#: src/xgettext.c:2664
 #, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
 msgstr "dvoumno določen argument za ključno besede »%.*s«"
 
-#: src/xgettext.c:2653
+#: src/xgettext.c:2691
 #, c-format
 msgid "warning: missing context for keyword '%.*s'"
 msgstr "opozorilo: manjkajoči kontekst za ključno besedo »%.*s«"
 
-#: src/xgettext.c:2678
+#: src/xgettext.c:2716
 #, c-format
 msgid "warning: missing context for plural argument of keyword '%.*s'"
 msgstr ""
 "opozorilo: manjkajoči kontekst za množinski argument ključne besede »%.*s«"
 
-#: src/xgettext.c:2699
+#: src/xgettext.c:2737
 #, c-format
 msgid "context mismatch between singular and plural form"
 msgstr "neujemanje kontekstov med edninsko in množinsko obliko"
 
-#: src/xgettext.c:2779
+#: src/xgettext.c:2828
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a `Makevars' file, please specify\n"
@@ -3956,18 +3999,47 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 "Izbira --msgid-bugs-address ni določena.\n"
-"Če uporabljate datoteko ,Makevars`, določite\n"
+"Če uporabljate datoteko »Makevars«, določite\n"
 "spremenljivko MSGID_BUGS_ADDRESS tam, sicer pa \n"
 "z izbiro --msgid-bugs-address v ukazni vrstici.\n"
 
-#: src/xgettext.c:2978
+#: src/xgettext.c:3035
 #, c-format
 msgid "language `%s' unknown"
 msgstr "jezik »%s« ni poznan"
 
-#: libgettextpo/gettext-po.c:85
+#: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<nepoimenovano>"
+
+#~ msgid "Multiple references to %%%c."
+#~ msgstr "Večterni sklici na %%%c."
+
+#~ msgid ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "This is free software; see the source for copying conditions.  There is "
+#~ "NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
+#~ "PURPOSE.\n"
+#~ msgstr ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "To je prost program; pogoji, pod katerimi ga lahko razmnožujete in\n"
+#~ "razširjate so navedeni v izvorni kodi. Za program ni NOBENEGA jamstva,\n"
+#~ "niti jamstev USTREZNOSTI ZA PRODAJO ali PRIMERNOSTI ZA RABO.\n"
+
+#~ msgid ""
+#~ "message catalog has context dependent translations\n"
+#~ "but the C# .dll format doesn't support contexts\n"
+#~ msgstr ""
+#~ "katalog sporočil vsebuje od konteksta odvisne prevode,\n"
+#~ "vendar zapis C# .dll ne podpira kontekstov\n"
+
+#~ msgid ""
+#~ "message catalog has context dependent translations\n"
+#~ "but the Java ResourceBundle format doesn't support contexts\n"
+#~ msgstr ""
+#~ "katalog sporočil vsebuje od konteksta odvisne prevode,\n"
+#~ "vendar Java ResourceBundle ne podpira kontekstov\n"
 
 #~ msgid "The %%J directive is only allowed at the beginning of the string."
 #~ msgstr "Direktiva %%J je dovoljena le na začetku niza."
