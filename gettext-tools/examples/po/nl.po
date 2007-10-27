@@ -1,4 +1,4 @@
-# Translation of gettext-examples-0.16 to Dutch.
+# Translation of gettext-examples-0.16.2-pre5 to Dutch.
 # Copyright (C) 2005, 2006 Yoyodyne, Inc.
 # This file is distributed under the same license as the gettext-examples package.
 #
@@ -6,10 +6,10 @@
 # Benno Schulenberg <benno@vertaalt.nl>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.16\n"
+"Project-Id-Version: gettext-examples-0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-05-13 22:04+0200\n"
-"PO-Revision-Date: 2007-10-13 21:55+0200\n"
+"POT-Creation-Date: 2007-10-18 03:08+0200\n"
+"PO-Revision-Date: 2007-10-16 18:51+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,9 +26,10 @@ msgstr ""
 #: hello-librep/hello.jl.in:12 hello-guile/hello.scm:15
 #: hello-smalltalk/hello.st.in:31 hello-java/Hello.java:14
 #: hello-java-awt/Hello.java:23 hello-java-swing/Hello.java:20
-#: hello-csharp/hello.cs:14 hello-csharp-forms/hello.cs:29
-#: hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
-#: hello-ycp/hello.ycp:15 hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13
+#: hello-java-qtjambi/Hello.java:27 hello-csharp/hello.cs:14
+#: hello-csharp-forms/hello.cs:29 hello-gawk/hello.awk:11
+#: hello-pascal/hello.hello_world hello-ycp/hello.ycp:15
+#: hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13
 #: hello-perl/hello-1.pl.in:17 hello-perl/hello-2.pl.in:12
 #: hello-php/hello.php:12
 msgid "Hello, world!"
@@ -75,8 +76,8 @@ msgid "This program is running as process number ~D."
 msgstr "Dit programma draait als proces nummer ~D."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
-#: hello-java-swing/Hello.java:25 hello-csharp/hello.cs:17
-#: hello-csharp-forms/hello.cs:36
+#: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
+#: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Dit programma draait als proces nummer {0}."
