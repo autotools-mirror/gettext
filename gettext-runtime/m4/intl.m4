@@ -1,4 +1,4 @@
-# intl.m4 serial 8 (gettext-0.16.2)
+# intl.m4 serial 8 (gettext-0.17)
 dnl Copyright (C) 1995-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
