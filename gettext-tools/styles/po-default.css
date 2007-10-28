@@ -1,5 +1,5 @@
 /* Default styling rules for PO files when doing terminal output.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,4 +14,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-.keyword { text-decoration: underline; }
+.translator-comment       { color : green; }
+.obsolete                 { color : green; }
+.extracted-comment        { color : green; font-weight: bold; }
+.flag                     { text-decoration : underline; }
+.fuzzy-flag               { text-decoration : none; }
+.text                     { color : magenta; }
+.msgstr .text             { color : blue; }
+.fuzzy .msgstr .text      { color : red; }
+.format-directive         { font-weight: bold; }
+.invalid-format-directive { background-color : red; color : white; font-weight: bold; }

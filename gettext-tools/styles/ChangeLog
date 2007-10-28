@@ -1,3 +1,7 @@
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
+	* po-default.css: Completely redesigned.
+
 2006-12-03  Bruno Haible  <bruno@clisp.org>
 
 	* po-default.css: New file.
