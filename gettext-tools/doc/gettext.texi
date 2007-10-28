@@ -4756,6 +4756,30 @@ preferred style for PO files.
 The default style file is @file{$prefix/share/gettext/styles/po-default.css},
 where @code{$prefix} is the installation location.
 
+A few style files are predefined:
+@table @file
+@item po-vim.css
+This style imitates the look used by vim 7.
+
+@item po-emacs-x.css
+This style imitates the look used by GNU Emacs 21 and 22 in an X11 window.
+
+@item po-emacs-xterm.css
+@itemx po-emacs-xterm16.css
+@itemx po-emacs-xterm256.css
+This style imitates the look used by GNU Emacs 22 in a terminal of type
+@samp{xterm} (8 colors) or @samp{xterm-16color} (16 colors) or
+@samp{xterm-256color} (256 colors), respectively.
+@end table
+
+@noindent
+You can use these styles without specifying a directory.  They are actually
+located in @file{$prefix/share/gettext/styles/}, where @code{$prefix} is the
+installation location.
+
+You can also design your own styles.  This is described in the next section.
+
+
 @node Style rules, Customizing less, The --style option, Colorizing
 @subsection Style rules for PO files
 
@@ -4899,15 +4923,18 @@ This matches an invalid format string directive.
 
 @item .added
 In an untranslated string, this matches a part of the string that was not
-present in the previous untranslated string.
+present in the previous untranslated string.  (Not yet implemented in this
+release.)
 
 @item .changed
 In an untranslated string or in a previous untranslated string, this matches
-a part of the string that is changed or replaced.
+a part of the string that is changed or replaced.  (Not yet implemented in
+this release.)
 
 @item .removed
 In a previous untranslated string, this matches a part of the string that
-is not present in the current untranslated string.
+is not present in the current untranslated string.  (Not yet implemented in
+this release.)
 @end table
 @end itemize
 

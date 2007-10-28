@@ -1,3 +1,8 @@
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (The --style option): Document the predefined styles.
+	(Style rules): Mark .added, .changed, .removed as not yet implemented.
+
 2007-10-20  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Java): Mention the hello-java-qtjambi example.
