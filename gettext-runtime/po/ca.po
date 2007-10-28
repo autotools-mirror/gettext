@@ -1,6 +1,6 @@
-# Catalan messages for GNU gettext-tools.
-# Copyright (C) 2001, 2002, 2003 Free Software Foundation, Inc.
-# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006.
+# Catalan messages for GNU gettext-runtime.
+# Copyright (C) 2001, 2002, 2003, 2007 Free Software Foundation, Inc.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007.
 #
 # Sóc Ivan, aquestes són les convencions que adopte per a la 0.15-pre5:
 #   * Sempre que es puga s’usaran els caràcters adequats per al text en català:
@@ -48,10 +48,10 @@
 #   warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.15-pre5\n"
+"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-10-02 16:24+0200\n"
-"PO-Revision-Date: 2006-08-20 19:11+0200\n"
+"POT-Creation-Date: 2007-10-27 15:20+0200\n"
+"PO-Revision-Date: 2007-10-28 18:06+0100\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gnulib-lib/closeout.c:67
+#: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "error d’escriptura"
 
@@ -68,143 +68,144 @@ msgstr "error d’escriptura"
 msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 
-#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: l’opció «%s» és ambígua\n"
 
-#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: l’opció «--%s» no admet arguments\n"
 
-#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: l’opció «%c%s» no admet arguments\n"
 
-#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
-#: gnulib-lib/getopt.c:995
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: l’opció «%s» necessita un argument\n"
 
-#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: l’opció «--%s» no és reconeguda\n"
 
-#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: l’opció «%c%s» no és reconeguda\n"
 
-#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: no es permet l’opció «%c»\n"
 
-#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: l’opció «%c» no és vàlida\n"
 
-#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
-#: gnulib-lib/getopt.c:1066
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: l’opció «%c» necessita un argument\n"
 
-#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: l’opció «-W %s» és ambígua\n"
 
-#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: l’opció «-W %s» no admet arguments\n"
 
-#: gnulib-lib/xmalloc.c:39
+#: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
 msgstr "la memòria s’ha exhaurit"
 
-#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
-"Aquest és programari lliure; vegeu el codi font per a les condicions de còpia.\n"
-"No hi ha CAP garantia; ni tan sols de COMERCIABILITAT o ADEQUACIÓ PER A UN\n"
-"PROPÒSIT PARTICULAR.\n"
+"GPLv3+: llicència GNU GPL ver. 3 o posterior <http://gnu.org/licenses/gpl.html>\n"
+"Aquest és programari lliure: podeu modificar‐lo i redistribuir‐lo si voleu.\n"
+"No hi ha CAP GARANTIA, en la mesura que ho permeta la llei.\n"
 
-#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "sobren arguments"
 
-#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "manquen arguments"
 
-#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "Proveu «%s --help» per a obtenir més informació.\n"
 
 # Molt més clar que l’original…  ivb
-#: src/envsubst.c:177
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [CADENA]…\n"
 
 # No és literal però queda més clar.  ivb
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Substitueix variables d’entorn pels seus valors.\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Mode de funcionament:\n"
 
-#: src/envsubst.c:189
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables      Mostra les variables que es troben a la CADENA.\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Eixida informativa:\n"
 
-#: src/envsubst.c:196
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help           Mostra aquesta ajuda i ix.\n"
 
-#: src/envsubst.c:199
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version        Mostra informació sobre la versió i ix.\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -221,7 +222,7 @@ msgstr ""
 "es substituiran totes les variables d’entorn que apareguen a l’entrada\n"
 "estàndard.\n"
 
-#: src/envsubst.c:212
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -230,26 +231,30 @@ msgstr ""
 "En emprar l’opció «--variables», es descartarà l’entrada estàndard i l’eixida\n"
 "consistirà en les variables referides en la CADENA, una per línia.\n"
 
-#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error en llegir «%s»"
 
-#: src/envsubst.c:440
+#: src/envsubst.c:443
 msgid "standard input"
 msgstr "entrada estàndard"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
 # FIXME: The first syntax is badly described.  ivb
-#: src/gettext.c:244
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -258,12 +263,12 @@ msgstr ""
 "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG\n"
 "         o: %s [OPCIÓ] -s [IDMSG]…\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Mostra la traducció a idioma natiu d’un missatge textual.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -286,7 +291,7 @@ msgstr ""
 "                       Obté del DOMINI_TEXTUAL el missatge traduït\n"
 "                       corresponent a l’IDMSG.\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:264
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -307,12 +312,12 @@ msgstr ""
 "missatges que troba al catàleg seleccionat.\n"
 "Directori estàndard de cerca: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG IDMSG_PLURAL NOMBRE\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -321,7 +326,7 @@ msgstr ""
 "Mostra la traducció a idioma natiu d’un missatge textual la forma gramatical\n"
 "del qual depén del nombre.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -344,7 +349,7 @@ msgstr ""
 "  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
 "                       aquest valor.\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
