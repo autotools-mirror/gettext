@@ -1,4 +1,4 @@
-Version 0.16.2 - January 2007
+Version 0.16.2 - October 2007
 
 * License:
   The gettext related programs and tools are now licensed under the GPL
@@ -10,6 +10,12 @@ Version 0.16.2 - January 2007
   in the POT file. In this case, the translators don't need to fill it in.
   xgettext has new options --package-name and --package-version that allow
   to specify the package name and version from a Makefile.
+
+* Colorized PO files:
+  The msgcat program has new options --color and --style that produce a
+  colorized PO file output, where keywords, strings, comments, or format
+  directives can be highlighted.  See the documentation section
+  "Highlighting parts of PO files" for more info.
 
 * gettextize now has a --po-dir option that allows several PO directories to
   be updated all together.
@@ -35,6 +41,7 @@ Version 0.16.2 - January 2007
 
 * Documentation:
   - The "Users" chapter has been completely rewritten.
+  - New section "Highlighting parts of PO files".
   - A complete example showing the use of GNU gettext in Java with the Qt/Jambi
     GUI toolkit has been added.
 
