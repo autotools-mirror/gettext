@@ -341,7 +341,7 @@ The Maintainer's View
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
-* autoconf macros::             Autoconf macros for use in @file{configure.in}
+* autoconf macros::             Autoconf macros for use in @file{configure.ac}
 * CVS Issues::                  Integrating with CVS
 * Release Management::          Creating a Distribution Tarball
 
@@ -351,7 +351,7 @@ Files You Must Create or Alter
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * po/Makevars::                 @file{Makevars} in @file{po/}
 * po/Rules-*::                  Extending @file{Makefile} in @file{po/}
-* configure.in::                @file{configure.in} at top level
+* configure.ac::                @file{configure.ac} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
@@ -361,7 +361,7 @@ Files You Must Create or Alter
 * src/Makefile::                @file{Makefile.in} in @file{src/}
 * lib/gettext.h::               @file{gettext.h} in @file{lib/}
 
-Autoconf macros for use in @file{configure.in}
+Autoconf macros for use in @file{configure.ac}
 
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
@@ -7234,7 +7234,7 @@ standards, or even better, Gnits standards, because GNU @code{gettext}
 is purposely for helping the internationalization of the whole GNU
 project, and as many other good free packages as possible.  So, the
 maintainer's view presented here presumes that the package already has
-a @file{configure.in} file and uses GNU Autoconf.
+a @file{configure.ac} file and uses GNU Autoconf.
 
 Nevertheless, GNU @code{gettext} may surely be useful for free packages
 not following GNU standards and conventions, but the maintainers of such
@@ -7252,7 +7252,7 @@ for changes.
 * Prerequisites::               Prerequisite Works
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
-* autoconf macros::             Autoconf macros for use in @file{configure.in}
+* autoconf macros::             Autoconf macros for use in @file{configure.ac}
 * CVS Issues::                  Integrating with CVS
 * Release Management::          Creating a Distribution Tarball
 @end menu
@@ -7320,8 +7320,8 @@ internationalized shell scripts within your own package: GNU
 want to see the translation of shell script messages.
 
 @item
-Your package should use Autoconf and have a @file{configure.in} or
-@file{configure.ac} file.
+Your package should use Autoconf and have a @file{configure.ac} or
+@file{configure.in} file.
 If it does not, you have to learn how.  The Autoconf documentation
 is quite well written, it is a good idea that you print it and get
 familiar with it.
@@ -7398,7 +7398,7 @@ gettext functionality.
 * po/LINGUAS::                  @file{LINGUAS} in @file{po/}
 * po/Makevars::                 @file{Makevars} in @file{po/}
 * po/Rules-*::                  Extending @file{Makefile} in @file{po/}
-* configure.in::                @file{configure.in} at top level
+* configure.ac::                @file{configure.ac} at top level
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
@@ -7504,7 +7504,7 @@ Only packages which have multiple @file{po/} directories at different
 locations need to adjust the three first variables defined in
 @file{Makevars}.
 
-@node po/Rules-*, configure.in, po/Makevars, Adjusting Files
+@node po/Rules-*, configure.ac, po/Makevars, Adjusting Files
 @subsection Extending @file{Makefile} in @file{po/}
 @cindex @file{Makefile.in.in} extensions
 
@@ -7534,15 +7534,15 @@ Similarly, you can create rules for building message catalogs for the
 from those for the @file{sr} locale -- Serbian written with Cyrillic
 letters.  See @ref{msgfilter Invocation}.
 
-@node configure.in, config.guess, po/Rules-*, Adjusting Files
-@subsection @file{configure.in} at top level
+@node configure.ac, config.guess, po/Rules-*, Adjusting Files
+@subsection @file{configure.ac} at top level
 
-@file{configure.in} or @file{configure.ac} - this is the source from which
+@file{configure.ac} or @file{configure.in} - this is the source from which
 @code{autoconf} generates the @file{configure} script.
 
 @enumerate
 @item Declare the package and version.
-@cindex package and version declaration in @file{configure.in}
+@cindex package and version declaration in @file{configure.ac}
 
 This is done by a set of lines like these:
 
@@ -7571,7 +7571,7 @@ should appear in the packaged @code{tar} file name of your distribution
 @item Check for internationalization support.
 
 Here is the main @code{m4} macro for triggering internationalization
-support.  Just add this line to @file{configure.in}:
+support.  Just add this line to @file{configure.ac}:
 
 @example
 AM_GNU_GETTEXT
@@ -7590,7 +7590,7 @@ AM_GNU_GETTEXT([external])
 
 @item Have output files created.
 
-The @code{AC_OUTPUT} directive, at the end of your @file{configure.in}
+The @code{AC_OUTPUT} directive, at the end of your @file{configure.ac}
 file, needs to be modified in two ways:
 
 @example
@@ -7631,7 +7631,7 @@ you need to add an explicit invocation of @samp{AC_GNU_SOURCE} in the
 invocation.  This is necessary because of ordering restrictions imposed
 by GNU autoconf.
 
-@node config.guess, mkinstalldirs, configure.in, Adjusting Files
+@node config.guess, mkinstalldirs, configure.ac, Adjusting Files
 @subsection @file{config.guess}, @file{config.sub} at top level
 
 If you haven't suppressed the @file{intl/} subdirectory,
@@ -7656,7 +7656,7 @@ top level of a distribution.  But it is also possible to put them in a
 subdirectory, altogether with other configuration support files like
 @file{install-sh}, @file{ltconfig}, @file{ltmain.sh} or @file{missing}.
 All you need to do, other than moving the files, is to add the following line
-to your @file{configure.in}.
+to your @file{configure.ac}.
 
 @example
 AC_CONFIG_AUX_DIR([@var{subdir}])
@@ -8064,11 +8064,11 @@ Do not install the @code{gettext.h} file in public locations.  Every
 package that needs it should contain a copy of it on its own.
 
 @node autoconf macros, CVS Issues, Adjusting Files, Maintainers
-@section Autoconf macros for use in @file{configure.in}
+@section Autoconf macros for use in @file{configure.ac}
 @cindex autoconf macros for @code{gettext}
 
 GNU @code{gettext} installs macros for use in a package's
-@file{configure.in} or @file{configure.ac}.
+@file{configure.ac} or @file{configure.in}.
 @xref{Top, , Introduction, autoconf, The Autoconf Manual}.
 The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 
@@ -8320,7 +8320,7 @@ Otherwise the following damages will likely occur:
 @itemize @bullet
 @item
 Apparent version mismatch between developers.  Since some @code{gettext}
-specific portions in @file{configure.in}, @file{configure.ac} and
+specific portions in @file{configure.ac}, @file{configure.in} and
 @code{Makefile.am}, @code{Makefile.in} files depend on the @code{gettext}
 version, the use of infrastructure files belonging to different
 @code{gettext} versions can easily lead to build errors.
@@ -8346,7 +8346,7 @@ undiscovered due to this constellation.
 
 There are basically three ways to deal with generated files in the
 context of a CVS repository, such as @file{configure} generated from
-@file{configure.in}, @code{@var{parser}.c} generated from
+@file{configure.ac}, @code{@var{parser}.c} generated from
 @code{@var{parser}.y}, or @code{po/Makefile.in.in} autoinstalled by
 @code{gettextize} or @code{autopoint}.
 
@@ -8395,7 +8395,7 @@ committed into the CVS.
 
 For the third approach, the maintainer can omit from the CVS repository
 all the files that @code{gettextize} mentions as "copy".  Instead, he
-adds to the @file{configure.in} or @file{configure.ac} a line of the
+adds to the @file{configure.ac} or @file{configure.in} a line of the
 form
 
 @example
