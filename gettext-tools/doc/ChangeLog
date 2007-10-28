@@ -1,5 +1,10 @@
 2007-10-28  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (AM_XGETTEXT_OPTION): New section.
+	(po/Makevers): Refer to it.
+
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi: Talk about configure.ac instead of configure.in.
 	(configure.ac): Renamed from configure.in.
 	(Autoconf macros for use in configure.ac): Renamed from "Autoconf

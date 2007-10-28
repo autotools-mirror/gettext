@@ -7504,6 +7504,10 @@ Only packages which have multiple @file{po/} directories at different
 locations need to adjust the three first variables defined in
 @file{Makevars}.
 
+As an alternative to the @code{XGETTEXT_OPTIONS} variables, it is also
+possible to specify @code{xgettext} options through the
+@code{AM_XGETTEXT_OPTION} autoconf macro.  See @ref{AM_XGETTEXT_OPTION}.
+
 @node po/Rules-*, configure.ac, po/Makevars, Adjusting Files
 @subsection Extending @file{Makefile} in @file{po/}
 @cindex @file{Makefile.in.in} extensions
@@ -8078,6 +8082,7 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 * AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
 * AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
+* AM_XGETTEXT_OPTION::          AM_XGETTEXT_OPTION in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 @end menu
 
@@ -8182,7 +8187,6 @@ the GNU gettext infrastructure that is used by the package.
 The use of this macro is optional; only the @code{autopoint} program makes
 use of it (@pxref{CVS Issues}).
 
-
 @node AM_GNU_GETTEXT_NEED, AM_GNU_GETTEXT_INTL_SUBDIR, AM_GNU_GETTEXT_VERSION, autoconf macros
 @subsection AM_GNU_GETTEXT_NEED in @file{gettext.m4}
 
@@ -8221,7 +8225,7 @@ the @code{AM_GNU_GETTEXT} invocation; the order doesn't matter.
 The use of this macro requires GNU automake 1.10 or newer and
 GNU autoconf 2.61 or newer.
 
-@node AM_PO_SUBDIRS, AM_ICONV, AM_GNU_GETTEXT_INTL_SUBDIR, autoconf macros
+@node AM_PO_SUBDIRS, AM_XGETTEXT_OPTION, AM_GNU_GETTEXT_INTL_SUBDIR, autoconf macros
 @subsection AM_PO_SUBDIRS in @file{po.m4}
 
 @amindex AM_PO_SUBDIRS
@@ -8237,7 +8241,30 @@ should be used.  If so, it sets the @code{USE_NLS} variable to @samp{yes},
 otherwise to @samp{no}.  It also determines the right values for Makefile
 variables in each @file{po/} directory.
 
-@node AM_ICONV,  , AM_PO_SUBDIRS, autoconf macros
+@node AM_XGETTEXT_OPTION, AM_ICONV, AM_PO_SUBDIRS, autoconf macros
+@subsection AM_XGETTEXT_OPTION in @file{po.m4}
+
+@amindex AM_XGETTEXT_OPTION
+The @code{AM_XGETTEXT_OPTION} macro registers a command-line option to be
+used in the invocations of @code{xgettext} in the @file{po/} directories
+of the package.
+
+For example, if you have a source file that defines a function
+@samp{error_at_line} whose fifth argument is a format string, you can use
+@example
+AM_XGETTEXT_OPTION([--flag=error_at_line:5:c-format])
+@end example
+@noindent
+to instruct @code{xgettext} to mark all translatable strings in @samp{gettext}
+invocations that occur as fifth argument to this function as @samp{c-format}.
+
+See @ref{xgettext Invocation} for the list of options that @code{xgettext}
+accepts.
+
+The use of this macro is an alternative to the use of the
+@samp{XGETTEXT_OPTIONS} variable in @file{po/Makevars}.
+
+@node AM_ICONV,  , AM_XGETTEXT_OPTION, autoconf macros
 @subsection AM_ICONV in @file{iconv.m4}
 
 @amindex AM_ICONV
