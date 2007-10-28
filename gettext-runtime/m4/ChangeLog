@@ -1,5 +1,10 @@
 2007-10-28  Bruno Haible  <bruno@clisp.org>
 
+	* po.m4 (AM_PO_SUBDIRS): Initialize XGETTEXT_EXTRA_OPTIONS.
+	(AM_XGETTEXT_OPTION_INIT, AM_XGETTEXT_OPTION): New macros.
+
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
 	* po.m4 (AM_PO_SUBDIRS): Set GETTEXT_MACRO_VERSION to 0.17.
 
 2007-10-27  Bruno Haible  <bruno@clisp.org>
