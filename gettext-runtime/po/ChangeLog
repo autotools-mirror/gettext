@@ -1,5 +1,9 @@
 2007-10-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in.in (GETTEXT_MACRO_VERSION): Bump to 0.17.
+
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
 	* ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
 
 2007-10-27  Bruno Haible  <bruno@clisp.org>
