@@ -1,4 +1,4 @@
-Version 0.16.2 - October 2007
+Version 0.17 - October 2007
 
 * License:
   The gettext related programs and tools are now licensed under the GPL
@@ -26,6 +26,10 @@ Version 0.16.2 - October 2007
   - C++ with KDE:
     xgettext has a new option --kde that triggers the recognition and marking
     of KDE 4 format strings.
+
+* Autoconf macros:
+  - A new macro AM_XGETTEXT_OPTION can be used as an alternative to modifying
+    po/Makevars.
 
 * libgettextpo library:
   - New functions are available for querying the list of supported format
