@@ -1,3 +1,9 @@
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
+	* styles: New directory.
+	* Makefile.am (SUBDIRS): Add styles.
+	* configure.ac (AC_CONFIG_FILES): Add styles/Makefile.
+
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll/gettextlib-exports.c: Export gl_array_list_implementation,

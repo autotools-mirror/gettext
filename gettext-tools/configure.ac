@@ -373,6 +373,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 
 AC_CONFIG_FILES([projects/Makefile])
 
+AC_CONFIG_FILES([styles/Makefile])
+
 AC_CONFIG_FILES([misc/Makefile])
 AC_CONFIG_FILES([misc/gettextize], [chmod a+x misc/gettextize])
 AC_CONFIG_FILES([misc/autopoint], [chmod a+x misc/autopoint])
