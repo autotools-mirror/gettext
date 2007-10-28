@@ -4,6 +4,7 @@
 	(configure.ac): Renamed from configure.in.
 	(Autoconf macros for use in configure.ac): Renamed from "Autoconf
 	macros for use in configure.in".
+	* gettextize.texi: Talk about configure.ac instead of configure.in.
 
 2007-10-28  Bruno Haible  <bruno@clisp.org>
 
