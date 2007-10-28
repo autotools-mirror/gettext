@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "term-ostream.h"
 #include "xalloc.h"
@@ -382,6 +384,36 @@ print_color_test ()
   ostream_free (stream);
 }
 
+/* Lookup the location of the style file.  */
+static const char *
+style_file_lookup (const char *file_name)
+{
+  if (!IS_PATH_WITH_DIR (file_name))
+    {
+      /* It's a file name without a directory specification.
+	 If it does not exist in the current directory...  */
+      struct stat statbuf;
+
+      if (stat (file_name, &statbuf) < 0)
+	{
+	  /* ... but it exists in the styles installation location...  */
+	  const char *gettextstylesdir = relocate (GETTEXTDATADIR "/styles");
+	  char *possible_file_name =
+	    concatenated_filename (gettextstylesdir, file_name, NULL);
+
+	  if (stat (possible_file_name, &statbuf) >= 0)
+	    {
+	      /* ... then use the file in the styles installation directory.  */
+	      return possible_file_name;
+	    }
+	  free (possible_file_name);
+	}
+
+      /* Let the CSS library show a warning.  */
+    }
+  return file_name;
+}
+
 /* Assign a default value to style_file_name if necessary.  */
 void
 style_file_prepare ()
@@ -391,7 +423,7 @@ style_file_prepare ()
       const char *user_preference = getenv ("PO_STYLE");
 
       if (user_preference != NULL && user_preference[0] != '\0')
-	style_file_name = xstrdup (user_preference);
+	style_file_name = style_file_lookup (xstrdup (user_preference));
       else
 	{
 	  const char *gettextdatadir;
@@ -407,4 +439,6 @@ style_file_prepare ()
 				   NULL);
 	}
     }
+  else
+    style_file_name = style_file_lookup (style_file_name);
 }

@@ -1,3 +1,8 @@
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
+	* color.c (style_file_lookup): New function.
+	(style_file_prepare): Use it.
+
 2007-10-21  Bruno Haible  <bruno@clisp.org>
 
 	Normalize the leading space of every comment line during input, not
