@@ -130,14 +130,14 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	case `$(XGETTEXT) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
 	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
 	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
-	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) @XGETTEXT_EXTRA_OPTIONS@ \
 	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	      --msgid-bugs-address="$$msgid_bugs_address" \
 	      $(POTFILES) \
 	    ;; \
 	  *) \
 	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
-	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) @XGETTEXT_EXTRA_OPTIONS@ \
 	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	      --package-name="$${package_gnu}$(PACKAGE)" \
 	      --package-version='$(VERSION)' \

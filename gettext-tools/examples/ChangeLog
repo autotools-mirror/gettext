@@ -1,3 +1,8 @@
+2007-10-28  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/po/Makefile.am ($(DOMAIN).pot-update): Consider the
+	XGETTEXT_EXTRA_OPTIONS variable.
+
 2007-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* po/fi.po: New file, from Lauri Nurmi <lanurmi@iki.fi>.
