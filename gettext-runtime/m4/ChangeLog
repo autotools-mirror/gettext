@@ -1,3 +1,13 @@
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* longlong.m4 (_AC_TYPE_LONG_LONG_SNIPPET): New macro, extracted from
+	AC_TYPE_LONG_LONG_INT and AC_TYPE_UNSIGNED_LONG_LONG_INT.
+	(AC_TYPE_LONG_LONG_INT): Use it.
+	(AC_TYPE_UNSIGNED_LONG_LONG_INT): Moved here from ulonglong.m4. Use it
+	as well.
+	* ulonglong.m4 (AC_TYPE_UNSIGNED_LONG_LONG_INT): Remove macro; moved to
+	longlong.m4.
+
 2007-10-28  Bruno Haible  <bruno@clisp.org>
 
 	* po.m4 (AM_PO_SUBDIRS): Initialize XGETTEXT_EXTRA_OPTIONS.
