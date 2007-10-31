@@ -1,3 +1,7 @@
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Remove ulonglong.m4 from the list.
+
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
         * po-mode.el (po-msgstr-form-flavor): Renamed from
