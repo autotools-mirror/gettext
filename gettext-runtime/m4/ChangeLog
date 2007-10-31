@@ -1,5 +1,10 @@
 2007-10-31  Bruno Haible  <bruno@clisp.org>
 
+	* ulonglong.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
 	* uintmax_t.m4 (gl_AC_TYPE_UINTMAX_T): Use
 	AC_TYPE_UNSIGNED_LONG_LONG_INT instead of gl_AC_TYPE_UNSIGNED_LONG_LONG.
 	* longlong.m4 (gl_AC_TYPE_LONG_LONG): Remove macro.

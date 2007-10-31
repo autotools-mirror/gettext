@@ -1,3 +1,8 @@
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* PACKAGING: Remove ulonglong.m4.
+	* Makefile.am (distcheck-hook): Remove check of ulonglong.m4.
+
 2007-10-26  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4: Update, based on libtool-1.5.24.

@@ -63,7 +63,6 @@ distcheck-hook:
 	cmp -s gettext-runtime/m4/size_max.m4 gettext-tools/gnulib-m4/size_max.m4
 	cmp -s gettext-runtime/m4/stdint_h.m4 gettext-tools/gnulib-m4/stdint_h.m4
 	cmp -s gettext-runtime/m4/uintmax_t.m4 gettext-tools/gnulib-m4/uintmax_t.m4
-	cmp -s gettext-runtime/m4/ulonglong.m4 gettext-tools/gnulib-m4/ulonglong.m4
 	cmp -s gettext-runtime/m4/visibility.m4 gettext-tools/gnulib-m4/visibility.m4
 	cmp -s gettext-runtime/m4/wchar_t.m4 gettext-tools/gnulib-m4/wchar_t.m4
 	cmp -s gettext-runtime/m4/wint_t.m4 gettext-tools/gnulib-m4/wint_t.m4

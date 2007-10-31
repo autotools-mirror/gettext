@@ -1,3 +1,7 @@
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (aclocal_DATA): Remove ulonglong.m4.
+
 2007-10-25  Bruno Haible  <bruno@clisp.org>
 
 	* restrict.m4: Remove file.
