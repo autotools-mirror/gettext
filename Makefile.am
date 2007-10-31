@@ -70,7 +70,7 @@ distcheck-hook:
 	test "`sed 1,19d gettext-runtime/intl/config.charset | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/config.charset | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/localcharset.h | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.h | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/localcharset.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.c | md5sum`"
-	cmp -s gettext-runtime/intl/localename.c gettext-tools/gnulib-lib/localename.c
+	test "`sed 1,17d gettext-runtime/intl/localename.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localename.c | md5sum`"
 	test "`sed 1,17d gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.h | md5sum`"
 	test "`sed 1,17d gettext-runtime/intl/lock.c | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.c | md5sum`"
 	cmp -s gettext-runtime/intl/printf-args.h gettext-runtime/libasprintf/printf-args.h
@@ -79,8 +79,8 @@ distcheck-hook:
 	cmp -s gettext-runtime/intl/printf-parse.c gettext-runtime/libasprintf/printf-parse.c
 	test "`sed 1,18d gettext-runtime/intl/ref-add.sin | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/ref-add.sin | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/ref-del.sin | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/ref-del.sin | md5sum`"
-	cmp -s gettext-runtime/intl/relocatable.h gettext-tools/gnulib-lib/relocatable.h
-	cmp -s gettext-runtime/intl/relocatable.c gettext-tools/gnulib-lib/relocatable.c
+	test "`sed 1,18d gettext-runtime/intl/relocatable.h | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/relocatable.h | md5sum`"
+	test "`sed 1,18d gettext-runtime/intl/relocatable.c | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/relocatable.c | md5sum`"
 	cmp -s gettext-runtime/intl/vasnprintf.h gettext-runtime/libasprintf/vasnprintf.h
 	cmp -s gettext-runtime/intl/vasnprintf.c gettext-runtime/libasprintf/vasnprintf.c
 	cmp -s gettext-runtime/intl/xsize.h gettext-runtime/libasprintf/xsize.h

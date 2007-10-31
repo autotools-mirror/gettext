@@ -1,5 +1,10 @@
 2007-10-31  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (distcheck-hook): Exclude copyright header when comparing
+	localename.c, relocatable.h, relocatable.c.
+
+2007-10-31  Bruno Haible  <bruno@clisp.org>
+
 	* PACKAGING: Remove ulonglong.m4.
 	* Makefile.am (distcheck-hook): Remove check of ulonglong.m4.
 
