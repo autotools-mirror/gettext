@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/styles subdirectory of GNU gettext
-## Copyright (C) 2006 Free Software Foundation, Inc.
+## Copyright (C) 2006-2007 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -25,3 +25,5 @@ styles_DATA = \
   po-default.css \
   po-vim.css \
   po-emacs-x.css po-emacs-xterm256.css po-emacs-xterm16.css po-emacs-xterm.css
+
+EXTRA_DIST = $(styles_DATA)
