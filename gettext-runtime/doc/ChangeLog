@@ -1,3 +1,8 @@
+2007-11-01  Bruno Haible  <bruno@clisp.org>
+
+	* matrix.texi: Update.
+	* nls.texi (STATUS): Likewise.
+
 2007-06-30  Bruno Haible  <bruno@clisp.org>
 
 	* nls.texi: Update email addresses and URLs after the Translation
