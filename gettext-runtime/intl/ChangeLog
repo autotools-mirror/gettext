@@ -1,3 +1,7 @@
+2007-10-28  Ulrich Drepper  <drepper@redhat.com>
+
+	* locale.alias: Add note that this file should never be depended on.
+
 2007-10-27  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (libintl.la): Use @LTLIBC@ instead of -lc. Needed on
