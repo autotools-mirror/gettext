@@ -14,6 +14,9 @@ Tasks not to forget before release:
   agrees with it, except for copyright header changes.
 
 - Update the version numbers in
+    gettext-runtime/m4/po.m4
+    gettext-runtime/po/Makefile.in.in
+    gettext-tools/po/Makefile.in.in
     gettext-runtime/intl/libgnuintl.h.in
     gettext-tools/libgettextpo/gettext-po.h.in
 
