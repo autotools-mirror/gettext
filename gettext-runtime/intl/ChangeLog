@@ -1,3 +1,8 @@
+2007-11-01  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.17.
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 8:2:0.
+
 2007-10-28  Ulrich Drepper  <drepper@redhat.com>
 
 	* locale.alias: Add note that this file should never be depended on.
