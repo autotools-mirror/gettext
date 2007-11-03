@@ -1,10 +1,72 @@
 2007-11-03  Bruno Haible  <bruno@clisp.org>
 
+	* vasnprintf.c (VASNPRINTF): Don't assume that snprintf's return value
+	is C99 compliant.
+	Needed for OSF/1 5.1.
+
+2007-11-03  Bruno Haible  <bruno@clisp.org>
+
 	Fix out-of-memory handling of vasnprintf.
 	* printf-parse.c: Include <errno.h>.
 	(PRINTF_PARSE): When failing, set errno to EINVAL or ENOMEM.
 	* vasnprintf.c (VASNPRINTF): When PRINTF_PARSE fails, assume errno is
 	already set.
+
+2007-10-20  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Don't report overflow if the available
+	length is INT_MAX and sizeof (DCHAR_T) > sizeof (TCHAR_T).
+	Reported by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
+2007-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Don't use %n on glibc >= 2.3 systems.
+	Reported by Jim Meyering.
+
+2007-07-13  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (decimal_point_char): Define also if
+	(NEED_PRINTF_LONG_DOUBLE || NEED_PRINTF_INFINITE_DOUBLE)
+	&& !NEED_PRINTF_DIRECTIVE_A.
+	Reported by Clemens Koller <clemens.koller@anagramm.de> via
+	Gary V. Vaughan <gary@gnu.org>.
+
+2007-06-10  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Don't include config.h and the specification header if
+	VASNPRINTF is already defined.
+	(DCHAR_IS_TCHAR, DCHAR_CPY): New macros.
+	(VASNPRINTF): Use PRINTF_FETCHARGS instead of printf_fetchargs. Use
+	DCHAR_CPY. Handle the case that DCHAR_T and FCHAR_T are not the same
+	type. Handle the case that TCHAR_T and FCHAR_T are not of the same
+	size. Handle the case that DCHAR_T and TCHAR_T are not the same type,
+	add a conversion from TCHAR_T[] to DCHAR_T[], and rework the padding
+	code accordingly.
+	(VASNPRINTF) [ENABLE_UNISTDIO]: Implement the 'U' directive. Enable
+	pad_ourselves also in this case, with the 'c' and 's' directives, and
+	with a different notion of "width".
+
+2007-06-10  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF) [!USE_SNPRINTF]: Remove variable
+	'maxlen'. Ensure only length + width bytes are allocated, not
+	length + 1 + width.
+
+2007-06-09  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (FCHAR_T, DCHAR_T, TCHAR_T): New macros.
+	(CHAR_T): Remove macro.
+	(VASNPRINTF): Update.
+
+2007-06-05  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Do the extra handling of NaN and Inf
+	also the %a / %A. Handle the %a / %A code before this extra handling.
+
+2007-06-05  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c [NEED_PRINTF_LONG_DOUBLE ||
+	NEED_PRINTF_INFINITE_LONG_DOUBLE]: Include fpucw.h.
 
 2007-11-01  Bruno Haible  <bruno@clisp.org>
 
