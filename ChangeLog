@@ -1,3 +1,7 @@
+2007-11-03  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (distcheck-hook): Add another check for vasnprintf.c.
+
 2007-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* version.sh: Bump version number to 0.17.

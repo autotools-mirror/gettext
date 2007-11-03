@@ -82,6 +82,7 @@ distcheck-hook:
 	test "`sed 1,18d gettext-runtime/intl/relocatable.h | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/relocatable.h | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/relocatable.c | md5sum`" = "`sed 1,18d gettext-tools/gnulib-lib/relocatable.c | md5sum`"
 	cmp -s gettext-runtime/intl/vasnprintf.h gettext-runtime/libasprintf/vasnprintf.h
+	test "`sed 1,18d gettext-runtime/intl/vasnprintf.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/vasnprintf.c | md5sum`"
 	cmp -s gettext-runtime/intl/vasnprintf.c gettext-runtime/libasprintf/vasnprintf.c
 	cmp -s gettext-runtime/intl/xsize.h gettext-runtime/libasprintf/xsize.h
 	test "`sed 1,18d gettext-runtime/intl/xsize.h | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/xsize.h | md5sum`"
