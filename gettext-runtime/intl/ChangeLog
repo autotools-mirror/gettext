@@ -1,3 +1,11 @@
+2007-11-03  Bruno Haible  <bruno@clisp.org>
+
+	Fix out-of-memory handling of vasnprintf.
+	* printf-parse.c: Include <errno.h>.
+	(PRINTF_PARSE): When failing, set errno to EINVAL or ENOMEM.
+	* vasnprintf.c (VASNPRINTF): When PRINTF_PARSE fails, assume errno is
+	already set.
+
 2007-11-01  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.17.

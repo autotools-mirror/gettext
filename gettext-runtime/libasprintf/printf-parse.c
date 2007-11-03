@@ -64,6 +64,9 @@
 /* malloc(), realloc(), free().  */
 #include <stdlib.h>
 
+/* errno.  */
+#include <errno.h>
+
 /* Checked size_t computations.  */
 #include "xsize.h"
 
@@ -90,7 +93,7 @@ PRINTF_PARSE (const CHAR_T *format, DIRECTIVES *d, arguments *a)
   d->dir = (DIRECTIVE *) malloc (d_allocated * sizeof (DIRECTIVE));
   if (d->dir == NULL)
     /* Out of memory.  */
-    return -1;
+    goto out_of_memory_1;
 
   a->count = 0;
   a_allocated = 0;
@@ -110,13 +113,13 @@ PRINTF_PARSE (const CHAR_T *format, DIRECTIVES *d, arguments *a)
 	memory_size = xtimes (a_allocated, sizeof (argument));		\
 	if (size_overflow_p (memory_size))				\
 	  /* Overflow, would lead to out of memory.  */			\
-	  goto error;							\
+	  goto out_of_memory;						\
 	memory = (argument *) (a->arg					\
 			       ? realloc (a->arg, memory_size)		\
 			       : malloc (memory_size));			\
 	if (memory == NULL)						\
 	  /* Out of memory.  */						\
-	  goto error;							\
+	  goto out_of_memory;						\
 	a->arg = memory;						\
       }									\
     while (a->count <= n)						\
@@ -540,11 +543,11 @@ PRINTF_PARSE (const CHAR_T *format, DIRECTIVES *d, arguments *a)
 	      memory_size = xtimes (d_allocated, sizeof (DIRECTIVE));
 	      if (size_overflow_p (memory_size))
 		/* Overflow, would lead to out of memory.  */
-		goto error;
+		goto out_of_memory;
 	      memory = (DIRECTIVE *) realloc (d->dir, memory_size);
 	      if (memory == NULL)
 		/* Out of memory.  */
-		goto error;
+		goto out_of_memory;
 	      d->dir = memory;
 	    }
 	}
@@ -567,6 +570,16 @@ error:
     free (a->arg);
   if (d->dir)
     free (d->dir);
+  errno = EINVAL;
+  return -1;
+
+out_of_memory:
+  if (a->arg)
+    free (a->arg);
+  if (d->dir)
+    free (d->dir);
+out_of_memory_1:
+  errno = ENOMEM;
   return -1;
 }
 
