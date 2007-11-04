@@ -1,3 +1,7 @@
+2007-11-04  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (DCHAR_IS_TCHAR, DCHAR_CPY): Undefine at the end.
+
 2007-06-11  Bruno Haible  <bruno@clisp.org>
 
 	* printf-args.c (PRINTF_FETCHARGS) [ENABLE_UNISTDIO]: Fix NULL
