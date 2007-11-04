@@ -1,5 +1,10 @@
 2007-11-04  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in (libintl.res): Use 'c' command instead of 'a' command.
+	Needed for GNU sed 3.02.
+
+2007-11-04  Bruno Haible  <bruno@clisp.org>
+
 	* vasnprintf.c (VASNPRINTF): Handle NEED_PRINTF_UNBOUNDED_PRECISION.
 
 2007-11-04  Bruno Haible  <bruno@clisp.org>

@@ -1,3 +1,9 @@
+2007-11-04  Bruno Haible  <bruno@clisp.org>
+
+	* windows/windres-options (sed_extract_major, sed_extract_minor,
+	sed_extract_subminor): Use 'c' command instead of 'a' command. Needed
+	for GNU sed 3.02.
+
 2007-11-03  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (distcheck-hook): Add another check for vasnprintf.c.
