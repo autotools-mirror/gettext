@@ -1,3 +1,23 @@
+2007-06-11  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.c (PRINTF_FETCHARGS) [ENABLE_UNISTDIO]: Fix NULL
+	replacement string.
+	Reported by Eric Blake.
+
+2007-06-10  Bruno Haible  <bruno@clisp.org>
+
+	* printf-args.h (PRINTF_FETCHARGS): New macro.
+	(arg_type) [ENABLE_UNISTDIO]: Define TYPE_U8_STRING, TYPE_U16_STRING,
+	TYPE_U32_STRING.
+	(argument) [ENABLE_UNISTDIO]: Add a_u8_string, a_u16_string,
+	a_u32_string variants.
+	(PRINTF_FETCHARGS): Renamed from printf_fetchargs.
+	* printf-args.c: Don't include config.h and the specification header
+	if PRINTF_FETCHARGS is already defined.
+	(PRINTF_FETCHARGS): Renamed from printf_fetchargs.
+	(PRINTF_FETCHARGS) [ENABLE_UNISTDIO]: Add code for TYPE_U8_STRING,
+	TYPE_U16_STRING, TYPE_U32_STRING.
+
 2007-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Handle NEED_PRINTF_UNBOUNDED_PRECISION.
