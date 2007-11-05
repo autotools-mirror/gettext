@@ -1,3 +1,10 @@
+2007-11-05  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Expand the NEED_PRINTF_DIRECTIVE_A
+	code when NEED_PRINTF_LONG_DOUBLE or NEED_PRINTF_DOUBLE is set.
+	Needed on Cygwin, where !NEED_PRINTF_DIRECTIVE_A && NEED_PRINTF_DOUBLE.
+	Reported by Eric Blake.
+
 2007-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h: Protect all macro definitions containing an 'if' statement

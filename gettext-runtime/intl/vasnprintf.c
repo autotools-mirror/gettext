@@ -105,10 +105,14 @@
 # include "fpucw.h"
 #endif
 
-#if NEED_PRINTF_DIRECTIVE_A && !defined IN_LIBINTL
+#if (NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_DOUBLE) && !defined IN_LIBINTL
 # include <math.h>
 # include "isnan.h"
 # include "printf-frexp.h"
+#endif
+
+#if (NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_LONG_DOUBLE) && !defined IN_LIBINTL
+# include <math.h>
 # include "isnanl-nolibm.h"
 # include "printf-frexpl.h"
 # include "fpucw.h"
@@ -2034,8 +2038,19 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 		  }
 	      }
 #endif
-#if NEED_PRINTF_DIRECTIVE_A && !defined IN_LIBINTL
-	    else if (dp->conversion == 'a' || dp->conversion == 'A')
+#if (NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_LONG_DOUBLE || NEED_PRINTF_DOUBLE) && !defined IN_LIBINTL
+	    else if ((dp->conversion == 'a' || dp->conversion == 'A')
+# if !(NEED_PRINTF_DIRECTIVE_A || (NEED_PRINTF_LONG_DOUBLE && NEED_PRINTF_DOUBLE))
+		     && (0
+#  if NEED_PRINTF_DOUBLE
+			 || a.arg[dp->arg_index].type == TYPE_DOUBLE
+#  endif
+#  if NEED_PRINTF_LONG_DOUBLE
+			 || a.arg[dp->arg_index].type == TYPE_LONGDOUBLE
+#  endif
+			)
+# endif
+		    )
 	      {
 		arg_type type = a.arg[dp->arg_index].type;
 		int flags = dp->flags;
@@ -2153,6 +2168,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 		p = tmp;
 		if (type == TYPE_LONGDOUBLE)
 		  {
+# if NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_LONG_DOUBLE
 		    long double arg = a.arg[dp->arg_index].a.a_longdouble;
 
 		    if (isnanl (arg))
@@ -2272,7 +2288,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 				}
 			      }
 			      *p++ = dp->conversion - 'A' + 'P';
-# if WIDE_CHAR_VERSION
+#  if WIDE_CHAR_VERSION
 			      {
 				static const wchar_t decimal_format[] =
 				  { '%', '+', 'd', '\0' };
@@ -2280,7 +2296,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 			      }
 			      while (*p != '\0')
 				p++;
-# else
+#  else
 			      if (sizeof (DCHAR_T) == 1)
 				{
 				  sprintf ((char *) p, "%+d", exponent);
@@ -2295,14 +2311,18 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 				  for (ep = expbuf; (*p = *ep) != '\0'; ep++)
 				    p++;
 				}
-# endif
+#  endif
 			  }
 
 			END_LONG_DOUBLE_ROUNDING ();
 		      }
+# else
+		    abort ();
+# endif
 		  }
 		else
 		  {
+# if NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_DOUBLE
 		    double arg = a.arg[dp->arg_index].a.a_double;
 
 		    if (isnan (arg))
@@ -2419,7 +2439,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 				}
 			      }
 			      *p++ = dp->conversion - 'A' + 'P';
-# if WIDE_CHAR_VERSION
+#  if WIDE_CHAR_VERSION
 			      {
 				static const wchar_t decimal_format[] =
 				  { '%', '+', 'd', '\0' };
@@ -2427,7 +2447,7 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 			      }
 			      while (*p != '\0')
 				p++;
-# else
+#  else
 			      if (sizeof (DCHAR_T) == 1)
 				{
 				  sprintf ((char *) p, "%+d", exponent);
@@ -2442,9 +2462,12 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 				  for (ep = expbuf; (*p = *ep) != '\0'; ep++)
 				    p++;
 				}
-# endif
+#  endif
 			  }
 		      }
+# else
+		    abort ();
+# endif
 		  }
 		/* The generated string now extends from tmp to p, with the
 		   zero padding insertion point being at pad_ptr.  */
