@@ -1,3 +1,7 @@
+2007-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.17 released.
+
 2007-11-04  Bruno Haible  <bruno@clisp.org>
 
 	* windows/windres-options (sed_extract_major, sed_extract_minor,

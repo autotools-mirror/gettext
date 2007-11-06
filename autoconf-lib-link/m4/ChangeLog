@@ -1,3 +1,7 @@
+2007-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.17 released.
+
 2007-01-08  Bruno Haible  <bruno@clisp.org>
 
 	Avoid variable names that conflict with those from libtool.
