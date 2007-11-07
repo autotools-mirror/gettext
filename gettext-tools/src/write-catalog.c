@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -220,7 +220,9 @@ message catalog has plural form translations, but the output format does not sup
       /* Open the output file.  */
       if (!to_stdout)
 	{
-	  fd = open (filename, O_WRONLY | O_CREAT);
+	  fd = open (filename, O_WRONLY | O_CREAT | O_TRUNC,
+		     /* 0666 in portable POSIX notation: */
+		     S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 	  if (fd < 0)
 	    {
 	      const char *errno_description = strerror (errno);
