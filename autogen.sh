@@ -30,6 +30,8 @@
 # Usage after a first-time CVS checkout:     ./autogen.sh
 # Usage after a CVS update:                  ./autogen.sh --quick
 # This uses an up-to-date gnulib checkout.
+# (The gettext-0.17 release was prepared using gnulib commit
+# bf5ebbca03613397b66521e98dd4ce28741c4689 from 2007-11-07.)
 #
 # Usage from a released tarball:             ./autogen.sh --quick --skip-gnulib
 # This does not use a gnulib checkout.
