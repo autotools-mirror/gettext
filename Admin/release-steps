@@ -66,3 +66,8 @@ Tasks not to forget before release:
   Then update the case statement and the table in autopoint.in.
 - again: "make dist"
 
+* Upload to ftp-upload.gnu.org according to the procedure given by
+  Bradley M. Kuhn on 2003-11-11.
+
+- Tag the repository, using a simple tag and optionally a branch tag.
+
