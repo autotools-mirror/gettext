@@ -2,6 +2,10 @@
 
 	* gettext-0.17 released.
 
+2007-11-07  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Update for 0.17.
+
 2007-10-31  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in (m4filelist): Remove ulonglong.m4 from the list.
