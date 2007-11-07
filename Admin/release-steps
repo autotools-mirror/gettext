@@ -58,6 +58,8 @@ Tasks not to forget before release:
   except gettext-tools/examples/hello-c++-kde/admin/ChangeLog.
 
 - "make"; "make dist"; "make distcheck"
+- Commit all the files in gnulib.
+- Update the version number and commit identifier in autogen.sh.
 - cd gettext-tools/misc
   cp archive.tar.gz-<last-release-number> archive.tar.gz
   add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
