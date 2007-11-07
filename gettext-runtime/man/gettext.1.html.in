@@ -174,12 +174,12 @@ Report bugs to &lt;bug-gnu-gettext@gnu.org&gt;.</td></table>
        cols="2" cellspacing="0" cellpadding="0">
 <tr valign="top" align="left">
 <td width="10%"></td><td width="90%">
-Copyright 1995-1997, 2000-2006 Free Software Foundation,
-Inc.<br>
-This is free software; see the source for copying
-conditions. There is NO warranty; not even for
-MERCHANTABILITY or FITNESS FOR A PARTICULAR
-PURPOSE.</td></table>
+Copyright 1995-1997, 2000-2007 Free Software Foundation,
+Inc. License GPLv3+: GNU GPL version 3 or later
+&lt;http://gnu.org/licenses/gpl.html&gt;<br>
+This is free software: you are free to change and
+redistribute it. There is NO WARRANTY, to the extent
+permitted by law.</td></table>
 <a name="SEE ALSO"></a>
 <h2>SEE ALSO</h2>
 

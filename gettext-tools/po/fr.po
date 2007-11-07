@@ -4,13 +4,13 @@
 # Il a été le traducteur jusqu'en 2001.
 # Michel Robitaille <robitail@iro.umontreal.ca>, traducteur depuis/since 1996.
 # Christophe Combelles <ccomb@free.fr>, 2006
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-10-27 15:20+0200\n"
+"POT-Creation-Date: 2007-11-02 03:23+0100\n"
 "PO-Revision-Date: 2007-10-27 13:35+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"

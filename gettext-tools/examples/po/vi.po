@@ -2,7 +2,7 @@
 # Copyright © 2005 Yoyodyne, Inc.
 # Copyright © 2007 Free Software Foundation, Inc.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.16.2-pre5\n"

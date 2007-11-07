@@ -45,9 +45,10 @@ DIST_COMMON = $(am__configure_deps) \
 	$(top_srcdir)/configure ../../../build-aux/compile \
 	../../../build-aux/config.guess \
 	../../../build-aux/config.rpath ../../../build-aux/config.sub \
-	../../../build-aux/elisp-comp ../../../build-aux/install-sh \
-	../../../build-aux/ltmain.sh ../../../build-aux/mdate-sh \
-	../../../build-aux/missing ../../../build-aux/mkinstalldirs \
+	../../../build-aux/depcomp ../../../build-aux/elisp-comp \
+	../../../build-aux/install-sh ../../../build-aux/ltmain.sh \
+	../../../build-aux/mdate-sh ../../../build-aux/missing \
+	../../../build-aux/mkinstalldirs \
 	../../../build-aux/texinfo.tex ../../../build-aux/ylwrap
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -112,6 +113,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
 LIBRPATHX = @LIBRPATHX@
+LIBRPATHX_PREFIX = @LIBRPATHX_PREFIX@
 LIBS = @LIBS@
 LTLIBOBJS = @LTLIBOBJS@
 LTLIBRPATHX = @LTLIBRPATHX@

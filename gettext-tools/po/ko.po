@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.16\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-05-15 02:10+0200\n"
+"POT-Creation-Date: 2007-11-02 03:23+0100\n"
 "PO-Revision-Date: 2007-06-13 21:37+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
@@ -16,88 +16,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: gnulib-lib/argmatch.c:134
+#: gnulib-lib/argmatch.c:133
 #, c-format
 msgid "invalid argument %s for %s"
 msgstr "`%2$s'에 대한 인자 `%1$s'이(가) 잘못되었습니다"
 
-#: gnulib-lib/argmatch.c:135
+#: gnulib-lib/argmatch.c:134
 #, c-format
 msgid "ambiguous argument %s for %s"
 msgstr "`%2$s'에 대한 인자 `%1$s'이(가) 애매합니다"
 
-#: gnulib-lib/argmatch.c:154
+#: gnulib-lib/argmatch.c:153
 #, c-format
 msgid "Valid arguments are:"
 msgstr "올바른 인자는 다음과 같습니다:"
 
-#: gnulib-lib/clean-temp.c:334
+#: gnulib-lib/clean-temp.c:333
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "임시 디렉토리가 없습니다, $TMPDIR 환경변수를 세팅하십시오"
 
-#: gnulib-lib/clean-temp.c:348
+#: gnulib-lib/clean-temp.c:347
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "틀 \"%s\"을(를) 이용해 임시 디렉토리를 만들 수 없습니다"
 
-#: gnulib-lib/clean-temp.c:444
+#: gnulib-lib/clean-temp.c:443
 #, c-format
 msgid "cannot remove temporary file %s"
 msgstr "임시 파일 %s을(를) 지울 수 없습니다"
 
-#: gnulib-lib/clean-temp.c:459
+#: gnulib-lib/clean-temp.c:458
 #, c-format
 msgid "cannot remove temporary directory %s"
 msgstr "임시 디렉토리 %s을(를) 지울 수 없습니다"
 
-#: gnulib-lib/closeout.c:67
+#: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "쓰기 오류"
 
-#: gnulib-lib/copy-file.c:67 src/file-list.c:55 src/msggrep.c:245
-#: src/open-catalog.c:122 src/read-mo.c:253 src/read-tcl.c:125
-#: src/urlget.c:201 src/xgettext.c:1750 src/xgettext.c:1763
-#: src/xgettext.c:1773
+#: gnulib-lib/copy-file.c:66 src/file-list.c:53 src/msggrep.c:244
+#: src/open-catalog.c:121 src/read-mo.c:252 src/read-tcl.c:124
+#: src/urlget.c:201 src/xgettext.c:1794 src/xgettext.c:1807
+#: src/xgettext.c:1817
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "읽기 위해 \"%s\"을(를) 여는 동안 오류 발생"
 
-#: gnulib-lib/copy-file.c:74
+#: gnulib-lib/copy-file.c:73
 #, c-format
 msgid "cannot open backup file \"%s\" for writing"
 msgstr "백업 파일 \"%s\"을(를) 쓰기 위해 열지 못했습니다"
 
-#: gnulib-lib/copy-file.c:82 src/urlget.c:213
+#: gnulib-lib/copy-file.c:81 src/urlget.c:213
 #, c-format
 msgid "error reading \"%s\""
 msgstr "\"%s\" 파일을 읽는 동안 오류 발생"
 
-#: gnulib-lib/copy-file.c:87 gnulib-lib/copy-file.c:92
-#: gnulib-lib/copy-file.c:131
+#: gnulib-lib/copy-file.c:86 gnulib-lib/copy-file.c:91
+#: gnulib-lib/copy-file.c:130
 #, c-format
 msgid "error writing \"%s\""
 msgstr "\"%s\" 파일을 쓰는 동안 오류 발생"
 
-#: gnulib-lib/copy-file.c:94 gnulib-lib/copy-file.c:133 src/urlget.c:223
+#: gnulib-lib/copy-file.c:93 gnulib-lib/copy-file.c:132 src/urlget.c:223
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "\"%s\" 파일을 읽은 후에 오류 발생"
 
-#: gnulib-lib/csharpcomp.c:280 gnulib-lib/javaversion.c:78 src/msginit.c:840
-#: src/msginit.c:908 src/msginit.c:1068 src/msginit.c:1151
-#: src/read-csharp.c:73 src/read-java.c:71 src/read-resources.c:74
-#: src/read-tcl.c:111 src/write-resources.c:78
+#: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:839
+#: src/msginit.c:914 src/msginit.c:1074 src/msginit.c:1173
+#: src/read-csharp.c:72 src/read-java.c:70 src/read-resources.c:73
+#: src/read-tcl.c:110 src/write-resources.c:77
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen()이 실패했습니다"
 
-#: gnulib-lib/csharpcomp.c:540
+#: gnulib-lib/csharpcomp.c:570
 #, c-format
 msgid "C# compiler not found, try installing pnet"
 msgstr "C# 컴파일러가 없습니다.  pnet을 설치해 보십시오"
 
-#: gnulib-lib/csharpexec.c:344
+#: gnulib-lib/csharpexec.c:343
 #, c-format
 msgid "C# virtual machine not found, try installing pnet"
 msgstr "C# 가상기계가 없습니다.  pnet을 설치해 보십시오"
@@ -106,121 +106,121 @@ msgstr "C# 가상기계가 없습니다.  pnet을 설치해 보십시오"
 msgid "Unknown system error"
 msgstr "알 수 없는 시스템 오류"
 
-#: gnulib-lib/execute.c:185 gnulib-lib/execute.c:261 gnulib-lib/execute.c:303
-#: gnulib-lib/pipe.c:230 gnulib-lib/pipe.c:348 gnulib-lib/pipe.c:408
-#: gnulib-lib/wait-process.c:334 gnulib-lib/wait-process.c:401
+#: gnulib-lib/execute.c:184 gnulib-lib/execute.c:260 gnulib-lib/execute.c:302
+#: gnulib-lib/pipe.c:229 gnulib-lib/pipe.c:347 gnulib-lib/pipe.c:407
+#: gnulib-lib/wait-process.c:333 gnulib-lib/wait-process.c:400
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s 서브프로세스가 실패했습니다"
 
-#: gnulib-lib/getopt.c:531 gnulib-lib/getopt.c:547
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: `%s'은(는) 모호한 옵션입니다\n"
 
-#: gnulib-lib/getopt.c:580 gnulib-lib/getopt.c:584
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: `--%s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: gnulib-lib/getopt.c:593 gnulib-lib/getopt.c:598
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: `%c%s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: gnulib-lib/getopt.c:641 gnulib-lib/getopt.c:660 gnulib-lib/getopt.c:976
-#: gnulib-lib/getopt.c:995
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: `%s' 옵션은 인수가 필요합니다\n"
 
-#: gnulib-lib/getopt.c:698 gnulib-lib/getopt.c:701
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: 인식할 수 없는 옵션 `--%s'\n"
 
-#: gnulib-lib/getopt.c:709 gnulib-lib/getopt.c:712
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: 인식할 수 없는 옵션 `%c%s'\n"
 
-#: gnulib-lib/getopt.c:764 gnulib-lib/getopt.c:767
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: 잘못된 옵션 -- %c\n"
 
-#: gnulib-lib/getopt.c:773 gnulib-lib/getopt.c:776
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: 부적절한 옵션 -- %c\n"
 
-#: gnulib-lib/getopt.c:828 gnulib-lib/getopt.c:844 gnulib-lib/getopt.c:1048
-#: gnulib-lib/getopt.c:1066
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: 이 옵션은 인수가 필요합니다 -- %c\n"
 
-#: gnulib-lib/getopt.c:897 gnulib-lib/getopt.c:913
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: `-W %s'은(는) 모호한 옵션입니다\n"
 
-#: gnulib-lib/getopt.c:937 gnulib-lib/getopt.c:955
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: gnulib-lib/javacomp.c:128 gnulib-lib/javacomp.c:142
-#: gnulib-lib/javacomp.c:158
+#: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
+#: gnulib-lib/javacomp.c:156
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
 msgstr "compile_java_class에 대한 source_version 인자가 잘못되었습니다"
 
-#: gnulib-lib/javacomp.c:173 gnulib-lib/javacomp.c:194
+#: gnulib-lib/javacomp.c:171 gnulib-lib/javacomp.c:192
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
 msgstr "compile_java_class에 대한 target_version 인자가 잘못되었습니다"
 
-#: gnulib-lib/javacomp.c:505 src/write-csharp.c:714 src/write-java.c:988
-#: src/write-java.c:1000
+#: gnulib-lib/javacomp.c:503 src/write-csharp.c:724 src/write-java.c:1026
+#: src/write-java.c:1038
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "\"%s\"을(를) 만드는 데 실패했습니다"
 
-#: gnulib-lib/javacomp.c:512 src/write-catalog.c:254 src/write-catalog.c:318
-#: src/write-csharp.c:723 src/write-java.c:1009 src/write-mo.c:812
-#: src/write-qt.c:749 src/write-tcl.c:223
+#: gnulib-lib/javacomp.c:510 src/write-catalog.c:253 src/write-catalog.c:317
+#: src/write-csharp.c:733 src/write-java.c:1047 src/write-mo.c:811
+#: src/write-qt.c:748 src/write-tcl.c:222
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" 파일을 쓰는 동안 오류 발생"
 
-#: gnulib-lib/javacomp.c:2343
+#: gnulib-lib/javacomp.c:2341
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr ""
 "자바 컴파일러가 없습니다.  gcj를 설치하거나 $JAVAC 환경변수를 세팅하십시오"
 
-#: gnulib-lib/javaexec.c:418
+#: gnulib-lib/javaexec.c:417
 #, c-format
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "자바 가상기계가 없습니다.  gij를 설치하거나 $JAVAC 환경변수를 세팅하십시오"
 
-#: gnulib-lib/javaversion.c:86 src/msginit.c:848 src/msginit.c:916
-#: src/msginit.c:1076
+#: gnulib-lib/javaversion.c:84 src/msginit.c:847 src/msginit.c:922
+#: src/msginit.c:1082
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s 서브프로세스 입출력 오류"
 
-#: gnulib-lib/obstack.c:424 gnulib-lib/obstack.c:426 gnulib-lib/xmalloc.c:38
-#: gnulib-lib/xsetenv.c:39 src/msgl-check.c:452 src/po-lex.c:84
-#: src/po-lex.c:103 src/x-glade.c:436 libgettextpo/gettext-po.c:1245
+#: gnulib-lib/obstack.c:423 gnulib-lib/obstack.c:425 gnulib-lib/xmalloc.c:37
+#: gnulib-lib/xsetenv.c:38 src/msgl-check.c:473 src/po-lex.c:84
+#: src/po-lex.c:103 src/x-glade.c:588 libgettextpo/gettext-po.c:1284
 #, c-format
 msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
 
-#: gnulib-lib/pipe.c:156 gnulib-lib/pipe.c:159 gnulib-lib/pipe.c:263
-#: gnulib-lib/pipe.c:266
+#: gnulib-lib/pipe.c:155 gnulib-lib/pipe.c:158 gnulib-lib/pipe.c:262
+#: gnulib-lib/pipe.c:265
 #, c-format
 msgid "cannot create pipe"
 msgstr "파이프를 만들 수 없습니다"
@@ -244,74 +244,74 @@ msgstr "파이프를 만들 수 없습니다"
 #. If you don't know what to put here, please see
 #. <http://en.wikipedia.org/wiki/Quotation_mark#Glyphs>
 #. and use glyphs suitable for your language.
-#: gnulib-lib/quotearg.c:229
+#: gnulib-lib/quotearg.c:228
 msgid "`"
 msgstr "`"
 
-#: gnulib-lib/quotearg.c:230
+#: gnulib-lib/quotearg.c:229
 msgid "'"
 msgstr "'"
 
-#: gnulib-lib/w32spawn.h:48
+#: gnulib-lib/w32spawn.h:47
 #, c-format
 msgid "DuplicateHandle failed with error code 0x%08x"
 msgstr "DuplicateHandle이 오류 코드 0x%08x번으로 실패했습니다"
 
-#: gnulib-lib/w32spawn.h:53
+#: gnulib-lib/w32spawn.h:52
 #, c-format
 msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle 실패"
 
-#: gnulib-lib/wait-process.c:277 gnulib-lib/wait-process.c:309
-#: gnulib-lib/wait-process.c:367
+#: gnulib-lib/wait-process.c:276 gnulib-lib/wait-process.c:308
+#: gnulib-lib/wait-process.c:366
 #, c-format
 msgid "%s subprocess"
 msgstr "%s 서브프로세스"
 
 # fatal signal 번역 개선
-#: gnulib-lib/wait-process.c:326 gnulib-lib/wait-process.c:393
+#: gnulib-lib/wait-process.c:325 gnulib-lib/wait-process.c:392
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s 서브프로세스가 치명적인 시그널 %d을(를) 받았습니다"
 
-#: src/format.c:149
+#: src/format.c:143
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"
 msgstr ""
 "'msgid'와는 달리, '%s'은(는) 올바른 %s 형식 문자열이 아닙니다. 이유: %s"
 
-#: src/format-awk.c:510 src/format-boost.c:618 src/format-elisp.c:349
-#: src/format-gcc-internal.c:624 src/format-librep.c:313
-#: src/format-pascal.c:402 src/format-perl.c:585 src/format-php.c:351
-#: src/format-qt.c:138 src/format-tcl.c:391 src/format-ycp.c:145
+#: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
+#: src/format-gcc-internal.c:623 src/format-librep.c:312
+#: src/format-pascal.c:401 src/format-perl.c:584 src/format-php.c:350
+#: src/format-qt.c:170 src/format-tcl.c:390 src/format-ycp.c:144
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"
 msgstr "'%2$s' 안에 있는, 인자 %1$u에 대한 서식 지정이 'msgid'에 없습니다"
 
-#: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
-#: src/format-gcc-internal.c:634 src/format-librep.c:323
-#: src/format-pascal.c:412 src/format-perl.c:595 src/format-php.c:361
-#: src/format-qt.c:137 src/format-tcl.c:401 src/format-ycp.c:144
+#: src/format-awk.c:519 src/format-boost.c:627 src/format-elisp.c:358
+#: src/format-gcc-internal.c:633 src/format-librep.c:322
+#: src/format-pascal.c:411 src/format-perl.c:594 src/format-php.c:360
+#: src/format-qt.c:169 src/format-tcl.c:400 src/format-ycp.c:143
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "인자 %u에 대한 서식 지정이 '%s'에 없습니다"
 
-#: src/format-awk.c:540 src/format-boost.c:648 src/format-c.c:911
-#: src/format-elisp.c:379 src/format-gcc-internal.c:654
-#: src/format-librep.c:343 src/format-pascal.c:432 src/format-perl.c:615
-#: src/format-php.c:381 src/format-python.c:511 src/format-tcl.c:421
+#: src/format-awk.c:539 src/format-boost.c:647 src/format-c.c:910
+#: src/format-elisp.c:378 src/format-gcc-internal.c:653
+#: src/format-librep.c:342 src/format-pascal.c:431 src/format-perl.c:614
+#: src/format-php.c:380 src/format-python.c:510 src/format-tcl.c:420
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument %u are not the same"
 msgstr "'msgid'와 '%s'에 쓰인 인자 %u에 대한 서식 지정이 같지 않습니다"
 
-#: src/format-boost.c:450
+#: src/format-boost.c:449
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr "지시자 %u번이 |로 시작하지만 |로 끝나지 않습니다."
 
-#: src/format-c.c:182
+#: src/format-c.c:181
 #, c-format
 msgid ""
 "In the directive number %u, the token after '<' is not the name of a format "
@@ -320,102 +320,109 @@ msgstr ""
 "지시자 %u번에서, '<' 뒤의 토큰이 포맷을 지정하는 매크로 이름이 아닙니다. 올바"
 "른 매크로 이름은 ISO C 99 섹션 7.8.1에 열거되어 있습니다."
 
-#: src/format-c.c:589
+#: src/format-c.c:588
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "지시자 %u번에서, '<' 뒤의 토큰 다음에 '>'가 오지 않습니다."
 
-#: src/format-c.c:815
+#: src/format-c.c:814
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "문자열이 인자 번호  %u을(를) 참조하지만 인자 번호 %u을(를) 무시합니다."
 
-#: src/format-c.c:902 src/format-csharp.c:207 src/format-python.c:502
+#: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:501
 #, c-format
 msgid "number of format specifications in 'msgid' and '%s' does not match"
 msgstr "'msgid'와 '%s'에 쓰인 서식 지정자의 개수가 일치하지 않습니다"
 
-#: src/format-csharp.c:89 src/format-java.c:206
+#: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "지시자 %u번에서, '{' 다음에 인자 번호가 오지 않습니다."
 
-#: src/format-csharp.c:110
+#: src/format-csharp.c:109
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
 msgstr "지시자 %u번에서, 숫자 다음에 ','가 오지 않습니다."
 
-#: src/format-csharp.c:131 src/format-java.c:192
+#: src/format-csharp.c:130 src/format-java.c:191
 msgid ""
 "The string ends in the middle of a directive: found '{' without matching '}'."
 msgstr ""
 "문자열이 지시자 중간에서 끝납니다: 짝이 맞는 '}'가 없는 '{'를 발견했습니다."
 
-#: src/format-csharp.c:140
+#: src/format-csharp.c:139
 #, c-format
 msgid ""
 "The directive number %u ends with an invalid character '%c' instead of '}'."
 msgstr "지시자 %u번이 '}'가 아니라 잘못된 '%c' 문자로 끝납니다."
 
-#: src/format-csharp.c:141
+#: src/format-csharp.c:140
 #, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
 msgstr "지시자 %u번이 '}'가 아니라 잘못된 문자로 끝납니다."
 
-#: src/format-csharp.c:162 src/format-java.c:347
+#: src/format-csharp.c:161 src/format-java.c:346
 msgid ""
 "The string starts in the middle of a directive: found '}' without matching "
 "'{'."
 msgstr ""
 "지시자 중간에서 문자열이 시작합니다: 짝이 맞는 '}'가 없는 '{'를 발견했습니다."
 
-#: src/format-csharp.c:163
+#: src/format-csharp.c:162
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "문자열에 지시자 %u번 뒤에 '}'가 들어 있습니다."
 
-#: src/format-gcc-internal.c:254
+#: src/format-gcc-internal.c:253
 #, c-format
 msgid "In the directive number %u, the flags combination is invalid."
 msgstr "지시자 %u번에서, 플래그 조합이 잘못되었습니다."
 
-#: src/format-gcc-internal.c:291 src/format-gcc-internal.c:397
+#: src/format-gcc-internal.c:290
 #, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr "지시자 %u번에서, '%c' 앞에는 유효숫자를 지정할 수 없습니다."
 
-#: src/format-gcc-internal.c:333
+#: src/format-gcc-internal.c:332
 #, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
 "equal to %u."
 msgstr "지시자 %u번에서, 유효숫자에 대해 인자 개수가 %u와(과) 같아야 합니다."
 
-#: src/format-gcc-internal.c:405
+#: src/format-gcc-internal.c:396
+#, fuzzy, c-format
+msgid ""
+"In the directive number %u, a precision specification is not allowed before "
+"'%c'."
+msgstr "지시자 %u번에서, '%c' 앞에는 유효숫자를 지정할 수 없습니다."
+
+#: src/format-gcc-internal.c:404
 #, c-format
 msgid "In the directive number %u, the precision specification is invalid."
 msgstr "지시자 %u번에서, 유효숫자 지정이 잘못되었습니다."
 
-#: src/format-gcc-internal.c:460
+#: src/format-gcc-internal.c:459
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "지시자 %u번에서, '%c' 앞에는 플래그를 쓸 수 없습니다."
 
-#: src/format-gcc-internal.c:672
+#: src/format-gcc-internal.c:671
 #, c-format
 msgid "'msgid' uses %%m but '%s' doesn't"
 msgstr "'msgid'가 %%m을 사용하지만 '%s'은(는) 사용하지 않습니다"
 
-#: src/format-gcc-internal.c:675
+#: src/format-gcc-internal.c:674
 #, c-format
 msgid "'msgid' does not use %%m but '%s' uses %%m"
 msgstr "'msgid'가 %%m을 사용하지 않지만 '%s'은(는) %%m을 사용합니다"
 
-#: src/format-invalid.h:23
+#: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
 msgstr "지시자 중간에서 문자열이 끝납니다."
 
-#: src/format-invalid.h:26
+#: src/format-invalid.h:25
 msgid ""
 "The string refers to arguments both through absolute argument numbers and "
 "through unnumbered argument specifications."
@@ -423,46 +430,46 @@ msgstr ""
 "문자열이 인자의 절대 번호를 통한 방법과 이름없이 지정하는 방법 두 가지로 인자"
 "를 참조합니다."
 
-#: src/format-invalid.h:29
+#: src/format-invalid.h:28
 #, c-format
 msgid ""
 "In the directive number %u, the argument number 0 is not a positive integer."
 msgstr "지시자 %u번에서, 인자 번호 0이 1 이상의 정수가 아닙니다."
 
-#: src/format-invalid.h:31
+#: src/format-invalid.h:30
 #, c-format
 msgid ""
 "In the directive number %u, the width's argument number 0 is not a positive "
 "integer."
 msgstr "지시자 %u번에서, 너비의 인자 번호 0이 1 이상의 정수가 아닙니다."
 
-#: src/format-invalid.h:33
+#: src/format-invalid.h:32
 #, c-format
 msgid ""
 "In the directive number %u, the precision's argument number 0 is not a "
 "positive integer."
 msgstr "지시자 %u번에서, 정밀도의 인자 번호 0이 1 이상의 정수가 아닙니다."
 
-#: src/format-invalid.h:37
+#: src/format-invalid.h:36
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a valid conversion "
 "specifier."
 msgstr "지시자 %u번에서, '%c' 문자는 올바른 변환 지정자가 아닙니다."
 
-#: src/format-invalid.h:38
+#: src/format-invalid.h:37
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a valid "
 "conversion specifier."
 msgstr "지시자 %u번을 끝마치는 문자가 올바른 변환 지정자가 아닙니다."
 
-#: src/format-invalid.h:41
+#: src/format-invalid.h:40
 #, c-format
 msgid "The string refers to argument number %u in incompatible ways."
 msgstr "문자열에서 호환되지 않는 방법으로 인자 번호 %u을(를) 참조합니다."
 
-#: src/format-java.c:241
+#: src/format-java.c:240
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
@@ -470,19 +477,19 @@ msgid ""
 msgstr ""
 "지시자 %u번에서, 서브문자열 \"%s\"은(는) 올바른 날짜/시각 스타일이 아닙니다."
 
-#: src/format-java.c:252 src/format-java.c:286 src/format-java.c:315
+#: src/format-java.c:251 src/format-java.c:285 src/format-java.c:314
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
 msgstr "지시자 %u번에서, \"%s\" 다음에 쉼표가 오지 않습니다."
 
-#: src/format-java.c:275
+#: src/format-java.c:274
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
 msgstr ""
 "지시자 %u번에서, 서브문자열 \"%s\"은(는) 올바른 숫자 스타일이 아닙니다."
 
-#: src/format-java.c:324
+#: src/format-java.c:323
 #, c-format
 msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
@@ -491,12 +498,12 @@ msgstr ""
 "지시자 %u번에서, 인자 번호 다음에 쉼표와 \"%s\", \"%s\", \"%s\", \"%s\"중의 "
 "하나가 오지 않습니다."
 
-#: src/format-java.c:573
+#: src/format-java.c:572
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
 msgstr "지시자 %u번에서, 선택 지정에 숫자가 들어 있지 않습니다."
 
-#: src/format-java.c:584
+#: src/format-java.c:583
 #, c-format
 msgid ""
 "In the directive number %u, a choice contains a number that is not followed "
@@ -505,26 +512,26 @@ msgstr ""
 "지시자 %u번에서, 선택 지정에 숫자 다음에 '<', '#', 혹은 '%s'이(가) 오지 않습"
 "니다."
 
-#: src/format-java.c:746
+#: src/format-java.c:745
 #, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "'%2$s' 안에 있는, 인자 {%1$u}에 대한 서식 지정이 'msgid'에 없습니다"
 
-#: src/format-java.c:756
+#: src/format-java.c:755
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "인자 {%u}에 대한 서식 지정이 '%s'에 없습니다"
 
-#: src/format-java.c:776
+#: src/format-java.c:775
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument {%u} are not the same"
 msgstr "인자 {%2$u}에 대한 'msgid'와 '%1$s'의 서식 지정이 같지 않습니다"
 
-#: src/format-lisp.c:2338 src/format-lisp.c:2350 src/format-scheme.c:2364
-#: src/format-scheme.c:2376
+#: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
+#: src/format-scheme.c:2375
 #, c-format
 msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
@@ -532,7 +539,7 @@ msgid ""
 msgstr ""
 "지시자 %u번에서, 파라미터 %u은(는) '%s' 타입이지만, '%s' 타입이어야 합니다."
 
-#: src/format-lisp.c:2373 src/format-scheme.c:2399
+#: src/format-lisp.c:2372 src/format-scheme.c:2398
 #, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most %"
@@ -544,33 +551,33 @@ msgstr[0] ""
 "지시자 %u번에서, 매개변수가 너무 많습니다; 최대 %u개의 매개변수만 올 수 있습"
 "니다."
 
-#: src/format-lisp.c:2497 src/format-scheme.c:2500
+#: src/format-lisp.c:2496 src/format-scheme.c:2499
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "지시자 %u번에서, '%c' 다음에 숫자가 오지 않습니다."
 
-#: src/format-lisp.c:2737 src/format-scheme.c:2755
+#: src/format-lisp.c:2736 src/format-scheme.c:2754
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "지시자 %u번에서, 인자 %d이(가) 0보다 작습니다."
 
-#: src/format-lisp.c:2806
+#: src/format-lisp.c:2805
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "문자열이 ~/.../ 지시자의 중간에서 끝납니다."
 
-#: src/format-lisp.c:2844 src/format-lisp.c:3109 src/format-lisp.c:3226
-#: src/format-lisp.c:3286 src/format-lisp.c:3398 src/format-scheme.c:2841
-#: src/format-scheme.c:3106 src/format-scheme.c:3223 src/format-scheme.c:3321
+#: src/format-lisp.c:2843 src/format-lisp.c:3108 src/format-lisp.c:3225
+#: src/format-lisp.c:3285 src/format-lisp.c:3397 src/format-scheme.c:2840
+#: src/format-scheme.c:3105 src/format-scheme.c:3222 src/format-scheme.c:3320
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "'~%c'에 짝이 맞는 '~%c'이(가) 없습니다."
 
-#: src/format-lisp.c:2864 src/format-scheme.c:2861
+#: src/format-lisp.c:2863 src/format-scheme.c:2860
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "지시자 %u번에서, @와 : 변경자가 모두 들어 있습니다."
 
-#: src/format-lisp.c:2977 src/format-scheme.c:2974
+#: src/format-lisp.c:2976 src/format-scheme.c:2973
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
@@ -579,39 +586,39 @@ msgstr ""
 "지시자 %u번에서, '~:[' 다음에 와야 하는 '~;'로 구분된 두 개의 절이 오지 않습"
 "니다."
 
-#: src/format-lisp.c:3327 src/format-scheme.c:3264
+#: src/format-lisp.c:3326 src/format-scheme.c:3263
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "지시자 %u번에서, '~;'이 잘못된 위치에 쓰여졌습니다."
 
-#: src/format-lisp.c:3433 src/format-scheme.c:3356
+#: src/format-lisp.c:3432 src/format-scheme.c:3355
 msgid "The string refers to some argument in incompatible ways."
 msgstr "문자열이 호환되지 않는 방법으로 인자를 참조합니다."
 
 # 여기서 equivalent에 대한 해석은?
-#: src/format-lisp.c:3475 src/format-scheme.c:3398
+#: src/format-lisp.c:3474 src/format-scheme.c:3397
 #, c-format
 msgid "format specifications in 'msgid' and '%s' are not equivalent"
 msgstr "'msgid'와 '%s'의 서식 지정이 동등하지 않습니다"
 
-#: src/format-lisp.c:3491 src/format-scheme.c:3414
+#: src/format-lisp.c:3490 src/format-scheme.c:3413
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in 'msgid'"
 msgstr "'%s' 안에 있는 서식 지정이 'msgid'에 없습니다"
 
-#: src/format-perl.c:434
+#: src/format-perl.c:433
 #, c-format
 msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
 "conversion specifier '%c'."
 msgstr "지시자 %u번에서, 크기 지정은 '%c' 변환 지정과 호환되지 않습니다."
 
-#: src/format-perl-brace.c:200 src/format-python.c:460 src/format-sh.c:308
+#: src/format-perl-brace.c:199 src/format-python.c:459 src/format-sh.c:307
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "인자 '%s'에 대한 서식 지정이 '%s'에 없습니다"
 
-#: src/format-python.c:113
+#: src/format-python.c:112
 msgid ""
 "The string refers to arguments both through argument names and through "
 "unnamed argument specifications."
@@ -619,49 +626,51 @@ msgstr ""
 "문자열이 인자 이름을 통한 방법과 이름없이 지정하는 방법 두 가지로 인자를 참조"
 "합니다."
 
-#: src/format-python.c:344
+#: src/format-python.c:343
 #, c-format
 msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "문자열이 호환되지 않는 방법으로 '%s'(이)라는 이름의 인자를 참조합니다."
 
 # mapping과 tuple: python 데이타 구조
-#: src/format-python.c:420
+#: src/format-python.c:419
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 "tuple"
 msgstr "'msgid'의 서식 지정자는 매핑이 필요한데, '%s'에는 터플이 필요합니다"
 
-#: src/format-python.c:427
+#: src/format-python.c:426
 #, c-format
 msgid ""
 "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 "mapping"
 msgstr "'msgid'의 서식 지정자는 터플이 필요한데, '%s'에는 매핑이 필요합니다"
 
-#: src/format-python.c:450 src/format-sh.c:298
+#: src/format-python.c:449 src/format-sh.c:297
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in "
 "'msgid'"
 msgstr "'%2$s' 안에 있는, 인자 '%1$s'에 대한 서식 지정이 'msgid'에 없습니다"
 
-#: src/format-python.c:480
+#: src/format-python.c:479
 #, c-format
 msgid ""
 "format specifications in 'msgid' and '%s' for argument '%s' are not the same"
 msgstr "인자 '%s'에 대한 'msgid'와 '%s'의 서식 지정이 같지 않습니다"
 
-#: src/format-qt.c:81
+#: src/format-qt.c:152
 #, c-format
-msgid "Multiple references to %%%c."
-msgstr "%%%c을(를) 여러 번 참조했습니다."
+msgid ""
+"'msgid' is a simple format string, but '%s' is not: it contains an 'L' flag "
+"or a double-digit argument number"
+msgstr ""
 
-#: src/format-sh.c:80
+#: src/format-sh.c:79
 msgid "The string refers to a shell variable with a non-ASCII name."
 msgstr "문자열이 ASCII가 아닌 이름으로 쉘 변수를 참조합니다."
 
-#: src/format-sh.c:82
+#: src/format-sh.c:81
 msgid ""
 "The string refers to a shell variable with complex shell brace syntax. This "
 "syntax is unsupported here due to security reasons."
@@ -669,50 +678,48 @@ msgstr ""
 "문자열이 복잡한 쉘 중괄호 문법으로 쉘 변수를 참조합니다. 이 문법은 보안상의 "
 "이유때문에 지원하지 않습니다."
 
-#: src/format-sh.c:84
+#: src/format-sh.c:83
 msgid ""
 "The string refers to a shell variable whose value may be different inside "
 "shell functions."
 msgstr "문자열이 쉘 함수 안에서 다를 수도 있는 쉘 변수를 참조합니다."
 
-#: src/format-sh.c:86
+#: src/format-sh.c:85
 msgid "The string refers to a shell variable with an empty name."
 msgstr "문자열이 빈 이름의 쉘 변수를 참조합니다."
 
-#: src/format-ycp.c:91
+#: src/format-ycp.c:90
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
 msgstr "지시자 %u번에서, 문자 '%c'이(가) 1과 9 사이의 숫자가 아닙니다."
 
-#: src/format-ycp.c:92
+#: src/format-ycp.c:91
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a digit between "
 "1 and 9."
 msgstr "지시자 %u번을 끝마치는 문자가 1과 9 사이의 숫자가 아닙니다."
 
-#: src/hostname.c:179 src/msgattrib.c:326 src/msgcat.c:282 src/msgcmp.c:162
-#: src/msgcomm.c:269 src/msgconv.c:224 src/msgen.c:212 src/msgexec.c:179
-#: src/msgfilter.c:281 src/msgfmt.c:365 src/msggrep.c:399 src/msginit.c:258
-#: src/msgmerge.c:320 src/msgunfmt.c:251 src/msguniq.c:248
-#: src/recode-sr-latin.c:111 src/urlget.c:131 src/xgettext.c:509
+#: src/hostname.c:178 src/msgattrib.c:325 src/msgcat.c:281 src/msgcmp.c:161
+#: src/msgcomm.c:268 src/msgconv.c:223 src/msgen.c:211 src/msgexec.c:178
+#: src/msgfilter.c:280 src/msgfmt.c:364 src/msggrep.c:398 src/msginit.c:256
+#: src/msgmerge.c:322 src/msgunfmt.c:250 src/msguniq.c:247
+#: src/recode-sr-latin.c:110 src/urlget.c:130 src/xgettext.c:530
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상품성\n"
-"이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
 
 #: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgcmp.c:167
 #: src/msgcomm.c:274 src/msgconv.c:229 src/msgen.c:217 src/msgexec.c:184
-#: src/msgfilter.c:286 src/msgfmt.c:370 src/msggrep.c:404 src/msginit.c:263
-#: src/msgmerge.c:325 src/msgunfmt.c:256 src/msguniq.c:253 src/urlget.c:136
-#: src/xgettext.c:514
+#: src/msgfilter.c:286 src/msgfmt.c:370 src/msggrep.c:404 src/msginit.c:262
+#: src/msgmerge.c:328 src/msgunfmt.c:256 src/msguniq.c:253 src/urlget.c:136
+#: src/xgettext.c:536
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s이(가) 만들었습니다.\n"
@@ -720,26 +727,26 @@ msgstr "%s이(가) 만들었습니다.\n"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/hostname.c:184 src/msgattrib.c:331 src/msgcat.c:287 src/msgconv.c:229
 #: src/msgen.c:217 src/msgexec.c:184 src/msgfilter.c:286 src/msggrep.c:404
-#: src/msginit.c:263 src/msguniq.c:253 src/recode-sr-latin.c:121
+#: src/msginit.c:262 src/msguniq.c:253 src/recode-sr-latin.c:121
 #: src/urlget.c:136
 msgid "Bruno Haible"
 msgstr "브루노 헤이블 (Bruno Haible)"
 
-#: src/hostname.c:194 src/msginit.c:273 src/recode-sr-latin.c:130
+#: src/hostname.c:194 src/msginit.c:272 src/recode-sr-latin.c:130
 #, c-format
 msgid "too many arguments"
 msgstr "인수가 너무 많음"
 
 #: src/hostname.c:207 src/msgattrib.c:391 src/msgcat.c:350 src/msgcmp.c:198
 #: src/msgcomm.c:342 src/msgconv.c:286 src/msgen.c:270 src/msgexec.c:236
-#: src/msgfilter.c:391 src/msgfmt.c:625 src/msggrep.c:495 src/msginit.c:347
-#: src/msgmerge.c:446 src/msgunfmt.c:411 src/msguniq.c:309
-#: src/recode-sr-latin.c:143 src/urlget.c:159 src/xgettext.c:730
+#: src/msgfilter.c:391 src/msgfmt.c:625 src/msggrep.c:495 src/msginit.c:346
+#: src/msgmerge.c:449 src/msgunfmt.c:411 src/msguniq.c:309
+#: src/recode-sr-latin.c:143 src/urlget.c:159 src/xgettext.c:758
 #, c-format
 msgid "Try `%s --help' for more information.\n"
 msgstr "더 많은 정보를 보려면 `%s --help' 하십시오.\n"
 
-#: src/hostname.c:211 src/msginit.c:351 src/recode-sr-latin.c:148
+#: src/hostname.c:211 src/msginit.c:350 src/recode-sr-latin.c:148
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "사용법: %s [<옵션>]\n"
@@ -776,27 +783,27 @@ msgstr "  -i, --ip-address      호스트이름에 대한 주소\n"
 
 #: src/hostname.c:228 src/msgattrib.c:497 src/msgcat.c:454 src/msgcmp.c:245
 #: src/msgcomm.c:436 src/msgconv.c:362 src/msgen.c:343 src/msgexec.c:278
-#: src/msgfilter.c:477 src/msgfmt.c:747 src/msggrep.c:605 src/msginit.c:403
-#: src/msgmerge.c:563 src/msgunfmt.c:509 src/msguniq.c:398
-#: src/recode-sr-latin.c:161 src/urlget.c:173 src/xgettext.c:880
+#: src/msgfilter.c:477 src/msgfmt.c:747 src/msggrep.c:605 src/msginit.c:402
+#: src/msgmerge.c:566 src/msgunfmt.c:509 src/msguniq.c:398
+#: src/recode-sr-latin.c:161 src/urlget.c:173 src/xgettext.c:916
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "정보 출력:\n"
 
 #: src/hostname.c:230 src/msgattrib.c:499 src/msgcat.c:456 src/msgcmp.c:247
 #: src/msgcomm.c:438 src/msgconv.c:364 src/msgen.c:345 src/msgexec.c:280
-#: src/msgfilter.c:479 src/msgfmt.c:749 src/msggrep.c:607 src/msginit.c:405
-#: src/msgmerge.c:565 src/msgunfmt.c:511 src/msguniq.c:400
-#: src/recode-sr-latin.c:164 src/urlget.c:175 src/xgettext.c:882
+#: src/msgfilter.c:479 src/msgfmt.c:749 src/msggrep.c:607 src/msginit.c:404
+#: src/msgmerge.c:568 src/msgunfmt.c:511 src/msguniq.c:400
+#: src/recode-sr-latin.c:164 src/urlget.c:175 src/xgettext.c:918
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  이 도움말을 보여주고 끝납니다\n"
 
 #: src/hostname.c:232 src/msgattrib.c:501 src/msgcat.c:458 src/msgcmp.c:249
 #: src/msgcomm.c:440 src/msgconv.c:366 src/msgen.c:347 src/msgexec.c:282
-#: src/msgfilter.c:481 src/msgfmt.c:751 src/msggrep.c:609 src/msginit.c:407
-#: src/msgmerge.c:567 src/msgunfmt.c:513 src/msguniq.c:402
-#: src/recode-sr-latin.c:167 src/urlget.c:177 src/xgettext.c:884
+#: src/msgfilter.c:481 src/msgfmt.c:751 src/msggrep.c:609 src/msginit.c:406
+#: src/msgmerge.c:570 src/msgunfmt.c:513 src/msguniq.c:402
+#: src/recode-sr-latin.c:167 src/urlget.c:177 src/xgettext.c:920
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               버전 정보를 표시하고 끝납니다\n"
@@ -807,9 +814,9 @@ msgstr "  -V, --version               버전 정보를 표시하고 끝납니다\n"
 #. bugs (typically your translation team's web or email address).
 #: src/hostname.c:239 src/msgattrib.c:508 src/msgcat.c:465 src/msgcmp.c:256
 #: src/msgcomm.c:447 src/msgconv.c:373 src/msgen.c:354 src/msgexec.c:289
-#: src/msgfilter.c:488 src/msgfmt.c:762 src/msggrep.c:616 src/msginit.c:414
-#: src/msgmerge.c:578 src/msgunfmt.c:522 src/msguniq.c:409
-#: src/recode-sr-latin.c:174 src/urlget.c:184 src/xgettext.c:891
+#: src/msgfilter.c:488 src/msgfmt.c:762 src/msggrep.c:616 src/msginit.c:413
+#: src/msgmerge.c:581 src/msgunfmt.c:522 src/msguniq.c:409
+#: src/recode-sr-latin.c:174 src/urlget.c:184 src/xgettext.c:927
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
 
@@ -818,8 +825,8 @@ msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
 msgid "could not get host name"
 msgstr "호스트이름을 알아낼 수 없습니다"
 
-#: src/msgattrib.c:346 src/msgconv.c:244 src/msgexec.c:151 src/msgfilter.c:211
-#: src/msggrep.c:419 src/msginit.c:196 src/msguniq.c:268
+#: src/msgattrib.c:346 src/msgconv.c:244 src/msgexec.c:150 src/msgfilter.c:210
+#: src/msggrep.c:419 src/msginit.c:194 src/msguniq.c:268
 #, c-format
 msgid "at most one input file allowed"
 msgstr "최대 한 개의 입력파일만이 허용됩니다"
@@ -828,9 +835,10 @@ msgstr "최대 한 개의 입력파일만이 허용됩니다"
 #: src/msgcomm.c:284 src/msgcomm.c:288 src/msgconv.c:250 src/msgconv.c:254
 #: src/msgen.c:239 src/msgen.c:243 src/msgfilter.c:301 src/msgfilter.c:305
 #: src/msgfmt.c:409 src/msgfmt.c:417 src/msgfmt.c:432 src/msgfmt.c:454
-#: src/msggrep.c:425 src/msggrep.c:429 src/msgmerge.c:350 src/msgmerge.c:371
-#: src/msgmerge.c:375 src/msgunfmt.c:287 src/msguniq.c:274 src/msguniq.c:278
-#: src/xgettext.c:524 src/xgettext.c:528 src/xgettext.c:535
+#: src/msggrep.c:425 src/msggrep.c:429 src/msgmerge.c:353 src/msgmerge.c:374
+#: src/msgmerge.c:378 src/msgunfmt.c:287 src/msguniq.c:274 src/msguniq.c:278
+#: src/xgettext.c:546 src/xgettext.c:550 src/xgettext.c:557 src/xgettext.c:560
+#: src/xgettext.c:563
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s과(와) %s은(는) 서로 배타적입니다"
@@ -851,7 +859,7 @@ msgstr ""
 
 #: src/msgattrib.c:404 src/msgcat.c:371 src/msgcmp.c:216 src/msgcomm.c:362
 #: src/msgconv.c:298 src/msgen.c:286 src/msgexec.c:259 src/msgfilter.c:403
-#: src/msggrep.c:509 src/msginit.c:361 src/msgmerge.c:467 src/msgunfmt.c:423
+#: src/msggrep.c:509 src/msginit.c:360 src/msgmerge.c:470 src/msgunfmt.c:423
 #: src/msguniq.c:329
 #, c-format
 msgid ""
@@ -860,8 +868,8 @@ msgstr "긴 옵션에서 꼭 필요한 인수는 짧은 옵션에도 꼭 필요합니다.\n"
 
 #: src/msgattrib.c:407 src/msgcat.c:374 src/msgcmp.c:219 src/msgcomm.c:365
 #: src/msgconv.c:301 src/msgen.c:289 src/msgexec.c:262 src/msgfilter.c:406
-#: src/msgfmt.c:643 src/msggrep.c:512 src/msginit.c:364 src/msgmerge.c:470
-#: src/msgunfmt.c:437 src/msguniq.c:332 src/xgettext.c:748
+#: src/msgfmt.c:643 src/msggrep.c:512 src/msginit.c:363 src/msgmerge.c:473
+#: src/msgunfmt.c:437 src/msguniq.c:332 src/xgettext.c:776
 #, c-format
 msgid "Input file location:\n"
 msgstr "입력 파일 위치:\n"
@@ -873,8 +881,8 @@ msgstr "  <입력파일>                     입력 PO 파일\n"
 
 #: src/msgattrib.c:411 src/msgcat.c:380 src/msgcmp.c:225 src/msgcomm.c:371
 #: src/msgconv.c:305 src/msgen.c:293 src/msgexec.c:266 src/msgfilter.c:410
-#: src/msgfmt.c:647 src/msggrep.c:516 src/msgmerge.c:476 src/msguniq.c:336
-#: src/xgettext.c:754
+#: src/msgfmt.c:647 src/msggrep.c:516 src/msgmerge.c:479 src/msguniq.c:336
+#: src/xgettext.c:782
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -890,21 +898,21 @@ msgstr "입력 파일이 주어지지 않거나 \"-\"이면, 표준 입력에서 읽습니다.\n"
 
 #: src/msgattrib.c:416 src/msgcat.c:385 src/msgcomm.c:376 src/msgconv.c:310
 #: src/msgen.c:298 src/msgfilter.c:415 src/msgfmt.c:667 src/msggrep.c:521
-#: src/msginit.c:372 src/msgmerge.c:488 src/msgunfmt.c:477 src/msguniq.c:341
-#: src/xgettext.c:759
+#: src/msginit.c:371 src/msgmerge.c:491 src/msgunfmt.c:477 src/msguniq.c:341
+#: src/xgettext.c:787
 #, c-format
 msgid "Output file location:\n"
 msgstr "출력 파일 위치:\n"
 
 #: src/msgattrib.c:418 src/msgcat.c:387 src/msgcomm.c:378 src/msgconv.c:312
 #: src/msgen.c:300 src/msgfilter.c:417 src/msgfmt.c:669 src/msggrep.c:523
-#: src/msgmerge.c:490 src/msgunfmt.c:479 src/msguniq.c:343
+#: src/msgmerge.c:493 src/msgunfmt.c:479 src/msguniq.c:343
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=<파일>   지정한 파일로 출력합니다\n"
 
 #: src/msgattrib.c:420 src/msgcat.c:389 src/msgcomm.c:380 src/msgconv.c:314
-#: src/msgen.c:302 src/msgfilter.c:419 src/msggrep.c:525 src/msgmerge.c:492
+#: src/msgen.c:302 src/msgfilter.c:419 src/msggrep.c:525 src/msgmerge.c:495
 #: src/msgunfmt.c:481 src/msguniq.c:345
 #, c-format
 msgid ""
@@ -1020,14 +1028,14 @@ msgstr ""
 
 #: src/msgattrib.c:460 src/msgcat.c:405 src/msgcmp.c:237 src/msgcomm.c:396
 #: src/msgconv.c:325 src/msgen.c:306 src/msgexec.c:271 src/msgfilter.c:438
-#: src/msgfmt.c:712 src/msggrep.c:568 src/msginit.c:380 src/msgmerge.c:525
+#: src/msgfmt.c:712 src/msggrep.c:568 src/msginit.c:379 src/msgmerge.c:528
 #: src/msguniq.c:356
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "입력 파일 문법:\n"
 
 #: src/msgattrib.c:462 src/msgconv.c:327 src/msgen.c:308 src/msgexec.c:273
-#: src/msgfilter.c:440 src/msggrep.c:570 src/msginit.c:382 src/msguniq.c:358
+#: src/msgfilter.c:440 src/msggrep.c:570 src/msginit.c:381 src/msguniq.c:358
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
@@ -1036,7 +1044,7 @@ msgstr ""
 "니다\n"
 
 #: src/msgattrib.c:464 src/msgconv.c:329 src/msgen.c:310 src/msgexec.c:275
-#: src/msgfilter.c:442 src/msggrep.c:572 src/msginit.c:384 src/msguniq.c:360
+#: src/msgfilter.c:442 src/msggrep.c:572 src/msginit.c:383 src/msguniq.c:360
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
@@ -1047,15 +1055,15 @@ msgstr ""
 
 #: src/msgattrib.c:467 src/msgcat.c:413 src/msgcomm.c:404 src/msgconv.c:332
 #: src/msgen.c:313 src/msgfilter.c:445 src/msgfmt.c:740 src/msggrep.c:575
-#: src/msginit.c:387 src/msgmerge.c:533 src/msgunfmt.c:485 src/msguniq.c:363
-#: src/xgettext.c:838
+#: src/msginit.c:386 src/msgmerge.c:536 src/msgunfmt.c:485 src/msguniq.c:363
+#: src/xgettext.c:870
 #, c-format
 msgid "Output details:\n"
 msgstr "출력 상세:\n"
 
 #: src/msgattrib.c:469 src/msgcat.c:426 src/msgcomm.c:406 src/msgconv.c:334
-#: src/msgen.c:315 src/msgmerge.c:535 src/msgunfmt.c:487 src/msguniq.c:370
-#: src/xgettext.c:840
+#: src/msgen.c:315 src/msgmerge.c:538 src/msgunfmt.c:487 src/msguniq.c:370
+#: src/xgettext.c:872
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -1063,8 +1071,8 @@ msgstr ""
 "  -e, --no-escape             출력에 C 이스케이프를 쓰지 않습니다 (기본값)\n"
 
 #: src/msgattrib.c:471 src/msgcat.c:428 src/msgcomm.c:408 src/msgconv.c:336
-#: src/msgen.c:317 src/msgfilter.c:449 src/msgmerge.c:537 src/msgunfmt.c:489
-#: src/msguniq.c:372 src/xgettext.c:842
+#: src/msgen.c:317 src/msgfilter.c:449 src/msgmerge.c:540 src/msgunfmt.c:489
+#: src/msguniq.c:372 src/xgettext.c:874
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1073,27 +1081,27 @@ msgstr ""
 "습니다\n"
 
 #: src/msgattrib.c:473 src/msgcat.c:430 src/msgcomm.c:410 src/msgconv.c:338
-#: src/msgen.c:319 src/msgfilter.c:451 src/msggrep.c:581 src/msgmerge.c:539
-#: src/msgunfmt.c:491 src/msguniq.c:374 src/xgettext.c:844
+#: src/msgen.c:319 src/msgfilter.c:451 src/msggrep.c:581 src/msgmerge.c:542
+#: src/msgunfmt.c:491 src/msguniq.c:374 src/xgettext.c:876
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po              비어 있는 파일이라도 PO 파일로 씁니다\n"
 
 #: src/msgattrib.c:475 src/msgcat.c:432 src/msgcomm.c:412 src/msguniq.c:376
-#: src/xgettext.c:846
+#: src/xgettext.c:878
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr "  -i, --indent                들여쓰기된 스타일로 .po 파일을 씁니다\n"
 
 #: src/msgattrib.c:477 src/msgcat.c:434 src/msgcomm.c:414 src/msguniq.c:378
-#: src/xgettext.c:848
+#: src/xgettext.c:880
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
 "      --no-location           '#: 파일이름:줄번호' 줄을 쓰지 않습니다\n"
 
 #: src/msgattrib.c:479 src/msgcat.c:436 src/msgcomm.c:416 src/msguniq.c:380
-#: src/xgettext.c:850
+#: src/xgettext.c:882
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
@@ -1101,7 +1109,7 @@ msgstr ""
 "  -n, --add-location          '#: 파일이름:줄번호' 줄을 만듭니다 (기본값)\n"
 
 #: src/msgattrib.c:481 src/msgcat.c:438 src/msgcomm.c:418 src/msguniq.c:382
-#: src/xgettext.c:852
+#: src/xgettext.c:884
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
@@ -1109,15 +1117,15 @@ msgstr ""
 "      --strict                엄격하게 유니포럼을 따르는 .po 파일을 씁니다\n"
 
 #: src/msgattrib.c:483 src/msgcat.c:440 src/msgcomm.c:420 src/msgconv.c:348
-#: src/msgen.c:329 src/msgfilter.c:463 src/msggrep.c:591 src/msginit.c:393
-#: src/msgmerge.c:549 src/msgunfmt.c:497 src/msguniq.c:384
+#: src/msgen.c:329 src/msgfilter.c:463 src/msggrep.c:591 src/msginit.c:392
+#: src/msgmerge.c:552 src/msgunfmt.c:497 src/msguniq.c:384
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     자바 .properties 파일을 씁니다\n"
 
 #: src/msgattrib.c:485 src/msgcat.c:442 src/msgcomm.c:422 src/msgconv.c:350
-#: src/msgen.c:331 src/msgfilter.c:465 src/msggrep.c:593 src/msginit.c:395
-#: src/msgmerge.c:551 src/msgunfmt.c:499 src/msguniq.c:386 src/xgettext.c:856
+#: src/msgen.c:331 src/msgfilter.c:465 src/msggrep.c:593 src/msginit.c:394
+#: src/msgmerge.c:554 src/msgunfmt.c:499 src/msguniq.c:386 src/xgettext.c:888
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
@@ -1125,15 +1133,15 @@ msgstr ""
 "      --stringtable-input      NeXTstep/GNUstep .strings 파일을 씁니다\n"
 
 #: src/msgattrib.c:487 src/msgcat.c:444 src/msgcomm.c:424 src/msgconv.c:352
-#: src/msgen.c:333 src/msgfilter.c:467 src/msggrep.c:595 src/msginit.c:397
-#: src/msgmerge.c:553 src/msgunfmt.c:501 src/msguniq.c:388 src/xgettext.c:858
+#: src/msgen.c:333 src/msgfilter.c:467 src/msggrep.c:595 src/msginit.c:396
+#: src/msgmerge.c:556 src/msgunfmt.c:501 src/msguniq.c:388 src/xgettext.c:890
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=<숫자>          출력 페이지의 너비를 지정합니다\n"
 
 #: src/msgattrib.c:489 src/msgcat.c:446 src/msgcomm.c:426 src/msgconv.c:354
-#: src/msgen.c:335 src/msgfilter.c:469 src/msggrep.c:597 src/msginit.c:399
-#: src/msgmerge.c:555 src/msgunfmt.c:503 src/msguniq.c:390 src/xgettext.c:860
+#: src/msgen.c:335 src/msgfilter.c:469 src/msggrep.c:597 src/msginit.c:398
+#: src/msgmerge.c:558 src/msgunfmt.c:503 src/msguniq.c:390 src/xgettext.c:892
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1143,15 +1151,15 @@ msgstr ""
 "                              자르지 않습니다.\n"
 
 #: src/msgattrib.c:492 src/msgcat.c:449 src/msgcomm.c:429 src/msgconv.c:357
-#: src/msgen.c:338 src/msgfilter.c:472 src/msgmerge.c:558 src/msgunfmt.c:506
-#: src/msguniq.c:393 src/xgettext.c:863
+#: src/msgen.c:338 src/msgfilter.c:472 src/msgmerge.c:561 src/msgunfmt.c:506
+#: src/msguniq.c:393 src/xgettext.c:895
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output           정렬된 출력을 만들어 냅니다\n"
 
 #: src/msgattrib.c:494 src/msgcat.c:451 src/msgcomm.c:431 src/msgconv.c:359
-#: src/msgen.c:340 src/msgfilter.c:474 src/msgmerge.c:560 src/msguniq.c:395
-#: src/xgettext.c:865
+#: src/msgen.c:340 src/msgfilter.c:474 src/msgmerge.c:563 src/msguniq.c:395
+#: src/xgettext.c:897
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr "  -F, --sort-by-file          파일 위치에 따라 출력을 정렬합니다\n"
@@ -1161,7 +1169,7 @@ msgstr "  -F, --sort-by-file          파일 위치에 따라 출력을 정렬합니다\n"
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "불가능한 선택 조건을 지정하였습니다 (%d < n < %d)"
 
-#: src/msgcat.c:354 src/msgcomm.c:346 src/xgettext.c:734
+#: src/msgcat.c:354 src/msgcomm.c:346 src/xgettext.c:762
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "사용법: %s [<옵션>] [<입력파일>]...\n"
@@ -1189,18 +1197,18 @@ msgstr ""
 "나타나는 가장 첫 번째 PO 파일에 들어 있는  모든 PO 파일에서 파일 \n"
 "위치는 그대로 유지될 것입니다.\n"
 
-#: src/msgcat.c:376 src/msgcomm.c:367 src/xgettext.c:750
+#: src/msgcat.c:376 src/msgcomm.c:367 src/xgettext.c:778
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr "  입력파일 ...                입력 파일\n"
 
-#: src/msgcat.c:378 src/msgcomm.c:369 src/xgettext.c:752
+#: src/msgcat.c:378 src/msgcomm.c:369 src/xgettext.c:780
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr "  -f, --files-from=<파일>     입력 파일의 목록을 <파일>에서 읽습니다\n"
 
 #: src/msgcat.c:382 src/msgcomm.c:373 src/msgen.c:295 src/msgfmt.c:649
-#: src/xgettext.c:756
+#: src/xgettext.c:784
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "입력 파일이 -이면, 표준 입력을 읽습니다.\n"
@@ -1233,7 +1241,7 @@ msgstr ""
 "                              유일한 메세지만을 출력합니다.\n"
 
 #: src/msgcat.c:407 src/msgcmp.c:239 src/msgcomm.c:398 src/msgfmt.c:714
-#: src/msgmerge.c:527
+#: src/msgmerge.c:530
 #, c-format
 msgid ""
 "  -P, --properties-input      input files are in Java .properties syntax\n"
@@ -1242,7 +1250,7 @@ msgstr ""
 "니다\n"
 
 #: src/msgcat.c:409 src/msgcmp.c:241 src/msgcomm.c:400 src/msgfmt.c:716
-#: src/msgmerge.c:529
+#: src/msgmerge.c:532
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
@@ -1280,21 +1288,21 @@ msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:167 src/msgcomm.c:274 src/msgmerge.c:325
+#: src/msgcmp.c:167 src/msgcomm.c:274 src/msgmerge.c:328
 msgid "Peter Miller"
 msgstr "피터 밀러 (Peter Miller)"
 
-#: src/msgcmp.c:178 src/msgmerge.c:336
+#: src/msgcmp.c:178 src/msgmerge.c:339
 #, c-format
 msgid "no input files given"
 msgstr "입력 파일이 주어지지 않았습니다"
 
-#: src/msgcmp.c:183 src/msgmerge.c:341
+#: src/msgcmp.c:183 src/msgmerge.c:344
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "정확히 2개의 입력 파일이 필요합니다"
 
-#: src/msgcmp.c:202 src/msgmerge.c:450
+#: src/msgcmp.c:202 src/msgmerge.c:453
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "사용법: %s [<옵션>] def.po ref.pot\n"
@@ -1326,12 +1334,12 @@ msgstr "  def.po                      번역문\n"
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot                     소스를 참조\n"
 
-#: src/msgcmp.c:228 src/msgmerge.c:516
+#: src/msgcmp.c:228 src/msgmerge.c:519
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "동작 변경:\n"
 
-#: src/msgcmp.c:230 src/msgmerge.c:518
+#: src/msgcmp.c:230 src/msgmerge.c:521
 #, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in def."
@@ -1360,17 +1368,17 @@ msgstr "이 메세지는 번역되지 않았습니다"
 msgid "this message needs to be reviewed by the translator"
 msgstr "이 메세지는 번역자의 검토가 필요합니다"
 
-#: src/msgcmp.c:331 src/msgmerge.c:1220
+#: src/msgcmp.c:331 src/msgmerge.c:1234
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "이 메시지는 사용되지만 정의되지 않았습니다..."
 
-#: src/msgcmp.c:334 src/msgmerge.c:1223
+#: src/msgcmp.c:334 src/msgmerge.c:1237
 #, c-format
 msgid "...but this definition is similar"
 msgstr "...하지만 이 정의는 유사합니다"
 
-#: src/msgcmp.c:339 src/msgmerge.c:1251
+#: src/msgcmp.c:339 src/msgmerge.c:1267
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "이 메시지는 사용되지만 %s에서 정의되지 않았습니다"
@@ -1421,7 +1429,7 @@ msgstr ""
 "  ->, --more-than=<크기>         지정한 것보다 많은 메세지만을 출력합니다.\n"
 "                                 이 옵션이 없을 경우에 기본값은 1입니다.\n"
 
-#: src/msgcomm.c:433 src/xgettext.c:867
+#: src/msgcomm.c:433 src/xgettext.c:899
 #, c-format
 msgid ""
 "      --omit-header           don't write header with `msgid \"\"' entry\n"
@@ -1443,20 +1451,20 @@ msgstr "변환 목표:\n"
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "기본 인코딩은 현재 로케일의 인코딩입니다.\n"
 
-#: src/msgconv.c:340 src/msgen.c:321 src/msgmerge.c:541
+#: src/msgconv.c:340 src/msgen.c:321 src/msgmerge.c:544
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr "  -i, --indent                   들여쓰기된 출력 형태\n"
 
 #: src/msgconv.c:342 src/msgen.c:323 src/msgfilter.c:457 src/msggrep.c:585
-#: src/msgmerge.c:543
+#: src/msgmerge.c:546
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr ""
 "      --no-location              ''#: 파일이름:줄번호' 줄을 쓰지 않습니다\n"
 
 #: src/msgconv.c:344 src/msgen.c:325 src/msgfilter.c:459 src/msggrep.c:587
-#: src/msgmerge.c:545
+#: src/msgmerge.c:548
 #, c-format
 msgid ""
 "      --add-location          preserve '#: filename:line' lines (default)\n"
@@ -1464,12 +1472,12 @@ msgstr ""
 "      --add-location          '#: filename:line' 줄을 만듭니다 (기본값)\n"
 
 #: src/msgconv.c:346 src/msgen.c:327 src/msgfilter.c:461 src/msggrep.c:589
-#: src/msgmerge.c:547
+#: src/msgmerge.c:550
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr "      --strict                   엄격한 Uniforum 출력 형태로 씁니다\n"
 
-#: src/msgen.c:228 src/msgfmt.c:381 src/xgettext.c:552
+#: src/msgen.c:228 src/msgfmt.c:381 src/xgettext.c:580
 #, c-format
 msgid "no input file given"
 msgstr "입력 파일이 주어지지 않았습니다"
@@ -1653,18 +1661,18 @@ msgstr "%s 서브프로세스에서 읽기가 실패했습니다"
 msgid "%s subprocess terminated with exit code %d"
 msgstr "%s 서브프로세스가 종료코드 %d(으)로 끝났습니다"
 
-#: src/msgfmt.c:303
+#: src/msgfmt.c:302
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "%s의 인자는 한 개의 구두점 문자여야 합니다"
 
-#: src/msgfmt.c:350
+#: src/msgfmt.c:349
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "엔디안이 틀렸습니다: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:370 src/msgunfmt.c:256 src/xgettext.c:514
+#: src/msgfmt.c:370 src/msgunfmt.c:256 src/xgettext.c:536
 msgid "Ulrich Drepper"
 msgstr "울리히 드레퍼 (Ulrich Drepper)"
 
@@ -1717,7 +1725,7 @@ msgstr "사용법: %s [<옵션>] <파일이름>.po ...\n"
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr "주어진 번역문에서 이진 메세지 목록 파일을 만들어 냅니다.\n"
 
-#: src/msgfmt.c:638 src/xgettext.c:743
+#: src/msgfmt.c:638 src/xgettext.c:771
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -1731,7 +1739,7 @@ msgstr ""
 msgid "  filename.po ...             input files\n"
 msgstr "  <파일이름>.po ...             입력 파일\n"
 
-#: src/msgfmt.c:652 src/msgmerge.c:482 src/msgunfmt.c:426 src/xgettext.c:791
+#: src/msgfmt.c:652 src/msgmerge.c:485 src/msgunfmt.c:426 src/xgettext.c:819
 #, c-format
 msgid "Operation mode:\n"
 msgstr "동작 모드:\n"
@@ -1785,7 +1793,7 @@ msgstr "      --qt                    Qt 모드: Qt .qm 파일을 만듭니다\n"
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr "      --strict                   엄격한 Uniforum 출력 형태로 씁니다\n"
 
-#: src/msgfmt.c:673 src/xgettext.c:767
+#: src/msgfmt.c:673 src/xgettext.c:795
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr "출력 파일이 -이면, 출력은 표준 출력에 씁니다.\n"
@@ -1867,7 +1875,7 @@ msgstr ""
 "-l과 -d 옵션은 꼭 필요합니다.  .msg 파일은 지정한 디렉토리에\n"
 "씁니다.\n"
 
-#: src/msgfmt.c:720 src/xgettext.c:783
+#: src/msgfmt.c:720 src/xgettext.c:811
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "입력 파일 해석:\n"
@@ -1948,7 +1956,7 @@ msgstr ""
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            번역에 대한 통계를 표시합니다\n"
 
-#: src/msgfmt.c:755 src/msgmerge.c:569 src/msgunfmt.c:515
+#: src/msgfmt.c:755 src/msgmerge.c:572 src/msgunfmt.c:515
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               더 자세히 출력합니다\n"
@@ -2005,13 +2013,13 @@ msgstr "퍼지 `msgstr' 항목은 무시됨"
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: 경고: 소스 파일이 퍼지 번역문을 포함하고 있습니다"
 
-#: src/msggrep.c:256 src/po-lex.c:658 src/read-mo.c:87
-#: src/read-properties.c:90 src/read-stringtable.c:99 src/x-awk.c:141
-#: src/x-c.c:416 src/x-csharp.c:160 src/x-elisp.c:147 src/x-glade.c:452
-#: src/x-java.c:173 src/x-librep.c:149 src/x-lisp.c:214 src/x-perl.c:228
-#: src/x-perl.c:303 src/x-perl.c:396 src/x-php.c:164 src/x-python.c:176
-#: src/x-rst.c:235 src/x-scheme.c:173 src/x-sh.c:157 src/x-smalltalk.c:93
-#: src/x-tcl.c:152 src/x-ycp.c:93
+#: src/msggrep.c:255 src/po-lex.c:658 src/read-mo.c:86
+#: src/read-properties.c:89 src/read-stringtable.c:98 src/x-awk.c:140
+#: src/x-c.c:455 src/x-csharp.c:164 src/x-elisp.c:146 src/x-glade.c:604
+#: src/x-java.c:182 src/x-librep.c:148 src/x-lisp.c:213 src/x-perl.c:226
+#: src/x-perl.c:301 src/x-perl.c:394 src/x-php.c:164 src/x-python.c:175
+#: src/x-rst.c:234 src/x-scheme.c:172 src/x-sh.c:156 src/x-smalltalk.c:92
+#: src/x-tcl.c:151 src/x-ycp.c:92
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\"을(를) 읽는 동안 오류 발생"
@@ -2124,7 +2132,7 @@ msgstr "      --sort-output           정렬된 출력을 만듭니다\n"
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          파일의 위치에 따라 출력을 정렬합니다\n"
 
-#: src/msginit.c:286
+#: src/msginit.c:285
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -2134,7 +2142,7 @@ msgstr ""
 "여러분의 LANG 환경변수를 세팅하십시오.  세팅해야만이 여러분의\n"
 "번역문을 테스트할 수 있습니다.\n"
 
-#: src/msginit.c:310
+#: src/msginit.c:309
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2145,12 +2153,12 @@ msgstr ""
 "--locale 옵션으로 로케일을 지정하거나 --output-file 옵션으로\n"
 "출력 .po 파일을 지정하십시오.\n"
 
-#: src/msginit.c:336
+#: src/msginit.c:335
 #, c-format
 msgid "Created %s.\n"
 msgstr "%s을(를) 만들었습니다.\n"
 
-#: src/msginit.c:356
+#: src/msginit.c:355
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -2159,12 +2167,12 @@ msgstr ""
 "새로운 PO 파일을 만들고, 사용자의 환경에서 메타 정보들을\n"
 "초기화합니다\n"
 
-#: src/msginit.c:366
+#: src/msginit.c:365
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=<입력파일>       입력 POT 파일\n"
 
-#: src/msginit.c:368
+#: src/msginit.c:367
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2174,12 +2182,12 @@ msgstr ""
 "만약 입력 파일이 주어지지 않으면, 현재 디렉토리에서 POT 파일을 찾습니다.\n"
 "입력 파일이 \"-\"이면, 표준 입력을 읽습니다.\n"
 
-#: src/msginit.c:374
+#: src/msginit.c:373
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr "  -o, --output-file=<파일>    지정한 PO 파일로 출력합니다\n"
 
-#: src/msginit.c:376
+#: src/msginit.c:375
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2188,19 +2196,19 @@ msgstr ""
 "만약 출력 파일이 주어지지 않으면, --locale 옵션이나 사용자의 로케일 세팅에\n"
 "따라 결정됩니다.  출력 파일이 \"-\"이면, 표준 출력에 씁니다.\n"
 
-#: src/msginit.c:389
+#: src/msginit.c:388
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
 msgstr "  -l, --locale=LL_CC          목표 로케일을 지정합니다\n"
 
-#: src/msginit.c:391
+#: src/msginit.c:390
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
 msgstr ""
 "      --no-translator         PO 파일이 자동으로 만들어졌다고 가정합니다\n"
 
-#: src/msginit.c:451
+#: src/msginit.c:450
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2208,12 +2216,12 @@ msgstr ""
 "두 개 이상의 .pot 파일을 찾았습니다.\n"
 "입력 .pot 파일을 --input 옵션으로 지정하십시오.\n"
 
-#: src/msginit.c:459 src/msginit.c:464
+#: src/msginit.c:458 src/msginit.c:463
 #, c-format
 msgid "error reading current directory"
 msgstr "현재 디렉토리를 읽는 데 오류가 발생했습니다"
 
-#: src/msginit.c:472
+#: src/msginit.c:471
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2221,14 +2229,14 @@ msgstr ""
 "현재 디렉토리에서 .pot 파일을 찾을 수 없습니다.\n"
 "--input 옵션으로 입력 .pot 파일을 지정하십시오.\n"
 
-#: src/msginit.c:861 src/msginit.c:929 src/msginit.c:1089 src/msginit.c:1168
-#: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
-#: src/read-tcl.c:127 src/write-resources.c:104
+#: src/msginit.c:860 src/msginit.c:935 src/msginit.c:1095 src/msginit.c:1190
+#: src/read-csharp.c:82 src/read-java.c:80 src/read-resources.c:83
+#: src/read-tcl.c:126 src/write-resources.c:103
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s 서브프로세스가 종료코드 %d(으)로 실패했습니다"
 
-#: src/msginit.c:1054
+#: src/msginit.c:1060
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2244,28 +2252,28 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1443
+#: src/msginit.c:1465
 #, c-format
 msgid "English translations for %s package"
 msgstr "%s 패키지에 대한 한국어 번역문"
 
-#: src/msgl-cat.c:177 src/msgl-charset.c:88 src/msgl-iconv.c:226
+#: src/msgl-cat.c:176 src/msgl-charset.c:87 src/msgl-iconv.c:225
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "현재 문자셋 \"%s\"은(는) 널리 쓸 수 있는 인코딩 이름이 아닙니다"
 
-#: src/msgl-cat.c:188 src/msgl-iconv.c:238
+#: src/msgl-cat.c:187 src/msgl-iconv.c:237
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "입력 파일에 두 개의 문자셋 \"%s\"과(와) \"%s\"이(가) 존재합니다"
 
-#: src/msgl-cat.c:203
+#: src/msgl-cat.c:202
 #, c-format
 msgid ""
 "input file `%s' doesn't contain a header entry with a charset specification"
 msgstr "입력 파일 `%s'에는 문자셋을 지정하는 헤더 항목이 들어 있지 않습니다"
 
-#: src/msgl-cat.c:207
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
@@ -2274,19 +2282,19 @@ msgstr ""
 "입력 파일 `%2$s'의 도메인 \"%1$s\"에는 문자셋을 지정하는 헤더 항목이 들어 있"
 "지 않습니다"
 
-#: src/msgl-cat.c:389 src/msgl-iconv.c:361
+#: src/msgl-cat.c:388 src/msgl-iconv.c:360
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "목표 문자셋 \"%s\"은(는) 널리 쓸 수 있는 인코딩 이름이 아닙니다."
 
-#: src/msgl-cat.c:440 src/msgl-cat.c:446 src/msgl-charset.c:94
-#: src/msgl-charset.c:129 src/po-xerror.c:122 src/po-xerror.c:147
-#: src/xgettext.c:2770
+#: src/msgl-cat.c:439 src/msgl-cat.c:445 src/msgl-charset.c:93
+#: src/msgl-charset.c:128 src/po-xerror.c:121 src/po-xerror.c:146
+#: src/xgettext.c:2827
 #, c-format
 msgid "warning: "
 msgstr "경고: "
 
-#: src/msgl-cat.c:441
+#: src/msgl-cat.c:440
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2295,7 +2303,7 @@ msgstr ""
 "입력 파일은 여러 개의 인코딩으로 된 메세지가 들어 있고, 그 중의 하나가 \n"
 "UTF-8입니다.  출력을 UTF-8으로 변환합니다.\n"
 
-#: src/msgl-cat.c:447
+#: src/msgl-cat.c:446
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -2307,7 +2315,7 @@ msgstr ""
 "%s이(가) 있습니다.  출력을 UTF-8으로 변환합니다.\n"
 "다른 출력 인코딩을 선택하려면, --to-code 옵션을 쓰세요.\n"
 
-#: src/msgl-cat.c:486
+#: src/msgl-cat.c:485
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -2320,7 +2328,7 @@ msgstr ""
 "모든 msgid와 msgctxt를 순수 ASCII로 바꾸거나, 처음부터 (소스코드부터) UTF-8\n"
 "인코딩으로 만드십시오.\n"
 
-#: src/msgl-charset.c:95
+#: src/msgl-charset.c:94
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -2333,12 +2341,12 @@ msgstr ""
 "'%s'로(으로) 출력하는 것이 틀렸을 수 있습니다.\n"
 "가능한 해결책은:\n"
 
-#: src/msgl-charset.c:102
+#: src/msgl-charset.c:101
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- LC_ALL 환경변수를 %s 인코딩을 쓰는 로케일로 세팅하십시오.\n"
 
-#: src/msgl-charset.c:107
+#: src/msgl-charset.c:106
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -2349,7 +2357,7 @@ msgstr ""
 "  그 다음 '%s'을(를) 적용하고,\n"
 "  다시 'msgconv'를 이용해 '%s'로(으로) 변환하십시오\n"
 
-#: src/msgl-charset.c:116
+#: src/msgl-charset.c:115
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -2362,7 +2370,7 @@ msgstr ""
 "  그 다음 '%s'을(를) 적용하고,\n"
 "  다시 'msgconv'를 이용해 '%s'로(으로) 변환하십시오\n"
 
-#: src/msgl-charset.c:130
+#: src/msgl-charset.c:129
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -2373,24 +2381,24 @@ msgstr ""
 "'%s'로(으로) 출력하는 것이 틀렸을 수 있습니다.\n"
 "가능한 해결책은 \"LC_ALL=C\"로 세팅하는 것입니다.\n"
 
-#: src/msgl-check.c:91
+#: src/msgl-check.c:93
 msgid "plural expression can produce negative values"
 msgstr "복수 표현식이 음수 값을 만들 수도 있습니다"
 
-#: src/msgl-check.c:101
+#: src/msgl-check.c:103
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr "nplurals = %lu 하지만 복수 표현식이 %lu만큼 큰 값을 만들 수도 있습니다"
 
-#: src/msgl-check.c:142
+#: src/msgl-check.c:147
 msgid "plural expression can produce division by zero"
 msgstr "복수 표현식이 0으로 나누는 연산을 할 수도 있습니다"
 
-#: src/msgl-check.c:147
+#: src/msgl-check.c:152
 msgid "plural expression can produce integer overflow"
 msgstr "복수 표현식이 정수 오버플로우를 발생시킬 수 있습니다"
 
-#: src/msgl-check.c:152
+#: src/msgl-check.c:157
 msgid ""
 "plural expression can produce arithmetic exceptions, possibly division by "
 "zero"
@@ -2398,49 +2406,49 @@ msgstr ""
 "복수 표현식이 연산 예외를 발생시킬 수 있습니다.  0으로 나누는 연산을 할 수 있"
 "습니다"
 
-#: src/msgl-check.c:184
+#: src/msgl-check.c:189
 #, c-format
 msgid "Try using the following, valid for %s:"
 msgstr "다음을 사용해 보십시오.  %s에 대해서 올바름:"
 
-#: src/msgl-check.c:267 src/msgl-check.c:291
+#: src/msgl-check.c:276 src/msgl-check.c:300
 msgid "message catalog has plural form translations"
 msgstr "메세지 목록은 복수형 번역이 들어 있습니다"
 
-#: src/msgl-check.c:269
+#: src/msgl-check.c:278
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "하지만 헤더 항목에는 \"plural=표현식\" 속성이 들어 있지 않습니다"
 
-#: src/msgl-check.c:293
+#: src/msgl-check.c:302
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "하지만 헤더 항목에는 \"nplurals=정수\" 속성이 들어 있지 않습니다"
 
-#: src/msgl-check.c:329
+#: src/msgl-check.c:338
 msgid "invalid nplurals value"
 msgstr "nplurals 값이 잘못되었습니다"
 
-#: src/msgl-check.c:351
+#: src/msgl-check.c:360
 msgid "invalid plural expression"
 msgstr "잘못된 복수 표현식"
 
-#: src/msgl-check.c:381 src/msgl-check.c:397
+#: src/msgl-check.c:390 src/msgl-check.c:406
 #, c-format
 msgid "nplurals = %lu"
 msgstr "nplurals = %lu"
 
-#: src/msgl-check.c:383
+#: src/msgl-check.c:392
 #, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
 msgstr[0] "하지만 어떤 메세지는 %lu개의 복수 형밖에 없습니다"
 
-#: src/msgl-check.c:399
+#: src/msgl-check.c:408
 #, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
 msgstr[0] "하지만 어떤 메세지는 %lu개의 복수 형이 있습니다"
 
-#: src/msgl-check.c:419
+#: src/msgl-check.c:432
 msgid ""
 "message catalog has plural form translations, but lacks a header entry with "
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
@@ -2448,81 +2456,81 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, 헤더 항목에 \"Plural-Forms: "
 "nplurals=정수; plural=표현식;\"이 없습니다"
 
-#: src/msgl-check.c:501
+#: src/msgl-check.c:526
 msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 msgstr "`msgid'와 `msgstr_plural' 항목이 모두 '\\n'으로 시작하지 않습니다"
 
-#: src/msgl-check.c:509
+#: src/msgl-check.c:534
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "`msgid'와 `msgstr[%u]' 항목이 모두 '\\n'으로 시작하지 않습니다"
 
-#: src/msgl-check.c:524
+#: src/msgl-check.c:549
 msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 msgstr "`msgid'와 `msgstr' 항목이 모두 '\\n'으로 시작하지 않습니다"
 
-#: src/msgl-check.c:542
+#: src/msgl-check.c:567
 msgid "`msgid' and `msgid_plural' entries do not both end with '\\n'"
 msgstr "`msgid'와 `msgid_plural' 항목이 모두 '\\n'으로 끝나지 않습니다"
 
-#: src/msgl-check.c:550
+#: src/msgl-check.c:575
 #, c-format
 msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 msgstr "`msgid'와 `msgstr[%u]' 항목이 모두 '\\n'으로 끝나지 않습니다"
 
-#: src/msgl-check.c:565
+#: src/msgl-check.c:590
 msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 msgstr "`msgid'와 `msgstr' 항목이 모두 '\\n'으로 끝나지 않습니다"
 
-#: src/msgl-check.c:577
+#: src/msgl-check.c:602
 msgid "plural handling is a GNU gettext extension"
 msgstr "복수 처리는 GNU gettext 확장 기능입니다"
 
-#: src/msgl-check.c:619
+#: src/msgl-check.c:645
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "msgstr에 키보드 단축키 '%c'에 대한 표시가 없습니다"
 
-#: src/msgl-check.c:629
+#: src/msgl-check.c:655
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr에 키보드 단축키 '%c' 표시가 너무 많습니다"
 
-#: src/msgl-check.c:669
+#: src/msgl-check.c:695
 #, c-format
 msgid "headerfield `%s' missing in header\n"
 msgstr "헤더에 헤더 필드 `%s'이(가) 빠졌음\n"
 
-#: src/msgl-check.c:677
+#: src/msgl-check.c:703
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
 msgstr "헤더 필드 `%s'은(는) 행의 처음부터 시작해야 합니다\n"
 
-#: src/msgl-check.c:691
+#: src/msgl-check.c:717
 msgid "some header fields still have the initial default value\n"
 msgstr "몇몇 헤더 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
 
-#: src/msgl-check.c:704
+#: src/msgl-check.c:730
 #, c-format
 msgid "field `%s' still has initial default value\n"
 msgstr "`%s' 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
 
-#: src/msgl-iconv.c:65
+#: src/msgl-iconv.c:64
 #, c-format
 msgid "%s: input is not valid in \"%s\" encoding"
 msgstr "%s: 입력이 \"%s\" 인코딩에서 올바르지 않습니다"
 
-#: src/msgl-iconv.c:69
+#: src/msgl-iconv.c:68
 #, c-format
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: \"%s\" 인코딩에서 \"%s\" 인코딩으로 변환하는 동안 오류 발생"
 
-#: src/msgl-iconv.c:269
+#: src/msgl-iconv.c:268
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "입력 파일은 문자셋을 지정하는 헤더 항목이 들어 있지 않습니다"
 
-#: src/msgl-iconv.c:291 src/recode-sr-latin.c:287 src/recode-sr-latin.c:292
-#: src/x-python.c:618 src/xgettext.c:610
+#: src/msgl-iconv.c:290 src/recode-sr-latin.c:287 src/recode-sr-latin.c:292
+#: src/x-python.c:617 src/xgettext.c:638
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -2531,7 +2539,7 @@ msgstr ""
 "\"%s\"에서 \"%s\"로(으로) 변환할 수 없습니다.  %s은(는) iconv()에 의존하지"
 "만, iconv()가 이같은 변환을 지원하지 않습니다."
 
-#: src/msgl-iconv.c:321
+#: src/msgl-iconv.c:320
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -2540,8 +2548,8 @@ msgstr ""
 "\"%s\"에서 \"%s\"(으)로 변환하면 중복됩니다: 다른 두 개 이상의 msgid가 똑같"
 "아 집니다."
 
-#: src/msgl-iconv.c:327 src/recode-sr-latin.c:301 src/x-python.c:625
-#: src/xgettext.c:617
+#: src/msgl-iconv.c:326 src/recode-sr-latin.c:301 src/x-python.c:624
+#: src/xgettext.c:645
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -2550,16 +2558,16 @@ msgstr ""
 "\"%s\"에서 \"%s\"로(으로) 변환할 수 없습니다. %s은(는) iconv()에 의존하지만, "
 "이 버전은 iconv()를 지원되지 않는 상태로 빌드되었습니다."
 
-#: src/msgmerge.c:358 src/msgmerge.c:364
+#: src/msgmerge.c:361 src/msgmerge.c:367
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s은(는) %s과(와) 함께 써야만 효과가 있습니다"
 
-#: src/msgmerge.c:418
+#: src/msgmerge.c:421
 msgid "backup type"
 msgstr "백업 종류"
 
-#: src/msgmerge.c:455
+#: src/msgmerge.c:458
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -2582,17 +2590,17 @@ msgstr ""
 "보존됩니다.  정확한 짝을 찾지 못할 경우, 보다 나은 결과를 얻기 위해 퍼지 \n"
 "매칭이 사용됩니다.\n"
 
-#: src/msgmerge.c:472
+#: src/msgmerge.c:475
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr "  def.po                      과거 소스를 참조하는 번역문\n"
 
-#: src/msgmerge.c:474
+#: src/msgmerge.c:477
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  ref.pot                     새로운 소스를 참조\n"
 
-#: src/msgmerge.c:478
+#: src/msgmerge.c:481
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
@@ -2601,7 +2609,7 @@ msgstr ""
 "  -C, --compendium=<파일>      메세지 번역 라이브러리 더하기,\n"
 "                               두 개 이상 지정할 수 있습니다\n"
 
-#: src/msgmerge.c:484
+#: src/msgmerge.c:487
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
@@ -2611,28 +2619,28 @@ msgstr ""
 "                              이미 def.po가 갱신되어 있다면 아무 것도 안 합니"
 "다\n"
 
-#: src/msgmerge.c:496
+#: src/msgmerge.c:499
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "업데이트 모드에서 출력 파일 위치:\n"
 
-#: src/msgmerge.c:498
+#: src/msgmerge.c:501
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr "결과물은 def.po파일로 다시 쓰여집니다.\n"
 
-#: src/msgmerge.c:500
+#: src/msgmerge.c:503
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr "      --backup=<컨트롤>       def.po의 백업을 만듭니다\n"
 
-#: src/msgmerge.c:502
+#: src/msgmerge.c:505
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr ""
 "      --suffix=<접미어>       일반적인 백업 접미어 대신 <접미어>를 씁니다\n"
 
-#: src/msgmerge.c:504
+#: src/msgmerge.c:507
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or "
@@ -2651,7 +2659,7 @@ msgstr ""
 "히\n"
 "  simple, never   간단한 백업만을 만듭니다\n"
 
-#: src/msgmerge.c:511
+#: src/msgmerge.c:514
 #, c-format
 msgid ""
 "The backup suffix is `~', unless set with --suffix or the "
@@ -2661,34 +2669,34 @@ msgstr ""
 "--suffix 옵션이나 SIMPLE_BACKUP_SUFFIX 환경 변수를 세팅하지 않았다면, 백업 접"
 "미어는 '~'입니다.\n"
 
-#: src/msgmerge.c:520
+#: src/msgmerge.c:523
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr "  -N, --no-fuzzy-matching     퍼지 매칭을 하지 않습니다\n"
 
-#: src/msgmerge.c:522
+#: src/msgmerge.c:525
 #, c-format
 msgid ""
 "      --previous              keep previous msgids of translated messages\n"
 msgstr ""
 "      --previous              이전에 번역한 메세지의 msgid를 놔 둡니다\n"
 
-#: src/msgmerge.c:571
+#: src/msgmerge.c:574
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       진행상태 표시를 하지 않습니다\n"
 
-#: src/msgmerge.c:1324
+#: src/msgmerge.c:1340
 #, c-format
 msgid "this message should define plural forms"
 msgstr "이 메시지는 복수형을 지정해야만 합니다"
 
-#: src/msgmerge.c:1347
+#: src/msgmerge.c:1363
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "이 메시지는 복수형을 지정해서는 안 됩니다"
 
-#: src/msgmerge.c:1685
+#: src/msgmerge.c:1701
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -2697,7 +2705,7 @@ msgstr ""
 "%s%ld개의 예전 것 + %ld개의 참조문, 결합된 것 %ld, 퍼지 %ld, 빠진 것 %ld, 쓸"
 "모없는 것 %ld개를 읽었습니다.\n"
 
-#: src/msgmerge.c:1693
+#: src/msgmerge.c:1709
 msgid " done.\n"
 msgstr " 완료.\n"
 
@@ -2839,12 +2847,12 @@ msgstr ""
 "  -u, --unique                   유일한 메세지만을 출력하고, 중복된 것은 버립"
 "니다\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:102
+#: src/open-catalog.c:55 libgettextpo/gettext-po.c:102
 #: libgettextpo/gettext-po.c:150 libgettextpo/gettext-po.c:198
 msgid "<stdin>"
 msgstr "<표준입력>"
 
-#: src/po-charset.c:490
+#: src/po-charset.c:489
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
@@ -2853,7 +2861,7 @@ msgstr ""
 "문자셋 \"%s\"이(가) 공통적으로 이용하는 인코딩 이름이 아닙니다.\n"
 "사용자의 문자셋으로의 메세지 변환은 하지 않을 것입니다.\n"
 
-#: src/po-charset.c:557
+#: src/po-charset.c:556
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -2862,7 +2870,7 @@ msgstr ""
 "문자셋 \"%s\"은(는) 지원되지 않습니다. %s은(는) iconv()에 의존하지만,\n"
 "iconv()는 %s을(를) 지원하지 않습니다.\n"
 
-#: src/po-charset.c:564 src/po-charset.c:612
+#: src/po-charset.c:563 src/po-charset.c:611
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
@@ -2870,15 +2878,15 @@ msgstr ""
 "GNU libiconv를 설치하고 GNU gettext를 다시 설치하면 이\n"
 "문제가 없을 것입니다.\n"
 
-#: src/po-charset.c:578 src/po-charset.c:616
+#: src/po-charset.c:577 src/po-charset.c:615
 msgid "Continuing anyway, expect parse errors."
 msgstr "어쨌든 계속합니다.  문법 애러가 타나날 것입니다."
 
-#: src/po-charset.c:580
+#: src/po-charset.c:579
 msgid "Continuing anyway."
 msgstr "어쨌든 계속합니다."
 
-#: src/po-charset.c:607
+#: src/po-charset.c:606
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -2887,7 +2895,7 @@ msgstr ""
 "문자셋 \"%s\"은(는) 지원되지 않습니다. %s은(는) iconv()에 의존하지만,\n"
 "이 버전은 iconv()를 지원되지 않는 상태로 빌드되었습니다.\n"
 
-#: src/po-charset.c:644
+#: src/po-charset.c:643
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -2895,32 +2903,32 @@ msgstr ""
 "헤더에 문자셋이 없습니다\n"
 "사용자 문자셋으로의 메세지 변환은 하지 않습니다.\n"
 
-#: src/po-gram-gen.y:94
+#: src/po-gram-gen.y:93
 #, c-format
 msgid "inconsistent use of #~"
 msgstr "#~가 모순되게 이용되었습니다"
 
-#: src/po-gram-gen.y:241
+#: src/po-gram-gen.y:240
 #, c-format
 msgid "missing `msgstr[]' section"
 msgstr "`msgstr[]' 부분이 빠졌습니다"
 
-#: src/po-gram-gen.y:250
+#: src/po-gram-gen.y:249
 #, c-format
 msgid "missing `msgid_plural' section"
 msgstr "`msgstr_plural' 부분이 빠졌습니다"
 
-#: src/po-gram-gen.y:258
+#: src/po-gram-gen.y:257
 #, c-format
 msgid "missing `msgstr' section"
 msgstr "`msgstr' 부분이 빠졌습니다"
 
-#: src/po-gram-gen.y:397
+#: src/po-gram-gen.y:396
 #, c-format
 msgid "first plural form has nonzero index"
 msgstr "첫 번째 복수형의 인덱스가 0이 아닙니다"
 
-#: src/po-gram-gen.y:399
+#: src/po-gram-gen.y:398
 #, c-format
 msgid "plural form has wrong index"
 msgstr "복수형의 인덱스가 잘못되었습니다"
@@ -2930,7 +2938,7 @@ msgstr "복수형의 인덱스가 잘못되었습니다"
 msgid "too many errors, aborting"
 msgstr "오류가 너무 많아서 중단합니다"
 
-#: src/po-lex.c:438 src/po-lex.c:508 src/write-po.c:708 src/write-po.c:833
+#: src/po-lex.c:438 src/po-lex.c:508 src/write-po.c:707 src/write-po.c:832
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "잘못된 가변바이트 문자열"
@@ -2974,60 +2982,60 @@ msgstr "문자열 내부에서 행이 끝남"
 msgid "context separator <EOT> within string"
 msgstr "문자열 안에 컨텍스트 구분 <EOT>가 있습니다."
 
-#: src/read-catalog.c:328 src/xgettext.c:903
+#: src/read-catalog.c:327 src/xgettext.c:939
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "이 파일은 도메인 지시자를 포함하고 있지 않을 수도 있습니다"
 
-#: src/read-catalog.c:373
+#: src/read-catalog.c:372
 msgid "duplicate message definition"
 msgstr "중복된 메시지 정의"
 
-#: src/read-catalog.c:375
+#: src/read-catalog.c:374
 msgid "this is the location of the first definition"
 msgstr "여기는 첫번째 정의의 위치입니다"
 
-#: src/read-mo.c:106 src/read-mo.c:127 src/read-mo.c:173 src/read-mo.c:200
+#: src/read-mo.c:105 src/read-mo.c:126 src/read-mo.c:172 src/read-mo.c:199
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "\"%s\" 파일이 잘렸습니다"
 
-#: src/read-mo.c:130
+#: src/read-mo.c:129
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "\"%s\" 파일에 NUL로 끝나지 않는 문자열이 있습니다"
 
-#: src/read-mo.c:166 src/read-mo.c:275
+#: src/read-mo.c:165 src/read-mo.c:274
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "\"%s\" 파일은 GNU .mo 형식이 아닙니다"
 
-#: src/read-mo.c:179
+#: src/read-mo.c:178
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "\"%s\" 파일의 %s 위치에 NUL로 끝나지 않는 문자열이 있습니다"
 
-#: src/read-properties.c:228
+#: src/read-properties.c:227
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "경고:  유니코드 문자에 \\uxxxx 문법이 틀렸습니다"
 
-#: src/read-stringtable.c:803
+#: src/read-stringtable.c:802
 msgid "warning: unterminated string"
 msgstr "경고: 완결되지 않은 문자열"
 
-#: src/read-stringtable.c:811
+#: src/read-stringtable.c:810
 msgid "warning: syntax error"
 msgstr "경고: 문법 오류"
 
-#: src/read-stringtable.c:872 src/read-stringtable.c:894
+#: src/read-stringtable.c:871 src/read-stringtable.c:893
 msgid "warning: unterminated key/value pair"
 msgstr "경고: 키/값 쌍이 완결되지 않았습니다"
 
-#: src/read-stringtable.c:940
+#: src/read-stringtable.c:939
 msgid "warning: syntax error, expected ';' after string"
 msgstr "경고: 문법 오류, 문자열 다음에 ';'이 와야 합니다"
 
-#: src/read-stringtable.c:949
+#: src/read-stringtable.c:948
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr "경고: 문법 오류, 문자열 다음에 '=' 혹은 ';'이 와야 합니다"
 
@@ -3090,7 +3098,7 @@ msgstr ""
 msgid "error writing stdout"
 msgstr "표준 출력에 쓰는 동안 오류 발생"
 
-#: src/write-catalog.c:127
+#: src/write-catalog.c:126
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format. Try using PO file syntax instead."
@@ -3098,14 +3106,14 @@ msgstr ""
 "여러 개의 번역 도메인을 출력 형식에 따라 한 개의 파일로 출력할 수 없습니다. "
 "PO 파일 문법을 시도해 보십시오."
 
-#: src/write-catalog.c:130
+#: src/write-catalog.c:129
 msgid ""
 "Cannot output multiple translation domains into a single file with the "
 "specified output format."
 msgstr ""
 "여러 개의 번역 도메인을 출력 형식에 따라 한 개의 파일로 출력할 수 없습니다."
 
-#: src/write-catalog.c:163
+#: src/write-catalog.c:162
 msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
@@ -3113,7 +3121,7 @@ msgstr ""
 "메세지 목록에 컨텍스트 의존 번역이 들어 있지만, 출력 형식이 컨텍스트를 지원하"
 "지 않습니다."
 
-#: src/write-catalog.c:198
+#: src/write-catalog.c:197
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them. Try generating a Java class using \"msgfmt --java\", instead "
@@ -3122,7 +3130,7 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, 출력 형식이 복수형을 지원하지 않습니"
 "다. properties 파일 대신에 \"msgfmt --java\"로 자바 클래스를 만들어 보십시오."
 
-#: src/write-catalog.c:203
+#: src/write-catalog.c:202
 msgid ""
 "message catalog has plural form translations, but the output format does not "
 "support them."
@@ -3130,65 +3138,61 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, 출력 형식이 복수형을 지원하지 않습니"
 "다."
 
-#: src/write-catalog.c:230 src/write-catalog.c:274
+#: src/write-catalog.c:229 src/write-catalog.c:273
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "출력 파일 \"%s\"을(를) 만들 수 없습니다"
 
-#: src/write-catalog.c:238 src/write-catalog.c:282
+#: src/write-catalog.c:237 src/write-catalog.c:281
 msgid "standard output"
 msgstr "표준 출력"
 
-#: src/write-csharp.c:611
-msgid ""
-"message catalog has context dependent translations\n"
-"but the C# .dll format doesn't support contexts\n"
-msgstr ""
-"메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
-"C# .dll 형식은 컨텍스트를 지원하지 않습니다\n"
-
-#: src/write-csharp.c:678
+#: src/write-csharp.c:688
 #, c-format
 msgid "failed to create directory \"%s\""
 msgstr "\"%s\" 디렉토리를 만드는 데 실패했습니다"
 
-#: src/write-csharp.c:740
+#: src/write-csharp.c:751
 #, c-format
 msgid "compilation of C# class failed, please try --verbose"
 msgstr "C# 클래스 컴파일에 실패했습니다.  --verbose로 시도해 보십시오"
 
-#: src/write-java.c:912
-msgid ""
-"message catalog has context dependent translations\n"
-"but the Java ResourceBundle format doesn't support contexts\n"
-msgstr ""
-"메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
-"Java ResourceBundle 형식은 컨텍스트를 지원하지 않습니다\n"
+#: src/write-csharp.c:753
+#, fuzzy, c-format
+msgid "compilation of C# class failed"
+msgstr "C# 클래스 컴파일에 실패했습니다.  --verbose로 시도해 보십시오"
 
-#: src/write-java.c:937
+#: src/write-java.c:975
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "올바른 자바 클래스 이름이 아닙니다: %s"
 
-#: src/write-java.c:1021
+#: src/write-java.c:1060
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "자바 클래스 컴파일에 실패했습니다.  --verbose로 시도해 보거나 $JAVAC 환경변수"
 "를 세팅하십시오"
 
-#: src/write-mo.c:800 src/write-qt.c:737 src/write-tcl.c:213
+#: src/write-java.c:1063
+#, fuzzy, c-format
+msgid "compilation of Java class failed, please try to set $JAVAC"
+msgstr ""
+"자바 클래스 컴파일에 실패했습니다.  --verbose로 시도해 보거나 $JAVAC 환경변수"
+"를 세팅하십시오"
+
+#: src/write-mo.c:799 src/write-qt.c:736 src/write-tcl.c:212
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "쓰기 위해 \"%s\"을(를) 여는 동안 오류 발생"
 
-#: src/write-po.c:767
+#: src/write-po.c:766
 #, c-format
 msgid ""
 "internationalized messages should not contain the `\\%c' escape sequence"
 msgstr "국제화된 메시지는 `\\%c' 이스케이프 순서열을 포함할 수 없습니다"
 
-#: src/write-po.c:1213 src/write-po.c:1342
+#: src/write-po.c:1212 src/write-po.c:1341
 #, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
@@ -3201,7 +3205,7 @@ msgstr ""
 "발생할 수 있습니다.  순수한 ASCII msgctxt만을 사용하도록 하십시오.\n"
 "%s\n"
 
-#: src/write-po.c:1225 src/write-po.c:1354
+#: src/write-po.c:1224 src/write-po.c:1353
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3214,7 +3218,7 @@ msgstr ""
 "발생할 수 있습니다.  순수한 ASCII msgid만을 사용하도록 하십시오.\n"
 "%s\n"
 
-#: src/write-qt.c:668
+#: src/write-qt.c:667
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
@@ -3222,7 +3226,7 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, Qt 메세지 목록은 복수형을 지원하지 "
 "않습니다\n"
 
-#: src/write-qt.c:694
+#: src/write-qt.c:693
 msgid ""
 "message catalog has msgctxt strings containing characters outside ISO-8859-"
 "1\n"
@@ -3235,7 +3239,7 @@ msgstr ""
 "지\n"
 "않습니다.\n"
 
-#: src/write-qt.c:718
+#: src/write-qt.c:717
 msgid ""
 "message catalog has msgid strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -3247,12 +3251,12 @@ msgstr ""
 "원하지\n"
 "않습니다.\n"
 
-#: src/write-resources.c:95
+#: src/write-resources.c:94
 #, c-format
 msgid "error while writing to %s subprocess"
 msgstr "%s 하위 프로세스에 쓰는 동안 오류 발생"
 
-#: src/write-resources.c:131
+#: src/write-resources.c:130
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
@@ -3260,7 +3264,7 @@ msgstr ""
 "메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
 "C# .resources 형식은 컨텍스트를 지원하지 않습니다\n"
 
-#: src/write-resources.c:150
+#: src/write-resources.c:149
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
@@ -3268,7 +3272,7 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만,\n"
 "C# .resource 형식은 복수형을 지원하지 않습니다\n"
 
-#: src/write-tcl.c:158
+#: src/write-tcl.c:157
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Tcl message catalog format doesn't support contexts\n"
@@ -3276,7 +3280,7 @@ msgstr ""
 "메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
 "Tcl 메세지 목록 형식은 컨텍스트를 지원하지 않습니다\n"
 
-#: src/write-tcl.c:177
+#: src/write-tcl.c:176
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
@@ -3284,27 +3288,27 @@ msgstr ""
 "메세지 목록에 복수형 번역이 들어 있지만, \n"
 "Tcl 메세지 목록 형식은 복수형을 지원하지 않습니다\n"
 
-#: src/x-awk.c:343 src/x-python.c:1059
+#: src/x-awk.c:342 src/x-python.c:1059
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열"
 
-#: src/x-awk.c:594
+#: src/x-awk.c:593
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: 경고: 완결되지 않은 정규식"
 
-#: src/x-c.c:1155 src/x-csharp.c:1502 src/x-java.c:860
+#: src/x-c.c:1194 src/x-csharp.c:1506 src/x-java.c:869
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: 경고: 완결되지 않은 문자 상수"
 
-#: src/x-c.c:1179
+#: src/x-c.c:1218
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
 
-#: src/x-csharp.c:217 src/xgettext.c:1845
+#: src/x-csharp.c:221 src/xgettext.c:1889
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3313,7 +3317,7 @@ msgstr ""
 "%s%s에 ASCII가 아닌 문자열이 있습니다.\n"
 "소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:264
+#: src/x-csharp.c:268
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3322,7 +3326,7 @@ msgstr ""
 "%s:%d: 잘못된 다중바이트 시퀀스.\n"
 "올바른 소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:280
+#: src/x-csharp.c:284
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3331,7 +3335,7 @@ msgstr ""
 "%s:%d: 길고 불완전한 다중바이트 시퀀스.\n"
 "올바른 소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:292
+#: src/x-csharp.c:296
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3340,7 +3344,7 @@ msgstr ""
 "%s:%d: 파일의 끝에 불완전한 다중바이트 시퀀스.\n"
 "올바른 소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:301
+#: src/x-csharp.c:305
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3349,12 +3353,12 @@ msgstr ""
 "%s:%d: 줄 끝에 불완전한 다중바이트 시퀀스.\n"
 "올바른 소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:310 src/x-python.c:332
+#: src/x-csharp.c:314 src/x-python.c:331
 #, c-format
 msgid "%s:%d: iconv failure"
 msgstr "%s:%d: iconv 실패"
 
-#: src/x-csharp.c:333
+#: src/x-csharp.c:337
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3363,32 +3367,32 @@ msgstr ""
 "%s:%d: 잘못된 다중바이트 시퀀스.\n"
 "올바른 소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
 
-#: src/x-csharp.c:1383 src/x-python.c:1259
+#: src/x-csharp.c:1387 src/x-python.c:1266
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: 경고: 잘못된 유니코드 문자"
 
-#: src/x-csharp.c:1505 src/x-java.c:863
+#: src/x-csharp.c:1509 src/x-java.c:872
 #, c-format
 msgid "%s:%d: warning: unterminated string constant"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
 
-#: src/x-csharp.c:2009 src/x-java.c:1357
+#: src/x-csharp.c:2013 src/x-java.c:1366
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: 경고: '}'가 와야 하는 곳에 ')'가 발견되었습니다"
 
-#: src/x-csharp.c:2043 src/x-java.c:1391
+#: src/x-csharp.c:2047 src/x-java.c:1400
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: 경고: ')가 와야 하는 곳에 '}'가 발견되었습니다"
 
-#: src/x-glade.c:459 src/x-glade.c:466
+#: src/x-glade.c:611 src/x-glade.c:618
 #, c-format
 msgid "%s:%lu:%lu: %s"
 msgstr "%s:%lu:%lu: %s"
 
-#: src/x-glade.c:493
+#: src/x-glade.c:645
 #, c-format
 msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
@@ -3397,48 +3401,48 @@ msgstr ""
 "언어 \"glade\"는 지원되지 않습니다. %s은(는) expat에 의존합니다.\n"
 "이 버전은 expat 없이 빌드되었습니다.\n"
 
-#: src/x-java.c:483
+#: src/x-java.c:492
 #, fuzzy, c-format
 msgid "%s:%d: warning: lone surrogate U+%04X"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열"
 
-#: src/x-perl.c:309
+#: src/x-perl.c:307
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 "%s:%d: 문자열을 끝내는 \"%s\"이(가) 파일이 끝나기 전에 나오지 않았습니다."
 
-#: src/x-perl.c:1035
+#: src/x-perl.c:1038
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: \\x{십육진수}에서 오른쪽 중괄호가 빠졌습니다"
 
-#: src/x-perl.c:1155
+#: src/x-perl.c:1158
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: 8비트 문자 \"%c\"의 인터폴레이션(\"\\l\")이 잘못되었습니다"
 
-#: src/x-perl.c:1175
+#: src/x-perl.c:1178
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: 8비트 문자 \"%c\"의 인터폴레이션(\"\\u\")이 잘못되었습니다"
 
-#: src/x-perl.c:1209
+#: src/x-perl.c:1212
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: \"%c\"에서 변수 인터폴레이션이 잘못되었습니다"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: 8비트 문자 \"%c\"의 인터폴레이션(\"\\L\")이 잘못되었습니다"
 
-#: src/x-perl.c:1239
+#: src/x-perl.c:1242
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: 8비트 문자 \"%c\"의 인터폴레이션(\"\\U\")이 잘못되었습니다"
 
-#: src/x-python.c:234
+#: src/x-python.c:233
 #, c-format
 msgid ""
 "Non-ASCII string at %s%s.\n"
@@ -3449,7 +3453,7 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:282
+#: src/x-python.c:281
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3460,7 +3464,7 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:299
+#: src/x-python.c:298
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3471,7 +3475,7 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:312
+#: src/x-python.c:311
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3482,7 +3486,7 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:322
+#: src/x-python.c:321
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3493,7 +3497,7 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:355
+#: src/x-python.c:354
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3504,28 +3508,28 @@ msgstr ""
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/pep-"
 "0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
-#: src/x-python.c:675
+#: src/x-python.c:674
 #, c-format
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
 msgstr ""
 "\"%s\" 인코딩은 어떤 인코딩인지 알 수 없습니다. 대신 ASCII로 진행합니다."
 
-#: src/x-rst.c:110
+#: src/x-rst.c:109
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr "%s:%d: 잘못된 문자열 정의"
 
-#: src/x-rst.c:174
+#: src/x-rst.c:173
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr "%s:%d: # 다음에 숫자가 빠졌습니다"
 
-#: src/x-rst.c:209
+#: src/x-rst.c:208
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: 잘못된 문자열 표현"
 
-#: src/x-sh.c:1076
+#: src/x-sh.c:1075
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
@@ -3534,27 +3538,27 @@ msgstr ""
 "%s:%lu: 경고: $\"...\" 문법은 보안상의 이유로 없어질 예정입니다; 대신에 "
 "eval_gettext를 사용하십시오"
 
-#: src/xgettext.c:539
+#: src/xgettext.c:567
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "--join-exeisting은 출력이 표준출력에 쓰여질 때 사용될 수 없습니다"
 
-#: src/xgettext.c:544
+#: src/xgettext.c:572
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext는 검색할 키워드 없이는 동작하지 않습니다"
 
-#: src/xgettext.c:687
+#: src/xgettext.c:715
 #, c-format
 msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgstr "경고: `%s' 파일의 확장자 `%s'을(를) 알 수 없습니다; C 형식으로 간주함"
 
-#: src/xgettext.c:738
+#: src/xgettext.c:766
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "주어진 입력 파일에서 번역 가능한 문자열을 뽑아냅니다.\n"
 
-#: src/xgettext.c:761
+#: src/xgettext.c:789
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
@@ -3563,24 +3567,24 @@ msgstr ""
 "  -d, --default-domain=<이름>    출력에 (messages.po 대신) <이름>.po를 씁니"
 "다\n"
 
-#: src/xgettext.c:763
+#: src/xgettext.c:791
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr "  -o, --output=<파일>            지정된 파일에 출력합니다\n"
 
-#: src/xgettext.c:765
+#: src/xgettext.c:793
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr ""
 "  -p, --output-dir=<디렉토리>    출력 파일을 <디렉토리> 디렉토리에 놓습니다\n"
 
-#: src/xgettext.c:770
+#: src/xgettext.c:798
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "입력 파일의 언어 선택:\n"
 
-#: src/xgettext.c:772
+#: src/xgettext.c:800
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -3599,12 +3603,12 @@ msgstr ""
 "PHP, \n"
 "                                GCC-source, NXStringTable, RST, Glade)\n"
 
-#: src/xgettext.c:778
+#: src/xgettext.c:806
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++                   --language=C++를 짧게 쓴 것입니다\n"
 
-#: src/xgettext.c:780
+#: src/xgettext.c:808
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
@@ -3612,7 +3616,7 @@ msgid ""
 msgstr ""
 "기본적으로 입력 파일의 확장자에 따라 어떤 언어를 사용할 지 짐작합니다.\n"
 
-#: src/xgettext.c:785
+#: src/xgettext.c:813
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -3621,24 +3625,24 @@ msgstr ""
 "      --from-code=<이름>      입력 파일의 인코딩\n"
 "                                (Python, Tcl, Glade 제외)\n"
 
-#: src/xgettext.c:788
+#: src/xgettext.c:816
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr "기본값으로 입력 파일은 ASCII로 인코딩되어 있다고 가정합니다.\n"
 
-#: src/xgettext.c:793
+#: src/xgettext.c:821
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr "  -j, --join-existing            현존하는 파일과 메세지를 합칩니다\n"
 
-#: src/xgettext.c:795
+#: src/xgettext.c:823
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
 "  -x, --exclude-file=<파일.po>   <파일.po>의 메세지는 뽑아내지 않습니다\n"
 
 # TAG가 정확이 뭐지?
-#: src/xgettext.c:797
+#: src/xgettext.c:825
 #, c-format
 msgid ""
 "  -c, --add-comments[=TAG]    place comment block with TAG (or those\n"
@@ -3647,17 +3651,17 @@ msgstr ""
 "  -c, --add-comments[=<태그>]    주석 부분을 <태크>로 (혹은 키워드 줄 앞에\n"
 "                                 있는 것으로) 출력 파일에 씁니다\n"
 
-#: src/xgettext.c:801
+#: src/xgettext.c:829
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Language 관련 옵션:\n"
 
-#: src/xgettext.c:803
+#: src/xgettext.c:831
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all              모든 문자열을 뽑아 냅니다\n"
 
-#: src/xgettext.c:805 src/xgettext.c:812
+#: src/xgettext.c:833 src/xgettext.c:840
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3671,7 +3675,7 @@ msgstr ""
 "Java,\n"
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
-#: src/xgettext.c:809
+#: src/xgettext.c:837
 #, c-format
 msgid ""
 "  -k, --keyword[=WORD]        additional keyword to be looked for (without\n"
@@ -3680,7 +3684,7 @@ msgstr ""
 "  -k, --keyword[=<단어>]         추가로 찾을 키워드 (<단어>가 없으면 기본\n"
 "                                 키워드를 사용하지 않겠다는 의미입니다)\n"
 
-#: src/xgettext.c:816
+#: src/xgettext.c:844
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -3690,7 +3694,7 @@ msgstr ""
 "      --flag=WORD:ARG:FLAG    키워드 WORD의 인자 번호 ARG안에 있는 문자열의\n"
 "                              추가 플래그\n"
 
-#: src/xgettext.c:819
+#: src/xgettext.c:847
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3704,51 +3708,56 @@ msgstr ""
 "Java,\n"
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"
 
-#: src/xgettext.c:823
+#: src/xgettext.c:851
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 "  -T, --trigraphs                입력에서 ANSI C 삼중자(trigraph)를 인식합니"
 "다\n"
 
-#: src/xgettext.c:825
+#: src/xgettext.c:853
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr ""
 "                                (다음 언어만 지원: C, C++, ObjectiveC)\n"
 
-#: src/xgettext.c:827
+#: src/xgettext.c:855
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt                    Qt 형식 문자열을 알아냅니다\n"
 
-#: src/xgettext.c:829 src/xgettext.c:833
+#: src/xgettext.c:857 src/xgettext.c:861 src/xgettext.c:865
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (C++만 지원)\n"
 
-#: src/xgettext.c:831
+#: src/xgettext.c:859
+#, fuzzy, c-format
+msgid "      --kde                   recognize KDE 4 format strings\n"
+msgstr "      --qt                    Qt 형식 문자열을 알아냅니다\n"
+
+#: src/xgettext.c:863
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr "      --boost                 Boost 형식 문자열을 알아냅니다\n"
 
-#: src/xgettext.c:835
+#: src/xgettext.c:867
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
 msgstr "      --debug                    더 자세한 형식문자열 인식 결과\n"
 
-#: src/xgettext.c:854
+#: src/xgettext.c:886
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr "      --properties-output     자바 .properties 파일을 씁니다\n"
 
-#: src/xgettext.c:869
+#: src/xgettext.c:901
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr "      --copyright-holder=<문자열> 출력할 저작권 소유자를 지정합니다\n"
 
-#: src/xgettext.c:871
+#: src/xgettext.c:903
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
@@ -3756,7 +3765,17 @@ msgstr ""
 "      --foreign-user             외부 사용자를 위해 FSF 저작권 표시를 뺍니"
 "다\n"
 
-#: src/xgettext.c:873
+#: src/xgettext.c:905
+#, c-format
+msgid "      --package-name=PACKAGE  set package name in output\n"
+msgstr ""
+
+#: src/xgettext.c:907
+#, fuzzy, c-format
+msgid "      --package-version=VERSION  set package version in output\n"
+msgstr "      --copyright-holder=<문자열> 출력할 저작권 소유자를 지정합니다\n"
+
+#: src/xgettext.c:909
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
@@ -3764,7 +3783,7 @@ msgstr ""
 "      --msgid-bugs-address=이메일@주소     msgid 버그를 보고할 주소를 지정합"
 "니다\n"
 
-#: src/xgettext.c:875
+#: src/xgettext.c:911
 #, c-format
 msgid ""
 "  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr "
@@ -3773,7 +3792,7 @@ msgstr ""
 "  -m, --msgstr-prefix[=<문자열>] msgstr 항목에 <문자열> 혹은 \"\"을 접두어"
 "로\n"
 
-#: src/xgettext.c:877
+#: src/xgettext.c:913
 #, c-format
 msgid ""
 "  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr "
@@ -3782,23 +3801,23 @@ msgstr ""
 "  -M, --msgstr-suffix[=<문자열>] msgstr 항목에 <문자열> 혹은 \"\"을 접미어"
 "로\n"
 
-#: src/xgettext.c:1642
+#: src/xgettext.c:1686
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %"
 "s"
 msgstr "--flag의 인자가 <keyword>:<argnum>:[pass-]<flag> 문법이 아닙니다: %s"
 
-#: src/xgettext.c:1741
+#: src/xgettext.c:1785
 msgid "standard input"
 msgstr "표준 입력"
 
-#: src/xgettext.c:1921 src/xgettext.c:1954 src/xgettext.c:2012
+#: src/xgettext.c:1965 src/xgettext.c:1998 src/xgettext.c:2056
 #, c-format
 msgid "%s%s: warning: "
 msgstr "%s%s: 경고: "
 
-#: src/xgettext.c:1924
+#: src/xgettext.c:1968
 #, c-format
 msgid ""
 "Although being used in a format string position, the %s is not a valid %s "
@@ -3807,7 +3826,7 @@ msgstr ""
 "형식 문자열에 위치 지정을 사용했지만, %s은(는) 잘못된 %s 형식 문자열입니다. "
 "이유: %s\n"
 
-#: src/xgettext.c:1925
+#: src/xgettext.c:1969
 #, c-format
 msgid ""
 "Although declared as such, the %s is not a valid %s format string. Reason: %"
@@ -3815,7 +3834,7 @@ msgid ""
 msgstr ""
 "선언한 것과는 달리, '%s'은(는) 올바른 %s 형식 문자열이 아닙니다. 이유: %s\n"
 
-#: src/xgettext.c:1956
+#: src/xgettext.c:2000
 #, c-format
 msgid ""
 "'%s' format string with unnamed arguments cannot be properly localized:\n"
@@ -3828,7 +3847,7 @@ msgstr ""
 "이름이 있는 인자를 이용해 형식 문자열을 사용해 보십시오.\n"
 "아니면 인자에 대해 튜플 대신에 매핑을 사용해 보십시오.\n"
 
-#: src/xgettext.c:2014
+#: src/xgettext.c:2058
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -3838,27 +3857,27 @@ msgstr ""
 "gettext(\"\")는 빈 문자열이 아니라, 메타 정보가 들어 있는 \n"
 "헤더 항목을 리턴합니다.\n"
 
-#: src/xgettext.c:2618
+#: src/xgettext.c:2664
 #, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
 msgstr "'%.*s' 키워드에 대한 인자 지정이 애매합니다"
 
-#: src/xgettext.c:2645
+#: src/xgettext.c:2691
 #, c-format
 msgid "warning: missing context for keyword '%.*s'"
 msgstr "경고: '%.*s' 키워드에 대해 컨텍스트가 없습니다"
 
-#: src/xgettext.c:2670
+#: src/xgettext.c:2716
 #, c-format
 msgid "warning: missing context for plural argument of keyword '%.*s'"
 msgstr "경고: '%.*s' 키워드의 복수형 인자에 대해 컨텍스트가 없습니다"
 
-#: src/xgettext.c:2691
+#: src/xgettext.c:2737
 #, c-format
 msgid "context mismatch between singular and plural form"
 msgstr "단수형과 복수형 사이에 컨텍스트가 다릅니다"
 
-#: src/xgettext.c:2771
+#: src/xgettext.c:2828
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a `Makevars' file, please specify\n"
@@ -3870,7 +3889,7 @@ msgstr ""
 "변수를 지정하십시오; 그렇지 않으면 --msgid-bugs-address\n"
 "명령행 옵션을 사용하십시오.\n"
 
-#: src/xgettext.c:2970
+#: src/xgettext.c:3035
 #, c-format
 msgid "language `%s' unknown"
 msgstr "\"%s\" 파일에 NUL로 끝나지 않는 sysdep 세그먼트가 있습니다"
@@ -3878,6 +3897,35 @@ msgstr "\"%s\" 파일에 NUL로 끝나지 않는 sysdep 세그먼트가 있습니다"
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<이름없음>"
+
+#~ msgid "Multiple references to %%%c."
+#~ msgstr "%%%c을(를) 여러 번 참조했습니다."
+
+#~ msgid ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "This is free software; see the source for copying conditions.  There is "
+#~ "NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
+#~ "PURPOSE.\n"
+#~ msgstr ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상"
+#~ "품성\n"
+#~ "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
+
+#~ msgid ""
+#~ "message catalog has context dependent translations\n"
+#~ "but the C# .dll format doesn't support contexts\n"
+#~ msgstr ""
+#~ "메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
+#~ "C# .dll 형식은 컨텍스트를 지원하지 않습니다\n"
+
+#~ msgid ""
+#~ "message catalog has context dependent translations\n"
+#~ "but the Java ResourceBundle format doesn't support contexts\n"
+#~ msgstr ""
+#~ "메세지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
+#~ "Java ResourceBundle 형식은 컨텍스트를 지원하지 않습니다\n"
 
 #~ msgid "conversion failure"
 #~ msgstr "변환 실패"

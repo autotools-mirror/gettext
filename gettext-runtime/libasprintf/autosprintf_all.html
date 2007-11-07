@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52b
-     from autosprintf.texi on 22 August 2006 -->
+     from autosprintf.texi on 1 September 2007 -->
 
 <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU autosprintf</TITLE>
@@ -19,6 +19,36 @@
 <LI><A NAME="TOC3" HREF="autosprintf.html#SEC3">3  Using <CODE>autosprintf</CODE> in own programs</A>
 </UL>
 <P><HR><P>
+
+<P>
+Copyright (C) 2002-2003, 2006-2007 Free Software Foundation, Inc.
+
+</P>
+<P>
+This manual is free documentation.  It is dually licensed under the
+GNU FDL and the GNU GPL.  This means that you can redistribute this
+manual under either of these two licenses, at your choice.
+
+</P>
+<P>
+This manual is covered by the GNU FDL.  Permission is granted to copy,
+distribute and/or modify this document under the terms of the
+GNU Free Documentation License (FDL), either version 1.2 of the
+License, or (at your option) any later version published by the
+Free Software Foundation (FSF); with no Invariant Sections, with no
+Front-Cover Text, and with no Back-Cover Texts.
+A copy of the license is at <A HREF="http://www.gnu.org/licenses/fdl.html">http://www.gnu.org/licenses/fdl.html</A>.
+
+</P>
+<P>
+This manual is covered by the GNU GPL.  You can redistribute it and/or
+modify it under the terms of the GNU General Public License (GPL), either
+version 2 of the License, or (at your option) any later version published
+by the Free Software Foundation (FSF).
+A copy of the license is at <A HREF="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</A>.
+
+</P>
+
 
 
 <H1><A NAME="SEC1" HREF="autosprintf.html#TOC1">1  Introduction</A></H1>
@@ -92,7 +122,10 @@ string and additional arguments, like the C function <CODE>printf</CODE>.
 </P>
 <P>
 Conversions to <CODE>char *</CODE> and <CODE>std::string</CODE> are defined that return
-the encapsulated string.
+the encapsulated string.  The conversion to <CODE>char *</CODE> returns a freshly
+allocated copy of the encapsulated string; it needs to be freed using
+<CODE>delete[]</CODE>.  The conversion to <CODE>std::string</CODE> returns a copy of
+the encapsulated string, with automatic memory management.
 
 </P>
 <P>
@@ -134,7 +167,7 @@ it provides.
 
 </P>
 <P><HR><P>
-This document was generated on 22 August 2006 using the
+This document was generated on 1 September 2007 using the
 <A HREF="http://wwwinfo.cern.ch/dis/texi2html/">texi2html</A>
 translator version 1.52b.</P>
 </BODY>

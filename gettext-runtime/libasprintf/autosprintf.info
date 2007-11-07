@@ -1,4 +1,4 @@
-This is autosprintf.info, produced by makeinfo version 4.8 from
+This is autosprintf.info, produced by makeinfo version 4.9 from
 autosprintf.texi.
 
 INFO-DIR-SECTION C++ libraries
@@ -8,7 +8,7 @@ END-INFO-DIR-ENTRY
 
    This file provides documentation for GNU `autosprintf' library.
 
-   Copyright (C) 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006-2007 Free Software Foundation, Inc.
 
    This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -92,7 +92,10 @@ heap.
 format string and additional arguments, like the C function `printf'.
 
    Conversions to `char *' and `std::string' are defined that return
-the encapsulated string.
+the encapsulated string.  The conversion to `char *' returns a freshly
+allocated copy of the encapsulated string; it needs to be freed using
+`delete[]'.  The conversion to `std::string' returns a copy of the
+encapsulated string, with automatic memory management.
 
    The destructor `~autosprintf ()' destroys the encapsulated string.
 
@@ -123,9 +126,9 @@ variable that it provides.
 
 
 Tag Table:
-Node: Top1336
-Node: Introduction1696
-Node: Class autosprintf2847
-Node: Using autosprintf3619
+Node: Top1347
+Node: Introduction1707
+Node: Class autosprintf2858
+Node: Using autosprintf3868
 
 End Tag Table

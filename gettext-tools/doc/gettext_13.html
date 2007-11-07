@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52b
-     from gettext.texi on 25 October 2006 -->
+     from gettext.texi on 4 November 2007 -->
 
 <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 13  The Maintainer's View</TITLE>
@@ -11,9 +11,9 @@ Go to the <A HREF="gettext_1.html">first</A>, <A HREF="gettext_12.html">previous
 <P><HR><P>
 
 
-<H1><A NAME="SEC196" HREF="gettext_toc.html#TOC196">13  The Maintainer's View</A></H1>
+<H1><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13  The Maintainer's View</A></H1>
 <P>
-<A NAME="IDX1056"></A>
+<A NAME="IDX1077"></A>
 
 </P>
 <P>
@@ -32,7 +32,7 @@ standards, or even better, Gnits standards, because GNU <CODE>gettext</CODE>
 is purposely for helping the internationalization of the whole GNU
 project, and as many other good free packages as possible.  So, the
 maintainer's view presented here presumes that the package already has
-a <TT>&lsquo;configure.in&rsquo;</TT> file and uses GNU Autoconf.
+a <TT>&lsquo;configure.ac&rsquo;</TT> file and uses GNU Autoconf.
 
 </P>
 <P>
@@ -53,7 +53,7 @@ for changes.
 
 
 
-<H2><A NAME="SEC197" HREF="gettext_toc.html#TOC197">13.1  Flat or Non-Flat Directory Structures</A></H2>
+<H2><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.1  Flat or Non-Flat Directory Structures</A></H2>
 
 <P>
 Some free software packages are distributed as <CODE>tar</CODE> files which unpack
@@ -86,11 +86,11 @@ use this as an opportunity to unflatten their package structure.
 </P>
 
 
-<H2><A NAME="SEC198" HREF="gettext_toc.html#TOC198">13.2  Prerequisite Works</A></H2>
+<H2><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.2  Prerequisite Works</A></H2>
 <P>
-<A NAME="IDX1057"></A>
-<A NAME="IDX1058"></A>
-<A NAME="IDX1059"></A>
+<A NAME="IDX1078"></A>
+<A NAME="IDX1079"></A>
+<A NAME="IDX1080"></A>
 
 </P>
 <P>
@@ -129,8 +129,8 @@ want to see the translation of shell script messages.
 
 <LI>
 
-Your package should use Autoconf and have a <TT>&lsquo;configure.in&rsquo;</TT> or
-<TT>&lsquo;configure.ac&rsquo;</TT> file.
+Your package should use Autoconf and have a <TT>&lsquo;configure.ac&rsquo;</TT> or
+<TT>&lsquo;configure.in&rsquo;</TT> file.
 If it does not, you have to learn how.  The Autoconf documentation
 is quite well written, it is a good idea that you print it and get
 familiar with it.
@@ -138,7 +138,7 @@ familiar with it.
 <LI>
 
 Your C sources should have already been modified according to
-instructions given earlier in this manual.  See section <A HREF="gettext_4.html#SEC11">4  Preparing Program Sources</A>.
+instructions given earlier in this manual.  See section <A HREF="gettext_4.html#SEC16">4  Preparing Program Sources</A>.
 
 <LI>
 
@@ -157,7 +157,7 @@ It is worth adding here a few words about how the maintainer should
 ideally behave with PO files submissions.  As a maintainer, your role is
 to authenticate the origin of the submission as being the representative
 of the appropriate translating teams of the Translation Project (forward
-the submission to <TT>&lsquo;translation@iro.umontreal.ca&rsquo;</TT> in case of doubt),
+the submission to <TT>&lsquo;coordinator@translationproject.org&rsquo;</TT> in case of doubt),
 to ensure that the PO file format is not severely broken and does not
 prevent successful installation, and for the rest, to merely put these
 PO files in <TT>&lsquo;po/&rsquo;</TT> for distribution.
@@ -187,7 +187,7 @@ never try to <EM>solve</EM> a team's problem on your own.
 </P>
 
 
-<H2><A NAME="SEC199" HREF="gettext_toc.html#TOC199">13.3  Invoking the <CODE>gettextize</CODE> Program</A></H2>
+<H2><A NAME="SEC213" HREF="gettext_toc.html#TOC213">13.3  Invoking the <CODE>gettextize</CODE> Program</A></H2>
 
 <P>
 The <CODE>gettextize</CODE> program is an interactive tool that helps the
@@ -222,7 +222,7 @@ GNU <CODE>gettext</CODE>.
 
 <LI>It performs as many of the tasks mentioned in the next section
 
-section <A HREF="gettext_13.html#SEC200">13.4  Files You Must Create or Alter</A> as can be performed automatically.
+section <A HREF="gettext_13.html#SEC214">13.4  Files You Must Create or Alter</A> as can be performed automatically.
 
 <LI>It removes obsolete files and idioms used for previous GNU
 
@@ -239,8 +239,8 @@ It can be invoked as follows:
 
 </P>
 <P>
-<A NAME="IDX1060"></A>
-<A NAME="IDX1061"></A>
+<A NAME="IDX1081"></A>
+<A NAME="IDX1082"></A>
 
 <PRE>
 gettextize [ <VAR>option</VAR>... ] [ <VAR>directory</VAR> ]
@@ -256,30 +256,38 @@ and accepts the following options:
 <DD>
 <DT><SAMP>&lsquo;--force&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1062"></A>
-<A NAME="IDX1063"></A>
+<A NAME="IDX1083"></A>
+<A NAME="IDX1084"></A>
 Force replacement of files which already exist.
 
 <DT><SAMP>&lsquo;--intl&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1064"></A>
+<A NAME="IDX1085"></A>
 Install the libintl sources in a subdirectory named <TT>&lsquo;intl/&rsquo;</TT>.
 This libintl will be used to provide internationalization on systems
 that don't have GNU libintl installed.  If this option is omitted,
-the call to <CODE>AM_GNU_GETTEXT</CODE> in <TT>&lsquo;configure.in&rsquo;</TT> should read:
+the call to <CODE>AM_GNU_GETTEXT</CODE> in <TT>&lsquo;configure.ac&rsquo;</TT> should read:
 <SAMP>&lsquo;AM_GNU_GETTEXT([external])&rsquo;</SAMP>, and internationalization will not
 be enabled on systems lacking GNU gettext.
 
+<DT><SAMP>&lsquo;--po-dir=<VAR>dir</VAR>&rsquo;</SAMP>
+<DD>
+<A NAME="IDX1086"></A>
+Specify a directory containing PO files.  Such a directory contains the
+translations into various languages of a particular POT file.  This
+option can be specified multiple times, once for each translation domain.
+If it is not specified, the directory named <TT>&lsquo;po/&rsquo;</TT> is updated.
+
 <DT><SAMP>&lsquo;--no-changelog&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1065"></A>
+<A NAME="IDX1087"></A>
 Don't update or create ChangeLog files.  By default, <CODE>gettextize</CODE>
 logs all changes (file additions, modifications and removals) in a
 file called <SAMP>&lsquo;ChangeLog&rsquo;</SAMP> in each affected directory.
 
 <DT><SAMP>&lsquo;--symlink&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1066"></A>
+<A NAME="IDX1088"></A>
 Make symbolic links instead of copying the needed files.  This can be
 useful to save a few kilobytes of disk space, but it requires extra
 effort to create self-contained tarballs, it may disturb some mechanism
@@ -290,20 +298,20 @@ bugs when a newer version of <CODE>gettext</CODE> is installed on the system.
 <DD>
 <DT><SAMP>&lsquo;--dry-run&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1067"></A>
-<A NAME="IDX1068"></A>
+<A NAME="IDX1089"></A>
+<A NAME="IDX1090"></A>
 Print modifications but don't perform them.  All actions that
 <CODE>gettextize</CODE> would normally execute are inhibited and instead only
 listed on standard output.
 
 <DT><SAMP>&lsquo;--help&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1069"></A>
+<A NAME="IDX1091"></A>
 Display this help and exit.
 
 <DT><SAMP>&lsquo;--version&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1070"></A>
+<A NAME="IDX1092"></A>
 Output version information and exit.
 
 </DL>
@@ -344,6 +352,9 @@ files.  If the <TT>&lsquo;po/&rsquo;</TT> directory already exists, it will be p
 along with the files it contains, and only <TT>&lsquo;Makefile.in.in&rsquo;</TT> and
 the auxiliary files will be overwritten.
 
+If <SAMP>&lsquo;--po-dir&rsquo;</SAMP> has been specified, this holds for every directory
+specified through <SAMP>&lsquo;--po-dir&rsquo;</SAMP>, instead of <TT>&lsquo;po/&rsquo;</TT>.
+
 <LI>
 
 Only if <SAMP>&lsquo;--intl&rsquo;</SAMP> has been specified:
@@ -378,8 +389,8 @@ goal of your main <TT>&lsquo;Makefile.in&rsquo;</TT>.
 </P>
 <P>
 Furthermore, <CODE>gettextize</CODE> will update all <TT>&lsquo;Makefile.am&rsquo;</TT> files
-in each affected directory, as well as the top level <TT>&lsquo;configure.in&rsquo;</TT>
-or <TT>&lsquo;configure.ac&rsquo;</TT> file.
+in each affected directory, as well as the top level <TT>&lsquo;configure.ac&rsquo;</TT>
+or <TT>&lsquo;configure.in&rsquo;</TT> file.
 
 </P>
 <P>
@@ -406,14 +417,14 @@ It is important to understand that <CODE>gettextize</CODE> can not do the
 entire job of adapting a package for using GNU <CODE>gettext</CODE>.  The
 amount of remaining work depends on whether the package uses GNU
 <CODE>automake</CODE> or not.  But in any case, the maintainer should still
-read the section section <A HREF="gettext_13.html#SEC200">13.4  Files You Must Create or Alter</A> after invoking <CODE>gettextize</CODE>.
+read the section section <A HREF="gettext_13.html#SEC214">13.4  Files You Must Create or Alter</A> after invoking <CODE>gettextize</CODE>.
 
 </P>
 <P>
 In particular, if after using <SAMP>&lsquo;gettexize&rsquo;</SAMP>, you get an error
 <SAMP>&lsquo;AC_COMPILE_IFELSE was called before AC_GNU_SOURCE&rsquo;</SAMP> or
 <SAMP>&lsquo;AC_RUN_IFELSE was called before AC_GNU_SOURCE&rsquo;</SAMP>, you can fix it
-by modifying <TT>&lsquo;configure.ac&rsquo;</TT>, as described in section <A HREF="gettext_13.html#SEC205">13.4.5  <TT>&lsquo;configure.in&rsquo;</TT> at top level</A>.
+by modifying <TT>&lsquo;configure.ac&rsquo;</TT>, as described in section <A HREF="gettext_13.html#SEC219">13.4.5  <TT>&lsquo;configure.ac&rsquo;</TT> at top level</A>.
 
 </P>
 <P>
@@ -421,14 +432,14 @@ It is also important to understand that <CODE>gettextize</CODE> is not part
 of the GNU build system, in the sense that it should not be invoked
 automatically, and not be invoked by someone who doesn't assume the
 responsibilities of a package maintainer.  For the latter purpose, a
-separate tool is provided, see section <A HREF="gettext_13.html#SEC224">13.6.3  Invoking the <CODE>autopoint</CODE> Program</A>.
+separate tool is provided, see section <A HREF="gettext_13.html#SEC239">13.6.3  Invoking the <CODE>autopoint</CODE> Program</A>.
 
 </P>
 
 
-<H2><A NAME="SEC200" HREF="gettext_toc.html#TOC200">13.4  Files You Must Create or Alter</A></H2>
+<H2><A NAME="SEC214" HREF="gettext_toc.html#TOC214">13.4  Files You Must Create or Alter</A></H2>
 <P>
-<A NAME="IDX1071"></A>
+<A NAME="IDX1093"></A>
 
 </P>
 <P>
@@ -443,7 +454,7 @@ changes needed in each.
 <P>
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
-<CODE>gettext</CODE> 0.16 distribution itself, or from the GNU
+<CODE>gettext</CODE> 0.17 distribution itself, or from the GNU
 <CODE>hello</CODE> distribution (<A HREF="http://www.franken.de/users/gnu/ke/hello">http://www.franken.de/users/gnu/ke/hello</A>
 or <A HREF="http://www.gnu.franken.de/ke/hello/">http://www.gnu.franken.de/ke/hello/</A>)  You may indeed
 refer to the source code of the GNU <CODE>gettext</CODE> and GNU <CODE>hello</CODE>
@@ -454,9 +465,9 @@ gettext functionality.
 
 
 
-<H3><A NAME="SEC201" HREF="gettext_toc.html#TOC201">13.4.1  <TT>&lsquo;POTFILES.in&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
+<H3><A NAME="SEC215" HREF="gettext_toc.html#TOC215">13.4.1  <TT>&lsquo;POTFILES.in&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
 <P>
-<A NAME="IDX1072"></A>
+<A NAME="IDX1094"></A>
 
 </P>
 <P>
@@ -485,7 +496,7 @@ src/xgettext.c
 <P>
 Hash-marked comments and white lines are ignored.  All other lines
 list those source files containing strings marked for translation
-(see section <A HREF="gettext_4.html#SEC15">4.4  How Marks Appear in Sources</A>), in a notation relative to the top level
+(see section <A HREF="gettext_4.html#SEC20">4.4  How Marks Appear in Sources</A>), in a notation relative to the top level
 of your whole distribution, rather than the location of the
 <TT>&lsquo;POTFILES.in&rsquo;</TT> file itself.
 
@@ -500,9 +511,9 @@ case of <CODE>bison</CODE>), not the generated C file.
 </P>
 
 
-<H3><A NAME="SEC202" HREF="gettext_toc.html#TOC202">13.4.2  <TT>&lsquo;LINGUAS&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
+<H3><A NAME="SEC216" HREF="gettext_toc.html#TOC216">13.4.2  <TT>&lsquo;LINGUAS&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
 <P>
-<A NAME="IDX1073"></A>
+<A NAME="IDX1095"></A>
 
 </P>
 <P>
@@ -524,7 +535,7 @@ that these languages are currently supported by your package.  If you
 want to further restrict, at installation time, the set of installed
 languages, this should not be done by modifying the <TT>&lsquo;LINGUAS&rsquo;</TT> file,
 but rather by using the <CODE>LINGUAS</CODE> environment variable
-(see section <A HREF="gettext_14.html#SEC228">14  The Installer's and Distributor's View</A>).
+(see section <A HREF="gettext_14.html#SEC243">14  The Installer's and Distributor's View</A>).
 
 </P>
 <P>
@@ -549,9 +560,9 @@ directory; they are also installed by running <CODE>gettextize</CODE>.
 </P>
 
 
-<H3><A NAME="SEC203" HREF="gettext_toc.html#TOC203">13.4.3  <TT>&lsquo;Makevars&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
+<H3><A NAME="SEC217" HREF="gettext_toc.html#TOC217">13.4.3  <TT>&lsquo;Makevars&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
 <P>
-<A NAME="IDX1074"></A>
+<A NAME="IDX1096"></A>
 
 </P>
 <P>
@@ -570,11 +581,17 @@ locations need to adjust the three first variables defined in
 <TT>&lsquo;Makevars&rsquo;</TT>.
 
 </P>
-
-
-<H3><A NAME="SEC204" HREF="gettext_toc.html#TOC204">13.4.4  Extending <TT>&lsquo;Makefile&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
 <P>
-<A NAME="IDX1075"></A>
+As an alternative to the <CODE>XGETTEXT_OPTIONS</CODE> variables, it is also
+possible to specify <CODE>xgettext</CODE> options through the
+<CODE>AM_XGETTEXT_OPTION</CODE> autoconf macro.  See section <A HREF="gettext_13.html#SEC234">13.5.6  AM_XGETTEXT_OPTION in <TT>&lsquo;po.m4&rsquo;</TT></A>.
+
+</P>
+
+
+<H3><A NAME="SEC218" HREF="gettext_toc.html#TOC218">13.4.4  Extending <TT>&lsquo;Makefile&rsquo;</TT> in <TT>&lsquo;po/&rsquo;</TT></A></H3>
+<P>
+<A NAME="IDX1097"></A>
 
 </P>
 <P>
@@ -585,8 +602,8 @@ with <TT>&lsquo;po/Makefile.in.in&rsquo;</TT>.
 
 </P>
 <P>
-<A NAME="IDX1076"></A>
-<A NAME="IDX1077"></A>
+<A NAME="IDX1098"></A>
+<A NAME="IDX1099"></A>
 GNU gettext comes with a <TT>&lsquo;Rules-quot&rsquo;</TT> file, containing rules for
 building catalogs <TT>&lsquo;en@quot.po&rsquo;</TT> and <TT>&lsquo;en@boldquot.po&rsquo;</TT>.  The
 effect of <TT>&lsquo;en@quot.po&rsquo;</TT> is that people who set their <CODE>LANGUAGE</CODE>
@@ -606,15 +623,15 @@ GUI programs.  To enable it, similarly add <CODE>en@boldquot</CODE> to the
 Similarly, you can create rules for building message catalogs for the
 <TT>&lsquo;sr@latin&rsquo;</TT> locale -- Serbian written with the Latin alphabet --
 from those for the <TT>&lsquo;sr&rsquo;</TT> locale -- Serbian written with Cyrillic
-letters.  See section <A HREF="gettext_9.html#SEC95">9.4  Invoking the <CODE>msgfilter</CODE> Program</A>.
+letters.  See section <A HREF="gettext_9.html#SEC102">9.4  Invoking the <CODE>msgfilter</CODE> Program</A>.
 
 </P>
 
 
-<H3><A NAME="SEC205" HREF="gettext_toc.html#TOC205">13.4.5  <TT>&lsquo;configure.in&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC219" HREF="gettext_toc.html#TOC219">13.4.5  <TT>&lsquo;configure.ac&rsquo;</TT> at top level</A></H3>
 
 <P>
-<TT>&lsquo;configure.in&rsquo;</TT> or <TT>&lsquo;configure.ac&rsquo;</TT> - this is the source from which
+<TT>&lsquo;configure.ac&rsquo;</TT> or <TT>&lsquo;configure.in&rsquo;</TT> - this is the source from which
 <CODE>autoconf</CODE> generates the <TT>&lsquo;configure&rsquo;</TT> script.
 
 </P>
@@ -622,14 +639,14 @@ letters.  See section <A HREF="gettext_9.html#SEC95">9.4  Invoking the <CODE>msg
 <OL>
 <LI>Declare the package and version.
 
-<A NAME="IDX1078"></A>
+<A NAME="IDX1100"></A>
 
 This is done by a set of lines like these:
 
 
 <PRE>
 PACKAGE=gettext
-VERSION=0.16
+VERSION=0.17
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
 AC_DEFINE_UNQUOTED(VERSION, "$VERSION")
 AC_SUBST(PACKAGE)
@@ -640,18 +657,18 @@ or, if you are using GNU <CODE>automake</CODE>, by a line like this:
 
 
 <PRE>
-AM_INIT_AUTOMAKE(gettext, 0.16)
+AM_INIT_AUTOMAKE(gettext, 0.17)
 </PRE>
 
 Of course, you replace <SAMP>&lsquo;gettext&rsquo;</SAMP> with the name of your package,
-and <SAMP>&lsquo;0.16&rsquo;</SAMP> by its version numbers, exactly as they
+and <SAMP>&lsquo;0.17&rsquo;</SAMP> by its version numbers, exactly as they
 should appear in the packaged <CODE>tar</CODE> file name of your distribution
-(<TT>&lsquo;gettext-0.16.tar.gz&rsquo;</TT>, here).
+(<TT>&lsquo;gettext-0.17.tar.gz&rsquo;</TT>, here).
 
 <LI>Check for internationalization support.
 
 Here is the main <CODE>m4</CODE> macro for triggering internationalization
-support.  Just add this line to <TT>&lsquo;configure.in&rsquo;</TT>:
+support.  Just add this line to <TT>&lsquo;configure.ac&rsquo;</TT>:
 
 
 <PRE>
@@ -671,7 +688,7 @@ AM_GNU_GETTEXT([external])
 
 <LI>Have output files created.
 
-The <CODE>AC_OUTPUT</CODE> directive, at the end of your <TT>&lsquo;configure.in&rsquo;</TT>
+The <CODE>AC_OUTPUT</CODE> directive, at the end of your <TT>&lsquo;configure.ac&rsquo;</TT>
 file, needs to be modified in two ways:
 
 
@@ -719,7 +736,7 @@ by GNU autoconf.
 </P>
 
 
-<H3><A NAME="SEC206" HREF="gettext_toc.html#TOC206">13.4.6  <TT>&lsquo;config.guess&rsquo;</TT>, <TT>&lsquo;config.sub&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC220" HREF="gettext_toc.html#TOC220">13.4.6  <TT>&lsquo;config.guess&rsquo;</TT>, <TT>&lsquo;config.sub&rsquo;</TT> at top level</A></H3>
 
 <P>
 If you haven't suppressed the <TT>&lsquo;intl/&rsquo;</TT> subdirectory,
@@ -750,7 +767,7 @@ top level of a distribution.  But it is also possible to put them in a
 subdirectory, altogether with other configuration support files like
 <TT>&lsquo;install-sh&rsquo;</TT>, <TT>&lsquo;ltconfig&rsquo;</TT>, <TT>&lsquo;ltmain.sh&rsquo;</TT> or <TT>&lsquo;missing&rsquo;</TT>.
 All you need to do, other than moving the files, is to add the following line
-to your <TT>&lsquo;configure.in&rsquo;</TT>.
+to your <TT>&lsquo;configure.ac&rsquo;</TT>.
 
 </P>
 
@@ -760,9 +777,9 @@ AC_CONFIG_AUX_DIR([<VAR>subdir</VAR>])
 
 
 
-<H3><A NAME="SEC207" HREF="gettext_toc.html#TOC207">13.4.7  <TT>&lsquo;mkinstalldirs&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC221" HREF="gettext_toc.html#TOC221">13.4.7  <TT>&lsquo;mkinstalldirs&rsquo;</TT> at top level</A></H3>
 <P>
-<A NAME="IDX1079"></A>
+<A NAME="IDX1101"></A>
 
 </P>
 <P>
@@ -774,22 +791,22 @@ automake 1.9.
 </P>
 
 
-<H3><A NAME="SEC208" HREF="gettext_toc.html#TOC208">13.4.8  <TT>&lsquo;aclocal.m4&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC222" HREF="gettext_toc.html#TOC222">13.4.8  <TT>&lsquo;aclocal.m4&rsquo;</TT> at top level</A></H3>
 <P>
-<A NAME="IDX1080"></A>
+<A NAME="IDX1102"></A>
 
 </P>
 <P>
 If you do not have an <TT>&lsquo;aclocal.m4&rsquo;</TT> file in your distribution,
 the simplest is to concatenate the files <TT>&lsquo;codeset.m4&rsquo;</TT>,
 <TT>&lsquo;gettext.m4&rsquo;</TT>, <TT>&lsquo;glibc2.m4&rsquo;</TT>, <TT>&lsquo;glibc21.m4&rsquo;</TT>, <TT>&lsquo;iconv.m4&rsquo;</TT>,
-<TT>&lsquo;intdiv0.m4&rsquo;</TT>, <TT>&lsquo;intl.m4&rsquo;</TT>, <TT>&lsquo;intldir.m4&rsquo;</TT>, <TT>&lsquo;intmax.m4&rsquo;</TT>,
-<TT>&lsquo;inttypes_h.m4&rsquo;</TT>, <TT>&lsquo;inttypes-pri.m4&rsquo;</TT>, <TT>&lsquo;lcmessage.m4&rsquo;</TT>,
-<TT>&lsquo;lib-ld.m4&rsquo;</TT>, <TT>&lsquo;lib-link.m4&rsquo;</TT>, <TT>&lsquo;lib-prefix.m4&rsquo;</TT>, <TT>&lsquo;lock.m4&rsquo;</TT>,
-<TT>&lsquo;longdouble.m4&rsquo;</TT>, <TT>&lsquo;longlong.m4&rsquo;</TT>, <TT>&lsquo;nls.m4&rsquo;</TT>, <TT>&lsquo;po.m4&rsquo;</TT>,
-<TT>&lsquo;printf-posix.m4&rsquo;</TT>, <TT>&lsquo;progtest.m4&rsquo;</TT>, <TT>&lsquo;size_max.m4&rsquo;</TT>,
-<TT>&lsquo;stdint_h.m4&rsquo;</TT>, <TT>&lsquo;uintmax_t.m4&rsquo;</TT>, <TT>&lsquo;ulonglong.m4&rsquo;</TT>,
-<TT>&lsquo;visibility.m4&rsquo;</TT>, <TT>&lsquo;wchar_t.m4&rsquo;</TT>, <TT>&lsquo;wint_t.m4&rsquo;</TT>, <TT>&lsquo;xsize.m4&rsquo;</TT>
+<TT>&lsquo;intdiv0.m4&rsquo;</TT>, <TT>&lsquo;intl.m4&rsquo;</TT>, <TT>&lsquo;intldir.m4&rsquo;</TT>, <TT>&lsquo;intlmacosx.m4&rsquo;</TT>,
+<TT>&lsquo;intmax.m4&rsquo;</TT>, <TT>&lsquo;inttypes_h.m4&rsquo;</TT>, <TT>&lsquo;inttypes-pri.m4&rsquo;</TT>,
+<TT>&lsquo;lcmessage.m4&rsquo;</TT>, <TT>&lsquo;lib-ld.m4&rsquo;</TT>, <TT>&lsquo;lib-link.m4&rsquo;</TT>,
+<TT>&lsquo;lib-prefix.m4&rsquo;</TT>, <TT>&lsquo;lock.m4&rsquo;</TT>, <TT>&lsquo;longlong.m4&rsquo;</TT>, <TT>&lsquo;nls.m4&rsquo;</TT>,
+<TT>&lsquo;po.m4&rsquo;</TT>, <TT>&lsquo;printf-posix.m4&rsquo;</TT>, <TT>&lsquo;progtest.m4&rsquo;</TT>, <TT>&lsquo;size_max.m4&rsquo;</TT>,
+<TT>&lsquo;stdint_h.m4&rsquo;</TT>, <TT>&lsquo;uintmax_t.m4&rsquo;</TT>, <TT>&lsquo;visibility.m4&rsquo;</TT>,
+<TT>&lsquo;wchar_t.m4&rsquo;</TT>, <TT>&lsquo;wint_t.m4&rsquo;</TT>, <TT>&lsquo;xsize.m4&rsquo;</TT>
 from GNU <CODE>gettext</CODE>'s
 <TT>&lsquo;m4/&rsquo;</TT> directory into a single file.  If you have suppressed the
 <TT>&lsquo;intl/&rsquo;</TT> directory, only <TT>&lsquo;gettext.m4&rsquo;</TT>, <TT>&lsquo;iconv.m4&rsquo;</TT>,
@@ -838,9 +855,9 @@ piece of <CODE>m4</CODE> code will be the same for all projects using GNU
 </P>
 
 
-<H3><A NAME="SEC209" HREF="gettext_toc.html#TOC209">13.4.9  <TT>&lsquo;acconfig.h&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC223" HREF="gettext_toc.html#TOC223">13.4.9  <TT>&lsquo;acconfig.h&rsquo;</TT> at top level</A></H3>
 <P>
-<A NAME="IDX1081"></A>
+<A NAME="IDX1103"></A>
 
 </P>
 <P>
@@ -854,9 +871,9 @@ independently from the <TT>&lsquo;intl/&rsquo;</TT> directory.
 </P>
 
 
-<H3><A NAME="SEC210" HREF="gettext_toc.html#TOC210">13.4.10  <TT>&lsquo;config.h.in&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC224" HREF="gettext_toc.html#TOC224">13.4.10  <TT>&lsquo;config.h.in&rsquo;</TT> at top level</A></H3>
 <P>
-<A NAME="IDX1082"></A>
+<A NAME="IDX1104"></A>
 
 </P>
 <P>
@@ -903,7 +920,7 @@ following lines to <TT>&lsquo;config.h.in&rsquo;</TT>:
 
 
 
-<H3><A NAME="SEC211" HREF="gettext_toc.html#TOC211">13.4.11  <TT>&lsquo;Makefile.in&rsquo;</TT> at top level</A></H3>
+<H3><A NAME="SEC225" HREF="gettext_toc.html#TOC225">13.4.11  <TT>&lsquo;Makefile.in&rsquo;</TT> at top level</A></H3>
 
 <P>
 Here are a few modifications you need to make to your main, top-level
@@ -990,7 +1007,7 @@ to <TT>&lsquo;Makefile.am&rsquo;</TT> are already made by running <SAMP>&lsquo;g
 </P>
 
 
-<H3><A NAME="SEC212" HREF="gettext_toc.html#TOC212">13.4.12  <TT>&lsquo;Makefile.in&rsquo;</TT> in <TT>&lsquo;src/&rsquo;</TT></A></H3>
+<H3><A NAME="SEC226" HREF="gettext_toc.html#TOC226">13.4.12  <TT>&lsquo;Makefile.in&rsquo;</TT> in <TT>&lsquo;src/&rsquo;</TT></A></H3>
 
 <P>
 Some of the modifications made in the main <TT>&lsquo;Makefile.in&rsquo;</TT> will
@@ -1038,7 +1055,7 @@ subdir = src
 <LI>
 
 The <CODE>main</CODE> function of your program will normally call
-<CODE>bindtextdomain</CODE> (see see section <A HREF="gettext_4.html#SEC13">4.2  Triggering <CODE>gettext</CODE> Operations</A>), like this:
+<CODE>bindtextdomain</CODE> (see see section <A HREF="gettext_4.html#SEC18">4.2  Triggering <CODE>gettext</CODE> Operations</A>), like this:
 
 
 <PRE>
@@ -1181,11 +1198,11 @@ AM_CPPFLAGS = -I../intl -I$(top_srcdir)/intl
 
 
 
-<H3><A NAME="SEC213" HREF="gettext_toc.html#TOC213">13.4.13  <TT>&lsquo;gettext.h&rsquo;</TT> in <TT>&lsquo;lib/&rsquo;</TT></A></H3>
+<H3><A NAME="SEC227" HREF="gettext_toc.html#TOC227">13.4.13  <TT>&lsquo;gettext.h&rsquo;</TT> in <TT>&lsquo;lib/&rsquo;</TT></A></H3>
 <P>
-<A NAME="IDX1083"></A>
-<A NAME="IDX1084"></A>
-<A NAME="IDX1085"></A>
+<A NAME="IDX1105"></A>
+<A NAME="IDX1106"></A>
+<A NAME="IDX1107"></A>
 
 </P>
 <P>
@@ -1222,7 +1239,7 @@ to 0 in C preprocessor expressions.
 
 </P>
 <P>
-<A NAME="IDX1086"></A>
+<A NAME="IDX1108"></A>
 <TT>&lsquo;gettext.h&rsquo;</TT> is a convenience header file for conditional use of
 <TT>&lsquo;&#60;libintl.h&#62;&rsquo;</TT>, depending on the <CODE>ENABLE_NLS</CODE> macro.  If
 <CODE>ENABLE_NLS</CODE> is set, it includes <TT>&lsquo;&#60;libintl.h&#62;&rsquo;</TT>; otherwise it
@@ -1261,14 +1278,14 @@ package that needs it should contain a copy of it on its own.
 </P>
 
 
-<H2><A NAME="SEC214" HREF="gettext_toc.html#TOC214">13.5  Autoconf macros for use in <TT>&lsquo;configure.in&rsquo;</TT></A></H2>
+<H2><A NAME="SEC228" HREF="gettext_toc.html#TOC228">13.5  Autoconf macros for use in <TT>&lsquo;configure.ac&rsquo;</TT></A></H2>
 <P>
-<A NAME="IDX1087"></A>
+<A NAME="IDX1109"></A>
 
 </P>
 <P>
 GNU <CODE>gettext</CODE> installs macros for use in a package's
-<TT>&lsquo;configure.in&rsquo;</TT> or <TT>&lsquo;configure.ac&rsquo;</TT>.
+<TT>&lsquo;configure.ac&rsquo;</TT> or <TT>&lsquo;configure.in&rsquo;</TT>.
 See section ‘Introduction’ in <CITE>The Autoconf Manual</CITE>.
 The primary macro is, of course, <CODE>AM_GNU_GETTEXT</CODE>.
 
@@ -1276,10 +1293,10 @@ The primary macro is, of course, <CODE>AM_GNU_GETTEXT</CODE>.
 
 
 
-<H3><A NAME="SEC215" HREF="gettext_toc.html#TOC215">13.5.1  AM_GNU_GETTEXT in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC229" HREF="gettext_toc.html#TOC229">13.5.1  AM_GNU_GETTEXT in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1088"></A>
+<A NAME="IDX1110"></A>
 The <CODE>AM_GNU_GETTEXT</CODE> macro tests for the presence of the GNU gettext
 function family in either the C library or a separate <CODE>libintl</CODE>
 library (shared or static libraries are both supported) or in the package's
@@ -1349,7 +1366,7 @@ The complexities that <CODE>AM_GNU_GETTEXT</CODE> deals with are the following:
 <UL>
 <LI>
 
-<A NAME="IDX1089"></A>
+<A NAME="IDX1111"></A>
 Some operating systems have <CODE>gettext</CODE> in the C library, for example
 glibc.  Some have it in a separate library <CODE>libintl</CODE>.  GNU <CODE>libintl</CODE>
 might have been installed as part of the GNU <CODE>gettext</CODE> package.
@@ -1385,26 +1402,25 @@ and <CODE>LTLIBINTL</CODE> variables.
 
 
 
-<H3><A NAME="SEC216" HREF="gettext_toc.html#TOC216">13.5.2  AM_GNU_GETTEXT_VERSION in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC230" HREF="gettext_toc.html#TOC230">13.5.2  AM_GNU_GETTEXT_VERSION in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1090"></A>
+<A NAME="IDX1112"></A>
 The <CODE>AM_GNU_GETTEXT_VERSION</CODE> macro declares the version number of
 the GNU gettext infrastructure that is used by the package.
 
 </P>
 <P>
 The use of this macro is optional; only the <CODE>autopoint</CODE> program makes
-use of it (see section <A HREF="gettext_13.html#SEC221">13.6  Integrating with CVS</A>).
+use of it (see section <A HREF="gettext_13.html#SEC236">13.6  Integrating with CVS</A>).
 
 </P>
 
 
-
-<H3><A NAME="SEC217" HREF="gettext_toc.html#TOC217">13.5.3  AM_GNU_GETTEXT_NEED in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC231" HREF="gettext_toc.html#TOC231">13.5.3  AM_GNU_GETTEXT_NEED in <TT>&lsquo;gettext.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1091"></A>
+<A NAME="IDX1113"></A>
 The <CODE>AM_GNU_GETTEXT_NEED</CODE> macro declares a constraint regarding the
 GNU gettext implementation.  The syntax is
 
@@ -1434,10 +1450,10 @@ the <CODE>AM_GNU_GETTEXT</CODE> invocation; the order doesn't matter.
 </P>
 
 
-<H3><A NAME="SEC218" HREF="gettext_toc.html#TOC218">13.5.4  AM_GNU_GETTEXT_INTL_SUBDIR in <TT>&lsquo;intldir.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC232" HREF="gettext_toc.html#TOC232">13.5.4  AM_GNU_GETTEXT_INTL_SUBDIR in <TT>&lsquo;intldir.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1092"></A>
+<A NAME="IDX1114"></A>
 The <CODE>AM_GNU_GETTEXT_INTL_SUBDIR</CODE> macro specifies that the
 <CODE>AM_GNU_GETTEXT</CODE> macro, although invoked with the first argument
 <SAMP>&lsquo;external&rsquo;</SAMP>, should also prepare for building the <TT>&lsquo;intl/&rsquo;</TT>
@@ -1456,14 +1472,14 @@ GNU autoconf 2.61 or newer.
 </P>
 
 
-<H3><A NAME="SEC219" HREF="gettext_toc.html#TOC219">13.5.5  AM_PO_SUBDIRS in <TT>&lsquo;po.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC233" HREF="gettext_toc.html#TOC233">13.5.5  AM_PO_SUBDIRS in <TT>&lsquo;po.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1093"></A>
+<A NAME="IDX1115"></A>
 The <CODE>AM_PO_SUBDIRS</CODE> macro prepares the <TT>&lsquo;po/&rsquo;</TT> directories of the
 package for building.  This macro should be used in internationalized
 programs written in other programming languages than C, C++, Objective C,
-for example <CODE>sh</CODE>, <CODE>Python</CODE>, <CODE>Lisp</CODE>.  See section <A HREF="gettext_15.html#SEC229">15  Other Programming Languages</A> for a list of programming languages that support localization
+for example <CODE>sh</CODE>, <CODE>Python</CODE>, <CODE>Lisp</CODE>.  See section <A HREF="gettext_15.html#SEC244">15  Other Programming Languages</A> for a list of programming languages that support localization
 through PO files.
 
 </P>
@@ -1476,10 +1492,44 @@ variables in each <TT>&lsquo;po/&rsquo;</TT> directory.
 </P>
 
 
-<H3><A NAME="SEC220" HREF="gettext_toc.html#TOC220">13.5.6  AM_ICONV in <TT>&lsquo;iconv.m4&rsquo;</TT></A></H3>
+<H3><A NAME="SEC234" HREF="gettext_toc.html#TOC234">13.5.6  AM_XGETTEXT_OPTION in <TT>&lsquo;po.m4&rsquo;</TT></A></H3>
 
 <P>
-<A NAME="IDX1094"></A>
+<A NAME="IDX1116"></A>
+The <CODE>AM_XGETTEXT_OPTION</CODE> macro registers a command-line option to be
+used in the invocations of <CODE>xgettext</CODE> in the <TT>&lsquo;po/&rsquo;</TT> directories
+of the package.
+
+</P>
+<P>
+For example, if you have a source file that defines a function
+<SAMP>&lsquo;error_at_line&rsquo;</SAMP> whose fifth argument is a format string, you can use
+
+<PRE>
+AM_XGETTEXT_OPTION([--flag=error_at_line:5:c-format])
+</PRE>
+
+<P>
+to instruct <CODE>xgettext</CODE> to mark all translatable strings in <SAMP>&lsquo;gettext&rsquo;</SAMP>
+invocations that occur as fifth argument to this function as <SAMP>&lsquo;c-format&rsquo;</SAMP>.
+
+</P>
+<P>
+See section <A HREF="gettext_5.html#SEC28">5.1  Invoking the <CODE>xgettext</CODE> Program</A> for the list of options that <CODE>xgettext</CODE>
+accepts.
+
+</P>
+<P>
+The use of this macro is an alternative to the use of the
+<SAMP>&lsquo;XGETTEXT_OPTIONS&rsquo;</SAMP> variable in <TT>&lsquo;po/Makevars&rsquo;</TT>.
+
+</P>
+
+
+<H3><A NAME="SEC235" HREF="gettext_toc.html#TOC235">13.5.7  AM_ICONV in <TT>&lsquo;iconv.m4&rsquo;</TT></A></H3>
+
+<P>
+<A NAME="IDX1117"></A>
 The <CODE>AM_ICONV</CODE> macro tests for the presence of the POSIX/XSI
 <CODE>iconv</CODE> function family in either the C library or a separate
 <CODE>libiconv</CODE> library.  If found, it sets the <CODE>am_cv_func_iconv</CODE>
@@ -1503,7 +1553,7 @@ The complexities that <CODE>AM_ICONV</CODE> deals with are the following:
 <UL>
 <LI>
 
-<A NAME="IDX1095"></A>
+<A NAME="IDX1118"></A>
 Some operating systems have <CODE>iconv</CODE> in the C library, for example
 glibc.  Some have it in a separate library <CODE>libiconv</CODE>, for example
 OSF/1 or FreeBSD.  Regardless of the operating system, GNU <CODE>libiconv</CODE>
@@ -1540,7 +1590,7 @@ library support, like SCO.
 </P>
 
 
-<H2><A NAME="SEC221" HREF="gettext_toc.html#TOC221">13.6  Integrating with CVS</A></H2>
+<H2><A NAME="SEC236" HREF="gettext_toc.html#TOC236">13.6  Integrating with CVS</A></H2>
 
 <P>
 Many projects use CVS for distributed development, version control and
@@ -1551,13 +1601,13 @@ of <CODE>cvs</CODE>, <CODE>gettextize</CODE>, <CODE>autopoint</CODE> and <CODE>a
 
 
 
-<H3><A NAME="SEC222" HREF="gettext_toc.html#TOC222">13.6.1  Avoiding version mismatch in distributed development</A></H3>
+<H3><A NAME="SEC237" HREF="gettext_toc.html#TOC237">13.6.1  Avoiding version mismatch in distributed development</A></H3>
 
 <P>
 In a project development with multiple developers, using CVS, there
 should be a single developer who occasionally - when there is desire to
 upgrade to a new <CODE>gettext</CODE> version - runs <CODE>gettextize</CODE> and
-performs the changes listed in section <A HREF="gettext_13.html#SEC200">13.4  Files You Must Create or Alter</A>, and then commits
+performs the changes listed in section <A HREF="gettext_13.html#SEC214">13.4  Files You Must Create or Alter</A>, and then commits
 his changes to the CVS.
 
 </P>
@@ -1574,7 +1624,7 @@ Otherwise the following damages will likely occur:
 <LI>
 
 Apparent version mismatch between developers.  Since some <CODE>gettext</CODE>
-specific portions in <TT>&lsquo;configure.in&rsquo;</TT>, <TT>&lsquo;configure.ac&rsquo;</TT> and
+specific portions in <TT>&lsquo;configure.ac&rsquo;</TT>, <TT>&lsquo;configure.in&rsquo;</TT> and
 <CODE>Makefile.am</CODE>, <CODE>Makefile.in</CODE> files depend on the <CODE>gettext</CODE>
 version, the use of infrastructure files belonging to different
 <CODE>gettext</CODE> versions can easily lead to build errors.
@@ -1599,12 +1649,12 @@ undiscovered due to this constellation.
 
 
 
-<H3><A NAME="SEC223" HREF="gettext_toc.html#TOC223">13.6.2  Files to put under CVS version control</A></H3>
+<H3><A NAME="SEC238" HREF="gettext_toc.html#TOC238">13.6.2  Files to put under CVS version control</A></H3>
 
 <P>
 There are basically three ways to deal with generated files in the
 context of a CVS repository, such as <TT>&lsquo;configure&rsquo;</TT> generated from
-<TT>&lsquo;configure.in&rsquo;</TT>, <CODE><VAR>parser</VAR>.c</CODE> generated from
+<TT>&lsquo;configure.ac&rsquo;</TT>, <CODE><VAR>parser</VAR>.c</CODE> generated from
 <CODE><VAR>parser</VAR>.y</CODE>, or <CODE>po/Makefile.in.in</CODE> autoinstalled by
 <CODE>gettextize</CODE> or <CODE>autopoint</CODE>.
 
@@ -1667,13 +1717,13 @@ committed into the CVS.
 <P>
 For the third approach, the maintainer can omit from the CVS repository
 all the files that <CODE>gettextize</CODE> mentions as "copy".  Instead, he
-adds to the <TT>&lsquo;configure.in&rsquo;</TT> or <TT>&lsquo;configure.ac&rsquo;</TT> a line of the
+adds to the <TT>&lsquo;configure.ac&rsquo;</TT> or <TT>&lsquo;configure.in&rsquo;</TT> a line of the
 form
 
 </P>
 
 <PRE>
-AM_GNU_GETTEXT_VERSION(0.16)
+AM_GNU_GETTEXT_VERSION(0.17)
 </PRE>
 
 <P>
@@ -1699,11 +1749,11 @@ installed.
 </P>
 
 
-<H3><A NAME="SEC224" HREF="gettext_toc.html#TOC224">13.6.3  Invoking the <CODE>autopoint</CODE> Program</A></H3>
+<H3><A NAME="SEC239" HREF="gettext_toc.html#TOC239">13.6.3  Invoking the <CODE>autopoint</CODE> Program</A></H3>
 
 <P>
-<A NAME="IDX1096"></A>
-<A NAME="IDX1097"></A>
+<A NAME="IDX1119"></A>
+<A NAME="IDX1120"></A>
 
 <PRE>
 autopoint [<VAR>option</VAR>]...
@@ -1720,7 +1770,7 @@ this version into the package.
 </P>
 
 
-<H4><A NAME="SEC225" HREF="gettext_toc.html#TOC225">13.6.3.1  Options</A></H4>
+<H4><A NAME="SEC240" HREF="gettext_toc.html#TOC240">13.6.3.1  Options</A></H4>
 
 <DL COMPACT>
 
@@ -1728,16 +1778,16 @@ this version into the package.
 <DD>
 <DT><SAMP>&lsquo;--force&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1098"></A>
-<A NAME="IDX1099"></A>
+<A NAME="IDX1121"></A>
+<A NAME="IDX1122"></A>
 Force overwriting of files that already exist.
 
 <DT><SAMP>&lsquo;-n&rsquo;</SAMP>
 <DD>
 <DT><SAMP>&lsquo;--dry-run&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1100"></A>
-<A NAME="IDX1101"></A>
+<A NAME="IDX1123"></A>
+<A NAME="IDX1124"></A>
 Print modifications but don't perform them.  All file copying actions that
 <CODE>autopoint</CODE> would normally execute are inhibited and instead only
 listed on standard output.
@@ -1746,26 +1796,26 @@ listed on standard output.
 
 
 
-<H4><A NAME="SEC226" HREF="gettext_toc.html#TOC226">13.6.3.2  Informative output</A></H4>
+<H4><A NAME="SEC241" HREF="gettext_toc.html#TOC241">13.6.3.2  Informative output</A></H4>
 
 <DL COMPACT>
 
 <DT><SAMP>&lsquo;--help&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1102"></A>
+<A NAME="IDX1125"></A>
 Display this help and exit.
 
 <DT><SAMP>&lsquo;--version&rsquo;</SAMP>
 <DD>
-<A NAME="IDX1103"></A>
+<A NAME="IDX1126"></A>
 Output version information and exit.
 
 </DL>
 
 <P>
 <CODE>autopoint</CODE> supports the GNU <CODE>gettext</CODE> versions from 0.10.35 to
-the current one, 0.16.  In order to apply <CODE>autopoint</CODE> to
-a package using a <CODE>gettext</CODE> version newer than 0.16, you
+the current one, 0.17.  In order to apply <CODE>autopoint</CODE> to
+a package using a <CODE>gettext</CODE> version newer than 0.17, you
 need to install this same version of GNU <CODE>gettext</CODE> at least.
 
 </P>
@@ -1787,11 +1837,11 @@ the tool copies or updates mostly files in the <TT>&lsquo;po&rsquo;</TT>, <TT>&l
 </P>
 
 
-<H2><A NAME="SEC227" HREF="gettext_toc.html#TOC227">13.7  Creating a Distribution Tarball</A></H2>
+<H2><A NAME="SEC242" HREF="gettext_toc.html#TOC242">13.7  Creating a Distribution Tarball</A></H2>
 
 <P>
-<A NAME="IDX1104"></A>
-<A NAME="IDX1105"></A>
+<A NAME="IDX1127"></A>
+<A NAME="IDX1128"></A>
 In projects that use GNU <CODE>automake</CODE>, the usual commands for creating
 a distribution tarball, <SAMP>&lsquo;make dist&rsquo;</SAMP> or <SAMP>&lsquo;make distcheck&rsquo;</SAMP>,
 automatically update the PO files as needed.

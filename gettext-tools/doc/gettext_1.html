@@ -1,7 +1,7 @@
 <HTML>
 <HEAD>
 <!-- This HTML file has been created by texi2html 1.52b
-     from gettext.texi on 25 October 2006 -->
+     from gettext.texi on 4 November 2007 -->
 
 <META HTTP-EQUIV="content-type" CONTENT="text/html; charset=UTF-8">
 <TITLE>GNU gettext utilities - 1  Introduction</TITLE>
@@ -63,7 +63,7 @@ Please include the manual's edition number and update date in your messages.
 <P>
 Usually, programs are written and documented in English, and use
 English at execution time to interact with users.  This is true
-not only of GNU software, but also of a great deal of commercial
+not only of GNU software, but also of a great deal of proprietary
 and free software.  Using a common language is quite handy for
 communication between developers, maintainers and users from all
 countries.  On the other hand, most people are less comfortable with
@@ -174,7 +174,7 @@ by which the programs are untied from calling only English strings or
 other English specific habits, and connected to generic ways of doing
 the same, instead.  Program developers may use various techniques to
 internationalize their programs.  Some of these have been standardized.
-GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_11.html#SEC164">11  The Programmer's View</A>.
+GNU <CODE>gettext</CODE> offers one of these standards.  See section <A HREF="gettext_11.html#SEC178">11  The Programmer's View</A>.
 
 </P>
 <P>
@@ -391,8 +391,22 @@ the user.
 
 <P>
 <A NAME="IDX27"></A>
+These areas of cultural conventions are called <EM>locale categories</EM>.
+It is an unfortunate term; <EM>locale aspects</EM> or <EM>locale feature
+categories</EM> would be a better term, because each “locale category”
+describes an area or task that requires localization.  The concrete data
+that describes the cultural conventions for such an area and for a particular
+culture is also called a <EM>locale category</EM>.  In this sense, a locale
+is composed of several locale categories: the locale category describing
+the codeset, the locale category describing the formatting of numbers,
+the locale category containing the translated messages, and so on.
+
+</P>
+<P>
+<A NAME="IDX28"></A>
 Components of locale outside of message handling are standardized in
-the ISO C standard and the SUSV2 specification.  GNU <CODE>libc</CODE>
+the ISO C standard and the POSIX:2001 standard (also known as the SUSV3
+specification).  GNU <CODE>libc</CODE>
 fully implements this, and most other modern systems provide a more
 or less reasonable support for at least some of the missing components.
 
@@ -402,7 +416,7 @@ or less reasonable support for at least some of the missing components.
 <H2><A NAME="SEC5" HREF="gettext_toc.html#TOC5">1.4  Files Conveying Translations</A></H2>
 
 <P>
-<A NAME="IDX28"></A>
+<A NAME="IDX29"></A>
 The letters PO in <TT>&lsquo;.po&rsquo;</TT> files means Portable Object, to
 distinguish it from <TT>&lsquo;.mo&rsquo;</TT> files, where MO stands for Machine
 Object.  This paradigm, as well as the PO file format, is inspired
@@ -444,9 +458,9 @@ the GNU format.
 <H2><A NAME="SEC6" HREF="gettext_toc.html#TOC6">1.5  Overview of GNU <CODE>gettext</CODE></A></H2>
 
 <P>
-<A NAME="IDX29"></A>
 <A NAME="IDX30"></A>
 <A NAME="IDX31"></A>
+<A NAME="IDX32"></A>
 The following diagram summarizes the relation between the files
 handled by GNU <CODE>gettext</CODE> and the tools acting on these files.
 It is followed by somewhat detailed explanations, which you should
@@ -455,8 +469,7 @@ of these interrelations will surely help programmers, translators
 and maintainers.
 
 </P>
-
-<PRE>
+@example
 @group
 Original C Sources ───> Preparation ───> Marked C Sources ───╮
                                                              │
@@ -479,17 +492,17 @@ Original C Sources ───> Preparation ───> Marked C Sources ───�
 │                                              ├───> "Hello world!"
 ╰───────> install ───> /.../bin/PROGRAM ───────╯
 @end group
-</PRE>
+@end example
 
 <P>
-<A NAME="IDX32"></A>
+<A NAME="IDX33"></A>
 As a programmer, the first step to bringing GNU <CODE>gettext</CODE>
 into your package is identifying, right in the C sources, those strings
 which are meant to be translatable, and those which are untranslatable.
 This tedious job can be done a little more comfortably using emacs PO
 mode, but you can use any means familiar to you for modifying your
 C sources.  Beside this some other simple, standard changes are needed to
-properly initialize the translation library.  See section <A HREF="gettext_4.html#SEC11">4  Preparing Program Sources</A>, for
+properly initialize the translation library.  See section <A HREF="gettext_4.html#SEC16">4  Preparing Program Sources</A>, for
 more information about all this.
 
 </P>
@@ -515,7 +528,7 @@ simply replace these definitions by the following:
 
 </P>
 <P>
-<A NAME="IDX33"></A>
+<A NAME="IDX34"></A>
 
 <PRE>
 #include &#60;libintl.h&#62;
@@ -525,8 +538,8 @@ simply replace these definitions by the following:
 </PRE>
 
 <P>
-<A NAME="IDX34"></A>
 <A NAME="IDX35"></A>
+<A NAME="IDX36"></A>
 and link against <TT>&lsquo;libintl.a&rsquo;</TT> or <TT>&lsquo;libintl.so&rsquo;</TT>.  Note that on
 GNU systems, you don't need to link with <CODE>libintl</CODE> because the
 <CODE>gettext</CODE> library functions are already contained in GNU libc.
@@ -534,8 +547,8 @@ That is all you have to change.
 
 </P>
 <P>
-<A NAME="IDX36"></A>
 <A NAME="IDX37"></A>
+<A NAME="IDX38"></A>
 Once the C sources have been modified, the <CODE>xgettext</CODE> program
 is used to find and extract all translatable strings, and create a
 PO template file out of all these.  This <TT>&lsquo;<VAR>package</VAR>.pot&rsquo;</TT> file
@@ -543,10 +556,10 @@ contains all original program strings.  It has sets of pointers to
 exactly where in C sources each string is used.  All translations
 are set to empty.  The letter <CODE>t</CODE> in <TT>&lsquo;.pot&rsquo;</TT> marks this as
 a Template PO file, not yet oriented towards any particular language.
-See section <A HREF="gettext_5.html#SEC22">5.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
+See section <A HREF="gettext_5.html#SEC28">5.1  Invoking the <CODE>xgettext</CODE> Program</A>, for more details about how one calls the
 <CODE>xgettext</CODE> program.  If you are <EM>really</EM> lazy, you might
 be interested at working a lot more right away, and preparing the
-whole distribution setup (see section <A HREF="gettext_13.html#SEC196">13  The Maintainer's View</A>).  By doing so, you
+whole distribution setup (see section <A HREF="gettext_13.html#SEC210">13  The Maintainer's View</A>).  By doing so, you
 spare yourself typing the <CODE>xgettext</CODE> command, as <CODE>make</CODE>
 should now generate the proper things automatically for you!
 
@@ -555,7 +568,7 @@ should now generate the proper things automatically for you!
 The first time through, there is no <TT>&lsquo;<VAR>lang</VAR>.po&rsquo;</TT> yet, so the
 <CODE>msgmerge</CODE> step may be skipped and replaced by a mere copy of
 <TT>&lsquo;<VAR>package</VAR>.pot&rsquo;</TT> to <TT>&lsquo;<VAR>lang</VAR>.po&rsquo;</TT>, where <VAR>lang</VAR>
-represents the target language.  See section <A HREF="gettext_6.html#SEC31">6  Creating a New PO File</A> for details.
+represents the target language.  See section <A HREF="gettext_6.html#SEC37">6  Creating a New PO File</A> for details.
 
 </P>
 <P>
@@ -563,7 +576,7 @@ Then comes the initial translation of messages.  Translation in
 itself is a whole matter, still exclusively meant for humans,
 and whose complexity far overwhelms the level of this manual.
 Nevertheless, a few hints are given in some other chapter of this
-manual (see section <A HREF="gettext_12.html#SEC184">12  The Translator's View</A>).  You will also find there indications
+manual (see section <A HREF="gettext_12.html#SEC198">12  The Translator's View</A>).  You will also find there indications
 about how to contact translating teams, or becoming part of them,
 for sharing your translating concerns with others who target the same
 native language.
@@ -572,9 +585,9 @@ native language.
 <P>
 While adding the translated messages into the <TT>&lsquo;<VAR>lang</VAR>.po&rsquo;</TT>
 PO file, if you are not using one of the dedicated PO file editors
-(see section <A HREF="gettext_8.html#SEC49">8  Editing PO Files</A>), you are on your own
+(see section <A HREF="gettext_8.html#SEC55">8  Editing PO Files</A>), you are on your own
 for ensuring that your efforts fully respect the PO file format, and quoting
-conventions (see section <A HREF="gettext_3.html#SEC10">3  The Format of PO Files</A>).  This is surely not an impossible task,
+conventions (see section <A HREF="gettext_3.html#SEC15">3  The Format of PO Files</A>).  This is surely not an impossible task,
 as this is the way many people have handled PO files around 1995.
 On the other hand, by using a PO file editor, most details
 of PO file format are taken care of for you, but you have to acquire
@@ -585,7 +598,7 @@ some familiarity with PO file editor itself.
 If some common translations have already been saved into a compendium
 PO file, translators may use PO mode for initializing untranslated
 entries from the compendium, and also save selected translations into
-the compendium, updating it (see section <A HREF="gettext_8.html#SEC66">8.3.14  Using Translation Compendia</A>).  Compendium files
+the compendium, updating it (see section <A HREF="gettext_8.html#SEC72">8.4  Using Translation Compendia</A>).  Compendium files
 are meant to be exchanged between members of a given translation team.
 
 </P>
@@ -613,7 +626,7 @@ are slowly fading out of date.
 
 </P>
 <P>
-<A NAME="IDX38"></A>
+<A NAME="IDX39"></A>
 It is important for translators (and even maintainers) to understand
 that package translation is a continuous process in the lifetime of a
 package, and not something which is done once and for all at the start.
@@ -631,8 +644,8 @@ out of recent C sources.  The refreshing operation adjusts all
 references to C source locations for strings, since these strings
 move as programs are modified.  Also, <CODE>msgmerge</CODE> comments out as
 obsolete, in <TT>&lsquo;<VAR>lang</VAR>.po&rsquo;</TT>, those already translated entries
-which are no longer used in the program sources (see section <A HREF="gettext_8.html#SEC60">8.3.8  Obsolete Entries</A>).  It finally discovers new strings and inserts them in
-the resulting PO file as untranslated entries (see section <A HREF="gettext_8.html#SEC59">8.3.7  Untranslated Entries</A>).  See section <A HREF="gettext_7.html#SEC40">7.1  Invoking the <CODE>msgmerge</CODE> Program</A>, for more information about what
+which are no longer used in the program sources (see section <A HREF="gettext_8.html#SEC66">8.3.8  Obsolete Entries</A>).  It finally discovers new strings and inserts them in
+the resulting PO file as untranslated entries (see section <A HREF="gettext_8.html#SEC65">8.3.7  Untranslated Entries</A>).  See section <A HREF="gettext_7.html#SEC46">7.1  Invoking the <CODE>msgmerge</CODE> Program</A>, for more information about what
 <CODE>msgmerge</CODE> really does.
 
 </P>
@@ -662,7 +675,7 @@ distribution.
 Once the PO file is complete and dependable, the <CODE>msgfmt</CODE> program
 is used for turning the PO file into a machine-oriented format, which
 may yield efficient retrieval of translations by the programs of the
-package, whenever needed at runtime (see section <A HREF="gettext_10.html#SEC163">10.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_10.html#SEC143">10.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
+package, whenever needed at runtime (see section <A HREF="gettext_10.html#SEC177">10.3  The Format of GNU MO Files</A>).  See section <A HREF="gettext_10.html#SEC157">10.1  Invoking the <CODE>msgfmt</CODE> Program</A>, for more information about all modes of execution
 for the <CODE>msgfmt</CODE> program.
 
 </P>
@@ -672,8 +685,8 @@ with the GNU <CODE>gettext</CODE> library, usually through the operation of
 <CODE>make</CODE>, given a suitable <TT>&lsquo;Makefile&rsquo;</TT> exists for the project,
 and the resulting executable is installed somewhere users will find it.
 The MO files themselves should also be properly installed.  Given the
-appropriate environment variables are set (see section <A HREF="gettext_2.html#SEC9">2.2  Magic for End Users</A>), the
-program should localize itself automatically, whenever it executes.
+appropriate environment variables are set (see section <A HREF="gettext_2.html#SEC10">2.3  Setting the Locale through Environment Variables</A>),
+the program should localize itself automatically, whenever it executes.
 
 </P>
 <P>
