@@ -56,6 +56,10 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       http://www.gnu.org/software/gnulib/
 
+  * GNU tar (for creating distributable tarballs)
+    + Homepage:
+      http://www.gnu.org/software/tar/
+
 And, of course, the packages listed in the DEPENDENCIES file.
 
 
