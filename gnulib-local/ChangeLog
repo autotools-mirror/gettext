@@ -1,3 +1,9 @@
+2007-11-09  Bruno Haible  <bruno@clisp.org>
+
+	* m4/libglib.m4 (gl_LIBGLIB): Ensure that the <glib.h> is from a glib
+	version >= 2.0.
+	Reported by Paul Eggert <eggert@cs.ucla.edu>.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

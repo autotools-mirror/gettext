@@ -1,5 +1,5 @@
-# libglib.m4 serial 2 (gettext-0.17)
-dnl Copyright (C) 2006 Free Software Foundation, Inc.
+# libglib.m4 serial 3 (gettext-0.17)
+dnl Copyright (C) 2006-2007 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -35,7 +35,11 @@ AC_DEFUN([gl_LIBGLIB],
       dnl one that built the library.
       AC_LIB_LINKFLAGS_BODY([glib-2.0])
       LIBS="$gl_save_LIBS $LIBGLIB_2_0"
-      AC_TRY_LINK([#include <glib.h>],
+      AC_TRY_LINK([#include <glib.h>
+#ifndef G_BEGIN_DECLS
+error this glib.h includes a glibconfig.h from a glib version 1.x
+#endif
+],
         [g_string_new ("foo");],
         [gl_cv_libglib=yes
          gl_cv_LIBGLIB="$LIBGLIB_2_0"
@@ -44,7 +48,11 @@ AC_DEFUN([gl_LIBGLIB],
       if test "$gl_cv_libglib" != yes; then
         gl_save_CPPFLAGS="$CPPFLAGS"
         CPPFLAGS="$CPPFLAGS $INCGLIB_2_0"
-        AC_TRY_LINK([#include <glib.h>],
+        AC_TRY_LINK([#include <glib.h>
+#ifndef G_BEGIN_DECLS
+error this glib.h includes a glibconfig.h from a glib version 1.x
+#endif
+],
           [g_string_new ("foo");],
           [gl_cv_libglib=yes
            gl_cv_LIBGLIB="$LIBGLIB_2_0"
@@ -56,7 +64,11 @@ AC_DEFUN([gl_LIBGLIB],
           dnl and /usr/lib/glib-2.0/include.
           if test -n "$LIBGLIB_2_0_PREFIX"; then
             CPPFLAGS="$gl_save_CPPFLAGS -I$LIBGLIB_2_0_PREFIX/include/glib-2.0 -I$LIBGLIB_2_0_PREFIX/$acl_libdirstem/glib-2.0/include"
-            AC_TRY_LINK([#include <glib.h>],
+            AC_TRY_LINK([#include <glib.h>
+#ifndef G_BEGIN_DECLS
+error this glib.h includes a glibconfig.h from a glib version 1.x
+#endif
+],
               [g_string_new ("foo");],
               [gl_cv_libglib=yes
                gl_cv_LIBGLIB="$LIBGLIB_2_0"
