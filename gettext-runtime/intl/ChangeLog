@@ -1,3 +1,13 @@
+2007-11-09  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Ensure that we never call snprintf with a
+	size argument < 2.
+
+2007-11-09  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): Increase reallocation of snprintf buffer.
+	Fixes an inefficiency introduced on 2007-11-03.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

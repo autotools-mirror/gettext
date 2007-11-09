@@ -4047,9 +4047,13 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 		   sizeof (TCHAR_T) divides sizeof (DCHAR_T) and
 		   alignof (TCHAR_T) <= alignof (DCHAR_T).  */
 # define TCHARS_PER_DCHAR (sizeof (DCHAR_T) / sizeof (TCHAR_T))
+		/* Ensure that maxlen below will be >= 2.  Needed on BeOS,
+		   where an snprintf() with maxlen==1 acts like sprintf().  */
+		ENSURE_ALLOCATION (xsum (length,
+					 (2 + TCHARS_PER_DCHAR - 1)
+					 / TCHARS_PER_DCHAR));
 		/* Prepare checking whether snprintf returns the count
 		   via %n.  */
-		ENSURE_ALLOCATION (xsum (length, 1));
 		*(TCHAR_T *) (result + length) = '\0';
 #endif
 
@@ -4295,13 +4299,19 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
 			  goto overflow;
 			else
 			  {
-			    /* Need at least count * sizeof (TCHAR_T) bytes.
-			       But allocate proportionally, to avoid looping
+			    /* Need at least (count + 1) * sizeof (TCHAR_T)
+			       bytes.  (The +1 is for the trailing NUL.)
+			       But ask for (count + 2) * sizeof (TCHAR_T)
+			       bytes, so that in the next round, we likely get
+			         maxlen > (unsigned int) count + 1
+			       and so we don't get here again.
+			       And allocate proportionally, to avoid looping
 			       eternally if snprintf() reports a too small
 			       count.  */
 			    size_t n =
 			      xmax (xsum (length,
-					  (count + TCHARS_PER_DCHAR - 1)
+					  ((unsigned int) count + 2
+					   + TCHARS_PER_DCHAR - 1)
 					  / TCHARS_PER_DCHAR),
 				    xtimes (allocated, 2));
 
