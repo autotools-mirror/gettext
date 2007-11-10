@@ -1,3 +1,7 @@
+2007-11-10  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (distcheck-hook): Add a check for eoverflow.m4.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.
