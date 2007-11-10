@@ -1,3 +1,8 @@
+2007-11-10  Bruno Haible  <bruno@clisp.org>
+
+	* eoverflow.m4: New file, from gnulib.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

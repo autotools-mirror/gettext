@@ -5,6 +5,7 @@
 EXTRA_DIST = README \
 ansi-c++.m4 \
 codeset.m4 \
+eoverflow.m4 \
 gettext.m4 \
 glibc2.m4 \
 glibc21.m4 \
