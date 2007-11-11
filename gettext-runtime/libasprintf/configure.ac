@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2006 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2007 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -81,6 +81,7 @@ AC_SUBST([ALLOCA_H])
 AC_CHECK_FUNCS([snprintf vasprintf wcslen])
 AC_CHECK_DECLS([_snprintf])
 gt_PRINTF_POSIX
+gl_EOVERFLOW
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`

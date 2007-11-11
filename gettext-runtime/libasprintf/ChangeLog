@@ -1,3 +1,7 @@
+2007-11-10  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gl_EOVERFLOW.
+
 2007-11-09  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Ensure that we never call snprintf with a
