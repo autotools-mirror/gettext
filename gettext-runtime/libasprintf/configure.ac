@@ -78,7 +78,9 @@ AC_EGREP_CPP([Need own alloca], [
 AC_SUBST([ALLOCA_H])
 
 AC_CHECK_FUNCS([snprintf vasprintf wcslen])
-AC_CHECK_DECLS([_snprintf])
+dnl Use the _snprintf function only if it is declared (because on NetBSD it
+dnl is defined as a weak alias of snprintf; we prefer to use the latter).
+AC_CHECK_DECLS([_snprintf], , , [#include <stdio.h>])
 gt_PRINTF_POSIX
 gl_EOVERFLOW
 

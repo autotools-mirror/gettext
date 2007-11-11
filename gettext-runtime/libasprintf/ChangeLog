@@ -1,5 +1,9 @@
 2007-11-10  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac: Do _snprintf check like gnulib's vasnprintf.m4 does.
+
+2007-11-10  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke AC_TYPE_LONG_LONG_INT instead of
 	gl_AC_TYPE_LONG_LONG. Don't invoke gt_TYPE_LONGDOUBLE.
 	Report and patch by Kacper.
