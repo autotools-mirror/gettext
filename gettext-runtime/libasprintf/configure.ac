@@ -54,8 +54,7 @@ dnl Checks for header files.
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
 AC_TYPE_SIZE_T
-gl_AC_TYPE_LONG_LONG
-gt_TYPE_LONGDOUBLE
+AC_TYPE_LONG_LONG_INT
 gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
 AC_CHECK_TYPE([ptrdiff_t], ,
