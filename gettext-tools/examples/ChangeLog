@@ -1,3 +1,10 @@
+2007-11-13  Bruno Haible  <bruno@clisp.org>
+
+	* po/ky.po: New file, from Ilyas Bakirov <just_ilyas@yahoo.com>.
+	* po/LINGUAS: Add ky.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESPOFILES): Add the new message catalogs.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

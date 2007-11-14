@@ -406,6 +406,7 @@ EXAMPLESPOFILES = \
   id.po \
   it.po \
   ja.po \
+  ky.po \
   ms.po \
   nl.po \
   pl.po \
