@@ -21,6 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
+	gettext-8 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
@@ -199,7 +200,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg cake fc3 fc4 fc5
+noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8 cake fc3 fc4 fc5
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
@@ -223,6 +224,8 @@ gettext_7_prg_CFLAGS = $(gettext_7_prg_CFLAGS_@GLIBC2@)
 gettext_7_prg_CFLAGS_yes = -DUSE_POSIX_THREADS
 gettext_7_prg_LDADD = $(gettext_7_prg_LDADD_@GLIBC2@)
 gettext_7_prg_LDADD_yes = ../gnulib-lib/libgettextlib.la $(LDADD) -lpthread
+gettext_8_SOURCES = gettext-8-prg.c
+gettext_8_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c
