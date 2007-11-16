@@ -1,3 +1,14 @@
+2007-11-15  Bruno Haible  <bruno@clisp.org>
+
+	Avoid crash by stack overflow when msgid is very long.
+	* dcigettext.c (struct known_translation_t): Turn msgid into a union.
+	(transcmp): Use the appropriate part of s1->msgid and s2->msgid.
+	(DCIGETTEXT): Change the allocation of the 'search' variable so that
+	it needs only fixed stack space. Delay the initialization of
+	msgid_len until it is needed.
+	Reported by Laurent Gaffié <laurent.gaffie@gmail.com> via
+	Ismail Dönmez <ismail@pardus.org.tr>.
+
 2007-11-14  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Update for OpenBSD 4.1.

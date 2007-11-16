@@ -269,7 +269,12 @@ struct known_translation_t
   size_t translation_length;
 
   /* Pointer to the string in question.  */
-  char msgid[ZERO];
+  union
+    {
+      char appended[ZERO];  /* used if domain != NULL */
+      const char *ptr;      /* used if domain == NULL */
+    }
+  msgid;
 };
 
 gl_rwlock_define_initialized (static, tree_lock)
@@ -288,7 +293,8 @@ transcmp (const void *p1, const void *p2)
   s1 = (const struct known_translation_t *) p1;
   s2 = (const struct known_translation_t *) p2;
 
-  result = strcmp (s1->msgid, s2->msgid);
+  result = strcmp (s1->domain != NULL ? s1->msgid.appended : s1->msgid.ptr,
+		   s2->domain != NULL ? s2->msgid.appended : s2->msgid.ptr);
   if (result == 0)
     {
       result = strcmp (s1->domainname, s2->domainname);
@@ -501,9 +507,8 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   char *retval;
   size_t retlen;
   int saved_errno;
-  struct known_translation_t *search;
+  struct known_translation_t search;
   struct known_translation_t **foundp = NULL;
-  size_t msgid_len;
 #if defined HAVE_PER_THREAD_LOCALE && !defined IN_LIBGLOCALE
   const char *localename;
 #endif
@@ -539,15 +544,12 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     category = LC_MESSAGES;
 #endif
 
-  msgid_len = strlen (msgid1) + 1;
-
   /* Try to find the translation among those which we found at
      some time.  */
-  search = (struct known_translation_t *)
-	   alloca (offsetof (struct known_translation_t, msgid) + msgid_len);
-  memcpy (search->msgid, msgid1, msgid_len);
-  search->domainname = domainname;
-  search->category = category;
+  search.domain = NULL;
+  search.msgid.ptr = msgid1;
+  search.domainname = domainname;
+  search.category = category;
 #ifdef HAVE_PER_THREAD_LOCALE
 # ifndef IN_LIBGLOCALE
 #  ifdef _LIBC
@@ -571,20 +573,19 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #   endif
 #  endif
 # endif
-  search->localename = localename;
+  search.localename = localename;
 # ifdef IN_LIBGLOCALE
-  search->encoding = encoding;
+  search.encoding = encoding;
 # endif
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
      tsearch calls can be fatal.  */
   gl_rwlock_rdlock (tree_lock);
 
-  foundp = (struct known_translation_t **) tfind (search, &root, transcmp);
+  foundp = (struct known_translation_t **) tfind (&search, &root, transcmp);
 
   gl_rwlock_unlock (tree_lock);
 
-  freea (search);
   if (foundp != NULL && (*foundp)->counter == _nl_msg_cat_cntr)
     {
       /* Now deal with plural.  */
@@ -773,9 +774,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	      if (foundp == NULL)
 		{
 		  /* Create a new entry and add it to the search tree.  */
+		  size_t msgid_len;
 		  size_t size;
 		  struct known_translation_t *newp;
 
+		  msgid_len = strlen (msgid1) + 1;
 		  size = offsetof (struct known_translation_t, msgid)
 			 + msgid_len + domainname_len + 1;
 #ifdef HAVE_PER_THREAD_LOCALE
@@ -790,7 +793,8 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #endif
 
 		      new_domainname =
-			(char *) mempcpy (newp->msgid, msgid1, msgid_len);
+			(char *) mempcpy (newp->msgid.appended, msgid1,
+					  msgid_len);
 		      memcpy (new_domainname, domainname, domainname_len + 1);
 #ifdef HAVE_PER_THREAD_LOCALE
 		      new_localename = new_domainname + domainname_len + 1;
