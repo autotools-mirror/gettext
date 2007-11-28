@@ -1,3 +1,9 @@
+2007-11-28  Bruno Haible  <bruno@clisp.org>
+
+	* l10nflist.c (_nl_normalize_codeset): Change type of 'len' variable
+	to size_t.
+	Patch by Wim Lewis.
+
 2007-11-26  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (decode_long_double): Don't abort if the 'long double'
