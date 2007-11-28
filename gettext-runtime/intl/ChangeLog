@@ -1,5 +1,12 @@
 2007-11-28  Bruno Haible  <bruno@clisp.org>
 
+	* libgnuintl.h.in (fprintf, vfprintf, printf, vprintf, sprintf,
+	vsprintf, snprintf, vsnprintf, asprintf, vasprintf): Don't override
+	definitions made by gnulib.
+	Reported by Jim Meyering <jim@meyering.net>.
+
+2007-11-28  Bruno Haible  <bruno@clisp.org>
+
 	* l10nflist.c (_nl_normalize_codeset): Change type of 'len' variable
 	to size_t.
 	Patch by Wim Lewis.
