@@ -6060,8 +6060,6 @@ Languages with this property include:
 @table @asis
 @item Asian family
 Japanese, Korean, Vietnamese
-@item Turkic/Altaic family
-Turkish
 @end table
 
 @item Two forms, singular used for one only
@@ -6094,11 +6092,13 @@ Esperanto
 @end table
 
 @noindent
-Another language using the same header entry is:
+Other languages using the same header entry are:
 
 @table @asis
 @item Finno-Ugric family
 Hungarian
+@item Turkic/Altaic family
+Turkish
 @end table
 
 Hungarian does not appear to have a plural if you look at sentences involving
@@ -6107,6 +6107,11 @@ cardinal numbers.  For example, ``1 apple'' is ``1 alma'', and ``123 apples'' is
 singular and plural exists: ``the apple'' is ``az alma'', and ``the apples'' is
 ``az alm@'{a}k''.  Since @code{ngettext} has to support both types of sentences,
 it is classified here, under ``two forms''.
+
+The same holds for Turkish: ``1 apple'' is ``1 elma'', and ``123 apples'' is
+``123 elma''.  But when the number is omitted, the distinction between singular
+and plural exists: ``the apple'' is ``elma'', and ``the apples'' is
+``elmalar''.
 
 @item Two forms, singular used for zero and one
 Exceptional case in the language family.  The header entry would be:

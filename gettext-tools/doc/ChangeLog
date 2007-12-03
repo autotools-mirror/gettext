@@ -1,3 +1,8 @@
+2007-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural Forms): Put Turkish under nplurals=2.
+	Reported by Sertaç Ö. Yıldız <sertacyildiz@gmail.com>.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.
