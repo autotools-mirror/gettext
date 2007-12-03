@@ -1,3 +1,9 @@
+2007-12-02  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el: Use modern backquote syntax.
+	Report and patch by Agustin Martin <agmartin@debian.org> via
+	Santiago Vila <sanvila@unex.es>.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.
