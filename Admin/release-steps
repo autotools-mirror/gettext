@@ -64,6 +64,8 @@ Tasks not to forget before release:
   cp archive.tar.gz-<last-release-number> archive.tar.gz
   add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the case statement and the table in autopoint.in.
+- Swap the first 4 lines of gettext-tools/doc/gettext.info, working around
+  a bug in makeinfo-4.11.
 - again: "make dist"
 
 * Upload to ftp-upload.gnu.org according to the procedure given by
