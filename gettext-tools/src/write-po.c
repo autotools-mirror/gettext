@@ -522,6 +522,7 @@ wrap (const message_ty *mp, ostream_t stream,
 {
   const char *canon_charset;
   char *fmtdir;
+  char *fmtdirattr;
   const char *s;
   bool first_line;
 #if HAVE_ICONV
@@ -583,7 +584,8 @@ wrap (const message_ty *mp, ostream_t stream,
 
   /* Determine the extent of format string directives.  */
   fmtdir = NULL;
-  if (is_stylable (stream) && value[0] != '\0')
+  fmtdirattr = NULL;
+  if (value[0] != '\0')
     {
       bool is_msgstr =
 	(strlen (name) >= 6 && memcmp (name, "msgstr", 6) == 0);
@@ -597,8 +599,9 @@ wrap (const message_ty *mp, ostream_t stream,
 	    struct formatstring_parser *parser = formatstring_parsers[i];
 	    char *invalid_reason = NULL;
 	    void *descr;
-	    char *fdp;
-	    char *fd_end;
+	    const char *fdp;
+	    const char *fd_end;
+	    char *fdap;
 
 	    fmtdir = XCALLOC (len, char);
 	    descr = parser->parse (value, is_msgstr, fmtdir, &invalid_reason);
@@ -607,11 +610,13 @@ wrap (const message_ty *mp, ostream_t stream,
 
 	    /* Locate the FMTDIR_* bits and transform the array to an array
 	       of attributes.  */
+	    fmtdirattr = XCALLOC (len, char);
+	    fdap = fmtdirattr;
 	    fd_end = fmtdir + len;
-	    for (fdp = fmtdir; fdp < fd_end; fdp++)
+	    for (fdp = fmtdir, fdap = fmtdirattr; fdp < fd_end; fdp++, fdap++)
 	      if (*fdp & FMTDIR_START)
 		{
-		  char *fdq;
+		  const char *fdq;
 		  for (fdq = fdp; fdq < fd_end; fdq++)
 		    if (*fdq & (FMTDIR_END | FMTDIR_ERROR))
 		      break;
@@ -621,13 +626,14 @@ wrap (const message_ty *mp, ostream_t stream,
 		       its end. It is a bug in the ->parse method.  */
 		    abort ();
 		  if (*fdq & FMTDIR_ERROR)
-		    memset (fdp, ATTR_INVALID_FORMAT_DIRECTIVE, fdq - fdp + 1);
+		    memset (fdap, ATTR_INVALID_FORMAT_DIRECTIVE, fdq - fdp + 1);
 		  else
-		    memset (fdp, ATTR_FORMAT_DIRECTIVE, fdq - fdp + 1);
+		    memset (fdap, ATTR_FORMAT_DIRECTIVE, fdq - fdp + 1);
+		  fdap += fdq - fdp;
 		  fdp = fdq;
 		}
 	      else
-		*fdp = 0;
+		*fdap = 0;
 
 	    break;
 	  }
@@ -733,12 +739,16 @@ wrap (const message_ty *mp, ostream_t stream,
 	}
       portion = XNMALLOC (portion_len, char);
       overrides = XNMALLOC (portion_len, char);
-      memset (overrides, UC_BREAK_UNDEFINED, portion_len);
       attributes = XNMALLOC (portion_len, char);
       for (ep = s, pp = portion, op = overrides, ap = attributes; ep < es; ep++)
 	{
 	  char c = *ep;
-	  char attr = (fmtdir != NULL ? fmtdir[ep - value] : 0);
+	  char attr = (fmtdirattr != NULL ? fmtdirattr[ep - value] : 0);
+	  char brk = UC_BREAK_UNDEFINED;
+	  /* Don't break inside format directives.  */
+	  if (attr == ATTR_FORMAT_DIRECTIVE
+	      && (fmtdir[ep - value] & FMTDIR_START) == 0)
+	    brk = UC_BREAK_PROHIBITED;
 	  if (is_escape (c))
 	    {
 	      switch (c)
@@ -754,7 +764,7 @@ wrap (const message_ty *mp, ostream_t stream,
 		}
 	      *pp++ = '\\';
 	      *pp++ = c;
-	      op++;
+	      *op++ = brk;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
 	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
@@ -777,7 +787,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	      *pp++ = '0' + (((unsigned char) c >> 6) & 7);
 	      *pp++ = '0' + (((unsigned char) c >> 3) & 7);
 	      *pp++ = '0' + ((unsigned char) c & 7);
-	      op++;
+	      *op++ = brk;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *op++ = UC_BREAK_PROHIBITED;
@@ -790,7 +800,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 	    {
 	      *pp++ = '\\';
 	      *pp++ = c;
-	      op++;
+	      *op++ = brk;
 	      *op++ = UC_BREAK_PROHIBITED;
 	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
 	      *ap++ = attr | ATTR_ESCAPE_SEQUENCE;
@@ -838,6 +848,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		  insize = inptr - ep;
 		  memcpy_small (pp, ep, insize);
 		  pp += insize;
+		  *op = brk;
+		  memset_small (op + 1, UC_BREAK_PROHIBITED, insize - 1);
 		  op += insize;
 		  memset_small (ap, attr, insize);
 		  ap += insize;
@@ -855,14 +867,15 @@ internationalized messages should not contain the `\\%c' escape sequence"),
 		      *pp++ = c;
 		      ep += 1;
 		      *pp++ = *ep;
-		      op += 2;
+		      *op++ = brk;
+		      *op++ = UC_BREAK_PROHIBITED;
 		      *ap++ = attr;
 		      *ap++ = attr;
 		    }
 		  else
 		    {
 		      *pp++ = c;
-		      op++;
+		      *op++ = brk;
 		      *ap++ = attr;
 		    }
 		}
@@ -1118,6 +1131,8 @@ internationalized messages should not contain the `\\%c' escape sequence"),
     }
   while (*s);
 
+  if (fmtdirattr != NULL)
+    free (fmtdirattr);
   if (fmtdir != NULL)
     free (fmtdir);
 

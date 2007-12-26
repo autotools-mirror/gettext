@@ -1,3 +1,9 @@
+2007-12-22  Bruno Haible  <bruno@clisp.org>
+
+	* write-po.c (wrap): Avoid breaking line in the middle of a format
+	directive.
+	Reported by Dwayne Bailey <dwayne@translate.org.za>.
+
 2007-11-07  Jim Meyering  <meyering@redhat.com>
             Bruno Haible  <bruno@clisp.org>
 
