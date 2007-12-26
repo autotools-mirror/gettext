@@ -132,7 +132,7 @@ update-po:
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	echo "$(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
-	if $(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	if $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot; then \
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
 	  else \

@@ -1,3 +1,11 @@
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
+	* hello-*/po/Makefile.am (.nop.po-update): Put all non-option arguments
+	after all option arguments, so that the commands work 1. when
+	POSIXLY_CORRECT is set, 2. on platforms whose getopt facility is POSIX
+	compliant but not GNU libc compatible, such as Cygwin.
+	* hello-objc-gnustep/po/GNUmakefile (.nop.po-update): Likewise.
+
 2007-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* po/ky.po: New file, from Ilyas Bakirov <just_ilyas@yahoo.com>.
