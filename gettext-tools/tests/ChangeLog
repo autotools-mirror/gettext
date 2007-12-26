@@ -1,5 +1,12 @@
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-3-prg.c: Don't include setenv.h.
+	* gettext-5-prg.c: Likewise.
+	* gettext-6-prg.c: Likewise.
+	* gettext-7-prg.c: Likewise.
+
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
 	* msginit-1: Add 'Language' field in header to input. Check that it is
 	filled.
 	* msginit-2: Likewise.

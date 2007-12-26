@@ -1,5 +1,5 @@
 /* Test program, used by the gettext-3 test.
-   Copyright (C) 2000, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000, 2005, 2007 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,7 +24,6 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "setenv.h"
 
 /* Make sure we use the included libintl, not the system's one. */
 #undef _LIBINTL_H
