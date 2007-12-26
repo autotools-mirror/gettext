@@ -1,3 +1,7 @@
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
+	* version.sh: Bump to 0.18-pre1.
+
 2007-11-10  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (distcheck-hook): Add a check for eoverflow.m4.
