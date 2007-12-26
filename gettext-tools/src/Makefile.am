@@ -119,8 +119,9 @@ format-php.c format-gcc-internal.c format-qt.c format-kde.c format-boost.c
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-catalog.c \
 color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-english.c msgl-check.c \
-file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c plural-table.c \
+msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
+msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
+plural-table.c \
 $(FORMAT_SOURCE)
 
 # msggrep needs pattern matching.
@@ -137,7 +138,7 @@ msgmerge_SOURCES = msgmerge.c
 else
 msgmerge_SOURCES = ../woe32dll/c++msgmerge.cc
 endif
-msgmerge_SOURCES += msgl-fsearch.c plural-count.c
+msgmerge_SOURCES += msgl-fsearch.c lang-table.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c

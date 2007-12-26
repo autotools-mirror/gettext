@@ -1,3 +1,39 @@
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
+	* msginit-1: Add 'Language' field in header to input. Check that it is
+	filled.
+	* msginit-2: Likewise.
+	* msgmerge-5: Add 'Language' field in header to expected result.
+	* msgmerge-6: Likewise.
+	* msgmerge-10: Likewise.
+	* msgmerge-11: Likewise.
+	* msgmerge-12: Likewise.
+	* msgmerge-13: Likewise.
+	* msgmerge-14: Likewise.
+	* msgmerge-16: Likewise.
+	* msgmerge-21: Likewise.
+	* msgmerge-22: Likewise.
+	* mm-viet.out: Likewise.
+	* msgmerge-update-1: Add 'Language' field in header to input.
+	* msgmerge-update-2: Likewise.
+	* msgmerge-update-3: Likewise.
+	* xgettext-3: Add 'Language' field in header to expected result.
+	* xgettext-4: Likewise.
+	* xgettext-5: Likewise.
+	* xgettext-8: Likewise.
+	* xgettext-csharp-2: Likewise.
+	* xgettext-csharp-3: Likewise.
+	* xgettext-glade-1: Likewise.
+	* xgettext-glade-2: Likewise.
+	* xgettext-glade-3: Likewise.
+	* xgettext-java-2: Likewise.
+	* xgettext-perl-2: Likewise.
+	* xgettext-perl-3: Likewise.
+	* xgettext-python-1: Likewise.
+	* xgettext-python-3: Likewise.
+	* xgettext-stringtable-1: Likewise.
+	* xgettext-tcl-1: Likewise.
+
 2007-12-22  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-17: New file.

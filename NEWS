@@ -1,3 +1,15 @@
+Version 0.18 - January 2008
+
+* PO file format:
+  There is a new field 'Language' in the header entry.  It denotes the language
+  code (plus optional country code) for the PO file.  This field can be used
+  by automated tools, such as spell checkers.  It is expected to be more
+  reliable than looking at the file name or at the 'Language-Team' field in
+  the header entry.
+  msgmerge, msgcat, msgen have a new option --lang that allows to specify
+  this field.  Additionally, msgmerge fills in this new field by looking at
+  the 'Language-Team' field (if the --lang option is not given).
+
 Version 0.17 - November 2007
 
 * License:

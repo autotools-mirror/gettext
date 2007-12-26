@@ -68,6 +68,13 @@ Assume the input file is a NeXTstep/GNUstep localized resource file in
 @c --no-escape and --escape omitted on purpose.  They are not useful.
 
 @table @samp
+@item --lang=@var{catalogname}
+@opindex --lang@r{, @code{msgcat} option}
+Specify the @samp{Language} field to be used in the header entry.  See
+@ref{Header Entry} for the meaning of this field.  Note: The
+@samp{Language-Team} and @samp{Plural-Forms} fields are not set by this
+option.
+
 @item --force-po
 @opindex --force-po@r{, @code{msgen} option}
 Always write an output file even if it contains no message.

@@ -1218,6 +1218,14 @@ language_team ()
 }
 
 
+/* Construct the value for the Language field.  */
+static const char *
+language_value ()
+{
+  return catalogname;
+}
+
+
 /* Construct the value for the MIME-Version field.  */
 static const char *
 mime_version ()
@@ -1294,6 +1302,7 @@ fields[] =
     { "PO-Revision-Date", NULL, po_revision_date },
     { "Last-Translator", last_translator, NULL },
     { "Language-Team", language_team, NULL },
+    { "Language", language_value, NULL },
     { "MIME-Version", mime_version, NULL },
     { "Content-Type", NULL, content_type },
     { "Content-Transfer-Encoding", content_transfer_encoding, NULL },

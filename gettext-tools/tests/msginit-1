@@ -20,6 +20,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -43,11 +44,17 @@ tmpfiles="$tmpfiles mi-test1.tmp mi-test1.out mi-test1.err"
 : ${MSGINIT=msginit}
 ${MSGINIT} -i mi-test1.pot -l ga_IE --no-translator -o mi-test1.tmp 2>mi-test1.err
 test $? = 0 || { cat mi-test1.err 1>&2; rm -fr $tmpfiles; exit 1; }
-sed -e '1,15d' < mi-test1.tmp | tr -d '\r' > mi-test1.out
+sed -e '1,10d' < mi-test1.tmp | tr -d '\r' > mi-test1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mi-test1.ok"
 cat <<\EOF > mi-test1.ok
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ga\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
 
 #, c-format

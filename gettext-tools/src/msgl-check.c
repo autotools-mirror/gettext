@@ -173,27 +173,64 @@ check_plural_eval (const struct expression *plural_expr,
 static char *
 plural_help (const char *nullentry)
 {
-  const char *language;
-  size_t j;
+  struct plural_table_entry *ptentry = NULL;
 
-  language = c_strstr (nullentry, "Language-Team: ");
-  if (language != NULL)
-    {
-      language += 15;
-      for (j = 0; j < plural_table_size; j++)
-	if (strncmp (language,
-		     plural_table[j].language,
-		     strlen (plural_table[j].language)) == 0)
+  {
+    const char *language;
+
+    language = c_strstr (nullentry, "Language: ");
+    if (language != NULL)
+      {
+	size_t len;
+
+        language += 10;
+	len = strcspn (language, " \t\n");
+	if (len > 0)
 	  {
-	    char *helpline1 =
-	      xasprintf (_("Try using the following, valid for %s:"),
-			 plural_table[j].language);
-	    char *help =
-	      xasprintf ("%s\n\"Plural-Forms: %s\\n\"\n",
-			 helpline1, plural_table[j].value);
-	    free (helpline1);
-	    return help;
+	    size_t j;
+
+	    for (j = 0; j < plural_table_size; j++)
+	      if (len == strlen (plural_table[j].lang)
+		  && strncmp (language, plural_table[j].lang, len) == 0)
+		{
+		  ptentry = &plural_table[j];
+		  break;
+		}
 	  }
+      }
+  }
+
+  if (ptentry == NULL)
+    {
+      const char *language;
+
+      language = c_strstr (nullentry, "Language-Team: ");
+      if (language != NULL)
+	{
+	  size_t j;
+
+	  language += 15;
+	  for (j = 0; j < plural_table_size; j++)
+	    if (strncmp (language,
+			 plural_table[j].language,
+			 strlen (plural_table[j].language)) == 0)
+	      {
+		ptentry = &plural_table[j];
+		break;
+	      }
+	}
+    }
+
+  if (ptentry != NULL)
+    {
+      char *helpline1 =
+	xasprintf (_("Try using the following, valid for %s:"),
+		   ptentry->language);
+      char *help =
+	xasprintf ("%s\n\"Plural-Forms: %s\\n\"\n",
+		   helpline1, ptentry->value);
+      free (helpline1);
+      return help;
     }
   return NULL;
 }
@@ -674,27 +711,33 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
   {
     "Project-Id-Version", "PO-Revision-Date", "Last-Translator",
     "Language-Team", "MIME-Version", "Content-Type",
-    "Content-Transfer-Encoding"
+    "Content-Transfer-Encoding",
+    /* These are recommended but not yet required.  */
+    "Language"
   };
   static const char *default_values[] =
   {
     "PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE", NULL,
-    "text/plain; charset=CHARSET", "ENCODING"
+    "text/plain; charset=CHARSET", "ENCODING",
+    ""
   };
   const size_t nfields = SIZEOF (required_fields);
+  const size_t nrequiredfields = nfields - 1;
   int initial = -1;
   int cnt;
 
   for (cnt = 0; cnt < nfields; ++cnt)
     {
-      char *endp = c_strstr (msgstr_string, required_fields[cnt]);
+      int severity =
+	(cnt < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
+      const char *endp = c_strstr (msgstr_string, required_fields[cnt]);
 
       if (endp == NULL)
 	{
 	  char *msg =
-	    xasprintf (_("headerfield `%s' missing in header\n"),
+	    xasprintf (_("header field `%s' missing in header\n"),
 		       required_fields[cnt]);
-	  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, true, msg);
+	  po_xerror (severity, mp, NULL, 0, 0, true, msg);
 	  free (msg);
 	}
       else if (endp != msgstr_string && endp[-1] != '\n')
@@ -703,33 +746,48 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
 	    xasprintf (_("\
 header field `%s' should start at beginning of line\n"),
 		       required_fields[cnt]);
-	  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, true, msg);
+	  po_xerror (severity, mp, NULL, 0, 0, true, msg);
 	  free (msg);
 	}
-      else if (default_values[cnt] != NULL
-	       && strncmp (default_values[cnt],
-			   endp + strlen (required_fields[cnt]) + 2,
-			   strlen (default_values[cnt])) == 0)
+      else
 	{
-	  if (initial != -1)
+	  const char *p = endp + strlen (required_fields[cnt]);
+	  /* Test whether the field's value, starting at p, is the default
+	     value.  */
+	  if (*p == ':')
+	    p++;
+	  if (*p == ' ')
+	    p++;
+	  if (default_values[cnt] != NULL
+	      && strncmp (p, default_values[cnt],
+			  strlen (default_values[cnt])) == 0)
 	    {
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, NULL, 0, 0, true, _("\
+	      p += strlen (default_values[cnt]);
+	      if (*p == '\0' || *p == '\n')
+		{
+		  if (initial != -1)
+		    {
+		      po_xerror (severity,
+				 mp, NULL, 0, 0, true, _("\
 some header fields still have the initial default value\n"));
-	      initial = -1;
-	      break;
+		      initial = -1;
+		      break;
+		    }
+		  else
+		    initial = cnt;
+		}
 	    }
-	  else
-	    initial = cnt;
 	}
     }
 
   if (initial != -1)
     {
+      int severity =
+	(initial < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
       char *msg =
-	xasprintf (_("field `%s' still has initial default value\n"),
+	xasprintf (_("header field `%s' still has the initial default value\n"),
 		   required_fields[initial]);
-      po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, true, msg);
+      po_xerror (severity, mp, NULL, 0, 0, true, msg);
       free (msg);
     }
 }

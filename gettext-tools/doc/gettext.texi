@@ -2913,6 +2913,58 @@ list.  The up-to-date list of teams can be found at the Free Translation
 Project's homepage, @uref{http://translationproject.org/}, in the "Teams"
 area.
 
+@item Language
+@c The purpose of this field is to make it possible to automatically
+@c - convert PO files to translation memory,
+@c - initialize a spell checker based on the PO file,
+@c - perform language specific checks.
+Fill in the language code of the language.  This can be in one of three
+forms:
+
+@itemize -
+@item
+@samp{@var{ll}}, an @w{ISO 639} two-letter language code (lowercase).
+See @ref{Language Codes} for the list of codes.
+
+@item
+@samp{@var{ll}_@var{CC}}, where @samp{@var{ll}} is an @w{ISO 639} two-letter
+language code (lowercase) and @samp{@var{CC}} is an @w{ISO 3166} two-letter
+country code (uppercase).  The country code specification is not redundant:
+Some languages have dialects in different countries.  For example,
+@samp{de_AT} is used for Austria, and @samp{pt_BR} for Brazil.  The country
+code serves to distinguish the dialects. See @ref{Language Codes} and
+@ref{Country Codes} for the lists of codes.
+
+@item
+@samp{@var{ll}_@var{CC}@@@var{variant}}, where @samp{@var{ll}} is an
+@w{ISO 639} two-letter language code (lowercase), @samp{@var{CC}} is an
+@w{ISO 3166} two-letter country code (uppercase), and @samp{@var{variant}} is
+a variant designator. The variant designator (lowercase) can be a script
+designator, such as @samp{latin} or @samp{cyrillic}.
+@end itemize
+
+The naming convention @samp{@var{ll}_@var{CC}} is also the way locales are
+named on systems based on GNU libc.  But there are three important differences:
+
+@itemize @bullet
+@item
+In this PO file field, but not in locale names, @samp{@var{ll}_@var{CC}}
+combinations denoting a language's main dialect are abbreviated as
+@samp{@var{ll}}.  For example, @samp{de} is equivalent to @samp{de_DE}
+(German as spoken in Germany), and @samp{pt} to @samp{pt_PT} (Portuguese as
+spoken in Portugal) in this context.
+
+@item
+In this PO file field, suffixes like @samp{.@var{encoding}} are not used.
+
+@item
+In this PO file field, variant designators that are not relevant to message
+translation, such as @samp{@@euro}, are not used.
+@end itemize
+
+So, if your locale name is @samp{de_DE.UTF-8}, the language specification in
+PO files is just @samp{de}.
+
 @item Content-Type
 @cindex encoding of PO files
 @cindex charset of PO files

@@ -132,6 +132,10 @@ msgcmp.c        Main source for the 'msgcmp' program.
 |
 +-------------- The 'msgmerge' program
 
+msgl-header.h
+msgl-header.c
+                Message list header manipulation.
+
 msgcomm.c       Main source for the 'msgcomm' program.
 msgattrib.c     Main source for the 'msgattrib' program.
 msgcat.c        Main source for the 'msgcat' program.

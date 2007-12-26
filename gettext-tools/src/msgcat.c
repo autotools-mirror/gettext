@@ -46,6 +46,7 @@
 #include "write-stringtable.h"
 #include "color.h"
 #include "msgl-cat.h"
+#include "msgl-header.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -69,6 +70,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "lang", required_argument, NULL, CHAR_MAX + 7 },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
@@ -115,6 +117,8 @@ main (int argc, char **argv)
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
+  /* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
+  const char *catalogname = NULL;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -268,6 +272,10 @@ main (int argc, char **argv)
 	handle_style_option (optarg);
 	break;
 
+      case CHAR_MAX + 7: /* --lang */
+	catalogname = optarg;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	/* NOTREACHED */
@@ -334,6 +342,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (result);
+
+  /* Set the Language field in the header.  */
+  if (catalogname != NULL)
+    msgdomain_list_set_header_field (result, "Language:", catalogname);
 
   /* Write the PO file.  */
   msgdomain_list_print (result, output_file, output_syntax, force_po, false);
@@ -417,6 +429,8 @@ Output details:\n"));
       printf (_("\
       --use-first             use first available translation for each\n\
                               message, don't merge several translations\n"));
+      printf (_("\
+      --lang=CATALOGNAME      set 'Language' field in the header entry\n"));
       printf (_("\
       --color                 use colors and other text attributes always\n\
       --color=WHEN            use colors and other text attributes if WHEN.\n\

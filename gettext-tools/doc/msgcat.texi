@@ -115,6 +115,12 @@ Specify encoding for output.
 Use first available translation for each message.  Don't merge several
 translations into one.
 
+@item --lang=@var{catalogname}
+@opindex --lang@r{, @code{msgcat} option}
+Specify the @samp{Language} field to be used in the header entry.  See
+@ref{Header Entry} for the meaning of this field.  Note: The
+@samp{Language-Team} and @samp{Plural-Forms} fields are left unchanged.
+
 @item --color
 @itemx --color=@var{when}
 @opindex --color@r{, @code{msgcat} option}

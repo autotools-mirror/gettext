@@ -160,8 +160,15 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	if test -f "$(srcdir)/$${lang}.po"; then \
 	  test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	  echo "$${cdcmd}$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
-	  cd $(srcdir) && $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot; \
+	  echo "$${cdcmd}$(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
+	  cd $(srcdir) \
+	    && { case `$(MSGMERGE_UPDATE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	           '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
+	             $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot;; \
+	           *) \
+	             $(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
+	         esac; \
+	       }; \
 	else \
 	  $(MAKE) $${lang}.po-create; \
 	fi
@@ -237,9 +244,15 @@ update-po: Makefile
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	echo "$${cdcmd}$(MSGMERGE) --lang=$$lang $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	cd $(srcdir); \
-	if $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot; then \
+	if { case `$(MSGMERGE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	       '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
+	         $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	       *) \
+	         $(MSGMERGE) --lang=$$lang -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	     esac; \
+	   }; then \
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
 	  else \

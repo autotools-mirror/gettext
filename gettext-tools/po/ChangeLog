@@ -1,5 +1,10 @@
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in.in ($(POFILES), .nop.po-update): When using msgmerge
+	0.18 or newer, pass a --lang option.
+
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.in.in (.nop.po-update): Put all non-option arguments after
 	all option arguments, so that the commands work 1. when POSIXLY_CORRECT
 	is set, 2. on platforms whose getopt facility is POSIX compliant but

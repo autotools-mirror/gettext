@@ -39,6 +39,7 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "msgl-english.h"
+#include "msgl-header.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -61,6 +62,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "lang", required_argument, NULL, CHAR_MAX + 4 },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-location", no_argument, &line_comment, 0 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 1 },
@@ -98,6 +100,8 @@ main (int argc, char **argv)
   catalog_output_format_ty output_syntax = &output_format_po;
   bool sort_by_filepos = false;
   bool sort_by_msgid = false;
+  /* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
+  const char *catalogname = NULL;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -198,6 +202,10 @@ main (int argc, char **argv)
 	output_syntax = &output_format_stringtable;
 	break;
 
+      case CHAR_MAX + 4: /* --lang */
+	catalogname = optarg;
+	break;
+
       default:
 	usage (EXIT_FAILURE);
 	break;
@@ -254,6 +262,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (result);
+
+  /* Set the Language field in the header.  */
+  if (catalogname != NULL)
+    msgdomain_list_set_header_field (result, "Language:", catalogname);
 
   /* Write the merged message list out.  */
   msgdomain_list_print (result, output_file, output_syntax, force_po, false);
@@ -312,6 +324,8 @@ Input file syntax:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --lang=CATALOGNAME      set 'Language' field in the header entry\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

@@ -1,3 +1,34 @@
+2007-12-24  Bruno Haible  <bruno@clisp.org>
+
+	Introduce 'Language' header field.
+	* xgettext.c (construct_header): Add an empty 'Language' field.
+	* msginit.c (language_value): New function.
+	(fields): Add 'Language'.
+	* msgmerge.c: Include lang-table.h.
+	(catalogname): New variable.
+	(long_options): Add --lang option.
+	(main): Handle --lang option.
+	(usage): Document --lang option.
+	(message_merge): Set the 'Language' field if --lang was specified or
+	if it is missing and can be inferred from the 'Language-Team' field.
+	* msgl-header.h: New file.
+	* msgl-header.c: New file.
+	* msgcat.c: Include msgl-header.h.
+	(long_options): Add --lang option.
+	(main): Handle --lang option.
+	(usage): Document --lang option.
+	* msgen.c: Include msgl-header.h.
+	(long_options): Add --lang option.
+	(main): Handle --lang option.
+	(usage): Document --lang option.
+	* msgl-check.c (plural_help): Look at the 'Language' field before
+	looking at the 'Language-Team' field.
+	(check_header_entry): Fix comparison with default value. When the
+	'Language' field is missing, signal a warning.
+	* Makefile.am (libgettextsrc_la_SOURCES): Add msgl-header.c.
+	(msgmerge_SOURCES): Add lang-table.c.
+	* FILES: Update.
+
 2007-12-22  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Avoid breaking line in the middle of a format

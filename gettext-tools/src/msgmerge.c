@@ -55,6 +55,7 @@
 #include "msgl-equal.h"
 #include "msgl-fsearch.h"
 #include "lock.h"
+#include "lang-table.h"
 #include "plural-exp.h"
 #include "plural-count.h"
 #include "msgl-check.h"
@@ -88,6 +89,9 @@ static bool use_fuzzy_matching = true;
 /* Determines whether to keep old msgids as previous msgids.  */
 static bool keep_previous = false;
 
+/* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
+static const char *catalogname = NULL;
+
 /* List of user-specified compendiums.  */
 static message_list_list_ty *compendiums;
 
@@ -110,6 +114,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "lang", required_argument, NULL, CHAR_MAX + 8 },
   { "multi-domain", no_argument, NULL, 'm' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-fuzzy-matching", no_argument, NULL, 'N' },
@@ -307,6 +312,10 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 7: /* --previous */
 	keep_previous = true;
+	break;
+
+      case CHAR_MAX + 8: /* --lang */
+	catalogname = optarg;
 	break;
 
       default:
@@ -535,6 +544,8 @@ Input file syntax:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --lang=CATALOGNAME      set 'Language' field in the header entry\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\
@@ -795,15 +806,17 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 #define LAST_TRANSLATOR		4
 	{ "Language-Team:", sizeof ("Language-Team:") - 1 },
 #define LANGUAGE_TEAM		5
+	{ "Language:", sizeof ("Language:") - 1 },
+#define LANGUAGE		6
 	{ "MIME-Version:", sizeof ("MIME-Version:") - 1 },
-#define MIME_VERSION		6
+#define MIME_VERSION		7
 	{ "Content-Type:", sizeof ("Content-Type:") - 1 },
-#define CONTENT_TYPE		7
+#define CONTENT_TYPE		8
 	{ "Content-Transfer-Encoding:",
 	  sizeof ("Content-Transfer-Encoding:") - 1 }
-#define CONTENT_TRANSFER	8
+#define CONTENT_TRANSFER	9
       };
-#define UNKNOWN	9
+#define UNKNOWN	10
       struct
       {
 	const char *string;
@@ -874,6 +887,112 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
 	  cp = endp;
 	}
+
+      /* Set the Language field if specified on the command line.  */
+      if (catalogname != NULL)
+	{
+	  /* Prepend a space and append a newline.  */
+	  size_t len = strlen (catalogname);
+	  char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
+	  stpcpy (stpcpy (stpcpy (copy, " "), catalogname), "\n");
+	  header_fields[LANGUAGE].string = copy;
+	  header_fields[LANGUAGE].len = strlen (header_fields[LANGUAGE].string);
+	}
+      /* Add a Language field to PO files that don't have one.  The Language
+	 field was introduced in gettext-0.18.  */
+      else if (header_fields[LANGUAGE].string == NULL)
+	{
+	  const char *language_team_ptr = header_fields[LANGUAGE_TEAM].string;
+
+	  if (language_team_ptr != NULL)
+	    {
+	      size_t language_team_len = header_fields[LANGUAGE_TEAM].len;
+
+	      /* Trim leading blanks.  */
+	      while (language_team_len > 0
+		     && (*language_team_ptr == ' '
+			 || *language_team_ptr == '\t'))
+		{
+		  language_team_ptr++;
+		  language_team_len--;
+		}
+
+	      /* Trim trailing blanks.  */
+	      while (language_team_len > 0
+		     && (language_team_ptr[language_team_len - 1] == ' '
+			 || language_team_ptr[language_team_len - 1] == '\t'))
+		language_team_len--;
+
+	      /* Trim last word, if it looks like an URL or email address.  */
+	      {
+		size_t i;
+
+		for (i = language_team_len; i > 0; i--)
+		  if (language_team_ptr[i - 1] == ' '
+		      || language_team_ptr[i - 1] == '\t')
+		    break;
+		/* The last word: language_team_ptr[i..language_team_len-1].  */
+		if (i < language_team_len
+		    && (language_team_ptr[i] == '<'
+			|| language_team_ptr[language_team_len - 1] == '>'
+			|| memchr (language_team_ptr, '@', language_team_len)
+			   != NULL
+			|| memchr (language_team_ptr, '/', language_team_len)
+			   != NULL))
+		  {
+		    /* Trim last word and blanks before it.  */
+		    while (i > 0
+			   && (language_team_ptr[i - 1] == ' '
+			       || language_team_ptr[i - 1] == '\t'))
+		      i--;
+		    language_team_len = i;
+		  }
+	      }
+
+	      /* The rest of the Language-Team field should be the english name
+		 of the languge.  Convert to ISO 639 and ISO 3166 syntax.  */
+	      {
+		size_t i;
+
+		for (i = 0; i < language_variant_table_size; i++)
+		  if (strlen (language_variant_table[i].english)
+		      == language_team_len
+		      && memcmp (language_variant_table[i].english,
+				 language_team_ptr, language_team_len) == 0)
+		    {
+		      header_fields[LANGUAGE].string =
+			language_variant_table[i].code;
+		      break;
+		    }
+	      }
+	      if (header_fields[LANGUAGE].string == NULL)
+		{
+		  size_t i;
+
+		  for (i = 0; i < language_table_size; i++)
+		    if (strlen (language_table[i].english) == language_team_len
+			&& memcmp (language_table[i].english,
+				   language_team_ptr, language_team_len) == 0)
+		      {
+			header_fields[LANGUAGE].string = language_table[i].code;
+			break;
+		      }
+		}
+	      if (header_fields[LANGUAGE].string != NULL)
+		{
+		  /* Prepend a space and append a newline.  */
+		  const char *str = header_fields[LANGUAGE].string;
+		  size_t len = strlen (str);
+		  char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
+		  stpcpy (stpcpy (stpcpy (copy, " "), str), "\n");
+		  header_fields[LANGUAGE].string = copy;
+		}
+	      else
+		header_fields[LANGUAGE].string = " \n";
+	      header_fields[LANGUAGE].len =
+		strlen (header_fields[LANGUAGE].string);
+	    }
+        }
 
       {
 	const char *msgid_bugs_ptr;
@@ -956,6 +1075,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       IF_FILLED (PO_REVISION_DATE);
       IF_FILLED (LAST_TRANSLATOR);
       IF_FILLED (LANGUAGE_TEAM);
+      IF_FILLED (LANGUAGE);
       IF_FILLED (MIME_VERSION);
       IF_FILLED (CONTENT_TYPE);
       IF_FILLED (CONTENT_TRANSFER);
