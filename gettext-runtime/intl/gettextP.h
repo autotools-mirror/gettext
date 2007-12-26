@@ -231,6 +231,10 @@ extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
 extern const char *_nl_language_preferences_default (void);
 # define gl_locale_name_canonicalize _nl_locale_name_canonicalize
 extern void _nl_locale_name_canonicalize (char *name);
+# define gl_locale_name_from_win32_LANGID _nl_locale_name_from_win32_LANGID
+/* extern const char *_nl_locale_name_from_win32_LANGID (LANGID langid); */
+# define gl_locale_name_from_win32_LCID _nl_locale_name_from_win32_LCID
+/* extern const char *_nl_locale_name_from_win32_LCID (LCID lcid); */
 # define gl_locale_name_posix _nl_locale_name_posix
 extern const char *_nl_locale_name_posix (int category,
 					  const char *categoryname);

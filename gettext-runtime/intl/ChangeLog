@@ -1,3 +1,21 @@
+2007-12-25  KJK::Hyperion  <hackbunny@reactos.com>
+            Bruno Haible  <bruno@clisp.org>
+
+	* gettextP.h (gl_locale_name_from_win32_LANGID,
+	gl_locale_name_from_win32_LCID): New macros.
+	* localename.c (gl_locale_name_canonicalize) [WIN32_NATIVE]: New
+	function.
+	(gl_locale_name_from_win32_LANGID, gl_locale_name_from_win32_LCID):
+	New functions, mostly extracted from gl_locale_name_default.
+	(gl_locale_name_default): Use gl_locale_name_from_win32_LCID.
+	* langprefs.c [WIN32_NATIVE] (_nl_locale_name_canonicalize,
+	_nl_locale_name_from_win32_LANGID, _nl_locale_name_from_win32_LCID):
+	New declarations.
+	(_nl_language_preferences_win32_mui, _nl_language_preferences_win32_ME,
+	_nl_language_preferences_win32_95, ret_first_language,
+	_nl_language_preferences_win32_system): New functions.
+	(_nl_language_preferences_default): Use them.
+
 2007-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h (gl_recursive_lock_init) [PTHREAD &&
