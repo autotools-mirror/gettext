@@ -1,3 +1,7 @@
+2008-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* pt.po: Update from Helder Correia <helder.pereira.correia@gmail.com>.
+
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in ($(POFILES), .nop.po-update): When using msgmerge
