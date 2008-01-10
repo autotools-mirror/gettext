@@ -117,8 +117,13 @@ $(DOMAIN).pot:
 # Note that a PO file is not touched if it doesn't need to be changed.
 $(POFILES): $(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
-	echo "$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot"; \
-	$(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot
+	echo "$(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
+	case `$(MSGMERGE_UPDATE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
+	    $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot;; \
+	  *) \
+	    $(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
+	esac
 
 update-po:
 	$(MAKE) $(DOMAIN).pot-update
@@ -131,8 +136,14 @@ update-po:
 	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
-	echo "$(MSGMERGE) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
-	if $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot; then \
+	echo "$(MSGMERGE) --lang=$$lang $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	if { case `$(MSGMERGE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	       '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
+	         $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	       *) \
+	         $(MSGMERGE) --lang=$$lang -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	     esac; \
+	   }; then \
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	    rm -f $$tmpdir/$$lang.new.po; \
 	  else \
