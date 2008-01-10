@@ -386,8 +386,8 @@
 
 2007-04-30  Bruno Haible  <bruno@clisp.org>
 
-        * lang-php: Remove 'echo' of printf result.
-        Patch by Jens Petersen <petersen@redhat.com>.
+	* lang-php: Remove 'echo' of printf result.
+	Patch by Jens Petersen <petersen@redhat.com>.
 
 2007-03-27  Bruno Haible  <bruno@clisp.org>
 
@@ -603,7 +603,7 @@
 
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
-        * recode-sr-latin-2: Skip the test on MacOS X and BeOS.
+	* recode-sr-latin-2: Skip the test on MacOS X and BeOS.
 
 2006-06-04  Bruno Haible  <bruno@clisp.org>
 
@@ -975,7 +975,7 @@
 
 2005-07-16  Bruno Haible  <bruno@clisp.org>
 
-        * msgcat-stringtable-1: Filter out warning message from output.
+	* msgcat-stringtable-1: Filter out warning message from output.
 
 2005-05-27  Bruno Haible  <bruno@clisp.org>
 
