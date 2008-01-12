@@ -1,3 +1,8 @@
+2008-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* msgfilter.texi: Fix last example.
+	Reported by Benno Schulenberg <bensberg@justemail.net>.
+
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Header Entry): Document the 'Language' field.

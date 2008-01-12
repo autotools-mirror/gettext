@@ -231,5 +231,5 @@ msgconv -t UTF-8 de.po | msgfilter sed -e 's/@ss{}/ss/g'
 To convert Serbian translations in Cyrillic script to Latin script:
 
 @smallexample
-msgfilter recode-sr-latin sr.po
+msgfilter recode-sr-latin < sr.po
 @end smallexample
