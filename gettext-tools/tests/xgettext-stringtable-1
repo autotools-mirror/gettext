@@ -27,7 +27,9 @@ tmpfiles="$tmpfiles xg-st-1.tmp xg-st-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o xg-st-1.tmp xg-st-1.strings
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-st-1.tmp | tr -d '\r' > xg-st-1.po
+# Don't simplify this to "grep ... < xg-st-1.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-st-1.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-st-1.po
 
 tmpfiles="$tmpfiles xg-st-1.ok"
 cat <<\EOF > xg-st-1.ok

@@ -1,3 +1,15 @@
+2008-01-12  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-glade-2: Use 'grep' with a pipe as input, not a regular
+	file.
+	* xgettext-glade-3: Likewise.
+	* xgettext-java-2: Likewise.
+	* xgettext-python-1: Likewise.
+	* xgettext-python-3: Likewise.
+	* xgettext-stringtable-1: Likewise.
+	* xgettext-tcl-1: Likewise.
+	Fixes test failures on OpenBSD 4.0.
+
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-3-prg.c: Don't include setenv.h.

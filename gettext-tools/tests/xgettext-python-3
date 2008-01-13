@@ -55,7 +55,9 @@ test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location --from-code=euc-jp \
   -o xg-py-3a.tmp xg-py-3a.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-py-3a.tmp | tr -d '\r' > xg-py-3a.pot
+# Don't simplify this to "grep ... < xg-py-3a.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-py-3a.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-py-3a.pot
 
 : ${DIFF=diff}
 ${DIFF} xg-py-3.ok xg-py-3a.pot
@@ -67,7 +69,9 @@ tmpfiles="$tmpfiles xg-py-3b.tmp xg-py-3b.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location \
   -o xg-py-3b.tmp xg-py-3b.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-py-3b.tmp | tr -d '\r' > xg-py-3b.pot
+# Don't simplify this to "grep ... < xg-py-3b.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-py-3b.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-py-3b.pot
 
 ${DIFF} xg-py-3.ok xg-py-3b.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -79,7 +83,9 @@ tmpfiles="$tmpfiles xg-py-3c.tmp xg-py-3c.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location --from-code=iso-8859-1 \
   -o xg-py-3c.tmp xg-py-3b.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-py-3c.tmp | tr -d '\r' > xg-py-3c.pot
+# Don't simplify this to "grep ... < xg-py-3c.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-py-3c.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-py-3c.pot
 
 ${DIFF} xg-py-3.ok xg-py-3c.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -99,7 +105,9 @@ tmpfiles="$tmpfiles xg-py-3d.tmp xg-py-3d.pot"
 ${XGETTEXT} --add-comments=TRANSLATORS: \
   -o xg-py-3d.tmp xg-py-3d.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-py-3d.tmp | tr -d '\r' > xg-py-3d.pot
+# Don't simplify this to "grep ... < xg-py-3d.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-py-3d.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-py-3d.pot
 
 tmpfiles="$tmpfiles xg-py-3d.ok"
 cat <<\EOF > xg-py-3d.ok

@@ -63,7 +63,9 @@ tmpfiles="$tmpfiles xg-gl-2.tmp xg-gl-2.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments -o xg-gl-2.tmp simple.glade 
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-grep -v 'POT-Creation-Date' < xg-gl-2.tmp > xg-gl-2.pot
+# Don't simplify this to "grep ... < xg-gl-2.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-gl-2.tmp | grep -v 'POT-Creation-Date' > xg-gl-2.pot
 
 tmpfiles="$tmpfiles xg-gl-2.ok"
 cat <<\EOF > xg-gl-2.ok
