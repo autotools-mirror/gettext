@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ read-po.h read-properties.h read-stringtable.h \
 str-list.h \
 color.h write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
-msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h \
+msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
 msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
 plural-count.h plural-eval.h \
 read-mo.h write-mo.h \
