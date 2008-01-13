@@ -1,3 +1,14 @@
+2008-01-13  Bruno Haible  <bruno@clisp.org>
+
+	New configure option --disable-curses.
+	* m4/curses.m4: New file.
+	* m4/termcap.m4 (gl_TERMCAP_BODY): Require gl_CURSES and consider its
+	result.
+	* m4/terminfo.m4 (gl_TERMINFO_BODY): Likewise.
+	* modules/termcap (Files): Add m4/curses.m4.
+	* modules/terminfo (Files): Likewise.
+	* Makefile.am (EXTRA_DIST): Add m4/curses.m4.
+
 2007-11-09  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libglib.m4 (gl_LIBGLIB): Ensure that the <glib.h> is from a glib

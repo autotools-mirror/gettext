@@ -3,6 +3,7 @@ Information about terminal capabilities.
 
 Files:
 m4/terminfo.m4
+m4/curses.m4
 lib/tparm.c
 lib/tputs.c
 

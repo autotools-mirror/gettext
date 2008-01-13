@@ -1,5 +1,5 @@
-# terminfo.m4 serial 2 (gettext-0.17)
-dnl Copyright (C) 2000-2002, 2006 Free Software Foundation, Inc.
+# terminfo.m4 serial 3 (gettext-0.18)
+dnl Copyright (C) 2000-2002, 2006, 2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -37,25 +37,51 @@ AC_DEFUN([gl_TERMINFO_BODY],
   dnl tparm().
   dnl Some systems, like mingw, have nothing at all.
 
+  dnl Some people want to avoid these libraries, in special situations such
+  dnl as when cross-compiling.
+  AC_REQUIRE([gl_CURSES])
+
   dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
   AC_REQUIRE([AC_LIB_RPATH])
 
-  dnl Search for libncurses and define LIBNCURSES, LTLIBNCURSES and INCNCURSES
-  dnl accordingly.
-  AC_LIB_LINKFLAGS_BODY([ncurses])
+  if test "$gl_curses_allowed" != no; then
 
-  dnl Search for libtermcap and define LIBTERMCAP, LTLIBTERMCAP and INCTERMCAP
-  dnl accordingly.
-  AC_LIB_LINKFLAGS_BODY([termcap])
+    dnl Search for libncurses and define LIBNCURSES, LTLIBNCURSES and INCNCURSES
+    dnl accordingly.
+    AC_LIB_LINKFLAGS_BODY([ncurses])
 
-  dnl Search for libxcurses and define LIBXCURSES, LTLIBXCURSES and INCXCURSES
-  dnl accordingly.
-  AC_LIB_LINKFLAGS_BODY([xcurses])
+    dnl Search for libtermcap and define LIBTERMCAP, LTLIBTERMCAP and INCTERMCAP
+    dnl accordingly.
+    AC_LIB_LINKFLAGS_BODY([termcap])
 
-  dnl Search for libcurses and define LIBCURSES, LTLIBCURSES and INCCURSES
-  dnl accordingly.
-  AC_LIB_LINKFLAGS_BODY([curses])
+    dnl Search for libxcurses and define LIBXCURSES, LTLIBXCURSES and INCXCURSES
+    dnl accordingly.
+    AC_LIB_LINKFLAGS_BODY([xcurses])
+
+    dnl Search for libcurses and define LIBCURSES, LTLIBCURSES and INCCURSES
+    dnl accordingly.
+    AC_LIB_LINKFLAGS_BODY([curses])
+
+  else
+
+    LIBNCURSES=
+    LTLIBNCURSES=
+    INCNCURSES=
+
+    LIBTERMCAP=
+    LTLIBTERMCAP=
+    INCTERMCAP=
+
+    LIBXCURSES=
+    LTLIBXCURSES=
+    INCXCURSES=
+
+    LIBCURSES=
+    LTLIBCURSES=
+    INCCURSES=
+
+  fi
 
   dnl When searching for the terminfo functions, prefer libtermcap over
   dnl libxcurses and libcurses, because it is smaller.
