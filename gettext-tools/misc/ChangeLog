@@ -1,5 +1,10 @@
 2008-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* autopoint.in (xver): Make its computation more robust.
+	Reported by Michael Bauschert <Michael.Bauschert@de.ibm.com>.
+
+2008-01-18  Bruno Haible  <bruno@clisp.org>
+
 	* autopoint.in: Fix line breaking in an error message.
 
 2007-12-02  Bruno Haible  <bruno@clisp.org>
