@@ -18,8 +18,8 @@
 
 2007-10-17  Bruno Haible  <bruno@clisp.org>
 
-        * po-mode.el (po-msgstr-form-flavor): Renamed from
-        po-this-msgstr-flavor. New defvar.
+	* po-mode.el (po-msgstr-form-flavor): Renamed from
+	po-this-msgstr-flavor. New defvar.
 
 2007-10-15  Bruno Haible  <bruno@clisp.org>
 
