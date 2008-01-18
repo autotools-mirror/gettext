@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002-2007 Free Software Foundation, Inc.
+# Copyright (C) 2002-2008 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -296,8 +296,8 @@ case "$ver" in
   0.17 )
     ;;
   *)
-    func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in\
-               file requires the infrastructure from gettext-$ver but this version\
+    func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in
+               file requires the infrastructure from gettext-$ver but this version
                is older. Please upgrade to gettext-$ver or newer."
     ;;
 esac
