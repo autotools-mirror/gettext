@@ -1,5 +1,12 @@
 2008-02-04  Bruno Haible  <bruno@clisp.org>
 
+	* msgmerge.c (match_domain): Remove the prev_msgid fields also from
+	the untranslated messages.
+	Reported by Yukiko Bando <ybando@k6.dion.ne.jp> via
+	Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>.
+
+2008-02-04  Bruno Haible  <bruno@clisp.org>
+
 	* msgmerge.c (message_merge): Store the prev_msgid field also if the
 	resulting message is not fuzzy: it might be marked as fuzzy later.
 	(match_domain): Remove the prev_msgid fields from the non-fuzzy

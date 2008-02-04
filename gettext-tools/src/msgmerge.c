@@ -1172,9 +1172,9 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
      Do so only when --previous is specified, for backward compatibility.
      Since the "previous msgid" represents the original msgid that led to
      the current msgstr,
-       - we can omit it if the resulting message is not fuzzy (but do this
-         in a later pass, since result->is_fuzzy is not finalized at this
-         point),
+       - we can omit it if the resulting message is not fuzzy or is
+         untranslated (but do this in a later pass, since result->is_fuzzy
+         is not finalized at this point),
        - otherwise, if the corresponding message from the definition file
          was translated (not fuzzy), we use that message's msgid,
        - otherwise, we use that message's prev_msgid.  */
@@ -1496,13 +1496,14 @@ this message should not define plural forms"));
       }
   }
 
-  /* Now that mp->is_fuzzy is finalized for all messages, remove the previous
-     msgid information from all messages that are not fuzzy.  */
+  /* Now that mp->is_fuzzy is finalized for all messages, remove the
+     "previous msgid" information from all messages that are not fuzzy or
+     are untranslated.  */
   for (j = 0; j < resultmlp->nitems; j++)
     {
       message_ty *mp = resultmlp->item[j];
 
-      if (!mp->is_fuzzy)
+      if (!mp->is_fuzzy || mp->msgstr[0] == '\0')
 	{
 	  mp->prev_msgctxt = NULL;
 	  mp->prev_msgid = NULL;
