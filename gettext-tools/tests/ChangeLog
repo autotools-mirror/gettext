@@ -1,3 +1,10 @@
+2008-02-04  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-23: New file.
+	* Makefile.am (TESTS): Add it.
+	Reported by Yukiko Bando <ybando@k6.dion.ne.jp> via
+	Chusslove Illich (Часлав Илић) <caslav.ilic@gmx.net>.
+
 2008-01-12  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-glade-2: Use 'grep' with a pipe as input, not a regular
