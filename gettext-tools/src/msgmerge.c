@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -1172,11 +1172,13 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
      Do so only when --previous is specified, for backward compatibility.
      Since the "previous msgid" represents the original msgid that led to
      the current msgstr,
-       - we can omit it if the resulting message is not fuzzy,
+       - we can omit it if the resulting message is not fuzzy (but do this
+         in a later pass, since result->is_fuzzy is not finalized at this
+         point),
        - otherwise, if the corresponding message from the definition file
          was translated (not fuzzy), we use that message's msgid,
        - otherwise, we use that message's prev_msgid.  */
-  if (keep_previous && result->is_fuzzy)
+  if (keep_previous)
     {
       result->prev_msgctxt = prev_msgctxt;
       result->prev_msgid = prev_msgid;
@@ -1493,6 +1495,20 @@ this message should not define plural forms"));
 	  }
       }
   }
+
+  /* Now that mp->is_fuzzy is finalized for all messages, remove the previous
+     msgid information from all messages that are not fuzzy.  */
+  for (j = 0; j < resultmlp->nitems; j++)
+    {
+      message_ty *mp = resultmlp->item[j];
+
+      if (!mp->is_fuzzy)
+	{
+	  mp->prev_msgctxt = NULL;
+	  mp->prev_msgid = NULL;
+	  mp->prev_msgid_plural = NULL;
+	}
+    }
 }
 
 static msgdomain_list_ty *

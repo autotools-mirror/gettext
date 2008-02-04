@@ -1,3 +1,10 @@
+2008-02-04  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.c (message_merge): Store the prev_msgid field also if the
+	resulting message is not fuzzy: it might be marked as fuzzy later.
+	(match_domain): Remove the prev_msgid fields from the non-fuzzy
+	messages.
+
 2008-01-29  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Change the severity of the "should not contain
