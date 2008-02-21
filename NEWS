@@ -9,6 +9,8 @@ Version 0.18 - January 2008
   msgmerge, msgcat, msgen have a new option --lang that allows to specify
   this field.  Additionally, msgmerge fills in this new field by looking at
   the 'Language-Team' field (if the --lang option is not given).
+
+* Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 Version 0.17 - November 2007
 
