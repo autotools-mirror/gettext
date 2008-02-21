@@ -1,5 +1,5 @@
 /* GCC internal format strings.
-   Copyright (C) 2003-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,12 +32,12 @@
 #define _(str) gettext (str)
 
 /* GCC internal format strings consist of language frontend independent
-   format directives, implemented in gcc-4.1.0/gcc/pretty-print.c (function
+   format directives, implemented in gcc-4.3.0/gcc/pretty-print.c (function
    pp_base_format), plus some frontend dependent extensions:
      - for the C/ObjC frontend
-       in gcc-4.1.0/gcc/c-objc-common.c (function c_tree_printer)
+       in gcc-4.3.0/gcc/c-objc-common.c (function c_tree_printer)
      - for the C++ frontend
-       in gcc-4.1.0/gcc/cp/error.c (function cp_printer)
+       in gcc-4.3.0/gcc/cp/error.c (function cp_printer)
    Taking these together, GCC internal format strings are specified as follows.
 
    A directive
@@ -69,6 +69,7 @@
            - 'p', that needs a 'void *' argument,
            - 'H', that needs a 'location_t *' argument,
            - 'J', that needs a general declaration argument,
+           - 'K', that needs a statement argument,
              [see gcc/pretty-print.c]
 
            - 'D', that needs a general declaration argument,
@@ -107,11 +108,12 @@ enum format_arg_type
   FAT_SIZE_LONGLONG	= 2 << 5,
   FAT_SIZE_WIDE		= 3 << 5,
   FAT_TREE_DECL		= 1 << 7,
-  FAT_TREE_FUNCDECL	= 2 << 7,
-  FAT_TREE_TYPE		= 3 << 7,
-  FAT_TREE_ARGUMENT	= 4 << 7,
-  FAT_TREE_EXPRESSION	= 5 << 7,
-  FAT_TREE_CV		= 6 << 7,
+  FAT_TREE_STATEMENT	= 2 << 7,
+  FAT_TREE_FUNCDECL	= 3 << 7,
+  FAT_TREE_TYPE		= 4 << 7,
+  FAT_TREE_ARGUMENT	= 5 << 7,
+  FAT_TREE_EXPRESSION	= 6 << 7,
+  FAT_TREE_CV		= 7 << 7,
   FAT_TREE_CODE_BINOP	= 1 << 10,
   FAT_TREE_CODE_ASSOP	= 2 << 10,
   FAT_FUNCPARAM		= 1 << 12,
@@ -417,6 +419,8 @@ format_parse (const char *format, bool translated, char *fdi,
 	      type = FAT_LOCATION;
 	    else if (*format == 'J')
 	      type = FAT_TREE | FAT_TREE_DECL;
+	    else if (*format == 'K')
+	      type = FAT_TREE | FAT_TREE_STATEMENT;
 	    else
 	      {
 		if (*format == 'D')
@@ -763,6 +767,9 @@ format_print (void *descr)
 	  break;
 	case FAT_TREE | FAT_TREE_DECL:
 	  printf ("D");
+	  break;
+	case FAT_TREE | FAT_TREE_STATEMENT:
+	  printf ("K");
 	  break;
 	case FAT_TREE | FAT_TREE_FUNCDECL:
 	  printf ("F");

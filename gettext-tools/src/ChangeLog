@@ -1,3 +1,11 @@
+2008-02-20  Jakub Jelinek  <jakub@redhat.com>
+            Bruno Haible  <bruno@clisp.org>
+
+	* format-gcc-internal.c: Update for GCC 4.3.
+	(FAT_TREE_STATEMENT): New enum item.
+	(format_parse): Recognize %K.
+	(format_print): Update.
+
 2008-02-04  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge.c (match_domain): Remove the prev_msgid fields also from

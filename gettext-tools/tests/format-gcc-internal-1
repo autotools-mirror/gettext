@@ -43,6 +43,8 @@ cat <<\EOF > f-gi-1.data
 "abc%J"
 # Valid: %J with flags
 "%qJ"
+# Valid: %K with flags
+"%qK"
 # Valid: one pointer argument
 "abc%D"
 # Valid: one pointer argument
