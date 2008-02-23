@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -57,7 +57,9 @@
    wish to process HTML redirection tags need to include a HTML parser,
    and only full-fledged browsers like w3m, lynx, links have have both
    an URL fetcher (which covers at least the protocols "http", "ftp", "file")
-   and a HTML parser.  */
+   and a HTML parser.  [Well, this is not true: libxml2 and Java (see
+   <http://java.sun.com/products/jfc/tsc/articles/bookmarks/>) also contain
+   HTML parsers.]  */
 
 
 /* Long options.  */
