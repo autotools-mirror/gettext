@@ -1472,16 +1472,16 @@ search only.  @xref{Fuzzy Entries}.
 @kwindex no-c-format@r{ flag}
 These flags should not be added by a human.  Instead only the
 @code{xgettext} program adds them.  In an automated PO file processing
-system as proposed here the user changes would be thrown away again as
+system as proposed here, the user's changes would be thrown away again as
 soon as the @code{xgettext} program generates a new template file.
 
-The @code{c-format} flag tells that the untranslated string and the
+The @code{c-format} flag indicates that the untranslated string and the
 translation are supposed to be C format strings.  The @code{no-c-format}
-flag tells that they are not C format strings, even though the untranslated
+flag indicates that they are not C format strings, even though the untranslated
 string happens to look like a C format string (with @samp{%} directives).
 
-In case the @code{c-format} flag is given for a string the @code{msgfmt}
-does some more tests to check to validity of the translation.
+When the @code{c-format} flag is given for a string the @code{msgfmt}
+program does some more tests to check the validity of the translation.
 @xref{msgfmt Invocation}, @ref{c-format Flag} and @ref{c-format}.
 
 @item objc-format
