@@ -1,3 +1,10 @@
+2008-03-10  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (gettext Invocation): Mention that xgettext does not
+	support the various options.
+	(ngettext Invocation): Likewise.
+	Reported by Aurélio A. Heckert <aurium@gmail.com>.
+
 2008-02-02  Benno Schulenberg <bensberg@justemail.net>
 
 	* gettext.texi (PO Files): Stylistic improvements.

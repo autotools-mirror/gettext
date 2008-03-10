@@ -9325,10 +9325,18 @@ See @ref{eval_ngettext Invocation}.
 
 @include rt-gettext.texi
 
+Note: @code{xgettext} supports only the one-argument form of the
+@code{gettext} invocation, where no options are present and the
+@var{textdomain} is implicit, from the environment.
+
 @node ngettext Invocation, envsubst Invocation, gettext Invocation, sh
 @subsubsection Invoking the @code{ngettext} program
 
 @include rt-ngettext.texi
+
+Note: @code{xgettext} supports only the three-arguments form of the
+@code{ngettext} invocation, where no options are present and the
+@var{textdomain} is implicit, from the environment.
 
 @node envsubst Invocation, eval_gettext Invocation, ngettext Invocation, sh
 @subsubsection Invoking the @code{envsubst} program
