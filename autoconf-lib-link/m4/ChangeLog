@@ -1,5 +1,14 @@
 2008-03-11  Bruno Haible  <bruno@clisp.org>
 
+	Extend AC_LIB_LINKFLAGS to the situation of several libraries provided
+	by a single package.
+	* lib-link.m4 (AC_LIB_FROMPACKAGE): New macro.
+	(AC_LIB_LINKFLAGS_BODY): Use the information stored by
+	AC_LIB_FROMPACKAGE. Use AC_ARG_WITH instead of AC_LIB_ARG_WITH.
+	Reported by Sam Steingold <sds@gnu.org>.
+
+2008-03-11  Bruno Haible  <bruno@clisp.org>
+
 	Avoid conflicts between local macro definitions.
 	* lib-link.m4 (AC_LIB_LINKFLAGS, AC_LIB_HAVE_LINKFLAGS,
 	AC_LIB_LINKFLAGS_BODY): Use pushdef/popdef instead of define/undefine.
