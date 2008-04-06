@@ -24,7 +24,7 @@ tmpfiles="$tmpfiles mu-2.tmp mu-2.out"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o mu-2.tmp mu-2.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mu-2.tmp > mu-2.out
+LC_ALL=C tr -d '\r' < mu-2.tmp > mu-2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

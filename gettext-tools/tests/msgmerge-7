@@ -46,7 +46,7 @@ tmpfiles="$tmpfiles mm-test7.tmp mm-test7.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-test7.tmp mm-test7.po mm-test7.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mm-test7.tmp > mm-test7.out
+LC_ALL=C tr -d '\r' < mm-test7.tmp > mm-test7.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test7.ok"

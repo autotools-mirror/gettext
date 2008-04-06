@@ -18,7 +18,7 @@ tmpfiles="$tmpfiles xg-c-16.tmp.po xg-c-16.po"
 ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-c-16.tmp xg-c-16.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-16.tmp.po > xg-c-16.po
+LC_ALL=C tr -d '\r' < xg-c-16.tmp.po > xg-c-16.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-16.ok"

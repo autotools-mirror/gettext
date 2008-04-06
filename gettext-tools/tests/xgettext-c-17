@@ -22,7 +22,7 @@ tmpfiles="$tmpfiles xg-c-17.tmp.po xg-c-17.po"
 ${XGETTEXT} --omit-header --no-location -d xg-c-17.tmp --language=C++ --kde \
   xg-c-17.cc
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-17.tmp.po > xg-c-17.po
+LC_ALL=C tr -d '\r' < xg-c-17.tmp.po > xg-c-17.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-17.ok"

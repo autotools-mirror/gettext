@@ -31,7 +31,7 @@ tmpfiles="$tmpfiles mf-12.tmp mf-12.out"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o mf-12.tmp mf-12.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mf-12.tmp > mf-12.out
+LC_ALL=C tr -d '\r' < mf-12.tmp > mf-12.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mf-12.ok"

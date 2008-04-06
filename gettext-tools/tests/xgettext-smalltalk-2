@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles xg-st-2.tmp.po xg-st-2.po"
 ${XGETTEXT} --add-comments --omit-header --no-location \
   -d xg-st-2.tmp xg-st-2.st
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-st-2.tmp.po > xg-st-2.po
+LC_ALL=C tr -d '\r' < xg-st-2.tmp.po > xg-st-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-st-2.ok"

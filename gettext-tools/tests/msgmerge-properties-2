@@ -24,7 +24,7 @@ tmpfiles="$tmpfiles mm-p-2.po~ mm-p-2.tmp"
 ${MSGMERGE} -q --properties-input --update mm-p-2.po mm-p-2.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 mv mm-p-2.po mm-p-2.tmp || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mm-p-2.tmp > mm-p-2.po
+LC_ALL=C tr -d '\r' < mm-p-2.tmp > mm-p-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-p-2.ok"

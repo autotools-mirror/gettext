@@ -7,7 +7,7 @@ tmpfiles="$tmpfiles cake.tmp cake.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o cake.tmp --omit-header --no-location ${top_srcdir}/tests/plural-1-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < cake.tmp > cake.pot
+LC_ALL=C tr -d '\r' < cake.tmp > cake.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles cake.ok"
@@ -36,7 +36,7 @@ tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o fr.po.tmp fr.po cake.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < fr.po.tmp > fr.po.new
+LC_ALL=C tr -d '\r' < fr.po.tmp > fr.po.new
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
@@ -53,7 +53,7 @@ tmpfiles="$tmpfiles fr.po.tmp fr.po.un"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o fr.po.tmp fr/LC_MESSAGES/cake.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < fr.po.tmp > fr.po.un
+LC_ALL=C tr -d '\r' < fr.po.tmp > fr.po.un
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles fr.po.strip"
@@ -66,15 +66,15 @@ tmpfiles="$tmpfiles cake.ok cake.tmp cake.out"
 : ${DIFF=diff}
 echo 'un morceau de gateau' > cake.ok
 LANGUAGE= ./cake fr 1 > cake.tmp || exit 1
-tr -d '\r' < cake.tmp > cake.out || exit 1
+LC_ALL=C tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '2 morceaux de gateau' > cake.ok
 LANGUAGE= ./cake fr 2 > cake.tmp || exit 1
-tr -d '\r' < cake.tmp > cake.out || exit 1
+LC_ALL=C tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 echo '10 morceaux de gateau' > cake.ok
 LANGUAGE= ./cake fr 10 > cake.tmp || exit 1
-tr -d '\r' < cake.tmp > cake.out || exit 1
+LC_ALL=C tr -d '\r' < cake.tmp > cake.out || exit 1
 ${DIFF} cake.ok cake.out || exit 1
 
 rm -fr $tmpfiles

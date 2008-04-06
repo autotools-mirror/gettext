@@ -29,7 +29,7 @@ ${XGETTEXT} --omit-header \
   --keyword=title:1,\"xhtml-format\",\"xml-format\" \
   -d xg-test9.tmp xg-test9.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-test9.tmp.po > xg-test9.po
+LC_ALL=C tr -d '\r' < xg-test9.tmp.po > xg-test9.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test9.ok"

@@ -64,7 +64,7 @@ ${MSGCAT} --use-first --more-than=0 -o mcat-test3.tmp \
 result=$?
 cat mcat-test3.err | grep -v 'warning: .* encodings' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-test3.tmp > mcat-test3.out
+LC_ALL=C tr -d '\r' < mcat-test3.tmp > mcat-test3.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test3.ok"

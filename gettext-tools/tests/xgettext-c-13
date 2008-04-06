@@ -16,7 +16,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-c-13.tmp \
   --flag=foo:1:qt-format --flag=gettext:1:pass-qt-format --qt \
   xg-c-13.cc
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-13.tmp.po > xg-c-13.po
+LC_ALL=C tr -d '\r' < xg-c-13.tmp.po > xg-c-13.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-13.ok"

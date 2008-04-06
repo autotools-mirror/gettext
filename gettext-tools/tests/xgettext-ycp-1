@@ -15,7 +15,7 @@ tmpfiles="$tmpfiles xg-y-1.tmp.po xg-y-1.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location -k:1,2 -d xg-y-1.tmp xg-y-1.ycp
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-y-1.tmp.po > xg-y-1.po
+LC_ALL=C tr -d '\r' < xg-y-1.tmp.po > xg-y-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-y-1.ok"

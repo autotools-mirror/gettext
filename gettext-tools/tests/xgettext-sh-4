@@ -120,7 +120,7 @@ tmpfiles="$tmpfiles xg-sh-4.err xg-sh-4.tmp.po xg-sh-4.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location -d xg-sh-4.tmp xg-sh-4.sh 2>xg-sh-4.err
 test $? = 0 || { cat xg-sh-4.err; rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-sh-4.tmp.po > xg-sh-4.po
+LC_ALL=C tr -d '\r' < xg-sh-4.tmp.po > xg-sh-4.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-sh-4.ok"

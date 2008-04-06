@@ -17,7 +17,7 @@ tmpfiles="$tmpfiles xg-c-3.tmp.po xg-c-3.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --add-location -d xg-c-3.tmp xg-c-3.in.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-3.tmp.po > xg-c-3.po
+LC_ALL=C tr -d '\r' < xg-c-3.tmp.po > xg-c-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-3.ok"

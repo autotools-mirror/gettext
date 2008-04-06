@@ -11,7 +11,7 @@ ${MSGMERGE} -q -o mm-c-5.tmp \
   --compendium ${top_srcdir}/tests/mm-viet.comp.po \
   /dev/null ${top_srcdir}/tests/mm-viet.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mm-c-5.tmp > mm-c-5.out
+LC_ALL=C tr -d '\r' < mm-c-5.tmp > mm-c-5.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

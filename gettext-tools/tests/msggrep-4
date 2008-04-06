@@ -168,7 +168,7 @@ ${MSGGREP} -K -e error -f mg-test4.in1 -f mg-test4.in2 -e cannot -o mg-test4.tmp
 result=$?
 cat mg-test4.err | grep -v 'warning: Locale charset' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mg-test4.tmp > mg-test4.out
+LC_ALL=C tr -d '\r' < mg-test4.tmp > mg-test4.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test4.ok"

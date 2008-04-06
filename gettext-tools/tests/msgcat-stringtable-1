@@ -35,7 +35,7 @@ ${MSGCAT} --stringtable-input -o mcat-s-1.tmp mcat-s-1.in >mcat-s-1.err 2>&1
 result=$?
 cat mcat-s-1.err | grep -v ': internationalized messages'
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-s-1.tmp > mcat-s-1.out
+LC_ALL=C tr -d '\r' < mcat-s-1.tmp > mcat-s-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-s-1.ok"

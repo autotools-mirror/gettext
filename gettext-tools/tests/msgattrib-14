@@ -60,7 +60,7 @@ tmpfiles="$tmpfiles ma-test14.tmp ma-test14.out"
 : ${MSGATTRIB=msgattrib}
 ${MSGATTRIB} --obsolete --no-fuzzy -o ma-test14.tmp ma-test14.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < ma-test14.tmp > ma-test14.out
+LC_ALL=C tr -d '\r' < ma-test14.tmp > ma-test14.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test14.ok"

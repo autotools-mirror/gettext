@@ -63,7 +63,7 @@ ${MSGCOMM} --more-than=0 -o mcomm-test16.tmp \
 result=$?
 cat mcomm-test16.err | grep -v 'warning: .* encodings' | grep -v '^ '
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcomm-test16.tmp > mcomm-test16.out
+LC_ALL=C tr -d '\r' < mcomm-test16.tmp > mcomm-test16.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcomm-test16.ok"

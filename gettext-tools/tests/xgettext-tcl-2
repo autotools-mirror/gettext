@@ -23,7 +23,7 @@ tmpfiles="$tmpfiles xg-t-2.tmp.po xg-t-2.po"
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
   -d xg-t-2.tmp xg-t-2.tcl
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-t-2.tmp.po > xg-t-2.po
+LC_ALL=C tr -d '\r' < xg-t-2.tmp.po > xg-t-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-t-2.ok"

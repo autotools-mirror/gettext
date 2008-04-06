@@ -42,7 +42,7 @@ tmpfiles="$tmpfiles mm-test8.tmp mm-test8.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} --multi-domain -q -o mm-test8.tmp mm-test8.po mm-test8.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mm-test8.tmp > mm-test8.out
+LC_ALL=C tr -d '\r' < mm-test8.tmp > mm-test8.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test8.ok"

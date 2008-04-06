@@ -30,7 +30,7 @@ tmpfiles="$tmpfiles xg-ph-1.tmp.po xg-ph-1.po"
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-ph-1.tmp xg-ph-1.php
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-ph-1.tmp.po > xg-ph-1.po
+LC_ALL=C tr -d '\r' < xg-ph-1.tmp.po > xg-ph-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ph-1.ok"

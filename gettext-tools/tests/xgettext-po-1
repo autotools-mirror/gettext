@@ -50,7 +50,7 @@ tmpfiles="$tmpfiles xg-po-1.tmp.po xg-po-1.po"
 ${XGETTEXT} --omit-header -n \
   -d xg-po-1.tmp xg-po-1.in.po xg-po-1.c xg-po-1.cc
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-po-1.tmp.po > xg-po-1.po
+LC_ALL=C tr -d '\r' < xg-po-1.tmp.po > xg-po-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-po-1.ok"

@@ -18,7 +18,7 @@ tmpfiles="$tmpfiles xg-j-6.tmp.po xg-j-6.po"
 ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-j-6.tmp xg-j-6.java
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-j-6.tmp.po > xg-j-6.po
+LC_ALL=C tr -d '\r' < xg-j-6.tmp.po > xg-j-6.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-j-6.ok"

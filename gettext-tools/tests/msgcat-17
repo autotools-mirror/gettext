@@ -26,7 +26,7 @@ rm -f mcat-test17.tmp
 : ${MSGCAT=msgcat}
 ${MSGCAT} -o mcat-test17.tmp --width=80 mcat-test17.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-test17.tmp > mcat-test17.out
+LC_ALL=C tr -d '\r' < mcat-test17.tmp > mcat-test17.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test17.ok"

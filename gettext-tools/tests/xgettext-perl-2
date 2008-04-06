@@ -18,7 +18,7 @@ tmpfiles="$tmpfiles xg-pl-2.po"
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
 ${XGETTEXT} --output - --from-code=ISO-8859-1 xg-pl-2.pl \
-  | sed '/\"POT-Creation-Date:.*/d' | tr -d '\r' > xg-pl-2.po
+  | sed '/\"POT-Creation-Date:.*/d' | LC_ALL=C tr -d '\r' > xg-pl-2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pl-2.ok"

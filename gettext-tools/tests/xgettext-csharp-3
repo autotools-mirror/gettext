@@ -6,7 +6,7 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles xg-cs-3.cs"
-tr '%' '\015' <<\EOF > xg-cs-3.cs
+LC_ALL=C tr '%' '\015' <<\EOF > xg-cs-3.cs
 class TestCase {
   public static void Main (String[] args) {
     // Test recognition of \u escapes.
@@ -55,7 +55,7 @@ tmpfiles="$tmpfiles xg-cs-3.po"
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
 ${XGETTEXT} --output - --add-location -c -kMyGetString:2 xg-cs-3.cs 2>/dev/null \
-  | sed '/\"POT-Creation-Date:.*/d' | tr -d '\r' > xg-cs-3.po
+  | sed '/\"POT-Creation-Date:.*/d' | LC_ALL=C tr -d '\r' > xg-cs-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-cs-3.ok"

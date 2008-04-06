@@ -49,7 +49,7 @@ rm -f mcat-test15.tmp1
 : ${MSGCAT=msgcat}
 ${MSGCAT} -o mcat-test15.tmp1 mcat-test15.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-test15.tmp1 > mcat-test15.out1
+LC_ALL=C tr -d '\r' < mcat-test15.tmp1 > mcat-test15.out1
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
@@ -61,7 +61,7 @@ rm -f mcat-test15.tmp2
 : ${MSGCAT=msgcat}
 ${MSGCAT} --indent -o mcat-test15.tmp2 mcat-test15.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-test15.tmp2 > mcat-test15.out2
+LC_ALL=C tr -d '\r' < mcat-test15.tmp2 > mcat-test15.out2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test15.ok"

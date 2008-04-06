@@ -9,7 +9,7 @@ tmpfiles="$tmpfiles msguniq-3.tmp msguniq-3.out"
 : ${MSGUNIQ-msguniq}
 ${MSGUNIQ} -w 1000 -d -o msguniq-3.tmp ${top_srcdir}/tests/msguniq-a.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < msguniq-3.tmp > msguniq-3.out
+LC_ALL=C tr -d '\r' < msguniq-3.tmp > msguniq-3.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles msguniq-3.ok"

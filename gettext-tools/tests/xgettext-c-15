@@ -19,7 +19,7 @@ ${XGETTEXT} --omit-header --no-location \
   --keyword=Q_:1g --keyword=Q_:1g,2g \
   -d xg-c-15.tmp xg-c-15.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-15.tmp.po > xg-c-15.po
+LC_ALL=C tr -d '\r' < xg-c-15.tmp.po > xg-c-15.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-15.ok"

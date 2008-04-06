@@ -84,7 +84,7 @@ tmpfiles="$tmpfiles mm-test23.tmp.po mm-test23.new.po"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q --previous -o mm-test23.tmp.po mm-test23.po mm-test23.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mm-test23.tmp.po > mm-test23.new.po
+LC_ALL=C tr -d '\r' < mm-test23.tmp.po > mm-test23.new.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mm-test23.ok"

@@ -12,7 +12,7 @@ tmpfiles="$tmpfiles xg-c-1.tmp.po xg-c-1.po"
 ${XGETTEXT} -d xg-c-1.tmp -k_ --omit-header --no-location \
  $top_srcdir/src/xgettext.c $top_srcdir/src/msgfmt.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-1.tmp.po > xg-c-1.po
+LC_ALL=C tr -d '\r' < xg-c-1.tmp.po > xg-c-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

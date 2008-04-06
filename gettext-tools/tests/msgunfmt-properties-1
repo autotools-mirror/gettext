@@ -33,7 +33,7 @@ tmpfiles="$tmpfiles mu-p-1.tmp mu-p-1.out"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} --properties-output -o mu-p-1.tmp mu-p-1.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mu-p-1.tmp > mu-p-1.out
+LC_ALL=C tr -d '\r' < mu-p-1.tmp > mu-p-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

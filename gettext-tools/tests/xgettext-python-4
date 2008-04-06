@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles xg-py-3.tmp.po xg-py-3.po"
 ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-py-3.tmp xg-py-3.py
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-py-3.tmp.po > xg-py-3.po
+LC_ALL=C tr -d '\r' < xg-py-3.tmp.po > xg-py-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-py-3.ok"

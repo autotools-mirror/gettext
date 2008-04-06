@@ -29,7 +29,7 @@ ${XGETTEXT} \
   -k__x --flag=__x:1:perl-brace-format \
   -o prog.tmp --omit-header --no-location program.pl
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < prog.tmp > prog.pot
+LC_ALL=C tr -d '\r' < prog.tmp > prog.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles prog.ok"
@@ -78,7 +78,7 @@ tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o fr.po.tmp fr.po prog.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < fr.po.tmp > fr.po.new
+LC_ALL=C tr -d '\r' < fr.po.tmp > fr.po.new
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

@@ -14,7 +14,7 @@ tmpfiles="$tmpfiles xg-c-5.tmp.po xg-c-5.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-5.tmp xg-c-5.in.cc
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-c-5.tmp.po > xg-c-5.po
+LC_ALL=C tr -d '\r' < xg-c-5.tmp.po > xg-c-5.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-c-5.ok"

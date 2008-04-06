@@ -9,7 +9,7 @@ tmpfiles="$tmpfiles fc4.tmp fc4.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o fc4.tmp --omit-header --no-location ${top_srcdir}/tests/format-c-4-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < fc4.tmp > fc4.pot
+LC_ALL=C tr -d '\r' < fc4.tmp > fc4.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles fc4.ok"
@@ -44,7 +44,7 @@ tmpfiles="$tmpfiles de.po.tmp de.po.un"
 : ${MSGUNFMT=msgunfmt}
 ${MSGUNFMT} -o de.po.tmp de/LC_MESSAGES/fc4.mo
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < de.po.tmp > de.po.un
+LC_ALL=C tr -d '\r' < de.po.tmp > de.po.un
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

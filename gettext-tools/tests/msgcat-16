@@ -50,7 +50,7 @@ rm -f mcat-test16.tmp
 : ${MSGCAT=msgcat}
 ${MSGCAT} -o mcat-test16.tmp mcat-test16.in1 mcat-test16.in2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mcat-test16.tmp > mcat-test16.out
+LC_ALL=C tr -d '\r' < mcat-test16.tmp > mcat-test16.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mcat-test16.ok"

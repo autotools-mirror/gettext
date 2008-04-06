@@ -61,7 +61,7 @@ tmpfiles="$tmpfiles ma-test8.tmp ma-test8.out"
 : ${MSGATTRIB=msgattrib}
 ${MSGATTRIB} --set-fuzzy -o ma-test8.tmp ma-test8.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < ma-test8.tmp > ma-test8.out
+LC_ALL=C tr -d '\r' < ma-test8.tmp > ma-test8.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles ma-test8.ok"

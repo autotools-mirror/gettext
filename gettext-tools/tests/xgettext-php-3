@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles xg-ph-3.tmp.po xg-ph-3.po"
 ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-ph-3.tmp xg-ph-3.php
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-ph-3.tmp.po > xg-ph-3.po
+LC_ALL=C tr -d '\r' < xg-ph-3.tmp.po > xg-ph-3.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-ph-3.ok"

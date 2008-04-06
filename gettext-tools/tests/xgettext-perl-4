@@ -62,7 +62,7 @@ tmpfiles="$tmpfiles xg-pl-4.tmp.pot xg-pl-4.pot"
 LC_MESSAGES=C LC_ALL= \
 ${XGETTEXT} -a --omit-header --no-location -o xg-pl-4.tmp.pot xg-pl-4.pl
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-pl-4.tmp.pot > xg-pl-4.pot
+LC_ALL=C tr -d '\r' < xg-pl-4.tmp.pot > xg-pl-4.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-pl-4.ok"

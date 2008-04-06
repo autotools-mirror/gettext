@@ -30,7 +30,7 @@ ${XGETTEXT} --add-comments --no-location -o xg-py-1.tmp xg-py-1.py 2>xg-py-1.err
 test $? = 0 || { cat xg-py-1.err; rm -fr $tmpfiles; exit 1; }
 # Don't simplify this to "grep ... < xg-py-1.tmp", otherwise OpenBSD 4.0 grep
 # only outputs "Binary file (standard input) matches".
-cat xg-py-1.tmp | grep -v 'POT-Creation-Date' | tr -d '\r' > xg-py-1.pot
+cat xg-py-1.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-py-1.pot
 
 tmpfiles="$tmpfiles xg-py-1.ok"
 cat <<\EOF > xg-py-1.ok

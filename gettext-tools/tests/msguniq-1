@@ -9,7 +9,7 @@ tmpfiles="$tmpfiles msguniq-1.tmp msguniq-1.out"
 : ${MSGUNIQ-msguniq}
 ${MSGUNIQ} -w 1000 -o msguniq-1.tmp ${top_srcdir}/tests/msguniq-a.in
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < msguniq-1.tmp > msguniq-1.out
+LC_ALL=C tr -d '\r' < msguniq-1.tmp > msguniq-1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

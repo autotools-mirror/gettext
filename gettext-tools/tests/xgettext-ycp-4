@@ -18,7 +18,7 @@ tmpfiles="$tmpfiles xg-y-4.tmp.po xg-y-4.po"
 ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-y-4.tmp xg-y-4.ycp
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-y-4.tmp.po > xg-y-4.po
+LC_ALL=C tr -d '\r' < xg-y-4.tmp.po > xg-y-4.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-y-4.ok"

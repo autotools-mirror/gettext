@@ -28,7 +28,7 @@ tmpfiles="$tmpfiles xg-test2.tmp.po xg-test2.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -d xg-test2.tmp -k_ --omit-header --no-location xg-test2.in.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-test2.tmp.po > xg-test2.po
+LC_ALL=C tr -d '\r' < xg-test2.tmp.po > xg-test2.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test2.ok"

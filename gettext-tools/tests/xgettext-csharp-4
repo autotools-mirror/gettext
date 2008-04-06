@@ -20,7 +20,7 @@ tmpfiles="$tmpfiles xg-cs-4.tmp.po xg-cs-4.po"
 ${XGETTEXT} --omit-header --no-location --keyword=MyPluralString:2,3 \
   -d xg-cs-4.tmp xg-cs-4.cs
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-cs-4.tmp.po > xg-cs-4.po
+LC_ALL=C tr -d '\r' < xg-cs-4.tmp.po > xg-cs-4.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-cs-4.ok"

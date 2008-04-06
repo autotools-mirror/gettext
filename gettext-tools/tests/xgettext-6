@@ -95,7 +95,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-test6.tmp \
   xg-test6.jl xg-test6.java xg-test6.awk xg-test6.ycp xg-test6.tcl \
   xg-test6.pl xg-test6.php 
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < xg-test6.tmp.po > xg-test6.po
+LC_ALL=C tr -d '\r' < xg-test6.tmp.po > xg-test6.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-test6.ok"

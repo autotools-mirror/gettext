@@ -27,7 +27,7 @@ tmpfiles="$tmpfiles prog.tmp prog.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o prog.tmp --omit-header --add-location prog-in.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < prog.tmp > prog.pot
+LC_ALL=C tr -d '\r' < prog.tmp > prog.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
@@ -62,7 +62,7 @@ tmpfiles="$tmpfiles prog.tmp.po prog.po"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o prog.tmp.po --omit-header --add-location prog-in.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < prog.tmp.po > prog.po
+LC_ALL=C tr -d '\r' < prog.tmp.po > prog.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

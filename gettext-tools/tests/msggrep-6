@@ -120,7 +120,7 @@ LC_MESSAGES=C LC_ALL= \
 ${MSGGREP} --properties-input --properties-output -K -e error -T -e Speicher -o mg-test6.tmp mg-test6.properties
 result=$?
 test $result = 0 || { rm -fr $tmpfiles; exit 1; }
-tr -d '\r' < mg-test6.tmp > mg-test6.out
+LC_ALL=C tr -d '\r' < mg-test6.tmp > mg-test6.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mg-test6.ok"
