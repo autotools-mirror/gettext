@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -593,6 +593,7 @@ catalogname_for_locale (const char *locale)
     "man_ML",	/* Mandingo	Mali */
     "men_SL",	/* Mende	Sierra Leone */
     "mg_MG",	/* Malagasy	Madagascar */
+    "mi_NZ",	/* Maori	New Zealand */
     "min_ID",	/* Minangkabau	Indonesia */
     "mk_MK",	/* Macedonian	Macedonia */
     "ml_IN",	/* Malayalam	India */
@@ -662,6 +663,7 @@ catalogname_for_locale (const char *locale)
     "to_TO",	/* Tonga	Tonga */
     "tr_TR",	/* Turkish	Turkey */
     "tum_MW",	/* Tumbuka	Malawi */
+    "ug_CN",	/* Uighur	China */
     "uk_UA",	/* Ukrainian	Ukraine */
     "umb_AO",	/* Umbundu	Angola */
     "ur_PK",	/* Urdu		Pakistan */

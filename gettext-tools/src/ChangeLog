@@ -1,3 +1,7 @@
+2008-04-16  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (catalogname_for_locale): Add entries for Maori, Uighur.
+
 2008-02-20  Jakub Jelinek  <jakub@redhat.com>
             Bruno Haible  <bruno@clisp.org>
 
