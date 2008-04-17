@@ -1,3 +1,10 @@
+2008-04-16  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (SUBLANG_SINDHI_INDIA): New macro.
+	(SUBLANG_SINDHI_PAKISTAN): Change value from 1 to 2.
+	(gl_locale_name_from_win32_LANGID): Fix code for Sindhi.
+	Reported by Daniel Bergström <daniel@octocode.com>.
+
 2007-12-25  KJK::Hyperion  <hackbunny@reactos.com>
             Bruno Haible  <bruno@clisp.org>
 
