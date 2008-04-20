@@ -426,6 +426,13 @@ cd "$work_dir"
 cvsver=gettext-`echo "$ver" | sed -e 's/\./_/g'`
 (cvs checkout -r"$cvsver" archive > /dev/null) 2>&1 | grep -v '^cvs checkout: Updating'
 find archive -name CVS -type d -print | xargs rm -rf
+# Check that really all CVS directories are gone, otherwise we would overwrite
+# the contents of the user's CVS directories.
+if test `find archive -name CVS -type d -print | wc -l` != 0; then
+  cd ..
+  rm -rf "$cvs_dir" "$work_dir"
+  func_fatal_error "failed to remove all CVS subdirectories"
+fi
 if test `find archive -type f -print | wc -l` = 0; then
   cd ..
   rm -rf "$cvs_dir" "$work_dir"
