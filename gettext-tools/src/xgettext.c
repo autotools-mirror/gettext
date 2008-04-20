@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -823,8 +823,10 @@ Operation mode:\n"));
       printf (_("\
   -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"));
       printf (_("\
-  -c, --add-comments[=TAG]    place comment block with TAG (or those\n\
-                              preceding keyword lines) in output file\n"));
+  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n\
+                                preceding keyword lines in output file\n\
+  -c, --add-comments          place all comment blocks preceding keyword lines\n\
+                                in output file\n"));
       printf ("\n");
       printf (_("\
 Language specific options:\n"));
@@ -835,8 +837,8 @@ Language specific options:\n"));
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
                                 C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"));
       printf (_("\
-  -k, --keyword[=WORD]        additional keyword to be looked for (without\n\
-                              WORD means not to use default keywords)\n"));
+  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
+  -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
@@ -909,9 +911,11 @@ Output details:\n"));
       printf (_("\
       --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"));
       printf (_("\
-  -m, --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr entries\n"));
+  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr\n\
+                                values\n"));
       printf (_("\
-  -M, --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr entries\n"));
+  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr\n\
+                                values\n"));
       printf ("\n");
       printf (_("\
 Informative output:\n"));

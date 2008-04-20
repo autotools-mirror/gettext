@@ -116,12 +116,13 @@ Join messages with existing file.
 Entries from @var{file} are not extracted.  @var{file} should be a PO or
 POT file.
 
-@item -c [@var{tag}]
+@item -c[@var{tag}]
 @itemx --add-comments[=@var{tag}]
 @opindex -c@r{, @code{xgettext} option}
 @opindex --add-comments@r{, @code{xgettext} option}
-Place comment block with @var{tag} (or those preceding keyword lines)
-in output file.
+Place comment blocks starting with @var{tag} and preceding keyword lines
+in the output file.  Without a @var{tag}, the option means to put @emph{all}
+comment blocks preceding keyword lines in the output file.
 
 @end table
 
@@ -138,12 +139,12 @@ This option has an effect with most languages, namely C, C++, ObjectiveC,
 Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
 GCC-source, Glade.
 
-@item -k @var{keywordspec}
+@item -k[@var{keywordspec}]
 @itemx --keyword[=@var{keywordspec}]
 @opindex -k@r{, @code{xgettext} option}
 @opindex --keyword@r{, @code{xgettext} option}
-Additional keyword to be looked for (without @var{keywordspec} means not to
-use default keywords).
+Specify @var{keywordspec} as an additional keyword to be looked for.
+Without a @var{keywordspec}, the option means to not use default keywords.
 
 @cindex adding keywords, @code{xgettext}
 @cindex context, argument specification in @code{xgettext}
@@ -484,17 +485,17 @@ which the translators can contact you.
 The default value is empty, which means that translators will be clueless!
 Don't forget to specify this option.
 
-@item -m [@var{string}]
+@item -m[@var{string}]
 @itemx --msgstr-prefix[=@var{string}]
 @opindex -m@r{, @code{xgettext} option}
 @opindex --msgstr-prefix@r{, @code{xgettext} option}
-Use @var{string} (or "" if not specified) as prefix for msgstr entries.
+Use @var{string} (or "" if not specified) as prefix for msgstr values.
 
-@item -M [@var{string}]
+@item -M[@var{string}]
 @itemx --msgstr-suffix[=@var{string}]
 @opindex -M@r{, @code{xgettext} option}
 @opindex --msgstr-suffix@r{, @code{xgettext} option}
-Use @var{string} (or "" if not specified) as suffix for msgstr entries.
+Use @var{string} (or "" if not specified) as suffix for msgstr values.
 
 @end table
 

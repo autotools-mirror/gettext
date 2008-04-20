@@ -1,3 +1,8 @@
+2008-04-20  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.texi: Clarify single-letter options that take an optional
+	argument: -c, -k, -m, -M.
+
 2008-03-10  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (gettext Invocation): Mention that xgettext does not
