@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -64,8 +64,7 @@ gl_EARLY
 dnl Check for build configuration.
 
 gl_WOE32_DLL
-AC_LIBTOOL_WIN32_DLL
-AC_PROG_LIBTOOL
+LT_INIT([win32-dll])
 
 dnl On mingw and Cygwin, we can activate special Makefile rules which add
 dnl version information to the shared libraries and executables.

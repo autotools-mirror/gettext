@@ -1,3 +1,7 @@
+2008-04-20  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Use LT_INIT instead of AC_PROG_LIBTOOL.
+
 2007-11-26  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (decode_long_double): Don't abort if the 'long double'
