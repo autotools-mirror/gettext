@@ -1871,29 +1871,60 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 
 
 
+/* Error message about non-ASCII character in a specific lexical context.  */
+char *
+non_ascii_error_message (lexical_context_ty lcontext,
+			 const char *file_name, size_t line_number)
+{
+  char buffer[21];
+  char *errmsg;
+
+  if (line_number == (size_t)(-1))
+    buffer[0] = '\0';
+  else
+    sprintf (buffer, ":%ld", (long) line_number);
+
+  switch (lcontext)
+    {
+    case lc_outside:
+      errmsg =
+	xasprintf (_("Non-ASCII character at %s%s."), file_name, buffer);
+      break;
+    case lc_comment:
+      errmsg =
+	xasprintf (_("Non-ASCII comment at or before %s%s."),
+		   file_name, buffer);
+      break;
+    case lc_string:
+      errmsg =
+	xasprintf (_("Non-ASCII string at %s%s."), file_name, buffer);
+      break;
+    default:
+      abort ();
+    }
+  return errmsg;
+}
+
 /* Convert the given string from xgettext_current_source_encoding to
    the output file encoding (i.e. ASCII or UTF-8).
    The resulting string is either the argument string, or freshly allocated.
    The file_name and line_number are only used for error message purposes.  */
 char *
 from_current_source_encoding (const char *string,
+			      lexical_context_ty lcontext,
 			      const char *file_name, size_t line_number)
 {
   if (xgettext_current_source_encoding == po_charset_ascii)
     {
       if (!is_ascii_string (string))
 	{
-	  char buffer[21];
-
-	  if (line_number == (size_t)(-1))
-	    buffer[0] = '\0';
-	  else
-	    sprintf (buffer, ":%ld", (long) line_number);
 	  multiline_error (xstrdup (""),
-			   xasprintf (_("\
-Non-ASCII string at %s%s.\n\
-Please specify the source encoding through --from-code.\n"),
-				      file_name, buffer));
+			   xasprintf ("%s\n%s\n",
+				      non_ascii_error_message (lcontext,
+							       file_name,
+							       line_number),
+				      _("\
+Please specify the source encoding through --from-code.")));
 	  exit (EXIT_FAILURE);
 	}
     }
@@ -1920,8 +1951,8 @@ Please specify the source encoding through --from-code.\n"),
   return (char *) string;
 }
 
-#define CONVERT_STRING(string) \
-  string = from_current_source_encoding (string, pos->file_name, \
+#define CONVERT_STRING(string, lcontext) \
+  string = from_current_source_encoding (string, lcontext, pos->file_name, \
 					 pos->line_number);
 
 
@@ -2045,8 +2076,8 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   do_wrap = undecided;
 
   if (msgctxt != NULL)
-    CONVERT_STRING (msgctxt);
-  CONVERT_STRING (msgid);
+    CONVERT_STRING (msgctxt, lc_string);
+  CONVERT_STRING (msgid, lc_string);
 
   if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
     {
@@ -2114,7 +2145,7 @@ meta information, not the empty string.\n")));
 	if (s == NULL)
 	  break;
 
-	CONVERT_STRING (s);
+	CONVERT_STRING (s, lc_comment);
 
 	/* To reduce the possibility of unwanted matches we do a two
 	   step match: the line must contain `xgettext:' and one of
@@ -2271,7 +2302,7 @@ remember_a_message_plural (message_ty *mp, char *string,
 
   savable_comment_to_xgettext_comment (comment);
 
-  CONVERT_STRING (msgid_plural);
+  CONVERT_STRING (msgid_plural, lc_string);
 
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)

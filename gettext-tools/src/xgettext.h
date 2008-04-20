@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006, 2008 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -136,6 +136,21 @@ extern flag_context_list_ty *
 extern void xgettext_record_flag (const char *optionstring);
 
 
+/* Context while building up lexical tokens.  */
+typedef enum
+  {
+    lc_outside, /* Initial context: outside of comments and strings.  */
+    lc_comment, /* Inside a comment.  */
+    lc_string   /* Inside a string literal.  */
+  }
+  lexical_context_ty;
+
+/* Error message about non-ASCII character in a specific lexical context.  */
+extern char *non_ascii_error_message (lexical_context_ty lcontext,
+				      const char *file_name,
+				      size_t line_number);
+
+
 /* Canonicalized encoding name for all input files.  */
 extern const char *xgettext_global_source_encoding;
 
@@ -157,8 +172,10 @@ extern iconv_t xgettext_current_source_iconv;
 /* Convert the given string from xgettext_current_source_encoding to
    the output file encoding (i.e. ASCII or UTF-8).
    The resulting string is either the argument string, or freshly allocated.
-   The file_name and line_number are only used for error message purposes.  */
+   The lcontext, file_name and line_number are only used for error message
+   purposes.  */
 extern char *from_current_source_encoding (const char *string,
+					   lexical_context_ty lcontext,
 					   const char *file_name,
 					   size_t line_number);
 

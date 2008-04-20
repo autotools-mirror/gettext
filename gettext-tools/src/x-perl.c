@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2007 Free Software Foundation, Inc.
+   Copyright (C) 2002-2008 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -317,7 +317,7 @@ get_here_document (const char *delimiter)
 
       /* Convert to UTF-8.  */
       my_line_utf8 =
-	from_current_source_encoding (my_linebuf, logical_file_name,
+	from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
 				      line_number + here_eaten);
       if (my_line_utf8 != my_linebuf)
 	{
@@ -466,7 +466,8 @@ phase2_getc ()
       buffer[buflen] = '\0';
       /* Convert it to UTF-8.  */
       utf8_string =
-	from_current_source_encoding (buffer, logical_file_name, lineno);
+	from_current_source_encoding (buffer, lc_comment, logical_file_name,
+				      lineno);
       /* Save it until we encounter the corresponding string.  */
       savable_comment_add (utf8_string);
       last_comment_line = lineno;
@@ -735,7 +736,8 @@ extract_quotelike_pass1_utf8 (int delim)
 {
   char *string = extract_quotelike_pass1 (delim);
   char *utf8_string =
-    from_current_source_encoding (string, logical_file_name, line_number);
+    from_current_source_encoding (string, lc_string, logical_file_name,
+				  line_number);
   if (utf8_string != string)
     free (string);
   return utf8_string;

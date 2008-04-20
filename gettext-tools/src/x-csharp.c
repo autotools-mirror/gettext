@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -198,6 +198,8 @@ phase1_ungetc (int c)
 /* Newline Unicode character.  */
 #define UNL 0x000a
 
+static lexical_context_ty lexical_context;
+
 static int phase2_pushback[1];
 static int phase2_pushback_length;
 
@@ -215,13 +217,13 @@ phase2_getc ()
 	return UEOF;
       if (!c_isascii (c))
 	{
-	  char buffer[21];
-	  sprintf (buffer, ":%ld", (long) line_number);
 	  multiline_error (xstrdup (""),
-			   xasprintf (_("\
-Non-ASCII string at %s%s.\n\
-Please specify the source encoding through --from-code.\n"),
-			   real_file_name, buffer));
+			   xasprintf ("%s\n%s\n",
+				      non_ascii_error_message (lexical_context,
+							       real_file_name,
+							       line_number),
+				      _("\
+Please specify the source encoding through --from-code.")));
 	  exit (EXIT_FAILURE);
 	}
       return c;
@@ -595,6 +597,7 @@ static struct string_buffer comment_buffer;
 static inline void
 comment_start ()
 {
+  lexical_context = lc_comment;
   comment_buffer.utf8_buflen = 0;
 }
 
@@ -622,6 +625,7 @@ comment_line_end (size_t chars_to_remove)
     --buflen;
   buffer[buflen] = '\0';
   savable_comment_add (buffer);
+  lexical_context = lc_outside;
 }
 
 
@@ -1636,11 +1640,13 @@ phase6_get (token_ty *tp)
 	  {
 	    struct string_buffer literal;
 
+	    lexical_context = lc_string;
 	    init_string_buffer (&literal);
 	    accumulate_escaped (&literal, '"');
 	    tp->string = xstrdup (string_buffer_result (&literal));
 	    free_string_buffer (&literal);
 	    tp->comment = add_reference (savable_comment);
+	    lexical_context = lc_outside;
 	    tp->type = token_type_string_literal;
 	    return;
 	  }
@@ -1680,6 +1686,7 @@ phase6_get (token_ty *tp)
 	      /* Verbatim string literal.  */
 	      struct string_buffer literal;
 
+	      lexical_context = lc_string;
 	      init_string_buffer (&literal);
 	      for (;;)
 		{
@@ -1703,6 +1710,7 @@ phase6_get (token_ty *tp)
 	      tp->string = xstrdup (string_buffer_result (&literal));
 	      free_string_buffer (&literal);
 	      tp->comment = add_reference (savable_comment);
+	      lexical_context = lc_outside;
 	      tp->type = token_type_string_literal;
 	      return;
 	    }
@@ -2117,6 +2125,8 @@ extract_csharp (FILE *f,
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
+
+  lexical_context = lc_outside;
 
   logical_line_number = 1;
   last_comment_line = -1;

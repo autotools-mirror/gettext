@@ -1,5 +1,5 @@
 /* xgettext Java backend.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -401,11 +401,13 @@ struct string_buffer
   char *curr_buffer;
   size_t curr_buflen;
   size_t curr_allocated;
+  /* The lexical context.  Used only for error message purposes.  */
+  lexical_context_ty lcontext;
 };
 
 /* Initialize a 'struct string_buffer' to empty.  */
 static inline void
-init_string_buffer (struct string_buffer *bp)
+init_string_buffer (struct string_buffer *bp, lexical_context_ty lcontext)
 {
   bp->utf8_buffer = NULL;
   bp->utf8_buflen = 0;
@@ -414,6 +416,7 @@ init_string_buffer (struct string_buffer *bp)
   bp->curr_buffer = NULL;
   bp->curr_buflen = 0;
   bp->curr_allocated = 0;
+  bp->lcontext = lcontext;
 }
 
 /* Auxiliary function: Append a byte to bp->curr.  */
@@ -518,7 +521,7 @@ string_buffer_flush_curr_buffer (struct string_buffer *bp, int lineno)
       string_buffer_append_byte (bp, '\0');
 
       /* Convert from the source encoding to UTF-8.  */
-      curr = from_current_source_encoding (bp->curr_buffer,
+      curr = from_current_source_encoding (bp->curr_buffer, bp->lcontext,
 					   logical_file_name, lineno);
 
       /* Append it to bp->utf8_buffer.  */
@@ -625,6 +628,7 @@ comment_start ()
   comment_buffer.utf8_buflen = 0;
   comment_buffer.utf16_surr = 0;
   comment_buffer.curr_buflen = 0;
+  comment_buffer.lcontext = lc_comment;
 }
 
 static inline bool
@@ -1042,7 +1046,7 @@ phase5_get (token_ty *tp)
 	  {
 	    struct string_buffer literal;
 
-	    init_string_buffer (&literal);
+	    init_string_buffer (&literal, lc_string);
 	    accumulate_escaped (&literal, '"');
 	    tp->string = xstrdup (string_buffer_result (&literal));
 	    free_string_buffer (&literal);
@@ -1056,7 +1060,7 @@ phase5_get (token_ty *tp)
 	  {
 	    struct string_buffer literal;
 
-	    init_string_buffer (&literal);
+	    init_string_buffer (&literal, lc_outside);
 	    accumulate_escaped (&literal, '\'');
 	    free_string_buffer (&literal);
 	    tp->type = token_type_other;

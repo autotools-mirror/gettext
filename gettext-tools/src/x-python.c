@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2008 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -210,6 +210,8 @@ phase1_ungetc (int c)
 /* End-of-file indicator for functions returning an UCS-4 character.  */
 #define UEOF -1
 
+static lexical_context_ty lexical_context;
+
 static int phase2_pushback[max (9, UNINAME_MAX + 3)];
 static int phase2_pushback_length;
 
@@ -227,14 +229,14 @@ phase2_getc ()
 	return UEOF;
       if (!c_isascii (c))
 	{
-	  char buffer[21];
-	  sprintf (buffer, ":%ld", (long) line_number);
 	  multiline_error (xstrdup (""),
-			   xasprintf (_("\
-Non-ASCII string at %s%s.\n\
+			   xasprintf ("%s\n%s\n",
+				      non_ascii_error_message (lexical_context,
+							       real_file_name,
+							       line_number),
+				      _("\
 Please specify the source encoding through --from-code or through a comment\n\
-as specified in http://www.python.org/peps/pep-0263.html.\n"),
-			   real_file_name, buffer));
+as specified in http://www.python.org/peps/pep-0263.html.\n")));
 	  exit (EXIT_FAILURE);
 	}
       return c;
@@ -539,6 +541,7 @@ static struct unicode_string_buffer comment_buffer;
 static inline void
 comment_start ()
 {
+  lexical_context = lc_comment;
   comment_buffer.utf8_buflen = 0;
 }
 
@@ -565,6 +568,7 @@ comment_line_end ()
     --buflen;
   buffer[buflen] = '\0';
   savable_comment_add (buffer);
+  lexical_context = lc_outside;
   return buffer;
 }
 
@@ -793,11 +797,13 @@ struct mixed_string_buffer
   char *curr_buffer;
   size_t curr_buflen;
   size_t curr_allocated;
+  /* The lexical context.  Used only for error message purposes.  */
+  lexical_context_ty lcontext;
 };
 
 /* Initialize a 'struct mixed_string_buffer' to empty.  */
 static inline void
-init_mixed_string_buffer (struct mixed_string_buffer *bp)
+init_mixed_string_buffer (struct mixed_string_buffer *bp, lexical_context_ty lcontext)
 {
   bp->utf8_buffer = NULL;
   bp->utf8_buflen = 0;
@@ -806,6 +812,7 @@ init_mixed_string_buffer (struct mixed_string_buffer *bp)
   bp->curr_buffer = NULL;
   bp->curr_buflen = 0;
   bp->curr_allocated = 0;
+  bp->lcontext = lcontext;
 }
 
 /* Auxiliary function: Append a byte to bp->curr.  */
@@ -875,7 +882,7 @@ mixed_string_buffer_flush_curr_buffer (struct mixed_string_buffer *bp, int linen
       mixed_string_buffer_append_byte (bp, '\0');
 
       /* Convert from the source encoding to UTF-8.  */
-      curr = from_current_source_encoding (bp->curr_buffer,
+      curr = from_current_source_encoding (bp->curr_buffer, bp->lcontext,
 					   logical_file_name, lineno);
 
       /* Append it to bp->utf8_buffer.  */
@@ -1510,6 +1517,7 @@ phase5_get (token_ty *tp)
 	      interpret_unicode = false;
 	    string:
 	      triple = false;
+	      lexical_context = lc_string;
 	      {
 		int c1 = phase2_getc ();
 		if (c1 == quote_char)
@@ -1528,7 +1536,7 @@ phase5_get (token_ty *tp)
 	      }
 	      backslash_counter = 0;
 	      /* Start accumulating the string.  */
-	      init_mixed_string_buffer (&literal);
+	      init_mixed_string_buffer (&literal, lc_string);
 	      for (;;)
 		{
 		  int uc = phase7_getuc (quote_char, triple, interpret_ansic,
@@ -1546,6 +1554,7 @@ phase5_get (token_ty *tp)
 	      tp->string = xstrdup (mixed_string_buffer_result (&literal));
 	      free_mixed_string_buffer (&literal);
 	      tp->comment = add_reference (savable_comment);
+	      lexical_context = lc_outside;
 	      tp->type = token_type_string;
 	      return;
 	  }
@@ -1787,6 +1796,8 @@ extract_python (FILE *f,
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
+
+  lexical_context = lc_outside;
 
   last_comment_line = -1;
   last_non_comment_line = -1;
