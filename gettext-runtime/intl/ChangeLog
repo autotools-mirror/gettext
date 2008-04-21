@@ -1,3 +1,8 @@
+2008-04-21  Bruno Haible  <bruno@clisp.org>
+
+	* localename.c (SUBLANG_TIBETAN_PRC, SUBLANG_TIBETAN_BHUTAN): Actually
+	assign a value.
+
 2008-04-17  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h (gl_lock_destroy, gl_rwlock_destroy,
