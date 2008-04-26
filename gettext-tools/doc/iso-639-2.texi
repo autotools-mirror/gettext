@@ -2,12 +2,12 @@
 Achinese.
 @item awa
 Awadhi.
-@item bad
-Banda.
 @item bal
 Baluchi.
 @item ban
 Balinese.
+@item bej
+Beja; Bedawiyet.
 @item bem
 Bemba.
 @item bho
@@ -15,9 +15,7 @@ Bhojpuri.
 @item bik
 Bikol.
 @item bin
-Bini.
-@item btk
-Batak (Indonesia).
+Bini; Edo.
 @item bug
 Buginese.
 @item ceb
@@ -33,7 +31,7 @@ Fon.
 @item gon
 Gondi.
 @item gsw
-Alemani; Swiss German.
+Swiss German; Alemannic; Alsatian.
 @item hil
 Hiligaynon.
 @item hmn
@@ -87,7 +85,7 @@ Nyankole.
 @item pag
 Pangasinan.
 @item pam
-Pampanga.
+Pampanga; Kapampangan.
 @item raj
 Rajasthani.
 @item sas

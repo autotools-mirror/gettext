@@ -3028,7 +3028,7 @@ Italian, Portuguese, Spanish, Swedish, Walloon,
 @item @code{KOI8-R} for Russian,
 @item @code{KOI8-U} for Ukrainian,
 @item @code{KOI8-T} for Tajik,
-@item @code{CP1251} for Bulgarian, Byelorussian,
+@item @code{CP1251} for Bulgarian, Belarusian,
 @item @code{GB2312}, @code{GBK}, @code{GB18030}
 for simplified writing of Chinese,
 @item @code{BIG5}, @code{BIG5-HKSCS}

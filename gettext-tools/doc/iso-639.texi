@@ -2,8 +2,6 @@
 Afar.
 @item ab
 Abkhazian.
-@item ad
-Adangme.
 @item ae
 Avestan.
 @item af
@@ -27,7 +25,7 @@ Azerbaijani.
 @item ba
 Bashkir.
 @item be
-Byelorussian; Belarusian.
+Belarusian.
 @item bg
 Bulgarian.
 @item bh
@@ -101,7 +99,7 @@ Western Frisian.
 @item ga
 Irish.
 @item gd
-Scots; Gaelic.
+Scottish Gaelic.
 @item gl
 Galician.
 @item gn
@@ -133,11 +131,11 @@ Interlingua.
 @item id
 Indonesian (formerly in).
 @item ie
-Interlingue.
+Interlingue; Occidental.
 @item ig
 Igbo.
 @item ii
-Sichuan Yi.
+Sichuan Yi; Nuosu.
 @item ik
 Inupiak; Inupiaq.
 @item io
@@ -165,7 +163,7 @@ Kazakh.
 @item kl
 Kalaallisut; Greenlandic.
 @item km
-Khmer; Cambodian.
+Central Khmer; Cambodian.
 @item kn
 Kannada.
 @item ko
@@ -261,13 +259,13 @@ Pali.
 @item pl
 Polish.
 @item ps
-Pashto, Pushto.
+Pashto; Pushto.
 @item pt
 Portuguese.
 @item qu
 Quechua.
 @item rm
-Rhaeto-Romance.
+Romansh.
 @item rn
 Rundi; Kirundi.
 @item ro

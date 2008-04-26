@@ -1,3 +1,16 @@
+2008-04-25  Bruno Haible  <bruno@clisp.org>
+
+	* ISO_639: Remove Adangme. Update Belarusian, Scottish Gaelic,
+	Interlingue, Sichuan Yi, Central Khmer, Pashto, Romansh.
+	* ISO_639-2: Add Adangme, Classical Syriac, Blissymbols. Update
+	Aramaic, Mapudungun, Asturian, Banda, Beja, Bini, Batak, Carib,
+	Chipewyan, Dayak, Swiss German, Ijo, Kachin, Karen, Kru, Miscellaneous,
+	Nahuatl, Pampanga, Rarotongan, Songhai, Sranan Tongo, Zande,
+	No linguistic content.
+	* iso-639.texi: Regenerate.
+	* iso-639-2.texi: Regenerate.
+	* gettext.texi (Header Entry): Update name of Belarusian.
+
 2008-04-20  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.texi: Clarify single-letter options that take an optional

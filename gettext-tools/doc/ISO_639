@@ -12,7 +12,7 @@ Faeroese corrected to Faroese, 1995-11-18 by Keld Simonsen
 Updated from http://lcweb.loc.gov/standards/iso639-2/codechanges.html,
 2004-01-18 by Bruno Haible
 Updated from http://www.loc.gov/standards/iso639-2/index.html
-2006-10-05 by Bruno Haible
+2008-04-25 by Bruno Haible
 
 Two-letter lower-case symbols are used.
 The Registration Authority for ISO 639 is Infoterm, Osterreichisches
@@ -20,7 +20,6 @@ Normungsinstitut (ON), Postfach 130, A-1021 Vienna, Austria.
 
 aa Afar
 ab Abkhazian
-ad Adangme
 ae Avestan
 af Afrikaans
 ak Akan
@@ -33,7 +32,7 @@ ay Aymara
 az Azerbaijani
 
 ba Bashkir
-be Byelorussian; Belarusian
+be Belarusian
 bg Bulgarian
 bh Bihari
 bi Bislama
@@ -75,7 +74,7 @@ fr French
 fy Western Frisian
 
 ga Irish
-gd Scots; Gaelic
+gd Scottish Gaelic
 gl Galician
 gn Guarani
 gu Gujarati
@@ -93,9 +92,9 @@ hz Herero
 
 ia Interlingua
 id Indonesian (formerly in)
-ie Interlingue
+ie Interlingue; Occidental
 ig Igbo
-ii Sichuan Yi
+ii Sichuan Yi; Nuosu
 ik Inupiak; Inupiaq
 io Ido
 is Icelandic
@@ -111,7 +110,7 @@ ki Kikuyu; Gikuyu
 kj Kuanyama; Kwanyama
 kk Kazakh
 kl Kalaallisut; Greenlandic
-km Khmer; Cambodian
+km Central Khmer; Cambodian
 kn Kannada
 ko Korean
 kr Kanuri
@@ -164,12 +163,12 @@ os Ossetian; Ossetic
 pa Panjabi; Punjabi
 pi Pali
 pl Polish
-ps Pashto, Pushto
+ps Pashto; Pushto
 pt Portuguese
 
 qu Quechua
 
-rm Rhaeto-Romance
+rm Romansh
 rn Rundi; Kirundi
 ro Romanian
 ru Russian
