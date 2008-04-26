@@ -498,9 +498,9 @@ catalogname_for_locale (const char *locale)
     "av_RU",	/* Avaric	Russia */
     "awa_IN",	/* Awadhi	India */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
-    "bad_CF",	/* Banda	Central African Republic */
     "ban_ID",	/* Balinese	Indonesia */
     "be_BY",	/* Belarusian	Belarus */
+    "bej_SD",	/* Beja		Sudan */
     "bem_ZM",	/* Bemba	Zambia */
     "bg_BG",	/* Bulgarian	Bulgaria */
     "bho_IN",	/* Bhojpuri	India */
@@ -511,7 +511,6 @@ catalogname_for_locale (const char *locale)
     "bo_CN",	/* Tibetan	China */
     "br_FR",	/* Breton	France */
     "bs_BA",	/* Bosnian	Bosnia */
-    "btk_ID",	/* Batak	Indonesia */
     "bug_ID",	/* Buginese	Indonesia */
     "ca_ES",	/* Catalan	Spain */
     "ce_RU",	/* Chechen	Russia */
@@ -542,7 +541,7 @@ catalogname_for_locale (const char *locale)
     "fr_FR",	/* French	France */
     "fy_NL",	/* Western Frisian	Netherlands */
     "ga_IE",	/* Irish	Ireland */
-    "gd_GB",	/* Scots	Britain */
+    "gd_GB",	/* Scottish Gaelic	Britain */
     "gon_IN",	/* Gondi	India */
     "gsw_CH",	/* Swiss German	Switzerland */
     "gu_IN",	/* Gujarati	India */
@@ -572,7 +571,7 @@ catalogname_for_locale (const char *locale)
     "kg_CD",	/* Kongo	Democratic Republic of Congo */
     "kk_KZ",	/* Kazakh	Kazakhstan */
     "kl_GL",	/* Kalaallisut	Greenland */
-    "km_KH",	/* Khmer	Cambodia */
+    "km_KH",	/* Central Khmer	Cambodia */
     "kn_IN",	/* Kannada	India */
     "ko_KR",	/* Korean	Korea (South) */
     "kok_IN",	/* Konkani	India */
@@ -629,7 +628,7 @@ catalogname_for_locale (const char *locale)
     "ps_AF",	/* Pashto	Afghanistan */
     "pt_PT",	/* Portuguese	Portugal */
     "raj_IN",	/* Rajasthani	India */
-    "rm_CH",	/* Rhaeto-Roman	Switzerland */
+    "rm_CH",	/* Romansh	Switzerland */
     "rn_BI",	/* Kirundi	Burundi */
     "ro_RO",	/* Romanian	Romania */
     "ru_RU",	/* Russian	Russia */

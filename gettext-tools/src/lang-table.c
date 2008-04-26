@@ -1,5 +1,5 @@
 /* Table of languages.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,6 @@ struct language_table_entry language_table[] =
     { "aa", "Afar" },
     { "ab", "Abkhazian" },
     { "ace", "Achinese" },
-    { "ad", "Adangme" },
     { "ae", "Avestan" },
     { "af", "Afrikaans" },
     { "ak", "Akan" },
@@ -42,10 +41,10 @@ struct language_table_entry language_table[] =
     { "ay", "Aymara" },
     { "az", "Azerbaijani" },
     { "ba", "Bashkir" },
-    { "bad", "Banda" },
     { "bal", "Baluchi" },
     { "ban", "Balinese" },
     { "be", "Belarusian" },
+    { "bej", "Beja" },
     { "bem", "Bemba" },
     { "bg", "Bulgarian" },
     { "bh", "Bihari" },
@@ -58,7 +57,6 @@ struct language_table_entry language_table[] =
     { "bo", "Tibetan" },
     { "br", "Breton" },
     { "bs", "Bosnian" },
-    { "btk", "Batak" },
     { "bug", "Buginese" },
     { "ca", "Catalan" },
     { "ce", "Chechen" },
@@ -94,7 +92,7 @@ struct language_table_entry language_table[] =
     { "fr", "French" },
     { "fy", "Western Frisian" },
     { "ga", "Irish" },
-    { "gd", "Scots" },
+    { "gd", "Scottish Gaelic" },
     { "gl", "Galician" },
     { "gn", "Guarani" },
     { "gon", "Gondi" },
@@ -137,7 +135,7 @@ struct language_table_entry language_table[] =
     { "kj", "Kuanyama" },
     { "kk", "Kazakh" },
     { "kl", "Kalaallisut" },
-    { "km", "Khmer" },
+    { "km", "Central Khmer" },
     { "kmb", "Kimbundu" },
     { "kn", "Kannada" },
     { "ko", "Korean" },
@@ -214,7 +212,7 @@ struct language_table_entry language_table[] =
     { "pt", "Portuguese" },
     { "qu", "Quechua" },
     { "raj", "Rajasthani" },
-    { "rm", "Rhaeto-Roman" },
+    { "rm", "Romansh" },
     { "rn", "Kirundi" },
     { "ro", "Romanian" },
     { "ru", "Russian" },
