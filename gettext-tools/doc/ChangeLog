@@ -1,3 +1,9 @@
+2008-05-06  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Explain why the number argument must be
+	the last.
+	Reported by Benjamin Geer <benjamin.geer@gmail.com>.
+
 2008-04-25  Bruno Haible  <bruno@clisp.org>
 
 	* ISO_639: Remove Adangme. Update Belarusian, Scottish Gaelic,

@@ -6025,6 +6025,33 @@ printf (ngettext ("One file removed", "%d files removed", n), n);
 This works because the @samp{printf} function discards excess arguments that
 are not consumed by the format string.
 
+If this function is meant to yield a format string that takes two or more
+arguments, you can not use it like this:
+
+@smallexample
+printf (ngettext ("%d file removed from directory %s",
+                  "%d files removed from directory %s",
+                  n, dir),
+        n);
+@end smallexample
+
+@noindent
+because in many languages the translators want to replace the @samp{%d}
+with an explicit word in the singular case, just like ``one'' in English,
+and C format strings cannot consume the second argument but skip the first
+argument.  Instead, you have to reorder the arguments so that @samp{n}
+comes last:
+
+@smallexample
+printf (ngettext ("%$2d file removed from directory %$1s",
+                  "%$2d files removed from directory %$1s",
+                  dir, n),
+        n);
+@end smallexample
+
+@noindent
+See @ref{c-format} for details about this argument reordering syntax.
+
 It is also possible to use this function when the strings don't contain a
 cardinal number:
 
