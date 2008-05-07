@@ -1,6 +1,6 @@
 ;;; po-mode.el -- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-1999, 2000-2002, 2005-2007 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002, 2005-2008 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
@@ -64,7 +64,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.1" "\
+(defconst po-mode-version-string "2.11" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -1011,7 +1011,7 @@ Initialize or replace current translation with the original message"))])
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
 (defvar po-any-msgstr-block-regexp
-  "^\\(#~[ \t]*\\)?msgstr.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
+  "^\\(#~[ \t]*\\)?msgstr\\([ \t]\\|\\[0\\]\\).*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
 
 (defvar po-any-msgstr-form-regexp
@@ -1893,7 +1893,7 @@ If FORM is itself a string, then this string is used for insertion."
 
 (defun po-get-msgstr-flavor ()
   "Helper function to detect msgstr and msgstr[] variants."
-  (beginning-of-line)
+  (goto-char po-start-of-msgstr-form)
   (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
   (match-string 2))
 
