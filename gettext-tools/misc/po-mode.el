@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 1995-1999, 2000-2002, 2005-2008 Free Software Foundation, Inc.
 
-;; Authors: François Pinard <pinard@iro.umontreal.ca>
+;; Authors: FranÃ§ois Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
 ;; Keywords: i18n gettext
 ;; Created: 1995
@@ -366,7 +366,7 @@ slightly different."
     ("Old English" . "ang")
     ("Oriya" . "or")
     ("Ossetian" . "os")
-    ("Páez" . "pbb")
+    ("PÃ¡ez" . "pbb")
     ("Pali" . "pi")
     ("Pampanga" . "pam")
     ("Pangasinan" . "pag")
@@ -3449,6 +3449,7 @@ strings remain."
 ;; Hey Emacs!
 ;; Local Variables:
 ;; indent-tabs-mode: nil
+;; coding: utf-8
 ;; End:
 
 ;;; po-mode.el ends here
