@@ -1,5 +1,10 @@
 2008-05-07  Bruno Haible  <bruno@clisp.org>
 
+	* po-mode.el (po-team-name-to-code): Add Beja. Remove Adangme, Banda,
+	Batak. Update Scottish Gaelic, Central Khmer, Romansh.
+
+2008-05-07  Bruno Haible  <bruno@clisp.org>
+
 	Fix editing of plural forms.
 	* po-mode.el (po-mode-version-string): Bump to 2.11.
 	(po-any-msgstr-block-regexp): Must start with msgstr or msgstr[0];
