@@ -1,3 +1,8 @@
+2008-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+
 2007-12-24  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in ($(POFILES), .nop.po-update): When using msgmerge
