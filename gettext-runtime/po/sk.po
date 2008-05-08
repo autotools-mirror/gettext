@@ -1,16 +1,17 @@
 # Slovak translations for GNU gettext-runtime package.
-# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2007 Free Software Foundation, Inc.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2007.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2007, 2008 Free Software Foundation, Inc.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2007, 2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.16\n"
+"Project-Id-Version: GNU gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
-"PO-Revision-Date: 2007-06-24 20:09+0200\n"
+"POT-Creation-Date: 2007-12-24 15:36+0100\n"
+"PO-Revision-Date: 2008-02-21 00:12+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -94,6 +95,10 @@ msgid ""
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
+"Autorské práva (C) %s Free Software Foundation, Inc.\n"
+"Licencia GPLv3+: GNU GPL verzia 3 alebo novšia <http://gnu.org/licenses/gpl.html>\n"
+"Toto je voľne šíriteľný softvér: môžete ho voľne meniť a ďalej šíriť.\n"
+"Neposkytuje sa ŽIADNA ZÁRUKA, v rozsahu povolenom zákonmi.\n"
 
 #: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
@@ -313,17 +318,3 @@ msgstr ""
 "TEXTDOMAIN. Ak sa katalóg správ nenachádza v obvyklom adresári, iné umiestnenie\n"
 "môže byť určené obsahom premennej prostredia TEXTDOMAINDIR.\n"
 "Štandardný adresár, v ktorom sa budú hľadať katalógy: %s\n"
-
-#~ msgid ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
-#~ msgstr ""
-#~ "Autorské práva (C) %s Free Software Foundation, Inc.\n"
-#~ "Toto je voľne šíriteľný softvér; pre podmienky kopírovania pozri zdrojový "
-#~ "kód.\n"
-#~ "Neposkytuje sa ŽIADNA záruka; ani čo sa týka OBCHODOVATEĽNOSTI alebo "
-#~ "VHODNOSTI\n"
-#~ "NA KONKRÉTNY ÚČEL.\n"

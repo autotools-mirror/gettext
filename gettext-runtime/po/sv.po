@@ -1,16 +1,17 @@
 # Swedish messages for gettext
-# Copyright © 1996, 1997, 1998, 2001, 2002, 2003 Free Software Foundation, Inc.
+# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007 Free Software Foundation, Inc.
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007
-# Revision: 1.8
+# Revision: 1.9
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
-"PO-Revision-Date: 2007-10-17 17:51+0200\n"
+"POT-Creation-Date: 2007-12-24 15:36+0100\n"
+"PO-Revision-Date: 2008-02-08 10:01+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -96,7 +97,7 @@ msgid ""
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
 "Licens GPLv3+: GNU GPL version 3 eller senare <http://gnu.org/licenses/gpl.html>\n"
-"Detta program är fri programvara.  Du kan modifiera och distribuera det.\n"
+"Detta program är fri programvara.  Du kan modifiera och distribuera den.\n"
 "Det finns inte NÅGON SOM HELST GARANTI, till den grad som lagen tillåter.\n"
 
 #: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
