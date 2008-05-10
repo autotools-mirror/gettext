@@ -4,13 +4,13 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.60..2.61 and automake-1.10 in the PATH.
+# This script requires autoconf-2.60..2.62 and automake-1.10 in the PATH.
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
 #   - the cvs program in the PATH and an internet connection.
 
-# Copyright (C) 2003-2007 Free Software Foundation, Inc.
+# Copyright (C) 2003-2008 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ while :; do
   esac
 done
 
-if test $skip_gnulib = false; then
+if ! $skip_gnulib; then
   if test -z "$GNULIB_TOOL"; then
     # Check out gnulib in a subdirectory 'gnulib'.
     GNULIB_CVS_ROOT=':pserver:anonymous@pserver.git.sv.gnu.org:/gnulib.git'
@@ -137,7 +137,6 @@ if test $skip_gnulib = false; then
       iconv
       javacomp
       javaexec
-      linebreak
       localcharset
       locale
       localename
@@ -167,6 +166,7 @@ if test $skip_gnulib = false; then
       sys_time
       term-styled-ostream
       ucs4-utf8
+      unilbrk/ulc-width-linebreaks
       uniname/uniname
       unistd
       uniwidth/width
@@ -224,13 +224,13 @@ if test $skip_gnulib = false; then
       gettext-h
       hash
       iconv
-      linebreak
       minmax
       ostream
       progname
       relocatable-lib
       stdbool
       ucs4-utf8
+      unilbrk/ulc-width-linebreaks
       uniwidth/width
       unlocked-io
       utf8-ucs4
