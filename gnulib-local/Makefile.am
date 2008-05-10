@@ -218,7 +218,6 @@ lib/libxml/xpath.in.h \
 lib/libxml/xpathInternals.in.h \
 lib/libxml/xpointer.c \
 lib/libxml/xpointer.in.h \
-lib/linebreak.c.diff \
 lib/memory-ostream.oo.c \
 lib/memory-ostream.oo.h \
 lib/moo.h \
