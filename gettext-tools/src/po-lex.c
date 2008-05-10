@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -37,7 +37,6 @@
 #endif
 
 #include "c-ctype.h"
-#include "linebreak.h"
 #include "uniwidth.h"
 #include "gettext.h"
 #include "po-charset.h"

@@ -1,3 +1,9 @@
+2008-05-10  Bruno Haible  <bruno@clisp.org>
+
+	* write-po.c: Include unilbrk.h instead of linebreak.h.
+	(wrap): Update.
+	* po-lex.c: Don't include linebreak.h.
+
 2008-04-25  Bruno Haible  <bruno@clisp.org>
 
 	* lang-table.c (language_table): Add Beja. Remove Adangme, Banda,

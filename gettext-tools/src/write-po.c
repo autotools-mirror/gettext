@@ -37,7 +37,7 @@
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "format.h"
-#include "linebreak.h"
+#include "unilbrk.h"
 #include "msgl-ascii.h"
 #include "write-catalog.h"
 #include "xalloc.h"
@@ -924,7 +924,7 @@ internationalized messages should not contain the `\\%c' escape sequence"),
       startcol -= startcol_after_break;
 
       /* Do line breaking on the portion.  */
-      mbs_width_linebreaks (portion, portion_len, width, startcol, 0,
+      ulc_width_linebreaks (portion, portion_len, width, startcol, 0,
 			    overrides, canon_charset, linebreaks);
 
       /* If this is the first line, and we are not using the indented
