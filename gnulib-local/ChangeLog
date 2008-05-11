@@ -1,5 +1,9 @@
 2008-05-11  Bruno Haible  <bruno@clisp.org>
 
+	* lib/gen-lbrkprop.c (output_lbp): Output to two different streams.
+	(output_tables): Accept two filename arguments.
+	(main): Generate lbrkprop1.h and lbrkprop2.h instead of lbrkprop.h.
+
 	* lib/gen-lbrkprop.c (unicode_combining): Remove variable.
 	(fill_combining): Remove function.
 	(main): Take one argument less.

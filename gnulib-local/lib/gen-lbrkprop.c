@@ -1123,7 +1123,7 @@ debug_output_org_tables (const char *filename)
 #include "3level.h"
 
 static void
-output_lbp (FILE *stream)
+output_lbp (FILE *stream1, FILE *stream2)
 {
   unsigned int i;
   struct lbp_table t;
@@ -1163,48 +1163,51 @@ output_lbp (FILE *stream)
     + (t.level2_size << t.q) * sizeof (uint32_t);
 
   for (i = 0; i < 5; i++)
-    fprintf (stream, "#define lbrkprop_header_%d %d\n", i,
+    fprintf (stream1, "#define lbrkprop_header_%d %d\n", i,
 	     ((uint32_t *) t.result)[i]);
-  fprintf (stream, "static const\n");
-  fprintf (stream, "struct\n");
-  fprintf (stream, "  {\n");
-  fprintf (stream, "    int level1[%d];\n", t.level1_size);
-  fprintf (stream, "    int level2[%d << %d];\n", t.level2_size, t.q);
-  fprintf (stream, "    unsigned char level3[%d << %d];\n", t.level3_size, t.p);
-  fprintf (stream, "  }\n");
-  fprintf (stream, "lbrkprop =\n");
-  fprintf (stream, "{\n");
-  fprintf (stream, "  {");
+  fprintf (stream1, "\n");
+  fprintf (stream1, "typedef struct\n");
+  fprintf (stream1, "  {\n");
+  fprintf (stream1, "    int level1[%d];\n", t.level1_size);
+  fprintf (stream1, "    int level2[%d << %d];\n", t.level2_size, t.q);
+  fprintf (stream1, "    unsigned char level3[%d << %d];\n", t.level3_size, t.p);
+  fprintf (stream1, "  }\n");
+  fprintf (stream1, "lbrkprop_t;\n");
+  fprintf (stream1, "extern const lbrkprop_t unilbrkprop;\n");
+
+  fprintf (stream2, "const lbrkprop_t unilbrkprop =\n");
+  fprintf (stream2, "{\n");
+  fprintf (stream2, "  {");
   for (i = 0; i < t.level1_size; i++)
     {
       uint32_t offset;
       if (i > 0 && (i % 8) == 0)
-	fprintf (stream, "\n   ");
+	fprintf (stream2, "\n   ");
       offset = ((uint32_t *) (t.result + level1_offset))[i];
-      fprintf (stream, " %5d%s",
+      fprintf (stream2, " %5d%s",
 	       offset == 0 ? -1 : (offset - level2_offset) / sizeof (uint32_t),
 	       (i+1 < t.level1_size ? "," : ""));
     }
-  fprintf (stream, " },\n");
-  fprintf (stream, "  {");
+  fprintf (stream2, " },\n");
+  fprintf (stream2, "  {");
   if (t.level2_size << t.q > 8)
-    fprintf (stream, "\n   ");
+    fprintf (stream2, "\n   ");
   for (i = 0; i < t.level2_size << t.q; i++)
     {
       uint32_t offset;
       if (i > 0 && (i % 8) == 0)
-	fprintf (stream, "\n   ");
+	fprintf (stream2, "\n   ");
       offset = ((uint32_t *) (t.result + level2_offset))[i];
-      fprintf (stream, " %5d%s",
+      fprintf (stream2, " %5d%s",
 	       offset == 0 ? -1 : (offset - level3_offset) / sizeof (uint8_t),
 	       (i+1 < t.level2_size << t.q ? "," : ""));
     }
   if (t.level2_size << t.q > 8)
-    fprintf (stream, "\n ");
-  fprintf (stream, " },\n");
-  fprintf (stream, "  {");
+    fprintf (stream2, "\n ");
+  fprintf (stream2, " },\n");
+  fprintf (stream2, "  {");
   if (t.level3_size << t.p > 8)
-    fprintf (stream, "\n   ");
+    fprintf (stream2, "\n   ");
   for (i = 0; i < t.level3_size << t.p; i++)
     {
       unsigned char value = ((unsigned char *) (t.result + level3_offset))[i];
@@ -1243,58 +1246,75 @@ output_lbp (FILE *stream)
 	    abort ();
 	}
       if (i > 0 && (i % 8) == 0)
-	fprintf (stream, "\n   ");
-      fprintf (stream, " %s%s", value_string,
+	fprintf (stream2, "\n   ");
+      fprintf (stream2, " %s%s", value_string,
 	       (i+1 < t.level3_size << t.p ? "," : ""));
     }
   if (t.level3_size << t.p > 8)
-    fprintf (stream, "\n ");
-  fprintf (stream, " }\n");
-  fprintf (stream, "};\n");
+    fprintf (stream2, "\n ");
+  fprintf (stream2, " }\n");
+  fprintf (stream2, "};\n");
 }
 
 static void
-output_tables (const char *filename, const char *version)
+output_tables (const char *filename1, const char *filename2, const char *version)
 {
-  FILE *stream;
+  const char *filenames[2];
+  FILE *streams[2];
+  size_t i;
 
-  stream = fopen (filename, "w");
-  if (stream == NULL)
+  filenames[0] = filename1;
+  filenames[1] = filename2;
+
+  for (i = 0; i < 2; i++)
     {
-      fprintf (stderr, "cannot open '%s' for writing\n", filename);
-      exit (1);
+      streams[i] = fopen (filenames[i], "w");
+      if (streams[i] == NULL)
+	{
+	  fprintf (stderr, "cannot open '%s' for writing\n", filenames[i]);
+	  exit (1);
+	}
     }
 
-  fprintf (stream, "/* Line breaking properties of Unicode characters.  */\n");
-  fprintf (stream, "/* Generated automatically by gen-lbrkprop for Unicode %s.  */\n",
-	   version);
-  fprintf (stream, "\n");
-
-  /* Put a GPL header on it.  The gnulib module is under LGPL (although it
-     still carries the GPL header), and it's gnulib-tool which replaces the
-     GPL header with an LGPL header.  */
-  fprintf (stream, "/* Copyright (C) 2000-2004 Free Software Foundation, Inc.\n");
-  fprintf (stream, "\n");
-  fprintf (stream, "   This program is free software: you can redistribute it and/or modify\n");
-  fprintf (stream, "   it under the terms of the GNU General Public License as published by\n");
-  fprintf (stream, "   the Free Software Foundation; either version 3 of the License, or\n");
-  fprintf (stream, "   (at your option) any later version.\n");
-  fprintf (stream, "\n");
-  fprintf (stream, "   This program is distributed in the hope that it will be useful,\n");
-  fprintf (stream, "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
-  fprintf (stream, "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
-  fprintf (stream, "   GNU General Public License for more details.\n");
-  fprintf (stream, "\n");
-  fprintf (stream, "   You should have received a copy of the GNU General Public License\n");
-  fprintf (stream, "   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */\n");
-  fprintf (stream, "\n");
-
-  output_lbp (stream);
-
-  if (ferror (stream) || fclose (stream))
+  for (i = 0; i < 2; i++)
     {
-      fprintf (stderr, "error writing to '%s'\n", filename);
-      exit (1);
+      FILE *stream = streams[i];
+
+      fprintf (stream, "/* DO NOT EDIT! GENERATED AUTOMATICALLY! */\n");
+      fprintf (stream, "/* Line breaking properties of Unicode characters.  */\n");
+      fprintf (stream, "/* Generated automatically by gen-lbrkprop for Unicode %s.  */\n",
+	       version);
+      fprintf (stream, "\n");
+
+      /* Put a GPL header on it.  The gnulib module is under LGPL (although it
+	 still carries the GPL header), and it's gnulib-tool which replaces the
+	 GPL header with an LGPL header.  */
+      fprintf (stream, "/* Copyright (C) 2000-2002, 2004, 2008 Free Software Foundation, Inc.\n");
+      fprintf (stream, "\n");
+      fprintf (stream, "   This program is free software: you can redistribute it and/or modify\n");
+      fprintf (stream, "   it under the terms of the GNU General Public License as published by\n");
+      fprintf (stream, "   the Free Software Foundation; either version 3 of the License, or\n");
+      fprintf (stream, "   (at your option) any later version.\n");
+      fprintf (stream, "\n");
+      fprintf (stream, "   This program is distributed in the hope that it will be useful,\n");
+      fprintf (stream, "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+      fprintf (stream, "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+      fprintf (stream, "   GNU General Public License for more details.\n");
+      fprintf (stream, "\n");
+      fprintf (stream, "   You should have received a copy of the GNU General Public License\n");
+      fprintf (stream, "   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */\n");
+      fprintf (stream, "\n");
+    }
+
+  output_lbp (streams[0], streams[1]);
+
+  for (i = 0; i < 2; i++)
+    {
+      if (ferror (streams[i]) || fclose (streams[i]))
+	{
+	  fprintf (stderr, "error writing to '%s'\n", filenames[i]);
+	  exit (1);
+	}
     }
 }
 
@@ -1315,7 +1335,7 @@ main (int argc, char * argv[])
   debug_output_tables ("lbrkprop.txt");
   debug_output_org_tables ("lbrkprop_org.txt");
 
-  output_tables ("lbrkprop.h", argv[4]);
+  output_tables ("lbrkprop1.h", "lbrkprop2.h", argv[4]);
 
   return 0;
 }
