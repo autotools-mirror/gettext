@@ -4,7 +4,6 @@ Generates lbrkprop.h.
 Files:
 lib/gen-lbrkprop.c
 lib/3level.h
-lib/Combining.txt
 
 Depends-on:
 

@@ -18,7 +18,6 @@
 
 /* Usage example:
      $ gen-lbrkprop /usr/local/share/Unidata/UnicodeData.txt \
-		    Combining.txt \
 		    /usr/local/share/Unidata/EastAsianWidth.txt \
 		    /usr/local/share/Unidata/LineBreak.txt \
 		    3.1.0
@@ -244,87 +243,6 @@ fill_attributes (const char *unicodedata_filename)
   if (ferror (stream) || fclose (stream))
     {
       fprintf (stderr, "error reading from '%s'\n", unicodedata_filename);
-      exit (1);
-    }
-}
-
-/* The combining property from the PropList.txt file.  */
-char unicode_combining[0x110000];
-
-/* Stores in unicode_combining[] the Combining property from the
-   Unicode 3.0 PropList.txt file.  */
-static void
-fill_combining (const char *proplist_filename)
-{
-  unsigned int i;
-  FILE *stream;
-  char buf[100+1];
-
-  for (i = 0; i < 0x110000; i++)
-    unicode_combining[i] = 0;
-
-  stream = fopen (proplist_filename, "r");
-  if (stream == NULL)
-    {
-      fprintf (stderr, "error during fopen of '%s'\n", proplist_filename);
-      exit (1);
-    }
-
-  /* Search for the "Property dump for: 0x20000004 (Combining)" line.  */
-  do
-    {
-      if (fscanf (stream, "%100[^\n]\n", buf) < 1)
-	{
-	  fprintf (stderr, "no combining property found in '%s'\n",
-		   proplist_filename);
-	  exit (1);
-	}
-    }
-  while (strstr (buf, "(Combining)") == NULL);
-
-  for (;;)
-    {
-      unsigned int i1, i2;
-
-      if (fscanf (stream, "%100[^\n]\n", buf) < 1)
-	{
-	  fprintf (stderr, "premature end of combining property in '%s'\n",
-		   proplist_filename);
-	  exit (1);
-	}
-      if (buf[0] == '*')
-	break;
-      if (strlen (buf) >= 10 && buf[4] == '.' && buf[5] == '.')
-	{
-	  if (sscanf (buf, "%4X..%4X", &i1, &i2) < 2)
-	    {
-	      fprintf (stderr, "parse error in combining property in '%s'\n",
-		       proplist_filename);
-	      exit (1);
-	    }
-	}
-      else if (strlen (buf) >= 4)
-	{
-	  if (sscanf (buf, "%4X", &i1) < 1)
-	    {
-	      fprintf (stderr, "parse error in combining property in '%s'\n",
-		       proplist_filename);
-	      exit (1);
-	    }
-	  i2 = i1;
-	}
-      else
-	{
-	  fprintf (stderr, "parse error in combining property in '%s'\n",
-		   proplist_filename);
-	  exit (1);
-	}
-      for (i = i1; i <= i2; i++)
-	unicode_combining[i] = 1;
-    }
-  if (ferror (stream) || fclose (stream))
-    {
-      fprintf (stderr, "error reading from '%s'\n", proplist_filename);
       exit (1);
     }
 }
@@ -1383,22 +1301,21 @@ output_tables (const char *filename, const char *version)
 int
 main (int argc, char * argv[])
 {
-  if (argc != 6)
+  if (argc != 5)
     {
-      fprintf (stderr, "Usage: %s UnicodeData.txt Combining.txt EastAsianWidth.txt LineBreak.txt version\n",
+      fprintf (stderr, "Usage: %s UnicodeData.txt EastAsianWidth.txt LineBreak.txt version\n",
 	       argv[0]);
       exit (1);
     }
 
   fill_attributes (argv[1]);
-  fill_combining (argv[2]);
-  fill_width (argv[3]);
-  fill_org_lbp (argv[4]);
+  fill_width (argv[2]);
+  fill_org_lbp (argv[3]);
 
   debug_output_tables ("lbrkprop.txt");
   debug_output_org_tables ("lbrkprop_org.txt");
 
-  output_tables ("lbrkprop.h", argv[5]);
+  output_tables ("lbrkprop.h", argv[4]);
 
   return 0;
 }

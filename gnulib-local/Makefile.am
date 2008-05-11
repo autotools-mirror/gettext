@@ -33,7 +33,6 @@ lib/ChangeLog.0 \
 lib/ChangeLog.1 \
 lib/closeout.c \
 lib/closeout.h \
-lib/Combining.txt \
 lib/error.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \

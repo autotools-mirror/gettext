@@ -1,5 +1,12 @@
 2008-05-11  Bruno Haible  <bruno@clisp.org>
 
+	* lib/gen-lbrkprop.c (unicode_combining): Remove variable.
+	(fill_combining): Remove function.
+	(main): Take one argument less.
+	* lib/Combining.txt: Remove file.
+	* modules/gen-lbrkprop (Files): Remove Combining.txt.
+	* Makefile.am (EXTRA_DIST): Likewise.
+
 	* lib/gen-lbrkprop.c: Change copyright to GPLv3+.
 	(output_tables): Emit a GPLv3+ header.
 
