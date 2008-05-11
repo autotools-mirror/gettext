@@ -21,7 +21,6 @@
 EXTRA_DIST = \
 ChangeLog \
 build-aux/moopp \
-lib/3level.h \
 lib/addext.c \
 lib/alloca.in.h \
 lib/argmatch.h.diff \
@@ -43,7 +42,6 @@ lib/file-ostream.oo.c \
 lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
 lib/fnmatch_loop.c.diff \
-lib/gen-lbrkprop.c \
 lib/getopt.in.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
@@ -273,7 +271,6 @@ modules/fd-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
 modules/gcj \
-modules/gen-lbrkprop \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/hash \

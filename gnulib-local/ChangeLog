@@ -1,5 +1,13 @@
 2008-05-11  Bruno Haible  <bruno@clisp.org>
 
+	* lib/gen-lbrkprop.c: Move to gnulib as lib/unilbrk/gen-lbrk.c.
+	* lib/3level.h: Remove file.
+	* modules/gen-lbrkprop: Move to gnulib as modules/unilbrk/gen-lbrk.
+	* Makefile.am (EXTRA_DIST): Remove lib/gen-lbrkprop.c, lib/3level.h,
+	modules/gen-lbrkprop.
+
+2008-05-11  Bruno Haible  <bruno@clisp.org>
+
 	* lib/gen-lbrkprop.c (output_lbp): Output to two different streams.
 	(output_tables): Accept two filename arguments.
 	(main): Generate lbrkprop1.h and lbrkprop2.h instead of lbrkprop.h.
