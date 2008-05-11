@@ -1,3 +1,8 @@
+2008-05-11  Bruno Haible  <bruno@clisp.org>
+
+	* lib/gen-lbrkprop.c: Change copyright to GPLv3+.
+	(output_tables): Emit a GPLv3+ header.
+
 2008-05-10  Bruno Haible  <bruno@clisp.org>
 
 	* lib/linebreak.c.diff: Remove file.

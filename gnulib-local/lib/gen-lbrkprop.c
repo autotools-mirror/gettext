@@ -1,19 +1,20 @@
 /* Generate a Unicode conforming Line Break Properties tables from a
    UnicodeData file.
-   Written by Bruno Haible <bruno@clisp.org>, 2000-2004.
+   Copyright (C) 2000-2002, 2004, 2008 Free Software Foundation, Inc.
+   Written by Bruno Haible <bruno@clisp.org>, 2000-2002.
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 3 of the License, or
+   (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Usage example:
      $ gen-lbrkprop /usr/local/share/Unidata/UnicodeData.txt \
@@ -1356,19 +1357,18 @@ output_tables (const char *filename, const char *version)
      GPL header with an LGPL header.  */
   fprintf (stream, "/* Copyright (C) 2000-2004 Free Software Foundation, Inc.\n");
   fprintf (stream, "\n");
-  fprintf (stream, "This program is free software; you can redistribute it and/or modify\n");
-  fprintf (stream, "it under the terms of the GNU General Public License as published by\n");
-  fprintf (stream, "the Free Software Foundation; either version 2, or (at your option)\n");
-  fprintf (stream, "any later version.\n");
+  fprintf (stream, "   This program is free software: you can redistribute it and/or modify\n");
+  fprintf (stream, "   it under the terms of the GNU General Public License as published by\n");
+  fprintf (stream, "   the Free Software Foundation; either version 3 of the License, or\n");
+  fprintf (stream, "   (at your option) any later version.\n");
   fprintf (stream, "\n");
-  fprintf (stream, "This program is distributed in the hope that it will be useful,\n");
-  fprintf (stream, "but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
-  fprintf (stream, "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
-  fprintf (stream, "GNU General Public License for more details.\n");
+  fprintf (stream, "   This program is distributed in the hope that it will be useful,\n");
+  fprintf (stream, "   but WITHOUT ANY WARRANTY; without even the implied warranty of\n");
+  fprintf (stream, "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n");
+  fprintf (stream, "   GNU General Public License for more details.\n");
   fprintf (stream, "\n");
-  fprintf (stream, "You should have received a copy of the GNU General Public License\n");
-  fprintf (stream, "along with this program; if not, write to the Free Software\n");
-  fprintf (stream, "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */\n");
+  fprintf (stream, "   You should have received a copy of the GNU General Public License\n");
+  fprintf (stream, "   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */\n");
   fprintf (stream, "\n");
 
   output_lbp (stream);
