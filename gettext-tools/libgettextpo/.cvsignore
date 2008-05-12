@@ -132,3 +132,15 @@ xstriconv.c
 xstriconv.h
 xvasprintf.c
 xvasprintf.h
+memchr.c
+memcmp.c
+str-two-way.h
+strstr.c
+stdarg.in.h
+c-strcaseeq.h
+striconveh.c
+striconveh.h
+striconveha.c
+striconveha.h
+uniconv.h
+unilbrk.h
