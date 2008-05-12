@@ -13,12 +13,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "write error of a large result on a too small disk%s%s"
-msgstr "Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte%s%smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an jeder Stelle"
+msgid "write error of a large result on a too small disk% s% s"
+msgstr "Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte% s% smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an jeder Stelle"
 
 #, c-format
-msgid "write error of a big result on a too small disk%s%s"
-msgstr "Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte%s%smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an jeder Stelle"
+msgid "write error of a big result on a too small disk% s% s"
+msgstr "Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte% s% smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an jeder Stelle"
 EOF
 
 tmpfiles="$tmpfiles mcat-test17.tmp mcat-test17.out"
@@ -37,17 +37,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "write error of a large result on a too small disk%s%s"
+msgid "write error of a large result on a too small disk% s% s"
 msgstr ""
-"Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte%s%"
+"Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte% s% "
 "smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an jeder "
 "Stelle"
 
 #, c-format
-msgid "write error of a big result on a too small disk%s%s"
+msgid "write error of a big result on a too small disk% s% s"
 msgstr ""
-"Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte%s"
-"%smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an "
+"Fehler beim Schreiben eines großen Ergebnisses auf eine zu kleine Platte% s"
+"% smit der jederzeitigen Möglichkeit eines Fehlers in jedem Moment und an "
 "jeder Stelle"
 EOF
 

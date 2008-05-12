@@ -1,3 +1,8 @@
+2008-05-12  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat-17: Change test so that it works with newer line-breaking
+	algorithm.
+
 2008-04-06  Bruno Haible  <bruno@clisp.org>
 
 	Avoid testsuite failures on MacOS X 10.5.
