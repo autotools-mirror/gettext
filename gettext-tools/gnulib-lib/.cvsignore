@@ -2,6 +2,8 @@ Makefile.gnulib
 Makefile.in
 acl.c
 acl.h
+acl-internal.h
+acl_entries.c
 argmatch.c
 argmatch.h
 atexit.c
@@ -43,6 +45,7 @@ fd-ostream.c
 fd-ostream.h
 fd_ostream.priv.h
 fd_ostream.vt.h
+file-has-acl.c
 file-ostream.c
 file-ostream.h
 file_ostream.priv.h
@@ -329,3 +332,15 @@ snprintf.c
 vasnprintf.c
 vasnprintf.h
 vsnprintf.c
+memcmp.c
+str-kmp.h
+str-two-way.h
+strstr.c
+stdarg.in.h
+c-strcaseeq.h
+striconveh.c
+striconveh.h
+striconveha.c
+striconveha.h
+uniconv.h
+unilbrk.h
