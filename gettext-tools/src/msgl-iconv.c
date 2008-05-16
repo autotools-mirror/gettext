@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -411,7 +411,7 @@ iconvable_prev_msgid (iconv_t cd, message_ty *mp)
   if (mp->prev_msgid != NULL)
     if (!iconvable_string (cd, mp->prev_msgid))
       return false;
-  if (mp->msgid_plural != NULL)
+  if (mp->prev_msgid_plural != NULL)
     if (!iconvable_string (cd, mp->prev_msgid_plural))
       return false;
   return true;
