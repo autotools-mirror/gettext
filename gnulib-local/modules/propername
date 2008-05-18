@@ -12,12 +12,15 @@ lib/propername.h
 lib/propername.c
 
 Depends-on:
+stdbool
+trim
+mbsstr
+mbchar
+mbuiter
 iconv
 localcharset
 c-strcase
 xstriconv
-c-strstr
-mbsstr
 xalloc
 gettext-h
 

@@ -1,5 +1,5 @@
 /* Localization of proper names.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,8 @@
 /* Specification.  */
 #include "propername.h"
 
+#include <ctype.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,13 +29,126 @@
 # include <iconv.h>
 #endif
 
+#include "trim.h"
+#include "mbchar.h"
+#if HAVE_MBRTOWC
+# include "mbuiter.h"
+#endif
 #include "localcharset.h"
 #include "c-strcase.h"
 #include "xstriconv.h"
-#include "c-strstr.h"
 #include "xalloc.h"
 #include "gettext.h"
 
+
+/* Tests whether STRING contains trim (SUB), starting and ending at word
+   boundaries.
+   Here, instead of implementing Unicode Standard Annex #29 for determining
+   word boundaries, we assume that trim (SUB) starts and ends with words and
+   only test whether the part before it ends with a non-word and the part
+   after it starts with a non-word.  */
+static bool
+mbsstr_trimmed_wordbounded (const char *string, const char *sub)
+{
+  char *tsub = trim (sub);
+  bool found = false;
+
+  for (; *string != '\0';)
+    {
+      const char *tsub_in_string = mbsstr (string, tsub);
+      if (tsub_in_string == NULL)
+	break;
+      else
+	{
+#if HAVE_MBRTOWC
+	  if (MB_CUR_MAX > 1)
+	    {
+	      mbui_iterator_t string_iter;
+	      bool word_boundary_before;
+	      bool word_boundary_after;
+
+	      mbui_init (string_iter, string);
+	      word_boundary_before = true;
+	      if (mbui_cur_ptr (string_iter) < tsub_in_string)
+		{
+		  mbchar_t last_char_before_tsub;
+		  do
+		    {
+		      if (!mbui_avail (string_iter))
+			abort ();
+		      last_char_before_tsub = mbui_cur (string_iter);
+		      mbui_advance (string_iter);
+		    }
+		  while (mbui_cur_ptr (string_iter) < tsub_in_string);
+		  if (mb_isalnum (last_char_before_tsub))
+		    word_boundary_before = false;
+		}
+
+	      mbui_init (string_iter, tsub_in_string);
+	      {
+		mbui_iterator_t tsub_iter;
+
+		for (mbui_init (tsub_iter, tsub);
+		     mbui_avail (tsub_iter);
+		     mbui_advance (tsub_iter))
+		  {
+		    if (!mbui_avail (string_iter))
+		      abort ();
+		    mbui_advance (string_iter);
+		  }
+	      }
+	      word_boundary_after = true;
+	      if (mbui_avail (string_iter))
+		{
+		  mbchar_t first_char_after_tsub = mbui_cur (string_iter);
+		  if (mb_isalnum (first_char_after_tsub))
+		    word_boundary_after = false;
+		}
+
+	      if (word_boundary_before && word_boundary_after)
+		{
+		  found = true;
+		  break;
+		}
+
+	      mbui_init (string_iter, tsub_in_string);
+	      if (!mbui_avail (string_iter))
+		break;
+	      string = tsub_in_string + mb_len (mbui_cur (string_iter));
+	    }
+	  else
+#endif /* HAVE_MBRTOWC */
+	    {
+	      bool word_boundary_before;
+	      const char *p;
+	      bool word_boundary_after;
+
+	      word_boundary_before = true;
+	      if (string < tsub_in_string)
+		if (isalnum ((unsigned char) tsub_in_string[-1]))
+		  word_boundary_before = false;
+
+	      p = tsub_in_string + strlen (tsub);
+	      word_boundary_after = true;
+	      if (*p != '\0')
+		if (isalnum ((unsigned char) *p))
+		  word_boundary_after = false;
+
+	      if (word_boundary_before && word_boundary_after)
+		{
+		  found = true;
+		  break;
+		}
+
+	      if (*tsub_in_string == '\0')
+		break;
+	      string = tsub_in_string + 1;
+	    }
+	}
+    }
+  free (tsub);
+  return found;
+}
 
 /* Return the localization of NAME.  NAME is written in ASCII.  */
 
@@ -46,7 +161,7 @@ proper_name (const char *name)
   if (translation != name)
     {
       /* See whether the translation contains the original name.  */
-      if (mbsstr (translation, name) != NULL)
+      if (mbsstr_trimmed_wordbounded (translation, name))
 	return translation;
       else
 	{
@@ -116,13 +231,12 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
 
   if (translation != name_ascii)
     {
-      /* See whether the translation contains the original name.
-	 The multibyte-aware mbsstr() is not absolutely necessary here.  */
-      if (c_strstr (translation, name_ascii) != NULL
+      /* See whether the translation contains the original name.  */
+      if (mbsstr_trimmed_wordbounded (translation, name_ascii)
 	  || (name_converted != NULL
-	      && mbsstr (translation, name_converted) != NULL)
+	      && mbsstr_trimmed_wordbounded (translation, name_converted))
 	  || (name_converted_translit != NULL
-	      && mbsstr (translation, name_converted_translit) != NULL))
+	      && mbsstr_trimmed_wordbounded (translation, name_converted_translit)))
 	{
 	  if (alloc_name_converted != NULL)
 	    free (alloc_name_converted);
@@ -155,3 +269,15 @@ proper_name_utf8 (const char *name_ascii, const char *name_utf8)
       return name;
     }
 }
+
+#ifdef TEST
+# include <locale.h>
+int
+main (int argc, char *argv[])
+{
+  setlocale (LC_ALL, "");
+  if (mbsstr_trimmed_wordbounded (argv[1], argv[2]))
+    printf("found\n");
+  return 0;
+}
+#endif

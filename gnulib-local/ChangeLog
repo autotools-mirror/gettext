@@ -1,3 +1,20 @@
+2008-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* lib/propername.c: Include <stdbool.h>, <ctype.h>, trim.h, mbchar.h,
+	mbuiter.h. Don't include c-strstr.h.
+	(mbsstr_trimmed_wordbounded): New function.
+	(proper_name, proper_name_utf8): Use it instead of mbsstr or c_strstr.
+	* modules/propername (Depends-on): Add stdbool, trim, mbchar, mbuiter.
+	Remove c-strstr.
+	Reported by Paul Eggert <eggert@cs.ucla.edu>.
+
+2008-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* modules/propername (Notice): New field.
+	(configure.ac): Invoke AM_GETTEXT_OPTION.
+	* lib/propername.h: Add more comments.
+	Reported by Ben Pfaff <blp@cs.stanford.edu>.
+
 2008-05-11  Bruno Haible  <bruno@clisp.org>
 
 	* lib/gen-lbrkprop.c: Move to gnulib as lib/unilbrk/gen-lbrk.c.
