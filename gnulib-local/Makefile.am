@@ -222,8 +222,6 @@ lib/obstack.h.diff \
 lib/ostream.oo.c \
 lib/ostream.oo.h \
 lib/progname.h.diff \
-lib/propername.c \
-lib/propername.h \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
@@ -285,7 +283,6 @@ modules/memory-ostream \
 modules/moo \
 modules/moo-tests \
 modules/ostream \
-modules/propername \
 modules/quotearg.diff \
 modules/quote.diff \
 modules/styled-ostream \

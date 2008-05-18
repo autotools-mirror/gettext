@@ -1,5 +1,12 @@
 2008-05-18  Bruno Haible  <bruno@clisp.org>
 
+	* modules/propername: Remove file, moved to gnulib.
+	* lib/propername.h: Remove file, moved to gnulib.
+	* lib/propername.c: Remove file, moved to gnulib.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
+2008-05-18  Bruno Haible  <bruno@clisp.org>
+
 	* lib/propername.c: Include <stdbool.h>, <ctype.h>, trim.h, mbchar.h,
 	mbuiter.h. Don't include c-strstr.h.
 	(mbsstr_trimmed_wordbounded): New function.
