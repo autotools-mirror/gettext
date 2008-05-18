@@ -77,6 +77,7 @@
 
         This specifies automatic comments for the translator. (Requires
         xgettext >= 0.15.)
+ */
 
 #ifndef _PROPERNAME_H
 #define _PROPERNAME_H
