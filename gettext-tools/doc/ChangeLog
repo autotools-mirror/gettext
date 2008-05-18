@@ -1,3 +1,10 @@
+2008-05-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Names): Recommend the gnulib module 'propername'.
+	Don't mention the translation project's whoiswho.pot any more. Don't
+	say that Emacs does not support UTF-8 well.
+	Reported by Brian Kemp <brian.kemp@gmail.com>.
+
 2008-05-06  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Plural forms): Explain why the number argument must be
