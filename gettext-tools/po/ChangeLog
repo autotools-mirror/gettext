@@ -1,3 +1,9 @@
+2008-05-19  Bruno Haible  <bruno@clisp.org>
+
+	* Makevars (XGETTEXT_OPTIONS): Remove the options for proper_name and
+	proper_name_utf8, now collected automatically through
+	AM_XGETTEXT_OPTION.
+
 2008-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
