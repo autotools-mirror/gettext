@@ -32,3 +32,9 @@ The -mno-cygwin tells the cygwin compiler and linker to build for mingw.
 The -I and -L option are so that packages previously built for the
 same environment are found. The --host option tells the various
 tools that you are building for mingw, not cygwin.
+
+Dependencies:
+
+This package depends on GNU libiconv. (See the file DEPENDENCIES.) Before
+building this package, you need to build GNU libiconv, in the same development
+environment, with the same configure options, and install it ("make install").
