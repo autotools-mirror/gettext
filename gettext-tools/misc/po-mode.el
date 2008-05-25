@@ -1391,7 +1391,9 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
                                zone "\\n\"")
                        t t))))
         (message ""))
-    (message (_"PO-Revision-Date should be adjusted..."))))
+    (message (_"PO-Revision-Date should be adjusted...")))
+  ;; Return nil to indicate that the buffer has not yet been saved.
+  nil)
 
 ;;; Handling span of entry, entry type and entry attributes.
 
