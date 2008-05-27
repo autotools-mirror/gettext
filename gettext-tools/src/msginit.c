@@ -1323,14 +1323,15 @@ get_field (const char *header, const char *field)
 
   for (line = header;;)
     {
-      if (strncmp (line, field, len) == 0
-	  && line[len] == ':' && line[len + 1] == ' ')
+      if (strncmp (line, field, len) == 0 && line[len] == ':')
 	{
 	  const char *value_start;
 	  const char *value_end;
 	  char *value;
 
-	  value_start = line + len + 2;
+	  value_start = line + len + 1;
+	  if (*value_start == ' ')
+	    value_start++;
 	  value_end = strchr (value_start, '\n');
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
@@ -1363,13 +1364,14 @@ put_field (const char *old_header, const char *field, const char *value)
 
   for (line = old_header;;)
     {
-      if (strncmp (line, field, len) == 0
-	  && line[len] == ':' && line[len + 1] == ' ')
+      if (strncmp (line, field, len) == 0 && line[len] == ':')
 	{
 	  const char *value_start;
 	  const char *value_end;
 
-	  value_start = line + len + 2;
+	  value_start = line + len + 1;
+	  if (*value_start == ' ')
+	    value_start++;
 	  value_end = strchr (value_start, '\n');
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);

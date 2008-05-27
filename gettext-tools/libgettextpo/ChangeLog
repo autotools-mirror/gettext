@@ -1,3 +1,9 @@
+2008-05-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.c (po_header_field, po_header_set_field): Recognize a
+	field also if there is no space after the ':'.
+	Reported by Nacho <nacho.resa@gmail.com>.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

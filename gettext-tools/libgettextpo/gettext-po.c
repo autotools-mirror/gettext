@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -341,14 +341,15 @@ po_header_field (const char *header, const char *field)
 
   for (line = header;;)
     {
-      if (strncmp (line, field, field_len) == 0
-	  && line[field_len] == ':' && line[field_len + 1] == ' ')
+      if (strncmp (line, field, field_len) == 0 && line[field_len] == ':')
 	{
 	  const char *value_start;
 	  const char *value_end;
 	  char *value;
 
-	  value_start = line + field_len + 2;
+	  value_start = line + field_len + 1;
+	  if (*value_start == ' ')
+	    value_start++;
 	  value_end = strchr (value_start, '\n');
 	  if (value_end == NULL)
 	    value_end = value_start + strlen (value_start);
@@ -387,8 +388,7 @@ po_header_set_field (const char *header, const char *field, const char *value)
 
     for (line = header;;)
       {
-	if (strncmp (line, field, field_len) == 0
-	    && line[field_len] == ':' && line[field_len + 1] == ' ')
+	if (strncmp (line, field, field_len) == 0 && line[field_len] == ':')
 	  {
 	    const char *oldvalue_start;
 	    const char *oldvalue_end;
@@ -398,7 +398,9 @@ po_header_set_field (const char *header, const char *field, const char *value)
 	    size_t result_len;
 	    char *result;
 
-	    oldvalue_start = line + field_len + 2;
+	    oldvalue_start = line + field_len + 1;
+	    if (*oldvalue_start == ' ')
+	      oldvalue_start++;
 	    oldvalue_end = strchr (oldvalue_start, '\n');
 	    if (oldvalue_end == NULL)
 	      oldvalue_end = oldvalue_start + strlen (oldvalue_start);

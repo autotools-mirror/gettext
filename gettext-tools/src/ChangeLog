@@ -1,6 +1,12 @@
+2008-05-26  Bruno Haible  <bruno@clisp.org>
+
+	* msginit.c (get_field, put_field): Recognize a field also if there is
+	no space after the ':'.
+	Reported by Nacho <nacho.resa@gmail.com>.
+
 2008-05-16  Bruno Haible  <bruno@clisp.org>
 
-	* gettext-tools/src/msgl-iconv.c (iconvable_prev_msgid): Fix typo.
+	* msgl-iconv.c (iconvable_prev_msgid): Fix typo.
 	Reported by Karl Eichwalder <ke@novell.com>
 	via Philipp Thomas <pth@novell.com>
 	at <https://bugzilla.novell.com/show_bug.cgi?id=391372>.
