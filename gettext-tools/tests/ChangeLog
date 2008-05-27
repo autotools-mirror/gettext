@@ -1,3 +1,9 @@
+2008-05-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-8: New file.
+	* Makefile.am (noinst_PROGRAMS): Add gettext-8-prg, remove gettext-8.
+	(gettext_8_prg_*): Renamed from gettext_8_*.
+
 2008-05-12  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat-17: Change test so that it works with newer line-breaking
