@@ -1,3 +1,8 @@
+2008-02-10  Jim Meyering  <meyering@redhat.com>
+
+	* bindtextdom.c (set_binding_values): Remove useless "if" before "free".
+	* loadmsgcat.c (_nl_load_domain, _nl_unload_domain): Likewise.
+
 2008-05-27  Bruno Haible  <bruno@clisp.org>
 
 	* localename.c (SUBLANG_TIBETAN_BHUTAN): Force value 2. Needed for
