@@ -8,6 +8,7 @@
 
 	* dcigettext.c (_nl_find_msg): Reread nconversions after acquiring
 	wrlock.  Do conv_tab allocation while holding lock.
+	<http://sourceware.org/ml/libc-hacker/2008-03/msg00009.html>
 
 2008-02-10  Jim Meyering  <meyering@redhat.com>
 
