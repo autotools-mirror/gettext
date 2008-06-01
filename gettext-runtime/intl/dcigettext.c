@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -1034,6 +1034,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	{
 	  /* We have to allocate a new conversions table.  */
 	  gl_rwlock_wrlock (domain->conversions_lock);
+	  nconversions = domain->nconversions;
 
 	  /* Maybe in the meantime somebody added the translation.
 	     Recheck.  */
@@ -1207,13 +1208,29 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	     handle this case by converting RESULTLEN bytes, including
 	     NULs.  */
 
-	  if (convd->conv_tab == NULL
-	      && ((convd->conv_tab =
+	  /* This lock primarily protects the memory management variables
+	     freemem, freemem_size.  It also protects write accesses to
+	     convd->conv_tab.  It's not worth using a separate lock (such
+	     as domain->conversions_lock) for this purpose, because when
+	     modifying convd->conv_tab, we also need to lock freemem,
+	     freemem_size for most of the time.  */
+	  __libc_lock_define_initialized (static, lock)
+
+	  if (__builtin_expect (convd->conv_tab == NULL, 0))
+	    {
+	      __libc_lock_lock (lock);
+	      if (convd->conv_tab == NULL)
+		{
+		  convd->conv_tab =
 		    (char **) calloc (nstrings + domain->n_sysdep_strings,
-				      sizeof (char *)))
-		  == NULL))
-	    /* Mark that we didn't succeed allocating a table.  */
-	    convd->conv_tab = (char **) -1;
+				      sizeof (char *));
+		  if (convd->conv_tab != NULL)
+		    goto not_translated_yet;
+		  /* Mark that we didn't succeed allocating a table.  */
+		  convd->conv_tab = (char **) -1;
+		}
+	      __libc_lock_unlock (lock);
+	    }
 
 	  if (__builtin_expect (convd->conv_tab == (char **) -1, 0))
 	    /* Nothing we can do, no more memory.  We cannot use the
@@ -1227,7 +1244,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      /* We use a bit more efficient memory handling.
 		 We allocate always larger blocks which get used over
 		 time.  This is faster than many small allocations.   */
-	      __libc_lock_define_initialized (static, lock)
 # define INITIAL_BLOCK_SIZE	4080
 	      static unsigned char *freemem;
 	      static size_t freemem_size;
@@ -1236,13 +1252,17 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      unsigned char *outbuf;
 	      int malloc_count;
 # ifndef _LIBC
-	      transmem_block_t *transmem_list = NULL;
+	      transmem_block_t *transmem_list;
 # endif
 
 	      __libc_lock_lock (lock);
+	    not_translated_yet:
 
 	      inbuf = (const unsigned char *) result;
 	      outbuf = freemem + sizeof (size_t);
+# ifndef _LIBC
+	      transmem_list = NULL;
+# endif
 
 	      malloc_count = 0;
 	      while (1)

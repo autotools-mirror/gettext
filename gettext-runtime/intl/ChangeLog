@@ -1,3 +1,8 @@
+2008-03-30  Jakub Jelinek  <jakub@redhat.com>
+
+	* dcigettext.c (_nl_find_msg): Reread nconversions after acquiring
+	wrlock.  Do conv_tab allocation while holding lock.
+
 2008-02-10  Jim Meyering  <meyering@redhat.com>
 
 	* bindtextdom.c (set_binding_values): Remove useless "if" before "free".
