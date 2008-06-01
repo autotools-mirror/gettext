@@ -1,5 +1,9 @@
 2008-06-01  Bruno Haible  <bruno@clisp.org>
 
+	* lang-bash: Add note about failure on MacOS X.
+
+2008-06-01  Bruno Haible  <bruno@clisp.org>
+
 	* lang-smalltalk: Avoid test failure with gst-3.0.3 on MacOS X.
 
 2008-05-26  Bruno Haible  <bruno@clisp.org>
