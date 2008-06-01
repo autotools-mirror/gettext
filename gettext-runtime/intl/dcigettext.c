@@ -530,6 +530,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   /* Preserve the `errno' value.  */
   saved_errno = errno;
 
+#ifdef _LIBC
+  __libc_rwlock_define (extern, __libc_setlocale_lock attribute_hidden)
+  __libc_rwlock_rdlock (__libc_setlocale_lock);
+#endif
+
   gl_rwlock_rdlock (_nl_state_lock);
 
   /* If DOMAINNAME is NULL, we are interested in the default domain.  If
@@ -553,7 +558,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #ifdef HAVE_PER_THREAD_LOCALE
 # ifndef IN_LIBGLOCALE
 #  ifdef _LIBC
-  localename = __current_locale_name (category);
+  localename = _strdupa (_current_locale_name (category));
 #  else
 #   if HAVE_NL_LOCALE_NAME
   /* NL_LOCALE_NAME is public glibc API introduced in glibc-2.4.  */
@@ -596,6 +601,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	retval = (char *) (*foundp)->translation;
 
       gl_rwlock_unlock (_nl_state_lock);
+# ifdef _LIBC
+      __libc_rwlock_unlock (__libc_setlocale_lock);
+# endif
       __set_errno (saved_errno);
       return retval;
     }
@@ -843,6 +851,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 		retval = plural_lookup (domain, n, retval, retlen);
 
 	      gl_rwlock_unlock (_nl_state_lock);
+#ifdef _LIBC
+	      __libc_rwlock_unlock (__libc_setlocale_lock);
+#endif
 	      return retval;
 	    }
 	}
@@ -852,6 +863,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   /* Return the untranslated MSGID.  */
   FREE_BLOCKS (block_list);
   gl_rwlock_unlock (_nl_state_lock);
+#ifdef _LIBC
+  __libc_rwlock_unlock (__libc_setlocale_lock);
+#endif
 #ifndef _LIBC
   if (!ENABLE_SECURE)
     {

@@ -1,3 +1,9 @@
+2008-03-30  Ulrich Drepper  <drepper@redhat.com>
+
+	[BZ #5443]
+	* dcigettext.c (__dcigettext): Get reader lock for locale data before
+	looking for translation.
+
 2008-03-30  Jakub Jelinek  <jakub@redhat.com>
 
 	* dcigettext.c (_nl_find_msg): Reread nconversions after acquiring
