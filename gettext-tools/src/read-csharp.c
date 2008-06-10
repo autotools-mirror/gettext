@@ -1,5 +1,5 @@
 /* Reading C# satellite assemblies.
-   Copyright (C) 2003-2004, 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004, 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -77,7 +77,8 @@ execute_and_read_po_output (const char *progname,
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, progname, false, false, true, true);
+  exitstatus =
+    wait_subprocess (child, progname, false, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
 	   progname, exitstatus);

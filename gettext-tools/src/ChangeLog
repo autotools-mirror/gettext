@@ -1,3 +1,18 @@
+2008-06-10  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec.c (process_string): Update for changed signature of
+	wait_subprocess().
+	* msgfilter.c (generic_filter): Likewise.
+	* msginit.c (project_id, project_id_version, get_user_email,
+	language_team_address): Likewise.
+	* read-csharp.c (execute_and_read_po_output): Likewise.
+	* read-java.c (execute_and_read_po_output): Likewise.
+	* read-resources.c (execute_and_read_po_output): Likewise.
+	* read-tcl.c (msgdomain_read_tcl): Likewise.
+	* write-resources.c (execute_writing_input): Likewise.
+	* urlget.c (execute_it, fetch): Update for changed signature of
+	execute().
+
 2008-05-26  Bruno Haible  <bruno@clisp.org>
 
 	* msginit.c (get_field, put_field): Recognize a field also if there is

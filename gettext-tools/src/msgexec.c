@@ -1,5 +1,5 @@
 /* Pass translations to a subprocess.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -359,7 +359,8 @@ process_string (const message_ty *mp, const char *str, size_t len)
       /* Remove zombie process from process list, and retrieve exit status.  */
       /* FIXME: Should ignore_sigpipe be set to true here? It depends on the
 	 semantics of the subprogram...  */
-      exitstatus = wait_subprocess (child, sub_name, false, false, true, true);
+      exitstatus =
+	wait_subprocess (child, sub_name, false, false, true, true, NULL);
       if (exitcode < exitstatus)
 	exitcode = exitstatus;
     }

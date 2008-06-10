@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -115,7 +115,8 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, "tclsh", false, false, true, true);
+  exitstatus =
+    wait_subprocess (child, "tclsh", false, false, true, true, NULL);
   if (exitstatus != 0)
     {
       if (exitstatus == 2)

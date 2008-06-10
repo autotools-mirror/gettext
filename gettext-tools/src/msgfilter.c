@@ -1,5 +1,5 @@
 /* Edit translations using a subprocess.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -706,7 +706,8 @@ generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp)
   close (fd[0]);
 
   /* Remove zombie process from process list.  */
-  exitstatus = wait_subprocess (child, sub_name, false, false, true, true);
+  exitstatus =
+    wait_subprocess (child, sub_name, false, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess terminated with exit code %d"),
 	   sub_name, exitstatus);

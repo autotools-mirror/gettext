@@ -1,5 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003, 2005, 2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005, 2007-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -98,7 +98,8 @@ execute_writing_input (const char *progname,
   /* He we can ignore SIGPIPE because WriteResource either writes to a file
      - then it never gets SIGPIPE - or to standard output, and in the latter
      case it has no side effects other than writing to standard output.  */
-  exitstatus = wait_subprocess (child, progname, true, false, true, true);
+  exitstatus =
+    wait_subprocess (child, progname, true, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
 	   progname, exitstatus);
