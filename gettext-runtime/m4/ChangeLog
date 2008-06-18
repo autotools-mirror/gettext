@@ -1,3 +1,11 @@
+2008-06-17  Bruno Haible  <bruno@clisp.org>
+
+	New macro gl_DISABLE_THREADS.
+	* m4/lock.m4 (gl_LOCK_EARLY_BODY): Use value gl_use_threads_default
+	if the user did not pass --enable-threads or --disable-threads option.
+	(gl_DISABLE_THREADS): New macro.
+	Reported by Eric Blake <ebb9@byu.net>.
+
 2007-11-10  Bruno Haible  <bruno@clisp.org>
 
 	* eoverflow.m4: New file, from gnulib.
