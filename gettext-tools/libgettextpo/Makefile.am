@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -177,6 +177,9 @@ else
 	cp $(srcdir)/gettext-po.h.in gettext-po.h-tmp
 endif
 	mv gettext-po.h-tmp gettext-po.h
+
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 # A small set of gnulib modules is needed here as well.
 include Makefile.gnulib
