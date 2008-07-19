@@ -344,3 +344,16 @@ striconveha.c
 striconveha.h
 uniconv.h
 unilbrk.h
+mbiter.h
+trim.c
+trim.h
+copy-acl.c
+dup-safer.c
+fd-safer.c
+pipe-safer.c
+raise.c
+set-mode-acl.c
+sig-handler.h
+sigaction.c
+unistd--.h
+unistd-safer.h
