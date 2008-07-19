@@ -62,10 +62,18 @@
    HTML parsers.]  */
 
 
+/* Whether to output something on standard error.
+   This is true by default, because the user should know why we are trying to
+   establish an internet connection.  Also, users get confused if a program
+   produces no output for more than 10 seconds for no apparent reason.  */
+static bool verbose = true;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
   { "help", no_argument, NULL, 'h' },
+  { "quiet", no_argument, NULL, 'q' },
+  { "silent", no_argument, NULL, 'q' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
@@ -108,15 +116,18 @@ main (int argc, char *argv[])
   do_version = false;
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "hV", long_options, NULL)) != EOF)
+  while ((optchar = getopt_long (argc, argv, "hqV", long_options, NULL)) != EOF)
     switch (optchar)
     {
     case '\0':		/* Long option.  */
       break;
-    case 'h':
+    case 'h':		/* --help */
       do_help = true;
       break;
-    case 'V':
+    case 'q':		/* --quiet / --silent */
+      verbose = false;
+      break;
+    case 'V':		/* --version */
       do_version = true;
       break;
     default:
@@ -178,6 +189,8 @@ Informative output:\n"));
   -h, --help                  display this help and exit\n"));
       printf (_("\
   -V, --version               output version information and exit\n"));
+      printf (_("\
+  -q, --quiet, --silent       suppress progress indicators\n"));
       printf ("\n");
       /* TRANSLATORS: The placeholder indicates the bug-reporting address
          for this package.  Please add _another line_ saying
@@ -225,6 +238,9 @@ cat_file (const char *src_filename)
     error (EXIT_FAILURE, errno, _("error after reading \"%s\""), src_filename);
 }
 
+/* Exit code of the Java program.  */
+static int java_exitcode;
+
 static bool
 execute_it (const char *progname,
 	    const char *prog_path, char **prog_argv,
@@ -232,15 +248,23 @@ execute_it (const char *progname,
 {
   (void) private_data;
 
-  return execute (progname, prog_path, prog_argv, true, true, false, false,
-		  true, false, NULL)
-	 != 0;
+  java_exitcode =
+    execute (progname, prog_path, prog_argv, true, true, false, false, true,
+	     false, NULL);
+  /* Exit code 0 means success, 2 means timed out.  */
+  return !(java_exitcode == 0 || java_exitcode == 2);
 }
 
 /* Fetch the URL.  Upon error, use the FILE as fallback.  */
 static void
 fetch (const char *url, const char *file)
 {
+  if (verbose)
+    {
+      fprintf (stderr, _("Retrieving %s..."), url);
+      fflush (stderr);
+    }
+
   /* First try: using Java.  */
   {
     const char *class_name = "gnu.gettext.GetURL";
@@ -269,11 +293,21 @@ fetch (const char *url, const char *file)
     args[1] = NULL;
 
     /* Fetch the URL's contents.  */
-    if (execute_java_class (class_name, &gettextjar, 1, true, gettextjexedir,
-			    args,
-			    false, true,
-			    execute_it, NULL) == 0)
-      return;
+    java_exitcode = 127;
+    if (!execute_java_class (class_name, &gettextjar, 1, true, gettextjexedir,
+			     args,
+			     false, true,
+			     execute_it, NULL))
+      {
+	if (verbose)
+	  {
+	    if (java_exitcode == 0)
+	      fprintf (stderr, _(" done.\n"));
+	    else if (java_exitcode == 2)
+	      fprintf (stderr, _(" timed out.\n"));
+	  }
+	return;
+      }
   }
 
   /* Second try: using "wget -q -O - url".  */
@@ -312,8 +346,9 @@ fetch (const char *url, const char *file)
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)
-	      /* Use the file as fallback.  */
-	      cat_file (file);
+	      goto failed;
+	    if (verbose)
+	      fprintf (stderr, _(" done.\n"));
 	    return;
 	  }
       }
@@ -353,8 +388,9 @@ fetch (const char *url, const char *file)
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)
-	      /* Use the file as fallback.  */
-	      cat_file (file);
+	      goto failed;
+	    if (verbose)
+	      fprintf (stderr, _(" done.\n"));
 	    return;
 	  }
       }
@@ -394,13 +430,17 @@ fetch (const char *url, const char *file)
 	if (exitstatus != 127)
 	  {
 	    if (exitstatus != 0)
-	      /* Use the file as fallback.  */
-	      cat_file (file);
+	      goto failed;
+	    if (verbose)
+	      fprintf (stderr, _(" done.\n"));
 	    return;
 	  }
       }
   }
 
+ failed:
+  if (verbose)
+    fprintf (stderr, _(" failed.\n"));
   /* Use the file as fallback.  */
   cat_file (file);
 }

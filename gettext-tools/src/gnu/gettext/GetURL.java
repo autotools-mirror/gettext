@@ -1,5 +1,5 @@
 /* Fetch an URL's contents.
- * Copyright (C) 2001 Free Software Foundation, Inc.
+ * Copyright (C) 2001, 2008 Free Software Foundation, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,10 @@ import java.io.*;
 import java.net.*;
 
 /**
+ * Fetch an URL's contents and emit it to standard output.
+ * Exit code: 0 = success
+ *            1 = failure
+ *            2 = timeout
  * @author Bruno Haible
  */
 public class GetURL {
@@ -37,10 +41,6 @@ public class GetURL {
       System.exit(1);
       return;
     }
-    // We always print something on stderr because the user should know
-    // why we are trying to establish an internet connection.
-    System.err.print("Retrieving "+s+"...");
-    System.err.flush();
     done = false;
     timeoutThread =
       new Thread() {
@@ -48,8 +48,7 @@ public class GetURL {
           try {
             sleep(timeout);
             if (!done) {
-              System.err.println(" timed out.");
-              System.exit(1);
+              System.exit(2);
             }
           } catch (InterruptedException e) {
           }
@@ -69,11 +68,9 @@ public class GetURL {
       istream.close();
     } catch (IOException e) {
       //e.printStackTrace();
-      System.err.println(" failed.");
       System.exit(1);
     }
     done = true;
-    System.err.println(" done.");
   }
   public static void main (String[] args) {
     if (args.length != 1)

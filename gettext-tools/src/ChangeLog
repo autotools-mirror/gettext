@@ -1,3 +1,16 @@
+2008-07-19  Bruno Haible  <bruno@clisp.org>
+
+	* gnu/gettext/GetURL.java: Don't output anything to standard error.
+	Instead, set exit code to indicate failure reason.
+	* urlget.c (verbose): New variable.
+	(long_options): Add --quiet, --silent option.
+	(main): Implement --quiet, --silent option.
+	(usage): Document --quiet, --silent option.
+	(java_exitcode): New variable.
+	(execute_it): Set it. Return false also when the exit code is 2.
+	(fetch): Implement verbosity to standard error here.
+	Reported by 宋浩 <baritono.tux@gmail.com>.
+
 2008-06-10  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c (process_string): Update for changed signature of
