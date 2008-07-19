@@ -310,7 +310,7 @@ fetch (const char *url, const char *file)
       }
   }
 
-  /* Second try: using "wget -q -O - url".  */
+  /* Second try: using "wget -q -O - -T 30 url".  */
   {
     static bool wget_tested;
     static bool wget_present;
