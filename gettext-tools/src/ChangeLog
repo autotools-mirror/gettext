@@ -1,3 +1,10 @@
+2008-08-03  Bruno Haible  <bruno@clisp.org>
+
+	* x-python.c (mixed_string_buffer_append): Replace a lone high
+	surrogate with U+FFFD.
+	Reported by Yann <asterix@lagaule.org>
+	via Santiago Vila <sanvila@unex.es>.
+
 2008-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* gnu/gettext/GetURL.java: Don't output anything to standard error.

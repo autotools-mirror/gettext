@@ -930,6 +930,11 @@ mixed_string_buffer_append (struct mixed_string_buffer *bp, int c)
 
 	  if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
 	    bp->utf16_surr = UNICODE_VALUE (c);
+	  else if (c >= UNICODE (0xdc00) && c < UNICODE (0xe000))
+	    {
+	      /* A half surrogate is invalid, therefore use U+FFFD instead.  */
+	      mixed_string_buffer_append_unicode (bp, 0xfffd);
+	    }
 	  else
 	    mixed_string_buffer_append_unicode (bp, UNICODE_VALUE (c));
 	}
