@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001-2004, 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,9 @@
        - 'e', 'E', 'f', 'g', 'G', that need a floating-point argument.
    Use of '(ident)' and use of unnamed argument specifications are exclusive,
    because the first requires a mapping as argument, while the second requires
-   a tuple as argument.
+   a tuple as argument. When unnamed arguments are used, the number of
+   arguments in the format string and the number of elements in the argument
+   tuple (to the right of the '%' operator) must be the same.
  */
 
 enum format_arg_type
@@ -493,9 +495,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	  unsigned int i;
 
 	  /* Check the argument types are the same.  */
-	  if (equality
-	      ? spec1->unnamed_arg_count != spec2->unnamed_arg_count
-	      : spec1->unnamed_arg_count < spec2->unnamed_arg_count)
+	  if (spec1->unnamed_arg_count != spec2->unnamed_arg_count)
 	    {
 	      if (error_logger)
 		error_logger (_("number of format specifications in 'msgid' and '%s' does not match"),
