@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -72,8 +72,8 @@ distcheck-hook:
 	test "`sed 1,18d gettext-runtime/intl/localcharset.h | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.h | md5sum`"
 	test "`sed 1,18d gettext-runtime/intl/localcharset.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localcharset.c | md5sum`"
 	test "`sed 1,17d gettext-runtime/intl/localename.c | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/localename.c | md5sum`"
-	test "`sed 1,17d gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.h | md5sum`"
-	test "`sed 1,17d gettext-runtime/intl/lock.c | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/lock.c | md5sum`"
+	test "`sed 1,17d gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/glthread/lock.h | md5sum`"
+	test "`sed 1,17d gettext-runtime/intl/lock.c | md5sum`" = "`sed -e 1,16d -e 's,glthread/,,g' gettext-tools/gnulib-lib/glthread/lock.c | md5sum`"
 	cmp -s gettext-runtime/intl/printf-args.h gettext-runtime/libasprintf/printf-args.h
 	cmp -s gettext-runtime/intl/printf-args.c gettext-runtime/libasprintf/printf-args.c
 	cmp -s gettext-runtime/intl/printf-parse.h gettext-runtime/libasprintf/printf-parse.h
