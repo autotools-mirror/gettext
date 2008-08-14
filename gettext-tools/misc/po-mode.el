@@ -1342,7 +1342,7 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
             (progn
               ;; There is at least one entry.
               (goto-char (match-beginning 0))
-              (previous-line 1)
+              (forward-line -1)
               (setq end-of-header (match-end 0))
               (if (looking-at "msgid \"\"\n")
                   ;; There is indeed a PO file header.
@@ -1352,7 +1352,7 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
                     ;; This is an oldish header.  Replace it all.
                     (goto-char end-of-header)
                     (while (> (point) (point-min))
-                      (previous-line 1)
+                      (forward-line -1)
                       (insert "#~ ")
                       (beginning-of-line))
                     (beginning-of-line)
@@ -1498,7 +1498,7 @@ untranslated or translated."
               (insert ", " name)))
         (skip-chars-forward "\n")
         (while (eq (following-char) ?#)
-          (next-line 1))
+          (forward-line 1))
         (insert "#, " name "\n")))))
 
 (defun po-delete-attribute (name)
