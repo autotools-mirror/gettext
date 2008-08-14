@@ -682,7 +682,7 @@ glthread_lock_init_func (gl_lock_t *lock)
 }
 
 int
-glthread_lock_lock (gl_lock_t *lock)
+glthread_lock_lock_func (gl_lock_t *lock)
 {
   if (!lock->guard.done)
     {
@@ -700,7 +700,7 @@ glthread_lock_lock (gl_lock_t *lock)
 }
 
 int
-glthread_lock_unlock (gl_lock_t *lock)
+glthread_lock_unlock_func (gl_lock_t *lock)
 {
   if (!lock->guard.done)
     return EINVAL;
@@ -709,7 +709,7 @@ glthread_lock_unlock (gl_lock_t *lock)
 }
 
 int
-glthread_lock_destroy (gl_lock_t *lock)
+glthread_lock_destroy_func (gl_lock_t *lock)
 {
   if (!lock->guard.done)
     return EINVAL;
@@ -817,7 +817,7 @@ glthread_rwlock_init_func (gl_rwlock_t *lock)
 }
 
 int
-glthread_rwlock_rdlock (gl_rwlock_t *lock)
+glthread_rwlock_rdlock_func (gl_rwlock_t *lock)
 {
   if (!lock->guard.done)
     {
@@ -871,7 +871,7 @@ glthread_rwlock_rdlock (gl_rwlock_t *lock)
 }
 
 int
-glthread_rwlock_wrlock (gl_rwlock_t *lock)
+glthread_rwlock_wrlock_func (gl_rwlock_t *lock)
 {
   if (!lock->guard.done)
     {
@@ -924,7 +924,7 @@ glthread_rwlock_wrlock (gl_rwlock_t *lock)
 }
 
 int
-glthread_rwlock_unlock (gl_rwlock_t *lock)
+glthread_rwlock_unlock_func (gl_rwlock_t *lock)
 {
   if (!lock->guard.done)
     return EINVAL;
@@ -968,7 +968,7 @@ glthread_rwlock_unlock (gl_rwlock_t *lock)
 }
 
 int
-glthread_rwlock_destroy (gl_rwlock_t *lock)
+glthread_rwlock_destroy_func (gl_rwlock_t *lock)
 {
   if (!lock->guard.done)
     return EINVAL;
@@ -995,7 +995,7 @@ glthread_recursive_lock_init_func (gl_recursive_lock_t *lock)
 }
 
 int
-glthread_recursive_lock_lock (gl_recursive_lock_t *lock)
+glthread_recursive_lock_lock_func (gl_recursive_lock_t *lock)
 {
   if (!lock->guard.done)
     {
@@ -1025,7 +1025,7 @@ glthread_recursive_lock_lock (gl_recursive_lock_t *lock)
 }
 
 int
-glthread_recursive_lock_unlock (gl_recursive_lock_t *lock)
+glthread_recursive_lock_unlock_func (gl_recursive_lock_t *lock)
 {
   if (lock->owner != GetCurrentThreadId ())
     return EPERM;
@@ -1040,7 +1040,7 @@ glthread_recursive_lock_unlock (gl_recursive_lock_t *lock)
 }
 
 int
-glthread_recursive_lock_destroy (gl_recursive_lock_t *lock)
+glthread_recursive_lock_destroy_func (gl_recursive_lock_t *lock)
 {
   if (lock->owner != 0)
     return EBUSY;

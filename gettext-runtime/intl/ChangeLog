@@ -1,3 +1,24 @@
+2008-08-14  Bruno Haible  <bruno@clisp.org>
+
+	* lock.h (glthread_lock_lock, glthread_lock_unlock,
+	glthread_lock_destroy, glthread_rwlock_rdlock, glthread_rwlock_wrlock,
+	glthread_rwlock_unlock, glthread_rwlock_destroy,
+	glthread_recursive_lock_lock, glthread_recursive_lock_unlock,
+	glthread_recursive_lock_destroy): Define as macros always.
+	* lock.c (glthread_lock_lock_func): Renamed from glthread_lock_lock.
+	(glthread_lock_unlock_func): Renamed from glthread_lock_unlock.
+	(glthread_lock_destroy_func): Renamed from glthread_lock_destroy.
+	(glthread_rwlock_rdlock_func): Renamed from glthread_rwlock_rdlock.
+	(glthread_rwlock_wrlock_func): Renamed from glthread_rwlock_wrlock.
+	(glthread_rwlock_unlock_func): Renamed from glthread_rwlock_unlock.
+	(glthread_rwlock_destroy_func): Renamed from glthread_rwlock_destroy.
+	(glthread_recursive_lock_lock_func): Renamed from
+	glthread_recursive_lock_lock.
+	(glthread_recursive_lock_unlock_func): Renamed from
+	glthread_recursive_lock_unlock.
+	(glthread_recursive_lock_destroy_func): Renamed from
+	glthread_recursive_lock_destroy.
+
 2008-08-07  Paolo Bonzini  <bonzini@gnu.org>
 
 	* lock.c (glthread_recursive_lock_init_multithreaded)
@@ -6,7 +27,7 @@
 2008-08-03  Bruno Haible  <bruno@clisp.org>
 
 	Additional non-aborting API for lock.
-	* lib/lock.h: Include <errno.h>.
+	* lock.h: Include <errno.h>.
 	(glthread_lock_init): New macro/function.
 	(gl_lock_init): Define as wrapper around glthread_lock_init.
 	(glthread_lock_lock): New macro/function.
@@ -40,7 +61,7 @@
 	(glthread_once): New macro/function.
 	(gl_once): Define as wrapper around glthread_once.
 	Update function declarations.
-	* lib/lock.c (glthread_rwlock_init_multithreaded): Renamed from
+	* lock.c (glthread_rwlock_init_multithreaded): Renamed from
 	glthread_rwlock_init. Return error code.
 	(glthread_rwlock_rdlock_multithreaded): Renamed from
 	glthread_rwlock_rdlock. Return error code.
