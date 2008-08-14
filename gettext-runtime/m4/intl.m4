@@ -1,5 +1,5 @@
-# intl.m4 serial 8 (gettext-0.17)
-dnl Copyright (C) 1995-2007 Free Software Foundation, Inc.
+# intl.m4 serial 9 (gettext-0.18)
+dnl Copyright (C) 1995-2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -146,22 +146,31 @@ AC_DEFUN([AM_INTL_SUBDIR],
 #define __libc_lock_lock_recursive                gl_recursive_lock_lock
 #define __libc_lock_unlock_recursive              gl_recursive_lock_unlock
 #define glthread_in_use  libintl_thread_in_use
-#define glthread_lock_init     libintl_lock_init
-#define glthread_lock_lock     libintl_lock_lock
-#define glthread_lock_unlock   libintl_lock_unlock
-#define glthread_lock_destroy  libintl_lock_destroy
-#define glthread_rwlock_init     libintl_rwlock_init
-#define glthread_rwlock_rdlock   libintl_rwlock_rdlock
-#define glthread_rwlock_wrlock   libintl_rwlock_wrlock
-#define glthread_rwlock_unlock   libintl_rwlock_unlock
-#define glthread_rwlock_destroy  libintl_rwlock_destroy
-#define glthread_recursive_lock_init     libintl_recursive_lock_init
-#define glthread_recursive_lock_lock     libintl_recursive_lock_lock
-#define glthread_recursive_lock_unlock   libintl_recursive_lock_unlock
-#define glthread_recursive_lock_destroy  libintl_recursive_lock_destroy
-#define glthread_once                 libintl_once
-#define glthread_once_call            libintl_once_call
+#define glthread_lock_init_func     libintl_lock_init_func
+#define glthread_lock_lock_func     libintl_lock_lock_func
+#define glthread_lock_unlock_func   libintl_lock_unlock_func
+#define glthread_lock_destroy_func  libintl_lock_destroy_func
+#define glthread_rwlock_init_multithreaded     libintl_rwlock_init_multithreaded
+#define glthread_rwlock_init_func              libintl_rwlock_init_func
+#define glthread_rwlock_rdlock_multithreaded   libintl_rwlock_rdlock_multithreaded
+#define glthread_rwlock_rdlock_func            libintl_rwlock_rdlock_func
+#define glthread_rwlock_wrlock_multithreaded   libintl_rwlock_wrlock_multithreaded
+#define glthread_rwlock_wrlock_func            libintl_rwlock_wrlock_func
+#define glthread_rwlock_unlock_multithreaded   libintl_rwlock_unlock_multithreaded
+#define glthread_rwlock_unlock_func            libintl_rwlock_unlock_func
+#define glthread_rwlock_destroy_multithreaded  libintl_rwlock_destroy_multithreaded
+#define glthread_rwlock_destroy_func           libintl_rwlock_destroy_func
+#define glthread_recursive_lock_init_multithreaded     libintl_recursive_lock_init_multithreaded
+#define glthread_recursive_lock_init_func              libintl_recursive_lock_init_func
+#define glthread_recursive_lock_lock_multithreaded     libintl_recursive_lock_lock_multithreaded
+#define glthread_recursive_lock_lock_func              libintl_recursive_lock_lock_func
+#define glthread_recursive_lock_unlock_multithreaded   libintl_recursive_lock_unlock_multithreaded
+#define glthread_recursive_lock_unlock_func            libintl_recursive_lock_unlock_func
+#define glthread_recursive_lock_destroy_multithreaded  libintl_recursive_lock_destroy_multithreaded
+#define glthread_recursive_lock_destroy_func           libintl_recursive_lock_destroy_func
+#define glthread_once_func            libintl_once_func
 #define glthread_once_singlethreaded  libintl_once_singlethreaded
+#define glthread_once_multithreaded   libintl_once_multithreaded
 ])
 ])
 

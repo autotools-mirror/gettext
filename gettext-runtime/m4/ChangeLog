@@ -1,7 +1,11 @@
+2008-08-14  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (AM_INTL_SUBDIR): Update after changes to lock.h.
+
 2008-06-17  Bruno Haible  <bruno@clisp.org>
 
 	New macro gl_DISABLE_THREADS.
-	* m4/lock.m4 (gl_LOCK_EARLY_BODY): Use value gl_use_threads_default
+	* lock.m4 (gl_LOCK_EARLY_BODY): Use value gl_use_threads_default
 	if the user did not pass --enable-threads or --disable-threads option.
 	(gl_DISABLE_THREADS): New macro.
 	Reported by Eric Blake <ebb9@byu.net>.
