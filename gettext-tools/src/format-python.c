@@ -238,7 +238,7 @@ format_parse (const char *format, bool translated, char *fdi,
 	switch (*format)
 	  {
 	  case '%':
-	    type = FAT_ANY;
+	    type = FAT_NONE;
 	    break;
 	  case 'c':
 	    type = FAT_CHARACTER;

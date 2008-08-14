@@ -1,5 +1,9 @@
 2008-08-14  Bruno Haible  <bruno@clisp.org>
 
+	* format-python.c (format_parse): For '%', set the type to FAT_NONE.
+
+2008-08-14  Bruno Haible  <bruno@clisp.org>
+
 	* format-python.c (format_check): Require the same number of unnamed
 	arguments also when !equality.
 	Reported by Alexander Dupuy <alex.dupuy@mac.com> in
