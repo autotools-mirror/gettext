@@ -1,3 +1,7 @@
+2008-08-14  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge.c: Include "glthread/lock.h" instead of "lock.h".
+
 2008-08-03  Bruno Haible  <bruno@clisp.org>
 
 	* x-python.c (mixed_string_buffer_append): Replace a lone high

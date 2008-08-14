@@ -54,7 +54,7 @@
 #include "msgl-iconv.h"
 #include "msgl-equal.h"
 #include "msgl-fsearch.h"
-#include "lock.h"
+#include "glthread/lock.h"
 #include "lang-table.h"
 #include "plural-exp.h"
 #include "plural-count.h"
