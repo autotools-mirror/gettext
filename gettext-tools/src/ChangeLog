@@ -1,3 +1,12 @@
+2008-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* format-python.c (format_parse): For %.0s and %.0r, set the type to
+	FORMAT_ANY.
+	(format_check): When strict equality is not desired, compare FORMAT_ANY
+	as matching any type.
+	Reported by Alexander Dupuy <alex.dupuy@mac.com> in
+	<http://savannah.gnu.org/bugs/?24025>.
+
 2008-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* format-python.c (format_parse): For '%', set the type to FAT_NONE.

@@ -55,7 +55,8 @@
    - is finished by a specifier
        - '%', that needs no argument,
        - 'c', that needs a character argument,
-       - 's', 'r', that need a string argument,
+       - 's', 'r', that need a string argument (or, when a precision of 0 is
+         given, an argument of any type),
        - 'i', 'd', 'u', 'o', 'x', 'X', that need an integer argument,
        - 'e', 'E', 'f', 'g', 'G', that need a floating-point argument.
    Use of '(ident)' and use of unnamed argument specifications are exclusive,
@@ -133,6 +134,7 @@ format_parse (const char *format, bool translated, char *fdi,
       {
 	/* A directive.  */
 	char *name = NULL;
+	bool zero_precision = false;
 	enum format_arg_type type;
 
 	FDI_SET (format - 1, FMTDIR_START);
@@ -228,7 +230,14 @@ format_parse (const char *format, bool translated, char *fdi,
 	      }
 	    else if (isdigit (*format))
 	      {
-		do format++; while (isdigit (*format));
+		zero_precision = true;
+		do
+		  {
+		    if (*format != '0')
+		      zero_precision = false;
+		    format++;
+		  }
+		while (isdigit (*format));
 	      }
 	  }
 
@@ -244,7 +253,7 @@ format_parse (const char *format, bool translated, char *fdi,
 	    type = FAT_CHARACTER;
 	    break;
 	  case 's': case 'r':
-	    type = FAT_STRING;
+	    type = (zero_precision ? FAT_ANY : FAT_STRING);
 	    break;
 	  case 'i': case 'd': case 'u': case 'o': case 'x': case 'X':
 	    type = FAT_INTEGER;
@@ -475,7 +484,10 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      {
 		if (strcmp (spec1->named[i].name, spec2->named[j].name) == 0)
 		  {
-		    if (spec1->named[i].type != spec2->named[j].type)
+		    if (!(spec1->named[i].type == spec2->named[j].type
+			  || (!equality
+			      && (spec1->named[i].type == FAT_ANY
+				  || spec2->named[j].type == FAT_ANY))))
 		      {
 			if (error_logger)
 			  error_logger (_("format specifications in 'msgid' and '%s' for argument '%s' are not the same"),
@@ -504,7 +516,10 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	    }
 	  else
 	    for (i = 0; i < spec2->unnamed_arg_count; i++)
-	      if (spec1->unnamed[i].type != spec2->unnamed[i].type)
+	      if (!(spec1->unnamed[i].type == spec2->unnamed[i].type
+		    || (!equality
+			&& (spec1->unnamed[i].type == FAT_ANY
+			    || spec2->unnamed[i].type == FAT_ANY))))
 		{
 		  if (error_logger)
 		    error_logger (_("format specifications in 'msgid' and '%s' for argument %u are not the same"),
