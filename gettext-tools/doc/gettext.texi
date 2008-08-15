@@ -9513,6 +9513,36 @@ fully portable
 
 An example is available in the @file{examples} directory: @code{hello-python}.
 
+A note about format strings: Python supports format strings with unnamed
+arguments, such as @code{'...%d...'}, and format strings with named arguments,
+such as @code{'...%(ident)d...'}.  The latter are preferable for
+internationalized programs, for two reasons:
+
+@itemize @bullet
+@item
+When a format string takes more than one argument, the translator can provide
+a translation that uses the arguments in a different order, if the format
+string uses named arguments.  For example, the translator can reformulate
+@smallexample
+"'%(volume)s' has only %(freespace)d bytes free."
+@end smallexample
+@noindent
+to
+@smallexample
+"Only %(freespace)d bytes free on '%(volume)s'."
+@end smallexample
+@noindent
+Additionally, the identifiers also provide some context to the translator.
+
+@item
+In the context of plural forms, the format string used for the singular form
+does not use the numeric argument in many languages.  Even in English, one
+prefers to write @code{"one hour"} instead of @code{"1 hour"}.  Omitting
+individual arguments from format strings like this is only possible with
+the named argument syntax.  (With unnamed arguments, Python -- unlike C --
+verifies that the format string uses all supplied arguments.)
+@end itemize
+
 @node Common Lisp, clisp C, Python, List of Programming Languages
 @subsection GNU clisp - Common Lisp
 @cindex Common Lisp

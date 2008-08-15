@@ -1,3 +1,9 @@
+2008-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Python): Recommend format strings with named arguments.
+	Reported by Alexander Dupuy <alex.dupuy@mac.com>
+	in <http://savannah.gnu.org/bugs/?24025>.
+
 2008-06-18  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* msggrep.texi: Drop leading whitespace.
