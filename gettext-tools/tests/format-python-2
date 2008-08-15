@@ -84,6 +84,9 @@ msgid  "abc%c"
 msgstr "xyz%s"
 # Invalid: type incompatibility
 msgid  "abc%c"
+msgstr "xyz%.0s"
+# Invalid: type incompatibility
+msgid  "abc%c"
 msgstr "xyz%i"
 # Invalid: type incompatibility
 msgid  "abc%c"
@@ -92,7 +95,13 @@ msgstr "xyz%e"
 msgid  "abc%s"
 msgstr "xyz%i"
 # Invalid: type incompatibility
+msgid  "abc%.0s"
+msgstr "xyz%i"
+# Invalid: type incompatibility
 msgid  "abc%s"
+msgstr "xyz%e"
+# Invalid: type incompatibility
+msgid  "abc%.0s"
 msgstr "xyz%e"
 # Invalid: type incompatibility
 msgid  "abc%i"
