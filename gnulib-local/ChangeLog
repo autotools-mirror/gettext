@@ -1,3 +1,11 @@
+2008-08-16  Bruno Haible  <bruno@clisp.org>
+
+	Recognize installed libxml2 version 2.6.x.
+	* m4/libxml.m4 (gl_LIBXML): Determine libxml2_include_dir by looking
+	for <libxml/xmlexports.h> as well.
+	Reported by Steve Trotman <steve_trotman@hotmail.com>
+	via <http://savannah.gnu.org/bugs/?22831>.
+
 2008-05-18  Bruno Haible  <bruno@clisp.org>
 
 	* modules/propername: Remove file, moved to gnulib.

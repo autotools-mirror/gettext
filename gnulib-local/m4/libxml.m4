@@ -1,5 +1,5 @@
-# libxml.m4 serial 4 (gettext-0.17)
-dnl Copyright (C) 2006 Free Software Foundation, Inc.
+# libxml.m4 serial 5 (gettext-0.18)
+dnl Copyright (C) 2006, 2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -56,17 +56,30 @@ AC_DEFUN([gl_LIBXML],
           ])
         if test "$gl_cv_libxml" != yes; then
           dnl Often the include files are installed in /usr/include/libxml2.
-          AC_TRY_LINK([#include <libxml2/libxml/xmlversion.h>],
-            [xmlCheckVersion (0);],
-            [gl_ABSOLUTE_HEADER([libxml2/libxml/xmlversion.h])
-             libxml2_include_dir=`echo "$gl_cv_absolute_libxml2_libxml_xmlversion_h" | sed -e 's,.libxml.xmlversion\.h$,,'`
-             if test -d "$libxml2_include_dir"; then
-               gl_cv_libxml=yes
+          dnl In libxml2-2.5, <libxml/xmlversion.h> is self-contained.
+          dnl In libxml2-2.6, it includes <libxml/xmlexports.h> which is
+          dnl self-contained.
+          libxml2_include_dir=
+          AC_TRY_CPP([#include <libxml2/libxml/xmlexports.h>],
+            [gl_ABSOLUTE_HEADER([libxml2/libxml/xmlexports.h])
+             libxml2_include_dir=`echo "$gl_cv_absolute_libxml2_libxml_xmlexports_h" | sed -e 's,.libxml.xmlexports\.h$,,'`
+            ])
+          if test -z "$libxml2_include_dir"; then
+            AC_TRY_CPP([#include <libxml2/libxml/xmlversion.h>],
+              [gl_ABSOLUTE_HEADER([libxml2/libxml/xmlversion.h])
+               libxml2_include_dir=`echo "$gl_cv_absolute_libxml2_libxml_xmlversion_h" | sed -e 's,.libxml.xmlversion\.h$,,'`
+              ])
+          fi
+          if test -n "$libxml2_include_dir" && test -d "$libxml2_include_dir"; then
+            CPPFLAGS="$gl_save_CPPFLAGS -I$libxml2_include_dir"
+            AC_TRY_LINK([#include <libxml/xmlversion.h>],
+              [xmlCheckVersion (0);],
+              [gl_cv_libxml=yes
                gl_cv_LIBXML="$LIBXML2 $LIBICONV"
                gl_cv_LTLIBXML="$LTLIBXML2 $LTLIBICONV"
                gl_cv_INCXML="-I$libxml2_include_dir"
-             fi
-            ])
+              ])
+          fi
         fi
         CPPFLAGS="$gl_save_CPPFLAGS"
       fi
