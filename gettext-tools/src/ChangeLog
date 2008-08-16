@@ -1,5 +1,16 @@
 2008-08-16  Bruno Haible  <bruno@clisp.org>
 
+	* x-python.c (enum token_type_ty): New values token_type_lbracket,
+	token_type_rbracket.
+	(phase5_get): Recognize also token_type_lbracket, token_type_rbracket.
+	(extract_balanced): Renamed from extract_parenthesized. Add 'delim'
+	argument. Handle token_type_lbracket and token_type_rbracket.
+	(extract_python): Update.
+	Reported by Claude Paroz <claude@2xlibre.net>
+	via <http://savannah.gnu.org/bugs/?23824>.
+
+2008-08-16  Bruno Haible  <bruno@clisp.org>
+
 	* x-php.c (extract_balanced): Fix small bug in 2007-03-17 commit.
 
 2008-08-15  Bruno Haible  <bruno@clisp.org>
