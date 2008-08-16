@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -1409,7 +1409,7 @@ static flag_context_list_table_ty *flag_context_list_table;
    Extracted messages are added to MLP.
    DELIM can be either token_type_rparen or token_type_rbracket, or
    token_type_eof to accept both.
-   Return true upon eof, false upon closing parenthesis.  */
+   Return true upon eof, false upon closing parenthesis or bracket.  */
 static bool
 extract_balanced (message_list_ty *mlp,
 		  token_type_ty delim,
@@ -1504,6 +1504,9 @@ extract_balanced (message_list_ty *mlp,
 	      arglist_parser_done (argparser, arg);
 	      return true;
 	    }
+	  next_context_iter = null_context_list_iterator;
+	  state = 0;
+	  continue;
 
 	case token_type_rbracket:
 	  if (delim == token_type_rbracket || delim == token_type_eof)
