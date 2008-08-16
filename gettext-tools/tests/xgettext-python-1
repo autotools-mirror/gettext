@@ -22,6 +22,9 @@ _(u"abc\
 # interpret_ansic = false, interpret_unicode = true
 _(ur"abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
+
+# This will not be extracted.
+_(CATEGORIES["default"]["name"]);
 EOF
 
 tmpfiles="$tmpfiles xg-py-1.err xg-py-1.tmp xg-py-1.pot"
