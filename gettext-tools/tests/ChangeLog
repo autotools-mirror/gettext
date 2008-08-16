@@ -700,8 +700,8 @@
 
 2007-03-17  Bruno Haible  <bruno@clisp.org>
 
-	* xgettext-php-1: Test that strings [ ] are not extracted for an outer
-	gettext call.
+	* xgettext-php-1: Test that strings inside [ ] are not extracted for an
+	outer gettext call.
 
 2007-02-19  Bruno Haible  <bruno@clisp.org>
 
