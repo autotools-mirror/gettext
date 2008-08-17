@@ -169,12 +169,28 @@ AC_FUNC_VFORK
 gt_SIGINFO
 gt_SETLOCALE
 gt_LIBGREP
+
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
   [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
    echo "Please report this as a bug to bug-autoconf@gnu.org" 1>&2
-   exit 1])
-AC_DEFINE_UNQUOTED([ENDIANNESS], [$endianness],
-  [Define according to the byte order of the target machine: 1 for big endian, 0 for little endian.])
+   exit 1],
+  [endianness=universal])
+if test $endianness != universal; then
+  AC_DEFINE_UNQUOTED([ENDIANNESS], [$endianness],
+    [Define according to the byte order of the target machine: 1 for big endian, 0 for little endian.])
+fi
+dnl For possibly universal binaries, it's not possible to determine the
+dnl endianness at configure time. So determine it at compile time.
+AH_BOTTOM([
+#ifndef ENDIANNESS
+# if defined __BIG_ENDIAN__
+#  define ENDIANNESS 1
+# endif
+# if defined __LITTLE_ENDIAN__
+#  define ENDIANNESS 0
+# endif
+#endif
+])
 
 gt_PREREQ_HOSTNAME
 
