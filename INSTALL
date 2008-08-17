@@ -83,6 +83,17 @@ in the source code directory.  After you have installed the package for
 one architecture, use `make distclean' before reconfiguring for another
 architecture.
 
+   On MacOS X systems, you can create libraries and executables that work
+on multiple system types - known as "fat" or "universal" binaries - by
+specifying multiple '-arch' options to the compiler but only a single
+'-arch' option to the preprocessor.  Like this:
+
+     env CC="gcc -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
+         CXX="g++ -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
+         CPP="gcc -arch ppc -E" \
+         CXXCPP="g++ -arch ppc -E" \
+         ./configure
+
 Installation Names
 ==================
 
