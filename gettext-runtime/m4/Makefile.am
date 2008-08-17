@@ -26,6 +26,7 @@ printf-posix.m4 \
 progtest.m4 \
 size_max.m4 \
 stdint_h.m4 \
+threadlib.m4 \
 uintmax_t.m4 \
 visibility.m4 \
 wchar_t.m4 \

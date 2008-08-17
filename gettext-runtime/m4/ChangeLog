@@ -1,3 +1,9 @@
+2008-08-17  Bruno Haible  <bruno@clisp.org>
+
+	* threadlib.m4: New file, from gnulib.
+	* lock.m4: Update from gnulib.
+	* Makefile.am (EXTRA_DIST): Add threadlib.m4.
+
 2008-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* intl.m4 (AM_INTL_SUBDIR): Update after changes to lock.h.
