@@ -127,6 +127,7 @@ SOURCES = \
   plural.y \
   plural-exp.c \
   localcharset.c \
+  threadlib.c \
   lock.c \
   relocatable.c \
   langprefs.c \
@@ -157,6 +158,7 @@ OBJECTS = \
   plural.$lo \
   plural-exp.$lo \
   localcharset.$lo \
+  threadlib.$lo \
   lock.$lo \
   relocatable.$lo \
   langprefs.$lo \
@@ -254,6 +256,8 @@ plural-exp.lo: $(srcdir)/plural-exp.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
 localcharset.lo: $(srcdir)/localcharset.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
+threadlib.lo: $(srcdir)/threadlib.c
+	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/threadlib.c
 lock.lo: $(srcdir)/lock.c
 	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/lock.c
 relocatable.lo: $(srcdir)/relocatable.c

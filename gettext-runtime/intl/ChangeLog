@@ -1,3 +1,11 @@
+2008-08-17  Bruno Haible  <bruno@clisp.org>
+
+	* threadlib.c: New file, extracted from lock.c.
+	* lock.c (dummy_thread_func, glthread_in_use): Remove functions.
+	* Makefile.in (SOURCES): Add threadlib.c.
+	(OBJECTS): Add threadlib.$lo.
+	(threadlib.lo): New rule.
+
 2008-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h (glthread_lock_lock, glthread_lock_unlock,
