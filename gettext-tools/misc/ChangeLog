@@ -1,3 +1,8 @@
+2008-08-17  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Add threadlib.m4 from the list.
+	(func_version): Bump copyright year.
+
 2008-08-13  Sven Joachim  <svenjoac@gmx.de>
 
 	* po-mode.el (po-check-file-header): Use forward-line with

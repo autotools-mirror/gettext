@@ -28,6 +28,7 @@ aclocal_DATA = \
   ../../gettext-runtime/m4/progtest.m4 \
   ../../gettext-runtime/m4/size_max.m4 \
   ../../gettext-runtime/m4/stdint_h.m4 \
+  ../../gettext-runtime/m4/threadlib.m4 \
   ../../gettext-runtime/m4/uintmax_t.m4 \
   ../../gettext-runtime/m4/visibility.m4 \
   ../../gettext-runtime/m4/wchar_t.m4 \
