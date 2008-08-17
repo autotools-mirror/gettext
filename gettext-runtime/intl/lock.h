@@ -81,6 +81,7 @@
 #define _LOCK_H
 
 #include <errno.h>
+#include <stdlib.h>
 
 /* ========================================================================= */
 
@@ -89,7 +90,6 @@
 /* Use the POSIX threads library.  */
 
 # include <pthread.h>
-# include <stdlib.h>
 
 # ifdef __cplusplus
 extern "C" {
@@ -383,7 +383,6 @@ extern int glthread_once_singlethreaded (pthread_once_t *once_control);
 /* Use the GNU Pth threads library.  */
 
 # include <pth.h>
-# include <stdlib.h>
 
 # ifdef __cplusplus
 extern "C" {
@@ -493,7 +492,6 @@ extern int glthread_once_singlethreaded (pth_once_t *once_control);
 
 # include <thread.h>
 # include <synch.h>
-# include <stdlib.h>
 
 # ifdef __cplusplus
 extern "C" {

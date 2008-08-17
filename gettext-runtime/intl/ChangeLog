@@ -1,5 +1,9 @@
 2008-08-17  Bruno Haible  <bruno@clisp.org>
 
+	* lock.h: Include <stdlib.h> always.
+
+2008-08-17  Bruno Haible  <bruno@clisp.org>
+
 	* threadlib.c: New file, extracted from lock.c.
 	* lock.c (dummy_thread_func, glthread_in_use): Remove functions.
 	* Makefile.in (SOURCES): Add threadlib.c.
