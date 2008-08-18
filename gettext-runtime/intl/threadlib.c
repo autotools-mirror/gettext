@@ -26,6 +26,8 @@
 
 /* Use the POSIX threads library.  */
 
+# include <pthread.h>
+
 # if PTHREAD_IN_USE_DETECTION_HARD
 
 /* The function to be executed by a dummy thread.  */
