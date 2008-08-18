@@ -1,3 +1,9 @@
+2008-08-18  Bruno Haible  <bruno@clisp.org>
+
+	* lock.h [USE_SOLARIS_THREADS]: Fix glthread_recursive_lock_* macros.
+	* lock.c (glthread_recursive_lock_destroy_multithreaded): Fix syntax
+	error.
+
 2008-08-17  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h: Include <stdlib.h> always.
