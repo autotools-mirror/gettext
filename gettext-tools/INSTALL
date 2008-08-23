@@ -1,7 +1,14 @@
+These are generic installation instructions.
+
+Prerequisites
+=============
+
+   This package depends on a few other packages.  They are listed in
+the file `DEPENDENCIES'.  It is recommended to install the listed
+packages before installing this package.
+
 Basic Installation
 ==================
-
-   These are generic installation instructions.
 
    The `configure' shell script attempts to guess correct values for
 various system-dependent variables used during compilation.  It uses
@@ -76,16 +83,19 @@ in the source code directory.  After you have installed the package for
 one architecture, use `make distclean' before reconfiguring for another
 architecture.
 
-   On MacOS X systems, you can create libraries and executables that work
-on multiple system types - known as "fat" or "universal" binaries - by
-specifying multiple '-arch' options to the compiler but only a single
-'-arch' option to the preprocessor.  Like this:
+   On MacOS X 10.5 and later systems, you can create libraries and
+executables that work on multiple system types--known as "fat" or
+"universal" binaries--by specifying multiple '-arch' options to the
+compiler but only a single '-arch' option to the preprocessor.  Like
+this:
 
-     env CC="gcc -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
-         CXX="g++ -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
-         CPP="gcc -arch ppc -E" \
-         CXXCPP="g++ -arch ppc -E" \
-         ./configure
+     ./configure CC="gcc -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
+                 CXX="g++ -arch i386 -arch x86_64 -arch ppc -arch ppc64" \
+                 CPP="gcc -E" CXXCPP="g++ -E"
+
+   This is not guaranteed to produce working output in all cases.  You
+may have to build one architecture at a time and combine the results
+using the 'lipo' tool if you have problems.
 
 Installation Names
 ==================
@@ -110,38 +120,65 @@ you can set and what kinds of files go in them.
 with an extra prefix or suffix on their names by giving `configure' the
 option `--program-prefix=PREFIX' or `--program-suffix=SUFFIX'.
 
-Relocatable Installation
-========================
+Enabling Relocatability
+=======================
 
-   By default, `make install' will install a package with hardwired
-file names, and the package will not work correctly when copied or
-moved to a different location in the filesystem.
+   It has been a pain for many users of GNU packages for a long time
+that packages are not relocatable.  It means a user cannot copy a
+program, installed by another user on the same machine, to his home
+directory, and have it work correctly (including i18n).  So many users
+need to go through `configure; make; make install' with all its
+dependencies, options, and hurdles.
 
-   Some packages pay attention to the `--enable-relocatable' option to
-`configure'.  This option makes the entire installed package
-relocatable.  This means, it can be moved or copied to a different
-location on the filesystem.  It is possible to make symlinks to the
-installed and moved programs, and invoke them through the symlink.  It
-is possible to do the same thing  with a hard link _only_ if the hard
-linked file is in the same directory as the real program.
+   Red Hat, Debian, and similar package systems solve the "ease of
+installation" problem, but they hardwire path names, usually to `/usr'
+or `/usr/local'.  This means that users need root privileges to install
+a binary package, and prevents installing two different versions of the
+same binary package.
 
-   For reliability it is best to give together with --enable-relocatable
-a `--prefix' option pointing to an otherwise unused (and never used
-again) directory, for example, `--prefix=/tmp/inst$$'.  This is
-recommended because on some OSes the executables remember the location
-of shared libraries (and prefer them over LD_LIBRARY_PATH !), therefore
-such an executable will look for its shared libraries first in the
-original installation directory and only then in the current
-installation directory.
+   A relocatable program can be moved or copied to a different location
+on the filesystem.  It is possible to make symlinks to the installed
+and moved programs, and invoke them through the symlink. It is possible
+to do the same thing with a hard link _only_ if the hard link file is
+in the same directory as the real program.
 
-   Installation with `--enable-relocatable' will not work for setuid /
-setgid executables.  (This is because such an executable kills its
-LD_LIBRARY_PATH variable when it is launched.)
+   To configure a program to be relocatable, add `--enable-relocatable'
+to the `configure' command line.
 
-   The runtime penalty and size penalty are nearly zero on Linux 2.2 or
-newer (just one system call more when an executable is launched), and
-small on other systems (the wrapper program just sets an environment
-variable and execs the real program).
+   On some OSes the executables remember the location of shared
+libraries and prefer them over any other search path.  Therefore, such
+an executable will look for its shared libraries first in the original
+installation directory and only then in the current installation
+directory.  Thus, for reliability, it is best to also give a `--prefix'
+option pointing to a directory that does not exist now and which never
+will be created, e.g.  `--prefix=/nonexistent'.  You may use
+`DESTDIR=DEST-DIR' on the `make' command line to avoid installing into
+that directory.
+
+   We do not recommend using a prefix writable by unprivileged users
+(e.g. `/tmp/inst$$') because such a directory can be recreated by an
+unprivileged user after the original directory has been removed.  We
+also do not recommend prefixes that might be behind an automounter
+(e.g. `$HOME/inst$$') because of the performance impact of directory
+searching.
+
+   Here's a sample installation run that takes into account all these
+recommendations:
+
+     ./configure --enable-relocatable --prefix=/nonexistent
+     make
+     make install DESTDIR=/tmp/inst$$
+
+   Installation with `--enable-relocatable' will not work for setuid or
+setgid executables, because such executables search only system library
+paths for security reasons.  Also, installation with
+`--enable-relocatable' might not work on OpenBSD, when the package
+contains shared libraries and libtool versions 1.5.xx are used.
+
+   The runtime penalty and size penalty are negligible on GNU/Linux
+(just one system call more when an executable is launched), and small on
+other systems (the wrapper program just sets an environment variable
+and executes the real program).
 
 Optional Features
 =================
@@ -177,9 +214,12 @@ to use an ANSI C compiler:
 
      ./configure CC="cc -Ae"
 
-   On OSF/1 a.k.a. Tru64, some versions of the default C compiler don't grok
-its <wchar.h> header file.  The option -nodtk can be used as a workaround.
-If GNU CC is not installed, it is therefore recommended to try
+and if that doesn't work, install pre-built binaries of GCC for HP-UX.
+
+   On OSF/1 a.k.a. Tru64, some versions of the default C compiler cannot
+parse its `<wchar.h>' header file.  The option `-nodtk' can be used as
+a workaround.  If GNU CC is not installed, it is therefore recommended
+to try
 
      ./configure CC="cc"
 
