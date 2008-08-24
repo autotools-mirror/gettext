@@ -1,3 +1,10 @@
+2008-08-23  Bruno Haible  <bruno@clisp.org>
+
+	* msgmerge-update-4: New file, based on msgmerge-update-3.
+	* Makefile.am (TESTS): Add it.
+	Reported by Vincent Danjean <vdanjean.abo@free.fr>
+	via <http://savannah.gnu.org/bugs/?24123>.
+
 2008-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-python-1: Test that strings inside [ ] are not extracted for
