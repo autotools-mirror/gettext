@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -299,6 +299,7 @@ const struct catalog_output_format output_format_properties =
   false,				/* supports_multiple_domains */
   false,				/* supports_contexts */
   false,				/* supports_plurals */
+  false,				/* sorts_obsoletes_to_end */
   true,					/* alternative_is_po */
   true					/* alternative_is_java_class */
 };

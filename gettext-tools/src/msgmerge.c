@@ -156,6 +156,7 @@ static void usage (int status)
 #endif
 ;
 static void compendium (const char *filename);
+static void msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp);
 static msgdomain_list_ty *merge (const char *fn1, const char *fn2,
 				 catalog_input_format_ty input_syntax,
 				 msgdomain_list_ty **defp);
@@ -405,6 +406,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   if (update_mode)
     {
+      /* Before comparing result with def, sort the result into the same order
+	 as would be done implicitly by output_syntax->print.  */
+      if (output_syntax->sorts_obsoletes_to_end)
+	msgdomain_list_stablesort_by_obsolete (result);
+
       /* Do nothing if the original file and the result are equal.  Also do
 	 nothing if the original file and the result differ only by the
 	 POT-Creation-Date in the header entry; this is needed for projects
@@ -613,6 +619,50 @@ compendium (const char *filename)
     {
       message_list_list_append (compendiums, mdlp->item[k]->messages);
       string_list_append (compendium_filenames, filename);
+    }
+}
+
+
+/* Sorts obsolete messages to the end, for every domain.  */
+static void
+msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp)
+{
+  size_t k;
+
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      /* Sort obsolete messages to the end.  */
+      if (mlp->nitems > 0)
+	{
+	  message_ty **l1 = XNMALLOC (mlp->nitems, message_ty *);
+	  size_t n1;
+	  message_ty **l2 = XNMALLOC (mlp->nitems, message_ty *);
+	  size_t n2;
+	  size_t j;
+
+	  /* Sort the non-obsolete messages into l1 and the obsolete messages
+	     into l2.  */
+	  n1 = 0;
+	  n2 = 0;
+	  for (j = 0; j < mlp->nitems; j++)
+	    {
+	      message_ty *mp = mlp->item[j];
+
+	      if (mp->obsolete)
+		l2[n2++] = mp;
+	      else
+		l1[n1++] = mp;
+	    }
+	  if (n1 > 0 && n2 > 0)
+	    {
+	      memcpy (mlp->item, l1, n1 * sizeof (message_ty *));
+	      memcpy (mlp->item + n1, l2, n2 * sizeof (message_ty *));
+	    }
+	  free (l2);
+	  free (l1);
+	}
     }
 }
 

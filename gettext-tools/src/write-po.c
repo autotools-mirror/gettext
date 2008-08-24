@@ -1511,6 +1511,7 @@ const struct catalog_output_format output_format_po =
   true,					/* supports_multiple_domains */
   true,					/* supports_contexts */
   true,					/* supports_plurals */
+  true,					/* sorts_obsoletes_to_end */
   false,				/* alternative_is_po */
   false					/* alternative_is_java_class */
 };
