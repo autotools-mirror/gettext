@@ -225,6 +225,7 @@ if ! $skip_gnulib; then
       hash
       iconv
       minmax
+      open
       ostream
       progname
       relocatable-lib
