@@ -1,3 +1,15 @@
+2008-08-31  Bruno Haible  <bruno@clisp.org>
+
+	Assume Solaris specific bi-arch conventions on Solaris systems.
+	* lib-prefix.m4 (AC_LIB_PREPARE_MULTILIB): On Solaris in 64-bit mode,
+	set acl_libdirstem to lib/64. Also set acl_libdirstem2.
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): If acl_libdirstem does not work,
+	try acl_libdirstem2 as fallback. Otherwise treat acl_libdirstem2 like
+	acl_libdirstem.
+	(AC_LIB_LINKFLAGS_FROM_LIBS): Treat acl_libdirstem2 like
+	acl_libdirstem.
+	Reported by Ben Taylor <bentaylor.solx86@gmail.com>.
+
 2008-03-11  Bruno Haible  <bruno@clisp.org>
 
 	Extend AC_LIB_LINKFLAGS to the situation of several libraries provided
