@@ -154,6 +154,7 @@ if ! $skip_gnulib; then
       relocatable-prog
       relocatable-script
       sh-quote
+      sigprocmask
       stdbool
       stpcpy
       stpncpy
