@@ -24,6 +24,7 @@
 #include <getopt.h>
 #include <limits.h>
 #include <locale.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -210,6 +211,18 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   if (strcmp (sub_name, "0") != 0)
     {
+      /* Block SIGPIPE for this process and for the subprocesses.
+	 The subprogram may have side effects (additionally to producing some
+	 output), therefore if there are no readers on stdout, processing of the
+	 strings must continue nevertheless.  */
+      {
+	sigset_t sigpipe_set;
+
+	sigemptyset (&sigpipe_set);
+	sigaddset (&sigpipe_set, SIGPIPE);
+	sigprocmask (SIG_UNBLOCK, &sigpipe_set, NULL);
+      }
+
       /* Attempt to locate the program.
 	 This is an optimization, to avoid that spawn/exec searches the PATH
 	 on every call.  */
