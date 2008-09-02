@@ -73,7 +73,7 @@
 #include "lang-table.h"
 #include "xalloc.h"
 #include "xmalloca.h"
-#include "filename.h"
+#include "concat-filename.h"
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "msgl-english.h"
@@ -822,7 +822,7 @@ project_id ()
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
     gettextlibdir = relocate (LIBDIR "/gettext");
 
-  prog = concatenated_filename (gettextlibdir, "project-id", NULL);
+  prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
   argv[0] = "/bin/sh";
@@ -896,7 +896,7 @@ project_id_version (const char *header)
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
     gettextlibdir = relocate (LIBDIR "/gettext");
 
-  prog = concatenated_filename (gettextlibdir, "project-id", NULL);
+  prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
   argv[0] = "/bin/sh";

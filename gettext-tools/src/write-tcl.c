@@ -1,5 +1,5 @@
 /* Writing tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005, 2007 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005, 2007-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -36,7 +36,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
-#include "filename.h"
+#include "concat-filename.h"
 #include "fwriteerror.h"
 #include "unistr.h"
 #include "gettext.h"
@@ -204,7 +204,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 	  break;
 	}
 
-    file_name = concatenated_filename (directory, frobbed_locale_name, ".msg");
+    file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
 
     output_file = fopen (file_name, "w");
     if (output_file == NULL)

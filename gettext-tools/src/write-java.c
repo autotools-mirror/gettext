@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -65,7 +65,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
-#include "filename.h"
+#include "concat-filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
 #include "unistr.h"
@@ -996,7 +996,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
 	char *part = (char *) xmalloca (n + 1);
 	memcpy (part, p, n);
 	part[n] = '\0';
-	subdirs[i] = concatenated_filename (last_dir, part, NULL);
+	subdirs[i] = xconcatenated_filename (last_dir, part, NULL);
 	freea (part);
 	last_dir = subdirs[i];
 	p = q + 1;
@@ -1005,11 +1005,11 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
     if (locale_name != NULL)
       {
 	char *suffix = xasprintf ("_%s.java", locale_name);
-	java_file_name = concatenated_filename (last_dir, p, suffix);
+	java_file_name = xconcatenated_filename (last_dir, p, suffix);
 	free (suffix);
       }
     else
-      java_file_name = concatenated_filename (last_dir, p, ".java");
+      java_file_name = xconcatenated_filename (last_dir, p, ".java");
   }
 
   /* Create the subdirectories.  This is needed because some older Java

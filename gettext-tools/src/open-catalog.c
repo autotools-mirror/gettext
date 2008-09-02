@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995-1996, 2000-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2000-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,6 +30,7 @@
 
 #include "dir-list.h"
 #include "filename.h"
+#include "concat-filename.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
@@ -62,7 +63,7 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
     {
       for (k = 0; k < SIZEOF (extension); ++k)
 	{
-	  file_name = concatenated_filename ("", input_name, extension[k]);
+	  file_name = xconcatenated_filename ("", input_name, extension[k]);
 
 	  ret_val = fopen (file_name, "r");
 	  if (ret_val != NULL || errno != ENOENT)
@@ -83,7 +84,7 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
       for (j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
 	for (k = 0; k < SIZEOF (extension); ++k)
 	  {
-	    file_name = concatenated_filename (dir, input_name, extension[k]);
+	    file_name = xconcatenated_filename (dir, input_name, extension[k]);
 
 	    ret_val = fopen (file_name, "r");
 	    if (ret_val != NULL || errno != ENOENT)

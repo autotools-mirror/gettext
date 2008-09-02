@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@
 #include "xalloc.h"
 #include "relocatable.h"
 #include "filename.h"
+#include "concat-filename.h"
 
 
 /* Whether to output a test page.  */
@@ -399,7 +400,7 @@ style_file_lookup (const char *file_name)
 	  /* ... but it exists in the styles installation location...  */
 	  const char *gettextstylesdir = relocate (GETTEXTDATADIR "/styles");
 	  char *possible_file_name =
-	    concatenated_filename (gettextstylesdir, file_name, NULL);
+	    xconcatenated_filename (gettextstylesdir, file_name, NULL);
 
 	  if (stat (possible_file_name, &statbuf) >= 0)
 	    {
@@ -435,7 +436,7 @@ style_file_prepare ()
 	    gettextdatadir = relocate (GETTEXTDATADIR);
 
 	  style_file_name =
-	    concatenated_filename (gettextdatadir, "styles/po-default.css",
+	    xconcatenated_filename (gettextdatadir, "styles/po-default.css",
 				   NULL);
 	}
     }

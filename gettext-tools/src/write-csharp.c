@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -82,7 +82,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
-#include "filename.h"
+#include "concat-filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
 #include "unistr.h"
@@ -676,7 +676,7 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   /* Compute the output file name.  This code must be kept consistent with
      intl.cs, function GetSatelliteAssembly().  */
   {
-    char *output_dir = concatenated_filename (directory, culture_name, NULL);
+    char *output_dir = xconcatenated_filename (directory, culture_name, NULL);
     struct stat statbuf;
 
     /* Try to create the output directory if it does not yet exist.  */
@@ -691,7 +691,7 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
 	}
 
     output_file =
-      concatenated_filename (output_dir, resource_name, ".resources.dll");
+      xconcatenated_filename (output_dir, resource_name, ".resources.dll");
 
     free (output_dir);
   }
@@ -714,7 +714,7 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   /* Compute the temporary C# file name.  It must end in ".cs", so that
      the C# compiler recognizes that it is C# source code.  */
   csharp_file_name =
-    concatenated_filename (tmpdir->dir_name, "resset.cs", NULL);
+    xconcatenated_filename (tmpdir->dir_name, "resset.cs", NULL);
 
   /* Create the C# file.  */
   register_temp_file (tmpdir, csharp_file_name);

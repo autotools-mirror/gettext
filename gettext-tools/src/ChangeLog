@@ -1,3 +1,36 @@
+2008-09-01  Bruno Haible  <bruno@clisp.org>
+
+	* color.c: Include concat-filename.h.
+	(style_file_lookup, style_file_prepare): Use xconcatenated_filename
+	instead of concatenated_filename.
+	* msginit.c: Include concat-filename.h instead of filename.h.
+	(project_id, project_id_version): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* open-catalog.c: Include concat-filename.h.
+	(try_open_catalog_file): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* read-csharp.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_read_csharp): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* read-resources.c: Include concat-filename.h instead of filename.h.
+	(read_resources_file): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* read-tcl.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_read_tcl): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* write-resources.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_write_csharp_resources): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* write-csharp.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_write_csharp): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* write-java.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_write_java): Use xconcatenated_filename instead of
+	concatenated_filename.
+	* write-tcl.c: Include concat-filename.h instead of filename.h.
+	(msgdomain_write_tcl: Use xconcatenated_filename instead of
+	concatenated_filename.
+
 2008-08-31  Bruno Haible  <bruno@clisp.org>
 
 	* msgexec.c: Include <signal.h>.

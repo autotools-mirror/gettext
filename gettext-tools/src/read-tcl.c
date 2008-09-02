@@ -29,7 +29,7 @@
 
 #include "msgunfmt.h"
 #include "relocatable.h"
-#include "filename.h"
+#include "concat-filename.h"
 #include "sh-quote.h"
 #include "pipe.h"
 #include "wait-process.h"
@@ -69,7 +69,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
     gettextdatadir = relocate (GETTEXTDATADIR);
 
-  tclscript = concatenated_filename (gettextdatadir, "msgunfmt.tcl", NULL);
+  tclscript = xconcatenated_filename (gettextdatadir, "msgunfmt.tcl", NULL);
 
   /* Convert the locale name to lowercase and remove any encoding.  */
   len = strlen (locale_name);
@@ -84,7 +84,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
 	break;
       }
 
-  file_name = concatenated_filename (directory, frobbed_locale_name, ".msg");
+  file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
 
   freea (frobbed_locale_name);
 
