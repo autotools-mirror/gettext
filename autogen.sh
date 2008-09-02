@@ -177,6 +177,7 @@ if ! $skip_gnulib; then
       vasprintf
       wait-process
       xalloc
+      xconcat-filename
       xmalloca
       xerror
       xsetenv
@@ -239,6 +240,7 @@ if ! $skip_gnulib; then
       utf16-ucs4
       vasprintf
       xalloc
+      xconcat-filename
       xmalloca
       xerror
       xstriconv
