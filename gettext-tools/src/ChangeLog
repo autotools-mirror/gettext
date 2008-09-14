@@ -1,3 +1,10 @@
+2008-09-14  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+            Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.c: Include concat-filename.h.
+	(main, xgettext_open): Use xconcatenated_filename instead of
+	concatenated_filename.
+
 2008-09-01  Bruno Haible  <bruno@clisp.org>
 
 	* color.c: Include concat-filename.h.
