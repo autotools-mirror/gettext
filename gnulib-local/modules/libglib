@@ -19,6 +19,7 @@ lib/glib/gtypes.in.h
 m4/libglib.m4
 
 Depends-on:
+strerror
 vasprintf
 xalloc
 xvasprintf

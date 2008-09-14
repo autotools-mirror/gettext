@@ -1,3 +1,7 @@
+2008-09-14  Bruno Haible  <bruno@clisp.org>
+
+	* modules/libglib (Depends-on): Add strerror.
+
 2008-08-16  Bruno Haible  <bruno@clisp.org>
 
 	Recognize installed libxml2 version 2.6.x.
