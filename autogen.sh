@@ -159,6 +159,7 @@ if ! $skip_gnulib; then
       stpcpy
       stpncpy
       strcspn
+      strerror
       strpbrk
       strtol
       strtoul
@@ -232,6 +233,7 @@ if ! $skip_gnulib; then
       progname
       relocatable-lib
       stdbool
+      strerror
       ucs4-utf8
       unilbrk/ulc-width-linebreaks
       uniwidth/width
