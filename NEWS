@@ -10,6 +10,9 @@ Version 0.18 - January 2008
   this field.  Additionally, msgmerge fills in this new field by looking at
   the 'Language-Team' field (if the --lang option is not given).
 
+* msgmerge is up to 10 times faster when the PO and POT files are large.
+  This speedup was contributed by Ralf Wildenhues.
+
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 Version 0.17 - November 2007
