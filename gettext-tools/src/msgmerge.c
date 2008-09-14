@@ -776,8 +776,8 @@ definitions_search_fuzzy (definitions_ty *definitions,
       /* Choose the best among mp1, mp2.  */
       if (mp1 == NULL
 	  || (mp2 != NULL
-	      && (fuzzy_search_goal_function (mp2, msgctxt, msgid)
-		  > fuzzy_search_goal_function (mp1, msgctxt, msgid))))
+	      && (fuzzy_search_goal_function (mp2, msgctxt, msgid, 0.0)
+		  > fuzzy_search_goal_function (mp1, msgctxt, msgid, 0.0))))
 	mp1 = mp2;
     }
 

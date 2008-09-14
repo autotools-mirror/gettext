@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -531,22 +531,37 @@ message_list_search (message_list_ty *mlp,
 
 double
 fuzzy_search_goal_function (const message_ty *mp,
-			    const char *msgctxt, const char *msgid)
+			    const char *msgctxt, const char *msgid,
+			    double lower_bound)
 {
-  /* The use of 'volatile' guarantees that excess precision bits are dropped
-     before the addition and before the following comparison at the caller's
-     site.  It is necessary on x86 systems where double-floats are not IEEE
-     compliant by default, to avoid that msgmerge results become platform and
-     compiler option dependent.  'volatile' is a portable alternative to gcc's
-     -ffloat-store option.  */
-  volatile double weight = fstrcmp (msgid, mp->msgid);
+  double bonus = 0.0;
   /* A translation for a context is a good proposal also for another.  But
      give mp a small advantage if mp is valid regardless of any context or
      has the same context as the one being looked up.  */
   if (mp->msgctxt == NULL
       || (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
-    weight += 0.00001;
-  return weight;
+    {
+      bonus = 0.00001;
+      /* Since we will consider (weight + bonus) at the end, we are only
+	 interested in weights that are >= lower_bound - bonus.  Subtract
+	 a little more than the bonus, in order to avoid trouble due to
+	 rounding errors.  */
+      lower_bound -= bonus * 1.01;
+    }
+
+  {
+    /* The use of 'volatile' guarantees that excess precision bits are dropped
+       before the addition and before the following comparison at the caller's
+       site.  It is necessary on x86 systems where double-floats are not IEEE
+       compliant by default, to avoid that msgmerge results become platform and
+       compiler option dependent.  'volatile' is a portable alternative to
+       gcc's -ffloat-store option.  */
+    volatile double weight = fstrcmp_bounded (msgid, mp->msgid, lower_bound);
+
+    weight += bonus;
+
+    return weight;
+  }
 }
 
 
@@ -567,7 +582,8 @@ message_list_search_fuzzy_inner (message_list_ty *mlp,
 
       if (mp->msgstr != NULL && mp->msgstr[0] != '\0')
 	{
-	  double weight = fuzzy_search_goal_function (mp, msgctxt, msgid);
+	  double weight =
+	    fuzzy_search_goal_function (mp, msgctxt, msgid, *best_weight_p);
 	  if (weight > *best_weight_p)
 	    {
 	      *best_weight_p = weight;

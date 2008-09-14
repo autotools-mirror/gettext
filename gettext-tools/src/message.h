@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -317,10 +317,13 @@ extern message_ty *
 
 
 /* The goal function used in fuzzy search.
-   Higher values indicate a closer match.  */
+   Higher values indicate a closer match.
+   If the result is < LOWER_BOUND, an arbitrary other value < LOWER_BOUND can
+   be returned.  */
 extern double
        fuzzy_search_goal_function (const message_ty *mp,
-				   const char *msgctxt, const char *msgid);
+				   const char *msgctxt, const char *msgid,
+				   double lower_bound);
 
 /* The threshold for fuzzy-searching.
    A message is considered only if  fstrcmp (msg, given) > FUZZY_THRESHOLD.  */

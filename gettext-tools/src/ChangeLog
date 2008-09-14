@@ -1,6 +1,18 @@
 2008-09-14  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
             Bruno Haible  <bruno@clisp.org>
 
+	* message.h (fuzzy_search_goal_function): Add 'lower_bound' argument.
+	* message.c (fuzzy_search_goal_function): Likewise. Use fstrcmp_bounded
+	instead of fstrcmp.
+	(message_list_search_fuzzy_inner): Pass fuzzy_search_goal_function the
+	best weight known so far, to shortcut computations.
+	* msgl-fsearch.c (message_fuzzy_index_search): Likewise.
+	* msgmerge.c (definitions_search_fuzzy): Update
+	fuzzy_search_goal_function calls.
+
+2008-09-14  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
+            Bruno Haible  <bruno@clisp.org>
+
 	* xgettext.c: Include concat-filename.h.
 	(main, xgettext_open): Use xconcatenated_filename instead of
 	concatenated_filename.

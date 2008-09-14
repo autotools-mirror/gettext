@@ -1,5 +1,5 @@
 /* Fast fuzzy searching among messages.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -553,7 +553,8 @@ message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 		      {
 			message_ty *mp = findex->messages[ptr->index];
 			double weight =
-			  fuzzy_search_goal_function (mp, msgctxt, msgid);
+			  fuzzy_search_goal_function (mp, msgctxt, msgid,
+						      best_weight);
 
 			if (weight > best_weight)
 			  {
@@ -598,7 +599,8 @@ message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 	for (j = 0; j < mlp->nitems; j++)
 	  {
 	    message_ty *mp = mlp->item[j];
-	    double weight = fuzzy_search_goal_function (mp, msgctxt, msgid);
+	    double weight =
+	      fuzzy_search_goal_function (mp, msgctxt, msgid, best_weight);
 
 	    if (weight > best_weight)
 	      {
