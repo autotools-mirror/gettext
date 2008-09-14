@@ -1,5 +1,11 @@
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* modules/libxml: Use $(mkdir_p) to create the libxml directory.
+	* modules/libglib: Use $(mkdir_p) to create the glib directory.
+	Suggested by Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
+2008-09-14  Bruno Haible  <bruno@clisp.org>
+
 	* modules/libglib (Depends-on): Add strerror.
 
 2008-08-16  Bruno Haible  <bruno@clisp.org>
