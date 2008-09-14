@@ -153,7 +153,7 @@ AC_CHECK_HEADERS(pwd.h)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
-gl_AC_TYPE_UNSIGNED_LONG_LONG
+AC_TYPE_UNSIGNED_LONG_LONG_INT
 AC_TYPE_SIZE_T
 AC_CHECK_TYPES(ptrdiff_t)
 gt_TYPE_SSIZE_T
