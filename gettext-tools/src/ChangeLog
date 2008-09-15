@@ -1,5 +1,8 @@
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* message.h (message_list_search_fuzzy, FUZZY_THRESHOLD): Clarify
+	documentation.
+
 	* msgmerge.c (struct definitions_ty): Rename field 'findex' to
 	'comp_findex', and 'findex_init_lock' to 'comp_findex_init_lock'.
 	(definitions_init): Update.

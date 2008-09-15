@@ -233,6 +233,10 @@ extern message_list_ty *
 extern message_ty *
        message_list_search (message_list_ty *mlp,
 			    const char *msgctxt, const char *msgid);
+/* Return the message in MLP which maximizes the fuzzy_search_goal_function.
+   Only messages with a fuzzy_search_goal_function > FUZZY_THRESHOLD are
+   considered.  In case of several messages with the same goal function value,
+   the one with the smaller index is returned.  */
 extern message_ty *
        message_list_search_fuzzy (message_list_ty *mlp,
 				  const char *msgctxt, const char *msgid);
@@ -326,7 +330,8 @@ extern double
 				   double lower_bound);
 
 /* The threshold for fuzzy-searching.
-   A message is considered only if  fstrcmp (msg, given) > FUZZY_THRESHOLD.  */
+   A message is considered only if
+   fuzzy_search_goal_function (mp, given, 0.0) > FUZZY_THRESHOLD.  */
 #define FUZZY_THRESHOLD 0.6
 
 
