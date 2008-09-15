@@ -1,3 +1,7 @@
+2008-09-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgcmp.texi: Document option -N/--no-fuzzy-matching.
+
 2008-08-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Add threadlib.m4 to the file list.

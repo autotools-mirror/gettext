@@ -40,6 +40,13 @@ searched relative to this list of directories.
 @opindex --multi-domain@r{, @code{msgcmp} option}
 Apply @var{ref}.pot to each of the domains in @var{def}.po.
 
+@item -N
+@itemx --no-fuzzy-matching
+@opindex -N@r{, @code{msgcmp} option}
+@opindex --no-fuzzy-matching@r{, @code{msgcmp} option}
+Do not use fuzzy matching when an exact match is not found.  This may speed
+up the operation considerably.
+
 @item --use-fuzzy
 @opindex --use-fuzzy@r{, @code{msgcmp} option}
 Consider fuzzy messages in the @var{def}.po file like translated messages.
