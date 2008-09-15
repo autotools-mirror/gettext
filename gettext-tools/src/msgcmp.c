@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -50,6 +50,9 @@
 /* Apply the .pot file to each of the domains in the PO file.  */
 static bool multi_domain_mode = false;
 
+/* Determines whether to use fuzzy matching.  */
+static bool use_fuzzy_matching = true;
+
 /* Whether to consider fuzzy messages as translations.  */
 static bool include_fuzzies = false;
 
@@ -62,6 +65,7 @@ static const struct option long_options[] =
   { "directory", required_argument, NULL, 'D' },
   { "help", no_argument, NULL, 'h' },
   { "multi-domain", no_argument, NULL, 'm' },
+  { "no-fuzzy-matching", no_argument, NULL, 'N' },
   { "properties-input", no_argument, NULL, 'P' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
   { "use-fuzzy", no_argument, NULL, CHAR_MAX + 2 },
@@ -109,7 +113,7 @@ main (int argc, char *argv[])
 
   do_help = false;
   do_version = false;
-  while ((optchar = getopt_long (argc, argv, "D:hmPV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "D:hmNPV", long_options, NULL))
 	 != EOF)
     switch (optchar)
       {
@@ -126,6 +130,10 @@ main (int argc, char *argv[])
 
       case 'm':
 	multi_domain_mode = true;
+	break;
+
+      case 'N':
+	use_fuzzy_matching = false;
 	break;
 
       case 'P':
@@ -230,6 +238,8 @@ Operation modifiers:\n"));
       printf (_("\
   -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"));
       printf (_("\
+  -N, --no-fuzzy-matching     do not use fuzzy matching\n"));
+      printf (_("\
       --use-fuzzy             consider fuzzy entries\n"));
       printf (_("\
       --use-untranslated      consider untranslated entries\n"));
@@ -325,7 +335,10 @@ this message needs to be reviewed by the translator"));
 	     help.  */
 	  (*nerrors)++;
 	  defmsg =
-	    message_list_search_fuzzy (defmlp, refmsg->msgctxt, refmsg->msgid);
+	    (use_fuzzy_matching
+	     ? message_list_search_fuzzy (defmlp,
+					  refmsg->msgctxt, refmsg->msgid)
+	     : NULL);
 	  if (defmsg)
 	    {
 	      po_gram_error_at_line (&refmsg->pos, _("\

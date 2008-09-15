@@ -1,3 +1,10 @@
+2009-09-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgcmp.c (use_fuzzy_matching): New variable.
+	(long_options): Add option -N/--no-fuzzy-matching.
+	(main, match_domain): Implement it.
+	(usage): Document it.
+
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-fsearch.h (message_fuzzy_index_search): Add 'lower_bound'
