@@ -1,5 +1,14 @@
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* msgl-fsearch.h (message_fuzzy_index_search): Add 'lower_bound'
+	argument.
+	* msgl-fsearch.c (message_fuzzy_index_search): Likewise.
+	* msgmerge.c (definitions_search_fuzzy): Use the result of the fuzzy
+	search in the current list as a lower bound for the fuzzy search in the
+	compendiums.
+
+2008-09-14  Bruno Haible  <bruno@clisp.org>
+
 	* message.h (message_list_search_fuzzy, FUZZY_THRESHOLD): Clarify
 	documentation.
 

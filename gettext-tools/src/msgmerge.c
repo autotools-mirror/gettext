@@ -767,20 +767,31 @@ definitions_search_fuzzy (definitions_ty *definitions,
 			       msgctxt, msgid);
   if (compendiums != NULL)
     {
+      double lower_bound_for_mp2;
       message_ty *mp2;
+
+      lower_bound_for_mp2 =
+	(mp1 != NULL
+	 ? fuzzy_search_goal_function (mp1, msgctxt, msgid, 0.0)
+	 : FUZZY_THRESHOLD);
+      /* This lower bound must be >= FUZZY_THRESHOLD.  */
+      if (!(lower_bound_for_mp2 >= FUZZY_THRESHOLD))
+	abort ();
 
       /* Create the fuzzy index lazily.  */
       if (definitions->comp_findex == NULL)
 	definitions_init_comp_findex (definitions);
 
       mp2 = message_fuzzy_index_search (definitions->comp_findex,
-					msgctxt, msgid);
+					msgctxt, msgid,
+					lower_bound_for_mp2);
 
       /* Choose the best among mp1, mp2.  */
       if (mp1 == NULL
 	  || (mp2 != NULL
-	      && (fuzzy_search_goal_function (mp2, msgctxt, msgid, 0.0)
-		  > fuzzy_search_goal_function (mp1, msgctxt, msgid, 0.0))))
+	      && (fuzzy_search_goal_function (mp2, msgctxt, msgid,
+					      lower_bound_for_mp2)
+		  > lower_bound_for_mp2)))
 	mp1 = mp2;
     }
 

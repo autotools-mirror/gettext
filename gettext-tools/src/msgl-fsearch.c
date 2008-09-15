@@ -484,10 +484,13 @@ mult_index_list_free (struct mult_index_list *accu)
 }
 
 /* Find a good match for the given msgctxt and msgid in the given fuzzy index.
-   The match does not need to be optimal.  */
+   The match does not need to be optimal.
+   Ignore matches for which the fuzzy_search_goal_function is < LOWER_BOUND.
+   LOWER_BOUND must be >= FUZZY_THRESHOLD.  */
 message_ty *
 message_fuzzy_index_search (message_fuzzy_index_ty *findex,
-			    const char *msgctxt, const char *msgid)
+			    const char *msgctxt, const char *msgid,
+			    double lower_bound)
 {
   const char *str = msgid;
 
@@ -547,7 +550,7 @@ message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 		    if (count > accu.nitems)
 		      count = accu.nitems;
 
-		    best_weight = FUZZY_THRESHOLD;
+		    best_weight = lower_bound;
 		    best_mp = NULL;
 		    for (ptr = accu.item; count > 0; ptr++, count--)
 		      {
@@ -589,7 +592,7 @@ message_fuzzy_index_search (message_fuzzy_index_ty *findex,
     if (!(lmax <= SHORT_MSG_MAX))
       abort ();
 
-    best_weight = FUZZY_THRESHOLD;
+    best_weight = lower_bound;
     best_mp = NULL;
     for (l = lmin; l <= lmax; l++)
       {

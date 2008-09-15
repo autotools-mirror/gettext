@@ -1,5 +1,5 @@
 /* Fast fuzzy searching among messages.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -39,10 +39,13 @@ extern message_fuzzy_index_ty *
 				  const char *canon_charset);
 
 /* Find a good match for the given msgctxt and msgid in the given fuzzy index.
-   The match does not need to be optimal.  */
+   The match does not need to be optimal.
+   Ignore matches for which the fuzzy_search_goal_function is < LOWER_BOUND.
+   LOWER_BOUND must be >= FUZZY_THRESHOLD.  */
 extern message_ty *
        message_fuzzy_index_search (message_fuzzy_index_ty *findex,
-				   const char *msgctxt, const char *msgid);
+				   const char *msgctxt, const char *msgid,
+				   double lower_bound);
 
 /* Free a fuzzy index.  */
 extern void
