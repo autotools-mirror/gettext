@@ -701,6 +701,20 @@ definitions_init (definitions_ty *definitions, const char *canon_charset)
   definitions->canon_charset = canon_charset;
 }
 
+/* Return the current list of non-compendium messages.  */
+static inline message_list_ty *
+definitions_current_list (const definitions_ty *definitions)
+{
+  return definitions->lists->item[0];
+}
+
+/* Set the current list of non-compendium messages.  */
+static inline void
+definitions_set_current_list (definitions_ty *definitions, message_list_ty *mlp)
+{
+  definitions->lists->item[0] = mlp;
+}
+
 /* Create the fuzzy index.
    Used only if use_fuzzy_matching is true and compendiums != NULL.  */
 static inline void
@@ -730,20 +744,6 @@ definitions_init_findex (definitions_ty *definitions)
 	message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
     }
   gl_lock_unlock (definitions->findex_init_lock);
-}
-
-/* Return the current list of non-compendium messages.  */
-static inline message_list_ty *
-definitions_current_list (const definitions_ty *definitions)
-{
-  return definitions->lists->item[0];
-}
-
-/* Set the current list of non-compendium messages.  */
-static inline void
-definitions_set_current_list (definitions_ty *definitions, message_list_ty *mlp)
-{
-  definitions->lists->item[0] = mlp;
 }
 
 /* Exact search.  */
