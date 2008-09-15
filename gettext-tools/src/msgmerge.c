@@ -679,12 +679,14 @@ struct definitions_ty
      from the compendiums.  Each message list has a built-in hash table,
      for speed when doing the exact searches.  */
   message_list_list_ty *lists;
+
   /* A fuzzy index of the compendiums, for speed when doing fuzzy searches.
      Used only if use_fuzzy_matching is true and compendiums != NULL.  */
-  message_fuzzy_index_ty *findex;
+  message_fuzzy_index_ty *comp_findex;
   /* A once-only execution guard for the initialization of the fuzzy index.
      Needed for OpenMP.  */
-  gl_lock_define(, findex_init_lock)
+  gl_lock_define(, comp_findex_init_lock)
+
   /* The canonical encoding of the compendiums.  */
   const char *canon_charset;
 };
@@ -696,8 +698,8 @@ definitions_init (definitions_ty *definitions, const char *canon_charset)
   message_list_list_append (definitions->lists, NULL);
   if (compendiums != NULL)
     message_list_list_append_list (definitions->lists, compendiums);
-  definitions->findex = NULL;
-  gl_lock_init (definitions->findex_init_lock);
+  definitions->comp_findex = NULL;
+  gl_lock_init (definitions->comp_findex_init_lock);
   definitions->canon_charset = canon_charset;
 }
 
@@ -718,11 +720,11 @@ definitions_set_current_list (definitions_ty *definitions, message_list_ty *mlp)
 /* Create the fuzzy index.
    Used only if use_fuzzy_matching is true and compendiums != NULL.  */
 static inline void
-definitions_init_findex (definitions_ty *definitions)
+definitions_init_comp_findex (definitions_ty *definitions)
 {
   /* Protect against concurrent execution.  */
-  gl_lock_lock (definitions->findex_init_lock);
-  if (definitions->findex == NULL)
+  gl_lock_lock (definitions->comp_findex_init_lock);
+  if (definitions->comp_findex == NULL)
     {
       /* Combine all the compendium message lists into a single one.  Don't
 	 bother checking for duplicates.  */
@@ -740,10 +742,10 @@ definitions_init_findex (definitions_ty *definitions)
 	}
 
       /* Create the fuzzy index from it.  */
-      definitions->findex =
+      definitions->comp_findex =
 	message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
     }
-  gl_lock_unlock (definitions->findex_init_lock);
+  gl_lock_unlock (definitions->comp_findex_init_lock);
 }
 
 /* Exact search.  */
@@ -768,10 +770,11 @@ definitions_search_fuzzy (definitions_ty *definitions,
       message_ty *mp2;
 
       /* Create the fuzzy index lazily.  */
-      if (definitions->findex == NULL)
-	definitions_init_findex (definitions);
+      if (definitions->comp_findex == NULL)
+	definitions_init_comp_findex (definitions);
 
-      mp2 = message_fuzzy_index_search (definitions->findex, msgctxt, msgid);
+      mp2 = message_fuzzy_index_search (definitions->comp_findex,
+					msgctxt, msgid);
 
       /* Choose the best among mp1, mp2.  */
       if (mp1 == NULL
@@ -788,8 +791,8 @@ static inline void
 definitions_destroy (definitions_ty *definitions)
 {
   message_list_list_free (definitions->lists, 2);
-  if (definitions->findex != NULL)
-    message_fuzzy_index_free (definitions->findex);
+  if (definitions->comp_findex != NULL)
+    message_fuzzy_index_free (definitions->comp_findex);
 }
 
 

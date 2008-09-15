@@ -1,5 +1,12 @@
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
+	* msgmerge.c (struct definitions_ty): Rename field 'findex' to
+	'comp_findex', and 'findex_init_lock' to 'comp_findex_init_lock'.
+	(definitions_init): Update.
+	(definitions_init_comp_findex): Renamed from definitions_init_findex.
+	Update.
+	(definitions_search_fuzzy, definitions_destroy): Update.
+
 	* msgmerge.c (definitions_current_list, definitions_set_current_list):
 	Move functions.
 
