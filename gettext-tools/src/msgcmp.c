@@ -38,7 +38,10 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
+#include "xmalloca.h"
+#include "po-charset.h"
 #include "msgl-iconv.h"
+#include "msgl-fsearch.h"
 #include "c-strstr.h"
 #include "c-strcase.h"
 #include "propername.h"
@@ -297,7 +300,9 @@ remove_obsoletes (msgdomain_list_ty *mdlp)
 
 static void
 match_domain (const char *fn1, const char *fn2,
-	      message_list_ty *defmlp, message_list_ty *refmlp,
+	      message_list_ty *defmlp, message_fuzzy_index_ty **defmlp_findex,
+	      const char *def_canon_charset,
+	      message_list_ty *refmlp,
 	      int *nerrors)
 {
   size_t j;
@@ -334,11 +339,31 @@ this message needs to be reviewed by the translator"));
 	     similar message, it could be a typo, or the suggestion may
 	     help.  */
 	  (*nerrors)++;
-	  defmsg =
-	    (use_fuzzy_matching
-	     ? message_list_search_fuzzy (defmlp,
-					  refmsg->msgctxt, refmsg->msgid)
-	     : NULL);
+	  if (use_fuzzy_matching)
+	    {
+	      if (false)
+		{
+		  /* Old, slow code.  */
+		  defmsg =
+		    message_list_search_fuzzy (defmlp,
+					       refmsg->msgctxt, refmsg->msgid);
+		}
+	      else
+		{
+		  /* Speedup through early abort in fstrcmp(), combined with
+		     pre-sorting of the messages through a hashed index.  */
+		  /* Create the fuzzy index lazily.  */
+		  if (*defmlp_findex == NULL)
+		    *defmlp_findex =
+		      message_fuzzy_index_alloc (defmlp, def_canon_charset);
+		  defmsg =
+		    message_fuzzy_index_search (*defmlp_findex,
+						refmsg->msgctxt, refmsg->msgid,
+						FUZZY_THRESHOLD, false);
+		}
+	    }
+	  else
+	    defmsg = NULL;
 	  if (defmsg)
 	    {
 	      po_gram_error_at_line (&refmsg->pos, _("\
@@ -363,6 +388,7 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
   msgdomain_list_ty *ref;
   int nerrors;
   size_t j, k;
+  const char *def_canon_charset;
   message_list_ty *empty_list;
 
   /* This is the master file, created by a human.  */
@@ -406,6 +432,55 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
       def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
   }
 
+  /* Determine canonicalized encoding name of the definitions now, after
+     conversion.  Only used for fuzzy matching.  */
+  if (use_fuzzy_matching)
+    {
+      def_canon_charset = def->encoding;
+      if (def_canon_charset == NULL)
+	{
+	  char *charset = NULL;
+
+	  /* Get the encoding of the definitions file.  */
+	  for (k = 0; k < def->nitems; k++)
+	    {
+	      message_list_ty *mlp = def->item[k]->messages;
+
+	      for (j = 0; j < mlp->nitems; j++)
+		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+		  {
+		    const char *header = mlp->item[j]->msgstr;
+
+		    if (header != NULL)
+		      {
+			const char *charsetstr = c_strstr (header, "charset=");
+
+			if (charsetstr != NULL)
+			  {
+			    size_t len;
+
+			    charsetstr += strlen ("charset=");
+			    len = strcspn (charsetstr, " \t\n");
+			    charset = (char *) xmalloca (len + 1);
+			    memcpy (charset, charsetstr, len);
+			    charset[len] = '\0';
+			    break;
+			  }
+		      }
+		  }
+	      if (charset != NULL)
+		break;
+	    }
+	  if (charset != NULL)
+	    def_canon_charset = po_charset_canonicalize (charset);
+	  if (def_canon_charset == NULL)
+	    /* Unspecified encoding.  Assume unibyte encoding.  */
+	    def_canon_charset = po_charset_ascii;
+	}
+    }
+  else
+    def_canon_charset = NULL;
+
   empty_list = message_list_alloc (false);
 
   /* Every entry in the xgettext generated file must be matched by a
@@ -417,12 +492,19 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 	const char *domain = ref->item[k]->domain;
 	message_list_ty *refmlp = ref->item[k]->messages;
 	message_list_ty *defmlp;
+	message_fuzzy_index_ty *defmlp_findex;
 
 	defmlp = msgdomain_list_sublist (def, domain, false);
 	if (defmlp == NULL)
 	  defmlp = empty_list;
 
-	match_domain (fn1, fn2, defmlp, refmlp, &nerrors);
+	defmlp_findex = NULL;
+
+	match_domain (fn1, fn2, defmlp, &defmlp_findex, def_canon_charset,
+		      refmlp, &nerrors);
+
+	if (defmlp_findex != NULL)
+	  message_fuzzy_index_free (defmlp_findex);
       }
   else
     {
@@ -436,7 +518,15 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 
 	  /* Ignore the default message domain if it has no messages.  */
 	  if (k > 0 || defmlp->nitems > 0)
-	    match_domain (fn1, fn2, defmlp, refmlp, &nerrors);
+	    {
+	      message_fuzzy_index_ty *defmlp_findex = NULL;
+
+	      match_domain (fn1, fn2, defmlp, &defmlp_findex, def_canon_charset,
+			    refmlp, &nerrors);
+
+	      if (defmlp_findex != NULL)
+		message_fuzzy_index_free (defmlp_findex);
+	    }
 	}
     }
 

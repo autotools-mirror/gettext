@@ -486,11 +486,19 @@ mult_index_list_free (struct mult_index_list *accu)
 /* Find a good match for the given msgctxt and msgid in the given fuzzy index.
    The match does not need to be optimal.
    Ignore matches for which the fuzzy_search_goal_function is < LOWER_BOUND.
-   LOWER_BOUND must be >= FUZZY_THRESHOLD.  */
+   LOWER_BOUND must be >= FUZZY_THRESHOLD.
+   If HEURISTIC is true, only the few best messages among the list - according
+   to a certain heuristic - are considered.  If HEURISTIC is false, all
+   messages with a fuzzy_search_goal_function > FUZZY_THRESHOLD are considered,
+   like in message_list_search_fuzzy (except that in ambiguous cases where
+   several best matches exist, message_list_search_fuzzy chooses the one with
+   the smallest index whereas message_fuzzy_index_search makes a better
+   choice).  */
 message_ty *
 message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 			    const char *msgctxt, const char *msgid,
-			    double lower_bound)
+			    double lower_bound,
+			    bool heuristic)
 {
   const char *str = msgid;
 
@@ -538,17 +546,28 @@ message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 		  /* Sort in decreasing count order.  */
 		  mult_index_list_sort (&accu);
 
-		  /* Take the first few messages from this sorted list, and
-		     maximize the fstrcmp() result.  */
+		  /* Iterate over this sorted list, and maximize the
+		     fuzzy_search_goal_function() result.
+		     If HEURISTIC is true, take only the first few messages.
+		     If HEURISTIC is false, consider all messages - to match
+		     the behaviour of message_list_search_fuzzy -, but process
+		     them in the order of the sorted list.  This increases
+		     the chances that the later calls to fstrcmp_bounded() (via
+		     fuzzy_search_goal_function()) terminate quickly, thanks
+		     to the best_weight which will be quite high already after
+		     the first few messages.  */
 		  {
 		    size_t count;
 		    struct mult_index *ptr;
 		    message_ty *best_mp;
 		    double best_weight;
 
-		    count = findex->firstfew;
-		    if (count > accu.nitems)
-		      count = accu.nitems;
+		    count = accu.nitems;
+		    if (heuristic)
+		      {
+			if (count > findex->firstfew)
+			  count = findex->firstfew;
+		      }
 
 		    best_weight = lower_bound;
 		    best_mp = NULL;

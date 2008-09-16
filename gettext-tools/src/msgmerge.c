@@ -680,6 +680,13 @@ struct definitions_ty
      for speed when doing the exact searches.  */
   message_list_list_ty *lists;
 
+  /* A fuzzy index of the current list of non-compendium messages, for speed
+     when doing fuzzy searches.  Used only if use_fuzzy_matching is true.  */
+  message_fuzzy_index_ty *curr_findex;
+  /* A once-only execution guard for the initialization of the fuzzy index.
+     Needed for OpenMP.  */
+  gl_lock_define(, curr_findex_init_lock)
+
   /* A fuzzy index of the compendiums, for speed when doing fuzzy searches.
      Used only if use_fuzzy_matching is true and compendiums != NULL.  */
   message_fuzzy_index_ty *comp_findex;
@@ -687,7 +694,8 @@ struct definitions_ty
      Needed for OpenMP.  */
   gl_lock_define(, comp_findex_init_lock)
 
-  /* The canonical encoding of the compendiums.  */
+  /* The canonical encoding of the definitions and the compendiums.
+     Only used for fuzzy matching.  */
   const char *canon_charset;
 };
 
@@ -698,6 +706,8 @@ definitions_init (definitions_ty *definitions, const char *canon_charset)
   message_list_list_append (definitions->lists, NULL);
   if (compendiums != NULL)
     message_list_list_append_list (definitions->lists, compendiums);
+  definitions->curr_findex = NULL;
+  gl_lock_init (definitions->curr_findex_init_lock);
   definitions->comp_findex = NULL;
   gl_lock_init (definitions->comp_findex_init_lock);
   definitions->canon_charset = canon_charset;
@@ -715,9 +725,28 @@ static inline void
 definitions_set_current_list (definitions_ty *definitions, message_list_ty *mlp)
 {
   definitions->lists->item[0] = mlp;
+  if (definitions->curr_findex != NULL)
+    {
+      message_fuzzy_index_free (definitions->curr_findex);
+      definitions->curr_findex = NULL;
+    }
 }
 
-/* Create the fuzzy index.
+/* Create the fuzzy index for the current list of non-compendium messages.
+   Used only if use_fuzzy_matching is true.  */
+static inline void
+definitions_init_curr_findex (definitions_ty *definitions)
+{
+  /* Protect against concurrent execution.  */
+  gl_lock_lock (definitions->curr_findex_init_lock);
+  if (definitions->curr_findex == NULL)
+    definitions->curr_findex =
+      message_fuzzy_index_alloc (definitions_current_list (definitions),
+				 definitions->canon_charset);
+  gl_lock_unlock (definitions->curr_findex_init_lock);
+}
+
+/* Create the fuzzy index for the compendium messages.
    Used only if use_fuzzy_matching is true and compendiums != NULL.  */
 static inline void
 definitions_init_comp_findex (definitions_ty *definitions)
@@ -762,9 +791,27 @@ static inline message_ty *
 definitions_search_fuzzy (definitions_ty *definitions,
 			  const char *msgctxt, const char *msgid)
 {
-  message_ty *mp1 =
-    message_list_search_fuzzy (definitions_current_list (definitions),
-			       msgctxt, msgid);
+  message_ty *mp1;
+
+  if (false)
+    {
+      /* Old, slow code.  */
+      mp1 =
+	message_list_search_fuzzy (definitions_current_list (definitions),
+				   msgctxt, msgid);
+    }
+  else
+    {
+      /* Speedup through early abort in fstrcmp(), combined with pre-sorting
+	 of the messages through a hashed index.  */
+      /* Create the fuzzy index lazily.  */
+      if (definitions->curr_findex == NULL)
+	definitions_init_curr_findex (definitions);
+      mp1 = message_fuzzy_index_search (definitions->curr_findex,
+					msgctxt, msgid,
+					FUZZY_THRESHOLD, false);
+    }
+  
   if (compendiums != NULL)
     {
       double lower_bound_for_mp2;
@@ -784,7 +831,7 @@ definitions_search_fuzzy (definitions_ty *definitions,
 
       mp2 = message_fuzzy_index_search (definitions->comp_findex,
 					msgctxt, msgid,
-					lower_bound_for_mp2);
+					lower_bound_for_mp2, true);
 
       /* Choose the best among mp1, mp2.  */
       if (mp1 == NULL
@@ -802,6 +849,8 @@ static inline void
 definitions_destroy (definitions_ty *definitions)
 {
   message_list_list_free (definitions->lists, 2);
+  if (definitions->curr_findex != NULL)
+    message_fuzzy_index_free (definitions->curr_findex);
   if (definitions->comp_findex != NULL)
     message_fuzzy_index_free (definitions->comp_findex);
 }
@@ -1586,6 +1635,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
   unsigned int processed;
   struct statistics stats;
   msgdomain_list_ty *result;
+  const char *def_canon_charset;
   definitions_ty definitions;
   message_list_ty *empty_list;
 
@@ -1795,8 +1845,57 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
       }
   }
 
+  /* Determine canonicalized encoding name of the definitions now, after
+     conversion.  Only used for fuzzy matching.  */
+  if (use_fuzzy_matching)
+    {
+      def_canon_charset = def->encoding;
+      if (def_canon_charset == NULL)
+	{
+	  char *charset = NULL;
+
+	  /* Get the encoding of the definitions file.  */
+	  for (k = 0; k < def->nitems; k++)
+	    {
+	      message_list_ty *mlp = def->item[k]->messages;
+
+	      for (j = 0; j < mlp->nitems; j++)
+		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+		  {
+		    const char *header = mlp->item[j]->msgstr;
+
+		    if (header != NULL)
+		      {
+			const char *charsetstr = c_strstr (header, "charset=");
+
+			if (charsetstr != NULL)
+			  {
+			    size_t len;
+
+			    charsetstr += strlen ("charset=");
+			    len = strcspn (charsetstr, " \t\n");
+			    charset = (char *) xmalloca (len + 1);
+			    memcpy (charset, charsetstr, len);
+			    charset[len] = '\0';
+			    break;
+			  }
+		      }
+		  }
+	      if (charset != NULL)
+		break;
+	    }
+	  if (charset != NULL)
+	    def_canon_charset = po_charset_canonicalize (charset);
+	  if (def_canon_charset == NULL)
+	    /* Unspecified encoding.  Assume unibyte encoding.  */
+	    def_canon_charset = po_charset_ascii;
+	}
+    }
+  else
+    def_canon_charset = NULL;
+
   /* Initialize and preprocess the total set of message definitions.  */
-  definitions_init (&definitions, po_charset_utf8);
+  definitions_init (&definitions, def_canon_charset);
   empty_list = message_list_alloc (false);
 
   result = msgdomain_list_alloc (false);

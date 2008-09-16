@@ -129,6 +129,7 @@ LIBGREP = ../libgrep/libgrep.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
+msgcmp_SOURCES += msgl-fsearch.c
 msgfmt_SOURCES = msgfmt.c
 msgfmt_SOURCES += \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \

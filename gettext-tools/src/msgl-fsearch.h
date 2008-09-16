@@ -20,6 +20,8 @@
 
 #include "message.h"
 
+#include <stdbool.h>
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,11 +43,19 @@ extern message_fuzzy_index_ty *
 /* Find a good match for the given msgctxt and msgid in the given fuzzy index.
    The match does not need to be optimal.
    Ignore matches for which the fuzzy_search_goal_function is < LOWER_BOUND.
-   LOWER_BOUND must be >= FUZZY_THRESHOLD.  */
+   LOWER_BOUND must be >= FUZZY_THRESHOLD.
+   If HEURISTIC is true, only the few best messages among the list - according
+   to a certain heuristic - are considered.  If HEURISTIC is false, all
+   messages with a fuzzy_search_goal_function > FUZZY_THRESHOLD are considered,
+   like in message_list_search_fuzzy (except that in ambiguous cases where
+   several best matches exist, message_list_search_fuzzy chooses the one with
+   the smallest index whereas message_fuzzy_index_search makes a better
+   choice).  */
 extern message_ty *
        message_fuzzy_index_search (message_fuzzy_index_ty *findex,
 				   const char *msgctxt, const char *msgid,
-				   double lower_bound);
+				   double lower_bound,
+				   bool heuristic);
 
 /* Free a fuzzy index.  */
 extern void
