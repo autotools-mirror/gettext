@@ -1,5 +1,34 @@
 2009-09-15  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (msg*_DEPENDENCIES, xgettext_DEPENDENCIES,
+	recode_sr_latin_DEPENDENCIES): New variables.
+
+2009-09-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgl-fsearch.h: Include stdbool.h.
+	(message_fuzzy_index_search): Add 'heuristic' argument.
+	* msgl-fsearch.c (message_fuzzy_index_search): Likewise. If !heuristic,
+	consider all messages.
+	* msgmerge.c (struct definitions_ty): Add fields 'curr_findex',
+	'curr_findex_init_lock'.
+	(definitions_init): Initialize them.
+	(definitions_set_current_list): Clear the previous curr_findex.
+	(definitions_init_curr_findex): New function.
+	(definitions_search_fuzzy): Do fuzzy matching by calling
+	message_fuzzy_index_search on a hashed index, rather than through
+	message_list_search_fuzzy.
+	(definitions_destroy): Update.
+	(merge): Determine the definitions' canonical encoding.
+	* msgcmp.c: Include xmalloca.h, po-charset.h, msgl-fsearch.h.
+	(match_domain): Add defmlp_findex, def_canon_charset arguments. Do
+	fuzzy matching by calling message_fuzzy_index_search on a hashed
+	index, rather than through message_list_search_fuzzy.
+	(compare): Determine the definitions' canonical encoding. Prepare room
+	for a lazily allocated hashed index.
+	* Makefile.am (msgcmp_SOURCES): Add msgl-fsearch.c.
+
+2009-09-15  Bruno Haible  <bruno@clisp.org>
+
 	* msgcmp.c (use_fuzzy_matching): New variable.
 	(long_options): Add option -N/--no-fuzzy-matching.
 	(main, match_domain): Implement it.

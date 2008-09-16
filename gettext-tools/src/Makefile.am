@@ -254,6 +254,24 @@ msginit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 recode_sr_latin_LDADD = ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 
+# Specify when to relink the programs.
+msgcmp_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgmerge_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgunfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+xgettext_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgattrib_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgcat_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgcomm_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgconv_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgen_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgexec_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msgfilter_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msggrep_DEPENDENCIES = $(LIBGREP) libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msginit_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+msguniq_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la
+recode_sr_latin_DEPENDENCIES = ../gnulib-lib/libgettextlib.la
+
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msgfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
