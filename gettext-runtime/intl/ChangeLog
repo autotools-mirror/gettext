@@ -1,3 +1,11 @@
+2008-09-20  Bruno Haible  <bruno@clisp.org>
+
+	* libgnuintl.h.in: Use (defined X && X) idiom to test whether a
+	possibly undefined macro has a certain value. Pacifies users of the
+	gcc option -Wundef.
+	Reported by Christian Weisgerber <naddy@mips.inka.de> and
+	Ralf Wildenhues <Ralf.Wildenhues@gmx.de>.
+
 2008-08-18  Bruno Haible  <bruno@clisp.org>
 
 	* threadlib.c: Include <pthread.h>.
