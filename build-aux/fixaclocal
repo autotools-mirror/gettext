@@ -1,6 +1,6 @@
 #!/bin/sh
 # Script for fixing aclocal.m4 files produced by 'aclocal' from automake 1.10.
-# Copyright (C) 2006 Free Software Foundation, Inc.
+# Copyright (C) 2006, 2008 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,8 +20,9 @@
 "$@"
 result=$?
 if test $result = 0 && test -f aclocal.m4; then
-  # Remove the block of 4 lines starting with 'm4_if(m4_PACKAGE_VERSION'.
-  sed -e '/m4_if(m4_PACKAGE_VERSION/{N;N;N;d}' < aclocal.m4 > aclocal.m4.tmp
+  # Remove the block of 4 lines starting with 'm4_if(m4_PACKAGE_VERSION'
+  # and the block of 5 lines starting with 'm4_if(AC_AUTOCONF_VERSION'.
+  sed -e '/m4_if(m4_PACKAGE_VERSION/{N;N;N;d}' -e '/m4_if(AC_AUTOCONF_VERSION/{N;N;N;N;d}' < aclocal.m4 > aclocal.m4.tmp
   if cmp aclocal.m4 aclocal.m4.tmp > /dev/null; then
     rm -f aclocal.m4.tmp
   else
