@@ -1,9 +1,15 @@
-2009-09-15  Bruno Haible  <bruno@clisp.org>
+2008-09-26  Bruno Haible  <bruno@clisp.org>
+
+	* write-catalog.c (cmp_by_msgid, cmp_by_filepos): Compare the msgctxt
+	fields if the msgid fields are the same.
+	Reported by Rainer Tammer <tammer@tammer.net>.
+
+2008-09-15  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (msg*_DEPENDENCIES, xgettext_DEPENDENCIES,
 	recode_sr_latin_DEPENDENCIES): New variables.
 
-2009-09-15  Bruno Haible  <bruno@clisp.org>
+2008-09-15  Bruno Haible  <bruno@clisp.org>
 
 	* msgl-fsearch.h: Include stdbool.h.
 	(message_fuzzy_index_search): Add 'heuristic' argument.
@@ -27,7 +33,7 @@
 	for a lazily allocated hashed index.
 	* Makefile.am (msgcmp_SOURCES): Add msgl-fsearch.c.
 
-2009-09-15  Bruno Haible  <bruno@clisp.org>
+2008-09-15  Bruno Haible  <bruno@clisp.org>
 
 	* msgcmp.c (use_fuzzy_matching): New variable.
 	(long_options): Add option -N/--no-fuzzy-matching.

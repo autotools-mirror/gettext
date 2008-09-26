@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -332,10 +332,22 @@ cmp_by_msgid (const void *va, const void *vb)
 {
   const message_ty *a = *(const message_ty **) va;
   const message_ty *b = *(const message_ty **) vb;
-  /* Because msgids normally contain only ASCII characters, it is OK to
-     sort them as if we were in the C locale. And strcoll() in the C locale
-     is the same as strcmp().  */
-  return strcmp (a->msgid, b->msgid);
+
+  /* Because msgids normally contain only ASCII characters or are UTF-8
+     encoded, it is OK to sort them as if we were in a C.UTF-8 locale. And
+     strcoll() in a C.UTF-8 locale is the same as strcmp().  */
+  int cmp = strcmp (a->msgid, b->msgid);
+  if (cmp != 0)
+    return cmp;
+
+  /* If the msgids are equal, disambiguate by comparing the contexts.  */
+  if (a->msgctxt == b->msgctxt)
+    return 0;
+  if (a->msgctxt == NULL)
+    return -1;
+  if (b->msgctxt == NULL)
+    return 1;
+  return strcmp (a->msgctxt, b->msgctxt);
 }
 
 
@@ -420,10 +432,21 @@ cmp_by_filepos (const void *va, const void *vb)
     return cmp;
 
   /* If they are equal, compare on the msgid strings.  */
-  /* Because msgids normally contain only ASCII characters, it is OK to
-     sort them as if we were in the C locale. And strcoll() in the C locale
-     is the same as strcmp().  */
-  return strcmp (a->msgid, b->msgid);
+  /* Because msgids normally contain only ASCII characters or are UTF-8
+     encoded, it is OK to sort them as if we were in a C.UTF-8 locale. And
+     strcoll() in a C.UTF-8 locale is the same as strcmp().  */
+  cmp = strcmp (a->msgid, b->msgid);
+  if (cmp != 0)
+    return cmp;
+
+  /* If the msgids are equal, disambiguate by comparing the contexts.  */
+  if (a->msgctxt == b->msgctxt)
+    return 0;
+  if (a->msgctxt == NULL)
+    return -1;
+  if (b->msgctxt == NULL)
+    return 1;
+  return strcmp (a->msgctxt, b->msgctxt);
 }
 
 
