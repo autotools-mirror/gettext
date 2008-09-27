@@ -1,3 +1,24 @@
+2008-01-10  Eric Blake  <ebb9@byu.net>
+
+	* relocatable.h: Fix a comment.
+
+2008-01-10  Bruno Haible  <bruno@clisp.org>
+
+	* relocatable.h (relocate): State whether result is freshly allocated
+	or not.
+	* relocatable.c (relocate): Return a freshly allocated string instead
+	of a pointer to a privately held string.
+	Reported by Sylvain Beucler <beuc@gnu.org>.
+
+2008-01-01  Sylvain Beucler  <beuc@gnu.org>
+	    Bruno Haible  <bruno@clisp.org>
+
+	Improve memory cleanup in 'relocatable' module.
+	* relocatable.h (compute_curr_prefix): Change return type to 'char *'.
+	* relocatable.c (compute_curr_prefix): Change return type to 'char *'.
+	Free curr_installdir after use.
+	(relocate): Free curr_prefix_better after use.
+
 2008-04-13  Bruno Haible  <bruno@clisp.org>
 
 	* localcharset.c (OS2): Don't redefine if already defined.

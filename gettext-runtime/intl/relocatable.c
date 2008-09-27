@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify it
@@ -160,17 +160,18 @@ set_relocation_prefix (const char *orig_prefix_arg, const char *curr_prefix_arg)
 /* Convenience function:
    Computes the current installation prefix, based on the original
    installation prefix, the original installation directory of a particular
-   file, and the current pathname of this file.  Returns NULL upon failure.  */
+   file, and the current pathname of this file.
+   Returns it, freshly allocated.  Returns NULL upon failure.  */
 #ifdef IN_LIBRARY
 #define compute_curr_prefix local_compute_curr_prefix
 static
 #endif
-const char *
+char *
 compute_curr_prefix (const char *orig_installprefix,
 		     const char *orig_installdir,
 		     const char *curr_pathname)
 {
-  const char *curr_installdir;
+  char *curr_installdir;
   const char *rel_installdir;
 
   if (curr_pathname == NULL)
@@ -254,8 +255,11 @@ compute_curr_prefix (const char *orig_installprefix,
       }
 
     if (rp > rel_installdir)
-      /* Unexpected: The curr_installdir does not end with rel_installdir.  */
-      return NULL;
+      {
+	/* Unexpected: The curr_installdir does not end with rel_installdir.  */
+	free (curr_installdir);
+	return NULL;
+      }
 
     {
       size_t curr_prefix_len = cp - curr_installdir;
@@ -264,10 +268,15 @@ compute_curr_prefix (const char *orig_installprefix,
       curr_prefix = (char *) xmalloc (curr_prefix_len + 1);
 #ifdef NO_XMALLOC
       if (curr_prefix == NULL)
-	return NULL;
+	{
+	  free (curr_installdir);
+	  return NULL;
+	}
 #endif
       memcpy (curr_prefix, curr_installdir, curr_prefix_len);
       curr_prefix[curr_prefix_len] = '\0';
+
+      free (curr_installdir);
 
       return curr_prefix;
     }
@@ -400,7 +409,9 @@ get_shared_library_fullname ()
 #endif /* PIC */
 
 /* Returns the pathname, relocated according to the current installation
-   directory.  */
+   directory.
+   The returned string is either PATHNAME unmodified or a freshly allocated
+   string that you can free with free() after casting it to 'char *'.  */
 const char *
 relocate (const char *pathname)
 {
@@ -420,15 +431,19 @@ relocate (const char *pathname)
 	 orig_prefix.  */
       const char *orig_installprefix = INSTALLPREFIX;
       const char *orig_installdir = INSTALLDIR;
-      const char *curr_prefix_better;
+      char *curr_prefix_better;
 
       curr_prefix_better =
 	compute_curr_prefix (orig_installprefix, orig_installdir,
 			     get_shared_library_fullname ());
-      if (curr_prefix_better == NULL)
-	curr_prefix_better = curr_prefix;
 
-      set_relocation_prefix (orig_installprefix, curr_prefix_better);
+      set_relocation_prefix (orig_installprefix,
+			     curr_prefix_better != NULL
+			     ? curr_prefix_better
+			     : curr_prefix);
+
+      if (curr_prefix_better != NULL)
+	free (curr_prefix_better);
 
       initialized = 1;
     }
@@ -442,9 +457,19 @@ relocate (const char *pathname)
       && strncmp (pathname, orig_prefix, orig_prefix_len) == 0)
     {
       if (pathname[orig_prefix_len] == '\0')
-	/* pathname equals orig_prefix.  */
-	return curr_prefix;
-      if (ISSLASH (pathname[orig_prefix_len]))
+	{
+	  /* pathname equals orig_prefix.  */
+	  char *result = (char *) xmalloc (strlen (curr_prefix) + 1);
+
+#ifdef NO_XMALLOC
+	  if (result != NULL)
+#endif
+	    {
+	      strcpy (result, curr_prefix);
+	      return result;
+	    }
+	}
+      else if (ISSLASH (pathname[orig_prefix_len]))
 	{
 	  /* pathname starts with orig_prefix.  */
 	  const char *pathname_tail = &pathname[orig_prefix_len];
