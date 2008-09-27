@@ -1,5 +1,11 @@
 2008-09-27  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC): Add sigpipe, stdio.
+	(GNULIB_MODULES_TOOLS_FOR_SRC): Add sigpipe, stdio, sys_select, write.
+	(GNULIB_MODULES_LIBGETTEXTPO): Add sigpipe, stdio.
+
+2008-09-27  Bruno Haible  <bruno@clisp.org>
+
 	* build-aux/config.guess: Update to GNU version 2008-09-08.
 	* build-aux/config.sub: Likewise.
 

@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.60..2.62 and automake-1.10 in the PATH.
+# This script requires autoconf-2.60..2.63 and automake-1.10 in the PATH.
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
@@ -81,7 +81,9 @@ if ! $skip_gnulib; then
       progname
       propername
       relocatable-prog
+      sigpipe
       stdbool
+      stdio
       strtoul
       unlocked-io
       xalloc
@@ -154,8 +156,10 @@ if ! $skip_gnulib; then
       relocatable-prog
       relocatable-script
       sh-quote
+      sigpipe
       sigprocmask
       stdbool
+      stdio
       stpcpy
       stpncpy
       strcspn
@@ -164,6 +168,7 @@ if ! $skip_gnulib; then
       strtol
       strtoul
       styled-ostream
+      sys_select
       sys_stat
       sys_time
       term-styled-ostream
@@ -177,6 +182,7 @@ if ! $skip_gnulib; then
       utf16-ucs4
       vasprintf
       wait-process
+      write
       xalloc
       xconcat-filename
       xmalloca
@@ -232,7 +238,9 @@ if ! $skip_gnulib; then
       ostream
       progname
       relocatable-lib
+      sigpipe
       stdbool
+      stdio
       strerror
       ucs4-utf8
       unilbrk/ulc-width-linebreaks
