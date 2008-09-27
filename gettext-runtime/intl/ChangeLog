@@ -93,6 +93,10 @@
 	* vasnprintf.c (VASNPRINTF): When performing zero-padding, use
 	spaces instead of 0 digits for 's' also when ENABLE_UNISTDIO.
 
+2008-02-28  Atsushi SAKAI  <sakaia@jp.fujitsu.com>
+
+	* lib/xsize.h: Fix typo in comment: s/tupe/type/.
+
 2008-02-07  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Don't use %n on native Woe32 systems.
