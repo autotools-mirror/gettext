@@ -495,6 +495,7 @@ catalogname_for_locale (const char *locale)
     "an_ES",	/* Aragonese	Spain */
     "ang_GB",	/* Old English	Britain */
     "as_IN",	/* Assamese	India */
+    "ast_ES",	/* Asturian	Spain */
     "av_RU",	/* Avaric	Russia */
     "awa_IN",	/* Awadhi	India */
     "az_AZ",	/* Azerbaijani	Azerbaijan */
@@ -517,6 +518,8 @@ catalogname_for_locale (const char *locale)
     "ceb_PH",	/* Cebuano	Philippines */
     "co_FR",	/* Corsican	France */
     "cr_CA",	/* Cree		Canada */
+    /* Don't put "crh_UZ" or "crh_UA" here.  That would be asking for fruitless
+       political discussion.  */
     "cs_CZ",	/* Czech	Czech Republic */
     "csb_PL",	/* Kashubian	Poland */
     "cy_GB",	/* Welsh	Britain */
@@ -539,6 +542,7 @@ catalogname_for_locale (const char *locale)
     "fo_FO",	/* Faroese	Faeroe Islands */
     "fon_BJ",	/* Fon		Benin */
     "fr_FR",	/* French	France */
+    "fur_IT",	/* Friulian	Italy */
     "fy_NL",	/* Western Frisian	Netherlands */
     "ga_IE",	/* Irish	Ireland */
     "gd_GB",	/* Scottish Gaelic	Britain */
@@ -623,6 +627,7 @@ catalogname_for_locale (const char *locale)
     "pa_IN",	/* Punjabi	India */
     "pag_PH",	/* Pangasinan	Philippines */
     "pam_PH",	/* Pampanga	Philippines */
+    "pap_AN",	/* Papiamento	Netherlands Antilles */
     "pbb_CO",	/* Páez		Colombia */
     "pl_PL",	/* Polish	Poland */
     "ps_AF",	/* Pashto	Afghanistan */
