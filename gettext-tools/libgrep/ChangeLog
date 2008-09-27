@@ -1,3 +1,23 @@
+2008-04-28  Eric Blake  <ebb9@byu.net>
+
+	* memchr.c (__memchr): Hand-inline the TYPE_MAXIMUM check.
+
+2008-04-27  Bruno Haible  <bruno@clisp.org>
+
+	* memchr.c (__memchr): Change type of 'i'.
+
+2008-04-26  Eric Blake  <ebb9@byu.net>
+	    Bruno Haible  <bruno@clisp.org>
+
+	* memchr.c: Include intprops.h.
+	(__memchr): Optimize parallel detection of matching bytes. Rename local
+	variables. Add explanatory comments.
+
+2008-04-26  Bruno Haible  <bruno@clisp.org>
+
+	Fix module 'memchr', broken since 2000-10-28.
+	* memchr.c: Outside glibc, define memchr, not __memchr.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.
