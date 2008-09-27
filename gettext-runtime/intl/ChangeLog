@@ -1,3 +1,8 @@
+2008-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* localcharset.c (OS2): Don't redefine if already defined.
+	Reported by Elbert Pol <e.pol@chello.nl>.
+
 2008-09-20  Bruno Haible  <bruno@clisp.org>
 
 	* libgnuintl.h.in: Use (defined X && X) idiom to test whether a
