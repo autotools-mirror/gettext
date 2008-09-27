@@ -215,7 +215,7 @@ public class Matrix {
         for (int t = groups[group][0]; t < groups[group][1]; t++) {
           int i = columnwidth[t]-teams[t].length();
           spaces(stream,1+i/2);
-          stream.print(teams[t]);
+          stream.print(teams[t].replace("@","@@"));
           spaces(stream,(i+1)/2);
         }
         stream.println();
@@ -277,7 +277,7 @@ public class Matrix {
         for (int t = groups[group][0]; t < groups[group][1]; t++) {
           int i = columnwidth[t]-teams[t].length();
           spaces(stream,1+i/2);
-          stream.print(teams[t]);
+          stream.print(teams[t].replace("@","@@"));
           spaces(stream,(i+1)/2);
         }
         stream.println();
