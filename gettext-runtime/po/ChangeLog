@@ -1,3 +1,9 @@
+2008-09-28  Bruno Haible  <bruno@clisp.org>
+
+	* Rules-quot (.insert-header.po-update-en): Pass the locale name with
+	suffix to msginit. Needed for the "Language:" field in the header
+	entry.
+
 2008-05-19  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (XGETTEXT_OPTIONS): Remove the options for proper_name and
