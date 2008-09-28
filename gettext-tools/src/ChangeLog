@@ -1,5 +1,10 @@
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (msg*_DEPENDENCIES, xgettext_DEPENDENCIES,
+	recode_sr_latin_DEPENDENCIES): Add $(WOE32_LDADD).
+
+2008-09-28  Bruno Haible  <bruno@clisp.org>
+
 	* msgexec.c (process_string): Don't die from SIGPIPE if the subprocess
 	does not want our input.
 	Reported by Rainer Tammer <tammer@tammer.net>.
