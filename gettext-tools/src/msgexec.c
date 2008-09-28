@@ -346,6 +346,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
       char *location;
       pid_t child;
       int fd[1];
+      void (*orig_sigpipe_handler)(int);
       int exitstatus;
 
       /* Set environment variables for the subprocess.  */
@@ -363,11 +364,18 @@ process_string (const message_ty *mp, const char *str, size_t len)
       child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, false, true,
 			       true, fd);
 
+      /* Ignore SIGPIPE here.  We don't care if the subprocesses terminates
+	 successfully without having read all of the input that we feed it.  */
+      orig_sigpipe_handler = signal (SIGPIPE, SIG_IGN);
+
       if (full_write (fd[0], str, len) < len)
-	error (EXIT_FAILURE, errno,
-	       _("write to %s subprocess failed"), sub_name);
+	if (errno != EPIPE)
+	  error (EXIT_FAILURE, errno,
+		 _("write to %s subprocess failed"), sub_name);
 
       close (fd[0]);
+
+      signal (SIGPIPE, orig_sigpipe_handler);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
       /* FIXME: Should ignore_sigpipe be set to true here? It depends on the

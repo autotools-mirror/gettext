@@ -1,5 +1,11 @@
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
+	* msgexec.c (process_string): Don't die from SIGPIPE if the subprocess
+	does not want our input.
+	Reported by Rainer Tammer <tammer@tammer.net>.
+
+2008-09-28  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (msgcmp_LDADD): Add MSGMERGE_LIBM.
 	Reported by Rainer Tammer <tammer@tammer.net>.
 
