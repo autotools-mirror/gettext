@@ -1,3 +1,17 @@
+2008-09-28  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test suite failures on mingw.
+	* msgcmp-2: Normalize program name with .exe suffix also when it
+	occurs at the beginning of a line of error output.
+	* msgcmp-3: Likewise.
+	* msgfmt-7: Likewise.
+	* msgfmt-8: Likewise.
+	* msgfmt-9: Likewise.
+	* msgfmt-10: Likewise.
+	* msgmerge-2: Likewise.
+	* msgmerge-9: Likewise.
+	* msgexec-2: Convert CR/LF to LF before applying DIFF.
+
 2008-08-23  Bruno Haible  <bruno@clisp.org>
 
 	* msgmerge-update-4: New file, based on msgmerge-update-3.

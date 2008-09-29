@@ -57,9 +57,11 @@ msgstr ""
 #~ msgstr "das einen verheirateten Mann liebt"
 EOF
 
-tmpfiles="$tmpfiles mex-test2.out"
+tmpfiles="$tmpfiles mex-test2.tmp mex-test2.out"
 : ${MSGEXEC=msgexec}
-${MSGEXEC} -i mex-test2.po 0 > mex-test2.out
+${MSGEXEC} -i mex-test2.po 0 > mex-test2.tmp
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+LC_ALL=C tr -d '\r' < mex-test2.tmp > mex-test2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${CMP=cmp}
