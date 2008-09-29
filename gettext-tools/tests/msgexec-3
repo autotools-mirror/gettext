@@ -35,13 +35,13 @@ EOF
 tmpfiles="$tmpfiles mex-test3.sh"
 cat <<\EOF > mex-test3.sh
 #! /bin/sh
-echo "========================= $MSGEXEC_LOCATION ========================="
+echo "========================= $MSGEXEC_LOCATION =========================" | LC_ALL=C tr -d '\r'
 cat <<MEOF
 $MSGEXEC_MSGID
 ---
 MEOF
 cat
-echo
+echo | LC_ALL=C tr -d '\r'
 exit 0
 EOF
 chmod a+x mex-test3.sh

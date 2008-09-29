@@ -54,16 +54,16 @@ EOF
 tmpfiles="$tmpfiles mex-test4.sh"
 cat <<\EOF > mex-test4.sh
 #! /bin/sh
-echo "========================= $MSGEXEC_LOCATION ========================="
+echo "========================= $MSGEXEC_LOCATION =========================" | LC_ALL=C tr -d '\r'
 if test -n "${MSGEXEC_MSGCTXT+set}"; then
-  echo "context: $MSGEXEC_MSGCTXT"
+  echo "context: $MSGEXEC_MSGCTXT" | LC_ALL=C tr -d '\r'
 fi
 cat <<MEOF
 $MSGEXEC_MSGID
 ---
 MEOF
 cat
-echo
+echo | LC_ALL=C tr -d '\r'
 exit 0
 EOF
 chmod a+x mex-test4.sh

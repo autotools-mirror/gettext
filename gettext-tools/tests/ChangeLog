@@ -1,3 +1,10 @@
+2008-09-29  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test suite failures on mingw.
+	* msgexec-1: Don't produce CR/LFs in the per-message command script.
+	* msgexec-3: Likewise.
+	* msgexec-4: Likewise.
+
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test suite failures on mingw.
