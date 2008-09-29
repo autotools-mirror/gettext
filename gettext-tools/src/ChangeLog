@@ -1,5 +1,11 @@
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
+	* write-catalog.c (msgdomain_list_print): Open the output stream in
+	binary mode, for consistency with the term_styled_ostream or fd_stream
+	based case.
+
+2008-09-28  Bruno Haible  <bruno@clisp.org>
+
 	* Makefile.am (msg*_DEPENDENCIES, xgettext_DEPENDENCIES,
 	recode_sr_latin_DEPENDENCIES): Add $(WOE32_LDADD).
 

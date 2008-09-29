@@ -266,7 +266,7 @@ message catalog has plural form translations, but the output format does not sup
       /* Open the output file.  */
       if (!to_stdout)
 	{
-	  fp = fopen (filename, "w");
+	  fp = fopen (filename, "wb");
 	  if (fp == NULL)
 	    {
 	      const char *errno_description = strerror (errno);
