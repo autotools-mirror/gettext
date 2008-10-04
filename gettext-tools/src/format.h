@@ -146,6 +146,7 @@ extern int
        check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 				    const char *msgstr, size_t msgstr_len,
 				    size_t i,
+				    struct argument_range range,
 				    const struct plural_distribution *distribution,
 				    formatstring_error_logger_t error_logger);
 
@@ -156,6 +157,7 @@ extern int
        check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 				  const char *msgstr, size_t msgstr_len,
 				  const enum is_format is_format[NFORMATS],
+				  struct argument_range range,
 				  const struct plural_distribution *distribution,
 				  formatstring_error_logger_t error_logger);
 

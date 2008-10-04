@@ -1,5 +1,23 @@
 2008-10-04  Bruno Haible  <bruno@clisp.org>
 
+	* plural-distrib.h (struct plural_distribution): New field 'histogram'.
+	* format.h (check_msgid_msgstr_format_i, check_msgid_msgstr_format):
+	Add range argument.
+	* format.c (check_msgid_msgstr_format_i): Add range argument. Set
+	strict_checking to false if, due to the range, the plural forms applies
+	to only one value of n.
+	(check_msgid_msgstr_format): Add range argument.
+	* msgl-check.c (plural_expression_histogram): New function.
+	(check_plural_eval, check_plural): Update.
+	(check_pair): Pass the range to check_msgid_msgstr_format.
+	(check_message_list): Update.
+	* msgmerge.c (message_merge): Pass the range to
+	check_msgid_msgstr_format_i.
+	Reported by Anatoly Techtonik <techtonik@gmail.com>
+	via <https://savannah.gnu.org/bugs/?24433>.
+
+2008-10-04  Bruno Haible  <bruno@clisp.org>
+
 	* message.h (struct argument_range): New type.
 	(has_range_p): New macro.
 	(struct message_ty): Add field 'range'.

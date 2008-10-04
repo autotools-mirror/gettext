@@ -1271,7 +1271,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 	  && possible_format_p (ref->is_format[i])
 	  && !possible_format_p (def->is_format[i])
 	  && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
-					  msgstr, msgstr_len, i,
+					  msgstr, msgstr_len, i, ref->range,
 					  distribution, silent_error_logger)
 	     > 0)
 	result->is_fuzzy = true;

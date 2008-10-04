@@ -47,6 +47,46 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
+/* Evaluates the plural formula for min <= n <= max
+   and returns the estimated number of times the value j was assumed.  */
+static unsigned int
+plural_expression_histogram (const struct plural_distribution *self,
+			     int min, int max, unsigned long j)
+{
+  if (min < 0)
+    min = 0;
+  /* Limit the number of evaluations.  Nothing interesting happens beyond
+     1000.  */
+  if (max - min > 1000)
+    max = min + 1000;
+  if (min <= max)
+    {
+      const struct expression *expr = self->expr;
+      unsigned long n;
+      unsigned int count;
+
+      /* Protect against arithmetic exceptions.  */
+      install_sigfpe_handler ();
+
+      count = 0;
+      for (n = min; n <= max; n++)
+	{
+	  unsigned long val = plural_eval (expr, n);
+
+	  if (val == j)
+	    count++;
+	}
+
+      /* End of protection against arithmetic exceptions.  */
+      uninstall_sigfpe_handler ();
+
+      return count;
+    }
+  else
+    return 0;
+}
+
+
 /* Check the values returned by plural_eval.
    Signals the errors through po_xerror.
    Return the number of errors that were seen.
@@ -125,6 +165,7 @@ check_plural_eval (const struct expression *plural_expr,
       distribution->expr = plural_expr;
       distribution->often = array;
       distribution->often_length = (array != NULL ? nplurals_value : 0);
+      distribution->histogram = plural_expression_histogram;
 
       return 0;
     }
@@ -260,6 +301,7 @@ check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
   distribution.expr = NULL;
   distribution.often = NULL;
   distribution.often_length = 0;
+  distribution.histogram = NULL;
   for (j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
@@ -475,6 +517,7 @@ check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
 	distribution.often = array;
       }
       distribution.often_length = 2;
+      distribution.histogram = plural_expression_histogram;
     }
 
   /* distribution is not needed if we report errors.
@@ -645,7 +688,7 @@ plural handling is a GNU gettext extension"));
       curr_msgid_pos = *msgid_pos;
       seen_errors +=
 	check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
-				   is_format, distribution,
+				   is_format, mp->range, distribution,
 				   formatstring_error_logger);
     }
 
@@ -832,6 +875,7 @@ check_message_list (message_list_ty *mlp,
   distribution.expr = NULL;
   distribution.often = NULL;
   distribution.often_length = 0;
+  distribution.histogram = NULL;
 
   if (check_header)
     seen_errors += check_plural (mlp, &distribution);

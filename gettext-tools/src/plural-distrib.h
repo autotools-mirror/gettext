@@ -41,6 +41,11 @@ struct plural_distribution
 
   /* The length of the OFTEN array.  */
   unsigned long often_length;
+
+  /* A function which evaluates the plural formula for min <= n <= max
+     and returns the estimated number of times the value j was assumed.  */
+  unsigned int (*histogram) (const struct plural_distribution *self,
+			     int min, int max, unsigned long j);
 };
 
 

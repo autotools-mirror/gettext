@@ -64,6 +64,7 @@ int
 check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 			     const char *msgstr, size_t msgstr_len,
 			     size_t i,
+			     struct argument_range range,
 			     const struct plural_distribution *distribution,
 			     formatstring_error_logger_t error_logger)
 {
@@ -112,19 +113,24 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 	      /* Use strict checking (require same number of format
 		 directives on both sides) if the message has no plurals,
 		 or if msgid_plural exists but on the msgstr[] side
-		 there is only msgstr[0], or if plural_distribution[j]
+		 there is only msgstr[0], or if distribution->often[j]
 		 indicates that the variant applies to infinitely many
-		 values of N.
+		 values of N and the N range is not restricted in a way
+		 that the variant applies to only one N.
 		 Use relaxed checking when there are at least two
-		 msgstr[] forms and the plural_distribution array does
-		 not give more precise information.  */
+		 msgstr[] forms and the distribution does not give more
+		 precise information.  */
 	      bool strict_checking =
 		(msgid_plural == NULL
 		 || !has_plural_translations
 		 || (distribution != NULL
 		     && distribution->often != NULL
 		     && j < distribution->often_length
-		     && distribution->often[j]));
+		     && distribution->often[j]
+		     && !(has_range_p (range)
+			  && distribution->histogram (distribution,
+						      range.min, range.max, j)
+			     <= 1)));
 
 	      if (parser->check (msgid_descr, msgstr_descr,
 				 strict_checking,
@@ -159,6 +165,7 @@ int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
 			   const enum is_format is_format[NFORMATS],
+			   struct argument_range range,
 			   const struct plural_distribution *distribution,
 			   formatstring_error_logger_t error_logger)
 {
@@ -175,6 +182,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
     if (possible_format_p (is_format[i]))
       seen_errors += check_msgid_msgstr_format_i (msgid, msgid_plural,
 						  msgstr, msgstr_len, i,
+						  range,
 						  distribution,
 						  error_logger);
 
