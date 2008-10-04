@@ -223,6 +223,16 @@ write_message (ostream_t stream, const message_ty *mp,
 	  ostream_write_str (stream, " */\n");
 	}
   }
+  if (has_range_p (mp->range))
+    {
+      char *string;
+
+      ostream_write_str (stream, "/* Flag: ");
+      string = make_range_description_string (mp->range);
+      ostream_write_str (stream, string);
+      free (string);
+      ostream_write_str (stream, " */\n");
+    }
 
   /* Now write the untranslated string and the translated string.  */
   write_escaped_string (stream, mp->msgid);

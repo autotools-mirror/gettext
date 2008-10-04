@@ -120,6 +120,15 @@ has_significant_format_p (const enum is_format is_format[NFORMATS])
 }
 
 
+/* Convert a RANGE to a freshly allocated string for use in #, flags.  */
+
+char *
+make_range_description_string (struct argument_range range)
+{
+  return xasprintf ("range: %d..%d", range.min, range.max);
+}
+
+
 /* Convert a wrapping flag DO_WRAP to a string for use in #, flags.  */
 
 static const char *
@@ -373,13 +382,15 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 }
 
 
-/* Output mp->is_fuzzy, mp->is_format, mp->do_wrap as a comment line.  */
+/* Output mp->is_fuzzy, mp->is_format, mp->range, mp->do_wrap as a comment
+   line.  */
 
 void
 message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 {
   if ((mp->is_fuzzy && mp->msgstr[0] != '\0')
       || has_significant_format_p (mp->is_format)
+      || has_range_p (mp->range)
       || mp->do_wrap == no)
     {
       bool first_flag = true;
@@ -418,6 +429,22 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 	    end_css_class (stream, class_flag);
 	    first_flag = false;
 	  }
+
+      if (has_range_p (mp->range))
+	{
+	  char *string;
+
+	  if (!first_flag)
+	    ostream_write_str (stream, ",");
+
+	  ostream_write_str (stream, " ");
+	  begin_css_class (stream, class_flag);
+	  string = make_range_description_string (mp->range);
+	  ostream_write_str (stream, string);
+	  free (string);
+	  end_css_class (stream, class_flag);
+	  first_flag = false;
+	}
 
       if (mp->do_wrap == no)
 	{

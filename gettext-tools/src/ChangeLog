@@ -1,3 +1,32 @@
+2008-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (struct argument_range): New type.
+	(has_range_p): New macro.
+	(struct message_ty): Add field 'range'.
+	* message.c (message_alloc): Initialize the 'range' field.
+	(message_copy): Copy the 'range' field.
+	* read-catalog-abstract.h (po_parse_comment_special): Add 'rangep'
+	argument.
+	* read-catalog-abstract.c: Include <limits.h>.
+	(po_parse_comment_special): Add 'rangep' argument. Parse the range
+	description syntax.
+	* read-catalog.h (DEFAULT_CATALOG_READER_TY): Add 'range' field.
+	* read-catalog.c (default_constructor): Initialize the 'range' field.
+	(default_copy_comment_state): Copy the 'range' field into the new
+	message.
+	(default_reset_comment_state): Clear the 'range' field.
+	(default_comment_special): Update.
+	* write-po.h (make_range_description_string): New declaration.
+	* write-po.c (make_range_description_string): New function.
+	(message_print_comment_flags): Also print the range.
+	* write-stringtable.c (write_message): Likewise.
+	* msgl-cat.c: Include <limits.h>.
+	(catenate_msgdomain_list): Fill in the range of the resulting messages.
+	* msgl-equal.c (message_equal): Compare also the ranges.
+	* msgmerge.c (message_merge): Fill in the range of the resulting
+	message. Set it fuzzy if a range was introduced or extended.
+	* xgettext.c (remember_a_message): Set the range of the new message.
+
 2008-10-03  Bruno Haible  <bruno@clisp.org>
 
 	* plural-distrib.h: New file.

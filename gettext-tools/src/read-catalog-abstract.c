@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -24,6 +24,7 @@
 /* Specification.  */
 #include "read-catalog-abstract.h"
 
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -258,7 +259,7 @@ po_callback_comment_special (const char *s)
 void
 po_parse_comment_special (const char *s,
 			  bool *fuzzyp, enum is_format formatp[NFORMATS],
-			  enum is_wrap *wrapp)
+			  struct argument_range *rangep, enum is_wrap *wrapp)
 {
   size_t i;
 
@@ -330,6 +331,61 @@ po_parse_comment_special (const char *s,
 		  }
 	      if (i < NFORMATS)
 		continue;
+	    }
+
+	  /* Accept range description "range: <min>..<max>".  */
+	  if (len == 6 && memcmp (t, "range:", 6) == 0)
+	    {
+	      /* Skip whitespace.  */
+	      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
+		s++;
+
+	      /* Collect a token.  */
+	      t = s;
+	      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
+		s++;
+	      /* Parse it.  */
+	      if (*t >= '0' && *t <= '9')
+		{
+		  unsigned int min = 0;
+
+		  for (; *t >= '0' && *t <= '9'; t++)
+		    {
+		      if (min <= INT_MAX / 10)
+			{
+			  min = 10 * min + (*t - '0');
+			  if (min > INT_MAX)
+			    min = INT_MAX;
+			}
+		      else
+			/* Avoid integer overflow.  */
+			min = INT_MAX;
+		    }
+		  if (*t++ == '.')
+		    if (*t++ == '.')
+		      if (*t >= '0' && *t <= '9')
+			{
+			  unsigned int max = 0;
+			  for (; *t >= '0' && *t <= '9'; t++)
+			    {
+			      if (max <= INT_MAX / 10)
+				{
+				  max = 10 * max + (*t - '0');
+				  if (max > INT_MAX)
+				    max = INT_MAX;
+				}
+			      else
+				/* Avoid integer overflow.  */
+				max = INT_MAX;
+			    }
+			  if (min <= max)
+			    {
+			      rangep->min = min;
+			      rangep->max = max;
+			      continue;
+			    }
+			}
+		}
 	    }
 
 	  /* Accept wrap description.  */

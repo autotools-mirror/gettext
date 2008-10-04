@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@
 /* Specification.  */
 #include "msgl-cat.h"
 
+#include <limits.h>
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -304,6 +305,8 @@ domain \"%s\" in input file `%s' doesn't contain a header entry with a charset s
 		  tmp->is_fuzzy = true; /* may be set to false later */
 		  for (i = 0; i < NFORMATS; i++)
 		    tmp->is_format[i] = undecided; /* may be set to yes/no later */
+		  tmp->range.min = - INT_MAX;
+		  tmp->range.max = - INT_MAX;
 		  tmp->do_wrap = yes; /* may be set to no later */
 		  tmp->obsolete = true; /* may be set to false later */
 		  tmp->alternative_count = 0;
@@ -530,6 +533,7 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		  tmp->is_fuzzy = mp->is_fuzzy;
 		  for (i = 0; i < NFORMATS; i++)
 		    tmp->is_format[i] = mp->is_format[i];
+		  tmp->range = mp->range;
 		  tmp->do_wrap = mp->do_wrap;
 		  tmp->prev_msgctxt = mp->prev_msgctxt;
 		  tmp->prev_msgid = mp->prev_msgid;
@@ -562,6 +566,21 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		  for (i = 0; i < NFORMATS; i++)
 		    if (tmp->is_format[i] == undecided)
 		      tmp->is_format[i] = mp->is_format[i];
+		  if (tmp->range.min == - INT_MAX
+		      && tmp->range.max == - INT_MAX)
+		    tmp->range = mp->range;
+		  else if (has_range_p (mp->range) && has_range_p (tmp->range))
+		    {
+		      if (mp->range.min < tmp->range.min)
+			tmp->range.min = mp->range.min;
+		      if (mp->range.max > tmp->range.max)
+			tmp->range.max = mp->range.max;
+		    }
+		  else
+		    {
+		      tmp->range.min = -1;
+		      tmp->range.max = -1;
+		    }
 		  if (tmp->do_wrap == undecided)
 		    tmp->do_wrap = mp->do_wrap;
 		  tmp->obsolete = false;
@@ -599,6 +618,21 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
 		    else if (mp->is_format[i] == no
 			     && tmp->is_format[i] == undecided)
 		      tmp->is_format[i] = no;
+		  if (tmp->range.min == - INT_MAX
+		      && tmp->range.max == - INT_MAX)
+		    tmp->range = mp->range;
+		  else if (has_range_p (mp->range) && has_range_p (tmp->range))
+		    {
+		      if (mp->range.min < tmp->range.min)
+			tmp->range.min = mp->range.min;
+		      if (mp->range.max > tmp->range.max)
+			tmp->range.max = mp->range.max;
+		    }
+		  else
+		    {
+		      tmp->range.min = -1;
+		      tmp->range.max = -1;
+		    }
 		  if (mp->do_wrap == no)
 		    tmp->do_wrap = no;
 		  /* Don't fill tmp->prev_msgid in this case.  */

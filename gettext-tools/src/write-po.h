@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,6 +37,8 @@ extern const char *
 extern bool
        significant_format_p (enum is_format is_format);
 
+extern char *
+       make_range_description_string (struct argument_range range);
 
 /* These functions output parts of a message, as comments.  */
 extern void

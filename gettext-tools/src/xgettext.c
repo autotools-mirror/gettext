@@ -2050,6 +2050,7 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 		    refcounted_string_list_ty *comment)
 {
   enum is_format is_format[NFORMATS];
+  struct argument_range range;
   enum is_wrap do_wrap;
   message_ty *mp;
   char *msgstr;
@@ -2074,6 +2075,8 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   for (i = 0; i < NFORMATS; i++)
     is_format[i] = undecided;
+  range.min = -1;
+  range.max = -1;
   do_wrap = undecided;
 
   if (msgctxt != NULL)
@@ -2155,12 +2158,14 @@ meta information, not the empty string.\n")));
 	  {
 	    bool tmp_fuzzy;
 	    enum is_format tmp_format[NFORMATS];
+	    struct argument_range tmp_range;
 	    enum is_wrap tmp_wrap;
 	    bool interesting;
 
 	    t += strlen ("xgettext:");
 
-	    po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_wrap);
+	    po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_range,
+				      &tmp_wrap);
 
 	    interesting = false;
 	    for (i = 0; i < NFORMATS; i++)
@@ -2169,6 +2174,11 @@ meta information, not the empty string.\n")));
 		  is_format[i] = tmp_format[i];
 		  interesting = true;
 		}
+	    if (has_range_p (tmp_range))
+	      {
+		range = tmp_range;
+		interesting = true;
+	      }
 	    if (tmp_wrap != undecided)
 	      {
 		do_wrap = tmp_wrap;
@@ -2267,6 +2277,19 @@ meta information, not the empty string.\n")));
 	    }
 	}
       mp->is_format[i] = is_format[i];
+    }
+
+  if (has_range_p (range))
+    {
+      if (has_range_p (mp->range))
+	{
+	  if (range.min < mp->range.min)
+	    mp->range.min = range.min;
+	  if (range.max > mp->range.max)
+	    mp->range.max = range.max;
+	}
+      else
+	mp->range = range;
     }
 
   mp->do_wrap = do_wrap == no ? no : yes;	/* By default we wrap.  */

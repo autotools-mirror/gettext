@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006, 2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -182,6 +182,7 @@ extern void po_callback_comment_dispatcher (const char *s);
 /* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
 extern void po_parse_comment_special (const char *s, bool *fuzzyp,
 				      enum is_format formatp[NFORMATS],
+				      struct argument_range *rangep,
 				      enum is_wrap *wrapp);
 
 

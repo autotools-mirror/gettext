@@ -1277,6 +1277,20 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 	result->is_fuzzy = true;
     }
 
+  result->range = ref->range;
+  /* If the definition message was assuming a certain range, but the reference
+     message does not specify a range any more or specifies a range that is
+     not the same or a subset, we add a fuzzy marker, because
+       1. the message needs the translator's attention,
+       2. msgmerge must not transform a PO file which passes "msgfmt -c"
+	  into a PO file which doesn't.  */
+  if (!result->is_fuzzy
+      && has_range_p (def->range)
+      && !(has_range_p (ref->range)
+	   && ref->range.min >= def->range.min
+	   && ref->range.max <= def->range.max))
+    result->is_fuzzy = true;
+
   result->do_wrap = ref->do_wrap;
 
   /* Insert previous msgid, commented out with "#|".

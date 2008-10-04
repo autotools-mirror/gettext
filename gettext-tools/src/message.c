@@ -117,6 +117,8 @@ message_alloc (const char *msgctxt,
   mp->is_fuzzy = false;
   for (i = 0; i < NFORMATS; i++)
     mp->is_format[i] = undecided;
+  mp->range.min = -1;
+  mp->range.max = -1;
   mp->do_wrap = undecided;
   mp->prev_msgctxt = NULL;
   mp->prev_msgid = NULL;
@@ -221,6 +223,7 @@ message_copy (message_ty *mp)
   result->is_fuzzy = mp->is_fuzzy;
   for (i = 0; i < NFORMATS; i++)
     result->is_format[i] = mp->is_format[i];
+  result->range = mp->range;
   result->do_wrap = mp->do_wrap;
   for (j = 0; j < mp->filepos_count; ++j)
     {
