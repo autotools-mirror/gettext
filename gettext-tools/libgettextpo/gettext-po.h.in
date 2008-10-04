@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files - contained in libgettextpo.
-   Copyright (C) 2003-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -300,6 +300,15 @@ extern int po_message_is_format (po_message_t message, const char *format_type);
 
 /* Change the format string mark for a given type of a message.  */
 extern void po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value);
+
+/* If a numeric range of a message is set, return true and store the minimum
+   and maximum value in *MINP and *MAXP.  */
+extern int po_message_is_range (po_message_t message, int *minp, int *maxp);
+
+/* Change the numeric range of a message.  MIN and MAX must be non-negative,
+   with MIN < MAX.  Use MIN = MAX = -1 to remove the numeric range of a
+   message.  */
+extern void po_message_set_range (po_message_t message, int min, int max);
 
 
 /* =========================== po_filepos_t API ============================ */

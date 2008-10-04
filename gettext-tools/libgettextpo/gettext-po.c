@@ -1092,6 +1092,48 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
 }
 
 
+/* If a numeric range of a message is set, return true and store the minimum
+   and maximum value in *MINP and *MAXP.  */
+
+int
+po_message_is_range (po_message_t message, int *minp, int *maxp)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (has_range_p (mp->range))
+    {
+      *minp = mp->range.min;
+      *minp = mp->range.max;
+      return 1;
+    }
+  else
+    return 0;
+}
+
+
+/* Change the numeric range of a message.  MIN and MAX must be non-negative,
+   with MIN < MAX.  Use MIN = MAX = -1 to remove the numeric range of a
+   message.  */
+
+void
+po_message_set_range (po_message_t message, int min, int max)
+{
+  message_ty *mp = (message_ty *) message;
+
+  if (min >= 0 && max >= min)
+    {
+      mp->range.min = min;
+      mp->range.max = max;
+    }
+  else if (min < 0 && max < 0)
+    {
+      mp->range.min = -1;
+      mp->range.max = -1;
+    }
+  /* Other values of min and max are invalid.  */
+}
+
+
 /* Return the file name.  */
 
 const char *
