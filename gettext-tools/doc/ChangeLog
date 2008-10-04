@@ -1,3 +1,8 @@
+2008-10-04  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention the 'range:' flag syntax.
+	(Plural forms): Document how to produce 'range:' flags.
+
 2008-09-27  Bruno Haible  <bruno@clisp.org>
 
 	* ISO_639-2: Update entry about Tamashek.

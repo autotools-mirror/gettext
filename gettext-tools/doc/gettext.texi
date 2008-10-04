@@ -1670,6 +1670,18 @@ msgstr[1] "s'han trobat %d errors fatals"
 Here also, a @code{msgctxt} context can be specified before @code{msgid},
 like above.
 
+Here, additional kinds of flags can be used:
+
+@table @code
+@item range:
+@kwindex range:@r{ flag}
+This flag is followed by a range of non-negative numbers, using the syntax
+@code{range: @var{minimum-value}..@var{maximum-value}}.  It designates the
+possible values that the numeric parameter of the message can take.  In some
+languages, translators may produce slightly better translations if they know
+that the value can only take on values between 0 and 10, for example.
+@end table
+
 The @var{previous-untranslated-string} is optionally inserted by the
 @code{msgmerge} program, at the same time when it marks a message fuzzy.
 It helps the translator to see which changes were done by the developers
@@ -6071,6 +6083,19 @@ printf (ngettext ("%$2d file removed from directory %$1s",
 
 @noindent
 See @ref{c-format} for details about this argument reordering syntax.
+
+When you know that the value of @code{n} is within a given range, you can
+specify it as a comment directed to the @code{xgettext} tool.  This
+information may help translators to use more adequate translations.  Like
+this:
+
+@smallexample
+if (days > 7 && days < 14)
+  /* xgettext: range: 1..6 */
+  printf (ngettext ("one week and one day", "one week and %d days",
+                    days - 7),
+          days - 7);
+@end smallexample
 
 It is also possible to use this function when the strings don't contain a
 cardinal number:

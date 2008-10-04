@@ -10,6 +10,14 @@ Version 0.18 - January 2008
   this field.  Additionally, msgmerge fills in this new field by looking at
   the 'Language-Team' field (if the --lang option is not given).
 
+* xgettext and PO file format:
+  For messages with plural forms, programmers can inform the translators
+  about the range of possible values of the numeric argument, like this:
+    /* xgettext: range: 0..15 */
+  This information 'range: 0..15' is stored in the PO file as a flag attached
+  to the message.  Translators can produce better translations when they know
+  that the numeric argument is small.
+
 * msgmerge is up to 10 times faster when the PO and POT files are large.
   This speedup was contributed by Ralf Wildenhues.
 
