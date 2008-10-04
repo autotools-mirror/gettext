@@ -879,8 +879,7 @@ silent_xerror (int severity,
 
 static message_ty *
 message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
-	       const unsigned char *plural_distribution,
-	       unsigned long plural_distribution_length)
+	       const struct plural_distribution *distribution)
 {
   const char *msgstr;
   size_t msgstr_len;
@@ -1273,9 +1272,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 	  && !possible_format_p (def->is_format[i])
 	  && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
 					  msgstr, msgstr_len, i,
-					  plural_distribution,
-					  plural_distribution_length,
-					  silent_error_logger) > 0)
+					  distribution, silent_error_logger)
+	     > 0)
 	result->is_fuzzy = true;
     }
 
@@ -1343,8 +1341,7 @@ match_domain (const char *fn1, const char *fn2,
   unsigned long int nplurals;
   const struct expression *plural_expr;
   char *untranslated_plural_msgstr;
-  unsigned char *plural_distribution;
-  unsigned long plural_distribution_length;
+  struct plural_distribution distribution;
   struct search_result { message_ty *found; bool fuzzy; } *search_results;
   size_t j;
 
@@ -1364,11 +1361,12 @@ match_domain (const char *fn1, const char *fn2,
     po_xerror = silent_xerror;
 
     if (check_plural_eval (plural_expr, nplurals, header_entry,
-			   &plural_distribution,
-			   &plural_distribution_length) > 0)
+			   &distribution) > 0)
       {
-        plural_distribution = NULL;
-	plural_distribution_length = 0;
+	distribution.expr = NULL;
+	distribution.often = NULL;
+	distribution.often_length = 0;
+	distribution.histogram = NULL;
       }
 
     po_xerror = old_po_xerror;
@@ -1443,8 +1441,7 @@ match_domain (const char *fn1, const char *fn2,
 	     the definition, take the msgstr from the definition.  Add
 	     this merged entry to the output message list.  */
 	  message_ty *mp =
-	    message_merge (defmsg, refmsg, false,
-			   plural_distribution, plural_distribution_length);
+	    message_merge (defmsg, refmsg, false, &distribution);
 
 	  message_list_append (resultmlp, mp);
 
@@ -1477,9 +1474,7 @@ this message is used but not defined..."));
 		 #: comments from the reference, take the # comments from
 		 the definition, take the msgstr from the definition.  Add
 		 this merged entry to the output message list.  */
-	      mp = message_merge (defmsg, refmsg, true,
-				  plural_distribution,
-				  plural_distribution_length);
+	      mp = message_merge (defmsg, refmsg, true, &distribution);
 
 	      message_list_append (resultmlp, mp);
 

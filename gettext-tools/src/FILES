@@ -237,6 +237,8 @@ plural-exp.c
 plural-eval.h
 plural-eval.c
                 Evaluating plural expressions.
+plural-distrib.h
+                Value distribution of plural expressions.
 msgl-check.h
 msgl-check.c
                 Checking of messages.

@@ -41,7 +41,7 @@ color.h write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
 msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
-plural-count.h plural-eval.h \
+plural-count.h plural-eval.h plural-distrib.h \
 read-mo.h write-mo.h \
 read-java.h write-java.h \
 read-csharp.h write-csharp.h \

@@ -1,3 +1,32 @@
+2008-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* plural-distrib.h: New file.
+	* format.h: Include plural-distrib.h.
+	(check_msgid_msgstr_format_i, check_msgid_msgstr_format): Replace
+	plural_distribution, plural_distribution_length arguments with a single
+	distribution argument.
+	* format.c (check_msgid_msgstr_format_i, check_msgid_msgstr_format):
+	Likewise.
+	* msgl-check.h: Include plural-distrib.h.
+	(check_plural_eval, check_message): Replace plural_distribution,
+	plural_distribution_length arguments with a single distribution
+	argument.
+	* msgl-check.c (check_plural_eval): Likewise. Free array in case of
+	error.
+	(check_plural): Replace plural_distribution, plural_distribution_length
+	arguments with a single distribution argument. Don't store a
+	distribution result when there are errors.
+	(check_pair, check_message): Replace plural_distribution,
+	plural_distribution_length arguments with a single distribution
+	argument.
+	(check_message_list): Update.
+	* msgmerge.c (message_merge: Replace plural_distribution,
+	plural_distribution_length arguments with a single distribution
+	argument.
+	(match_domain): Update.
+	* Makefile.am (noinst_HEADERS): Add plural-distrib.h.
+	* FILES: Mention plural-distrib.h.
+
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
 	* write-catalog.c (msgdomain_list_print): Open the output stream in

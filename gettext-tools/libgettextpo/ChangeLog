@@ -1,3 +1,8 @@
+2008-10-03  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-po.c (po_message_check_format): Update for signature changes
+	of check_message and check_msgid_msgstr_format.
+
 2008-07-19  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Add gnulib-m4/gnulib-cache.m4.

@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@
 
 #include "pos.h"	/* Get lex_pos_ty.  */
 #include "message.h"	/* Get NFORMATS.  */
+#include "plural-distrib.h" /* Get struct plural_distribution.  */
 #include "error.h"	/* Get fallback definition of __attribute__.  */
 
 
@@ -140,31 +141,22 @@ extern unsigned int get_python_format_unnamed_arg_count (const char *string);
 
 /* Check whether both formats strings contain compatible format
    specifications for format type i (0 <= i < NFORMATS).
-   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
-   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
-   infinitely often by the plural formula.
    Return the number of errors that were seen.  */
 extern int
        check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 				    const char *msgstr, size_t msgstr_len,
 				    size_t i,
-				    const unsigned char *plural_distribution,
-				    unsigned long plural_distribution_length,
+				    const struct plural_distribution *distribution,
 				    formatstring_error_logger_t error_logger);
 
 /* Check whether both formats strings contain compatible format
    specifications.
-   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
-   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
-   infinitely often by the plural formula.
-   PLURAL_DISTRIBUTION_LENGTH is the length of the PLURAL_DISTRIBUTION array.
    Return the number of errors that were seen.  */
 extern int
        check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 				  const char *msgstr, size_t msgstr_len,
 				  const enum is_format is_format[NFORMATS],
-				  const unsigned char *plural_distribution,
-				  unsigned long plural_distribution_length,
+				  const struct plural_distribution *distribution,
 				  formatstring_error_logger_t error_logger);
 
 

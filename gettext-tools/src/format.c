@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -59,18 +59,12 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
 };
 
 /* Check whether both formats strings contain compatible format
-   specifications for format type i (0 <= i < NFORMATS).
-   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
-   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
-   infinitely often by the plural formula.
-   PLURAL_DISTRIBUTION_LENGTH is the length of the PLURAL_DISTRIBUTION array.
-   Return the number of errors that were seen.  */
+   specifications for format type i (0 <= i < NFORMATS).  */
 int
 check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 			     const char *msgstr, size_t msgstr_len,
 			     size_t i,
-			     const unsigned char *plural_distribution,
-			     unsigned long plural_distribution_length,
+			     const struct plural_distribution *distribution,
 			     formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
@@ -127,9 +121,10 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 	      bool strict_checking =
 		(msgid_plural == NULL
 		 || !has_plural_translations
-		 || (plural_distribution != NULL
-		     && j < plural_distribution_length
-		     && plural_distribution[j]));
+		 || (distribution != NULL
+		     && distribution->often != NULL
+		     && j < distribution->often_length
+		     && distribution->often[j]));
 
 	      if (parser->check (msgid_descr, msgstr_descr,
 				 strict_checking,
@@ -159,17 +154,12 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 
 /* Check whether both formats strings contain compatible format
    specifications.
-   PLURAL_DISTRIBUTION is either NULL or an array of nplurals elements,
-   PLURAL_DISTRIBUTION[j] being true if the value j appears to be assumed
-   infinitely often by the plural formula.
-   PLURAL_DISTRIBUTION_LENGTH is the length of the PLURAL_DISTRIBUTION array.
    Return the number of errors that were seen.  */
 int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
 			   const char *msgstr, size_t msgstr_len,
 			   const enum is_format is_format[NFORMATS],
-			   const unsigned char *plural_distribution,
-			   unsigned long plural_distribution_length,
+			   const struct plural_distribution *distribution,
 			   formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
@@ -185,8 +175,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
     if (possible_format_p (is_format[i]))
       seen_errors += check_msgid_msgstr_format_i (msgid, msgid_plural,
 						  msgstr, msgstr_len, i,
-						  plural_distribution,
-						  plural_distribution_length,
+						  distribution,
 						  error_logger);
 
   return seen_errors;
