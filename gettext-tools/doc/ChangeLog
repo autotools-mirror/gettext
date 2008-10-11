@@ -1,3 +1,8 @@
+2008-10-10  Noritada Kobayashi  <noritadak@gmail.com>
+
+	* gettext.texi (PO Mode): Update remaining obsolete key bindings used
+	in the version 0.10.x era.
+
 2008-10-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention the 'range:' flag syntax.

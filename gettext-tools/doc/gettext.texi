@@ -3291,7 +3291,7 @@ Batch validate the format of the whole PO file (@code{po-validate}).
 @efindex po-undo@r{, PO Mode command}
 The command @kbd{_} (@code{po-undo}) interfaces to the Emacs
 @emph{undo} facility.  @xref{Undo, , Undoing Changes, emacs, The Emacs
-Editor}.  Each time @kbd{U} is typed, modifications which the translator
+Editor}.  Each time @kbd{_} is typed, modifications which the translator
 did to the PO file are undone a little more.  For the purpose of
 undoing, each PO mode command is atomic.  This is especially true for
 the @kbd{@key{RET}} command: the whole edition made by using a single
@@ -3685,13 +3685,13 @@ has to be later revisited.  So, some commands are more specifically
 related to fuzzy entry processing.
 
 @table @kbd
-@item z
-@efindex z@r{, PO Mode command}
+@item f
+@efindex f@r{, PO Mode command}
 @c better append "-entry" all the time. -ke-
 Find the next fuzzy entry (@code{po-next-fuzzy-entry}).
 
-@item Z
-@efindex Z@r{, PO Mode command}
+@item F
+@efindex F@r{, PO Mode command}
 Find the previous fuzzy entry (@code{po-previous-fuzzy-entry}).
 
 @item @key{TAB}
@@ -3700,11 +3700,11 @@ Remove the fuzzy attribute of the current entry (@code{po-unfuzzy}).
 
 @end table
 
-@efindex z@r{, PO Mode command}
+@efindex f@r{, PO Mode command}
 @efindex po-next-fuzzy-entry@r{, PO Mode command}
-@efindex Z@r{, PO Mode command}
+@efindex F@r{, PO Mode command}
 @efindex po-previous-fuzzy-entry@r{, PO Mode command}
-The commands @kbd{z} (@code{po-next-fuzzy-entry}) and @kbd{Z}
+The commands @kbd{f} (@code{po-next-fuzzy-entry}) and @kbd{F}
 (@code{po-previous-fuzzy-entry}) move forwards or backwards, chasing for
 a fuzzy entry.  If none is found, the search is extended and wraps
 around in the PO file buffer.
