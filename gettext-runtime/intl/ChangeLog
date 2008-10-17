@@ -1,3 +1,9 @@
+2008-10-17  Bruno Haible  <bruno@clisp.org>
+
+	* lock.h (gl_carray_waitqueue_t): Renamed from gl_waitqueue_t.
+	(gl_rwlock_t): Update.
+	* lock.c (gl_waitqueue_t): Alias to gl_carray_waitqueue_t.
+
 2008-09-22  Eric Blake  <ebb9@byu.net>
 	    Bruno Haible  <bruno@clisp.org>
 
