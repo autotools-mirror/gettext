@@ -1397,9 +1397,11 @@ match_domain (const char *fn1, const char *fn2,
     /* Tell the OpenMP capable compiler to distribute this loop across
        several threads.  The schedule is dynamic, because for some messages
        the loop body can be executed very quickly, whereas for others it takes
-       a long time.  */
+       a long time.
+       Note: The Sun Workshop 6.2 C compiler does not allow a space between
+       '#' and 'pragma'.  */
     #ifdef _OPENMP
-    # pragma omp parallel for schedule(dynamic)
+     #pragma omp parallel for schedule(dynamic)
     #endif
     for (jj = 0; jj < nn; jj++)
       {
@@ -1411,7 +1413,7 @@ match_domain (const char *fn1, const char *fn2,
 	if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
 	  fputc ('.', stderr);
 	#ifdef _OPENMP
-	# pragma omp atomic
+	 #pragma omp atomic
 	#endif
 	(*processed)++;
 
