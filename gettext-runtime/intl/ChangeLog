@@ -1,3 +1,7 @@
+2008-11-10  Ingo Weinhold  <ingo_weinhold@gmx.de>
+
+	* config.charset: Treat Haiku like BeOS.
+
 2008-10-17  Bruno Haible  <bruno@clisp.org>
 
 	* lock.h (gl_carray_waitqueue_t): Renamed from gl_waitqueue_t.
