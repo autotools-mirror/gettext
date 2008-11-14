@@ -24,6 +24,9 @@ Version 0.18 - January 2008
 * msgcmp has a new option -N/--no-fuzzy-matching, like msgmerge has since
   version 0.12.
 
+* msgfilter now sets environment variables during the invocation of the
+  filter, indicating the msgid and location of the messge being processed.
+
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 Version 0.17 - November 2007

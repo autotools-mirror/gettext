@@ -43,6 +43,7 @@
 #include "closeout.h"
 #include "dir-list.h"
 #include "error.h"
+#include "xvasprintf.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"
@@ -61,6 +62,7 @@
 #include "findprog.h"
 #include "pipe.h"
 #include "wait-process.h"
+#include "xsetenv.h"
 #include "filters.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
@@ -758,6 +760,7 @@ process_message (message_ty *mp)
 {
   const char *msgstr = mp->msgstr;
   size_t msgstr_len = mp->msgstr_len;
+  char *location;
   size_t nsubstrings;
   char **substrings;
   size_t total_len;
@@ -769,6 +772,17 @@ process_message (message_ty *mp)
   /* Keep the header entry unmodified, if --keep-header was given.  */
   if (is_header (mp) && keep_header)
     return;
+
+  /* Set environment variables for the subprocess.  */
+  if (mp->msgctxt != NULL)
+    xsetenv ("MSGFILTER_MSGCTXT", mp->msgctxt, 1);
+  else
+    unsetenv ("MSGFILTER_MSGCTXT");
+  xsetenv ("MSGFILTER_MSGID", mp->msgid, 1);
+  location = xasprintf ("%s:%ld", mp->pos.file_name,
+			(long) mp->pos.line_number);
+  xsetenv ("MSGFILTER_LOCATION", location, 1);
+  free (location);
 
   /* Count NUL delimited substrings.  */
   for (p = msgstr, nsubstrings = 0;

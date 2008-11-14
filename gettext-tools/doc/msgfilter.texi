@@ -8,6 +8,16 @@ msgfilter [@var{option}] @var{filter} [@var{filter-option}]
 The @code{msgfilter} program applies a filter to all translations of a
 translation catalog.
 
+@vindex MSGFILTER_MSGCTXT@r{, environment variable}
+@vindex MSGFILTER_MSGID@r{, environment variable}
+@vindex MSGFILTER_LOCATION@r{, environment variable}
+During each @var{filter} invocation, the environment variable
+@code{MSGFILTER_MSGID} is bound to the message's msgid, and the environment
+variable @code{MSGFILTER_LOCATION} is bound to the location in the PO file
+of the message.  If the message has a context, the environment variable
+@code{MSGFILTER_MSGCTXT} is bound to the message's msgctxt, otherwise it is
+unbound.
+
 @subsection Input file location
 
 @table @samp
