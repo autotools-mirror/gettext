@@ -471,6 +471,40 @@ func_destfile ()
   esac
 }
 
+# func_compare existingfile gettextfile
+# compares the existing file and the file from gettext, and decides whether the
+# existing file should be overwritten with the file from gettext. Returns 0 if
+# it should be overwritten, or 1 if it should be skipped.
+sed_extract_serial='s/^#.* serial \([^ ]*\).*/\1/p
+1q'
+func_compare ()
+{
+  if cmp -s "$1" "$2"; then
+    false
+  else
+    case "$2" in
+      *.m4)
+        # For interoperability with gnulib. gnulib often has newer versions of
+        # the *.m4 files than the latest gettext release. Don't overwrite a
+        # newer version from gnulib with an older version from the gettext
+        # release. The version can be retrieved from the first line, which
+        # looks like this:   # file.m4 serial NN ...
+        existing_serial=`sed -n -e "$sed_extract_serial" < "$1"`
+        gettext_serial=`sed -n -e "$sed_extract_serial" < "$2"`
+        if test -n "$existing_serial" && test -n "$gettext_serial" \
+           && test "$existing_serial" -ge "$gettext_serial" 2> /dev/null; then
+          false
+        else
+          true
+        fi
+        ;;
+      *)
+        true
+        ;;
+    esac
+  fi
+}
+
 # If some files have been locally modified and we have not been requested
 # to overwrite them, then bail out. This is better than leaving a source
 # package around where half of the files are locally modified and half are
@@ -483,9 +517,7 @@ if test -z "$force"; then
     func_destfile "$file"
     if test -n "$destfile"; then
       if test -f "$destfile"; then
-        if cmp -s "$work_dir/archive/$file" "$destfile"; then
-          :
-        else
+        if func_compare "$destfile" "$work_dir/archive/$file"; then
           if test -n "$sharedowner"; then
             echo "autopoint: warning: File $destfile has been locally modified." 1>&2
           else
@@ -553,9 +585,7 @@ for file in `find "$work_dir/archive" -type f -print | sed -e "s,^$work_dir/arch
   mustcopy=
   if test -n "$destfile"; then
     if test -f "$destfile"; then
-      if cmp -s "$work_dir/archive/$file" "$destfile"; then
-        :
-      else
+      if func_compare "$destfile" "$work_dir/archive/$file"; then
         if test -n "$force"; then
           # Overwrite locally modified file.
           mustcopy=yes

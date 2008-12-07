@@ -1,3 +1,11 @@
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in (func_compare): New function.
+	Don't overwrite *.m4 files when the existing file has a version number
+	at least as large as the one from the gettext release.
+	Reported by Colin Watson <cjwatson@debian.org>
+	and Sylvain Beucler <beuc@beuc.net>.
+
 2008-08-17  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in (m4filelist): Add threadlib.m4 from the list.
