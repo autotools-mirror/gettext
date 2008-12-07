@@ -144,3 +144,12 @@ striconveha.c
 striconveha.h
 uniconv.h
 unilbrk.h
+fcntl.in.h
+open.c
+concat-filename.h
+xconcat-filename.c
+errno.in.h
+raise.c
+signal.in.h
+sigprocmask.c
+stdio-write.c
