@@ -1347,7 +1347,7 @@ po_message_check_format (po_message_t message, po_error_handler_t handler)
 
   check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
 			     mp->msgstr, mp->msgstr_len,
-			     mp->is_format, NULL, po_error_logger);
+			     mp->is_format, mp->range, NULL, po_error_logger);
 
   /* Restore error handler.  */
   po_error = error;

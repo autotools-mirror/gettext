@@ -4,6 +4,7 @@
 	declarations.
 	* gettext-po.c (po_message_is_range, po_message_set_range): New
 	functions.
+	(po_message_check_format): Update.
 
 2008-10-03  Bruno Haible  <bruno@clisp.org>
 
