@@ -1,5 +1,5 @@
 /* xgettext RST backend.
-   Copyright (C) 2001-2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -31,7 +31,6 @@
 #include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
-#include "x-rst.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"

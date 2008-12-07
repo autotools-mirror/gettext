@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2007 Free Software Foundation, Inc.
+   Copyright (C) 2004-2008 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -31,7 +31,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-scheme.h"
 #include "error.h"
 #include "xalloc.h"
 #include "hash.h"

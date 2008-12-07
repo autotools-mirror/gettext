@@ -1,5 +1,5 @@
 /* xgettext PO and JavaProperties backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -32,9 +32,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-po.h"
-#include "x-properties.h"
-#include "x-stringtable.h"
 #include "xalloc.h"
 #include "read-catalog.h"
 #include "read-po.h"

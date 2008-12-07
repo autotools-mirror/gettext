@@ -1,3 +1,25 @@
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
+	Avoid gcc -Wredundant-decls warnings.
+	* x-awk.c: Don't include the specification header file twice.
+	* x-c.c: Likewise.
+	* x-csharp.c: Likewise.
+	* x-elisp.c: Likewise.
+	* x-glade.c: Likewise.
+	* x-java.c: Likewise.
+	* x-librep.c: Likewise.
+	* x-lisp.c: Likewise.
+	* x-perl.c: Likewise.
+	* x-php.c: Likewise.
+	* x-po.c: Likewise.
+	* x-python.c: Likewise.
+	* x-rst.c: Likewise.
+	* x-scheme.c: Likewise.
+	* x-sh.c: Likewise.
+	* x-smalltalk.c: Likewise.
+	* x-tcl.c: Likewise.
+	* x-ycp.c: Likewise.
+
 2008-11-14  Bruno Haible  <bruno@clisp.org>
 
 	* msgfilter.c: Include xvasprintf.h, xsetenv.h.

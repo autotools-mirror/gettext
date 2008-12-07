@@ -30,7 +30,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-java.h"
 #include "error.h"
 #include "xalloc.h"
 #include "hash.h"

@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-sh.h"
 #include "error.h"
 #include "xalloc.h"
 #include "hash.h"

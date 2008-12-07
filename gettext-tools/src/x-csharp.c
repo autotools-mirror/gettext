@@ -30,7 +30,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-csharp.h"
 #include "c-ctype.h"
 #include "error.h"
 #include "error-progname.h"

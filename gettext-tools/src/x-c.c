@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -31,7 +31,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-c.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"

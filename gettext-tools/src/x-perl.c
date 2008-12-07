@@ -31,7 +31,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-perl.h"
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"

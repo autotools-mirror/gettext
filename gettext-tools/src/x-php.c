@@ -30,7 +30,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-php.h"
 #include "error.h"
 #include "xalloc.h"
 #include "gettext.h"

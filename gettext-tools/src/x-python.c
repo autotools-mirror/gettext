@@ -32,7 +32,6 @@
 
 #include "message.h"
 #include "xgettext.h"
-#include "x-python.h"
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"
