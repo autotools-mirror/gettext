@@ -1,3 +1,7 @@
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
+	* build-aux/fixaclocal: Update for automake-1.10.2.
+
 2008-10-01  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* m4/libtool.m4 (install_override_mode): New LT_DECL.
