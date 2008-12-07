@@ -1,5 +1,11 @@
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
+	* write-po.c (message_print_comment_filepos): Use a 'const' pointer
+	where possible.
+	* write-stringtable.c (write_message): Likewise.
+
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
 	Avoid gcc -Wredundant-decls warnings.
 	* x-awk.c: Don't include the specification header file twice.
 	* x-c.c: Likewise.

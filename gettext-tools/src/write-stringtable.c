@@ -194,7 +194,7 @@ write_message (ostream_t stream, const message_ty *mp,
       for (j = 0; j < mp->filepos_count; ++j)
 	{
 	  lex_pos_ty *pp = &mp->filepos[j];
-	  char *cp = pp->file_name;
+	  const char *cp = pp->file_name;
 	  char *str;
 
 	  while (cp[0] == '.' && cp[1] == '/')
