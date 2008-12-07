@@ -1,5 +1,9 @@
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
+	* autopoint.in (func_version): Bump copyright year.
+
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
 	* autopoint.in (func_compare): New function.
 	Don't overwrite *.m4 files when the existing file has a version number
 	at least as large as the one from the gettext release.
