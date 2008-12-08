@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -1632,65 +1632,65 @@ term_ostream::free (term_ostream_t stream)
 
 /* Implementation of term_ostream_t methods.  */
 
-term_color_t
+static term_color_t
 term_ostream::get_color (term_ostream_t stream)
 {
   return stream->curr_attr.color;
 }
 
-void
+static void
 term_ostream::set_color (term_ostream_t stream, term_color_t color)
 {
   stream->curr_attr.color = color;
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
 }
 
-term_color_t
+static term_color_t
 term_ostream::get_bgcolor (term_ostream_t stream)
 {
   return stream->curr_attr.bgcolor;
 }
 
-void
+static void
 term_ostream::set_bgcolor (term_ostream_t stream, term_color_t color)
 {
   stream->curr_attr.bgcolor = color;
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
 }
 
-term_weight_t
+static term_weight_t
 term_ostream::get_weight (term_ostream_t stream)
 {
   return stream->curr_attr.weight;
 }
 
-void
+static void
 term_ostream::set_weight (term_ostream_t stream, term_weight_t weight)
 {
   stream->curr_attr.weight = weight;
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
 }
 
-term_posture_t
+static term_posture_t
 term_ostream::get_posture (term_ostream_t stream)
 {
   return stream->curr_attr.posture;
 }
 
-void
+static void
 term_ostream::set_posture (term_ostream_t stream, term_posture_t posture)
 {
   stream->curr_attr.posture = posture;
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
 }
 
-term_underline_t
+static term_underline_t
 term_ostream::get_underline (term_ostream_t stream)
 {
   return stream->curr_attr.underline;
 }
 
-void
+static void
 term_ostream::set_underline (term_ostream_t stream, term_underline_t underline)
 {
   stream->curr_attr.underline = underline;

@@ -1,6 +1,12 @@
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
 	Avoid gcc -Wmissing-prototypes warnings.
+	* lib/html-ostream.oo.c: Mark all method implementations as static.
+	* lib/term-ostream.oo.c: Likewise.
+
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
+	Avoid gcc -Wmissing-prototypes warnings.
 	* build-aux/moopp (func_emit_source_c): Emit a prototype before the
 	synthetized functions.
 

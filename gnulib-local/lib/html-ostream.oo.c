@@ -1,5 +1,5 @@
 /* Output stream that produces HTML output.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -225,7 +225,7 @@ html_ostream::free (html_ostream_t stream)
 
 /* Implementation of html_ostream_t methods.  */
 
-void
+static void
 html_ostream::begin_span (html_ostream_t stream, const char *classname)
 {
   if (stream->last_class_stack_size > stream->curr_class_stack_size
@@ -246,7 +246,7 @@ html_ostream::begin_span (html_ostream_t stream, const char *classname)
   stream->curr_class_stack_size++;
 }
 
-void
+static void
 html_ostream::end_span (html_ostream_t stream, const char *classname)
 {
   if (!(stream->curr_class_stack_size > 0
