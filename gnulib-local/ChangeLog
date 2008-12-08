@@ -1,3 +1,9 @@
+2008-12-07  Bruno Haible  <bruno@clisp.org>
+
+	Avoid gcc -Wmissing-prototypes warnings.
+	* build-aux/moopp (func_emit_source_c): Emit a prototype before the
+	synthetized functions.
+
 2008-09-14  Bruno Haible  <bruno@clisp.org>
 
 	* modules/libxml: Use $(mkdir_p) to create the libxml directory.
