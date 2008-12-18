@@ -1,3 +1,7 @@
+2008-12-18  Bruno Haible  <bruno@clisp.org>
+
+	* modules/gettext-tools-misc (Files): Add m4/locale-ja.m4.
+
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
 	Avoid gcc -Wmissing-prototypes warnings.
