@@ -212,7 +212,7 @@ Particular Systems
 is not installed, it is recommended to use the following options in order
 to use an ANSI C compiler:
 
-     ./configure CC="cc -Ae"
+     ./configure CC="cc -Ae -D_XOPEN_SOURCE=500"
 
 and if that doesn't work, install pre-built binaries of GCC for HP-UX.
 
