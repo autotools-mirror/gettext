@@ -233,6 +233,11 @@ use the following options:
 
      ./configure CC="xlc -D_ALL_SOURCE"
 
+   On Haiku, software installed for all users goes in /boot/common, not
+/usr/local.  It is recommended to use the following options:
+
+     ./configure --prefix=/boot/common
+
    On BeOS, user installed software goes in /boot/home/config, not
 /usr/local.  It is recommended to use the following options:
 
