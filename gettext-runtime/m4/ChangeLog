@@ -1,3 +1,31 @@
+2008-12-29  Bruno Haible  <bruno@clisp.org>
+
+	* codeset.m4 (AM_LANGINFO_CODESET): More systematic m4 argument
+	quoting.
+	* gettext.m4 (AM_GNU_GETTEXT): Likewise.
+	* glibc2.m4 (gt_GLIBC2): Likewise.
+	* glibc21.m4 (gl_GLIBC21): Likewise.
+	* iconv.m4 (AM_ICONV_LINK, AM_ICONV): Likewise.
+	* intdiv0.m4 (gt_INTDIV0): Likewise.
+	* intl.m4 (gt_INTL_SUBDIR_CORE, gt_CHECK_DECL): Likewise.
+	* intlmacosx.m4 (gt_INTL_MACOSX): Likewise.
+	* intmax.m4 (gt_TYPE_INTMAX_T): Likewise.
+	* inttypes-pri.m4 (gt_INTTYPES_PRI): Likewise.
+	* inttypes_h.m4 (gl_AC_HEADER_INTTYPES_H): Likewise.
+	* lcmessage.m4 (gt_LC_MESSAGES): Likewise.
+	* nls.m4 (AM_NLS): Likewise.
+	* po.m4 (AM_PO_SUBDIRS): Likewise.
+	* printf-posix.m4 (gt_PRINTF_POSIX): Likewise.
+	* progtest.m4 (AM_PATH_PROG_WITH_TEST): Likewise.
+	* size_max.m4 (gl_SIZE_MAX): Likewise.
+	* stdint_h.m4 (gl_AC_HEADER_STDINT_H): Likewise.
+	* threadlib.m4 (gl_THREADLIB_BODY): Likewise.
+	* uintmax_t.m4 (gl_AC_TYPE_UINTMAX_T): Likewise.
+	* visibility.m4 (gl_VISIBILITY): Likewise.
+	* wchar_t.m4 (gt_TYPE_WCHAR_T): Likewise.
+	* wint_t.m4 (gt_TYPE_WINT_T): Likewise.
+	* xsize.m4 (gl_XSIZE): Likewise.
+
 2007-11-12  Paul Eggert  <eggert@cs.ucla.edu>
 
 	Don't insist on 'long long int' support in the preprocessor.  It

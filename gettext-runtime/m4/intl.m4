@@ -1,4 +1,4 @@
-# intl.m4 serial 9 (gettext-0.18)
+# intl.m4 serial 10 (gettext-0.18)
 dnl Copyright (C) 1995-2008 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -220,24 +220,24 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   dnl 2.5.1 but were removed in Solaris 2.6, whereas we want binaries built
   dnl on Solaris 2.5.1 to run on Solaris 2.6).
   dnl Don't use AC_CHECK_DECLS because it isn't supported in autoconf-2.13.
-  gt_CHECK_DECL(feof_unlocked, [#include <stdio.h>])
-  gt_CHECK_DECL(fgets_unlocked, [#include <stdio.h>])
+  gt_CHECK_DECL([feof_unlocked], [#include <stdio.h>])
+  gt_CHECK_DECL([fgets_unlocked], [#include <stdio.h>])
 
   AM_ICONV
 
   dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
   dnl and a _NL_LOCALE_NAME macro always.
-  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], gt_cv_nl_locale_name,
+  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], [gt_cv_nl_locale_name],
     [AC_TRY_LINK([#include <langinfo.h>
 #include <locale.h>],
       [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));
        return !cs;
       ],
-      gt_cv_nl_locale_name=yes,
-      gt_cv_nl_locale_name=no)
+      [gt_cv_nl_locale_name=yes],
+      [gt_cv_nl_locale_name=no])
     ])
   if test $gt_cv_nl_locale_name = yes; then
-    AC_DEFINE(HAVE_NL_LOCALE_NAME, 1,
+    AC_DEFINE([HAVE_NL_LOCALE_NAME], 1,
       [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
   fi
 
@@ -278,7 +278,7 @@ dnl gt_CHECK_DECL(FUNC, INCLUDES)
 dnl Check whether a function is declared.
 AC_DEFUN([gt_CHECK_DECL],
 [
-  AC_CACHE_CHECK([whether $1 is declared], ac_cv_have_decl_$1,
+  AC_CACHE_CHECK([whether $1 is declared], [ac_cv_have_decl_$1],
     [AC_TRY_COMPILE([$2], [
 #ifndef $1
   char *p = (char *) $1;
