@@ -1,3 +1,8 @@
+2009-01-14  Jim Meyering  <meyering@redhat.com>
+
+	* lib-link.m4: More consistent m4 quoting.
+	* lib-ld.m4: Likewise.
+
 2008-12-30  Bruno Haible  <bruno@clisp.org>
 
 	* lib-prefix.m4 (AC_LIB_LINKFLAGS_BODY): Don't overwrite
