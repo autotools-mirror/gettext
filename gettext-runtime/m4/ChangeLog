@@ -1,3 +1,26 @@
+2009-01-14  Jim Meyering  <meyering@redhat.com>
+
+	* codeset.m4: More consistent m4 quoting.
+	* gettext.m4: Likewise.
+	* iconv.m4: Likewise.
+	* intldir.m4: Likewise.
+	* intlmacosx.m4: Likewise.
+	* intmax.m4: Likewise.
+	* inttypes_h.m4: Likewise.
+	* inttypes-pri.m4: Likewise.
+	* lcmessage.m4: Likewise.
+	* lock.m4: Likewise.
+	* longlong.m4: Likewise.
+	* nls.m4: Likewise.
+	* po.m4: Likewise.
+	* printf-posix.m4: Likewise.
+	* progtest.m4: Likewise.
+	* stdint_h.m4: Likewise.
+	* threadlib.m4: Likewise.
+	* uintmax_t.m4: Likewise.
+	* wchar_t.m4: Likewise.
+	* wint_t.m4: Likewise.
+
 2008-12-29  Bruno Haible  <bruno@clisp.org>
 
 	* codeset.m4 (AM_LANGINFO_CODESET): More systematic m4 argument
