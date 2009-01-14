@@ -1,5 +1,5 @@
-# intl.m4 serial 10 (gettext-0.18)
-dnl Copyright (C) 1995-2008 Free Software Foundation, Inc.
+# intl.m4 serial 11 (gettext-0.18)
+dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -15,9 +15,9 @@ dnl They are *not* in the public domain.
 
 dnl Authors:
 dnl   Ulrich Drepper <drepper@cygnus.com>, 1995-2000.
-dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2006.
+dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2009.
 
-AC_PREREQ(2.52)
+AC_PREREQ([2.52])
 
 dnl Checks for all prerequisites of the intl subdirectory,
 dnl except for INTL_LIBTOOL_SUFFIX_PREFIX (and possibly LIBTOOL), INTLOBJS,
@@ -207,7 +207,7 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   AC_TRY_LINK(
     [int foo (int a) { a = __builtin_expect (a, 10); return a == 10 ? 0 : 1; }],
     [],
-    [AC_DEFINE([HAVE_BUILTIN_EXPECT], 1,
+    [AC_DEFINE([HAVE_BUILTIN_EXPECT], [1],
        [Define to 1 if the compiler understands __builtin_expect.])])
 
   AC_CHECK_HEADERS([argz.h inttypes.h limits.h unistd.h sys/param.h])
@@ -237,7 +237,7 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
       [gt_cv_nl_locale_name=no])
     ])
   if test $gt_cv_nl_locale_name = yes; then
-    AC_DEFINE([HAVE_NL_LOCALE_NAME], 1,
+    AC_DEFINE([HAVE_NL_LOCALE_NAME], [1],
       [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
   fi
 
