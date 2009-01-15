@@ -1,3 +1,11 @@
+2009-01-15  Bruno Haible  <bruno@clisp.org>
+
+	* log.c (MSGCTXT_SEPARATOR): New macro.
+	(print_escaped): Add an str_end argument.
+	(_nl_log_untranslated_locked): If msgid1 contains the msgctxt
+	separator, split it into msgctxt and msgid.
+	Reported at <https://savannah.gnu.org/bugs/?25315>.
+
 2008-11-10  Ingo Weinhold  <ingo_weinhold@gmx.de>
 
 	* config.charset: Treat Haiku like BeOS.
