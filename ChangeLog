@@ -1,3 +1,7 @@
+2009-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: More consistent m4 quoting.
+
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* build-aux/fixaclocal: Update for automake-1.10.2.

@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools/examples directory of GNU gettext
-dnl Copyright (C) 2006 Free Software Foundation, Inc.
+dnl Copyright (C) 2006, 2009 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.57)
+AC_PREREQ([2.57])
 AC_INIT
-AC_CONFIG_SRCDIR(installpaths.in)
-AC_CONFIG_AUX_DIR(../../build-aux)
+AC_CONFIG_SRCDIR([installpaths.in])
+AC_CONFIG_AUX_DIR([../../build-aux])
 . $srcdir/../../version.sh
-AM_INIT_AUTOMAKE(gettext-examples, $VERSION_NUMBER)
+AM_INIT_AUTOMAKE([gettext-examples], [$VERSION_NUMBER])
 
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
@@ -29,7 +29,7 @@ test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/
 AM_PO_SUBDIRS
 
 aclocaldir='${datadir}/aclocal'
-AC_SUBST(aclocaldir)
+AC_SUBST([aclocaldir])
 
 AC_CONFIG_FILES([Makefile],
                 [FIX_MAKEFILE_TOPDIR_DISTRIB])

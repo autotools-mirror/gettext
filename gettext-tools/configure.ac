@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -18,11 +18,11 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.59])
 AC_INIT
-AC_CONFIG_SRCDIR(src/msgfmt.c)
-AC_CONFIG_AUX_DIR(../build-aux)
+AC_CONFIG_SRCDIR([src/msgfmt.c])
+AC_CONFIG_AUX_DIR([../build-aux])
 . $srcdir/../version.sh
-AM_INIT_AUTOMAKE(gettext-tools, $VERSION_NUMBER)
-AM_CONFIG_HEADER(config.h)
+AM_INIT_AUTOMAKE([gettext-tools], [$VERSION_NUMBER])
+AM_CONFIG_HEADER([config.h])
 
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
@@ -40,23 +40,23 @@ if test -n "$HAVE_GCJ" && test "$JAVA_CHOICE" = yes; then
 else
   BUILDJAVAEXE=no
 fi
-AC_SUBST(BUILDJAVAEXE)
+AC_SUBST([BUILDJAVAEXE])
 
 gt_JAVAEXEC
 gt_JAVACOMP([1.3])
-AC_CHECK_PROG(JAR, jar, jar)
+AC_CHECK_PROG([JAR], [jar], [jar])
 if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
   BUILDJAVA=yes
 else
   BUILDJAVA=no
 fi
-AC_SUBST(BUILDJAVA)
+AC_SUBST([BUILDJAVA])
 if test -n "$HAVE_JAVAEXEC" && test $BUILDJAVA = yes; then
   TESTJAVA=yes
 else
   TESTJAVA=no
 fi
-AC_SUBST(TESTJAVA)
+AC_SUBST([TESTJAVA])
 
 gt_CSHARPCOMP
 if test -n "$HAVE_CSHARPCOMP" && test "$CSHARP_CHOICE" != no; then
@@ -64,7 +64,7 @@ if test -n "$HAVE_CSHARPCOMP" && test "$CSHARP_CHOICE" != no; then
 else
   BUILDCSHARP=no
 fi
-AC_SUBST(BUILDCSHARP)
+AC_SUBST([BUILDCSHARP])
 
 gt_CSHARPEXEC([csharpexec-test.exe], [$srcdir/m4])
 if test -n "$HAVE_CSHARPEXEC" && test $BUILDCSHARP = yes; then
@@ -72,7 +72,7 @@ if test -n "$HAVE_CSHARPEXEC" && test $BUILDCSHARP = yes; then
 else
   TESTCSHARP=no
 fi
-AC_SUBST(TESTCSHARP)
+AC_SUBST([TESTCSHARP])
 
 dnl Check for host type.
 AC_CANONICAL_HOST
@@ -109,7 +109,7 @@ dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
-AM_GNU_GETTEXT(use-libtool, need-ngettext)
+AM_GNU_GETTEXT([use-libtool], [need-ngettext])
 
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
@@ -149,13 +149,13 @@ gl_INIT
 gtpo_INIT
 
 dnl Checks for header files.
-AC_CHECK_HEADERS(pwd.h)
+AC_CHECK_HEADERS([pwd.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
 AC_TYPE_UNSIGNED_LONG_LONG_INT
 AC_TYPE_SIZE_T
-AC_CHECK_TYPES(ptrdiff_t)
+AC_CHECK_TYPES([ptrdiff_t])
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
 gl_GLIBC21
@@ -211,7 +211,7 @@ else
 fi
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
 if test $is_woe32dll = yes; then
-  AC_DEFINE([WOE32DLL], 1,
+  AC_DEFINE([WOE32DLL], [1],
     [Define when --enable-shared is used on mingw or Cygwin.])
 fi
 
@@ -264,12 +264,12 @@ dnl ship both gettext and expat, we use dynamic loading to avoid a hard
 dnl dependency from gettext to expat.
 case "$host_os" in
   linux*)
-    AC_DEFINE([DYNLOAD_LIBEXPAT], 1,
+    AC_DEFINE([DYNLOAD_LIBEXPAT], [1],
       [Define to 1 if libexpat shall be dynamically loaded via dlopen().])
     LIBEXPAT="-ldl"
     LTLIBEXPAT="-ldl"
-    AC_SUBST(LIBEXPAT)
-    AC_SUBST(LTLIBEXPAT)
+    AC_SUBST([LIBEXPAT])
+    AC_SUBST([LTLIBEXPAT])
     ;;
   *)
     AC_LIB_HAVE_LINKFLAGS([expat], [],
@@ -309,17 +309,17 @@ if test "$EMACS" != no; then
 fi
 
 aclocaldir='${datadir}/aclocal'
-AC_SUBST(aclocaldir)
+AC_SUBST([aclocaldir])
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
-AC_PATH_PROG(DVIPS, dvips, $ac_aux_dir_abs/missing dvips)
-AC_PATH_PROG(TEXI2PDF, texi2pdf, $ac_aux_dir_abs/missing texi2pdf)
-AC_PATH_PROG(PERL, perl, $ac_aux_dir_abs/missing perl)
+AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
+AC_PATH_PROG([TEXI2PDF], [texi2pdf], [$ac_aux_dir_abs/missing texi2pdf])
+AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
 dnl Check for tools needed for formatting man pages.
 CROSS_COMPILING=$cross_compiling
-AC_SUBST(CROSS_COMPILING)
+AC_SUBST([CROSS_COMPILING])
 
 dnl Checks for optional programs for the tests/lang-*, tests/recode-* tests.
 gt_PROG_ANSI_CXX
@@ -344,7 +344,7 @@ fi
 if test "$CXX" = ":"; then
   TESTLIBASPRINTF=no
 fi
-AC_SUBST(TESTLIBASPRINTF)
+AC_SUBST([TESTLIBASPRINTF])
 
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
@@ -356,7 +356,7 @@ $RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
 
 EOF
 
-AC_CONFIG_SUBDIRS(examples)
+AC_CONFIG_SUBDIRS([examples])
 
 AC_CONFIG_FILES([Makefile])
 

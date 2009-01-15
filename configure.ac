@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2003, 2005-2006 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2003, 2005-2006, 2009 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.57)
+AC_PREREQ([2.57])
 AC_INIT
-AC_CONFIG_SRCDIR(gettext-tools/src/msgfmt.c)
-AC_CONFIG_AUX_DIR(build-aux)
+AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
+AC_CONFIG_AUX_DIR([build-aux])
 . $srcdir/version.sh
-AM_INIT_AUTOMAKE(gettext, $VERSION_NUMBER)
+AM_INIT_AUTOMAKE([gettext], [$VERSION_NUMBER])
 
 dnl Override automake's tar command used for creating distributions.
 am__tar='${AMTAR} chof - --owner=root --group=root "$$tardir"'
@@ -36,7 +36,7 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 
 dnl Checks for library functions.
 
-AC_CONFIG_SUBDIRS(autoconf-lib-link gettext-runtime gettext-tools)
+AC_CONFIG_SUBDIRS([autoconf-lib-link gettext-runtime gettext-tools])
 
 dnl Ensure that "configure --help" lists all the command line options that
 dnl are usable with the subdir configures. Really AC_CONFIG_SUBDIRS should

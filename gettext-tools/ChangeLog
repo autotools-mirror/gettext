@@ -1,3 +1,7 @@
+2009-01-14  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: More consistent m4 quoting.
+
 2008-09-14  Ralf Wildenhues  <Ralf.Wildenhues@gmx.de>
 
 	* configure.ac: Use AC_TYPE_UNSIGNED_LONG_LONG_INT instead of

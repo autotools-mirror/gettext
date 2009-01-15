@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2008 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2009 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -16,12 +16,12 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ(2.52)
+AC_PREREQ([2.52])
 AC_INIT
-AC_CONFIG_SRCDIR(vasprintf.c)
-AC_CONFIG_AUX_DIR(../../build-aux)
-AM_INIT_AUTOMAKE(libasprintf, 1.0)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_SRCDIR([vasprintf.c])
+AC_CONFIG_AUX_DIR([../../build-aux])
+AM_INIT_AUTOMAKE([libasprintf], [1.0])
+AM_CONFIG_HEADER([config.h])
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -72,8 +72,8 @@ AC_EGREP_CPP([Need own alloca], [
   Need own alloca
 #endif
   ],
-  ALLOCA_H=alloca.h,
-  ALLOCA_H=)
+  [ALLOCA_H=alloca.h],
+  [ALLOCA_H=])
 AC_SUBST([ALLOCA_H])
 
 AC_CHECK_FUNCS([snprintf vasprintf wcslen])
@@ -85,9 +85,9 @@ gl_EOVERFLOW
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
-AC_PATH_PROG(DVIPS, dvips, $ac_aux_dir_abs/missing dvips)
-AC_PATH_PROG(TEXI2PDF, texi2pdf, $ac_aux_dir_abs/missing texi2pdf)
-AC_PATH_PROG(PERL, perl, $ac_aux_dir_abs/missing perl)
+AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
+AC_PATH_PROG([TEXI2PDF], [texi2pdf], [$ac_aux_dir_abs/missing texi2pdf])
+AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
 AC_CONFIG_FILES([Makefile],
                 [FIX_MAKEFILE_COMPILE
