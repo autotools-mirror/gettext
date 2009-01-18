@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -482,6 +482,7 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   pop->allow_domain_directives = true;
   pop->allow_duplicates = allow_duplicates;
   pop->allow_duplicates_if_same_msgstr = false;
+  pop->file_name = real_filename;
   pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
   pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
   if (input_syntax->produces_utf8)

@@ -1,3 +1,13 @@
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
+	Fix a '(null)' in an error message. Bug present since gettext-0.16.
+	* read-catalog.h (DEFAULT_CATALOG_READER_TY): Add a file_name field.
+	* read-catalog.c (read_catalog_stream): Initialize it.
+	* x-po.c (extract): Likewise.
+	* msgfmt.c (read_catalog_file_msgfmt): Likewise.
+	(msgfmt_parse_debrief): Use the file_name field from the catalog reader
+	instead of gram_pos.file_name.
+
 2009-01-17  Bruno Haible  <bruno@clisp.org>
 
 	Update after gnulib changed.

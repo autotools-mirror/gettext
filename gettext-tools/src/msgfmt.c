@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007, 2009 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -865,7 +865,7 @@ msgfmt_parse_debrief (abstract_catalog_reader_ty *that)
     {
       if (!this->has_header_entry)
 	{
-	  multiline_error (xasprintf ("%s: ", gram_pos.file_name),
+	  multiline_error (xasprintf ("%s: ", this->file_name),
 			   xasprintf (_("\
 warning: PO file header missing or invalid\n")));
 	  multiline_error (NULL,
@@ -878,7 +878,7 @@ warning: charset conversion will not work\n")));
 	     ignore a fuzzy header entry and even give an error on it, we
 	     give a warning, to increase operability with these older
 	     msgfmt versions.  This warning can go away in January 2003.  */
-	  multiline_warning (xasprintf ("%s: ", gram_pos.file_name),
+	  multiline_warning (xasprintf ("%s: ", this->file_name),
 			     xasprintf (_("warning: PO file header fuzzy\n")));
 	  multiline_warning (NULL,
 			     xasprintf (_("\
@@ -1083,6 +1083,7 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
   pop->allow_domain_directives = true;
   pop->allow_duplicates = false;
   pop->allow_duplicates_if_same_msgstr = false;
+  pop->file_name = real_filename;
   pop->mdlp = NULL;
   pop->mlp = NULL;
   if (current_domain != NULL)

@@ -1,5 +1,5 @@
 /* xgettext PO and JavaProperties backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -159,6 +159,7 @@ extract (FILE *fp,
   pop->allow_domain_directives = false;
   pop->allow_duplicates = false;
   pop->allow_duplicates_if_same_msgstr = true;
+  pop->file_name = real_filename;
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
