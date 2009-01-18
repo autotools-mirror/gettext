@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2004 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2004, 2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -69,11 +69,11 @@ extern char *string_list_concat (const string_list_ty *slp);
 extern char *string_list_concat_destroy (string_list_ty *slp);
 
 /* Return a freshly allocated string obtained by concatenating all the
-   strings in the list, separated by the separator character, terminated
+   strings in the list, separated by the separator string, terminated
    by the terminator character.  The terminator character is not added if
    drop_redundant_terminator is true and the last string already ends with
    the terminator. */
-extern char *string_list_join (const string_list_ty *slp, char separator,
+extern char *string_list_join (const string_list_ty *slp, const char *separator,
 			       char terminator, bool drop_redundant_terminator);
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */

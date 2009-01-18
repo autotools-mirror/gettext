@@ -1,5 +1,11 @@
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* str-list.h (string_list_join): Change the separator argument,
+	allowing an entire separator string.
+	* str-list.c (string_list_join): Likewise.
+
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
 	Fix a '(null)' in an error message. Bug present since gettext-0.16.
 	* read-catalog.h (DEFAULT_CATALOG_READER_TY): Add a file_name field.
 	* read-catalog.c (read_catalog_stream): Initialize it.
