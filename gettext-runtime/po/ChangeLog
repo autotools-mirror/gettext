@@ -1,3 +1,9 @@
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* id.po: Update from Arif E. Nugroho <arif_endro@yahoo.com>.
+	* nn.po: Update from Eirik U. Birkeland <eirbir@gmail.com>.
+	* zh_CN.po: Update from Li Daobing <lidaobing@gmail.com>.
+
 2008-09-28  Bruno Haible  <bruno@clisp.org>
 
 	* Rules-quot (.insert-header.po-update-en): Pass the locale name with

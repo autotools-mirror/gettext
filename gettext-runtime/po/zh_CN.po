@@ -1,18 +1,22 @@
 # Simplified Chinese translation for gettext.
-# Copyright (C) 1998, 2001, 2002 Free Software Foundation, Inc.
+# Copyright (C) 1998, 2001, 2002, 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext package.
 # Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>, 1998.
 # Pofeng Lee <pofeng@linux.org.tw>, 2001-2002.
 # Abel Cheung <maddog@linux.org.hk>, 2002.
 # Liu Songhe <jackliu9999@263.net>, 2003.
+# LI Daobing <lidaobing@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.15-pre5\n"
+"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
-"PO-Revision-Date: 2006-08-22 23:02+0800\n"
-"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
-"Language-Team: Chinese (simplified) <i18n-translation@lists.linux.net.cn>\n"
+"POT-Creation-Date: 2008-10-02 13:18+0200\n"
+"PO-Revision-Date: 2008-08-09 20:25+0800\n"
+"Last-Translator: LI Daobing <lidaobing@gmail.com>\n"
+"Language-Team: Chinese (simplified) <translation-team-zh-cn@lists."
+"sourceforge.net>\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,59 +30,59 @@ msgstr "写错误"
 msgid "Unknown system error"
 msgstr "未知的系统错误"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
+#: gnulib-lib/getopt.c:526 gnulib-lib/getopt.c:542
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s：选项“%s”是不明确的\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
+#: gnulib-lib/getopt.c:575 gnulib-lib/getopt.c:579
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s：选项“--%s”不允许有参数\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
+#: gnulib-lib/getopt.c:588 gnulib-lib/getopt.c:593
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s：选项“%c%s”不允许有参数\n"
 
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
+#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:655 gnulib-lib/getopt.c:971
+#: gnulib-lib/getopt.c:990
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s：选项“%s”需要一个参数\n"
 
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
+#: gnulib-lib/getopt.c:693 gnulib-lib/getopt.c:696
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s：无法识别的选项“--%s”\n"
 
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
+#: gnulib-lib/getopt.c:704 gnulib-lib/getopt.c:707
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s：无法识别的选项“%c%s”\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
+#: gnulib-lib/getopt.c:759 gnulib-lib/getopt.c:762
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s：非法选项 ─ %c\n"
 
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
+#: gnulib-lib/getopt.c:768 gnulib-lib/getopt.c:771
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s：无效选项 ─ %c\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
+#: gnulib-lib/getopt.c:823 gnulib-lib/getopt.c:839 gnulib-lib/getopt.c:1043
+#: gnulib-lib/getopt.c:1061
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s：选项需要一个参数 ─ %c\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
+#: gnulib-lib/getopt.c:892 gnulib-lib/getopt.c:908
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s：选项“-W %s”是不明确的\n"
 
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
+#: gnulib-lib/getopt.c:932 gnulib-lib/getopt.c:950
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s：选项“-W %s”不允许有参数\n"
@@ -96,6 +100,10 @@ msgid ""
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
+"版权所有 (C) %s Free Software Foundation, Inc.\n"
+"授权协议 GPLv3+: GNU GPL 版本 3 或之后版本 <http://gnu.org/licenses/gpl.html>\n"
+"这是自由软件: 你有修改和再发布的自由。\n"
+"本软件在法律允许的范围内不提供任何担保。\n"
 
 #: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
@@ -301,12 +309,3 @@ msgstr ""
 "假如消息一览表文件不在正常的目录下，可以用环境变量 TEXTDOMAINDIR 指定\n"
 "消息一览表文件所在的位置。\n"
 "标准的搜索目录为：%s\n"
-
-#~ msgid ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
-#~ msgstr ""
-#~ "版权所有 (C) %s Free Software Foundation, Inc.\n"
-#~ "这是自由软件；请参考原始码的版权声明。本软件不提供任何担保，甚至不会包括\n"
-#~ "可售性或适用于任何特定目的的担保。\n"
