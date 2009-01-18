@@ -1,3 +1,10 @@
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* po/mt.po: New file, from Clyde Meli <cmeli@cis.um.edu.mt>.
+	* po/LINGUAS: Add mt.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESPOFILES): Add the new message catalogs.
+
 2009-01-14  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: More consistent m4 quoting.
