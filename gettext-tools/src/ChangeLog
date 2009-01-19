@@ -1,5 +1,12 @@
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt.c: Include str-list.h.
+	(main): When --statistics and --verbose are both specified, output the
+	input file name in front of the statistics line.
+	Suggested by Vincent Lefevre <vincent@vinc17.org>.
+
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
 	Allow multiple levels of verbosity in 'msgfmt'.
 	* msgfmt.h (verbose): Change from 'bool' to 'int'.
 	* msgfmt.c (verbose): Likewise.

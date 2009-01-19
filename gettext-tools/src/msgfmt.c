@@ -28,6 +28,7 @@
 #include <locale.h>
 
 #include "closeout.h"
+#include "str-list.h"
 #include "dir-list.h"
 #include "error.h"
 #include "error-progname.h"
@@ -200,6 +201,7 @@ main (int argc, char *argv[])
   bool do_version = false;
   bool strict_uniforum = false;
   catalog_input_format_ty input_syntax = &input_format_po;
+  int arg_i;
   const char *canon_encoding;
   struct msg_domain *domain;
 
@@ -501,7 +503,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 		  : output_file_name);
 
   /* Process all given .po files.  */
-  while (argc > optind)
+  for (arg_i = optind; arg_i < argc; arg_i++)
     {
       /* Remember that we currently have not specified any domain.  This
 	 is of course not true when we saw the -o option.  */
@@ -509,9 +511,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 	current_domain = NULL;
 
       /* And process the input file.  */
-      read_catalog_file_msgfmt (argv[optind], input_syntax);
-
-      ++optind;
+      read_catalog_file_msgfmt (argv[arg_i], input_syntax);
     }
 
   /* We know a priori that some input_syntax->parse() functions convert
@@ -595,6 +595,27 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Print statistics if requested.  */
   if (verbose || do_statistics)
     {
+      if (do_statistics + verbose >= 2 && optind < argc)
+	{
+	  /* Print the input file name(s) in front of the statistics line.  */
+	  char *all_input_file_names;
+
+	  {
+	    string_list_ty input_file_names;
+
+	    string_list_init (&input_file_names);;
+	    for (arg_i = optind; arg_i < argc; arg_i++)
+	      string_list_append (&input_file_names, argv[arg_i]);
+	    all_input_file_names =
+	      string_list_join (&input_file_names, ", ", '\0', false);
+	    string_list_destroy (&input_file_names);
+	  }
+
+	  /* TRANSLATORS: The prefix before a statistics message.  The argument
+	     is a file name or a comma separated list of file names.  */
+	  fprintf (stderr, _("%s: "), all_input_file_names);
+	  free (all_input_file_names);
+	}
       fprintf (stderr,
 	       ngettext ("%d translated message", "%d translated messages",
 			 msgs_translated),
