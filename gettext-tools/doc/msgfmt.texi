@@ -289,7 +289,9 @@ Output version information and exit.
 
 @item --statistics
 @opindex --statistics@r{, @code{msgfmt} option}
-Print statistics about translations.
+Print statistics about translations.  When the option @code{--verbose} is used
+in combination with @code{--statistics}, the input file name is printed in
+front of the statistics line.
 
 @item -v
 @itemx --verbose
