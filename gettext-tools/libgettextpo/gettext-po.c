@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -764,7 +764,7 @@ po_message_comments (po_message_t message)
   if (mp->comment == NULL || mp->comment->nitems == 0)
     return "";
   else
-    return string_list_join (mp->comment, '\n', '\n', true);
+    return string_list_join (mp->comment, "\n", '\n', true);
 }
 
 
@@ -819,7 +819,7 @@ po_message_extracted_comments (po_message_t message)
   if (mp->comment_dot == NULL || mp->comment_dot->nitems == 0)
     return "";
   else
-    return string_list_join (mp->comment_dot, '\n', '\n', true);
+    return string_list_join (mp->comment_dot, "\n", '\n', true);
 }
 
 
