@@ -244,8 +244,8 @@ update-properties: Makefile $(DOMAIN).pot $(POFILES)
 	$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(GMSGFMT) -c --statistics -o /dev/null $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics -o /dev/null $(srcdir)/$${lang}.po || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po"; \
+	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po || exit 1; \
 	  echo "$(MSGCAT) --properties-output -o $(top_srcdir)/$(DOMAIN)_$$lang.properties $(srcdir)/$${lang}.po"; \
 	  $(MSGCAT) --properties-output -o $(top_srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
 	  mv $(top_srcdir)/$(DOMAIN)_$$lang.properties.tmp $(top_srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
@@ -257,8 +257,8 @@ update-classes: Makefile $(DOMAIN).pot $(POFILES)
 	$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(GMSGFMT) -c --statistics -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
+	  $(GMSGFMT) -c --statistics --verbose -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
 	done
 
 echo-catalogs:

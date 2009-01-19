@@ -1,5 +1,11 @@
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.in.in (.po.gmo): Pass --verbose to msgfmt when producing
+	statistics.
+	Suggested by Vincent Lefevre <vincent@vinc17.org>.
+
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
 	* id.po: Update from Arif E. Nugroho <arif_endro@yahoo.com>.
 	* nn.po: Update from Eirik U. Birkeland <eirbir@gmail.com>.
 	* zh_CN.po: Update from Li Daobing <lidaobing@gmail.com>.

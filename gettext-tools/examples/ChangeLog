@@ -1,5 +1,31 @@
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
+	* hello-c++-qt/po/Makefile.am (.po.gmo): Pass --verbose to msgfmt when
+	producing statistics.
+	* hello-c++-wxwidgets/po/Makefile.am (.po.gmo): Likewise.
+	* hello-clisp/po/Makefile.am (.po.gmo): Likewise.
+	* hello-gawk/po/Makefile.am (.po.gmo): Likewise.
+	* hello-guile/po/Makefile.am (.po.gmo): Likewise.
+	* hello-librep/po/Makefile.am (.po.gmo): Likewise.
+	* hello-pascal/po/Makefile.am (.po.gmo): Likewise.
+	* hello-perl/po/Makefile.am (.po.gmo): Likewise.
+	* hello-php/po/Makefile.am (.po.gmo): Likewise.
+	* hello-python/po/Makefile.am (.po.gmo): Likewise.
+	* hello-sh/po/Makefile.am (.po.gmo): Likewise.
+	* hello-smalltalk/po/Makefile.am (.po.gmo): Likewise.
+	* hello-ycp/po/Makefile.am (.po.gmo): Likewise.
+	* hello-java/po/Makefile.am (update-properties, update-classes):
+	Likewise.
+	* hello-java-awt/po/Makefile.am (update-properties, update-classes):
+	Likewise.
+	* hello-java-swing/po/Makefile.am (update-properties, update-classes):
+	Likewise.
+	* hello-java-qtjambi/po/Makefile.am (update-properties,
+	update-classes): Likewise.
+	Suggested by Vincent Lefevre <vincent@vinc17.org>.
+
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
 	* po/mt.po: New file, from Clyde Meli <cmeli@cis.um.edu.mt>.
 	* po/LINGUAS: Add mt.
 	* hello-*/po/LINGUAS: Update.

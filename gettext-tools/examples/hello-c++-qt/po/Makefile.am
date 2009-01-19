@@ -73,8 +73,8 @@ SUFFIXES = .po .qm .sed .sin .nop .po-create .po-update
 .po.qm:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}rm -f $${lang}.qm && $(GMSGFMT) -c --qt --statistics -o $${lang}.qm $${lang}.po"; \
-	cd $(srcdir) && rm -f $${lang}.qm && $(GMSGFMT) -c --qt --statistics -o t-$${lang}.qm $${lang}.po && mv t-$${lang}.qm $${lang}.qm
+	echo "$${cdcmd}rm -f $${lang}.qm && $(GMSGFMT) -c --qt --statistics --verbose -o $${lang}.qm $${lang}.po"; \
+	cd $(srcdir) && rm -f $${lang}.qm && $(GMSGFMT) -c --qt --statistics --verbose -o t-$${lang}.qm $${lang}.po && mv t-$${lang}.qm $${lang}.qm
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
