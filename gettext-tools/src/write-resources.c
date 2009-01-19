@@ -1,5 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003, 2005, 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005, 2007-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -181,7 +181,7 @@ but the C# .resources format doesn't support plural handling\n")));
 
 	if (execute_csharp_program (assembly_path, NULL, 0,
 				    args,
-				    verbose, false,
+				    verbose > 0, false,
 				    execute_writing_input, &locals))
 	  /* An error message should already have been provided.  */
 	  exit (EXIT_FAILURE);

@@ -1,5 +1,15 @@
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
+	Allow multiple levels of verbosity in 'msgfmt'.
+	* msgfmt.h (verbose): Change from 'bool' to 'int'.
+	* msgfmt.c (verbose): Likewise.
+	(main): Increment 'verbose' for each --verbose option.
+	* write-java.c (msgdomain_write_java): Update.
+	* write-csharp.c (msgdomain_write_csharp): Update.
+	* write-resources.c (msgdomain_write_csharp_resources): Update.
+
+2009-01-18  Bruno Haible  <bruno@clisp.org>
+
 	* str-list.h (string_list_join): Change the separator argument,
 	allowing an entire separator string.
 	* str-list.c (string_list_join): Likewise.

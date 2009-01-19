@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -745,7 +745,7 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   libdirs[0] = gettextlibdir;
   libraries[0] = "GNU.Gettext";
   if (compile_csharp_class (csharp_sources, 1, libdirs, 1, libraries, 1,
-			    output_file, true, false, verbose))
+			    output_file, true, false, verbose > 0))
     {
       if (!verbose)
 	error (0, 0, _("compilation of C# class failed, please try --verbose"));

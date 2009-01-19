@@ -114,7 +114,7 @@ static struct msg_domain *current_domain;
    'error' or 'multiline_error' to emit verbosity messages, because 'error'
    and 'multiline_error' during PO file parsing cause the program to exit
    with EXIT_FAILURE.  See function lex_end().  */
-bool verbose = false;
+int verbose = 0;
 
 /* If true check strings according to format string rules for the
    language.  */
@@ -285,7 +285,7 @@ main (int argc, char *argv[])
 	strict_uniforum = true;
 	break;
       case 'v':
-	verbose = true;
+	verbose++;
 	break;
       case 'V':
 	do_version = true;
