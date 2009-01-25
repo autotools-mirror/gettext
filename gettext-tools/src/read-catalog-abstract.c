@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -255,7 +255,8 @@ po_callback_comment_special (const char *s)
 }
 
 
-/* Parse a special comment and put the result in *fuzzyp, formatp, *wrapp.  */
+/* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
+   *wrapp.  */
 void
 po_parse_comment_special (const char *s,
 			  bool *fuzzyp, enum is_format formatp[NFORMATS],
@@ -266,6 +267,8 @@ po_parse_comment_special (const char *s,
   *fuzzyp = false;
   for (i = 0; i < NFORMATS; i++)
     formatp[i] = undecided;
+  rangep->min = -1;
+  rangep->max = -1;
   *wrapp = undecided;
 
   while (*s != '\0')

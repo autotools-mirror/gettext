@@ -1,3 +1,9 @@
+2009-01-25  Bruno Haible  <bruno@clisp.org>
+
+	Fix bug introduced on 2008-10-04.
+	* read-catalog-abstract.c (po_parse_comment_special): Initialize
+	*rangep.
+
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt.c: Include str-list.h.
