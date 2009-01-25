@@ -7259,7 +7259,7 @@ msgstr[1] ""
 What does this mean? How do you fill it in?
 
 Such an entry denotes a message with plural forms, that is, a message where
-the text depends on an cardinal number.  The general form of the message,
+the text depends on a cardinal number.  The general form of the message,
 in English, is the @code{msgid_plural} line.  The @code{msgid} line is the
 English singular form, that is, the form for when the number is equal to 1.
 More details about plural forms are explained in @ref{Plural forms}.
