@@ -322,6 +322,7 @@ The Translator's View
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Translating plural forms::    How to fill in @code{msgstr[0]}, @code{msgstr[1]}
 * Prioritizing messages::       How to find which messages to translate first
 
 Organization
@@ -3105,7 +3106,8 @@ Set this to @code{8bit}.
 @item Plural-Forms
 This field is optional.  It is only needed if the PO file has plural forms.
 You can find them by searching for the @samp{msgid_plural} keyword.  The
-format of the plural forms field is described in @ref{Plural forms}.
+format of the plural forms field is described in @ref{Plural forms} and
+@ref{Translating plural forms}.
 @end table
 
 @node Updating, Editing, Creating, Top
@@ -6427,6 +6429,9 @@ Time elapsed: 1.000 seconds
 @noindent
 is acceptable in English, and similarly for other languages.
 
+The translators' perspective regarding plural forms is explained in
+@ref{Translating plural forms}.
+
 @node Optimized gettext,  , Plural forms, gettext
 @subsection Optimization of the *gettext functions
 @cindex optimization of @code{gettext} functions
@@ -6809,6 +6814,7 @@ Solaris is not the only system having @code{gettext}.
 * Discussions::                 Discussions
 * Organization::                Organization
 * Information Flow::            Information Flow
+* Translating plural forms::    How to fill in @code{msgstr[0]}, @code{msgstr[1]}
 * Prioritizing messages::       How to find which messages to translate first
 @end menu
 
@@ -7194,7 +7200,7 @@ run, each team should run its own list, from within their country.
 There also should be some central list to which all teams could
 subscribe as they see fit, as long as each team is represented in it.
 
-@node Information Flow, Prioritizing messages, Organization, Translators
+@node Information Flow, Translating plural forms, Organization, Translators
 @section Information Flow
 
 @strong{ NOTE: } This documentation section is outdated and needs to be
@@ -7235,7 +7241,104 @@ I sent a proposal for a fast and flexible format, but it is not
 receiving acceptance yet by the GNU deciders.  I'll tell you when I
 have more information about this.
 
-@node Prioritizing messages,  , Information Flow, Translators
+@node Translating plural forms, Prioritizing messages, Information Flow, Translators
+@section Translating plural forms
+
+@cindex plural forms, translating
+Suppose you are translating a PO file, and it contains an entry like this:
+
+@smallexample
+#, c-format
+msgid "One file removed"
+msgid_plural "%d files removed"
+msgstr[0] ""
+msgstr[1] ""
+@end smallexample
+
+@noindent
+What does this mean? How do you fill it in?
+
+Such an entry denotes a message with plural forms, that is, a message where
+the text depends on an cardinal number.  The general form of the message,
+in English, is the @code{msgid_plural} line.  The @code{msgid} line is the
+English singular form, that is, the form for when the number is equal to 1.
+More details about plural forms are explained in @ref{Plural forms}.
+
+The first thing you need to look at is the @code{Plural-Forms} line in the
+header entry of the PO file.  It contains the number of plural forms and a
+formula.  If the PO file does not yet have such a line, you have to add it.
+It only depends on the language into which you are translating.  You can
+get this info by using the @code{msginit} command (see @ref{Creating}) --
+it contains a database of known plural formulas -- or by asking other
+members of your translation team.
+
+Suppose the line looks as follows:
+
+@smallexample
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+@end smallexample
+
+It's logically one line; recall that the PO file formatting is allowed to
+break long lines so that each physical line fits in 80 monospaced columns.
+
+The value of @code{nplurals} here tells you that there are three plural
+forms.  The first thing you need to do is to ensure that the entry contains
+an @code{msgstr} line for each of the forms:
+
+@smallexample
+#, c-format
+msgid "One file removed"
+msgid_plural "%d files removed"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+@end smallexample
+
+Then translate the @code{msgid_plural} line and fill it in into each
+@code{msgstr} line:
+
+@smallexample
+#, c-format
+msgid "One file removed"
+msgid_plural "%d files removed"
+msgstr[0] "%d slika uklonjenih"
+msgstr[1] "%d slika uklonjenih"
+msgstr[2] "%d slika uklonjenih"
+@end smallexample
+
+Now you can refine the translation so that it matches the plural form.
+According to the formula above, @code{msgstr[0]} is used when the number
+ends in 1 but does not end in 11; @code{msgstr[1]} is used when the number
+ends in 2, 3, 4, but not in 12, 13, 14; and @code{msgstr[2]} is used in
+all other cases.  With this knowledge, you can refine the translations:
+
+@smallexample
+#, c-format
+msgid "One file removed"
+msgid_plural "%d files removed"
+msgstr[0] "%d slika je uklonjena"
+msgstr[1] "%d datoteke uklonjenih"
+msgstr[2] "%d slika uklonjenih"
+@end smallexample
+
+You noticed that in the English singular form (@code{msgid}) the number
+placeholder could be omitted and replaced by the numeral word ``one''.
+Can you do this in your translation as well?
+
+@smallexample
+msgstr[0] "jednom datotekom je uklonjen"
+@end smallexample
+
+@noindent
+Well, it depends on whether @code{msgstr[0]} applies only to the number 1,
+or to other numbers as well.  If, according to the plural formula,
+@code{msgstr[0]} applies only to @code{n == 1}, then you can use the
+specialized translation without the number placeholder.  In our case,
+however, @code{msgstr[0]} also applies to the numbers 21, 31, 41, etc.,
+and therefore you cannot omit the placeholder.
+
+@node Prioritizing messages,  , Translating plural forms, Translators
 @section Prioritizing messages: How to determine which messages to translate first
 
 A translator sometimes has only a limited amount of time per week to

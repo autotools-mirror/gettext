@@ -1,3 +1,9 @@
+2009-01-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Translating plural forms): New section.
+	(Header Entry, Plural forms): Refer to it.
+	Reported by Yan Kerb <y.kerb@laposte.net>.
+
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt.texi: Describe the effect of combining --statistics with
