@@ -373,7 +373,9 @@ install-exec: all
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  if test @GLIBC21@ = no; then \
 	    case '@host_os@' in \
-	      cygwin* | mingw* | pw32* | cegcc*) \
+	      darwin[56]*) \
+	        need_charset_alias=true ;; \
+	      darwin* | cygwin* | mingw* | pw32* | cegcc*) \
 	        need_charset_alias=false ;; \
 	      *) \
 	        need_charset_alias=true ;; \
@@ -457,7 +459,9 @@ installdirs:
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  if test @GLIBC21@ = no; then \
 	    case '@host_os@' in \
-	      cygwin* | mingw* | pw32* | cegcc*) \
+	      darwin[56]*) \
+	        need_charset_alias=true ;; \
+	      darwin* | cygwin* | mingw* | pw32* | cegcc*) \
 	        need_charset_alias=false ;; \
 	      *) \
 	        need_charset_alias=true ;; \
