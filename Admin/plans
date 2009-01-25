@@ -75,3 +75,66 @@ Things we plan to do. Comments welcome.
   a word is divided by shortcut symbol (like "Raści_ahni") that will be
   converted incorrectly (like "Расьці_агні", not "Расьц_ягні")
 
+- PO spell checker. People recommend:
+  - 'pospell' - qui ne gère apparemment pas les accents
+  - gettext-lint / POFileSpell - qui fonctionne mais le contexte est
+    trop court
+  - une version mise à jour de
+    http://lists.debian.org/debian-l10n-french/2000/04/msg00058.html
+    (qui date de 2000 quand même - voir en fin de message) - pas mal,
+    mais pas moyen de sauvegarder ni même de s'arrêter avant la fin du
+    .po
+  - pofilter
+  - acheck
+
+- An alternative converter for Java .properties files.
+  E.g.
+    error.socket.connect=Cannot connect socket
+    error.database.connect=Cannot connect to database {0}
+  ->
+    msgctxt "error.socket.connect"
+    msgid "Cannot connect socket"
+    msgstr ""
+    msgctxt "error.database.connect"
+    msgid "Cannot connect to database {0}"
+    msgstr ""
+
+- For people who use a 15 MB large compendium:
+  Add an msgmerge option --cache-compendium, which stores (during the
+  first run) or reuses (during subsequent runs) an mmapable file that
+  represents the index of the compendium file. Should be located in
+  /var/tmp/, in a filename that is a hash of the realpath of the compendium.
+
+- Translating via an intermediate language (see thread 2006-09-28):
+  > For my language alone, there are many possible translators who would  
+  > work much better from Chinese or Russian to Vietnamese than from  
+  > English. It's simply a matter of which languages you have had the  
+  > opportunity to learn.
+
+  Now _that_ is an interesting idea!
+
+  Gettext can already nearly do this, too, if you write three small scripts/
+  programs to
+    - convert an English-based .pot file into a Russian-based .pot file,
+    - convert an English->Vietnamese PO file to a Russian->Vietnamese PO file,
+      (to be used when such a translator starts her work),
+    - convert an Russian->Vietnamese PO file back to an English->Vietnamese PO file
+      (to be used when a translator is done with her work).
+  And then the translator has these additional conversions steps all the time.
+
+  It would be better, for the future, that the translator has only one
+  additional step to perform: When she gets a new PO file, she converts it
+  to a mixed English/Russian->Vietnamese PO file. Such a mixed
+  English/Russian->Vietnamese PO file would
+    1) permit the translator to peek into the English original when something is
+       unclear,
+    2) also work when not some of the Russian translations are missing or fuzzy,
+    3) get rid of the "convert back" step, since msgfmt could directly grok
+       the mixed English/Russian->Vietnamese PO file.
+
+  The syntax for a mixed PO file could like this:
+
+  msgid "Hello, world!"
+  msgid[ru] "Здравствуй, мир!"
+  msgstr "Chào thế giới !"
+
