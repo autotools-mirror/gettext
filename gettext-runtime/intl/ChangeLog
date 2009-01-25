@@ -1,3 +1,10 @@
+2009-01-25  Bruno Haible  <bruno@clisp.org>
+
+	Don't install charset.alias on mingw and Cygwin.
+	* Makefile.in (install-exec, installdirs): Don't install charset.alias
+	on mingw and Cygwin, if the file does not yet exist. The result for
+	these platforms is hardcoded in localcharset.c.
+
 2009-01-24  Bruno Haible  <bruno@clisp.org>
 
 	Add support for non-UTF-8 locales on MacOS X.

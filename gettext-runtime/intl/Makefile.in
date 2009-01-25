@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling library of GNU gettext
-# Copyright (C) 1995-1998, 2000-2007 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2007, 2009 Free Software Foundation, Inc.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Library General Public License as published
@@ -371,7 +371,19 @@ install-exec: all
 	  : ; \
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
-	  test @GLIBC21@ != no || $(mkdir_p) $(DESTDIR)$(libdir); \
+	  if test @GLIBC21@ = no; then \
+	    case '@host_os@' in \
+	      cygwin* | mingw* | pw32* | cegcc*) \
+	        need_charset_alias=false ;; \
+	      *) \
+	        need_charset_alias=true ;; \
+	    esac; \
+	  else \
+	    need_charset_alias=false; \
+	  fi; \
+	  if $$need_charset_alias; then \
+	    $(mkdir_p) $(DESTDIR)$(libdir); \
+	  fi; \
 	  temp=$(DESTDIR)$(libdir)/t-charset.alias; \
 	  dest=$(DESTDIR)$(libdir)/charset.alias; \
 	  if test -f $(DESTDIR)$(libdir)/charset.alias; then \
@@ -380,7 +392,7 @@ install-exec: all
 	    $(INSTALL_DATA) $$temp $$dest; \
 	    rm -f $$temp; \
 	  else \
-	    if test @GLIBC21@ = no; then \
+	    if $$need_charset_alias; then \
 	      orig=charset.alias; \
 	      sed -f ref-add.sed $$orig > $$temp; \
 	      $(INSTALL_DATA) $$temp $$dest; \
@@ -443,7 +455,19 @@ installdirs:
 	  : ; \
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
-	  test @GLIBC21@ != no || $(mkdir_p) $(DESTDIR)$(libdir); \
+	  if test @GLIBC21@ = no; then \
+	    case '@host_os@' in \
+	      cygwin* | mingw* | pw32* | cegcc*) \
+	        need_charset_alias=false ;; \
+	      *) \
+	        need_charset_alias=true ;; \
+	    esac; \
+	  else \
+	    need_charset_alias=false; \
+	  fi; \
+	  if $$need_charset_alias; then \
+	    $(mkdir_p) $(DESTDIR)$(libdir); \
+	  fi; \
 	  $(mkdir_p) $(DESTDIR)$(localedir); \
 	else \
 	  : ; \
