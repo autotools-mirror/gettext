@@ -1,3 +1,7 @@
+2009-01-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (EXTRA_DIST): Remove locale-ja.m4.
+
 2008-12-18  Bruno Haible  <bruno@clisp.org>
 
 	* locale-ja.m4: Remove file. Moved to gnulib.
