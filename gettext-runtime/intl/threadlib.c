@@ -1,5 +1,5 @@
 /* Multithreading primitives.
-   Copyright (C) 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2005-2009 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -27,6 +27,7 @@
 /* Use the POSIX threads library.  */
 
 # include <pthread.h>
+# include <stdlib.h>
 
 # if PTHREAD_IN_USE_DETECTION_HARD
 
@@ -68,3 +69,7 @@ glthread_in_use (void)
 #endif
 
 /* ========================================================================= */
+
+/* This declaration is solely to ensure that after preprocessing
+   this file is never empty.  */
+typedef int dummy;
