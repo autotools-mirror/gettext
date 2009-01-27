@@ -1,3 +1,8 @@
+2009-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* plural-table.c (plural_table): Put Turkish under nplurals=2.
+	Reported by Sertaç Ö. Yıldız <sertacyildiz@gmail.com>.
+	
 2009-01-26  Bruno Haible  <bruno@clisp.org>
 
 	* msgattrib.c (main): Update year in --version output.
