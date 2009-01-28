@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2008 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -116,6 +116,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-qt-1 format-qt-2 \
+	format-qt-plural-1 format-qt-plural-2 \
 	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
