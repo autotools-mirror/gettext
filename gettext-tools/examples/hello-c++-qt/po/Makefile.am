@@ -13,7 +13,7 @@ DOMAIN = $(PACKAGE)
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
   --qt \
-  --keyword=tr --flag=tr:1:pass-c-format --flag=tr:1:pass-qt-format \
+  --keyword=tr:1,1t --keyword=tr:1,2c,2t --keyword=tr:1,1,2c,3t --flag=tr:1:pass-c-format --flag=tr:1:pass-qt-format \
   --keyword=translate:2 --flag=translate:2:pass-c-format --flag=translate:2:pass-qt-format \
   --keyword=QT_TR_NOOP --flag=QT_TR_NOOP:1:pass-c-format --flag=QT_TR_NOOP:1:pass-qt-format \
   --keyword=QT_TRANSLATE_NOOP:2 --flag=QT_TRANSLATE_NOOP:2:pass-c-format --flag=QT_TRANSLATE_NOOP:2:pass-qt-format \
