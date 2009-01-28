@@ -407,6 +407,7 @@ The Translator's View
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
 
@@ -1598,6 +1599,12 @@ Likewise for the GCC sources, see @ref{gcc-internal-format}.
 @itemx no-qt-format
 @kwindex no-qt-format@r{ flag}
 Likewise for Qt, see @ref{qt-format}.
+
+@item qt-plural-format
+@kwindex qt-plural-format@r{ flag}
+@itemx no-qt-plural-format
+@kwindex no-qt-plural-format@r{ flag}
+Likewise for Qt plural forms, see @ref{qt-plural-format}.
 
 @item kde-format
 @kwindex kde-format@r{ flag}
@@ -8893,6 +8900,7 @@ strings.
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * qt-format::                   Qt Format Strings
+* qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
 @end menu
@@ -9103,7 +9111,7 @@ denotes a programming language, @samp{O} denotes a binary operator,
 @samp{P} denotes a function parameter, @samp{Q} denotes an assignment
 operator, @samp{V} denotes a const/volatile qualifier.
 
-@node qt-format, kde-format, gcc-internal-format, Translators for other Languages
+@node qt-format, qt-plural-format, gcc-internal-format, Translators for other Languages
 @subsection Qt Format Strings
 
 Qt format strings are described in the documentation of the QString class
@@ -9111,7 +9119,14 @@ Qt format strings are described in the documentation of the QString class
 In summary, a directive consists of a @samp{%} followed by a digit. The same
 directive cannot occur more than once in a format string.
 
-@node kde-format, boost-format, qt-format, Translators for other Languages
+@node qt-plural-format, kde-format, qt-format, Translators for other Languages
+@subsection Qt Format Strings
+
+Qt format strings are described in the documentation of the QObject::tr method
+@uref{file:/usr/lib/qt-4.3.0/doc/html/qobject.html}.
+In summary, the only allowed directive is @samp{%n}.
+
+@node kde-format, boost-format, qt-plural-format, Translators for other Languages
 @subsection KDE Format Strings
 
 KDE 4 format strings are defined as follows:

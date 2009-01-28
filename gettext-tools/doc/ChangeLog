@@ -1,3 +1,8 @@
+2009-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (PO Files): Mention qt-plural-format.
+	(qt-plural-format): New subsection.
+
 2009-01-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Translating plural forms): New section.
