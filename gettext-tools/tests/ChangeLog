@@ -1,3 +1,8 @@
+2009-01-27  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-c-13: Test also the 3 variants of the tr function and the
+	qt-plural-format flag.
+
 2009-01-25  Bruno Haible  <bruno@clisp.org>
 
 	Avoid a test suite failure on platforms that have a gl_IE locale.
