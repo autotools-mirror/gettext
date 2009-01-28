@@ -27,6 +27,10 @@ Version 0.18 - January 2008
 * msgfilter now sets environment variables during the invocation of the
   filter, indicating the msgid and location of the messge being processed.
 
+* xgettext now can extract plural forms from Qt 4 programs. The recommended
+  xgettext command-line options for this case are:
+    --qt --keyword=tr:1,1t --keyword=tr:1,2c,2t --keyword=tr:1,1,2c,3t
+
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 Version 0.17 - November 2007
