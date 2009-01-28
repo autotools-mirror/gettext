@@ -252,6 +252,7 @@ struct extractor_ty
   flag_context_list_table_ty *flag_table;
   struct formatstring_parser *formatstring_parser1;
   struct formatstring_parser *formatstring_parser2;
+  struct formatstring_parser *formatstring_parser3;
 };
 
 
@@ -1249,6 +1250,11 @@ inherited_context (flag_context_ty outer_context,
       result.is_format2 = outer_context.is_format2;
       result.pass_format2 = false;
     }
+  if (result.pass_format3)
+    {
+      result.is_format3 = outer_context.is_format3;
+      result.pass_format3 = false;
+    }
   return result;
 }
 
@@ -1374,6 +1380,10 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	    list->flags.is_format2 = value;
 	    list->flags.pass_format2 = pass;
 	    break;
+	  case 2:
+	    list->flags.is_format3 = value;
+	    list->flags.pass_format3 = pass;
+	    break;
 	  default:
 	    abort ();
 	  }
@@ -1403,6 +1413,10 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 		list->flags.is_format2 = value;
 		list->flags.pass_format2 = pass;
 		break;
+	      case 2:
+		list->flags.is_format3 = value;
+		list->flags.pass_format3 = pass;
+		break;
 	      default:
 		abort ();
 	      }
@@ -1422,6 +1436,10 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	      case 1:
 		list->flags.is_format2 = value;
 		list->flags.pass_format2 = pass;
+		break;
+	      case 2:
+		list->flags.is_format3 = value;
+		list->flags.pass_format3 = pass;
 		break;
 	      default:
 		abort ();
@@ -1449,6 +1467,10 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
 	      case 1:
 		list->flags.is_format2 = value;
 		list->flags.pass_format2 = pass;
+		break;
+	      case 2:
+		list->flags.is_format3 = value;
+		list->flags.pass_format3 = pass;
 		break;
 	      default:
 		abort ();
@@ -1666,6 +1688,11 @@ xgettext_record_flag (const char *optionstring)
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
+		  case format_qt_plural:
+		    flag_context_list_table_insert (&flag_table_cxx_qt, 2,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
 		  case format_kde:
 		    flag_context_list_table_insert (&flag_table_cxx_kde, 1,
 						    name_start, name_end,
@@ -1842,6 +1869,7 @@ error while opening \"%s\" for reading"), new_name);
    NULL if the language has no notion of format strings.  */
 static struct formatstring_parser *current_formatstring_parser1;
 static struct formatstring_parser *current_formatstring_parser2;
+static struct formatstring_parser *current_formatstring_parser3;
 
 
 static void
@@ -1861,6 +1889,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 
   current_formatstring_parser1 = extractor.formatstring_parser1;
   current_formatstring_parser2 = extractor.formatstring_parser2;
+  current_formatstring_parser3 = extractor.formatstring_parser3;
   extractor.func (fp, real_file_name, logical_file_name, extractor.flag_table,
 		  mdlp);
 
@@ -1966,7 +1995,9 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 {
   size_t i;
 
-  if (context.is_format1 != undecided || context.is_format2 != undecided)
+  if (context.is_format1 != undecided
+      || context.is_format2 != undecided
+      || context.is_format3 != undecided)
     for (i = 0; i < NFORMATS; i++)
       {
 	if (is_format[i] == undecided)
@@ -1977,6 +2008,9 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 	    if (formatstring_parsers[i] == current_formatstring_parser2
 		&& context.is_format2 != undecided)
 	      is_format[i] = (enum is_format) context.is_format2;
+	    if (formatstring_parsers[i] == current_formatstring_parser3
+		&& context.is_format3 != undecided)
+	      is_format[i] = (enum is_format) context.is_format3;
 	  }
 	if (possible_format_p (is_format[i]))
 	  {
@@ -2237,14 +2271,17 @@ meta information, not the empty string.\n")));
     {
       if (is_format[i] == undecided
 	  && (formatstring_parsers[i] == current_formatstring_parser1
-	      || formatstring_parsers[i] == current_formatstring_parser2)
+	      || formatstring_parsers[i] == current_formatstring_parser2
+	      || formatstring_parsers[i] == current_formatstring_parser3)
 	  /* But avoid redundancy: objc-format is stronger than c-format.  */
 	  && !(i == format_c && possible_format_p (is_format[format_objc]))
 	  && !(i == format_objc && possible_format_p (is_format[format_c]))
 	  /* Avoid flagging a string as c-format when it's known to be a
-	     qt-format or kde-format or boost-format string.  */
+	     qt-format or qt-plural-format or kde-format or boost-format
+	     string.  */
 	  && !(i == format_c
 	       && (possible_format_p (is_format[format_qt])
+		   || possible_format_p (is_format[format_qt_plural])
 		   || possible_format_p (is_format[format_kde])
 		   || possible_format_p (is_format[format_boost]))))
 	{
@@ -2360,7 +2397,8 @@ remember_a_message_plural (message_ty *mp, char *string,
 	 msgid_plural.  This is a heuristic.  */
       for (i = 0; i < NFORMATS; i++)
 	if ((formatstring_parsers[i] == current_formatstring_parser1
-	     || formatstring_parsers[i] == current_formatstring_parser2)
+	     || formatstring_parsers[i] == current_formatstring_parser2
+	     || formatstring_parsers[i] == current_formatstring_parser3)
 	    && (mp->is_format[i] == undecided || mp->is_format[i] == possible)
 	    /* But avoid redundancy: objc-format is stronger than c-format.  */
 	    && !(i == format_c
@@ -2368,9 +2406,10 @@ remember_a_message_plural (message_ty *mp, char *string,
 	    && !(i == format_objc
 		 && possible_format_p (mp->is_format[format_c]))
 	    /* Avoid flagging a string as c-format when it's known to be a
-	       qt-format or boost-format string.  */
+	       qt-format or qt-plural-format or boost-format string.  */
 	    && !(i == format_c
 		 && (possible_format_p (mp->is_format[format_qt])
+		     || possible_format_p (mp->is_format[format_qt_plural])
 		     || possible_format_p (mp->is_format[format_kde])
 		     || possible_format_p (mp->is_format[format_boost]))))
 	  {
@@ -2537,26 +2576,29 @@ arglist_parser_remember (struct arglist_parser *ap,
 	  /* Mark msgctxt as done.  */
 	  cp->argnumc = 0;
 	}
-      else if (argnum == cp->argnum1)
+      else
 	{
-	  cp->msgid = string;
-	  cp->msgid_context = context;
-	  cp->msgid_pos.file_name = file_name;
-	  cp->msgid_pos.line_number = line_number;
-	  cp->msgid_comment = add_reference (comment);
-	  stored_string = true;
-	  /* Mark msgid as done.  */
-	  cp->argnum1 = 0;
-	}
-      else if (argnum == cp->argnum2)
-	{
-	  cp->msgid_plural = string;
-	  cp->msgid_plural_context = context;
-	  cp->msgid_plural_pos.file_name = file_name;
-	  cp->msgid_plural_pos.line_number = line_number;
-	  stored_string = true;
-	  /* Mark msgid_plural as done.  */
-	  cp->argnum2 = 0;
+	  if (argnum == cp->argnum1)
+	    {
+	      cp->msgid = string;
+	      cp->msgid_context = context;
+	      cp->msgid_pos.file_name = file_name;
+	      cp->msgid_pos.line_number = line_number;
+	      cp->msgid_comment = add_reference (comment);
+	      stored_string = true;
+	      /* Mark msgid as done.  */
+	      cp->argnum1 = 0;
+	    }
+	  if (argnum == cp->argnum2)
+	    {
+	      cp->msgid_plural = string;
+	      cp->msgid_plural_context = context;
+	      cp->msgid_plural_pos.file_name = file_name;
+	      cp->msgid_plural_pos.line_number = line_number;
+	      stored_string = true;
+	      /* Mark msgid_plural as done.  */
+	      cp->argnum2 = 0;
+	    }
 	}
     }
   /* Note: There is a memory leak here: When string was stored but is later
@@ -2802,15 +2844,33 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 		}
 	    }
 
-	  mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
-				   best_cp->msgid_context,
-				   &best_cp->msgid_pos,
-				   best_cp->msgid_comment);
-	  if (best_cp->msgid_plural != NULL)
-	    remember_a_message_plural (mp, best_cp->msgid_plural,
-				       best_cp->msgid_plural_context,
-				       &best_cp->msgid_plural_pos,
-				       NULL);
+	  {
+	    flag_context_ty msgid_context = best_cp->msgid_context;
+	    flag_context_ty msgid_plural_context = best_cp->msgid_plural_context;
+
+	    /* Special support for the 3-argument tr operator in Qt:
+	       When --qt and --keyword=tr:1,1,2c,3t are specified, add to the
+	       context the information that the argument is expeected to be a
+	       qt-plural-format.  */
+	    if (recognize_format_qt
+		&& current_formatstring_parser3 == &formatstring_qt_plural
+		&& best_cp->msgid_plural == best_cp->msgid)
+	      {
+		msgid_context.is_format3 = yes_according_to_context;
+		msgid_plural_context.is_format3 = yes_according_to_context;
+	      }
+
+	    mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
+				     msgid_context,
+				     &best_cp->msgid_pos,
+				     best_cp->msgid_comment);
+	    if (best_cp->msgid_plural != NULL)
+	      remember_a_message_plural (mp, best_cp->msgid_plural,
+					 msgid_plural_context,
+					 &best_cp->msgid_plural_pos,
+					 NULL);
+	  }
+
 	  if (best_cp->xcomments.nitems > 0)
 	    {
 	      /* Add best_cp->xcomments to mp->comment_dot, unless already
@@ -3067,6 +3127,7 @@ language_to_extractor (const char *name)
 	result.flag_table = tp->flag_table;
 	result.formatstring_parser1 = tp->formatstring_parser1;
 	result.formatstring_parser2 = tp->formatstring_parser2;
+	result.formatstring_parser3 = NULL;
 
 	/* Handle --qt.  It's preferrable to handle this facility here rather
 	   than through an option --language=C++/Qt because the latter would
@@ -3075,6 +3136,7 @@ language_to_extractor (const char *name)
 	  {
 	    result.flag_table = &flag_table_cxx_qt;
 	    result.formatstring_parser2 = &formatstring_qt;
+	    result.formatstring_parser3 = &formatstring_qt_plural;
 	  }
 	/* Likewise for --kde.  */
 	if (recognize_format_kde && strcmp (tp->name, "C++") == 0)

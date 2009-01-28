@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -54,6 +54,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_php */		&formatstring_php,
   /* format_gcc_internal */	&formatstring_gcc_internal,
   /* format_qt */		&formatstring_qt,
+  /* format_qt_plural */	&formatstring_qt_plural,
   /* format_kde */		&formatstring_kde,
   /* format_boost */		&formatstring_boost
 };

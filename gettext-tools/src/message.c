@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -54,6 +54,7 @@ const char *const format_language[NFORMATS] =
   /* format_php */		"php",
   /* format_gcc_internal */	"gcc-internal",
   /* format_qt */		"qt",
+  /* format_qt_plursl */	"qt-plural",
   /* format_kde */		"kde",
   /* format_boost */		"boost"
 };
@@ -80,6 +81,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_php */		"PHP",
   /* format_gcc_internal */	"GCC internal",
   /* format_qt */		"Qt",
+  /* format_qt_plural */	"Qt plural",
   /* format_kde */		"KDE",
   /* format_boost */		"Boost"
 };

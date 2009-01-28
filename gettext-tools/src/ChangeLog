@@ -1,5 +1,34 @@
 2009-01-27  Bruno Haible  <bruno@clisp.org>
 
+	* message.h (format_type): New enum value 'format_qt_plural'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_qt_plural entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_qt_plural): New declaration.
+	* format-qt-plural.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_qt_plural.
+	* xgettext.h (struct flag_context_ty): Add fields is_format3,
+	pass_format3.
+	* xgettext.c (struct extractor_ty): Add field formatstring_parser3.
+	(inherited_context, flag_context_list_table_insert): Handle the new
+	flag_context_ty fields.
+	(xgettext_record_flag): Handle format_qt_plural.
+	(current_formatstring_parser3): New variable.
+	(extract_from_file): Initialize it.
+	(set_format_flags_from_context): Handle the new flag_context_ty fields.
+	(remember_a_message, remember_a_message_plural): Handle
+	current_formatstring_parser3. Avoid adding a c-format flag to a message
+	already flagged as qt-plural-format.
+	(arglist_parser_remember): Allow argnum1 and argnum2 in the call shape
+	to be the same.
+	(arglist_parser_done): Add special recognition of qt-plural-format
+	strings.
+	(language_to_extractor): Set the formatstring_parser3 in the result.
+	* Makefile.am (FORMAT_SOURCE): Add format-qt-plural.c.
+	* FILES: Update.
+
+2009-01-27  Bruno Haible  <bruno@clisp.org>
+
 	* plural-table.c (plural_table): Put Turkish under nplurals=2.
 	Reported by Sertaç Ö. Yıldız <sertacyildiz@gmail.com>.
 	

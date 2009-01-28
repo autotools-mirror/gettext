@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005-2006, 2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006, 2008-2009 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -89,6 +89,9 @@ struct flag_context_ty
   /* Regarding the secondary formatstring type.  */
   /*enum is_format*/ unsigned int is_format2    : 3;
   /*bool*/           unsigned int pass_format2  : 1;
+  /* Regarding the tertiary formatstring type.  */
+  /*enum is_format*/ unsigned int is_format3    : 3;
+  /*bool*/           unsigned int pass_format3  : 1;
 };
 /* Null context.  */
 extern flag_context_ty null_context;
