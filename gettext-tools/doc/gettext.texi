@@ -5287,7 +5287,7 @@ number will always signal GNU MO files.  The number is stored in the
 byte order of the generating machine, so the magic number really is
 two numbers: @code{0x950412de} and @code{0xde120495}.  The second
 word describes the current revision of the file format.  For now the
-revision is 0.  This might change in future versions, and ensures
+revision is 0 or 1.  This might change in future versions, and ensures
 that the readers of MO files can distinguish new formats from old
 ones, so that both can be handled correctly.  The version is kept
 separate from the magic number, instead of using different magic

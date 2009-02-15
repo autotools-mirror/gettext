@@ -1,3 +1,8 @@
+2009-02-15  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (MO Files): Update w.r.t. the maximum revision in use.
+	Reported by Dwayne Bailey <dwayne@translate.org.za>.
+
 2009-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention qt-plural-format.
