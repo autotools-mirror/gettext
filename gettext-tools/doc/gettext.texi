@@ -5285,15 +5285,23 @@ which appears below.
 The first two words serve the identification of the file.  The magic
 number will always signal GNU MO files.  The number is stored in the
 byte order of the generating machine, so the magic number really is
-two numbers: @code{0x950412de} and @code{0xde120495}.  The second
-word describes the current revision of the file format.  For now the
-revision is 0 or 1.  This might change in future versions, and ensures
-that the readers of MO files can distinguish new formats from old
-ones, so that both can be handled correctly.  The version is kept
+two numbers: @code{0x950412de} and @code{0xde120495}.
+
+The second word describes the current revision of the file format,
+composed of a major and a minor revision number.  The revision numbers
+ensure that the readers of MO files can distinguish new formats from
+old ones and handle their contents, as far as possible.  For now the
+major revision is 0 or 1, and the minor revision is also 0 or 1.  More
+revisions might be added in the future.  A program seeing an unexpected
+major revision number should stop reading the MO file entirely; whereas
+an unexpected minor revision number means that the file can be read but
+will not reveal its full contents, when parsed by a program that
+supports only smaller minor revision numbers.
+
+The version is kept
 separate from the magic number, instead of using different magic
 numbers for different formats, mainly because @file{/etc/magic} is
-not updated often.  It might be better to have magic separated from
-internal format version identification.
+not updated often.
 
 Follow a number of pointers to later tables in the file, allowing
 for the extension of the prefix part of MO files without having to
