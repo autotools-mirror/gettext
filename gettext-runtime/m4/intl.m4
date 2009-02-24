@@ -1,4 +1,4 @@
-# intl.m4 serial 11 (gettext-0.18)
+# intl.m4 serial 12 (gettext-0.18)
 dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -47,7 +47,8 @@ AC_DEFUN([AM_INTL_SUBDIR],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
   AC_CHECK_HEADERS([stddef.h stdlib.h string.h])
-  AC_CHECK_FUNCS([asprintf fwprintf putenv setenv setlocale snprintf wcslen])
+  AC_CHECK_FUNCS([asprintf fwprintf putenv setenv setlocale snprintf \
+    strnlen wcslen wcsnlen mbrtowc wcrtomb])
 
   dnl Use the _snprintf function only if it is declared (because on NetBSD it
   dnl is defined as a weak alias of snprintf; we prefer to use the latter).
