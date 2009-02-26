@@ -1,3 +1,9 @@
+2009-02-26  Bruno Haible  <bruno@clisp.org>
+
+	Fix *printf behaviour regarding the %ls directive.
+	* vasnprintf.c (local_wcslen, VASNPRINTF): Handle
+	NEED_PRINTF_DIRECTIVE_LS.
+
 2009-02-23  Bruno Haible  <bruno@clisp.org>
 
 	Fix invalid read past end of memory block.
