@@ -431,9 +431,13 @@ $(DUMMYPOFILES):
 update-gmo: Makefile $(GMOFILES)
 	@:
 
+# Recreate Makefile by invoking config.status. Explicitly invoke the shell,
+# because execution permission bits may not work on the current file system.
+# Use @SHELL@, which is the shell determined by autoconf for the use by its
+# scripts, not $(SHELL) which is hardwired to /bin/sh and may be deficient.
 Makefile: Makefile.in.in Makevars $(top_builddir)/config.status @POMAKEFILEDEPS@
 	cd $(top_builddir) \
-	  && $(SHELL) ./config.status $(subdir)/$@.in po-directories
+	  && @SHELL@ ./config.status $(subdir)/$@.in po-directories
 
 force:
 
