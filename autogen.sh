@@ -8,9 +8,9 @@
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
-#   - the cvs program in the PATH and an internet connection.
+#   - the git program in the PATH and an internet connection.
 
-# Copyright (C) 2003-2008 Free Software Foundation, Inc.
+# Copyright (C) 2003-2009 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -56,12 +56,10 @@ chmod a+x gettext-tools/tests/msgmerge-update-4
 if ! $skip_gnulib; then
   if test -z "$GNULIB_TOOL"; then
     # Check out gnulib in a subdirectory 'gnulib'.
-    GNULIB_CVS_ROOT=':pserver:anonymous@pserver.git.sv.gnu.org:/gnulib.git'
-    GNULIB_CVS_REPOSITORY='gnulib'
     if test -d gnulib; then
-      (cd gnulib && cvs update -d -P)
+      (cd gnulib && git pull)
     else
-      cvs -d "$GNULIB_CVS_ROOT" checkout -d $GNULIB_CVS_REPOSITORY HEAD
+      git clone git://git.savannah.gnu.org/gnulib.git
     fi
     # Now it should contain a gnulib-tool.
     if test -f gnulib/gnulib-tool; then
