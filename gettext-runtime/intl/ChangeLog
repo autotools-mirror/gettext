@@ -1,3 +1,7 @@
+2009-03-23  Jim Meyering  <meyering@redhat.com>
+
+	* vasnprintf.c (divide): Fix typo in comment.
+
 2009-02-26  Bruno Haible  <bruno@clisp.org>
 
 	Fix *printf behaviour regarding the %ls directive.
