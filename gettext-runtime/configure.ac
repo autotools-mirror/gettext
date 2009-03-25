@@ -64,7 +64,12 @@ gl_EARLY
 dnl Check for build configuration.
 
 gl_WOE32_DLL
+
 LT_INIT([win32-dll])
+
+dnl Prepares the libtool configuration for handling of Windows resources, and
+dnl sets the RC variable to a program that compiles Windows resource files.
+LT_LANG([Windows Resource])
 
 dnl On mingw and Cygwin, we can activate special Makefile rules which add
 dnl version information to the shared libraries and executables.

@@ -1,3 +1,11 @@
+2009-03-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in (RC): New variable.
+	(OBJECTS_RES_yes): Add .$lo suffix.
+	(libintl.res.o): Renamed from libintl.res.
+	(libintl.res.lo): New rule.
+	(mostlyclean): Simplify.
+
 2009-03-23  Jim Meyering  <meyering@redhat.com>
 
 	* vasnprintf.c (divide): Fix typo in comment.
