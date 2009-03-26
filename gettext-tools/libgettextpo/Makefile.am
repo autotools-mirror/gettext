@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ LTV_AGE=4
 # How to build libgettextpo.la.
 # Don't make it depend on libgettextsrc.la or libgettextlib.la, since they
 # define an uncontrolled amount of symbols.
-libgettextpo_la_LIBADD = libgnu.la $(WOE32_LDADD)
+libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
@@ -110,12 +110,12 @@ endif
 # Version information according to Woe32 conventions.
 EXTRA_DIST += libgettextpo.rc
 if WOE32
-WOE32_LDADD = libgettextpo.res
-libgettextpo.res : $(srcdir)/libgettextpo.rc
-	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res --output-format=coff
+WOE32_LIBADD = libgettextpo.res.lo
+libgettextpo.res.lo : $(srcdir)/libgettextpo.rc
+	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res.lo --output-format=coff
 MOSTLYCLEANFILES += libgettextpo.res
 else
-WOE32_LDADD =
+WOE32_LIBADD =
 endif
 
 # Hide symbols that are defined by libgettextpo_la_AUXSOURCES or libgnu.la

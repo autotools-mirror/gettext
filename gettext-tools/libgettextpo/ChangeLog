@@ -1,3 +1,11 @@
+2009-03-25  Bruno Haible  <bruno@clisp.org>
+
+	Fix the handling of Windows resources in shared libraries.
+	* Makefile.am (WOE32_LIBADD): Renamed from WOE32_LDADD. Use
+	libgettextpo.res.lo instead of libgettextpo.res.
+	(libgettextpo.res.lo): Renamed from libgettextpo.res. Use libtool
+	--tag=RC.
+
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-po.c (po_message_comments, po_message_extracted_comments):
