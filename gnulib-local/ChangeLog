@@ -1,3 +1,7 @@
+2009-03-25  Bruno Haible  <bruno@clisp.org>
+
+	* m4/quotearg.m4.diff: Update after gnulib changed.
+
 2008-12-18  Bruno Haible  <bruno@clisp.org>
 
 	* modules/gettext-tools-misc (Files): Add m4/locale-ja.m4.
