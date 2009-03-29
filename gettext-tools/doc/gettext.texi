@@ -406,6 +406,7 @@ The Translator's View
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
+* gfc-internal-format::         GFC internal Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
@@ -1593,6 +1594,12 @@ Likewise for PHP, see @ref{php-format}.
 @itemx no-gcc-internal-format
 @kwindex no-gcc-internal-format@r{ flag}
 Likewise for the GCC sources, see @ref{gcc-internal-format}.
+
+@item gfc-internal-format
+@kwindex gfc-internal-format@r{ flag}
+@itemx no-gfc-internal-format
+@kwindex no-gfc-internal-format@r{ flag}
+Likewise for the GNU Fortran Compiler sources, see @ref{gfc-internal-format}.
 
 @item qt-format
 @kwindex qt-format@r{ flag}
@@ -8907,6 +8914,7 @@ strings.
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
 * gcc-internal-format::         GCC internal Format Strings
+* gfc-internal-format::         GFC internal Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
@@ -9101,7 +9109,7 @@ PHP format strings are described in the documentation of the PHP function
 @code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
 @uref{http://www.php.net/manual/en/function.sprintf.php}.
 
-@node gcc-internal-format, qt-format, php-format, Translators for other Languages
+@node gcc-internal-format, gfc-internal-format, php-format, Translators for other Languages
 @subsection GCC internal Format Strings
 
 These format strings are used inside the GCC sources.  In such a format
@@ -9119,7 +9127,19 @@ denotes a programming language, @samp{O} denotes a binary operator,
 @samp{P} denotes a function parameter, @samp{Q} denotes an assignment
 operator, @samp{V} denotes a const/volatile qualifier.
 
-@node qt-format, qt-plural-format, gcc-internal-format, Translators for other Languages
+@node gfc-internal-format, qt-format, gcc-internal-format, Translators for other Languages
+@subsection GFC internal Format Strings
+
+These format strings are used inside the GNU Fortran Compiler sources,
+that is, the Fortran frontend in the GCC sources.  In such a format
+string, a directive starts with @samp{%} and is finished by a
+specifier: @samp{%} denotes a literal percent sign, @samp{C} denotes the
+current source location, @samp{L} denotes a source location, @samp{c}
+denotes a character, @samp{s} denotes a string, @samp{i} and @samp{d}
+denote an integer, @samp{u} denotes an unsigned integer.  @samp{i},
+@samp{d}, and @samp{u} may be preceded by a size specifier @samp{l}.
+
+@node qt-format, qt-plural-format, gfc-internal-format, Translators for other Languages
 @subsection Qt Format Strings
 
 Qt format strings are described in the documentation of the QString class
