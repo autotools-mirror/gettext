@@ -114,6 +114,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_perl;
 extern DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
 extern DLL_VARIABLE struct formatstring_parser formatstring_php;
 extern DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
+extern DLL_VARIABLE struct formatstring_parser formatstring_gfc_internal;
 extern DLL_VARIABLE struct formatstring_parser formatstring_qt;
 extern DLL_VARIABLE struct formatstring_parser formatstring_qt_plural;
 extern DLL_VARIABLE struct formatstring_parser formatstring_kde;

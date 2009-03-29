@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -414,6 +414,36 @@ init_flag_table_gcc_internal ()
   xgettext_record_flag ("ffests_printf:2:pass-c-format");
   /* java/java-tree.h */
   xgettext_record_flag ("parse_error_context:2:pass-c-format");
+#endif
+
+  xgettext_record_flag ("gettext:1:pass-gfc-internal-format");
+  xgettext_record_flag ("dgettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("dcgettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("ngettext:1:pass-gfc-internal-format");
+  xgettext_record_flag ("ngettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("dngettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("dngettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("dcngettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("dcngettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("gettext_noop:1:pass-gfc-internal-format");
+  xgettext_record_flag ("pgettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("dpgettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("dcpgettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("npgettext:2:pass-gfc-internal-format");
+  xgettext_record_flag ("npgettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("dnpgettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("dnpgettext:4:pass-gfc-internal-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-gfc-internal-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-gfc-internal-format");
+#if 0 /* This should better be done inside GCC.  */
+  /* fortran/error.c */
+  xgettext_record_flag ("gfc_error:1:gfc-internal-format");
+  xgettext_record_flag ("gfc_error_now:1:gfc-internal-format");
+  xgettext_record_flag ("gfc_fatal_error:1:gfc-internal-format");
+  xgettext_record_flag ("gfc_internal_error:1:gfc-internal-format");
+  xgettext_record_flag ("gfc_notify_std:2:gfc-internal-format");
+  xgettext_record_flag ("gfc_warning:1:gfc-internal-format");
+  xgettext_record_flag ("gfc_warning_now:1:gfc-internal-format");
 #endif
 }
 

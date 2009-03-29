@@ -53,6 +53,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_perl_brace */	&formatstring_perl_brace,
   /* format_php */		&formatstring_php,
   /* format_gcc_internal */	&formatstring_gcc_internal,
+  /* format_gfc_internal */	&formatstring_gfc_internal,
   /* format_qt */		&formatstring_qt,
   /* format_qt_plural */	&formatstring_qt_plural,
   /* format_kde */		&formatstring_kde,

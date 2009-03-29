@@ -1683,6 +1683,11 @@ xgettext_record_flag (const char *optionstring)
 						    name_start, name_end,
 						    argnum, value, pass);
 		    break;
+		  case format_gfc_internal:
+		    flag_context_list_table_insert (&flag_table_gcc_internal, 1,
+						    name_start, name_end,
+						    argnum, value, pass);
+		    break;
 		  case format_qt:
 		    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
 						    name_start, name_end,

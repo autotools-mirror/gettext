@@ -1,3 +1,22 @@
+2009-03-29  Bruno Haible  <bruno@clisp.org>
+
+	* message.h (format_type): New enum value 'format_gfc_internal'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_gfc_internal entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_gfc_internal): New declaration.
+	* format-gfc-internal.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_gfc_internal.
+	* x-c.h (SCANNERS_C): In language GCC-source, also keep track of
+	gfc-internal-format format strings.
+	* x-c.c (init_flag_table_gcc_internal): Also register flags for
+	gfc-internal-format.
+        * xgettext.c (xgettext_record_flag): Store gfc-internal-format flags in
+	flag_table_gcc_internal.
+        * Makefile.am (FORMAT_SOURCE): Add format-gfc-internal.c.
+        * FILES: Update.
+	Reported by Göran Uddeborg <goeran@uddeborg.se>.
+
 2009-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_qt_plural'.
