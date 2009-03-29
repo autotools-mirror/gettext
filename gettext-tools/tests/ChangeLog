@@ -1,3 +1,15 @@
+2009-03-29  Bruno Haible  <bruno@clisp.org>
+
+	* format-gfc-internal-1: New file.
+	* format-gfc-internal-2: New file.
+	* Makefile.am (TESTS): Add them.
+
+2009-01-28  Bruno Haible  <bruno@clisp.org>
+
+	* format-qt-plural-1: New file.
+	* format-qt-plural-2: New file.
+	* Makefile.am (TESTS): Add them.
+
 2009-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-c-13: Test also the 3 variants of the tr function and the
