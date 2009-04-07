@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2007, 2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,6 +19,9 @@
 AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =
 MOSTLYCLEANFILES =
+
+# List of -I options referring to directories that contain texinfo
+# sources used by this directory.
 TEXINCLUDES = -I $(top_srcdir)/../gettext-runtime/doc
 
 SED = sed
