@@ -162,7 +162,6 @@ uninstall-ps:
 # Override of automake's definition:
 #TEXI2PDF = @TEXI2PDF@
 TEXI2PDF = @TEXI2PDF@ $(TEXINCLUDES)
-SUFFIXES = .pdf
 
 # The install-pdf target is already defined by automake.
 

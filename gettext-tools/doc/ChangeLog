@@ -1,3 +1,8 @@
+2009-04-07  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (SUFFIXES): Remove variable. Not needed any more since
+	automake-1.7.
+
 2009-03-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (PO Files): Mention gfc-internal-format.
