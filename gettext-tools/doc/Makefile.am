@@ -106,7 +106,7 @@ install-html: install-html-split
 uninstall-html: uninstall-html-split
 dist-html: dist-html-split
 
-# gettext.{dvi,ps,pdf,html} are already known to automake.
+# CLEANFILES: gettext.{dvi,ps,pdf,html} are already known to automake.
 MAINTAINERCLEANFILES = gettext_*.html
 
 
