@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2007 Free Software Foundation, Inc.
+## Copyright (C) 2002-2007, 2009 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -105,8 +105,7 @@ install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
 
-CLEANFILES = autosprintf.pdf
-# autosprintf.dvi and autosprintf.ps are already known to automake.
+# CLEANFILES: autosprintf.{dvi,ps,pdf,html} are already known to automake.
 
 
 # Documentation in DVI format.
@@ -142,8 +141,6 @@ uninstall-ps:
 
 
 # Documentation in Portable Document Format.
-
-SUFFIXES = .pdf
 
 # The install-pdf target is already defined by automake.
 

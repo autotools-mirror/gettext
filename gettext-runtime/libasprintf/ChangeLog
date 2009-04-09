@@ -1,3 +1,8 @@
+2009-04-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (SUFFIXES, CLEANFILES): Remove variables. Not needed any
+	more.
+
 2009-03-23  Jim Meyering  <meyering@redhat.com>
 
 	* vasnprintf.c (divide): Fix typo in comment.
