@@ -284,19 +284,6 @@ case "$host_os" in
 esac
 
 dnl Check for nm output filter that yields the exported symbols.
-AC_DEFUN([gt_GLOBAL_SYMBOL_PIPE], [
-  AC_REQUIRE([AC_PROG_NM]) dnl provided by libtool.m4
-  AC_SUBST([NM])
-  AC_REQUIRE([AC_LIBTOOL_SYS_GLOBAL_SYMBOL_PIPE]) dnl provided by libtool.m4
-  GLOBAL_SYMBOL_PIPE=$lt_cv_sys_global_symbol_pipe
-  AC_SUBST([GLOBAL_SYMBOL_PIPE])
-  if test -n "$GLOBAL_SYMBOL_PIPE"; then
-    HAVE_GLOBAL_SYMBOL_PIPE=1
-  else
-    HAVE_GLOBAL_SYMBOL_PIPE=
-  fi
-  AC_SUBST([HAVE_GLOBAL_SYMBOL_PIPE])
-])
 gt_GLOBAL_SYMBOL_PIPE
 
 dnl Check for Emacs and where to install .elc files.

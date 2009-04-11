@@ -1,3 +1,8 @@
+2009-04-11  Bruno Haible  <bruno@clisp.org>
+
+	* exported.m4: New file, extracted from ../configure.ac.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2009-01-25  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Remove locale-ja.m4.

@@ -45,6 +45,7 @@ examplesbuildaux_DATA = \
 # Generate this list with
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
 EXTRA_DIST = README csharpexec-test.exe \
+exported.m4 \
 hostname.m4 \
 libgrep.m4 \
 regex.m4 \
