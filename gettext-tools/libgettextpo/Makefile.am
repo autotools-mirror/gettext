@@ -113,7 +113,7 @@ if WOE32
 WOE32_LIBADD = libgettextpo.res.lo
 libgettextpo.res.lo : $(srcdir)/libgettextpo.rc
 	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res.lo --output-format=coff
-MOSTLYCLEANFILES += libgettextpo.res
+MOSTLYCLEANFILES += libgettextpo.res.lo
 else
 WOE32_LIBADD =
 endif

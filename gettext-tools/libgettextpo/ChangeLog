@@ -5,6 +5,7 @@
 	libgettextpo.res.lo instead of libgettextpo.res.
 	(libgettextpo.res.lo): Renamed from libgettextpo.res. Use libtool
 	--tag=RC.
+	(MOSTLYCLEANFILES): Update.
 
 2009-01-18  Bruno Haible  <bruno@clisp.org>
 
