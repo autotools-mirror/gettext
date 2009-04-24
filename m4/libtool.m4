@@ -3176,7 +3176,10 @@ AC_CACHE_CHECK([for BSD- or MS-compatible name lister (nm)], lt_cv_path_NM,
   lt_cv_path_NM="$NM"
 else
   lt_nm_to_check="${ac_tool_prefix}nm"
-  if test -n "$ac_tool_prefix" && test "$build" = "$host"; then
+  if test -n "$ac_tool_prefix" \
+     && { test "$build" = "$host" \
+          || { test "$build_os" = cygwin && test "$host_os" = mingw32; }; \
+        }; then
     lt_nm_to_check="$lt_nm_to_check nm"
   fi
   for lt_tmp_nm in $lt_nm_to_check; do

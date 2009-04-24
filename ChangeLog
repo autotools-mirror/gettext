@@ -1,5 +1,11 @@
 2009-04-23  Bruno Haible  <bruno@clisp.org>
 
+	Fix recognition of "nm" command.
+	* m4/libtool.m4 (LT_PATH_NM): Try "nm" program also when compiling for
+	mingw in a cygwin environment.
+
+2009-04-23  Bruno Haible  <bruno@clisp.org>
+
 	* m4/libtool.m4: Fix recognition of 'link' command.
 	2009-01-26  Peter Rosin  <peda@lysator.liu.se>
 		Don't settle for any dumpbin/link program as name lister.
