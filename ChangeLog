@@ -1,3 +1,15 @@
+2009-04-23  Bruno Haible  <bruno@clisp.org>
+
+	* m4/libtool.m4: Fix recognition of 'link' command.
+	2009-01-26  Peter Rosin  <peda@lysator.liu.se>
+		Don't settle for any dumpbin/link program as name lister.
+		* m4/libtool.m4 (LT_PATH_NM): When locating dumpbin or
+		link -dump, check if they appear to really be capable of name
+		listing, in order to eliminate e.g. link from coreutils. This
+		makes the name lister decision fall back on nm as the default
+		if no acceptable candidate is found, which mainly happens on
+		(arguably broken) cross compiles.
+
 2009-03-14  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Checkout gnulib using 'git' instead of 'cvs'.
