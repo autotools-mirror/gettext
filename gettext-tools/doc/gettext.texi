@@ -136,10 +136,8 @@ A copy of the license is included in @ref{GNU GPL}.
 @end ifnothtml
 @end titlepage
 
-@ifnottex
 @c Table of Contents
 @contents
-@end ifnottex
 
 @ifset makeinfo
 @node Top, Introduction, (dir), (dir)
@@ -12062,11 +12060,6 @@ A copy of the license is included in @ref{GNU GPL}.
 @unnumbered General Index
 
 @printindex cp
-
-@iftex
-@c Table of Contents
-@contents
-@end iftex
 
 @bye
 

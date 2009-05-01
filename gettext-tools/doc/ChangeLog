@@ -1,3 +1,8 @@
+2009-05-01  Bruno Haible  <bruno@clisp.org>
+
+	Undo 2005-02-23 change.
+	* gettext.texi: Put the table of contents back to the start.
+
 2009-04-08  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (CLEANFILES): Remove variable. Not needed any more 
