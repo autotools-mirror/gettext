@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -683,7 +683,7 @@ extract_parenthesized (message_list_ty *mlp,
 		  /* Seen an msgid.  */
 		  plural_mp = remember_a_message (mlp, NULL, token.string,
 						  inner_context, &pos,
-						  token.comment);
+						  NULL, token.comment);
 		  state = 2;
 		}
 	      else

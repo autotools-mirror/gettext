@@ -1,5 +1,5 @@
 /* xgettext glade backend.
-   Copyright (C) 2002-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -385,6 +385,7 @@ static XML_Parser parser;
 struct element_state
 {
   bool extract_string;
+  char *extracted_comment;
   int lineno;
   char *buffer;
   size_t bufmax;
@@ -427,27 +428,36 @@ start_element_handler (void *userData, const char *name,
 
   p = &stack[stack_depth];
   p->extract_string = extract_all;
+  p->extracted_comment = NULL;
   /* In Glade 1, a few specific elements are translatable.  */
   if (!p->extract_string)
     p->extract_string =
       (hash_find_entry (&keywords, name, strlen (name), &hash_result) == 0);
   /* In Glade 2, all <property> and <atkproperty> elements are translatable
-     that have the attribute translatable="yes".  */
+     that have the attribute translatable="yes".
+     See <http://library.gnome.org/devel/libglade/unstable/libglade-dtd.html>.
+     The translator comment is found in the attribute comments="...".
+     See <http://live.gnome.org/TranslationProject/DevGuidelines/Use comments>.
+   */
   if (!p->extract_string
       && (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0))
     {
       bool has_translatable = false;
+      const char *extracted_comment = NULL;
       const char **attp = attributes;
       while (*attp != NULL)
 	{
 	  if (strcmp (attp[0], "translatable") == 0)
-	    {
-	      has_translatable = (strcmp (attp[1], "yes") == 0);
-	      break;
-	    }
+	    has_translatable = (strcmp (attp[1], "yes") == 0);
+	  else if (strcmp (attp[0], "comments") == 0)
+	    extracted_comment = attp[1];
 	  attp += 2;
 	}
       p->extract_string = has_translatable;
+      p->extracted_comment =
+	(has_translatable && extracted_comment != NULL
+	 ? xstrdup (extracted_comment)
+	 : NULL);
     }
   if (!p->extract_string
       && strcmp (name, "atkaction") == 0)
@@ -465,7 +475,8 @@ start_element_handler (void *userData, const char *name,
 		  pos.line_number = XML_GetCurrentLineNumber (parser);
 
 		  remember_a_message (mlp, NULL, xstrdup (attp[1]),
-				      null_context, &pos, savable_comment);
+				      null_context, &pos,
+				      NULL, savable_comment);
 		}
 	      break;
 	    }
@@ -502,12 +513,14 @@ end_element_handler (void *userData, const char *name)
 	  pos.line_number = p->lineno;
 
 	  remember_a_message (mlp, NULL, p->buffer, null_context, &pos,
-			      savable_comment);
+			      p->extracted_comment, savable_comment);
 	  p->buffer = NULL;
 	}
     }
 
   /* Free memory for this stack level.  */
+  if (p->extracted_comment != NULL)
+    free (p->extracted_comment);
   if (p->buffer != NULL)
     free (p->buffer);
 

@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -1795,7 +1795,7 @@ extract_balanced (message_list_ty *mlp,
 	    xgettext_current_source_encoding = po_charset_utf8;
 	    if (extract_all)
 	      remember_a_message (mlp, NULL, token.string, inner_context,
-				  &pos, token.comment);
+				  &pos, NULL, token.comment);
 	    else
 	      arglist_parser_remember (argparser, arg, token.string,
 				       inner_context,

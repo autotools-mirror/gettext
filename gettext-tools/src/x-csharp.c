@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -2078,7 +2078,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 	    xgettext_current_source_encoding = po_charset_utf8;
 	    if (extract_all)
 	      remember_a_message (mlp, NULL, token.string, inner_context,
-				  &pos, token.comment);
+				  &pos, NULL, token.comment);
 	    else
 	      arglist_parser_remember (argparser, arg, token.string,
 				       inner_context,

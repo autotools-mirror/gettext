@@ -1,3 +1,32 @@
+2009-05-16  Bruno Haible  <bruno@clisp.org>
+
+	Extract comments meant for translators from Glade input files.
+	* xgettext.h (remember_a_message): Add 'extracted_comment' argument.
+	* xgettext.c (remember_a_message): Likewise.
+	(arglist_parser_done): Update.
+	* x-glade.c (struct element_state): Add field 'extracted_comment'.
+	(start_element_handler): Fill it.
+	(end_element_handler): Pass it to 'remember_a_message', free it.
+	* x-awk.c (extract_parenthesized): Update.
+	* x-c.c (extract_parenthesized): Update.
+	* x-csharp.c (extract_parenthesized): Update.
+	* x-elisp.c (read_object): Update.
+	* x-java.c (extract_parenthesized): Update.
+	* x-librep.c (read_object): Update.
+	* x-lisp.c (read_object): Update.
+	* x-perl.c (extract_variable, interpolate_keywords, extract_balanced):
+	Update.
+	* x-php.c (extract_balanced): Update.
+	* x-python.c (extract_balanced): Update.
+	* x-rst.c (extract_rst): Update.
+	* x-scheme.c (read_object): Update.
+	* x-sh.c (read_word, read_command): Update.
+	* x-smalltalk.c (extract_smalltalk): Update.
+	* x-tcl.c (read_command): Update.
+	* x-ycp.c (extract_parenthesized): Update.
+	Reported by <sandro.bonazzola@gmail.com>
+	at <https://savannah.gnu.org/bugs/?26570>.
+
 2009-03-29  Bruno Haible  <bruno@clisp.org>
 
 	* message.h (format_type): New enum value 'format_gfc_internal'.

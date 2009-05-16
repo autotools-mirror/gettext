@@ -1,5 +1,5 @@
 /* xgettext Tcl backend.
-   Copyright (C) 2002-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -887,7 +887,8 @@ read_command (int looking_for, flag_context_ty outer_context)
 		pos.file_name = logical_file_name;
 		pos.line_number = inner.line_number_at_start;
 		remember_a_message (mlp, NULL, string_of_word (&inner),
-				    inner_context, &pos, savable_comment);
+				    inner_context, &pos,
+				    NULL, savable_comment);
 	      }
 	  }
 

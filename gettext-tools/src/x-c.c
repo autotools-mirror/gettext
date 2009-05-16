@@ -1888,7 +1888,7 @@ extract_parenthesized (message_list_ty *mlp,
 	case xgettext_token_type_string_literal:
 	  if (extract_all)
 	    remember_a_message (mlp, NULL, token.string, inner_context,
-				&token.pos, token.comment);
+				&token.pos, NULL, token.comment);
 	  else
 	    arglist_parser_remember (argparser, arg, token.string,
 				     inner_context,

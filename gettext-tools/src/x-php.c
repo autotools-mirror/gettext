@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -1525,7 +1525,7 @@ extract_balanced (message_list_ty *mlp,
 
 	    if (extract_all)
 	      remember_a_message (mlp, NULL, token.string, inner_context,
-				  &pos, token.comment);
+				  &pos, NULL, token.comment);
 	    else
 	      arglist_parser_remember (argparser, arg, token.string,
 				       inner_context,

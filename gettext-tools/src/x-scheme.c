@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2008 Free Software Foundation, Inc.
+   Copyright (C) 2004-2009 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -1133,7 +1133,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 		pos.file_name = logical_file_name;
 		pos.line_number = op->line_number_at_start;
 		remember_a_message (mlp, NULL, string_of_object (op),
-				    null_context, &pos, savable_comment);
+				    null_context, &pos, NULL, savable_comment);
 	      }
 	    last_non_comment_line = line_number;
 	    return;

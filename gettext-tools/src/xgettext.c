@@ -2086,6 +2086,7 @@ and a mapping instead of a tuple for the arguments.\n"),
 message_ty *
 remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 		    flag_context_ty context, lex_pos_ty *pos,
+		    const char *extracted_comment,
 		    refcounted_string_list_ty *comment)
 {
   enum is_format is_format[NFORMATS];
@@ -2179,6 +2180,9 @@ meta information, not the empty string.\n")));
     bool add_all_remaining_comments;
 
     nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
+
+    if (extracted_comment != NULL)
+      message_comment_dot_append (mp, extracted_comment);
 
     add_all_remaining_comments = add_all_comments;
     for (j = 0; ; ++j)
@@ -2868,7 +2872,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 	    mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
 				     msgid_context,
 				     &best_cp->msgid_pos,
-				     best_cp->msgid_comment);
+				     NULL, best_cp->msgid_comment);
 	    if (best_cp->msgid_plural != NULL)
 	      remember_a_message_plural (mp, best_cp->msgid_plural,
 					 msgid_plural_context,

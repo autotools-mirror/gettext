@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2008 Free Software Foundation, Inc.
+   Copyright (C) 2002-2009 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -1554,7 +1554,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 
 			xgettext_current_source_encoding = po_charset_utf8;
 			remember_a_message (mlp, NULL, xstrdup (t1->string),
-					    context, &pos, savable_comment);
+					    context, &pos, NULL, savable_comment);
 			xgettext_current_source_encoding = xgettext_global_source_encoding;
 			free_token (t2);
 			free_token (t1);
@@ -1984,7 +1984,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
 	      xgettext_current_source_encoding = po_charset_utf8;
 	      remember_a_message (mlp, NULL, token.string, context, &pos,
-				  savable_comment);
+				  NULL, savable_comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	      /* FALLTHROUGH */
 	    default:
@@ -3154,7 +3154,7 @@ extract_balanced (message_list_ty *mlp,
 	      pos.line_number = tp->line_number;
 	      xgettext_current_source_encoding = po_charset_utf8;
 	      remember_a_message (mlp, NULL, string, inner_context, &pos,
-				  tp->comment);
+				  NULL, tp->comment);
 	      xgettext_current_source_encoding = xgettext_global_source_encoding;
 	    }
 	  else if (!skip_until_comma)
