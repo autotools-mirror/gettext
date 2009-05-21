@@ -1,3 +1,11 @@
+2009-05-21  Bruno Haible  <bruno@clisp.org>
+
+	Fix installation name of manual pages when --program-prefix is used.
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 1.11.
+	(man_MANS): Remove manual pages for functions.
+	(notrans_man_MANS): New variable.
+	Reported at <https://savannah.gnu.org/bugs/?25921>.
+
 2007-11-07  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.17 released.

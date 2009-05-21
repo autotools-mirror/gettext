@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006, 2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 VERSION = @VERSION@
 
-AUTOMAKE_OPTIONS = 1.2 gnits
+AUTOMAKE_OPTIONS = 1.11 gnits
 EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am.
@@ -36,7 +36,8 @@ textdomain.3 bindtextdomain.3 bind_textdomain_codeset.3
 man_MAN3IN = gettext.3.in ngettext.3.in \
 textdomain.3.in bindtextdomain.3.in bind_textdomain_codeset.3.in
 man_MAN3LINK = dgettext.3 dcgettext.3 dngettext.3 dcngettext.3
-man_MANS = $(man_MAN1) $(man_MAN3) $(man_MAN3LINK)
+man_MANS = $(man_MAN1)
+notrans_man_MANS = $(man_MAN3) $(man_MAN3LINK)
 
 man_HTMLGEN = gettext.1.html ngettext.1.html
 man_HTMLIN = gettext.1.html.in ngettext.1.html.in
