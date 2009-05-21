@@ -1,3 +1,9 @@
+2009-05-21  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake >= 1.10.2.
+	* m4/fixautomake.m4 (FIX_MAKEFILE_COMPILE, FIX_MAKEFILE_INFO): Remove
+	macros.
+
 2009-04-23  Bruno Haible  <bruno@clisp.org>
 
 	Fix recognition of "nm" command.

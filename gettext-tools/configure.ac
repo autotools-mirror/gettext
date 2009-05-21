@@ -354,9 +354,7 @@ AC_CONFIG_SUBDIRS([examples])
 AC_CONFIG_FILES([Makefile])
 
 AC_CONFIG_FILES([doc/Makefile],
-                [FIX_MAKEFILE_COMPILE
-                 FIX_MAKEFILE_DISTRIB
-                 FIX_MAKEFILE_INFO])
+                [FIX_MAKEFILE_DISTRIB])
 
 AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   # Change srcdir variable so that it points to ../gettext-runtime/intl.
@@ -366,18 +364,14 @@ AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   mv intl/Makefile.tmp intl/Makefile
   ])
 
-AC_CONFIG_FILES([gnulib-lib/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([gnulib-lib/Makefile])
 
-AC_CONFIG_FILES([libgrep/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([libgrep/Makefile])
 
-AC_CONFIG_FILES([src/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
 
-AC_CONFIG_FILES([libgettextpo/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([libgettextpo/Makefile])
 AC_CONFIG_FILES([libgettextpo/exported.sh])
 
 AC_CONFIG_FILES([po/Makefile.in])
@@ -396,10 +390,8 @@ AC_CONFIG_FILES([man/x-to-1])
 
 AC_CONFIG_FILES([m4/Makefile])
 
-AC_CONFIG_FILES([tests/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([tests/Makefile])
 
-AC_CONFIG_FILES([gnulib-tests/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([gnulib-tests/Makefile])
 
 AC_OUTPUT

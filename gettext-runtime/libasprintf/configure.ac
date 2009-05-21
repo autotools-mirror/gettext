@@ -89,8 +89,6 @@ AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
 AC_PATH_PROG([TEXI2PDF], [texi2pdf], [$ac_aux_dir_abs/missing texi2pdf])
 AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
-AC_CONFIG_FILES([Makefile],
-                [FIX_MAKEFILE_COMPILE
-                 FIX_MAKEFILE_INFO])
+AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT

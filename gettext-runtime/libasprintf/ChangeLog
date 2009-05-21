@@ -1,3 +1,9 @@
+2009-05-21  Bruno Haible  <bruno@clisp.org>
+
+	Assume automake >= 1.10.2.
+	* configure.ac (AC_CONFIG_FILES): Remove FIX_MAKEFILE_COMPILE,
+	FIX_MAKEFILE_INFO invocations.
+
 2009-04-26  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Update after the calling convention of

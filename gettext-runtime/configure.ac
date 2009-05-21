@@ -153,11 +153,9 @@ AC_CONFIG_FILES([intl-java/Makefile])
 
 AC_CONFIG_FILES([intl-csharp/Makefile])
 
-AC_CONFIG_FILES([gnulib-lib/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([gnulib-lib/Makefile])
 
-AC_CONFIG_FILES([src/Makefile],
-                [FIX_MAKEFILE_COMPILE])
+AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/gettext.sh], [chmod a+x src/gettext.sh])
 
 AC_CONFIG_FILES([po/Makefile.in])
