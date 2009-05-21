@@ -1,5 +1,5 @@
 ## Makefile for the autoconf-lib-link/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2003, 2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2003, 2006, 2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+AUTOMAKE_OPTIONS = 1.11 gnits no-dependencies color-tests
 MOSTLYCLEANFILES =
 
 TESTS = rpath-1a rpath-1b \
