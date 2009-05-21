@@ -1,5 +1,10 @@
 2009-05-21  Bruno Haible  <bruno@clisp.org>
 
+	Require automake >= 1.11.
+	* autogen.sh: Update comment.
+
+2009-05-21  Bruno Haible  <bruno@clisp.org>
+
 	Support automake 1.11.
 	* m4/fixautomake.m4 (FIX_MAKEFILE_TOPDIR_DISTRIB): Update for
 	automake 1.11.
