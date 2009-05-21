@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
+AUTOMAKE_OPTIONS = 1.11 gnits no-dependencies color-tests
 EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
