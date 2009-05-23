@@ -21,7 +21,8 @@ AC_INIT
 AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
 AC_CONFIG_AUX_DIR([build-aux])
 . $srcdir/version.sh
-AM_INIT_AUTOMAKE([gettext], [$VERSION_NUMBER])
+gl_INIT_PACKAGE([gettext], [$VERSION_NUMBER])
+AM_INIT_AUTOMAKE
 
 dnl Override automake's tar command used for creating distributions.
 am__tar='${AMTAR} chof - --owner=root --group=root "$$tardir"'

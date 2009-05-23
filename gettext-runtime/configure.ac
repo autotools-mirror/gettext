@@ -21,7 +21,8 @@ AC_INIT
 AC_CONFIG_SRCDIR([intl/dcigettext.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 . $srcdir/../version.sh
-AM_INIT_AUTOMAKE([gettext-runtime], [$VERSION_NUMBER])
+gl_INIT_PACKAGE([gettext-runtime], [$VERSION_NUMBER])
+AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER([config.h])
 
 dnl Installation directories.

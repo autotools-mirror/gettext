@@ -1,3 +1,8 @@
+2009-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Invoke gl_INIT_PACKAGE. Use the preferred form of
+	AM_INIT_AUTOMAKE.
+
 2009-01-27  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c++-qt/po/Makefile.am (XGETTEXT_OPTIONS): Add more options for

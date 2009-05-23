@@ -1,3 +1,9 @@
+2009-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* m4/init-package-version.m4: New file.
+	* configure.ac: Invoke gl_INIT_PACKAGE. Use the preferred form of
+	AM_INIT_AUTOMAKE.
+
 2009-05-21  Bruno Haible  <bruno@clisp.org>
 
 	Require automake >= 1.11.
