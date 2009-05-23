@@ -307,7 +307,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  fi
 )
 
-build-aux/fixaclocal aclocal
+build-aux/fixaclocal aclocal -I m4
 autoconf
 automake
 

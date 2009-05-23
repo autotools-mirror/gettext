@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = build-aux/fixaclocal @ACLOCAL@
+ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = gnulib-local gettext-runtime gettext-tools autoconf-lib-link
 
