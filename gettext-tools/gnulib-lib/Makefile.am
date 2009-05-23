@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2006, 2009 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -62,12 +62,12 @@ MOOPPFLAGS += --dllexport=styled_ostream
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
 if !WOE32DLL
-libgettextlib_la_LINK = $(LIBTOOL) --tag=CC \
+libgettextlib_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
 	$(CCLD) $(AM_CFLAGS) $(CFLAGS) $(libgettextlib_la_LDFLAGS) $(LDFLAGS) \
 	-o $@
 else
-libgettextlib_la_LINK = $(LIBTOOL) --tag=CXX \
+libgettextlib_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
 	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(libgettextlib_la_LDFLAGS) $(LDFLAGS) \
 	-o $@

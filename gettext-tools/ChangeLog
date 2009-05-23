@@ -1,5 +1,10 @@
 2009-05-23  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac (AM_INIT_AUTOMAKE): Add 'silent-rules' option.
+	* gnulib-lib/Makefile.am (libgettextlib_la_LINK): Add $(AM_V_lt) flag.
+
+2009-05-23  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Invoke gl_INIT_PACKAGE. Use the preferred form of
 	AM_INIT_AUTOMAKE.
 

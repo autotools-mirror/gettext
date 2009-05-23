@@ -1,3 +1,9 @@
+2009-05-23  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextsrc_la_LINK, msgattrib_LINK, msgcat_LINK,
+	msgcomm_LINK, msgconv_LINK, msgen_LINK, msgfilter_LINK, msggrep_LINK,
+	msgmerge_LINK, msguniq_LINK, xgettext_LINK): Add $(AM_V_lt) flag.
+
 2009-05-16  Bruno Haible  <bruno@clisp.org>
 
 	Extract comments meant for translators from Glade input files.
