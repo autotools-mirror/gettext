@@ -40,11 +40,11 @@ typedef uint32_t guint32;
 typedef size_t gsize;
 typedef ssize_t gssize;
 
-#define GPOINTER_TO_INT(p)	((gint)   (p))
-#define GPOINTER_TO_UINT(p)	((guint)  (p))
+#define GPOINTER_TO_INT(p)	((gint)  (intptr_t)  (p))
+#define GPOINTER_TO_UINT(p)	((guint) (uintptr_t) (p))
 
-#define GINT_TO_POINTER(i)	((gpointer)  (i))
-#define GUINT_TO_POINTER(u)	((gpointer)  (u))
+#define GINT_TO_POINTER(i)	((gpointer) (intptr_t)  (i))
+#define GUINT_TO_POINTER(u)	((gpointer) (uintptr_t) (u))
 
 #define g_memmove memmove
 
