@@ -1,5 +1,9 @@
 2009-06-06  Bruno Haible  <bruno@clisp.org>
 
+	* configure.ac (AM_INIT_AUTOMAKE): Add 'silent-rules' option.
+
+2009-06-06  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac: Pass package and version to AC_INIT instead of
 	AM_INIT_AUTOMAKE.
 
