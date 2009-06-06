@@ -357,8 +357,7 @@ AC_CONFIG_SUBDIRS([examples])
 
 AC_CONFIG_FILES([Makefile])
 
-AC_CONFIG_FILES([doc/Makefile],
-                [FIX_MAKEFILE_DISTRIB])
+AC_CONFIG_FILES([doc/Makefile])
 
 AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
   # Change srcdir variable so that it points to ../gettext-runtime/intl.

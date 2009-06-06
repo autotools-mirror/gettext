@@ -94,8 +94,7 @@ all-local: html-local
 install-data-local: install-html
 installdirs-local: installdirs-html
 uninstall-local: uninstall-html
-# Hidden from automake, but really activated. Works around an automake-1.5 bug.
-#distdir: dist-html
+dist-hook: dist-html
 
 html-local: html-split
 # Override of automake's definition. The HTML files we want to distribute are
