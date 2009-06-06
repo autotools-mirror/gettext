@@ -1,3 +1,8 @@
+2009-06-06  Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (x_perl_prelex): Recognize the perl 5.10 operator '//'.
+	Reported by Kevin Ryde <user42@zip.com.au>.
+
 2009-05-29  Bruno Haible  <bruno@clisp.org>
 
 	Improve msgfmt error message about format directive mismatches

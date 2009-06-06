@@ -44,7 +44,9 @@
 /* The Perl syntax is defined in perlsyn.pod.  Try the command
    "man perlsyn" or "perldoc perlsyn".
    Also, the syntax after the 'sub' keyword is specified in perlsub.pod.
-   Try the command "man perlsub" or "perldoc perlsub".  */
+   Try the command "man perlsub" or "perldoc perlsub".
+   Perl 5.10 has new operators '//' and '//=', see
+   <http://perldoc.perl.org/perldelta.html#Defined-or-operator>.  */
 
 #define DEBUG_PERL 0
 
@@ -2524,12 +2526,20 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
 	      phase1_ungetc (c);
 	      return;
 	    }
+	  /* Recognize operator '//'.  */
+	  if (c == '/')
+	    {
+	      c = phase1_getc ();
+	      if (c != '/')
+		phase1_ungetc (c);
+	    }
 	  /* FALLTHROUGH */
 
 	default:
 	  /* We could carefully recognize each of the 2 and 3 character
-	     operators, but it is not necessary, as we only need to recognize
-	     gettext invocations.  Don't bother.  */
+	     operators, but it is not necessary, except for the '//' operator,
+	     as we only need to recognize gettext invocations.  Don't
+	     bother.  */
 	  tp->type = token_type_other;
 	  prefer_division_over_regexp = false;
 	  return;
