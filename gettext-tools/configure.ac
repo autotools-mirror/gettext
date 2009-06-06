@@ -324,6 +324,9 @@ gt_LOCALE_JA
 dnl Checks for functions for the tests/*.c tests.
 AC_CHECK_FUNCS_ONCE([getrlimit setrlimit])
 
+dnl Prepares the libtool configuration for languages used by the tests.
+LT_LANG([C++])
+
 dnl Check whether to execute tests that rely on libasprintf.
 dnl This test must be consistent with gettext-runtime/configure.ac.
 if test "${enable_libasprintf+set}" = set; then

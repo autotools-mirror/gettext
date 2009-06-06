@@ -1,3 +1,8 @@
+2009-05-29  Bruno Haible  <bruno@clisp.org>
+
+	Avoid lang-c++ test failure.
+	* lang-c++: Pass --tag option to libtool.
+
 2009-05-21  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (AUTOMAKE_OPTIONS): Add 1.11 and color-tests.
