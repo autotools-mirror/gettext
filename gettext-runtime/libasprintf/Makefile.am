@@ -67,7 +67,7 @@ EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
 # to create a shared library, however "libtool --tag=CC" succeeds.
 libasprintf_la_LDFLAGS = @LTNOUNDEF@
 libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
-	$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
+	$(AM_V_GEN)$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
 	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)
 
 
