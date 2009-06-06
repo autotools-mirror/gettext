@@ -144,6 +144,10 @@ sub testFunc($\$;*@) { }
 If you have gettext()'d foo bar test3'...
 =cut
 
+gettext "Before slash-slash";
+print $foo // 'undef';
+gettext "After slash-slash";
+
 __END__
 gettext "Discarded!";
 EOF
@@ -318,6 +322,14 @@ msgstr ""
 #: xg-pl-1.pl:114 xg-pl-1.pl:116 xg-pl-1.pl:118
 #, perl-format, no-perl-brace-format
 msgid "Left as an %exercise to {maintainer}."
+msgstr ""
+
+#: xg-pl-1.pl:138
+msgid "Before slash-slash"
+msgstr ""
+
+#: xg-pl-1.pl:140
+msgid "After slash-slash"
 msgstr ""
 EOF
 

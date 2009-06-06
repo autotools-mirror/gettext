@@ -1,3 +1,7 @@
+2009-06-06  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-perl-1: Add test of // operator.
+
 2009-05-29  Bruno Haible  <bruno@clisp.org>
 
 	* msgfmt-10: Update after msgfmt's error message changed.
