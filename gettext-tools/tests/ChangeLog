@@ -1,5 +1,9 @@
 2009-05-29  Bruno Haible  <bruno@clisp.org>
 
+	* msgfmt-10: Update after msgfmt's error message changed.
+
+2009-05-29  Bruno Haible  <bruno@clisp.org>
+
 	Avoid lang-c++ test failure.
 	* lang-c++: Pass --tag option to libtool.
 
