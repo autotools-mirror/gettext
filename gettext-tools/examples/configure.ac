@@ -22,7 +22,7 @@ AC_CONFIG_SRCDIR([installpaths.in])
 AC_CONFIG_AUX_DIR([../../build-aux])
 . $srcdir/../../version.sh
 gl_INIT_PACKAGE([gettext-examples], [$VERSION_NUMBER])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([silent-rules])
 
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'

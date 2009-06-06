@@ -1,3 +1,11 @@
+2009-06-06  Bruno Haible  <bruno@clisp.org>
+
+	Interoperate with automake-1.11 provided --enable-silent-rules option.
+	* Makefile.in (AM_V_at, AM_V_AR, AM_V_CC, AM_V_GEN, AM_V_YACC,
+	AM_V_lt): New variables.
+	(libintl.a, libintl.la, .c.o, .y.c, *.lo): Silence 'make' output if
+	silent rules requested.
+
 2009-04-26  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c (VASNPRINTF): Update after the calling convention of

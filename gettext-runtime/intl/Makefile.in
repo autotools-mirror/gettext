@@ -77,6 +77,26 @@ WINDRES = @WINDRES@
 # Windows resource compiler (windres). Used via libtool.
 RC = @RC@
 
+# Support for silent-rules.
+AM_V_at = $(am__v_at_$(V))
+am__v_at_ = $(am__v_at_@INTL_DEFAULT_VERBOSITY@)
+am__v_at_0 = @
+AM_V_AR = $(am__v_AR_$(V))
+am__v_AR_ = $(am__v_AR_@INTL_DEFAULT_VERBOSITY@)
+am__v_AR_0 = @echo "  AR    " $@;
+AM_V_CC = $(am__v_CC_$(V))
+am__v_CC_ = $(am__v_CC_@INTL_DEFAULT_VERBOSITY@)
+am__v_CC_0 = @echo "  CC    " $@;
+AM_V_GEN = $(am__v_GEN_$(V))
+am__v_GEN_ = $(am__v_GEN_@INTL_DEFAULT_VERBOSITY@)
+am__v_GEN_0 = @echo "  GEN   " $@;
+AM_V_YACC = $(am__v_YACC_$(V))
+am__v_YACC_ = $(am__v_YACC_@INTL_DEFAULT_VERBOSITY@)
+am__v_YACC_0 = @echo "  YACC  " $@;
+AM_V_lt = $(am__v_lt_$(V))
+am__v_lt_ = $(am__v_lt_@INTL_DEFAULT_VERBOSITY@)
+am__v_lt_0 = --silent
+
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
@@ -191,12 +211,12 @@ all-no-yes: libgnuintl.$la
 all-no-no:
 
 libintl.a libgnuintl.a: $(OBJECTS)
-	rm -f $@
-	$(AR) cru $@ $(OBJECTS)
-	$(RANLIB) $@
+	$(AM_V_at)rm -f $@
+	$(AM_V_AR)$(AR) cru $@ $(OBJECTS)
+	$(AM_V_at)$(RANLIB) $@
 
 libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
-	$(LIBTOOL) --mode=link \
+	$(AM_V_GEN)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=link \
 	  $(CC) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS) $(LDFLAGS) -o $@ \
 	  $(OBJECTS) @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(LIBS) @LTLIBTHREAD@ @LTLIBC@ \
 	  $(OBJECTS_RES_@WOE32@) \
@@ -217,68 +237,68 @@ LTV_AGE=0
 .SUFFIXES: .c .y .o .lo .sin .sed
 
 .c.o:
-	$(COMPILE) $<
+	$(AM_V_CC)$(COMPILE) $<
 
 .y.c:
-	$(YACC) $(YFLAGS) --output $@ $<
-	rm -f $*.h
+	$(AM_V_YACC)$(YACC) $(YFLAGS) --output $@ $<
+	$(AM_V_at)rm -f $*.h
 
 bindtextdom.lo: $(srcdir)/bindtextdom.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/bindtextdom.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/bindtextdom.c
 dcgettext.lo: $(srcdir)/dcgettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcgettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dcgettext.c
 dgettext.lo: $(srcdir)/dgettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dgettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dgettext.c
 gettext.lo: $(srcdir)/gettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/gettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/gettext.c
 finddomain.lo: $(srcdir)/finddomain.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/finddomain.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/finddomain.c
 hash-string.lo: $(srcdir)/hash-string.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/hash-string.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/hash-string.c
 loadmsgcat.lo: $(srcdir)/loadmsgcat.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/loadmsgcat.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/loadmsgcat.c
 localealias.lo: $(srcdir)/localealias.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localealias.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/localealias.c
 textdomain.lo: $(srcdir)/textdomain.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/textdomain.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/textdomain.c
 l10nflist.lo: $(srcdir)/l10nflist.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/l10nflist.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/l10nflist.c
 explodename.lo: $(srcdir)/explodename.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/explodename.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/explodename.c
 dcigettext.lo: $(srcdir)/dcigettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcigettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dcigettext.c
 dcngettext.lo: $(srcdir)/dcngettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dcngettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dcngettext.c
 dngettext.lo: $(srcdir)/dngettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/dngettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dngettext.c
 ngettext.lo: $(srcdir)/ngettext.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/ngettext.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/ngettext.c
 plural.lo: $(srcdir)/plural.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/plural.c
 plural-exp.lo: $(srcdir)/plural-exp.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
 localcharset.lo: $(srcdir)/localcharset.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localcharset.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/localcharset.c
 threadlib.lo: $(srcdir)/threadlib.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/threadlib.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/threadlib.c
 lock.lo: $(srcdir)/lock.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/lock.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/lock.c
 relocatable.lo: $(srcdir)/relocatable.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/relocatable.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/relocatable.c
 langprefs.lo: $(srcdir)/langprefs.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/langprefs.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/langprefs.c
 localename.lo: $(srcdir)/localename.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/localename.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/localename.c
 log.lo: $(srcdir)/log.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/log.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/log.c
 printf.lo: $(srcdir)/printf.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/printf.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/printf.c
 version.lo: $(srcdir)/version.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/version.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/version.c
 osdep.lo: $(srcdir)/osdep.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/osdep.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
-	$(LIBTOOL) --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/intl-compat.c
 
 # This rule is executed only on Woe32 systems.
 # The following sed expressions come from the windres-options script. They are

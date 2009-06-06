@@ -22,7 +22,7 @@ AC_CONFIG_SRCDIR([tests/rpath-1a])
 AC_CONFIG_AUX_DIR([../build-aux])
 . $srcdir/../version.sh
 gl_INIT_PACKAGE([autoconf-lib-link], [$VERSION_NUMBER])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([silent-rules])
 
 dnl Checks for programs.
 AC_PROG_CC

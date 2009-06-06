@@ -1,4 +1,4 @@
-# intl.m4 serial 12 (gettext-0.18)
+# intl.m4 serial 13 (gettext-0.18)
 dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -41,6 +41,14 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gl_GLIBC21])dnl
   AC_REQUIRE([gl_XSIZE])dnl
   AC_REQUIRE([gt_INTL_MACOSX])dnl
+
+  dnl Support for automake's --enable-silent-rules.
+  case "$enable_silent_rules" in
+    yes) INTL_DEFAULT_VERBOSITY=0;;
+    no)  INTL_DEFAULT_VERBOSITY=1;;
+    *)   INTL_DEFAULT_VERBOSITY=1;;
+  esac
+  AC_SUBST([INTL_DEFAULT_VERBOSITY])
 
   AC_CHECK_TYPE([ptrdiff_t], ,
     [AC_DEFINE([ptrdiff_t], [long],

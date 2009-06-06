@@ -1,3 +1,8 @@
+2009-06-06  Bruno Haible  <bruno@clisp.org>
+
+	Interoperate with automake-1.11 provided --enable-silent-rules option.
+	* intl.m4 (AM_INTL_SUBDIR): Set INTL_DEFAULT_VERBOSITY.
+
 2009-05-21  Bruno Haible  <bruno@clisp.org>
 
 	Avoid redefinition warnings for SIZE_MAX.
