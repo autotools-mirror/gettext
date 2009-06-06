@@ -96,7 +96,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -107,8 +107,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       || (equality && spec1->directives > 0 && spec2->directives == 0))
     {
       if (error_logger)
-	error_logger (_("number of format specifications in 'msgid' and '%s' does not match"),
-		      pretty_msgstr);
+	error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+		      pretty_msgid, pretty_msgstr);
       err = true;
     }
 

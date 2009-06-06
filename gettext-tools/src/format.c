@@ -91,6 +91,8 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 
   if (msgid_descr != NULL)
     {
+      const char *pretty_msgid =
+	(msgid_plural != NULL ? "msgid_plural" : "msgid");
       char buf[18+1];
       const char *pretty_msgstr = "msgstr";
       bool has_plural_translations = (strlen (msgstr) + 1 < msgstr_len);
@@ -136,7 +138,7 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 
 	      if (parser->check (msgid_descr, msgstr_descr,
 				 strict_checking,
-				 error_logger, pretty_msgstr))
+				 error_logger, pretty_msgid, pretty_msgstr))
 		seen_errors++;
 
 	      parser->free (msgstr_descr);
@@ -144,9 +146,9 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 	  else
 	    {
 	      error_logger (_("\
-'%s' is not a valid %s format string, unlike 'msgid'. Reason: %s"),
+'%s' is not a valid %s format string, unlike '%s'. Reason: %s"),
 			    pretty_msgstr, format_language_pretty[i],
-			    invalid_reason);
+			    pretty_msgid, invalid_reason);
 	      seen_errors++;
 	      free (invalid_reason);
 	    }

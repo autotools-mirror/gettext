@@ -1,5 +1,5 @@
 /* Lisp format strings.
-   Copyright (C) 2001-2004, 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -3460,7 +3460,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -3471,8 +3471,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (!equal_list (spec1->list, spec2->list))
 	{
 	  if (error_logger)
-	    error_logger (_("format specifications in 'msgid' and '%s' are not equivalent"),
-			  pretty_msgstr);
+	    error_logger (_("format specifications in '%s' and '%s' are not equivalent"),
+			  pretty_msgid, pretty_msgstr);
 	  err = true;
 	}
     }
@@ -3487,8 +3487,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 		equal_list (intersection, spec2->list))))
 	{
 	  if (error_logger)
-	    error_logger (_("format specifications in '%s' are not a subset of those in 'msgid'"),
-			  pretty_msgstr);
+	    error_logger (_("format specifications in '%s' are not a subset of those in '%s'"),
+			  pretty_msgstr, pretty_msgid);
 	  err = true;
 	}
     }

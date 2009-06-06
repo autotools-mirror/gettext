@@ -1,3 +1,34 @@
+2009-05-29  Bruno Haible  <bruno@clisp.org>
+
+	Improve msgfmt error message about format directive mismatches
+	in msgstr[i].
+	* format.h (struct formatstring_parser): Add pretty_msgid argument to
+	'check' member.
+	* format-awk.c (format_check): Add pretty_msgid argument.
+	* format-boost.c (format_check): Likewise.
+	* format-c.c (format_check): Likewise.
+	* format-csharp.c (format_check): Likewise.
+	* format-elisp.c (format_check): Likewise.
+	* format-gcc-internal.c (format_check): Likewise.
+	* format-gfc-internal.c (format_check): Likewise.
+	* format-java.c (format_check): Likewise.
+	* format-kde.c (format_check): Likewise.
+	* format-librep.c (format_check): Likewise.
+	* format-lisp.c (format_check): Likewise.
+	* format-pascal.c (format_check): Likewise.
+	* format-perl-brace.c (format_check): Likewise.
+	* format-perl.c (format_check): Likewise.
+	* format-php.c (format_check): Likewise.
+	* format-python.c (format_check): Likewise.
+	* format-qt.c (format_check): Likewise.
+	* format-qt-plural.c (format_check): Likewise.
+	* format-scheme.c (format_check): Likewise.
+	* format-sh.c (format_check): Likewise.
+	* format-tcl.c (format_check): Likewise.
+	* format-ycp.c (format_check): Likewise.
+	* format.c (check_msgid_msgstr_format_i): Pass either "msgid" or
+	"msgid_plural" as pretty_msgid argument.
+
 2009-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (libgettextsrc_la_LINK, msgattrib_LINK, msgcat_LINK,

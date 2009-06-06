@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001-2004, 2006-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -418,7 +418,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -427,15 +427,15 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   if (spec1->named_arg_count > 0 && spec2->unnamed_arg_count > 0)
     {
       if (error_logger)
-	error_logger (_("format specifications in 'msgid' expect a mapping, those in '%s' expect a tuple"),
-		      pretty_msgstr);
+	error_logger (_("format specifications in '%s' expect a mapping, those in '%s' expect a tuple"),
+		      pretty_msgid, pretty_msgstr);
       err = true;
     }
   else if (spec1->unnamed_arg_count > 0 && spec2->named_arg_count > 0)
     {
       if (error_logger)
-	error_logger (_("format specifications in 'msgid' expect a tuple, those in '%s' expect a mapping"),
-		      pretty_msgstr);
+	error_logger (_("format specifications in '%s' expect a tuple, those in '%s' expect a mapping"),
+		      pretty_msgid, pretty_msgstr);
       err = true;
     }
   else
@@ -457,8 +457,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      if (cmp > 0)
 		{
 		  if (error_logger)
-		    error_logger (_("a format specification for argument '%s', as in '%s', doesn't exist in 'msgid'"),
-				  spec2->named[j].name, pretty_msgstr);
+		    error_logger (_("a format specification for argument '%s', as in '%s', doesn't exist in '%s'"),
+				  spec2->named[j].name, pretty_msgstr,
+				  pretty_msgid);
 		  err = true;
 		  break;
 		}
@@ -490,8 +491,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 				  || spec2->named[j].type == FAT_ANY))))
 		      {
 			if (error_logger)
-			  error_logger (_("format specifications in 'msgid' and '%s' for argument '%s' are not the same"),
-					pretty_msgstr, spec2->named[j].name);
+			  error_logger (_("format specifications in '%s' and '%s' for argument '%s' are not the same"),
+					pretty_msgid, pretty_msgstr,
+					spec2->named[j].name);
 			err = true;
 			break;
 		      }
@@ -510,8 +512,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	  if (spec1->unnamed_arg_count != spec2->unnamed_arg_count)
 	    {
 	      if (error_logger)
-		error_logger (_("number of format specifications in 'msgid' and '%s' does not match"),
-			      pretty_msgstr);
+		error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+			      pretty_msgid, pretty_msgstr);
 	      err = true;
 	    }
 	  else
@@ -522,8 +524,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 			    || spec2->unnamed[i].type == FAT_ANY))))
 		{
 		  if (error_logger)
-		    error_logger (_("format specifications in 'msgid' and '%s' for argument %u are not the same"),
-				  pretty_msgstr, i + 1);
+		    error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+				  pretty_msgid, pretty_msgstr, i + 1);
 		  err = true;
 		}
 	}

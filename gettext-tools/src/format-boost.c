@@ -1,5 +1,5 @@
 /* Boost format strings.
-   Copyright (C) 2001-2004, 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -589,7 +589,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -614,8 +614,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	  if (cmp > 0)
 	    {
 	      if (error_logger)
-		error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in 'msgid'"),
-			      spec2->numbered[j].number, pretty_msgstr);
+		error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+			      spec2->numbered[j].number, pretty_msgstr,
+			      pretty_msgid);
 	      err = true;
 	      break;
 	    }
@@ -644,8 +645,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 		if (spec1->numbered[i].type != spec2->numbered[j].type)
 		  {
 		    if (error_logger)
-		      error_logger (_("format specifications in 'msgid' and '%s' for argument %u are not the same"),
-				    pretty_msgstr, spec2->numbered[j].number);
+		      error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+				    pretty_msgid, pretty_msgstr,
+				    spec2->numbered[j].number);
 		    err = true;
 		    break;
 		  }

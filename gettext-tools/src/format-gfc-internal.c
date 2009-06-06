@@ -347,7 +347,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -360,8 +360,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       : spec1->unnumbered_arg_count < spec2->unnumbered_arg_count)
     {
       if (error_logger)
-	error_logger (_("number of format specifications in 'msgid' and '%s' does not match"),
-		      pretty_msgstr);
+	error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+		      pretty_msgid, pretty_msgstr);
       err = true;
     }
   else
@@ -369,8 +369,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
 	{
 	  if (error_logger)
-	    error_logger (_("format specifications in 'msgid' and '%s' for argument %u are not the same"),
-			  pretty_msgstr, i + 1);
+	    error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+			  pretty_msgid, pretty_msgstr, i + 1);
 	  err = true;
 	}
 
@@ -380,11 +380,11 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (error_logger)
 	{
 	  if (spec1->uses_currentloc)
-	    error_logger (_("'msgid' uses %%C but '%s' doesn't"),
-			  pretty_msgstr);
+	    error_logger (_("'%s' uses %%C but '%s' doesn't"),
+			  pretty_msgid, pretty_msgstr);
 	  else
-	    error_logger (_("'msgid' does not use %%C but '%s' uses %%C"),
-			  pretty_msgstr);
+	    error_logger (_("'%s' does not use %%C but '%s' uses %%C"),
+			  pretty_msgid, pretty_msgstr);
 	}
       err = true;
     }

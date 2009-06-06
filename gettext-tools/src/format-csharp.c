@@ -1,5 +1,5 @@
 /* C# format strings.
-   Copyright (C) 2003-2004, 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003-2004, 2006-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -191,7 +191,7 @@ format_get_number_of_directives (void *descr)
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgstr)
+	      const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -203,8 +203,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       : spec1->numbered_arg_count < spec2->numbered_arg_count)
     {
       if (error_logger)
-	error_logger (_("number of format specifications in 'msgid' and '%s' does not match"),
-		      pretty_msgstr);
+	error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+		      pretty_msgid, pretty_msgstr);
       err = true;
     }
 

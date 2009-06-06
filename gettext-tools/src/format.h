@@ -91,7 +91,7 @@ struct formatstring_parser
      msgstr_descr may omit some of the arguments of msgid_descr).
      If not, signal an error using error_logger (only if error_logger != NULL)
      and return true.  Otherwise return false.  */
-  bool (*check) (void *msgid_descr, void *msgstr_descr, bool equality, formatstring_error_logger_t error_logger, const char *pretty_msgstr);
+  bool (*check) (void *msgid_descr, void *msgstr_descr, bool equality, formatstring_error_logger_t error_logger, const char *pretty_msgid, const char *pretty_msgstr);
 };
 
 /* Format string parsers, each defined in its own file.  */
