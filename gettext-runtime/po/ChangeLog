@@ -1,3 +1,9 @@
+2009-06-08  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (install-data-yes, installdirs-data-yes): Remove
+	unnecessary mkdir of $(datadir).
+	Reported by Serge Pavlovsky <pal666@gmail.com>.
+
 2009-02-27  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in (Makefile): Use @SHELL@, not $(SHELL).
