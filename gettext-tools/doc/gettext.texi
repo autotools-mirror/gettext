@@ -2239,7 +2239,9 @@ string as sole argument.  It is also possible to define marking functions
 that take it at another argument position.  It is even possible to make
 the marked argument position depend on the total number of arguments of
 the function call; this is useful in C++.  All this is achieved using
-@code{xgettext}'s @samp{--keyword} option.
+@code{xgettext}'s @samp{--keyword} option.  How to pass such an option
+to @code{xgettext}, assuming that @code{gettextize} is used, is described
+in @ref{po/Makevars} and @ref{AM_XGETTEXT_OPTION}.
 
 Note also that long strings can be split across lines, into multiple
 adjacent string tokens.  Automatic string concatenation is performed
