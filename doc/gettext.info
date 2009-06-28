@@ -39,9 +39,9 @@ gettext.info-4: 140504
 gettext.info-5: 186114
 gettext.info-6: 233989
 gettext.info-7: 281039
-gettext.info-8: 330840
-gettext.info-9: 370626
-gettext.info-10: 407816
+gettext.info-8: 330865
+gettext.info-9: 370651
+gettext.info-10: 407841
 
 Tag Table:
 (Indirect)
@@ -151,68 +151,68 @@ Node: configure.in293079
 Node: config.guess295169
 Node: mkinstalldirs296285
 Node: aclocal297046
-Node: acconfig298667
-Node: config.h.in299153
-Node: Makefile300310
-Node: src/Makefile302891
-Node: lib/gettext.h305906
-Node: autoconf macros308131
-Node: AM_GNU_GETTEXT308701
-Node: AM_GNU_GETTEXT_VERSION312430
-Node: AM_ICONV312860
-Node: CVS Issues315054
-Node: Distributed CVS315608
-Node: Files under CVS317522
-Node: autopoint Invocation320067
-Node: Programming Languages321859
-Node: Language Implementors322680
-Node: Programmers for other Languages327506
-Node: Translators for other Languages328072
-Node: c-format329109
-Node: python-format329620
-Node: lisp-format330046
-Node: elisp-format330361
-Node: librep-format330840
-Node: smalltalk-format331232
-Node: java-format331721
-Node: awk-format332153
-Node: object-pascal-format332463
-Node: ycp-format332679
-Node: tcl-format333065
-Node: Maintainers for other Languages333327
-Node: List of Programming Languages334554
-Node: C335677
-Node: sh336658
-Node: bash337284
-Node: Python337969
-Node: Common Lisp339031
-Node: clisp C339745
-Node: Emacs Lisp340467
-Node: librep341173
-Node: Smalltalk341824
-Node: Java342897
-Node: gawk345567
-Node: Pascal346394
-Node: wxWindows347610
-Node: YCP348344
-Node: Tcl349003
-Node: Perl350306
-Node: PHP350924
-Node: Pike351627
-Node: List of Data Formats352253
-Node: POT352712
-Node: RST352956
-Node: Glade353168
-Node: Conclusion353446
-Node: History353946
-Node: References358048
-Node: Language Codes359603
-Node: Country Codes363542
-Node: Program Index369262
-Node: Option Index370626
-Node: Variable Index397033
-Node: PO Mode Index398135
-Node: Autoconf Macro Index407493
-Node: Index407816
+Node: acconfig298684
+Node: config.h.in299170
+Node: Makefile300327
+Node: src/Makefile302908
+Node: lib/gettext.h305923
+Node: autoconf macros308148
+Node: AM_GNU_GETTEXT308718
+Node: AM_GNU_GETTEXT_VERSION312447
+Node: AM_ICONV312877
+Node: CVS Issues315071
+Node: Distributed CVS315625
+Node: Files under CVS317539
+Node: autopoint Invocation320092
+Node: Programming Languages321884
+Node: Language Implementors322705
+Node: Programmers for other Languages327531
+Node: Translators for other Languages328097
+Node: c-format329134
+Node: python-format329645
+Node: lisp-format330071
+Node: elisp-format330386
+Node: librep-format330865
+Node: smalltalk-format331257
+Node: java-format331746
+Node: awk-format332178
+Node: object-pascal-format332488
+Node: ycp-format332704
+Node: tcl-format333090
+Node: Maintainers for other Languages333352
+Node: List of Programming Languages334579
+Node: C335702
+Node: sh336683
+Node: bash337309
+Node: Python337994
+Node: Common Lisp339056
+Node: clisp C339770
+Node: Emacs Lisp340492
+Node: librep341198
+Node: Smalltalk341849
+Node: Java342922
+Node: gawk345592
+Node: Pascal346419
+Node: wxWindows347635
+Node: YCP348369
+Node: Tcl349028
+Node: Perl350331
+Node: PHP350949
+Node: Pike351652
+Node: List of Data Formats352278
+Node: POT352737
+Node: RST352981
+Node: Glade353193
+Node: Conclusion353471
+Node: History353971
+Node: References358073
+Node: Language Codes359628
+Node: Country Codes363567
+Node: Program Index369287
+Node: Option Index370651
+Node: Variable Index397058
+Node: PO Mode Index398160
+Node: Autoconf Macro Index407518
+Node: Index407841
 
 End Tag Table

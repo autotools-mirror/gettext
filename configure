@@ -1438,7 +1438,7 @@ fi
 
 # Define the identity of the package.
 PACKAGE=gettext
-VERSION=0.11.4
+VERSION=0.11.5
 
 cat >>confdefs.h <<EOF
 #define PACKAGE "$PACKAGE"
@@ -1480,7 +1480,7 @@ INSTALL_STRIP_PROGRAM="\${SHELL} \$(install_sh) -c -s"
 # We need awk for the "check" target.  The system "awk" is bad on
 # some platforms.
 
-RELEASE_DATE=2002-07-25
+RELEASE_DATE=2002-08-06
 
 		    		    		    ac_config_headers="$ac_config_headers config.h"
 
@@ -15449,7 +15449,7 @@ cat >>$CONFIG_STATUS <<EOF
 
 AMDEP_TRUE="$AMDEP_TRUE"
 ac_aux_dir="$ac_aux_dir"
-# Capture the value of obsolete $ALL_LINGUAS because we need it to compute
+# Capture the value of obsolete ALL_LINGUAS because we need it to compute
     # POFILES, GMOFILES, UPDATEPOFILES, DUMMYPOFILES, CATALOGS. But hide it
     # from automake.
     eval 'ALL_LINGUAS''="$ALL_LINGUAS"'
