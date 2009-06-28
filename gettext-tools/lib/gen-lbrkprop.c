@@ -13,8 +13,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */
+along with this program; if not, write to the Free Software Foundation,
+Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */
 
 /* Usage example:
      $ gen-lbrkprop /usr/local/share/Unidata/UnicodeData.txt \
@@ -1369,7 +1369,7 @@ output_tables (const char *filename, const char *version)
   fprintf (stream, "\n");
   fprintf (stream, "You should have received a copy of the GNU General Public License\n");
   fprintf (stream, "along with this program; if not, write to the Free Software\n");
-  fprintf (stream, "Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  */\n");
+  fprintf (stream, "Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  */\n");
   fprintf (stream, "\n");
 
   output_lbp (stream);
