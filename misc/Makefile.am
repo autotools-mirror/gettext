@@ -19,7 +19,7 @@
 
 AUTOMAKE_OPTIONS = 1.2 gnits
 
-EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl po-mode.el
+EXTRA_DIST = gettext.perl gettext-sh tcl_gettext.c README-Tcl $(lisp_LISP)
 DISTCLEANFILES = gettextize
 lisp_LISP = po-mode.el po-compat.el
 

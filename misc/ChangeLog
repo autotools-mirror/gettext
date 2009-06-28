@@ -5,6 +5,7 @@
 2002-04-22  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (lisp_LISP): Add po-compat.el.
+	(EXTRA_DIST): Use it.
 
 2002-03-17  Karl Eichwalder  <ke@suse.de>
 
