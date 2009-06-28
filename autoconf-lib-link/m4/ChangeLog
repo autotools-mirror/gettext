@@ -1,3 +1,11 @@
+2009-06-21  Bruno Haible  <bruno@clisp.org>
+
+	Make two consecutive identical invocations of AC_LIB_HAVE_LINKFLAGS
+	work.
+	* lib-link.m4 (AC_LIB_LINKFLAGS_BODY): Reset HAVE_LIB${NAME} together
+	with LIB${NAME}, LTLIB${NAME}.
+	Reported by Sam Steingold <sds@gnu.org>.
+
 2009-04-26  Bruno Haible  <bruno@clisp.org>
 
 	Make the lib vs. lib64 recognition work on openSUSE 11 with "gcc -m32".
