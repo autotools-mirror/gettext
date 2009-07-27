@@ -1,3 +1,8 @@
+2009-07-27  Часлав Илић (Chusslove Illich)  <caslav.ilic@gmx.net>
+            Bruno Haible  <bruno@clisp.org>
+
+	* gettext-tools/tests/recode-sr-latin-1: Add test cases with accents.
+
 2009-06-06  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-perl-1: Add test of // operator.

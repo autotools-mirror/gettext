@@ -1,3 +1,10 @@
+2009-07-27  Часлав Илић (Chusslove Illich)  <caslav.ilic@gmx.net>
+
+	Extend recode-sr-latin to also transform letters with accents.
+	* filter-sr-latin.c (table): Add entries for letters with accents.
+	(IS_UPPERCASE_CYRILLIC): Recognize also U+04E2, U+04EE.
+	(serbian_to_latin): Update.
+
 2009-06-06  Bruno Haible  <bruno@clisp.org>
 
 	* x-perl.c (x_perl_prelex): Recognize the perl 5.10 operator '//'.
