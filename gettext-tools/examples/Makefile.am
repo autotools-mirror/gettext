@@ -407,6 +407,7 @@ EXAMPLESPOFILES = \
   it.po \
   ja.po \
   ky.po \
+  lv.po \
   ms.po \
   mt.po \
   nl.po \
