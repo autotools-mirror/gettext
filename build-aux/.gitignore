@@ -1,0 +1,9 @@
+# Files brought in by gnulib-tool:
+/config.libpath
+/config.rpath
+/install-reloc
+/link-warning.h
+/moopp
+/reloc-ldflags
+/relocatable.sh.in
+
