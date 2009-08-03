@@ -1,3 +1,7 @@
+2009-08-03  Bruno Haible  <bruno@clisp.org>
+
+	* iconv.m4 (AM_ICONV): Fix displayed message with autoconf-2.64.
+
 2009-06-06  Bruno Haible  <bruno@clisp.org>
 
 	Interoperate with automake-1.11 provided --enable-silent-rules option.
