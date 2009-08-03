@@ -1,3 +1,7 @@
+2009-08-03  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Remove statements to fix permissions. Now fixed in git.
+
 2009-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac (AM_INIT_AUTOMAKE): Add 'silent-rules' option.

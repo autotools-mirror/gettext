@@ -46,10 +46,6 @@ while :; do
   esac
 done
 
-# Fix execute permissions.
-chmod a+x gettext-tools/tests/msgmerge-22
-chmod a+x gettext-tools/tests/msgmerge-update-4
-
 # The tests in gettext-tools/tests are not meant to be executable, because
 # they have a TESTS_ENVIRONMENT that specifies the shell explicitly.
 
