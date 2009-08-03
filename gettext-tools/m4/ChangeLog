@@ -1,3 +1,8 @@
+2009-08-03  Bruno Haible  <bruno@clisp.org>
+
+	* setlocale.m4 (gt_SETLOCALE): Fix displayed message with
+	autoconf-2.64.
+
 2009-04-11  Bruno Haible  <bruno@clisp.org>
 
 	* exported.m4: New file, extracted from ../configure.ac.

@@ -1,5 +1,5 @@
-# setlocale.m4 serial 3 (gettext-0.15)
-dnl Copyright (C) 2001-2002, 2006 Free Software Foundation, Inc.
+# setlocale.m4 serial 4 (gettext-0.18)
+dnl Copyright (C) 2001-2002, 2006, 2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -24,8 +24,8 @@ char *setlocale();
 ], [], gt_cv_proto_setlocale_arg1="", gt_cv_proto_setlocale_arg1="const")
 gt_cv_proto_setlocale="extern char *setlocale (int category, $gt_cv_proto_setlocale_arg1 char *locale);"])
 gt_cv_proto_setlocale=`echo "[$]gt_cv_proto_setlocale" | tr -s ' ' | sed -e 's/( /(/'`
-AC_MSG_RESULT([$]{ac_t:-
-         }[$]gt_cv_proto_setlocale)
+AC_MSG_RESULT([
+         $gt_cv_proto_setlocale])
 AC_DEFINE_UNQUOTED(SETLOCALE_CONST,$gt_cv_proto_setlocale_arg1,
   [Define as const if the declaration of setlocale() needs const.])
 ])
