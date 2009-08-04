@@ -20,8 +20,6 @@
 # include "config.h"
 #endif
 
-#include <errno.h>
-#include <fcntl.h>
 #include <getopt.h>
 #include <limits.h>
 #include <locale.h>
@@ -31,14 +29,6 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <unistd.h>
-#if defined _MSC_VER || defined __MINGW32__
-# include <io.h>
-#endif
-
-/* Get fd_set (on AIX or Minix) or select() declaration (on EMX).  */
-#if defined (_AIX) || defined (_MINIX) || defined (__EMX__)
-# include <sys/select.h>
-#endif
 
 #include "closeout.h"
 #include "dir-list.h"
@@ -60,8 +50,7 @@
 #include "msgl-charset.h"
 #include "xalloc.h"
 #include "findprog.h"
-#include "pipe.h"
-#include "wait-process.h"
+#include "pipe-filter.h"
 #include "xsetenv.h"
 #include "filters.h"
 #include "msgl-iconv.h"
@@ -72,17 +61,7 @@
 #define _(str) gettext (str)
 
 
-/* We use a child process, and communicate through a bidirectional pipe.
-   To avoid deadlocks, let the child process decide when it wants to read
-   or to write, and let the parent behave accordingly.  The parent uses
-   select() to know whether it must write or read.  On platforms without
-   select(), we use non-blocking I/O.  (This means the parent is busy
-   looping while waiting for the child.  Not good.)  */
-
-/* On BeOS select() works only on sockets, not on normal file descriptors.  */
-#ifdef __BEOS__
-# undef HAVE_SELECT
-#endif
+/* We use a child process, and communicate through a bidirectional pipe.  */
 
 
 /* Force output of PO file even if empty.  */
@@ -495,87 +474,64 @@ Informative output:\n"));
 }
 
 
-#ifdef EINTR
+/* Callbacks called from pipe_filter_ii_execute.  */
 
-/* EINTR handling for close(), read(), write(), select().
-   These functions can return -1/EINTR even though we don't have any
-   signal handlers set up, namely when we get interrupted via SIGSTOP.  */
-
-static inline int
-nonintr_close (int fd)
+struct locals
 {
-  int retval;
+  /* String being written.  */
+  const char *str;
+  size_t len;
+  /* String being read and accumulated.  */
+  char *result;
+  size_t allocated;
+  size_t length;
+};
 
-  do
-    retval = close (fd);
-  while (retval < 0 && errno == EINTR);
-
-  return retval;
-}
-#define close nonintr_close
-
-static inline ssize_t
-nonintr_read (int fd, void *buf, size_t count)
+static const void *
+prepare_write (size_t *num_bytes_p, void *private_data)
 {
-  ssize_t retval;
+  struct locals *l = (struct locals *) private_data;
 
-  do
-    retval = read (fd, buf, count);
-  while (retval < 0 && errno == EINTR);
-
-  return retval;
+  if (l->len > 0)
+    {
+      *num_bytes_p = l->len;
+      return l->str;
+    }
+  else
+    return NULL;
 }
-#define read nonintr_read
 
-static inline ssize_t
-nonintr_write (int fd, const void *buf, size_t count)
+static void
+done_write (void *data_written, size_t num_bytes_written, void *private_data)
 {
-  ssize_t retval;
+  struct locals *l = (struct locals *) private_data;
 
-  do
-    retval = write (fd, buf, count);
-  while (retval < 0 && errno == EINTR);
-
-  return retval;
+  l->str += num_bytes_written;
+  l->len -= num_bytes_written;
 }
-#undef write /* avoid warning on VMS */
-#define write nonintr_write
 
-# if HAVE_SELECT
-
-static inline int
-nonintr_select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
-		struct timeval *timeout)
+static void *
+prepare_read (size_t *num_bytes_p, void *private_data)
 {
-  int retval;
+  struct locals *l = (struct locals *) private_data;
 
-  do
-    retval = select (n, readfds, writefds, exceptfds, timeout);
-  while (retval < 0 && errno == EINTR);
-
-  return retval;
+  if (l->length == l->allocated)
+    {
+      l->allocated = l->allocated + (l->allocated >> 1);
+      l->result = (char *) xrealloc (l->result, l->allocated);
+    }
+  *num_bytes_p = l->allocated - l->length;
+  return l->result + l->length;
 }
-#undef select /* avoid warning on VMS */
-#define select nonintr_select
 
-# endif
+static void
+done_read (void *data_read, size_t num_bytes_read, void *private_data)
+{
+  struct locals *l = (struct locals *) private_data;
 
-#endif
+  l->length += num_bytes_read;
+}
 
-
-/* Non-blocking I/O.  */
-#ifndef O_NONBLOCK
-# define O_NONBLOCK O_NDELAY
-#endif
-#if HAVE_SELECT
-# define IS_EAGAIN(errcode) 0
-#else
-# ifdef EWOULDBLOCK
-#  define IS_EAGAIN(errcode) ((errcode) == EAGAIN || (errcode) == EWOULDBLOCK)
-# else
-#  define IS_EAGAIN(errcode) ((errcode) == EAGAIN)
-# endif
-#endif
 
 /* Process a string STR of size LEN bytes through the subprogram.
    Store the freshly allocated result at *RESULTP and its length at *LENGTHP.
@@ -583,140 +539,20 @@ nonintr_select (int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 static void
 generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp)
 {
-#if defined _MSC_VER || defined __MINGW32__
-  /* Native Woe32 API.  */
-  /* Not yet implemented.  */
-  error (EXIT_FAILURE, 0, _("Not yet implemented."));
-#else
-  pid_t child;
-  int fd[2];
-  char *result;
-  size_t allocated;
-  size_t length;
-  int exitstatus;
+  struct locals l;
 
-  /* Open a bidirectional pipe to a subprocess.  */
-  child = create_pipe_bidi (sub_name, sub_path, sub_argv, false, true, true,
-			    fd);
+  l.str = str;
+  l.len = len;
+  l.allocated = len + (len >> 2) + 1;
+  l.result = XNMALLOC (l.allocated, char);
+  l.length = 0;
 
-  /* Enable non-blocking I/O.  This permits the read() and write() calls
-     to return -1/EAGAIN without blocking; this is important for polling
-     if HAVE_SELECT is not defined.  It also permits the read() and write()
-     calls to return after partial reads/writes; this is important if
-     HAVE_SELECT is defined, because select() only says that some data
-     can be read or written, not how many.  Without non-blocking I/O,
-     Linux 2.2.17 and BSD systems prefer to block instead of returning
-     with partial results.  */
-  {
-    int fcntl_flags;
+  pipe_filter_ii_execute (sub_name, sub_path, sub_argv, false, true,
+			  prepare_write, done_write, prepare_read, done_read,
+			  &l);
 
-    if ((fcntl_flags = fcntl (fd[1], F_GETFL, 0)) < 0
-	|| fcntl (fd[1], F_SETFL, fcntl_flags | O_NONBLOCK) < 0
-	|| (fcntl_flags = fcntl (fd[0], F_GETFL, 0)) < 0
-	|| fcntl (fd[0], F_SETFL, fcntl_flags | O_NONBLOCK) < 0)
-      error (EXIT_FAILURE, errno,
-	     _("cannot set up nonblocking I/O to %s subprocess"), sub_name);
-  }
-
-  allocated = len + (len >> 2) + 1;
-  result = XNMALLOC (allocated, char);
-  length = 0;
-
-  for (;;)
-    {
-#if HAVE_SELECT
-      int n;
-      fd_set readfds;
-      fd_set writefds;
-
-      FD_ZERO (&readfds);
-      FD_SET (fd[0], &readfds);
-      n = fd[0] + 1;
-      if (str != NULL)
-	{
-	  FD_ZERO (&writefds);
-	  FD_SET (fd[1], &writefds);
-	  if (n <= fd[1])
-	    n = fd[1] + 1;
-	}
-
-      n = select (n, &readfds, (str != NULL ? &writefds : NULL), NULL, NULL);
-      if (n < 0)
-	error (EXIT_FAILURE, errno,
-	       _("communication with %s subprocess failed"), sub_name);
-      if (str != NULL && FD_ISSET (fd[1], &writefds))
-	goto try_write;
-      if (FD_ISSET (fd[0], &readfds))
-	goto try_read;
-      /* How could select() return if none of the two descriptors is ready?  */
-      abort ();
-#endif
-
-      /* Attempt to write.  */
-#if HAVE_SELECT
-    try_write:
-#endif
-      if (str != NULL)
-	{
-	  if (len > 0)
-	    {
-	      ssize_t nwritten = write (fd[1], str, len);
-	      if (nwritten < 0 && !IS_EAGAIN (errno))
-		error (EXIT_FAILURE, errno,
-		       _("write to %s subprocess failed"), sub_name);
-	      if (nwritten > 0)
-		{
-		  str += nwritten;
-		  len -= nwritten;
-		}
-	    }
-	  else
-	    {
-	      /* Tell the child there is nothing more the parent will send.  */
-	      close (fd[1]);
-	      str = NULL;
-	    }
-	}
-#if HAVE_SELECT
-      continue;
-#endif
-
-      /* Attempt to read.  */
-#if HAVE_SELECT
-    try_read:
-#endif
-      if (length == allocated)
-	{
-	  allocated = allocated + (allocated >> 1);
-	  result = (char *) xrealloc (result, allocated);
-	}
-      {
-	ssize_t nread = read (fd[0], result + length, allocated - length);
-	if (nread < 0 && !IS_EAGAIN (errno))
-	  error (EXIT_FAILURE, errno,
-		 _("read from %s subprocess failed"), sub_name);
-	if (nread > 0)
-	  length += nread;
-	if (nread == 0 && str == NULL)
-	  break;
-      }
-#if HAVE_SELECT
-      continue;
-#endif
-    }
-
-  close (fd[0]);
-
-  /* Remove zombie process from process list.  */
-  exitstatus =
-    wait_subprocess (child, sub_name, false, false, true, true, NULL);
-  if (exitstatus != 0)
-    error (EXIT_FAILURE, 0, _("%s subprocess terminated with exit code %d"),
-	   sub_name, exitstatus);
-
-  *resultp = result;
-  *lengthp = length;
-#endif
+  *resultp = l.result;
+  *lengthp = l.length;
 }
 
 

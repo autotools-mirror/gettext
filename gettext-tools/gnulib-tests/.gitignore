@@ -93,6 +93,13 @@
 /test-moo-sub2.oo.c
 /test-moo-sub2.oo.h
 /test-open.c
+/test-pipe-filter-ii1.c
+/test-pipe-filter-ii1.sh
+/test-pipe-filter-ii2-child.c
+/test-pipe-filter-ii2-main.c
+/test-pipe-filter-ii2.sh
+/test-pipe-filter.c
+/test-pipe-filter.sh
 /test-pipe.c
 /test-pipe.sh
 /test-posix_spawn1.c
@@ -146,6 +153,7 @@
 /test-term-ostream.c
 /test-tls.c
 /test-unistd.c
+/test-vasnprintf-posix.c
 /test-vasnprintf.c
 /test-vasprintf.c
 /test-vsnprintf.c

@@ -1,3 +1,17 @@
+2009-08-04  Bruno Haible  <bruno@clisp.org>
+
+	Port msgfilter to Woe32 platforms.
+	* msgfilter.c: Don't include errno.h, fcntl.h, io.h, sys/select.h,
+	pipe.h, wait-process.h. Include pipe-filter.h instead.
+	(HAVE_SELECT): Remove undefine.
+	(nonintr_close, nonintr_read, nonintr_write, nonintr_select): Remove
+	functions.
+	(O_NONBLOCK): Remove fallback.
+	(IS_EAGAIN): Remove macro.
+	(struct locals): New type.
+	(prepare_write, done_write, prepare_read, done_read): New functions.
+	(generic_filter): Implement using pipe_filter_ii_execute.
+
 2009-07-27  Часлав Илић (Chusslove Illich)  <caslav.ilic@gmx.net>
 
 	Extend recode-sr-latin to also transform letters with accents.

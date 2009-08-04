@@ -36,6 +36,9 @@ Version 0.18 - January 2008
   'gfc-internal-format'.
 
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
+
+* Portability:
+  The msgfilter program now also works on native Woe32 platforms.
 
 Version 0.17 - November 2007
 

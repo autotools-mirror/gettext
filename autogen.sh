@@ -152,6 +152,7 @@ if ! $skip_gnulib; then
       openmp
       ostream
       pipe
+      pipe-filter-ii
       progname
       propername
       relocatable-prog
