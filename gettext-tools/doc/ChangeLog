@@ -3,6 +3,10 @@
 	* gettext.texi (Mark Keywords): Add cross-section references.
 	Reported by David Bruce <davidstuartbruce@gmail.com>.
 
+2009-05-31  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am: Use dist-hook instead of old distdir hack.
+
 2009-05-01  Bruno Haible  <bruno@clisp.org>
 
 	Undo 2005-02-23 change.
