@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002-2008 Free Software Foundation, Inc.
+# Copyright (C) 2002-2009 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -375,6 +375,34 @@ fi
 omitintl=`cat "$configure_in" | grep '^AM_GNU_GETTEXT' | sed -n -e 's/^AM_GNU_GETTEXT(\([^(),]*\).*$/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
 omitintl=`if test 'external' = "$omitintl"; then echo yes; fi`
 
+# Check in which directory or directories the po/* infrastructure belongs.
+sed_extract_config_files='s,#.*$,,
+s,^dnl .*$,,
+s, dnl .*$,,
+/AC_CONFIG_FILES(/ {
+  ta
+  :a
+    s/)/)/
+    tb
+    s/\\$//
+    N
+    ba
+  :b
+  s,^.*AC_CONFIG_FILES([[ ]*\([^]"$`\\)]*\).*$,\1,p
+}'
+configfiles=`cat "$configure_in" | sed -n -e "$sed_extract_config_files"`
+# PO directories have a Makefile.in generated from Makefile.in.in.
+# Treat a directory as a PO directory if and only if it has a
+# POTFILES.in file. This allows packages to have multiple PO
+# directories under different names or in different locations.
+sed_remove_Makefile_in='s,/Makefile\.in$,,'
+podirs=`for f in $configfiles; do case "$f" in */Makefile.in) echo $f;; esac; done | sed -e "$sed_remove_Makefile_in"`
+if test -z "$podirs"; then
+  # If we cannot get the list of PO directories from configure.ac, assume the
+  # common default.
+  podirs="po"
+fi
+
 # Set up a temporary CVS repository and a temporary checkout directory.
 # We need the temporary CVS repository because any checkout needs write
 # access to the CVSROOT/history file, so it cannot be under $gettext_dir.
@@ -448,6 +476,7 @@ cd ..
 #                   empty if the file shall be omitted
 # - sharedowner     yes if the file is not only owned by GNU gettext but may
 #                   be installed by automake or other tools, otherwise empty
+# - allpodirs       yes if the file is to be installed in every dir in $podirs
 func_destfile ()
 {
   # There are five categories of files:
@@ -455,8 +484,9 @@ func_destfile ()
   # config.rpath mkinstalldirs -> $auxdir
   # m4/* -> $m4dir/
   # intl/* -> intl/
-  # po/* -> po/
+  # po/* -> 
   sharedowner=
+  allpodirs=
   case `echo "$1" | sed -e 's,[^/]*$,,'` in
     "" )
       case "$1" in
@@ -467,6 +497,7 @@ func_destfile ()
       ;;
     m4/ ) destfile=`echo "$1" | sed -e "s,^m4/,$m4dir/,"` ;;
     intl/ ) if test -n "$omitintl"; then destfile=""; else destfile="$1"; fi ;;
+    po/ ) destfile=`echo "$1" | sed -e "s,^po/,,"` allpodirs=yes ;;
     * ) destfile="$1" ;;
   esac
 }
@@ -516,16 +547,27 @@ if test -z "$force"; then
   for file in `find "$work_dir/archive" -type f -print | sed -e "s,^$work_dir/archive/,," | LC_ALL=C sort`; do
     func_destfile "$file"
     if test -n "$destfile"; then
-      if test -f "$destfile"; then
-        if func_compare "$destfile" "$work_dir/archive/$file"; then
-          if test -n "$sharedowner"; then
-            echo "autopoint: warning: File $destfile has been locally modified." 1>&2
-          else
-            echo "autopoint: File $destfile has been locally modified." 1>&2
-            mismatch=yes
-            diff -c "$work_dir/archive/$file" "$destfile" | sed -e "1s,$work_dir/archive/,," >> "$mismatchfile"
+      func_compare_to_destfile ()
+      {
+        finaldestfile="$1"
+        if test -f "$finaldestfile"; then
+          if func_compare "$finaldestfile" "$work_dir/archive/$file"; then
+            if test -n "$sharedowner"; then
+              echo "autopoint: warning: File $finaldestfile has been locally modified." 1>&2
+            else
+              echo "autopoint: File $finaldestfile has been locally modified." 1>&2
+              mismatch=yes
+              diff -c "$work_dir/archive/$file" "$finaldestfile" | sed -e "1s,$work_dir/archive/,," >> "$mismatchfile"
+            fi
           fi
         fi
+      }
+      if test -n "$allpodirs"; then
+        for dir in $podirs; do
+          func_compare_to_destfile "$dir/$destfile"
+        done
+      else
+        func_compare_to_destfile "$destfile"
       fi
     fi
   done
@@ -582,24 +624,35 @@ func_backup ()
 # Now copy the files.
 for file in `find "$work_dir/archive" -type f -print | sed -e "s,^$work_dir/archive/,," | LC_ALL=C sort`; do
   func_destfile "$file"
-  mustcopy=
   if test -n "$destfile"; then
-    if test -f "$destfile"; then
-      if func_compare "$destfile" "$work_dir/archive/$file"; then
-        if test -n "$force"; then
-          # Overwrite locally modified file.
-          mustcopy=yes
+    func_copy_to_destfile ()
+    {
+      finaldestfile="$1"
+      mustcopy=
+      if test -f "$finaldestfile"; then
+        if func_compare "$finaldestfile" "$work_dir/archive/$file"; then
+          if test -n "$force"; then
+            # Overwrite locally modified file.
+            mustcopy=yes
+          fi
+          # If --force is not specified, don't overwrite locally modified files
+          # for which GNU gettext is a shared owner.
         fi
-        # If --force is not specified, don't overwrite locally modified files
-        # for which GNU gettext is a shared owner.
+      else
+        mustcopy=yes
       fi
+      if test -n "$mustcopy"; then
+        func_backup "$finaldestfile"
+        func_copy "$work_dir/archive/$file" "$finaldestfile"
+      fi
+    }
+    if test -n "$allpodirs"; then
+      for dir in $podirs; do
+        func_copy_to_destfile "$dir/$destfile"
+      done
     else
-      mustcopy=yes
+      func_copy_to_destfile "$destfile"
     fi
-  fi
-  if test -n "$mustcopy"; then
-    func_backup "$destfile"
-    func_copy "$work_dir/archive/$file" "$destfile"
   fi
 done
 

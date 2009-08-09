@@ -1,3 +1,13 @@
+2009-08-09  Bruno Haible  <bruno@clisp.org>
+
+	Add support for multiple PO directories to autopoint.
+	* autopoint.in (sed_extract_config_files, configfiles,
+	sed_remove_Makefile_in, podirs): New variables.
+	(func_destfile): Set allpodirs.
+	When allpodirs is set, loop over $podirs.
+	Reported by Guillem Jover <guillem@debian.org>
+	via Santiago Vila <sanvila@unex.es>.
+
 2008-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* autopoint.in (func_version): Bump copyright year.
