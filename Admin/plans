@@ -22,7 +22,7 @@ Things we plan to do. Comments welcome.
   PO files
 
 - Qt 3.0 compatibility:
-  - .ts, .qph catalogs
+  - .ts, .qph catalogs, example: http://dooble.svn.sourceforge.net/viewvc/dooble/trunk/browser/translations/
   - .qm binary catalogs
 
 - Add logging to libintl, in order to catch each of these problems:
@@ -137,4 +137,7 @@ Things we plan to do. Comments welcome.
   msgid "Hello, world!"
   msgid[ru] "Здравствуй, мир!"
   msgstr "Chào thế giới !"
+
+- filter-sr-latin should transform the resulting output to NFC form.
+  Needed because the input may contain decomposed Cyrillic accented letters.
 
