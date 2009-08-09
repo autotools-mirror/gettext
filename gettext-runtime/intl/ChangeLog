@@ -1,3 +1,11 @@
+2009-08-09  Bruno Haible  <bruno@clisp.org>
+
+	Fix a compilation error on non-glibc systems that have gcc visibility
+	support but deficient *printf functions.
+	* printf.c (DLL_EXPORTED): Define to non-empty also when
+	HAVE_VISIBILITY is true.
+	Reported at <https://savannah.gnu.org/bugs/?27185>.
+
 2009-06-06  Bruno Haible  <bruno@clisp.org>
 
 	Interoperate with automake-1.11 provided --enable-silent-rules option.
