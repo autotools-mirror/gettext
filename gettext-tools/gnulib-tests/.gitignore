@@ -55,7 +55,6 @@
 /test-getdtablesize.c
 /test-getline.c
 /test-gettimeofday.c
-/test-hash.c
 /test-iconv.c
 /test-linkedhash_list.c
 /test-locale.c
