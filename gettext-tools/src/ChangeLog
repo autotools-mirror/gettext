@@ -1,5 +1,11 @@
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 
+	Avoid a gcc warning.
+	* msgfilter.c (sub_argv): Change type to 'const char **'.
+	(main): Update.
+
+2009-08-10  Bruno Haible  <bruno@clisp.org>
+
 	Use type 'ucs4_t' more often. Avoids gcc warnings on Cygwin.
 	* po-lex.c (struct mbchar): Change type of 'uc'.
 	(mb_width): Update.
