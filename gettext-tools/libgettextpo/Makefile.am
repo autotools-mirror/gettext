@@ -78,7 +78,9 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-perl-brace.c \
   ../src/format-php.c \
   ../src/format-gcc-internal.c \
+  ../src/format-gfc-internal.c \
   ../src/format-qt.c \
+  ../src/format-qt-plural.c \
   ../src/format-kde.c \
   ../src/format-boost.c \
   ../src/format.c \

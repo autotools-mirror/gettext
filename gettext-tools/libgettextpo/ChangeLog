@@ -1,3 +1,8 @@
+2009-08-10  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (libgettextpo_la_AUXSOURCES): Add format-gfc-internal.c,
+	format-qt-plural.c.
+
 2009-03-25  Bruno Haible  <bruno@clisp.org>
 
 	Fix the handling of Windows resources in shared libraries.
