@@ -1,5 +1,5 @@
 /* Output stream that produces HTML output.
-   Copyright (C) 2006-2008 Free Software Foundation, Inc.
+   Copyright (C) 2006-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -122,7 +122,7 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
 	    while (insize > 0)
 	      {
 		unsigned char c0;
-		unsigned int uc;
+		ucs4_t uc;
 		int nbytes;
 
 		c0 = ((const unsigned char *) inptr)[0];
@@ -177,7 +177,7 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
 			    /* Output non-ASCII characters in #&nnn;
 			       notation.  */
 			    char bytes[32];
-			    sprintf (bytes, "&#%d;", uc);
+			    sprintf (bytes, "&#%d;", (int) uc);
 			    ostream_write_str (stream->destination, bytes);
 			  }
 			break;
