@@ -133,7 +133,7 @@ construct_class_name (const char *resource_name)
       memcpy (b, "__UESCAPED__", 12); b += 12;
       while (str < str_limit)
 	{
-	  unsigned int uc;
+	  ucs4_t uc;
 	  str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
 	  if (uc >= 0x10000)
 	    {
@@ -177,7 +177,7 @@ write_csharp_string (FILE *stream, const char *str)
   fprintf (stream, "\"");
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc == 0x0000)
 	fprintf (stream, "\\0");
@@ -200,7 +200,7 @@ write_csharp_string (FILE *stream, const char *str)
       else if (uc == 0x005c)
 	fprintf (stream, "\\\\");
       else if (uc >= 0x0020 && uc < 0x007f)
-	fprintf (stream, "%c", uc);
+	fprintf (stream, "%c", (int) uc);
       else if (uc < 0x10000)
 	fprintf (stream, "\\u%c%c%c%c",
 		 hexdigit[(uc >> 12) & 0x0f], hexdigit[(uc >> 8) & 0x0f],

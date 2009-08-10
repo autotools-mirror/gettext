@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -132,7 +132,7 @@ struct mbchar
   size_t bytes;		/* number of bytes of current character, > 0 */
 #if HAVE_ICONV
   bool uc_valid;	/* true if uc is a valid Unicode character */
-  unsigned int uc;	/* if uc_valid: the current character */
+  ucs4_t uc;		/* if uc_valid: the current character */
 #endif
   char buf[MBCHAR_BUF_SIZE]; /* room for the bytes */
 };
@@ -262,7 +262,7 @@ mb_width (const mbchar_t mbc)
 #if HAVE_ICONV
   if (mbc->uc_valid)
     {
-      unsigned int uc = mbc->uc;
+      ucs4_t uc = mbc->uc;
       const char *encoding =
 	(po_lex_iconv != (iconv_t)(-1) ? po_lex_charset : "");
       int w = uc_width (uc, encoding);

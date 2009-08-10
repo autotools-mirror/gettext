@@ -447,7 +447,7 @@ string_buffer_append_unicode_grow (struct string_buffer *bp, size_t count)
 /* Auxiliary function: Append a Unicode character to bp->utf8.
    uc must be < 0x110000.  */
 static inline void
-string_buffer_append_unicode (struct string_buffer *bp, unsigned int uc)
+string_buffer_append_unicode (struct string_buffer *bp, ucs4_t uc)
 {
   unsigned char utf8buf[6];
   int count = u8_uctomb (utf8buf, uc, 6);
@@ -552,7 +552,7 @@ string_buffer_append (struct string_buffer *bp, int c)
 	  && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
 	{
 	  unsigned short utf16buf[2];
-	  unsigned int uc;
+	  ucs4_t uc;
 
 	  utf16buf[0] = bp->utf16_surr;
 	  utf16buf[1] = UTF16_VALUE (c);

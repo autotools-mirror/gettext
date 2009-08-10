@@ -1,3 +1,24 @@
+2009-08-10  Bruno Haible  <bruno@clisp.org>
+
+	Use type 'ucs4_t' more often. Avoids gcc warnings on Cygwin.
+	* po-lex.c (struct mbchar): Change type of 'uc'.
+	(mb_width): Update.
+	* read-properties.c (read_escaped_string): Change type of local
+	variable 'uc'.
+	* read-stringtable.c (phase2_getc): Likewise.
+	* write-properties.c (conv_to_java, write_escaped_string): Change type
+	of local variables 'uc', 'uc1', 'uc2'.
+	* write-java.c (string_hashcode, write_java_string): Likewise.
+	* write-csharp.c (construct_class_name, write_csharp_string): Change
+	type of local variable 'uc'.
+	* write-tcl.c (write_tcl_string): Likewise.
+	* write-qt.c (conv_to_iso_8859_1, conv_to_utf16): Likewise.
+	* x-python.c (phase2_getc, mixed_string_buffer_append): Likewise.
+	(mixed_string_buffer_append_unicode): Change argument type to 'ucs4_t'.
+	* x-java.c (string_buffer_append): Change type of local variable 'uc'.
+	(string_buffer_append_unicode): Change argument type to 'ucs4_t'.
+	* x-csharp.c (phase2_getc): Change type of local variable 'uc'.
+
 2009-08-04  Bruno Haible  <bruno@clisp.org>
 
 	Port msgfilter to Woe32 platforms.

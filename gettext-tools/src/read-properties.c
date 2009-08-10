@@ -1,5 +1,5 @@
 /* Reading Java .properties files.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -431,7 +431,7 @@ read_escaped_string (bool in_key)
     utf8_string = XNMALLOC (3 * buflen + 1, unsigned char);
     for (pos = 0, q = utf8_string; pos < buflen; )
       {
-	unsigned int uc;
+	ucs4_t uc;
 	int n;
 
 	pos += u16_mbtouc (&uc, buffer + pos, buflen - pos);

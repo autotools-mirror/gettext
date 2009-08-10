@@ -117,7 +117,7 @@ string_hashcode (const char *str)
   int hash = 0;
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	/* Single UCS-2 'char'.  */
@@ -125,8 +125,8 @@ string_hashcode (const char *str)
       else
 	{
 	  /* UTF-16 surrogate: two 'char's.  */
-	  unsigned int uc1 = 0xd800 + ((uc - 0x10000) >> 10);
-	  unsigned int uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
+	  ucs4_t uc1 = 0xd800 + ((uc - 0x10000) >> 10);
+	  ucs4_t uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
 	  hash = 31 * hash + uc1;
 	  hash = 31 * hash + uc2;
 	}
@@ -361,7 +361,7 @@ write_java_string (FILE *stream, const char *str)
   fprintf (stream, "\"");
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	{
@@ -375,7 +375,7 @@ write_java_string (FILE *stream, const char *str)
 	  else if (uc == 0x005c)
 	    fprintf (stream, "\\\\");
 	  else if (uc >= 0x0020 && uc < 0x007f)
-	    fprintf (stream, "%c", uc);
+	    fprintf (stream, "%c", (int) uc);
 	  else
 	    fprintf (stream, "\\u%c%c%c%c",
 		     hexdigit[(uc >> 12) & 0x0f], hexdigit[(uc >> 8) & 0x0f],
@@ -384,8 +384,8 @@ write_java_string (FILE *stream, const char *str)
       else
 	{
 	  /* UTF-16 surrogate: two 'char's.  */
-	  unsigned int uc1 = 0xd800 + ((uc - 0x10000) >> 10);
-	  unsigned int uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
+	  ucs4_t uc1 = 0xd800 + ((uc - 0x10000) >> 10);
+	  ucs4_t uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
 	  fprintf (stream, "\\u%c%c%c%c",
 		   hexdigit[(uc1 >> 12) & 0x0f], hexdigit[(uc1 >> 8) & 0x0f],
 		   hexdigit[(uc1 >> 4) & 0x0f], hexdigit[uc1 & 0x0f]);

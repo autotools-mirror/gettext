@@ -336,7 +336,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
 	    {
 	      size_t outbytes = sizeof (scratchbuf) - outsize;
 	      size_t bytes = bufcount - insize;
-	      unsigned int uc;
+	      ucs4_t uc;
 
 	      /* We expect that one character has been produced.  */
 	      if (bytes == 0)
@@ -375,7 +375,7 @@ as specified in http://www.python.org/peps/pep-0263.html.\n"),
       unsigned char buf[6];
       unsigned int count;
       int c;
-      unsigned int uc;
+      ucs4_t uc;
 
       c = phase1_getc ();
       if (c == EOF)
@@ -843,7 +843,7 @@ mixed_string_buffer_append_unicode_grow (struct mixed_string_buffer *bp, size_t 
 /* Auxiliary function: Append a Unicode character to bp->utf8.
    uc must be < 0x110000.  */
 static inline void
-mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp, unsigned int uc)
+mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp, ucs4_t uc)
 {
   unsigned char utf8buf[6];
   int count = u8_uctomb (utf8buf, uc, 6);
@@ -913,7 +913,7 @@ mixed_string_buffer_append (struct mixed_string_buffer *bp, int c)
 	  && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
 	{
 	  unsigned short utf16buf[2];
-	  unsigned int uc;
+	  ucs4_t uc;
 
 	  utf16buf[0] = bp->utf16_surr;
 	  utf16buf[1] = UNICODE_VALUE (c);

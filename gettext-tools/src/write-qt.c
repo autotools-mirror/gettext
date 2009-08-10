@@ -1,5 +1,5 @@
 /* Writing Qt .qm files.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -293,7 +293,7 @@ conv_to_iso_8859_1 (const char *string)
 
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       /* It has already been verified that the string fits in ISO-8859-1.  */
       if (!(uc < 0x100))
@@ -321,7 +321,7 @@ conv_to_utf16 (const char *string, size_t *sizep)
 
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
 	/* UCS-2 character.  */

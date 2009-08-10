@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -219,7 +219,7 @@ phase2_getc ()
 	unsigned char buf[6];
 	unsigned int count;
 	int c;
-	unsigned int uc;
+	ucs4_t uc;
 
 	c = phase1_getc ();
 	if (c == EOF)

@@ -319,7 +319,7 @@ Please specify the correct source encoding through --from-code.\n"),
 	    {
 	      size_t outbytes = sizeof (scratchbuf) - outsize;
 	      size_t bytes = bufcount - insize;
-	      unsigned int uc;
+	      ucs4_t uc;
 
 	      /* We expect that one character has been produced.  */
 	      if (bytes == 0)
@@ -357,7 +357,7 @@ Please specify the source encoding through --from-code.\n"),
       unsigned char buf[6];
       unsigned int count;
       int c;
-      unsigned int uc;
+      ucs4_t uc;
 
       c = phase1_getc ();
       if (c == EOF)

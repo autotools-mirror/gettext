@@ -1,5 +1,5 @@
 /* Writing tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005, 2007-2008 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005, 2007-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@ write_tcl_string (FILE *stream, const char *str)
   fprintf (stream, "\"");
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       unsigned int count;
       count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
@@ -88,7 +88,7 @@ write_tcl_string (FILE *stream, const char *str)
 	    fprintf (stream, "\\}");
 #endif
 	  else if (uc >= 0x0020 && uc < 0x007f)
-	    fprintf (stream, "%c", uc);
+	    fprintf (stream, "%c", (int) uc);
 	  else
 	    fprintf (stream, "\\u%c%c%c%c",
 		     hexdigit[(uc >> 12) & 0x0f], hexdigit[(uc >> 8) & 0x0f],

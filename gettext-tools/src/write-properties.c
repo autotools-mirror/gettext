@@ -1,5 +1,5 @@
 /* Writing Java .properties files.
-   Copyright (C) 2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -70,7 +70,7 @@ conv_to_java (const char *string)
 
     while (str < str_limit)
       {
-	unsigned int uc;
+	ucs4_t uc;
 	str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
 	length += (uc <= 0x007f ? 1 : uc < 0x10000 ? 6 : 12);
       }
@@ -85,7 +85,7 @@ conv_to_java (const char *string)
 
     while (str < str_limit)
       {
-	unsigned int uc;
+	ucs4_t uc;
 	str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
 	if (uc <= 0x007f)
 	  /* ASCII characters can be output literally.
@@ -104,8 +104,8 @@ conv_to_java (const char *string)
 	else
 	  {
 	    /* UTF-16 surrogate: two 'char's.  */
-	    unsigned int uc1 = 0xd800 + ((uc - 0x10000) >> 10);
-	    unsigned int uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
+	    ucs4_t uc1 = 0xd800 + ((uc - 0x10000) >> 10);
+	    ucs4_t uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
 	    sprintf (newstr, "\\u%c%c%c%c",
 		     hexdigit[(uc1 >> 12) & 0x0f], hexdigit[(uc1 >> 8) & 0x0f],
 		     hexdigit[(uc1 >> 4) & 0x0f], hexdigit[uc1 & 0x0f]);
@@ -132,7 +132,7 @@ write_escaped_string (ostream_t stream, const char *str, bool in_key)
 
   while (str < str_limit)
     {
-      unsigned int uc;
+      ucs4_t uc;
       str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       /* Whitespace must be escaped.  */
       if (uc == 0x0020 && (first || in_key))
@@ -182,8 +182,8 @@ write_escaped_string (ostream_t stream, const char *str, bool in_key)
       else
 	{
 	  /* UTF-16 surrogate: two 'char's.  */
-	  unsigned int uc1 = 0xd800 + ((uc - 0x10000) >> 10);
-	  unsigned int uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
+	  ucs4_t uc1 = 0xd800 + ((uc - 0x10000) >> 10);
+	  ucs4_t uc2 = 0xdc00 + ((uc - 0x10000) & 0x3ff);
 	  char seq[6];
 	  seq[0] = '\\';
 	  seq[1] = 'u';
