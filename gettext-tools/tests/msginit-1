@@ -46,7 +46,7 @@ ${MSGINIT} -i mi-test1.pot -l ga_IE --no-translator -o mi-test1.tmp 2>mi-test1.e
 test $? = 0 || { cat mi-test1.err 1>&2; rm -fr $tmpfiles; exit 1; }
 # The charset stored in the header entry is the locale encoding of the gl_IE
 # locale, which is system dependent, or ASCII if the locale does not exist.
-sed -e '1,10d' -e 's/\(ISO-8859-1\|UTF-8\)/ASCII/g' < mi-test1.tmp | LC_ALL=C tr -d '\r' > mi-test1.out
+sed -e '1,10d' -e 's/\(ISO-8859-1\|CP1252\|UTF-8\)/ASCII/g' < mi-test1.tmp | LC_ALL=C tr -d '\r' > mi-test1.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles mi-test1.ok"
