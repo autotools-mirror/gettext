@@ -76,7 +76,7 @@ if ! $skip_gnulib; then
       closeout
       error
       exit
-      getopt
+      getopt-gnu
       gettext-h
       memmove
       progname
@@ -133,7 +133,7 @@ if ! $skip_gnulib; then
       fwriteerror
       gcd
       getline
-      getopt
+      getopt-gnu
       gettext-h
       hash
       html-styled-ostream

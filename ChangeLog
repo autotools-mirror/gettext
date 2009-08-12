@@ -1,3 +1,8 @@
+2009-08-12  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC,
+	GNULIB_MODULES_TOOLS_FOR_SRC): Use getopt-gnu instead of getopt.
+
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Avoid the 'hash-tests' module. It corresponds to an
