@@ -609,7 +609,18 @@ process_message (message_ty *mp)
   if (is_header (mp) && keep_header)
     return;
 
-  /* Set environment variables for the subprocess.  */
+  /* Set environment variables for the subprocess.
+     Note: These environment variables, especially MSGEXEC_MSGCTXT and
+     MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
+     may not interpret these values correctly if the locale encoding is
+     different from the PO file's encoding.  We want about this situation,
+     above.
+     On Unix, this problem is often harmless.  On Windows, however, - both
+     native Windows and Cygwin - the values of environment variables *must*
+     be in the encoding that is the value of GetACP(), because the system
+     may convert the environment from char** to wchar_t** before spawning
+     the subprocess and back from wchar_t** to char** in the subprocess,
+     and it does so using the GetACP() codepage.  */
   if (mp->msgctxt != NULL)
     xsetenv ("MSGFILTER_MSGCTXT", mp->msgctxt, 1);
   else

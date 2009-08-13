@@ -2,6 +2,8 @@
 
 	* msgexec.c: Include msgl-charset.h.
 	(main): Invoke compare_po_locale_charsets.
+	(process_string): Add comment.
+	* msgfilter.c (process_message): Likewise.
 
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 

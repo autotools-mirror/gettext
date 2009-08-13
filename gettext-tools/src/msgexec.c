@@ -210,11 +210,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
 
-  /* Warn if the current locale is not suitable for this PO file.  */
-  compare_po_locale_charsets (result);
-
   if (strcmp (sub_name, "0") != 0)
     {
+      /* Warn if the current locale is not suitable for this PO file.  */
+      compare_po_locale_charsets (result);
+
       /* Block SIGPIPE for this process and for the subprocesses.
 	 The subprogram may have side effects (additionally to producing some
 	 output), therefore if there are no readers on stdout, processing of the
@@ -353,7 +353,18 @@ process_string (const message_ty *mp, const char *str, size_t len)
       void (*orig_sigpipe_handler)(int);
       int exitstatus;
 
-      /* Set environment variables for the subprocess.  */
+      /* Set environment variables for the subprocess.
+	 Note: These environment variables, especially MSGEXEC_MSGCTXT and
+	 MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
+	 may not interpret these values correctly if the locale encoding is
+	 different from the PO file's encoding.  We want about this situation,
+	 above.
+	 On Unix, this problem is often harmless.  On Windows, however, - both
+	 native Windows and Cygwin - the values of environment variables *must*
+	 be in the encoding that is the value of GetACP(), because the system
+	 may convert the environment from char** to wchar_t** before spawning
+	 the subprocess and back from wchar_t** to char** in the subprocess,
+	 and it does so using the GetACP() codepage.  */
       if (mp->msgctxt != NULL)
 	xsetenv ("MSGEXEC_MSGCTXT", mp->msgctxt, 1);
       else
