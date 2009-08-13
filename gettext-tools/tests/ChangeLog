@@ -2,7 +2,7 @@
 
 	* msgexec-1: Filter out msgexec's warning about locale charset.
 	* msgexec-2: Likewise.
-	* msgexec-4: Likewise.
+	* msgexec-4: Likewise. Explain why this test fails on mingw.
 
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 
