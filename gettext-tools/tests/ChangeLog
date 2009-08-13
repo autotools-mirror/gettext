@@ -1,3 +1,8 @@
+2009-08-13  Bruno Haible  <bruno@clisp.org>
+
+	* msgexec-1: Filter out msgexec's warning about locale charset.
+	* msgexec-2: Likewise.
+
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 
 	Avoid a test failure on Cygwin.
