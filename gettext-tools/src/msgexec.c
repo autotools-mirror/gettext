@@ -44,6 +44,7 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
+#include "msgl-charset.h"
 #include "xalloc.h"
 #include "full-write.h"
 #include "findprog.h"
@@ -208,6 +209,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
+
+  /* Warn if the current locale is not suitable for this PO file.  */
+  compare_po_locale_charsets (result);
 
   if (strcmp (sub_name, "0") != 0)
     {
