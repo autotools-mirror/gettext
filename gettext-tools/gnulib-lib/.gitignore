@@ -233,6 +233,7 @@
 /spawnp.c
 /stdarg.in.h
 /stdbool.in.h
+/stddef.in.h
 /stdint.in.h
 /stdio-write.c
 /stdio.in.h

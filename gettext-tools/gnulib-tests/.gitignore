@@ -11,8 +11,6 @@
 /Makefile.gnulib
 /close-hook.c
 /close-hook.h
-/close.c
-/fclose.c
 /hash-pjw.c
 /hash-pjw.h
 /imaxtostr.c
@@ -54,6 +52,9 @@
 /test-getdelim.c
 /test-getdtablesize.c
 /test-getline.c
+/test-getopt.c
+/test-getopt.h
+/test-getopt_long.h
 /test-gettimeofday.c
 /test-iconv.c
 /test-linkedhash_list.c
@@ -119,6 +120,7 @@
 /test-sigpipe.sh
 /test-snprintf.c
 /test-stdbool.c
+/test-stddef.c
 /test-stdint.c
 /test-stdio.c
 /test-stdlib.c
