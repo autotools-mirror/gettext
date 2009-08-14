@@ -274,7 +274,7 @@ fi
 (cd autoconf-lib-link
  ../build-aux/fixaclocal aclocal -I m4 -I ../m4
  autoconf
- automake
+ automake --add-missing --copy
  # Rebuilding the autoconfiguration of the tests is only rarely needed.
  if ! $quick; then
    ./configure && make subconfigures && make distclean
@@ -285,7 +285,7 @@ fi
  ../build-aux/fixaclocal aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
- automake
+ automake --add-missing --copy
  # Rebuilding the PO files and manual pages is only rarely needed.
  if ! $quick; then
    ./configure --disable-java --disable-native-java --disable-csharp \
@@ -300,7 +300,7 @@ fi
  ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4
  autoconf
  autoheader && touch config.h.in
- automake
+ automake --add-missing --copy
 )
 
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
@@ -310,7 +310,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  autoconf
  autoheader && touch config.h.in
  test -d intl || mkdir intl
- automake
+ automake --add-missing --copy
  # Rebuilding the PO files, manual pages, documentation, test files is only rarely needed.
  if ! $quick; then
    ./configure --disable-java --disable-native-java --disable-csharp --disable-openmp \
@@ -326,7 +326,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 (cd gettext-tools/examples
  ../../build-aux/fixaclocal aclocal -I ../../gettext-runtime/m4 -I ../../m4
  autoconf
- automake
+ automake --add-missing --copy
  # Rebuilding the examples PO files is only rarely needed.
  if ! $quick; then
    ./configure && (cd po && make update-po) && make distclean

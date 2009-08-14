@@ -7,3 +7,12 @@
 /reloc-ldflags
 /relocatable.sh.in
 
+# Files brought in by "automake --add-missing --copy":
+/compile
+/depcomp
+/elisp-comp
+/install-sh
+/mdate-sh
+/missing
+/ylwrap
+

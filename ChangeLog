@@ -1,5 +1,17 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	Remove automatically copied files from version control.
+	* autogen.sh: Invoke automake with options --add-missing --copy.
+	* build-aux/compile: Remove file.
+	* build-aux/depcomp: Remove file.
+	* build-aux/elisp-comp: Remove file.
+	* build-aux/install-sh: Remove file.
+	* build-aux/mdate-sh: Remove file.
+	* build-aux/missing: Remove file.
+	* build-aux/ylwrap: Remove file.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	Remove automatically generated files from version control.
 	* autogen.sh: If --quick was not given, rebuild autoconfiguration of
 	tests, PO files, manual pages, documentation, test files.
