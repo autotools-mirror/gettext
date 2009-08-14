@@ -290,7 +290,7 @@ fi
  if ! $quick; then
    ./configure --disable-java --disable-native-java --disable-csharp \
      && (cd po && make update-po) \
-     && (cd intl && make) && (cd gnulib-lib && make) && (cd src && make)
+     && (cd intl && make) && (cd gnulib-lib && make) && (cd src && make) \
      && (cd man && make update-man1 all) \
      && make distclean
  fi
@@ -315,7 +315,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  if ! $quick; then
    ./configure --disable-java --disable-native-java --disable-csharp --disable-openmp \
      && (cd po && make update-po) \
-     && (cd intl && make) && (cd gnulib-lib && make) && (cd libgrep && make) && (cd src && make)
+     && (cd intl && make) && (cd gnulib-lib && make) && (cd libgrep && make) && (cd src && make) \
      && (cd man && make update-man1 all) \
      && (cd doc && make all) \
      && (cd tests && make update-expected) \
