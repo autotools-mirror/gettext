@@ -1,5 +1,9 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: Update comments.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: Create gettext-tools/intl directory before running
 	automake.
 
