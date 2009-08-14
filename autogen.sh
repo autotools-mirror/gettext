@@ -271,6 +271,19 @@ if ! $skip_gnulib; then
   fi
 fi
 
+# Fetch config.guess, config.sub.
+if test -n "$GNULIB_TOOL"; then
+  for file in config.guess config.sub; do
+    $GNULIB_TOOL --copy-file build-aux/$file; chmod a+x build-aux/$file
+  done
+else
+  for file in config.guess config.sub; do
+    wget -q --timeout=5 -O build-aux/$file.tmp "http://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=build-aux/${file};hb=HEAD" \
+      && mv build-aux/$file.tmp build-aux/$file \
+      && chmod a+x build-aux/$file
+  done
+fi
+
 (cd autoconf-lib-link
  ../build-aux/fixaclocal aclocal -I m4 -I ../m4
  autoconf

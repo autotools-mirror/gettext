@@ -1,6 +1,11 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
 	Remove automatically copied files from version control.
+	* autogen.sh: Fetch config.guess, config.sub.
+	* build-aux/config.guess: Remove file.
+	* build-aux/config.sub: Remove file.
+
+	Remove automatically copied files from version control.
 	* autogen.sh: Invoke automake with options --add-missing --copy.
 	* build-aux/compile: Remove file.
 	* build-aux/depcomp: Remove file.
