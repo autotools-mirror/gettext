@@ -1,3 +1,8 @@
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Create gettext-tools/intl directory before running
+	automake.
+
 2009-08-12  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC,
