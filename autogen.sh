@@ -212,8 +212,12 @@ if ! $skip_gnulib; then
     '
     GNULIB_MODULES_TOOLS_OTHER='
       gettext-tools-misc
+      csharpcomp-script
+      csharpexec-script
       gcj
       java
+      javacomp-script
+      javaexec-script
       stdint
     '
     $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \

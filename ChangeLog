@@ -1,6 +1,16 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
 	Remove automatically copied files from version control.
+	* autogen.sh (GNULIB_MODULES_TOOLS_OTHER): Add csharpcomp-script,
+	csharpexec-script, javacomp-script, javaexec-script.
+	* build-aux/csharpcomp.sh.in: Remove file.
+	* build-aux/csharpexec.sh.in: Remove file.
+	* build-aux/javacomp.sh.in: Remove file.
+	* build-aux/javaexec.sh.in: Remove file.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
+	Remove automatically copied files from version control.
 	* autogen.sh: Fetch config.guess, config.sub.
 	* build-aux/config.guess: Remove file.
 	* build-aux/config.sub: Remove file.

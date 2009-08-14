@@ -1,7 +1,11 @@
 # Files brought in by gnulib-tool:
 /config.libpath
 /config.rpath
+/csharpcomp.sh.in
+/csharpexec.sh.in
 /install-reloc
+/javacomp.sh.in
+/javaexec.sh.in
 /link-warning.h
 /moopp
 /reloc-ldflags
