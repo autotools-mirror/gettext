@@ -9,6 +9,12 @@
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
 #   - the git program in the PATH and an internet connection.
+# It also requires
+#   - the bison program,
+#   - the gperf program,
+#   - the groff program,
+#   - the makeinfo program from the texinfo package,
+#   - perl.
 
 # Copyright (C) 2003-2009 Free Software Foundation, Inc.
 #
@@ -269,6 +275,10 @@ fi
  ../build-aux/fixaclocal aclocal -I m4 -I ../m4
  autoconf
  automake
+ # Rebuilding the autoconfiguration of the tests is only rarely needed.
+ if ! $quick; then
+   ./configure && make subconfigures && make distclean
+ fi
 )
 
 (cd gettext-runtime
@@ -276,6 +286,14 @@ fi
  autoconf
  autoheader && touch config.h.in
  automake
+ # Rebuilding the PO files and manual pages is only rarely needed.
+ if ! $quick; then
+   ./configure --disable-java --disable-native-java --disable-csharp \
+     && (cd po && make update-po) \
+     && (cd intl && make) && (cd gnulib-lib && make) && (cd src && make)
+     && (cd man && make update-man1 all) \
+     && make distclean
+ fi
 )
 
 (cd gettext-runtime/libasprintf
@@ -293,6 +311,16 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  autoheader && touch config.h.in
  test -d intl || mkdir intl
  automake
+ # Rebuilding the PO files, manual pages, documentation, test files is only rarely needed.
+ if ! $quick; then
+   ./configure --disable-java --disable-native-java --disable-csharp --disable-openmp \
+     && (cd po && make update-po) \
+     && (cd intl && make) && (cd gnulib-lib && make) && (cd libgrep && make) && (cd src && make)
+     && (cd man && make update-man1 all) \
+     && (cd doc && make all) \
+     && (cd tests && make update-expected) \
+     && make distclean
+ fi
 )
 
 (cd gettext-tools/examples

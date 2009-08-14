@@ -188,6 +188,8 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    CONFIG_SHELL='$(SHELL)' \
 		    $(SHELL)
 
+# Update the expected test results.
+update-expected: xg-c-1.ok.po
 xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 	$(XGETTEXT) -d xg-c-1.ok -p $(srcdir) \
 	  -k_ --omit-header --no-location \

@@ -1,5 +1,9 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (update-expected): New target.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	Avoid a warning message on Cygwin.
 	* msggrep-7: Filter out msggrep's warning about locale charset.
 
