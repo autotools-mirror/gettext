@@ -1,5 +1,11 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	Remove automatically generated files from version control.
+	* autogen.sh: If --quick was not given, rebuild autoconfiguration of
+	tests, PO files, manual pages, documentation, test files.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: Update comments.
 
 2009-08-14  Bruno Haible  <bruno@clisp.org>
