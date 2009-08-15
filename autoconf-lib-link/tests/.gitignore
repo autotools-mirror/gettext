@@ -17,6 +17,9 @@ rpathlz/Makefile.in
 rpathlzyx/aclocal.m4
 rpathlzyx/configure
 rpathlzyx/Makefile.in
+rpathx/aclocal.m4
+rpathx/configure
+rpathx/Makefile.in
 rpathy/aclocal.m4
 rpathy/configure
 rpathy/Makefile.in
