@@ -1,3 +1,8 @@
+2009-08-15  Bruno Haible  <bruno@clisp.org>
+
+	Stop using gnulib module 'strdup'.
+	* Makefile.am (distcheck-hook): Don't compare strdup.c.
+
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Invoke gnulib-tool also for gettext-runtime/libasprintf.

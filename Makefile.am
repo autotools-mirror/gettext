@@ -99,7 +99,6 @@ distcheck-hook:
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.class gettext-tools/examples/hello-java-swing/m4/TestAWT.class
 	test "`sed 1,15d gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,15d gettext-runtime/libasprintf/alloca.in.h | md5sum`"
 	cmp -s gettext-tools/libgrep/memchr.c gettext-tools/gnulib-lib/memchr.c
-	cmp -s gettext-tools/libgrep/strdup.c gettext-tools/gnulib-lib/strdup.c
 
 # DJGPP port.
 

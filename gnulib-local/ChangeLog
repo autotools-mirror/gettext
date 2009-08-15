@@ -1,3 +1,8 @@
+2009-08-15  Bruno Haible  <bruno@clisp.org>
+
+	Stop using gnulib module 'strdup'.
+	* modules/gettext-tools-misc (Files): Remove m4/strdup.m4.
+
 2009-08-10  Bruno Haible  <bruno@clisp.org>
 
 	Avoid gcc warning on Cygwin.

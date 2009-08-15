@@ -1,3 +1,9 @@
+2009-08-15  Bruno Haible  <bruno@clisp.org>
+
+	Stop using gnulib module 'strdup'.
+	* strdup.c: Remove file.
+	* Makefile.am (LIBADD_SOURCE): Remove strdup.c.
+
 2008-04-28  Eric Blake  <ebb9@byu.net>
 
 	* memchr.c (__memchr): Hand-inline the TYPE_MAXIMUM check.

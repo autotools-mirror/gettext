@@ -1,5 +1,5 @@
-# libgrep.m4 serial 3 (gettext-0.18)
-dnl Copyright (C) 2005-2006, 2008 Free Software Foundation, Inc.
+# libgrep.m4 serial 4 (gettext-0.18)
+dnl Copyright (C) 2005-2006, 2008-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -15,7 +15,6 @@ AC_DEFUN([gt_LIBGREP],
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gt_LIBGREP_REPLACE_FUNCS]))
   gl_HARD_LOCALE
   gl_FUNC_MEMCHR
-  gl_FUNC_STRDUP
   gl_INCLUDED_REGEX([libgrep/regex.c])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
