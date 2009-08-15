@@ -2,6 +2,13 @@
 
 # Test of --tcl option.
 
+# This test fails on mingw, in the Cygwin environment: tclsh exists as
+# tclsh.exe from Cygwin. When msgunfmt invokes it, it crashes, presenting
+# a dialog "16 bit MS-DOS subsystem - The NTVDM CPU has encountered an
+# illegal instruction." When this dialog is closed, msgunfmt continues,
+# reads empty output, and refrains from creating a PO file because
+# --force-po was not specified.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 

@@ -1,3 +1,7 @@
+2009-08-15  Bruno Haible  <bruno@clisp.org>
+
+	* msgunfmt-tcl-1: Explain that this test fails on mingw.
+
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (update-expected): New target.
