@@ -16,7 +16,7 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.52])
+AC_PREREQ([2.59])
 AC_INIT([libasprintf], [1.0])
 AC_CONFIG_SRCDIR([vasprintf.c])
 AC_CONFIG_AUX_DIR([../../build-aux])
@@ -34,6 +34,9 @@ AC_CANONICAL_HOST
 dnl Checks for compiler output filename suffixes.
 AC_OBJEXT
 AC_EXEEXT
+
+dnl Early checks, assembled by gnulib.
+gl_EARLY
 
 dnl Check for build configuration.
 gl_WOE32_DLL
@@ -65,23 +68,12 @@ gl_XSIZE
 
 dnl Checks for library functions.
 
-AC_FUNC_ALLOCA
-dnl Define an additional variable used in the Makefile substitution.
-AC_EGREP_CPP([Need own alloca], [
-#if defined __GNUC__ || defined _MSC_VER || !HAVE_ALLOCA_H
-  Need own alloca
-#endif
-  ],
-  [ALLOCA_H=alloca.h],
-  [ALLOCA_H=])
-AC_SUBST([ALLOCA_H])
-
+gl_INIT
 AC_CHECK_FUNCS([snprintf vasprintf strnlen wcslen wcsnlen mbrtowc wcrtomb])
 dnl Use the _snprintf function only if it is declared (because on NetBSD it
 dnl is defined as a weak alias of snprintf; we prefer to use the latter).
 AC_CHECK_DECLS([_snprintf], , , [#include <stdio.h>])
 gt_PRINTF_POSIX
-gl_EOVERFLOW
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`

@@ -1,5 +1,14 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh: Invoke gnulib-tool also for gettext-runtime/libasprintf.
+	(GNULIB_MODULES_LIBASPRINTF, GNULIB_MODULES_LIBASPRINTF_OTHER): New
+	variables.
+	Update aclocal options for gettext-runtime/libasprintf.
+	* Makefile.am (distcheck-hook): Don't compare eoverflow.m4. Update
+	comparison of alloca.in.h.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	Remove automatically copied files from version control.
 	* autogen.sh (GNULIB_MODULES_TOOLS_OTHER): Add csharpcomp-script,
 	csharpexec-script, javacomp-script, javaexec-script.

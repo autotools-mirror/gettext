@@ -20,8 +20,9 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = ../../build-aux/fixaclocal @ACLOCAL@
-ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4
+ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I gnulib-m4
 EXTRA_DIST =
+BUILT_SOURCES =
 MOSTLYCLEANFILES =
 
 RM = rm -f
@@ -47,6 +48,8 @@ dist-hook:
 
 lib_LTLIBRARIES = libasprintf.la
 
+noinst_LTLIBRARIES =
+
 libasprintf_la_SOURCES = \
   lib-asprintf.h lib-asprintf.c \
   autosprintf.h autosprintf.cc
@@ -71,16 +74,11 @@ libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
 	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)
 
 
-# >>> gnulib module alloca.
-EXTRA_DIST += alloca.in.h
+# A small set of gnulib modules is needed here as well.
+include Makefile.gnulib
 
-# The following is needed in order to create an <alloca.h> when the system
-# doesn't have one that works with the given compiler.
-all-local $(libasprintf_la_OBJECTS): @ALLOCA_H@
-alloca.h: alloca.in.h
-	cp $(srcdir)/alloca.in.h alloca.h
-MOSTLYCLEANFILES += alloca.h
-# <<< gnulib module alloca.
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 
 # Clean up after Solaris cc.

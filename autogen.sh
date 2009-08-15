@@ -103,6 +103,18 @@ if ! $skip_gnulib; then
     '
     $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
+    # In gettext-runtime/libasprintf:
+    if test -f gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4; then
+      mv -f gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4 gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4~
+    fi
+    GNULIB_MODULES_LIBASPRINTF='
+      alloca
+      errno
+    '
+    GNULIB_MODULES_LIBASPRINTF_OTHER='
+    '
+    $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=. --m4-base=gnulib-m4 --lgpl=2 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+      --import $GNULIB_MODULES_LIBASPRINTF $GNULIB_MODULES_LIBASPRINTF_OTHER
     # In gettext-tools:
     if test -f gettext-tools/gnulib-m4/gnulib-cache.m4; then
       mv -f gettext-tools/gnulib-m4/gnulib-cache.m4 gettext-tools/gnulib-m4/gnulib-cache.m4~
@@ -314,7 +326,7 @@ fi
 )
 
 (cd gettext-runtime/libasprintf
- ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4
+ ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake --add-missing --copy

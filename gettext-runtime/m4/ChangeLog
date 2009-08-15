@@ -1,5 +1,10 @@
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
+	* eoverflow.m4: Remove file. Obsoleted by gnulib's 'errno' module.
+	* Makefile.am (EXTRA_DIST): Remove it.
+
+2009-08-14  Bruno Haible  <bruno@clisp.org>
+
 	Disable multithread support by default on Cygwin 1.5.x for real.
 	* m4/threadlib.m4 (gl_THREADLIB_EARLY_BODY): Fix last commit.
 
