@@ -42,6 +42,12 @@ COPYRIGHT_HOLDER = Yoyodyne, Inc.
 # which the translators can contact you.
 MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
 
+# These options get passed to msgmerge.
+# Useful options are in particular:
+#   --previous            to keep previous msgids of translated messages,
+#   --quiet               to reduce the verbosity.
+MSGMERGE_OPTIONS = --quiet
+
 -include $(GNUSTEP_MAKEFILES)/rules.make
 
 # Main application
@@ -141,12 +147,12 @@ $(DOMAIN).pot:
 $(POFILES): $(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	if test -f $${lang}.po; then \
-	  echo "$(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
+	  echo "$(MSGMERGE_UPDATE) $(MSGMERGE_OPTIONS) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
 	  case `$(MSGMERGE_UPDATE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
 	    '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
-	      $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot;; \
+	      $(MSGMERGE_UPDATE) $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot;; \
 	    *) \
-	      $(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
+	      $(MSGMERGE_UPDATE) $(MSGMERGE_OPTIONS) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
 	  esac; \
 	else \
 	  $(MAKE) $${lang}.po-create; \
@@ -170,12 +176,12 @@ update-po:
 	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
-	echo "$(MSGMERGE) --lang=$$lang $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	echo "$(MSGMERGE) $(MSGMERGE_OPTIONS) --lang=$$lang $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	if { case `$(MSGMERGE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
 	       '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
-	         $(MSGMERGE) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	         $(MSGMERGE) $(MSGMERGE_OPTIONS) -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
 	       *) \
-	         $(MSGMERGE) --lang=$$lang -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
+	         $(MSGMERGE) $(MSGMERGE_OPTIONS) --lang=$$lang -o $$tmpdir/$$lang.new.po $$lang.po $(DOMAIN).pot;; \
 	     esac; \
 	   }; then \
 	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \

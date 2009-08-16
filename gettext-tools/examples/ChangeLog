@@ -1,5 +1,41 @@
 2009-08-16  Bruno Haible  <bruno@clisp.org>
 
+	Silence the msgmerge invocations.
+	* hello-c/po/Makevars (MSGMERGE_OPTIONS): New variable.
+	* hello-c-gnome/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* hello-c++/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* hello-c++-kde/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* hello-c++-gnome/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* hello-objc/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* hello-objc-gnome/po/Makevars (MSGMERGE_OPTIONS): Likewise.
+	* po/Makefile.am (MSGMERGE_OPTIONS): New variable.
+	($(POFILES), .nop.po-update): Use it.
+	* hello-c++-qt/po/Makefile.am: Likewise.
+	* hello-c++-wxwidgets/po/Makefile.am: Likewise.
+	* hello-sh/po/Makefile.am: Likewise.
+	* hello-python/po/Makefile.am: Likewise.
+	* hello-clisp/po/Makefile.am: Likewise.
+	* hello-librep/po/Makefile.am: Likewise.
+	* hello-guile/po/Makefile.am: Likewise.
+	* hello-smalltalk/po/Makefile.am: Likewise.
+	* hello-java/po/Makefile.am: Likewise.
+	* hello-java-awt/po/Makefile.am: Likewise.
+	* hello-java-swing/po/Makefile.am: Likewise.
+	* hello-java-qtjambi/po/Makefile.am: Likewise.
+	* hello-csharp/po/Makefile.am: Likewise.
+	* hello-csharp-forms/po/Makefile.am: Likewise.
+	* hello-gawk/po/Makefile.am: Likewise.
+	* hello-pascal/po/Makefile.am: Likewise.
+	* hello-ycp/po/Makefile.am: Likewise.
+	* hello-tcl/po/Makefile.am: Likewise.
+	* hello-tcl-tk/po/Makefile.am: Likewise.
+	* hello-perl/po/Makefile.am: Likewise.
+	* hello-php/po/Makefile.am: Likewise.
+	* hello-objc-gnustep/po/GNUmakefile: Likewise.
+	* po/mmsmallpo.sh: Pass option --quiet to msgmerge.
+
+2009-08-16  Bruno Haible  <bruno@clisp.org>
+
 	* hello-objc-gnustep/po/GNUmakefile: Apply 2007-10-18 changes to
 	hello-*/po/Makefile.am.
 
