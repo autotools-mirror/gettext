@@ -37,6 +37,9 @@ Version 0.18 - January 2008
 
 * autopoint can now be used to update several PO directories all together.
 
+* The po/Makevars file has a new field MSGMERGE_OPTIONS, that can be used
+  to adjust msgmerge's operation.
+
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 * Portability:
