@@ -44,6 +44,10 @@ MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
 
 -include $(GNUSTEP_MAKEFILES)/rules.make
 
+# Main application
+PACKAGE_NAME = Hello
+PACKAGE_VERSION = 0
+
 XGETTEXT = xgettext
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = msgmerge --update
@@ -87,10 +91,17 @@ all-local-no:
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
+	if LC_ALL=C grep 'GNU $(PACKAGE_NAME)' ../* 2>/dev/null >/dev/null; then \
+	  package_gnu='GNU '; \
+	else \
+	  package_gnu=''; \
+	fi; \
 	msgid_bugs_address='$(MSGID_BUGS_ADDRESS)'; \
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
+	  --package-name="$${package_gnu}$(PACKAGE_NAME)" \
+	  --package-version='$(VERSION)' \
 	  --msgid-bugs-address="$$msgid_bugs_address" \
 	  $(POTFILES)
 	test ! -f $(DOMAIN).po || { \
