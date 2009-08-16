@@ -810,8 +810,9 @@ englishname_of_language ()
 
 /* Construct the value for the PACKAGE name.  */
 static const char *
-project_id ()
+project_id (const char *header)
 {
+  const char *old_field;
   const char *gettextlibdir;
   char *prog;
   char *argv[3];
@@ -822,6 +823,33 @@ project_id ()
   size_t linesize;
   size_t linelen;
   int exitstatus;
+
+  /* Return the first part of the Project-Id-Version field if present, assuming
+     it was already filled in by xgettext.  */
+  old_field = get_field (header, "Project-Id-Version");
+  if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+    {
+      /* Remove the last word from old_field.  */
+      const char *last_space;
+
+      last_space = strrchr (old_field, ' ');
+      if (last_space != NULL)
+	{
+	  while (last_space > old_field && last_space[-1] == ' ')
+	    last_space--;
+	  if (last_space > old_field)
+	    {
+	      size_t package_len = last_space - old_field;
+	      char *package = XNMALLOC (package_len + 1, char);
+	      memcpy (package, old_field, package_len);
+	      package[package_len] = '\0';
+
+	      return package;
+	    }
+	}
+      /* It contains no version, just a package name.  */
+      return old_field;
+    }
 
   gettextlibdir = getenv ("GETTEXTLIBDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
@@ -1649,7 +1677,7 @@ fill_header (msgdomain_list_ty *mdlp)
 	      const char *id;
 	      time_t now;
 
-	      id = project_id ();
+	      id = project_id (header);
 	      subst[0][0] = "SOME DESCRIPTIVE TITLE";
 	      subst[0][1] = xasprintf (get_title (), id, id);
 	      subst[1][0] = "PACKAGE";
