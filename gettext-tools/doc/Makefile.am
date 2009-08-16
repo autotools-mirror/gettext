@@ -217,7 +217,7 @@ dist-html-monolithic:
 	cp -p $$d/$$file $(distdir)/$$file || exit 1
 
 # We would like to put gettext_*.html into EXTRA_DIST, but it doesn't work.
-dist-html-split:
+dist-html-split: gettext_toc.html
 	$(mkdir_p) $(distdir)/
 	file=gettext_toc.html; \
 	if test -f $$file; then d=.; else d=$(srcdir); fi; \

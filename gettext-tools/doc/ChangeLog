@@ -1,3 +1,7 @@
+2009-08-16  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (dist-html-split): Depend on gettext_toc.html.
+
 2009-06-11  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Mark Keywords): Add cross-section references.
