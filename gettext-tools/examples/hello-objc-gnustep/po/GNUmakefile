@@ -68,7 +68,7 @@ STRINGSFILES = $(foreach lang, $(LINGUAS), $(top_srcdir)/$(NSLOCALE_$(lang)).lpr
 ENSTRINGSFILES = $(foreach lang, $(ENLINGUAS), $(top_srcdir)/$(NSLOCALE_$(lang)).lproj/Localizable.strings)
 CATALOGS = $(STRINGSFILES) $(ENSTRINGSFILES)
 
-.SUFFIXES: .po .mo .sed .sin .nop .po-update
+.SUFFIXES: .po .mo .sed .sin .nop .po-create .po-update
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
@@ -117,18 +117,29 @@ $(DOMAIN).pot:
 # Note that a PO file is not touched if it doesn't need to be changed.
 $(POFILES): $(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
-	echo "$(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
-	case `$(MSGMERGE_UPDATE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
-	  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
-	    $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot;; \
-	  *) \
-	    $(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
-	esac
+	if test -f $${lang}.po; then \
+	  echo "$(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot"; \
+	  case `$(MSGMERGE_UPDATE) --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+	    '' | 0.[0-9] | 0.[0-9].* | 0.1[0-7] | 0.1[0-7].*) \
+	      $(MSGMERGE_UPDATE) $${lang}.po $(DOMAIN).pot;; \
+	    *) \
+	      $(MSGMERGE_UPDATE) --lang=$${lang} $${lang}.po $(DOMAIN).pot;; \
+	  esac; \
+	else \
+	  $(MAKE) $${lang}.po-create; \
+	fi
 
 update-po:
 	$(MAKE) $(DOMAIN).pot-update
 	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
 	$(MAKE) update-strings
+
+# General rule for creating PO files.
+
+.nop.po-create:
+	@lang=`echo $@ | sed -e 's/\.po-create$$//'`; \
+	echo "File $$lang.po does not exist. If you are a translator, you can create it through 'msginit'." 1>&2; \
+	exit 1
 
 # General rule for updating PO files.
 
