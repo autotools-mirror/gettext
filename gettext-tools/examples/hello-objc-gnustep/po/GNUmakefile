@@ -87,10 +87,11 @@ all-local-no:
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
+	msgid_bugs_address='$(MSGID_BUGS_ADDRESS)'; \
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
+	  --msgid-bugs-address="$$msgid_bugs_address" \
 	  $(POTFILES)
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(DOMAIN).pot; then \
