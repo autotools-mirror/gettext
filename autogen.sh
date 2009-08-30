@@ -209,6 +209,7 @@ if ! $skip_gnulib; then
       xerror
       xsetenv
       xstriconv
+      xstriconveh
       xvasprintf
     '
     # Not yet used. Add some files to gettext-tools-misc instead.

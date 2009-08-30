@@ -1,5 +1,9 @@
 2009-08-30  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add xstriconveh.
+
+2009-08-30  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac (AC_PREREQ): Require at least autoconf 2.59.
 
 2009-08-15  Bruno Haible  <bruno@clisp.org>

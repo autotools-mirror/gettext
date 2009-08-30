@@ -1973,12 +1973,13 @@ Please specify the source encoding through --from-code.")));
       context.from_filename = file_name;
       context.message = NULL;
 
-      string = convert_string (xgettext_current_source_iconv, string, &context);
+      string = convert_string_directly (xgettext_current_source_iconv, string,
+					&context);
 #else
       /* If we don't have iconv(), the only supported values for
 	 xgettext_global_source_encoding and thus also for
 	 xgettext_current_source_encoding are ASCII and UTF-8.
-	 convert_string() should not be called in this case.  */
+	 convert_string_directly() should not be called in this case.  */
       abort ();
 #endif
     }

@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -37,6 +37,7 @@
 #include "message.h"
 #include "po-charset.h"
 #include "xstriconv.h"
+#include "xstriconveh.h"
 #include "msgl-ascii.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -74,8 +75,8 @@ conversion_error (const struct conversion_context* context)
 }
 
 char *
-convert_string (iconv_t cd, const char *string,
-		const struct conversion_context* context)
+convert_string_directly (iconv_t cd, const char *string,
+			 const struct conversion_context* context)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
@@ -92,8 +93,28 @@ convert_string (iconv_t cd, const char *string,
   return NULL;
 }
 
+static char *
+convert_string (const iconveh_t *cd, const char *string,
+		const struct conversion_context* context)
+{
+  size_t len = strlen (string) + 1;
+  char *result = NULL;
+  size_t resultlen = 0;
+
+  if (xmem_cd_iconveh (string, len, cd, iconveh_error, NULL,
+		       &result, &resultlen) == 0)
+    /* Verify the result has exactly one NUL byte, at the end.  */
+    if (resultlen > 0 && result[resultlen - 1] == '\0'
+	&& strlen (result) == resultlen - 1)
+      return result;
+
+  conversion_error (context);
+  /* NOTREACHED */
+  return NULL;
+}
+
 static void
-convert_string_list (iconv_t cd, string_list_ty *slp,
+convert_string_list (const iconveh_t *cd, string_list_ty *slp,
 		     const struct conversion_context* context)
 {
   size_t i;
@@ -104,7 +125,7 @@ convert_string_list (iconv_t cd, string_list_ty *slp,
 }
 
 static void
-convert_prev_msgid (iconv_t cd, message_ty *mp,
+convert_prev_msgid (const iconveh_t *cd, message_ty *mp,
 		    const struct conversion_context* context)
 {
   if (mp->prev_msgctxt != NULL)
@@ -116,7 +137,7 @@ convert_prev_msgid (iconv_t cd, message_ty *mp,
 }
 
 static void
-convert_msgid (iconv_t cd, message_ty *mp,
+convert_msgid (const iconveh_t *cd, message_ty *mp,
 	       const struct conversion_context* context)
 {
   if (mp->msgctxt != NULL)
@@ -127,7 +148,7 @@ convert_msgid (iconv_t cd, message_ty *mp,
 }
 
 static void
-convert_msgstr (iconv_t cd, message_ty *mp,
+convert_msgstr (const iconveh_t *cd, message_ty *mp,
 		const struct conversion_context* context)
 {
   char *result = NULL;
@@ -136,7 +157,8 @@ convert_msgstr (iconv_t cd, message_ty *mp,
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
 
-  if (xmem_cd_iconv (mp->msgstr, mp->msgstr_len, cd, &result, &resultlen) == 0)
+  if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
+		       &result, &resultlen) == 0)
     /* Verify the result has a NUL byte at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0')
       /* Verify the result has the same number of NUL bytes.  */
@@ -275,17 +297,10 @@ input file doesn't contain a header entry with a charset specification"));
   if (canon_from_code != canon_to_code)
     {
 #if HAVE_ICONV
-      iconv_t cd;
+      iconveh_t cd;
       struct conversion_context context;
 
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-      if (strcmp (canon_from_code, "EUC-KR") == 0)
-	cd = (iconv_t)(-1);
-      else
-# endif
-      cd = iconv_open (canon_to_code, canon_from_code);
-      if (cd == (iconv_t)(-1))
+      if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
 	po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
 		   xasprintf (_("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
@@ -305,14 +320,14 @@ and iconv() does not support this conversion."),
 	      || !is_ascii_string (mp->msgid))
 	    msgids_changed = true;
 	  context.message = mp;
-	  convert_string_list (cd, mp->comment, &context);
-	  convert_string_list (cd, mp->comment_dot, &context);
-	  convert_prev_msgid (cd, mp, &context);
-	  convert_msgid (cd, mp, &context);
-	  convert_msgstr (cd, mp, &context);
+	  convert_string_list (&cd, mp->comment, &context);
+	  convert_string_list (&cd, mp->comment_dot, &context);
+	  convert_prev_msgid (&cd, mp, &context);
+	  convert_msgid (&cd, mp, &context);
+	  convert_msgstr (&cd, mp, &context);
 	}
 
-      iconv_close (cd);
+      iconveh_close (&cd);
 
       if (msgids_changed)
 	if (message_list_msgids_changed (mlp))
@@ -373,13 +388,14 @@ target charset \"%s\" is not a portable encoding name."),
 #if HAVE_ICONV
 
 static bool
-iconvable_string (iconv_t cd, const char *string)
+iconvable_string (const iconveh_t *cd, const char *string)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
   size_t resultlen = 0;
 
-  if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
+  if (xmem_cd_iconveh (string, len, cd, iconveh_error, NULL,
+		       &result, &resultlen) == 0)
     {
       /* Test if the result has exactly one NUL byte, at the end.  */
       bool ok = (resultlen > 0 && result[resultlen - 1] == '\0'
@@ -391,7 +407,7 @@ iconvable_string (iconv_t cd, const char *string)
 }
 
 static bool
-iconvable_string_list (iconv_t cd, string_list_ty *slp)
+iconvable_string_list (const iconveh_t *cd, string_list_ty *slp)
 {
   size_t i;
 
@@ -403,7 +419,7 @@ iconvable_string_list (iconv_t cd, string_list_ty *slp)
 }
 
 static bool
-iconvable_prev_msgid (iconv_t cd, message_ty *mp)
+iconvable_prev_msgid (const iconveh_t *cd, message_ty *mp)
 {
   if (mp->prev_msgctxt != NULL)
     if (!iconvable_string (cd, mp->prev_msgctxt))
@@ -418,7 +434,7 @@ iconvable_prev_msgid (iconv_t cd, message_ty *mp)
 }
 
 static bool
-iconvable_msgid (iconv_t cd, message_ty *mp)
+iconvable_msgid (const iconveh_t *cd, message_ty *mp)
 {
   if (mp->msgctxt != NULL)
     if (!iconvable_string (cd, mp->msgctxt))
@@ -432,7 +448,7 @@ iconvable_msgid (iconv_t cd, message_ty *mp)
 }
 
 static bool
-iconvable_msgstr (iconv_t cd, message_ty *mp)
+iconvable_msgstr (const iconveh_t *cd, message_ty *mp)
 {
   char *result = NULL;
   size_t resultlen = 0;
@@ -440,7 +456,8 @@ iconvable_msgstr (iconv_t cd, message_ty *mp)
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
 
-  if (xmem_cd_iconv (mp->msgstr, mp->msgstr_len, cd, &result, &resultlen) == 0)
+  if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
+		       &result, &resultlen) == 0)
     {
       bool ok = false;
 
@@ -551,16 +568,9 @@ is_message_list_iconvable (message_list_ty *mlp,
   if (canon_from_code != canon_to_code)
     {
 #if HAVE_ICONV
-      iconv_t cd;
+      iconveh_t cd;
 
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-      if (strcmp (canon_from_code, "EUC-KR") == 0)
-	cd = (iconv_t)(-1);
-      else
-# endif
-      cd = iconv_open (canon_to_code, canon_from_code);
-      if (cd == (iconv_t)(-1))
+      if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
 	/* iconv() doesn't support this conversion.  */
 	return false;
 
@@ -568,15 +578,15 @@ is_message_list_iconvable (message_list_ty *mlp,
 	{
 	  message_ty *mp = mlp->item[j];
 
-	  if (!(iconvable_string_list (cd, mp->comment)
-		&& iconvable_string_list (cd, mp->comment_dot)
-		&& iconvable_prev_msgid (cd, mp)
-		&& iconvable_msgid (cd, mp)
-		&& iconvable_msgstr (cd, mp)))
+	  if (!(iconvable_string_list (&cd, mp->comment)
+		&& iconvable_string_list (&cd, mp->comment_dot)
+		&& iconvable_prev_msgid (&cd, mp)
+		&& iconvable_msgid (&cd, mp)
+		&& iconvable_msgstr (&cd, mp)))
 	    return false;
 	}
 
-      iconv_close (cd);
+      iconveh_close (&cd);
 #else
       /* This version was built without iconv().  */
       return false;

@@ -1,3 +1,20 @@
+2009-08-30  Bruno Haible  <bruno@clisp.org>
+
+	Accommodate the Solaris iconv_open function, which cannot convert
+	directly between many pairs of encodings.
+	* msgl-iconv.h (convert_string_directly): Renamed from convert_string.
+	* msgl-iconv.c: Include xstriconveh.h.
+	(convert_string_directly): Renamed from convert_string.
+	(convert_string): New function.
+	(convert_string_list, convert_prev_msgid, convert_msgid,
+	iconvable_string_list, iconvable_prev_msgid, iconvable_msgid): Change
+	argument type to 'const iconveh_t *'.
+	(convert_msgstr, iconvable_string, iconvable_msgstr): Likewise. Invoke
+	xmem_cd_iconveh instead of xmem_cd_iconv.
+	(iconv_message_list_internal, is_message_list_iconvable): Invoke
+	iconveh_open, iconveh_close instead of iconv_open, iconv_close.
+	* xgettext.c (from_current_source_encoding): Update.
+
 2009-08-16  Bruno Haible  <bruno@clisp.org>
 
 	Reduce dependency on project-id heuristic.
