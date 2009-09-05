@@ -1394,6 +1394,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
       {
 	flag_context_list_ty *list = (flag_context_list_ty *)entry;
 	flag_context_list_ty **lastp = NULL;
+	/* Invariant: list == (lastp != NULL ? *lastp : entry).  */
 
 	while (list != NULL && list->argnum < argnum)
 	  {

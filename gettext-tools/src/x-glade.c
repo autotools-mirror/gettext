@@ -558,7 +558,7 @@ comment_handler (void *userData, const char *data)
   /* Split multiline comment into lines, and remove leading and trailing
      whitespace.  */
   char *copy = xstrdup (data);
-  char *p = copy;
+  char *p;
   char *q;
 
   for (p = copy; (q = strchr (p, '\n')) != NULL; p = q + 1)
