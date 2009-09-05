@@ -1,3 +1,8 @@
+2009-09-01  Bruno Haible  <bruno@clisp.org>
+
+	* README.woe32: Put the -mno-cygwin option into CC and CXX.
+	Recommended by Paolo Bonzini and Eric Blake.
+
 2009-08-30  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add xstriconveh.

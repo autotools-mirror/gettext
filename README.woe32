@@ -23,10 +23,10 @@ and configure commands:
    PATH=/usr/local/mingw/bin:$PATH
    export PATH
    ./configure --host=i586-pc-mingw32 --prefix=/usr/local/mingw \
-     CPPFLAGS="-mno-cygwin -Wall -I/usr/local/mingw/include" \
-     CFLAGS="-mno-cygwin -O2 -g" \
-     CXXFLAGS="-mno-cygwin -O2 -g" \
-     LDFLAGS="-mno-cygwin -L/usr/local/mingw/lib"
+     CC="gcc -mno-cygwin" \
+     CXX="g++ -mno-cygwin" \
+     CPPFLAGS="-Wall -I/usr/local/mingw/include" \
+     LDFLAGS="-L/usr/local/mingw/lib"
 
 The -mno-cygwin tells the cygwin compiler and linker to build for mingw.
 The -I and -L option are so that packages previously built for the
