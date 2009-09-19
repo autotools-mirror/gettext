@@ -8145,7 +8145,16 @@ textdomain (@var{PACKAGE});
 @end example
 
 To make LOCALEDIR known to the program, add the following lines to
-@file{Makefile.in}:
+@file{Makefile.in} if you are using Autoconf version 2.60 or newer:
+
+@example
+datadir = @@datadir@@
+datarootdir= @@datarootdir@@
+localedir = @@localedir@@
+DEFS = -DLOCALEDIR=\"$(localedir)\" @@DEFS@@
+@end example
+
+or these lines if your version of Autoconf is older than 2.60:
 
 @example
 datadir = @@datadir@@
@@ -8221,8 +8230,9 @@ for each specific module or compilation unit, or
 AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
 @end example
 
-for all modules and compilation units together.  Furthermore, add this
-line to define @samp{localedir}:
+for all modules and compilation units together.  Furthermore, if you are
+using an Autoconf version older then 2.60, add this line to define
+@samp{localedir}:
 
 @example
 localedir = $(datadir)/locale
