@@ -27,18 +27,18 @@ bin_SCRIPTS = gettextize autopoint
 
 DISTCLEANFILES += gettextize autopoint
 
-EXTRA_DIST += add-to-archive cvsuser.c archive.tar.gz
+EXTRA_DIST += add-to-archive cvsuser.c archive.cvs.tar.gz
 
 gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = archive.tar.gz
+gettextsrc_DATA = archive.cvs.tar.gz
 
-# The archive.tar.gz is not in the CVS. Alpha-testers must use the one from an
-# already installed release.
-archive.tar.gz:
-	if test -f $(gettextsrcdir)/archive.tar.gz; then \
-	  cp -p $(gettextsrcdir)/archive.tar.gz $@; \
+# The archive.cvs.tar.gz is not in the CVS. Alpha-testers must use the one from
+# an already installed release.
+archive.cvs.tar.gz:
+	if test -f $(gettextsrcdir)/archive.cvs.tar.gz; then \
+	  cp -p $(gettextsrcdir)/archive.cvs.tar.gz $@; \
 	else \
-	  echo "archive.tar.gz is not under version control. Please copy the archive.tar.gz from an already installed release to gettext-tools/misc/." 1>&2; \
+	  echo "archive.cvs.tar.gz is not under version control. Please copy the archive.cvs.tar.gz from an already installed release to gettext-tools/misc/." 1>&2; \
 	  exit 1; \
 	fi
 

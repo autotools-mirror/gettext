@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2006, 2009 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 # Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
 # Adds the infrastructure files for gettext version 0.xx.yy to the compressed
-# CVS repository in the archive.tar.gz file.
+# CVS repository in the archive.cvs.tar.gz file.
 
 if test $# != 1; then
   echo "Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz"
@@ -94,13 +94,13 @@ work_archive=`pwd`/"$work_dir/archive"
 cvsroot=`pwd`/autopoint-files
 mkdir "$cvsroot"
 cvs -d "$cvsroot" init
-(cd autopoint-files && tar xvfz ../archive.tar.gz)
+(cd autopoint-files && tar xvfz ../archive.cvs.tar.gz)
 cvsver=$pack-`echo "$ver" | sed -e 's/\./_/g'`
 (cd "$work_archive"
  CVSUSER=$cvsuser LD_PRELOAD=$cvsuser_hack \
  cvs -d "$cvsroot" import -m "Import $pack_ver" archive release "$cvsver"
 )
-(cd autopoint-files && tar cvfz ../archive.tar.gz --owner=root --group=root archive)
+(cd autopoint-files && tar cvfz ../archive.cvs.tar.gz --owner=root --group=root archive)
 (cd autopoint-files && du archive)
 
 # Clean up.

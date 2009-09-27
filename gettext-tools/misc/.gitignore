@@ -2,5 +2,5 @@
 /Makefile.in
 
 # Files distributed but not under version control:
-/archive.tar.gz
+/archive.cvs.tar.gz
 

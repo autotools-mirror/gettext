@@ -448,7 +448,7 @@ unset CVSWRAPPERS
 # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
 # current directory.
 cvs -d "$CVSROOT" init
-gzip -d -c < "$gettext_dir/archive.tar.gz" | (cd "$cvs_dir" && tar xf -)
+gzip -d -c < "$gettext_dir/archive.cvs.tar.gz" | (cd "$cvs_dir" && tar xf -)
 
 cd "$work_dir"
 cvsver=gettext-`echo "$ver" | sed -e 's/\./_/g'`
