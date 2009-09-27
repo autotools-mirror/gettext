@@ -40,7 +40,7 @@ ver=`echo "$pack_ver" | sed -e 's/^[^-]*-\(.*\)/\1/'`
 
 # Set a nonstandard variable, for a good-looking cvs history.
 cvsuser=bruno
-gcc -shared -O cvsuser.c -o cvsuser.so
+gcc -shared -fPIC -O cvsuser.c -o cvsuser.so
 cvsuser_hack=`pwd`/cvsuser.so
 
 # Unpack, build and install the source distribution.
@@ -106,6 +106,7 @@ cvsver=$pack-`echo "$ver" | sed -e 's/\./_/g'`
 # Clean up.
 rm -rf "$cvsroot"
 rm -rf "$work_dir"
+rm -f cvsuser.so
 rm -rf "$myprefix"
 
 exit 0
