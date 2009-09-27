@@ -1,5 +1,18 @@
 2009-09-27  Bruno Haible  <bruno@clisp.org>
 
+	Support alternative to the cvs-compression of the archive.
+	* convert-archive.in: New file.
+	* autopoint.in (func_version): Show the archive format.
+	Support archive formats dir, cvs, git, instead of only cvs.
+	* Makefile.am (DISTCLEANFILES): Add convert-archive.
+	(CLEANFILES): Add archive.dir.tar.gz, archive.git.tar.gz.
+	(gettextsrc_DATA): Depend on @ARCHIVE_FORMAT@.
+	(archive.dir.tar.gz, archive.git.tar.gz): New rules.
+	Reported by Arkadiusz Miskiewicz in
+	<https://savannah.gnu.org/bugs/?27281>.
+
+2009-09-27  Bruno Haible  <bruno@clisp.org>
+
 	* add-to-archive: Use archive.cvs.tar.gz instead of archive.tar.gz.
 	* autopoint.in: Likewise.
 	* Makefile.am (archive.cvs.tar.gz): Renamed from archive.tar.gz.

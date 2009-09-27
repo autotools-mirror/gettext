@@ -100,9 +100,18 @@ The following packages should be installed when GNU gettext is installed:
 
 * CVS 1.11 or newer
   + Recommended.
-    Needed by the 'autopoint' program.
+    Needed by the 'autopoint' program, if not configured with --without-cvs
+    or --with-git.
   + Homepage:
     http://ximbiot.com/cvs/wiki/index.php?title=Main_Page
     http://www.nongnu.org/cvs/
   + Download:
     http://ftp.gnu.org/non-gnu/cvs/
+
+* git 1.6 or newer
+  + Recommended.
+    Needed by the 'autopoint' program, if configured with --with-git.
+  + Homepage:
+    http://git-scm.com/
+  + Download:
+    http://www.kernel.org/pub/software/scm/git/

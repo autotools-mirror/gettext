@@ -42,6 +42,14 @@ Version 0.18 - January 2008
 
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
+* Installation options:
+  The configure options --without-cvs and --with-git can be used to specify
+  whether 'autopoint' will use the 'cvs' program, or the 'git' program, or
+  none at all. These options allow to trade dependencies against installed
+  package size: If --without-cvs is specified and --with-git is not specified,
+  'autopoint' will not rely on 'cvs' or 'git', but will instead rely on a
+  locally installed a 3 MB large archive.
+
 * Portability:
   The msgfilter program now also works on native Woe32 platforms.
 

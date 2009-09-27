@@ -1,0 +1,294 @@
+#! /bin/sh
+#
+# Copyright (C) 2009 Free Software Foundation, Inc.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Usage: convert-archive FROM TO [FROMFILE [TOFILE]]
+# where FROM is dir or cvs or git
+# and   TO   is dir or cvs or git
+# This will read FROMFILE (default: archive.$FROM.tar.gz)
+# and produce TOFILE (default: archive.$TO.tar.gz).
+
+progname=$0
+package=@PACKAGE@
+version=@VERSION@
+
+# func_usage
+# outputs to stdout the --help usage message.
+func_usage ()
+{
+  echo "\
+Usage: convert-archive FROM TO [FROMFILE [TOFILE]]
+
+Converts the archive of gettext infrastructure from the FROM format
+to the TO format.
+FROMFILE is the original file, defaulting to archive.\$FROM.tar.gz.
+TOFILE is the destination file, defaulting to archive.\$TO.tar.gz.
+
+Report bugs to <bug-gnu-gettext@gnu.org>."
+}
+
+# func_version
+# outputs to stdout the --version message.
+func_version ()
+{
+  echo "$progname (GNU $package) $version"
+  echo "Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law."
+  echo "Written by" "Bruno Haible"
+}
+
+# func_fatal_error message
+# outputs to stderr a fatal error message, and terminates the program.
+func_fatal_error ()
+{
+  echo "convert-archive: *** $1" 1>&2
+  echo "convert-archive: *** Stop." 1>&2
+  exit 1
+}
+
+# Command-line option processing.
+
+if ! { { test $# = 2 || test $# = 3 || test $# = 4; } \
+       && case "$1" in dir | cvs | git ) true;; *) false;; esac \
+       && case "$2" in dir | cvs | git ) true;; *) false;; esac; }; then
+  echo "Usage: convert-archive {dir|cvs|git} {dir|cvs|git} [fromfile [tofile]]"
+  exit 1
+fi
+
+from="$1"
+to="$2"
+fromfile="$3"
+test -n "$fromfile" || fromfile=`pwd`/archive.$from.tar.gz
+tofile="$4"
+test -n "$tofile" || tofile=`pwd`/archive.$to.tar.gz
+
+unpacked=`pwd`/unpacked-files
+mkdir "$unpacked" || {
+  if test -d "$unpacked"; then
+    func_fatal_error "directory $unpacked already exists"
+  else
+    func_fatal_error "cannot create directory $unpacked"
+  fi
+}
+
+# Unpack the original archive.
+case "$from" in
+  dir)
+    gzip -d -c < "$fromfile" | (cd "$unpacked" && tar xf -)
+    ;;
+
+  cvs)
+    # Set variables
+    # - work_dir        directory containing the temporary checkout
+    work_dir=tmpwrk$$
+    mkdir "$work_dir" || {
+      if test -d "$work_dir"; then
+        func_fatal_error "directory $work_dir already exists"
+      else
+        func_fatal_error "cannot create directory $work_dir"
+      fi
+    }
+
+    # Set variables
+    # - cvs_dir         directory containing the temporary repository
+    cvs_dir=tmpcvs$$
+    # Use an umask of 077, to avoid attacks that work by overwriting files in
+    # the "$CVSROOT"/CVSROOT directory.
+    (umask 077 && mkdir "$cvs_dir") || {
+      if test -d "$cvs_dir"; then
+        func_fatal_error "directory $cvs_dir already exists"
+      else
+        func_fatal_error "cannot create directory $cvs_dir"
+      fi
+    }
+    CVSROOT=`pwd`/"$cvs_dir"
+    unset CVS_CLIENT_LOG
+    unset CVS_CLIENT_PORT
+    unset CVS_IGNORE_REMOTE_ROOT
+    unset CVS_PASSFILE
+    unset CVS_PASSWORD
+    unset CVS_RCMD_PORT
+    unset CVS_RSH
+    unset CVS_SERVER
+    unset CVS_SERVER_SLEEP
+    unset CVSIGNORE
+    unset CVSREAD
+    unset CVSUMASK
+    unset CVSWRAPPERS
+
+    # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
+    # current directory.
+    cvs -d "$CVSROOT" init
+    gzip -d -c < "$fromfile" | (cd "$cvs_dir" && tar xf -)
+
+    # A witness that contains all versions.
+    # Can be e.g. ABOUT-NLS, intl/ChangeLog, m4/gettext.m4.
+    witness='ABOUT-NLS'
+
+    # Get list of tags or versions.
+    sed_extract_tags_from_log1='/^symbolic names:/{
+:a
+/^	/p
+n
+ba
+}
+/^keyword substitution:/q'
+    sed_extract_tags_from_log2='s/^	\([^:]*\):.*/\1/'
+    tags=`
+      LC_ALL=C rlog "$cvs_dir"/archive/$witness,v | \
+      sed -n -e "$sed_extract_tags_from_log1" | \
+      sed -e "$sed_extract_tags_from_log2"`
+    sed_tag_to_version='s/_/./g'
+    for tag in $tags; do
+      if test $tag != release; then
+        version=`echo "$tag" | sed -e "$sed_tag_to_version"`
+        (cd "$work_dir"
+         (cvs -d "$CVSROOT" checkout -r"$tag" archive > /dev/null) 2>&1 | grep -v '^cvs checkout: Updating'
+         find archive -name CVS -type d -print | xargs rm -rf
+         rm -rf CVS
+        )
+        mv "$work_dir"/archive "$unpacked/$version"
+      fi
+    done
+    rm -rf "$cvs_dir"
+    rm -rf "$work_dir"
+    ;;
+
+  git)
+    # Set variables
+    # - work_dir        directory containing the temporary checkout
+    work_dir=tmpwrk$$
+    mkdir "$work_dir" || {
+      if test -d "$work_dir"; then
+        func_fatal_error "directory $work_dir already exists"
+      else
+        func_fatal_error "cannot create directory $work_dir"
+      fi
+    }
+
+    mkdir "$work_dir/master"
+    gzip -d -c < "$fromfile" | (cd "$work_dir/master" && tar xf -)
+    cd "$work_dir"
+    for tag in `cd master && git tag`; do
+      if test $tag != empty; then
+        version=$tag
+        (cd master && git checkout -q $tag)
+        rm -f master/.gitignore
+        mv master/.git .git
+        mkdir "$unpacked/$version"
+        (cd master && tar cf - .) | (cd "$unpacked/$version" && tar xf -)
+        mv .git master/.git
+      fi
+    done
+    cd ..
+    rm -rf "$work_dir"
+    ;;
+esac
+
+# Create the target archive.
+case "$to" in
+  dir)
+    (cd "$unpacked" && tar cf - --owner=root --group=root *) | gzip -c -9 > "$tofile"
+    ;;
+
+  cvs)
+    # Set variables
+    # - cvs_dir         directory containing the temporary repository
+    cvs_dir=autopoint-files
+    # Use an umask of 077, to avoid attacks that work by overwriting files in
+    # the "$CVSROOT"/CVSROOT directory.
+    (umask 077 && mkdir "$cvs_dir") || {
+      if test -d "$cvs_dir"; then
+        func_fatal_error "directory $cvs_dir already exists"
+      else
+        func_fatal_error "cannot create directory $cvs_dir"
+      fi
+    }
+    CVSROOT=`pwd`/"$cvs_dir"
+    unset CVS_CLIENT_LOG
+    unset CVS_CLIENT_PORT
+    unset CVS_IGNORE_REMOTE_ROOT
+    unset CVS_PASSFILE
+    unset CVS_PASSWORD
+    unset CVS_RCMD_PORT
+    unset CVS_RSH
+    unset CVS_SERVER
+    unset CVS_SERVER_SLEEP
+    unset CVSIGNORE
+    unset CVSREAD
+    unset CVSUMASK
+    unset CVSWRAPPERS
+
+    # Set a nonstandard variable, for a good-looking cvs history.
+    cvsuser=bruno
+    gcc -shared -fPIC -O cvsuser.c -o cvsuser.so
+    cvsuser_hack=`pwd`/cvsuser.so
+
+    # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
+    # current directory.
+    cvs -d "$CVSROOT" init
+
+    # Add the contents of the unpacked directory to the repository.
+    (cd "$unpacked"
+     for version in *; do
+       cvsver=`echo "$version" | sed -e 's/\./_/g'`
+       (cd $version
+        CVSUSER=$cvsuser LD_PRELOAD=$cvsuser_hack \
+        cvs -d "$CVSROOT" import -m "Import $version" archive release "$cvsver"
+       )
+     done
+    )
+    (cd "$cvs_dir" && tar cf - --owner=root --group=root archive) | gzip -c -9 > "$tofile"
+    rm -rf "$cvs_dir" cvsuser.so
+    ;;
+
+  git)
+    git_dir=`pwd`/tmpgit$$
+    mkdir "$git_dir"
+    (cd "$git_dir" && {
+      git init -q
+      touch .gitignore
+      git add .
+      git commit --author="Bruno Haible <bruno@clisp.org>" --message="Empty directory" 2>&1 | grep -v '^ '
+      git tag empty
+    })
+    sed_remove_leading_dot='s,^\./,,'
+    sed_remove_git_infrastructure='/^\.git/d'
+    (cd "$unpacked"
+     for version in *; do
+       (cd $version && tar cf - .) | \
+       (cd "$git_dir" && {
+         prev_files=`find . -type f | sed -e "$sed_remove_leading_dot" -e "$sed_remove_git_infrastructure"`
+         if test -n "$prev_files"; then
+           git rm -q $prev_files
+         fi
+         tar xf -
+         git add .
+         git commit --author="Bruno Haible <bruno@clisp.org>" --message="Import $version" 2>&1 | grep -v '^ '
+         git tag "$version"
+       })
+     done
+    )
+    (cd "$git_dir" && git reset -q --hard empty && git repack -a -d -q)
+    (cd "$git_dir" && tar cf - --owner=root --group=root .git) | gzip -c -9 > "$tofile"
+    rm -rf "$git_dir"
+    ;;
+esac
+
+rm -rf "$unpacked"

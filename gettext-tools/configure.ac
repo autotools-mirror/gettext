@@ -305,6 +305,36 @@ fi
 aclocaldir='${datadir}/aclocal'
 AC_SUBST([aclocaldir])
 
+dnl Check how to install the set of previous versions, for autopoint.
+AC_ARG_WITH([cvs],
+  [  --without-cvs           don't use cvs to compress the infrastructure archive],
+  [gt_use_cvs=$withval],
+  [gt_use_cvs=maybe])
+AC_ARG_WITH([git],
+  [  --with-git              use git to compress the infrastructure archive],
+  [gt_use_git=$withval],
+  [gt_use_git=no])
+if test "$gt_use_cvs" != no && test "$gt_use_cvs" != maybe; then
+  # --with-cvs is specified. Even if --with-git is also specified, we use the
+  # cvs format, because it yields smaller archives than the git format.
+  ARCHIVE_FORMAT=cvs
+else
+  if test "$gt_use_git" != no; then
+    # --with-git is specified.
+    ARCHIVE_FORMAT=git
+  else
+    # Neither --with-cvs not --with-git is specified.
+    if test "$gt_use_cvs" != no; then
+      # --without-cvs is not specified. Use cvs format.
+      ARCHIVE_FORMAT=cvs
+    else
+      # --without-cvs is specified.
+      ARCHIVE_FORMAT=dir
+    fi
+  fi
+fi
+AC_SUBST([ARCHIVE_FORMAT])
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
@@ -386,6 +416,7 @@ AC_CONFIG_FILES([styles/Makefile])
 AC_CONFIG_FILES([misc/Makefile])
 AC_CONFIG_FILES([misc/gettextize], [chmod a+x misc/gettextize])
 AC_CONFIG_FILES([misc/autopoint], [chmod a+x misc/autopoint])
+AC_CONFIG_FILES([misc/convert-archive], [chmod a+x misc/convert-archive])
 
 AC_CONFIG_FILES([man/Makefile],
                 [FIX_MAKEFILE_DISTRIB])
