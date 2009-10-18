@@ -1,3 +1,9 @@
+2009-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* fcntl_h.m4: New file, from gnulib.
+	* intl.m4 (AM_INTL_SUBDIR): Require gl_FCNTL_O_FLAGS.
+	* Makefile.am (EXTRA_DIST): Add fcntl_h.m4.
+
 2009-08-14  Bruno Haible  <bruno@clisp.org>
 
 	* eoverflow.m4: Remove file. Obsoleted by gnulib's 'errno' module.

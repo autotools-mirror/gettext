@@ -1,3 +1,11 @@
+2009-10-18  Bruno Haible  <bruno@clisp.org>
+
+	Avoid symlink attack in localcharset module.
+	* localcharset.c: Include <fcntl.h>, <unistd.h>.
+	(O_NOFOLLOW): Define fallback.
+	(get_charset_aliases): Don't open the file if it is a symbolic link.
+	Reported by Fergal Glynn <fglynn@veracode.com>.
+
 2009-08-20  Eric Blake  <ebb9@byu.net>
 
 	* vasnprintf.c (decimal_point_char): Avoid warning on old-style

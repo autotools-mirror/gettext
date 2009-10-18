@@ -43,6 +43,7 @@ distcheck-hook:
 	cmp -s gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
 	cmp -s gettext-runtime/po/remove-potcdate.sin gettext-tools/examples/po/remove-potcdate.sin
 	cmp -s gettext-runtime/m4/codeset.m4 gettext-tools/gnulib-m4/codeset.m4
+	cmp -s gettext-runtime/m4/fcntl_h.m4 gettext-tools/gnulib-m4/fcntl_h.m4
 	cmp -s gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
 	cmp -s gettext-runtime/m4/glibc2.m4 gettext-tools/gnulib-m4/glibc2.m4
 	cmp -s gettext-runtime/m4/glibc21.m4 gettext-tools/gnulib-m4/glibc21.m4

@@ -1,4 +1,4 @@
-# intl.m4 serial 13 (gettext-0.18)
+# intl.m4 serial 14 (gettext-0.18)
 dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -40,6 +40,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gt_PRINTF_POSIX])
   AC_REQUIRE([gl_GLIBC21])dnl
   AC_REQUIRE([gl_XSIZE])dnl
+  AC_REQUIRE([gl_FCNTL_O_FLAGS])dnl
   AC_REQUIRE([gt_INTL_MACOSX])dnl
 
   dnl Support for automake's --enable-silent-rules.

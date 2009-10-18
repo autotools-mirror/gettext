@@ -1,3 +1,7 @@
+2009-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Add fcntl_h.m4 to the file list.
+
 2009-09-20  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (src/Makefile): Update recommendations for autoconf

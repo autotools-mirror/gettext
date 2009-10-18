@@ -1,3 +1,8 @@
+2009-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (distcheck-hook): Compare fcntl_h.m4.
+	* PACKAGING: Mention also fcntl_h.m4.
+
 2009-09-27  Bruno Haible  <bruno@clisp.org>
 
 	* NEWS: Mention configure options --without-cvs and --with-git.

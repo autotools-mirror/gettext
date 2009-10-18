@@ -1,3 +1,8 @@
+2009-10-18  Bruno Haible  <bruno@clisp.org>
+
+	* gettextize.in (m4filelist): Add fcntl_h.m4 to the list.
+	(func_version): Bump copyright year.
+
 2009-09-27  Bruno Haible  <bruno@clisp.org>
 
 	* add-to-archive: Pass option -fPIC to gcc. Clean up cvsuser.so.
