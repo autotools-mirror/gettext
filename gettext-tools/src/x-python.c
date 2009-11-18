@@ -584,10 +584,12 @@ static int last_non_comment_line;
 /* Recognizing the "coding" comment.
    As specified in PEP 0263, it takes the form
      "coding" [":"|"="] {alphanumeric or "-" or "_" or "*"}*
+   or
+     "set" "fileencoding" "=" {alphanumeric or "-" or "_" or "*"}*
    and is located in a comment in a line that
      - is either the first or second line,
      - is not a continuation line,
-     - contains no other tokens except this comment.  */
+     - in the first form, contains no other tokens except this comment.  */
 
 /* Canonicalized encoding name for the current input file.  */
 static const char *xgettext_current_file_source_encoding;

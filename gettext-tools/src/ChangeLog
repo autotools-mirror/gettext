@@ -1,3 +1,7 @@
+2009-11-15  Bruno Haible  <bruno@clisp.org>
+
+	* x-python.c: Update comments regarding PEP 0263.
+
 2009-09-05  Bruno Haible  <bruno@clisp.org>
 
 	* write-po.c (wrap): Remove unused initialization.
