@@ -1381,7 +1381,10 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       if (extract_balanced (mlp, token_type_rbrace, true, false,
 			    null_context, null_context_list_iterator,
 			    1, arglist_parser_alloc (mlp, NULL)))
-	return;
+	{
+	  tp->type = token_type_eof;
+	  return;
+	}
       buffer[bufpos++] = c;
     }
   else

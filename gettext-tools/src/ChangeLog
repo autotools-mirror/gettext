@@ -1,3 +1,8 @@
+2009-11-28  Bruno Haible  <bruno@clisp.org>
+
+	* x-perl.c (extract_variable): Fix tp->type when returning at EOF.
+	Reported by Guido Flohr <guido@imperia.bg>.
+
 2009-11-15  Bruno Haible  <bruno@clisp.org>
 
 	* x-python.c: Update comments regarding PEP 0263.
