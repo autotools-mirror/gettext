@@ -1,3 +1,7 @@
+2009-12-01  Bruno Haible  <bruno@clisp.org>
+
+	* m4/init-package-version.m4 (gl_INIT_PACKAGE): Set AC_PACKAGE_NAME.
+
 2009-11-30  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh: Treat gettext-runtime/libasprintf before gettext-runtime.

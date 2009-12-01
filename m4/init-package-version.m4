@@ -1,4 +1,4 @@
-# init-package-version.m4 serial 1 (gettext-0.18)
+# init-package-version.m4 serial 2 (gettext-0.18)
 dnl Copyright (C) 1992-2009 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -70,6 +70,8 @@ dnl the same distribution terms as the rest of that program.
 AC_DEFUN([gl_INIT_PACKAGE],
 [
   AC_BEFORE([$0], [AM_INIT_AUTOMAKE])
+  dnl Define AC_PACKAGE_NAME, because macros such as gnulib/m4/acl.m4 need it.
+  m4_ifndef([AC_PACKAGE_NAME], [m4_define([AC_PACKAGE_NAME], [$1])])
   dnl Redefine AM_INIT_AUTOMAKE.
   m4_define([gl_AM_INIT_AUTOMAKE],
     m4_bpatsubst(m4_dquote(
