@@ -1,3 +1,8 @@
+2009-11-30  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: Treat gettext-runtime/libasprintf before gettext-runtime.
+	Treat gettext-tools/examples before gettext-tools.
+
 2009-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (distcheck-hook): Compare fcntl_h.m4.

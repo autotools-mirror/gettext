@@ -311,6 +311,13 @@ fi
  fi
 )
 
+(cd gettext-runtime/libasprintf
+ ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4 -I gnulib-m4
+ autoconf
+ autoheader && touch config.h.in
+ automake --add-missing --copy
+)
+
 (cd gettext-runtime
  ../build-aux/fixaclocal aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
  autoconf
@@ -326,14 +333,17 @@ fi
  fi
 )
 
-(cd gettext-runtime/libasprintf
- ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4 -I gnulib-m4
- autoconf
- autoheader && touch config.h.in
- automake --add-missing --copy
-)
-
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
+
+(cd gettext-tools/examples
+ ../../build-aux/fixaclocal aclocal -I ../../gettext-runtime/m4 -I ../../m4
+ autoconf
+ automake --add-missing --copy
+ # Rebuilding the examples PO files is only rarely needed.
+ if ! $quick; then
+   ./configure && (cd po && make update-po) && make distclean
+ fi
+)
 
 (cd gettext-tools
  ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
@@ -350,16 +360,6 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
      && (cd doc && make all) \
      && (cd tests && make update-expected) \
      && make distclean
- fi
-)
-
-(cd gettext-tools/examples
- ../../build-aux/fixaclocal aclocal -I ../../gettext-runtime/m4 -I ../../m4
- autoconf
- automake --add-missing --copy
- # Rebuilding the examples PO files is only rarely needed.
- if ! $quick; then
-   ./configure && (cd po && make update-po) && make distclean
  fi
 )
 
