@@ -1,5 +1,9 @@
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
+	* localcharset.c (locale_charset): Add comment about use of GetACP.
+
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
 	* intl-compat.c: Untabify.
 	* intl-exports.c: Untabify.
 	* langprefs.c: Untabify.
