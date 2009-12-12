@@ -37,7 +37,7 @@ extern bool no_hash_table;
    Return 0 if ok, nonzero on error.  */
 extern int
        msgdomain_write_mo (message_list_ty *mlp,
-			   const char *domain_name,
-			   const char *file_name);
+                           const char *domain_name,
+                           const char *file_name);
 
 #endif /* _WRITE_MO_H */

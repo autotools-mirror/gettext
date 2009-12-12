@@ -28,17 +28,17 @@ extern "C" {
 
 
 #define EXTENSIONS_SCHEME \
-  { "scm",       "Scheme"     },					\
+  { "scm",       "Scheme"     },                                        \
 
 #define SCANNERS_SCHEME \
-  { "Scheme",		extract_scheme,					  \
-			&flag_table_scheme, &formatstring_scheme, NULL }, \
+  { "Scheme",           extract_scheme,                                   \
+                        &flag_table_scheme, &formatstring_scheme, NULL }, \
 
 /* Scan a Scheme file and add its translatable strings to mdlp.  */
 extern void extract_scheme (FILE *fp, const char *real_filename,
-			    const char *logical_filename,
-			    flag_context_list_table_ty *flag_table,
-			    msgdomain_list_ty *mdlp);
+                            const char *logical_filename,
+                            flag_context_list_table_ty *flag_table,
+                            msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */

@@ -170,13 +170,13 @@ Contributors
 ============
 
 Hung-Chi Chu <hcchu@r350.ee.ntu.edu.tw>
-	the original port of gettext (0.10.35)
+        the original port of gettext (0.10.35)
 
 Jun SAWATAISHI <jsawa@attglobal.net>
-	some more work on it and submitted the patches to GNU team, although
-	they were not completely integrated.
+        some more work on it and submitted the patches to GNU team, although
+        they were not completely integrated.
 
 Andrew Zabolotny <zap@cobra.ru>
-	Succeeded to remove almost all OS/2-specific #ifdef's from mainstream
-	source code, wrote the dedicated OS/2 makefile, wrote the iconv wrapper
-	around OS/2 Unicode API, added support for locale translations.
+        Succeeded to remove almost all OS/2-specific #ifdef's from mainstream
+        source code, wrote the dedicated OS/2 makefile, wrote the iconv wrapper
+        around OS/2 Unicode API, added support for locale translations.

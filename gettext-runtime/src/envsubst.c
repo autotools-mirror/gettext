@@ -89,7 +89,7 @@ main (int argc, char *argv[])
   while ((opt = getopt_long (argc, argv, "hvV", long_options, NULL)) != EOF)
     switch (opt)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
     case 'h':
       do_help = true;
@@ -114,7 +114,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2003-2007");
+              "2003-2007");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -131,31 +131,31 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     {
       /* Output only the variables.  */
       switch (argc - optind)
-	{
-	case 1:
-	  break;
-	case 0:
-	  error (EXIT_FAILURE, 0, _("missing arguments"));
-	default:
-	  abort ();
-	}
+        {
+        case 1:
+          break;
+        case 0:
+          error (EXIT_FAILURE, 0, _("missing arguments"));
+        default:
+          abort ();
+        }
       print_variables (argv[optind++]);
     }
   else
     {
       /* Actually perform the substitutions.  */
       switch (argc - optind)
-	{
-	case 1:
-	  all_variables = false;
-	  note_variables (argv[optind++]);
-	  break;
-	case 0:
-	  all_variables = true;
-	  break;
-	default:
-	  abort ();
-	}
+        {
+        case 1:
+          all_variables = false;
+          note_variables (argv[optind++]);
+          break;
+        case 0:
+          all_variables = true;
+          break;
+        default:
+          abort ();
+        }
       subst_from_stdin ();
     }
 
@@ -169,7 +169,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       /* xgettext: no-wrap */
@@ -234,45 +234,45 @@ of the environment variables that are referenced in SHELL-FORMAT, one per line.\
    encodings.  */
 static void
 find_variables (const char *string,
-		void (*callback) (const char *var_ptr, size_t var_len))
+                void (*callback) (const char *var_ptr, size_t var_len))
 {
   for (; *string != '\0';)
     if (*string++ == '$')
       {
-	const char *variable_start;
-	const char *variable_end;
-	bool valid;
-	char c;
+        const char *variable_start;
+        const char *variable_end;
+        bool valid;
+        char c;
 
-	if (*string == '{')
-	  string++;
+        if (*string == '{')
+          string++;
 
-	variable_start = string;
-	c = *string;
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
-	  {
-	    do
-	      c = *++string;
-	    while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-		   || (c >= '0' && c <= '9') || c == '_');
-	    variable_end = string;
+        variable_start = string;
+        c = *string;
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
+          {
+            do
+              c = *++string;
+            while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                   || (c >= '0' && c <= '9') || c == '_');
+            variable_end = string;
 
-	    if (variable_start[-1] == '{')
-	      {
-		if (*string == '}')
-		  {
-		    string++;
-		    valid = true;
-		  }
-		else
-		  valid = false;
-	      }
-	    else
-	      valid = true;
+            if (variable_start[-1] == '{')
+              {
+                if (*string == '}')
+                  {
+                    string++;
+                    valid = true;
+                  }
+                else
+                  valid = false;
+              }
+            else
+              valid = true;
 
-	    if (valid)
-	      callback (variable_start, variable_end - variable_start);
-	  }
+            if (valid)
+              callback (variable_start, variable_end - variable_start);
+          }
       }
 }
 
@@ -373,22 +373,22 @@ sorted_string_list_member (const string_list_ty *slp, const char *s)
     {
       /* Binary search.  */
       while (j2 - j1 > 1)
-	{
-	  /* Here we know that if s is in the list, it is at an index j
-	     with j1 <= j < j2.  */
-	  size_t j = (j1 + j2) >> 1;
-	  int result = strcmp (slp->item[j], s);
+        {
+          /* Here we know that if s is in the list, it is at an index j
+             with j1 <= j < j2.  */
+          size_t j = (j1 + j2) >> 1;
+          int result = strcmp (slp->item[j], s);
 
-	  if (result > 0)
-	    j2 = j;
-	  else if (result == 0)
-	    return 1;
-	  else
-	    j1 = j + 1;
-	}
+          if (result > 0)
+            j2 = j;
+          else if (result == 0)
+            return 1;
+          else
+            j1 = j + 1;
+        }
       if (j2 > j1)
-	if (strcmp (slp->item[j1], s) == 0)
-	  return 1;
+        if (strcmp (slp->item[j1], s) == 0)
+          return 1;
     }
   return 0;
 }
@@ -439,7 +439,7 @@ do_getc ()
   if (c == EOF)
     {
       if (ferror (stdin))
-	error (EXIT_FAILURE, errno, _("\
+        error (EXIT_FAILURE, errno, _("\
 error while reading \"%s\""), _("standard input"));
     }
 
@@ -466,104 +466,104 @@ subst_from_stdin ()
     {
       c = do_getc ();
       if (c == EOF)
-	break;
+        break;
       /* Look for $VARIABLE or ${VARIABLE}.  */
       if (c == '$')
-	{
-	  bool opening_brace = false;
-	  bool closing_brace = false;
+        {
+          bool opening_brace = false;
+          bool closing_brace = false;
 
-	  c = do_getc ();
-	  if (c == '{')
-	    {
-	      opening_brace = true;
-	      c = do_getc ();
-	    }
-	  if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
-	    {
-	      bool valid;
+          c = do_getc ();
+          if (c == '{')
+            {
+              opening_brace = true;
+              c = do_getc ();
+            }
+          if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
+            {
+              bool valid;
 
-	      /* Accumulate the VARIABLE in buffer.  */
-	      buflen = 0;
-	      do
-		{
-		  if (buflen >= bufmax)
-		    {
-		      bufmax = 2 * bufmax + 10;
-		      buffer = xrealloc (buffer, bufmax);
-		    }
-		  buffer[buflen++] = c;
+              /* Accumulate the VARIABLE in buffer.  */
+              buflen = 0;
+              do
+                {
+                  if (buflen >= bufmax)
+                    {
+                      bufmax = 2 * bufmax + 10;
+                      buffer = xrealloc (buffer, bufmax);
+                    }
+                  buffer[buflen++] = c;
 
-		  c = do_getc ();
-		}
-	      while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-		     || (c >= '0' && c <= '9') || c == '_');
+                  c = do_getc ();
+                }
+              while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                     || (c >= '0' && c <= '9') || c == '_');
 
-	      if (opening_brace)
-		{
-		  if (c == '}')
-		    {
-		      closing_brace = true;
-		      valid = true;
-		    }
-		  else
-		    {
-		      valid = false;
-		      do_ungetc (c);
-		    }
-		}
-	      else
-		{
-		  valid = true;
-		  do_ungetc (c);
-		}
+              if (opening_brace)
+                {
+                  if (c == '}')
+                    {
+                      closing_brace = true;
+                      valid = true;
+                    }
+                  else
+                    {
+                      valid = false;
+                      do_ungetc (c);
+                    }
+                }
+              else
+                {
+                  valid = true;
+                  do_ungetc (c);
+                }
 
-	      if (valid)
-		{
-		  /* Terminate the variable in the buffer.  */
-		  if (buflen >= bufmax)
-		    {
-		      bufmax = 2 * bufmax + 10;
-		      buffer = xrealloc (buffer, bufmax);
-		    }
-		  buffer[buflen] = '\0';
+              if (valid)
+                {
+                  /* Terminate the variable in the buffer.  */
+                  if (buflen >= bufmax)
+                    {
+                      bufmax = 2 * bufmax + 10;
+                      buffer = xrealloc (buffer, bufmax);
+                    }
+                  buffer[buflen] = '\0';
 
-		  /* Test whether the variable shall be substituted.  */
-		  if (!all_variables
-		      && !sorted_string_list_member (&variables_set, buffer))
-		    valid = false;
-		}
+                  /* Test whether the variable shall be substituted.  */
+                  if (!all_variables
+                      && !sorted_string_list_member (&variables_set, buffer))
+                    valid = false;
+                }
 
-	      if (valid)
-		{
-		  /* Substitute the variable's value from the environment.  */
-		  const char *env_value = getenv (buffer);
+              if (valid)
+                {
+                  /* Substitute the variable's value from the environment.  */
+                  const char *env_value = getenv (buffer);
 
-		  if (env_value != NULL)
-		    fputs (env_value, stdout);
-		}
-	      else
-		{
-		  /* Perform no substitution at all.  Since the buffered input
-		     contains no other '$' than at the start, we can just
-		     output all the buffered contents.  */
-		  putchar ('$');
-		  if (opening_brace)
-		    putchar ('{');
-		  fwrite (buffer, buflen, 1, stdout);
-		  if (closing_brace)
-		    putchar ('}');
-		}
-	    }
-	  else
-	    {
-	      do_ungetc (c);
-	      putchar ('$');
-	      if (opening_brace)
-		putchar ('{');
-	    }
-	}
+                  if (env_value != NULL)
+                    fputs (env_value, stdout);
+                }
+              else
+                {
+                  /* Perform no substitution at all.  Since the buffered input
+                     contains no other '$' than at the start, we can just
+                     output all the buffered contents.  */
+                  putchar ('$');
+                  if (opening_brace)
+                    putchar ('{');
+                  fwrite (buffer, buflen, 1, stdout);
+                  if (closing_brace)
+                    putchar ('}');
+                }
+            }
+          else
+            {
+              do_ungetc (c);
+              putchar ('$');
+              if (opening_brace)
+                putchar ('{');
+            }
+        }
       else
-	putchar (c);
+        putchar (c);
     }
 }

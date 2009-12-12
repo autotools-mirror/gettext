@@ -71,15 +71,15 @@ x_awk_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	hash_init (&keywords, 100);
+        hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
-	 A colon means an invalid parse in split_keywordspec().  */
+         A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	insert_keyword_callshape (&keywords, name, end - name, &shape);
+        insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -91,7 +91,7 @@ init_keywords ()
   if (default_keywords)
     {
       /* When adding new keywords here, also update the documentation in
-	 xgettext.texi!  */
+         xgettext.texi!  */
       x_awk_keyword ("dcgettext");
       x_awk_keyword ("dcngettext:1,2");
       default_keywords = false;
@@ -136,8 +136,8 @@ phase1_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-	       real_file_name);
+        error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+               real_file_name);
       return EOF;
     }
 
@@ -154,7 +154,7 @@ phase1_ungetc (int c)
   if (c != EOF)
     {
       if (c == '\n')
-	--line_number;
+        --line_number;
 
       ungetc (c, fp);
     }
@@ -180,26 +180,26 @@ phase2_getc ()
       buflen = 0;
       lineno = line_number;
       for (;;)
-	{
-	  c = phase1_getc ();
-	  if (c == '\n' || c == EOF)
-	    break;
-	  /* We skip all leading white space, but not EOLs.  */
-	  if (!(buflen == 0 && (c == ' ' || c == '\t')))
-	    {
-	      if (buflen >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[buflen++] = c;
-	    }
-	}
+        {
+          c = phase1_getc ();
+          if (c == '\n' || c == EOF)
+            break;
+          /* We skip all leading white space, but not EOLs.  */
+          if (!(buflen == 0 && (c == ' ' || c == '\t')))
+            {
+              if (buflen >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[buflen++] = c;
+            }
+        }
       if (buflen >= bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
       buffer[buflen] = '\0';
       savable_comment_add (buffer);
       last_comment_line = lineno;
@@ -222,14 +222,14 @@ phase2_ungetc (int c)
 enum token_type_ty
 {
   token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_string,		/* "abc" */
-  token_type_i18nstring,	/* _"abc" */
-  token_type_symbol,		/* symbol, number */
-  token_type_semicolon,		/* ; */
-  token_type_other		/* regexp, misc. operator */
+  token_type_lparen,            /* ( */
+  token_type_rparen,            /* ) */
+  token_type_comma,             /* , */
+  token_type_string,            /* "abc" */
+  token_type_i18nstring,        /* _"abc" */
+  token_type_symbol,            /* symbol, number */
+  token_type_semicolon,         /* ; */
+  token_type_other              /* regexp, misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -237,7 +237,7 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;		/* for token_type_{symbol,string,i18nstring} */
+  char *string;         /* for token_type_{symbol,string,i18nstring} */
   int line_number;
 };
 
@@ -258,88 +258,88 @@ phase7_getc ()
       c = phase1_getc ();
 
       if (c == EOF || c == '\n')
-	break;
+        break;
       if (c == '"')
-	return P7_QUOTES;
+        return P7_QUOTES;
       if (c != '\\')
-	return c;
+        return c;
       c = phase1_getc ();
       if (c == EOF)
-	break;
+        break;
       if (c != '\n')
-	switch (c)
-	  {
-	  case 'a':
-	    return '\a';
-	  case 'b':
-	    return '\b';
-	  case 'f':
-	    return '\f';
-	  case 'n':
-	    return '\n';
-	  case 'r':
-	    return '\r';
-	  case 't':
-	    return '\t';
-	  case 'v':
-	    return '\v';
-	  case '0': case '1': case '2': case '3': case '4':
-	  case '5': case '6': case '7':
-	    {
-	      int n = c - '0';
+        switch (c)
+          {
+          case 'a':
+            return '\a';
+          case 'b':
+            return '\b';
+          case 'f':
+            return '\f';
+          case 'n':
+            return '\n';
+          case 'r':
+            return '\r';
+          case 't':
+            return '\t';
+          case 'v':
+            return '\v';
+          case '0': case '1': case '2': case '3': case '4':
+          case '5': case '6': case '7':
+            {
+              int n = c - '0';
 
-	      c = phase1_getc ();
-	      if (c != EOF)
-		{
-		  if (c >= '0' && c <= '7')
-		    {
-		      n = (n << 3) + (c - '0');
-		      c = phase1_getc ();
-		      if (c != EOF)
-			{
-			  if (c >= '0' && c <= '7')
-			    n = (n << 3) + (c - '0');
-			  else
-			    phase1_ungetc (c);
-			}
-		    }
-		  else
-		    phase1_ungetc (c);
-		}
-	      return (unsigned char) n;
-	    }
-	  case 'x':
-	    {
-	      int n = 0;
+              c = phase1_getc ();
+              if (c != EOF)
+                {
+                  if (c >= '0' && c <= '7')
+                    {
+                      n = (n << 3) + (c - '0');
+                      c = phase1_getc ();
+                      if (c != EOF)
+                        {
+                          if (c >= '0' && c <= '7')
+                            n = (n << 3) + (c - '0');
+                          else
+                            phase1_ungetc (c);
+                        }
+                    }
+                  else
+                    phase1_ungetc (c);
+                }
+              return (unsigned char) n;
+            }
+          case 'x':
+            {
+              int n = 0;
 
-	      for (;;)
-		{
-		  c = phase1_getc ();
-		  if (c == EOF)
-		    break;
-		  else if (c >= '0' && c <= '9')
-		    n = (n << 4) + (c - '0');
-		  else if (c >= 'A' && c <= 'F')
-		    n = (n << 4) + (c - 'A' + 10);
-		  else if (c >= 'a' && c <= 'f')
-		    n = (n << 4) + (c - 'a' + 10);
-		  else
-		    {
-		      phase1_ungetc (c);
-		      break;
-		    }
-		}
-	      return (unsigned char) n;
-	    }
-	  default:
-	    return c;
-	  }
+              for (;;)
+                {
+                  c = phase1_getc ();
+                  if (c == EOF)
+                    break;
+                  else if (c >= '0' && c <= '9')
+                    n = (n << 4) + (c - '0');
+                  else if (c >= 'A' && c <= 'F')
+                    n = (n << 4) + (c - 'A' + 10);
+                  else if (c >= 'a' && c <= 'f')
+                    n = (n << 4) + (c - 'a' + 10);
+                  else
+                    {
+                      phase1_ungetc (c);
+                      break;
+                    }
+                }
+              return (unsigned char) n;
+            }
+          default:
+            return c;
+          }
     }
 
   phase1_ungetc (c);
   error_with_progname = false;
   error (0, 0, _("%s:%d: warning: unterminated string"), logical_file_name,
-	 line_number);
+         line_number);
   error_with_progname = true;
   return P7_QUOTES;
 }
@@ -389,273 +389,273 @@ x_awk_lex (token_ty *tp)
       c = phase2_getc ();
 
       switch (c)
-	{
-	case EOF:
-	  tp->type = token_type_eof;
-	  return;
+        {
+        case EOF:
+          tp->type = token_type_eof;
+          return;
 
-	case '\n':
-	  if (last_non_comment_line > last_comment_line)
-	    savable_comment_reset ();
-	  /* Newline is not allowed inside expressions.  It usually
-	     introduces a fresh statement.
-	     FIXME: Newlines after any of ',' '{' '?' ':' '||' '&&' 'do' 'else'
-	     does *not* introduce a fresh statement.  */
-	  prefer_division_over_regexp = false;
-	  /* FALLTHROUGH */
-	case '\t':
-	case ' ':
-	  /* Ignore whitespace and comments.  */
-	  continue;
+        case '\n':
+          if (last_non_comment_line > last_comment_line)
+            savable_comment_reset ();
+          /* Newline is not allowed inside expressions.  It usually
+             introduces a fresh statement.
+             FIXME: Newlines after any of ',' '{' '?' ':' '||' '&&' 'do' 'else'
+             does *not* introduce a fresh statement.  */
+          prefer_division_over_regexp = false;
+          /* FALLTHROUGH */
+        case '\t':
+        case ' ':
+          /* Ignore whitespace and comments.  */
+          continue;
 
-	case '\\':
-	  /* Backslash ought to be immediately followed by a newline.  */
-	  continue;
-	}
+        case '\\':
+          /* Backslash ought to be immediately followed by a newline.  */
+          continue;
+        }
 
       last_non_comment_line = tp->line_number;
 
       switch (c)
-	{
-	case '.':
-	  {
-	    int c2 = phase2_getc ();
-	    phase2_ungetc (c2);
-	    if (!(c2 >= '0' && c2 <= '9'))
-	      {
+        {
+        case '.':
+          {
+            int c2 = phase2_getc ();
+            phase2_ungetc (c2);
+            if (!(c2 >= '0' && c2 <= '9'))
+              {
 
-		tp->type = token_type_other;
-		prefer_division_over_regexp = false;
-		return;
-	      }
-	  }
-	  /* FALLTHROUGH */
-	case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-	case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-	case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-	case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-	case 'Y': case 'Z':
-	case '_':
-	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-	case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-	case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-	case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-	case 'y': case 'z':
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	  /* Symbol, or part of a number.  */
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = c;
-	      c = phase2_getc ();
-	      switch (c)
-		{
-		case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-		case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-		case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-		case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-		case 'Y': case 'Z':
-		case '_':
-		case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-		case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-		case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-		case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-		case 'y': case 'z':
-		case '0': case '1': case '2': case '3': case '4':
-		case '5': case '6': case '7': case '8': case '9':
-		  continue;
-		default:
-		  if (bufpos == 1 && buffer[0] == '_' && c == '"')
-		    {
-		      tp->type = token_type_i18nstring;
-		      goto case_string;
-		    }
-		  phase2_ungetc (c);
-		  break;
-		}
-	      break;
-	    }
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos] = '\0';
-	  tp->string = xstrdup (buffer);
-	  tp->type = token_type_symbol;
-	  /* Most identifiers can be variable names; after them we must
-	     interpret '/' as division operator.  But for awk's builtin
-	     keywords we have three cases:
-	     (a) Must interpret '/' as division operator. "length".
-	     (b) Must interpret '/' as start of a regular expression.
-		 "do", "exit", "print", "printf", "return".
-	     (c) '/' after this keyword in invalid anyway. All others.
-	     I used the following script for the distinction.
-		for k in $awk_keywords; do
-		  echo; echo $k; awk "function foo () { $k / 10 }" < /dev/null
-		done
-	   */
-	  if (strcmp (buffer, "do") == 0
-	      || strcmp (buffer, "exit") == 0
-	      || strcmp (buffer, "print") == 0
-	      || strcmp (buffer, "printf") == 0
-	      || strcmp (buffer, "return") == 0)
-	    prefer_division_over_regexp = false;
-	  else
-	    prefer_division_over_regexp = true;
-	  return;
+                tp->type = token_type_other;
+                prefer_division_over_regexp = false;
+                return;
+              }
+          }
+          /* FALLTHROUGH */
+        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+        case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+        case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+        case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+        case 'Y': case 'Z':
+        case '_':
+        case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+        case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+        case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+        case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+        case 'y': case 'z':
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+          /* Symbol, or part of a number.  */
+          bufpos = 0;
+          for (;;)
+            {
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = c;
+              c = phase2_getc ();
+              switch (c)
+                {
+                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                case 'Y': case 'Z':
+                case '_':
+                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                case 'y': case 'z':
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                  continue;
+                default:
+                  if (bufpos == 1 && buffer[0] == '_' && c == '"')
+                    {
+                      tp->type = token_type_i18nstring;
+                      goto case_string;
+                    }
+                  phase2_ungetc (c);
+                  break;
+                }
+              break;
+            }
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos] = '\0';
+          tp->string = xstrdup (buffer);
+          tp->type = token_type_symbol;
+          /* Most identifiers can be variable names; after them we must
+             interpret '/' as division operator.  But for awk's builtin
+             keywords we have three cases:
+             (a) Must interpret '/' as division operator. "length".
+             (b) Must interpret '/' as start of a regular expression.
+                 "do", "exit", "print", "printf", "return".
+             (c) '/' after this keyword in invalid anyway. All others.
+             I used the following script for the distinction.
+                for k in $awk_keywords; do
+                  echo; echo $k; awk "function foo () { $k / 10 }" < /dev/null
+                done
+           */
+          if (strcmp (buffer, "do") == 0
+              || strcmp (buffer, "exit") == 0
+              || strcmp (buffer, "print") == 0
+              || strcmp (buffer, "printf") == 0
+              || strcmp (buffer, "return") == 0)
+            prefer_division_over_regexp = false;
+          else
+            prefer_division_over_regexp = true;
+          return;
 
-	case '"':
-	  tp->type = token_type_string;
-	case_string:
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      c = phase7_getc ();
-	      if (c == EOF || c == P7_QUOTES)
-		break;
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = c;
-	    }
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos] = '\0';
-	  tp->string = xstrdup (buffer);
-	  prefer_division_over_regexp = true;
-	  return;
+        case '"':
+          tp->type = token_type_string;
+        case_string:
+          bufpos = 0;
+          for (;;)
+            {
+              c = phase7_getc ();
+              if (c == EOF || c == P7_QUOTES)
+                break;
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = c;
+            }
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos] = '\0';
+          tp->string = xstrdup (buffer);
+          prefer_division_over_regexp = true;
+          return;
 
-	case '(':
-	  tp->type = token_type_lparen;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '(':
+          tp->type = token_type_lparen;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ')':
-	  tp->type = token_type_rparen;
-	  prefer_division_over_regexp = true;
-	  return;
+        case ')':
+          tp->type = token_type_rparen;
+          prefer_division_over_regexp = true;
+          return;
 
-	case ',':
-	  tp->type = token_type_comma;
-	  prefer_division_over_regexp = false;
-	  return;
+        case ',':
+          tp->type = token_type_comma;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ';':
-	  tp->type = token_type_semicolon;
-	  prefer_division_over_regexp = false;
-	  return;
+        case ';':
+          tp->type = token_type_semicolon;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ']':
-	  tp->type = token_type_other;
-	  prefer_division_over_regexp = true;
-	  return;
+        case ']':
+          tp->type = token_type_other;
+          prefer_division_over_regexp = true;
+          return;
 
-	case '/':
-	  if (!prefer_division_over_regexp)
-	    {
-	      /* Regular expression.
-	         Counting brackets is non-trivial. [[] is balanced, and so is
-	         [\]]. Also, /[/]/ is balanced and ends at the third slash.
-	         Do not count [ or ] if either one is preceded by a \.
-	         A '[' should be counted if
-	          a) it is the first one so far (brackets == 0), or
-	          b) it is the '[' in '[:'.
-	         A ']' should be counted if not preceded by a \.
-	         According to POSIX, []] is how you put a ] into a set.
-	         Try to handle that too.
-	       */
-	      int brackets = 0;
-	      bool pos0 = true;		/* true at start of regexp */
-	      bool pos1_open = false;	/* true after [ at start of regexp */
-	      bool pos2_open_not = false; /* true after [^ at start of regexp */
+        case '/':
+          if (!prefer_division_over_regexp)
+            {
+              /* Regular expression.
+                 Counting brackets is non-trivial. [[] is balanced, and so is
+                 [\]]. Also, /[/]/ is balanced and ends at the third slash.
+                 Do not count [ or ] if either one is preceded by a \.
+                 A '[' should be counted if
+                  a) it is the first one so far (brackets == 0), or
+                  b) it is the '[' in '[:'.
+                 A ']' should be counted if not preceded by a \.
+                 According to POSIX, []] is how you put a ] into a set.
+                 Try to handle that too.
+               */
+              int brackets = 0;
+              bool pos0 = true;         /* true at start of regexp */
+              bool pos1_open = false;   /* true after [ at start of regexp */
+              bool pos2_open_not = false; /* true after [^ at start of regexp */
 
-	      for (;;)
-		{
-		  c = phase1_getc ();
+              for (;;)
+                {
+                  c = phase1_getc ();
 
-		  if (c == EOF || c == '\n')
-		    {
-		      phase1_ungetc (c);
-		      error_with_progname = false;
-		      error (0, 0, _("%s:%d: warning: unterminated regular expression"),
-			     logical_file_name, line_number);
-		      error_with_progname = true;
-		      break;
-		    }
-		  else if (c == '[')
-		    {
-		      if (brackets == 0)
-			brackets++;
-		      else
-			{
-			  c = phase1_getc ();
-			  if (c == ':')
-			    brackets++;
-			  phase1_ungetc (c);
-			}
-		      if (pos0)
-			{
-			  pos0 = false;
-			  pos1_open = true;
-			  continue;
-			}
-		    }
-		  else if (c == ']')
-		    {
-		      if (!(pos1_open || pos2_open_not))
-			brackets--;
-		    }
-		  else if (c == '^')
-		    {
-		      if (pos1_open)
-			{
-			  pos1_open = false;
-			  pos2_open_not = true;
-			  continue;
-			}
-		    }
-		  else if (c == '\\')
-		    {
-		      c = phase1_getc ();
-		      /* Backslash-newline is valid and ignored.  */
-		    }
-		  else if (c == '/')
-		    {
-		      if (brackets <= 0)
-			break;
-		    }
+                  if (c == EOF || c == '\n')
+                    {
+                      phase1_ungetc (c);
+                      error_with_progname = false;
+                      error (0, 0, _("%s:%d: warning: unterminated regular expression"),
+                             logical_file_name, line_number);
+                      error_with_progname = true;
+                      break;
+                    }
+                  else if (c == '[')
+                    {
+                      if (brackets == 0)
+                        brackets++;
+                      else
+                        {
+                          c = phase1_getc ();
+                          if (c == ':')
+                            brackets++;
+                          phase1_ungetc (c);
+                        }
+                      if (pos0)
+                        {
+                          pos0 = false;
+                          pos1_open = true;
+                          continue;
+                        }
+                    }
+                  else if (c == ']')
+                    {
+                      if (!(pos1_open || pos2_open_not))
+                        brackets--;
+                    }
+                  else if (c == '^')
+                    {
+                      if (pos1_open)
+                        {
+                          pos1_open = false;
+                          pos2_open_not = true;
+                          continue;
+                        }
+                    }
+                  else if (c == '\\')
+                    {
+                      c = phase1_getc ();
+                      /* Backslash-newline is valid and ignored.  */
+                    }
+                  else if (c == '/')
+                    {
+                      if (brackets <= 0)
+                        break;
+                    }
 
-		  pos0 = false;
-		  pos1_open = false;
-		  pos2_open_not = false;
-		}
+                  pos0 = false;
+                  pos1_open = false;
+                  pos2_open_not = false;
+                }
 
-	      tp->type = token_type_other;
-	      prefer_division_over_regexp = false;
-	      return;
-	    }
-	  /* FALLTHROUGH */
+              tp->type = token_type_other;
+              prefer_division_over_regexp = false;
+              return;
+            }
+          /* FALLTHROUGH */
 
-	default:
-	  /* We could carefully recognize each of the 2 and 3 character
-	     operators, but it is not necessary, as we only need to recognize
-	     gettext invocations.  Don't bother.  */
-	  tp->type = token_type_other;
-	  prefer_division_over_regexp = false;
-	  return;
-	}
+        default:
+          /* We could carefully recognize each of the 2 and 3 character
+             operators, but it is not necessary, as we only need to recognize
+             gettext invocations.  Don't bother.  */
+          tp->type = token_type_other;
+          prefer_division_over_regexp = false;
+          return;
+        }
     }
 }
 
@@ -687,9 +687,9 @@ static flag_context_list_table_ty *flag_context_list_table;
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
-		       flag_context_ty outer_context,
-		       flag_context_list_iterator_ty context_iter,
-		       struct arglist_parser *argparser)
+                       flag_context_ty outer_context,
+                       flag_context_list_iterator_ty context_iter,
+                       struct arglist_parser *argparser)
 {
   /* Current argument number.  */
   int arg = 1;
@@ -706,7 +706,7 @@ extract_parenthesized (message_list_ty *mlp,
   /* Current context.  */
   flag_context_ty inner_context =
     inherited_context (outer_context,
-		       flag_context_list_iterator_advance (&context_iter));
+                       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -718,145 +718,145 @@ extract_parenthesized (message_list_ty *mlp,
       x_awk_lex (&token);
 
       if (next_is_argument && token.type != token_type_lparen)
-	{
-	  /* An argument list starts, even though there is no '('.  */
-	  context_iter = next_context_iter;
-	  outer_context = inner_context;
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	}
+        {
+          /* An argument list starts, even though there is no '('.  */
+          context_iter = next_context_iter;
+          outer_context = inner_context;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+        }
 
       switch (token.type)
-	{
-	case token_type_symbol:
-	  {
-	    void *keyword_value;
+        {
+        case token_type_symbol:
+          {
+            void *keyword_value;
 
-	    if (hash_find_entry (&keywords, token.string, strlen (token.string),
-				 &keyword_value)
-		== 0)
-	      {
-		next_shapes = (const struct callshapes *) keyword_value;
-		state = 1;
-	      }
-	    else
-	      state = 0;
-	  }
-	  next_is_argument =
-	    (strcmp (token.string, "print") == 0
-	     || strcmp (token.string, "printf") == 0);
-	  next_context_iter =
-	    flag_context_list_iterator (
-	      flag_context_list_table_lookup (
-		flag_context_list_table,
-		token.string, strlen (token.string)));
-	  free (token.string);
-	  continue;
+            if (hash_find_entry (&keywords, token.string, strlen (token.string),
+                                 &keyword_value)
+                == 0)
+              {
+                next_shapes = (const struct callshapes *) keyword_value;
+                state = 1;
+              }
+            else
+              state = 0;
+          }
+          next_is_argument =
+            (strcmp (token.string, "print") == 0
+             || strcmp (token.string, "printf") == 0);
+          next_context_iter =
+            flag_context_list_iterator (
+              flag_context_list_table_lookup (
+                flag_context_list_table,
+                token.string, strlen (token.string)));
+          free (token.string);
+          continue;
 
-	case token_type_lparen:
-	  if (extract_parenthesized (mlp, inner_context, next_context_iter,
-				     arglist_parser_alloc (mlp,
-							   state ? next_shapes : NULL)))
-	    {
-	      arglist_parser_done (argparser, arg);
-	      return true;
-	    }
-	  next_is_argument = false;
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_lparen:
+          if (extract_parenthesized (mlp, inner_context, next_context_iter,
+                                     arglist_parser_alloc (mlp,
+                                                           state ? next_shapes : NULL)))
+            {
+              arglist_parser_done (argparser, arg);
+              return true;
+            }
+          next_is_argument = false;
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_rparen:
-	  arglist_parser_done (argparser, arg);
-	  return false;
+        case token_type_rparen:
+          arglist_parser_done (argparser, arg);
+          return false;
 
-	case token_type_comma:
-	  arg++;
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	  next_is_argument = false;
-	  next_context_iter = passthrough_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_comma:
+          arg++;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+          next_is_argument = false;
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_string:
-	  {
-	    lex_pos_ty pos;
-	    pos.file_name = logical_file_name;
-	    pos.line_number = token.line_number;
+        case token_type_string:
+          {
+            lex_pos_ty pos;
+            pos.file_name = logical_file_name;
+            pos.line_number = token.line_number;
 
-	    if (extract_all)
-	      remember_a_message (mlp, NULL, token.string, inner_context, &pos,
-				  NULL, savable_comment);
-	    else
-	      arglist_parser_remember (argparser, arg, token.string,
-				       inner_context,
-				       pos.file_name, pos.line_number,
-				       savable_comment);
-	  }
-	  next_is_argument = false;
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+            if (extract_all)
+              remember_a_message (mlp, NULL, token.string, inner_context, &pos,
+                                  NULL, savable_comment);
+            else
+              arglist_parser_remember (argparser, arg, token.string,
+                                       inner_context,
+                                       pos.file_name, pos.line_number,
+                                       savable_comment);
+          }
+          next_is_argument = false;
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_i18nstring:
-	  {
-	    lex_pos_ty pos;
-	    pos.file_name = logical_file_name;
-	    pos.line_number = token.line_number;
+        case token_type_i18nstring:
+          {
+            lex_pos_ty pos;
+            pos.file_name = logical_file_name;
+            pos.line_number = token.line_number;
 
-	    remember_a_message (mlp, NULL, token.string, inner_context, &pos,
-				NULL, savable_comment);
-	  }
-	  next_is_argument = false;
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+            remember_a_message (mlp, NULL, token.string, inner_context, &pos,
+                                NULL, savable_comment);
+          }
+          next_is_argument = false;
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_semicolon:
-	  /* An argument list ends, and a new statement begins.  */
-	  /* FIXME: Should handle newline that acts as statement separator
-	     in the same way.  */
-	  /* FIXME: Instead of resetting outer_context here, it may be better
-	     to recurse in the next_is_argument handling above, waiting for
-	     the next semicolon or other statement terminator.  */
-	  outer_context = null_context;
-	  context_iter = null_context_list_iterator;
-	  next_is_argument = false;
-	  next_context_iter = passthrough_context_list_iterator;
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	  state = 0;
-	  continue;
+        case token_type_semicolon:
+          /* An argument list ends, and a new statement begins.  */
+          /* FIXME: Should handle newline that acts as statement separator
+             in the same way.  */
+          /* FIXME: Instead of resetting outer_context here, it may be better
+             to recurse in the next_is_argument handling above, waiting for
+             the next semicolon or other statement terminator.  */
+          outer_context = null_context;
+          context_iter = null_context_list_iterator;
+          next_is_argument = false;
+          next_context_iter = passthrough_context_list_iterator;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+          state = 0;
+          continue;
 
-	case token_type_eof:
-	  arglist_parser_done (argparser, arg);
-	  return true;
+        case token_type_eof:
+          arglist_parser_done (argparser, arg);
+          return true;
 
-	case token_type_other:
-	  next_is_argument = false;
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_other:
+          next_is_argument = false;
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	default:
-	  abort ();
-	}
+        default:
+          abort ();
+        }
     }
 }
 
 
 void
 extract_awk (FILE *f,
-	     const char *real_filename, const char *logical_filename,
-	     flag_context_list_table_ty *flag_table,
-	     msgdomain_list_ty *mdlp)
+             const char *real_filename, const char *logical_filename,
+             flag_context_list_table_ty *flag_table,
+             msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -877,7 +877,7 @@ extract_awk (FILE *f,
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
   while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
-				 arglist_parser_alloc (mlp, NULL)))
+                                 arglist_parser_alloc (mlp, NULL)))
     ;
 
   fp = NULL;

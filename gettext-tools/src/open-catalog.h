@@ -32,7 +32,7 @@ extern "C" {
    file's pathname is returned in *REAL_FILE_NAME_P, for error message
    purposes.  */
 extern FILE *open_catalog_file (const char *input_name,
-				char **real_file_name_p, bool exit_on_error);
+                                char **real_file_name_p, bool exit_on_error);
 
 
 #ifdef __cplusplus

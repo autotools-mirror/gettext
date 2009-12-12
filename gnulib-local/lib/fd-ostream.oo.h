@@ -38,7 +38,7 @@ extern "C" {
    FILENAME is used only for error messages.
    Note that the resulting stream must be closed before FD can be closed.  */
 extern fd_ostream_t fd_ostream_create (int fd, const char *filename,
-				       bool buffered);
+                                       bool buffered);
 
 
 #ifdef __cplusplus

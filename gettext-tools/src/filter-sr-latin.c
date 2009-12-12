@@ -289,7 +289,7 @@ static const char table[240][3 + 1] =
 
 void
 serbian_to_latin (const char *input, size_t input_len,
-		  char **output_p, size_t *output_len_p)
+                  char **output_p, size_t *output_len_p)
 {
   /* Loop through the input string, producing a replacement for each character.
      Only characters in the range U+0400..U+04EF (\xD0\x80..\xD3\xAF) need to
@@ -317,69 +317,69 @@ serbian_to_latin (const char *input, size_t input_len,
 
       /* Test for the first byte of a Cyrillic character.  */
       if ((byte >= 0xd0 && byte <= 0xd3) && (ip + 1 < input_end))
-	{
-	  unsigned char second_byte = (unsigned char) ip[1];
+        {
+          unsigned char second_byte = (unsigned char) ip[1];
 
-	  /* Verify the second byte is valid.  */
-	  if (second_byte >= 0x80 && second_byte < 0xc0)
-	    {
-	      unsigned int uc = ((byte & 0x1f) << 6) | (second_byte & 0x3f);
+          /* Verify the second byte is valid.  */
+          if (second_byte >= 0x80 && second_byte < 0xc0)
+            {
+              unsigned int uc = ((byte & 0x1f) << 6) | (second_byte & 0x3f);
 
-	      if (uc >= 0x0400 && uc <= 0x04ef)
-		{
-		  /* Look up replacement from the table.  */
-		  const char *repl = table[uc - 0x0400];
+              if (uc >= 0x0400 && uc <= 0x04ef)
+                {
+                  /* Look up replacement from the table.  */
+                  const char *repl = table[uc - 0x0400];
 
-		  if (repl[0] != '\0')
-		    {
-		      /* Found a replacement.
-			 Now handle the special cases.  */
-		      if (uc == 0x0409 || uc == 0x040a || uc == 0x040f)
-			if ((ip + 2 < input_end
-			     && IS_UPPERCASE_LATIN ((unsigned char) ip[2]))
-			    || (ip + 3 < input_end
-				&& IS_UPPERCASE_CYRILLIC ((unsigned char) ip[2],
-							  (unsigned char) ip[3]))
-			    || (ip >= input + 1
-				&& IS_UPPERCASE_LATIN ((unsigned char) ip[-1]))
-			    || (ip >= input + 2
-				&& IS_UPPERCASE_CYRILLIC ((unsigned char) ip[-2],
-							  (unsigned char) ip[-1])))
-			  {
-			    /* Use the upper-case replacement instead of
-			       the mixed-case replacement.  */
-			    switch (uc)
-			      {
-			      case 0x0409:
-				repl = "LJ"; break;
-			      case 0x040a:
-				repl = "NJ"; break;
-			      case 0x040f:
-				repl = "D\xC5\xBD"/* "DŽ" */; break;
-			      default:
-				abort ();
-			      }
-			  }
+                  if (repl[0] != '\0')
+                    {
+                      /* Found a replacement.
+                         Now handle the special cases.  */
+                      if (uc == 0x0409 || uc == 0x040a || uc == 0x040f)
+                        if ((ip + 2 < input_end
+                             && IS_UPPERCASE_LATIN ((unsigned char) ip[2]))
+                            || (ip + 3 < input_end
+                                && IS_UPPERCASE_CYRILLIC ((unsigned char) ip[2],
+                                                          (unsigned char) ip[3]))
+                            || (ip >= input + 1
+                                && IS_UPPERCASE_LATIN ((unsigned char) ip[-1]))
+                            || (ip >= input + 2
+                                && IS_UPPERCASE_CYRILLIC ((unsigned char) ip[-2],
+                                                          (unsigned char) ip[-1])))
+                          {
+                            /* Use the upper-case replacement instead of
+                               the mixed-case replacement.  */
+                            switch (uc)
+                              {
+                              case 0x0409:
+                                repl = "LJ"; break;
+                              case 0x040a:
+                                repl = "NJ"; break;
+                              case 0x040f:
+                                repl = "D\xC5\xBD"/* "DŽ" */; break;
+                              default:
+                                abort ();
+                              }
+                          }
 
-		      /* Use the replacement.  */
-		      *op++ = *repl++;
-		      if (*repl != '\0')
-			{
-			  *op++ = *repl++;
-			  if (*repl != '\0')
-			    {
-			      *op++ = *repl++;
-			      /* All replacements have at most 3 bytes.  */
-			      if (*repl != '\0')
-				abort ();
-			    }
-			}
-		      ip += 2;
-		      continue;
-		    }
-		}
-	    }
-	}
+                      /* Use the replacement.  */
+                      *op++ = *repl++;
+                      if (*repl != '\0')
+                        {
+                          *op++ = *repl++;
+                          if (*repl != '\0')
+                            {
+                              *op++ = *repl++;
+                              /* All replacements have at most 3 bytes.  */
+                              if (*repl != '\0')
+                                abort ();
+                            }
+                        }
+                      ip += 2;
+                      continue;
+                    }
+                }
+            }
+        }
       *op++ = *ip++;
     }
 

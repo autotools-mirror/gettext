@@ -88,15 +88,15 @@ x_librep_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	hash_init (&keywords, 100);
+        hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Lisp
-	 symbol.  */
+         symbol.  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	insert_keyword_callshape (&keywords, name, end - name, &shape);
+        insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -108,7 +108,7 @@ init_keywords ()
   if (default_keywords)
     {
       /* When adding new keywords here, also update the documentation in
-	 xgettext.texi!  */
+         xgettext.texi!  */
       x_librep_keyword ("_");
       default_keywords = false;
     }
@@ -144,7 +144,7 @@ do_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	error (EXIT_FAILURE, errno, _("\
+        error (EXIT_FAILURE, errno, _("\
 error while reading \"%s\""), real_file_name);
     }
   else if (c == '\n')
@@ -169,9 +169,9 @@ do_ungetc (int c)
 /* A token consists of a sequence of characters.  */
 struct token
 {
-  int allocated;		/* number of allocated 'token_char's */
-  int charcount;		/* number of used 'token_char's */
-  char *chars;			/* the token's constituents */
+  int allocated;                /* number of allocated 'token_char's */
+  int charcount;                /* number of used 'token_char's */
+  char *chars;                  /* the token's constituents */
 };
 
 /* Initialize a 'struct token'.  */
@@ -227,173 +227,173 @@ read_token (struct token *tp, const int *first)
   for (;; c = do_getc ())
     {
       switch (c)
-	{
-	case EOF:
-	  goto done;
+        {
+        case EOF:
+          goto done;
 
-	case ' ': case '\t': case '\n': case '\f': case '\r':
-	case '(': case ')': case '[': case ']':
-	case '\'': case '"': case ';': case ',': case '`':
-	  goto done;
+        case ' ': case '\t': case '\n': case '\f': case '\r':
+        case '(': case ')': case '[': case ']':
+        case '\'': case '"': case ';': case ',': case '`':
+          goto done;
 
-	case '\\':
-	  radix = 0;
-	  c = do_getc ();
-	  if (c == EOF)
-	    /* Invalid, but be tolerant.  */
-	    break;
-	  grow_token (tp);
-	  tp->chars[tp->charcount++] = c;
-	  break;
+        case '\\':
+          radix = 0;
+          c = do_getc ();
+          if (c == EOF)
+            /* Invalid, but be tolerant.  */
+            break;
+          grow_token (tp);
+          tp->chars[tp->charcount++] = c;
+          break;
 
-	case '|':
-	  radix = 0;
-	  for (;;)
-	    {
-	      c = do_getc ();
-	      if (c == EOF || c == '|')
-		break;
-	      grow_token (tp);
-	      tp->chars[tp->charcount++] = c;
-	    }
-	  break;
+        case '|':
+          radix = 0;
+          for (;;)
+            {
+              c = do_getc ();
+              if (c == EOF || c == '|')
+                break;
+              grow_token (tp);
+              tp->chars[tp->charcount++] = c;
+            }
+          break;
 
-	default:
-	  if (radix != 0)
-	    {
-	      if (expecting_prefix)
-		{
-		  switch (c)
-		    {
-		    case 'B': case 'b':
-		      radix = 2;
-		      break;
-		    case 'O': case 'o':
-		      radix = 8;
-		      break;
-		    case 'D': case 'd':
-		      radix = 10;
-		      break;
-		    case 'X': case 'x':
-		      radix = 16;
-		      break;
-		    case 'E': case 'e':
-		    case 'I': case 'i':
-		      break;
-		    default:
-		      radix = 0;
-		      break;
-		    }
-		  expecting_prefix = false;
-		  nfirst = tp->charcount + 1;
-		}
-	      else if (tp->charcount == nfirst
-		       && (c == '+' || c == '-' || c == '#'))
-		{
-		  if (c == '#')
-		    {
-		      if (had_sign)
-			radix = 0;
-		      else
-			expecting_prefix = true;
-		    }
-		  else
-		    had_sign = true;
-		  nfirst = tp->charcount + 1;
-		}
-	      else
-		{
-		  switch (radix)
-		    {
-		    case -1:
-		      if (c == '.')
-			{
-			  radix = 10;
-			  exact = false;
-			}
-		      else if (!(c >= '0' && c <= '9'))
-			radix = 0;
-		      else if (c == '0')
-			radix = 1;
-		      else
-			radix = 10;
-		      break;
+        default:
+          if (radix != 0)
+            {
+              if (expecting_prefix)
+                {
+                  switch (c)
+                    {
+                    case 'B': case 'b':
+                      radix = 2;
+                      break;
+                    case 'O': case 'o':
+                      radix = 8;
+                      break;
+                    case 'D': case 'd':
+                      radix = 10;
+                      break;
+                    case 'X': case 'x':
+                      radix = 16;
+                      break;
+                    case 'E': case 'e':
+                    case 'I': case 'i':
+                      break;
+                    default:
+                      radix = 0;
+                      break;
+                    }
+                  expecting_prefix = false;
+                  nfirst = tp->charcount + 1;
+                }
+              else if (tp->charcount == nfirst
+                       && (c == '+' || c == '-' || c == '#'))
+                {
+                  if (c == '#')
+                    {
+                      if (had_sign)
+                        radix = 0;
+                      else
+                        expecting_prefix = true;
+                    }
+                  else
+                    had_sign = true;
+                  nfirst = tp->charcount + 1;
+                }
+              else
+                {
+                  switch (radix)
+                    {
+                    case -1:
+                      if (c == '.')
+                        {
+                          radix = 10;
+                          exact = false;
+                        }
+                      else if (!(c >= '0' && c <= '9'))
+                        radix = 0;
+                      else if (c == '0')
+                        radix = 1;
+                      else
+                        radix = 10;
+                      break;
 
-		    case 1:
-		      switch (c)
-			{
-			case 'X': case 'x':
-			  radix = 16;
-			  nfirst = tp->charcount + 1;
-			  break;
-			case '0': case '1': case '2': case '3': case '4':
-			case '5': case '6': case '7':
-			  radix = 8;
-			  nfirst = tp->charcount;
-			  break;
-			case '.': case 'E': case 'e':
-			  radix = 10;
-			  exact = false;
-			  break;
-			case '/':
-			  radix = 10;
-			  rational = true;
-			  break;
-			default:
-			  radix = 0;
-			  break;
-			}
-		      break;
+                    case 1:
+                      switch (c)
+                        {
+                        case 'X': case 'x':
+                          radix = 16;
+                          nfirst = tp->charcount + 1;
+                          break;
+                        case '0': case '1': case '2': case '3': case '4':
+                        case '5': case '6': case '7':
+                          radix = 8;
+                          nfirst = tp->charcount;
+                          break;
+                        case '.': case 'E': case 'e':
+                          radix = 10;
+                          exact = false;
+                          break;
+                        case '/':
+                          radix = 10;
+                          rational = true;
+                          break;
+                        default:
+                          radix = 0;
+                          break;
+                        }
+                      break;
 
-		    default:
-		      switch (c)
-			{
-			case '.':
-			  if (exact && radix == 10 && !rational)
-			    exact = false;
-			  else
-			    radix = 0;
-			  break;
-			case '/':
-			  if (exact && !rational)
-			    rational = true;
-			  else
-			    radix = 0;
-			  break;
-			case 'E': case 'e':
-			  if (radix == 10)
-			    {
-			      if (!rational && !exponent)
-				{
-				  exponent = true;
-				  exact = false;
-				}
-			      else
-				radix = 0;
-			      break;
-			    }
-			  /*FALLTHROUGH*/
-			default:
-			  if (exponent && (c == '+' || c == '-'))
-			    break;
-			  if ((radix <= 10
-			       && !(c >= '0' && c <= '0' + radix - 1))
-			      || (radix == 16 && !c_isxdigit (c)))
-			    radix = 0;
-			  break;
-			}
-		      break;
-		    }
-		}
-	    }
-	  else
-	    {
-	      if (c == '#')
-		goto done;
-	    }
-	  grow_token (tp);
-	  tp->chars[tp->charcount++] = c;
-	}
+                    default:
+                      switch (c)
+                        {
+                        case '.':
+                          if (exact && radix == 10 && !rational)
+                            exact = false;
+                          else
+                            radix = 0;
+                          break;
+                        case '/':
+                          if (exact && !rational)
+                            rational = true;
+                          else
+                            radix = 0;
+                          break;
+                        case 'E': case 'e':
+                          if (radix == 10)
+                            {
+                              if (!rational && !exponent)
+                                {
+                                  exponent = true;
+                                  exact = false;
+                                }
+                              else
+                                radix = 0;
+                              break;
+                            }
+                          /*FALLTHROUGH*/
+                        default:
+                          if (exponent && (c == '+' || c == '-'))
+                            break;
+                          if ((radix <= 10
+                               && !(c >= '0' && c <= '0' + radix - 1))
+                              || (radix == 16 && !c_isxdigit (c)))
+                            radix = 0;
+                          break;
+                        }
+                      break;
+                    }
+                }
+            }
+          else
+            {
+              if (c == '#')
+                goto done;
+            }
+          grow_token (tp);
+          tp->chars[tp->charcount++] = c;
+        }
     }
  done:
   if (c != EOF)
@@ -434,7 +434,7 @@ comment_line_end (size_t chars_to_remove)
 {
   buflen -= chars_to_remove;
   while (buflen >= 1
-	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
+         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
   if (chars_to_remove == 0 && buflen >= bufmax)
     {
@@ -465,19 +465,19 @@ static message_list_ty *mlp;
    Other objects need not to be represented precisely.  */
 enum object_type
 {
-  t_symbol,	/* symbol */
-  t_string,	/* string */
-  t_other,	/* other kind of real object */
-  t_dot,	/* '.' pseudo object */
-  t_close,	/* ')' or ']' pseudo object */
-  t_eof		/* EOF marker */
+  t_symbol,     /* symbol */
+  t_string,     /* string */
+  t_other,      /* other kind of real object */
+  t_dot,        /* '.' pseudo object */
+  t_close,      /* ')' or ']' pseudo object */
+  t_eof         /* EOF marker */
 };
 
 struct object
 {
   enum object_type type;
-  struct token *token;		/* for t_symbol and t_string */
-  int line_number_at_start;	/* for t_string */
+  struct token *token;          /* for t_symbol and t_string */
+  int line_number_at_start;     /* for t_string */
 };
 
 /* Free the memory pointed to by a 'struct object'.  */
@@ -531,55 +531,55 @@ do_getc_escaped (int c)
     case '^':
       c = do_getc ();
       if (c == EOF)
-	return EOF;
+        return EOF;
       return c & 0x1f;
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7':
       {
-	int n = c - '0';
+        int n = c - '0';
 
-	c = do_getc ();
-	if (c != EOF)
-	  {
-	    if (c >= '0' && c <= '7')
-	      {
-		n = (n << 3) + (c - '0');
-		c = do_getc ();
-		if (c != EOF)
-		  {
-		    if (c >= '0' && c <= '7')
-		      n = (n << 3) + (c - '0');
-		    else
-		      do_ungetc (c);
-		  }
-	      }
-	    else
-	      do_ungetc (c);
-	  }
-	return (unsigned char) n;
+        c = do_getc ();
+        if (c != EOF)
+          {
+            if (c >= '0' && c <= '7')
+              {
+                n = (n << 3) + (c - '0');
+                c = do_getc ();
+                if (c != EOF)
+                  {
+                    if (c >= '0' && c <= '7')
+                      n = (n << 3) + (c - '0');
+                    else
+                      do_ungetc (c);
+                  }
+              }
+            else
+              do_ungetc (c);
+          }
+        return (unsigned char) n;
       }
     case 'x':
       {
-	int n = 0;
+        int n = 0;
 
-	for (;;)
-	  {
-	    c = do_getc ();
-	    if (c == EOF)
-	      break;
-	    else if (c >= '0' && c <= '9')
-	      n = (n << 4) + (c - '0');
-	    else if (c >= 'A' && c <= 'F')
-	      n = (n << 4) + (c - 'A' + 10);
-	    else if (c >= 'a' && c <= 'f')
-	      n = (n << 4) + (c - 'a' + 10);
-	    else
-	      {
-		do_ungetc (c);
-		break;
-	      }
-	  }
-	return (unsigned char) n;
+        for (;;)
+          {
+            c = do_getc ();
+            if (c == EOF)
+              break;
+            else if (c >= '0' && c <= '9')
+              n = (n << 4) + (c - '0');
+            else if (c >= 'A' && c <= 'F')
+              n = (n << 4) + (c - 'A' + 10);
+            else if (c >= 'a' && c <= 'f')
+              n = (n << 4) + (c - 'a' + 10);
+            else
+              {
+                do_ungetc (c);
+                break;
+              }
+          }
+        return (unsigned char) n;
       }
     default:
       return c;
@@ -597,504 +597,504 @@ read_object (struct object *op, flag_context_ty outer_context)
       c = do_getc ();
 
       switch (c)
-	{
-	case EOF:
-	  op->type = t_eof;
-	  return;
+        {
+        case EOF:
+          op->type = t_eof;
+          return;
 
-	case '\n':
-	  /* Comments assumed to be grouped with a message must immediately
-	     precede it, with no non-whitespace token on a line between
-	     both.  */
-	  if (last_non_comment_line > last_comment_line)
-	    savable_comment_reset ();
-	  continue;
+        case '\n':
+          /* Comments assumed to be grouped with a message must immediately
+             precede it, with no non-whitespace token on a line between
+             both.  */
+          if (last_non_comment_line > last_comment_line)
+            savable_comment_reset ();
+          continue;
 
-	case ' ': case '\t': case '\f': case '\r':
-	  continue;
+        case ' ': case '\t': case '\f': case '\r':
+          continue;
 
-	case '(':
-	  {
-	    int arg = 0;		/* Current argument number.  */
-	    flag_context_list_iterator_ty context_iter;
-	    const struct callshapes *shapes = NULL;
-	    struct arglist_parser *argparser = NULL;
+        case '(':
+          {
+            int arg = 0;                /* Current argument number.  */
+            flag_context_list_iterator_ty context_iter;
+            const struct callshapes *shapes = NULL;
+            struct arglist_parser *argparser = NULL;
 
-	    for (;; arg++)
-	      {
-		struct object inner;
-		flag_context_ty inner_context;
+            for (;; arg++)
+              {
+                struct object inner;
+                flag_context_ty inner_context;
 
-		if (arg == 0)
-		  inner_context = null_context;
-		else
-		  inner_context =
-		    inherited_context (outer_context,
-				       flag_context_list_iterator_advance (
-					 &context_iter));
+                if (arg == 0)
+                  inner_context = null_context;
+                else
+                  inner_context =
+                    inherited_context (outer_context,
+                                       flag_context_list_iterator_advance (
+                                         &context_iter));
 
-		read_object (&inner, inner_context);
+                read_object (&inner, inner_context);
 
-		/* Recognize end of list.  */
-		if (inner.type == t_close)
-		  {
-		    op->type = t_other;
-		    /* Don't bother converting "()" to "NIL".  */
-		    last_non_comment_line = line_number;
-		    if (argparser != NULL)
-		      arglist_parser_done (argparser, arg);
-		    return;
-		  }
+                /* Recognize end of list.  */
+                if (inner.type == t_close)
+                  {
+                    op->type = t_other;
+                    /* Don't bother converting "()" to "NIL".  */
+                    last_non_comment_line = line_number;
+                    if (argparser != NULL)
+                      arglist_parser_done (argparser, arg);
+                    return;
+                  }
 
-		/* Dots are not allowed in every position.
-		   But be tolerant.  */
+                /* Dots are not allowed in every position.
+                   But be tolerant.  */
 
-		/* EOF inside list is illegal.  But be tolerant.  */
-		if (inner.type == t_eof)
-		  break;
+                /* EOF inside list is illegal.  But be tolerant.  */
+                if (inner.type == t_eof)
+                  break;
 
-		if (arg == 0)
-		  {
-		    /* This is the function position.  */
-		    if (inner.type == t_symbol)
-		      {
-			char *symbol_name = string_of_object (&inner);
-			void *keyword_value;
+                if (arg == 0)
+                  {
+                    /* This is the function position.  */
+                    if (inner.type == t_symbol)
+                      {
+                        char *symbol_name = string_of_object (&inner);
+                        void *keyword_value;
 
-			if (hash_find_entry (&keywords,
-					     symbol_name, strlen (symbol_name),
-					     &keyword_value)
-			    == 0)
-			  shapes = (const struct callshapes *) keyword_value;
+                        if (hash_find_entry (&keywords,
+                                             symbol_name, strlen (symbol_name),
+                                             &keyword_value)
+                            == 0)
+                          shapes = (const struct callshapes *) keyword_value;
 
-			argparser = arglist_parser_alloc (mlp, shapes);
+                        argparser = arglist_parser_alloc (mlp, shapes);
 
-			context_iter =
-			  flag_context_list_iterator (
-			    flag_context_list_table_lookup (
-			      flag_context_list_table,
-			      symbol_name, strlen (symbol_name)));
+                        context_iter =
+                          flag_context_list_iterator (
+                            flag_context_list_table_lookup (
+                              flag_context_list_table,
+                              symbol_name, strlen (symbol_name)));
 
-			free (symbol_name);
-		      }
-		    else
-		      context_iter = null_context_list_iterator;
-		  }
-		else
-		  {
-		    /* These are the argument positions.  */
-		    if (argparser != NULL && inner.type == t_string)
-		      arglist_parser_remember (argparser, arg,
-					       string_of_object (&inner),
-					       inner_context,
-					       logical_file_name,
-					       inner.line_number_at_start,
-					       savable_comment);
-		  }
+                        free (symbol_name);
+                      }
+                    else
+                      context_iter = null_context_list_iterator;
+                  }
+                else
+                  {
+                    /* These are the argument positions.  */
+                    if (argparser != NULL && inner.type == t_string)
+                      arglist_parser_remember (argparser, arg,
+                                               string_of_object (&inner),
+                                               inner_context,
+                                               logical_file_name,
+                                               inner.line_number_at_start,
+                                               savable_comment);
+                  }
 
-		free_object (&inner);
-	      }
+                free_object (&inner);
+              }
 
-	    if (argparser != NULL)
-	      arglist_parser_done (argparser, arg);
-	  }
-	  op->type = t_other;
-	  last_non_comment_line = line_number;
-	  return;
+            if (argparser != NULL)
+              arglist_parser_done (argparser, arg);
+          }
+          op->type = t_other;
+          last_non_comment_line = line_number;
+          return;
 
-	case '[':
-	  {
-	    for (;;)
-	      {
-		struct object inner;
+        case '[':
+          {
+            for (;;)
+              {
+                struct object inner;
 
-		read_object (&inner, null_context);
+                read_object (&inner, null_context);
 
-		/* Recognize end of vector.  */
-		if (inner.type == t_close)
-		  {
-		    op->type = t_other;
-		    last_non_comment_line = line_number;
-		    return;
-		  }
+                /* Recognize end of vector.  */
+                if (inner.type == t_close)
+                  {
+                    op->type = t_other;
+                    last_non_comment_line = line_number;
+                    return;
+                  }
 
-		/* Dots are not allowed.  But be tolerant.  */
+                /* Dots are not allowed.  But be tolerant.  */
 
-		/* EOF inside vector is illegal.  But be tolerant.  */
-		if (inner.type == t_eof)
-		  break;
+                /* EOF inside vector is illegal.  But be tolerant.  */
+                if (inner.type == t_eof)
+                  break;
 
-		free_object (&inner);
-	      }
-	  }
-	  op->type = t_other;
-	  last_non_comment_line = line_number;
-	  return;
+                free_object (&inner);
+              }
+          }
+          op->type = t_other;
+          last_non_comment_line = line_number;
+          return;
 
-	case ')': case ']':
-	  /* Tell the caller about the end of list or vector.
-	     Unmatched closing parenthesis is illegal.  But be tolerant.  */
-	  op->type = t_close;
-	  last_non_comment_line = line_number;
-	  return;
+        case ')': case ']':
+          /* Tell the caller about the end of list or vector.
+             Unmatched closing parenthesis is illegal.  But be tolerant.  */
+          op->type = t_close;
+          last_non_comment_line = line_number;
+          return;
 
-	case ',':
-	  {
-	    int c = do_getc ();
-	    /* The ,@ handling inside lists is wrong anyway, because
-	       ,@form expands to an unknown number of elements.  */
-	    if (c != EOF && c != '@')
-	      do_ungetc (c);
-	  }
-	  /*FALLTHROUGH*/
-	case '\'':
-	case '`':
-	  {
-	    struct object inner;
+        case ',':
+          {
+            int c = do_getc ();
+            /* The ,@ handling inside lists is wrong anyway, because
+               ,@form expands to an unknown number of elements.  */
+            if (c != EOF && c != '@')
+              do_ungetc (c);
+          }
+          /*FALLTHROUGH*/
+        case '\'':
+        case '`':
+          {
+            struct object inner;
 
-	    read_object (&inner, null_context);
+            read_object (&inner, null_context);
 
-	    /* Dots and EOF are not allowed here.  But be tolerant.  */
+            /* Dots and EOF are not allowed here.  But be tolerant.  */
 
-	    free_object (&inner);
+            free_object (&inner);
 
-	    op->type = t_other;
-	    last_non_comment_line = line_number;
-	    return;
-	  }
+            op->type = t_other;
+            last_non_comment_line = line_number;
+            return;
+          }
 
-	case ';':
-	  {
-	    bool all_semicolons = true;
+        case ';':
+          {
+            bool all_semicolons = true;
 
-	    last_comment_line = line_number;
-	    comment_start ();
-	    for (;;)
-	      {
-		int c = do_getc ();
-		if (c == EOF || c == '\n' || c == '\f' || c == '\r')
-		  break;
-		if (c != ';')
-		  all_semicolons = false;
-		if (!all_semicolons)
-		  {
-		    /* We skip all leading white space, but not EOLs.  */
-		    if (!(buflen == 0 && (c == ' ' || c == '\t')))
-		      comment_add (c);
-		  }
-	      }
-	    comment_line_end (0);
-	    continue;
-	  }
+            last_comment_line = line_number;
+            comment_start ();
+            for (;;)
+              {
+                int c = do_getc ();
+                if (c == EOF || c == '\n' || c == '\f' || c == '\r')
+                  break;
+                if (c != ';')
+                  all_semicolons = false;
+                if (!all_semicolons)
+                  {
+                    /* We skip all leading white space, but not EOLs.  */
+                    if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                      comment_add (c);
+                  }
+              }
+            comment_line_end (0);
+            continue;
+          }
 
-	case '"':
-	  {
-	    op->token = XMALLOC (struct token);
-	    init_token (op->token);
-	    op->line_number_at_start = line_number;
-	    for (;;)
-	      {
-		int c = do_getc ();
-		if (c == EOF)
-		  /* Invalid input.  Be tolerant, no error message.  */
-		  break;
-		if (c == '"')
-		  break;
-		if (c == '\\')
-		  {
-		    c = do_getc ();
-		    if (c == EOF)
-		      /* Invalid input.  Be tolerant, no error message.  */
-		      break;
-		    if (c == '\n')
-		      /* Ignore escaped newline.  */
-		      ;
-		    else
-		      {
-			c = do_getc_escaped (c);
-			if (c == EOF)
-			  /* Invalid input.  Be tolerant, no error message.  */
-			  break;
-			grow_token (op->token);
-			op->token->chars[op->token->charcount++] = c;
-		      }
-		  }
-		else
-		  {
-		    grow_token (op->token);
-		    op->token->chars[op->token->charcount++] = c;
-		  }
-	      }
-	    op->type = t_string;
+        case '"':
+          {
+            op->token = XMALLOC (struct token);
+            init_token (op->token);
+            op->line_number_at_start = line_number;
+            for (;;)
+              {
+                int c = do_getc ();
+                if (c == EOF)
+                  /* Invalid input.  Be tolerant, no error message.  */
+                  break;
+                if (c == '"')
+                  break;
+                if (c == '\\')
+                  {
+                    c = do_getc ();
+                    if (c == EOF)
+                      /* Invalid input.  Be tolerant, no error message.  */
+                      break;
+                    if (c == '\n')
+                      /* Ignore escaped newline.  */
+                      ;
+                    else
+                      {
+                        c = do_getc_escaped (c);
+                        if (c == EOF)
+                          /* Invalid input.  Be tolerant, no error message.  */
+                          break;
+                        grow_token (op->token);
+                        op->token->chars[op->token->charcount++] = c;
+                      }
+                  }
+                else
+                  {
+                    grow_token (op->token);
+                    op->token->chars[op->token->charcount++] = c;
+                  }
+              }
+            op->type = t_string;
 
-	    if (extract_all)
-	      {
-		lex_pos_ty pos;
+            if (extract_all)
+              {
+                lex_pos_ty pos;
 
-		pos.file_name = logical_file_name;
-		pos.line_number = op->line_number_at_start;
-		remember_a_message (mlp, NULL, string_of_object (op),
-				    null_context, &pos, NULL, savable_comment);
-	      }
-	    last_non_comment_line = line_number;
-	    return;
-	  }
+                pos.file_name = logical_file_name;
+                pos.line_number = op->line_number_at_start;
+                remember_a_message (mlp, NULL, string_of_object (op),
+                                    null_context, &pos, NULL, savable_comment);
+              }
+            last_non_comment_line = line_number;
+            return;
+          }
 
-	case '?':
-	  c = do_getc ();
-	  if (c == EOF)
-	    /* Invalid input.  Be tolerant, no error message.  */
-	    ;
-	  else if (c == '\\')
-	    {
-	      c = do_getc ();
-	      if (c == EOF)
-		/* Invalid input.  Be tolerant, no error message.  */
-		;
-	      else
-		{
-		  c = do_getc_escaped (c);
-		  if (c == EOF)
-		    /* Invalid input.  Be tolerant, no error message.  */
-		    ;
-		}
-	    }
-	  op->type = t_other;
-	  last_non_comment_line = line_number;
-	  return;
+        case '?':
+          c = do_getc ();
+          if (c == EOF)
+            /* Invalid input.  Be tolerant, no error message.  */
+            ;
+          else if (c == '\\')
+            {
+              c = do_getc ();
+              if (c == EOF)
+                /* Invalid input.  Be tolerant, no error message.  */
+                ;
+              else
+                {
+                  c = do_getc_escaped (c);
+                  if (c == EOF)
+                    /* Invalid input.  Be tolerant, no error message.  */
+                    ;
+                }
+            }
+          op->type = t_other;
+          last_non_comment_line = line_number;
+          return;
 
-	case '#':
-	  /* Dispatch macro handling.  */
-	  c = do_getc ();
-	  if (c == EOF)
-	    /* Invalid input.  Be tolerant, no error message.  */
-	    {
-	      op->type = t_other;
-	      return;
-	    }
+        case '#':
+          /* Dispatch macro handling.  */
+          c = do_getc ();
+          if (c == EOF)
+            /* Invalid input.  Be tolerant, no error message.  */
+            {
+              op->type = t_other;
+              return;
+            }
 
-	  switch (c)
-	    {
-	    case '!':
-	      if (ftell (fp) == 2)
-		/* Skip comment until !# */
-		{
-		  c = do_getc ();
-		  for (;;)
-		    {
-		      if (c == EOF)
-			break;
-		      if (c == '!')
-			{
-			  c = do_getc ();
-			  if (c == EOF || c == '#')
-			    break;
-			}
-		      else
-			c = do_getc ();
-		    }
-		  if (c == EOF)
-		    {
-		      /* EOF not allowed here.  But be tolerant.  */
-		      op->type = t_eof;
-		      return;
-		    }
-		  continue;
-		}
-	      /*FALLTHROUGH*/
-	    case '\'':
-	    case ':':
-	      {
-		struct object inner;
-		read_object (&inner, null_context);
-		/* Dots and EOF are not allowed here.
-		   But be tolerant.  */
-		free_object (&inner);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
+          switch (c)
+            {
+            case '!':
+              if (ftell (fp) == 2)
+                /* Skip comment until !# */
+                {
+                  c = do_getc ();
+                  for (;;)
+                    {
+                      if (c == EOF)
+                        break;
+                      if (c == '!')
+                        {
+                          c = do_getc ();
+                          if (c == EOF || c == '#')
+                            break;
+                        }
+                      else
+                        c = do_getc ();
+                    }
+                  if (c == EOF)
+                    {
+                      /* EOF not allowed here.  But be tolerant.  */
+                      op->type = t_eof;
+                      return;
+                    }
+                  continue;
+                }
+              /*FALLTHROUGH*/
+            case '\'':
+            case ':':
+              {
+                struct object inner;
+                read_object (&inner, null_context);
+                /* Dots and EOF are not allowed here.
+                   But be tolerant.  */
+                free_object (&inner);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
 
-	    case '[':
-	    case '(':
-	      {
-		struct object inner;
-		do_ungetc (c);
-		read_object (&inner, null_context);
-		/* Dots and EOF are not allowed here.
-		   But be tolerant.  */
-		free_object (&inner);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
+            case '[':
+            case '(':
+              {
+                struct object inner;
+                do_ungetc (c);
+                read_object (&inner, null_context);
+                /* Dots and EOF are not allowed here.
+                   But be tolerant.  */
+                free_object (&inner);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
 
-	    case '|':
-	      {
-		int depth = 0;
+            case '|':
+              {
+                int depth = 0;
 
-		comment_start ();
-		c = do_getc ();
-		for (;;)
-		  {
-		    if (c == EOF)
-		      break;
-		    if (c == '|')
-		      {
-			c = do_getc ();
-			if (c == EOF)
-			  break;
-			if (c == '#')
-			  {
-			    if (depth == 0)
-			      {
-				comment_line_end (0);
-				break;
-			      }
-			    depth--;
-			    comment_add ('|');
-			    comment_add ('#');
-			    c = do_getc ();
-			  }
-			else
-			  comment_add ('|');
-		      }
-		    else if (c == '#')
-		      {
-			c = do_getc ();
-			if (c == EOF)
-			  break;
-			comment_add ('#');
-			if (c == '|')
-			  {
-			    depth++;
-			    comment_add ('|');
-			    c = do_getc ();
-			  }
-		      }
-		    else
-		      {
-			/* We skip all leading white space.  */
-			if (!(buflen == 0 && (c == ' ' || c == '\t')))
-			  comment_add (c);
-			if (c == '\n')
-			  {
-			    comment_line_end (1);
-			    comment_start ();
-			  }
-			c = do_getc ();
-		      }
-		  }
-		if (c == EOF)
-		  {
-		    /* EOF not allowed here.  But be tolerant.  */
-		    op->type = t_eof;
-		    return;
-		  }
-		last_comment_line = line_number;
-		continue;
-	      }
+                comment_start ();
+                c = do_getc ();
+                for (;;)
+                  {
+                    if (c == EOF)
+                      break;
+                    if (c == '|')
+                      {
+                        c = do_getc ();
+                        if (c == EOF)
+                          break;
+                        if (c == '#')
+                          {
+                            if (depth == 0)
+                              {
+                                comment_line_end (0);
+                                break;
+                              }
+                            depth--;
+                            comment_add ('|');
+                            comment_add ('#');
+                            c = do_getc ();
+                          }
+                        else
+                          comment_add ('|');
+                      }
+                    else if (c == '#')
+                      {
+                        c = do_getc ();
+                        if (c == EOF)
+                          break;
+                        comment_add ('#');
+                        if (c == '|')
+                          {
+                            depth++;
+                            comment_add ('|');
+                            c = do_getc ();
+                          }
+                      }
+                    else
+                      {
+                        /* We skip all leading white space.  */
+                        if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                          comment_add (c);
+                        if (c == '\n')
+                          {
+                            comment_line_end (1);
+                            comment_start ();
+                          }
+                        c = do_getc ();
+                      }
+                  }
+                if (c == EOF)
+                  {
+                    /* EOF not allowed here.  But be tolerant.  */
+                    op->type = t_eof;
+                    return;
+                  }
+                last_comment_line = line_number;
+                continue;
+              }
 
-	    case '\\':
-	      {
-		struct token token;
-		int first = '\\';
-		read_token (&token, &first);
-		free_token (&token);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
+            case '\\':
+              {
+                struct token token;
+                int first = '\\';
+                read_token (&token, &first);
+                free_token (&token);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
 
-	    case 'T': case 't':
-	    case 'F': case 'f':
-	      op->type = t_other;
-	      last_non_comment_line = line_number;
-	      return;
+            case 'T': case 't':
+            case 'F': case 'f':
+              op->type = t_other;
+              last_non_comment_line = line_number;
+              return;
 
-	    case 'B': case 'b':
-	    case 'O': case 'o':
-	    case 'D': case 'd':
-	    case 'X': case 'x':
-	    case 'E': case 'e':
-	    case 'I': case 'i':
-	      {
-		struct token token;
-		do_ungetc (c);
-		c = '#';
-		read_token (&token, &c);
-		free_token (&token);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
+            case 'B': case 'b':
+            case 'O': case 'o':
+            case 'D': case 'd':
+            case 'X': case 'x':
+            case 'E': case 'e':
+            case 'I': case 'i':
+              {
+                struct token token;
+                do_ungetc (c);
+                c = '#';
+                read_token (&token, &c);
+                free_token (&token);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
 
-	    default:
-	      /* Invalid input.  Be tolerant, no error message.  */
-	      op->type = t_other;
-	      last_non_comment_line = line_number;
-	      return;
-	    }
+            default:
+              /* Invalid input.  Be tolerant, no error message.  */
+              op->type = t_other;
+              last_non_comment_line = line_number;
+              return;
+            }
 
-	  /*NOTREACHED*/
-	  abort ();
+          /*NOTREACHED*/
+          abort ();
 
-	default:
-	  /* Read a token.  */
-	  {
-	    bool symbol;
+        default:
+          /* Read a token.  */
+          {
+            bool symbol;
 
-	    op->token = XMALLOC (struct token);
-	    symbol = read_token (op->token, &c);
-	    if (op->token->charcount == 1 && op->token->chars[0] == '.')
-	      {
-		free_token (op->token);
-		free (op->token);
-		op->type = t_dot;
-		last_non_comment_line = line_number;
-		return;
-	      }
-	    if (!symbol)
-	      {
-		free_token (op->token);
-		free (op->token);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
-	    /* Distinguish between "foo" and "foo#bar".  */
-	    c = do_getc ();
-	    if (c == '#')
-	      {
-		struct token second_token;
+            op->token = XMALLOC (struct token);
+            symbol = read_token (op->token, &c);
+            if (op->token->charcount == 1 && op->token->chars[0] == '.')
+              {
+                free_token (op->token);
+                free (op->token);
+                op->type = t_dot;
+                last_non_comment_line = line_number;
+                return;
+              }
+            if (!symbol)
+              {
+                free_token (op->token);
+                free (op->token);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
+            /* Distinguish between "foo" and "foo#bar".  */
+            c = do_getc ();
+            if (c == '#')
+              {
+                struct token second_token;
 
-		free_token (op->token);
-		free (op->token);
-		read_token (&second_token, NULL);
-		free_token (&second_token);
-		op->type = t_other;
-		last_non_comment_line = line_number;
-		return;
-	      }
-	    else
-	      {
-		if (c != EOF)
-		  do_ungetc (c);
-		op->type = t_symbol;
-		last_non_comment_line = line_number;
-		return;
-	      }
-	  }
-	}
+                free_token (op->token);
+                free (op->token);
+                read_token (&second_token, NULL);
+                free_token (&second_token);
+                op->type = t_other;
+                last_non_comment_line = line_number;
+                return;
+              }
+            else
+              {
+                if (c != EOF)
+                  do_ungetc (c);
+                op->type = t_symbol;
+                last_non_comment_line = line_number;
+                return;
+              }
+          }
+        }
     }
 }
 
 
 void
 extract_librep (FILE *f,
-		const char *real_filename, const char *logical_filename,
-		flag_context_list_table_ty *flag_table,
-		msgdomain_list_ty *mdlp)
+                const char *real_filename, const char *logical_filename,
+                flag_context_list_table_ty *flag_table,
+                msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 
@@ -1119,7 +1119,7 @@ extract_librep (FILE *f,
       read_object (&toplevel_object, null_context);
 
       if (toplevel_object.type == t_eof)
-	break;
+        break;
 
       free_object (&toplevel_object);
     }

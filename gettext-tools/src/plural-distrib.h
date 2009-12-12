@@ -45,7 +45,7 @@ struct plural_distribution
   /* A function which evaluates the plural formula for min <= n <= max
      and returns the estimated number of times the value j was assumed.  */
   unsigned int (*histogram) (const struct plural_distribution *self,
-			     int min, int max, unsigned long j);
+                             int min, int max, unsigned long j);
 };
 
 

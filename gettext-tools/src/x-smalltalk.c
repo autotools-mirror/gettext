@@ -88,8 +88,8 @@ phase1_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-	       real_file_name);
+        error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+               real_file_name);
       return EOF;
     }
 
@@ -106,7 +106,7 @@ phase1_ungetc (int c)
   if (c != EOF)
     {
       if (c == '\n')
-	--line_number;
+        --line_number;
 
       ungetc (c, fp);
     }
@@ -140,7 +140,7 @@ static inline void
 comment_line_end ()
 {
   while (buflen >= 1
-	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
+         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
   if (buflen >= bufmax)
     {
@@ -164,10 +164,10 @@ static int last_non_comment_line;
 enum token_type_ty
 {
   token_type_eof,
-  token_type_uniq,		/* # */
-  token_type_symbol,		/* symbol */
-  token_type_string_literal,	/* string, stringconst, symbolconst */
-  token_type_other		/* misc. operator */
+  token_type_uniq,              /* # */
+  token_type_symbol,            /* symbol */
+  token_type_string_literal,    /* string, stringconst, symbolconst */
+  token_type_other              /* misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -175,7 +175,7 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;		/* for token_type_string_literal, token_type_symbol */
+  char *string;         /* for token_type_string_literal, token_type_symbol */
   int line_number;
 };
 
@@ -206,234 +206,234 @@ phase2_get (token_ty *tp)
       tp->line_number = line_number;
       c = phase1_getc ();
       switch (c)
-	{
-	case EOF:
-	  tp->type = token_type_eof;
-	  return;
+        {
+        case EOF:
+          tp->type = token_type_eof;
+          return;
 
-	case '"':
-	  {
-	    /* Comment.  */
-	    int lineno;
+        case '"':
+          {
+            /* Comment.  */
+            int lineno;
 
-	    comment_start ();
-	    lineno = line_number;
-	    for (;;)
-	      {
-		c = phase1_getc ();
-		if (c == '"' || c == EOF)
-		  break;
-		if (c == '\n')
-		  {
-		    comment_line_end ();
-		    comment_start ();
-		  }
-		else
-		  {
-		    /* We skip all leading white space, but not EOLs.  */
-		    if (!(buflen == 0 && (c == ' ' || c == '\t')))
-		      comment_add (c);
-		  }
-	      }
-	    comment_line_end ();
-	    last_comment_line = lineno;
-	    continue;
-	  }
+            comment_start ();
+            lineno = line_number;
+            for (;;)
+              {
+                c = phase1_getc ();
+                if (c == '"' || c == EOF)
+                  break;
+                if (c == '\n')
+                  {
+                    comment_line_end ();
+                    comment_start ();
+                  }
+                else
+                  {
+                    /* We skip all leading white space, but not EOLs.  */
+                    if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                      comment_add (c);
+                  }
+              }
+            comment_line_end ();
+            last_comment_line = lineno;
+            continue;
+          }
 
-	case '\n':
-	  if (last_non_comment_line > last_comment_line)
-	    savable_comment_reset ();
-	  /* FALLTHROUGH */
-	case ' ':
-	case '\t':
-	case '\r':
-	  /* Ignore whitespace.  */
-	  continue;
-	}
+        case '\n':
+          if (last_non_comment_line > last_comment_line)
+            savable_comment_reset ();
+          /* FALLTHROUGH */
+        case ' ':
+        case '\t':
+        case '\r':
+          /* Ignore whitespace.  */
+          continue;
+        }
 
       last_non_comment_line = tp->line_number;
 
       switch (c)
-	{
-	case '\'':
-	  /* String literal.  */
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      c = phase1_getc ();
-	      if (c == EOF)
-		break;
-	      if (c == '\'')
-		{
-		  c = phase1_getc ();
-		  if (c != '\'')
-		    {
-		      phase1_ungetc (c);
-		      break;
-		    }
-		}
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = c;
-	    }
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos] = 0;
-	  tp->type = token_type_string_literal;
-	  tp->string = xstrdup (buffer);
-	  return;
+        {
+        case '\'':
+          /* String literal.  */
+          bufpos = 0;
+          for (;;)
+            {
+              c = phase1_getc ();
+              if (c == EOF)
+                break;
+              if (c == '\'')
+                {
+                  c = phase1_getc ();
+                  if (c != '\'')
+                    {
+                      phase1_ungetc (c);
+                      break;
+                    }
+                }
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = c;
+            }
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos] = 0;
+          tp->type = token_type_string_literal;
+          tp->string = xstrdup (buffer);
+          return;
 
-	case '+':
-	case '-':
-	case '*':
-	case '/':
-	case '~':
-	case '|':
-	case ',':
-	case '<':
-	case '>':
-	case '=':
-	case '&':
-	case '@':
-	case '?':
-	case '%':
-	case '\\':
-	  {
-	    char *name;
-	    int c2 = phase1_getc ();
-	    switch (c2)
-	      {
-	      case '+':
-	      case '-':
-	      case '*':
-	      case '/':
-	      case '~':
-	      case '|':
-	      case ',':
-	      case '<':
-	      case '>':
-	      case '=':
-	      case '&':
-	      case '@':
-	      case '?':
-	      case '%':
-		name = XNMALLOC (3, char);
-		name[0] = c;
-		name[1] = c2;
-		name[2] = '\0';
-		tp->type = token_type_symbol;
-		tp->string = name;
-		return;
-	      default:
-		phase1_ungetc (c2);
-		break;
-	      }
-	    name = XNMALLOC (2, char);
-	    name[0] = c;
-	    name[1] = '\0';
-	    tp->type = token_type_symbol;
-	    tp->string = name;
-	    return;
-	  }
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '~':
+        case '|':
+        case ',':
+        case '<':
+        case '>':
+        case '=':
+        case '&':
+        case '@':
+        case '?':
+        case '%':
+        case '\\':
+          {
+            char *name;
+            int c2 = phase1_getc ();
+            switch (c2)
+              {
+              case '+':
+              case '-':
+              case '*':
+              case '/':
+              case '~':
+              case '|':
+              case ',':
+              case '<':
+              case '>':
+              case '=':
+              case '&':
+              case '@':
+              case '?':
+              case '%':
+                name = XNMALLOC (3, char);
+                name[0] = c;
+                name[1] = c2;
+                name[2] = '\0';
+                tp->type = token_type_symbol;
+                tp->string = name;
+                return;
+              default:
+                phase1_ungetc (c2);
+                break;
+              }
+            name = XNMALLOC (2, char);
+            name[0] = c;
+            name[1] = '\0';
+            tp->type = token_type_symbol;
+            tp->string = name;
+            return;
+          }
 
-	case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-	case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-	case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-	case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-	case 'Y': case 'Z':
-	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-	case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-	case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-	case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-	case 'y': case 'z':
-	  /* Recognize id or id":"[id":"]* or id":"[id":"]*id.  */
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = c;
-	      c = phase1_getc ();
-	      switch (c)
-		{
-		case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-		case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-		case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-		case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-		case 'Y': case 'Z':
-		case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-		case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-		case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-		case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-		case 'y': case 'z':
-		case '0': case '1': case '2': case '3': case '4':
-		case '5': case '6': case '7': case '8': case '9':
-		  continue;
-		case ':':
-		  if (bufpos >= bufmax)
-		    {
-		      bufmax = 2 * bufmax + 10;
-		      buffer = xrealloc (buffer, bufmax);
-		    }
-		  buffer[bufpos++] = c;
-		  c = phase1_getc ();
-		  switch (c)
-		    {
-		    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-		    case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-		    case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-		    case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-		    case 'Y': case 'Z':
-		    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-		    case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-		    case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-		    case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-		    case 'y': case 'z':
-		      continue;
-		    default:
-		      phase1_ungetc (c);
-		      break;
-		    }
-		  break;
-		default:
-		  phase1_ungetc (c);
-		  break;
-		}
-	      break;
-	    }
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos] = '\0';
-	  tp->string = xstrdup (buffer);
-	  tp->type = token_type_symbol;
-	  return;
+        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+        case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+        case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+        case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+        case 'Y': case 'Z':
+        case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+        case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+        case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+        case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+        case 'y': case 'z':
+          /* Recognize id or id":"[id":"]* or id":"[id":"]*id.  */
+          bufpos = 0;
+          for (;;)
+            {
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = c;
+              c = phase1_getc ();
+              switch (c)
+                {
+                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                case 'Y': case 'Z':
+                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                case 'y': case 'z':
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                  continue;
+                case ':':
+                  if (bufpos >= bufmax)
+                    {
+                      bufmax = 2 * bufmax + 10;
+                      buffer = xrealloc (buffer, bufmax);
+                    }
+                  buffer[bufpos++] = c;
+                  c = phase1_getc ();
+                  switch (c)
+                    {
+                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                    case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                    case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                    case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                    case 'Y': case 'Z':
+                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                    case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                    case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                    case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                    case 'y': case 'z':
+                      continue;
+                    default:
+                      phase1_ungetc (c);
+                      break;
+                    }
+                  break;
+                default:
+                  phase1_ungetc (c);
+                  break;
+                }
+              break;
+            }
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos] = '\0';
+          tp->string = xstrdup (buffer);
+          tp->type = token_type_symbol;
+          return;
 
-	case '#':
-	  /* Uniquification operator.  */
-	  tp->type = token_type_uniq;
-	  return;
+        case '#':
+          /* Uniquification operator.  */
+          tp->type = token_type_uniq;
+          return;
 
-	case '$':
-	  c = phase1_getc ();
-	  tp->type = token_type_other;
-	  return;
+        case '$':
+          c = phase1_getc ();
+          tp->type = token_type_other;
+          return;
 
-	default:
-	  tp->type = token_type_other;
-	  return;
-	}
+        default:
+          tp->type = token_type_other;
+          return;
+        }
     }
 }
 
@@ -444,7 +444,7 @@ phase2_unget (token_ty *tp)
   if (tp->type != token_type_eof)
     {
       if (phase2_pushback_length == SIZEOF (phase2_pushback))
-	abort ();
+        abort ();
       phase2_pushback[phase2_pushback_length++] = *tp;
     }
 }
@@ -462,13 +462,13 @@ x_smalltalk_lex (token_ty *tp)
 
       phase2_get (&token2);
       if (token2.type == token_type_symbol
-	  || token2.type == token_type_string_literal)
-	{
-	  tp->type = token_type_string_literal;
-	  tp->string = token2.string;
-	}
+          || token2.type == token_type_string_literal)
+        {
+          tp->type = token_type_string_literal;
+          tp->string = token2.string;
+        }
       else
-	phase2_unget (&token2);
+        phase2_unget (&token2);
     }
 }
 
@@ -488,9 +488,9 @@ x_smalltalk_lex (token_ty *tp)
 
 void
 extract_smalltalk (FILE *f,
-		   const char *real_filename, const char *logical_filename,
-		   flag_context_list_table_ty *flag_table,
-		   msgdomain_list_ty *mdlp)
+                   const char *real_filename, const char *logical_filename,
+                   flag_context_list_table_ty *flag_table,
+                   msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -520,72 +520,72 @@ extract_smalltalk (FILE *f,
 
     for (;;)
       {
-	token_ty token;
+        token_ty token;
 
-	x_smalltalk_lex (&token);
+        x_smalltalk_lex (&token);
 
-	switch (token.type)
-	  {
-	  case token_type_symbol:
-	    state = (strcmp (token.string, "NLS") == 0 ? 1 :
-		     strcmp (token.string, "?") == 0 && state == 1 ? 2 :
-		     strcmp (token.string, "at:") == 0 && state == 1 ? 3 :
-		     strcmp (token.string, "plural:") == 0 && state == 4 ? 5 :
-		     0);
-	    free (token.string);
-	    break;
+        switch (token.type)
+          {
+          case token_type_symbol:
+            state = (strcmp (token.string, "NLS") == 0 ? 1 :
+                     strcmp (token.string, "?") == 0 && state == 1 ? 2 :
+                     strcmp (token.string, "at:") == 0 && state == 1 ? 3 :
+                     strcmp (token.string, "plural:") == 0 && state == 4 ? 5 :
+                     0);
+            free (token.string);
+            break;
 
-	  case token_type_string_literal:
-	    if (state == 2)
-	      {
-		lex_pos_ty pos;
-		pos.file_name = logical_file_name;
-		pos.line_number = token.line_number;
-		remember_a_message (mlp, NULL, token.string, null_context,
-				    &pos, NULL, savable_comment);
-		state = 0;
-		break;
-	      }
-	    if (state == 3)
-	      {
-		lex_pos_ty pos;
-		pos.file_name = logical_file_name;
-		pos.line_number = token.line_number;
-		plural_mp = remember_a_message (mlp, NULL, token.string,
-						null_context, &pos,
-						NULL, savable_comment);
-		state = 4;
-		break;
-	      }
-	    if (state == 5)
-	      {
-		lex_pos_ty pos;
-		pos.file_name = logical_file_name;
-		pos.line_number = token.line_number;
-		remember_a_message_plural (plural_mp, token.string,
-					   null_context, &pos,
-					   savable_comment);
-		state = 0;
-		break;
-	      }
-	    state = 0;
-	    free (token.string);
-	    break;
+          case token_type_string_literal:
+            if (state == 2)
+              {
+                lex_pos_ty pos;
+                pos.file_name = logical_file_name;
+                pos.line_number = token.line_number;
+                remember_a_message (mlp, NULL, token.string, null_context,
+                                    &pos, NULL, savable_comment);
+                state = 0;
+                break;
+              }
+            if (state == 3)
+              {
+                lex_pos_ty pos;
+                pos.file_name = logical_file_name;
+                pos.line_number = token.line_number;
+                plural_mp = remember_a_message (mlp, NULL, token.string,
+                                                null_context, &pos,
+                                                NULL, savable_comment);
+                state = 4;
+                break;
+              }
+            if (state == 5)
+              {
+                lex_pos_ty pos;
+                pos.file_name = logical_file_name;
+                pos.line_number = token.line_number;
+                remember_a_message_plural (plural_mp, token.string,
+                                           null_context, &pos,
+                                           savable_comment);
+                state = 0;
+                break;
+              }
+            state = 0;
+            free (token.string);
+            break;
 
-	  case token_type_uniq:
-	  case token_type_other:
-	    state = 0;
-	    break;
+          case token_type_uniq:
+          case token_type_other:
+            state = 0;
+            break;
 
-	  case token_type_eof:
-	    break;
+          case token_type_eof:
+            break;
 
-	  default:
-	    abort ();
-	  }
+          default:
+            abort ();
+          }
 
-	if (token.type == token_type_eof)
-	  break;
+        if (token.type == token_type_eof)
+          break;
       }
   }
 

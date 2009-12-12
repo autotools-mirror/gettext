@@ -72,9 +72,9 @@ extern void
    parameters set by the functions above.  */
 extern void
        msgdomain_list_print (msgdomain_list_ty *mdlp,
-			     const char *filename,
-			     catalog_output_format_ty output_syntax,
-			     bool force, bool debug);
+                             const char *filename,
+                             catalog_output_format_ty output_syntax,
+                             bool force, bool debug);
 
 /* Sort MDLP destructively according to the given criterion.  */
 extern void

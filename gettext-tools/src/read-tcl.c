@@ -80,8 +80,8 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
       *p = *p - 'A' + 'a';
     else if (*p == '.')
       {
-	*p = '\0';
-	break;
+        *p = '\0';
+        break;
       }
 
   file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
@@ -103,7 +103,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
 
   /* Open a pipe to the Tcl interpreter.  */
   child = create_pipe_in ("tclsh", "tclsh", argv, DEV_NULL, false, true, true,
-			  fd);
+                          fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
@@ -120,12 +120,12 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   if (exitstatus != 0)
     {
       if (exitstatus == 2)
-	/* Special exitcode provided by msgunfmt.tcl.  */
-	error (EXIT_FAILURE, ENOENT,
-	       _("error while opening \"%s\" for reading"), file_name);
+        /* Special exitcode provided by msgunfmt.tcl.  */
+        error (EXIT_FAILURE, ENOENT,
+               _("error while opening \"%s\" for reading"), file_name);
       else
-	error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	       "tclsh", exitstatus);
+        error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
+               "tclsh", exitstatus);
     }
 
   free (tclscript);
@@ -137,20 +137,20 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
       size_t j;
 
       for (j = 0; j < mlp->nitems; j++)
-	if (is_header (mlp->item[j]))
-	  {
-	    /* Found the header entry.  */
-	    if (j > 0)
-	      {
-		message_ty *header = mlp->item[j];
-		size_t i;
+        if (is_header (mlp->item[j]))
+          {
+            /* Found the header entry.  */
+            if (j > 0)
+              {
+                message_ty *header = mlp->item[j];
+                size_t i;
 
-		for (i = j; i > 0; i--)
-		  mlp->item[i] = mlp->item[i - 1];
-		mlp->item[0] = header;
-	      }
-	    break;
-	  }
+                for (i = j; i > 0; i--)
+                  mlp->item[i] = mlp->item[i - 1];
+                mlp->item[0] = header;
+              }
+            break;
+          }
     }
 
   return mdlp;

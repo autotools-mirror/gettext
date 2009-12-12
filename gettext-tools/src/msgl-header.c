@@ -32,7 +32,7 @@
 
 void
 msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
-				 const char *field, const char *value)
+                                 const char *field, const char *value)
 {
   /* The known fields in their usual order.  */
   static const struct
@@ -52,7 +52,7 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
       { "MIME-Version:", sizeof ("MIME-Version:") - 1 },
       { "Content-Type:", sizeof ("Content-Type:") - 1 },
       { "Content-Transfer-Encoding:",
-	sizeof ("Content-Transfer-Encoding:") - 1 }
+        sizeof ("Content-Transfer-Encoding:") - 1 }
     };
   size_t field_len;
   int field_index;
@@ -65,8 +65,8 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
   for (k = 0; k < SIZEOF (known_fields); k++)
     if (strcmp (known_fields[k].name, field) == 0)
       {
-	field_index = k;
-	break;
+        field_index = k;
+        break;
       }
 
   for (i = 0; i < mdlp->nitems; i++)
@@ -76,95 +76,95 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
 
       /* Search the header entry.  */
       for (j = 0; j < mlp->nitems; j++)
-	if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-	  {
-	    message_ty *mp = mlp->item[j];
+        if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+          {
+            message_ty *mp = mlp->item[j];
 
-	    /* Modify the header entry.  */
-	    const char *header = mp->msgstr;
-	    char *new_header =
-	      XNMALLOC (strlen (header) + 1
-			+ strlen (field) + 1 + strlen (value) + 1 + 1,
-			char);
+            /* Modify the header entry.  */
+            const char *header = mp->msgstr;
+            char *new_header =
+              XNMALLOC (strlen (header) + 1
+                        + strlen (field) + 1 + strlen (value) + 1 + 1,
+                        char);
 
-	    /* Test whether the field already occurs in the header entry.  */
-	    const char *h;
+            /* Test whether the field already occurs in the header entry.  */
+            const char *h;
 
-	    for (h = header; *h != '\0'; )
-	      {
-		if (strncmp (h, field, field_len) == 0)
-		  break;
-		h = strchr (h, '\n');
-		if (h == NULL)
-		  break;
-		h++;
-	      }
-	    if (h != NULL && *h != '\0')
-	      {
-		/* Replace the field.  */
-		char *p = new_header;
-		memcpy (p, header, h - header);
-		p += h - header;
-		p = stpcpy (p, field);
-		p = stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
-		h = strchr (h, '\n');
-		if (h != NULL)
-		  {
-		    h++;
-		    stpcpy (p, h);
-		  }
-	      }
-	    else if (field_index < 0)
-	      {
-		/* An unknown field.  Append it at the end.  */
-		char *p = new_header;
-		p = stpcpy (p, header);
-		if (p > new_header && p[-1] != '\n')
-		  *p++ = '\n';
-		p = stpcpy (p, field);
-		stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
-	      }
-	    else
-	      {
-		/* Find the appropriate position for inserting the field.  */
-		for (h = header; *h != '\0'; )
-		  {
-		    /* Test whether h starts with a field name whose index is
-		       > field_index.  */
-		    for (k = field_index + 1; k < SIZEOF (known_fields); k++)
-		      if (strncmp (h, known_fields[k].name, known_fields[k].len)
-			  == 0)
-			break;
-		    if (k < SIZEOF (known_fields))
-		      break;
-		    h = strchr (h, '\n');
-		    if (h == NULL)
-		      break;
-		    h++;
-		  }
-		if (h != NULL && *h != '\0')
-		  {
-		    /* Insert the field at position h.  */
-		    char *p = new_header;
-		    memcpy (p, header, h - header);
-		    p += h - header;
-		    p = stpcpy (p, field);
-		    p = stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
-		    stpcpy (p, h);
-		  }
-		else
-		  {
-		    /* Append it at the end.  */
-		    char *p = new_header;
-		    p = stpcpy (p, header);
-		    if (p > new_header && p[-1] != '\n')
-		      *p++ = '\n';
-		    p = stpcpy (p, field);
-		    stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
-		  }
-	      }
+            for (h = header; *h != '\0'; )
+              {
+                if (strncmp (h, field, field_len) == 0)
+                  break;
+                h = strchr (h, '\n');
+                if (h == NULL)
+                  break;
+                h++;
+              }
+            if (h != NULL && *h != '\0')
+              {
+                /* Replace the field.  */
+                char *p = new_header;
+                memcpy (p, header, h - header);
+                p += h - header;
+                p = stpcpy (p, field);
+                p = stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
+                h = strchr (h, '\n');
+                if (h != NULL)
+                  {
+                    h++;
+                    stpcpy (p, h);
+                  }
+              }
+            else if (field_index < 0)
+              {
+                /* An unknown field.  Append it at the end.  */
+                char *p = new_header;
+                p = stpcpy (p, header);
+                if (p > new_header && p[-1] != '\n')
+                  *p++ = '\n';
+                p = stpcpy (p, field);
+                stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
+              }
+            else
+              {
+                /* Find the appropriate position for inserting the field.  */
+                for (h = header; *h != '\0'; )
+                  {
+                    /* Test whether h starts with a field name whose index is
+                       > field_index.  */
+                    for (k = field_index + 1; k < SIZEOF (known_fields); k++)
+                      if (strncmp (h, known_fields[k].name, known_fields[k].len)
+                          == 0)
+                        break;
+                    if (k < SIZEOF (known_fields))
+                      break;
+                    h = strchr (h, '\n');
+                    if (h == NULL)
+                      break;
+                    h++;
+                  }
+                if (h != NULL && *h != '\0')
+                  {
+                    /* Insert the field at position h.  */
+                    char *p = new_header;
+                    memcpy (p, header, h - header);
+                    p += h - header;
+                    p = stpcpy (p, field);
+                    p = stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
+                    stpcpy (p, h);
+                  }
+                else
+                  {
+                    /* Append it at the end.  */
+                    char *p = new_header;
+                    p = stpcpy (p, header);
+                    if (p > new_header && p[-1] != '\n')
+                      *p++ = '\n';
+                    p = stpcpy (p, field);
+                    stpcpy (stpcpy (stpcpy (p, " "), value), "\n");
+                  }
+              }
 
-	    mp->msgstr = new_header;
-	  }
+            mp->msgstr = new_header;
+          }
     }
 }

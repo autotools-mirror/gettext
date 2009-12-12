@@ -31,60 +31,60 @@ AC_DEFUN([gl_INCLUDED_REGEX],
     # regex.c.  The first failing regular expression is from `Spencer ere
     # test #75' in grep-2.3.
     AC_CACHE_CHECK([for working re_compile_pattern],
-		   jm_cv_func_working_re_compile_pattern,
+                   jm_cv_func_working_re_compile_pattern,
       [AC_TRY_RUN(
 [#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <regex.h>
-	  int
-	  main ()
-	  {
-	    static struct re_pattern_buffer regex;
-	    const char *s;
-	    struct re_registers regs;
-	    re_set_syntax (RE_SYNTAX_POSIX_EGREP);
-	    memset (&regex, 0, sizeof (regex));
-	    [s = re_compile_pattern ("a[[:@:>@:]]b\n", 9, &regex);]
-	    /* This should fail with _Invalid character class name_ error.  */
-	    if (!s)
-	      exit (1);
+          int
+          main ()
+          {
+            static struct re_pattern_buffer regex;
+            const char *s;
+            struct re_registers regs;
+            re_set_syntax (RE_SYNTAX_POSIX_EGREP);
+            memset (&regex, 0, sizeof (regex));
+            [s = re_compile_pattern ("a[[:@:>@:]]b\n", 9, &regex);]
+            /* This should fail with _Invalid character class name_ error.  */
+            if (!s)
+              exit (1);
 
-	    /* This should succeed, but doesn't for e.g. glibc-2.1.3.  */
-	    memset (&regex, 0, sizeof (regex));
-	    s = re_compile_pattern ("{1", 2, &regex);
+            /* This should succeed, but doesn't for e.g. glibc-2.1.3.  */
+            memset (&regex, 0, sizeof (regex));
+            s = re_compile_pattern ("{1", 2, &regex);
 
-	    if (s)
-	      exit (1);
+            if (s)
+              exit (1);
 
-	    /* The following example is derived from a problem report
+            /* The following example is derived from a problem report
                against gawk from Jorge Stolfi <stolfi@ic.unicamp.br>.  */
-	    memset (&regex, 0, sizeof (regex));
-	    s = re_compile_pattern ("[[an\371]]*n", 7, &regex);
-	    if (s)
-	      exit (1);
+            memset (&regex, 0, sizeof (regex));
+            s = re_compile_pattern ("[[an\371]]*n", 7, &regex);
+            if (s)
+              exit (1);
 
-	    /* This should match, but doesn't for e.g. glibc-2.2.1.  */
-	    if (re_match (&regex, "an", 2, 0, &regs) != 2)
-	      exit (1);
+            /* This should match, but doesn't for e.g. glibc-2.2.1.  */
+            if (re_match (&regex, "an", 2, 0, &regs) != 2)
+              exit (1);
 
-	    memset (&regex, 0, sizeof (regex));
-	    s = re_compile_pattern ("x", 1, &regex);
-	    if (s)
-	      exit (1);
+            memset (&regex, 0, sizeof (regex));
+            s = re_compile_pattern ("x", 1, &regex);
+            if (s)
+              exit (1);
 
-	    /* The version of regex.c in e.g. GNU libc-2.2.93 didn't
-	       work with a negative RANGE argument.  */
-	    if (re_search (&regex, "wxy", 3, 2, -2, &regs) != 1)
-	      exit (1);
+            /* The version of regex.c in e.g. GNU libc-2.2.93 didn't
+               work with a negative RANGE argument.  */
+            if (re_search (&regex, "wxy", 3, 2, -2, &regs) != 1)
+              exit (1);
 
-	    exit (0);
-	  }
-	],
-	       jm_cv_func_working_re_compile_pattern=yes,
-	       jm_cv_func_working_re_compile_pattern=no,
-	       dnl When crosscompiling, assume it's broken.
-	       jm_cv_func_working_re_compile_pattern=no)])
+            exit (0);
+          }
+        ],
+               jm_cv_func_working_re_compile_pattern=yes,
+               jm_cv_func_working_re_compile_pattern=no,
+               dnl When crosscompiling, assume it's broken.
+               jm_cv_func_working_re_compile_pattern=no)])
     if test $jm_cv_func_working_re_compile_pattern = yes; then
       ac_use_included_regex=no
     fi
@@ -93,16 +93,16 @@ AC_DEFUN([gl_INCLUDED_REGEX],
     m4_syscmd([test -f $1])
     ifelse(m4_sysval, 0,
       [
-	AC_ARG_WITH(included-regex,
-	[  --without-included-regex don't compile regex; this is the default on
+        AC_ARG_WITH(included-regex,
+        [  --without-included-regex don't compile regex; this is the default on
                           systems with version 2 of the GNU C library
                           (use with caution on other system)],
-		    jm_with_regex=$withval,
-		    jm_with_regex=$ac_use_included_regex)
-	if test "$jm_with_regex" = yes; then
-	  AC_LIBOBJ(regex)
-	  gl_PREREQ_REGEX
-	fi
+                    jm_with_regex=$withval,
+                    jm_with_regex=$ac_use_included_regex)
+        if test "$jm_with_regex" = yes; then
+          AC_LIBOBJ(regex)
+          gl_PREREQ_REGEX
+        fi
       ],
     )
   ]

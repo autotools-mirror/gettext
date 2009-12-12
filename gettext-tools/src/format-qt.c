@@ -66,7 +66,7 @@ struct spec
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
-	      char **invalid_reason)
+              char **invalid_reason)
 {
   const char *const format_start = format;
   struct spec spec;
@@ -79,40 +79,40 @@ format_parse (const char *format, bool translated, char *fdi,
   for (; *format != '\0';)
     if (*format++ == '%')
       {
-	const char *dir_start = format - 1;
-	bool locale_flag = false;
+        const char *dir_start = format - 1;
+        bool locale_flag = false;
 
-	if (*format == 'L')
-	  {
-	    locale_flag = true;
-	    format++;
-	  }
-	if (*format >= '0' && *format <= '9')
-	  {
-	    /* A directive.  */
-	    unsigned int number;
+        if (*format == 'L')
+          {
+            locale_flag = true;
+            format++;
+          }
+        if (*format >= '0' && *format <= '9')
+          {
+            /* A directive.  */
+            unsigned int number;
 
-	    FDI_SET (dir_start, FMTDIR_START);
-	    spec.directives++;
-	    if (locale_flag)
-	      spec.simple = false;
+            FDI_SET (dir_start, FMTDIR_START);
+            spec.directives++;
+            if (locale_flag)
+              spec.simple = false;
 
-	    number = *format - '0';
-	    if (format[1] >= '0' && format[1] <= '9')
-	      {
-		number = 10 * number + (format[1] - '0');
-		spec.simple = false;
-		format++;
-	      }
+            number = *format - '0';
+            if (format[1] >= '0' && format[1] <= '9')
+              {
+                number = 10 * number + (format[1] - '0');
+                spec.simple = false;
+                format++;
+              }
 
-	    while (spec.arg_count <= number)
-	      spec.args_used[spec.arg_count++] = false;
-	    spec.args_used[number] = true;
+            while (spec.arg_count <= number)
+              spec.args_used[spec.arg_count++] = false;
+            spec.args_used[number] = true;
 
-	    FDI_SET (format, FMTDIR_END);
+            FDI_SET (format, FMTDIR_END);
 
-	    format++;
-	  }
+            format++;
+          }
       }
 
   result = XMALLOC (struct spec);
@@ -138,8 +138,8 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgid, const char *pretty_msgstr)
+              formatstring_error_logger_t error_logger,
+              const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -149,33 +149,33 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   if (spec1->simple && !spec2->simple)
     {
       if (error_logger)
-	error_logger (_("'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"),
-		      pretty_msgid, pretty_msgstr);
+        error_logger (_("'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"),
+                      pretty_msgid, pretty_msgstr);
       err = true;
     }
 
   if (!err)
     for (i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
       {
-	bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
-	bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
+        bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
+        bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
 
-	/* The translator cannot omit a %n from the msgstr because that would
-	   yield a "Argument missing" warning at runtime.  */
-	if (arg_used1 != arg_used2)
-	  {
-	    if (error_logger)
-	      {
-		if (arg_used1)
-		  error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
-				i, pretty_msgstr);
-		else
-		  error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
-				i, pretty_msgstr, pretty_msgid);
-	      }
-	    err = true;
-	    break;
-	  }
+        /* The translator cannot omit a %n from the msgstr because that would
+           yield a "Argument missing" warning at runtime.  */
+        if (arg_used1 != arg_used2)
+          {
+            if (error_logger)
+              {
+                if (arg_used1)
+                  error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+                                i, pretty_msgstr);
+                else
+                  error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                                i, pretty_msgstr, pretty_msgid);
+              }
+            err = true;
+            break;
+          }
       }
 
   return err;
@@ -215,11 +215,11 @@ format_print (void *descr)
   for (i = 0; i < spec->arg_count; i++)
     {
       if (i > 0)
-	printf (" ");
+        printf (" ");
       if (spec->args_used[i])
-	printf ("*");
+        printf ("*");
       else
-	printf ("_");
+        printf ("_");
     }
   printf (")");
 }
@@ -237,9 +237,9 @@ main ()
 
       line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
-	break;
+        break;
       if (line_len > 0 && line[line_len - 1] == '\n')
-	line[--line_len] = '\0';
+        line[--line_len] = '\0';
 
       invalid_reason = NULL;
       descr = format_parse (line, false, NULL, &invalid_reason);
@@ -247,7 +247,7 @@ main ()
       format_print (descr);
       printf ("\n");
       if (descr == NULL)
-	printf ("%s\n", invalid_reason);
+        printf ("%s\n", invalid_reason);
 
       free (invalid_reason);
       free (line);

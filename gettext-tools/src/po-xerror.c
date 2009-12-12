@@ -41,8 +41,8 @@
 
 static void
 xerror (int severity, const char *prefix_tail,
-	const char *filename, size_t lineno, size_t column,
-	int multiline_p, const char *message_text)
+        const char *filename, size_t lineno, size_t column,
+        int multiline_p, const char *message_text)
 {
   if (multiline_p)
     {
@@ -50,61 +50,61 @@ xerror (int severity, const char *prefix_tail,
       char *prefix;
 
       if (filename != NULL)
-	{
-	  if (lineno != (size_t)(-1))
-	    {
-	      if (column != (size_t)(-1))
-		prefix =
-		  xasprintf ("%s:%ld:%ld: %s", filename,
-			     (long) lineno, (long) column, prefix_tail);
-	      else
-		prefix =
-		  xasprintf ("%s:%ld: %s", filename,
-			     (long) lineno, prefix_tail);
-	    }
-	  else
-	    prefix = xasprintf ("%s: %s", filename, prefix_tail);
-	  error_with_progname = false;
-	}
+        {
+          if (lineno != (size_t)(-1))
+            {
+              if (column != (size_t)(-1))
+                prefix =
+                  xasprintf ("%s:%ld:%ld: %s", filename,
+                             (long) lineno, (long) column, prefix_tail);
+              else
+                prefix =
+                  xasprintf ("%s:%ld: %s", filename,
+                             (long) lineno, prefix_tail);
+            }
+          else
+            prefix = xasprintf ("%s: %s", filename, prefix_tail);
+          error_with_progname = false;
+        }
       else
-	prefix = xasprintf ("%s: %s", program_name, prefix_tail);
+        prefix = xasprintf ("%s: %s", program_name, prefix_tail);
 
       if (severity >= PO_SEVERITY_ERROR)
-	po_multiline_error (prefix, xstrdup (message_text));
+        po_multiline_error (prefix, xstrdup (message_text));
       else
-	po_multiline_warning (prefix, xstrdup (message_text));
+        po_multiline_warning (prefix, xstrdup (message_text));
       error_with_progname = old_error_with_progname;
 
       if (severity == PO_SEVERITY_FATAL_ERROR)
-	exit (EXIT_FAILURE);
+        exit (EXIT_FAILURE);
     }
   else
     {
       int exit_status =
-	(severity == PO_SEVERITY_FATAL_ERROR ? EXIT_FAILURE : 0);
+        (severity == PO_SEVERITY_FATAL_ERROR ? EXIT_FAILURE : 0);
 
       if (filename != NULL)
-	{
-	  error_with_progname = false;
-	  if (lineno != (size_t)(-1))
-	    {
-	      if (column != (size_t)(-1))
-		po_error (exit_status, 0, "%s:%ld:%ld: %s%s",
-			  filename, (long) lineno, (long) column,
-			  prefix_tail, message_text);
-	      else
-		po_error_at_line (exit_status, 0, filename, lineno, "%s%s",
-				  prefix_tail, message_text);
-	    }
-	  else
-	    po_error (exit_status, 0, "%s: %s%s",
-		      filename, prefix_tail, message_text);
-	  error_with_progname = true;
-	}
+        {
+          error_with_progname = false;
+          if (lineno != (size_t)(-1))
+            {
+              if (column != (size_t)(-1))
+                po_error (exit_status, 0, "%s:%ld:%ld: %s%s",
+                          filename, (long) lineno, (long) column,
+                          prefix_tail, message_text);
+              else
+                po_error_at_line (exit_status, 0, filename, lineno, "%s%s",
+                                  prefix_tail, message_text);
+            }
+          else
+            po_error (exit_status, 0, "%s: %s%s",
+                      filename, prefix_tail, message_text);
+          error_with_progname = true;
+        }
       else
-	po_error (exit_status, 0, "%s%s", prefix_tail, message_text);
+        po_error (exit_status, 0, "%s%s", prefix_tail, message_text);
       if (severity < PO_SEVERITY_ERROR)
-	--error_message_count;
+        --error_message_count;
     }
 }
 
@@ -113,9 +113,9 @@ xerror (int severity, const char *prefix_tail,
    other.  */
 void
 textmode_xerror (int severity,
-		 const struct message_ty *message,
-		 const char *filename, size_t lineno, size_t column,
-		 int multiline_p, const char *message_text)
+                 const struct message_ty *message,
+                 const char *filename, size_t lineno, size_t column,
+                 int multiline_p, const char *message_text)
 {
   const char *prefix_tail =
     (severity == PO_SEVERITY_WARNING ? _("warning: ") : "");
@@ -128,17 +128,17 @@ textmode_xerror (int severity,
     }
 
   xerror (severity, prefix_tail, filename, lineno, column,
-	  multiline_p, message_text);
+          multiline_p, message_text);
 }
 
 void
 textmode_xerror2 (int severity,
-		  const struct message_ty *message1,
-		  const char *filename1, size_t lineno1, size_t column1,
-		  int multiline_p1, const char *message_text1,
-		  const struct message_ty *message2,
-		  const char *filename2, size_t lineno2, size_t column2,
-		  int multiline_p2, const char *message_text2)
+                  const struct message_ty *message1,
+                  const char *filename1, size_t lineno1, size_t column1,
+                  int multiline_p1, const char *message_text1,
+                  const struct message_ty *message2,
+                  const char *filename2, size_t lineno2, size_t column2,
+                  int multiline_p2, const char *message_text2)
 {
   int severity1 = /* Don't exit before both texts have been output.  */
     (severity == PO_SEVERITY_FATAL_ERROR ? PO_SEVERITY_ERROR : severity);
@@ -161,19 +161,19 @@ textmode_xerror2 (int severity,
 
   if (multiline_p1)
     xerror (severity1, prefix_tail, filename1, lineno1, column1, multiline_p1,
-	    message_text1);
+            message_text1);
   else
     {
       char *message_text1_extended = xasprintf ("%s...", message_text1);
       xerror (severity1, prefix_tail, filename1, lineno1, column1,
-	      multiline_p1, message_text1_extended);
+              multiline_p1, message_text1_extended);
       free (message_text1_extended);
     }
 
   {
     char *message_text2_extended = xasprintf ("...%s", message_text2);
     xerror (severity, prefix_tail, filename2, lineno2, column2,
-	    multiline_p2, message_text2_extended);
+            multiline_p2, message_text2_extended);
     free (message_text2_extended);
   }
 
@@ -183,16 +183,16 @@ textmode_xerror2 (int severity,
 }
 
 void (*po_xerror) (int severity,
-		   const struct message_ty *message,
-		   const char *filename, size_t lineno, size_t column,
-		   int multiline_p, const char *message_text)
+                   const struct message_ty *message,
+                   const char *filename, size_t lineno, size_t column,
+                   int multiline_p, const char *message_text)
   = textmode_xerror;
 
 void (*po_xerror2) (int severity,
-		    const struct message_ty *message1,
-		    const char *filename1, size_t lineno1, size_t column1,
-		    int multiline_p1, const char *message_text1,
-		    const struct message_ty *message2,
-		    const char *filename2, size_t lineno2, size_t column2,
-		    int multiline_p2, const char *message_text2)
+                    const struct message_ty *message1,
+                    const char *filename1, size_t lineno1, size_t column1,
+                    int multiline_p1, const char *message_text1,
+                    const struct message_ty *message2,
+                    const char *filename2, size_t lineno2, size_t column2,
+                    int multiline_p2, const char *message_text2)
   = textmode_xerror2;

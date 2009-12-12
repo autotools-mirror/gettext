@@ -39,7 +39,7 @@ extern "C" {
    Return NULL upon failure.  */
 extern term_styled_ostream_t
        term_styled_ostream_create (int fd, const char *filename,
-				   const char *css_filename);
+                                   const char *css_filename);
 
 
 #ifdef __cplusplus

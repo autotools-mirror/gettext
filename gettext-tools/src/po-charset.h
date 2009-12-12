@@ -79,7 +79,7 @@ extern void po_lex_charset_init (void);
 
 /* Set the PO file's encoding from the header entry.  */
 extern void po_lex_charset_set (const char *header_entry,
-				const char *filename);
+                                const char *filename);
 
 /* Finish up with the PO file's encoding.  */
 extern void po_lex_charset_close (void);

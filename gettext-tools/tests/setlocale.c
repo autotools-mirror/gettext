@@ -106,58 +106,58 @@ setlocale (int category, SETLOCALE_CONST char *locale)
       strcpy (copy, locale);
 
       if (category == LC_ALL)
-	{
-	  while ((facetp = facets) != NULL)
-	    {
-	      facets = facetp->next;
-	      free (facetp->current_locale);
-	      free (facetp);
-	    }
-	  if (current_locale != C_string)
-	    free (current_locale);
-	  current_locale = copy;
-	}
+        {
+          while ((facetp = facets) != NULL)
+            {
+              facets = facetp->next;
+              free (facetp->current_locale);
+              free (facetp);
+            }
+          if (current_locale != C_string)
+            free (current_locale);
+          current_locale = copy;
+        }
       else
-	{
-	  for (facetp = facets; facetp != NULL; facetp = facetp->next)
-	    if (category == facetp->category)
-	      {
-		free (facetp->current_locale);
-		facetp->current_locale = copy;
-		break;
-	      }
-	  if (facetp == NULL)
-	    {
-	      facetp = (struct list *) malloc (sizeof (struct list));
-	      facetp->category = category;
-	      facetp->current_locale = copy;
-	      facetp->next = facets;
-	      facets = facetp;
-	    }
-	}
+        {
+          for (facetp = facets; facetp != NULL; facetp = facetp->next)
+            if (category == facetp->category)
+              {
+                free (facetp->current_locale);
+                facetp->current_locale = copy;
+                break;
+              }
+          if (facetp == NULL)
+            {
+              facetp = (struct list *) malloc (sizeof (struct list));
+              facetp->category = category;
+              facetp->current_locale = copy;
+              facetp->next = facets;
+              facets = facetp;
+            }
+        }
     }
 
   retval = current_locale;
   for (facetp = facets; facetp != NULL; facetp = facetp->next)
     if (category == facetp->category)
       {
-	retval = facetp->current_locale;
-	break;
+        retval = facetp->current_locale;
+        break;
       }
 
   if (retval[0] == '\0')
     {
       retval = getenv ("LC_ALL");
       if (retval == NULL || retval[0] == '\0')
-	{
-	  retval = getenv (category_to_name (category));
-	  if (retval == NULL || retval[0] == '\0')
-	    {
-	      retval = getenv ("LANG");
-	      if (retval == NULL || retval[0] == '\0')
-		retval = "C";
-	    }
-	}
+        {
+          retval = getenv (category_to_name (category));
+          if (retval == NULL || retval[0] == '\0')
+            {
+              retval = getenv ("LANG");
+              if (retval == NULL || retval[0] == '\0')
+                retval = "C";
+            }
+        }
     }
   return retval;
 }

@@ -79,15 +79,15 @@ x_perl_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	hash_init (&keywords, 100);
+        hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
-	 A colon means an invalid parse in split_keywordspec().  */
+         A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	insert_keyword_callshape (&keywords, name, end - name, &shape);
+        insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -99,7 +99,7 @@ init_keywords ()
   if (default_keywords)
     {
       /* When adding new keywords here, also update the documentation in
-	 xgettext.texi!  */
+         xgettext.texi!  */
       x_perl_keyword ("gettext");
       x_perl_keyword ("%gettext");
       x_perl_keyword ("$gettext");
@@ -222,29 +222,29 @@ phase1_getc ()
       linesize = getline (&linebuf, &linebuf_size, fp);
 
       if (linesize < 0)
-	{
-	  if (ferror (fp))
-	    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-		   real_file_name);
-	  end_of_file = true;
-	  return EOF;
-	}
+        {
+          if (ferror (fp))
+            error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+                   real_file_name);
+          end_of_file = true;
+          return EOF;
+        }
 
       linepos = 0;
       ++line_number;
 
       /* Undosify.  This is important for catching the end of <<EOF and
-	 <<'EOF'.  We could rely on stdio doing this for us but you
-	 it is not uncommon to to come across Perl scripts with CRLF
-	 newline conventions on systems that do not follow this
-	 convention.  */
+         <<'EOF'.  We could rely on stdio doing this for us but you
+         it is not uncommon to to come across Perl scripts with CRLF
+         newline conventions on systems that do not follow this
+         convention.  */
       if (linesize >= 2 && linebuf[linesize - 1] == '\n'
-	  && linebuf[linesize - 2] == '\r')
-	{
-	  linebuf[linesize - 2] = '\n';
-	  linebuf[linesize - 1] = '\0';
-	  --linesize;
-	}
+          && linebuf[linesize - 2] == '\r')
+        {
+          linebuf[linesize - 2] = '\n';
+          linebuf[linesize - 1] = '\0';
+          --linesize;
+        }
     }
 
   return linebuf[linepos++];
@@ -257,9 +257,9 @@ phase1_ungetc (int c)
   if (c != EOF)
     {
       if (linepos == 0)
-	/* Attempt to ungetc across line boundary.  Shouldn't happen.
-	   No two phase1_ungetc calls are permitted in a row.  */
-	abort ();
+        /* Attempt to ungetc across line boundary.  Shouldn't happen.
+           No two phase1_ungetc calls are permitted in a row.  */
+        abort ();
 
       --linepos;
     }
@@ -296,78 +296,78 @@ get_here_document (const char *delimiter)
       bool chomp;
 
       if (read_bytes < 0)
-	{
-	  if (ferror (fp))
-	    {
-	      error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-		     real_file_name);
-	    }
-	  else
-	    {
-	      error_with_progname = false;
-	      error (EXIT_SUCCESS, 0, _("\
+        {
+          if (ferror (fp))
+            {
+              error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+                     real_file_name);
+            }
+          else
+            {
+              error_with_progname = false;
+              error (EXIT_SUCCESS, 0, _("\
 %s:%d: can't find string terminator \"%s\" anywhere before EOF"),
-		     real_file_name, line_number, delimiter);
-	      error_with_progname = true;
+                     real_file_name, line_number, delimiter);
+              error_with_progname = true;
 
-	      break;
-	    }
-	}
+              break;
+            }
+        }
 
       ++here_eaten;
 
       /* Convert to UTF-8.  */
       my_line_utf8 =
-	from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
-				      line_number + here_eaten);
+        from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
+                                      line_number + here_eaten);
       if (my_line_utf8 != my_linebuf)
-	{
-	  if (strlen (my_line_utf8) >= my_linebuf_size)
-	    {
-	      my_linebuf_size = strlen (my_line_utf8) + 1;
-	      my_linebuf = xrealloc (my_linebuf, my_linebuf_size);
-	    }
-	  strcpy (my_linebuf, my_line_utf8);
-	  free (my_line_utf8);
-	}
+        {
+          if (strlen (my_line_utf8) >= my_linebuf_size)
+            {
+              my_linebuf_size = strlen (my_line_utf8) + 1;
+              my_linebuf = xrealloc (my_linebuf, my_linebuf_size);
+            }
+          strcpy (my_linebuf, my_line_utf8);
+          free (my_line_utf8);
+        }
 
       /* Undosify.  This is important for catching the end of <<EOF and
-	 <<'EOF'.  We could rely on stdio doing this for us but you
-	 it is not uncommon to to come across Perl scripts with CRLF
-	 newline conventions on systems that do not follow this
-	 convention.  */
+         <<'EOF'.  We could rely on stdio doing this for us but you
+         it is not uncommon to to come across Perl scripts with CRLF
+         newline conventions on systems that do not follow this
+         convention.  */
       if (read_bytes >= 2 && my_linebuf[read_bytes - 1] == '\n'
-	  && my_linebuf[read_bytes - 2] == '\r')
-	{
-	  my_linebuf[read_bytes - 2] = '\n';
-	  my_linebuf[read_bytes - 1] = '\0';
-	  --read_bytes;
-	}
+          && my_linebuf[read_bytes - 2] == '\r')
+        {
+          my_linebuf[read_bytes - 2] = '\n';
+          my_linebuf[read_bytes - 1] = '\0';
+          --read_bytes;
+        }
 
       /* Temporarily remove the trailing newline from my_linebuf.  */
       chomp = false;
       if (read_bytes >= 1 && my_linebuf[read_bytes - 1] == '\n')
-	{
-	  chomp = true;
-	  my_linebuf[read_bytes - 1] = '\0';
-	}
+        {
+          chomp = true;
+          my_linebuf[read_bytes - 1] = '\0';
+        }
 
       /* See whether this line terminates the here document.  */
       if (strcmp (my_linebuf, delimiter) == 0)
-	break;
+        break;
 
       /* Add back the trailing newline to my_linebuf.  */
       if (chomp)
-	my_linebuf[read_bytes - 1] = '\n';
+        my_linebuf[read_bytes - 1] = '\n';
 
       /* Ensure room for read_bytes + 1 bytes.  */
       if (bufpos + read_bytes >= bufmax)
-	{
-	  do
-	    bufmax = 2 * bufmax + 10;
-	  while (bufpos + read_bytes >= bufmax);
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          do
+            bufmax = 2 * bufmax + 10;
+          while (bufpos + read_bytes >= bufmax);
+          buffer = xrealloc (buffer, bufmax);
+        }
       /* Append this line to the accumulator.  */
       strcpy (buffer + bufpos, my_linebuf);
       bufpos += read_bytes;
@@ -390,21 +390,21 @@ skip_pod ()
       linesize = getline (&linebuf, &linebuf_size, fp);
 
       if (linesize < 0)
-	{
-	  if (ferror (fp))
-	    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-		   real_file_name);
-	  return;
-	}
+        {
+          if (ferror (fp))
+            error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+                   real_file_name);
+          return;
+        }
 
       ++line_number;
 
       if (strncmp ("=cut", linebuf, 4) == 0)
-	{
-	  /* Force reading of a new line on next call to phase1_getc().  */
-	  linepos = linesize;
-	  return;
-	}
+        {
+          /* Force reading of a new line on next call to phase1_getc().  */
+          linepos = linesize;
+          return;
+        }
     }
 }
 
@@ -436,39 +436,39 @@ phase2_getc ()
       lineno = line_number;
       /* Skip leading whitespace.  */
       for (;;)
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    break;
-	  if (c != ' ' && c != '\t' && c != '\r' && c != '\f')
-	    {
-	      phase1_ungetc (c);
-	      break;
-	    }
-	}
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            break;
+          if (c != ' ' && c != '\t' && c != '\r' && c != '\f')
+            {
+              phase1_ungetc (c);
+              break;
+            }
+        }
       /* Accumulate the comment.  */
       for (;;)
-	{
-	  c = phase1_getc ();
-	  if (c == '\n' || c == EOF)
-	    break;
-	  if (buflen >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[buflen++] = c;
-	}
+        {
+          c = phase1_getc ();
+          if (c == '\n' || c == EOF)
+            break;
+          if (buflen >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[buflen++] = c;
+        }
       if (buflen >= bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
       buffer[buflen] = '\0';
       /* Convert it to UTF-8.  */
       utf8_string =
-	from_current_source_encoding (buffer, lc_comment, logical_file_name,
-				      lineno);
+        from_current_source_encoding (buffer, lc_comment, logical_file_name,
+                                      lineno);
       /* Save it until we encounter the corresponding string.  */
       savable_comment_add (utf8_string);
       last_comment_line = lineno;
@@ -502,26 +502,26 @@ is_whitespace (int c)
 enum token_type_ty
 {
   token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_comma,		/* , */
-  token_type_fat_comma,		/* => */
-  token_type_dereference,	/* , */
+  token_type_lparen,            /* ( */
+  token_type_rparen,            /* ) */
+  token_type_comma,             /* , */
+  token_type_fat_comma,         /* => */
+  token_type_dereference,       /* , */
   token_type_semicolon,         /* ; */
   token_type_lbrace,            /* { */
   token_type_rbrace,            /* } */
   token_type_lbracket,          /* [ */
   token_type_rbracket,          /* ] */
-  token_type_string,		/* quote-like */
+  token_type_string,            /* quote-like */
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
-  token_type_symbol,		/* symbol, number */
-  token_type_regex_op,		/* s, tr, y, m.  */
+  token_type_symbol,            /* symbol, number */
+  token_type_regex_op,          /* s, tr, y, m.  */
   token_type_dot,               /* . */
-  token_type_other,		/* regexp, misc. operator */
+  token_type_other,             /* regexp, misc. operator */
   /* The following are not really token types, but variants used by
      the parser.  */
-  token_type_keyword_symbol	/* keyword symbol */
+  token_type_keyword_symbol     /* keyword symbol */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -529,10 +529,10 @@ typedef enum token_type_ty token_type_ty;
 enum string_type_ty
 {
   string_type_verbatim,     /* "<<'EOF'", "m'...'", "s'...''...'",
-			       "tr/.../.../", "y/.../.../".  */
+                               "tr/.../.../", "y/.../.../".  */
   string_type_q,            /* "'..'", "q/.../".  */
   string_type_qq,           /* '"..."', "`...`", "qq/.../", "qx/.../",
-			       "<file*glob>".  */
+                               "<file*glob>".  */
   string_type_qr            /* Not supported.  */
 };
 
@@ -548,13 +548,13 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  int sub_type;			/* for token_type_string, token_type_symbol */
-  char *string;			/* for:			in encoding:
-				   token_type_named_op	ASCII
-				   token_type_string	UTF-8
-				   token_type_symbol	ASCII
-				   token_type_variable	global_source_encoding
-				 */
+  int sub_type;                 /* for token_type_string, token_type_symbol */
+  char *string;                 /* for:                 in encoding:
+                                   token_type_named_op  ASCII
+                                   token_type_string    UTF-8
+                                   token_type_symbol    ASCII
+                                   token_type_variable  global_source_encoding
+                                 */
   refcounted_string_list_ty *comment; /* for token_type_string */
   int line_number;
 };
@@ -672,61 +672,61 @@ extract_quotelike_pass1 (int delim)
 
       /* This round can produce 1 or 2 bytes.  Ensure room for 2 bytes.  */
       if (bufpos + 2 > bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
 
       if (c == counter_delim || c == EOF)
-	{
-	  buffer[bufpos++] = counter_delim; /* will be stripped off later */
-	  buffer[bufpos++] = '\0';
+        {
+          buffer[bufpos++] = counter_delim; /* will be stripped off later */
+          buffer[bufpos++] = '\0';
 #if DEBUG_PERL
-	  fprintf (stderr, "PASS1: %s\n", buffer);
+          fprintf (stderr, "PASS1: %s\n", buffer);
 #endif
-	  return buffer;
-	}
+          return buffer;
+        }
 
       if (nested && c == delim)
-	{
-	  char *inner = extract_quotelike_pass1 (delim);
-	  size_t len = strlen (inner);
+        {
+          char *inner = extract_quotelike_pass1 (delim);
+          size_t len = strlen (inner);
 
-	  /* Ensure room for len + 1 bytes.  */
-	  if (bufpos + len >= bufmax)
-	    {
-	      do
-		bufmax = 2 * bufmax + 10;
-	      while (bufpos + len >= bufmax);
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  strcpy (buffer + bufpos, inner);
-	  free (inner);
-	  bufpos += len;
-	}
+          /* Ensure room for len + 1 bytes.  */
+          if (bufpos + len >= bufmax)
+            {
+              do
+                bufmax = 2 * bufmax + 10;
+              while (bufpos + len >= bufmax);
+              buffer = xrealloc (buffer, bufmax);
+            }
+          strcpy (buffer + bufpos, inner);
+          free (inner);
+          bufpos += len;
+        }
       else if (c == '\\')
-	{
-	  c = phase1_getc ();
-	  if (c == '\\')
-	    {
-	      buffer[bufpos++] = '\\';
-	      buffer[bufpos++] = '\\';
-	    }
-	  else if (c == delim || c == counter_delim)
-	    {
-	      /* This is pass2 in Perl.  */
-	      buffer[bufpos++] = c;
-	    }
-	  else
-	    {
-	      buffer[bufpos++] = '\\';
-	      phase1_ungetc (c);
-	    }
-	}
+        {
+          c = phase1_getc ();
+          if (c == '\\')
+            {
+              buffer[bufpos++] = '\\';
+              buffer[bufpos++] = '\\';
+            }
+          else if (c == delim || c == counter_delim)
+            {
+              /* This is pass2 in Perl.  */
+              buffer[bufpos++] = c;
+            }
+          else
+            {
+              buffer[bufpos++] = '\\';
+              phase1_ungetc (c);
+            }
+        }
       else
-	{
-	  buffer[bufpos++] = c;
-	}
+        {
+          buffer[bufpos++] = c;
+        }
     }
 }
 
@@ -738,7 +738,7 @@ extract_quotelike_pass1_utf8 (int delim)
   char *string = extract_quotelike_pass1 (delim);
   char *utf8_string =
     from_current_source_encoding (string, lc_string, logical_file_name,
-				  line_number);
+                                  line_number);
   if (utf8_string != string)
     free (string);
   return utf8_string;
@@ -762,15 +762,15 @@ static flag_context_list_table_ty *flag_context_list_table;
 
 /* Forward declaration of local functions.  */
 static void interpolate_keywords (message_list_ty *mlp, const char *string,
-				  int lineno);
+                                  int lineno);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
 static bool extract_balanced (message_list_ty *mlp,
-			      token_type_ty delim, bool eat_delim,
-			      bool comma_delim,
-			      flag_context_ty outer_context,
-			      flag_context_list_iterator_ty context_iter,
-			      int arg, struct arglist_parser *argparser);
+                              token_type_ty delim, bool eat_delim,
+                              bool comma_delim,
+                              flag_context_ty outer_context,
+                              flag_context_list_iterator_ty context_iter,
+                              int arg, struct arglist_parser *argparser);
 
 
 /* Extract an unsigned hexadecimal number from STRING, considering at
@@ -789,13 +789,13 @@ extract_hex (const char *string, size_t len, unsigned int *result)
       int number;
 
       if (c >= 'A' && c <= 'F')
-	number = c - 'A' + 10;
+        number = c - 'A' + 10;
       else if (c >= 'a' && c <= 'f')
-	number = c - 'a' + 10;
+        number = c - 'a' + 10;
       else if (c >= '0' && c <= '9')
-	number = c - '0';
+        number = c - '0';
       else
-	break;
+        break;
 
       *result <<= 4;
       *result |= number;
@@ -820,9 +820,9 @@ extract_oct (const char *string, size_t len, unsigned int *result)
       int number;
 
       if (c >= '0' && c <= '7')
-	number = c - '0';
+        number = c - '0';
       else
-	break;
+        break;
 
       *result <<= 3;
       *result |= number;
@@ -856,7 +856,7 @@ extract_quotelike (token_ty *tp, int delim)
    Return the resulting token in *tp; tp->type == token_type_regex_op.  */
 static void
 extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
-			  bool interpolate)
+                          bool interpolate)
 {
   char *string;
 
@@ -870,14 +870,14 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
   if (delim == '(' || delim == '<' || delim == '{' || delim == '[')
     {
       /* The delimiter for the second string can be different, e.g.
-	 s{SEARCH}{REPLACE} or s{SEARCH}/REPLACE/.  See "man perlrequick".  */
+         s{SEARCH}{REPLACE} or s{SEARCH}/REPLACE/.  See "man perlrequick".  */
       delim = phase1_getc ();
       while (is_whitespace (delim))
-	{
-	  /* The hash-sign is not a valid delimiter after whitespace, ergo
-	     use phase2_getc() and not phase1_getc() now.  */
-	  delim = phase2_getc ();
-	}
+        {
+          /* The hash-sign is not a valid delimiter after whitespace, ergo
+             use phase2_getc() and not phase1_getc() now.  */
+          delim = phase2_getc ();
+        }
     }
   string = extract_quotelike_pass1_utf8 (delim);
   if (interpolate)
@@ -935,327 +935,327 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
       bool backslashed;
 
       /* Ensure room for 7 bytes, 6 (multi-)bytes plus a leading backslash
-	 if \Q modifier is present.  */
+         if \Q modifier is present.  */
       if (bufpos + 7 > bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
 
       if (tp->sub_type == string_type_q)
-	{
-	  switch (*crs)
-	    {
-	    case '\\':
-	      if (crs[1] == '\\')
-		{
-		  crs += 2;
-		  buffer[bufpos++] = '\\';
-		  break;
-		}
-	      /* FALLTHROUGH */
-	    default:
-	      buffer[bufpos++] = *crs++;
-	      break;
-	    }
-	  continue;
-	}
+        {
+          switch (*crs)
+            {
+            case '\\':
+              if (crs[1] == '\\')
+                {
+                  crs += 2;
+                  buffer[bufpos++] = '\\';
+                  break;
+                }
+              /* FALLTHROUGH */
+            default:
+              buffer[bufpos++] = *crs++;
+              break;
+            }
+          continue;
+        }
 
       /* We only get here for double-quoted strings or regular expressions.
-	 Unescape escape sequences.  */
+         Unescape escape sequences.  */
       if (*crs == '\\')
-	{
-	  switch (crs[1])
-	    {
-	    case 't':
-	      crs += 2;
-	      buffer[bufpos++] = '\t';
-	      continue;
-	    case 'n':
-	      crs += 2;
-	      buffer[bufpos++] = '\n';
-	      continue;
-	    case 'r':
-	      crs += 2;
-	      buffer[bufpos++] = '\r';
-	      continue;
-	    case 'f':
-	      crs += 2;
-	      buffer[bufpos++] = '\f';
-	      continue;
-	    case 'b':
-	      crs += 2;
-	      buffer[bufpos++] = '\b';
-	      continue;
-	    case 'a':
-	      crs += 2;
-	      buffer[bufpos++] = '\a';
-	      continue;
-	    case 'e':
-	      crs += 2;
-	      buffer[bufpos++] = 0x1b;
-	      continue;
-	    case '0': case '1': case '2': case '3':
-	    case '4': case '5': case '6': case '7':
-	      {
-		unsigned int oct_number;
-		int length;
+        {
+          switch (crs[1])
+            {
+            case 't':
+              crs += 2;
+              buffer[bufpos++] = '\t';
+              continue;
+            case 'n':
+              crs += 2;
+              buffer[bufpos++] = '\n';
+              continue;
+            case 'r':
+              crs += 2;
+              buffer[bufpos++] = '\r';
+              continue;
+            case 'f':
+              crs += 2;
+              buffer[bufpos++] = '\f';
+              continue;
+            case 'b':
+              crs += 2;
+              buffer[bufpos++] = '\b';
+              continue;
+            case 'a':
+              crs += 2;
+              buffer[bufpos++] = '\a';
+              continue;
+            case 'e':
+              crs += 2;
+              buffer[bufpos++] = 0x1b;
+              continue;
+            case '0': case '1': case '2': case '3':
+            case '4': case '5': case '6': case '7':
+              {
+                unsigned int oct_number;
+                int length;
 
-		crs = extract_oct (crs + 1, 3, &oct_number);
+                crs = extract_oct (crs + 1, 3, &oct_number);
 
-		/* FIXME: If one of the variables UPPERCASE or LOWERCASE is
-		   true, the character should be converted to its uppercase
-		   resp. lowercase equivalent.  I don't know if the necessary
-		   facilities are already included in gettext.  For US-Ascii
-		   the conversion can be already be done, however.  */
-		if (uppercase && oct_number >= 'a' && oct_number <= 'z')
-		  {
-		    oct_number = oct_number - 'a' + 'A';
-		  }
-		else if (lowercase && oct_number >= 'A' && oct_number <= 'Z')
-		  {
-		    oct_number = oct_number - 'A' + 'a';
-		  }
+                /* FIXME: If one of the variables UPPERCASE or LOWERCASE is
+                   true, the character should be converted to its uppercase
+                   resp. lowercase equivalent.  I don't know if the necessary
+                   facilities are already included in gettext.  For US-Ascii
+                   the conversion can be already be done, however.  */
+                if (uppercase && oct_number >= 'a' && oct_number <= 'z')
+                  {
+                    oct_number = oct_number - 'a' + 'A';
+                  }
+                else if (lowercase && oct_number >= 'A' && oct_number <= 'Z')
+                  {
+                    oct_number = oct_number - 'A' + 'a';
+                  }
 
 
-		/* Yes, octal escape sequences in the range 0x100..0x1ff are
-		   valid.  */
-		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
-				    oct_number, 2);
-		if (length > 0)
-		  bufpos += length;
-	      }
-	      continue;
-	    case 'x':
-	      {
-		unsigned int hex_number = 0;
-		int length;
+                /* Yes, octal escape sequences in the range 0x100..0x1ff are
+                   valid.  */
+                length = u8_uctomb ((unsigned char *) (buffer + bufpos),
+                                    oct_number, 2);
+                if (length > 0)
+                  bufpos += length;
+              }
+              continue;
+            case 'x':
+              {
+                unsigned int hex_number = 0;
+                int length;
 
-		crs += 2;
-		if (*crs == '{')
-		  {
-		    const char *end = strchr (crs, '}');
-		    if (end == NULL)
-		      {
-			error_with_progname = false;
-			error (error_level, 0, _("\
+                crs += 2;
+                if (*crs == '{')
+                  {
+                    const char *end = strchr (crs, '}');
+                    if (end == NULL)
+                      {
+                        error_with_progname = false;
+                        error (error_level, 0, _("\
 %s:%d: missing right brace on \\x{HEXNUMBER}"), real_file_name, line_number);
-			error_with_progname = true;
-			++crs;
-			continue;
-		      }
-		    else
-		      {
-			++crs;
-			(void) extract_hex (crs, end - crs, &hex_number);
-			crs = end + 1;
-		      }
-		  }
-		else
-		  {
-		    crs = extract_hex (crs, 2, &hex_number);
-		  }
+                        error_with_progname = true;
+                        ++crs;
+                        continue;
+                      }
+                    else
+                      {
+                        ++crs;
+                        (void) extract_hex (crs, end - crs, &hex_number);
+                        crs = end + 1;
+                      }
+                  }
+                else
+                  {
+                    crs = extract_hex (crs, 2, &hex_number);
+                  }
 
-		/* FIXME: If one of the variables UPPERCASE or LOWERCASE is
-		   true, the character should be converted to its uppercase
-		   resp. lowercase equivalent.  I don't know if the necessary
-		   facilities are already included in gettext.  For US-Ascii
-		   the conversion can be already be done, however.  */
-		if (uppercase && hex_number >= 'a' && hex_number <= 'z')
-		  {
-		    hex_number = hex_number - 'a' + 'A';
-		  }
-		else if (lowercase && hex_number >= 'A' && hex_number <= 'Z')
-		  {
-		    hex_number = hex_number - 'A' + 'a';
-		  }
+                /* FIXME: If one of the variables UPPERCASE or LOWERCASE is
+                   true, the character should be converted to its uppercase
+                   resp. lowercase equivalent.  I don't know if the necessary
+                   facilities are already included in gettext.  For US-Ascii
+                   the conversion can be already be done, however.  */
+                if (uppercase && hex_number >= 'a' && hex_number <= 'z')
+                  {
+                    hex_number = hex_number - 'a' + 'A';
+                  }
+                else if (lowercase && hex_number >= 'A' && hex_number <= 'Z')
+                  {
+                    hex_number = hex_number - 'A' + 'a';
+                  }
 
-		length = u8_uctomb ((unsigned char *) (buffer + bufpos),
-				    hex_number, 6);
+                length = u8_uctomb ((unsigned char *) (buffer + bufpos),
+                                    hex_number, 6);
 
-		if (length > 0)
-		  bufpos += length;
-	      }
-	      continue;
-	    case 'c':
-	      /* Perl's notion of control characters.  */
-	      crs += 2;
-	      if (*crs)
-		{
-		  int the_char = (unsigned char) *crs;
-		  if (the_char >= 'a' || the_char <= 'z')
-		    the_char = the_char - 'a' + 'A';
-		  buffer[bufpos++] = the_char ^ 0x40;
-		}
-	      continue;
-	    case 'N':
-	      crs += 2;
-	      if (*crs == '{')
-		{
-		  const char *end = strchr (crs + 1, '}');
-		  if (end != NULL)
-		    {
-		      char *name;
-		      unsigned int unicode;
+                if (length > 0)
+                  bufpos += length;
+              }
+              continue;
+            case 'c':
+              /* Perl's notion of control characters.  */
+              crs += 2;
+              if (*crs)
+                {
+                  int the_char = (unsigned char) *crs;
+                  if (the_char >= 'a' || the_char <= 'z')
+                    the_char = the_char - 'a' + 'A';
+                  buffer[bufpos++] = the_char ^ 0x40;
+                }
+              continue;
+            case 'N':
+              crs += 2;
+              if (*crs == '{')
+                {
+                  const char *end = strchr (crs + 1, '}');
+                  if (end != NULL)
+                    {
+                      char *name;
+                      unsigned int unicode;
 
-		      name = XNMALLOC (end - (crs + 1) + 1, char);
-		      memcpy (name, crs + 1, end - (crs + 1));
-		      name[end - (crs + 1)] = '\0';
+                      name = XNMALLOC (end - (crs + 1) + 1, char);
+                      memcpy (name, crs + 1, end - (crs + 1));
+                      name[end - (crs + 1)] = '\0';
 
-		      unicode = unicode_name_character (name);
-		      if (unicode != UNINAME_INVALID)
-			{
-			  /* FIXME: Convert to upper/lowercase if the
-			     corresponding flag is set to true.  */
-			  int length =
-			    u8_uctomb ((unsigned char *) (buffer + bufpos),
-				       unicode, 6);
-			  if (length > 0)
-			    bufpos += length;
-			}
+                      unicode = unicode_name_character (name);
+                      if (unicode != UNINAME_INVALID)
+                        {
+                          /* FIXME: Convert to upper/lowercase if the
+                             corresponding flag is set to true.  */
+                          int length =
+                            u8_uctomb ((unsigned char *) (buffer + bufpos),
+                                       unicode, 6);
+                          if (length > 0)
+                            bufpos += length;
+                        }
 
-		      free (name);
+                      free (name);
 
-		      crs = end + 1;
-		    }
-		}
-	      continue;
-	    }
-	}
+                      crs = end + 1;
+                    }
+                }
+              continue;
+            }
+        }
 
       /* No escape sequence, go on.  */
       if (*crs == '\\')
-	{
-	  ++crs;
-	  switch (*crs)
-	    {
-	    case 'E':
-	      uppercase = false;
-	      lowercase = false;
-	      quotemeta = false;
-	      ++crs;
-	      continue;
-	    case 'L':
-	      uppercase = false;
-	      lowercase = true;
-	      ++crs;
-	      continue;
-	    case 'U':
-	      uppercase = true;
-	      lowercase = false;
-	      ++crs;
-	      continue;
-	    case 'Q':
-	      quotemeta = true;
-	      ++crs;
-	      continue;
-	    case 'l':
-	      ++crs;
-	      if (*crs >= 'A' && *crs <= 'Z')
-		{
-		  buffer[bufpos++] = *crs - 'A' + 'a';
-		}
-	      else if ((unsigned char) *crs >= 0x80)
-		{
-		  error_with_progname = false;
-		  error (error_level, 0, _("\
+        {
+          ++crs;
+          switch (*crs)
+            {
+            case 'E':
+              uppercase = false;
+              lowercase = false;
+              quotemeta = false;
+              ++crs;
+              continue;
+            case 'L':
+              uppercase = false;
+              lowercase = true;
+              ++crs;
+              continue;
+            case 'U':
+              uppercase = true;
+              lowercase = false;
+              ++crs;
+              continue;
+            case 'Q':
+              quotemeta = true;
+              ++crs;
+              continue;
+            case 'l':
+              ++crs;
+              if (*crs >= 'A' && *crs <= 'Z')
+                {
+                  buffer[bufpos++] = *crs - 'A' + 'a';
+                }
+              else if ((unsigned char) *crs >= 0x80)
+                {
+                  error_with_progname = false;
+                  error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
-			 real_file_name, line_number, *crs);
-		  error_with_progname = true;
-		}
-	      else
-	        {
-		  buffer[bufpos++] = *crs;
-		}
-	      ++crs;
-	      continue;
-	    case 'u':
-	      ++crs;
-	      if (*crs >= 'a' && *crs <= 'z')
-		{
-		  buffer[bufpos++] = *crs - 'a' + 'A';
-		}
-	      else if ((unsigned char) *crs >= 0x80)
-		{
-		  error_with_progname = false;
-		  error (error_level, 0, _("\
+                         real_file_name, line_number, *crs);
+                  error_with_progname = true;
+                }
+              else
+                {
+                  buffer[bufpos++] = *crs;
+                }
+              ++crs;
+              continue;
+            case 'u':
+              ++crs;
+              if (*crs >= 'a' && *crs <= 'z')
+                {
+                  buffer[bufpos++] = *crs - 'a' + 'A';
+                }
+              else if ((unsigned char) *crs >= 0x80)
+                {
+                  error_with_progname = false;
+                  error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
-			 real_file_name, line_number, *crs);
-		  error_with_progname = true;
-		}
-	      else
-	        {
-		  buffer[bufpos++] = *crs;
-		}
-	      ++crs;
-	      continue;
-	    case '\\':
-	      buffer[bufpos++] = *crs;
-	      ++crs;
-	      continue;
-	    default:
-	      backslashed = true;
-	      break;
-	    }
-	}
+                         real_file_name, line_number, *crs);
+                  error_with_progname = true;
+                }
+              else
+                {
+                  buffer[bufpos++] = *crs;
+                }
+              ++crs;
+              continue;
+            case '\\':
+              buffer[bufpos++] = *crs;
+              ++crs;
+              continue;
+            default:
+              backslashed = true;
+              break;
+            }
+        }
       else
-	backslashed = false;
+        backslashed = false;
 
       if (quotemeta
-	  && !((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
-	       || (*crs >= '0' && *crs <= '9') || *crs == '_'))
-	{
-	  buffer[bufpos++] = '\\';
-	  backslashed = true;
-	}
+          && !((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
+               || (*crs >= '0' && *crs <= '9') || *crs == '_'))
+        {
+          buffer[bufpos++] = '\\';
+          backslashed = true;
+        }
 
       if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
-	{
-	  error_with_progname = false;
-	  error (error_level, 0, _("\
+        {
+          error_with_progname = false;
+          error (error_level, 0, _("\
 %s:%d: invalid variable interpolation at \"%c\""),
-		 real_file_name, line_number, *crs);
-	  error_with_progname = true;
-	  ++crs;
-	}
+                 real_file_name, line_number, *crs);
+          error_with_progname = true;
+          ++crs;
+        }
       else if (lowercase)
-	{
-	  if (*crs >= 'A' && *crs <= 'Z')
-	    buffer[bufpos++] = *crs - 'A' + 'a';
-	  else if ((unsigned char) *crs >= 0x80)
-	    {
-	      error_with_progname = false;
-	      error (error_level, 0, _("\
+        {
+          if (*crs >= 'A' && *crs <= 'Z')
+            buffer[bufpos++] = *crs - 'A' + 'a';
+          else if ((unsigned char) *crs >= 0x80)
+            {
+              error_with_progname = false;
+              error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
-		     real_file_name, line_number, *crs);
-	      error_with_progname = true;
-	      buffer[bufpos++] = *crs;
-	    }
-	  else
-	    buffer[bufpos++] = *crs;
-	  ++crs;
-	}
+                     real_file_name, line_number, *crs);
+              error_with_progname = true;
+              buffer[bufpos++] = *crs;
+            }
+          else
+            buffer[bufpos++] = *crs;
+          ++crs;
+        }
       else if (uppercase)
-	{
-	  if (*crs >= 'a' && *crs <= 'z')
-	    buffer[bufpos++] = *crs - 'a' + 'A';
-	  else if ((unsigned char) *crs >= 0x80)
-	    {
-	      error_with_progname = false;
-	      error (error_level, 0, _("\
+        {
+          if (*crs >= 'a' && *crs <= 'z')
+            buffer[bufpos++] = *crs - 'a' + 'A';
+          else if ((unsigned char) *crs >= 0x80)
+            {
+              error_with_progname = false;
+              error (error_level, 0, _("\
 %s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
-		     real_file_name, line_number, *crs);
-	      error_with_progname = true;
-	      buffer[bufpos++] = *crs;
-	    }
-	  else
-	    buffer[bufpos++] = *crs;
-	  ++crs;
-	}
+                     real_file_name, line_number, *crs);
+              error_with_progname = true;
+              buffer[bufpos++] = *crs;
+            }
+          else
+            buffer[bufpos++] = *crs;
+          ++crs;
+        }
       else
-	{
-	  buffer[bufpos++] = *crs++;
-	}
+        {
+          buffer[bufpos++] = *crs++;
+        }
     }
 
   /* Ensure room for 1 more byte.  */
@@ -1296,7 +1296,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 
 #if DEBUG_PERL
   fprintf (stderr, "%s:%d: extracting variable type '%c'\n",
-	   real_file_name, line_number, first);
+           real_file_name, line_number, first);
 #endif
 
   /*
@@ -1307,10 +1307,10 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
   while (c == '$' || c == '*' || c == '#' || c == '@' || c == '%')
     {
       if (bufpos >= bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
       buffer[bufpos++] = c;
       c = phase1_getc ();
     }
@@ -1326,34 +1326,34 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
   if (buffer[0] == '$')
     {
       if (bufpos == 1)
-	maybe_hash_value = true;
+        maybe_hash_value = true;
       else if (bufpos == 2 && buffer[1] == '$')
-	{
-	  if (!(c == '{'
-		|| (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-		|| (c >= '0' && c <= '9')
-		|| c == '_' || c == ':' || c == '\'' || c >= 0x80))
-	    {
-	      /* Special variable $$ for pid.  */
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = '\0';
-	      tp->string = xstrdup (buffer);
+        {
+          if (!(c == '{'
+                || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                || (c >= '0' && c <= '9')
+                || c == '_' || c == ':' || c == '\'' || c >= 0x80))
+            {
+              /* Special variable $$ for pid.  */
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = '\0';
+              tp->string = xstrdup (buffer);
 #if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: is PID ($$)\n",
-		       real_file_name, line_number);
+              fprintf (stderr, "%s:%d: is PID ($$)\n",
+                       real_file_name, line_number);
 #endif
 
-	      phase1_ungetc (c);
-	      return;
-	    }
+              phase1_ungetc (c);
+              return;
+            }
 
-	  maybe_hash_deref = true;
-	  bufpos = 1;
-	}
+          maybe_hash_deref = true;
+          bufpos = 1;
+        }
     }
 
   /*
@@ -1375,33 +1375,33 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
        */
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: braced {variable_name}\n",
-	       real_file_name, line_number);
+               real_file_name, line_number);
 #endif
 
       if (extract_balanced (mlp, token_type_rbrace, true, false,
-			    null_context, null_context_list_iterator,
-			    1, arglist_parser_alloc (mlp, NULL)))
-	{
-	  tp->type = token_type_eof;
-	  return;
-	}
+                            null_context, null_context_list_iterator,
+                            1, arglist_parser_alloc (mlp, NULL)))
+        {
+          tp->type = token_type_eof;
+          return;
+        }
       buffer[bufpos++] = c;
     }
   else
     {
       while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-	     || (c >= '0' && c <= '9')
-	     || c == '_' || c == ':' || c == '\'' || c >= 0x80)
-	{
-	  ++varbody_length;
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos++] = c;
-	  c = phase1_getc ();
-	}
+             || (c >= '0' && c <= '9')
+             || c == '_' || c == ':' || c == '\'' || c >= 0x80)
+        {
+          ++varbody_length;
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos++] = c;
+          c = phase1_getc ();
+        }
       phase1_ungetc (c);
     }
 
@@ -1410,16 +1410,16 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
     {
       c = phase1_getc ();
       if (c == EOF || is_whitespace (c))
-	phase1_ungetc (c);  /* Loser.  */
+        phase1_ungetc (c);  /* Loser.  */
       else
-	{
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos++] = c;
-	}
+        {
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos++] = c;
+        }
     }
 
   if (bufpos >= bufmax)
@@ -1433,7 +1433,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 
 #if DEBUG_PERL
   fprintf (stderr, "%s:%d: complete variable name: %s\n",
-	   real_file_name, line_number, tp->string);
+           real_file_name, line_number, tp->string);
 #endif
 
   prefer_division_over_regexp = true;
@@ -1456,138 +1456,138 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       int c;
 
       do
-	c = phase2_getc ();
+        c = phase2_getc ();
       while (is_whitespace (c));
 
       if (c == '-')
-	{
-	  int c2 = phase1_getc ();
+        {
+          int c2 = phase1_getc ();
 
-	  if (c2 == '>')
-	    {
-	      is_dereference = true;
+          if (c2 == '>')
+            {
+              is_dereference = true;
 
-	      do
-		c = phase2_getc ();
-	      while (is_whitespace (c));
-	    }
-	  else if (c2 != '\n')
-	    {
-	      /* Discarding the newline is harmless here.  The only
-		 special character recognized after a minus is greater-than
-		 for dereference.  However, the sequence "-\n>" that we
-	         treat incorrectly here, is a syntax error.  */
-	      phase1_ungetc (c2);
-	    }
-	}
+              do
+                c = phase2_getc ();
+              while (is_whitespace (c));
+            }
+          else if (c2 != '\n')
+            {
+              /* Discarding the newline is harmless here.  The only
+                 special character recognized after a minus is greater-than
+                 for dereference.  However, the sequence "-\n>" that we
+                 treat incorrectly here, is a syntax error.  */
+              phase1_ungetc (c2);
+            }
+        }
 
       if (maybe_hash_value && is_dereference)
-	{
+        {
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: first keys preceded by \"->\"\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: first keys preceded by \"->\"\n",
+                   real_file_name, line_number);
 #endif
-	}
+        }
       else if (maybe_hash_value)
-	{
-	  /* Fake it into a hash.  */
-	  tp->string[0] = '%';
-	}
+        {
+          /* Fake it into a hash.  */
+          tp->string[0] = '%';
+        }
 
       /* Do NOT change that into else if (see above).  */
       if ((maybe_hash_value || maybe_hash_deref) && c == '{')
-	{
-	  void *keyword_value;
+        {
+          void *keyword_value;
 
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: first keys preceded by '{'\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: first keys preceded by '{'\n",
+                   real_file_name, line_number);
 #endif
 
-	  if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
-			       &keyword_value) == 0)
-	    {
-	      /* TODO: Shouldn't we use the shapes of the keyword, instead
-		 of hardwiring argnum1 = 1 ?
-	      const struct callshapes *shapes =
-		(const struct callshapes *) keyword_value;
-	      */
-	      struct callshapes shapes;
-	      shapes.keyword = tp->string; /* XXX storage duration? */
-	      shapes.keyword_len = strlen (tp->string);
-	      shapes.nshapes = 1;
-	      shapes.shapes[0].argnum1 = 1;
-	      shapes.shapes[0].argnum2 = 0;
-	      shapes.shapes[0].argnumc = 0;
-	      shapes.shapes[0].argnum1_glib_context = false;
-	      shapes.shapes[0].argnum2_glib_context = false;
-	      shapes.shapes[0].argtotal = 0;
-	      string_list_init (&shapes.shapes[0].xcomments);
+          if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
+                               &keyword_value) == 0)
+            {
+              /* TODO: Shouldn't we use the shapes of the keyword, instead
+                 of hardwiring argnum1 = 1 ?
+              const struct callshapes *shapes =
+                (const struct callshapes *) keyword_value;
+              */
+              struct callshapes shapes;
+              shapes.keyword = tp->string; /* XXX storage duration? */
+              shapes.keyword_len = strlen (tp->string);
+              shapes.nshapes = 1;
+              shapes.shapes[0].argnum1 = 1;
+              shapes.shapes[0].argnum2 = 0;
+              shapes.shapes[0].argnumc = 0;
+              shapes.shapes[0].argnum1_glib_context = false;
+              shapes.shapes[0].argnum2_glib_context = false;
+              shapes.shapes[0].argtotal = 0;
+              string_list_init (&shapes.shapes[0].xcomments);
 
-	      {
-		/* Extract a possible string from the key.  Before proceeding
-		   we check whether the open curly is followed by a symbol and
-		   then by a right curly.  */
-		flag_context_list_iterator_ty context_iter =
-		  flag_context_list_iterator (
-		    flag_context_list_table_lookup (
-		      flag_context_list_table,
-		      tp->string, strlen (tp->string)));
-		token_ty *t1 = x_perl_lex (mlp);
+              {
+                /* Extract a possible string from the key.  Before proceeding
+                   we check whether the open curly is followed by a symbol and
+                   then by a right curly.  */
+                flag_context_list_iterator_ty context_iter =
+                  flag_context_list_iterator (
+                    flag_context_list_table_lookup (
+                      flag_context_list_table,
+                      tp->string, strlen (tp->string)));
+                token_ty *t1 = x_perl_lex (mlp);
 
 #if DEBUG_PERL
-		fprintf (stderr, "%s:%d: extracting string key\n",
-			 real_file_name, line_number);
+                fprintf (stderr, "%s:%d: extracting string key\n",
+                         real_file_name, line_number);
 #endif
 
-		if (t1->type == token_type_symbol
-		    || t1->type == token_type_named_op)
-		  {
-		    token_ty *t2 = x_perl_lex (mlp);
-		    if (t2->type == token_type_rbrace)
-		      {
-			flag_context_ty context;
-			lex_pos_ty pos;
+                if (t1->type == token_type_symbol
+                    || t1->type == token_type_named_op)
+                  {
+                    token_ty *t2 = x_perl_lex (mlp);
+                    if (t2->type == token_type_rbrace)
+                      {
+                        flag_context_ty context;
+                        lex_pos_ty pos;
 
-			context =
-			  inherited_context (null_context,
-					     flag_context_list_iterator_advance (
-					       &context_iter));
+                        context =
+                          inherited_context (null_context,
+                                             flag_context_list_iterator_advance (
+                                               &context_iter));
 
-			pos.line_number = line_number;
-			pos.file_name = logical_file_name;
+                        pos.line_number = line_number;
+                        pos.file_name = logical_file_name;
 
-			xgettext_current_source_encoding = po_charset_utf8;
-			remember_a_message (mlp, NULL, xstrdup (t1->string),
-					    context, &pos, NULL, savable_comment);
-			xgettext_current_source_encoding = xgettext_global_source_encoding;
-			free_token (t2);
-			free_token (t1);
-		      }
-		    else
-		      {
-			x_perl_unlex (t2);
-		      }
-		  }
-		else
-		  {
-		    x_perl_unlex (t1);
-		    if (extract_balanced (mlp, token_type_rbrace, true, false,
-					  null_context, context_iter,
-					  1, arglist_parser_alloc (mlp, &shapes)))
-		      return;
-		  }
-	      }
-	    }
-	  else
-	    {
-	      phase2_ungetc (c);
-	    }
-	}
+                        xgettext_current_source_encoding = po_charset_utf8;
+                        remember_a_message (mlp, NULL, xstrdup (t1->string),
+                                            context, &pos, NULL, savable_comment);
+                        xgettext_current_source_encoding = xgettext_global_source_encoding;
+                        free_token (t2);
+                        free_token (t1);
+                      }
+                    else
+                      {
+                        x_perl_unlex (t2);
+                      }
+                  }
+                else
+                  {
+                    x_perl_unlex (t1);
+                    if (extract_balanced (mlp, token_type_rbrace, true, false,
+                                          null_context, context_iter,
+                                          1, arglist_parser_alloc (mlp, &shapes)))
+                      return;
+                  }
+              }
+            }
+          else
+            {
+              phase2_ungetc (c);
+            }
+        }
       else
-	{
-	  phase2_ungetc (c);
-	}
+        {
+          phase2_ungetc (c);
+        }
     }
 
   /* Now consume "->", "[...]", and "{...}".  */
@@ -1597,55 +1597,55 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
       int c2;
 
       switch (c)
-	{
-	case '{':
+        {
+        case '{':
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: extracting balanced '{' after varname\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: extracting balanced '{' after varname\n",
+                   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, token_type_rbrace, true, false,
-			    null_context, null_context_list_iterator,
-			    1, arglist_parser_alloc (mlp, NULL));
-	  break;
+          extract_balanced (mlp, token_type_rbrace, true, false,
+                            null_context, null_context_list_iterator,
+                            1, arglist_parser_alloc (mlp, NULL));
+          break;
 
-	case '[':
+        case '[':
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
+                   real_file_name, line_number);
 #endif
-	  extract_balanced (mlp, token_type_rbracket, true, false,
-			    null_context, null_context_list_iterator,
-			    1, arglist_parser_alloc (mlp, NULL));
-	  break;
+          extract_balanced (mlp, token_type_rbracket, true, false,
+                            null_context, null_context_list_iterator,
+                            1, arglist_parser_alloc (mlp, NULL));
+          break;
 
-	case '-':
-	  c2 = phase1_getc ();
-	  if (c2 == '>')
-	    {
+        case '-':
+          c2 = phase1_getc ();
+          if (c2 == '>')
+            {
 #if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: another \"->\" after varname\n",
-		       real_file_name, line_number);
+              fprintf (stderr, "%s:%d: another \"->\" after varname\n",
+                       real_file_name, line_number);
 #endif
-	      break;
-	    }
-	  else if (c2 != '\n')
-	    {
-	      /* Discarding the newline is harmless here.  The only
-		 special character recognized after a minus is greater-than
-		 for dereference.  However, the sequence "-\n>" that we
-	         treat incorrectly here, is a syntax error.  */
-	      phase1_ungetc (c2);
-	    }
-	  /* FALLTHROUGH */
+              break;
+            }
+          else if (c2 != '\n')
+            {
+              /* Discarding the newline is harmless here.  The only
+                 special character recognized after a minus is greater-than
+                 for dereference.  However, the sequence "-\n>" that we
+                 treat incorrectly here, is a syntax error.  */
+              phase1_ungetc (c2);
+            }
+          /* FALLTHROUGH */
 
-	default:
+        default:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: variable finished\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: variable finished\n",
+                   real_file_name, line_number);
 #endif
-	  phase2_ungetc (c);
-	  return;
-	}
+          phase2_ungetc (c);
+          return;
+        }
     }
 }
 
@@ -1717,288 +1717,288 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
       void *keyword_value;
 
       if (state == initial)
-	bufpos = 0;
+        bufpos = 0;
 
       if (c == '\n')
-	lineno++;
+        lineno++;
 
       if (bufpos + 1 >= bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax);
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax);
+        }
 
       switch (state)
-	{
-	case initial:
-	  switch (c)
-	    {
-	    case '\\':
-	      c = (unsigned char) *string++;
-	      if (c == '\0')
-		return;
-	      break;
-	    case '$':
-	      buffer[bufpos++] = '$';
-	      maybe_hash_deref = false;
-	      state = one_dollar;
-	      break;
-	    default:
-	      break;
-	    }
-	  break;
-	case one_dollar:
-	  switch (c)
-	    {
-	    case '$':
-	      /*
-	       * This is enough to make us believe later that we dereference
-	       * a hash reference.
-	       */
-	      maybe_hash_deref = true;
-	      state = two_dollars;
-	      break;
-	    default:
-	      if (c == '_' || c == ':' || c == '\'' || c >= 0x80
-		  || (c >= 'A' && c <= 'Z')
-		  || (c >= 'a' && c <= 'z')
-		  || (c >= '0' && c <= '9'))
-		{
-		  buffer[bufpos++] = c;
-		  state = identifier;
-		}
-	      else
-		state = initial;
-	      break;
-	    }
-	  break;
-	case two_dollars:
-	  if (c == '_' || c == ':' || c == '\'' || c >= 0x80
-	      || (c >= 'A' && c <= 'Z')
-	      || (c >= 'a' && c <= 'z')
-	      || (c >= '0' && c <= '9'))
-	    {
-	      buffer[bufpos++] = c;
-	      state = identifier;
-	    }
-	  else
-	    state = initial;
-	  break;
-	case identifier:
-	  switch (c)
-	    {
-	    case '-':
-	      if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
-		  == 0)
-		{
-		  flag_context_list_iterator_ty context_iter =
-		    flag_context_list_iterator (
-		      flag_context_list_table_lookup (
-			flag_context_list_table,
-			buffer, bufpos));
-		  context =
-		    inherited_context (null_context,
-				       flag_context_list_iterator_advance (
-					 &context_iter));
-		  state = minus;
-		}
-	      else
-		state = initial;
-	      break;
-	    case '{':
-	      if (!maybe_hash_deref)
-		buffer[0] = '%';
-	      if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
-		  == 0)
-		{
-		  flag_context_list_iterator_ty context_iter =
-		    flag_context_list_iterator (
-		      flag_context_list_table_lookup (
-			flag_context_list_table,
-			buffer, bufpos));
-		  context =
-		    inherited_context (null_context,
-				       flag_context_list_iterator_advance (
-					 &context_iter));
-		  state = wait_quote;
-		}
-	      else
-		state = initial;
-	      break;
-	    default:
-	      if (c == '_' || c == ':' || c == '\'' || c >= 0x80
-		  || (c >= 'A' && c <= 'Z')
-		  || (c >= 'a' && c <= 'z')
-		  || (c >= '0' && c <= '9'))
-		{
-		  buffer[bufpos++] = c;
-		}
-	      else
-		state = initial;
-	      break;
-	    }
-	  break;
-	case minus:
-	  switch (c)
-	    {
-	    case '>':
-	      state = wait_lbrace;
-	      break;
-	    default:
-	      context = null_context;
-	      state = initial;
-	      break;
-	    }
-	  break;
-	case wait_lbrace:
-	  switch (c)
-	    {
-	    case '{':
-	      state = wait_quote;
-	      break;
-	    default:
-	      context = null_context;
-	      state = initial;
-	      break;
-	    }
-	  break;
-	case wait_quote:
-	  switch (c)
-	    {
-	    case_whitespace:
-	      break;
-	    case '\'':
-	      pos.line_number = lineno;
-	      bufpos = 0;
-	      state = squote;
-	      break;
-	    case '"':
-	      pos.line_number = lineno;
-	      bufpos = 0;
-	      state = dquote;
-	      break;
-	    default:
-	      if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
-		  || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		{
-		  pos.line_number = lineno;
-		  bufpos = 0;
-		  buffer[bufpos++] = c;
-		  state = barekey;
-		}
-	      else
-		{
-		  context = null_context;
-		  state = initial;
-		}
-	      break;
-	    }
-	  break;
-	case dquote:
-	  switch (c)
-	    {
-	    case '"':
-	      /* The resulting string has to be interpolated twice.  */
-	      buffer[bufpos] = '\0';
-	      token.string = xstrdup (buffer);
-	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
-	      /* The string can only shrink with interpolation (because
-		 we ignore \Q).  */
-	      if (!(strlen (token.string) <= bufpos))
-		abort ();
-	      strcpy (buffer, token.string);
-	      free (token.string);
-	      state = wait_rbrace;
-	      break;
-	    case '\\':
-	      if (string[0] == '\"')
-		{
-		  buffer[bufpos++] = string++[0];
-		}
-	      else if (string[0])
-		{
-		  buffer[bufpos++] = '\\';
-		  buffer[bufpos++] = string++[0];
-		}
-	      else
-		{
-		  context = null_context;
-		  state = initial;
-		}
-	      break;
-	    default:
-	      buffer[bufpos++] = c;
-	      break;
-	    }
-	  break;
-	case squote:
-	  switch (c)
-	    {
-	    case '\'':
-	      state = wait_rbrace;
-	      break;
-	    case '\\':
-	      if (string[0] == '\'')
-		{
-		  buffer[bufpos++] = string++[0];
-		}
-	      else if (string[0])
-		{
-		  buffer[bufpos++] = '\\';
-		  buffer[bufpos++] = string++[0];
-		}
-	      else
-		{
-		  context = null_context;
-		  state = initial;
-		}
-	      break;
-	    default:
-	      buffer[bufpos++] = c;
-	      break;
-	    }
-	  break;
-	case barekey:
-	  if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
-	      || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-	    {
-	      buffer[bufpos++] = c;
-	      break;
-	    }
-	  else if (is_whitespace (c))
-	    {
-	      state = wait_rbrace;
-	      break;
-	    }
-	  else if (c != '}')
-	    {
-	      context = null_context;
-	      state = initial;
-	      break;
-	    }
-	  /* Must be right brace.  */
-	  /* FALLTHROUGH */
-	case wait_rbrace:
-	  switch (c)
-	    {
-	    case_whitespace:
-	      break;
-	    case '}':
-	      buffer[bufpos] = '\0';
-	      token.string = xstrdup (buffer);
-	      extract_quotelike_pass3 (&token, EXIT_FAILURE);
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, NULL, token.string, context, &pos,
-				  NULL, savable_comment);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      /* FALLTHROUGH */
-	    default:
-	      context = null_context;
-	      state = initial;
-	      break;
-	    }
-	  break;
-	}
+        {
+        case initial:
+          switch (c)
+            {
+            case '\\':
+              c = (unsigned char) *string++;
+              if (c == '\0')
+                return;
+              break;
+            case '$':
+              buffer[bufpos++] = '$';
+              maybe_hash_deref = false;
+              state = one_dollar;
+              break;
+            default:
+              break;
+            }
+          break;
+        case one_dollar:
+          switch (c)
+            {
+            case '$':
+              /*
+               * This is enough to make us believe later that we dereference
+               * a hash reference.
+               */
+              maybe_hash_deref = true;
+              state = two_dollars;
+              break;
+            default:
+              if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+                  || (c >= 'A' && c <= 'Z')
+                  || (c >= 'a' && c <= 'z')
+                  || (c >= '0' && c <= '9'))
+                {
+                  buffer[bufpos++] = c;
+                  state = identifier;
+                }
+              else
+                state = initial;
+              break;
+            }
+          break;
+        case two_dollars:
+          if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+              || (c >= 'A' && c <= 'Z')
+              || (c >= 'a' && c <= 'z')
+              || (c >= '0' && c <= '9'))
+            {
+              buffer[bufpos++] = c;
+              state = identifier;
+            }
+          else
+            state = initial;
+          break;
+        case identifier:
+          switch (c)
+            {
+            case '-':
+              if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
+                  == 0)
+                {
+                  flag_context_list_iterator_ty context_iter =
+                    flag_context_list_iterator (
+                      flag_context_list_table_lookup (
+                        flag_context_list_table,
+                        buffer, bufpos));
+                  context =
+                    inherited_context (null_context,
+                                       flag_context_list_iterator_advance (
+                                         &context_iter));
+                  state = minus;
+                }
+              else
+                state = initial;
+              break;
+            case '{':
+              if (!maybe_hash_deref)
+                buffer[0] = '%';
+              if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
+                  == 0)
+                {
+                  flag_context_list_iterator_ty context_iter =
+                    flag_context_list_iterator (
+                      flag_context_list_table_lookup (
+                        flag_context_list_table,
+                        buffer, bufpos));
+                  context =
+                    inherited_context (null_context,
+                                       flag_context_list_iterator_advance (
+                                         &context_iter));
+                  state = wait_quote;
+                }
+              else
+                state = initial;
+              break;
+            default:
+              if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+                  || (c >= 'A' && c <= 'Z')
+                  || (c >= 'a' && c <= 'z')
+                  || (c >= '0' && c <= '9'))
+                {
+                  buffer[bufpos++] = c;
+                }
+              else
+                state = initial;
+              break;
+            }
+          break;
+        case minus:
+          switch (c)
+            {
+            case '>':
+              state = wait_lbrace;
+              break;
+            default:
+              context = null_context;
+              state = initial;
+              break;
+            }
+          break;
+        case wait_lbrace:
+          switch (c)
+            {
+            case '{':
+              state = wait_quote;
+              break;
+            default:
+              context = null_context;
+              state = initial;
+              break;
+            }
+          break;
+        case wait_quote:
+          switch (c)
+            {
+            case_whitespace:
+              break;
+            case '\'':
+              pos.line_number = lineno;
+              bufpos = 0;
+              state = squote;
+              break;
+            case '"':
+              pos.line_number = lineno;
+              bufpos = 0;
+              state = dquote;
+              break;
+            default:
+              if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
+                  || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+                {
+                  pos.line_number = lineno;
+                  bufpos = 0;
+                  buffer[bufpos++] = c;
+                  state = barekey;
+                }
+              else
+                {
+                  context = null_context;
+                  state = initial;
+                }
+              break;
+            }
+          break;
+        case dquote:
+          switch (c)
+            {
+            case '"':
+              /* The resulting string has to be interpolated twice.  */
+              buffer[bufpos] = '\0';
+              token.string = xstrdup (buffer);
+              extract_quotelike_pass3 (&token, EXIT_FAILURE);
+              /* The string can only shrink with interpolation (because
+                 we ignore \Q).  */
+              if (!(strlen (token.string) <= bufpos))
+                abort ();
+              strcpy (buffer, token.string);
+              free (token.string);
+              state = wait_rbrace;
+              break;
+            case '\\':
+              if (string[0] == '\"')
+                {
+                  buffer[bufpos++] = string++[0];
+                }
+              else if (string[0])
+                {
+                  buffer[bufpos++] = '\\';
+                  buffer[bufpos++] = string++[0];
+                }
+              else
+                {
+                  context = null_context;
+                  state = initial;
+                }
+              break;
+            default:
+              buffer[bufpos++] = c;
+              break;
+            }
+          break;
+        case squote:
+          switch (c)
+            {
+            case '\'':
+              state = wait_rbrace;
+              break;
+            case '\\':
+              if (string[0] == '\'')
+                {
+                  buffer[bufpos++] = string++[0];
+                }
+              else if (string[0])
+                {
+                  buffer[bufpos++] = '\\';
+                  buffer[bufpos++] = string++[0];
+                }
+              else
+                {
+                  context = null_context;
+                  state = initial;
+                }
+              break;
+            default:
+              buffer[bufpos++] = c;
+              break;
+            }
+          break;
+        case barekey:
+          if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
+              || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            {
+              buffer[bufpos++] = c;
+              break;
+            }
+          else if (is_whitespace (c))
+            {
+              state = wait_rbrace;
+              break;
+            }
+          else if (c != '}')
+            {
+              context = null_context;
+              state = initial;
+              break;
+            }
+          /* Must be right brace.  */
+          /* FALLTHROUGH */
+        case wait_rbrace:
+          switch (c)
+            {
+            case_whitespace:
+              break;
+            case '}':
+              buffer[bufpos] = '\0';
+              token.string = xstrdup (buffer);
+              extract_quotelike_pass3 (&token, EXIT_FAILURE);
+              xgettext_current_source_encoding = po_charset_utf8;
+              remember_a_message (mlp, NULL, token.string, context, &pos,
+                                  NULL, savable_comment);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              /* FALLTHROUGH */
+            default:
+              context = null_context;
+              state = initial;
+              break;
+            }
+          break;
+        }
     }
 }
 
@@ -2022,531 +2022,531 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
       tp->line_number = line_number;
 
       switch (c)
-	{
-	case EOF:
-	  tp->type = token_type_eof;
-	  return;
+        {
+        case EOF:
+          tp->type = token_type_eof;
+          return;
 
-	case '\n':
-	  if (last_non_comment_line > last_comment_line)
-	    savable_comment_reset ();
-	  /* FALLTHROUGH */
-	case '\t':
-	case ' ':
-	  /* Ignore whitespace.  */
-	  continue;
+        case '\n':
+          if (last_non_comment_line > last_comment_line)
+            savable_comment_reset ();
+          /* FALLTHROUGH */
+        case '\t':
+        case ' ':
+          /* Ignore whitespace.  */
+          continue;
 
-	case '%':
-	case '@':
-	case '*':
-	case '$':
-	  if (!extract_all)
-	    {
-	      extract_variable (mlp, tp, c);
-	      prefer_division_over_regexp = true;
-	      return;
-	    }
-	  break;
-	}
+        case '%':
+        case '@':
+        case '*':
+        case '$':
+          if (!extract_all)
+            {
+              extract_variable (mlp, tp, c);
+              prefer_division_over_regexp = true;
+              return;
+            }
+          break;
+        }
 
       last_non_comment_line = tp->line_number;
 
       switch (c)
-	{
-	case '.':
-	  {
-	    int c2 = phase1_getc ();
-	    phase1_ungetc (c2);
-	    if (c2 == '.')
-	      {
-		tp->type = token_type_other;
-		prefer_division_over_regexp = false;
-		return;
-	      }
-	    else if (c2 >= '0' && c2 <= '9')
-	      {
-		prefer_division_over_regexp = false;
-	      }
-	    else
-	      {
-		tp->type = token_type_dot;
-		prefer_division_over_regexp = true;
-		return;
-	      }
-	  }
-	  /* FALLTHROUGH */
-	case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-	case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-	case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-	case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-	case 'Y': case 'Z':
-	case '_':
-	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-	case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-	case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-	case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-	case 'y': case 'z':
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	  /* Symbol, or part of a number.  */
-	  prefer_division_over_regexp = true;
-	  bufpos = 0;
-	  for (;;)
-	    {
-	      if (bufpos >= bufmax)
-		{
-		  bufmax = 2 * bufmax + 10;
-		  buffer = xrealloc (buffer, bufmax);
-		}
-	      buffer[bufpos++] = c;
-	      c = phase1_getc ();
-	      switch (c)
-		{
-		case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-		case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-		case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-		case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-		case 'Y': case 'Z':
-		case '_':
-		case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-		case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-		case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-		case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-		case 'y': case 'z':
-		case '0': case '1': case '2': case '3': case '4':
-		case '5': case '6': case '7': case '8': case '9':
-		  continue;
+        {
+        case '.':
+          {
+            int c2 = phase1_getc ();
+            phase1_ungetc (c2);
+            if (c2 == '.')
+              {
+                tp->type = token_type_other;
+                prefer_division_over_regexp = false;
+                return;
+              }
+            else if (c2 >= '0' && c2 <= '9')
+              {
+                prefer_division_over_regexp = false;
+              }
+            else
+              {
+                tp->type = token_type_dot;
+                prefer_division_over_regexp = true;
+                return;
+              }
+          }
+          /* FALLTHROUGH */
+        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+        case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+        case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+        case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+        case 'Y': case 'Z':
+        case '_':
+        case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+        case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+        case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+        case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+        case 'y': case 'z':
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+          /* Symbol, or part of a number.  */
+          prefer_division_over_regexp = true;
+          bufpos = 0;
+          for (;;)
+            {
+              if (bufpos >= bufmax)
+                {
+                  bufmax = 2 * bufmax + 10;
+                  buffer = xrealloc (buffer, bufmax);
+                }
+              buffer[bufpos++] = c;
+              c = phase1_getc ();
+              switch (c)
+                {
+                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                case 'Y': case 'Z':
+                case '_':
+                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                case 'y': case 'z':
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                  continue;
 
-		default:
-		  phase1_ungetc (c);
-		  break;
-		}
-	      break;
-	    }
-	  if (bufpos >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax);
-	    }
-	  buffer[bufpos] = '\0';
+                default:
+                  phase1_ungetc (c);
+                  break;
+                }
+              break;
+            }
+          if (bufpos >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          buffer[bufpos] = '\0';
 
-	  if (strcmp (buffer, "__END__") == 0
-	      || strcmp (buffer, "__DATA__") == 0)
-	    {
-	      end_of_file = true;
-	      tp->type = token_type_eof;
-	      return;
-	    }
-	  else if (strcmp (buffer, "and") == 0
-		   || strcmp (buffer, "cmp") == 0
-		   || strcmp (buffer, "eq") == 0
-		   || strcmp (buffer, "if") == 0
-		   || strcmp (buffer, "ge") == 0
-		   || strcmp (buffer, "gt") == 0
-		   || strcmp (buffer, "le") == 0
-		   || strcmp (buffer, "lt") == 0
-		   || strcmp (buffer, "ne") == 0
-		   || strcmp (buffer, "not") == 0
-		   || strcmp (buffer, "or") == 0
-		   || strcmp (buffer, "unless") == 0
-		   || strcmp (buffer, "while") == 0
-		   || strcmp (buffer, "xor") == 0)
-	    {
-	      tp->type = token_type_named_op;
-	      tp->string = xstrdup (buffer);
-	      prefer_division_over_regexp = false;
-	      return;
-	    }
-	  else if (strcmp (buffer, "s") == 0
-		 || strcmp (buffer, "y") == 0
-		 || strcmp (buffer, "tr") == 0)
-	    {
-	      int delim = phase1_getc ();
+          if (strcmp (buffer, "__END__") == 0
+              || strcmp (buffer, "__DATA__") == 0)
+            {
+              end_of_file = true;
+              tp->type = token_type_eof;
+              return;
+            }
+          else if (strcmp (buffer, "and") == 0
+                   || strcmp (buffer, "cmp") == 0
+                   || strcmp (buffer, "eq") == 0
+                   || strcmp (buffer, "if") == 0
+                   || strcmp (buffer, "ge") == 0
+                   || strcmp (buffer, "gt") == 0
+                   || strcmp (buffer, "le") == 0
+                   || strcmp (buffer, "lt") == 0
+                   || strcmp (buffer, "ne") == 0
+                   || strcmp (buffer, "not") == 0
+                   || strcmp (buffer, "or") == 0
+                   || strcmp (buffer, "unless") == 0
+                   || strcmp (buffer, "while") == 0
+                   || strcmp (buffer, "xor") == 0)
+            {
+              tp->type = token_type_named_op;
+              tp->string = xstrdup (buffer);
+              prefer_division_over_regexp = false;
+              return;
+            }
+          else if (strcmp (buffer, "s") == 0
+                 || strcmp (buffer, "y") == 0
+                 || strcmp (buffer, "tr") == 0)
+            {
+              int delim = phase1_getc ();
 
-	      while (is_whitespace (delim))
-		delim = phase2_getc ();
+              while (is_whitespace (delim))
+                delim = phase2_getc ();
 
-	      if (delim == EOF)
-		{
-		  tp->type = token_type_eof;
-		  return;
-		}
-	      if ((delim >= '0' && delim <= '9')
-		  || (delim >= 'A' && delim <= 'Z')
-		  || (delim >= 'a' && delim <= 'z'))
-		{
-		  /* False positive.  */
-		  phase2_ungetc (delim);
-		  tp->type = token_type_symbol;
-		  tp->sub_type = symbol_type_none;
-		  tp->string = xstrdup (buffer);
-		  prefer_division_over_regexp = true;
-		  return;
-		}
-	      extract_triple_quotelike (mlp, tp, delim,
-					buffer[0] == 's' && delim != '\'');
+              if (delim == EOF)
+                {
+                  tp->type = token_type_eof;
+                  return;
+                }
+              if ((delim >= '0' && delim <= '9')
+                  || (delim >= 'A' && delim <= 'Z')
+                  || (delim >= 'a' && delim <= 'z'))
+                {
+                  /* False positive.  */
+                  phase2_ungetc (delim);
+                  tp->type = token_type_symbol;
+                  tp->sub_type = symbol_type_none;
+                  tp->string = xstrdup (buffer);
+                  prefer_division_over_regexp = true;
+                  return;
+                }
+              extract_triple_quotelike (mlp, tp, delim,
+                                        buffer[0] == 's' && delim != '\'');
 
-	      /* Eat the following modifiers.  */
-	      do
-		c = phase1_getc ();
-	      while (c >= 'a' && c <= 'z');
-	      phase1_ungetc (c);
-	      return;
-	    }
-	  else if (strcmp (buffer, "m") == 0)
-	    {
-	      int delim = phase1_getc ();
+              /* Eat the following modifiers.  */
+              do
+                c = phase1_getc ();
+              while (c >= 'a' && c <= 'z');
+              phase1_ungetc (c);
+              return;
+            }
+          else if (strcmp (buffer, "m") == 0)
+            {
+              int delim = phase1_getc ();
 
-	      while (is_whitespace (delim))
-		delim = phase2_getc ();
+              while (is_whitespace (delim))
+                delim = phase2_getc ();
 
-	      if (delim == EOF)
-		{
-		  tp->type = token_type_eof;
-		  return;
-		}
-	      if ((delim >= '0' && delim <= '9')
-		  || (delim >= 'A' && delim <= 'Z')
-		  || (delim >= 'a' && delim <= 'z'))
-		{
-		  /* False positive.  */
-		  phase2_ungetc (delim);
-		  tp->type = token_type_symbol;
-		  tp->sub_type = symbol_type_none;
-		  tp->string = xstrdup (buffer);
-		  prefer_division_over_regexp = true;
-		  return;
-		}
-	      extract_quotelike (tp, delim);
-	      if (delim != '\'')
-		interpolate_keywords (mlp, tp->string, line_number);
-	      free (tp->string);
-	      drop_reference (tp->comment);
-	      tp->type = token_type_regex_op;
-	      prefer_division_over_regexp = true;
+              if (delim == EOF)
+                {
+                  tp->type = token_type_eof;
+                  return;
+                }
+              if ((delim >= '0' && delim <= '9')
+                  || (delim >= 'A' && delim <= 'Z')
+                  || (delim >= 'a' && delim <= 'z'))
+                {
+                  /* False positive.  */
+                  phase2_ungetc (delim);
+                  tp->type = token_type_symbol;
+                  tp->sub_type = symbol_type_none;
+                  tp->string = xstrdup (buffer);
+                  prefer_division_over_regexp = true;
+                  return;
+                }
+              extract_quotelike (tp, delim);
+              if (delim != '\'')
+                interpolate_keywords (mlp, tp->string, line_number);
+              free (tp->string);
+              drop_reference (tp->comment);
+              tp->type = token_type_regex_op;
+              prefer_division_over_regexp = true;
 
-	      /* Eat the following modifiers.  */
-	      do
-		c = phase1_getc ();
-	      while (c >= 'a' && c <= 'z');
-	      phase1_ungetc (c);
-	      return;
-	    }
-	  else if (strcmp (buffer, "qq") == 0
-		   || strcmp (buffer, "q") == 0
-		   || strcmp (buffer, "qx") == 0
-		   || strcmp (buffer, "qw") == 0
-		   || strcmp (buffer, "qr") == 0)
-	    {
-	      /* The qw (...) construct is not really a string but we
-		 can treat in the same manner and then pretend it is
-		 a symbol.  Rationale: Saying "qw (foo bar)" is the
-		 same as "my @list = ('foo', 'bar'); @list;".  */
+              /* Eat the following modifiers.  */
+              do
+                c = phase1_getc ();
+              while (c >= 'a' && c <= 'z');
+              phase1_ungetc (c);
+              return;
+            }
+          else if (strcmp (buffer, "qq") == 0
+                   || strcmp (buffer, "q") == 0
+                   || strcmp (buffer, "qx") == 0
+                   || strcmp (buffer, "qw") == 0
+                   || strcmp (buffer, "qr") == 0)
+            {
+              /* The qw (...) construct is not really a string but we
+                 can treat in the same manner and then pretend it is
+                 a symbol.  Rationale: Saying "qw (foo bar)" is the
+                 same as "my @list = ('foo', 'bar'); @list;".  */
 
-	      int delim = phase1_getc ();
+              int delim = phase1_getc ();
 
-	      while (is_whitespace (delim))
-		delim = phase2_getc ();
+              while (is_whitespace (delim))
+                delim = phase2_getc ();
 
-	      if (delim == EOF)
-		{
-		  tp->type = token_type_eof;
-		  return;
-		}
-	      prefer_division_over_regexp = true;
+              if (delim == EOF)
+                {
+                  tp->type = token_type_eof;
+                  return;
+                }
+              prefer_division_over_regexp = true;
 
-	      if ((delim >= '0' && delim <= '9')
-		  || (delim >= 'A' && delim <= 'Z')
-		  || (delim >= 'a' && delim <= 'z'))
-		{
-		  /* False positive.  */
-		  phase2_ungetc (delim);
-		  tp->type = token_type_symbol;
-		  tp->sub_type = symbol_type_none;
-		  tp->string = xstrdup (buffer);
-		  prefer_division_over_regexp = true;
-		  return;
-		}
+              if ((delim >= '0' && delim <= '9')
+                  || (delim >= 'A' && delim <= 'Z')
+                  || (delim >= 'a' && delim <= 'z'))
+                {
+                  /* False positive.  */
+                  phase2_ungetc (delim);
+                  tp->type = token_type_symbol;
+                  tp->sub_type = symbol_type_none;
+                  tp->string = xstrdup (buffer);
+                  prefer_division_over_regexp = true;
+                  return;
+                }
 
-	      extract_quotelike (tp, delim);
+              extract_quotelike (tp, delim);
 
-	      switch (buffer[1])
-		{
-		case 'q':
-		case 'x':
-		  tp->type = token_type_string;
-		  tp->sub_type = string_type_qq;
-		  interpolate_keywords (mlp, tp->string, line_number);
-		  break;
-		case 'r':
-		  drop_reference (tp->comment);
-		  tp->type = token_type_regex_op;
-		  break;
-		case 'w':
-		  drop_reference (tp->comment);
-		  tp->type = token_type_symbol;
-		  tp->sub_type = symbol_type_none;
-		  break;
-		case '\0':
-		  tp->type = token_type_string;
-		  tp->sub_type = string_type_q;
-		  break;
-		default:
-		  abort ();
-		}
-	      return;
-	    }
-	  else if (strcmp (buffer, "grep") == 0
-		   || strcmp (buffer, "split") == 0)
-	    {
-	      prefer_division_over_regexp = false;
-	    }
-	  tp->type = token_type_symbol;
-	  tp->sub_type = (strcmp (buffer, "sub") == 0
-			  ? symbol_type_sub
-			  : symbol_type_none);
-	  tp->string = xstrdup (buffer);
-	  return;
+              switch (buffer[1])
+                {
+                case 'q':
+                case 'x':
+                  tp->type = token_type_string;
+                  tp->sub_type = string_type_qq;
+                  interpolate_keywords (mlp, tp->string, line_number);
+                  break;
+                case 'r':
+                  drop_reference (tp->comment);
+                  tp->type = token_type_regex_op;
+                  break;
+                case 'w':
+                  drop_reference (tp->comment);
+                  tp->type = token_type_symbol;
+                  tp->sub_type = symbol_type_none;
+                  break;
+                case '\0':
+                  tp->type = token_type_string;
+                  tp->sub_type = string_type_q;
+                  break;
+                default:
+                  abort ();
+                }
+              return;
+            }
+          else if (strcmp (buffer, "grep") == 0
+                   || strcmp (buffer, "split") == 0)
+            {
+              prefer_division_over_regexp = false;
+            }
+          tp->type = token_type_symbol;
+          tp->sub_type = (strcmp (buffer, "sub") == 0
+                          ? symbol_type_sub
+                          : symbol_type_none);
+          tp->string = xstrdup (buffer);
+          return;
 
-	case '"':
-	  prefer_division_over_regexp = true;
-	  extract_quotelike (tp, c);
-	  tp->sub_type = string_type_qq;
-	  interpolate_keywords (mlp, tp->string, line_number);
-	  return;
+        case '"':
+          prefer_division_over_regexp = true;
+          extract_quotelike (tp, c);
+          tp->sub_type = string_type_qq;
+          interpolate_keywords (mlp, tp->string, line_number);
+          return;
 
-	case '`':
-	  prefer_division_over_regexp = true;
-	  extract_quotelike (tp, c);
-	  tp->sub_type = string_type_qq;
-	  interpolate_keywords (mlp, tp->string, line_number);
-	  return;
+        case '`':
+          prefer_division_over_regexp = true;
+          extract_quotelike (tp, c);
+          tp->sub_type = string_type_qq;
+          interpolate_keywords (mlp, tp->string, line_number);
+          return;
 
-	case '\'':
-	  prefer_division_over_regexp = true;
-	  extract_quotelike (tp, c);
-	  tp->sub_type = string_type_q;
-	  return;
+        case '\'':
+          prefer_division_over_regexp = true;
+          extract_quotelike (tp, c);
+          tp->sub_type = string_type_q;
+          return;
 
-	case '(':
-	  c = phase2_getc ();
-	  if (c == ')')
-	    /* Ignore empty list.  */
-	    continue;
-	  else
-	    phase2_ungetc (c);
-	  tp->type = token_type_lparen;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '(':
+          c = phase2_getc ();
+          if (c == ')')
+            /* Ignore empty list.  */
+            continue;
+          else
+            phase2_ungetc (c);
+          tp->type = token_type_lparen;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ')':
-	  tp->type = token_type_rparen;
-	  prefer_division_over_regexp = true;
-	  return;
+        case ')':
+          tp->type = token_type_rparen;
+          prefer_division_over_regexp = true;
+          return;
 
-	case '{':
-	  tp->type = token_type_lbrace;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '{':
+          tp->type = token_type_lbrace;
+          prefer_division_over_regexp = false;
+          return;
 
-	case '}':
-	  tp->type = token_type_rbrace;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '}':
+          tp->type = token_type_rbrace;
+          prefer_division_over_regexp = false;
+          return;
 
-	case '[':
-	  tp->type = token_type_lbracket;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '[':
+          tp->type = token_type_lbracket;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ']':
-	  tp->type = token_type_rbracket;
-	  prefer_division_over_regexp = false;
-	  return;
+        case ']':
+          tp->type = token_type_rbracket;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ';':
-	  tp->type = token_type_semicolon;
-	  prefer_division_over_regexp = false;
-	  return;
+        case ';':
+          tp->type = token_type_semicolon;
+          prefer_division_over_regexp = false;
+          return;
 
-	case ',':
-	  tp->type = token_type_comma;
-	  prefer_division_over_regexp = false;
-	  return;
+        case ',':
+          tp->type = token_type_comma;
+          prefer_division_over_regexp = false;
+          return;
 
-	case '=':
-	  /* Check for fat comma.  */
-	  c = phase1_getc ();
-	  if (c == '>')
-	    {
-	      tp->type = token_type_fat_comma;
-	      return;
-	    }
-	  else if (linepos == 2
-		   && (last_token == token_type_semicolon
-		       || last_token == token_type_rbrace)
-		   && ((c >= 'A' && c <='Z')
-		       || (c >= 'a' && c <= 'z')))
-	    {
+        case '=':
+          /* Check for fat comma.  */
+          c = phase1_getc ();
+          if (c == '>')
+            {
+              tp->type = token_type_fat_comma;
+              return;
+            }
+          else if (linepos == 2
+                   && (last_token == token_type_semicolon
+                       || last_token == token_type_rbrace)
+                   && ((c >= 'A' && c <='Z')
+                       || (c >= 'a' && c <= 'z')))
+            {
 #if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: start pod section\n",
-		       real_file_name, line_number);
+              fprintf (stderr, "%s:%d: start pod section\n",
+                       real_file_name, line_number);
 #endif
-	      skip_pod ();
+              skip_pod ();
 #if DEBUG_PERL
-	      fprintf (stderr, "%s:%d: end pod section\n",
-		       real_file_name, line_number);
+              fprintf (stderr, "%s:%d: end pod section\n",
+                       real_file_name, line_number);
 #endif
-	      continue;
-	    }
-	  phase1_ungetc (c);
-	  tp->type = token_type_other;
-	  prefer_division_over_regexp = false;
-	  return;
+              continue;
+            }
+          phase1_ungetc (c);
+          tp->type = token_type_other;
+          prefer_division_over_regexp = false;
+          return;
 
-	case '<':
-	  /* Check for <<EOF and friends.  */
-	  prefer_division_over_regexp = false;
-	  c = phase1_getc ();
-	  if (c == '<')
-	    {
-	      c = phase1_getc ();
-	      if (c == '\'')
-		{
-		  char *string;
-		  extract_quotelike (tp, c);
-		  string = get_here_document (tp->string);
-		  free (tp->string);
-		  tp->string = string;
-		  tp->type = token_type_string;
-		  tp->sub_type = string_type_verbatim;
-		  tp->line_number = line_number + 1;
-		  return;
-		}
-	      else if (c == '"')
-		{
-		  char *string;
-		  extract_quotelike (tp, c);
-		  string = get_here_document (tp->string);
-		  free (tp->string);
-		  tp->string = string;
-		  tp->type = token_type_string;
-		  tp->sub_type = string_type_qq;
-		  tp->line_number = line_number + 1;
-		  interpolate_keywords (mlp, tp->string, line_number + 1);
-		  return;
-		}
-	      else if ((c >= 'A' && c <= 'Z')
-		       || (c >= 'a' && c <= 'z')
-		       || c == '_')
-		{
-		  bufpos = 0;
-		  while ((c >= 'A' && c <= 'Z')
-			 || (c >= 'a' && c <= 'z')
-			 || (c >= '0' && c <= '9')
-			 || c == '_' || c >= 0x80)
-		    {
-		      if (bufpos >= bufmax)
-			{
-			  bufmax = 2 * bufmax + 10;
-			  buffer = xrealloc (buffer, bufmax);
-			}
-		      buffer[bufpos++] = c;
-		      c = phase1_getc ();
-		    }
-		  if (c == EOF)
-		    {
-		      tp->type = token_type_eof;
-		      return;
-		    }
-		  else
-		    {
-		      char *string;
-		      phase1_ungetc (c);
-		      if (bufpos >= bufmax)
-			{
-			  bufmax = 2 * bufmax + 10;
-			  buffer = xrealloc (buffer, bufmax);
-			}
-		      buffer[bufpos++] = '\0';
-		      string = get_here_document (buffer);
-		      tp->string = string;
-		      tp->type = token_type_string;
-		      tp->sub_type = string_type_qq;
-		      tp->comment = add_reference (savable_comment);
-		      tp->line_number = line_number + 1;
-		      interpolate_keywords (mlp, tp->string, line_number + 1);
-		      return;
-		    }
-		}
-	      else
-		{
-		  tp->type = token_type_other;
-		  return;
-		}
-	    }
-	  else
-	    {
-	      phase1_ungetc (c);
-	      tp->type = token_type_other;
-	    }
-	  return;  /* End of case '>'.  */
+        case '<':
+          /* Check for <<EOF and friends.  */
+          prefer_division_over_regexp = false;
+          c = phase1_getc ();
+          if (c == '<')
+            {
+              c = phase1_getc ();
+              if (c == '\'')
+                {
+                  char *string;
+                  extract_quotelike (tp, c);
+                  string = get_here_document (tp->string);
+                  free (tp->string);
+                  tp->string = string;
+                  tp->type = token_type_string;
+                  tp->sub_type = string_type_verbatim;
+                  tp->line_number = line_number + 1;
+                  return;
+                }
+              else if (c == '"')
+                {
+                  char *string;
+                  extract_quotelike (tp, c);
+                  string = get_here_document (tp->string);
+                  free (tp->string);
+                  tp->string = string;
+                  tp->type = token_type_string;
+                  tp->sub_type = string_type_qq;
+                  tp->line_number = line_number + 1;
+                  interpolate_keywords (mlp, tp->string, line_number + 1);
+                  return;
+                }
+              else if ((c >= 'A' && c <= 'Z')
+                       || (c >= 'a' && c <= 'z')
+                       || c == '_')
+                {
+                  bufpos = 0;
+                  while ((c >= 'A' && c <= 'Z')
+                         || (c >= 'a' && c <= 'z')
+                         || (c >= '0' && c <= '9')
+                         || c == '_' || c >= 0x80)
+                    {
+                      if (bufpos >= bufmax)
+                        {
+                          bufmax = 2 * bufmax + 10;
+                          buffer = xrealloc (buffer, bufmax);
+                        }
+                      buffer[bufpos++] = c;
+                      c = phase1_getc ();
+                    }
+                  if (c == EOF)
+                    {
+                      tp->type = token_type_eof;
+                      return;
+                    }
+                  else
+                    {
+                      char *string;
+                      phase1_ungetc (c);
+                      if (bufpos >= bufmax)
+                        {
+                          bufmax = 2 * bufmax + 10;
+                          buffer = xrealloc (buffer, bufmax);
+                        }
+                      buffer[bufpos++] = '\0';
+                      string = get_here_document (buffer);
+                      tp->string = string;
+                      tp->type = token_type_string;
+                      tp->sub_type = string_type_qq;
+                      tp->comment = add_reference (savable_comment);
+                      tp->line_number = line_number + 1;
+                      interpolate_keywords (mlp, tp->string, line_number + 1);
+                      return;
+                    }
+                }
+              else
+                {
+                  tp->type = token_type_other;
+                  return;
+                }
+            }
+          else
+            {
+              phase1_ungetc (c);
+              tp->type = token_type_other;
+            }
+          return;  /* End of case '>'.  */
 
-	case '-':
-	  /* Check for dereferencing operator.  */
-	  c = phase1_getc ();
-	  if (c == '>')
-	    {
-	      tp->type = token_type_dereference;
-	      return;
-	    }
-	  else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-	    {
-	      /* One of the -X (filetest) functions.  We play safe
-		 and accept all alphabetical characters here.  */
-	      tp->type = token_type_other;
-	      return;
-	    }
-	  phase1_ungetc (c);
-	  tp->type = token_type_other;
-	  prefer_division_over_regexp = false;
-	  return;
+        case '-':
+          /* Check for dereferencing operator.  */
+          c = phase1_getc ();
+          if (c == '>')
+            {
+              tp->type = token_type_dereference;
+              return;
+            }
+          else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
+            {
+              /* One of the -X (filetest) functions.  We play safe
+                 and accept all alphabetical characters here.  */
+              tp->type = token_type_other;
+              return;
+            }
+          phase1_ungetc (c);
+          tp->type = token_type_other;
+          prefer_division_over_regexp = false;
+          return;
 
-	case '/':
-	case '?':
-	  if (!prefer_division_over_regexp)
-	    {
-	      extract_quotelike (tp, c);
-	      interpolate_keywords (mlp, tp->string, line_number);
-	      free (tp->string);
-	      drop_reference (tp->comment);
-	      tp->type = token_type_other;
-	      prefer_division_over_regexp = true;
-	      /* Eat the following modifiers.  */
-	      do
-		c = phase1_getc ();
-	      while (c >= 'a' && c <= 'z');
-	      phase1_ungetc (c);
-	      return;
-	    }
-	  /* Recognize operator '//'.  */
-	  if (c == '/')
-	    {
-	      c = phase1_getc ();
-	      if (c != '/')
-		phase1_ungetc (c);
-	    }
-	  /* FALLTHROUGH */
+        case '/':
+        case '?':
+          if (!prefer_division_over_regexp)
+            {
+              extract_quotelike (tp, c);
+              interpolate_keywords (mlp, tp->string, line_number);
+              free (tp->string);
+              drop_reference (tp->comment);
+              tp->type = token_type_other;
+              prefer_division_over_regexp = true;
+              /* Eat the following modifiers.  */
+              do
+                c = phase1_getc ();
+              while (c >= 'a' && c <= 'z');
+              phase1_ungetc (c);
+              return;
+            }
+          /* Recognize operator '//'.  */
+          if (c == '/')
+            {
+              c = phase1_getc ();
+              if (c != '/')
+                phase1_ungetc (c);
+            }
+          /* FALLTHROUGH */
 
-	default:
-	  /* We could carefully recognize each of the 2 and 3 character
-	     operators, but it is not necessary, except for the '//' operator,
-	     as we only need to recognize gettext invocations.  Don't
-	     bother.  */
-	  tp->type = token_type_other;
-	  prefer_division_over_regexp = false;
-	  return;
-	}
+        default:
+          /* We could carefully recognize each of the 2 and 3 character
+             operators, but it is not necessary, except for the '//' operator,
+             as we only need to recognize gettext invocations.  Don't
+             bother.  */
+          tp->type = token_type_other;
+          prefer_division_over_regexp = false;
+          return;
+        }
     }
 }
 
@@ -2576,14 +2576,14 @@ token_stack_dump (token_stack_ty *stack)
       token_ty *token = stack->items[i];
       fprintf (stderr, "  [%s]\n", token2string (token));
       switch (token->type)
-	{
-	case token_type_named_op:
-	case token_type_string:
-	case token_type_symbol:
-	case token_type_variable:
-	  fprintf (stderr, "    string: %s\n", token->string);
-	  break;
-	}
+        {
+        case token_type_named_op:
+        case token_type_string:
+        case token_type_symbol:
+        case token_type_variable:
+          fprintf (stderr, "    string: %s\n", token->string);
+          break;
+        }
     }
   fprintf (stderr, "END STACK DUMP\n");
   return 0;
@@ -2653,14 +2653,14 @@ x_perl_lex (message_list_ty *mlp)
       x_perl_prelex (mlp, tp);
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: x_perl_prelex returned %s\n",
-	       real_file_name, line_number, token2string (tp));
+               real_file_name, line_number, token2string (tp));
 #endif
     }
 #if DEBUG_PERL
   else
     {
       fprintf (stderr, "%s:%d: %s recycled from stack\n",
-	       real_file_name, line_number, token2string (tp));
+               real_file_name, line_number, token2string (tp));
     }
 #endif
 
@@ -2673,74 +2673,74 @@ x_perl_lex (message_list_ty *mlp)
       token_ty *next = token_stack_peek (&token_stack);
 
       if (!next)
-	{
+        {
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: pre-fetching next token\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: pre-fetching next token\n",
+                   real_file_name, line_number);
 #endif
-	  next = x_perl_lex (mlp);
-	  x_perl_unlex (next);
+          next = x_perl_lex (mlp);
+          x_perl_unlex (next);
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: unshifted next token\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: unshifted next token\n",
+                   real_file_name, line_number);
 #endif
-	}
+        }
 
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: next token is %s\n",
-	       real_file_name, line_number, token2string (next));
+               real_file_name, line_number, token2string (next));
 #endif
 
       if (next->type == token_type_fat_comma)
-	{
-	  tp->type = token_type_string;
-	  tp->sub_type = string_type_q;
-	  tp->comment = add_reference (savable_comment);
+        {
+          tp->type = token_type_string;
+          tp->sub_type = string_type_q;
+          tp->comment = add_reference (savable_comment);
 #if DEBUG_PERL
-	  fprintf (stderr,
-		   "%s:%d: token %s mutated to token_type_string\n",
-		   real_file_name, line_number, token2string (tp));
+          fprintf (stderr,
+                   "%s:%d: token %s mutated to token_type_string\n",
+                   real_file_name, line_number, token2string (tp));
 #endif
-	}
+        }
       else if (tp->type == token_type_symbol && tp->sub_type == symbol_type_sub
-	       && next->type == token_type_symbol)
+               && next->type == token_type_symbol)
         {
-	  /* Start of a function declaration or definition.  Mark this
-	     symbol as a function name, so that we can later eat up
-	     possible prototype information.  */
+          /* Start of a function declaration or definition.  Mark this
+             symbol as a function name, so that we can later eat up
+             possible prototype information.  */
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: subroutine declaration/definition '%s'\n",
-		   real_file_name, line_number, next->string);
+          fprintf (stderr, "%s:%d: subroutine declaration/definition '%s'\n",
+                   real_file_name, line_number, next->string);
 #endif
-	  next->sub_type = symbol_type_function;
-	}
+          next->sub_type = symbol_type_function;
+        }
       else if (tp->type == token_type_symbol
-	       && (tp->sub_type == symbol_type_sub
-		   || tp->sub_type == symbol_type_function)
-	       && next->type == token_type_lparen)
+               && (tp->sub_type == symbol_type_sub
+                   || tp->sub_type == symbol_type_function)
+               && next->type == token_type_lparen)
         {
-	  /* For simplicity we simply consume everything up to the
-	     closing parenthesis.  Actually only a limited set of
-	     characters is allowed inside parentheses but we leave
-	     complaints to the interpreter and are prepared for
-	     future extensions to the Perl syntax.  */
-	  int c;
+          /* For simplicity we simply consume everything up to the
+             closing parenthesis.  Actually only a limited set of
+             characters is allowed inside parentheses but we leave
+             complaints to the interpreter and are prepared for
+             future extensions to the Perl syntax.  */
+          int c;
 
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: consuming prototype information\n",
-		   real_file_name, line_number);
+          fprintf (stderr, "%s:%d: consuming prototype information\n",
+                   real_file_name, line_number);
 #endif
 
-	  do
-	    {
-	      c = phase1_getc ();
+          do
+            {
+              c = phase1_getc ();
 #if DEBUG_PERL
-	      fprintf (stderr, "  consuming character '%c'\n", c);
+              fprintf (stderr, "  consuming character '%c'\n", c);
 #endif
-	    }
-	  while (c != EOF && c != ')');
-	  phase1_ungetc (c);
-	}
+            }
+          while (c != EOF && c != ')');
+          phase1_ungetc (c);
+        }
     }
 
   return tp;
@@ -2773,39 +2773,39 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
       int c;
 
       do
-	c = phase2_getc ();
+        c = phase2_getc ();
       while (is_whitespace (c));
 
       if (c != '.')
-	{
-	  phase2_ungetc (c);
-	  return string;
-	}
+        {
+          phase2_ungetc (c);
+          return string;
+        }
 
       do
-	c = phase2_getc ();
+        c = phase2_getc ();
       while (is_whitespace (c));
 
       phase2_ungetc (c);
 
       if (c == '"' || c == '\'' || c == '`'
-	  || (!prefer_division_over_regexp && (c == '/' || c == '?'))
-	  || c == 'q')
-	{
-	  token_ty *qstring = x_perl_lex (mlp);
-	  if (qstring->type != token_type_string)
-	    {
-	      /* assert (qstring->type == token_type_symbol) */
-	      x_perl_unlex (qstring);
-	      return string;
-	    }
+          || (!prefer_division_over_regexp && (c == '/' || c == '?'))
+          || c == 'q')
+        {
+          token_ty *qstring = x_perl_lex (mlp);
+          if (qstring->type != token_type_string)
+            {
+              /* assert (qstring->type == token_type_symbol) */
+              x_perl_unlex (qstring);
+              return string;
+            }
 
-	  extract_quotelike_pass3 (qstring, error_level);
-	  len += strlen (qstring->string);
-	  string = xrealloc (string, len);
-	  strcat (string, qstring->string);
-	  free_token (qstring);
-	}
+          extract_quotelike_pass3 (qstring, error_level);
+          len += strlen (qstring->string);
+          string = xrealloc (string, len);
+          strcat (string, qstring->string);
+          free_token (qstring);
+        }
     }
 }
 
@@ -2886,10 +2886,10 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 
 static bool
 extract_balanced (message_list_ty *mlp,
-		  token_type_ty delim, bool eat_delim, bool comma_delim,
-		  flag_context_ty outer_context,
-		  flag_context_list_iterator_ty context_iter,
-		  int arg, struct arglist_parser *argparser)
+                  token_type_ty delim, bool eat_delim, bool comma_delim,
+                  flag_context_ty outer_context,
+                  flag_context_list_iterator_ty context_iter,
+                  int arg, struct arglist_parser *argparser)
 {
   /* Whether to implicitly assume the next tokens are arguments even without
      a '('.  */
@@ -2908,7 +2908,7 @@ extract_balanced (message_list_ty *mlp,
   /* Current context.  */
   flag_context_ty inner_context =
     inherited_context (outer_context,
-		       flag_context_list_iterator_advance (&context_iter));
+                       flag_context_list_iterator_advance (&context_iter));
 
 #if DEBUG_PERL
   static int nesting_level = 0;
@@ -2929,474 +2929,474 @@ extract_balanced (message_list_ty *mlp,
       last_token = tp->type;
 
       if (delim == tp->type)
-	{
-	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser, arg);
-	  xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
+        {
+          xgettext_current_source_encoding = po_charset_utf8;
+          arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
+          if (next_argparser != NULL)
+            free (next_argparser);
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: extract_balanced finished (%d)\n",
-		   logical_file_name, tp->line_number, --nesting_level);
+          fprintf (stderr, "%s:%d: extract_balanced finished (%d)\n",
+                   logical_file_name, tp->line_number, --nesting_level);
 #endif
-	  if (eat_delim)
-	    free_token (tp);
-	  else
-	    /* Preserve the delimiter for the caller.  */
-	    x_perl_unlex (tp);
-	  return false;
-	}
+          if (eat_delim)
+            free_token (tp);
+          else
+            /* Preserve the delimiter for the caller.  */
+            x_perl_unlex (tp);
+          return false;
+        }
 
       if (comma_delim && tp->type == token_type_comma)
-	{
-	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser, arg);
-	  xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
+        {
+          xgettext_current_source_encoding = po_charset_utf8;
+          arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
+          if (next_argparser != NULL)
+            free (next_argparser);
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: extract_balanced finished at comma (%d)\n",
-		   logical_file_name, tp->line_number, --nesting_level);
+          fprintf (stderr, "%s:%d: extract_balanced finished at comma (%d)\n",
+                   logical_file_name, tp->line_number, --nesting_level);
 #endif
-	  x_perl_unlex (tp);
-	  return false;
-	}
-	  
+          x_perl_unlex (tp);
+          return false;
+        }
+          
       if (next_is_argument && tp->type != token_type_lparen)
-	{
-	  /* An argument list starts, even though there is no '('.  */
-	  bool next_comma_delim;
+        {
+          /* An argument list starts, even though there is no '('.  */
+          bool next_comma_delim;
 
-	  x_perl_unlex (tp);
+          x_perl_unlex (tp);
 
-	  if (next_shapes != NULL)
-	    /* We know something about the function being called.  Assume
-	       that it consumes only one argument if no argument number or
-	       total > 1 is specified.  */
-	    {
-	      size_t i;
+          if (next_shapes != NULL)
+            /* We know something about the function being called.  Assume
+               that it consumes only one argument if no argument number or
+               total > 1 is specified.  */
+            {
+              size_t i;
 
-	      next_comma_delim = true;
-	      for (i = 0; i < next_shapes->nshapes; i++)
-		{
-		  const struct callshape *shape = &next_shapes->shapes[i];
+              next_comma_delim = true;
+              for (i = 0; i < next_shapes->nshapes; i++)
+                {
+                  const struct callshape *shape = &next_shapes->shapes[i];
 
-		  if (shape->argnum1 > 1
-		      || shape->argnum2 > 1
-		      || shape->argnumc > 1
-		      || shape->argtotal > 1)
-		    next_comma_delim = false;
-		}
-	    }
-	  else
-	    /* We know nothing about the function being called.  It could be
-	       a function prototyped to take only one argument, or on the other
-	       hand it could be prototyped to take more than one argument or an
-	       arbitrary argument list or it could be unprototyped.  Due to
-	       the way the parser works, assuming the first case gives the
-	       best results.  */
-	    next_comma_delim = true;
+                  if (shape->argnum1 > 1
+                      || shape->argnum2 > 1
+                      || shape->argnumc > 1
+                      || shape->argtotal > 1)
+                    next_comma_delim = false;
+                }
+            }
+          else
+            /* We know nothing about the function being called.  It could be
+               a function prototyped to take only one argument, or on the other
+               hand it could be prototyped to take more than one argument or an
+               arbitrary argument list or it could be unprototyped.  Due to
+               the way the parser works, assuming the first case gives the
+               best results.  */
+            next_comma_delim = true;
 
-	  if (extract_balanced (mlp, delim, false, next_comma_delim,
-				inner_context, next_context_iter,
-				1, next_argparser))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      return true;
-	    }
+          if (extract_balanced (mlp, delim, false, next_comma_delim,
+                                inner_context, next_context_iter,
+                                1, next_argparser))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              return true;
+            }
 
-	  next_is_argument = false;
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  continue;
-	}
+          next_is_argument = false;
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          continue;
+        }
 
       switch (tp->type)
-	{
-	case token_type_symbol:
+        {
+        case token_type_symbol:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n",
-		   logical_file_name, tp->line_number, nesting_level,
-		   tp->string);
+          fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n",
+                   logical_file_name, tp->line_number, nesting_level,
+                   tp->string);
 #endif
 
-	  {
-	    void *keyword_value;
+          {
+            void *keyword_value;
 
-	    if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
-				 &keyword_value) == 0)
-	      {
-		const struct callshapes *shapes =
-		  (const struct callshapes *) keyword_value;
+            if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
+                                 &keyword_value) == 0)
+              {
+                const struct callshapes *shapes =
+                  (const struct callshapes *) keyword_value;
 
-		last_token = token_type_keyword_symbol;
-		next_shapes = shapes;
-		next_argparser = arglist_parser_alloc (mlp, shapes);
-	      }
-	    else
-	      {
-		next_shapes = NULL;
-		next_argparser = arglist_parser_alloc (mlp, NULL);
-	      }
-	  }
-	  next_is_argument = true;
-	  next_context_iter =
-	    flag_context_list_iterator (
-	      flag_context_list_table_lookup (
-		flag_context_list_table,
-		tp->string, strlen (tp->string)));
-	  break;
+                last_token = token_type_keyword_symbol;
+                next_shapes = shapes;
+                next_argparser = arglist_parser_alloc (mlp, shapes);
+              }
+            else
+              {
+                next_shapes = NULL;
+                next_argparser = arglist_parser_alloc (mlp, NULL);
+              }
+          }
+          next_is_argument = true;
+          next_context_iter =
+            flag_context_list_iterator (
+              flag_context_list_table_lookup (
+                flag_context_list_table,
+                tp->string, strlen (tp->string)));
+          break;
 
-	case token_type_variable:
+        case token_type_variable:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type variable (%d) \"%s\"\n",
-		   logical_file_name, tp->line_number, nesting_level, tp->string);
+          fprintf (stderr, "%s:%d: type variable (%d) \"%s\"\n",
+                   logical_file_name, tp->line_number, nesting_level, tp->string);
 #endif
-	  prefer_division_over_regexp = true;
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          prefer_division_over_regexp = true;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_lparen:
+        case token_type_lparen:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type left parenthesis (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type left parenthesis (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (next_is_argument)
-	    {
-	      /* Parse the argument list of a function call.  */
-	      if (extract_balanced (mlp, token_type_rparen, true, false,
-				    inner_context, next_context_iter,
-				    1, next_argparser))
-		{
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  arglist_parser_done (argparser, arg);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		  return true;
-		}
-	      next_is_argument = false;
-	      next_argparser = NULL;
-	    }
-	  else
-	    {
-	      /* Parse a parenthesized expression or comma expression.  */
-	      if (extract_balanced (mlp, token_type_rparen, true, false,
-				    inner_context, next_context_iter,
-				    arg, arglist_parser_clone (argparser)))
-		{
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  arglist_parser_done (argparser, arg);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		  if (next_argparser != NULL)
-		    free (next_argparser);
-		  free_token (tp);
-		  return true;
-		}
-	      next_is_argument = false;
-	      if (next_argparser != NULL)
-		free (next_argparser);
-	      next_argparser = NULL;
-	    }
-	  skip_until_comma = true;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          if (next_is_argument)
+            {
+              /* Parse the argument list of a function call.  */
+              if (extract_balanced (mlp, token_type_rparen, true, false,
+                                    inner_context, next_context_iter,
+                                    1, next_argparser))
+                {
+                  xgettext_current_source_encoding = po_charset_utf8;
+                  arglist_parser_done (argparser, arg);
+                  xgettext_current_source_encoding = xgettext_global_source_encoding;
+                  return true;
+                }
+              next_is_argument = false;
+              next_argparser = NULL;
+            }
+          else
+            {
+              /* Parse a parenthesized expression or comma expression.  */
+              if (extract_balanced (mlp, token_type_rparen, true, false,
+                                    inner_context, next_context_iter,
+                                    arg, arglist_parser_clone (argparser)))
+                {
+                  xgettext_current_source_encoding = po_charset_utf8;
+                  arglist_parser_done (argparser, arg);
+                  xgettext_current_source_encoding = xgettext_global_source_encoding;
+                  if (next_argparser != NULL)
+                    free (next_argparser);
+                  free_token (tp);
+                  return true;
+                }
+              next_is_argument = false;
+              if (next_argparser != NULL)
+                free (next_argparser);
+              next_argparser = NULL;
+            }
+          skip_until_comma = true;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_rparen:
+        case token_type_rparen:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type right parenthesis (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type right parenthesis (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  skip_until_comma = true;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          skip_until_comma = true;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_comma:
-	case token_type_fat_comma:
+        case token_type_comma:
+        case token_type_fat_comma:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type comma (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type comma (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  if (arglist_parser_decidedp (argparser, arg))
-	    {
-	      /* We have missed the argument.  */
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      argparser = arglist_parser_alloc (mlp, NULL);
-	      arg = 0;
-	    }
-	  arg++;
+          if (arglist_parser_decidedp (argparser, arg))
+            {
+              /* We have missed the argument.  */
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              argparser = arglist_parser_alloc (mlp, NULL);
+              arg = 0;
+            }
+          arg++;
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: arg: %d\n",
-		   real_file_name, tp->line_number, arg);
+          fprintf (stderr, "%s:%d: arg: %d\n",
+                   real_file_name, tp->line_number, arg);
 #endif
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  skip_until_comma = false;
-	  next_context_iter = passthrough_context_list_iterator;
-	  break;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          skip_until_comma = false;
+          next_context_iter = passthrough_context_list_iterator;
+          break;
 
-	case token_type_string:
+        case token_type_string:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
-		   logical_file_name, tp->line_number, nesting_level,
-		   tp->string);
-#endif
-
-	  if (extract_all)
-	    {
-	      char *string = collect_message (mlp, tp, EXIT_SUCCESS);
-	      lex_pos_ty pos;
-
-	      pos.file_name = logical_file_name;
-	      pos.line_number = tp->line_number;
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      remember_a_message (mlp, NULL, string, inner_context, &pos,
-				  NULL, tp->comment);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	    }
-	  else if (!skip_until_comma)
-	    {
-	      /* Need to collect the complete string, with error checking,
-		 only if the argument ARG is used in ARGPARSER.  */
-	      bool must_collect = false;
-	      {
-		size_t nalternatives = argparser->nalternatives;
-		size_t i;
-
-		for (i = 0; i < nalternatives; i++)
-		  {
-		    struct partial_call *cp = &argparser->alternative[i];
-
-		    if (arg == cp->argnumc
-			|| arg == cp->argnum1 || arg == cp->argnum2)
-		      must_collect = true;
-		  }
-	      }
-
-	      if (must_collect)
-		{
-		  char *string = collect_message (mlp, tp, EXIT_FAILURE);
-
-		  xgettext_current_source_encoding = po_charset_utf8;
-		  arglist_parser_remember (argparser, arg,
-					   string, inner_context,
-					   logical_file_name, tp->line_number,
-					   tp->comment);
-		  xgettext_current_source_encoding = xgettext_global_source_encoding;
-		}
-	    }
-
-	  if (arglist_parser_decidedp (argparser, arg))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      argparser = arglist_parser_alloc (mlp, NULL);
-	    }
-
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
-
-	case token_type_eof:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type EOF (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
-#endif
-	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser, arg);
-	  xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  free_token (tp);
-	  return true;
-
-	case token_type_lbrace:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type lbrace (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
-#endif
-	  if (extract_balanced (mlp, token_type_rbrace, true, false,
-				null_context, null_context_list_iterator,
-				1, arglist_parser_alloc (mlp, NULL)))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      if (next_argparser != NULL)
-		free (next_argparser);
-	      free_token (tp);
-	      return true;
-	    }
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
-
-	case token_type_rbrace:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type rbrace (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
-#endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
-
-	case token_type_lbracket:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type lbracket (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
-#endif
-	  if (extract_balanced (mlp, token_type_rbracket, true, false,
-				null_context, null_context_list_iterator,
-				1, arglist_parser_alloc (mlp, NULL)))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      if (next_argparser != NULL)
-		free (next_argparser);
-	      free_token (tp);
-	      return true;
-	    }
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
-
-	case token_type_rbracket:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type rbracket (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
-#endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
-
-	case token_type_semicolon:
-#if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type semicolon (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
+                   logical_file_name, tp->line_number, nesting_level,
+                   tp->string);
 #endif
 
-	  /* The ultimate sign.  */
-	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser, arg);
-	  xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  argparser = arglist_parser_alloc (mlp, NULL);
+          if (extract_all)
+            {
+              char *string = collect_message (mlp, tp, EXIT_SUCCESS);
+              lex_pos_ty pos;
 
-	  /* FIXME: Instead of resetting outer_context here, it may be better
-	     to recurse in the next_is_argument handling above, waiting for
-	     the next semicolon or other statement terminator.  */
-	  outer_context = null_context;
-	  context_iter = null_context_list_iterator;
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = passthrough_context_list_iterator;
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	  break;
+              pos.file_name = logical_file_name;
+              pos.line_number = tp->line_number;
+              xgettext_current_source_encoding = po_charset_utf8;
+              remember_a_message (mlp, NULL, string, inner_context, &pos,
+                                  NULL, tp->comment);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+            }
+          else if (!skip_until_comma)
+            {
+              /* Need to collect the complete string, with error checking,
+                 only if the argument ARG is used in ARGPARSER.  */
+              bool must_collect = false;
+              {
+                size_t nalternatives = argparser->nalternatives;
+                size_t i;
 
-	case token_type_dereference:
+                for (i = 0; i < nalternatives; i++)
+                  {
+                    struct partial_call *cp = &argparser->alternative[i];
+
+                    if (arg == cp->argnumc
+                        || arg == cp->argnum1 || arg == cp->argnum2)
+                      must_collect = true;
+                  }
+              }
+
+              if (must_collect)
+                {
+                  char *string = collect_message (mlp, tp, EXIT_FAILURE);
+
+                  xgettext_current_source_encoding = po_charset_utf8;
+                  arglist_parser_remember (argparser, arg,
+                                           string, inner_context,
+                                           logical_file_name, tp->line_number,
+                                           tp->comment);
+                  xgettext_current_source_encoding = xgettext_global_source_encoding;
+                }
+            }
+
+          if (arglist_parser_decidedp (argparser, arg))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              argparser = arglist_parser_alloc (mlp, NULL);
+            }
+
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_eof:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type dereference (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type EOF (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          xgettext_current_source_encoding = po_charset_utf8;
+          arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          free_token (tp);
+          return true;
 
-	case token_type_dot:
+        case token_type_lbrace:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type dot (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type lbrace (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          if (extract_balanced (mlp, token_type_rbrace, true, false,
+                                null_context, null_context_list_iterator,
+                                1, arglist_parser_alloc (mlp, NULL)))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              if (next_argparser != NULL)
+                free (next_argparser);
+              free_token (tp);
+              return true;
+            }
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_named_op:
+        case token_type_rbrace:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type named operator (%d): %s\n",
-		   logical_file_name, tp->line_number, nesting_level,
-		   tp->string);
+          fprintf (stderr, "%s:%d: type rbrace (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_regex_op:
+        case token_type_lbracket:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type regex operator (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type lbracket (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          if (extract_balanced (mlp, token_type_rbracket, true, false,
+                                null_context, null_context_list_iterator,
+                                1, arglist_parser_alloc (mlp, NULL)))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              if (next_argparser != NULL)
+                free (next_argparser);
+              free_token (tp);
+              return true;
+            }
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	case token_type_other:
+        case token_type_rbracket:
 #if DEBUG_PERL
-	  fprintf (stderr, "%s:%d: type other (%d)\n",
-		   logical_file_name, tp->line_number, nesting_level);
+          fprintf (stderr, "%s:%d: type rbracket (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
 #endif
-	  next_is_argument = false;
-	  if (next_argparser != NULL)
-	    free (next_argparser);
-	  next_argparser = NULL;
-	  next_context_iter = null_context_list_iterator;
-	  break;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
 
-	default:
-	  fprintf (stderr, "%s:%d: unknown token type %d\n",
-		   real_file_name, tp->line_number, tp->type);
-	  abort ();
-	}
+        case token_type_semicolon:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type semicolon (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
+
+          /* The ultimate sign.  */
+          xgettext_current_source_encoding = po_charset_utf8;
+          arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
+          argparser = arglist_parser_alloc (mlp, NULL);
+
+          /* FIXME: Instead of resetting outer_context here, it may be better
+             to recurse in the next_is_argument handling above, waiting for
+             the next semicolon or other statement terminator.  */
+          outer_context = null_context;
+          context_iter = null_context_list_iterator;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = passthrough_context_list_iterator;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+          break;
+
+        case token_type_dereference:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type dereference (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_dot:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type dot (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_named_op:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type named operator (%d): %s\n",
+                   logical_file_name, tp->line_number, nesting_level,
+                   tp->string);
+#endif
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_regex_op:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type regex operator (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_other:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type other (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        default:
+          fprintf (stderr, "%s:%d: unknown token type %d\n",
+                   real_file_name, tp->line_number, tp->type);
+          abort ();
+        }
 
       free_token (tp);
     }
@@ -3404,8 +3404,8 @@ extract_balanced (message_list_ty *mlp,
 
 void
 extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
-	      flag_context_list_table_ty *flag_table,
-	      msgdomain_list_ty *mdlp)
+              flag_context_list_table_ty *flag_table,
+              msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -3432,8 +3432,8 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */
   while (!extract_balanced (mlp, token_type_rbrace, true, false,
-			    null_context, null_context_list_iterator,
-			    1, arglist_parser_alloc (mlp, NULL)))
+                            null_context, null_context_list_iterator,
+                            1, arglist_parser_alloc (mlp, NULL)))
     ;
 
   fp = NULL;

@@ -51,7 +51,7 @@
    and returns the estimated number of times the value j was assumed.  */
 static unsigned int
 plural_expression_histogram (const struct plural_distribution *self,
-			     int min, int max, unsigned long j)
+                             int min, int max, unsigned long j)
 {
   if (min < 0)
     min = 0;
@@ -70,12 +70,12 @@ plural_expression_histogram (const struct plural_distribution *self,
 
       count = 0;
       for (n = min; n <= max; n++)
-	{
-	  unsigned long val = plural_eval (expr, n);
+        {
+          unsigned long val = plural_eval (expr, n);
 
-	  if (val == j)
-	    count++;
-	}
+          if (val == j)
+            count++;
+        }
 
       /* End of protection against arithmetic exceptions.  */
       uninstall_sigfpe_handler ();
@@ -94,9 +94,9 @@ plural_expression_histogram (const struct plural_distribution *self,
    values distribution.  */
 int
 check_plural_eval (const struct expression *plural_expr,
-		   unsigned long nplurals_value,
-		   const message_ty *header,
-		   struct plural_distribution *distribution)
+                   unsigned long nplurals_value,
+                   const message_ty *header,
+                   struct plural_distribution *distribution)
 {
   /* Do as if the plural formula assumes a value N infinitely often if it
      assumes it at least 5 times.  */
@@ -118,49 +118,49 @@ check_plural_eval (const struct expression *plural_expr,
       install_sigfpe_handler ();
 
       for (n = 0; n <= 1000; n++)
-	{
-	  unsigned long val = plural_eval (plural_expr, n);
+        {
+          unsigned long val = plural_eval (plural_expr, n);
 
-	  if ((long) val < 0)
-	    {
-	      /* End of protection against arithmetic exceptions.  */
-	      uninstall_sigfpe_handler ();
+          if ((long) val < 0)
+            {
+              /* End of protection against arithmetic exceptions.  */
+              uninstall_sigfpe_handler ();
 
-	      po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false,
-			 _("plural expression can produce negative values"));
-	      free (array);
-	      return 1;
-	    }
-	  else if (val >= nplurals_value)
-	    {
-	      char *msg;
+              po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false,
+                         _("plural expression can produce negative values"));
+              free (array);
+              return 1;
+            }
+          else if (val >= nplurals_value)
+            {
+              char *msg;
 
-	      /* End of protection against arithmetic exceptions.  */
-	      uninstall_sigfpe_handler ();
+              /* End of protection against arithmetic exceptions.  */
+              uninstall_sigfpe_handler ();
 
-	      msg = xasprintf (_("nplurals = %lu but plural expression can produce values as large as %lu"),
-			       nplurals_value, val);
-	      po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
-	      free (msg);
-	      free (array);
-	      return 1;
-	    }
+              msg = xasprintf (_("nplurals = %lu but plural expression can produce values as large as %lu"),
+                               nplurals_value, val);
+              po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+              free (msg);
+              free (array);
+              return 1;
+            }
 
-	  if (array != NULL && array[val] < OFTEN)
-	    array[val]++;
-	}
+          if (array != NULL && array[val] < OFTEN)
+            array[val]++;
+        }
 
       /* End of protection against arithmetic exceptions.  */
       uninstall_sigfpe_handler ();
 
       /* Normalize the array[val] statistics.  */
       if (array != NULL)
-	{
-	  unsigned long val;
+        {
+          unsigned long val;
 
-	  for (val = 0; val < nplurals_value; val++)
-	    array[val] = (array[val] == OFTEN ? 1 : 0);
-	}
+          for (val = 0; val < nplurals_value; val++)
+            array[val] = (array[val] == OFTEN ? 1 : 0);
+        }
 
       distribution->expr = plural_expr;
       distribution->often = array;
@@ -180,22 +180,22 @@ check_plural_eval (const struct expression *plural_expr,
 #if USE_SIGINFO
       switch (sigfpe_code)
 #endif
-	{
+        {
 #if USE_SIGINFO
 # ifdef FPE_INTDIV
-	case FPE_INTDIV:
-	  msg = _("plural expression can produce division by zero");
-	  break;
+        case FPE_INTDIV:
+          msg = _("plural expression can produce division by zero");
+          break;
 # endif
 # ifdef FPE_INTOVF
-	case FPE_INTOVF:
-	  msg = _("plural expression can produce integer overflow");
-	  break;
+        case FPE_INTOVF:
+          msg = _("plural expression can produce integer overflow");
+          break;
 # endif
-	default:
+        default:
 #endif
-	  msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
-	}
+          msg = _("plural expression can produce arithmetic exceptions, possibly division by zero");
+        }
 
       po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
 
@@ -220,22 +220,22 @@ plural_help (const char *nullentry)
     language = c_strstr (nullentry, "Language: ");
     if (language != NULL)
       {
-	size_t len;
+        size_t len;
 
         language += 10;
-	len = strcspn (language, " \t\n");
-	if (len > 0)
-	  {
-	    size_t j;
+        len = strcspn (language, " \t\n");
+        if (len > 0)
+          {
+            size_t j;
 
-	    for (j = 0; j < plural_table_size; j++)
-	      if (len == strlen (plural_table[j].lang)
-		  && strncmp (language, plural_table[j].lang, len) == 0)
-		{
-		  ptentry = &plural_table[j];
-		  break;
-		}
-	  }
+            for (j = 0; j < plural_table_size; j++)
+              if (len == strlen (plural_table[j].lang)
+                  && strncmp (language, plural_table[j].lang, len) == 0)
+                {
+                  ptentry = &plural_table[j];
+                  break;
+                }
+          }
       }
   }
 
@@ -245,29 +245,29 @@ plural_help (const char *nullentry)
 
       language = c_strstr (nullentry, "Language-Team: ");
       if (language != NULL)
-	{
-	  size_t j;
+        {
+          size_t j;
 
-	  language += 15;
-	  for (j = 0; j < plural_table_size; j++)
-	    if (strncmp (language,
-			 plural_table[j].language,
-			 strlen (plural_table[j].language)) == 0)
-	      {
-		ptentry = &plural_table[j];
-		break;
-	      }
-	}
+          language += 15;
+          for (j = 0; j < plural_table_size; j++)
+            if (strncmp (language,
+                         plural_table[j].language,
+                         strlen (plural_table[j].language)) == 0)
+              {
+                ptentry = &plural_table[j];
+                break;
+              }
+        }
     }
 
   if (ptentry != NULL)
     {
       char *helpline1 =
-	xasprintf (_("Try using the following, valid for %s:"),
-		   ptentry->language);
+        xasprintf (_("Try using the following, valid for %s:"),
+                   ptentry->language);
       char *help =
-	xasprintf ("%s\n\"Plural-Forms: %s\\n\"\n",
-		   helpline1, ptentry->value);
+        xasprintf ("%s\n\"Plural-Forms: %s\\n\"\n",
+                   helpline1, ptentry->value);
       free (helpline1);
       return help;
     }
@@ -307,30 +307,30 @@ check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
       message_ty *mp = mlp->item[j];
 
       if (!mp->obsolete && mp->msgid_plural != NULL)
-	{
-	  const char *p;
-	  const char *p_end;
-	  unsigned long n;
+        {
+          const char *p;
+          const char *p_end;
+          unsigned long n;
 
-	  if (has_plural == NULL)
-	    has_plural = mp;
+          if (has_plural == NULL)
+            has_plural = mp;
 
-	  n = 0;
-	  for (p = mp->msgstr, p_end = p + mp->msgstr_len;
-	       p < p_end;
-	       p += strlen (p) + 1)
-	    n++;
-	  if (min_nplurals > n)
-	    {
-	      min_nplurals = n;
-	      min_pos = mp;
-	    }
-	  if (max_nplurals < n)
-	    {
-	      max_nplurals = n;
-	      max_pos = mp;
-	    }
-	}
+          n = 0;
+          for (p = mp->msgstr, p_end = p + mp->msgstr_len;
+               p < p_end;
+               p += strlen (p) + 1)
+            n++;
+          if (min_nplurals > n)
+            {
+              min_nplurals = n;
+              min_pos = mp;
+            }
+          if (max_nplurals < n)
+            {
+              max_nplurals = n;
+              max_pos = mp;
+            }
+        }
     }
 
   /* Look at the plural entry for this domain.
@@ -347,174 +347,174 @@ check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
       plural = c_strstr (nullentry, "plural=");
       nplurals = c_strstr (nullentry, "nplurals=");
       if (plural == NULL && has_plural != NULL)
-	{
-	  const char *msg1 =
-	    _("message catalog has plural form translations");
-	  const char *msg2 =
-	    _("but header entry lacks a \"plural=EXPRESSION\" attribute");
-	  char *help = plural_help (nullentry);
+        {
+          const char *msg1 =
+            _("message catalog has plural form translations");
+          const char *msg2 =
+            _("but header entry lacks a \"plural=EXPRESSION\" attribute");
+          char *help = plural_help (nullentry);
 
-	  if (help != NULL)
-	    {
-	      char *msg2ext = xasprintf ("%s\n%s", msg2, help);
-	      po_xerror2 (PO_SEVERITY_ERROR,
-			  has_plural, NULL, 0, 0, false, msg1,
-			  header, NULL, 0, 0, true, msg2ext);
-	      free (msg2ext);
-	      free (help);
-	    }
-	  else
-	    po_xerror2 (PO_SEVERITY_ERROR,
-			has_plural, NULL, 0, 0, false, msg1,
-			header, NULL, 0, 0, false, msg2);
+          if (help != NULL)
+            {
+              char *msg2ext = xasprintf ("%s\n%s", msg2, help);
+              po_xerror2 (PO_SEVERITY_ERROR,
+                          has_plural, NULL, 0, 0, false, msg1,
+                          header, NULL, 0, 0, true, msg2ext);
+              free (msg2ext);
+              free (help);
+            }
+          else
+            po_xerror2 (PO_SEVERITY_ERROR,
+                        has_plural, NULL, 0, 0, false, msg1,
+                        header, NULL, 0, 0, false, msg2);
 
-	  seen_errors++;
-	}
+          seen_errors++;
+        }
       if (nplurals == NULL && has_plural != NULL)
-	{
-	  const char *msg1 =
-	    _("message catalog has plural form translations");
-	  const char *msg2 =
-	    _("but header entry lacks a \"nplurals=INTEGER\" attribute");
-	  char *help = plural_help (nullentry);
+        {
+          const char *msg1 =
+            _("message catalog has plural form translations");
+          const char *msg2 =
+            _("but header entry lacks a \"nplurals=INTEGER\" attribute");
+          char *help = plural_help (nullentry);
 
-	  if (help != NULL)
-	    {
-	      char *msg2ext = xasprintf ("%s\n%s", msg2, help);
-	      po_xerror2 (PO_SEVERITY_ERROR,
-			  has_plural, NULL, 0, 0, false, msg1,
-			  header, NULL, 0, 0, true, msg2ext);
-	      free (msg2ext);
-	      free (help);
-	    }
-	  else
-	    po_xerror2 (PO_SEVERITY_ERROR,
-			has_plural, NULL, 0, 0, false, msg1,
-			header, NULL, 0, 0, false, msg2);
+          if (help != NULL)
+            {
+              char *msg2ext = xasprintf ("%s\n%s", msg2, help);
+              po_xerror2 (PO_SEVERITY_ERROR,
+                          has_plural, NULL, 0, 0, false, msg1,
+                          header, NULL, 0, 0, true, msg2ext);
+              free (msg2ext);
+              free (help);
+            }
+          else
+            po_xerror2 (PO_SEVERITY_ERROR,
+                        has_plural, NULL, 0, 0, false, msg1,
+                        header, NULL, 0, 0, false, msg2);
 
-	  seen_errors++;
-	}
+          seen_errors++;
+        }
       if (plural != NULL && nplurals != NULL)
-	{
-	  const char *endp;
-	  unsigned long int nplurals_value;
-	  struct parse_args args;
-	  const struct expression *plural_expr;
+        {
+          const char *endp;
+          unsigned long int nplurals_value;
+          struct parse_args args;
+          const struct expression *plural_expr;
 
-	  /* First check the number.  */
-	  nplurals += 9;
-	  while (*nplurals != '\0' && c_isspace ((unsigned char) *nplurals))
-	    ++nplurals;
-	  endp = nplurals;
-	  nplurals_value = 0;
-	  if (*nplurals >= '0' && *nplurals <= '9')
-	    nplurals_value = strtoul (nplurals, (char **) &endp, 10);
-	  if (nplurals == endp)
-	    {
-	      const char *msg = _("invalid nplurals value");
-	      char *help = plural_help (nullentry);
+          /* First check the number.  */
+          nplurals += 9;
+          while (*nplurals != '\0' && c_isspace ((unsigned char) *nplurals))
+            ++nplurals;
+          endp = nplurals;
+          nplurals_value = 0;
+          if (*nplurals >= '0' && *nplurals <= '9')
+            nplurals_value = strtoul (nplurals, (char **) &endp, 10);
+          if (nplurals == endp)
+            {
+              const char *msg = _("invalid nplurals value");
+              char *help = plural_help (nullentry);
 
-	      if (help != NULL)
-		{
-		  char *msgext = xasprintf ("%s\n%s", msg, help);
-		  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
-			     msgext);
-		  free (msgext);
-		  free (help);
-		}
-	      else
-		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+              if (help != NULL)
+                {
+                  char *msgext = xasprintf ("%s\n%s", msg, help);
+                  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
+                             msgext);
+                  free (msgext);
+                  free (help);
+                }
+              else
+                po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
 
-	      seen_errors++;
-	    }
+              seen_errors++;
+            }
 
-	  /* Then check the expression.  */
-	  plural += 7;
-	  args.cp = plural;
-	  if (parse_plural_expression (&args) != 0)
-	    {
-	      const char *msg = _("invalid plural expression");
-	      char *help = plural_help (nullentry);
+          /* Then check the expression.  */
+          plural += 7;
+          args.cp = plural;
+          if (parse_plural_expression (&args) != 0)
+            {
+              const char *msg = _("invalid plural expression");
+              char *help = plural_help (nullentry);
 
-	      if (help != NULL)
-		{
-		  char *msgext = xasprintf ("%s\n%s", msg, help);
-		  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
-			     msgext);
-		  free (msgext);
-		  free (help);
-		}
-	      else
-		po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
+              if (help != NULL)
+                {
+                  char *msgext = xasprintf ("%s\n%s", msg, help);
+                  po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, true,
+                             msgext);
+                  free (msgext);
+                  free (help);
+                }
+              else
+                po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false, msg);
 
-	      seen_errors++;
-	    }
-	  plural_expr = args.res;
+              seen_errors++;
+            }
+          plural_expr = args.res;
 
-	  /* See whether nplurals and plural fit together.  */
-	  if (!seen_errors)
-	    seen_errors =
-	      check_plural_eval (plural_expr, nplurals_value, header,
-				 &distribution);
+          /* See whether nplurals and plural fit together.  */
+          if (!seen_errors)
+            seen_errors =
+              check_plural_eval (plural_expr, nplurals_value, header,
+                                 &distribution);
 
-	  /* Check the number of plurals of the translations.  */
-	  if (!seen_errors)
-	    {
-	      if (min_nplurals < nplurals_value)
-		{
-		  char *msg1 =
-		    xasprintf (_("nplurals = %lu"), nplurals_value);
-		  char *msg2 =
-		    xasprintf (ngettext ("but some messages have only one plural form",
-					 "but some messages have only %lu plural forms",
-					 min_nplurals),
-			       min_nplurals);
-		  po_xerror2 (PO_SEVERITY_ERROR,
-			      header, NULL, 0, 0, false, msg1,
-			      min_pos, NULL, 0, 0, false, msg2);
-		  free (msg2);
-		  free (msg1);
-		  seen_errors++;
-		}
-	      else if (max_nplurals > nplurals_value)
-		{
-		  char *msg1 =
-		    xasprintf (_("nplurals = %lu"), nplurals_value);
-		  char *msg2 =
-		    xasprintf (ngettext ("but some messages have one plural form",
-					 "but some messages have %lu plural forms",
-					 max_nplurals),
-			       max_nplurals);
-		  po_xerror2 (PO_SEVERITY_ERROR,
-			      header, NULL, 0, 0, false, msg1,
-			      max_pos, NULL, 0, 0, false, msg2);
-		  free (msg2);
-		  free (msg1);
-		  seen_errors++;
-		}
-	      /* The only valid case is max_nplurals <= n <= min_nplurals,
-		 which means either has_plural == NULL or
-		 max_nplurals = n = min_nplurals.  */
-	    }
-	}
+          /* Check the number of plurals of the translations.  */
+          if (!seen_errors)
+            {
+              if (min_nplurals < nplurals_value)
+                {
+                  char *msg1 =
+                    xasprintf (_("nplurals = %lu"), nplurals_value);
+                  char *msg2 =
+                    xasprintf (ngettext ("but some messages have only one plural form",
+                                         "but some messages have only %lu plural forms",
+                                         min_nplurals),
+                               min_nplurals);
+                  po_xerror2 (PO_SEVERITY_ERROR,
+                              header, NULL, 0, 0, false, msg1,
+                              min_pos, NULL, 0, 0, false, msg2);
+                  free (msg2);
+                  free (msg1);
+                  seen_errors++;
+                }
+              else if (max_nplurals > nplurals_value)
+                {
+                  char *msg1 =
+                    xasprintf (_("nplurals = %lu"), nplurals_value);
+                  char *msg2 =
+                    xasprintf (ngettext ("but some messages have one plural form",
+                                         "but some messages have %lu plural forms",
+                                         max_nplurals),
+                               max_nplurals);
+                  po_xerror2 (PO_SEVERITY_ERROR,
+                              header, NULL, 0, 0, false, msg1,
+                              max_pos, NULL, 0, 0, false, msg2);
+                  free (msg2);
+                  free (msg1);
+                  seen_errors++;
+                }
+              /* The only valid case is max_nplurals <= n <= min_nplurals,
+                 which means either has_plural == NULL or
+                 max_nplurals = n = min_nplurals.  */
+            }
+        }
       else
-	goto no_plural;
+        goto no_plural;
     }
   else
     {
       if (has_plural != NULL)
-	{
-	  po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
-		     _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
-	  seen_errors++;
-	}
+        {
+          po_xerror (PO_SEVERITY_ERROR, has_plural, NULL, 0, 0, false,
+                     _("message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""));
+          seen_errors++;
+        }
      no_plural:
       /* By default, the Germanic formula (n != 1) is used.  */
       distribution.expr = &germanic_plural;
       {
-	unsigned char *array = XCALLOC (2, unsigned char);
-	array[1] = 1;
-	distribution.often = array;
+        unsigned char *array = XCALLOC (2, unsigned char);
+        array[1] = 1;
+        distribution.often = array;
       }
       distribution.often_length = 2;
       distribution.histogram = plural_expression_histogram;
@@ -550,8 +550,8 @@ formatstring_error_logger (const char *format, ...)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (args);
   po_xerror (PO_SEVERITY_ERROR,
-	     curr_mp, curr_msgid_pos.file_name, curr_msgid_pos.line_number,
-	     (size_t)(-1), false, msg);
+             curr_mp, curr_msgid_pos.file_name, curr_msgid_pos.line_number,
+             (size_t)(-1), false, msg);
   free (msg);
 }
 
@@ -564,16 +564,16 @@ formatstring_error_logger (const char *format, ...)
    array.  */
 static int
 check_pair (const message_ty *mp,
-	    const char *msgid,
-	    const lex_pos_ty *msgid_pos,
-	    const char *msgid_plural,
-	    const char *msgstr, size_t msgstr_len,
-	    const enum is_format is_format[NFORMATS],
-	    int check_newlines,
-	    int check_format_strings,
-	    const struct plural_distribution *distribution,
-	    int check_compatibility,
-	    int check_accelerators, char accelerator_char)
+            const char *msgid,
+            const lex_pos_ty *msgid_pos,
+            const char *msgid_plural,
+            const char *msgstr, size_t msgstr_len,
+            const enum is_format is_format[NFORMATS],
+            int check_newlines,
+            int check_format_strings,
+            const struct plural_distribution *distribution,
+            int check_compatibility,
+            int check_accelerators, char accelerator_char)
 {
   int seen_errors;
   int has_newline;
@@ -592,90 +592,90 @@ check_pair (const message_ty *mp,
       has_newline = (msgid[0] == '\n');
 #define TEST_NEWLINE(p) (p[0] == '\n')
       if (msgid_plural != NULL)
-	{
-	  const char *p;
+        {
+          const char *p;
 
-	  if (TEST_NEWLINE(msgid_plural) != has_newline)
-	    {
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, _("\
+          if (TEST_NEWLINE(msgid_plural) != has_newline)
+            {
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both begin with '\\n'"));
-	      seen_errors++;
-	    }
-	  for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
-	    if (TEST_NEWLINE(p) != has_newline)
-	      {
-		char *msg =
-		  xasprintf (_("\
+              seen_errors++;
+            }
+          for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
+            if (TEST_NEWLINE(p) != has_newline)
+              {
+                char *msg =
+                  xasprintf (_("\
 `msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), j);
-		po_xerror (PO_SEVERITY_ERROR,
-			   mp, msgid_pos->file_name, msgid_pos->line_number,
-			   (size_t)(-1), false, msg);
-		free (msg);
-		seen_errors++;
-	      }
-	}
+                po_xerror (PO_SEVERITY_ERROR,
+                           mp, msgid_pos->file_name, msgid_pos->line_number,
+                           (size_t)(-1), false, msg);
+                free (msg);
+                seen_errors++;
+              }
+        }
       else
-	{
-	  if (TEST_NEWLINE(msgstr) != has_newline)
-	    {
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, _("\
+        {
+          if (TEST_NEWLINE(msgstr) != has_newline)
+            {
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both begin with '\\n'"));
-	      seen_errors++;
-	    }
-	}
+              seen_errors++;
+            }
+        }
 #undef TEST_NEWLINE
 
       /* Test 2: check whether all or none of the strings end with a '\n'.  */
       has_newline = (msgid[strlen (msgid) - 1] == '\n');
 #define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
       if (msgid_plural != NULL)
-	{
-	  const char *p;
+        {
+          const char *p;
 
-	  if (TEST_NEWLINE(msgid_plural) != has_newline)
-	    {
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, _("\
+          if (TEST_NEWLINE(msgid_plural) != has_newline)
+            {
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, _("\
 `msgid' and `msgid_plural' entries do not both end with '\\n'"));
-	      seen_errors++;
-	    }
-	  for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
-	    if (TEST_NEWLINE(p) != has_newline)
-	      {
-		char *msg =
-		  xasprintf (_("\
+              seen_errors++;
+            }
+          for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
+            if (TEST_NEWLINE(p) != has_newline)
+              {
+                char *msg =
+                  xasprintf (_("\
 `msgid' and `msgstr[%u]' entries do not both end with '\\n'"), j);
-		po_xerror (PO_SEVERITY_ERROR,
-			   mp, msgid_pos->file_name, msgid_pos->line_number,
-			   (size_t)(-1), false, msg);
-		free (msg);
-		seen_errors++;
-	      }
-	}
+                po_xerror (PO_SEVERITY_ERROR,
+                           mp, msgid_pos->file_name, msgid_pos->line_number,
+                           (size_t)(-1), false, msg);
+                free (msg);
+                seen_errors++;
+              }
+        }
       else
-	{
-	  if (TEST_NEWLINE(msgstr) != has_newline)
-	    {
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, _("\
+        {
+          if (TEST_NEWLINE(msgstr) != has_newline)
+            {
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, _("\
 `msgid' and `msgstr' entries do not both end with '\\n'"));
-	      seen_errors++;
-	    }
-	}
+              seen_errors++;
+            }
+        }
 #undef TEST_NEWLINE
     }
 
   if (check_compatibility && msgid_plural != NULL)
     {
       po_xerror (PO_SEVERITY_ERROR,
-		 mp, msgid_pos->file_name, msgid_pos->line_number,
-		 (size_t)(-1), false, _("\
+                 mp, msgid_pos->file_name, msgid_pos->line_number,
+                 (size_t)(-1), false, _("\
 plural handling is a GNU gettext extension"));
       seen_errors++;
     }
@@ -687,9 +687,9 @@ plural handling is a GNU gettext extension"));
       curr_mp = mp;
       curr_msgid_pos = *msgid_pos;
       seen_errors +=
-	check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
-				   is_format, mp->range, distribution,
-				   formatstring_error_logger);
+        check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
+                                   is_format, mp->range, distribution,
+                                   formatstring_error_logger);
     }
 
   if (check_accelerators && msgid_plural == NULL)
@@ -704,37 +704,37 @@ plural handling is a GNU gettext extension"));
       /* We are only interested in msgids that contain exactly one '&'.  */
       p = strchr (msgid, accelerator_char);
       if (p != NULL && strchr (p + 1, accelerator_char) == NULL)
-	{
-	  /* Count the number of '&' in msgstr, but ignore '&&'.  */
-	  unsigned int count = 0;
+        {
+          /* Count the number of '&' in msgstr, but ignore '&&'.  */
+          unsigned int count = 0;
 
-	  for (p = msgstr; (p = strchr (p, accelerator_char)) != NULL; p++)
-	    if (p[1] == accelerator_char)
-	      p++;
-	    else
-	      count++;
+          for (p = msgstr; (p = strchr (p, accelerator_char)) != NULL; p++)
+            if (p[1] == accelerator_char)
+              p++;
+            else
+              count++;
 
-	  if (count == 0)
-	    {
-	      char *msg =
-		xasprintf (_("msgstr lacks the keyboard accelerator mark '%c'"),
-			   accelerator_char);
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, msg);
-	      free (msg);
-	    }
-	  else if (count > 1)
-	    {
-	      char *msg =
-		xasprintf (_("msgstr has too many keyboard accelerator marks '%c'"),
-			   accelerator_char);
-	      po_xerror (PO_SEVERITY_ERROR,
-			 mp, msgid_pos->file_name, msgid_pos->line_number,
-			 (size_t)(-1), false, msg);
-	      free (msg);
-	    }
-	}
+          if (count == 0)
+            {
+              char *msg =
+                xasprintf (_("msgstr lacks the keyboard accelerator mark '%c'"),
+                           accelerator_char);
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, msg);
+              free (msg);
+            }
+          else if (count > 1)
+            {
+              char *msg =
+                xasprintf (_("msgstr has too many keyboard accelerator marks '%c'"),
+                           accelerator_char);
+              po_xerror (PO_SEVERITY_ERROR,
+                         mp, msgid_pos->file_name, msgid_pos->line_number,
+                         (size_t)(-1), false, msg);
+              free (msg);
+            }
+        }
     }
 
   return seen_errors;
@@ -767,64 +767,64 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
   for (cnt = 0; cnt < nfields; ++cnt)
     {
       int severity =
-	(cnt < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
+        (cnt < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
       const char *endp = c_strstr (msgstr_string, required_fields[cnt]);
 
       if (endp == NULL)
-	{
-	  char *msg =
-	    xasprintf (_("header field `%s' missing in header\n"),
-		       required_fields[cnt]);
-	  po_xerror (severity, mp, NULL, 0, 0, true, msg);
-	  free (msg);
-	}
+        {
+          char *msg =
+            xasprintf (_("header field `%s' missing in header\n"),
+                       required_fields[cnt]);
+          po_xerror (severity, mp, NULL, 0, 0, true, msg);
+          free (msg);
+        }
       else if (endp != msgstr_string && endp[-1] != '\n')
-	{
-	  char *msg =
-	    xasprintf (_("\
+        {
+          char *msg =
+            xasprintf (_("\
 header field `%s' should start at beginning of line\n"),
-		       required_fields[cnt]);
-	  po_xerror (severity, mp, NULL, 0, 0, true, msg);
-	  free (msg);
-	}
+                       required_fields[cnt]);
+          po_xerror (severity, mp, NULL, 0, 0, true, msg);
+          free (msg);
+        }
       else
-	{
-	  const char *p = endp + strlen (required_fields[cnt]);
-	  /* Test whether the field's value, starting at p, is the default
-	     value.  */
-	  if (*p == ':')
-	    p++;
-	  if (*p == ' ')
-	    p++;
-	  if (default_values[cnt] != NULL
-	      && strncmp (p, default_values[cnt],
-			  strlen (default_values[cnt])) == 0)
-	    {
-	      p += strlen (default_values[cnt]);
-	      if (*p == '\0' || *p == '\n')
-		{
-		  if (initial != -1)
-		    {
-		      po_xerror (severity,
-				 mp, NULL, 0, 0, true, _("\
+        {
+          const char *p = endp + strlen (required_fields[cnt]);
+          /* Test whether the field's value, starting at p, is the default
+             value.  */
+          if (*p == ':')
+            p++;
+          if (*p == ' ')
+            p++;
+          if (default_values[cnt] != NULL
+              && strncmp (p, default_values[cnt],
+                          strlen (default_values[cnt])) == 0)
+            {
+              p += strlen (default_values[cnt]);
+              if (*p == '\0' || *p == '\n')
+                {
+                  if (initial != -1)
+                    {
+                      po_xerror (severity,
+                                 mp, NULL, 0, 0, true, _("\
 some header fields still have the initial default value\n"));
-		      initial = -1;
-		      break;
-		    }
-		  else
-		    initial = cnt;
-		}
-	    }
-	}
+                      initial = -1;
+                      break;
+                    }
+                  else
+                    initial = cnt;
+                }
+            }
+        }
     }
 
   if (initial != -1)
     {
       int severity =
-	(initial < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
+        (initial < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
       char *msg =
-	xasprintf (_("header field `%s' still has the initial default value\n"),
-		   required_fields[initial]);
+        xasprintf (_("header field `%s' still has the initial default value\n"),
+                   required_fields[initial]);
       po_xerror (severity, mp, NULL, 0, 0, true, msg);
       free (msg);
     }
@@ -835,26 +835,26 @@ some header fields still have the initial default value\n"));
    Return the number of errors that were seen.  */
 int
 check_message (const message_ty *mp,
-	       const lex_pos_ty *msgid_pos,
-	       int check_newlines,
-	       int check_format_strings,
-	       const struct plural_distribution *distribution,
-	       int check_header,
-	       int check_compatibility,
-	       int check_accelerators, char accelerator_char)
+               const lex_pos_ty *msgid_pos,
+               int check_newlines,
+               int check_format_strings,
+               const struct plural_distribution *distribution,
+               int check_header,
+               int check_compatibility,
+               int check_accelerators, char accelerator_char)
 {
   if (check_header && is_header (mp))
     check_header_entry (mp, mp->msgstr);
 
   return check_pair (mp,
-		     mp->msgid, msgid_pos, mp->msgid_plural,
-		     mp->msgstr, mp->msgstr_len,
-		     mp->is_format,
-		     check_newlines,
-		     check_format_strings,
-		     distribution,
-		     check_compatibility,
-		     check_accelerators, accelerator_char);
+                     mp->msgid, msgid_pos, mp->msgid_plural,
+                     mp->msgstr, mp->msgstr_len,
+                     mp->is_format,
+                     check_newlines,
+                     check_format_strings,
+                     distribution,
+                     check_compatibility,
+                     check_accelerators, accelerator_char);
 }
 
 
@@ -862,11 +862,11 @@ check_message (const message_ty *mp,
    Return the number of errors that were seen.  */
 int
 check_message_list (message_list_ty *mlp,
-		    int check_newlines,
-		    int check_format_strings,
-		    int check_header,
-		    int check_compatibility,
-		    int check_accelerators, char accelerator_char)
+                    int check_newlines,
+                    int check_format_strings,
+                    int check_header,
+                    int check_compatibility,
+                    int check_accelerators, char accelerator_char)
 {
   int seen_errors = 0;
   struct plural_distribution distribution;
@@ -885,12 +885,12 @@ check_message_list (message_list_ty *mlp,
       message_ty *mp = mlp->item[j];
 
       if (!mp->obsolete)
-	seen_errors += check_message (mp, &mp->pos,
-				      check_newlines,
-				      check_format_strings,
-				      &distribution,
-				      check_header, check_compatibility,
-				      check_accelerators, accelerator_char);
+        seen_errors += check_message (mp, &mp->pos,
+                                      check_newlines,
+                                      check_format_strings,
+                                      &distribution,
+                                      check_header, check_compatibility,
+                                      check_accelerators, accelerator_char);
     }
 
   return seen_errors;

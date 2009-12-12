@@ -79,57 +79,57 @@ rgb_to_hsv (rgb_t c, hsv_t *result)
   if (r > g)
     {
       if (b > r)
-	{
-	  /* b > r > g, so max = b, min = g */
-	  result->hue = 4.0f + (float) (r - g) / (float) (b - g);
-	  result->saturation = 1.0f - (float) g / (float) b;
-	  result->brightness = (float) b / 255.0f;
-	}
+        {
+          /* b > r > g, so max = b, min = g */
+          result->hue = 4.0f + (float) (r - g) / (float) (b - g);
+          result->saturation = 1.0f - (float) g / (float) b;
+          result->brightness = (float) b / 255.0f;
+        }
       else if (b <= g)
-	{
-	  /* r > g >= b, so max = r, min = b */
-	  result->hue = 0.0f + (float) (g - b) / (float) (r - b);
-	  result->saturation = 1.0f - (float) b / (float) r;
-	  result->brightness = (float) r / 255.0f;
-	}
+        {
+          /* r > g >= b, so max = r, min = b */
+          result->hue = 0.0f + (float) (g - b) / (float) (r - b);
+          result->saturation = 1.0f - (float) b / (float) r;
+          result->brightness = (float) r / 255.0f;
+        }
       else
-	{
-	  /* r >= b > g, so max = r, min = g */
-	  result->hue = 6.0f - (float) (b - g) / (float) (r - g);
-	  result->saturation = 1.0f - (float) g / (float) r;
-	  result->brightness = (float) r / 255.0f;
-	}
+        {
+          /* r >= b > g, so max = r, min = g */
+          result->hue = 6.0f - (float) (b - g) / (float) (r - g);
+          result->saturation = 1.0f - (float) g / (float) r;
+          result->brightness = (float) r / 255.0f;
+        }
     }
   else
     {
       if (b > g)
-	{
-	  /* b > g >= r, so max = b, min = r */
-	  result->hue = 4.0f - (float) (g - r) / (float) (b - r);
-	  result->saturation = 1.0f - (float) r / (float) b;
-	  result->brightness = (float) b / 255.0f;
-	}
+        {
+          /* b > g >= r, so max = b, min = r */
+          result->hue = 4.0f - (float) (g - r) / (float) (b - r);
+          result->saturation = 1.0f - (float) r / (float) b;
+          result->brightness = (float) b / 255.0f;
+        }
       else if (b < r)
-	{
-	  /* g >= r > b, so max = g, min = b */
-	  result->hue = 2.0f - (float) (r - b) / (float) (g - b);
-	  result->saturation = 1.0f - (float) b / (float) g;
-	  result->brightness = (float) g / 255.0f;
-	}
+        {
+          /* g >= r > b, so max = g, min = b */
+          result->hue = 2.0f - (float) (r - b) / (float) (g - b);
+          result->saturation = 1.0f - (float) b / (float) g;
+          result->brightness = (float) g / 255.0f;
+        }
       else if (g > r)
-	{
-	  /* g >= b >= r, g > r, so max = g, min = r */
-	  result->hue = 2.0f + (float) (b - r) / (float) (g - r);
-	  result->saturation = 1.0f - (float) r / (float) g;
-	  result->brightness = (float) g / 255.0f;
-	}
+        {
+          /* g >= b >= r, g > r, so max = g, min = r */
+          result->hue = 2.0f + (float) (b - r) / (float) (g - r);
+          result->saturation = 1.0f - (float) r / (float) g;
+          result->brightness = (float) g / 255.0f;
+        }
       else
-	{
-	  /* r = g = b.  A grey color.  */
-	  result->hue = 0; /* arbitrary */
-	  result->saturation = 0;
-	  result->brightness = (float) r / 255.0f;
-	}
+        {
+          /* r = g = b.  A grey color.  */
+          result->hue = 0; /* arbitrary */
+          result->saturation = 0;
+          result->brightness = (float) r / 255.0f;
+        }
     }
 }
 
@@ -143,11 +143,11 @@ color_distance (const hsv_t *color1, const hsv_t *color2)
   float angle1 = color1->hue * 1.04719755f; /* normalize to [0,2π] */
   float angle2 = color2->hue * 1.04719755f; /* normalize to [0,2π] */
   float delta_x = color1->saturation * cosf (angle1)
-		  - color2->saturation * cosf (angle2);
+                  - color2->saturation * cosf (angle2);
   float delta_y = color1->saturation * sinf (angle1)
-		  - color2->saturation * sinf (angle2);
+                  - color2->saturation * sinf (angle2);
   float delta_v = color1->brightness
-		  - color2->brightness;
+                  - color2->brightness;
 
   return delta_x * delta_x + delta_y * delta_y + delta_v * delta_v;
 #else
@@ -156,11 +156,11 @@ color_distance (const hsv_t *color1, const hsv_t *color2)
   float delta_hue =
     (color1->hue >= color2->hue
      ? (color1->hue - color2->hue >= 3.0f
-	? 6.0f + color2->hue - color1->hue
-	: color1->hue - color2->hue)
+        ? 6.0f + color2->hue - color1->hue
+        : color1->hue - color2->hue)
      : (color2->hue - color1->hue >= 3.0f
-	? 6.0f + color1->hue - color2->hue
-	: color2->hue - color1->hue));
+        ? 6.0f + color1->hue - color2->hue
+        : color2->hue - color1->hue));
   float min_saturation =
     (color1->saturation < color2->saturation
      ? color1->saturation
@@ -169,8 +169,8 @@ color_distance (const hsv_t *color1, const hsv_t *color2)
   float delta_brightness = color1->brightness - color2->brightness;
 
   return delta_hue * delta_hue * min_saturation
-	 + delta_saturation * delta_saturation * 0.2f
-	 + delta_brightness * delta_brightness * 0.8f;
+         + delta_saturation * delta_saturation * 0.2f
+         + delta_brightness * delta_brightness * 0.8f;
 #endif
 }
 
@@ -198,14 +198,14 @@ nearest_color (rgb_t given, const rgb_t *table, unsigned int table_size)
 
       /* Avoid converting a color to grey, or fading out a color too much.  */
       if (i_hsv.saturation > given_hsv.saturation * 0.5f)
-	{
-	  float distance = color_distance (&given_hsv, &i_hsv);
-	  if (distance < best_distance)
-	    {
-	      best_index = i;
-	      best_distance = distance;
-	    }
-	}
+        {
+          float distance = color_distance (&given_hsv, &i_hsv);
+          if (distance < best_distance)
+            {
+              best_index = i;
+              best_distance = distance;
+            }
+        }
     }
 
 #if 0 /* Debugging code */
@@ -239,12 +239,12 @@ color_luminance (int r, int g, int b)
 /* The color model used by the terminal.  */
 typedef enum
 {
-  cm_monochrome,	/* No colors.  */
-  cm_common8,		/* Usual terminal with at least 8 colors.  */
-  cm_xterm8,		/* TERM=xterm, with 8 colors.  */
-  cm_xterm16,		/* TERM=xterm-16color, with 16 colors.  */
-  cm_xterm88,		/* TERM=xterm-88color, with 88 colors.  */
-  cm_xterm256		/* TERM=xterm-256color, with 256 colors.  */
+  cm_monochrome,        /* No colors.  */
+  cm_common8,           /* Usual terminal with at least 8 colors.  */
+  cm_xterm8,            /* TERM=xterm, with 8 colors.  */
+  cm_xterm16,           /* TERM=xterm-16color, with 16 colors.  */
+  cm_xterm88,           /* TERM=xterm-88color, with 88 colors.  */
+  cm_xterm256           /* TERM=xterm-256color, with 256 colors.  */
 } colormodel_t;
 
 /* ----------------------- cm_monochrome color model ----------------------- */
@@ -295,9 +295,9 @@ rgb_to_color_common8 (int r, int g, int b)
       /* Greyscale approximation.  */
       float luminance = color_luminance (r, g, b);
       if (luminance < 0.500f)
-	return 0;
+        return 0;
       else
-	return 7;
+        return 7;
     }
   else
     /* Color approximation.  */
@@ -353,9 +353,9 @@ rgb_to_color_xterm8 (int r, int g, int b)
       /* Greyscale approximation.  */
       float luminance = color_luminance (r, g, b);
       if (luminance < 0.500f)
-	return 0;
+        return 0;
       else
-	return 7;
+        return 7;
     }
   else
     /* Color approximation.  */
@@ -401,13 +401,13 @@ rgb_to_color_xterm16 (int r, int g, int b)
       /* Greyscale approximation.  */
       float luminance = color_luminance (r, g, b);
       if (luminance < 0.151f)
-	return 0;
+        return 0;
       else if (luminance < 0.600f)
-	return 8;
+        return 8;
       else if (luminance < 0.949f)
-	return 7;
+        return 7;
       else
-	return 15;
+        return 15;
     }
   else
     /* Color approximation.  */
@@ -527,31 +527,31 @@ rgb_to_color_xterm88 (int r, int g, int b)
       /* Greyscale approximation.  */
       float luminance = color_luminance (r, g, b);
       if (luminance < 0.090f)
-	return 0;
+        return 0;
       else if (luminance < 0.241f)
-	return 80;
+        return 80;
       else if (luminance < 0.331f)
-	return 8;
+        return 8;
       else if (luminance < 0.406f)
-	return 81;
+        return 81;
       else if (luminance < 0.498f)
-	return 82;
+        return 82;
       else if (luminance < 0.585f)
-	return 37;
+        return 37;
       else if (luminance < 0.680f)
-	return 84;
+        return 84;
       else if (luminance < 0.764f)
-	return 85;
+        return 85;
       else if (luminance < 0.810f)
-	return 58;
+        return 58;
       else if (luminance < 0.857f)
-	return 86;
+        return 86;
       else if (luminance < 0.902f)
-	return 7;
+        return 7;
       else if (luminance < 0.953f)
-	return 87;
+        return 87;
       else
-	return 15;
+        return 15;
     }
   else
     /* Color approximation.  */
@@ -839,71 +839,71 @@ rgb_to_color_xterm256 (int r, int g, int b)
       /* Greyscale approximation.  */
       float luminance = color_luminance (r, g, b);
       if (luminance < 0.015f)
-	return 0;
+        return 0;
       else if (luminance < 0.051f)
-	return 232;
+        return 232;
       else if (luminance < 0.090f)
-	return 233;
+        return 233;
       else if (luminance < 0.129f)
-	return 234;
+        return 234;
       else if (luminance < 0.157f)
-	return 235;
+        return 235;
       else if (luminance < 0.177f)
-	return 59;
+        return 59;
       else if (luminance < 0.207f)
-	return 236;
+        return 236;
       else if (luminance < 0.247f)
-	return 237;
+        return 237;
       else if (luminance < 0.284f)
-	return 238;
+        return 238;
       else if (luminance < 0.304f)
-	return 8;
+        return 8;
       else if (luminance < 0.319f)
-	return 239;
+        return 239;
       else if (luminance < 0.339f)
-	return 102;
+        return 102;
       else if (luminance < 0.364f)
-	return 240;
+        return 240;
       else if (luminance < 0.404f)
-	return 241;
+        return 241;
       else if (luminance < 0.443f)
-	return 242;
+        return 242;
       else if (luminance < 0.480f)
-	return 243;
+        return 243;
       else if (luminance < 0.500f)
-	return 145;
+        return 145;
       else if (luminance < 0.521f)
-	return 244;
+        return 244;
       else if (luminance < 0.560f)
-	return 245;
+        return 245;
       else if (luminance < 0.600f)
-	return 246;
+        return 246;
       else if (luminance < 0.639f)
-	return 247;
+        return 247;
       else if (luminance < 0.663f)
-	return 248;
+        return 248;
       else if (luminance < 0.682f)
-	return 188;
+        return 188;
       else if (luminance < 0.717f)
-	return 249;
+        return 249;
       else if (luminance < 0.756f)
-	return 250;
+        return 250;
       else if (luminance < 0.796f)
-	return 251;
+        return 251;
       else if (luminance < 0.823f)
-	return 252;
+        return 252;
       else if (luminance < 0.843f)
-	return 231;
+        return 231;
       else if (luminance < 0.874f)
-	return 253;
+        return 253;
       else if (luminance < 0.896f)
-	return 254;
+        return 254;
       else if (luminance < 0.915f)
-	return 7;
+        return 7;
       else if (luminance < 0.966f)
-	return 255;
+        return 255;
       else
-	return 15;
+        return 15;
     }
   else
     /* Color approximation.  */
@@ -946,20 +946,20 @@ fields:
   char *filename;
   /* Values from the terminal type's terminfo/termcap description.
      See terminfo(5) for details.  */
-				/* terminfo  termcap */
-  int max_colors;		/* colors    Co */
-  int no_color_video;		/* ncv       NC */
-  char *set_a_foreground;	/* setaf     AF */
-  char *set_foreground;		/* setf      Sf */
-  char *set_a_background;	/* setab     AB */
-  char *set_background;		/* setb      Sb */
-  char *orig_pair;		/* op        op */
-  char *enter_bold_mode;	/* bold      md */
-  char *enter_italics_mode;	/* sitm      ZH */
-  char *exit_italics_mode;	/* ritm      ZR */
-  char *enter_underline_mode;	/* smul      us */
-  char *exit_underline_mode;	/* rmul      ue */
-  char *exit_attribute_mode;	/* sgr0      me */
+                                /* terminfo  termcap */
+  int max_colors;               /* colors    Co */
+  int no_color_video;           /* ncv       NC */
+  char *set_a_foreground;       /* setaf     AF */
+  char *set_foreground;         /* setf      Sf */
+  char *set_a_background;       /* setab     AB */
+  char *set_background;         /* setb      Sb */
+  char *orig_pair;              /* op        op */
+  char *enter_bold_mode;        /* bold      md */
+  char *enter_italics_mode;     /* sitm      ZH */
+  char *exit_italics_mode;      /* ritm      ZR */
+  char *enter_underline_mode;   /* smul      us */
+  char *exit_underline_mode;    /* rmul      ue */
+  char *exit_attribute_mode;    /* sgr0      me */
   /* Inferred values.  */
   bool supports_foreground;
   bool supports_background;
@@ -968,13 +968,13 @@ fields:
   bool supports_posture;
   bool supports_underline;
   /* Variable state.  */
-  char *buffer;			/* Buffer for the current line.  */
-  attributes_t *attrbuffer;	/* Buffer for the simplified attributes; same
-				   length as buffer.  */
-  size_t buflen;		/* Number of bytes stored so far.  */
-  size_t allocated;		/* Allocated size of the buffer.  */
-  attributes_t curr_attr;	/* Current attributes.  */
-  attributes_t simp_attr;	/* Simplified current attributes.  */
+  char *buffer;                 /* Buffer for the current line.  */
+  attributes_t *attrbuffer;     /* Buffer for the simplified attributes; same
+                                   length as buffer.  */
+  size_t buflen;                /* Number of bytes stored so far.  */
+  size_t allocated;             /* Allocated size of the buffer.  */
+  attributes_t curr_attr;       /* Current attributes.  */
+  attributes_t simp_attr;       /* Simplified current attributes.  */
 };
 
 /* Simplify attributes, according to the terminal's capabilities.  */
@@ -985,13 +985,13 @@ simplify_attributes (term_ostream_t stream, attributes_t attr)
       && stream->no_color_video > 0)
     {
       /* When colors and attributes can not be represented simultaneously,
-	 we give preference to the color.  */
+         we give preference to the color.  */
       if (stream->no_color_video & 2)
-	/* Colors conflict with underlining.  */
-	attr.underline = UNDERLINE_OFF;
+        /* Colors conflict with underlining.  */
+        attr.underline = UNDERLINE_OFF;
       if (stream->no_color_video & 32)
-	/* Colors conflict with bold weight.  */
-	attr.weight = WEIGHT_NORMAL;
+        /* Colors conflict with bold weight.  */
+        attr.weight = WEIGHT_NORMAL;
     }
   if (!stream->supports_foreground)
     attr.color = COLOR_DEFAULT;
@@ -1040,13 +1040,13 @@ restore (void)
   if (out_fd >= 0)
     {
       if (restore_colors != NULL)
-	tputs (restore_colors, 1, out_char_unchecked);
+        tputs (restore_colors, 1, out_char_unchecked);
       if (restore_weight != NULL)
-	tputs (restore_weight, 1, out_char_unchecked);
+        tputs (restore_weight, 1, out_char_unchecked);
       if (restore_posture != NULL)
-	tputs (restore_posture, 1, out_char_unchecked);
+        tputs (restore_posture, 1, out_char_unchecked);
       if (restore_underline != NULL)
-	tputs (restore_underline, 1, out_char_unchecked);
+        tputs (restore_underline, 1, out_char_unchecked);
     }
 }
 
@@ -1079,7 +1079,7 @@ init_stopping_signal_set ()
 
       sigemptyset (&stopping_signal_set);
       for (i = 0; i < num_stopping_signals; i++)
-	sigaddset (&stopping_signal_set, stopping_signals[i]);
+        sigaddset (&stopping_signal_set, stopping_signals[i]);
 
       stopping_signal_set_initialized = true;
     }
@@ -1106,10 +1106,10 @@ static inline bool
 equal_attributes (attributes_t attr1, attributes_t attr2)
 {
   return (attr1.color == attr2.color
-	  && attr1.bgcolor == attr2.bgcolor
-	  && attr1.weight == attr2.weight
-	  && attr1.posture == attr2.posture
-	  && attr1.underline == attr2.underline);
+          && attr1.bgcolor == attr2.bgcolor
+          && attr1.weight == attr2.weight
+          && attr1.posture == attr2.posture
+          && attr1.underline == attr2.underline);
 }
 
 /* Signal error after full_write failed.  */
@@ -1137,7 +1137,7 @@ out_char (int c)
 /* Output escape sequences to switch from OLD_ATTR to NEW_ATTR.  */
 static void
 out_attr_change (term_ostream_t stream,
-		 attributes_t old_attr, attributes_t new_attr)
+                 attributes_t old_attr, attributes_t new_attr)
 {
   bool cleared_attributes;
 
@@ -1193,20 +1193,20 @@ out_attr_change (term_ostream_t stream,
   if ((old_attr.weight != WEIGHT_NORMAL
        && new_attr.weight == WEIGHT_NORMAL)
       || (old_attr.posture != POSTURE_NORMAL
-	  && new_attr.posture == POSTURE_NORMAL
-	  /* implies stream->exit_italics_mode == NULL */)
+          && new_attr.posture == POSTURE_NORMAL
+          /* implies stream->exit_italics_mode == NULL */)
       || (old_attr.underline != UNDERLINE_OFF
-	  && new_attr.underline == UNDERLINE_OFF
-	  /* implies stream->exit_underline_mode == NULL */))
+          && new_attr.underline == UNDERLINE_OFF
+          /* implies stream->exit_underline_mode == NULL */))
     {
       tputs (stream->exit_attribute_mode, 1, out_char);
       /* We don't know exactly what effects exit_attribute_mode has, but
-	 this is the minimum effect:  */
+         this is the minimum effect:  */
       old_attr.weight = WEIGHT_NORMAL;
       if (stream->exit_italics_mode == NULL)
-	old_attr.posture = POSTURE_NORMAL;
+        old_attr.posture = POSTURE_NORMAL;
       if (stream->exit_underline_mode == NULL)
-	old_attr.underline = UNDERLINE_OFF;
+        old_attr.underline = UNDERLINE_OFF;
       cleared_attributes = true;
     }
 
@@ -1217,87 +1217,87 @@ out_attr_change (term_ostream_t stream,
       assert (stream->supports_foreground);
       assert (new_attr.color != COLOR_DEFAULT);
       switch (stream->colormodel)
-	{
-	case cm_common8:
-	  assert (new_attr.color >= 0 && new_attr.color < 8);
-	  if (stream->set_a_foreground != NULL)
-	    tputs (tparm (stream->set_a_foreground,
-			  color_bgr (new_attr.color)),
-		   1, out_char);
-	  else
-	    tputs (tparm (stream->set_foreground, new_attr.color),
-		   1, out_char);
-	  break;
-	/* When we are dealing with an xterm, there is no need to go through
-	   tputs() because we know there is no padding and sleeping.  */
-	case cm_xterm8:
-	  assert (new_attr.color >= 0 && new_attr.color < 8);
-	  {
-	    char bytes[5];
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '3'; bytes[3] = '0' + new_attr.color;
-	    bytes[4] = 'm';
-	    if (full_write (out_fd, bytes, 5) < 5)
-	      out_error ();
-	  }
-	  break;
-	case cm_xterm16:
-	  assert (new_attr.color >= 0 && new_attr.color < 16);
-	  {
-	    char bytes[5];
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    if (new_attr.color < 8)
-	      {
-		bytes[2] = '3'; bytes[3] = '0' + new_attr.color;
-	      }
-	    else
-	      {
-		bytes[2] = '9'; bytes[3] = '0' + (new_attr.color - 8);
-	      }
-	    bytes[4] = 'm';
-	    if (full_write (out_fd, bytes, 5) < 5)
-	      out_error ();
-	  }
-	  break;
-	case cm_xterm88:
-	  assert (new_attr.color >= 0 && new_attr.color < 88);
-	  {
-	    char bytes[10];
-	    char *p;
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
-	    bytes[5] = '5'; bytes[6] = ';';
-	    p = bytes + 7;
-	    if (new_attr.color >= 10)
-	      *p++ = '0' + (new_attr.color / 10);
-	    *p++ = '0' + (new_attr.color % 10);
-	    *p++ = 'm';
-	    if (full_write (out_fd, bytes, p - bytes) < p - bytes)
-	      out_error ();
-	  }
-	  break;
-	case cm_xterm256:
-	  assert (new_attr.color >= 0 && new_attr.color < 256);
-	  {
-	    char bytes[11];
-	    char *p;
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
-	    bytes[5] = '5'; bytes[6] = ';';
-	    p = bytes + 7;
-	    if (new_attr.color >= 100)
-	      *p++ = '0' + (new_attr.color / 100);
-	    if (new_attr.color >= 10)
-	      *p++ = '0' + ((new_attr.color % 100) / 10);
-	    *p++ = '0' + (new_attr.color % 10);
-	    *p++ = 'm';
-	    if (full_write (out_fd, bytes, p - bytes) < p - bytes)
-	      out_error ();
-	  }
-	  break;
-	default:
-	  abort ();
-	}
+        {
+        case cm_common8:
+          assert (new_attr.color >= 0 && new_attr.color < 8);
+          if (stream->set_a_foreground != NULL)
+            tputs (tparm (stream->set_a_foreground,
+                          color_bgr (new_attr.color)),
+                   1, out_char);
+          else
+            tputs (tparm (stream->set_foreground, new_attr.color),
+                   1, out_char);
+          break;
+        /* When we are dealing with an xterm, there is no need to go through
+           tputs() because we know there is no padding and sleeping.  */
+        case cm_xterm8:
+          assert (new_attr.color >= 0 && new_attr.color < 8);
+          {
+            char bytes[5];
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '3'; bytes[3] = '0' + new_attr.color;
+            bytes[4] = 'm';
+            if (full_write (out_fd, bytes, 5) < 5)
+              out_error ();
+          }
+          break;
+        case cm_xterm16:
+          assert (new_attr.color >= 0 && new_attr.color < 16);
+          {
+            char bytes[5];
+            bytes[0] = 0x1B; bytes[1] = '[';
+            if (new_attr.color < 8)
+              {
+                bytes[2] = '3'; bytes[3] = '0' + new_attr.color;
+              }
+            else
+              {
+                bytes[2] = '9'; bytes[3] = '0' + (new_attr.color - 8);
+              }
+            bytes[4] = 'm';
+            if (full_write (out_fd, bytes, 5) < 5)
+              out_error ();
+          }
+          break;
+        case cm_xterm88:
+          assert (new_attr.color >= 0 && new_attr.color < 88);
+          {
+            char bytes[10];
+            char *p;
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
+            bytes[5] = '5'; bytes[6] = ';';
+            p = bytes + 7;
+            if (new_attr.color >= 10)
+              *p++ = '0' + (new_attr.color / 10);
+            *p++ = '0' + (new_attr.color % 10);
+            *p++ = 'm';
+            if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+              out_error ();
+          }
+          break;
+        case cm_xterm256:
+          assert (new_attr.color >= 0 && new_attr.color < 256);
+          {
+            char bytes[11];
+            char *p;
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
+            bytes[5] = '5'; bytes[6] = ';';
+            p = bytes + 7;
+            if (new_attr.color >= 100)
+              *p++ = '0' + (new_attr.color / 100);
+            if (new_attr.color >= 10)
+              *p++ = '0' + ((new_attr.color % 100) / 10);
+            *p++ = '0' + (new_attr.color % 10);
+            *p++ = 'm';
+            if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+              out_error ();
+          }
+          break;
+        default:
+          abort ();
+        }
     }
   if (new_attr.bgcolor != old_attr.bgcolor
       || (cleared_attributes && new_attr.bgcolor != COLOR_DEFAULT))
@@ -1305,90 +1305,90 @@ out_attr_change (term_ostream_t stream,
       assert (stream->supports_background);
       assert (new_attr.bgcolor != COLOR_DEFAULT);
       switch (stream->colormodel)
-	{
-	case cm_common8:
-	  assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 8);
-	  if (stream->set_a_background != NULL)
-	    tputs (tparm (stream->set_a_background,
-			  color_bgr (new_attr.bgcolor)),
-		   1, out_char);
-	  else
-	    tputs (tparm (stream->set_background, new_attr.bgcolor),
-		   1, out_char);
-	  break;
-	/* When we are dealing with an xterm, there is no need to go through
-	   tputs() because we know there is no padding and sleeping.  */
-	case cm_xterm8:
-	  assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 8);
-	  {
-	    char bytes[5];
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '4'; bytes[3] = '0' + new_attr.bgcolor;
-	    bytes[4] = 'm';
-	    if (full_write (out_fd, bytes, 5) < 5)
-	      out_error ();
-	  }
-	  break;
-	case cm_xterm16:
-	  assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 16);
-	  {
-	    char bytes[6];
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    if (new_attr.bgcolor < 8)
-	      {
-		bytes[2] = '4'; bytes[3] = '0' + new_attr.bgcolor;
-		bytes[4] = 'm';
-		if (full_write (out_fd, bytes, 5) < 5)
-		  out_error ();
-	      }
-	    else
-	      {
-		bytes[2] = '1'; bytes[3] = '0';
-		bytes[4] = '0' + (new_attr.bgcolor - 8); bytes[5] = 'm';
-		if (full_write (out_fd, bytes, 6) < 6)
-		  out_error ();
-	      }
-	  }
-	  break;
-	case cm_xterm88:
-	  assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 88);
-	  {
-	    char bytes[10];
-	    char *p;
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
-	    bytes[5] = '5'; bytes[6] = ';';
-	    p = bytes + 7;
-	    if (new_attr.bgcolor >= 10)
-	      *p++ = '0' + (new_attr.bgcolor / 10);
-	    *p++ = '0' + (new_attr.bgcolor % 10);
-	    *p++ = 'm';
-	    if (full_write (out_fd, bytes, p - bytes) < p - bytes)
-	      out_error ();
-	  }
-	  break;
-	case cm_xterm256:
-	  assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 256);
-	  {
-	    char bytes[11];
-	    char *p;
-	    bytes[0] = 0x1B; bytes[1] = '[';
-	    bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
-	    bytes[5] = '5'; bytes[6] = ';';
-	    p = bytes + 7;
-	    if (new_attr.bgcolor >= 100)
-	      *p++ = '0' + (new_attr.bgcolor / 100);
-	    if (new_attr.bgcolor >= 10)
-	      *p++ = '0' + ((new_attr.bgcolor % 100) / 10);
-	    *p++ = '0' + (new_attr.bgcolor % 10);
-	    *p++ = 'm';
-	    if (full_write (out_fd, bytes, p - bytes) < p - bytes)
-	      out_error ();
-	  }
-	  break;
-	default:
-	  abort ();
-	}
+        {
+        case cm_common8:
+          assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 8);
+          if (stream->set_a_background != NULL)
+            tputs (tparm (stream->set_a_background,
+                          color_bgr (new_attr.bgcolor)),
+                   1, out_char);
+          else
+            tputs (tparm (stream->set_background, new_attr.bgcolor),
+                   1, out_char);
+          break;
+        /* When we are dealing with an xterm, there is no need to go through
+           tputs() because we know there is no padding and sleeping.  */
+        case cm_xterm8:
+          assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 8);
+          {
+            char bytes[5];
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '4'; bytes[3] = '0' + new_attr.bgcolor;
+            bytes[4] = 'm';
+            if (full_write (out_fd, bytes, 5) < 5)
+              out_error ();
+          }
+          break;
+        case cm_xterm16:
+          assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 16);
+          {
+            char bytes[6];
+            bytes[0] = 0x1B; bytes[1] = '[';
+            if (new_attr.bgcolor < 8)
+              {
+                bytes[2] = '4'; bytes[3] = '0' + new_attr.bgcolor;
+                bytes[4] = 'm';
+                if (full_write (out_fd, bytes, 5) < 5)
+                  out_error ();
+              }
+            else
+              {
+                bytes[2] = '1'; bytes[3] = '0';
+                bytes[4] = '0' + (new_attr.bgcolor - 8); bytes[5] = 'm';
+                if (full_write (out_fd, bytes, 6) < 6)
+                  out_error ();
+              }
+          }
+          break;
+        case cm_xterm88:
+          assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 88);
+          {
+            char bytes[10];
+            char *p;
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
+            bytes[5] = '5'; bytes[6] = ';';
+            p = bytes + 7;
+            if (new_attr.bgcolor >= 10)
+              *p++ = '0' + (new_attr.bgcolor / 10);
+            *p++ = '0' + (new_attr.bgcolor % 10);
+            *p++ = 'm';
+            if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+              out_error ();
+          }
+          break;
+        case cm_xterm256:
+          assert (new_attr.bgcolor >= 0 && new_attr.bgcolor < 256);
+          {
+            char bytes[11];
+            char *p;
+            bytes[0] = 0x1B; bytes[1] = '[';
+            bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
+            bytes[5] = '5'; bytes[6] = ';';
+            p = bytes + 7;
+            if (new_attr.bgcolor >= 100)
+              *p++ = '0' + (new_attr.bgcolor / 100);
+            if (new_attr.bgcolor >= 10)
+              *p++ = '0' + ((new_attr.bgcolor % 100) / 10);
+            *p++ = '0' + (new_attr.bgcolor % 10);
+            *p++ = 'm';
+            if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+              out_error ();
+          }
+          break;
+        default:
+          abort ();
+        }
     }
 
   if (new_attr.weight != old_attr.weight
@@ -1452,7 +1452,7 @@ output_buffer (term_ostream_t stream)
   if (n > 0)
     {
       if (full_write (stream->fd, cp, n) < n)
-	error (EXIT_FAILURE, errno, _("error writing to %s"), stream->filename);
+        error (EXIT_FAILURE, errno, _("error writing to %s"), stream->filename);
       cp += n;
       ap += n;
       len -= n;
@@ -1460,49 +1460,49 @@ output_buffer (term_ostream_t stream)
   if (len > 0)
     {
       /* Block fatal signals, so that a SIGINT or similar doesn't interrupt
-	 us without the possibility of restoring the terminal's state.  */
+         us without the possibility of restoring the terminal's state.  */
       block_fatal_signals ();
       /* Likewise for SIGTSTP etc.  */
       block_stopping_signals ();
 
       /* Enable the exit handler for restoring the terminal's state.  */
       restore_colors =
-	(stream->supports_foreground || stream->supports_background
-	 ? stream->orig_pair
-	 : NULL);
+        (stream->supports_foreground || stream->supports_background
+         ? stream->orig_pair
+         : NULL);
       restore_weight =
-	(stream->supports_weight ? stream->exit_attribute_mode : NULL);
+        (stream->supports_weight ? stream->exit_attribute_mode : NULL);
       restore_posture =
-	(stream->supports_posture
-	 ? (stream->exit_italics_mode != NULL
-	    ? stream->exit_italics_mode
-	    : stream->exit_attribute_mode)
-	 : NULL);
+        (stream->supports_posture
+         ? (stream->exit_italics_mode != NULL
+            ? stream->exit_italics_mode
+            : stream->exit_attribute_mode)
+         : NULL);
       restore_underline =
-	(stream->supports_underline
-	 ? (stream->exit_underline_mode != NULL
-	    ? stream->exit_underline_mode
-	    : stream->exit_attribute_mode)
-	 : NULL);
+        (stream->supports_underline
+         ? (stream->exit_underline_mode != NULL
+            ? stream->exit_underline_mode
+            : stream->exit_attribute_mode)
+         : NULL);
       out_fd = stream->fd;
       out_filename = stream->filename;
 
       while (len > 0)
-	{
-	  /* Activate the attributes in *ap.  */
-	  out_attr_change (stream, attr, *ap);
-	  attr = *ap;
-	  /* See how many characters we can output without further attribute
-	     changes.  */
-	  for (n = 1; n < len && equal_attributes (ap[n], attr); n++)
-	    ;
-	  if (full_write (stream->fd, cp, n) < n)
-	    error (EXIT_FAILURE, errno, _("error writing to %s"),
-		   stream->filename);
-	  cp += n;
-	  ap += n;
-	  len -= n;
-	}
+        {
+          /* Activate the attributes in *ap.  */
+          out_attr_change (stream, attr, *ap);
+          attr = *ap;
+          /* See how many characters we can output without further attribute
+             changes.  */
+          for (n = 1; n < len && equal_attributes (ap[n], attr); n++)
+            ;
+          if (full_write (stream->fd, cp, n) < n)
+            error (EXIT_FAILURE, errno, _("error writing to %s"),
+                   stream->filename);
+          cp += n;
+          ap += n;
+          len -= n;
+        }
 
       /* Switch back to the default attributes.  */
       out_attr_change (stream, attr, default_attr);
@@ -1554,42 +1554,42 @@ term_ostream::write_mem (term_ostream_t stream, const void *data, size_t len)
 
       /* Copy n bytes into the buffer.  */
       if (n > stream->allocated - stream->buflen)
-	{
-	  size_t new_allocated =
-	    xmax (xsum (stream->buflen, n),
-		  xsum (stream->allocated, stream->allocated));
-	  if (size_overflow_p (new_allocated))
-	    error (EXIT_FAILURE, 0,
-		   _("%s: too much output, buffer size overflow"),
-		   "term_ostream");
-	  stream->buffer = (char *) xrealloc (stream->buffer, new_allocated);
-	  stream->attrbuffer =
-	    (attributes_t *)
-	    xrealloc (stream->attrbuffer,
-		      new_allocated * sizeof (attributes_t));
-	  stream->allocated = new_allocated;
-	}
+        {
+          size_t new_allocated =
+            xmax (xsum (stream->buflen, n),
+                  xsum (stream->allocated, stream->allocated));
+          if (size_overflow_p (new_allocated))
+            error (EXIT_FAILURE, 0,
+                   _("%s: too much output, buffer size overflow"),
+                   "term_ostream");
+          stream->buffer = (char *) xrealloc (stream->buffer, new_allocated);
+          stream->attrbuffer =
+            (attributes_t *)
+            xrealloc (stream->attrbuffer,
+                      new_allocated * sizeof (attributes_t));
+          stream->allocated = new_allocated;
+        }
       memcpy (stream->buffer + stream->buflen, cp, n);
       {
-	attributes_t attr = stream->simp_attr;
-	attributes_t *ap = stream->attrbuffer + stream->buflen;
-	attributes_t *ap_end = ap + n;
-	for (; ap < ap_end; ap++)
-	  *ap = attr;
+        attributes_t attr = stream->simp_attr;
+        attributes_t *ap = stream->attrbuffer + stream->buflen;
+        attributes_t *ap_end = ap + n;
+        for (; ap < ap_end; ap++)
+          *ap = attr;
       }
       stream->buflen += n;
 
       if (newline != NULL)
-	{
-	  output_buffer (stream);
-	  if (full_write (stream->fd, "\n", 1) < 1)
-	    error (EXIT_FAILURE, errno, _("error writing to %s"),
-		   stream->filename);
-	  cp += n + 1; /* cp = newline + 1; */
-	  len -= n + 1;
-	}
+        {
+          output_buffer (stream);
+          if (full_write (stream->fd, "\n", 1) < 1)
+            error (EXIT_FAILURE, errno, _("error writing to %s"),
+                   stream->filename);
+          cp += n + 1; /* cp = newline + 1; */
+          len -= n + 1;
+        }
       else
-	break;
+        break;
     }
 }
 
@@ -1741,31 +1741,31 @@ term_ostream_create (int fd, const char *filename)
   if (term != NULL && term[0] != '\0')
     {
       /* When the terminfo function are available, we prefer them over the
-	 termcap functions because
-	   1. they don't risk a buffer overflow,
-	   2. on OSF/1, for TERM=xterm, the tiget* functions provide access
-	      to the number of colors and the color escape sequences, whereas
-	      the tget* functions don't provide them.  */
+         termcap functions because
+           1. they don't risk a buffer overflow,
+           2. on OSF/1, for TERM=xterm, the tiget* functions provide access
+              to the number of colors and the color escape sequences, whereas
+              the tget* functions don't provide them.  */
 #if HAVE_TERMINFO
       int err = 1;
 
       if (setupterm (term, fd, &err) || err == 1)
-	{
-	  /* Retrieve particular values depending on the terminal type.  */
-	  stream->max_colors = tigetnum ("colors");
-	  stream->no_color_video = tigetnum ("ncv");
-	  stream->set_a_foreground = xstrdup0 (tigetstr ("setaf"));
-	  stream->set_foreground = xstrdup0 (tigetstr ("setf"));
-	  stream->set_a_background = xstrdup0 (tigetstr ("setab"));
-	  stream->set_background = xstrdup0 (tigetstr ("setb"));
-	  stream->orig_pair = xstrdup0 (tigetstr ("op"));
-	  stream->enter_bold_mode = xstrdup0 (tigetstr ("bold"));
-	  stream->enter_italics_mode = xstrdup0 (tigetstr ("sitm"));
-	  stream->exit_italics_mode = xstrdup0 (tigetstr ("ritm"));
-	  stream->enter_underline_mode = xstrdup0 (tigetstr ("smul"));
-	  stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
-	  stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
-	}
+        {
+          /* Retrieve particular values depending on the terminal type.  */
+          stream->max_colors = tigetnum ("colors");
+          stream->no_color_video = tigetnum ("ncv");
+          stream->set_a_foreground = xstrdup0 (tigetstr ("setaf"));
+          stream->set_foreground = xstrdup0 (tigetstr ("setf"));
+          stream->set_a_background = xstrdup0 (tigetstr ("setab"));
+          stream->set_background = xstrdup0 (tigetstr ("setb"));
+          stream->orig_pair = xstrdup0 (tigetstr ("op"));
+          stream->enter_bold_mode = xstrdup0 (tigetstr ("bold"));
+          stream->enter_italics_mode = xstrdup0 (tigetstr ("sitm"));
+          stream->exit_italics_mode = xstrdup0 (tigetstr ("ritm"));
+          stream->enter_underline_mode = xstrdup0 (tigetstr ("smul"));
+          stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
+          stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
+        }
 #elif HAVE_TERMCAP
       struct { char buf[1024]; char canary[4]; } termcapbuf;
       int retval;
@@ -1774,64 +1774,64 @@ term_ostream_create (int fd, const char *filename)
       memcpy (termcapbuf.canary, "CnRy", 4);
       retval = tgetent (termcapbuf.buf, term);
       if (memcmp (termcapbuf.canary, "CnRy", 4) != 0)
-	/* Buffer overflow!  */
-	abort ();
+        /* Buffer overflow!  */
+        abort ();
 
       if (retval > 0)
-	{
-	  struct { char buf[1024]; char canary[4]; } termentrybuf;
-	  char *termentryptr;
+        {
+          struct { char buf[1024]; char canary[4]; } termentrybuf;
+          char *termentryptr;
 
-	  /* Prepare for calling tgetstr, being defensive against buffer
-	     overflow.  ncurses' tgetstr() supports a second argument NULL,
-	     but NetBSD's tgetstr() doesn't.  */
-	  memcpy (termentrybuf.canary, "CnRz", 4);
-	  #define TEBP ((termentryptr = termentrybuf.buf), &termentryptr)
+          /* Prepare for calling tgetstr, being defensive against buffer
+             overflow.  ncurses' tgetstr() supports a second argument NULL,
+             but NetBSD's tgetstr() doesn't.  */
+          memcpy (termentrybuf.canary, "CnRz", 4);
+          #define TEBP ((termentryptr = termentrybuf.buf), &termentryptr)
 
-	  /* Retrieve particular values depending on the terminal type.  */
-	  stream->max_colors = tgetnum ("Co");
-	  stream->no_color_video = tgetnum ("NC");
-	  stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
-	  stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
-	  stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
-	  stream->set_background = xstrdup0 (tgetstr ("Sb", TEBP));
-	  stream->orig_pair = xstrdup0 (tgetstr ("op", TEBP));
-	  stream->enter_bold_mode = xstrdup0 (tgetstr ("md", TEBP));
-	  stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", TEBP));
-	  stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", TEBP));
-	  stream->enter_underline_mode = xstrdup0 (tgetstr ("us", TEBP));
-	  stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
-	  stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
+          /* Retrieve particular values depending on the terminal type.  */
+          stream->max_colors = tgetnum ("Co");
+          stream->no_color_video = tgetnum ("NC");
+          stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
+          stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
+          stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
+          stream->set_background = xstrdup0 (tgetstr ("Sb", TEBP));
+          stream->orig_pair = xstrdup0 (tgetstr ("op", TEBP));
+          stream->enter_bold_mode = xstrdup0 (tgetstr ("md", TEBP));
+          stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", TEBP));
+          stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", TEBP));
+          stream->enter_underline_mode = xstrdup0 (tgetstr ("us", TEBP));
+          stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
+          stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
 
 # ifdef __BEOS__
-	  /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB"
-	     it contains balues in terminfo syntax but the system's tparam()
-	     function understands only the termcap syntax.  */
-	  if (stream->set_a_foreground != NULL
-	      && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
-	    {
-	      free (stream->set_a_foreground);
-	      stream->set_a_foreground = xstrdup ("\033[3%dm");
-	    }
-	  if (stream->set_a_background != NULL
-	      && strcmp (stream->set_a_background, "\033[4%p1%dm") == 0)
-	    {
-	      free (stream->set_a_background);
-	      stream->set_a_background = xstrdup ("\033[4%dm");
-	    }
+          /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB"
+             it contains balues in terminfo syntax but the system's tparam()
+             function understands only the termcap syntax.  */
+          if (stream->set_a_foreground != NULL
+              && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
+            {
+              free (stream->set_a_foreground);
+              stream->set_a_foreground = xstrdup ("\033[3%dm");
+            }
+          if (stream->set_a_background != NULL
+              && strcmp (stream->set_a_background, "\033[4%p1%dm") == 0)
+            {
+              free (stream->set_a_background);
+              stream->set_a_background = xstrdup ("\033[4%dm");
+            }
 # endif
 
-	  /* The termcap entry for cygwin is broken: It has no "ncv" value,
-	     but bold and underline are actually rendered through colors.  */
-	  if (strcmp (term, "cygwin") == 0)
-	    stream->no_color_video |= 2 | 32;
+          /* The termcap entry for cygwin is broken: It has no "ncv" value,
+             but bold and underline are actually rendered through colors.  */
+          if (strcmp (term, "cygwin") == 0)
+            stream->no_color_video |= 2 | 32;
 
-	  /* Done with tgetstr.  Detect possible buffer overflow.  */
-	  #undef TEBP
-	  if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
-	    /* Buffer overflow!  */
-	    abort ();
-	}
+          /* Done with tgetstr.  Detect possible buffer overflow.  */
+          #undef TEBP
+          if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
+            /* Buffer overflow!  */
+            abort ();
+        }
 #else
     /* Fallback code for platforms with neither the terminfo nor the termcap
        functions, such as mingw.
@@ -1849,17 +1849,17 @@ term_ostream_create (int fd, const char *filename)
 #endif
 
       /* AIX 4.3.2, IRIX 6.5, HP-UX 11, Solaris 7..10 all lack the
-	 description of color capabilities of "xterm" and "xterms"
-	 in their terminfo database.  But it is important to have
-	 color in xterm.  So we provide the color capabilities here.  */
+         description of color capabilities of "xterm" and "xterms"
+         in their terminfo database.  But it is important to have
+         color in xterm.  So we provide the color capabilities here.  */
       if (stream->max_colors <= 1
-	  && (strcmp (term, "xterm") == 0 || strcmp (term, "xterms") == 0))
-	{
-	  stream->max_colors = 8;
-	  stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
-	  stream->set_a_background = xstrdup ("\033[4%p1%dm");
-	  stream->orig_pair = xstrdup ("\033[39;49m");
-	}
+          && (strcmp (term, "xterm") == 0 || strcmp (term, "xterms") == 0))
+        {
+          stream->max_colors = 8;
+          stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
+          stream->set_a_background = xstrdup ("\033[4%p1%dm");
+          stream->orig_pair = xstrdup ("\033[39;49m");
+        }
     }
 
   /* Infer the capabilities.  */
@@ -1874,28 +1874,28 @@ term_ostream_create (int fd, const char *filename)
   stream->colormodel =
     (stream->supports_foreground || stream->supports_background
      ? (term != NULL
-	&& (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
-	    (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
-	    || /* Recognize rxvt-16color.  */
-	       (strlen (term) >= 4 && memcmp (term, "rxvt", 7) == 0)
-	    || /* Recognize konsole-16color.  */
-	       (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
-	? (stream->max_colors == 256 ? cm_xterm256 :
-	   stream->max_colors == 88 ? cm_xterm88 :
-	   stream->max_colors == 16 ? cm_xterm16 :
-	   cm_xterm8)
-	: cm_common8)
+        && (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
+            (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
+            || /* Recognize rxvt-16color.  */
+               (strlen (term) >= 4 && memcmp (term, "rxvt", 7) == 0)
+            || /* Recognize konsole-16color.  */
+               (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
+        ? (stream->max_colors == 256 ? cm_xterm256 :
+           stream->max_colors == 88 ? cm_xterm88 :
+           stream->max_colors == 16 ? cm_xterm16 :
+           cm_xterm8)
+        : cm_common8)
      : cm_monochrome);
   stream->supports_weight =
     (stream->enter_bold_mode != NULL && stream->exit_attribute_mode != NULL);
   stream->supports_posture =
     (stream->enter_italics_mode != NULL
      && (stream->exit_italics_mode != NULL
-	 || stream->exit_attribute_mode != NULL));
+         || stream->exit_attribute_mode != NULL));
   stream->supports_underline =
     (stream->enter_underline_mode != NULL
      && (stream->exit_underline_mode != NULL
-	 || stream->exit_attribute_mode != NULL));
+         || stream->exit_attribute_mode != NULL));
 
   /* Initialize the buffer.  */
   stream->allocated = 120;
@@ -1916,8 +1916,8 @@ term_ostream_create (int fd, const char *filename)
     static bool registered = false;
     if (!registered)
       {
-	atexit (restore);
-	registered = true;
+        atexit (restore);
+        registered = true;
       }
   }
 

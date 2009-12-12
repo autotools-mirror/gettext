@@ -91,10 +91,10 @@ main (int argc, char *argv[])
 
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "+d:eEhV", long_options, NULL))
-	 != EOF)
+         != EOF)
     switch (optchar)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
     case 'd':
       domain = optarg;
@@ -125,7 +125,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "1995-1997, 2000-2007");
+              "1995-1997, 2000-2007");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
@@ -189,7 +189,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     {
       /* Bind domain to appropriate directory.  */
       if (domaindir != NULL && domaindir[0] != '\0')
-	bindtextdomain (domain, domaindir);
+        bindtextdomain (domain, domaindir);
 
       /* Write out the result.  */
       fputs (dngettext (domain, msgid, msgid_plural, n), stdout);
@@ -205,7 +205,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       /* xgettext: no-wrap */
@@ -236,7 +236,7 @@ environment variable TEXTDOMAIN.  If the message catalog is not found in the\n\
 regular directory, another location can be specified with the environment\n\
 variable TEXTDOMAINDIR.\n\
 Standard search directory: %s\n"),
-	      getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
+              getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
       printf ("\n");
       /* TRANSLATORS: The placeholder indicates the bug-reporting address
          for this package.  Please add _another line_ saying
@@ -259,14 +259,14 @@ expand_escape (const char *str)
   for (;;)
     {
       while (cp[0] != '\0' && cp[0] != '\\')
-	++cp;
+        ++cp;
       if (cp[0] == '\0')
-	return str;
+        return str;
       /* Found a backslash.  */
       if (cp[1] == '\0')
-	return str;
+        return str;
       if (strchr ("abcfnrtv\\01234567", cp[1]) != NULL)
-	break;
+        break;
       ++cp;
     }
 
@@ -279,65 +279,65 @@ expand_escape (const char *str)
     {
       /* Here cp[0] == '\\'.  */
       switch (*++cp)
-	{
-	case 'a':		/* alert */
-	  *rp++ = '\a';
-	  ++cp;
-	  break;
-	case 'b':		/* backspace */
-	  *rp++ = '\b';
-	  ++cp;
-	  break;
-	case 'f':		/* form feed */
-	  *rp++ = '\f';
-	  ++cp;
-	  break;
-	case 'n':		/* new line */
-	  *rp++ = '\n';
-	  ++cp;
-	  break;
-	case 'r':		/* carriage return */
-	  *rp++ = '\r';
-	  ++cp;
-	  break;
-	case 't':		/* horizontal tab */
-	  *rp++ = '\t';
-	  ++cp;
-	  break;
-	case 'v':		/* vertical tab */
-	  *rp++ = '\v';
-	  ++cp;
-	  break;
-	case '\\':
-	  *rp = '\\';
-	  ++cp;
-	  break;
-	case '0': case '1': case '2': case '3':
-	case '4': case '5': case '6': case '7':
-	  {
-	    int ch = *cp++ - '0';
+        {
+        case 'a':               /* alert */
+          *rp++ = '\a';
+          ++cp;
+          break;
+        case 'b':               /* backspace */
+          *rp++ = '\b';
+          ++cp;
+          break;
+        case 'f':               /* form feed */
+          *rp++ = '\f';
+          ++cp;
+          break;
+        case 'n':               /* new line */
+          *rp++ = '\n';
+          ++cp;
+          break;
+        case 'r':               /* carriage return */
+          *rp++ = '\r';
+          ++cp;
+          break;
+        case 't':               /* horizontal tab */
+          *rp++ = '\t';
+          ++cp;
+          break;
+        case 'v':               /* vertical tab */
+          *rp++ = '\v';
+          ++cp;
+          break;
+        case '\\':
+          *rp = '\\';
+          ++cp;
+          break;
+        case '0': case '1': case '2': case '3':
+        case '4': case '5': case '6': case '7':
+          {
+            int ch = *cp++ - '0';
 
-	    if (*cp >= '0' && *cp <= '7')
-	      {
-		ch *= 8;
-		ch += *cp++ - '0';
+            if (*cp >= '0' && *cp <= '7')
+              {
+                ch *= 8;
+                ch += *cp++ - '0';
 
-		if (*cp >= '0' && *cp <= '7')
-		  {
-		    ch *= 8;
-		    ch += *cp++ - '0';
-		  }
-	      }
-	    *rp = ch;
-	  }
-	  break;
-	default:
-	  *rp = '\\';
-	  break;
-	}
+                if (*cp >= '0' && *cp <= '7')
+                  {
+                    ch *= 8;
+                    ch += *cp++ - '0';
+                  }
+              }
+            *rp = ch;
+          }
+          break;
+        default:
+          *rp = '\\';
+          break;
+        }
 
       while (cp[0] != '\0' && cp[0] != '\\')
-	*rp++ = *cp++;
+        *rp++ = *cp++;
     }
   while (cp[0] != '\0');
 

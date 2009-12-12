@@ -49,10 +49,10 @@ multiline_warning (char *prefix, char *message)
     {
       width = 0;
       if (error_with_progname)
-	{
-	  fprintf (stderr, "%s: ", program_name);
-	  width += mbswidth (program_name, 0) + 2;
-	}
+        {
+          fprintf (stderr, "%s: ", program_name);
+          width += mbswidth (program_name, 0) + 2;
+        }
       fputs (prefix, stderr);
       width += mbswidth (prefix, 0);
       free (prefix);
@@ -64,16 +64,16 @@ multiline_warning (char *prefix, char *message)
       const char *np;
 
       for (i = width; i > 0; i--)
-	putc (' ', stderr);
+        putc (' ', stderr);
 
     after_indent:
       np = strchr (cp, '\n');
 
       if (np == NULL || np[1] == '\0')
-	{
-	  fputs (cp, stderr);
-	  break;
-	}
+        {
+          fputs (cp, stderr);
+          break;
+        }
 
       np++;
       fwrite (cp, 1, np - cp, stderr);

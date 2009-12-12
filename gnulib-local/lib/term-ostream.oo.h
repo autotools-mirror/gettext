@@ -65,7 +65,7 @@ methods:
   /* Convert an RGB value (red, green, blue in [0..255]) to a color, valid
      for this stream only.  */
   term_color_t rgb_to_color (term_ostream_t stream,
-			     int red, int green, int blue);
+                             int red, int green, int blue);
 
   /* Get/set the text color.  */
   term_color_t get_color (term_ostream_t stream);
@@ -86,7 +86,7 @@ methods:
   /* Get/set the text underline decoration.  */
   term_underline_t get_underline (term_ostream_t stream);
   void             set_underline (term_ostream_t stream,
-				  term_underline_t underline);
+                                  term_underline_t underline);
 };
 
 

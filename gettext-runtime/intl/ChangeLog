@@ -1,3 +1,28 @@
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* intl-compat.c: Untabify.
+	* intl-exports.c: Untabify.
+	* langprefs.c: Untabify.
+	* libgnuintl.h.in: Untabify.
+	* localcharset.c: Untabify.
+	* localename.c: Untabify.
+	* lock.c: Untabify.
+	* log.c: Untabify.
+	* os2compat.h: Untabify.
+	* printf-args.c: Untabify.
+	* printf-args.h: Untabify.
+	* printf-parse.c: Untabify.
+	* printf-parse.h: Untabify.
+	* printf.c: Untabify.
+	* relocatable.c: Untabify.
+	* relocatable.h: Untabify.
+	* threadlib.c: Untabify.
+	* tsearch.c: Untabify.
+	* tsearch.h: Untabify.
+	* vasnprintf.c: Untabify.
+	* vasnwprintf.h: Untabify.
+	* wprintf-parse.h: Untabify.
+
 2009-12-11  Bruno Haible  <bruno@clisp.org>
 
 	* config.charset: Untabify.

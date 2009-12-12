@@ -84,7 +84,7 @@ fields:
 
 static void
 term_styled_ostream::write_mem (term_styled_ostream_t stream,
-				const void *data, size_t len)
+                                const void *data, size_t len)
 {
   term_ostream_set_color (stream->destination, stream->curr_attr->color);
   term_ostream_set_bgcolor (stream->destination, stream->curr_attr->bgcolor);
@@ -116,7 +116,7 @@ term_styled_ostream::free (term_styled_ostream_t stream)
 
     while (hash_iterate (&stream->cache, &ptr, &key, &keylen, &data) == 0)
       {
-	free (data);
+        free (data);
       }
   }
   hash_destroy (&stream->cache);
@@ -177,9 +177,9 @@ crx_style_destroy (CRXStyle *a_style)
 /* An extended version of cr_sel_eng_get_matched_style.  */
 static enum CRStatus
 crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
-			       xmlNode * a_node,
-			       CRXStyle * a_parent_style, CRXStyle ** a_style,
-			       gboolean a_set_props_to_initial_values)
+                               xmlNode * a_node,
+                               CRXStyle * a_parent_style, CRXStyle ** a_style,
+                               gboolean a_set_props_to_initial_values)
 {
   enum CRStatus status;
   CRPropList *props = NULL;
@@ -188,7 +188,7 @@ crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
     return CR_BAD_PARAM_ERROR;
 
   status = cr_sel_eng_get_matched_properties_from_cascade (a_this, a_cascade,
-							   a_node, &props);
+                                                           a_node, &props);
   if (!(status == CR_OK))
     return status;
 
@@ -197,69 +197,69 @@ crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
       CRXStyle *style;
 
       if (!*a_style)
-	{
-	  *a_style = crx_style_new (a_set_props_to_initial_values);
-	  if (!*a_style)
-	    return CR_ERROR;
-	}
+        {
+          *a_style = crx_style_new (a_set_props_to_initial_values);
+          if (!*a_style)
+            return CR_ERROR;
+        }
       else
-	{
-	  if (a_set_props_to_initial_values)
-	    {
-	      cr_style_set_props_to_initial_values ((*a_style)->base);
-	      (*a_style)->text_decoration = TEXT_DECORATION_NONE;
-	    }
-	  else
-	    {
-	      cr_style_set_props_to_default_values ((*a_style)->base);
-	      (*a_style)->text_decoration = TEXT_DECORATION_INHERIT;
-	    }
-	}
+        {
+          if (a_set_props_to_initial_values)
+            {
+              cr_style_set_props_to_initial_values ((*a_style)->base);
+              (*a_style)->text_decoration = TEXT_DECORATION_NONE;
+            }
+          else
+            {
+              cr_style_set_props_to_default_values ((*a_style)->base);
+              (*a_style)->text_decoration = TEXT_DECORATION_INHERIT;
+            }
+        }
       style = *a_style;
       style->parent_style = a_parent_style;
       style->base->parent_style =
-	(a_parent_style != NULL ? a_parent_style->base : NULL);
+        (a_parent_style != NULL ? a_parent_style->base : NULL);
 
       {
-	CRPropList *cur;
+        CRPropList *cur;
 
-	for (cur = props; cur != NULL; cur = cr_prop_list_get_next (cur))
-	  {
-	    CRDeclaration *decl = NULL;
+        for (cur = props; cur != NULL; cur = cr_prop_list_get_next (cur))
+          {
+            CRDeclaration *decl = NULL;
 
-	    cr_prop_list_get_decl (cur, &decl);
-	    cr_style_set_style_from_decl (style->base, decl);
-	    if (decl != NULL
-		&& decl->property != NULL
-		&& decl->property->stryng != NULL
-		&& decl->property->stryng->str != NULL)
-	      {
-		if (strcmp (decl->property->stryng->str, "text-decoration") == 0
-		    && decl->value != NULL
-		    && decl->value->type == TERM_IDENT
-		    && decl->value->content.str != NULL)
-		  {
-		    const char *value =
-		      cr_string_peek_raw_str (decl->value->content.str);
+            cr_prop_list_get_decl (cur, &decl);
+            cr_style_set_style_from_decl (style->base, decl);
+            if (decl != NULL
+                && decl->property != NULL
+                && decl->property->stryng != NULL
+                && decl->property->stryng->str != NULL)
+              {
+                if (strcmp (decl->property->stryng->str, "text-decoration") == 0
+                    && decl->value != NULL
+                    && decl->value->type == TERM_IDENT
+                    && decl->value->content.str != NULL)
+                  {
+                    const char *value =
+                      cr_string_peek_raw_str (decl->value->content.str);
 
-		    if (value != NULL)
-		      {
-			if (strcmp (value, "none") == 0)
-			  style->text_decoration = TEXT_DECORATION_NONE;
-			else if (strcmp (value, "underline") == 0)
-			  style->text_decoration = TEXT_DECORATION_UNDERLINE;
-			else if (strcmp (value, "overline") == 0)
-			  style->text_decoration = TEXT_DECORATION_OVERLINE;
-			else if (strcmp (value, "line-through") == 0)
-			  style->text_decoration = TEXT_DECORATION_LINE_THROUGH;
-			else if (strcmp (value, "blink") == 0)
-			  style->text_decoration = TEXT_DECORATION_BLINK;
-			else if (strcmp (value, "inherit") == 0)
-			  style->text_decoration = TEXT_DECORATION_INHERIT;
-		      }
-		  }
-	      }
-	  }
+                    if (value != NULL)
+                      {
+                        if (strcmp (value, "none") == 0)
+                          style->text_decoration = TEXT_DECORATION_NONE;
+                        else if (strcmp (value, "underline") == 0)
+                          style->text_decoration = TEXT_DECORATION_UNDERLINE;
+                        else if (strcmp (value, "overline") == 0)
+                          style->text_decoration = TEXT_DECORATION_OVERLINE;
+                        else if (strcmp (value, "line-through") == 0)
+                          style->text_decoration = TEXT_DECORATION_LINE_THROUGH;
+                        else if (strcmp (value, "blink") == 0)
+                          style->text_decoration = TEXT_DECORATION_BLINK;
+                        else if (strcmp (value, "inherit") == 0)
+                          style->text_decoration = TEXT_DECORATION_INHERIT;
+                      }
+                  }
+              }
+          }
       }
 
       cr_prop_list_destroy (props);
@@ -280,33 +280,33 @@ crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
 
 static term_color_t
 style_compute_color_value (CRStyle *style, enum CRRgbProp which,
-			   term_ostream_t stream)
+                           term_ostream_t stream)
 {
   for (;;)
     {
       if (style == NULL)
-	return COLOR_DEFAULT;
+        return COLOR_DEFAULT;
       if (cr_rgb_is_set_to_inherit (&style->rgb_props[which].sv))
-	style = style->parent_style;
+        style = style->parent_style;
       else if (cr_rgb_is_set_to_transparent (&style->rgb_props[which].sv))
-	/* A transparent color occurs as default background color, set by
-	   cr_style_set_props_to_default_values.  */
-	return COLOR_DEFAULT;
+        /* A transparent color occurs as default background color, set by
+           cr_style_set_props_to_default_values.  */
+        return COLOR_DEFAULT;
       else
-	{
-	  CRRgb rgb;
-	  int r;
-	  int g;
-	  int b;
+        {
+          CRRgb rgb;
+          int r;
+          int g;
+          int b;
 
-	  cr_rgb_copy (&rgb, &style->rgb_props[which].sv);
-	  if (cr_rgb_compute_from_percentage (&rgb) != CR_OK)
-	    abort ();
-	  r = rgb.red & 0xff;
-	  g = rgb.green & 0xff;
-	  b = rgb.blue & 0xff;
-	  return term_ostream_rgb_to_color (stream, r, g, b);
-	}
+          cr_rgb_copy (&rgb, &style->rgb_props[which].sv);
+          if (cr_rgb_compute_from_percentage (&rgb) != CR_OK)
+            abort ();
+          r = rgb.red & 0xff;
+          g = rgb.green & 0xff;
+          b = rgb.blue & 0xff;
+          return term_ostream_rgb_to_color (stream, r, g, b);
+        }
     }
 }
 
@@ -317,51 +317,51 @@ style_compute_font_weight_value (const CRStyle *style)
   for (;;)
     {
       if (style == NULL)
-	value += 4;
+        value += 4;
       else
-	switch (style->font_weight)
-	  {
-	  case FONT_WEIGHT_INHERIT:
-	    style = style->parent_style;
-	    continue;
-	  case FONT_WEIGHT_BOLDER:
-	    value += 1;
-	    style = style->parent_style;
-	    continue;
-	  case FONT_WEIGHT_LIGHTER:
-	    value -= 1;
-	    style = style->parent_style;
-	    continue;
-	  case FONT_WEIGHT_100:
-	    value += 1;
-	    break;
-	  case FONT_WEIGHT_200:
-	    value += 2;
-	    break;
-	  case FONT_WEIGHT_300:
-	    value += 3;
-	    break;
-	  case FONT_WEIGHT_400: case FONT_WEIGHT_NORMAL:
-	    value += 4;
-	    break;
-	  case FONT_WEIGHT_500:
-	    value += 5;
-	    break;
-	  case FONT_WEIGHT_600:
-	    value += 6;
-	    break;
-	  case FONT_WEIGHT_700: case FONT_WEIGHT_BOLD:
-	    value += 7;
-	    break;
-	  case FONT_WEIGHT_800:
-	    value += 8;
-	    break;
-	  case FONT_WEIGHT_900:
-	    value += 9;
-	    break;
-	  default:
-	    abort ();
-	  }
+        switch (style->font_weight)
+          {
+          case FONT_WEIGHT_INHERIT:
+            style = style->parent_style;
+            continue;
+          case FONT_WEIGHT_BOLDER:
+            value += 1;
+            style = style->parent_style;
+            continue;
+          case FONT_WEIGHT_LIGHTER:
+            value -= 1;
+            style = style->parent_style;
+            continue;
+          case FONT_WEIGHT_100:
+            value += 1;
+            break;
+          case FONT_WEIGHT_200:
+            value += 2;
+            break;
+          case FONT_WEIGHT_300:
+            value += 3;
+            break;
+          case FONT_WEIGHT_400: case FONT_WEIGHT_NORMAL:
+            value += 4;
+            break;
+          case FONT_WEIGHT_500:
+            value += 5;
+            break;
+          case FONT_WEIGHT_600:
+            value += 6;
+            break;
+          case FONT_WEIGHT_700: case FONT_WEIGHT_BOLD:
+            value += 7;
+            break;
+          case FONT_WEIGHT_800:
+            value += 8;
+            break;
+          case FONT_WEIGHT_900:
+            value += 9;
+            break;
+          default:
+            abort ();
+          }
       /* Value >= 600 -> WEIGHT_BOLD.  Value <= 500 -> WEIGHT_NORMAL.  */
       return (value >= 6 ? WEIGHT_BOLD : WEIGHT_NORMAL);
     }
@@ -373,20 +373,20 @@ style_compute_font_posture_value (const CRStyle *style)
   for (;;)
     {
       if (style == NULL)
-	return POSTURE_DEFAULT;
+        return POSTURE_DEFAULT;
       switch (style->font_style)
-	{
-	case FONT_STYLE_INHERIT:
-	  style = style->parent_style;
-	  break;
-	case FONT_STYLE_NORMAL:
-	  return POSTURE_NORMAL;
-	case FONT_STYLE_ITALIC:
-	case FONT_STYLE_OBLIQUE:
-	  return POSTURE_ITALIC;
-	default:
-	  abort ();
-	}
+        {
+        case FONT_STYLE_INHERIT:
+          style = style->parent_style;
+          break;
+        case FONT_STYLE_NORMAL:
+          return POSTURE_NORMAL;
+        case FONT_STYLE_ITALIC:
+        case FONT_STYLE_OBLIQUE:
+          return POSTURE_ITALIC;
+        default:
+          abort ();
+        }
     }
 }
 
@@ -396,22 +396,22 @@ style_compute_text_underline_value (const CRXStyle *style)
   for (;;)
     {
       if (style == NULL)
-	return UNDERLINE_DEFAULT;
+        return UNDERLINE_DEFAULT;
       switch (style->text_decoration)
-	{
-	case TEXT_DECORATION_INHERIT:
-	  style = style->parent_style;
-	  break;
-	case TEXT_DECORATION_NONE:
-	case TEXT_DECORATION_OVERLINE:
-	case TEXT_DECORATION_LINE_THROUGH:
-	case TEXT_DECORATION_BLINK:
-	  return UNDERLINE_OFF;
-	case TEXT_DECORATION_UNDERLINE:
-	  return UNDERLINE_ON;
-	default:
-	  abort ();
-	}
+        {
+        case TEXT_DECORATION_INHERIT:
+          style = style->parent_style;
+          break;
+        case TEXT_DECORATION_NONE:
+        case TEXT_DECORATION_OVERLINE:
+        case TEXT_DECORATION_LINE_THROUGH:
+        case TEXT_DECORATION_BLINK:
+          return UNDERLINE_OFF;
+        case TEXT_DECORATION_UNDERLINE:
+          return UNDERLINE_ON;
+        default:
+          abort ();
+        }
     }
 }
 
@@ -439,10 +439,10 @@ match (term_styled_ostream_t stream)
       xmlNodePtr child;
 
       if (!(*p_start == ' '))
-	abort ();
+        abort ();
       p_start++;
       for (p = p_start; p < p_end && *p != ' '; p++)
-	;
+        ;
 
       /* Temporarily replace the ' ' by '\0'.  */
       *p = '\0';
@@ -452,8 +452,8 @@ match (term_styled_ostream_t stream)
       *p = ' ';
 
       if (xmlAddChild (curr, child) == NULL)
-	/* Error! Shouldn't happen.  */
-	abort ();
+        /* Error! Shouldn't happen.  */
+        abort ();
 
       curr = child;
       p_start = p;
@@ -470,17 +470,17 @@ match (term_styled_ostream_t stream)
       curr_style = NULL;
 
       if (crx_sel_eng_get_matched_style (stream->css_engine,
-					 stream->css_document,
-					 curr,
-					 parent_style, &curr_style,
-					 FALSE) != CR_OK)
-	abort ();
+                                         stream->css_document,
+                                         curr,
+                                         parent_style, &curr_style,
+                                         FALSE) != CR_OK)
+        abort ();
       if (curr_style == NULL)
-	/* No declarations matched this node.  Inherit all values.  */
-	curr_style = parent_style;
+        /* No declarations matched this node.  Inherit all values.  */
+        curr_style = parent_style;
       else
-	/* curr_style is a new style, inheriting from parent_style.  */
-	;
+        /* curr_style is a new style, inheriting from parent_style.  */
+        ;
     }
   curr_style_base = (curr_style != NULL ? curr_style->base : NULL);
 
@@ -488,10 +488,10 @@ match (term_styled_ostream_t stream)
   attr = XMALLOC (attributes_t);
   attr->color =
     style_compute_color_value (curr_style_base, RGB_PROP_COLOR,
-			       stream->destination);
+                               stream->destination);
   attr->bgcolor =
     style_compute_color_value (curr_style_base, RGB_PROP_BACKGROUND_COLOR,
-			       stream->destination);
+                               stream->destination);
   attr->weight = style_compute_font_weight_value (curr_style_base);
   attr->posture = style_compute_font_posture_value (curr_style_base);
   attr->underline = style_compute_text_underline_value (curr_style);
@@ -518,15 +518,15 @@ match_and_cache (term_styled_ostream_t stream)
 {
   attributes_t *attr = match (stream);
   if (hash_insert_entry (&stream->cache,
-			 stream->curr_classes, stream->curr_classes_length,
-			 attr) == NULL)
+                         stream->curr_classes, stream->curr_classes_length,
+                         attr) == NULL)
     abort ();
   stream->curr_attr = attr;
 }
 
 static void
 term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
-				      const char *classname)
+                                      const char *classname)
 {
   size_t classname_len;
   char *p;
@@ -543,7 +543,7 @@ term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
     {
       size_t new_allocated = stream->curr_classes_length + 1 + classname_len + 1;
       if (new_allocated < 2 * stream->curr_classes_allocated)
-	new_allocated = 2 * stream->curr_classes_allocated;
+        new_allocated = 2 * stream->curr_classes_allocated;
 
       stream->curr_classes = xrealloc (stream->curr_classes, new_allocated);
       stream->curr_classes_allocated = new_allocated;
@@ -555,8 +555,8 @@ term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
 
   /* Uodate stream->curr_attr.  */
   if (hash_find_entry (&stream->cache,
-		       stream->curr_classes, stream->curr_classes_length,
-		       &found) < 0)
+                       stream->curr_classes, stream->curr_classes_length,
+                       &found) < 0)
     match_and_cache (stream);
   else
     stream->curr_attr = (attributes_t *) found;
@@ -564,7 +564,7 @@ term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
 
 static void
 term_styled_ostream::end_use_class (term_styled_ostream_t stream,
-				    const char *classname)
+                                    const char *classname)
 {
   char *p_end;
   char *p_start;
@@ -582,15 +582,15 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
     ;
   p_start = p + 1;
   if (!(p_end - p_start == strlen (classname)
-	&& memcmp (p_start, classname, p_end - p_start) == 0))
+        && memcmp (p_start, classname, p_end - p_start) == 0))
     /* The match ing call to begin_use_class used a different classname.  */
     abort ();
   stream->curr_classes_length = p - stream->curr_classes;
 
   /* Update stream->curr_attr.  */
   if (hash_find_entry (&stream->cache,
-		       stream->curr_classes, stream->curr_classes_length,
-		       &found) < 0)
+                       stream->curr_classes, stream->curr_classes_length,
+                       &found) < 0)
     abort ();
   stream->curr_attr = (attributes_t *) found;
 }
@@ -599,7 +599,7 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
 
 term_styled_ostream_t
 term_styled_ostream_create (int fd, const char *filename,
-			    const char *css_filename)
+                            const char *css_filename)
 {
   term_styled_ostream_t stream =
     XMALLOC (struct term_styled_ostream_representation);
@@ -609,8 +609,8 @@ term_styled_ostream_create (int fd, const char *filename,
   stream->destination = term_ostream_create (fd, filename);
 
   if (cr_om_parser_simply_parse_file ((const guchar *) css_filename,
-				      CR_UTF_8, /* CR_AUTO is not supported */
-				      &css_file_contents) != CR_OK)
+                                      CR_UTF_8, /* CR_AUTO is not supported */
+                                      &css_file_contents) != CR_OK)
     {
       term_ostream_free (stream->destination);
       free (stream);

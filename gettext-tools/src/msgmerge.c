@@ -152,14 +152,14 @@ struct statistics
 /* Forward declaration of local functions.  */
 static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-	__attribute__ ((noreturn))
+        __attribute__ ((noreturn))
 #endif
 ;
 static void compendium (const char *filename);
 static void msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp);
 static msgdomain_list_ty *merge (const char *fn1, const char *fn2,
-				 catalog_input_format_ty input_syntax,
-				 msgdomain_list_ty **defp);
+                                 catalog_input_format_ty input_syntax,
+                                 msgdomain_list_ty **defp);
 
 
 int
@@ -202,126 +202,126 @@ main (int argc, char **argv)
   output_file = NULL;
 
   while ((opt = getopt_long (argc, argv, "C:D:eEFhimNo:pPqsUvVw:",
-			     long_options, NULL))
-	 != EOF)
+                             long_options, NULL))
+         != EOF)
     switch (opt)
       {
-      case '\0':		/* Long option.  */
-	break;
+      case '\0':                /* Long option.  */
+        break;
 
       case 'C':
-	compendium (optarg);
-	break;
+        compendium (optarg);
+        break;
 
       case 'D':
-	dir_list_append (optarg);
-	break;
+        dir_list_append (optarg);
+        break;
 
       case 'e':
-	message_print_style_escape (false);
-	break;
+        message_print_style_escape (false);
+        break;
 
       case 'E':
-	message_print_style_escape (true);
-	break;
+        message_print_style_escape (true);
+        break;
 
       case 'F':
-	sort_by_filepos = true;
-	break;
+        sort_by_filepos = true;
+        break;
 
       case 'h':
-	do_help = true;
-	break;
+        do_help = true;
+        break;
 
       case 'i':
-	message_print_style_indent ();
-	break;
+        message_print_style_indent ();
+        break;
 
       case 'm':
-	multi_domain_mode = true;
-	break;
+        multi_domain_mode = true;
+        break;
 
       case 'N':
-	use_fuzzy_matching = false;
-	break;
+        use_fuzzy_matching = false;
+        break;
 
       case 'o':
-	output_file = optarg;
-	break;
+        output_file = optarg;
+        break;
 
       case 'p':
-	output_syntax = &output_format_properties;
-	break;
+        output_syntax = &output_format_properties;
+        break;
 
       case 'P':
-	input_syntax = &input_format_properties;
-	break;
+        input_syntax = &input_format_properties;
+        break;
 
       case 'q':
-	quiet = true;
-	break;
+        quiet = true;
+        break;
 
       case 's':
-	sort_by_msgid = true;
-	break;
+        sort_by_msgid = true;
+        break;
 
       case 'U':
-	update_mode = true;
-	break;
+        update_mode = true;
+        break;
 
       case 'v':
-	++verbosity_level;
-	break;
+        ++verbosity_level;
+        break;
 
       case 'V':
-	do_version = true;
-	break;
+        do_version = true;
+        break;
 
       case 'w':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    message_page_width_set (value);
-	}
-	break;
+        {
+          int value;
+          char *endp;
+          value = strtol (optarg, &endp, 10);
+          if (endp != optarg)
+            message_page_width_set (value);
+        }
+        break;
 
       case CHAR_MAX + 1: /* --backup */
-	version_control_string = optarg;
-	break;
+        version_control_string = optarg;
+        break;
 
       case CHAR_MAX + 2: /* --strict */
-	message_print_style_uniforum ();
-	break;
+        message_print_style_uniforum ();
+        break;
 
       case CHAR_MAX + 3: /* --suffix */
-	backup_suffix_string = optarg;
-	break;
+        backup_suffix_string = optarg;
+        break;
 
       case CHAR_MAX + 4: /* --no-wrap */
-	message_page_width_ignore ();
-	break;
+        message_page_width_ignore ();
+        break;
 
       case CHAR_MAX + 5: /* --stringtable-input */
-	input_syntax = &input_format_stringtable;
-	break;
+        input_syntax = &input_format_stringtable;
+        break;
 
       case CHAR_MAX + 6: /* --stringtable-output */
-	output_syntax = &output_format_stringtable;
-	break;
+        output_syntax = &output_format_stringtable;
+        break;
 
       case CHAR_MAX + 7: /* --previous */
-	keep_previous = true;
-	break;
+        keep_previous = true;
+        break;
 
       case CHAR_MAX + 8: /* --lang */
-	catalogname = optarg;
-	break;
+        catalogname = optarg;
+        break;
 
       default:
-	usage (EXIT_FAILURE);
-	break;
+        usage (EXIT_FAILURE);
+        break;
       }
 
   /* Version information is requested.  */
@@ -334,7 +334,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "1995-1998, 2000-2009");
+              "1995-1998, 2000-2009");
       printf (_("Written by %s.\n"), proper_name ("Peter Miller"));
       exit (EXIT_SUCCESS);
     }
@@ -359,34 +359,34 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (update_mode)
     {
       if (output_file != NULL)
-	{
-	  error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-		 "--update", "--output-file");
-	}
+        {
+          error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+                 "--update", "--output-file");
+        }
     }
   else
     {
       if (version_control_string != NULL)
-	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--backup", "--update");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+                 "--backup", "--update");
+          usage (EXIT_FAILURE);
+        }
       if (backup_suffix_string != NULL)
-	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
-		 "--suffix", "--update");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+                 "--suffix", "--update");
+          usage (EXIT_FAILURE);
+        }
     }
 
   if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--no-location", "--sort-by-file");
+           "--no-location", "--sort-by-file");
 
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
+           "--sort-output", "--sort-by-file");
 
   /* In update mode, --properties-input implies --properties-output.  */
   if (update_mode && input_syntax == &input_format_properties)
@@ -407,49 +407,49 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (update_mode)
     {
       /* Before comparing result with def, sort the result into the same order
-	 as would be done implicitly by output_syntax->print.  */
+         as would be done implicitly by output_syntax->print.  */
       if (output_syntax->sorts_obsoletes_to_end)
-	msgdomain_list_stablesort_by_obsolete (result);
+        msgdomain_list_stablesort_by_obsolete (result);
 
       /* Do nothing if the original file and the result are equal.  Also do
-	 nothing if the original file and the result differ only by the
-	 POT-Creation-Date in the header entry; this is needed for projects
-	 which don't put the .pot file under CVS.  */
+         nothing if the original file and the result differ only by the
+         POT-Creation-Date in the header entry; this is needed for projects
+         which don't put the .pot file under CVS.  */
       if (!msgdomain_list_equal (def, result, true))
-	{
-	  /* Back up def.po.  */
-	  enum backup_type backup_type;
-	  char *backup_file;
+        {
+          /* Back up def.po.  */
+          enum backup_type backup_type;
+          char *backup_file;
 
-	  output_file = argv[optind];
+          output_file = argv[optind];
 
-	  if (backup_suffix_string == NULL)
-	    {
-	      backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
-	      if (backup_suffix_string != NULL
-		  && backup_suffix_string[0] == '\0')
-		backup_suffix_string = NULL;
-	    }
-	  if (backup_suffix_string != NULL)
-	    simple_backup_suffix = backup_suffix_string;
+          if (backup_suffix_string == NULL)
+            {
+              backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
+              if (backup_suffix_string != NULL
+                  && backup_suffix_string[0] == '\0')
+                backup_suffix_string = NULL;
+            }
+          if (backup_suffix_string != NULL)
+            simple_backup_suffix = backup_suffix_string;
 
-	  backup_type = xget_version (_("backup type"), version_control_string);
-	  if (backup_type != none)
-	    {
-	      backup_file = find_backup_file_name (output_file, backup_type);
-	      copy_file_preserving (output_file, backup_file);
-	    }
+          backup_type = xget_version (_("backup type"), version_control_string);
+          if (backup_type != none)
+            {
+              backup_file = find_backup_file_name (output_file, backup_type);
+              copy_file_preserving (output_file, backup_file);
+            }
 
-	  /* Write the merged message list out.  */
-	  msgdomain_list_print (result, output_file, output_syntax, true,
-				false);
-	}
+          /* Write the merged message list out.  */
+          msgdomain_list_print (result, output_file, output_syntax, true,
+                                false);
+        }
     }
   else
     {
       /* Write the merged message list out.  */
       msgdomain_list_print (result, output_file, output_syntax, force_po,
-			    false);
+                            false);
     }
 
   exit (EXIT_SUCCESS);
@@ -462,7 +462,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -596,7 +596,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -635,34 +635,34 @@ msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp)
 
       /* Sort obsolete messages to the end.  */
       if (mlp->nitems > 0)
-	{
-	  message_ty **l1 = XNMALLOC (mlp->nitems, message_ty *);
-	  size_t n1;
-	  message_ty **l2 = XNMALLOC (mlp->nitems, message_ty *);
-	  size_t n2;
-	  size_t j;
+        {
+          message_ty **l1 = XNMALLOC (mlp->nitems, message_ty *);
+          size_t n1;
+          message_ty **l2 = XNMALLOC (mlp->nitems, message_ty *);
+          size_t n2;
+          size_t j;
 
-	  /* Sort the non-obsolete messages into l1 and the obsolete messages
-	     into l2.  */
-	  n1 = 0;
-	  n2 = 0;
-	  for (j = 0; j < mlp->nitems; j++)
-	    {
-	      message_ty *mp = mlp->item[j];
+          /* Sort the non-obsolete messages into l1 and the obsolete messages
+             into l2.  */
+          n1 = 0;
+          n2 = 0;
+          for (j = 0; j < mlp->nitems; j++)
+            {
+              message_ty *mp = mlp->item[j];
 
-	      if (mp->obsolete)
-		l2[n2++] = mp;
-	      else
-		l1[n1++] = mp;
-	    }
-	  if (n1 > 0 && n2 > 0)
-	    {
-	      memcpy (mlp->item, l1, n1 * sizeof (message_ty *));
-	      memcpy (mlp->item + n1, l2, n2 * sizeof (message_ty *));
-	    }
-	  free (l2);
-	  free (l1);
-	}
+              if (mp->obsolete)
+                l2[n2++] = mp;
+              else
+                l1[n1++] = mp;
+            }
+          if (n1 > 0 && n2 > 0)
+            {
+              memcpy (mlp->item, l1, n1 * sizeof (message_ty *));
+              memcpy (mlp->item + n1, l2, n2 * sizeof (message_ty *));
+            }
+          free (l2);
+          free (l1);
+        }
     }
 }
 
@@ -742,7 +742,7 @@ definitions_init_curr_findex (definitions_ty *definitions)
   if (definitions->curr_findex == NULL)
     definitions->curr_findex =
       message_fuzzy_index_alloc (definitions_current_list (definitions),
-				 definitions->canon_charset);
+                                 definitions->canon_charset);
   gl_lock_unlock (definitions->curr_findex_init_lock);
 }
 
@@ -756,23 +756,23 @@ definitions_init_comp_findex (definitions_ty *definitions)
   if (definitions->comp_findex == NULL)
     {
       /* Combine all the compendium message lists into a single one.  Don't
-	 bother checking for duplicates.  */
+         bother checking for duplicates.  */
       message_list_ty *all_compendium;
       size_t i;
 
       all_compendium = message_list_alloc (false);
       for (i = 0; i < compendiums->nitems; i++)
-	{
-	  message_list_ty *mlp = compendiums->item[i];
-	  size_t j;
+        {
+          message_list_ty *mlp = compendiums->item[i];
+          size_t j;
 
-	  for (j = 0; j < mlp->nitems; j++)
-	    message_list_append (all_compendium, mlp->item[j]);
-	}
+          for (j = 0; j < mlp->nitems; j++)
+            message_list_append (all_compendium, mlp->item[j]);
+        }
 
       /* Create the fuzzy index from it.  */
       definitions->comp_findex =
-	message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
+        message_fuzzy_index_alloc (all_compendium, definitions->canon_charset);
     }
   gl_lock_unlock (definitions->comp_findex_init_lock);
 }
@@ -780,7 +780,7 @@ definitions_init_comp_findex (definitions_ty *definitions)
 /* Exact search.  */
 static inline message_ty *
 definitions_search (const definitions_ty *definitions,
-		    const char *msgctxt, const char *msgid)
+                    const char *msgctxt, const char *msgid)
 {
   return message_list_list_search (definitions->lists, msgctxt, msgid);
 }
@@ -789,7 +789,7 @@ definitions_search (const definitions_ty *definitions,
    Used only if use_fuzzy_matching is true.  */
 static inline message_ty *
 definitions_search_fuzzy (definitions_ty *definitions,
-			  const char *msgctxt, const char *msgid)
+                          const char *msgctxt, const char *msgid)
 {
   message_ty *mp1;
 
@@ -797,19 +797,19 @@ definitions_search_fuzzy (definitions_ty *definitions,
     {
       /* Old, slow code.  */
       mp1 =
-	message_list_search_fuzzy (definitions_current_list (definitions),
-				   msgctxt, msgid);
+        message_list_search_fuzzy (definitions_current_list (definitions),
+                                   msgctxt, msgid);
     }
   else
     {
       /* Speedup through early abort in fstrcmp(), combined with pre-sorting
-	 of the messages through a hashed index.  */
+         of the messages through a hashed index.  */
       /* Create the fuzzy index lazily.  */
       if (definitions->curr_findex == NULL)
-	definitions_init_curr_findex (definitions);
+        definitions_init_curr_findex (definitions);
       mp1 = message_fuzzy_index_search (definitions->curr_findex,
-					msgctxt, msgid,
-					FUZZY_THRESHOLD, false);
+                                        msgctxt, msgid,
+                                        FUZZY_THRESHOLD, false);
     }
   
   if (compendiums != NULL)
@@ -818,28 +818,28 @@ definitions_search_fuzzy (definitions_ty *definitions,
       message_ty *mp2;
 
       lower_bound_for_mp2 =
-	(mp1 != NULL
-	 ? fuzzy_search_goal_function (mp1, msgctxt, msgid, 0.0)
-	 : FUZZY_THRESHOLD);
+        (mp1 != NULL
+         ? fuzzy_search_goal_function (mp1, msgctxt, msgid, 0.0)
+         : FUZZY_THRESHOLD);
       /* This lower bound must be >= FUZZY_THRESHOLD.  */
       if (!(lower_bound_for_mp2 >= FUZZY_THRESHOLD))
-	abort ();
+        abort ();
 
       /* Create the fuzzy index lazily.  */
       if (definitions->comp_findex == NULL)
-	definitions_init_comp_findex (definitions);
+        definitions_init_comp_findex (definitions);
 
       mp2 = message_fuzzy_index_search (definitions->comp_findex,
-					msgctxt, msgid,
-					lower_bound_for_mp2, true);
+                                        msgctxt, msgid,
+                                        lower_bound_for_mp2, true);
 
       /* Choose the best among mp1, mp2.  */
       if (mp1 == NULL
-	  || (mp2 != NULL
-	      && (fuzzy_search_goal_function (mp2, msgctxt, msgid,
-					      lower_bound_for_mp2)
-		  > lower_bound_for_mp2)))
-	mp1 = mp2;
+          || (mp2 != NULL
+              && (fuzzy_search_goal_function (mp2, msgctxt, msgid,
+                                              lower_bound_for_mp2)
+                  > lower_bound_for_mp2)))
+        mp1 = mp2;
     }
 
   return mp1;
@@ -870,16 +870,16 @@ silent_error_logger (const char *format, ...)
 /* Another silent error logger.  */
 static void
 silent_xerror (int severity,
-	       const struct message_ty *message,
-	       const char *filename, size_t lineno, size_t column,
-	       int multiline_p, const char *message_text)
+               const struct message_ty *message,
+               const char *filename, size_t lineno, size_t column,
+               int multiline_p, const char *message_text)
 {
 }
 
 
 static message_ty *
 message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
-	       const struct plural_distribution *distribution)
+               const struct plural_distribution *distribution)
 {
   const char *msgstr;
   size_t msgstr_len;
@@ -902,37 +902,37 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       /* Oh, oh.  The header entry and we have something to fill in.  */
       static const struct
       {
-	const char *name;
-	size_t len;
+        const char *name;
+        size_t len;
       } known_fields[] =
       {
-	{ "Project-Id-Version:", sizeof ("Project-Id-Version:") - 1 },
-#define PROJECT_ID		0
-	{ "Report-Msgid-Bugs-To:", sizeof ("Report-Msgid-Bugs-To:") - 1 },
-#define REPORT_MSGID_BUGS_TO	1
-	{ "POT-Creation-Date:", sizeof ("POT-Creation-Date:") - 1 },
-#define POT_CREATION_DATE	2
-	{ "PO-Revision-Date:", sizeof ("PO-Revision-Date:") - 1 },
-#define PO_REVISION_DATE	3
-	{ "Last-Translator:", sizeof ("Last-Translator:") - 1 },
-#define LAST_TRANSLATOR		4
-	{ "Language-Team:", sizeof ("Language-Team:") - 1 },
-#define LANGUAGE_TEAM		5
-	{ "Language:", sizeof ("Language:") - 1 },
-#define LANGUAGE		6
-	{ "MIME-Version:", sizeof ("MIME-Version:") - 1 },
-#define MIME_VERSION		7
-	{ "Content-Type:", sizeof ("Content-Type:") - 1 },
-#define CONTENT_TYPE		8
-	{ "Content-Transfer-Encoding:",
-	  sizeof ("Content-Transfer-Encoding:") - 1 }
-#define CONTENT_TRANSFER	9
+        { "Project-Id-Version:", sizeof ("Project-Id-Version:") - 1 },
+#define PROJECT_ID              0
+        { "Report-Msgid-Bugs-To:", sizeof ("Report-Msgid-Bugs-To:") - 1 },
+#define REPORT_MSGID_BUGS_TO    1
+        { "POT-Creation-Date:", sizeof ("POT-Creation-Date:") - 1 },
+#define POT_CREATION_DATE       2
+        { "PO-Revision-Date:", sizeof ("PO-Revision-Date:") - 1 },
+#define PO_REVISION_DATE        3
+        { "Last-Translator:", sizeof ("Last-Translator:") - 1 },
+#define LAST_TRANSLATOR         4
+        { "Language-Team:", sizeof ("Language-Team:") - 1 },
+#define LANGUAGE_TEAM           5
+        { "Language:", sizeof ("Language:") - 1 },
+#define LANGUAGE                6
+        { "MIME-Version:", sizeof ("MIME-Version:") - 1 },
+#define MIME_VERSION            7
+        { "Content-Type:", sizeof ("Content-Type:") - 1 },
+#define CONTENT_TYPE            8
+        { "Content-Transfer-Encoding:",
+          sizeof ("Content-Transfer-Encoding:") - 1 }
+#define CONTENT_TRANSFER        9
       };
-#define UNKNOWN	10
+#define UNKNOWN 10
       struct
       {
-	const char *string;
-	size_t len;
+        const char *string;
+        size_t len;
       } header_fields[UNKNOWN + 1];
       struct obstack pool;
       const char *cp;
@@ -947,239 +947,239 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
       cp = def->msgstr;
       while (*cp != '\0')
-	{
-	  const char *endp = strchr (cp, '\n');
-	  int terminated = endp != NULL;
+        {
+          const char *endp = strchr (cp, '\n');
+          int terminated = endp != NULL;
 
-	  if (!terminated)
-	    {
-	      /* Add a trailing newline.  */
-	      char *copy;
-	      endp = strchr (cp, '\0');
+          if (!terminated)
+            {
+              /* Add a trailing newline.  */
+              char *copy;
+              endp = strchr (cp, '\0');
 
-	      len = endp - cp + 1;
+              len = endp - cp + 1;
 
-	      copy = (char *) obstack_alloc (&pool, len + 1);
-	      stpcpy (stpcpy (copy, cp), "\n");
-	      cp = copy;
-	    }
-	  else
-	    {
-	      len = (endp - cp) + 1;
-	      ++endp;
-	    }
+              copy = (char *) obstack_alloc (&pool, len + 1);
+              stpcpy (stpcpy (copy, cp), "\n");
+              cp = copy;
+            }
+          else
+            {
+              len = (endp - cp) + 1;
+              ++endp;
+            }
 
-	  /* Compare with any of the known fields.  */
-	  for (cnt = 0;
-	       cnt < sizeof (known_fields) / sizeof (known_fields[0]);
-	       ++cnt)
-	    if (c_strncasecmp (cp, known_fields[cnt].name, known_fields[cnt].len)
-		== 0)
-	      break;
+          /* Compare with any of the known fields.  */
+          for (cnt = 0;
+               cnt < sizeof (known_fields) / sizeof (known_fields[0]);
+               ++cnt)
+            if (c_strncasecmp (cp, known_fields[cnt].name, known_fields[cnt].len)
+                == 0)
+              break;
 
-	  if (cnt < sizeof (known_fields) / sizeof (known_fields[0]))
-	    {
-	      header_fields[cnt].string = &cp[known_fields[cnt].len];
-	      header_fields[cnt].len = len - known_fields[cnt].len;
-	    }
-	  else
-	    {
-	      /* It's an unknown field.  Append content to what is already
-		 known.  */
-	      char *extended =
-		(char *) obstack_alloc (&pool,
-					header_fields[UNKNOWN].len + len + 1);
-	      memcpy (extended, header_fields[UNKNOWN].string,
-		      header_fields[UNKNOWN].len);
-	      memcpy (&extended[header_fields[UNKNOWN].len], cp, len);
-	      extended[header_fields[UNKNOWN].len + len] = '\0';
-	      header_fields[UNKNOWN].string = extended;
-	      header_fields[UNKNOWN].len += len;
-	    }
+          if (cnt < sizeof (known_fields) / sizeof (known_fields[0]))
+            {
+              header_fields[cnt].string = &cp[known_fields[cnt].len];
+              header_fields[cnt].len = len - known_fields[cnt].len;
+            }
+          else
+            {
+              /* It's an unknown field.  Append content to what is already
+                 known.  */
+              char *extended =
+                (char *) obstack_alloc (&pool,
+                                        header_fields[UNKNOWN].len + len + 1);
+              memcpy (extended, header_fields[UNKNOWN].string,
+                      header_fields[UNKNOWN].len);
+              memcpy (&extended[header_fields[UNKNOWN].len], cp, len);
+              extended[header_fields[UNKNOWN].len + len] = '\0';
+              header_fields[UNKNOWN].string = extended;
+              header_fields[UNKNOWN].len += len;
+            }
 
-	  cp = endp;
-	}
+          cp = endp;
+        }
 
       /* Set the Language field if specified on the command line.  */
       if (catalogname != NULL)
-	{
-	  /* Prepend a space and append a newline.  */
-	  size_t len = strlen (catalogname);
-	  char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
-	  stpcpy (stpcpy (stpcpy (copy, " "), catalogname), "\n");
-	  header_fields[LANGUAGE].string = copy;
-	  header_fields[LANGUAGE].len = strlen (header_fields[LANGUAGE].string);
-	}
+        {
+          /* Prepend a space and append a newline.  */
+          size_t len = strlen (catalogname);
+          char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
+          stpcpy (stpcpy (stpcpy (copy, " "), catalogname), "\n");
+          header_fields[LANGUAGE].string = copy;
+          header_fields[LANGUAGE].len = strlen (header_fields[LANGUAGE].string);
+        }
       /* Add a Language field to PO files that don't have one.  The Language
-	 field was introduced in gettext-0.18.  */
+         field was introduced in gettext-0.18.  */
       else if (header_fields[LANGUAGE].string == NULL)
-	{
-	  const char *language_team_ptr = header_fields[LANGUAGE_TEAM].string;
+        {
+          const char *language_team_ptr = header_fields[LANGUAGE_TEAM].string;
 
-	  if (language_team_ptr != NULL)
-	    {
-	      size_t language_team_len = header_fields[LANGUAGE_TEAM].len;
+          if (language_team_ptr != NULL)
+            {
+              size_t language_team_len = header_fields[LANGUAGE_TEAM].len;
 
-	      /* Trim leading blanks.  */
-	      while (language_team_len > 0
-		     && (*language_team_ptr == ' '
-			 || *language_team_ptr == '\t'))
-		{
-		  language_team_ptr++;
-		  language_team_len--;
-		}
+              /* Trim leading blanks.  */
+              while (language_team_len > 0
+                     && (*language_team_ptr == ' '
+                         || *language_team_ptr == '\t'))
+                {
+                  language_team_ptr++;
+                  language_team_len--;
+                }
 
-	      /* Trim trailing blanks.  */
-	      while (language_team_len > 0
-		     && (language_team_ptr[language_team_len - 1] == ' '
-			 || language_team_ptr[language_team_len - 1] == '\t'))
-		language_team_len--;
+              /* Trim trailing blanks.  */
+              while (language_team_len > 0
+                     && (language_team_ptr[language_team_len - 1] == ' '
+                         || language_team_ptr[language_team_len - 1] == '\t'))
+                language_team_len--;
 
-	      /* Trim last word, if it looks like an URL or email address.  */
-	      {
-		size_t i;
+              /* Trim last word, if it looks like an URL or email address.  */
+              {
+                size_t i;
 
-		for (i = language_team_len; i > 0; i--)
-		  if (language_team_ptr[i - 1] == ' '
-		      || language_team_ptr[i - 1] == '\t')
-		    break;
-		/* The last word: language_team_ptr[i..language_team_len-1].  */
-		if (i < language_team_len
-		    && (language_team_ptr[i] == '<'
-			|| language_team_ptr[language_team_len - 1] == '>'
-			|| memchr (language_team_ptr, '@', language_team_len)
-			   != NULL
-			|| memchr (language_team_ptr, '/', language_team_len)
-			   != NULL))
-		  {
-		    /* Trim last word and blanks before it.  */
-		    while (i > 0
-			   && (language_team_ptr[i - 1] == ' '
-			       || language_team_ptr[i - 1] == '\t'))
-		      i--;
-		    language_team_len = i;
-		  }
-	      }
+                for (i = language_team_len; i > 0; i--)
+                  if (language_team_ptr[i - 1] == ' '
+                      || language_team_ptr[i - 1] == '\t')
+                    break;
+                /* The last word: language_team_ptr[i..language_team_len-1].  */
+                if (i < language_team_len
+                    && (language_team_ptr[i] == '<'
+                        || language_team_ptr[language_team_len - 1] == '>'
+                        || memchr (language_team_ptr, '@', language_team_len)
+                           != NULL
+                        || memchr (language_team_ptr, '/', language_team_len)
+                           != NULL))
+                  {
+                    /* Trim last word and blanks before it.  */
+                    while (i > 0
+                           && (language_team_ptr[i - 1] == ' '
+                               || language_team_ptr[i - 1] == '\t'))
+                      i--;
+                    language_team_len = i;
+                  }
+              }
 
-	      /* The rest of the Language-Team field should be the english name
-		 of the languge.  Convert to ISO 639 and ISO 3166 syntax.  */
-	      {
-		size_t i;
+              /* The rest of the Language-Team field should be the english name
+                 of the languge.  Convert to ISO 639 and ISO 3166 syntax.  */
+              {
+                size_t i;
 
-		for (i = 0; i < language_variant_table_size; i++)
-		  if (strlen (language_variant_table[i].english)
-		      == language_team_len
-		      && memcmp (language_variant_table[i].english,
-				 language_team_ptr, language_team_len) == 0)
-		    {
-		      header_fields[LANGUAGE].string =
-			language_variant_table[i].code;
-		      break;
-		    }
-	      }
-	      if (header_fields[LANGUAGE].string == NULL)
-		{
-		  size_t i;
+                for (i = 0; i < language_variant_table_size; i++)
+                  if (strlen (language_variant_table[i].english)
+                      == language_team_len
+                      && memcmp (language_variant_table[i].english,
+                                 language_team_ptr, language_team_len) == 0)
+                    {
+                      header_fields[LANGUAGE].string =
+                        language_variant_table[i].code;
+                      break;
+                    }
+              }
+              if (header_fields[LANGUAGE].string == NULL)
+                {
+                  size_t i;
 
-		  for (i = 0; i < language_table_size; i++)
-		    if (strlen (language_table[i].english) == language_team_len
-			&& memcmp (language_table[i].english,
-				   language_team_ptr, language_team_len) == 0)
-		      {
-			header_fields[LANGUAGE].string = language_table[i].code;
-			break;
-		      }
-		}
-	      if (header_fields[LANGUAGE].string != NULL)
-		{
-		  /* Prepend a space and append a newline.  */
-		  const char *str = header_fields[LANGUAGE].string;
-		  size_t len = strlen (str);
-		  char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
-		  stpcpy (stpcpy (stpcpy (copy, " "), str), "\n");
-		  header_fields[LANGUAGE].string = copy;
-		}
-	      else
-		header_fields[LANGUAGE].string = " \n";
-	      header_fields[LANGUAGE].len =
-		strlen (header_fields[LANGUAGE].string);
-	    }
+                  for (i = 0; i < language_table_size; i++)
+                    if (strlen (language_table[i].english) == language_team_len
+                        && memcmp (language_table[i].english,
+                                   language_team_ptr, language_team_len) == 0)
+                      {
+                        header_fields[LANGUAGE].string = language_table[i].code;
+                        break;
+                      }
+                }
+              if (header_fields[LANGUAGE].string != NULL)
+                {
+                  /* Prepend a space and append a newline.  */
+                  const char *str = header_fields[LANGUAGE].string;
+                  size_t len = strlen (str);
+                  char *copy = (char *) obstack_alloc (&pool, 1 + len + 1 + 1);
+                  stpcpy (stpcpy (stpcpy (copy, " "), str), "\n");
+                  header_fields[LANGUAGE].string = copy;
+                }
+              else
+                header_fields[LANGUAGE].string = " \n";
+              header_fields[LANGUAGE].len =
+                strlen (header_fields[LANGUAGE].string);
+            }
         }
 
       {
-	const char *msgid_bugs_ptr;
+        const char *msgid_bugs_ptr;
 
-	msgid_bugs_ptr = c_strstr (ref->msgstr, "Report-Msgid-Bugs-To:");
-	if (msgid_bugs_ptr != NULL)
-	  {
-	    size_t msgid_bugs_len;
-	    const char *endp;
+        msgid_bugs_ptr = c_strstr (ref->msgstr, "Report-Msgid-Bugs-To:");
+        if (msgid_bugs_ptr != NULL)
+          {
+            size_t msgid_bugs_len;
+            const char *endp;
 
-	    msgid_bugs_ptr += sizeof ("Report-Msgid-Bugs-To:") - 1;
+            msgid_bugs_ptr += sizeof ("Report-Msgid-Bugs-To:") - 1;
 
-	    endp = strchr (msgid_bugs_ptr, '\n');
-	    if (endp == NULL)
-	      {
-		/* Add a trailing newline.  */
-		char *extended;
-		endp = strchr (msgid_bugs_ptr, '\0');
-		msgid_bugs_len = (endp - msgid_bugs_ptr) + 1;
-		extended = (char *) obstack_alloc (&pool, msgid_bugs_len + 1);
-		stpcpy (stpcpy (extended, msgid_bugs_ptr), "\n");
-		msgid_bugs_ptr = extended;
-	      }
-	    else
-	      msgid_bugs_len = (endp - msgid_bugs_ptr) + 1;
+            endp = strchr (msgid_bugs_ptr, '\n');
+            if (endp == NULL)
+              {
+                /* Add a trailing newline.  */
+                char *extended;
+                endp = strchr (msgid_bugs_ptr, '\0');
+                msgid_bugs_len = (endp - msgid_bugs_ptr) + 1;
+                extended = (char *) obstack_alloc (&pool, msgid_bugs_len + 1);
+                stpcpy (stpcpy (extended, msgid_bugs_ptr), "\n");
+                msgid_bugs_ptr = extended;
+              }
+            else
+              msgid_bugs_len = (endp - msgid_bugs_ptr) + 1;
 
-	    header_fields[REPORT_MSGID_BUGS_TO].string = msgid_bugs_ptr;
-	    header_fields[REPORT_MSGID_BUGS_TO].len = msgid_bugs_len;
-	  }
+            header_fields[REPORT_MSGID_BUGS_TO].string = msgid_bugs_ptr;
+            header_fields[REPORT_MSGID_BUGS_TO].len = msgid_bugs_len;
+          }
       }
 
       {
-	const char *pot_date_ptr;
+        const char *pot_date_ptr;
 
-	pot_date_ptr = c_strstr (ref->msgstr, "POT-Creation-Date:");
-	if (pot_date_ptr != NULL)
-	  {
-	    size_t pot_date_len;
-	    const char *endp;
+        pot_date_ptr = c_strstr (ref->msgstr, "POT-Creation-Date:");
+        if (pot_date_ptr != NULL)
+          {
+            size_t pot_date_len;
+            const char *endp;
 
-	    pot_date_ptr += sizeof ("POT-Creation-Date:") - 1;
+            pot_date_ptr += sizeof ("POT-Creation-Date:") - 1;
 
-	    endp = strchr (pot_date_ptr, '\n');
-	    if (endp == NULL)
-	      {
-		/* Add a trailing newline.  */
-		char *extended;
-		endp = strchr (pot_date_ptr, '\0');
-		pot_date_len = (endp - pot_date_ptr) + 1;
-		extended = (char *) obstack_alloc (&pool, pot_date_len + 1);
-		stpcpy (stpcpy (extended, pot_date_ptr), "\n");
-		pot_date_ptr = extended;
-	      }
-	    else
-	      pot_date_len = (endp - pot_date_ptr) + 1;
+            endp = strchr (pot_date_ptr, '\n');
+            if (endp == NULL)
+              {
+                /* Add a trailing newline.  */
+                char *extended;
+                endp = strchr (pot_date_ptr, '\0');
+                pot_date_len = (endp - pot_date_ptr) + 1;
+                extended = (char *) obstack_alloc (&pool, pot_date_len + 1);
+                stpcpy (stpcpy (extended, pot_date_ptr), "\n");
+                pot_date_ptr = extended;
+              }
+            else
+              pot_date_len = (endp - pot_date_ptr) + 1;
 
-	    header_fields[POT_CREATION_DATE].string = pot_date_ptr;
-	    header_fields[POT_CREATION_DATE].len = pot_date_len;
-	  }
+            header_fields[POT_CREATION_DATE].string = pot_date_ptr;
+            header_fields[POT_CREATION_DATE].len = pot_date_len;
+          }
       }
 
       /* Concatenate all the various fields.  */
       len = 0;
       for (cnt = 0; cnt < UNKNOWN; ++cnt)
-	if (header_fields[cnt].string != NULL)
-	  len += known_fields[cnt].len + header_fields[cnt].len;
+        if (header_fields[cnt].string != NULL)
+          len += known_fields[cnt].len + header_fields[cnt].len;
       len += header_fields[UNKNOWN].len;
 
       cp = newp = XNMALLOC (len + 1, char);
       newp[len] = '\0';
 
-#define IF_FILLED(idx)							      \
-      if (header_fields[idx].string)					      \
-	newp = stpncpy (stpcpy (newp, known_fields[idx].name),		      \
-			header_fields[idx].string, header_fields[idx].len)
+#define IF_FILLED(idx)                                                        \
+      if (header_fields[idx].string)                                          \
+        newp = stpncpy (stpcpy (newp, known_fields[idx].name),                \
+                        header_fields[idx].string, header_fields[idx].len)
 
       IF_FILLED (PROJECT_ID);
       IF_FILLED (REPORT_MSGID_BUGS_TO);
@@ -1192,7 +1192,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       IF_FILLED (CONTENT_TYPE);
       IF_FILLED (CONTENT_TRANSFER);
       if (header_fields[UNKNOWN].string != NULL)
-	stpcpy (newp, header_fields[UNKNOWN].string);
+        stpcpy (newp, header_fields[UNKNOWN].string);
 
 #undef IF_FILLED
 
@@ -1212,22 +1212,22 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       msgstr_len = def->msgstr_len;
 
       if (def->is_fuzzy)
-	{
-	  prev_msgctxt = def->prev_msgctxt;
-	  prev_msgid = def->prev_msgid;
-	  prev_msgid_plural = def->prev_msgid_plural;
-	}
+        {
+          prev_msgctxt = def->prev_msgctxt;
+          prev_msgid = def->prev_msgid;
+          prev_msgid_plural = def->prev_msgid_plural;
+        }
       else
-	{
-	  prev_msgctxt = def->msgctxt;
-	  prev_msgid = def->msgid;
-	  prev_msgid_plural = def->msgid_plural;
-	}
+        {
+          prev_msgctxt = def->msgctxt;
+          prev_msgid = def->msgid;
+          prev_msgid_plural = def->msgid_plural;
+        }
     }
 
   result = message_alloc (ref->msgctxt != NULL ? xstrdup (ref->msgctxt) : NULL,
-			  xstrdup (ref->msgid), ref->msgid_plural,
-			  msgstr, msgstr_len, &def->pos);
+                          xstrdup (ref->msgid), ref->msgid_plural,
+                          msgstr, msgstr_len, &def->pos);
 
   /* Take the comments from the definition file.  There will be none at
      all in the reference file, as it was generated by xgettext.  */
@@ -1251,9 +1251,9 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
      a reason to mark the result fuzzy.  */
   if (!result->is_fuzzy
       && (ref->msgid_plural != NULL
-	  ? def->msgid_plural == NULL
-	    || strcmp (ref->msgid_plural, def->msgid_plural) != 0
-	  : def->msgid_plural != NULL))
+          ? def->msgid_plural == NULL
+            || strcmp (ref->msgid_plural, def->msgid_plural) != 0
+          : def->msgid_plural != NULL))
     result->is_fuzzy = true;
 
   for (i = 0; i < NFORMATS; i++)
@@ -1261,20 +1261,20 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       result->is_format[i] = ref->is_format[i];
 
       /* If the reference message is marked as being a format specifier,
-	 but the definition message is not, we check if the resulting
-	 message would pass "msgfmt -c".  If yes, then all is fine.  If
-	 not, we add a fuzzy marker, because
-	 1. the message needs the translator's attention,
-	 2. msgmerge must not transform a PO file which passes "msgfmt -c"
-	    into a PO file which doesn't.  */
+         but the definition message is not, we check if the resulting
+         message would pass "msgfmt -c".  If yes, then all is fine.  If
+         not, we add a fuzzy marker, because
+         1. the message needs the translator's attention,
+         2. msgmerge must not transform a PO file which passes "msgfmt -c"
+            into a PO file which doesn't.  */
       if (!result->is_fuzzy
-	  && possible_format_p (ref->is_format[i])
-	  && !possible_format_p (def->is_format[i])
-	  && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
-					  msgstr, msgstr_len, i, ref->range,
-					  distribution, silent_error_logger)
-	     > 0)
-	result->is_fuzzy = true;
+          && possible_format_p (ref->is_format[i])
+          && !possible_format_p (def->is_format[i])
+          && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
+                                          msgstr, msgstr_len, i, ref->range,
+                                          distribution, silent_error_logger)
+             > 0)
+        result->is_fuzzy = true;
     }
 
   result->range = ref->range;
@@ -1283,12 +1283,12 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
      not the same or a subset, we add a fuzzy marker, because
        1. the message needs the translator's attention,
        2. msgmerge must not transform a PO file which passes "msgfmt -c"
-	  into a PO file which doesn't.  */
+          into a PO file which doesn't.  */
   if (!result->is_fuzzy
       && has_range_p (def->range)
       && !(has_range_p (ref->range)
-	   && ref->range.min >= def->range.min
-	   && ref->range.max <= def->range.max))
+           && ref->range.min >= def->range.min
+           && ref->range.max <= def->range.max))
     result->is_fuzzy = true;
 
   result->do_wrap = ref->do_wrap;
@@ -1330,12 +1330,12 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
   if (ref->msgid_plural != NULL)
     {
       if (def->msgid_plural == NULL)
-	result->used = 1;
+        result->used = 1;
     }
   else
     {
       if (def->msgid_plural != NULL)
-	result->used = 2;
+        result->used = 2;
     }
 
   /* All done, return the merged message to the caller.  */
@@ -1347,9 +1347,9 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
 static void
 match_domain (const char *fn1, const char *fn2,
-	      definitions_ty *definitions, message_list_ty *refmlp,
-	      message_list_ty *resultmlp,
-	      struct statistics *stats, unsigned int *processed)
+              definitions_ty *definitions, message_list_ty *refmlp,
+              message_list_ty *resultmlp,
+              struct statistics *stats, unsigned int *processed)
 {
   message_ty *header_entry;
   unsigned long int nplurals;
@@ -1362,7 +1362,7 @@ match_domain (const char *fn1, const char *fn2,
   header_entry =
     message_list_search (definitions_current_list (definitions), NULL, "");
   extract_plural_expression (header_entry ? header_entry->msgstr : NULL,
-			     &plural_expr, &nplurals);
+                             &plural_expr, &nplurals);
   untranslated_plural_msgstr = XNMALLOC (nplurals, char);
   memset (untranslated_plural_msgstr, '\0', nplurals);
 
@@ -1370,17 +1370,17 @@ match_domain (const char *fn1, const char *fn2,
   {
     /* Disable error output temporarily.  */
     void (*old_po_xerror) (int, const struct message_ty *, const char *, size_t,
-			   size_t, int, const char *)
+                           size_t, int, const char *)
       = po_xerror;
     po_xerror = silent_xerror;
 
     if (check_plural_eval (plural_expr, nplurals, header_entry,
-			   &distribution) > 0)
+                           &distribution) > 0)
       {
-	distribution.expr = NULL;
-	distribution.often = NULL;
-	distribution.often_length = 0;
-	distribution.histogram = NULL;
+        distribution.expr = NULL;
+        distribution.often = NULL;
+        distribution.often_length = 0;
+        distribution.histogram = NULL;
       }
 
     po_xerror = old_po_xerror;
@@ -1405,41 +1405,41 @@ match_domain (const char *fn1, const char *fn2,
     #endif
     for (jj = 0; jj < nn; jj++)
       {
-	message_ty *refmsg = refmlp->item[jj];
-	message_ty *defmsg;
+        message_ty *refmsg = refmlp->item[jj];
+        message_ty *defmsg;
 
-	/* Because merging can take a while we print something to signal
-	   we are not dead.  */
-	if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
-	  fputc ('.', stderr);
-	#ifdef _OPENMP
-	 #pragma omp atomic
-	#endif
-	(*processed)++;
+        /* Because merging can take a while we print something to signal
+           we are not dead.  */
+        if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
+          fputc ('.', stderr);
+        #ifdef _OPENMP
+         #pragma omp atomic
+        #endif
+        (*processed)++;
 
-	/* See if it is in the other file.  */
-	defmsg =
-	  definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
-	if (defmsg != NULL)
-	  {
-	    search_results[jj].found = defmsg;
-	    search_results[jj].fuzzy = false;
-	  }
-	else if (!is_header (refmsg)
-		 /* If the message was not defined at all, try to find a very
-		    similar message, it could be a typo, or the suggestion may
-		    help.  */
-		 && use_fuzzy_matching
-		 && ((defmsg =
-		        definitions_search_fuzzy (definitions,
-						  refmsg->msgctxt,
-						  refmsg->msgid)) != NULL))
-	  {
-	    search_results[jj].found = defmsg;
-	    search_results[jj].fuzzy = true;
-	  }
-	else
-	  search_results[jj].found = NULL;
+        /* See if it is in the other file.  */
+        defmsg =
+          definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
+        if (defmsg != NULL)
+          {
+            search_results[jj].found = defmsg;
+            search_results[jj].fuzzy = false;
+          }
+        else if (!is_header (refmsg)
+                 /* If the message was not defined at all, try to find a very
+                    similar message, it could be a typo, or the suggestion may
+                    help.  */
+                 && use_fuzzy_matching
+                 && ((defmsg =
+                        definitions_search_fuzzy (definitions,
+                                                  refmsg->msgctxt,
+                                                  refmsg->msgid)) != NULL))
+          {
+            search_results[jj].found = defmsg;
+            search_results[jj].fuzzy = true;
+          }
+        else
+          search_results[jj].found = NULL;
       }
   }
 
@@ -1448,97 +1448,97 @@ match_domain (const char *fn1, const char *fn2,
       message_ty *refmsg = refmlp->item[j];
 
       /* See if it is in the other file.
-	 This used definitions_search.  */
+         This used definitions_search.  */
       if (search_results[j].found != NULL && !search_results[j].fuzzy)
-	{
-	  message_ty *defmsg = search_results[j].found;
-	  /* Merge the reference with the definition: take the #. and
-	     #: comments from the reference, take the # comments from
-	     the definition, take the msgstr from the definition.  Add
-	     this merged entry to the output message list.  */
-	  message_ty *mp =
-	    message_merge (defmsg, refmsg, false, &distribution);
+        {
+          message_ty *defmsg = search_results[j].found;
+          /* Merge the reference with the definition: take the #. and
+             #: comments from the reference, take the # comments from
+             the definition, take the msgstr from the definition.  Add
+             this merged entry to the output message list.  */
+          message_ty *mp =
+            message_merge (defmsg, refmsg, false, &distribution);
 
-	  message_list_append (resultmlp, mp);
+          message_list_append (resultmlp, mp);
 
-	  /* Remember that this message has been used, when we scan
-	     later to see if anything was omitted.  */
-	  defmsg->used = 1;
-	  stats->merged++;
-	}
+          /* Remember that this message has been used, when we scan
+             later to see if anything was omitted.  */
+          defmsg->used = 1;
+          stats->merged++;
+        }
       else if (!is_header (refmsg))
-	{
-	  /* If the message was not defined at all, try to find a very
-	     similar message, it could be a typo, or the suggestion may
-	     help.  This search assumed use_fuzzy_matching and used
-	     definitions_search_fuzzy.  */
-	  if (search_results[j].found != NULL && search_results[j].fuzzy)
-	    {
-	      message_ty *defmsg = search_results[j].found;
-	      message_ty *mp;
+        {
+          /* If the message was not defined at all, try to find a very
+             similar message, it could be a typo, or the suggestion may
+             help.  This search assumed use_fuzzy_matching and used
+             definitions_search_fuzzy.  */
+          if (search_results[j].found != NULL && search_results[j].fuzzy)
+            {
+              message_ty *defmsg = search_results[j].found;
+              message_ty *mp;
 
-	      if (verbosity_level > 1)
-		{
-		  po_gram_error_at_line (&refmsg->pos, _("\
+              if (verbosity_level > 1)
+                {
+                  po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined..."));
-		  error_message_count--;
-		  po_gram_error_at_line (&defmsg->pos, _("\
+                  error_message_count--;
+                  po_gram_error_at_line (&defmsg->pos, _("\
 ...but this definition is similar"));
-		}
+                }
 
-	      /* Merge the reference with the definition: take the #. and
-		 #: comments from the reference, take the # comments from
-		 the definition, take the msgstr from the definition.  Add
-		 this merged entry to the output message list.  */
-	      mp = message_merge (defmsg, refmsg, true, &distribution);
+              /* Merge the reference with the definition: take the #. and
+                 #: comments from the reference, take the # comments from
+                 the definition, take the msgstr from the definition.  Add
+                 this merged entry to the output message list.  */
+              mp = message_merge (defmsg, refmsg, true, &distribution);
 
-	      message_list_append (resultmlp, mp);
+              message_list_append (resultmlp, mp);
 
-	      /* Remember that this message has been used, when we scan
-		 later to see if anything was omitted.  */
-	      defmsg->used = 1;
-	      stats->fuzzied++;
-	      if (!quiet && verbosity_level <= 1)
-		/* Always print a dot if we handled a fuzzy match.  */
-		fputc ('.', stderr);
-	    }
-	  else
-	    {
-	      message_ty *mp;
-	      bool is_untranslated;
-	      const char *p;
-	      const char *pend;
+              /* Remember that this message has been used, when we scan
+                 later to see if anything was omitted.  */
+              defmsg->used = 1;
+              stats->fuzzied++;
+              if (!quiet && verbosity_level <= 1)
+                /* Always print a dot if we handled a fuzzy match.  */
+                fputc ('.', stderr);
+            }
+          else
+            {
+              message_ty *mp;
+              bool is_untranslated;
+              const char *p;
+              const char *pend;
 
-	      if (verbosity_level > 1)
-		po_gram_error_at_line (&refmsg->pos, _("\
+              if (verbosity_level > 1)
+                po_gram_error_at_line (&refmsg->pos, _("\
 this message is used but not defined in %s"), fn1);
 
-	      mp = message_copy (refmsg);
+              mp = message_copy (refmsg);
 
-	      if (mp->msgid_plural != NULL)
-		{
-		  /* Test if mp is untranslated.  (It most likely is.)  */
-		  is_untranslated = true;
-		  for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
-		    if (*p != '\0')
-		      {
-			is_untranslated = false;
-			break;
-		      }
-		  if (is_untranslated)
-		    {
-		      /* Change mp->msgstr_len consecutive empty strings into
-			 nplurals consecutive empty strings.  */
-		      if (nplurals > mp->msgstr_len)
-			mp->msgstr = untranslated_plural_msgstr;
-		      mp->msgstr_len = nplurals;
-		    }
-		}
+              if (mp->msgid_plural != NULL)
+                {
+                  /* Test if mp is untranslated.  (It most likely is.)  */
+                  is_untranslated = true;
+                  for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
+                    if (*p != '\0')
+                      {
+                        is_untranslated = false;
+                        break;
+                      }
+                  if (is_untranslated)
+                    {
+                      /* Change mp->msgstr_len consecutive empty strings into
+                         nplurals consecutive empty strings.  */
+                      if (nplurals > mp->msgstr_len)
+                        mp->msgstr = untranslated_plural_msgstr;
+                      mp->msgstr_len = nplurals;
+                    }
+                }
 
-	      message_list_append (resultmlp, mp);
-	      stats->missing++;
-	    }
-	}
+              message_list_append (resultmlp, mp);
+              stats->missing++;
+            }
+        }
     }
 
   free (search_results);
@@ -1555,68 +1555,68 @@ this message is used but not defined in %s"), fn1);
 
     if (problematic)
       {
-	unsigned long int nplurals = 0;
+        unsigned long int nplurals = 0;
 
-	if (problematic & 1)
-	  {
-	    /* Need to know nplurals of the result domain.  */
-	    message_ty *header_entry =
-	      message_list_search (resultmlp, NULL, "");
+        if (problematic & 1)
+          {
+            /* Need to know nplurals of the result domain.  */
+            message_ty *header_entry =
+              message_list_search (resultmlp, NULL, "");
 
-	    nplurals = get_plural_count (header_entry
-					 ? header_entry->msgstr
-					 : NULL);
-	  }
+            nplurals = get_plural_count (header_entry
+                                         ? header_entry->msgstr
+                                         : NULL);
+          }
 
-	for (j = 0; j < resultmlp->nitems; j++)
-	  {
-	    message_ty *mp = resultmlp->item[j];
+        for (j = 0; j < resultmlp->nitems; j++)
+          {
+            message_ty *mp = resultmlp->item[j];
 
-	    if ((mp->used & 1) && (nplurals > 0))
-	      {
-		/* ref->msgid_plural != NULL but def->msgid_plural == NULL.
-		   Use a copy of def->msgstr for each possible plural form.  */
-		size_t new_msgstr_len;
-		char *new_msgstr;
-		char *p;
-		unsigned long i;
+            if ((mp->used & 1) && (nplurals > 0))
+              {
+                /* ref->msgid_plural != NULL but def->msgid_plural == NULL.
+                   Use a copy of def->msgstr for each possible plural form.  */
+                size_t new_msgstr_len;
+                char *new_msgstr;
+                char *p;
+                unsigned long i;
 
-		if (verbosity_level > 1)
-		  {
-		    po_gram_error_at_line (&mp->pos, _("\
+                if (verbosity_level > 1)
+                  {
+                    po_gram_error_at_line (&mp->pos, _("\
 this message should define plural forms"));
-		  }
+                  }
 
-		new_msgstr_len = nplurals * mp->msgstr_len;
-		new_msgstr = XNMALLOC (new_msgstr_len, char);
-		for (i = 0, p = new_msgstr; i < nplurals; i++)
-		  {
-		    memcpy (p, mp->msgstr, mp->msgstr_len);
-		    p += mp->msgstr_len;
-		  }
-		mp->msgstr = new_msgstr;
-		mp->msgstr_len = new_msgstr_len;
-		mp->is_fuzzy = true;
-	      }
+                new_msgstr_len = nplurals * mp->msgstr_len;
+                new_msgstr = XNMALLOC (new_msgstr_len, char);
+                for (i = 0, p = new_msgstr; i < nplurals; i++)
+                  {
+                    memcpy (p, mp->msgstr, mp->msgstr_len);
+                    p += mp->msgstr_len;
+                  }
+                mp->msgstr = new_msgstr;
+                mp->msgstr_len = new_msgstr_len;
+                mp->is_fuzzy = true;
+              }
 
-	    if ((mp->used & 2) && (mp->msgstr_len > strlen (mp->msgstr) + 1))
-	      {
-		/* ref->msgid_plural == NULL but def->msgid_plural != NULL.
-		   Use only the first among the plural forms.  */
+            if ((mp->used & 2) && (mp->msgstr_len > strlen (mp->msgstr) + 1))
+              {
+                /* ref->msgid_plural == NULL but def->msgid_plural != NULL.
+                   Use only the first among the plural forms.  */
 
-		if (verbosity_level > 1)
-		  {
-		    po_gram_error_at_line (&mp->pos, _("\
+                if (verbosity_level > 1)
+                  {
+                    po_gram_error_at_line (&mp->pos, _("\
 this message should not define plural forms"));
-		  }
+                  }
 
-		mp->msgstr_len = strlen (mp->msgstr) + 1;
-		mp->is_fuzzy = true;
-	      }
+                mp->msgstr_len = strlen (mp->msgstr) + 1;
+                mp->is_fuzzy = true;
+              }
 
-	    /* Postprocessing of this message is done.  */
-	    mp->used = 0;
-	  }
+            /* Postprocessing of this message is done.  */
+            mp->used = 0;
+          }
       }
   }
 
@@ -1628,11 +1628,11 @@ this message should not define plural forms"));
       message_ty *mp = resultmlp->item[j];
 
       if (!mp->is_fuzzy || mp->msgstr[0] == '\0')
-	{
-	  mp->prev_msgctxt = NULL;
-	  mp->prev_msgid = NULL;
-	  mp->prev_msgid_plural = NULL;
-	}
+        {
+          mp->prev_msgctxt = NULL;
+          mp->prev_msgid = NULL;
+          mp->prev_msgid_plural = NULL;
+        }
     }
 }
 
@@ -1662,10 +1662,10 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
   for (k = 0; k < ref->nitems; k++)
     if (message_list_search (ref->item[k]->messages, NULL, "") == NULL)
       {
-	static lex_pos_ty pos = { __FILE__, __LINE__ };
-	message_ty *refheader = message_alloc (NULL, "", NULL, "", 1, &pos);
+        static lex_pos_ty pos = { __FILE__, __LINE__ };
+        message_ty *refheader = message_alloc (NULL, "", NULL, "", 1, &pos);
 
-	message_list_prepend (ref->item[k]->messages, refheader);
+        message_list_prepend (ref->item[k]->messages, refheader);
       }
 
   /* The references file can be either in ASCII or in UTF-8.  If it is
@@ -1675,184 +1675,184 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
     bool was_utf8 = false;
     for (k = 0; k < ref->nitems; k++)
       {
-	message_list_ty *mlp = ref->item[k]->messages;
+        message_list_ty *mlp = ref->item[k]->messages;
 
-	for (j = 0; j < mlp->nitems; j++)
-	  if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-	    {
-	      const char *header = mlp->item[j]->msgstr;
+        for (j = 0; j < mlp->nitems; j++)
+          if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+            {
+              const char *header = mlp->item[j]->msgstr;
 
-	      if (header != NULL)
-		{
-		  const char *charsetstr = c_strstr (header, "charset=");
+              if (header != NULL)
+                {
+                  const char *charsetstr = c_strstr (header, "charset=");
 
-		  if (charsetstr != NULL)
-		    {
-		      size_t len;
+                  if (charsetstr != NULL)
+                    {
+                      size_t len;
 
-		      charsetstr += strlen ("charset=");
-		      len = strcspn (charsetstr, " \t\n");
-		      if (len == strlen ("UTF-8")
-			  && c_strncasecmp (charsetstr, "UTF-8", len) == 0)
-			was_utf8 = true;
-		    }
-		}
-	    }
-	}
+                      charsetstr += strlen ("charset=");
+                      len = strcspn (charsetstr, " \t\n");
+                      if (len == strlen ("UTF-8")
+                          && c_strncasecmp (charsetstr, "UTF-8", len) == 0)
+                        was_utf8 = true;
+                    }
+                }
+            }
+        }
     if (was_utf8)
       {
-	def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
-	if (compendiums != NULL)
-	  for (k = 0; k < compendiums->nitems; k++)
-	    iconv_message_list (compendiums->item[k], NULL, po_charset_utf8,
-				compendium_filenames->item[k]);
+        def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
+        if (compendiums != NULL)
+          for (k = 0; k < compendiums->nitems; k++)
+            iconv_message_list (compendiums->item[k], NULL, po_charset_utf8,
+                                compendium_filenames->item[k]);
       }
     else if (compendiums != NULL && compendiums->nitems > 0)
       {
-	/* Ensure that the definitions and the compendiums are in the same
-	   encoding.  Prefer the encoding of the definitions file, if
-	   possible; otherwise, if the definitions file is empty and the
-	   compendiums are all in the same encoding, use that encoding;
-	   otherwise, use UTF-8.  */
-	bool conversion_done = false;
-	{
-	  char *charset = NULL;
+        /* Ensure that the definitions and the compendiums are in the same
+           encoding.  Prefer the encoding of the definitions file, if
+           possible; otherwise, if the definitions file is empty and the
+           compendiums are all in the same encoding, use that encoding;
+           otherwise, use UTF-8.  */
+        bool conversion_done = false;
+        {
+          char *charset = NULL;
 
-	  /* Get the encoding of the definitions file.  */
-	  for (k = 0; k < def->nitems; k++)
-	    {
-	      message_list_ty *mlp = def->item[k]->messages;
+          /* Get the encoding of the definitions file.  */
+          for (k = 0; k < def->nitems; k++)
+            {
+              message_list_ty *mlp = def->item[k]->messages;
 
-	      for (j = 0; j < mlp->nitems; j++)
-		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-		  {
-		    const char *header = mlp->item[j]->msgstr;
+              for (j = 0; j < mlp->nitems; j++)
+                if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+                  {
+                    const char *header = mlp->item[j]->msgstr;
 
-		    if (header != NULL)
-		      {
-			const char *charsetstr = c_strstr (header, "charset=");
+                    if (header != NULL)
+                      {
+                        const char *charsetstr = c_strstr (header, "charset=");
 
-			if (charsetstr != NULL)
-			  {
-			    size_t len;
+                        if (charsetstr != NULL)
+                          {
+                            size_t len;
 
-			    charsetstr += strlen ("charset=");
-			    len = strcspn (charsetstr, " \t\n");
-			    charset = (char *) xmalloca (len + 1);
-			    memcpy (charset, charsetstr, len);
-			    charset[len] = '\0';
-			    break;
-			  }
-		      }
-		  }
-	      if (charset != NULL)
-		break;
-	    }
-	  if (charset != NULL)
-	    {
-	      const char *canon_charset = po_charset_canonicalize (charset);
+                            charsetstr += strlen ("charset=");
+                            len = strcspn (charsetstr, " \t\n");
+                            charset = (char *) xmalloca (len + 1);
+                            memcpy (charset, charsetstr, len);
+                            charset[len] = '\0';
+                            break;
+                          }
+                      }
+                  }
+              if (charset != NULL)
+                break;
+            }
+          if (charset != NULL)
+            {
+              const char *canon_charset = po_charset_canonicalize (charset);
 
-	      if (canon_charset != NULL)
-		{
-		  bool all_compendiums_iconvable = true;
+              if (canon_charset != NULL)
+                {
+                  bool all_compendiums_iconvable = true;
 
-		  if (compendiums != NULL)
-		    for (k = 0; k < compendiums->nitems; k++)
-		      if (!is_message_list_iconvable (compendiums->item[k],
-						      NULL, canon_charset))
-			{
-			  all_compendiums_iconvable = false;
-			  break;
-			}
+                  if (compendiums != NULL)
+                    for (k = 0; k < compendiums->nitems; k++)
+                      if (!is_message_list_iconvable (compendiums->item[k],
+                                                      NULL, canon_charset))
+                        {
+                          all_compendiums_iconvable = false;
+                          break;
+                        }
 
-		  if (all_compendiums_iconvable)
-		    {
-		      /* Convert the compendiums to def's encoding.  */
-		      if (compendiums != NULL)
-			for (k = 0; k < compendiums->nitems; k++)
-			  iconv_message_list (compendiums->item[k],
-					      NULL, canon_charset,
-					      compendium_filenames->item[k]);
-		      conversion_done = true;
-		    }
-		}
-	      freea (charset);
-	    }
-	}
-	if (!conversion_done)
-	  {
-	    if (def->nitems == 0
-		|| (def->nitems == 1 && def->item[0]->messages->nitems == 0))
-	      {
-		/* The definitions file is empty.
-		   Compare the encodings of the compendiums.  */
-		const char *common_canon_charset = NULL;
+                  if (all_compendiums_iconvable)
+                    {
+                      /* Convert the compendiums to def's encoding.  */
+                      if (compendiums != NULL)
+                        for (k = 0; k < compendiums->nitems; k++)
+                          iconv_message_list (compendiums->item[k],
+                                              NULL, canon_charset,
+                                              compendium_filenames->item[k]);
+                      conversion_done = true;
+                    }
+                }
+              freea (charset);
+            }
+        }
+        if (!conversion_done)
+          {
+            if (def->nitems == 0
+                || (def->nitems == 1 && def->item[0]->messages->nitems == 0))
+              {
+                /* The definitions file is empty.
+                   Compare the encodings of the compendiums.  */
+                const char *common_canon_charset = NULL;
 
-		for (k = 0; k < compendiums->nitems; k++)
-		  {
-		    message_list_ty *mlp = compendiums->item[k];
-		    char *charset = NULL;
-		    const char *canon_charset = NULL;
+                for (k = 0; k < compendiums->nitems; k++)
+                  {
+                    message_list_ty *mlp = compendiums->item[k];
+                    char *charset = NULL;
+                    const char *canon_charset = NULL;
 
-		    for (j = 0; j < mlp->nitems; j++)
-		      if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-			{
-			  const char *header = mlp->item[j]->msgstr;
+                    for (j = 0; j < mlp->nitems; j++)
+                      if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+                        {
+                          const char *header = mlp->item[j]->msgstr;
 
-			  if (header != NULL)
-			    {
-			      const char *charsetstr =
-				c_strstr (header, "charset=");
+                          if (header != NULL)
+                            {
+                              const char *charsetstr =
+                                c_strstr (header, "charset=");
 
-			      if (charsetstr != NULL)
-				{
-				  size_t len;
+                              if (charsetstr != NULL)
+                                {
+                                  size_t len;
 
-				  charsetstr += strlen ("charset=");
-				  len = strcspn (charsetstr, " \t\n");
-				  charset = (char *) xmalloca (len + 1);
-				  memcpy (charset, charsetstr, len);
-				  charset[len] = '\0';
+                                  charsetstr += strlen ("charset=");
+                                  len = strcspn (charsetstr, " \t\n");
+                                  charset = (char *) xmalloca (len + 1);
+                                  memcpy (charset, charsetstr, len);
+                                  charset[len] = '\0';
 
-				  break;
-				}
-			    }
-			}
-		    if (charset != NULL)
-		      {
-			canon_charset = po_charset_canonicalize (charset);
-			freea (charset);
-		      }
-		    /* If no charset declaration was found in this file,
-		       or if it is not a valid encoding name, or if it
-		       differs from the common charset found so far,
-		       we have no common charset.  */
-		    if (canon_charset == NULL
-			|| (common_canon_charset != NULL
-			    && canon_charset != common_canon_charset))
-		      {
-			common_canon_charset = NULL;
-			break;
-		      }
-		    common_canon_charset = canon_charset;
-		  }
+                                  break;
+                                }
+                            }
+                        }
+                    if (charset != NULL)
+                      {
+                        canon_charset = po_charset_canonicalize (charset);
+                        freea (charset);
+                      }
+                    /* If no charset declaration was found in this file,
+                       or if it is not a valid encoding name, or if it
+                       differs from the common charset found so far,
+                       we have no common charset.  */
+                    if (canon_charset == NULL
+                        || (common_canon_charset != NULL
+                            && canon_charset != common_canon_charset))
+                      {
+                        common_canon_charset = NULL;
+                        break;
+                      }
+                    common_canon_charset = canon_charset;
+                  }
 
-		if (common_canon_charset != NULL)
-		  /* No conversion needed in this case.  */
-		  conversion_done = true;
-	      }
-	    if (!conversion_done)
-	      {
-		/* It's too hairy to find out what would be the optimal target
-		   encoding.  So, convert everything to UTF-8.  */
-		def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
-		if (compendiums != NULL)
-		  for (k = 0; k < compendiums->nitems; k++)
-		    iconv_message_list (compendiums->item[k],
-					NULL, po_charset_utf8,
-					compendium_filenames->item[k]);
-	      }
-	  }
+                if (common_canon_charset != NULL)
+                  /* No conversion needed in this case.  */
+                  conversion_done = true;
+              }
+            if (!conversion_done)
+              {
+                /* It's too hairy to find out what would be the optimal target
+                   encoding.  So, convert everything to UTF-8.  */
+                def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
+                if (compendiums != NULL)
+                  for (k = 0; k < compendiums->nitems; k++)
+                    iconv_message_list (compendiums->item[k],
+                                        NULL, po_charset_utf8,
+                                        compendium_filenames->item[k]);
+              }
+          }
       }
   }
 
@@ -1862,45 +1862,45 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
     {
       def_canon_charset = def->encoding;
       if (def_canon_charset == NULL)
-	{
-	  char *charset = NULL;
+        {
+          char *charset = NULL;
 
-	  /* Get the encoding of the definitions file.  */
-	  for (k = 0; k < def->nitems; k++)
-	    {
-	      message_list_ty *mlp = def->item[k]->messages;
+          /* Get the encoding of the definitions file.  */
+          for (k = 0; k < def->nitems; k++)
+            {
+              message_list_ty *mlp = def->item[k]->messages;
 
-	      for (j = 0; j < mlp->nitems; j++)
-		if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-		  {
-		    const char *header = mlp->item[j]->msgstr;
+              for (j = 0; j < mlp->nitems; j++)
+                if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+                  {
+                    const char *header = mlp->item[j]->msgstr;
 
-		    if (header != NULL)
-		      {
-			const char *charsetstr = c_strstr (header, "charset=");
+                    if (header != NULL)
+                      {
+                        const char *charsetstr = c_strstr (header, "charset=");
 
-			if (charsetstr != NULL)
-			  {
-			    size_t len;
+                        if (charsetstr != NULL)
+                          {
+                            size_t len;
 
-			    charsetstr += strlen ("charset=");
-			    len = strcspn (charsetstr, " \t\n");
-			    charset = (char *) xmalloca (len + 1);
-			    memcpy (charset, charsetstr, len);
-			    charset[len] = '\0';
-			    break;
-			  }
-		      }
-		  }
-	      if (charset != NULL)
-		break;
-	    }
-	  if (charset != NULL)
-	    def_canon_charset = po_charset_canonicalize (charset);
-	  if (def_canon_charset == NULL)
-	    /* Unspecified encoding.  Assume unibyte encoding.  */
-	    def_canon_charset = po_charset_ascii;
-	}
+                            charsetstr += strlen ("charset=");
+                            len = strcspn (charsetstr, " \t\n");
+                            charset = (char *) xmalloca (len + 1);
+                            memcpy (charset, charsetstr, len);
+                            charset[len] = '\0';
+                            break;
+                          }
+                      }
+                  }
+              if (charset != NULL)
+                break;
+            }
+          if (charset != NULL)
+            def_canon_charset = po_charset_canonicalize (charset);
+          if (def_canon_charset == NULL)
+            /* Unspecified encoding.  Assume unibyte encoding.  */
+            def_canon_charset = po_charset_ascii;
+        }
     }
   else
     def_canon_charset = NULL;
@@ -1916,43 +1916,43 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
   if (!multi_domain_mode)
     for (k = 0; k < ref->nitems; k++)
       {
-	const char *domain = ref->item[k]->domain;
-	message_list_ty *refmlp = ref->item[k]->messages;
-	message_list_ty *resultmlp =
-	  msgdomain_list_sublist (result, domain, true);
-	message_list_ty *defmlp;
+        const char *domain = ref->item[k]->domain;
+        message_list_ty *refmlp = ref->item[k]->messages;
+        message_list_ty *resultmlp =
+          msgdomain_list_sublist (result, domain, true);
+        message_list_ty *defmlp;
 
-	defmlp = msgdomain_list_sublist (def, domain, false);
-	if (defmlp == NULL)
-	  defmlp = empty_list;
-	definitions_set_current_list (&definitions, defmlp);
+        defmlp = msgdomain_list_sublist (def, domain, false);
+        if (defmlp == NULL)
+          defmlp = empty_list;
+        definitions_set_current_list (&definitions, defmlp);
 
-	match_domain (fn1, fn2, &definitions, refmlp, resultmlp,
-		      &stats, &processed);
+        match_domain (fn1, fn2, &definitions, refmlp, resultmlp,
+                      &stats, &processed);
       }
   else
     {
       /* Apply the references messages in the default domain to each of
-	 the definition domains.  */
+         the definition domains.  */
       message_list_ty *refmlp = ref->item[0]->messages;
 
       for (k = 0; k < def->nitems; k++)
-	{
-	  const char *domain = def->item[k]->domain;
-	  message_list_ty *defmlp = def->item[k]->messages;
+        {
+          const char *domain = def->item[k]->domain;
+          message_list_ty *defmlp = def->item[k]->messages;
 
-	  /* Ignore the default message domain if it has no messages.  */
-	  if (k > 0 || defmlp->nitems > 0)
-	    {
-	      message_list_ty *resultmlp =
-		msgdomain_list_sublist (result, domain, true);
+          /* Ignore the default message domain if it has no messages.  */
+          if (k > 0 || defmlp->nitems > 0)
+            {
+              message_list_ty *resultmlp =
+                msgdomain_list_sublist (result, domain, true);
 
-	      definitions_set_current_list (&definitions, defmlp);
+              definitions_set_current_list (&definitions, defmlp);
 
-	      match_domain (fn1, fn2, &definitions, refmlp, resultmlp,
-			    &stats, &processed);
-	    }
-	}
+              match_domain (fn1, fn2, &definitions, refmlp, resultmlp,
+                            &stats, &processed);
+            }
+        }
     }
 
   definitions_destroy (&definitions);
@@ -1966,41 +1966,41 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
       message_list_ty *defmlp = def->item[k]->messages;
 
       for (j = 0; j < defmlp->nitems; j++)
-	{
-	  message_ty *defmsg = defmlp->item[j];
+        {
+          message_ty *defmsg = defmlp->item[j];
 
-	  if (!defmsg->used)
-	    {
-	      /* Remember the old translation although it is not used anymore.
-		 But we mark it as obsolete.  */
-	      message_ty *mp;
+          if (!defmsg->used)
+            {
+              /* Remember the old translation although it is not used anymore.
+                 But we mark it as obsolete.  */
+              message_ty *mp;
 
-	      mp = message_copy (defmsg);
-	      /* Clear the extracted comments.  */
-	      if (mp->comment_dot != NULL)
-		{
-		  string_list_free (mp->comment_dot);
-		  mp->comment_dot = NULL;
-		}
-	      /* Clear the file position comments.  */
-	      if (mp->filepos != NULL)
-		{
-		  size_t i;
+              mp = message_copy (defmsg);
+              /* Clear the extracted comments.  */
+              if (mp->comment_dot != NULL)
+                {
+                  string_list_free (mp->comment_dot);
+                  mp->comment_dot = NULL;
+                }
+              /* Clear the file position comments.  */
+              if (mp->filepos != NULL)
+                {
+                  size_t i;
 
-		  for (i = 0; i < mp->filepos_count; i++)
-		    free ((char *) mp->filepos[i].file_name);
-		  mp->filepos_count = 0;
-		  free (mp->filepos);
-		  mp->filepos = NULL;
-		}
-	      /* Mark as obsolete.   */
-	      mp->obsolete = true;
+                  for (i = 0; i < mp->filepos_count; i++)
+                    free ((char *) mp->filepos[i].file_name);
+                  mp->filepos_count = 0;
+                  free (mp->filepos);
+                  mp->filepos = NULL;
+                }
+              /* Mark as obsolete.   */
+              mp->obsolete = true;
 
-	      message_list_append (msgdomain_list_sublist (result, domain, true),
-				   mp);
-	      stats.obsolete++;
-	    }
-	}
+              message_list_append (msgdomain_list_sublist (result, domain, true),
+                                   mp);
+              stats.obsolete++;
+            }
+        }
     }
 
   /* Determine the known a-priori encoding, if any.  */
@@ -2012,10 +2012,10 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
     fprintf (stderr, _("%s\
 Read %ld old + %ld reference, \
 merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"),
-	     !quiet && verbosity_level <= 1 ? "\n" : "",
-	     (long) def->nitems, (long) ref->nitems,
-	     (long) stats.merged, (long) stats.fuzzied, (long) stats.missing,
-	     (long) stats.obsolete);
+             !quiet && verbosity_level <= 1 ? "\n" : "",
+             (long) def->nitems, (long) ref->nitems,
+             (long) stats.merged, (long) stats.fuzzied, (long) stats.missing,
+             (long) stats.obsolete);
   else if (!quiet)
     fputs (_(" done.\n"), stderr);
 

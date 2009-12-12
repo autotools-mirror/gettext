@@ -26,7 +26,7 @@
    Return 0 if ok, nonzero on error.  */
 extern int
        msgdomain_write_tcl (message_list_ty *mlp, const char *canon_encoding,
-			    const char *locale_name,
-			    const char *directory);
+                            const char *locale_name,
+                            const char *directory);
 
 #endif /* _WRITE_TCL_H */

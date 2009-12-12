@@ -12,21 +12,21 @@ void foo ()
   root_t a1 = a;
   root_t a2 = b;
   root_t a3 = c;
-  sub1_t b1 = a;	/* ERROR */
+  sub1_t b1 = a;        /* ERROR */
   sub1_t b2 = b;
   sub1_t b3 = c;
-  sub2_t c1 = a;	/* ERROR */
-  sub2_t c2 = b;	/* ERROR */
+  sub2_t c1 = a;        /* ERROR */
+  sub2_t c2 = b;        /* ERROR */
   sub2_t c3 = c;
 
   /* Test assignments.  */
   a = a1;
   a = b1;
   a = c1;
-  b = a2;	/* ERROR */
+  b = a2;       /* ERROR */
   b = b2;
   b = c2;
-  c = a3;	/* ERROR */
-  c = b3;	/* ERROR */
+  c = a3;       /* ERROR */
+  c = b3;       /* ERROR */
   c = c3;
 }

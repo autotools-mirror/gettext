@@ -54,23 +54,23 @@ static int force_po;
 /* Bit mask of subsets to remove.  */
 enum
 {
-  REMOVE_UNTRANSLATED	= 1 << 0,
-  REMOVE_TRANSLATED	= 1 << 1,
-  REMOVE_FUZZY		= 1 << 2,
-  REMOVE_NONFUZZY	= 1 << 3,
-  REMOVE_OBSOLETE	= 1 << 4,
-  REMOVE_NONOBSOLETE	= 1 << 5
+  REMOVE_UNTRANSLATED   = 1 << 0,
+  REMOVE_TRANSLATED     = 1 << 1,
+  REMOVE_FUZZY          = 1 << 2,
+  REMOVE_NONFUZZY       = 1 << 3,
+  REMOVE_OBSOLETE       = 1 << 4,
+  REMOVE_NONOBSOLETE    = 1 << 5
 };
 static int to_remove;
 
 /* Bit mask of actions to perform on all messages.  */
 enum
 {
-  SET_FUZZY		= 1 << 0,
-  RESET_FUZZY		= 1 << 1,
-  SET_OBSOLETE		= 1 << 2,
-  RESET_OBSOLETE	= 1 << 3,
-  REMOVE_PREV		= 1 << 4
+  SET_FUZZY             = 1 << 0,
+  RESET_FUZZY           = 1 << 1,
+  SET_OBSOLETE          = 1 << 2,
+  RESET_OBSOLETE        = 1 << 3,
+  REMOVE_PREV           = 1 << 4
 };
 static int to_change;
 
@@ -118,12 +118,12 @@ static const struct option long_options[] =
 /* Forward declaration of local functions.  */
 static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-	__attribute__ ((noreturn))
+        __attribute__ ((noreturn))
 #endif
 ;
 static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp,
-						  msgdomain_list_ty *only_mdlp,
-						msgdomain_list_ty *ignore_mdlp);
+                                                  msgdomain_list_ty *only_mdlp,
+                                                msgdomain_list_ty *ignore_mdlp);
 
 
 int
@@ -170,151 +170,151 @@ main (int argc, char **argv)
   ignore_file = NULL;
 
   while ((optchar = getopt_long (argc, argv, "D:eEFhino:pPsVw:", long_options,
-				 NULL)) != EOF)
+                                 NULL)) != EOF)
     switch (optchar)
       {
-      case '\0':		/* Long option.  */
-	break;
+      case '\0':                /* Long option.  */
+        break;
 
       case 'D':
-	dir_list_append (optarg);
-	break;
+        dir_list_append (optarg);
+        break;
 
       case 'e':
-	message_print_style_escape (false);
-	break;
+        message_print_style_escape (false);
+        break;
 
       case 'E':
-	message_print_style_escape (true);
-	break;
+        message_print_style_escape (true);
+        break;
 
       case 'F':
-	sort_by_filepos = true;
-	break;
+        sort_by_filepos = true;
+        break;
 
       case 'h':
-	do_help = true;
-	break;
+        do_help = true;
+        break;
 
       case 'i':
-	message_print_style_indent ();
-	break;
+        message_print_style_indent ();
+        break;
 
       case 'n':
-	line_comment = 1;
-	break;
+        line_comment = 1;
+        break;
 
       case 'o':
-	output_file = optarg;
-	break;
+        output_file = optarg;
+        break;
 
       case 'p':
-	output_syntax = &output_format_properties;
-	break;
+        output_syntax = &output_format_properties;
+        break;
 
       case 'P':
-	input_syntax = &input_format_properties;
-	break;
+        input_syntax = &input_format_properties;
+        break;
 
       case 's':
-	sort_by_msgid = true;
-	break;
+        sort_by_msgid = true;
+        break;
 
       case 'S':
-	message_print_style_uniforum ();
-	break;
+        message_print_style_uniforum ();
+        break;
 
       case 'V':
-	do_version = true;
-	break;
+        do_version = true;
+        break;
 
       case 'w':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    message_page_width_set (value);
-	}
-	break;
+        {
+          int value;
+          char *endp;
+          value = strtol (optarg, &endp, 10);
+          if (endp != optarg)
+            message_page_width_set (value);
+        }
+        break;
 
       case CHAR_MAX + 1: /* --translated */
-	to_remove |= REMOVE_UNTRANSLATED;
-	break;
+        to_remove |= REMOVE_UNTRANSLATED;
+        break;
 
       case CHAR_MAX + 2: /* --untranslated */
-	to_remove |= REMOVE_TRANSLATED;
-	break;
+        to_remove |= REMOVE_TRANSLATED;
+        break;
 
       case CHAR_MAX + 3: /* --no-fuzzy */
-	to_remove |= REMOVE_FUZZY;
-	break;
+        to_remove |= REMOVE_FUZZY;
+        break;
 
       case CHAR_MAX + 4: /* --only-fuzzy */
-	to_remove |= REMOVE_NONFUZZY;
-	break;
+        to_remove |= REMOVE_NONFUZZY;
+        break;
 
       case CHAR_MAX + 5: /* --no-obsolete */
-	to_remove |= REMOVE_OBSOLETE;
-	break;
+        to_remove |= REMOVE_OBSOLETE;
+        break;
 
       case CHAR_MAX + 6: /* --only-obsolete */
-	to_remove |= REMOVE_NONOBSOLETE;
-	break;
+        to_remove |= REMOVE_NONOBSOLETE;
+        break;
 
       case CHAR_MAX + 7: /* --set-fuzzy */
-	to_change |= SET_FUZZY;
-	break;
+        to_change |= SET_FUZZY;
+        break;
 
       case CHAR_MAX + 8: /* --clear-fuzzy */
-	to_change |= RESET_FUZZY;
-	break;
+        to_change |= RESET_FUZZY;
+        break;
 
       case CHAR_MAX + 9: /* --set-obsolete */
-	to_change |= SET_OBSOLETE;
-	break;
+        to_change |= SET_OBSOLETE;
+        break;
 
       case CHAR_MAX + 10: /* --clear-obsolete */
-	to_change |= RESET_OBSOLETE;
-	break;
+        to_change |= RESET_OBSOLETE;
+        break;
 
       case CHAR_MAX + 11: /* --fuzzy */
-	to_remove |= REMOVE_NONFUZZY;
-	to_change |= RESET_FUZZY;
-	break;
+        to_remove |= REMOVE_NONFUZZY;
+        to_change |= RESET_FUZZY;
+        break;
 
       case CHAR_MAX + 12: /* --obsolete */
-	to_remove |= REMOVE_NONOBSOLETE;
-	to_change |= RESET_OBSOLETE;
-	break;
+        to_remove |= REMOVE_NONOBSOLETE;
+        to_change |= RESET_OBSOLETE;
+        break;
 
       case CHAR_MAX + 13: /* --no-wrap */
-	message_page_width_ignore ();
-	break;
+        message_page_width_ignore ();
+        break;
 
       case CHAR_MAX + 14: /* --only-file */
-	only_file = optarg;
-	break;
+        only_file = optarg;
+        break;
 
       case CHAR_MAX + 15: /* --ignore-file */
-	ignore_file = optarg;
-	break;
+        ignore_file = optarg;
+        break;
 
       case CHAR_MAX + 16: /* --stringtable-input */
-	input_syntax = &input_format_stringtable;
-	break;
+        input_syntax = &input_format_stringtable;
+        break;
 
       case CHAR_MAX + 17: /* --stringtable-output */
-	output_syntax = &output_format_stringtable;
-	break;
+        output_syntax = &output_format_stringtable;
+        break;
 
       case CHAR_MAX + 18: /* --clear-previous */
-	to_change |= REMOVE_PREV;
-	break;
+        to_change |= REMOVE_PREV;
+        break;
 
       default:
-	usage (EXIT_FAILURE);
-	/* NOTREACHED */
+        usage (EXIT_FAILURE);
+        /* NOTREACHED */
       }
 
   /* Version information requested.  */
@@ -327,7 +327,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2001-2009");
+              "2001-2009");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -350,22 +350,22 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Verify selected options.  */
   if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--no-location", "--sort-by-file");
+           "--no-location", "--sort-by-file");
 
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
+           "--sort-output", "--sort-by-file");
 
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
 
   /* Read optional files that limit the extent of the attribute changes.  */
   only_mdlp = (only_file != NULL
-	       ? read_catalog_file (only_file, input_syntax)
-	       : NULL);
+               ? read_catalog_file (only_file, input_syntax)
+               : NULL);
   ignore_mdlp = (ignore_file != NULL
-		 ? read_catalog_file (ignore_file, input_syntax)
-		 : NULL);
+                 ? read_catalog_file (ignore_file, input_syntax)
+                 : NULL);
 
   /* Filter the messages and manipulate the attributes.  */
   result = process_msgdomain_list (result, only_mdlp, ignore_mdlp);
@@ -389,7 +389,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -506,7 +506,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -523,20 +523,20 @@ is_message_selected (const message_ty *mp)
 
   if ((to_remove & (REMOVE_UNTRANSLATED | REMOVE_TRANSLATED))
       && (mp->msgstr[0] == '\0'
-	  ? to_remove & REMOVE_UNTRANSLATED
-	  : to_remove & REMOVE_TRANSLATED))
+          ? to_remove & REMOVE_UNTRANSLATED
+          : to_remove & REMOVE_TRANSLATED))
     return false;
 
   if ((to_remove & (REMOVE_FUZZY | REMOVE_NONFUZZY))
       && (mp->is_fuzzy
-	  ? to_remove & REMOVE_FUZZY
-	  : to_remove & REMOVE_NONFUZZY))
+          ? to_remove & REMOVE_FUZZY
+          : to_remove & REMOVE_NONFUZZY))
     return false;
 
   if ((to_remove & (REMOVE_OBSOLETE | REMOVE_NONOBSOLETE))
       && (mp->obsolete
-	  ? to_remove & REMOVE_OBSOLETE
-	  : to_remove & REMOVE_NONOBSOLETE))
+          ? to_remove & REMOVE_OBSOLETE
+          : to_remove & REMOVE_NONOBSOLETE))
     return false;
 
   return true;
@@ -545,7 +545,7 @@ is_message_selected (const message_ty *mp)
 
 static void
 process_message_list (message_list_ty *mlp,
-		      message_list_ty *only_mlp, message_list_ty *ignore_mlp)
+                      message_list_ty *only_mlp, message_list_ty *ignore_mlp)
 {
   /* Keep only the selected messages.  */
   message_list_remove_if_not (mlp, is_message_selected);
@@ -556,58 +556,58 @@ process_message_list (message_list_ty *mlp,
       size_t j;
 
       for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
+        {
+          message_ty *mp = mlp->item[j];
 
-	  /* Attribute changes only affect messages listed in --only-file
-	     and not listed in --ignore-file.  */
-	  if ((only_mlp
-	       ? message_list_search (only_mlp, mp->msgctxt, mp->msgid) != NULL
-	       : true)
-	      && (ignore_mlp
-		  ? message_list_search (ignore_mlp, mp->msgctxt, mp->msgid) == NULL
-		  : true))
-	    {
-	      if (to_change & SET_FUZZY)
-		mp->is_fuzzy = true;
-	      if (to_change & RESET_FUZZY)
-		mp->is_fuzzy = false;
-	      /* Always keep the header entry non-obsolete.  */
-	      if ((to_change & SET_OBSOLETE) && !is_header (mp))
-		mp->obsolete = true;
-	      if (to_change & RESET_OBSOLETE)
-		mp->obsolete = false;
-	      if (to_change & REMOVE_PREV)
-		{
-		  mp->prev_msgctxt = NULL;
-		  mp->prev_msgid = NULL;
-		  mp->prev_msgid_plural = NULL;
-		}
-	    }
-	}
+          /* Attribute changes only affect messages listed in --only-file
+             and not listed in --ignore-file.  */
+          if ((only_mlp
+               ? message_list_search (only_mlp, mp->msgctxt, mp->msgid) != NULL
+               : true)
+              && (ignore_mlp
+                  ? message_list_search (ignore_mlp, mp->msgctxt, mp->msgid) == NULL
+                  : true))
+            {
+              if (to_change & SET_FUZZY)
+                mp->is_fuzzy = true;
+              if (to_change & RESET_FUZZY)
+                mp->is_fuzzy = false;
+              /* Always keep the header entry non-obsolete.  */
+              if ((to_change & SET_OBSOLETE) && !is_header (mp))
+                mp->obsolete = true;
+              if (to_change & RESET_OBSOLETE)
+                mp->obsolete = false;
+              if (to_change & REMOVE_PREV)
+                {
+                  mp->prev_msgctxt = NULL;
+                  mp->prev_msgid = NULL;
+                  mp->prev_msgid_plural = NULL;
+                }
+            }
+        }
     }
 }
 
 
 static msgdomain_list_ty *
 process_msgdomain_list (msgdomain_list_ty *mdlp,
-			msgdomain_list_ty *only_mdlp,
-			msgdomain_list_ty *ignore_mdlp)
+                        msgdomain_list_ty *only_mdlp,
+                        msgdomain_list_ty *ignore_mdlp)
 {
   size_t k;
 
   for (k = 0; k < mdlp->nitems; k++)
     process_message_list (mdlp->item[k]->messages,
-			  only_mdlp
-			  ? msgdomain_list_sublist (only_mdlp,
-						    mdlp->item[k]->domain,
-						    true)
-			  : NULL,
-			  ignore_mdlp
-			  ? msgdomain_list_sublist (ignore_mdlp,
-						    mdlp->item[k]->domain,
-						    false)
-			  : NULL);
+                          only_mdlp
+                          ? msgdomain_list_sublist (only_mdlp,
+                                                    mdlp->item[k]->domain,
+                                                    true)
+                          : NULL,
+                          ignore_mdlp
+                          ? msgdomain_list_sublist (ignore_mdlp,
+                                                    mdlp->item[k]->domain,
+                                                    false)
+                          : NULL);
 
   return mdlp;
 }

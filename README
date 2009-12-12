@@ -26,7 +26,7 @@ the other possibility does.
 Please share your results with us.  If this package compiles ok for
 you future GNU release will likely also not fail, at least for reasons
 found in message handling.  Send comments and bug reports to
-		bug-gnu-gettext@gnu.org
+                bug-gnu-gettext@gnu.org
 
 
 The goal of this library was to give a unique interface to message
@@ -49,7 +49,7 @@ The configure script provides two non-standard options.  These will
 also be available in other packages if they use the functionality of
 GNU gettext.  Use
 
-	--disable-nls
+        --disable-nls
 
 if you absolutely don't want to have messages handling code.  You will
 always get the original messages (mostly English).  You could consider
@@ -62,19 +62,19 @@ specified while configuring.  Of course they must be available but the
 intersection of these two sets are computed automatically.  You could
 once and for all define in your profile/cshrc the variable LINGUAS:
 
-(Bourne Shell)		LINGUAS="de fr nl"; export LINGUAS
+(Bourne Shell)          LINGUAS="de fr nl"; export LINGUAS
 
-(C Shell)		setenv LINGUAS "de fr nl"
+(C Shell)               setenv LINGUAS "de fr nl"
 
 or specify it directly while configuring
 
-	env LINGUAS="de fr nl" ./configure
+        env LINGUAS="de fr nl" ./configure
 
 Consult the manual for more information on language names.
 
 The second configure option is
 
-	--with-included-gettext
+        --with-included-gettext
 
 This forces to use the GNU implementation of the message handling library
 regardless what the local C library provides.  This possibility is
@@ -84,12 +84,12 @@ have all the features the included libintl has.
 
 Other files you might look into:
 
-`ABOUT-NLS' -	 current state of the GNU internationalization effort
-`COPYING' -	 copying conditions
+`ABOUT-NLS' -    current state of the GNU internationalization effort
+`COPYING' -      copying conditions
 `DEPENDENCIES' - list of prerequisite packages, to be installed before this one
-`INSTALL' -	 general compilation and installation rules
-`NEWS' -	 major changes in the current version
-`THANKS' -	 list of contributors
+`INSTALL' -      general compilation and installation rules
+`NEWS' -         major changes in the current version
+`THANKS' -       list of contributors
 
 
 Some points you might be interested in before installing the package:
@@ -112,7 +112,7 @@ Some points you might be interested in before installing the package:
     implemented in the X Window System.  Especially the alias data base
     file can be shared.  Normally this file is found at something like
 
-	/usr/lib/X11/locale/locale.alias
+        /usr/lib/X11/locale/locale.alias
 
     If you have the X Window System installed try to find this file and
     specify the path at the make run:

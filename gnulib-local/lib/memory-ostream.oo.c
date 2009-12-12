@@ -33,31 +33,31 @@
 struct memory_ostream : struct ostream
 {
 fields:
-  char *buffer;			/* Buffer containing the accumulated output.  */
-  size_t buflen;		/* Number of bytes stored so far.  */
-  size_t allocated;		/* Allocated size of the buffer.  */
+  char *buffer;                 /* Buffer containing the accumulated output.  */
+  size_t buflen;                /* Number of bytes stored so far.  */
+  size_t allocated;             /* Allocated size of the buffer.  */
 };
 
 /* Implementation of ostream_t methods.  */
 
 static void
 memory_ostream::write_mem (memory_ostream_t stream,
-			   const void *data, size_t len)
+                           const void *data, size_t len)
 {
   if (len > 0)
     {
       if (len > stream->allocated - stream->buflen)
-	{
-	  size_t new_allocated =
-	    xmax (xsum (stream->buflen, len),
-		  xsum (stream->allocated, stream->allocated));
-	  if (size_overflow_p (new_allocated))
-	    error (EXIT_FAILURE, 0,
-		   _("%s: too much output, buffer size overflow"),
-		   "memory_ostream");
-	  stream->buffer = (char *) xrealloc (stream->buffer, new_allocated);
-	  stream->allocated = new_allocated;
-	}
+        {
+          size_t new_allocated =
+            xmax (xsum (stream->buflen, len),
+                  xsum (stream->allocated, stream->allocated));
+          if (size_overflow_p (new_allocated))
+            error (EXIT_FAILURE, 0,
+                   _("%s: too much output, buffer size overflow"),
+                   "memory_ostream");
+          stream->buffer = (char *) xrealloc (stream->buffer, new_allocated);
+          stream->allocated = new_allocated;
+        }
       memcpy (stream->buffer + stream->buflen, data, len);
       stream->buflen += len;
     }
@@ -79,7 +79,7 @@ memory_ostream::free (memory_ostream_t stream)
 
 void
 memory_ostream::contents (memory_ostream_t stream,
-			  const void **bufp, size_t *buflenp)
+                          const void **bufp, size_t *buflenp)
 {
   *bufp = stream->buffer;
   *buflenp = stream->buflen;

@@ -24,7 +24,7 @@
    Returns a list of messages.  */
 extern msgdomain_list_ty *
        msgdomain_read_csharp (const char *resource_name,
-			      const char *locale_name,
-			      const char *directory);
+                              const char *locale_name,
+                              const char *directory);
 
 #endif /* _READ_CSHARP_H */

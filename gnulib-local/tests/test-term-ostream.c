@@ -48,23 +48,23 @@ main ()
       ostream_write_str (stream, name);
       ostream_write_mem (stream, "        ", 7 - strlen (name));
       for (col = 0; col <= 8; col++)
-	{
-	  term_color_t row_color = colors[row].c;
-	  term_color_t col_color = colors[col].c;
+        {
+          term_color_t row_color = colors[row].c;
+          term_color_t col_color = colors[col].c;
 
-	  ostream_write_str (stream, "|");
-	  term_ostream_set_color (stream, row_color);
-	  term_ostream_set_bgcolor (stream, col_color);
-	  if (!(term_ostream_get_color (stream) == row_color
-		&& term_ostream_get_bgcolor (stream) == col_color))
-	    abort ();
-	  ostream_write_str (stream, " Words ");
-	  term_ostream_set_color (stream, COLOR_DEFAULT);
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	  if (!(term_ostream_get_color (stream) == COLOR_DEFAULT
-		&& term_ostream_get_bgcolor (stream) == COLOR_DEFAULT))
-	    abort ();
-	}
+          ostream_write_str (stream, "|");
+          term_ostream_set_color (stream, row_color);
+          term_ostream_set_bgcolor (stream, col_color);
+          if (!(term_ostream_get_color (stream) == row_color
+                && term_ostream_get_bgcolor (stream) == col_color))
+            abort ();
+          ostream_write_str (stream, " Words ");
+          term_ostream_set_color (stream, COLOR_DEFAULT);
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+          if (!(term_ostream_get_color (stream) == COLOR_DEFAULT
+                && term_ostream_get_bgcolor (stream) == COLOR_DEFAULT))
+            abort ();
+        }
       ostream_write_str (stream, "\n");
     }
   ostream_write_str (stream, "\n");
@@ -74,90 +74,90 @@ main ()
   for (row = 0; row <= 17; row++)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int r = 255;
-	  int b = (int) (255.0f / 64.0f * col + 0.5f);
-	  int g = b + (int) (row / 17.0f * (r - b) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int r = 255;
+          int b = (int) (255.0f / 64.0f * col + 0.5f);
+          int g = b + (int) (row / 17.0f * (r - b) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 1 to 2.  */
   for (row = 17; row >= 0; row--)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int g = 255;
-	  int b = (int) (255.0f / 64.0f * col + 0.5f);
-	  int r = b + (int) (row / 17.0f * (g - b) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int g = 255;
+          int b = (int) (255.0f / 64.0f * col + 0.5f);
+          int r = b + (int) (row / 17.0f * (g - b) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 2 to 3.  */
   for (row = 0; row <= 17; row++)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int g = 255;
-	  int r = (int) (255.0f / 64.0f * col + 0.5f);
-	  int b = r + (int) (row / 17.0f * (g - r) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int g = 255;
+          int r = (int) (255.0f / 64.0f * col + 0.5f);
+          int b = r + (int) (row / 17.0f * (g - r) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 3 to 4.  */
   for (row = 17; row >= 0; row--)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int b = 255;
-	  int r = (int) (255.0f / 64.0f * col + 0.5f);
-	  int g = r + (int) (row / 17.0f * (b - r) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int b = 255;
+          int r = (int) (255.0f / 64.0f * col + 0.5f);
+          int g = r + (int) (row / 17.0f * (b - r) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 4 to 5.  */
   for (row = 0; row <= 17; row++)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int b = 255;
-	  int g = (int) (255.0f / 64.0f * col + 0.5f);
-	  int r = g + (int) (row / 17.0f * (b - g) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int b = 255;
+          int g = (int) (255.0f / 64.0f * col + 0.5f);
+          int r = g + (int) (row / 17.0f * (b - g) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 5 to 6.  */
   for (row = 17; row >= 0; row--)
     {
       for (col = 0; col <= 64; col++)
-	{
-	  int r = 255;
-	  int g = (int) (255.0f / 64.0f * col + 0.5f);
-	  int b = g + (int) (row / 17.0f * (r - g) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int r = 255;
+          int g = (int) (255.0f / 64.0f * col + 0.5f);
+          int b = g + (int) (row / 17.0f * (r - g) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   ostream_write_str (stream, "\n");

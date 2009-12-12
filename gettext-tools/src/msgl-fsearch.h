@@ -38,7 +38,7 @@ typedef struct message_fuzzy_index_ty message_fuzzy_index_ty;
    inside it must not be modified while the returned fuzzy index is in use.  */
 extern message_fuzzy_index_ty *
        message_fuzzy_index_alloc (const message_list_ty *mlp,
-				  const char *canon_charset);
+                                  const char *canon_charset);
 
 /* Find a good match for the given msgctxt and msgid in the given fuzzy index.
    The match does not need to be optimal.
@@ -53,9 +53,9 @@ extern message_fuzzy_index_ty *
    choice).  */
 extern message_ty *
        message_fuzzy_index_search (message_fuzzy_index_ty *findex,
-				   const char *msgctxt, const char *msgid,
-				   double lower_bound,
-				   bool heuristic);
+                                   const char *msgctxt, const char *msgid,
+                                   double lower_bound,
+                                   bool heuristic);
 
 /* Free a fuzzy index.  */
 extern void

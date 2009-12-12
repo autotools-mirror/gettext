@@ -46,7 +46,7 @@ is_ascii_string_list (string_list_ty *slp)
   if (slp != NULL)
     for (i = 0; i < slp->nitems; i++)
       if (!is_ascii_string (slp->item[i]))
-	return false;
+        return false;
   return true;
 }
 

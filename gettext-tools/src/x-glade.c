@@ -80,7 +80,7 @@ x_glade_keyword (const char *name)
   else
     {
       if (keywords.table == NULL)
-	hash_init (&keywords, 100);
+        hash_init (&keywords, 100);
 
       hash_insert_entry (&keywords, name, strlen (name), NULL);
     }
@@ -94,7 +94,7 @@ init_keywords ()
   if (default_keywords)
     {
       /* When adding new keywords here, also update the documentation in
-	 xgettext.texi!  */
+         xgettext.texi!  */
       x_glade_keyword ("label");
       x_glade_keyword ("title");
       x_glade_keyword ("text");
@@ -146,11 +146,11 @@ is_XML_LARGE_SIZE_ABI (void)
 
       is_large = false;
       for (features = XML_GetFeatureList (); features->name != NULL; features++)
-	if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
-	  {
-	    is_large = true;
-	    break;
-	  }
+        if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
+          {
+            is_large = true;
+            break;
+          }
 
       tested = true;
     }
@@ -241,23 +241,23 @@ get_XML_Size_ABI (void)
   if (!tested)
     {
       if (XML_ExpatVersionInfo () .major >= 2)
-	/* expat >= 2.0 -> XML_Size is 'int64_t' or 'long'.  */
-	{
-	  const XML_Feature *features;
+        /* expat >= 2.0 -> XML_Size is 'int64_t' or 'long'.  */
+        {
+          const XML_Feature *features;
 
-	  abi = is_long;
-	  for (features = XML_GetFeatureList ();
-	       features->name != NULL;
-	       features++)
-	    if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
-	      {
-		abi = is_int64_t;
-		break;
-	      }
-	}
+          abi = is_long;
+          for (features = XML_GetFeatureList ();
+               features->name != NULL;
+               features++)
+            if (strcmp (features->name, "XML_LARGE_SIZE") == 0)
+              {
+                abi = is_int64_t;
+                break;
+              }
+        }
       else
-	/* expat < 2.0 -> XML_Size is 'int'.  */
-	abi = is_int;
+        /* expat < 2.0 -> XML_Size is 'int'.  */
+        abi = is_int;
       tested = true;
     }
   return abi;
@@ -317,46 +317,46 @@ load_libexpat ()
       /* Try to load libexpat-2.x.  */
       handle = dlopen ("libexpat.so.1", RTLD_LAZY);
       if (handle == NULL)
-	/* Try to load libexpat-1.x.  */
-	handle = dlopen ("libexpat.so.0", RTLD_LAZY);
+        /* Try to load libexpat-1.x.  */
+        handle = dlopen ("libexpat.so.0", RTLD_LAZY);
       if (handle != NULL
-	  && (p_XML_ExpatVersionInfo =
-		(XML_Expat_Version (*) (void))
-		dlsym (handle, "XML_ExpatVersionInfo")) != NULL
-	  && (p_XML_GetFeatureList =
-		(const XML_Feature * (*) (void))
-		dlsym (handle, "XML_GetFeatureList")) != NULL
-	  && (p_XML_ParserCreate =
-		(XML_Parser (*) (const XML_Char *))
-		dlsym (handle, "XML_ParserCreate")) != NULL
-	  && (p_XML_SetElementHandler =
-		(void (*) (XML_Parser, XML_StartElementHandler, XML_EndElementHandler))
-		dlsym (handle, "XML_SetElementHandler")) != NULL
-	  && (p_XML_SetCharacterDataHandler =
-		(void (*) (XML_Parser, XML_CharacterDataHandler))
-		dlsym (handle, "XML_SetCharacterDataHandler")) != NULL
-	  && (p_XML_SetCommentHandler =
-		(void (*) (XML_Parser, XML_CommentHandler))
-		dlsym (handle, "XML_SetCommentHandler")) != NULL
-	  && (p_XML_Parse =
-		(int (*) (XML_Parser, const char *, int, int))
-		dlsym (handle, "XML_Parse")) != NULL
-	  && (p_XML_GetErrorCode =
-		(enum XML_Error (*) (XML_Parser))
-		dlsym (handle, "XML_GetErrorCode")) != NULL
-	  && (p_XML_GetCurrentLineNumber =
-		dlsym (handle, "XML_GetCurrentLineNumber")) != NULL
-	  && (p_XML_GetCurrentColumnNumber =
-		dlsym (handle, "XML_GetCurrentColumnNumber")) != NULL
-	  && (p_XML_ParserFree =
-		(void (*) (XML_Parser))
-		dlsym (handle, "XML_ParserFree")) != NULL
-	  && (p_XML_ErrorString =
-		(const XML_LChar * (*) (int))
-		dlsym (handle, "XML_ErrorString")) != NULL)
-	libexpat_loaded = 1;
+          && (p_XML_ExpatVersionInfo =
+                (XML_Expat_Version (*) (void))
+                dlsym (handle, "XML_ExpatVersionInfo")) != NULL
+          && (p_XML_GetFeatureList =
+                (const XML_Feature * (*) (void))
+                dlsym (handle, "XML_GetFeatureList")) != NULL
+          && (p_XML_ParserCreate =
+                (XML_Parser (*) (const XML_Char *))
+                dlsym (handle, "XML_ParserCreate")) != NULL
+          && (p_XML_SetElementHandler =
+                (void (*) (XML_Parser, XML_StartElementHandler, XML_EndElementHandler))
+                dlsym (handle, "XML_SetElementHandler")) != NULL
+          && (p_XML_SetCharacterDataHandler =
+                (void (*) (XML_Parser, XML_CharacterDataHandler))
+                dlsym (handle, "XML_SetCharacterDataHandler")) != NULL
+          && (p_XML_SetCommentHandler =
+                (void (*) (XML_Parser, XML_CommentHandler))
+                dlsym (handle, "XML_SetCommentHandler")) != NULL
+          && (p_XML_Parse =
+                (int (*) (XML_Parser, const char *, int, int))
+                dlsym (handle, "XML_Parse")) != NULL
+          && (p_XML_GetErrorCode =
+                (enum XML_Error (*) (XML_Parser))
+                dlsym (handle, "XML_GetErrorCode")) != NULL
+          && (p_XML_GetCurrentLineNumber =
+                dlsym (handle, "XML_GetCurrentLineNumber")) != NULL
+          && (p_XML_GetCurrentColumnNumber =
+                dlsym (handle, "XML_GetCurrentColumnNumber")) != NULL
+          && (p_XML_ParserFree =
+                (void (*) (XML_Parser))
+                dlsym (handle, "XML_ParserFree")) != NULL
+          && (p_XML_ErrorString =
+                (const XML_LChar * (*) (int))
+                dlsym (handle, "XML_ErrorString")) != NULL)
+        libexpat_loaded = 1;
       else
-	libexpat_loaded = -1;
+        libexpat_loaded = -1;
     }
   return libexpat_loaded >= 0;
 }
@@ -402,10 +402,10 @@ ensure_stack_size (size_t size)
     {
       stack_size = 2 * stack_size;
       if (stack_size < size)
-	stack_size = size;
+        stack_size = size;
       stack =
-	(struct element_state *)
-	xrealloc (stack, stack_size * sizeof (struct element_state));
+        (struct element_state *)
+        xrealloc (stack, stack_size * sizeof (struct element_state));
     }
 }
 
@@ -414,7 +414,7 @@ static size_t stack_depth;
 /* Callback called when <element> is seen.  */
 static void
 start_element_handler (void *userData, const char *name,
-		       const char **attributes)
+                       const char **attributes)
 {
   struct element_state *p;
   void *hash_result;
@@ -446,42 +446,42 @@ start_element_handler (void *userData, const char *name,
       const char *extracted_comment = NULL;
       const char **attp = attributes;
       while (*attp != NULL)
-	{
-	  if (strcmp (attp[0], "translatable") == 0)
-	    has_translatable = (strcmp (attp[1], "yes") == 0);
-	  else if (strcmp (attp[0], "comments") == 0)
-	    extracted_comment = attp[1];
-	  attp += 2;
-	}
+        {
+          if (strcmp (attp[0], "translatable") == 0)
+            has_translatable = (strcmp (attp[1], "yes") == 0);
+          else if (strcmp (attp[0], "comments") == 0)
+            extracted_comment = attp[1];
+          attp += 2;
+        }
       p->extract_string = has_translatable;
       p->extracted_comment =
-	(has_translatable && extracted_comment != NULL
-	 ? xstrdup (extracted_comment)
-	 : NULL);
+        (has_translatable && extracted_comment != NULL
+         ? xstrdup (extracted_comment)
+         : NULL);
     }
   if (!p->extract_string
       && strcmp (name, "atkaction") == 0)
     {
       const char **attp = attributes;
       while (*attp != NULL)
-	{
-	  if (strcmp (attp[0], "description") == 0)
-	    {
-	      if (strcmp (attp[1], "") != 0)
-		{
-		  lex_pos_ty pos;
+        {
+          if (strcmp (attp[0], "description") == 0)
+            {
+              if (strcmp (attp[1], "") != 0)
+                {
+                  lex_pos_ty pos;
 
-		  pos.file_name = logical_file_name;
-		  pos.line_number = XML_GetCurrentLineNumber (parser);
+                  pos.file_name = logical_file_name;
+                  pos.line_number = XML_GetCurrentLineNumber (parser);
 
-		  remember_a_message (mlp, NULL, xstrdup (attp[1]),
-				      null_context, &pos,
-				      NULL, savable_comment);
-		}
-	      break;
-	    }
-	  attp += 2;
-	}
+                  remember_a_message (mlp, NULL, xstrdup (attp[1]),
+                                      null_context, &pos,
+                                      NULL, savable_comment);
+                }
+              break;
+            }
+          attp += 2;
+        }
     }
   p->lineno = XML_GetCurrentLineNumber (parser);
   p->buffer = NULL;
@@ -502,20 +502,20 @@ end_element_handler (void *userData, const char *name)
     {
       /* Don't extract the empty string.  */
       if (p->buflen > 0)
-	{
-	  lex_pos_ty pos;
+        {
+          lex_pos_ty pos;
 
-	  if (p->buflen == p->bufmax)
-	    p->buffer = (char *) xrealloc (p->buffer, p->buflen + 1);
-	  p->buffer[p->buflen] = '\0';
+          if (p->buflen == p->bufmax)
+            p->buffer = (char *) xrealloc (p->buffer, p->buflen + 1);
+          p->buffer[p->buflen] = '\0';
 
-	  pos.file_name = logical_file_name;
-	  pos.line_number = p->lineno;
+          pos.file_name = logical_file_name;
+          pos.line_number = p->lineno;
 
-	  remember_a_message (mlp, NULL, p->buffer, null_context, &pos,
-			      p->extracted_comment, savable_comment);
-	  p->buffer = NULL;
-	}
+          remember_a_message (mlp, NULL, p->buffer, null_context, &pos,
+                              p->extracted_comment, savable_comment);
+          p->buffer = NULL;
+        }
     }
 
   /* Free memory for this stack level.  */
@@ -540,12 +540,12 @@ character_data_handler (void *userData, const char *s, int len)
   if (len > 0)
     {
       if (p->buflen + len > p->bufmax)
-	{
-	  p->bufmax = 2 * p->bufmax;
-	  if (p->bufmax < p->buflen + len)
-	    p->bufmax = p->buflen + len;
-	  p->buffer = (char *) xrealloc (p->buffer, p->bufmax);
-	}
+        {
+          p->bufmax = 2 * p->bufmax;
+          if (p->bufmax < p->buflen + len)
+            p->bufmax = p->buflen + len;
+          p->buffer = (char *) xrealloc (p->buffer, p->bufmax);
+        }
       memcpy (p->buffer + p->buflen, s, len);
       p->buflen += len;
     }
@@ -564,9 +564,9 @@ comment_handler (void *userData, const char *data)
   for (p = copy; (q = strchr (p, '\n')) != NULL; p = q + 1)
     {
       while (p[0] == ' ' || p[0] == '\t')
-	p++;
+        p++;
       while (q > p && (q[-1] == ' ' || q[-1] == '\t'))
-	q--;
+        q--;
       *q = '\0';
       savable_comment_add (p);
     }
@@ -583,8 +583,8 @@ comment_handler (void *userData, const char *data)
 
 static void
 do_extract_glade (FILE *fp,
-		  const char *real_filename, const char *logical_filename,
-		  msgdomain_list_ty *mdlp)
+                  const char *real_filename, const char *logical_filename,
+                  msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 
@@ -611,26 +611,26 @@ do_extract_glade (FILE *fp,
       int count = fread (buf, 1, sizeof buf, fp);
 
       if (count == 0)
-	{
-	  if (ferror (fp))
-	    error (EXIT_FAILURE, errno, _("\
+        {
+          if (ferror (fp))
+            error (EXIT_FAILURE, errno, _("\
 error while reading \"%s\""), real_filename);
-	  /* EOF reached.  */
-	  break;
-	}
+          /* EOF reached.  */
+          break;
+        }
 
       if (XML_Parse (parser, buf, count, 0) == 0)
-	error (EXIT_FAILURE, 0, _("%s:%lu:%lu: %s"), logical_filename,
-	       (unsigned long) XML_GetCurrentLineNumber (parser),
-	       (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
-	       XML_ErrorString (XML_GetErrorCode (parser)));
+        error (EXIT_FAILURE, 0, _("%s:%lu:%lu: %s"), logical_filename,
+               (unsigned long) XML_GetCurrentLineNumber (parser),
+               (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
+               XML_ErrorString (XML_GetErrorCode (parser)));
     }
 
   if (XML_Parse (parser, NULL, 0, 1) == 0)
     error (EXIT_FAILURE, 0, _("%s:%lu:%lu: %s"), logical_filename,
-	   (unsigned long) XML_GetCurrentLineNumber (parser),
-	   (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
-	   XML_ErrorString (XML_GetErrorCode (parser)));
+           (unsigned long) XML_GetCurrentLineNumber (parser),
+           (unsigned long) XML_GetCurrentColumnNumber (parser) + 1,
+           XML_ErrorString (XML_GetErrorCode (parser)));
 
   XML_ParserFree (parser);
 
@@ -643,9 +643,9 @@ error while reading \"%s\""), real_filename);
 
 void
 extract_glade (FILE *fp,
-	       const char *real_filename, const char *logical_filename,
-	       flag_context_list_table_ty *flag_table,
-	       msgdomain_list_ty *mdlp)
+               const char *real_filename, const char *logical_filename,
+               flag_context_list_table_ty *flag_table,
+               msgdomain_list_ty *mdlp)
 {
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
   if (LIBEXPAT_AVAILABLE ())
@@ -654,10 +654,10 @@ extract_glade (FILE *fp,
 #endif
     {
       multiline_error (xstrdup (""),
-		       xasprintf (_("\
+                       xasprintf (_("\
 Language \"glade\" is not supported. %s relies on expat.\n\
 This version was built without expat.\n"),
-				  basename (program_name)));
+                                  basename (program_name)));
       exit (EXIT_FAILURE);
     }
 }

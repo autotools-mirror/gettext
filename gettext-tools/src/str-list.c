@@ -91,8 +91,8 @@ string_list_append_unique (string_list_ty *slp, const char *s)
     {
       slp->nitems_max = slp->nitems_max * 2 + 4;
       slp->item = (const char **) xrealloc (slp->item,
-					    slp->nitems_max
-					    * sizeof (slp->item[0]));
+                                            slp->nitems_max
+                                            * sizeof (slp->item[0]));
     }
 
   /* Add a copy of the string to the end of the list.  */
@@ -182,7 +182,7 @@ string_list_concat_destroy (string_list_ty *slp)
    the terminator. */
 char *
 string_list_join (const string_list_ty *slp, const char *separator,
-		  char terminator, bool drop_redundant_terminator)
+                  char terminator, bool drop_redundant_terminator)
 {
   size_t separator_len = strlen (separator);
   size_t len;
@@ -194,7 +194,7 @@ string_list_join (const string_list_ty *slp, const char *separator,
   for (j = 0; j < slp->nitems; ++j)
     {
       if (j > 0)
-	len += separator_len;
+        len += separator_len;
       len += strlen (slp->item[j]);
     }
   if (terminator)
@@ -204,19 +204,19 @@ string_list_join (const string_list_ty *slp, const char *separator,
   for (j = 0; j < slp->nitems; ++j)
     {
       if (j > 0)
-	{
-	  memcpy (result + pos, separator, separator_len);
-	  pos += separator_len;
-	}
+        {
+          memcpy (result + pos, separator, separator_len);
+          pos += separator_len;
+        }
       len = strlen (slp->item[j]);
       memcpy (result + pos, slp->item[j], len);
       pos += len;
     }
   if (terminator
       && !(drop_redundant_terminator
-	   && slp->nitems > 0
-	   && (len = strlen (slp->item[slp->nitems - 1])) > 0
-	   && slp->item[slp->nitems - 1][len - 1] == terminator))
+           && slp->nitems > 0
+           && (len = strlen (slp->item[slp->nitems - 1])) > 0
+           && slp->item[slp->nitems - 1][len - 1] == terminator))
     result[pos++] = terminator;
   result[pos] = '\0';
   return result;

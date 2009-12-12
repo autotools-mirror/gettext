@@ -34,7 +34,7 @@
    abstract_catalog_reader_class_ty methods.  */
 static void
 po_parse (abstract_catalog_reader_ty *this, FILE *fp,
-	  const char *real_filename, const char *logical_filename)
+          const char *real_filename, const char *logical_filename)
 {
   lex_start (fp, real_filename, logical_filename);
   po_gram_parse ();
@@ -43,6 +43,6 @@ po_parse (abstract_catalog_reader_ty *this, FILE *fp,
 
 const struct catalog_input_format input_format_po =
 {
-  po_parse,				/* parse */
-  false					/* produces_utf8 */
+  po_parse,                             /* parse */
+  false                                 /* produces_utf8 */
 };

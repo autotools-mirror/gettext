@@ -33,7 +33,7 @@ extern "C" {
 /* These functions are used to output a #, flags line.  */
 extern const char *
        make_format_description_string (enum is_format is_format,
-				       const char *lang, bool debug);
+                                       const char *lang, bool debug);
 extern bool
        significant_format_p (enum is_format is_format);
 
@@ -47,10 +47,10 @@ extern void
        message_print_comment_dot (const message_ty *mp, ostream_t stream);
 extern void
        message_print_comment_filepos (const message_ty *mp, ostream_t stream,
-				      bool uniforum, size_t page_width);
+                                      bool uniforum, size_t page_width);
 extern void
        message_print_comment_flags (const message_ty *mp, ostream_t stream,
-				    bool debug);
+                                    bool debug);
 
 /* These functions set some parameters for use by 'output_format_po.print'.  */
 extern void

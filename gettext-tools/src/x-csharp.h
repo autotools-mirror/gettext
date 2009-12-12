@@ -28,16 +28,16 @@ extern "C" {
 
 
 #define EXTENSIONS_CSHARP \
-  { "cs",      "C#"  },							\
+  { "cs",      "C#"  },                                                 \
 
 #define SCANNERS_CSHARP \
-  { "C#",		extract_csharp,					  \
-			&flag_table_csharp, &formatstring_csharp, NULL }, \
+  { "C#",               extract_csharp,                                   \
+                        &flag_table_csharp, &formatstring_csharp, NULL }, \
 
 extern void extract_csharp (FILE *fp, const char *real_filename,
-			    const char *logical_filename,
-			    flag_context_list_table_ty *flag_table,
-			    msgdomain_list_ty *mdlp);
+                            const char *logical_filename,
+                            flag_context_list_table_ty *flag_table,
+                            msgdomain_list_ty *mdlp);
 
 extern void x_csharp_keyword (const char *keyword);
 extern void x_csharp_extract_all (void);

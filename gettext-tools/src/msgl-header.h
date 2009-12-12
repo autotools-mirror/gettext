@@ -32,7 +32,7 @@ extern "C" {
    function.  */
 extern void
        msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
-					const char *field, const char *value);
+                                        const char *field, const char *value);
 
 
 #ifdef __cplusplus

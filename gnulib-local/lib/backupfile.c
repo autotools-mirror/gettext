@@ -96,27 +96,27 @@ find_backup_file_name (const char *file, enum backup_type backup_type)
     backup_suffix_size_max = numbered_suffix_size_max;
 
   s = (char *) malloc (file_len + backup_suffix_size_max
-		       + numbered_suffix_size_max);
+                       + numbered_suffix_size_max);
   if (s)
     {
       strcpy (s, file);
 
 #if HAVE_DIR
       if (backup_type != simple)
-	{
-	  int highest_backup;
-	  size_t dir_len = basename (s) - s;
+        {
+          int highest_backup;
+          size_t dir_len = basename (s) - s;
 
-	  strcpy (s + dir_len, ".");
-	  highest_backup = max_backup_version (file + dir_len, s);
-	  if (! (backup_type == numbered_existing && highest_backup == 0))
-	    {
-	      char *numbered_suffix = s + (file_len + backup_suffix_size_max);
-	      sprintf (numbered_suffix, ".~%d~", highest_backup + 1);
-	      suffix = numbered_suffix;
-	    }
-	  strcpy (s, file);
-	}
+          strcpy (s + dir_len, ".");
+          highest_backup = max_backup_version (file + dir_len, s);
+          if (! (backup_type == numbered_existing && highest_backup == 0))
+            {
+              char *numbered_suffix = s + (file_len + backup_suffix_size_max);
+              sprintf (numbered_suffix, ".~%d~", highest_backup + 1);
+              suffix = numbered_suffix;
+            }
+          strcpy (s, file);
+        }
 #endif /* HAVE_DIR */
 
       addext (s, suffix, '~');
@@ -150,11 +150,11 @@ max_backup_version (const char *file, const char *dir)
   while ((dp = readdir (dirp)) != 0)
     {
       if (!REAL_DIR_ENTRY (dp) || strlen (dp->d_name) < file_name_length + 4)
-	continue;
+        continue;
 
       this_version = version_number (file, dp->d_name, file_name_length);
       if (this_version > highest_version)
-	highest_version = this_version;
+        highest_version = this_version;
     }
   if (closedir (dirp))
     return 0;
@@ -177,9 +177,9 @@ version_number (const char *base, const char *backup, size_t base_length)
       && backup[base_length + 1] == '~')
     {
       for (p = &backup[base_length + 2]; ISDIGIT (*p); ++p)
-	version = version * 10 + *p - '0';
+        version = version * 10 + *p - '0';
       if (p[0] != '~' || p[1])
-	version = 0;
+        version = 0;
     }
   return version;
 }

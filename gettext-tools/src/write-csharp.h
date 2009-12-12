@@ -27,9 +27,9 @@
    Return 0 if ok, nonzero on error.  */
 extern int
        msgdomain_write_csharp (message_list_ty *mlp,
-			       const char *canon_encoding,
-			       const char *resource_name,
-			       const char *locale_name,
-			       const char *directory);
+                               const char *canon_encoding,
+                               const char *resource_name,
+                               const char *locale_name,
+                               const char *directory);
 
 #endif /* _WRITE_CSHARP_H */

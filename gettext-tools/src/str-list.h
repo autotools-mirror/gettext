@@ -74,7 +74,7 @@ extern char *string_list_concat_destroy (string_list_ty *slp);
    drop_redundant_terminator is true and the last string already ends with
    the terminator. */
 extern char *string_list_join (const string_list_ty *slp, const char *separator,
-			       char terminator, bool drop_redundant_terminator);
+                               char terminator, bool drop_redundant_terminator);
 
 /* Return 1 if s is contained in the list of strings, 0 otherwise.  */
 extern bool string_list_member (const string_list_ty *slp, const char *s);

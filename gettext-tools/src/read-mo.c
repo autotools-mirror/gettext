@@ -62,7 +62,7 @@ struct binary_mo_file
 /* Read the contents of the given input stream.  */
 static void
 read_binary_mo_file (struct binary_mo_file *bfp,
-		     FILE *fp, const char *filename)
+                     FILE *fp, const char *filename)
 {
   char *buf = NULL;
   size_t alloc = 0;
@@ -73,21 +73,21 @@ read_binary_mo_file (struct binary_mo_file *bfp,
     {
       const size_t increment = 4096;
       if (size + increment > alloc)
-	{
-	  alloc = alloc + alloc / 2;
-	  if (alloc < size + increment)
-	    alloc = size + increment;
-	  buf = (char *) xrealloc (buf, alloc);
-	}
+        {
+          alloc = alloc + alloc / 2;
+          if (alloc < size + increment)
+            alloc = size + increment;
+          buf = (char *) xrealloc (buf, alloc);
+        }
       count = fread (buf + size, 1, increment, fp);
       if (count == 0)
-	{
-	  if (ferror (fp))
-	    error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-		   filename);
-	}
+        {
+          if (ferror (fp))
+            error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+                   filename);
+        }
       else
-	size += count;
+        size += count;
     }
   buf = (char *) xrealloc (buf, size);
   bfp->filename = filename;
@@ -126,8 +126,8 @@ get_string (const struct binary_mo_file *bfp, size_t offset, size_t *lengthp)
     error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
   if (bfp->data[s_offset + s_length] != '\0')
     error (EXIT_FAILURE, 0,
-	   _("file \"%s\" contains a not NUL terminated string"),
-	   bfp->filename);
+           _("file \"%s\" contains a not NUL terminated string"),
+           bfp->filename);
 
   *lengthp = s_length + 1;
   return bfp->data + s_offset;
@@ -136,7 +136,7 @@ get_string (const struct binary_mo_file *bfp, size_t offset, size_t *lengthp)
 /* Get a system dependent string from the file, at the given file position.  */
 static char *
 get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
-		   const struct mo_file_header *header, size_t *lengthp)
+                   const struct mo_file_header *header, size_t *lengthp)
 {
   /* See 'struct sysdep_string'.  */
   size_t length;
@@ -159,25 +159,25 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       length += segsize;
 
       if (sysdepref == SEGMENTS_END)
-	break;
+        break;
       if (sysdepref >= header->n_sysdep_segments)
-	/* Invalid.  */
-	  error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
-		 bfp->filename);
+        /* Invalid.  */
+          error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
+                 bfp->filename);
       /* See 'struct sysdep_segment'.  */
       sysdep_segment_offset = header->sysdep_segments_offset + sysdepref * 8;
       ss_length = get_uint32 (bfp, sysdep_segment_offset);
       ss_offset = get_uint32 (bfp, sysdep_segment_offset + 4);
       if (ss_offset + ss_length > bfp->size)
-	error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
+        error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
       if (!(ss_length > 0 && bfp->data[ss_offset + ss_length - 1] == '\0'))
-	{
-	  char location[30];
-	  sprintf (location, "sysdep_segment[%u]", (unsigned int) sysdepref);
-	  error (EXIT_FAILURE, 0,
-		 _("file \"%s\" contains a not NUL terminated string, at %s"),
-		 bfp->filename, location);
-	}
+        {
+          char location[30];
+          sprintf (location, "sysdep_segment[%u]", (unsigned int) sysdepref);
+          error (EXIT_FAILURE, 0,
+                 _("file \"%s\" contains a not NUL terminated string, at %s"),
+                 bfp->filename, location);
+        }
       n = strlen (bfp->data + ss_offset);
       length += (n > 1 ? 1 + n + 1 : n);
     }
@@ -196,30 +196,30 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       size_t n;
 
       if (s_offset + segsize > bfp->size)
-	error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
+        error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
       memcpy (p, bfp->data + s_offset, segsize);
       p += segsize;
       s_offset += segsize;
 
       if (sysdepref == SEGMENTS_END)
-	break;
+        break;
       if (sysdepref >= header->n_sysdep_segments)
-	abort ();
+        abort ();
       /* See 'struct sysdep_segment'.  */
       sysdep_segment_offset = header->sysdep_segments_offset + sysdepref * 8;
       ss_length = get_uint32 (bfp, sysdep_segment_offset);
       ss_offset = get_uint32 (bfp, sysdep_segment_offset + 4);
       if (ss_offset + ss_length > bfp->size)
-	abort ();
+        abort ();
       if (!(ss_length > 0 && bfp->data[ss_offset + ss_length - 1] == '\0'))
-	abort ();
+        abort ();
       n = strlen (bfp->data + ss_offset);
       if (n > 1)
-	*p++ = '<';
+        *p++ = '<';
       memcpy (p, bfp->data + ss_offset, n);
       p += n;
       if (n > 1)
-	*p++ = '>';
+        *p++ = '>';
     }
 
   if (p != string + length)
@@ -248,8 +248,8 @@ read_mo_file (message_list_ty *mlp, const char *filename)
     {
       fp = fopen (filename, "rb");
       if (fp == NULL)
-	error (EXIT_FAILURE, errno,
-	       _("error while opening \"%s\" for reading"), filename);
+        error (EXIT_FAILURE, errno,
+               _("error while opening \"%s\" for reading"), filename);
     }
 
   /* Read the file contents into memory.  */
@@ -269,11 +269,11 @@ read_mo_file (message_list_ty *mlp, const char *filename)
       bf.endian = MO_LITTLE_ENDIAN;
       header.magic = GET_HEADER_FIELD (magic);
       if (header.magic != _MAGIC)
-	{
-	unrecognised:
-	  error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
-		 filename);
-	}
+        {
+        unrecognised:
+          error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
+                 filename);
+        }
     }
 
   header.revision = GET_HEADER_FIELD (revision);
@@ -291,165 +291,165 @@ read_mo_file (message_list_ty *mlp, const char *filename)
       header.hash_tab_offset = GET_HEADER_FIELD (hash_tab_offset);
 
       for (i = 0; i < header.nstrings; i++)
-	{
-	  message_ty *mp;
-	  char *msgctxt;
-	  char *msgid;
-	  size_t msgid_len;
-	  char *separator;
-	  char *msgstr;
-	  size_t msgstr_len;
+        {
+          message_ty *mp;
+          char *msgctxt;
+          char *msgid;
+          size_t msgid_len;
+          char *separator;
+          char *msgstr;
+          size_t msgstr_len;
 
-	  /* Read the msgctxt and msgid.  */
-	  msgid = get_string (&bf, header.orig_tab_offset + i * 8,
-			      &msgid_len);
-	  /* Split into msgctxt and msgid.  */
-	  separator = strchr (msgid, MSGCTXT_SEPARATOR);
-	  if (separator != NULL)
-	    {
-	      /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
-	      *separator = '\0';
-	      msgctxt = msgid;
-	      msgid = separator + 1;
-	      msgid_len -= msgid - msgctxt;
-	    }
-	  else
-	    msgctxt = NULL;
+          /* Read the msgctxt and msgid.  */
+          msgid = get_string (&bf, header.orig_tab_offset + i * 8,
+                              &msgid_len);
+          /* Split into msgctxt and msgid.  */
+          separator = strchr (msgid, MSGCTXT_SEPARATOR);
+          if (separator != NULL)
+            {
+              /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
+              *separator = '\0';
+              msgctxt = msgid;
+              msgid = separator + 1;
+              msgid_len -= msgid - msgctxt;
+            }
+          else
+            msgctxt = NULL;
 
-	  /* Read the msgstr.  */
-	  msgstr = get_string (&bf, header.trans_tab_offset + i * 8,
-			       &msgstr_len);
+          /* Read the msgstr.  */
+          msgstr = get_string (&bf, header.trans_tab_offset + i * 8,
+                               &msgstr_len);
 
-	  mp = message_alloc (msgctxt,
-			      msgid,
-			      (strlen (msgid) + 1 < msgid_len
-			       ? msgid + strlen (msgid) + 1
-			       : NULL),
-			      msgstr, msgstr_len,
-			      &pos);
-	  message_list_append (mlp, mp);
-	}
+          mp = message_alloc (msgctxt,
+                              msgid,
+                              (strlen (msgid) + 1 < msgid_len
+                               ? msgid + strlen (msgid) + 1
+                               : NULL),
+                              msgstr, msgstr_len,
+                              &pos);
+          message_list_append (mlp, mp);
+        }
 
       switch (header.revision & 0xffff)
-	{
-	case 0:
-	  break;
-	case 1:
-	default:
-	  /* Fill the header parts that apply to minor revision >= 1.  */
-	  header.n_sysdep_segments = GET_HEADER_FIELD (n_sysdep_segments);
-	  header.sysdep_segments_offset =
-	    GET_HEADER_FIELD (sysdep_segments_offset);
-	  header.n_sysdep_strings = GET_HEADER_FIELD (n_sysdep_strings);
-	  header.orig_sysdep_tab_offset =
-	    GET_HEADER_FIELD (orig_sysdep_tab_offset);
-	  header.trans_sysdep_tab_offset =
-	    GET_HEADER_FIELD (trans_sysdep_tab_offset);
+        {
+        case 0:
+          break;
+        case 1:
+        default:
+          /* Fill the header parts that apply to minor revision >= 1.  */
+          header.n_sysdep_segments = GET_HEADER_FIELD (n_sysdep_segments);
+          header.sysdep_segments_offset =
+            GET_HEADER_FIELD (sysdep_segments_offset);
+          header.n_sysdep_strings = GET_HEADER_FIELD (n_sysdep_strings);
+          header.orig_sysdep_tab_offset =
+            GET_HEADER_FIELD (orig_sysdep_tab_offset);
+          header.trans_sysdep_tab_offset =
+            GET_HEADER_FIELD (trans_sysdep_tab_offset);
 
-	  for (i = 0; i < header.n_sysdep_strings; i++)
-	    {
-	      message_ty *mp;
-	      char *msgctxt;
-	      char *msgid;
-	      size_t msgid_len;
-	      char *separator;
-	      char *msgstr;
-	      size_t msgstr_len;
-	      nls_uint32 offset;
-	      size_t f;
+          for (i = 0; i < header.n_sysdep_strings; i++)
+            {
+              message_ty *mp;
+              char *msgctxt;
+              char *msgid;
+              size_t msgid_len;
+              char *separator;
+              char *msgstr;
+              size_t msgstr_len;
+              nls_uint32 offset;
+              size_t f;
 
-	      /* Read the msgctxt and msgid.  */
-	      offset = get_uint32 (&bf, header.orig_sysdep_tab_offset + i * 4);
-	      msgid = get_sysdep_string (&bf, offset, &header, &msgid_len);
-	      /* Split into msgctxt and msgid.  */
-	      separator = strchr (msgid, MSGCTXT_SEPARATOR);
-	      if (separator != NULL)
-		{
-		  /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
-		  *separator = '\0';
-		  msgctxt = msgid;
-		  msgid = separator + 1;
-		  msgid_len -= msgid - msgctxt;
-		}
-	      else
-		msgctxt = NULL;
+              /* Read the msgctxt and msgid.  */
+              offset = get_uint32 (&bf, header.orig_sysdep_tab_offset + i * 4);
+              msgid = get_sysdep_string (&bf, offset, &header, &msgid_len);
+              /* Split into msgctxt and msgid.  */
+              separator = strchr (msgid, MSGCTXT_SEPARATOR);
+              if (separator != NULL)
+                {
+                  /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */
+                  *separator = '\0';
+                  msgctxt = msgid;
+                  msgid = separator + 1;
+                  msgid_len -= msgid - msgctxt;
+                }
+              else
+                msgctxt = NULL;
 
-	      /* Read the msgstr.  */
-	      offset = get_uint32 (&bf, header.trans_sysdep_tab_offset + i * 4);
-	      msgstr = get_sysdep_string (&bf, offset, &header, &msgstr_len);
+              /* Read the msgstr.  */
+              offset = get_uint32 (&bf, header.trans_sysdep_tab_offset + i * 4);
+              msgstr = get_sysdep_string (&bf, offset, &header, &msgstr_len);
 
-	      mp = message_alloc (msgctxt,
-				  msgid,
-				  (strlen (msgid) + 1 < msgid_len
-				   ? msgid + strlen (msgid) + 1
-				   : NULL),
-				  msgstr, msgstr_len,
-				  &pos);
+              mp = message_alloc (msgctxt,
+                                  msgid,
+                                  (strlen (msgid) + 1 < msgid_len
+                                   ? msgid + strlen (msgid) + 1
+                                   : NULL),
+                                  msgstr, msgstr_len,
+                                  &pos);
 
-	      /* Only messages with c-format or objc-format annotation are
-		 recognized as having system-dependent strings by msgfmt.
-		 Which one of the two, we don't know.  We have to guess,
-		 assuming that c-format is more probable than objc-format and
-		 that the .mo was likely produced by "msgfmt -c".  */
-	      for (f = format_c; ; f = format_objc)
-		{
-		  bool valid = true;
-		  struct formatstring_parser *parser = formatstring_parsers[f];
-		  const char *str_end;
-		  const char *str;
+              /* Only messages with c-format or objc-format annotation are
+                 recognized as having system-dependent strings by msgfmt.
+                 Which one of the two, we don't know.  We have to guess,
+                 assuming that c-format is more probable than objc-format and
+                 that the .mo was likely produced by "msgfmt -c".  */
+              for (f = format_c; ; f = format_objc)
+                {
+                  bool valid = true;
+                  struct formatstring_parser *parser = formatstring_parsers[f];
+                  const char *str_end;
+                  const char *str;
 
-		  str_end = msgid + msgid_len;
-		  for (str = msgid; str < str_end; str += strlen (str) + 1)
-		    {
-		      char *invalid_reason = NULL;
-		      void *descr =
-			parser->parse (str, false, NULL, &invalid_reason);
+                  str_end = msgid + msgid_len;
+                  for (str = msgid; str < str_end; str += strlen (str) + 1)
+                    {
+                      char *invalid_reason = NULL;
+                      void *descr =
+                        parser->parse (str, false, NULL, &invalid_reason);
 
-		      if (descr != NULL)
-			parser->free (descr);
-		      else
-			{
-			  free (invalid_reason);
-			  valid = false;
-			  break;
-			}
-		    }
-		  if (valid)
-		    {
-		      str_end = msgstr + msgstr_len;
-		      for (str = msgstr; str < str_end; str += strlen (str) + 1)
-			{
-			  char *invalid_reason = NULL;
-			  void *descr =
-			    parser->parse (str, true, NULL, &invalid_reason);
+                      if (descr != NULL)
+                        parser->free (descr);
+                      else
+                        {
+                          free (invalid_reason);
+                          valid = false;
+                          break;
+                        }
+                    }
+                  if (valid)
+                    {
+                      str_end = msgstr + msgstr_len;
+                      for (str = msgstr; str < str_end; str += strlen (str) + 1)
+                        {
+                          char *invalid_reason = NULL;
+                          void *descr =
+                            parser->parse (str, true, NULL, &invalid_reason);
 
-			  if (descr != NULL)
-			    parser->free (descr);
-			  else
-			    {
-			      free (invalid_reason);
-			      valid = false;
-			      break;
-			    }
-			}
-		    }
+                          if (descr != NULL)
+                            parser->free (descr);
+                          else
+                            {
+                              free (invalid_reason);
+                              valid = false;
+                              break;
+                            }
+                        }
+                    }
 
-		  if (valid)
-		    {
-		      /* Found the most likely among c-format, objc-format.  */
-		      mp->is_format[f] = yes;
-		      break;
-		    }
+                  if (valid)
+                    {
+                      /* Found the most likely among c-format, objc-format.  */
+                      mp->is_format[f] = yes;
+                      break;
+                    }
 
-		  /* Try next f.  */
-		  if (f == format_objc)
-		    break;
-		}
+                  /* Try next f.  */
+                  if (f == format_objc)
+                    break;
+                }
 
-	      message_list_append (mlp, mp);
-	    }
-	  break;
-	}
+              message_list_append (mlp, mp);
+            }
+          break;
+        }
       break;
 
     default:

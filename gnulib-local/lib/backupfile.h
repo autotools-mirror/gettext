@@ -39,16 +39,16 @@ enum backup_type
   numbered
 };
 
-# define VALID_BACKUP_TYPE(Type)	\
-  ((Type) == none			\
-   || (Type) == simple			\
-   || (Type) == numbered_existing	\
+# define VALID_BACKUP_TYPE(Type)        \
+  ((Type) == none                       \
+   || (Type) == simple                  \
+   || (Type) == numbered_existing       \
    || (Type) == numbered)
 
 extern DLL_VARIABLE char const *simple_backup_suffix;
 
 extern char *find_backup_file_name (char const *file,
-				    enum backup_type backup_type);
+                                    enum backup_type backup_type);
 extern enum backup_type get_version (char const *context, char const *arg);
 extern enum backup_type xget_version (char const *context, char const *arg);
 extern void addext (char *filename, char const *ext, char e);

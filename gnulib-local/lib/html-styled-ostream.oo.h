@@ -38,7 +38,7 @@ extern "C" {
    closed.  */
 extern html_styled_ostream_t
        html_styled_ostream_create (ostream_t destination,
-				   const char *css_filename);
+                                   const char *css_filename);
 
 
 #ifdef __cplusplus

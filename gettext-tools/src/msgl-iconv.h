@@ -45,7 +45,7 @@ struct conversion_context
 /* Converts the STRING through the conversion descriptor CD.
    Assumes that either FROM_CODE or TO_CODE is UTF-8.  */
 extern char *convert_string_directly (iconv_t cd, const char *string,
-				      const struct conversion_context* context);
+                                      const struct conversion_context* context);
 
 #endif
 
@@ -56,18 +56,18 @@ extern char *convert_string_directly (iconv_t cd, const char *string,
    some msgctxt or msgid changed due to the conversion.  */
 extern bool
        iconv_message_list (message_list_ty *mlp,
-			   const char *canon_from_code,
-			   const char *canon_to_code,
-			   const char *from_filename);
+                           const char *canon_from_code,
+                           const char *canon_to_code,
+                           const char *from_filename);
 
 /* Converts all the message lists in MDLP to the encoding TO_CODE.
    UPDATE_HEADER specifies whether to update the "charset=..." specification
    in the header; it should normally be true.  */
 extern msgdomain_list_ty *
        iconv_msgdomain_list (msgdomain_list_ty *mdlp,
-			     const char *to_code,
-			     bool update_header,
-			     const char *from_filename);
+                             const char *to_code,
+                             bool update_header,
+                             const char *from_filename);
 
 /* Tests whether the message list MLP could be converted to CANON_TO_CODE.
    The (already canonicalized) encoding before conversion can be passed as
@@ -75,8 +75,8 @@ extern msgdomain_list_ty *
    in the header entry.  */
 extern bool
        is_message_list_iconvable (message_list_ty *mlp,
-				  const char *canon_from_code,
-				  const char *canon_to_code);
+                                  const char *canon_from_code,
+                                  const char *canon_to_code);
 
 
 #ifdef __cplusplus

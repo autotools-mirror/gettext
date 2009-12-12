@@ -55,68 +55,68 @@ struct default_catalog_reader_class_ty
 
   /* How to add a message to the list.  */
   void (*add_message) (struct default_catalog_reader_ty *pop,
-		       char *msgctxt,
-		       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
-		       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		       char *prev_msgctxt,
-		       char *prev_msgid,
-		       char *prev_msgid_plural,
-		       bool force_fuzzy, bool obsolete);
+                       char *msgctxt,
+                       char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                       char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+                       char *prev_msgctxt,
+                       char *prev_msgid,
+                       char *prev_msgid_plural,
+                       bool force_fuzzy, bool obsolete);
 
   /* How to modify a new message before adding it to the list.  */
   void (*frob_new_message) (struct default_catalog_reader_ty *pop,
-			    message_ty *mp,
-			    const lex_pos_ty *msgid_pos,
-			    const lex_pos_ty *msgstr_pos);
+                            message_ty *mp,
+                            const lex_pos_ty *msgid_pos,
+                            const lex_pos_ty *msgstr_pos);
 };
 
 
 #define DEFAULT_CATALOG_READER_TY \
-  ABSTRACT_CATALOG_READER_TY						\
-									\
-  /* If true, pay attention to comments and filepos comments.  */	\
-  bool handle_comments;							\
-									\
-  /* If true, remember comments for file name and line number for each	\
-     msgid, if present in the reference input.  */			\
-  bool handle_filepos_comments;						\
-									\
-  /* If false, domain directives lead to an error messsage.  */		\
-  bool allow_domain_directives;						\
-									\
-  /* If false, duplicate msgids in the same domain and file generate an	\
-     error.  If true, such msgids are allowed; the caller should treat	\
-     them appropriately.  */						\
-  bool allow_duplicates;						\
-									\
-  /* If true, allow duplicates if they have the same translation.  */	\
-  bool allow_duplicates_if_same_msgstr;					\
-									\
-  /* File name used in error messages.  */				\
-  const char *file_name;						\
-									\
-  /* List of messages already appeared in the current file.  */		\
-  msgdomain_list_ty *mdlp;						\
-									\
-  /* Name of domain we are currently examining.  */			\
-  const char *domain;							\
-									\
-  /* List of messages belonging to the current domain.  */		\
-  message_list_ty *mlp;							\
-									\
-  /* Accumulate comments for next message directive.  */		\
-  string_list_ty *comment;						\
-  string_list_ty *comment_dot;						\
-									\
-  /* Accumulate filepos comments for the next message directive.  */	\
-  size_t filepos_count;							\
-  lex_pos_ty *filepos;							\
-									\
-  /* Flags transported in special comments.  */				\
-  bool is_fuzzy;							\
-  enum is_format is_format[NFORMATS];					\
-  struct argument_range range;						\
-  enum is_wrap do_wrap;							\
+  ABSTRACT_CATALOG_READER_TY                                            \
+                                                                        \
+  /* If true, pay attention to comments and filepos comments.  */       \
+  bool handle_comments;                                                 \
+                                                                        \
+  /* If true, remember comments for file name and line number for each  \
+     msgid, if present in the reference input.  */                      \
+  bool handle_filepos_comments;                                         \
+                                                                        \
+  /* If false, domain directives lead to an error messsage.  */         \
+  bool allow_domain_directives;                                         \
+                                                                        \
+  /* If false, duplicate msgids in the same domain and file generate an \
+     error.  If true, such msgids are allowed; the caller should treat  \
+     them appropriately.  */                                            \
+  bool allow_duplicates;                                                \
+                                                                        \
+  /* If true, allow duplicates if they have the same translation.  */   \
+  bool allow_duplicates_if_same_msgstr;                                 \
+                                                                        \
+  /* File name used in error messages.  */                              \
+  const char *file_name;                                                \
+                                                                        \
+  /* List of messages already appeared in the current file.  */         \
+  msgdomain_list_ty *mdlp;                                              \
+                                                                        \
+  /* Name of domain we are currently examining.  */                     \
+  const char *domain;                                                   \
+                                                                        \
+  /* List of messages belonging to the current domain.  */              \
+  message_list_ty *mlp;                                                 \
+                                                                        \
+  /* Accumulate comments for next message directive.  */                \
+  string_list_ty *comment;                                              \
+  string_list_ty *comment_dot;                                          \
+                                                                        \
+  /* Accumulate filepos comments for the next message directive.  */    \
+  size_t filepos_count;                                                 \
+  lex_pos_ty *filepos;                                                  \
+                                                                        \
+  /* Flags transported in special comments.  */                         \
+  bool is_fuzzy;                                                        \
+  enum is_format is_format[NFORMATS];                                   \
+  struct argument_range range;                                          \
+  enum is_wrap do_wrap;                                                 \
 
 typedef struct default_catalog_reader_ty default_catalog_reader_ty;
 struct default_catalog_reader_ty
@@ -129,37 +129,37 @@ extern void default_destructor (abstract_catalog_reader_ty *that);
 extern void default_parse_brief (abstract_catalog_reader_ty *that);
 extern void default_parse_debrief (abstract_catalog_reader_ty *that);
 extern void default_directive_domain (abstract_catalog_reader_ty *that,
-				      char *name);
+                                      char *name);
 extern void default_directive_message (abstract_catalog_reader_ty *that,
-				       char *msgctxt,
-				       char *msgid,
-				       lex_pos_ty *msgid_pos,
-				       char *msgid_plural,
-				       char *msgstr, size_t msgstr_len,
-				       lex_pos_ty *msgstr_pos,
-				       char *prev_msgctxt,
-				       char *prev_msgid,
-				       char *prev_msgid_plural,
-				       bool force_fuzzy, bool obsolete);
+                                       char *msgctxt,
+                                       char *msgid,
+                                       lex_pos_ty *msgid_pos,
+                                       char *msgid_plural,
+                                       char *msgstr, size_t msgstr_len,
+                                       lex_pos_ty *msgstr_pos,
+                                       char *prev_msgctxt,
+                                       char *prev_msgid,
+                                       char *prev_msgid_plural,
+                                       bool force_fuzzy, bool obsolete);
 extern void default_comment (abstract_catalog_reader_ty *that, const char *s);
 extern void default_comment_dot (abstract_catalog_reader_ty *that,
-				 const char *s);
+                                 const char *s);
 extern void default_comment_filepos (abstract_catalog_reader_ty *that,
-				     const char *name, size_t line);
+                                     const char *name, size_t line);
 extern void default_comment_special (abstract_catalog_reader_ty *that,
-				     const char *s);
+                                     const char *s);
 extern void default_set_domain (default_catalog_reader_ty *this, char *name);
 extern void default_add_message (default_catalog_reader_ty *this,
-				 char *msgctxt,
-				 char *msgid,
-				 lex_pos_ty *msgid_pos,
-				 char *msgid_plural,
-				 char *msgstr, size_t msgstr_len,
-				 lex_pos_ty *msgstr_pos,
-				 char *prev_msgctxt,
-				 char *prev_msgid,
-				 char *prev_msgid_plural,
-				 bool force_fuzzy, bool obsolete);
+                                 char *msgctxt,
+                                 char *msgid,
+                                 lex_pos_ty *msgid_pos,
+                                 char *msgid_plural,
+                                 char *msgstr, size_t msgstr_len,
+                                 lex_pos_ty *msgstr_pos,
+                                 char *prev_msgctxt,
+                                 char *prev_msgid,
+                                 char *prev_msgid_plural,
+                                 bool force_fuzzy, bool obsolete);
 
 /* Allocate a fresh default_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
@@ -179,9 +179,9 @@ extern DLL_VARIABLE bool allow_duplicates;
 /* Read the input file from a stream.  Returns a list of messages.  */
 extern msgdomain_list_ty *
        read_catalog_stream (FILE *fp,
-			    const char *real_filename,
-			    const char *logical_filename,
-			    catalog_input_format_ty input_syntax);
+                            const char *real_filename,
+                            const char *logical_filename,
+                            catalog_input_format_ty input_syntax);
 
 /* Read the input file with the name INPUT_NAME.  The ending .po is added
    if necessary.  If INPUT_NAME is not an absolute file name and the file is
@@ -189,7 +189,7 @@ extern msgdomain_list_ty *
    a list of messages.  */
 extern msgdomain_list_ty *
        read_catalog_file (const char *input_name,
-			  catalog_input_format_ty input_syntax);
+                          catalog_input_format_ty input_syntax);
 
 
 #ifdef __cplusplus

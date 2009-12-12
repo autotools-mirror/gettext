@@ -65,7 +65,7 @@ extern DLL_VARIABLE bool pass_obsolete_entries;
 
 /* Prepare lexical analysis.  */
 extern void lex_start (FILE *fp, const char *real_filename,
-		       const char *logical_filename);
+                       const char *logical_filename);
 
 /* Terminate lexical analysis.  */
 extern void lex_end (void);

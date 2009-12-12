@@ -24,6 +24,6 @@
    Returns a list of messages.  */
 extern msgdomain_list_ty *
        msgdomain_read_java (const char *resource_name,
-			    const char *locale_name);
+                            const char *locale_name);
 
 #endif /* _READ_JAVA_H */

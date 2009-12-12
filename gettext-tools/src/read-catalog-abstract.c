@@ -90,25 +90,25 @@ call_directive_domain (abstract_catalog_reader_ty *pop, char *name)
 
 static inline void
 call_directive_message (abstract_catalog_reader_ty *pop,
-			char *msgctxt,
-			char *msgid,
-			lex_pos_ty *msgid_pos,
-			char *msgid_plural,
-			char *msgstr, size_t msgstr_len,
-			lex_pos_ty *msgstr_pos,
-			char *prev_msgctxt,
-			char *prev_msgid,
-			char *prev_msgid_plural,
-			bool force_fuzzy, bool obsolete)
+                        char *msgctxt,
+                        char *msgid,
+                        lex_pos_ty *msgid_pos,
+                        char *msgid_plural,
+                        char *msgstr, size_t msgstr_len,
+                        lex_pos_ty *msgstr_pos,
+                        char *prev_msgctxt,
+                        char *prev_msgid,
+                        char *prev_msgid_plural,
+                        bool force_fuzzy, bool obsolete)
 {
   if (pop->methods->directive_message)
     pop->methods->directive_message (pop, msgctxt,
-				     msgid, msgid_pos, msgid_plural,
-				     msgstr, msgstr_len, msgstr_pos,
-				     prev_msgctxt,
-				     prev_msgid,
-				     prev_msgid_plural,
-				     force_fuzzy, obsolete);
+                                     msgid, msgid_pos, msgid_plural,
+                                     msgstr, msgstr_len, msgstr_pos,
+                                     prev_msgctxt,
+                                     prev_msgid,
+                                     prev_msgid_plural,
+                                     force_fuzzy, obsolete);
 }
 
 static inline void
@@ -127,7 +127,7 @@ call_comment_dot (abstract_catalog_reader_ty *pop, const char *s)
 
 static inline void
 call_comment_filepos (abstract_catalog_reader_ty *pop, const char *name,
-		      size_t line)
+                      size_t line)
 {
   if (pop->methods->comment_filepos)
     pop->methods->comment_filepos (pop, name, line);
@@ -167,8 +167,8 @@ parse_end (abstract_catalog_reader_ty *pop)
 
 void
 catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
-		      const char *real_filename, const char *logical_filename,
-		      catalog_input_format_ty input_syntax)
+                      const char *real_filename, const char *logical_filename,
+                      catalog_input_format_ty input_syntax)
 {
   /* Parse the stream's content.  */
   parse_start (pop);
@@ -177,11 +177,11 @@ catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
 
   if (error_message_count > 0)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-	       /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1), false,
-	       xasprintf (ngettext ("found %d fatal error",
-				    "found %d fatal errors",
-				    error_message_count),
-			  error_message_count));
+               /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1), false,
+               xasprintf (ngettext ("found %d fatal error",
+                                    "found %d fatal errors",
+                                    error_message_count),
+                          error_message_count));
   error_message_count = 0;
 }
 
@@ -205,19 +205,19 @@ po_callback_domain (char *name)
    seen.  */
 void
 po_callback_message (char *msgctxt,
-		     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
-		     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		     char *prev_msgctxt,
-		     char *prev_msgid,
-		     char *prev_msgid_plural,
-		     bool force_fuzzy, bool obsolete)
+                     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                     char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+                     char *prev_msgctxt,
+                     char *prev_msgid,
+                     char *prev_msgid_plural,
+                     bool force_fuzzy, bool obsolete)
 {
   /* assert(callback_arg); */
   call_directive_message (callback_arg, msgctxt,
-			  msgid, msgid_pos, msgid_plural,
-			  msgstr, msgstr_len, msgstr_pos,
-			  prev_msgctxt, prev_msgid, prev_msgid_plural,
-			  force_fuzzy, obsolete);
+                          msgid, msgid_pos, msgid_plural,
+                          msgstr, msgstr_len, msgstr_pos,
+                          prev_msgctxt, prev_msgid, prev_msgid_plural,
+                          force_fuzzy, obsolete);
 }
 
 
@@ -259,8 +259,8 @@ po_callback_comment_special (const char *s)
    *wrapp.  */
 void
 po_parse_comment_special (const char *s,
-			  bool *fuzzyp, enum is_format formatp[NFORMATS],
-			  struct argument_range *rangep, enum is_wrap *wrapp)
+                          bool *fuzzyp, enum is_format formatp[NFORMATS],
+                          struct argument_range *rangep, enum is_wrap *wrapp)
 {
   size_t i;
 
@@ -277,135 +277,135 @@ po_parse_comment_special (const char *s,
 
       /* Skip whitespace.  */
       while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
-	s++;
+        s++;
 
       /* Collect a token.  */
       t = s;
       while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
-	s++;
+        s++;
       if (s != t)
-	{
-	  size_t len = s - t;
+        {
+          size_t len = s - t;
 
-	  /* Accept fuzzy flag.  */
-	  if (len == 5 && memcmp (t, "fuzzy", 5) == 0)
-	    {
-	      *fuzzyp = true;
-	      continue;
-	    }
+          /* Accept fuzzy flag.  */
+          if (len == 5 && memcmp (t, "fuzzy", 5) == 0)
+            {
+              *fuzzyp = true;
+              continue;
+            }
 
-	  /* Accept format description.  */
-	  if (len >= 7 && memcmp (t + len - 7, "-format", 7) == 0)
-	    {
-	      const char *p;
-	      size_t n;
-	      enum is_format value;
+          /* Accept format description.  */
+          if (len >= 7 && memcmp (t + len - 7, "-format", 7) == 0)
+            {
+              const char *p;
+              size_t n;
+              enum is_format value;
 
-	      p = t;
-	      n = len - 7;
+              p = t;
+              n = len - 7;
 
-	      if (n >= 3 && memcmp (p, "no-", 3) == 0)
-		{
-		  p += 3;
-		  n -= 3;
-		  value = no;
-		}
-	      else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
-		{
-		  p += 9;
-		  n -= 9;
-		  value = possible;
-		}
-	      else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
-		{
-		  p += 11;
-		  n -= 11;
-		  value = impossible;
-		}
-	      else
-		value = yes;
+              if (n >= 3 && memcmp (p, "no-", 3) == 0)
+                {
+                  p += 3;
+                  n -= 3;
+                  value = no;
+                }
+              else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
+                {
+                  p += 9;
+                  n -= 9;
+                  value = possible;
+                }
+              else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
+                {
+                  p += 11;
+                  n -= 11;
+                  value = impossible;
+                }
+              else
+                value = yes;
 
-	      for (i = 0; i < NFORMATS; i++)
-		if (strlen (format_language[i]) == n
-		    && memcmp (format_language[i], p, n) == 0)
-		  {
-		    formatp[i] = value;
-		    break;
-		  }
-	      if (i < NFORMATS)
-		continue;
-	    }
+              for (i = 0; i < NFORMATS; i++)
+                if (strlen (format_language[i]) == n
+                    && memcmp (format_language[i], p, n) == 0)
+                  {
+                    formatp[i] = value;
+                    break;
+                  }
+              if (i < NFORMATS)
+                continue;
+            }
 
-	  /* Accept range description "range: <min>..<max>".  */
-	  if (len == 6 && memcmp (t, "range:", 6) == 0)
-	    {
-	      /* Skip whitespace.  */
-	      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
-		s++;
+          /* Accept range description "range: <min>..<max>".  */
+          if (len == 6 && memcmp (t, "range:", 6) == 0)
+            {
+              /* Skip whitespace.  */
+              while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
+                s++;
 
-	      /* Collect a token.  */
-	      t = s;
-	      while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
-		s++;
-	      /* Parse it.  */
-	      if (*t >= '0' && *t <= '9')
-		{
-		  unsigned int min = 0;
+              /* Collect a token.  */
+              t = s;
+              while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
+                s++;
+              /* Parse it.  */
+              if (*t >= '0' && *t <= '9')
+                {
+                  unsigned int min = 0;
 
-		  for (; *t >= '0' && *t <= '9'; t++)
-		    {
-		      if (min <= INT_MAX / 10)
-			{
-			  min = 10 * min + (*t - '0');
-			  if (min > INT_MAX)
-			    min = INT_MAX;
-			}
-		      else
-			/* Avoid integer overflow.  */
-			min = INT_MAX;
-		    }
-		  if (*t++ == '.')
-		    if (*t++ == '.')
-		      if (*t >= '0' && *t <= '9')
-			{
-			  unsigned int max = 0;
-			  for (; *t >= '0' && *t <= '9'; t++)
-			    {
-			      if (max <= INT_MAX / 10)
-				{
-				  max = 10 * max + (*t - '0');
-				  if (max > INT_MAX)
-				    max = INT_MAX;
-				}
-			      else
-				/* Avoid integer overflow.  */
-				max = INT_MAX;
-			    }
-			  if (min <= max)
-			    {
-			      rangep->min = min;
-			      rangep->max = max;
-			      continue;
-			    }
-			}
-		}
-	    }
+                  for (; *t >= '0' && *t <= '9'; t++)
+                    {
+                      if (min <= INT_MAX / 10)
+                        {
+                          min = 10 * min + (*t - '0');
+                          if (min > INT_MAX)
+                            min = INT_MAX;
+                        }
+                      else
+                        /* Avoid integer overflow.  */
+                        min = INT_MAX;
+                    }
+                  if (*t++ == '.')
+                    if (*t++ == '.')
+                      if (*t >= '0' && *t <= '9')
+                        {
+                          unsigned int max = 0;
+                          for (; *t >= '0' && *t <= '9'; t++)
+                            {
+                              if (max <= INT_MAX / 10)
+                                {
+                                  max = 10 * max + (*t - '0');
+                                  if (max > INT_MAX)
+                                    max = INT_MAX;
+                                }
+                              else
+                                /* Avoid integer overflow.  */
+                                max = INT_MAX;
+                            }
+                          if (min <= max)
+                            {
+                              rangep->min = min;
+                              rangep->max = max;
+                              continue;
+                            }
+                        }
+                }
+            }
 
-	  /* Accept wrap description.  */
-	  if (len == 4 && memcmp (t, "wrap", 4) == 0)
-	    {
-	      *wrapp = yes;
-	      continue;
-	    }
-	  if (len == 7 && memcmp (t, "no-wrap", 7) == 0)
-	    {
-	      *wrapp = no;
-	      continue;
-	    }
+          /* Accept wrap description.  */
+          if (len == 4 && memcmp (t, "wrap", 4) == 0)
+            {
+              *wrapp = yes;
+              continue;
+            }
+          if (len == 7 && memcmp (t, "no-wrap", 7) == 0)
+            {
+              *wrapp = no;
+              continue;
+            }
 
-	  /* Unknown special comment marker.  It may have been generated
-	     from a future xgettext version.  Ignore it.  */
-	}
+          /* Unknown special comment marker.  It may have been generated
+             from a future xgettext version.  Ignore it.  */
+        }
     }
 }
 
@@ -424,171 +424,171 @@ po_parse_comment_filepos (const char *s)
   while (*s != '\0')
     {
       while (*s == ' ' || *s == '\t' || *s == '\n')
-	s++;
+        s++;
       if (*s != '\0')
-	{
-	  const char *string_start = s;
+        {
+          const char *string_start = s;
 
-	  do
-	    s++;
-	  while (!(*s == '\0' || *s == ' ' || *s == '\t' || *s == '\n'));
+          do
+            s++;
+          while (!(*s == '\0' || *s == ' ' || *s == '\t' || *s == '\n'));
 
-	  /* See if there is a COLON and NUMBER after the STRING, separated
-	     through optional spaces.  */
-	  {
-	    const char *p = s;
+          /* See if there is a COLON and NUMBER after the STRING, separated
+             through optional spaces.  */
+          {
+            const char *p = s;
 
-	    while (*p == ' ' || *p == '\t' || *p == '\n')
-	      p++;
+            while (*p == ' ' || *p == '\t' || *p == '\n')
+              p++;
 
-	    if (*p == ':')
-	      {
-		p++;
+            if (*p == ':')
+              {
+                p++;
 
-		while (*p == ' ' || *p == '\t' || *p == '\n')
-		  p++;
+                while (*p == ' ' || *p == '\t' || *p == '\n')
+                  p++;
 
-		if (*p >= '0' && *p <= '9')
-		  {
-		    /* Accumulate a number.  */
-		    size_t n = 0;
+                if (*p >= '0' && *p <= '9')
+                  {
+                    /* Accumulate a number.  */
+                    size_t n = 0;
 
-		    do
-		      {
-			n = n * 10 + (*p - '0');
-			p++;
-		      }
-		    while (*p >= '0' && *p <= '9');
+                    do
+                      {
+                        n = n * 10 + (*p - '0');
+                        p++;
+                      }
+                    while (*p >= '0' && *p <= '9');
 
-		    if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
-		      {
-			/* Parsed a GNU style file comment with spaces.  */
-			const char *string_end = s;
-			size_t string_length = string_end - string_start;
-			char *string = XNMALLOC (string_length + 1, char);
+                    if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
+                      {
+                        /* Parsed a GNU style file comment with spaces.  */
+                        const char *string_end = s;
+                        size_t string_length = string_end - string_start;
+                        char *string = XNMALLOC (string_length + 1, char);
 
-			memcpy (string, string_start, string_length);
-			string[string_length] = '\0';
+                        memcpy (string, string_start, string_length);
+                        string[string_length] = '\0';
 
-			po_callback_comment_filepos (string, n);
+                        po_callback_comment_filepos (string, n);
 
-			free (string);
+                        free (string);
 
-			s = p;
-			continue;
-		      }
-		  }
-	      }
-	  }
+                        s = p;
+                        continue;
+                      }
+                  }
+              }
+          }
 
-	  /* See if there is a COLON at the end of STRING and a NUMBER after
-	     it, separated through optional spaces.  */
-	  if (s[-1] == ':')
-	    {
-	      const char *p = s;
+          /* See if there is a COLON at the end of STRING and a NUMBER after
+             it, separated through optional spaces.  */
+          if (s[-1] == ':')
+            {
+              const char *p = s;
 
-	      while (*p == ' ' || *p == '\t' || *p == '\n')
-		p++;
+              while (*p == ' ' || *p == '\t' || *p == '\n')
+                p++;
 
-	      if (*p >= '0' && *p <= '9')
-		{
-		  /* Accumulate a number.  */
-		  size_t n = 0;
+              if (*p >= '0' && *p <= '9')
+                {
+                  /* Accumulate a number.  */
+                  size_t n = 0;
 
-		  do
-		    {
-		      n = n * 10 + (*p - '0');
-		      p++;
-		    }
-		  while (*p >= '0' && *p <= '9');
+                  do
+                    {
+                      n = n * 10 + (*p - '0');
+                      p++;
+                    }
+                  while (*p >= '0' && *p <= '9');
 
-		  if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
-		    {
-		      /* Parsed a GNU style file comment with spaces.  */
-		      const char *string_end = s - 1;
-		      size_t string_length = string_end - string_start;
-		      char *string = XNMALLOC (string_length + 1, char);
+                  if (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n')
+                    {
+                      /* Parsed a GNU style file comment with spaces.  */
+                      const char *string_end = s - 1;
+                      size_t string_length = string_end - string_start;
+                      char *string = XNMALLOC (string_length + 1, char);
 
-		      memcpy (string, string_start, string_length);
-		      string[string_length] = '\0';
+                      memcpy (string, string_start, string_length);
+                      string[string_length] = '\0';
 
-		      po_callback_comment_filepos (string, n);
+                      po_callback_comment_filepos (string, n);
 
-		      free (string);
+                      free (string);
 
-		      s = p;
-		      continue;
-		    }
-		}
-	    }
+                      s = p;
+                      continue;
+                    }
+                }
+            }
 
-	  /* See if there is a COLON and NUMBER at the end of the STRING,
-	     without separating spaces.  */
-	  {
-	    const char *p = s;
+          /* See if there is a COLON and NUMBER at the end of the STRING,
+             without separating spaces.  */
+          {
+            const char *p = s;
 
-	    while (p > string_start)
-	      {
-		p--;
-		if (!(*p >= '0' && *p <= '9'))
-		  {
-		    p++;
-		    break;
-		  }
-	      }
+            while (p > string_start)
+              {
+                p--;
+                if (!(*p >= '0' && *p <= '9'))
+                  {
+                    p++;
+                    break;
+                  }
+              }
 
-	    /* p now points to the beginning of the trailing digits segment
-	       at the end of STRING.  */
+            /* p now points to the beginning of the trailing digits segment
+               at the end of STRING.  */
 
-	    if (p < s
-		&& p > string_start + 1
-		&& p[-1] == ':')
-	      {
-		/* Parsed a GNU style file comment without spaces.  */
-		const char *string_end = p - 1;
+            if (p < s
+                && p > string_start + 1
+                && p[-1] == ':')
+              {
+                /* Parsed a GNU style file comment without spaces.  */
+                const char *string_end = p - 1;
 
-		/* Accumulate a number.  */
-		{
-		  size_t n = 0;
+                /* Accumulate a number.  */
+                {
+                  size_t n = 0;
 
-		  do
-		    {
-		      n = n * 10 + (*p - '0');
-		      p++;
-		    }
-		  while (p < s);
+                  do
+                    {
+                      n = n * 10 + (*p - '0');
+                      p++;
+                    }
+                  while (p < s);
 
-		  {
-		    size_t string_length = string_end - string_start;
-		    char *string = XNMALLOC (string_length + 1, char);
+                  {
+                    size_t string_length = string_end - string_start;
+                    char *string = XNMALLOC (string_length + 1, char);
 
-		    memcpy (string, string_start, string_length);
-		    string[string_length] = '\0';
+                    memcpy (string, string_start, string_length);
+                    string[string_length] = '\0';
 
-		    po_callback_comment_filepos (string, n);
+                    po_callback_comment_filepos (string, n);
 
-		    free (string);
+                    free (string);
 
-		    continue;
-		  }
-		}
-	      }
-	  }
+                    continue;
+                  }
+                }
+              }
+          }
 
-	  /* Parsed a file comment without line number.  */
-	  {
-	    const char *string_end = s;
-	    size_t string_length = string_end - string_start;
-	    char *string = XNMALLOC (string_length + 1, char);
+          /* Parsed a file comment without line number.  */
+          {
+            const char *string_end = s;
+            size_t string_length = string_end - string_start;
+            char *string = XNMALLOC (string_length + 1, char);
 
-	    memcpy (string, string_start, string_length);
-	    string[string_length] = '\0';
+            memcpy (string, string_start, string_length);
+            string[string_length] = '\0';
 
-	    po_callback_comment_filepos (string, (size_t)(-1));
+            po_callback_comment_filepos (string, (size_t)(-1));
 
-	    free (string);
-	  }
-	}
+            free (string);
+          }
+        }
     }
 }
 
@@ -618,81 +618,81 @@ po_parse_comment_solaris_filepos (const char *s)
       const char *string_end;
 
       {
-	const char *p = s + 6;
+        const char *p = s + 6;
 
-	while (*p == ' ' || *p == '\t')
-	  p++;
-	string_start = p;
+        while (*p == ' ' || *p == '\t')
+          p++;
+        string_start = p;
       }
 
       for (string_end = string_start; *string_end != '\0'; string_end++)
-	{
-	  const char *p = string_end;
+        {
+          const char *p = string_end;
 
-	  while (*p == ' ' || *p == '\t')
-	    p++;
+          while (*p == ' ' || *p == '\t')
+            p++;
 
-	  if (*p == ',')
-	    {
-	      p++;
+          if (*p == ',')
+            {
+              p++;
 
-	      while (*p == ' ' || *p == '\t')
-		p++;
+              while (*p == ' ' || *p == '\t')
+                p++;
 
-	      if (p[0] == 'l' && p[1] == 'i' && p[2] == 'n' && p[3] == 'e')
-		{
-		  p += 4;
+              if (p[0] == 'l' && p[1] == 'i' && p[2] == 'n' && p[3] == 'e')
+                {
+                  p += 4;
 
-		  while (*p == ' ' || *p == '\t')
-		    p++;
+                  while (*p == ' ' || *p == '\t')
+                    p++;
 
-		  if (p[0] == 'n' && p[1] == 'u' && p[2] == 'm'
-		      && p[3] == 'b' && p[4] == 'e' && p[5] == 'r')
-		    {
-		      p += 6;
-		      while (*p == ' ' || *p == '\t')
-			p++;
-		    }
+                  if (p[0] == 'n' && p[1] == 'u' && p[2] == 'm'
+                      && p[3] == 'b' && p[4] == 'e' && p[5] == 'r')
+                    {
+                      p += 6;
+                      while (*p == ' ' || *p == '\t')
+                        p++;
+                    }
 
-		  if (*p == ':')
-		    {
-		      p++;
+                  if (*p == ':')
+                    {
+                      p++;
 
-		      if (*p >= '0' && *p <= '9')
-			{
-			  /* Accumulate a number.  */
-			  size_t n = 0;
+                      if (*p >= '0' && *p <= '9')
+                        {
+                          /* Accumulate a number.  */
+                          size_t n = 0;
 
-			  do
-			    {
-			      n = n * 10 + (*p - '0');
-			      p++;
-			    }
-			  while (*p >= '0' && *p <= '9');
+                          do
+                            {
+                              n = n * 10 + (*p - '0');
+                              p++;
+                            }
+                          while (*p >= '0' && *p <= '9');
 
-			  while (*p == ' ' || *p == '\t' || *p == '\n')
-			    p++;
+                          while (*p == ' ' || *p == '\t' || *p == '\n')
+                            p++;
 
-			  if (*p == '\0')
-			    {
-			      /* Parsed a Sun style file comment.  */
-			      size_t string_length = string_end - string_start;
-			      char *string =
-				XNMALLOC (string_length + 1, char);
+                          if (*p == '\0')
+                            {
+                              /* Parsed a Sun style file comment.  */
+                              size_t string_length = string_end - string_start;
+                              char *string =
+                                XNMALLOC (string_length + 1, char);
 
-			      memcpy (string, string_start, string_length);
-			      string[string_length] = '\0';
+                              memcpy (string, string_start, string_length);
+                              string[string_length] = '\0';
 
-			      po_callback_comment_filepos (string, n);
+                              po_callback_comment_filepos (string, n);
 
-			      free (string);
-			      return true;
-			    }
-			}
-		    }
-		}
-	    }
-	}
+                              free (string);
+                              return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
   return false;
@@ -711,15 +711,15 @@ po_callback_comment_dispatcher (const char *s)
     {
       s++;
       /* There is usually a space before the comment.  People don't
-	 consider it part of the comment, therefore remove it here.  */
+         consider it part of the comment, therefore remove it here.  */
       if (*s == ' ')
-	s++;
+        s++;
       po_callback_comment_dot (s);
     }
   else if (*s == ':')
     {
       /* Parse the file location string.  The appropriate callback will be
-	 invoked.  */
+         invoked.  */
       po_parse_comment_filepos (s + 1);
     }
   else if (*s == ',' || *s == '!')
@@ -730,17 +730,17 @@ po_callback_comment_dispatcher (const char *s)
   else
     {
       /* It looks like a plain vanilla comment, but Solaris-style file
-	 position lines do, too.  Try to parse the lot.  If the parse
-	 succeeds, the appropriate callback will be invoked.  */
+         position lines do, too.  Try to parse the lot.  If the parse
+         succeeds, the appropriate callback will be invoked.  */
       if (po_parse_comment_solaris_filepos (s))
-	/* Do nothing, it is a Sun-style file pos line.  */ ;
+        /* Do nothing, it is a Sun-style file pos line.  */ ;
       else
-	{
-	  /* There is usually a space before the comment.  People don't
-	     consider it part of the comment, therefore remove it here.  */
-	  if (*s == ' ')
-	    s++;
-	  po_callback_comment (s);
-	}
+        {
+          /* There is usually a space before the comment.  People don't
+             consider it part of the comment, therefore remove it here.  */
+          if (*s == ' ')
+            s++;
+          po_callback_comment (s);
+        }
     }
 }

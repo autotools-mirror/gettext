@@ -75,14 +75,14 @@ struct abstract_catalog_reader_class_ty
 
   /* what to do with a message directive */
   void (*directive_message) (struct abstract_catalog_reader_ty *pop,
-			     char *msgctxt,
-			     char *msgid, lex_pos_ty *msgid_pos,
-			     char *msgid_plural,
-			     char *msgstr, size_t msgstr_len,
-			     lex_pos_ty *msgstr_pos,
-			     char *prev_msgctxt,
-			     char *prev_msgid, char *prev_msgid_plural,
-			     bool force_fuzzy, bool obsolete);
+                             char *msgctxt,
+                             char *msgid, lex_pos_ty *msgid_pos,
+                             char *msgid_plural,
+                             char *msgstr, size_t msgstr_len,
+                             lex_pos_ty *msgstr_pos,
+                             char *prev_msgctxt,
+                             char *prev_msgid, char *prev_msgid_plural,
+                             bool force_fuzzy, bool obsolete);
 
   /* What to do with a plain-vanilla comment - the expectation is that
      they will be accumulated, and added to the next message
@@ -100,13 +100,13 @@ struct abstract_catalog_reader_class_ty
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
   void (*comment_filepos) (struct abstract_catalog_reader_ty *pop,
-			   const char *s, size_t line);
+                           const char *s, size_t line);
 
   /* What to do with a comment that starts with a ',' or '!' - this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
   void (*comment_special) (struct abstract_catalog_reader_ty *pop,
-			   const char *s);
+                           const char *s);
 };
 
 
@@ -133,7 +133,7 @@ struct catalog_input_format
 {
   /* Parses the contents of FP, invoking the appropriate callbacks.  */
   void (*parse) (abstract_catalog_reader_ty *pop, FILE *fp,
-		 const char *real_filename, const char *logical_filename);
+                 const char *real_filename, const char *logical_filename);
 
   /* Whether the parse function always produces messages encoded in UTF-8
      encoding.  */
@@ -152,9 +152,9 @@ extern abstract_catalog_reader_ty *
    abstract_catalog_reader_class_ty methods.  */
 extern void
        catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
-			     const char *real_filename,
-			     const char *logical_filename,
-			     catalog_input_format_ty input_syntax);
+                             const char *real_filename,
+                             const char *logical_filename,
+                             catalog_input_format_ty input_syntax);
 
 /* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived
    class) instance.  */
@@ -166,13 +166,13 @@ extern void
    catalog_reader_parse.  */
 extern void po_callback_domain (char *name);
 extern void po_callback_message (char *msgctxt,
-				 char *msgid, lex_pos_ty *msgid_pos,
-				 char *msgid_plural,
-				 char *msgstr, size_t msgstr_len,
-				 lex_pos_ty *msgstr_pos,
-				 char *prev_msgctxt,
-				 char *prev_msgid, char *prev_msgid_plural,
-				 bool force_fuzzy, bool obsolete);
+                                 char *msgid, lex_pos_ty *msgid_pos,
+                                 char *msgid_plural,
+                                 char *msgstr, size_t msgstr_len,
+                                 lex_pos_ty *msgstr_pos,
+                                 char *prev_msgctxt,
+                                 char *prev_msgid, char *prev_msgid_plural,
+                                 bool force_fuzzy, bool obsolete);
 extern void po_callback_comment (const char *s);
 extern void po_callback_comment_dot (const char *s);
 extern void po_callback_comment_filepos (const char *s, size_t line);
@@ -182,9 +182,9 @@ extern void po_callback_comment_dispatcher (const char *s);
 /* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
    *wrapp.  */
 extern void po_parse_comment_special (const char *s, bool *fuzzyp,
-				      enum is_format formatp[NFORMATS],
-				      struct argument_range *rangep,
-				      enum is_wrap *wrapp);
+                                      enum is_format formatp[NFORMATS],
+                                      struct argument_range *rangep,
+                                      enum is_wrap *wrapp);
 
 
 #ifdef __cplusplus

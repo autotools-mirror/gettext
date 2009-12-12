@@ -28,17 +28,17 @@ extern "C" {
 
 
 #define EXTENSIONS_LISP \
-  { "lisp",      "Lisp"     },						\
+  { "lisp",      "Lisp"     },                                          \
 
 #define SCANNERS_LISP \
-  { "Lisp",		extract_lisp,					\
-			&flag_table_lisp, &formatstring_lisp, NULL },	\
+  { "Lisp",             extract_lisp,                                   \
+                        &flag_table_lisp, &formatstring_lisp, NULL },   \
 
 /* Scan a Lisp file and add its translatable strings to mdlp.  */
 extern void extract_lisp (FILE *fp, const char *real_filename,
-			  const char *logical_filename,
-			  flag_context_list_table_ty *flag_table,
-			  msgdomain_list_ty *mdlp);
+                          const char *logical_filename,
+                          flag_context_list_table_ty *flag_table,
+                          msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */

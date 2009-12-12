@@ -60,72 +60,72 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
       const message_list_ty *mlp = mdlp->item[k]->messages;
 
       for (j = 0; j < mlp->nitems; j++)
-	if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-	  {
-	    const char *header = mlp->item[j]->msgstr;
+        if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+          {
+            const char *header = mlp->item[j]->msgstr;
 
-	    if (header != NULL)
-	      {
-		const char *charsetstr = c_strstr (header, "charset=");
+            if (header != NULL)
+              {
+                const char *charsetstr = c_strstr (header, "charset=");
 
-		if (charsetstr != NULL)
-		  {
-		    size_t len;
-		    char *charset;
-		    const char *canon_charset;
+                if (charsetstr != NULL)
+                  {
+                    size_t len;
+                    char *charset;
+                    const char *canon_charset;
 
-		    charsetstr += strlen ("charset=");
-		    len = strcspn (charsetstr, " \t\n");
-		    charset = (char *) xmalloca (len + 1);
-		    memcpy (charset, charsetstr, len);
-		    charset[len] = '\0';
+                    charsetstr += strlen ("charset=");
+                    len = strcspn (charsetstr, " \t\n");
+                    charset = (char *) xmalloca (len + 1);
+                    memcpy (charset, charsetstr, len);
+                    charset[len] = '\0';
 
-		    canon_charset = po_charset_canonicalize (charset);
-		    if (canon_charset == NULL)
-		      error (EXIT_FAILURE, 0,
-			     _("\
+                    canon_charset = po_charset_canonicalize (charset);
+                    if (canon_charset == NULL)
+                      error (EXIT_FAILURE, 0,
+                             _("\
 present charset \"%s\" is not a portable encoding name"),
-			     charset);
-		    freea (charset);
-		    if (canon_locale_code != canon_charset)
-		      {
-			multiline_warning (xasprintf (_("warning: ")),
-					   xasprintf (_("\
+                             charset);
+                    freea (charset);
+                    if (canon_locale_code != canon_charset)
+                      {
+                        multiline_warning (xasprintf (_("warning: ")),
+                                           xasprintf (_("\
 Locale charset \"%s\" is different from\n\
 input file charset \"%s\".\n\
 Output of '%s' might be incorrect.\n\
 Possible workarounds are:\n\
 "), locale_code, canon_charset, basename (program_name)));
-			multiline_warning (NULL,
-					   xasprintf (_("\
+                        multiline_warning (NULL,
+                                           xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s.\n\
 "), canon_charset));
-			if (canon_locale_code != NULL)
-			  multiline_warning (NULL,
-					     xasprintf (_("\
+                        if (canon_locale_code != NULL)
+                          multiline_warning (NULL,
+                                             xasprintf (_("\
 - Convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
 "), canon_locale_code, basename (program_name), canon_charset));
-			if (strcmp (canon_charset, "UTF-8") != 0
-			    && (canon_locale_code == NULL
-				|| strcmp (canon_locale_code, "UTF-8") != 0))
-			  multiline_warning (NULL,
-					     xasprintf (_("\
+                        if (strcmp (canon_charset, "UTF-8") != 0
+                            && (canon_locale_code == NULL
+                                || strcmp (canon_locale_code, "UTF-8") != 0))
+                          multiline_warning (NULL,
+                                             xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s,\n\
   convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
 "), "UTF-8", "UTF-8", basename (program_name), canon_charset));
-			warned = true;
-		      }
-		  }
-	      }
-	  }
+                        warned = true;
+                      }
+                  }
+              }
+          }
       }
   if (canon_locale_code == NULL && !warned)
     multiline_warning (xasprintf (_("warning: ")),
-		       xasprintf (_("\
+                       xasprintf (_("\
 Locale charset \"%s\" is not a portable encoding name.\n\
 Output of '%s' might be incorrect.\n\
 A possible workaround is to set LC_ALL=C.\n\

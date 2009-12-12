@@ -62,39 +62,39 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
   if (IS_ABSOLUTE_PATH (input_name))
     {
       for (k = 0; k < SIZEOF (extension); ++k)
-	{
-	  file_name = xconcatenated_filename ("", input_name, extension[k]);
+        {
+          file_name = xconcatenated_filename ("", input_name, extension[k]);
 
-	  ret_val = fopen (file_name, "r");
-	  if (ret_val != NULL || errno != ENOENT)
-	    {
-	      /* We found the file.  */
-	      *real_file_name_p = file_name;
-	      return ret_val;
-	    }
+          ret_val = fopen (file_name, "r");
+          if (ret_val != NULL || errno != ENOENT)
+            {
+              /* We found the file.  */
+              *real_file_name_p = file_name;
+              return ret_val;
+            }
 
-	  free (file_name);
-	}
+          free (file_name);
+        }
     }
   else
     {
       /* For relative file names, look through the directory search list,
-	 trying the various extensions.  If no directory search list is
-	 specified, the current directory is used.  */
+         trying the various extensions.  If no directory search list is
+         specified, the current directory is used.  */
       for (j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
-	for (k = 0; k < SIZEOF (extension); ++k)
-	  {
-	    file_name = xconcatenated_filename (dir, input_name, extension[k]);
+        for (k = 0; k < SIZEOF (extension); ++k)
+          {
+            file_name = xconcatenated_filename (dir, input_name, extension[k]);
 
-	    ret_val = fopen (file_name, "r");
-	    if (ret_val != NULL || errno != ENOENT)
-	      {
-		*real_file_name_p = file_name;
-		return ret_val;
-	      }
+            ret_val = fopen (file_name, "r");
+            if (ret_val != NULL || errno != ENOENT)
+              {
+                *real_file_name_p = file_name;
+                return ret_val;
+              }
 
-	    free (file_name);
-	  }
+            free (file_name);
+          }
     }
 
   /* File does not exist.  */
@@ -110,7 +110,7 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
    purposes.  */
 FILE *
 open_catalog_file (const char *input_name, char **real_file_name_p,
-		   bool exit_on_error)
+                   bool exit_on_error)
 {
   FILE *fp = try_open_catalog_file (input_name, real_file_name_p);
 
@@ -118,10 +118,10 @@ open_catalog_file (const char *input_name, char **real_file_name_p,
     {
       const char *errno_description = strerror (errno);
       po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		 xasprintf ("%s: %s",
-			    xasprintf (_("error while opening \"%s\" for reading"),
-				       *real_file_name_p),
-			    errno_description));
+                 xasprintf ("%s: %s",
+                            xasprintf (_("error while opening \"%s\" for reading"),
+                                       *real_file_name_p),
+                            errno_description));
     }
 
   return fp;

@@ -82,14 +82,14 @@ phase1_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	{
-	  const char *errno_description = strerror (errno);
-	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		     xasprintf ("%s: %s",
-				xasprintf (_("error while reading \"%s\""),
-					   real_file_name),
-				errno_description));
-	}
+        {
+          const char *errno_description = strerror (errno);
+          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     xasprintf ("%s: %s",
+                                xasprintf (_("error while reading \"%s\""),
+                                           real_file_name),
+                                errno_description));
+        }
       return EOF;
     }
 
@@ -122,13 +122,13 @@ phase2_getc ()
       c = phase1_getc ();
 
       if (c == '\r')
-	{
-	  int c2 = phase1_getc ();
-	  if (c2 == '\n')
-	    c = c2;
-	  else
-	    phase1_ungetc (c2);
-	}
+        {
+          int c2 = phase1_getc ();
+          if (c2 == '\n')
+            c = c2;
+          else
+            phase1_ungetc (c2);
+        }
     }
 
   if (c == '\n')
@@ -159,18 +159,18 @@ phase3_getc ()
   for (;;)
     {
       if (c != '\\')
-	return c;
+        return c;
 
       c = phase2_getc ();
       if (c != '\n')
-	{
-	  phase2_ungetc (c);
-	  return '\\';
-	}
+        {
+          phase2_ungetc (c);
+          return '\\';
+        }
 
       /* Skip the backslash-newline and all whitespace that follows it.  */
       do
-	c = phase2_getc ();
+        c = phase2_getc ();
       while (c == ' ' || c == '\t' || c == '\r' || c == '\f');
     }
 }
@@ -197,39 +197,39 @@ phase4_getuc ()
       int c2 = phase3_getc ();
 
       if (c2 == 't')
-	return '\t';
+        return '\t';
       if (c2 == 'n')
-	return '\n';
+        return '\n';
       if (c2 == 'r')
-	return '\r';
+        return '\r';
       if (c2 == 'f')
-	return '\f';
+        return '\f';
       if (c2 == 'u')
-	{
-	  unsigned int n = 0;
-	  int i;
+        {
+          unsigned int n = 0;
+          int i;
 
-	  for (i = 0; i < 4; i++)
-	    {
-	      int c1 = phase3_getc ();
+          for (i = 0; i < 4; i++)
+            {
+              int c1 = phase3_getc ();
 
-	      if (c1 >= '0' && c1 <= '9')
-		n = (n << 4) + (c1 - '0');
-	      else if (c1 >= 'A' && c1 <= 'F')
-		n = (n << 4) + (c1 - 'A' + 10);
-	      else if (c1 >= 'a' && c1 <= 'f')
-		n = (n << 4) + (c1 - 'a' + 10);
-	      else
-		{
-		  phase3_ungetc (c1);
-		  po_xerror (PO_SEVERITY_ERROR, NULL,
-			     real_file_name, gram_pos.line_number, (size_t)(-1),
-			     false, _("warning: invalid \\uxxxx syntax for Unicode character"));
-		  return 'u';
-		}
-	    }
-	  return n;
-	}
+              if (c1 >= '0' && c1 <= '9')
+                n = (n << 4) + (c1 - '0');
+              else if (c1 >= 'A' && c1 <= 'F')
+                n = (n << 4) + (c1 - 'A' + 10);
+              else if (c1 >= 'a' && c1 <= 'f')
+                n = (n << 4) + (c1 - 'a' + 10);
+              else
+                {
+                  phase3_ungetc (c1);
+                  po_xerror (PO_SEVERITY_ERROR, NULL,
+                             real_file_name, gram_pos.line_number, (size_t)(-1),
+                             false, _("warning: invalid \\uxxxx syntax for Unicode character"));
+                  return 'u';
+                }
+            }
+          return n;
+        }
 
       return c2;
     }
@@ -254,12 +254,12 @@ conv_from_iso_8859_1 (char *string)
       const char *str_limit = str + length;
 
       while (str < str_limit)
-	{
-	  unsigned int uc = (unsigned char) *str++;
-	  int n = u8_uctomb (q, uc, 6);
-	  assert (n > 0);
-	  q += n;
-	}
+        {
+          unsigned int uc = (unsigned char) *str++;
+          int n = u8_uctomb (q, uc, 6);
+          assert (n > 0);
+          q += n;
+        }
       *q = '\0';
       assert (q - utf8_string <= 2 * length);
 
@@ -281,72 +281,72 @@ conv_from_java (char *string)
   while (*p != '\0')
     {
       if (p[0] == '\\' && p[1] == 'u')
-	{
-	  unsigned int n = 0;
-	  int i;
+        {
+          unsigned int n = 0;
+          int i;
 
-	  for (i = 0; i < 4; i++)
-	    {
-	      int c1 = (unsigned char) p[2 + i];
+          for (i = 0; i < 4; i++)
+            {
+              int c1 = (unsigned char) p[2 + i];
 
-	      if (c1 >= '0' && c1 <= '9')
-		n = (n << 4) + (c1 - '0');
-	      else if (c1 >= 'A' && c1 <= 'F')
-		n = (n << 4) + (c1 - 'A' + 10);
-	      else if (c1 >= 'a' && c1 <= 'f')
-		n = (n << 4) + (c1 - 'a' + 10);
-	      else
-		goto just_one_byte;
-	    }
+              if (c1 >= '0' && c1 <= '9')
+                n = (n << 4) + (c1 - '0');
+              else if (c1 >= 'A' && c1 <= 'F')
+                n = (n << 4) + (c1 - 'A' + 10);
+              else if (c1 >= 'a' && c1 <= 'f')
+                n = (n << 4) + (c1 - 'a' + 10);
+              else
+                goto just_one_byte;
+            }
 
-	  if (i == 4)
-	    {
-	      unsigned int uc;
+          if (i == 4)
+            {
+              unsigned int uc;
 
-	      if (n >= 0xd800 && n < 0xdc00)
-		{
-		  if (p[6] == '\\' && p[7] == 'u')
-		    {
-		      unsigned int m = 0;
+              if (n >= 0xd800 && n < 0xdc00)
+                {
+                  if (p[6] == '\\' && p[7] == 'u')
+                    {
+                      unsigned int m = 0;
 
-		      for (i = 0; i < 4; i++)
-			{
-			  int c1 = (unsigned char) p[8 + i];
+                      for (i = 0; i < 4; i++)
+                        {
+                          int c1 = (unsigned char) p[8 + i];
 
-			  if (c1 >= '0' && c1 <= '9')
-			    m = (m << 4) + (c1 - '0');
-			  else if (c1 >= 'A' && c1 <= 'F')
-			    m = (m << 4) + (c1 - 'A' + 10);
-			  else if (c1 >= 'a' && c1 <= 'f')
-			    m = (m << 4) + (c1 - 'a' + 10);
-			  else
-			    goto just_one_byte;
-			}
+                          if (c1 >= '0' && c1 <= '9')
+                            m = (m << 4) + (c1 - '0');
+                          else if (c1 >= 'A' && c1 <= 'F')
+                            m = (m << 4) + (c1 - 'A' + 10);
+                          else if (c1 >= 'a' && c1 <= 'f')
+                            m = (m << 4) + (c1 - 'a' + 10);
+                          else
+                            goto just_one_byte;
+                        }
 
-		      if (i == 4 && (m >= 0xdc00 && m < 0xe000))
-			{
-			  /* Combine two UTF-16 words to a character.  */
-			  uc = 0x10000 + ((n - 0xd800) << 10) + (m - 0xdc00);
-			  p += 12;
-			}
-		      else
-			goto just_one_byte;
-		    }
-		  else
-		    goto just_one_byte;
-		}
-	      else
-		{
-		  uc = n;
-		  p += 6;
-		}
+                      if (i == 4 && (m >= 0xdc00 && m < 0xe000))
+                        {
+                          /* Combine two UTF-16 words to a character.  */
+                          uc = 0x10000 + ((n - 0xd800) << 10) + (m - 0xdc00);
+                          p += 12;
+                        }
+                      else
+                        goto just_one_byte;
+                    }
+                  else
+                    goto just_one_byte;
+                }
+              else
+                {
+                  uc = n;
+                  p += 6;
+                }
 
-	      q += u8_uctomb (q, uc, 6);
-	      continue;
-	    }
-	}
+              q += u8_uctomb (q, uc, 6);
+              continue;
+            }
+        }
       just_one_byte:
-	*q++ = (unsigned char) *p++;
+        *q++ = (unsigned char) *p++;
     }
   *q = '\0';
   return string;
@@ -387,38 +387,38 @@ read_escaped_string (bool in_key)
   for (;;)
     {
       if (in_key && (c == '=' || c == ':'
-		     || c == ' ' || c == '\t' || c == '\r' || c == '\f'))
-	{
-	  /* Skip whitespace after the string.  */
-	  while (c == ' ' || c == '\t' || c == '\r' || c == '\f')
-	    c = phase3_getc ();
-	  /* Skip '=' or ':' separator.  */
-	  if (!(c == '=' || c == ':'))
-	    phase3_ungetc (c);
-	  break;
-	}
+                     || c == ' ' || c == '\t' || c == '\r' || c == '\f'))
+        {
+          /* Skip whitespace after the string.  */
+          while (c == ' ' || c == '\t' || c == '\r' || c == '\f')
+            c = phase3_getc ();
+          /* Skip '=' or ':' separator.  */
+          if (!(c == '=' || c == ':'))
+            phase3_ungetc (c);
+          break;
+        }
 
       phase3_ungetc (c);
 
       /* Read the next UTF-16 codepoint.  */
       c = phase4_getuc ();
       if (c < 0)
-	break;
+        break;
       /* Append it to the buffer.  */
       if (buflen >= bufmax)
-	{
-	  bufmax += 100;
-	  buffer = xrealloc (buffer, bufmax * sizeof (unsigned short));
-	}
+        {
+          bufmax += 100;
+          buffer = xrealloc (buffer, bufmax * sizeof (unsigned short));
+        }
       buffer[buflen++] = c;
 
       c = phase3_getc ();
       if (c == EOF || c == '\n')
-	{
-	  if (in_key)
-	    phase3_ungetc (c);
-	  break;
-	}
+        {
+          if (in_key)
+            phase3_ungetc (c);
+          break;
+        }
     }
 
   /* Now convert from UTF-16 to UTF-8.  */
@@ -431,13 +431,13 @@ read_escaped_string (bool in_key)
     utf8_string = XNMALLOC (3 * buflen + 1, unsigned char);
     for (pos = 0, q = utf8_string; pos < buflen; )
       {
-	ucs4_t uc;
-	int n;
+        ucs4_t uc;
+        int n;
 
-	pos += u16_mbtouc (&uc, buffer + pos, buflen - pos);
-	n = u8_uctomb (q, uc, 6);
-	assert (n > 0);
-	q += n;
+        pos += u16_mbtouc (&uc, buffer + pos, buflen - pos);
+        n = u8_uctomb (q, uc, 6);
+        assert (n > 0);
+        q += n;
       }
     *q = '\0';
     assert (q - utf8_string <= 3 * buflen);
@@ -451,7 +451,7 @@ read_escaped_string (bool in_key)
    abstract_catalog_reader_class_ty methods.  */
 static void
 properties_parse (abstract_catalog_reader_ty *this, FILE *file,
-		  const char *real_filename, const char *logical_filename)
+                  const char *real_filename, const char *logical_filename)
 {
   fp = file;
   real_file_name = real_filename;
@@ -467,85 +467,85 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
       c = phase2_getc ();
 
       if (c == EOF)
-	break;
+        break;
 
       comment = false;
       hidden = false;
       if (c == '#')
-	comment = true;
+        comment = true;
       else if (c == '!')
-	{
-	  /* For compatibility with write-properties.c, we treat '!' not
-	     followed by space as a fuzzy or untranslated message.  */
-	  int c2 = phase2_getc ();
-	  if (c2 == ' ' || c2 == '\n' || c2 == EOF)
-	    comment = true;
-	  else
-	    hidden = true;
-	  phase2_ungetc (c2);
-	}
+        {
+          /* For compatibility with write-properties.c, we treat '!' not
+             followed by space as a fuzzy or untranslated message.  */
+          int c2 = phase2_getc ();
+          if (c2 == ' ' || c2 == '\n' || c2 == EOF)
+            comment = true;
+          else
+            hidden = true;
+          phase2_ungetc (c2);
+        }
       else
-	phase2_ungetc (c);
+        phase2_ungetc (c);
 
       if (comment)
-	{
-	  /* A comment line.  */
-	  static char *buffer;
-	  static size_t bufmax;
-	  static size_t buflen;
+        {
+          /* A comment line.  */
+          static char *buffer;
+          static size_t bufmax;
+          static size_t buflen;
 
-	  buflen = 0;
-	  for (;;)
-	    {
-	      c = phase2_getc ();
+          buflen = 0;
+          for (;;)
+            {
+              c = phase2_getc ();
 
-	      if (buflen >= bufmax)
-		{
-		  bufmax += 100;
-		  buffer = xrealloc (buffer, bufmax);
-		}
+              if (buflen >= bufmax)
+                {
+                  bufmax += 100;
+                  buffer = xrealloc (buffer, bufmax);
+                }
 
-	      if (c == EOF || c == '\n')
-		break;
+              if (c == EOF || c == '\n')
+                break;
 
-	      buffer[buflen++] = c;
-	    }
-	  buffer[buflen] = '\0';
+              buffer[buflen++] = c;
+            }
+          buffer[buflen] = '\0';
 
-	  po_callback_comment_dispatcher (conv_from_java (conv_from_iso_8859_1 (buffer)));
-	}
+          po_callback_comment_dispatcher (conv_from_java (conv_from_iso_8859_1 (buffer)));
+        }
       else
-	{
-	  /* A key/value pair.  */
-	  char *msgid;
-	  lex_pos_ty msgid_pos;
+        {
+          /* A key/value pair.  */
+          char *msgid;
+          lex_pos_ty msgid_pos;
 
-	  msgid_pos = gram_pos;
-	  msgid = read_escaped_string (true);
-	  if (msgid == NULL)
-	    /* Skip blank line.  */
-	    ;
-	  else
-	    {
-	      char *msgstr;
-	      lex_pos_ty msgstr_pos;
-	      bool force_fuzzy;
+          msgid_pos = gram_pos;
+          msgid = read_escaped_string (true);
+          if (msgid == NULL)
+            /* Skip blank line.  */
+            ;
+          else
+            {
+              char *msgstr;
+              lex_pos_ty msgstr_pos;
+              bool force_fuzzy;
 
-	      msgstr_pos = gram_pos;
-	      msgstr = read_escaped_string (false);
-	      if (msgstr == NULL)
-		msgstr = xstrdup ("");
+              msgstr_pos = gram_pos;
+              msgstr = read_escaped_string (false);
+              if (msgstr == NULL)
+                msgstr = xstrdup ("");
 
-	      /* Be sure to make the message fuzzy if it was commented out
-		 and if it is not already header/fuzzy/untranslated.  */
-	      force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
+              /* Be sure to make the message fuzzy if it was commented out
+                 and if it is not already header/fuzzy/untranslated.  */
+              force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
 
-	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
-				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
-				   NULL, NULL, NULL,
-				   force_fuzzy, false);
-	    }
-	}
+              po_callback_message (NULL, msgid, &msgid_pos, NULL,
+                                   msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                                   NULL, NULL, NULL,
+                                   force_fuzzy, false);
+            }
+        }
     }
 
   fp = NULL;
@@ -555,6 +555,6 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
 
 const struct catalog_input_format input_format_properties =
 {
-  properties_parse,			/* parse */
-  true					/* produces_utf8 */
+  properties_parse,                     /* parse */
+  true                                  /* produces_utf8 */
 };

@@ -46,7 +46,7 @@ struct spec
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
-	      char **invalid_reason)
+              char **invalid_reason)
 {
   const char *const format_start = format;
   struct spec spec;
@@ -57,19 +57,19 @@ format_parse (const char *format, bool translated, char *fdi,
   for (; *format != '\0';)
     if (*format++ == '%')
       {
-	const char *dir_start = format - 1;
+        const char *dir_start = format - 1;
 
-	if (*format == 'L')
-	  format++;
-	if (*format == 'n')
-	  {
-	    /* A directive.  */
-	    FDI_SET (dir_start, FMTDIR_START);
-	    spec.directives++;
-	    FDI_SET (format, FMTDIR_END);
+        if (*format == 'L')
+          format++;
+        if (*format == 'n')
+          {
+            /* A directive.  */
+            FDI_SET (dir_start, FMTDIR_START);
+            spec.directives++;
+            FDI_SET (format, FMTDIR_END);
 
-	    format++;
-	  }
+            format++;
+          }
       }
 
   result = XMALLOC (struct spec);
@@ -95,8 +95,8 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgid, const char *pretty_msgstr)
+              formatstring_error_logger_t error_logger,
+              const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -107,8 +107,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       || (equality && spec1->directives > 0 && spec2->directives == 0))
     {
       if (error_logger)
-	error_logger (_("number of format specifications in '%s' and '%s' does not match"),
-		      pretty_msgid, pretty_msgstr);
+        error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+                      pretty_msgid, pretty_msgstr);
       err = true;
     }
 
@@ -165,9 +165,9 @@ main ()
 
       line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
-	break;
+        break;
       if (line_len > 0 && line[line_len - 1] == '\n')
-	line[--line_len] = '\0';
+        line[--line_len] = '\0';
 
       invalid_reason = NULL;
       descr = format_parse (line, false, NULL, &invalid_reason);
@@ -175,7 +175,7 @@ main ()
       format_print (descr);
       printf ("\n");
       if (descr == NULL)
-	printf ("%s\n", invalid_reason);
+        printf ("%s\n", invalid_reason);
 
       free (invalid_reason);
       free (line);

@@ -48,8 +48,8 @@ extern DLL_VARIABLE bool omit_header;
 
 extern msgdomain_list_ty *
        catenate_msgdomain_list (string_list_ty *file_list,
-				catalog_input_format_ty input_syntax,
-				const char *to_code);
+                                catalog_input_format_ty input_syntax,
+                                const char *to_code);
 
 
 #ifdef __cplusplus

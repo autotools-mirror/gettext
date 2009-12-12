@@ -34,41 +34,41 @@
 /* Table of all format string parsers.  */
 struct formatstring_parser *formatstring_parsers[NFORMATS] =
 {
-  /* format_c */		&formatstring_c,
-  /* format_objc */		&formatstring_objc,
-  /* format_sh */		&formatstring_sh,
-  /* format_python */		&formatstring_python,
-  /* format_lisp */		&formatstring_lisp,
-  /* format_elisp */		&formatstring_elisp,
-  /* format_librep */		&formatstring_librep,
-  /* format_scheme */		&formatstring_scheme,
-  /* format_smalltalk */	&formatstring_smalltalk,
-  /* format_java */		&formatstring_java,
-  /* format_csharp */		&formatstring_csharp,
-  /* format_awk */		&formatstring_awk,
-  /* format_pascal */		&formatstring_pascal,
-  /* format_ycp */		&formatstring_ycp,
-  /* format_tcl */		&formatstring_tcl,
-  /* format_perl */		&formatstring_perl,
-  /* format_perl_brace */	&formatstring_perl_brace,
-  /* format_php */		&formatstring_php,
-  /* format_gcc_internal */	&formatstring_gcc_internal,
-  /* format_gfc_internal */	&formatstring_gfc_internal,
-  /* format_qt */		&formatstring_qt,
-  /* format_qt_plural */	&formatstring_qt_plural,
-  /* format_kde */		&formatstring_kde,
-  /* format_boost */		&formatstring_boost
+  /* format_c */                &formatstring_c,
+  /* format_objc */             &formatstring_objc,
+  /* format_sh */               &formatstring_sh,
+  /* format_python */           &formatstring_python,
+  /* format_lisp */             &formatstring_lisp,
+  /* format_elisp */            &formatstring_elisp,
+  /* format_librep */           &formatstring_librep,
+  /* format_scheme */           &formatstring_scheme,
+  /* format_smalltalk */        &formatstring_smalltalk,
+  /* format_java */             &formatstring_java,
+  /* format_csharp */           &formatstring_csharp,
+  /* format_awk */              &formatstring_awk,
+  /* format_pascal */           &formatstring_pascal,
+  /* format_ycp */              &formatstring_ycp,
+  /* format_tcl */              &formatstring_tcl,
+  /* format_perl */             &formatstring_perl,
+  /* format_perl_brace */       &formatstring_perl_brace,
+  /* format_php */              &formatstring_php,
+  /* format_gcc_internal */     &formatstring_gcc_internal,
+  /* format_gfc_internal */     &formatstring_gfc_internal,
+  /* format_qt */               &formatstring_qt,
+  /* format_qt_plural */        &formatstring_qt_plural,
+  /* format_kde */              &formatstring_kde,
+  /* format_boost */            &formatstring_boost
 };
 
 /* Check whether both formats strings contain compatible format
    specifications for format type i (0 <= i < NFORMATS).  */
 int
 check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
-			     const char *msgstr, size_t msgstr_len,
-			     size_t i,
-			     struct argument_range range,
-			     const struct plural_distribution *distribution,
-			     formatstring_error_logger_t error_logger)
+                             const char *msgstr, size_t msgstr_len,
+                             size_t i,
+                             struct argument_range range,
+                             const struct plural_distribution *distribution,
+                             formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
 
@@ -87,12 +87,12 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
   char *invalid_reason = NULL;
   void *msgid_descr =
     parser->parse (msgid_plural != NULL ? msgid_plural : msgid, false, NULL,
-		   &invalid_reason);
+                   &invalid_reason);
 
   if (msgid_descr != NULL)
     {
       const char *pretty_msgid =
-	(msgid_plural != NULL ? "msgid_plural" : "msgid");
+        (msgid_plural != NULL ? "msgid_plural" : "msgid");
       char buf[18+1];
       const char *pretty_msgstr = "msgstr";
       bool has_plural_translations = (strlen (msgstr) + 1 < msgstr_len);
@@ -101,58 +101,58 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
       unsigned int j;
 
       for (p = msgstr, j = 0; p < p_end; p += strlen (p) + 1, j++)
-	{
-	  void *msgstr_descr;
+        {
+          void *msgstr_descr;
 
-	  if (msgid_plural != NULL)
-	    {
-	      sprintf (buf, "msgstr[%u]", j);
-	      pretty_msgstr = buf;
-	    }
+          if (msgid_plural != NULL)
+            {
+              sprintf (buf, "msgstr[%u]", j);
+              pretty_msgstr = buf;
+            }
 
-	  msgstr_descr = parser->parse (p, true, NULL, &invalid_reason);
+          msgstr_descr = parser->parse (p, true, NULL, &invalid_reason);
 
-	  if (msgstr_descr != NULL)
-	    {
-	      /* Use strict checking (require same number of format
-		 directives on both sides) if the message has no plurals,
-		 or if msgid_plural exists but on the msgstr[] side
-		 there is only msgstr[0], or if distribution->often[j]
-		 indicates that the variant applies to infinitely many
-		 values of N and the N range is not restricted in a way
-		 that the variant applies to only one N.
-		 Use relaxed checking when there are at least two
-		 msgstr[] forms and the distribution does not give more
-		 precise information.  */
-	      bool strict_checking =
-		(msgid_plural == NULL
-		 || !has_plural_translations
-		 || (distribution != NULL
-		     && distribution->often != NULL
-		     && j < distribution->often_length
-		     && distribution->often[j]
-		     && !(has_range_p (range)
-			  && distribution->histogram (distribution,
-						      range.min, range.max, j)
-			     <= 1)));
+          if (msgstr_descr != NULL)
+            {
+              /* Use strict checking (require same number of format
+                 directives on both sides) if the message has no plurals,
+                 or if msgid_plural exists but on the msgstr[] side
+                 there is only msgstr[0], or if distribution->often[j]
+                 indicates that the variant applies to infinitely many
+                 values of N and the N range is not restricted in a way
+                 that the variant applies to only one N.
+                 Use relaxed checking when there are at least two
+                 msgstr[] forms and the distribution does not give more
+                 precise information.  */
+              bool strict_checking =
+                (msgid_plural == NULL
+                 || !has_plural_translations
+                 || (distribution != NULL
+                     && distribution->often != NULL
+                     && j < distribution->often_length
+                     && distribution->often[j]
+                     && !(has_range_p (range)
+                          && distribution->histogram (distribution,
+                                                      range.min, range.max, j)
+                             <= 1)));
 
-	      if (parser->check (msgid_descr, msgstr_descr,
-				 strict_checking,
-				 error_logger, pretty_msgid, pretty_msgstr))
-		seen_errors++;
+              if (parser->check (msgid_descr, msgstr_descr,
+                                 strict_checking,
+                                 error_logger, pretty_msgid, pretty_msgstr))
+                seen_errors++;
 
-	      parser->free (msgstr_descr);
-	    }
-	  else
-	    {
-	      error_logger (_("\
+              parser->free (msgstr_descr);
+            }
+          else
+            {
+              error_logger (_("\
 '%s' is not a valid %s format string, unlike '%s'. Reason: %s"),
-			    pretty_msgstr, format_language_pretty[i],
-			    pretty_msgid, invalid_reason);
-	      seen_errors++;
-	      free (invalid_reason);
-	    }
-	}
+                            pretty_msgstr, format_language_pretty[i],
+                            pretty_msgid, invalid_reason);
+              seen_errors++;
+              free (invalid_reason);
+            }
+        }
 
       parser->free (msgid_descr);
     }
@@ -167,11 +167,11 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
    Return the number of errors that were seen.  */
 int
 check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
-			   const char *msgstr, size_t msgstr_len,
-			   const enum is_format is_format[NFORMATS],
-			   struct argument_range range,
-			   const struct plural_distribution *distribution,
-			   formatstring_error_logger_t error_logger)
+                           const char *msgstr, size_t msgstr_len,
+                           const enum is_format is_format[NFORMATS],
+                           struct argument_range range,
+                           const struct plural_distribution *distribution,
+                           formatstring_error_logger_t error_logger)
 {
   int seen_errors = 0;
   size_t i;
@@ -185,10 +185,10 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
   for (i = 0; i < NFORMATS; i++)
     if (possible_format_p (is_format[i]))
       seen_errors += check_msgid_msgstr_format_i (msgid, msgid_plural,
-						  msgstr, msgstr_len, i,
-						  range,
-						  distribution,
-						  error_logger);
+                                                  msgstr, msgstr_len, i,
+                                                  range,
+                                                  distribution,
+                                                  error_logger);
 
   return seen_errors;
 }

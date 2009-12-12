@@ -62,21 +62,21 @@ conversion_error (const struct conversion_context* context)
   if (context->to_code == po_charset_utf8)
     /* If a conversion to UTF-8 fails, the problem lies in the input.  */
     po_xerror (PO_SEVERITY_FATAL_ERROR, context->message, NULL, 0, 0, false,
-	       xasprintf (_("%s: input is not valid in \"%s\" encoding"),
-			  context->from_filename, context->from_code));
+               xasprintf (_("%s: input is not valid in \"%s\" encoding"),
+                          context->from_filename, context->from_code));
   else
     po_xerror (PO_SEVERITY_FATAL_ERROR, context->message, NULL, 0, 0, false,
-	       xasprintf (_("\
+               xasprintf (_("\
 %s: error while converting from \"%s\" encoding to \"%s\" encoding"),
-			  context->from_filename, context->from_code,
-			  context->to_code));
+                          context->from_filename, context->from_code,
+                          context->to_code));
   /* NOTREACHED */
   abort ();
 }
 
 char *
 convert_string_directly (iconv_t cd, const char *string,
-			 const struct conversion_context* context)
+                         const struct conversion_context* context)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
@@ -85,7 +85,7 @@ convert_string_directly (iconv_t cd, const char *string,
   if (xmem_cd_iconv (string, len, cd, &result, &resultlen) == 0)
     /* Verify the result has exactly one NUL byte, at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0'
-	&& strlen (result) == resultlen - 1)
+        && strlen (result) == resultlen - 1)
       return result;
 
   conversion_error (context);
@@ -95,17 +95,17 @@ convert_string_directly (iconv_t cd, const char *string,
 
 static char *
 convert_string (const iconveh_t *cd, const char *string,
-		const struct conversion_context* context)
+                const struct conversion_context* context)
 {
   size_t len = strlen (string) + 1;
   char *result = NULL;
   size_t resultlen = 0;
 
   if (xmem_cd_iconveh (string, len, cd, iconveh_error, NULL,
-		       &result, &resultlen) == 0)
+                       &result, &resultlen) == 0)
     /* Verify the result has exactly one NUL byte, at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0'
-	&& strlen (result) == resultlen - 1)
+        && strlen (result) == resultlen - 1)
       return result;
 
   conversion_error (context);
@@ -115,7 +115,7 @@ convert_string (const iconveh_t *cd, const char *string,
 
 static void
 convert_string_list (const iconveh_t *cd, string_list_ty *slp,
-		     const struct conversion_context* context)
+                     const struct conversion_context* context)
 {
   size_t i;
 
@@ -126,7 +126,7 @@ convert_string_list (const iconveh_t *cd, string_list_ty *slp,
 
 static void
 convert_prev_msgid (const iconveh_t *cd, message_ty *mp,
-		    const struct conversion_context* context)
+                    const struct conversion_context* context)
 {
   if (mp->prev_msgctxt != NULL)
     mp->prev_msgctxt = convert_string (cd, mp->prev_msgctxt, context);
@@ -138,7 +138,7 @@ convert_prev_msgid (const iconveh_t *cd, message_ty *mp,
 
 static void
 convert_msgid (const iconveh_t *cd, message_ty *mp,
-	       const struct conversion_context* context)
+               const struct conversion_context* context)
 {
   if (mp->msgctxt != NULL)
     mp->msgctxt = convert_string (cd, mp->msgctxt, context);
@@ -149,7 +149,7 @@ convert_msgid (const iconveh_t *cd, message_ty *mp,
 
 static void
 convert_msgstr (const iconveh_t *cd, message_ty *mp,
-		const struct conversion_context* context)
+                const struct conversion_context* context)
 {
   char *result = NULL;
   size_t resultlen = 0;
@@ -158,29 +158,29 @@ convert_msgstr (const iconveh_t *cd, message_ty *mp,
     abort ();
 
   if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
-		       &result, &resultlen) == 0)
+                       &result, &resultlen) == 0)
     /* Verify the result has a NUL byte at the end.  */
     if (resultlen > 0 && result[resultlen - 1] == '\0')
       /* Verify the result has the same number of NUL bytes.  */
       {
-	const char *p;
-	const char *pend;
-	int nulcount1;
-	int nulcount2;
+        const char *p;
+        const char *pend;
+        int nulcount1;
+        int nulcount2;
 
-	for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
-	     p < pend;
-	     p += strlen (p) + 1, nulcount1++);
-	for (p = result, pend = p + resultlen, nulcount2 = 0;
-	     p < pend;
-	     p += strlen (p) + 1, nulcount2++);
+        for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
+             p < pend;
+             p += strlen (p) + 1, nulcount1++);
+        for (p = result, pend = p + resultlen, nulcount2 = 0;
+             p < pend;
+             p += strlen (p) + 1, nulcount2++);
 
-	if (nulcount1 == nulcount2)
-	  {
-	    mp->msgstr = result;
-	    mp->msgstr_len = resultlen;
-	    return;
-	  }
+        if (nulcount1 == nulcount2)
+          {
+            mp->msgstr = result;
+            mp->msgstr_len = resultlen;
+            return;
+          }
       }
 
   conversion_error (context);
@@ -191,10 +191,10 @@ convert_msgstr (const iconveh_t *cd, message_ty *mp,
 
 static bool
 iconv_message_list_internal (message_list_ty *mlp,
-			     const char *canon_from_code,
-			     const char *canon_to_code,
-			     bool update_header,
-			     const char *from_filename)
+                             const char *canon_from_code,
+                             const char *canon_to_code,
+                             bool update_header,
+                             const char *from_filename)
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
   bool msgids_changed;
@@ -208,86 +208,86 @@ iconv_message_list_internal (message_list_ty *mlp,
   for (j = 0; j < mlp->nitems; j++)
     if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
-	const char *header = mlp->item[j]->msgstr;
+        const char *header = mlp->item[j]->msgstr;
 
-	if (header != NULL)
-	  {
-	    const char *charsetstr = c_strstr (header, "charset=");
+        if (header != NULL)
+          {
+            const char *charsetstr = c_strstr (header, "charset=");
 
-	    if (charsetstr != NULL)
-	      {
-		size_t len;
-		char *charset;
-		const char *canon_charset;
+            if (charsetstr != NULL)
+              {
+                size_t len;
+                char *charset;
+                const char *canon_charset;
 
-		charsetstr += strlen ("charset=");
-		len = strcspn (charsetstr, " \t\n");
-		charset = (char *) xmalloca (len + 1);
-		memcpy (charset, charsetstr, len);
-		charset[len] = '\0';
+                charsetstr += strlen ("charset=");
+                len = strcspn (charsetstr, " \t\n");
+                charset = (char *) xmalloca (len + 1);
+                memcpy (charset, charsetstr, len);
+                charset[len] = '\0';
 
-		canon_charset = po_charset_canonicalize (charset);
-		if (canon_charset == NULL)
-		  {
-		    if (!canon_from_code_overridden)
-		      {
-			/* Don't give an error for POT files, because POT
-			   files usually contain only ASCII msgids.  */
-			const char *filename = from_filename;
-			size_t filenamelen;
+                canon_charset = po_charset_canonicalize (charset);
+                if (canon_charset == NULL)
+                  {
+                    if (!canon_from_code_overridden)
+                      {
+                        /* Don't give an error for POT files, because POT
+                           files usually contain only ASCII msgids.  */
+                        const char *filename = from_filename;
+                        size_t filenamelen;
 
-			if (filename != NULL
-			    && (filenamelen = strlen (filename)) >= 4
-			    && memcmp (filename + filenamelen - 4, ".pot", 4)
-			       == 0
-			    && strcmp (charset, "CHARSET") == 0)
-			  canon_charset = po_charset_ascii;
-			else
-			  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0,
-				     false, xasprintf (_("\
+                        if (filename != NULL
+                            && (filenamelen = strlen (filename)) >= 4
+                            && memcmp (filename + filenamelen - 4, ".pot", 4)
+                               == 0
+                            && strcmp (charset, "CHARSET") == 0)
+                          canon_charset = po_charset_ascii;
+                        else
+                          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0,
+                                     false, xasprintf (_("\
 present charset \"%s\" is not a portable encoding name"),
-						charset));
-		      }
-		  }
-		else
-		  {
-		    if (canon_from_code == NULL)
-		      canon_from_code = canon_charset;
-		    else if (canon_from_code != canon_charset)
-		      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0,  0,
-				 false,
-				 xasprintf (_("\
+                                                charset));
+                      }
+                  }
+                else
+                  {
+                    if (canon_from_code == NULL)
+                      canon_from_code = canon_charset;
+                    else if (canon_from_code != canon_charset)
+                      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0,  0,
+                                 false,
+                                 xasprintf (_("\
 two different charsets \"%s\" and \"%s\" in input file"),
-					    canon_from_code, canon_charset));
-		  }
-		freea (charset);
+                                            canon_from_code, canon_charset));
+                  }
+                freea (charset);
 
-		if (update_header)
-		  {
-		    size_t len1, len2, len3;
-		    char *new_header;
+                if (update_header)
+                  {
+                    size_t len1, len2, len3;
+                    char *new_header;
 
-		    len1 = charsetstr - header;
-		    len2 = strlen (canon_to_code);
-		    len3 = (header + strlen (header)) - (charsetstr + len);
-		    new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
-		    memcpy (new_header, header, len1);
-		    memcpy (new_header + len1, canon_to_code, len2);
-		    memcpy (new_header + len1 + len2, charsetstr + len,
-			    len3 + 1);
-		    mlp->item[j]->msgstr = new_header;
-		    mlp->item[j]->msgstr_len = len1 + len2 + len3 + 1;
-		  }
-	      }
-	  }
+                    len1 = charsetstr - header;
+                    len2 = strlen (canon_to_code);
+                    len3 = (header + strlen (header)) - (charsetstr + len);
+                    new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
+                    memcpy (new_header, header, len1);
+                    memcpy (new_header + len1, canon_to_code, len2);
+                    memcpy (new_header + len1 + len2, charsetstr + len,
+                            len3 + 1);
+                    mlp->item[j]->msgstr = new_header;
+                    mlp->item[j]->msgstr_len = len1 + len2 + len3 + 1;
+                  }
+              }
+          }
       }
   if (canon_from_code == NULL)
     {
       if (is_ascii_message_list (mlp))
-	canon_from_code = po_charset_ascii;
+        canon_from_code = po_charset_ascii;
       else
-	po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		   _("\
+        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                   _("\
 input file doesn't contain a header entry with a charset specification"));
     }
 
@@ -301,48 +301,48 @@ input file doesn't contain a header entry with a charset specification"));
       struct conversion_context context;
 
       if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
-	po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		   xasprintf (_("\
+        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                   xasprintf (_("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
 and iconv() does not support this conversion."),
-			      canon_from_code, canon_to_code,
-			      basename (program_name)));
+                              canon_from_code, canon_to_code,
+                              basename (program_name)));
 
       context.from_code = canon_from_code;
       context.to_code = canon_to_code;
       context.from_filename = from_filename;
 
       for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
+        {
+          message_ty *mp = mlp->item[j];
 
-	  if ((mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt))
-	      || !is_ascii_string (mp->msgid))
-	    msgids_changed = true;
-	  context.message = mp;
-	  convert_string_list (&cd, mp->comment, &context);
-	  convert_string_list (&cd, mp->comment_dot, &context);
-	  convert_prev_msgid (&cd, mp, &context);
-	  convert_msgid (&cd, mp, &context);
-	  convert_msgstr (&cd, mp, &context);
-	}
+          if ((mp->msgctxt != NULL && !is_ascii_string (mp->msgctxt))
+              || !is_ascii_string (mp->msgid))
+            msgids_changed = true;
+          context.message = mp;
+          convert_string_list (&cd, mp->comment, &context);
+          convert_string_list (&cd, mp->comment_dot, &context);
+          convert_prev_msgid (&cd, mp, &context);
+          convert_msgid (&cd, mp, &context);
+          convert_msgstr (&cd, mp, &context);
+        }
 
       iconveh_close (&cd);
 
       if (msgids_changed)
-	if (message_list_msgids_changed (mlp))
-	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		     xasprintf (_("\
+        if (message_list_msgids_changed (mlp))
+          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     xasprintf (_("\
 Conversion from \"%s\" to \"%s\" introduces duplicates: \
 some different msgids become equal."),
-				canon_from_code, canon_to_code));
+                                canon_from_code, canon_to_code));
 #else
-	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		     xasprintf (_("\
+          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     xasprintf (_("\
 Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
 This version was built without iconv()."),
-				canon_from_code, canon_to_code,
-				basename (program_name)));
+                                canon_from_code, canon_to_code,
+                                basename (program_name)));
 #endif
     }
 
@@ -351,19 +351,19 @@ This version was built without iconv()."),
 
 bool
 iconv_message_list (message_list_ty *mlp,
-		    const char *canon_from_code, const char *canon_to_code,
-		    const char *from_filename)
+                    const char *canon_from_code, const char *canon_to_code,
+                    const char *from_filename)
 {
   return iconv_message_list_internal (mlp,
-				      canon_from_code, canon_to_code, true,
-				      from_filename);
+                                      canon_from_code, canon_to_code, true,
+                                      from_filename);
 }
 
 msgdomain_list_ty *
 iconv_msgdomain_list (msgdomain_list_ty *mdlp,
-		      const char *to_code,
-		      bool update_header,
-		      const char *from_filename)
+                      const char *to_code,
+                      bool update_header,
+                      const char *from_filename)
 {
   const char *canon_to_code;
   size_t k;
@@ -372,14 +372,14 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
   canon_to_code = po_charset_canonicalize (to_code);
   if (canon_to_code == NULL)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-	       xasprintf (_("\
+               xasprintf (_("\
 target charset \"%s\" is not a portable encoding name."),
-			  to_code));
+                          to_code));
 
   for (k = 0; k < mdlp->nitems; k++)
     iconv_message_list_internal (mdlp->item[k]->messages,
-				 mdlp->encoding, canon_to_code, update_header,
-				 from_filename);
+                                 mdlp->encoding, canon_to_code, update_header,
+                                 from_filename);
 
   mdlp->encoding = canon_to_code;
   return mdlp;
@@ -395,11 +395,11 @@ iconvable_string (const iconveh_t *cd, const char *string)
   size_t resultlen = 0;
 
   if (xmem_cd_iconveh (string, len, cd, iconveh_error, NULL,
-		       &result, &resultlen) == 0)
+                       &result, &resultlen) == 0)
     {
       /* Test if the result has exactly one NUL byte, at the end.  */
       bool ok = (resultlen > 0 && result[resultlen - 1] == '\0'
-		 && strlen (result) == resultlen - 1);
+                 && strlen (result) == resultlen - 1);
       free (result);
       return ok;
     }
@@ -414,7 +414,7 @@ iconvable_string_list (const iconveh_t *cd, string_list_ty *slp)
   if (slp != NULL)
     for (i = 0; i < slp->nitems; i++)
       if (!iconvable_string (cd, slp->item[i]))
-	return false;
+        return false;
   return true;
 }
 
@@ -457,29 +457,29 @@ iconvable_msgstr (const iconveh_t *cd, message_ty *mp)
     abort ();
 
   if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
-		       &result, &resultlen) == 0)
+                       &result, &resultlen) == 0)
     {
       bool ok = false;
 
       /* Test if the result has a NUL byte at the end.  */
       if (resultlen > 0 && result[resultlen - 1] == '\0')
-	/* Test if the result has the same number of NUL bytes.  */
-	{
-	  const char *p;
-	  const char *pend;
-	  int nulcount1;
-	  int nulcount2;
+        /* Test if the result has the same number of NUL bytes.  */
+        {
+          const char *p;
+          const char *pend;
+          int nulcount1;
+          int nulcount2;
 
-	  for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
-	       p < pend;
-	       p += strlen (p) + 1, nulcount1++);
-	  for (p = result, pend = p + resultlen, nulcount2 = 0;
-	       p < pend;
-	       p += strlen (p) + 1, nulcount2++);
+          for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
+               p < pend;
+               p += strlen (p) + 1, nulcount1++);
+          for (p = result, pend = p + resultlen, nulcount2 = 0;
+               p < pend;
+               p += strlen (p) + 1, nulcount2++);
 
-	  if (nulcount1 == nulcount2)
-	    ok = true;
-	}
+          if (nulcount1 == nulcount2)
+            ok = true;
+        }
 
       free (result);
       return ok;
@@ -491,8 +491,8 @@ iconvable_msgstr (const iconveh_t *cd, message_ty *mp)
 
 bool
 is_message_list_iconvable (message_list_ty *mlp,
-			   const char *canon_from_code,
-			   const char *canon_to_code)
+                           const char *canon_from_code,
+                           const char *canon_to_code)
 {
   bool canon_from_code_overridden = (canon_from_code != NULL);
   size_t j;
@@ -505,63 +505,63 @@ is_message_list_iconvable (message_list_ty *mlp,
   for (j = 0; j < mlp->nitems; j++)
     if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
-	const char *header = mlp->item[j]->msgstr;
+        const char *header = mlp->item[j]->msgstr;
 
-	if (header != NULL)
-	  {
-	    const char *charsetstr = c_strstr (header, "charset=");
+        if (header != NULL)
+          {
+            const char *charsetstr = c_strstr (header, "charset=");
 
-	    if (charsetstr != NULL)
-	      {
-		size_t len;
-		char *charset;
-		const char *canon_charset;
+            if (charsetstr != NULL)
+              {
+                size_t len;
+                char *charset;
+                const char *canon_charset;
 
-		charsetstr += strlen ("charset=");
-		len = strcspn (charsetstr, " \t\n");
-		charset = (char *) xmalloca (len + 1);
-		memcpy (charset, charsetstr, len);
-		charset[len] = '\0';
+                charsetstr += strlen ("charset=");
+                len = strcspn (charsetstr, " \t\n");
+                charset = (char *) xmalloca (len + 1);
+                memcpy (charset, charsetstr, len);
+                charset[len] = '\0';
 
-		canon_charset = po_charset_canonicalize (charset);
-		if (canon_charset == NULL)
-		  {
-		    if (!canon_from_code_overridden)
-		      {
-			/* Don't give an error for POT files, because POT
-			   files usually contain only ASCII msgids.  */
-			if (strcmp (charset, "CHARSET") == 0)
-			  canon_charset = po_charset_ascii;
-			else
-			  {
-			    /* charset is not a portable encoding name.  */
-			    freea (charset);
-			    return false;
-			  }
-		      }
-		  }
-		else
-		  {
-		    if (canon_from_code == NULL)
-		      canon_from_code = canon_charset;
-		    else if (canon_from_code != canon_charset)
-		      {
-			/* Two different charsets in input file.  */
-			freea (charset);
-			return false;
-		      }
-		  }
-		freea (charset);
-	      }
-	  }
+                canon_charset = po_charset_canonicalize (charset);
+                if (canon_charset == NULL)
+                  {
+                    if (!canon_from_code_overridden)
+                      {
+                        /* Don't give an error for POT files, because POT
+                           files usually contain only ASCII msgids.  */
+                        if (strcmp (charset, "CHARSET") == 0)
+                          canon_charset = po_charset_ascii;
+                        else
+                          {
+                            /* charset is not a portable encoding name.  */
+                            freea (charset);
+                            return false;
+                          }
+                      }
+                  }
+                else
+                  {
+                    if (canon_from_code == NULL)
+                      canon_from_code = canon_charset;
+                    else if (canon_from_code != canon_charset)
+                      {
+                        /* Two different charsets in input file.  */
+                        freea (charset);
+                        return false;
+                      }
+                  }
+                freea (charset);
+              }
+          }
       }
   if (canon_from_code == NULL)
     {
       if (is_ascii_message_list (mlp))
-	canon_from_code = po_charset_ascii;
+        canon_from_code = po_charset_ascii;
       else
-	/* Input file lacks a header entry with a charset specification.  */
-	return false;
+        /* Input file lacks a header entry with a charset specification.  */
+        return false;
     }
 
   /* If the two encodings are the same, nothing to check.  */
@@ -571,20 +571,20 @@ is_message_list_iconvable (message_list_ty *mlp,
       iconveh_t cd;
 
       if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
-	/* iconv() doesn't support this conversion.  */
-	return false;
+        /* iconv() doesn't support this conversion.  */
+        return false;
 
       for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
+        {
+          message_ty *mp = mlp->item[j];
 
-	  if (!(iconvable_string_list (&cd, mp->comment)
-		&& iconvable_string_list (&cd, mp->comment_dot)
-		&& iconvable_prev_msgid (&cd, mp)
-		&& iconvable_msgid (&cd, mp)
-		&& iconvable_msgstr (&cd, mp)))
-	    return false;
-	}
+          if (!(iconvable_string_list (&cd, mp->comment)
+                && iconvable_string_list (&cd, mp->comment_dot)
+                && iconvable_prev_msgid (&cd, mp)
+                && iconvable_msgid (&cd, mp)
+                && iconvable_msgstr (&cd, mp)))
+            return false;
+        }
 
       iconveh_close (&cd);
 #else

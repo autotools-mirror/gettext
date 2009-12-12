@@ -24,23 +24,23 @@ __DJ_uid_t
 #define __DJ_uid_t
 
 struct passwd {
-  char *	pw_name;		/* Username.  */
-  uid_t 	pw_uid;			/* User ID.  */
-  gid_t 	pw_gid;			/* Group ID.  */
-  char *	pw_dir;			/* Home directory.  */
-  char *	pw_shell;		/* Shell program.  */
-  char *	pw_gecos;		/* Real name.  */
-  char *	pw_passwd;		/* Password.  */
+  char *        pw_name;                /* Username.  */
+  uid_t         pw_uid;                 /* User ID.  */
+  gid_t         pw_gid;                 /* Group ID.  */
+  char *        pw_dir;                 /* Home directory.  */
+  char *        pw_shell;               /* Shell program.  */
+  char *        pw_gecos;               /* Real name.  */
+  char *        pw_passwd;              /* Password.  */
 };
   
-struct passwd *	getpwuid(uid_t _uid);
-struct passwd *	getpwnam(const char *_name);
+struct passwd * getpwuid(uid_t _uid);
+struct passwd * getpwnam(const char *_name);
 
 #ifndef _POSIX_SOURCE
 
-struct passwd	*getpwent(void);
-void		setpwent(void);
-void		endpwent(void);
+struct passwd   *getpwent(void);
+void            setpwent(void);
+void            endpwent(void);
 
 #endif /* !_POSIX_SOURCE */
 #endif /* !__STRICT_ANSI__ */

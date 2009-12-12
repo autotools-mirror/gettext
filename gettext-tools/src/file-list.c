@@ -49,8 +49,8 @@ read_names_from_file (const char *file_name)
     {
       fp = fopen (file_name, "r");
       if (fp == NULL)
-	error (EXIT_FAILURE, errno,
-	       _("error while opening \"%s\" for reading"), file_name);
+        error (EXIT_FAILURE, errno,
+               _("error while opening \"%s\" for reading"), file_name);
     }
 
   result = string_list_alloc ();
@@ -62,20 +62,20 @@ read_names_from_file (const char *file_name)
 
       /* In case of an error leave loop.  */
       if (len < 0)
-	break;
+        break;
 
       /* Remove trailing '\n' and trailing whitespace.  */
       if (len > 0 && line_buf[len - 1] == '\n')
-	line_buf[--len] = '\0';
+        line_buf[--len] = '\0';
       while (len > 0
-	     && (line_buf[len - 1] == ' '
-		 || line_buf[len - 1] == '\t'
-		 || line_buf[len - 1] == '\r'))
-	line_buf[--len] = '\0';
+             && (line_buf[len - 1] == ' '
+                 || line_buf[len - 1] == '\t'
+                 || line_buf[len - 1] == '\r'))
+        line_buf[--len] = '\0';
 
       /* Test if we have to ignore the line.  */
       if (*line_buf == '\0' || *line_buf == '#')
-	continue;
+        continue;
 
       string_list_append_unique (result, line_buf);
     }

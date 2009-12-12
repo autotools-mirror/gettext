@@ -29,15 +29,15 @@
 
 static inline bool
 msgstr_equal (const char *msgstr1, size_t msgstr1_len,
-	      const char *msgstr2, size_t msgstr2_len)
+              const char *msgstr2, size_t msgstr2_len)
 {
   return (msgstr1_len == msgstr2_len
-	  && memcmp (msgstr1, msgstr2, msgstr1_len) == 0);
+          && memcmp (msgstr1, msgstr2, msgstr1_len) == 0);
 }
 
 static bool
 msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
-				const char *msgstr2, size_t msgstr2_len)
+                                const char *msgstr2, size_t msgstr2_len)
 {
   const char *msgstr1_end = msgstr1 + msgstr1_len;
   const char *msgstr2_end = msgstr2 + msgstr2_len;
@@ -50,15 +50,15 @@ msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
   for (ptr1 = msgstr1;;)
     {
       if (msgstr1_end - ptr1 < fieldlen)
-	{
-	  ptr1 = NULL;
-	  break;
-	}
+        {
+          ptr1 = NULL;
+          break;
+        }
       if (memcmp (ptr1, field, fieldlen) == 0)
-	break;
+        break;
       ptr1 = (const char *) memchr (ptr1, '\n', msgstr1_end - ptr1);
       if (ptr1 == NULL)
-	break;
+        break;
       ptr1++;
     }
 
@@ -66,42 +66,42 @@ msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
   for (ptr2 = msgstr2;;)
     {
       if (msgstr2_end - ptr2 < fieldlen)
-	{
-	  ptr2 = NULL;
-	  break;
-	}
+        {
+          ptr2 = NULL;
+          break;
+        }
       if (memcmp (ptr2, field, fieldlen) == 0)
-	break;
+        break;
       ptr2 = (const char *) memchr (ptr2, '\n', msgstr2_end - ptr2);
       if (ptr2 == NULL)
-	break;
+        break;
       ptr2++;
     }
 
   if (ptr1 == NULL)
     {
       if (ptr2 == NULL)
-	return msgstr_equal (msgstr1, msgstr1_len, msgstr2, msgstr2_len);
+        return msgstr_equal (msgstr1, msgstr1_len, msgstr2, msgstr2_len);
     }
   else
     {
       if (ptr2 != NULL)
-	{
-	  /* Compare, ignoring the lines starting at ptr1 and ptr2.  */
-	  if (msgstr_equal (msgstr1, ptr1 - msgstr1, msgstr2, ptr2 - msgstr2))
-	    {
-	      ptr1 = (const char *) memchr (ptr1, '\n', msgstr1_end - ptr1);
-	      if (ptr1 == NULL)
-		ptr1 = msgstr1_end;
+        {
+          /* Compare, ignoring the lines starting at ptr1 and ptr2.  */
+          if (msgstr_equal (msgstr1, ptr1 - msgstr1, msgstr2, ptr2 - msgstr2))
+            {
+              ptr1 = (const char *) memchr (ptr1, '\n', msgstr1_end - ptr1);
+              if (ptr1 == NULL)
+                ptr1 = msgstr1_end;
 
-	      ptr2 = (const char *) memchr (ptr2, '\n', msgstr2_end - ptr2);
-	      if (ptr2 == NULL)
-		ptr2 = msgstr2_end;
+              ptr2 = (const char *) memchr (ptr2, '\n', msgstr2_end - ptr2);
+              if (ptr2 == NULL)
+                ptr2 = msgstr2_end;
 
-	      return msgstr_equal (ptr1, msgstr1_end - ptr1,
-				   ptr2, msgstr2_end - ptr2);
-	    }
-	}
+              return msgstr_equal (ptr1, msgstr1_end - ptr1,
+                                   ptr2, msgstr2_end - ptr2);
+            }
+        }
     }
   return false;
 }
@@ -110,8 +110,8 @@ static inline bool
 pos_equal (const lex_pos_ty *pos1, const lex_pos_ty *pos2)
 {
   return ((pos1->file_name == pos2->file_name
-	   || strcmp (pos1->file_name, pos2->file_name) == 0)
-	  && pos1->line_number == pos2->line_number);
+           || strcmp (pos1->file_name, pos2->file_name) == 0)
+          && pos1->line_number == pos2->line_number);
 }
 
 bool
@@ -131,29 +131,29 @@ string_list_equal (const string_list_ty *slp1, const string_list_ty *slp2)
 
 bool
 message_equal (const message_ty *mp1, const message_ty *mp2,
-	       bool ignore_potcdate)
+               bool ignore_potcdate)
 {
   size_t i, i1, i2;
 
   if (!(mp1->msgctxt != NULL
-	? mp2->msgctxt != NULL && strcmp (mp1->msgctxt, mp2->msgctxt) == 0
-	: mp2->msgctxt == NULL))
+        ? mp2->msgctxt != NULL && strcmp (mp1->msgctxt, mp2->msgctxt) == 0
+        : mp2->msgctxt == NULL))
     return false;
 
   if (strcmp (mp1->msgid, mp2->msgid) != 0)
     return false;
 
   if (!(mp1->msgid_plural != NULL
-	? mp2->msgid_plural != NULL
-	  && strcmp (mp1->msgid_plural, mp2->msgid_plural) == 0
-	: mp2->msgid_plural == NULL))
+        ? mp2->msgid_plural != NULL
+          && strcmp (mp1->msgid_plural, mp2->msgid_plural) == 0
+        : mp2->msgid_plural == NULL))
     return false;
 
   if (is_header (mp1) && ignore_potcdate
       ? !msgstr_equal_ignoring_potcdate (mp1->msgstr, mp1->msgstr_len,
-					 mp2->msgstr, mp2->msgstr_len)
+                                         mp2->msgstr, mp2->msgstr_len)
       : !msgstr_equal (mp1->msgstr, mp1->msgstr_len,
-		       mp2->msgstr, mp2->msgstr_len))
+                       mp2->msgstr, mp2->msgstr_len))
     return false;
 
   if (!pos_equal (&mp1->pos, &mp2->pos))
@@ -184,21 +184,21 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
     return false;
 
   if (!(mp1->prev_msgctxt != NULL
-	? mp2->prev_msgctxt != NULL
-	  && strcmp (mp1->prev_msgctxt, mp2->prev_msgctxt) == 0
-	: mp2->prev_msgctxt == NULL))
+        ? mp2->prev_msgctxt != NULL
+          && strcmp (mp1->prev_msgctxt, mp2->prev_msgctxt) == 0
+        : mp2->prev_msgctxt == NULL))
     return false;
 
   if (!(mp1->prev_msgid != NULL
-	? mp2->prev_msgid != NULL
-	  && strcmp (mp1->prev_msgid, mp2->prev_msgid) == 0
-	: mp2->prev_msgid == NULL))
+        ? mp2->prev_msgid != NULL
+          && strcmp (mp1->prev_msgid, mp2->prev_msgid) == 0
+        : mp2->prev_msgid == NULL))
     return false;
 
   if (!(mp1->prev_msgid_plural != NULL
-	? mp2->prev_msgid_plural != NULL
-	  && strcmp (mp1->prev_msgid_plural, mp2->prev_msgid_plural) == 0
-	: mp2->prev_msgid_plural == NULL))
+        ? mp2->prev_msgid_plural != NULL
+          && strcmp (mp1->prev_msgid_plural, mp2->prev_msgid_plural) == 0
+        : mp2->prev_msgid_plural == NULL))
     return false;
 
   if (mp1->obsolete != mp2->obsolete)
@@ -209,7 +209,7 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
 
 bool
 message_list_equal (const message_list_ty *mlp1, const message_list_ty *mlp2,
-		    bool ignore_potcdate)
+                    bool ignore_potcdate)
 {
   size_t i, i1, i2;
 
@@ -225,17 +225,17 @@ message_list_equal (const message_list_ty *mlp1, const message_list_ty *mlp2,
 
 static inline bool
 msgdomain_equal (const msgdomain_ty *mdp1, const msgdomain_ty *mdp2,
-		 bool ignore_potcdate)
+                 bool ignore_potcdate)
 {
   return (strcmp (mdp1->domain, mdp2->domain) == 0
-	  && message_list_equal (mdp1->messages, mdp2->messages,
-				 ignore_potcdate));
+          && message_list_equal (mdp1->messages, mdp2->messages,
+                                 ignore_potcdate));
 }
 
 bool
 msgdomain_list_equal (const msgdomain_list_ty *mdlp1,
-		      const msgdomain_list_ty *mdlp2,
-		      bool ignore_potcdate)
+                      const msgdomain_list_ty *mdlp2,
+                      bool ignore_potcdate)
 {
   size_t i, i1, i2;
 

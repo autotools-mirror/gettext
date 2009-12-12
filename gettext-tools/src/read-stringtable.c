@@ -91,14 +91,14 @@ phase1_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	{
-	  const char *errno_description = strerror (errno);
-	  po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-		     xasprintf ("%s: %s",
-				xasprintf (_("error while reading \"%s\""),
-					   real_file_name),
-				errno_description));
-	}
+        {
+          const char *errno_description = strerror (errno);
+          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     xasprintf ("%s: %s",
+                                xasprintf (_("error while reading \"%s\""),
+                                           real_file_name),
+                                errno_description));
+        }
       return EOF;
     }
 
@@ -149,38 +149,38 @@ phase2_getc ()
 
       c0 = phase1_getc ();
       if (c0 == EOF)
-	return UEOF;
+        return UEOF;
       c1 = phase1_getc ();
       if (c1 == EOF)
-	{
-	  phase1_ungetc (c0);
-	  encoding = enc_iso8859_1;
-	}
+        {
+          phase1_ungetc (c0);
+          encoding = enc_iso8859_1;
+        }
       else if (c0 == 0xfe && c1 == 0xff)
-	encoding = enc_ucs2be;
+        encoding = enc_ucs2be;
       else if (c0 == 0xff && c1 == 0xfe)
-	encoding = enc_ucs2le;
+        encoding = enc_ucs2le;
       else
-	{
-	  int c2;
+        {
+          int c2;
 
-	  c2 = phase1_getc ();
-	  if (c2 == EOF)
-	    {
-	      phase1_ungetc (c1);
-	      phase1_ungetc (c0);
-	      encoding = enc_iso8859_1;
-	    }
-	  else if (c0 == 0xef && c1 == 0xbb && c2 == 0xbf)
-	    encoding = enc_utf8;
-	  else
-	    {
-	      phase1_ungetc (c2);
-	      phase1_ungetc (c1);
-	      phase1_ungetc (c0);
-	      encoding = enc_iso8859_1;
-	    }
-	}
+          c2 = phase1_getc ();
+          if (c2 == EOF)
+            {
+              phase1_ungetc (c1);
+              phase1_ungetc (c0);
+              encoding = enc_iso8859_1;
+            }
+          else if (c0 == 0xef && c1 == 0xbb && c2 == 0xbf)
+            encoding = enc_utf8;
+          else
+            {
+              phase1_ungetc (c2);
+              phase1_ungetc (c1);
+              phase1_ungetc (c0);
+              encoding = enc_iso8859_1;
+            }
+        }
     }
 
   switch (encoding)
@@ -188,106 +188,106 @@ phase2_getc ()
     case enc_ucs2be:
       /* Read an UCS-2BE encoded character.  */
       {
-	int c0, c1;
+        int c0, c1;
 
-	c0 = phase1_getc ();
-	if (c0 == EOF)
-	  return UEOF;
-	c1 = phase1_getc ();
-	if (c1 == EOF)
-	  return UEOF;
-	return (c0 << 8) + c1;
+        c0 = phase1_getc ();
+        if (c0 == EOF)
+          return UEOF;
+        c1 = phase1_getc ();
+        if (c1 == EOF)
+          return UEOF;
+        return (c0 << 8) + c1;
       }
 
     case enc_ucs2le:
       /* Read an UCS-2LE encoded character.  */
       {
-	int c0, c1;
+        int c0, c1;
 
-	c0 = phase1_getc ();
-	if (c0 == EOF)
-	  return UEOF;
-	c1 = phase1_getc ();
-	if (c1 == EOF)
-	  return UEOF;
-	return c0 + (c1 << 8);
+        c0 = phase1_getc ();
+        if (c0 == EOF)
+          return UEOF;
+        c1 = phase1_getc ();
+        if (c1 == EOF)
+          return UEOF;
+        return c0 + (c1 << 8);
       }
 
     case enc_utf8:
       /* Read an UTF-8 encoded character.  */
       {
-	unsigned char buf[6];
-	unsigned int count;
-	int c;
-	ucs4_t uc;
+        unsigned char buf[6];
+        unsigned int count;
+        int c;
+        ucs4_t uc;
 
-	c = phase1_getc ();
-	if (c == EOF)
-	  return UEOF;
-	buf[0] = c;
-	count = 1;
+        c = phase1_getc ();
+        if (c == EOF)
+          return UEOF;
+        buf[0] = c;
+        count = 1;
 
-	if (buf[0] >= 0xc0)
-	  {
-	    c = phase1_getc ();
-	    if (c == EOF)
-	      return UEOF;
-	    buf[1] = c;
-	    count = 2;
+        if (buf[0] >= 0xc0)
+          {
+            c = phase1_getc ();
+            if (c == EOF)
+              return UEOF;
+            buf[1] = c;
+            count = 2;
 
-	    if (buf[0] >= 0xe0
-		&& ((buf[1] ^ 0x80) < 0x40))
-	      {
-		c = phase1_getc ();
-		if (c == EOF)
-		  return UEOF;
-		buf[2] = c;
-		count = 3;
+            if (buf[0] >= 0xe0
+                && ((buf[1] ^ 0x80) < 0x40))
+              {
+                c = phase1_getc ();
+                if (c == EOF)
+                  return UEOF;
+                buf[2] = c;
+                count = 3;
 
-		if (buf[0] >= 0xf0
-		    && ((buf[2] ^ 0x80) < 0x40))
-		  {
-		    c = phase1_getc ();
-		    if (c == EOF)
-		      return UEOF;
-		    buf[3] = c;
-		    count = 4;
+                if (buf[0] >= 0xf0
+                    && ((buf[2] ^ 0x80) < 0x40))
+                  {
+                    c = phase1_getc ();
+                    if (c == EOF)
+                      return UEOF;
+                    buf[3] = c;
+                    count = 4;
 
-		    if (buf[0] >= 0xf8
-			&& ((buf[3] ^ 0x80) < 0x40))
-		      {
-			c = phase1_getc ();
-			if (c == EOF)
-			  return UEOF;
-			buf[4] = c;
-			count = 5;
+                    if (buf[0] >= 0xf8
+                        && ((buf[3] ^ 0x80) < 0x40))
+                      {
+                        c = phase1_getc ();
+                        if (c == EOF)
+                          return UEOF;
+                        buf[4] = c;
+                        count = 5;
 
-			if (buf[0] >= 0xfc
-			    && ((buf[4] ^ 0x80) < 0x40))
-			  {
-			    c = phase1_getc ();
-			    if (c == EOF)
-			      return UEOF;
-			    buf[5] = c;
-			    count = 6;
-			  }
-		      }
-		  }
-	      }
-	  }
+                        if (buf[0] >= 0xfc
+                            && ((buf[4] ^ 0x80) < 0x40))
+                          {
+                            c = phase1_getc ();
+                            if (c == EOF)
+                              return UEOF;
+                            buf[5] = c;
+                            count = 6;
+                          }
+                      }
+                  }
+              }
+          }
 
-	u8_mbtouc (&uc, buf, count);
-	return uc;
+        u8_mbtouc (&uc, buf, count);
+        return uc;
       }
 
     case enc_iso8859_1:
       /* Read an ISO-8859-1 encoded character.  */
       {
-	int c = phase1_getc ();
+        int c = phase1_getc ();
 
-	if (c == EOF)
-	  return UEOF;
-	return c;
+        if (c == EOF)
+          return UEOF;
+        return c;
       }
 
     default:
@@ -374,71 +374,71 @@ parse_escaped_string (const int *string, size_t length)
   for (;;)
     {
       if (string == string_limit)
-	return NULL;
+        return NULL;
       c = *string++;
       if (c == '"')
-	break;
+        break;
       if (c == '\\')
-	{
-	  if (string == string_limit)
-	    return NULL;
-	  c = *string++;
-	  if (c >= '0' && c <= '7')
-	    {
-	      unsigned int n = 0;
-	      int j = 0;
-	      for (;;)
-		{
-		  n = n * 8 + (c - '0');
-		  if (++j == 3)
-		    break;
-		  if (string == string_limit)
-		    break;
-		  c = *string;
-		  if (!(c >= '0' && c <= '7'))
-		    break;
-		  string++;
-		}
-	      c = n;
-	    }
-	  else if (c == 'u' || c == 'U')
-	    {
-	      unsigned int n = 0;
-	      int j;
-	      for (j = 0; j < 4; j++)
-		{
-		  if (string == string_limit)
-		    break;
-		  c = *string;
-		  if (c >= '0' && c <= '9')
-		    n = n * 16 + (c - '0');
-		  else if (c >= 'A' && c <= 'F')
-		    n = n * 16 + (c - 'A' + 10);
-		  else if (c >= 'a' && c <= 'f')
-		    n = n * 16 + (c - 'a' + 10);
-		  else
-		    break;
-		  string++;
-		}
-	      c = n;
-	    }
-	  else
-	    switch (c)
-	      {
-	      case 'a': c = '\a'; break;
-	      case 'b': c = '\b'; break;
-	      case 't': c = '\t'; break;
-	      case 'r': c = '\r'; break;
-	      case 'n': c = '\n'; break;
-	      case 'v': c = '\v'; break;
-	      case 'f': c = '\f'; break;
-	      }
-	}
+        {
+          if (string == string_limit)
+            return NULL;
+          c = *string++;
+          if (c >= '0' && c <= '7')
+            {
+              unsigned int n = 0;
+              int j = 0;
+              for (;;)
+                {
+                  n = n * 8 + (c - '0');
+                  if (++j == 3)
+                    break;
+                  if (string == string_limit)
+                    break;
+                  c = *string;
+                  if (!(c >= '0' && c <= '7'))
+                    break;
+                  string++;
+                }
+              c = n;
+            }
+          else if (c == 'u' || c == 'U')
+            {
+              unsigned int n = 0;
+              int j;
+              for (j = 0; j < 4; j++)
+                {
+                  if (string == string_limit)
+                    break;
+                  c = *string;
+                  if (c >= '0' && c <= '9')
+                    n = n * 16 + (c - '0');
+                  else if (c >= 'A' && c <= 'F')
+                    n = n * 16 + (c - 'A' + 10);
+                  else if (c >= 'a' && c <= 'f')
+                    n = n * 16 + (c - 'a' + 10);
+                  else
+                    break;
+                  string++;
+                }
+              c = n;
+            }
+          else
+            switch (c)
+              {
+              case 'a': c = '\a'; break;
+              case 'b': c = '\b'; break;
+              case 't': c = '\t'; break;
+              case 'r': c = '\r'; break;
+              case 'n': c = '\n'; break;
+              case 'v': c = '\v'; break;
+              case 'f': c = '\f'; break;
+              }
+        }
       if (buflen >= bufmax)
-	{
-	  bufmax = 2 * bufmax + 10;
-	  buffer = xrealloc (buffer, bufmax * sizeof (int));
-	}
+        {
+          bufmax = 2 * bufmax + 10;
+          buffer = xrealloc (buffer, bufmax * sizeof (int));
+        }
       buffer[buflen++] = c;
     }
 
@@ -520,7 +520,7 @@ comment_line_end (size_t chars_to_remove, bool test_for_fuzzy_msgstr)
   buflen -= chars_to_remove;
   /* Drop trailing white space, but not EOLs.  */
   while (buflen >= 1
-	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
+         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
 
   /* At special positions we interpret a comment of the form
@@ -530,8 +530,8 @@ comment_line_end (size_t chars_to_remove, bool test_for_fuzzy_msgstr)
   if (test_for_fuzzy_msgstr
       && buflen > 2 && buffer[0] == '=' && buffer[1] == ' '
       && (fuzzy_msgstr =
-	  parse_escaped_string (buffer + 2,
-				buflen - (buffer[buflen - 1] == ';') - 2)))
+          parse_escaped_string (buffer + 2,
+                                buflen - (buffer[buflen - 1] == ';') - 2)))
     return;
 
   line = conv_from_ucs4 (buffer, buflen);
@@ -555,16 +555,16 @@ comment_line_end (size_t chars_to_remove, bool test_for_fuzzy_msgstr)
       char *endp;
 
       if (strlen (line) >= 6 && memcmp (line, "File: ", 6) == 0
-	  && (last_colon = strrchr (line + 6, ':')) != NULL
-	  && *(last_colon + 1) != '\0'
-	  && (number = strtoul (last_colon + 1, &endp, 10), *endp == '\0'))
-	{
-	  /* A "File: <filename>:<number>" type comment.  */
-	  *last_colon = '\0';
-	  po_callback_comment_filepos (line + 6, number);
-	}
+          && (last_colon = strrchr (line + 6, ':')) != NULL
+          && *(last_colon + 1) != '\0'
+          && (number = strtoul (last_colon + 1, &endp, 10), *endp == '\0'))
+        {
+          /* A "File: <filename>:<number>" type comment.  */
+          *last_colon = '\0';
+          po_callback_comment_filepos (line + 6, number);
+        }
       else
-	po_callback_comment (line);
+        po_callback_comment (line);
     }
 }
 
@@ -590,79 +590,79 @@ phase4_getc ()
     case '*':
       /* C style comment.  */
       {
-	bool last_was_star;
-	size_t trailing_stars;
-	bool seen_newline;
+        bool last_was_star;
+        size_t trailing_stars;
+        bool seen_newline;
 
-	comment_start ();
-	last_was_star = false;
-	trailing_stars = 0;
-	seen_newline = false;
-	/* Drop additional stars at the beginning of the comment.  */
-	for (;;)
-	  {
-	    c = phase3_getc ();
-	    if (c != '*')
-	      break;
-	    last_was_star = true;
-	  }
-	phase3_ungetc (c);
-	for (;;)
-	  {
-	    c = phase3_getc ();
-	    if (c == UEOF)
-	      break;
-	    /* We skip all leading white space, but not EOLs.  */
-	    if (!(buflen == 0 && (c == ' ' || c == '\t')))
-	      comment_add (c);
-	    switch (c)
-	      {
-	      case '\n':
-		seen_newline = true;
-		comment_line_end (1, false);
-		comment_start ();
-		last_was_star = false;
-		trailing_stars = 0;
-		continue;
+        comment_start ();
+        last_was_star = false;
+        trailing_stars = 0;
+        seen_newline = false;
+        /* Drop additional stars at the beginning of the comment.  */
+        for (;;)
+          {
+            c = phase3_getc ();
+            if (c != '*')
+              break;
+            last_was_star = true;
+          }
+        phase3_ungetc (c);
+        for (;;)
+          {
+            c = phase3_getc ();
+            if (c == UEOF)
+              break;
+            /* We skip all leading white space, but not EOLs.  */
+            if (!(buflen == 0 && (c == ' ' || c == '\t')))
+              comment_add (c);
+            switch (c)
+              {
+              case '\n':
+                seen_newline = true;
+                comment_line_end (1, false);
+                comment_start ();
+                last_was_star = false;
+                trailing_stars = 0;
+                continue;
 
-	      case '*':
-		last_was_star = true;
-		trailing_stars++;
-		continue;
+              case '*':
+                last_was_star = true;
+                trailing_stars++;
+                continue;
 
-	      case '/':
-		if (last_was_star)
-		  {
-		    /* Drop additional stars at the end of the comment.  */
-		    comment_line_end (trailing_stars + 1,
-				      expect_fuzzy_msgstr_as_c_comment
-				      && !seen_newline);
-		    break;
-		  }
-		/* FALLTHROUGH */
+              case '/':
+                if (last_was_star)
+                  {
+                    /* Drop additional stars at the end of the comment.  */
+                    comment_line_end (trailing_stars + 1,
+                                      expect_fuzzy_msgstr_as_c_comment
+                                      && !seen_newline);
+                    break;
+                  }
+                /* FALLTHROUGH */
 
-	      default:
-		last_was_star = false;
-		trailing_stars = 0;
-		continue;
-	      }
-	    break;
-	  }
-	return ' ';
+              default:
+                last_was_star = false;
+                trailing_stars = 0;
+                continue;
+              }
+            break;
+          }
+        return ' ';
       }
 
     case '/':
       /* C++ style comment.  */
       comment_start ();
       for (;;)
-	{
-	  c = phase3_getc ();
-	  if (c == '\n' || c == UEOF)
-	    break;
-	  /* We skip all leading white space, but not EOLs.  */
-	  if (!(buflen == 0 && (c == ' ' || c == '\t')))
-	    comment_add (c);
-	}
+        {
+          c = phase3_getc ();
+          if (c == '\n' || c == UEOF)
+            break;
+          /* We skip all leading white space, but not EOLs.  */
+          if (!(buflen == 0 && (c == ' ' || c == '\t')))
+            comment_add (c);
+        }
       comment_line_end (0, expect_fuzzy_msgstr_as_cxx_comment);
       return '\n';
     }
@@ -680,7 +680,7 @@ static bool
 is_whitespace (int c)
 {
   return (c == ' ' || c == '\t' || c == '\r' || c == '\n' || c == '\f'
-	  || c == '\b');
+          || c == '\b');
 }
 
 /* Return true if a character needs quoting, i.e. cannot be used in unquoted
@@ -729,94 +729,94 @@ read_string (lex_pos_ty *pos)
     {
       /* Read a string enclosed in double-quotes.  */
       for (;;)
-	{
-	  c = phase3_getc ();
-	  if (c == UEOF || c == '"')
-	    break;
-	  if (c == '\\')
-	    {
-	      c = phase3_getc ();
-	      if (c == UEOF)
-		break;
-	      if (c >= '0' && c <= '7')
-		{
-		  unsigned int n = 0;
-		  int j = 0;
-		  for (;;)
-		    {
-		      n = n * 8 + (c - '0');
-		      if (++j == 3)
-			break;
-		      c = phase3_getc ();
-		      if (!(c >= '0' && c <= '7'))
-			{
-			  phase3_ungetc (c);
-			  break;
-			}
-		    }
-		  c = n;
-		}
-	      else if (c == 'u' || c == 'U')
-		{
-		  unsigned int n = 0;
-		  int j;
-		  for (j = 0; j < 4; j++)
-		    {
-		      c = phase3_getc ();
-		      if (c >= '0' && c <= '9')
-			n = n * 16 + (c - '0');
-		      else if (c >= 'A' && c <= 'F')
-			n = n * 16 + (c - 'A' + 10);
-		      else if (c >= 'a' && c <= 'f')
-			n = n * 16 + (c - 'a' + 10);
-		      else
-			{
-			  phase3_ungetc (c);
-			  break;
-			}
-		    }
-		  c = n;
-		}
-	      else
-		switch (c)
-		  {
-		  case 'a': c = '\a'; break;
-		  case 'b': c = '\b'; break;
-		  case 't': c = '\t'; break;
-		  case 'r': c = '\r'; break;
-		  case 'n': c = '\n'; break;
-		  case 'v': c = '\v'; break;
-		  case 'f': c = '\f'; break;
-		  }
-	    }
-	  if (buflen >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax * sizeof (int));
-	    }
-	  buffer[buflen++] = c;
-	}
+        {
+          c = phase3_getc ();
+          if (c == UEOF || c == '"')
+            break;
+          if (c == '\\')
+            {
+              c = phase3_getc ();
+              if (c == UEOF)
+                break;
+              if (c >= '0' && c <= '7')
+                {
+                  unsigned int n = 0;
+                  int j = 0;
+                  for (;;)
+                    {
+                      n = n * 8 + (c - '0');
+                      if (++j == 3)
+                        break;
+                      c = phase3_getc ();
+                      if (!(c >= '0' && c <= '7'))
+                        {
+                          phase3_ungetc (c);
+                          break;
+                        }
+                    }
+                  c = n;
+                }
+              else if (c == 'u' || c == 'U')
+                {
+                  unsigned int n = 0;
+                  int j;
+                  for (j = 0; j < 4; j++)
+                    {
+                      c = phase3_getc ();
+                      if (c >= '0' && c <= '9')
+                        n = n * 16 + (c - '0');
+                      else if (c >= 'A' && c <= 'F')
+                        n = n * 16 + (c - 'A' + 10);
+                      else if (c >= 'a' && c <= 'f')
+                        n = n * 16 + (c - 'a' + 10);
+                      else
+                        {
+                          phase3_ungetc (c);
+                          break;
+                        }
+                    }
+                  c = n;
+                }
+              else
+                switch (c)
+                  {
+                  case 'a': c = '\a'; break;
+                  case 'b': c = '\b'; break;
+                  case 't': c = '\t'; break;
+                  case 'r': c = '\r'; break;
+                  case 'n': c = '\n'; break;
+                  case 'v': c = '\v'; break;
+                  case 'f': c = '\f'; break;
+                  }
+            }
+          if (buflen >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax * sizeof (int));
+            }
+          buffer[buflen++] = c;
+        }
       if (c == UEOF)
-	po_xerror (PO_SEVERITY_ERROR, NULL,
-		   real_file_name, gram_pos.line_number, (size_t)(-1), false,
-		   _("warning: unterminated string"));
+        po_xerror (PO_SEVERITY_ERROR, NULL,
+                   real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                   _("warning: unterminated string"));
     }
   else
     {
       /* Read a token outside quotes.  */
       if (is_quotable (c))
-	po_xerror (PO_SEVERITY_ERROR, NULL,
-		   real_file_name, gram_pos.line_number, (size_t)(-1), false,
-		   _("warning: syntax error"));
+        po_xerror (PO_SEVERITY_ERROR, NULL,
+                   real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                   _("warning: syntax error"));
       for (; c != UEOF && !is_quotable (c); c = phase4_getc ())
-	{
-	  if (buflen >= bufmax)
-	    {
-	      bufmax = 2 * bufmax + 10;
-	      buffer = xrealloc (buffer, bufmax * sizeof (int));
-	    }
-	  buffer[buflen++] = c;
-	}
+        {
+          if (buflen >= bufmax)
+            {
+              bufmax = 2 * bufmax + 10;
+              buffer = xrealloc (buffer, bufmax * sizeof (int));
+            }
+          buffer[buflen++] = c;
+        }
     }
 
   return conv_from_ucs4 (buffer, buflen);
@@ -827,7 +827,7 @@ read_string (lex_pos_ty *pos)
    abstract_catalog_reader_class_ty methods.  */
 static void
 stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
-		   const char *real_filename, const char *logical_filename)
+                   const char *real_filename, const char *logical_filename)
 {
   fp = file;
   real_file_name = real_filename;
@@ -854,101 +854,101 @@ stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
       /* Read the key and all the comments preceding it.  */
       msgid = read_string (&msgid_pos);
       if (msgid == NULL)
-	break;
+        break;
 
       special_comment_finish ();
 
       /* Skip whitespace.  */
       do
-	c = phase4_getc ();
+        c = phase4_getc ();
       while (is_whitespace (c));
 
       /* Expect a '=' or ';'.  */
       if (c == UEOF)
-	{
-	  po_xerror (PO_SEVERITY_ERROR, NULL,
-		     real_file_name, gram_pos.line_number, (size_t)(-1), false,
-		     _("warning: unterminated key/value pair"));
-	  break;
-	}
+        {
+          po_xerror (PO_SEVERITY_ERROR, NULL,
+                     real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                     _("warning: unterminated key/value pair"));
+          break;
+        }
       if (c == ';')
-	{
-	  /* "key"; is an abbreviation for "key"=""; and does not
-	     necessarily designate an untranslated entry.  */
-	  msgstr = xstrdup ("");
-	  msgstr_pos = msgid_pos;
-	  po_callback_message (NULL, msgid, &msgid_pos, NULL,
-			       msgstr, strlen (msgstr) + 1, &msgstr_pos,
-			       NULL, NULL, NULL,
-			       false, next_is_obsolete);
-	}
+        {
+          /* "key"; is an abbreviation for "key"=""; and does not
+             necessarily designate an untranslated entry.  */
+          msgstr = xstrdup ("");
+          msgstr_pos = msgid_pos;
+          po_callback_message (NULL, msgid, &msgid_pos, NULL,
+                               msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                               NULL, NULL, NULL,
+                               false, next_is_obsolete);
+        }
       else if (c == '=')
-	{
-	  /* Read the value.  */
-	  msgstr = read_string (&msgstr_pos);
-	  if (msgstr == NULL)
-	    {
-	      po_xerror (PO_SEVERITY_ERROR, NULL,
-			 real_file_name, gram_pos.line_number, (size_t)(-1),
-			 false, _("warning: unterminated key/value pair"));
-	      break;
-	    }
+        {
+          /* Read the value.  */
+          msgstr = read_string (&msgstr_pos);
+          if (msgstr == NULL)
+            {
+              po_xerror (PO_SEVERITY_ERROR, NULL,
+                         real_file_name, gram_pos.line_number, (size_t)(-1),
+                         false, _("warning: unterminated key/value pair"));
+              break;
+            }
 
-	  /* Skip whitespace.  But for fuzzy key/value pairs, look for the
-	     tentative msgstr in the form of a C style comment.  */
-	  expect_fuzzy_msgstr_as_c_comment = next_is_fuzzy;
-	  do
-	    {
-	      c = phase4_getc ();
-	      if (fuzzy_msgstr != NULL)
-		expect_fuzzy_msgstr_as_c_comment = false;
-	    }
-	  while (is_whitespace (c));
-	  expect_fuzzy_msgstr_as_c_comment = false;
+          /* Skip whitespace.  But for fuzzy key/value pairs, look for the
+             tentative msgstr in the form of a C style comment.  */
+          expect_fuzzy_msgstr_as_c_comment = next_is_fuzzy;
+          do
+            {
+              c = phase4_getc ();
+              if (fuzzy_msgstr != NULL)
+                expect_fuzzy_msgstr_as_c_comment = false;
+            }
+          while (is_whitespace (c));
+          expect_fuzzy_msgstr_as_c_comment = false;
 
-	  /* Expect a ';'.  */
-	  if (c == ';')
-	    {
-	      /* But for fuzzy key/value pairs, look for the tentative msgstr
-		 in the form of a C++ style comment. */
-	      if (fuzzy_msgstr == NULL && next_is_fuzzy)
-		{
-		  do
-		    c = phase3_getc ();
-		  while (c == ' ');
-		  phase3_ungetc (c);
+          /* Expect a ';'.  */
+          if (c == ';')
+            {
+              /* But for fuzzy key/value pairs, look for the tentative msgstr
+                 in the form of a C++ style comment. */
+              if (fuzzy_msgstr == NULL && next_is_fuzzy)
+                {
+                  do
+                    c = phase3_getc ();
+                  while (c == ' ');
+                  phase3_ungetc (c);
 
-		  expect_fuzzy_msgstr_as_cxx_comment = true;
-		  c = phase4_getc ();
-		  phase4_ungetc (c);
-		  expect_fuzzy_msgstr_as_cxx_comment = false;
-		}
-	      if (fuzzy_msgstr != NULL && strcmp (msgstr, msgid) == 0)
-		msgstr = fuzzy_msgstr;
+                  expect_fuzzy_msgstr_as_cxx_comment = true;
+                  c = phase4_getc ();
+                  phase4_ungetc (c);
+                  expect_fuzzy_msgstr_as_cxx_comment = false;
+                }
+              if (fuzzy_msgstr != NULL && strcmp (msgstr, msgid) == 0)
+                msgstr = fuzzy_msgstr;
 
-	      /* A key/value pair.  */
-	      po_callback_message (NULL, msgid, &msgid_pos, NULL,
-				   msgstr, strlen (msgstr) + 1, &msgstr_pos,
-				   NULL, NULL, NULL,
-				   false, next_is_obsolete);
-	    }
-	  else
-	    {
-	      po_xerror (PO_SEVERITY_ERROR, NULL,
-			 real_file_name, gram_pos.line_number, (size_t)(-1),
-			 false, _("\
+              /* A key/value pair.  */
+              po_callback_message (NULL, msgid, &msgid_pos, NULL,
+                                   msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                                   NULL, NULL, NULL,
+                                   false, next_is_obsolete);
+            }
+          else
+            {
+              po_xerror (PO_SEVERITY_ERROR, NULL,
+                         real_file_name, gram_pos.line_number, (size_t)(-1),
+                         false, _("\
 warning: syntax error, expected ';' after string"));
-	      break;
-	    }
-	}
+              break;
+            }
+        }
       else
-	{
-	  po_xerror (PO_SEVERITY_ERROR, NULL,
-		     real_file_name, gram_pos.line_number, (size_t)(-1), false,
-		     _("\
+        {
+          po_xerror (PO_SEVERITY_ERROR, NULL,
+                     real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                     _("\
 warning: syntax error, expected '=' or ';' after string"));
-	  break;
-	}
+          break;
+        }
     }
 
   fp = NULL;
@@ -958,6 +958,6 @@ warning: syntax error, expected '=' or ';' after string"));
 
 const struct catalog_input_format input_format_stringtable =
 {
-  stringtable_parse,			/* parse */
-  true					/* produces_utf8 */
+  stringtable_parse,                    /* parse */
+  true                                  /* produces_utf8 */
 };

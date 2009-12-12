@@ -38,32 +38,32 @@ msgdomain_list_english (msgdomain_list_ty *mdlp)
       message_list_ty *mlp = mdlp->item[k]->messages;
 
       for (j = 0; j < mlp->nitems; j++)
-	{
-	  message_ty *mp = mlp->item[j];
+        {
+          message_ty *mp = mlp->item[j];
 
-	  if (mp->msgid_plural == NULL)
-	    {
-	      if (mp->msgstr_len == 1 && mp->msgstr[0] == '\0')
-		{
-		  mp->msgstr = mp->msgid; /* no need for xstrdup */
-		  mp->msgstr_len = strlen (mp->msgid) + 1;
-		}
-	    }
-	  else
-	    {
-	      if (mp->msgstr_len == 2
-		  && mp->msgstr[0] == '\0' && mp->msgstr[1] == '\0')
-		{
-		  size_t len0 = strlen (mp->msgid) + 1;
-		  size_t len1 = strlen (mp->msgid_plural) + 1;
-		  char *cp = XNMALLOC (len0 + len1, char);
-		  memcpy (cp, mp->msgid, len0);
-		  memcpy (cp + len0, mp->msgid_plural, len1);
-		  mp->msgstr = cp;
-		  mp->msgstr_len = len0 + len1;
-		}
-	    }
-	}
+          if (mp->msgid_plural == NULL)
+            {
+              if (mp->msgstr_len == 1 && mp->msgstr[0] == '\0')
+                {
+                  mp->msgstr = mp->msgid; /* no need for xstrdup */
+                  mp->msgstr_len = strlen (mp->msgid) + 1;
+                }
+            }
+          else
+            {
+              if (mp->msgstr_len == 2
+                  && mp->msgstr[0] == '\0' && mp->msgstr[1] == '\0')
+                {
+                  size_t len0 = strlen (mp->msgid) + 1;
+                  size_t len1 = strlen (mp->msgid_plural) + 1;
+                  char *cp = XNMALLOC (len0 + len1, char);
+                  memcpy (cp, mp->msgid, len0);
+                  memcpy (cp + len0, mp->msgid_plural, len1);
+                  mp->msgstr = cp;
+                  mp->msgstr_len = len0 + len1;
+                }
+            }
+        }
     }
 
   return mdlp;

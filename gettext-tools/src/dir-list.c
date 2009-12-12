@@ -77,7 +77,7 @@ dir_list_restore (void *saved_value)
   if (directory != NULL)
     {
       if (directory->item != NULL)
-	free (directory->item);
+        free (directory->item);
       free (directory);
     }
 

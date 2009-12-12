@@ -70,7 +70,7 @@ numbered_arg_compare (const void *p1, const void *p2)
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
-	      char **invalid_reason)
+              char **invalid_reason)
 {
   const char *const format_start = format;
   struct spec spec;
@@ -84,35 +84,35 @@ format_parse (const char *format, bool translated, char *fdi,
   for (; *format != '\0';)
     if (*format++ == '%')
       {
-	const char *dir_start = format - 1;
+        const char *dir_start = format - 1;
 
-	if (*format > '0' && *format <= '9')
-	  {
-	    /* A directive.  */
-	    unsigned int number;
+        if (*format > '0' && *format <= '9')
+          {
+            /* A directive.  */
+            unsigned int number;
 
-	    FDI_SET (dir_start, FMTDIR_START);
-	    spec.directives++;
+            FDI_SET (dir_start, FMTDIR_START);
+            spec.directives++;
 
-	    number = *format - '0';
-	    while (format[1] >= '0' && format[1] <= '9')
-	      {
-		number = 10 * number + (format[1] - '0');
-		format++;
-	      }
+            number = *format - '0';
+            while (format[1] >= '0' && format[1] <= '9')
+              {
+                number = 10 * number + (format[1] - '0');
+                format++;
+              }
 
-	    if (spec.allocated == spec.numbered_arg_count)
-	      {
-		spec.allocated = 2 * spec.allocated + 1;
-		spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
-	      }
-	    spec.numbered[spec.numbered_arg_count].number = number;
-	    spec.numbered_arg_count++;
+            if (spec.allocated == spec.numbered_arg_count)
+              {
+                spec.allocated = 2 * spec.allocated + 1;
+                spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
+              }
+            spec.numbered[spec.numbered_arg_count].number = number;
+            spec.numbered_arg_count++;
 
-	    FDI_SET (format, FMTDIR_END);
+            FDI_SET (format, FMTDIR_END);
 
-	    format++;
-	  }
+            format++;
+          }
       }
 
   /* Sort the numbered argument array, and eliminate duplicates.  */
@@ -121,18 +121,18 @@ format_parse (const char *format, bool translated, char *fdi,
       unsigned int i, j;
 
       qsort (spec.numbered, spec.numbered_arg_count,
-	     sizeof (struct numbered_arg), numbered_arg_compare);
+             sizeof (struct numbered_arg), numbered_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
       for (i = j = 0; i < spec.numbered_arg_count; i++)
-	if (j > 0 && spec.numbered[i].number == spec.numbered[j-1].number)
-	  ;
-	else
-	  {
-	    if (j < i)
-	      spec.numbered[j].number = spec.numbered[i].number;
-	    j++;
-	  }
+        if (j > 0 && spec.numbered[i].number == spec.numbered[j-1].number)
+          ;
+        else
+          {
+            if (j < i)
+              spec.numbered[j].number = spec.numbered[i].number;
+            j++;
+          }
       spec.numbered_arg_count = j;
     }
   /* Now spec.numbered[i] >= i + 1 for i = 0,..,spec.numbered_arg_count-1
@@ -147,20 +147,20 @@ format_parse (const char *format, bool translated, char *fdi,
 
       i = 0;
       for (; i < spec.numbered_arg_count; i++)
-	if (spec.numbered[i].number > i + 1)
-	  {
-	    unsigned int first_gap = i + 1;
-	    for (; i < spec.numbered_arg_count; i++)
-	      if (spec.numbered[i].number > i + 2)
-		{
-		  unsigned int second_gap = i + 2;
-		  *invalid_reason =
-		    xasprintf (_("The string refers to argument number %u but ignores the arguments %u and %u."),
-			       spec.numbered[i].number, first_gap, second_gap);
-		  goto bad_format;
-		}
-	     break;
-	  }
+        if (spec.numbered[i].number > i + 1)
+          {
+            unsigned int first_gap = i + 1;
+            for (; i < spec.numbered_arg_count; i++)
+              if (spec.numbered[i].number > i + 2)
+                {
+                  unsigned int second_gap = i + 2;
+                  *invalid_reason =
+                    xasprintf (_("The string refers to argument number %u but ignores the arguments %u and %u."),
+                               spec.numbered[i].number, first_gap, second_gap);
+                  goto bad_format;
+                }
+             break;
+          }
     }
 
   result = XMALLOC (struct spec);
@@ -193,8 +193,8 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgid, const char *pretty_msgstr)
+              formatstring_error_logger_t error_logger,
+              const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -208,52 +208,52 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       unsigned int missing = 0; /* only used if !equality */
 
       /* Check the argument names are the same.
-	 Both arrays are sorted.  We search for the first difference.  */
+         Both arrays are sorted.  We search for the first difference.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
-	{
-	  int cmp = (i >= n1 ? 1 :
-		     j >= n2 ? -1 :
-		     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
-		     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
-		     0);
+        {
+          int cmp = (i >= n1 ? 1 :
+                     j >= n2 ? -1 :
+                     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
+                     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
+                     0);
 
-	  if (cmp > 0)
-	    {
-	      if (error_logger)
-		error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
-			      spec2->numbered[j].number, pretty_msgstr,
-			      pretty_msgid);
-	      err = true;
-	      break;
-	    }
-	  else if (cmp < 0)
-	    {
-	      if (equality)
-		{
-		  if (error_logger)
-		    error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
-				  spec1->numbered[i].number, pretty_msgstr);
-		  err = true;
-		  break;
-		}
-	      else if (missing)
-		{
-		  if (error_logger)
-		    error_logger (_("a format specification for arguments %u and %u doesn't exist in '%s', only one argument may be ignored"),
-				  missing, spec1->numbered[i].number,
-				  pretty_msgstr);
-		  err = true;
-		  break;
-		}
-	      else
-		{
-		  missing = spec1->numbered[i].number;
-		  i++;
-		}
-	    }
-	  else
-	    j++, i++;
-	}
+          if (cmp > 0)
+            {
+              if (error_logger)
+                error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              spec2->numbered[j].number, pretty_msgstr,
+                              pretty_msgid);
+              err = true;
+              break;
+            }
+          else if (cmp < 0)
+            {
+              if (equality)
+                {
+                  if (error_logger)
+                    error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+                                  spec1->numbered[i].number, pretty_msgstr);
+                  err = true;
+                  break;
+                }
+              else if (missing)
+                {
+                  if (error_logger)
+                    error_logger (_("a format specification for arguments %u and %u doesn't exist in '%s', only one argument may be ignored"),
+                                  missing, spec1->numbered[i].number,
+                                  pretty_msgstr);
+                  err = true;
+                  break;
+                }
+              else
+                {
+                  missing = spec1->numbered[i].number;
+                  i++;
+                }
+            }
+          else
+            j++, i++;
+        }
     }
 
   return err;
@@ -297,11 +297,11 @@ format_print (void *descr)
       unsigned int number = spec->numbered[i].number;
 
       if (i > 0)
-	printf (" ");
+        printf (" ");
       if (number < last)
-	abort ();
+        abort ();
       for (; last < number; last++)
-	printf ("_ ");
+        printf ("_ ");
       last = number + 1;
     }
   printf (")");
@@ -320,9 +320,9 @@ main ()
 
       line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
-	break;
+        break;
       if (line_len > 0 && line[line_len - 1] == '\n')
-	line[--line_len] = '\0';
+        line[--line_len] = '\0';
 
       invalid_reason = NULL;
       descr = format_parse (line, false, NULL, &invalid_reason);
@@ -330,7 +330,7 @@ main ()
       format_print (descr);
       printf ("\n");
       if (descr == NULL)
-	printf ("%s\n", invalid_reason);
+        printf ("%s\n", invalid_reason);
 
       free (invalid_reason);
       free (line);

@@ -28,16 +28,16 @@ extern "C" {
 
 
 #define EXTENSIONS_PROPERTIES \
-  { "properties", "JavaProperties" },					\
+  { "properties", "JavaProperties" },                                   \
 
 #define SCANNERS_PROPERTIES \
-  { "JavaProperties",	extract_properties, NULL, NULL, NULL },		\
+  { "JavaProperties",   extract_properties, NULL, NULL, NULL },         \
 
 /* Scan a JavaProperties file and add its translatable strings to mdlp.  */
 extern void extract_properties (FILE *fp, const char *real_filename,
-				const char *logical_filename,
-				flag_context_list_table_ty *flag_table,
-				msgdomain_list_ty *mdlp);
+                                const char *logical_filename,
+                                flag_context_list_table_ty *flag_table,
+                                msgdomain_list_ty *mdlp);
 
 
 #ifdef __cplusplus

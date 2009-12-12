@@ -27,7 +27,7 @@ extern "C" {
    in *OUTPUT_LEN_P.
    Input and output are in UTF-8 encoding.  */
 extern void serbian_to_latin (const char *input, size_t input_len,
-			      char **output_p, size_t *output_len_p);
+                              char **output_p, size_t *output_len_p);
 
 #ifdef __cplusplus
 }

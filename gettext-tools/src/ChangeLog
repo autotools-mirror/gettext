@@ -1,3 +1,7 @@
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* *.h, *.c, *.y: Untabify.
+
 2009-11-28  Bruno Haible  <bruno@clisp.org>
 
 	* x-perl.c (extract_variable): Fix tp->type when returning at EOF.

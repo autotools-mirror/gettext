@@ -138,15 +138,15 @@ compute_hashval (const void *key, size_t keylen)
 
 /* References:
    [Aho,Sethi,Ullman] Compilers: Principles, Techniques and Tools, 1986
-   [Knuth]	      The Art of Computer Programming, part3 (6.4) */
+   [Knuth]            The Art of Computer Programming, part3 (6.4) */
 
 /* Look up a given key in the hash table.
    Return the index of the entry, if present, or otherwise the index a free
    entry where it could be inserted.  */
 static size_t
 lookup (hash_table *htab,
-	const void *key, size_t keylen,
-	unsigned long int hval)
+        const void *key, size_t keylen,
+        unsigned long int hval)
 {
   unsigned long int hash;
   size_t idx;
@@ -160,24 +160,24 @@ lookup (hash_table *htab,
   if (table[idx].used)
     {
       if (table[idx].used == hval && table[idx].keylen == keylen
-	  && memcmp (table[idx].key, key, keylen) == 0)
-	return idx;
+          && memcmp (table[idx].key, key, keylen) == 0)
+        return idx;
 
       /* Second hash function as suggested in [Knuth].  */
       hash = 1 + hval % (htab->size - 2);
 
       do
-	{
-	  if (idx <= hash)
-	    idx = htab->size + idx - hash;
-	  else
-	    idx -= hash;
+        {
+          if (idx <= hash)
+            idx = htab->size + idx - hash;
+          else
+            idx -= hash;
 
-	  /* If entry is found use it.  */
-	  if (table[idx].used == hval && table[idx].keylen == keylen
-	      && memcmp (table[idx].key, key, keylen) == 0)
-	    return idx;
-	}
+          /* If entry is found use it.  */
+          if (table[idx].used == hval && table[idx].keylen == keylen
+              && memcmp (table[idx].key, key, keylen) == 0)
+            return idx;
+        }
       while (table[idx].used);
     }
   return idx;
@@ -188,7 +188,7 @@ lookup (hash_table *htab,
    If found, return 0 and set *RESULT to it.  Otherwise return -1.  */
 int
 hash_find_entry (hash_table *htab, const void *key, size_t keylen,
-		 void **result)
+                 void **result)
 {
   hash_entry *table = htab->table;
   size_t idx = lookup (htab, key, keylen, compute_hashval (key, keylen));
@@ -206,8 +206,8 @@ hash_find_entry (hash_table *htab, const void *key, size_t keylen,
    IDX is known to be unused.  */
 static void
 insert_entry_2 (hash_table *htab,
-		const void *key, size_t keylen,
-		unsigned long int hval, size_t idx, void *data)
+                const void *key, size_t keylen,
+                unsigned long int hval, size_t idx, void *data)
 {
   hash_entry *table = htab->table;
 
@@ -249,10 +249,10 @@ resize (hash_table *htab)
   for (idx = 1; idx <= old_size; ++idx)
     if (table[idx].used)
       insert_entry_2 (htab, table[idx].key, table[idx].keylen,
-		      table[idx].used,
-		      lookup (htab, table[idx].key, table[idx].keylen,
-			      table[idx].used),
-		      table[idx].data);
+                      table[idx].used,
+                      lookup (htab, table[idx].key, table[idx].keylen,
+                              table[idx].used),
+                      table[idx].data);
 
   free (table);
 }
@@ -264,8 +264,8 @@ resize (hash_table *htab)
    given key.  */
 const void *
 hash_insert_entry (hash_table *htab,
-		   const void *key, size_t keylen,
-		   void *data)
+                   const void *key, size_t keylen,
+                   void *data)
 {
   unsigned long int hval = compute_hashval (key, keylen);
   hash_entry *table = htab->table;
@@ -280,8 +280,8 @@ hash_insert_entry (hash_table *htab,
       void *keycopy = obstack_copy (&htab->mem_pool, key, keylen);
       insert_entry_2 (htab, keycopy, keylen, hval, idx, data);
       if (100 * htab->filled > 75 * htab->size)
-	/* Table is filled more than 75%.  Resize the table.  */
-	resize (htab);
+        /* Table is filled more than 75%.  Resize the table.  */
+        resize (htab);
       return keycopy;
     }
 }
@@ -291,8 +291,8 @@ hash_insert_entry (hash_table *htab,
    Return 0.  */
 int
 hash_set_value (hash_table *htab,
-		const void *key, size_t keylen,
-		void *data)
+                const void *key, size_t keylen,
+                void *data)
 {
   unsigned long int hval = compute_hashval (key, keylen);
   hash_entry *table = htab->table;
@@ -310,8 +310,8 @@ hash_set_value (hash_table *htab,
       void *keycopy = obstack_copy (&htab->mem_pool, key, keylen);
       insert_entry_2 (htab, keycopy, keylen, hval, idx, data);
       if (100 * htab->filled > 75 * htab->size)
-	/* Table is filled more than 75%.  Resize the table.  */
-	resize (htab);
+        /* Table is filled more than 75%.  Resize the table.  */
+        resize (htab);
       return 0;
     }
 }
@@ -323,20 +323,20 @@ hash_set_value (hash_table *htab,
    Return 0 normally, -1 when the whole hash table has been traversed.  */
 int
 hash_iterate (hash_table *htab, void **ptr, const void **key, size_t *keylen,
-	      void **data)
+              void **data)
 {
   hash_entry *curr;
 
   if (*ptr == NULL)
     {
       if (htab->first == NULL)
-	return -1;
+        return -1;
       curr = htab->first;
     }
   else
     {
       if (*ptr == htab->first)
-	return -1;
+        return -1;
       curr = (hash_entry *) *ptr;
     }
   curr = curr->next;
@@ -356,21 +356,21 @@ hash_iterate (hash_table *htab, void **ptr, const void **key, size_t *keylen,
    Return 0 normally, -1 when the whole hash table has been traversed.  */
 int
 hash_iterate_modify (hash_table *htab, void **ptr,
-		     const void **key, size_t *keylen,
-		     void ***datap)
+                     const void **key, size_t *keylen,
+                     void ***datap)
 {
   hash_entry *curr;
 
   if (*ptr == NULL)
     {
       if (htab->first == NULL)
-	return -1;
+        return -1;
       curr = htab->first;
     }
   else
     {
       if (*ptr == htab->first)
-	return -1;
+        return -1;
       curr = (hash_entry *) *ptr;
     }
   curr = curr->next;

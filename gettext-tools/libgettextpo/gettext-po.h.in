@@ -54,7 +54,7 @@ struct po_error_handler
      Must increment the error_message_count variable declared in error.h.
      Must not return if STATUS is nonzero.  */
   void (*error) (int status, int errnum,
-		 const char *format, ...)
+                 const char *format, ...)
 #if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
   __attribute__ ((__format__ (__printf__, 3, 4)))
 #endif
@@ -66,8 +66,8 @@ struct po_error_handler
      Must increment the error_message_count variable declared in error.h.
      Must not return if STATUS is nonzero.  */
   void (*error_at_line) (int status, int errnum,
-			 const char *filename, unsigned int lineno,
-			 const char *format, ...)
+                         const char *filename, unsigned int lineno,
+                         const char *format, ...)
 #if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
   __attribute__ ((__format__ (__printf__, 5, 6)))
 #endif
@@ -86,9 +86,9 @@ struct po_error_handler
 typedef const struct po_error_handler *po_error_handler_t;
 
 /* A po_xerror_handler handles warnings, error and fatal error situations.  */
-#define PO_SEVERITY_WARNING	0 /* just a warning, tell the user */
-#define PO_SEVERITY_ERROR	1 /* an error, the operation cannot complete */
-#define PO_SEVERITY_FATAL_ERROR	2 /* an error, the operation must be aborted */
+#define PO_SEVERITY_WARNING     0 /* just a warning, tell the user */
+#define PO_SEVERITY_ERROR       1 /* an error, the operation cannot complete */
+#define PO_SEVERITY_FATAL_ERROR 2 /* an error, the operation must be aborted */
 struct po_xerror_handler
 {
   /* Signal a problem of the given severity.
@@ -101,20 +101,20 @@ struct po_xerror_handler
      usually a single line).
      Must not return if SEVERITY is PO_SEVERITY_FATAL_ERROR.  */
   void (*xerror) (int severity,
-		  po_message_t message,
-		  const char *filename, size_t lineno, size_t column,
-		  int multiline_p, const char *message_text);
+                  po_message_t message,
+                  const char *filename, size_t lineno, size_t column,
+                  int multiline_p, const char *message_text);
   /* Signal a problem that refers to two messages.
      Similar to two calls to xerror.
      If possible, a "..." can be appended to MESSAGE_TEXT1 and prepended to
      MESSAGE_TEXT2.  */
   void (*xerror2) (int severity,
-		   po_message_t message1,
-		   const char *filename1, size_t lineno1, size_t column1,
-		   int multiline_p1, const char *message_text1,
-		   po_message_t message2,
-		   const char *filename2, size_t lineno2, size_t column2,
-		   int multiline_p2, const char *message_text2);
+                   po_message_t message1,
+                   const char *filename1, size_t lineno1, size_t column1,
+                   int multiline_p1, const char *message_text1,
+                   po_message_t message2,
+                   const char *filename2, size_t lineno2, size_t column2,
+                   int multiline_p2, const char *message_text2);
 };
 typedef const struct po_xerror_handler *po_xerror_handler_t;
 
@@ -134,13 +134,13 @@ extern po_file_t po_file_create (void);
    Return its contents.  Upon failure, return NULL and set errno.  */
 #define po_file_read po_file_read_v3
 extern po_file_t po_file_read (const char *filename,
-			       po_xerror_handler_t handler);
+                               po_xerror_handler_t handler);
 
 /* Write an in-memory PO file to a file.
    Upon failure, return NULL and set errno.  */
 #define po_file_write po_file_write_v2
 extern po_file_t po_file_write (po_file_t file, const char *filename,
-				po_xerror_handler_t handler);
+                                po_xerror_handler_t handler);
 
 /* Free a PO file from memory.  */
 extern void po_file_free (po_file_t file);

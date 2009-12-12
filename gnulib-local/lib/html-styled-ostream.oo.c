@@ -53,7 +53,7 @@ fields:
 
 static void
 html_styled_ostream::write_mem (html_styled_ostream_t stream,
-				const void *data, size_t len)
+                                const void *data, size_t len)
 {
   html_ostream_write_mem (stream->html_destination, data, len);
 }
@@ -76,14 +76,14 @@ html_styled_ostream::free (html_styled_ostream_t stream)
 
 static void
 html_styled_ostream::begin_use_class (html_styled_ostream_t stream,
-				      const char *classname)
+                                      const char *classname)
 {
   html_ostream_begin_span (stream->html_destination, classname);
 }
 
 static void
 html_styled_ostream::end_use_class (html_styled_ostream_t stream,
-				    const char *classname)
+                                    const char *classname)
 {
   html_ostream_end_span (stream->html_destination, classname);
 }
@@ -112,44 +112,44 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
        - special characters like < > & " are escaped in the <style> and
          <script> elements.  */
   ostream_write_str (stream->destination,
-		     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n");
+                     "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n");
   ostream_write_str (stream->destination, "<html>\n");
   ostream_write_str (stream->destination, "<head>\n");
   if (css_filename != NULL)
     {
       ostream_write_str (stream->destination, "<style type=\"text/css\">\n"
-					      "<!--\n");
+                                              "<!--\n");
 
       /* Include the contents of CSS_FILENAME literally.  */
       {
-	int fd;
-	char buf[4096];
+        int fd;
+        char buf[4096];
 
-	fd = open (css_filename, O_RDONLY | O_TEXT);
-	if (fd < 0)
-	  error (EXIT_FAILURE, errno,
-		 _("error while opening \"%s\" for reading"),
-		 css_filename);
+        fd = open (css_filename, O_RDONLY | O_TEXT);
+        if (fd < 0)
+          error (EXIT_FAILURE, errno,
+                 _("error while opening \"%s\" for reading"),
+                 css_filename);
 
-	for (;;)
-	  {
-	    size_t n_read = safe_read (fd, buf, sizeof (buf));
-	    if (n_read == SAFE_READ_ERROR)
-	      error (EXIT_FAILURE, errno, _("error reading \"%s\""),
-		     css_filename);
-	    if (n_read == 0)
-	      break;
+        for (;;)
+          {
+            size_t n_read = safe_read (fd, buf, sizeof (buf));
+            if (n_read == SAFE_READ_ERROR)
+              error (EXIT_FAILURE, errno, _("error reading \"%s\""),
+                     css_filename);
+            if (n_read == 0)
+              break;
 
-	    ostream_write_mem (stream->destination, buf, n_read);
-	  }
+            ostream_write_mem (stream->destination, buf, n_read);
+          }
 
-	if (close (fd) < 0)
-	  error (EXIT_FAILURE, errno, _("error after reading \"%s\""),
-		 css_filename);
+        if (close (fd) < 0)
+          error (EXIT_FAILURE, errno, _("error after reading \"%s\""),
+                 css_filename);
       }
 
       ostream_write_str (stream->destination, "-->\n"
-					      "</style>\n");
+                                              "</style>\n");
     }
   ostream_write_str (stream->destination, "</head>\n");
   ostream_write_str (stream->destination, "<body>\n");

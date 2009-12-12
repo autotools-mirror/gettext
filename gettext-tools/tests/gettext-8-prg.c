@@ -49,16 +49,16 @@ main ()
 # ifdef RLIMIT_STACK
     if (getrlimit (RLIMIT_STACK, &limit) < 0)
       {
-	printf ("Skipping test: getrlimit does not work\n");
-	return 77;
+        printf ("Skipping test: getrlimit does not work\n");
+        return 77;
       }
     if (limit.rlim_max == RLIM_INFINITY || limit.rlim_max > n)
       limit.rlim_max = n;
     limit.rlim_cur = limit.rlim_max;
     if (setrlimit (RLIMIT_STACK, &limit) < 0)
       {
-	printf ("Skipping test: setrlimit does not work\n");
-	return 77;
+        printf ("Skipping test: setrlimit does not work\n");
+        return 77;
       }
 # endif
   }

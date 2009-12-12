@@ -145,10 +145,10 @@ main (int argc, char *argv[])
 
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "fhisV", long_options, NULL))
-	 != EOF)
+         != EOF)
     switch (optchar)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
     case 'f':
       format = long_format;
@@ -180,7 +180,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2001-2003, 2006-2007");
+              "2001-2003, 2006-2007");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -205,7 +205,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -237,7 +237,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -289,25 +289,25 @@ xgethostname ()
 # elif HAVE_IN6_S6_ADDR16
 #  define ipv6_ntop(buffer,addr) \
      sprintf (buffer, "%x:%x:%x:%x:%x:%x:%x:%x", \
-	      ntohs ((addr).s6_addr16[0]), \
-	      ntohs ((addr).s6_addr16[1]), \
-	      ntohs ((addr).s6_addr16[2]), \
-	      ntohs ((addr).s6_addr16[3]), \
-	      ntohs ((addr).s6_addr16[4]), \
-	      ntohs ((addr).s6_addr16[5]), \
-	      ntohs ((addr).s6_addr16[6]), \
-	      ntohs ((addr).s6_addr16[7]))
+              ntohs ((addr).s6_addr16[0]), \
+              ntohs ((addr).s6_addr16[1]), \
+              ntohs ((addr).s6_addr16[2]), \
+              ntohs ((addr).s6_addr16[3]), \
+              ntohs ((addr).s6_addr16[4]), \
+              ntohs ((addr).s6_addr16[5]), \
+              ntohs ((addr).s6_addr16[6]), \
+              ntohs ((addr).s6_addr16[7]))
 # else
 #  define ipv6_ntop(buffer,addr) \
      sprintf (buffer, "%x:%x:%x:%x:%x:%x:%x:%x", \
-	      ((addr).s6_addr[0] << 8) | (addr).s6_addr[1], \
-	      ((addr).s6_addr[2] << 8) | (addr).s6_addr[3], \
-	      ((addr).s6_addr[4] << 8) | (addr).s6_addr[5], \
-	      ((addr).s6_addr[6] << 8) | (addr).s6_addr[7], \
-	      ((addr).s6_addr[8] << 8) | (addr).s6_addr[9], \
-	      ((addr).s6_addr[10] << 8) | (addr).s6_addr[11], \
-	      ((addr).s6_addr[12] << 8) | (addr).s6_addr[13], \
-	      ((addr).s6_addr[14] << 8) | (addr).s6_addr[15])
+              ((addr).s6_addr[0] << 8) | (addr).s6_addr[1], \
+              ((addr).s6_addr[2] << 8) | (addr).s6_addr[3], \
+              ((addr).s6_addr[4] << 8) | (addr).s6_addr[5], \
+              ((addr).s6_addr[6] << 8) | (addr).s6_addr[7], \
+              ((addr).s6_addr[8] << 8) | (addr).s6_addr[9], \
+              ((addr).s6_addr[10] << 8) | (addr).s6_addr[11], \
+              ((addr).s6_addr[12] << 8) | (addr).s6_addr[13], \
+              ((addr).s6_addr[14] << 8) | (addr).s6_addr[15])
 # endif
 #endif
 
@@ -335,7 +335,7 @@ print_hostname ()
       /* Print only the part before the first dot.  */
       dot = strchr (hostname, '.');
       if (dot != NULL)
-	*dot = '\0';
+        *dot = '\0';
       printf ("%s\n", hostname);
       break;
 
@@ -344,15 +344,15 @@ print_hostname ()
 #if HAVE_GETHOSTBYNAME
       h = gethostbyname (hostname);
       if (h != NULL)
-	{
-	  printf ("%s\n", h->h_name);
-	  if (h->h_aliases != NULL)
-	    for (i = 0; h->h_aliases[i] != NULL; i++)
-	      printf ("%s\n", h->h_aliases[i]);
-	}
+        {
+          printf ("%s\n", h->h_name);
+          if (h->h_aliases != NULL)
+            for (i = 0; h->h_aliases[i] != NULL; i++)
+              printf ("%s\n", h->h_aliases[i]);
+        }
       else
 #endif
-	printf ("%s\n", hostname);
+        printf ("%s\n", hostname);
       break;
 
     case ip_format:
@@ -360,24 +360,24 @@ print_hostname ()
 #if HAVE_GETHOSTBYNAME
       h = gethostbyname (hostname);
       if (h != NULL && h->h_addr_list != NULL)
-	for (i = 0; h->h_addr_list[i] != NULL; i++)
-	  {
+        for (i = 0; h->h_addr_list[i] != NULL; i++)
+          {
 #if HAVE_IPV6
-	    if (h->h_addrtype == AF_INET6)
-	      {
-		char buffer[45+1];
-		ipv6_ntop (buffer, *(const struct in6_addr*) h->h_addr_list[i]);
-		printf("[%s]\n", buffer);
-	      }
-	    else
+            if (h->h_addrtype == AF_INET6)
+              {
+                char buffer[45+1];
+                ipv6_ntop (buffer, *(const struct in6_addr*) h->h_addr_list[i]);
+                printf("[%s]\n", buffer);
+              }
+            else
 #endif
-	    if (h->h_addrtype == AF_INET)
-	      {
-		char buffer[15+1];
-		ipv4_ntop (buffer, *(const struct in_addr*) h->h_addr_list[i]);
-		printf("[%s]\n", buffer);
-	      }
-	  }
+            if (h->h_addrtype == AF_INET)
+              {
+                char buffer[15+1];
+                ipv4_ntop (buffer, *(const struct in_addr*) h->h_addr_list[i]);
+                printf("[%s]\n", buffer);
+              }
+          }
 #endif
       break;
 

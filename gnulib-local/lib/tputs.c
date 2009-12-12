@@ -36,7 +36,7 @@ tputs (const char *cp, int affcnt, int (*outcharfun) (int))
     {
       cp++;
       while (c_isdigit (*cp))
-	cp++;
+        cp++;
     }
   for (; *cp != '\0'; cp++)
     outcharfun (*cp);

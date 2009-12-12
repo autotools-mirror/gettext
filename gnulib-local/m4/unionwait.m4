@@ -13,7 +13,7 @@ AC_MSG_CHECKING(for union wait)
 AC_CACHE_VAL(gt_cv_union_wait, [dnl
 AC_TRY_LINK([#include <sys/types.h>
 #include <sys/wait.h>],
-	    [union wait status; int pid; pid = wait (&status);
+            [union wait status; int pid; pid = wait (&status);
 #ifdef WEXITSTATUS
 /* Some POSIXoid systems have both the new-style macros and the old
    union wait type, and they do not work together.  If union wait
@@ -29,7 +29,7 @@ if (WEXITSTATUS (status) != 0) pid = -1;
 pid = waitpid (-1, &status, 0);
 #endif
 ],
-	    [gt_cv_union_wait=yes], [gt_cv_union_wait=no])])
+            [gt_cv_union_wait=yes], [gt_cv_union_wait=no])])
 if test "$gt_cv_union_wait" = yes; then
   AC_DEFINE(HAVE_UNION_WAIT, 1,
             [Define if <sys/wait.h> defines the 'union wait' type.])

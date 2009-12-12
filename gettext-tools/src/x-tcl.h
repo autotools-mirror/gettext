@@ -28,17 +28,17 @@ extern "C" {
 
 
 #define EXTENSIONS_TCL \
-  { "tcl",       "Tcl"           },					\
+  { "tcl",       "Tcl"           },                                     \
 
 #define SCANNERS_TCL \
-  { "Tcl",		extract_tcl,					\
-			&flag_table_tcl, &formatstring_tcl, NULL },	\
+  { "Tcl",              extract_tcl,                                    \
+                        &flag_table_tcl, &formatstring_tcl, NULL },     \
 
 /* Scan a Tcl file and add its translatable strings to mdlp.  */
 extern void extract_tcl (FILE *fp, const char *real_filename,
-			 const char *logical_filename,
-			 flag_context_list_table_ty *flag_table,
-			 msgdomain_list_ty *mdlp);
+                         const char *logical_filename,
+                         flag_context_list_table_ty *flag_table,
+                         msgdomain_list_ty *mdlp);
 
 
 /* Handling of options specific to this language.  */

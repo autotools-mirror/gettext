@@ -1,3 +1,10 @@
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* fcntl_h.m4: Untabify.
+	* glibc2.m4: Untabify.
+	* glibc21.m4: Untabify.
+	* longlong.m4: Untabify.
+
 2009-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* fcntl_h.m4: New file, from gnulib.

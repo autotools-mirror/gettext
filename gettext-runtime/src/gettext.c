@@ -95,10 +95,10 @@ main (int argc, char *argv[])
 
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "+d:eEhnsV", long_options, NULL))
-	 != EOF)
+         != EOF)
     switch (optchar)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
     case 'd':
       domain = optarg;
@@ -135,7 +135,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "1995-1997, 2000-2007");
+              "1995-1997, 2000-2007");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
@@ -152,78 +152,78 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
       /* Get arguments.  */
       switch (argc - optind)
-	{
-	  default:
-	    error (EXIT_FAILURE, 0, _("too many arguments"));
+        {
+          default:
+            error (EXIT_FAILURE, 0, _("too many arguments"));
 
-	  case 2:
-	    domain = argv[optind++];
-	    /* FALLTHROUGH */
+          case 2:
+            domain = argv[optind++];
+            /* FALLTHROUGH */
 
-	  case 1:
-	    break;
+          case 1:
+            break;
 
-	  case 0:
-	    error (EXIT_FAILURE, 0, _("missing arguments"));
-	}
+          case 0:
+            error (EXIT_FAILURE, 0, _("missing arguments"));
+        }
 
       msgid = argv[optind++];
 
       /* Expand escape sequences if enabled.  */
       if (do_expand)
-	msgid = expand_escape (msgid);
+        msgid = expand_escape (msgid);
 
       /* If no domain name is given we don't translate.  */
       if (domain == NULL || domain[0] == '\0')
-	{
-	  fputs (msgid, stdout);
-	}
+        {
+          fputs (msgid, stdout);
+        }
       else
-	{
-	  /* Bind domain to appropriate directory.  */
-	  if (domaindir != NULL && domaindir[0] != '\0')
-	    bindtextdomain (domain, domaindir);
+        {
+          /* Bind domain to appropriate directory.  */
+          if (domaindir != NULL && domaindir[0] != '\0')
+            bindtextdomain (domain, domaindir);
 
-	  /* Write out the result.  */
-	  fputs (dgettext (domain, msgid), stdout);
-	}
+          /* Write out the result.  */
+          fputs (dgettext (domain, msgid), stdout);
+        }
     }
   else
     {
       if (optind < argc)
-	{
-	  /* If no domain name is given we print the original string.
-	     We mark this assigning NULL to domain.  */
-	  if (domain == NULL || domain[0] == '\0')
-	    domain = NULL;
-	  else
-	    /* Bind domain to appropriate directory.  */
-	    if (domaindir != NULL && domaindir[0] != '\0')
-	      bindtextdomain (domain, domaindir);
+        {
+          /* If no domain name is given we print the original string.
+             We mark this assigning NULL to domain.  */
+          if (domain == NULL || domain[0] == '\0')
+            domain = NULL;
+          else
+            /* Bind domain to appropriate directory.  */
+            if (domaindir != NULL && domaindir[0] != '\0')
+              bindtextdomain (domain, domaindir);
 
-	  /* We have to simulate `echo'.  All arguments are strings.  */
-	  do
-	    {
-	      msgid = argv[optind++];
+          /* We have to simulate `echo'.  All arguments are strings.  */
+          do
+            {
+              msgid = argv[optind++];
 
-	      /* Expand escape sequences if enabled.  */
-	      if (do_expand)
-		msgid = expand_escape (msgid);
+              /* Expand escape sequences if enabled.  */
+              if (do_expand)
+                msgid = expand_escape (msgid);
 
-	      /* Write out the result.  */
-	      fputs (domain == NULL ? msgid : dgettext (domain, msgid),
-		     stdout);
+              /* Write out the result.  */
+              fputs (domain == NULL ? msgid : dgettext (domain, msgid),
+                     stdout);
 
-	      /* We separate the arguments by a single ' '.  */
-	      if (optind < argc)
-		fputc (' ', stdout);
-	    }
-	  while (optind < argc);
-	}
+              /* We separate the arguments by a single ' '.  */
+              if (optind < argc)
+                fputc (' ', stdout);
+            }
+          while (optind < argc);
+        }
 
       /* If not otherwise told: add trailing newline.  */
       if (add_newline)
-	fputc ('\n', stdout);
+        fputc ('\n', stdout);
     }
 
   exit (EXIT_SUCCESS);
@@ -236,7 +236,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       /* xgettext: no-wrap */
@@ -270,7 +270,7 @@ When used with the -s option the program behaves like the `echo' command.\n\
 But it does not simply copy its arguments to stdout.  Instead those messages\n\
 found in the selected catalog are translated.\n\
 Standard search directory: %s\n"),
-	      getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
+              getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
       printf ("\n");
       /* TRANSLATORS: The placeholder indicates the bug-reporting address
          for this package.  Please add _another line_ saying
@@ -293,14 +293,14 @@ expand_escape (const char *str)
   for (;;)
     {
       while (cp[0] != '\0' && cp[0] != '\\')
-	++cp;
+        ++cp;
       if (cp[0] == '\0')
-	return str;
+        return str;
       /* Found a backslash.  */
       if (cp[1] == '\0')
-	return str;
+        return str;
       if (strchr ("abcfnrtv\\01234567", cp[1]) != NULL)
-	break;
+        break;
       ++cp;
     }
 
@@ -313,69 +313,69 @@ expand_escape (const char *str)
     {
       /* Here cp[0] == '\\'.  */
       switch (*++cp)
-	{
-	case 'a':		/* alert */
-	  *rp++ = '\a';
-	  ++cp;
-	  break;
-	case 'b':		/* backspace */
-	  *rp++ = '\b';
-	  ++cp;
-	  break;
-	case 'c':		/* suppress trailing newline */
-	  add_newline = false;
-	  ++cp;
-	  break;
-	case 'f':		/* form feed */
-	  *rp++ = '\f';
-	  ++cp;
-	  break;
-	case 'n':		/* new line */
-	  *rp++ = '\n';
-	  ++cp;
-	  break;
-	case 'r':		/* carriage return */
-	  *rp++ = '\r';
-	  ++cp;
-	  break;
-	case 't':		/* horizontal tab */
-	  *rp++ = '\t';
-	  ++cp;
-	  break;
-	case 'v':		/* vertical tab */
-	  *rp++ = '\v';
-	  ++cp;
-	  break;
-	case '\\':
-	  *rp = '\\';
-	  ++cp;
-	  break;
-	case '0': case '1': case '2': case '3':
-	case '4': case '5': case '6': case '7':
-	  {
-	    int ch = *cp++ - '0';
+        {
+        case 'a':               /* alert */
+          *rp++ = '\a';
+          ++cp;
+          break;
+        case 'b':               /* backspace */
+          *rp++ = '\b';
+          ++cp;
+          break;
+        case 'c':               /* suppress trailing newline */
+          add_newline = false;
+          ++cp;
+          break;
+        case 'f':               /* form feed */
+          *rp++ = '\f';
+          ++cp;
+          break;
+        case 'n':               /* new line */
+          *rp++ = '\n';
+          ++cp;
+          break;
+        case 'r':               /* carriage return */
+          *rp++ = '\r';
+          ++cp;
+          break;
+        case 't':               /* horizontal tab */
+          *rp++ = '\t';
+          ++cp;
+          break;
+        case 'v':               /* vertical tab */
+          *rp++ = '\v';
+          ++cp;
+          break;
+        case '\\':
+          *rp = '\\';
+          ++cp;
+          break;
+        case '0': case '1': case '2': case '3':
+        case '4': case '5': case '6': case '7':
+          {
+            int ch = *cp++ - '0';
 
-	    if (*cp >= '0' && *cp <= '7')
-	      {
-		ch *= 8;
-		ch += *cp++ - '0';
+            if (*cp >= '0' && *cp <= '7')
+              {
+                ch *= 8;
+                ch += *cp++ - '0';
 
-		if (*cp >= '0' && *cp <= '7')
-		  {
-		    ch *= 8;
-		    ch += *cp++ - '0';
-		  }
-	      }
-	    *rp = ch;
-	  }
-	  break;
-	default:
-	  *rp = '\\';
-	  break;
-	}
+                if (*cp >= '0' && *cp <= '7')
+                  {
+                    ch *= 8;
+                    ch += *cp++ - '0';
+                  }
+              }
+            *rp = ch;
+          }
+          break;
+        default:
+          *rp = '\\';
+          break;
+        }
 
       while (cp[0] != '\0' && cp[0] != '\\')
-	*rp++ = *cp++;
+        *rp++ = *cp++;
     }
   while (cp[0] != '\0');
 

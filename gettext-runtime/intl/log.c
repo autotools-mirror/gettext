@@ -44,16 +44,16 @@ print_escaped (FILE *stream, const char *str, const char *str_end)
   for (; str != str_end; str++)
     if (*str == '\n')
       {
-	fputs ("\\n\"", stream);
-	if (str + 1 == str_end)
-	  return;
-	fputs ("\n\"", stream);
+        fputs ("\\n\"", stream);
+        if (str + 1 == str_end)
+          return;
+        fputs ("\n\"", stream);
       }
     else
       {
-	if (*str == '"' || *str == '\\')
-	  putc ('\\', stream);
-	putc (*str, stream);
+        if (*str == '"' || *str == '\\')
+          putc ('\\', stream);
+        putc (*str, stream);
       }
   putc ('"', stream);
 }
@@ -64,7 +64,7 @@ __libc_lock_define_initialized (static, lock)
 
 static inline void
 _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
-			     const char *msgid1, const char *msgid2, int plural)
+                             const char *msgid1, const char *msgid2, int plural)
 {
   FILE *logfile;
   const char *separator;
@@ -74,23 +74,23 @@ _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
     {
       /* Close the last used logfile.  */
       if (last_logfilename != NULL)
-	{
-	  if (last_logfile != NULL)
-	    {
-	      fclose (last_logfile);
-	      last_logfile = NULL;
-	    }
-	  free (last_logfilename);
-	  last_logfilename = NULL;
-	}
+        {
+          if (last_logfile != NULL)
+            {
+              fclose (last_logfile);
+              last_logfile = NULL;
+            }
+          free (last_logfilename);
+          last_logfilename = NULL;
+        }
       /* Open the logfile.  */
       last_logfilename = (char *) malloc (strlen (logfilename) + 1);
       if (last_logfilename == NULL)
-	return;
+        return;
       strcpy (last_logfilename, logfilename);
       last_logfile = fopen (logfilename, "a");
       if (last_logfile == NULL)
-	return;
+        return;
     }
   logfile = last_logfile;
 
@@ -120,7 +120,7 @@ _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
 /* Add to the log file an entry denoting a failed translation.  */
 void
 _nl_log_untranslated (const char *logfilename, const char *domainname,
-		      const char *msgid1, const char *msgid2, int plural)
+                      const char *msgid1, const char *msgid2, int plural)
 {
   __libc_lock_lock (lock);
   _nl_log_untranslated_locked (logfilename, domainname, msgid1, msgid2, plural);

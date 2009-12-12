@@ -68,7 +68,7 @@ enum format_type
   format_kde,
   format_boost
 };
-#define NFORMATS 24	/* Number of format_type enum values.  */
+#define NFORMATS 24     /* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 
@@ -196,9 +196,9 @@ struct message_ty
 
 extern message_ty *
        message_alloc (const char *msgctxt,
-		      const char *msgid, const char *msgid_plural,
-		      const char *msgstr, size_t msgstr_len,
-		      const lex_pos_ty *pp);
+                      const char *msgid, const char *msgid_plural,
+                      const char *msgstr, size_t msgstr_len,
+                      const lex_pos_ty *pp);
 #define is_header(mp) ((mp)->msgctxt == NULL && (mp)->msgid[0] == '\0')
 extern void
        message_free (message_ty *mp);
@@ -219,7 +219,7 @@ struct message_list_ty
   size_t nitems;
   size_t nitems_max;
   bool use_hashtable;
-  hash_table htable;	/* Table mapping msgid to 'message_ty *'.  */
+  hash_table htable;    /* Table mapping msgid to 'message_ty *'.  */
 };
 
 /* Create a fresh message list.
@@ -244,7 +244,7 @@ extern void
 typedef bool message_predicate_ty (const message_ty *mp);
 extern void
        message_list_remove_if_not (message_list_ty *mlp,
-				   message_predicate_ty *predicate);
+                                   message_predicate_ty *predicate);
 /* Recompute the hash table of a message list after the msgids or msgctxts
    changed.  */
 extern bool
@@ -256,14 +256,14 @@ extern message_list_ty *
        message_list_copy (message_list_ty *mlp, int copy_level);
 extern message_ty *
        message_list_search (message_list_ty *mlp,
-			    const char *msgctxt, const char *msgid);
+                            const char *msgctxt, const char *msgid);
 /* Return the message in MLP which maximizes the fuzzy_search_goal_function.
    Only messages with a fuzzy_search_goal_function > FUZZY_THRESHOLD are
    considered.  In case of several messages with the same goal function value,
    the one with the smaller index is returned.  */
 extern message_ty *
        message_list_search_fuzzy (message_list_ty *mlp,
-				  const char *msgctxt, const char *msgid);
+                                  const char *msgctxt, const char *msgid);
 
 
 typedef struct message_list_list_ty message_list_list_ty;
@@ -284,16 +284,16 @@ extern void
        message_list_list_free (message_list_list_ty *mllp, int keep_level);
 extern void
        message_list_list_append (message_list_list_ty *mllp,
-				 message_list_ty *mlp);
+                                 message_list_ty *mlp);
 extern void
        message_list_list_append_list (message_list_list_ty *mllp,
-				      message_list_list_ty *mllp2);
+                                      message_list_list_ty *mllp2);
 extern message_ty *
        message_list_list_search (message_list_list_ty *mllp,
-				 const char *msgctxt, const char *msgid);
+                                 const char *msgctxt, const char *msgid);
 extern message_ty *
        message_list_list_search_fuzzy (message_list_list_ty *mllp,
-				       const char *msgctxt, const char *msgid);
+                                       const char *msgctxt, const char *msgid);
 
 
 typedef struct msgdomain_ty msgdomain_ty;
@@ -316,7 +316,7 @@ struct msgdomain_list_ty
   size_t nitems;
   size_t nitems_max;
   bool use_hashtable;
-  const char *encoding;		/* canonicalized encoding or NULL if unknown */
+  const char *encoding;         /* canonicalized encoding or NULL if unknown */
 };
 
 extern msgdomain_list_ty *
@@ -327,10 +327,10 @@ extern void
        msgdomain_list_append (msgdomain_list_ty *mdlp, msgdomain_ty *mdp);
 extern void
        msgdomain_list_append_list (msgdomain_list_ty *mdlp,
-				   msgdomain_list_ty *mdlp2);
+                                   msgdomain_list_ty *mdlp2);
 extern message_list_ty *
        msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
-			       bool create);
+                               bool create);
 /* Copy a message domain list.
    If copy_level = 0, also copy the messages.  If copy_level = 1, share the
    messages but copy the domains.  If copy_level = 2, share the domains.  */
@@ -338,10 +338,10 @@ extern msgdomain_list_ty *
        msgdomain_list_copy (msgdomain_list_ty *mdlp, int copy_level);
 extern message_ty *
        msgdomain_list_search (msgdomain_list_ty *mdlp,
-			      const char *msgctxt, const char *msgid);
+                              const char *msgctxt, const char *msgid);
 extern message_ty *
        msgdomain_list_search_fuzzy (msgdomain_list_ty *mdlp,
-				    const char *msgctxt, const char *msgid);
+                                    const char *msgctxt, const char *msgid);
 
 
 /* The goal function used in fuzzy search.
@@ -350,8 +350,8 @@ extern message_ty *
    be returned.  */
 extern double
        fuzzy_search_goal_function (const message_ty *mp,
-				   const char *msgctxt, const char *msgid,
-				   double lower_bound);
+                                   const char *msgctxt, const char *msgid,
+                                   double lower_bound);
 
 /* The threshold for fuzzy-searching.
    A message is considered only if

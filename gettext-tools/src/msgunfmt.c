@@ -104,7 +104,7 @@ static const struct option long_options[] =
 /* Forward declaration of local functions.  */
 static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-	__attribute__ ((noreturn))
+        __attribute__ ((noreturn))
 #endif
 ;
 static void read_one_file (message_list_ty *mlp, const char *filename);
@@ -139,107 +139,107 @@ main (int argc, char **argv)
   atexit (close_stdout);
 
   while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:pr:svVw:",
-				 long_options, NULL))
-	 != EOF)
+                                 long_options, NULL))
+         != EOF)
     switch (optchar)
       {
       case '\0':
-	/* long option */
-	break;
+        /* long option */
+        break;
 
       case 'd':
-	csharp_base_directory = optarg;
-	tcl_base_directory = optarg;
-	break;
+        csharp_base_directory = optarg;
+        tcl_base_directory = optarg;
+        break;
 
       case 'e':
-	message_print_style_escape (false);
-	break;
+        message_print_style_escape (false);
+        break;
 
       case 'E':
-	message_print_style_escape (true);
-	break;
+        message_print_style_escape (true);
+        break;
 
       case 'h':
-	do_help = true;
-	break;
+        do_help = true;
+        break;
 
       case 'i':
-	message_print_style_indent ();
-	break;
+        message_print_style_indent ();
+        break;
 
       case 'j':
-	java_mode = true;
-	break;
+        java_mode = true;
+        break;
 
       case 'l':
-	java_locale_name = optarg;
-	csharp_locale_name = optarg;
-	tcl_locale_name = optarg;
-	break;
+        java_locale_name = optarg;
+        csharp_locale_name = optarg;
+        tcl_locale_name = optarg;
+        break;
 
       case 'o':
-	output_file = optarg;
-	break;
+        output_file = optarg;
+        break;
 
       case 'p':
-	output_syntax = &output_format_properties;
-	break;
+        output_syntax = &output_format_properties;
+        break;
 
       case 'r':
-	java_resource_name = optarg;
-	csharp_resource_name = optarg;
-	break;
+        java_resource_name = optarg;
+        csharp_resource_name = optarg;
+        break;
 
       case 's':
-	sort_by_msgid = true;
-	break;
+        sort_by_msgid = true;
+        break;
 
       case 'S':
-	message_print_style_uniforum ();
-	break;
+        message_print_style_uniforum ();
+        break;
 
       case 'v':
-	verbose = true;
-	break;
+        verbose = true;
+        break;
 
       case 'V':
-	do_version = true;
-	break;
+        do_version = true;
+        break;
 
       case 'w':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    message_page_width_set (value);
-	}
-	break;
+        {
+          int value;
+          char *endp;
+          value = strtol (optarg, &endp, 10);
+          if (endp != optarg)
+            message_page_width_set (value);
+        }
+        break;
 
       case CHAR_MAX + 1: /* --tcl */
-	tcl_mode = true;
-	break;
+        tcl_mode = true;
+        break;
 
       case CHAR_MAX + 2: /* --no-wrap */
-	message_page_width_ignore ();
-	break;
+        message_page_width_ignore ();
+        break;
 
       case CHAR_MAX + 3: /* --stringtable-output */
-	output_syntax = &output_format_stringtable;
-	break;
+        output_syntax = &output_format_stringtable;
+        break;
 
       case CHAR_MAX + 4: /* --csharp */
-	csharp_mode = true;
-	break;
+        csharp_mode = true;
+        break;
 
       case CHAR_MAX + 5: /* --csharp-resources */
-	csharp_resources_mode = true;
-	break;
+        csharp_resources_mode = true;
+        break;
 
       default:
-	usage (EXIT_FAILURE);
-	break;
+        usage (EXIT_FAILURE);
+        break;
       }
 
   /* Version information is requested.  */
@@ -252,7 +252,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "1995-1998, 2000-2009");
+              "1995-1998, 2000-2009");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
@@ -273,90 +273,90 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     /* More than one bit set?  */
     if (modes & (modes - 1))
       {
-	const char *first_option;
-	const char *second_option;
-	unsigned int i;
-	for (i = 0; ; i++)
-	  if (modes & (1 << i))
-	    break;
-	first_option = mode_options[i];
-	for (i = i + 1; ; i++)
-	  if (modes & (1 << i))
-	    break;
-	second_option = mode_options[i];
-	error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	       first_option, second_option);
+        const char *first_option;
+        const char *second_option;
+        unsigned int i;
+        for (i = 0; ; i++)
+          if (modes & (1 << i))
+            break;
+        first_option = mode_options[i];
+        for (i = i + 1; ; i++)
+          if (modes & (1 << i))
+            break;
+        second_option = mode_options[i];
+        error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+               first_option, second_option);
       }
   }
   if (java_mode)
     {
       if (optind < argc)
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("%s and explicit file names are mutually exclusive"),
-		 "--java");
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("%s and explicit file names are mutually exclusive"),
+                 "--java");
+        }
     }
   else if (csharp_mode)
     {
       if (optind < argc)
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("%s and explicit file names are mutually exclusive"),
-		 "--csharp");
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("%s and explicit file names are mutually exclusive"),
+                 "--csharp");
+        }
       if (csharp_locale_name == NULL)
-	{
-	  error (EXIT_SUCCESS, 0,
-		 _("%s requires a \"-l locale\" specification"),
-		 "--csharp");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-l locale\" specification"),
+                 "--csharp");
+          usage (EXIT_FAILURE);
+        }
       if (csharp_base_directory == NULL)
-	{
-	  error (EXIT_SUCCESS, 0,
-		 _("%s requires a \"-d directory\" specification"),
-		 "--csharp");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-d directory\" specification"),
+                 "--csharp");
+          usage (EXIT_FAILURE);
+        }
     }
   else if (tcl_mode)
     {
       if (optind < argc)
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("%s and explicit file names are mutually exclusive"),
-		 "--tcl");
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("%s and explicit file names are mutually exclusive"),
+                 "--tcl");
+        }
       if (tcl_locale_name == NULL)
-	{
-	  error (EXIT_SUCCESS, 0,
-		 _("%s requires a \"-l locale\" specification"),
-		 "--tcl");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-l locale\" specification"),
+                 "--tcl");
+          usage (EXIT_FAILURE);
+        }
       if (tcl_base_directory == NULL)
-	{
-	  error (EXIT_SUCCESS, 0,
-		 _("%s requires a \"-d directory\" specification"),
-		 "--tcl");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-d directory\" specification"),
+                 "--tcl");
+          usage (EXIT_FAILURE);
+        }
     }
   else
     {
       if (java_resource_name != NULL)
-	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
-		 "--resource", "--java", "--csharp");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+                 "--resource", "--java", "--csharp");
+          usage (EXIT_FAILURE);
+        }
       if (java_locale_name != NULL)
-	{
-	  error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
-		 "--locale", "--java", "--csharp");
-	  usage (EXIT_FAILURE);
-	}
+        {
+          error (EXIT_SUCCESS, 0, _("%s is only valid with %s or %s"),
+                 "--locale", "--java", "--csharp");
+          usage (EXIT_FAILURE);
+        }
     }
 
   /* Read the given .mo file. */
@@ -367,7 +367,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   else if (csharp_mode)
     {
       result = msgdomain_read_csharp (csharp_resource_name, csharp_locale_name,
-				      csharp_base_directory);
+                                      csharp_base_directory);
     }
   else if (tcl_mode)
     {
@@ -379,13 +379,13 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
       mlp = message_list_alloc (false);
       if (optind < argc)
-	{
-	  do
-	    read_one_file (mlp, argv[optind]);
-	  while (++optind < argc);
-	}
+        {
+          do
+            read_one_file (mlp, argv[optind]);
+          while (++optind < argc);
+        }
       else
-	read_one_file (mlp, "-");
+        read_one_file (mlp, "-");
 
       result = msgdomain_list_alloc (false);
       result->item[0]->messages = mlp;
@@ -409,7 +409,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -520,7 +520,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);

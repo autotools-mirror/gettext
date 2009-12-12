@@ -119,15 +119,15 @@ main (int argc, char *argv[])
   while ((optchar = getopt_long (argc, argv, "hqV", long_options, NULL)) != EOF)
     switch (optchar)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
-    case 'h':		/* --help */
+    case 'h':           /* --help */
       do_help = true;
       break;
-    case 'q':		/* --quiet / --silent */
+    case 'q':           /* --quiet / --silent */
       verbose = false;
       break;
-    case 'V':		/* --version */
+    case 'V':           /* --version */
       do_version = true;
       break;
     default:
@@ -145,7 +145,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2001-2003, 2005-2009");
+              "2001-2003, 2005-2009");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -170,7 +170,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -197,7 +197,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -214,24 +214,24 @@ cat_file (const char *src_filename)
   src_fd = open (src_filename, O_RDONLY | O_BINARY);
   if (src_fd < 0)
     error (EXIT_FAILURE, errno, _("error while opening \"%s\" for reading"),
-	   src_filename);
+           src_filename);
 
   for (;;)
     {
       ssize_t n_read = read (src_fd, buf, buf_size);
       if (n_read < 0)
-	{
+        {
 #ifdef EINTR
-	  if (errno == EINTR)
-	    continue;
+          if (errno == EINTR)
+            continue;
 #endif
-	  error (EXIT_FAILURE, errno, _("error reading \"%s\""), src_filename);
-	}
+          error (EXIT_FAILURE, errno, _("error reading \"%s\""), src_filename);
+        }
       if (n_read == 0)
-	break;
+        break;
 
       if (full_write (STDOUT_FILENO, buf, n_read) < n_read)
-	error (EXIT_FAILURE, errno, _("error writing stdout"));
+        error (EXIT_FAILURE, errno, _("error writing stdout"));
     }
 
   if (close (src_fd) < 0)
@@ -243,14 +243,14 @@ static int java_exitcode;
 
 static bool
 execute_it (const char *progname,
-	    const char *prog_path, char **prog_argv,
-	    void *private_data)
+            const char *prog_path, char **prog_argv,
+            void *private_data)
 {
   (void) private_data;
 
   java_exitcode =
     execute (progname, prog_path, prog_argv, true, true, false, false, true,
-	     false, NULL);
+             false, NULL);
   /* Exit code 0 means success, 2 means timed out.  */
   return !(java_exitcode == 0 || java_exitcode == 2);
 }
@@ -295,18 +295,18 @@ fetch (const char *url, const char *file)
     /* Fetch the URL's contents.  */
     java_exitcode = 127;
     if (!execute_java_class (class_name, &gettextjar, 1, true, gettextjexedir,
-			     args,
-			     false, true,
-			     execute_it, NULL))
+                             args,
+                             false, true,
+                             execute_it, NULL))
       {
-	if (verbose)
-	  {
-	    if (java_exitcode == 0)
-	      fprintf (stderr, _(" done.\n"));
-	    else if (java_exitcode == 2)
-	      fprintf (stderr, _(" timed out.\n"));
-	  }
-	return;
+        if (verbose)
+          {
+            if (java_exitcode == 0)
+              fprintf (stderr, _(" done.\n"));
+            else if (java_exitcode == 2)
+              fprintf (stderr, _(" timed out.\n"));
+          }
+        return;
       }
   }
 
@@ -317,40 +317,40 @@ fetch (const char *url, const char *file)
 
     if (!wget_tested)
       {
-	/* Test for presence of wget: "wget --version > /dev/null"  */
-	char *argv[3];
-	int exitstatus;
+        /* Test for presence of wget: "wget --version > /dev/null"  */
+        char *argv[3];
+        int exitstatus;
 
-	argv[0] = "wget";
-	argv[1] = "--version";
-	argv[2] = NULL;
-	exitstatus = execute ("wget", "wget", argv, false, false, true, true,
-			      true, false, NULL);
-	wget_present = (exitstatus == 0);
-	wget_tested = true;
+        argv[0] = "wget";
+        argv[1] = "--version";
+        argv[2] = NULL;
+        exitstatus = execute ("wget", "wget", argv, false, false, true, true,
+                              true, false, NULL);
+        wget_present = (exitstatus == 0);
+        wget_tested = true;
       }
 
     if (wget_present)
       {
-	char *argv[8];
-	int exitstatus;
+        char *argv[8];
+        int exitstatus;
 
-	argv[0] = "wget";
-	argv[1] = "-q";
-	argv[2] = "-O"; argv[3] = "-";
-	argv[4] = "-T"; argv[5] = "30";
-	argv[6] = (char *) url;
-	argv[7] = NULL;
-	exitstatus = execute ("wget", "wget", argv, true, false, false, false,
-			      true, false, NULL);
-	if (exitstatus != 127)
-	  {
-	    if (exitstatus != 0)
-	      goto failed;
-	    if (verbose)
-	      fprintf (stderr, _(" done.\n"));
-	    return;
-	  }
+        argv[0] = "wget";
+        argv[1] = "-q";
+        argv[2] = "-O"; argv[3] = "-";
+        argv[4] = "-T"; argv[5] = "30";
+        argv[6] = (char *) url;
+        argv[7] = NULL;
+        exitstatus = execute ("wget", "wget", argv, true, false, false, false,
+                              true, false, NULL);
+        if (exitstatus != 127)
+          {
+            if (exitstatus != 0)
+              goto failed;
+            if (verbose)
+              fprintf (stderr, _(" done.\n"));
+            return;
+          }
       }
   }
 
@@ -361,38 +361,38 @@ fetch (const char *url, const char *file)
 
     if (!lynx_tested)
       {
-	/* Test for presence of lynx: "lynx --version > /dev/null"  */
-	char *argv[3];
-	int exitstatus;
+        /* Test for presence of lynx: "lynx --version > /dev/null"  */
+        char *argv[3];
+        int exitstatus;
 
-	argv[0] = "lynx";
-	argv[1] = "--version";
-	argv[2] = NULL;
-	exitstatus = execute ("lynx", "lynx", argv, false, false, true, true,
-			      true, false, NULL);
-	lynx_present = (exitstatus == 0);
-	lynx_tested = true;
+        argv[0] = "lynx";
+        argv[1] = "--version";
+        argv[2] = NULL;
+        exitstatus = execute ("lynx", "lynx", argv, false, false, true, true,
+                              true, false, NULL);
+        lynx_present = (exitstatus == 0);
+        lynx_tested = true;
       }
 
     if (lynx_present)
       {
-	char *argv[4];
-	int exitstatus;
+        char *argv[4];
+        int exitstatus;
 
-	argv[0] = "lynx";
-	argv[1] = "-source";
-	argv[2] = (char *) url;
-	argv[3] = NULL;
-	exitstatus = execute ("lynx", "lynx", argv, true, false, false, false,
-			      true, false, NULL);
-	if (exitstatus != 127)
-	  {
-	    if (exitstatus != 0)
-	      goto failed;
-	    if (verbose)
-	      fprintf (stderr, _(" done.\n"));
-	    return;
-	  }
+        argv[0] = "lynx";
+        argv[1] = "-source";
+        argv[2] = (char *) url;
+        argv[3] = NULL;
+        exitstatus = execute ("lynx", "lynx", argv, true, false, false, false,
+                              true, false, NULL);
+        if (exitstatus != 127)
+          {
+            if (exitstatus != 0)
+              goto failed;
+            if (verbose)
+              fprintf (stderr, _(" done.\n"));
+            return;
+          }
       }
   }
 
@@ -403,38 +403,38 @@ fetch (const char *url, const char *file)
 
     if (!curl_tested)
       {
-	/* Test for presence of curl: "curl --version > /dev/null"  */
-	char *argv[3];
-	int exitstatus;
+        /* Test for presence of curl: "curl --version > /dev/null"  */
+        char *argv[3];
+        int exitstatus;
 
-	argv[0] = "curl";
-	argv[1] = "--version";
-	argv[2] = NULL;
-	exitstatus = execute ("curl", "curl", argv, false, false, true, true,
-			      true, false, NULL);
-	curl_present = (exitstatus == 0 || exitstatus == 2);
-	curl_tested = true;
+        argv[0] = "curl";
+        argv[1] = "--version";
+        argv[2] = NULL;
+        exitstatus = execute ("curl", "curl", argv, false, false, true, true,
+                              true, false, NULL);
+        curl_present = (exitstatus == 0 || exitstatus == 2);
+        curl_tested = true;
       }
 
     if (curl_present)
       {
-	char *argv[4];
-	int exitstatus;
+        char *argv[4];
+        int exitstatus;
 
-	argv[0] = "curl";
-	argv[1] = "--silent";
-	argv[2] = (char *) url;
-	argv[3] = NULL;
-	exitstatus = execute ("curl", "curl", argv, true, false, false, false,
-			      true, false, NULL);
-	if (exitstatus != 127)
-	  {
-	    if (exitstatus != 0)
-	      goto failed;
-	    if (verbose)
-	      fprintf (stderr, _(" done.\n"));
-	    return;
-	  }
+        argv[0] = "curl";
+        argv[1] = "--silent";
+        argv[2] = (char *) url;
+        argv[3] = NULL;
+        exitstatus = execute ("curl", "curl", argv, true, false, false, false,
+                              true, false, NULL);
+        if (exitstatus != 127)
+          {
+            if (exitstatus != 0)
+              goto failed;
+            if (verbose)
+              fprintf (stderr, _(" done.\n"));
+            return;
+          }
       }
   }
 

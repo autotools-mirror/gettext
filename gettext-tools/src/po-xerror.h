@@ -30,9 +30,9 @@ struct message_ty;
 /* A higher-level error handler than the one in po-error.h.  */
 
 /* These values must be the same as those in gettext-po.h.  */
-#define PO_SEVERITY_WARNING	0 /* just a warning, tell the user */
-#define PO_SEVERITY_ERROR	1 /* an error, the operation cannot complete */
-#define PO_SEVERITY_FATAL_ERROR	2 /* an error, the operation must be aborted */
+#define PO_SEVERITY_WARNING     0 /* just a warning, tell the user */
+#define PO_SEVERITY_ERROR       1 /* an error, the operation cannot complete */
+#define PO_SEVERITY_FATAL_ERROR 2 /* an error, the operation must be aborted */
 
 /* Signal a problem of the given severity.
    MESSAGE and/or FILENAME + LINENO indicate where the problem occurred.
@@ -45,9 +45,9 @@ struct message_ty;
    Must not return if SEVERITY is PO_SEVERITY_FATAL_ERROR.  */
 extern DLL_VARIABLE
        void (*po_xerror) (int severity,
-			  const struct message_ty *message,
-			  const char *filename, size_t lineno, size_t column,
-			  int multiline_p, const char *message_text);
+                          const struct message_ty *message,
+                          const char *filename, size_t lineno, size_t column,
+                          int multiline_p, const char *message_text);
 
 /* Signal a problem that refers to two messages.
    Similar to two calls to po_xerror.
@@ -55,25 +55,25 @@ extern DLL_VARIABLE
    MESSAGE_TEXT2.  */
 extern DLL_VARIABLE
        void (*po_xerror2) (int severity,
-			   const struct message_ty *message1,
-			   const char *filename1, size_t lineno1, size_t column1,
-			   int multiline_p1, const char *message_text1,
-			   const struct message_ty *message2,
-			   const char *filename2, size_t lineno2, size_t column2,
-			   int multiline_p2, const char *message_text2);
+                           const struct message_ty *message1,
+                           const char *filename1, size_t lineno1, size_t column1,
+                           int multiline_p1, const char *message_text1,
+                           const struct message_ty *message2,
+                           const char *filename2, size_t lineno2, size_t column2,
+                           int multiline_p2, const char *message_text2);
 
 /* The default error handler.  */
 extern void textmode_xerror (int severity,
-			     const struct message_ty *message,
-			     const char *filename, size_t lineno, size_t column,
-			     int multiline_p, const char *message_text);
+                             const struct message_ty *message,
+                             const char *filename, size_t lineno, size_t column,
+                             int multiline_p, const char *message_text);
 extern void textmode_xerror2 (int severity,
-			      const struct message_ty *message1,
-			      const char *filename1, size_t lineno1, size_t column1,
-			      int multiline_p1, const char *message_text1,
-			      const struct message_ty *message2,
-			      const char *filename2, size_t lineno2, size_t column2,
-			      int multiline_p2, const char *message_text2);
+                              const struct message_ty *message1,
+                              const char *filename1, size_t lineno1, size_t column1,
+                              int multiline_p1, const char *message_text1,
+                              const struct message_ty *message2,
+                              const char *filename2, size_t lineno2, size_t column2,
+                              int multiline_p2, const char *message_text2);
 
 #ifdef __cplusplus
 }

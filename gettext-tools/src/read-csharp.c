@@ -54,8 +54,8 @@ struct locals
 
 static bool
 execute_and_read_po_output (const char *progname,
-			    const char *prog_path, char **prog_argv,
-			    void *private_data)
+                            const char *prog_path, char **prog_argv,
+                            void *private_data)
 {
   struct locals *l = (struct locals *) private_data;
   pid_t child;
@@ -65,7 +65,7 @@ execute_and_read_po_output (const char *progname,
 
   /* Open a pipe to the C# execution engine.  */
   child = create_pipe_in (progname, prog_path, prog_argv, DEV_NULL, false,
-			  true, true, fd);
+                          true, true, fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)
@@ -81,7 +81,7 @@ execute_and_read_po_output (const char *progname,
     wait_subprocess (child, progname, false, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   progname, exitstatus);
+           progname, exitstatus);
 
   return false;
 }
@@ -89,7 +89,7 @@ execute_and_read_po_output (const char *progname,
 
 msgdomain_list_ty *
 msgdomain_read_csharp (const char *resource_name, const char *locale_name,
-		       const char *directory)
+                       const char *directory)
 {
   char *culture_name;
   const char *args[4];
@@ -109,26 +109,26 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
     char *p;
     for (p = culture_name; *p != '\0'; p++)
       if (*p == '_')
-	*p = '-';
+        *p = '-';
     if (strncmp (culture_name, "sr-CS", 5) == 0)
       memcpy (culture_name, "sr-SP", 5);
     p = strchr (culture_name, '@');
     if (p != NULL)
       {
-	if (strcmp (p, "@latin") == 0)
-	  strcpy (p, "-Latn");
-	else if (strcmp (p, "@cyrillic") == 0)
-	  strcpy (p, "-Cyrl");
+        if (strcmp (p, "@latin") == 0)
+          strcpy (p, "-Latn");
+        else if (strcmp (p, "@cyrillic") == 0)
+          strcpy (p, "-Cyrl");
       }
     if (strcmp (culture_name, "sr-SP") == 0)
       {
-	free (culture_name);
-	culture_name = xstrdup ("sr-SP-Latn");
+        free (culture_name);
+        culture_name = xstrdup ("sr-SP-Latn");
       }
     else if (strcmp (culture_name, "uz-UZ") == 0)
       {
-	free (culture_name);
-	culture_name = xstrdup ("uz-UZ-Latn");
+        free (culture_name);
+        culture_name = xstrdup ("uz-UZ-Latn");
       }
   }
 
@@ -155,9 +155,9 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
     xconcatenated_filename (gettextexedir, "msgunfmt.net", ".exe");
   libdirs[0] = gettextlibdir;
   if (execute_csharp_program (assembly_path, libdirs, 1,
-			      args,
-			      verbose, false,
-			      execute_and_read_po_output, &locals))
+                              args,
+                              verbose, false,
+                              execute_and_read_po_output, &locals))
     /* An error message should already have been provided.  */
     exit (EXIT_FAILURE);
 

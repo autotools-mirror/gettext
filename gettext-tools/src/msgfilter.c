@@ -114,7 +114,7 @@ static const struct option long_options[] =
 /* Forward declaration of local functions.  */
 static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-	__attribute__ ((noreturn))
+        __attribute__ ((noreturn))
 #endif
 ;
 static void generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp);
@@ -162,95 +162,95 @@ main (int argc, char **argv)
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
   while ((opt = getopt_long (argc, argv, "+D:EFhi:o:pPsVw:", long_options,
-			     NULL))
-	 != EOF)
+                             NULL))
+         != EOF)
     switch (opt)
       {
-      case '\0':		/* Long option.  */
-	break;
+      case '\0':                /* Long option.  */
+        break;
 
       case 'D':
-	dir_list_append (optarg);
-	break;
+        dir_list_append (optarg);
+        break;
 
       case 'E':
-	message_print_style_escape (true);
-	break;
+        message_print_style_escape (true);
+        break;
 
       case 'F':
-	sort_by_filepos = true;
-	break;
+        sort_by_filepos = true;
+        break;
 
       case 'h':
-	do_help = true;
-	break;
+        do_help = true;
+        break;
 
       case 'i':
-	if (input_file != NULL)
-	  {
-	    error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-	    usage (EXIT_FAILURE);
-	  }
-	input_file = optarg;
-	break;
+        if (input_file != NULL)
+          {
+            error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+            usage (EXIT_FAILURE);
+          }
+        input_file = optarg;
+        break;
 
       case 'o':
-	output_file = optarg;
-	break;
+        output_file = optarg;
+        break;
 
       case 'p':
-	output_syntax = &output_format_properties;
-	break;
+        output_syntax = &output_format_properties;
+        break;
 
       case 'P':
-	input_syntax = &input_format_properties;
-	break;
+        input_syntax = &input_format_properties;
+        break;
 
       case 's':
-	sort_by_msgid = true;
-	break;
+        sort_by_msgid = true;
+        break;
 
       case 'S':
-	message_print_style_uniforum ();
-	break;
+        message_print_style_uniforum ();
+        break;
 
       case 'V':
-	do_version = true;
-	break;
+        do_version = true;
+        break;
 
       case 'w':
-	{
-	  int value;
-	  char *endp;
-	  value = strtol (optarg, &endp, 10);
-	  if (endp != optarg)
-	    message_page_width_set (value);
-	}
-	break;
+        {
+          int value;
+          char *endp;
+          value = strtol (optarg, &endp, 10);
+          if (endp != optarg)
+            message_page_width_set (value);
+        }
+        break;
 
       case CHAR_MAX + 1:
-	message_print_style_indent ();
-	break;
+        message_print_style_indent ();
+        break;
 
       case CHAR_MAX + 2:
-	message_print_style_escape (false);
-	break;
+        message_print_style_escape (false);
+        break;
 
       case CHAR_MAX + 3: /* --no-wrap */
-	message_page_width_ignore ();
-	break;
+        message_page_width_ignore ();
+        break;
 
       case CHAR_MAX + 4: /* --stringtable-input */
-	input_syntax = &input_format_stringtable;
-	break;
+        input_syntax = &input_format_stringtable;
+        break;
 
       case CHAR_MAX + 5: /* --stringtable-output */
-	output_syntax = &output_format_stringtable;
-	break;
+        output_syntax = &output_format_stringtable;
+        break;
 
       default:
-	usage (EXIT_FAILURE);
-	break;
+        usage (EXIT_FAILURE);
+        break;
       }
 
   /* Version information is requested.  */
@@ -263,7 +263,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2001-2009");
+              "2001-2009");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -280,11 +280,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Verify selected options.  */
   if (!line_comment && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--no-location", "--sort-by-file");
+           "--no-location", "--sort-by-file");
 
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-	   "--sort-output", "--sort-by-file");
+           "--sort-output", "--sort-by-file");
 
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
@@ -297,24 +297,24 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (strcmp (sub_name, "sed") == 0)
     {
       if (sub_argc == 1)
-	error (EXIT_FAILURE, 0,
-	       _("at least one sed script must be specified"));
+        error (EXIT_FAILURE, 0,
+               _("at least one sed script must be specified"));
 
       /* Replace GNU sed specific options with portable sed options.  */
       for (i = 1; i < sub_argc; i++)
-	{
-	  if (strcmp (sub_argv[i], "--expression") == 0)
-	    sub_argv[i] = "-e";
-	  else if (strcmp (sub_argv[i], "--file") == 0)
-	    sub_argv[i] = "-f";
-	  else if (strcmp (sub_argv[i], "--quiet") == 0
-		   || strcmp (sub_argv[i], "--silent") == 0)
-	    sub_argv[i] = "-n";
+        {
+          if (strcmp (sub_argv[i], "--expression") == 0)
+            sub_argv[i] = "-e";
+          else if (strcmp (sub_argv[i], "--file") == 0)
+            sub_argv[i] = "-f";
+          else if (strcmp (sub_argv[i], "--quiet") == 0
+                   || strcmp (sub_argv[i], "--silent") == 0)
+            sub_argv[i] = "-n";
 
-	  if (strcmp (sub_argv[i], "-e") == 0
-	      || strcmp (sub_argv[i], "-f") == 0)
-	    i++;
-	}
+          if (strcmp (sub_argv[i], "-e") == 0
+              || strcmp (sub_argv[i], "-f") == 0)
+            i++;
+        }
     }
 
   /* By default, input comes from standard input.  */
@@ -340,8 +340,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       compare_po_locale_charsets (result);
 
       /* Attempt to locate the program.
-	 This is an optimization, to avoid that spawn/exec searches the PATH
-	 on every call.  */
+         This is an optimization, to avoid that spawn/exec searches the PATH
+         on every call.  */
       sub_path = find_in_path (sub_name);
 
       /* Finish argument list for the program.  */
@@ -370,7 +370,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -467,7 +467,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -548,8 +548,8 @@ generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp)
   l.length = 0;
 
   pipe_filter_ii_execute (sub_name, sub_path, sub_argv, false, true,
-			  prepare_write, done_write, prepare_read, done_read,
-			  &l);
+                          prepare_write, done_write, prepare_read, done_read,
+                          &l);
 
   *resultp = l.result;
   *lengthp = l.length;
@@ -574,16 +574,16 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
 
     for (; p < pend; p++)
       if (*p == '\0')
-	{
-	  char *q;
+        {
+          char *q;
 
-	  q = p;
-	  for (; p < pend; p++)
-	    if (*p != '\0')
-	      *q++ = *p;
-	  length = q - result;
-	  break;
-	}
+          q = p;
+          for (; p < pend; p++)
+            if (*p != '\0')
+              *q++ = *p;
+          length = q - result;
+          break;
+        }
   }
 
   *resultp = result;
@@ -627,7 +627,7 @@ process_message (message_ty *mp)
     unsetenv ("MSGFILTER_MSGCTXT");
   xsetenv ("MSGFILTER_MSGID", mp->msgid, 1);
   location = xasprintf ("%s:%ld", mp->pos.file_name,
-			(long) mp->pos.line_number);
+                        (long) mp->pos.line_number);
   xsetenv ("MSGFILTER_LOCATION", location, 1);
   free (location);
 

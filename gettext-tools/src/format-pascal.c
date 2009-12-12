@@ -64,10 +64,10 @@
 
 enum format_arg_type
 {
-  FAT_INTEGER,		/* integer */
-  FAT_INTEGER64,	/* integer, int64 */
-  FAT_FLOAT,		/* extended */
-  FAT_STRING,		/* string, char, pchar, ansistring */
+  FAT_INTEGER,          /* integer */
+  FAT_INTEGER64,        /* integer, int64 */
+  FAT_FLOAT,            /* extended */
+  FAT_STRING,           /* string, char, pchar, ansistring */
   FAT_POINTER
 };
 
@@ -103,7 +103,7 @@ numbered_arg_compare (const void *p1, const void *p2)
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
-	      char **invalid_reason)
+              char **invalid_reason)
 {
   const char *const format_start = format;
   unsigned int directives;
@@ -115,9 +115,9 @@ format_parse (const char *format, bool translated, char *fdi,
 
   enum arg_index
   {
-    index_numbered,	/* index given by a fixed integer */
-    index_unnumbered,	/* index given by unnumbered_arg_count++ */
-    index_unknown	/* index is only known at run time */
+    index_numbered,     /* index given by a fixed integer */
+    index_unnumbered,   /* index given by unnumbered_arg_count++ */
+    index_unknown       /* index is only known at run time */
   };
 
   directives = 0;
@@ -129,164 +129,164 @@ format_parse (const char *format, bool translated, char *fdi,
   for (; *format != '\0';)
     if (*format++ == '%')
       {
-	/* A directive.  */
-	FDI_SET (format - 1, FMTDIR_START);
-	directives++;
+        /* A directive.  */
+        FDI_SET (format - 1, FMTDIR_START);
+        directives++;
 
-	if (*format != '%')
-	  {
-	    /* A complex directive.  */
-	    enum arg_index main_arg = index_unnumbered;
-	    unsigned int main_number = 0;
-	    enum format_arg_type type;
+        if (*format != '%')
+          {
+            /* A complex directive.  */
+            enum arg_index main_arg = index_unnumbered;
+            unsigned int main_number = 0;
+            enum format_arg_type type;
 
-	    if (isdigit (*format))
-	      {
-		const char *f = format;
-		unsigned int m = 0;
+            if (isdigit (*format))
+              {
+                const char *f = format;
+                unsigned int m = 0;
 
-		do
-		  {
-		    m = 10 * m + (*f - '0');
-		    f++;
-		  }
-		while (isdigit (*f));
+                do
+                  {
+                    m = 10 * m + (*f - '0');
+                    f++;
+                  }
+                while (isdigit (*f));
 
-		if (*f == ':')
-		  {
-		    main_number = m;
-		    main_arg = index_numbered;
-		    format = ++f;
-		  }
-	      }
-	    else if (*format == '*')
-	      {
-		if (format[1] == ':')
-		  {
-		    main_arg = index_unknown;
-		    format += 2;
-		  }
-	      }
+                if (*f == ':')
+                  {
+                    main_number = m;
+                    main_arg = index_numbered;
+                    format = ++f;
+                  }
+              }
+            else if (*format == '*')
+              {
+                if (format[1] == ':')
+                  {
+                    main_arg = index_unknown;
+                    format += 2;
+                  }
+              }
 
-	    /* Parse flags.  */
-	    if (*format == '-')
-	      format++;
+            /* Parse flags.  */
+            if (*format == '-')
+              format++;
 
-	    /* Parse width.  */
-	    if (isdigit (*format))
-	      {
-		do
-		  format++;
-		while (isdigit (*format));
-	      }
-	    else if (*format == '*')
-	      {
-		/* Unnumbered argument of type FAT_INTEGER.   */
-		if (allocated == numbered_arg_count)
-		  {
-		    allocated = 2 * allocated + 1;
-		    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
-		  }
-		numbered[numbered_arg_count].number = unnumbered_arg_count;
-		numbered[numbered_arg_count].type = FAT_INTEGER;
-		numbered_arg_count++;
-		unnumbered_arg_count++;
+            /* Parse width.  */
+            if (isdigit (*format))
+              {
+                do
+                  format++;
+                while (isdigit (*format));
+              }
+            else if (*format == '*')
+              {
+                /* Unnumbered argument of type FAT_INTEGER.   */
+                if (allocated == numbered_arg_count)
+                  {
+                    allocated = 2 * allocated + 1;
+                    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+                  }
+                numbered[numbered_arg_count].number = unnumbered_arg_count;
+                numbered[numbered_arg_count].type = FAT_INTEGER;
+                numbered_arg_count++;
+                unnumbered_arg_count++;
 
-		format++;
-	      }
+                format++;
+              }
 
-	    /* Parse precision.  */
-	    if (*format == '.')
-	      {
-		format++;
+            /* Parse precision.  */
+            if (*format == '.')
+              {
+                format++;
 
-		if (isdigit (*format))
-		  {
-		    do
-		      format++;
-		    while (isdigit (*format));
-		  }
-		else if (*format == '*')
-		  {
-		    /* Unnumbered argument of type FAT_INTEGER.   */
-		    if (allocated == unnumbered_arg_count)
-		      {
-			allocated = 2 * allocated + 1;
-			numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
-		      }
-		    numbered[numbered_arg_count].number = unnumbered_arg_count;
-		    numbered[numbered_arg_count].type = FAT_INTEGER;
-		    numbered_arg_count++;
-		    unnumbered_arg_count++;
+                if (isdigit (*format))
+                  {
+                    do
+                      format++;
+                    while (isdigit (*format));
+                  }
+                else if (*format == '*')
+                  {
+                    /* Unnumbered argument of type FAT_INTEGER.   */
+                    if (allocated == unnumbered_arg_count)
+                      {
+                        allocated = 2 * allocated + 1;
+                        numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+                      }
+                    numbered[numbered_arg_count].number = unnumbered_arg_count;
+                    numbered[numbered_arg_count].type = FAT_INTEGER;
+                    numbered_arg_count++;
+                    unnumbered_arg_count++;
 
-		    format++;
-		  }
-		else
-		  --format;	/* will jump to bad_format */
-	      }
+                    format++;
+                  }
+                else
+                  --format;     /* will jump to bad_format */
+              }
 
-	    switch (c_tolower (*format))
-	      {
-	      case 'd':
-		type = FAT_INTEGER64;
-		break;
-	      case 'e': case 'f': case 'g': case 'n': case 'm':
-		type = FAT_FLOAT;
-		break;
-	      case 's':
-		type = FAT_STRING;
-		break;
-	      case 'p':
-		type = FAT_POINTER;
-		break;
-	      case 'x':
-		type = FAT_INTEGER;
-		break;
-	      default:
-		if (*format == '\0')
-		  {
-		    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		  }
-		else
-		  {
-		    *invalid_reason =
-		      INVALID_CONVERSION_SPECIFIER (directives, *format);
-		    FDI_SET (format, FMTDIR_ERROR);
-		  }
-		goto bad_format;
-	      }
+            switch (c_tolower (*format))
+              {
+              case 'd':
+                type = FAT_INTEGER64;
+                break;
+              case 'e': case 'f': case 'g': case 'n': case 'm':
+                type = FAT_FLOAT;
+                break;
+              case 's':
+                type = FAT_STRING;
+                break;
+              case 'p':
+                type = FAT_POINTER;
+                break;
+              case 'x':
+                type = FAT_INTEGER;
+                break;
+              default:
+                if (*format == '\0')
+                  {
+                    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                  }
+                else
+                  {
+                    *invalid_reason =
+                      INVALID_CONVERSION_SPECIFIER (directives, *format);
+                    FDI_SET (format, FMTDIR_ERROR);
+                  }
+                goto bad_format;
+              }
 
-	    if (allocated == numbered_arg_count)
-	      {
-		allocated = 2 * allocated + 1;
-		numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
-	      }
-	    switch (main_arg)
-	      {
-	      case index_unnumbered:
-		numbered[numbered_arg_count].number = unnumbered_arg_count;
-		numbered[numbered_arg_count].type = type;
-		unnumbered_arg_count++;
-		break;
-	      case index_numbered:
-		numbered[numbered_arg_count].number = main_number;
-		numbered[numbered_arg_count].type = type;
-		break;
-	      case index_unknown:
-		numbered[numbered_arg_count].number = unnumbered_arg_count;
-		numbered[numbered_arg_count].type = FAT_INTEGER;
-		unnumbered_arg_count++;
-		break;
-	      default:
-		abort ();
-	      }
-	    numbered_arg_count++;
-	  }
+            if (allocated == numbered_arg_count)
+              {
+                allocated = 2 * allocated + 1;
+                numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+              }
+            switch (main_arg)
+              {
+              case index_unnumbered:
+                numbered[numbered_arg_count].number = unnumbered_arg_count;
+                numbered[numbered_arg_count].type = type;
+                unnumbered_arg_count++;
+                break;
+              case index_numbered:
+                numbered[numbered_arg_count].number = main_number;
+                numbered[numbered_arg_count].type = type;
+                break;
+              case index_unknown:
+                numbered[numbered_arg_count].number = unnumbered_arg_count;
+                numbered[numbered_arg_count].type = FAT_INTEGER;
+                unnumbered_arg_count++;
+                break;
+              default:
+                abort ();
+              }
+            numbered_arg_count++;
+          }
 
-	FDI_SET (format, FMTDIR_END);
+        FDI_SET (format, FMTDIR_END);
 
-	format++;
+        format++;
       }
 
   /* Sort the numbered argument array, and eliminate duplicates.  */
@@ -296,47 +296,47 @@ format_parse (const char *format, bool translated, char *fdi,
       bool err;
 
       qsort (numbered, numbered_arg_count,
-	     sizeof (struct numbered_arg), numbered_arg_compare);
+             sizeof (struct numbered_arg), numbered_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
       err = false;
       for (i = j = 0; i < numbered_arg_count; i++)
-	if (j > 0 && numbered[i].number == numbered[j-1].number)
-	  {
-	    enum format_arg_type type1 = numbered[i].type;
-	    enum format_arg_type type2 = numbered[j-1].type;
-	    enum format_arg_type type_both;
+        if (j > 0 && numbered[i].number == numbered[j-1].number)
+          {
+            enum format_arg_type type1 = numbered[i].type;
+            enum format_arg_type type2 = numbered[j-1].type;
+            enum format_arg_type type_both;
 
-	    if (type1 == type2)
-	      type_both = type1;
-	    else if ((type1 == FAT_INTEGER && type2 == FAT_INTEGER64)
-		     || (type1 == FAT_INTEGER64 && type2 == FAT_INTEGER))
-	      type_both = FAT_INTEGER;
-	    else
-	      {
-		/* Incompatible types.  */
-		type_both = type1;
-		if (!err)
-		  *invalid_reason =
-		    INVALID_INCOMPATIBLE_ARG_TYPES (numbered[i].number);
-		err = true;
-	      }
+            if (type1 == type2)
+              type_both = type1;
+            else if ((type1 == FAT_INTEGER && type2 == FAT_INTEGER64)
+                     || (type1 == FAT_INTEGER64 && type2 == FAT_INTEGER))
+              type_both = FAT_INTEGER;
+            else
+              {
+                /* Incompatible types.  */
+                type_both = type1;
+                if (!err)
+                  *invalid_reason =
+                    INVALID_INCOMPATIBLE_ARG_TYPES (numbered[i].number);
+                err = true;
+              }
 
-	    numbered[j-1].type = type_both;
-	  }
-	else
-	  {
-	    if (j < i)
-	      {
-		numbered[j].number = numbered[i].number;
-		numbered[j].type = numbered[i].type;
-	      }
-	    j++;
-	  }
+            numbered[j-1].type = type_both;
+          }
+        else
+          {
+            if (j < i)
+              {
+                numbered[j].number = numbered[i].number;
+                numbered[j].type = numbered[i].type;
+              }
+            j++;
+          }
       numbered_arg_count = j;
       if (err)
-	/* *invalid_reason has already been set above.  */
-	goto bad_format;
+        /* *invalid_reason has already been set above.  */
+        goto bad_format;
     }
 
   result = XMALLOC (struct spec);
@@ -372,8 +372,8 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgid, const char *pretty_msgstr)
+              formatstring_error_logger_t error_logger,
+              const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -386,60 +386,60 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       unsigned int n2 = spec2->numbered_arg_count;
 
       /* Check the argument names are the same.
-	 Both arrays are sorted.  We search for the first difference.  */
+         Both arrays are sorted.  We search for the first difference.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
-	{
-	  int cmp = (i >= n1 ? 1 :
-		     j >= n2 ? -1 :
-		     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
-		     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
-		     0);
+        {
+          int cmp = (i >= n1 ? 1 :
+                     j >= n2 ? -1 :
+                     spec1->numbered[i].number > spec2->numbered[j].number ? 1 :
+                     spec1->numbered[i].number < spec2->numbered[j].number ? -1 :
+                     0);
 
-	  if (cmp > 0)
-	    {
-	      if (error_logger)
-		error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
-			      spec2->numbered[j].number, pretty_msgstr,
-			      pretty_msgid);
-	      err = true;
-	      break;
-	    }
-	  else if (cmp < 0)
-	    {
-	      if (equality)
-		{
-		  if (error_logger)
-		    error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
-				  spec1->numbered[i].number, pretty_msgstr);
-		  err = true;
-		  break;
-		}
-	      else
-		i++;
-	    }
-	  else
-	    j++, i++;
-	}
+          if (cmp > 0)
+            {
+              if (error_logger)
+                error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              spec2->numbered[j].number, pretty_msgstr,
+                              pretty_msgid);
+              err = true;
+              break;
+            }
+          else if (cmp < 0)
+            {
+              if (equality)
+                {
+                  if (error_logger)
+                    error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+                                  spec1->numbered[i].number, pretty_msgstr);
+                  err = true;
+                  break;
+                }
+              else
+                i++;
+            }
+          else
+            j++, i++;
+        }
       /* Check the argument types are the same.  */
       if (!err)
-	for (i = 0, j = 0; j < n2; )
-	  {
-	    if (spec1->numbered[i].number == spec2->numbered[j].number)
-	      {
-		if (spec1->numbered[i].type != spec2->numbered[j].type)
-		  {
-		    if (error_logger)
-		      error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
-				    pretty_msgid, pretty_msgstr,
-				    spec2->numbered[j].number);
-		    err = true;
-		    break;
-		  }
-		j++, i++;
-	      }
-	    else
-	      i++;
-	  }
+        for (i = 0, j = 0; j < n2; )
+          {
+            if (spec1->numbered[i].number == spec2->numbered[j].number)
+              {
+                if (spec1->numbered[i].type != spec2->numbered[j].type)
+                  {
+                    if (error_logger)
+                      error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                    pretty_msgid, pretty_msgstr,
+                                    spec2->numbered[j].number);
+                    err = true;
+                    break;
+                  }
+                j++, i++;
+              }
+            else
+              i++;
+          }
     }
 
   return err;
@@ -483,31 +483,31 @@ format_print (void *descr)
       unsigned int number = spec->numbered[i].number;
 
       if (i > 0)
-	printf (" ");
+        printf (" ");
       if (number < last)
-	abort ();
+        abort ();
       for (; last < number; last++)
-	printf ("_ ");
+        printf ("_ ");
       switch (spec->numbered[i].type)
-	{
-	case FAT_INTEGER:
-	  printf ("i");
-	  break;
-	case FAT_INTEGER64:
-	  printf ("I");
-	  break;
-	case FAT_FLOAT:
-	  printf ("f");
-	  break;
-	case FAT_STRING:
-	  printf ("s");
-	  break;
-	case FAT_POINTER:
-	  printf ("p");
-	  break;
-	default:
-	  abort ();
-	}
+        {
+        case FAT_INTEGER:
+          printf ("i");
+          break;
+        case FAT_INTEGER64:
+          printf ("I");
+          break;
+        case FAT_FLOAT:
+          printf ("f");
+          break;
+        case FAT_STRING:
+          printf ("s");
+          break;
+        case FAT_POINTER:
+          printf ("p");
+          break;
+        default:
+          abort ();
+        }
       last = number + 1;
     }
   printf (")");
@@ -526,9 +526,9 @@ main ()
 
       line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
-	break;
+        break;
       if (line_len > 0 && line[line_len - 1] == '\n')
-	line[--line_len] = '\0';
+        line[--line_len] = '\0';
 
       invalid_reason = NULL;
       descr = format_parse (line, false, NULL, &invalid_reason);
@@ -536,7 +536,7 @@ main ()
       format_print (descr);
       printf ("\n");
       if (descr == NULL)
-	printf ("%s\n", invalid_reason);
+        printf ("%s\n", invalid_reason);
 
       free (invalid_reason);
       free (line);

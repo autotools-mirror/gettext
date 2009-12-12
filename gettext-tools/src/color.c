@@ -51,20 +51,20 @@ handle_color_option (const char *option)
   if (option != NULL)
     {
       if (strcmp (option, "never") == 0 || strcmp (option, "no") == 0)
-	color_mode = color_no;
+        color_mode = color_no;
       else if (strcmp (option, "auto") == 0 || strcmp (option, "tty") == 0)
-	color_mode = color_tty;
+        color_mode = color_tty;
       else if (strcmp (option, "always") == 0 || strcmp (option, "yes") == 0)
-	color_mode = color_yes;
+        color_mode = color_yes;
       else if (strcmp (option, "html") == 0)
-	color_mode = color_html;
+        color_mode = color_html;
       else if (strcmp (option, "test") == 0)
-	color_test_mode = true;
+        color_test_mode = true;
       else
-	{
-	  fprintf (stderr, "invalid --color argument: %s\n", option);
-	  return true;
-	}
+        {
+          fprintf (stderr, "invalid --color argument: %s\n", option);
+          return true;
+        }
     }
   else
     /* --color is equivalent to --color=yes.  */
@@ -122,23 +122,23 @@ print_color_test ()
       ostream_write_str (stream, name);
       ostream_write_mem (stream, "        ", 7 - strlen (name));
       for (col = 0; col <= 8; col++)
-	{
-	  term_color_t row_color = colors[row].c;
-	  term_color_t col_color = colors[col].c;
+        {
+          term_color_t row_color = colors[row].c;
+          term_color_t col_color = colors[col].c;
 
-	  ostream_write_str (stream, "|");
-	  term_ostream_set_color (stream, row_color);
-	  term_ostream_set_bgcolor (stream, col_color);
-	  if (!(term_ostream_get_color (stream) == row_color
-		&& term_ostream_get_bgcolor (stream) == col_color))
-	    abort ();
-	  ostream_write_str (stream, " Words ");
-	  term_ostream_set_color (stream, COLOR_DEFAULT);
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	  if (!(term_ostream_get_color (stream) == COLOR_DEFAULT
-		&& term_ostream_get_bgcolor (stream) == COLOR_DEFAULT))
-	    abort ();
-	}
+          ostream_write_str (stream, "|");
+          term_ostream_set_color (stream, row_color);
+          term_ostream_set_bgcolor (stream, col_color);
+          if (!(term_ostream_get_color (stream) == row_color
+                && term_ostream_get_bgcolor (stream) == col_color))
+            abort ();
+          ostream_write_str (stream, " Words ");
+          term_ostream_set_color (stream, COLOR_DEFAULT);
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+          if (!(term_ostream_get_color (stream) == COLOR_DEFAULT
+                && term_ostream_get_bgcolor (stream) == COLOR_DEFAULT))
+            abort ();
+        }
       ostream_write_str (stream, "\n");
     }
   ostream_write_str (stream, "\n");
@@ -149,15 +149,15 @@ print_color_test ()
     {
       ostream_write_str (stream, row == 0 ? "red:     " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int r = 255;
-	  int b = (int) (255.0f / 64.0f * col + 0.5f);
-	  int g = b + (int) (row / 17.0f * (r - b) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int r = 255;
+          int b = (int) (255.0f / 64.0f * col + 0.5f);
+          int g = b + (int) (row / 17.0f * (r - b) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 1 to 2.  */
@@ -165,15 +165,15 @@ print_color_test ()
     {
       ostream_write_str (stream, row == 17 ? "yellow:  " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int g = 255;
-	  int b = (int) (255.0f / 64.0f * col + 0.5f);
-	  int r = b + (int) (row / 17.0f * (g - b) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int g = 255;
+          int b = (int) (255.0f / 64.0f * col + 0.5f);
+          int r = b + (int) (row / 17.0f * (g - b) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 2 to 3.  */
@@ -181,15 +181,15 @@ print_color_test ()
     {
       ostream_write_str (stream, row == 0 ? "green:   " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int g = 255;
-	  int r = (int) (255.0f / 64.0f * col + 0.5f);
-	  int b = r + (int) (row / 17.0f * (g - r) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int g = 255;
+          int r = (int) (255.0f / 64.0f * col + 0.5f);
+          int b = r + (int) (row / 17.0f * (g - r) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 3 to 4.  */
@@ -197,15 +197,15 @@ print_color_test ()
     {
       ostream_write_str (stream, row == 17 ? "cyan:    " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int b = 255;
-	  int r = (int) (255.0f / 64.0f * col + 0.5f);
-	  int g = r + (int) (row / 17.0f * (b - r) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int b = 255;
+          int r = (int) (255.0f / 64.0f * col + 0.5f);
+          int g = r + (int) (row / 17.0f * (b - r) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 4 to 5.  */
@@ -213,32 +213,32 @@ print_color_test ()
     {
       ostream_write_str (stream, row == 0 ? "blue:    " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int b = 255;
-	  int g = (int) (255.0f / 64.0f * col + 0.5f);
-	  int r = g + (int) (row / 17.0f * (b - g) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int b = 255;
+          int g = (int) (255.0f / 64.0f * col + 0.5f);
+          int r = g + (int) (row / 17.0f * (b - g) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   /* Hue from 5 to 6.  */
   for (row = 17; row >= 0; row--)
     {
       ostream_write_str (stream, row == 17 ? "magenta: " :
-				 row == 0 ? "red:     " : "         ");
+                                 row == 0 ? "red:     " : "         ");
       for (col = 0; col <= 64; col++)
-	{
-	  int r = 255;
-	  int g = (int) (255.0f / 64.0f * col + 0.5f);
-	  int b = g + (int) (row / 17.0f * (r - g) + 0.5f);
-	  term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
-	  term_ostream_set_bgcolor (stream, c);
-	  ostream_write_str (stream, " ");
-	  term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
-	}
+        {
+          int r = 255;
+          int g = (int) (255.0f / 64.0f * col + 0.5f);
+          int b = g + (int) (row / 17.0f * (r - g) + 0.5f);
+          term_color_t c = term_ostream_rgb_to_color (stream, r, g, b);
+          term_ostream_set_bgcolor (stream, c);
+          ostream_write_str (stream, " ");
+          term_ostream_set_bgcolor (stream, COLOR_DEFAULT);
+        }
       ostream_write_str (stream, "\n");
     }
   ostream_write_str (stream, "\n");
@@ -392,23 +392,23 @@ style_file_lookup (const char *file_name)
   if (!IS_PATH_WITH_DIR (file_name))
     {
       /* It's a file name without a directory specification.
-	 If it does not exist in the current directory...  */
+         If it does not exist in the current directory...  */
       struct stat statbuf;
 
       if (stat (file_name, &statbuf) < 0)
-	{
-	  /* ... but it exists in the styles installation location...  */
-	  const char *gettextstylesdir = relocate (GETTEXTDATADIR "/styles");
-	  char *possible_file_name =
-	    xconcatenated_filename (gettextstylesdir, file_name, NULL);
+        {
+          /* ... but it exists in the styles installation location...  */
+          const char *gettextstylesdir = relocate (GETTEXTDATADIR "/styles");
+          char *possible_file_name =
+            xconcatenated_filename (gettextstylesdir, file_name, NULL);
 
-	  if (stat (possible_file_name, &statbuf) >= 0)
-	    {
-	      /* ... then use the file in the styles installation directory.  */
-	      return possible_file_name;
-	    }
-	  free (possible_file_name);
-	}
+          if (stat (possible_file_name, &statbuf) >= 0)
+            {
+              /* ... then use the file in the styles installation directory.  */
+              return possible_file_name;
+            }
+          free (possible_file_name);
+        }
 
       /* Let the CSS library show a warning.  */
     }
@@ -424,21 +424,21 @@ style_file_prepare ()
       const char *user_preference = getenv ("PO_STYLE");
 
       if (user_preference != NULL && user_preference[0] != '\0')
-	style_file_name = style_file_lookup (xstrdup (user_preference));
+        style_file_name = style_file_lookup (xstrdup (user_preference));
       else
-	{
-	  const char *gettextdatadir;
+        {
+          const char *gettextdatadir;
 
-	  /* Make it possible to override the po-default.css location.  This is
-	     necessary for running the testsuite before "make install".  */
-	  gettextdatadir = getenv ("GETTEXTDATADIR");
-	  if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-	    gettextdatadir = relocate (GETTEXTDATADIR);
+          /* Make it possible to override the po-default.css location.  This is
+             necessary for running the testsuite before "make install".  */
+          gettextdatadir = getenv ("GETTEXTDATADIR");
+          if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
+            gettextdatadir = relocate (GETTEXTDATADIR);
 
-	  style_file_name =
-	    xconcatenated_filename (gettextdatadir, "styles/po-default.css",
-				   NULL);
-	}
+          style_file_name =
+            xconcatenated_filename (gettextdatadir, "styles/po-default.css",
+                                   NULL);
+        }
     }
   else
     style_file_name = style_file_lookup (style_file_name);

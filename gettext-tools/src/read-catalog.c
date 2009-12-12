@@ -50,27 +50,27 @@ call_set_domain (struct default_catalog_reader_ty *this, char *name)
 
 static inline void
 call_add_message (struct default_catalog_reader_ty *this,
-		  char *msgctxt,
-		  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
-		  char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
-		  char *prev_msgctxt, char *prev_msgid, char *prev_msgid_plural,
-		  bool force_fuzzy, bool obsolete)
+                  char *msgctxt,
+                  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                  char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
+                  char *prev_msgctxt, char *prev_msgid, char *prev_msgid_plural,
+                  bool force_fuzzy, bool obsolete)
 {
   default_catalog_reader_class_ty *methods =
     (default_catalog_reader_class_ty *) this->methods;
 
   if (methods->add_message)
     methods->add_message (this, msgctxt,
-			  msgid, msgid_pos, msgid_plural,
-			  msgstr, msgstr_len, msgstr_pos,
-			  prev_msgctxt, prev_msgid, prev_msgid_plural,
-			  force_fuzzy, obsolete);
+                          msgid, msgid_pos, msgid_plural,
+                          msgstr, msgstr_len, msgstr_pos,
+                          prev_msgctxt, prev_msgid, prev_msgid_plural,
+                          force_fuzzy, obsolete);
 }
 
 static inline void
 call_frob_new_message (struct default_catalog_reader_ty *this, message_ty *mp,
-		       const lex_pos_ty *msgid_pos,
-		       const lex_pos_ty *msgstr_pos)
+                       const lex_pos_ty *msgid_pos,
+                       const lex_pos_ty *msgstr_pos)
 {
   default_catalog_reader_class_ty *methods =
     (default_catalog_reader_class_ty *) this->methods;
@@ -117,18 +117,18 @@ default_destructor (abstract_catalog_reader_ty *that)
   if (this->handle_comments)
     {
       if (this->comment != NULL)
-	string_list_free (this->comment);
+        string_list_free (this->comment);
       if (this->comment_dot != NULL)
-	string_list_free (this->comment_dot);
+        string_list_free (this->comment_dot);
     }
   if (this->handle_filepos_comments)
     {
       size_t j;
 
       for (j = 0; j < this->filepos_count; ++j)
-	free (this->filepos[j].file_name);
+        free (this->filepos[j].file_name);
       if (this->filepos != NULL)
-	free (this->filepos);
+        free (this->filepos);
     }
 }
 
@@ -158,21 +158,21 @@ default_copy_comment_state (default_catalog_reader_ty *this, message_ty *mp)
   if (this->handle_comments)
     {
       if (this->comment != NULL)
-	for (j = 0; j < this->comment->nitems; ++j)
-	  message_comment_append (mp, this->comment->item[j]);
+        for (j = 0; j < this->comment->nitems; ++j)
+          message_comment_append (mp, this->comment->item[j]);
       if (this->comment_dot != NULL)
-	for (j = 0; j < this->comment_dot->nitems; ++j)
-	  message_comment_dot_append (mp, this->comment_dot->item[j]);
+        for (j = 0; j < this->comment_dot->nitems; ++j)
+          message_comment_dot_append (mp, this->comment_dot->item[j]);
     }
   if (this->handle_filepos_comments)
     {
       for (j = 0; j < this->filepos_count; ++j)
-	{
-	  lex_pos_ty *pp;
+        {
+          lex_pos_ty *pp;
 
-	  pp = &this->filepos[j];
-	  message_comment_filepos (mp, pp->file_name, pp->line_number);
-	}
+          pp = &this->filepos[j];
+          message_comment_filepos (mp, pp->file_name, pp->line_number);
+        }
     }
   mp->is_fuzzy = this->is_fuzzy;
   for (i = 0; i < NFORMATS; i++)
@@ -190,22 +190,22 @@ default_reset_comment_state (default_catalog_reader_ty *this)
   if (this->handle_comments)
     {
       if (this->comment != NULL)
-	{
-	  string_list_free (this->comment);
-	  this->comment = NULL;
-	}
+        {
+          string_list_free (this->comment);
+          this->comment = NULL;
+        }
       if (this->comment_dot != NULL)
-	{
-	  string_list_free (this->comment_dot);
-	  this->comment_dot = NULL;
-	}
+        {
+          string_list_free (this->comment_dot);
+          this->comment_dot = NULL;
+        }
     }
   if (this->handle_filepos_comments)
     {
       for (j = 0; j < this->filepos_count; ++j)
-	free (this->filepos[j].file_name);
+        free (this->filepos[j].file_name);
       if (this->filepos != NULL)
-	free (this->filepos);
+        free (this->filepos);
       this->filepos_count = 0;
       this->filepos = NULL;
     }
@@ -236,22 +236,22 @@ default_directive_domain (abstract_catalog_reader_ty *that, char *name)
 /* Process ['msgctxt'/]'msgid'/'msgstr' pair from .po file.  */
 void
 default_directive_message (abstract_catalog_reader_ty *that,
-			   char *msgctxt,
-			   char *msgid,
-			   lex_pos_ty *msgid_pos,
-			   char *msgid_plural,
-			   char *msgstr, size_t msgstr_len,
-			   lex_pos_ty *msgstr_pos,
-			   char *prev_msgctxt,
-			   char *prev_msgid, char *prev_msgid_plural,
-			   bool force_fuzzy, bool obsolete)
+                           char *msgctxt,
+                           char *msgid,
+                           lex_pos_ty *msgid_pos,
+                           char *msgid_plural,
+                           char *msgstr, size_t msgstr_len,
+                           lex_pos_ty *msgstr_pos,
+                           char *prev_msgctxt,
+                           char *prev_msgid, char *prev_msgid_plural,
+                           bool force_fuzzy, bool obsolete)
 {
   default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   call_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
-		    msgstr, msgstr_len, msgstr_pos,
-		    prev_msgctxt, prev_msgid, prev_msgid_plural,
-		    force_fuzzy, obsolete);
+                    msgstr, msgstr_len, msgstr_pos,
+                    prev_msgctxt, prev_msgid, prev_msgid_plural,
+                    force_fuzzy, obsolete);
 
   /* Prepare for next message.  */
   default_reset_comment_state (this);
@@ -266,7 +266,7 @@ default_comment (abstract_catalog_reader_ty *that, const char *s)
   if (this->handle_comments)
     {
       if (this->comment == NULL)
-	this->comment = string_list_alloc ();
+        this->comment = string_list_alloc ();
       string_list_append (this->comment, s);
     }
 }
@@ -280,7 +280,7 @@ default_comment_dot (abstract_catalog_reader_ty *that, const char *s)
   if (this->handle_comments)
     {
       if (this->comment_dot == NULL)
-	this->comment_dot = string_list_alloc ();
+        this->comment_dot = string_list_alloc ();
       string_list_append (this->comment_dot, s);
     }
 }
@@ -288,7 +288,7 @@ default_comment_dot (abstract_catalog_reader_ty *that, const char *s)
 
 void
 default_comment_filepos (abstract_catalog_reader_ty *that,
-			 const char *name, size_t line)
+                         const char *name, size_t line)
 {
   default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
@@ -313,7 +313,7 @@ default_comment_special (abstract_catalog_reader_ty *that, const char *s)
   default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
 
   po_parse_comment_special (s, &this->is_fuzzy, this->is_format, &this->range,
-			    &this->do_wrap);
+                            &this->do_wrap);
 }
 
 
@@ -329,7 +329,7 @@ default_set_domain (default_catalog_reader_ty *this, char *name)
   else
     {
       po_gram_error_at_line (&gram_pos,
-			     _("this file may not contain domain directives"));
+                             _("this file may not contain domain directives"));
 
       /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */
       free (name);
@@ -338,16 +338,16 @@ default_set_domain (default_catalog_reader_ty *this, char *name)
 
 void
 default_add_message (default_catalog_reader_ty *this,
-		     char *msgctxt,
-		     char *msgid,
-		     lex_pos_ty *msgid_pos,
-		     char *msgid_plural,
-		     char *msgstr, size_t msgstr_len,
-		     lex_pos_ty *msgstr_pos,
-		     char *prev_msgctxt,
-		     char *prev_msgid,
-		     char *prev_msgid_plural,
-		     bool force_fuzzy, bool obsolete)
+                     char *msgctxt,
+                     char *msgid,
+                     lex_pos_ty *msgid_pos,
+                     char *msgid_plural,
+                     char *msgstr, size_t msgstr_len,
+                     lex_pos_ty *msgstr_pos,
+                     char *prev_msgctxt,
+                     char *prev_msgid,
+                     char *prev_msgid_plural,
+                     bool force_fuzzy, bool obsolete)
 {
   message_ty *mp;
 
@@ -365,33 +365,33 @@ default_add_message (default_catalog_reader_ty *this,
   if (mp)
     {
       if (!(this->allow_duplicates_if_same_msgstr
-	    && msgstr_len == mp->msgstr_len
-	    && memcmp (msgstr, mp->msgstr, msgstr_len) == 0))
-	{
-	  /* We give a fatal error about this, regardless whether the
-	     translations are equal or different.  This is for consistency
-	     with msgmerge, msgcat and others.  The user can use the
-	     msguniq program to get rid of duplicates.  */
-	  po_xerror2 (PO_SEVERITY_ERROR,
-		      NULL, msgid_pos->file_name, msgid_pos->line_number,
-		      (size_t)(-1), false, _("duplicate message definition"),
-		      mp, NULL, 0, 0, false,
-		      _("this is the location of the first definition"));
-	}
+            && msgstr_len == mp->msgstr_len
+            && memcmp (msgstr, mp->msgstr, msgstr_len) == 0))
+        {
+          /* We give a fatal error about this, regardless whether the
+             translations are equal or different.  This is for consistency
+             with msgmerge, msgcat and others.  The user can use the
+             msguniq program to get rid of duplicates.  */
+          po_xerror2 (PO_SEVERITY_ERROR,
+                      NULL, msgid_pos->file_name, msgid_pos->line_number,
+                      (size_t)(-1), false, _("duplicate message definition"),
+                      mp, NULL, 0, 0, false,
+                      _("this is the location of the first definition"));
+        }
       /* We don't need the just constructed entries' parameter string
-	 (allocated in po-gram-gen.y).  */
+         (allocated in po-gram-gen.y).  */
       free (msgid);
       if (msgid_plural != NULL)
-	free (msgid_plural);
+        free (msgid_plural);
       free (msgstr);
       if (msgctxt != NULL)
-	free (msgctxt);
+        free (msgctxt);
       if (prev_msgctxt != NULL)
-	free (prev_msgctxt);
+        free (prev_msgctxt);
       if (prev_msgid != NULL)
-	free (prev_msgid);
+        free (prev_msgid);
       if (prev_msgid_plural != NULL)
-	free (prev_msgid_plural);
+        free (prev_msgid_plural);
 
       /* Add the accumulated comments to the message.  */
       default_copy_comment_state (this, mp);
@@ -399,18 +399,18 @@ default_add_message (default_catalog_reader_ty *this,
   else
     {
       /* Construct message to add to the list.
-	 Obsolete message go into the list at least for duplicate checking.
-	 It's the caller's responsibility to ignore obsolete messages when
-	 appropriate.  */
+         Obsolete message go into the list at least for duplicate checking.
+         It's the caller's responsibility to ignore obsolete messages when
+         appropriate.  */
       mp = message_alloc (msgctxt, msgid, msgid_plural, msgstr, msgstr_len,
-			  msgstr_pos);
+                          msgstr_pos);
       mp->prev_msgctxt = prev_msgctxt;
       mp->prev_msgid = prev_msgid;
       mp->prev_msgid_plural = prev_msgid_plural;
       mp->obsolete = obsolete;
       default_copy_comment_state (this, mp);
       if (force_fuzzy)
-	mp->is_fuzzy = true;
+        mp->is_fuzzy = true;
 
       call_frob_new_message (this, mp, msgid_pos, msgstr_pos);
 
@@ -470,8 +470,8 @@ bool allow_duplicates = false;
 
 msgdomain_list_ty *
 read_catalog_stream (FILE *fp, const char *real_filename,
-		     const char *logical_filename,
-		     catalog_input_format_ty input_syntax)
+                     const char *logical_filename,
+                     catalog_input_format_ty input_syntax)
 {
   default_catalog_reader_ty *pop;
   msgdomain_list_ty *mdlp;
@@ -490,7 +490,7 @@ read_catalog_stream (FILE *fp, const char *real_filename,
     pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-			logical_filename, input_syntax);
+                        logical_filename, input_syntax);
   mdlp = pop->mdlp;
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
   return mdlp;

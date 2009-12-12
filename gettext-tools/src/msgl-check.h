@@ -35,28 +35,28 @@ extern "C" {
    If no errors, returns in *DISTRIBUTION information about the plural_eval
    values distribution.  */
 extern int check_plural_eval (const struct expression *plural_expr,
-			      unsigned long nplurals_value,
-			      const message_ty *header,
-			      struct plural_distribution *distribution);
+                              unsigned long nplurals_value,
+                              const message_ty *header,
+                              struct plural_distribution *distribution);
 
 /* Perform all checks on a non-obsolete message.  */
 extern int check_message (const message_ty *mp,
-			  const lex_pos_ty *msgid_pos,
-			  int check_newlines,
-			  int check_format_strings,
-			  const struct plural_distribution *distribution,
-			  int check_header,
-			  int check_compatibility,
-			  int check_accelerators, char accelerator_char);
+                          const lex_pos_ty *msgid_pos,
+                          int check_newlines,
+                          int check_format_strings,
+                          const struct plural_distribution *distribution,
+                          int check_header,
+                          int check_compatibility,
+                          int check_accelerators, char accelerator_char);
 
 /* Perform all checks on a message list.
    Return the number of errors that were seen.  */
 extern int check_message_list (message_list_ty *mlp,
-			       int check_newlines,
-			       int check_format_strings,
-			       int check_header,
-			       int check_compatibility,
-			       int check_accelerators, char accelerator_char);
+                               int check_newlines,
+                               int check_format_strings,
+                               int check_header,
+                               int check_compatibility,
+                               int check_accelerators, char accelerator_char);
 
 
 #ifdef __cplusplus

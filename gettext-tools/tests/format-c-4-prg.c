@@ -62,8 +62,8 @@ main (int argc, char *argv[])
   c1 = "Vater von %"; c2 = " Kindern";
 
   if (!(strlen (s) > strlen (c1) + strlen (c2)
-	&& memcmp (s, c1, strlen (c1)) == 0
-	&& memcmp (s + strlen (s) - strlen (c2), c2, strlen (c2)) == 0))
+        && memcmp (s, c1, strlen (c1)) == 0
+        && memcmp (s + strlen (s) - strlen (c2), c2, strlen (c2)) == 0))
     {
       fprintf (stderr, "String not translated.\n");
       exit (1);

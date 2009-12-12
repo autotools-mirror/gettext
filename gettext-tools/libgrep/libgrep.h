@@ -31,13 +31,13 @@ typedef struct {
 
   /* Compile a pattern and return the compiled pattern.  */
   void * (*compile) (const char *pattern, size_t pattern_size,
-		     bool match_icase, bool match_words, bool match_lines,
-		     char eolbyte);
+                     bool match_icase, bool match_words, bool match_lines,
+                     char eolbyte);
 
   /* Execute a search.  */
   size_t (*execute) (const void *compiled_pattern,
-		     const char *buf, size_t buf_size,
-		     size_t *match_size, bool exact);
+                     const char *buf, size_t buf_size,
+                     size_t *match_size, bool exact);
 
   /* Free a compiled pattern.  */
   void (*free) (void *compiled_pattern);

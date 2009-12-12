@@ -1,3 +1,9 @@
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* AUTHORS: Untabify.
+	* README: Untabify.
+	* THANKS: Untabify.
+
 2009-12-01  Bruno Haible  <bruno@clisp.org>
 
 	* m4/init-package-version.m4 (gl_INIT_PACKAGE): Set AC_PACKAGE_NAME.

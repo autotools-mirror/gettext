@@ -44,10 +44,10 @@
 ;;   - GNU Emacs (version 19) -> no flag.
 (eval-and-compile
   (cond ((string-match "XEmacs\\|Lucid" emacs-version)
-	 (setq po-EMACS20 nil po-XEMACS t))
-	((and (string-lessp "19" emacs-version) (featurep 'faces))
-	 (setq po-EMACS20 t po-XEMACS nil))
-	(t (setq po-EMACS20 nil po-XEMACS nil))))
+         (setq po-EMACS20 nil po-XEMACS t))
+        ((and (string-lessp "19" emacs-version) (featurep 'faces))
+         (setq po-EMACS20 t po-XEMACS nil))
+        (t (setq po-EMACS20 nil po-XEMACS nil))))
 
 ;; Handle missing 'with-temp-buffer' function.
 (eval-and-compile
@@ -57,17 +57,17 @@
     (defmacro po-with-temp-buffer (&rest forms)
       "Create a temporary buffer, and evaluate FORMS there like 'progn'."
       (let ((curr-buffer (make-symbol "curr-buffer"))
-	    (temp-buffer (make-symbol "temp-buffer")))
-	`(let ((,curr-buffer (current-buffer))
-	       (,temp-buffer (get-buffer-create
-			      (generate-new-buffer-name " *po-temp*"))))
-	   (unwind-protect
-	       (progn
-		 (set-buffer ,temp-buffer)
-		 ,@forms)
-	     (set-buffer ,curr-buffer)
-	     (and (buffer-name ,temp-buffer)
-		  (kill-buffer ,temp-buffer))))))))
+            (temp-buffer (make-symbol "temp-buffer")))
+        `(let ((,curr-buffer (current-buffer))
+               (,temp-buffer (get-buffer-create
+                              (generate-new-buffer-name " *po-temp*"))))
+           (unwind-protect
+               (progn
+                 (set-buffer ,temp-buffer)
+                 ,@forms)
+             (set-buffer ,curr-buffer)
+             (and (buffer-name ,temp-buffer)
+                  (kill-buffer ,temp-buffer))))))))
 
 (defconst po-content-type-charset-alist
   '(; Note: Emacs 21 doesn't support all encodings, thus the missing entries.
@@ -154,8 +154,8 @@ Content-Type into a Mule coding system.")
   "Return PO file charset value."
   (interactive)
   (let ((charset-regexp
-	 "^\"Content-Type: text/plain;[ \t]*charset=\\(.*\\)\\\\n\"")
-	(short-read nil))
+         "^\"Content-Type: text/plain;[ \t]*charset=\\(.*\\)\\\\n\"")
+        (short-read nil))
     ;; Try the first 4096 bytes.  In case we cannot find the charset value
     ;; within the first 4096 bytes (the PO file might start with a long
     ;; comment) try the next 4096 bytes repeatedly until we'll know for sure
@@ -163,64 +163,64 @@ Content-Type into a Mule coding system.")
     (while (not (or short-read (re-search-forward "^msgid" nil t)))
       (save-excursion
         (goto-char (point-max))
-	(let ((pair (insert-file-contents-literally filename nil
-						    (1- (point))
-						    (1- (+ (point) 4096)))))
-	  (setq short-read (< (nth 1 pair) 4096)))))
+        (let ((pair (insert-file-contents-literally filename nil
+                                                    (1- (point))
+                                                    (1- (+ (point) 4096)))))
+          (setq short-read (< (nth 1 pair) 4096)))))
     (cond ((re-search-forward charset-regexp nil t) (match-string 1))
-	  (short-read nil)
-	  ;; We've found the first msgid; maybe, only a part of the msgstr
-	  ;; value was loaded.  Load the next 1024 bytes; if charset still
-	  ;; isn't available, give up.
-	  (t (save-excursion
-	       (goto-char (point-max))
-	       (insert-file-contents-literally filename nil
-					       (1- (point))
-					       (1- (+ (point) 1024))))
-	     (if (re-search-forward charset-regexp nil t)
-		 (match-string 1))))))
+          (short-read nil)
+          ;; We've found the first msgid; maybe, only a part of the msgstr
+          ;; value was loaded.  Load the next 1024 bytes; if charset still
+          ;; isn't available, give up.
+          (t (save-excursion
+               (goto-char (point-max))
+               (insert-file-contents-literally filename nil
+                                               (1- (point))
+                                               (1- (+ (point) 1024))))
+             (if (re-search-forward charset-regexp nil t)
+                 (match-string 1))))))
 
 (eval-and-compile
   (if po-EMACS20
       (defun po-find-file-coding-system-guts (operation filename)
-	"\
+        "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(and (eq operation 'insert-file-contents)
-	     (file-exists-p filename)
-	     (po-with-temp-buffer
-	      (let* ((coding-system-for-read 'no-conversion)
-		     (charset (or (po-find-charset filename) "ascii"))
-		     (charset-upper (upcase charset))
-		     (charset-lower (downcase charset))
-		     (candidate
-		      (cdr (assoc charset-upper po-content-type-charset-alist)))
-		     (try-symbol (or candidate (intern-soft charset-lower)))
-		     (try-string
-		      (if try-symbol (symbol-name try-symbol) charset-lower)))
-		(list (cond ((and try-symbol (coding-system-p try-symbol))
-			     try-symbol)
-			    ((and po-EMACS20
-				  (string-match "\\`cp[1-9][0-9][0-9]?\\'"
-						try-string)
-				  (assoc (substring try-string 2)
-					 (cp-supported-codepages)))
-			     (codepage-setup (substring try-string 2))
-			     (intern try-string))
-			    (t
-			     'no-conversion))))))))
+        (and (eq operation 'insert-file-contents)
+             (file-exists-p filename)
+             (po-with-temp-buffer
+              (let* ((coding-system-for-read 'no-conversion)
+                     (charset (or (po-find-charset filename) "ascii"))
+                     (charset-upper (upcase charset))
+                     (charset-lower (downcase charset))
+                     (candidate
+                      (cdr (assoc charset-upper po-content-type-charset-alist)))
+                     (try-symbol (or candidate (intern-soft charset-lower)))
+                     (try-string
+                      (if try-symbol (symbol-name try-symbol) charset-lower)))
+                (list (cond ((and try-symbol (coding-system-p try-symbol))
+                             try-symbol)
+                            ((and po-EMACS20
+                                  (string-match "\\`cp[1-9][0-9][0-9]?\\'"
+                                                try-string)
+                                  (assoc (substring try-string 2)
+                                         (cp-supported-codepages)))
+                             (codepage-setup (substring try-string 2))
+                             (intern try-string))
+                            (t
+                             'no-conversion))))))))
 
   (if po-XEMACS
       (defun po-find-file-coding-system-guts (operation filename)
-	"\
+        "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(and (eq operation 'insert-file-contents)
-	     (file-exists-p filename)
-	     (po-with-temp-buffer
-	       (let ((coding-system-for-read 'no-conversion))
+        (and (eq operation 'insert-file-contents)
+             (file-exists-p filename)
+             (po-with-temp-buffer
+               (let ((coding-system-for-read 'no-conversion))
                  (let* ((charset (or (po-find-charset filename)
-				     "ascii"))
+                                     "ascii"))
                         (charset-upper (upcase charset))
                         (charset-lower (intern (downcase charset))))
                    (list (or (cdr (assoc charset-upper
@@ -231,17 +231,17 @@ Called through file-coding-system-alist, before the file is visited for real."
 
   (if po-EMACS20
       (defun po-find-file-coding-system (arg-list)
-	"\
+        "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
+        (po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
 
   (if po-XEMACS
       (defun po-find-file-coding-system (operation filename)
-	"\
+        "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-	(po-find-file-coding-system-guts operation filename)))
+        (po-find-file-coding-system-guts operation filename)))
 
   )
 

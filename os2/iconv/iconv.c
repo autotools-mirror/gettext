@@ -24,8 +24,8 @@
 
 typedef struct _iconv_t
 {
-  UconvObject from;		/* "From" conversion handle */
-  UconvObject to;		/* "To" conversion handle */
+  UconvObject from;             /* "From" conversion handle */
+  UconvObject to;               /* "To" conversion handle */
 } *iconv_t;
 
 /* Tell "iconv.h" to not define iconv_t by itself.  */

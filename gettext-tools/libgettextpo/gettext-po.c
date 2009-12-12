@@ -106,7 +106,7 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
     {
       fp = fopen (filename, "r");
       if (fp == NULL)
-	return NULL;
+        return NULL;
     }
 
   /* Establish error handler around read_catalog_stream().  */
@@ -122,7 +122,7 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
-				    file->logical_filename, &input_format_po);
+                                    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -154,7 +154,7 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
     {
       fp = fopen (filename, "r");
       if (fp == NULL)
-	return NULL;
+        return NULL;
     }
 
   /* Establish error handler around read_catalog_stream().  */
@@ -168,7 +168,7 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
-				    file->logical_filename, &input_format_po);
+                                    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   /* Restore error handler.  */
@@ -202,14 +202,14 @@ po_file_read (const char *filename)
     {
       fp = fopen (filename, "r");
       if (fp == NULL)
-	return NULL;
+        return NULL;
     }
 
   file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
-				    file->logical_filename, &input_format_po);
+                                    file->logical_filename, &input_format_po);
   file->domains = NULL;
 
   if (fp != stdin)
@@ -291,7 +291,7 @@ po_file_domains (po_file_t file)
       size_t j;
 
       for (j = 0; j < n; j++)
-	domains[j] = file->mdlp->item[j]->domain;
+        domains[j] = file->mdlp->item[j]->domain;
       domains[n] = NULL;
 
       file->domains = domains;
@@ -317,14 +317,14 @@ po_file_domain_header (po_file_t file, const char *domain)
   if (mlp != NULL)
     for (j = 0; j < mlp->nitems; j++)
       if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-	{
-	  const char *header = mlp->item[j]->msgstr;
+        {
+          const char *header = mlp->item[j]->msgstr;
 
-	  if (header != NULL)
-	    return xstrdup (header);
-	  else
-	    return NULL;
-	}
+          if (header != NULL)
+            return xstrdup (header);
+          else
+            return NULL;
+        }
   return NULL;
 }
 
@@ -342,30 +342,30 @@ po_header_field (const char *header, const char *field)
   for (line = header;;)
     {
       if (strncmp (line, field, field_len) == 0 && line[field_len] == ':')
-	{
-	  const char *value_start;
-	  const char *value_end;
-	  char *value;
+        {
+          const char *value_start;
+          const char *value_end;
+          char *value;
 
-	  value_start = line + field_len + 1;
-	  if (*value_start == ' ')
-	    value_start++;
-	  value_end = strchr (value_start, '\n');
-	  if (value_end == NULL)
-	    value_end = value_start + strlen (value_start);
+          value_start = line + field_len + 1;
+          if (*value_start == ' ')
+            value_start++;
+          value_end = strchr (value_start, '\n');
+          if (value_end == NULL)
+            value_end = value_start + strlen (value_start);
 
-	  value = XNMALLOC (value_end - value_start + 1, char);
-	  memcpy (value, value_start, value_end - value_start);
-	  value[value_end - value_start] = '\0';
+          value = XNMALLOC (value_end - value_start + 1, char);
+          memcpy (value, value_start, value_end - value_start);
+          value[value_end - value_start] = '\0';
 
-	  return value;
-	}
+          return value;
+        }
 
       line = strchr (line, '\n');
       if (line != NULL)
-	line++;
+        line++;
       else
-	break;
+        break;
     }
 
   return NULL;
@@ -388,43 +388,43 @@ po_header_set_field (const char *header, const char *field, const char *value)
 
     for (line = header;;)
       {
-	if (strncmp (line, field, field_len) == 0 && line[field_len] == ':')
-	  {
-	    const char *oldvalue_start;
-	    const char *oldvalue_end;
-	    size_t oldvalue_len;
-	    size_t header_part1_len;
-	    size_t header_part3_len;
-	    size_t result_len;
-	    char *result;
+        if (strncmp (line, field, field_len) == 0 && line[field_len] == ':')
+          {
+            const char *oldvalue_start;
+            const char *oldvalue_end;
+            size_t oldvalue_len;
+            size_t header_part1_len;
+            size_t header_part3_len;
+            size_t result_len;
+            char *result;
 
-	    oldvalue_start = line + field_len + 1;
-	    if (*oldvalue_start == ' ')
-	      oldvalue_start++;
-	    oldvalue_end = strchr (oldvalue_start, '\n');
-	    if (oldvalue_end == NULL)
-	      oldvalue_end = oldvalue_start + strlen (oldvalue_start);
-	    oldvalue_len = oldvalue_end - oldvalue_start;
+            oldvalue_start = line + field_len + 1;
+            if (*oldvalue_start == ' ')
+              oldvalue_start++;
+            oldvalue_end = strchr (oldvalue_start, '\n');
+            if (oldvalue_end == NULL)
+              oldvalue_end = oldvalue_start + strlen (oldvalue_start);
+            oldvalue_len = oldvalue_end - oldvalue_start;
 
-	    header_part1_len = oldvalue_start - header;
-	    header_part3_len = header + header_len - oldvalue_end;
-	    result_len = header_part1_len + value_len + header_part3_len;
-		    /* = header_len - oldvalue_len + value_len */
-	    result = XNMALLOC (result_len + 1, char);
-	    memcpy (result, header, header_part1_len);
-	    memcpy (result + header_part1_len, value, value_len);
-	    memcpy (result + header_part1_len + value_len, oldvalue_end,
-		    header_part3_len);
-	    *(result + result_len) = '\0';
+            header_part1_len = oldvalue_start - header;
+            header_part3_len = header + header_len - oldvalue_end;
+            result_len = header_part1_len + value_len + header_part3_len;
+                    /* = header_len - oldvalue_len + value_len */
+            result = XNMALLOC (result_len + 1, char);
+            memcpy (result, header, header_part1_len);
+            memcpy (result + header_part1_len, value, value_len);
+            memcpy (result + header_part1_len + value_len, oldvalue_end,
+                    header_part3_len);
+            *(result + result_len) = '\0';
 
-	    return result;
-	  }
+            return result;
+          }
 
-	line = strchr (line, '\n');
-	if (line != NULL)
-	  line++;
-	else
-	  break;
+        line = strchr (line, '\n');
+        if (line != NULL)
+          line++;
+        else
+          break;
       }
   }
   {
@@ -550,7 +550,7 @@ po_message_set_msgctxt (po_message_t message, const char *msgctxt)
 
       mp->msgctxt = (msgctxt != NULL ? xstrdup (msgctxt) : NULL);
       if (old_msgctxt != NULL)
-	free (old_msgctxt);
+        free (old_msgctxt);
     }
 }
 
@@ -579,7 +579,7 @@ po_message_set_msgid (po_message_t message, const char *msgid)
 
       mp->msgid = xstrdup (msgid);
       if (old_msgid != NULL)
-	free (old_msgid);
+        free (old_msgid);
     }
 }
 
@@ -610,7 +610,7 @@ po_message_set_msgid_plural (po_message_t message, const char *msgid_plural)
 
       mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
       if (old_msgid_plural != NULL)
-	free (old_msgid_plural);
+        free (old_msgid_plural);
     }
 }
 
@@ -642,7 +642,7 @@ po_message_set_msgstr (po_message_t message, const char *msgstr)
       mp->msgstr = xstrdup (msgstr);
       mp->msgstr_len = strlen (mp->msgstr) + 1;
       if (old_msgstr != NULL)
-	free (old_msgstr);
+        free (old_msgstr);
     }
 }
 
@@ -661,12 +661,12 @@ po_message_msgstr_plural (po_message_t message, int index)
       const char *p_end = mp->msgstr + mp->msgstr_len;
 
       for (p = mp->msgstr; ; p += strlen (p) + 1, index--)
-	{
-	  if (p >= p_end)
-	    return NULL;
-	  if (index == 0)
-	    break;
-	}
+        {
+          if (p >= p_end)
+            return NULL;
+          if (index == 0)
+            break;
+        }
       return p;
     }
   else
@@ -689,66 +689,66 @@ po_message_set_msgstr_plural (po_message_t message, int index, const char *msgst
       char *copied_msgstr;
 
       /* Special care must be taken of the case that msgstr points into the
-	 mp->msgstr string list, because mp->msgstr may be relocated before we
-	 are done with msgstr.  */
+         mp->msgstr string list, because mp->msgstr may be relocated before we
+         are done with msgstr.  */
       if (msgstr >= p && msgstr < p_end)
-	msgstr = copied_msgstr = xstrdup (msgstr);
+        msgstr = copied_msgstr = xstrdup (msgstr);
       else
-	copied_msgstr = NULL;
+        copied_msgstr = NULL;
 
       for (; ; p += strlen (p) + 1, index--)
-	{
-	  if (p >= p_end)
-	    {
-	      /* Append at the end.  */
-	      if (msgstr != NULL)
-		{
-		  size_t new_msgstr_len = mp->msgstr_len + index + strlen (msgstr) + 1;
+        {
+          if (p >= p_end)
+            {
+              /* Append at the end.  */
+              if (msgstr != NULL)
+                {
+                  size_t new_msgstr_len = mp->msgstr_len + index + strlen (msgstr) + 1;
 
-		  mp->msgstr =
-		    (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
-		  p = (char *) mp->msgstr + mp->msgstr_len;
-		  for (; index > 0; index--)
-		    *p++ = '\0';
-		  memcpy (p, msgstr, strlen (msgstr) + 1);
-		  mp->msgstr_len = new_msgstr_len;
-		}
-	      if (copied_msgstr != NULL)
-		free (copied_msgstr);
-	      return;
-	    }
-	  if (index == 0)
-	    break;
-	}
+                  mp->msgstr =
+                    (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
+                  p = (char *) mp->msgstr + mp->msgstr_len;
+                  for (; index > 0; index--)
+                    *p++ = '\0';
+                  memcpy (p, msgstr, strlen (msgstr) + 1);
+                  mp->msgstr_len = new_msgstr_len;
+                }
+              if (copied_msgstr != NULL)
+                free (copied_msgstr);
+              return;
+            }
+          if (index == 0)
+            break;
+        }
       if (msgstr == NULL)
-	{
-	  if (p + strlen (p) + 1 >= p_end)
-	    {
-	      /* Remove the string that starts at p.  */
-	      mp->msgstr_len = p - mp->msgstr;
-	      return;
-	    }
-	  /* It is not possible to remove an element of the string list
-	     except the last one.  So just replace it with the empty string.
-	     That's the best we can do here.  */
-	  msgstr = "";
-	}
+        {
+          if (p + strlen (p) + 1 >= p_end)
+            {
+              /* Remove the string that starts at p.  */
+              mp->msgstr_len = p - mp->msgstr;
+              return;
+            }
+          /* It is not possible to remove an element of the string list
+             except the last one.  So just replace it with the empty string.
+             That's the best we can do here.  */
+          msgstr = "";
+        }
       {
-	/* Replace the string that starts at p.  */
-	size_t i1 = p - mp->msgstr;
-	size_t i2before = i1 + strlen (p);
-	size_t i2after = i1 + strlen (msgstr);
-	size_t new_msgstr_len = mp->msgstr_len - i2before + i2after;
+        /* Replace the string that starts at p.  */
+        size_t i1 = p - mp->msgstr;
+        size_t i2before = i1 + strlen (p);
+        size_t i2after = i1 + strlen (msgstr);
+        size_t new_msgstr_len = mp->msgstr_len - i2before + i2after;
 
-	if (i2after > i2before)
-	  mp->msgstr = (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
-	memmove ((char *) mp->msgstr + i2after, mp->msgstr + i2before,
-		 mp->msgstr_len - i2before);
-	memcpy ((char *) mp->msgstr + i1, msgstr, i2after - i1);
-	mp->msgstr_len = new_msgstr_len;
+        if (i2after > i2before)
+          mp->msgstr = (char *) xrealloc ((char *) mp->msgstr, new_msgstr_len);
+        memmove ((char *) mp->msgstr + i2after, mp->msgstr + i2before,
+                 mp->msgstr_len - i2before);
+        memcpy ((char *) mp->msgstr + i1, msgstr, i2after - i1);
+        mp->msgstr_len = new_msgstr_len;
       }
       if (copied_msgstr != NULL)
-	free (copied_msgstr);
+        free (copied_msgstr);
     }
 }
 
@@ -784,19 +784,19 @@ po_message_set_comments (po_message_t message, const char *comments)
     rest = copy;
     while (*rest != '\0')
       {
-	char *newline = strchr (rest, '\n');
+        char *newline = strchr (rest, '\n');
 
-	if (newline != NULL)
-	  {
-	    *newline = '\0';
-	    string_list_append (slp, rest);
-	    rest = newline + 1;
-	  }
-	else
-	  {
-	    string_list_append (slp, rest);
-	    break;
-	  }
+        if (newline != NULL)
+          {
+            *newline = '\0';
+            string_list_append (slp, rest);
+            rest = newline + 1;
+          }
+        else
+          {
+            string_list_append (slp, rest);
+            break;
+          }
       }
     free (copy);
   }
@@ -839,19 +839,19 @@ po_message_set_extracted_comments (po_message_t message, const char *comments)
     rest = copy;
     while (*rest != '\0')
       {
-	char *newline = strchr (rest, '\n');
+        char *newline = strchr (rest, '\n');
 
-	if (newline != NULL)
-	  {
-	    *newline = '\0';
-	    string_list_append (slp, rest);
-	    rest = newline + 1;
-	  }
-	else
-	  {
-	    string_list_append (slp, rest);
-	    break;
-	  }
+        if (newline != NULL)
+          {
+            *newline = '\0';
+            string_list_append (slp, rest);
+            rest = newline + 1;
+          }
+        else
+          {
+            string_list_append (slp, rest);
+            break;
+          }
       }
     free (copy);
   }
@@ -893,12 +893,12 @@ po_message_remove_filepos (po_message_t message, int i)
       size_t n = mp->filepos_count;
 
       if (j < n)
-	{
-	  mp->filepos_count = n = n - 1;
-	  free ((char *) mp->filepos[j].file_name);
-	  for (; j < n; j++)
-	    mp->filepos[j] = mp->filepos[j + 1];
-	}
+        {
+          mp->filepos_count = n = n - 1;
+          free ((char *) mp->filepos[j].file_name);
+          for (; j < n; j++)
+            mp->filepos[j] = mp->filepos[j + 1];
+        }
     }
 }
 
@@ -942,7 +942,7 @@ po_message_set_prev_msgctxt (po_message_t message, const char *prev_msgctxt)
 
       mp->prev_msgctxt = (prev_msgctxt != NULL ? xstrdup (prev_msgctxt) : NULL);
       if (old_prev_msgctxt != NULL)
-	free (old_prev_msgctxt);
+        free (old_prev_msgctxt);
     }
 }
 
@@ -973,7 +973,7 @@ po_message_set_prev_msgid (po_message_t message, const char *prev_msgid)
 
       mp->prev_msgid = (prev_msgid != NULL ? xstrdup (prev_msgid) : NULL);
       if (old_prev_msgid != NULL)
-	free (old_prev_msgid);
+        free (old_prev_msgid);
     }
 }
 
@@ -1003,9 +1003,9 @@ po_message_set_prev_msgid_plural (po_message_t message, const char *prev_msgid_p
       char *old_prev_msgid_plural = (char *) mp->prev_msgid_plural;
 
       mp->prev_msgid_plural =
-	(prev_msgid_plural != NULL ? xstrdup (prev_msgid_plural) : NULL);
+        (prev_msgid_plural != NULL ? xstrdup (prev_msgid_plural) : NULL);
       if (old_prev_msgid_plural != NULL)
-	free (old_prev_msgid_plural);
+        free (old_prev_msgid_plural);
     }
 }
 
@@ -1067,9 +1067,9 @@ po_message_is_format (po_message_t message, const char *format_type)
   if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
     for (i = 0; i < NFORMATS; i++)
       if (strlen (format_language[i]) == len - 7
-	  && memcmp (format_language[i], format_type, len - 7) == 0)
-	/* The given format_type corresponds to (enum format_type) i.  */
-	return (possible_format_p (mp->is_format[i]) ? 1 : 0);
+          && memcmp (format_language[i], format_type, len - 7) == 0)
+        /* The given format_type corresponds to (enum format_type) i.  */
+        return (possible_format_p (mp->is_format[i]) ? 1 : 0);
   return 0;
 }
 
@@ -1086,9 +1086,9 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
   if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
     for (i = 0; i < NFORMATS; i++)
       if (strlen (format_language[i]) == len - 7
-	  && memcmp (format_language[i], format_type, len - 7) == 0)
-	/* The given format_type corresponds to (enum format_type) i.  */
-	mp->is_format[i] = (value ? yes : no);
+          && memcmp (format_language[i], format_type, len - 7) == 0)
+        /* The given format_type corresponds to (enum format_type) i.  */
+        mp->is_format[i] = (value ? yes : no);
 }
 
 
@@ -1168,7 +1168,7 @@ po_format_list (void)
       const char **list = XNMALLOC (NFORMATS + 1, const char *);
       size_t i;
       for (i = 0; i < NFORMATS; i++)
-	list[i] = xasprintf ("%s-format", format_language[i]);
+        list[i] = xasprintf ("%s-format", format_language[i]);
       list[i] = NULL;
       whole_list = list;
     }
@@ -1189,9 +1189,9 @@ po_format_pretty_name (const char *format_type)
   if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
     for (i = 0; i < NFORMATS; i++)
       if (strlen (format_language[i]) == len - 7
-	  && memcmp (format_language[i], format_type, len - 7) == 0)
-	/* The given format_type corresponds to (enum format_type) i.  */
-	return format_language_pretty[i];
+          && memcmp (format_language[i], format_type, len - 7) == 0)
+        /* The given format_type corresponds to (enum format_type) i.  */
+        return format_language_pretty[i];
   return NULL;
 }
 
@@ -1229,7 +1229,7 @@ po_file_check_all (po_file_t file, po_xerror_handler_t handler)
 
 void
 po_message_check_all (po_message_t message, po_message_iterator_t iterator,
-		      po_xerror_handler_t handler)
+                      po_xerror_handler_t handler)
 {
   message_ty *mp = (message_ty *) message;
 
@@ -1253,14 +1253,14 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
 
       header = NULL;
       mlp =
-	msgdomain_list_sublist (iterator->file->mdlp, iterator->domain, false);
+        msgdomain_list_sublist (iterator->file->mdlp, iterator->domain, false);
       if (mlp != NULL)
-	for (j = 0; j < mlp->nitems; j++)
-	  if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
-	    {
-	      header = mlp->item[j];
-	      break;
-	    }
+        for (j = 0; j < mlp->nitems; j++)
+          if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+            {
+              header = mlp->item[j];
+              break;
+            }
     }
 
     {
@@ -1272,9 +1272,9 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
       ml.use_hashtable = false;
 
       if (header != NULL)
-	message_list_append (&ml, header);
+        message_list_append (&ml, header);
       if (mp != header)
-	message_list_append (&ml, mp);
+        message_list_append (&ml, mp);
 
       check_message_list (&ml, 1, 1, 1, 0, 0, 0);
     }
@@ -1346,8 +1346,8 @@ po_message_check_format (po_message_t message, po_error_handler_t handler)
   po_error = handler->error;
 
   check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
-			     mp->msgstr, mp->msgstr_len,
-			     mp->is_format, mp->range, NULL, po_error_logger);
+                             mp->msgstr, mp->msgstr_len,
+                             mp->is_format, mp->range, NULL, po_error_logger);
 
   /* Restore error handler.  */
   po_error = error;

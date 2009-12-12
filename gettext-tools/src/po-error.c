@@ -28,12 +28,12 @@
 
 
 void (*po_error) (int status, int errnum,
-		  const char *format, ...)
+                  const char *format, ...)
   = error;
 
 void (*po_error_at_line) (int status, int errnum,
-			  const char *filename, unsigned int lineno,
-			  const char *format, ...)
+                          const char *filename, unsigned int lineno,
+                          const char *format, ...)
   = error_at_line;
 
 void (*po_multiline_warning) (char *prefix, char *message)

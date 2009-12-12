@@ -90,10 +90,10 @@ main (int argc, char *argv[])
 
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "+d:hV", long_options, NULL))
-	 != EOF)
+         != EOF)
     switch (optchar)
     {
-    case '\0':		/* Long option.  */
+    case '\0':          /* Long option.  */
       break;
     case 'd':
       domain = optarg;
@@ -106,15 +106,15 @@ main (int argc, char *argv[])
       break;
     case '=':
       {
-	/* Undocumented option --env sets an environment variable.  */
-	char *separator = strchr (optarg, '=');
-	if (separator != NULL)
-	  {
-	    *separator = '\0';
-	    xsetenv (optarg, separator + 1, 1);
-	    environ_changed = true;
-	    break;
-	  }
+        /* Undocumented option --env sets an environment variable.  */
+        char *separator = strchr (optarg, '=');
+        if (separator != NULL)
+          {
+            *separator = '\0';
+            xsetenv (optarg, separator + 1, 1);
+            environ_changed = true;
+            break;
+          }
       }
       /*FALLTHROUGH*/
     default:
@@ -137,7 +137,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "1995-1997, 2000-2006");
+              "1995-1997, 2000-2006");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
@@ -170,25 +170,25 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       count = argv[optind++];
 
       {
-	char *endp;
-	unsigned long tmp_val;
+        char *endp;
+        unsigned long tmp_val;
 
-	errno = 0;
-	tmp_val = strtoul (count, &endp, 10);
-	if (errno == 0 && count[0] != '\0' && endp[0] == '\0')
-	  n = tmp_val;
-	else
-	  /* When COUNT is not valid, use plural.  */
-	  n = 99;
+        errno = 0;
+        tmp_val = strtoul (count, &endp, 10);
+        if (errno == 0 && count[0] != '\0' && endp[0] == '\0')
+          n = tmp_val;
+        else
+          /* When COUNT is not valid, use plural.  */
+          n = 99;
       }
 
       /* If no domain name is given we don't translate, and we use English
-	 plural form handling.  */
+         plural form handling.  */
       if (domain == NULL)
-	fputs (n == 1 ? msgid : msgid_plural, stdout);
+        fputs (n == 1 ? msgid : msgid_plural, stdout);
       else
-	/* Write out the result.  */
-	fputs (dngettext (domain, msgid, msgid_plural, n), stdout);
+        /* Write out the result.  */
+        fputs (dngettext (domain, msgid, msgid_plural, n), stdout);
     }
 
   exit (EXIT_SUCCESS);
@@ -201,7 +201,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       /* xgettext: no-wrap */
@@ -212,7 +212,7 @@ Usage: %s [OPTION] MSGID MSGID-PLURAL COUNT...\n\
   -V, --version             display version information and exit\n\
   MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n\
   COUNT                     choose singular/plural form based on this value\n"),
-	      program_name);
+              program_name);
       /* xgettext: no-wrap */
       printf (_("\
 \n\

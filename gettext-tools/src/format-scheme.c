@@ -51,42 +51,42 @@
 
 enum format_cdr_type
 {
-  FCT_REQUIRED,	/* The format argument list cannot end before this argument.  */
-  FCT_OPTIONAL	/* The format argument list may end before this argument.  */
+  FCT_REQUIRED, /* The format argument list cannot end before this argument.  */
+  FCT_OPTIONAL  /* The format argument list may end before this argument.  */
 };
 
 enum format_arg_type
 {
-  FAT_OBJECT,			/* Any object, type T.  */
-  FAT_CHARACTER_INTEGER_NULL,	/* Type (OR CHARACTER INTEGER NULL).  */
-  FAT_CHARACTER_NULL,		/* Type (OR CHARACTER NULL).  */
-  FAT_CHARACTER,		/* Type CHARACTER.  */
-  FAT_INTEGER_NULL,		/* Type (OR INTEGER NULL).  */
-  FAT_INTEGER,			/* Meant for objects of type INTEGER.  */
-  FAT_REAL,			/* Meant for objects of type REAL.  */
-  FAT_COMPLEX,			/* Meant for objects of type COMPLEX.  */
-  FAT_LIST,			/* Meant for proper lists.  */
-  FAT_FORMATSTRING		/* Format strings.  */
+  FAT_OBJECT,                   /* Any object, type T.  */
+  FAT_CHARACTER_INTEGER_NULL,   /* Type (OR CHARACTER INTEGER NULL).  */
+  FAT_CHARACTER_NULL,           /* Type (OR CHARACTER NULL).  */
+  FAT_CHARACTER,                /* Type CHARACTER.  */
+  FAT_INTEGER_NULL,             /* Type (OR INTEGER NULL).  */
+  FAT_INTEGER,                  /* Meant for objects of type INTEGER.  */
+  FAT_REAL,                     /* Meant for objects of type REAL.  */
+  FAT_COMPLEX,                  /* Meant for objects of type COMPLEX.  */
+  FAT_LIST,                     /* Meant for proper lists.  */
+  FAT_FORMATSTRING              /* Format strings.  */
 };
 
 struct format_arg
 {
   unsigned int repcount; /* Number of consecutive arguments this constraint
-			    applies to.  Normally 1, but unconstrained
-			    arguments are often repeated.  */
+                            applies to.  Normally 1, but unconstrained
+                            arguments are often repeated.  */
   enum format_cdr_type presence; /* Can the argument list end right before
-				    this argument?  */
-  enum format_arg_type type;	/* Possible values for this argument.  */
-  struct format_arg_list *list;	/* For FAT_LIST: List elements.  */
+                                    this argument?  */
+  enum format_arg_type type;    /* Possible values for this argument.  */
+  struct format_arg_list *list; /* For FAT_LIST: List elements.  */
 };
 
 struct segment
 {
-  unsigned int count;	/* Number of format_arg records used.  */
+  unsigned int count;   /* Number of format_arg records used.  */
   unsigned int allocated;
-  struct format_arg *element;	/* Argument constraints.  */
+  struct format_arg *element;   /* Argument constraints.  */
   unsigned int length; /* Number of arguments represented by this segment.
-			  This is the sum of all repcounts in the segment.  */
+                          This is the sum of all repcounts in the segment.  */
 };
 
 struct format_arg_list
@@ -101,8 +101,8 @@ struct format_arg_list
      A finite sequence is represented entirely in the initial segment; the
      loop segment is empty.  */
 
-  struct segment initial;	/* Initial arguments segment.  */
-  struct segment repeated;	/* Endlessly repeated segment.  */
+  struct segment initial;       /* Initial arguments segment.  */
+  struct segment repeated;      /* Endlessly repeated segment.  */
 };
 
 struct spec
@@ -115,17 +115,17 @@ struct spec
 /* Parameter for a directive.  */
 enum param_type
 {
-  PT_NIL,	/* param not present */
-  PT_CHARACTER,	/* character */
-  PT_INTEGER,	/* integer */
-  PT_ARGCOUNT,	/* number of remaining arguments */
-  PT_V		/* variable taken from argument list */
+  PT_NIL,       /* param not present */
+  PT_CHARACTER, /* character */
+  PT_INTEGER,   /* integer */
+  PT_ARGCOUNT,  /* number of remaining arguments */
+  PT_V          /* variable taken from argument list */
 };
 
 struct param
 {
   enum param_type type;
-  int value;		/* for PT_INTEGER: the value, for PT_V: the position */
+  int value;            /* for PT_INTEGER: the value, for PT_V: the position */
 };
 
 
@@ -135,15 +135,15 @@ static void verify_list (const struct format_arg_list *list);
 static void free_list (struct format_arg_list *list);
 static struct format_arg_list * copy_list (const struct format_arg_list *list);
 static bool equal_list (const struct format_arg_list *list1,
-			const struct format_arg_list *list2);
+                        const struct format_arg_list *list2);
 static struct format_arg_list * make_intersected_list
-					       (struct format_arg_list *list1,
-						struct format_arg_list *list2);
+                                               (struct format_arg_list *list1,
+                                                struct format_arg_list *list2);
 static struct format_arg_list * make_intersection_with_empty_list
-						(struct format_arg_list *list);
+                                                (struct format_arg_list *list);
 static struct format_arg_list * make_union_list
-					       (struct format_arg_list *list1,
-						struct format_arg_list *list2);
+                                               (struct format_arg_list *list1,
+                                                struct format_arg_list *list2);
 
 
 /* ======================= Verify a format_arg_list ======================= */
@@ -221,7 +221,7 @@ free_list (struct format_arg_list *list)
 /* Copy the data belonging to an argument list element.  */
 static inline void
 copy_element (struct format_arg *newelement,
-	      const struct format_arg *oldelement)
+              const struct format_arg *oldelement)
 {
   newelement->repcount = oldelement->repcount;
   newelement->presence = oldelement->presence;
@@ -250,13 +250,13 @@ copy_list (const struct format_arg_list *list)
   else
     {
       newlist->initial.element =
-	XNMALLOC (newlist->initial.allocated, struct format_arg);
+        XNMALLOC (newlist->initial.allocated, struct format_arg);
       for (i = 0; i < list->initial.count; i++)
-	{
-	  copy_element (&newlist->initial.element[i],
-			&list->initial.element[i]);
-	  length += list->initial.element[i].repcount;
-	}
+        {
+          copy_element (&newlist->initial.element[i],
+                        &list->initial.element[i]);
+          length += list->initial.element[i].repcount;
+        }
     }
   ASSERT (length == list->initial.length);
   newlist->initial.length = length;
@@ -268,13 +268,13 @@ copy_list (const struct format_arg_list *list)
   else
     {
       newlist->repeated.element =
-	XNMALLOC (newlist->repeated.allocated, struct format_arg);
+        XNMALLOC (newlist->repeated.allocated, struct format_arg);
       for (i = 0; i < list->repeated.count; i++)
-	{
-	  copy_element (&newlist->repeated.element[i],
-			&list->repeated.element[i]);
-	  length += list->repeated.element[i].repcount;
-	}
+        {
+          copy_element (&newlist->repeated.element[i],
+                        &list->repeated.element[i]);
+          length += list->repeated.element[i].repcount;
+        }
     }
   ASSERT (length == list->repeated.length);
   newlist->repeated.length = length;
@@ -293,15 +293,15 @@ static bool
 equal_element (const struct format_arg * e1, const struct format_arg * e2)
 {
   return (e1->presence == e2->presence
-	  && e1->type == e2->type
-	  && (e1->type == FAT_LIST ? equal_list (e1->list, e2->list) : true));
+          && e1->type == e2->type
+          && (e1->type == FAT_LIST ? equal_list (e1->list, e2->list) : true));
 }
 
 /* Tests whether two normalized argument list constraints are equivalent.  */
 /* Memory effects: none.  */
 static bool
 equal_list (const struct format_arg_list *list1,
-	    const struct format_arg_list *list2)
+            const struct format_arg_list *list2)
 {
   unsigned int n, i;
 
@@ -317,7 +317,7 @@ equal_list (const struct format_arg_list *list1,
       const struct format_arg * e2 = &list2->initial.element[i];
 
       if (!(e1->repcount == e2->repcount && equal_element (e1, e2)))
-	return false;
+        return false;
     }
 
   n = list1->repeated.count;
@@ -329,7 +329,7 @@ equal_list (const struct format_arg_list *list1,
       const struct format_arg * e2 = &list2->repeated.element[i];
 
       if (!(e1->repcount == e2->repcount && equal_element (e1, e2)))
-	return false;
+        return false;
     }
 
   return true;
@@ -345,11 +345,11 @@ ensure_initial_alloc (struct format_arg_list *list, unsigned int newcount)
   if (newcount > list->initial.allocated)
     {
       list->initial.allocated =
-	MAX (2 * list->initial.allocated + 1, newcount);
+        MAX (2 * list->initial.allocated + 1, newcount);
       list->initial.element =
-	(struct format_arg *)
-	xrealloc (list->initial.element,
-		  list->initial.allocated * sizeof (struct format_arg));
+        (struct format_arg *)
+        xrealloc (list->initial.element,
+                  list->initial.allocated * sizeof (struct format_arg));
     }
 }
 
@@ -360,11 +360,11 @@ grow_initial_alloc (struct format_arg_list *list)
   if (list->initial.count >= list->initial.allocated)
     {
       list->initial.allocated =
-	MAX (2 * list->initial.allocated + 1, list->initial.count + 1);
+        MAX (2 * list->initial.allocated + 1, list->initial.count + 1);
       list->initial.element =
-	(struct format_arg *)
-	xrealloc (list->initial.element,
-		  list->initial.allocated * sizeof (struct format_arg));
+        (struct format_arg *)
+        xrealloc (list->initial.element,
+                  list->initial.allocated * sizeof (struct format_arg));
     }
 }
 
@@ -375,11 +375,11 @@ ensure_repeated_alloc (struct format_arg_list *list, unsigned int newcount)
   if (newcount > list->repeated.allocated)
     {
       list->repeated.allocated =
-	MAX (2 * list->repeated.allocated + 1, newcount);
+        MAX (2 * list->repeated.allocated + 1, newcount);
       list->repeated.element =
-	(struct format_arg *)
-	xrealloc (list->repeated.element,
-		  list->repeated.allocated * sizeof (struct format_arg));
+        (struct format_arg *)
+        xrealloc (list->repeated.element,
+                  list->repeated.allocated * sizeof (struct format_arg));
     }
 }
 
@@ -390,11 +390,11 @@ grow_repeated_alloc (struct format_arg_list *list)
   if (list->repeated.count >= list->repeated.allocated)
     {
       list->repeated.allocated =
-	MAX (2 * list->repeated.allocated + 1, list->repeated.count + 1);
+        MAX (2 * list->repeated.allocated + 1, list->repeated.count + 1);
       list->repeated.element =
-	(struct format_arg *)
-	xrealloc (list->repeated.element,
-		  list->repeated.allocated * sizeof (struct format_arg));
+        (struct format_arg *)
+        xrealloc (list->repeated.element,
+                  list->repeated.allocated * sizeof (struct format_arg));
     }
 }
 
@@ -415,36 +415,36 @@ normalize_outermost_list (struct format_arg_list *list)
   n = list->initial.count;
   for (i = j = 0; i < n; i++)
     if (j > 0
-	&& equal_element (&list->initial.element[i],
-			  &list->initial.element[j-1]))
+        && equal_element (&list->initial.element[i],
+                          &list->initial.element[j-1]))
       {
-	list->initial.element[j-1].repcount +=
-	  list->initial.element[i].repcount;
-	free_element (&list->initial.element[i]);
+        list->initial.element[j-1].repcount +=
+          list->initial.element[i].repcount;
+        free_element (&list->initial.element[i]);
       }
     else
       {
-	if (j < i)
-	  list->initial.element[j] = list->initial.element[i];
-	j++;
+        if (j < i)
+          list->initial.element[j] = list->initial.element[i];
+        j++;
       }
   list->initial.count = j;
 
   n = list->repeated.count;
   for (i = j = 0; i < n; i++)
     if (j > 0
-	&& equal_element (&list->repeated.element[i],
-			  &list->repeated.element[j-1]))
+        && equal_element (&list->repeated.element[i],
+                          &list->repeated.element[j-1]))
       {
-	list->repeated.element[j-1].repcount +=
-	  list->repeated.element[i].repcount;
-	free_element (&list->repeated.element[i]);
+        list->repeated.element[j-1].repcount +=
+          list->repeated.element[i].repcount;
+        free_element (&list->repeated.element[i]);
       }
     else
       {
-	if (j < i)
-	  list->repeated.element[j] = list->repeated.element[i];
-	j++;
+        if (j < i)
+          list->repeated.element[j] = list->repeated.element[i];
+        j++;
       }
   list->repeated.count = j;
 
@@ -457,104 +457,104 @@ normalize_outermost_list (struct format_arg_list *list)
       n = list->repeated.count;
       repcount0_extra = 0;
       if (n > 1
-	  && equal_element (&list->repeated.element[0],
-			    &list->repeated.element[n-1]))
-	{
-	  repcount0_extra = list->repeated.element[n-1].repcount;
-	  n--;
-	}
+          && equal_element (&list->repeated.element[0],
+                            &list->repeated.element[n-1]))
+        {
+          repcount0_extra = list->repeated.element[n-1].repcount;
+          n--;
+        }
       /* Proceed as if the loop period were n, with
-	 list->repeated.element[0].repcount incremented by repcount0_extra.  */
+         list->repeated.element[0].repcount incremented by repcount0_extra.  */
       for (m = 2; m <= n / 2; n++)
-	if ((n % m) == 0)
-	  {
-	    /* m is a divisor of n.  Try to reduce the loop period to n.  */
-	    bool ok = true;
+        if ((n % m) == 0)
+          {
+            /* m is a divisor of n.  Try to reduce the loop period to n.  */
+            bool ok = true;
 
-	    for (i = 0; i < n - m; i++)
-	      if (!((list->repeated.element[i].repcount
-		     + (i == 0 ? repcount0_extra : 0)
-		     == list->repeated.element[i+m].repcount)
-		    && equal_element (&list->repeated.element[i],
-				      &list->repeated.element[i+m])))
-		{
-		  ok = false;
-		  break;
-		}
-	    if (ok)
-	      {
-		for (i = m; i < n; i++)
-		  free_element (&list->repeated.element[i]);
-		if (n < list->repeated.count)
-		  list->repeated.element[m] = list->repeated.element[n];
-		list->repeated.count = list->repeated.count - n + m;
-		list->repeated.length /= n / m;
-		break;
-	      }
-	  }
+            for (i = 0; i < n - m; i++)
+              if (!((list->repeated.element[i].repcount
+                     + (i == 0 ? repcount0_extra : 0)
+                     == list->repeated.element[i+m].repcount)
+                    && equal_element (&list->repeated.element[i],
+                                      &list->repeated.element[i+m])))
+                {
+                  ok = false;
+                  break;
+                }
+            if (ok)
+              {
+                for (i = m; i < n; i++)
+                  free_element (&list->repeated.element[i]);
+                if (n < list->repeated.count)
+                  list->repeated.element[m] = list->repeated.element[n];
+                list->repeated.count = list->repeated.count - n + m;
+                list->repeated.length /= n / m;
+                break;
+              }
+          }
 
       /* Step 3: Roll as much as possible of the initial segment's tail
-	 into the loop.  */
+         into the loop.  */
       if (list->repeated.count == 1)
-	{
-	  if (list->initial.count > 0
-	      && equal_element (&list->initial.element[list->initial.count-1],
-				&list->repeated.element[0]))
-	    {
-	      /* Roll the last element of the initial segment into the loop.
-		 Its repcount is irrelevant.  The second-to-last element is
-		 certainly different and doesn't need to be considered.  */
-	      list->initial.length -=
-		list->initial.element[list->initial.count-1].repcount;
-	      list->initial.count--;
-	    }
-	}
+        {
+          if (list->initial.count > 0
+              && equal_element (&list->initial.element[list->initial.count-1],
+                                &list->repeated.element[0]))
+            {
+              /* Roll the last element of the initial segment into the loop.
+                 Its repcount is irrelevant.  The second-to-last element is
+                 certainly different and doesn't need to be considered.  */
+              list->initial.length -=
+                list->initial.element[list->initial.count-1].repcount;
+              list->initial.count--;
+            }
+        }
       else
-	{
-	  while (list->initial.count > 0
-		 && equal_element (&list->initial.element[list->initial.count-1],
-				   &list->repeated.element[list->repeated.count-1]))
-	    {
-	      unsigned int moved_repcount =
-		MIN (list->initial.element[list->initial.count-1].repcount,
-		     list->repeated.element[list->repeated.count-1].repcount);
+        {
+          while (list->initial.count > 0
+                 && equal_element (&list->initial.element[list->initial.count-1],
+                                   &list->repeated.element[list->repeated.count-1]))
+            {
+              unsigned int moved_repcount =
+                MIN (list->initial.element[list->initial.count-1].repcount,
+                     list->repeated.element[list->repeated.count-1].repcount);
 
-	      /* Add the element at the start of list->repeated.  */
-	      if (equal_element (&list->repeated.element[0],
-				 &list->repeated.element[list->repeated.count-1]))
-		list->repeated.element[0].repcount += moved_repcount;
-	      else
-		{
-		  unsigned int newcount = list->repeated.count + 1;
-		  ensure_repeated_alloc (list, newcount);
-		  for (i = newcount - 1; i > 0; i--)
-		    list->repeated.element[i] = list->repeated.element[i-1];
-		  list->repeated.count = newcount;
-		  copy_element (&list->repeated.element[0],
-				&list->repeated.element[list->repeated.count-1]);
-		  list->repeated.element[0].repcount = moved_repcount;
-		}
+              /* Add the element at the start of list->repeated.  */
+              if (equal_element (&list->repeated.element[0],
+                                 &list->repeated.element[list->repeated.count-1]))
+                list->repeated.element[0].repcount += moved_repcount;
+              else
+                {
+                  unsigned int newcount = list->repeated.count + 1;
+                  ensure_repeated_alloc (list, newcount);
+                  for (i = newcount - 1; i > 0; i--)
+                    list->repeated.element[i] = list->repeated.element[i-1];
+                  list->repeated.count = newcount;
+                  copy_element (&list->repeated.element[0],
+                                &list->repeated.element[list->repeated.count-1]);
+                  list->repeated.element[0].repcount = moved_repcount;
+                }
 
-	      /* Remove the element from the end of list->repeated.  */
-	      list->repeated.element[list->repeated.count-1].repcount -=
-		moved_repcount;
-	      if (list->repeated.element[list->repeated.count-1].repcount == 0)
-		{
-		  free_element (&list->repeated.element[list->repeated.count-1]);
-		  list->repeated.count--;
-		}
+              /* Remove the element from the end of list->repeated.  */
+              list->repeated.element[list->repeated.count-1].repcount -=
+                moved_repcount;
+              if (list->repeated.element[list->repeated.count-1].repcount == 0)
+                {
+                  free_element (&list->repeated.element[list->repeated.count-1]);
+                  list->repeated.count--;
+                }
 
-	      /* Remove the element from the end of list->initial.  */
-	      list->initial.element[list->initial.count-1].repcount -=
-		moved_repcount;
-	      if (list->initial.element[list->initial.count-1].repcount == 0)
-		{
-		  free_element (&list->initial.element[list->initial.count-1]);
-		  list->initial.count--;
-		}
-	      list->initial.length -= moved_repcount;
-	    }
-	}
+              /* Remove the element from the end of list->initial.  */
+              list->initial.element[list->initial.count-1].repcount -=
+                moved_repcount;
+              if (list->initial.element[list->initial.count-1].repcount == 0)
+                {
+                  free_element (&list->initial.element[list->initial.count-1]);
+                  list->initial.count--;
+                }
+              list->initial.length -= moved_repcount;
+            }
+        }
     }
 }
 
@@ -664,8 +664,8 @@ unfold_loop (struct format_arg_list *list, unsigned int m)
       ensure_repeated_alloc (list, newcount);
       i = list->repeated.count;
       for (k = 1; k < m; k++)
-	for (j = 0; j < list->repeated.count; j++, i++)
-	  copy_element (&list->repeated.element[i], &list->repeated.element[j]);
+        for (j = 0; j < list->repeated.count; j++, i++)
+          copy_element (&list->repeated.element[i], &list->repeated.element[j]);
       list->repeated.count = newcount;
       list->repeated.length = list->repeated.length * m;
     }
@@ -683,7 +683,7 @@ rotate_loop (struct format_arg_list *list, unsigned int m)
   if (list->repeated.count == 1)
     {
       /* Instead of multiple copies of list->repeated.element[0], a single
-	 copy with higher repcount is appended to list->initial.  */
+         copy with higher repcount is appended to list->initial.  */
       unsigned int i, newcount;
 
       newcount = list->initial.count + 1;
@@ -703,76 +703,76 @@ rotate_loop (struct format_arg_list *list, unsigned int m)
       unsigned int r = (m - list->initial.length) % n;
 
       /* Determine how many entries of list->repeated are needed for
-	 length r.  */
+         length r.  */
       unsigned int s;
       unsigned int t;
 
       for (t = r, s = 0;
-	   s < list->repeated.count && t >= list->repeated.element[s].repcount;
-	   t -= list->repeated.element[s].repcount, s++)
-	;
+           s < list->repeated.count && t >= list->repeated.element[s].repcount;
+           t -= list->repeated.element[s].repcount, s++)
+        ;
 
       /* s must be < list->repeated.count, otherwise r would have been >= n.  */
       ASSERT (s < list->repeated.count);
 
       /* So we need to add to list->initial:
-	 q full copies of list->repeated,
-	 plus the s first elements of list->repeated,
-	 plus, if t > 0, a splitoff of list->repeated.element[s].  */
+         q full copies of list->repeated,
+         plus the s first elements of list->repeated,
+         plus, if t > 0, a splitoff of list->repeated.element[s].  */
       {
-	unsigned int i, j, k, newcount;
+        unsigned int i, j, k, newcount;
 
-	i = list->initial.count;
-	newcount = i + q * list->repeated.count + s + (t > 0 ? 1 : 0);
-	ensure_initial_alloc (list, newcount);
-	for (k = 0; k < q; k++)
-	  for (j = 0; j < list->repeated.count; j++, i++)
-	    copy_element (&list->initial.element[i],
-			  &list->repeated.element[j]);
-	for (j = 0; j < s; j++, i++)
-	  copy_element (&list->initial.element[i], &list->repeated.element[j]);
-	if (t > 0)
-	  {
-	    copy_element (&list->initial.element[i],
-			  &list->repeated.element[j]);
-	    list->initial.element[i].repcount = t;
-	    i++;
-	  }
-	ASSERT (i == newcount);
-	list->initial.count = newcount;
-	/* The new length of the initial segment is
-	   = list->initial.length
-	     + q * list->repeated.length
-	     + list->repeated[0..s-1].repcount + t
-	   = list->initial.length + q * n + r
-	   = m.
-	 */
-	list->initial.length = m;
+        i = list->initial.count;
+        newcount = i + q * list->repeated.count + s + (t > 0 ? 1 : 0);
+        ensure_initial_alloc (list, newcount);
+        for (k = 0; k < q; k++)
+          for (j = 0; j < list->repeated.count; j++, i++)
+            copy_element (&list->initial.element[i],
+                          &list->repeated.element[j]);
+        for (j = 0; j < s; j++, i++)
+          copy_element (&list->initial.element[i], &list->repeated.element[j]);
+        if (t > 0)
+          {
+            copy_element (&list->initial.element[i],
+                          &list->repeated.element[j]);
+            list->initial.element[i].repcount = t;
+            i++;
+          }
+        ASSERT (i == newcount);
+        list->initial.count = newcount;
+        /* The new length of the initial segment is
+           = list->initial.length
+             + q * list->repeated.length
+             + list->repeated[0..s-1].repcount + t
+           = list->initial.length + q * n + r
+           = m.
+         */
+        list->initial.length = m;
       }
 
       /* And rotate list->repeated.  */
       if (r > 0)
-	{
-	  unsigned int i, j, oldcount, newcount;
-	  struct format_arg *newelement;
+        {
+          unsigned int i, j, oldcount, newcount;
+          struct format_arg *newelement;
 
-	  oldcount = list->repeated.count;
-	  newcount = list->repeated.count + (t > 0 ? 1 : 0);
-	  newelement = XNMALLOC (newcount, struct format_arg);
-	  i = 0;
-	  for (j = s; j < oldcount; j++, i++)
-	    newelement[i] = list->repeated.element[j];
-	  for (j = 0; j < s; j++, i++)
-	    newelement[i] = list->repeated.element[j];
-	  if (t > 0)
-	    {
-	      copy_element (&newelement[oldcount], &newelement[0]);
-	      newelement[0].repcount -= t;
-	      newelement[oldcount].repcount = t;
-	    }
-	  free (list->repeated.element);
-	  list->repeated.element = newelement;
-	}
+          oldcount = list->repeated.count;
+          newcount = list->repeated.count + (t > 0 ? 1 : 0);
+          newelement = XNMALLOC (newcount, struct format_arg);
+          i = 0;
+          for (j = s; j < oldcount; j++, i++)
+            newelement[i] = list->repeated.element[j];
+          for (j = 0; j < s; j++, i++)
+            newelement[i] = list->repeated.element[j];
+          if (t > 0)
+            {
+              copy_element (&newelement[oldcount], &newelement[0]);
+              newelement[0].repcount -= t;
+              newelement[oldcount].repcount = t;
+            }
+          free (list->repeated.element);
+          list->repeated.element = newelement;
+        }
     }
 }
 
@@ -860,44 +860,44 @@ initial_unshare (struct format_arg_list *list, unsigned int n)
   if (list->initial.element[s].repcount > 1)
     {
       /* Split the entry into at most three entries: for indices < n,
-	 for index n, and for indices > n.  */
+         for index n, and for indices > n.  */
       unsigned int oldrepcount = list->initial.element[s].repcount;
       unsigned int newcount =
-	list->initial.count + (t == 0 || t == oldrepcount - 1 ? 1 : 2);
+        list->initial.count + (t == 0 || t == oldrepcount - 1 ? 1 : 2);
       ensure_initial_alloc (list, newcount);
       if (t == 0 || t == oldrepcount - 1)
-	{
-	  unsigned int i;
+        {
+          unsigned int i;
 
-	  for (i = list->initial.count - 1; i > s; i--)
-	    list->initial.element[i+1] = list->initial.element[i];
-	  copy_element (&list->initial.element[s+1], &list->initial.element[s]);
-	  if (t == 0)
-	    {
-	      list->initial.element[s].repcount = 1;
-	      list->initial.element[s+1].repcount = oldrepcount - 1;
-	    }
-	  else
-	    {
-	      list->initial.element[s].repcount = oldrepcount - 1;
-	      list->initial.element[s+1].repcount = 1;
-	    }
-	}
+          for (i = list->initial.count - 1; i > s; i--)
+            list->initial.element[i+1] = list->initial.element[i];
+          copy_element (&list->initial.element[s+1], &list->initial.element[s]);
+          if (t == 0)
+            {
+              list->initial.element[s].repcount = 1;
+              list->initial.element[s+1].repcount = oldrepcount - 1;
+            }
+          else
+            {
+              list->initial.element[s].repcount = oldrepcount - 1;
+              list->initial.element[s+1].repcount = 1;
+            }
+        }
       else
-	{
-	  unsigned int i;
+        {
+          unsigned int i;
 
-	  for (i = list->initial.count - 1; i > s; i--)
-	    list->initial.element[i+2] = list->initial.element[i];
-	  copy_element (&list->initial.element[s+2], &list->initial.element[s]);
-	  copy_element (&list->initial.element[s+1], &list->initial.element[s]);
-	  list->initial.element[s].repcount = t;
-	  list->initial.element[s+1].repcount = 1;
-	  list->initial.element[s+2].repcount = oldrepcount - 1 - t;
-	}
+          for (i = list->initial.count - 1; i > s; i--)
+            list->initial.element[i+2] = list->initial.element[i];
+          copy_element (&list->initial.element[s+2], &list->initial.element[s]);
+          copy_element (&list->initial.element[s+1], &list->initial.element[s]);
+          list->initial.element[s].repcount = t;
+          list->initial.element[s+1].repcount = 1;
+          list->initial.element[s+2].repcount = oldrepcount - 1 - t;
+        }
       list->initial.count = newcount;
       if (t > 0)
-	s++;
+        s++;
     }
 
   /* Now the entry for index n has repcount 1.  */
@@ -922,7 +922,7 @@ shift_list (struct format_arg_list *list, unsigned int n)
 
       grow_initial_alloc (list);
       for (i = list->initial.count; i > 0; i--)
-	list->initial.element[i] = list->initial.element[i-1];
+        list->initial.element[i] = list->initial.element[i-1];
       list->initial.element[0].repcount = n;
       list->initial.element[0].presence = FCT_REQUIRED;
       list->initial.element[0].type = FAT_OBJECT;
@@ -944,8 +944,8 @@ shift_list (struct format_arg_list *list, unsigned int n)
 /* Memory effects: Freshly allocated element's sublist.  */
 static bool
 make_intersected_element (struct format_arg *re,
-			  const struct format_arg * e1,
-			  const struct format_arg * e2)
+                          const struct format_arg * e1,
+                          const struct format_arg * e2)
 {
   /* Intersect the cdr types.  */
   if (e1->presence == FCT_REQUIRED || e2->presence == FCT_REQUIRED)
@@ -958,43 +958,43 @@ make_intersected_element (struct format_arg *re,
     {
       re->type = e2->type;
       if (re->type == FAT_LIST)
-	re->list = copy_list (e2->list);
+        re->list = copy_list (e2->list);
     }
   else if (e2->type == FAT_OBJECT)
     {
       re->type = e1->type;
       if (re->type == FAT_LIST)
-	re->list = copy_list (e1->list);
+        re->list = copy_list (e1->list);
     }
   else if (e1->type == FAT_LIST
-	   && (e2->type == FAT_CHARACTER_INTEGER_NULL
-	       || e2->type == FAT_CHARACTER_NULL
-	       || e2->type == FAT_INTEGER_NULL))
+           && (e2->type == FAT_CHARACTER_INTEGER_NULL
+               || e2->type == FAT_CHARACTER_NULL
+               || e2->type == FAT_INTEGER_NULL))
     {
       re->type = e1->type;
       re->list = make_intersection_with_empty_list (e1->list);
       if (re->list == NULL)
-	return false;
+        return false;
     }
   else if (e2->type == FAT_LIST
-	   && (e1->type == FAT_CHARACTER_INTEGER_NULL
-	       || e1->type == FAT_CHARACTER_NULL
-	       || e1->type == FAT_INTEGER_NULL))
+           && (e1->type == FAT_CHARACTER_INTEGER_NULL
+               || e1->type == FAT_CHARACTER_NULL
+               || e1->type == FAT_INTEGER_NULL))
     {
       re->type = e2->type;
       re->list = make_intersection_with_empty_list (e2->list);
       if (re->list == NULL)
-	return false;
+        return false;
     }
   else if (e1->type == FAT_CHARACTER_INTEGER_NULL
-	   && (e2->type == FAT_CHARACTER_NULL || e2->type == FAT_CHARACTER
-	       || e2->type == FAT_INTEGER_NULL || e2->type == FAT_INTEGER))
+           && (e2->type == FAT_CHARACTER_NULL || e2->type == FAT_CHARACTER
+               || e2->type == FAT_INTEGER_NULL || e2->type == FAT_INTEGER))
     {
       re->type = e2->type;
     }
   else if (e2->type == FAT_CHARACTER_INTEGER_NULL
-	   && (e1->type == FAT_CHARACTER_NULL || e1->type == FAT_CHARACTER
-	       || e1->type == FAT_INTEGER_NULL || e1->type == FAT_INTEGER))
+           && (e1->type == FAT_CHARACTER_NULL || e1->type == FAT_CHARACTER
+               || e1->type == FAT_INTEGER_NULL || e1->type == FAT_INTEGER))
     {
       re->type = e1->type;
     }
@@ -1023,12 +1023,12 @@ make_intersected_element (struct format_arg *re,
       re->type = e1->type;
     }
   else if (e1->type == FAT_COMPLEX
-	   && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
+           && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
     {
       re->type = e2->type;
     }
   else if (e2->type == FAT_COMPLEX
-	   && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
+           && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
     {
       re->type = e1->type;
     }
@@ -1036,12 +1036,12 @@ make_intersected_element (struct format_arg *re,
     {
       re->type = e1->type;
       if (re->type == FAT_LIST)
-	{
-	  re->list = make_intersected_list (copy_list (e1->list),
-					    copy_list (e2->list));
-	  if (re->list == NULL)
-	    return false;
-	}
+        {
+          re->list = make_intersected_list (copy_list (e1->list),
+                                            copy_list (e2->list));
+          if (re->list == NULL)
+            return false;
+        }
     }
   else
     /* Each of FAT_CHARACTER, FAT_INTEGER, FAT_LIST, FAT_FORMATSTRING
@@ -1065,7 +1065,7 @@ append_repeated_to_initial (struct format_arg_list *list)
       ensure_initial_alloc (list, newcount);
       i = list->initial.count;
       for (j = 0; j < list->repeated.count; j++, i++)
-	list->initial.element[i] = list->repeated.element[j];
+        list->initial.element[i] = list->repeated.element[j];
       list->initial.count = newcount;
       list->initial.length = list->initial.length + list->repeated.length;
       free (list->repeated.element);
@@ -1091,26 +1091,26 @@ backtrack_in_initial (struct format_arg_list *list)
     {
       unsigned int i = list->initial.count - 1;
       if (list->initial.element[i].presence == FCT_REQUIRED)
-	{
-	  /* Throw away this element.  */
-	  list->initial.length -= list->initial.element[i].repcount;
-	  free_element (&list->initial.element[i]);
-	  list->initial.count = i;
-	}
+        {
+          /* Throw away this element.  */
+          list->initial.length -= list->initial.element[i].repcount;
+          free_element (&list->initial.element[i]);
+          list->initial.count = i;
+        }
       else /* list->initial.element[i].presence == FCT_OPTIONAL */
-	{
-	  /* The list must end here.  */
-	  list->initial.length--;
-	  if (list->initial.element[i].repcount > 1)
-	    list->initial.element[i].repcount--;
-	  else
-	    {
-	      free_element (&list->initial.element[i]);
-	      list->initial.count = i;
-	    }
-	  VERIFY_LIST (list);
-	  return list;
-	}
+        {
+          /* The list must end here.  */
+          list->initial.length--;
+          if (list->initial.element[i].repcount > 1)
+            list->initial.element[i].repcount--;
+          else
+            {
+              free_element (&list->initial.element[i]);
+              list->initial.count = i;
+            }
+          VERIFY_LIST (list);
+          return list;
+        }
     }
 
   free_list (list);
@@ -1124,7 +1124,7 @@ backtrack_in_initial (struct format_arg_list *list)
    freshly allocated.  */
 static struct format_arg_list *
 make_intersected_list (struct format_arg_list *list1,
-		       struct format_arg_list *list2)
+                       struct format_arg_list *list2)
 {
   struct format_arg_list *result;
 
@@ -1154,9 +1154,9 @@ make_intersected_list (struct format_arg_list *list1,
       unsigned int m = MAX (list1->initial.length, list2->initial.length);
 
       if (list1->repeated.length > 0)
-	rotate_loop (list1, m);
+        rotate_loop (list1, m);
       if (list2->repeated.length > 0)
-	rotate_loop (list2, m);
+        rotate_loop (list2, m);
     }
 
   if (list1->repeated.length > 0 && list2->repeated.length > 0)
@@ -1187,78 +1187,78 @@ make_intersected_list (struct format_arg_list *list1,
     e2 = list2->initial.element; c2 = list2->initial.count;
     while (c1 > 0 && c2 > 0)
       {
-	struct format_arg *re;
+        struct format_arg *re;
 
-	/* Ensure room in result->initial.  */
-	grow_initial_alloc (result);
-	re = &result->initial.element[result->initial.count];
-	re->repcount = MIN (e1->repcount, e2->repcount);
+        /* Ensure room in result->initial.  */
+        grow_initial_alloc (result);
+        re = &result->initial.element[result->initial.count];
+        re->repcount = MIN (e1->repcount, e2->repcount);
 
-	/* Intersect the argument types.  */
-	if (!make_intersected_element (re, e1, e2))
-	  {
-	    /* If re->presence == FCT_OPTIONAL, the result list ends here.  */
-	    if (re->presence == FCT_REQUIRED)
-	      /* Contradiction.  Backtrack.  */
-	      result = backtrack_in_initial (result);
-	    goto done;
-	  }
+        /* Intersect the argument types.  */
+        if (!make_intersected_element (re, e1, e2))
+          {
+            /* If re->presence == FCT_OPTIONAL, the result list ends here.  */
+            if (re->presence == FCT_REQUIRED)
+              /* Contradiction.  Backtrack.  */
+              result = backtrack_in_initial (result);
+            goto done;
+          }
 
-	result->initial.count++;
-	result->initial.length += re->repcount;
+        result->initial.count++;
+        result->initial.length += re->repcount;
 
-	e1->repcount -= re->repcount;
-	if (e1->repcount == 0)
-	  {
-	    e1++;
-	    c1--;
-	  }
-	e2->repcount -= re->repcount;
-	if (e2->repcount == 0)
-	  {
-	    e2++;
-	    c2--;
-	  }
+        e1->repcount -= re->repcount;
+        if (e1->repcount == 0)
+          {
+            e1++;
+            c1--;
+          }
+        e2->repcount -= re->repcount;
+        if (e2->repcount == 0)
+          {
+            e2++;
+            c2--;
+          }
       }
 
     if (list1->repeated.count == 0 && list2->repeated.count == 0)
       {
-	/* Intersecting two finite lists.  */
-	if (c1 > 0)
-	  {
-	    /* list1 longer than list2.  */
-	    if (e1->presence == FCT_REQUIRED)
-	      /* Contradiction.  Backtrack.  */
-	      result = backtrack_in_initial (result);
-	  }
-	else if (c2 > 0)
-	  {
-	    /* list2 longer than list1.  */
-	    if (e2->presence == FCT_REQUIRED)
-	      /* Contradiction.  Backtrack.  */
-	      result = backtrack_in_initial (result);
-	  }
-	goto done;
+        /* Intersecting two finite lists.  */
+        if (c1 > 0)
+          {
+            /* list1 longer than list2.  */
+            if (e1->presence == FCT_REQUIRED)
+              /* Contradiction.  Backtrack.  */
+              result = backtrack_in_initial (result);
+          }
+        else if (c2 > 0)
+          {
+            /* list2 longer than list1.  */
+            if (e2->presence == FCT_REQUIRED)
+              /* Contradiction.  Backtrack.  */
+              result = backtrack_in_initial (result);
+          }
+        goto done;
       }
     else if (list1->repeated.count == 0)
       {
-	/* Intersecting a finite and an infinite list.  */
-	ASSERT (c1 == 0);
-	if ((c2 > 0 ? e2->presence : list2->repeated.element[0].presence)
-	    == FCT_REQUIRED)
-	  /* Contradiction.  Backtrack.  */
-	  result = backtrack_in_initial (result);
-	goto done;
+        /* Intersecting a finite and an infinite list.  */
+        ASSERT (c1 == 0);
+        if ((c2 > 0 ? e2->presence : list2->repeated.element[0].presence)
+            == FCT_REQUIRED)
+          /* Contradiction.  Backtrack.  */
+          result = backtrack_in_initial (result);
+        goto done;
       }
     else if (list2->repeated.count == 0)
       {
-	/* Intersecting an infinite and a finite list.  */
-	ASSERT (c2 == 0);
-	if ((c1 > 0 ? e1->presence : list1->repeated.element[0].presence)
-	    == FCT_REQUIRED)
-	  /* Contradiction.  Backtrack.  */
-	  result = backtrack_in_initial (result);
-	goto done;
+        /* Intersecting an infinite and a finite list.  */
+        ASSERT (c2 == 0);
+        if ((c1 > 0 ? e1->presence : list1->repeated.element[0].presence)
+            == FCT_REQUIRED)
+          /* Contradiction.  Backtrack.  */
+          result = backtrack_in_initial (result);
+        goto done;
       }
     /* Intersecting two infinite lists.  */
     ASSERT (c1 == 0 && c2 == 0);
@@ -1275,41 +1275,41 @@ make_intersected_list (struct format_arg_list *list1,
     e2 = list2->repeated.element; c2 = list2->repeated.count;
     while (c1 > 0 && c2 > 0)
       {
-	struct format_arg *re;
+        struct format_arg *re;
 
-	/* Ensure room in result->repeated.  */
-	grow_repeated_alloc (result);
-	re = &result->repeated.element[result->repeated.count];
-	re->repcount = MIN (e1->repcount, e2->repcount);
+        /* Ensure room in result->repeated.  */
+        grow_repeated_alloc (result);
+        re = &result->repeated.element[result->repeated.count];
+        re->repcount = MIN (e1->repcount, e2->repcount);
 
-	/* Intersect the argument types.  */
-	if (!make_intersected_element (re, e1, e2))
-	  {
-	    append_repeated_to_initial (result);
+        /* Intersect the argument types.  */
+        if (!make_intersected_element (re, e1, e2))
+          {
+            append_repeated_to_initial (result);
 
-	    /* If re->presence == FCT_OPTIONAL, the result list ends here.  */
-	    if (re->presence == FCT_REQUIRED)
-	      /* Contradiction.  Backtrack.  */
-	      result = backtrack_in_initial (result);
+            /* If re->presence == FCT_OPTIONAL, the result list ends here.  */
+            if (re->presence == FCT_REQUIRED)
+              /* Contradiction.  Backtrack.  */
+              result = backtrack_in_initial (result);
 
-	    goto done;
-	  }
+            goto done;
+          }
 
-	result->repeated.count++;
-	result->repeated.length += re->repcount;
+        result->repeated.count++;
+        result->repeated.length += re->repcount;
 
-	e1->repcount -= re->repcount;
-	if (e1->repcount == 0)
-	  {
-	    e1++;
-	    c1--;
-	  }
-	e2->repcount -= re->repcount;
-	if (e2->repcount == 0)
-	  {
-	    e2++;
-	    c2--;
-	  }
+        e1->repcount -= re->repcount;
+        if (e1->repcount == 0)
+          {
+            e1++;
+            c1--;
+          }
+        e2->repcount -= re->repcount;
+        if (e2->repcount == 0)
+          {
+            e2++;
+            c2--;
+          }
       }
     ASSERT (c1 == 0 && c2 == 0);
   }
@@ -1339,7 +1339,7 @@ make_intersection_with_empty_list (struct format_arg_list *list)
   if (list->initial.count > 0
       ? list->initial.element[0].presence == FCT_REQUIRED
       : list->repeated.count > 0
-	&& list->repeated.element[0].presence == FCT_REQUIRED)
+        && list->repeated.element[0].presence == FCT_REQUIRED)
     return NULL;
   else
     return make_empty_list ();
@@ -1358,22 +1358,22 @@ intersection (struct format_arg_list *list1, struct format_arg_list *list2)
   if (list1 != NULL)
     {
       if (list2 != NULL)
-	return make_intersected_list (list1, list2);
+        return make_intersected_list (list1, list2);
       else
-	{
-	  free_list (list1);
-	  return NULL;
-	}
+        {
+          free_list (list1);
+          return NULL;
+        }
     }
   else
     {
       if (list2 != NULL)
-	{
-	  free_list (list2);
-	  return NULL;
-	}
+        {
+          free_list (list2);
+          return NULL;
+        }
       else
-	return NULL;
+        return NULL;
     }
 }
 #endif
@@ -1385,8 +1385,8 @@ intersection (struct format_arg_list *list1, struct format_arg_list *list2)
    constraints.  */
 static void
 make_union_element (struct format_arg *re,
-		    const struct format_arg * e1,
-		    const struct format_arg * e2)
+                    const struct format_arg * e1,
+                    const struct format_arg * e2)
 {
   /* Union of the cdr types.  */
   if (e1->presence == FCT_REQUIRED && e2->presence == FCT_REQUIRED)
@@ -1399,18 +1399,18 @@ make_union_element (struct format_arg *re,
     {
       re->type = e1->type;
       if (re->type == FAT_LIST)
-	re->list = make_union_list (copy_list (e1->list),
-				    copy_list (e2->list));
+        re->list = make_union_list (copy_list (e1->list),
+                                    copy_list (e2->list));
     }
   else if (e1->type == FAT_CHARACTER_INTEGER_NULL
-	   && (e2->type == FAT_CHARACTER_NULL || e2->type == FAT_CHARACTER
-	       || e2->type == FAT_INTEGER_NULL || e2->type == FAT_INTEGER))
+           && (e2->type == FAT_CHARACTER_NULL || e2->type == FAT_CHARACTER
+               || e2->type == FAT_INTEGER_NULL || e2->type == FAT_INTEGER))
     {
       re->type = e1->type;
     }
   else if (e2->type == FAT_CHARACTER_INTEGER_NULL
-	   && (e1->type == FAT_CHARACTER_NULL || e1->type == FAT_CHARACTER
-	       || e1->type == FAT_INTEGER_NULL || e1->type == FAT_INTEGER))
+           && (e1->type == FAT_CHARACTER_NULL || e1->type == FAT_CHARACTER
+               || e1->type == FAT_INTEGER_NULL || e1->type == FAT_INTEGER))
     {
       re->type = e2->type;
     }
@@ -1439,48 +1439,48 @@ make_union_element (struct format_arg *re,
       re->type = e2->type;
     }
   else if (e1->type == FAT_COMPLEX
-	   && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
+           && (e2->type == FAT_REAL || e2->type == FAT_INTEGER))
     {
       re->type = e1->type;
     }
   else if (e2->type == FAT_COMPLEX
-	   && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
+           && (e1->type == FAT_REAL || e1->type == FAT_INTEGER))
     {
       re->type = e2->type;
     }
   else if (e1->type == FAT_LIST && is_empty_list (e1->list))
     {
       if (e2->type == FAT_CHARACTER_INTEGER_NULL
-	  || e2->type == FAT_CHARACTER_NULL
-	  || e2->type == FAT_INTEGER_NULL)
-	re->type = e2->type;
+          || e2->type == FAT_CHARACTER_NULL
+          || e2->type == FAT_INTEGER_NULL)
+        re->type = e2->type;
       else if (e2->type == FAT_CHARACTER)
-	re->type = FAT_CHARACTER_NULL;
+        re->type = FAT_CHARACTER_NULL;
       else if (e2->type == FAT_INTEGER)
-	re->type = FAT_INTEGER_NULL;
+        re->type = FAT_INTEGER_NULL;
       else
-	re->type = FAT_OBJECT;
+        re->type = FAT_OBJECT;
     }
   else if (e2->type == FAT_LIST && is_empty_list (e2->list))
     {
       if (e1->type == FAT_CHARACTER_INTEGER_NULL
-	  || e1->type == FAT_CHARACTER_NULL
-	  || e1->type == FAT_INTEGER_NULL)
-	re->type = e1->type;
+          || e1->type == FAT_CHARACTER_NULL
+          || e1->type == FAT_INTEGER_NULL)
+        re->type = e1->type;
       else if (e1->type == FAT_CHARACTER)
-	re->type = FAT_CHARACTER_NULL;
+        re->type = FAT_CHARACTER_NULL;
       else if (e1->type == FAT_INTEGER)
-	re->type = FAT_INTEGER_NULL;
+        re->type = FAT_INTEGER_NULL;
       else
-	re->type = FAT_OBJECT;
+        re->type = FAT_OBJECT;
     }
   else if ((e1->type == FAT_CHARACTER || e1->type == FAT_CHARACTER_NULL)
-	   && (e2->type == FAT_INTEGER || e2->type == FAT_INTEGER_NULL))
+           && (e2->type == FAT_INTEGER || e2->type == FAT_INTEGER_NULL))
     {
       re->type = FAT_CHARACTER_INTEGER_NULL;
     }
   else if ((e2->type == FAT_CHARACTER || e2->type == FAT_CHARACTER_NULL)
-	   && (e1->type == FAT_INTEGER || e1->type == FAT_INTEGER_NULL))
+           && (e1->type == FAT_INTEGER || e1->type == FAT_INTEGER_NULL))
     {
       re->type = FAT_CHARACTER_INTEGER_NULL;
     }
@@ -1507,23 +1507,23 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
     {
       /* Step 1: Ensure list1->repeated.length == list2->repeated.length.  */
       {
-	unsigned int n1 = list1->repeated.length;
-	unsigned int n2 = list2->repeated.length;
-	unsigned int g = gcd (n1, n2);
-	unsigned int m1 = n2 / g; /* = lcm(n1,n2) / n1 */
-	unsigned int m2 = n1 / g; /* = lcm(n1,n2) / n2 */
+        unsigned int n1 = list1->repeated.length;
+        unsigned int n2 = list2->repeated.length;
+        unsigned int g = gcd (n1, n2);
+        unsigned int m1 = n2 / g; /* = lcm(n1,n2) / n1 */
+        unsigned int m2 = n1 / g; /* = lcm(n1,n2) / n2 */
 
-	unfold_loop (list1, m1);
-	unfold_loop (list2, m2);
-	/* Now list1->repeated.length = list2->repeated.length = lcm(n1,n2).  */
+        unfold_loop (list1, m1);
+        unfold_loop (list2, m2);
+        /* Now list1->repeated.length = list2->repeated.length = lcm(n1,n2).  */
       }
 
       /* Step 2: Ensure that list1->initial.length == list2->initial.length.  */
       {
-	unsigned int m = MAX (list1->initial.length, list2->initial.length);
+        unsigned int m = MAX (list1->initial.length, list2->initial.length);
 
-	rotate_loop (list1, m);
-	rotate_loop (list2, m);
+        rotate_loop (list1, m);
+        rotate_loop (list2, m);
       }
 
       ASSERT (list1->initial.length == list2->initial.length);
@@ -1532,24 +1532,24 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
   else if (list1->repeated.length > 0)
     {
       /* Ensure the initial segment of the result can be computed from the
-	 initial segment of list1.  */
+         initial segment of list1.  */
       if (list2->initial.length >= list1->initial.length)
-	{
-	  rotate_loop (list1, list2->initial.length);
-	  if (list1->repeated.element[0].presence == FCT_REQUIRED)
-	    rotate_loop (list1, list1->initial.length + 1);
-	}
+        {
+          rotate_loop (list1, list2->initial.length);
+          if (list1->repeated.element[0].presence == FCT_REQUIRED)
+            rotate_loop (list1, list1->initial.length + 1);
+        }
     }
   else if (list2->repeated.length > 0)
     {
       /* Ensure the initial segment of the result can be computed from the
-	 initial segment of list2.  */
+         initial segment of list2.  */
       if (list1->initial.length >= list2->initial.length)
-	{
-	  rotate_loop (list2, list1->initial.length);
-	  if (list2->repeated.element[0].presence == FCT_REQUIRED)
-	    rotate_loop (list2, list2->initial.length + 1);
-	}
+        {
+          rotate_loop (list2, list1->initial.length);
+          if (list2->repeated.element[0].presence == FCT_REQUIRED)
+            rotate_loop (list2, list2->initial.length + 1);
+        }
     }
 
   /* Step 3: Allocate the result.  */
@@ -1574,112 +1574,112 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
     e2 = list2->initial.element; c2 = list2->initial.count;
     while (c1 > 0 && c2 > 0)
       {
-	struct format_arg *re;
+        struct format_arg *re;
 
-	/* Ensure room in result->initial.  */
-	grow_initial_alloc (result);
-	re = &result->initial.element[result->initial.count];
-	re->repcount = MIN (e1->repcount, e2->repcount);
+        /* Ensure room in result->initial.  */
+        grow_initial_alloc (result);
+        re = &result->initial.element[result->initial.count];
+        re->repcount = MIN (e1->repcount, e2->repcount);
 
-	/* Union of the argument types.  */
-	make_union_element (re, e1, e2);
+        /* Union of the argument types.  */
+        make_union_element (re, e1, e2);
 
-	result->initial.count++;
-	result->initial.length += re->repcount;
+        result->initial.count++;
+        result->initial.length += re->repcount;
 
-	e1->repcount -= re->repcount;
-	if (e1->repcount == 0)
-	  {
-	    e1++;
-	    c1--;
-	  }
-	e2->repcount -= re->repcount;
-	if (e2->repcount == 0)
-	  {
-	    e2++;
-	    c2--;
-	  }
+        e1->repcount -= re->repcount;
+        if (e1->repcount == 0)
+          {
+            e1++;
+            c1--;
+          }
+        e2->repcount -= re->repcount;
+        if (e2->repcount == 0)
+          {
+            e2++;
+            c2--;
+          }
        }
 
     if (c1 > 0)
       {
-	/* list2 already terminated, but still more elements in list1->initial.
-	   Copy them all, but turn the first presence to FCT_OPTIONAL.  */
-	ASSERT (list2->repeated.count == 0);
+        /* list2 already terminated, but still more elements in list1->initial.
+           Copy them all, but turn the first presence to FCT_OPTIONAL.  */
+        ASSERT (list2->repeated.count == 0);
 
-	if (e1->presence == FCT_REQUIRED)
-	  {
-	    struct format_arg *re;
+        if (e1->presence == FCT_REQUIRED)
+          {
+            struct format_arg *re;
 
-	    /* Ensure room in result->initial.  */
-	    grow_initial_alloc (result);
-	    re = &result->initial.element[result->initial.count];
-	    copy_element (re, e1);
-	    re->presence = FCT_OPTIONAL;
-	    re->repcount = 1;
-	    result->initial.count++;
-	    result->initial.length += 1;
-	    e1->repcount -= 1;
-	    if (e1->repcount == 0)
-	      {
-		e1++;
-		c1--;
-	      }
-	  }
+            /* Ensure room in result->initial.  */
+            grow_initial_alloc (result);
+            re = &result->initial.element[result->initial.count];
+            copy_element (re, e1);
+            re->presence = FCT_OPTIONAL;
+            re->repcount = 1;
+            result->initial.count++;
+            result->initial.length += 1;
+            e1->repcount -= 1;
+            if (e1->repcount == 0)
+              {
+                e1++;
+                c1--;
+              }
+          }
 
-	/* Ensure room in result->initial.  */
-	ensure_initial_alloc (result, result->initial.count + c1);
-	while (c1 > 0)
-	  {
-	    struct format_arg *re;
+        /* Ensure room in result->initial.  */
+        ensure_initial_alloc (result, result->initial.count + c1);
+        while (c1 > 0)
+          {
+            struct format_arg *re;
 
-	    re = &result->initial.element[result->initial.count];
-	    copy_element (re, e1);
-	    result->initial.count++;
-	    result->initial.length += re->repcount;
-	    e1++;
-	    c1--;
-	  }
+            re = &result->initial.element[result->initial.count];
+            copy_element (re, e1);
+            result->initial.count++;
+            result->initial.length += re->repcount;
+            e1++;
+            c1--;
+          }
       }
     else if (c2 > 0)
       {
-	/* list1 already terminated, but still more elements in list2->initial.
-	   Copy them all, but turn the first presence to FCT_OPTIONAL.  */
-	ASSERT (list1->repeated.count == 0);
+        /* list1 already terminated, but still more elements in list2->initial.
+           Copy them all, but turn the first presence to FCT_OPTIONAL.  */
+        ASSERT (list1->repeated.count == 0);
 
-	if (e2->presence == FCT_REQUIRED)
-	  {
-	    struct format_arg *re;
+        if (e2->presence == FCT_REQUIRED)
+          {
+            struct format_arg *re;
 
-	    /* Ensure room in result->initial.  */
-	    grow_initial_alloc (result);
-	    re = &result->initial.element[result->initial.count];
-	    copy_element (re, e2);
-	    re->presence = FCT_OPTIONAL;
-	    re->repcount = 1;
-	    result->initial.count++;
-	    result->initial.length += 1;
-	    e2->repcount -= 1;
-	    if (e2->repcount == 0)
-	      {
-		e2++;
-		c2--;
-	      }
-	  }
+            /* Ensure room in result->initial.  */
+            grow_initial_alloc (result);
+            re = &result->initial.element[result->initial.count];
+            copy_element (re, e2);
+            re->presence = FCT_OPTIONAL;
+            re->repcount = 1;
+            result->initial.count++;
+            result->initial.length += 1;
+            e2->repcount -= 1;
+            if (e2->repcount == 0)
+              {
+                e2++;
+                c2--;
+              }
+          }
 
-	/* Ensure room in result->initial.  */
-	ensure_initial_alloc (result, result->initial.count + c2);
-	while (c2 > 0)
-	  {
-	    struct format_arg *re;
+        /* Ensure room in result->initial.  */
+        ensure_initial_alloc (result, result->initial.count + c2);
+        while (c2 > 0)
+          {
+            struct format_arg *re;
 
-	    re = &result->initial.element[result->initial.count];
-	    copy_element (re, e2);
-	    result->initial.count++;
-	    result->initial.length += re->repcount;
-	    e2++;
-	    c2--;
-	  }
+            re = &result->initial.element[result->initial.count];
+            copy_element (re, e2);
+            result->initial.count++;
+            result->initial.length += re->repcount;
+            e2++;
+            c2--;
+          }
       }
     ASSERT (c1 == 0 && c2 == 0);
   }
@@ -1695,63 +1695,63 @@ make_union_list (struct format_arg_list *list1, struct format_arg_list *list2)
       e1 = list1->repeated.element; c1 = list1->repeated.count;
       e2 = list2->repeated.element; c2 = list2->repeated.count;
       while (c1 > 0 && c2 > 0)
-	{
-	  struct format_arg *re;
+        {
+          struct format_arg *re;
 
-	  /* Ensure room in result->repeated.  */
-	  grow_repeated_alloc (result);
-	  re = &result->repeated.element[result->repeated.count];
-	  re->repcount = MIN (e1->repcount, e2->repcount);
+          /* Ensure room in result->repeated.  */
+          grow_repeated_alloc (result);
+          re = &result->repeated.element[result->repeated.count];
+          re->repcount = MIN (e1->repcount, e2->repcount);
 
-	  /* Union of the argument types.  */
-	  make_union_element (re, e1, e2);
+          /* Union of the argument types.  */
+          make_union_element (re, e1, e2);
 
-	  result->repeated.count++;
-	  result->repeated.length += re->repcount;
+          result->repeated.count++;
+          result->repeated.length += re->repcount;
 
-	  e1->repcount -= re->repcount;
-	  if (e1->repcount == 0)
-	    {
-	      e1++;
-	      c1--;
-	    }
-	  e2->repcount -= re->repcount;
-	  if (e2->repcount == 0)
-	    {
-	      e2++;
-	      c2--;
-	    }
-	}
+          e1->repcount -= re->repcount;
+          if (e1->repcount == 0)
+            {
+              e1++;
+              c1--;
+            }
+          e2->repcount -= re->repcount;
+          if (e2->repcount == 0)
+            {
+              e2++;
+              c2--;
+            }
+        }
       ASSERT (c1 == 0 && c2 == 0);
     }
   else if (list1->repeated.length > 0)
     {
       /* Turning FCT_REQUIRED into FCT_OPTIONAL was already handled in the
-	 initial segment.  Just copy the repeated segment of list1.  */
+         initial segment.  Just copy the repeated segment of list1.  */
       unsigned int i;
 
       result->repeated.count = list1->repeated.count;
       result->repeated.allocated = result->repeated.count;
       result->repeated.element =
-	XNMALLOC (result->repeated.allocated, struct format_arg);
+        XNMALLOC (result->repeated.allocated, struct format_arg);
       for (i = 0; i < list1->repeated.count; i++)
-	copy_element (&result->repeated.element[i],
-		      &list1->repeated.element[i]);
+        copy_element (&result->repeated.element[i],
+                      &list1->repeated.element[i]);
       result->repeated.length = list1->repeated.length;
     }
   else if (list2->repeated.length > 0)
     {
       /* Turning FCT_REQUIRED into FCT_OPTIONAL was already handled in the
-	 initial segment.  Just copy the repeated segment of list2.  */
+         initial segment.  Just copy the repeated segment of list2.  */
       unsigned int i;
 
       result->repeated.count = list2->repeated.count;
       result->repeated.allocated = result->repeated.count;
       result->repeated.element =
-	XNMALLOC (result->repeated.allocated, struct format_arg);
+        XNMALLOC (result->repeated.allocated, struct format_arg);
       for (i = 0; i < list2->repeated.count; i++)
-	copy_element (&result->repeated.element[i],
-		      &list2->repeated.element[i]);
+        copy_element (&result->repeated.element[i],
+                      &list2->repeated.element[i]);
       result->repeated.length = list2->repeated.length;
     }
 
@@ -1777,7 +1777,7 @@ make_union_with_empty_list (struct format_arg_list *list)
   if (list->initial.count > 0
       ? list->initial.element[0].presence == FCT_REQUIRED
       : list->repeated.count > 0
-	&& list->repeated.element[0].presence == FCT_REQUIRED)
+        && list->repeated.element[0].presence == FCT_REQUIRED)
     {
       initial_splitelement (list, 1);
       ASSERT (list->initial.count > 0);
@@ -1786,7 +1786,7 @@ make_union_with_empty_list (struct format_arg_list *list)
       list->initial.element[0].presence = FCT_OPTIONAL;
 
       /* We might need to merge list->initial.element[0] and
-	 list->initial.element[1].  */
+         list->initial.element[1].  */
       normalize_outermost_list (list);
     }
 
@@ -1807,16 +1807,16 @@ union (struct format_arg_list *list1, struct format_arg_list *list2)
   if (list1 != NULL)
     {
       if (list2 != NULL)
-	return make_union_list (list1, list2);
+        return make_union_list (list1, list2);
       else
-	return list1;
+        return list1;
     }
   else
     {
       if (list2 != NULL)
-	return list2;
+        return list2;
       else
-	return NULL;
+        return NULL;
     }
 }
 
@@ -1847,9 +1847,9 @@ is_required (const struct format_arg_list *list, unsigned int n)
   if (s < list->initial.count)
     {
       if (list->initial.element[s].presence != FCT_REQUIRED)
-	return false;
+        return false;
       else
-	return true;
+        return true;
     }
 
   /* Walk the list->repeated segment.  */
@@ -1868,9 +1868,9 @@ is_required (const struct format_arg_list *list, unsigned int n)
   if (s < list->repeated.count)
     {
       if (list->repeated.element[s].presence != FCT_REQUIRED)
-	return false;
+        return false;
       else
-	return true;
+        return true;
     }
 
   /* The list->repeated segment consists only of FCT_REQUIRED.  So,
@@ -1896,7 +1896,7 @@ add_required_constraint (struct format_arg_list *list, unsigned int n)
   if (list->repeated.count == 0 && list->initial.length <= n)
     {
       /* list is already constrained to have at most length n.
-	 Contradiction.  */
+         Contradiction.  */
       free_list (list);
       return NULL;
     }
@@ -1970,7 +1970,7 @@ add_end_constraint (struct format_arg_list *list, unsigned int n)
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
 add_type_constraint (struct format_arg_list *list, unsigned int n,
-		     enum format_arg_type type)
+                     enum format_arg_type type)
 {
   unsigned int s;
   struct format_arg newconstraint;
@@ -1987,7 +1987,7 @@ add_type_constraint (struct format_arg_list *list, unsigned int n,
   newconstraint.presence = FCT_OPTIONAL;
   newconstraint.type = type;
   if (!make_intersected_element (&tmpelement,
-				 &list->initial.element[s], &newconstraint))
+                                 &list->initial.element[s], &newconstraint))
     return add_end_constraint (list, n);
   free_element (&list->initial.element[s]);
   list->initial.element[s].type = tmpelement.type;
@@ -2005,8 +2005,8 @@ add_type_constraint (struct format_arg_list *list, unsigned int n,
 /* Memory effects: list is freed.  The result is freshly allocated.  */
 static struct format_arg_list *
 add_listtype_constraint (struct format_arg_list *list, unsigned int n,
-			 enum format_arg_type type,
-			 struct format_arg_list *sublist)
+                         enum format_arg_type type,
+                         struct format_arg_list *sublist)
 {
   unsigned int s;
   struct format_arg newconstraint;
@@ -2024,7 +2024,7 @@ add_listtype_constraint (struct format_arg_list *list, unsigned int n,
   newconstraint.type = type;
   newconstraint.list = sublist;
   if (!make_intersected_element (&tmpelement,
-				 &list->initial.element[s], &newconstraint))
+                                 &list->initial.element[s], &newconstraint))
     return add_end_constraint (list, n);
   free_element (&list->initial.element[s]);
   list->initial.element[s].type = tmpelement.type;
@@ -2040,7 +2040,7 @@ add_listtype_constraint (struct format_arg_list *list, unsigned int n,
 
 static void
 add_req_type_constraint (struct format_arg_list **listp,
-			 unsigned int position, enum format_arg_type type)
+                         unsigned int position, enum format_arg_type type)
 {
   *listp = add_required_constraint (*listp, position);
   *listp = add_type_constraint (*listp, position, type);
@@ -2049,8 +2049,8 @@ add_req_type_constraint (struct format_arg_list **listp,
 
 static void
 add_req_listtype_constraint (struct format_arg_list **listp,
-			     unsigned int position, enum format_arg_type type,
-			     struct format_arg_list *sublist)
+                             unsigned int position, enum format_arg_type type,
+                             struct format_arg_list *sublist)
 {
   *listp = add_required_constraint (*listp, position);
   *listp = add_listtype_constraint (*listp, position, type, sublist);
@@ -2120,9 +2120,9 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       /* L is a finite list.  */
 
       if (sublist->initial.length < period)
-	/* L and (*^period L) is a contradition, so we need to consider
-	   only 1 and 0 iterations.  */
-	return make_union_with_empty_list (sublist);
+        /* L and (*^period L) is a contradition, so we need to consider
+           only 1 and 0 iterations.  */
+        return make_union_with_empty_list (sublist);
 
       srcseg = &sublist->initial;
       p = period;
@@ -2138,14 +2138,14 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       p = m * Lp;
 
       /* Concatenate the initial and the repeated segments into a single
-	 segment.  */
+         segment.  */
       tmp.count = sublist->initial.count + sublist->repeated.count;
       tmp.allocated = tmp.count;
       tmp.element = XNMALLOC (tmp.allocated, struct format_arg);
       for (i = 0; i < sublist->initial.count; i++)
-	tmp.element[i] = sublist->initial.element[i];
+        tmp.element[i] = sublist->initial.element[i];
       for (j = 0; j < sublist->repeated.count; i++, j++)
-	tmp.element[i] = sublist->initial.element[j];
+        tmp.element[i] = sublist->initial.element[j];
       tmp.length = sublist->initial.length + sublist->repeated.length;
 
       srcseg = &tmp;
@@ -2194,7 +2194,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       /* Ensure room in list->initial.  */
       grow_initial_alloc (list);
       copy_element (&list->initial.element[list->initial.count],
-		    &srcseg->element[si]);
+                    &srcseg->element[si]);
       list->initial.element[list->initial.count].repcount = k;
       list->initial.count++;
       list->initial.length += k;
@@ -2202,10 +2202,10 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       i += k;
       ti += k;
       if (ti == srcseg->element[si].repcount)
-	{
-	  ti = 0;
-	  si++;
-	}
+        {
+          ti = 0;
+          si++;
+        }
     }
 
   ASSERT (list->initial.count > 0);
@@ -2221,29 +2221,29 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
   while (i < n)
     {
       unsigned int k =
-	MIN (srcseg->element[si].repcount - ti,
-	     list->initial.element[sj].repcount - tj);
+        MIN (srcseg->element[si].repcount - ti,
+             list->initial.element[sj].repcount - tj);
 
       /* Ensure room in list->initial.  */
       grow_initial_alloc (list);
       if (!make_intersected_element (&list->initial.element[list->initial.count],
-				     &srcseg->element[si],
-				     &list->initial.element[sj]))
-	{
-	  if (list->initial.element[list->initial.count].presence == FCT_REQUIRED)
-	    {
-	      /* Contradiction.  Backtrack.  */
-	      list = backtrack_in_initial (list);
-	      ASSERT (list != NULL); /* at least the empty list is valid */
-	      return list;
-	    }
-	  else
-	    {
-	      /* The list ends here.  */
-	      ended = true;
-	      break;
-	    }
-	}
+                                     &srcseg->element[si],
+                                     &list->initial.element[sj]))
+        {
+          if (list->initial.element[list->initial.count].presence == FCT_REQUIRED)
+            {
+              /* Contradiction.  Backtrack.  */
+              list = backtrack_in_initial (list);
+              ASSERT (list != NULL); /* at least the empty list is valid */
+              return list;
+            }
+          else
+            {
+              /* The list ends here.  */
+              ended = true;
+              break;
+            }
+        }
       list->initial.element[list->initial.count].repcount = k;
       list->initial.count++;
       list->initial.length += k;
@@ -2251,18 +2251,18 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       i += k;
       ti += k;
       if (ti == srcseg->element[si].repcount)
-	{
-	  ti = 0;
-	  si++;
-	}
+        {
+          ti = 0;
+          si++;
+        }
 
       j += k;
       tj += k;
       if (tj == list->initial.element[sj].repcount)
-	{
-	  tj = 0;
-	  sj++;
-	}
+        {
+          tj = 0;
+          sj++;
+        }
     }
   if (!ended)
     ASSERT (list->initial.length == n);
@@ -2281,12 +2281,12 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       splitindex = initial_splitelement (list, n - p);
       newcount = list->initial.count - splitindex;
       if (newcount > list->repeated.allocated)
-	{
-	  list->repeated.allocated = newcount;
-	  list->repeated.element = XNMALLOC (newcount, struct format_arg);
-	}
+        {
+          list->repeated.allocated = newcount;
+          list->repeated.element = XNMALLOC (newcount, struct format_arg);
+        }
       for (i = splitindex, j = 0; i < n; i++, j++)
-	list->repeated.element[j] = list->initial.element[i];
+        list->repeated.element[j] = list->initial.element[i];
       list->repeated.count = newcount;
       list->repeated.length = p;
       list->initial.count = splitindex;
@@ -2338,81 +2338,81 @@ static const enum format_arg_type THREE [3] = {
    invalid.  */
 static bool
 check_params (struct format_arg_list **listp,
-	      unsigned int paramcount, struct param *params,
-	      unsigned int t_count, const enum format_arg_type *t_types,
-	      unsigned int directives, char **invalid_reason)
+              unsigned int paramcount, struct param *params,
+              unsigned int t_count, const enum format_arg_type *t_types,
+              unsigned int directives, char **invalid_reason)
 {
   unsigned int orig_paramcount = paramcount;
   unsigned int orig_t_count = t_count;
 
   for (; paramcount > 0 && t_count > 0;
-	 params++, paramcount--, t_types++, t_count--)
+         params++, paramcount--, t_types++, t_count--)
     {
       switch (*t_types)
-	{
-	case FAT_CHARACTER_INTEGER_NULL:
-	  break;
-	case FAT_CHARACTER_NULL:
-	  switch (params->type)
-	    {
-	    case PT_NIL: case PT_CHARACTER: case PT_V:
-	      break;
-	    case PT_INTEGER: case PT_ARGCOUNT:
-	      /* wrong param type */
-	      *invalid_reason =
-		xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "integer", "character");
-	      return false;
-	    }
-	  break;
-	case FAT_INTEGER_NULL:
-	  switch (params->type)
-	    {
-	    case PT_NIL: case PT_INTEGER: case PT_ARGCOUNT: case PT_V:
-	      break;
-	    case PT_CHARACTER:
-	      /* wrong param type */
-	      *invalid_reason =
-		xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "character", "integer");
-	      return false;
-	    }
-	  break;
-	default:
-	  abort ();
-	}
+        {
+        case FAT_CHARACTER_INTEGER_NULL:
+          break;
+        case FAT_CHARACTER_NULL:
+          switch (params->type)
+            {
+            case PT_NIL: case PT_CHARACTER: case PT_V:
+              break;
+            case PT_INTEGER: case PT_ARGCOUNT:
+              /* wrong param type */
+              *invalid_reason =
+                xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "integer", "character");
+              return false;
+            }
+          break;
+        case FAT_INTEGER_NULL:
+          switch (params->type)
+            {
+            case PT_NIL: case PT_INTEGER: case PT_ARGCOUNT: case PT_V:
+              break;
+            case PT_CHARACTER:
+              /* wrong param type */
+              *invalid_reason =
+                xasprintf (_("In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."), directives, orig_paramcount - paramcount + 1, "character", "integer");
+              return false;
+            }
+          break;
+        default:
+          abort ();
+        }
       if (params->type == PT_V)
-	{
-	  int position = params->value;
-	  if (position >= 0)
-	    add_req_type_constraint (listp, position, *t_types);
-	}
+        {
+          int position = params->value;
+          if (position >= 0)
+            add_req_type_constraint (listp, position, *t_types);
+        }
     }
 
   for (; paramcount > 0; params++, paramcount--)
     switch (params->type)
       {
       case PT_NIL:
-	break;
+        break;
       case PT_CHARACTER: case PT_INTEGER: case PT_ARGCOUNT:
-	/* too many params for directive */
-	*invalid_reason =
-	  xasprintf (ngettext ("In the directive number %u, too many parameters are given; expected at most %u parameter.",
-			       "In the directive number %u, too many parameters are given; expected at most %u parameters.",
-			       orig_t_count),
-		     directives, orig_t_count);
-	return false;
+        /* too many params for directive */
+        *invalid_reason =
+          xasprintf (ngettext ("In the directive number %u, too many parameters are given; expected at most %u parameter.",
+                               "In the directive number %u, too many parameters are given; expected at most %u parameters.",
+                               orig_t_count),
+                     directives, orig_t_count);
+        return false;
       case PT_V:
-	/* Force argument to be NIL.  */
-	{
-	  int position = params->value;
-	  if (position >= 0)
-	    {
-	      struct format_arg_list *empty_list = make_empty_list ();
-	      add_req_listtype_constraint (listp, position,
-					   FAT_LIST, empty_list);
-	      free_list (empty_list);
-	    }
-	}
-	break;
+        /* Force argument to be NIL.  */
+        {
+          int position = params->value;
+          if (position >= 0)
+            {
+              struct format_arg_list *empty_list = make_empty_list ();
+              add_req_listtype_constraint (listp, position,
+                                           FAT_LIST, empty_list);
+              free_list (empty_list);
+            }
+        }
+        break;
       }
 
   return true;
@@ -2441,10 +2441,10 @@ check_params (struct format_arg_list **listp,
    set to an error message explaining why.  */
 static bool
 parse_upto (const char **formatp,
-	    int *positionp, struct format_arg_list **listp,
-	    struct format_arg_list **escapep, int *separatorp,
-	    struct spec *spec, char terminator, bool separator,
-	    char *fdi, char **invalid_reason)
+            int *positionp, struct format_arg_list **listp,
+            struct format_arg_list **escapep, int *separatorp,
+            struct spec *spec, char terminator, bool separator,
+            char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
   const char *const format_start = format;
@@ -2455,859 +2455,859 @@ parse_upto (const char **formatp,
   for (; *format != '\0'; )
     if (*format++ == '~')
       {
-	bool colon_p = false;
-	bool atsign_p = false;
-	unsigned int paramcount = 0;
-	struct param *params = NULL;
+        bool colon_p = false;
+        bool atsign_p = false;
+        unsigned int paramcount = 0;
+        struct param *params = NULL;
 
-	FDI_SET (format - 1, FMTDIR_START);
+        FDI_SET (format - 1, FMTDIR_START);
 
-	/* Count number of directives.  */
-	spec->directives++;
+        /* Count number of directives.  */
+        spec->directives++;
 
-	/* Parse parameters.  */
-	for (;;)
-	  {
-	    enum param_type type = PT_NIL;
-	    int value = 0;
+        /* Parse parameters.  */
+        for (;;)
+          {
+            enum param_type type = PT_NIL;
+            int value = 0;
 
-	    if (c_isdigit (*format))
-	      {
-		type = PT_INTEGER;
-		do
-		  {
-		    value = 10 * value + (*format - '0');
-		    format++;
-		  }
-		while (c_isdigit (*format));
-	      }
-	    else if (*format == '+' || *format == '-')
-	      {
-		bool negative = (*format == '-');
-		type = PT_INTEGER;
-		format++;
-		if (!c_isdigit (*format))
-		  {
-		    if (*format == '\0')
-		      {
-			*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-			FDI_SET (format - 1, FMTDIR_ERROR);
-		      }
-		    else
-		      {
-			*invalid_reason =
-			  xasprintf (_("In the directive number %u, '%c' is not followed by a digit."), spec->directives, format[-1]);
-			FDI_SET (format, FMTDIR_ERROR);
-		      }
-		    return false;
-		  }
-		do
-		  {
-		    value = 10 * value + (*format - '0');
-		    format++;
-		  }
-		while (c_isdigit (*format));
-		if (negative)
-		  value = -value;
-	      }
-	    else if (*format == '\'')
-	      {
-		type = PT_CHARACTER;
-		format++;
-		if (*format == '\0')
-		  {
-		    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
-		format++;
-	      }
-	    else if (*format == 'V' || *format == 'v')
-	      {
-		type = PT_V;
-		format++;
-		value = position;
-		/* Consumes an argument.  */
-		if (position >= 0)
-		  position++;
-	      }
-	    else if (*format == '#')
-	      {
-		type = PT_ARGCOUNT;
-		format++;
-	      }
+            if (c_isdigit (*format))
+              {
+                type = PT_INTEGER;
+                do
+                  {
+                    value = 10 * value + (*format - '0');
+                    format++;
+                  }
+                while (c_isdigit (*format));
+              }
+            else if (*format == '+' || *format == '-')
+              {
+                bool negative = (*format == '-');
+                type = PT_INTEGER;
+                format++;
+                if (!c_isdigit (*format))
+                  {
+                    if (*format == '\0')
+                      {
+                        *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                        FDI_SET (format - 1, FMTDIR_ERROR);
+                      }
+                    else
+                      {
+                        *invalid_reason =
+                          xasprintf (_("In the directive number %u, '%c' is not followed by a digit."), spec->directives, format[-1]);
+                        FDI_SET (format, FMTDIR_ERROR);
+                      }
+                    return false;
+                  }
+                do
+                  {
+                    value = 10 * value + (*format - '0');
+                    format++;
+                  }
+                while (c_isdigit (*format));
+                if (negative)
+                  value = -value;
+              }
+            else if (*format == '\'')
+              {
+                type = PT_CHARACTER;
+                format++;
+                if (*format == '\0')
+                  {
+                    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
+                format++;
+              }
+            else if (*format == 'V' || *format == 'v')
+              {
+                type = PT_V;
+                format++;
+                value = position;
+                /* Consumes an argument.  */
+                if (position >= 0)
+                  position++;
+              }
+            else if (*format == '#')
+              {
+                type = PT_ARGCOUNT;
+                format++;
+              }
 
-	    params =
-	      (struct param *)
-	      xrealloc (params, (paramcount + 1) * sizeof (struct param));
-	    params[paramcount].type = type;
-	    params[paramcount].value = value;
-	    paramcount++;
+            params =
+              (struct param *)
+              xrealloc (params, (paramcount + 1) * sizeof (struct param));
+            params[paramcount].type = type;
+            params[paramcount].value = value;
+            paramcount++;
 
-	    if (*format == ',')
-	      format++;
-	    else
-	      break;
-	  }
+            if (*format == ',')
+              format++;
+            else
+              break;
+          }
 
-	/* Parse modifiers.  */
-	for (;;)
-	  {
-	    if (*format == ':')
-	      {
-		format++;
-		colon_p = true;
-	      }
-	    else if (*format == '@')
-	      {
-		format++;
-		atsign_p = true;
-	      }
-	    else
-	      break;
-	  }
+        /* Parse modifiers.  */
+        for (;;)
+          {
+            if (*format == ':')
+              {
+                format++;
+                colon_p = true;
+              }
+            else if (*format == '@')
+              {
+                format++;
+                atsign_p = true;
+              }
+            else
+              break;
+          }
 
-	/* Parse directive.  */
-	switch (*format++)
-	  {
-	  case 'A': case 'a': /* 22.3.4.1 FORMAT-ASCII */
-	  case 'S': case 's': /* 22.3.4.2 FORMAT-S-EXPRESSION */
-	    if (!check_params (&list, paramcount, params, 4, IIIC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_OBJECT);
-	    break;
+        /* Parse directive.  */
+        switch (*format++)
+          {
+          case 'A': case 'a': /* 22.3.4.1 FORMAT-ASCII */
+          case 'S': case 's': /* 22.3.4.2 FORMAT-S-EXPRESSION */
+            if (!check_params (&list, paramcount, params, 4, IIIC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_OBJECT);
+            break;
 
-	  case 'C': case 'c': /* FORMAT-CHARACTER */
-	    if (!check_params (&list, paramcount, params, 1, I,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (paramcount == 0
-		|| (paramcount == 1 && params[0].type == PT_NIL))
-	      if (position >= 0)
-		add_req_type_constraint (&list, position++, FAT_CHARACTER);
-	    break;
+          case 'C': case 'c': /* FORMAT-CHARACTER */
+            if (!check_params (&list, paramcount, params, 1, I,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (paramcount == 0
+                || (paramcount == 1 && params[0].type == PT_NIL))
+              if (position >= 0)
+                add_req_type_constraint (&list, position++, FAT_CHARACTER);
+            break;
 
-	  case 'D': case 'd': /* 22.3.2.2 FORMAT-DECIMAL */
-	  case 'B': case 'b': /* 22.3.2.3 FORMAT-BINARY */
-	  case 'O': case 'o': /* 22.3.2.4 FORMAT-OCTAL */
-	  case 'X': case 'x': /* 22.3.2.5 FORMAT-HEXADECIMAL */
-	    if (!check_params (&list, paramcount, params, 4, ICCI,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_INTEGER);
-	    break;
+          case 'D': case 'd': /* 22.3.2.2 FORMAT-DECIMAL */
+          case 'B': case 'b': /* 22.3.2.3 FORMAT-BINARY */
+          case 'O': case 'o': /* 22.3.2.4 FORMAT-OCTAL */
+          case 'X': case 'x': /* 22.3.2.5 FORMAT-HEXADECIMAL */
+            if (!check_params (&list, paramcount, params, 4, ICCI,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_INTEGER);
+            break;
 
-	  case 'R': case 'r': /* 22.3.2.1 FORMAT-RADIX */
-	    if (!check_params (&list, paramcount, params, 5, IICCI,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_INTEGER);
-	    break;
+          case 'R': case 'r': /* 22.3.2.1 FORMAT-RADIX */
+            if (!check_params (&list, paramcount, params, 5, IICCI,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_INTEGER);
+            break;
 
-	  case 'P': case 'p': /* 22.3.8.3 FORMAT-PLURAL */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (colon_p)
-	      {
-		/* Go back by 1 argument.  */
-		if (position > 0)
-		  position--;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_OBJECT);
-	    break;
+          case 'P': case 'p': /* 22.3.8.3 FORMAT-PLURAL */
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (colon_p)
+              {
+                /* Go back by 1 argument.  */
+                if (position > 0)
+                  position--;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_OBJECT);
+            break;
 
-	  case 'F': case 'f': /* 22.3.3.1 FORMAT-FIXED-FLOAT */
-	    if (!check_params (&list, paramcount, params, 5, IIICC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_REAL);
-	    break;
+          case 'F': case 'f': /* 22.3.3.1 FORMAT-FIXED-FLOAT */
+            if (!check_params (&list, paramcount, params, 5, IIICC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_REAL);
+            break;
 
-	  case 'E': case 'e': /* 22.3.3.2 FORMAT-EXPONENTIAL-FLOAT */
-	  case 'G': case 'g': /* 22.3.3.3 FORMAT-GENERAL-FLOAT */
-	    if (!check_params (&list, paramcount, params, 7, IIIICCC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_REAL);
-	    break;
+          case 'E': case 'e': /* 22.3.3.2 FORMAT-EXPONENTIAL-FLOAT */
+          case 'G': case 'g': /* 22.3.3.3 FORMAT-GENERAL-FLOAT */
+            if (!check_params (&list, paramcount, params, 7, IIIICCC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_REAL);
+            break;
 
-	  case '$': /* 22.3.3.4 FORMAT-DOLLARS-FLOAT */
-	    if (!check_params (&list, paramcount, params, 4, IIIC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_REAL);
-	    break;
+          case '$': /* 22.3.3.4 FORMAT-DOLLARS-FLOAT */
+            if (!check_params (&list, paramcount, params, 4, IIIC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_REAL);
+            break;
 
-	  case 'I': case 'i': /* FORMAT-FIXED-FLOAT-COMPLEX */
-	    if (!check_params (&list, paramcount, params, 5, IIICC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_COMPLEX);
-	    break;
+          case 'I': case 'i': /* FORMAT-FIXED-FLOAT-COMPLEX */
+            if (!check_params (&list, paramcount, params, 5, IIICC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_COMPLEX);
+            break;
 
-	  case 'Y': case 'y': /* FORMAT-PRETTY */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_OBJECT);
-	    break;
+          case 'Y': case 'y': /* FORMAT-PRETTY */
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_OBJECT);
+            break;
 
-	  case '%': /* 22.3.1.2 FORMAT-TERPRI */
-	  case '&': /* 22.3.1.3 FORMAT-FRESH-LINE */
-	  case '_': /* FORMAT-SPACE */
-	  case '/': /* FORMAT-TAB */
-	  case '|': /* 22.3.1.4 FORMAT-PAGE */
-	  case '~': /* 22.3.1.5 FORMAT-TILDE */
-	    if (!check_params (&list, paramcount, params, 1, I,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    break;
+          case '%': /* 22.3.1.2 FORMAT-TERPRI */
+          case '&': /* 22.3.1.3 FORMAT-FRESH-LINE */
+          case '_': /* FORMAT-SPACE */
+          case '/': /* FORMAT-TAB */
+          case '|': /* 22.3.1.4 FORMAT-PAGE */
+          case '~': /* 22.3.1.5 FORMAT-TILDE */
+            if (!check_params (&list, paramcount, params, 1, I,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            break;
 
-	  case '!': /* FORMAT-FORCE-OUTPUT */
-	  case '\n': /* 22.3.9.3 #\Newline */
-	  case 'Q': case 'q': /* FORMAT-IMPLEMENTATION */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    break;
+          case '!': /* FORMAT-FORCE-OUTPUT */
+          case '\n': /* 22.3.9.3 #\Newline */
+          case 'Q': case 'q': /* FORMAT-IMPLEMENTATION */
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            break;
 
-	  case 'T': case 't': /* FORMAT-TABULATE */
-	    if (!check_params (&list, paramcount, params, 3, IIC,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    break;
+          case 'T': case 't': /* FORMAT-TABULATE */
+            if (!check_params (&list, paramcount, params, 3, IIC,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            break;
 
-	  case '*': /* 22.3.7.1 FORMAT-GOTO */
-	    if (!check_params (&list, paramcount, params, 1, I,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    {
-	      int n; /* value of first parameter */
-	      if (paramcount == 0
-		  || (paramcount >= 1 && params[0].type == PT_NIL))
-		n = (atsign_p ? 0 : 1);
-	      else if (paramcount >= 1 && params[0].type == PT_INTEGER)
-		n = params[0].value;
-	      else
-		{
-		  /* Unknown argument, leads to an unknown position.  */
-		  position = -1;
-		  break;
-		}
-	      if (n < 0)
-		{
-		  /* invalid argument */
-		  *invalid_reason =
-		    xasprintf (_("In the directive number %u, the argument %d is negative."), spec->directives, n);
-		  FDI_SET (format - 1, FMTDIR_ERROR);
-		  return false;
-		}
-	      if (atsign_p)
-		{
-		  /* Absolute goto.  */
-		  position = n;
-		}
-	      else if (colon_p)
-		{
-		  /* Backward goto.  */
-		  if (n > 0)
-		    {
-		      if (position >= 0)
-			{
-			  if (position >= n)
-			    position -= n;
-			  else
-			    position = 0;
-			}
-		      else
-			position = -1;
-		   }
-		}
-	      else
-		{
-		  /* Forward goto.  */
-		  if (position >= 0)
-		    position += n;
-		}
-	    }
-	    break;
+          case '*': /* 22.3.7.1 FORMAT-GOTO */
+            if (!check_params (&list, paramcount, params, 1, I,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            {
+              int n; /* value of first parameter */
+              if (paramcount == 0
+                  || (paramcount >= 1 && params[0].type == PT_NIL))
+                n = (atsign_p ? 0 : 1);
+              else if (paramcount >= 1 && params[0].type == PT_INTEGER)
+                n = params[0].value;
+              else
+                {
+                  /* Unknown argument, leads to an unknown position.  */
+                  position = -1;
+                  break;
+                }
+              if (n < 0)
+                {
+                  /* invalid argument */
+                  *invalid_reason =
+                    xasprintf (_("In the directive number %u, the argument %d is negative."), spec->directives, n);
+                  FDI_SET (format - 1, FMTDIR_ERROR);
+                  return false;
+                }
+              if (atsign_p)
+                {
+                  /* Absolute goto.  */
+                  position = n;
+                }
+              else if (colon_p)
+                {
+                  /* Backward goto.  */
+                  if (n > 0)
+                    {
+                      if (position >= 0)
+                        {
+                          if (position >= n)
+                            position -= n;
+                          else
+                            position = 0;
+                        }
+                      else
+                        position = -1;
+                   }
+                }
+              else
+                {
+                  /* Forward goto.  */
+                  if (position >= 0)
+                    position += n;
+                }
+            }
+            break;
 
-	  case '?': case 'K': case 'k': /* 22.3.7.6 FORMAT-INDIRECTION */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0)
-	      add_req_type_constraint (&list, position++, FAT_FORMATSTRING);
-	    if (atsign_p)
-	      position = -1;
-	    else
-	      if (position >= 0)
-		{
-		  struct format_arg_list *sublist = make_unconstrained_list ();
-		  add_req_listtype_constraint (&list, position++,
-					       FAT_LIST, sublist);
-		  free_list (sublist);
-		}
-	    break;
+          case '?': case 'K': case 'k': /* 22.3.7.6 FORMAT-INDIRECTION */
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0)
+              add_req_type_constraint (&list, position++, FAT_FORMATSTRING);
+            if (atsign_p)
+              position = -1;
+            else
+              if (position >= 0)
+                {
+                  struct format_arg_list *sublist = make_unconstrained_list ();
+                  add_req_listtype_constraint (&list, position++,
+                                               FAT_LIST, sublist);
+                  free_list (sublist);
+                }
+            break;
 
-	  case '(': /* 22.3.8.1 FORMAT-CASE-CONVERSION */
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    {
-	      if (!parse_upto (formatp, positionp, listp, escapep,
-			       NULL, spec, ')', false,
-			       NULL, invalid_reason))
-		{
-		  FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			   FMTDIR_ERROR);
-		  return false;
-		}
-	    }
-	    format = *formatp;
-	    position = *positionp;
-	    list = *listp;
-	    escape = *escapep;
-	    break;
+          case '(': /* 22.3.8.1 FORMAT-CASE-CONVERSION */
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            *formatp = format;
+            *positionp = position;
+            *listp = list;
+            *escapep = escape;
+            {
+              if (!parse_upto (formatp, positionp, listp, escapep,
+                               NULL, spec, ')', false,
+                               NULL, invalid_reason))
+                {
+                  FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                           FMTDIR_ERROR);
+                  return false;
+                }
+            }
+            format = *formatp;
+            position = *positionp;
+            list = *listp;
+            escape = *escapep;
+            break;
 
-	  case ')': /* 22.3.8.2 FORMAT-CASE-CONVERSION-END */
-	    if (terminator != ')')
-	      {
-		*invalid_reason =
-		  xasprintf (_("Found '~%c' without matching '~%c'."), ')', '(');
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    return true;
+          case ')': /* 22.3.8.2 FORMAT-CASE-CONVERSION-END */
+            if (terminator != ')')
+              {
+                *invalid_reason =
+                  xasprintf (_("Found '~%c' without matching '~%c'."), ')', '(');
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            *formatp = format;
+            *positionp = position;
+            *listp = list;
+            *escapep = escape;
+            return true;
 
-	  case '[': /* 22.3.7.2 FORMAT-CONDITIONAL */
-	    if (atsign_p && colon_p)
-	      {
-		*invalid_reason =
-		  xasprintf (_("In the directive number %u, both the @ and the : modifiers are given."), spec->directives);
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    else if (atsign_p)
-	      {
-		struct format_arg_list *nil_list;
-		struct format_arg_list *union_list;
+          case '[': /* 22.3.7.2 FORMAT-CONDITIONAL */
+            if (atsign_p && colon_p)
+              {
+                *invalid_reason =
+                  xasprintf (_("In the directive number %u, both the @ and the : modifiers are given."), spec->directives);
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            else if (atsign_p)
+              {
+                struct format_arg_list *nil_list;
+                struct format_arg_list *union_list;
 
-		if (!check_params (&list, paramcount, params, 0, NULL,
-				   spec->directives, invalid_reason))
-		  {
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
+                if (!check_params (&list, paramcount, params, 0, NULL,
+                                   spec->directives, invalid_reason))
+                  {
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
 
-		*formatp = format;
-		*escapep = escape;
+                *formatp = format;
+                *escapep = escape;
 
-		/* First alternative: argument is NIL.  */
-		nil_list = (list != NULL ? copy_list (list) : NULL);
-		if (position >= 0)
-		  {
-		    struct format_arg_list *empty_list = make_empty_list ();
-		    add_req_listtype_constraint (&nil_list, position,
-						 FAT_LIST, empty_list);
-		    free_list (empty_list);
-		  }
+                /* First alternative: argument is NIL.  */
+                nil_list = (list != NULL ? copy_list (list) : NULL);
+                if (position >= 0)
+                  {
+                    struct format_arg_list *empty_list = make_empty_list ();
+                    add_req_listtype_constraint (&nil_list, position,
+                                                 FAT_LIST, empty_list);
+                    free_list (empty_list);
+                  }
 
-		/* Second alternative: use sub-format.  */
-		{
-		  int sub_position = position;
-		  struct format_arg_list *sub_list =
-		    (list != NULL ? copy_list (list) : NULL);
-		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, ']', false,
-				   NULL, invalid_reason))
-		    {
-		      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			       FMTDIR_ERROR);
-		      return false;
-		    }
-		  if (sub_list != NULL)
-		    {
-		      if (position >= 0)
-			{
-			  if (sub_position == position + 1)
-			    /* new position is branch independent */
-			    position = position + 1;
-			  else
-			    /* new position is branch dependent */
-			    position = -1;
-			}
-		    }
-		  else
-		    {
-		      if (position >= 0)
-			position = position + 1;
-		    }
-		  union_list = union (nil_list, sub_list);
-		}
+                /* Second alternative: use sub-format.  */
+                {
+                  int sub_position = position;
+                  struct format_arg_list *sub_list =
+                    (list != NULL ? copy_list (list) : NULL);
+                  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
+                                   NULL, spec, ']', false,
+                                   NULL, invalid_reason))
+                    {
+                      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                               FMTDIR_ERROR);
+                      return false;
+                    }
+                  if (sub_list != NULL)
+                    {
+                      if (position >= 0)
+                        {
+                          if (sub_position == position + 1)
+                            /* new position is branch independent */
+                            position = position + 1;
+                          else
+                            /* new position is branch dependent */
+                            position = -1;
+                        }
+                    }
+                  else
+                    {
+                      if (position >= 0)
+                        position = position + 1;
+                    }
+                  union_list = union (nil_list, sub_list);
+                }
 
-		format = *formatp;
-		escape = *escapep;
+                format = *formatp;
+                escape = *escapep;
 
-		if (list != NULL)
-		  free_list (list);
-		list = union_list;
-	      }
-	    else if (colon_p)
-	      {
-		int union_position;
-		struct format_arg_list *union_list;
+                if (list != NULL)
+                  free_list (list);
+                list = union_list;
+              }
+            else if (colon_p)
+              {
+                int union_position;
+                struct format_arg_list *union_list;
 
-		if (!check_params (&list, paramcount, params, 0, NULL,
-				   spec->directives, invalid_reason))
-		  {
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
+                if (!check_params (&list, paramcount, params, 0, NULL,
+                                   spec->directives, invalid_reason))
+                  {
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
 
-		if (position >= 0)
-		  add_req_type_constraint (&list, position++, FAT_OBJECT);
+                if (position >= 0)
+                  add_req_type_constraint (&list, position++, FAT_OBJECT);
 
-		*formatp = format;
-		*escapep = escape;
-		union_position = -2;
-		union_list = NULL;
+                *formatp = format;
+                *escapep = escape;
+                union_position = -2;
+                union_list = NULL;
 
-		/* First alternative.  */
-		{
-		  int sub_position = position;
-		  struct format_arg_list *sub_list =
-		    (list != NULL ? copy_list (list) : NULL);
-		  int sub_separator = 0;
-		  if (position >= 0)
-		    {
-		      struct format_arg_list *empty_list = make_empty_list ();
-		      add_req_listtype_constraint (&sub_list, position - 1,
-						   FAT_LIST, empty_list);
-		      free_list (empty_list);
-		    }
-		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   &sub_separator, spec, ']', true,
-				   NULL, invalid_reason))
-		    {
-		      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			       FMTDIR_ERROR);
-		      return false;
-		    }
-		  if (!sub_separator)
-		    {
-		      *invalid_reason =
-			xasprintf (_("In the directive number %u, '~:[' is not followed by two clauses, separated by '~;'."), spec->directives);
-		      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			       FMTDIR_ERROR);
-		      return false;
-		    }
-		  if (sub_list != NULL)
-		    union_position = sub_position;
-		  union_list = union (union_list, sub_list);
-		}
+                /* First alternative.  */
+                {
+                  int sub_position = position;
+                  struct format_arg_list *sub_list =
+                    (list != NULL ? copy_list (list) : NULL);
+                  int sub_separator = 0;
+                  if (position >= 0)
+                    {
+                      struct format_arg_list *empty_list = make_empty_list ();
+                      add_req_listtype_constraint (&sub_list, position - 1,
+                                                   FAT_LIST, empty_list);
+                      free_list (empty_list);
+                    }
+                  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
+                                   &sub_separator, spec, ']', true,
+                                   NULL, invalid_reason))
+                    {
+                      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                               FMTDIR_ERROR);
+                      return false;
+                    }
+                  if (!sub_separator)
+                    {
+                      *invalid_reason =
+                        xasprintf (_("In the directive number %u, '~:[' is not followed by two clauses, separated by '~;'."), spec->directives);
+                      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                               FMTDIR_ERROR);
+                      return false;
+                    }
+                  if (sub_list != NULL)
+                    union_position = sub_position;
+                  union_list = union (union_list, sub_list);
+                }
 
-		/* Second alternative.  */
-		{
-		  int sub_position = position;
-		  struct format_arg_list *sub_list =
-		    (list != NULL ? copy_list (list) : NULL);
-		  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				   NULL, spec, ']', false,
-				   NULL, invalid_reason))
-		    {
-		      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			       FMTDIR_ERROR);
-		      return false;
-		    }
-		  if (sub_list != NULL)
-		    {
-		      if (union_position == -2)
-			union_position = sub_position;
-		      else if (sub_position < 0
-			       || sub_position != union_position)
-			union_position = -1;
-		    }
-		  union_list = union (union_list, sub_list);
-		}
+                /* Second alternative.  */
+                {
+                  int sub_position = position;
+                  struct format_arg_list *sub_list =
+                    (list != NULL ? copy_list (list) : NULL);
+                  if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
+                                   NULL, spec, ']', false,
+                                   NULL, invalid_reason))
+                    {
+                      FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                               FMTDIR_ERROR);
+                      return false;
+                    }
+                  if (sub_list != NULL)
+                    {
+                      if (union_position == -2)
+                        union_position = sub_position;
+                      else if (sub_position < 0
+                               || sub_position != union_position)
+                        union_position = -1;
+                    }
+                  union_list = union (union_list, sub_list);
+                }
 
-		format = *formatp;
-		escape = *escapep;
+                format = *formatp;
+                escape = *escapep;
 
-		if (union_position != -2)
-		  position = union_position;
-		if (list != NULL)
-		  free_list (list);
-		list = union_list;
-	      }
-	    else
-	      {
-		int arg_position;
-		int union_position;
-		struct format_arg_list *union_list;
-		bool last_alternative;
+                if (union_position != -2)
+                  position = union_position;
+                if (list != NULL)
+                  free_list (list);
+                list = union_list;
+              }
+            else
+              {
+                int arg_position;
+                int union_position;
+                struct format_arg_list *union_list;
+                bool last_alternative;
 
-		if (!check_params (&list, paramcount, params, 1, I,
-				   spec->directives, invalid_reason))
-		  {
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
+                if (!check_params (&list, paramcount, params, 1, I,
+                                   spec->directives, invalid_reason))
+                  {
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
 
-		/* If there was no first parameter, an argument is consumed.  */
-		arg_position = -1;
-		if (!(paramcount >= 1 && params[0].type != PT_NIL))
-		  if (position >= 0)
-		    {
-		      arg_position = position;
-		      add_req_type_constraint (&list, position++, FAT_OBJECT);
-		    }
+                /* If there was no first parameter, an argument is consumed.  */
+                arg_position = -1;
+                if (!(paramcount >= 1 && params[0].type != PT_NIL))
+                  if (position >= 0)
+                    {
+                      arg_position = position;
+                      add_req_type_constraint (&list, position++, FAT_OBJECT);
+                    }
 
-		*formatp = format;
-		*escapep = escape;
+                *formatp = format;
+                *escapep = escape;
 
-		union_position = -2;
-		union_list = NULL;
-		last_alternative = false;
-		for (;;)
-		  {
-		    /* Next alternative.  */
-		    int sub_position = position;
-		    struct format_arg_list *sub_list =
-		      (list != NULL ? copy_list (list) : NULL);
-		    int sub_separator = 0;
-		    if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
-				     &sub_separator, spec, ']', !last_alternative,
-				     NULL, invalid_reason))
-		      {
-			FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-				 FMTDIR_ERROR);
-			return false;
-		      }
-		    /* If this alternative is chosen, the argument arg_position
-		       is an integer, namely the index of this alternative.  */
-		    if (!last_alternative && arg_position >= 0)
-		      add_req_type_constraint (&sub_list, arg_position,
-					       FAT_INTEGER);
-		    if (sub_list != NULL)
-		      {
-			if (union_position == -2)
-			  union_position = sub_position;
-			else if (sub_position < 0
-				 || sub_position != union_position)
-			  union_position = -1;
-		      }
-		    union_list = union (union_list, sub_list);
-		    if (sub_separator == 2)
-		      last_alternative = true;
-		    if (!sub_separator)
-		      break;
-		  }
-		if (!last_alternative)
-		  {
-		    /* An implicit default alternative.  */
-		    if (union_position == -2)
-		      union_position = position;
-		    else if (position < 0 || position != union_position)
-		      union_position = -1;
-		    if (list != NULL)
-		      union_list = union (union_list, copy_list (list));
-		  }
+                union_position = -2;
+                union_list = NULL;
+                last_alternative = false;
+                for (;;)
+                  {
+                    /* Next alternative.  */
+                    int sub_position = position;
+                    struct format_arg_list *sub_list =
+                      (list != NULL ? copy_list (list) : NULL);
+                    int sub_separator = 0;
+                    if (!parse_upto (formatp, &sub_position, &sub_list, escapep,
+                                     &sub_separator, spec, ']', !last_alternative,
+                                     NULL, invalid_reason))
+                      {
+                        FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                                 FMTDIR_ERROR);
+                        return false;
+                      }
+                    /* If this alternative is chosen, the argument arg_position
+                       is an integer, namely the index of this alternative.  */
+                    if (!last_alternative && arg_position >= 0)
+                      add_req_type_constraint (&sub_list, arg_position,
+                                               FAT_INTEGER);
+                    if (sub_list != NULL)
+                      {
+                        if (union_position == -2)
+                          union_position = sub_position;
+                        else if (sub_position < 0
+                                 || sub_position != union_position)
+                          union_position = -1;
+                      }
+                    union_list = union (union_list, sub_list);
+                    if (sub_separator == 2)
+                      last_alternative = true;
+                    if (!sub_separator)
+                      break;
+                  }
+                if (!last_alternative)
+                  {
+                    /* An implicit default alternative.  */
+                    if (union_position == -2)
+                      union_position = position;
+                    else if (position < 0 || position != union_position)
+                      union_position = -1;
+                    if (list != NULL)
+                      union_list = union (union_list, copy_list (list));
+                  }
 
-		format = *formatp;
-		escape = *escapep;
+                format = *formatp;
+                escape = *escapep;
 
-		if (union_position != -2)
-		  position = union_position;
-		if (list != NULL)
-		  free_list (list);
-		list = union_list;
-	      }
-	    break;
+                if (union_position != -2)
+                  position = union_position;
+                if (list != NULL)
+                  free_list (list);
+                list = union_list;
+              }
+            break;
 
-	  case ']': /* 22.3.7.3 FORMAT-CONDITIONAL-END */
-	    if (terminator != ']')
-	      {
-		*invalid_reason =
-		  xasprintf (_("Found '~%c' without matching '~%c'."), ']', '[');
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    return true;
+          case ']': /* 22.3.7.3 FORMAT-CONDITIONAL-END */
+            if (terminator != ']')
+              {
+                *invalid_reason =
+                  xasprintf (_("Found '~%c' without matching '~%c'."), ']', '[');
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            *formatp = format;
+            *positionp = position;
+            *listp = list;
+            *escapep = escape;
+            return true;
 
-	  case '{': /* 22.3.7.4 FORMAT-ITERATION */
-	    if (!check_params (&list, paramcount, params, 1, I,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    *formatp = format;
-	    {
-	      int sub_position = 0;
-	      struct format_arg_list *sub_list = make_unconstrained_list ();
-	      struct format_arg_list *sub_escape = NULL;
-	      struct spec sub_spec;
-	      sub_spec.directives = 0;
-	      sub_spec.list = sub_list;
-	      if (!parse_upto (formatp, &sub_position, &sub_list, &sub_escape,
-			       NULL, &sub_spec, '}', false,
-			       NULL, invalid_reason))
-		{
-		  FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
-			   FMTDIR_ERROR);
-		  return false;
-		}
-	      spec->directives += sub_spec.directives;
+          case '{': /* 22.3.7.4 FORMAT-ITERATION */
+            if (!check_params (&list, paramcount, params, 1, I,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            *formatp = format;
+            {
+              int sub_position = 0;
+              struct format_arg_list *sub_list = make_unconstrained_list ();
+              struct format_arg_list *sub_escape = NULL;
+              struct spec sub_spec;
+              sub_spec.directives = 0;
+              sub_spec.list = sub_list;
+              if (!parse_upto (formatp, &sub_position, &sub_list, &sub_escape,
+                               NULL, &sub_spec, '}', false,
+                               NULL, invalid_reason))
+                {
+                  FDI_SET (**formatp == '\0' ? *formatp - 1 : *formatp,
+                           FMTDIR_ERROR);
+                  return false;
+                }
+              spec->directives += sub_spec.directives;
 
-	      /* If the sub-formatstring is empty, except for the terminating
-		 ~} directive, a formatstring argument is consumed.  */
-	      if (*format == '~' && sub_spec.directives == 1)
-		if (position >= 0)
-		  add_req_type_constraint (&list, position++, FAT_FORMATSTRING);
+              /* If the sub-formatstring is empty, except for the terminating
+                 ~} directive, a formatstring argument is consumed.  */
+              if (*format == '~' && sub_spec.directives == 1)
+                if (position >= 0)
+                  add_req_type_constraint (&list, position++, FAT_FORMATSTRING);
 
-	      if (colon_p)
-		{
-		  /* Each iteration uses a new sublist.  */
-		  struct format_arg_list *listlist;
+              if (colon_p)
+                {
+                  /* Each iteration uses a new sublist.  */
+                  struct format_arg_list *listlist;
 
-		  /* ~{ catches ~^.  */
-		  sub_list = union (sub_list, sub_escape);
+                  /* ~{ catches ~^.  */
+                  sub_list = union (sub_list, sub_escape);
 
-		  listlist = make_repeated_list_of_lists (sub_list);
+                  listlist = make_repeated_list_of_lists (sub_list);
 
-		  sub_list = listlist;
-		}
-	      else
-		{
-		  /* Each iteration's arguments are all concatenated in a
-		     single list.  */
-		  struct format_arg_list *looplist;
+                  sub_list = listlist;
+                }
+              else
+                {
+                  /* Each iteration's arguments are all concatenated in a
+                     single list.  */
+                  struct format_arg_list *looplist;
 
-		  /* FIXME: This is far from correct.  Test cases:
-		     abc~{~^~}
-		     abc~{~S~^~S~}
-		     abc~{~D~^~C~}
-		     abc~{~D~^~D~}
-		     abc~{~D~^~S~}
-		     abc~{~D~^~C~}~:*~{~S~^~D~}
-		   */
+                  /* FIXME: This is far from correct.  Test cases:
+                     abc~{~^~}
+                     abc~{~S~^~S~}
+                     abc~{~D~^~C~}
+                     abc~{~D~^~D~}
+                     abc~{~D~^~S~}
+                     abc~{~D~^~C~}~:*~{~S~^~D~}
+                   */
 
-		  /* ~{ catches ~^.  */
-		  sub_list = union (sub_list, sub_escape);
+                  /* ~{ catches ~^.  */
+                  sub_list = union (sub_list, sub_escape);
 
-		  if (sub_list == NULL)
-		    looplist = make_empty_list ();
-		  else
-		    if (sub_position < 0 || sub_position == 0)
-		      /* Too hard to track the possible argument types
-			 when the iteration is performed 2 times or more.
-			 So be satisfied with the constraints of executing
-			 the iteration 1 or 0 times.  */
-		      looplist = make_union_with_empty_list (sub_list);
-		    else
-		      looplist = make_repeated_list (sub_list, sub_position);
+                  if (sub_list == NULL)
+                    looplist = make_empty_list ();
+                  else
+                    if (sub_position < 0 || sub_position == 0)
+                      /* Too hard to track the possible argument types
+                         when the iteration is performed 2 times or more.
+                         So be satisfied with the constraints of executing
+                         the iteration 1 or 0 times.  */
+                      looplist = make_union_with_empty_list (sub_list);
+                    else
+                      looplist = make_repeated_list (sub_list, sub_position);
 
-		  sub_list = looplist;
-		}
+                  sub_list = looplist;
+                }
 
-	      if (atsign_p)
-		{
-		  /* All remaining arguments are used.  */
-		  if (list != NULL && position >= 0)
-		    {
-		      shift_list (sub_list, position);
-		      list = make_intersected_list (list, sub_list);
-		    }
-		  position = -1;
-		}
-	      else
-		{
-		  /* The argument is a list.  */
-		  if (position >= 0)
-		    add_req_listtype_constraint (&list, position++,
-						 FAT_LIST, sub_list);
-		}
-	    }
-	    format = *formatp;
-	    break;
+              if (atsign_p)
+                {
+                  /* All remaining arguments are used.  */
+                  if (list != NULL && position >= 0)
+                    {
+                      shift_list (sub_list, position);
+                      list = make_intersected_list (list, sub_list);
+                    }
+                  position = -1;
+                }
+              else
+                {
+                  /* The argument is a list.  */
+                  if (position >= 0)
+                    add_req_listtype_constraint (&list, position++,
+                                                 FAT_LIST, sub_list);
+                }
+            }
+            format = *formatp;
+            break;
 
-	  case '}': /* 22.3.7.5 FORMAT-ITERATION-END */
-	    if (terminator != '}')
-	      {
-		*invalid_reason =
-		  xasprintf (_("Found '~%c' without matching '~%c'."), '}', '{');
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (!check_params (&list, paramcount, params, 0, NULL,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    return true;
+          case '}': /* 22.3.7.5 FORMAT-ITERATION-END */
+            if (terminator != '}')
+              {
+                *invalid_reason =
+                  xasprintf (_("Found '~%c' without matching '~%c'."), '}', '{');
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (!check_params (&list, paramcount, params, 0, NULL,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            *formatp = format;
+            *positionp = position;
+            *listp = list;
+            *escapep = escape;
+            return true;
 
-	  case '^': /* 22.3.9.2 FORMAT-UP-AND-OUT */
-	    if (!check_params (&list, paramcount, params, 3, THREE,
-			       spec->directives, invalid_reason))
-	      {
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (position >= 0 && list != NULL && is_required (list, position))
-	      /* This ~^ can never be executed.  Ignore it.  */
-	      break;
-	    if (list != NULL)
-	      {
-		struct format_arg_list *this_escape = copy_list (list);
-		if (position >= 0)
-		  this_escape = add_end_constraint (this_escape, position);
-		escape = union (escape, this_escape);
-	      }
-	    if (position >= 0)
-	      list = add_required_constraint (list, position);
-	    break;
+          case '^': /* 22.3.9.2 FORMAT-UP-AND-OUT */
+            if (!check_params (&list, paramcount, params, 3, THREE,
+                               spec->directives, invalid_reason))
+              {
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (position >= 0 && list != NULL && is_required (list, position))
+              /* This ~^ can never be executed.  Ignore it.  */
+              break;
+            if (list != NULL)
+              {
+                struct format_arg_list *this_escape = copy_list (list);
+                if (position >= 0)
+                  this_escape = add_end_constraint (this_escape, position);
+                escape = union (escape, this_escape);
+              }
+            if (position >= 0)
+              list = add_required_constraint (list, position);
+            break;
 
-	  case ';': /* 22.3.9.1 FORMAT-SEPARATOR */
-	    if (!separator)
-	      {
-		*invalid_reason =
-		  xasprintf (_("In the directive number %u, '~;' is used in an invalid position."), spec->directives);
-		FDI_SET (format - 1, FMTDIR_ERROR);
-		return false;
-	      }
-	    if (terminator == '>')
-	      {
-		if (!check_params (&list, paramcount, params, 1, I,
-				   spec->directives, invalid_reason))
-		  {
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
-	      }
-	    else
-	      {
-		if (!check_params (&list, paramcount, params, 0, NULL,
-				   spec->directives, invalid_reason))
-		  {
-		    FDI_SET (format - 1, FMTDIR_ERROR);
-		    return false;
-		  }
-	      }
-	    *formatp = format;
-	    *positionp = position;
-	    *listp = list;
-	    *escapep = escape;
-	    *separatorp = (colon_p ? 2 : 1);
-	    return true;
+          case ';': /* 22.3.9.1 FORMAT-SEPARATOR */
+            if (!separator)
+              {
+                *invalid_reason =
+                  xasprintf (_("In the directive number %u, '~;' is used in an invalid position."), spec->directives);
+                FDI_SET (format - 1, FMTDIR_ERROR);
+                return false;
+              }
+            if (terminator == '>')
+              {
+                if (!check_params (&list, paramcount, params, 1, I,
+                                   spec->directives, invalid_reason))
+                  {
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
+              }
+            else
+              {
+                if (!check_params (&list, paramcount, params, 0, NULL,
+                                   spec->directives, invalid_reason))
+                  {
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                    return false;
+                  }
+              }
+            *formatp = format;
+            *positionp = position;
+            *listp = list;
+            *escapep = escape;
+            *separatorp = (colon_p ? 2 : 1);
+            return true;
 
-	  default:
-	    --format;
-	    if (*format == '\0')
-	      {
-		*invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-		FDI_SET (format - 1, FMTDIR_ERROR);
-	      }
-	    else
-	      {
-		*invalid_reason =
-		  INVALID_CONVERSION_SPECIFIER (spec->directives, *format);
-		FDI_SET (format, FMTDIR_ERROR);
-	      }
-	    return false;
-	  }
+          default:
+            --format;
+            if (*format == '\0')
+              {
+                *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                FDI_SET (format - 1, FMTDIR_ERROR);
+              }
+            else
+              {
+                *invalid_reason =
+                  INVALID_CONVERSION_SPECIFIER (spec->directives, *format);
+                FDI_SET (format, FMTDIR_ERROR);
+              }
+            return false;
+          }
 
-	FDI_SET (format - 1, FMTDIR_END);
+        FDI_SET (format - 1, FMTDIR_END);
 
-	free (params);
+        free (params);
       }
 
   *formatp = format;
@@ -3317,7 +3317,7 @@ parse_upto (const char **formatp,
   if (terminator != '\0')
     {
       *invalid_reason =
-	xasprintf (_("Found '~%c' without matching '~%c'."), terminator - 1, terminator);
+        xasprintf (_("Found '~%c' without matching '~%c'."), terminator - 1, terminator);
       return false;
     }
   return true;
@@ -3328,7 +3328,7 @@ parse_upto (const char **formatp,
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
-	      char **invalid_reason)
+              char **invalid_reason)
 {
   struct spec spec;
   struct spec *result;
@@ -3340,8 +3340,8 @@ format_parse (const char *format, bool translated, char *fdi,
   escape = NULL;
 
   if (!parse_upto (&format, &position, &spec.list, &escape,
-		   NULL, &spec, '\0', false,
-		   fdi, invalid_reason))
+                   NULL, &spec, '\0', false,
+                   fdi, invalid_reason))
     /* Invalid format string.  */
     return NULL;
 
@@ -3352,7 +3352,7 @@ format_parse (const char *format, bool translated, char *fdi,
     {
       /* Contradictory argument type information.  */
       *invalid_reason =
-	xstrdup (_("The string refers to some argument in incompatible ways."));
+        xstrdup (_("The string refers to some argument in incompatible ways."));
       return NULL;
     }
 
@@ -3382,8 +3382,8 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-	      formatstring_error_logger_t error_logger,
-	      const char *pretty_msgid, const char *pretty_msgstr)
+              formatstring_error_logger_t error_logger,
+              const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
@@ -3392,28 +3392,28 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   if (equality)
     {
       if (!equal_list (spec1->list, spec2->list))
-	{
-	  if (error_logger)
-	    error_logger (_("format specifications in '%s' and '%s' are not equivalent"),
-			  pretty_msgid, pretty_msgstr);
-	  err = true;
-	}
+        {
+          if (error_logger)
+            error_logger (_("format specifications in '%s' and '%s' are not equivalent"),
+                          pretty_msgid, pretty_msgstr);
+          err = true;
+        }
     }
   else
     {
       struct format_arg_list *intersection =
-	make_intersected_list (copy_list (spec1->list),
-			       copy_list (spec2->list));
+        make_intersected_list (copy_list (spec1->list),
+                               copy_list (spec2->list));
 
       if (!(intersection != NULL
-	    && (normalize_list (intersection),
-		equal_list (intersection, spec2->list))))
-	{
-	  if (error_logger)
-	    error_logger (_("format specifications in '%s' are not a subset of those in '%s'"),
-			  pretty_msgstr, pretty_msgid);
-	  err = true;
-	}
+            && (normalize_list (intersection),
+                equal_list (intersection, spec2->list))))
+        {
+          if (error_logger)
+            error_logger (_("format specifications in '%s' are not a subset of those in '%s'"),
+                          pretty_msgstr, pretty_msgid);
+          err = true;
+        }
     }
 
   return err;
@@ -3504,20 +3504,20 @@ print_list (struct format_arg_list *list)
   for (i = 0; i < list->initial.count; i++)
     for (j = 0; j < list->initial.element[i].repcount; j++)
       {
-	if (i > 0 || j > 0)
-	  printf (" ");
-	print_element (&list->initial.element[i]);
+        if (i > 0 || j > 0)
+          printf (" ");
+        print_element (&list->initial.element[i]);
       }
 
   if (list->repeated.count > 0)
     {
       printf (" |");
       for (i = 0; i < list->repeated.count; i++)
-	for (j = 0; j < list->repeated.element[i].repcount; j++)
-	  {
-	    printf (" ");
-	    print_element (&list->repeated.element[i]);
-	  }
+        for (j = 0; j < list->repeated.element[i].repcount; j++)
+          {
+            printf (" ");
+            print_element (&list->repeated.element[i]);
+          }
     }
 
   printf (")");
@@ -3550,9 +3550,9 @@ main ()
 
       line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
-	break;
+        break;
       if (line_len > 0 && line[line_len - 1] == '\n')
-	line[--line_len] = '\0';
+        line[--line_len] = '\0';
 
       invalid_reason = NULL;
       descr = format_parse (line, false, NULL, &invalid_reason);
@@ -3560,7 +3560,7 @@ main ()
       format_print (descr);
       printf ("\n");
       if (descr == NULL)
-	printf ("%s\n", invalid_reason);
+        printf ("%s\n", invalid_reason);
 
       free (invalid_reason);
       free (line);

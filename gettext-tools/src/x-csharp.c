@@ -79,16 +79,16 @@ x_csharp_keyword (const char *name)
       const char *colon;
 
       if (keywords.table == NULL)
-	hash_init (&keywords, 100);
+        hash_init (&keywords, 100);
 
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C#
-	 identifier sequence with dots.
-	 A colon means an invalid parse in split_keywordspec().  */
+         identifier sequence with dots.
+         A colon means an invalid parse in split_keywordspec().  */
       colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
-	insert_keyword_callshape (&keywords, name, end - name, &shape);
+        insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }
 
@@ -100,9 +100,9 @@ init_keywords ()
   if (default_keywords)
     {
       /* When adding new keywords here, also update the documentation in
-	 xgettext.texi!  */
-      x_csharp_keyword ("GetString");	/* Resource{Manager,Set}.GetString */
-      x_csharp_keyword ("GetPluralString:1,2");	/* GettextResource{Manager,Set}.GetPluralString */
+         xgettext.texi!  */
+      x_csharp_keyword ("GetString");   /* Resource{Manager,Set}.GetString */
+      x_csharp_keyword ("GetPluralString:1,2"); /* GettextResource{Manager,Set}.GetPluralString */
       x_csharp_keyword ("GetParticularString:1c,2"); /* Resource{Manager,Set}.GetParticularString */
       x_csharp_keyword ("GetParticularPluralString:1c,2,3"); /* Resource{Manager,Set}.GetParticularPluralString */
       default_keywords = false;
@@ -152,7 +152,7 @@ phase1_getc ()
     {
       c = phase1_pushback[--phase1_pushback_length];
       if (c == '\n')
-	++line_number;
+        ++line_number;
       return c;
     }
 
@@ -160,8 +160,8 @@ phase1_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-	error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-	       real_file_name);
+        error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+               real_file_name);
       return EOF;
     }
 
@@ -177,9 +177,9 @@ phase1_ungetc (int c)
   if (c != EOF)
     {
       if (c == '\n')
-	--line_number;
+        --line_number;
       if (phase1_pushback_length == SIZEOF (phase1_pushback))
-	abort ();
+        abort ();
       phase1_pushback[phase1_pushback_length++] = c;
     }
 }
@@ -213,141 +213,141 @@ phase2_getc ()
     {
       int c = phase1_getc ();
       if (c == EOF)
-	return UEOF;
+        return UEOF;
       if (!c_isascii (c))
-	{
-	  multiline_error (xstrdup (""),
-			   xasprintf ("%s\n%s\n",
-				      non_ascii_error_message (lexical_context,
-							       real_file_name,
-							       line_number),
-				      _("\
+        {
+          multiline_error (xstrdup (""),
+                           xasprintf ("%s\n%s\n",
+                                      non_ascii_error_message (lexical_context,
+                                                               real_file_name,
+                                                               line_number),
+                                      _("\
 Please specify the source encoding through --from-code.")));
-	  exit (EXIT_FAILURE);
-	}
+          exit (EXIT_FAILURE);
+        }
       return c;
     }
   else if (xgettext_current_source_encoding != po_charset_utf8)
     {
 #if HAVE_ICONV
       /* Use iconv on an increasing number of bytes.  Read only as many bytes
-	 through phase1_getc as needed.  This is needed to give reasonable
-	 interactive behaviour when fp is connected to an interactive tty.  */
+         through phase1_getc as needed.  This is needed to give reasonable
+         interactive behaviour when fp is connected to an interactive tty.  */
       unsigned char buf[MAX_PHASE1_PUSHBACK];
       size_t bufcount;
       int c = phase1_getc ();
       if (c == EOF)
-	return UEOF;
+        return UEOF;
       buf[0] = (unsigned char) c;
       bufcount = 1;
 
       for (;;)
-	{
-	  unsigned char scratchbuf[6];
-	  const char *inptr = (const char *) &buf[0];
-	  size_t insize = bufcount;
-	  char *outptr = (char *) &scratchbuf[0];
-	  size_t outsize = sizeof (scratchbuf);
+        {
+          unsigned char scratchbuf[6];
+          const char *inptr = (const char *) &buf[0];
+          size_t insize = bufcount;
+          char *outptr = (char *) &scratchbuf[0];
+          size_t outsize = sizeof (scratchbuf);
 
-	  size_t res = iconv (xgettext_current_source_iconv,
-			      (ICONV_CONST char **) &inptr, &insize,
-			      &outptr, &outsize);
-	  /* We expect that a character has been produced if and only if
-	     some input bytes have been consumed.  */
-	  if ((insize < bufcount) != (outsize < sizeof (scratchbuf)))
-	    abort ();
-	  if (outsize == sizeof (scratchbuf))
-	    {
-	      /* No character has been produced.  Must be an error.  */
-	      if (res != (size_t)(-1))
-		abort ();
+          size_t res = iconv (xgettext_current_source_iconv,
+                              (ICONV_CONST char **) &inptr, &insize,
+                              &outptr, &outsize);
+          /* We expect that a character has been produced if and only if
+             some input bytes have been consumed.  */
+          if ((insize < bufcount) != (outsize < sizeof (scratchbuf)))
+            abort ();
+          if (outsize == sizeof (scratchbuf))
+            {
+              /* No character has been produced.  Must be an error.  */
+              if (res != (size_t)(-1))
+                abort ();
 
-	      if (errno == EILSEQ)
-		{
-		  /* An invalid multibyte sequence was encountered.  */
-		  multiline_error (xstrdup (""),
-				   xasprintf (_("\
+              if (errno == EILSEQ)
+                {
+                  /* An invalid multibyte sequence was encountered.  */
+                  multiline_error (xstrdup (""),
+                                   xasprintf (_("\
 %s:%d: Invalid multibyte sequence.\n\
 Please specify the correct source encoding through --from-code.\n"),
-				   real_file_name, line_number));
-		  exit (EXIT_FAILURE);
-		}
-	      else if (errno == EINVAL)
-		{
-		  /* An incomplete multibyte character.  */
-		  int c;
+                                   real_file_name, line_number));
+                  exit (EXIT_FAILURE);
+                }
+              else if (errno == EINVAL)
+                {
+                  /* An incomplete multibyte character.  */
+                  int c;
 
-		  if (bufcount == MAX_PHASE1_PUSHBACK)
-		    {
-		      /* An overlong incomplete multibyte sequence was
-			 encountered.  */
-		      multiline_error (xstrdup (""),
-				       xasprintf (_("\
+                  if (bufcount == MAX_PHASE1_PUSHBACK)
+                    {
+                      /* An overlong incomplete multibyte sequence was
+                         encountered.  */
+                      multiline_error (xstrdup (""),
+                                       xasprintf (_("\
 %s:%d: Long incomplete multibyte sequence.\n\
 Please specify the correct source encoding through --from-code.\n"),
-				       real_file_name, line_number));
-		      exit (EXIT_FAILURE);
-		    }
+                                       real_file_name, line_number));
+                      exit (EXIT_FAILURE);
+                    }
 
-		  /* Read one more byte and retry iconv.  */
-		  c = phase1_getc ();
-		  if (c == EOF)
-		    {
-		      multiline_error (xstrdup (""),
-				       xasprintf (_("\
+                  /* Read one more byte and retry iconv.  */
+                  c = phase1_getc ();
+                  if (c == EOF)
+                    {
+                      multiline_error (xstrdup (""),
+                                       xasprintf (_("\
 %s:%d: Incomplete multibyte sequence at end of file.\n\
 Please specify the correct source encoding through --from-code.\n"),
-				       real_file_name, line_number));
-		      exit (EXIT_FAILURE);
-		    }
-		  if (c == '\n')
-		    {
-		      multiline_error (xstrdup (""),
-				       xasprintf (_("\
+                                       real_file_name, line_number));
+                      exit (EXIT_FAILURE);
+                    }
+                  if (c == '\n')
+                    {
+                      multiline_error (xstrdup (""),
+                                       xasprintf (_("\
 %s:%d: Incomplete multibyte sequence at end of line.\n\
 Please specify the correct source encoding through --from-code.\n"),
-				       real_file_name, line_number - 1));
-		      exit (EXIT_FAILURE);
-		    }
-		  buf[bufcount++] = (unsigned char) c;
-		}
-	      else
-		error (EXIT_FAILURE, errno, _("%s:%d: iconv failure"),
-		       real_file_name, line_number);
-	    }
-	  else
-	    {
-	      size_t outbytes = sizeof (scratchbuf) - outsize;
-	      size_t bytes = bufcount - insize;
-	      ucs4_t uc;
+                                       real_file_name, line_number - 1));
+                      exit (EXIT_FAILURE);
+                    }
+                  buf[bufcount++] = (unsigned char) c;
+                }
+              else
+                error (EXIT_FAILURE, errno, _("%s:%d: iconv failure"),
+                       real_file_name, line_number);
+            }
+          else
+            {
+              size_t outbytes = sizeof (scratchbuf) - outsize;
+              size_t bytes = bufcount - insize;
+              ucs4_t uc;
 
-	      /* We expect that one character has been produced.  */
-	      if (bytes == 0)
-		abort ();
-	      if (outbytes == 0)
-		abort ();
-	      /* Push back the unused bytes.  */
-	      while (insize > 0)
-		phase1_ungetc (buf[--insize]);
-	      /* Convert the character from UTF-8 to UCS-4.  */
-	      if (u8_mbtouc (&uc, scratchbuf, outbytes) < outbytes)
-		{
-		  /* scratchbuf contains an out-of-range Unicode character
-		     (> 0x10ffff).  */
-		  multiline_error (xstrdup (""),
-				   xasprintf (_("\
+              /* We expect that one character has been produced.  */
+              if (bytes == 0)
+                abort ();
+              if (outbytes == 0)
+                abort ();
+              /* Push back the unused bytes.  */
+              while (insize > 0)
+                phase1_ungetc (buf[--insize]);
+              /* Convert the character from UTF-8 to UCS-4.  */
+              if (u8_mbtouc (&uc, scratchbuf, outbytes) < outbytes)
+                {
+                  /* scratchbuf contains an out-of-range Unicode character
+                     (> 0x10ffff).  */
+                  multiline_error (xstrdup (""),
+                                   xasprintf (_("\
 %s:%d: Invalid multibyte sequence.\n\
 Please specify the source encoding through --from-code.\n"),
-				   real_file_name, line_number));
-		  exit (EXIT_FAILURE);
-		}
-	      return uc;
-	    }
-	}
+                                   real_file_name, line_number));
+                  exit (EXIT_FAILURE);
+                }
+              return uc;
+            }
+        }
 #else
       /* If we don't have iconv(), the only supported values for
-	 xgettext_global_source_encoding and thus also for
-	 xgettext_current_source_encoding are ASCII and UTF-8.  */
+         xgettext_global_source_encoding and thus also for
+         xgettext_current_source_encoding are ASCII and UTF-8.  */
       abort ();
 #endif
     }
@@ -361,64 +361,64 @@ Please specify the source encoding through --from-code.\n"),
 
       c = phase1_getc ();
       if (c == EOF)
-	return UEOF;
+        return UEOF;
       buf[0] = c;
       count = 1;
 
       if (buf[0] >= 0xc0)
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    return UEOF;
-	  buf[1] = c;
-	  count = 2;
-	}
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            return UEOF;
+          buf[1] = c;
+          count = 2;
+        }
 
       if (buf[0] >= 0xe0
-	  && ((buf[1] ^ 0x80) < 0x40))
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    return UEOF;
-	  buf[2] = c;
-	  count = 3;
-	}
+          && ((buf[1] ^ 0x80) < 0x40))
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            return UEOF;
+          buf[2] = c;
+          count = 3;
+        }
 
       if (buf[0] >= 0xf0
-	  && ((buf[1] ^ 0x80) < 0x40)
-	  && ((buf[2] ^ 0x80) < 0x40))
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    return UEOF;
-	  buf[3] = c;
-	  count = 4;
-	}
+          && ((buf[1] ^ 0x80) < 0x40)
+          && ((buf[2] ^ 0x80) < 0x40))
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            return UEOF;
+          buf[3] = c;
+          count = 4;
+        }
 
       if (buf[0] >= 0xf8
-	  && ((buf[1] ^ 0x80) < 0x40)
-	  && ((buf[2] ^ 0x80) < 0x40)
-	  && ((buf[3] ^ 0x80) < 0x40))
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    return UEOF;
-	  buf[4] = c;
-	  count = 5;
-	}
+          && ((buf[1] ^ 0x80) < 0x40)
+          && ((buf[2] ^ 0x80) < 0x40)
+          && ((buf[3] ^ 0x80) < 0x40))
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            return UEOF;
+          buf[4] = c;
+          count = 5;
+        }
 
       if (buf[0] >= 0xfc
-	  && ((buf[1] ^ 0x80) < 0x40)
-	  && ((buf[2] ^ 0x80) < 0x40)
-	  && ((buf[3] ^ 0x80) < 0x40)
-	  && ((buf[4] ^ 0x80) < 0x40))
-	{
-	  c = phase1_getc ();
-	  if (c == EOF)
-	    return UEOF;
-	  buf[5] = c;
-	  count = 6;
-	}
+          && ((buf[1] ^ 0x80) < 0x40)
+          && ((buf[2] ^ 0x80) < 0x40)
+          && ((buf[3] ^ 0x80) < 0x40)
+          && ((buf[4] ^ 0x80) < 0x40))
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            return UEOF;
+          buf[5] = c;
+          count = 6;
+        }
 
       u8_mbtouc (&uc, buf, count);
       return uc;
@@ -432,7 +432,7 @@ phase2_ungetc (int c)
   if (c != UEOF)
     {
       if (phase2_pushback_length == SIZEOF (phase2_pushback))
-	abort ();
+        abort ();
       phase2_pushback[phase2_pushback_length++] = c;
     }
 }
@@ -458,7 +458,7 @@ phase3_getc ()
     {
       c = phase3_pushback[--phase3_pushback_length];
       if (c == UNL)
-	++logical_line_number;
+        ++logical_line_number;
       return c;
     }
 
@@ -469,7 +469,7 @@ phase3_getc ()
       int c1 = phase2_getc ();
 
       if (c1 != UEOF && c1 != 0x000a)
-	phase2_ungetc (c1);
+        phase2_ungetc (c1);
 
       /* Seen line terminator CR or CR/LF.  */
       ++logical_line_number;
@@ -488,8 +488,8 @@ phase3_getc ()
       int c1 = phase2_getc ();
 
       if (c1 == UEOF)
-	/* Seen U+001A right before the end of file.  */
-	return UEOF;
+        /* Seen U+001A right before the end of file.  */
+        return UEOF;
 
       phase2_ungetc (c1);
     }
@@ -506,9 +506,9 @@ phase3_ungetc (int c)
   if (c != UEOF)
     {
       if (c == UNL)
-	--logical_line_number;
+        --logical_line_number;
       if (phase3_pushback_length == SIZEOF (phase3_pushback))
-	abort ();
+        abort ();
       phase3_pushback[phase3_pushback_length++] = c;
     }
 }
@@ -544,7 +544,7 @@ string_buffer_append_unicode_grow (struct string_buffer *bp, size_t count)
     {
       size_t new_allocated = 2 * bp->utf8_allocated + 10;
       if (new_allocated < bp->utf8_buflen + count)
-	new_allocated = bp->utf8_buflen + count;
+        new_allocated = bp->utf8_buflen + count;
       bp->utf8_allocated = new_allocated;
       bp->utf8_buffer = xrealloc (bp->utf8_buffer, new_allocated);
     }
@@ -620,7 +620,7 @@ comment_line_end (size_t chars_to_remove)
 
   buflen -= chars_to_remove;
   while (buflen >= 1
-	 && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
+         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
   buffer[buflen] = '\0';
   savable_comment_add (buffer);
@@ -660,39 +660,39 @@ phase4_getc ()
       comment_start ();
       last_was_star = false;
       for (;;)
-	{
-	  c = phase3_getc ();
-	  if (c == UEOF)
-	    break;
-	  /* We skip all leading white space, but not EOLs.  */
-	  if (!(comment_at_start () && (c == ' ' || c == '\t')))
-	    comment_add (c);
-	  switch (c)
-	    {
-	    case UNL:
-	      comment_line_end (1);
-	      comment_start ();
-	      last_was_star = false;
-	      continue;
+        {
+          c = phase3_getc ();
+          if (c == UEOF)
+            break;
+          /* We skip all leading white space, but not EOLs.  */
+          if (!(comment_at_start () && (c == ' ' || c == '\t')))
+            comment_add (c);
+          switch (c)
+            {
+            case UNL:
+              comment_line_end (1);
+              comment_start ();
+              last_was_star = false;
+              continue;
 
-	    case '*':
-	      last_was_star = true;
-	      continue;
+            case '*':
+              last_was_star = true;
+              continue;
 
-	    case '/':
-	      if (last_was_star)
-		{
-		  comment_line_end (2);
-		  break;
-		}
-	      /* FALLTHROUGH */
+            case '/':
+              if (last_was_star)
+                {
+                  comment_line_end (2);
+                  break;
+                }
+              /* FALLTHROUGH */
 
-	    default:
-	      last_was_star = false;
-	      continue;
-	    }
-	  break;
-	}
+            default:
+              last_was_star = false;
+              continue;
+            }
+          break;
+        }
       last_comment_line = logical_line_number;
       return ' ';
 
@@ -701,14 +701,14 @@ phase4_getc ()
       last_comment_line = logical_line_number;
       comment_start ();
       for (;;)
-	{
-	  c = phase3_getc ();
-	  if (c == UNL || c == UEOF)
-	    break;
-	  /* We skip all leading white space, but not EOLs.  */
-	  if (!(comment_at_start () && (c == ' ' || c == '\t')))
-	    comment_add (c);
-	}
+        {
+          c = phase3_getc ();
+          if (c == UNL || c == UEOF)
+            break;
+          /* We skip all leading white space, but not EOLs.  */
+          if (!(comment_at_start () && (c == ' ' || c == '\t')))
+            comment_add (c);
+        }
       phase3_ungetc (c); /* push back the newline, to decrement logical_line_number */
       comment_line_end (0);
       phase3_getc (); /* read the newline again */
@@ -764,17 +764,17 @@ bitmap_lookup (const void *table, unsigned int uc)
     {
       int lookup1 = ((const int *) table)[1 + index1];
       if (lookup1 >= 0)
-	{
-	  unsigned int index2 = (uc >> 9) & 0x7f;
-	  int lookup2 = ((const int *) table)[lookup1 + index2];
-	  if (lookup2 >= 0)
-	    {
-	      unsigned int index3 = (uc >> 5) & 0xf;
-	      unsigned int lookup3 = ((const int *) table)[lookup2 + index3];
+        {
+          unsigned int index2 = (uc >> 9) & 0x7f;
+          int lookup2 = ((const int *) table)[lookup1 + index2];
+          if (lookup2 >= 0)
+            {
+              unsigned int index3 = (uc >> 5) & 0xf;
+              unsigned int lookup3 = ((const int *) table)[lookup2 + index3];
 
-	      return (lookup3 >> (uc & 0x1f)) & 1;
-	    }
-	}
+              return (lookup3 >> (uc & 0x1f)) & 1;
+            }
+        }
     }
   return 0;
 }
@@ -1273,9 +1273,9 @@ phase5_getc ()
   if (c == '#')
     {
       /* Ignore the entire line containing the preprocessor directive
-	 (including the // comment if it contains one).  */
+         (including the // comment if it contains one).  */
       do
-	c = phase3_getc ();
+        c = phase3_getc ();
       while (c != UEOF && c != UNL);
       return c;
     }
@@ -1293,7 +1293,7 @@ phase5_ungetc (int c)
   if (c != UEOF)
     {
       if (phase5_pushback_length == SIZEOF (phase5_pushback))
-	abort ();
+        abort ();
       phase5_pushback[phase5_pushback_length++] = c;
     }
 }
@@ -1305,17 +1305,17 @@ phase5_ungetc (int c)
 enum token_type_ty
 {
   token_type_eof,
-  token_type_lparen,		/* ( */
-  token_type_rparen,		/* ) */
-  token_type_lbrace,		/* { */
-  token_type_rbrace,		/* } */
-  token_type_comma,		/* , */
-  token_type_dot,		/* . */
-  token_type_string_literal,	/* "abc", @"abc" */
-  token_type_number,		/* 1.23 */
-  token_type_symbol,		/* identifier, keyword, null */
-  token_type_plus,		/* + */
-  token_type_other		/* character literal, misc. operator */
+  token_type_lparen,            /* ( */
+  token_type_rparen,            /* ) */
+  token_type_lbrace,            /* { */
+  token_type_rbrace,            /* } */
+  token_type_comma,             /* , */
+  token_type_dot,               /* . */
+  token_type_string_literal,    /* "abc", @"abc" */
+  token_type_number,            /* 1.23 */
+  token_type_symbol,            /* identifier, keyword, null */
+  token_type_plus,              /* + */
+  token_type_other              /* character literal, misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -1323,8 +1323,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;		/* for token_type_string_literal, token_type_symbol */
-  refcounted_string_list_ty *comment;	/* for token_type_string_literal */
+  char *string;         /* for token_type_string_literal, token_type_symbol */
+  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
   int line_number;
   int logical_line_number;
 };
@@ -1363,39 +1363,39 @@ do_getc_unicode_escaped (bool (*predicate) (int))
       expect = (c == 'U' ? 8 : 4);
       n = 0;
       for (i = 0; i < expect; i++)
-	{
-	  int c1 = phase3_getc ();
+        {
+          int c1 = phase3_getc ();
 
-	  if (c1 >= '0' && c1 <= '9')
-	    n = (n << 4) + (c1 - '0');
-	  else if (c1 >= 'A' && c1 <= 'F')
-	    n = (n << 4) + (c1 - 'A' + 10);
-	  else if (c1 >= 'a' && c1 <= 'f')
-	    n = (n << 4) + (c1 - 'a' + 10);
-	  else
-	    {
-	      phase3_ungetc (c1);
-	      while (--i >= 0)
-		phase3_ungetc (buf[i]);
-	      phase3_ungetc (c);
-	      return '\\';
-	    }
+          if (c1 >= '0' && c1 <= '9')
+            n = (n << 4) + (c1 - '0');
+          else if (c1 >= 'A' && c1 <= 'F')
+            n = (n << 4) + (c1 - 'A' + 10);
+          else if (c1 >= 'a' && c1 <= 'f')
+            n = (n << 4) + (c1 - 'a' + 10);
+          else
+            {
+              phase3_ungetc (c1);
+              while (--i >= 0)
+                phase3_ungetc (buf[i]);
+              phase3_ungetc (c);
+              return '\\';
+            }
 
-	  buf[i] = c1;
-	}
+          buf[i] = c1;
+        }
 
       if (n >= 0x110000)
-	{
-	  error_with_progname = false;
-	  error (0, 0, _("%s:%d: warning: invalid Unicode character"),
-		 logical_file_name, line_number);
-	  error_with_progname = true;
-	}
+        {
+          error_with_progname = false;
+          error (0, 0, _("%s:%d: warning: invalid Unicode character"),
+                 logical_file_name, line_number);
+          error_with_progname = true;
+        }
       else if (predicate (n))
-	return n;
+        return n;
 
       while (--i >= 0)
-	phase3_ungetc (buf[i]);
+        phase3_ungetc (buf[i]);
     }
   phase3_ungetc (c);
   return '\\';
@@ -1442,41 +1442,41 @@ do_getc_escaped ()
     case 'x':
       c = phase3_getc ();
       switch (c)
-	{
-	default:
-	  phase3_ungetc (c);
-	  phase3_ungetc ('x');
-	  return '\\';
+        {
+        default:
+          phase3_ungetc (c);
+          phase3_ungetc ('x');
+          return '\\';
 
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-	case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-	  break;
-	}
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+        case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+          break;
+        }
       n = 0;
       for (i = 0;; i++)
-	{
-	  switch (c)
-	    {
-	    default:
-	      phase3_ungetc (c);
-	      return n;
-	    case '0': case '1': case '2': case '3': case '4':
-	    case '5': case '6': case '7': case '8': case '9':
-	      n = n * 16 + c - '0';
-	      break;
-	    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-	      n = n * 16 + 10 + c - 'A';
-	      break;
-	    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-	      n = n * 16 + 10 + c - 'a';
-	      break;
-	    }
-	  if (i == 3)
-	    break;
-	  c = phase3_getc ();
-	}
+        {
+          switch (c)
+            {
+            default:
+              phase3_ungetc (c);
+              return n;
+            case '0': case '1': case '2': case '3': case '4':
+            case '5': case '6': case '7': case '8': case '9':
+              n = n * 16 + c - '0';
+              break;
+            case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+              n = n * 16 + 10 + c - 'A';
+              break;
+            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+              n = n * 16 + 10 + c - 'a';
+              break;
+            }
+          if (i == 3)
+            break;
+          c = phase3_getc ();
+        }
       return n;
     case 'u': case 'U':
       phase3_ungetc (c);
@@ -1500,22 +1500,22 @@ accumulate_escaped (struct string_buffer *literal, int delimiter)
       /* Use phase 3, because phase 4 elides comments.  */
       c = phase3_getc ();
       if (c == UEOF || c == delimiter)
-	break;
+        break;
       if (c == UNL)
-	{
-	  phase3_ungetc (c);
-	  error_with_progname = false;
-	  if (delimiter == '\'')
-	    error (0, 0, _("%s:%d: warning: unterminated character constant"),
-		   logical_file_name, line_number);
-	  else
-	    error (0, 0, _("%s:%d: warning: unterminated string constant"),
-		   logical_file_name, line_number);
-	  error_with_progname = true;
-	  break;
-	}
+        {
+          phase3_ungetc (c);
+          error_with_progname = false;
+          if (delimiter == '\'')
+            error (0, 0, _("%s:%d: warning: unterminated character constant"),
+                   logical_file_name, line_number);
+          else
+            error (0, 0, _("%s:%d: warning: unterminated string constant"),
+                   logical_file_name, line_number);
+          error_with_progname = true;
+          break;
+        }
       if (c == '\\')
-	c = do_getc_escaped ();
+        c = do_getc_escaped ();
       string_buffer_append_unicode (literal, c);
     }
 }
@@ -1546,203 +1546,203 @@ phase6_get (token_ty *tp)
       c = phase5_getc ();
 
       if (c == UEOF)
-	{
-	  tp->type = token_type_eof;
-	  return;
-	}
+        {
+          tp->type = token_type_eof;
+          return;
+        }
 
       switch (c)
-	{
-	case UNL:
-	  if (last_non_comment_line > last_comment_line)
-	    savable_comment_reset ();
-	  /* FALLTHROUGH */
-	case ' ':
-	case '\t':
-	case '\f':
-	  /* Ignore whitespace and comments.  */
-	  continue;
-	}
+        {
+        case UNL:
+          if (last_non_comment_line > last_comment_line)
+            savable_comment_reset ();
+          /* FALLTHROUGH */
+        case ' ':
+        case '\t':
+        case '\f':
+          /* Ignore whitespace and comments.  */
+          continue;
+        }
 
       last_non_comment_line = tp->logical_line_number;
 
       switch (c)
-	{
-	case '(':
-	  tp->type = token_type_lparen;
-	  return;
+        {
+        case '(':
+          tp->type = token_type_lparen;
+          return;
 
-	case ')':
-	  tp->type = token_type_rparen;
-	  return;
+        case ')':
+          tp->type = token_type_rparen;
+          return;
 
-	case '{':
-	  tp->type = token_type_lbrace;
-	  return;
+        case '{':
+          tp->type = token_type_lbrace;
+          return;
 
-	case '}':
-	  tp->type = token_type_rbrace;
-	  return;
+        case '}':
+          tp->type = token_type_rbrace;
+          return;
 
-	case ',':
-	  tp->type = token_type_comma;
-	  return;
+        case ',':
+          tp->type = token_type_comma;
+          return;
 
-	case '.':
-	  c = phase4_getc ();
-	  if (!(c >= '0' && c <= '9'))
-	    {
-	      phase4_ungetc (c);
-	      tp->type = token_type_dot;
-	      return;
-	    }
-	  /* FALLTHROUGH */
+        case '.':
+          c = phase4_getc ();
+          if (!(c >= '0' && c <= '9'))
+            {
+              phase4_ungetc (c);
+              tp->type = token_type_dot;
+              return;
+            }
+          /* FALLTHROUGH */
 
-	case '0': case '1': case '2': case '3': case '4':
-	case '5': case '6': case '7': case '8': case '9':
-	  {
-	    /* Don't need to verify the complicated syntax of integers and
-	       floating-point numbers.  We assume a valid C# input.
-	       The simplified syntax that we recognize as number is: any
-	       sequence of alphanumeric characters, additionally '+' and '-'
-	       immediately after 'e' or 'E' except in hexadecimal numbers.  */
-	    bool hexadecimal = false;
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+          {
+            /* Don't need to verify the complicated syntax of integers and
+               floating-point numbers.  We assume a valid C# input.
+               The simplified syntax that we recognize as number is: any
+               sequence of alphanumeric characters, additionally '+' and '-'
+               immediately after 'e' or 'E' except in hexadecimal numbers.  */
+            bool hexadecimal = false;
 
-	    for (;;)
-	      {
-		c = phase4_getc ();
-		if (c >= '0' && c <= '9')
-		  continue;
-		if ((c >= 'A' && c <= 'Z') || (c >= 'a' &&c <= 'z'))
-		  {
-		    if (c == 'X' || c == 'x')
-		      hexadecimal = true;
-		    if ((c == 'E' || c == 'e') && !hexadecimal)
-		      {
-			c = phase4_getc ();
-			if (!(c == '+' || c == '-'))
-			  phase4_ungetc (c);
-		      }
-		    continue;
-		  }
-		if (c == '.')
-		  continue;
-		break;
-	      }
-	    phase4_ungetc (c);
-	    tp->type = token_type_number;
-	    return;
-	  }
+            for (;;)
+              {
+                c = phase4_getc ();
+                if (c >= '0' && c <= '9')
+                  continue;
+                if ((c >= 'A' && c <= 'Z') || (c >= 'a' &&c <= 'z'))
+                  {
+                    if (c == 'X' || c == 'x')
+                      hexadecimal = true;
+                    if ((c == 'E' || c == 'e') && !hexadecimal)
+                      {
+                        c = phase4_getc ();
+                        if (!(c == '+' || c == '-'))
+                          phase4_ungetc (c);
+                      }
+                    continue;
+                  }
+                if (c == '.')
+                  continue;
+                break;
+              }
+            phase4_ungetc (c);
+            tp->type = token_type_number;
+            return;
+          }
 
-	case '"':
-	  /* Regular string literal.  */
-	  {
-	    struct string_buffer literal;
+        case '"':
+          /* Regular string literal.  */
+          {
+            struct string_buffer literal;
 
-	    lexical_context = lc_string;
-	    init_string_buffer (&literal);
-	    accumulate_escaped (&literal, '"');
-	    tp->string = xstrdup (string_buffer_result (&literal));
-	    free_string_buffer (&literal);
-	    tp->comment = add_reference (savable_comment);
-	    lexical_context = lc_outside;
-	    tp->type = token_type_string_literal;
-	    return;
-	  }
+            lexical_context = lc_string;
+            init_string_buffer (&literal);
+            accumulate_escaped (&literal, '"');
+            tp->string = xstrdup (string_buffer_result (&literal));
+            free_string_buffer (&literal);
+            tp->comment = add_reference (savable_comment);
+            lexical_context = lc_outside;
+            tp->type = token_type_string_literal;
+            return;
+          }
 
-	case '\'':
-	  /* Character literal.  */
-	  {
-	    struct string_buffer literal;
+        case '\'':
+          /* Character literal.  */
+          {
+            struct string_buffer literal;
 
-	    init_string_buffer (&literal);
-	    accumulate_escaped (&literal, '\'');
-	    free_string_buffer (&literal);
-	    tp->type = token_type_other;
-	    return;
-	  }
+            init_string_buffer (&literal);
+            accumulate_escaped (&literal, '\'');
+            free_string_buffer (&literal);
+            tp->type = token_type_other;
+            return;
+          }
 
-	case '+':
-	  c = phase4_getc ();
-	  if (c == '+')
-	    /* Operator ++ */
-	    tp->type = token_type_other;
-	  else if (c == '=')
-	    /* Operator += */
-	    tp->type = token_type_other;
-	  else
-	    {
-	      /* Operator + */
-	      phase4_ungetc (c);
-	      tp->type = token_type_plus;
-	    }
-	  return;
+        case '+':
+          c = phase4_getc ();
+          if (c == '+')
+            /* Operator ++ */
+            tp->type = token_type_other;
+          else if (c == '=')
+            /* Operator += */
+            tp->type = token_type_other;
+          else
+            {
+              /* Operator + */
+              phase4_ungetc (c);
+              tp->type = token_type_plus;
+            }
+          return;
 
-	case '@':
-	  c = phase4_getc ();
-	  if (c == '"')
-	    {
-	      /* Verbatim string literal.  */
-	      struct string_buffer literal;
+        case '@':
+          c = phase4_getc ();
+          if (c == '"')
+            {
+              /* Verbatim string literal.  */
+              struct string_buffer literal;
 
-	      lexical_context = lc_string;
-	      init_string_buffer (&literal);
-	      for (;;)
-		{
-		  /* Use phase 2, because phase 4 elides comments and phase 3
-		     mixes up the newline characters.  */
-		  c = phase2_getc ();
-		  if (c == UEOF)
-		    break;
-		  if (c == '"')
-		    {
-		      c = phase2_getc ();
-		      if (c != '"')
-			{
-			  phase2_ungetc (c);
-			  break;
-			}
-		    }
-		  /* No special treatment of newline and backslash here.  */
-		  string_buffer_append_unicode (&literal, c);
-		}
-	      tp->string = xstrdup (string_buffer_result (&literal));
-	      free_string_buffer (&literal);
-	      tp->comment = add_reference (savable_comment);
-	      lexical_context = lc_outside;
-	      tp->type = token_type_string_literal;
-	      return;
-	    }
-	  /* FALLTHROUGH, so that @identifier is recognized.  */
+              lexical_context = lc_string;
+              init_string_buffer (&literal);
+              for (;;)
+                {
+                  /* Use phase 2, because phase 4 elides comments and phase 3
+                     mixes up the newline characters.  */
+                  c = phase2_getc ();
+                  if (c == UEOF)
+                    break;
+                  if (c == '"')
+                    {
+                      c = phase2_getc ();
+                      if (c != '"')
+                        {
+                          phase2_ungetc (c);
+                          break;
+                        }
+                    }
+                  /* No special treatment of newline and backslash here.  */
+                  string_buffer_append_unicode (&literal, c);
+                }
+              tp->string = xstrdup (string_buffer_result (&literal));
+              free_string_buffer (&literal);
+              tp->comment = add_reference (savable_comment);
+              lexical_context = lc_outside;
+              tp->type = token_type_string_literal;
+              return;
+            }
+          /* FALLTHROUGH, so that @identifier is recognized.  */
 
-	default:
-	  if (c == '\\')
-	    c = do_getc_unicode_escaped (is_identifier_start);
-	  if (is_identifier_start (c))
-	    {
-	      static struct string_buffer buffer;
-	      buffer.utf8_buflen = 0;
-	      for (;;)
-		{
-		  string_buffer_append_unicode (&buffer, c);
-		  c = phase4_getc ();
-		  if (c == '\\')
-		    c = do_getc_unicode_escaped (is_identifier_part);
-		  if (!is_identifier_part (c))
-		    break;
-		}
-	      phase4_ungetc (c);
-	      tp->string = xstrdup (string_buffer_result (&buffer));
-	      tp->type = token_type_symbol;
-	      return;
-	    }
-	  else
-	    {
-	      /* Misc. operator.  */
-	      tp->type = token_type_other;
-	      return;
-	    }
-	}
+        default:
+          if (c == '\\')
+            c = do_getc_unicode_escaped (is_identifier_start);
+          if (is_identifier_start (c))
+            {
+              static struct string_buffer buffer;
+              buffer.utf8_buflen = 0;
+              for (;;)
+                {
+                  string_buffer_append_unicode (&buffer, c);
+                  c = phase4_getc ();
+                  if (c == '\\')
+                    c = do_getc_unicode_escaped (is_identifier_part);
+                  if (!is_identifier_part (c))
+                    break;
+                }
+              phase4_ungetc (c);
+              tp->string = xstrdup (string_buffer_result (&buffer));
+              tp->type = token_type_symbol;
+              return;
+            }
+          else
+            {
+              /* Misc. operator.  */
+              tp->type = token_type_other;
+              return;
+            }
+        }
     }
 }
 
@@ -1753,7 +1753,7 @@ phase6_unget (token_ty *tp)
   if (tp->type != token_type_eof)
     {
       if (phase6_pushback_length == SIZEOF (phase6_pushback))
-	abort ();
+        abort ();
       phase6_pushback[phase6_pushback_length++] = *tp;
     }
 }
@@ -1783,41 +1783,41 @@ phase7_get (token_ty *tp)
       size_t sum_len = strlen (sum);
 
       for (;;)
-	{
-	  token_ty token2;
+        {
+          token_ty token2;
 
-	  phase6_get (&token2);
-	  if (token2.type == token_type_plus)
-	    {
-	      token_ty token3;
+          phase6_get (&token2);
+          if (token2.type == token_type_plus)
+            {
+              token_ty token3;
 
-	      phase6_get (&token3);
-	      if (token3.type == token_type_string_literal)
-		{
-		  token_ty token_after;
+              phase6_get (&token3);
+              if (token3.type == token_type_string_literal)
+                {
+                  token_ty token_after;
 
-		  phase6_get (&token_after);
-		  if (token_after.type != token_type_dot)
-		    {
-		      char *addend = token3.string;
-		      size_t addend_len = strlen (addend);
+                  phase6_get (&token_after);
+                  if (token_after.type != token_type_dot)
+                    {
+                      char *addend = token3.string;
+                      size_t addend_len = strlen (addend);
 
-		      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
-		      memcpy (sum + sum_len, addend, addend_len + 1);
-		      sum_len += addend_len;
+                      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
+                      memcpy (sum + sum_len, addend, addend_len + 1);
+                      sum_len += addend_len;
 
-		      phase6_unget (&token_after);
-		      free_token (&token3);
-		      free_token (&token2);
-		      continue;
-		    }
-		  phase6_unget (&token_after);
-		}
-	      phase6_unget (&token3);
-	    }
-	  phase6_unget (&token2);
-	  break;
-	}
+                      phase6_unget (&token_after);
+                      free_token (&token3);
+                      free_token (&token2);
+                      continue;
+                    }
+                  phase6_unget (&token_after);
+                }
+              phase6_unget (&token3);
+            }
+          phase6_unget (&token2);
+          break;
+        }
       tp->string = sum;
     }
 }
@@ -1829,7 +1829,7 @@ phase7_unget (token_ty *tp)
   if (tp->type != token_type_eof)
     {
       if (phase7_pushback_length == SIZEOF (phase7_pushback))
-	abort ();
+        abort ();
       phase7_pushback[phase7_pushback_length++] = *tp;
     }
 }
@@ -1877,9 +1877,9 @@ static flag_context_list_table_ty *flag_context_list_table;
    Return true upon eof, false upon closing parenthesis or brace.  */
 static bool
 extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
-		       flag_context_ty outer_context,
-		       flag_context_list_iterator_ty context_iter,
-		       struct arglist_parser *argparser)
+                       flag_context_ty outer_context,
+                       flag_context_list_iterator_ty context_iter,
+                       struct arglist_parser *argparser)
 {
   /* Current argument number.  */
   int arg = 1;
@@ -1893,7 +1893,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
   /* Current context.  */
   flag_context_ty inner_context =
     inherited_context (outer_context,
-		       flag_context_list_iterator_advance (&context_iter));
+                       flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
   state = 0;
@@ -1904,219 +1904,219 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
       x_csharp_lex (&token);
       switch (token.type)
-	{
-	case token_type_symbol:
-	  {
-	    /* Combine symbol1 . ... . symbolN to a single strings, so that
-	       we can recognize static function calls like
-	       GettextResource.gettext.  The information present for
-	       symbolI.....symbolN has precedence over the information for
-	       symbolJ.....symbolN with J > I.  */
-	    char *sum = token.string;
-	    size_t sum_len = strlen (sum);
-	    const char *dottedname;
-	    flag_context_list_ty *context_list;
+        {
+        case token_type_symbol:
+          {
+            /* Combine symbol1 . ... . symbolN to a single strings, so that
+               we can recognize static function calls like
+               GettextResource.gettext.  The information present for
+               symbolI.....symbolN has precedence over the information for
+               symbolJ.....symbolN with J > I.  */
+            char *sum = token.string;
+            size_t sum_len = strlen (sum);
+            const char *dottedname;
+            flag_context_list_ty *context_list;
 
-	    for (;;)
-	      {
-		token_ty token2;
+            for (;;)
+              {
+                token_ty token2;
 
-		x_csharp_lex (&token2);
-		if (token2.type == token_type_dot)
-		  {
-		    token_ty token3;
+                x_csharp_lex (&token2);
+                if (token2.type == token_type_dot)
+                  {
+                    token_ty token3;
 
-		    x_csharp_lex (&token3);
-		    if (token3.type == token_type_symbol)
-		      {
-			char *addend = token3.string;
-			size_t addend_len = strlen (addend);
+                    x_csharp_lex (&token3);
+                    if (token3.type == token_type_symbol)
+                      {
+                        char *addend = token3.string;
+                        size_t addend_len = strlen (addend);
 
-			sum =
-			  (char *) xrealloc (sum, sum_len + 1 + addend_len + 1);
-			sum[sum_len] = '.';
-			memcpy (sum + sum_len + 1, addend, addend_len + 1);
-			sum_len += 1 + addend_len;
+                        sum =
+                          (char *) xrealloc (sum, sum_len + 1 + addend_len + 1);
+                        sum[sum_len] = '.';
+                        memcpy (sum + sum_len + 1, addend, addend_len + 1);
+                        sum_len += 1 + addend_len;
 
-			free_token (&token3);
-			free_token (&token2);
-			continue;
-		      }
-		    x_csharp_unlex (&token3);
-		  }
-		x_csharp_unlex (&token2);
-		break;
-	      }
+                        free_token (&token3);
+                        free_token (&token2);
+                        continue;
+                      }
+                    x_csharp_unlex (&token3);
+                  }
+                x_csharp_unlex (&token2);
+                break;
+              }
 
-	    for (dottedname = sum;;)
-	      {
-		void *keyword_value;
+            for (dottedname = sum;;)
+              {
+                void *keyword_value;
 
-		if (hash_find_entry (&keywords, dottedname, strlen (dottedname),
-				     &keyword_value)
-		    == 0)
-		  {
-		    next_shapes = (const struct callshapes *) keyword_value;
-		    state = 1;
-		    break;
-		  }
+                if (hash_find_entry (&keywords, dottedname, strlen (dottedname),
+                                     &keyword_value)
+                    == 0)
+                  {
+                    next_shapes = (const struct callshapes *) keyword_value;
+                    state = 1;
+                    break;
+                  }
 
-		dottedname = strchr (dottedname, '.');
-		if (dottedname == NULL)
-		  {
-		    state = 0;
-		    break;
-		  }
-		dottedname++;
-	      }
+                dottedname = strchr (dottedname, '.');
+                if (dottedname == NULL)
+                  {
+                    state = 0;
+                    break;
+                  }
+                dottedname++;
+              }
 
-	    for (dottedname = sum;;)
-	      {
-		context_list =
-		  flag_context_list_table_lookup (
-		    flag_context_list_table,
-		    dottedname, strlen (dottedname));
-		if (context_list != NULL)
-		  break;
+            for (dottedname = sum;;)
+              {
+                context_list =
+                  flag_context_list_table_lookup (
+                    flag_context_list_table,
+                    dottedname, strlen (dottedname));
+                if (context_list != NULL)
+                  break;
 
-		dottedname = strchr (dottedname, '.');
-		if (dottedname == NULL)
-		  break;
-		dottedname++;
-	      }
-	    next_context_iter = flag_context_list_iterator (context_list);
+                dottedname = strchr (dottedname, '.');
+                if (dottedname == NULL)
+                  break;
+                dottedname++;
+              }
+            next_context_iter = flag_context_list_iterator (context_list);
 
-	    free (sum);
-	    continue;
-	  }
+            free (sum);
+            continue;
+          }
 
-	case token_type_lparen:
-	  if (extract_parenthesized (mlp, token_type_rparen,
-				     inner_context, next_context_iter,
-				     arglist_parser_alloc (mlp,
-							   state ? next_shapes : NULL)))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      return true;
-	    }
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_lparen:
+          if (extract_parenthesized (mlp, token_type_rparen,
+                                     inner_context, next_context_iter,
+                                     arglist_parser_alloc (mlp,
+                                                           state ? next_shapes : NULL)))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              return true;
+            }
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_rparen:
-	  if (terminator == token_type_rparen)
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      return false;
-	    }
-	  if (terminator == token_type_rbrace)
-	    {
-	      error_with_progname = false;
-	      error (0, 0,
-		     _("%s:%d: warning: ')' found where '}' was expected"),
-		     logical_file_name, token.line_number);
-	      error_with_progname = true;
-	    }
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_rparen:
+          if (terminator == token_type_rparen)
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              return false;
+            }
+          if (terminator == token_type_rbrace)
+            {
+              error_with_progname = false;
+              error (0, 0,
+                     _("%s:%d: warning: ')' found where '}' was expected"),
+                     logical_file_name, token.line_number);
+              error_with_progname = true;
+            }
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_lbrace:
-	  if (extract_parenthesized (mlp, token_type_rbrace,
-				     null_context, null_context_list_iterator,
-				     arglist_parser_alloc (mlp, NULL)))
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      return true;
-	    }
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_lbrace:
+          if (extract_parenthesized (mlp, token_type_rbrace,
+                                     null_context, null_context_list_iterator,
+                                     arglist_parser_alloc (mlp, NULL)))
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              return true;
+            }
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_rbrace:
-	  if (terminator == token_type_rbrace)
-	    {
-	      xgettext_current_source_encoding = po_charset_utf8;
-	      arglist_parser_done (argparser, arg);
-	      xgettext_current_source_encoding = xgettext_global_source_encoding;
-	      return false;
-	    }
-	  if (terminator == token_type_rparen)
-	    {
-	      error_with_progname = false;
-	      error (0, 0,
-		     _("%s:%d: warning: '}' found where ')' was expected"),
-		     logical_file_name, token.line_number);
-	      error_with_progname = true;
-	    }
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_rbrace:
+          if (terminator == token_type_rbrace)
+            {
+              xgettext_current_source_encoding = po_charset_utf8;
+              arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              return false;
+            }
+          if (terminator == token_type_rparen)
+            {
+              error_with_progname = false;
+              error (0, 0,
+                     _("%s:%d: warning: '}' found where ')' was expected"),
+                     logical_file_name, token.line_number);
+              error_with_progname = true;
+            }
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_comma:
-	  arg++;
-	  inner_context =
-	    inherited_context (outer_context,
-			       flag_context_list_iterator_advance (
-				 &context_iter));
-	  next_context_iter = passthrough_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_comma:
+          arg++;
+          inner_context =
+            inherited_context (outer_context,
+                               flag_context_list_iterator_advance (
+                                 &context_iter));
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_string_literal:
-	  {
-	    lex_pos_ty pos;
-	    pos.file_name = logical_file_name;
-	    pos.line_number = token.line_number;
+        case token_type_string_literal:
+          {
+            lex_pos_ty pos;
+            pos.file_name = logical_file_name;
+            pos.line_number = token.line_number;
 
-	    xgettext_current_source_encoding = po_charset_utf8;
-	    if (extract_all)
-	      remember_a_message (mlp, NULL, token.string, inner_context,
-				  &pos, NULL, token.comment);
-	    else
-	      arglist_parser_remember (argparser, arg, token.string,
-				       inner_context,
-				       pos.file_name, pos.line_number,
-				       token.comment);
-	    xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  }
-	  drop_reference (token.comment);
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+            xgettext_current_source_encoding = po_charset_utf8;
+            if (extract_all)
+              remember_a_message (mlp, NULL, token.string, inner_context,
+                                  &pos, NULL, token.comment);
+            else
+              arglist_parser_remember (argparser, arg, token.string,
+                                       inner_context,
+                                       pos.file_name, pos.line_number,
+                                       token.comment);
+            xgettext_current_source_encoding = xgettext_global_source_encoding;
+          }
+          drop_reference (token.comment);
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	case token_type_eof:
-	  xgettext_current_source_encoding = po_charset_utf8;
-	  arglist_parser_done (argparser, arg);
-	  xgettext_current_source_encoding = xgettext_global_source_encoding;
-	  return true;
+        case token_type_eof:
+          xgettext_current_source_encoding = po_charset_utf8;
+          arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
+          return true;
 
-	case token_type_dot:
-	case token_type_number:
-	case token_type_plus:
-	case token_type_other:
-	  next_context_iter = null_context_list_iterator;
-	  state = 0;
-	  continue;
+        case token_type_dot:
+        case token_type_number:
+        case token_type_plus:
+        case token_type_other:
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          continue;
 
-	default:
-	  abort ();
-	}
+        default:
+          abort ();
+        }
     }
 }
 
 
 void
 extract_csharp (FILE *f,
-		const char *real_filename, const char *logical_filename,
-		flag_context_list_table_ty *flag_table,
-		msgdomain_list_ty *mdlp)
+                const char *real_filename, const char *logical_filename,
+                flag_context_list_table_ty *flag_table,
+                msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
 
@@ -2138,8 +2138,8 @@ extract_csharp (FILE *f,
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
   while (!extract_parenthesized (mlp, token_type_eof,
-				 null_context, null_context_list_iterator,
-				 arglist_parser_alloc (mlp, NULL)))
+                                 null_context, null_context_list_iterator,
+                                 arglist_parser_alloc (mlp, NULL)))
     ;
 
   fp = NULL;

@@ -29,10 +29,10 @@
    Return 0 if ok, nonzero on error.  */
 extern int
        msgdomain_write_java (message_list_ty *mlp,
-			     const char *canon_encoding,
-			     const char *resource_name,
-			     const char *locale_name,
-			     const char *directory,
-			     bool assume_java2);
+                             const char *canon_encoding,
+                             const char *resource_name,
+                             const char *locale_name,
+                             const char *directory,
+                             bool assume_java2);
 
 #endif /* _WRITE_JAVA_H */

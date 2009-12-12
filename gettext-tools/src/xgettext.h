@@ -61,7 +61,7 @@ struct callshape
 
 /* Split keyword spec into keyword, argnum1, argnum2, argnumc.  */
 extern void split_keywordspec (const char *spec, const char **endp,
-			       struct callshape *shapep);
+                               struct callshape *shapep);
 
 /* Set of alternative calling conventions for a given keyword.  */
 struct callshapes
@@ -75,8 +75,8 @@ struct callshapes
 /* Insert a (keyword, callshape) pair into a hash table mapping keyword to
    'struct callshapes *'.  */
 extern void insert_keyword_callshape (hash_table *table,
-				      const char *keyword, size_t keyword_len,
-				      const struct callshape *shape);
+                                      const char *keyword, size_t keyword_len,
+                                      const struct callshape *shape);
 
 
 /* Context representing some flags.  */
@@ -102,15 +102,15 @@ extern flag_context_ty passthrough_context;
    The result will then also have all pass_format* flags = false.  */
 extern flag_context_ty
        inherited_context (flag_context_ty outer_context,
-			  flag_context_ty modifier_context);
+                          flag_context_ty modifier_context);
 
 /* Context representing some flags, for each possible argument number.
    This is a linked list, sorted according to the argument number.  */
 typedef struct flag_context_list_ty flag_context_list_ty;
 struct flag_context_list_ty
 {
-  int argnum;			/* current argument number, > 0 */
-  flag_context_ty flags;	/* flags for current argument */
+  int argnum;                   /* current argument number, > 0 */
+  flag_context_ty flags;        /* flags for current argument */
   flag_context_list_ty *next;
 };
 
@@ -118,8 +118,8 @@ struct flag_context_list_ty
 typedef struct flag_context_list_iterator_ty flag_context_list_iterator_ty;
 struct flag_context_list_iterator_ty
 {
-  int argnum;				/* current argument number, > 0 */
-  const flag_context_list_ty* head;	/* tail of list */
+  int argnum;                           /* current argument number, > 0 */
+  const flag_context_list_ty* head;     /* tail of list */
 };
 extern flag_context_list_iterator_ty null_context_list_iterator;
 extern flag_context_list_iterator_ty passthrough_context_list_iterator;
@@ -134,7 +134,7 @@ typedef hash_table /* char[] -> flag_context_list_ty * */
         flag_context_list_table_ty;
 extern flag_context_list_ty *
        flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
-				       const void *key, size_t keylen);
+                                       const void *key, size_t keylen);
 /* Record a flag in the appropriate backend's table.  */
 extern void xgettext_record_flag (const char *optionstring);
 
@@ -150,8 +150,8 @@ typedef enum
 
 /* Error message about non-ASCII character in a specific lexical context.  */
 extern char *non_ascii_error_message (lexical_context_ty lcontext,
-				      const char *file_name,
-				      size_t line_number);
+                                      const char *file_name,
+                                      size_t line_number);
 
 
 /* Canonicalized encoding name for all input files.  */
@@ -178,9 +178,9 @@ extern iconv_t xgettext_current_source_iconv;
    The lcontext, file_name and line_number are only used for error message
    purposes.  */
 extern char *from_current_source_encoding (const char *string,
-					   lexical_context_ty lcontext,
-					   const char *file_name,
-					   size_t line_number);
+                                           lexical_context_ty lcontext,
+                                           const char *file_name,
+                                           size_t line_number);
 
 
 /* List of messages whose msgids must not be extracted, or NULL.
@@ -224,12 +224,12 @@ drop_reference (refcounted_string_list_ty *rslp)
   if (rslp != NULL)
     {
       if (rslp->refcount > 1)
-	rslp->refcount--;
+        rslp->refcount--;
       else
-	{
-	  string_list_destroy (&rslp->contents);
-	  free (rslp);
-	}
+        {
+          string_list_destroy (&rslp->contents);
+          free (rslp);
+        }
     }
 }
 
@@ -249,12 +249,12 @@ extern void savable_comment_reset (void);
    (then add_reference must be used when saving it, and drop_reference while
    dropping it).  Clear savable_comment.  */
 extern message_ty *remember_a_message (message_list_ty *mlp,
-				       char *msgctxt,
-				       char *msgid,
-				       flag_context_ty context,
-				       lex_pos_ty *pos,
-				       const char *extracted_comment,
-				       refcounted_string_list_ty *comment);
+                                       char *msgctxt,
+                                       char *msgid,
+                                       flag_context_ty context,
+                                       lex_pos_ty *pos,
+                                       const char *extracted_comment,
+                                       refcounted_string_list_ty *comment);
 
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
@@ -264,10 +264,10 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
    (then add_reference must be used when saving it, and drop_reference while
    dropping it).  Clear savable_comment.  */
 extern void remember_a_message_plural (message_ty *mp,
-				       char *string,
-				       flag_context_ty context,
-				       lex_pos_ty *pos,
-				       refcounted_string_list_ty *comment);
+                                       char *string,
+                                       flag_context_ty context,
+                                       lex_pos_ty *pos,
+                                       refcounted_string_list_ty *comment);
 
 
 /* Represents the progressive parsing of an argument list w.r.t. a single
@@ -306,7 +306,7 @@ struct arglist_parser
 /* Creates a fresh arglist_parser recognizing calls.
    You can pass shapes = NULL for a parser not recognizing any calls.  */
 extern struct arglist_parser * arglist_parser_alloc (message_list_ty *mlp,
-						     const struct callshapes *shapes);
+                                                     const struct callshapes *shapes);
 /* Clones an arglist_parser.  */
 extern struct arglist_parser * arglist_parser_clone (struct arglist_parser *ap);
 /* Adds a string argument to an arglist_parser.  ARGNUM must be > 0.
@@ -316,10 +316,10 @@ extern struct arglist_parser * arglist_parser_clone (struct arglist_parser *ap);
    (then add_reference must be used when saving it, and drop_reference while
    dropping it).  Clear savable_comment.  */
 extern void arglist_parser_remember (struct arglist_parser *ap,
-				     int argnum, char *string,
-				     flag_context_ty context,
-				     char *file_name, size_t line_number,
-				     refcounted_string_list_ty *comment);
+                                     int argnum, char *string,
+                                     flag_context_ty context,
+                                     char *file_name, size_t line_number,
+                                     refcounted_string_list_ty *comment);
 /* Tests whether an arglist_parser has is not waiting for more arguments after
    argument ARGNUM.  */
 extern bool arglist_parser_decidedp (struct arglist_parser *ap, int argnum);

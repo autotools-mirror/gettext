@@ -51,16 +51,16 @@ static char *header_charset;
 
 static void
 extract_add_message (default_catalog_reader_ty *this,
-		     char *msgctxt,
-		     char *msgid,
-		     lex_pos_ty *msgid_pos,
-		     char *msgid_plural,
-		     char *msgstr, size_t msgstr_len,
-		     lex_pos_ty *msgstr_pos,
-		     char *prev_msgctxt,
-		     char *prev_msgid,
-		     char *prev_msgid_plural,
-		     bool force_fuzzy, bool obsolete)
+                     char *msgctxt,
+                     char *msgid,
+                     lex_pos_ty *msgid_pos,
+                     char *msgid_plural,
+                     char *msgstr, size_t msgstr_len,
+                     lex_pos_ty *msgstr_pos,
+                     char *prev_msgctxt,
+                     char *prev_msgid,
+                     char *prev_msgid_plural,
+                     bool force_fuzzy, bool obsolete)
 {
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
@@ -73,46 +73,46 @@ extract_add_message (default_catalog_reader_ty *this,
   if (msgctxt == NULL && *msgid == '\0' && !xgettext_omit_header)
     {
       {
-	const char *charsetstr = strstr (msgstr, "charset=");
+        const char *charsetstr = strstr (msgstr, "charset=");
 
-	if (charsetstr != NULL)
-	  {
-	    size_t len;
-	    char *charset;
+        if (charsetstr != NULL)
+          {
+            size_t len;
+            char *charset;
 
-	    charsetstr += strlen ("charset=");
-	    len = strcspn (charsetstr, " \t\n");
-	    charset = XNMALLOC (len + 1, char);
-	    memcpy (charset, charsetstr, len);
-	    charset[len] = '\0';
+            charsetstr += strlen ("charset=");
+            len = strcspn (charsetstr, " \t\n");
+            charset = XNMALLOC (len + 1, char);
+            memcpy (charset, charsetstr, len);
+            charset[len] = '\0';
 
-	    if (header_charset != NULL)
-	      free (header_charset);
-	    header_charset = charset;
-	  }
+            if (header_charset != NULL)
+              free (header_charset);
+            header_charset = charset;
+          }
       }
 
      discard:
       if (msgctxt != NULL)
-	free (msgctxt);
+        free (msgctxt);
       free (msgid);
       if (msgid_plural != NULL)
-	free (msgid_plural);
+        free (msgid_plural);
       free (msgstr);
       if (prev_msgctxt != NULL)
-	free (prev_msgctxt);
+        free (prev_msgctxt);
       if (prev_msgid != NULL)
-	free (prev_msgid);
+        free (prev_msgid);
       if (prev_msgid_plural != NULL)
-	free (prev_msgid_plural);
+        free (prev_msgid_plural);
       return;
     }
 
   /* Invoke superclass method.  */
   default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
-		       msgstr, msgstr_len, msgstr_pos,
-		       prev_msgctxt, prev_msgid, prev_msgid_plural,
-		       force_fuzzy, obsolete);
+                       msgstr, msgstr_len, msgstr_pos,
+                       prev_msgctxt, prev_msgid, prev_msgid_plural,
+                       force_fuzzy, obsolete);
 }
 
 
@@ -145,9 +145,9 @@ static default_catalog_reader_class_ty extract_methods =
 
 static void
 extract (FILE *fp,
-	 const char *real_filename, const char *logical_filename,
-	 catalog_input_format_ty input_syntax,
-	 msgdomain_list_ty *mdlp)
+         const char *real_filename, const char *logical_filename,
+         catalog_input_format_ty input_syntax,
+         msgdomain_list_ty *mdlp)
 {
   default_catalog_reader_ty *pop;
 
@@ -163,46 +163,46 @@ extract (FILE *fp,
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-			logical_filename, input_syntax);
+                        logical_filename, input_syntax);
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
 
   if (header_charset != NULL)
     {
       if (!xgettext_omit_header)
-	{
-	  /* Put the old charset into the freshly constructed header entry.  */
-	  message_ty *mp =
-	    message_list_search (mdlp->item[0]->messages, NULL, "");
+        {
+          /* Put the old charset into the freshly constructed header entry.  */
+          message_ty *mp =
+            message_list_search (mdlp->item[0]->messages, NULL, "");
 
-	  if (mp != NULL && !mp->obsolete)
-	    {
-	      const char *header = mp->msgstr;
+          if (mp != NULL && !mp->obsolete)
+            {
+              const char *header = mp->msgstr;
 
-	      if (header != NULL)
-		{
-		  const char *charsetstr = strstr (header, "charset=");
+              if (header != NULL)
+                {
+                  const char *charsetstr = strstr (header, "charset=");
 
-		  if (charsetstr != NULL)
-		    {
-		      size_t len, len1, len2, len3;
-		      char *new_header;
+                  if (charsetstr != NULL)
+                    {
+                      size_t len, len1, len2, len3;
+                      char *new_header;
 
-		      charsetstr += strlen ("charset=");
-		      len = strcspn (charsetstr, " \t\n");
+                      charsetstr += strlen ("charset=");
+                      len = strcspn (charsetstr, " \t\n");
 
-		      len1 = charsetstr - header;
-		      len2 = strlen (header_charset);
-		      len3 = (header + strlen (header)) - (charsetstr + len);
-		      new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
-		      memcpy (new_header, header, len1);
-		      memcpy (new_header + len1, header_charset, len2);
-		      memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);
-		      mp->msgstr = new_header;
-		      mp->msgstr_len = len1 + len2 + len3 + 1;
-		    }
-		}
-	    }
-	}
+                      len1 = charsetstr - header;
+                      len2 = strlen (header_charset);
+                      len3 = (header + strlen (header)) - (charsetstr + len);
+                      new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
+                      memcpy (new_header, header, len1);
+                      memcpy (new_header + len1, header_charset, len2);
+                      memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);
+                      mp->msgstr = new_header;
+                      mp->msgstr_len = len1 + len2 + len3 + 1;
+                    }
+                }
+            }
+        }
 
       free (header_charset);
     }
@@ -211,9 +211,9 @@ extract (FILE *fp,
 
 void
 extract_po (FILE *fp,
-	    const char *real_filename, const char *logical_filename,
-	    flag_context_list_table_ty *flag_table,
-	    msgdomain_list_ty *mdlp)
+            const char *real_filename, const char *logical_filename,
+            flag_context_list_table_ty *flag_table,
+            msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, &input_format_po, mdlp);
 }
@@ -221,21 +221,21 @@ extract_po (FILE *fp,
 
 void
 extract_properties (FILE *fp,
-		    const char *real_filename, const char *logical_filename,
-		    flag_context_list_table_ty *flag_table,
-		    msgdomain_list_ty *mdlp)
+                    const char *real_filename, const char *logical_filename,
+                    flag_context_list_table_ty *flag_table,
+                    msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, &input_format_properties,
-	   mdlp);
+           mdlp);
 }
 
 
 void
 extract_stringtable (FILE *fp,
-		     const char *real_filename, const char *logical_filename,
-		     flag_context_list_table_ty *flag_table,
-		     msgdomain_list_ty *mdlp)
+                     const char *real_filename, const char *logical_filename,
+                     flag_context_list_table_ty *flag_table,
+                     msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, &input_format_stringtable,
-	   mdlp);
+           mdlp);
 }

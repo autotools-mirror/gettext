@@ -90,7 +90,7 @@ static const struct option long_options[] =
 /* Forward declaration of local functions.  */
 static void usage (int status)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-	__attribute__ ((noreturn))
+        __attribute__ ((noreturn))
 #endif
 ;
 static void process_msgdomain_list (const msgdomain_list_ty *mdlp);
@@ -132,44 +132,44 @@ main (int argc, char **argv)
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
   while ((opt = getopt_long (argc, argv, "+D:hi:PV", long_options, NULL))
-	 != EOF)
+         != EOF)
     switch (opt)
       {
-      case '\0':		/* Long option.  */
-	break;
+      case '\0':                /* Long option.  */
+        break;
 
       case 'D':
-	dir_list_append (optarg);
-	break;
+        dir_list_append (optarg);
+        break;
 
       case 'h':
-	do_help = true;
-	break;
+        do_help = true;
+        break;
 
       case 'i':
-	if (input_file != NULL)
-	  {
-	    error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-	    usage (EXIT_FAILURE);
-	  }
-	input_file = optarg;
-	break;
+        if (input_file != NULL)
+          {
+            error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+            usage (EXIT_FAILURE);
+          }
+        input_file = optarg;
+        break;
 
       case 'P':
-	input_syntax = &input_format_properties;
-	break;
+        input_syntax = &input_format_properties;
+        break;
 
       case 'V':
-	do_version = true;
-	break;
+        do_version = true;
+        break;
 
       case CHAR_MAX + 1: /* --stringtable-input */
-	input_syntax = &input_format_stringtable;
-	break;
+        input_syntax = &input_format_stringtable;
+        break;
 
       default:
-	usage (EXIT_FAILURE);
-	break;
+        usage (EXIT_FAILURE);
+        break;
       }
 
   /* Version information is requested.  */
@@ -182,7 +182,7 @@ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-	      "2001-2009");
+              "2001-2009");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
@@ -216,20 +216,20 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       compare_po_locale_charsets (result);
 
       /* Block SIGPIPE for this process and for the subprocesses.
-	 The subprogram may have side effects (additionally to producing some
-	 output), therefore if there are no readers on stdout, processing of the
-	 strings must continue nevertheless.  */
+         The subprogram may have side effects (additionally to producing some
+         output), therefore if there are no readers on stdout, processing of the
+         strings must continue nevertheless.  */
       {
-	sigset_t sigpipe_set;
+        sigset_t sigpipe_set;
 
-	sigemptyset (&sigpipe_set);
-	sigaddset (&sigpipe_set, SIGPIPE);
-	sigprocmask (SIG_UNBLOCK, &sigpipe_set, NULL);
+        sigemptyset (&sigpipe_set);
+        sigaddset (&sigpipe_set, SIGPIPE);
+        sigprocmask (SIG_UNBLOCK, &sigpipe_set, NULL);
       }
 
       /* Attempt to locate the program.
-	 This is an optimization, to avoid that spawn/exec searches the PATH
-	 on every call.  */
+         This is an optimization, to avoid that spawn/exec searches the PATH
+         on every call.  */
       sub_path = find_in_path (sub_name);
 
       /* Finish argument list for the program.  */
@@ -251,7 +251,7 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     fprintf (stderr, _("Try `%s --help' for more information.\n"),
-	     program_name);
+             program_name);
   else
     {
       printf (_("\
@@ -304,7 +304,7 @@ Informative output:\n"));
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
       fputs (_("Report bugs to <bug-gnu-gettext@gnu.org>.\n"),
-	     stdout);
+             stdout);
     }
 
   exit (status);
@@ -342,7 +342,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
     {
       /* Built-in command "0".  */
       if (full_write (STDOUT_FILENO, str, len + 1) < len + 1)
-	error (EXIT_FAILURE, errno, _("write to stdout failed"));
+        error (EXIT_FAILURE, errno, _("write to stdout failed"));
     }
   else
     {
@@ -354,39 +354,39 @@ process_string (const message_ty *mp, const char *str, size_t len)
       int exitstatus;
 
       /* Set environment variables for the subprocess.
-	 Note: These environment variables, especially MSGEXEC_MSGCTXT and
-	 MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
-	 may not interpret these values correctly if the locale encoding is
-	 different from the PO file's encoding.  We want about this situation,
-	 above.
-	 On Unix, this problem is often harmless.  On Windows, however, - both
-	 native Windows and Cygwin - the values of environment variables *must*
-	 be in the encoding that is the value of GetACP(), because the system
-	 may convert the environment from char** to wchar_t** before spawning
-	 the subprocess and back from wchar_t** to char** in the subprocess,
-	 and it does so using the GetACP() codepage.  */
+         Note: These environment variables, especially MSGEXEC_MSGCTXT and
+         MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
+         may not interpret these values correctly if the locale encoding is
+         different from the PO file's encoding.  We want about this situation,
+         above.
+         On Unix, this problem is often harmless.  On Windows, however, - both
+         native Windows and Cygwin - the values of environment variables *must*
+         be in the encoding that is the value of GetACP(), because the system
+         may convert the environment from char** to wchar_t** before spawning
+         the subprocess and back from wchar_t** to char** in the subprocess,
+         and it does so using the GetACP() codepage.  */
       if (mp->msgctxt != NULL)
-	xsetenv ("MSGEXEC_MSGCTXT", mp->msgctxt, 1);
+        xsetenv ("MSGEXEC_MSGCTXT", mp->msgctxt, 1);
       else
-	unsetenv ("MSGEXEC_MSGCTXT");
+        unsetenv ("MSGEXEC_MSGCTXT");
       xsetenv ("MSGEXEC_MSGID", mp->msgid, 1);
       location = xasprintf ("%s:%ld", mp->pos.file_name,
-			    (long) mp->pos.line_number);
+                            (long) mp->pos.line_number);
       xsetenv ("MSGEXEC_LOCATION", location, 1);
       free (location);
 
       /* Open a pipe to a subprocess.  */
       child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, false, true,
-			       true, fd);
+                               true, fd);
 
       /* Ignore SIGPIPE here.  We don't care if the subprocesses terminates
-	 successfully without having read all of the input that we feed it.  */
+         successfully without having read all of the input that we feed it.  */
       orig_sigpipe_handler = signal (SIGPIPE, SIG_IGN);
 
       if (full_write (fd[0], str, len) < len)
-	if (errno != EPIPE)
-	  error (EXIT_FAILURE, errno,
-		 _("write to %s subprocess failed"), sub_name);
+        if (errno != EPIPE)
+          error (EXIT_FAILURE, errno,
+                 _("write to %s subprocess failed"), sub_name);
 
       close (fd[0]);
 
@@ -394,11 +394,11 @@ process_string (const message_ty *mp, const char *str, size_t len)
 
       /* Remove zombie process from process list, and retrieve exit status.  */
       /* FIXME: Should ignore_sigpipe be set to true here? It depends on the
-	 semantics of the subprogram...  */
+         semantics of the subprogram...  */
       exitstatus =
-	wait_subprocess (child, sub_name, false, false, true, true, NULL);
+        wait_subprocess (child, sub_name, false, false, true, true, NULL);
       if (exitcode < exitstatus)
-	exitcode = exitstatus;
+        exitcode = exitstatus;
     }
 }
 

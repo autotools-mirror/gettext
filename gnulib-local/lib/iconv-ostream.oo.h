@@ -40,8 +40,8 @@ extern "C" {
 /* Create an output stream that converts from FROM_ENCODING to TO_ENCODING,
    writing the result to DESTINATION.  */
 extern iconv_ostream_t iconv_ostream_create (const char *from_encoding,
-					     const char *to_encoding,
-					     ostream_t destination);
+                                             const char *to_encoding,
+                                             ostream_t destination);
 
 #endif /* HAVE_ICONV */
 

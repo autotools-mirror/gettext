@@ -58,8 +58,8 @@ po_charset_canonicalize (const char *charset)
      iconv() across platforms.  Taken from intl/config.charset.  */
   static const char *standard_charsets[] =
   {
-    ascii, "ANSI_X3.4-1968", "US-ASCII",	/* i = 0..2 */
-    "ISO-8859-1", "ISO_8859-1",			/* i = 3, 4 */
+    ascii, "ANSI_X3.4-1968", "US-ASCII",        /* i = 0..2 */
+    "ISO-8859-1", "ISO_8859-1",                 /* i = 3, 4 */
     "ISO-8859-2", "ISO_8859-2",
     "ISO-8859-3", "ISO_8859-3",
     "ISO-8859-4", "ISO_8859-4",
@@ -70,7 +70,7 @@ po_charset_canonicalize (const char *charset)
     "ISO-8859-9", "ISO_8859-9",
     "ISO-8859-13", "ISO_8859-13",
     "ISO-8859-14", "ISO_8859-14",
-    "ISO-8859-15", "ISO_8859-15",		/* i = 25, 26 */
+    "ISO-8859-15", "ISO_8859-15",               /* i = 25, 26 */
     "KOI8-R",
     "KOI8-U",
     "KOI8-T",
@@ -152,13 +152,13 @@ bool po_is_charset_weird (const char *canon_charset)
 bool po_is_charset_weird_cjk (const char *canon_charset)
 {
   static const char *weird_cjk_charsets[] =
-  {			/* single bytes   double bytes       */
-    "BIG5",		/* 0x{00..7F},    0x{A1..F9}{40..FE} */
-    "BIG5-HKSCS",	/* 0x{00..7F},    0x{88..FE}{40..FE} */
-    "GBK",		/* 0x{00..7F},    0x{81..FE}{40..FE} */
-    "GB18030",		/* 0x{00..7F},    0x{81..FE}{30..FE} */
-    "SHIFT_JIS",	/* 0x{00..7F},    0x{81..F9}{40..FC} */
-    "JOHAB"		/* 0x{00..7F},    0x{84..F9}{31..FE} */
+  {                     /* single bytes   double bytes       */
+    "BIG5",             /* 0x{00..7F},    0x{A1..F9}{40..FE} */
+    "BIG5-HKSCS",       /* 0x{00..7F},    0x{88..FE}{40..FE} */
+    "GBK",              /* 0x{00..7F},    0x{81..FE}{40..FE} */
+    "GB18030",          /* 0x{00..7F},    0x{81..FE}{30..FE} */
+    "SHIFT_JIS",        /* 0x{00..7F},    0x{81..F9}{40..FC} */
+    "JOHAB"             /* 0x{00..7F},    0x{84..F9}{31..FE} */
   };
   size_t i;
 
@@ -189,7 +189,7 @@ euc_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 < 0xff)
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -203,23 +203,23 @@ euc_jp_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 < 0xff)
-	return 2;
+        return 2;
     }
   else if (c == 0x8e)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 < 0xe0)
-	return 2;
+        return 2;
     }
   else if (c == 0x8f)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 < 0xff)
-	{
-	  unsigned char c3 = s[2];
-	  if (c3 >= 0xa1 && c3 < 0xff)
-	    return 3;
-	}
+        {
+          unsigned char c3 = s[2];
+          if (c3 >= 0xa1 && c3 < 0xff)
+            return 3;
+        }
     }
   return 1;
 }
@@ -233,21 +233,21 @@ euc_tw_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 < 0xff)
-	return 2;
+        return 2;
     }
   else if (c == 0x8e)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0xa1 && c2 <= 0xb0)
-	{
-	  unsigned char c3 = s[2];
-	  if (c3 >= 0xa1 && c3 < 0xff)
-	    {
-	      unsigned char c4 = s[3];
-	      if (c4 >= 0xa1 && c4 < 0xff)
-		return 4;
-	    }
-	}
+        {
+          unsigned char c3 = s[2];
+          if (c3 >= 0xa1 && c3 < 0xff)
+            {
+              unsigned char c4 = s[3];
+              if (c4 >= 0xa1 && c4 < 0xff)
+                return 4;
+            }
+        }
     }
   return 1;
 }
@@ -261,7 +261,7 @@ big5_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0xa1 && c2 < 0xff))
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -275,7 +275,7 @@ big5hkscs_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0xa1 && c2 < 0xff))
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -290,7 +290,7 @@ gbk_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0x80 && c2 < 0xff))
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -304,21 +304,21 @@ gb18030_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x40 && c2 < 0x7f) || (c2 >= 0x80 && c2 < 0xff))
-	return 2;
+        return 2;
     }
   if (c >= 0x81 && c <= 0x84)
     {
       unsigned char c2 = s[1];
       if (c2 >= 0x30 && c2 <= 0x39)
-	{
-	  unsigned char c3 = s[2];
-	  if (c3 >= 0x81 && c3 < 0xff)
-	    {
-	      unsigned char c4 = s[3];
-	      if (c4 >= 0x30 && c4 <= 0x39)
-		return 4;
-	    }
-	}
+        {
+          unsigned char c3 = s[2];
+          if (c3 >= 0x81 && c3 < 0xff)
+            {
+              unsigned char c4 = s[3];
+              if (c4 >= 0x30 && c4 <= 0x39)
+                return 4;
+            }
+        }
     }
   return 1;
 }
@@ -332,7 +332,7 @@ shift_jis_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x40 && c2 <= 0x7e) || (c2 >= 0x80 && c2 <= 0xfc))
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -347,13 +347,13 @@ johab_character_iterator (const char *s)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x41 && c2 < 0x7f) || (c2 >= 0x81 && c2 < 0xff))
-	return 2;
+        return 2;
     }
   else if (c >= 0xd9 && c <= 0xf9)
     {
       unsigned char c2 = s[1];
       if ((c2 >= 0x31 && c2 <= 0x7e) || (c2 >= 0x91 && c2 <= 0xfe))
-	return 2;
+        return 2;
     }
   return 1;
 }
@@ -366,35 +366,35 @@ utf8_character_iterator (const char *s)
   if (c >= 0xc2)
     {
       if (c < 0xe0)
-	{
-	  unsigned char c2 = s[1];
-	  if (c2 >= 0x80 && c2 < 0xc0)
-	    return 2;
-	}
+        {
+          unsigned char c2 = s[1];
+          if (c2 >= 0x80 && c2 < 0xc0)
+            return 2;
+        }
       else if (c < 0xf0)
-	{
-	  unsigned char c2 = s[1];
-	  if (c2 >= 0x80 && c2 < 0xc0)
-	    {
-	      unsigned char c3 = s[2];
-	      if (c3 >= 0x80 && c3 < 0xc0)
-		return 3;
-	    }
-	}
+        {
+          unsigned char c2 = s[1];
+          if (c2 >= 0x80 && c2 < 0xc0)
+            {
+              unsigned char c3 = s[2];
+              if (c3 >= 0x80 && c3 < 0xc0)
+                return 3;
+            }
+        }
       else if (c < 0xf8)
-	{
-	  unsigned char c2 = s[1];
-	  if (c2 >= 0x80 && c2 < 0xc0)
-	    {
-	      unsigned char c3 = s[2];
-	      if (c3 >= 0x80 && c3 < 0xc0)
-		{
-		  unsigned char c4 = s[3];
-		  if (c4 >= 0x80 && c4 < 0xc0)
-		    return 4;
-		}
-	    }
-	}
+        {
+          unsigned char c2 = s[1];
+          if (c2 >= 0x80 && c2 < 0xc0)
+            {
+              unsigned char c3 = s[2];
+              if (c3 >= 0x80 && c3 < 0xc0)
+                {
+                  unsigned char c4 = s[3];
+                  if (c4 >= 0x80 && c4 < 0xc0)
+                    return 4;
+                }
+            }
+        }
     }
   return 1;
 }
@@ -457,9 +457,9 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 {
   /* Verify the validity of CHARSET.  It is necessary
      1. for the correct treatment of multibyte characters containing
-	0x5C bytes in the PO lexer,
+        0x5C bytes in the PO lexer,
      2. so that at run time, gettext() can call iconv() to convert
-	msgstr.  */
+        msgstr.  */
   const char *charsetstr = c_strstr (header_entry, "charset=");
 
   if (charsetstr != NULL)
@@ -476,171 +476,171 @@ po_lex_charset_set (const char *header_entry, const char *filename)
 
       canon_charset = po_charset_canonicalize (charset);
       if (canon_charset == NULL)
-	{
-	  /* Don't warn for POT files, because POT files usually contain
-	     only ASCII msgids.  */
-	  size_t filenamelen = strlen (filename);
+        {
+          /* Don't warn for POT files, because POT files usually contain
+             only ASCII msgids.  */
+          size_t filenamelen = strlen (filename);
 
-	  if (!(filenamelen >= 4
-		&& memcmp (filename + filenamelen - 4, ".pot", 4) == 0
-		&& strcmp (charset, "CHARSET") == 0))
-	    {
-	      char *warning_message =
-		xasprintf (_("\
+          if (!(filenamelen >= 4
+                && memcmp (filename + filenamelen - 4, ".pot", 4) == 0
+                && strcmp (charset, "CHARSET") == 0))
+            {
+              char *warning_message =
+                xasprintf (_("\
 Charset \"%s\" is not a portable encoding name.\n\
 Message conversion to user's charset might not work.\n"),
-			   charset);
-	      po_xerror (PO_SEVERITY_WARNING, NULL,
-			 filename, (size_t)(-1), (size_t)(-1), true,
-			 warning_message);
-	      free (warning_message);
-	    }
-	}
+                           charset);
+              po_xerror (PO_SEVERITY_WARNING, NULL,
+                         filename, (size_t)(-1), (size_t)(-1), true,
+                         warning_message);
+              free (warning_message);
+            }
+        }
       else
-	{
-	  const char *envval;
+        {
+          const char *envval;
 
-	  po_lex_charset = canon_charset;
+          po_lex_charset = canon_charset;
 #if HAVE_ICONV
-	  if (po_lex_iconv != (iconv_t)(-1))
-	    iconv_close (po_lex_iconv);
+          if (po_lex_iconv != (iconv_t)(-1))
+            iconv_close (po_lex_iconv);
 #endif
 
-	  /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35
-	     don't know about multibyte encodings, and require a spurious
-	     backslash after every multibyte character whose last byte is
-	     0x5C.  Some programs, like vim, distribute PO files in this
-	     broken format.  GNU msgfmt must continue to support this old
-	     PO file format when the Makefile requests it.  */
-	  envval = getenv ("OLD_PO_FILE_INPUT");
-	  if (envval != NULL && *envval != '\0')
-	    {
-	      /* Assume the PO file is in old format, with extraneous
-		 backslashes.  */
+          /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35
+             don't know about multibyte encodings, and require a spurious
+             backslash after every multibyte character whose last byte is
+             0x5C.  Some programs, like vim, distribute PO files in this
+             broken format.  GNU msgfmt must continue to support this old
+             PO file format when the Makefile requests it.  */
+          envval = getenv ("OLD_PO_FILE_INPUT");
+          if (envval != NULL && *envval != '\0')
+            {
+              /* Assume the PO file is in old format, with extraneous
+                 backslashes.  */
 #if HAVE_ICONV
-	      po_lex_iconv = (iconv_t)(-1);
+              po_lex_iconv = (iconv_t)(-1);
 #endif
-	      po_lex_weird_cjk = false;
-	    }
-	  else
-	    {
-	      /* Use iconv() to parse multibyte characters.  */
+              po_lex_weird_cjk = false;
+            }
+          else
+            {
+              /* Use iconv() to parse multibyte characters.  */
 #if HAVE_ICONV
-	      /* Avoid glibc-2.1 bug with EUC-KR.  */
+              /* Avoid glibc-2.1 bug with EUC-KR.  */
 # if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
-	      if (strcmp (po_lex_charset, "EUC-KR") == 0)
-		po_lex_iconv = (iconv_t)(-1);
-	      else
+              if (strcmp (po_lex_charset, "EUC-KR") == 0)
+                po_lex_iconv = (iconv_t)(-1);
+              else
 # endif
-	      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS,
-		 GBK, GB18030.  */
+              /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS,
+                 GBK, GB18030.  */
 # if defined __sun && !defined _LIBICONV_VERSION
-	      if (   strcmp (po_lex_charset, "GB2312") == 0
-		  || strcmp (po_lex_charset, "EUC-TW") == 0
-		  || strcmp (po_lex_charset, "BIG5") == 0
-		  || strcmp (po_lex_charset, "BIG5-HKSCS") == 0
-		  || strcmp (po_lex_charset, "GBK") == 0
-		  || strcmp (po_lex_charset, "GB18030") == 0)
-		po_lex_iconv = (iconv_t)(-1);
-	      else
+              if (   strcmp (po_lex_charset, "GB2312") == 0
+                  || strcmp (po_lex_charset, "EUC-TW") == 0
+                  || strcmp (po_lex_charset, "BIG5") == 0
+                  || strcmp (po_lex_charset, "BIG5-HKSCS") == 0
+                  || strcmp (po_lex_charset, "GBK") == 0
+                  || strcmp (po_lex_charset, "GB18030") == 0)
+                po_lex_iconv = (iconv_t)(-1);
+              else
 # endif
-	      po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
-	      if (po_lex_iconv == (iconv_t)(-1))
-		{
-		  char *warning_message;
-		  const char *recommendation;
-		  const char *note;
-		  char *whole_message;
+              po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
+              if (po_lex_iconv == (iconv_t)(-1))
+                {
+                  char *warning_message;
+                  const char *recommendation;
+                  const char *note;
+                  char *whole_message;
 
-		  warning_message =
-		    xasprintf (_("\
+                  warning_message =
+                    xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv(),\n\
 and iconv() does not support \"%s\".\n"),
-			       po_lex_charset, basename (program_name),
-			       po_lex_charset);
+                               po_lex_charset, basename (program_name),
+                               po_lex_charset);
 
 # if !defined _LIBICONV_VERSION
-		  recommendation = _("\
+                  recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n");
 # else
-		  recommendation = "";
+                  recommendation = "";
 # endif
 
-		  /* Test for a charset which has double-byte characters
-		     ending in 0x5C.  For these encodings, the string parser
-		     is likely to be confused if it can't see the character
-		     boundaries.  */
-		  po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
-		  if (po_is_charset_weird (po_lex_charset)
-		      && !po_lex_weird_cjk)
-		    note = _("Continuing anyway, expect parse errors.");
-		  else
-		    note = _("Continuing anyway.");
+                  /* Test for a charset which has double-byte characters
+                     ending in 0x5C.  For these encodings, the string parser
+                     is likely to be confused if it can't see the character
+                     boundaries.  */
+                  po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
+                  if (po_is_charset_weird (po_lex_charset)
+                      && !po_lex_weird_cjk)
+                    note = _("Continuing anyway, expect parse errors.");
+                  else
+                    note = _("Continuing anyway.");
 
-		  whole_message =
-		    xasprintf ("%s%s%s\n",
-			       warning_message, recommendation, note);
+                  whole_message =
+                    xasprintf ("%s%s%s\n",
+                               warning_message, recommendation, note);
 
-		  po_xerror (PO_SEVERITY_WARNING, NULL,
-			     filename, (size_t)(-1), (size_t)(-1), true,
-			     whole_message);
+                  po_xerror (PO_SEVERITY_WARNING, NULL,
+                             filename, (size_t)(-1), (size_t)(-1), true,
+                             whole_message);
 
-		  free (whole_message);
-		  free (warning_message);
-		}
+                  free (whole_message);
+                  free (warning_message);
+                }
 #else
-	      /* Test for a charset which has double-byte characters
-		 ending in 0x5C.  For these encodings, the string parser
-		 is likely to be confused if it can't see the character
-		 boundaries.  */
-	      po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
-	      if (po_is_charset_weird (po_lex_charset) && !po_lex_weird_cjk)
-		{
-		  char *warning_message;
-		  const char *recommendation;
-		  const char *note;
-		  char *whole_message;
+              /* Test for a charset which has double-byte characters
+                 ending in 0x5C.  For these encodings, the string parser
+                 is likely to be confused if it can't see the character
+                 boundaries.  */
+              po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
+              if (po_is_charset_weird (po_lex_charset) && !po_lex_weird_cjk)
+                {
+                  char *warning_message;
+                  const char *recommendation;
+                  const char *note;
+                  char *whole_message;
 
-		  warning_message =
-		    xasprintf (_("\
+                  warning_message =
+                    xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-			       po_lex_charset, basename (program_name));
+                               po_lex_charset, basename (program_name));
 
-		  recommendation = _("\
+                  recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n");
 
-		  note = _("Continuing anyway, expect parse errors.");
+                  note = _("Continuing anyway, expect parse errors.");
 
-		  whole_message =
-		    xasprintf ("%s%s%s\n",
-			       warning_message, recommendation, note);
+                  whole_message =
+                    xasprintf ("%s%s%s\n",
+                               warning_message, recommendation, note);
 
-		  po_xerror (PO_SEVERITY_WARNING, NULL,
-			     filename, (size_t)(-1), (size_t)(-1), true,
-			     whole_message);
+                  po_xerror (PO_SEVERITY_WARNING, NULL,
+                             filename, (size_t)(-1), (size_t)(-1), true,
+                             whole_message);
 
-		  free (whole_message);
-		  free (warning_message);
-		}
+                  free (whole_message);
+                  free (warning_message);
+                }
 #endif
-	    }
-	}
+            }
+        }
       freea (charset);
     }
   else
     {
       /* Don't warn for POT files, because POT files usually contain
-	 only ASCII msgids.  */
+         only ASCII msgids.  */
       size_t filenamelen = strlen (filename);
 
       if (!(filenamelen >= 4
-	    && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
-	po_xerror (PO_SEVERITY_WARNING,
-		   NULL, filename, (size_t)(-1), (size_t)(-1), true,
-		   _("\
+            && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
+        po_xerror (PO_SEVERITY_WARNING,
+                   NULL, filename, (size_t)(-1), (size_t)(-1), true,
+                   _("\
 Charset missing in header.\n\
 Message conversion to user's charset will not work.\n"));
     }

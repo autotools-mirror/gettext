@@ -67,13 +67,13 @@ main (void)
       int j;
 
       if (setlocale (LC_ALL, lang[i]) == NULL)
-	setlocale (LC_ALL, "C");
+        setlocale (LC_ALL, "C");
 
       bindtextdomain ("tstlang", ".");
 
       for (j = 0; j < data_cnt; ++j)
-	printf ("%s - %s\n", strings[j].selection,
-		gettext (strings[j].description));
+        printf ("%s - %s\n", strings[j].selection,
+                gettext (strings[j].description));
     }
 
   return 0;

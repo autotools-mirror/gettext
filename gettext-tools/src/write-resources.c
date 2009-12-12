@@ -59,8 +59,8 @@ struct locals
 
 static bool
 execute_writing_input (const char *progname,
-		       const char *prog_path, char **prog_argv,
-		       void *private_data)
+                       const char *prog_path, char **prog_argv,
+                       void *private_data)
 {
   struct locals *l = (struct locals *) private_data;
   pid_t child;
@@ -70,7 +70,7 @@ execute_writing_input (const char *progname,
 
   /* Open a pipe to the C# execution engine.  */
   child = create_pipe_out (progname, prog_path, prog_argv, NULL, false,
-			   true, true, fd);
+                           true, true, fd);
 
   fp = fdopen (fd[0], "wb");
   if (fp == NULL)
@@ -83,16 +83,16 @@ execute_writing_input (const char *progname,
 
     for (j = 0; j < mlp->nitems; j++)
       {
-	message_ty *mp = mlp->item[j];
+        message_ty *mp = mlp->item[j];
 
-	fwrite (mp->msgid, 1, strlen (mp->msgid) + 1, fp);
-	fwrite (mp->msgstr, 1, strlen (mp->msgstr) + 1, fp);
+        fwrite (mp->msgid, 1, strlen (mp->msgid) + 1, fp);
+        fwrite (mp->msgstr, 1, strlen (mp->msgstr) + 1, fp);
       }
   }
 
   if (fwriteerror (fp))
     error (EXIT_FAILURE, 0, _("error while writing to %s subprocess"),
-	   progname);
+           progname);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
   /* He we can ignore SIGPIPE because WriteResource either writes to a file
@@ -102,56 +102,56 @@ execute_writing_input (const char *progname,
     wait_subprocess (child, progname, true, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
-	   progname, exitstatus);
+           progname, exitstatus);
 
   return false;
 }
 
 int
 msgdomain_write_csharp_resources (message_list_ty *mlp,
-				  const char *canon_encoding,
-				  const char *domain_name,
-				  const char *file_name)
+                                  const char *canon_encoding,
+                                  const char *domain_name,
+                                  const char *file_name)
 {
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
       /* Determine whether mlp has entries with context.  */
       {
-	bool has_context;
-	size_t j;
+        bool has_context;
+        size_t j;
 
-	has_context = false;
-	for (j = 0; j < mlp->nitems; j++)
-	  if (mlp->item[j]->msgctxt != NULL)
-	    has_context = true;
-	if (has_context)
-	  {
-	    multiline_error (xstrdup (""),
-			     xstrdup (_("\
+        has_context = false;
+        for (j = 0; j < mlp->nitems; j++)
+          if (mlp->item[j]->msgctxt != NULL)
+            has_context = true;
+        if (has_context)
+          {
+            multiline_error (xstrdup (""),
+                             xstrdup (_("\
 message catalog has context dependent translations\n\
 but the C# .resources format doesn't support contexts\n")));
-	    return 1;
-	  }
+            return 1;
+          }
       }
 
       /* Determine whether mlp has plural entries.  */
       {
-	bool has_plural;
-	size_t j;
+        bool has_plural;
+        size_t j;
 
-	has_plural = false;
-	for (j = 0; j < mlp->nitems; j++)
-	  if (mlp->item[j]->msgid_plural != NULL)
-	    has_plural = true;
-	if (has_plural)
-	  {
-	    multiline_error (xstrdup (""),
-			     xstrdup (_("\
+        has_plural = false;
+        for (j = 0; j < mlp->nitems; j++)
+          if (mlp->item[j]->msgid_plural != NULL)
+            has_plural = true;
+        if (has_plural)
+          {
+            multiline_error (xstrdup (""),
+                             xstrdup (_("\
 message catalog has plural form translations\n\
 but the C# .resources format doesn't support plural handling\n")));
-	    return 1;
-	  }
+            return 1;
+          }
       }
 
       /* Convert the messages to Unicode.  */
@@ -159,34 +159,34 @@ but the C# .resources format doesn't support plural handling\n")));
 
       /* Execute the WriteResource program.  */
       {
-	const char *args[2];
-	const char *gettextexedir;
-	char *assembly_path;
-	struct locals locals;
+        const char *args[2];
+        const char *gettextexedir;
+        char *assembly_path;
+        struct locals locals;
 
-	/* Prepare arguments.  */
-	args[0] = file_name;
-	args[1] = NULL;
+        /* Prepare arguments.  */
+        args[0] = file_name;
+        args[1] = NULL;
 
-	/* Make it possible to override the .exe location.  This is
-	   necessary for running the testsuite before "make install".  */
-	gettextexedir = getenv ("GETTEXTCSHARPEXEDIR");
-	if (gettextexedir == NULL || gettextexedir[0] == '\0')
-	  gettextexedir = relocate (LIBDIR "/gettext");
+        /* Make it possible to override the .exe location.  This is
+           necessary for running the testsuite before "make install".  */
+        gettextexedir = getenv ("GETTEXTCSHARPEXEDIR");
+        if (gettextexedir == NULL || gettextexedir[0] == '\0')
+          gettextexedir = relocate (LIBDIR "/gettext");
 
-	assembly_path =
-	  xconcatenated_filename (gettextexedir, "msgfmt.net", ".exe");
+        assembly_path =
+          xconcatenated_filename (gettextexedir, "msgfmt.net", ".exe");
 
-	locals.mlp = mlp;
+        locals.mlp = mlp;
 
-	if (execute_csharp_program (assembly_path, NULL, 0,
-				    args,
-				    verbose > 0, false,
-				    execute_writing_input, &locals))
-	  /* An error message should already have been provided.  */
-	  exit (EXIT_FAILURE);
+        if (execute_csharp_program (assembly_path, NULL, 0,
+                                    args,
+                                    verbose > 0, false,
+                                    execute_writing_input, &locals))
+          /* An error message should already have been provided.  */
+          exit (EXIT_FAILURE);
 
-	free (assembly_path);
+        free (assembly_path);
       }
     }
 

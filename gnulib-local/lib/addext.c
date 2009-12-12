@@ -75,13 +75,13 @@ addext (char *filename, char const *ext, char e)
       /* Live within DOS's 8.3 limit.  */
       char *dot = strchr (s, '.');
       if (dot)
-	{
-	  slen -= dot + 1 - s;
-	  s = dot + 1;
-	  slen_max = 3;
-	}
+        {
+          slen -= dot + 1 - s;
+          s = dot + 1;
+          slen_max = 3;
+        }
       else
-	slen_max = 8;
+        slen_max = 8;
       extlen = 9; /* Don't use EXT.  */
     }
 
@@ -90,7 +90,7 @@ addext (char *filename, char const *ext, char e)
   else
     {
       if (slen_max <= slen)
-	slen = slen_max - 1;
+        slen = slen_max - 1;
       s[slen] = e;
       s[slen + 1] = 0;
     }
