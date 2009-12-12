@@ -1,3 +1,7 @@
+2009-11-17  Eric Blake  <ebb9@byu.net>
+
+	* vasnprintf.c (VASNPRINTF): Avoid shadowing our own local variables.
+
 2009-10-10  Eric Blake  <ebb9@byu.net>
 
 	* relocatable.c (compute_curr_prefix): Fix spelling.
