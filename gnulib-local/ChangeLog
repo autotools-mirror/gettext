@@ -1,3 +1,7 @@
+2009-12-12  Bruno Haible  <bruno@clisp.org>
+
+	* lib/fnmatch_loop.c.diff: Update after gnulib changed.
+
 2009-08-15  Bruno Haible  <bruno@clisp.org>
 
 	Stop using gnulib module 'strdup'.

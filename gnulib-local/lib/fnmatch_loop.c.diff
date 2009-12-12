@@ -1,7 +1,7 @@
-*** lib/fnmatch_loop.c.bak	2006-07-11 13:54:17.000000000 +0200
---- lib/fnmatch_loop.c	2006-07-30 21:03:04.000000000 +0200
+*** lib/fnmatch_loop.c.bak	2009-12-10 20:38:55.000000000 +0100
+--- lib/fnmatch_loop.c	2009-12-11 11:55:04.000000000 +0100
 ***************
-*** 1003,1022 ****
+*** 1021,1040 ****
     struct patternlist
     {
       struct patternlist *next;
@@ -21,8 +21,8 @@
 !       return -1;
       else if (*p == L_('['))
         {
-  	/* Handle brackets special.  */
---- 1003,1028 ----
+          /* Handle brackets special.  */
+--- 1021,1046 ----
     struct patternlist
     {
       struct patternlist *next;
@@ -48,99 +48,99 @@
 !       goto failed;
       else if (*p == L_('['))
         {
-  	/* Handle brackets special.  */
+          /* Handle brackets special.  */
 ***************
-*** 1034,1040 ****
-  	while (*p != L_(']'))
-  	  if (*p++ == L_('\0'))
-  	    /* This is no valid pattern.  */
-! 	    return -1;
+*** 1052,1058 ****
+          while (*p != L_(']'))
+            if (*p++ == L_('\0'))
+              /* This is no valid pattern.  */
+!             return -1;
         }
       else if ((*p == L_('?') || *p == L_('*') || *p == L_('+') || *p == L_('@')
-  	      || *p == L_('!')) && p[1] == L_('('))
---- 1040,1046 ----
-  	while (*p != L_(']'))
-  	  if (*p++ == L_('\0'))
-  	    /* This is no valid pattern.  */
-! 	    goto failed;
+                || *p == L_('!')) && p[1] == L_('('))
+--- 1058,1064 ----
+          while (*p != L_(']'))
+            if (*p++ == L_('\0'))
+              /* This is no valid pattern.  */
+!             goto failed;
         }
       else if ((*p == L_('?') || *p == L_('*') || *p == L_('+') || *p == L_('@')
-  	      || *p == L_('!')) && p[1] == L_('('))
+                || *p == L_('!')) && p[1] == L_('('))
 ***************
-*** 1057,1067 ****
-  	    plensize = plen * sizeof (CHAR);				      \
-  	    newpsize = offsetof (struct patternlist, str) + plensize;	      \
-  	    if ((size_t) -1 / sizeof (CHAR) < plen			      \
-! 		|| newpsize < offsetof (struct patternlist, str)	      \
-! 		|| ALLOCA_LIMIT <= newpsize)				      \
-! 	      return -1;						      \
-! 	    newp = (struct patternlist *) alloca (newpsize);		      \
-! 	    *((CHAR *) MEMPCPY (newp->str, startp, p - startp)) = L_('\0');    \
-  	    newp->next = NULL;						      \
-  	    *lastp = newp;						      \
-  	    lastp = &newp->next
---- 1063,1083 ----
-  	    plensize = plen * sizeof (CHAR);				      \
-  	    newpsize = offsetof (struct patternlist, str) + plensize;	      \
-  	    if ((size_t) -1 / sizeof (CHAR) < plen			      \
-! 		|| newpsize < offsetof (struct patternlist, str))	      \
-! 	      goto failed;						      \
-! 	    if (newpsize < ALLOCA_LIMIT)				      \
-! 	      {								      \
-! 		newp = (struct patternlist *) alloca (newpsize);	      \
-! 		newp->malloced = 0;					      \
-! 	      }								      \
-! 	    else							      \
-! 	      {								      \
-! 		newp = (struct patternlist *) malloc (newpsize);	      \
-! 		if (!newp)						      \
-! 		  goto failed;						      \
-! 		newp->malloced = 1;					      \
-! 	      }								      \
-! 	    *((CHAR *) MEMPCPY (newp->str, startp, p - startp)) = L_('\0');   \
-  	    newp->next = NULL;						      \
-  	    *lastp = newp;						      \
-  	    lastp = &newp->next
+*** 1075,1085 ****
+              plensize = plen * sizeof (CHAR);                                  \
+              newpsize = offsetof (struct patternlist, str) + plensize;         \
+              if ((size_t) -1 / sizeof (CHAR) < plen                            \
+!                 || newpsize < offsetof (struct patternlist, str)              \
+!                 || ALLOCA_LIMIT <= newpsize)                                  \
+!               return -1;                                                      \
+!             newp = (struct patternlist *) alloca (newpsize);                  \
+!             *((CHAR *) MEMPCPY (newp->str, startp, p - startp)) = L_('\0');    \
+              newp->next = NULL;                                                \
+              *lastp = newp;                                                    \
+              lastp = &newp->next
+--- 1081,1101 ----
+              plensize = plen * sizeof (CHAR);                                  \
+              newpsize = offsetof (struct patternlist, str) + plensize;         \
+              if ((size_t) -1 / sizeof (CHAR) < plen                            \
+!                 || newpsize < offsetof (struct patternlist, str))             \
+!               goto failed;                                                    \
+!             if (newpsize < ALLOCA_LIMIT)                                      \
+!               {                                                               \
+!                 newp = (struct patternlist *) alloca (newpsize);              \
+!                 newp->malloced = 0;                                           \
+!               }                                                               \
+!             else                                                              \
+!               {                                                               \
+!                 newp = (struct patternlist *) malloc (newpsize);              \
+!                 if (!newp)                                                    \
+!                   goto failed;                                                \
+!                 newp->malloced = 1;                                           \
+!               }                                                               \
+!             *((CHAR *) MEMPCPY (newp->str, startp, p - startp)) = L_('\0');   \
+              newp->next = NULL;                                                \
+              *lastp = newp;                                                    \
+              lastp = &newp->next
 ***************
-*** 1085,1096 ****
+*** 1103,1114 ****
       {
       case L_('*'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
-! 	return 0;
+!         return 0;
         /* FALLTHROUGH */
   
       case L_('+'):
         do
-  	{
-  	  for (rs = string; rs <= string_end; ++rs)
-  	    /* First match the prefix with the current pattern with the
-  	       current pattern.  */
---- 1101,1117 ----
+          {
+            for (rs = string; rs <= string_end; ++rs)
+              /* First match the prefix with the current pattern with the
+                 current pattern.  */
+--- 1119,1135 ----
       {
       case L_('*'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
-! 	{
-! 	  retval = 0;
-! 	  goto done;
-! 	}
+!         {
+!           retval = 0;
+!           goto done;
+!         }
         /* FALLTHROUGH */
   
       case L_('+'):
         do
-  	{
-+ 	  struct patternlist *next;
+          {
++           struct patternlist *next;
 + 
-  	  for (rs = string; rs <= string_end; ++rs)
-  	    /* First match the prefix with the current pattern with the
-  	       current pattern.  */
+            for (rs = string; rs <= string_end; ++rs)
+              /* First match the prefix with the current pattern with the
+                 current pattern.  */
 ***************
-*** 1112,1142 ****
-  				: rs[-1] == '/' && NO_LEADING_PERIOD (flags),
-  				flags & FNM_FILE_NAME
-  				? flags : flags & ~FNM_PERIOD) == 0)))
-! 	      /* It worked.  Signal success.  */
-! 	      return 0;
-  	}
+*** 1130,1160 ****
+                                  : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
+                                  flags & FNM_FILE_NAME
+                                  ? flags : flags & ~FNM_PERIOD) == 0)))
+!               /* It worked.  Signal success.  */
+!               return 0;
+          }
 !       while ((list = list->next) != NULL);
   
         /* None of the patterns lead to a match.  */
@@ -148,39 +148,39 @@
   
       case L_('?'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
-! 	return 0;
+!         return 0;
         /* FALLTHROUGH */
   
       case L_('@'):
         do
-! 	/* I cannot believe it but `strcat' is actually acceptable
-! 	   here.  Match the entire string with the prefix from the
-! 	   pattern list and the rest of the pattern following the
-! 	   pattern list.  */
-! 	if (FCT (STRCAT (list->str, p), string, string_end,
-! 		 no_leading_period,
-! 		 flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD) == 0)
-! 	  /* It worked.  Signal success.  */
-! 	  return 0;
+!         /* I cannot believe it but `strcat' is actually acceptable
+!            here.  Match the entire string with the prefix from the
+!            pattern list and the rest of the pattern following the
+!            pattern list.  */
+!         if (FCT (STRCAT (list->str, p), string, string_end,
+!                  no_leading_period,
+!                  flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD) == 0)
+!           /* It worked.  Signal success.  */
+!           return 0;
 !       while ((list = list->next) != NULL);
   
         /* None of the patterns lead to a match.  */
         return FNM_NOMATCH;
---- 1133,1186 ----
-  				: rs[-1] == '/' && NO_LEADING_PERIOD (flags),
-  				flags & FNM_FILE_NAME
-  				? flags : flags & ~FNM_PERIOD) == 0)))
-! 	      {
-! 		/* It worked.  Signal success.  */
-! 		retval = 0;
-! 		goto done;
-! 	      }
+--- 1151,1204 ----
+                                  : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
+                                  flags & FNM_FILE_NAME
+                                  ? flags : flags & ~FNM_PERIOD) == 0)))
+!               {
+!                 /* It worked.  Signal success.  */
+!                 retval = 0;
+!                 goto done;
+!               }
 ! 
-! 	  next = list->next;
-! 	  if (list->malloced)
-! 	    free (list);
-! 	  list = next;
-  	}
+!           next = list->next;
+!           if (list->malloced)
+!             free (list);
+!           list = next;
+          }
 !       while (list != NULL);
   
         /* None of the patterns lead to a match.  */
@@ -188,50 +188,50 @@
   
       case L_('?'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
-! 	{
-! 	  retval = 0;
-! 	  goto done;
-! 	}
+!         {
+!           retval = 0;
+!           goto done;
+!         }
         /* FALLTHROUGH */
   
       case L_('@'):
         do
-! 	{
-! 	  struct patternlist *next;
+!         {
+!           struct patternlist *next;
 ! 
-! 	  /* I cannot believe it but `strcat' is actually acceptable
-! 	     here.  Match the entire string with the prefix from the
-! 	     pattern list and the rest of the pattern following the
-! 	     pattern list.  */
-! 	  if (FCT (STRCAT (list->str, p), string, string_end,
-! 		   no_leading_period,
-! 		   flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD) == 0)
-! 	    {
-! 	      /* It worked.  Signal success.  */
-! 	      retval = 0;
-! 	      goto done;
-! 	    }
+!           /* I cannot believe it but `strcat' is actually acceptable
+!              here.  Match the entire string with the prefix from the
+!              pattern list and the rest of the pattern following the
+!              pattern list.  */
+!           if (FCT (STRCAT (list->str, p), string, string_end,
+!                    no_leading_period,
+!                    flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD) == 0)
+!             {
+!               /* It worked.  Signal success.  */
+!               retval = 0;
+!               goto done;
+!             }
 ! 
-! 	  next = list->next;
-! 	  if (list->malloced)
-! 	    free (list);
-! 	  list = next;
-! 	}
+!           next = list->next;
+!           if (list->malloced)
+!             free (list);
+!           list = next;
+!         }
 !       while (list != NULL);
   
         /* None of the patterns lead to a match.  */
         return FNM_NOMATCH;
 ***************
-*** 1159,1178 ****
-  		       : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
-  		       flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD)
-  		  == 0))
-! 	    /* This is successful.  */
-! 	    return 0;
-  	}
+*** 1177,1196 ****
+                         : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
+                         flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD)
+                    == 0))
+!             /* This is successful.  */
+!             return 0;
+          }
   
         /* None of the patterns together with the rest of the pattern
-  	 lead to a match.  */
+           lead to a match.  */
 !       return FNM_NOMATCH;
   
       default:
@@ -243,19 +243,19 @@
   }
   
   
---- 1203,1237 ----
-  		       : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
-  		       flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD)
-  		  == 0))
-! 	    {
-! 	      /* This is successful.  */
-! 	      retval = 0;
-! 	      goto done;
-! 	    }
-  	}
+--- 1221,1255 ----
+                         : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
+                         flags & FNM_FILE_NAME ? flags : flags & ~FNM_PERIOD)
+                    == 0))
+!             {
+!               /* This is successful.  */
+!               retval = 0;
+!               goto done;
+!             }
+          }
   
         /* None of the patterns together with the rest of the pattern
-  	 lead to a match.  */
+           lead to a match.  */
 !       retval = FNM_NOMATCH;
 !       goto done;
   
@@ -272,7 +272,7 @@
 !       struct patternlist *next = list->next;
 ! 
 !       if (list->malloced)
-! 	free (list);
+!         free (list);
 !       list = next;
 !     }
 !   return retval;
