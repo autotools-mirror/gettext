@@ -1,4 +1,5 @@
 # Files brought in by gnulib-tool:
+/arg-nonnull.h
 /config.libpath
 /config.rpath
 /csharpcomp.sh.in
