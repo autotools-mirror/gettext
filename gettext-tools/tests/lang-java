@@ -38,24 +38,13 @@ public class Program {
     Locale.setDefault(new Locale("fr","FR"));
 EOF
 case "$host_os" in
-  darwin[56]*)
-cat <<\EOF >> Program.java
-    // Some systems (like MacOS X) don't set System.out's character encoding
-    // to ISO-8859-1, which is what we need for comparison purposes.
-    try {
-      System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out),
-                                    true, "ISO-8859-1"));
-    } catch (UnsupportedEncodingException e) {
-    }
-EOF
-    ;;
   darwin*)
 cat <<\EOF >> Program.java
     // Some systems (like MacOS X) don't set System.out's character encoding
-    // to UTF-8, which is what we need for comparison purposes.
+    // according to LC_ALL, which is what we need for comparison purposes.
     try {
       System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out),
-                                    true, "UTF-8"));
+                                    true, args[1]));
     } catch (UnsupportedEncodingException e) {
     }
 EOF
@@ -216,11 +205,11 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 : ${JAVAEXEC="/bin/sh ../javaexec.sh"}
 if test $LOCALE_FR != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 ISO-8859-1 > prog.out || exit 1
   ${DIFF} prog.ok prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 > prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=.:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 UTF-8 > prog.out || exit 1
   ${DIFF} prog.oku prog.out || exit 1
 fi
 
