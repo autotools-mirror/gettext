@@ -394,6 +394,7 @@ EXAMPLESDIRS = \
 EXAMPLESPOFILES = \
   LINGUAS \
   af.po \
+  ast.po \
   ca.po \
   de.po \
   el.po \
