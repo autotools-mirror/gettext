@@ -1,3 +1,14 @@
+2009-12-19  Bruno Haible  <bruno@clisp.org>
+
+	* fi.po: Update from Lauri Nurmi <lanurmi@iki.fi>.
+	* id.po: Update from Arif E. Nugroho <arif_endro@yahoo.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* nl.po: Update from Benno Schulenberg <benno@vertaalt.nl> and
+	Erwin Poeze <erwin.poeze@gmail.com>.
+	* nn.po: Update from Eirik U. Birkeland <eirbir@gmail.com>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* zh_CN.po: Update from Ji ZhengYu <zhengyuji@gmail.com>.
+
 2009-08-16  Bruno Haible  <bruno@clisp.org>
 
 	* Makevars (MSGMERGE_OPTIONS): New variable.

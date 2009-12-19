@@ -1,82 +1,84 @@
 # Vietnamese Translation for Gettext Runtime.
-# Copyright © 2007 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2007.
+# Copyright © 2009 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext package.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
+"Project-Id-Version: gettext-runtime 0.17\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
-"PO-Revision-Date: 2007-10-17 16:23+0930\n"
+"POT-Creation-Date: 2009-12-13 13:17+0100\n"
+"PO-Revision-Date: 2009-09-24 22:39+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <vi-VN@googlegroups.com> \n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.7b1\n"
+"X-Generator: LocFactoryEditor 1.8\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "lỗi ghi"
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:153
 msgid "Unknown system error"
 msgstr "Lỗi hệ thống không rõ"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
 #, c-format
 msgid "%s: option `%s' is ambiguous\n"
 msgstr "%s: tùy chọn « %s » là mơ hồ\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
 #, c-format
 msgid "%s: option `--%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « --%s » không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
 #, c-format
 msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « %c%s » không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656 gnulib-lib/getopt.c:972
+#: gnulib-lib/getopt.c:991
 #, c-format
 msgid "%s: option `%s' requires an argument\n"
 msgstr "%s: tùy chọn « %s » cần đến đối số\n"
 
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
 #, c-format
 msgid "%s: unrecognized option `--%s'\n"
 msgstr "%s: không nhận diện tùy chọn « --%s »\n"
 
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
 #, c-format
 msgid "%s: unrecognized option `%c%s'\n"
 msgstr "%s: không nhận diện tùy chọn « %c%s »\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
+#: gnulib-lib/getopt.c:760 gnulib-lib/getopt.c:763
 #, c-format
 msgid "%s: illegal option -- %c\n"
 msgstr "%s: không cho phép tùy chọn « -- %c »\n"
 
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
+#: gnulib-lib/getopt.c:769 gnulib-lib/getopt.c:772
 #, c-format
 msgid "%s: invalid option -- %c\n"
 msgstr "%s: tùy chọn không hợp lệ « -- %c »\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
+#: gnulib-lib/getopt.c:824 gnulib-lib/getopt.c:840 gnulib-lib/getopt.c:1044
+#: gnulib-lib/getopt.c:1062
 #, c-format
 msgid "%s: option requires an argument -- %c\n"
 msgstr "%s: tùy chọn cần đến đối số « -- %c »\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
+#: gnulib-lib/getopt.c:893 gnulib-lib/getopt.c:909
 #, c-format
 msgid "%s: option `-W %s' is ambiguous\n"
 msgstr "%s: tùy chọn « -W %s » là mơ hồ\n"
 
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
+#: gnulib-lib/getopt.c:933 gnulib-lib/getopt.c:951
 #, c-format
 msgid "%s: option `-W %s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « -W %s » không cho phép đối số\n"
@@ -320,15 +322,3 @@ msgstr ""
 "phân loại thông điệp trong thư mục bình thường, vị trí khác có thể được\n"
 "xác định bằng biến môi trường TEXTDOMAINDIR (thư mục của miền văn bản).\n"
 "Thư mục tìm kiếm chuẩn: %s\n"
-
-#~ msgid ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
-#~ msgstr ""
-#~ "Tác quyền © %s của Tổ chức Phần mềm Tự do.\n"
-#~ "Đây là phần mềm này tự do ; xem mã nguồn để tìm điều kiện sao chép.\n"
-#~ "KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý\n"
-#~ "KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT.\n"
