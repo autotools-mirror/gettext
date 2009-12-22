@@ -1,5 +1,10 @@
 Version 0.18 - January 2008
 
+* Runtime behaviour:
+  On MacOS X and Windows systems, <libintl.h> now extends setlocale() and
+  newlocale() so that their determination of the default locale considers
+  the choice the user has made in the system control panels.
+
 * PO file format:
   There is a new field 'Language' in the header entry.  It denotes the language
   code (plus optional country code) for the PO file.  This field can be used

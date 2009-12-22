@@ -1,3 +1,9 @@
+2009-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* format-c-3-prg.c: Don't use setlocale override.
+	* format-c-4-prg.c: Likewise.
+	* plural-1-prg.c: Likewise.
+
 2009-12-13  Bruno Haible  <bruno@clisp.org>
 
 	Avoid a test failure on MacOS X 10.5.

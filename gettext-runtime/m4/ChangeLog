@@ -1,3 +1,9 @@
+2009-12-21  Bruno Haible  <bruno@clisp.org>
+
+	Define override of setlocale and newlocale functions.
+	* intl.m4 (AM_INTL_SUBDIR): Check also for newlocale. Set
+	HAVE_NEWLOCALE.
+
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* fcntl_h.m4: Untabify.

@@ -1,5 +1,24 @@
 2009-12-21  Bruno Haible  <bruno@clisp.org>
 
+	Define override of setlocale and newlocale functions.
+	* gettextP.h (gl_locale_name_environ): New macro.
+	(_nl_locale_name_environ): New declaration.
+	* localename.c (gl_locale_name_environ): New function, extracted from
+	gl_locale_name_posix. Ignore dummy LANG values on MacOS X and Cygwin.
+	(gl_locale_name_posix): Invoke it.
+	(gl_locale_name_default): Add comments. Use Windows native API also on
+	Cygwin.
+	* libgnuintl.h.in: On MacOS X, include <xlocale.h>.
+	(setlocale, newlocale): New overrides.
+	* setlocale.c: New file.
+	* Makefile.in (SOURCES): Add setlocale.c.
+	(OBJECTS): Add setlocale.$lo.
+	(setlocale.lo): New rule.
+	(libgnuintl.h, libintl.h): Substitute also HAVE_NEWLOCALE.
+	(setlocale.$lo): Define dependencies.
+
+2009-12-21  Bruno Haible  <bruno@clisp.org>
+
 	Update list of Win32 locale ids.
 	* localename.c (LANG_ROMANSH): Renamed from LANG_RHAETO_ROMANCE.
 	(LANG_SAMI): Renamed from LANG_SAAMI.

@@ -1,3 +1,9 @@
+Version 0.18 - December 2009
+
+* On MacOS X and Windows systems, <libintl.h> now extends setlocale() and
+  newlocale() so that their determination of the default locale considers
+  the choice the user has made in the system control panels.
+
 Version 0.16.1 - November 2006
 
 * Bug fix in the gettext.m4 autoconf macros.

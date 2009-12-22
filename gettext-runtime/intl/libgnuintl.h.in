@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2009 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -20,6 +20,9 @@
 #define _LIBINTL_H 1
 
 #include <locale.h>
+#if (defined __APPLE__ && defined __MACH__) && @HAVE_NEWLOCALE@
+# include <xlocale.h>
+#endif
 
 /* The LC_MESSAGES locale category is the category used by the functions
    gettext() and dgettext().  It is specified in POSIX, but not in ANSI C.
@@ -413,6 +416,24 @@ extern int swprintf (wchar_t *, size_t, const wchar_t *, ...);
 #undef vswprintf
 #define vswprintf libintl_vswprintf
 extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
+
+#endif
+
+#endif
+
+
+/* Support for the locale chosen by the user.  */
+#if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __WIN32__ || defined __CYGWIN__
+
+#undef setlocale
+#define setlocale libintl_setlocale
+extern char *setlocale (int, const char *);
+
+#if @HAVE_NEWLOCALE@
+
+#undef newlocale
+#define newlocale libintl_newlocale
+extern locale_t newlocale (int, const char *, locale_t);
 
 #endif
 

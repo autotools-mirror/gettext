@@ -1,4 +1,4 @@
-# intl.m4 serial 14 (gettext-0.18)
+# intl.m4 serial 15 (gettext-0.18)
 dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -56,8 +56,8 @@ AC_DEFUN([AM_INTL_SUBDIR],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
   AC_CHECK_HEADERS([stddef.h stdlib.h string.h])
-  AC_CHECK_FUNCS([asprintf fwprintf putenv setenv setlocale snprintf \
-    strnlen wcslen wcsnlen mbrtowc wcrtomb])
+  AC_CHECK_FUNCS([asprintf fwprintf newlocale putenv setenv setlocale \
+    snprintf strnlen wcslen wcsnlen mbrtowc wcrtomb])
 
   dnl Use the _snprintf function only if it is declared (because on NetBSD it
   dnl is defined as a weak alias of snprintf; we prefer to use the latter).
@@ -88,6 +88,12 @@ AC_DEFUN([AM_INTL_SUBDIR],
     HAVE_SNPRINTF=0
   fi
   AC_SUBST([HAVE_SNPRINTF])
+  if test "$ac_cv_func_newlocale" = yes; then
+    HAVE_NEWLOCALE=1
+  else
+    HAVE_NEWLOCALE=0
+  fi
+  AC_SUBST([HAVE_NEWLOCALE])
   if test "$ac_cv_func_wprintf" = yes; then
     HAVE_WPRINTF=1
   else
