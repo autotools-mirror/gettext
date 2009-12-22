@@ -1,5 +1,5 @@
 /* Table of languages.
-   Copyright (C) 2001-2008 Free Software Foundation, Inc.
+   Copyright (C) 2001-2009 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -35,6 +35,7 @@ struct language_table_entry language_table[] =
     { "an", "Aragonese" },
     { "ang", "Old English" },
     { "ar", "Arabic" },
+    { "arn", "Mapudungun" },
     { "as", "Assamese" },
     { "ast", "Asturian" },
     { "av", "Avaric" },
@@ -75,6 +76,7 @@ struct language_table_entry language_table[] =
     { "de", "German" },
     { "din", "Dinka" },
     { "doi", "Dogri" },
+    { "dsb", "Lower Sorbian" },
     { "dv", "Divehi" },
     { "dz", "Dzongkha" },
     { "ee", "Ewe" },
@@ -99,7 +101,7 @@ struct language_table_entry language_table[] =
     { "gl", "Galician" },
     { "gn", "Guarani" },
     { "gon", "Gondi" },
-    { "gsw", "Swiss German" },
+    { "gsw", "Swiss German" }, /* can also be "Alsatian" */
     { "gu", "Gujarati" },
     { "gv", "Manx" },
     { "ha", "Hausa" },
@@ -109,6 +111,7 @@ struct language_table_entry language_table[] =
     { "hmn", "Hmong" },
     { "ho", "Hiri Motu" },
     { "hr", "Croatian" },
+    { "hsb", "Upper Sorbian" },
     { "ht", "Haitian" },
     { "hu", "Hungarian" },
     { "hy", "Armenian" },
@@ -176,6 +179,7 @@ struct language_table_entry language_table[] =
     { "mn", "Mongolian" },
     { "mni", "Manipuri" },
     { "mo", "Moldavian" },
+    { "moh", "Mohawk" },
     { "mos", "Mossi" },
     { "mr", "Marathi" },
     { "ms", "Malay" },
@@ -222,6 +226,7 @@ struct language_table_entry language_table[] =
     { "ru", "Russian" },
     { "rw", "Kinyarwanda" },
     { "sa", "Sanskrit" },
+    { "sah", "Yakut" },
     { "sas", "Sasak" },
     { "sat", "Santali" },
     { "sc", "Sardinian" },
@@ -235,6 +240,10 @@ struct language_table_entry language_table[] =
     { "sk", "Slovak" },
     { "sl", "Slovenian" },
     { "sm", "Samoan" },
+    { "sma", "Southern Sami" },
+    { "smj", "Lule Sami" },
+    { "smn", "Inari Sami" },
+    { "sms", "Skolt Sami" },
     { "sn", "Shona" },
     { "so", "Somali" },
     { "sq", "Albanian" },

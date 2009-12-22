@@ -494,6 +494,7 @@ catalogname_for_locale (const char *locale)
     "am_ET",    /* Amharic      Ethiopia */
     "an_ES",    /* Aragonese    Spain */
     "ang_GB",   /* Old English  Britain */
+    "arn_CL",   /* Mapudungun   Chile */
     "as_IN",    /* Assamese     India */
     "ast_ES",   /* Asturian     Spain */
     "av_RU",    /* Avaric       Russia */
@@ -527,9 +528,10 @@ catalogname_for_locale (const char *locale)
     "de_DE",    /* German       Germany */
     "din_SD",   /* Dinka        Sudan */
     "doi_IN",   /* Dogri        India */
+    "dsb_DE",   /* Lower Sorbian        Germany */
     "dv_MV",    /* Divehi       Maldives */
     "dz_BT",    /* Dzongkha     Bhutan */
-    "ee_GH",    /* Éwé                Ghana */
+    "ee_GH",    /* Éwé          Ghana */
     "el_GR",    /* Greek        Greece */
     /* Don't put "en_GB" or "en_US" here.  That would be asking for fruitless
        political discussion.  */
@@ -553,6 +555,7 @@ catalogname_for_locale (const char *locale)
     "hi_IN",    /* Hindi        India */
     "hil_PH",   /* Hiligaynon   Philippines */
     "hr_HR",    /* Croatian     Croatia */
+    "hsb_DE",   /* Upper Sorbian        Germany */
     "ht_HT",    /* Haitian      Haiti */
     "hu_HU",    /* Hungarian    Hungary */
     "hy_AM",    /* Armenian     Armenia */
@@ -638,6 +641,7 @@ catalogname_for_locale (const char *locale)
     "ro_RO",    /* Romanian     Romania */
     "ru_RU",    /* Russian      Russia */
     "sa_IN",    /* Sanskrit     India */
+    "sah_RU",   /* Yakut        Russia */
     "sas_ID",   /* Sasak        Indonesia */
     "sat_IN",   /* Santali      India */
     "sc_IT",    /* Sardinian    Italy */
@@ -648,6 +652,8 @@ catalogname_for_locale (const char *locale)
     "sid_ET",   /* Sidamo       Ethiopia */
     "sk_SK",    /* Slovak       Slovakia */
     "sl_SI",    /* Slovenian    Slovenia */
+    "smn_FI",   /* Inari Sami   Finland */
+    "sms_FI",   /* Skolt Sami   Finland */
     "so_SO",    /* Somali       Somalia */
     "sq_AL",    /* Albanian     Albania */
     "sr_RS",    /* Serbian      Serbia */

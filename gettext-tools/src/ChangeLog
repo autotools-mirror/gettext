@@ -1,3 +1,11 @@
+2009-12-21  Bruno Haible  <bruno@clisp.org>
+
+	* lang-table.c (language_table): Add Mapudungun, Lower Sorbian,
+	Upper Sorbian, Mohawk, Yakut, Southern Sami, Lule Sami, Inari Sami,
+	Skolt Sami.
+	* msginit.c (catalogname_for_locale): Add Mapudungun, Lower Sorbian,
+	Upper Sorbian, Yakut, Inari Sami, Skolt Sami.
+
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* *.h, *.c, *.y: Untabify.
