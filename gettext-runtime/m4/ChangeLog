@@ -1,3 +1,7 @@
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* intl.m4 (gt_INTL_SUBDIR_CORE): Check also for uselocale.
+
 2009-12-25  Bruno Haible  <bruno@clisp.org>
 
 	* fcntl-o.m4: New file, from gnulib.

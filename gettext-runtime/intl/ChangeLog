@@ -1,3 +1,18 @@
+2009-12-23  Bruno Haible  <bruno@clisp.org>
+
+	localename: Make aware of thread locale.
+	* localename.c: Include <limits.h>, <stddef.h>, <xlocale.h>,
+	<langinfo.h>, glthread/lock.h.
+	(SIZE_BITS): New macro.
+	(string_hash): New function.
+	(struct hash_node): New type.
+	(HASH_TABLE_SIZE): New macro.
+	(struniq_hash_table, struniq_lock): New variables.
+	(struniq): New function.
+	(gl_locale_name_thread): New function.
+	(gl_locale_name): Invoke it.
+	Reported by Mike Gran <spk121@yahoo.com>.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in (localename.$lo): Add dependency.
