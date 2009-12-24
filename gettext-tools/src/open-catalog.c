@@ -1,5 +1,5 @@
 /* open-po - search for .po file along search path list and open for reading
-   Copyright (C) 1995-1996, 2000-2003, 2005-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 2000-2003, 2005-2009 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@
 
 #define _(str) gettext (str)
 
-/* This macro is used to determine the number of elements in an erray.  */
+/* This macro is used to determine the number of elements in an array.  */
 #define SIZEOF(a) (sizeof(a)/sizeof(a[0]))
 
 static FILE *
