@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "gl_list.h"
+#include "gl_xlist.h"
 #include "gl_array_list.h"
 #include "unistr.h"
 #include "xalloc.h"
