@@ -1,3 +1,9 @@
+2009-12-25  Bruno Haible  <bruno@clisp.org>
+
+	* fcntl-o.m4: New file, from gnulib.
+	* fcntl_h.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Add fcntl-o.m4. Remove fcntl_h.m4.
+
 2009-12-21  Bruno Haible  <bruno@clisp.org>
 
 	Define override of setlocale and newlocale functions.

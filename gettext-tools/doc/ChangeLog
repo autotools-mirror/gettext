@@ -1,3 +1,8 @@
+2009-12-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (aclocal): Add fcntl-o.m4 instead of fcntl_h.m4 to the
+	file list.
+
 2009-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Add fcntl_h.m4 to the file list.

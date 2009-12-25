@@ -1,3 +1,9 @@
+2009-12-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (distcheck-hook): Compare fcntl-o.m4 instead of
+	fcntl_h.m4.
+	* PACKAGING: Mention fcntl-o.m4 instead of fcntl_h.m4.
+
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* AUTHORS: Untabify.

@@ -1,3 +1,7 @@
+2009-12-25  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (aclocal_DATA): Add fcntl-o.m4. Remove fcntl_h.m4.
+
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* regex.m4: Untabify.
