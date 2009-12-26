@@ -48,6 +48,9 @@ case $? in
     echo "Skipping test: not a glibc 2.3 system"
     rm -fr $tmpfiles; exit 77
     ;;
+  *)
+    exit 1
+    ;;
 esac
 
 rm -fr $tmpfiles

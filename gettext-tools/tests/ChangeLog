@@ -1,3 +1,7 @@
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-7: Make the test fail when it produced unexpected results.
+
 2009-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* format-c-3-prg.c: Don't use setlocale override.
