@@ -228,9 +228,6 @@ AH_TOP([
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 ])
 AH_BOTTOM([
-/* Indicator for intl/ that it is compiled for testing purposes only.  */
-#define USE_IN_GETTEXT_TESTS
-
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
    contains the characters not allowed.  */
 #if defined _MSC_VER || defined __MINGW32__
@@ -352,7 +349,7 @@ gt_LOCALE_FR_UTF8
 gt_LOCALE_JA
 
 dnl Checks for functions for the tests/*.c tests.
-AC_CHECK_FUNCS_ONCE([getrlimit setrlimit])
+AC_CHECK_FUNCS_ONCE([getrlimit setrlimit uselocale])
 
 dnl Prepares the libtool configuration for languages used by the tests.
 LT_LANG([C++])

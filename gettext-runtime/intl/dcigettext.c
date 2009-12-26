@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -26,9 +26,6 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
-
-/* NL_LOCALE_NAME does not work in glibc-2.4.  Ignore it.  */
-#undef HAVE_NL_LOCALE_NAME
 
 #include <sys/types.h>
 
@@ -91,9 +88,6 @@ extern int errno;
 #endif
 
 #if !defined _LIBC
-# if HAVE_NL_LOCALE_NAME
-#  include <langinfo.h>
-# endif
 # include "localcharset.h"
 #endif
 
@@ -234,7 +228,7 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 #endif
 
 /* Whether to support different locales in different threads.  */
-#if defined _LIBC || HAVE_NL_LOCALE_NAME || (HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS) || defined IN_LIBGLOCALE
+#if defined _LIBC || HAVE_USELOCALE || defined IN_LIBGLOCALE
 # define HAVE_PER_THREAD_LOCALE
 #endif
 
@@ -560,22 +554,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #  ifdef _LIBC
   localename = _strdupa (_current_locale_name (category));
 #  else
-#   if HAVE_NL_LOCALE_NAME
-  /* NL_LOCALE_NAME is public glibc API introduced in glibc-2.4.  */
-  localename = nl_langinfo (NL_LOCALE_NAME (category));
-#   else
-#    if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
-  /* The __names field is not public glibc API and must therefore not be used
-     in code that is installed in public locations.  */
-  {
-    locale_t thread_locale = uselocale (NULL);
-    if (thread_locale != LC_GLOBAL_LOCALE)
-      localename = thread_locale->__names[category];
-    else
-      localename = "";
-  }
-#    endif
-#   endif
+  categoryname = category_to_name (category);
+#   define CATEGORYNAME_INITIALIZED
+  localename = _nl_locale_name_thread_unsafe (category, categoryname);
+  if (localename == NULL)
+    localename = "";
 #  endif
 # endif
   search.localename = localename;
@@ -677,7 +660,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #endif
 
   /* Now determine the symbolic name of CATEGORY and its value.  */
+#ifndef CATEGORYNAME_INITIALIZED
   categoryname = category_to_name (category);
+#endif
 #ifdef IN_LIBGLOCALE
   categoryvalue = guess_category_value (category, categoryname, localename);
 #else
@@ -1553,20 +1538,13 @@ guess_category_value (int category, const char *categoryname)
 # ifdef _LIBC
   locale = __current_locale_name (category);
 # else
-#  if HAVE_STRUCT___LOCALE_STRUCT___NAMES && defined USE_IN_GETTEXT_TESTS
-  /* The __names field is not public glibc API and must therefore not be used
-     in code that is installed in public locations.  */
-  locale_t thread_locale = uselocale (NULL);
-  if (thread_locale != LC_GLOBAL_LOCALE)
-    {
-      locale = thread_locale->__names[category];
-      locale_defaulted = 0;
-    }
-  else
+  locale_defaulted = 0;
+#  if HAVE_USELOCALE
+  locale = _nl_locale_name_thread_unsafe (category, categoryname);
+  if (locale == NULL)
 #  endif
     {
       locale = _nl_locale_name_posix (category, categoryname);
-      locale_defaulted = 0;
       if (locale == NULL)
 	{
 	  locale = _nl_locale_name_default ();

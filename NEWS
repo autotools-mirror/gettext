@@ -1,9 +1,11 @@
 Version 0.18 - January 2008
 
 * Runtime behaviour:
-  On MacOS X and Windows systems, <libintl.h> now extends setlocale() and
-  newlocale() so that their determination of the default locale considers
-  the choice the user has made in the system control panels.
+  - On MacOS X and Windows systems, <libintl.h> now extends setlocale() and
+    newlocale() so that their determination of the default locale considers
+    the choice the user has made in the system control panels.
+  - On MacOS X systems, the gettext()/dgettext()/... functions now respect the
+    locale of the current thread, if a thread-specific locale has been set.
 
 * PO file format:
   There is a new field 'Language' in the header entry.  It denotes the language

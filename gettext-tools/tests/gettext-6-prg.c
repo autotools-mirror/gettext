@@ -1,5 +1,5 @@
 /* Test program, used by the gettext-6 test.
-   Copyright (C) 2005-2007 Free Software Foundation, Inc.
+   Copyright (C) 2005-2007, 2009 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,13 +25,25 @@
 #include <stdio.h>
 #include <string.h>
 
-#if USE_POSIX_THREADS && ((__GLIBC__ > 2) || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 3))
+#if USE_POSIX_THREADS && (__GLIBC__ >= 2 || (defined __APPLE__ && defined __MACH__)) && HAVE_USELOCALE
 
 #include <pthread.h>
 
 /* Make sure we use the included libintl, not the system's one. */
 #undef _LIBINTL_H
 #include "libgnuintl.h"
+
+/* Name of German and French locale in ISO-8859-1 or ISO-8859-15 encoding.  */
+#if __GLIBC__ >= 2
+# define LOCALE_DE_ISO8859 "de_DE.ISO-8859-1"
+# define LOCALE_FR_ISO8859 "fr_FR.ISO-8859-1"
+#elif defined __APPLE__ && defined __MACH__ /* MacOS X */
+# define LOCALE_DE_ISO8859 "de_DE.ISO8859-1"
+# define LOCALE_FR_ISO8859 "fr_FR.ISO8859-1"
+#else
+# define LOCALE_DE_ISO8859 "de_DE"
+# define LOCALE_FR_ISO8859 "fr_FR"
+#endif
 
 /* Set to 1 if the program is not behaving correctly.  */
 int result;
@@ -72,7 +84,7 @@ thread1_execution (void *arg)
   char *s;
 
   waitfor (1);
-  uselocale (newlocale (LC_ALL_MASK, "de_DE", NULL));
+  uselocale (newlocale (LC_ALL_MASK, LOCALE_DE_ISO8859, NULL));
   setto (2);
 
   waitfor (1);
@@ -104,7 +116,7 @@ thread2_execution (void *arg)
   char *s;
 
   waitfor (2);
-  uselocale (newlocale (LC_ALL_MASK, "fr_FR", NULL));
+  uselocale (newlocale (LC_ALL_MASK, LOCALE_FR_ISO8859, NULL));
   setto (1);
 
   waitfor (2);
@@ -130,11 +142,35 @@ thread2_execution (void *arg)
   return NULL;
 }
 
-int
-main (void)
+static void
+check_locale_exists (const char *name)
 {
+  if (newlocale (LC_ALL_MASK, name, NULL) == NULL)
+    {
+      printf ("%s\n", name);
+      exit (1);
+    }
+}
+
+int
+main (int argc, char *argv[])
+{
+  int arg;
   pthread_t thread1;
   pthread_t thread2;
+
+  arg = (argc > 1 ? atoi (argv[1]) : 0);
+  switch (arg)
+    {
+    case 1:
+      /* Check for the existence of the first locale.  */
+      check_locale_exists (LOCALE_DE_ISO8859);
+      /* Check for the existence of the second locale.  */
+      check_locale_exists (LOCALE_FR_ISO8859);
+      return 0;
+    default:
+      break;
+    }
 
   unsetenv ("LANGUAGE");
   unsetenv ("OUTPUT_CHARSET");

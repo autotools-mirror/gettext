@@ -1,4 +1,4 @@
-# intl.m4 serial 16 (gettext-0.18)
+# intl.m4 serial 17 (gettext-0.18)
 dnl Copyright (C) 1995-2009 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -240,22 +240,6 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   gt_CHECK_DECL([fgets_unlocked], [#include <stdio.h>])
 
   AM_ICONV
-
-  dnl glibc >= 2.4 has a NL_LOCALE_NAME macro when _GNU_SOURCE is defined,
-  dnl and a _NL_LOCALE_NAME macro always.
-  AC_CACHE_CHECK([for NL_LOCALE_NAME macro], [gt_cv_nl_locale_name],
-    [AC_TRY_LINK([#include <langinfo.h>
-#include <locale.h>],
-      [char* cs = nl_langinfo(_NL_LOCALE_NAME(LC_MESSAGES));
-       return !cs;
-      ],
-      [gt_cv_nl_locale_name=yes],
-      [gt_cv_nl_locale_name=no])
-    ])
-  if test $gt_cv_nl_locale_name = yes; then
-    AC_DEFINE([HAVE_NL_LOCALE_NAME], [1],
-      [Define if you have <langinfo.h> and it defines the NL_LOCALE_NAME macro if _GNU_SOURCE is defined.])
-  fi
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least

@@ -235,6 +235,9 @@ extern void _nl_locale_name_canonicalize (char *name);
 /* extern const char *_nl_locale_name_from_win32_LANGID (LANGID langid); */
 # define gl_locale_name_from_win32_LCID _nl_locale_name_from_win32_LCID
 /* extern const char *_nl_locale_name_from_win32_LCID (LCID lcid); */
+# define gl_locale_name_thread_unsafe _nl_locale_name_thread_unsafe
+extern const char *_nl_locale_name_thread_unsafe (int category,
+						  const char *categoryname);
 # define gl_locale_name_posix _nl_locale_name_posix
 extern const char *_nl_locale_name_posix (int category,
 					  const char *categoryname);

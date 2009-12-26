@@ -1,3 +1,7 @@
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac: Don't define USE_IN_GETTEXT_TESTS. Test for uselocale.
+
 2009-12-12  Bruno Haible  <bruno@clisp.org>
 
 	* woe32dll/export.h: Untabify.

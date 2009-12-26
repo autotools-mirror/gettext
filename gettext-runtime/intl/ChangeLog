@@ -1,5 +1,16 @@
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
+	Use the thread-specific locale also on MacOS X.
+	* dcigettext.c (HAVE_NL_LOCALE_NAME): Remove undef.
+	Don't include <langinfo.h>.
+	(HAVE_PER_THREAD_LOCALE): Define on any platform that has 'uselocale'.
+	(DCIGETTEXT, guess_category_value): Use _nl_locale_name_thread_unsafe
+	instead of glibc specific code.
+	* gettextP.h (gl_locale_name_thread_unsafe): New macro.
+	(_nl_locale_name_thread_unsafe): New declaration.
+
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
 	localename: Fix storage allocation of gl_locale_name_thread's result.
 	* localename.c (SIZE_BITS, string_hash, struct hash_node,
 	HASH_TABLE_SIZE, struniq_hash_table, struniq_lock, struniq): Define on

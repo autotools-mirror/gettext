@@ -1,5 +1,28 @@
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
+	Enable the gettext-6 and gettext-7 tests also on MacOS X.
+	* Makefile.am (gettext_6_prg_CFLAGS, gettext_7_prg_CFLAGS): Depend on
+	HAVE_NEWLOCALE instead of GLIBC2.
+	(gettext_6_prg_LDADD, gettext_7_prg_LDADD): Likewise. Remove
+	libgettextlib.la.
+	* gettext-6-prg.c: Enable the test also on MacOS X platforms that have
+	uselocale.
+	(LOCALE_DE_ISO8859, LOCALE_FR_ISO8859): New macros.
+	(thread1_execution, thread2_execution): Use them.
+	(check_locale_exists): New function.
+	(main): Check for the locales if an argument is passed.
+	* gettext-7-prg.c: Enable the test also on MacOS X platforms that have
+	uselocale.
+	(LOCALE_DE_ISO8859, LOCALE_DE_UTF8): New macros.
+	(thread1_execution, thread2_execution): Use them.
+	(check_locale_exists): New function.
+	(main): Check for the locales if an argument is passed.
+	* gettext-6: Make the test work also on MacOS X systems. Test the
+	presence of the locales through the program, not through testlocale.
+	* gettext-7: Likewise.
+
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-7: Make the test fail when it produced unexpected results.
 
 2009-12-21  Bruno Haible  <bruno@clisp.org>
