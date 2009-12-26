@@ -61,6 +61,7 @@
 /csharpexec.h
 /diffseq.h
 /dup-safer.c
+/dup-safer-flag.c
 /dup2.c
 /errno.in.h
 /error-progname.c
@@ -73,10 +74,12 @@
 /exitfail.h
 /fatal-signal.c
 /fatal-signal.h
+/fcntl.c
 /fcntl.in.h
 /fd-ostream.oo.c
 /fd-ostream.oo.h
 /fd-safer.c
+/fd-safer-flag.c
 /file-has-acl.c
 /file-ostream.oo.c
 /file-ostream.oo.h
@@ -117,6 +120,8 @@
 /gl_linkedhash_list.h
 /gl_list.c
 /gl_list.h
+/gl_xlist.c
+/gl_xlist.h
 /glib.in.h
 /glibconfig.in.h
 /hash.c

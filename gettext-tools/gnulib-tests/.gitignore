@@ -18,11 +18,13 @@
 /init.sh
 /inttostr.c
 /inttostr.h
+/macros.h
 /offtostr.c
 /putenv.c
 /read-file.c
 /read-file.h
 /same-inode.h
+/signature.h
 /symlink.c
 /test-alignof.c
 /test-alloca-opt.c

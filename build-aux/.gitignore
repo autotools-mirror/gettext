@@ -11,6 +11,7 @@
 /moopp
 /reloc-ldflags
 /relocatable.sh.in
+/unused-parameter.h
 
 # Files brought in by "automake --add-missing --copy":
 /compile
