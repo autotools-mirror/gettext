@@ -1,5 +1,9 @@
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
+	* libintl.rc: Update.
+
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
 	Use the thread-specific locale also on MacOS X.
 	* dcigettext.c (HAVE_NL_LOCALE_NAME): Remove undef.
 	Don't include <langinfo.h>.
