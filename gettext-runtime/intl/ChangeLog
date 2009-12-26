@@ -1,3 +1,14 @@
+2009-12-26  Bruno Haible  <bruno@clisp.org>
+
+	localename: Fix storage allocation of gl_locale_name_thread's result.
+	* localename.c (SIZE_BITS, string_hash, struct hash_node,
+	HASH_TABLE_SIZE, struniq_hash_table, struniq_lock, struniq): Define on
+	all platforms that have 'uselocale'.
+	(gl_locale_name_thread_unsafe): New function, extracted from
+	gl_locale_name_thread.
+	(gl_locale_name_thread): Call struniq on all platforms that have
+	'uselocale'.
+
 2009-12-23  Bruno Haible  <bruno@clisp.org>
 
 	localename: Make aware of thread locale.
