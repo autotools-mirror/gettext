@@ -1,3 +1,8 @@
+2010-01-01  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c (VASNPRINTF): If GNULIB_defined_mbstate_t is defined,
+	use wctomb instead of wcrtomb.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* libintl.rc: Update.
