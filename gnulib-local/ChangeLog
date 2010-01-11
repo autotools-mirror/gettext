@@ -1,3 +1,8 @@
+2010-01-11  Bruno Haible  <bruno@clisp.org>
+
+	* modules/html-ostream (Depends-on): Remove utf8-ucs4. Instead add
+	unistr/u8-mbtouc.
+
 2009-12-25  Bruno Haible  <bruno@clisp.org>
 
 	* lib/html-ostream.oo.c: Include gl_xlist.h instead of gl_list.h.

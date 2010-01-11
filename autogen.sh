@@ -192,14 +192,14 @@ if ! $skip_gnulib; then
       sys_stat
       sys_time
       term-styled-ostream
-      ucs4-utf8
       unilbrk/ulc-width-linebreaks
       uniname/uniname
       unistd
+      unistr/u8-mbtouc
+      unistr/u8-uctomb
+      unistr/u16-mbtouc
       uniwidth/width
       unlocked-io
-      utf8-ucs4
-      utf16-ucs4
       vasprintf
       wait-process
       write
@@ -267,12 +267,12 @@ if ! $skip_gnulib; then
       stdbool
       stdio
       strerror
-      ucs4-utf8
       unilbrk/ulc-width-linebreaks
+      unistr/u8-mbtouc
+      unistr/u8-uctomb
+      unistr/u16-mbtouc
       uniwidth/width
       unlocked-io
-      utf8-ucs4
-      utf16-ucs4
       vasprintf
       xalloc
       xconcat-filename
