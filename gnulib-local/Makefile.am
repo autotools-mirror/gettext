@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -232,7 +232,6 @@ lib/termcap.h \
 lib/terminfo.h \
 lib/tparm.c \
 lib/tputs.c \
-lib/vasprintf.c \
 lib/xalloc.h \
 lib/xerror.c \
 lib/xerror.h \
@@ -259,7 +258,6 @@ m4/termcap.m4 \
 m4/terminfo.m4 \
 m4/term-ostream.m4 \
 m4/unionwait.m4 \
-m4/vasprintf.m4 \
 modules/backupfile \
 modules/basename \
 modules/closeout \
@@ -293,7 +291,6 @@ modules/terminfo-h \
 modules/term-ostream \
 modules/term-ostream-tests \
 modules/term-styled-ostream \
-modules/vasprintf.diff \
 modules/wait-process.diff \
 modules/xalloc \
 modules/xalloc-die \

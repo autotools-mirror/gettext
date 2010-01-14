@@ -1,3 +1,13 @@
+2010-01-14  Bruno Haible  <bruno@clisp.org>
+
+	Use full 'vasnprintf' module from gnulib. The reduced one did not
+	support NULL arguments.
+	* lib/vasprintf.c: Remove file.
+	* m4/vasprintf.m4: Remove file.
+	* modules/vasprintf.diff: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
+	Reported by LRN at <http://savannah.gnu.org/bugs/?28593>.
+
 2010-01-11  Bruno Haible  <bruno@clisp.org>
 
 	* modules/html-ostream (Depends-on): Remove utf8-ucs4. Instead add
