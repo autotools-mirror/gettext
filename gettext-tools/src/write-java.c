@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -65,6 +65,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
+#include "minmax.h"
 #include "concat-filename.h"
 #include "fwriteerror.h"
 #include "clean-temp.h"
@@ -712,6 +713,48 @@ write_java_expression (FILE *stream, const struct expression *exp, bool as_boole
 }
 
 
+/* Write the Java initialization statements for the Java 1.1.x case,
+   for items j, start_index <= j < end_index.  */
+static void
+write_java1_init_statements (FILE *stream, message_list_ty *mlp,
+                             size_t start_index, size_t end_index)
+{
+  size_t j;
+
+  for (j = start_index; j < end_index; j++)
+    {
+      fprintf (stream, "    t.put(");
+      write_java_msgid (stream, mlp->item[j]);
+      fprintf (stream, ",");
+      write_java_msgstr (stream, mlp->item[j]);
+      fprintf (stream, ");\n");
+    }
+}
+
+
+/* Write the Java initialization statements for the Java 2 case,
+   for items j, start_index <= j < end_index.  */
+static void
+write_java2_init_statements (FILE *stream, message_list_ty *mlp,
+                             const struct table_item *table_items,
+                             size_t start_index, size_t end_index)
+{
+  size_t j;
+
+  for (j = start_index; j < end_index; j++)
+    {
+      const struct table_item *ti = &table_items[j];
+
+      fprintf (stream, "    t[%d] = ", 2 * ti->index);
+      write_java_msgid (stream, ti->mp);
+      fprintf (stream, ";\n");
+      fprintf (stream, "    t[%d] = ", 2 * ti->index + 1);
+      write_java_msgstr (stream, ti->mp);
+      fprintf (stream, ";\n");
+    }
+}
+
+
 /* Write the Java code for the ResourceBundle subclass to the given stream.
    Note that we use fully qualified class names and no "import" statements,
    because applications can have their own classes called X.Y.ResourceBundle
@@ -763,22 +806,52 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
          generate code for the 'null' entries, which is dumb.  */
       table_eltype = (plurals ? "java.lang.Object" : "java.lang.String");
       fprintf (stream, "  private static final %s[] table;\n", table_eltype);
-      fprintf (stream, "  static {\n");
-      fprintf (stream, "    %s[] t = new %s[%d];\n", table_eltype, table_eltype,
-               2 * hashsize);
-      for (j = 0; j < mlp->nitems; j++)
-        {
-          struct table_item *ti = &table_items[j];
+      {
+        /* With the Sun javac compiler, each assignment takes 5 to 8 bytes
+           of bytecode, therefore for each message, up to 16 bytes are needed.
+           Since the bytecode of every method, including the <clinit> method
+           that contains the static initializers, is limited to 64 KB, only ca,
+           65536 / 16 = 4096 messages can be initialized in a single method.
+           Account for other Java compilers and for plurals by limiting it to
+           1000.  */
+        const size_t max_items_per_method = 1000;
 
-          fprintf (stream, "    t[%d] = ", 2 * ti->index);
-          write_java_msgid (stream, ti->mp);
-          fprintf (stream, ";\n");
-          fprintf (stream, "    t[%d] = ", 2 * ti->index + 1);
-          write_java_msgstr (stream, ti->mp);
-          fprintf (stream, ";\n");
-        }
-      fprintf (stream, "    table = t;\n");
-      fprintf (stream, "  }\n");
+        if (mlp->nitems > max_items_per_method)
+          {
+            unsigned int k;
+            size_t start_j;
+            size_t end_j;
+
+            for (k = 0, start_j = 0, end_j = start_j + max_items_per_method;
+                 start_j < mlp->nitems;
+                 k++, start_j = end_j, end_j = start_j + max_items_per_method)
+              {
+                fprintf (stream, "  static void clinit_part_%u (%s[] t) {\n",
+                         k, table_eltype);
+                write_java2_init_statements (stream, mlp, table_items,
+                                             start_j, MIN (end_j, mlp->nitems));
+                fprintf (stream, "  }\n");
+              }
+          }
+        fprintf (stream, "  static {\n");
+        fprintf (stream, "    %s[] t = new %s[%d];\n", table_eltype,
+                 table_eltype, 2 * hashsize);
+        if (mlp->nitems > max_items_per_method)
+          {
+            unsigned int k;
+            size_t start_j;
+
+            for (k = 0, start_j = 0;
+                 start_j < mlp->nitems;
+                 k++, start_j += max_items_per_method)
+              fprintf (stream, "    clinit_part_%u(t);\n", k);
+          }
+        else
+          write_java2_init_statements (stream, mlp, table_items,
+                                       0, mlp->nitems);
+        fprintf (stream, "    table = t;\n");
+        fprintf (stream, "  }\n");
+      }
 
       /* Emit the msgid_plural strings.  Only used by msgunfmt.  */
       if (plurals)
@@ -849,18 +922,50 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
          this Java version is required, the hash table must be built at run time,
          not at compile time.  */
       fprintf (stream, "  private static final java.util.Hashtable table;\n");
-      fprintf (stream, "  static {\n");
-      fprintf (stream, "    java.util.Hashtable t = new java.util.Hashtable();\n");
-      for (j = 0; j < mlp->nitems; j++)
-        {
-          fprintf (stream, "    t.put(");
-          write_java_msgid (stream, mlp->item[j]);
-          fprintf (stream, ",");
-          write_java_msgstr (stream, mlp->item[j]);
-          fprintf (stream, ");\n");
-        }
-      fprintf (stream, "    table = t;\n");
-      fprintf (stream, "  }\n");
+      {
+        /* With the Sun javac compiler, each 'put' call takes 9 to 11 bytes
+           of bytecode, therefore for each message, up to 11 bytes are needed.
+           Since the bytecode of every method, including the <clinit> method
+           that contains the static initializers, is limited to 64 KB, only ca,
+           65536 / 11 = 5958 messages can be initialized in a single method.
+           Account for other Java compilers and for plurals by limiting it to
+           1500.  */
+        const size_t max_items_per_method = 1500;
+
+        if (mlp->nitems > max_items_per_method)
+          {
+            unsigned int k;
+            size_t start_j;
+            size_t end_j;
+
+            for (k = 0, start_j = 0, end_j = start_j + max_items_per_method;
+                 start_j < mlp->nitems;
+                 k++, start_j = end_j, end_j = start_j + max_items_per_method)
+              {
+                fprintf (stream, "  static void clinit_part_%u (java.util.Hashtable t) {\n",
+                         k);
+                write_java1_init_statements (stream, mlp,
+                                             start_j, MIN (end_j, mlp->nitems));
+                fprintf (stream, "  }\n");
+              }
+          }
+        fprintf (stream, "  static {\n");
+        fprintf (stream, "    java.util.Hashtable t = new java.util.Hashtable();\n");
+        if (mlp->nitems > max_items_per_method)
+          {
+            unsigned int k;
+            size_t start_j;
+
+            for (k = 0, start_j = 0;
+                 start_j < mlp->nitems;
+                 k++, start_j += max_items_per_method)
+              fprintf (stream, "    clinit_part_%u(t);\n", k);
+          }
+        else
+          write_java1_init_statements (stream, mlp, 0, mlp->nitems);
+        fprintf (stream, "    table = t;\n");
+        fprintf (stream, "  }\n");
+      }
 
       /* Emit the msgid_plural strings.  Only used by msgunfmt.  */
       if (plurals)

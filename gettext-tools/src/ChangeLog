@@ -1,3 +1,13 @@
+2010-02-17  Bruno Haible  <bruno@clisp.org>
+
+	Fix error in conversion of large PO file (> 4000 msgs) to Java class.
+	* write-java.c: Include minmax.h.
+	(write_java1_init_statements, write_java2_init_statements): New
+	functions, extracted from write_java_code.
+	(write_java_code): If there are many messages, split the initialization
+	code into several static methods.
+	Reported by sasha <predator@savannah.gnu.org>.
+
 2009-12-21  Bruno Haible  <bruno@clisp.org>
 
 	* lang-table.c (language_table): Add Mapudungun, Lower Sorbian,
