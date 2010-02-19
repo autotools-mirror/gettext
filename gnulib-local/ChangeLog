@@ -1,3 +1,7 @@
+2010-02-19  Bruno Haible  <bruno@clisp.org>
+
+	* modules/wait-process.diff: Remove trailing space.
+
 2010-01-14  Bruno Haible  <bruno@clisp.org>
 
 	Use full 'vasnprintf' module from gnulib. The reduced one did not
