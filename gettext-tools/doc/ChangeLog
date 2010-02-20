@@ -1,3 +1,8 @@
+2010-02-20  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Sort language lists by number of
+	speakers, not alphabetically.
+
 2009-12-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (aclocal): Add fcntl-o.m4 instead of fcntl_h.m4 to the
