@@ -6238,7 +6238,8 @@ Faroese @c       0.05 million speakers
 @item Romanic family
 Spanish, @c    328.5 million speakers
 Portuguese, @c 178.0 million speakers - 163 million Brazilian Portuguese
-Italian @c      61.7 million speakers
+Italian, @c     61.7 million speakers
+Bulgarian @c     9.1 million speakers
 @item Latin/Greek family
 Greek @c        13.1 million speakers
 @item Finno-Ugric family

@@ -40,6 +40,7 @@ struct plural_table_entry plural_table[] =
     { "es", "Spanish",           "nplurals=2; plural=(n != 1);" },
     { "pt", "Portuguese",        "nplurals=2; plural=(n != 1);" },
     { "it", "Italian",           "nplurals=2; plural=(n != 1);" },
+    { "bg", "Bulgarian",         "nplurals=2; plural=(n != 1);" },
     { "el", "Greek",             "nplurals=2; plural=(n != 1);" },
     { "fi", "Finnish",           "nplurals=2; plural=(n != 1);" },
     { "et", "Estonian",          "nplurals=2; plural=(n != 1);" },

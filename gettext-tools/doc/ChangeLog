@@ -1,5 +1,10 @@
 2010-02-20  Bruno Haible  <bruno@clisp.org>
 
+	* gettext.texi (Plural forms): Add Bulgarian.
+	Reported by Roumen Petrov <transl@roumenpetrov.info>.
+
+2010-02-20  Bruno Haible  <bruno@clisp.org>
+
 	* gettext.texi (Plural forms): Sort language lists by number of
 	speakers, not alphabetically.
 
