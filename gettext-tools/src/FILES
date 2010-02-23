@@ -234,6 +234,7 @@ format-qt-plural.c     Format string handling for Qt plural forms.
 format-kde.c           Format string handling for KDE.
 format-boost.c         Format string handling for Boost.
 format-lua.c           Format string handling for Lua.
+format-javascript.c    Format string handling for JavaScript.
 format.c        Table of the language dependent format string handlers.
 
 plural-exp.c
@@ -337,6 +338,9 @@ msgl-check.c
 | x-lua.h
 | x-lua.c
 |               String extractor for Lua.
+| x-javascript.h
+| x-javascript.c
+|               String extractor for JavaScript.
 | xgettext.c
 |               Main source for the 'xgettext' program.
 |

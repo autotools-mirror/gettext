@@ -1,3 +1,15 @@
+2013-04-17  Andreas Stricker  <astricker@futurelab.ch>
+
+	Support for JavaScript.
+	* format-javascript-1: New file.
+	* format-javascript-2: New file.
+	* xgettext-javascript-1: New file.
+	* xgettext-javascript-2: New file.
+	* xgettext-javascript-3: New file.
+	* xgettext-javascript-4: New file.
+	* lang-javascript: New file.
+	* Makefile.am (TESTS): Add them.
+
 2013-04-16  Ľubomír Remák  <lubomirr@lubomirr.eu>
 
 	Support for escape sequences added in Lua 5.2.

@@ -120,6 +120,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_qt_plural;
 extern DLL_VARIABLE struct formatstring_parser formatstring_kde;
 extern DLL_VARIABLE struct formatstring_parser formatstring_boost;
 extern DLL_VARIABLE struct formatstring_parser formatstring_lua;
+extern DLL_VARIABLE struct formatstring_parser formatstring_javascript;
 
 /* Table of all format string parsers.  */
 extern DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];

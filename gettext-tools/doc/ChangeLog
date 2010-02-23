@@ -1,3 +1,12 @@
+2013-04-17  Andreas Stricker  <astricker@futurelab.ch>
+
+	Support for JavaScript.
+	* gettext.texi (PO Files): Mention javascript-format.
+	(javascript-format): New subsection.
+	(JavaScript): New subsection.
+	* xgettext.texi: Document JavaScript source language. Document
+	that it is applicable to --flag.
+
 2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
 
 	Support for Lua.

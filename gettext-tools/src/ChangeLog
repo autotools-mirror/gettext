@@ -1,3 +1,28 @@
+2013-04-17  Andreas Stricker  <astricker@futurelab.ch>
+
+	Support for JavaScript.
+	* message.h (format_type): New enum value 'format_javascript'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_javascript entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_javascript): New declaration.
+	* format-javascript.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_javascript.
+	* x-javascript.h: New file.
+	* x-javascript.c: New file.
+	* xgettext.c: Include x-javascript.h.
+	(flag_table_javascript): New variable.
+	(main): Invoke init_flag_table_javascript, x_javascript_extract_all,
+	x_javascript_keyword.
+	(usage): Mention JavaScript source language.
+	(xgettext_record_flag): Handle format_javascript.
+	(language_to_extractor): Add JavaScript rule.
+	(extension_to_language): Add JavaScript rule.
+	* Makefile.am (noinst_HEADERS): Add x-javascript.h.
+	(FORMAT_SOURCE): Add format-javascript.c.
+	(xgettext_SOURCES): Add x-javascript.c.
+	* FILES: Update.
+
 2013-04-16  Ľubomír Remák  <lubomirr@lubomirr.eu>
 
 	Support for escape sequences added in Lua 5.2.

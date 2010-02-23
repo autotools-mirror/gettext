@@ -1,3 +1,8 @@
+2013-04-17  Andreas Stricker  <astricker@futurelab.ch>
+
+	Support for JavaScript.
+	* Makefile.am (libgettextpo_la_AUXSOURCES): Add format-javascript.c.
+
 2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
 
 	* Makefile.am (libgettextpo_la_AUXSOURCES): Add format-lua.c.
