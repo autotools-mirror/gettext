@@ -1,3 +1,9 @@
+2010-03-06  Bruno Haible  <bruno@clisp.org>
+
+	* m4/exitfail.m4.diff: Remove file.
+	* modules/exitfail.diff: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
 2010-02-19  Bruno Haible  <bruno@clisp.org>
 
 	* modules/wait-process.diff: Remove trailing space.

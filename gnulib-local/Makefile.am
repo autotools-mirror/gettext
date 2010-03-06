@@ -244,7 +244,6 @@ m4/backupfile.m4 \
 m4/ChangeLog.0 \
 m4/ChangeLog.1 \
 m4/curses.m4 \
-m4/exitfail.m4.diff \
 m4/gcj.m4 \
 m4/hard-locale.m4.diff \
 m4/libcroco.m4 \
@@ -262,7 +261,6 @@ modules/backupfile \
 modules/basename \
 modules/closeout \
 modules/error-progname \
-modules/exitfail.diff \
 modules/fd-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
