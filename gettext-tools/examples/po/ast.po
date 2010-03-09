@@ -2,15 +2,14 @@
 # This file is distributed under the same license as the gettext package.
 # Copyright (C) 2009 Yoyodyne, Inc. (msgids)
 # Copyright (C) 2009 Free Software Foundation, Inc.
-# Marcos Alvarez Costales <marcos.alvarez.costales@gmail.com>, 2009.
+# Marquinos <maacub@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples-0.17\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2009-08-16 12:22+0200\n"
 "PO-Revision-Date: 2009-12-15 12:16+0100\n"
-"Last-Translator: Marcos Alvarez Costales <marcos.alvarez.costales@gmail."
-"com>\n"
+"Last-Translator: Marquinos <maacub@gmail.com>\n"
 "Language-Team: Asturian <ubuntu-l10n-ast@lists.ubuntu.com>\n"
 "Language: ast\n"
 "MIME-Version: 1.0\n"
