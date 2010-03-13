@@ -1,5 +1,5 @@
 /* Edit translations using a subprocess.
-   Copyright (C) 2001-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -47,6 +47,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
 #include "findprog.h"
@@ -87,6 +88,7 @@ static void (*filter) (const char *str, size_t len, char **resultp, size_t *leng
 static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
+  { "color", optional_argument, NULL, CHAR_MAX + 6 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
   { "force-po", no_argument, &force_po, 1 },
@@ -105,6 +107,7 @@ static const struct option long_options[] =
   { "strict", no_argument, NULL, 'S' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 4 },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 5 },
+  { "style", required_argument, NULL, CHAR_MAX + 7 },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
   { NULL, 0, NULL, 0 }
@@ -246,6 +249,15 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 5: /* --stringtable-output */
         output_syntax = &output_format_stringtable;
+        break;
+
+      case CHAR_MAX + 6: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 7: /* --style */
+        handle_style_option (optarg);
         break;
 
       default:
@@ -425,6 +437,12 @@ Input file syntax:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
       --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

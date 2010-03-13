@@ -163,6 +163,17 @@ Specify the @samp{Language} field to be used in the header entry.  See
 If this option is not specified, the @samp{Language} field is inferred, as
 best as possible, from the @samp{Language-Team} field.
 
+@item --color
+@itemx --color=@var{when}
+@opindex --color@r{, @code{msgmerge} option}
+Specify whether or when to use colors and other text attributes.
+See @ref{The --color option} for details.
+
+@item --style=@var{style_file}
+@opindex --style@r{, @code{msgmerge} option}
+Specify the CSS style rule file to use for @code{--color}.
+See @ref{The --style option} for details.
+
 @item --force-po
 @opindex --force-po@r{, @code{msgmerge} option}
 Always write an output file even if it contains no message.

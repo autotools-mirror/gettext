@@ -71,6 +71,17 @@ of all installed locales.  The default is the user's locale setting.
 Declares that the PO file will not have a human translator and is instead
 automatically generated.
 
+@item --color
+@itemx --color=@var{when}
+@opindex --color@r{, @code{msginit} option}
+Specify whether or when to use colors and other text attributes.
+See @ref{The --color option} for details.
+
+@item --style=@var{style_file}
+@opindex --style@r{, @code{msginit} option}
+Specify the CSS style rule file to use for @code{--color}.
+See @ref{The --style option} for details.
+
 @item -p
 @itemx --properties-output
 @opindex -p@r{, @code{msginit} option}

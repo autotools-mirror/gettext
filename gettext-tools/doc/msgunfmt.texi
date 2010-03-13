@@ -131,6 +131,17 @@ or if it is @samp{-}.
 @c --no-escape and --escape omitted on purpose.  They are not useful.
 
 @table @samp
+@item --color
+@itemx --color=@var{when}
+@opindex --color@r{, @code{msgunfmt} option}
+Specify whether or when to use colors and other text attributes.
+See @ref{The --color option} for details.
+
+@item --style=@var{style_file}
+@opindex --style@r{, @code{msgunfmt} option}
+Specify the CSS style rule file to use for @code{--color}.
+See @ref{The --style option} for details.
+
 @item --force-po
 @opindex --force-po@r{, @code{msgunfmt} option}
 Always write an output file even if it contains no message.

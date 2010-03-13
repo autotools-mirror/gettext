@@ -1,3 +1,53 @@
+2010-03-13  Bruno Haible  <bruno@clisp.org>
+
+	New options --color, --style for many programs.
+	* msgattrib.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgcomm.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgconv.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgen.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgfilter.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msggrep.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msginit.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgmerge.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msgunfmt.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* msguniq.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	* xgettext.c: Include color.h.
+	(long_options): Add options --color, --style.
+	(main): Implement them.
+	(usage): Document them.
+	Reported by Kalle Olavi Niemitalo <kon@iki.fi>
+	via Santiago Vila <sanvila@unex.es>.
+
 2010-02-20  Bruno Haible  <bruno@clisp.org>
 
 	* plural-table.c (plural_table): Add Bulgarian.

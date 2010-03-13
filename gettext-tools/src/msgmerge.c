@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2009 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -44,6 +44,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "format.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -108,6 +109,7 @@ static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
   { "backup", required_argument, NULL, CHAR_MAX + 1 },
+  { "color", optional_argument, NULL, CHAR_MAX + 9 },
   { "compendium", required_argument, NULL, 'C', },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
@@ -131,6 +133,7 @@ static const struct option long_options[] =
   { "strict", no_argument, NULL, CHAR_MAX + 2 },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 5 },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 6 },
+  { "style", required_argument, NULL, CHAR_MAX + 10 },
   { "suffix", required_argument, NULL, CHAR_MAX + 3 },
   { "update", no_argument, NULL, 'U' },
   { "verbose", no_argument, NULL, 'v' },
@@ -317,6 +320,15 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 8: /* --lang */
         catalogname = optarg;
+        break;
+
+      case CHAR_MAX + 9: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 10: /* --style */
+        handle_style_option (optarg);
         break;
 
       default:
@@ -552,6 +564,12 @@ Input file syntax:\n"));
 Output details:\n"));
       printf (_("\
       --lang=CATALOGNAME      set 'Language' field in the header entry\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

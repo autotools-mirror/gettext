@@ -1,5 +1,5 @@
 /* msgunfmt - converts binary .mo files to Uniforum style .po files
-   Copyright (C) 1995-1998, 2000-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007, 2009-2010 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -43,6 +43,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -77,6 +78,7 @@ static int force_po;
 /* Long options.  */
 static const struct option long_options[] =
 {
+  { "color", optional_argument, NULL, CHAR_MAX + 6 },
   { "csharp", no_argument, NULL, CHAR_MAX + 4 },
   { "csharp-resources", no_argument, NULL, CHAR_MAX + 5 },
   { "escape", no_argument, NULL, 'E' },
@@ -93,6 +95,7 @@ static const struct option long_options[] =
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 3 },
+  { "style", required_argument, NULL, CHAR_MAX + 7 },
   { "tcl", no_argument, NULL, CHAR_MAX + 1 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
@@ -235,6 +238,15 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 5: /* --csharp-resources */
         csharp_resources_mode = true;
+        break;
+
+      case CHAR_MAX + 6: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 7: /* --style */
+        handle_style_option (optarg);
         break;
 
       default:
@@ -484,6 +496,12 @@ or if it is -.\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -65,6 +65,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "po-charset.h"
 #include "localcharset.h"
 #include "localename.h"
@@ -112,6 +113,7 @@ static bool no_translator;
 /* Long options.  */
 static const struct option long_options[] =
 {
+  { "color", optional_argument, NULL, CHAR_MAX + 5 },
   { "help", no_argument, NULL, 'h' },
   { "input", required_argument, NULL, 'i' },
   { "locale", required_argument, NULL, 'l' },
@@ -122,6 +124,7 @@ static const struct option long_options[] =
   { "properties-output", no_argument, NULL, 'p' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 3 },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 4 },
+  { "style", required_argument, NULL, CHAR_MAX + 6 },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
@@ -241,6 +244,15 @@ main (int argc, char **argv)
 
       case CHAR_MAX + 4: /* --stringtable-output */
         output_syntax = &output_format_stringtable;
+        break;
+
+      case CHAR_MAX + 5: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 6: /* --style */
+        handle_style_option (optarg);
         break;
 
       default:
@@ -389,6 +401,12 @@ Output details:\n"));
   -l, --locale=LL_CC          set target locale\n"));
       printf (_("\
       --no-translator         assume the PO file is automatically generated\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -p, --properties-output     write out a Java .properties file\n"));
       printf (_("\

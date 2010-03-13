@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1997-1998, 2000-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 1997-1998, 2000-2007, 2009-2010 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -44,6 +44,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "msgl-cat.h"
 #include "propername.h"
 #include "gettext.h"
@@ -63,6 +64,7 @@ static const char *to_code;
 static const struct option long_options[] =
 {
   { "add-location", no_argument, &line_comment, 1 },
+  { "color", optional_argument, NULL, CHAR_MAX + 5 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
   { "files-from", required_argument, NULL, 'f' },
@@ -82,6 +84,7 @@ static const struct option long_options[] =
   { "strict", no_argument, NULL, 'S' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 3 },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 4 },
+  { "style", required_argument, NULL, CHAR_MAX + 6 },
   { "to-code", required_argument, NULL, 't' },
   { "unique", no_argument, NULL, 'u' },
   { "version", no_argument, NULL, 'V' },
@@ -255,6 +258,15 @@ main (int argc, char *argv[])
         output_syntax = &output_format_stringtable;
         break;
 
+      case CHAR_MAX + 5: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 6: /* --style */
+        handle_style_option (optarg);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -403,6 +415,12 @@ Input file syntax:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

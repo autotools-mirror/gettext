@@ -1,5 +1,5 @@
 /* Manipulates attributes of messages in translation catalogs.
-   Copyright (C) 2001-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2009-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,6 +42,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -81,6 +82,7 @@ static const struct option long_options[] =
   { "clear-fuzzy", no_argument, NULL, CHAR_MAX + 8 },
   { "clear-obsolete", no_argument, NULL, CHAR_MAX + 10 },
   { "clear-previous", no_argument, NULL, CHAR_MAX + 18 },
+  { "color", optional_argument, NULL, CHAR_MAX + 19 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
   { "force-po", no_argument, &force_po, 1 },
@@ -107,6 +109,7 @@ static const struct option long_options[] =
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 16 },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 17 },
   { "strict", no_argument, NULL, 'S' },
+  { "style", required_argument, NULL, CHAR_MAX + 20 },
   { "translated", no_argument, NULL, CHAR_MAX + 1 },
   { "untranslated", no_argument, NULL, CHAR_MAX + 2 },
   { "version", no_argument, NULL, 'V' },
@@ -312,6 +315,15 @@ main (int argc, char **argv)
         to_change |= REMOVE_PREV;
         break;
 
+      case CHAR_MAX + 19: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 20: /* --style */
+        handle_style_option (optarg);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -466,6 +478,12 @@ Input file syntax:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\

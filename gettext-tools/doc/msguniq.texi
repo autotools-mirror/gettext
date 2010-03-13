@@ -99,6 +99,17 @@ Specify encoding for output.
 Use first available translation for each message.  Don't merge several
 translations into one.
 
+@item --color
+@itemx --color=@var{when}
+@opindex --color@r{, @code{msguniq} option}
+Specify whether or when to use colors and other text attributes.
+See @ref{The --color option} for details.
+
+@item --style=@var{style_file}
+@opindex --style@r{, @code{msguniq} option}
+Specify the CSS style rule file to use for @code{--color}.
+See @ref{The --style option} for details.
+
 @item --force-po
 @opindex --force-po@r{, @code{msguniq} option}
 Always write an output file even if it contains no message.

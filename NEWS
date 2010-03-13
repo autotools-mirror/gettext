@@ -25,6 +25,11 @@ Version 0.18 - January 2008
   to the message.  Translators can produce better translations when they know
   that the numeric argument is small.
 
+* Colorized PO files:
+  msgattrib, msgcomm, msgconv, msgen, msgfilter, msggrep, msginit, msgmerge,
+  msgunfmt, msguniq, xgettext now have options --color and --style, like msgcat
+  has since version 0.17.
+
 * msgmerge is up to 10 times faster when the PO and POT files are large.
   This speedup was contributed by Ralf Wildenhues.
 

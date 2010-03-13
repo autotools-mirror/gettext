@@ -1,3 +1,7 @@
+2010-03-13  Bruno Haible  <bruno@clisp.org>
+
+	* NEWS: Mention the --color and --style options on many programs.
+
 2010-01-19  Bruno Haible  <bruno@clisp.org>
 
 	* AUTHORS: Update from fencepost.gnu.org:/gd/gnuorg/copyright.list.

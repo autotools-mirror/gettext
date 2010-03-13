@@ -63,6 +63,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "color.h"
 #include "format.h"
 #include "propername.h"
 #include "gettext.h"
@@ -194,6 +195,7 @@ static const struct option long_options[] =
   { "add-location", no_argument, &line_comment, 1 },
   { "boost", no_argument, NULL, CHAR_MAX + 11 },
   { "c++", no_argument, NULL, 'C' },
+  { "color", optional_argument, NULL, CHAR_MAX + 14 },
   { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
   { "debug", no_argument, &do_debug, 1 },
   { "default-domain", required_argument, NULL, 'd' },
@@ -230,6 +232,7 @@ static const struct option long_options[] =
   { "strict", no_argument, NULL, 'S' },
   { "string-limit", required_argument, NULL, 'l' },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 7 },
+  { "style", required_argument, NULL, CHAR_MAX + 15 },
   { "trigraphs", no_argument, NULL, 'T' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w', },
@@ -557,6 +560,15 @@ main (int argc, char *argv[])
 
       case CHAR_MAX + 13:       /* --package-version */
         package_version = optarg;
+        break;
+
+      case CHAR_MAX + 14: /* --color */
+        if (handle_color_option (optarg) || color_test_mode)
+          usage (EXIT_FAILURE);
+        break;
+
+      case CHAR_MAX + 15: /* --style */
+        handle_style_option (optarg);
         break;
 
       default:
@@ -913,6 +925,12 @@ Language specific options:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --color                 use colors and other text attributes always\n\
+      --color=WHEN            use colors and other text attributes if WHEN.\n\
+                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"));
+      printf (_("\
+      --style=STYLEFILE       specify CSS style rule file for --color\n"));
       printf (_("\
   -e, --no-escape             do not use C escapes in output (default)\n"));
       printf (_("\
