@@ -1,7 +1,7 @@
 @node Translation Intro
 @chapter Notes on the Free Translation Project
 
-@set STATUS September 2008
+@set STATUS March 2010
 
 Free software is going international!  The Free Translation Project is
 a way to get maintainers of free software, translators, and users all
