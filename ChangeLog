@@ -1,5 +1,8 @@
 2010-03-28  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add fnmatch, remove
+	fnmatch-posix.
+
 	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC,
 	GNULIB_MODULES_TOOLS_FOR_SRC, GNULIB_MODULES_LIBGETTEXTPO): Add stdlib,
 	remove exit.

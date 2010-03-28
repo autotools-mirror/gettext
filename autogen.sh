@@ -143,7 +143,7 @@ if ! $skip_gnulib; then
       file-ostream
       filename
       findprog
-      fnmatch-posix
+      fnmatch
       fopen
       fstrcmp
       full-write
