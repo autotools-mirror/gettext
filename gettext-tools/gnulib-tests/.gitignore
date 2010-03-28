@@ -14,6 +14,7 @@
 /getpagesize.c
 /hash-pjw.c
 /hash-pjw.h
+/ignore-value.h
 /imaxtostr.c
 /init.sh
 /inttostr.c
@@ -70,6 +71,7 @@
 /test-getopt_long.h
 /test-gettimeofday.c
 /test-iconv.c
+/test-iconv-h.c
 /test-linkedhash_list.c
 /test-locale.c
 /test-localename.c
@@ -140,6 +142,7 @@
 /test-sigpipe.c
 /test-sigpipe.sh
 /test-snprintf.c
+/test-spawn.c
 /test-stat.c
 /test-stat.h
 /test-stdbool.c
@@ -160,6 +163,7 @@
 /test-sys_socket.c
 /test-sys_stat.c
 /test-sys_time.c
+/test-sys_wait.c
 /test-term-ostream-xterm
 /test-term-ostream-xterm-16color.out
 /test-term-ostream-xterm-256color.out

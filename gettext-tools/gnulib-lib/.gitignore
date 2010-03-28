@@ -22,6 +22,7 @@
 /argmatch.c
 /argmatch.h
 /asnprintf.c
+/asprintf.c
 /atexit.c
 /backupfile.c
 /backupfile.h

@@ -9,6 +9,8 @@
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
 /alloca.in.h
+/asnprintf.c
+/asprintf.c
 /basename.c
 /basename.h
 /c-ctype.c
@@ -34,6 +36,8 @@
 /file-ostream.oo.c
 /file-ostream.oo.h
 /filename.h
+/float+.h
+/float.in.h
 /fopen.c
 /fstrcmp.c
 /fstrcmp.h
@@ -75,6 +79,10 @@
 /open.c
 /ostream.oo.c
 /ostream.oo.h
+/printf-args.c
+/printf-args.h
+/printf-parse.c
+/printf-parse.h
 /progname.c
 /progname.h
 /realloc.c
@@ -114,6 +122,8 @@
 /unitypes.h
 /uniwidth.h
 /unlocked-io.h
+/vasnprintf.c
+/vasnprintf.h
 /vasprintf.c
 /verify.h
 /wchar.in.h

@@ -1,5 +1,6 @@
 # Files brought in by gnulib-tool:
 /arg-nonnull.h
+/c++defs.h
 /config.libpath
 /config.rpath
 /csharpcomp.sh.in
@@ -12,6 +13,7 @@
 /reloc-ldflags
 /relocatable.sh.in
 /unused-parameter.h
+/warn-on-use.h
 
 # Files brought in by "automake --add-missing --copy":
 /compile
