@@ -9,7 +9,7 @@ lib/xstrdup.c
 Depends-on:
 error
 gettext-h
-exit
+stdlib
 
 configure.ac:
 

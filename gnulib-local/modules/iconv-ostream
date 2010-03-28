@@ -9,7 +9,7 @@ Depends-on:
 ostream
 c-strcase
 error
-exit
+stdlib
 gettext
 iconv
 xalloc

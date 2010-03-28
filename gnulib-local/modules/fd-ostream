@@ -8,7 +8,7 @@ lib/fd-ostream.oo.c
 Depends-on:
 ostream
 error
-exit
+stdlib
 full-write
 gettext
 xalloc

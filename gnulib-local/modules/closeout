@@ -8,7 +8,7 @@ lib/closeout.c
 Depends-on:
 error
 fwriteerror
-exit
+stdlib
 gettext-h
 
 configure.ac:

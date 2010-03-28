@@ -81,7 +81,6 @@ if ! $skip_gnulib; then
       basename
       closeout
       error
-      exit
       getopt-gnu
       gettext-h
       memmove
@@ -91,6 +90,7 @@ if ! $skip_gnulib; then
       sigpipe
       stdbool
       stdio
+      stdlib
       strtoul
       unlocked-io
       xalloc
@@ -139,7 +139,6 @@ if ! $skip_gnulib; then
       error
       error-progname
       execute
-      exit
       fd-ostream
       file-ostream
       filename
@@ -180,6 +179,7 @@ if ! $skip_gnulib; then
       sigprocmask
       stdbool
       stdio
+      stdlib
       stpcpy
       stpncpy
       strcspn
@@ -247,7 +247,6 @@ if ! $skip_gnulib; then
       c-strstr
       error
       error-progname
-      exit
       file-ostream
       filename
       fopen
@@ -266,6 +265,7 @@ if ! $skip_gnulib; then
       sigpipe
       stdbool
       stdio
+      stdlib
       strerror
       unilbrk/ulc-width-linebreaks
       unistr/u8-mbtouc

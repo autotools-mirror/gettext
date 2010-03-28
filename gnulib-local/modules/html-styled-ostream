@@ -12,7 +12,7 @@ html-ostream
 binary-io
 error
 safe-read
-exit
+stdlib
 xalloc
 gettext-h
 

@@ -8,7 +8,7 @@ lib/memory-ostream.oo.c
 Depends-on:
 ostream
 error
-exit
+stdlib
 gettext
 xalloc
 xsize

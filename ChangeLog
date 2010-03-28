@@ -1,3 +1,9 @@
+2010-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC,
+	GNULIB_MODULES_TOOLS_FOR_SRC, GNULIB_MODULES_LIBGETTEXTPO): Add stdlib,
+	remove exit.
+
 2010-03-13  Bruno Haible  <bruno@clisp.org>
 
 	* NEWS: Mention the --color and --style options on many programs.

@@ -1,3 +1,13 @@
+2010-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* modules/closeout (Depends-on): Add stdlib, remove exit.
+	* modules/fd-ostream (Depends-on): Likewise.
+	* modules/html-styled-ostream (Depends-on): Likewise.
+	* modules/iconv-ostream (Depends-on): Likewise.
+	* modules/memory-ostream (Depends-on): Likewise.
+	* modules/term-ostream (Depends-on): Likewise.
+	* modules/xalloc (Depends-on): Likewise.
+
 2010-03-06  Bruno Haible  <bruno@clisp.org>
 
 	* m4/exitfail.m4.diff: Remove file.

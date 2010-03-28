@@ -9,7 +9,7 @@ m4/term-ostream.m4
 Depends-on:
 ostream
 error
-exit
+stdlib
 fatal-signal
 sigprocmask
 full-write
