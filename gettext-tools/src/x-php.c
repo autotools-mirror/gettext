@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -889,7 +889,7 @@ phase4_get (token_ty *tp)
                 case 235: case 236: case 237: case 238: case 239: case 240:
                 case 241: case 242: case 243: case 244: case 245: case 246:
                 case 247: case 248: case 249: case 250: case 251: case 252:
-                case 253: case 254: case 255: 
+                case 253: case 254: case 255:
                   continue;
 
                 default:

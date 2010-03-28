@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2009 Free Software Foundation, Inc.
+   Copyright (C) 2002-2010 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
 
@@ -2961,7 +2961,7 @@ extract_balanced (message_list_ty *mlp,
           x_perl_unlex (tp);
           return false;
         }
-          
+
       if (next_is_argument && tp->type != token_type_lparen)
         {
           /* An argument list starts, even though there is no '('.  */

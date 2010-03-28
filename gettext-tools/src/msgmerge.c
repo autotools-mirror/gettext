@@ -829,7 +829,7 @@ definitions_search_fuzzy (definitions_ty *definitions,
                                         msgctxt, msgid,
                                         FUZZY_THRESHOLD, false);
     }
-  
+
   if (compendiums != NULL)
     {
       double lower_bound_for_mp2;
