@@ -3,6 +3,10 @@
 	* gettext.m4 (AM_GNU_GETTEXT): Emit a warning if the first argument is
 	empty or 'no-libtool'.
 
+2010-01-01  Bruno Haible  <bruno@clisp.org>
+
+	* iconv.m4 (AM_ICONV_LINK): Recognize native Solaris iconv() bug.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* intl.m4 (gt_INTL_SUBDIR_CORE): Don't check for NL_LOCALE_NAME macro.
