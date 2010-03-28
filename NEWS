@@ -52,6 +52,12 @@ Version 0.18 - January 2008
 * The po/Makevars file has a new field MSGMERGE_OPTIONS, that can be used
   to adjust msgmerge's operation.
 
+* The use of the macro AM_GNU_GETTEXT without 'external' argument and the
+  --intl option of the gettextize program are deprecated and will be removed
+  in the next release. Instead of including the intl sources in your package,
+  we suggest making the libintl library an (optional) prerequisite of your
+  package.
+
 * Updated the meaning of 'gcc-internal-format' to match GCC 4.3.
 
 * Installation options:

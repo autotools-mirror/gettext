@@ -1,3 +1,8 @@
+2010-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4 (AM_GNU_GETTEXT): Emit a warning if the first argument is
+	empty or 'no-libtool'.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* intl.m4 (gt_INTL_SUBDIR_CORE): Don't check for NL_LOCALE_NAME macro.

@@ -1,3 +1,9 @@
+2010-03-28  Bruno Haible  <bruno@clisp.org>
+
+	* gettexize.in: Warn about use of --intl option.
+	(func_usage): Mark it as deprecated.
+	(func_version): Bump copyright year.
+
 2009-12-25  Bruno Haible  <bruno@clisp.org>
 
 	* gettextize.in (m4filelist): Add fcntl-o.m4 instead of fcntl_h.m4 to
