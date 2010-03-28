@@ -138,3 +138,12 @@ Things we plan to do. Comments welcome.
 - filter-sr-latin should transform the resulting output to NFC form.
   Needed because the input may contain decomposed Cyrillic accented letters.
 
+- Support python3 format strings,
+  as described in http://docs.python.org/library/string.html#formatstrings
+
+- In x-c.c, support \unnnn and \Unnnnnnnn escape sequences (ISO C 99
+  and C++0x http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2170.html)
+
+- In x-c.c, support C++0x escape sequences, see
+  http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2442.htm
+
