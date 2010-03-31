@@ -1,4 +1,4 @@
-Installation on Woe32 (WinNT/2000/XP/Vista, Win95/98/ME):
+Installation on Woe32 (WinNT/2000/XP/Vista/7, Win95/98/ME):
 
 This file explains how to create binaries for the mingw execution environment.
 For how to create binaries for the cygwin environment, please see the normal
@@ -23,8 +23,8 @@ and configure commands:
    PATH=/usr/local/mingw/bin:$PATH
    export PATH
    ./configure --host=i586-pc-mingw32 --prefix=/usr/local/mingw \
-     CC="gcc -mno-cygwin" \
-     CXX="g++ -mno-cygwin" \
+     CC="gcc-3 -mno-cygwin" \
+     CXX="g++-3 -mno-cygwin" \
      CPPFLAGS="-Wall -I/usr/local/mingw/include" \
      LDFLAGS="-L/usr/local/mingw/lib"
 
