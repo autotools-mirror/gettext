@@ -199,7 +199,7 @@ static int linepos;
 static size_t linebuf_size;
 
 /* Number of lines eaten for here documents.  */
-static int here_eaten;
+static int eaten_here;
 
 /* Paranoia: EOF marker for __END__ or __DATA__.  */
 static bool end_of_file;
@@ -211,8 +211,8 @@ static bool end_of_file;
 static int
 phase1_getc ()
 {
-  line_number += here_eaten;
-  here_eaten = 0;
+  line_number += eaten_here;
+  eaten_here = 0;
 
   if (end_of_file)
     return EOF;
@@ -314,12 +314,12 @@ get_here_document (const char *delimiter)
             }
         }
 
-      ++here_eaten;
+      ++eaten_here;
 
       /* Convert to UTF-8.  */
       my_line_utf8 =
         from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
-                                      line_number + here_eaten);
+                                      line_number + eaten_here);
       if (my_line_utf8 != my_linebuf)
         {
           if (strlen (my_line_utf8) >= my_linebuf_size)
@@ -381,8 +381,8 @@ get_here_document (const char *delimiter)
 static void
 skip_pod ()
 {
-  line_number += here_eaten;
-  here_eaten = 0;
+  line_number += eaten_here;
+  eaten_here = 0;
   linepos = 0;
 
   for (;;)
@@ -3426,7 +3426,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   token_stack.nitems_max = 0;
   linesize = 0;
   linepos = 0;
-  here_eaten = 0;
+  eaten_here = 0;
   end_of_file = false;
 
   /* Eat tokens until eof is seen.  When extract_balanced returns
@@ -3443,6 +3443,6 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   line_number = 0;
   last_token = token_type_semicolon;
   token_stack_free (&token_stack);
-  here_eaten = 0;
+  eaten_here = 0;
   end_of_file = true;
 }

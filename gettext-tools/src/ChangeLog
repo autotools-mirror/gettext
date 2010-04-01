@@ -1,3 +1,8 @@
+2010-03-31  Guido Flohr  <guido@imperia.net>
+
+	* x-perl.c (eaten_here): Renamed from here_eaten.
+	(phase1_getc, get_here_document, skip_pod, extract_perl): Update.
+
 2010-03-13  Bruno Haible  <bruno@clisp.org>
 
 	New options --color, --style for many programs.
