@@ -2433,7 +2433,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_string;
                   tp->sub_type = string_type_qq;
                   tp->line_number = line_number + 1;
-                  interpolate_keywords (mlp, tp->string, line_number + 1);
+                  interpolate_keywords (mlp, tp->string, tp->line_number);
                   return;
                 }
               else if ((c >= 'A' && c <= 'Z')
@@ -2475,7 +2475,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                       tp->sub_type = string_type_qq;
                       tp->comment = add_reference (savable_comment);
                       tp->line_number = line_number + 1;
-                      interpolate_keywords (mlp, tp->string, line_number + 1);
+                      interpolate_keywords (mlp, tp->string, tp->line_number);
                       return;
                     }
                 }
