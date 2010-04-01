@@ -1,3 +1,10 @@
+2010-03-31  Guido Flohr  <guido@imperia.net>
+
+	Improve how xgettext handles Perl syntax ambiguities.
+	* xgettext-perl-8: New file.
+	* Makefile.am (TESTS): Add it.
+	Reported by Guillem Jover <guillem@debian.org> via Santiago Vila.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	Enable the gettext-6 and gettext-7 tests also on MacOS X.

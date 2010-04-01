@@ -10997,12 +10997,65 @@ the semantic context.  If a slash is really a division sign but
 mis-interpreted as a pattern match, the rest of the input file is most
 probably parsed incorrectly.
 
+There are certain cases, where the ambiguity cannot be resolved at all:
+
+@example
+$x = wantarray ? 1 : 0;
+@end example
+
+The Perl built-in function @code{wantarray} does not accept any arguments.
+The Perl parser therefore knows that the question mark does not start
+a regular expression but is the ternary conditional operator.
+
+@example 
+sub wantarrays @{@}
+$x = wantarrays ? 1 : 0;
+@end example
+
+Now the situation is different.  The function @code{wantarrays} takes
+a variable number of arguments (like any non-prototyped Perl function).
+The question mark is now the delimiter of a pattern match, and hence
+the piece of code does not compile.
+
+@example
+sub wantarrays() @{@}
+$x = wantarrays ? 1 : 0;
+@end example
+
+Now the function is prototyped, Perl knows that it does not accept any
+arguments, and the question mark is therefore interpreted as the
+ternaray operator again.  But that unfortunately outsmarts @code{xgettext}.
+
+The Perl parser in @code{xgettext} cannot know whether a function has
+a prototype and what that prototype would look like.  It therefore makes
+an educated guess.  If a function is known to be a Perl built-in and
+this function does not accept any arguments, a following question mark
+or slash is treated as an operator, otherwise as the delimiter of a
+following regular expression.  The Perl built-ins that do not accept
+arguments are @code{wantarray}, @code{fork}, @code{time}, @code{times},
+@code{getlogin}, @code{getppid}, @code{getpwent}, @code{getgrent},
+@code{gethostent}, @code{getnetent}, @code{getprotoent}, @code{getservent},
+@code{setpwent}, @code{setgrent}, @code{endpwent}, @code{endgrent},
+@code{endhostent}, @code{endnetent}, @code{endprotoent}, and
+@code{endservent}.
+
 If you find that @code{xgettext} fails to extract strings from
 portions of your sources, you should therefore look out for slashes
 and/or question marks preceding these sections.  You may have come
 across a bug in @code{xgettext}'s Perl parser (and of course you
 should report that bug).  In the meantime you should consider to
 reformulate your code in a manner less challenging to @code{xgettext}.
+
+In particular, if the parser is too dumb to see that a function
+does not accept arguments, use parentheses:
+
+@example
+$x = somefunc() ? 1 : 0;
+$y = (somefunc) ? 1 : 0;
+@end example
+
+In fact the Perl parser itself has similar problems and warns you
+about such constructs.
 
 @node Default Keywords, Special Keywords, General Problems, Perl
 @subsubsection Which keywords will xgettext look for?

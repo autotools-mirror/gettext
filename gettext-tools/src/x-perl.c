@@ -1,7 +1,7 @@
 /* xgettext Perl backend.
    Copyright (C) 2002-2010 Free Software Foundation, Inc.
 
-   This file was written by Guido Flohr <guido@imperia.net>, 2002-2003.
+   This file was written by Guido Flohr <guido@imperia.net>, 2002-2010.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -234,7 +234,7 @@ phase1_getc ()
       ++line_number;
 
       /* Undosify.  This is important for catching the end of <<EOF and
-         <<'EOF'.  We could rely on stdio doing this for us but you
+         <<'EOF'.  We could rely on stdio doing this for us but
          it is not uncommon to to come across Perl scripts with CRLF
          newline conventions on systems that do not follow this
          convention.  */
@@ -506,15 +506,18 @@ enum token_type_ty
   token_type_rparen,            /* ) */
   token_type_comma,             /* , */
   token_type_fat_comma,         /* => */
-  token_type_dereference,       /* , */
+  token_type_dereference,       /* -> */
   token_type_semicolon,         /* ; */
   token_type_lbrace,            /* { */
   token_type_rbrace,            /* } */
   token_type_lbracket,          /* [ */
   token_type_rbracket,          /* ] */
   token_type_string,            /* quote-like */
+  token_type_number,            /* starting with a digit o dot */
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
+  token_type_object,            /* A dereferenced variable, maybe a blessed
+                                   object.  */
   token_type_symbol,            /* symbol, number */
   token_type_regex_op,          /* s, tr, y, m.  */
   token_type_dot,               /* . */
@@ -548,12 +551,14 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
+  token_type_ty last_type;
   int sub_type;                 /* for token_type_string, token_type_symbol */
   char *string;                 /* for:                 in encoding:
                                    token_type_named_op  ASCII
                                    token_type_string    UTF-8
                                    token_type_symbol    ASCII
                                    token_type_variable  global_source_encoding
+                                   token_type_object    global_source_encoding
                                  */
   refcounted_string_list_ty *comment; /* for token_type_string */
   int line_number;
@@ -589,10 +594,14 @@ token2string (const token_ty *token)
       return "token_type_rbracket";
     case token_type_string:
       return "token_type_string";
+    case token_type_number:
+      return "token type number";
     case token_type_named_op:
       return "token_type_named_op";
     case token_type_variable:
       return "token_type_variable";
+    case token_type_object:
+      return "token_type_object";
     case token_type_symbol:
       return "token_type_symbol";
     case token_type_regex_op:
@@ -617,6 +626,7 @@ free_token (token_ty *tp)
     case token_type_string:
     case token_type_symbol:
     case token_type_variable:
+    case token_type_object:
       free (tp->string);
       break;
     default:
@@ -747,14 +757,6 @@ extract_quotelike_pass1_utf8 (int delim)
 
 /* ========= Reading of tokens and commands.  Extracting strings.  ========= */
 
-
-/* There is an ambiguity about '/': It can start a division operator ('/' or
-   '/=') or it can start a regular expression.  The distinction is important
-   because inside regular expressions, '#' loses its special meaning.
-   The distinction is possible depending on the parsing state: After a
-   variable or simple expression, it's a division operator; at the beginning
-   of an expression, it's a regexp.  */
-static bool prefer_division_over_regexp;
 
 /* Context lookup table.  */
 static flag_context_list_table_ty *flag_context_list_table;
@@ -1436,8 +1438,6 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
            real_file_name, line_number, tp->string);
 #endif
 
-  prefer_division_over_regexp = true;
-
   /*
    * 3) If the following looks strange to you, this is valid Perl syntax:
    *
@@ -1483,6 +1483,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
 
       if (maybe_hash_value && is_dereference)
         {
+          tp->type = token_type_object;
 #if DEBUG_PERL
           fprintf (stderr, "%s:%d: first keys preceded by \"->\"\n",
                    real_file_name, line_number);
@@ -2002,9 +2003,94 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
     }
 }
 
-/* The last token seen in the token stream.  This is important for the
-   interpretation of '?' and '/'.  */
-static token_type_ty last_token;
+/* There is an ambiguity about '/' and '?': They can start an operator
+   (division operator '/' or '/=' or the conditional operator '?'), or they can
+   start a regular expression.  The distinction is important because inside
+   regular expressions, '#' loses its special meaning.  This function helps
+   making the decision (a heuristic).  See the documentation for details.  */
+static bool
+prefer_regexp_over_division (token_type_ty type)
+{
+  bool retval = true;
+
+  switch (type)
+    {
+      case token_type_eof:
+        retval = true;
+        break;
+      case token_type_lparen:
+        retval = true;
+        break;
+      case token_type_rparen:
+        retval = false;
+        break;
+      case token_type_comma:
+        retval = true;
+        break;
+      case token_type_fat_comma:
+        retval = true;
+        break;
+      case token_type_dereference:
+        retval = true;
+        break;
+      case token_type_semicolon:
+        retval = true;
+        break;
+      case token_type_lbrace:
+        retval = true;
+        break;
+      case token_type_rbrace:
+        retval = false;
+        break;
+      case token_type_lbracket:
+        retval = true;
+        break;
+      case token_type_rbracket:
+        retval = false;
+        break;
+      case token_type_string:
+        retval = false;
+        break;
+      case token_type_number:
+        retval = false;
+        break;
+      case token_type_named_op:
+        retval = true;
+        break;
+      case token_type_variable:
+        retval = false;
+        break;
+      case token_type_object:
+        retval = false;
+        break;
+      case token_type_symbol:
+      case token_type_keyword_symbol:
+        retval = true;
+        break;
+      case token_type_regex_op:
+        retval = false;
+        break;
+      case token_type_dot:
+        retval = true;
+        break;
+      case token_type_other:
+        retval = true;
+        break;
+  }
+
+#if DEBUG_PERL
+  token_ty ty;
+  ty.type = type;
+  fprintf (stderr, "Prefer regexp over division after %s: %s\n",
+           token2string (&ty), retval ? "true" : "false");
+#endif
+
+  return retval;
+}
+
+/* Last token type seen in the stream.  Important for the interpretation
+   of slash and question mark.  */
+static token_type_ty last_token_type;
 
 /* Combine characters into tokens.  Discard whitespace.  */
 
@@ -2020,6 +2106,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
     {
       c = phase2_getc ();
       tp->line_number = line_number;
+      tp->last_type = last_token_type;
 
       switch (c)
         {
@@ -2043,7 +2130,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
           if (!extract_all)
             {
               extract_variable (mlp, tp, c);
-              prefer_division_over_regexp = true;
               return;
             }
           break;
@@ -2060,17 +2146,11 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
             if (c2 == '.')
               {
                 tp->type = token_type_other;
-                prefer_division_over_regexp = false;
                 return;
               }
-            else if (c2 >= '0' && c2 <= '9')
-              {
-                prefer_division_over_regexp = false;
-              }
-            else
+            else if (!(c2 >= '0' && c2 <= '9'))
               {
                 tp->type = token_type_dot;
-                prefer_division_over_regexp = true;
                 return;
               }
           }
@@ -2089,7 +2169,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
           /* Symbol, or part of a number.  */
-          prefer_division_over_regexp = true;
           bufpos = 0;
           for (;;)
             {
@@ -2154,7 +2233,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
             {
               tp->type = token_type_named_op;
               tp->string = xstrdup (buffer);
-              prefer_division_over_regexp = false;
               return;
             }
           else if (strcmp (buffer, "s") == 0
@@ -2180,7 +2258,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_symbol;
                   tp->sub_type = symbol_type_none;
                   tp->string = xstrdup (buffer);
-                  prefer_division_over_regexp = true;
                   return;
                 }
               extract_triple_quotelike (mlp, tp, delim,
@@ -2214,7 +2291,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_symbol;
                   tp->sub_type = symbol_type_none;
                   tp->string = xstrdup (buffer);
-                  prefer_division_over_regexp = true;
                   return;
                 }
               extract_quotelike (tp, delim);
@@ -2223,7 +2299,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
               free (tp->string);
               drop_reference (tp->comment);
               tp->type = token_type_regex_op;
-              prefer_division_over_regexp = true;
 
               /* Eat the following modifiers.  */
               do
@@ -2253,7 +2328,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_eof;
                   return;
                 }
-              prefer_division_over_regexp = true;
 
               if ((delim >= '0' && delim <= '9')
                   || (delim >= 'A' && delim <= 'Z')
@@ -2264,7 +2338,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_symbol;
                   tp->sub_type = symbol_type_none;
                   tp->string = xstrdup (buffer);
-                  prefer_division_over_regexp = true;
                   return;
                 }
 
@@ -2296,10 +2369,10 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                 }
               return;
             }
-          else if (strcmp (buffer, "grep") == 0
-                   || strcmp (buffer, "split") == 0)
+          else if ((buffer[0] >= '0' && buffer[0] <= '9') || buffer[0] == '.')
             {
-              prefer_division_over_regexp = false;
+              tp->type = token_type_number;
+              return;
             }
           tp->type = token_type_symbol;
           tp->sub_type = (strcmp (buffer, "sub") == 0
@@ -2309,21 +2382,18 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
           return;
 
         case '"':
-          prefer_division_over_regexp = true;
           extract_quotelike (tp, c);
           tp->sub_type = string_type_qq;
           interpolate_keywords (mlp, tp->string, line_number);
           return;
 
         case '`':
-          prefer_division_over_regexp = true;
           extract_quotelike (tp, c);
           tp->sub_type = string_type_qq;
           interpolate_keywords (mlp, tp->string, line_number);
           return;
 
         case '\'':
-          prefer_division_over_regexp = true;
           extract_quotelike (tp, c);
           tp->sub_type = string_type_q;
           return;
@@ -2336,42 +2406,34 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
           else
             phase2_ungetc (c);
           tp->type = token_type_lparen;
-          prefer_division_over_regexp = false;
           return;
 
         case ')':
           tp->type = token_type_rparen;
-          prefer_division_over_regexp = true;
           return;
 
         case '{':
           tp->type = token_type_lbrace;
-          prefer_division_over_regexp = false;
           return;
 
         case '}':
           tp->type = token_type_rbrace;
-          prefer_division_over_regexp = false;
           return;
 
         case '[':
           tp->type = token_type_lbracket;
-          prefer_division_over_regexp = false;
           return;
 
         case ']':
           tp->type = token_type_rbracket;
-          prefer_division_over_regexp = false;
           return;
 
         case ';':
           tp->type = token_type_semicolon;
-          prefer_division_over_regexp = false;
           return;
 
         case ',':
           tp->type = token_type_comma;
-          prefer_division_over_regexp = false;
           return;
 
         case '=':
@@ -2383,8 +2445,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
               return;
             }
           else if (linepos == 2
-                   && (last_token == token_type_semicolon
-                       || last_token == token_type_rbrace)
+                   && (last_token_type == token_type_semicolon
+                       || last_token_type == token_type_rbrace)
                    && ((c >= 'A' && c <='Z')
                        || (c >= 'a' && c <= 'z')))
             {
@@ -2401,12 +2463,10 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
             }
           phase1_ungetc (c);
           tp->type = token_type_other;
-          prefer_division_over_regexp = false;
           return;
 
         case '<':
           /* Check for <<EOF and friends.  */
-          prefer_division_over_regexp = false;
           c = phase1_getc ();
           if (c == '<')
             {
@@ -2509,19 +2569,17 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
             }
           phase1_ungetc (c);
           tp->type = token_type_other;
-          prefer_division_over_regexp = false;
           return;
 
         case '/':
         case '?':
-          if (!prefer_division_over_regexp)
+          if (prefer_regexp_over_division (tp->last_type))
             {
               extract_quotelike (tp, c);
               interpolate_keywords (mlp, tp->string, line_number);
               free (tp->string);
               drop_reference (tp->comment);
-              tp->type = token_type_other;
-              prefer_division_over_regexp = true;
+              tp->type = token_type_regex_op;
               /* Eat the following modifiers.  */
               do
                 c = phase1_getc ();
@@ -2544,7 +2602,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
              as we only need to recognize gettext invocations.  Don't
              bother.  */
           tp->type = token_type_other;
-          prefer_division_over_regexp = false;
           return;
         }
     }
@@ -2582,6 +2639,10 @@ token_stack_dump (token_stack_ty *stack)
         case token_type_symbol:
         case token_type_variable:
           fprintf (stderr, "    string: %s\n", token->string);
+          break;
+        case token_type_object:
+          fprintf (stderr, "    string: %s->\n", token->string);
+        default:
           break;
         }
     }
@@ -2651,10 +2712,69 @@ x_perl_lex (message_list_ty *mlp)
     {
       tp = XMALLOC (token_ty);
       x_perl_prelex (mlp, tp);
+      tp->last_type = last_token_type;
+      last_token_type = tp->type;
+
 #if DEBUG_PERL
       fprintf (stderr, "%s:%d: x_perl_prelex returned %s\n",
                real_file_name, line_number, token2string (tp));
 #endif
+
+      /* The interpretation of a slash or question mark after a function call
+         depends on the prototype of that function.  If the function expects
+         at least one argument, a regular expression is preferred, otherwise
+         an operator.  With our limited means, we can only guess here.  If
+         the function is a builtin that takes no arguments, we prefer an
+         operator by silently turning the last symbol into a variable instead
+         of a symbol.
+
+         Method calls without parentheses are not ambiguous.  After them, an
+         operator must follow.  Due to some ideosyncrasies in this parser
+         they are treated in two different manners.  If the call is
+         chained ($foo->bar->baz) the token left of the symbol is a
+         dereference operator.  If it is not chained ($foo->bar) the
+         dereference operator is consumed with the extracted variable.  The
+         latter case is handled below.  */
+      if (tp->type == token_type_symbol)
+        {
+          if (tp->last_type == token_type_dereference)
+            {
+              /* Class method call or chained method call (with at least
+                 two arrow operators).  */
+              last_token_type = token_type_variable;
+            }
+          else if (tp->last_type == token_type_object)
+            {
+              /* Instance method, not chained.  */
+              last_token_type = token_type_variable;
+            }
+          else if (strcmp (tp->string, "wantarray") == 0
+                   || strcmp (tp->string, "fork") == 0
+                   || strcmp (tp->string, "getlogin") == 0
+                   || strcmp (tp->string, "getppid") == 0
+                   || strcmp (tp->string, "getpwent") == 0
+                   || strcmp (tp->string, "getgrent") == 0
+                   || strcmp (tp->string, "gethostent") == 0
+                   || strcmp (tp->string, "getnetent") == 0
+                   || strcmp (tp->string, "getprotoent") == 0
+                   || strcmp (tp->string, "getservent") == 0
+                   || strcmp (tp->string, "setpwent") == 0
+                   || strcmp (tp->string, "setgrent") == 0
+                   || strcmp (tp->string, "endpwent") == 0
+                   || strcmp (tp->string, "endgrent") == 0
+                   || strcmp (tp->string, "endhostent") == 0
+                   || strcmp (tp->string, "endnetent") == 0
+                   || strcmp (tp->string, "endprotoent") == 0
+                   || strcmp (tp->string, "endservent") == 0
+                   || strcmp (tp->string, "time") == 0
+                   || strcmp (tp->string, "times") == 0
+                   || strcmp (tp->string, "wait") == 0
+                   || strcmp (tp->string, "wantarray") == 0)
+            {
+              /* A Perl built-in function that does not accept arguments.  */
+              last_token_type = token_type_variable;
+            }
+        }
     }
 #if DEBUG_PERL
   else
@@ -2789,7 +2909,8 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
       phase2_ungetc (c);
 
       if (c == '"' || c == '\'' || c == '`'
-          || (!prefer_division_over_regexp && (c == '/' || c == '?'))
+          || ((c == '/' || c == '?')
+              && prefer_regexp_over_division (tp->last_type))
           || c == 'q')
         {
           token_ty *qstring = x_perl_lex (mlp);
@@ -2916,17 +3037,12 @@ extract_balanced (message_list_ty *mlp,
   ++nesting_level;
 #endif
 
-  last_token = token_type_semicolon;  /* Safe assumption.  */
-  prefer_division_over_regexp = false;
-
   for (;;)
     {
       /* The current token.  */
       token_ty *tp;
 
       tp = x_perl_lex (mlp);
-
-      last_token = tp->type;
 
       if (delim == tp->type)
         {
@@ -3016,6 +3132,7 @@ extract_balanced (message_list_ty *mlp,
       switch (tp->type)
         {
         case token_type_symbol:
+        case token_type_keyword_symbol:
 #if DEBUG_PERL
           fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n",
                    logical_file_name, tp->line_number, nesting_level,
@@ -3031,7 +3148,6 @@ extract_balanced (message_list_ty *mlp,
                 const struct callshapes *shapes =
                   (const struct callshapes *) keyword_value;
 
-                last_token = token_type_keyword_symbol;
                 next_shapes = shapes;
                 next_argparser = arglist_parser_alloc (mlp, shapes);
               }
@@ -3052,9 +3168,22 @@ extract_balanced (message_list_ty *mlp,
         case token_type_variable:
 #if DEBUG_PERL
           fprintf (stderr, "%s:%d: type variable (%d) \"%s\"\n",
-                   logical_file_name, tp->line_number, nesting_level, tp->string);
+                   logical_file_name, tp->line_number, nesting_level,
+                   tp->string);
 #endif
-          prefer_division_over_regexp = true;
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_object:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type object (%d) \"%s->\"\n",
+                   logical_file_name, tp->line_number, nesting_level,
+                   tp->string);
+#endif
           next_is_argument = false;
           if (next_argparser != NULL)
             free (next_argparser);
@@ -3210,6 +3339,18 @@ extract_balanced (message_list_ty *mlp,
               argparser = arglist_parser_alloc (mlp, NULL);
             }
 
+          next_is_argument = false;
+          if (next_argparser != NULL)
+            free (next_argparser);
+          next_argparser = NULL;
+          next_context_iter = null_context_list_iterator;
+          break;
+
+        case token_type_number:
+#if DEBUG_PERL
+          fprintf (stderr, "%s:%d: type number (%d)\n",
+                   logical_file_name, tp->line_number, nesting_level);
+#endif
           next_is_argument = false;
           if (next_argparser != NULL)
             free (next_argparser);
@@ -3429,6 +3570,9 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   eaten_here = 0;
   end_of_file = false;
 
+  /* Safe assumption.  */
+  last_token_type = token_type_semicolon;
+
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */
   while (!extract_balanced (mlp, token_type_rbrace, true, false,
@@ -3441,7 +3585,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   free (logical_file_name);
   logical_file_name = NULL;
   line_number = 0;
-  last_token = token_type_semicolon;
+  last_token_type = token_type_semicolon;
   token_stack_free (&token_stack);
   eaten_here = 0;
   end_of_file = true;

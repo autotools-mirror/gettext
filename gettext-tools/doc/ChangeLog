@@ -1,3 +1,9 @@
+2010-03-31  Guido Flohr  <guido@imperia.net>
+
+	More explanations about how xgettext handles Perl syntax ambiguities.
+	* gettext.texi (General Problems): Explain how xgettext disambiguates
+	conditional operator vs. regular expression.
+
 2010-03-13  Bruno Haible  <bruno@clisp.org>
 
 	New options --color, --style for many programs.
