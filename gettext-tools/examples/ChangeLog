@@ -1,3 +1,8 @@
+2010-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* hello-c++-wxwidgets/autogen.sh: Update origin of lib-*.m4 and
+	config.rpath files.
+
 2010-03-09  Bruno Haible  <bruno@clisp.org>
 
 	* po/ast.po: Update.

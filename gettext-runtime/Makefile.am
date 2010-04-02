@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2006 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2006, 2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = ../build-aux/fixaclocal @ACLOCAL@
-ACLOCAL_AMFLAGS = -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
+ACLOCAL_AMFLAGS = -I m4 -I ../m4 -I gnulib-m4
 
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
 

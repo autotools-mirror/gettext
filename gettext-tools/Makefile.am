@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2007 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2007, 2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = ../build-aux/fixaclocal @ACLOCAL@
-ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
+ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
 
 SUBDIRS = doc intl gnulib-lib libgrep src libgettextpo po projects styles misc man m4 tests gnulib-tests examples
 
@@ -29,7 +29,7 @@ MOSTLYCLEANFILES = core *.stackdump
 # Files installed for use by gettextize.
 
 gettextsrcdir = $(datadir)/gettext
-gettextsrc_SCRIPTS = ../autoconf-lib-link/config.rpath
+gettextsrc_SCRIPTS = ../build-aux/config.rpath
 
 
 # Files installed for the examples.

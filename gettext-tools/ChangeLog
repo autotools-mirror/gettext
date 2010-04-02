@@ -1,3 +1,9 @@
+2010-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.am (ACLOCAL_AMFLAGS): Remove "-I ../autoconf-lib-link/m4"
+	option.
+	(gettextsrc_SCRIPTS): Update.
+
 2009-12-26  Bruno Haible  <bruno@clisp.org>
 
 	* configure.ac: Don't define USE_IN_GETTEXT_TESTS. Test for uselocale.

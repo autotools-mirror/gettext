@@ -50,7 +50,6 @@ Tasks not to forget before release:
 
 - Update
     NEWS
-    autoconf-lib-link/NEWS
     gettext-runtime/libasprintf/NEWS
     gettext-runtime/NEWS
 

@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2003, 2005-2006, 2009 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2003, 2005-2006, 2009-2010 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -37,7 +37,7 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 
 dnl Checks for library functions.
 
-AC_CONFIG_SUBDIRS([autoconf-lib-link gettext-runtime gettext-tools])
+AC_CONFIG_SUBDIRS([gettext-runtime gettext-tools])
 
 dnl Ensure that "configure --help" lists all the command line options that
 dnl are usable with the subdir configures. Really AC_CONFIG_SUBDIRS should
@@ -47,7 +47,7 @@ AC_CANONICAL_HOST
 dnl Optional Features: AC_ARG_ENABLE calls
 dnl Optional Packages: AC_ARG_WITH calls
 dnl Some influential environment variables: AC_ARG_VAR calls
-esyscmd([{ cd autoconf-lib-link && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd gettext-runtime && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd gettext-tools && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; } | sed -f build-aux/ac-help.sed ])
+esyscmd([{ cd gettext-runtime && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd gettext-tools && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; } | sed -f build-aux/ac-help.sed ])
 
 AC_CONFIG_FILES([Makefile])
 

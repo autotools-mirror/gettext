@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
+## Copyright (C) 1995-1999, 2000-2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL = build-aux/fixaclocal @ACLOCAL@
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib-local gettext-runtime gettext-tools autoconf-lib-link
+SUBDIRS = gnulib-local gettext-runtime gettext-tools
 
 EXTRA_DIST = \
   version.sh DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
@@ -29,7 +29,7 @@ EXTRA_DIST = \
   m4/libtool.m4
 
 # Additional dependencies for configure, due to the use of autoconf --trace.
-$(srcdir)/configure: $(srcdir)/autoconf-lib-link/configure.ac $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-tools/configure.ac 
+$(srcdir)/configure: $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-tools/configure.ac 
 
 # Verify that some files are the same.
 distcheck-hook:
@@ -89,10 +89,6 @@ distcheck-hook:
 	cmp -s gettext-runtime/intl/vasnprintf.c gettext-runtime/libasprintf/vasnprintf.c
 	cmp -s gettext-runtime/intl/xsize.h gettext-runtime/libasprintf/xsize.h
 	test "`sed 1,18d gettext-runtime/intl/xsize.h | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/xsize.h | md5sum`"
-	cmp -s autoconf-lib-link/m4/lib-ld.m4 gettext-tools/gnulib-m4/lib-ld.m4
-	cmp -s autoconf-lib-link/m4/lib-link.m4 gettext-tools/gnulib-m4/lib-link.m4
-	cmp -s autoconf-lib-link/m4/lib-prefix.m4 gettext-tools/gnulib-m4/lib-prefix.m4
-	cmp -s autoconf-lib-link/config.rpath build-aux/config.rpath
 	cmp -s gettext-runtime/man/help2man gettext-tools/man/help2man
 	cmp -s gettext-runtime/man/x-to-1.in gettext-tools/man/x-to-1.in
 	cmp -s gettext-runtime/libasprintf/texi2html gettext-tools/doc/texi2html

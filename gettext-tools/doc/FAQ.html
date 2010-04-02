@@ -21,10 +21,6 @@ releases.</a></li>
   <li><a href="#building_solaris_libasprintf">On Solaris, I get a build
 error “text relocations remain” in the <span
  style="font-family: monospace;">libasprintf</span> subdirectory</a></li>
-  <li><a href="#building_rpath_check">During “make check”, some tests
-named <span style="font-family: monospace;">rpath-<span
- style="font-style: italic;">Nxyz</span></span>
-fail: “ld: fatal error ... -lrpathz”</a></li>
   <li><a href="#building_install">“make install” fails</a></li>
 </ul>
 <h3>Problems integrating GNU gettext</h3>
@@ -145,23 +141,6 @@ libtool (or more precisely, the version of libtool that was available
 at the time the gettext release waas made) doesn't support linking C++
 libraries with some versions of GCC. As a workaround, you can configure
 gettext with the option <span style="font-family: monospace;">--disable-libasprintf</span>.<br>
-<h4><a name="building_rpath_check"></a>During “make check”, some tests
-named <span style="font-family: monospace;">rpath-<span
- style="font-style: italic;">Nxyz</span></span>
-fail: “ld: fatal error ... -lrpathz”</h4>
-If only a few among the many rpath tests fail, you can probably ignore
-the problem. The rpath tests are sensitive to incomplete shared library
-support in the system, and to bugs in libtool that creates the shared
-libraries. Some known failures are listed in <span
- style="font-family: monospace;">autoconf-lib-link/tests/rpath.README</span>.<br>
-<br>
-To ignore the problem, just proceed with<br>
-<br>
-<div style="margin-left: 40px;"><code>cd gettext-tools</code><br>
-<code>make check</code><br>
-<code>cd ..</code><br>
-</div>
-<br>
 <h4><a name="building_install"></a>“make install” fails</h4>
 “<span style="font-family: monospace;">make install DESTDIR=<span
  style="font-style: italic;">/some/tempdir</span></span>” can fail with

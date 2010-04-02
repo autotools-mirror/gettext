@@ -1,3 +1,16 @@
+2010-04-02  Bruno Haible  <bruno@clisp.org>
+
+	Remove autoconf-lib-link directory, obsoleted by gnulib.
+	* Makefile.am (SUBDIRS): Remove autoconf-lib-link.
+	($(srcdir)/configure): Don't depend on autoconf-lib-link/configure.ac.
+	(distcheck-hook): Remove checks of lib-*.m4 and config.rpath.
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC): Add havelib.
+	Remove configuration of autoconf-lib-link subdirectory. Remove
+	"-I ../autoconf-lib-link/m4" option to aclocal. Don't copy
+	config.rpath.
+	* configure.ac (AC_CONFIG_SUBDIRS): Remove autoconf-lib-link.
+	Don't recurse into autoconf-lib-link.
+
 2010-03-30  Bruno Haible  <bruno@clisp.org>
 
 	* README.woe32: Update for Cygwin 1.7.x.

@@ -1,3 +1,7 @@
+2010-04-02  Bruno Haible  <bruno@clisp.org>
+
+	* FAQ.html (building_rpath_check): Remove section.
+
 2010-03-31  Guido Flohr  <guido@imperia.net>
 
 	More explanations about how xgettext handles Perl syntax ambiguities.

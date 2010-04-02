@@ -16,7 +16,7 @@
 #   - the makeinfo program from the texinfo package,
 #   - perl.
 
-# Copyright (C) 2003-2009 Free Software Foundation, Inc.
+# Copyright (C) 2003-2010 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -83,6 +83,7 @@ if ! $skip_gnulib; then
       error
       getopt-gnu
       gettext-h
+      havelib
       memmove
       progname
       propername
@@ -301,16 +302,6 @@ else
   done
 fi
 
-(cd autoconf-lib-link
- ../build-aux/fixaclocal aclocal -I m4 -I ../m4
- autoconf
- automake --add-missing --copy
- # Rebuilding the autoconfiguration of the tests is only rarely needed.
- if ! $quick; then
-   ./configure && make subconfigures && make distclean
- fi
-)
-
 (cd gettext-runtime/libasprintf
  ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4 -I gnulib-m4
  autoconf
@@ -319,7 +310,7 @@ fi
 )
 
 (cd gettext-runtime
- ../build-aux/fixaclocal aclocal -I m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake --add-missing --copy
@@ -346,7 +337,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 )
 
 (cd gettext-tools
- ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../autoconf-lib-link/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  test -d intl || mkdir intl
@@ -366,5 +357,3 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 build-aux/fixaclocal aclocal -I m4
 autoconf
 automake
-
-cp -p autoconf-lib-link/config.rpath build-aux/config.rpath
