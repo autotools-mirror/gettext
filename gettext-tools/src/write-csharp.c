@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2009 Free Software Foundation, Inc.
+   Copyright (C) 2003-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -541,22 +541,37 @@ write_csharp_code (FILE *stream, const char *culture_name, const char *class_nam
   fprintf (stream, "    : base () {\n");
   fprintf (stream, "  }\n");
 
+  /* Emit the TableInitialized field.  */
+  fprintf (stream, "  private bool TableInitialized;\n");
+
   /* Emit the ReadResources method.  */
   fprintf (stream, "  protected override void ReadResources () {\n");
+  /* In some implementations, such as mono < 2009-02-27, the ReadResources
+     method is called just once, when Table == null.  In other implementations,
+     such as mono >= 2009-02-27, it is called at every GetObject call, and it
+     is responsible for doing the initialization only once, even when called
+     simultaneously from multiple threads.  */
+  fprintf (stream, "    if (!TableInitialized) {\n");
+  fprintf (stream, "      lock (this) {\n");
+  fprintf (stream, "        if (!TableInitialized) {\n");
   /* In some implementations, the ResourceSet constructor initializes Table
      before calling ReadResources().  In other implementations, the
      ReadResources() method is expected to initialize the Table.  */
-  fprintf (stream, "    if (Table == null)\n");
-  fprintf (stream, "      Table = new System.Collections.Hashtable();\n");
-  fprintf (stream, "    System.Collections.Hashtable t = Table;\n");
+  fprintf (stream, "          if (Table == null)\n");
+  fprintf (stream, "            Table = new System.Collections.Hashtable();\n");
+  fprintf (stream, "          System.Collections.Hashtable t = Table;\n");
   for (j = 0; j < mlp->nitems; j++)
     {
-      fprintf (stream, "    t.Add(");
+      fprintf (stream, "          t.Add(");
       write_csharp_msgid (stream, mlp->item[j]);
       fprintf (stream, ",");
       write_csharp_msgstr (stream, mlp->item[j]);
       fprintf (stream, ");\n");
     }
+  fprintf (stream, "          TableInitialized = true;\n");
+  fprintf (stream, "        }\n");
+  fprintf (stream, "      }\n");
+  fprintf (stream, "    }\n");
   fprintf (stream, "  }\n");
 
   /* Emit the msgid_plural strings.  Only used by msgunfmt.  */

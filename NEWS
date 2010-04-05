@@ -69,7 +69,9 @@ Version 0.18 - January 2008
   locally installed a 3 MB large archive.
 
 * Portability:
-  The msgfilter program now also works on native Woe32 platforms.
+  - The msgfilter program now also works on native Woe32 platforms.
+  - Compiled C# message catalogs now also work with 'mono' versions from 2009
+    or newer.
 
 Version 0.17 - November 2007
 

@@ -1,3 +1,11 @@
+2010-04-05  Bruno Haible  <bruno@clisp.org>
+
+	Interoperability with mono versions >= 2009-02-27.
+	* write-csharp.c (write_csharp_code): Emit a TableInitialized field.
+	Change ReadResources so that it may be called multiple times, even
+	concurrently.
+	Reported by Guido Flohr  <guido@imperia.net>
+
 2010-03-31  Guido Flohr  <guido@imperia.net>
 
 	Improve how xgettext handles Perl syntax ambiguities.
