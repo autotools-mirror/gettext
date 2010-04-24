@@ -1,3 +1,10 @@
+2010-04-24  Bruno Haible  <bruno@clisp.org>
+
+	vasnprintf: Correct errno value in case of out-of-memory.
+	* vasnprintf.c (VASNPRINTF): Set errno to 0 before calling SNPRINTF or
+	sprintf. Use the errno value from SNPRINTF or sprintf.
+	Reported by Ian Beckwith <ianb@erislabs.net>.
+
 2010-04-10  Bruno Haible  <bruno@clisp.org>
 
 	vasnprintf: Correct handling of unconvertible wide string arguments.
