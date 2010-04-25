@@ -9096,7 +9096,9 @@ awk format strings are described in the gawk documentation, section
 @node object-pascal-format, ycp-format, awk-format, Translators for other Languages
 @subsection Object Pascal Format Strings
 
-Where is this documented?
+Object Pascal format strings are described in the documentation of the
+Free Pascal runtime library, section Format,
+@uref{http://www.freepascal.org/docs-html/rtl/sysutils/format.html}.
 
 @node ycp-format, tcl-format, object-pascal-format, Translators for other Languages
 @subsection YCP Format Strings

@@ -1,3 +1,9 @@
+2010-04-25  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (object-pascal-format): Add reference to Free Pascal
+	documentation.
+	Information provided by Marco van de Voort <marcov@stack.nl>.
+
 2010-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* FAQ.html (building_rpath_check): Remove section.
