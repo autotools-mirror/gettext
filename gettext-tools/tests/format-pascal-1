@@ -57,6 +57,8 @@ cat <<\EOF > f-op-1.data
 "abc%d%x%x"
 # Valid: a numbered argument
 "abc%0:d"
+# Valid: a numbered argument with omitted number
+"abc%:d"
 # Valid: two-digit numbered arguments
 "abc%10:def%9:dgh%8:dij%7:dkl%6:dmn%5:dop%4:dqr%3:dst%2:duv%1:dwx%0:dyz"
 # Invalid: unterminated number

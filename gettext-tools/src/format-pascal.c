@@ -1,5 +1,5 @@
 /* Object Pascal format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,9 @@
 #define _(str) gettext (str)
 
 /* Object Pascal format strings are usable with the "format" function in the
-   "sysutils" unit.  They are implemented in fpc-1.0.4/rtl/objpas/sysstr.inc.
+   "sysutils" unit.  They are described in
+   <http://www.freepascal.org/docs-html/rtl/sysutils/format.html>
+   and are implemented in fpc-2.4.0/rtl/objpas/sysutils/sysformt.inc.
    Another implementation exists in Borland Delphi.  The GNU Pascal's
    "sysutils" doesn't (yet?) have the "format" function.
 
@@ -41,8 +43,8 @@
    - either
      - is finished with '%', or
      - - is optionally followed by an index specification: '*' (reads an
-         argument, must be of type integer) or a nonempty digit sequence,
-         followed by ':',
+         argument, must be of type integer) or a nonempty digit sequence
+         or nothing (equivalent to 0), followed by ':',
        - is optionally followed by '-', which acts as a flag,
        - is optionally followed by a width specification: '*' (reads an
          argument, must be of type integer) or a nonempty digit sequence,
@@ -52,11 +54,12 @@
        - is finished by a case-insensitive specifier. If no index was
          specified, it reads an argument; otherwise is uses the index-th
          argument, 0-based.
-         - 'd', needs an 'integer' or 'int64' argument,
-         - 'e', 'f', 'g', 'n', 'm', need an 'extended' floating-point argument,
-         - 's', needs a 'string', 'char', 'pchar' or 'ansistring' argument,
-         - 'p', needs a 'pointer' argument,
-         - 'x', needs an integer argument.
+         - 'd', 'u', 'x', needs an 'integer' or 'int64' or 'qword' argument,
+         - 'e', 'f', 'g', 'n', 'm', need an 'extended' or 'currency' floating-
+           point argument,
+         - 's', needs a 'string', 'char', 'pchar', 'widestring', 'widechar',
+           'pwidechar' or 'ansistring' argument,
+         - 'p', needs a 'pointer' argument.
    Numbered and unnumbered argument specifications can be used in the same
    string.  Numbered argument specifications have no influence on the
    "current argument index", that is incremented each time an argument is read.
@@ -64,10 +67,10 @@
 
 enum format_arg_type
 {
-  FAT_INTEGER,          /* integer */
-  FAT_INTEGER64,        /* integer, int64 */
-  FAT_FLOAT,            /* extended */
-  FAT_STRING,           /* string, char, pchar, ansistring */
+  FAT_INTEGER,         /* integer, int64, qword */
+  FAT_FLOAT,           /* extended, currency */
+  FAT_STRING,          /* string, char, pchar, widestring, widechar, pwidechar,
+                          ansistring */
   FAT_POINTER
 };
 
@@ -140,17 +143,16 @@ format_parse (const char *format, bool translated, char *fdi,
             unsigned int main_number = 0;
             enum format_arg_type type;
 
-            if (isdigit (*format))
+            if (isdigit (*format) || *format == ':')
               {
                 const char *f = format;
                 unsigned int m = 0;
 
-                do
+                while (isdigit (*f))
                   {
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
 
                 if (*f == ':')
                   {
@@ -227,8 +229,8 @@ format_parse (const char *format, bool translated, char *fdi,
 
             switch (c_tolower (*format))
               {
-              case 'd':
-                type = FAT_INTEGER64;
+              case 'd': case 'u': case 'x':
+                type = FAT_INTEGER;
                 break;
               case 'e': case 'f': case 'g': case 'n': case 'm':
                 type = FAT_FLOAT;
@@ -238,9 +240,6 @@ format_parse (const char *format, bool translated, char *fdi,
                 break;
               case 'p':
                 type = FAT_POINTER;
-                break;
-              case 'x':
-                type = FAT_INTEGER;
                 break;
               default:
                 if (*format == '\0')
@@ -309,9 +308,6 @@ format_parse (const char *format, bool translated, char *fdi,
 
             if (type1 == type2)
               type_both = type1;
-            else if ((type1 == FAT_INTEGER && type2 == FAT_INTEGER64)
-                     || (type1 == FAT_INTEGER64 && type2 == FAT_INTEGER))
-              type_both = FAT_INTEGER;
             else
               {
                 /* Incompatible types.  */
@@ -492,9 +488,6 @@ format_print (void *descr)
         {
         case FAT_INTEGER:
           printf ("i");
-          break;
-        case FAT_INTEGER64:
-          printf ("I");
           break;
         case FAT_FLOAT:
           printf ("f");

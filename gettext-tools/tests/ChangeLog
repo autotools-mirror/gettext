@@ -1,3 +1,10 @@
+2010-04-25  Bruno Haible  <bruno@clisp.org>
+
+	Update support of object-pascal-format strings.
+	* format-pascal-1: Add test for "%:d".
+	* format-pascal-2: Add test for "%:s". Test type compatibility between
+	%d, %u, %x.
+
 2010-03-31  Guido Flohr  <guido@imperia.net>
 
 	Improve how xgettext handles Perl syntax ambiguities.

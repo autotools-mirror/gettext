@@ -1,3 +1,12 @@
+2010-04-25  Bruno Haible  <bruno@clisp.org>
+
+	Update support of object-pascal-format strings.
+	* format-pascal.c: Update description of format strings.
+	(enum format_arg_type): Remove FAT_INTEGER64.
+	(format_parse): Accept an empty digit sequence before ':'. Treat 'd',
+	'u', 'x' the same way.
+	(main): Update.
+
 2010-04-05  Bruno Haible  <bruno@clisp.org>
 
 	Interoperability with mono versions >= 2009-02-27.
