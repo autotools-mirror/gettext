@@ -7,7 +7,6 @@ program hello;
 {$mode delphi}
 
 uses gettext,  { translateresourcestrings }
-     linux,    { getpid }
      sysutils; { format }
 
 resourcestring
@@ -17,5 +16,5 @@ resourcestring
 begin
   translateresourcestrings({$i %LOCALEDIR%}+'/%s/LC_MESSAGES/hello-pascal.mo');
   writeln(hello_world);
-  writeln(format(running_as,[getpid]));
+  writeln(format(running_as,[GetProcessID]));
 end.

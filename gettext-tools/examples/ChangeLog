@@ -1,3 +1,12 @@
+2010-04-25  Bruno Haible  <bruno@clisp.org>
+
+	Update hello-pascal example.
+	* hello-pascal/INSTALL: Require fpc 2.0 or newer.
+	* hello-pascal/hello.pas: Use GetProcessID from the system unit,
+	instead of getpid from the oldlinux unit or fpgetpid from the baseunix
+	unit.
+	Reported by Marco van de Voort <marcov@stack.nl>.
+
 2010-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* hello-c++-wxwidgets/autogen.sh: Update origin of lib-*.m4 and
