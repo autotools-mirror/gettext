@@ -687,6 +687,7 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 (defvar po-start-of-entry)
 (defvar po-start-of-msgctxt) ; = po-start-of-msgid if there is no msgctxt
 (defvar po-start-of-msgid)
+(defvar po-start-of-msgid_plural) ; = nil if there is no msgid_plural
 (defvar po-start-of-msgstr-block)
 (defvar po-start-of-msgstr-form)
 (defvar po-end-of-msgstr-form)
@@ -1008,6 +1009,10 @@ Initialize or replace current translation with the original message"))])
   "^\\(#~[ \t]*\\)?msgid.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgid field, whether obsolete or not.")
 
+(defvar po-any-msgid_plural-regexp
+  "^\\(#~[ \t]*\\)?msgid_plural.*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
+  "Regexp matching a whole msgid_plural field, whether obsolete or not.")
+
 (defvar po-any-msgstr-block-regexp
   "^\\(#~[ \t]*\\)?msgstr\\([ \t]\\|\\[0\\]\\).*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\(\\(#~[ \t]*\\)?msgstr\\[[0-9]\\].*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*\\)*"
   "Regexp matching a whole msgstr or msgstr[] field, whether obsolete or not.")
@@ -1158,6 +1163,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (make-local-variable 'po-start-of-entry)
   (make-local-variable 'po-start-of-msgctxt)
   (make-local-variable 'po-start-of-msgid)
+  (make-local-variable 'po-start-of-msgid_plural)
   (make-local-variable 'po-start-of-msgstr-block)
   (make-local-variable 'po-end-of-entry)
   (make-local-variable 'po-entry-type)
@@ -1398,10 +1404,10 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 
 (defun po-find-span-of-entry ()
   "Find the extent of the PO file entry where the cursor is.
-Set variables PO-START-OF-ENTRY, PO-START-OF-MSGCTXT, PO-START-OF-MSGID,
-po-start-of-msgstr-block, PO-END-OF-ENTRY and PO-ENTRY-TYPE to meaningful
-values. Decreasing priority of type interpretation is: obsolete, fuzzy,
-untranslated or translated."
+Set variables po-start-of-entry, po-start-of-msgctxt, po-start-of-msgid,
+po-start-of-msgid_plural, po-start-of-msgstr-block, po-end-of-entry, and
+po-entry-type to meaningful values. po-entry-type may be set to: obsolete,
+fuzzy, untranslated, or translated."
   (let ((here (point)))
     (if (re-search-backward po-any-msgstr-block-regexp nil t)
         (progn
@@ -1459,12 +1465,19 @@ untranslated or translated."
     (re-search-forward po-any-msgid-regexp)
     (setq po-start-of-msgid (match-beginning 0))
     (save-excursion
+      (goto-char po-start-of-msgid)
+      (setq po-start-of-msgid_plural
+            (if (re-search-forward po-any-msgid_plural-regexp
+                                   po-start-of-msgstr-block t)
+                (match-beginning 0)
+              nil)))
+    (save-excursion
       (when (>= here po-start-of-msgstr-block)
         ;; point was somewhere inside of msgstr*
         (goto-char here)
         (end-of-line)
         (re-search-backward "^\\(#~[ \t]*\\)?msgstr"))
-      ;; Detect the bounderies of the msgstr we are interested in.
+      ;; Detect the boundaries of the msgstr we are interested in.
       (re-search-forward po-any-msgstr-form-regexp)
       (setq po-start-of-msgstr-form (match-beginning 0)
             po-end-of-msgstr-form (match-end 0)))

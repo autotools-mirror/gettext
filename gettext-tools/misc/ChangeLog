@@ -1,3 +1,14 @@
+2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
+            Bruno Haible  <bruno@clisp.org>
+
+	po-mode: Determine position of "msgid_plural" line in current entry.
+	* po-mode.el (po-start-of-msgid_plural): New variable.
+	(po-any-msgid_plural-regexp): New variable.
+	(po-mode): Make po-start-of-msgid_plural buffer-local.
+	(po-find-span-of-entry): Set also po-start-of-msgid_plural.
+	Based on patch in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2008-05/msg00031.html>.
+
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* po-mode.el (po-get-msgstr-flavor): Preserve the point's position.
