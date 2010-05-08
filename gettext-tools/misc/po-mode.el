@@ -1,6 +1,6 @@
 ;;; po-mode.el -- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-1999, 2000-2002, 2005-2008 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002, 2005-2008, 2010 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
@@ -2304,6 +2304,7 @@ Run functions on po-subedit-mode-hook."
           (setq slot (list marker edit-buffer overlay)
                 po-edited-fields (cons slot po-edited-fields))
           (pop-to-buffer edit-buffer)
+          (text-mode)
           (set (make-local-variable 'po-subedit-back-pointer) slot)
           (set (make-local-variable 'indent-line-function)
                'indent-relative)
