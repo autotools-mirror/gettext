@@ -2317,7 +2317,7 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
           (erase-buffer)
           (insert-buffer-substring oldbuf start-1 end-1)
           (setq buffer-read-only t))
-        
+
         (setq start-2 (point))
         (save-excursion
           ;; check for a third variant; if found ignore it
@@ -2434,7 +2434,7 @@ Run functions on po-subedit-mode-hook."
   (interactive)
   (po-find-span-of-entry)
   (po-edit-string (po-get-comment nil) 'comment nil))
-  
+
 (defun po-edit-comment-and-ediff ()
   "Use `ediff' to edit the current translator comment.
 This function calls `po-edit-msgstr' and `po-subedit-ediff'; for more info
