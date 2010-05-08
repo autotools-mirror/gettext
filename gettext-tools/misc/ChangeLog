@@ -24,6 +24,8 @@
 	(po-previous-untranslated-region-for, po-previous-untranslated-regions,
 	po-delete-previous-untranslated, po-maybe-delete-previous-untranslated):
 	New functions.
+	Reported in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2008-05/msg00032.html>.
 
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 

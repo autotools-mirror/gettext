@@ -49,6 +49,11 @@ Version 0.18 - January 2008
 
 * autopoint can now be used to update several PO directories all together.
 
+* PO mode changes:
+  - PO files with plural entries are now correctly handled.
+  - Editing a message with previous msgid (in comments) removes these
+    comments.  Contributed by Noritada Kobayashi.
+
 * The po/Makevars file has a new field MSGMERGE_OPTIONS, that can be used
   to adjust msgmerge's operation.
 
