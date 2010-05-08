@@ -1,3 +1,12 @@
+2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
+
+	Fix failure of po-msgid-to-msgstr just after opening a buffer.
+	* po-mode.el (po-msgstr-form-flavor): Remove variable.
+	(po-get-msgstr-form): Do not call po-get-msgstr-flavor.
+	(po-set-msgstr-form): Call po-get-msgstr-flavor function here.
+	Reported in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2008-05/msg00028.html>.
+
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* po-mode.el (po-edit-string): Assign major mode text-mode to the

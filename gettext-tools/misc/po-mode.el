@@ -692,7 +692,6 @@ No doubt that highlighting, when Emacs does not allow it, is a kludge."
 (defvar po-end-of-msgstr-form)
 (defvar po-end-of-entry)
 (defvar po-entry-type)
-(defvar po-msgstr-form-flavor)
 
 ;; A few counters are usefully shown in the Emacs mode line.
 (defvar po-translated-counter)
@@ -1900,11 +1899,9 @@ If FORM is itself a string, then this string is used for insertion."
 
 (defun po-get-msgstr-form ()
   "Extract and return the unquoted msgstr string."
-  (let ((flavor (po-get-msgstr-flavor))
-        (string (po-extract-unquoted (current-buffer)
+  (let ((string (po-extract-unquoted (current-buffer)
                                      po-start-of-msgstr-form
                                      po-end-of-msgstr-form)))
-    (setq po-msgstr-form-flavor flavor)
     string))
 
 (defun po-set-msgid (form)
@@ -1935,7 +1932,7 @@ is properly requoted before the replacement occurs.
 Returns 'nil' if the buffer has not been modified, for if the new msgstr
 described by FORM is merely identical to the msgstr already in place."
   (let ((string (po-eval-requoted form
-                                  po-msgstr-form-flavor
+                                  (po-get-msgstr-flavor)
                                   (eq po-entry-type 'obsolete))))
     (save-excursion
       (goto-char po-start-of-msgstr-form)
