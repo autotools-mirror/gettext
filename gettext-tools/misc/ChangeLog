@@ -1,3 +1,18 @@
+2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
+            Bruno Haible  <bruno@clisp.org>
+
+	po-mode: Optionally delete previous untranslated comment when editing.
+	* po-mode.el (po-auto-delete-previous-msgid): New customizable
+	variable.
+	(po-any-previous-msgctxt-regexp, po-any-previous-msgid-regexp,
+	po-any-previous-msgid_plural-regexp): New variables.
+	(po-msgid-to-msgstr, po-kill-msgstr, po-yank-msgstr, po-subedit-exit):
+	Invoke po-maybe-delete-previous-untranslated after po-set-msgstr-form.
+	(po-unfuzzy): Invoke po-maybe-delete-previous-untranslated.
+	(po-previous-untranslated-region-for, po-previous-untranslated-regions,
+	po-delete-previous-untranslated, po-maybe-delete-previous-untranslated):
+	New functions.
+
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 
 	po-mode: Fix po-msgid-to-msgstr on plural entries.

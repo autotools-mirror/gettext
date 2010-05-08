@@ -117,6 +117,14 @@ Version number of this version of po-mode.el.")
   :type 'boolean
   :group 'po)
 
+(defcustom po-auto-delete-previous-msgid t
+  "*Automatically delete previous msgid (marked #|) when editing entry.
+Value is nil, t, or ask."
+  :type '(choice (const nil)
+                 (const t)
+                 (const ask))
+  :group 'po)
+
 (defcustom po-auto-select-on-unfuzzy nil
   "*Automatically select some new entry while making an entry not fuzzy."
   :type 'boolean
@@ -1001,6 +1009,18 @@ Initialize or replace current translation with the original message"))])
                          (error (_"I do not know how to mail to '%s'") to))))))
   "Function to start composing an electronic message.")
 
+(defvar po-any-previous-msgctxt-regexp
+  "^#\\(~\\)?|[ \t]*msgctxt.*\n\\(#\\(~\\)?|[ \t]*\".*\n\\)*"
+  "Regexp matching a whole #| msgctxt field, whether obsolete or not.")
+
+(defvar po-any-previous-msgid-regexp
+  "^#\\(~\\)?|[ \t]*msgid.*\n\\(#\\(~\\)?|[ \t]*\".*\n\\)*"
+  "Regexp matching a whole #| msgid field, whether obsolete or not.")
+
+(defvar po-any-previous-msgid_plural-regexp
+  "^#\\(~\\)?|[ \t]*msgid_plural.*\n\\(#\\(~\\)?|[ \t]*\".*\n\\)*"
+  "Regexp matching a whole #| msgid_plural field, whether obsolete or not.")
+
 (defvar po-any-msgctxt-msgid-regexp
   "^\\(#~[ \t]*\\)?msg\\(ctxt\\|id\\).*\n\\(\\(#~[ \t]*\\)?\".*\n\\)*"
   "Regexp matching a whole msgctxt or msgid field, whether obsolete or not.")
@@ -1683,11 +1703,12 @@ If WRAP is not nil, the search may wrap around the buffer."
   (po-find-span-of-entry)
   (if (or (eq po-entry-type 'untranslated)
           (eq po-entry-type 'obsolete)
-          (y-or-n-p (_"Really lose previous translation? ")))
+          (prog1 (y-or-n-p (_"Really lose previous translation? "))
+                 (message "")))
       ;; In an entry with plural forms, use the msgid_plural string,
       ;; as it is more general than the msgid string.
-      (po-set-msgstr-form (or (po-get-msgid_plural) (po-get-msgid))))
-  (message ""))
+      (if (po-set-msgstr-form (or (po-get-msgid_plural) (po-get-msgid)))
+          (po-maybe-delete-previous-untranslated))))
 
 ;; Obsolete entries.
 
@@ -1728,6 +1749,7 @@ which does not match exactly.")
   (cond ((eq po-entry-type 'fuzzy)
          (po-decrease-type-counter)
          (po-delete-attribute "fuzzy")
+         (po-maybe-delete-previous-untranslated)
          (po-current-entry)
          (po-increase-type-counter)))
   (if po-auto-select-on-unfuzzy
@@ -1986,13 +2008,15 @@ described by FORM is merely identical to the msgstr already in place."
   "Empty the msgstr string from current entry, pushing it on the kill ring."
   (interactive)
   (po-kill-ring-save-msgstr)
-  (po-set-msgstr-form ""))
+  (if (po-set-msgstr-form "")
+      (po-maybe-delete-previous-untranslated)))
 
 (defun po-yank-msgstr ()
   "Replace the current msgstr string by the top of the kill ring."
   (interactive)
   (po-find-span-of-entry)
-  (po-set-msgstr-form (if (eq last-command 'yank) '(yank-pop 1) '(yank)))
+  (if (po-set-msgstr-form (if (eq last-command 'yank) '(yank-pop 1) '(yank)))
+      (po-maybe-delete-previous-untranslated))
   (setq this-command 'yank))
 
 (defun po-fade-out-entry ()
@@ -2115,7 +2139,62 @@ The string is properly recommented before the replacement occurs."
   (po-set-comment (if (eq last-command 'yank) '(yank-pop 1) '(yank)))
   (setq this-command 'yank)
   (po-redisplay))
-
+
+;;; Deleting the "previous untranslated" comment.
+
+(defun po-previous-untranslated-region-for (rx)
+  "Return the list of previous untranslated regions (at most one) for the
+given regular expression RX."
+  (save-excursion
+    (goto-char po-start-of-entry)
+    (if (re-search-forward rx po-start-of-msgctxt t)
+        (list (cons (copy-marker (match-beginning 0))
+                    (copy-marker (match-end 0))))
+      nil)))
+
+(defun po-previous-untranslated-regions ()
+  "Return the list of previous untranslated regions in the current entry."
+  (append (po-previous-untranslated-region-for po-any-previous-msgctxt-regexp)
+          (po-previous-untranslated-region-for po-any-previous-msgid-regexp)
+          (po-previous-untranslated-region-for po-any-previous-msgid_plural-regexp)))
+
+(defun po-delete-previous-untranslated ()
+  "Delete the previous msgctxt, msgid, msgid_plural fields (marked as #|
+comments) from the current entry."
+  (interactive)
+  (po-find-span-of-entry)
+  (let ((buffer-read-only po-read-only))
+    (dolist (region (po-previous-untranslated-regions))
+      (delete-region (car region) (cdr region))))
+  (po-redisplay))
+
+(defun po-maybe-delete-previous-untranslated ()
+  "Delete the previous msgctxt, msgid, msgid_plural fields (marked as #|
+comments) from the current entry, if the user gives the permission."
+  (po-find-span-of-entry)
+  (let ((previous-regions (po-previous-untranslated-regions)))
+    (if previous-regions
+        (if (or (eq po-auto-delete-previous-msgid t)
+                (and (eq po-auto-delete-previous-msgid 'ask)
+                     (let ((overlays nil))
+                       (unwind-protect
+                           (progn
+                             (setq overlays
+                                   (mapcar (function
+                                             (lambda (region)
+                                               (let ((overlay (po-create-overlay)))
+                                                 (po-highlight overlay (car region) (cdr region))
+                                                 overlay)))
+                                           previous-regions))
+                             ;; Scroll, to show the previous-regions.
+                             (goto-char (car (car previous-regions)))
+                             (prog1 (y-or-n-p (_"Delete previous msgid comments? "))
+                                    (message "")))
+                         (mapc 'po-dehighlight overlays)))))
+            (let ((buffer-read-only po-read-only))
+              (dolist (region previous-regions)
+                (delete-region (car region) (cdr region))))))))
+
 ;;; Editing management and submode.
 
 ;; In a string edit buffer, BACK-POINTER points to one of the slots of the
@@ -2290,15 +2369,16 @@ When done with the `ediff' session press \\[exit-recursive-edit] exit to
            (po-set-comment string)
            (po-redisplay))
           ((= (point) po-start-of-msgstr-form)
-           (let ((replaced (po-set-msgstr-form string)))
-             (if (and replaced
-                      po-auto-fuzzy-on-edit
-                      (eq po-entry-type 'translated))
-                 (progn
-                   (po-decrease-type-counter)
-                   (po-add-attribute "fuzzy")
-                   (po-current-entry)
-                   (po-increase-type-counter)))))
+           (if (po-set-msgstr-form string)
+               (progn
+                 (po-maybe-delete-previous-untranslated)
+                 (if (and po-auto-fuzzy-on-edit
+                          (eq po-entry-type 'translated))
+                     (progn
+                       (po-decrease-type-counter)
+                       (po-add-attribute "fuzzy")
+                       (po-current-entry)
+                       (po-increase-type-counter))))))
           (t (debug)))))
 
 (defun po-edit-string (string type expand-tabs)
