@@ -1901,7 +1901,8 @@ If FORM is itself a string, then this string is used for insertion."
   "Extract and return the unquoted msgid string."
   (let ((string (po-extract-unquoted (current-buffer)
                                      po-start-of-msgid
-                                     po-start-of-msgstr-block)))
+                                     (or po-start-of-msgid_plural
+                                         po-start-of-msgstr-block))))
     string))
 
 (defun po-get-msgstr-flavor ()

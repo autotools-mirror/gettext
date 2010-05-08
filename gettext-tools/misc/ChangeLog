@@ -1,6 +1,15 @@
 2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
             Bruno Haible  <bruno@clisp.org>
 
+	po-mode: Fix po-get-msgid function in plural entries.
+	* po-mode.el (po-get-msgid): Use po-start-of-msgid_plural as end
+	pointer, if it is set.
+	Reported in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2008-05/msg00031.html>.
+
+2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
+            Bruno Haible  <bruno@clisp.org>
+
 	po-mode: Determine position of "msgid_plural" line in current entry.
 	* po-mode.el (po-start-of-msgid_plural): New variable.
 	(po-any-msgid_plural-regexp): New variable.
