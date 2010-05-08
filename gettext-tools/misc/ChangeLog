@@ -1,3 +1,7 @@
+2010-05-08  Bruno Haible  <bruno@clisp.org>
+
+	* po-mode.el (po-get-msgstr-flavor): Preserve the point's position.
+
 2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
 
 	Fix failure of po-msgid-to-msgstr just after opening a buffer.

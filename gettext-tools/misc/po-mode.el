@@ -1892,10 +1892,12 @@ If FORM is itself a string, then this string is used for insertion."
     string))
 
 (defun po-get-msgstr-flavor ()
-  "Helper function to detect msgstr and msgstr[] variants."
-  (goto-char po-start-of-msgstr-form)
-  (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
-  (match-string 2))
+  "Helper function to detect msgstr and msgstr[] variants.
+Returns one of \"msgstr\" or \"msgstr[i]\" for some i."
+  (save-excursion
+    (goto-char po-start-of-msgstr-form)
+    (re-search-forward "^\\(#~[ \t]*\\)?\\(msgstr\\(\\[[0-9]\\]\\)?\\)")
+    (match-string 2)))
 
 (defun po-get-msgstr-form ()
   "Extract and return the unquoted msgstr string."
