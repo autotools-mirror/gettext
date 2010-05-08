@@ -1684,7 +1684,9 @@ If WRAP is not nil, the search may wrap around the buffer."
   (if (or (eq po-entry-type 'untranslated)
           (eq po-entry-type 'obsolete)
           (y-or-n-p (_"Really lose previous translation? ")))
-      (po-set-msgstr-form (po-get-msgid)))
+      ;; In an entry with plural forms, use the msgid_plural string,
+      ;; as it is more general than the msgid string.
+      (po-set-msgstr-form (or (po-get-msgid_plural) (po-get-msgid))))
   (message ""))
 
 ;; Obsolete entries.
@@ -1904,6 +1906,16 @@ If FORM is itself a string, then this string is used for insertion."
                                      (or po-start-of-msgid_plural
                                          po-start-of-msgstr-block))))
     string))
+
+(defun po-get-msgid_plural ()
+  "Extract and return the unquoted msgid_plural string.
+Return nil if it is not present."
+  (if po-start-of-msgid_plural
+      (let ((string (po-extract-unquoted (current-buffer)
+                                         po-start-of-msgid_plural
+                                         po-start-of-msgstr-block)))
+        string)
+    nil))
 
 (defun po-get-msgstr-flavor ()
   "Helper function to detect msgstr and msgstr[] variants.
