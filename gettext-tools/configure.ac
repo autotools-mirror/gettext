@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2010 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -221,6 +221,16 @@ if test $is_woe32dll = yes; then
   AC_DEFINE([WOE32DLL], [1],
     [Define when --enable-shared is used on mingw or Cygwin.])
 fi
+
+dnl woe32dll/gettextlib-exports.c needs to know whether the getopt facility
+dnl is replaced by gnulib. GETOPT_H is set by gl_FUNC_GETOPT_POSIX, inside
+dnl gl_INIT.
+if test -n "$GETOPT_H"; then
+  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_GETOPT"
+else
+  GETTEXTLIB_EXPORTS_FLAGS=
+fi
+AC_SUBST([GETTEXTLIB_EXPORTS_FLAGS])
 
 dnl Put some default definitions into config.h.
 AH_TOP([

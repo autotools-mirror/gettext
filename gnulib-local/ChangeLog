@@ -1,5 +1,11 @@
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
+	Export rpl_optind, rpl_optarg from DLL depending on platform.
+	* modules/gettext-tools-misc (AM_CPPFLAGS): Augment by
+	GETTEXTLIB_EXPORTS_FLAGS.
+
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
 	Avoid compilation error in libgettextpo directory on Solaris 8.
 	* lib/unistd.in.h.diff: New file.
 	* Makefile.am (EXTRA_DIST): Add it.
