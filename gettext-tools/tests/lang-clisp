@@ -148,11 +148,13 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  CLISP_LANGUAGE= LANGUAGE= LC_ALL=$LOCALE_FR clisp prog.lisp 2 > prog.out || exit 1
+  CLISP_LANGUAGE= LANGUAGE= LC_ALL=$LOCALE_FR clisp prog.lisp 2 > prog.tmp || exit 1
+  LC_ALL=C tr -d '\r' < prog.tmp > prog.out || exit 1
   ${DIFF} prog.ok prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  CLISP_LANGUAGE= LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 clisp prog.lisp 2 > prog.out || exit 1
+  CLISP_LANGUAGE= LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 clisp prog.lisp 2 > prog.tmp || exit 1
+  LC_ALL=C tr -d '\r' < prog.tmp > prog.out || exit 1
   ${DIFF} prog.oku prog.out || exit 1
 fi
 
