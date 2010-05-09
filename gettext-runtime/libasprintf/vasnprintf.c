@@ -2890,8 +2890,8 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                       length += n;
                     }
                 }
-              }
 # endif
+              }
 #endif
 #if (NEED_PRINTF_DIRECTIVE_A || NEED_PRINTF_LONG_DOUBLE || NEED_PRINTF_DOUBLE) && !defined IN_LIBINTL
             else if ((dp->conversion == 'a' || dp->conversion == 'A')
@@ -5499,6 +5499,8 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                     length += count;
                     break;
                   }
+#undef pad_ourselves
+#undef prec_ourselves
               }
           }
       }
