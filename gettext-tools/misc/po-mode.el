@@ -1777,7 +1777,7 @@ which does not match exactly.")
     (po-previous-entry-with-regexp po-any-msgstr-block-regexp t)
     (po-find-span-of-entry)
     (while (not (eq po-entry-type 'translated))
-      (po-previous-entry-with-regexp po-untranslated-regexp t)
+      (po-previous-entry-with-regexp po-any-msgstr-block-regexp t)
       (po-find-span-of-entry))))
 
 ;; Auto-selection feature.

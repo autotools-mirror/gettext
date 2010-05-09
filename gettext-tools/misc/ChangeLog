@@ -1,4 +1,12 @@
 2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
+
+	po-mode: Fix bug in po-previous-translated-entry function.
+	* po-mode.el (po-previous-translated-entry): Use correct regular
+	expression.
+	Reported via Santiago Vila in
+	<http://lists.gnu.org/archive/html/bug-gnu-utils/2008-08/msg00039.html>.
+
+2010-05-08  Noritada Kobayashi  <nori1@dolphin.c.u-tokyo.ac.jp>
             Bruno Haible  <bruno@clisp.org>
 
 	po-mode: Optionally delete previous untranslated comment when editing.
