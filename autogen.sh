@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.60..2.64 and automake-1.11 in the PATH.
+# This script requires autoconf-2.60..2.65 and automake-1.11.1 in the PATH.
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
 #     in a gnulib checkout, or
@@ -36,8 +36,8 @@
 # Usage after a first-time git clone / cvs checkout:   ./autogen.sh
 # Usage after a git clone / cvs update:                ./autogen.sh --quick
 # This uses an up-to-date gnulib checkout.
-# (The gettext-0.17 release was prepared using gnulib commit
-# bf5ebbca03613397b66521e98dd4ce28741c4689 from 2007-11-07.)
+# (The gettext-0.18 release was prepared using gnulib commit
+# 190bf61ecbb3727a3dd742498938be9e251f9315 from 2010-05-09.)
 #
 # Usage from a released tarball:             ./autogen.sh --quick --skip-gnulib
 # This does not use a gnulib checkout.

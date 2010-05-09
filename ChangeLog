@@ -2,6 +2,7 @@
 
 	* version.sh: Bump to 0.18.
 	* windows/gettext.rc: Update year.
+	* autogen.sh: Record the gnulib version that is being used.
 
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 
