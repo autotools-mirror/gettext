@@ -1,5 +1,9 @@
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
+	* gettext-0.18 released.
+
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
 	* po.m4 (AM_PO_SUBDIRS): Set GETTEXT_MACRO_VERSION to 0.18.
 
 2010-04-20  Simon Josefsson  <simon@josefsson.org>

@@ -1,3 +1,7 @@
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* gettext-0.18 released.
+
 2010-04-02  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (ACLOCAL_AMFLAGS): Remove "-I ../autoconf-lib-link/m4"
