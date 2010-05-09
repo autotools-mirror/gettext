@@ -1,4 +1,4 @@
-Version 0.18 - December 2009
+Version 0.18 - May 2010
 
 * On MacOS X and Windows systems, <libintl.h> now extends setlocale() and
   newlocale() so that their determination of the default locale considers

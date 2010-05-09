@@ -1,4 +1,4 @@
-Version 0.18 - January 2008
+Version 0.18 - May 2010
 
 * Runtime behaviour:
   - On MacOS X and Windows systems, <libintl.h> now extends setlocale() and

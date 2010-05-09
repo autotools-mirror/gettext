@@ -1,5 +1,11 @@
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
+	* libgnuintl.h.in (LIBINTL_VERSION): Bump to 0.18.
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 9:0:1.
+	* libintl.rc: Update year.
+
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
 	vasnprintf: Fix syntax errors in libintl build on mingw.
 	* vasnprintf.c (VASNPRINTF): Move a closing brace. Undefine
 	pad_ourselves and prec_ourselves after use.

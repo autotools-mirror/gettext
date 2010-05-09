@@ -1,3 +1,7 @@
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in (GETTEXT_MACRO_VERSION): Bump to 0.18.
+
 2010-02-07  Bruno Haible  <bruno@clisp.org>
 
 	* bg.po: New file, from Roumen Petrov <transl@roumenpetrov.info>.

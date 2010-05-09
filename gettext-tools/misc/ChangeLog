@@ -1,3 +1,7 @@
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in (func_version): Bump copyright year.
+
 2010-05-08  Bruno Haible  <bruno@clisp.org>
 
 	* po-mode.el (po-mode-version-string): Bump to 2.2.
