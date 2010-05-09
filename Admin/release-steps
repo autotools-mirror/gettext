@@ -53,12 +53,24 @@ Tasks not to forget before release:
     gettext-runtime/libasprintf/NEWS
     gettext-runtime/NEWS
 
+- Iterate:
+    ./rerun-autogen
+    ./rerun-configure
+    make distcheck-hook
+    ./rerun-make
+    make distcheck
+    Test tarball on various platforms.
+    Put fixes into gettext and gnulib.
+    make distclean
+  until it builds and installs fine on the said platforms.
+
+- Commit all the files in gnulib.
+- Update the version number and commit identifier in autogen.sh.
+
 - Add an entry to all the ChangeLogs
   except gettext-tools/examples/hello-c++-kde/admin/ChangeLog.
 
 - "make"; "make dist"; "make distcheck"
-- Commit all the files in gnulib.
-- Update the version number and commit identifier in autogen.sh.
 - cd gettext-tools/misc
   cp archive.tar.gz-<last-release-number> archive.tar.gz
   add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
