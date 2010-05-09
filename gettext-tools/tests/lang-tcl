@@ -8,6 +8,9 @@
 # but not in the fr_FR.UTF-8 locale. Probably because in the fr_FR locale,
 # nl_langinfo(CODESET) returns "".
 
+# Note: This test fails on Cygwin 1.7.2 in the fr_FR.UTF-8 locale but not
+# in the fr_FR.ISO-8859-1 locale.
+
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
