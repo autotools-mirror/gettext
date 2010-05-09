@@ -72,17 +72,18 @@ Tasks not to forget before release:
 
 - "make"; "make dist"; "make distcheck"
 - cd gettext-tools/misc
-  cp archive.tar.gz-<last-release-number> archive.tar.gz
-  add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
+  cp archive.cvs.tar.gz-<last-release-number> archive.cvs.tar.gz
+  ./add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the case statement and the table in autopoint.in.
-- Swap the first 4 lines of gettext-tools/doc/gettext.info, working around
-  a bug in makeinfo-4.11.
 - again: "make dist"
 
 * Upload to ftp-upload.gnu.org according to the procedure given by
   Bradley M. Kuhn on 2003-11-11.
+  http://www.gnu.org/prep/maintain/maintain.html#Automated-Upload-Procedure
 
 - Tag the repository, using a simple tag and optionally a branch tag.
+  git tag -m 'gettext 0.18 release' v0.18
+  git push --tags
 
 - Regenerate the documentation for www.gnu.org:
   - In the gettext-tools/doc/ directory, copy the
