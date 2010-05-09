@@ -188,6 +188,8 @@
 /test-vasnprintf-posix.c
 /test-vasnprintf.c
 /test-vasprintf.c
+/test-verify.c
+/test-verify.sh
 /test-vsnprintf.c
 /test-wchar.c
 /test-wctype.c
