@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.10.39\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2001-07-28 17:00+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <gpul-traduccion@ceu.fi.udc.es>\n"
+"Language: gl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,66 +25,65 @@ msgstr ""
 msgid "write error"
 msgstr ""
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Erro de sistema descoñecido"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: a opción `%s' é ambigua\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: a opción `--%s' non permite ningún argumento\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: a opción `%c%s' non permite ningún argumento\n"
 
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: a opción `%s' require un argumento\n"
 
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: opción `--%s' descoñecida\n"
 
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: opción `%c%s' descoñecida\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: opción ilegal -- %c\n"
-
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: opción non válida -- %c\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: a opción require un argumento -- %c\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: a opción `-W %s' é ambigua\n"
 
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: a opción `-W %s' non permite ningún argumento\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: a opción `%s' require un argumento\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -303,6 +303,9 @@ msgstr ""
 "TEXTDOMAIN.  Se o catálogo de mensaxes non está no directorio habitual,\n"
 "pódese especificar outro mediante a variable TEXTDOMAINDIR.\n"
 "Directorio estándar de busca: %s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: opción ilegal -- %c\n"
 
 #~ msgid ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -1484,8 +1487,8 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
@@ -1511,8 +1514,8 @@ msgstr ""
 #~ "Os argumentos obrigatorios para as opcións longas son tamén obrigatorios "
 #~ "para\n"
 #~ "as opcións curtas.\n"
-#~ "  -a, --alignment=NÚMERO      aliña-las cadeas a NÚMERO bytes (defecto: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NÚMERO      aliña-las cadeas a NÚMERO bytes (defecto: "
+#~ "%d)\n"
 #~ "  -c, --check                 facer comprobacións dependentes da "
 #~ "linguaxe\n"
 #~ "                              nas cadeas\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.17\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2009-12-13 13:17+0100\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2009-09-24 22:39+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -22,66 +22,65 @@ msgstr ""
 msgid "write error"
 msgstr "lỗi ghi"
 
-#: gnulib-lib/error.c:153
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Lỗi hệ thống không rõ"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: tùy chọn « %s » là mơ hồ\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « --%s » không cho phép đối số\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « %c%s » không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656 gnulib-lib/getopt.c:972
-#: gnulib-lib/getopt.c:991
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: tùy chọn « %s » cần đến đối số\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: không nhận diện tùy chọn « --%s »\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: không nhận diện tùy chọn « %c%s »\n"
 
-#: gnulib-lib/getopt.c:760 gnulib-lib/getopt.c:763
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: không cho phép tùy chọn « -- %c »\n"
-
-#: gnulib-lib/getopt.c:769 gnulib-lib/getopt.c:772
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: tùy chọn không hợp lệ « -- %c »\n"
 
-#: gnulib-lib/getopt.c:824 gnulib-lib/getopt.c:840 gnulib-lib/getopt.c:1044
-#: gnulib-lib/getopt.c:1062
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: tùy chọn cần đến đối số « -- %c »\n"
 
-#: gnulib-lib/getopt.c:893 gnulib-lib/getopt.c:909
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: tùy chọn « -W %s » là mơ hồ\n"
 
-#: gnulib-lib/getopt.c:933 gnulib-lib/getopt.c:951
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn « -W %s » không cho phép đối số\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: tùy chọn « %s » cần đến đối số\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -322,3 +321,6 @@ msgstr ""
 "phân loại thông điệp trong thư mục bình thường, vị trí khác có thể được\n"
 "xác định bằng biến môi trường TEXTDOMAINDIR (thư mục của miền văn bản).\n"
 "Thư mục tìm kiếm chuẩn: %s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: không cho phép tùy chọn « -- %c »\n"

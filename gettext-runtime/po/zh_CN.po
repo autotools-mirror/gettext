@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2008-10-02 13:18+0200\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2008-08-09 20:25+0800\n"
 "Last-Translator: LI Daobing <lidaobing@gmail.com>\n"
 "Language-Team: Chinese (simplified) <translation-team-zh-cn@lists."
@@ -26,66 +26,65 @@ msgstr ""
 msgid "write error"
 msgstr "写错误"
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "未知的系统错误"
 
-#: gnulib-lib/getopt.c:526 gnulib-lib/getopt.c:542
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s：选项“%s”是不明确的\n"
 
-#: gnulib-lib/getopt.c:575 gnulib-lib/getopt.c:579
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s：选项“--%s”不允许有参数\n"
 
-#: gnulib-lib/getopt.c:588 gnulib-lib/getopt.c:593
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s：选项“%c%s”不允许有参数\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:655 gnulib-lib/getopt.c:971
-#: gnulib-lib/getopt.c:990
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s：选项“%s”需要一个参数\n"
 
-#: gnulib-lib/getopt.c:693 gnulib-lib/getopt.c:696
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s：无法识别的选项“--%s”\n"
 
-#: gnulib-lib/getopt.c:704 gnulib-lib/getopt.c:707
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s：无法识别的选项“%c%s”\n"
 
-#: gnulib-lib/getopt.c:759 gnulib-lib/getopt.c:762
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s：非法选项 ─ %c\n"
-
-#: gnulib-lib/getopt.c:768 gnulib-lib/getopt.c:771
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s：无效选项 ─ %c\n"
 
-#: gnulib-lib/getopt.c:823 gnulib-lib/getopt.c:839 gnulib-lib/getopt.c:1043
-#: gnulib-lib/getopt.c:1061
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s：选项需要一个参数 ─ %c\n"
 
-#: gnulib-lib/getopt.c:892 gnulib-lib/getopt.c:908
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s：选项“-W %s”是不明确的\n"
 
-#: gnulib-lib/getopt.c:932 gnulib-lib/getopt.c:950
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s：选项“-W %s”不允许有参数\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s：选项“%s”需要一个参数\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -309,3 +308,6 @@ msgstr ""
 "假如消息一览表文件不在正常的目录下，可以用环境变量 TEXTDOMAINDIR 指定\n"
 "消息一览表文件所在的位置。\n"
 "标准的搜索目录为：%s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s：非法选项 ─ %c\n"

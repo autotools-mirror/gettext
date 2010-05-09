@@ -6,80 +6,80 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2002-09-04 18:51+0300\n"
 "Last-Translator: Ales Nyakhaychyk <i18n@infonet.by>\n"
 "Language-Team: Belarusian <i18n@tut.by>\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr ""
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Невядомая сістэмная памылка"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: выбар `%s' неадназначны\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: выбар `--%s' не патрабуе аргумэнтаў\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: выбар `%c%s' не патрабуе аргумэнтаў\n"
 
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: выбар `%s' патрабуе аргумэнт\n"
 
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: нераспазнаны выбар `--%s'\n"
 
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: нераспазнаны выбар `%c%s'\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: несапраўдны выбар -- %c\n"
-
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: нерэчаісны выбар -- %c\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: выбар патрабуе аргумэнт -- %c\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: выбар `-W %s' неадназначны\n"
 
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: выбар `-W %s' не патрабуе аргумэнтаў\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: выбар `%s' патрабуе аргумэнт\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -303,6 +303,9 @@ msgstr ""
 "дырэкторыі, іншае месцазнаходжаньне можа быць зададзена ў пераменнай\n"
 "асяроддзя TEXTDOMAINDIR.\n"
 "Стандартная дырэкторыя для пошуку: %s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: несапраўдны выбар -- %c\n"
 
 #~ msgid ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -986,13 +989,13 @@ msgstr ""
 #~ msgid ""
 #~ "A special builtin command called '0' outputs the translation, followed by "
 #~ "a\n"
-#~ "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -"
-#~ "0\".\n"
+#~ "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs "
+#~ "-0\".\n"
 #~ msgstr ""
 #~ "Асабісты ўбудаваны загад, завецца '0', выводзіць пераклад й нулявы байт "
 #~ "за ім.\n"
-#~ "Вывад каманды \"msgexec 0\" падыходзіць для ўваходу каманды \"xargs -0"
-#~ "\".\n"
+#~ "Вывад каманды \"msgexec 0\" падыходзіць для ўваходу каманды \"xargs "
+#~ "-0\".\n"
 
 #~ msgid ""
 #~ "Input file location:\n"
@@ -1271,8 +1274,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
 #~ "      --no-hash               binary file will not include the hash "
 #~ "table\n"
 #~ msgstr ""
@@ -1300,8 +1303,8 @@ msgstr ""
 #~ msgid ""
 #~ "nplurals = %lu but plural expression can produce values as large as %lu"
 #~ msgstr ""
-#~ "nplurals = %lu але выраз множнага ліку можа ўтвараць значэньні такія як %"
-#~ "lu"
+#~ "nplurals = %lu але выраз множнага ліку можа ўтвараць значэньні такія як "
+#~ "%lu"
 
 #~ msgid "plural expression can produce division by zero"
 #~ msgstr "выраз множнага ліку можа ўтвараць дзяленьне на нуль"

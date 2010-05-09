@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2008-10-02 13:18+0200\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2008-12-31 07:30+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -23,66 +23,65 @@ msgstr ""
 msgid "write error"
 msgstr "kesalahan penulisan"
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Kesalahan sistem tak dikenal"
 
-#: gnulib-lib/getopt.c:526 gnulib-lib/getopt.c:542
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: pilihan `%s' rancu\n"
 
-#: gnulib-lib/getopt.c:575 gnulib-lib/getopt.c:579
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: pilihan `--%s' tidak membolehkan argumen\n"
 
-#: gnulib-lib/getopt.c:588 gnulib-lib/getopt.c:593
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: pilihan `%c%s' tidak membolehkan argumen\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:655 gnulib-lib/getopt.c:971
-#: gnulib-lib/getopt.c:990
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "pilihan %s: `%s' memerlukan sebuah argumen\n"
 
-#: gnulib-lib/getopt.c:693 gnulib-lib/getopt.c:696
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: pilihan tak dikenal `--%s'\n"
 
-#: gnulib-lib/getopt.c:704 gnulib-lib/getopt.c:707
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: pilihan tak dikenal `%c%s'\n"
 
-#: gnulib-lib/getopt.c:759 gnulib-lib/getopt.c:762
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: pilihan ilegal -- %c\n"
-
-#: gnulib-lib/getopt.c:768 gnulib-lib/getopt.c:771
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: pilihan tidak valid -- %c\n"
 
-#: gnulib-lib/getopt.c:823 gnulib-lib/getopt.c:839 gnulib-lib/getopt.c:1043
-#: gnulib-lib/getopt.c:1061
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: pilihan membutuhkan sebuah argumen -- %c\n"
 
-#: gnulib-lib/getopt.c:892 gnulib-lib/getopt.c:908
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: pilihan `-W %s' rancu\n"
 
-#: gnulib-lib/getopt.c:932 gnulib-lib/getopt.c:950
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: pilihan `-W %s' tidak membolehkan sebuah argumen\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "pilihan %s: `%s' memerlukan sebuah argumen\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -317,6 +316,9 @@ msgstr ""
 "direktori reguler, lokasi lain dapat dispesifikasikan dengan variabel \n"
 "lingkungan TEXTDOMAINDIR.\n"
 "Direktori pencarian standar: %s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: pilihan ilegal -- %c\n"
 
 # )
 #~ msgid ""

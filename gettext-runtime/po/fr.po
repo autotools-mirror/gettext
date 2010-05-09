@@ -10,10 +10,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2007-10-27 13:43+0200\n"
 "Last-Translator: Christophe Combelles <ccomb@free.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,66 +24,65 @@ msgstr ""
 msgid "write error"
 msgstr "erreur d'écriture"
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Erreur système non identifiée"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, fuzzy, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s : l'option « %s » est ambiguë\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, fuzzy, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s : l'option « --%s » ne tolère pas d'argument\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, fuzzy, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s : l'option « %c%s » ne tolère pas d'argument\n"
 
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, fuzzy, c-format
+msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s : l'option « %s » exige un argument\n"
 
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, fuzzy, c-format
+msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s : l'option « --%s » n'est pas connue\n"
 
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, fuzzy, c-format
+msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s : l'option « %c%s » n'est pas connue\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s : l'option « --%c » n'est pas permise\n"
-
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, fuzzy, c-format
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s : l'option « --%c » n'est pas valide\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, fuzzy, c-format
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s : l'option « --%c » exige un argument\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, fuzzy, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s : l'option « -W %s » est ambiguë\n"
 
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, fuzzy, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s : l'option « -W %s » ne tolère pas d'argument\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, fuzzy, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s : l'option « %s » exige un argument\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -316,6 +316,9 @@ msgstr ""
 "dossier.\n"
 "Répertoire standard de recherche : %s\n"
 
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s : l'option « --%c » n'est pas permise\n"
+
 #~ msgid ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
 #~ "This is free software; see the source for copying conditions.  There is "
@@ -383,8 +386,8 @@ msgstr ""
 #~ msgid ""
 #~ "format specifications in 'msgid' and '%s' for argument %u are not the same"
 #~ msgstr ""
-#~ "spÃ©cifications de format entre Â« msgid Â» et Â« %s Â» de l'argument %u ne "
-#~ "sont pas identiques"
+#~ "spÃ©cifications de format entre Â« msgid Â» et Â« %s Â» de l'argument %u "
+#~ "ne sont pas identiques"
 
 #~ msgid ""
 #~ "a format specification for argument %u, as in '%s', doesn't exist in "
@@ -394,14 +397,15 @@ msgstr ""
 #~ "n'existe pas dans Â« msgid Â»"
 
 #~ msgid "a format specification for argument %u doesn't exist in '%s'"
-#~ msgstr "spÃ©cification de format de l'argument %u n'existe pas dans Â« %s Â»"
+#~ msgstr ""
+#~ "spÃ©cification de format de l'argument %u n'existe pas dans Â« %s Â»"
 
 #~ msgid ""
 #~ "a format specification for argument {%u}, as in '%s', doesn't exist in "
 #~ "'msgid'"
 #~ msgstr ""
-#~ "spÃ©cification de format de l'argument {%u}, comme dans Â« %s Â», n'existe "
-#~ "pas dans Â« msgid Â»"
+#~ "spÃ©cification de format de l'argument {%u}, comme dans Â« %s Â», "
+#~ "n'existe pas dans Â« msgid Â»"
 
 #~ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 #~ msgstr ""
@@ -411,8 +415,8 @@ msgstr ""
 #~ "format specifications in 'msgid' and '%s' for argument {%u} are not the "
 #~ "same"
 #~ msgstr ""
-#~ "spÃ©cifications de format de Â« msgid Â» et Â« %s Â» de l'argument {%u} ne "
-#~ "sont pas les mÃªmes"
+#~ "spÃ©cifications de format de Â« msgid Â» et Â« %s Â» de l'argument {%u} "
+#~ "ne sont pas les mÃªmes"
 
 #~ msgid "format specifications in 'msgid' and '%s' are not equivalent"
 #~ msgstr ""
@@ -428,15 +432,15 @@ msgstr ""
 #~ "format specifications in 'msgid' expect a mapping, those in '%s' expect a "
 #~ "tuple"
 #~ msgstr ""
-#~ "spÃ©cifications de format de Â« msgid Â» requiÃ¨rent un mapping, celles de "
-#~ "Â« %s Â» requiÃ¨rent un tuple"
+#~ "spÃ©cifications de format de Â« msgid Â» requiÃ¨rent un mapping, celles "
+#~ "de Â« %s Â» requiÃ¨rent un tuple"
 
 #~ msgid ""
 #~ "format specifications in 'msgid' expect a tuple, those in '%s' expect a "
 #~ "mapping"
 #~ msgstr ""
-#~ "spÃ©cifications de format de Â« msgid Â» requiÃ¨rent un tuple, celles de Â« "
-#~ "%s Â» requiÃ¨rent un mapping"
+#~ "spÃ©cifications de format de Â« msgid Â» requiÃ¨rent un tuple, celles de "
+#~ "Â« %s Â» requiÃ¨rent un mapping"
 
 #~ msgid ""
 #~ "a format specification for argument '%s', as in '%s', doesn't exist in "
@@ -446,14 +450,15 @@ msgstr ""
 #~ "n'existe pas dans Â« msgid Â»"
 
 #~ msgid "a format specification for argument '%s' doesn't exist in '%s'"
-#~ msgstr "spÃ©cification de format de l'argument Â« %s Â» n'existe pas Â« %s Â»"
+#~ msgstr ""
+#~ "spÃ©cification de format de l'argument Â« %s Â» n'existe pas Â« %s Â»"
 
 #~ msgid ""
 #~ "format specifications in 'msgid' and '%s' for argument '%s' are not the "
 #~ "same"
 #~ msgstr ""
-#~ "spÃ©cifications de format de Â« msgid Â» et de Â« %s Â» de l'argument Â« %s "
-#~ "Â» ne sont pas les mÃªmes"
+#~ "spÃ©cifications de format de Â« msgid Â» et de Â« %s Â» de l'argument Â« "
+#~ "%s Â» ne sont pas les mÃªmes"
 
 #~ msgid "Usage: %s [OPTION]\n"
 #~ msgstr "Usage: %s [OPTION]\n"
@@ -546,7 +551,8 @@ msgstr ""
 #~ "      --untranslated          conserver les non traduits, enlever ceux "
 #~ "traduits\n"
 #~ "      --no-fuzzy              enlever les messages marquÃ©s Â« fuzzy Â»\n"
-#~ "      --only-fuzzy            conserver les messages marquÃ©s Â« fuzzy Â»\n"
+#~ "      --only-fuzzy            conserver les messages marquÃ©s Â« fuzzy "
+#~ "Â»\n"
 #~ "      --no-obsolete           enlever les messages obsolÃ¨tes #~\n"
 #~ "      --only-obsolete         conserver les messages obsolÃ¨tes #~\n"
 
@@ -561,9 +567,10 @@ msgstr ""
 #~ "obsolete\n"
 #~ msgstr ""
 #~ "Manipulation des attributs:\n"
-#~ "      --set-fuzzy             marquer tous les messages comme Â« fuzzy Â»\n"
-#~ "      --clear-fuzzy           marquer tous les messages comme non-Â« fuzzy "
+#~ "      --set-fuzzy             marquer tous les messages comme Â« fuzzy "
 #~ "Â»\n"
+#~ "      --clear-fuzzy           marquer tous les messages comme non-Â« "
+#~ "fuzzy Â»\n"
 #~ "      --set-obsolete          marquer tous les messages comme obsolÃ¨tes\n"
 #~ "      --clear-obsolete        marquer tous les messages comme non-"
 #~ "obsolÃ¨tes\n"
@@ -598,8 +605,8 @@ msgstr ""
 #~ "  -i, --indent                sortie en style indentÃ©\n"
 #~ "      --no-location           ne pas produire les lignes Â« #: fichier:"
 #~ "ligne Â»\n"
-#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: fichier:"
-#~ "ligne Â» (par dÃ©faut)\n"
+#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: "
+#~ "fichier:ligne Â» (par dÃ©faut)\n"
 #~ "      --strict                gÃ©nÃ©rer un fichier .po avec conformitÃ© "
 #~ "stricte Uniforum\n"
 #~ "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
@@ -685,7 +692,8 @@ msgstr ""
 #~ "fois\n"
 #~ "                                 (sans limite par dÃ©faut i.e. = Ã  "
 #~ "zÃ©ro)\n"
-#~ "  -u, --unique                   identique Ã  Â« -< 2 ou --less-than=2 Â»\n"
+#~ "  -u, --unique                   identique Ã  Â« -< 2 ou --less-than=2 "
+#~ "Â»\n"
 
 #~ msgid ""
 #~ "Output details:\n"
@@ -727,8 +735,8 @@ msgstr ""
 #~ "  -i, --indent                sortie en style indentÃ©\n"
 #~ "      --no-location           ne pas produire les lignes Â« #: fichier:"
 #~ "ligne Â»\n"
-#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: fichier:"
-#~ "ligne Â» (par dÃ©faut)\n"
+#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: "
+#~ "fichier:ligne Â» (par dÃ©faut)\n"
 #~ "      --strict                gÃ©nÃ©rer un fichier .po avec conformitÃ© "
 #~ "stricte Uniforum\n"
 #~ "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
@@ -767,8 +775,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Comparer deux fichiers .po style Uniforum et vÃ©rifier qu'ils "
 #~ "contiennent\n"
-#~ "le mÃªme ensemble de chaÃ®nes Â« msgid Â».  Le fichier def.po contient les "
-#~ "vieilles\n"
+#~ "le mÃªme ensemble de chaÃ®nes Â« msgid Â».  Le fichier def.po contient "
+#~ "les vieilles\n"
 #~ "traductions.  Le fichier ref.pot est le dernier fichier PO rÃ©cemment "
 #~ "crÃ©Ã© ou un \n"
 #~ "fichier patron PO (souvent crÃ©Ã© par xgettext).\n"
@@ -864,7 +872,8 @@ msgstr ""
 #~ "fois\n"
 #~ "                                 (sans limite par dÃ©faut i.e. = Ã  "
 #~ "zÃ©ro)\n"
-#~ "  -u, --unique                   identique Ã  Â« -< 2 ou --less-than=2 Â»\n"
+#~ "  -u, --unique                   identique Ã  Â« -< 2 ou --less-than=2 "
+#~ "Â»\n"
 
 #~ msgid ""
 #~ "Output details:\n"
@@ -898,15 +907,16 @@ msgstr ""
 #~ "  -i, --indent                sortie en style indentÃ©\n"
 #~ "      --no-location           ne pas produire les lignes Â« #: fichier:"
 #~ "ligne Â»\n"
-#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: fichier:"
-#~ "ligne Â» (par dÃ©faut)\n"
+#~ "  -n, --add-location          gÃ©nÃ©rer les lignes de format Â« #: "
+#~ "fichier:ligne Â» (par dÃ©faut)\n"
 #~ "      --strict                gÃ©nÃ©rer un fichier .po avec conformitÃ© "
 #~ "stricte Uniforum\n"
 #~ "  -w, --width=COLONNES        limiter le nombre de COLONNES en sortie\n"
 #~ "  -s, --sort-output           gÃ©nÃ©rer une sortie triÃ©e\n"
 #~ "  -F, --sort-by-file          trier la sortie selon la localisation des "
 #~ "fichiers\n"
-#~ "      --omit-header           omettre les en-tÃªtes pour Â« msgid \"\" Â»\n"
+#~ "      --omit-header           omettre les en-tÃªtes pour Â« msgid \"\" "
+#~ "Â»\n"
 
 #~ msgid "Converts a translation catalog to a different character encoding.\n"
 #~ msgstr ""
@@ -1019,8 +1029,8 @@ msgstr ""
 #~ msgid ""
 #~ "A special builtin command called '0' outputs the translation, followed by "
 #~ "a\n"
-#~ "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -"
-#~ "0\".\n"
+#~ "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs "
+#~ "-0\".\n"
 #~ msgstr ""
 #~ "Une commande spÃ©ciale interne appelÃ©e sorties Â« 0 Â» de traduction, "
 #~ "suivi par un\n"
@@ -1302,8 +1312,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
 #~ "      --no-hash               binary file will not include the hash "
 #~ "table\n"
 #~ msgstr ""
@@ -1354,7 +1364,8 @@ msgstr ""
 #~ "le catalogue de messages contient des formes de traduction au pluriel..."
 
 #~ msgid "...but header entry lacks a \"plural=EXPRESSION\" attribute"
-#~ msgstr "...mais l'attribut Â« plural=EXPRESSION Â» est absente de l'en-tÃªte"
+#~ msgstr ""
+#~ "...mais l'attribut Â« plural=EXPRESSION Â» est absente de l'en-tÃªte"
 
 #~ msgid "...but header entry lacks a \"nplurals=INTEGER\" attribute"
 #~ msgstr "...mais l'attribut Â« nplurals=ENTIER Â» est absent de l'en-tÃªte"
@@ -1393,11 +1404,13 @@ msgstr ""
 
 #~ msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
 #~ msgstr ""
-#~ "les chaÃ®nes Â« msgid Â» et Â« msgid_plural Â» ne dÃ©butent pas par Â« \\n Â»"
+#~ "les chaÃ®nes Â« msgid Â» et Â« msgid_plural Â» ne dÃ©butent pas par Â« "
+#~ "\\n Â»"
 
 #~ msgid "`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"
 #~ msgstr ""
-#~ "les chaÃ®nes Â« msgid Â» et Â« msgstr[%u] Â» ne dÃ©butent pas par Â« \\n Â»"
+#~ "les chaÃ®nes Â« msgid Â» et Â« msgstr[%u] Â» ne dÃ©butent pas par Â« \\n "
+#~ "Â»"
 
 #~ msgid "`msgid' and `msgstr' entries do not both begin with '\\n'"
 #~ msgstr ""
@@ -1410,8 +1423,8 @@ msgstr ""
 
 #~ msgid "`msgid' and `msgstr[%u]' entries do not both end with '\\n'"
 #~ msgstr ""
-#~ "les chaÃ®nes Â« msgid Â» et Â« msgstr[%u] Â» ne se terminent pas par Â« \\n "
-#~ "Â»"
+#~ "les chaÃ®nes Â« msgid Â» et Â« msgstr[%u] Â» ne se terminent pas par Â« "
+#~ "\\n Â»"
 
 #~ msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 #~ msgstr ""
@@ -1424,8 +1437,8 @@ msgstr ""
 
 #~ msgid "'%s' is not a valid %s format string, unlike 'msgid'"
 #~ msgstr ""
-#~ "Â« %s Â» n'a pas une chaÃ®ne de format %s valide, contrairement Ã  Â« msgid "
-#~ "Â»"
+#~ "Â« %s Â» n'a pas une chaÃ®ne de format %s valide, contrairement Ã  Â« "
+#~ "msgid Â»"
 
 #~ msgid "msgstr lacks the keyboard accelerator mark '%c'"
 #~ msgstr "Â« msgstr Â» n'a pas de raccourci clavier pour la marque Â« %c Â»"
@@ -1437,7 +1450,8 @@ msgstr ""
 #~ msgstr "Le champ en-tÃªte Â« %s Â» est absent de l'en-tÃªte\n"
 
 #~ msgid "header field `%s' should start at beginning of line\n"
-#~ msgstr "Le champ en-tÃªte Â« %s Â» devrait s'appuyer au dÃ©but de la ligne\n"
+#~ msgstr ""
+#~ "Le champ en-tÃªte Â« %s Â» devrait s'appuyer au dÃ©but de la ligne\n"
 
 #~ msgid "some header fields still have the initial default value\n"
 #~ msgstr ""
@@ -1746,8 +1760,8 @@ msgstr ""
 #~ "domain \"%s\" in input file `%s' doesn't contain a header entry with a "
 #~ "charset specification"
 #~ msgstr ""
-#~ "Le domaine Â« %s Â» dans le fichier d'entrÃ©e Â« %s Â» ne contient pas d'en-"
-#~ "tÃªte avec la spÃ©cification d'un charset"
+#~ "Le domaine Â« %s Â» dans le fichier d'entrÃ©e Â« %s Â» ne contient pas "
+#~ "d'en-tÃªte avec la spÃ©cification d'un charset"
 
 #~ msgid "target charset \"%s\" is not a portable encoding name."
 #~ msgstr "Le charset cible Â« %s Â» n'a pas un nom d'encodage portable."
@@ -1769,8 +1783,8 @@ msgstr ""
 #~ "Converting the output to UTF-8.\n"
 #~ "To select a different output encoding, use the --to-code option.\n"
 #~ msgstr ""
-#~ "Les fichiers d'entrÃ©e contiennent des messages encodÃ©s diffÃ©remment, %"
-#~ "s et %s entre autres.\n"
+#~ "Les fichiers d'entrÃ©e contiennent des messages encodÃ©s diffÃ©remment, "
+#~ "%s et %s entre autres.\n"
 #~ "Conversion de la sortie en format UTF-8.\n"
 #~ "Pour sÃ©lectionner un encodage diffÃ©rent de sortie, utiliser l'option --"
 #~ "to-code.\n"
@@ -1833,15 +1847,15 @@ msgstr ""
 #~ "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() "
 #~ "does not support this conversion."
 #~ msgstr ""
-#~ "Ne peut convertir de Â« %s Â» vers Â« %s Â». %s s'appuie sur iconv() qui ne "
-#~ "supporte pas cette conversion."
+#~ "Ne peut convertir de Â« %s Â» vers Â« %s Â». %s s'appuie sur iconv() qui "
+#~ "ne supporte pas cette conversion."
 
 #~ msgid ""
 #~ "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version "
 #~ "was built without iconv()."
 #~ msgstr ""
-#~ "Ne peut convertir de Â« %s Â» vers Â« %s Â». %s s'appuie sur iconv(). Cette "
-#~ "version a Ã©tÃ© compilÃ©e sans iconv()."
+#~ "Ne peut convertir de Â« %s Â» vers Â« %s Â». %s s'appuie sur iconv(). "
+#~ "Cette version a Ã©tÃ© compilÃ©e sans iconv()."
 
 #~ msgid "backup type"
 #~ msgstr "type d'archive"
@@ -2287,8 +2301,8 @@ msgstr ""
 #~ msgid ""
 #~ "internationalized messages should not contain the `\\%c' escape sequence"
 #~ msgstr ""
-#~ "un message Ã  traduire ne doit pas contenir la sÃ©quence d'Ã©chappement Â« "
-#~ "\\%c Â»"
+#~ "un message Ã  traduire ne doit pas contenir la sÃ©quence d'Ã©chappement "
+#~ "Â« \\%c Â»"
 
 #~ msgid ""
 #~ "The following msgid contains non-ASCII characters.\n"
@@ -2524,8 +2538,8 @@ msgstr ""
 
 #~ msgid "a format specification for argument '%s' doesn't exist in 'msgstr'"
 #~ msgstr ""
-#~ "les spÃ©cifications de format de l'argument Â«%sÂ» n'existent pas Â« msgstr "
-#~ "Â»"
+#~ "les spÃ©cifications de format de l'argument Â«%sÂ» n'existent pas Â« "
+#~ "msgstr Â»"
 
 #~ msgid "a format specification for argument %u doesn't exist in 'msgstr'"
 #~ msgstr ""
@@ -2617,8 +2631,8 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
@@ -2665,7 +2679,8 @@ msgstr ""
 #~ "  -V, --version              identifier le programme, puis terminer\n"
 #~ "\n"
 #~ "La rÃ©pÃ©tition de l'option Â« -v Â» augment le niveau de verbositÃ©.\n"
-#~ "Si FICHIER vaut Â« - Â», lit l'entrÃ©e standard.  Si SORTIE vaut Â« - Â»,\n"
+#~ "Si FICHIER vaut Â« - Â», lit l'entrÃ©e standard.  Si SORTIE vaut Â« - "
+#~ "Â»,\n"
 #~ "Ã©crit sur la sortie standard.\n"
 
 #~ msgid "while creating hash table"
