@@ -1,3 +1,9 @@
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
+	Avoid compilation error in libgettextpo directory on Solaris 8.
+	* lib/unistd.in.h.diff: New file.
+	* Makefile.am (EXTRA_DIST): Add it.
+
 2010-03-28  Bruno Haible  <bruno@clisp.org>
 
 	* modules/closeout (Depends-on): Add stdlib, remove exit.

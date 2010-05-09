@@ -232,6 +232,7 @@ lib/termcap.h \
 lib/terminfo.h \
 lib/tparm.c \
 lib/tputs.c \
+lib/unistd.in.h.diff \
 lib/xalloc.h \
 lib/xerror.c \
 lib/xerror.h \
