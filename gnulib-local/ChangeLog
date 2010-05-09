@@ -1,5 +1,10 @@
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
+	Avoid test suite failure on mingw.
+	* tests/test-term-ostream-xterm: Convert CR/LF to LF before comparing.
+
+2010-05-09  Bruno Haible  <bruno@clisp.org>
+
 	Export rpl_optind, rpl_optarg from DLL depending on platform.
 	* modules/gettext-tools-misc (AM_CPPFLAGS): Augment by
 	GETTEXTLIB_EXPORTS_FLAGS.

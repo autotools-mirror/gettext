@@ -3,10 +3,11 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles out"
+tmpfiles="$tmpfiles out1 out"
 # The redirection of stderr into a pipe avoids the output of padding bytes
 # (unnecessary NUL bytes after escape sequences) on some systems.
-(TERM=xterm ./test-term-ostream > out) 2>&1 | cat 1>&2
+(TERM=xterm ./test-term-ostream > out1) 2>&1 | cat 1>&2
+LC_ALL=C tr -d '\r' < out1 > out
 
 # There are several variants of the "xterm" terminal description floating
 # around, each with a different sgr0 escape sequence. Use "infocmp -l -1 xterm"
