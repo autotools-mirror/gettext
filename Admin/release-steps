@@ -85,6 +85,10 @@ Tasks not to forget before release:
   git tag -m 'gettext 0.18 release' v0.18
   git push --tags
 
+- Update the homepage on www.gnu.org:
+  - Bump the version number in gettext.html.
+  - Update FAQ.html from gettext-tools/doc/FAQ.html.
+
 - Regenerate the documentation for www.gnu.org:
   - In the gettext-tools/doc/ directory, copy the
     gendocs.sh and gendocs_template files and run
