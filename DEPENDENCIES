@@ -1,4 +1,5 @@
-The following packages should be installed before GNU gettext is installed:
+The following packages should be installed before GNU gettext is installed
+(runtime dependencies that are also build dependencies):
 
 * GNU libiconv
   + Not needed on systems with
@@ -60,6 +61,14 @@ The following packages should be installed before GNU gettext is installed:
   + If more than one C# is installed, pass the option --enable-csharp=IMPL
     to 'configure', to disambiguate.
 
+* git 1.6 or newer
+  + Recommended.
+    Needed by the 'autopoint' program, if configured with --with-git.
+  + Homepage:
+    http://git-scm.com/
+  + Download:
+    http://www.kernel.org/pub/software/scm/git/
+
 * libxml2
   + Optional.
     Needed for the --color option of the various programs.
@@ -96,7 +105,9 @@ The following packages should be installed before GNU gettext is installed:
   + If it is installed in a nonstandard directory, pass the option
     --with-libcroco-0.6-prefix=DIR to 'configure'.
 
-The following packages should be installed when GNU gettext is installed:
+
+The following packages should be installed when GNU gettext is installed
+(runtime dependencies, but not build dependencies):
 
 * CVS 1.11 or newer
   + Recommended.
@@ -108,10 +119,77 @@ The following packages should be installed when GNU gettext is installed:
   + Download:
     http://ftp.gnu.org/non-gnu/cvs/
 
-* git 1.6 or newer
-  + Recommended.
-    Needed by the 'autopoint' program, if configured with --with-git.
-  + Homepage:
-    http://git-scm.com/
+
+The following should be installed when GNU gettext is built, but are not
+needed later, once it is installed (build dependencies, but not runtime
+dependencies):
+
+* A C runtime, compiler, linker, etc.
+  + Mandatory. Either the platform's native 'cc', or GCC 2.95 or newer.
+  + GCC Homepage:
+    http://gcc.gnu.org/
   + Download:
-    http://www.kernel.org/pub/software/scm/git/
+    http://ftp.gnu.org/gnu/gcc/
+    ftp://ftp.gnu.org/gnu/gcc/
+
+* A 'make' utility.
+  + Mandatory. Either the platform's native 'make' (for in-tree builds only),
+    or GNU Make 3.79.1 or newer.
+  + GNU Make Homepage:
+    http://www.gnu.org/software/make/
+  + Download:
+    http://ftp.gnu.org/gnu/make/
+    ftp://ftp.gnu.org/gnu/make/
+
+* A shell
+  + Mandatory. Either the platform's native 'sh', or Bash.
+  + Homepage:
+    http://www.gnu.org/software/bash/
+  + Download:
+    http://ftp.gnu.org/gnu/bash/
+    ftp://ftp.gnu.org/gnu/bash/
+
+* Core POSIX utilities, including:
+    [ basename cat chgrp chmod chown cp dd echo expand expr
+    false hostname install kill ln ls md5sum mkdir mkfifo
+    mknod mv printenv pwd rm rmdir sleep sort tee test touch
+    true uname
+  + Mandatory. Either the platform's native utilities, or GNU coreutils.
+  + Homepage:
+    http://www.gnu.org/software/coreutils/
+  + Download:
+    http://ftp.gnu.org/gnu/coreutils/
+    ftp://ftp.gnu.org/gnu/coreutils/
+
+* The comparison utilities 'cmp' and 'diff'.
+  + Mandatory. Either the platform's native utilities, or GNU diffutils.
+  + Homepage:
+    http://www.gnu.org/software/diffutils/
+  + Download:
+    http://ftp.gnu.org/gnu/diffutils/
+    ftp://ftp.gnu.org/gnu/diffutils/
+
+* Grep.
+  + Mandatory. Either the platform's native grep, or GNU grep.
+  + Homepage:
+    http://www.gnu.org/software/grep/
+  + Download:
+    http://ftp.gnu.org/gnu/grep/
+    ftp://ftp.gnu.org/gnu/grep/
+
+* CVS 1.11 or newer
+  + Recommended.
+    Needed if configuring with --without-cvs or --with-git.
+  + Homepage:
+    http://ximbiot.com/cvs/wiki/index.php?title=Main_Page
+    http://www.nongnu.org/cvs/
+  + Download:
+    http://ftp.gnu.org/non-gnu/cvs/
+
+* RCS 5.7 or newer
+  + Recommended.
+    Needed if configuring with --without-cvs or --with-git.
+  + Homepage:
+    http://www.cs.purdue.edu/homes/trinkle/RCS/
+  + Download:
+    http://www.cs.purdue.edu/homes/trinkle/RCS/rcs-5.7.tar

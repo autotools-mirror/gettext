@@ -1,3 +1,10 @@
+2010-05-15  Bruno Haible  <bruno@clisp.org>
+
+	List the build dependencies.
+	* DEPENDENCIES: Clarify that 'git' is also a build dependencies.
+	List the non-trivial build dependencies.
+	Reported by Santiago Vila <sanvila@unex.es>.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.
