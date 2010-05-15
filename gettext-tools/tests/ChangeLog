@@ -1,3 +1,11 @@
+2010-05-15  Bruno Haible  <bruno@clisp.org>
+
+	Avoid link error on MacOS X 10.4, due to replaced 'unsetenv' function.
+	* Makefile.am (gettext_6_prg_LDADD, gettext_7_prg_LDADD): Add
+	libgettextlib.la. Add $(LDADD).
+	(gettext_6_prg_LDADD_1, gettext_7_prg_LDADD_1): Remove $(LDADD) here.
+	Reported by <ryandesign> at <https://savannah.gnu.org/bugs/?29888>.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.
