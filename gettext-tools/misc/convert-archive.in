@@ -90,7 +90,8 @@ mkdir "$unpacked" || {
 # Unpack the original archive.
 case "$from" in
   dir)
-    gzip -d -c < "$fromfile" | (cd "$unpacked" && tar xf -)
+    gzip -d -c < "$fromfile" | (cd "$unpacked" && tar xf -) \
+      || func_fatal_error "file copy failed"
     ;;
 
   cvs)
@@ -134,7 +135,7 @@ case "$from" in
 
     # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
     # current directory.
-    cvs -d "$CVSROOT" init
+    cvs -d "$CVSROOT" init || func_fatal_error "cvs init failed"
     gzip -d -c < "$fromfile" | (cd "$cvs_dir" && tar xf -)
 
     # A witness that contains all versions.
@@ -156,15 +157,18 @@ ba
         | grep -v "$rlog_harmless_warning_regex" 1>&2 ) 3>&1 \
       | sed -n -e "$sed_extract_tags_from_log1" \
       | sed -e "$sed_extract_tags_from_log2"`
+    test -n "$tags" || func_fatal_error "no release tags found"
     sed_tag_to_version='s/_/./g'
     for tag in $tags; do
       if test $tag != release; then
         version=`echo "$tag" | sed -e "$sed_tag_to_version"`
         (cd "$work_dir"
-         (cvs -d "$CVSROOT" checkout -r"$tag" archive > /dev/null) 2>&1 | grep -v '^cvs checkout: Updating'
+         cvs -d "$CVSROOT" checkout -r"$tag" archive > /dev/null 2> cvs.err \
+           || { cat cvs.err 1>&2; exit 1; }
+         cat cvs.err | grep -v '^cvs checkout: Updating'
          find archive -name CVS -type d -print | xargs rm -rf
          rm -rf CVS
-        )
+        ) || func_fatal_error "cvs checkout failed"
         mv "$work_dir"/archive "$unpacked/$version"
       fi
     done
@@ -184,17 +188,21 @@ ba
       fi
     }
 
-    mkdir "$work_dir/master"
+    mkdir "$work_dir/master" || func_fatal_error "mkdir failed"
     gzip -d -c < "$fromfile" | (cd "$work_dir/master" && tar xf -)
     cd "$work_dir"
-    for tag in `cd master && git tag`; do
+    tags=`cd master && git tag`
+    test -n "$tags" || func_fatal_error "no release tags found"
+    for tag in $tags; do
       if test $tag != empty; then
         version=$tag
-        (cd master && git checkout -q $tag)
+        (cd master && git checkout -q $tag) \
+          || func_fatal_error "git checkout failed"
         rm -f master/.gitignore
         mv master/.git .git
-        mkdir "$unpacked/$version"
-        (cd master && tar cf - .) | (cd "$unpacked/$version" && tar xf -)
+        mkdir "$unpacked/$version" || func_fatal_error "mkdir failed"
+        (cd master && tar cf - .) | (cd "$unpacked/$version" && tar xf -) \
+          || func_fatal_error "file copy failed"
         mv .git master/.git
       fi
     done
@@ -206,7 +214,9 @@ esac
 # Create the target archive.
 case "$to" in
   dir)
-    (cd "$unpacked" && tar cf - --owner=root --group=root *) | gzip -c -9 > "$tofile"
+    (cd "$unpacked" && tar cf - --owner=root --group=root *) \
+      | gzip -c -9 > "$tofile" \
+      || func_fatal_error "archive creation failed"
     ;;
 
   cvs)
@@ -244,7 +254,7 @@ case "$to" in
 
     # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
     # current directory.
-    cvs -d "$CVSROOT" init
+    cvs -d "$CVSROOT" init || func_fatal_error "cvs init failed"
 
     # Add the contents of the unpacked directory to the repository.
     (cd "$unpacked"
@@ -253,23 +263,27 @@ case "$to" in
        (cd $version
         CVSUSER=$cvsuser LD_PRELOAD=$cvsuser_hack \
         cvs -d "$CVSROOT" import -m "Import $version" archive release "$cvsver"
-       )
+       ) || func_fatal_error "cvs import failed"
      done
     )
-    (cd "$cvs_dir" && tar cf - --owner=root --group=root archive) | gzip -c -9 > "$tofile"
+    (cd "$cvs_dir" && tar cf - --owner=root --group=root archive) \
+      | gzip -c -9 > "$tofile" \
+      || func_fatal_error "archive creation failed"
     rm -rf "$cvs_dir" cvsuser.so
     ;;
 
   git)
     git_dir=`pwd`/tmpgit$$
-    mkdir "$git_dir"
+    mkdir "$git_dir" || func_fatal_error "mkdir failed"
     (cd "$git_dir" && {
       git init -q
       touch .gitignore
       git add .
-      git commit --author="Bruno Haible <bruno@clisp.org>" --message="Empty directory" 2>&1 | grep -v '^ '
+      git commit --author="Bruno Haible <bruno@clisp.org>" \
+                 --message="Empty directory" 2>&1 \
+        | grep -v '^ '
       git tag empty
-    })
+    }) || func_fatal_error "git init failed"
     sed_remove_leading_dot='s,^\./,,'
     sed_remove_git_infrastructure='/^\.git/d'
     (cd "$unpacked"
@@ -282,13 +296,18 @@ case "$to" in
          fi
          tar xf -
          git add .
-         git commit --author="Bruno Haible <bruno@clisp.org>" --message="Import $version" 2>&1 | grep -v '^ '
+         git commit --author="Bruno Haible <bruno@clisp.org>" \
+                    --message="Import $version" 2>&1 \
+           | grep -v '^ '
          git tag "$version"
-       })
+       }) || func_fatal_error "file copy into git repository failed"
      done
     )
-    (cd "$git_dir" && git reset -q --hard empty && git repack -a -d -q)
-    (cd "$git_dir" && tar cf - --owner=root --group=root .git) | gzip -c -9 > "$tofile"
+    (cd "$git_dir" && git reset -q --hard empty && git repack -a -d -q) \
+      || func_fatal_error "git reset or repack failed"
+    (cd "$git_dir" && tar cf - --owner=root --group=root .git) \
+      | gzip -c -9 > "$tofile" \
+      || func_fatal_error "archive creation failed"
     rm -rf "$git_dir"
     ;;
 esac
