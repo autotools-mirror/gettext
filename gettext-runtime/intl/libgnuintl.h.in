@@ -341,7 +341,13 @@ extern int vfprintf (FILE *, const char *, va_list);
 #if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
 /* Don't break __attribute__((format(printf,M,N))).
    This redefinition is only possible because the libc in NetBSD, Cygwin,
-   mingw does not have a function __printf__.  */
+   mingw does not have a function __printf__.
+   Alternatively, we could have done this redirection only when compiling with
+   __GNUC__, together with a symbol redirection:
+       extern int printf (const char *, ...)
+              __asm__ (#__USER_LABEL_PREFIX__ "libintl_printf");
+   But doing it now would introduce a binary incompatibility with already
+   distributed versions of libintl on these systems.  */
 # define libintl_printf __printf__
 #endif
 #define printf libintl_printf
