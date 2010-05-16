@@ -283,8 +283,11 @@ case "$to" in
   git)
     git_dir=`pwd`/tmpgit$$
     mkdir "$git_dir" || func_fatal_error "mkdir failed"
+    unset GIT_CONFIG
     (cd "$git_dir" && {
       git init -q
+      git config user.name 'GNU Gettext Build'
+      git config user.email 'bug-gnu-gettext@gnu.org'
       touch .gitignore
       git add .
       git commit --author="Bruno Haible <bruno@clisp.org>" \

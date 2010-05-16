@@ -1,5 +1,12 @@
 2010-05-16  Bruno Haible  <bruno@clisp.org>
 
+	convert-archive: Don't publicize the builder's name and email.
+	* convert-archive.in: Unset GIT_CONFIG and set dummy user.name and
+	user.email parameters.
+	Reported by Santiago Vila <sanvila@unex.es>.
+
+2010-05-16  Bruno Haible  <bruno@clisp.org>
+
 	Avoid keyword substitution in cvs archives created by convert-archive.
 	* convert-archive.in: When creating a cvs archive, use "cvs admin -ko"
 	on all files.
