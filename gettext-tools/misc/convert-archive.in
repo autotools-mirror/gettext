@@ -262,8 +262,16 @@ case "$to" in
        cvsver=`echo "$version" | sed -e 's/\./_/g'`
        (cd $version
         CVSUSER=$cvsuser LD_PRELOAD=$cvsuser_hack \
-        cvs -d "$CVSROOT" import -m "Import $version" archive release "$cvsver"
+        cvs -d "$CVSROOT" import -m "Import $version" archive release "$cvsver" > /dev/null
        ) || func_fatal_error "cvs import failed"
+       # In order to avoid keyword substitution, we have to use "cvs admin"
+       # in a temporary checkout.
+       mkdir tmpcheckout || func_fatal_error "mkdir failed"
+       (cd tmpcheckout \
+        && cvs -d "$CVSROOT" checkout -r"$cvsver" archive > /dev/null \
+        && cvs -d "$CVSROOT" admin -ko `find . -type f -print | sed -e 's,^\./,,' | grep -v '^CVS/' | grep -v '/CVS/'` > /dev/null
+       ) 2> cvs.err || { cat cvs.err 1>&2; func_fatal_error "cvs checkout or admin failed"; }
+       rm -rf tmpcheckout
      done
     )
     (cd "$cvs_dir" && tar cf - --owner=root --group=root archive) \

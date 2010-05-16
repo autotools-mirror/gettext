@@ -1,5 +1,11 @@
 2010-05-16  Bruno Haible  <bruno@clisp.org>
 
+	Avoid keyword substitution in cvs archives created by convert-archive.
+	* convert-archive.in: When creating a cvs archive, use "cvs admin -ko"
+	on all files.
+
+2010-05-16  Bruno Haible  <bruno@clisp.org>
+
 	Make convert-archive more robust.
 	* convert-archive.in: Report a fatal error in many error conditions.
 	Reported by Santiago Vila <sanvila@unex.es>.
