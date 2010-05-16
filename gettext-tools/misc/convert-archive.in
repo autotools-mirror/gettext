@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2009 Free Software Foundation, Inc.
+# Copyright (C) 2009-2010 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ Report bugs to <bug-gnu-gettext@gnu.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Copyright (C) 2009 Free Software Foundation, Inc.
+  echo "Copyright (C) 2009-2010 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law."
@@ -150,10 +150,12 @@ ba
 }
 /^keyword substitution:/q'
     sed_extract_tags_from_log2='s/^	\([^:]*\):.*/\1/'
+    rlog_harmless_warning_regex="warning: Unknown phrases like \`commitid \.\.\.;' are present\."
     tags=`
-      LC_ALL=C rlog "$cvs_dir"/archive/$witness,v | \
-      sed -n -e "$sed_extract_tags_from_log1" | \
-      sed -e "$sed_extract_tags_from_log2"`
+      ( LC_ALL=C rlog "$cvs_dir"/archive/$witness,v 2>&1 1>&3 \
+        | grep -v "$rlog_harmless_warning_regex" 1>&2 ) 3>&1 \
+      | sed -n -e "$sed_extract_tags_from_log1" \
+      | sed -e "$sed_extract_tags_from_log2"`
     sed_tag_to_version='s/_/./g'
     for tag in $tags; do
       if test $tag != release; then
