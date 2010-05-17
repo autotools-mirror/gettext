@@ -1,7 +1,7 @@
 2010-05-16  Bruno Haible  <bruno@clisp.org>
 
 	Avoid autoconf warnings about AM_ICONV.
-	* iconv.m4 (AM_ICONV): Define using AM_DEFUN_ONCE for autoconf >= 2.64.
+	* iconv.m4 (AM_ICONV): Define using AC_DEFUN_ONCE for autoconf >= 2.64.
 
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
