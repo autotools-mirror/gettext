@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2009 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -78,7 +78,9 @@ DEFS = \
   -DPROJECTSDIR=\"$(projectsdir)\" @DEFS@
 # Ensure that <stdint.h> defines SIZE_MAX in C++ mode, like it does in C mode.
 AM_CXXFLAGS = -D__STDC_LIMIT_MACROS
+
 LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@ $(WOE32_LDADD)
+OTHERPROGDEPENDENCIES = ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 
 SED = sed
 YACC = @YACC@ -d
@@ -253,7 +255,6 @@ msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msginit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
-recode_sr_latin_LDADD = ../gnulib-lib/libgettextlib.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 
 # Specify when to relink the programs.
 msgcmp_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
@@ -271,7 +272,9 @@ msgfilter_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32
 msggrep_DEPENDENCIES = $(LIBGREP) libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msginit_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msguniq_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
-recode_sr_latin_DEPENDENCIES = ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
+recode_sr_latin_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
+hostname_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
+urlget_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 
 # Specify installation directory, for --enable-relocatable.
 msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
