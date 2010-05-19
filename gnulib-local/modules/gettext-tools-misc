@@ -13,13 +13,16 @@ Makefile.am:
 # Specify that libgettextlib should installed in $(libdir).
 lib_LTLIBRARIES = libgettextlib.la
 
+# Need $(LTLIBUNISTRING) because ulc_width_linebreaks, uc_width, etc. may be
+# taken from libunistring, when the configure option --with-libunistring-prefix
+# was given.
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because linebreak.c and striconv.c use iconv().
 # Need @LIB_ACL@ because copy-file.c uses acl.h.
 # Need @LTLIBC@ for -no-undefined to work on many platforms.
 lib_LDFLAGS += \
   -release @VERSION@ \
-  @LTLIBINTL@ @LTLIBICONV@ @LIB_ACL@ @LTLIBC@ @LTNOUNDEF@
+  $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ @LIB_ACL@ @LTLIBC@ @LTNOUNDEF@
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL

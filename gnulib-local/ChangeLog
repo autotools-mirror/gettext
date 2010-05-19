@@ -1,3 +1,8 @@
+2010-05-19  Bruno Haible  <bruno@clisp.org>
+
+	Link with libunistring, if it exists.
+	* modules/gettext-tools-misc (lib_LDFLAGS): Add LTLIBUNISTRING.
+
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
 	Use the newest regex module from gnulib.

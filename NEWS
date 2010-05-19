@@ -2,6 +2,10 @@ Version 0.18.1 - June 2010
 
 * msggrep: A '$' anchor in a regular expression now also matches the end of
   the string, even if it does not end in a newline.
+
+* Dependencies:
+  The libraries and programs are now linked with libunistring if this library
+  is already installed.
 
 Version 0.18 - May 2010
 

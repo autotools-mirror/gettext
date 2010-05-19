@@ -79,7 +79,7 @@ DEFS = \
 # Ensure that <stdint.h> defines SIZE_MAX in C++ mode, like it does in C mode.
 AM_CXXFLAGS = -D__STDC_LIMIT_MACROS
 
-LDADD = ../gnulib-lib/libgettextlib.la @LTLIBINTL@ $(WOE32_LDADD)
+LDADD = ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ $(WOE32_LDADD)
 OTHERPROGDEPENDENCIES = ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 
 SED = sed
@@ -211,12 +211,15 @@ urlget_SOURCES = urlget.c
 
 # How to build libgettextsrc.la.
 # Need ../gnulib-lib/libgettextlib.la.
+# Need $(LTLIBUNISTRING) because ulc_width_linebreaks, uc_width, etc. may be
+# taken from libunistring, when the configure option --with-libunistring-prefix
+# was given.
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../gnulib-lib/libgettextlib.la @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL

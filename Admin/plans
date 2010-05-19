@@ -147,7 +147,7 @@ Things we plan to do. Comments welcome.
 - In x-c.c, support C++0x escape sequences, see
   http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2442.htm
 
-- Use libunistring as optional and then as hard dependency.
+- Use libunistring as hard dependency.
 
 - Extractor for Glade 3.
 

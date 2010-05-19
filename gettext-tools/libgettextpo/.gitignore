@@ -59,6 +59,7 @@
 /iconv_open.c
 /iconveh.h
 /intprops.h
+/libunistring.valgrind
 /localcharset.c
 /localcharset.h
 /malloc.c
@@ -114,12 +115,12 @@
 /strstr.c
 /sys_stat.in.h
 /time.in.h
-/uniconv.h
-/unilbrk.h
+/uniconv.in.h
+/unilbrk.in.h
 /unistd.in.h
-/unistr.h
-/unitypes.h
-/uniwidth.h
+/unistr.in.h
+/unitypes.in.h
+/uniwidth.in.h
 /unlocked-io.h
 /vasnprintf.c
 /vasnprintf.h

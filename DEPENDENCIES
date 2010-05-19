@@ -105,6 +105,19 @@ The following packages should be installed before GNU gettext is installed
   + If it is installed in a nonstandard directory, pass the option
     --with-libcroco-0.6-prefix=DIR to 'configure'.
 
+* GNU libunistring
+  + Optional.
+    Needed for the line breaking in PO files and for xgettext.
+    If not present, a subset of libunistring (included in this package) will
+    be compiled into libgettextlib.
+  + Homepage:
+    http://www.gnu.org/software/libunistring/
+  + Download:
+    http://ftp.gnu.org/gnu/libunistring/
+    ftp://ftp.gnu.org/gnu/libunistring/
+  + If it is installed in a nonstandard directory, pass the option
+    --with-libunistring-prefix=DIR to 'configure'.
+
 
 The following packages should be installed when GNU gettext is installed
 (runtime dependencies, but not build dependencies):

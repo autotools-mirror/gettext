@@ -158,6 +158,7 @@ if ! $skip_gnulib; then
       iconv
       javacomp
       javaexec
+      libunistring-optional
       localcharset
       locale
       localename
@@ -281,6 +282,7 @@ if ! $skip_gnulib; then
       gettext-h
       hash
       iconv
+      libunistring-optional
       minmax
       open
       ostream

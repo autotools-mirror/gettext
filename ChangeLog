@@ -1,3 +1,10 @@
+2010-05-19  Bruno Haible  <bruno@clisp.org>
+
+	Link with libunistring, if it exists.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC,
+	GNULIB_MODULES_LIBGETTEXTPO): Add libunistring-optional.
+	* DEPENDENCIES: Mention optional dependency to GNU libunistring.
+
 2010-05-22  Bruno Haible  <bruno@clisp.org>
 
 	* README.woe32: Explain how to build 64-bit mode binaries.
