@@ -250,7 +250,8 @@ extern const char *_nl_locale_name_environ (int category,
 # define gl_locale_name_default _nl_locale_name_default
 extern const char *_nl_locale_name_default (void);
 # define gl_locale_name _nl_locale_name
-extern const char *_nl_locale_name (int category, const char *categoryname);
+/* extern const char *_nl_locale_name (int category,
+				       const char *categoryname); */
 #endif
 
 struct loaded_l10nfile *_nl_find_domain (const char *__dirname, char *__locale,
