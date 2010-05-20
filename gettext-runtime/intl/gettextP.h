@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-1999, 2000-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2007, 2009-2010 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software; you can redistribute it and/or modify it
@@ -238,6 +238,9 @@ extern void _nl_locale_name_canonicalize (char *name);
 # define gl_locale_name_thread_unsafe _nl_locale_name_thread_unsafe
 extern const char *_nl_locale_name_thread_unsafe (int category,
 						  const char *categoryname);
+# define gl_locale_name_thread _nl_locale_name_thread
+/* extern const char *_nl_locale_name_thread (int category,
+					      const char *categoryname); */
 # define gl_locale_name_posix _nl_locale_name_posix
 extern const char *_nl_locale_name_posix (int category,
 					  const char *categoryname);
