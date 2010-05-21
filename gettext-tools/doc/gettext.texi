@@ -8997,7 +8997,7 @@ glibc when NLS is disabled.)
 @subsection Objective C Format Strings
 
 Objective C format strings are like C format strings.  They support an
-additional format directive: "$@@", which when executed consumes an argument
+additional format directive: "%@@", which when executed consumes an argument
 of type @code{Object *}.
 
 @node sh-format, python-format, objc-format, Translators for other Languages
