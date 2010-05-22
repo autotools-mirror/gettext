@@ -28,10 +28,18 @@ and configure commands:
      CPPFLAGS="-Wall -I/usr/local/mingw/include" \
      LDFLAGS="-L/usr/local/mingw/lib"
 
-The -mno-cygwin tells the cygwin compiler and linker to build for mingw.
-The -I and -L option are so that packages previously built for the
+The -mno-cygwin option tells the cygwin compiler and linker to build for
+mingw. The -I and -L option are so that packages previously built for the
 same environment are found. The --host option tells the various
 tools that you are building for mingw, not cygwin.
+
+It is also possible to build 64-bit mode binaries, by using the development
+tool chain from the mingw-w64 project <http://mingw-w64.sourceforge.net/>
+and the configure options:
+   --host=x86_64-w64-mingw32 --build=x86_64-w64-mingw32 \
+   CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ \
+   LD=x86_64-w64-mingw32-ld NM=x86_64-w64-mingw32-nm \
+   AR=x86_64-w64-mingw32-ar RANLIB=x86_64-w64-mingw32-ranlib
 
 Dependencies:
 
