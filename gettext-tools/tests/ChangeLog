@@ -1,3 +1,10 @@
+2010-05-22  Bruno Haible  <bruno@clisp.org>
+
+	xgettext-glade-4: Skip, not fail, when expat was not available.
+	* xgettext-glade-4: Use the same test for xgettext Glade support as in
+	xgettext-glade-[123].
+	Patch by Matt Burgess <matthew@linuxfromscratch.org>.
+
 2010-05-15  Bruno Haible  <bruno@clisp.org>
 
 	Avoid link error on MacOS X 10.4, due to replaced 'unsetenv' function.
