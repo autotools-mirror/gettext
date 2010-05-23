@@ -1,3 +1,8 @@
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
+	Do regex matching purely with regex, not regex + dfa + kwset.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_LIBGREP): Remove hard-locale.
+
 2010-05-15  Bruno Haible  <bruno@clisp.org>
 
 	List the build dependencies.

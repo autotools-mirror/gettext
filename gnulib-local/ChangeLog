@@ -1,3 +1,8 @@
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
+	Do regex matching purely with regex, not regex + dfa + kwset.
+	* modules/gettext-tools-misc (Files): Remove m4/hard-locale.m4.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.

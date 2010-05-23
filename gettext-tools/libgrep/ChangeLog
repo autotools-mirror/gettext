@@ -1,3 +1,29 @@
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
+	Do regex matching purely with regex, not regex + dfa + kwset.
+	* dfa.h: Remove file.
+	* dfa.c: Remove file.
+	* hard-locale.h: Remove file.
+	* hard-locale.c: Remove file.
+	* m-common.h: Remove file.
+	* m-common.c: Remove file.
+	* m-fgrep.c: Include <limits.h>, <stdbool.h>, not m-common.h.
+	(MBS_SUPPORT): Moved here from m-common.h.
+	Include kwset.h, gettext.h.
+	(_, ISUPPER, TOLOWER): Moved here from m-common.c.
+	(IS_WORD_CONSTITUENT, NCHAR, compiled_kwset): Moved here from
+	m-common.h.
+	(kwsinit, check_multibyte_string): Moved here from m-common.c.
+	* m-regex.c: Include <stdbool.h>, <regex.h>, not m-common.h.
+	(IS_WORD_CONSTITUENT): Moved here from m-common.h.
+	(struct compiled_regex): Remove fields dfa, ckwset,
+	kwset_exact_matches.
+	(dfaerror, kwsmusts): Remove functions.
+	(compile): Simplify accordingly.
+	(Gcompile): Likewise. Invoke compile.
+	(EGexecute): Simplify accordingly.
+	* Makefile.am (libgrep_a_SOURCES): Update.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.

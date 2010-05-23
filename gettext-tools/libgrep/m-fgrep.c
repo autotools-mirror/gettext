@@ -1,5 +1,5 @@
 /* Pattern Matcher for Fixed String search.
-   Copyright (C) 1992, 1998, 2000, 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,20 +22,69 @@
 #include "libgrep.h"
 
 #include <ctype.h>
+#include <limits.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+
+#if defined HAVE_WCTYPE_H && defined HAVE_WCHAR_H && defined HAVE_MBRTOWC
+/* We can handle multibyte string.  */
+# define MBS_SUPPORT
+# include <wchar.h>
+# include <wctype.h>
+#endif
 
 #include "error.h"
 #include "exitfail.h"
 #include "xalloc.h"
-#include "m-common.h"
+#include "kwset.h"
+#include "gettext.h"
+#define _(str) gettext (str)
 
 #if defined (STDC_HEADERS) || (!defined (isascii) && !defined (HAVE_ISASCII))
 # define IN_CTYPE_DOMAIN(c) 1 
 #else
 # define IN_CTYPE_DOMAIN(c) isascii(c)
 #endif
+#define ISUPPER(C) (IN_CTYPE_DOMAIN (C) && isupper (C))
+#define TOLOWER(C) (ISUPPER(C) ? tolower(C) : (C))
 #define ISALNUM(C) (IN_CTYPE_DOMAIN (C) && isalnum (C))
+#define IS_WORD_CONSTITUENT(C) (ISALNUM(C) || (C) == '_')
+
+#define NCHAR (UCHAR_MAX + 1)
+
+struct compiled_kwset {
+  kwset_t kwset;
+  char *trans;
+  bool match_words;
+  bool match_lines;
+  char eolbyte;
+};
+
+static void
+kwsinit (struct compiled_kwset *ckwset,
+	 bool match_icase, bool match_words, bool match_lines, char eolbyte)
+{
+  if (match_icase)
+    {
+      int i;
+
+      ckwset->trans = XNMALLOC (NCHAR, char);
+      for (i = 0; i < NCHAR; i++)
+	ckwset->trans[i] = TOLOWER (i);
+      ckwset->kwset = kwsalloc (ckwset->trans);
+    }
+  else
+    {
+      ckwset->trans = NULL;
+      ckwset->kwset = kwsalloc (NULL);
+    }
+  if (ckwset->kwset == NULL)
+    error (exit_failure, 0, _("memory exhausted"));
+  ckwset->match_words = match_words;
+  ckwset->match_lines = match_lines;
+  ckwset->eolbyte = eolbyte;
+}
 
 static void *
 Fcompile (const char *pattern, size_t pattern_size,
@@ -65,6 +114,39 @@ Fcompile (const char *pattern, size_t pattern_size,
     error (exit_failure, 0, err);
   return ckwset;
 }
+
+#ifdef MBS_SUPPORT
+/* This function allocate the array which correspond to "buf".
+   Then this check multibyte string and mark on the positions which
+   are not singlebyte character nor the first byte of a multibyte
+   character.  Caller must free the array.  */
+static char*
+check_multibyte_string (const char *buf, size_t buf_size)
+{
+  char *mb_properties = (char *) malloc (buf_size);
+  mbstate_t cur_state;
+  int i;
+
+  memset (&cur_state, 0, sizeof (mbstate_t));
+  memset (mb_properties, 0, sizeof (char) * buf_size);
+  for (i = 0; i < buf_size ;)
+    {
+      size_t mbclen;
+      mbclen = mbrlen (buf + i, buf_size - i, &cur_state);
+
+      if (mbclen == (size_t) -1 || mbclen == (size_t) -2 || mbclen == 0)
+	{
+	  /* An invalid sequence, or a truncated multibyte character.
+	     We treat it as a singlebyte character.  */
+	  mbclen = 1;
+	}
+      mb_properties[i] = mbclen;
+      i += mbclen;
+    }
+
+  return mb_properties;
+}
+#endif
 
 static size_t
 Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,

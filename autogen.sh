@@ -218,7 +218,6 @@ if ! $skip_gnulib; then
       error
       exitfail
       gettext-h
-      hard-locale
       obstack
       regex
       stdbool

@@ -1,5 +1,5 @@
 ## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005-2007, 2009 Free Software Foundation, Inc.
+## Copyright (C) 2005-2007, 2009-2010 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -27,9 +27,7 @@ noinst_LIBRARIES = libgrep.a
 libgrep_a_SOURCES = \
   libgrep.h \
   kwset.h kwset.c \
-  dfa.h dfa.c \
-  m-common.h m-common.c m-fgrep.c m-regex.c \
-  hard-locale.h hard-locale.c
+  m-fgrep.c m-regex.c
 
 # Sources that are compiled only on platforms that lack the functions.
 

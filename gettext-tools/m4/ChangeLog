@@ -1,3 +1,8 @@
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
+	Do regex matching purely with regex, not regex + dfa + kwset.
+	* libgrep.m4 (gt_LIBGREP): Don't invoke gl_HARD_LOCALE.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.
