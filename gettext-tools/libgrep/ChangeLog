@@ -7,6 +7,15 @@
 
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
+	Fix bug: A regex was not regonized when it matched the end of the last
+	line and that last line was not terminated with a newline.
+	* m-regex.c (EGexecute): Don't ignore the last byte of the buffer if it
+	is not a newline.
+	* m-fgrep.c (Fexecute): Don't assume that the buffer contains a
+	newline.
+
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
 	Do regex matching purely with regex, not regex + dfa + kwset.
 	* dfa.h: Remove file.
 	* dfa.c: Remove file.

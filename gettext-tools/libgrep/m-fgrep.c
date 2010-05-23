@@ -233,7 +233,10 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
 
  success:
   end = (const char *) memchr (beg + len, eol, (buf + buf_size) - (beg + len));
-  end++;
+  if (end != NULL)
+    end++;
+  else
+    end = buf + buf_size;
   while (buf < beg && beg[-1] != eol)
     --beg;
   *match_size = end - beg;

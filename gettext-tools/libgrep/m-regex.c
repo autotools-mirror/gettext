@@ -155,17 +155,16 @@ EGexecute (const void *compiled_pattern,
   for (beg = buf; beg < buflim; beg = end)
     {
       end = (const char *) memchr (beg, eol, buflim - beg);
-      if (end != NULL)
-        end++;
-      else
+      if (end == NULL)
         end = buflim;
+      /* Here, either end < buflim && *end == eol, or end == buflim.  */
 
       for (i = 0; i < cregex->pcount; i++)
         {
-          cregex->patterns[i].regexbuf.not_eol = 0;
+          cregex->patterns[i].regexbuf.not_eol = (end == buflim);
           if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
-                                       end - beg - 1, 0,
-                                       end - beg - 1, &(cregex->patterns[i].regs))))
+                                       end - beg, 0,
+                                       end - beg, &(cregex->patterns[i].regs))))
             {
               len = cregex->patterns[i].regs.end[0] - start;
               if (exact)
@@ -174,7 +173,7 @@ EGexecute (const void *compiled_pattern,
                   return start;
                 }
               if ((!cregex->match_lines && !cregex->match_words)
-                  || (cregex->match_lines && len == end - beg - 1))
+                  || (cregex->match_lines && len == end - beg))
                 goto success;
               /* If -w, check if the match aligns with word boundaries.
                  We do this iteratively because:
@@ -187,7 +186,7 @@ EGexecute (const void *compiled_pattern,
                 while (start >= 0)
                   {
                     if ((start == 0 || !IS_WORD_CONSTITUENT ((unsigned char) beg[start - 1]))
-                        && (len == end - beg - 1
+                        && (len == end - beg
                             || !IS_WORD_CONSTITUENT ((unsigned char) beg[start + len])))
                       goto success;
                     if (len > 0)
@@ -202,19 +201,22 @@ EGexecute (const void *compiled_pattern,
                     if (len <= 0)
                       {
                         /* Try looking further on. */
-                        if (start == end - beg - 1)
+                        if (start == end - beg)
                           break;
                         ++start;
-                        cregex->patterns[i].regexbuf.not_eol = 0;
+                        cregex->patterns[i].regexbuf.not_eol = (end == buflim);
                         start = re_search (&(cregex->patterns[i].regexbuf), beg,
-                                           end - beg - 1,
-                                           start, end - beg - 1 - start,
+                                           end - beg,
+                                           start, end - beg - start,
                                            &(cregex->patterns[i].regs));
                         len = cregex->patterns[i].regs.end[0] - start;
                       }
                   }
             }
         } /* for Regex patterns.  */
+
+      if (end < buflim)
+        end++;
     } /* for (beg = end ..) */
   return (size_t) -1;
 
