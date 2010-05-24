@@ -1,8 +1,6 @@
 Description:
 
 Files:
-m4/mbrtowc.m4
-m4/memchr.m4
 m4/locale-fr.m4
 m4/locale-ja.m4
 

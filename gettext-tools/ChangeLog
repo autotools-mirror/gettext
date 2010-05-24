@@ -1,3 +1,10 @@
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
+	Use the newest regex module from gnulib.
+	* configure.ac: Invoke grgl_EARLY and grgl_INIT. Don't invoke
+	gt_LIBGREP.
+	* Makefile.am (ACLOCAL_AMFLAGS): Add -I libgrep/gnulib-m4.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.

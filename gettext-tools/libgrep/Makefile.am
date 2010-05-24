@@ -18,29 +18,26 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies
 EXTRA_DIST =
+BUILT_SOURCES =
+MOSTLYCLEANFILES = core *.stackdump
+MOSTLYCLEANDIRS =
+CLEANFILES =
+DISTCLEANFILES =
+MAINTAINERCLEANFILES =
 
+noinst_LIBRARIES =
 
-noinst_LIBRARIES = libgrep.a
+AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../intl
+
+# Rules generated and collected by gnulib-tool, for building libgrep.a.
+include Makefile.gnulib
 
 # Sources that are compiled on all platforms.
 
-libgrep_a_SOURCES = \
+libgrep_a_SOURCES += \
   libgrep.h \
   kwset.h kwset.c \
   m-fgrep.c m-regex.c
 
-# Sources that are compiled only on platforms that lack the functions.
-
-LIBADD_SOURCE = \
-  memchr.c \
-  regex.h regex.c
-
-# How to build libgrep.a.
-libgrep_a_LIBADD = @LIBGREPOBJS@
-libgrep_a_DEPENDENCIES = @LIBGREPOBJS@
-
-# List of files to be distributed.
-
-EXTRA_DIST += $(LIBADD_SOURCE)
-
-AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../intl
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4

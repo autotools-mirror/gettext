@@ -48,7 +48,5 @@ examplesbuildaux_DATA = \
 EXTRA_DIST = README csharpexec-test.exe \
 exported.m4 \
 hostname.m4 \
-libgrep.m4 \
-regex.m4 \
 setlocale.m4 \
 siginfo.m4

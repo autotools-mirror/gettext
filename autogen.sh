@@ -213,15 +213,30 @@ if ! $skip_gnulib; then
       xstriconveh
       xvasprintf
     '
-    # Not yet used. Add some files to gettext-tools-misc instead.
-    GNULIB_MODULES_TOOLS_FOR_LIBGREP='
-      error
-      exitfail
+    # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
+    GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
+      alloca-opt
+      arg-nonnull
+      c++defs
+      extensions
       gettext-h
-      obstack
-      regex
+      include_next
+      localcharset
+      malloc-posix
+      mbrtowc
+      mbsinit
+      multiarch
+      ssize_t
       stdbool
-      xalloc
+      stddef
+      stdint
+      stdlib
+      streq
+      unistd
+      verify
+      warn-on-use
+      wchar
+      wctype
     '
     GNULIB_MODULES_TOOLS_OTHER='
       gettext-tools-misc
@@ -234,7 +249,16 @@ if ! $skip_gnulib; then
       stdint
     '
     $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
-      --import --avoid=hash-tests $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_OTHER
+      --import --avoid=hash-tests $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER
+    # In gettext-tools/libgrep:
+    if test -f gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4; then
+      mv -f gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4 gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4~
+    fi
+    GNULIB_MODULES_TOOLS_FOR_LIBGREP='
+      regex
+    '
+    $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
+      --import `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do echo --avoid=$m; done` $GNULIB_MODULES_TOOLS_FOR_LIBGREP
     # In gettext-tools/libgettextpo:
     if test -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4; then
       mv -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4 gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4~
@@ -336,7 +360,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 )
 
 (cd gettext-tools
- ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgettextpo/gnulib-m4
+ ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  test -d intl || mkdir intl

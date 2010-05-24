@@ -1,5 +1,20 @@
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
+	Use the newest regex module from gnulib.
+	* regex.h: Remove file.
+	* regex.c: Remove file.
+	* memchr.c: Remove file.
+	* Makefile.am: Include Makefile.gnulib.
+	(BUILT_SOURCES, MOSTLYCLEANFILES, MOSTLYCLEANDIRS, CLEANFILES,
+	DISTCLEANFILES, MAINTAINERCLEANFILES): New variables.
+	(noinst_LIBRARIES): Initialize empty.
+	(libgrep_a_SOURCES): Augment instead of initializing.
+	(LIBADD_SOURCE, libgrep_a_LIBADD, libgrep_a_DEPENDENCIES): Remove
+	variables.
+	* gnulib-lib/Makefile.am: New file.
+
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
 	Code cleanup.
 	* m-regex.c (EGexecute): Write logic in a similar way as
 	m-fgrep.c:Fexecute.

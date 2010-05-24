@@ -1,5 +1,11 @@
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
+	Use the newest regex module from gnulib.
+	* modules/gettext-tools-misc (Files): Remove m4/mbrtowc.m4 and
+	m4/memchr.m4.
+
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
 	Use regex module without dependency on 'malloc'.
 	* lib/regex_internal.h.diff: New file.
 	* lib/regexec.c.diff: New file.

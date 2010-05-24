@@ -84,6 +84,7 @@ AC_EXEEXT
 
 dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
+grgl_EARLY
 gtpo_EARLY
 
 dnl Check for build configuration.
@@ -153,6 +154,7 @@ AC_SUBST([MSGMERGE_LIBM])
 
 dnl Checks for header files, functions and declarations.
 gl_INIT
+grgl_INIT
 gtpo_INIT
 
 dnl Checks for header files.
@@ -175,7 +177,6 @@ AC_CHECK_FUNCS([select])
 AC_FUNC_VFORK
 gt_SIGINFO
 gt_SETLOCALE
-gt_LIBGREP
 
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
   [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
