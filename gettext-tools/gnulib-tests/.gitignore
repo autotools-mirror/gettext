@@ -9,18 +9,10 @@
 
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
-/close-hook.c
-/close-hook.h
 /getpagesize.c
-/hash-pjw.c
-/hash-pjw.h
 /ignore-value.h
-/imaxtostr.c
 /init.sh
-/inttostr.c
-/inttostr.h
 /macros.h
-/offtostr.c
 /putenv.c
 /read-file.c
 /read-file.h
@@ -45,7 +37,6 @@
 /test-c-strncasecmp.c
 /test-c-strstr.c
 /test-canonicalize-lgpl.c
-/test-canonicalize-lgpl.sh
 /test-cloexec.c
 /test-copy-acl.c
 /test-copy-acl.sh
@@ -115,8 +106,6 @@
 /test-pipe-filter-ii2-child.c
 /test-pipe-filter-ii2-main.c
 /test-pipe-filter-ii2.sh
-/test-pipe-filter.c
-/test-pipe-filter.sh
 /test-pipe.c
 /test-pipe.sh
 /test-pipe2.c
@@ -197,8 +186,6 @@
 /test-xalloc-die.c
 /test-xalloc-die.sh
 /test-xvasprintf.c
-/uinttostr.c
-/umaxtostr.c
 /wctob.c
 /zerosize-ptr.h
 

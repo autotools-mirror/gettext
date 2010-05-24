@@ -47,7 +47,6 @@
 /gcd.h
 /getdelim.c
 /getline.c
-/getpagesize.c
 /gettext.h
 /hash.c
 /hash.h

@@ -8,7 +8,6 @@
 /install-reloc
 /javacomp.sh.in
 /javaexec.sh.in
-/link-warning.h
 /moopp
 /reloc-ldflags
 /relocatable.sh.in

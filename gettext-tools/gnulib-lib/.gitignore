@@ -41,7 +41,6 @@
 /c-strstr.c
 /c-strstr.h
 /canonicalize-lgpl.c
-/canonicalize.h
 /classpath.c
 /classpath.h
 /clean-temp.c
@@ -108,7 +107,6 @@
 /getopt.in.h
 /getopt1.c
 /getopt_int.h
-/getpagesize.c
 /gettext.h
 /gettimeofday.c
 /gl_anyhash_list1.h
@@ -185,7 +183,6 @@
 /pathmax.h
 /pipe-filter-aux.h
 /pipe-filter-ii.c
-/pipe-filter.c
 /pipe-filter.h
 /pipe-safer.c
 /pipe.c
