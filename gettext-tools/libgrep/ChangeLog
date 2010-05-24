@@ -1,5 +1,11 @@
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
+	Fix bug: Avoid out-of-bounds access.
+	* m-regex.c (EGexecute): Fix test before second call to
+	IS_WORD_CONSTITUENT.
+
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
 	Cleanup syntax.
 	* m-regex.c (compile, EGexecute): Remove useless parentheses.
 

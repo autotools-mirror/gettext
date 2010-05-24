@@ -193,7 +193,7 @@ EGexecute (const void *compiled_pattern,
                 while (start >= 0)
                   {
                     if ((start == 0 || !IS_WORD_CONSTITUENT ((unsigned char) beg[start - 1]))
-                        && (len == end - beg
+                        && (start + len == end - beg
                             || !IS_WORD_CONSTITUENT ((unsigned char) beg[start + len])))
                       goto success;
                     if (len > 0)
