@@ -92,7 +92,8 @@ Fcompile (const char *pattern, size_t pattern_size,
           char eolbyte)
 {
   struct compiled_kwset *ckwset;
-  const char *beg, *lim, *err;
+  const char *beg;
+  const char *err;
 
   ckwset = XMALLOC (struct compiled_kwset);
   kwsinit (ckwset, match_icase, match_words, match_lines, eolbyte);
@@ -100,6 +101,8 @@ Fcompile (const char *pattern, size_t pattern_size,
   beg = pattern;
   do
     {
+      const char *lim;
+
       for (lim = beg; lim < pattern + pattern_size && *lim != '\n'; ++lim)
         ;
       if ((err = kwsincr (ckwset->kwset, beg, lim - beg)) != NULL)
@@ -153,10 +156,9 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
           size_t *match_size, bool exact)
 {
   struct compiled_kwset *ckwset = (struct compiled_kwset *) compiled_pattern;
-  register const char *beg, *curr, *end;
-  register size_t len;
   char eol = ckwset->eolbyte;
-  struct kwsmatch kwsmatch;
+  register const char *beg;
+  register size_t len;
 #ifdef MBS_SUPPORT
   char *mb_properties;
   if (MB_CUR_MAX > 1)
@@ -165,6 +167,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
 
   for (beg = buf; beg <= buf + buf_size; ++beg)
     {
+      struct kwsmatch kwsmatch;
       size_t offset =
         kwsexec (ckwset->kwset, beg, buf + buf_size - beg, &kwsmatch);
       if (offset == (size_t) -1)
@@ -199,28 +202,31 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
           goto success;
         }
       else if (ckwset->match_words)
-        for (curr = beg; len; )
-          {
-            if (curr > buf && IS_WORD_CONSTITUENT ((unsigned char) curr[-1]))
-              break;
-            if (curr + len < buf + buf_size
-                && IS_WORD_CONSTITUENT ((unsigned char) curr[len]))
-              {
-                offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
-                if (offset == (size_t) -1)
-                  {
+        {
+          register const char *curr;
+          for (curr = beg; len; )
+            {
+              if (curr > buf && IS_WORD_CONSTITUENT ((unsigned char) curr[-1]))
+                break;
+              if (curr + len < buf + buf_size
+                  && IS_WORD_CONSTITUENT ((unsigned char) curr[len]))
+                {
+                  offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
+                  if (offset == (size_t) -1)
+                    {
 #ifdef MBS_SUPPORT
-                    if (MB_CUR_MAX > 1)
-                      free (mb_properties);
+                      if (MB_CUR_MAX > 1)
+                        free (mb_properties);
 #endif /* MBS_SUPPORT */
-                    return offset;
-                  }
-                curr = beg + offset;
-                len = kwsmatch.size[0];
-              }
-            else
-              goto success;
-          }
+                      return offset;
+                    }
+                  curr = beg + offset;
+                  len = kwsmatch.size[0];
+                }
+              else
+                goto success;
+            }
+        }
       else
         goto success;
     }
@@ -232,19 +238,23 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
   return -1;
 
  success:
-  end = (const char *) memchr (beg + len, eol, (buf + buf_size) - (beg + len));
-  if (end != NULL)
-    end++;
-  else
-    end = buf + buf_size;
-  while (buf < beg && beg[-1] != eol)
-    --beg;
-  *match_size = end - beg;
+  {
+    register const char *end;
+
+    end = (const char *) memchr (beg + len, eol, (buf + buf_size) - (beg + len));
+    if (end != NULL)
+      end++;
+    else
+      end = buf + buf_size;
+    while (buf < beg && beg[-1] != eol)
+      --beg;
+    *match_size = end - beg;
 #ifdef MBS_SUPPORT
-  if (MB_CUR_MAX > 1)
-    free (mb_properties);
+    if (MB_CUR_MAX > 1)
+      free (mb_properties);
 #endif /* MBS_SUPPORT */
-  return beg - buf;
+    return beg - buf;
+  }
 }
 
 static void

@@ -1,3 +1,10 @@
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
+	* m-fgrep.c (Fcompile, Fexecute): Reduce scope of local variables.
+	* m-regex.c (compile, EGexecute): Likewise.
+	* kwset.c (kwsincr, treefails, kwsprep, bmexec, cwexec): Likewise.
+	(kwsexec): Remove useless cast.
+
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
 	* kwset.c: Use GNU coding style.

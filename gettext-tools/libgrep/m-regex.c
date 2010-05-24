@@ -63,10 +63,6 @@ compile (const char *pattern, size_t pattern_size,
          reg_syntax_t syntax)
 {
   struct compiled_regex *cregex;
-  const char *err;
-  const char *sep;
-  size_t total = pattern_size;
-  const char *motif = pattern;
 
   cregex = XMALLOC (struct compiled_regex);
   memset (cregex, '\0', sizeof (struct compiled_regex));
@@ -82,32 +78,41 @@ compile (const char *pattern, size_t pattern_size,
      errors like "[\nallo\n]\n".  The patterns here are "[", "allo" and "]"
      GNU regex should have raised a syntax error.  The same for backref, where
      the backref should have been local to each pattern.  */
-  do
-    {
-      size_t len;
-      sep = (const char *) memchr (motif, '\n', total);
-      if (sep)
-        {
-          len = sep - motif;
-          sep++;
-          total -= (len + 1);
-        }
-      else
-        {
-          len = total;
-          total = 0;
-        }
+  {
+    const char *sep;
+    size_t total = pattern_size;
+    const char *motif = pattern;
 
-      cregex->patterns = xrealloc (cregex->patterns, (cregex->pcount + 1) * sizeof (struct patterns));
-      memset (&cregex->patterns[cregex->pcount], '\0', sizeof (struct patterns));
+    do
+      {
+        size_t len;
+        const char *err;
 
-      if ((err = re_compile_pattern (motif, len,
-                                     &(cregex->patterns[cregex->pcount].regexbuf))) != NULL)
-        error (exit_failure, 0, err);
-      cregex->pcount++;
+        sep = (const char *) memchr (motif, '\n', total);
+        if (sep)
+          {
+            len = sep - motif;
+            sep++;
+            total -= (len + 1);
+          }
+        else
+          {
+            len = total;
+            total = 0;
+          }
 
-      motif = sep;
-    } while (sep && total != 0);
+        cregex->patterns = xrealloc (cregex->patterns, (cregex->pcount + 1) * sizeof (struct patterns));
+        memset (&cregex->patterns[cregex->pcount], '\0', sizeof (struct patterns));
+
+        if ((err = re_compile_pattern (motif, len,
+                                       &(cregex->patterns[cregex->pcount].regexbuf))) != NULL)
+          error (exit_failure, 0, err);
+        cregex->pcount++;
+
+        motif = sep;
+      }
+    while (sep && total != 0);
+  }
 
   return cregex;
 }
@@ -145,15 +150,15 @@ EGexecute (const void *compiled_pattern,
            size_t *match_size, bool exact)
 {
   struct compiled_regex *cregex = (struct compiled_regex *) compiled_pattern;
-  register const char *buflim, *beg, *end;
   char eol = cregex->eolbyte;
-  int start, len;
-  size_t i;
-
-  buflim = buf + buf_size;
+  register const char *buflim = buf + buf_size;
+  register const char *beg;
+  register const char *end;
 
   for (beg = buf; beg < buflim; beg = end)
     {
+      size_t i;
+
       end = (const char *) memchr (beg, eol, buflim - beg);
       if (end == NULL)
         end = buflim;
@@ -161,6 +166,8 @@ EGexecute (const void *compiled_pattern,
 
       for (i = 0; i < cregex->pcount; i++)
         {
+          int start, len;
+
           cregex->patterns[i].regexbuf.not_eol = 0;
           if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
                                        end - beg, 0,
