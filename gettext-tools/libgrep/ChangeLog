@@ -1,5 +1,10 @@
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
+	Cleanup syntax.
+	* m-regex.c (compile, EGexecute): Remove useless parentheses.
+
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
 	Tiny optimization.
 	* m-fgrep.c (Fexecute): New local variable buflim.
 

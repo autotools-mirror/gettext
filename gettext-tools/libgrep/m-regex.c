@@ -105,7 +105,7 @@ compile (const char *pattern, size_t pattern_size,
         memset (&cregex->patterns[cregex->pcount], '\0', sizeof (struct patterns));
 
         if ((err = re_compile_pattern (motif, len,
-                                       &(cregex->patterns[cregex->pcount].regexbuf))) != NULL)
+                                       &cregex->patterns[cregex->pcount].regexbuf)) != NULL)
           error (exit_failure, 0, err);
         cregex->pcount++;
 
@@ -169,9 +169,9 @@ EGexecute (const void *compiled_pattern,
           int start, len;
 
           cregex->patterns[i].regexbuf.not_eol = 0;
-          if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
+          if (0 <= (start = re_search (&cregex->patterns[i].regexbuf, beg,
                                        end - beg, 0,
-                                       end - beg, &(cregex->patterns[i].regs))))
+                                       end - beg, &cregex->patterns[i].regs)))
             {
               len = cregex->patterns[i].regs.end[0] - start;
               if (exact)
@@ -201,9 +201,9 @@ EGexecute (const void *compiled_pattern,
                         /* Try a shorter length anchored at the same place. */
                         --len;
                         cregex->patterns[i].regexbuf.not_eol = 1;
-                        len = re_match (&(cregex->patterns[i].regexbuf), beg,
+                        len = re_match (&cregex->patterns[i].regexbuf, beg,
                                         start + len, start,
-                                        &(cregex->patterns[i].regs));
+                                        &cregex->patterns[i].regs);
                       }
                     if (len <= 0)
                       {
@@ -212,10 +212,10 @@ EGexecute (const void *compiled_pattern,
                           break;
                         ++start;
                         cregex->patterns[i].regexbuf.not_eol = 0;
-                        start = re_search (&(cregex->patterns[i].regexbuf), beg,
+                        start = re_search (&cregex->patterns[i].regexbuf, beg,
                                            end - beg,
                                            start, end - beg - start,
-                                           &(cregex->patterns[i].regs));
+                                           &cregex->patterns[i].regs);
                         len = cregex->patterns[i].regs.end[0] - start;
                       }
                   }
