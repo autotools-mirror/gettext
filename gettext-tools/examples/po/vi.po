@@ -1,15 +1,15 @@
 # Vietnamese Translation for Gettext Examples.
-# Copyright © 2009 Yoyodyne, Inc. (msgids)
-# Copyright © 2009 Free Software Foundation, Inc.
+# Copyright © 2010 Yoyodyne, Inc. (msgids)
+# Copyright © 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.17\n"
+"Project-Id-Version: gettext-examples 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2009-08-16 12:22+0200\n"
-"PO-Revision-Date: 2009-09-24 22:37+0930\n"
+"PO-Revision-Date: 2010-05-13 17:32+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "Language: vi\n"

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.17\n"
+"Project-Id-Version: GNU gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2010-01-28 23:49+0200\n"
+"PO-Revision-Date: 2010-05-10 13:49+0300\n"
 "Last-Translator:  Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -25,60 +25,60 @@ msgid "Unknown system error"
 msgstr "Неизвестна системна грешка"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: опцията '%s' е двусмислена\n"
+msgstr "%s: двусмислена опция '%s'\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: опцията '--%s' е без аргумент\n"
+msgstr "%s: опцията '--%s' е без аргументи\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: опцията '%c%s' е без аргумент\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: опцията `%s' изисква аргумент\n"
+msgstr "%s: опцията '--%s' изисква аргумент\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: неразпозната опция '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: неразпозната опция '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: неправилен опция -- %c\n"
+msgstr "%s: неправилна опция -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: опцията изисква аргумент -- %c\n"
+msgstr "%s: опцията изисква аргумент -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: опцията '-W %s' е двусмислена\n"
+msgstr "%s: двусмислена опция '-W %s'\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: опцията '-W %s' е без аргумент\n"
+msgstr "%s: опцията '-W %s' е без аргументи\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: опцията `%s' изисква аргумент\n"
+msgstr "%s: опцията '-W %s' изисква аргумент\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -311,6 +311,3 @@ msgstr ""
 "обичайната директория, друго местоположение може да се зададе с променливата\n"
 "от обкръжението TEXTDOMAINDIR.\n"
 "Директория за търсене: %s\n"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: незаконна опция -- %c\n"

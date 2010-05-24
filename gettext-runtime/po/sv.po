@@ -1,14 +1,15 @@
 # Swedish messages for gettext
-# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007 Free Software Foundation, Inc.
-# Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007
-# Revision: 1.9
+# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext package.
+# Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007, 2010
+# Revision: 1.14
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
+"Project-Id-Version: gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2008-02-08 10:01+0100\n"
+"PO-Revision-Date: 2010-05-14 12:44+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -26,60 +27,60 @@ msgid "Unknown system error"
 msgstr "Okänt systemfel"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: flaggan \"%s\" är tvetydig\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"--%s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"%c%s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: flaggan \"%s\" kräver ett argument\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: okänd flagga \"--%s\"\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: okänd flagga \"%c%s\"\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: ogiltig flagga -- %c\n"
+msgstr "%s: ogiltig flagga -- \"%c\"\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: flaggan kräver ett argument -- %c\n"
+msgstr "%s: flaggan kräver ett argument -- \"%c\"\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: flaggan \"-W %s\" är tvetydig\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"-W %s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: flaggan \"%s\" kräver ett argument\n"
+msgstr "%s: flaggan \"-W %s\" kräver ett argument\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -312,6 +313,3 @@ msgstr ""
 "TEXTDOMAIN. Om meddelandekatalogen inte hittas i den normala katalogen så\n"
 "kan en annan katalog anges med miljövariabeln TEXTDOMAINDIR.\n"
 "Normal katalog för meddelandekataloger: %s\n"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: otillåten flagga -- %c\n"

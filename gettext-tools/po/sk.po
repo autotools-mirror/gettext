@@ -1,15 +1,15 @@
 # Slovak translations for GNU gettext-tools package.
-# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2005, 2008, 2009 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2005, 2008, 2009.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.17\n"
+"Project-Id-Version: GNU gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2009-07-27 22:48+0200\n"
+"PO-Revision-Date: 2010-05-10 12:48+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -116,60 +116,60 @@ msgid "%s subprocess failed"
 msgstr "%s podproces zlyhal"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: voľba `%s' nie je jednoznačná\n"
+msgstr "%s: voľba '%s' nie je jednoznačná\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: voľba `--%s' nepovoľuje parameter\n"
+msgstr "%s: voľba '--%s' nepovoľuje parameter\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: voľba `%c%s' nepovoľuje parameter\n"
+msgstr "%s: voľba '%c%s' nepovoľuje parameter\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: voľba `%s' vyžaduje parameter\n"
+msgstr "%s: voľba '--%s' vyžaduje parameter\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: neznáma voľba `--%s'\n"
+msgstr "%s: neznáma voľba '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: neznáma voľba `%c%s'\n"
+msgstr "%s: neznáma voľba '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: neplatná voľba -- %c\n"
+msgstr "%s: neplatná voľba -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: voľba vyžaduje parameter -- %c\n"
+msgstr "%s: voľba vyžaduje parameter -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: voľba `-W %s' nie je jednoznačná\n"
+msgstr "%s: voľba '-W %s' nie je jednoznačná\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: voľba `-W %s' nedovoľuje použitie parametra\n"
+msgstr "%s: voľba '-W %s' nepovoľuje parameter\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: voľba `%s' vyžaduje parameter\n"
+msgstr "%s: voľba '-W %s' vyžaduje parameter\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -260,9 +260,9 @@ msgid "_open_osfhandle failed"
 msgstr "zlyhalo _open_osfhandle"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "nemožno vytvoriť výstupný súbor \"%s\""
+msgstr "nemožno obnoviť fd %d: zlyhalo dup2"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
@@ -276,19 +276,19 @@ msgid "%s subprocess got fatal signal %d"
 msgstr "%s podproces dostal kritický signál %d"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
-"'%s' nie je platný formátovací reťazec %s, na rozdiel od 'msgid'. Dôvod: %s"
+"'%s' nie je platný formátovací reťazec %s, na rozdiel od '%s'. Dôvod: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
-msgstr "formátovacia značka pre parameter %u v '%s' nie je v 'msgid'"
+msgstr "formátovacia značka pre parameter %u v '%s' nie je v '%s'"
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -302,9 +302,9 @@ msgstr "formátovacia značka pre parameter %u nie je v '%s'"
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
-msgstr "formátovacie značky v 'msgid' a '%s' pre parameter %u nie sú rovnaké"
+msgstr "formátovacie značky v '%s' a '%s' pre parameter %u nie sú rovnaké"
 
 #: src/format-boost.c:449
 #, c-format
@@ -332,9 +332,9 @@ msgstr ""
 "Reťazec sa odkazuje na parameter číslo %u, ale ignoruje parameter číslo %u."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "počet formátovacích značiek v 'msgid' a '%s' sa nezhoduje"
+msgstr "počet formátovacích značiek v '%s' a '%s' sa nezhoduje"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -409,14 +409,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "V direktíve číslo %u nie sú povolené príznaky pred '%c'."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "'msgid' používa %%m, ale '%s' nie"
+msgstr "'%s' používa %%m, ale '%s' nie"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "'msgid' nepoužíva %%m, ale '%s' používa %%m"
+msgstr "'%s' nepoužíva %%m, ale '%s' používa %%m"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -513,10 +513,10 @@ msgstr ""
 "'#' alebo '%s'."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
-msgstr "formátovacia značka pre parameter {%u} v '%s' nie je v 'msgid'"
+msgstr "formátovacia značka pre parameter {%u} v '%s' nie je v '%s'"
 
 #: src/format-java.c:756
 #, c-format
@@ -524,10 +524,10 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formátovacia značka pre parameter {%u} neexistuje v '%s'"
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
-msgstr "formátovacie značky v 'msgid' a '%s' pre parameter {%u} nie sú rovnaké"
+msgstr "formátovacie značky v '%s' a '%s' pre parameter {%u} nie sú rovnaké"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -602,14 +602,14 @@ msgid "The string refers to some argument in incompatible ways."
 msgstr "Reťazec sa odkazuje na nejaký parameter nekompatibilnými spôsobmi."
 
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "formátovacie značky v 'msgid' a '%s' nie sú ekvivalentné"
+msgstr "formátovacie značky v '%s' a '%s' nie sú ekvivalentné"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr "formátovacie značky v '%s' nie sú podmnožinou značiek z 'msgid'"
+msgstr "formátovacie značky v '%s' nie sú podmnožinou značiek z '%s'"
 
 #: src/format-perl.c:433
 #, c-format
@@ -640,40 +640,40 @@ msgstr ""
 "Reťazec sa odkazuje na argument pomenovaný '%s' nekompatibilnými spôsobmi."
 
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr ""
-"formátovacie značky v 'msgid' predpokladajú mapovanie, ale značky v '%s' "
+"formátovacie značky v '%s' predpokladajú mapovanie, ale značky v '%s' "
 "predpokladajú tuple"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr ""
-"formátovacie značky v 'msgid' predpokladajú tuple, ale značky v '%s' "
+"formátovacie značky v '%s' predpokladajú tuple, ale značky v '%s' "
 "predpokladajú mapovanie"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
-msgstr "formátovacia značka pre parameter '%s' v '%s' nie je v 'msgid'"
+msgstr "formátovacia značka pre parameter '%s' v '%s' nie je v '%s'"
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
-msgstr "formátovacie značky v 'msgid' a '%s' pre parameter '%s' nie sú rovnaké"
+msgstr "formátovacie značky v '%s' a '%s' pre parameter '%s' nie sú rovnaké"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"'msgid' je reťazrc s jednoduchým formátom, ale '%s' nie je: obsahuje príznak "
+"'%s' je reťazec s jednoduchým formátom, ale '%s' nie je: obsahuje príznak "
 "'L' alebo dvojmiestne číslo parametra"
 
 #: src/format-sh.c:79
@@ -1332,6 +1332,7 @@ msgstr ""
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr ""
+"      --lang=NÁZOVKATALÓGU    nastaviť pole 'Language' v položke hlavička\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1734,7 +1735,7 @@ msgstr "%s je platné len s %s, %s alebo %s"
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -2572,14 +2573,14 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr obsahuje príliš veľa značiek klávesových skratiek '%c'"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
-msgstr "hlavičková položka `%s' chýba v hlavičke\n"
+msgstr "položka hlavičky `%s' v hlavičke chýba\n"
 
 #: src/msgl-check.c:784
 #, c-format
 msgid "header field `%s' should start at beginning of line\n"
-msgstr "hlavičková položka `%s' má začínať na začiatku riadku\n"
+msgstr "položka hlavičky `%s' má začínať na začiatku riadka\n"
 
 #: src/msgl-check.c:809
 msgid "some header fields still have the initial default value\n"
@@ -2587,10 +2588,9 @@ msgstr ""
 "niektoré položky hlavičky ešte obsahujú počiatočné štandardné hodnoty\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr ""
-"niektoré položky hlavičky ešte obsahujú počiatočné štandardné hodnoty\n"
+msgstr "položka hlavičky `%s' ešte obsahujú počiatočnú štandardnú hodnotu\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -3026,7 +3026,7 @@ msgstr "nekompletná viacznaková sekvencia na konci súboru"
 #: src/po-lex.c:475
 #, c-format
 msgid "incomplete multibyte sequence at end of line"
-msgstr "nekompletná viacznaková sekvencia na konci riadku"
+msgstr "nekompletná viacznaková sekvencia na konci riadka"
 
 #: src/po-lex.c:487
 msgid "iconv failure"
@@ -3050,7 +3050,7 @@ msgstr "koniec súboru uprostred reťazca"
 #: src/po-lex.c:987
 #, c-format
 msgid "end-of-line within string"
-msgstr "koniec riadku uprostred reťazca"
+msgstr "koniec riadka uprostred reťazca"
 
 #: src/po-lex.c:1008
 #, c-format
@@ -3178,17 +3178,17 @@ msgstr "chyba pri zápise na štandardný výstup"
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "Získavanie %s..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " časový limit vypršal.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " zlyhalo.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3396,11 +3396,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: upozornenie: neukončený znakový reťazec"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"Nie ASCII reťazec na %s%s.\n"
-"Prosím, zadajte kódovanie zdroja pomocou --from-code.\n"
+msgstr "Prosím, zadajte kódovanie zdroja pomocou --from-code."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3435,7 +3432,7 @@ msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
-"%s:%d: Nekompletná viacbajtová postupnosť na konci riadku.\n"
+"%s:%d: Nekompletná viacbajtová postupnosť na konci riadka.\n"
 "Prosím, zadajte správne kódovanie zdroja pomocou --from-code.\n"
 
 #: src/x-csharp.c:315 src/x-python.c:332
@@ -3527,12 +3524,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: neplatná interpolácia (\"\\U\") 8-bitového znaku \"%c\""
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Nie ASCII reťazec na %s%s.\n"
 "Prosím, zadajte kódovanie zdroja pomocou --from-code alebo pomocou\n"
 "komentára tak, ako je uvedené na http://www.python.org/peps/pep-0263.html.\n"
 
@@ -3576,7 +3571,7 @@ msgid ""
 "Please specify the correct source encoding through --from-code or through a\n"
 "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"%s:%d: Nekompletná viacbajtová postupnosť na konci riadku.\n"
+"%s:%d: Nekompletná viacbajtová postupnosť na konci riadka.\n"
 "Prosím, zadajte správne kódovanie zdroja pomocou --from-code alebo pomocou\n"
 "komentára tak, ako je uvedené na http://www.python.org/peps/pep-0263.html.\n"
 
@@ -3726,7 +3721,7 @@ msgstr ""
 "extrahované\n"
 
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3734,10 +3729,13 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-comments[=ZNAČKA] umiestniť blok komentára obsahujúci ZNAČKU\n"
-"                              (alebo tie, ktoré predchádzajú kľúčové "
-"riadky)\n"
-"                              do výstupného súboru\n"
+"  -cZNAČKA, --add-comments=ZNAČKA umiestniť bloky komentára začínajúce "
+"ZNAČKOU\n"
+"                                a predchádzajúce riadky s kľúčovými slovami\n"
+"                                do výstupného súboru\n"
+"  -c, --add-comments          umiestniť všetky bloky komentára, ktoré\n"
+"                                predchádzajú riadky s kľúčovými slovami,\n"
+"                                do výstupného súboru\n"
 
 #: src/xgettext.c:885
 #, c-format
@@ -3763,14 +3761,13 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=SLOVO]       ďalšie kľúčové slovo, ktoré bude vyhľadané\n"
-"                              (bez SLOVO znamená: nepoužiť predvolené\n"
-"                              kľúčové slová)\n"
+"  -kSLOVO, --keyword=SLOVO    hľadať SLOVO ako ďalšie kľúčové slovo\n"
+"  -k, --keyword               nepoužiť predvolené kľúčové slová)\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3875,24 +3872,26 @@ msgstr ""
 "                                   v msgid\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=REŤAZEC] použiť REŤAZEC alebo \"\" ako predponu pre\n"
-"                                položky msgstr\n"
+"  -m[REŤAZEC], --msgstr-prefix[=REŤAZEC] použiť REŤAZEC alebo \"\" ako "
+"predponu\n"
+"                                pre hodnoty msgstr\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=REŤAZEC] použiť REŤAZEC alebo \"\" ako príponu pre\n"
-"                                položky msgstr\n"
+"  -M[REŤAZEC], --msgstr-suffix[=REŤAZEC] použiť REŤAZEC alebo \"\" ako "
+"príponu pre\n"
+"                                hodnoty msgstr\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3909,17 +3908,17 @@ msgstr "štandardný vstup"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "Nie ASCII znak na %s%s."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "Nie ASCII komentár na alebo pred %s%s."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "Nie ASCII reťazec na %s%s."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format
@@ -4001,7 +4000,7 @@ msgstr ""
 " Ak používate\n"
 "súbor `Makevars', prosím nastavte v ňom premennú\n"
 "MSGID_BUGS_ADDRESS; inak prosím zadajte voľbu príkazového\n"
-"riadku --msgid-bugs-address.\n"
+"riadka --msgid-bugs-address.\n"
 
 #: src/xgettext.c:3226
 #, c-format
@@ -4011,27 +4010,3 @@ msgstr "jazyk `%s' je neznámy"
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<nepomenované>"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: neprípustná voľba -- %c\n"
-
-#~ msgid "DuplicateHandle failed with error code 0x%08x"
-#~ msgstr "DuplicateHandle zlyhal s chybovým kódom 0x%08x"
-
-#~ msgid "Not yet implemented."
-#~ msgstr "Ešte nie je implementované."
-
-#~ msgid "cannot set up nonblocking I/O to %s subprocess"
-#~ msgstr "nemožno nastaviť neblokujúce V/V pre podproces %s"
-
-#~ msgid "communication with %s subprocess failed"
-#~ msgstr "komunikácia s podprocesom %s zlyhala"
-
-#~ msgid "read from %s subprocess failed"
-#~ msgstr "čítanie z podprocesu %s zlyhalo"
-
-#~ msgid "%s subprocess terminated with exit code %d"
-#~ msgstr "podproces %s bol ukončený s ukončovacím kódom %d"
-
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "položka `%s' ešte obsahuje počiatočnú štandardnú hodnotu\n"

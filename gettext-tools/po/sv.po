@@ -1,14 +1,15 @@
 # Swedish messages for gettext-tools
-# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007 Free Software Foundation, Inc.
-# Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007
-# Revision: 1.22
+# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext package.
+# Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007, 2010
+# Revision: 1.28
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.16.2-pre5\n"
+"Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2008-02-13 17:03+0100\n"
+"PO-Revision-Date: 2010-05-15 12:24+0200\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -115,60 +116,60 @@ msgid "%s subprocess failed"
 msgstr "%s-barnprocess misslyckades"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: flaggan \"%s\" är tvetydig\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"--%s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"%c%s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: flaggan \"%s\" kräver ett argument\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: okänd flagga \"--%s\"\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: okänd flagga \"%c%s\"\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: ogiltig flagga -- %c\n"
+msgstr "%s: ogiltig flagga -- \"%c\"\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: flaggan kräver ett argument -- %c\n"
+msgstr "%s: flaggan kräver ett argument -- \"%c\"\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: flaggan \"-W %s\" är tvetydig\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: flaggan \"-W %s\" tar inget argument\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: flaggan \"%s\" kräver ett argument\n"
+msgstr "%s: flaggan \"-W %s\" kräver ett argument\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -257,9 +258,9 @@ msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle misslyckades"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "kan inte skapa utfilen \"%s\""
+msgstr "kan inte återställa filnummer %d: dup2 misslyckades"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
@@ -273,22 +274,21 @@ msgid "%s subprocess got fatal signal %d"
 msgstr "%s-barnprocess fick ödesdiger signal %d"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
-"\"%s\" är inte en giltig formatsträng i %s, till skillnad från \"msgid\".\n"
+"\"%s\" är inte en giltig formatsträng i %s, till skillnad från \"%s\".\n"
 "Orsak: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
 msgstr ""
-"formateringsdirektiv för argument \"%u\", som i \"%s\", finns inte i \"msgid"
-"\""
+"formateringsdirektiv för argument %u, som i \"%s\", finns inte i \"%s\""
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -302,11 +302,10 @@ msgstr "formateringsdirektiv för argument %u finns inte i \"%s\""
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
 msgstr ""
-"formateringsdirektivet i \"msgid\" och \"%s\" för argument %u är inte "
-"likadana"
+"formateringsdirektivet i \"%s\" och \"%s\" för argument %u är inte likadana"
 
 #: src/format-boost.c:449
 #, c-format
@@ -335,9 +334,9 @@ msgstr ""
 "Strängen refererar till argument nummer %u men ignorerar argument nummer %u."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "antalet formateringsdirektiv i \"msgid\" och \"%s\" är olika"
+msgstr "antalet formateringsdirektiv i \"%s\" och \"%s\" är olika"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -418,14 +417,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "I direktiv nummer %u: flaggor är inte tillåtna före \"%c\"."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "\"msgid\" använder %%m men '%s' gör inte det"
+msgstr "\"%s\" använder %%m men \"%s\" gör inte det"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "\"msgid\" använder inte %%m men '%s' använder %%m"
+msgstr "\"%s\" använder inte %%m men \"%s\" använder %%m"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -525,11 +524,11 @@ msgstr ""
 "\"#\" eller \"%s\"."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
 msgstr ""
-"formateringsdirektiv för argument {%u}, som i \"%s\", finns inte i \"msgid\""
+"formateringsdirektiv för argument {%u}, som i \"%s\", finns inte i \"%s\""
 
 #: src/format-java.c:756
 #, c-format
@@ -537,12 +536,11 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "formateringsdirektiv för argument {%u} finns inte i \"%s\""
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
 msgstr ""
-"formateringsdirektiv i \"msgid\" och \"%s\" för argument {%u} är inte "
-"likadana"
+"formateringsdirektiv i \"%s\" och \"%s\" för argument {%u} är inte likadana"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -613,14 +611,14 @@ msgid "The string refers to some argument in incompatible ways."
 msgstr "Strängen refererar till några argument på inkompatibla sätt."
 
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "formateringsdirektiv i \"msgid\" och \"%s\" är inte ekvivalenta"
+msgstr "formateringsdirektiv i \"%s\" och \"%s\" är inte ekvivalenta"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr "formateringsdirektiv i \"%s\" är inte en delmängd av de i \"msgid\""
+msgstr "formateringsdirektiv i \"%s\" är inte en delmängd av de i \"%s\""
 
 #: src/format-perl.c:433
 #, c-format
@@ -650,43 +648,41 @@ msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "Strängen refererar till argumentet \"%s\" på inkompatibla sätt."
 
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr ""
-"formateringsdirektiv i \"msgid\" tar en avbildning, de i \"%s\" tar en tupel"
+"formateringsdirektiv i \"%s\" tar en avbildning, de i \"%s\" tar en tupel"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr ""
-"formateringsdirektiv i \"msgid\" tar en tupel, de i \"%s\" tar en avbildning"
+"formateringsdirektiv i \"%s\" tar en tupel, de i \"%s\" tar en avbildning"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
 msgstr ""
-"formateringsdirektiv för argument \"%s\", som i \"%s\", finns inte i \"msgid"
-"\""
+"formateringsdirektiv för argument \"%s\", som i \"%s\", finns inte i \"%s\""
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
 msgstr ""
-"formateringsdirektiv i \"msgid\" och \"%s\" för argument \"%s\" är inte "
-"likadana"
+"formateringsdirektiv i \"%s\" och \"%s\" för argument \"%s\" är inte likadana"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"\"msgid\" är en enkel formatsträng, men \"%s\" är inte det; den innehåller "
-"en \"L\"-flagga eller ett tvåsiffrigt argumenttal"
+"\"%s\" är en enkel formatsträng, men \"%s\" är inte det; den innehåller en "
+"\"L\"-flagga eller ett tvåsiffrigt argumenttal"
 
 #: src/format-sh.c:79
 msgid "The string refers to a shell variable with a non-ASCII name."
@@ -1333,7 +1329,7 @@ msgstr ""
 #, c-format
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
-msgstr ""
+msgstr "      --lang=KATALOGNAMN      sätt \"Language\"-fältet i huvudet\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1735,7 +1731,7 @@ msgstr "%s är endast giltig med %s, %s eller %s"
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -2549,7 +2545,7 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr har för många märken \"%c\" för tangentkortkommandon"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
 msgstr "huvudrad \"%s\" saknas i huvudet\n"
 
@@ -2563,9 +2559,9 @@ msgid "some header fields still have the initial default value\n"
 msgstr "vissa huvudrader har kvar initiala standardvärden\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr "vissa huvudrader har kvar initiala standardvärden\n"
+msgstr "huvudrad \"%s\" har kvar initialt standardvärde\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -3162,17 +3158,17 @@ msgstr "fel vid skrivning till standard ut"
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "Hämtar %s..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " tiden tog slut.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " misslyckades.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3381,11 +3377,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: varning: oavslutad sträng"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
-"Ange källkodning med --from-code.\n"
+msgstr "Ange källkodning med --from-code."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3515,12 +3508,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (\"\\U\") för åttabitarstecknet \"%c\""
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Sträng är inte i ASCII i %s%s.\n"
 "Ange källkodning med --from-code eller med en kommentar enligt\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
@@ -3711,7 +3702,7 @@ msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr "  -x, --exclude-file=FIL.po   rader från FIL tas inte ut\n"
 
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3719,8 +3710,12 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-comments[=MÄRKE]  skriv kommentarsblock med MÄRKE (eller de\n"
-"                              före nyckelordsrader) till resultatet\n"
+"  -cMÄRKE, --add-comments=MÄRKE  skriv kommentarsblock som börjar med MÄRKE\n"
+"                                 och föregående nyckelordsrader till "
+"resultatet\n"
+"  -c, --add-comments             skriv alla kommentarsblock före "
+"nyckelordsrader\n"
+"                                 till resultatet\n"
 
 #: src/xgettext.c:885
 #, c-format
@@ -3746,14 +3741,13 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=ORD]         extra nyckelord att titta efter (om ORD\n"
-"                              utelämnas, titta inte efter "
-"standardnyckelord)\n"
+"  -kORD, --keyword[=ORD]      sök efter ORD som ett extra nyckelord\n"
+"  -k, --keyword               använd inte standardnyckelord\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3853,24 +3847,24 @@ msgstr ""
 "felrapporter\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=STRÄNG]  inled översatta strängar med STRÄNG eller "
-"\"\"\n"
+"  -m[STRÄNG], --msgstr-prefix[=STRÄNG]  inled översatta strängar med STRÄNG "
+"eller \"\"\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=STRÄNG]  avsluta översatta strängar med STRÄNG eller "
-"\"\"\n"
+"  -M[STRÄNG], --msgstr-suffix[=STRÄNG]  avsluta översatta strängar med "
+"STRÄNG eller \"\"\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3887,17 +3881,17 @@ msgstr "standard in"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "Icke-ASCII-tecken vid %s%s."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "Icke-ASCII-kommentar vid eller före %s%s."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "Icke-ASCII-sträng vid %s%s."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format
@@ -3986,27 +3980,3 @@ msgstr "språket \"%s\" okänt"
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<utan namn>"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: otillåten flagga -- %c\n"
-
-#~ msgid "DuplicateHandle failed with error code 0x%08x"
-#~ msgstr "DuplicateHandle misslyckades med felkod 0x%08x"
-
-#~ msgid "Not yet implemented."
-#~ msgstr "Inte implementerad ännu."
-
-#~ msgid "cannot set up nonblocking I/O to %s subprocess"
-#~ msgstr "kan inte sätta upp icke-blockerande I/O till %s-barnprocess"
-
-#~ msgid "communication with %s subprocess failed"
-#~ msgstr "kommunikation med %s-barnprocess misslyckades"
-
-#~ msgid "read from %s subprocess failed"
-#~ msgstr "läsning från %s-barnprocess misslyckades"
-
-#~ msgid "%s subprocess terminated with exit code %d"
-#~ msgstr "%s-barnprocess avslutade med slutstatus %d"
-
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "huvudrad \"%s\" har kvar initialt standardvärde\n"

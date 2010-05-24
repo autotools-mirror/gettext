@@ -1,14 +1,14 @@
 # Translation of `gettext-tools' messages to Japanese.
-# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009, 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Masahito Yamaga <ma@yama-ga.com>, 2009.
+# Masahito Yamaga <ma@yama-ga.com>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.17\n"
+"Project-Id-Version: GNU gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2009-03-10 22:38+0900\n"
+"PO-Revision-Date: 2010-05-10 18:11+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -115,60 +115,60 @@ msgid "%s subprocess failed"
 msgstr "%s サブプロセスが失敗しました"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: オプション `%s' は曖昧です\n"
+msgstr "%s: オプション '%s' は曖昧です\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: オプション `--%s' には引数はありません\n"
+msgstr "%s: オプション '--%s' に引数はありません\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: オプション `%c%s' には引数はありません\n"
+msgstr "%s: オプション '%c%s' に引数はありません\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: オプション `%s' には引数が必要です\n"
+msgstr "%s: オプション '--%s' には引数が必要です\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: オプション `--%s' は認識されません\n"
+msgstr "%s: オプション `--%s' は不可\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: オプション `%c%s' は認識されません\n"
+msgstr "%s: オプション '%c%s' は不可\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: 無効なオプション -- %c\n"
+msgstr "%s: 無効なオプション -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: 引数が必要なオプション -- %c\n"
+msgstr "%s: 引数が必要なオプション -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: オプション `-W %s' は曖昧です\n"
+msgstr "%s: オプション '-W %s' は曖昧です\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: オプション `-W %s' には引数はありません\n"
+msgstr "%s: オプション '-W %s' に引数はありません\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: オプション `%s' には引数が必要です\n"
+msgstr "%s: オプション '-W %s' には引数が必要です\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -260,9 +260,9 @@ msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle 失敗"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "出力ファイル \"%s\" を作ることができません"
+msgstr "fd %d を復元できません: dup2 失敗"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
@@ -276,18 +276,18 @@ msgid "%s subprocess got fatal signal %d"
 msgstr "%s サブプロセスが致命的なシグナル %d を受け取りました"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
-msgstr "'%s' は 'msgid' と違って正しい %s 形式の文字列ではありません. 理由: %s"
+msgstr "'%s' は正しい %s 形式の文字列ではなく, '%s' とは違います. 理由: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
-msgstr "引数 %u に対する形式の指定が '%s' のように 'msgid' に存在しません"
+msgstr "引数 %u に対する形式の指定が '%s' のように '%s' に存在しません"
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -301,10 +301,9 @@ msgstr "引数 %u に対する形式の指定が '%s' に存在しません"
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
-msgstr ""
-"引数 %2$u に対する 'msgid' と '%1$s' での形式の指定が同じではありません"
+msgstr "引数 %3$u に対する '%1$s' と '%2$s' での形式の指定が同じではありません"
 
 #: src/format-boost.c:449
 #, c-format
@@ -331,9 +330,9 @@ msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "文字列は引数番号 %u を参照していますが引数番号 %u を無視しています."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "`msgid' と `%s' で指定した形式の数が合っていません"
+msgstr "'%s' と '%s' で指定した形式の数が合っていません"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -407,14 +406,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "命令番号 %u では, '%c' の前にフラグが来ることはありません."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "'msgid' は %%m は使いますが '%s' は使いません"
+msgstr "'%s' は %%m を使いますが '%s' は使いません"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "'msgid' は %%m は使いませんが '%s' は使います"
+msgstr "'%s' は %%m を使いませんが '%s' は %%m を使います"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -509,10 +508,10 @@ msgstr ""
 "りません."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
-msgstr "引数 {%u} に対する形式の指定が '%s' のように 'msgid' に存在しません"
+msgstr "引数 {%u} に対する形式の指定が '%s' のように '%s' に存在しません"
 
 #: src/format-java.c:756
 #, c-format
@@ -520,10 +519,10 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "引数 {%u} に対する形式の指定が '%s' に存在しません"
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
-msgstr "'msgid' と '%s' での引数 {%u} に対する形式の指定が同じではありません"
+msgstr "'%s' と '%s' での引数 {%u} に対する形式の指定が同じではありません"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -590,14 +589,14 @@ msgid "The string refers to some argument in incompatible ways."
 msgstr "文字列は非互換な方法で引数を参照しています."
 
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "`msgid' と `%s' での形式の指定が等しくありません"
+msgstr "'%s' と '%s' での形式の指定が等しくありません"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr "'%s' での形式の指定が 'msgid' でのサブセットではありません"
+msgstr "'%s' での形式の指定が '%s' でのサブセットではありません"
 
 #: src/format-perl.c:433
 #, c-format
@@ -624,38 +623,37 @@ msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "文字列は非互換な方法で引数名 '%s' を参照しています."
 
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
-msgstr "'msgid' での形式指定はマッピングですが, '%s' ではタプル (tuple) です"
+msgstr "'%s' での形式指定はマッピングですが, '%s' ではタプル (tuple) です"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
-msgstr "'msgid' での形式指定はタプル (tuple) ですが, '%s' ではマッピングです"
+msgstr "'%s' での形式指定はタプル (tuple) ですが, '%s' ではマッピングです"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
-msgstr "引数 '%s' に対する形式指定が '%s' のように 'msgid' に存在しません"
+msgstr "引数 '%s' に対する形式指定が '%s' のように '%s' に存在しません"
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
-msgstr ""
-"引数 '%2$s' に対する 'msgid' と '%1$s' での形式指定が同じではありません"
+msgstr "引数 '%3$s' に対する '%1$s' と '%2$s' での形式指定が同じではありません"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"'msgid' は単純なフォーマット文字列ですが, '%s' は違います. 'L' フラグか 2桁の"
-"数値引数を含みます"
+"'%s' は単純なフォーマット文字列ですが, '%s' は違います. 'L' フラグか 2桁の数"
+"値引数を含みます"
 
 #: src/format-sh.c:79
 msgid "The string refers to a shell variable with a non-ASCII name."
@@ -1289,7 +1287,7 @@ msgstr ""
 #, c-format
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
-msgstr ""
+msgstr "      --lang=CATALOGNAME      ヘッダ項目の 'Language' 欄を指定\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1679,7 +1677,7 @@ msgstr "%s は %s, %s または %s がある場合にのみ有効です"
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -2490,7 +2488,7 @@ msgstr ""
 "msgstr にはあまりに多くのキーボードアクセレレータの記号 '%c' があります"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
 msgstr "ヘッダ情報 `%s' がヘッダの中にありません\n"
 
@@ -2504,9 +2502,9 @@ msgid "some header fields still have the initial default value\n"
 msgstr "いくつかのヘッダ情報が初期標準値のままです\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr "いくつかのヘッダ情報が初期標準値のままです\n"
+msgstr "ヘッダ情報 `%s' が初期標準値のままです\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -3095,17 +3093,17 @@ msgstr "標準出力に書き込み中にエラーが発生しました"
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "%s を検索中..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " タイムアウト.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " 失敗.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3319,11 +3317,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 警告: 文字列に終端がありません"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"%s%s に非 ASCII 文字列.\n"
-"--from-code で入力エンコーディングを指定してください.\n"
+msgstr "--from-code で入力エンコーディングを指定してください."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3450,12 +3445,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: 不正な補間 (\"\\U\") 8bit 文字 \"%c\""
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"%s%s に非 ASCII 文字列.\n"
 "--from-code または http://www.python.org/peps/pep-0263.html にあるコメント"
 "を\n"
 "使って入力エンコーディングを指定してください.\n"
@@ -3649,7 +3642,7 @@ msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr "  -x, --exclude-file=FILE.po  FILE.po からの項目は抽出されない\n"
 
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3657,8 +3650,10 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-comments[=TAG]     TAG (またはキーワード行) を付けて\n"
-"                               コメント部分を出力ファイルに入れる\n"
+"  -cTAG, --add-comments=TAG   TAG からキーワード行までのコメント部分を\n"
+"                                出力ファイルに入れる\n"
+"  -c, --add-comments[=TAG]    キーワード行までの全てのコメント部分を\n"
+"                                出力ファイルに入れる\n"
 
 #: src/xgettext.c:885
 #, c-format
@@ -3685,13 +3680,13 @@ msgstr ""
 "語のみ)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=WORD]         求めるキーワードの指定 (WORD が指定され\n"
-"                               ない場合は標準のキーワードは使われない)\n"
+"  -kWORD, --keyword=WORD      追加キーワードとして WORD を検索\n"
+"  -k, --keyword               標準のキーワードは使わない\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3789,22 +3784,26 @@ msgstr ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  msgid のバグ報告用アドレスを設定\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=STRING]  msgstr 項目の接頭辞に STRING か \"\" を使用\n"
+"  -m[STRING], --msgstr-prefix[=STRING]  msgstr 項目の接頭辞に STRING か "
+"\"\"\n"
+"                                を使用\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=STRING]  msgstr 項目の接尾辞に STRING か \"\" を使用\n"
+"  -M[STRING], --msgstr-suffix[=STRING]  msgstr 項目の接尾辞に STRING か "
+"\"\"\n"
+"                                を使用\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3821,17 +3820,17 @@ msgstr "標準入力"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "%s%s に非ASCII文字."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "%s%s またはその前に非ASCIIコメント."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "%s%s に非ASCII文字列."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format

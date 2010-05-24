@@ -1,16 +1,16 @@
 # gettext-tools
-# Copyright (C) 1996, 1997, 2001, 2002, 2003, 2004, 2005, 2007, 2009 Free Software Foundation, Inc.
+# Copyright (C) 1996, 1997, 2001, 2002, 2003, 2004, 2005, 2007, 2009, 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
 # Bang Jun-Young <bangjy@geocities.com>, 1995-1997.
-# Changwoo Ryu <cwryu@debian.org>, 2001-2005, 2007, 2009.
+# Changwoo Ryu <cwryu@debian.org>, 2001-2005, 2007, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.17\n"
+"Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2009-03-21 11:35+0900\n"
+"PO-Revision-Date: 2010-05-15 23:48+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "Language: ko\n"
@@ -114,63 +114,63 @@ msgstr "알 수 없는 시스템 오류"
 #: gnulib-lib/wait-process.c:356
 #, c-format
 msgid "%s subprocess failed"
-msgstr "%s 서브프로세스가 실패했습니다"
+msgstr "%s 하위 프로세스가 실패했습니다"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: `%s'은(는) 모호한 옵션입니다\n"
+msgstr "%s: '%s' 옵션은 모호한 옵션입니다\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: `--%s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '--%s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: `%c%s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '%c%s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: `%s' 옵션은 인수가 필요합니다\n"
+msgstr "%s: '--%s' 옵션은 인수가 필요합니다\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: 인식할 수 없는 옵션 `--%s'\n"
+msgstr "%s: 인식할 수 없는 옵션 '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: 인식할 수 없는 옵션 `%c%s'\n"
+msgstr "%s: 인식할 수 없는 옵션 '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: 부적절한 옵션 -- %c\n"
+msgstr "%s: 부적절한 옵션 -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: 이 옵션은 인수가 필요합니다 -- %c\n"
+msgstr "%s: 이 옵션은 인수가 필요합니다 -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: `-W %s'은(는) 모호한 옵션입니다\n"
+msgstr "%s: '-W %s' 옵션은 모호한 옵션입니다\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '-W %s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: `%s' 옵션은 인수가 필요합니다\n"
+msgstr "%s: '-W %s' 옵션은 인수가 필요합니다\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -212,7 +212,7 @@ msgstr ""
 #: src/msginit.c:1140
 #, c-format
 msgid "%s subprocess I/O error"
-msgstr "%s 서브프로세스 입출력 오류"
+msgstr "%s 하위 프로세스 입출력 오류"
 
 #: gnulib-lib/obstack.c:423 gnulib-lib/obstack.c:425 gnulib-lib/xmalloc.c:37
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:550 src/po-lex.c:83
@@ -260,36 +260,36 @@ msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle 실패"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "출력 파일 \"%s\"을(를) 만들 수 없습니다"
+msgstr "파일 디스크립터 %d번을 복구할 수 없습니다: dup2 실패"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
 #, c-format
 msgid "%s subprocess"
-msgstr "%s 서브프로세스"
+msgstr "%s 하위 프로세스"
 
 # fatal signal 번역 개선
 #: gnulib-lib/wait-process.c:274 gnulib-lib/wait-process.c:346
 #, c-format
 msgid "%s subprocess got fatal signal %d"
-msgstr "%s 서브프로세스가 치명적인 시그널 %d을(를) 받았습니다"
+msgstr "%s 하위 프로세스가 치명적인 시그널 %d번을 받았습니다"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
-"'msgid'와는 달리, '%s'은(는) 올바른 %s 형식 문자열이 아닙니다. 이유: %s"
+"'%3$s'와는 달리, '%1$s'은(는) 올바른 %2$s 형식 문자열이 아닙니다. 이유: %4$s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
-msgstr "'%2$s' 안에 있는, 인자 %1$u에 대한 서식 지정이 'msgid'에 없습니다"
+msgstr "'%2$s' 안에 있는, 인자 %1$u에 대한 서식 지정이 '%3$s'에 없습니다"
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -303,9 +303,9 @@ msgstr "인자 %u에 대한 서식 지정이 '%s'에 없습니다"
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
-msgstr "'msgid'와 '%s'에 쓰인 인자 %u에 대한 서식 지정이 같지 않습니다"
+msgstr "'%s'와 '%s'에 쓰인 인자 %u에 대한 서식 지정이 같지 않습니다"
 
 #: src/format-boost.c:449
 #, c-format
@@ -332,9 +332,9 @@ msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "문자열이 인자 번호  %u을(를) 참조하지만 인자 번호 %u을(를) 무시합니다."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "'msgid'와 '%s'에 쓰인 서식 지정자의 개수가 일치하지 않습니다"
+msgstr "'%s'와 '%s'에 쓰인 서식 지정자의 개수가 일치하지 않습니다"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -410,14 +410,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "지시자 %u번에서, '%c' 앞에는 플래그를 쓸 수 없습니다."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "'msgid'가 %%m 포맷을 사용하지만 '%s'은(는) 사용하지 않습니다"
+msgstr "'%s'이(가) %%m 포맷을 사용하지만 '%s'은(는) 사용하지 않습니다"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "'msgid'가 %%m 포맷을 사용하지 않지만 '%s'은(는) %%m 포맷을 사용합니다"
+msgstr "'%s'이(가) %%m 포맷을 사용하지 않지만 '%s'은(는) %%m 포맷을 사용합니다"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -514,10 +514,10 @@ msgstr ""
 "니다."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
-msgstr "'%2$s' 안에 있는, 인자 {%1$u}에 대한 서식 지정이 'msgid'에 없습니다"
+msgstr "'%2$s' 안에 있는, 인자 {%1$u}에 대한 서식 지정이 '%3$s'에 없습니다"
 
 #: src/format-java.c:756
 #, c-format
@@ -525,10 +525,10 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "인자 {%u}에 대한 서식 지정이 '%s'에 없습니다"
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
-msgstr "인자 {%2$u}에 대한 'msgid'와 '%1$s'의 서식 지정이 같지 않습니다"
+msgstr "인자 {%3$u}에 대한 '%1$s'와 '%2$s'의 서식 지정이 같지 않습니다"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -597,14 +597,14 @@ msgstr "문자열이 호환되지 않는 방법으로 인자를 참조합니다.
 
 # 여기서 equivalent에 대한 해석은?
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "'msgid'와 '%s'의 서식 지정이 동등하지 않습니다"
+msgstr "'%s'와 '%s'의 서식 지정이 동등하지 않습니다"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr "'%s' 안에 있는 서식 지정이 'msgid'에 없습니다"
+msgstr "'%s' 안에 있는 서식 지정이 '%s'에 없습니다"
 
 #: src/format-perl.c:433
 #, c-format
@@ -633,37 +633,37 @@ msgstr "문자열이 호환되지 않는 방법으로 '%s'(이)라는 이름의 
 
 # mapping과 tuple: python 데이타 구조
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
-msgstr "'msgid'의 서식 지정자는 매핑이 필요한데, '%s'에는 터플이 필요합니다"
+msgstr "'%s'의 서식 지정자는 매핑이 필요한데, '%s'에는 터플이 필요합니다"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
-msgstr "'msgid'의 서식 지정자는 터플이 필요한데, '%s'에는 매핑이 필요합니다"
+msgstr "'%s'의 서식 지정자는 터플이 필요한데, '%s'에는 매핑이 필요합니다"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
-msgstr "'%2$s' 안에 있는, 인자 '%1$s'에 대한 서식 지정이 'msgid'에 없습니다"
+msgstr "'%2$s' 안에 있는, 인자 '%1$s'에 대한 서식 지정이 '%3$s'에 없습니다"
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
-msgstr "인자 '%s'에 대한 'msgid'와 '%s'의 서식 지정이 같지 않습니다"
+msgstr "인자 '%s'에 대한 '%s'와 '%s'의 서식 지정이 같지 않습니다"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"'msgid'는 간단한 형식 문자열이지만 '%s' 문자열은 아닙니다: 'L' 플래그가 들어 "
-"있거나 인자 번호가 두 자리로 들어 있습니다."
+"'%s'은(는) 간단한 형식 문자열이지만 '%s' 문자열은 아닙니다: 'L' 플래그가 들"
+"어 있거나 인자 번호가 두 자리로 들어 있습니다."
 
 #: src/format-sh.c:79
 msgid "The string refers to a shell variable with a non-ASCII name."
@@ -1301,7 +1301,7 @@ msgstr ""
 #, c-format
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
-msgstr ""
+msgstr "      --lang=<목록이름>       헤더에 'Language' 항목을 설정합니다\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1578,7 +1578,7 @@ msgstr "표준 출력에 쓰기가 실패했습니다"
 #: src/msgexec.c:389
 #, c-format
 msgid "write to %s subprocess failed"
-msgstr "%s 서브프로세스에 쓰기가 실패했습니다"
+msgstr "%s 하위 프로세스에 쓰기가 실패했습니다"
 
 #: src/msgfilter.c:289
 #, c-format
@@ -1699,7 +1699,7 @@ msgstr "%s은(는) %s, %s 혹은 %s과(와) 함께 써야만 효과가 있습니
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -2235,7 +2235,7 @@ msgstr ""
 #: src/read-tcl.c:127 src/write-resources.c:104
 #, c-format
 msgid "%s subprocess failed with exit code %d"
-msgstr "%s 서브프로세스가 종료코드 %d(으)로 실패했습니다"
+msgstr "%s 하위 프로세스가 종료 코드 %d 번으로 실패했습니다"
 
 #: src/msginit.c:1118
 msgid ""
@@ -2497,7 +2497,7 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr에 키보드 단축키 '%c' 표시가 너무 많습니다"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
 msgstr "헤더에 헤더 필드 `%s'이(가) 빠졌음\n"
 
@@ -2508,12 +2508,12 @@ msgstr "헤더 필드 `%s'은(는) 행의 처음부터 시작해야 합니다\n"
 
 #: src/msgl-check.c:809
 msgid "some header fields still have the initial default value\n"
-msgstr "몇몇 헤더 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
+msgstr "몇몇 헤더 필드가 아직도 초기의 기본값을 가지고 있습니다\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr "몇몇 헤더 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
+msgstr "'%s' 헤더 필드가 아직도 초기의 기본값을 가지고 있습니다\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -3098,17 +3098,17 @@ msgstr "표준 출력에 쓰는 동안 오류 발생"
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "%s 항목을 가져오는 중..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " 제한 시간 초과.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " 실패.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3319,11 +3319,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"%s%s에 ASCII가 아닌 문자열이 있습니다.\n"
-"소스 인코딩을 --from-code 옵션으로 지정하십시오.\n"
+msgstr "소스 인코딩을 --from-code 옵션으로 지정하십시오."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3451,12 +3448,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: 8비트 문자 \"%c\"의 인터폴레이션(\"\\U\")이 잘못되었습니다"
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"%s%s에 ASCII가 아닌 문자열이 있습니다.\n"
 "소스 인코딩을 --from-code 옵션으로 지정하거나 http://www.python.org/peps/"
 "pep-0263.html 페이지에 있는 것처럼 주석으로 지정하십시오.\n"
 
@@ -3650,7 +3645,7 @@ msgstr ""
 
 # TAG가 정확이 뭐지?
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3658,8 +3653,10 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-comments[=<태그>]    주석 부분을 <태크>로 (혹은 키워드 줄 앞에\n"
-"                                 있는 것으로) 출력 파일에 씁니다\n"
+"  -c<태그>, --add-comments[=<태그>]  키워드 줄 앞에 <태그>로 시작하는 주석\n"
+"                                     부분을 출력 파일에 씁니다\n"
+"  -c, --add-comments                 키워드 줄 앞에 모든 주석 부분을 출력\n"
+"                                     파일에 씁니다\n"
 
 #: src/xgettext.c:885
 #, c-format
@@ -3686,13 +3683,13 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=<단어>]         추가로 찾을 키워드 (<단어>가 없으면 기본\n"
-"                                 키워드를 사용하지 않겠다는 의미입니다)\n"
+"  -k<단어>, --keyword=<단어>     <단어>를 추가 키워드로 찾습니다\n"
+"  -k, --keyword                  기본 키워드를 사용하지 않습니다\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3794,24 +3791,26 @@ msgstr ""
 "니다\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=<문자열>] msgstr 항목에 <문자열> 혹은 \"\"을 접두어"
-"로\n"
+"  -m[<문자열>], --msgstr-prefix[=<문자열>]  msgstr 항목에 <문자열> 혹은 "
+"\"\"을 \n"
+"                                            접두어로 사용합니다\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=<문자열>] msgstr 항목에 <문자열> 혹은 \"\"을 접미어"
-"로\n"
+"  -M[<문자열>], --msgstr-suffix[=<문자열>]  msgstr 항목에 <문자열> 혹은 "
+"\"\"을 \n"
+"                                            접미어로 사용합니다\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3827,17 +3826,17 @@ msgstr "표준 입력"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "%s%s에 ASCII가 아닌 문자열이 있습니다."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "%s%s에 또는 그 앞에 ASCII가 아닌 문자열이 있습니다."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "%s%s에 시작하는 ASCII가 아닌 문자열이 있습니다."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format
@@ -3924,101 +3923,3 @@ msgstr "\"%s\" 파일에 NUL로 끝나지 않는 sysdep 세그먼트가 있습�
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<이름없음>"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: 잘못된 옵션 -- %c\n"
-
-#~ msgid "DuplicateHandle failed with error code 0x%08x"
-#~ msgstr "DuplicateHandle이 오류 코드 0x%08x번으로 실패했습니다"
-
-#~ msgid "Not yet implemented."
-#~ msgstr "아직 구현되지 않았습니다."
-
-#~ msgid "cannot set up nonblocking I/O to %s subprocess"
-#~ msgstr "%s 서브프로세스에 비차단 입출력을 설정할 수 없습니다"
-
-#~ msgid "communication with %s subprocess failed"
-#~ msgstr "%s 서브프로세스와의 통신에 실패했습니다"
-
-#~ msgid "read from %s subprocess failed"
-#~ msgstr "%s 서브프로세스에서 읽기가 실패했습니다"
-
-#~ msgid "%s subprocess terminated with exit code %d"
-#~ msgstr "%s 서브프로세스가 종료코드 %d(으)로 끝났습니다"
-
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "`%s' 필드가 아직도 초기의 내정값을 가지고 있습니다\n"
-
-#~ msgid "Multiple references to %%%c."
-#~ msgstr "%%%c을(를) 여러 번 참조했습니다."
-
-#~ msgid ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
-#~ msgstr ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "이 프로그램은 자유 소프트웨어입니다. 복사 조건은 소스를 참조하십시오. 상품"
-#~ "성\n"
-#~ "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"
-
-#~ msgid ""
-#~ "message catalog has context dependent translations\n"
-#~ "but the C# .dll format doesn't support contexts\n"
-#~ msgstr ""
-#~ "메시지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
-#~ "C# .dll 형식은 컨텍스트를 지원하지 않습니다\n"
-
-#~ msgid ""
-#~ "message catalog has context dependent translations\n"
-#~ "but the Java ResourceBundle format doesn't support contexts\n"
-#~ msgstr ""
-#~ "메시지 목록에 컨텍스트 의존 번역이 들어 있지만,\n"
-#~ "Java ResourceBundle 형식은 컨텍스트를 지원하지 않습니다\n"
-
-#~ msgid "conversion failure"
-#~ msgstr "변환 실패"
-
-#~ msgid "%s: warning: "
-#~ msgstr "%s: 경고: "
-
-#~ msgid "%s\n"
-#~ msgstr "%s\n"
-
-#~ msgid "%s:%lu: warning: unterminated string"
-#~ msgstr "%s:%lu: 경고: 문자열이 완결되지 않았습니다"
-
-#~ msgid "%s:%d: fatal: plural message seen before singular message\n"
-#~ msgstr "%s:%d: 치명적 오류: 복수형 메시지가 단수형 메시지 앞에 나왔습니다\n"
-
-#~ msgid "Which is your email address?"
-#~ msgstr "전자메일 주소가 무엇입니까?"
-
-#~ msgid "Please choose the number, or enter your email address."
-#~ msgstr "다음 중 하나를 선택하시거나, 전자메일 주소를 입력하십시오."
-
-#~ msgid "Invalid email address: invalid character."
-#~ msgstr "잘못된 전자메일 주소: 쓸 수 없는 문자가 있습니다."
-
-#~ msgid ""
-#~ "Invalid email address: need a fully qualified host name or domain name."
-#~ msgstr ""
-#~ "잘못된 전자메일 주소: 완전한 (fully qualified) 호스트 이름 혹은 도메인 이"
-#~ "름이 필요합니다."
-
-#~ msgid "Invalid email address: missing @"
-#~ msgstr "잘못된 전자메일 주소: @가 빠졌습니다"
-
-#~ msgid "Is the following your email address?"
-#~ msgstr "전자메일 주소가 다음과 같습니까?"
-
-#~ msgid "Please confirm by pressing Return, or enter your email address."
-#~ msgstr "리턴을 눌러 확인하거나, 전자메일 주소를 입력하십시오."
-
-#~ msgid "Couldn't find out about your email address."
-#~ msgstr "전자메일 주소를 알아낼 수 없습니다."
-
-#~ msgid "Please enter your email address."
-#~ msgstr "전자메일 주소를 입력하십시오."

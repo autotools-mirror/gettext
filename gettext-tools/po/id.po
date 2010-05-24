@@ -2,14 +2,14 @@
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Tedi Heriyanto <tedi-h@usa.net>, 1999.
-# Arif E. Nugroho <arif_endro@yahoo.com>, 2008, 2009.
+# Arif E. Nugroho <arif_endro@yahoo.com>, 2008, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.17\n"
+"Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2009-03-11 11:30+0700\n"
+"PO-Revision-Date: 2010-05-24 13:30+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
@@ -118,60 +118,60 @@ msgid "%s subprocess failed"
 msgstr "%s subproses gagal"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: opsi `%s' rancu\n"
+msgstr "%s: pilihan '%s' rancu\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: opsi `--%s' tidak membolehkan argumen\n"
+msgstr "%s: pilihan '--%s' tidak membolehkan argumen\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: opsi `%c%s' tidak membolehkan argumen\n"
+msgstr "%s: pilihan '%c%s' tidak membolehkan argumen\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: opsi `%s' membutuhkan sebuah argumen\n"
+msgstr "%s: pilihan '--%s' membutuhkan sebuah argumen\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: opsi tidak diketahui `--%s'\n"
+msgstr "%s: pilihan tidak diketahui '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: opsi tidak diketahui `%c%s'\n"
+msgstr "%s: pilihan tidak diketahui '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: opsi tidak valid -- %c\n"
+msgstr "%s: pilihan tidak valid -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: opsi membutuhkan sebuah argumen -- %c\n"
+msgstr "%s: pilihan membutuhkan sebuah argumen -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: opsi `-W %s' rancu\n"
+msgstr "%s: pilihan '-W %s' rancu\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: opsi `-W %s' tidak membolehkan sebuah argumen\n"
+msgstr "%s: pilihan '-W %s' tidak membolehkan sebuah argumen\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: opsi `%s' membutuhkan sebuah argumen\n"
+msgstr "%s: pilihan '-W %s' membutuhkan sebuah argumen\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -259,9 +259,9 @@ msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle gagal"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "tidak dapat membuat berkas output \"%s\""
+msgstr "tidak dapat mengembalikan deskripsi berkas %d: dup2 gagal"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
@@ -275,21 +275,21 @@ msgid "%s subprocess got fatal signal %d"
 msgstr "%s subproses mendapatkan sinyal fatal %d"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
-"'%s' bukan sebuah valid %s format string, tidak seperti 'msgid'. Alasan: %s"
+"'%s' bukan sebuah format string %s yang sah, tidak seperti '%s'. Karena: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
 msgstr ""
 "sebuah spesifikasi format untuk argumen %u, seperti dalam '%s', tidak ada "
-"dalam 'msgid'"
+"dalam '%s'"
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -303,9 +303,9 @@ msgstr "sebuah spesifikasi format untuk argumen %u tidak ada dalam '%s'"
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
-msgstr "spesifikasi format dalam 'msgid' dan '%s' untuk argumen %u tidak sama"
+msgstr "spesifikasi format dalam '%s' dan '%s' untuk argumen %u tidak sama"
 
 #: src/format-boost.c:449
 #, c-format
@@ -335,9 +335,9 @@ msgstr ""
 "%u."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "jumlah spesifikasi format dalam 'msgid' dan '%s' tidak cocok"
+msgstr "jumlah spesifikasi format dalam '%s' dan '%s' tidak cocok"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -422,14 +422,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "Dalam direktif nomor %u, simbol tidak diijinkan sebelum '%c'."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "'msgid'menggunakan %%m tetapi '%s' tidak"
+msgstr "'%s' menggunakan %%m tetapi '%s' tidak"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "'msgid'tidak digunakan %%m tetapi '%s' menggunakan %%m"
+msgstr "'%s' tidak digunakan %%m tetapi '%s' menggunakan %%m"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -535,12 +535,12 @@ msgstr ""
 "diikuti dengan '<', '#' atau '%s'."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
 msgstr ""
 "sebuah spesifikasi format untuk argumen {%u}, seperti dalam '%s', tidak ada "
-"dalam 'msgid'"
+"dalam '%s'"
 
 #: src/format-java.c:756
 #, c-format
@@ -548,11 +548,10 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "sebuah spesifikasi format untuk argumen {%u} tidak ada dalam '%s'"
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
-msgstr ""
-"spesifikasi format dalam 'msgid' dan '%s' untuk argumen {%u} tidak sama"
+msgstr "spesifikasi format dalam '%s' dan '%s' untuk argumen {%u} tidak sama"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -626,15 +625,14 @@ msgstr ""
 "String mereferensikan ke beberapa argumen dalam cara yang tidak komptibel."
 
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "spesifikasi format dalam `msgid' dan `%s' tidak sesuai"
+msgstr "spesifikasi format dalam '%s' dan `%s' tidak sesuai"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr ""
-"spesifikasi format dalam '%s' bukan sebuah subset dari itu dalam 'msgid'"
+msgstr "spesifikasi format dalam '%s' bukan sebuah subset dari '%s'"
 
 #: src/format-perl.c:433
 #, c-format
@@ -666,43 +664,42 @@ msgstr ""
 "kompatibel."
 
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr ""
-"spesifikasi format dalam 'msgid' diduga sebuah pemetaan, baik dalam '%s' "
-"diduga sebuah tuple"
+"spesifikasi format dalam '%s' diduga sebuah pemetaan, baik dalam '%s' diduga "
+"sebuah tuple"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr ""
-"spesifikasi format dalam 'msgid' diduga sebuah tuple, baik dalam '%s' diduga "
+"spesifikasi format dalam '%s' diduga sebuah tuple, baik dalam '%s' diduga "
 "sebuah pemetaan"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
 msgstr ""
 "spesifikasi format untuk argumen '%s', seperti dalam '%s', tidak ada dalam "
-"'msgid'"
+"'%s'"
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
-msgstr ""
-"spesifikasi format dalam 'msgid' dan '%s' untuk argumen '%s' tidak sama"
+msgstr "spesifikasi format dalam '%s' dan '%s' untuk argumen '%s' tidak sama"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"'msgid' sebuah format string sederhana, tetapi '%s' bukan: ini berisi sebuah "
+"'%s' sebuah format string sederhana, tetapi '%s' bukan: ini berisi sebuah "
 "tanda 'L' atau sebuah nomor argumen double-digit"
 
 #: src/format-sh.c:79
@@ -915,7 +912,8 @@ msgstr ""
 #, c-format
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
-msgstr "Argumen wajib untuk opsi panjang juga wajib untuk opsi pendek juga.\n"
+msgstr ""
+"Argumen wajib untuk pilihan panjang juga wajib untuk pilihan pendek juga.\n"
 
 #: src/msgattrib.c:419 src/msgcat.c:386 src/msgcmp.c:230 src/msgcomm.c:377
 #: src/msgconv.c:313 src/msgen.c:313 src/msgexec.c:279 src/msgfilter.c:399
@@ -1367,6 +1365,7 @@ msgstr ""
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr ""
+"      --lang=NAMAKATALOG      isi baris 'Language' dalam masukan header\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1770,7 +1769,7 @@ msgstr "%s hanya valid dengan %s, %s atau %s"
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -1809,7 +1808,7 @@ msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 "Similarly for optional arguments.\n"
 msgstr ""
-"Argumen wajib ke opsi panjang juga wajib untuk opsi pendek juga.\n"
+"Argumen wajib ke pilihan panjang juga wajib untuk pilihan pendek juga.\n"
 "Sama untuk opsional argumen.\n"
 
 #: src/msgfmt.c:666
@@ -1911,7 +1910,8 @@ msgid ""
 "written under the specified directory.\n"
 msgstr ""
 "Nama kelas ditentukan dengan cara menambahkan nama lokal ke nama resource,\n"
-"dipisahkan dengan sebuah garis bawah. Opsi -d wajib. Kelas ditulis dibawah\n"
+"dipisahkan dengan sebuah garis bawah. Pilihan -d wajib. Kelas ditulis "
+"dibawah\n"
 "direktoris yang dispesifikasikan.\n"
 
 #: src/msgfmt.c:711
@@ -1934,7 +1934,7 @@ msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Opsi -l dan -d wajib. Berkas .dll ditulis dalam sebuah subdirektori\n"
+"Pilihan -l dan -d wajib. Berkas .dll ditulis dalam sebuah subdirektori\n"
 "dari direktori yang dispesifikasikan yang namanya tergantung dari lokal.\n"
 
 #: src/msgfmt.c:723
@@ -1954,7 +1954,7 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
-"Opsi -l dan -d wajib. Berkas .msg ditulis dalam direktori yang "
+"Pilihan -l dan -d wajib. Berkas .msg ditulis dalam direktori yang "
 "dispesifikasikan.\n"
 
 #: src/msgfmt.c:741 src/xgettext.c:865
@@ -1997,7 +1997,7 @@ msgid ""
 msgstr ""
 "      --check-domain          periksa untuk konflik diantara direktif "
 "domain\n"
-"                               dan opsi --output-file\n"
+"                               dan pilihan --output-file\n"
 
 #: src/msgfmt.c:753
 #, c-format
@@ -2119,8 +2119,8 @@ msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
 msgstr ""
-"opsi '%c' tidak dapat digunakan sebelum 'J' atau 'K' atau 'T' atau 'C' atau "
-"'X' telah dispesifikasikan"
+"pilihan '%c' tidak dapat digunakan sebelum 'J' atau 'K' atau 'T' atau 'C' "
+"atau 'X' telah dispesifikasikan"
 
 #: src/msggrep.c:516
 #, c-format, no-wrap
@@ -2243,8 +2243,8 @@ msgid ""
 "the output .po file through the --output-file option.\n"
 msgstr ""
 "Berkas keluaran %s telah ada.\n"
-"Mohon spesifikasikan lokal melalui opsi --locale atau\n"
-"berkas keluaran .po melalui opsi --output-file.\n"
+"Mohon spesifikasikan lokal melalui pilihan --locale atau\n"
+"berkas keluaran .po melalui pilihan --output-file.\n"
 
 #: src/msginit.c:347
 #, c-format
@@ -2289,7 +2289,7 @@ msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
-"Jika tidak ada berkas keluaran yang diberikan, ini tergantung dari opsi\n"
+"Jika tidak ada berkas keluaran yang diberikan, ini tergantung dari pilihan\n"
 "--locale atau konfigurasi lokal pengguna. Jika ini adalah -, hasil akan\n"
 "ditulis ke standar keluaran.\n"
 
@@ -2312,7 +2312,7 @@ msgid ""
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 "Ditemukan lebih dari satu berkas .pot.\n"
-"Mohon spesifikasikan berkas masukan .pot melalui opsi --input.\n"
+"Mohon spesifikasikan berkas masukan .pot melalui pilihan --input.\n"
 
 #: src/msginit.c:476 src/msginit.c:481
 #, c-format
@@ -2325,7 +2325,7 @@ msgid ""
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 "Tidak ditemukan berkas .pot dalam direktori ini.\n"
-"Mohon spesifikasikan berkas masukan .pot melalui opsi --input.\n"
+"Mohon spesifikasikan berkas masukan .pot melalui pilihan --input.\n"
 
 #: src/msginit.c:918 src/msginit.c:993 src/msginit.c:1153 src/msginit.c:1248
 #: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
@@ -2416,7 +2416,7 @@ msgstr ""
 "Berkas masukan berisi pesan dalam pengkodean berbeda, %s dan %s diantara "
 "yang lain.\n"
 "Mengubah keluaran ke UTF-8.\n"
-"Pilih sebuah keluaran pengkodean berbeda, gunakan opsi --to-code.\n"
+"Pilih sebuah keluaran pengkodean berbeda, gunakan pilihan --to-code.\n"
 
 #: src/msgl-cat.c:488
 #, c-format
@@ -2607,9 +2607,9 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr memiliki terlalu banyak tanda akselerasi keyboard '%c'"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
-msgstr "headerfield `%s' hilang dalam header\n"
+msgstr "header field `%s' hilang dalam header\n"
 
 #: src/msgl-check.c:784
 #, c-format
@@ -2621,9 +2621,9 @@ msgid "some header fields still have the initial default value\n"
 msgstr "beberapa field header masih memiliki nilai baku awal\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr "beberapa field header masih memiliki nilai baku awal\n"
+msgstr "beberapa field header `%s' masih memiliki nilai baku awal\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -2761,7 +2761,7 @@ msgid ""
 "  existing, nil   numbered if numbered backups exist, simple otherwise\n"
 "  simple, never   always make simple backups\n"
 msgstr ""
-"Metode kontrol versi dapat dipilih melalui opsi --backup atau melalui\n"
+"Metode kontrol versi dapat dipilih melalui pilihan --backup atau melalui\n"
 "variabel lingkungan VERSION_CONTROL. Disini adalah nilai nilainya:\n"
 "  none,off        tidak pernah membuah backup (bahkan jika --backup "
 "diberikan)\n"
@@ -2898,7 +2898,8 @@ msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
-"Opsi -l dan -d adalah wajib. Berkas .dll berada dalam sebuah subdirektori\n"
+"Pilihan -l dan -d adalah wajib. Berkas .dll berada dalam sebuah "
+"subdirektori\n"
 "dari direktori yang dispesifikasikan yang namanya tergantung dari lokal.\n"
 
 #: src/msgunfmt.c:479
@@ -2912,7 +2913,7 @@ msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
-"Opsi -l dan -d adalah wajib. Berkas .msg berada dalam direktori yang\n"
+"Pilihan -l dan -d adalah wajib. Berkas .msg berada dalam direktori yang\n"
 "dispesifikasikan.\n"
 
 #: src/msgunfmt.c:511
@@ -2940,11 +2941,11 @@ msgstr ""
 "Gabungkan duplikasi terjemahan dalam sebuah katalog terjemahan.\n"
 "Temukan duplikasi terjemahan dari ID pesan yang sama. Duplikasi seperti itu\n"
 "bukan masukan valid untuk aplikasi lain seperti msgfmt, msgmerge, atau msgcat.\n"
-"Secara baku, duplikasi digabungkan bersama. Ketika menggunakan opsi --repeated,\n"
+"Secara baku, duplikasi digabungkan bersama. Ketika menggunakan pilihan --repeated,\n"
 "hanya keluaran duplikasi, dan semua pesan lain diabaikan. Komentar dan komentar\n"
 "yang terekstrak akan diakumulasikan, kecuali jika --use-first dispesifikasikan\n"
 ", mereka akan diambil dari terjemahan pertama. Posisi berkas akan dijaga.\n"
-"Ketika menggunakan opsi --unique, duplikasi diabaikan.\n"
+"Ketika menggunakan pilihan --unique, duplikasi diabaikan.\n"
 
 #: src/msguniq.c:363
 #, c-format
@@ -3215,17 +3216,17 @@ msgstr "error menulis stdout"
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "Mengambil %s..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " waktu habis.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " gagal.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3435,11 +3436,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: peringatan: string literal yang unterminated"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"String bukan-ASCII di %s%s.\n"
-"Mohon spesifikasikan sumber pengkodean melalui --from-code.\n"
+msgstr "Mohon spesifikasikan sumber pengkodean melalui --from-code."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3567,12 +3565,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolasi tidak valid (\"\\U\") dari karakter 8bit \"%c\""
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"String bukan-ASCII di %s%s.\n"
 "Mohon spesifikasikan sumber pengkodean melalui --from-code atau melalui "
 "sebuah komentar\n"
 "seperti dispesifikasikan dalam http://www.python.org/peps/pep-0263.html.\n"
@@ -3779,7 +3775,7 @@ msgstr ""
 "  -x, --exclude-file=BERKAS.po masukan dari BERKAS.po tidak diekstraksi\n"
 
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3787,14 +3783,18 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-cooments[=TAG]    tempatkan blok komentar dengan TAG (atau\n"
-"                               baris kata kunci yang mengawalinya) dalam "
+"  -cTAG, --add-cooments=TAG   tempatkan blok komentar diawali dengan TAG "
+"dan\n"
+"                              baris kata kunci yang mengawalinya dalam "
 "berkas keluaran\n"
+"  -c, --add-cooments          tempatkan semua blok komentar sebelum baris "
+"kata kunci\n"
+"                              dalam berkas keluaran\n"
 
 #: src/xgettext.c:885
 #, c-format
 msgid "Language specific options:\n"
-msgstr "Opsi spesifik untuk bahasa:\n"
+msgstr "Pilihan spesifik untuk bahasa:\n"
 
 #: src/xgettext.c:887
 #, c-format
@@ -3815,14 +3815,13 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=KATA]        tambahan kata kunci untuk dicari untuk (tanpa\n"
-"                              KATA berarti tidak menggunakan kata kunci "
-"baku)\n"
+"  -kKATA, --keyword=KATA      cari untuk KATA sebagai kata kunci tambahan\n"
+"  -k, --keyword               jangan gunakan untuk kata kunci baku\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3923,24 +3922,26 @@ msgstr ""
 "bugs\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=STRING]  gunakan STRING atau \"\" sebagai awalan "
-"untuk masukan msgstr\n"
+"  -m[STRING], --msgstr-prefix[=STRING]  gunakan STRING atau \"\" sebagai "
+"awalan\n"
+"                                untuk nilai msgstr\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=STRING]  gunakan STRING atau \"\" sebagai akhiran "
-"untuk masukan msgstr\n"
+"  -M[STRING], --msgstr-suffix[=STRING]  gunakan STRING atau \"\" sebagai "
+"akhiran\n"
+"                                untuk nilai msgstr\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3958,17 +3959,17 @@ msgstr "standard input"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "Karakter bukan-ASCII di %s%s."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "Komentar bukan-ASCII di atau sebelum %s%s."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "String bukan-ASCII di %s%s."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format
@@ -4045,10 +4046,10 @@ msgid ""
 "the MSGID_BUGS_ADDRESS variable there; otherwise please\n"
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
-"Opsi --msgid-bugs-address tidak dispesifikasikan.\n"
+"Pilihan --msgid-bugs-address tidak dispesifikasikan.\n"
 "Jika anda menggunakan sebuah berkas `Makevars', mohon spesifikasikan\n"
 "variabel MSGID_BUGS_ADDRESS disana; jika tidak mohon spesifikasikan\n"
-"sebuah opsi baris perintah --msgid-bugs-address.\n"
+"sebuah pilihan baris perintah --msgid-bugs-address.\n"
 
 #: src/xgettext.c:3226
 #, c-format
@@ -4060,7 +4061,7 @@ msgid "<unnamed>"
 msgstr "<tidak bernama>"
 
 #~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: opsi tidak legal -- %c\n"
+#~ msgstr "%s: pilihan tidak legal -- %c\n"
 
 #~ msgid "DuplicateHandle failed with error code 0x%08x"
 #~ msgstr "DuplicateHandle gagal dengan kode error 0x%08x"

@@ -1,16 +1,16 @@
 # GNU gettext-runtime의 한국어 메시지
-# Copyright (C) 1996, 1997, 2001, 2002, 2003, 2006, 2009 Free Software Foundation, Inc.
+# Copyright (C) 1996, 1997, 2001, 2002, 2003, 2006, 2009, 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
 # Bang Jun-Young <bangjy@geocities.com>, 1995-1997.
-# Changwoo Ryu <cwryu@debian.org>, 2001-2006, 2009.
+# Changwoo Ryu <cwryu@debian.org>, 2001-2006, 2009, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.17\n"
+"Project-Id-Version: GNU gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2009-03-10 21:59+0900\n"
+"PO-Revision-Date: 2010-05-15 23:27+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
 "Language: ko\n"
@@ -28,60 +28,60 @@ msgid "Unknown system error"
 msgstr "알 수 없는 시스템 오류"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: `%s'은(는) 모호한 옵션입니다\n"
+msgstr "%s: '%s' 옵션은 모호한 옵션입니다\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: `--%s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '--%s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: `%c%s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '%c%s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: `%s' 옵션은 인수가 필요합니다\n"
+msgstr "%s: '--%s' 옵션은 인수가 필요합니다\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: 인식할 수 없는 옵션 `--%s'\n"
+msgstr "%s: 인식할 수 없는 옵션 '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: 인식할 수 없는 옵션 `%c%s'\n"
+msgstr "%s: 인식할 수 없는 옵션 '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: 부적절한 옵션 -- %c\n"
+msgstr "%s: 잘못된 옵션 -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: 이 옵션은 인수가 필요합니다 -- %c\n"
+msgstr "%s: 이 옵션은 인수가 필요합니다 -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: `-W %s'은(는) 모호한 옵션입니다\n"
+msgstr "%s: '-W %s' 옵션은 모호한 옵션입니다\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: `-W %s' 옵션은 인수를 허용하지 않습니다\n"
+msgstr "%s: '-W %s' 옵션은 인수를 허용하지 않습니다\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: `%s' 옵션은 인수가 필요합니다\n"
+msgstr "%s: '-W %s' 옵션은 인수가 필요합니다\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
@@ -89,7 +89,7 @@ msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
 
 #: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
@@ -312,18 +312,3 @@ msgstr ""
 "TEXTDOMAINDIR로 다른 위치를 지정할 수 있습니다.\n"
 "\n"
 "표준 탐색 디렉터리: %s\n"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: 잘못된 옵션 -- %c\n"
-
-#~ msgid ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
-#~ msgstr ""
-#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "이 프로그램은 자유 소프트웨어입니다.  복사 조건은 소스를 참조하십시오. 상"
-#~ "품성\n"
-#~ "이나 특정 목적에 대한 적합성을 비롯하여, 어떠한 보증도 하지 않습니다.\n"

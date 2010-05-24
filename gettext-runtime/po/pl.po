@@ -1,89 +1,91 @@
 # Polish translations for the GNU gettext messages, gettext-runtime domain
-# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2006 Free Software Foundation, Inc.
-# Rafa≥ Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003, 2006
+# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2006, 2007, 2010 Free Software Foundation, Inc.
+# This file is distributed under the same license as the gettext package.
+# Rafa≈Ç Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003, 2006, 2007, 2010	‚Äû‚Äù
 # Piotr Pogorzelski <ppogorze@ippt.gov.pl>, 1995
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.16.2-pre5\n"
+"Project-Id-Version: GNU gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2007-10-16 16:00+0200\n"
-"Last-Translator: Rafa≥ Maszkowski <rzm@icm.edu.pl>\n"
+"PO-Revision-Date: 2010-05-13 22:00+0200\n"
+"Last-Translator: Rafa≈Ç Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
-msgstr "b≥±d zapisu"
+msgstr "b≈ÇƒÖd zapisu"
 
 #: gnulib-lib/error.c:181
 msgid "Unknown system error"
-msgstr "Nieznany b≥±d systemu"
+msgstr "Nieznany b≈ÇƒÖd systemu"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: opcja: `%s' jest niejednoznaczna\n"
+msgstr "%s: opcja '%s' jest niejednoznaczna\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: opcja `--%s' nie moøe mieÊ argumentu\n"
+msgstr "%s: opcja '--%s' nie mo≈ºe mieƒá argumentu\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: opcja `%c%s' nie moøe mieÊ argumentu\n"
+msgstr "%s: opcja '%c%s' nie mo≈ºe mieƒá argumentu\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: opcja `%s' wymaga argumentu\n"
+msgstr "%s: opcja '--%s' wymaga argumentu\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: nierozpoznana opcja `--%s'\n"
+msgstr "%s: nierozpoznana opcja '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: nierozpoznana opcja `%c%s'\n"
+msgstr "%s: nierozpoznana opcja '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: b≥Ídna opcja -- %c\n"
+msgstr "%s: b≈Çƒôdna opcja -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: opcja wymaga argumentu -- %c\n"
+msgstr "%s: opcja wymaga argumentu -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: opcja `-W %s' jest niejednoznaczna\n"
+msgstr "%s: opcja '-W %s' jest niejednoznaczna\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: opcja `-W %s' nie moøe mieÊ argumentu\n"
+msgstr "%s: opcja '-W %s' nie mo≈ºe mieƒá argumentu\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: opcja `%s' wymaga argumentu\n"
+msgstr "%s: opcja '-W %s' wymaga argumentu\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
-msgstr "pamiÍÊ wyczerpana"
+msgstr "pamiƒôƒá wyczerpana"
 
 #: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
@@ -95,8 +97,8 @@ msgid ""
 msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "Licencja GPLv3+: GNU GPL, wersja 3 lub nowsza <http://gnu.org/licenses/gpl.html>\n"
-"To jest wolne oprogramowanie: moøesz je modyfikowaÊ i rozpowszechniaÊ.\n"
-"Autorzy NIE DAJ° GWARANCJI, na ile pozwala na to prawo.\n"
+"To jest wolne oprogramowanie: mo≈ºesz je modyfikowaƒá i rozpowszechniaƒá.\n"
+"Autorzy NIE DAJƒÑ GWARANCJI, na ile pozwala na to prawo.\n"
 
 #: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
@@ -111,37 +113,37 @@ msgstr "Bruno Haible"
 #: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
-msgstr "za duøo argumentÛw"
+msgstr "za du≈ºo argument√≥w"
 
 #: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
-msgstr "brakuj±ce argumenty"
+msgstr "brakujƒÖce argumenty"
 
 #: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
 msgid "Try `%s --help' for more information.\n"
-msgstr "SprÛbuj `%s --help' øeby otrzymaÊ wiÍcej informacji.\n"
+msgstr "Spr√≥buj `%s --help' ≈ºeby otrzymaƒá wiƒôcej informacji.\n"
 
 #: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Sk≥adnia: %s [OPCJA] [FORMAT-POW£OKI]\n"
+msgstr "Sk≈Çadnia: %s [OPCJA] [FORMAT-POW≈ÅOKI]\n"
 
 #: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
-msgstr "Podstawia warto∂ci zmiennych pow≥oki.\n"
+msgstr "Podstawia warto≈õci zmiennych pow≈Çoki.\n"
 
 #: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
-msgstr "Tryb dzia≥ania:\n"
+msgstr "Tryb dzia≈Çania:\n"
 
 #: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr "  -v, --variables             wypisanie zmiennich z FORMATU-POW£OKI\n"
+msgstr "  -v, --variables             wypisanie zmiennich z FORMATU-POW≈ÅOKI\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
@@ -151,12 +153,12 @@ msgstr "Informacje:\n"
 #: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr "  -h, --help                  wy∂wietlenie tego opisu i zakoÒczenie\n"
+msgstr "  -h, --help                  wy≈õwietlenie tego opisu i zako≈Ñczenie\n"
 
 #: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr "  -V, --version               wy∂wietlenie informacji o wersji i zakoÒczenie\n"
+msgstr "  -V, --version               wy≈õwietlenie informacji o wersji i zako≈Ñczenie\n"
 
 #: src/envsubst.c:202
 #, c-format, no-wrap
@@ -168,11 +170,11 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
-"W zwyk≥ym trybie dzia≥ania standardowe wej∂cie jest kopiowane do standardowego\n"
-"wyj∂cia. Odniesienia do zmiennych ∂rodowiska w rodzaju $ZMIENNA i ${ZMIENNA}\n"
-"s± zastÍpowane warto∂ciami zmiennych. Jeøeli jest podany FORMAT-POW£OKI,\n"
-"zastepowane s± tylko zmienne tam wymienione. W przeciwnym wypadku podstawiane\n"
-"s± warto∂ci wszystkich zmiennych ∂rodowiska podanych na standardowym wej∂ciu.\n"
+"W zwyk≈Çym trybie dzia≈Çania standardowe wej≈õcie jest kopiowane do standardowego\n"
+"wyj≈õcia. Odniesienia do zmiennych ≈õrodowiska w rodzaju $ZMIENNA i ${ZMIENNA}\n"
+"sƒÖ zastƒôpowane warto≈õciami zmiennych. Je≈ºeli jest podany FORMAT-POW≈ÅOKI,\n"
+"zastepowane sƒÖ tylko zmienne tam wymienione. W przeciwnym wypadku podstawiane\n"
+"sƒÖ warto≈õci wszystkich zmiennych ≈õrodowiska podanych na standardowym wej≈õciu.\n"
 
 #: src/envsubst.c:211
 #, c-format, no-wrap
@@ -180,8 +182,8 @@ msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
-"Kiedy podana jest opcja --variables, standardowe wej∂cie jest ignorowane, a\n"
-"wynik sk≥ada siÍ ze zmiennych ∂rodowiska podanych w FORMACIE-POW£OKI, kaøda w\n"
+"Kiedy podana jest opcja --variables, standardowe wej≈õcie jest ignorowane, a\n"
+"wynik sk≈Çada siƒô ze zmiennych ≈õrodowiska podanych w FORMACIE-POW≈ÅOKI, ka≈ºda w\n"
 "osobnej linii.\n"
 
 #. TRANSLATORS: The placeholder indicates the bug-reporting address
@@ -190,16 +192,16 @@ msgstr ""
 #. bugs (typically your translation team's web or email address).
 #: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Raporty o b≥Ídach wysy≥aj do bug-gnu-gettext@gnu.org\n"
+msgstr "Raporty o b≈Çƒôdach wysy≈Çaj do bug-gnu-gettext@gnu.org\n"
 
 #: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
-msgstr "b≥±d podczas czytania \"%s\""
+msgstr "b≈ÇƒÖd podczas czytania \"%s\""
 
 #: src/envsubst.c:443
 msgid "standard input"
-msgstr "standardowe wej∂cie"
+msgstr "standardowe wej≈õcie"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/gettext.c:139 src/ngettext.c:129
@@ -212,13 +214,13 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Sk≥adnia: %s [OPCJA] [[DOMENA] MSGID]\n"
+"Sk≈Çadnia: %s [OPCJA] [[DOMENA] MSGID]\n"
 "    albo: %s [OPCJA] -s [MSGID]...\n"
 
 #: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "Wy∂wietla t≥umaczenie komunikatu.\n"
+msgstr "Wy≈õwietla t≈Çumaczenie komunikatu.\n"
 
 #: src/gettext.c:253
 #, c-format, no-wrap
@@ -232,14 +234,14 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=DOMENA       wydobycie przet≥umaczonych komunikatÛw z DOMENY\n"
-"  -e                        rozwijanie niektÛrych sekwencji escape\n"
-"  -E                        (ignorowane, dla kompatybilno∂ci)\n"
-"  -h, --help                wy∂wietlenie tego opisu i zakoÒczenie\n"
-"  -n                        wy≥±czenie koÒcowego znaku nowej linii\n"
-"  -V, --version             wy∂wietlenie informacji o wersji i zakoÒczenie\n"
-"  [DOMENA] MSGID            wydobycie z DOMENY przet≥umaczonego komunikatu\n"
-"                            odpowiadaj±cego MSGID\n"
+"  -d, --domain=DOMENA       wydobycie przet≈Çumaczonych komunikat√≥w z DOMENY\n"
+"  -e                        rozwijanie niekt√≥rych sekwencji escape\n"
+"  -E                        (ignorowane, dla kompatybilno≈õci)\n"
+"  -h, --help                wy≈õwietlenie tego opisu i zako≈Ñczenie\n"
+"  -n                        wy≈ÇƒÖczenie ko≈Ñcowego znaku nowej linii\n"
+"  -V, --version             wy≈õwietlenie informacji o wersji i zako≈Ñczenie\n"
+"  [DOMENA] MSGID            wydobycie z DOMENY przet≈Çumaczonego komunikatu\n"
+"                            odpowiadajƒÖcego MSGID\n"
 
 #: src/gettext.c:264
 #, c-format, no-wrap
@@ -253,26 +255,26 @@ msgid ""
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Jeøeli parametr DOMENA nie jest podany, domena (nazwa pakietu) jest wyznaczana\n"
-"ze zmiennej ∂rodowiskowej TEXTDOMAIN. Jeøeli katalog komunikatÛw nie zostanie\n"
-"znaleziony w domy∂lnym katalogu, inna lokalizacja moøe byÊ podana przez\n"
-"zmienn± ∂rodowiskow± TEXTDOMAINDIR.\n"
-"Jeøeli uøyty z opcj± -s, program zachowuje siÍ jak komenda `echo', ale zamiast\n"
-"kopiowaÊ argumenty na standardowe wyj∂cie t≥umaczy komunikaty znalezione w\n"
+"Je≈ºeli parametr DOMENA nie jest podany, domena (nazwa pakietu) jest wyznaczana\n"
+"ze zmiennej ≈õrodowiskowej TEXTDOMAIN. Je≈ºeli katalog komunikat√≥w nie zostanie\n"
+"znaleziony w domy≈õlnym katalogu, inna lokalizacja mo≈ºe byƒá podana przez\n"
+"zmiennƒÖ ≈õrodowiskowƒÖ TEXTDOMAINDIR.\n"
+"Je≈ºeli u≈ºyty z opcjƒÖ -s, program zachowuje siƒô jak komenda `echo', ale zamiast\n"
+"kopiowaƒá argumenty na standardowe wyj≈õcie t≈Çumaczy komunikaty znalezione w\n"
 "wybranym katalogu.\n"
-"Domy∂lnie przeszukiwany katalog: %s\n"
+"Domy≈õlnie przeszukiwany katalog: %s\n"
 
 #: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "Sk≥adnia: %s [OPCJA] [DOMENA] MSGID MSGID-MNOGA ILO¶∆\n"
+msgstr "Sk≈Çadnia: %s [OPCJA] [DOMENA] MSGID MSGID-MNOGA ILO≈öƒÜ\n"
 
 #: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
-msgstr "Wy∂wietlenie t≥umaczenia komunikatu, ktÛrego forma gramatyczna zaleøy od liczby\n"
+msgstr "Wy≈õwietlenie t≈Çumaczenia komunikatu, kt√≥rego forma gramatyczna zale≈ºy od liczby\n"
 
 #: src/ngettext.c:222
 #, c-format, no-wrap
@@ -286,15 +288,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=DOMENA       wydobycie przet≥umaczonych komunikatÛw z DOMENY\n"
-"  -e                        w≥±czenie rozwijania niektÛrych sekwencji escape\n"
-"  -E                        (ignorowane, dla kompatybilno∂ci)\n"
-"  -h, --help                wy∂wietlenie tego opisu i zakoÒczenie\n"
-"  -n                        wy≥±czenie koÒcowego znaku nowej linii\n"
-"  -V, --version             wy∂wietlenie informacji o wersji i zakoÒczenie\n"
-"  [DOMENA]                  wydobycie z DOMENA przet≥umaczonego komunikatu\n"
-"  MSGID MSGID-MNOGA         przet≥umaczenie MSGID (pojed.) / MSGID-MNOGA (mn.)\n"
-"  LICZBA                    wybranie formy pojed./mn. w oparciu o LICZB \n"
+"  -d, --domain=DOMENA       wydobycie przet≈Çumaczonych komunikat√≥w z DOMENY\n"
+"  -e                        w≈ÇƒÖczenie rozwijania niekt√≥rych sekwencji escape\n"
+"  -E                        (ignorowane, dla kompatybilno≈õci)\n"
+"  -h, --help                wy≈õwietlenie tego opisu i zako≈Ñczenie\n"
+"  -n                        wy≈ÇƒÖczenie ko≈Ñcowego znaku nowej linii\n"
+"  -V, --version             wy≈õwietlenie informacji o wersji i zako≈Ñczenie\n"
+"  [DOMENA]                  wydobycie z DOMENA przet≈Çumaczonego komunikatu\n"
+"  MSGID MSGID-MNOGA         przet≈Çumaczenie MSGID (pojed.) / MSGID-MNOGA (mn.)\n"
+"  LICZBA                    wybranie formy pojed./mn. w oparciu o LICZBƒò\n"
 
 #: src/ngettext.c:233
 #, c-format, no-wrap
@@ -305,11 +307,8 @@ msgid ""
 "variable TEXTDOMAINDIR.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"Jeøeli parametr DOMENA nie jest podany, domena (nazwa pakietu) jest wyznaczana\n"
-"ze zmiennej ∂rodowiskowej TEXTDOMAIN. Jeøeli katalog komunikatÛw nie zostanie\n"
-"znaleziony w domy∂lnym katalogu, inna lokalizacja moøe byÊ podana przez\n"
-"zmienn± ∂rodowiskow± TEXTDOMAINDIR.\n"
-"Domy∂lnie przeszukiwany katalog: %s\n"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: niedozwolona opcja -- %c\n"
+"Je≈ºeli parametr DOMENA nie jest podany, domena (nazwa pakietu) jest wyznaczana\n"
+"ze zmiennej ≈õrodowiskowej TEXTDOMAIN. Je≈ºeli katalog komunikat√≥w nie zostanie\n"
+"znaleziony w domy≈õlnym katalogu, inna lokalizacja mo≈ºe byƒá podana przez\n"
+"zmiennƒÖ ≈õrodowiskowƒÖ TEXTDOMAINDIR.\n"
+"Domy≈õlnie przeszukiwany katalog: %s\n"

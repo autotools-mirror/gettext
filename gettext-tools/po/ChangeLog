@@ -1,3 +1,14 @@
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
+	* bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
+	* id.po: Update from Arif E. Nugroho <arif_endro@yahoo.com>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* vi.po: Update from Clytie Siddall <clytie@riverland.net.au>.
+
 2010-05-09  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18 released.

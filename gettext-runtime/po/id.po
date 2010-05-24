@@ -5,13 +5,13 @@
 # This file is distributed under the same license as the gettext package.
 # Tedi Heriyanto <tedi_h@gmx.net>, 1999, 2003, 2004.
 # Tedi Heriyanto <tedi_heriyanto@yahoo.com>, 2006.
-# Arif E. Nugroho <arif_endro@yahoo.com>, 2008.
+# Arif E. Nugroho <arif_endro@yahoo.com>, 2008, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.16.2-pre5\n"
+"Project-Id-Version: gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2008-12-31 07:30+0700\n"
+"PO-Revision-Date: 2010-05-24 13:00+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
 "Language: id\n"
@@ -28,65 +28,65 @@ msgid "Unknown system error"
 msgstr "Kesalahan sistem tak dikenal"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: pilihan `%s' rancu\n"
+msgstr "%s: pilihan '%s' rancu\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: pilihan `--%s' tidak membolehkan argumen\n"
+msgstr "%s: pilihan '--%s' tidak membolehkan argumen\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: pilihan `%c%s' tidak membolehkan argumen\n"
+msgstr "%s: pilihan '%c%s' tidak membolehkan argumen\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "pilihan %s: `%s' memerlukan sebuah argumen\n"
+msgstr "%s: pilihan '--%s' memerlukan sebuah argumen\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: pilihan tak dikenal `--%s'\n"
+msgstr "%s: pilihan tak dikenal '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: pilihan tak dikenal `%c%s'\n"
+msgstr "%s: pilihan tak dikenal '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: pilihan tidak valid -- %c\n"
+msgstr "%s: pilihan tidak valid -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: pilihan membutuhkan sebuah argumen -- %c\n"
+msgstr "%s: pilihan membutuhkan sebuah argumen -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: pilihan `-W %s' rancu\n"
+msgstr "%s: pilihan '-W %s' rancu\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: pilihan `-W %s' tidak membolehkan sebuah argumen\n"
+msgstr "%s: pilihan '-W %s' tidak membolehkan sebuah argumen\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "pilihan %s: `%s' memerlukan sebuah argumen\n"
+msgstr "%s: pilihan '-W %s' memerlukan sebuah argumen\n"
 
 #: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
-msgstr "Memori habis"
+msgstr "kehabisan memori"
 
 #: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
@@ -129,7 +129,7 @@ msgstr "Coba `%s --help' untuk informasi lebih jauh.\n"
 #: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Penggunaan: %s [OPTION] [SHELL-FORMAT]\n"
+msgstr "Penggunaan: %s [PILIHAN] [SHELL-FORMAT]\n"
 
 #: src/envsubst.c:181
 #, c-format, no-wrap
@@ -216,8 +216,8 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Pemakaian: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
-"atau:    %s [OPTION] -s [MSGID]...\n"
+"Pemakaian: %s [PILIHAN] [[TEXTDOMAIN] ID-PESAN]\n"
+"atau:    %s [PILIHAN] -s [ID-PESAN]...\n"
 
 #: src/gettext.c:249
 #, c-format, no-wrap
@@ -242,8 +242,8 @@ msgstr ""
 "  -h, --help                tampilkan bantuan ini dan keluar\n"
 "  -n                        hilangkan newline yang mengekor\n"
 "  -V, --version             tampilkan informasi versi dan keluar\n"
-"  [TEXTDOMAIN] MSGID        mengambil pesan terjemahan yang sesuai\n"
-"                            untuk MSGID dari TEXTDOMAIN\n"
+"  [TEXTDOMAIN] ID-PESAN     mengambil pesan terjemahan yang sesuai\n"
+"                            untuk ID-PESAN dari TEXTDOMAIN\n"
 
 #: src/gettext.c:264
 #, c-format, no-wrap
@@ -269,7 +269,7 @@ msgstr ""
 #: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgstr "Pemakaian: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+msgstr "Pemakaian: %s [PILIHAN] [TEXTDOMAIN] ID-PESAN ID-PESAN-PLURAL JUMLAH\n"
 
 #: src/ngettext.c:217
 #, c-format, no-wrap
@@ -298,9 +298,9 @@ msgstr ""
 "  -h, --help                tampilkan bantuan ini dan keluar\n"
 "  -n                        hilangkan newline yang mengekor\n"
 "  -V, --version             tampilkan informasi versi dan keluar\n"
-"  [TEXTDOMAIN]        mengambil pesan terjemahan dari TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL       terjemahkan MSGID (tunggal) / MSGID-PLURAL (plural)\n"
-"  COUNT                    pilih bentuk tunggal/plural berdasarkan nilai ini\n"
+"  [TEXTDOMAIN]              mengambil pesan terjemahan dari TEXTDOMAIN\n"
+"  ID-PESAN ID-PESAN-PLURAL  terjemahkan ID-PESAN (tunggal) / ID-PESAN-PLURAL (plural)\n"
+"  JUMLAH                    pilih bentuk tunggal/plural berdasarkan nilai ini\n"
 
 #: src/ngettext.c:233
 #, c-format, no-wrap

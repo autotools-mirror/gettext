@@ -1,20 +1,22 @@
 # Polish translations for the GNU gettext messages, gettext-examples domain
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright (C) 2010 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Rafa≥ Maszkowski <rzm@icm.edu.pl>, 2003
-#
+# This file is distributed under the same license as the gettext package.
+# Rafa≈Ç Maszkowski <rzm@icm.edu.pl>, 2003, 2010	‚Äû‚Äù
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.13.1\n"
+"Project-Id-Version: gettext-examples-0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2009-08-16 12:22+0200\n"
-"PO-Revision-Date: 2003-12-18 12:00+0100\n"
-"Last-Translator: Rafa≥ Maszkowski <rzm@icm.edu.pl>\n"
+"PO-Revision-Date: 2010-05-10 13:30+0200\n"
+"Last-Translator: Rafa≈Ç Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: hello-c/hello.c:30 hello-c-gnome/hello.c:46 hello-c++/hello.cc:39
 #: hello-c++-qt/hello.cc:45 hello-c++-kde/hellowindow.cc:42
@@ -32,7 +34,7 @@ msgstr ""
 #: hello-perl/hello-1.pl.in:17 hello-perl/hello-2.pl.in:12
 #: hello-php/hello.php:12
 msgid "Hello, world!"
-msgstr "Witaj ∂wiecie!"
+msgstr "Witaj ≈õwiecie!"
 
 #: hello-c/hello.c:31 hello-c-gnome/hello.c:51 hello-c++/hello.cc:40
 #: hello-c++-gnome/hello.cc:55 hello-c++-wxwidgets/hello.cc:71
@@ -43,45 +45,45 @@ msgstr "Witaj ∂wiecie!"
 #: hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
-msgstr "Ten program dzia≥a jako proces o numerze %d."
+msgstr "Ten program dzia≈Ça jako proces o numerze %d."
 
 #: hello-c++-qt/hello.cc:52 hello-c++-kde/hellowindow.cc:49
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
 #, ycp-format
 msgid "This program is running as process number %1."
-msgstr "Ten program dzia≥a jako proces o numerze %1."
+msgstr "Ten program dzia≈Ça jako proces o numerze %1."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
-msgstr "Przyk≥adowy program witaj±cy"
+msgstr "Przyk≈Çadowy program witajƒÖcy"
 
 #: hello-c++-kde/hello.cc:48
 msgid "Hello world example"
-msgstr "Przyk≥adowy program witaj±cy ∂wiat"
+msgstr "Przyk≈Çadowy program witajƒÖcy ≈õwiat"
 
 #: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
-msgstr "Ten program dzia≥a jako proces o numerze $pid."
+msgstr "Ten program dzia≈Ça jako proces o numerze $pid."
 
 #: hello-python/hello.py.in:13
 #, python-format
 msgid "This program is running as process number %(pid)d."
-msgstr "Ten program dzia≥a jako proces o numerze %(pid)d."
+msgstr "Ten program dzia≈Ça jako proces o numerze %(pid)d."
 
 #: hello-clisp/hello.lisp.in:13 hello-guile/hello.scm:17
 #, scheme-format
 msgid "This program is running as process number ~D."
-msgstr "Ten program dzia≥a jako proces o numerze ~D."
+msgstr "Ten program dzia≈Ça jako proces o numerze ~D."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
 #: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
 #: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Ten program dzia≥a jako proces o numerze {0}."
+msgstr "Ten program dzia≈Ça jako proces o numerze {0}."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Ten program dzia≥a jako proces o numerze {pid}."
+msgstr "Ten program dzia≈Ça jako proces o numerze {pid}."

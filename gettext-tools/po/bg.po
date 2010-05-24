@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.17\n"
+"Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2010-05-09 13:18+0200\n"
-"PO-Revision-Date: 2010-01-28 23:49+0200\n"
-"Last-Translator:  Roumen Petrov <transl@roumenpetrov.info>\n"
+"PO-Revision-Date: 2010-05-11 11:46+0300\n"
+"Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -116,60 +116,60 @@ msgid "%s subprocess failed"
 msgstr "пропадна подпроцес %s"
 
 #: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: опцията '%s' е двусмислена\n"
+msgstr "%s: двусмислена опция '%s'\n"
 
 #: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: опцията '--%s' е без аргумент\n"
+msgstr "%s: опцията '--%s' е без аргументи\n"
 
 #: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: опцията '%c%s' е без аргумент\n"
+msgstr "%s: опцията '%c%s' е без аргументи\n"
 
 #: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: опцията '%s' изисква аргумент\n"
+msgstr "%s: опцията '--%s' изисква аргумент\n"
 
 #: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: неразпозната опция `--%s'\n"
+msgstr "%s: неразпозната опция '--%s'\n"
 
 #: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
-#, fuzzy, c-format
+#, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: неразпозната опция '%c%s'\n"
 
 #: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
-#, fuzzy, c-format
+#, c-format
 msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: неправилна опция -- %c\n"
+msgstr "%s: неправилна опция -- '%c'\n"
 
 #: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
 #: gnulib-lib/getopt.c:1053
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: опцията изисква аргумент -- %c\n"
+msgstr "%s: опцията изисква аргумент -- '%c'\n"
 
 #: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: опцията `-W %s' е двусмислена\n"
+msgstr "%s: двусмислена опция '-W %s'\n"
 
 #: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: опцията `-W %s' е без аргумент\n"
+msgstr "%s: опцията '-W %s' е без аргументи\n"
 
 #: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: опцията '%s' изисква аргумент\n"
+msgstr "%s: опцията '-W %s' изисква аргумент\n"
 
 #: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
 #: gnulib-lib/javacomp.c:156
@@ -261,9 +261,9 @@ msgid "_open_osfhandle failed"
 msgstr "_open_osfhandle не успя"
 
 #: gnulib-lib/w32spawn.h:81
-#, fuzzy, c-format
+#, c-format
 msgid "cannot restore fd %d: dup2 failed"
-msgstr "не можа да се създаде изходящия файл \"%s\""
+msgstr "не можа да се възстанови описание на файл %d, dup2 не успя"
 
 #: gnulib-lib/wait-process.c:223 gnulib-lib/wait-process.c:255
 #: gnulib-lib/wait-process.c:317
@@ -277,20 +277,18 @@ msgid "%s subprocess got fatal signal %d"
 msgstr "подпроцес %s получи смъртоносен сигнал %d"
 
 #: src/format.c:148
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
-msgstr ""
-"'%s' е неправилен %s форматиращ низ, за разлика от 'msgid'. Причина: %s"
+msgstr "'%s' е неправилен %s форматиращ низ, за разлика от '%s'. Причина: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
 #: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
 #: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
-msgstr ""
-"указания формат за аргумент %u, както е в '%s', не съществува за 'msgid'"
+msgstr "указания формат за аргумент %u, както е в '%s', не съществува за '%s'"
 
 #: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-librep.c:323
@@ -304,9 +302,9 @@ msgstr "указания формат за аргумент %u не същест
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-librep.c:343 src/format-pascal.c:428 src/format-perl.c:615
 #: src/format-php.c:381 src/format-python.c:527 src/format-tcl.c:421
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
-msgstr "указаните формати при 'msgid' и при '%s' за аргумент %u не са еднакви"
+msgstr "не са еднакви указаните формати при '%s' и при '%s' за аргумент %u"
 
 #: src/format-boost.c:449
 #, c-format
@@ -333,9 +331,9 @@ msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "Низа указва към аргумент номер %u, но пренебрегва аргумент номер  %u."
 
 #: src/format-c.c:901 src/format-csharp.c:206 src/format-python.c:515
-#, fuzzy, c-format
+#, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
-msgstr "не съвпада указания брой на формати при 'msgid' и при '%s'"
+msgstr "не съвпада указания брой на формати при '%s' и при '%s'"
 
 #: src/format-csharp.c:88 src/format-java.c:205
 #, c-format
@@ -411,14 +409,14 @@ msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "При директива номер %u, флаговете не за разрешени преди '%c'."
 
 #: src/format-gcc-internal.c:677
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
-msgstr "'msgid' използва %%m, а '%s' не"
+msgstr "'%s' използва %%m, а '%s' не"
 
 #: src/format-gcc-internal.c:680
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
-msgstr "'msgid' не използва %%m, а '%s' използва %%m"
+msgstr "'%s' не използва %%m, а '%s' използва %%m"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -518,11 +516,11 @@ msgstr ""
 "'#' или '%s'."
 
 #: src/format-java.c:745
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
 msgstr ""
-"указания формат за аргумент {%u}, както е при '%s', не съществува в 'msgid'"
+"указания формат за аргумент {%u}, както е при '%s', не съществува в '%s'"
 
 #: src/format-java.c:756
 #, c-format
@@ -530,11 +528,10 @@ msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "указания формат за аргумент {%u} не съществува в '%s'"
 
 #: src/format-java.c:776
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument {%u} are not the same"
-msgstr ""
-"указаните формати при 'msgid' и при '%s' за аргумент {%u} не са еднакви"
+msgstr "не са еднакви указаните формати при '%s' и при '%s' за аргумент {%u}"
 
 #: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
 #: src/format-scheme.c:2375
@@ -606,14 +603,14 @@ msgid "The string refers to some argument in incompatible ways."
 msgstr "Низа указва към някои аргументи по несъвместими начини."
 
 #: src/format-lisp.c:3474 src/format-scheme.c:3397
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "указаните формати при 'msgid' и при '%s' не са равностойни"
+msgstr "не са равностойни указаните формати при '%s' и при '%s'"
 
 #: src/format-lisp.c:3490 src/format-scheme.c:3413
-#, fuzzy, c-format
+#, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr "указаните формати при '%s' не са подмножество на тези при 'msgid'"
+msgstr "указаните формати при '%s' не са подмножество на тези при '%s'"
 
 #: src/format-perl.c:433
 #, c-format
@@ -639,41 +636,41 @@ msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "Низа указва към аргумент с име '%s' по несъвместими начини."
 
 #: src/format-python.c:430
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr ""
-"указаните формати при 'msgid' очакват изобразяване, а тази при '%s' очакват "
+"указаните формати при '%s' очакват изобразяване, а тази при '%s' очакват "
 "последователност"
 
 #: src/format-python.c:437
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr ""
-"указаните формати при 'msgid' очакват последователност, а тази при '%s' "
-"очакват изобразяване"
+"указаните формати при '%s' очакват последователност, а тази при '%s' очакват "
+"изобразяване"
 
 #: src/format-python.c:460 src/format-sh.c:297
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
 msgstr ""
-"указания формат за аргумент '%s', като при '%s', не съществува при 'msgid'"
+"указания формат за аргумент '%s', като при '%s', не съществува при '%s'"
 
 #: src/format-python.c:494
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
-msgstr "указаните формати при 'msgid' и при '%s' за аргумент %s не са еднакви"
+msgstr "не са еднакви указаните формати при '%s' и при '%s' за аргумент %s"
 
 #: src/format-qt.c:152
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
 "a double-digit argument number"
 msgstr ""
-"'msgid' е обикновен низ за формат, но '%s' не е: той съдържа 'L' флаг или "
+"'%s' е обикновен низ за формат, но '%s' не е: той съдържа 'L' флаг или "
 "аргумент за число с плаваща запетая с двойна точност"
 
 #: src/format-sh.c:79
@@ -1350,6 +1347,7 @@ msgstr ""
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr ""
+"      --lang=ИМЕКАТАЛОГ       задава поле 'Language' за заглавния блок\n"
 
 #. This is a proper name. See the gettext manual, section Names.
 #: src/msgcmp.c:178 src/msgcomm.c:286 src/msgmerge.c:350
@@ -1753,7 +1751,7 @@ msgstr "%s е правилен само с %s, %s или %s"
 #: src/msgfmt.c:616
 #, c-format
 msgid "%s: "
-msgstr ""
+msgstr "%s: "
 
 #: src/msgfmt.c:620
 #, c-format
@@ -2591,9 +2589,9 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr е отбелязан с твърде много ускорени клавишни комбинации '%c'"
 
 #: src/msgl-check.c:776
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' missing in header\n"
-msgstr "\"заглавно поле\" '%s' липсва в заглавния блок\n"
+msgstr "в заглавния блок липсва поле '%s'\n"
 
 #: src/msgl-check.c:784
 #, c-format
@@ -2606,10 +2604,9 @@ msgstr ""
 "все още някой заглавни полета са с началните стойност по подразбиране\n"
 
 #: src/msgl-check.c:826
-#, fuzzy, c-format
+#, c-format
 msgid "header field `%s' still has the initial default value\n"
-msgstr ""
-"все още някой заглавни полета са с началните стойност по подразбиране\n"
+msgstr "все още заглавното поле '%s' е с началната стойност по подразбиране\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -3202,17 +3199,17 @@ msgstr "грешка за записване на стандартния изх�
 #: src/urlget.c:264
 #, c-format
 msgid "Retrieving %s..."
-msgstr ""
+msgstr "Получава %s..."
 
 #: src/urlget.c:307
 #, c-format
 msgid " timed out.\n"
-msgstr ""
+msgstr " просрочка.\n"
 
 #: src/urlget.c:443
 #, c-format
 msgid " failed.\n"
-msgstr ""
+msgstr " не успя.\n"
 
 #: src/write-catalog.c:126
 msgid ""
@@ -3401,7 +3398,7 @@ msgid ""
 "but the Tcl message catalog format doesn't support plural handling\n"
 msgstr ""
 "каталога със съобщенията съдържа преводи в множествено число,\n"
-"но не се поддържат от Tcl каталог със съобщения\n"
+"но те не се поддържат от Tcl каталог със съобщения\n"
 
 #: src/x-awk.c:341 src/x-python.c:1074
 #, c-format
@@ -3409,9 +3406,9 @@ msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: предупреждение: незавършен низ"
 
 #: src/x-awk.c:592
-#, c-format
+#, fuzzy, c-format
 msgid "%s:%d: warning: unterminated regular expression"
-msgstr "%s:%d: предупреждение: незавършен регулярен израз"
+msgstr "%s:%d: предупреждение: незавършен регулярен израз\n"
 
 #: src/x-c.c:1223 src/x-csharp.c:1509 src/x-java.c:872
 #, c-format
@@ -3424,11 +3421,8 @@ msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: предупреждение: незавършен заместител на низ"
 
 #: src/x-csharp.c:224 src/xgettext.c:2020
-#, fuzzy
 msgid "Please specify the source encoding through --from-code."
-msgstr ""
-"Низ извън ASCII при %s%s.\n"
-"Да се зададе кодировка на източника чрез --from-code.\n"
+msgstr "Да се зададе кодировка на източника чрез --from-code."
 
 #: src/x-csharp.c:269
 #, c-format
@@ -3557,12 +3551,10 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: неправилно вмъкване (\"\\U\") на 8-битова буква \"%c\""
 
 #: src/x-python.c:236
-#, fuzzy
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
-"Низ извън ASCII при %s%s.\n"
 "Да се зададе кодиране на източника чрез --from-code или чрез\n"
 "коментар, като е указано в http://www.python.org/peps/pep-0263.html.\n"
 
@@ -3759,7 +3751,7 @@ msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr "  -x, --exclude-file=ФАЙЛ.po  да не се извличат записите от FILE.po\n"
 
 #: src/xgettext.c:879
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
 "                                preceding keyword lines in output file\n"
@@ -3767,9 +3759,10 @@ msgid ""
 "lines\n"
 "                                in output file\n"
 msgstr ""
-"  -c, --add-comments[=БЕЛЕГ]  поставя, в резултата, блок за коментар\n"
-"                              отбелязан с БЕЛЕГ (или редовете започващи\n"
-"                              с ключа)\n"
+"  -cБЕЛЕГ, --add-comments=БЕЛЕГ в резултата се поставя блок с коментар\n"
+"                                започващ с БЕЛЕГ и редовете преди ключа\n"
+"  -c, --add-comments            в резултата се поставят всички блокове с\n"
+"                                коментар от редовете преди ключа\n"
 
 #: src/xgettext.c:885
 #, c-format
@@ -3795,14 +3788,13 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"
 
 #: src/xgettext.c:893
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -k, --keyword[=ДУМА]        допълнителен ключ за търсене (без ДУМА "
-"означава\n"
-"                              да не се използва ключ по подразбиране )\n"
+"  -kДУМА, --keyword=ДУМА      търсене по ДУМА като допълнителен ключ\n"
+"  -k, --keyword               да не се използва ключ по подразбиране\n"
 
 #: src/xgettext.c:900
 #, c-format
@@ -3906,24 +3898,26 @@ msgstr ""
 "грешки при msgid\n"
 
 #: src/xgettext.c:973
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -m, --msgstr-prefix[=НИЗ]     използва НИЗ или \"\" като представка за "
-"msgstr записи\n"
+"  -m[НИЗ], --msgstr-prefix[=НИЗ]        използва НИЗ или \"\" като "
+"представка за\n"
+"                                стойностите на msgstr\n"
 
 #: src/xgettext.c:976
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
 "msgstr\n"
 "                                values\n"
 msgstr ""
-"  -M, --msgstr-suffix[=НИЗ]     използва НИЗ или \"\" като наставка за "
-"msgstr записи\n"
+"  -M[НИЗ], --msgstr-suffix[=НИЗ]        използва НИЗ или \"\" като наставка "
+"за\n"
+"                                стойности на msgstr\n"
 
 #: src/xgettext.c:1782
 #, c-format
@@ -3939,17 +3933,17 @@ msgstr "стандартен изход"
 #: src/xgettext.c:1985
 #, c-format
 msgid "Non-ASCII character at %s%s."
-msgstr ""
+msgstr "Знак извън ASCII кодиране при %s%s."
 
 #: src/xgettext.c:1989
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
-msgstr ""
+msgstr "Коментар, който е извън ASCII кодиране, при или преди %s%s."
 
 #: src/xgettext.c:1994
 #, c-format
 msgid "Non-ASCII string at %s%s."
-msgstr ""
+msgstr "Низ извън ASCII кодиране при %s%s."
 
 #: src/xgettext.c:2100 src/xgettext.c:2133 src/xgettext.c:2195
 #, c-format
@@ -4037,27 +4031,3 @@ msgstr "непознат език '%s'"
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<неназован>"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: незаконна опция -- %c\n"
-
-#~ msgid "DuplicateHandle failed with error code 0x%08x"
-#~ msgstr "DuplicateHandle не успя с код за грешка 0x%08x"
-
-#~ msgid "Not yet implemented."
-#~ msgstr "Не е реализиран."
-
-#~ msgid "cannot set up nonblocking I/O to %s subprocess"
-#~ msgstr "не можа да се установи неблокиращ В/И към подпроцес %s"
-
-#~ msgid "communication with %s subprocess failed"
-#~ msgstr "пропадна предаване с подпроцес %s"
-
-#~ msgid "read from %s subprocess failed"
-#~ msgstr "пропадна четенето от подпроцес %s"
-
-#~ msgid "%s subprocess terminated with exit code %d"
-#~ msgstr "подпроцес %s е прекратен е код за изход %d"
-
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "все още поле '%s' е с началната стойност по подразбиране\n"
