@@ -1,3 +1,11 @@
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
+	Use regex module without dependency on 'malloc'.
+	* lib/regex_internal.h.diff: New file.
+	* lib/regexec.c.diff: New file.
+	* modules/regex.diff: New file.
+	* Makefile.am (EXTRA_DIST): Add them.
+
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
 	Do regex matching purely with regex, not regex + dfa + kwset.

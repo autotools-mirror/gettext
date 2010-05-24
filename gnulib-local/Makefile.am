@@ -222,6 +222,8 @@ lib/obstack.h.diff \
 lib/ostream.oo.c \
 lib/ostream.oo.h \
 lib/progname.h.diff \
+lib/regexec.c.diff \
+lib/regex_internal.h.diff \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
@@ -282,6 +284,7 @@ modules/moo-tests \
 modules/ostream \
 modules/quotearg.diff \
 modules/quote.diff \
+modules/regex.diff \
 modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
