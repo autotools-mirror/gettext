@@ -1,5 +1,10 @@
 2010-05-24  Bruno Haible  <bruno@clisp.org>
 
+	Tiny optimization.
+	* m-fgrep.c (Fexecute): New local variable buflim.
+
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
 	* m-fgrep.c (Fcompile, Fexecute): Reduce scope of local variables.
 	* m-regex.c (compile, EGexecute): Likewise.
 	* kwset.c (kwsincr, treefails, kwsprep, bmexec, cwexec): Likewise.

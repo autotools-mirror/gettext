@@ -157,6 +157,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
 {
   struct compiled_kwset *ckwset = (struct compiled_kwset *) compiled_pattern;
   char eol = ckwset->eolbyte;
+  register const char *buflim = buf + buf_size;
   register const char *beg;
   register size_t len;
 #ifdef MBS_SUPPORT
@@ -165,11 +166,10 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
     mb_properties = check_multibyte_string (buf, buf_size);
 #endif /* MBS_SUPPORT */
 
-  for (beg = buf; beg <= buf + buf_size; ++beg)
+  for (beg = buf; beg <= buflim; ++beg)
     {
       struct kwsmatch kwsmatch;
-      size_t offset =
-        kwsexec (ckwset->kwset, beg, buf + buf_size - beg, &kwsmatch);
+      size_t offset = kwsexec (ckwset->kwset, beg, buflim - beg, &kwsmatch);
       if (offset == (size_t) -1)
         {
 #ifdef MBS_SUPPORT
@@ -197,7 +197,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
         {
           if (beg > buf && beg[-1] != eol)
             continue;
-          if (beg + len < buf + buf_size && beg[len] != eol)
+          if (beg + len < buflim && beg[len] != eol)
             continue;
           goto success;
         }
@@ -208,7 +208,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
             {
               if (curr > buf && IS_WORD_CONSTITUENT ((unsigned char) curr[-1]))
                 break;
-              if (curr + len < buf + buf_size
+              if (curr + len < buflim
                   && IS_WORD_CONSTITUENT ((unsigned char) curr[len]))
                 {
                   offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
@@ -241,11 +241,11 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
   {
     register const char *end;
 
-    end = (const char *) memchr (beg + len, eol, (buf + buf_size) - (beg + len));
+    end = (const char *) memchr (beg + len, eol, buflim - (beg + len));
     if (end != NULL)
       end++;
     else
-      end = buf + buf_size;
+      end = buflim;
     while (buf < beg && beg[-1] != eol)
       --beg;
     *match_size = end - beg;
