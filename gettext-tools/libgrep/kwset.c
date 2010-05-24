@@ -1,5 +1,5 @@
 /* kwset.c - search for any of a set of keywords.
-   Copyright 1989, 1998, 2000, 2005-2006 Free Software Foundation, Inc.
+   Copyright 1989, 1998, 2000, 2005-2006, 2010 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -92,18 +92,18 @@ kwsalloc (char const *trans)
 {
   struct kwset *kwset;
 
-  kwset = (struct kwset *) malloc(sizeof (struct kwset));
+  kwset = (struct kwset *) malloc (sizeof (struct kwset));
   if (!kwset)
-    return 0;
+    return NULL;
 
-  obstack_init(&kwset->obstack);
+  obstack_init (&kwset->obstack);
   kwset->words = 0;
   kwset->trie
-    = (struct trie *) obstack_alloc(&kwset->obstack, sizeof (struct trie));
+    = (struct trie *) obstack_alloc (&kwset->obstack, sizeof (struct trie));
   if (!kwset->trie)
     {
-      kwsfree((kwset_t) kwset);
-      return 0;
+      kwsfree (kwset);
+      return NULL;
     }
   kwset->trie->accepting = 0;
   kwset->trie->links = 0;
@@ -117,7 +117,7 @@ kwsalloc (char const *trans)
   kwset->target = 0;
   kwset->trans = trans;
 
-  return (kwset_t) kwset;
+  return kwset;
 }
 
 /* Add the given string to the contents of the keyword set.  Return NULL
@@ -166,14 +166,14 @@ kwsincr (kwset_t kws, char const *text, size_t len)
          a link in the current trie node's tree. */
       if (!link)
         {
-          link = (struct tree *) obstack_alloc(&kwset->obstack,
-                                               sizeof (struct tree));
+          link = (struct tree *) obstack_alloc (&kwset->obstack,
+                                                sizeof (struct tree));
           if (!link)
             return _("memory exhausted");
           link->llink = 0;
           link->rlink = 0;
-          link->trie = (struct trie *) obstack_alloc(&kwset->obstack,
-                                                     sizeof (struct trie));
+          link->trie = (struct trie *) obstack_alloc (&kwset->obstack,
+                                                      sizeof (struct trie));
           if (!link->trie)
             return _("memory exhausted");
           link->trie->accepting = 0;
@@ -284,8 +284,8 @@ enqueue (struct tree *tree, struct trie **last)
 {
   if (!tree)
     return;
-  enqueue(tree->llink, last);
-  enqueue(tree->rlink, last);
+  enqueue (tree->llink, last);
+  enqueue (tree->rlink, last);
   (*last) = (*last)->next = tree->trie;
 }
 
@@ -301,8 +301,8 @@ treefails (register struct tree const *tree, struct trie const *fail,
   if (!tree)
     return;
 
-  treefails(tree->llink, fail, recourse);
-  treefails(tree->rlink, fail, recourse);
+  treefails (tree->llink, fail, recourse);
+  treefails (tree->rlink, fail, recourse);
 
   /* Find, in the chain of fails going back to the root, the first
      node that has a descendent on the current label. */
@@ -334,8 +334,8 @@ treedelta (register struct tree const *tree,
 {
   if (!tree)
     return;
-  treedelta(tree->llink, depth, delta);
-  treedelta(tree->rlink, depth, delta);
+  treedelta (tree->llink, depth, delta);
+  treedelta (tree->rlink, depth, delta);
   if (depth < delta[tree->label])
     delta[tree->label] = depth;
 }
@@ -346,9 +346,9 @@ hasevery (register struct tree const *a, register struct tree const *b)
 {
   if (!b)
     return 1;
-  if (!hasevery(a, b->llink))
+  if (!hasevery (a, b->llink))
     return 0;
-  if (!hasevery(a, b->rlink))
+  if (!hasevery (a, b->rlink))
     return 0;
   while (a && b->label != a->label)
     if (b->label < a->label)
@@ -365,8 +365,8 @@ treenext (struct tree const *tree, struct trie *next[])
 {
   if (!tree)
     return;
-  treenext(tree->llink, next);
-  treenext(tree->rlink, next);
+  treenext (tree->llink, next);
+  treenext (tree->rlink, next);
   next[tree->label] = tree->trie;
 }
 
@@ -399,7 +399,7 @@ kwsprep (kwset_t kws)
   if (kwset->words == 1 && kwset->trans == 0)
     {
       /* Looking for just one string.  Extract it from the trie. */
-      kwset->target = (char *) obstack_alloc(&kwset->obstack, kwset->mind);
+      kwset->target = (char *) obstack_alloc (&kwset->obstack, kwset->mind);
       for (i = kwset->mind - 1, curr = kwset->trie; i >= 0; --i)
         {
           kwset->target[i] = curr->links->label;
@@ -422,16 +422,16 @@ kwsprep (kwset_t kws)
       for (curr = last = kwset->trie; curr; curr = curr->next)
         {
           /* Enqueue the immediate descendents in the level order queue. */
-          enqueue(curr->links, &last);
+          enqueue (curr->links, &last);
 
           curr->shift = kwset->mind;
           curr->maxshift = kwset->mind;
 
           /* Update the delta table for the descendents of this node. */
-          treedelta(curr->links, curr->depth, delta);
+          treedelta (curr->links, curr->depth, delta);
 
           /* Compute the failure function for the decendents of this node. */
-          treefails(curr->links, curr->fail, kwset->trie);
+          treefails (curr->links, curr->fail, kwset->trie);
 
           /* Update the shifts at each node in the current node's chain
              of fails back to the root. */
@@ -440,7 +440,7 @@ kwsprep (kwset_t kws)
               /* If the current node has some outgoing edge that the fail
                  doesn't, then the shift at the fail should be no larger
                  than the difference of their depths. */
-              if (!hasevery(fail->links, curr->links))
+              if (!hasevery (fail->links, curr->links))
                 if (curr->depth - fail->depth < fail->shift)
                   fail->shift = curr->depth - fail->depth;
 
@@ -466,7 +466,7 @@ kwsprep (kwset_t kws)
          from the root node. */
       for (i = 0; i < NCHAR; ++i)
         next[i] = 0;
-      treenext(kwset->trie->links, next);
+      treenext (kwset->trie->links, next);
 
       if ((trans = kwset->trans) != 0)
         for (i = 0; i < NCHAR; ++i)
@@ -755,7 +755,7 @@ kwsexec (kwset_t kws, char const *text, size_t size,
       return ret;
     }
   else
-    return cwexec(kws, text, size, kwsmatch);
+    return cwexec (kws, text, size, kwsmatch);
 }
 
 /* Free the components of the given keyword set. */
@@ -765,6 +765,6 @@ kwsfree (kwset_t kws)
   struct kwset *kwset;
 
   kwset = (struct kwset *) kws;
-  obstack_free(&kwset->obstack, 0);
-  free(kws);
+  obstack_free (&kwset->obstack, 0);
+  free (kws);
 }

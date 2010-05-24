@@ -1,5 +1,10 @@
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
+	* kwset.c: Use GNU coding style.
+	(kwsalloc): Write NULL, not 0. Remove useless cast.
+
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
 	msggrep: Fix interpretation of '$' in regular expressions.
 	* m-regex.c (EGexecute): When searching up to the end of a string that
 	does not end in a newline, set not_eol to 0.
