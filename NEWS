@@ -1,3 +1,8 @@
+Version 0.18.1 - June 2010
+
+* msggrep: A '$' anchor in a regular expression now also matches the end of
+  the string, even if it does not end in a newline.
+
 Version 0.18 - May 2010
 
 * Runtime behaviour:

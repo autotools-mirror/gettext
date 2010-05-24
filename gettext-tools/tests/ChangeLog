@@ -1,3 +1,11 @@
+2010-05-23  Bruno Haible  <bruno@clisp.org>
+
+	msggrep: Fix interpretation of '$' in regular expressions.
+	* msggrep-9: New file.
+	* msggrep-10: New file.
+	* Makefile.am (TESTS): Add them.
+	Reported by Sean Flanigan <sflaniga@redhat.com>.
+
 2010-05-22  Bruno Haible  <bruno@clisp.org>
 
 	xgettext-glade-4: Skip, not fail, when expat was not available.

@@ -161,7 +161,7 @@ EGexecute (const void *compiled_pattern,
 
       for (i = 0; i < cregex->pcount; i++)
         {
-          cregex->patterns[i].regexbuf.not_eol = (end == buflim);
+          cregex->patterns[i].regexbuf.not_eol = 0;
           if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
                                        end - beg, 0,
                                        end - beg, &(cregex->patterns[i].regs))))
@@ -204,7 +204,7 @@ EGexecute (const void *compiled_pattern,
                         if (start == end - beg)
                           break;
                         ++start;
-                        cregex->patterns[i].regexbuf.not_eol = (end == buflim);
+                        cregex->patterns[i].regexbuf.not_eol = 0;
                         start = re_search (&(cregex->patterns[i].regexbuf), beg,
                                            end - beg,
                                            start, end - beg - start,
