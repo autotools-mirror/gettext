@@ -1,3 +1,10 @@
+2010-05-26  Bruno Haible  <bruno@clisp.org>
+
+	Interoperability with newer versions of 'cvs'.
+	* autopoint.in: Unset some more environment variables. Set
+	CVS_SIGN_COMMITS to empty.
+	* convert-archive.in: Likewise.
+
 2010-05-16  Bruno Haible  <bruno@clisp.org>
 
 	convert-archive: Don't publicize the builder's name and email.

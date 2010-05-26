@@ -122,14 +122,23 @@ case "$from" in
     unset CVS_CLIENT_LOG
     unset CVS_CLIENT_PORT
     unset CVS_IGNORE_REMOTE_ROOT
+    unset CVS_LOCAL_BRANCH_NUM
+    unset CVS_NOBASES
     unset CVS_PASSFILE
     unset CVS_PASSWORD
+    unset CVS_PROXY_PORT
     unset CVS_RCMD_PORT
     unset CVS_RSH
     unset CVS_SERVER
     unset CVS_SERVER_SLEEP
+    CVS_SIGN_COMMITS=
+    export CVS_SIGN_COMMITS
+    unset CVS_SSH
+    unset CVS_VERIFY_CHECKOUTS
+    unset CVS_VERIFY_TEMPLATE
     unset CVSIGNORE
     unset CVSREAD
+    unset CVSREADONLYFS
     unset CVSUMASK
     unset CVSWRAPPERS
 
