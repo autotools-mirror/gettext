@@ -24,6 +24,12 @@ echo abc | fold -b -s -w 20 >/dev/null 2>&1 || {
   rm -fr $tmpfiles; exit 77
 }
 
+# Some fold programs (like NetBSD 5.0) remove trailing spaces when wrapping.
+echo ab cd | fold -b -s -w 3 | grep ' ' >/dev/null || {
+  echo "Skipping test: fold program trims trailing spaces"
+  rm -fr $tmpfiles; exit 77
+}
+
 # Some fold programs (like HP-UX) insert a newline at the end, if the last
 # line was not terminated with a newline and the -s option was given.
 foldoutputcount=`echo $ac_n "abc$ac_c" | fold -b -s -w 20 | wc -c`

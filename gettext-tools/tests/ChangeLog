@@ -1,3 +1,10 @@
+2010-05-26  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test suite failures on NetBSD 5.0.
+	* msgfilter-1: Skip the test if the 'fold' program trims trailing
+	spaces.
+	* msgfilter-3: Likewise.
+
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
 	msggrep: Fix interpretation of '$' in regular expressions.
