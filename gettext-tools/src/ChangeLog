@@ -1,5 +1,11 @@
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
+	xgettext: Recognize language of files ending in .perl.
+	* x-perl.h (EXTENSIONS_PERL): Recognize .perl.
+	Suggested by Ævar Arnfjörð Bjarmason <avarab@gmail.com>.
+
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
 	urlget: Don't attempt to run the Java program if we don't install it.
 	* Makefile.am (USEJAVA): New variable.
 	(DEFS): Define USEJAVA.
