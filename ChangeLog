@@ -1,5 +1,10 @@
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* README: Remove lots of old cruft. Mention the translators as the
+	third audience.
+
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
 	* version.sh: Bump to 0.18.1.
 	* autogen.sh: Record the gnulib version that is being used.
 
