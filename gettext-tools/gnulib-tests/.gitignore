@@ -113,8 +113,8 @@
 /test-posix_spawn1.in.sh
 /test-posix_spawn2.c
 /test-posix_spawn2.in.sh
-/test-quotearg.c
-/test-quotearg.sh
+/test-quotearg.h
+/test-quotearg-simple.c
 /test-rawmemchr.c
 /test-read-file.c
 /test-readlink.c
