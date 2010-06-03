@@ -1,5 +1,13 @@
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
+	De-emphasize the intl/ subdirectory.
+	* nls.texi (Translation Intro): Remove paragraph about the version.
+	(Configuration advice): Remove section.
+	(INSTALL Matters): Don't explain --with-included-gettext. Don't mention
+	catgets.
+
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
 	* matrix.texi: Update.
 	* nls.texi (STATUS): Likewise.
 
