@@ -22,9 +22,9 @@
 
 struct kwsmatch
 {
-  int index;			/* Index number of matching keyword. */
-  size_t offset[1];		/* Offset of each submatch. */
-  size_t size[1];		/* Length of each submatch. */
+  int index;                    /* Index number of matching keyword. */
+  size_t offset[1];             /* Offset of each submatch. */
+  size_t size[1];               /* Length of each submatch. */
 };
 
 typedef struct kwset * kwset_t;

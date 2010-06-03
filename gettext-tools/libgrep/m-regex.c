@@ -32,7 +32,7 @@
 #include "xalloc.h"
 
 #if defined (STDC_HEADERS) || (!defined (isascii) && !defined (HAVE_ISASCII))
-# define IN_CTYPE_DOMAIN(c) 1 
+# define IN_CTYPE_DOMAIN(c) 1
 #else
 # define IN_CTYPE_DOMAIN(c) isascii(c)
 #endif
@@ -44,7 +44,7 @@ struct patterns
   /* Regex compiled regexp. */
   struct re_pattern_buffer regexbuf;
   struct re_registers regs; /* This is here on account of a BRAIN-DEAD
-			       Q@#%!# library interface in regex.c.  */
+                               Q@#%!# library interface in regex.c.  */
 };
 
 struct compiled_regex {
@@ -59,8 +59,8 @@ struct compiled_regex {
 
 static void *
 compile (const char *pattern, size_t pattern_size,
-	 bool match_icase, bool match_words, bool match_lines, char eolbyte,
-	 reg_syntax_t syntax)
+         bool match_icase, bool match_words, bool match_lines, char eolbyte,
+         reg_syntax_t syntax)
 {
   struct compiled_regex *cregex;
   const char *err;
@@ -87,23 +87,23 @@ compile (const char *pattern, size_t pattern_size,
       size_t len;
       sep = (const char *) memchr (motif, '\n', total);
       if (sep)
-	{
-	  len = sep - motif;
-	  sep++;
-	  total -= (len + 1);
-	}
+        {
+          len = sep - motif;
+          sep++;
+          total -= (len + 1);
+        }
       else
-	{
-	  len = total;
-	  total = 0;
-	}
+        {
+          len = total;
+          total = 0;
+        }
 
       cregex->patterns = xrealloc (cregex->patterns, (cregex->pcount + 1) * sizeof (struct patterns));
       memset (&cregex->patterns[cregex->pcount], '\0', sizeof (struct patterns));
 
       if ((err = re_compile_pattern (motif, len,
-				     &(cregex->patterns[cregex->pcount].regexbuf))) != NULL)
-	error (exit_failure, 0, err);
+                                     &(cregex->patterns[cregex->pcount].regexbuf))) != NULL)
+        error (exit_failure, 0, err);
       cregex->pcount++;
 
       motif = sep;
@@ -114,35 +114,35 @@ compile (const char *pattern, size_t pattern_size,
 
 static void *
 Gcompile (const char *pattern, size_t pattern_size,
-	  bool match_icase, bool match_words, bool match_lines, char eolbyte)
+          bool match_icase, bool match_words, bool match_lines, char eolbyte)
 {
   return compile (pattern, pattern_size,
-		  match_icase, match_words, match_lines, eolbyte,
-		  RE_SYNTAX_GREP | RE_HAT_LISTS_NOT_NEWLINE);
+                  match_icase, match_words, match_lines, eolbyte,
+                  RE_SYNTAX_GREP | RE_HAT_LISTS_NOT_NEWLINE);
 }
 
 static void *
 Ecompile (const char *pattern, size_t pattern_size,
-	  bool match_icase, bool match_words, bool match_lines, char eolbyte)
+          bool match_icase, bool match_words, bool match_lines, char eolbyte)
 {
   return compile (pattern, pattern_size,
-		  match_icase, match_words, match_lines, eolbyte,
-		  RE_SYNTAX_POSIX_EGREP);
+                  match_icase, match_words, match_lines, eolbyte,
+                  RE_SYNTAX_POSIX_EGREP);
 }
 
 static void *
 AWKcompile (const char *pattern, size_t pattern_size,
-	    bool match_icase, bool match_words, bool match_lines, char eolbyte)
+            bool match_icase, bool match_words, bool match_lines, char eolbyte)
 {
   return compile (pattern, pattern_size,
-		  match_icase, match_words, match_lines, eolbyte,
-		  RE_SYNTAX_AWK);
+                  match_icase, match_words, match_lines, eolbyte,
+                  RE_SYNTAX_AWK);
 }
 
 static size_t
 EGexecute (const void *compiled_pattern,
-	   const char *buf, size_t buf_size,
-	   size_t *match_size, bool exact)
+           const char *buf, size_t buf_size,
+           size_t *match_size, bool exact)
 {
   struct compiled_regex *cregex = (struct compiled_regex *) compiled_pattern;
   register const char *buflim, *beg, *end;
@@ -156,65 +156,65 @@ EGexecute (const void *compiled_pattern,
     {
       end = (const char *) memchr (beg, eol, buflim - beg);
       if (end != NULL)
-	end++;
+        end++;
       else
-	end = buflim;
+        end = buflim;
 
       for (i = 0; i < cregex->pcount; i++)
-	{
-	  cregex->patterns[i].regexbuf.not_eol = 0;
-	  if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
-				       end - beg - 1, 0,
-				       end - beg - 1, &(cregex->patterns[i].regs))))
-	    {
-	      len = cregex->patterns[i].regs.end[0] - start;
-	      if (exact)
-		{
-		  *match_size = len;
-		  return start;
-		}
-	      if ((!cregex->match_lines && !cregex->match_words)
-		  || (cregex->match_lines && len == end - beg - 1))
-		goto success;
-	      /* If -w, check if the match aligns with word boundaries.
-		 We do this iteratively because:
-		 (a) the line may contain more than one occurence of the
-		 pattern, and
-		 (b) Several alternatives in the pattern might be valid at a
-		 given point, and we may need to consider a shorter one to
-		 find a word boundary.  */
-	      if (cregex->match_words)
-		while (start >= 0)
-		  {
-		    if ((start == 0 || !IS_WORD_CONSTITUENT ((unsigned char) beg[start - 1]))
-			&& (len == end - beg - 1
-			    || !IS_WORD_CONSTITUENT ((unsigned char) beg[start + len])))
-		      goto success;
-		    if (len > 0)
-		      {
-			/* Try a shorter length anchored at the same place. */
-			--len;
-			cregex->patterns[i].regexbuf.not_eol = 1;
-			len = re_match (&(cregex->patterns[i].regexbuf), beg,
-					start + len, start,
-					&(cregex->patterns[i].regs));
-		      }
-		    if (len <= 0)
-		      {
-			/* Try looking further on. */
-			if (start == end - beg - 1)
-			  break;
-			++start;
-			cregex->patterns[i].regexbuf.not_eol = 0;
-			start = re_search (&(cregex->patterns[i].regexbuf), beg,
-					   end - beg - 1,
-					   start, end - beg - 1 - start,
-					   &(cregex->patterns[i].regs));
-			len = cregex->patterns[i].regs.end[0] - start;
-		      }
-		  }
-	    }
-	} /* for Regex patterns.  */
+        {
+          cregex->patterns[i].regexbuf.not_eol = 0;
+          if (0 <= (start = re_search (&(cregex->patterns[i].regexbuf), beg,
+                                       end - beg - 1, 0,
+                                       end - beg - 1, &(cregex->patterns[i].regs))))
+            {
+              len = cregex->patterns[i].regs.end[0] - start;
+              if (exact)
+                {
+                  *match_size = len;
+                  return start;
+                }
+              if ((!cregex->match_lines && !cregex->match_words)
+                  || (cregex->match_lines && len == end - beg - 1))
+                goto success;
+              /* If -w, check if the match aligns with word boundaries.
+                 We do this iteratively because:
+                 (a) the line may contain more than one occurence of the
+                 pattern, and
+                 (b) Several alternatives in the pattern might be valid at a
+                 given point, and we may need to consider a shorter one to
+                 find a word boundary.  */
+              if (cregex->match_words)
+                while (start >= 0)
+                  {
+                    if ((start == 0 || !IS_WORD_CONSTITUENT ((unsigned char) beg[start - 1]))
+                        && (len == end - beg - 1
+                            || !IS_WORD_CONSTITUENT ((unsigned char) beg[start + len])))
+                      goto success;
+                    if (len > 0)
+                      {
+                        /* Try a shorter length anchored at the same place. */
+                        --len;
+                        cregex->patterns[i].regexbuf.not_eol = 1;
+                        len = re_match (&(cregex->patterns[i].regexbuf), beg,
+                                        start + len, start,
+                                        &(cregex->patterns[i].regs));
+                      }
+                    if (len <= 0)
+                      {
+                        /* Try looking further on. */
+                        if (start == end - beg - 1)
+                          break;
+                        ++start;
+                        cregex->patterns[i].regexbuf.not_eol = 0;
+                        start = re_search (&(cregex->patterns[i].regexbuf), beg,
+                                           end - beg - 1,
+                                           start, end - beg - 1 - start,
+                                           &(cregex->patterns[i].regs));
+                        len = cregex->patterns[i].regs.end[0] - start;
+                      }
+                  }
+            }
+        } /* for Regex patterns.  */
     } /* for (beg = end ..) */
   return (size_t) -1;
 

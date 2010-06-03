@@ -1,3 +1,10 @@
+2010-05-24  Bruno Haible  <bruno@clisp.org>
+
+	* m-fgrep.c: Untabify.
+	* m-regex.c: Likewise.
+	* kwset.h: Likewise.
+	* kwset.c: Likewise.
+
 2010-05-23  Bruno Haible  <bruno@clisp.org>
 
 	Do regex matching purely with regex, not regex + dfa + kwset.

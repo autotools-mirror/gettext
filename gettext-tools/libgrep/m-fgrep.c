@@ -42,7 +42,7 @@
 #define _(str) gettext (str)
 
 #if defined (STDC_HEADERS) || (!defined (isascii) && !defined (HAVE_ISASCII))
-# define IN_CTYPE_DOMAIN(c) 1 
+# define IN_CTYPE_DOMAIN(c) 1
 #else
 # define IN_CTYPE_DOMAIN(c) isascii(c)
 #endif
@@ -63,7 +63,7 @@ struct compiled_kwset {
 
 static void
 kwsinit (struct compiled_kwset *ckwset,
-	 bool match_icase, bool match_words, bool match_lines, char eolbyte)
+         bool match_icase, bool match_words, bool match_lines, char eolbyte)
 {
   if (match_icase)
     {
@@ -71,7 +71,7 @@ kwsinit (struct compiled_kwset *ckwset,
 
       ckwset->trans = XNMALLOC (NCHAR, char);
       for (i = 0; i < NCHAR; i++)
-	ckwset->trans[i] = TOLOWER (i);
+        ckwset->trans[i] = TOLOWER (i);
       ckwset->kwset = kwsalloc (ckwset->trans);
     }
   else
@@ -88,8 +88,8 @@ kwsinit (struct compiled_kwset *ckwset,
 
 static void *
 Fcompile (const char *pattern, size_t pattern_size,
-	  bool match_icase, bool match_words, bool match_lines,
-	  char eolbyte)
+          bool match_icase, bool match_words, bool match_lines,
+          char eolbyte)
 {
   struct compiled_kwset *ckwset;
   const char *beg, *lim, *err;
@@ -101,11 +101,11 @@ Fcompile (const char *pattern, size_t pattern_size,
   do
     {
       for (lim = beg; lim < pattern + pattern_size && *lim != '\n'; ++lim)
-	;
+        ;
       if ((err = kwsincr (ckwset->kwset, beg, lim - beg)) != NULL)
-	error (exit_failure, 0, err);
+        error (exit_failure, 0, err);
       if (lim < pattern + pattern_size)
-	++lim;
+        ++lim;
       beg = lim;
     }
   while (beg < pattern + pattern_size);
@@ -135,11 +135,11 @@ check_multibyte_string (const char *buf, size_t buf_size)
       mbclen = mbrlen (buf + i, buf_size - i, &cur_state);
 
       if (mbclen == (size_t) -1 || mbclen == (size_t) -2 || mbclen == 0)
-	{
-	  /* An invalid sequence, or a truncated multibyte character.
-	     We treat it as a singlebyte character.  */
-	  mbclen = 1;
-	}
+        {
+          /* An invalid sequence, or a truncated multibyte character.
+             We treat it as a singlebyte character.  */
+          mbclen = 1;
+        }
       mb_properties[i] = mbclen;
       i += mbclen;
     }
@@ -150,7 +150,7 @@ check_multibyte_string (const char *buf, size_t buf_size)
 
 static size_t
 Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
-	  size_t *match_size, bool exact)
+          size_t *match_size, bool exact)
 {
   struct compiled_kwset *ckwset = (struct compiled_kwset *) compiled_pattern;
   register const char *beg, *curr, *end;
@@ -166,63 +166,63 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
   for (beg = buf; beg <= buf + buf_size; ++beg)
     {
       size_t offset =
-	kwsexec (ckwset->kwset, beg, buf + buf_size - beg, &kwsmatch);
+        kwsexec (ckwset->kwset, beg, buf + buf_size - beg, &kwsmatch);
       if (offset == (size_t) -1)
-	{
+        {
 #ifdef MBS_SUPPORT
-	  if (MB_CUR_MAX > 1)
-	    free (mb_properties);
+          if (MB_CUR_MAX > 1)
+            free (mb_properties);
 #endif /* MBS_SUPPORT */
-	  return offset;
-	}
+          return offset;
+        }
 #ifdef MBS_SUPPORT
       if (MB_CUR_MAX > 1 && mb_properties[offset+beg-buf] == 0)
-	continue; /* It is a part of multibyte character.  */
+        continue; /* It is a part of multibyte character.  */
 #endif /* MBS_SUPPORT */
       beg += offset;
       len = kwsmatch.size[0];
       if (exact)
-	{
-	  *match_size = len;
+        {
+          *match_size = len;
 #ifdef MBS_SUPPORT
-	  if (MB_CUR_MAX > 1)
-	    free (mb_properties);
+          if (MB_CUR_MAX > 1)
+            free (mb_properties);
 #endif /* MBS_SUPPORT */
-	  return beg - buf;
-	}
+          return beg - buf;
+        }
       if (ckwset->match_lines)
-	{
-	  if (beg > buf && beg[-1] != eol)
-	    continue;
-	  if (beg + len < buf + buf_size && beg[len] != eol)
-	    continue;
-	  goto success;
-	}
+        {
+          if (beg > buf && beg[-1] != eol)
+            continue;
+          if (beg + len < buf + buf_size && beg[len] != eol)
+            continue;
+          goto success;
+        }
       else if (ckwset->match_words)
-	for (curr = beg; len; )
-	  {
-	    if (curr > buf && IS_WORD_CONSTITUENT ((unsigned char) curr[-1]))
-	      break;
-	    if (curr + len < buf + buf_size
-		&& IS_WORD_CONSTITUENT ((unsigned char) curr[len]))
-	      {
-		offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
-		if (offset == (size_t) -1)
-		  {
+        for (curr = beg; len; )
+          {
+            if (curr > buf && IS_WORD_CONSTITUENT ((unsigned char) curr[-1]))
+              break;
+            if (curr + len < buf + buf_size
+                && IS_WORD_CONSTITUENT ((unsigned char) curr[len]))
+              {
+                offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
+                if (offset == (size_t) -1)
+                  {
 #ifdef MBS_SUPPORT
-		    if (MB_CUR_MAX > 1)
-		      free (mb_properties);
+                    if (MB_CUR_MAX > 1)
+                      free (mb_properties);
 #endif /* MBS_SUPPORT */
-		    return offset;
-		  }
-		curr = beg + offset;
-		len = kwsmatch.size[0];
-	      }
-	    else
-	      goto success;
-	  }
+                    return offset;
+                  }
+                curr = beg + offset;
+                len = kwsmatch.size[0];
+              }
+            else
+              goto success;
+          }
       else
-	goto success;
+        goto success;
     }
 
 #ifdef MBS_SUPPORT
