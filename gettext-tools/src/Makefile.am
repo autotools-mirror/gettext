@@ -70,6 +70,7 @@ AM_CPPFLAGS = \
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
   -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
+  -DUSEJAVA=$(USEJAVA) \
   -DUSEJEXE=$(USEJEXE) \
   -DGETTEXTJEXEDIR=\"$(pkglibdir)\" \
   -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
@@ -445,6 +446,12 @@ DISTCLEANFILES += user-email
 
 
 # Special rules for Java compilation.
+
+USEJAVA = $(USEJAVA_@BUILDJAVAEXE@)
+USEJAVA_yes = 1
+USEJAVA_no = $(USEJAVA_no_@BUILDJAVA@)
+USEJAVA_no_yes = 1
+USEJAVA_no_no = 0
 
 USEJEXE = $(USEJEXE_@BUILDJAVAEXE@)
 USEJEXE_yes = 1

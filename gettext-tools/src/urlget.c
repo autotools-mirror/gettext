@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -265,6 +265,7 @@ fetch (const char *url, const char *file)
       fflush (stderr);
     }
 
+#if USEJAVA
   /* First try: using Java.  */
   {
     const char *class_name = "gnu.gettext.GetURL";
@@ -272,15 +273,15 @@ fetch (const char *url, const char *file)
     const char *gettextjar;
     const char *args[2];
 
-#if USEJEXE
+# if USEJEXE
     /* Make it possible to override the executable's location.  This is
        necessary for running the testsuite before "make install".  */
     gettextjexedir = getenv ("GETTEXTJEXEDIR");
     if (gettextjexedir == NULL || gettextjexedir[0] == '\0')
       gettextjexedir = relocate (GETTEXTJEXEDIR);
-#else
+# else
     gettextjexedir = NULL;
-#endif
+# endif
 
     /* Make it possible to override the gettext.jar location.  This is
        necessary for running the testsuite before "make install".  */
@@ -309,6 +310,7 @@ fetch (const char *url, const char *file)
         return;
       }
   }
+#endif
 
   /* Second try: using "wget -q -O - -T 30 url".  */
   {

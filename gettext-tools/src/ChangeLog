@@ -1,3 +1,10 @@
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
+	urlget: Don't attempt to run the Java program if we don't install it.
+	* Makefile.am (USEJAVA): New variable.
+	(DEFS): Define USEJAVA.
+	* urlget.c (fetch): Don't try to use Java is USEJAVA is 0.
+
 2010-05-19  Bruno Haible  <bruno@clisp.org>
 
 	Link with libunistring, if it exists.
