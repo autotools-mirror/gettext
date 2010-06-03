@@ -13,17 +13,17 @@ Tasks not to forget before release:
   Check that gnulib/lib/{localcharset.h,localcharset.c,config.charset}
   agrees with it, except for copyright header changes.
 
+- Update Origin version in
+    gettext-runtime/po/Makefile.in.in and
+    gettext-tools/po/Makefile.in.in
+  if these files have changed since the last release.
+
 - Update the version numbers in
     gettext-runtime/m4/po.m4
     gettext-runtime/po/Makefile.in.in
     gettext-tools/po/Makefile.in.in
     gettext-runtime/intl/libgnuintl.h.in
     gettext-tools/libgettextpo/gettext-po.h.in
-
-- Update Origin version in
-    gettext-runtime/po/Makefile.in.in and
-    gettext-tools/po/Makefile.in.in
-  if these files have changed since the last release.
 
 - Update -version-info arguments in gettext-runtime/intl/Makefile.in
   and in gettext-tools/libgettextpo/Makefile.am.

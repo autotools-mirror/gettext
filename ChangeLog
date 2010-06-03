@@ -1,5 +1,10 @@
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* version.sh: Bump to 0.18.1.
+	* autogen.sh: Record the gnulib version that is being used.
+
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
 	Deprecate the --with-cvs option.
 	* DEPENDENCIES: Update entries for git, CVS. Remove entry for RCS.
 	* PACKAGING: Update comments about archive.*.tar.gz.
