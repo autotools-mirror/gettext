@@ -63,7 +63,8 @@ The following packages should be installed before GNU gettext is installed
 
 * git 1.6 or newer
   + Recommended.
-    Needed by the 'autopoint' program, if configured with --with-git.
+    Needed by the 'autopoint' program, if not configured with --without-git
+    or --with-cvs.
   + Homepage:
     http://git-scm.com/
   + Download:
@@ -118,19 +119,20 @@ The following packages should be installed before GNU gettext is installed
   + If it is installed in a nonstandard directory, pass the option
     --with-libunistring-prefix=DIR to 'configure'.
 
-
-The following packages should be installed when GNU gettext is installed
-(runtime dependencies, but not build dependencies):
-
 * CVS 1.11 or newer
-  + Recommended.
-    Needed by the 'autopoint' program, if not configured with --without-cvs
-    or --with-git.
+  + Optional but deprecated.
+    Needed by the 'autopoint' program, if configured with --with-cvs.
   + Homepage:
     http://ximbiot.com/cvs/wiki/index.php?title=Main_Page
     http://www.nongnu.org/cvs/
   + Download:
     http://ftp.gnu.org/non-gnu/cvs/
+
+
+The following packages should be installed when GNU gettext is installed
+(runtime dependencies, but not build dependencies):
+
+None.
 
 
 The following should be installed when GNU gettext is built, but are not
@@ -189,20 +191,3 @@ dependencies):
   + Download:
     http://ftp.gnu.org/gnu/grep/
     ftp://ftp.gnu.org/gnu/grep/
-
-* CVS 1.11 or newer
-  + Recommended.
-    Needed if configuring with --without-cvs or --with-git.
-  + Homepage:
-    http://ximbiot.com/cvs/wiki/index.php?title=Main_Page
-    http://www.nongnu.org/cvs/
-  + Download:
-    http://ftp.gnu.org/non-gnu/cvs/
-
-* RCS 5.7 or newer
-  + Recommended.
-    Needed if configuring with --without-cvs or --with-git.
-  + Homepage:
-    http://www.cs.purdue.edu/homes/trinkle/RCS/
-  + Download:
-    http://www.cs.purdue.edu/homes/trinkle/RCS/rcs-5.7.tar

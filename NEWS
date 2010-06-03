@@ -6,6 +6,12 @@ Version 0.18.1 - June 2010
 * Dependencies:
   The libraries and programs are now linked with libunistring if this library
   is already installed.
+
+* Installation options:
+  The configure option --with-cvs is deprecated. The 'autopoint' program will
+  now use the 'git' program by default to compress its archive. If the
+  configure option --without-git is specified, 'autopoint' will not rely on
+  'git', but will instead rely on a locally installed a 3 MB large archive.
 
 Version 0.18 - May 2010
 

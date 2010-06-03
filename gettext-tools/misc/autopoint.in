@@ -399,8 +399,8 @@ case "@ARCHIVE_FORMAT@" in
     ;;
 
   cvs)
-    # We distribute the many different versions of the files in a CVS
-    # repository. This guarantees a good compression rate:
+    # We distributed the many different versions of the files in a CVS
+    # repository. This guaranteed a good compression rate:
     #
     #   Including version    size in KB of
     #                       "du autopoint-files/archive"
@@ -436,6 +436,13 @@ case "@ARCHIVE_FORMAT@" in
     # The requirement that the user must have the CVS program available is not
     # a severe restrictions, because most of the people who use autopoint are
     # users of CVS.
+    #
+    # But the CVS format is now deprecated, because "cvs init" does not work in
+    # all circumstances
+    # (see <http://lists.gnu.org/archive/html/bug-cvs/2010-05/msg00003.html>)
+    # and we are not allowed to distribute the cvs infrastructure files
+    # ourselves
+    # (see <http://lists.gnu.org/archive/html/bug-cvs/2010-06/msg00011.html>).
     #
     # Check availability of the CVS program.
     (cvs -v) >/dev/null 2>/dev/null || func_fatal_error "cvs program not found"

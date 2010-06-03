@@ -314,29 +314,35 @@ aclocaldir='${datadir}/aclocal'
 AC_SUBST([aclocaldir])
 
 dnl Check how to install the set of previous versions, for autopoint.
-AC_ARG_WITH([cvs],
-  [  --without-cvs           don't use cvs to compress the infrastructure archive],
-  [gt_use_cvs=$withval],
-  [gt_use_cvs=maybe])
 AC_ARG_WITH([git],
-  [  --with-git              use git to compress the infrastructure archive],
+  [  --without-git           don't use git to compress the infrastructure archive],
   [gt_use_git=$withval],
-  [gt_use_git=no])
-if test "$gt_use_cvs" != no && test "$gt_use_cvs" != maybe; then
-  # --with-cvs is specified. Even if --with-git is also specified, we use the
-  # cvs format, because it yields smaller archives than the git format.
-  ARCHIVE_FORMAT=cvs
+  [gt_use_git=maybe])
+AC_ARG_WITH([cvs],
+  [  --with-cvs              use cvs to compress the infrastructure archive
+                          (deprecated)],
+  [gt_use_cvs=$withval],
+  [gt_use_cvs=no])
+# The CVS format is deprecated, because "cvs init" does not work in all
+# circumstances
+# (see <http://lists.gnu.org/archive/html/bug-cvs/2010-05/msg00003.html>)
+# and we are not allowed to distribute the cvs infrastructure files ourselves
+# (see <http://lists.gnu.org/archive/html/bug-cvs/2010-06/msg00011.html>).
+if test "$gt_use_git" != no && test "$gt_use_git" != maybe; then
+  # --with-git is specified. Even if --with-cvs is also specified, we use the
+  # git format.
+  ARCHIVE_FORMAT=git
 else
-  if test "$gt_use_git" != no; then
-    # --with-git is specified.
-    ARCHIVE_FORMAT=git
+  if test "$gt_use_cvs" != no; then
+    # --with-cvs is specified.
+    ARCHIVE_FORMAT=cvs
   else
-    # Neither --with-cvs not --with-git is specified.
-    if test "$gt_use_cvs" != no; then
-      # --without-cvs is not specified. Use cvs format.
-      ARCHIVE_FORMAT=cvs
+    # Neither --with-git nor --with-cvs is specified.
+    if test "$gt_use_git" != no; then
+      # --without-git is not specified. Use git format.
+      ARCHIVE_FORMAT=git
     else
-      # --without-cvs is specified.
+      # --without-git is specified.
       ARCHIVE_FORMAT=dir
     fi
   fi

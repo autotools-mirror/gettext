@@ -1,3 +1,15 @@
+2010-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Deprecate the --with-cvs option.
+	* autopoint.in: Update comments.
+	* add-to-archive: Update archive.dir.tar.gz, not archive.cvs.tar.gz.
+	* Makefile.am (CLEANFILES): Add archive.cvs.tar.gz instead of
+	archive.dir.tar.gz.
+	(EXTRA_DIST): Add archive.dir.tar.gz instead of archive.cvs.tar.gz.
+	(archive.dir.tar.gz): Adapted from archive.cvs.tar.gz rule.
+	(archive.git.tar.gz, archive.cvs.tar.gz): Generate from
+	archive.dir.tar.gz.
+
 2010-05-26  Bruno Haible  <bruno@clisp.org>
 
 	Interoperability with newer versions of 'cvs'.

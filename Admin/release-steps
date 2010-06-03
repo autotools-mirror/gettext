@@ -72,9 +72,9 @@ Tasks not to forget before release:
 
 - "make"; "make dist"; "make distcheck"
 - cd gettext-tools/misc
-  cp archive.cvs.tar.gz-<last-release-number> archive.cvs.tar.gz
+  cp archive.dir.tar.gz-<last-release-number> archive.dir.tar.gz
   ./add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
-  Then update the case statement and the table in autopoint.in.
+  Then update the case statement in autopoint.in.
 - again: "make dist"
 
 * Upload to ftp-upload.gnu.org according to the procedure given by
