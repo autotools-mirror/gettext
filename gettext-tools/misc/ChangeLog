@@ -4,6 +4,12 @@
 
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
+	Don't assume GNU tar.
+	* convert-archive.in (TAR, TAR_OPTIONS): New variables.
+	Reported by Ryan Schmidt <ryandesign@macports.org>.
+
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* autopoint.in: Update for 0.18.1.
 
 2010-06-03  Bruno Haible  <bruno@clisp.org>

@@ -220,10 +220,22 @@ ba
     ;;
 esac
 
+# Find a good 'tar' program.
+existing_file=gettext-0.10.35/ABOUT-NLS
+TAR=tar
+TAR_OPTIONS=
+for prog in tar gnutar gtar; do
+  if (cd "$unpacked" && $prog cf - --owner=root --group=root "$existing_file") >/dev/null 2>&1; then
+    TAR=$prog
+    TAR_OPTIONS='--owner=root --group=root'
+    break
+  fi
+done
+
 # Create the target archive.
 case "$to" in
   dir)
-    (cd "$unpacked" && tar cf - --owner=root --group=root *) \
+    (cd "$unpacked" && $TAR cf - $TAR_OPTIONS *) \
       | gzip -c -9 > "$tofile" \
       || func_fatal_error "archive creation failed"
     ;;
@@ -283,7 +295,7 @@ case "$to" in
        rm -rf tmpcheckout
      done
     )
-    (cd "$cvs_dir" && tar cf - --owner=root --group=root archive) \
+    (cd "$cvs_dir" && $TAR cf - $TAR_OPTIONS archive) \
       | gzip -c -9 > "$tofile" \
       || func_fatal_error "archive creation failed"
     rm -rf "$cvs_dir" cvsuser.so
@@ -325,7 +337,7 @@ case "$to" in
     )
     (cd "$git_dir" && git reset -q --hard empty && git repack -a -d -q) \
       || func_fatal_error "git reset or repack failed"
-    (cd "$git_dir" && tar cf - --owner=root --group=root .git) \
+    (cd "$git_dir" && $TAR cf - $TAR_OPTIONS .git) \
       | gzip -c -9 > "$tofile" \
       || func_fatal_error "archive creation failed"
     rm -rf "$git_dir"
