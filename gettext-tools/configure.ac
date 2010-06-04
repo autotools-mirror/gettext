@@ -338,11 +338,12 @@ else
     ARCHIVE_FORMAT=cvs
   else
     # Neither --with-git nor --with-cvs is specified.
-    if test "$gt_use_git" != no; then
-      # --without-git is not specified. Use git format.
+    if test "$gt_use_git" != no && (git --version) >/dev/null 2>&1; then
+      # --without-git is not specified, and the git program exists.
+      # Use git format.
       ARCHIVE_FORMAT=git
     else
-      # --without-git is specified.
+      # --without-git is specified, or the git program is missing.
       ARCHIVE_FORMAT=dir
     fi
   fi

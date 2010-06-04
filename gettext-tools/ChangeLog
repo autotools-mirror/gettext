@@ -2,6 +2,11 @@
 
 	* gettext-0.18.1 released.
 
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* configure.ac (ARCHIVE_FORMAT): If neither --with-git nor --with-cvs
+	is specified, use the git format only if the 'git' program exists.
+
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
 	Deprecate the --with-cvs option.
