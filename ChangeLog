@@ -2,6 +2,12 @@
 
 	* gettext-0.18.1 released.
 
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* autogen.sh: For libgrep, don't use --avoid of modules with
+	applicability 'all'.
+	Reported by Ryan Schmidt <ryandesign@macports.org>.
+
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
 	* README: Remove lots of old cruft. Mention the translators as the
