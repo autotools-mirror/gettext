@@ -1,5 +1,10 @@
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
+	Offer more choices in the Makevars template.
+	* Makevars.template (USE_MSGCTXT, MSGMERGE_OPTIONS): New variables.
+
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-0.18.1 released.
 
 2010-05-24  Bruno Haible  <bruno@clisp.org>
