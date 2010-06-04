@@ -4,6 +4,10 @@
 
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
+	* DEPENDENCIES: Add entries for 'tar' and 'gzip'.
+
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* autogen.sh: For libgrep, don't use --avoid of modules with
 	applicability 'all'.
 	Reported by Ryan Schmidt <ryandesign@macports.org>.

@@ -191,3 +191,24 @@ dependencies):
   + Download:
     http://ftp.gnu.org/gnu/grep/
     ftp://ftp.gnu.org/gnu/grep/
+
+* The archiving utility 'tar'.
+  + Optional.
+    Needed for the 'autopoint' program, if not configured with --without-git
+    and --without-cvs.
+    Either the platform's native tar, or GNU tar.
+  + Homepage:
+    http://www.gnu.org/software/tar/
+  + Download:
+    http://ftp.gnu.org/gnu/tar/
+    ftp://ftp.gnu.org/gnu/tar/
+
+* The GNU compression utility 'gzip'.
+  + Optional.
+    Needed for the 'autopoint' program, if not configured with --without-git
+    and --without-cvs.
+  + Homepage:
+    http://www.gnu.org/software/gzip/
+  + Download:
+    http://ftp.gnu.org/gnu/gzip/
+    ftp://ftp.gnu.org/gnu/gzip/
