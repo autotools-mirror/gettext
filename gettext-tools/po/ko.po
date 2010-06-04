@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2010-05-09 13:18+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
 "PO-Revision-Date: 2010-05-15 23:48+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@lists.sourceforge.net>\n"
@@ -2700,8 +2700,8 @@ msgstr ""
 "%s%ld개의 예전 것 + %ld개의 참조문, 결합된 것 %ld, 퍼지 %ld, 빠진 것 %ld, 쓸"
 "모없는 것 %ld개를 읽었습니다.\n"
 
-#: src/msgmerge.c:2038 src/urlget.c:305 src/urlget.c:351 src/urlget.c:393
-#: src/urlget.c:435
+#: src/msgmerge.c:2038 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/urlget.c:437
 #, c-format
 msgid " done.\n"
 msgstr " 완료.\n"
@@ -3100,12 +3100,12 @@ msgstr "표준 출력에 쓰는 동안 오류 발생"
 msgid "Retrieving %s..."
 msgstr "%s 항목을 가져오는 중..."
 
-#: src/urlget.c:307
+#: src/urlget.c:308
 #, c-format
 msgid " timed out.\n"
 msgstr " 제한 시간 초과.\n"
 
-#: src/urlget.c:443
+#: src/urlget.c:445
 #, c-format
 msgid " failed.\n"
 msgstr " 실패.\n"

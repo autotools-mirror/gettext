@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.14.5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2010-05-09 13:18+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
 "PO-Revision-Date: 2005-06-27 17:09-0500\n"
 "Last-Translator: Max de Mendizábal <max@upn.mx>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -3006,8 +3006,8 @@ msgstr ""
 "incorporados %ld, convertidos en difusos %ld, faltan %ld, obsoletos %ld.\n"
 
 # Porque no mejor poner simplemente 'fin'? mm++
-#: src/msgmerge.c:2038 src/urlget.c:305 src/urlget.c:351 src/urlget.c:393
-#: src/urlget.c:435
+#: src/msgmerge.c:2038 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/urlget.c:437
 #, c-format
 msgid " done.\n"
 msgstr " terminado.\n"
@@ -3494,12 +3494,12 @@ msgstr "error al escribir la salida estándar"
 msgid "Retrieving %s..."
 msgstr ""
 
-#: src/urlget.c:307
+#: src/urlget.c:308
 #, c-format
 msgid " timed out.\n"
 msgstr ""
 
-#: src/urlget.c:443
+#: src/urlget.c:445
 #, c-format
 msgid " failed.\n"
 msgstr ""

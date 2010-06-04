@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.17\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2010-05-09 13:18+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
 "PO-Revision-Date: 2009-03-20 20:06中国标准时间\n"
 "Last-Translator: Ji ZhengYu <zhengyuji@gmail.com>\n"
 "Language-Team: Chinese (simplified) <translation-team-zh-cn@lists."
@@ -2580,8 +2580,8 @@ msgstr ""
 "%s读取了 %ld 条旧的 + %ld 条引用，合并了 %ld 条，模糊的 %ld 条，缺少 %ld 条，"
 "过时的 %ld 条。\n"
 
-#: src/msgmerge.c:2038 src/urlget.c:305 src/urlget.c:351 src/urlget.c:393
-#: src/urlget.c:435
+#: src/msgmerge.c:2038 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/urlget.c:437
 #, c-format
 msgid " done.\n"
 msgstr " 完成。\n"
@@ -2967,12 +2967,12 @@ msgstr "写入 stdout 出错"
 msgid "Retrieving %s..."
 msgstr ""
 
-#: src/urlget.c:307
+#: src/urlget.c:308
 #, c-format
 msgid " timed out.\n"
 msgstr ""
 
-#: src/urlget.c:443
+#: src/urlget.c:445
 #, c-format
 msgid " failed.\n"
 msgstr ""

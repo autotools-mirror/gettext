@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2010-05-09 13:18+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
 "PO-Revision-Date: 2010-05-24 13:30+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -2812,8 +2812,8 @@ msgstr ""
 "%sMembaca %ld lama + %ld referensi, digabung %ld, fuzzy %ld, hilang %ld, "
 "sudah ditinggalkan %ld.\n"
 
-#: src/msgmerge.c:2038 src/urlget.c:305 src/urlget.c:351 src/urlget.c:393
-#: src/urlget.c:435
+#: src/msgmerge.c:2038 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/urlget.c:437
 #, c-format
 msgid " done.\n"
 msgstr " selesai.\n"
@@ -3218,12 +3218,12 @@ msgstr "error menulis stdout"
 msgid "Retrieving %s..."
 msgstr "Mengambil %s..."
 
-#: src/urlget.c:307
+#: src/urlget.c:308
 #, c-format
 msgid " timed out.\n"
 msgstr " waktu habis.\n"
 
-#: src/urlget.c:443
+#: src/urlget.c:445
 #, c-format
 msgid " failed.\n"
 msgstr " gagal.\n"

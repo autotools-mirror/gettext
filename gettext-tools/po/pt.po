@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.23\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2010-05-09 13:18+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
 "PO-Revision-Date: 1996-09-18 20:51 WET DST\n"
 "Last-Translator: Nuno Oliveira <nuno@eq.uc.pt>\n"
 "Language-Team: Portuguese <pt@li.org>\n"
@@ -2475,8 +2475,8 @@ msgstr ""
 "%sLidas %d antigas + %d referências, combinadas %d, aproximadas %d, faltam "
 "%d, obsoletas %d.\n"
 
-#: src/msgmerge.c:2038 src/urlget.c:305 src/urlget.c:351 src/urlget.c:393
-#: src/urlget.c:435
+#: src/msgmerge.c:2038 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/urlget.c:437
 #, c-format
 msgid " done.\n"
 msgstr "terminado.\n"
@@ -2849,12 +2849,12 @@ msgstr "erro durante a escrita do ficheiro \"%s\""
 msgid "Retrieving %s..."
 msgstr ""
 
-#: src/urlget.c:307
+#: src/urlget.c:308
 #, c-format
 msgid " timed out.\n"
 msgstr ""
 
-#: src/urlget.c:443
+#: src/urlget.c:445
 #, c-format
 msgid " failed.\n"
 msgstr ""
