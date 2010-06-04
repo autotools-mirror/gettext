@@ -90,13 +90,16 @@ Tasks not to forget before release:
   - Update FAQ.html from gettext-tools/doc/FAQ.html.
 
 - Regenerate the documentation for www.gnu.org:
-  - In the gettext-tools/doc/ directory, copy the
-    gendocs.sh and gendocs_template files and run
-      $ cp -p ../../gettext-runtime/doc/*.texi .
-      $ ./gendocs.sh gettext "GNU gettext"
-  - In the gettext-runtime/libasprintf/ directory, copy the
-    gendocs.sh and gendocs_template files and run
-      $ ./gendocs.sh autosprintf "GNU autosprintf"
-  Copy the resulting manual/ directories, commit them in CVS, and for every
-  removed HTML file (that corresponds to a deleted node) add a line to the
-  .symlinks file in the same directory.
+  - Run the update.sh script, or
+  - Do this:
+    - In the gettext-tools/doc/ directory, copy the
+      gendocs.sh and gendocs_template files and run
+        $ cp -p ../../gettext-runtime/doc/*.texi .
+        $ LC_ALL=C ./gendocs.sh --email bug-gnu-gettext gettext "GNU gettext"
+    - In the gettext-runtime/libasprintf/ directory, copy the
+      gendocs.sh and gendocs_template files and run
+        $ LC_ALL=C ./gendocs.sh --email bug-gnu-gettext autosprintf "GNU autosprintf"
+    Copy the resulting manual/ directories.
+  Commit the resulting manual/ directories in CVS, and for every removed HTML
+  file (that corresponds to a deleted node) add a line to the .symlinks file
+  in the same directory.
