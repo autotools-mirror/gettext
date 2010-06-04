@@ -2,6 +2,10 @@
 
 	* gettext-0.18.1 released.
 
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
+	* autopoint.in: Update for 0.18.1.
+
 2010-06-03  Bruno Haible  <bruno@clisp.org>
 
 	Deprecate the --with-cvs option.
