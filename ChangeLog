@@ -1,5 +1,21 @@
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
+	* m4/libtool.m4: Update from libtool-2.2.8, with modifications.
+	2009-04-23  Bruno Haible  <bruno@clisp.org>
+		Fix recognition of "nm" command.
+		* m4/libtool.m4 (LT_PATH_NM): Try "nm" program also when
+		compiling for mingw in a cygwin environment.
+	2008-04-06  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4 (LT_INIT): When setting LIBTOOL, use
+		CONFIG_SHELL; don't assume that the Makefile.in will set SHELL
+		to ${CONFIG_SHELL}.
+	* m4/ltoptions.m4: Update from libtool-2.2.8.
+	* m4/ltversion.m4: Likewise.
+	* m4/lt~obsolete.m4: Likewise.
+	* build-aux/ltmain.sh: Likewise.
+
+2010-06-04  Bruno Haible  <bruno@clisp.org>
+
 	* gettext-0.18.1 released.
 
 2010-06-04  Bruno Haible  <bruno@clisp.org>
