@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008, 2010 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -280,7 +280,10 @@ plural_help (const char *nullentry)
    If no errors, returns in *DISTRIBUTION information about the plural_eval
    values distribution.  */
 static int
-check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
+check_plural (message_list_ty *mlp,
+              int ignore_untranslated_messages,
+              int ignore_fuzzy_messages,
+              struct plural_distribution *distributionp)
 {
   int seen_errors = 0;
   const message_ty *has_plural;
@@ -306,7 +309,10 @@ check_plural (message_list_ty *mlp, struct plural_distribution *distributionp)
     {
       message_ty *mp = mlp->item[j];
 
-      if (!mp->obsolete && mp->msgid_plural != NULL)
+      if (!mp->obsolete
+          && !(ignore_untranslated_messages && mp->msgstr[0] == '\0')
+          && !(ignore_fuzzy_messages && (mp->is_fuzzy && !is_header (mp)))
+          && mp->msgid_plural != NULL)
         {
           const char *p;
           const char *p_end;
@@ -862,6 +868,8 @@ check_message (const message_ty *mp,
    Return the number of errors that were seen.  */
 int
 check_message_list (message_list_ty *mlp,
+                    int ignore_untranslated_messages,
+                    int ignore_fuzzy_messages,
                     int check_newlines,
                     int check_format_strings,
                     int check_header,
@@ -878,13 +886,16 @@ check_message_list (message_list_ty *mlp,
   distribution.histogram = NULL;
 
   if (check_header)
-    seen_errors += check_plural (mlp, &distribution);
+    seen_errors += check_plural (mlp, ignore_untranslated_messages,
+                                 ignore_fuzzy_messages, &distribution);
 
   for (j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 
-      if (!mp->obsolete)
+      if (!mp->obsolete
+          && !(ignore_untranslated_messages && mp->msgstr[0] == '\0')
+          && !(ignore_fuzzy_messages && (mp->is_fuzzy && !is_header (mp))))
         seen_errors += check_message (mp, &mp->pos,
                                       check_newlines,
                                       check_format_strings,

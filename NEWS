@@ -1,3 +1,10 @@
+Version 0.18.2 - July 2010
+
+* libgettextpo library:
+  - The initial msgstr of a new message is now "", not NULL.
+  - Bug fixes in the functions po_message_is_range, po_file_check_all,
+    po_message_check_all.
+
 Version 0.18.1 - June 2010
 
 * msggrep: A '$' anchor in a regular expression now also matches the end of

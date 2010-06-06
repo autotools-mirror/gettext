@@ -1,5 +1,14 @@
 2010-06-06  Bruno Haible  <bruno@clisp.org>
 
+	Bug fixes in libgettextpo.
+	* gettext-po.c (po_message_create): Initialize msgstr with the empty
+	string, not with NULL.
+	(po_message_is_range): Assign to output parameters correctly.
+	(po_file_check_all, po_message_check_all): Have check_message_list
+	ignore untranslated and fuzzy messages.
+
+2010-06-06  Bruno Haible  <bruno@clisp.org>
+
 	Avoid link error in programs that use libgettextpo.
 	* Makefile.am (libgettextpo_la_LIBADD): Add $(LTLIBUNISTRING).
 	Reported by Dmitry V. Levin <ldv@altlinux.org>.

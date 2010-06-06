@@ -530,6 +530,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     for (domain = domain_list; domain != NULL; domain = domain->next)
       nerrors +=
         check_message_list (domain->mlp,
+                            /* Untranslated and fuzzy messages have already
+                               been dealt with during parsing, see below in
+                               msgfmt_frob_new_message.  */
+                            0, 0,
                             1, check_format_strings, check_header,
                             check_compatibility,
                             check_accelerators, accelerator_char);
