@@ -1,3 +1,15 @@
+2010-06-06  Bruno Haible  <bruno@clisp.org>
+
+	Test the libgettextpo library and its functions.
+	* gettextpo-1: New file.
+	* gettextpo-1-prg.c: New file.
+	* gettextpo-1.de.po: New file.
+	* Makefile.am (TESTS): Add gettextpo-1.
+	(EXTRA_DIST): Add gettextpo-1.de.po.
+	(noinst_PROGRAMS): Add gettextpo-1-prg.
+	(gettextpo_1_prg_SOURCES, gettextpo_1_prg_CPPFLAGS,
+	gettextpo_1_prg_LDADD): New variables.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.
