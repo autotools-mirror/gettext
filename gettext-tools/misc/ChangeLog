@@ -1,3 +1,8 @@
+2010-06-06  Bruno Haible  <bruno@clisp.org>
+
+	Make 'convert-archive' less verbose.
+	* convert-archive.in: Avoid all output from "git commit".
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.

@@ -312,8 +312,7 @@ case "$to" in
       touch .gitignore
       git add .
       git commit --author="Bruno Haible <bruno@clisp.org>" \
-                 --message="Empty directory" 2>&1 \
-        | grep -v '^ '
+                 --message="Empty directory" 2>&1 >/dev/null
       git tag empty
     }) || func_fatal_error "git init failed"
     sed_remove_leading_dot='s,^\./,,'
@@ -329,8 +328,7 @@ case "$to" in
          tar xf -
          git add .
          git commit --author="Bruno Haible <bruno@clisp.org>" \
-                    --message="Import $version" 2>&1 \
-           | grep -v '^ '
+                    --message="Import $version" 2>&1 >/dev/null
          git tag "$version"
        }) || func_fatal_error "file copy into git repository failed"
      done
