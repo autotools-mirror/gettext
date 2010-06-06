@@ -338,9 +338,15 @@ else
     ARCHIVE_FORMAT=cvs
   else
     # Neither --with-git nor --with-cvs is specified.
-    if test "$gt_use_git" != no && (git --version) >/dev/null 2>&1; then
-      # --without-git is not specified, and the git program exists.
-      # Use git format.
+    if test "$gt_use_git" != no \
+       && (git --version) >/dev/null 2>&1 \
+       && { case `git --version | sed -e 's/^[^0-9]*//'` in
+              0.* | 1.[0-5].*) false ;;
+              *) true ;;
+            esac
+          }; then
+      # --without-git is not specified, and the git program exists
+      # in version 1.6 or newer. Use git format.
       ARCHIVE_FORMAT=git
     else
       # --without-git is specified, or the git program is missing.
