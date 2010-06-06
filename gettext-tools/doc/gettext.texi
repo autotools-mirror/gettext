@@ -10796,7 +10796,7 @@ argument is given.
 perl
 
 @item File extension
-@code{pl}, @code{PL}, @code{pm}, @code{cgi}
+@code{pl}, @code{PL}, @code{pm}, @code{perl}, @code{cgi}
 
 @item String syntax
 @itemize @bullet
