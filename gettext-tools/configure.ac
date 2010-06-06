@@ -338,6 +338,7 @@ else
     ARCHIVE_FORMAT=cvs
   else
     # Neither --with-git nor --with-cvs is specified.
+changequote(,)dnl
     if test "$gt_use_git" != no \
        && (git --version) >/dev/null 2>&1 \
        && { case `git --version | sed -e 's/^[^0-9]*//'` in
@@ -345,6 +346,7 @@ else
               *) true ;;
             esac
           }; then
+changequote([,])dnl
       # --without-git is not specified, and the git program exists
       # in version 1.6 or newer. Use git format.
       ARCHIVE_FORMAT=git
