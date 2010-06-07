@@ -1,3 +1,9 @@
+2010-06-06  Bruno Haible  <bruno@clisp.org>
+
+	New options --with-xz and --with-bzip2 for compressing the archive.
+	* DEPENDENCIES: Correct placement of entries for 'tar' and 'gzip'. Add
+	entries for 'bzip2' and 'xz'.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4: Update from libtool-2.2.8, with modifications.

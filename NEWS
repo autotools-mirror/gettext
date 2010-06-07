@@ -4,6 +4,13 @@ Version 0.18.2 - July 2010
   - The initial msgstr of a new message is now "", not NULL.
   - Bug fixes in the functions po_message_is_range, po_file_check_all,
     po_message_check_all.
+
+* Installation options:
+  The configure options --with-xz and --with-bzip2 can be used to specify
+  alternate compression methods for the archive used by the 'autopoint'
+  program. These options, together with --with-git, allow to trade
+  dependencies against installed package size. --with-xz has the highest
+  compression rate, followed by --with-git, followed by --with-bzip2.
 
 Version 0.18.1 - June 2010
 

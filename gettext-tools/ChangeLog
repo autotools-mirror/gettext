@@ -1,5 +1,12 @@
 2010-06-06  Bruno Haible  <bruno@clisp.org>
 
+	New options --with-xz and --with-bzip2 for compressing the archive.
+	* configure.ac: New options --without-bzip2, --without-xz.
+	(ARCHIVE_FORMAT): Rename value 'dir' to 'dirgz'. Recognize also values
+	'dirxz' or 'dirbz2', depending on options.
+
+2010-06-06  Bruno Haible  <bruno@clisp.org>
+
 	* configure.ac (ARCHIVE_FORMAT): If neither --with-git nor --with-cvs
 	is specified, don't use the git format if the 'git' program if older
 	than version 1.6.
