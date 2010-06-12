@@ -1,3 +1,9 @@
+2010-06-12  Bruno Haible  <bruno@clisp.org>
+
+	* Makefile.in.in ($(DOMAIN).pot-update): When GNU find is available,
+	avoid grepping through monster files.
+	Reported by Jim Meyering <jim@meyering.net>.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	Offer more choices in the Makevars template.
