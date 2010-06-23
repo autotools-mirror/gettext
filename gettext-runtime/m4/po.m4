@@ -1,4 +1,4 @@
-# po.m4 serial 17 (gettext-0.18)
+# po.m4 serial 18 (gettext-0.18.2)
 dnl Copyright (C) 1995-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -102,7 +102,7 @@ changequote([,])dnl
       case "$ac_file" in */Makefile.in)
         # Adjust a relative srcdir.
         ac_dir=`echo "$ac_file"|sed 's%/[^/][^/]*$%%'`
-        ac_dir_suffix="/`echo "$ac_dir"|sed 's%^\./%%'`"
+        ac_dir_suffix=/`echo "$ac_dir"|sed 's%^\./%%'`
         ac_dots=`echo "$ac_dir_suffix"|sed 's%/[^/]*%../%g'`
         # In autoconf-2.13 it is called $ac_given_srcdir.
         # In autoconf-2.50 it is called $srcdir.
@@ -226,7 +226,7 @@ AC_DEFUN([AM_POSTPROCESS_PO_MAKEFILE],
 changequote(,)dnl
   # Adjust a relative srcdir.
   ac_dir=`echo "$ac_file"|sed 's%/[^/][^/]*$%%'`
-  ac_dir_suffix="/`echo "$ac_dir"|sed 's%^\./%%'`"
+  ac_dir_suffix=/`echo "$ac_dir"|sed 's%^\./%%'`
   ac_dots=`echo "$ac_dir_suffix"|sed 's%/[^/]*%../%g'`
   # In autoconf-2.13 it is called $ac_given_srcdir.
   # In autoconf-2.50 it is called $srcdir.
