@@ -1,3 +1,7 @@
+2010-07-02  Bruno Haible  <bruno@clisp.org>
+
+	* nl.po: Update from Benno Schulenberg <benno@vertaalt.nl>.
+
 2010-06-12  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.in.in ($(DOMAIN).pot-update): When GNU find is available,
