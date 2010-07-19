@@ -71,7 +71,8 @@ AC_DEFUN([AM_ICONV_LINK],
       if test $am_cv_lib_iconv = yes; then
         LIBS="$LIBS $LIBICONV"
       fi
-      AC_TRY_RUN([
+      AC_RUN_IFELSE(
+        [AC_LANG_SOURCE([[
 #include <iconv.h>
 #include <string.h>
 int main ()
@@ -146,7 +147,9 @@ int main ()
       && iconv_open ("utf8", "eucJP") == (iconv_t)(-1))
     return 1;
   return 0;
-}], [am_cv_func_iconv_works=yes], [am_cv_func_iconv_works=no],
+}]])],
+        [am_cv_func_iconv_works=yes],
+        [am_cv_func_iconv_works=no],
         [case "$host_os" in
            aix* | hpux*) am_cv_func_iconv_works="guessing no" ;;
            *)            am_cv_func_iconv_works="guessing yes" ;;

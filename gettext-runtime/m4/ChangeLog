@@ -1,5 +1,13 @@
 2010-07-19  Bruno Haible  <bruno@clisp.org>
 
+	Modernize AC_TRY_RUN invocations.
+	* iconv.m4 (AM_ICONV_LINK): Use AC_RUN_IFELSE instead of AC_TRY_RUN.
+	* intdiv0.m4 (gt_INTDIV0): Likewise.
+	* printf-posix.m4 (gt_PRINTF_POSIX): Likewise.
+	* threadlib.m4 (gl_THREADLIB_BODY): Likewise.
+
+2010-07-19  Bruno Haible  <bruno@clisp.org>
+
 	Modernize AC_TRY_LINK invocations.
 	* codeset.m4 (AM_LANGINFO_CODESET): Use AC_LINK_IFELSE instead of
 	AC_TRY_LINK.
