@@ -1,3 +1,15 @@
+2010-07-19  Bruno Haible  <bruno@clisp.org>
+
+	Modernize AC_TRY_LINK invocations.
+	* codeset.m4 (AM_LANGINFO_CODESET): Use AC_LINK_IFELSE instead of
+	AC_TRY_LINK.
+	* gettext.m4 (AM_GNU_GETTEXT): Likewise.
+	* iconv.m4 (AM_ICONV_LINK): Likewise.
+	* intl.m4 (gt_INTL_SUBDIR_CORE): Likewise.
+	* intlmacosx.m4 (gt_INTL_MACOSX): Likewise.
+	* lcmessage.m4 (gt_LC_MESSAGES): Likewise.
+	* threadlib.m4 (gl_THREADLIB_BODY): Likewise.
+
 2010-07-18  Bruno Haible  <bruno@clisp.org>
 
 	Modernize AC_TRY_COMPILE invocations.
