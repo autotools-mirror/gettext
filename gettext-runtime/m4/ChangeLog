@@ -1,3 +1,19 @@
+2010-07-18  Bruno Haible  <bruno@clisp.org>
+
+	Modernize AC_TRY_COMPILE invocations.
+	* iconv.m4 (gl_iconv_AC_DEFUN): Use AC_COMPILE_IFELSE instead of
+	AC_TRY_COMPILE.
+	* intl.m4 (gt_CHECK_DECL): Likewise.
+	* intmax.m4 (gt_TYPE_INTMAX_T): Likewise.
+	* inttypes-pri.m4 (gt_INTTYPES_PRI): Likewise.
+	* inttypes_h.m4 (gl_AC_HEADER_INTTYPES_H): Likewise.
+	* lock.m4 (gl_LOCK): Likewise.
+	* size_max.m4 (gl_SIZE_MAX): Likewise.
+	* stdint_h.m4 (gl_AC_HEADER_STDINT_H): Likewise.
+	* visibility.m4 (gl_VISIBILITY): Likewise.
+	* wchar_t.m4 (gt_TYPE_WCHAR_T): Likewise.
+	* wint_t.m4 (gt_TYPE_WINT_T): Likewise.
+
 2010-07-01  Christian Weisgerber  <naddy@mips.inka.de>  (tiny change)
 
 	Use AC_GNU_SOURCE as a fallback for AC_USE_SYSTEM_EXTENSIONS.
