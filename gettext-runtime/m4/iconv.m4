@@ -1,4 +1,4 @@
-# iconv.m4 serial 12 (gettext-0.18.2)
+# iconv.m4 serial 13 (gettext-0.18.2)
 dnl Copyright (C) 2000-2002, 2007-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -150,10 +150,14 @@ int main ()
 }]])],
         [am_cv_func_iconv_works=yes],
         [am_cv_func_iconv_works=no],
-        [case "$host_os" in
-           aix* | hpux*) am_cv_func_iconv_works="guessing no" ;;
-           *)            am_cv_func_iconv_works="guessing yes" ;;
-         esac])
+        [
+changequote(,)dnl
+         case "$host_os" in
+           aix | aix[3-6]* | hpux*) am_cv_func_iconv_works="guessing no" ;;
+           *)                       am_cv_func_iconv_works="guessing yes" ;;
+         esac
+changequote([,])dnl
+        ])
       LIBS="$am_save_LIBS"
     ])
     case "$am_cv_func_iconv_works" in
