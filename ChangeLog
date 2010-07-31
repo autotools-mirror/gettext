@@ -1,3 +1,10 @@
+2010-07-31  Bruno Haible  <bruno@clisp.org>
+
+	Use new ansi-c++.m4 from gnulib.
+	* autogen.sh (GNULIB_MODULES_RUNTIME_OTHER, GNULIB_MODULES_TOOLS_OTHER):
+	Add ansi-c++-opt.
+	Reported at <https://savannah.gnu.org/bugs/?30607>.
+
 2010-06-06  Bruno Haible  <bruno@clisp.org>
 
 	New options --with-xz and --with-bzip2 for compressing the archive.

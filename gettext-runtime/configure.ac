@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-1999, 2000-2010 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -115,7 +115,7 @@ CROSS_COMPILING=$cross_compiling
 AC_SUBST([CROSS_COMPILING])
 
 dnl Checks for optional programs for the tests/lang-* tests.
-gt_PROG_ANSI_CXX
+gl_PROG_ANSI_CXX([CXX], [ANSICXX])
 
 dnl Checks for special libraries for the tests/test-lock test.
 dnl On some systems, sched_yield is in librt, rather than in libpthread.

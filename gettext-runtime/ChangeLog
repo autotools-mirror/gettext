@@ -1,3 +1,9 @@
+2010-07-31  Bruno Haible  <bruno@clisp.org>
+
+	Use new ansi-c++.m4 from gnulib.
+	* configure.ac: Invoke gl_PROG_ANSI_CXX instead of gt_PROG_ANSI_CXX.
+	Reported at <https://savannah.gnu.org/bugs/?30607>.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.

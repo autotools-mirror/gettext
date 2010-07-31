@@ -98,6 +98,7 @@ if ! $skip_gnulib; then
     '
     GNULIB_MODULES_RUNTIME_OTHER='
       gettext-runtime-misc
+      ansi-c++-opt
       csharpcomp-script
       java
       javacomp-script
@@ -241,6 +242,7 @@ if ! $skip_gnulib; then
     '
     GNULIB_MODULES_TOOLS_OTHER='
       gettext-tools-misc
+      ansi-c++-opt
       csharpcomp-script
       csharpexec-script
       gcj

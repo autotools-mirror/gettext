@@ -447,7 +447,7 @@ CROSS_COMPILING=$cross_compiling
 AC_SUBST([CROSS_COMPILING])
 
 dnl Checks for optional programs for the tests/lang-*, tests/recode-* tests.
-gt_PROG_ANSI_CXX
+gl_PROG_ANSI_CXX([CXX], [ANSICXX])
 gt_LOCALE_FR
 gt_LOCALE_FR_UTF8
 gt_LOCALE_JA

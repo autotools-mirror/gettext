@@ -1,5 +1,12 @@
 2010-07-31  Bruno Haible  <bruno@clisp.org>
 
+	Use new ansi-c++.m4 from gnulib.
+	* ansi-c++.m4: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove it.
+	Reported at <https://savannah.gnu.org/bugs/?30607>.
+
+2010-07-31  Bruno Haible  <bruno@clisp.org>
+
 	iconv: Work around AIX 6.1..7.1 bug.
 	* iconv.m4 (AM_ICONV_LINK): Test against AIX 6.1, 7.1 bug. When
 	cross-compiling, guess no on all versions of AIX.
