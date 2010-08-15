@@ -1,3 +1,9 @@
+2010-08-13  Nicola Pero  <nicola.pero@meta-innovation.com>  (tiny change)
+
+	Fix build error in hello-objc-gnustep due to 'ast' and 'ky' catalogs.
+	* hello-objc-gnustep/po/LocaleAliases: Regenerated from newest
+	gnustep-base/Languages/Locale.aliases.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.
