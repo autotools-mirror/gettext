@@ -1,3 +1,10 @@
+2010-08-28  Bruno Haible  <bruno@clisp.org>
+
+	Prefer using AC_DEFUN_ONCE over AC_DEFUN in projects with gnulib.
+	* iconv.m4 (gl_iconv_AC_DEFUN): Use AC_DEFUN_ONCE if gl_00GNULIB is
+	defined.
+	Suggested by Eric Blake.
+
 2010-07-31  Bruno Haible  <bruno@clisp.org>
 
 	Use new ansi-c++.m4 from gnulib.
