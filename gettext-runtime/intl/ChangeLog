@@ -1,3 +1,8 @@
+2010-06-09  Bruno Haible  <bruno@clisp.org>
+
+	Avoid relocwrapper link errors due to gnulib replacement functions.
+	* lib/relocatable.c: Use the system's malloc function.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.

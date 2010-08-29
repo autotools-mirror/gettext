@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2009 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2010 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software; you can redistribute it and/or modify it
@@ -85,6 +85,9 @@
 # define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
 # define FILE_SYSTEM_PREFIX_LEN(P) 0
 #endif
+
+/* Use the system functions, not the gnulib overrides in this file.  */
+#undef malloc
 
 /* Original installation prefix.  */
 static char *orig_prefix;
