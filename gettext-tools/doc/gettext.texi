@@ -4593,7 +4593,7 @@ msgmerge --compendium compendium.po -o file.po /dev/null file.pot
 
 Concatenate the compendium file(s) and the existing PO, merge the
 result with the POT file and remove the obsolete entries (optional,
-here done using @samp{sed}):
+here done using @samp{msgattrib}):
 
 @example
 msgcat --use-first -o update.po compendium1.po compendium2.po file.po
