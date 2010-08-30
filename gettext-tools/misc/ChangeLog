@@ -1,3 +1,12 @@
+2010-08-30  Bruno Haible  <bruno@clisp.org>
+
+	Improve interopability with Emacs 23.
+	* po-compat.el (po-find-file-coding-system-guts): Don't use codepages
+	API in Emacs >= 23.
+	* po-mode.el (po-mode-version-string): Bump to 2.21.
+	(po-ediff-buffers-exit-recursive, po-send-mail): Use
+	insert-buffer-substring instead of insert-buffer.
+
 2010-06-06  Bruno Haible  <bruno@clisp.org>
 
 	New options --with-xz and --with-bzip2 for compressing the archive.

@@ -1,6 +1,6 @@
 ;;; po-compat.el --- basic support of PO translation files -*- coding: latin-1; -*-
 
-;; Copyright (C) 1995-1999, 2000-2002 Free Software Foundation, Inc.
+;; Copyright (C) 1995-1999, 2000-2002, 2010 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>,
 ;;          Greg McGary <gkm@magilla.cichlid.com>,
@@ -201,6 +201,7 @@ Called through file-coding-system-alist, before the file is visited for real."
                 (list (cond ((and try-symbol (coding-system-p try-symbol))
                              try-symbol)
                             ((and po-EMACS20
+                                  (not (string-lessp "23" emacs-version))
                                   (string-match "\\`cp[1-9][0-9][0-9]?\\'"
                                                 try-string)
                                   (assoc (substring try-string 2)
