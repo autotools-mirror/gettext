@@ -73,9 +73,6 @@ if ! $skip_gnulib; then
   # Skip the gnulib-tool step if gnulib-tool was not found.
   if test -n "$GNULIB_TOOL"; then
     # In gettext-runtime:
-    if test -f gettext-runtime/gnulib-m4/gnulib-cache.m4; then
-      mv -f gettext-runtime/gnulib-m4/gnulib-cache.m4 gettext-runtime/gnulib-m4/gnulib-cache.m4~
-    fi
     GNULIB_MODULES_RUNTIME_FOR_SRC='
       atexit
       basename
@@ -106,9 +103,6 @@ if ! $skip_gnulib; then
     $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER
     # In gettext-runtime/libasprintf:
-    if test -f gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4; then
-      mv -f gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4 gettext-runtime/libasprintf/gnulib-m4/gnulib-cache.m4~
-    fi
     GNULIB_MODULES_LIBASPRINTF='
       alloca
       errno
@@ -118,9 +112,6 @@ if ! $skip_gnulib; then
     $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=. --m4-base=gnulib-m4 --lgpl=2 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_LIBASPRINTF $GNULIB_MODULES_LIBASPRINTF_OTHER
     # In gettext-tools:
-    if test -f gettext-tools/gnulib-m4/gnulib-cache.m4; then
-      mv -f gettext-tools/gnulib-m4/gnulib-cache.m4 gettext-tools/gnulib-m4/gnulib-cache.m4~
-    fi
     GNULIB_MODULES_TOOLS_FOR_SRC='
       alloca-opt
       atexit
@@ -254,18 +245,12 @@ if ! $skip_gnulib; then
     $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
       --import --avoid=hash-tests $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER
     # In gettext-tools/libgrep:
-    if test -f gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4; then
-      mv -f gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4 gettext-tools/libgrep/gnulib-m4/gnulib-cache.m4~
-    fi
     GNULIB_MODULES_TOOLS_FOR_LIBGREP='
       regex
     '
     $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
       --import `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` $GNULIB_MODULES_TOOLS_FOR_LIBGREP
     # In gettext-tools/libgettextpo:
-    if test -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4; then
-      mv -f gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4 gettext-tools/libgettextpo/gnulib-m4/gnulib-cache.m4~
-    fi
     # This is a subset of the GNULIB_MODULES_FOR_SRC.
     GNULIB_MODULES_LIBGETTEXTPO='
       basename
