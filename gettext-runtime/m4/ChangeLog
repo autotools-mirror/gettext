@@ -1,3 +1,9 @@
+2010-09-04  Bruno Haible  <bruno@clisp.org>
+
+	Set PATH_SEPARATOR the same way autoconf does.
+	* progtest.m4 (AM_PATH_PROG_WITH_TEST): Determine the value of
+	PATH_SEPARATOR the same way autoconf-generated configure scripts do.
+
 2010-08-28  Bruno Haible  <bruno@clisp.org>
 
 	Prefer using AC_DEFUN_ONCE over AC_DEFUN in projects with gnulib.
