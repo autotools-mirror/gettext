@@ -1,3 +1,8 @@
+2013-03-05  Ævar Arnfjörð Bjarmason  <avarab@gmail.com>  (tiny change)
+
+	* po-mode.el (po-auto-update-file-header): New user option.
+	(po-check-file-header): Respect 'po-auto-update-file-header'.
+
 2013-03-04  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in: Handle macro directories specified in configure.ac.

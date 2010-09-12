@@ -130,6 +130,13 @@ Value is nil, t, or ask."
   :type 'boolean
   :group 'po)
 
+(defcustom po-auto-update-file-header t
+  "*Automatically revise headers.  Value is nil, t, or ask."
+  :type '(choice (const nil)
+                 (const t)
+                 (const ask))
+  :group 'po)
+
 (defcustom po-auto-replace-revision-date t
   "*Automatically revise date in headers.  Value is nil, t, or ask."
   :type '(choice (const nil)
@@ -1356,42 +1363,47 @@ Position %d/%d; %d translated, %d fuzzy, %d untranslated, %d obsolete")
 ;;; Processing the PO file header entry.
 
 (defun po-check-file-header ()
-  "Create a missing PO mode file header, or replace an oldish one."
-  (save-excursion
-    (save-restriction
-      (widen) ; in case of a narrowed view to the buffer
-      (let ((buffer-read-only po-read-only)
-            insert-flag end-of-header)
-        (goto-char (point-min))
-        (if (re-search-forward po-any-msgstr-block-regexp nil t)
-            (progn
-              ;; There is at least one entry.
-              (goto-char (match-beginning 0))
-              (forward-line -1)
-              (setq end-of-header (match-end 0))
-              (if (looking-at "msgid \"\"\n")
-                  ;; There is indeed a PO file header.
-                  (if (re-search-forward "\n\"PO-Revision-Date: "
-                                         end-of-header t)
-                      nil
-                    ;; This is an oldish header.  Replace it all.
-                    (goto-char end-of-header)
-                    (while (> (point) (point-min))
-                      (forward-line -1)
-                      (insert "#~ ")
-                      (beginning-of-line))
-                    (beginning-of-line)
-                    (setq insert-flag t))
-                ;; The first entry is not a PO file header, insert one.
-                (setq insert-flag t)))
-          ;; Not a single entry found.
-          (setq insert-flag t))
-        (goto-char (point-min))
-        (if insert-flag
-            (progn
-              (insert po-default-file-header)
-              (if (not (eobp))
-                  (insert "\n"))))))))
+  "Create a missing PO mode file header, or replace an oldish one.
+Can be customized with the `po-auto-update-file-header' variable."
+  (if (or (eq po-auto-update-file-header t)
+          (and (eq po-auto-update-file-header 'ask)
+               (y-or-n-p (_"May I update the PO Header Entry? "))))
+      (save-excursion
+        (save-restriction
+          (widen) ; in case of a narrowed view to the buffer
+          (let ((buffer-read-only po-read-only)
+                insert-flag end-of-header)
+            (goto-char (point-min))
+            (if (re-search-forward po-any-msgstr-block-regexp nil t)
+                (progn
+                  ;; There is at least one entry.
+                  (goto-char (match-beginning 0))
+                  (forward-line -1)
+                  (setq end-of-header (match-end 0))
+                  (if (looking-at "msgid \"\"\n")
+                      ;; There is indeed a PO file header.
+                      (if (re-search-forward "\n\"PO-Revision-Date: "
+                                             end-of-header t)
+                          nil
+                        ;; This is an oldish header.  Replace it all.
+                        (goto-char end-of-header)
+                        (while (> (point) (point-min))
+                          (forward-line -1)
+                          (insert "#~ ")
+                          (beginning-of-line))
+                        (beginning-of-line)
+                        (setq insert-flag t))
+                    ;; The first entry is not a PO file header, insert one.
+                    (setq insert-flag t)))
+              ;; Not a single entry found.
+              (setq insert-flag t))
+            (goto-char (point-min))
+            (if insert-flag
+                (progn
+                  (insert po-default-file-header)
+                  (if (not (eobp))
+                      (insert "\n")))))))
+    (message (_"PO Header Entry was not updated..."))))
 
 (defun po-replace-revision-date ()
   "Replace the revision date by current time in the PO file header."
