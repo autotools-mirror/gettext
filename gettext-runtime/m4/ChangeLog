@@ -1,3 +1,9 @@
+2010-09-22  Bruno Haible  <bruno@clisp.org>
+
+	* threadlib.m4 (gl_THREADLIB_EARLY_BODY): When gl_THREADLIB_DEFAULT_NO
+	is defined, change the default to 'no'.
+	Reported by Paul Eggert.
+
 2010-09-04  Bruno Haible  <bruno@clisp.org>
 
 	Set PATH_SEPARATOR the same way autoconf does.
