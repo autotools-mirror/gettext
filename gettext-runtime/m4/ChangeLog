@@ -1,3 +1,9 @@
+2010-10-04  Bruno Haible  <bruno@clisp.org>
+
+	Make option --with-libpth-prefix work.
+	* threadlib.m4 (gl_THREADLIB_BODY): When testing whether pth works, use
+	$LIBPTH, not just -lpth.
+
 2010-09-22  Bruno Haible  <bruno@clisp.org>
 
 	* threadlib.m4 (gl_THREADLIB_EARLY_BODY): When gl_THREADLIB_DEFAULT_NO
