@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2010 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2011 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD) $(LTLIBUNISTRING)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  @LTLIBINTL@ @LTLIBICONV@ -lc @LTNOUNDEF@
+  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL

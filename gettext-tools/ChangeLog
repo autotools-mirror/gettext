@@ -1,3 +1,8 @@
+2010-10-10  Bruno Haible  <bruno@clisp.org>
+
+	Rely more on libtool.
+	* configure.ac (LTNOUNDEF): Remove variable.
+
 2010-07-31  Bruno Haible  <bruno@clisp.org>
 
 	Use new ansi-c++.m4 from gnulib.

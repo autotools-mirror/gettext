@@ -97,14 +97,6 @@ dnl Prepares the libtool configuration for handling of Windows resources, and
 dnl sets the RC variable to a program that compiles Windows resource files.
 LT_LANG([Windows Resource])
 
-case "$host_os" in
-  # On Cygwin, without -no-undefined, a warning is emitted and only a static
-  # library is built.
-  beos* | mingw* | cygwin*) LTNOUNDEF='-no-undefined' ;;
-  *) LTNOUNDEF='' ;;
-esac
-AC_SUBST([LTNOUNDEF])
-
 dnl On mingw and Cygwin, we can activate special Makefile rules which add
 dnl version information to the shared libraries and executables.
 case "$host_os" in

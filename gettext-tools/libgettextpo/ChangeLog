@@ -1,3 +1,9 @@
+2011-06-07  Bruno Haible  <bruno@clisp.org>
+
+	Rely more on libtool.
+	* Makefile.am (libgettextpo_la_LDFLAGS): Use -no-undefined always.
+	Don't use @LTNOUNDEF@.
+
 2010-06-06  Bruno Haible  <bruno@clisp.org>
 
 	Bug fixes in libgettextpo.
