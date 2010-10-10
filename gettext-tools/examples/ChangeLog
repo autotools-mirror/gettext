@@ -1,3 +1,7 @@
+2010-10-10  Bruno Haible  <bruno@clisp.org>
+
+	* po/bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
+
 2010-08-13  Nicola Pero  <nicola.pero@meta-innovation.com>  (tiny change)
 
 	Fix build error in hello-objc-gnustep due to 'ast' and 'ky' catalogs.
