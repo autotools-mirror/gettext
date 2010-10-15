@@ -1,3 +1,10 @@
+2010-10-14  Bruno Haible  <bruno@clisp.org>
+
+	vasnprintf: Don't set errno to 0.
+	* vasnprintf.c (VASNPRINTF): Save and restore errno around the block
+	that sets it to 0.
+	Reported by Gianluigi Tiesi <sherpya@netfarm.it>.
+
 2010-06-04  Bruno Haible  <bruno@clisp.org>
 
 	* gettext-0.18.1 released.
