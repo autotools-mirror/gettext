@@ -180,6 +180,12 @@ numbered_arg_compare (const void *p1, const void *p2)
 #define INVALID_C99_MACRO(directive_number) \
   xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
 
+#define INVALID_ANGLE_BRACKET(directive_number) \
+  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), directive_number)
+
+#define INVALID_IGNORED_ARGUMENT(referenced_arg, ignored_arg) \
+  xasprintf (_("The string refers to argument number %u but ignores argument number %u."), referenced_arg, ignored_arg)
+
 static void *
 format_parse (const char *format, bool translated, bool objc_extensions,
               char *fdi, char **invalid_reason)
@@ -584,8 +590,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
 
             if (*format != '>')
               {
-                *invalid_reason =
-                  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), spec.directives);
+                *invalid_reason = INVALID_ANGLE_BRACKET (spec.directives);
                 FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -810,8 +815,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
       for (i = 0; i < numbered_arg_count; i++)
         if (numbered[i].number != i + 1)
           {
-            *invalid_reason =
-              xasprintf (_("The string refers to argument number %u but ignores argument number %u."), numbered[i].number, i + 1);
+            *invalid_reason = INVALID_IGNORED_ARGUMENT (numbered[i].number, i + 1);
             goto bad_format;
           }
 
