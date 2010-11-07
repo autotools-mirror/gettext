@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2007, 2009 Free Software Foundation, Inc.
+## Copyright (C) 2002-2007, 2009-2010 Free Software Foundation, Inc.
 ##
 ## This program is free software; you can redistribute it and/or modify it
 ## under the terms of the GNU Library General Public License as published
@@ -35,10 +35,10 @@ DEFS = -DIN_LIBASPRINTF @DEFS@
 include_HEADERS = autosprintf.h
 
 all-local $(libasprintf_la_OBJECTS): autosprintf.h
-autosprintf.h: autosprintf.h.in
-	cp $(srcdir)/autosprintf.h.in autosprintf.h
+autosprintf.h: autosprintf.in.h
+	cp $(srcdir)/autosprintf.in.h autosprintf.h
 MOSTLYCLEANFILES += autosprintf.h
-EXTRA_DIST += autosprintf.h.in
+EXTRA_DIST += autosprintf.in.h
 
 dist-hook:
 	rm -f $(distdir)/autosprintf.h
