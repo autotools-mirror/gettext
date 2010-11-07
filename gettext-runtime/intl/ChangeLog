@@ -1,3 +1,10 @@
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
+	Rename libgnuintl.h.in to libgnuintl.in.h.
+	* libgnuintl.in.h: New file, renamed from libgnuintl.h.in.
+	* Makefile.in (HEADERS, libgnuintl.h, libintl.h): Update.
+	* printf.c: Update.
+
 2010-10-14  Bruno Haible  <bruno@clisp.org>
 
 	vasnprintf: Don't set errno to 0.
