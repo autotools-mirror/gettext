@@ -170,14 +170,14 @@ MOSTLYCLEANFILES += config.h config.h-t
 
 # Special rules for installable include files that export variables.
 
-EXTRA_DIST += gettext-po.h.in
+EXTRA_DIST += gettext-po.in.h
 BUILT_SOURCES += gettext-po.h
 CLEANFILES += gettext-po.h
-gettext-po.h: gettext-po.h.in
+gettext-po.h: gettext-po.in.h
 if WOE32DLL
-	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.h.in > gettext-po.h-tmp
+	sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/' $(srcdir)/gettext-po.in.h > gettext-po.h-tmp
 else
-	cp $(srcdir)/gettext-po.h.in gettext-po.h-tmp
+	cp $(srcdir)/gettext-po.in.h gettext-po.h-tmp
 endif
 	mv gettext-po.h-tmp gettext-po.h
 

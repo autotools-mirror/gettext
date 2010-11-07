@@ -1,3 +1,9 @@
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
+	Rename gettext-po.h.in to gettext-po.in.h.
+	* gettext-po.in.h: New file, renamed from gettext-po.h.in.
+	* Makefile.am (EXTRA_DIST, gettext-po.h): Update.
+
 2011-06-07  Bruno Haible  <bruno@clisp.org>
 
 	Rely more on libtool.
