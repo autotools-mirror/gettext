@@ -1,5 +1,9 @@
 2010-11-07  Bruno Haible  <bruno@clisp.org>
 
+	* loadmsgcat.c (get_sysdep_segment_value): Update comment.
+
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
 	vasnprintf: Support I flag on glibc systems.
 	* printf-parse.h (FLAG_LOCALIZED): New macro.
 	* printf-parse.c (PRINTF_PARSE): Handle the 'I' flag.

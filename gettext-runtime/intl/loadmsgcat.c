@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-1999, 2000-2008 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2008, 2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -763,7 +763,7 @@ get_sysdep_segment_value (const char *name)
 #if defined _LIBC || __GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2)
       /* The 'I' flag, in numeric format directives, replaces ASCII digits
 	 with the 'outdigits' defined in the LC_CTYPE locale facet.  This is
-	 used for Farsi (Persian) and maybe Arabic.  */
+	 used for Farsi (Persian), some Indic languages, and maybe Arabic.  */
       return "I";
 #else
       return "";
