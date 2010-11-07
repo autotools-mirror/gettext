@@ -1,5 +1,13 @@
 2010-11-07  Bruno Haible  <bruno@clisp.org>
 
+	vasnprintf: Support I flag on glibc systems.
+	* printf-parse.h (FLAG_LOCALIZED): New macro.
+	* printf-parse.c (PRINTF_PARSE): Handle the 'I' flag.
+	* vasnprintf.c (VASNPRINTF): Pass the 'I' flag on to the system's
+	snprintf function.
+
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
 	Rename autosprintf.h.in to autosprintf.in.h.
 	* autosprintf.in.h: New file, renamed from autosprintf.h.in.
 	* Makefile.am (autosprintf.h, EXTRA_DIST): Update.
