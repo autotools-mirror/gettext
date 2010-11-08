@@ -26,10 +26,33 @@
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
-#include "format-invalid.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#include "format-invalid.h"
+
+#define INVALID_C99_MACRO(directive_number) \
+  xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
+
+#define INVALID_ANGLE_BRACKET(directive_number) \
+  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), directive_number)
+
+#define INVALID_IGNORED_ARGUMENT(referenced_arg, ignored_arg) \
+  xasprintf (_("The string refers to argument number %u but ignores argument number %u."), referenced_arg, ignored_arg)
+
+/* Execute statement if memory allocation function returned NULL.  */
+#define IF_OOM(allocated_ptr, statement)  /* nothing, since we use xalloc.h */
+
+/* Specifies whether the system dependent segments in msgid and msgstr have
+   been processed.  This means:
+     - If false, ISO C 99 <inttypes.h> directives are denoted with angle
+       brackets.  If true, they have already been expanded, leading in
+       particular to %I64d directives on native Windows platforms.
+     - If false, the 'I' flag may be present in msgstr (also on platforms
+       other than glibc).  If true, the 'I' directive may be present in msgstr
+       only on glibc >= 2.2 platforms.  */
+#define SYSDEP_SEGMENTS_PROCESSED false
 
 /* C format strings are described in POSIX (IEEE P1003.1 2001), section
    XSH 3 fprintf().  See also Linux fprintf(3) manual page.
@@ -122,6 +145,8 @@ enum format_arg_type
   FAT_COUNT_LONGLONGINT_POINTER = FAT_COUNT_POINTER | FAT_SIZE_LONGLONG,
   */
   /* Bitmasks */
+  FAT_BASIC_MASK        = (FAT_INTEGER | FAT_DOUBLE | FAT_CHAR | FAT_STRING
+                           | FAT_OBJC_OBJECT | FAT_POINTER | FAT_COUNT_POINTER),
   FAT_SIZE_MASK         = (FAT_SIZE_SHORT | FAT_SIZE_CHAR
                            | FAT_SIZE_LONG | FAT_SIZE_LONGLONG
                            | FAT_SIZE_8_T | FAT_SIZE_16_T
@@ -167,6 +192,16 @@ struct spec
 #undef isdigit
 #define isdigit(c) ((unsigned int) ((c) - '0') < 10)
 
+/* Whether to recognize the 'I' flag.  */
+#if SYSDEP_SEGMENTS_PROCESSED
+/* The 'I' flag can only occur in glibc >= 2.2.  On other platforms, gettext()
+   filters it away even if it is present in the msgstr in the .mo file.  */
+# define HANDLE_I_FLAG \
+   (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2))
+#else
+# define HANDLE_I_FLAG 1
+#endif
+
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -177,24 +212,15 @@ numbered_arg_compare (const void *p1, const void *p2)
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
 
-#define INVALID_C99_MACRO(directive_number) \
-  xasprintf (_("In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."), directive_number)
-
-#define INVALID_ANGLE_BRACKET(directive_number) \
-  xasprintf (_("In the directive number %u, the token after '<' is not followed by '>'."), directive_number)
-
-#define INVALID_IGNORED_ARGUMENT(referenced_arg, ignored_arg) \
-  xasprintf (_("The string refers to argument number %u but ignores argument number %u."), referenced_arg, ignored_arg)
-
-static void *
-format_parse (const char *format, bool translated, bool objc_extensions,
-              char *fdi, char **invalid_reason)
+static struct spec *
+format_parse_entrails (const char *format, bool translated,
+                       bool objc_extensions, char *fdi, char **invalid_reason,
+                       struct spec *result)
 {
   const char *const format_start = format;
   struct spec spec;
   unsigned int numbered_arg_count;
   struct numbered_arg *numbered;
-  struct spec *result;
 
   spec.directives = 0;
   numbered_arg_count = 0;
@@ -248,6 +274,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
             if (*format == ' ' || *format == '+' || *format == '-'
                 || *format == '#' || *format == '0' || *format == '\'')
               format++;
+#if HANDLE_I_FLAG
             else if (translated && *format == 'I')
               {
                 spec.sysdep_directives =
@@ -255,11 +282,13 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   xrealloc (spec.sysdep_directives,
                             2 * (spec.sysdep_directives_count + 1)
                             * sizeof (const char *));
+                IF_OOM (spec.sysdep_directives, goto bad_format;)
                 spec.sysdep_directives[2 * spec.sysdep_directives_count] = format;
                 spec.sysdep_directives[2 * spec.sysdep_directives_count + 1] = format + 1;
                 spec.sysdep_directives_count++;
                 format++;
               }
+#endif
             else
               break;
           }
@@ -313,6 +342,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   {
                     spec.allocated = 2 * spec.allocated + 1;
                     numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                    IF_OOM (numbered, goto bad_format;)
                   }
                 numbered[numbered_arg_count].number = width_number;
                 numbered[numbered_arg_count].type = FAT_INTEGER;
@@ -334,6 +364,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   {
                     spec.allocated = 2 * spec.allocated + 1;
                     spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                    IF_OOM (spec.unnumbered, goto bad_format;)
                   }
                 spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
                 spec.unnumbered_arg_count++;
@@ -397,6 +428,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                       {
                         spec.allocated = 2 * spec.allocated + 1;
                         numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                        IF_OOM (numbered, goto bad_format;)
                       }
                     numbered[numbered_arg_count].number = precision_number;
                     numbered[numbered_arg_count].type = FAT_INTEGER;
@@ -418,6 +450,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                       {
                         spec.allocated = 2 * spec.allocated + 1;
                         spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                        IF_OOM (spec.unnumbered, goto bad_format;)
                       }
                     spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
                     spec.unnumbered_arg_count++;
@@ -429,13 +462,14 @@ format_parse (const char *format, bool translated, bool objc_extensions,
               }
           }
 
-        if (*format == '<')
+        if (!SYSDEP_SEGMENTS_PROCESSED && *format == '<')
           {
             spec.sysdep_directives =
               (const char **)
               xrealloc (spec.sysdep_directives,
                         2 * (spec.sysdep_directives_count + 1)
                         * sizeof (const char *));
+            IF_OOM (spec.sysdep_directives, goto bad_format;)
             spec.sysdep_directives[2 * spec.sysdep_directives_count] = format;
 
             format++;
@@ -632,6 +666,16 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   size = FAT_SIZE_SIZE_T;
                 else if (*format == 't')
                   size = FAT_SIZE_PTRDIFF_T;
+#if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+                else if (SYSDEP_SEGMENTS_PROCESSED
+                         && *format == 'I'
+                         && format[1] == '6'
+                         && format[2] == '4')
+                  {
+                    size = FAT_SIZE_64_T;
+                    format += 2;
+                  }
+#endif
                 else
                   break;
               }
@@ -727,6 +771,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   {
                     spec.allocated = 2 * spec.allocated + 1;
                     numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                    IF_OOM (numbered, goto bad_format;)
                   }
                 numbered[numbered_arg_count].number = number;
                 numbered[numbered_arg_count].type = type;
@@ -748,6 +793,7 @@ format_parse (const char *format, bool translated, bool objc_extensions,
                   {
                     spec.allocated = 2 * spec.allocated + 1;
                     spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                    IF_OOM (spec.unnumbered, goto bad_format;)
                   }
                 spec.unnumbered[spec.unnumbered_arg_count].type = type;
                 spec.unnumbered_arg_count++;
@@ -824,13 +870,13 @@ format_parse (const char *format, bool translated, bool objc_extensions,
       spec.unnumbered_arg_count = numbered_arg_count;
       spec.allocated = spec.unnumbered_arg_count;
       spec.unnumbered = XNMALLOC (spec.allocated, struct unnumbered_arg);
+      IF_OOM (spec.unnumbered, goto bad_format;)
       for (i = 0; i < spec.unnumbered_arg_count; i++)
         spec.unnumbered[i].type = numbered[i].type;
       free (numbered);
       numbered_arg_count = 0;
     }
 
-  result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -842,6 +888,25 @@ format_parse (const char *format, bool translated, bool objc_extensions,
   if (spec.sysdep_directives != NULL)
     free (spec.sysdep_directives);
   return NULL;
+}
+
+static void *
+format_parse (const char *format, bool translated, bool objc_extensions,
+              char *fdi, char **invalid_reason)
+{
+  struct spec result_buf;
+  struct spec *result;
+
+  result = format_parse_entrails (format, translated, objc_extensions, fdi, invalid_reason, &result_buf);
+
+  if (result != NULL)
+    {
+      /* Copy the result to a heap-allocated object.  */
+      struct spec *safe_result = XMALLOC (struct spec);
+      *safe_result = *result;
+      result = safe_result;
+    }
+  return result;
 }
 
 static void *

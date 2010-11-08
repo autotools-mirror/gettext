@@ -1,6 +1,19 @@
 2010-11-07  Bruno Haible  <bruno@clisp.org>
 
 	format-c.c: Prepare for sharing code with libintlext.
+	* format-c.c: Move INVALID_* macros.
+	(IF_OOM): New macro.
+	(SYSDEP_SEGMENTS_PROCESSED): New macro.
+	(FAT_BASIC_MASK): New enumeration value.
+	(HANDLE_I_FLAG): New macro.
+	(format_parse_entrails): New function, extracted from format_parse.
+	Use the IF_OOM, SYSDEP_SEGMENTS_PROCESSED, HANDLE_I_FLAG macros. Handle
+	I64 as a size specifier on native Win32.
+	(format_parse): Rewritten to call format_parse_entrails.
+
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
+	format-c.c: Prepare for sharing code with libintlext.
 	* format-c.c (INVALID_ANGLE_BRACKET, INVALID_IGNORED_ARGUMENT): New
 	macros.
 	(format_parse): Use them.
