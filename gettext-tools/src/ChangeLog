@@ -1,5 +1,14 @@
 2010-11-07  Bruno Haible  <bruno@clisp.org>
 
+	format-c.c: Share code with libintlext.
+	* format-c-parse.h: New file, extracted from format-c.c.
+	* format-c.c: Include it.
+	(format_parse_entrails): Remove function.
+	* Makefile.am (FORMAT_SOURCE): Add format-c-parse.h.
+	* FILES: Update.
+
+2010-11-07  Bruno Haible  <bruno@clisp.org>
+
 	format-c.c: Prepare for sharing code with libintlext.
 	* format-c.c: Move INVALID_* macros.
 	(IF_OOM): New macro.
