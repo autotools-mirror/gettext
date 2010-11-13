@@ -1,3 +1,8 @@
+2010-11-13  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.texi (Plural forms): Add Belarusian.
+	Reported by Ihar Hrachyshka <ihar.hrachyshka@gmail.com>.
+
 2010-08-29  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Using Compendia): Correct after 2007-09-09 change.

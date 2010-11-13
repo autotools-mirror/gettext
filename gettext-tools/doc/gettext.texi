@@ -6368,6 +6368,7 @@ Languages with this property include:
 @item Slavic family
 Russian, @c    143.6 million speakers
 Ukrainian, @c   37.0 million speakers
+Belarusian, @c   8.6 million speakers
 Serbian, @c      7.0 million speakers
 Croatian @c      5.5 million speakers
 @end table
