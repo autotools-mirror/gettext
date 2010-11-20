@@ -1,5 +1,18 @@
 2010-11-20  Bruno Haible  <bruno@clisp.org>
 
+	Port to uClibc.
+	* localename.c (gl_locale_name_thread_unsafe, HAVE_LOCALE_NULL): Treat
+	uClibc like a non-glibc platform.
+	* printf-parse.h (FLAG_LOCALIZED): Likewise.
+	* printf-parse.c (PRINTF_PARSE): Likewise.
+	* relocatable.c (find_shared_library_fullname): Treat uClibc like
+	glibc.
+	* vasnprintf.c (decimal_point_char): Treat uClibc like glibc.
+	(VASNPRINTF): Treat uClibc like a non-glibc platform.
+	Reported by Mike Frysinger <vapier@gentoo.org>.
+
+2010-11-20  Bruno Haible  <bruno@clisp.org>
+
 	Fix a comment.
 	* vasnprintf.c (VASNPRINTF): Fix comment.
 
