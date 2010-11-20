@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2009 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2010 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -52,6 +52,7 @@ AC_SUBST([LTNOUNDEF])
 dnl Checks for libraries.
 
 dnl Checks for header files.
+AC_CHECK_HEADERS([features.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE

@@ -19,6 +19,10 @@
 #ifndef _PRINTF_PARSE_H
 #define _PRINTF_PARSE_H
 
+#if HAVE_FEATURES_H
+# include <features.h> /* for __GLIBC__, __UCLIBC__ */
+#endif
+
 #include "printf-args.h"
 
 

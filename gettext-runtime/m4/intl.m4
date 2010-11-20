@@ -1,4 +1,4 @@
-# intl.m4 serial 19 (gettext-0.18.2)
+# intl.m4 serial 20 (gettext-0.18.2)
 dnl Copyright (C) 1995-2010 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -55,7 +55,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
     [AC_DEFINE([ptrdiff_t], [long],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
-  AC_CHECK_HEADERS([stddef.h stdlib.h string.h])
+  AC_CHECK_HEADERS([features.h stddef.h stdlib.h string.h])
   AC_CHECK_FUNCS([asprintf fwprintf newlocale putenv setenv setlocale \
     snprintf strnlen wcslen wcsnlen mbrtowc wcrtomb])
 
