@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2010 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -612,7 +612,8 @@ set_current_file_source_encoding (const char *canon_encoding)
       iconv_t cd;
 
       /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
+     && !defined _LIBICONV_VERSION
       if (strcmp (xgettext_current_file_source_encoding, "EUC-KR") == 0)
         cd = (iconv_t)(-1);
       else

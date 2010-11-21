@@ -1,3 +1,13 @@
+2010-11-20  Bruno Haible  <bruno@clisp.org>
+
+	Port to uClibc.
+	* write-po.c (wrap): Treat uClibc like a non-glibc platform.
+	* format-c-parse.h (HANDLE_I_FLAG): Likewise.
+	* po-charset.c (po_lex_charset_set): Likewise.
+	* recode-sr-latin.c (process): Likewise.
+	* x-python.c (set_current_file_source_encoding): Likewise.
+	* xgettext.c (main): Likewise.
+
 2010-11-13  Ihar Hrachyshka  <ihar.hrachyshka@gmail.com>  (tiny change)
 
 	* plural-table.c (plural_table): Added Belarusian, copied from Russian

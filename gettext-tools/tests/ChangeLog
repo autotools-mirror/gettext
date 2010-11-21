@@ -1,3 +1,10 @@
+2010-11-20  Bruno Haible  <bruno@clisp.org>
+
+	Port to uClibc.
+	* gettext-6-prg.c: Treat uClibc like a non-glibc platform.
+	* gettext-7-prg.c: Likewise.
+	* format-c-5-prg.c: Likewise.
+
 2010-08-31  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test leftovers on MacOS X 10.5.

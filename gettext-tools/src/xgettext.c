@@ -682,7 +682,8 @@ xgettext cannot work without keywords to look for"));
       iconv_t cd;
 
       /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if (__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) && !defined _LIBICONV_VERSION
+# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
+     && !defined _LIBICONV_VERSION
       if (strcmp (xgettext_global_source_encoding, "EUC-KR") == 0)
         cd = (iconv_t)(-1);
       else

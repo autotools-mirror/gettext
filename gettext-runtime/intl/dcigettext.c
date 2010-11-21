@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-1999, 2000-2009 Free Software Foundation, Inc.
+   Copyright (C) 1995-1999, 2000-2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -1153,7 +1153,8 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 #  if HAVE_ICONV
 		      /* When using GNU libc >= 2.2 or GNU libiconv >= 1.5,
 			 we want to use transliteration.  */
-#   if (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2 \
+#   if (((__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2) || __GLIBC__ > 2) \
+	&& !defined __UCLIBC__) \
        || _LIBICONV_VERSION >= 0x0105
 		      if (strchr (outcharset, '/') == NULL)
 			{

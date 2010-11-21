@@ -760,7 +760,9 @@ get_sysdep_segment_value (const char *name)
   /* Test for a glibc specific printf() format directive flag.  */
   if (name[0] == 'I' && name[1] == '\0')
     {
-#if defined _LIBC || __GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2)
+#if defined _LIBC \
+    || ((__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2)) \
+        && !defined __UCLIBC__)
       /* The 'I' flag, in numeric format directives, replaces ASCII digits
 	 with the 'outdigits' defined in the LC_CTYPE locale facet.  This is
 	 used for Farsi (Persian), some Indic languages, and maybe Arabic.  */
