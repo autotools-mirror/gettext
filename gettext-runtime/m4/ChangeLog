@@ -1,3 +1,12 @@
+2010-12-04  Bruno Haible  <bruno@clisp.org>
+
+	Put more information about failed tests into the test return codes.
+	* intdiv0.m4 (gt_INTDIV0): Change test program so that it returns an
+	enumerated value (0, 1, 2, 3, 4, ...).
+	* fcntl-o.m4 (gl_FCNTL_O_FLAGS): Change test program so that it returns
+	a bit mask.
+	* iconv.m4 (AM_ICONV_LINK): Likewise.
+
 2010-11-26  Bruno Haible  <bruno@clisp.org>
 
 	* iconv.m4 (AM_ICONV): If the gnulib module 'iconv-h' is present, set
