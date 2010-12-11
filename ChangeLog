@@ -1,3 +1,9 @@
+2010-12-10  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add spawn-pipe, remove
+	pipe.
+
 2010-09-24  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4: Update from libtool-2.4, with modifications.

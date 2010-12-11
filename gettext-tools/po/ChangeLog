@@ -1,5 +1,12 @@
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
+	Update after gnulib changed.
+	* POTFILES.in: Add gnulib-lib/copy-acl.c, gnulib-lib/pipe-filter-ii.c,
+	gnulib-lib/set-mode-acl.c, gnulib-lib/spawn-pipe.c. Remove
+	gnulib-lib/pipe.c.
+
+2011-06-02  Bruno Haible  <bruno@clisp.org>
+
 	* POTFILES.in: Add src/format-c-parse.h.
 
 2010-10-10  Bruno Haible  <bruno@clisp.org>

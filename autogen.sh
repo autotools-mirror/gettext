@@ -162,7 +162,6 @@ if ! $skip_gnulib; then
       open
       openmp
       ostream
-      pipe
       pipe-filter-ii
       progname
       propername
@@ -171,6 +170,7 @@ if ! $skip_gnulib; then
       sh-quote
       sigpipe
       sigprocmask
+      spawn-pipe
       stdbool
       stdio
       stdlib

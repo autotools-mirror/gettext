@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995, 1998, 2001-2006 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1998, 2001-2006, 2011 Free Software Foundation, Inc.
 
 # For updating this file, look at the result of:
 #   $ LC_ALL=C grep -l '[^A-Za-z_]_(' {gnulib-lib,src,libgettextpo}/*.[chly]
@@ -8,6 +8,7 @@
 gnulib-lib/argmatch.c
 gnulib-lib/clean-temp.c
 gnulib-lib/closeout.c
+gnulib-lib/copy-acl.c
 gnulib-lib/copy-file.c
 gnulib-lib/csharpcomp.c
 gnulib-lib/csharpexec.c
@@ -18,8 +19,10 @@ gnulib-lib/javacomp.c
 gnulib-lib/javaexec.c
 gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
-gnulib-lib/pipe.c
+gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
+gnulib-lib/set-mode-acl.c
+gnulib-lib/spawn-pipe.c
 gnulib-lib/w32spawn.h
 gnulib-lib/wait-process.c
 gnulib-lib/xmalloc.c
