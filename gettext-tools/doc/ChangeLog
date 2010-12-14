@@ -1,3 +1,8 @@
+2010-12-14  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext.texi: Mention that -L also supports Shell.
+	Reported by Eric Blake <eblake@redhat.com>.
+
 2010-11-13  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.texi (Plural forms): Add Belarusian.
