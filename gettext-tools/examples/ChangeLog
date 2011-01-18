@@ -1,3 +1,12 @@
+2011-01-18  Bruno Haible  <bruno@clisp.org>
+
+	* po/da.po: New file, from Keld Simonsen <keld@keldix.com>.
+	* po/gl.po: New file, from
+	Leandro Regueiro <leandro.regueiro@gmail.com>.
+	* po/LINGUAS: Add da, gl.
+	* hello-*/po/LINGUAS: Update.
+	* Makefile.am (EXAMPLESPOFILES): Add the new message catalogs.
+
 2010-10-10  Bruno Haible  <bruno@clisp.org>
 
 	* po/bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
