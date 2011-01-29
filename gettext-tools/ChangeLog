@@ -1,3 +1,8 @@
+2011-01-28  Bruno Haible  <bruno@clisp.org>
+
+	Add a comment.
+	* woe32dll/export.h: Add a reference to the woe32dll writeup.
+
 2010-10-10  Bruno Haible  <bruno@clisp.org>
 
 	Rely more on libtool.

@@ -1,5 +1,5 @@
 /* Exporting symbols from Cygwin shared libraries.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2011 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -87,7 +87,9 @@
    Note: --export-all-symbols is the default when no other symbol is explicitly
    exported.  This means, the use of an explicit export on the variables has
    the effect of no longer exporting the functions! - until the option
-   --export-all-symbols is used.  */
+   --export-all-symbols is used.
+
+   See <http://www.haible.de/bruno/woe32dll.html> for more details.  */
 
  /* IMP(x) is a symbol that contains the address of x.  */
 #define IMP(x) _imp__##x
