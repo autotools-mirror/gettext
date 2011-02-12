@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2010 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2011 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -431,9 +431,11 @@ extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
 /* Support for the locale chosen by the user.  */
 #if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __WIN32__ || defined __CYGWIN__
 
+#ifndef GNULIB_defined_setlocale /* don't override gnulib */
 #undef setlocale
 #define setlocale libintl_setlocale
 extern char *setlocale (int, const char *);
+#endif
 
 #if @HAVE_NEWLOCALE@
 

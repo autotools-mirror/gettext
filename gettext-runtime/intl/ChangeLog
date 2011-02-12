@@ -1,3 +1,9 @@
+2011-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Avoid clashing overrides for setlocale.
+	* libgnuintl.in.h (setlocale): Don't override if the gnulib override is
+	already enabled.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	* wprintf-parse.h: Apply same changes as to printf-parse.h.
