@@ -1,5 +1,11 @@
 2011-02-12  Bruno Haible  <bruno@clisp.org>
 
+	Use gnulib's setlocale in all the programs.
+	* autogen.sh (GNULIB_MODULES_RUNTIME_FOR_SRC,
+	GNULIB_MODULES_TOOLS_FOR_SRC): Add setlocale.
+
+2011-02-12  Bruno Haible  <bruno@clisp.org>
+
 	Update after gnulib changed.
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add wctype-h, remove
 	wctype.

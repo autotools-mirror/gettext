@@ -16,7 +16,7 @@
 #   - the makeinfo program from the texinfo package,
 #   - perl.
 
-# Copyright (C) 2003-2010 Free Software Foundation, Inc.
+# Copyright (C) 2003-2011 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -85,6 +85,7 @@ if ! $skip_gnulib; then
       progname
       propername
       relocatable-prog
+      setlocale
       sigpipe
       stdbool
       stdio
@@ -167,6 +168,7 @@ if ! $skip_gnulib; then
       propername
       relocatable-prog
       relocatable-script
+      setlocale
       sh-quote
       sigpipe
       sigprocmask
