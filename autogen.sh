@@ -230,7 +230,7 @@ if ! $skip_gnulib; then
       verify
       warn-on-use
       wchar
-      wctype
+      wctype-h
     '
     GNULIB_MODULES_TOOLS_OTHER='
       gettext-tools-misc

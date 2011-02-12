@@ -8,7 +8,7 @@
 ! alloca
   stdbool
   wchar
-  wctype
+  wctype-h
 --- 10,16 ----
   
   Depends-on:
@@ -16,4 +16,4 @@
 ! alloca-opt
   stdbool
   wchar
-  wctype
+  wctype-h

@@ -1,5 +1,11 @@
 2011-02-12  Bruno Haible  <bruno@clisp.org>
 
+	Update after gnulib changed.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add wctype-h, remove
+	wctype.
+
+2011-02-12  Bruno Haible  <bruno@clisp.org>
+
 	Use u8_mbtoucr instead of u8_mbtouc in some places.
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC,
 	GNULIB_MODULES_LIBGETTEXTPO): Add unistr/u8-mbtoucr.
