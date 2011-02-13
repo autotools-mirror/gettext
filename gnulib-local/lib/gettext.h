@@ -1,5 +1,5 @@
 /* Convenience header for conditional use of GNU <libintl.h>.
-   Copyright (C) 1995-1998, 2000-2002, 2004-2006, 2009 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002, 2004-2006, 2009-2010 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -81,7 +81,7 @@
     ((void) (Domainname), ngettext (Msgid1, Msgid2, N))
 # undef dcngettext
 # define dcngettext(Domainname, Msgid1, Msgid2, N, Category) \
-    ((void) (Category), dngettext(Domainname, Msgid1, Msgid2, N))
+    ((void) (Category), dngettext (Domainname, Msgid1, Msgid2, N))
 # undef textdomain
 # define textdomain(Domainname) ((const char *) (Domainname))
 # undef bindtextdomain
