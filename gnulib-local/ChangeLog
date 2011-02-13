@@ -1,5 +1,11 @@
 2011-02-12  Bruno Haible  <bruno@clisp.org>
 
+	Prefer gnulib's setlocale override over libintl's override.
+	* lib/gettext.h (setlocale): Redefine to rpl_setlocale if
+	GNULIB_defined_setlocale is set.
+
+2011-02-12  Bruno Haible  <bruno@clisp.org>
+
 	Update after gnulib changed.
 	* modules/fnmatch.diff: Update.
 
