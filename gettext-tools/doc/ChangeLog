@@ -1,3 +1,9 @@
+2011-04-13  Bruno Haible  <bruno@clisp.org>
+
+	* msgcat.texi: Fix description of --use-first.
+	* msgcomm.texi: Fix typo.
+	Reported by Matthijs Kooijman.
+
 2010-12-14  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext.texi: Mention that -L also supports Shell.
