@@ -1,3 +1,7 @@
+2011-05-13  Ben Elliston  <bje@gnu.org>
+
+	* gettext.texi (config.guess): Update wget commands.
+
 2011-04-13  Bruno Haible  <bruno@clisp.org>
 
 	* msgcat.texi: Fix description of --use-first.
