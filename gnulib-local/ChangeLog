@@ -1,3 +1,10 @@
+2011-06-02  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* modules/fnmatch.diff: Update.
+	* modules/regex.diff: Likewise.
+	* m4/alloca.m4 (gl_FUNC_ALLOCA): Likewise.
+
 2011-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Prefer gnulib's setlocale override over libintl's override.
