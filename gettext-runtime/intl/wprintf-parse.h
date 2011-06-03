@@ -1,5 +1,5 @@
 /* Parse printf format string.
-   Copyright (C) 1999, 2002-2003 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2003, 2005, 2007, 2010-2011 Free Software Foundation, Inc.
 
    This program is free software; you can redistribute it and/or modify it
    under the terms of the GNU Library General Public License as published
@@ -19,6 +19,10 @@
 #ifndef _WPRINTF_PARSE_H
 #define _WPRINTF_PARSE_H
 
+#if HAVE_FEATURES_H
+# include <features.h> /* for __GLIBC__, __UCLIBC__ */
+#endif
+
 #include "printf-args.h"
 
 
@@ -29,9 +33,15 @@
 #define FLAG_SPACE       8      /* space flag */
 #define FLAG_ALT        16      /* # flag */
 #define FLAG_ZERO       32
+#if __GLIBC__ >= 2 && !defined __UCLIBC__
+# define FLAG_LOCALIZED 64      /* I flag, uses localized digits */
+#endif
 
 /* arg_index value indicating that no argument is consumed.  */
 #define ARG_NONE        (~(size_t)0)
+
+/* Number of directly allocated directives (no malloc() needed).  */
+#define N_DIRECT_ALLOC_DIRECTIVES 7
 
 /* A parsed directive.  */
 typedef struct
@@ -45,7 +55,7 @@ typedef struct
   const wchar_t* precision_start;
   const wchar_t* precision_end;
   size_t precision_arg_index;
-  wchar_t conversion; /* d i o u x X f e E g G c s p n U % but not C S */
+  wchar_t conversion; /* d i o u x X f F e E g G a A c s p n U % but not C S */
   size_t arg_index;
 }
 wchar_t_directive;
@@ -57,6 +67,7 @@ typedef struct
   wchar_t_directive *dir;
   size_t max_width_length;
   size_t max_precision_length;
+  wchar_t_directive direct_alloc_dir[N_DIRECT_ALLOC_DIRECTIVES];
 }
 wchar_t_directives;
 

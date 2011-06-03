@@ -1,3 +1,17 @@
+2011-02-04  Bruno Haible  <bruno@clisp.org>
+
+	vasnprintf: Reduce use of malloc for small format strings.
+	* printf-args.h (N_DIRECT_ALLOC_ARGUMENTS): New macro.
+	(arguments): Add room for the first 7 arguments.
+	* printf-parse.h (N_DIRECT_ALLOC_DIRECTIVES): New macro.
+	(char_directives, u8_directives, u16_directives, u32_directives): Add
+	room for the first 7 directives.
+	* printf-parse.c: Include <string.h>.
+	(PRINTF_PARSE): Change memory handling code so that it uses the first
+	7 preallocated elements in an 'arguments' or 'DIRECTIVES' struct.
+	* vasnprintf.c (VASNPRINTF): Update memory handling code.
+	Reported by Pádraig Brady <P@draigbrady.com>.
+
 2010-11-20  Bruno Haible  <bruno@clisp.org>
 
 	Ensure that <features.h> is included before __GLIBC__ is tested.
