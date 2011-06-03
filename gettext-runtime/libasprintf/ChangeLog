@@ -1,3 +1,9 @@
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
+	* COPYING.LIB: Replace with text of LGPL 2.1.
+	* *.h, *.c, *.cc, Makefile.am: Update copyright header.
+
 2011-02-23  Bruno Haible  <bruno@clisp.org>
 
 	Fix misindentation of preprocessor directives.

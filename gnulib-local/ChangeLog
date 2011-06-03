@@ -1,3 +1,12 @@
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
+	* lib/gettext.h: Update copyright header.
+	* lib/hash.h: Likewise.
+	* lib/moo.h: Likewise.
+	* lib/tparm.c: Likewise.
+	* lib/tputs.c: Likewise.
+
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
 	Update after gnulib changed.

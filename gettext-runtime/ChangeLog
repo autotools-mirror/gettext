@@ -1,3 +1,8 @@
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
+	* COPYING: Update file references.
+
 2010-07-31  Bruno Haible  <bruno@clisp.org>
 
 	Use new ansi-c++.m4 from gnulib.

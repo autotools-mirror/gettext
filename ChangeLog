@@ -1,3 +1,9 @@
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
+	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
+	* os2/iconv/iconv.*: Update copyright header.
+	* Makefile.am (distcheck-hook): Update.
+
 2011-02-12  Bruno Haible  <bruno@clisp.org>
 
 	Use gnulib's setlocale in all the programs.

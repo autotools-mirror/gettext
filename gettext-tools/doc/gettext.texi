@@ -7016,12 +7016,12 @@ ready to work together at improving the results they obtain.
 
 Some people wonder if using GNU @code{gettext} necessarily brings their
 package under the protective wing of the GNU General Public License or
-the GNU Library General Public License, when they do not want to make
+the GNU Lesser General Public License, when they do not want to make
 their program free, or want other kinds of freedom.  The simplest
 answer is ``normally not''.
 
 The @code{gettext-runtime} part of GNU @code{gettext}, i.e.@: the
-contents of @code{libintl}, is covered by the GNU Library General Public
+contents of @code{libintl}, is covered by the GNU Lesser General Public
 License.  The @code{gettext-tools} part of GNU @code{gettext}, i.e.@: the
 rest of the GNU @code{gettext} package, is covered by the GNU General
 Public License.
@@ -12075,7 +12075,7 @@ particular file or directory.  Here is a summary:
 @itemize @bullet
 @item
 The @code{libintl} and @code{libasprintf} libraries are covered by the
-GNU Library General Public License (LGPL).  
+GNU Lesser General Public License (LGPL).  
 A copy of the license is included in @ref{GNU LGPL}.
 
 @item
