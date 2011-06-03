@@ -1,3 +1,7 @@
+2011-06-02  Bruno Haible  <bruno@clisp.org>
+
+	* POTFILES.in: Add src/format-gfc-internal.c, src/format-qt-plural.c.
+
 2011-01-18  Bruno Haible  <bruno@clisp.org>
 
 	* da.po: Update from Keld Simonsen <keld@keldix.com>.

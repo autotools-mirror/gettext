@@ -38,6 +38,7 @@ src/format-c-parse.h
 src/format-csharp.c
 src/format-elisp.c
 src/format-gcc-internal.c
+src/format-gfc-internal.c
 src/format-invalid.h
 src/format-java.c
 src/format-librep.c
@@ -48,6 +49,7 @@ src/format-perl-brace.c
 src/format-php.c
 src/format-python.c
 src/format-qt.c
+src/format-qt-plural.c
 src/format-scheme.c
 src/format-sh.c
 src/format-tcl.c
