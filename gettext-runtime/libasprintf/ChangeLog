@@ -1,5 +1,16 @@
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* Makefile.am (lib_asprintf_EXTRASOURCES): Add verify.h.
+
+2010-10-10  Paul Eggert  <eggert@cs.ucla.edu>
+
+	rewrite int foo[2*X-1] to verify(X) or to int foo[X?1:-1]
+	* vasnprintf.c: Include "verify.h".
+	(mp_limb_verify, mp_twolimb_verify, TCHAR_T_verify): Remove, replacing
+	with a verify call.
+
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
 	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
 	* COPYING.LIB: Replace with text of LGPL 2.1.
 	* *.h, *.c, *.cc, Makefile.am: Update copyright header.

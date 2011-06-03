@@ -107,6 +107,7 @@ if ! $skip_gnulib; then
     GNULIB_MODULES_LIBASPRINTF='
       alloca
       errno
+      verify
     '
     GNULIB_MODULES_LIBASPRINTF_OTHER='
     '

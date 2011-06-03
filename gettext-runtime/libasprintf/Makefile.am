@@ -54,6 +54,7 @@ libasprintf_la_SOURCES = \
 
 # Sources used only on platforms lacking vasprintf().
 lib_asprintf_EXTRASOURCES = \
+  verify.h \
   xsize.h \
   printf-args.h printf-args.c \
   printf-parse.h printf-parse.c \

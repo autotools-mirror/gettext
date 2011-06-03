@@ -1,5 +1,10 @@
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
+	* autogen.sh (GNULIB_MODULES_LIBASPRINTF): Add verify.
+	* Makefile.am (distcheck-hook): Check also verify.h.
+
+2011-06-03  Bruno Haible  <bruno@clisp.org>
+
 	Copyright: Use LGPL 2.1 instead of LGPL 2.0.
 	* os2/iconv/iconv.*: Update copyright header.
 	* Makefile.am (distcheck-hook): Update.
