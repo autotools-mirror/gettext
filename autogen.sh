@@ -190,6 +190,7 @@ if ! $skip_gnulib; then
       uniname/uniname
       unistd
       unistr/u8-mbtouc
+      unistr/u8-mbtoucr
       unistr/u8-uctomb
       unistr/u16-mbtouc
       uniwidth/width
@@ -282,6 +283,7 @@ if ! $skip_gnulib; then
       strerror
       unilbrk/ulc-width-linebreaks
       unistr/u8-mbtouc
+      unistr/u8-mbtoucr
       unistr/u8-uctomb
       unistr/u16-mbtouc
       uniwidth/width

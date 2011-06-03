@@ -1,3 +1,9 @@
+2011-02-12  Bruno Haible  <bruno@clisp.org>
+
+	Use u8_mbtoucr instead of u8_mbtouc in some places.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC,
+	GNULIB_MODULES_LIBGETTEXTPO): Add unistr/u8-mbtoucr.
+
 2011-01-28  Bruno Haible  <bruno@clisp.org>
 
 	Add a comment.

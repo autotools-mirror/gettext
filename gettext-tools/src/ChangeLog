@@ -1,5 +1,13 @@
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
+	Use u8_mbtoucr instead of u8_mbtouc in some places.
+	* po-lex.c (mbfile_getc): Call u8_mbtoucr instead of u8_mbtouc.
+	* x-csharp.c (phase2_getc): Likewise.
+	* x-python.c (phase2_getc): Likewise.
+	Needed after libunistring changed on 2010-11-13.
+
+2011-06-02  Bruno Haible  <bruno@clisp.org>
+
 	Update after gnulib changed.
 	* msgexec.c: Include spawn-pipe.h instead of pipe.h.
 	* msginit.c: Likewise.

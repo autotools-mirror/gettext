@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2010 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2011 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -347,7 +347,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
               while (insize > 0)
                 phase1_ungetc (buf[--insize]);
               /* Convert the character from UTF-8 to UCS-4.  */
-              if (u8_mbtouc (&uc, scratchbuf, outbytes) < outbytes)
+              if (u8_mbtoucr (&uc, scratchbuf, outbytes) < (int) outbytes)
                 {
                   /* scratchbuf contains an out-of-range Unicode character
                      (> 0x10ffff).  */
