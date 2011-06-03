@@ -1,3 +1,8 @@
+2011-06-02  Bruno Haible  <bruno@clisp.org>
+
+	* xgettext-python-1: Update expected result after linebreaking in
+	libunistring changed on 2011-01-09.
+
 2010-11-20  Bruno Haible  <bruno@clisp.org>
 
 	Port to uClibc.
