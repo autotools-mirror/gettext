@@ -1,3 +1,8 @@
+2011-02-23  Bruno Haible  <bruno@clisp.org>
+
+	Fix misindentation of preprocessor directives.
+	* vasnprintf.c (decode_long_double): Reindent preprocessor directives.
+
 2011-02-04  Bruno Haible  <bruno@clisp.org>
 
 	vasnprintf: Reduce use of malloc for small format strings.
