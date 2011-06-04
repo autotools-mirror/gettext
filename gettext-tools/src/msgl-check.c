@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2008, 2010 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008, 2010-2011 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -544,7 +544,10 @@ static const message_ty *curr_mp;
 static lex_pos_ty curr_msgid_pos;
 static void
 formatstring_error_logger (const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
+     __attribute__ ((__format__ (__printf__, 1, 2)))
+#endif
+;
 static void
 formatstring_error_logger (const char *format, ...)
 {

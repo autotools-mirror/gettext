@@ -1,3 +1,9 @@
+2011-06-04  Bruno Haible  <bruno@clisp.org>
+
+	Update after __attibute__ is no longer defined by gnulib.
+	* msgl-check.c (formatstring_error_logger): Use __attribute__ only with
+	compiler versions that support it.
+
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
 	Use u8_mbtoucr instead of u8_mbtouc in some places.
