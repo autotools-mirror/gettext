@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2010 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2011 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -64,7 +64,7 @@ AC_CHECK_TYPE([ptrdiff_t], ,
   [AC_DEFINE([ptrdiff_t], [long],
      [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
   ])
-gt_TYPE_INTMAX_T
+gl_AC_TYPE_INTMAX_T
 gl_XSIZE
 
 dnl Checks for library functions.

@@ -1,3 +1,10 @@
+2011-06-04  Bruno Haible  <bruno@clisp.org>
+
+	Ensure intmax_t gets defined in libasprintf.
+	* autogen.sh: Create gettext-runtime/m4/intmax_t.m4, copied from
+	gnulib.
+	* Makefile.am (distcheck-hook): Check also intmax_t.m4.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_LIBASPRINTF): Add verify.
