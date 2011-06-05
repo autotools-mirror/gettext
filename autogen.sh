@@ -251,6 +251,7 @@ if ! $skip_gnulib; then
       --import --avoid=hash-tests $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER
     # In gettext-tools/libgrep:
     GNULIB_MODULES_TOOLS_FOR_LIBGREP='
+      mbrlen
       regex
     '
     $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
