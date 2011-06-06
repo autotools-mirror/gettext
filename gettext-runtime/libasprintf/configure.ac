@@ -60,6 +60,7 @@ AC_TYPE_SIZE_T
 AC_TYPE_LONG_LONG_INT
 gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
+AC_TYPE_MBSTATE_T
 AC_CHECK_TYPE([ptrdiff_t], ,
   [AC_DEFINE([ptrdiff_t], [long],
      [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])

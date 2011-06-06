@@ -1,3 +1,8 @@
+2011-06-06  Bruno Haible  <bruno@clisp.org>
+
+	Ensure mbstate_t gets defined in libasprintf.
+	* configure.ac: Invoke AC_TYPE_MBSTATE_T. Needed on HP-UX 11.31.
+
 2011-06-04  Bruno Haible  <bruno@clisp.org>
 
 	Ensure intmax_t gets defined in libasprintf.
