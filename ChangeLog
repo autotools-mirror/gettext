@@ -1,3 +1,9 @@
+2011-06-08  Bruno Haible  <bruno@clisp.org>
+
+	Fix a link error due to rpl_wcrtomb on Solaris 9.
+	* autogen.sh: Pass the option --witness-c-macro to the gnulib-tool
+	invocation for libgrep.
+
 2011-06-05  Bruno Haible  <bruno@clisp.org>
 
 	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_LIBGREP): Add mbrlen.
