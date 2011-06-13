@@ -1,3 +1,8 @@
+2011-06-13  Bruno Haible  <bruno@clisp.org>
+
+	Avoid compilation error on Solaris 7 with cc.
+	* msgl-fsearch.c (SHORT_MSG_MAX): Define more directly with SunPRO C.
+
 2011-06-04  Bruno Haible  <bruno@clisp.org>
 
 	Avoid link error when linking statically on AIX 7.
