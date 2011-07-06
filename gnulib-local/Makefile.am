@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008, 2010 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010-2011 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -254,8 +254,6 @@ m4/libglib.m4 \
 m4/libxml.m4 \
 m4/java.m4 \
 m4/moo.m4 \
-m4/quotearg.m4.diff \
-m4/quote.m4.diff \
 m4/termcap.m4 \
 m4/terminfo.m4 \
 m4/term-ostream.m4 \
@@ -282,8 +280,6 @@ modules/memory-ostream \
 modules/moo \
 modules/moo-tests \
 modules/ostream \
-modules/quotearg.diff \
-modules/quote.diff \
 modules/regex.diff \
 modules/styled-ostream \
 modules/termcap \

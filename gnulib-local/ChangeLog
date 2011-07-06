@@ -1,3 +1,12 @@
+2011-06-16  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* m4/quote.m4.diff: Remove file.
+	* m4/quotearg.m4.diff: Remove file.
+	* modules/quote.diff: Remove file.
+	* modules/quotearg.diff: Remove file.
+	* Makefile.am (EXTRA_DIST): Remove them.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	libxml: Detect installed libxml2 versions which don't define xmlFree().
