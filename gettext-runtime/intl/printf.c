@@ -1,5 +1,5 @@
 /* Formatted output to strings, using POSIX/XSI format strings with positions.
-   Copyright (C) 2003, 2006-2007, 2009-2010 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007, 2009-2011 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -191,8 +191,13 @@ libintl_sprintf (char *resultbuf, const char *format, ...)
 #if HAVE_SNPRINTF
 
 # if HAVE_DECL__SNPRINTF
-   /* Windows.  */
-#  define system_vsnprintf _vsnprintf
+   /* Windows.  The mingw function vsnprintf() has fewer bugs than the MSVCRT
+      function _vsnprintf(), so prefer that.  */
+#  if defined __MINGW32__
+#   define system_vsnprintf vsnprintf
+#  else
+#   define system_vsnprintf _vsnprintf
+#  endif
 # else
    /* Unix.  */
 #  define system_vsnprintf vsnprintf
@@ -302,7 +307,8 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #endif
 
 # if HAVE_DECL__SNWPRINTF
-   /* Windows.  */
+   /* Windows.  The function vswprintf() has a different signature than
+      on Unix; we use the function _vsnwprintf() instead.  */
 #  define system_vswprintf _vsnwprintf
 # else
    /* Unix.  */

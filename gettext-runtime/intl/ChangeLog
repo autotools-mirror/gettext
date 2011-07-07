@@ -1,3 +1,9 @@
+2011-07-07  Bruno Haible  <bruno@clisp.org>
+
+	Complete the change in vasnprintf.c from 2010-04-10.
+	* printf.c (system_vsnprintf) [mingw]: Prefer vsnprintf over
+	_vsnprintf.
+
 2011-06-15  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* verify.h (verify_true): Deprecate.
