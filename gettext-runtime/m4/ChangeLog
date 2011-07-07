@@ -1,3 +1,10 @@
+2011-07-07  Bruno Haible  <bruno@clisp.org>
+
+	Avoid literal tabs.
+	* po,m4 (AM_PO_SUBDIRS, AM_POSTPROCESS_PO_MAKEFILE): Use a shell
+	variable containing a tab instead of a literal tab.
+	Reported by Jim Meyering.
+
 2011-06-04  Bruno Haible  <bruno@clisp.org>
 
 	Ensure intmax_t gets defined in libasprintf.
