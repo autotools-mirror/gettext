@@ -1,3 +1,8 @@
+2011-06-15  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* verify.h (verify_true): Deprecate.
+	(verify_expr): New macro.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	* verify.h: New file, from gnulib.
