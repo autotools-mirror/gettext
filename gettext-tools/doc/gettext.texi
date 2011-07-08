@@ -7990,6 +7990,18 @@ ACLOCAL_AMFLAGS = -I m4
 @noindent
 to your top level @file{Makefile.am}.
 
+If you are using GNU @code{automake} 1.10 or newer, it is even easier:
+Add the line
+
+@example
+ACLOCAL_AMFLAGS = --install -I m4
+@end example
+
+@noindent
+to your top level @file{Makefile.am}, and run @samp{aclocal --install -I m4}.
+This will copy the needed files to the @file{m4/} subdirectory automatically,
+before updating @file{aclocal.m4}.
+
 These macros check for the internationalization support functions
 and related informations.  Hopefully, once stabilized, these macros
 might be integrated in the standard Autoconf set, because this
