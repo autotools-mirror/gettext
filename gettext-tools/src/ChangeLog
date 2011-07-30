@@ -1,3 +1,15 @@
+2011-07-29  Bruno Haible  <bruno@clisp.org>
+
+	Fix xgettext crash when extracting a message with plural that is
+	excluded.
+	* xgettext.h (remember_a_message): Document the return value.
+	* xgettext.c (arglist_parser_done): Handle the case where
+	remember_a_message returned NULL.
+	* x-smalltalk.c (extract_smalltalk): Likewise.
+	* x-ycp.c (extract_parenthesized): Likewise.
+	Reported by Jean-Luc Coulon <jean-luc.coulon@wanadoo.fr> via
+	Santiago Vila <sanvila@unex.es>.
+
 2011-06-13  Bruno Haible  <bruno@clisp.org>
 
 	Avoid compilation error on Solaris 7 with cc.

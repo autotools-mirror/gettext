@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2010 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2011 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -2934,7 +2934,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                                      msgid_context,
                                      &best_cp->msgid_pos,
                                      NULL, best_cp->msgid_comment);
-            if (best_cp->msgid_plural != NULL)
+            if (mp != NULL && best_cp->msgid_plural != NULL)
               remember_a_message_plural (mp, best_cp->msgid_plural,
                                          msgid_plural_context,
                                          &best_cp->msgid_plural_pos,
