@@ -214,8 +214,6 @@ if ! $skip_gnulib; then
     # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
     GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
       alloca-opt
-      arg-nonnull
-      c++defs
       extensions
       gettext-h
       include_next
@@ -224,6 +222,9 @@ if ! $skip_gnulib; then
       mbrtowc
       mbsinit
       multiarch
+      snippet/arg-nonnull
+      snippet/c++defs
+      snippet/warn-on-use
       ssize_t
       stdbool
       stddef
@@ -232,7 +233,6 @@ if ! $skip_gnulib; then
       streq
       unistd
       verify
-      warn-on-use
       wchar
       wctype-h
     '
