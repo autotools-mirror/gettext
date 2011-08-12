@@ -36,6 +36,10 @@ AC_DEFUN([gl_LIBXML],
       dnl Don't use xml2-config nor pkg-config, since it doesn't work when
       dnl cross-compiling or when the C compiler in use is different from the
       dnl one that built the library.
+      dnl Use a test program that tries to invoke xmlFree. On Cygwin 1.7.x,
+      dnl libxml2 is built in such a way that uses of xmlFree work fine with
+      dnl -Wl,--enable-auto-import but lead to a link error with
+      dnl -Wl,--disable-auto-import.
       AC_LIB_LINKFLAGS_BODY([xml2])
       LIBS="$gl_save_LIBS $LIBXML2 $LIBICONV"
       AC_TRY_LINK([[#include <libxml/xmlversion.h>

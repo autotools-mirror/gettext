@@ -1,3 +1,8 @@
+2011-08-12  Bruno Haible  <bruno@clisp.org>
+
+	Comment.
+	* m4/libxml.m4 (gl_LIBXML): Add comment about Cygwin 1.7.
+
 2011-08-04  Bruno Haible  <bruno@clisp.org>
 
 	Update after gnulib changed.
