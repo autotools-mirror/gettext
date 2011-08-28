@@ -1,3 +1,7 @@
+2011-08-28  Bruno Haible  <bruno@clisp.org>
+
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
 	* POTFILES.in: Add src/format-gfc-internal.c, src/format-qt-plural.c.
