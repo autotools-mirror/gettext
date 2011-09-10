@@ -1,3 +1,8 @@
+2011-09-10  Bruno Haible  <bruno@clisp.org>
+
+	iconv.m4: Add support for MSVC compiler.
+	* iconv.m4 (AM_ICONV): Use ISO C declaration syntax on MSVC.
+
 2011-07-07  Bruno Haible  <bruno@clisp.org>
 
 	Avoid literal tabs.
