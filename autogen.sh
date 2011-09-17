@@ -128,6 +128,7 @@ if ! $skip_gnulib; then
       c-strcasestr
       c-strstr
       clean-temp
+      closedir
       closeout
       copy-file
       csharpcomp
@@ -163,11 +164,13 @@ if ! $skip_gnulib; then
       minmax
       obstack
       open
+      opendir
       openmp
       ostream
       pipe-filter-ii
       progname
       propername
+      readdir
       relocatable-prog
       relocatable-script
       setlocale

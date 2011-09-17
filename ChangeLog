@@ -1,3 +1,9 @@
+2011-09-12  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* autogen.sh (GNULIB_MODULES_TOOLS_FOR_SRC): Add opendir, readdir,
+	closedir.
+
 2011-07-12  Bruno Haible  <bruno@clisp.org>
 
 	Update after gnulib changed.
