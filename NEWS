@@ -1,4 +1,4 @@
-Version 0.18.2 - July 2010
+Version 0.18.2 - October 2011
 
 * xgettext now understands the block comment syntax of Guile 2.0.
 
@@ -13,6 +13,9 @@ Version 0.18.2 - July 2010
   program. These options, together with --with-git, allow to trade
   dependencies against installed package size. --with-xz has the highest
   compression rate, followed by --with-git, followed by --with-bzip2.
+
+* Portability:
+  - Building on MacOS X 10.7 is now supported.
 
 Version 0.18.1 - June 2010
 
