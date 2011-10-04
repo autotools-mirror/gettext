@@ -1,3 +1,11 @@
+2011-10-04  Bruno Haible  <bruno@clisp.org>
+
+	xgettext for Scheme: Understand guile 2.0 comment syntax, part 1.
+	* x-scheme.c (read_object): Understand !# as a block comment terminator
+	even when not surrounded by newlines.
+	Reported by David Pirotte <david@altosw.be>
+	via Santiago Vila <sanvila@unex.es>.
+
 2011-07-29  Bruno Haible  <bruno@clisp.org>
 
 	Fix xgettext crash when extracting a message with plural that is

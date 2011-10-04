@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2009 Free Software Foundation, Inc.
+   Copyright (C) 2004-2009, 2011 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -40,7 +40,7 @@
 
 
 /* The Scheme syntax is described in R5RS.  It is implemented in
-   guile-1.6.4/libguile/read.c.
+   guile-2.0.0/libguile/read.c.
    Since we are interested only in strings and in forms similar to
         (gettext msgid ...)
    or   (ngettext msgid msgid_plural ...)
@@ -60,7 +60,7 @@
    - The syntax code assigned to each character, and how tokens are built
      up from characters (single escape, multiple escape etc.).
 
-   - Comment syntax: ';' and '#! ... \n!#\n'.
+   - Comment syntax: ';' and '#! ... !#'.
 
    - String syntax: "..." with single escapes.
 
@@ -935,12 +935,10 @@ read_object (struct object *op, flag_context_ty outer_context)
                 }
 
               case '!':
-                /* Block comment '#! ... \n!#\n'.  We don't extract it
+                /* Block comment '#! ... !#'.  We don't extract it
                    because it's only used to introduce scripts on Unix.  */
                 {
-                  int last1 = 0;
-                  int last2 = 0;
-                  int last3 = 0;
+                  int last = 0;
 
                   for (;;)
                     {
@@ -948,12 +946,9 @@ read_object (struct object *op, flag_context_ty outer_context)
                       if (c == EOF)
                         /* EOF is not allowed here.  But be tolerant.  */
                         break;
-                      if (last3 == '\n' && last2 == '!' && last1 == '#'
-                          && c == '\n')
+                      if (last == '!' && c == '#')
                         break;
-                      last3 = last2;
-                      last2 = last1;
-                      last1 = c;
+                      last = c;
                     }
                   continue;
                 }
