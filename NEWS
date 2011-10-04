@@ -1,5 +1,7 @@
 Version 0.18.2 - July 2010
 
+* xgettext now understands the block comment syntax of Guile 2.0.
+
 * libgettextpo library:
   - The initial msgstr of a new message is now "", not NULL.
   - Bug fixes in the functions po_message_is_range, po_file_check_all,

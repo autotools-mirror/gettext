@@ -60,7 +60,7 @@
    - The syntax code assigned to each character, and how tokens are built
      up from characters (single escape, multiple escape etc.).
 
-   - Comment syntax: ';' and '#! ... !#'.
+   - Comment syntax: ';' and '#! ... !#' and '#| ... |#' (may be nested).
 
    - String syntax: "..." with single escapes.
 
@@ -935,21 +935,120 @@ read_object (struct object *op, flag_context_ty outer_context)
                 }
 
               case '!':
-                /* Block comment '#! ... !#'.  We don't extract it
-                   because it's only used to introduce scripts on Unix.  */
+                /* Block comment '#! ... !#'.  See
+                   <http://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>.  */
                 {
-                  int last = 0;
+                  int c;
 
+                  comment_start ();
+                  c = do_getc ();
                   for (;;)
                     {
-                      c = do_getc ();
                       if (c == EOF)
-                        /* EOF is not allowed here.  But be tolerant.  */
                         break;
-                      if (last == '!' && c == '#')
-                        break;
-                      last = c;
+                      if (c == '!')
+                        {
+                          c = do_getc ();
+                          if (c == EOF)
+                            break;
+                          if (c == '#')
+                            {
+                              comment_line_end (0);
+                              break;
+                            }
+                          else
+                            comment_add ('!');
+                        }
+                      else
+                        {
+                          /* We skip all leading white space.  */
+                          if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                            comment_add (c);
+                          if (c == '\n')
+                            {
+                              comment_line_end (1);
+                              comment_start ();
+                            }
+                          c = do_getc ();
+                        }
                     }
+                  if (c == EOF)
+                    {
+                      /* EOF not allowed here.  But be tolerant.  */
+                      op->type = t_eof;
+                      return;
+                    }
+                  last_comment_line = line_number;
+                  continue;
+                }
+
+              case '|':
+                /* Block comment '#| ... |#'.  See
+                   <http://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>
+                   and <http://srfi.schemers.org/srfi-30/srfi-30.html>.  */
+                {
+                  int depth = 0;
+                  int c;
+
+                  comment_start ();
+                  c = do_getc ();
+                  for (;;)
+                    {
+                      if (c == EOF)
+                        break;
+                      if (c == '|')
+                        {
+                          c = do_getc ();
+                          if (c == EOF)
+                            break;
+                          if (c == '#')
+                            {
+                              if (depth == 0)
+                                {
+                                  comment_line_end (0);
+                                  break;
+                                }
+                              depth--;
+                              comment_add ('|');
+                              comment_add ('#');
+                              c = do_getc ();
+                            }
+                          else
+                            comment_add ('|');
+                        }
+                      else if (c == '#')
+                        {
+                          c = do_getc ();
+                          if (c == EOF)
+                            break;
+                          comment_add ('#');
+                          if (c == '|')
+                            {
+                              depth++;
+                              comment_add ('|');
+                              c = do_getc ();
+                            }
+                        }
+                      else
+                        {
+                          /* We skip all leading white space.  */
+                          if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                            comment_add (c);
+                          if (c == '\n')
+                            {
+                              comment_line_end (1);
+                              comment_start ();
+                            }
+                          c = do_getc ();
+                        }
+                    }
+                  if (c == EOF)
+                    {
+                      /* EOF not allowed here.  But be tolerant.  */
+                      op->type = t_eof;
+                      return;
+                    }
+                  last_comment_line = line_number;
                   continue;
                 }
 

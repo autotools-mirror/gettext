@@ -1,5 +1,11 @@
 2011-10-04  Bruno Haible  <bruno@clisp.org>
 
+	xgettext for Scheme: Understand guile 2.0 comment syntax, part 2.
+	* x-scheme.c (read_object): Extract and don't ignore block comments.
+	Understand the #|...|# syntax of SRFI-30. (Code copied from x-lisp.c.)
+
+2011-10-04  Bruno Haible  <bruno@clisp.org>
+
 	xgettext for Scheme: Understand guile 2.0 comment syntax, part 1.
 	* x-scheme.c (read_object): Understand !# as a block comment terminator
 	even when not surrounded by newlines.
