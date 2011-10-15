@@ -213,6 +213,8 @@ libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list a
     {
       size_t maxlength = length;
       char *result = libintl_vasnprintf (resultbuf, &length, format, args);
+      if (result == NULL)
+        return -1;
       if (result != resultbuf)
         {
           if (maxlength > 0)
@@ -388,6 +390,8 @@ libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_
     {
       size_t maxlength = length;
       wchar_t *result = libintl_vasnwprintf (resultbuf, &length, format, args);
+      if (result == NULL)
+        return -1;
       if (result != resultbuf)
         {
           if (maxlength > 0)

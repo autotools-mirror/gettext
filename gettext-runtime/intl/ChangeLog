@@ -1,5 +1,13 @@
 2011-10-15  Bruno Haible  <bruno@clisp.org>
 
+	Avoid crash in *printf functions for invalid format string with dollar.
+	* printf.c (libintl_vsnprintf, libintl_vswprintf): Don't crash in
+	mempy if libintl_vasnprintf returned NULL.
+	Reported by Jeong, Heon <bimarket@gmail.com>
+	in <https://savannah.gnu.org/bugs/?34555>.
+
+2011-10-15  Bruno Haible  <bruno@clisp.org>
+
 	vasnprintf: Optimize bit search operation.
 	* vasnprintf.c (divide): Use optimizations from gnulib's
 	integer_length.c.
