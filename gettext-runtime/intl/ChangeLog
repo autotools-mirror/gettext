@@ -1,5 +1,11 @@
 2011-10-15  Bruno Haible  <bruno@clisp.org>
 
+	vasnprintf: Optimize bit search operation.
+	* vasnprintf.c (divide): Use optimizations from gnulib's
+	integer_length.c.
+
+2011-10-15  Bruno Haible  <bruno@clisp.org>
+
 	vasnprintf: Fix comments.
 	* vasnprintf.c (decode_long_double, decode_double): Fix comments.
 
