@@ -1,3 +1,8 @@
+2011-10-15  Bruno Haible  <bruno@clisp.org>
+
+	vasnprintf: Fix comments.
+	* vasnprintf.c (decode_long_double, decode_double): Fix comments.
+
 2011-06-06  Bruno Haible  <bruno@clisp.org>
 
 	Ensure mbstate_t gets defined in libasprintf.
