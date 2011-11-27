@@ -1,3 +1,10 @@
+2011-11-27  Bruno Haible  <bruno@clisp.org>
+
+	Speed up configure a bit.
+	* configure.ac: Don't invoke AM_PATH_LISPDIR if the user specified
+	--without-emacs.
+	Based on a patch by DJ Lucas <dj@linuxfromscratch.org>.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	Update after gl_PROG_ANSI_CXX changed in gnulib.

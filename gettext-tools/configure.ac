@@ -288,7 +288,6 @@ dnl Check for nm output filter that yields the exported symbols.
 gt_GLOBAL_SYMBOL_PIPE
 
 dnl Check for Emacs and where to install .elc files.
-AM_PATH_LISPDIR
 dnl Sometimes Emacs is badly installed. Allow the user to work around it.
 AC_ARG_WITH([emacs],
   [  --without-emacs         do not use Emacs, don't install po-mode],
@@ -300,6 +299,11 @@ if test "$EMACS" != no; then
   if test "$gt_use_emacs" = no; then
     EMACS=no
   fi
+fi
+dnl If $EMACS = no, we won't install any Emacs Lisp (*.el) files,
+dnl therefore it's useless to determine $(lispdir).
+if test "$EMACS" != no; then
+  AM_PATH_LISPDIR
 fi
 
 aclocaldir='${datadir}/aclocal'
