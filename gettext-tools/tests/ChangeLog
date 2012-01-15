@@ -1,3 +1,8 @@
+2012-01-15  Bruno Haible  <bruno@clisp.org>
+
+	Avoid test failure on Solaris 11.
+	* msgfilter-sr-latin-1: Skip the test if the PO file is incorrect.
+
 2011-06-02  Bruno Haible  <bruno@clisp.org>
 
 	* xgettext-python-1: Update expected result after linebreaking in
