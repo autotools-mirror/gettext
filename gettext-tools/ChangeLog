@@ -1,3 +1,8 @@
+2012-01-15  Bruno Haible  <bruno@clisp.org>
+
+	Support for MSVC 9.
+	* woe32dll/export.h (VARIABLE): Define to empty if not using GCC.
+
 2011-11-27  Bruno Haible  <bruno@clisp.org>
 
 	Speed up configure a bit.

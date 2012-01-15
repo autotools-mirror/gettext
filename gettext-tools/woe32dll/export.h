@@ -1,5 +1,5 @@
 /* Exporting symbols from Cygwin shared libraries.
-   Copyright (C) 2006, 2011 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2011-2012 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -91,12 +91,14 @@
 
    See <http://www.haible.de/bruno/woe32dll.html> for more details.  */
 
+#if defined __GNUC__ /* GCC compiler, GNU toolchain */
+
  /* IMP(x) is a symbol that contains the address of x.  */
-#define IMP(x) _imp__##x
+# define IMP(x) _imp__##x
 
  /* Ensure that the variable x is exported from the library, and that a
     pseudo-variable IMP(x) is available.  */
-#define VARIABLE(x) \
+# define VARIABLE(x) \
  /* Export x without redefining x.  This code was found by compiling a  \
     snippet:                                                            \
       extern __declspec(dllexport) int x; int x = 42;  */               \
@@ -106,3 +108,9 @@
  /* Allocate a pseudo-variable IMP(x).  */                              \
  extern int x;                                                          \
  void * IMP(x) = &x;
+
+#else /* non-GNU compiler, non-GNU toolchain */
+
+# define VARIABLE(x) /* nothing */
+
+#endif
