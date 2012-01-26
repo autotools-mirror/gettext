@@ -1,3 +1,12 @@
+2012-01-06  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* lib/argmatch.h.diff: Update.
+	* lib/error.h.diff: Update.
+	* lib/fnmatch_loop.c.diff: Update.
+	* lib/getopt.in.h.diff: Update.
+	* lib/obstack.h.diff: Update.
+
 2011-10-18  Daniel Richard G.  <skunk@iskunk.org>  (tiny change)
 
 	Support for old NeXTstep 3.3 gcc.
