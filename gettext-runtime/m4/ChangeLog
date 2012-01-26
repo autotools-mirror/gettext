@@ -1,5 +1,9 @@
 2012-01-06  Paul Eggert  <eggert@cs.ucla.edu>
 
+	* m4/gettext.m4: In commentary, do not use ` to quote.
+
+2012-01-06  Paul Eggert  <eggert@cs.ucla.edu>
+
 	Use ', not `, for quoting output.
 	* m4/intl.m4 (gt_CHECK_DECL): Quote 'like this', not `like this', as
 	per the recent change to the GNU coding standards.
