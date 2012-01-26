@@ -1,3 +1,10 @@
+2012-01-26  Bruno Haible  <bruno@clisp.org>
+
+	Modernize quoting.
+	* NEWS: Quote 'like this', not `like this', as per the recent change
+	to the GNU coding standards.
+	* INSTALL: Process through sed -e "s/\`\([^']*\)'/‘\1’/g"
+
 2011-10-18  Bruno Haible  <bruno@clisp.org>
 
 	* m4/libtool.m4: Update from libtool-2.4.2, with modifications.

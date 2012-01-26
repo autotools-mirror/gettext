@@ -1,3 +1,11 @@
+2012-01-26  Bruno Haible  <bruno@clisp.org>
+
+	Modernize quoting.
+	* envsubst.c (usage): Quote 'like this', not `like this', as per the
+	recent change to the GNU coding standards.
+	* gettext.c (usage): Likewise.
+	* ngettext.c (usage): Likewise.
+
 2011-06-03  Bruno Haible  <bruno@clisp.org>
 
 	Copyright: Use LGPL 2.1 instead of LGPL 2.0.

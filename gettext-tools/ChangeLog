@@ -1,3 +1,8 @@
+2012-01-26  Bruno Haible  <bruno@clisp.org>
+
+	Modernize quoting.
+	* INSTALL: Process through sed -e "s/\`\([^']*\)'/‘\1’/g"
+
 2012-01-15  Bruno Haible  <bruno@clisp.org>
 
 	Support for MSVC 9.

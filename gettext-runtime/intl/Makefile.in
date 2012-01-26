@@ -1,5 +1,5 @@
 # Makefile for directory with message catalog handling library of GNU gettext
-# Copyright (C) 1995-1998, 2000-2007, 2009-2011 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2007, 2009-2012 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -377,7 +377,7 @@ check: all
 # system which has the GNU gettext() function in its C library or in a
 # separate library.
 # If you want to use the one which comes with this version of the
-# package, you have to use `configure --with-included-gettext'.
+# package, you have to use "configure --with-included-gettext".
 install: install-exec install-data
 install-exec: all
 	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
@@ -628,7 +628,7 @@ maintainer-clean: distclean
 	@echo "it deletes files that may require special tools to rebuild."
 
 
-# GNU gettext needs not contain the file `VERSION' but contains some
+# GNU gettext needs not contain the file 'VERSION' but contains some
 # other files which should not be distributed in other packages.
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir: Makefile

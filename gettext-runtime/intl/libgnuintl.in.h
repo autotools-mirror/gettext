@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2011 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -176,7 +176,7 @@ extern char *dcgettext (const char *__domainname, const char *__msgid,
 #endif
 
 
-/* Similar to `gettext' but select the plural form corresponding to the
+/* Similar to 'gettext' but select the plural form corresponding to the
    number N.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2,
@@ -197,7 +197,7 @@ extern char *ngettext (const char *__msgid1, const char *__msgid2,
        _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2);
 #endif
 
-/* Similar to `dgettext' but select the plural form corresponding to the
+/* Similar to 'dgettext' but select the plural form corresponding to the
    number N.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dngettext (const char *__domainname, const char *__msgid1,
@@ -219,7 +219,7 @@ extern char *dngettext (const char *__domainname,
        _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3);
 #endif
 
-/* Similar to `dcgettext' but select the plural form corresponding to the
+/* Similar to 'dcgettext' but select the plural form corresponding to the
    number N.  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dcngettext (const char *__domainname,

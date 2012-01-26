@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -801,7 +801,7 @@ wrap (const message_ty *mp, ostream_t stream,
                 {
                   char *error_message =
                     xasprintf (_("\
-internationalized messages should not contain the `\\%c' escape sequence"),
+internationalized messages should not contain the '\\%c' escape sequence"),
                                c);
                   po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, false,
                              error_message);

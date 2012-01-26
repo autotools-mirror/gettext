@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2008, 2010-2011 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008, 2010-2012 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -609,7 +609,7 @@ check_pair (const message_ty *mp,
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, _("\
-`msgid' and `msgid_plural' entries do not both begin with '\\n'"));
+'msgid' and 'msgid_plural' entries do not both begin with '\\n'"));
               seen_errors++;
             }
           for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
@@ -617,7 +617,7 @@ check_pair (const message_ty *mp,
               {
                 char *msg =
                   xasprintf (_("\
-`msgid' and `msgstr[%u]' entries do not both begin with '\\n'"), j);
+'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"), j);
                 po_xerror (PO_SEVERITY_ERROR,
                            mp, msgid_pos->file_name, msgid_pos->line_number,
                            (size_t)(-1), false, msg);
@@ -632,7 +632,7 @@ check_pair (const message_ty *mp,
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, _("\
-`msgid' and `msgstr' entries do not both begin with '\\n'"));
+'msgid' and 'msgstr' entries do not both begin with '\\n'"));
               seen_errors++;
             }
         }
@@ -650,7 +650,7 @@ check_pair (const message_ty *mp,
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, _("\
-`msgid' and `msgid_plural' entries do not both end with '\\n'"));
+'msgid' and 'msgid_plural' entries do not both end with '\\n'"));
               seen_errors++;
             }
           for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
@@ -658,7 +658,7 @@ check_pair (const message_ty *mp,
               {
                 char *msg =
                   xasprintf (_("\
-`msgid' and `msgstr[%u]' entries do not both end with '\\n'"), j);
+'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"), j);
                 po_xerror (PO_SEVERITY_ERROR,
                            mp, msgid_pos->file_name, msgid_pos->line_number,
                            (size_t)(-1), false, msg);
@@ -673,7 +673,7 @@ check_pair (const message_ty *mp,
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, _("\
-`msgid' and `msgstr' entries do not both end with '\\n'"));
+'msgid' and 'msgstr' entries do not both end with '\\n'"));
               seen_errors++;
             }
         }
@@ -782,7 +782,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
       if (endp == NULL)
         {
           char *msg =
-            xasprintf (_("header field `%s' missing in header\n"),
+            xasprintf (_("header field '%s' missing in header\n"),
                        required_fields[cnt]);
           po_xerror (severity, mp, NULL, 0, 0, true, msg);
           free (msg);
@@ -791,7 +791,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
         {
           char *msg =
             xasprintf (_("\
-header field `%s' should start at beginning of line\n"),
+header field '%s' should start at beginning of line\n"),
                        required_fields[cnt]);
           po_xerror (severity, mp, NULL, 0, 0, true, msg);
           free (msg);
@@ -832,7 +832,7 @@ some header fields still have the initial default value\n"));
       int severity =
         (initial < nrequiredfields ? PO_SEVERITY_ERROR : PO_SEVERITY_WARNING);
       char *msg =
-        xasprintf (_("header field `%s' still has the initial default value\n"),
+        xasprintf (_("header field '%s' still has the initial default value\n"),
                    required_fields[initial]);
       po_xerror (severity, mp, NULL, 0, 0, true, msg);
       free (msg);

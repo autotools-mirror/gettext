@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2011 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2012 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -768,7 +768,7 @@ This version was built without iconv()."),
           if (language == NULL)
             {
               error (0, 0, _("\
-warning: file `%s' extension `%s' is unknown; will try C"), filename, extension);
+warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
               language = "C";
             }
           this_file_extractor = language_to_extractor (language);
@@ -810,7 +810,7 @@ static void
 usage (int status)
 {
   if (status != EXIT_SUCCESS)
-    fprintf (stderr, _("Try `%s --help' for more information.\n"),
+    fprintf (stderr, _("Try '%s --help' for more information.\n"),
              program_name);
   else
     {
@@ -960,7 +960,7 @@ Output details:\n"));
       printf (_("\
   -F, --sort-by-file          sort output by file location\n"));
       printf (_("\
-      --omit-header           don't write header with `msgid \"\"' entry\n"));
+      --omit-header           don't write header with 'msgid \"\"' entry\n"));
       printf (_("\
       --copyright-holder=STRING  set copyright holder in output\n"));
       printf (_("\
@@ -2256,7 +2256,7 @@ meta information, not the empty string.\n")));
         CONVERT_STRING (s, lc_comment);
 
         /* To reduce the possibility of unwanted matches we do a two
-           step match: the line must contain `xgettext:' and one of
+           step match: the line must contain 'xgettext:' and one of
            the possible format description strings.  */
         if ((t = c_strstr (s, "xgettext:")) != NULL)
           {
@@ -3016,7 +3016,7 @@ construct_header ()
     multiline_warning (xasprintf (_("warning: ")),
                        xstrdup (_("\
 The option --msgid-bugs-address was not specified.\n\
-If you are using a `Makevars' file, please specify\n\
+If you are using a 'Makevars' file, please specify\n\
 the MSGID_BUGS_ADDRESS variable there; otherwise please\n\
 specify an --msgid-bugs-address command line option.\n\
 ")));
@@ -3224,7 +3224,7 @@ language_to_extractor (const char *name)
         return result;
       }
 
-  error (EXIT_FAILURE, 0, _("language `%s' unknown"), name);
+  error (EXIT_FAILURE, 0, _("language '%s' unknown"), name);
   /* NOTREACHED */
   {
     extractor_ty result = { NULL, NULL, NULL, NULL };

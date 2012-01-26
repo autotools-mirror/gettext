@@ -1,3 +1,36 @@
+2012-01-26  Bruno Haible  <bruno@clisp.org>
+
+	Modernize quoting.
+	* hostname.c (usage): Quote 'like this', not `like this', as per the
+	recent change to the GNU coding standards.
+	* msgattrib.c (usage): Likewise.
+	* msgcat.c (usage): Likewise.
+	* msgcmp.c (usage): Likewise.
+	* msgcomm.c (usage): Likewise.
+	* msgconv.c (usage): Likewise.
+	* msgen.c (usage): Likewise.
+	* msgexec.c (usage): Likewise.
+	* msgfilter.c (usage): Likewise.
+	* msgfmt.c (usage, msgfmt_set_domain, msgfmt_frob_new_message):
+	Likewise.
+	* msggrep.c (usage): Likewise.
+	* msginit.c (usage): Likewise.
+	* msgl-cat.c (catenate_msgdomain_list): Likewise.
+	* msgl-check.c (check_pair, check_header_entry): Likewise.
+	* msgmerge.c (usage): Likewise.
+	* msgunfmt.c (usage): Likewise.
+	* msguniq.c (usage): Likewise.
+	* recode-sr-latin.c (usage): Likewise.
+	* urlget.c (usage): Likewise.
+	* write-po.c (wrap): Likewise.
+	* xgettext.c (main, usage, remember_a_message, construct_header,
+	language_to_extractor): Likewise.
+	* po-gram-gen.y: Likewise.
+	* po-error.h: Likewise.
+	* po-lex.h: Likewise.
+	* read-catalog-abstract.h: Likewise.
+	* x-c.c: Likewise.
+
 2011-10-04  Bruno Haible  <bruno@clisp.org>
 
 	xgettext for Scheme: Understand guile 2.0 comment syntax, part 2.
