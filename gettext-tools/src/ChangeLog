@@ -1,3 +1,28 @@
+2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
+
+	Support for Lua.
+	* message.h (format_type): New enum value 'format_lua'.
+	(NFORMATS): Increment.
+	* message.c (format_language): Add format_lua entry.
+	(format_language_pretty): Likewise.
+	* format.h (formatstring_lua): New declaration.
+	* format-lua.c: New file.
+	* format.c (formatstring_parsers): Add formatstring_lua.
+	* x-lua.h: New file.
+	* x-lua.c: New file.
+	* xgettext.c: Include x-lua.h.
+	(flag_table_lua): New variable.
+	(main): Invoke init_flag_table_lua, x_lua_extract_all,
+	x_lua_keyword.
+	(usage): Mention Lua source language.
+	(xgettext_record_flag): Handle format_lua.
+	(language_to_extractor): Add Lua rule.
+	(extension_to_language): Add Lua rule.
+	* Makefile.am (noinst_HEADERS): Add x-lua.h.
+	(FORMAT_SOURCE): Add format-lua.c.
+	(xgettext_SOURCES): Add x-lua.c.
+	* FILES: Update.
+
 2013-03-15  Miguel Ángel Arruga Vivas  <rosen644835@gmail.com>
             Daiki Ueno  <ueno@gnu.org>
 

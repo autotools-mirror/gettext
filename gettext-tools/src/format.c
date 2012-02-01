@@ -57,7 +57,8 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_qt */               &formatstring_qt,
   /* format_qt_plural */        &formatstring_qt_plural,
   /* format_kde */              &formatstring_kde,
-  /* format_boost */            &formatstring_boost
+  /* format_boost */            &formatstring_boost,
+  /* format_lua */              &formatstring_lua
 };
 
 /* Check whether both formats strings contain compatible format

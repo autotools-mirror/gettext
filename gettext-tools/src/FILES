@@ -333,6 +333,9 @@ msgl-check.c
 | x-glade.h
 | x-glade.c
 |               String extractor from .glade files, GNOME GUI descriptions.
+| x-lua.h
+| x-lua.c
+|               String extractor for Lua.
 | xgettext.c
 |               Main source for the 'xgettext' program.
 |

@@ -1,3 +1,13 @@
+2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
+
+	Support for Lua.
+	* format-lua-1: New file.
+	* format-lua-2: New file.
+	* xgettext-lua-1: New file.
+	* xgettext-lua-2: New file.
+	* lang-lua: New file.
+	* Makefile.am (TESTS): Add them.
+
 2013-03-03  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
 
 	Add a test case for atkproperty tag in Glade2 files.

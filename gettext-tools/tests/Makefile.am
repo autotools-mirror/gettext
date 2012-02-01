@@ -100,6 +100,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
+	xgettext-lua-1 xgettext-lua-2 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
@@ -123,12 +124,14 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
+	format-lua-1 format-lua-2 \
 	plural-1 plural-2 \
 	gettextpo-1 \
 	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python-1 \
 	lang-python-2 lang-clisp lang-elisp lang-librep lang-guile \
 	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
-	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst
+	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst \
+	lang-lua
 
 EXTRA_DIST += $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok \

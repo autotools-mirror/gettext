@@ -57,7 +57,8 @@ const char *const format_language[NFORMATS] =
   /* format_qt */               "qt",
   /* format_qt_plursl */        "qt-plural",
   /* format_kde */              "kde",
-  /* format_boost */            "boost"
+  /* format_boost */            "boost",
+  /* format_lua */              "lua"
 };
 
 const char *const format_language_pretty[NFORMATS] =
@@ -85,7 +86,8 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_qt */               "Qt",
   /* format_qt_plural */        "Qt plural",
   /* format_kde */              "KDE",
-  /* format_boost */            "Boost"
+  /* format_boost */            "Boost",
+  /* format_lua */              "Lua"
 };
 
 

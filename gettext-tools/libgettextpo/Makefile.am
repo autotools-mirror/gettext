@@ -84,6 +84,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-qt-plural.c \
   ../src/format-kde.c \
   ../src/format-boost.c \
+  ../src/format-lua.c \
   ../src/format.c \
   ../src/plural-exp.c \
   ../src/plural-eval.c \

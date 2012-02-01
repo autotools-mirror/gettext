@@ -1,3 +1,12 @@
+2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
+
+	Support for Lua.
+	* gettext.texi (PO Files): Mention lua-format.
+	(lua-format): New subsection.
+	(Lua): New subsection.
+	* xgettext.texi: Document Lua source language. Document that it is
+	applicable to --flag.
+
 2013-04-02  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (PO Files): Use '@pxref' instead of '@xref'.

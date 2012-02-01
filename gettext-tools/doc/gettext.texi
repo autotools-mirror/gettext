@@ -409,6 +409,7 @@ The Translator's View
 * qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
+* lua-format::                  Lua Format Strings
 
 Individual Programming Languages
 
@@ -433,6 +434,7 @@ Individual Programming Languages
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
 * GCC-source::                  GNU Compiler Collection sources
+* Lua::                         Lua
 
 sh - Shell Script
 
@@ -1622,6 +1624,12 @@ Likewise for KDE, see @ref{kde-format}.
 @itemx no-boost-format
 @kwindex no-boost-format@r{ flag}
 Likewise for Boost, see @ref{boost-format}.
+
+@item lua-format
+@kwindex lua-format@r{ flag}
+@itemx no-lua-format
+@kwindex no-lua-format@r{ flag}
+Likewise for Lua, see @ref{lua-format}.
 
 @end table
 
@@ -8965,6 +8973,7 @@ strings.
 * qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
 * boost-format::                Boost Format Strings
+* lua-format::                  Lua Format Strings
 @end menu
 
 @node c-format, objc-format, Translators for other Languages, Translators for other Languages
@@ -9210,7 +9219,7 @@ A directive consists of a @samp{%} followed by a non-zero decimal number.
 If a @samp{%n} occurs in a format strings, all of @samp{%1}, ..., @samp{%(n-1)}
 must occur as well, except possibly one of them.
 
-@node boost-format,  , kde-format, Translators for other Languages
+@node boost-format, lua-format, kde-format, Translators for other Languages
 @subsection Boost Format Strings
 
 Boost format strings are described in the documentation of the
@@ -9220,6 +9229,12 @@ In summary, a directive has either the same syntax as in a C format string,
 such as @samp{%1$+5d}, or may be surrounded by vertical bars, such as
 @samp{%|1$+5d|} or @samp{%|1$+5|}, or consists of just an argument number
 between percent signs, such as @samp{%1%}.
+
+@node lua-format,  , boost-format, Translators for other Languages
+@subsection Lua Format Strings
+
+Lua format strings are described in the Lua reference manual, section @w{String Manipulation},
+@uref{http://www.lua.org/manual/5.1/manual.html#pdf-string.format}.
 
 @node Maintainers for other Languages, List of Programming Languages, Translators for other Languages, Programming Languages
 @section The Maintainer's View
@@ -9324,6 +9339,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * PHP::                         PHP Hypertext Preprocessor
 * Pike::                        Pike
 * GCC-source::                  GNU Compiler Collection sources
+* Lua::                         Lua
 @end menu
 
 @node C, sh, List of Programming Languages, List of Programming Languages
@@ -11735,7 +11751,7 @@ On platforms without gettext, the functions are not available.
 ---
 @end table
 
-@node GCC-source,  , Pike, List of Programming Languages
+@node GCC-source, Lua, Pike, List of Programming Languages
 @subsection GNU Compiler Collection sources
 @cindex GCC-source
 
@@ -11782,6 +11798,68 @@ Uses autoconf macros
 
 @item po-mode marking
 yes
+@end table
+
+@node Lua,  , GCC-source, List of Programming Languages
+@subsection Lua
+
+@table @asis
+@item RPMs
+lua
+
+@item File extension
+@code{lua}
+
+@item String syntax
+@itemize @bullet
+
+@item @code{"abc"}
+
+@item @code{'abc'}
+
+@item @code{[[abc]]}
+
+@item @code{[=[abc]=]}
+
+@item @code{[==[abc]==]}
+
+@item ...
+
+@end itemize
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+@code{gettext.gettext}, @code{gettext.dgettext}, @code{gettext.dcgettext},
+@code{gettext.ngettext}, @code{gettext.dngettext}, @code{gettext.dcngettext}
+
+@item textdomain
+@code{textdomain} function
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+automatic
+
+@item Prerequisite
+@code{require 'gettext'} or running lua interpreter with @code{-l gettext} option
+
+@item Use or emulate GNU gettext
+use
+
+@item Extractor
+@code{xgettext}
+
+@item Formatting with positions
+---
+
+@item Portability
+On platforms without gettext, the functions are not available.
+
+@item po-mode marking
+---
 @end table
 
 @c This is the template for new languages.
@@ -11863,7 +11941,7 @@ fpk
 @code{xgettext}, @code{rstconv}
 @end table
 
-@node Glade,  , RST, List of Data Formats
+@node Glade,   , RST, List of Data Formats
 @subsection Glade - GNOME user interface description
 
 @table @asis

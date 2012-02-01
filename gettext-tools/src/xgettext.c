@@ -92,6 +92,7 @@
 #include "x-stringtable.h"
 #include "x-rst.h"
 #include "x-glade.h"
+#include "x-lua.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -160,6 +161,7 @@ static flag_context_list_table_ty flag_table_ycp;
 static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
 static flag_context_list_table_ty flag_table_php;
+static flag_context_list_table_ty flag_table_lua;
 
 /* If true, recognize Qt format strings.  */
 static bool recognize_format_qt;
@@ -331,6 +333,7 @@ main (int argc, char *argv[])
   init_flag_table_tcl ();
   init_flag_table_perl ();
   init_flag_table_php ();
+  init_flag_table_lua ();
 
   while ((optchar = getopt_long (argc, argv,
                                  "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:x:",
@@ -355,6 +358,7 @@ main (int argc, char *argv[])
         x_perl_extract_all ();
         x_php_extract_all ();
         x_glade_extract_all ();
+        x_lua_extract_all ();
         break;
 
       case 'c':
@@ -432,6 +436,7 @@ main (int argc, char *argv[])
         x_perl_keyword (optarg);
         x_php_keyword (optarg);
         x_glade_keyword (optarg);
+        x_lua_keyword (optarg);
         if (optarg == NULL)
           no_default_keywords = true;
         else
@@ -857,7 +862,7 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Scheme, Smalltalk, Java,\n\
                                 JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
-                                GCC-source, NXStringTable, RST, Glade)\n"));
+                                Lua, GCC-source, NXStringTable, RST, Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -890,21 +895,21 @@ Language specific options:\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, Lua, GCC-source, Glade)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, Lua, GCC-source, Glade)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source)\n"));
+                                C#, awk, YCP, Tcl, Perl, PHP, Lua, GCC-source)\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\
@@ -1765,6 +1770,11 @@ xgettext_record_flag (const char *optionstring)
                     break;
                   case format_boost:
                     flag_context_list_table_insert (&flag_table_cxx_boost, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_lua:
+                    flag_context_list_table_insert (&flag_table_lua, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -3185,6 +3195,7 @@ language_to_extractor (const char *name)
     SCANNERS_STRINGTABLE
     SCANNERS_RST
     SCANNERS_GLADE
+    SCANNERS_LUA
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -3268,6 +3279,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_STRINGTABLE
     EXTENSIONS_RST
     EXTENSIONS_GLADE
+    EXTENSIONS_LUA
     /* Here may follow more file extensions... */
   };
 
