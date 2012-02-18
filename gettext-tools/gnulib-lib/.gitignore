@@ -17,6 +17,8 @@
 /addext.c
 /alignof.h
 /alloca.in.h
+/allocator.c
+/allocator.h
 /areadlink.c
 /areadlink.h
 /argmatch.c
@@ -41,12 +43,16 @@
 /c-strstr.c
 /c-strstr.h
 /canonicalize-lgpl.c
+/careadlinkat.c
+/careadlinkat.h
 /classpath.c
 /classpath.h
 /clean-temp.c
 /clean-temp.h
 /cloexec.c
 /cloexec.h
+/close.c
+/closedir.c
 /closeout.c
 /closeout.h
 /concat-filename.c
@@ -60,6 +66,9 @@
 /csharpexec.c
 /csharpexec.h
 /diffseq.h
+/dirent-private.h
+/dirent.in.h
+/dosname.h
 /dup-safer.c
 /dup-safer-flag.c
 /dup2.c
@@ -76,6 +85,8 @@
 /fatal-signal.h
 /fcntl.c
 /fcntl.in.h
+/fd-hook.c
+/fd-hook.h
 /fd-ostream.oo.c
 /fd-ostream.oo.h
 /fd-safer.c
@@ -87,11 +98,13 @@
 /findprog.c
 /findprog.h
 /float+.h
+/float.c
 /float.in.h
 /fnmatch.c
 /fnmatch.in.h
 /fnmatch_loop.c
 /fopen.c
+/fstat.c
 /fstrcmp.c
 /fstrcmp.h
 /full-write.c
@@ -129,7 +142,9 @@
 /html-ostream.oo.h
 /html-styled-ostream.oo.c
 /html-styled-ostream.oo.h
+/iconv.c
 /iconv.in.h
+/iconv_close.c
 /iconv_open-aix.gperf
 /iconv_open-hpux.gperf
 /iconv_open-irix.gperf
@@ -138,6 +153,8 @@
 /iconv_open.c
 /iconveh.h
 /intprops.h
+/iswblank.c
+/itold.c
 /javacomp.c
 /javacomp.h
 /javaexec.c
@@ -163,6 +180,7 @@
 /mbrtowc.c
 /mbsinit.c
 /mbslen.c
+/mbsrtowcs-impl.h
 /mbsrtowcs-state.c
 /mbsrtowcs.c
 /mbsstr.c
@@ -176,9 +194,14 @@
 /minmax.h
 /mkdtemp.c
 /moo.h
+/msvc-inval.c
+/msvc-inval.h
+/msvc-nothrow.c
+/msvc-nothrow.h
 /obstack.c
 /obstack.h
 /open.c
+/opendir.c
 /ostream.oo.c
 /ostream.oo.h
 /pathmax.h
@@ -203,8 +226,11 @@
 /quote.h
 /quotearg.c
 /quotearg.h
+/raise.c
 /rawmemchr.c
 /rawmemchr.valgrind
+/read.c
+/readdir.c
 /readlink.c
 /realloc.c
 /ref-add.sin
@@ -220,6 +246,7 @@
 /sched.in.h
 /set-mode-acl.c
 /setenv.c
+/setlocale.c
 /sh-quote.c
 /sh-quote.h
 /sig-handler.h
@@ -228,6 +255,8 @@
 /sigprocmask.c
 /size_max.h
 /snprintf.c
+/spawn-pipe.c
+/spawn-pipe.h
 /spawn.in.h
 /spawn_faction_addclose.c
 /spawn_faction_adddup2.c
@@ -257,6 +286,8 @@
 /strchrnul.valgrind
 /strcspn.c
 /streq.h
+/strerror-override.c
+/strerror-override.h
 /strerror.c
 /striconv.c
 /striconv.h
@@ -312,6 +343,7 @@
 /w32spawn.h
 /wait-process.c
 /wait-process.h
+/waitpid.c
 /wchar.in.h
 /wctype.in.h
 /wcwidth.c
