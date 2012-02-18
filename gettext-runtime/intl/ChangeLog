@@ -9,6 +9,13 @@
 
 	Talk about "native Windows API", not "Win32".
 	* vasnprintf.c: Update comments to mention native Windows.
+	* localcharset.c: Update comments to mention native Windows.
+	(WINDOWS_NATIVE): Renamed from WIN32_NATIVE.
+	* localename.c: Likewise.
+	* relocatable.c: Likewise.
+	* lock.h: Update comments to mention native Windows.
+	(USE_WINDOWS_THREADS): Renamed from USE_WIN32_THREADS.
+	* lock.c (USE_WINDOWS_THREADS): Renamed from USE_WIN32_THREADS.
 
 2011-10-15  Bruno Haible  <bruno@clisp.org>
 
