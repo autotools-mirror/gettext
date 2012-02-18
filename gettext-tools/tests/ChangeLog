@@ -1,3 +1,8 @@
+2012-02-18  Bruno Haible  <bruno@clisp.org>
+
+	Make the lang-pascal test work on x86_64 platforms.
+	* lang-pascal: Try also the ppcx64 program.
+
 2012-01-26  Bruno Haible  <bruno@clisp.org>
 
 	Modernize quoting.
