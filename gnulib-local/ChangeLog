@@ -1,3 +1,8 @@
+2012-02-17  Bruno Haible  <bruno@clisp.org>
+
+	Update after gnulib changed.
+	* lib/exitfail.h.diff: Update.
+
 2012-01-26  Bruno Haible  <bruno@clisp.org>
 
 	Modernize quoting.
