@@ -1,3 +1,7 @@
+2012-02-05  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* po.m4: Spelling fixes.
+
 2012-01-26  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4: Update copyright year.
