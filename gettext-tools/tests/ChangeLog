@@ -1,5 +1,10 @@
 2012-02-18  Bruno Haible  <bruno@clisp.org>
 
+	Avoid test failure with fpc version 2.6.0.
+	* lang-rst: Allow a test result with line wrapping.
+
+2012-02-18  Bruno Haible  <bruno@clisp.org>
+
 	Make the lang-pascal test work on x86_64 platforms.
 	* lang-pascal: Try also the ppcx64 program.
 
