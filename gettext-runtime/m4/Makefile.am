@@ -14,7 +14,6 @@ intl.m4 \
 intldir.m4 \
 intlmacosx.m4 \
 intmax.m4 \
-intmax_t.m4 \
 inttypes-pri.m4 \
 inttypes_h.m4 \
 lcmessage.m4 \
