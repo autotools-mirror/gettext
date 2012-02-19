@@ -1,3 +1,8 @@
+2012-02-19  Bruno Haible  <bruno@clisp.org>
+
+	Avoid spurious test output with guile 2.0.x.
+	* lang-guile: Filter out ";;;" lines from standard error.
+
 2012-02-18  Bruno Haible  <bruno@clisp.org>
 
 	Avoid test failure with fpc version 2.6.0.
