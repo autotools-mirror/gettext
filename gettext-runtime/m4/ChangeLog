@@ -1,3 +1,12 @@
+2012-12-07  Stefano Lattarini  <stefano.lattarini@gmailcom>  (tiny change)
+
+	m4: use AC_PROG_MKDIR_P, not the deprecated AM_PROG_MKDIR_P
+	* gettext.m4 (AM_INTL_SUBDIR): Require AC_PROG_MKDIR_P instead
+	of AM_PROG_MKDIR_P, as this latter macro is deprecated since
+	Automake 1.12.1, and will be removed in Automake 1.14.
+	Accordingly, bump requirement in AC_PREREQ to 2.60.
+	* po.m4 (AM_PO_SUBDIRS): Likewise.
+
 2012-06-22  Bruno Haible  <bruno@clisp.org>
 
 	* gettext.m4: Write "Mac OS X" instead of "MacOS X".
