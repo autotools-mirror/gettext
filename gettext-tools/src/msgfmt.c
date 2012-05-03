@@ -767,6 +767,9 @@ Output details:\n"));
       printf (_("\
   -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"), DEFAULT_OUTPUT_ALIGNMENT);
       printf (_("\
+      --endianness=BYTEORDER  write out 32-bit numbers in the given byte order\n\
+                                (big or little, default depends on platform)\n"));
+      printf (_("\
       --no-hash               binary file will not include the hash table\n"));
       printf ("\n");
       printf (_("\
