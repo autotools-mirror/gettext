@@ -1,3 +1,7 @@
+2012-06-03  Jim Meyering  <jim@meyering.net>
+
+	* dcigettext.c: Spelling fixes.
+
 2012-02-05  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* vasnprintf.c: Spelling fixes.
@@ -1372,7 +1376,7 @@
 2007-03-24  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c: Include float+.h.
-	(VASNPRINTF): When comparing agains +0.0L or +0.0, compare only
+	(VASNPRINTF): When comparing against +0.0L or +0.0, compare only
 	SIZEOF_LDBL or SIZEOF_DBL bytes.
 
 2007-03-24  Bruno Haible  <bruno@clisp.org>
@@ -4178,7 +4182,7 @@
 	* intl/localealias.c (read_alias_file): Use unsigned char for
 	local variables.  Remove unused variable tp.
 	* intl/l10nflist.c (_nl_normalize_codeset): Use unsigned char *
-	for type of codeset.  For loosing Solaris systems.
+	for type of codeset.  For losing Solaris systems.
 	* intl/loadinfo.h: Adapt prototype of _nl_normalize_codeset.
 	* intl/bindtextdom.c (BINDTEXTDOMAIN): Don't define local variable
 	len if not needed.

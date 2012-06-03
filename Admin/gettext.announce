@@ -70,7 +70,7 @@ Version 0.10 - December 1995, by Ulrich Drepper
 
 * msgcmp program to find matches in two .po files
 
-* programs now have exit status != 0 if errors occured
+* programs now have exit status != 0 if errors occurred
 
 * libintl.a is now selfcontained and can be used without context in
   other projects

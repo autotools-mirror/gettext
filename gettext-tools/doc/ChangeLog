@@ -1,3 +1,7 @@
+2012-06-03  Jim Meyering  <jim@meyering.net>
+
+	* gettext.texi: Spelling fixes.
+
 2012-05-03  Bruno Haible  <bruno@clisp.org>
 
 	Document msgfmt option --endianness.

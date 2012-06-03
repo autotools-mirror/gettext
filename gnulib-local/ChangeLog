@@ -1,3 +1,7 @@
+2012-06-03  Jim Meyering  <jim@meyering.net>
+
+	* lib/tparm.c: Spelling fixes.
+
 2012-02-17  Bruno Haible  <bruno@clisp.org>
 
 	Update after gnulib changed.

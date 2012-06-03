@@ -673,7 +673,7 @@
 2007-03-24  Bruno Haible  <bruno@clisp.org>
 
 	* vasnprintf.c: Include float+.h.
-	(VASNPRINTF): When comparing agains +0.0L or +0.0, compare only
+	(VASNPRINTF): When comparing against +0.0L or +0.0, compare only
 	SIZEOF_LDBL or SIZEOF_DBL bytes.
 
 2007-03-24  Bruno Haible  <bruno@clisp.org>

@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2007 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2012 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -114,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2007 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2012 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -1216,7 +1216,7 @@ encoding.  These are in use because between 2000 and 2005, most users have
 switched to locales in UTF-8 encoding.  For example, the German locale on
 glibc systems is nowadays @samp{de_DE.UTF-8}.  The older name @samp{de_DE}
 still refers to the German locale as of 2000 that stores characters in
-ISO-8859-1 encoding -- a text encoding that cannot even accomodate the Euro
+ISO-8859-1 encoding -- a text encoding that cannot even accommodate the Euro
 currency sign.
 
 Some locale names use @samp{@var{ll}_@var{CC}.@@@var{variant}} instead of
@@ -7266,7 +7266,7 @@ all of GNU, giving myself the duty of one small GNU package per week
 or so, taking many weeks or months for bigger packages.  But it does
 not work this way.  I first did all the things I'm responsible for.
 I've nothing against some missionary work on other maintainers, but
-I'm also loosing a lot of energy over it---same debates over again.
+I'm also losing a lot of energy over it---same debates over again.
 
 And when the first localized packages are released we'll get a lot of
 responses about ugly translations :-).  Surely, and we need to have

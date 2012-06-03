@@ -1,5 +1,5 @@
 /* Substitution of parameters in strings from terminal descriptions.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2012 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -243,7 +243,7 @@ cvtchar (const char *sp, char *c)
 (GNU)   %b      backup to previous parameter
 (GNU)   %f      skip this parameter
 
-  Note the two definitions of %a, the GNU defintion is used if the characters
+  Note the two definitions of %a, the GNU definition is used if the characters
   after the 'a' are valid, otherwise the UW definition is used.
 
   (GNU) used by GNU Emacs termcap libraries
