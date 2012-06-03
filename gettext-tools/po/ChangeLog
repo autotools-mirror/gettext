@@ -1,3 +1,9 @@
+2012-02-19  Bruno Haible  <bruno@clisp.org>
+
+	Rules.quot: Reenable use of build gettext tools in gettext package.
+	* Rules-quot (.insert-header.po-update-en): Augment PATH in the
+	gettext-tools package.
+
 2011-08-11  Paul Eggert  <eggert@cs.ucla.edu>
 
 	Makefile.in.in: fix make -q problem
