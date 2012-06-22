@@ -1,3 +1,12 @@
+2012-06-22  Bruno Haible  <bruno@clisp.org>
+
+	* gettext.m4: Write "Mac OS X" instead of "MacOS X".
+	* intdiv0.m4: Likewise.
+	* intlmacosx.m4: Likewise.
+	* lock.m4: Likewise.
+	* threadlib.m4: Likewise.
+	* visibility.m4: Likewise.
+
 2012-02-18  Bruno Haible  <bruno@clisp.org>
 
 	* Makefile.am (EXTRA_DIST): Remove intmax_t.m4.
