@@ -1,3 +1,20 @@
+2012-11-29  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* vasnprintf.c (MAX_ROOM_NEEDED): Now static, not static
+	inline.
+
+2012-06-22  Bruno Haible  <bruno@clisp.org>
+
+	* vasnprintf.c: Write "Mac OS X" instead of "MacOS X".
+
+2012-02-09  Paul Eggert  <eggert@cs.ucla.edu>
+
+	maint: replace FSF snail-mail addresses with URLs
+	* vasnprintf.c, xsize.h:
+	Replace FSF snail mail addresses with URLs, as per GNU coding
+	standards.  See glibc bug
+	<http://sourceware.org/bugzilla/show_bug.cgi?id=13673>.
+
 2012-02-05  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* vasnprintf.c: Spelling fixes.

@@ -29,7 +29,7 @@
 #include <stdlib.h>
 
 #if defined __APPLE__ && defined __MACH__ && HAVE_LANGINFO_CODESET
-# define DARWIN7 /* Darwin 7 or newer, i.e. MacOS X 10.3 or newer */
+# define DARWIN7 /* Darwin 7 or newer, i.e. Mac OS X 10.3 or newer */
 #endif
 
 #if defined _WIN32 || defined __WIN32__
@@ -541,6 +541,13 @@ locale_charset (void)
      thus GNU libiconv would call this function a second time.  */
   if (codeset[0] == '\0')
     codeset = "ASCII";
+
+#ifdef DARWIN7
+  /* Mac OS X sets MB_CUR_MAX to 1 when LC_ALL=C, and "UTF-8"
+     (the default codeset) does not work when MB_CUR_MAX is 1.  */
+  if (strcmp (codeset, "UTF-8") == 0 && MB_CUR_MAX <= 1)
+    codeset = "ASCII";
+#endif
 
   return codeset;
 }

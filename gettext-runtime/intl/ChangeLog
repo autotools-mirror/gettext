@@ -1,3 +1,57 @@
+2012-11-29  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* vasnprintf.c (MAX_ROOM_NEEDED): Now static, not static
+	inline.
+
+2012-11-29  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lock.c (gl_waitqueue_init)
+	(gl_waitqueue_notify_first, gl_waitqueue_notify_all):
+	Change 'static inline' to 'inline'.
+
+2012-09-24  Paul Eggert  <eggert@cs.ucla.edu>
+
+	localename: port gl_locale_name_thread_unsafe to FreeBSD
+	* localename.c (gl_locale_name_thread_unsafe): Port to FreeBSD,
+	and use the simpler FreeBSD implementation on Mac OS X as well.
+	Original idea suggested by Ed Maste in
+	<http://lists.gnu.org/archive/html/bug-gnulib/2012-09/msg00094.html>.
+
+2012-09-22  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* xsize.h (XSIZE_INLINE): New macro.  Replace all uses of
+	'static inline' with them.  Use _GL_INLINE_HEADER_BEGIN,
+	_GL_INLINE_HEADER_END.
+
+2012-09-22  Paul Eggert  <eggert@cs.ucla.edu>
+
+	misc: don't limit commentary to inline functions
+	* xsize.h: Contrast macros to functions in general, not just
+	to inline functions, when the commentary does not apply only to
+	inline functions.
+
+2012-09-16  Paul Eggert  <eggert@cs.ucla.edu>
+
+	localcharset: work around Mac OS X bug with UTF-8 and MB_CUR_MAX
+	* localcharset.c (locale_charset) [DARWIN7]:
+	Return "ASCII" if the system reports "UTF-8" and MB_CUR_MAX <= 1,
+	as these two values are incompatible.  Problem reported by Max Horn.
+	For more discussion, please see
+	<http://lists.gnu.org/archive/html/bug-gnulib/2012-09/msg00061.html>.
+
+2012-07-20  Eric Blake  <eblake@redhat.com>
+
+	verify: document conflict with -Wnested-externs
+	* verify.h: Give hint about usage when gcc warnings are enabled.
+
+2012-06-22  Bruno Haible  <bruno@clisp.org>
+
+	Write "Mac OS X" instead of "MacOS X".
+	* config.charset: Write "Mac OS X" instead of "MacOS X".
+	* localcharset.c: Likewise.
+	* localename.c: Likewise.
+	* vasnprintf.c: Likewise.
+
 2012-06-03  Jim Meyering  <jim@meyering.net>
 
 	* dcigettext.c: Spelling fixes.
@@ -157,6 +211,11 @@
 	7 preallocated elements in an 'arguments' or 'DIRECTIVES' struct.
 	* vasnprintf.c (VASNPRINTF): Update memory handling code.
 	Reported by Pádraig Brady <P@draigbrady.com>.
+
+2011-01-01  Jim Meyering  <meyering@redhat.com>
+
+	maint: update almost all copyright ranges to include 2011
+	Run the new "make update-copyright" rule.
 
 2010-11-20  Bruno Haible  <bruno@clisp.org>
 
