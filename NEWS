@@ -14,6 +14,9 @@ Version 0.18.2 - October 2011
   dependencies against installed package size. --with-xz has the highest
   compression rate, followed by --with-git, followed by --with-bzip2.
 
+* The autoconf macros installed by 'gettextize' now require Autoconf
+  version 2.60 or newer.
+
 * Portability:
   - Building on MacOS X 10.7 is now supported.
 
