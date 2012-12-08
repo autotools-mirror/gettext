@@ -1,3 +1,10 @@
+2012-12-25  Daiki Ueno  <ueno@gnu.org>
+
+	* version.sh: Bump to 0.18.2.
+	* autogen.sh: Record the gnulib version that is being used.
+	* NEWS: Update the release date of 0.18.2.  Reformat "Autoconf
+	macros" change.
+
 2012-12-21  Daiki Ueno  <ueno@gnu.org>
 
 	Fix W64 build errors.

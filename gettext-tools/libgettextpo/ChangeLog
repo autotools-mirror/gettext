@@ -1,3 +1,8 @@
+2012-12-08  Daiki Ueno  <ueno@unixuser.org>
+
+	* gettext-po.in.h (LIBGETTEXTPO_VERSION): Bump to 0.18.2.
+	* Makefile.am (LTV_CURRENT): Bump to 5:2:5.
+
 2010-11-07  Bruno Haible  <bruno@clisp.org>
 
 	Rename gettext-po.h.in to gettext-po.in.h.
