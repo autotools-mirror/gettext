@@ -1,5 +1,5 @@
 # Translation of gettext-examples to Croatian.
-# Copyright (C) 2012 Yoyodyne, Inc. (msgids)
+# Copyright © 2012 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
 #

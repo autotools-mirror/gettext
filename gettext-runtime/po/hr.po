@@ -1,14 +1,14 @@
 # Translation of gettext-runtime to Croatian.
-# Copyright (C) 2012 Free Software Foundation, Inc.
+# Copyright © 2012 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-#
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-02-18 12:35+0100\n"
-"PO-Revision-Date: 2012-07-05 02:17+0200\n"
+"POT-Creation-Date: 2010-06-04 01:57+0200\n"
+"PO-Revision-Date: 2012-11-02 14:40+0100\n"
 "Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -19,66 +19,67 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Lokalize 1.4\n"
 
+# Provjeriti koje nazive parametara i varijabli okoline treba prevesti... (TK)
 #: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "greška pisanja"
 
-#: gnulib-lib/error.c:188
+#: gnulib-lib/error.c:181
 msgid "Unknown system error"
 msgstr "Nepoznata greška sustava"
 
-#: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
-msgid "%s: option '%s' is ambiguous; possibilities:"
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, c-format
+msgid "%s: option '%s' is ambiguous\n"
 msgstr "%s: opcija „%s” je višeznačna\n"
 
-#: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
 #, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: opcija „--%s” ne dozvoljava argument\n"
 
-#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:642
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
 #, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: opcija „%c%s” ne dozvoljava argument\n"
 
-#: gnulib-lib/getopt.c:685 gnulib-lib/getopt.c:704
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
 #, c-format
 msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: opcija „--%s” zahtijeva argument\n"
 
-#: gnulib-lib/getopt.c:742 gnulib-lib/getopt.c:745
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
 #, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: neprepoznata opcija „--%s”\n"
 
-#: gnulib-lib/getopt.c:753 gnulib-lib/getopt.c:756
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
 #, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: neprepoznata opcija „%c%s”\n"
 
-#: gnulib-lib/getopt.c:805 gnulib-lib/getopt.c:808
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: neispravna opcija -- „%c”\n"
 
-#: gnulib-lib/getopt.c:861 gnulib-lib/getopt.c:878 gnulib-lib/getopt.c:1088
-#: gnulib-lib/getopt.c:1106
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: opcija zahtijeva argument -- „%c”\n"
 
-#: gnulib-lib/getopt.c:934 gnulib-lib/getopt.c:950
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
 #, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: opcija „-W %s” je višeznačna\n"
 
-#: gnulib-lib/getopt.c:974 gnulib-lib/getopt.c:992
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
 #, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: opcija „-W %s” ne dozvoljava argument\n"
 
-#: gnulib-lib/getopt.c:1013 gnulib-lib/getopt.c:1031
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
 #, c-format
 msgid "%s: option '-W %s' requires an argument\n"
 msgstr "%s: opcija „-W %s” zahtijeva argument\n"
@@ -96,8 +97,8 @@ msgid ""
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Copyright (C) %s Free Software Foundation, Inc.\n"
-"Licenca GPLv3+: GNU GPL inačica 3 ili kasnija <http://gnu.org/licenses/gpl.html>\n"
+"Copyright © %s Free Software Foundation, Inc.\n"
+"Licenca GPLv3+: GNU GPL inačica 3 ili novija <http://gnu.org/licenses/gpl.html>\n"
 "Ovo je slobodan softver: slobodno ga smijete mijenjati i dijeliti.\n"
 "NEMA JAMSTAVA, do krajnje mjere dozvoljene zakonom.\n"
 
@@ -122,8 +123,8 @@ msgid "missing arguments"
 msgstr "nedostaju argumenti"
 
 #: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
-#, fuzzy, c-format
-msgid "Try '%s --help' for more information.\n"
+#, c-format
+msgid "Try `%s --help' for more information.\n"
 msgstr "Pokušajte „%s --help” za više informacija.\n"
 
 #: src/envsubst.c:176
@@ -171,7 +172,7 @@ msgid ""
 "substituted; otherwise all environment variables references occurring in\n"
 "standard input are substituted.\n"
 msgstr ""
-"U normalnom načinu rada, standardni izlaz se kopira na standardni izlaz,\n"
+"U normalnom načinu rada, standardni ulaz se kopira na standardni izlaz,\n"
 "gdje se reference na varijable okoline oblika $VARIABLE ili ${VARIABLE}\n"
 "zamjenjuju odgovarajućim vrijednostima. Ako je zadan OBLIK-LJUSKE, samo\n"
 "se one varijable okoline referencirane u OBLIK-LJUSKE zamjenjuju, inače\n"
@@ -247,20 +248,20 @@ msgstr ""
 "                            ID-PORUKE iz TEKSTDOMENA\n"
 
 #: src/gettext.c:264
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the 'echo' command.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
 "Ako parametar TEKSTDOMENA nije naveden, domena se određuje iz varijable\n"
 "okoline TEXTDOMAIN. Ako katalog poruka nije pronađen u uobičajenom\n"
-"direktoriju, drugo mjesto se može navesti varijablom okoline TEXTDOMAINDIR.\n"
+"direktoriju, druga lokacija se može navesti varijablom okoline TEXTDOMAINDIR.\n"
 "Kada se koristi uz opciju -s, program se ponaša kao naredba „echo”, no ne\n"
 "kopira argumente na standardni izlaz, već prevodi poruke pronađene u\n"
 "odabranom katalogu.\n"
@@ -313,5 +314,5 @@ msgid ""
 msgstr ""
 "Ako parametar TEKSTDOMENA nije naveden, domena se određuje iz varijable\n"
 "okoline TEXTDOMAIN. Ako katalog poruka nije pronađen u uobičajenom\n"
-"direktoriju, drugo mjesto se može navesti varijablom okoline TEXTDOMAINDIR.\n"
+"direktoriju, druga lokacija se može navesti varijablom okoline TEXTDOMAINDIR.\n"
 "Uobičajeni direktorij za pretragu: %s\n"
