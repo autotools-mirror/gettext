@@ -251,8 +251,15 @@ if ! $skip_gnulib; then
       javaexec-script
       stdint
     '
+    GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='
+      unilbrk/u8-possible-linebreaks-tests
+      unilbrk/ulc-width-linebreaks-tests
+      unistr/u8-mbtouc-tests
+      unistr/u8-mbtouc-unsafe-tests
+      uniwidth/width-tests
+    '
     $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
-      --import --avoid=hash-tests $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER
+      --import --avoid=hash-tests `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER
     # In gettext-tools/libgrep:
     GNULIB_MODULES_TOOLS_FOR_LIBGREP='
       mbrlen
