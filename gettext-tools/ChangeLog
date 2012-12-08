@@ -1,5 +1,9 @@
 2012-12-25  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext-0.18.2 released.
+
+2012-12-25  Daiki Ueno  <ueno@gnu.org>
+
 	* woe32dll/export.h (IMP): Check __MINGW32__ as well as _WIN64.
 
 2012-12-25  Daiki Ueno  <ueno@gnu.org>
