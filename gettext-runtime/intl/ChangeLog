@@ -1,3 +1,7 @@
+2012-12-10  Daiki Ueno  <ueno@unixuser.org>
+
+	* intl-compat.c: Fix typo in the copyright header.
+
 2012-11-29  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* vasnprintf.c (MAX_ROOM_NEEDED): Now static, not static
