@@ -48,6 +48,7 @@ lib/gl_array_list.h.diff \
 lib/gl_linkedhash_list.h.diff \
 lib/glib.in.h \
 lib/glibconfig.in.h \
+lib/glib/README \
 lib/glib/ghash.c \
 lib/glib/ghash.in.h \
 lib/glib/glist.c \
@@ -68,6 +69,7 @@ lib/html-styled-ostream.oo.c \
 lib/html-styled-ostream.oo.h \
 lib/iconv-ostream.oo.c \
 lib/iconv-ostream.oo.h \
+lib/libcroco/README \
 lib/libcroco/cr-additional-sel.c \
 lib/libcroco/cr-additional-sel.h \
 lib/libcroco/cr-attr-sel.c \
@@ -129,6 +131,7 @@ lib/libxml/HTMLparser.c \
 lib/libxml/HTMLparser.in.h \
 lib/libxml/HTMLtree.c \
 lib/libxml/HTMLtree.in.h \
+lib/libxml/README \
 lib/libxml/SAX.c \
 lib/libxml/SAX2.c \
 lib/libxml/SAX2.in.h \
