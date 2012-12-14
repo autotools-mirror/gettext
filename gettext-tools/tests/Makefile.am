@@ -195,8 +195,9 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
 		    LOCALE_JA='@LOCALE_JA@' \
 		    host_os='@host_os@' \
-		    CONFIG_SHELL='$(SHELL)' \
-		    $(SHELL)
+		    CONFIG_SHELL='$(SHELL)'
+
+LOG_COMPILER = $(SHELL)
 
 # Update the expected test results.
 update-expected: xg-c-1.ok.po

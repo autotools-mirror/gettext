@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.60..2.69 and automake-1.11.1..1.12 in the
+# This script requires autoconf-2.62..2.69 and automake-1.11.1..1.12 in the
 # PATH.
 # It also requires either
 #   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script

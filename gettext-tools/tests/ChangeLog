@@ -1,3 +1,8 @@
+2013-05-29  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
+
+	* Makefile.am (TESTS_ENVIRONMENT): Remove $(SHELL).
+	(LOG_COMPILER): Define to $(SHELL).
+
 2013-05-29  Daiki Ueno  <ueno@gnu.org>
 
 	Avoid temp file name collisions in test scripts.

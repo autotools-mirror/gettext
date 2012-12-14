@@ -16,14 +16,14 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.59])
+AC_PREREQ([2.62])
 AC_INIT
 AC_CONFIG_SRCDIR([intl/dcigettext.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 . $srcdir/../version.sh
 gl_INIT_PACKAGE([gettext-runtime], [$VERSION_NUMBER])
-AM_INIT_AUTOMAKE([silent-rules])
-AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
+AM_CONFIG_HEADER([config.h])
 
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
