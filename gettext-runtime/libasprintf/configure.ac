@@ -21,7 +21,7 @@ AC_INIT([libasprintf], [1.0])
 AC_CONFIG_SRCDIR([vasprintf.c])
 AC_CONFIG_AUX_DIR([../../build-aux])
 AM_INIT_AUTOMAKE([silent-rules])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 dnl Checks for programs.
 AC_PROG_CC

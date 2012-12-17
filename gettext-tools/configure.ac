@@ -23,7 +23,7 @@ AC_CONFIG_AUX_DIR([../build-aux])
 . $srcdir/../version.sh
 gl_INIT_PACKAGE([gettext-tools], [$VERSION_NUMBER])
 AM_INIT_AUTOMAKE([silent-rules])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'

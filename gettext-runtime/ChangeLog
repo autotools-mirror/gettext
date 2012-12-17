@@ -1,3 +1,8 @@
+2012-12-17  Daiki Ueno  <ueno@unixuser.org>
+
+	* configure.ac: Use AC_CONFIG_HEADERS instead of AM_CONFIG_HEADER.
+	Suggested by Stefano Lattarini <stefano.lattarini@gmail.com>.
+
 2012-01-26  Bruno Haible  <bruno@clisp.org>
 
 	Modernize quoting.
