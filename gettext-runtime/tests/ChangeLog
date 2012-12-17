@@ -1,3 +1,40 @@
+2012-12-17  Daiki Ueno  <ueno@unixuser.org>
+
+	test-lock: work around pthread-win32
+	* test-lock.c (gl_thread_self_pointer): Renamed from
+	gl_thread_self; all callers changed.  Work around pthread-win32.
+	(gl_thread_join): Add extra RETVALP argument; all callers changed.
+
+	test-lock: merge gnulib changes
+	2011-06-09  Bruno Haible  <bruno@clisp.org>
+	* test-lock.c: Use gl_thread_self_pointer instead of
+	gl_thread_self.
+
+	2010-03-25  Bruno Haible  <bruno@clisp.org>
+	Minor formatting changes.
+	* test-lock.c: Insert space before function argument list.
+	Reported by Jim Meyering.
+
+	2008-12-07  Bruno Haible  <bruno@clisp.org>
+	* test-lock.c (test_lock, test_rwlock, test_recursive_lock)
+	(test_once): Mark functions as static.
+
+	2008-09-30  Yoann Vandoorselaere  <yoann.v@prelude-ids.com>
+		    Bruno Haible  <bruno@clisp.org>
+	* test-lock.c (test_lock, test_rwlock, test_recursive_lock)
+	(test_once): Pass an additional NULL argument to gl_thread_join.
+
+	2008-09-21  Bruno Haible  <bruno@clisp.org>
+	* test-lock.c (main): Tweak skip message.
+
+	2008-08-22  Eric Blake  <ebb9@byu.net>
+	test-lock: mention why a test is skipped
+	* test-lock.c (main) [!USE_*_THREADS]: Print why test is skipped.
+
+	2007-05-28  Eric Blake  <ebb9@byu.net>
+	Unconditionally include <config.h> in unit tests.
+	test-lock.c: Remove #ifdef HAVE_CONFIG_H.
+
 2012-02-05  Paul Eggert  <eggert@cs.ucla.edu>
 
 	* test-lock.c: Spelling fixes.
