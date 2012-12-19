@@ -1,3 +1,8 @@
+2012-12-19  Daiki Ueno  <ueno@gnu.org>
+
+	Fix build error in hello-c++-kde due to autom4te cache.
+	* po/xsmallpot.sh: Pass -f to autoconf to ignore cache.
+
 2012-12-07  Bruno Haible  <bruno@clisp.org>
 
 	* po/cs.po: New file, from Marek Černocký <marek@manet.cz>.
