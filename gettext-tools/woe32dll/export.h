@@ -94,7 +94,14 @@
 #if defined __GNUC__ /* GCC compiler, GNU toolchain */
 
  /* IMP(x) is a symbol that contains the address of x.  */
+#if _WIN64
+ /* mingw W64 changed the symbol prefix from W32 for MSVC
+    compatibility.  See the comments in
+    mingw-w64-headers/crt/_mingw_mac.h for more details. */
+# define IMP(x) __imp_##x
+#else
 # define IMP(x) _imp__##x
+#endif
 
  /* Ensure that the variable x is exported from the library, and that a
     pseudo-variable IMP(x) is available.  */

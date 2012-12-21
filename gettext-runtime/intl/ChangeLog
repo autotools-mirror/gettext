@@ -1,3 +1,10 @@
+2012-12-21  Daiki Ueno  <ueno@gnu.org>
+
+	Fix W64 build errors.
+	* intl-exports.c (IMP) [_WIN64]: Prefix "__imp_" instead of
+	"_imp__".
+	* osdep.c: Include intl-exports.c on mingw as well as Cygwin.
+
 2012-12-10  Daiki Ueno  <ueno@unixuser.org>
 
 	* intl-compat.c: Fix typo in the copyright header.

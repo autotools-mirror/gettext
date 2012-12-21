@@ -14,7 +14,7 @@
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#if defined __CYGWIN__
+#if defined __CYGWIN__ || defined __MINGW32__
 # include "intl-exports.c"
 #elif defined __EMX__
 # include "os2compat.c"

@@ -109,6 +109,7 @@ if ! $skip_gnulib; then
       alloca
       errno
       verify
+      extern-inline
     '
     GNULIB_MODULES_LIBASPRINTF_OTHER='
     '
@@ -221,6 +222,7 @@ if ! $skip_gnulib; then
       extensions
       gettext-h
       include_next
+      locale
       localcharset
       malloc-posix
       mbrtowc
@@ -271,6 +273,7 @@ if ! $skip_gnulib; then
     # This is a subset of the GNULIB_MODULES_FOR_SRC.
     GNULIB_MODULES_LIBGETTEXTPO='
       basename
+      close
       c-ctype
       c-strcase
       c-strstr
