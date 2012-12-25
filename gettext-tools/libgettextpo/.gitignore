@@ -178,3 +178,11 @@
 /ostream.priv.h
 /ostream.vt.h
 
+/close.c
+/fd-hook.c
+/fd-hook.h
+/stdio.c
+/sys_types.in.h
+/unistd.c
+/wctype-h.c
+/xsize.c

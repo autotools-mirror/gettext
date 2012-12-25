@@ -413,3 +413,13 @@
 /term_styled_ostream.priv.h
 /term_styled_ostream.vt.h
 
+/binary-io.c
+/mbiter.c
+/mbuiter.c
+/pipe-filter-aux.c
+/sig-handler.c
+/stdio.c
+/sys_types.in.h
+/unistd.c
+/wctype-h.c
+/xsize.c
