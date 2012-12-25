@@ -105,6 +105,13 @@ case "$host_os" in
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 
+dnl On Cygwin 1.7.10-1 or later, error_* variables are defined in the
+dnl Cygwin DLL.  To avoid any conflict with gettext DLLs, always link
+dnl to gnulib's error.c.  See GETTEXTLIB_EXPORTS_FLAGS setting below.
+case "$host_os" in
+  cygwin*) ac_cv_lib_error_at_line=no ;;
+esac
+
 dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.
@@ -215,15 +222,28 @@ if test $is_woe32dll = yes; then
     [Define when --enable-shared is used on mingw or Cygwin.])
 fi
 
+GETTEXTLIB_EXPORTS_FLAGS=
 dnl woe32dll/gettextlib-exports.c needs to know whether the getopt facility
 dnl is replaced by gnulib. GETOPT_H is set by gl_FUNC_GETOPT_POSIX, inside
 dnl gl_INIT.
 if test -n "$GETOPT_H"; then
-  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_GETOPT"
-else
-  GETTEXTLIB_EXPORTS_FLAGS=
+  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_GETOPT $GETTEXTLIB_EXPORTS_FLAGS"
+fi
+dnl woe32dll/gettextlib-exports.c needs to know whether the error
+dnl facility is replaced by gnulib. ac_cv_lib_error_at_line is set by
+dnl gl_ERROR, inside gl_INIT.
+if test "$ac_cv_lib_error_at_line" = no; then
+  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_ERROR $GETTEXTLIB_EXPORTS_FLAGS"
 fi
 AC_SUBST([GETTEXTLIB_EXPORTS_FLAGS])
+
+dnl Tell the source files that the error facility is replaced by
+dnl gnulib, to make sure to prepend "rpl_" prefix to the error_*
+dnl symbols.
+if test "$ac_cv_lib_error_at_line" = no; then
+  AC_DEFINE([GNULIB_REPLACE_ERROR], [1],
+    [Define when the error facility is replaced by gnulib.])
+fi
 
 dnl Put some default definitions into config.h.
 AH_TOP([

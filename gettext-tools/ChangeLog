@@ -1,3 +1,15 @@
+2012-12-25  Daiki Ueno  <ueno@gnu.org>
+
+	Work around error_* symbol conflict with Cygwin 1.7 DLL.
+	* configure.ac: Reset ac_cv_lib_error_at_line on Cygwin.
+	(GETTEXTLIB_EXPORTS_FLAGS): Add -DGNULIB_DEFINED_ERROR if the
+	error facility is replaced by gnulib.
+	(GNULIB_REPLACE_ERROR): Define if the error facility is replaced
+	by gnulib.
+	* woe32dll/gettextlib-exports.c (rpl_error_message_count)
+	(rpl_error_one_per_line, rpl_error_print_progname): Export only
+	if GNULIB_DEFINED_ERROR is set.
+
 2012-12-21  Daiki Ueno  <ueno@gnu.org>
 
 	Fix W64 build errors.
