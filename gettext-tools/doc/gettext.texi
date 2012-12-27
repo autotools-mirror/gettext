@@ -6087,8 +6087,8 @@ arguments, you can not use it like this:
 @smallexample
 printf (ngettext ("%d file removed from directory %s",
                   "%d files removed from directory %s",
-                  n, dir),
-        n);
+                  n),
+        n, dir);
 @end smallexample
 
 @noindent
@@ -6101,8 +6101,8 @@ comes last:
 @smallexample
 printf (ngettext ("%$2d file removed from directory %$1s",
                   "%$2d files removed from directory %$1s",
-                  dir, n),
-        n);
+                  n),
+        dir, n);
 @end smallexample
 
 @noindent
