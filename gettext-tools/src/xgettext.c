@@ -3000,6 +3000,7 @@ construct_header ()
   char *timestring;
   message_ty *mp;
   char *msgstr;
+  char *comment;
   static lex_pos_ty pos = { __FILE__, __LINE__ };
 
   if (package_name != NULL)
@@ -3043,18 +3044,20 @@ Content-Transfer-Encoding: 8bit\n",
 
   mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
-  message_comment_append (mp,
-                          copyright_holder[0] != '\0'
-                          ? xasprintf ("\
+  if (copyright_holder[0] != '\0')
+    comment = xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
 Copyright (C) YEAR %s\n\
 This file is distributed under the same license as the PACKAGE package.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
-                                       copyright_holder)
-                          : "\
+			 copyright_holder);
+  else
+    comment = xstrdup ("\
 SOME DESCRIPTIVE TITLE.\n\
 This file is put in the public domain.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
+  message_comment_append (mp, comment);
+  free (comment);
 
   mp->is_fuzzy = true;
 
