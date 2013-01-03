@@ -1,3 +1,8 @@
+2013-01-03  Daiki Ueno  <ueno@gnu.org>
+
+	Update after gnulib changed.
+	* modules/regex.diff: Update.
+
 2012-12-25  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext-0.18.2 released.
