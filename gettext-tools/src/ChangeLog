@@ -1,3 +1,11 @@
+2013-01-06  Daiki Ueno  <ueno@gnu.org>
+
+	* msgl-fsearch.c (message_fuzzy_index_ty): Don't use float-derived
+	integer SHORT_MSG_MAX to define array.
+	(message_fuzzy_index_alloc): Allocate memory for 'short_messages'
+	field dynamically.
+	(message_fuzzy_index_free): Free it.
+
 2013-01-03  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.c (construct_header): Fix memory leak.
