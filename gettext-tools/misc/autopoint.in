@@ -267,9 +267,15 @@ fi
 
 # Check whether the -V option and the version number in configure.in match.
 # At least one of the two must be given. If both are given, they must agree.
-sed_extract_AM_GNU_GETTEXT_VERSION_argument='s/^AM_GNU_GETTEXT_VERSION(\([^()]*\)).*$/\1/'
-sed_remove_outer_brackets='s/^\[\(.*\)\]$/\1/'
-xver=`cat "$configure_in" | grep '^AM_GNU_GETTEXT_VERSION(' | sed -n -e "$sed_extract_AM_GNU_GETTEXT_VERSION_argument"p | sed -e "$sed_remove_outer_brackets" | sed -e 1q`
+sed_extract_AM_GNU_GETTEXT_VERSION_argument='
+s,#.*$,,; s,^dnl .*$,,; s, dnl .*$,,;
+/AM_GNU_GETTEXT_VERSION/ {
+    s,^.*AM_GNU_GETTEXT_VERSION(\([^()]*\)).*$,xver=\1,
+    s,^xver=\[\(.*\)\]$,xver=\1,
+    p
+}
+d'
+eval `sed "$sed_extract_AM_GNU_GETTEXT_VERSION_argument" "$configure_in"`
 if test -z "$xver" && test -f intl/VERSION; then
   xver=`cat intl/VERSION | LC_ALL=C sed -n -e 's/^.*gettext-\([-+_.0-9A-Za-z]*\).*$/\1/p'`
 fi
