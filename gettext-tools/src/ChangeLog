@@ -1,3 +1,8 @@
+2013-01-09  Andreas Stricker  <astricker@futurelab.ch>  (tiny change)
+
+	* po-xerror.c: Include error.h for error_message_count.
+	* read-catalog-abstract.c: Likewise.
+
 2013-01-06  Daiki Ueno  <ueno@gnu.org>
 
 	* msgl-fsearch.c (message_fuzzy_index_ty): Don't use float-derived
