@@ -49,13 +49,13 @@ lib_LTLIBRARIES = libasprintf.la
 noinst_LTLIBRARIES =
 
 libasprintf_la_SOURCES = \
+  xsize.h xsize.c \
   lib-asprintf.h lib-asprintf.c \
   autosprintf.h autosprintf.cc
 
 # Sources used only on platforms lacking vasprintf().
 lib_asprintf_EXTRASOURCES = \
   verify.h \
-  xsize.h \
   printf-args.h printf-args.c \
   printf-parse.h printf-parse.c \
   vasnprintf.h vasnprintf.c asnprintf.c \

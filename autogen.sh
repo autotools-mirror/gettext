@@ -109,7 +109,7 @@ if ! $skip_gnulib; then
       alloca
       errno
       verify
-      extern-inline
+      xsize
     '
     GNULIB_MODULES_LIBASPRINTF_OTHER='
     '
