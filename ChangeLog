@@ -1,3 +1,9 @@
+2013-01-17  Daiki Ueno  <ueno@gnu.org>
+
+	Fix link errors related to C99-style extern inline.
+	Reported by Sam Thursfield <sam.thursfield@codethink.co.uk>.
+	* autogen.sh (GNULIB_MODULES_LIBASPRINTF): Add xsize.
+
 2012-12-25  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext-0.18.2 released.
