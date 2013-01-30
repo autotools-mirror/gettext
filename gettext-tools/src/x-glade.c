@@ -385,6 +385,7 @@ static XML_Parser parser;
 struct element_state
 {
   bool extract_string;
+  bool extract_context;
   char *extracted_comment;
   int lineno;
   char *buffer;
@@ -428,6 +429,7 @@ start_element_handler (void *userData, const char *name,
 
   p = &stack[stack_depth];
   p->extract_string = extract_all;
+  p->extract_context = false;
   p->extracted_comment = NULL;
   /* In Glade 1, a few specific elements are translatable.  */
   if (!p->extract_string)
@@ -443,6 +445,7 @@ start_element_handler (void *userData, const char *name,
       && (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0))
     {
       bool has_translatable = false;
+      bool has_context = false;
       const char *extracted_comment = NULL;
       const char **attp = attributes;
       while (*attp != NULL)
@@ -451,9 +454,12 @@ start_element_handler (void *userData, const char *name,
             has_translatable = (strcmp (attp[1], "yes") == 0);
           else if (strcmp (attp[0], "comments") == 0)
             extracted_comment = attp[1];
+          else if (strcmp (attp[0], "context") == 0)
+            has_context = (strcmp (attp[1], "yes") == 0);
           attp += 2;
         }
       p->extract_string = has_translatable;
+      p->extract_context = has_context;
       p->extracted_comment =
         (has_translatable && extracted_comment != NULL
          ? xstrdup (extracted_comment)
@@ -504,6 +510,8 @@ end_element_handler (void *userData, const char *name)
       if (p->buflen > 0)
         {
           lex_pos_ty pos;
+          char *msgid = NULL;
+          char *msgctxt = NULL;
 
           if (p->buflen == p->bufmax)
             p->buffer = (char *) xrealloc (p->buffer, p->buflen + 1);
@@ -512,9 +520,38 @@ end_element_handler (void *userData, const char *name)
           pos.file_name = logical_file_name;
           pos.line_number = p->lineno;
 
-          remember_a_message (mlp, NULL, p->buffer, null_context, &pos,
-                              p->extracted_comment, savable_comment);
-          p->buffer = NULL;
+          if (p->extract_context)
+            {
+              char *separator = strchr (p->buffer, '|');
+
+              if (separator == NULL)
+                {
+                  error_with_progname = false;
+                  error_at_line (0, 0,
+                                 pos.file_name,
+                                 pos.line_number,
+                                 _("\
+Missing context for the string extracted from '%s' element"),
+                                 name);
+                  error_with_progname = true;
+                }
+              else
+                {
+                  *separator = '\0';
+                  msgid = xstrdup (separator + 1);
+                  msgctxt = xstrdup (p->buffer);
+                }
+            }
+          else
+            {
+              msgid = p->buffer;
+              p->buffer = NULL;
+            }
+
+          if (msgid != NULL)
+            remember_a_message (mlp, msgctxt, msgid,
+                                null_context, &pos,
+                                p->extracted_comment, savable_comment);
         }
     }
 

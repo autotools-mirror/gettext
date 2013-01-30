@@ -1,3 +1,13 @@
+2013-03-15  Miguel Ángel Arruga Vivas  <rosen644835@gmail.com>
+            Daiki Ueno  <ueno@gnu.org>
+
+	Extract msgctxt from Glade input files.
+	Reported at <https://savannah.gnu.org/bugs/?34506>
+	* x-glade.c (struct element_state): Add field 'extract_context'.
+	(start_element_handler): Check "context" attribute if the string
+	contains msgctxt.
+	(end_element_handler): Extract msgctxt if extract_context is set.
+
 2013-02-25  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (libgettextsrc_la_CPPFLAGS): Define to specify Woe32
