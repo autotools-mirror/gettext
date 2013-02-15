@@ -1,3 +1,7 @@
+2013-02-15  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfmt.texi (Input file location): Output file is not PO.
+
 2013-01-30  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>  (tiny change)
 
 	* msgen.texi (Output details): Fix link in '@opindex' pointing to
