@@ -1,5 +1,10 @@
 2013-02-25  Daiki Ueno  <ueno@gnu.org>
 
+	Update after gnulib changed.
+	* lib/unistd.in.h.diff: Update.
+
+2013-02-25  Daiki Ueno  <ueno@gnu.org>
+
 	* modules/gettext-runtime-misc (AM_CPPFLAGS): Augment by
 	INTL_EXPORTS_FLAGS.
 
