@@ -106,6 +106,35 @@ AH_BOTTOM([
 #endif
 ])
 
+dnl Compilation on mingw and Cygwin needs special Makefile rules, because
+dnl 1. when we install a shared library, we must arrange to export
+dnl    auxiliary pointer variables for every exported variable,
+dnl 2. when we install a shared library and a static library simultaneously,
+dnl    the include file specifies __declspec(dllimport) and therefore we
+dnl    must arrange to define the auxiliary pointer variables for the
+dnl    exported variables _also_ in the static library.
+if test "$enable_shared" = yes; then
+  case "$host_os" in
+    mingw* | cygwin*) is_woe32dll=yes ;;
+    *) is_woe32dll=no ;;
+  esac
+else
+  is_woe32dll=no
+fi
+AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
+if test $is_woe32dll = yes; then
+  AC_DEFINE([WOE32DLL], [1],
+    [Define when --enable-shared is used on mingw or Cygwin.])
+fi
+
+INTL_EXPORTS_FLAGS=
+dnl 64-bit mingw does not prepend an underscore to C symbols.
+dnl USER_LABEL_PREFIX is set by gl_ASM_SYMBOL_PREFIX, inside gl_INIT.
+if test "$USER_LABEL_PREFIX" = _; then
+  INTL_EXPORTS_FLAGS="-DUSER_LABEL_PREFIX_UNDERSCORE $INTL_EXPORTS_FLAGS"
+fi
+AC_SUBST([INTL_EXPORTS_FLAGS])
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])

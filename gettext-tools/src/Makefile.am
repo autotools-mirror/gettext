@@ -240,10 +240,13 @@ libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
+libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS)
+
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL
 libgettextsrc_la_SOURCES += ../woe32dll/gettextsrc-exports.c
 libgettextsrc_la_LDFLAGS += -Wl,--export-all-symbols
+libgettextsrc_la_CPPFLAGS += $(GETTEXTLIB_EXPORTS_FLAGS)
 endif
 
 # No need to install libgettextsrc.a, except on AIX.

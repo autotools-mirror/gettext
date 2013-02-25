@@ -1,3 +1,8 @@
+2013-02-25  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (libgettextsrc_la_CPPFLAGS): Define to specify Woe32
+	DLL export flags.
+
 2013-01-09  Andreas Stricker  <astricker@futurelab.ch>  (tiny change)
 
 	* po-xerror.c: Include error.h for error_message_count.
