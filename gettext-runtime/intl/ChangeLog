@@ -1,3 +1,10 @@
+2013-02-25  Daiki Ueno  <ueno@gnu.org>
+
+	Determine imported C symbol prefix at configure time.
+	Suggested by Evgeny Grin in <http://savannah.gnu.org/bugs/?29946>.
+	* intl-exports.c (IMP): Define depending on the result of the
+	configure run.
+
 2013-01-21  Daiki Ueno  <ueno@gnu.org>
 
 	Remove references to non-existing COPYING.LIB-2.*.

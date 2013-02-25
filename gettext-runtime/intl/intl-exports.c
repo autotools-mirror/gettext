@@ -16,13 +16,10 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
  /* IMP(x) is a symbol that contains the address of x.  */
-#if defined _WIN64 && defined __MINGW32__
- /* mingw W64 started using __imp_ prefix for MSVC compatibility since
-    2010.  Ideally we should check the prefix in configure though,
-    we assume __imp_ on mingw W64 for the time being. */
-# define IMP(x) __imp_##x
-#else
+#if USER_LABEL_PREFIX_UNDERSCORE
 # define IMP(x) _imp__##x
+#else
+# define IMP(x) __imp_##x
 #endif
 
  /* Ensure that the variable x is exported from the library, and that a
