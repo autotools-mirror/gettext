@@ -69,18 +69,7 @@ func_find_curr_installdir ()
   case "$curr_executable" in
     */* | *\\*) ;;
     *) # Need to look in the PATH.
-      if test "${PATH_SEPARATOR+set}" != set; then
-        func_tmpdir
-        { echo "#! /bin/sh"; echo "exit 0"; } > "$tmp"/conf.sh
-        chmod +x "$tmp"/conf.sh
-        if (PATH="/nonexistent;$tmp"; conf.sh) >/dev/null 2>&1; then
-          PATH_SEPARATOR=';'
-        else
-          PATH_SEPARATOR=:
-        fi
-        rm -rf "$tmp"
-      fi
-      save_IFS="$IFS"; IFS="$PATH_SEPARATOR"
+      save_IFS="$IFS"; IFS="${PATH_SEPARATOR='@PATH_SEPARATOR@'}"
       for dir in $PATH; do
         IFS="$save_IFS"
         test -z "$dir" && dir=.
