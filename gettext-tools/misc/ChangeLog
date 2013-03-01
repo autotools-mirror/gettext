@@ -1,3 +1,9 @@
+2013-03-01  Daiki Ueno  <ueno@gnu.org>
+
+	* gettextize.in: Handle macro directories specified in configure.ac.
+	Reported by Pavel Raiskup in
+	<http://lists.gnu.org/archive/html/bug-gettext/2013-02/msg00017.html>.
+
 2013-02-28  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in (gettext_dir): Substitute PATH_SEPARATOR at
