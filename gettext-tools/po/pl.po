@@ -1,22 +1,23 @@
 # Polish translations for the GNU gettext messages, tools domain
-# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2004, 2005, 2006, 2007, 2010 Free Software Foundation, Inc.
+# Copyright (C) 1995, 1996, 1997, 1998, 1999, 2001, 2003, 2004, 2005, 2006, 2007, 2010, 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Rafał Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2007, 2010	„”
+# Rafał Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2007, 2010, 2013
 # Piotr Pogorzelski <ppogorze@ippt.gov.pl>, 1995
 # Jakub Bogusz <qboosh@pld.org.pl>, 2002, 2003
+# „
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.18\n"
+"Project-Id-Version: GNU gettext-tools 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:22+0900\n"
-"PO-Revision-Date: 2010-05-10 13:30+0200\n"
+"POT-Creation-Date: 2013-03-02 18:05+0100\n"
+"PO-Revision-Date: 2013-02-27 16:15+0100\n"
 "Last-Translator: Rafał Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -61,32 +62,32 @@ msgstr "błąd zapisu"
 #: gnulib-lib/copy-acl.c:611 gnulib-lib/copy-file.c:216
 #, c-format
 msgid "preserving permissions for %s"
-msgstr ""
+msgstr "zachowanie uprawnień do %s"
 
 #: gnulib-lib/copy-file.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "error while opening %s for reading"
-msgstr "błąd w czasie otwierania \"%s\" do czytania"
+msgstr "błąd w czasie otwierania %s do czytania"
 
 #: gnulib-lib/copy-file.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file %s for writing"
-msgstr "błąd otwarcia kopii zapasowej \"%s\" do pisania"
+msgstr "błąd otwarcia kopii zapasowej %s do pisania"
 
 #: gnulib-lib/copy-file.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "error reading %s"
-msgstr "błąd czytania \"%s\""
+msgstr "błąd czytania %s"
 
 #: gnulib-lib/copy-file.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "error writing %s"
-msgstr "błąd pisania do \"%s\""
+msgstr "błąd pisania do %s"
 
 #: gnulib-lib/copy-file.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading %s"
-msgstr "błąd po przeczytaniu \"%s\""
+msgstr "błąd po przeczytaniu %s"
 
 #: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:897
 #: src/msginit.c:972 src/msginit.c:1132 src/msginit.c:1231
@@ -118,9 +119,9 @@ msgid "%s subprocess failed"
 msgstr "niepowodzenie podprocesu %s"
 
 #: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: opcja: '%s' jest niejednoznaczna\n"
+msgstr "%s: opcja: '%s' jest niejednoznaczna; możliwości: "
 
 #: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
@@ -224,9 +225,9 @@ msgid "memory exhausted"
 msgstr "pamięć wyczerpana"
 
 #: gnulib-lib/pipe-filter-ii.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "creation of threads failed"
-msgstr "kompilacja klasy C# nie udała się"
+msgstr "kompilacja wątków nie udała się"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
 #: src/msgexec.c:389
@@ -286,7 +287,7 @@ msgstr "\""
 #: gnulib-lib/set-mode-acl.c:697
 #, c-format
 msgid "setting permissions for %s"
-msgstr ""
+msgstr "ustawienie uprawnień do %s"
 
 #: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
 #: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
@@ -477,14 +478,14 @@ msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "'%s' nie zawiera %%m, a '%s' zawiera %%m"
 
 #: src/format-gfc-internal.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
-msgstr "'%s' zawiera %%m, a '%s' nie"
+msgstr "'%s' zawiera %%C, ale '%s' nie"
 
 #: src/format-gfc-internal.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
-msgstr "'%s' nie zawiera %%m, a '%s' zawiera %%m"
+msgstr "'%s' nie zawiera %%C, a '%s' zawiera %%C"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -835,9 +836,9 @@ msgstr "za dużo argumentów"
 #: src/msgfilter.c:384 src/msgfmt.c:650 src/msggrep.c:507 src/msginit.c:358
 #: src/msgmerge.c:476 src/msgunfmt.c:423 src/msguniq.c:321
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:813
-#, fuzzy, c-format
+#, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "Polecenie `%s --help' poda więcej informacji.\n"
+msgstr "Napisz '%s --help' żeby otrzymać więcej informacji.\n"
 
 #: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
 #, c-format, no-wrap
@@ -1313,7 +1314,7 @@ msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Składnia: %s [OPCJA] [PLIK-WEJŚCIOWY]\n"
 
 #: src/msgcat.c:371
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1330,10 +1331,9 @@ msgstr ""
 "Można zażądać większego uwspólnienia przed wypisaniem komunikatów używając\n"
 "opcji --more-than. Odpowiednio opcja --less-than może być użyta dla ustalenia\n"
 "mniejszego uwspólnienia pomiędzy komunikatami (np. --less-than=2 wypisze tylko\n"
-"unikalne komunikaty). Tłumaczenia, komentarze tłumaczeń i wydobyte zostaną\n"
-"zgromadzone, chyba że zostanie podana opcja --use-first, wtedy będą skopiowane\n"
-"tylko z pierwszego definiującego je pliku PO. Pozycje w plikach dla wszystkich\n"
-"plików PO zostaną zgromadzone.\n"
+"unikalne komunikaty). Tłumaczenia, komentarze tłumaczeń, wydobyte komentarze\n"
+"i pozycje w plikach zostaną zgromadzone, chyba że zostanie podana opcja\n"
+"--use-first, wtedy będą skopiowane z pierwszego definiującego je pliku PO.\n"
 
 #: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:833
 #, c-format
@@ -1543,7 +1543,7 @@ msgid "at least two files must be specified"
 msgstr "muszą być podane przynajmniej dwa pliki"
 
 #: src/msgcomm.c:363
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -1558,9 +1558,9 @@ msgstr ""
 "Można zażądać większego uwspólnienia przed wypisaniem komunikatów używając\n"
 "opcji --more-than. Odpowiednio opcja --less-than może być użyta dla ustalenia\n"
 "mniejszego uwspólnienia pomiędzy komunikatami (np. --less-than=2 wypisze tylko\n"
-"unikalne komunikaty). Tłumaczenia, komentarze tłumaczeń i wydobyte zostaną\n"
-"zachowane, ale tylko z pierwszego definiującego je pliku PO. Pozycje w plikach\n"
-"dla wszystkich plików PO zostaną zgromadzone.\n"
+"unikalne komunikaty). Tłumaczenia, komentarze tłumaczeń i wydobyte komentarze\n"
+"zostaną zachowane, ale tylko z pierwszego definiującego je pliku PO. Pozycje\n"
+"w plikach dla wszystkich plików PO zostaną zgromadzone.\n"
 
 #: src/msgcomm.c:401
 #, c-format
@@ -1572,11 +1572,11 @@ msgstr ""
 "                                większą od LICZBY, domyślnie 1\n"
 
 #: src/msgcomm.c:451 src/xgettext.c:962
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr ""
-"      --omit-header           nie zapisywanie nagłówka z wpisem `msgid "
+"      --omit-header           nie zapisywanie nagłówka z wpisem 'msgid "
 "\"\"'\n"
 
 #: src/msgconv.c:306
@@ -2098,6 +2098,10 @@ msgid ""
 "                                (big or little, default depends on "
 "platform)\n"
 msgstr ""
+"      --endianness=KOLEJBAJTÓW  zapisanie liczb 32-bitowych w podanej\n"
+"                                kolejności bajtów (big albo little, "
+"domyślna\n"
+"                                kolejność zależy od platformy\n"
 
 #: src/msgfmt.c:772
 #, c-format
@@ -2151,19 +2155,19 @@ msgstr ""
 "nazwa domeny \"%s\" nie jest dobra jako nazwa pliku: użycie przedrostka"
 
 #: src/msgfmt.c:955
-#, fuzzy, c-format
+#, c-format
 msgid "'domain %s' directive ignored"
-msgstr "dyrektywa `domain %s' zignorowana"
+msgstr "dyrektywa 'domain %s' zignorowana"
 
 #: src/msgfmt.c:1015
-#, fuzzy, c-format
+#, c-format
 msgid "empty 'msgstr' entry ignored"
-msgstr "zignorowana pusta wartość `msgstr'"
+msgstr "zignorowana pusta wartość 'msgstr'"
 
 #: src/msgfmt.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "fuzzy 'msgstr' entry ignored"
-msgstr "zignorowana niepewna (fuzzy) wartość `msgstr'"
+msgstr "zignorowana niepewna (fuzzy) wartość 'msgstr'"
 
 #: src/msgfmt.c:1065
 #, c-format
@@ -2431,19 +2435,19 @@ msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "dwa różne zestawy znaków \"%s\" oraz \"%s\" w pliku wejściowym"
 
 #: src/msgl-cat.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr ""
-"plik wejściowy `%s' nie zawiera wpisu nagłówka ze specyfikacją zestawu znaków"
+"plik wejściowy '%s' nie zawiera wpisu nagłówka ze specyfikacją zestawu znaków"
 
 #: src/msgl-cat.c:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
-"domena \"%s\" w pliku wejściowym `%s' nie zawiera wpisu nagłówka ze "
+"domena \"%s\" w pliku wejściowym '%s' nie zawiera wpisu nagłówka ze "
 "specyfikacją zestawu znaków"
 
 #: src/msgl-cat.c:391 src/msgl-iconv.c:375
@@ -2452,8 +2456,8 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "docelowy zestaw znaków \"%s\" nie jest przenośną nazwą kodowania."
 
 #: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:121 src/po-xerror.c:146
-#: src/xgettext.c:3016
+#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:3017
 #, c-format
 msgid "warning: "
 msgstr "uwaga: "
@@ -2629,34 +2633,30 @@ msgstr ""
 "nagłówka z \"Plural-Forms: nplurals=LICZBA; plural=WYRAŻENIE;\""
 
 #: src/msgl-check.c:611
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
-msgstr "linie `msgid' i `msgid_plural' nie zaczynają się obie od '\\n'`"
+msgstr "linie 'msgid' i 'msgid_plural' nie zaczynają się obie od '\\n'`"
 
 #: src/msgl-check.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "linie `msgid' i `msgstr[%u]' nie zaczynają się obie od '\\n'`"
+msgstr "linie 'msgid' i 'msgstr[%u]' nie zaczynają się obie od '\\n'`"
 
 #: src/msgl-check.c:634
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
-msgstr "linie `msgid' i `msgstr' nie zaczynają się obie od '\\n'`"
+msgstr "linie 'msgid' i 'msgstr' nie zaczynają się obie od '\\n'`"
 
 #: src/msgl-check.c:652
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
-msgstr "linie `msgid' i `msgid_plural' nie kończą się obie na '\\n'"
+msgstr "linie 'msgid' i 'msgid_plural' nie kończą się obie na '\\n'"
 
 #: src/msgl-check.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
-msgstr "linie `msgid' i `msgstr[%u]' nie kończą się obie na '\\n'"
+msgstr "linie 'msgid' i 'msgstr[%u]' nie kończą się obie na '\\n'"
 
 #: src/msgl-check.c:675
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
-msgstr "linie `msgid' i `msgstr' nie kończą się obie na '\\n'"
+msgstr "linie 'msgid' i 'msgstr' nie kończą się obie na '\\n'"
 
 #: src/msgl-check.c:687
 msgid "plural handling is a GNU gettext extension"
@@ -2673,23 +2673,23 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr zawiera zbyt dużo oznaczeń skrótów klawiszowych '%c'"
 
 #: src/msgl-check.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "w nagłówku brakuje pola '%s'\n"
 
 #: src/msgl-check.c:793
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' should start at beginning of line\n"
-msgstr "pole nagłówka `%s' powinno się zaczynać na początku linii\n"
+msgstr "pole nagłówka '%s' powinno się zaczynać na początku linii\n"
 
 #: src/msgl-check.c:818
 msgid "some header fields still have the initial default value\n"
 msgstr "niektóre pola nagłówka nadal zawierają początkowe wartości domyślne\n"
 
 #: src/msgl-check.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' still has the initial default value\n"
-msgstr "pole nagłówka `%s' nadal zawiera początkową wartość domyślną\n"
+msgstr "pole nagłówka '%s' nadal zawiera początkową wartość domyślną\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -2837,14 +2837,14 @@ msgstr ""
 "  simple, never   tworzenie zawsze prostych kopii zapasowych\n"
 
 #: src/msgmerge.c:541
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
-"Końcówka kopii zapasowej to `~', o ile nie ustawiono przez --suffix lub\n"
-"zmienną środowiskową SIMPLE_BACKUP_SUFFIX.\n"
+"Końcówka nazwy kopii zapasowej to '~', o ile nie ustawiono przez --suffix\n"
+"lub zmienną środowiskową SIMPLE_BACKUP_SUFFIX.\n"
 
 #: src/msgmerge.c:552
 #, c-format
@@ -3089,19 +3089,19 @@ msgid "inconsistent use of #~"
 msgstr "niekonsekwentne użycie #~"
 
 #: src/po-gram-gen.y:240
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr[]' section"
-msgstr "brak częsci `msgstr[]'"
+msgstr "brak częsci 'msgstr[]'"
 
 #: src/po-gram-gen.y:249
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgid_plural' section"
-msgstr "brak częsci `msgstr_plural'"
+msgstr "brak częsci 'msgstr_plural'"
 
 #: src/po-gram-gen.y:257
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr' section"
-msgstr "brak częsci `msgstr'"
+msgstr "brak częsci 'msgstr'"
 
 #: src/po-gram-gen.y:396
 #, c-format
@@ -3392,10 +3392,10 @@ msgid "error while opening \"%s\" for writing"
 msgstr "błąd otwarcia \"%s\" do pisania"
 
 #: src/write-po.c:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "internationalized messages should not contain the '\\%c' escape sequence"
-msgstr "umiędzynaradawiane komunikaty nie powinny zawierać sekwencji `\\%c'"
+msgstr "umiędzynaradawiane komunikaty nie powinny zawierać sekwencji '\\%c'"
 
 #: src/write-po.c:1254 src/write-po.c:1383
 #, c-format
@@ -3744,9 +3744,9 @@ msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext nie może działać bez podania słów kluczowych"
 
 #: src/xgettext.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
-msgstr "uwaga: typ pliku `%s' z rozszerzeniem `%s' jest nieznany; spróbuję C"
+msgstr "uwaga: typ pliku '%s' z rozszerzeniem '%s' jest nieznany; spróbuję C"
 
 #: src/xgettext.c:821
 #, c-format
@@ -4102,8 +4102,7 @@ msgstr "uwaga: brak kontekstu dla mnogiego argumentu słowa kluczowego '%.*s'"
 msgid "context mismatch between singular and plural form"
 msgstr "pomieszanie kontekstów między formą pojedyńczą i mnogą"
 
-#: src/xgettext.c:3017
-#, fuzzy
+#: src/xgettext.c:3018
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4111,14 +4110,14 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 "Opcja --msgid-bugs-address nie została podana.\n"
-"Jeśli jest używany plik `Makevars', proszę podać w nim\n"
+"Jeśli jest używany plik 'Makevars', proszę podać w nim\n"
 "zmienną MSGID_BUGS_ADDRESS; w przeciwnym wypadku proszę\n"
 "podać opcję --msgid-bugs-address z linii poleceń.\n"
 
-#: src/xgettext.c:3227
-#, fuzzy, c-format
+#: src/xgettext.c:3230
+#, c-format
 msgid "language '%s' unknown"
-msgstr "nieznany język `%s'"
+msgstr "nieznany język '%s'"
 
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"

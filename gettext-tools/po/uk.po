@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the gettext package.
 #
 # Maxim V. Dziumanenko <dziumanenko@gmail.com>, 2004-2007.
-# Yuri Chornoivan <yurchor@ukr.net>, 2011.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2013.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.18\n"
+"Project-Id-Version: gettext-tools 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:22+0900\n"
-"PO-Revision-Date: 2011-05-02 16:15+0300\n"
+"POT-Creation-Date: 2013-03-02 18:05+0100\n"
+"PO-Revision-Date: 2013-02-26 22:50+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
 "Language: uk\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: gnulib-lib/argmatch.c:133
 #, c-format
@@ -61,30 +61,30 @@ msgstr "помилка запису"
 #: gnulib-lib/copy-acl.c:611 gnulib-lib/copy-file.c:216
 #, c-format
 msgid "preserving permissions for %s"
-msgstr ""
+msgstr "збереження прав доступу для %s"
 
 #: gnulib-lib/copy-file.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "error while opening %s for reading"
 msgstr "помилка при відкриванні «%s» для читання"
 
 #: gnulib-lib/copy-file.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file %s for writing"
 msgstr "не вдається відкрити резервний файл «%s» для запису"
 
 #: gnulib-lib/copy-file.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "error reading %s"
 msgstr "помилка читання «%s»"
 
 #: gnulib-lib/copy-file.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "error writing %s"
 msgstr "помилка запису «%s»"
 
 #: gnulib-lib/copy-file.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading %s"
 msgstr "помилка після читання «%s»"
 
@@ -118,9 +118,9 @@ msgid "%s subprocess failed"
 msgstr "аварійне завершення створеного процесу %s"
 
 #: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: параметр «%s» не є однозначним\n"
+msgstr "%s: параметр «%s» не є однозначним. Можливі варіанти:"
 
 #: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
@@ -224,9 +224,9 @@ msgid "memory exhausted"
 msgstr "пам'ять вичерпано"
 
 #: gnulib-lib/pipe-filter-ii.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "creation of threads failed"
-msgstr "помилка при компіляції класу C#"
+msgstr "спроба створення потоків обробки зазнала невдачі"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
 #: src/msgexec.c:389
@@ -287,7 +287,7 @@ msgstr "'"
 #: gnulib-lib/set-mode-acl.c:697
 #, c-format
 msgid "setting permissions for %s"
-msgstr ""
+msgstr "встановлення прав доступу для %s"
 
 #: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
 #: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
@@ -482,14 +482,14 @@ msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "«%s» не використовує %%m, а «%s» використовує %%m"
 
 #: src/format-gfc-internal.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
-msgstr "«%s» використовує %%m, а «%s» не використовує"
+msgstr "«%s» використовує %%C, а «%s» не використовує"
 
 #: src/format-gfc-internal.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
-msgstr "«%s» не використовує %%m, а «%s» використовує %%m"
+msgstr "«%s» не використовує %%C, а «%s» використовує %%C"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -833,9 +833,9 @@ msgstr "надто багато аргументів"
 #: src/msgfilter.c:384 src/msgfmt.c:650 src/msggrep.c:507 src/msginit.c:358
 #: src/msgmerge.c:476 src/msgunfmt.c:423 src/msguniq.c:321
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:813
-#, fuzzy, c-format
+#, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "Спробуйте «%s --help», щоб переглянути докладнішу інформацію.\n"
+msgstr "Віддайте команду «%s --help», щоб дізнатися більше.\n"
 
 #: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
 #, c-format, no-wrap
@@ -970,7 +970,7 @@ msgstr "Розташування вхідного файлу:\n"
 #: src/msgattrib.c:421 src/msgconv.c:315 src/msggrep.c:526 src/msguniq.c:346
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
-msgstr "  ВХІДНИЙ_ФАЙЛ                вхідний PO файл\n"
+msgstr "  ВХІДНИЙ_ФАЙЛ                вхідний файл PO\n"
 
 #: src/msgattrib.c:423 src/msgcat.c:392 src/msgcmp.c:236 src/msgcomm.c:383
 #: src/msgconv.c:317 src/msgen.c:317 src/msgexec.c:283 src/msgfilter.c:403
@@ -1207,14 +1207,15 @@ msgstr ""
 #: src/msgunfmt.c:509 src/msguniq.c:392 src/xgettext.c:939
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
-msgstr "      --force-po              записувати PO файл, навіть порожній\n"
+msgstr "      --force-po              записувати файл PO, навіть порожній\n"
 
 #: src/msgattrib.c:493 src/msgcat.c:446 src/msgcomm.c:430 src/msguniq.c:394
 #: src/xgettext.c:941
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr ""
-"  -i, --indent                записати .po файл вживаючи стиль з відступами\n"
+"  -i, --indent                записати файл .po, вживаючи стиль з "
+"відступами\n"
 
 #: src/msgattrib.c:495 src/msgcat.c:448 src/msgcomm.c:432 src/msguniq.c:396
 #: src/xgettext.c:943
@@ -1238,7 +1239,7 @@ msgstr ""
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr ""
-"      --strict                записувати .po файл точно відповідний "
+"      --strict                записувати файл .po, точно відповідний "
 "Uniforum\n"
 
 #: src/msgattrib.c:501 src/msgcat.c:454 src/msgcomm.c:438 src/msgconv.c:366
@@ -1301,7 +1302,7 @@ msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Використання: %s [ПАРАМЕТР] [ВХІДНИЙ_ФАЙЛ]...\n"
 
 #: src/msgcat.c:371
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1313,15 +1314,15 @@ msgid ""
 "that if --use-first is specified, they will be taken from the first PO file\n"
 "to define them.\n"
 msgstr ""
-"Зціплює та об'єднує вказані PO файли.\n"
-"Знаходить спільні повідомлення у двох або кількох вказаних PO файлах.\n"
+"Зціплює та об'єднує вказані файли PO.\n"
+"Знаходить спільні повідомлення у двох або кількох вказаних файлах PO.\n"
 "При використанні параметру --more-than, можна запитати вивід повідомлень,\n"
 "що зустрічаються частіше інших. Та навпаки, параметр --less-than\n"
 "використовується для отримання повідомлень, що рідше зустрічаються (тобто,\n"
-"--less-than=2 виведе лише унікальні повідомлення). Переклади, коментарі\n"
-"та витягнуті коментарі зберігаються, але якщо вказано --use-first, коментарі\n"
-"беруться з першого PO файлу, у якому вони були визначені. Коментарі з назвою\n"
-"файлу та номером рядка зберігаються для усіх PO файлів.\n"
+"--less-than=2 виведе лише унікальні повідомлення). Переклади, коментарі,\n"
+"видобуті коментарі та дані щодо розташування у файлі зберігаються, але якщо\n"
+"вказано --use-first, коментарі беруться з першого файла PO, у якому їх було\n"
+"визначено.\n"
 
 #: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:833
 #, c-format
@@ -1441,9 +1442,9 @@ msgid ""
 "you have translated each and every message in your program.  Where an exact\n"
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"Порівнює 2 .po файли у Uniforum форматі, щоб дізнатись чи містять вони\n"
+"Порівнює 2 файли .po у Uniforum-форматі, щоб дізнатись чи містять вони\n"
 "однаковий набір msgid рядків. Файл def.po - це існуючий файл з перекладом.\n"
-"Файл ref.pot - нещодавно створений PO файл, або POT файл (зазвичай створюється\n"
+"Файл ref.pot - нещодавно створений файл PO або файл POT (зазвичай створюється\n"
 "програмою xgettext). Це корисно для перевірки, що перекладені усі повідомлення\n"
 "у програмі. Якщо точну відповідність знайти не вдається, для покращення\n"
 "діагностики використовується приблизне порівняння.\n"
@@ -1532,7 +1533,7 @@ msgid "at least two files must be specified"
 msgstr "необхідно вказати принаймні два файли"
 
 #: src/msgcomm.c:363
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -1543,14 +1544,14 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 msgstr ""
-"Знаходить спільні повідомлення у двох або кількох вказаних PO файлах.\n"
+"Знаходить спільні повідомлення у двох або кількох вказаних файлах PO.\n"
 "При використанні параметру --more-than, можна запитана вивід повідомлень,\n"
 "що зустрічаються частіше інших. Та навпаки, параметр --less-than\n"
 "використовується для отримання повідомлень, що рідше зустрічаються (тобто,\n"
 "--less-than=2 виведе лише унікальні повідомлення). Переклади, коментарі\n"
 "та витягнуті коментарі зберігаються, але якщо вказано --use-first, коментарі\n"
-"беруться з першого PO файлу, у якому вони були визначені. Коментарі з назвою\n"
-"файлу та номером рядка зберігаються для усіх PO файлів.\n"
+"беруться з першого файла PO, у якому вони були визначені. Коментарі з назвою\n"
+"файлу та номером рядка зберігаються для усіх файлів PO.\n"
 
 #: src/msgcomm.c:401
 #, c-format
@@ -1563,12 +1564,11 @@ msgstr ""
 "                              типове значення дорівнює 1\n"
 
 #: src/msgcomm.c:451 src/xgettext.c:962
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr ""
-"      --omit-header           не записувати заголовок у `msgid \"\"' "
-"елементі\n"
+"      --omit-header           не записувати заголовок у записі «msgid \"\"»\n"
 
 #: src/msgconv.c:306
 #, c-format
@@ -1634,7 +1634,7 @@ msgid ""
 "identical to the msgid.\n"
 msgstr ""
 "Створює каталог перекладу Англійською. Вхідний файл - нещодавно створений\n"
-"PO файл, або POT файл (зазвичай створений xgettext). Не перекладеним елементам\n"
+"файл PO або файл POT (зазвичай створений xgettext). Неперекладеним елементам\n"
 "призначається переклад, ідентичний до вмісту msgid.\n"
 
 #: src/msgen.c:315
@@ -1679,7 +1679,7 @@ msgstr ""
 #: src/msgexec.c:281 src/msgfilter.c:401
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
-msgstr "  -i, --input=ВХІДНИЙ_ФАЙЛ    вхідний PO файл\n"
+msgstr "  -i, --input=ВХІДНИЙ_ФАЙЛ    вхідний файл PO\n"
 
 #: src/msgexec.c:345
 #, c-format
@@ -2077,6 +2077,10 @@ msgid ""
 "                                (big or little, default depends on "
 "platform)\n"
 msgstr ""
+"      --endianness=ПОРЯДОК    записувати 32-бітові числа з вказаним порядком "
+"байтів\n"
+"                                (зворотний (big) або прямий (little),\n"
+"                                 типовий залежить від платформи)\n"
 
 #: src/msgfmt.c:772
 #, c-format
@@ -2098,7 +2102,7 @@ msgstr "  -v, --verbose               збільшити рівень докла
 #: src/msgfmt.c:897
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
-msgstr "попередження: заголовок PO файлу відсутній або некоректний\n"
+msgstr "попередження: заголовок файла PO відсутній або некоректний\n"
 
 #: src/msgfmt.c:900
 #, c-format
@@ -2108,7 +2112,7 @@ msgstr "попередження: перетворення кодувань си
 #: src/msgfmt.c:910
 #, c-format
 msgid "warning: PO file header fuzzy\n"
-msgstr "попередження: заголовок PO файлу позначений як нечіткий переклад\n"
+msgstr "попередження: заголовок файла PO позначений як нечіткий переклад\n"
 
 #: src/msgfmt.c:912
 #, c-format
@@ -2128,19 +2132,19 @@ msgstr ""
 "префікс"
 
 #: src/msgfmt.c:955
-#, fuzzy, c-format
+#, c-format
 msgid "'domain %s' directive ignored"
-msgstr "директиву `domain %s' проігноровано"
+msgstr "директиву «domain %s» проігноровано"
 
 #: src/msgfmt.c:1015
-#, fuzzy, c-format
+#, c-format
 msgid "empty 'msgstr' entry ignored"
-msgstr "порожній елемент `msgstr' проігноровано"
+msgstr "порожній елемент «msgstr» проігноровано"
 
 #: src/msgfmt.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "fuzzy 'msgstr' entry ignored"
-msgstr "елемент з нечітким перекладом `msgstr' проігноровано"
+msgstr "елемент з нечітким перекладом «msgstr» проігноровано"
 
 #: src/msgfmt.c:1065
 #, c-format
@@ -2276,7 +2280,7 @@ msgid ""
 "file.  This is necessary so you can test your translations.\n"
 msgstr ""
 "Ваше середовище індиферентне до мови. Будь ласка встановіть\n"
-"змінну оточення LANG, як описано у файлі ABOUT-NLS. Це необхідно,\n"
+"змінну середовища LANG, як описано у файлі ABOUT-NLS. Це необхідно,\n"
 "щоб ви мали змогу перевірити ваш переклад.\n"
 
 #: src/msginit.c:321
@@ -2287,7 +2291,7 @@ msgid ""
 "the output .po file through the --output-file option.\n"
 msgstr ""
 "Файл виводу %s вже існує.\n"
-"Вкажіть локаль у параметрі --locale, або вкажіть .po файл\n"
+"Вкажіть локаль у параметрі --locale, або вкажіть файл .po\n"
 "виводу у параметрі --output-file.\n"
 
 #: src/msginit.c:347
@@ -2300,7 +2304,7 @@ msgstr "Створено %s.\n"
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
-msgstr "Створює новий PO файл, метаінформація ініціалізується з оточення користувача.\n"
+msgstr "Створює новий файл PO, метаінформація ініціалізується з середовища користувача.\n"
 
 #: src/msginit.c:377
 #, c-format
@@ -2342,7 +2346,7 @@ msgstr "  -l, --locale=LL_CC          встановити цільову лок
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
 msgstr ""
-"      --no-translator         вважати, що PO файл створений автоматично\n"
+"      --no-translator         вважати, що файл PO створений автоматично\n"
 
 #: src/msginit.c:468
 msgid ""
@@ -2405,13 +2409,13 @@ msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "у вхідному файлі два різні кодування «%s» та «%s»"
 
 #: src/msgl-cat.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "вхідний файл «%s» не містить елемент заголовка, який вказує кодування"
 
 #: src/msgl-cat.c:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
@@ -2425,8 +2429,8 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "цільове кодування «%s» не є переносною назвою кодування."
 
 #: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:121 src/po-xerror.c:146
-#: src/xgettext.c:3016
+#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:3017
 #, c-format
 msgid "warning: "
 msgstr "попередження: "
@@ -2602,36 +2606,32 @@ msgstr ""
 "містить \"Plural-Forms: nplurals=ЦІЛЕ; plural=ВИРАЗ;\""
 
 #: src/msgl-check.c:611
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
 "обидва елементи «msgid» та «msgid_plural» не починаються одночасно з «\\n»"
 
 #: src/msgl-check.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
 msgstr ""
-"обидва елементи «msgid» та `msgstr[%u]' не починаються одночасно з «\\n»"
+"обидва елементи «msgid» та «msgstr[%u]» не починаються одночасно з «\\n»"
 
 #: src/msgl-check.c:634
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
-msgstr "елементи «msgid» та `msgstr' не починаються одночасно з «\\n»"
+msgstr "елементи «msgid» та «msgstr» не починаються одночасно з «\\n»"
 
 #: src/msgl-check.c:652
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
 msgstr "елементи «msgid» та «msgid_plural» не закінчуються одночасно на «\\n»"
 
 #: src/msgl-check.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
-msgstr "елементи «msgid» та `msgstr[%u]' не закінчуються одночасно на «\\n»"
+msgstr "елементи «msgid» та «msgstr[%u]» не закінчуються одночасно на «\\n»"
 
 #: src/msgl-check.c:675
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
-msgstr "елементи «msgid» та `msgstr' не закінчуються одночасно на «\\n»"
+msgstr "елементи «msgid» та «msgstr» не закінчуються одночасно на «\\n»"
 
 #: src/msgl-check.c:687
 msgid "plural handling is a GNU gettext extension"
@@ -2648,21 +2648,21 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr містить надто багато символів клавішних акселераторів «%c»"
 
 #: src/msgl-check.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "у заголовку немає поля «%s»\n"
 
 #: src/msgl-check.c:793
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' should start at beginning of line\n"
-msgstr "поле заголовку «%s» повинно починатись с початку рядка\n"
+msgstr "поле заголовку «%s» повинно починатись з початку рядка\n"
 
 #: src/msgl-check.c:818
 msgid "some header fields still have the initial default value\n"
 msgstr "деякі поля заголовків досі мають початкові типові значення\n"
 
 #: src/msgl-check.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' still has the initial default value\n"
 msgstr "поле заголовка «%s» все ще містить початкове типове значення\n"
 
@@ -2731,8 +2731,8 @@ msgid ""
 "comments and file positions will be preserved.  Where an exact match\n"
 "cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
-"Об'єднує два .po файли у Uniforum стилі разом.  Файл def.po є існуючим\n"
-"PO файлом з перекладами, які будуть взяті у створюваний файл якщо вони\n"
+"Об'єднує два файли .po у Uniforum-стилі.  Файл def.po є наявним\n"
+"файлом PO з перекладами, які будуть взяті у створюваний файл якщо вони\n"
 "є відповідними; коментарі зберігаються, але витягнуті коментарі та\n"
 "позиції у файлі будуть відкинуті.  Файл ref.pot є нещодавно створеним PO\n"
 "файлом з оновленими вхідними посиланнями, але старим перекладом, або\n"
@@ -2803,7 +2803,7 @@ msgid ""
 "  simple, never   always make simple backups\n"
 msgstr ""
 "Метод контролю версії можна вказати параметром --backup або у змінній\n"
-"оточення VERSION_CONTROL.  Ось можливі значення:\n"
+"середовища VERSION_CONTROL.  Ось можливі значення:\n"
 "  none, off       не робити резервних копій (навіть якщо вказано --backup)\n"
 "  numbered, t     робити резервні копії з номерами\n"
 "  existing, nil   нумеровані, якщо є нумеровані резервні копії, інакше - "
@@ -2811,15 +2811,15 @@ msgstr ""
 "  simple, never   завжди використовувати прості резервні копії\n"
 
 #: src/msgmerge.c:541
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
-"Суфіксом резервної копії є `~', якщо він не перевизначений параметром --"
+"Суфіксом резервної копії є «~», якщо він не перевизначений параметром --"
 "suffix\n"
-"або змінною значення SIMPLE_BACKUP_SUFFIX.\n"
+"або змінною середовища SIMPLE_BACKUP_SUFFIX.\n"
 
 #: src/msgmerge.c:552
 #, c-format
@@ -2872,7 +2872,7 @@ msgstr "Використання: %s [ПАРАМЕТР] [ФАЙЛ]...\n"
 #: src/msgunfmt.c:431
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
-msgstr "Перетворює двійковий каталог повідомлень у .po файл Uniforum стилю.\n"
+msgstr "Перетворює двійковий каталог повідомлень у файл .po Uniforum-стилю.\n"
 
 #: src/msgunfmt.c:440
 #, c-format
@@ -3064,19 +3064,19 @@ msgid "inconsistent use of #~"
 msgstr "несумісне використання #~"
 
 #: src/po-gram-gen.y:240
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr[]' section"
-msgstr "пропущено розділ `msgstr[]'"
+msgstr "пропущено розділ «msgstr[]»"
 
 #: src/po-gram-gen.y:249
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgid_plural' section"
 msgstr "пропущено розділ «msgid_plural»"
 
 #: src/po-gram-gen.y:257
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr' section"
-msgstr "пропущено розділ `msgstr'"
+msgstr "пропущено розділ «msgstr»"
 
 #: src/po-gram-gen.y:396
 #, c-format
@@ -3369,12 +3369,12 @@ msgid "error while opening \"%s\" for writing"
 msgstr "помилка при відкриванні «%s» для запису"
 
 #: src/write-po.c:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr ""
-"інтернаціоналізовані повідомлення не повинні містити `\\%c' escape-"
-"послідовність"
+"інтернаціоналізовані повідомлення не повинні містити керівну послідовність "
+"«\\%c»"
 
 #: src/write-po.c:1254 src/write-po.c:1383
 #, c-format
@@ -3724,7 +3724,7 @@ msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext не може працювати без вказаних ключових слів для пошуку"
 
 #: src/xgettext.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
 msgstr ""
 "попередження: у файлі «%s» невідоме розширення «%s»; спроба використати C"
@@ -4085,8 +4085,7 @@ msgstr ""
 msgid "context mismatch between singular and plural form"
 msgstr "невідповідність контексту між формою однини та множини"
 
-#: src/xgettext.c:3017
-#, fuzzy
+#: src/xgettext.c:3018
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4094,12 +4093,12 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 "Не вказано параметр --msgid-bugs-address.\n"
-"Якщо ви використовуєте файл `Makevars', вкажіть\n"
+"Якщо ви використовуєте файл «Makevars», вкажіть\n"
 "тут змінну MSGID_BUGS_ADDRESS; у іншому випадку\n"
 "вкажіть --msgid-bugs-address аргумент командного рядка.\n"
 
-#: src/xgettext.c:3227
-#, fuzzy, c-format
+#: src/xgettext.c:3230
+#, c-format
 msgid "language '%s' unknown"
 msgstr "невідома мова «%s»"
 

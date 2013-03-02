@@ -1,14 +1,14 @@
 # Bulgarian translations for gettext-tools package.
 # Copyright (C) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Roumen Petrov <transl@roumenpetrov.info>, 2010.
+# Roumen Petrov <transl@roumenpetrov.info>, 2010,2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.18\n"
+"Project-Id-Version: gettext-tools 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:22+0900\n"
-"PO-Revision-Date: 2010-10-10 12:49+0300\n"
+"POT-Creation-Date: 2013-03-02 18:05+0100\n"
+"PO-Revision-Date: 2012-12-25 19:24+0200\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "Language: bg\n"
@@ -59,32 +59,32 @@ msgstr "грешка при запис"
 #: gnulib-lib/copy-acl.c:611 gnulib-lib/copy-file.c:216
 #, c-format
 msgid "preserving permissions for %s"
-msgstr ""
+msgstr "запазване на правата върху %s"
 
 #: gnulib-lib/copy-file.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "error while opening %s for reading"
-msgstr "грешка при отваряне за четене на \"%s\""
+msgstr "грешка при отваряне за четене на %s"
 
 #: gnulib-lib/copy-file.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file %s for writing"
-msgstr "не можа да се отвори за запис резервно копие \"%s\""
+msgstr "не можа да се отвори за запис резервно копие %s"
 
 #: gnulib-lib/copy-file.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "error reading %s"
-msgstr "грешка при четене \"%s\""
+msgstr "грешка при четене от %s"
 
 #: gnulib-lib/copy-file.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "error writing %s"
-msgstr "грешка при записване \"%s\""
+msgstr "грешка при записване в %s"
 
 #: gnulib-lib/copy-file.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading %s"
-msgstr "грешка след прочитане на \"%s\""
+msgstr "грешка след прочитане на %s"
 
 #: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:897
 #: src/msginit.c:972 src/msginit.c:1132 src/msginit.c:1231
@@ -116,9 +116,9 @@ msgid "%s subprocess failed"
 msgstr "пропадна подпроцес %s"
 
 #: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: двусмислена опция '%s'\n"
+msgstr "%s: двусмислена опция '%s', възможности:"
 
 #: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
@@ -223,9 +223,9 @@ msgid "memory exhausted"
 msgstr "паметта е изчерпана"
 
 #: gnulib-lib/pipe-filter-ii.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "creation of threads failed"
-msgstr "пропадна компилирането на клас на C#"
+msgstr "пропадна създаването на клас нишки(threads)"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
 #: src/msgexec.c:389
@@ -234,24 +234,24 @@ msgid "write to %s subprocess failed"
 msgstr "пропадна записването към подпроцес %s "
 
 #: gnulib-lib/pipe-filter-ii.c:245 gnulib-lib/pipe-filter-ii.c:417
-#, fuzzy, c-format
+#, c-format
 msgid "read from %s subprocess failed"
-msgstr "пропадна записването към подпроцес %s "
+msgstr "пропадна четенето от подпроцес %s "
 
 #: gnulib-lib/pipe-filter-ii.c:298
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr ""
+msgstr "не може да се зададе неблокиран В/И към подпроцес %s"
 
 #: gnulib-lib/pipe-filter-ii.c:329
-#, fuzzy, c-format
+#, c-format
 msgid "communication with %s subprocess failed"
-msgstr "пропадна записването към подпроцес %s "
+msgstr "пропадна връзката с подпроцес %s"
 
 #: gnulib-lib/pipe-filter-ii.c:449
-#, fuzzy, c-format
+#, c-format
 msgid "%s subprocess terminated with exit code %d"
-msgstr "пропадна подпроцесът %s и той излезе с код %d"
+msgstr "подпроцесът %s приключи с код за изход %d"
 
 #. TRANSLATORS:
 #. Get translations for open and closing quotation marks.
@@ -285,7 +285,7 @@ msgstr "“"
 #: gnulib-lib/set-mode-acl.c:697
 #, c-format
 msgid "setting permissions for %s"
-msgstr ""
+msgstr "задаване на права върху %s"
 
 #: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
 #: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
@@ -364,7 +364,7 @@ msgid ""
 "specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
 msgstr ""
 "При директива номер %u, частта след '<' не е име на форматиращ макрос. "
-"Правилните имена на макроси са изброени в ИСО Си 99 секция 7.8.1."
+"Правилните имена на макроси са изброени в ИСО Си 99 дял 7.8.1."
 
 #: src/format-c.c:39
 #, c-format
@@ -466,14 +466,14 @@ msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "'%s' не използва %%m, а '%s' използва %%m"
 
 #: src/format-gfc-internal.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
-msgstr "'%s' използва %%m, а '%s' не"
+msgstr "'%s' използва %%C, но '%s' не"
 
 #: src/format-gfc-internal.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
-msgstr "'%s' не използва %%m, а '%s' използва %%m"
+msgstr "'%s' не използва %%C, но '%s' използва %%C"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -814,9 +814,9 @@ msgstr "твърде много аргументи"
 #: src/msgfilter.c:384 src/msgfmt.c:650 src/msggrep.c:507 src/msginit.c:358
 #: src/msgmerge.c:476 src/msgunfmt.c:423 src/msguniq.c:321
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:813
-#, fuzzy, c-format
+#, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "За повече информация, опитайте '%s --help'.\n"
+msgstr "За повече сведения, опитайте '%s --help'.\n"
 
 #: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
 #, c-format, no-wrap
@@ -879,7 +879,7 @@ msgstr "  -h, --help                  извеждане на тази помо�
 #: src/recode-sr-latin.c:167 src/urlget.c:190 src/xgettext.c:985
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr "  -V, --version               извеждане на информация за версия и изход\n"
+msgstr "  -V, --version               извеждане на сведение за версия и изход\n"
 
 #. TRANSLATORS: The placeholder indicates the bug-reporting address
 #. for this package.  Please add _another line_ saying
@@ -1297,7 +1297,7 @@ msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Употреба: %s [ОПЦИЯ] [ВХФАЙЛ]...\n"
 
 #: src/msgcat.c:371
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1314,10 +1314,10 @@ msgstr ""
 "При използване на --more-than опцията, може да се поиска по-голямо сходство,\n"
 "преди съобщенията да се изведат.  Обратно, опцията --less-than, може да\n"
 "се използва, за да се укаже по-малко сходство преди съобщенията да се\n"
-"изведат, т.е. --less-than=2 ще изведе само неповтарящи се съобщения.  Преводите,\n"
-"коментарите и извлечените коментари ще се натрупат, освен ако е зададено\n"
-"--use-first, като тогава ще се вземат от първия PO файл, който ги определя.\n"
-"От всички PO файлове ще се натрупат позициите във файловете.\n"
+"изведат, т.е. --less-than=2 ще изведе само неповтарящи се съобщения.\n"
+"Преводите, коментарите, извлечените коментари и местоположението във файла\n"
+"ще се натрупат, освен ако е зададено --use-first, като тогава ще се вземат\n"
+"от първия PO файл, който ги определя.\n"
 
 #: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:833
 #, c-format
@@ -1527,7 +1527,7 @@ msgid "at least two files must be specified"
 msgstr "най-малко два реда трябва да се зададат"
 
 #: src/msgcomm.c:363
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -1542,10 +1542,10 @@ msgstr ""
 "При използване на --more-than опция, може да се поиска по-голямо сходство,\n"
 "преди съобщенията да се изведат.  Обратно, опцията --less-than, може да\n"
 "се използва, за да се укаже по-малко сходство, преди съобщенията да се\n"
-"изведат, т.е. --less-than=2 ще изведа само неповтарящи съобщения.  Преводите,\n"
-"коментарите и извлечените коментари ще се натрупат, освен ако е зададено\n"
-"--use-first, като тогава ще се вземат от първия PO файл, който ги определя.\n"
-"От всички PO файлове ще се натрупат позициите във файловете.\n"
+"изведат, т.е. --less-than=2 ще изведе само неповтарящи съобщения.\n"
+"Преводите, коментарите и извлечените коментари ще се запазят, но само от\n"
+"първия PO файл, който ги определя.  От всички PO файлове ще се натрупат\n"
+"местоположенията във файловете.\n"
 
 #: src/msgcomm.c:401
 #, c-format
@@ -1558,7 +1558,7 @@ msgstr ""
 "                              По-поразбиране 1, ако не е установено\n"
 
 #: src/msgcomm.c:451 src/xgettext.c:962
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr ""
@@ -2082,6 +2082,10 @@ msgid ""
 "                                (big or little, default depends on "
 "platform)\n"
 msgstr ""
+"      --endianness=ПОДРБАЙТ   извежда 32-битови числа в зададената подредба "
+"на байтове\n"
+"                                (старши или младши, по подразбиране зависи "
+"от процесора)\n"
 
 #: src/msgfmt.c:772
 #, c-format
@@ -2133,17 +2137,17 @@ msgstr ""
 "представка"
 
 #: src/msgfmt.c:955
-#, fuzzy, c-format
+#, c-format
 msgid "'domain %s' directive ignored"
 msgstr "пренебрегната директива 'област %s'"
 
 #: src/msgfmt.c:1015
-#, fuzzy, c-format
+#, c-format
 msgid "empty 'msgstr' entry ignored"
 msgstr "пренебрегнат празен 'msgstr' запис"
 
 #: src/msgfmt.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "пренебрегнат мъгляв(fuzzy) 'msgstr' запис"
 
@@ -2415,14 +2419,13 @@ msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "входящия файл е с две различни кодировки - \"%s\" и \"%s\""
 
 #: src/msgl-cat.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
-msgstr ""
-"входящия файл, '%s', не съдържа заглавен запис за указване на кодировка"
+msgstr "входящия файл '%s', не съдържа заглавен запис с указание за кодировка"
 
 #: src/msgl-cat.c:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
@@ -2436,8 +2439,8 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "целевата кодировка, \"%s\", не е с преносимо име"
 
 #: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:121 src/po-xerror.c:146
-#: src/xgettext.c:3016
+#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:3017
 #, c-format
 msgid "warning: "
 msgstr "предупреждение: "
@@ -2612,34 +2615,30 @@ msgstr ""
 "заглавен запис с \"Plural-Forms: nplurals=ЦЯЛО; plural=ИЗРАЗ;\""
 
 #: src/msgl-check.c:611
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
-msgstr "и двата записа 'msgid' и 'msgid_plural' не започват с '\\n'"
+msgstr "и двата записа, 'msgid' и 'msgid_plural', не започват с '\\n'"
 
 #: src/msgl-check.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "и двата записа 'msgid' и 'msgstr[%u]' не започват с '\\n'"
+msgstr "и двата записа, 'msgid' и 'msgstr[%u]', не започват с '\\n'"
 
 #: src/msgl-check.c:634
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
-msgstr "и двата записа 'msgid' и '`msgstr' не започват с '\\n'"
+msgstr "и двата записа, 'msgid' и '`msgstr', не започват с '\\n'"
 
 #: src/msgl-check.c:652
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
-msgstr "и двата записа  'msgid' и 'msgid_plural' не завършват с '\\n'"
+msgstr "и двата записа, 'msgid' и 'msgid_plural', не завършват с '\\n'"
 
 #: src/msgl-check.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
-msgstr "и двата записа  'msgid' и 'msgstr[%u]' не завършват с '\\n'"
+msgstr "и двата записа, 'msgid' и 'msgstr[%u]', не завършват с '\\n'"
 
 #: src/msgl-check.c:675
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
-msgstr "и двата записа 'msgid' и 'msgstr' не завършват с '\\n'"
+msgstr "и двата записа, 'msgid' и 'msgstr', не завършват с '\\n'"
 
 #: src/msgl-check.c:687
 msgid "plural handling is a GNU gettext extension"
@@ -2656,12 +2655,12 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr е отбелязан с твърде много отметки за клавишни комбинации '%c'"
 
 #: src/msgl-check.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "в заглавния блок липсва поле '%s'\n"
 
 #: src/msgl-check.c:793
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' should start at beginning of line\n"
 msgstr "заглавно поле '%s' трябва да започне от началото на реда\n"
 
@@ -2671,7 +2670,7 @@ msgstr ""
 "все още някой заглавни полета са с началните стойност по подразбиране\n"
 
 #: src/msgl-check.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' still has the initial default value\n"
 msgstr "все още заглавното поле '%s' е с началната стойност по подразбиране\n"
 
@@ -2820,13 +2819,13 @@ msgstr ""
 "  simple, never   винаги се създава обикновено резервно копие\n"
 
 #: src/msgmerge.c:541
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
-"Наставката за резервно копие е `~', освен ако е зададен с --suffix или с\n"
+"Наставката за резервно копие е `~', освен ако е зададена с --suffix или с\n"
 "променливата на обкръжението SIMPLE_BACKUP_SUFFIX.\n"
 
 #: src/msgmerge.c:552
@@ -3073,19 +3072,19 @@ msgid "inconsistent use of #~"
 msgstr "противоречиво използване на #~"
 
 #: src/po-gram-gen.y:240
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr[]' section"
-msgstr "липсва секция 'msgstr[]'"
+msgstr "липсва дял 'msgstr[]'"
 
 #: src/po-gram-gen.y:249
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgid_plural' section"
-msgstr "липсва секция 'msgid_plural'"
+msgstr "липсва дял 'msgid_plural'"
 
 #: src/po-gram-gen.y:257
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr' section"
-msgstr "липсва секция 'msgstr'"
+msgstr "липсва дял 'msgstr'"
 
 #: src/po-gram-gen.y:396
 #, c-format
@@ -3379,12 +3378,12 @@ msgid "error while opening \"%s\" for writing"
 msgstr "грешка при отваряне на \"%s\" за запис"
 
 #: src/write-po.c:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr ""
-"съобщения за превод не би трябвало да съдържат '\\%c' освобождаваща "
-"последователност"
+"съобщения за превод не трябва да съдържат освобождаваща последователност '\\"
+"%c'"
 
 #: src/write-po.c:1254 src/write-po.c:1383
 #, c-format
@@ -3485,9 +3484,9 @@ msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: предупреждение: незавършен низ"
 
 #: src/x-awk.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "%s:%d: warning: unterminated regular expression"
-msgstr "%s:%d: предупреждение: незавършен регулярен израз\n"
+msgstr "%s:%d: предупреждение: незавършен регулярен израз"
 
 #: src/x-c.c:1223 src/x-csharp.c:1509 src/x-java.c:872
 #, c-format
@@ -3734,9 +3733,10 @@ msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext не може да работи без ключове за търсене"
 
 #: src/xgettext.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
-msgstr "предупреждение: файлът '%s' с окончание '%s' е непознат, ще се опита C"
+msgstr ""
+"предупреждение: файлът '%s' с окончание '%s' е непознат, ще се опита Си"
 
 #: src/xgettext.c:821
 #, c-format
@@ -4090,8 +4090,7 @@ msgstr "предупреждение: липсва съдържание за м�
 msgid "context mismatch between singular and plural form"
 msgstr "Несъответствие на съдържание м/у единствено и множествено число"
 
-#: src/xgettext.c:3017
-#, fuzzy
+#: src/xgettext.c:3018
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4101,10 +4100,10 @@ msgstr ""
 "Опцията --msgid-bugs-address не е зададена.\n"
 "Ако се използва файл 'Makevars', тук се задава\n"
 "MSGID_BUGS_ADDRESS променлива, иначе се задава\n"
-"опция --msgid-bugs-address на командния ред.\n"
+", на командния ред, опция --msgid-bugs-address.\n"
 
-#: src/xgettext.c:3227
-#, fuzzy, c-format
+#: src/xgettext.c:3230
+#, c-format
 msgid "language '%s' unknown"
 msgstr "непознат език '%s'"
 

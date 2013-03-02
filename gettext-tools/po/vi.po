@@ -1,22 +1,22 @@
 # Vietnamese Translation for gettext-tools.
-# Copyright © 2012 Free Software Foundation, Inc.
+# Copyright © 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2012.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2012-2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.18\n"
+"Project-Id-Version: gettext-tools 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:22+0900\n"
-"PO-Revision-Date: 2012-10-24 08:27+0700\n"
+"POT-Creation-Date: 2013-03-02 18:05+0100\n"
+"PO-Revision-Date: 2013-02-27 14:36+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Team-Website: <http://translationproject.org/team/vi.html>\n"
+"Language-Team-Website: <http://translationproject.org/team/vi.html>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: LocFactoryEditor 1.8\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -62,32 +62,32 @@ msgstr "lỗi ghi"
 #: gnulib-lib/copy-acl.c:611 gnulib-lib/copy-file.c:216
 #, c-format
 msgid "preserving permissions for %s"
-msgstr ""
+msgstr "đang bảo tồn quyền hạn cho %s"
 
 #: gnulib-lib/copy-file.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "error while opening %s for reading"
-msgstr "gặp lỗi khi mở “%s” để đọc"
+msgstr "gặp lỗi khi mở %s để đọc"
 
 #: gnulib-lib/copy-file.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file %s for writing"
-msgstr "không thể mở tập tin sao lưu “%s” để ghi"
+msgstr "không thể mở tập tin sao lưu %s để ghi"
 
 #: gnulib-lib/copy-file.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "error reading %s"
-msgstr "gặp lỗi khi đọc “%s”"
+msgstr "lỗi đọc %s"
 
 #: gnulib-lib/copy-file.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "error writing %s"
-msgstr "gặp lỗi khi ghi “%s”"
+msgstr "lỗi ghi %s"
 
 #: gnulib-lib/copy-file.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading %s"
-msgstr "gặp lỗi sau khi đọc “%s”"
+msgstr "gặp lỗi sau khi đọc %s"
 
 #: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:897
 #: src/msginit.c:972 src/msginit.c:1132 src/msginit.c:1231
@@ -119,9 +119,9 @@ msgid "%s subprocess failed"
 msgstr "Tiến trình con “%s” bị lỗi"
 
 #: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: tùy chọn “%s” chưa rõ ràng\n"
+msgstr "%s: tùy chọn “%s” chưa rõ ràng; khả năng là:"
 
 #: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
@@ -227,9 +227,9 @@ msgid "memory exhausted"
 msgstr "cạn bộ nhớ"
 
 #: gnulib-lib/pipe-filter-ii.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "creation of threads failed"
-msgstr "lỗi biên dịch lớp C#"
+msgstr "việc tạo tuyến trình gặp lỗi"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
 #: src/msgexec.c:389
@@ -238,24 +238,24 @@ msgid "write to %s subprocess failed"
 msgstr "gặp lỗi khi ghi vào tiến trình phụ %s"
 
 #: gnulib-lib/pipe-filter-ii.c:245 gnulib-lib/pipe-filter-ii.c:417
-#, fuzzy, c-format
+#, c-format
 msgid "read from %s subprocess failed"
-msgstr "gặp lỗi khi ghi vào tiến trình phụ %s"
+msgstr "gặp lỗi khi đọc từ tiến trình con %s"
 
 #: gnulib-lib/pipe-filter-ii.c:298
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr ""
+msgstr "không thể cài đặt V/R không chặn đối với tiến trình con %s"
 
 #: gnulib-lib/pipe-filter-ii.c:329
-#, fuzzy, c-format
+#, c-format
 msgid "communication with %s subprocess failed"
-msgstr "gặp lỗi khi ghi vào tiến trình phụ %s"
+msgstr "gặp lỗi khi liên lạc với tiến trình con %s"
 
 #: gnulib-lib/pipe-filter-ii.c:449
-#, fuzzy, c-format
+#, c-format
 msgid "%s subprocess terminated with exit code %d"
-msgstr "tiến trình phụ %s bị lỗi với mã thoát %d"
+msgstr "tiến trình con %s đã kết thúc với mã thoát %d"
 
 #. TRANSLATORS:
 #. Get translations for open and closing quotation marks.
@@ -289,7 +289,7 @@ msgstr "”"
 #: gnulib-lib/set-mode-acl.c:697
 #, c-format
 msgid "setting permissions for %s"
-msgstr ""
+msgstr "đang thiết lập quyền hạn cho %s"
 
 #: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
 #: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
@@ -329,7 +329,7 @@ msgstr "gặp lỗi khi mở “%s” để đọc"
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
-"“%s” không phải là một chuỗi định dạng %s đúng, khác với “%s”. Lý do : %s"
+"“%s” không phải là một chuỗi định dạng %s đúng, khác với “%s”. Lý do: %s"
 
 #: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-librep.c:312
@@ -479,14 +479,14 @@ msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "“%s” không dùng %%m còn “%s” có phải dùng %%m"
 
 #: src/format-gfc-internal.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
-msgstr "“%s” dùng %%m còn “%s” không phải"
+msgstr "“%s” dùng %%C còn “%s” không thế"
 
 #: src/format-gfc-internal.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
-msgstr "“%s” không dùng %%m còn “%s” có phải dùng %%m"
+msgstr "“%s” không dùng %%C còn “%s” có phải dùng %%C"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -830,9 +830,9 @@ msgstr "quá nhiều đối số"
 #: src/msgfilter.c:384 src/msgfmt.c:650 src/msggrep.c:507 src/msginit.c:358
 #: src/msgmerge.c:476 src/msgunfmt.c:423 src/msguniq.c:321
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:813
-#, fuzzy, c-format
+#, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "Hãy thử lệnh “%s --help” để xem thông tin thêm.\n"
+msgstr "Hãy thử lệnh “%s --help” (trợ giúp) để xem thông tin thêm.\n"
 
 #: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
 #, c-format, no-wrap
@@ -980,7 +980,7 @@ msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin PO đầu vào\n"
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
-"  -D, --directory=THƯ_MỤC     thêm thư mục này vào danh sách để tìm kiếm\n"
+"  -D, --directory=THƯ_MỤC     thêm THƯ MỤC này vào danh sách để tìm kiếm\n"
 "                              tập tin đầu vào\n"
 
 #: src/msgattrib.c:425 src/msgconv.c:319 src/msgexec.c:285 src/msgfilter.c:405
@@ -1052,12 +1052,12 @@ msgstr "      --only-fuzzy            giữ các thông điệp có nhãn “fuz
 #: src/msgattrib.c:446
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
-msgstr "      --no-obsolete           bỏ các thông điệp quá cũ (có dấu #~)\n"
+msgstr "      --no-obsolete           bỏ các thông điệp đã cũ (có dấu #~)\n"
 
 #: src/msgattrib.c:448
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
-msgstr "      --only-obsolete         giữ các thông điệp quá cũ (có dấu #~)\n"
+msgstr "      --only-obsolete         giữ các thông điệp đã cũ (có dấu #~)\n"
 
 #: src/msgattrib.c:451
 #, c-format
@@ -1309,10 +1309,10 @@ msgstr "xác định tiêu chuẩn lựa chọn không thể sử dụng đượ
 #: src/msgcat.c:366 src/msgcomm.c:358 src/xgettext.c:817
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
-msgstr "Sử dụng: %s [TÙY_CHỌN] [TẬP_TIN_ĐẦU_VÀO]...\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN_ĐẦU_VÀO]...\n"
 
 #: src/msgcat.c:371
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1332,7 +1332,7 @@ msgstr ""
 "để xác định độ chung ít hơn trước khi thông điệp được in\n"
 "(vd: “--less-than=2” sẽ chỉ in những thông điệp duy nhất).\n"
 "Chuỗi dịch, chú thích và chú thích trích sẽ được tích lũy,\n"
-"ngoại trừ tùy chọn “--use-first” (dùng cái đứng trước) được chỉ ra,\n"
+"ngoại trừ tùy chọn “--use-first” (dùng cái đầu tiên khớp) được chỉ ra,\n"
 "chúng sẽ được lấy từ tập tin PO thứ nhất có chuỗi được dịch.\n"
 "Vị trí tập tin từ mọi tập tin PO sẽ được tích lũy.\n"
 
@@ -1496,12 +1496,12 @@ msgstr "  -N, --no-fuzzy-matching     không dùng khả năng khớp mờ (fuzz
 #: src/msgcmp.c:245
 #, c-format
 msgid "      --use-fuzzy             consider fuzzy entries\n"
-msgstr "      --use-fuzzy             chú ý đến các mục tạm dịch\n"
+msgstr "      --use-fuzzy             dùng các mục tạm dịch\n"
 
 #: src/msgcmp.c:247
 #, c-format
 msgid "      --use-untranslated      consider untranslated entries\n"
-msgstr "      --use-untranslated      chú ý đến các mục chưa dịch\n"
+msgstr "      --use-untranslated      dùng các mục chưa dịch\n"
 
 #: src/msgcmp.c:324
 #, c-format
@@ -1545,7 +1545,7 @@ msgid "at least two files must be specified"
 msgstr "phải chỉ ra ít nhất hai tập tin"
 
 #: src/msgcomm.c:363
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -1556,14 +1556,14 @@ msgid ""
 "PO file to define them.  File positions from all PO files will be\n"
 "cumulated.\n"
 msgstr ""
-"Tìm thông điệp chung giữa hai tập tin PO hay hơn đã chỉ ra.\n"
-"Bằng cách dùng tùy chọn “--more-than” (nhiều hơn),\n"
-"độ chung lớn hơn có thể được yêu cầu trước khi được in. Ngược lại tùy chọn\n"
+"Tìm thông điệp chung giữa hai tập tin PO hay hơn đã cho.\n"
+"Bằng cách dùng tùy chọn “--more-than” (nhiều hơn), độ chung\n"
+"lớn hơn có thể được yêu cầu trước khi được in. Ngược lại tùy chọn\n"
 "“--less-than”(ít hơn) có thể được dùng để xác định độ chung ít hơn trước khi\n"
 "thông điiệp được in (tức là tùy chọn “--less-than=2” sẽ in ra\n"
-"chỉ những thông điệp duy nhất). Chuỗi dịch, chú thích và chú thích\n"
+"chỉ những thông điệp duy nhất). Chuỗi dịch, chú thích và chú thích đã được\n"
 "trích sẽ được bảo tồn, nhưng chỉ từ tập tin PO thứ nhất đã định nghĩa chúng.\n"
-"Vị trí tập tin từ mọi tập tin PO sẽ được tích lũy.\n"
+"Vị trí tập tin từ mọi tập tin PO này sẽ được tích lũy.\n"
 
 #: src/msgcomm.c:401
 #, c-format
@@ -1575,11 +1575,10 @@ msgstr ""
 "                              SỐ này; không bật thì mặc định là 1\n"
 
 #: src/msgcomm.c:451 src/xgettext.c:962
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
-msgstr ""
-"      --omit-header           không ghi dòng đầu có mục “msgid \"\"” \n"
+msgstr "      --omit-header          không ghi dòng đầu có mục “msgid \"\"” \n"
 
 #: src/msgconv.c:306
 #, c-format
@@ -1654,7 +1653,7 @@ msgstr ""
 #: src/msgen.c:315
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
-msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin dạng .po hay .pot nhập vào\n"
+msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin dạng .po hay .pot đầu vào\n"
 
 #: src/msgexec.c:196
 #, c-format
@@ -1664,7 +1663,7 @@ msgstr "thiếu tên lệnh"
 #: src/msgexec.c:257
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
-msgstr "Sử dụng: %s [TÙY_CHỌN] LỆNH [TÙY_CHỌN_LỆNH]\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] LỆNH [TÙY_CHỌN_LỆNH]\n"
 
 #: src/msgexec.c:262
 #, c-format, no-wrap
@@ -1694,7 +1693,7 @@ msgstr ""
 #: src/msgexec.c:281 src/msgfilter.c:401
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
-msgstr "  -i, --input=TẬP_TIN_ĐẦU_VÀO tập tin .po nhập vào\n"
+msgstr "  -i, --input=TẬP_TIN_ĐẦU_VÀO tập tin .po đầu vào\n"
 
 #: src/msgexec.c:345
 #, c-format
@@ -1847,7 +1846,7 @@ msgstr[0] ", %d chuỗi chưa dịch"
 #: src/msgfmt.c:654
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
-msgstr "Sử dụng: %s [TÙY_CHỌN] tên_tập_tin.po ...\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] tên_tập_tin.po ...\n"
 
 #: src/msgfmt.c:658
 #, c-format
@@ -2095,6 +2094,9 @@ msgid ""
 "                                (big or little, default depends on "
 "platform)\n"
 msgstr ""
+"      --endianness=THỨ_TỰ_BYTE ghi ra số 32-bit theo thứ tự đã cho\n"
+"                                (big hay little, mặc định phụ thuộc vào máy "
+"tính đang dùng)\n"
 
 #: src/msgfmt.c:772
 #, c-format
@@ -2146,17 +2148,17 @@ msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "tên miền “%s” không thích hợp làm tên tập tin: sẽ dùng tiền tố"
 
 #: src/msgfmt.c:955
-#, fuzzy, c-format
+#, c-format
 msgid "'domain %s' directive ignored"
 msgstr "chỉ thị “domain %s” bị bỏ qua"
 
 #: src/msgfmt.c:1015
-#, fuzzy, c-format
+#, c-format
 msgid "empty 'msgstr' entry ignored"
 msgstr "mục nhập “msgstr” rỗng bị bỏ qua"
 
 #: src/msgfmt.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "chuỗi “msgstr” tạm dịch bị bỏ qua"
 
@@ -2335,7 +2337,7 @@ msgstr ""
 #: src/msginit.c:377
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
-msgstr "  -i, --input=TẬP_TIN_ĐẦU_VÀO tập tin dạng POT nhập vào\n"
+msgstr "  -i, --input=TẬP_TIN_ĐẦU_VÀO tập tin dạng POT đầu vào\n"
 
 #: src/msginit.c:379
 #, c-format
@@ -2380,7 +2382,7 @@ msgid ""
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 "Tìm thấy nhiều tập tin dạng .pot.\n"
-"Hãy đưa ra tập tin .pot nhập vào, bằng tùy chọn “--input” (nhập vào)\n"
+"Hãy đưa ra tập tin .pot đầu vào, bằng tùy chọn “--input” (đầu vào)\n"
 
 #: src/msginit.c:476 src/msginit.c:481
 #, c-format
@@ -2393,7 +2395,7 @@ msgid ""
 "Please specify the input .pot file through the --input option.\n"
 msgstr ""
 "Không tìm thấy tập tin dạng .pot trong thư mục hiện thời.\n"
-"Hãy đưa ra tập tin .pot nhập vào, bằng tùy chọn “--input” (nhập vào)\n"
+"Hãy đưa ra tập tin .pot đầu vào, bằng tùy chọn “--input” (đầu vào)\n"
 
 #: src/msginit.c:918 src/msginit.c:993 src/msginit.c:1153 src/msginit.c:1248
 #: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
@@ -2433,13 +2435,13 @@ msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "tập tin đầu vào chứa hai bộ ký tự khác nhau “%s” và “%s”"
 
 #: src/msgl-cat.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "tập tin đầu vào “%s” không chứa mục nhập phần đầu xác định bộ ký tự"
 
 #: src/msgl-cat.c:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
@@ -2452,8 +2454,8 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "bộ ký tự đích “%s” không phải tên bảng mã di động."
 
 #: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:121 src/po-xerror.c:146
-#: src/xgettext.c:3016
+#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:3017
 #, c-format
 msgid "warning: "
 msgstr "cảnh báo: "
@@ -2633,32 +2635,28 @@ msgstr ""
 "\"Plural-Forms: nplurals=1; plural=0;\""
 
 #: src/msgl-check.c:611
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgid_plural” đều không bắt đầu với “\\n”"
 
 #: src/msgl-check.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgstr[%u]” đều không bắt đầu với “\\n”"
 
 #: src/msgl-check.c:634
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgstr” đều không bắt đầu với “\\n”"
 
 #: src/msgl-check.c:652
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgid_plural” đều không kết thúc với “\\n”"
 
 #: src/msgl-check.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgstr[%u]” đều không kết thúc với “\\n”"
 
 #: src/msgl-check.c:675
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
 msgstr "cả hai mục nhập “msgid” và “msgstr” đều không kết thúc với “\\n”"
 
@@ -2679,12 +2677,12 @@ msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "chuỗi dịch msgstr có quá nhiều ký tự phím tắt “%c”"
 
 #: src/msgl-check.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "trường “%s” còn thiếu trong phần đầu\n"
 
 #: src/msgl-check.c:793
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' should start at beginning of line\n"
 msgstr "trường phần đầu “%s” nên bắt đầu tại đầu dòng\n"
 
@@ -2694,9 +2692,9 @@ msgstr ""
 "một số trường phần đầu vẫn còn chứa giá tri mặc định ban đầu (sửa đi)\n"
 
 #: src/msgl-check.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' still has the initial default value\n"
-msgstr "trường phần đầu “%s” vẫn còn chứa giá tri mặc định ban đầu (sửa đi)\n"
+msgstr "trường phần đầu “%s” vẫn còn chứa giá trị khởi tạo mặc định (sửa đi)\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -2850,7 +2848,7 @@ msgstr ""
 "(đơn giản, không bao giờ)\n"
 
 #: src/msgmerge.c:541
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
@@ -2949,7 +2947,7 @@ msgstr ""
 #: src/msgunfmt.c:451
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
-msgstr "  TẬP_TIN ...                 nhập vào những tập tin dạng .mo\n"
+msgstr "  TẬP_TIN ...                 đầu vào  là những tập tin .mo\n"
 
 #: src/msgunfmt.c:456
 #, c-format
@@ -3108,17 +3106,17 @@ msgid "inconsistent use of #~"
 msgstr "dấu #~ được dùng không thống nhất"
 
 #: src/po-gram-gen.y:240
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr[]' section"
 msgstr "thiếu phần “msgstr[]”"
 
 #: src/po-gram-gen.y:249
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgid_plural' section"
 msgstr "thiếu phần “msgid_plural”"
 
 #: src/po-gram-gen.y:257
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr' section"
 msgstr "thiếu phần “msgstr”"
 
@@ -3264,7 +3262,7 @@ msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
 "standard output.\n"
 msgstr ""
-"Văn bản nhập vào được đọc từ đầu vào tiêu chuẩn. Văn bản đã chuyển đổi\n"
+"Văn bản đầu vào được đọc từ đầu vào tiêu chuẩn. Văn bản đã chuyển đổi\n"
 "được xuất vào đầu ra tiêu chuẩn.\n"
 
 #: src/recode-sr-latin.c:339
@@ -3285,7 +3283,7 @@ msgstr "cần hai đối số"
 #: src/urlget.c:176
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
-msgstr "Sử dụng: %s [TÙY_CHỌN] URL TẬP_TIN\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] URL TẬP_TIN\n"
 
 #: src/urlget.c:181
 #, c-format, no-wrap
@@ -3415,10 +3413,10 @@ msgid "error while opening \"%s\" for writing"
 msgstr "gặp lỗi khi mở “%s” để ghi"
 
 #: src/write-po.c:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "internationalized messages should not contain the '\\%c' escape sequence"
-msgstr "thông điệp đã quốc tế hóa không nên chứa dây thoát “\\%c”"
+msgstr "thông điệp đã quốc tế hóa không nên chứa dãy thoát “\\%c”"
 
 #: src/write-po.c:1254 src/write-po.c:1383
 #, c-format
@@ -3784,9 +3782,9 @@ msgid "xgettext cannot work without keywords to look for"
 msgstr "phần mềm xgettext không thể hoạt động khi không có từ khóa cần tìm"
 
 #: src/xgettext.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
-msgstr "cảnh báo: không biết tập tin “%s” có phần mở rộng “%s” nên thử C"
+msgstr "cảnh báo: không biết tập tin “%s” có phần mở rộng “%s”; nên thử C"
 
 #: src/xgettext.c:821
 #, c-format
@@ -4144,8 +4142,7 @@ msgstr "cảnh báo: thiếu ngữ cảnh cho đối số ở số nhiều của
 msgid "context mismatch between singular and plural form"
 msgstr "ngữ cảnh xung đột giữa cách ở số ít và số nhiều"
 
-#: src/xgettext.c:3017
-#, fuzzy
+#: src/xgettext.c:3018
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4154,11 +4151,11 @@ msgid ""
 msgstr ""
 "Chưa đưa ra tùy chọn “--msgid-bugs-address” (địa chỉ lỗi msgid).\n"
 "Nếu bạn đang dùng tập tin kiểu “Makevars”,\n"
-"hãy xác định biến MSGID_BUGS_ADDRESS trong đó;\n"
+"hãy chỉ định biến MSGID_BUGS_ADDRESS trong đó;\n"
 "không thì đưa ra tùy chọn dòng lệnh “--msgid-bugs-address”.\n"
 
-#: src/xgettext.c:3227
-#, fuzzy, c-format
+#: src/xgettext.c:3230
+#, c-format
 msgid "language '%s' unknown"
 msgstr "không nhận ra ngôn ngữ “%s”"
 

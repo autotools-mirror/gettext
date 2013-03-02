@@ -1,14 +1,14 @@
 # Translation of `gettext-tools' messages to Japanese.
-# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Masahito Yamaga <ma@yama-ga.com>, 2012.
+# Masahito Yamaga <ma@yama-ga.com>, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.18\n"
+"Project-Id-Version: GNU gettext-tools 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:22+0900\n"
-"PO-Revision-Date: 2012-10-02 05:46+0900\n"
+"POT-Creation-Date: 2013-03-02 18:05+0100\n"
+"PO-Revision-Date: 2013-02-27 06:45+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -58,32 +58,32 @@ msgstr "書き込みエラー"
 #: gnulib-lib/copy-acl.c:611 gnulib-lib/copy-file.c:216
 #, c-format
 msgid "preserving permissions for %s"
-msgstr ""
+msgstr "%s に対するアクセス権を維持"
 
 #: gnulib-lib/copy-file.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "error while opening %s for reading"
-msgstr "\"%s\" を読み込もうとしてエラーが発生しました"
+msgstr "%s を読み込もうとしてエラーが発生しました"
 
 #: gnulib-lib/copy-file.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "cannot open backup file %s for writing"
-msgstr "バックアップファイル \"%s\" を書き込み用に開くことができません"
+msgstr "バックアップファイル %s を書き込み用に開くことができません"
 
 #: gnulib-lib/copy-file.c:201
-#, fuzzy, c-format
+#, c-format
 msgid "error reading %s"
-msgstr "\"%s\" を読み込み中にエラーが発生しました"
+msgstr "%s を読み込み中にエラーが発生しました"
 
 #: gnulib-lib/copy-file.c:205
-#, fuzzy, c-format
+#, c-format
 msgid "error writing %s"
-msgstr "\"%s\" を書き込み中にエラーが発生しました"
+msgstr "%s を書き込み中にエラーが発生しました"
 
 #: gnulib-lib/copy-file.c:209
-#, fuzzy, c-format
+#, c-format
 msgid "error after reading %s"
-msgstr "\"%s\" を読み込んだ後にエラーが発生しました"
+msgstr "%s を読み込んだ後にエラーが発生しました"
 
 #: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:897
 #: src/msginit.c:972 src/msginit.c:1132 src/msginit.c:1231
@@ -115,9 +115,9 @@ msgid "%s subprocess failed"
 msgstr "%s サブプロセスが失敗しました"
 
 #: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
-#, fuzzy, c-format
+#, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: オプション '%s' は曖昧です\n"
+msgstr "%s: オプション '%s' が曖昧. 指定可能なもの:"
 
 #: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
@@ -222,9 +222,9 @@ msgid "memory exhausted"
 msgstr "メモリを使い果たしました"
 
 #: gnulib-lib/pipe-filter-ii.c:192
-#, fuzzy, c-format
+#, c-format
 msgid "creation of threads failed"
-msgstr "C# クラスのコンパイルに失敗"
+msgstr "スレッドの生成に失敗"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
 #: src/msgexec.c:389
@@ -284,7 +284,7 @@ msgstr "'"
 #: gnulib-lib/set-mode-acl.c:697
 #, c-format
 msgid "setting permissions for %s"
-msgstr ""
+msgstr "%s に対するアクセス権を設定"
 
 #: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
 #: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
@@ -463,14 +463,14 @@ msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "'%s' は %%m を使いませんが '%s' は %%m を使います"
 
 #: src/format-gfc-internal.c:383
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
-msgstr "'%s' は %%m を使いますが '%s' は使いません"
+msgstr "'%s' は %%C を使いますが '%s' は使いません"
 
 #: src/format-gfc-internal.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
-msgstr "'%s' は %%m を使いませんが '%s' は %%m を使います"
+msgstr "'%s' は %%C を使いませんが '%s' は %%C を使います"
 
 #: src/format-invalid.h:22
 msgid "The string ends in the middle of a directive."
@@ -797,9 +797,9 @@ msgstr "引数が多すぎます"
 #: src/msgfilter.c:384 src/msgfmt.c:650 src/msggrep.c:507 src/msginit.c:358
 #: src/msgmerge.c:476 src/msgunfmt.c:423 src/msguniq.c:321
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:813
-#, fuzzy, c-format
+#, c-format
 msgid "Try '%s --help' for more information.\n"
-msgstr "より多くの情報を得るためには `%s --help' と入力してください.\n"
+msgstr "より多くの情報を得るためには '%s --help' と入力してください.\n"
 
 #: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
 #, c-format, no-wrap
@@ -1244,7 +1244,7 @@ msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "使用法: %s [オプション] [入力ファイル]...\n"
 
 #: src/msgcat.c:371
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1262,9 +1262,8 @@ msgstr ""
 "指定することができます. 逆に, --less-than オプションで表示するメッセージの\n"
 "共通性を低く指定することができます (つまり, --less-than=2 は 1つしかない\n"
 "メッセージのみを出力するということになります). 翻訳やコメント, 抽出された\n"
-"コメントはそのまま残されます. ただし --use-first が指定された場合には, それら\n"
-"が定義された最初の PO ファイルのものがそのまま残されます. またファイルの位置\n"
-"は全ての PO ファイルからそのまま残されます.\n"
+"コメント, ファイルの位置はそのまま残されます. ただし --use-first が指定された\n"
+"場合には, それらが定義された最初の PO ファイルのものがそのまま残されます.\n"
 
 #: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:833
 #, c-format
@@ -1464,7 +1463,7 @@ msgid "at least two files must be specified"
 msgstr "少なくとも 2つのファイルを指定しなければいけません"
 
 #: src/msgcomm.c:363
-#, fuzzy, c-format, no-wrap
+#, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
 "By using the --more-than option, greater commonality may be requested\n"
@@ -1493,11 +1492,11 @@ msgstr ""
 "                              設定されない場合は標準で 1\n"
 
 #: src/msgcomm.c:451 src/xgettext.c:962
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr ""
-"      --omit-header           `msgid \"\"' を含んだヘッダを出力しない\n"
+"      --omit-header           'msgid \"\"' を含んだヘッダを出力しない\n"
 
 #: src/msgconv.c:306
 #, c-format
@@ -1988,6 +1987,10 @@ msgid ""
 "                                (big or little, default depends on "
 "platform)\n"
 msgstr ""
+"      --endianness=BYTEORDER  指定されたバイトオーダで32ビットの数値を書き出"
+"す\n"
+"                                (標準はプラットフォームにより big か "
+"little)\n"
 
 #: src/msgfmt.c:772
 #, c-format
@@ -2038,19 +2041,19 @@ msgstr ""
 "ドメイン名 \"%s\" はファイル名として適切ではありません. 接頭辞を使います"
 
 #: src/msgfmt.c:955
-#, fuzzy, c-format
+#, c-format
 msgid "'domain %s' directive ignored"
-msgstr "`ドメイン %s' 命令は無視されます"
+msgstr "'ドメイン %s' 命令は無視されます"
 
 #: src/msgfmt.c:1015
-#, fuzzy, c-format
+#, c-format
 msgid "empty 'msgstr' entry ignored"
-msgstr "空の `msgstr' エントリは無視されます"
+msgstr "空の 'msgstr' エントリは無視されます"
 
 #: src/msgfmt.c:1016
-#, fuzzy, c-format
+#, c-format
 msgid "fuzzy 'msgstr' entry ignored"
-msgstr "あいまい (fuzzy) な `msgstr' エントリは無視されます"
+msgstr "あいまい (fuzzy) な 'msgstr' エントリは無視されます"
 
 #: src/msgfmt.c:1065
 #, c-format
@@ -2313,18 +2316,18 @@ msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "2つの異なった文字セット \"%s\" と \"%s\" が入力ファイルにあります"
 
 #: src/msgl-cat.c:203
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
-msgstr "入力ファイル `%s' に文字セットを指定するヘッダ項目がありません"
+msgstr "入力ファイル '%s' に文字セットを指定するヘッダ項目がありません"
 
 #: src/msgl-cat.c:207
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr ""
-"入力ファイル `%2$s' 内のドメイン \"%1$s\" には文字セットを指定するヘッダ項目"
+"入力ファイル '%2$s' 内のドメイン \"%1$s\" には文字セットを指定するヘッダ項目"
 "がありません"
 
 #: src/msgl-cat.c:391 src/msgl-iconv.c:375
@@ -2334,8 +2337,8 @@ msgstr ""
 "対象となる文字セット \"%s\" は可搬性のあるエンコーディング名ではありません"
 
 #: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:121 src/po-xerror.c:146
-#: src/xgettext.c:3016
+#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:3017
 #, c-format
 msgid "warning: "
 msgstr "警告: "
@@ -2506,36 +2509,32 @@ msgstr ""
 "nplurals=INTEGER; plural=EXPRESSION;\" というヘッダエントリがありません"
 
 #: src/msgl-check.c:611
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
 msgstr ""
-"`msgid' と `msgid_plural' のエントリがどちらも '\\n' で始まっていません"
+"'msgid' と 'msgid_plural' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgl-check.c:619
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
-msgstr "`msgid' と `msgstr[%u]' のエントリがどちらも '\\n' で始まっていません"
+msgstr "'msgid' と 'msgstr[%u]' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgl-check.c:634
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
-msgstr "`msgid' と `msgstr' のエントリがどちらも '\\n' で始まっていません"
+msgstr "'msgid' と 'msgstr' のエントリがどちらも '\\n' で始まっていません"
 
 #: src/msgl-check.c:652
-#, fuzzy
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
 msgstr ""
-"`msgid' と `msgid_plural' のエントリがどちらも '\\n' で終わっていません"
+"'msgid' と 'msgid_plural' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgl-check.c:660
-#, fuzzy, c-format
+#, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
-msgstr "`msgid' と `msgstr[%u]' のエントリがどちらも '\\n' で終わっていません"
+msgstr "'msgid' と 'msgstr[%u]' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgl-check.c:675
-#, fuzzy
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
-msgstr "`msgid' と `msgstr' のエントリがどちらも '\\n' で終わっていません"
+msgstr "'msgid' と 'msgstr' のエントリがどちらも '\\n' で終わっていません"
 
 #: src/msgl-check.c:687
 msgid "plural handling is a GNU gettext extension"
@@ -2553,23 +2552,23 @@ msgstr ""
 "msgstr にはあまりに多くのキーボードアクセレレータの記号 '%c' があります"
 
 #: src/msgl-check.c:785
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' missing in header\n"
-msgstr "ヘッダ情報 `%s' がヘッダの中にありません\n"
+msgstr "ヘッダ情報 '%s' がヘッダの中にありません\n"
 
 #: src/msgl-check.c:793
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' should start at beginning of line\n"
-msgstr "ヘッダ情報 `%s' は行頭になければいけません\n"
+msgstr "ヘッダ情報 '%s' は行頭になければいけません\n"
 
 #: src/msgl-check.c:818
 msgid "some header fields still have the initial default value\n"
 msgstr "いくつかのヘッダ情報が初期標準値のままです\n"
 
 #: src/msgl-check.c:835
-#, fuzzy, c-format
+#, c-format
 msgid "header field '%s' still has the initial default value\n"
-msgstr "ヘッダ情報 `%s' が初期標準値のままです\n"
+msgstr "ヘッダ情報 '%s' が初期標準値のままです\n"
 
 #: src/msgl-iconv.c:65
 #, c-format
@@ -2716,14 +2715,14 @@ msgstr ""
 "  simple, never   常に単純形式のバックアップを作成\n"
 
 #: src/msgmerge.c:541
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
 "SIMPLE_BACKUP_SUFFIX\n"
 "environment variable.\n"
 msgstr ""
 "--suffix や環境変数 SIMPLE_BACKUP_SUFFIX が設定されていなければ,\n"
-"バックアップ接尾辞は `~' です.\n"
+"バックアップ接尾辞は '~' です.\n"
 
 #: src/msgmerge.c:552
 #, c-format
@@ -2962,19 +2961,19 @@ msgid "inconsistent use of #~"
 msgstr "一貫していない #~ の使用"
 
 #: src/po-gram-gen.y:240
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr[]' section"
-msgstr "`msgstr[]' の項がありません"
+msgstr "'msgstr[]' の項がありません"
 
 #: src/po-gram-gen.y:249
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgid_plural' section"
-msgstr "`msgid_plural' の項がありません"
+msgstr "'msgid_plural' の項がありません"
 
 #: src/po-gram-gen.y:257
-#, fuzzy, c-format
+#, c-format
 msgid "missing 'msgstr' section"
-msgstr "`msgstr' の項がありません"
+msgstr "'msgstr' の項がありません"
 
 #: src/po-gram-gen.y:396
 #, c-format
@@ -3268,11 +3267,11 @@ msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" に書き込もうとしてエラーが発生しました"
 
 #: src/write-po.c:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr ""
-"国際化されたメッセージは `\\%c' というエスケープシーケンスを含んではいけませ"
+"国際化されたメッセージは '\\%c' というエスケープシーケンスを含んではいけませ"
 "ん"
 
 #: src/write-po.c:1254 src/write-po.c:1383
@@ -3628,9 +3627,9 @@ msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext は検索するキーワードがなければ動きません"
 
 #: src/xgettext.c:770
-#, fuzzy, c-format
+#, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
-msgstr "警告: ファイル `%s' (拡張子 `%s') は未知の形式なので C 言語を試します"
+msgstr "警告: ファイル '%s' (拡張子 '%s') は未知の形式なので C 言語を試します"
 
 #: src/xgettext.c:821
 #, c-format
@@ -3940,7 +3939,7 @@ msgid ""
 "and a mapping instead of a tuple for the arguments.\n"
 msgstr ""
 "名無し引数のある '%s' フォーマット文字列を適切に特定することができません:\n"
-"翻訳者は引数を整理し直すことができません.\n"
+"翻訳者は引数の順序を変えることができません.\n"
 "名前付き引数のあるフォーマット文字列を使うこと, 且つ引数に対して組 (tuple)\n"
 "の代わりにマッピングを使うことを検討してください.\n"
 
@@ -3974,8 +3973,7 @@ msgstr "警告: キーワード '%.*s' の複数形引数に文脈がありません"
 msgid "context mismatch between singular and plural form"
 msgstr "文脈が単数系と複数形で一致しません"
 
-#: src/xgettext.c:3017
-#, fuzzy
+#: src/xgettext.c:3018
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -3983,27 +3981,15 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 "オプション --msgid-bugs-address が指定されていません.\n"
-"`Makevars' ファイルを使っている場合は MSGID_BUGS_ADDRESS 変数を指定してくださ"
+"'Makevars' ファイルを使っている場合は MSGID_BUGS_ADDRESS 変数を指定してくださ"
 "い.\n"
 "もしくは, コマンドラインオプション --msgid-bugs-address を指定してください.\n"
 
-#: src/xgettext.c:3227
-#, fuzzy, c-format
+#: src/xgettext.c:3230
+#, c-format
 msgid "language '%s' unknown"
-msgstr "言語 `%s' は知りません"
+msgstr "言語 '%s' は知りません"
 
 #: libgettextpo/gettext-po.c:84
 msgid "<unnamed>"
 msgstr "<名前なし>"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: 不正なオプション -- %c\n"
-
-#~ msgid "DuplicateHandle failed with error code 0x%08x"
-#~ msgstr "エラーコード 0x%08x で DuplicateHandle 失敗"
-
-#~ msgid "Not yet implemented."
-#~ msgstr "未実装."
-
-#~ msgid "field `%s' still has initial default value\n"
-#~ msgstr "情報 `%s' が初期標準値のままです\n"
