@@ -1,3 +1,9 @@
+2013-03-02  Miguel Angel Arruga Vivas  <rosen644385@gmail.com>
+
+	Extract libexpat compatibility layer.
+	* libexpat-compat.h, libexpat-compat.c: Extracted from x-glade.c
+	* x-glade.c: Use libexpat-compat.h
+
 2013-07-11  Daiki Ueno  <ueno@gnu.org>
 
 	Fix crash when parsing '..' with non-string argument.
