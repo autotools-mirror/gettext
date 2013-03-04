@@ -1,3 +1,8 @@
+2013-03-04  Daiki Ueno  <ueno@gnu.org>
+
+	* gettextize.in: Don't add redundant "-I m4" if
+	AC_CONFIG_MACRO_DIR{,S} is not specified.
+
 2013-03-01  Daiki Ueno  <ueno@gnu.org>
 
 	* gettextize.in: Handle macro directories specified in configure.ac.

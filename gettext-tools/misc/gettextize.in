@@ -815,6 +815,10 @@ if test -f "$srcdir/Makefile.am"; then
         fi
       fi
     done
+    for arg in $macrodirs; do
+      m4dir="$arg"
+      break
+    done
   fi
 
   if test -z "$m4dir"; then
