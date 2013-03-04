@@ -1,5 +1,11 @@
 2013-03-04  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint.in: Handle macro directories specified in configure.ac.
+	Reported by Pavel Raiskup in
+	<http://lists.gnu.org/archive/html/bug-gettext/2013-02/msg00017.html>.
+
+2013-03-04  Daiki Ueno  <ueno@gnu.org>
+
 	* gettextize.in: Use autoconf trace to detect auxdir and m4dir.
 
 2013-03-04  Daiki Ueno  <ueno@gnu.org>
