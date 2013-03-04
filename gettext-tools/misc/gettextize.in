@@ -30,6 +30,8 @@ prefix="@prefix@"
 datarootdir="@datarootdir@"
 gettext_dir="@datadir@/gettext"
 
+autom4te="autom4te --no-cache --language=Autoconf-without-aclocal-m4"
+
 # func_tmpdir
 # creates a temporary directory.
 # Sets variable
@@ -309,13 +311,16 @@ if test $force -eq 0; then
 fi
 
 # Check in which directory config.rpath etc. belong.
-auxdir=`cat "$configure_in" | grep '^AC_CONFIG_AUX_DIR' | sed -n -e 's/AC_CONFIG_AUX_DIR(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/' | sed -e 1q`
+auxdir=`$autom4te --trace=AC_CONFIG_AUX_DIR:\$% "$configure_in"`
 if test -n "$auxdir"; then
   auxdir="$auxdir/"
 fi
 
 # Check in which directory gettext.m4 etc. belong.
-macrodirs=`cat "$configure_in" | grep '^AC_CONFIG_MACRO_DIR' | sed -n -e 's/AC_CONFIG_MACRO_DIRS\{,1\}(\([^()]*\))/\1/p' | sed -e 's/^\[\(.*\)\]$/\1/'`
+macrodirs=`$autom4te --trace=AC_CONFIG_MACRO_DIR_TRACE:\$% "$configure_in"`
+if test -z "$macrodirs"; then
+  macrodirs=`$autom4te --trace=AC_CONFIG_MACRO_DIR:\$% "$configure_in"`
+fi
 for arg in $macrodirs; do
   m4dir="$arg"
   break

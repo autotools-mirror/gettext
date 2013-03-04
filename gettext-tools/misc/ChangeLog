@@ -1,5 +1,9 @@
 2013-03-04  Daiki Ueno  <ueno@gnu.org>
 
+	* gettextize.in: Use autoconf trace to detect auxdir and m4dir.
+
+2013-03-04  Daiki Ueno  <ueno@gnu.org>
+
 	* gettextize.in: Don't add redundant "-I m4" if
 	AC_CONFIG_MACRO_DIR{,S} is not specified.
 
