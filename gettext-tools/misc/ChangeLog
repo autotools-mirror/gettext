@@ -1,3 +1,10 @@
+2013-03-05  Daiki Ueno  <ueno@gnu.org>
+
+	* po-mode.el (po-font-lock-keywords): Properly highlight C format
+	strings with parameter positions.
+	Reported at
+	<https://savannah.gnu.org/bugs/index.php?33552>.
+
 2013-03-05  Ævar Arnfjörð Bjarmason  <avarab@gmail.com>  (tiny change)
 
 	* po-mode.el (po-auto-update-file-header): New user option.

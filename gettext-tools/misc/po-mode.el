@@ -1064,7 +1064,7 @@ Initialize or replace current translation with the original message"))])
     ;;  '("msgctxt " "msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
     ("^\\(\\(msg\\(ctxt\\|id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
      . font-lock-keyword-face)
-    ("\\\\.\\|%\\*?[-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
+    ("\\\\.\\|%[*$-.0-9ul]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
     ("^#:\\(.*\\)" 1 font-lock-reference-face)
     ;; The following line does not work, and I wonder why.
