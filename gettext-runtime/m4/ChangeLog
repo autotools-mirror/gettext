@@ -1,3 +1,33 @@
+2013-03-05  Daiki Ueno  <ueno@gnu.org>
+
+	* fcntl-o.m4: Update copyright year.
+	* gettext.m4: Likewise.
+	* glibc2.m4: Likewise.
+	* glibc21.m4: Likewise.
+	* iconv.m4: Likewise.
+	* intdiv0.m4: Likewise.
+	* intl.m4: Likewise.
+	* intldir.m4: Likewise.
+	* intlmacosx.m4: Likewise.
+	* intmax.m4: Likewise.
+	* inttypes-pri.m4: Likewise.
+	* inttypes_h.m4: Likewise.
+	* lcmessage.m4: Likewise.
+	* lock.m4: Likewise.
+	* longlong.m4: Likewise.
+	* nls.m4: Likewise.
+	* po.m4: Likewise.
+	* printf-posix.m4: Likewise.
+	* progtest.m4: Likewise.
+	* size_max.m4: Likewise.
+	* stdint_h.m4: Likewise.
+	* threadlib.m4: Likewise.
+	* uintmax_t.m4: Likewise.
+	* visibility.m4: Likewise.
+	* wchar_t.m4: Likewise.
+	* wint_t.m4: Likewise.
+	* xsize.m4: Likewise.
+
 2012-12-25  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext-0.18.2 released.
