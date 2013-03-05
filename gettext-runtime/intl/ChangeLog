@@ -1,3 +1,8 @@
+2013-03-05  Daiki Ueno  <ueno@gnu.org>
+
+	* verify.h: Update copyright year.
+	* xsize.h: Likewise.
+
 2013-02-25  Daiki Ueno  <ueno@gnu.org>
 
 	Determine imported C symbol prefix at configure time.
