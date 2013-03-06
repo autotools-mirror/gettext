@@ -1,3 +1,10 @@
+2013-03-07  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>  (tiny change)
+
+	Fix '__attribute__' definition.
+	Reported at <https://savannah.gnu.org/bugs/?35313>
+	* autosprintf.in.h (_AUTOSPRINTF_ATTRIBUTE_FORMAT): New macro
+	instead of redefine __attribute__.
+
 2013-03-04  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>  (tiny change)
 
 	Add 'autosprintf::operator='. Needed because destructor
