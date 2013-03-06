@@ -35,7 +35,7 @@
 # include <utility>
 #else
 # include <algorithm>
-#fi
+#endif
 
 namespace gnu
 {
@@ -59,7 +59,7 @@ namespace gnu
   /* Copy constructor.  Necessary because the destructor is nontrivial.  */
   autosprintf& autosprintf::operator = (autosprintf copy)
   {
-    std::swap (tmp.str, this->str);
+    std::swap (copy.str, this->str);
     return *this;
   }
 
