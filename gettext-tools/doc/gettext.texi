@@ -1710,6 +1710,12 @@ a PO file editor, yet it may be interesting for everybody to have a better
 idea of the precise format of a PO file.  On the other hand, those
 wishing to modify PO files by hand should carefully continue reading on.
 
+An empty @var{untranslated-string} is reserved to contain the header
+entry with the meta information (@xref{Header Entry}).  This header
+entry should be the first entry of the file.  The empty
+@var{untranslated-string} is reserved for this purpose and must
+not be used anywhere else.
+
 Each of @var{untranslated-string} and @var{translated-string} respects
 the C syntax for a character string, including the surrounding quotes
 and embedded backslashed escape sequences.  When the time comes

@@ -1,3 +1,7 @@
+2013-03-06  Daiki Ueno  <ueno@gnu.org>
+
+	* AUTHORS: Update from fencepost.gnu.org:/gd/gnuorg/copyright.list.
+
 2013-01-17  Daiki Ueno  <ueno@gnu.org>
 
 	Fix link errors related to C99-style extern inline.
