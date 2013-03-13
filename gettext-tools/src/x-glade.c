@@ -185,7 +185,9 @@ start_element_glade1 (struct element_state *p, const char *name,
 {
   void *hash_result;
 
-  /* In Glade 1, a few specific elements are translatable.  */
+  /* In Glade 1, a few specific elements are translatable without
+     --extract-all option.  */
+  p->extract_string = extract_all;
   if (!p->extract_string)
     p->extract_string =
       (hash_find_entry (&keywords, name, strlen (name), &hash_result) == 0);
@@ -219,8 +221,7 @@ start_element_glade2 (struct element_state *p, const char *name,
      See <http://live.gnome.org/TranslationProject/DevGuidelines/Use comments>.
      If the element has the attribute context="yes", the content of
      the element is in the form "msgctxt|msgid".  */
-  if (!p->extract_string
-      && (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0))
+  if (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0)
     {
       bool has_translatable = false;
       bool has_context = false;
@@ -246,8 +247,7 @@ start_element_glade2 (struct element_state *p, const char *name,
 
   /* In Glade 2, the attribute description="..." of <atkaction>
      element is also translatable.  */
-  if (!p->extract_string
-      && strcmp (name, "atkaction") == 0)
+  if (strcmp (name, "atkaction") == 0)
     {
       const char **attp = attributes;
       while (*attp != NULL)
@@ -325,32 +325,29 @@ start_element_gtkbuilder (struct element_state *p, const char *name,
      See <https://developer.gnome.org/gtk3/stable/GtkBuilder.html#BUILDER-UI>.
      The translator comment is found in the attribute comments="..."
      and context is found in the attribute context="...".  */
-  if (!p->extract_string)
+  bool has_translatable = false;
+  const char *extracted_comment = NULL;
+  const char *extracted_context = NULL;
+  const char **attp = attributes;
+  while (*attp != NULL)
     {
-      bool has_translatable = false;
-      const char *extracted_comment = NULL;
-      const char *extracted_context = NULL;
-      const char **attp = attributes;
-      while (*attp != NULL)
-        {
-          if (strcmp (attp[0], "translatable") == 0)
-            has_translatable = (strcmp (attp[1], "yes") == 0);
-          else if (strcmp (attp[0], "comments") == 0)
-            extracted_comment = attp[1];
-          else if (strcmp (attp[0], "context") == 0)
-            extracted_context = attp[1];
-          attp += 2;
-        }
-      p->extract_string = has_translatable;
-      p->extracted_comment =
-        (has_translatable && extracted_comment != NULL
-         ? xstrdup (extracted_comment)
-         : NULL);
-      p->extracted_context =
-        (has_translatable && extracted_context != NULL
-         ? xstrdup (extracted_context)
-         : NULL); 
-   }
+      if (strcmp (attp[0], "translatable") == 0)
+        has_translatable = (strcmp (attp[1], "yes") == 0);
+      else if (strcmp (attp[0], "comments") == 0)
+        extracted_comment = attp[1];
+      else if (strcmp (attp[0], "context") == 0)
+        extracted_context = attp[1];
+      attp += 2;
+    }
+  p->extract_string = has_translatable;
+  p->extracted_comment =
+    (has_translatable && extracted_comment != NULL
+     ? xstrdup (extracted_comment)
+     : NULL);
+  p->extracted_context =
+    (has_translatable && extracted_context != NULL
+     ? xstrdup (extracted_context)
+     : NULL);
 }
 
 static void
@@ -432,7 +429,7 @@ The root element <%s> is not allowed in a valid Glade file"),
   stack[stack_depth - 1].extract_string = false;
 
   p = &stack[stack_depth];
-  p->extract_string = extract_all;
+  p->extract_string = false;
   p->extract_context = false;
   p->extracted_comment = NULL;
   p->extracted_context = NULL;

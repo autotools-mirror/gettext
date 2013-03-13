@@ -1,3 +1,10 @@
+2013-08-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
+
+	* x-glade.c (start_element_glade1): Use extract_all variable.
+	(start_element_glade2): Ignore --extract-all option.
+	(start_element_gtkbuilder): Likewise.
+	(start_element_handler): Initialize p->extract_string to false.
+
 2013-08-12  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.c (remember_a_message): Handle multi-line extracted

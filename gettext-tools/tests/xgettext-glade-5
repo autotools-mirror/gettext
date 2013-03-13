@@ -105,6 +105,21 @@ test $result = 0 || {
   rm -fr $tmpfiles; exit $result
 }
 
+# Check with --extract-all option
+rm xg-gl-5.tmp
+${XGETTEXT} -a -o xg-gl-5.tmp xg-gl-5.glade
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+# Don't simplify this to "grep ... < xg-gl-5.tmp", otherwise OpenBSD 4.0 grep
+# only outputs "Binary file (standard input) matches".
+cat xg-gl-5.tmp | grep -v 'POT-Creation-Date' > xg-gl-5.pot
+
+${DIFF} xg-gl-5.ok xg-gl-5.pot
+result=$?
+
+test $result = 0 || {
+  rm -fr $tmpfiles; exit $result
+}
+
 tmpfiles="$tmpfiles xg-gl-5b.glade"
 cat <<EOF > xg-gl-5b.glade
 <?xml version="1.0"?>

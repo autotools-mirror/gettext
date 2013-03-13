@@ -73,6 +73,18 @@ EOF
 ${DIFF} xg-gl-6.ok xg-gl-6.pot
 result=$?
 
+test $result = 0 || {
+  rm -fr $tmpfiles; exit $result
+}
+
+# Check with --extract-all option.
+${XGETTEXT} -a -o - xg-gl-6.ui | grep -v 'POT-Creation-Date' > xg-gl-6.pot
+test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+
+# Must be ignored.
+${DIFF} xg-gl-6.ok xg-gl-6.pot
+result=$?
+
 rm -fr $tmpfiles
 
 exit $result
