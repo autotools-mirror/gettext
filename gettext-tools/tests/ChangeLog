@@ -1,3 +1,8 @@
+2013-03-03  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
+
+	Add a test case for atkproperty tag in Glade2 files.
+	* xgettext-glade-4: New test case for atkproperty.
+
 2013-03-14  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
 
 	Test msgctxt extraction on glade files.
