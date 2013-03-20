@@ -81,6 +81,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-elisp-1 xgettext-elisp-2 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 xgettext-glade-4 \
 	xgettext-glade-5 \
+	xgettext-gtkbuilder-1 xgettext-gtkbuilder-2 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
 	xgettext-java-5 xgettext-java-6 xgettext-java-7 \
 	xgettext-librep-1 xgettext-librep-2 \
@@ -148,7 +149,7 @@ EXTRA_DIST += $(TESTS) \
 	ChangeLog.0 \
 	gettext-3-1.po gettext-3-2.po gettext-4.po gettext-5.po \
 	gettext-6-1.po gettext-6-2.po gettext-7.po \
-	gettextpo-1.de.po
+	gettextpo-1.de.po xgettext-gtkbuilder-empty.ui
 
 XGETTEXT = ../src/xgettext
 

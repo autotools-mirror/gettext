@@ -1,3 +1,12 @@
+2013-06-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
+
+	Tests for GtkBuilder support.
+	* Makefile.am (TESTS): New tests xgettext-gtkbuilder{1,2}.
+	(EXTRA_DIST): Added file 'xgettext-gtkbuilder-empty.ui'.
+	* xgettext-gtkbuilder-empty.ui: New file for testing.
+	* xgettext-gtkbuilder-1: New test.
+	* xgettext-gtkbuilder-2: Likewise.
+
 2013-06-06  Daiki Ueno  <ueno@gnu.org>
 
 	* lang-javascript: Check if gjs gettext and format modules are
