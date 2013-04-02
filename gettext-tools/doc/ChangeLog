@@ -1,3 +1,7 @@
+2013-04-02  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext.texi (PO Files): Use '@pxref' instead of '@xref'.
+
 2013-03-12  Andreas Stricker  <astricker@futurelab.ch>  (tiny change)
 
 	* msgfmt.texi (PO Format): A note about the header entry

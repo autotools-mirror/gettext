@@ -507,4 +507,5 @@ distdir1:
 	done
 
 # Temporary directories created by po/Makefile.
-CLEANFILES = tmp-hello-*
+clean-local:
+	-rm -rf tmp-hello-*
