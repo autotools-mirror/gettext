@@ -233,6 +233,7 @@ format-qt.c            Format string handling for Qt.
 format-qt-plural.c     Format string handling for Qt plural forms.
 format-kde.c           Format string handling for KDE.
 format-boost.c         Format string handling for Boost.
+format-lua.c           Format string handling for Lua.
 format.c        Table of the language dependent format string handlers.
 
 plural-exp.c
