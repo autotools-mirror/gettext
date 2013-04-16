@@ -1,3 +1,13 @@
+2013-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	Support explicit string concatenation in Python.
+	* x-python.c (enum token_type_ty): New enumeration item
+	token_type_plus.
+	(free_token): New function.
+	(phase5_get): Recognize token_type_plus.
+	(x_python_lex): Handle string concatenation with '+'.
+	(extract_balanced): Handle token_type_plus.
+
 2013-04-18  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.c (usage): Wrap long lines in --help output.

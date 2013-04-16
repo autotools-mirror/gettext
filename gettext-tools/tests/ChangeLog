@@ -1,3 +1,8 @@
+2013-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	Support explicit string concatenation in Python.
+	* xgettext-python-1: Add test for explicit string concatenation.
+
 2013-04-17  Andreas Stricker  <astricker@futurelab.ch>
 
 	Support for JavaScript.
