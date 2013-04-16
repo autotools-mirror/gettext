@@ -1,5 +1,11 @@
 2013-04-22  Daiki Ueno  <ueno@gnu.org>
 
+	Support CR/LF line terminators in Python sources even on Unix.
+	* x-python.c (phase0_getc, phase0_ungetc): New functions.
+	(phase1_getc): Use them instead of calling getc/ungetc directly.
+
+2013-04-22  Daiki Ueno  <ueno@gnu.org>
+
 	Support explicit string concatenation in Python.
 	* x-python.c (enum token_type_ty): New enumeration item
 	token_type_plus.

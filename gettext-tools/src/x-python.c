@@ -149,6 +149,46 @@ static int line_number;
 static FILE *fp;
 
 
+/* 0. Terminate line by \n, regardless whether the external
+   representation of a line terminator is CR (Mac), and CR/LF
+   (DOS/Windows), as Python treats them equally.  */
+static int
+phase0_getc ()
+{
+  int c;
+
+  c = getc (fp);
+  if (c == EOF)
+    {
+      if (ferror (fp))
+        error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
+               real_file_name);
+      return EOF;
+    }
+
+  if (c == '\r')
+    {
+      int c1 = getc (fp);
+
+      if (c1 != EOF && c1 != '\n')
+        ungetc (c1, fp);
+
+      /* Seen line terminator CR or CR/LF.  */
+      return '\n';
+    }
+
+  return c;
+}
+
+/* Supports only one pushback character, and not '\n'.  */
+static inline void
+phase0_ungetc (int c)
+{
+  if (c != EOF)
+    ungetc (c, fp);
+}
+
+
 /* 1. line_number handling.  */
 
 /* Maximum used, roughly a safer MB_LEN_MAX.  */
@@ -165,17 +205,7 @@ phase1_getc ()
   if (phase1_pushback_length)
     c = phase1_pushback[--phase1_pushback_length];
   else
-    {
-      c = getc (fp);
-
-      if (c == EOF)
-        {
-          if (ferror (fp))
-            error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
-                   real_file_name);
-          return EOF;
-        }
-    }
+    c = phase0_getc ();
 
   if (c == '\n')
     ++line_number;
