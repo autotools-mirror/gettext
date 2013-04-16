@@ -619,7 +619,47 @@ phase3_get (token_ty *tp)
                     case 'v':
                       string_add ('\v');
                       break;
+                    case 'x':
+                      {
+                        int num = 0;
+                        int i = 0;
 
+                        for (i = 0; i < 2; i++)
+                          {
+                            c = phase1_getc ();
+                            if (c >= '0' && c <= '9')
+                              num += c - '0';
+                            else if (c >= 'a' && c <= 'f')
+                              num += c - 'a' + 10;
+                            else if (c >= 'A' && c <= 'F')
+                              num += c - 'A' + 10;
+                            else
+                              {
+                                phase1_ungetc (c);
+                                break;
+                              }
+
+                            if (i == 0)
+                              num *= 16;
+                          }
+
+                        if (i == 2)
+                          string_add (num);
+                      }
+
+                      break;
+                    case 'z':
+                      /* Ignore the following whitespace.  */
+                      do
+                        {
+                          c = phase1_getc ();
+                        }
+                      while (c == ' ' || c == '\n' || c == '\t' || c == '\r'
+                             || c == '\f' || c == '\v');
+
+                      phase1_ungetc (c);
+
+                      break;
                     default:
                       /* Check if it's a '\ddd' sequence.  */
                       if (c >= '0' && c <= '9')

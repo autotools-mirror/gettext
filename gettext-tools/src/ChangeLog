@@ -1,3 +1,8 @@
+2013-04-16  Ľubomír Remák  <lubomirr@lubomirr.eu>
+
+	Support for escape sequences added in Lua 5.2.
+	* x-lua.c (phase3_get): Add \x and \z escape sequences.
+
 2013-04-11  Ľubomír Remák  <lubomirr@lubomirr.eu>
 
 	Support for Lua.
