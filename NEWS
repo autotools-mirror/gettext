@@ -1,6 +1,14 @@
 Version 0.18.3 - unreleased
 
-* xgettext now supports Lua.
+* Programming languages support:
+
+  - Lua
+
+    xgettext now supports Lua.
+
+  - JavaScript
+
+    xgettext now supports JavaScript.
 
 
 Version 0.18.2 - December 2012
