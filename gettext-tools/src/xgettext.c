@@ -867,7 +867,8 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Scheme, Smalltalk, Java,\n\
                                 JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
-                                Lua, JavaScript, GCC-source, NXStringTable, RST, Glade)\n"));
+                                Lua, JavaScript, GCC-source, NXStringTable, RST,\n\
+                                Glade)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -900,21 +901,24 @@ Language specific options:\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript, GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript,\n\
+                                GCC-source, Glade)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript, GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript,\n\
+                                GCC-source, Glade)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, YCP, Tcl, Perl, PHP, Lua, JavaScript, GCC-source)\n"));
+                                C#, awk, YCP, Tcl, Perl, PHP, Lua, JavaScript,\n\
+                                GCC-source)\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\
