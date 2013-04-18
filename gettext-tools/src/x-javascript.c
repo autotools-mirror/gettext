@@ -1401,9 +1401,7 @@ phase5_unget (token_ty *tp)
 }
 
 
-/* Combine adjacent strings to form a single string.  Note that the end
-   of a logical line appears as a token of its own, therefore strings that
-   belong to different logical lines will not be concatenated.  */
+/* String concatenation with '+'.  */
 
 static void
 x_javascript_lex (token_ty *tp)
