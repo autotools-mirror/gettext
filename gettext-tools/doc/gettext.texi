@@ -1507,6 +1507,12 @@ Likewise for Shell, see @ref{sh-format}.
 @kwindex no-python-format@r{ flag}
 Likewise for Python, see @ref{python-format}.
 
+@item python-brace-format
+@kwindex python-brace-format@r{ flag}
+@itemx no-python-brace-format
+@kwindex no-python-brace-format@r{ flag}
+Likewise for Python brace, see @ref{python-format}.
+
 @item lisp-format
 @kwindex lisp-format@r{ flag}
 @itemx no-lisp-format
@@ -9059,13 +9065,21 @@ a variable reference is ignored.
 @node python-format, lisp-format, sh-format, Translators for other Languages
 @subsection Python Format Strings
 
-Python format strings are described in
+There are two kinds of format strings in Python: those acceptable to
+the Python built-in format operator @code{%}, labelled as
+@samp{python-format}, and those acceptable to the @code{format} method
+of the @samp{str} object.
+
+Python @code{%} format strings are described in
 @w{Python Library reference} /
 @w{2. Built-in Types, Exceptions and Functions} /
 @w{2.2. Built-in Types} /
 @w{2.2.6. Sequence Types} /
 @w{2.2.6.2. String Formatting Operations}.
 @uref{http://www.python.org/doc/2.2.1/lib/typesseq-strings.html}.
+
+Python brace format strings are described in @w{PEP 3101 -- Advanced
+String Formatting}, @uref{http://www.python.org/dev/peps/pep-3101/}.
 
 @node lisp-format, elisp-format, python-format, Translators for other Languages
 @subsection Lisp Format Strings

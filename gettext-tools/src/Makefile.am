@@ -118,6 +118,7 @@ FORMAT_SOURCE += \
   format-c.c format-c-parse.h \
   format-sh.c \
   format-python.c \
+  format-python-brace.c \
   format-lisp.c \
   format-elisp.c \
   format-librep.c \

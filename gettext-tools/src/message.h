@@ -47,6 +47,7 @@ enum format_type
   format_objc,
   format_sh,
   format_python,
+  format_python_brace,
   format_lisp,
   format_elisp,
   format_librep,
@@ -70,7 +71,7 @@ enum format_type
   format_lua,
   format_javascript
 };
-#define NFORMATS 26     /* Number of format_type enum values.  */
+#define NFORMATS 27     /* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

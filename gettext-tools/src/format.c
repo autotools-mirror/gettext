@@ -38,6 +38,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_objc */             &formatstring_objc,
   /* format_sh */               &formatstring_sh,
   /* format_python */           &formatstring_python,
+  /* format_python_brace */     &formatstring_python_brace,
   /* format_lisp */             &formatstring_lisp,
   /* format_elisp */            &formatstring_elisp,
   /* format_librep */           &formatstring_librep,

@@ -65,6 +65,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-c.c \
   ../src/format-sh.c \
   ../src/format-python.c \
+  ../src/format-python-brace.c \
   ../src/format-lisp.c \
   ../src/format-elisp.c \
   ../src/format-librep.c \
