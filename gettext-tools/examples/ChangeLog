@@ -1,3 +1,7 @@
+2013-04-23  Daiki Ueno  <ueno@gnu.org>
+
+	* po/xsmallpot.sh: Don't assume that aclocal accepts configure.in.
+
 2013-04-02  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (clean-local): New rule to remove tmp-hello-*.
