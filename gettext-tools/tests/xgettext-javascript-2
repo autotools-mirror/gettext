@@ -28,6 +28,9 @@ if (false)
   /foo/.match(_("RegExp test string #12"));
 else
   /foo/.match(_("RegExp test string #13"));
+var s7 = /a\/\f\r\n\t\v\0\b\s\S\w\W\d\D\b\Bb/.test(_("RegExp test string #14"));
+var s8 = /(?=(a+))a*b\1/.exec(_("RegExp test string #15"));
+var s9 = /_("a+")/.exec(_("RegExp test string #16"));
 EOF
 
 tmpfiles="$tmpfiles xg-js-2.err xg-js-2.tmp xg-js-2.pot"
@@ -95,6 +98,15 @@ msgid "RegExp test string #12"
 msgstr ""
 
 msgid "RegExp test string #13"
+msgstr ""
+
+msgid "RegExp test string #14"
+msgstr ""
+
+msgid "RegExp test string #15"
+msgstr ""
+
+msgid "RegExp test string #16"
 msgstr ""
 EOF
 

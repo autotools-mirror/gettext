@@ -1,3 +1,14 @@
+2013-05-12  Andreas Stricker <astricker@futurelab.ch>
+
+	Improve JavaScript scanner tests.
+	* xgettext-javascript-2: Add tests for backslash escapes and
+	_(...) call in regular expressions.
+	* xgettext-javascript-3: Use distinct temporary file names.
+	* xgettext-javascript-4: Likewise.
+	* xgettext-javascript-5: Add tests for unbalanced double-quotes in
+	regular expressions and strings.
+	* Makefile.am (TESTS): Add xgettext-javascript-5.
+
 2013-05-02  Daiki Ueno  <ueno@gnu.org>
 
 	* format-python-brace-2: Fix test for added argument.

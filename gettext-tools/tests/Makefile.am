@@ -102,7 +102,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	xgettext-lua-1 xgettext-lua-2 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
-	xgettext-javascript-4 \
+	xgettext-javascript-4 xgettext-javascript-5 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \

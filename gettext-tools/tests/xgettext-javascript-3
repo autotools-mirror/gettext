@@ -6,8 +6,8 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
-tmpfiles="$tmpfiles xg-js-2.js"
-cat <<\EOF > xg-js-2.js
+tmpfiles="$tmpfiles xg-js-3.js"
+cat <<\EOF > xg-js-3.js
 // The usual way to concatenate strings is the plus '+' sign
 var s1 = _("Concatenation #1 " + "- String part added");
 var s2 = _('Concatenation #2 ' + '- String part added');
@@ -16,16 +16,16 @@ var s3 = _("This" + " whole "
          ' should' + " be " + 'extracted');
 EOF
 
-tmpfiles="$tmpfiles xg-js-2.err xg-js-2.tmp xg-js-2.pot"
+tmpfiles="$tmpfiles xg-js-3.err xg-js-3.tmp xg-js-3.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments --no-location -o xg-js-2.tmp xg-js-2.js 2>xg-js-2.err
-test $? = 0 || { cat xg-js-2.err; rm -fr $tmpfiles; exit 1; }
-# Don't simplify this to "grep ... < xg-js-2.tmp", otherwise OpenBSD 4.0 grep
+${XGETTEXT} --add-comments --no-location -o xg-js-3.tmp xg-js-3.js 2>xg-js-3.err
+test $? = 0 || { cat xg-js-3.err; rm -fr $tmpfiles; exit 1; }
+# Don't simplify this to "grep ... < xg-js-3.tmp", otherwise OpenBSD 4.0 grep
 # only outputs "Binary file (standard input) matches".
-cat xg-js-2.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-js-2.pot
+cat xg-js-3.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-js-3.pot
 
-tmpfiles="$tmpfiles xg-js-2.ok"
-cat <<\EOF > xg-js-2.ok
+tmpfiles="$tmpfiles xg-js-3.ok"
+cat <<\EOF > xg-js-3.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -55,7 +55,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-js-2.ok xg-js-2.pot
+${DIFF} xg-js-3.ok xg-js-3.pot
 result=$?
 
 rm -fr $tmpfiles
