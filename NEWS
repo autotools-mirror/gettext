@@ -10,6 +10,11 @@ Version 0.18.3 - unreleased
 
     xgettext now supports JavaScript.
 
+  - Python
+
+    xgettext and msgfmt's format string checking now recognize Python
+    format string in braced syntax (PEP 3101).
+
 
 Version 0.18.2 - December 2012
 
