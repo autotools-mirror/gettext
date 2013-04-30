@@ -1,5 +1,10 @@
 2013-04-30  Daiki Ueno  <ueno@gnu.org>
 
+	* POTFILES.in: Add src/format-javascript.c, src/format-lua.c,
+	src/format-python-brace.c, src/x-javascript.c, and src/x-lua.c.
+
+2013-04-30  Daiki Ueno  <ueno@gnu.org>
+
 	Update after gnulib changed.
 	* POTFILES.in: Add gnulib-lib/set-acl.c.  Remove
 	gnulib-lib/set-mode-acl.c.
