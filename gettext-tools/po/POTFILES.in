@@ -21,7 +21,7 @@ gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
-gnulib-lib/set-mode-acl.c
+gnulib-lib/set-acl.c
 gnulib-lib/spawn-pipe.c
 gnulib-lib/w32spawn.h
 gnulib-lib/wait-process.c

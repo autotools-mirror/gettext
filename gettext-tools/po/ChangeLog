@@ -1,3 +1,9 @@
+2013-04-30  Daiki Ueno  <ueno@gnu.org>
+
+	Update after gnulib changed.
+	* POTFILES.in: Add gnulib-lib/set-acl.c.  Remove
+	gnulib-lib/set-mode-acl.c.
+
 2013-03-02  Bruno Haible  <bruno@clisp.org>
 
 	* bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
