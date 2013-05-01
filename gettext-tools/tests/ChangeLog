@@ -1,3 +1,7 @@
+2013-05-02  Daiki Ueno  <ueno@gnu.org>
+
+	* format-python-brace-2: Fix test for added argument.
+
 2013-04-26  Daiki Ueno  <ueno@gnu.org>
 
 	Support for Python brace format.
