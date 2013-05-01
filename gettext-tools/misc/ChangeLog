@@ -1,3 +1,10 @@
+2013-05-02  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in (func_trace): New function; use it all in places
+	where Autoconf macro trace is needed.
+	(func_version): Bump copyright year.
+	* gettextize.in (func_version): Bump copyright year.
+
 2013-03-05  Daiki Ueno  <ueno@gnu.org>
 
 	* po-mode.el (po-font-lock-keywords): Properly highlight C format
