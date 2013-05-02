@@ -385,6 +385,10 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
      && (cd tests && make update-expected) \
      && make distclean
  fi
+ if ! test -f misc/archive.dir.tar; then
+   wget -q --timeout=5 -O - ftp://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.gz | gzip -d -c > misc/archive.dir.tar-t \
+     && mv misc/archive.dir.tar-t misc/archive.dir.tar
+ fi
 )
 
 build-aux/fixaclocal aclocal -I m4
