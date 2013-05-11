@@ -1,3 +1,11 @@
+2013-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	Fix end-of-string handling in JavaScript scanner.
+	* x-javascript.c (phase7_getuc): Remove unused BACKSLASH_COUNTER
+	argument; all callers changed.
+	Reported by Andreas Stricker in
+	<http://lists.gnu.org/archive/html/bug-gettext/2013-04/msg00051.html>.
+
 2013-05-03  Daiki Ueno  <ueno@gnu.org>
 
 	* user-email.sh.in (lowercase_sed): Don't use non-portable

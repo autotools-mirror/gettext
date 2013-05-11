@@ -963,7 +963,7 @@ free_token (token_ty *tp)
      \uNNNN  */
 
 static int
-phase7_getuc (int quote_char, unsigned int *backslash_counter)
+phase7_getuc (int quote_char)
 {
   int c;
 
@@ -975,10 +975,8 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
       if (c == UEOF)
         return P7_EOF;
 
-      if (c == quote_char && (*backslash_counter & 1) == 0)
-        {
-          return P7_STRING_END;
-        }
+      if (c == quote_char)
+	return P7_STRING_END;
 
       if (c == '\n')
         {
@@ -991,46 +989,32 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
         }
 
       if (c != '\\')
-        {
-          *backslash_counter = 0;
-          return UNICODE (c);
-        }
+	return UNICODE (c);
 
       /* Dispatch according to the character following the backslash.  */
       c = phase2_getc ();
       if (c == UEOF)
-        {
-          ++*backslash_counter;
-          return UNICODE ('\\');
-        }
+	return UNICODE ('\\');
 
         switch (c)
           {
           case '\n':
             continue;
           case '\\':
-            ++*backslash_counter;
             return UNICODE (c);
           case '\'': case '"':
-            *backslash_counter = 0;
             return UNICODE (c);
           case 'b':
-            *backslash_counter = 0;
             return UNICODE ('\b');
           case 'f':
-            *backslash_counter = 0;
             return UNICODE ('\f');
           case 'n':
-            *backslash_counter = 0;
             return UNICODE ('\n');
           case 'r':
-            *backslash_counter = 0;
             return UNICODE ('\r');
           case 't':
-            *backslash_counter = 0;
             return UNICODE ('\t');
           case 'v':
-            *backslash_counter = 0;
             return UNICODE ('\v');
           case '0': case '1': case '2': case '3': case '4':
           case '5': case '6': case '7':
@@ -1055,7 +1039,6 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
                   else
                     phase2_ungetc (c);
                 }
-              *backslash_counter = 0;
               return UNICODE (n);
             }
           case 'x':
@@ -1089,7 +1072,6 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
                   if (n2 >= 0)
                     {
                       int n = (n1 << 4) + n2;
-                      *backslash_counter = 0;
                       return UNICODE (n);
                     }
 
@@ -1097,7 +1079,6 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
                 }
               phase2_ungetc (c1);
               phase2_ungetc (c);
-              ++*backslash_counter;
               return UNICODE ('\\');
             }
           case 'u':
@@ -1122,13 +1103,11 @@ phase7_getuc (int quote_char, unsigned int *backslash_counter)
                       while (--i >= 0)
                         phase2_ungetc (buf[i]);
                       phase2_ungetc (c);
-                      ++*backslash_counter;
                       return UNICODE ('\\');
                     }
 
                   buf[i] = c1;
                 }
-              *backslash_counter = 0;
               return UNICODE (n);
             }
           }
@@ -1299,17 +1278,15 @@ phase5_get (token_ty *tp)
           {
             struct mixed_string_buffer literal;
             int quote_char;
-            unsigned int backslash_counter;
 
             case '"': case '\'':
               quote_char = c;
               lexical_context = lc_string;
-              backslash_counter = 0;
               /* Start accumulating the string.  */
               init_mixed_string_buffer (&literal, lc_string);
               for (;;)
                 {
-                  int uc = phase7_getuc (quote_char, &backslash_counter);
+                  int uc = phase7_getuc (quote_char);
 
                   if (uc == P7_EOF || uc == P7_STRING_END)
                     break;
