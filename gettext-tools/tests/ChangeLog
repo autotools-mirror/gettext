@@ -1,3 +1,7 @@
+2013-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-javascript-4: Add a test for normal escape sequences.
+
 2013-05-12  Andreas Stricker <astricker@futurelab.ch>
 
 	Improve JavaScript scanner tests.

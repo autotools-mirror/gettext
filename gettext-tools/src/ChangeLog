@@ -1,3 +1,8 @@
+2013-05-21  Daiki Ueno  <ueno@gnu.org>
+
+	* x-javascript.c (phase7_getuc): Treat non-legitimate character
+	escape sequences more strictly.
+
 2013-05-20  Pavel Kharitonov  <ineiev@gnu.org>  (tiny change)
 
 	Add --previous option to msgattrib.

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Test of JavaScript Unicode support.
+# Test of JavaScript escape sequences in string literals.
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
@@ -9,6 +9,7 @@ tmpfiles="$tmpfiles xg-js-4.js"
 cat <<\EOF > xg-js-4.js
 var s1 = _("Unicode escape \u3042");
 var s2 = _("Surrogate pair \uD835\uDC9C");
+var s3 = _("Escape sequence \1411 \x622 \xxx \y");
 EOF
 
 tmpfiles="$tmpfiles xg-js-4.err xg-js-4.tmp xg-js-4.pot"
@@ -43,6 +44,9 @@ msgid "Unicode escape あ"
 msgstr ""
 
 msgid "Surrogate pair 𝒜"
+msgstr ""
+
+msgid "Escape sequence a1 b2 xxx y"
 msgstr ""
 EOF
 

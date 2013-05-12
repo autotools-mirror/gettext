@@ -960,7 +960,10 @@ free_token (token_ty *tp)
    sequences or deprecated octal escape sequences:
      \xXX, \OOO
    Any unicode point can be entered using Unicode escape sequences:
-     \uNNNN  */
+     \uNNNN
+   If a sequence after a backslash is not a legitimate character
+   escape sequence, the character value is the sequence itself without
+   a backslash.  For example, \xxx is treated as xxx.  */
 
 static int
 phase7_getuc (int quote_char)
@@ -976,7 +979,7 @@ phase7_getuc (int quote_char)
         return P7_EOF;
 
       if (c == quote_char)
-	return P7_STRING_END;
+        return P7_STRING_END;
 
       if (c == '\n')
         {
@@ -989,128 +992,124 @@ phase7_getuc (int quote_char)
         }
 
       if (c != '\\')
-	return UNICODE (c);
+        return UNICODE (c);
 
       /* Dispatch according to the character following the backslash.  */
       c = phase2_getc ();
       if (c == UEOF)
-	return UNICODE ('\\');
+        return P7_EOF;
 
-        switch (c)
+      switch (c)
+        {
+        case '\n':
+          continue;
+        case 'b':
+          return UNICODE ('\b');
+        case 'f':
+          return UNICODE ('\f');
+        case 'n':
+          return UNICODE ('\n');
+        case 'r':
+          return UNICODE ('\r');
+        case 't':
+          return UNICODE ('\t');
+        case 'v':
+          return UNICODE ('\v');
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7':
           {
-          case '\n':
-            continue;
-          case '\\':
-            return UNICODE (c);
-          case '\'': case '"':
-            return UNICODE (c);
-          case 'b':
-            return UNICODE ('\b');
-          case 'f':
-            return UNICODE ('\f');
-          case 'n':
-            return UNICODE ('\n');
-          case 'r':
-            return UNICODE ('\r');
-          case 't':
-            return UNICODE ('\t');
-          case 'v':
-            return UNICODE ('\v');
-          case '0': case '1': case '2': case '3': case '4':
-          case '5': case '6': case '7':
-            {
-              int n = c - '0';
+            int n = c - '0';
 
-              c = phase2_getc ();
-              if (c != UEOF)
-                {
-                  if (c >= '0' && c <= '7')
-                    {
-                      n = (n << 3) + (c - '0');
-                      c = phase2_getc ();
-                      if (c != UEOF)
-                        {
-                          if (c >= '0' && c <= '7')
-                            n = (n << 3) + (c - '0');
-                          else
-                            phase2_ungetc (c);
-                        }
-                    }
-                  else
-                    phase2_ungetc (c);
-                }
-              return UNICODE (n);
-            }
-          case 'x':
-            {
-              int c1 = phase2_getc ();
-              int n1;
-
-              if (c1 >= '0' && c1 <= '9')
-                n1 = c1 - '0';
-              else if (c1 >= 'A' && c1 <= 'F')
-                n1 = c1 - 'A' + 10;
-              else if (c1 >= 'a' && c1 <= 'f')
-                n1 = c1 - 'a' + 10;
-              else
-                n1 = -1;
-
-              if (n1 >= 0)
-                {
-                  int c2 = phase2_getc ();
-                  int n2;
-
-                  if (c2 >= '0' && c2 <= '9')
-                    n2 = c2 - '0';
-                  else if (c2 >= 'A' && c2 <= 'F')
-                    n2 = c2 - 'A' + 10;
-                  else if (c2 >= 'a' && c2 <= 'f')
-                    n2 = c2 - 'a' + 10;
-                  else
-                    n2 = -1;
-
-                  if (n2 >= 0)
-                    {
-                      int n = (n1 << 4) + n2;
-                      return UNICODE (n);
-                    }
-
-                  phase2_ungetc (c2);
-                }
-              phase2_ungetc (c1);
-              phase2_ungetc (c);
-              return UNICODE ('\\');
-            }
-          case 'u':
-            {
-              unsigned char buf[4];
-              unsigned int n = 0;
-              int i;
-
-              for (i = 0; i < 4; i++)
-                {
-                  int c1 = phase2_getc ();
-
-                  if (c1 >= '0' && c1 <= '9')
-                    n = (n << 4) + (c1 - '0');
-                  else if (c1 >= 'A' && c1 <= 'F')
-                    n = (n << 4) + (c1 - 'A' + 10);
-                  else if (c1 >= 'a' && c1 <= 'f')
-                    n = (n << 4) + (c1 - 'a' + 10);
-                  else
-                    {
-                      phase2_ungetc (c1);
-                      while (--i >= 0)
-                        phase2_ungetc (buf[i]);
-                      phase2_ungetc (c);
-                      return UNICODE ('\\');
-                    }
-
-                  buf[i] = c1;
-                }
-              return UNICODE (n);
-            }
+            c = phase2_getc ();
+            if (c != UEOF)
+              {
+                if (c >= '0' && c <= '7')
+                  {
+                    n = (n << 3) + (c - '0');
+                    c = phase2_getc ();
+                    if (c != UEOF)
+                      {
+                        if (c >= '0' && c <= '7')
+                          n = (n << 3) + (c - '0');
+                        else
+                          phase2_ungetc (c);
+                      }
+                  }
+                else
+                  phase2_ungetc (c);
+              }
+            return UNICODE (n);
           }
+        case 'x':
+          {
+            int c1 = phase2_getc ();
+            int n1;
+
+            if (c1 >= '0' && c1 <= '9')
+              n1 = c1 - '0';
+            else if (c1 >= 'A' && c1 <= 'F')
+              n1 = c1 - 'A' + 10;
+            else if (c1 >= 'a' && c1 <= 'f')
+              n1 = c1 - 'a' + 10;
+            else
+              n1 = -1;
+
+            if (n1 >= 0)
+              {
+                int c2 = phase2_getc ();
+                int n2;
+
+                if (c2 >= '0' && c2 <= '9')
+                  n2 = c2 - '0';
+                else if (c2 >= 'A' && c2 <= 'F')
+                  n2 = c2 - 'A' + 10;
+                else if (c2 >= 'a' && c2 <= 'f')
+                  n2 = c2 - 'a' + 10;
+                else
+                  n2 = -1;
+
+                if (n2 >= 0)
+                  {
+                    int n = (n1 << 4) + n2;
+                    return UNICODE (n);
+                  }
+
+                phase2_ungetc (c2);
+              }
+            phase2_ungetc (c1);
+            return UNICODE (c);
+          }
+        case 'u':
+          {
+            unsigned char buf[4];
+            unsigned int n = 0;
+            int i;
+
+            for (i = 0; i < 4; i++)
+              {
+                int c1 = phase2_getc ();
+
+                if (c1 >= '0' && c1 <= '9')
+                  n = (n << 4) + (c1 - '0');
+                else if (c1 >= 'A' && c1 <= 'F')
+                  n = (n << 4) + (c1 - 'A' + 10);
+                else if (c1 >= 'a' && c1 <= 'f')
+                  n = (n << 4) + (c1 - 'a' + 10);
+                else
+                  {
+                    phase2_ungetc (c1);
+                    while (--i >= 0)
+                      phase2_ungetc (buf[i]);
+                    return UNICODE (c);
+                  }
+
+                buf[i] = c1;
+              }
+            return UNICODE (n);
+          }
+        default:
+          return UNICODE (c);
+        }
     }
 }
 
