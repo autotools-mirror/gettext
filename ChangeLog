@@ -1,3 +1,8 @@
+2013-05-13  Daiki Ueno  <ueno@gnu.org>
+
+	Fix bootstrap error on Mac OS X.
+	* autogen.sh (GNULIB_MODULES_LIBGETTEXTPO): Add strchrnul.
+
 2013-05-02  Daiki Ueno  <ueno@gnu.org>
 
 	* autogen.sh: Retrieve archive.dir.tar from FTP when bootstrapping.

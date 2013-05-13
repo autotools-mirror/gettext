@@ -299,6 +299,7 @@ if ! $skip_gnulib; then
       stdbool
       stdio
       stdlib
+      strchrnul
       strerror
       unilbrk/ulc-width-linebreaks
       unistr/u8-mbtouc
