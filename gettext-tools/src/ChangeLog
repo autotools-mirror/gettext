@@ -1,3 +1,9 @@
+2013-05-20  Pavel Kharitonov  <ineiev@gnu.org>  (tiny change)
+
+	Add --previous option to msgattrib.
+	* msgattrib.c (long_options, main, process_message_list):
+	(usage): Add --previous option.
+
 2013-05-12  Daiki Ueno  <ueno@gnu.org>
 
 	Fix end-of-string handling in JavaScript scanner.
