@@ -15,6 +15,10 @@ Version 0.18.3 - unreleased
     xgettext and msgfmt's format string checking now recognize Python
     format string in braced syntax (PEP 3101).
 
+  - Vala
+
+    xgettext now supports Vala.
+
 * msgattrib now has --previous option to keep previous msgid when
   making messages fuzzy, similar to msgmerge --previous.
 

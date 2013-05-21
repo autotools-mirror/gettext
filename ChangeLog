@@ -1,3 +1,8 @@
+2013-06-04  Daiki Ueno  <ueno@gnu.org>
+
+	Support for Vala.
+	* NEWS: Mention Vala support.
+
 2013-05-29  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
 
 	* configure.ac (AM_INIT_AUTOMAKE): Add 'parallel-tests' option.

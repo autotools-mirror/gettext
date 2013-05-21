@@ -1,3 +1,9 @@
+2013-06-04  Daiki Ueno  <ueno@gnu.org>
+
+	Support for Vala.
+	* xgettext.texi: Document Vala source language. Document
+	that it is applicable to --flag.
+
 2013-05-20  Pavel Kharitonov  <ineiev@gnu.org>  (tiny change)
 
 	Add --previous option to msgattrib.

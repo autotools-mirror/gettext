@@ -118,6 +118,7 @@ src/x-scheme.c
 src/x-sh.c
 src/x-smalltalk.c
 src/x-tcl.c
+src/x-vala.c
 src/x-ycp.c
 src/xgettext.c
 src/user-email.sh.in

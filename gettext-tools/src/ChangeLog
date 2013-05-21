@@ -1,3 +1,19 @@
+2013-06-04  Daiki Ueno  <ueno@gnu.org>
+
+	Support for Vala.
+	* x-vala.h: New file.
+	* x-vala.c: New file.
+	* xgettext.c: Include x-vala.h.
+	(flag_table_vala): New variable.
+	(main): Invoke init_flag_table_vala, x_vala_extract_all,
+	x_vala_keyword.
+	(usage): Mention Vala source language.
+	(language_to_extractor): Add Vala rule.
+	(extension_to_language): Add Vala rule.
+	* Makefile.am (noinst_HEADERS): Add x-vala.h.
+	(xgettext_SOURCES): Add x-vala.c.
+	* FILES: Update.
+
 2013-05-21  Daiki Ueno  <ueno@gnu.org>
 
 	* x-javascript.c (phase7_getuc): Treat non-legitimate character

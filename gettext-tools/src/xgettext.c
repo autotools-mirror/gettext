@@ -94,6 +94,7 @@
 #include "x-glade.h"
 #include "x-lua.h"
 #include "x-javascript.h"
+#include "x-vala.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -164,6 +165,7 @@ static flag_context_list_table_ty flag_table_perl;
 static flag_context_list_table_ty flag_table_php;
 static flag_context_list_table_ty flag_table_lua;
 static flag_context_list_table_ty flag_table_javascript;
+static flag_context_list_table_ty flag_table_vala;
 
 /* If true, recognize Qt format strings.  */
 static bool recognize_format_qt;
@@ -337,6 +339,7 @@ main (int argc, char *argv[])
   init_flag_table_php ();
   init_flag_table_lua ();
   init_flag_table_javascript ();
+  init_flag_table_vala ();
 
   while ((optchar = getopt_long (argc, argv,
                                  "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:x:",
@@ -363,6 +366,7 @@ main (int argc, char *argv[])
         x_glade_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
+        x_vala_extract_all ();
         break;
 
       case 'c':
@@ -442,6 +446,7 @@ main (int argc, char *argv[])
         x_glade_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
+        x_vala_keyword (optarg);
         if (optarg == NULL)
           no_default_keywords = true;
         else
@@ -867,8 +872,8 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Scheme, Smalltalk, Java,\n\
                                 JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
-                                Lua, JavaScript, GCC-source, NXStringTable, RST,\n\
-                                Glade)\n"));
+                                GCC-source, NXStringTable, RST, Glade, Lua,\n\
+                                JavaScript, Vala)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -901,24 +906,24 @@ Language specific options:\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript,\n\
-                                GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n\
+                                Lua, JavaScript, Vala)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, Lua, JavaScript,\n\
-                                GCC-source, Glade)\n"));
+                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n\
+                                Lua, JavaScript, Vala)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, YCP, Tcl, Perl, PHP, Lua, JavaScript,\n\
-                                GCC-source)\n"));
+                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n\
+                                Lua, JavaScript, Vala)\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\
@@ -3216,6 +3221,7 @@ language_to_extractor (const char *name)
     SCANNERS_GLADE
     SCANNERS_LUA
     SCANNERS_JAVASCRIPT
+    SCANNERS_VALA
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -3301,6 +3307,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_GLADE
     EXTENSIONS_LUA
     EXTENSIONS_JAVASCRIPT
+    EXTENSIONS_VALA
     /* Here may follow more file extensions... */
   };
 
