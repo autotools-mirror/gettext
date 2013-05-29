@@ -11,8 +11,8 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 #       3 - lack %d for value 1 - error
 #       4 - lack %d for value 1 but limited range such that multiple n - error
 
-tmpfiles="$tmpfiles mf-15.po1"
-cat <<\EOF > mf-15.po1
+tmpfiles="$tmpfiles mf-17.po1"
+cat <<\EOF > mf-17.po1
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -39,11 +39,11 @@ msgstr[2] "час и %(number)s четвертей"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o /dev/null mf-15.po1 2>/dev/null
+${MSGFMT} --check -o /dev/null mf-17.po1 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mf-15.po2"
-cat <<\EOF > mf-15.po2
+tmpfiles="$tmpfiles mf-17.po2"
+cat <<\EOF > mf-17.po2
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -70,11 +70,11 @@ msgstr[2] "час и %(number)s четвертей"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o /dev/null mf-15.po2
+${MSGFMT} --check -o /dev/null mf-17.po2
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mf-15.po3"
-cat <<\EOF > mf-15.po3
+tmpfiles="$tmpfiles mf-17.po3"
+cat <<\EOF > mf-17.po3
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -101,11 +101,11 @@ msgstr[2] "час и %(number)s четвертей"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o /dev/null mf-15.po3 2>/dev/null
+${MSGFMT} --check -o /dev/null mf-17.po3 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles mf-15.po4"
-cat <<\EOF > mf-15.po4
+tmpfiles="$tmpfiles mf-17.po4"
+cat <<\EOF > mf-17.po4
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -132,7 +132,7 @@ msgstr[2] "час и %(number)s четвертей"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o /dev/null mf-15.po4 2>/dev/null
+${MSGFMT} --check -o /dev/null mf-17.po4 2>/dev/null
 test $? = 1 || { rm -fr $tmpfiles; exit 1; }
 
 rm -fr $tmpfiles

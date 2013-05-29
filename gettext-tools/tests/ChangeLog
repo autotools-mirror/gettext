@@ -1,3 +1,67 @@
+2013-05-29  Daiki Ueno  <ueno@gnu.org>
+
+	Avoid temp file name collisions in test scripts.
+	* format-c-3: Use distinct temporary file names.
+	* format-c-4: Likewise.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* gettext-1: Likewise.
+	* gettext-2: Likewise.
+	* gettext-3: Likewise.
+	* gettext-4: Likewise.
+	* gettext-5: Likewise.
+	* gettext-6: Likewise.
+	* gettext-7: Likewise.
+	* lang-bash: Likewise.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* lang-clisp: Likewise.
+	* lang-csharp: Likewise.
+	* lang-elisp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-guile: Likewise.
+	* lang-java: Likewise.
+	* lang-javascript: Likewise.
+	* lang-librep: Likewise.
+	* lang-lua: Likewise.
+	* lang-objc: Likewise.
+	* lang-pascal: Likewise.
+	* lang-perl-1: Likewise.
+	* lang-perl-2: Likewise.
+	* lang-php: Likewise.
+	* lang-po: Likewise.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+	* lang-rst: Likewise.
+	* lang-sh: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+	* lang-ycp: Likewise.
+	* msgfmt-1: Likewise.
+	* msgfmt-17: Likewise.
+	* msgfmt-2: Likewise.
+	* msgfmt-properties-1: Likewise.
+	* msgunfmt-csharp-1: Likewise.
+	* msgunfmt-java-1: Likewise.
+	* msgunfmt-tcl-1: Likewise.
+	* plural-1: Likewise.
+	* plural-2: Likewise.
+	* xgettext-glade-1: Likewise.
+	* xgettext-glade-2: Likewise.
+	* xgettext-glade-3: Likewise.
+	* xgettext-glade-4: Likewise.
+	* xgettext-glade-5: Likewise.
+	* xgettext-python-4: Likewise.
+	* xgettext-stringtable-1: Likewise.
+	* format-c-3-prg.c: Use distinct message catalog directory.
+	* format-c-4-prg.c: Likewise.
+	* gettext-3-prg.c: Likewise.
+	* gettext-4-prg.c: Likewise.
+	* gettext-5-prg.c: Likewise.
+	* gettext-6-prg.c: Likewise.
+	* gettext-7-prg.c: Likewise.
+	* plural-1-prg.c: Likewise.
+
 2013-05-12  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-javascript-4: Add a test for normal escape sequences.

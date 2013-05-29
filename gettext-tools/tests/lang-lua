@@ -10,7 +10,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 tmpfiles="$tmpfiles prog.lua"
 cat <<\EOF > prog.lua
 require("gettext")
-gettext.bindtextdomain("prog", ".")
+gettext.bindtextdomain("prog", "l-lua")
 gettext.textdomain("prog")
 _ = gettext.gettext
 n = 42
@@ -20,15 +20,15 @@ print(string.format(gettext.ngettext('a piece of cake', [[%d pieces of cake]], n
 print(string.format(_[==[%s is replaced by %s.]==], "FF", "EUR"))
 EOF
 
-tmpfiles="$tmpfiles prog.tmp prog.pot"
+tmpfiles="$tmpfiles l-lua-prog.tmp l-lua-prog.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o prog.tmp --omit-header --no-location prog.lua
+${XGETTEXT} -o l-lua-prog.tmp --omit-header --no-location prog.lua
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-LC_ALL=C tr -d '\r' < prog.tmp > prog.pot
+LC_ALL=C tr -d '\r' < l-lua-prog.tmp > l-lua-prog.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles prog.ok"
-cat <<\EOF > prog.ok
+tmpfiles="$tmpfiles l-lua-prog.ok"
+cat <<\EOF > l-lua-prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 
@@ -44,10 +44,10 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} prog.ok prog.pot || exit 1
+${DIFF} l-lua-prog.ok l-lua-prog.pot || exit 1
 
-tmpfiles="$tmpfiles fr.po"
-cat <<\EOF > fr.po
+tmpfiles="$tmpfiles l-lua-fr.po"
+cat <<\EOF > l-lua-fr.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -67,22 +67,23 @@ msgid "%s is replaced by %s."
 msgstr "%s remplace %s."
 EOF
 
-tmpfiles="$tmpfiles fr.po.tmp fr.po.new"
+tmpfiles="$tmpfiles l-lua-fr.po.tmp l-lua-fr.po.new"
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o fr.po.tmp fr.po prog.pot
+${MSGMERGE} -q -o l-lua-fr.po.tmp l-lua-fr.po l-lua-prog.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-LC_ALL=C tr -d '\r' < fr.po.tmp > fr.po.new
+LC_ALL=C tr -d '\r' < l-lua-fr.po.tmp > l-lua-fr.po.new
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} fr.po fr.po.new || exit 1
+${DIFF} l-lua-fr.po l-lua-fr.po.new || exit 1
 
-tmpfiles="$tmpfiles fr"
-test -d fr || mkdir fr
-test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
+tmpfiles="$tmpfiles l-lua"
+test -d l-lua || mkdir l-lua
+test -d l-lua/fr || mkdir l-lua/fr
+test -d l-lua/fr/LC_MESSAGES || mkdir l-lua/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
+${MSGFMT} -o l-lua/fr/LC_MESSAGES/prog.mo l-lua-fr.po
 
 # Test for presence of lua version 5.0 or newer with gettext support.
 (lua -v) >/dev/null 2>/dev/null
@@ -125,14 +126,14 @@ if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
   rm -fr $tmpfiles; exit 77
 fi
 
-tmpfiles="$tmpfiles prog.ok prog.oku prog.out"
+tmpfiles="$tmpfiles l-lua-prog.ok l-lua-prog.oku l-lua-prog.out"
 : ${DIFF=diff}
-cat <<\EOF > prog.ok
+cat <<\EOF > l-lua-prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 42 morceaux de gateau
 FF remplace EUR.
 EOF
-cat <<\EOF > prog.oku
+cat <<\EOF > l-lua-prog.oku
 Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
 42 morceaux de gateau
 FF remplace EUR.
@@ -141,12 +142,12 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR lua -l gettext prog.lua > prog.out || exit 1
-  ${DIFF} prog.ok prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR lua -l gettext prog.lua > l-lua-prog.out || exit 1
+  ${DIFF} l-lua-prog.ok l-lua-prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 lua -l gettext prog.lua > prog.out || exit 1
-  ${DIFF} prog.oku prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 lua -l gettext prog.lua > l-lua-prog.out || exit 1
+  ${DIFF} l-lua-prog.oku l-lua-prog.out || exit 1
 fi
 
 rm -fr $tmpfiles
