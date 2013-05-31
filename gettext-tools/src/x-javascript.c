@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013 Free Software Foundation, Inc.
 
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010
    It's based on x-python from Bruno Haible.
@@ -1310,7 +1310,6 @@ phase5_get (token_ty *tp)
 
         /* Identify operators. The multiple character ones are simply ignored
          * as they are recognized here and are otherwise not relevant. */
-        /* FALLTHROUGH */
         case '-': case '*': /* '+' and '/' are not listed here! */
         case '%': case '<': case '>': case '=':
         case '~': case '!': case '|': case '&': case '^':
@@ -1346,12 +1345,12 @@ phase5_get (token_ty *tp)
           tp->type = last_token_type = token_type_comma;
           return;
 
-        case '[': case '{':
-          tp->type = last_token_type = (c == '[' ? token_type_lbracket : token_type_other);
+        case '[':
+          tp->type = last_token_type = token_type_lbracket;
           return;
 
-        case ']': case '}':
-          tp->type = last_token_type = (c == ']' ? token_type_rbracket : token_type_other);
+        case ']':
+          tp->type = last_token_type = token_type_rbracket;
           return;
 
         default:
@@ -1592,7 +1591,6 @@ extract_balanced (message_list_ty *mlp,
           xgettext_current_source_encoding = xgettext_current_file_source_encoding;
           return true;
 
-        /* FALLTHROUGH */
         case token_type_keyword:
         case token_type_plus:
         case token_type_regexp:
