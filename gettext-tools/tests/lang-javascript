@@ -77,6 +77,12 @@ ${MSGFMT} -o l-javascript/fr/LC_MESSAGES/prog.mo l-javascript-fr.po
 (gjs -h) >/dev/null 2>/dev/null
 test $? -le 1 \
   || { echo "Skipping test: gjs not found"; rm -fr $tmpfiles; exit 77; }
+(gjs -c imports.gettext) >/dev/null 2>/dev/null
+test $? -le 1 \
+  || { echo "Skipping test: gjs gettext module not found"; rm -fr $tmpfiles; exit 77; }
+(gjs -c imports.format) >/dev/null 2>/dev/null
+test $? -le 1 \
+  || { echo "Skipping test: gjs format module not found"; rm -fr $tmpfiles; exit 77; }
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
