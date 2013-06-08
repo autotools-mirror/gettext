@@ -337,14 +337,14 @@ else
 fi
 
 (cd gettext-runtime/libasprintf
- ../../build-aux/fixaclocal aclocal -I ../../m4 -I ../m4 -I gnulib-m4
+ aclocal -I ../../m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake --add-missing --copy
 )
 
 (cd gettext-runtime
- ../build-aux/fixaclocal aclocal -I m4 -I ../m4 -I gnulib-m4
+ aclocal -I m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake --add-missing --copy
@@ -361,7 +361,7 @@ fi
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
 (cd gettext-tools/examples
- ../../build-aux/fixaclocal aclocal -I ../../gettext-runtime/m4 -I ../../m4
+ aclocal -I ../../gettext-runtime/m4 -I ../../m4
  autoconf
  automake --add-missing --copy
  # Rebuilding the examples PO files is only rarely needed.
@@ -371,7 +371,7 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 )
 
 (cd gettext-tools
- ../build-aux/fixaclocal aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
+ aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  test -d intl || mkdir intl
@@ -392,6 +392,6 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  fi
 )
 
-build-aux/fixaclocal aclocal -I m4
+aclocal -I m4
 autoconf
 automake

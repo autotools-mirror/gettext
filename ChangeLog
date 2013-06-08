@@ -1,3 +1,19 @@
+2013-06-08  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
+
+	build: drop the 'fixacocal' auxiliary script
+	The comments in that script state that its use is only required to
+	work around issues in aclocal from Automake 1.10, while the rest
+	of the Gettext build infrastructure assumes Automake >= 1.11 anyway.
+	* autogen.sh: Drop invocations of 'fixaclocal', simply invoke the
+	'aclocal' program directly.
+	* build-aux/fixaclocal: Remove.
+	* Makefile.am (EXTRA_DIST): Stop distributing it.
+	(ACLOCAL): Drop redefinition in function of 'fixaclocal'.
+	* gettext-runtime/Makefile.am (ACLOCAL): Likewise.
+	* gettext-runtime/libasprintf/Makefile.am (ACLOCAL): Likewise.
+	* gettext-tools/Makefile.am (ACLOCAL): Likewise.
+	* gettext-tools/examples/Makefile.am (ACLOCAL): Likewise.
+
 2013-06-04  Daiki Ueno  <ueno@gnu.org>
 
 	Support for Vala.
