@@ -1,3 +1,10 @@
+2013-06-10  Daiki Ueno  <ueno@gnu.org>
+
+	* modules/libxml: Use $(MKDIR_P) instead of $(mkdir_p).
+	* modules/libglib: Likewise.
+	Suggested by Stefano Lattarini in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-04/msg00044.html>.
+
 2013-02-25  Daiki Ueno  <ueno@gnu.org>
 
 	Update after gnulib changed.

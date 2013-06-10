@@ -109,7 +109,7 @@ uninstall-local: uninstall-html
 # The install-dvi target is already defined by automake.
 
 installdirs-dvi:
-	$(mkdir_p) $(DESTDIR)$(dvidir)
+	$(MKDIR_P) $(DESTDIR)$(dvidir)
 
 uninstall-dvi:
 	$(RM) $(DESTDIR)$(dvidir)/autosprintf.dvi
@@ -130,7 +130,7 @@ autosprintf.ps: autosprintf.dvi
 # The install-ps target is already defined by automake.
 
 installdirs-ps:
-	$(mkdir_p) $(DESTDIR)$(psdir)
+	$(MKDIR_P) $(DESTDIR)$(psdir)
 
 uninstall-ps:
 	$(RM) $(DESTDIR)$(psdir)/autosprintf.ps
@@ -141,7 +141,7 @@ uninstall-ps:
 # The install-pdf target is already defined by automake.
 
 installdirs-pdf:
-	$(mkdir_p) $(DESTDIR)$(pdfdir)
+	$(MKDIR_P) $(DESTDIR)$(pdfdir)
 
 uninstall-pdf:
 	$(RM) $(DESTDIR)$(pdfdir)/autosprintf.pdf
@@ -164,7 +164,7 @@ autosprintf_all.html: autosprintf.texi
 # The install-html target is already defined by automake.
 
 installdirs-html:
-	$(mkdir_p) $(DESTDIR)$(htmldir)
+	$(MKDIR_P) $(DESTDIR)$(htmldir)
 
 uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html

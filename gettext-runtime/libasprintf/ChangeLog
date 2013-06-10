@@ -1,3 +1,9 @@
+2013-06-10  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am: Use $(MKDIR_P) instead of $(mkdir_p).
+	Suggested by Stefano Lattarini in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-04/msg00044.html>.
+
 2013-03-07  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>  (tiny change)
 
 	Fix '__attribute__' definition.
