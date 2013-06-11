@@ -1,3 +1,8 @@
+2013-06-11  Daiki Ueno  <ueno@gnu.org>
+
+	* NEWS: Mention that future 'gettextize' will require Automake 1.10.
+	Suggested by Stefano Lattarini.
+
 2013-06-08  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
 
 	build: drop the 'fixacocal' auxiliary script

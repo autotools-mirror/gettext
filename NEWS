@@ -22,6 +22,10 @@ Version 0.18.3 - unreleased
 * msgattrib now has --previous option to keep previous msgid when
   making messages fuzzy, similar to msgmerge --previous.
 
+* Future backward-incompatibilities:
+  - In future Gettext versions, the files installed by 'gettextize'
+    will require Automake 1.10 or later.  This will improve the
+    compatibility of user projects with newer Automake versions.
 
 Version 0.18.2 - December 2012
 
