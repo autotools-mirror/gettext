@@ -1,3 +1,26 @@
+2013-06-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
+            Daiki Ueno  <ueno@gnu.org>
+
+	Support for GtkBuilder file format in the Glade scanner.
+	* x-glade.h (EXTENSIONS_GLADE): Recognize .ui.
+	* x-glade.c (element_parser): New struct.
+	(start_element_glade1): New function split from start_element_handler.
+	(end_element_glade1): New function split from end_element_handler.
+	(start_element_glade2): New function split from start_element_handler.
+	(end_element_glade2): New function split from end_element_handler.
+	(start_element_gtkbuilder): New function.
+	(end_element_gtkbuilder): New function.
+	(element_parser_glade1): New variable.
+	(element_parser_glade2): New variable.
+	(element_parser_gtkbuilder): New variable.
+	(start_element_handler): Delegate the actual parsing logic to
+	specific element_parser.
+	(end_element_handler): Likewise.
+	Thanks to Miguel Ángel Arruga Vivas for the initial implementation
+	and the discussion in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-03/msg00074.html>
+	footnote 2.
+
 2013-06-10  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am: Use $(MKDIR_P) instead of $(mkdir_p).
