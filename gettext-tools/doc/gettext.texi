@@ -12042,7 +12042,7 @@ fpk
 glade, libglade, glade2, libglade2, intltool
 
 @item File extension
-@code{glade}, @code{glade2}
+@code{glade}, @code{glade2}, @code{ui}
 
 @item Extractor
 @code{xgettext}, @code{libglade-xgettext}, @code{xml-i18n-extract}, @code{intltool-extract}

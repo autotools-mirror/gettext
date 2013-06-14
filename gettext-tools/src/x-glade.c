@@ -1,5 +1,5 @@
 /* xgettext glade backend.
-   Copyright (C) 2002-2003, 2005-2009 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -70,7 +70,9 @@
 /* If true extract all strings.  */
 static bool extract_all = false;
 
-/* Keywords are only used by Glade 1 support.  */
+/* The keywords correspond to the translatable elements in Glade 1.
+   For Glade 2 and GtkBuilder, translatable content is determined by
+   the translatable="..." attribute, thus those keywords are not used.  */
 static hash_table keywords;
 static bool default_keywords = true;
 
@@ -433,6 +435,17 @@ struct element_parser
 static struct element_parser *element_parser;
 
 static void
+start_element_null (struct element_state *p, const char *name,
+                    const char **attributes)
+{
+}
+
+static void
+end_element_null (struct element_state *p, const char *name)
+{
+}
+
+static void
 start_element_glade1 (struct element_state *p, const char *name,
                       const char **attributes)
 {
@@ -471,7 +484,7 @@ start_element_glade2 (struct element_state *p, const char *name,
      The translator comment is found in the attribute comments="...".
      See <http://live.gnome.org/TranslationProject/DevGuidelines/Use comments>.
      If the element has the attribute context="yes", the content of
-     the element in the form "msgctxt|msgid".  */
+     the element is in the form "msgctxt|msgid".  */
   if (!p->extract_string
       && (strcmp (name, "property") == 0 || strcmp (name, "atkproperty") == 0))
     {
@@ -577,8 +590,7 @@ start_element_gtkbuilder (struct element_state *p, const char *name,
      that have the attribute translatable="yes".
      See <https://developer.gnome.org/gtk3/stable/GtkBuilder.html#BUILDER-UI>.
      The translator comment is found in the attribute comments="..."
-     and context is found in the attribute context="...".
-   */
+     and context is found in the attribute context="...".  */
   if (!p->extract_string)
     {
       bool has_translatable = false;
@@ -625,6 +637,12 @@ end_element_gtkbuilder (struct element_state *p, const char *name)
     }
 }
 
+static struct element_parser element_parser_null =
+{
+  start_element_null,
+  end_element_null
+};
+
 static struct element_parser element_parser_glade1 =
 {
   start_element_glade1,
@@ -660,6 +678,7 @@ start_element_handler (void *userData, const char *name,
         element_parser = &element_parser_gtkbuilder;
       else
         {
+          element_parser = &element_parser_null;
           error_with_progname = false;
           error_at_line (0, 0,
                          logical_file_name,
@@ -684,8 +703,7 @@ The root element <%s> is not allowed in a valid Glade file"),
   p->extracted_comment = NULL;
   p->extracted_context = NULL;
 
-  if (element_parser != NULL)
-    element_parser->start_element (p, name, attributes);
+  element_parser->start_element (p, name, attributes);
 
   p->lineno = XML_GetCurrentLineNumber (parser);
   p->buffer = NULL;
@@ -711,8 +729,7 @@ end_element_handler (void *userData, const char *name)
             p->buffer = (char *) xrealloc (p->buffer, p->buflen + 1);
           p->buffer[p->buflen] = '\0';
 
-          if (element_parser != NULL)
-            element_parser->end_element (p, name);
+          element_parser->end_element (p, name);
         }
     }
 
