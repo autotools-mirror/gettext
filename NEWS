@@ -13,10 +13,12 @@ Version 0.18.3 - unreleased
     xgettext now partially supports JavaScript.  Although the current
     JavaScript specification (ECMA-262) does not define the standard
     set of formatting methods nor translation functions, there is a
-    growing demand for xgettext to extract string literals more
-    reliably than using the C scanner.  The implementation supports
-    only a limited set of formatting methods and translation functions
-    commonly used in Gjs and other popular JavaScript libraries.
+    growing demand for xgettext to extract string literals from
+    JavaScript code in a more reliable way than using the C scanner.
+
+    The implementation supports only a limited set of formatting
+    methods and translation functions commonly used in Gjs and other
+    popular JavaScript libraries.
 
   - Lua
 
