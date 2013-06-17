@@ -133,6 +133,18 @@ init_flag_table_python ()
   xgettext_record_flag ("dngettext:3:pass-python-format");
   xgettext_record_flag ("_:1:pass-python-format");
   /* xgettext_record_flag ("%:1:python-format"); // % is an infix operator! */
+
+  xgettext_record_flag ("gettext:1:pass-python-brace-format");
+  xgettext_record_flag ("ugettext:1:pass-python-brace-format");
+  xgettext_record_flag ("dgettext:2:pass-python-brace-format");
+  xgettext_record_flag ("ngettext:1:pass-python-brace-format");
+  xgettext_record_flag ("ngettext:2:pass-python-brace-format");
+  xgettext_record_flag ("ungettext:1:pass-python-brace-format");
+  xgettext_record_flag ("ungettext:2:pass-python-brace-format");
+  xgettext_record_flag ("dngettext:2:pass-python-brace-format");
+  xgettext_record_flag ("dngettext:3:pass-python-brace-format");
+  xgettext_record_flag ("_:1:pass-python-brace-format");
+  /* xgettext_record_flag ("format:1:python-brace-format"); */
 }
 
 

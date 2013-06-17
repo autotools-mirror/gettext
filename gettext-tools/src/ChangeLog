@@ -1,5 +1,10 @@
 2013-06-17  Daiki Ueno  <ueno@gnu.org>
 
+	* x-python.c (init_flag_table_python): Enable python-brace-format
+	by default.
+
+2013-06-17  Daiki Ueno  <ueno@gnu.org>
+
 	* x-glade.c (start_element_null): New function.
 	(end_element_null): New function.
 	(element_parser_null): New variable.

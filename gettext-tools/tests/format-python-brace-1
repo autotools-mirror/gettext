@@ -42,7 +42,7 @@ while read comment; do
   cat <<EOF > f-pyb-1-$n.in
 gettext(${string});
 EOF
-  ${XGETTEXT} -L Python --flag=gettext:1:pass-python-brace-format -o f-pyb-1-$n.po f-pyb-1-$n.in || exit 1
+  ${XGETTEXT} -L Python -o f-pyb-1-$n.po f-pyb-1-$n.in || exit 1
   test -f f-pyb-1-$n.po || exit 1
   fail=
   if echo "$comment" | grep 'Valid:' > /dev/null; then

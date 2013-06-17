@@ -1,5 +1,10 @@
 2013-06-17  Daiki Ueno  <ueno@gnu.org>
 
+	* format-python-brace-1: No need to pass
+	--flag=gettext:1:pass-python-brace-format to xgettext.
+
+2013-06-17  Daiki Ueno  <ueno@gnu.org>
+
 	* Makefile.am: Rename xgettext-gtkbuilder-* to
 	xgettext-glade-* as the current GtkBuilder support is implemented
 	as a variant of Glade.
