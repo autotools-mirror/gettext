@@ -53,20 +53,76 @@ while :; do
   esac
 done
 
+cleanup_gnulib() {
+  status=$?
+  rm -fr "$gnulib_path"
+  exit $status
+}
+
+git_modules_config () {
+  test -f .gitmodules && git config --file .gitmodules "$@"
+}
+
+gnulib_path=$(git_modules_config submodule.gnulib.path)
+test -z "$gnulib_path" && gnulib_path=gnulib
+
 # The tests in gettext-tools/tests are not meant to be executable, because
 # they have a TESTS_ENVIRONMENT that specifies the shell explicitly.
 
 if ! $skip_gnulib; then
   if test -z "$GNULIB_TOOL"; then
-    # Check out gnulib in a subdirectory 'gnulib'.
-    if test -d gnulib; then
-      (cd gnulib && git pull)
-    else
-      git clone git://git.savannah.gnu.org/gnulib.git
-    fi
+    # Get gnulib files.
+    case ${GNULIB_SRCDIR--} in
+    -)
+      if git_modules_config submodule.gnulib.url >/dev/null; then
+        echo "$0: getting gnulib files..."
+        git submodule init || exit $?
+        git submodule update || exit $?
+
+      elif [ ! -d "$gnulib_path" ]; then
+        echo "$0: getting gnulib files..."
+
+        trap cleanup_gnulib 1 2 13 15
+
+        shallow=
+        git clone -h 2>&1 | grep -- --depth > /dev/null && shallow='--depth 2'
+        git clone $shallow git://git.sv.gnu.org/gnulib "$gnulib_path" ||
+          cleanup_gnulib
+
+        trap - 1 2 13 15
+      fi
+      GNULIB_SRCDIR=$gnulib_path
+      ;;
+    *)
+      # Use GNULIB_SRCDIR as a reference.
+      if test -d "$GNULIB_SRCDIR"/.git && \
+            git_modules_config submodule.gnulib.url >/dev/null; then
+        echo "$0: getting gnulib files..."
+        if git submodule -h|grep -- --reference > /dev/null; then
+          # Prefer the one-liner available in git 1.6.4 or newer.
+          git submodule update --init --reference "$GNULIB_SRCDIR" \
+            "$gnulib_path" || exit $?
+        else
+          # This fallback allows at least git 1.5.5.
+          if test -f "$gnulib_path"/gnulib-tool; then
+            # Since file already exists, assume submodule init already complete.
+            git submodule update || exit $?
+          else
+            # Older git can't clone into an empty directory.
+            rmdir "$gnulib_path" 2>/dev/null
+            git clone --reference "$GNULIB_SRCDIR" \
+              "$(git_modules_config submodule.gnulib.url)" "$gnulib_path" \
+              && git submodule init && git submodule update \
+              || exit $?
+          fi
+        fi
+        GNULIB_SRCDIR=$gnulib_path
+      fi
+      ;;
+    esac
     # Now it should contain a gnulib-tool.
-    if test -f gnulib/gnulib-tool; then
-      GNULIB_TOOL=`pwd`/gnulib/gnulib-tool
+    if test -f "$GNULIB_SRCDIR"/gnulib-tool; then
+      GNULIB_TOOL="$GNULIB_SRCDIR"/gnulib-tool
     else
       echo "** warning: gnulib-tool not found" 1>&2
     fi

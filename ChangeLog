@@ -1,3 +1,13 @@
+2013-06-17  Daiki Ueno  <ueno@gnu.org>
+
+	Embed Gnulib using git submodule.
+	* autogen.sh: Port git submodule update code from the 'bootstrap'
+	script in Gnulib and respect the GNULIB_SRCDIR envvar as well as
+	GNULIB_TOOL.
+	(cleanup_gnulib): New function borrowed from Gnulib.
+	(git_modules_config): Likewise.
+	(gnulib_path): New variable.
+
 2013-06-13  Daiki Ueno  <ueno@gnu.org>
 
 	* NEWS: Document more new features.  Mention Glade msgctxt support
