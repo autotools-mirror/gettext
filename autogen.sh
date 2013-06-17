@@ -7,9 +7,10 @@
 # This script requires autoconf-2.62..2.69 and automake-1.11.1..1.12 in the
 # PATH.
 # It also requires either
-#   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
-#     in a gnulib checkout, or
+#   - the GNULIB_SRCDIR environment variable pointing to the gnulib
+#     checkout, or
 #   - the git program in the PATH and an internet connection.
+
 # It also requires
 #   - the bison program,
 #   - the gperf program,
@@ -70,62 +71,60 @@ test -z "$gnulib_path" && gnulib_path=gnulib
 # they have a TESTS_ENVIRONMENT that specifies the shell explicitly.
 
 if ! $skip_gnulib; then
-  if test -z "$GNULIB_TOOL"; then
-    # Get gnulib files.
-    case ${GNULIB_SRCDIR--} in
-    -)
-      if git_modules_config submodule.gnulib.url >/dev/null; then
-        echo "$0: getting gnulib files..."
-        git submodule init || exit $?
-        git submodule update || exit $?
+  # Get gnulib files.
+  case ${GNULIB_SRCDIR--} in
+  -)
+    if git_modules_config submodule.gnulib.url >/dev/null; then
+      echo "$0: getting gnulib files..."
+      git submodule init || exit $?
+      git submodule update || exit $?
 
-      elif [ ! -d "$gnulib_path" ]; then
-        echo "$0: getting gnulib files..."
+    elif [ ! -d "$gnulib_path" ]; then
+      echo "$0: getting gnulib files..."
 
-        trap cleanup_gnulib 1 2 13 15
+      trap cleanup_gnulib 1 2 13 15
 
-        shallow=
-        git clone -h 2>&1 | grep -- --depth > /dev/null && shallow='--depth 2'
-        git clone $shallow git://git.sv.gnu.org/gnulib "$gnulib_path" ||
-          cleanup_gnulib
+      shallow=
+      git clone -h 2>&1 | grep -- --depth > /dev/null && shallow='--depth 2'
+      git clone $shallow git://git.sv.gnu.org/gnulib "$gnulib_path" ||
+        cleanup_gnulib
 
-        trap - 1 2 13 15
+      trap - 1 2 13 15
+    fi
+    GNULIB_SRCDIR=$gnulib_path
+    ;;
+  *)
+    # Use GNULIB_SRCDIR as a reference.
+    if test -d "$GNULIB_SRCDIR"/.git && \
+          git_modules_config submodule.gnulib.url >/dev/null; then
+      echo "$0: getting gnulib files..."
+      if git submodule -h|grep -- --reference > /dev/null; then
+        # Prefer the one-liner available in git 1.6.4 or newer.
+        git submodule update --init --reference "$GNULIB_SRCDIR" \
+          "$gnulib_path" || exit $?
+      else
+        # This fallback allows at least git 1.5.5.
+        if test -f "$gnulib_path"/gnulib-tool; then
+          # Since file already exists, assume submodule init already complete.
+          git submodule update || exit $?
+        else
+          # Older git can't clone into an empty directory.
+          rmdir "$gnulib_path" 2>/dev/null
+          git clone --reference "$GNULIB_SRCDIR" \
+            "$(git_modules_config submodule.gnulib.url)" "$gnulib_path" \
+            && git submodule init && git submodule update \
+            || exit $?
+        fi
       fi
       GNULIB_SRCDIR=$gnulib_path
-      ;;
-    *)
-      # Use GNULIB_SRCDIR as a reference.
-      if test -d "$GNULIB_SRCDIR"/.git && \
-            git_modules_config submodule.gnulib.url >/dev/null; then
-        echo "$0: getting gnulib files..."
-        if git submodule -h|grep -- --reference > /dev/null; then
-          # Prefer the one-liner available in git 1.6.4 or newer.
-          git submodule update --init --reference "$GNULIB_SRCDIR" \
-            "$gnulib_path" || exit $?
-        else
-          # This fallback allows at least git 1.5.5.
-          if test -f "$gnulib_path"/gnulib-tool; then
-            # Since file already exists, assume submodule init already complete.
-            git submodule update || exit $?
-          else
-            # Older git can't clone into an empty directory.
-            rmdir "$gnulib_path" 2>/dev/null
-            git clone --reference "$GNULIB_SRCDIR" \
-              "$(git_modules_config submodule.gnulib.url)" "$gnulib_path" \
-              && git submodule init && git submodule update \
-              || exit $?
-          fi
-        fi
-        GNULIB_SRCDIR=$gnulib_path
-      fi
-      ;;
-    esac
-    # Now it should contain a gnulib-tool.
-    if test -f "$GNULIB_SRCDIR"/gnulib-tool; then
-      GNULIB_TOOL="$GNULIB_SRCDIR"/gnulib-tool
-    else
-      echo "** warning: gnulib-tool not found" 1>&2
     fi
+    ;;
+  esac
+  # Now it should contain a gnulib-tool.
+  if test -f "$GNULIB_SRCDIR"/gnulib-tool; then
+    GNULIB_TOOL="$GNULIB_SRCDIR"/gnulib-tool
+  else
+    echo "** warning: gnulib-tool not found" 1>&2
   fi
   # Skip the gnulib-tool step if gnulib-tool was not found.
   if test -n "$GNULIB_TOOL"; then
