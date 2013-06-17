@@ -1,3 +1,14 @@
+2013-06-17  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am: Rename xgettext-gtkbuilder-* to
+	xgettext-glade-* as the current GtkBuilder support is implemented
+	as a variant of Glade.
+	(TESTS): Remove xgettext-gtkbuilder-[12] and add
+	xgettext-glade-[67].
+	(EXTRA_DIST): Remove xgettext-gtkbuilder-empty.ui.
+	* xgettext-glade-6: Rename from xgettext-gtkbuilder-1.
+	* xgettext-glade-7: Rename from xgettext-gtkbuilder-2.
+
 2013-06-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
 
 	Tests for GtkBuilder support.

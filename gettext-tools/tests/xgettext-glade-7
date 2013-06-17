@@ -7,15 +7,22 @@
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
+tmpfiles="$tmpfiles xg-gl-7-empty.glade"
+cat <<EOF > xg-gl-7-empty.glade
+<?xml version="1.0"?>
+<GTK-Interface/>
+EOF
+
+tmpfiles="$tmpfiles xg-gl-7.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o - xgettext-gtkbuilder-empty.ui 2>/dev/null 1>&2
+${XGETTEXT} -o xg-gl-7.pot xg-gl-7-empty.glade 2>/dev/null
 test $? = 0 || {
-  echo "Skipping test: xgettext was built without GtkBuilder support"
+  echo "Skipping test: xgettext was built without Glade support"
   rm -fr $tmpfiles; exit 77
 }
 
-tmpfiles="$tmpfiles xg-gtk-2.ui"
-cat <<EOF > xg-gtk-2.ui
+tmpfiles="$tmpfiles xg-gl-7.ui"
+cat <<EOF > xg-gl-7.ui
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
@@ -176,13 +183,13 @@ cat <<EOF > xg-gtk-2.ui
 </interface>
 EOF
 
-tmpfiles="$tmpfiles xg-gtk-2.pot"
+tmpfiles="$tmpfiles xg-gl-7.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o - xg-gtk-2.ui | grep -v 'POT-Creation-Date' > xg-gtk-2.pot
+${XGETTEXT} -o - xg-gl-7.ui | grep -v 'POT-Creation-Date' > xg-gl-7.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
-tmpfiles="$tmpfiles xg-gtk-2.ok"
-cat <<\EOF > xg-gtk-2.ok
+tmpfiles="$tmpfiles xg-gl-7.ok"
+cat <<\EOF > xg-gl-7.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -201,70 +208,70 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: xg-gtk-2.ui:30
+#: xg-gl-7.ui:30
 msgctxt "First row"
 msgid "Hi"
 msgstr ""
 
 #. A comment.
-#: xg-gtk-2.ui:31
+#: xg-gl-7.ui:31
 msgid "Comment"
 msgstr ""
 
-#: xg-gtk-2.ui:35
+#: xg-gl-7.ui:35
 msgctxt "First row"
 msgid "Hello"
 msgstr ""
 
 #. This is no translatable.
-#: xg-gtk-2.ui:36
+#: xg-gl-7.ui:36
 msgid "Translatable comment."
 msgstr ""
 
-#: xg-gtk-2.ui:41
+#: xg-gl-7.ui:41
 msgctxt "This is not translatable"
 msgid "Please..."
 msgstr ""
 
 #. This thing is the menu label
-#: xg-gtk-2.ui:62
+#: xg-gl-7.ui:62
 msgctxt "Menu"
 msgid "One thing"
 msgstr ""
 
 #. This thing is the label in the inner menu.
-#: xg-gtk-2.ui:70
+#: xg-gl-7.ui:70
 msgctxt "One thing"
 msgid "One thing"
 msgstr ""
 
 #. This is easy.
-#: xg-gtk-2.ui:87
+#: xg-gl-7.ui:87
 msgctxt "Menu"
 msgid "H_elp"
 msgstr ""
 
 #. This one thing is for the second menu.
-#: xg-gtk-2.ui:95
+#: xg-gl-7.ui:95
 msgctxt "Second menu"
 msgid "One thing"
 msgstr ""
 
 #. To you too.
-#: xg-gtk-2.ui:105
+#: xg-gl-7.ui:105
 msgctxt "Second menu"
 msgid "Greetings"
 msgstr ""
 
 #. This one thing is the button.
-#: xg-gtk-2.ui:142
+#: xg-gl-7.ui:142
 msgctxt "Button"
 msgid "One thing"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-gtk-2.ok xg-gtk-2.pot
+${DIFF} xg-gl-7.ok xg-gl-7.pot
 result=$?
 
 rm -fr $tmpfiles
