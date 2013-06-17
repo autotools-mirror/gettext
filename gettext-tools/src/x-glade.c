@@ -821,7 +821,7 @@ do_extract_glade (FILE *fp,
   XML_SetCommentHandler (parser, comment_handler);
 
   stack_depth = 0;
-  element_parser = NULL;
+  element_parser = &element_parser_null;
 
   while (!feof (fp))
     {

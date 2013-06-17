@@ -1,3 +1,13 @@
+2013-06-17  Daiki Ueno  <ueno@gnu.org>
+
+	* x-glade.c (start_element_null): New function.
+	(end_element_null): New function.
+	(element_parser_null): New variable.
+	(start_element_handler): Use element_parser_null if the top-level
+	element does not indicate a valid Glade file.
+	(do_extract_glade): Initialize element_parser to
+	element_parser_null rather than NULL.
+
 2013-06-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
             Daiki Ueno  <ueno@gnu.org>
 
