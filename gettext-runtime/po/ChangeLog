@@ -1,3 +1,14 @@
+2013-06-25  Daiki Ueno  <ueno@gnu.org>
+
+	Allow user to supply custom sed command when generating en@quot.po.
+	This is necessary because BSD Sed is known not to work well with
+	an input not ending with a newline.
+	* Makefile.in.in (SED): Define using @SED@.
+	* Rules-quot: Use '$(SED)' instead of 'sed' as the FILTER argument
+	of msgfilter.
+	Reported by Mats Erik Andersson in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-04/msg00028.html>.
+
 2013-03-02  Bruno Haible  <bruno@clisp.org>
 
 	* bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.

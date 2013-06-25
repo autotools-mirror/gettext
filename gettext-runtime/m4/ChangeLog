@@ -1,3 +1,8 @@
+2013-06-25  Daiki Ueno  <ueno@gnu.org>
+
+	Allow user to supply custom sed command when generating en@quot.po.
+	* po.m4 (AM_PO_SUBDIRS): Require AC_PROG_SED.
+
 2013-04-23  Daiki Ueno  <ueno@gnu.org>
 
 	Obsolete gt_CHECK_DECL in favor of AC_CHECK_DECLS.
