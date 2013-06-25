@@ -1,7 +1,7 @@
 2013-06-25  Daiki Ueno  <ueno@gnu.org>
 
-	Fix handling of \x and \u escape sequences in Tcl.
-	* x-tcl.c (do_getc_escaped): Fix handling of \x and \u.
+	Fix handling of \u escape sequences in Tcl.
+	* x-tcl.c (do_getc_escaped): Fix handling of \u.
 	Reported by Guido Berhoerster in
 	<https://lists.gnu.org/archive/html/bug-gettext/2013-06/msg00022.html>.
 
