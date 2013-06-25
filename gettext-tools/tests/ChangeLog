@@ -1,3 +1,9 @@
+2013-06-25  Daiki Ueno  <ueno@gnu.org>
+
+	Fix handling of \x and \u escape sequences in Tcl.
+	* Makefile.am (TESTS): Add xgettext-tcl-4.
+	* xgettext-tcl-4: New test for escape sequences.
+
 2013-06-17  Daiki Ueno  <ueno@gnu.org>
 
 	* format-python-brace-1: No need to pass

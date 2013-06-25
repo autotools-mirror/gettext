@@ -98,7 +98,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-sh-6 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
 	xgettext-stringtable-1 \
-	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 \
+	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	xgettext-lua-1 xgettext-lua-2 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
