@@ -7,9 +7,12 @@
 # This script requires autoconf-2.62..2.69 and automake-1.11.1..1.12 in the
 # PATH.
 # It also requires either
-#   - the GNULIB_SRCDIR environment variable pointing to the gnulib
-#     checkout, or
-#   - the git program in the PATH and an internet connection.
+#   - the git program in the PATH and an internet connection, or
+#   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
+#     in a gnulib checkout
+# The former method is tried first and if it fails, fallback to the
+# latter.  When git is used, the GNULIB_SRCDIR environment variable is
+# also checked as a reference of gnulib checkout.
 
 # It also requires
 #   - the bison program,

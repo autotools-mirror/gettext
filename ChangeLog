@@ -1,3 +1,7 @@
+2013-06-26  Daiki Ueno  <ueno@gnu.org>
+
+	* autogen.sh: Mention GNULIB_TOOL again for off-line bootstrap.
+
 2013-06-17  Daiki Ueno  <ueno@gnu.org>
 
 	Embed Gnulib using git submodule.
