@@ -3,10 +3,6 @@ Tasks not to forget before release:
 - Update ABOUT-NLS and doc/matrix.texi with information from the Translation
   Project, by running run.sh in gettext-runtime/doc/Admin/.
 
-- Update config.guess and config.sub from ftp://ftp.gnu.org/pub/gnu/config/.
-  now from
-    wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
-    wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 - Update gettext-runtime/intl/locale.alias from glibc's intl/locale.alias.
 - Update gettext-runtime/intl/{localcharset.h,localcharset.c,config.charset}
   from libcharset inside libiconv.
@@ -50,6 +46,9 @@ Tasks not to forget before release:
     NEWS
     gettext-runtime/libasprintf/NEWS
     gettext-runtime/NEWS
+
+- Update git submodules.
+  git submodule foreach git pull origin master
 
 - Iterate:
     ./rerun-autogen
