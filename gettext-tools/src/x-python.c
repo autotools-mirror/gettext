@@ -1403,7 +1403,7 @@ phase7_getuc (int quote_char,
 /* Number of pending open parentheses/braces/brackets.  */
 static int open_pbb;
 
-static token_ty phase5_pushback[1];
+static token_ty phase5_pushback[2];
 static int phase5_pushback_length;
 
 static void

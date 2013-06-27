@@ -1,3 +1,7 @@
+2013-06-27  Daiki Ueno  <ueno@gnu.org>
+
+	* x-python.c (phase5_pushback): Increment size to 2.
+
 2013-06-25  Daiki Ueno  <ueno@gnu.org>
 
 	Fix handling of \u escape sequences in Tcl.

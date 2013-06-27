@@ -28,7 +28,7 @@ _(CATEGORIES["default"]["name"]);
 
 # string concatenation
 _("abc" "def" + "ghi"
-"jkl")
+"jkl" + mno)
 EOF
 
 tmpfiles="$tmpfiles xg-py-1.err xg-py-1.tmp xg-py-1.pot"

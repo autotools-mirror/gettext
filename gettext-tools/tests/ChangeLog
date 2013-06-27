@@ -1,3 +1,8 @@
+2013-06-27  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-python-1: Test non-literal string concatenation with
+	'+' to the test script.
+
 2013-06-25  Daiki Ueno  <ueno@gnu.org>
 
 	Fix handling of \u escape sequences in Tcl.
