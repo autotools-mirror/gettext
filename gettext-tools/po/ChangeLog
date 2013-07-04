@@ -1,3 +1,19 @@
+2013-07-04  Daiki Ueno  <ueno@gnu.org>
+
+	* bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
+	* de.po: Update from Jakob Kramer <jakob.kramer@gmx.de>.
+	* fi.po: Update from Jorma Karvonen <karvonen.jorma@gmail.com>.
+	* it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
+	* ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* ko.po: Update from Changwoo Ryu <cwryu@debian.org>.
+	* pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* pt_BR.po: Update from Rafael Ferreira <rafael.f.f1@gmail.com>.
+	* sl.po: Update from Primoz PETERLIN <primozz.peterlin@gmail.com>.
+	* sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* uk.po: Update from Yuri Chornoivan <yurchor@ukr.net>.
+	* vi.po: Update from Trần Ngọc Quân <vnwildman@gmail.com>.
+	* zh_CN.po: Update from Ji ZhengYu <zhengyuji@gmail.com>.
+
 2013-06-04  Daiki Ueno  <ueno@gnu.org>
 
 	Support for Vala.
