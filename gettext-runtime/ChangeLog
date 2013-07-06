@@ -1,3 +1,7 @@
+2013-07-07  Daiki Ueno  <ueno@gnu.org>
+
+	* NEWS: Mention setlocale() change on Mac OS X.
+
 2013-05-29  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
 
 	* configure.ac (AM_INIT_AUTOMAKE): Add 'parallel-tests' option.

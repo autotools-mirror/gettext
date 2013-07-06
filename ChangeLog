@@ -1,3 +1,7 @@
+2013-07-07  Daiki Ueno  <ueno@gnu.org>
+
+	* NEWS: Mention libasprintf change and Tcl bug fix.
+
 2013-06-26  Daiki Ueno  <ueno@gnu.org>
 
 	* autogen.sh: Mention GNULIB_TOOL again for off-line bootstrap.
