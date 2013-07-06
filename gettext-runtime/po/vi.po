@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gettext-runtime 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2012-12-25 14:19+0900\n"
-"PO-Revision-Date: 2013-02-27 14:25+0700\n"
+"PO-Revision-Date: 2013-04-15 08:11+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team-Website: <http://translationproject.org/team/vi.html>\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.8\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: gnulib-lib/closeout.c:66
@@ -88,7 +88,7 @@ msgstr "%s: tùy chọn “-W %s” yêu cầu một đối số\n"
 #: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
-msgstr "cạn bộ nhớ"
+msgstr "hết bộ nhớ"
 
 #: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
@@ -132,7 +132,7 @@ msgstr "Hãy thử lệnh “%s --help” (trợ giúp) để xem thông tin th�
 #: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgstr "Sử dụng: %s [TÙY-CHỌN] [ĐỊNH-DẠNG-HỆ-VỎ]\n"
+msgstr "Cách dùng: %s [TÙY-CHỌN] [ĐỊNH-DẠNG-HỆ-VỎ]\n"
 
 #: src/envsubst.c:181
 #, c-format, no-wrap
@@ -147,7 +147,7 @@ msgstr "Chế độ thao tác:\n"
 #: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
-msgstr " -v, --variables              xuất những biến nảy sinh theo ĐỊNH-DẠNG-HỆ-VỎ\n"
+msgstr " -v, --variables              hiển thị những biến phát sinh theo ĐỊNH-DẠNG-HỆ-VỎ\n"
 
 #: src/envsubst.c:192
 #, c-format, no-wrap
@@ -157,12 +157,12 @@ msgstr "Kết xuất thông tin:\n"
 #: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
-msgstr "  -h, --help                  hiện trợ giúp này, sau đó thoát\n"
+msgstr "  -h, --help                  hiển thị trợ giúp này rồi thoát\n"
 
 #: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
-msgstr "  -V, --version               xuất thông tin về phiên bản, sau đó thoát\n"
+msgstr "  -V, --version               hiển thị các thông tin về phiên bản rồi thoát\n"
 
 #: src/envsubst.c:202
 #, c-format, no-wrap
@@ -199,8 +199,7 @@ msgstr ""
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Hãy thông báo lỗi nào cho <bug-gnu-gettext@gnu.org>.\n"
-"Hãy thông báo lỗi dịch nào cho <http://translationproject.org/team/vi."
-"html>.\n"
+"Hãy thông báo lỗi dịch nào cho <http://translationproject.org/team/vi.html>.\n"
 
 #: src/envsubst.c:442
 #, c-format
@@ -223,14 +222,14 @@ msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
-"Sử dụng: %s [TÙY_CHỌN] [[MIỀN_VĂN_BẢN] MSGID]\n"
-"    hay: %s [TÙY_CHỌN] -s [MSGID]...\n"
+"Cách dùng: %s [TÙY_CHỌN] [[MIỀN_VĂN_BẢN] MSGID]\n"
+"      hay: %s [TÙY_CHỌN] -s [MSGID]...\n"
 
 # Trong văn cảnh này, ngôn ngữ "native" của ai?
 #: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
-msgstr "Hiển thị bản dịch ngôn ngữ mẹ đẻ của một thông điệp kiểu văn bản.\n"
+msgstr "Hiển thị bản dịch ngôn ngữ mẹ đẻ của một chuỗi kiểu văn bản.\n"
 
 #: src/gettext.c:253
 #, c-format, no-wrap
@@ -244,13 +243,13 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=MIỀN_VĂN_BẢN lấy các thông điệp đã dịch từ miền này\n"
+"  -d, --domain=MIỀN_VĂN_BẢN lấy các chuỗi đã dịch từ miền này\n"
 "  -e                        cho phép mở rộng một số kiểu thoát chuỗi\n"
 "  -E                        (bị bỏ qua để tương thích)\n"
 "  -h, --help                hiện trợ giúp này rồi thoát\n"
 "  -n                        thu hồi ký tự dòng mới theo sau\n"
 "  -V, --version             hiện thông tin phiên bản rồi thoát\n"
-"  [MIỀN_VĂN_BẢN] MSGID      lấy thông điệp đã dịch tương ứng với MSGID\n"
+"  [MIỀN_VĂN_BẢN] MSGID      lấy chuỗi đã dịch tương ứng với MSGID\n"
 "                            từ MIỀN_VĂN_BẢN\n"
 
 #: src/gettext.c:264
@@ -271,7 +270,7 @@ msgstr ""
 "chỉ định bằng biến môi trường TEXTDOMAINDIR (thư mục của miền văn bản).\n"
 "Khi dùng với tùy chọn “-s”, chương trình này ứng xử giống như\n"
 "lệnh “echo”. Nhưng nó không đơn giản sao chép các đối số của nó\n"
-"sang đầu ra tiêu chuẩn. Nó thay thế những thông điệp đã tìm trong bản dịch\n"
+"sang đầu ra tiêu chuẩn. Nó thay thế những chuỗi đã tìm trong bản dịch\n"
 "bằng bản dịch tương ứng.\n"
 "Thư mục thường dùng để quét tìm các bản dịch: %s\n"
 
@@ -286,7 +285,7 @@ msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
-"Hiển thị bản dịch ngôn ngữ mẹ đẻ của thông điệp thuộc văn bản có dạng\n"
+"Hiển thị bản dịch ngôn ngữ mẹ đẻ của chuỗi thuộc văn bản có dạng\n"
 "ngữ pháp phụ thuộc vào con số.\n"
 
 #: src/ngettext.c:222
@@ -301,12 +300,12 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=MIỀN_VĂN_BẢN lấy thông điệp đã dịch từ “miền” này\n"
+"  -d, --domain=MIỀN_VĂN_BẢN lấy chuỗi đã dịch từ “miền” này\n"
 "  -e                        cho phép mở rộng một số kiểu thoát chuỗi\n"
 "  -E                        (bị bỏ qua để không tương thích)\n"
 "  -h, --help                hiện trợ giúp này rồi thoát\n"
 "  -V, --version             hiện thông tin phiên bản rồi thoát\n"
-"  [MIỀN_VĂN_BẢN]            lấy thông điệp đã dịch từ miền văn bản này\n"
+"  [MIỀN_VĂN_BẢN]            lấy chuỗi đã dịch từ miền văn bản này\n"
 "  MSGID MSGID-NHIỀU         dịch MSGID (số ít) / MSGID-NHIỀU (số nhiều)\n"
 "  SỐ_ĐẾM                    chọn dạng số ít/số nhiều dựa vào giá trị này\n"
 
