@@ -186,3 +186,7 @@
 /unistd.c
 /wctype-h.c
 /xsize.c
+/rawmemchr.c
+/rawmemchr.valgrind
+/strchrnul.c
+/strchrnul.valgrind

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.18.2\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2012-12-25 14:19+0900\n"
+"POT-Creation-Date: 2013-07-07 18:18+0900\n"
 "PO-Revision-Date: 2013-03-10 16:05+0100\n"
 "Last-Translator: Jan Djärv <jan.h.d@swipnet.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -192,7 +192,8 @@ msgstr ""
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Rapportera fel till <bug-gnu-gettext@gnu.org>.\n"
-"Rapportera fel och synpunkter på översättningen till <tp-sv@listor.tp-sv.se>.\n"
+"Rapportera fel och synpunkter på översättningen till <tp-sv@listor.tp-sv."
+"se>.\n"
 
 #: src/envsubst.c:442
 #, c-format
