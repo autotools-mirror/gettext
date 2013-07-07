@@ -41,8 +41,8 @@
 # Usage after a first-time git clone / cvs checkout:   ./autogen.sh
 # Usage after a git clone / cvs update:                ./autogen.sh --quick
 # This uses an up-to-date gnulib checkout.
-# (The gettext-0.18.2 release was prepared using gnulib commit
-# f022473fdaf724d84817c4003120b9a38fbf884b from 2012-12-19.)
+# (The gettext-0.18.3 release was prepared using gnulib commit
+# c96bab3fee48a9df55e7366344f838e1fc785c28 from 2013-07-07.)
 #
 # Usage from a released tarball:             ./autogen.sh --quick --skip-gnulib
 # This does not use a gnulib checkout.
