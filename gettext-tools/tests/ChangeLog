@@ -1,3 +1,7 @@
+2013-07-07  Daiki Ueno  <ueno@gnu.org>
+
+	* lang-javascript: Fix gjs module checks.
+
 2013-06-27  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-python-1: Test non-literal string concatenation with
