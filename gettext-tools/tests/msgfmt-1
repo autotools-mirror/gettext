@@ -9,7 +9,7 @@ tmpfiles="$tmpfiles mf-1"
 test -d mf-1 || mkdir mf-1
 test -d mf-1/LC_MESSAGES || mkdir mf-1/LC_MESSAGES
 
--tmpfiles="$tmpfiles mf-1-module1.po mf-1-module2.po"
+tmpfiles="$tmpfiles mf-1-module1.po mf-1-module2.po"
 cat <<EOF > mf-1-module1.po
 #default domain "messages.mo"
 msgid	"SYS_(C)\n"
