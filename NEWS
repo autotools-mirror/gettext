@@ -44,7 +44,7 @@ Version 0.18.3 - July 2013
   false-positives.
 
 * 'gettextize' now checks macro directories specified with
-  AC_CONFIGURE_MACRO_DIRS in configure.ac.
+  AC_CONFIG_MACRO_DIRS in configure.ac.
 
 * Portability:
   - msginit now does not require GNU sed.
