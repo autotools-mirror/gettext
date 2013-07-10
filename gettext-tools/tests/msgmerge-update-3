@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test --update: POT-Creation-Date changed. This change must not be reflected
 # in the resulting PO file; this is needed for projects which don't put the

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test failing conversion from ISO-8859-15 to ISO-8859-1.
 

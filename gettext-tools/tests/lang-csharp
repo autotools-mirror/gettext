@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of gettext facilities in the C# language.
 # Assumes an fr_FR locale is installed.
@@ -51,8 +52,8 @@ EOF
 
 tmpfiles="$tmpfiles l-csharp"
 test -d l-csharp || mkdir l-csharp
-: ${CSHARPCOMP="/bin/sh ../csharpcomp.sh"}
-${CSHARPCOMP} -o l-csharp/program.exe -L ../../gettext-runtime/intl-csharp -l GNU.Gettext program.cs || exit 1
+: ${CSHARPCOMP="/bin/sh ../../csharpcomp.sh"}
+${CSHARPCOMP} -o l-csharp/program.exe -L ../../../gettext-runtime/intl-csharp -l GNU.Gettext program.cs || exit 1
 
 tmpfiles="$tmpfiles l-csharp-prog.tmp l-csharp-prog.pot"
 : ${XGETTEXT=xgettext}
@@ -140,7 +141,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 ${DIFF} l-csharp-fr.po l-csharp-fr.po.new || exit 1
 
 : ${MSGFMT=msgfmt}
-GETTEXTCSHARPLIBDIR=../../gettext-runtime/intl-csharp \
+GETTEXTCSHARPLIBDIR=../../../gettext-runtime/intl-csharp \
 ${MSGFMT} --csharp -d l-csharp -r prog -l fr l-csharp-fr.po || exit 1
 exit 0
 
@@ -148,7 +149,7 @@ exit 0
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  LC_ALL=$LOCALE_FR ./testlocale
+  LC_ALL=$LOCALE_FR ../testlocale
   case $? in
     0) ;;
     77) LOCALE_FR=none;;
@@ -156,7 +157,7 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LC_ALL=$LOCALE_FR_UTF8 ./testlocale
+  LC_ALL=$LOCALE_FR_UTF8 ../testlocale
   case $? in
     0) ;;
     77) LOCALE_FR_UTF8=none;;
@@ -191,13 +192,13 @@ EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
-: ${CSHARPEXEC="/bin/sh ../csharpexec.sh"}
+: ${CSHARPEXEC="/bin/sh ../../csharpexec.sh"}
 if test $LOCALE_FR != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../gettext-runtime/intl-csharp l-csharp/program.exe 2 > l-csharp-prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp l-csharp/program.exe 2 > l-csharp-prog.out || exit 1
   ${DIFF} l-csharp-prog.ok l-csharp-prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 ${CSHARPEXEC} -L ../../gettext-runtime/intl-csharp l-csharp/program.exe 2 > l-csharp-prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp l-csharp/program.exe 2 > l-csharp-prog.out || exit 1
   ${DIFF} l-csharp-prog.oku l-csharp-prog.out || exit 1
 fi
 

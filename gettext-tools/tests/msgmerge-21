@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test msgmerge when a message's flags have been changed from c-format to
 # kde-format. Reported by Chusslove Illich (Часлав Илић).

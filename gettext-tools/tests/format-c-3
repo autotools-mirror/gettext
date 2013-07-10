@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test ISO C 99 <inttypes.h> format string directives.
 
@@ -7,7 +8,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles fc3.tmp fc3.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc3.tmp --omit-header --no-location ${top_srcdir}/tests/format-c-3-prg.c
+${XGETTEXT} -o fc3.tmp --omit-header --no-location ../${srcdir}/format-c-3-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < fc3.tmp > fc3.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -47,7 +48,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 : ${DIFF=diff}
 ${DIFF} fc3-de.po fc3-de.po.un || exit 1
 
-LANGUAGE= ./fc3 de_DE
+LANGUAGE= ../fc3 de_DE
 result=$?
 
 rm -fr $tmpfiles

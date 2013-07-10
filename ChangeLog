@@ -1,3 +1,8 @@
+2013-07-10  Daiki Ueno  <ueno@gnu.org>
+
+	gettext-tools: convert tests to use init.sh from Gnulib
+	* autogen.sh: Copy tests/init.sh from Gnulib into gettext-tools/tests.
+
 2013-07-07  Daiki Ueno  <ueno@gnu.org>
 
 	* NEWS: Mention libasprintf change and Tcl bug fix.

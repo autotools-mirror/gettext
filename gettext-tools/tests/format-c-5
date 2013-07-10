@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test 'I' format directive flag.
 
@@ -7,7 +8,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles fc5.tmp fc5.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc5.tmp --omit-header --no-location ${top_srcdir}/tests/format-c-5-prg.c
+${XGETTEXT} -o fc5.tmp --omit-header --no-location ../${srcdir}/format-c-5-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < fc5.tmp > fc5.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -47,7 +48,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 : ${DIFF=diff}
 ${DIFF} fa.po fa.po.un || exit 1
 
-LANGUAGE= ./fc5 fa_IR
+LANGUAGE= ../fc5 fa_IR
 case $? in
   0) ;;
   77)

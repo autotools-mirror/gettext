@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test compendium option.  Use it there was no "old" PO file at all
 # (merely use /dev/null).

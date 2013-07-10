@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of gettext facilities in the C++ language.
 # Assumes an fr_FR locale is installed.
@@ -60,7 +61,7 @@ int main (int argc, char *argv[])
 EOF
 
 # Variable needed by LTLIBINTL.
-top_builddir=..
+top_builddir=../..
 
 tmpfiles="$tmpfiles l-c++-prog.${OBJEXT} l-c++-prog${EXEEXT}"
 # Compile in two steps from .cc to .o and from .o to 'l-c++-prog'. This way,
@@ -68,12 +69,13 @@ tmpfiles="$tmpfiles l-c++-prog.${OBJEXT} l-c++-prog${EXEEXT}"
 # Put the -I flags before ${CXXFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
 # ${CXXFLAGS} or ${CPPFLAGS}.
-${CXX} -I.. -I../../gettext-runtime/libasprintf -I$top_srcdir/gnulib-lib -I../intl ${CXXFLAGS} ${CPPFLAGS} -c l-c++-prog.cc \
+${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I../$top_srcdir/gnulib-lib -I../../intl ${CXXFLAGS} ${CPPFLAGS} -c l-c++-prog.cc \
   || exit 1
 # Remove the -Wl,--disable-auto-import option here that is added by
 # woe32-dll.m4. Cygwin 1.7.2 does not support it in C++ mode: It gives
 # a link error about 'std::cout'.
-${LIBTOOL} --quiet --mode=link --tag=CXX ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o l-c++-prog l-c++-prog.${OBJEXT} ../../gettext-runtime/libasprintf/libasprintf.la ../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
+: ${LIBTOOL=/bin/sh ../../libtool}
+${LIBTOOL} --quiet --mode=link --tag=CXX ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o l-c++-prog l-c++-prog.${OBJEXT} ../../../gettext-runtime/libasprintf/libasprintf.la ../../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles l-c++-prog.tmp l-c++-prog.pot"

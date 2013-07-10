@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Verify that msgcat leaves #: lines in place even if they have a bizarre
 # syntax.

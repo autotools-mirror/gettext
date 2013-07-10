@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15

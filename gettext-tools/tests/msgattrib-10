@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test --set-obsolete option. Note that the output routines drop untranslated
 # obsolete messages.

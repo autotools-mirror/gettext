@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test --update: location changed, and xgettext comment added. Both changes
 # must be reflected in the resulting PO file.

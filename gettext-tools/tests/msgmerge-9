@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Duplicates are also fatal in obsolete marked entries (cf. msgmerge-3).
 

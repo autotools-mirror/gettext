@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # The slash (/) and the question mark (?) serve a double-purpose in Perl.
 # Depending on the context they can either be an operator (division

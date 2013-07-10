@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test the gettext program with -e option.
 
@@ -9,7 +10,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 tmpfiles="$tmpfiles gt-1"
 test -d gt-1 || mkdir gt-1
 test -d gt-1/LC_MESSAGES || mkdir gt-1/LC_MESSAGES
-cp $top_srcdir/tests/test.mo gt-1/LC_MESSAGES
+cp ../$srcdir/test.mo gt-1/LC_MESSAGES
 
 tmpfiles="$tmpfiles gt-test1.out"
 : ${GETTEXT=gettext}

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test that untranslated messages that are brought over from the .pot file
 # get the right number of msgstrs.

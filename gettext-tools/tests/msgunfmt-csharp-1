@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of --csharp option.
 
@@ -54,12 +55,12 @@ msgstr "Fermer"
 EOF
 
 : ${MSGFMT=msgfmt}
-GETTEXTCSHARPLIBDIR=../../gettext-runtime/intl-csharp \
+GETTEXTCSHARPLIBDIR=../../../gettext-runtime/intl-csharp \
 ${MSGFMT} --csharp -d mu-cs-1 -r prog -l fr mu-cs-1/fr.po || exit 1
 
 : ${MSGUNFMT=msgunfmt}
-GETTEXTCSHARPEXEDIR=../src \
-GETTEXTCSHARPLIBDIR=../../gettext-runtime/intl-csharp \
+GETTEXTCSHARPEXEDIR=../../src \
+GETTEXTCSHARPLIBDIR=../../../gettext-runtime/intl-csharp \
 ${MSGUNFMT} --csharp -d mu-cs-1 -r prog -l fr -o mu-cs-1/prog.out || exit 1
 
 : ${MSGCAT=msgcat}

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of --java option.
 
@@ -61,7 +62,7 @@ ${MSGFMT} -j -d mu-java-1 -r prog -l fr mu-java-1/fr.po || exit 1
 
 : ${MSGUNFMT=msgunfmt}
 CLASSPATH=mu-java-1${CLASSPATH:+:$CLASSPATH} \
-GETTEXTJEXEDIR=../src GETTEXTJAR=../src/gettext.jar \
+GETTEXTJEXEDIR=../../src GETTEXTJAR=../../src/gettext.jar \
 ${MSGUNFMT} --java -d mu-java-1 -r prog -l fr -o mu-java-1/prog.out || exit 1
 
 : ${MSGCAT=msgcat}

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # When a header entry is provided by xgettext, it overrides any msgid ""
 # present in the input.

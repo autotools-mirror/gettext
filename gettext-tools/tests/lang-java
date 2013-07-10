@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of gettext facilities in the Java language.
 # Assumes an fr_FR locale is installed.
@@ -65,8 +66,8 @@ EOF
 tmpfiles="$tmpfiles Program.class l-java l-java-prog.err"
 test -d l-java || mkdir l-java
 
-: ${JAVACOMP="/bin/sh ../javacomp.sh"}
-CLASSPATH=../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d l-java Program.java 2>l-java-prog.err \
+: ${JAVACOMP="/bin/sh ../../javacomp.sh"}
+CLASSPATH=../../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d l-java Program.java 2>l-java-prog.err \
   || { cat l-java-prog.err 1>&2; exit 1; }
 
 tmpfiles="$tmpfiles l-java-prog.tmp l-java-prog.pot"
@@ -162,7 +163,7 @@ ${MSGFMT} -j -d l-java -r prog -l fr l-java-fr.po || exit 1
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  LC_ALL=$LOCALE_FR ./testlocale
+  LC_ALL=$LOCALE_FR ../testlocale
   case $? in
     0) ;;
     77) LOCALE_FR=none;;
@@ -170,7 +171,7 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LC_ALL=$LOCALE_FR_UTF8 ./testlocale
+  LC_ALL=$LOCALE_FR_UTF8 ../testlocale
   case $? in
     0) ;;
     77) LOCALE_FR_UTF8=none;;
@@ -205,13 +206,13 @@ EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
-: ${JAVAEXEC="/bin/sh ../javaexec.sh"}
+: ${JAVAEXEC="/bin/sh ../../javaexec.sh"}
 if test $LOCALE_FR != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=l-java:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 ISO-8859-1 > l-java-prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=l-java:../../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 ISO-8859-1 > l-java-prog.out || exit 1
   ${DIFF} l-java-prog.ok l-java-prog.out || exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=l-java:../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 UTF-8 > l-java-prog.out || exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=l-java:../../../gettext-runtime/intl-java/libintl.jar ${JAVAEXEC} Program 2 UTF-8 > l-java-prog.out || exit 1
   ${DIFF} l-java-prog.oku l-java-prog.out || exit 1
 fi
 

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test --more-than=0; identical message are wanted once only.
 # If the first occurrence is fuzzy, keep the fuzzy mark.

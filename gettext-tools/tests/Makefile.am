@@ -179,7 +179,6 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    MSGUNIQ="$(CHECKER) msguniq" \
 		    RECODE="$(CHECKER) recode" \
 		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
-		    LIBTOOL='@LIBTOOL@' \
 		    CC='@CC@' CFLAGS='@CFLAGS@' \
 		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
 		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \

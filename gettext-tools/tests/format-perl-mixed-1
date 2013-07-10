@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test recognition of Perl format strings of both kinds (printf and brace).
 # This test is for the combination of both kinds.

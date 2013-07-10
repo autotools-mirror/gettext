@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Tests for the general string extraction facilities of the Perl backend
 # (with option --extract-all).

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test non-ASCII character at the end of msgstr. (Triggered a glibc-2.1 bug.)
 

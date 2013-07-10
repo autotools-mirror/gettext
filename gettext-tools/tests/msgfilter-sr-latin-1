@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test msgfilter with command recode-sr-latin1.
 # Verify that it converts to UTF-8.

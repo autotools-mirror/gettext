@@ -1,4 +1,5 @@
 #!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test Python support: --from-code option and encoding recognition.
 

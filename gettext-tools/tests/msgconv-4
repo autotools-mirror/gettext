@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test conversion from UTF-8 to BIG5 is a NOP with Java .properties syntax.
 # Test that encoding names are case insensitive.

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test comparison with PO files with previous msgids.
 # Test --use-fuzzy option.

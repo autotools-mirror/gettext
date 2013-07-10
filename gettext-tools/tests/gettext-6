@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test that on glibc systems, gettext() in multithreaded applications works
 # correctly if different threads operate in different locales with the same
@@ -39,8 +40,8 @@ test -d gt-6/fr_FR || mkdir gt-6/fr_FR
 test -d gt-6/fr_FR/LC_MESSAGES || mkdir gt-6/fr_FR/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o gt-6/de_DE/LC_MESSAGES/tstthread.mo ${top_srcdir}/tests/gettext-6-1.po
-${MSGFMT} -o gt-6/fr_FR/LC_MESSAGES/tstthread.mo ${top_srcdir}/tests/gettext-6-2.po
+${MSGFMT} -o gt-6/de_DE/LC_MESSAGES/tstthread.mo ../${srcdir}/gettext-6-1.po
+${MSGFMT} -o gt-6/fr_FR/LC_MESSAGES/tstthread.mo ../${srcdir}/gettext-6-2.po
 
 tmpfiles="$tmpfiles gt-6.ok"
 cat <<EOF > gt-6.ok
@@ -51,7 +52,7 @@ beauté
 EOF
 
 tmpfiles="$tmpfiles gt-6.out"
-./gettext-6-prg > gt-6.out
+../gettext-6-prg > gt-6.out
 case $? in
   0) ;;
   77)

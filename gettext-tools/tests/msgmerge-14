@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test merging of a ref.pot in UTF-8 encoding against a def.po in legacy
 # encoding (that was produced from an older version of ref.pot, in ASCII

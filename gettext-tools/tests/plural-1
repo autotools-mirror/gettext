@@ -1,11 +1,12 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles plural-1-cake.tmp plural-1-cake.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location ${top_srcdir}/tests/plural-1-prg.c
+${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location ../${srcdir}/plural-1-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > plural-1-cake.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -66,15 +67,15 @@ ${DIFF} plural-1-fr.po.strip plural-1-fr.po.un || exit 1
 tmpfiles="$tmpfiles plural-1-cake.ok plural-1-cake.tmp cake.out"
 : ${DIFF=diff}
 echo 'un morceau de gateau' > plural-1-cake.ok
-LANGUAGE= ./cake fr 1 > plural-1-cake.tmp || exit 1
+LANGUAGE= ../cake fr 1 > plural-1-cake.tmp || exit 1
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || exit 1
 ${DIFF} plural-1-cake.ok cake.out || exit 1
 echo '2 morceaux de gateau' > plural-1-cake.ok
-LANGUAGE= ./cake fr 2 > plural-1-cake.tmp || exit 1
+LANGUAGE= ../cake fr 2 > plural-1-cake.tmp || exit 1
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || exit 1
 ${DIFF} plural-1-cake.ok cake.out || exit 1
 echo '10 morceaux de gateau' > plural-1-cake.ok
-LANGUAGE= ./cake fr 10 > plural-1-cake.tmp || exit 1
+LANGUAGE= ../cake fr 10 > plural-1-cake.tmp || exit 1
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || exit 1
 ${DIFF} plural-1-cake.ok cake.out || exit 1
 

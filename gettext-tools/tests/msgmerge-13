@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test merging of a message which has c-format specified in ref.pot but not
 # in def.po.

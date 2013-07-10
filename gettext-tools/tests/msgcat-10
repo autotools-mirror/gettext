@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Verify msgcat of two files, when the header entries have different comments
 # but the same contents. The resulting header entry is not marked fuzzy,

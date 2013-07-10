@@ -1,4 +1,5 @@
 #!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test Lisp support: --add-comments option.
 

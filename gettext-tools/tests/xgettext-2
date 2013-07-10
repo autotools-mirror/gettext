@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Even an empty string is extracted, if not overridden by xgettext's
 # default-constructed header entry.

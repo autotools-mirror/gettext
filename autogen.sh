@@ -378,6 +378,7 @@ if ! $skip_gnulib; then
     '
     $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER
+    $GNULIB_TOOL --copy-file tests/init.sh gettext-tools
   fi
 fi
 

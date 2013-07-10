@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test --set-fuzzy option. Note that the output routines ignore the fuzzy
 # attribute for untranslated messages.

@@ -1,4 +1,5 @@
 #! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test msgmerge when the second argument is a PO file with obsolete messages
 # (e.g. the result of an earlier msgmerge operation).
