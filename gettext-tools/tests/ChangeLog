@@ -1,3 +1,7 @@
+2013-07-11  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-lua-1: Add test case for string concatenation.
+
 2013-07-10  Daiki Ueno  <ueno@gnu.org>
 
 	gettext-tools: convert tests to use init.sh from Gnulib

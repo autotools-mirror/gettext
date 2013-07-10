@@ -1,3 +1,9 @@
+2013-07-11  Daiki Ueno  <ueno@gnu.org>
+
+	Fix crash when parsing '..' with non-string argument.
+	Reported by Koen Dergent at <http://savannah.gnu.org/bugs/?39458>.
+	* x-lua.c (extract_balanced): Skip stray '..'.
+
 2013-06-27  Daiki Ueno  <ueno@gnu.org>
 
 	* x-python.c (phase5_pushback): Increment size to 2.
