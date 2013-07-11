@@ -74,9 +74,16 @@ Tasks not to forget before release:
   Then update the case statement in autopoint.in.
 - again: "make dist"
 
-* Upload to ftp-upload.gnu.org according to the procedure given by
-  Bradley M. Kuhn on 2003-11-11.
-  http://www.gnu.org/prep/maintain/maintain.html#Automated-Upload-Procedure
+* Upload gettext-0.xx.yy.tar.gz to ftp.gnu.org, according to the
+  procedure given by Bradley M. Kuhn on 2003-11-11
+  http://www.gnu.org/prep/maintain/maintain.html#Automated-Upload-Procedure,
+  or using the gnupload script in gnulib.
+  gnulib/build-aux/gnupload --to ftp.gnu.org:gettext gettext-0.xx.yy.tar.gz
+
+* Upload archive.dir.tar.gz to alpha.gnu.org.
+  cp gettext-tools/misc/archive.dir.tar.gz archive.dir-0.xx.yy.tar.gz
+  gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \
+                            --symlink-regex archive.dir-0.xx.yy.tar.gz
 
 - Tag the repository, using a simple tag and optionally a branch tag.
   git tag -m 'gettext 0.18 release' v0.18
