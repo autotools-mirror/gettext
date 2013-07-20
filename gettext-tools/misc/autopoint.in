@@ -361,7 +361,7 @@ if test -z "$m4dir" && test -f Makefile.am; then
 fi
 
 # Check whether to omit the intl/ directory.
-omitintl=no
+omitintl=
 xargs=`func_trace AM_GNU_GETTEXT`
 for arg in $xargs; do
   if test 'external' = "$arg"; then
