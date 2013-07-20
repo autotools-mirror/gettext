@@ -1,3 +1,9 @@
+2013-07-21  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in (omitintl): Don't set it 'no' when no
+	AM_GNU_GETTEXT call is found.
+	Reported by Sebastien Helleu in <http://savannah.gnu.org/bugs/?39536>.
+
 2013-05-02  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in (func_trace): New function; use it all in places
