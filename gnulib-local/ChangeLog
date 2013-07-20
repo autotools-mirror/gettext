@@ -1,3 +1,8 @@
+2013-07-21  Daiki Ueno  <ueno@gnu.org>
+
+	Update after gnulib changed.
+	* lib/localcharset.c.diff: Remove file.
+
 2013-06-25  Daiki Ueno  <ueno@gnu.org>
 
 	Work around localcharset issue under OS X multi-threaded scenario.
