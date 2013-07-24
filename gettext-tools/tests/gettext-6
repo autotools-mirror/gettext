@@ -22,7 +22,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 }
 
 # This test works only on systems that have a de_DE and fr_FR locale installed.
-missing_locale=`./gettext-6-prg 1`
+missing_locale=`../gettext-6-prg 1`
 if test -n "$missing_locale"; then
   if test -f /usr/bin/localedef; then
     echo "Skipping test: locale ${missing_locale} not installed"
