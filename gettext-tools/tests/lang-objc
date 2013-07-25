@@ -59,9 +59,6 @@ int main (int argc, char *argv[])
 }
 EOF
 
-# Variable needed by LTLIBINTL.
-top_builddir=../..
-
 tmpfiles="$tmpfiles l-objc-prog.${OBJEXT} l-objc-prog${EXEEXT}"
 # Put the -I flags before ${CFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in

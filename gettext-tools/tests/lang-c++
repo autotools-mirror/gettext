@@ -60,9 +60,6 @@ int main (int argc, char *argv[])
 }
 EOF
 
-# Variable needed by LTLIBINTL.
-top_builddir=../..
-
 tmpfiles="$tmpfiles l-c++-prog.${OBJEXT} l-c++-prog${EXEEXT}"
 # Compile in two steps from .cc to .o and from .o to 'l-c++-prog'. This way,
 # relinking is faster because doesn't need to redo the first step.

@@ -1,5 +1,5 @@
 #! /bin/sh
-. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src ${top_srcdir=..}/../gettext-runtime/src
 
 # Test of gettext facilities in the bash language.
 # Assumes an fr_FR locale is installed.

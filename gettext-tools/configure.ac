@@ -549,6 +549,8 @@ AC_CONFIG_FILES([m4/Makefile])
 
 AC_CONFIG_FILES([tests/Makefile])
 
+AC_CONFIG_FILES([tests/init.cfg])
+
 AC_CONFIG_FILES([gnulib-tests/Makefile])
 
 AC_OUTPUT

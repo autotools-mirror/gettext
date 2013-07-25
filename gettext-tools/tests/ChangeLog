@@ -1,3 +1,15 @@
+2013-07-25  Daiki Ueno  <ueno@gnu.org>
+
+	tests: fix path adjustment for LTLIBINTL
+	* lang-bash: Add gettext-runtime/src to PATH for gettext.sh.
+	* lang-sh: Likewise.
+	* lang-c: Don't set top_builddir here.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+	* Makefile.am (TESTS_ENVIRONMENT): Don't set PATH here.
+	* init.cfg.in: New file to adjust relative path needed by
+	LTLIBINTL.
+
 2013-07-21  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (EXTRA_DIST): Add init.sh.

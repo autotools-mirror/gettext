@@ -1,3 +1,8 @@
+2013-07-25  Daiki Ueno  <ueno@gnu.org>
+
+	tests: fix path adjustment for LTLIBINTL
+	* configure.ac: Output tests/init.cfg.
+
 2013-05-29  Stefano Lattarini  <stefano.lattarini@gmail.com>  (tiny change)
 
 	* configure.ac (AM_INIT_AUTOMAKE): Add 'parallel-tests' option.

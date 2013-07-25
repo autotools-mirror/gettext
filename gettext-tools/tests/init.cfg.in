@@ -1,0 +1,4 @@
+# Variable needed by LTLIBINTL.
+top_builddir=../..
+
+LTLIBINTL="@LTLIBINTL@"
