@@ -177,23 +177,6 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    MSGUNFMT="$(CHECKER) msgunfmt" \
 		    MSGUNIQ="$(CHECKER) msguniq" \
 		    RECODE="$(CHECKER) recode" \
-		    OBJEXT='@OBJEXT@' EXEEXT='@EXEEXT@' \
-		    CC='@CC@' CFLAGS='@CFLAGS@' \
-		    CXX='@CXX@' CXXFLAGS='@CXXFLAGS@' \
-		    CPPFLAGS='@CPPFLAGS@' LDFLAGS='@LDFLAGS@' \
-		    LTLIBINTL='@LTLIBINTL@' \
-		    JAVA_CHOICE='@JAVA_CHOICE@' \
-		    BUILDJAVA='@BUILDJAVA@' \
-		    TESTJAVA='@TESTJAVA@' \
-		    CSHARP_CHOICE='@CSHARP_CHOICE@' \
-		    BUILDCSHARP='@BUILDCSHARP@' \
-		    TESTCSHARP='@TESTCSHARP@' \
-		    TESTLIBASPRINTF='@TESTLIBASPRINTF@' \
-		    GLIBC2='@GLIBC2@' \
-		    LOCALE_FR='@LOCALE_FR@' \
-		    LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
-		    LOCALE_JA='@LOCALE_JA@' \
-		    host_os='@host_os@' \
 		    CONFIG_SHELL='$(SHELL)'
 
 LOG_COMPILER = $(SHELL)

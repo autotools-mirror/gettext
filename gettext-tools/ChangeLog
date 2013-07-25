@@ -1,5 +1,12 @@
 2013-07-25  Daiki Ueno  <ueno@gnu.org>
 
+	tests: allow each test to run individually without 'make'
+	* configure.ac: Replace occurrences of make variables in
+	tests/init.cfg with shell variables so they can be adjusted in
+	test scripts.
+
+2013-07-25  Daiki Ueno  <ueno@gnu.org>
+
 	tests: fix path adjustment for LTLIBINTL
 	* configure.ac: Output tests/init.cfg.
 

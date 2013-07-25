@@ -48,7 +48,7 @@ tmpfiles="$tmpfiles l-c-prog.${OBJEXT} l-c-prog${EXEEXT}"
 # is found in the build directory, regardless of -I options present in
 # ${CFLAGS} or ${CPPFLAGS}.
 : ${LIBTOOL=/bin/sh ../../libtool}
-${LIBTOOL} --quiet --mode=link ${CC} -I../.. -I../$top_srcdir/gnulib-lib ../../gnulib-lib/libgettextlib.la -I../../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o l-c-prog prog.c ${LTLIBINTL} \
+${LIBTOOL} --quiet --mode=link ${CC} -I../.. -I../${top_srcdir=..}/gnulib-lib ../../gnulib-lib/libgettextlib.la -I../../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o l-c-prog prog.c ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles l-c-prog.tmp l-c-prog.pot"

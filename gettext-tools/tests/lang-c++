@@ -66,7 +66,7 @@ tmpfiles="$tmpfiles l-c++-prog.${OBJEXT} l-c++-prog${EXEEXT}"
 # Put the -I flags before ${CXXFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
 # ${CXXFLAGS} or ${CPPFLAGS}.
-${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I../$top_srcdir/gnulib-lib -I../../intl ${CXXFLAGS} ${CPPFLAGS} -c l-c++-prog.cc \
+${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I../${top_srcdir=..}/gnulib-lib -I../../intl ${CXXFLAGS} ${CPPFLAGS} -c l-c++-prog.cc \
   || exit 1
 # Remove the -Wl,--disable-auto-import option here that is added by
 # woe32-dll.m4. Cygwin 1.7.2 does not support it in C++ mode: It gives

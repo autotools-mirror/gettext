@@ -1,5 +1,17 @@
 2013-07-25  Daiki Ueno  <ueno@gnu.org>
 
+	tests: allow each test to run individually without 'make'
+	* Makefile.am (TESTS_ENVIRONMENT): Move required envvar to...
+	* init.cfg.in: ...here, so each test can run individually.
+	* lang-c: Guard if top_srcdir is not set.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+	* msgunfmt-tcl-1: Likewise.
+	* xgettext-1: Likewise.
+	* xgettext-c-1: Likewise.
+
+2013-07-25  Daiki Ueno  <ueno@gnu.org>
+
 	tests: fix path adjustment for LTLIBINTL
 	* lang-bash: Add gettext-runtime/src to PATH for gettext.sh.
 	* lang-sh: Likewise.
