@@ -1,3 +1,8 @@
+2013-07-29  Jan Djärv  <jan.h.d@swipnet.se>  (tiny change)
+
+	* po-mode.el (po-send-mail): Don't include original uncompressed
+	text in the mail.
+
 2013-07-21  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in (omitintl): Don't set it 'no' when no
