@@ -759,6 +759,7 @@ This version was built without iconv()."),
           char *reduced;
           const char *extension;
           const char *language;
+          const char *p;
 
           base = strrchr (filename, '/');
           if (!base)
@@ -771,17 +772,27 @@ This version was built without iconv()."),
             reduced[strlen (reduced) - 3] = '\0';
 
           /* Work out what the file extension is.  */
-          extension = strrchr (reduced, '.');
-          if (extension)
-            ++extension;
-          else
-            extension = "";
+          language = NULL;
+          p = reduced + strlen (reduced);
+          for (; p > reduced && language == NULL; p--)
+            {
+              if (*p == '.')
+                {
+                  extension = p + 1;
 
-          /* Derive the language from the extension, and the extractor
-             function from the language.  */
-          language = extension_to_language (extension);
+                  /* Derive the language from the extension, and the extractor
+                     function from the language.  */
+                  language = extension_to_language (extension);
+                }
+            }
+
           if (language == NULL)
             {
+              extension = strrchr (reduced, '.');
+              if (extension == NULL)
+                extension = "";
+              else
+                extension++;
               error (0, 0, _("\
 warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
               language = "C";
@@ -3084,7 +3095,7 @@ SOME DESCRIPTIVE TITLE.\n\
 Copyright (C) YEAR %s\n\
 This file is distributed under the same license as the PACKAGE package.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
-			 copyright_holder);
+                         copyright_holder);
   else
     comment = xstrdup ("\
 SOME DESCRIPTIVE TITLE.\n\

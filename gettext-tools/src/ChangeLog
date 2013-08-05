@@ -1,3 +1,8 @@
+2013-08-05  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext.c (main): Allow exntension with multiple
+	dots. e.g. .gschema.xml.
+
 2013-03-02  Miguel Angel Arruga Vivas  <rosen644385@gmail.com>
 
 	Extract libexpat compatibility layer.
