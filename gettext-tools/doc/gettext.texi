@@ -465,6 +465,7 @@ Internationalizable Data
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
 * Glade::                       Glade - GNOME user interface description
+* GSettings::                   GSettings - GNOME user configuration schema
 
 Concluding Remarks
 
@@ -4784,7 +4785,7 @@ Such highlighting is possible through the @code{msgcat} options
 * Customizing less::            Customizing @code{less} for viewing PO files
 @end menu
 
-@node The --color option, The TERM variable,  , Colorizing
+@node The --color option, The TERM variable, Colorizing, Colorizing
 @subsection The @code{--color} option
 
 @opindex --color@r{, @code{msgcat} option}
@@ -10975,7 +10976,7 @@ worst probably being its imperfectness.
 * Perl Pitfalls::               Bugs, Pitfalls, and Things That Do Not Work
 @end menu
 
-@node General Problems, Default Keywords,  , Perl
+@node General Problems, Default Keywords, Perl, Perl
 @subsubsection General Problems Parsing Perl Code
 
 It is often heard that only Perl can parse Perl.  This is not true.
@@ -11901,7 +11902,7 @@ On platforms without gettext, the functions are not available.
 ---
 @end table
 
-@node JavaScript
+@node JavaScript,  , Lua, List of Programming Languages
 @subsection JavaScript
 
 @table @asis
@@ -12003,6 +12004,7 @@ using GNU gettext.
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
 * Glade::                       Glade - GNOME user interface description
+* GSettings::                   GSettings - GNOME user configuration schema
 @end menu
 
 @node POT, RST, List of Data Formats, List of Data Formats
@@ -12034,7 +12036,7 @@ fpk
 @code{xgettext}, @code{rstconv}
 @end table
 
-@node Glade,   , RST, List of Data Formats
+@node Glade, GSettings, RST, List of Data Formats
 @subsection Glade - GNOME user interface description
 
 @table @asis
@@ -12046,6 +12048,20 @@ glade, libglade, glade2, libglade2, intltool
 
 @item Extractor
 @code{xgettext}, @code{libglade-xgettext}, @code{xml-i18n-extract}, @code{intltool-extract}
+@end table
+
+@node GSettings,  , Glade, List of Data Formats
+@subsection GSettings - GNOME user configuration schema
+
+@table @asis
+@item RPMs
+glib2
+
+@item File extension
+@code{gschema.xml}
+
+@item Extractor
+@code{xgettext}, @code{intltool-extract}
 @end table
 
 @c This is the template for new data formats.

@@ -1,3 +1,9 @@
+2013-08-06  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: add support for GSettings schema file
+	* gettext.texi (GSettings): New subsection.
+	* xgettext.texi: Document GSettings source language.
+
 2013-06-10  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am: Use $(MKDIR_P) instead of $(mkdir_p).

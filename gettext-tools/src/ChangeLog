@@ -1,3 +1,17 @@
+2013-08-06  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: add support for GSettings schema file
+	* x-gsettings.h: New file.
+	* x-gsettings.c: New file.
+	* xgettext.c: Include x-gsettings.h.
+	(flag_table_vala): New variable.
+	(usage): Mention GSettings source language.
+	(language_to_extractor): Add GSettings rule.
+	(extension_to_language): Add GSettings rule.
+	* Makefile.am (noinst_HEADERS): Add x-gsettings.h.
+	(xgettext_SOURCES): Add x-gsettings.c.
+	* FILES: Update.
+
 2013-08-05  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.c (main): Allow exntension with multiple

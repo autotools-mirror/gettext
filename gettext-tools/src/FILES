@@ -345,6 +345,9 @@ msgl-check.c
 | x-vala.h
 | x-vala.c
 |               String extractor for Vala.
+| x-gsettings.h
+| x-gsettings.c
+|               String extractor for GSettings schema file.
 | xgettext.c
 |               Main source for the 'xgettext' program.
 |

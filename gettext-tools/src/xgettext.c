@@ -95,6 +95,7 @@
 #include "x-lua.h"
 #include "x-javascript.h"
 #include "x-vala.h"
+#include "x-gsettings.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -3233,6 +3234,7 @@ language_to_extractor (const char *name)
     SCANNERS_LUA
     SCANNERS_JAVASCRIPT
     SCANNERS_VALA
+    SCANNERS_GSETTINGS
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -3319,6 +3321,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_LUA
     EXTENSIONS_JAVASCRIPT
     EXTENSIONS_VALA
+    EXTENSIONS_GSETTINGS
     /* Here may follow more file extensions... */
   };
 
