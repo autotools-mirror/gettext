@@ -1,3 +1,11 @@
+Version 0.18.4 - unreleased
+
+* Programming languages support:
+
+  - GSettings:
+    xgettext now supports GSettings schema file format used by GNOME
+    applications.
+
 Version 0.18.3 - July 2013
 
 * Runtime behaviour:
