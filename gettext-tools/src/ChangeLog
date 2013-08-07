@@ -1,3 +1,8 @@
+2013-08-08  Miguel Angel Arruga Vivas  <rosen644835@gmail.com> (tiny change)
+
+	Fix copyright year in xgettext version string.
+	* xgettext.c (main): Update copyright year.
+
 2013-08-06  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: add support for GSettings schema file
