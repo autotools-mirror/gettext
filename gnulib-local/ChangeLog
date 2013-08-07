@@ -1,3 +1,8 @@
+2013-08-07  Daiki Ueno  <ueno@gnu.org>
+
+	Update after gnulib changed.
+	* modules/regex.diff: Update.
+
 2013-07-21  Daiki Ueno  <ueno@gnu.org>
 
 	Update after gnulib changed.
