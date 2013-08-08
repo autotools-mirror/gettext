@@ -1,3 +1,8 @@
+2013-08-08  Daiki Ueno  <ueno@gnu.org>
+
+	* .dir-locals.el: New file to force spaces instead of tabs in C
+	and shell-script files.
+
 2013-08-07  Daiki Ueno  <ueno@gnu.org>
 
 	* NEWS: Add entry for 0.18.4.  Mention GSettings schema file support.
