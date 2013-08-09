@@ -1,3 +1,8 @@
+2013-08-09  Daiki Ueno  <ueno@gnu.org>
+
+	* x-gsettings.c (extract_gsettings): Add guard when expat is not
+	available at compile time.
+
 2013-08-08  Miguel Angel Arruga Vivas  <rosen644835@gmail.com> (tiny change)
 
 	Fix copyright year in xgettext version string.

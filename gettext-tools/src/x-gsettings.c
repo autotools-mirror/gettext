@@ -366,13 +366,15 @@ error while reading \"%s\""), real_filename);
 
 void
 extract_gsettings (FILE *fp,
-               const char *real_filename, const char *logical_filename,
-               flag_context_list_table_ty *flag_table,
-               msgdomain_list_ty *mdlp)
+                   const char *real_filename, const char *logical_filename,
+                   flag_context_list_table_ty *flag_table,
+                   msgdomain_list_ty *mdlp)
 {
+#if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
   if (LIBEXPAT_AVAILABLE ())
     do_extract_gsettings (fp, real_filename, logical_filename, mdlp);
   else
+#endif
     {
       multiline_error (xstrdup (""),
                        xasprintf (_("\
