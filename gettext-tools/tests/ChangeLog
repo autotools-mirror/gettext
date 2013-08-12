@@ -1,3 +1,7 @@
+2013-08-12  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-glade-7: Add a test for multi-line extracted comments.
+
 2013-08-06  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: add support for GSettings schema file

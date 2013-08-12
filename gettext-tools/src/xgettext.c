@@ -2289,7 +2289,29 @@ meta information, not the empty string.\n")));
     nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
     if (extracted_comment != NULL)
-      message_comment_dot_append (mp, extracted_comment);
+      {
+        char *copy = xstrdup (extracted_comment);
+        char *rest;
+
+        rest = copy;
+        while (*rest != '\0')
+          {
+            char *newline = strchr (rest, '\n');
+
+            if (newline != NULL)
+              {
+                *newline = '\0';
+                message_comment_dot_append (mp, rest);
+                rest = newline + 1;
+              }
+            else
+              {
+                message_comment_dot_append (mp, rest);
+                break;
+              }
+          }
+        free (copy);
+      }
 
     add_all_remaining_comments = add_all_comments;
     for (j = 0; ; ++j)
