@@ -192,7 +192,6 @@ EOF
 tmpfiles="$tmpfiles xg-gl-7.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o - xg-gl-7.ui | grep -v 'POT-Creation-Date' > xg-gl-7.pot
-cp xg-gl-7.pot ..
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles xg-gl-7.ok"
