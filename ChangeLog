@@ -1,3 +1,7 @@
+2013-08-13  Michele Locati <michele@locati.it>  (tiny change)
+
+	* windows/gettext.rc: Update copyright year.
+
 2013-08-08  Daiki Ueno  <ueno@gnu.org>
 
 	* .dir-locals.el: New file to force spaces instead of tabs in C
