@@ -1,3 +1,12 @@
+2013-08-29  Daiki Ueno  <ueno@gnu.org>
+
+	* po-gram-gen.y (message): Free memory allocated for
+	msgid_pluralform.
+	(string_list): Free memory allocated for STRING.
+	(prev_string_list): Free memory allocated for PREV_STRING.
+	Reported by Alexander Potashev in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-08/msg00043.html>.
+
 2013-08-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
 
 	* x-glade.c (start_element_glade1): Use extract_all variable.
