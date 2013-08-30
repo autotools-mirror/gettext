@@ -253,7 +253,12 @@ fc4_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc5_SOURCES = format-c-5-prg.c
 fc5_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettextpo_1_prg_SOURCES = gettextpo-1-prg.c
-gettextpo_1_prg_CPPFLAGS = -I../libgettextpo -I$(top_srcdir)/libgettextpo $(AM_CPPFLAGS)
+# Don't add 'gnulib-lib' to the include path here.  Some header files
+# there may interfere with the ones in 'libgettextpo'.
+gettextpo_1_prg_CPPFLAGS = \
+  -I.. \
+  -I../libgettextpo -I$(top_srcdir)/libgettextpo \
+  -I../intl
 # Don't add more libraries here. This test must check whether libgettextpo is
 # self contained.
 gettextpo_1_prg_LDADD = ../libgettextpo/libgettextpo.la $(LDADD)
