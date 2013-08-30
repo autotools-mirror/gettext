@@ -1,3 +1,10 @@
+2013-08-30  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (gettextpo_1_prg_CPPFLAGS): Don't add 'gnulib-lib'
+	to the include path.
+	Reported by Perry Smith in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-08/msg00053.html>.
+
 2013-08-13  Miguel Angel Arruga Vivas  <rosen644835@gmail.com>
 
 	* xgettext-glade-5: Add a test for --extract-all option behavior.
