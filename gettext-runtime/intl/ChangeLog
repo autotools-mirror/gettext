@@ -1,3 +1,16 @@
+2013-05-07  Carlos O'Donell  <carlos@redhat.com>
+            Jeff Law  <law@redhat.com>
+
+	* dcigettext.c (DCIGETTEXT): Skip translating if _nl_find_msg
+	returns -1.
+	(_nl_find_msg): Return -1 if recursive call returned -1. If
+	newmem is null return -1.
+	* loadmsgcat.c (_nl_load_domain): If _nl_find_msg returns -1
+	abort loading the domain.
+
+	* dcigettext.c (_nl_find_msg): Avoid use after potential
+	free.  Simplify list management for _LIBC case.
+
 2013-03-07  Daiki Ueno  <ueno@gnu.org>
 
 	* setlocale.c (libintl_setlocale): Signal a change of the loaded

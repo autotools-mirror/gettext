@@ -1258,7 +1258,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
     default:
       /* This is an invalid revision.  */
     invalid:
-      /* This is an invalid .mo file.  */
+      /* This is an invalid .mo file or we ran out of resources.  */
       free (domain->malloced);
 #ifdef HAVE_MMAP
       if (use_mmap)
@@ -1283,6 +1283,13 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 #else
   nullentry = _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
 #endif
+  if (__builtin_expect (nullentry == (char *) -1, 0))
+    {
+#ifdef _LIBC
+      __libc_rwlock_fini (domain->conversions_lock);
+#endif
+      goto invalid;
+    }
   EXTRACT_PLURAL_EXPRESSION (nullentry, &domain->plural, &domain->nplurals);
 
  out:
