@@ -6,6 +6,9 @@ Version 0.18.4 - unreleased
     xgettext now supports GSettings schema file format used by GNOME
     applications.
 
+* libgettextpo library:
+  - Memory leak fixes in the PO file parser.
+
 Version 0.18.3 - July 2013
 
 * Runtime behaviour:
