@@ -1,5 +1,12 @@
 2013-09-24  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint.in (func_trace): Discard stderr of autom4te.
+	* gettextize.in (func_trace): Likewise.
+	Reported by Gary V. Vaughan in
+	<http://savannah.gnu.org/bugs/?40083>.
+
+2013-09-24  Daiki Ueno  <ueno@gnu.org>
+
 	* autopoint.in: Recognize multiple arguments of AM_GNU_GETTEXT
 	when tracing.
 	* gettextize.in: Likewise.
