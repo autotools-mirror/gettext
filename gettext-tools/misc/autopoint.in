@@ -350,12 +350,14 @@ fi
 # Check whether to omit the intl/ directory.
 omitintl=
 xargs=`func_trace AM_GNU_GETTEXT "$configure_in"`
+save_IFS="$IFS"; IFS=:
 for arg in $xargs; do
   if test 'external' = "$arg"; then
     omitintl=yes
     break
   fi
 done
+IFS="$save_IFS"
 
 # Check in which directory or directories the po/* infrastructure belongs.
 configfiles=`func_trace AC_CONFIG_FILES "$configure_in"`
