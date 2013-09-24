@@ -675,12 +675,14 @@ else
   # Tell the user what to put into configure.ac, if it is not already there.
   external=
   xargs=`func_trace AM_GNU_GETTEXT "$srcdir/$configure_in"`
+  save_IFS="$IFS"; IFS=:
   for arg in $xargs; do
     if test 'external' = "$arg"; then
       external=yes
       break
     fi
   done
+  IFS="$save_IFS"
   if test -z "$external"; then
     please="$please
 Please use AM_GNU_GETTEXT([external]) in order to cause autoconfiguration

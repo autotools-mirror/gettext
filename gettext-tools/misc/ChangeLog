@@ -1,3 +1,11 @@
+2013-09-24  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Recognize multiple arguments of AM_GNU_GETTEXT
+	when tracing.
+	* gettextize.in: Likewise.
+	Reported by Gary V. Vaughan in
+	<http://savannah.gnu.org/bugs/?40082>.
+
 2013-08-12  Daiki Ueno  <ueno@gnu.org>
 
 	autopoint: make macro trace in autom4te robuster
