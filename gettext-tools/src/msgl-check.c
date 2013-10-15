@@ -764,7 +764,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
   };
   static const char *default_values[] =
   {
-    "PACKAGE VERSION", "YEAR-MO-DA", "FULL NAME", "LANGUAGE", NULL,
+    "PACKAGE VERSION", "YEAR-MO-DA HO:MI+ZONE", "FULL NAME <EMAIL@ADDRESS>", "LANGUAGE <LL@li.org>", NULL,
     "text/plain; charset=CHARSET", "ENCODING",
     ""
   };

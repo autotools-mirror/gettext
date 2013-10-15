@@ -1,3 +1,9 @@
+2013-10-15  Peter Eisentraut  <peter_e@gmx.net>  (tiny change)
+
+	* msgl-check.c (check_header_entry): Adjust the default value of
+	PO-Revision-Date to xgettext output.  Reported at
+	<https://savannah.gnu.org/bugs/?40261>.
+
 2013-08-29  Daiki Ueno  <ueno@gnu.org>
 
 	* po-gram-gen.y (message): Free memory allocated for
