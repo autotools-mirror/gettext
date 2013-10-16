@@ -347,6 +347,10 @@ if test -z "$m4dir" && test -f Makefile.am; then
   done
 fi
 
+if test -z "$m4dir"; then
+  m4dir=m4
+fi
+
 # Check whether to omit the intl/ directory.
 omitintl=
 xargs=`func_trace AM_GNU_GETTEXT "$configure_in"`
