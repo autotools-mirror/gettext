@@ -1,3 +1,10 @@
+2013-10-16  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Use 'm4' as the default macro directory if it is
+	not specified in configure.ac nor Makefile.am.
+	Reported by Michał Górny in
+	<http://savannah.gnu.org/bugs/?40278>.
+
 2013-09-24  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in (func_trace): Discard stderr of autom4te.
