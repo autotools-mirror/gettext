@@ -1,3 +1,12 @@
+2013-10-23  Daiki Ueno  <ueno@gnu.org>
+
+	* read-catalog-abstract.c (catalog_reader_parse): Clear
+	error_message_count before parsing, rather than after.  The
+	variable may be > 0 before calling the PO parser, when xgettext
+	handles mutiple files.
+	Problem reported by Emil Wojak in
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-10/msg00005.html>.
+
 2013-10-15  Peter Eisentraut  <peter_e@gmx.net>  (tiny change)
 
 	* msgl-check.c (check_header_entry): Adjust the default value of
