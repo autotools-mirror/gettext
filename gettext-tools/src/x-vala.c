@@ -715,7 +715,7 @@ phase3_get (token_ty *tp)
                     }
                   buffer[bufpos++] = c;
                   c = phase2_getc ();
-                  if (c != '+' || c != '-')
+                  if (c != '+' && c != '-')
                     {
                       phase2_ungetc (c);
                       break;
