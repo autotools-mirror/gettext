@@ -1,3 +1,10 @@
+2013-11-11  Daiki Ueno  <ueno@gnu.org>
+
+	* x-c.c (phase5_get): Fix misuse of a logical operator.
+	* x-perl.c (extract_quotelike_pass3): Likewise.
+	* x-vala.c (phase3_get): Likewise.
+	Reported by David Binderman at: <https://savannah.gnu.org/bugs/?40528>.
+
 2013-10-23  Daiki Ueno  <ueno@gnu.org>
 
 	* read-catalog-abstract.c (catalog_reader_parse): Clear
