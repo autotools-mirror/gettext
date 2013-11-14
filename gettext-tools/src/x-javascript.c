@@ -619,7 +619,10 @@ phase3_getc ()
                 {
                   c = phase2_getc ();
                   if (c == UEOF || c == '\n')
-                    break;
+                    {
+                      comment_line_end (0);
+                      break;
+                    }
                   /* We skip all leading white space, but not EOLs.  */
                   if (!(comment_at_start () && (c == ' ' || c == '\t')))
                     comment_add (c);

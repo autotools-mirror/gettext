@@ -19,7 +19,7 @@ EOF
 
 tmpfiles="$tmpfiles xg-js-3.err xg-js-3.tmp xg-js-3.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments --no-location -o xg-js-3.tmp xg-js-3.js 2>xg-js-3.err
+${XGETTEXT} --add-comments=TRANSLATORS: --no-location -o xg-js-3.tmp xg-js-3.js 2>xg-js-3.err
 test $? = 0 || { cat xg-js-3.err; rm -fr $tmpfiles; exit 1; }
 # Don't simplify this to "grep ... < xg-js-3.tmp", otherwise OpenBSD 4.0 grep
 # only outputs "Binary file (standard input) matches".
