@@ -13,9 +13,11 @@ var s1 = "Simple string, no gettext needed",
 function foo(a) {
     var s3 = "Prefix _(" + _("Extract this second string") + ") Postfix";
 }
-if (document.getElementsById("foo")[0].innerHTML == _("Extract this thirth string")) {
+if (document.getElementsById("foo")[0].innerHTML == _("Extract this third string")) {
     /* _("This is a comment and must not be extracted!") */
 }
+/* TRANSLATORS: This is a translator comment.  */
+gettext('Extract this fourth string');
 EOF
 
 tmpfiles="$tmpfiles xg-js-1.err xg-js-1.tmp xg-js-1.pot"
@@ -52,7 +54,11 @@ msgstr ""
 msgid "Extract this second string"
 msgstr ""
 
-msgid "Extract this thirth string"
+msgid "Extract this third string"
+msgstr ""
+
+#. TRANSLATORS: This is a translator comment.
+msgid "Extract this fourth string"
 msgstr ""
 EOF
 

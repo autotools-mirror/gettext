@@ -545,10 +545,10 @@ comment_add (int c)
 }
 
 static inline const char *
-comment_line_end ()
+comment_line_end (size_t chars_to_remove)
 {
   char *buffer = unicode_string_buffer_result (&comment_buffer);
-  size_t buflen = strlen (buffer);
+  size_t buflen = strlen (buffer) - chars_to_remove;
 
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))

@@ -1,3 +1,9 @@
+2013-11-14  Daiki Ueno  <ueno@gnu.org>
+
+	* x-javascript.c (comment_line_end): Add missing chars_to_remove
+	argument; all callers changed.
+	Reported by Illimar Tambek at: <http://savannah.gnu.org/bugs/?40573>.
+
 2013-11-11  Daiki Ueno  <ueno@gnu.org>
 
 	* x-c.c (phase5_get): Fix misuse of a logical operator.

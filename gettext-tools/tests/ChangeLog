@@ -1,3 +1,7 @@
+2013-11-14  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-javascript-1: Add a test to extract translator comments.
+
 2013-08-30  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (gettextpo_1_prg_CPPFLAGS): Don't add 'gnulib-lib'
