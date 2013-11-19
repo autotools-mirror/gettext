@@ -141,12 +141,14 @@ fi
 func_trace ()
 {
   echo '\
-dnl ignore M4sugar macros which may abort autom4te
+dnl disable macros which may abort autom4te
 m4_undefine([m4_assert])
 m4_undefine([m4_fatal])
 m4_undefine([m4_warn])
 m4_undefine([m4_errprintn])
 m4_undefine([m4_exit])
+m4_undefine([m4_include])
+m4_undefine([m4_esyscmd])
 dnl macros which needs to be traced without aclocal.m4
 m4_define([AM_GNU_GETTEXT], [])
 m4_define([AM_GNU_GETTEXT_VERSION], [])
