@@ -1,3 +1,11 @@
+2013-11-19  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in (func_trace): Disable m4_include and m4_esyscmd.
+	* gettextize.in (func_trace): Likewise.
+	Reported by Bernhard Voelker
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-11/msg00011.html>
+	and suggested by Eric Blake at <https://savannah.gnu.org/bugs/?40083>.
+
 2013-10-16  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in: Use 'm4' as the default macro directory if it is
