@@ -144,7 +144,12 @@ typedef enum
   {
     lc_outside, /* Initial context: outside of comments and strings.  */
     lc_comment, /* Inside a comment.  */
-    lc_string   /* Inside a string literal.  */
+    lc_string,  /* Inside a string literal.  */
+
+    /* For embedded XML in programming code, like E4X in JavaScript.  */
+    lc_xml_open_tag,   /* Inside an opening tag of an XML element.  */
+    lc_xml_close_tag,  /* Inside a closing tag of an XML element.  */
+    lc_xml_content     /* Inside an XML text node.  */
   }
   lexical_context_ty;
 

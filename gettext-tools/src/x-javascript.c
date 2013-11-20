@@ -926,6 +926,7 @@ enum token_type_ty
   token_type_plus,              /* + */
   token_type_regexp,            /* /.../ */
   token_type_operator,          /* - * / % . < > = ~ ! | & ? : ^ */
+  token_type_equal,             /* = */
   token_type_string,            /* "abc", 'abc' */
   token_type_keyword,           /* return, else */
   token_type_symbol,            /* symbol, number */
@@ -1160,6 +1161,114 @@ phase5_scan_regexp ()
       phase2_ungetc (c);
 }
 
+static int xml_element_depth = 0;
+static bool inside_embedded_js_in_xml = false;
+
+static bool
+phase5_scan_xml_markup (token_ty *tp)
+{
+  struct
+  {
+    const char *start;
+    const char *end;
+  } markers[] =
+      {
+        { "!--", "--" },
+        { "![CDATA[", "]]" },
+        { "?", "?" }
+      };
+  int i;
+
+  for (i = 0; i < SIZEOF (markers); i++)
+    {
+      const char *start = markers[i].start;
+      const char *end = markers[i].end;
+      int j;
+
+      /* Look for a start marker.  */
+      for (j = 0; start[j] != '\0'; j++)
+        {
+          int c;
+
+          assert (phase2_pushback_length + j < SIZEOF (phase2_pushback));
+          c = phase2_getc ();
+          if (c == UEOF)
+            goto eof;
+          if (c != start[j])
+            {
+              int k = j;
+
+              phase2_ungetc (c);
+              k--;
+
+              for (; k >= 0; k--)
+                phase2_ungetc (start[k]);
+              break;
+            }
+        }
+
+      if (start[j] != '\0')
+        continue;
+
+      /* Skip until the end marker.  */
+      for (;;)
+        {
+          int c;
+
+          for (j = 0; end[j] != '\0'; j++)
+            {
+              assert (phase2_pushback_length + 1 < SIZEOF (phase2_pushback));
+              c = phase2_getc ();
+              if (c == UEOF)
+                goto eof;
+              if (c != end[j])
+                {
+                  /* Don't push the first character back so the next
+                     iteration start from the second character.  */
+                  if (j > 0)
+                    {
+                      int k = j;
+
+                      phase2_ungetc (c);
+                      k--;
+
+                      for (; k > 0; k--)
+                        phase2_ungetc (end[k]);
+                    }
+                  break;
+                }
+            }
+
+          if (end[j] != '\0')
+            continue;
+
+          c = phase2_getc ();
+          if (c == UEOF)
+            goto eof;
+          if (c != '>')
+            {
+              error_with_progname = false;
+              error (0, 0,
+                     _("%s:%d: warning: %s is not allowed"),
+                     logical_file_name, line_number,
+                     end);
+              error_with_progname = true;
+              return false;
+            }
+          return true;
+        }
+    }
+  return false;
+
+ eof:
+  error_with_progname = false;
+  error (0, 0,
+         _("%s:%d: warning: unterminated XML markup"),
+         logical_file_name, line_number);
+  error_with_progname = true;
+  return false;
+}
+
 static void
 phase5_get (token_ty *tp)
 {
@@ -1314,13 +1423,93 @@ phase5_get (token_ty *tp)
         /* Identify operators. The multiple character ones are simply ignored
          * as they are recognized here and are otherwise not relevant. */
         case '-': case '*': /* '+' and '/' are not listed here! */
-        case '%': case '<': case '>': case '=':
+        case '%':
         case '~': case '!': case '|': case '&': case '^':
         case '?': case ':':
           tp->type = last_token_type = token_type_operator;
           return;
 
+        case '=':
+          tp->type = last_token_type = token_type_equal;
+          return;
+
+        case '<':
+          {
+            /* We assume:
+               - XMLMarkup and XMLElement are only allowed after '=' or '('
+               - embedded JavaScript expressions in XML do not recurse
+             */
+            if (xml_element_depth > 0
+                || (!inside_embedded_js_in_xml
+                    && (last_token_type == token_type_equal
+                        || last_token_type == token_type_lparen)))
+              {
+                /* Comments, PI, or CDATA.  */
+                if (phase5_scan_xml_markup (tp))
+                  return;
+                c = phase2_getc ();
+
+                /* Closing tag.  */
+                if (c == '/')
+                  lexical_context = lc_xml_close_tag;
+
+                /* Opening element.  */
+                else
+                  {
+                    phase2_ungetc (c);
+                    lexical_context = lc_xml_open_tag;
+                    xml_element_depth++;
+                  }
+
+                tp->type = last_token_type = token_type_other;
+              }
+            else
+              tp->type = last_token_type = token_type_operator;
+          }
+          return;
+
+        case '>':
+          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
+            {
+              switch (lexical_context)
+                {
+                case lc_xml_open_tag:
+                  lexical_context = lc_xml_content;
+                  break;
+
+                case lc_xml_close_tag:
+                  if (xml_element_depth-- > 0)
+                    lexical_context = lc_xml_content;
+                  else
+                    lexical_context = lc_outside;
+                  break;
+
+                default:
+                  break;
+                }
+              tp->type = last_token_type = token_type_other;
+            }
+          else
+            tp->type = last_token_type = token_type_operator;
+          return;
+
         case '/':
+          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
+            {
+              /* If it appears in an opening tag of an XML element, it's
+                 part of '/>'.  */
+              if (lexical_context == lc_xml_open_tag)
+                {
+                  c = phase2_getc ();
+                  if (c == '>')
+                    lexical_context = lc_outside;
+                  else
+                    phase2_ungetc (c);
+                }
+              tp->type = last_token_type = token_type_other;
+              return;
+            }
+
           /* Either a division operator or the start of a regular
              expression literal.  If the '/' token is spotted after a
              symbol it's a division, otherwise it's a regular
@@ -1334,6 +1523,18 @@ phase5_get (token_ty *tp)
               phase5_scan_regexp (tp);
               tp->type = last_token_type = token_type_regexp;
             }
+          return;
+
+        case '{':
+          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
+            inside_embedded_js_in_xml = true;
+          tp->type = last_token_type = token_type_other;
+          return;
+
+        case '}':
+          if (xml_element_depth > 0 && inside_embedded_js_in_xml)
+            inside_embedded_js_in_xml = false;
+          tp->type = last_token_type = token_type_other;
           return;
 
         case '(':
@@ -1598,6 +1799,7 @@ extract_balanced (message_list_ty *mlp,
         case token_type_plus:
         case token_type_regexp:
         case token_type_operator:
+        case token_type_equal:
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
@@ -1627,6 +1829,8 @@ extract_javascript (FILE *f,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  xml_element_depth = 0;
 
   xgettext_current_file_source_encoding = xgettext_global_source_encoding;
 #if HAVE_ICONV

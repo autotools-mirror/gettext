@@ -1,3 +1,9 @@
+2013-11-20  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Add E4X support to JavaScript scanner
+	* Makefile.am (TESTS): Add xgettext-javascript-6.
+	* xgettext-javascript-6: New file.
+
 2013-11-14  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-javascript-1: Add a test to extract translator comments.

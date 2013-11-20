@@ -1,3 +1,17 @@
+2013-11-20  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Add E4X support to JavaScript scanner
+	Reported by Piotr Drąg at: <https://savannah.gnu.org/bugs/?40125>.
+	* xgettext.h (enum lexical_context_ty): New enumeration items
+	lc_xml_open_tag, lc_xml_close_tag, lc_xml_content.
+	* x-javascript.c (phase5_scan_xml_markup): New function.
+	(phase5_get): Handle '<', '>', '/', '=', '{', and '}' specially
+	to support E4X.
+	(enum token_type_ty): New enumeration item token_type_equal.
+	(xml_element_depth): New variable.
+	(inside_embedded_in_xml): New variable.
+	(extract_javascript): Initialize those variables.
+
 2013-11-14  Daiki Ueno  <ueno@gnu.org>
 
 	* x-javascript.c (phase3_getc): Make sure to call comment_line_end
