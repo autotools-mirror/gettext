@@ -22,6 +22,13 @@ var x5 = <!-- - _("Unexpected translation string #2") - -->;
 var s6 = _("Expected translation string #4");
 var x6 = <? _("Unexpected translation string #3") ?>;
 var x7 = <!--- this is a comment --> <foo>
+var s7 = "<{x6}>_("Unexpected translation string #4")</{x6}>" +
+         "<!-- _("Unexpected translation string #5") --!>" +
+         _("Expected translation string #5");
+var s8 = _("<x7>Expected translation string #6</x7>");
+var x8 = <x8><x9>{_("<x8>{Expected translation string #7}</x8>")}</x9></x8>
+var x9 = <x10 attr='{_("Unexpected translation string #6")}'><x11>data</x11></x10>;
+var s9 = _("Expected translation string #8");
 </foo>;
 EOF
 
@@ -63,6 +70,18 @@ msgid "Expected translation string #3"
 msgstr ""
 
 msgid "Expected translation string #4"
+msgstr ""
+
+msgid "Expected translation string #5"
+msgstr ""
+
+msgid "<x7>Expected translation string #6</x7>"
+msgstr ""
+
+msgid "<x8>{Expected translation string #7}</x8>"
+msgstr ""
+
+msgid "Expected translation string #8"
 msgstr ""
 EOF
 

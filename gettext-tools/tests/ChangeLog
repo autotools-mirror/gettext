@@ -1,3 +1,7 @@
+2013-12-04  Andreas Stricker  <andy@knitter.ch>
+
+	* xgettext-javascript-6: Add more tests for E4X.
+
 2013-11-20  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: Add E4X support to JavaScript scanner
