@@ -153,7 +153,7 @@ dnl macros which needs to be traced without aclocal.m4
 m4_define([AM_GNU_GETTEXT], [])
 m4_define([AM_GNU_GETTEXT_VERSION], [])
 ' \
-  | autom4te --no-cache --language=Autoconf-without-aclocal-m4 \
+  | ${AUTOM4TE:-autom4te} --no-cache --language=Autoconf-without-aclocal-m4 \
     --trace="$1":\$% - "$2" 2>/dev/null
 }
 
