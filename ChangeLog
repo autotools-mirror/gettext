@@ -1,3 +1,10 @@
+2013-12-17  Daiki Ueno  <ueno@gnu.org>
+
+	Add missing extern-inline.m4 into archive.
+	Problem reported by Reuben Thomas in:
+	<https://lists.gnu.org/archive/html/bug-gettext/2013-12/msg00010.html>.
+	* Makefile.am (distcheck-hook): Check extern-inline.m4.
+
 2013-08-13  Michele Locati <michele@locati.it>  (tiny change)
 
 	* windows/gettext.rc: Update copyright year.
