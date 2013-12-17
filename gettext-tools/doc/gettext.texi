@@ -8801,7 +8801,7 @@ $ make distclean
 @cindex setting up @code{gettext} at build time
 
 By default, packages fully using GNU @code{gettext}, internally,
-are installed in such a way that they to allow translation of
+are installed in such a way as to allow translation of
 messages.  At @emph{configuration} time, those packages should
 automatically detect whether the underlying host system already provides
 the GNU @code{gettext} functions.  If not,
