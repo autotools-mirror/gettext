@@ -2469,13 +2469,13 @@ is changed but of course the arguments in the @code{printf} don't have.
 This will most probably lead to problems because now the length of the
 string is regarded as the address.
 
-To prevent errors at runtime caused by translations the @code{msgfmt}
+To prevent errors at runtime caused by translations, the @code{msgfmt}
 tool can check statically whether the arguments in the original and the
 translation string match in type and number.  If this is not the case
 and the @samp{-c} option has been passed to @code{msgfmt}, @code{msgfmt}
-will give an error and refuse to produce a MO file.  Thus consequent
+will give an error and refuse to produce a MO file.  Thus consistent
 use of @samp{msgfmt -c} will catch the error, so that it cannot cause
-cause problems at runtime.
+problems at runtime.
 
 @noindent
 If the word order in the above German translation would be correct one
@@ -2488,12 +2488,12 @@ would have to write
 @noindent
 The routines in @code{msgfmt} know about this special notation.
 
-Because not all strings in a program must be format strings it is not
+Because not all strings in a program will be format strings, it is not
 useful for @code{msgfmt} to test all the strings in the @file{.po} file.
 This might cause problems because the string might contain what looks
 like a format specifier, but the string is not used in @code{printf}.
 
-Therefore the @code{xgettext} adds a special tag to those messages it
+Therefore @code{xgettext} adds a special tag to those messages it
 thinks might be a format string.  There is no absolute rule for this,
 only a heuristic.  In the @file{.po} file the entry is marked using the
 @code{c-format} flag in the @code{#,} comment line (@pxref{PO Files}).
