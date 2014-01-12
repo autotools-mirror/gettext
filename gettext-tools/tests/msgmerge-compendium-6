@@ -12,21 +12,21 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mm-ko.utf-8.pot"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=UTF-8 -o mm-ko.utf-8.pot ../${srcdir}/mm-ko.ascii.pot
+${MSGCONV} --to-code=UTF-8 -o mm-ko.utf-8.pot "$abs_srcdir"/mm-ko.ascii.pot
 
 tmpfiles="$tmpfiles mm-ko.utf-8.po"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=UTF-8 -o mm-ko.utf-8.po ../${srcdir}/mm-ko.euc-kr.po
+${MSGCONV} --to-code=UTF-8 -o mm-ko.utf-8.po "$abs_srcdir"/mm-ko.euc-kr.po
 
 tmpfiles="$tmpfiles mm-ko-comp.utf-8.po"
 : ${MSGCONV=msgconv}
-${MSGCONV} --to-code=UTF-8 -o mm-ko-comp.utf-8.po ../${srcdir}/mm-ko-comp.euc-kr.po
+${MSGCONV} --to-code=UTF-8 -o mm-ko-comp.utf-8.po "$abs_srcdir"/mm-ko-comp.euc-kr.po
 
 tmpfiles="$tmpfiles mm-c-6-AEE.tmp mm-c-6-AEE.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-AEE.tmp \
-  --compendium ../${srcdir}/mm-ko-comp.euc-kr.po \
-  ../${srcdir}/mm-ko.euc-kr.po ../${srcdir}/mm-ko.ascii.pot
+  --compendium "$abs_srcdir"/mm-ko-comp.euc-kr.po \
+  "$abs_srcdir"/mm-ko.euc-kr.po "$abs_srcdir"/mm-ko.ascii.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-AEE.tmp > mm-c-6-AEE.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -35,7 +35,7 @@ tmpfiles="$tmpfiles mm-c-6-AEU.tmp mm-c-6-AEU.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-AEU.tmp \
   --compendium mm-ko-comp.utf-8.po \
-  ../${srcdir}/mm-ko.euc-kr.po ../${srcdir}/mm-ko.ascii.pot
+  "$abs_srcdir"/mm-ko.euc-kr.po "$abs_srcdir"/mm-ko.ascii.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-AEU.tmp > mm-c-6-AEU.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -43,8 +43,8 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 tmpfiles="$tmpfiles mm-c-6-AUE.tmp mm-c-6-AUE.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-AUE.tmp \
-  --compendium ../${srcdir}/mm-ko-comp.euc-kr.po \
-  mm-ko.utf-8.po ../${srcdir}/mm-ko.ascii.pot
+  --compendium "$abs_srcdir"/mm-ko-comp.euc-kr.po \
+  mm-ko.utf-8.po "$abs_srcdir"/mm-ko.ascii.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-AUE.tmp > mm-c-6-AUE.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -53,7 +53,7 @@ tmpfiles="$tmpfiles mm-c-6-AUU.tmp mm-c-6-AUU.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-AUU.tmp \
   --compendium mm-ko-comp.utf-8.po \
-  mm-ko.utf-8.po ../${srcdir}/mm-ko.ascii.pot
+  mm-ko.utf-8.po "$abs_srcdir"/mm-ko.ascii.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-AUU.tmp > mm-c-6-AUU.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -61,8 +61,8 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 tmpfiles="$tmpfiles mm-c-6-UEE.tmp mm-c-6-UEE.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-UEE.tmp \
-  --compendium ../${srcdir}/mm-ko-comp.euc-kr.po \
-  ../${srcdir}/mm-ko.euc-kr.po mm-ko.utf-8.pot
+  --compendium "$abs_srcdir"/mm-ko-comp.euc-kr.po \
+  "$abs_srcdir"/mm-ko.euc-kr.po mm-ko.utf-8.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-UEE.tmp > mm-c-6-UEE.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -71,7 +71,7 @@ tmpfiles="$tmpfiles mm-c-6-UEU.tmp mm-c-6-UEU.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-UEU.tmp \
   --compendium mm-ko-comp.utf-8.po \
-  ../${srcdir}/mm-ko.euc-kr.po mm-ko.utf-8.pot
+  "$abs_srcdir"/mm-ko.euc-kr.po mm-ko.utf-8.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-UEU.tmp > mm-c-6-UEU.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
@@ -79,7 +79,7 @@ test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 tmpfiles="$tmpfiles mm-c-6-UUE.tmp mm-c-6-UUE.out"
 : ${MSGMERGE=msgmerge}
 ${MSGMERGE} -q -o mm-c-6-UUE.tmp \
-  --compendium ../${srcdir}/mm-ko-comp.euc-kr.po \
+  --compendium "$abs_srcdir"/mm-ko-comp.euc-kr.po \
   mm-ko.utf-8.po mm-ko.utf-8.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < mm-c-6-UUE.tmp > mm-c-6-UUE.out

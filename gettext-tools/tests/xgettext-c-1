@@ -17,7 +17,7 @@ LC_ALL=C tr -d '\r' < xg-c-1.tmp.po > xg-c-1.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} ../$srcdir/xg-c-1.ok.po xg-c-1.po
+${DIFF} "$abs_srcdir"/xg-c-1.ok.po xg-c-1.po
 result=$?
 
 rm -fr $tmpfiles

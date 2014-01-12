@@ -8,7 +8,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles fc4.tmp fc4.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc4.tmp --omit-header --no-location ../${srcdir}/format-c-4-prg.c
+${XGETTEXT} -o fc4.tmp --omit-header --no-location "$abs_srcdir"/format-c-4-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < fc4.tmp > fc4.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }

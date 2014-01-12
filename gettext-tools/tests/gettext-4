@@ -28,7 +28,7 @@ test -d gt-4/fr || mkdir gt-4/fr
 test -d gt-4/fr/LC_MESSAGES || mkdir gt-4/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o gt-4/fr/LC_MESSAGES/codeset.mo ../${srcdir}/gettext-4.po
+${MSGFMT} -o gt-4/fr/LC_MESSAGES/codeset.mo "$abs_srcdir"/gettext-4.po
 
 ../gettext-4-prg $LOCALE_FR || exit 1
 

@@ -160,6 +160,7 @@ CHECKER =
 #CHECKER = valgrind --tool=massif --format=html --depth=10 --alloc-fn=xmalloc --alloc-fn=xrealloc --stacks=no
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
+		    abs_srcdir=$(abs_srcdir) \
 		    GETTEXT="$(CHECKER) tstgettext" \
 		    NGETTEXT="$(CHECKER) tstngettext" \
 		    XGETTEXT="$(CHECKER) xgettext" \

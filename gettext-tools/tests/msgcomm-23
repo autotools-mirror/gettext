@@ -7,8 +7,8 @@ tmpfiles=""
 trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mcomm-23.in1 mcomm-23.in2"
-cp ../${srcdir}/msguniq-a.in mcomm-23.in1
-cp ../${srcdir}/msguniq-a.in mcomm-23.in2
+cp "$abs_srcdir"/msguniq-a.in mcomm-23.in1
+cp "$abs_srcdir"/msguniq-a.in mcomm-23.in2
 
 tmpfiles="$tmpfiles mcomm-23.tmp mcomm-23.out"
 : ${MSGCOMM=msgcomm}
@@ -18,7 +18,7 @@ LC_ALL=C tr -d '\r' < mcomm-23.tmp > mcomm-23.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}
-${DIFF} ../${srcdir}/msguniq-a.out mcomm-23.out
+${DIFF} "$abs_srcdir"/msguniq-a.out mcomm-23.out
 result=$?
 
 rm -fr $tmpfiles

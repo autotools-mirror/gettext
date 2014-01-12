@@ -39,7 +39,7 @@ test -d gt-7/de_DE || mkdir gt-7/de_DE
 test -d gt-7/de_DE/LC_MESSAGES || mkdir gt-7/de_DE/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o gt-7/de_DE/LC_MESSAGES/tstthread.mo ../${srcdir}/gettext-7.po
+${MSGFMT} -o gt-7/de_DE/LC_MESSAGES/tstthread.mo "$abs_srcdir"/gettext-7.po
 
 tmpfiles="$tmpfiles gt-7.out"
 ../gettext-7-prg > gt-7.out

@@ -8,11 +8,11 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles mf-qt-1.qm"
 : ${MSGFMT=msgfmt}
-${MSGFMT} --qt -o mf-qt-1.qm ../${srcdir}/qttest_pl.po
+${MSGFMT} --qt -o mf-qt-1.qm "$abs_srcdir"/qttest_pl.po
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${CMP=cmp}
-${CMP} ../${srcdir}/qttest_pl.qm mf-qt-1.qm >/dev/null 2>/dev/null
+${CMP} "$abs_srcdir"/qttest_pl.qm mf-qt-1.qm >/dev/null 2>/dev/null
 result=$?
 
 rm -fr $tmpfiles

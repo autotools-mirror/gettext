@@ -6,7 +6,7 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles plural-1-cake.tmp plural-1-cake.pot"
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location ../${srcdir}/plural-1-prg.c
+${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location "$abs_srcdir"/plural-1-prg.c
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > plural-1-cake.pot
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }

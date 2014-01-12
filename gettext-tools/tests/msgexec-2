@@ -81,7 +81,7 @@ LC_ALL=C $TR -d '\r' < mex-test2.tmp > mex-test2.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${CMP=cmp}
-${CMP} ../${srcdir}/mex-test2.ok mex-test2.out >/dev/null 2>/dev/null
+${CMP} "$abs_srcdir"/mex-test2.ok mex-test2.out >/dev/null 2>/dev/null
 result=$?
 
 rm -fr $tmpfiles

@@ -8,12 +8,12 @@ trap 'rm -fr $tmpfiles' 1 2 3 15
 
 tmpfiles="$tmpfiles msguniq-4.out"
 : ${MSGUNIQ-msguniq}
-${MSGUNIQ} --properties-input --properties-output -w 1000 -o msguniq-4.out ../${srcdir}/msguniq-a.inp
+${MSGUNIQ} --properties-input --properties-output -w 1000 -o msguniq-4.out "$abs_srcdir"/msguniq-a.inp
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 tmpfiles="$tmpfiles msguniq-4.ok"
 : ${MSGCAT-msgcat}
-${MSGCAT} --properties-output -w 1000 -o msguniq-4.ok ../${srcdir}/msguniq-a.out
+${MSGCAT} --properties-output -w 1000 -o msguniq-4.ok "$abs_srcdir"/msguniq-a.out
 test $? = 0 || { rm -fr $tmpfiles; exit 1; }
 
 : ${DIFF=diff}

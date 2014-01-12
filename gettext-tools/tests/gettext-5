@@ -39,7 +39,7 @@ test -d gt-5/de_DE || mkdir gt-5/de_DE
 test -d gt-5/de_DE/LC_MESSAGES || mkdir gt-5/de_DE/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o gt-5/de_DE/LC_MESSAGES/codeset.mo ../${srcdir}/gettext-5.po
+${MSGFMT} -o gt-5/de_DE/LC_MESSAGES/codeset.mo "$abs_srcdir"/gettext-5.po
 
 ../gettext-5-prg || exit 1
 
