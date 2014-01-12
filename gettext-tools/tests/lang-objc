@@ -64,7 +64,7 @@ tmpfiles="$tmpfiles l-objc-prog.${OBJEXT} l-objc-prog${EXEEXT}"
 # is found in the build directory, regardless of -I options present in
 # ${CFLAGS} or ${CPPFLAGS}.
 : ${LIBTOOL=/bin/sh ../../libtool}
-${LIBTOOL} --quiet --mode=link ${CC} -I../.. -I../${top_srcdir=..}/gnulib-lib ../../gnulib-lib/libgettextlib.la -I../../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o l-objc-prog prog.m ${LTLIBINTL} \
+${LIBTOOL} --quiet --mode=link ${CC} -I../.. -I"$abs_top_srcdir"/gnulib-lib ../../gnulib-lib/libgettextlib.la -I../../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o l-objc-prog prog.m ${LTLIBINTL} \
   || exit 1
 
 tmpfiles="$tmpfiles l-objc-prog.tmp l-objc-prog.pot"

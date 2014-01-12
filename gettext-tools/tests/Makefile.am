@@ -161,6 +161,7 @@ CHECKER =
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    abs_srcdir=$(abs_srcdir) \
+		    abs_top_srcdir=$(abs_top_srcdir) \
 		    GETTEXT="$(CHECKER) tstgettext" \
 		    NGETTEXT="$(CHECKER) tstngettext" \
 		    XGETTEXT="$(CHECKER) xgettext" \
