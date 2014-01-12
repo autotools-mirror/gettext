@@ -549,11 +549,11 @@ AC_CONFIG_FILES([m4/Makefile])
 
 AC_CONFIG_FILES([tests/Makefile])
 
-AC_CONFIG_FILES([tests/init.cfg], [changequote(<<,>>)
+AC_CONFIG_FILES([tests/init-env], [changequote(<<,>>)
   # Replace occurrences of make variables with shell variables so they
   # can be adjusted in test scripts.
-  sed -e 's|\$(\([^)]*\))|${\1}|g' < tests/init.cfg > tests/init.cfg.tmp
-  mv tests/init.cfg.tmp tests/init.cfg
+  sed -e 's|\$(\([^)]*\))|${\1}|g' < tests/init-env > tests/init-env.tmp
+  mv tests/init-env.tmp tests/init-env
   changequote([,])])
 
 AC_CONFIG_FILES([gnulib-tests/Makefile])

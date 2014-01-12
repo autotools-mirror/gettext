@@ -1,5 +1,14 @@
 2014-01-28  Roumen Petrov <bugtrack@roumenpetrov.info>  (tiny change)
 
+	tests: fix "make check" under VPATH builds
+	Reported at:
+	<https://lists.gnu.org/archive/html/bug-gettext/2014-01/msg00012.html>.
+	* init-env: New file renamed from init.cfg.in.
+	* init.cfg.in: Remove.
+	* init.cfg: Read $builddir/init-env.
+
+2014-01-28  Roumen Petrov <bugtrack@roumenpetrov.info>  (tiny change)
+
 	Support configuration with absolute path.
 	Reported at:
 	<https://lists.gnu.org/archive/html/bug-gettext/2014-01/msg00011.html>.
