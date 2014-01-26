@@ -1,3 +1,8 @@
+2014-04-22  Roumen Petrov  <bugtrack@roumenpetrov.info>  (tiny change)
+
+	build: Use Automake 'subdir-objects' option
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 'subdir-objects'.
+
 2014-04-21  Daiki Ueno  <ueno@gnu.org>
 
 	msgfilter: Fix single quote handling in the quot filter

@@ -1,3 +1,8 @@
+2014-04-22  Roumen Petrov  <bugtrack@roumenpetrov.info>  (tiny change)
+
+	build: Use Automake 'subdir-objects' option
+	* Makefile.am (AUTOMAKE_OPTIONS): Add 'subdir-objects'.
+
 2013-12-05  Ivailo  <xakepa10@gmail.com>  (tiny change)
 
 	libgrep: Fix issues detected by gcc -Wformat-security
