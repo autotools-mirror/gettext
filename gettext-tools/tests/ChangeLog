@@ -1,3 +1,39 @@
+2014-01-28  Roumen Petrov <bugtrack@roumenpetrov.info>  (tiny change)
+
+	Support configuration with absolute path.
+	Reported at:
+	<https://lists.gnu.org/archive/html/bug-gettext/2014-01/msg00011.html>.
+	* Makefile.am (TESTS_ENVIRONMENT): Define abs_srcdir and
+	abs_top_srcdir.
+	* format-c-3: Replace ../${top_,}srcdir with $abs_{top_,}srcdir.
+	* format-c-4: Likewise.
+	* format-c-5: Likewise.
+	* gettext-1: Likewise.
+	* gettext-2: Likewise.
+	* gettext-3: Likewise.
+	* gettext-4: Likewise.
+	* gettext-5: Likewise.
+	* gettext-6: Likewise.
+	* gettext-7: Likewise.
+	* gettextpo-1: Likewise.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+	* msgcomm-23: Likewise.
+	* msgexec-2: Likewise.
+	* msgfmt-qt-1: Likewise.
+	* msgfmt-qt-2: Likewise.
+	* msgmerge-compendium-5: Likewise.
+	* msgmerge-compendium-6: Likewise.
+	* msgunfmt-tcl-1: Likewise.
+	* msguniq-1: Likewise.
+	* msguniq-2: Likewise.
+	* msguniq-3: Likewise.
+	* msguniq-4: Likewise.
+	* plural-1: Likewise.
+	* xgettext-1: Likewise.
+	* xgettext-c-1: Likewise.
+
 2013-12-04  Andreas Stricker  <andy@knitter.ch>
 
 	* xgettext-javascript-6: Add more tests for E4X.
