@@ -1,5 +1,10 @@
 2014-03-10  Daiki Ueno  <ueno@gnu.org>
 
+	php: Recognize single and double quotes around heredoc label
+	* xgettext-php-2: Add test cases to check quoted heredoc labels.
+
+2014-03-10  Daiki Ueno  <ueno@gnu.org>
+
 	Remove unnecessary temporary file cleanup code.
 	Cleanup code like "rm -fr $tmpfiles" are no longer needed, since
 	'init.sh' takes care of that.

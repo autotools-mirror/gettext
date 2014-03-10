@@ -1,3 +1,12 @@
+2014-03-10  Daiki Ueno  <ueno@gnu.org>
+
+	php: Recognize single and double quotes around heredoc label
+	Problem reported by Byrial Jensen in:
+	<https://lists.gnu.org/archive/html/bug-gettext/2012-04/msg00001.html>.
+	Based on the patch by Andreas Stricker posted as:
+	<https://lists.gnu.org/archive/html/bug-gettext/2012-04/msg00002.html>.
+	* x-php.c (phase4_get): Strip quotes around heredoc label.
+
 2013-11-20  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: Add E4X support to JavaScript scanner
