@@ -3,10 +3,6 @@
 
 # Test --clear-fuzzy option.
 
-tmpfiles=""
-trap 'rm -fr $tmpfiles' 1 2 3 15
-
-tmpfiles="$tmpfiles ma-test9.po"
 cat <<\EOF > ma-test9.po
 # HEADER.
 #
@@ -57,14 +53,10 @@ msgstr ""
 #~ msgstr "das einen verheirateten Mann liebt"
 EOF
 
-tmpfiles="$tmpfiles ma-test9.tmp ma-test9.out"
 : ${MSGATTRIB=msgattrib}
-${MSGATTRIB} --clear-fuzzy -o ma-test9.tmp ma-test9.po
-test $? = 0 || { rm -fr $tmpfiles; exit 1; }
-LC_ALL=C tr -d '\r' < ma-test9.tmp > ma-test9.out
-test $? = 0 || { rm -fr $tmpfiles; exit 1; }
+${MSGATTRIB} --clear-fuzzy -o ma-test9.tmp ma-test9.po || exit 1
+LC_ALL=C tr -d '\r' < ma-test9.tmp > ma-test9.out || exit 1
 
-tmpfiles="$tmpfiles ma-test9.ok"
 cat <<\EOF > ma-test9.ok
 # HEADER.
 #
@@ -116,7 +108,5 @@ EOF
 : ${DIFF=diff}
 ${DIFF} ma-test9.ok ma-test9.out
 result=$?
-
-rm -fr $tmpfiles
 
 exit $result

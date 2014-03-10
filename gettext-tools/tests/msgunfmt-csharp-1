@@ -3,9 +3,6 @@
 
 # Test of --csharp option.
 
-tmpfiles=""
-trap 'rm -fr $tmpfiles' 1 2 3 15
-
 # Test whether we can compile and execute C# programs.
 test "${CSHARP_CHOICE}" != no || {
   echo "Skipping test: configured with --disable-csharp"
@@ -20,7 +17,6 @@ test "${TESTCSHARP}" = yes || {
   exit 77
 }
 
-tmpfiles="$tmpfiles mu-cs-1"
 test -d mu-cs-1 || mkdir mu-cs-1
 
 cat <<\EOF > mu-cs-1/fr.po
@@ -92,7 +88,5 @@ msgstr "{1} remplace {0}."
 EOF
 : ${DIFF=diff}
 ${DIFF} mu-cs-1/prog.ok mu-cs-1/prog.sort || exit 1
-
-rm -fr $tmpfiles
 
 exit 0

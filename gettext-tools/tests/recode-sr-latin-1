@@ -3,9 +3,6 @@
 
 # Test recode-sr-latin on some input in UTF-8 encoding.
 
-tmpfiles=""
-trap 'rm -fr $tmpfiles' 1 2 3 15
-
 # Test whether a specific UTF-8 locale is installed.
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR_UTF8 != none; then
@@ -22,10 +19,9 @@ if test $LOCALE_FR_UTF8 = none; then
   else
     echo "Skipping test: no french UTF-8 locale is supported"
   fi
-  rm -fr $tmpfiles; exit 77
+  exit 77
 fi
 
-tmpfiles="$tmpfiles rec-srl-1.in"
 cat <<\EOF > rec-srl-1.in
 Исправни аргументи су
 неједнозначан аргумент
@@ -35,13 +31,11 @@ cat <<\EOF > rec-srl-1.in
 ѐѝӣӯ ЍЀӢӮ ЉӮ ӮЉ
 EOF
 
-tmpfiles="$tmpfiles rec-srl-1.out"
 : ${RECODE=recode}
 LC_ALL=$LOCALE_FR_UTF8 \
 ${RECODE}-sr-latin < rec-srl-1.in > rec-srl-1.out \
-  || { rm -fr $tmpfiles; exit 1; }
+  || { exit 1; }
 
-tmpfiles="$tmpfiles rec-srl-1.ok"
 cat <<\EOF > rec-srl-1.ok
 Ispravni argumenti su
 nejednoznačan argument
@@ -54,7 +48,5 @@ EOF
 : ${DIFF=diff}
 ${DIFF} rec-srl-1.ok rec-srl-1.out
 result=$?
-
-rm -fr $tmpfiles
 
 exit $result

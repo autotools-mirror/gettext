@@ -4,9 +4,6 @@
 # Test that on glibc systems, the gettext() results come out in the correct
 # encoding for locales that differ only in their encoding.
 
-tmpfiles=""
-trap 'rm -fr $tmpfiles' 1 2 3 15
-
 # This test works only on glibc systems.
 : ${GLIBC2=no}
 test "$GLIBC2" = yes || {
@@ -33,7 +30,6 @@ LC_ALL=de_DE.UTF-8 ../testlocale || {
   exit 77
 }
 
-tmpfiles="$tmpfiles gt-5"
 test -d gt-5 || mkdir gt-5
 test -d gt-5/de_DE || mkdir gt-5/de_DE
 test -d gt-5/de_DE/LC_MESSAGES || mkdir gt-5/de_DE/LC_MESSAGES
@@ -42,7 +38,5 @@ test -d gt-5/de_DE/LC_MESSAGES || mkdir gt-5/de_DE/LC_MESSAGES
 ${MSGFMT} -o gt-5/de_DE/LC_MESSAGES/codeset.mo "$abs_srcdir"/gettext-5.po
 
 ../gettext-5-prg || exit 1
-
-rm -fr $tmpfiles
 
 exit 0

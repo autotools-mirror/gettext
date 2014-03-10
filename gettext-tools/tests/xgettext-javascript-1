@@ -3,10 +3,6 @@
 
 # Test of JavaScript support.
 
-tmpfiles=""
-trap 'rm -fr $tmpfiles' 1 2 3 15
-
-tmpfiles="$tmpfiles xg-js-1.js"
 cat <<\EOF > xg-js-1.js
 var s1 = "Simple string, no gettext needed",
     s2 = _("Extract this first string");
@@ -22,15 +18,13 @@ gettext('Extract this fourth string');
 gettext('Extract this fifth string');
 EOF
 
-tmpfiles="$tmpfiles xg-js-1.err xg-js-1.tmp xg-js-1.pot"
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments=TRANSLATORS: --no-location -o xg-js-1.tmp xg-js-1.js 2>xg-js-1.err
-test $? = 0 || { cat xg-js-1.err; rm -fr $tmpfiles; exit 1; }
+test $? = 0 || { cat xg-js-1.err; exit 1; }
 # Don't simplify this to "grep ... < xg-js-1.tmp", otherwise OpenBSD 4.0 grep
 # only outputs "Binary file (standard input) matches".
 cat xg-js-1.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-js-1.pot
 
-tmpfiles="$tmpfiles xg-js-1.ok"
 cat <<\EOF > xg-js-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -71,7 +65,5 @@ EOF
 : ${DIFF=diff}
 ${DIFF} xg-js-1.ok xg-js-1.pot
 result=$?
-
-rm -fr $tmpfiles
 
 exit $result
