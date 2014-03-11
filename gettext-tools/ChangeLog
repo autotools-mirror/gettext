@@ -1,3 +1,8 @@
+2014-03-11  Daiki Ueno  <ueno@gnu.org>
+
+	* configure.ac: Remove unnecessary make-variable expansion,
+	previously needed for LIBTOOL.
+
 2014-01-28  Roumen Petrov <bugtrack@roumenpetrov.info>  (tiny change)
 
 	tests: fix "make check" under VPATH builds
