@@ -42,9 +42,14 @@ EOF
 # Put the -I flags before ${CFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
 # ${CFLAGS} or ${CPPFLAGS}.
-: ${LIBTOOL=/bin/sh ../../libtool}
-${LIBTOOL} --quiet --tag=CC --mode=link ${CC} -I../.. -I"$abs_top_srcdir"/gnulib-lib ../../gnulib-lib/libgettextlib.la -I../../intl ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o l-c-prog prog.c ${LTLIBINTL} \
-  || exit 1
+${CC} -I../.. -I"$abs_top_srcdir"/gnulib-lib -I../../intl ${CFLAGS} \
+      ${CPPFLAGS} -c prog.c || exit 1
+
+: ${CONFIG_SHELL=${SHELL-/bin/sh}}
+${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CC --mode=link \
+                ${CC} -o l-c-prog prog.${OBJEXT} \
+                ../../gnulib-lib/libgettextlib.la ${LDFLAGS} ${LTLIBINTL} \
+		|| exit 1
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o l-c-prog.tmp --omit-header --no-location -k_ prog.c || exit 1

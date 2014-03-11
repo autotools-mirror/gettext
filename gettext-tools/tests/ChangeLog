@@ -1,3 +1,12 @@
+2014-03-11  Daiki Ueno  <ueno@gnu.org>
+
+	* init-env.in (top_builddir): Don't set $LIBTOOL.
+	* lang-c: Explicitly call $top_builddir/libtool script with
+	$CONFIG_SHELL; also separate compilation/link into two phase as
+	lang-c++.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+
 2014-03-10  Daiki Ueno  <ueno@gnu.org>
 
 	php: Recognize single and double quotes around heredoc label

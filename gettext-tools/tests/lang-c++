@@ -66,9 +66,12 @@ ${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I"$abs_top_srcdir"/gnulib
 # Remove the -Wl,--disable-auto-import option here that is added by
 # woe32-dll.m4. Cygwin 1.7.2 does not support it in C++ mode: It gives
 # a link error about 'std::cout'.
-: ${LIBTOOL=/bin/sh ../../libtool}
-${LIBTOOL} --quiet --tag=CXX --mode=link --tag=CXX ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o l-c++-prog l-c++-prog.${OBJEXT} ../../../gettext-runtime/libasprintf/libasprintf.la ../../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
-  || exit 1
+: ${CONFIG_SHELL=${SHELL-/bin/sh}}
+${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CXX --mode=link \
+                ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o l-c++-prog l-c++-prog.${OBJEXT} \
+                ../../../gettext-runtime/libasprintf/libasprintf.la \
+                ../../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
+		|| exit 1
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o l-c++-prog.tmp --omit-header --no-location -k_ l-c++-prog.cc || exit 1
