@@ -1,3 +1,10 @@
+2014-03-12  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Fix infloop on loading Glade files with non-DL expat
+	* libexpat-compat.c: Keep the references to
+	XML_GetCurrent{Line,Column}Number symbols before including
+	libexpat-compat.h, since they are redefined.
+
 2014-03-10  Daiki Ueno  <ueno@gnu.org>
 
 	php: Recognize single and double quotes around heredoc label

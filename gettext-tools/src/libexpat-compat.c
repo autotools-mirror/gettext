@@ -23,6 +23,22 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if DYNLOAD_LIBEXPAT
+# include <dlfcn.h>
+#else
+# if HAVE_LIBEXPAT
+#  include <expat.h>
+# endif
+#endif
+
+/* Keep the references to XML_GetCurrent{Line,Column}Number symbols
+   before loading libexpat-compat.h, since they are redefined to
+   rpl_XML_GetCurrent{Line,Column}Number .  */
+#if !DYNLOAD_LIBEXPAT && XML_MAJOR_VERSION >= 2
+static void *p_XML_GetCurrentLineNumber = (void *) &XML_GetCurrentLineNumber;
+static void *p_XML_GetCurrentColumnNumber = (void *) &XML_GetCurrentColumnNumber;
+#endif
+
 #include "libexpat-compat.h"
 
 /* ======================= Different libexpat ABIs.  ======================= */
@@ -66,8 +82,6 @@ is_XML_LARGE_SIZE_ABI (void)
   return is_large;
 }
 
-static void *p_XML_GetCurrentLineNumber = (void *) &XML_GetCurrentLineNumber;
-
 int64_t
 rpl_XML_GetCurrentLineNumber (XML_Parser parser)
 {
@@ -76,8 +90,6 @@ rpl_XML_GetCurrentLineNumber (XML_Parser parser)
   else
     return ((long (*) (XML_Parser)) p_XML_GetCurrentLineNumber) (parser);
 }
-
-static void *p_XML_GetCurrentColumnNumber = (void *) &XML_GetCurrentColumnNumber;
 
 int64_t
 rpl_XML_GetCurrentColumnNumber (XML_Parser parser)
