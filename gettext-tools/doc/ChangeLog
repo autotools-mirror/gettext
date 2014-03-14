@@ -2,8 +2,9 @@
 
 	* FAQ.html: Point to bug-gettext@gnu.org rather than
 	bug-gnu-gettext@gnu.org, in the context of mailing list; add a
-	link to the mailing list information page.  Replace the reference
-	of "Free Translation Project" with "Translation Project".
+	link to the mailing list information page.  Point to the latest
+	URL of the GNOME Translation Project.  Replace the reference of
+	"Free Translation Project" with "Translation Project".
 	Reported by Benno Schulenberg.
 
 2014-02-10  Daiki Ueno  <ueno@gnu.org>
