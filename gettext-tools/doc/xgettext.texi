@@ -74,7 +74,7 @@ are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Shell},
 @code{Smalltalk}, @code{Java}, @code{JavaProperties}, @code{C#}, @code{awk},
 @code{YCP}, @code{Tcl}, @code{Perl}, @code{PHP}, @code{GCC-source},
 @code{NXStringTable}, @code{RST}, @code{Glade}, @code{Lua}, @code{JavaScript},
-@code{Vala}, @code{GSettings}.
+@code{Vala}, @code{GSettings}, @code{Desktop}.
 
 @item -C
 @itemx --c++
@@ -181,7 +181,7 @@ escaped.
 
 This option has an effect with most languages, namely C, C++, ObjectiveC,
 Shell, Python, Lisp, EmacsLisp, librep, Java, C#, awk, Tcl, Perl, PHP,
-GCC-source, Glade, Lua, JavaScript, Vala, GSettings.
+GCC-source, Glade, Lua, JavaScript, Vala, GSettings, Desktop.
 
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are language dependent.  They are:
@@ -261,6 +261,10 @@ For JavaScript: @code{_}, @code{gettext}, @code{dgettext:2},
 For Vala: @code{_}, @code{Q_}, @code{N_}, @code{NC_}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
 @code{dpgettext:2c,3}, @code{dpgettext2:2c,3}.
+
+@item
+For Desktop: @code{Name}, @code{GenericName}, @code{Comment},
+@code{Icon}, @code{Keywords}.
 @end itemize
 
 To disable the default keyword specifications, the option @samp{-k} or

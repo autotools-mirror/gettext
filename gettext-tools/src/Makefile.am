@@ -48,6 +48,7 @@ read-csharp.h write-csharp.h \
 read-resources.h write-resources.h \
 read-tcl.h write-tcl.h \
 write-qt.h \
+read-desktop.h \
 po-time.h plural-table.h lang-table.h format.h filters.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
@@ -148,7 +149,8 @@ color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
 msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
 plural-table.c \
-$(FORMAT_SOURCE)
+$(FORMAT_SOURCE) \
+read-desktop.c
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
@@ -178,7 +180,8 @@ xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c x-lua.c x-javascript.c x-vala.c x-gsettings.c \
-  libexpat-compat.c
+  libexpat-compat.c \
+  x-desktop.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
 else

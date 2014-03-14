@@ -96,6 +96,7 @@
 #include "x-javascript.h"
 #include "x-vala.h"
 #include "x-gsettings.h"
+#include "x-desktop.h"
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -448,6 +449,7 @@ main (int argc, char *argv[])
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
         x_vala_keyword (optarg);
+        x_desktop_keyword (optarg);
         if (optarg == NULL)
           no_default_keywords = true;
         else
@@ -886,7 +888,7 @@ Choice of input file language:\n"));
                                 EmacsLisp, librep, Scheme, Smalltalk, Java,\n\
                                 JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
                                 GCC-source, NXStringTable, RST, Glade, Lua,\n\
-                                JavaScript, Vala)\n"));
+                                JavaScript, Vala, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -928,7 +930,7 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Shell,\n\
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
                                 C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n\
-                                Lua, JavaScript, Vala)\n"));
+                                Lua, JavaScript, Vala, Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
@@ -3257,6 +3259,7 @@ language_to_extractor (const char *name)
     SCANNERS_JAVASCRIPT
     SCANNERS_VALA
     SCANNERS_GSETTINGS
+    SCANNERS_DESKTOP
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -3344,6 +3347,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_JAVASCRIPT
     EXTENSIONS_VALA
     EXTENSIONS_GSETTINGS
+    EXTENSIONS_DESKTOP
     /* Here may follow more file extensions... */
   };
 
