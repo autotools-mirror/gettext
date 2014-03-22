@@ -1,3 +1,13 @@
+2014-03-26  Aurélien Gâteau <mail@agateau.com>  (tiny change)
+
+	msgfmt: Add --source option to generate .java file instead of .class
+	* msgfmt.c (java_output_source): New variable.
+	(long_options, main, usage): Add --source option.
+	* write-java.h (msgdomain_write_java): Add OUTPUT_SOURCE argument.
+	* write-java.c (msgdomain_write_java): Generate .java file instead
+	of .class if OUTPUT_SOURCE argument is given.
+	Reported at <https://savannah.gnu.org/bugs/?41766>.
+
 2014-03-25  Daiki Ueno  <ueno@gnu.org>
 
 	Extend --add-location option to suppress line number output

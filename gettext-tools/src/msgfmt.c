@@ -76,6 +76,7 @@ static bool assume_java2;
 static const char *java_resource_name;
 static const char *java_locale_name;
 static const char *java_class_directory;
+static bool java_output_source;
 
 /* C# mode output file specification.  */
 static bool csharp_mode;
@@ -168,6 +169,7 @@ static const struct option long_options[] =
   { "properties-input", no_argument, NULL, 'P' },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
   { "resource", required_argument, NULL, 'r' },
+  { "source", no_argument, NULL, CHAR_MAX + 14 },
   { "statistics", no_argument, &do_statistics, 1 },
   { "strict", no_argument, NULL, 'S' },
   { "stringtable-input", no_argument, NULL, CHAR_MAX + 8 },
@@ -352,6 +354,9 @@ main (int argc, char *argv[])
 
           byteswap = endianness ^ ENDIANNESS;
         }
+        break;
+      case CHAR_MAX + 14: /* --source */
+        java_output_source = true;
         break;
       default:
         usage (EXIT_FAILURE);
@@ -556,7 +561,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         {
           if (msgdomain_write_java (domain->mlp, canon_encoding,
                                     java_resource_name, java_locale_name,
-                                    java_class_directory, assume_java2))
+                                    java_class_directory, assume_java2,
+                                    java_output_source))
             exit_status = EXIT_FAILURE;
         }
       else if (csharp_mode)
@@ -704,6 +710,8 @@ Output file location in Java mode:\n"));
   -r, --resource=RESOURCE     resource name\n"));
       printf (_("\
   -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+      --source                produce a .java file, instead of a .class file\n"));
       printf (_("\
   -d DIRECTORY                base directory of classes directory hierarchy\n"));
       printf (_("\

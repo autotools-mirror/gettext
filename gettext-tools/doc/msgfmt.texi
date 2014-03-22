@@ -107,6 +107,10 @@ or a combined language and country specification of the form @var{ll_CC}.
 @opindex -d@r{, @code{msgfmt} option}
 Specify the base directory of classes directory hierarchy.
 
+@item --source
+@opindex --source@r{, @code{msgfmt} option}
+Produce a .java source file, instead of a compiled .class file.
+
 @end table
 
 The class name is determined by appending the locale name to the resource name,
