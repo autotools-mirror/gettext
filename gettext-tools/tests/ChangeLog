@@ -1,3 +1,18 @@
+2014-03-25  Daiki Ueno  <ueno@gnu.org>
+
+	Add tests for --add-location=file option.
+	* msgattrib-18: New file.
+	* msgcat-19: New file.
+	* msgcomm-28: New file.
+	* msgconv-7: New file.
+	* msgen-4: New file.
+	* msgfilter-5: New file.
+	* msggrep-11: New file.
+	* msgmerge-25: New file.
+	* msguniq-7: New file.
+	* xgettext-10: New file.
+	* Makefile.am (TESTS): Add new tests
+
 2014-03-11  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (EXTRA_DIST): Add init.cfg, which is no longer

@@ -1,3 +1,17 @@
+2014-03-25  Daiki Ueno  <ueno@gnu.org>
+
+	* msgattrib.texi: Document the optional argument of
+	--add-location.
+	* msgcat.texi: Likewise.
+	* msgcomm.texi: Likewise.
+	* msgconv.texi: Likewise.
+	* msgen.texi: Likewise.
+	* msgfilter.texi: Likewise.
+	* msggrep.texi: Likewise.
+	* msgmerge.texi: Likewise.
+	* msguniq.texi: Likewise.
+	* xgettext.texi: Likewise.
+
 2014-03-15  Daiki Ueno  <ueno@gnu.org>
 
 	* FAQ.html: Point to bug-gettext@gnu.org rather than

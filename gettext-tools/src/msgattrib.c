@@ -80,7 +80,7 @@ static int to_change;
 /* Long options.  */
 static const struct option long_options[] =
 {
-  { "add-location", no_argument, &line_comment, 1 },
+  { "add-location", optional_argument, NULL, 'n' },
   { "clear-fuzzy", no_argument, NULL, CHAR_MAX + 8 },
   { "clear-obsolete", no_argument, NULL, CHAR_MAX + 10 },
   { "clear-previous", no_argument, NULL, CHAR_MAX + 18 },
@@ -94,7 +94,7 @@ static const struct option long_options[] =
   { "indent", no_argument, NULL, 'i' },
   { "no-escape", no_argument, NULL, 'e' },
   { "no-fuzzy", no_argument, NULL, CHAR_MAX + 3 },
-  { "no-location", no_argument, &line_comment, 0 },
+  { "no-location", no_argument, NULL, CHAR_MAX + 22 },
   { "no-obsolete", no_argument, NULL, CHAR_MAX + 5 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 13 },
   { "obsolete", no_argument, NULL, CHAR_MAX + 12 },
@@ -207,7 +207,8 @@ main (int argc, char **argv)
         break;
 
       case 'n':
-        line_comment = 1;
+        if (handle_filepos_comment_option (optarg))
+          usage (EXIT_FAILURE);
         break;
 
       case 'o':
@@ -331,6 +332,10 @@ main (int argc, char **argv)
         to_change |= ADD_PREV;
         break;
 
+      case CHAR_MAX + 22: /* --no-location */
+        message_print_style_filepos (filepos_comment_none);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -367,10 +372,6 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     }
 
   /* Verify selected options.  */
-  if (!line_comment && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-           "--no-location", "--sort-by-file");
-
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--sort-output", "--sort-by-file");

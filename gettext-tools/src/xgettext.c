@@ -199,7 +199,7 @@ iconv_t xgettext_current_source_iconv;
 static const struct option long_options[] =
 {
   { "add-comments", optional_argument, NULL, 'c' },
-  { "add-location", no_argument, &line_comment, 1 },
+  { "add-location", optional_argument, NULL, 'n' },
   { "boost", no_argument, NULL, CHAR_MAX + 11 },
   { "c++", no_argument, NULL, 'C' },
   { "color", optional_argument, NULL, CHAR_MAX + 14 },
@@ -225,7 +225,7 @@ static const struct option long_options[] =
   { "msgstr-prefix", optional_argument, NULL, 'm' },
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
-  { "no-location", no_argument, &line_comment, 0 },
+  { "no-location", no_argument, NULL, CHAR_MAX + 16 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
   { "output", required_argument, NULL, 'o' },
@@ -473,7 +473,8 @@ main (int argc, char *argv[])
         break;
 
       case 'n':
-        line_comment = 1;
+        if (handle_filepos_comment_option (optarg))
+          usage (EXIT_FAILURE);
         break;
 
       case 'o':
@@ -587,6 +588,10 @@ main (int argc, char *argv[])
         handle_style_option (optarg);
         break;
 
+      case CHAR_MAX + 16: /* --no-location */
+        message_print_style_filepos (filepos_comment_none);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -612,10 +617,6 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     usage (EXIT_SUCCESS);
 
   /* Verify selected options.  */
-  if (!line_comment && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-           "--no-location", "--sort-by-file");
-
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--sort-output", "--sort-by-file");
@@ -2474,8 +2475,7 @@ meta information, not the empty string.\n")));
   warn_format_string (is_format, mp->msgid, pos, "msgid");
 
   /* Remember where we saw this msgid.  */
-  if (line_comment)
-    message_comment_filepos (mp, pos->file_name, pos->line_number);
+  message_comment_filepos (mp, pos->file_name, pos->line_number);
 
   /* Tell the lexer to reset its comment buffer, so that the next
      message gets the correct comments.  */

@@ -846,8 +846,7 @@ is_nonobsolete (const message_ty *mp)
    default_catalog_reader_ty.  Its particularities are:
    - The header entry check is performed on-the-fly.
    - Comments are not stored, they are discarded right away.
-     (This is achieved by setting handle_comments = false and
-     handle_filepos_comments = false.)
+     (This is achieved by setting handle_comments = false.)
    - The multi-domain handling is adapted to our domain_list.
  */
 
@@ -1107,7 +1106,6 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
 
   pop = default_catalog_reader_alloc (&msgfmt_methods);
   pop->handle_comments = false;
-  pop->handle_filepos_comments = false;
   pop->allow_domain_directives = true;
   pop->allow_duplicates = false;
   pop->allow_duplicates_if_same_msgstr = false;

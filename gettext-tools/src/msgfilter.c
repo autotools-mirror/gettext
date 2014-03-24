@@ -87,7 +87,7 @@ static void (*filter) (const char *str, size_t len, char **resultp, size_t *leng
 /* Long options.  */
 static const struct option long_options[] =
 {
-  { "add-location", no_argument, &line_comment, 1 },
+  { "add-location", optional_argument, NULL, 'n' },
   { "color", optional_argument, NULL, CHAR_MAX + 6 },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
@@ -97,7 +97,7 @@ static const struct option long_options[] =
   { "input", required_argument, NULL, 'i' },
   { "keep-header", no_argument, &keep_header, 1 },
   { "no-escape", no_argument, NULL, CHAR_MAX + 2 },
-  { "no-location", no_argument, &line_comment, 0 },
+  { "no-location", no_argument, NULL, CHAR_MAX + 8 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
@@ -164,7 +164,7 @@ main (int argc, char **argv)
 
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:EFhi:o:pPsVw:", long_options,
+  while ((opt = getopt_long (argc, argv, "+D:EFhi:n:o:pPsVw:", long_options,
                              NULL))
          != EOF)
     switch (opt)
@@ -195,6 +195,11 @@ main (int argc, char **argv)
             usage (EXIT_FAILURE);
           }
         input_file = optarg;
+        break;
+
+      case 'n':
+        if (handle_filepos_comment_option (optarg))
+          usage (EXIT_FAILURE);
         break;
 
       case 'o':
@@ -260,6 +265,10 @@ main (int argc, char **argv)
         handle_style_option (optarg);
         break;
 
+      case CHAR_MAX + 8: /* --no-location */
+        message_print_style_filepos (filepos_comment_none);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         break;
@@ -290,10 +299,6 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   sub_name = argv[optind];
 
   /* Verify selected options.  */
-  if (!line_comment && sort_by_filepos)
-    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
-           "--no-location", "--sort-by-file");
-
   if (sort_by_msgid && sort_by_filepos)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--sort-output", "--sort-by-file");
@@ -456,7 +461,7 @@ Output details:\n"));
       printf (_("\
       --no-location           suppress '#: filename:line' lines\n"));
       printf (_("\
-      --add-location          preserve '#: filename:line' lines (default)\n"));
+  -n, --add-location          preserve '#: filename:line' lines (default)\n"));
       printf (_("\
       --strict                strict Uniforum output style\n"));
       printf (_("\
