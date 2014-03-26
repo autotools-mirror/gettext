@@ -137,7 +137,8 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	lang-python-2 lang-clisp lang-elisp lang-librep lang-guile \
 	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
 	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst \
-	lang-lua lang-javascript lang-vala
+	lang-lua lang-javascript lang-vala \
+	autopoint-1 autopoint-2 autopoint-3
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	test.mo xg-c-1.ok.po mex-test2.ok \
