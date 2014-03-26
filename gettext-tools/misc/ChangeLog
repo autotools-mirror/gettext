@@ -1,3 +1,9 @@
+2014-03-26  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Allow user to specify the directory in which
+	archive belongs, through $gettext_dir envvar.
+	* gettextize.in: Likewise.
+
 2013-12-05  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in (func_trace): Allow user to specify autom4te

@@ -28,7 +28,7 @@ version=@VERSION@
 # - gettext_dir     directory where the sources are stored.
 prefix="@prefix@"
 datarootdir="@datarootdir@"
-gettext_dir="@datadir@/gettext"
+: ${gettext_dir="@datadir@/gettext"}
 
 # func_tmpdir
 # creates a temporary directory.
