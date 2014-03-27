@@ -155,12 +155,10 @@ m4_undefine([m4_esyscmd])
 }
 
 # func_trace_sed macro configure.ac
-# traces a non-standard Autoconf macro call and outputs the arguments to stdout.
+# traces a non-standard Autoconf macro call and outputs the first
+# argument to stdout.
 func_trace_sed ()
 {
-  # Otherwise, manually extract macro calls in configure.ac with
-  # sed.  This is less reliable than the above way and does not
-  # support multiple calls.
   sed_extract_arguments='
 s,#.*$,,; s,^dnl .*$,,; s, dnl .*$,,;
 /'"$1"'(/ {
