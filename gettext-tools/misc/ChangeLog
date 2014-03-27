@@ -1,3 +1,12 @@
+2014-03-27  Daiki Ueno  <ueno@gnu.org>
+
+	autopoint: Use SED-based trace for non-standard Autoconf macros
+	Reported by Sean McGovern in <https://savannah.gnu.org/bugs/?41913>.
+	* autopoint.in (func_trace_sed): New function; use it to trace
+	AM_GNU_GETTEXT and AM_GNU_GETTEXT_VERSION.
+	* gettextize.in (func_trace_sed): New function; use it to trace
+	AM_GNU_GETTEXT.
+
 2014-03-26  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in: Allow user to specify the directory in which
