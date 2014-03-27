@@ -103,3 +103,29 @@ test -f gettext-m4/po.m4 || exit 1
 test -f po/Makefile.in.in || exit 1
 
 rm -fr gettext-m4 po
+
+# Check for multiple arguments to AM_GNU_GETTEXT
+# <https://savannah.gnu.org/bugs/?40082>
+cat <<EOF >configure.ac
+AC_INIT
+AC_CONFIG_SRCDIR(hello.c)
+
+AC_PROG_CC
+AM_GNU_GETTEXT([external], [need-formatstring-macros])
+AM_GNU_GETTEXT_VERSION([$required_gettext_version])
+
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([po/Makefile.in])
+AC_OUTPUT
+EOF
+
+$gettext_dir/autopoint >/dev/null 2>/dev/null || exit 1
+
+test ! -d intl || exit 1
+test -d m4 || exit 1
+test -d po || exit 1
+
+test -f m4/po.m4 || exit 1
+test -f po/Makefile.in.in || exit 1
+
+rm -fr m4 po

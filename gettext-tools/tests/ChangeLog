@@ -1,3 +1,8 @@
+2014-03-27  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint-2: Check for the case when multiple arguments are
+	supplied to AM_GNU_GETTEXT.
+
 2014-03-26  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add tests for autopoint
