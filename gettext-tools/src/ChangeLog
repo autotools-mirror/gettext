@@ -1,3 +1,35 @@
+2014-04-04  Daiki Ueno  <ueno@gnu.org>
+
+	msgfmt: Add support for Desktop Entry files
+	* write-desktop.h: New file.
+	* write-desktop.c: New file.
+	* msgfmt.c (desktop_mode, desktop_locale_name)
+	(desktop_template_name, desktop_base_directory, desktop_keywords)
+	(desktop_default_keywords): New variables.
+	(long_options): Add --desktop and --template options for Desktop
+	Entry mode.
+	(get_languages): New function.
+	(msgfmt_desktop_bulk): New function which implements bulk
+	operation mode for Desktop Entry mode.
+	(main): Handle Desktop Entry mode options; call
+	'msgfmt_desktop_bulk' if -d option is seen.
+	* Makefile.am (noinst_HEADERS): Add write-desktop.h.
+	(msgfmt_SOURCES): Add write-desktop.c
+
+2014-04-04  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Add support for Desktop Entry files
+	* read-desktop.h: New file.
+	* read-desktop.c: New file.
+	* x-desktop.h: New file.
+	* x-desktop.h: New file.
+	* xgettext.c (main): Regiser keywords for Desktop Entry mode.
+	(usage): Mention Desktop Entry source language.
+	(language_to_extractor): Add Desktop Entry rule.
+	(extension_to_language): Add Desktop Entry rule.
+	* Makefile.am (noinst_HEADERS): Add read-desktop.h and x-desktop.h.
+	(xgettext_SOURCES): Add x-desktop.c.
+
 2014-03-26  Aurélien Gâteau <mail@agateau.com>  (tiny change)
 
 	msgfmt: Add --source option to generate .java file instead of .class

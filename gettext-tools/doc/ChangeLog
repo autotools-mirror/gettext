@@ -1,3 +1,11 @@
+2014-04-04  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfmt.texi: Document --desktop mode.
+
+2014-04-04  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext.texi: Document Desktop Entry file.
+
 2014-03-26  Aurélien Gâteau <mail@agateau.com>  (tiny change)
 
 	* msgfmt.texi: Document --source option.
