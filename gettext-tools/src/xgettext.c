@@ -538,7 +538,13 @@ main (int argc, char *argv[])
       case CHAR_MAX + 3:        /* --from-code */
         xgettext_global_source_encoding = po_charset_canonicalize (optarg);
         if (xgettext_global_source_encoding == NULL)
-          xgettext_global_source_encoding = po_charset_ascii;
+          {
+            multiline_warning (xasprintf (_("warning: ")),
+                               xasprintf (_("\
+'%s' is not a valid encoding name.  Using ASCII as fallback.\n"),
+                                          optarg));
+            xgettext_global_source_encoding = po_charset_ascii;
+          }
         break;
 
       case CHAR_MAX + 4:        /* --no-wrap */

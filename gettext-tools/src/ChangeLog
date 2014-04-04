@@ -1,5 +1,12 @@
 2014-04-04  Daiki Ueno  <ueno@gnu.org>
 
+	* xgettext.c (main): Warn user if invalid encoding name is
+	specified with the --from-code option.
+	Reported by jaroslav.fojtik@evolvsys.cz in
+	<https://lists.gnu.org/archive/html/bug-gettext/2014-03/msg00034.html>.
+
+2014-04-04  Daiki Ueno  <ueno@gnu.org>
+
 	msgfmt: Add support for Desktop Entry files
 	* write-desktop.h: New file.
 	* write-desktop.c: New file.
