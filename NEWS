@@ -2,6 +2,10 @@ Version 0.18.4 - unreleased
 
 * Programming languages support:
 
+  - Desktop Entry:
+    xgettext and msgfmt now support .desktop files, used by desktop
+    applications, as input and output.
+
   - GSettings:
     xgettext now supports GSettings schema file format used by GNOME
     applications.
