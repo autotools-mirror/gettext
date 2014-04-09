@@ -349,6 +349,20 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       /* Convert the input to UTF-8 first.  */
       result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
     }
+  else if (strcmp (sub_name, "quot") == 0 && sub_argc == 1)
+    {
+      filter = ascii_quote_to_unicode;
+
+      /* Convert the input to UTF-8 first.  */
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
+    }
+  else if (strcmp (sub_name, "boldquot") == 0 && sub_argc == 1)
+    {
+      filter = ascii_quote_to_unicode_bold;
+
+      /* Convert the input to UTF-8 first.  */
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
+    }
   else
     {
       filter = generic_filter;

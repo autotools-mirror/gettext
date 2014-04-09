@@ -1,3 +1,9 @@
+2014-04-15  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add tests for 'msgfilter quot' and 'msgfilter boldquot'
+	* msgfilter-quote-1: New file.
+	* Makefile.am (TESTS): Add new tests.
+
 2014-04-04  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add tests for msgfmt --desktop

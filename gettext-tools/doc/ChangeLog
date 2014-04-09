@@ -1,3 +1,7 @@
+2014-04-15  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfilter.texi: Document 'quot' and 'boldquot' built-in filters.
+
 2014-04-04  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfmt.texi: Document --desktop mode.

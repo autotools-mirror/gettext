@@ -1,3 +1,12 @@
+2014-04-15  Daiki Ueno  <ueno@gnu.org>
+
+	msgfilter: Add 'quot' and 'boldquot' built-in filters
+	* filter-quote.c: New file.
+	* filters.h (ascii_quote_to_unicode, ascii_quote_to_unicode_bold):
+	New function declaration.
+	* msgfilter.c (main): Handle 'quot' and 'boldquot' filters.
+	* Makefile.am (msgfilter_SOURCES): Add filter-quote.c.
+
 2014-04-04  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.c (main): Warn user if invalid encoding name is

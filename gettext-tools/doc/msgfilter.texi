@@ -117,6 +117,17 @@ The command @samp{msgfilter recode-sr-latin} applies this conversion to the
 translations of a PO file.  Thus, it can be used to convert an @file{sr.po}
 file to an @file{sr@@latin.po} file.
 
+@pindex quot
+The filter @samp{quot} is recognized as a built-in filter.
+The command @samp{msgfilter quot} converts any quotations surrounded
+by a pair of @samp{"}, @samp{'}, and @samp{`}.
+
+@pindex boldquot
+The filter @samp{boldquot} is recognized as a built-in filter.
+The command @samp{msgfilter boldquot} converts any quotations
+surrounded by a pair of @samp{"}, @samp{'}, and @samp{`}, also adding the
+VT100 escape sequences to the text to decorate it as bold.
+
 The use of built-in filters is not sensitive to the current locale's encoding.
 Moreover, when used with a built-in filter, @samp{msgfilter} can automatically
 convert the message catalog to the UTF-8 encoding when needed.

@@ -214,6 +214,7 @@ else
 msgfilter_SOURCES = ../woe32dll/c++msgfilter.cc
 endif
 msgfilter_SOURCES += filter-sr-latin.c
+msgfilter_SOURCES += filter-quote.c
 if !WOE32DLL
 msggrep_SOURCES = msggrep.c
 else
