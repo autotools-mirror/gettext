@@ -1,3 +1,8 @@
+2014-05-10  Guido Flohr  <guido@imperia.net>
+
+	msgattrib: Add --empty option to clear msgstr
+	* msgattrib.texi: Document --empty option.
+
 2014-05-05  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (Translations under Version Control): New section.

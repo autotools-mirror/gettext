@@ -137,6 +137,17 @@ mark, keep ``previous msgid'' of translated messages.
 @opindex --clear-previous@r{, @code{msgattrib} option}
 Remove the ``previous msgid'' (@samp{#|}) comments from all messages.
 
+@item --empty
+@opindex --empty@r{, @code{msgattrib} option}
+When removing
+@ifhtml
+‘fuzzy’
+@end ifhtml
+@ifnothtml
+`fuzzy'
+@end ifnothtml
+mark, also set msgstr empty.
+
 @item --only-file=@var{file}
 @opindex --only-file@r{, @code{msgattrib} option}
 Limit the attribute changes to entries that are listed in @var{file}.

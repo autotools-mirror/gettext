@@ -1,3 +1,12 @@
+2014-05-10  Guido Flohr  <guido@imperia.net>
+
+	msgattrib: Add --empty option to clear msgstr
+	* msgattrib.c (REMOVE_TRANSLATION): New enum value.
+	(long_options): Add --empty.
+	(main): Set REMOVE_TRANSLATION flag when --empty is given.
+	(usage): Show help of --empty.
+	(process_message_list): Handle REMOVE_TRANSLATION flag.
+
 2014-05-09  Daiki Ueno  <ueno@gnu.org>
 
 	vala: Interpret string literals lazily
