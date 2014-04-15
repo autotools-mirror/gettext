@@ -1,3 +1,16 @@
+2014-04-15  Daiki Ueno  <ueno@gnu.org>
+
+	examples: Add a new example 'hello-c-gnome3'
+	* hello-c-gnome3: New subdirectory.
+	* README: Mention it.
+	* Makefile.am (EXAMPLESFILES): Add the files in hello-c-gnome3.
+	(EXAMPLESDIRS): Add hello-c-gnome3.
+	* po/Makefile.am (POTFILES): Add hello-c-gnome3 source.
+	(SMALLPOTS): Add hello-c-gnome3.pot.
+	(hello-c-gnome3.pot): New rule.
+	(SMALLPOFILES_FOR_lang): Add hello-c-gnome3 elements.
+	(../hello-c-gnome3/po/$(LL).po): New rule.
+
 2013-06-10  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am: Use $(MKDIR_P) instead of $(mkdir_p).

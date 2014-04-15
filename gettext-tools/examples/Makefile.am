@@ -51,6 +51,19 @@ EXAMPLESFILES = \
   hello-c-gnome/po/Makevars \
   hello-c-gnome/po/POTFILES.in \
   \
+  hello-c-gnome3/INSTALL \
+  hello-c-gnome3/autogen.sh \
+  hello-c-gnome3/autoclean.sh \
+  hello-c-gnome3/hello.c \
+  hello-c-gnome3/hello.desktop.in \
+  hello-c-gnome3/hello.gresource.xml \
+  hello-c-gnome3/hello.ui \
+  hello-c-gnome3/Makefile.am \
+  hello-c-gnome3/configure.ac \
+  hello-c-gnome3/m4/Makefile.am \
+  hello-c-gnome3/po/Makevars \
+  hello-c-gnome3/po/POTFILES.in \
+  \
   hello-c++/INSTALL \
   hello-c++/autogen.sh \
   hello-c++/autoclean.sh \
@@ -361,6 +374,7 @@ EXAMPLESFILES = \
 EXAMPLESDIRS = \
   hello-c \
   hello-c-gnome \
+  hello-c-gnome3 \
   hello-c++ \
   hello-c++-qt \
   hello-c++-kde \

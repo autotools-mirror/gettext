@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Hello
+StartupNotify=true
+Exec=@bindir@/hello
