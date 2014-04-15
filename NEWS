@@ -24,6 +24,12 @@ Version 0.18.4 - unreleased
 * msgfmt now has --source option to keep generated .java file when
   running in Java mode.
 
+* New built-in filters 'quot' and 'boldquot' have been added to
+  msgfilter.  These filters convert Latin quotation marks ('...',
+  "...") into Unicode quotation marks (for example, U+2018) if
+  possible, similar to the sed commands used in po/Rules-quot and
+  po/Rules-boldquot.
+
 * libgettextpo library:
   - Memory leak fixes in the PO file parser.
 
