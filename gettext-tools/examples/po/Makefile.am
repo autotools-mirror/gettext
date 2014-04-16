@@ -23,7 +23,7 @@ POTFILES = \
   hello-c/hello.c \
   hello-c-gnome/hello.c \
   hello-c-gnome3/hello.c \
-  hello-c-gnome3/hello.desktop.in \
+  hello-c-gnome3/hello.desktop.in.in \
   hello-c-gnome3/hello.gresource.xml \
   hello-c-gnome3/hello.ui \
   hello-c++/hello.cc \

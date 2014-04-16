@@ -3,5 +3,5 @@
 #
 # List of files which contain translatable strings.
 hello.c
-hello.desktop
+hello.desktop.in.in
 hello.ui

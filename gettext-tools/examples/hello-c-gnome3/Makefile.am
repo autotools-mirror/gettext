@@ -32,9 +32,20 @@ resources.c: hello.gresource.xml hello.ui
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $(srcdir)/hello.gresource.xml \
 		--target=$@ --sourcedir=$(srcdir) --generate-source
 
+# Merge translations into a Desktop Entry file.
 desktopdir = $(datadir)/applications
 desktop_DATA = hello.desktop
 
+hello.desktop.in: hello.desktop.in.in
+	$(AM_V_GEN) sed -e "s|@bindir[@]|$(bindir)|" \
+		-e "s|@VERSION[@]|$(VERSION)|" \
+		$< > $@ || rm $@
+
+hello.desktop: hello.desktop.in
+	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -o $@ -d $(top_srcdir)/po
+
+CLEANFILES = $(BUILT_SOURCES) hello.desktop.in $(desktop_DATA)
+
 # Additional files to be distributed.
 EXTRA_DIST = autogen.sh autoclean.sh \
-	hello.ui hello.desktop.in hello.gresource.xml
+	hello.ui hello.desktop.in.in hello.gresource.xml

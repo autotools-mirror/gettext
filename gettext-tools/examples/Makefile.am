@@ -55,7 +55,7 @@ EXAMPLESFILES = \
   hello-c-gnome3/autogen.sh \
   hello-c-gnome3/autoclean.sh \
   hello-c-gnome3/hello.c \
-  hello-c-gnome3/hello.desktop.in \
+  hello-c-gnome3/hello.desktop.in.in \
   hello-c-gnome3/hello.gresource.xml \
   hello-c-gnome3/hello.ui \
   hello-c-gnome3/Makefile.am \

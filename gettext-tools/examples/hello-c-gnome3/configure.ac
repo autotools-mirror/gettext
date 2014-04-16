@@ -46,7 +46,6 @@ GTK_LIBS=`"$PKG_CONFIG" --libs "$GTK"`
 AC_SUBST(GTK_LIBS)
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([hello.desktop])
 AC_CONFIG_FILES([m4/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
