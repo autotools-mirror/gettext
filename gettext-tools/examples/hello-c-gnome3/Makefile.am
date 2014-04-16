@@ -25,12 +25,16 @@ AM_CPPFLAGS = $(GTK_CFLAGS)
 # Link time dependencies.
 LDADD = $(GTK_LIBS) @LIBINTL@
 
-# Compile assets into a C source and link it with the application.
-BUILT_SOURCES = resources.c
+BUILT_SOURCES = gschemas.compiled resources.c
 
-resources.c: hello.gresource.xml hello.ui
-	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $(srcdir)/hello.gresource.xml \
-		--target=$@ --sourcedir=$(srcdir) --generate-source
+# Compile GSettings schema.
+gschemas.compiled: org.gnu.gettext.examples.hello.gschema.xml
+	$(AM_V_GEN) $(GLIB_COMPILE_SCHEMAS) .
+
+# Compile assets into a C source and link it with the application.
+resources.c: org.gnu.gettext.examples.hello.gresource.xml hello.ui
+	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ \
+		--sourcedir=$(srcdir) --generate-source
 
 # Merge translations into a Desktop Entry file.
 desktopdir = $(datadir)/applications
@@ -47,5 +51,6 @@ hello.desktop: hello.desktop.in
 CLEANFILES = $(BUILT_SOURCES) hello.desktop.in $(desktop_DATA)
 
 # Additional files to be distributed.
-EXTRA_DIST = autogen.sh autoclean.sh \
-	hello.ui hello.desktop.in.in hello.gresource.xml
+EXTRA_DIST = autogen.sh autoclean.sh hello.ui hello.desktop.in.in \
+	org.gnu.gettext.examples.hello.gschema.xml \
+	org.gnu.gettext.examples.hello.gresource.xml

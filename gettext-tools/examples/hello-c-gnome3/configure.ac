@@ -29,6 +29,11 @@ AS_IF([test -z "$GLIB_COMPILE_RESOURCES"], [
   AC_MSG_ERROR([can't find glib-compile-resources])
 ])
 
+AC_PATH_PROG(GLIB_COMPILE_SCHEMAS, [glib-compile-schemas])
+AS_IF([test -z "$GLIB_COMPILE_SCHEMAS"], [
+  AC_MSG_ERROR([can't find glib-compile-schemas])
+])
+
 AC_PATH_PROG([PKG_CONFIG], [pkg-config])
 AS_IF([test -z "$PKG_CONFIG"], [
   AC_MSG_ERROR([can't find pkg-config])

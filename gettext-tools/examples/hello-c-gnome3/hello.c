@@ -13,6 +13,10 @@
 # include <unistd.h>
 #endif
 
+#define UI_PATH "/org/gnu/gettext/examples/hello/hello.ui"
+#define APPLICATION_ID "org.gnu.gettext.examples.hello"
+#define GSETTINGS_SCHEMA "org.gnu.gettext.examples.hello"
+
 static void
 quit_callback (GtkWidget *widget, void *data)
 {
@@ -20,6 +24,7 @@ quit_callback (GtkWidget *widget, void *data)
 }
 
 /* Forward declaration of GObject types.  */
+
 #define HELLO_TYPE_APPLICATION_WINDOW (hello_application_window_get_type ())
 #define HELLO_APPLICATION_WINDOW(obj)                           \
   (G_TYPE_CHECK_INSTANCE_CAST ((obj),                           \
@@ -45,6 +50,7 @@ struct _HelloApplicationWindow
   GtkApplicationWindow parent;
   GtkWidget *label2;
   GtkWidget *button;
+  GSettings *settings;
 };
 
 struct _HelloApplicationWindowClass
@@ -65,13 +71,29 @@ hello_application_window_init (HelloApplicationWindow *window)
                            getpid ());
   gtk_label_set_label (GTK_LABEL (window->label2), label);
   g_free (label);
+
+  window->settings = g_settings_new (GSETTINGS_SCHEMA);
+  g_settings_bind (window->settings, "label-sensitive",
+                   window->label2, "sensitive",
+                   G_SETTINGS_BIND_DEFAULT);
+}
+
+static void
+hello_application_window_dispose (GObject *object)
+{
+  HelloApplicationWindow *window = HELLO_APPLICATION_WINDOW (object);
+  g_clear_object (&window->settings);
 }
 
 static void
 hello_application_window_class_init (HelloApplicationWindowClass *klass)
 {
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+
+  gobject_class->dispose = hello_application_window_dispose;
+
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass),
-                                               "/org/gnu/gettext/examples/hello/hello.ui");
+                                               UI_PATH);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass),
                                         HelloApplicationWindow, label2);
   gtk_widget_class_bind_template_child (GTK_WIDGET_CLASS (klass),
@@ -126,18 +148,29 @@ static HelloApplication *
 hello_application_new (void)
 {
   return g_object_new (HELLO_TYPE_APPLICATION,
-                       "application-id", "org.gnu.gettext-examples.hello",
+                       "application-id", APPLICATION_ID,
                        NULL);
 }
 
 int
 main (int argc, char *argv[])
 {
+  GApplication *application;
+  int status;
+
+  /* Load the GSettings schema from the current directory.  */
+  g_setenv ("GSETTINGS_SCHEMA_DIR", ".", FALSE);
+
   /* Initializations.  */
   textdomain ("hello-c-gnome3");
   bindtextdomain ("hello-c-gnome3", LOCALEDIR);
 
+  /* Create application.  */
+  application = G_APPLICATION (hello_application_new ());
+
   /* Start the application.  */
-  return g_application_run (G_APPLICATION (hello_application_new ()),
-                            argc, argv);
+  status = g_application_run (application, argc, argv);
+  g_object_unref (application);
+
+  return status;
 }
