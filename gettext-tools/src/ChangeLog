@@ -1,3 +1,8 @@
+2014-04-16  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfmt.c (get_languages): Allow any whitespace character as a
+	list separator in LINGUAS.
+
 2014-04-15  Daiki Ueno  <ueno@gnu.org>
 
 	msgfilter: Add 'quot' and 'boldquot' built-in filters

@@ -1322,6 +1322,8 @@ get_languages (const char *directory)
 
       while (!feof (fp))
         {
+          char *start;
+
           /* Read next line from file.  */
           int len = getline (&line_buf, &line_len, fp);
 
@@ -1342,7 +1344,27 @@ get_languages (const char *directory)
           if (*line_buf == '\0' || *line_buf == '#')
             continue;
 
-          string_list_append_unique (languages, line_buf);
+          /* Split the line by whitespace and build the languages list.  */
+          start = line_buf;
+          while (*start != '\0')
+            {
+              char *end = start;
+              int c;
+
+              while (*end != '\0' && *end != ' ' && *end != '\t')
+                end++;
+
+              c = *end;
+              *end = '\0';
+              string_list_append_unique (languages, start);
+
+              if (c == '\0')
+                break;
+
+              start = end + 1;
+              while (*start == ' ' || *start == '\t')
+                start++;
+            }
         }
 
       free (line_buf);
