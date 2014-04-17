@@ -21,7 +21,7 @@
 #   - the makeinfo program from the texinfo package,
 #   - perl.
 
-# Copyright (C) 2003-2012 Free Software Foundation, Inc.
+# Copyright (C) 2003-2014 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -389,13 +389,31 @@ if test -n "$GNULIB_TOOL"; then
   done
 else
   for file in config.guess config.sub; do
+    echo "$0: getting $file..."
     wget -q --timeout=5 -O build-aux/$file.tmp "http://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=build-aux/${file};hb=HEAD" \
       && mv build-aux/$file.tmp build-aux/$file \
       && chmod a+x build-aux/$file
+    retval=$?
+    rm -f build-aux/$file.tmp
+    test $retval -eq 0 || exit $retval
   done
 fi
 
+# Fetch gettext-tools/misc/archive.dir.tar.
+if ! test -f gettext-tools/misc/archive.dir.tar; then
+    echo "$0: getting gettext-tools/misc/archive.dir.tar..."
+    wget -q --timeout=5 -O gettext-tools/misc/archive.dir.tar.gz-t "ftp://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.gz" \
+      && mv gettext-tools/misc/archive.dir.tar.gz-t gettext-tools/misc/archive.dir.tar.gz \
+      && gzip -d -c < gettext-tools/misc/archive.dir.tar.gz > gettext-tools/misc/archive.dir.tar-t \
+      && mv gettext-tools/misc/archive.dir.tar-t gettext-tools/misc/archive.dir.tar
+    retval=$?
+    rm -f gettext-tools/misc/archive.dir.tar.gz-t gettext-tools/misc/archive.dir.tar-t
+    test $retval -eq 0 || exit $retval
+fi
+
+# Generate configure script in each subdirectories.
 (cd gettext-runtime/libasprintf
+ echo "$0: generating configure in gettext-runtime/libasprintf..."
  aclocal -I ../../m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
@@ -403,53 +421,97 @@ fi
 )
 
 (cd gettext-runtime
+ echo "$0: geneating configure in gettext-runtime..."
  aclocal -I m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
  automake --add-missing --copy
- # Rebuilding the PO files and manual pages is only rarely needed.
- if ! $quick; then
-   ./configure --disable-java --disable-native-java --disable-csharp \
-     && (cd po && make update-po) \
-     && (cd intl && make) && (cd gnulib-lib && make) && (cd src && make) \
-     && (cd man && make update-man1 all) \
-     && make distclean
- fi
+)
+
+(cd gettext-tools/examples
+ echo "$0: geneating configure in gettext-tools/examples..."
+ aclocal -I ../../gettext-runtime/m4 -I ../../m4
+ autoconf
+ automake --add-missing --copy
 )
 
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
 
-(cd gettext-tools/examples
- aclocal -I ../../gettext-runtime/m4 -I ../../m4
- autoconf
- automake --add-missing --copy
- # Rebuilding the examples PO files is only rarely needed.
- if ! $quick; then
-   ./configure && (cd po && make update-po) && make distclean
- fi
-)
-
 (cd gettext-tools
+ echo "$0: geneating configure in gettext-tools..."
  aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in
  test -d intl || mkdir intl
  automake --add-missing --copy
- # Rebuilding the PO files, manual pages, documentation, test files is only rarely needed.
- if ! $quick; then
-   ./configure --disable-java --disable-native-java --disable-csharp --disable-openmp \
-     && (cd po && make update-po) \
-     && (cd intl && make) && (cd gnulib-lib && make) && (cd libgrep && make) && (cd src && make) \
+)
+
+# Rebuilding the PO files, manual pages, documentation, test files is
+# only rarely needed.
+if ! $quick; then
+  (cd gettext-runtime
+   echo "$0: building gettext-runtime for bootstrap..."
+   # We really need to build gettext-runtime to generate manual pages
+   # for 'gettext' and 'ngettext' utilities.
+   ./configure --disable-java --disable-native-java --disable-csharp \
+     && (cd intl && make) \
+     && (cd gnulib-lib && make) \
+     && (cd src && make)
+  ) || exit $?
+
+  (cd gettext-tools
+   echo "$0: building gettext-tools for bootstrap..."
+   ./configure --disable-java --disable-native-java --disable-csharp \
+               --disable-openmp \
+     && (cd intl && make) \
+     && (cd gnulib-lib && make) \
+     && (cd libgrep && make) \
+     && (cd src && make) \
+     && (cd misc && make)
+  ) || exit $?
+
+  gettext_dir=$PWD/gettext-tools/misc
+  pathprefix=$gettext_dir:$PWD/gettext-tools/src
+
+  (cd gettext-runtime
+   echo "$0: updating PO files and manual pages in gettext-runtime..."
+
+   PATH=$pathprefix:$PATH
+   export PATH gettext_dir
+
+   (cd po && make update-po) \
+     && (cd man && make update-man1 all)
+  ) || exit $?
+
+  (cd gettext-tools
+   echo "$0: updating PO files and manual pages in gettext-tools..."
+
+   PATH=$pathprefix:$PATH
+   export PATH gettext_dir
+
+   (cd po && make update-po) \
      && (cd man && make update-man1 all) \
      && (cd doc && make all) \
-     && (cd tests && make update-expected) \
-     && make distclean
- fi
- if ! test -f misc/archive.dir.tar; then
-   wget -q --timeout=5 -O - ftp://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.gz | gzip -d -c > misc/archive.dir.tar-t \
-     && mv misc/archive.dir.tar-t misc/archive.dir.tar
- fi
-)
+     && (cd tests && make update-expected)
+  ) || exit $?
+
+  (cd gettext-tools/examples
+   echo "$0: updating PO files in gettext-tools/examples..."
+
+   PATH=$pathprefix:$PATH
+   export PATH gettext_dir
+
+   ./configure && (cd po && make update-po)
+  ) || exit $?
+
+  (cd gettext-runtime
+   echo "$0: cleaning up gettext-runtime..."
+   make distclean) || exit $?
+
+  (cd gettext-tools
+   echo "$0: cleaning up gettext-tools..."
+   make distclean) || exit $?
+fi
 
 aclocal -I m4
 autoconf

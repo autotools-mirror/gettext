@@ -1,3 +1,11 @@
+2014-04-17  Daiki Ueno  <ueno@gnu.org>
+
+	* autogen.sh: Use included gettext-tools for bootstrap
+	To regenerate POT files, autogen.sh had an implicit dependency on
+	gettext-tools installed on system.  This prohibited to use any new
+	features in our examples.  Let autogen.sh use included version of
+	gettext-tools, by prepending $builddir to the PATH.
+
 2014-04-07  Daiki Ueno  <ueno@gnu.org>
 
 	* autogen.sh: Error out when gnulib-tool exit with non-zero.
