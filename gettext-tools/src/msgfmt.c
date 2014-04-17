@@ -1354,7 +1354,7 @@ get_languages (const char *directory)
                 start++;
 
               p = start;
-              while (*p != ' ' && *p != '\t')
+              while (*p != '\0' && *p != ' ' && *p != '\t')
                 p++;
 
               *p = '\0';
