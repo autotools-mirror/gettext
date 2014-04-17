@@ -15,40 +15,44 @@ AM_GNU_GETTEXT_VERSION(0.18.3)
 dnl Check GNOME specific stuff.
 dnl
 dnl If you have full GNOME development environment installed on your
-dnl system, you should be able to use the following macros:
+dnl system, you should better use the following macros:
 dnl
 dnl   AM_PATH_GLIB_2_0
 dnl   PKG_CHECK_MODULES([GTK], [gtk+-3.0 >= 3.10], ,
 dnl     [AC_MSG_ERROR([can't find gtk+-3.0])])
 dnl
-dnl Here, in gettext-tools/examples, we do the checks manually for
-dnl simplicity.
+dnl However, we can't use those in the gettext-tools distribution
+dnl here, to avoid dependency on external m4 files and failure when
+dnl updating POT files when bootstrapping.
 
 AC_PATH_PROG(GLIB_COMPILE_RESOURCES, [glib-compile-resources])
 AS_IF([test -z "$GLIB_COMPILE_RESOURCES"], [
-  AC_MSG_ERROR([can't find glib-compile-resources])
+  GLIB_COMPILE_RESOURCES=:
+  AC_SUBST(GLIB_COMPILE_RESOURCES)
+  AC_MSG_WARN([can't find glib-compile-resources])
 ])
 
 AC_PATH_PROG(GLIB_COMPILE_SCHEMAS, [glib-compile-schemas])
 AS_IF([test -z "$GLIB_COMPILE_SCHEMAS"], [
-  AC_MSG_ERROR([can't find glib-compile-schemas])
+  GLIB_COMPILE_SCHEMAS=:
+  AC_SUBST(GLIB_COMPILE_SCHEMAS)
+  AC_MSG_WARN([can't find glib-compile-schemas])
 ])
 
 AC_PATH_PROG([PKG_CONFIG], [pkg-config])
 AS_IF([test -z "$PKG_CONFIG"], [
-  AC_MSG_ERROR([can't find pkg-config])
-])
+  AC_MSG_WARN([can't find pkg-config])
+], [
+  GTK="gtk+-3.0 >= 3.10"
+  AS_IF(["$PKG_CONFIG" --exists "$GTK"], [
+    GTK_CFLAGS=`"$PKG_CONFIG" --cflags "$GTK"`
+    AC_SUBST(GTK_CFLAGS)
 
-GTK="gtk+-3.0 >= 3.10"
-AS_IF(["$PKG_CONFIG" --exists "$GTK"], , [
-  AC_MSG_ERROR([can't find $GTK])
-])
-
-GTK_CFLAGS=`"$PKG_CONFIG" --cflags "$GTK"`
-AC_SUBST(GTK_CFLAGS)
-
-GTK_LIBS=`"$PKG_CONFIG" --libs "$GTK"`
-AC_SUBST(GTK_LIBS)
+    GTK_LIBS=`"$PKG_CONFIG" --libs "$GTK"`
+    AC_SUBST(GTK_LIBS)
+  ], [
+    AC_MSG_WARN([can't find $GTK])
+])])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([m4/Makefile])

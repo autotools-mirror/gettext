@@ -1,3 +1,10 @@
+2014-04-17  Daiki Ueno  <ueno@gnu.org>
+
+	examples: Don't error out from configure in hello-c-gnome3
+	The configure script shouldn't fail even if there is a fatal
+	error, to allow the toplevel autogen.sh to regenerate POT files.
+	* hello-c-gnome3/configure.ac: Don't error out, but warn user.
+
 2014-04-15  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Add a new example 'hello-c-gnome3'
