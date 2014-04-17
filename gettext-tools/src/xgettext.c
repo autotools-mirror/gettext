@@ -777,8 +777,8 @@ This version was built without iconv()."),
 
           reduced = xstrdup (base);
           /* Remove a trailing ".in" - it's a generic suffix.  */
-          if (strlen (reduced) >= 3
-              && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
+          while (strlen (reduced) >= 3
+                 && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
             reduced[strlen (reduced) - 3] = '\0';
 
           /* Work out what the file extension is.  */
