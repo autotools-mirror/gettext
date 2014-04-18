@@ -23,6 +23,7 @@ SUBDIRS = gnulib-local gettext-runtime gettext-tools
 
 EXTRA_DIST = \
   version.sh DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
+  update-po.sh \
   build-aux/ac-help.sed build-aux/moopp \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4

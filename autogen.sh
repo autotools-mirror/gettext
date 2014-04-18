@@ -1,26 +1,4 @@
 #!/bin/sh
-# Convenience script for regenerating all autogeneratable files that are
-# omitted from the version control repository. In particular, this script
-# also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
-# with new versions of autoconf or automake.
-#
-# This script requires autoconf-2.62..2.69 and automake-1.11.1..1.12 in the
-# PATH.
-# It also requires either
-#   - the git program in the PATH and an internet connection, or
-#   - the GNULIB_TOOL environment variable pointing to the gnulib-tool script
-#     in a gnulib checkout
-# The former method is tried first and if it fails, fallback to the
-# latter.  When git is used, the GNULIB_SRCDIR environment variable is
-# also checked as a reference of gnulib checkout.
-
-# It also requires
-#   - the bison program,
-#   - the gperf program,
-#   - the groff program,
-#   - the makeinfo program from the texinfo package,
-#   - perl.
-
 # Copyright (C) 2003-2014 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -36,22 +14,36 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Usage: ./autogen.sh [--quick] [--skip-gnulib]
+# This script populates the build infrastructure in the source tree
+# checked-out from VCS.  To regenerate other materials, such as PO
+# files and manual pages, use update-po.sh.
 #
-# Usage after a first-time git clone / cvs checkout:   ./autogen.sh
-# Usage after a git clone / cvs update:                ./autogen.sh --quick
-# This uses an up-to-date gnulib checkout.
-# (The gettext-0.18.3 release was prepared using gnulib commit
-# c96bab3fee48a9df55e7366344f838e1fc785c28 from 2013-07-07.)
+# This script requires:
+#   - Autoconf
+#   - Automake
+#   - Wget
+#   - Git
 #
-# Usage from a released tarball:             ./autogen.sh --quick --skip-gnulib
+# By default, it fetches Gnulib as a git submodule.  If you already
+# have a local copy of Gnulib, you can avoid extra network traffic by
+# setting the GNULIB_SRCDIR environment variable pointing to the path.
+#
+# In addition, it fetches the archive.dir.tar.gz file, which contains
+# data files used by the autopoint program.  If you already have the
+# file, place it under gettext-tools/misc, before running this script.
+#
+# Usage: ./autogen.sh [--skip-gnulib]
+#
+# Usage after a git clone:              ./autogen.sh
+# Usage from a released tarball:        ./autogen.sh --skip-gnulib
 # This does not use a gnulib checkout.
 
-quick=false
+# Nuisances.
+(unset CDPATH) >/dev/null 2>&1 && unset CDPATH
+
 skip_gnulib=false
 while :; do
   case "$1" in
-    --quick) quick=true; shift;;
     --skip-gnulib) skip_gnulib=true; shift;;
     *) break ;;
   esac
@@ -401,14 +393,19 @@ fi
 
 # Fetch gettext-tools/misc/archive.dir.tar.
 if ! test -f gettext-tools/misc/archive.dir.tar; then
+  if ! test -f gettext-tools/misc/archive.dir.tar.gz; then
     echo "$0: getting gettext-tools/misc/archive.dir.tar..."
     wget -q --timeout=5 -O gettext-tools/misc/archive.dir.tar.gz-t "ftp://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.gz" \
-      && mv gettext-tools/misc/archive.dir.tar.gz-t gettext-tools/misc/archive.dir.tar.gz \
-      && gzip -d -c < gettext-tools/misc/archive.dir.tar.gz > gettext-tools/misc/archive.dir.tar-t \
-      && mv gettext-tools/misc/archive.dir.tar-t gettext-tools/misc/archive.dir.tar
+      && mv gettext-tools/misc/archive.dir.tar.gz-t gettext-tools/misc/archive.dir.tar.gz
     retval=$?
-    rm -f gettext-tools/misc/archive.dir.tar.gz-t gettext-tools/misc/archive.dir.tar-t
+    rm -f gettext-tools/misc/archive.dir.tar.gz-t
     test $retval -eq 0 || exit $retval
+  fi
+  gzip -d -c < gettext-tools/misc/archive.dir.tar.gz > gettext-tools/misc/archive.dir.tar-t \
+    && mv gettext-tools/misc/archive.dir.tar-t gettext-tools/misc/archive.dir.tar
+  retval=$?
+  rm -f gettext-tools/misc/archive.dir.tar-t
+  test $retval -eq 0 || exit $retval
 fi
 
 # Generate configure script in each subdirectories.
@@ -445,73 +442,6 @@ cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
  test -d intl || mkdir intl
  automake --add-missing --copy
 )
-
-# Rebuilding the PO files, manual pages, documentation, test files is
-# only rarely needed.
-if ! $quick; then
-  (cd gettext-runtime
-   echo "$0: building gettext-runtime for bootstrap..."
-   # We really need to build gettext-runtime to generate manual pages
-   # for 'gettext' and 'ngettext' utilities.
-   ./configure --disable-java --disable-native-java --disable-csharp \
-     && (cd intl && make) \
-     && (cd gnulib-lib && make) \
-     && (cd src && make)
-  ) || exit $?
-
-  (cd gettext-tools
-   echo "$0: building gettext-tools for bootstrap..."
-   ./configure --disable-java --disable-native-java --disable-csharp \
-               --disable-openmp \
-     && (cd intl && make) \
-     && (cd gnulib-lib && make) \
-     && (cd libgrep && make) \
-     && (cd src && make) \
-     && (cd misc && make)
-  ) || exit $?
-
-  gettext_dir=$PWD/gettext-tools/misc
-  pathprefix=$gettext_dir:$PWD/gettext-tools/src
-
-  (cd gettext-runtime
-   echo "$0: updating PO files and manual pages in gettext-runtime..."
-
-   PATH=$pathprefix:$PATH
-   export PATH gettext_dir
-
-   (cd po && make update-po) \
-     && (cd man && make update-man1 all)
-  ) || exit $?
-
-  (cd gettext-tools
-   echo "$0: updating PO files and manual pages in gettext-tools..."
-
-   PATH=$pathprefix:$PATH
-   export PATH gettext_dir
-
-   (cd po && make update-po) \
-     && (cd man && make update-man1 all) \
-     && (cd doc && make all) \
-     && (cd tests && make update-expected)
-  ) || exit $?
-
-  (cd gettext-tools/examples
-   echo "$0: updating PO files in gettext-tools/examples..."
-
-   PATH=$pathprefix:$PATH
-   export PATH gettext_dir
-
-   ./configure && (cd po && make update-po)
-  ) || exit $?
-
-  (cd gettext-runtime
-   echo "$0: cleaning up gettext-runtime..."
-   make distclean) || exit $?
-
-  (cd gettext-tools
-   echo "$0: cleaning up gettext-tools..."
-   make distclean) || exit $?
-fi
 
 aclocal -I m4
 autoconf

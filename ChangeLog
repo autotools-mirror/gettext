@@ -1,3 +1,10 @@
+2014-04-21  Daiki Ueno  <ueno@gnu.org>
+
+	autogen.sh: Split the regeneration of data files into update.sh
+	* autogen.sh: Separate out PO files update logic to...
+	* update-po.sh: ...here.
+	* Makefile.am (EXTRA_DIST): Add update-po.sh.
+
 2014-04-17  Daiki Ueno  <ueno@gnu.org>
 
 	* autogen.sh: Use included gettext-tools for bootstrap
