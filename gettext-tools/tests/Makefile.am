@@ -72,7 +72,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 \
 	xgettext-awk-1 xgettext-awk-2 \
-	xgettext-c-1 xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
+	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 xgettext-c-10 \
 	xgettext-c-11 xgettext-c-12 xgettext-c-13 xgettext-c-14 xgettext-c-15 \
 	xgettext-c-16 xgettext-c-17 xgettext-c-18 \
@@ -152,7 +152,8 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	ChangeLog.0 \
 	gettext-3-1.po gettext-3-2.po gettext-4.po gettext-5.po \
 	gettext-6-1.po gettext-6-2.po gettext-7.po \
-	gettextpo-1.de.po
+	gettextpo-1.de.po \
+	xgettext-c-1
 
 XGETTEXT = ../src/xgettext
 
