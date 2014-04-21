@@ -71,8 +71,6 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
 
   for (p = start; p <= end; p++)
     {
-      int j;
-
       switch (*p)
         {
         case '"':
@@ -188,8 +186,7 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
                 }
               state = false;
             }
-          else if (start == input || *(start - 1) == '\n'
-                   || *(start - 1) == ' ')
+          else if (p == input || *(p - 1) == '\n' || *(p - 1) == ' ')
             {
               /* Copy the preceding string to R.  */
               memcpy (r, start, p - start);

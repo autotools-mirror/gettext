@@ -20,11 +20,17 @@ msgstr "\"double quoted\""
 msgid "\"\"double quoted\""
 msgstr "\"\"double quoted\""
 
+msgid "\"foo\" \"bar\" \"baz\""
+msgstr "\"foo\" \"bar\" \"baz\""
+
 msgid "double quoted but empty \"\""
 msgstr "double quoted but empty \"\""
 
 msgid "'single quoted'"
 msgstr "'single quoted'"
+
+msgid "'foo' 'bar' 'baz'"
+msgstr "'foo' 'bar' 'baz'"
 
 msgid "prefix'single quoted without surrounding spaces'suffix"
 msgstr "prefix'single quoted without surrounding spaces'suffix"
@@ -86,11 +92,17 @@ msgstr "“double quoted”"
 msgid "\"\"double quoted\""
 msgstr "\"\"double quoted\""
 
+msgid "\"foo\" \"bar\" \"baz\""
+msgstr "“foo” “bar” “baz”"
+
 msgid "double quoted but empty \"\""
 msgstr "double quoted but empty \"\""
 
 msgid "'single quoted'"
 msgstr "'single quoted'"
+
+msgid "'foo' 'bar' 'baz'"
+msgstr "‘foo’ ‘bar’ ‘baz’"
 
 msgid "prefix'single quoted without surrounding spaces'suffix"
 msgstr "prefix'single quoted without surrounding spaces'suffix"
@@ -154,11 +166,17 @@ msgstr "“[1mdouble quoted[0m”"
 msgid "\"\"double quoted\""
 msgstr "\"\"double quoted\""
 
+msgid "\"foo\" \"bar\" \"baz\""
+msgstr "“[1mfoo[0m” “[1mbar[0m” “[1mbaz[0m”"
+
 msgid "double quoted but empty \"\""
 msgstr "double quoted but empty \"\""
 
 msgid "'single quoted'"
 msgstr "'single quoted'"
+
+msgid "'foo' 'bar' 'baz'"
+msgstr "‘[1mfoo[0m’ ‘[1mbar[0m’ ‘[1mbaz[0m’"
 
 msgid "prefix'single quoted without surrounding spaces'suffix"
 msgstr "prefix'single quoted without surrounding spaces'suffix"
