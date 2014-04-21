@@ -25,10 +25,10 @@ package=@PACKAGE@
 version=@VERSION@
 
 # Set variables
-# - gettext_dir     directory where the sources are stored.
+# - gettext_datadir     directory where the data files are stored.
 prefix="@prefix@"
 datarootdir="@datarootdir@"
-: ${gettext_dir="@datadir@/gettext"}
+: ${gettext_datadir="@datadir@/gettext"}
 
 # func_tmpdir
 # creates a temporary directory.
@@ -133,7 +133,7 @@ if test "@RELOCATABLE@" = yes; then
   func_find_curr_installdir # determine curr_installdir
   func_find_prefixes
   # Relocate the directory variables that we use.
-  gettext_dir=`echo "$gettext_dir/" | sed -e "s%^${orig_installprefix}/%${curr_installprefix}/%" | sed -e 's,/$,,'`
+  gettext_datadir=`echo "$gettext_datadir/" | sed -e "s%^${orig_installprefix}/%${curr_installprefix}/%" | sed -e 's,/$,,'`
 fi
 
 # func_trace macro configure.ac
@@ -424,9 +424,9 @@ case "@ARCHIVE_FORMAT@" in
     # The archive of different versions is very large (unless xz compression is
     # used), but using it does not require special tools.
     case "@ARCHIVE_FORMAT@" in
-      dirgz) gzip -d -c < "$gettext_dir/archive.dir.tar.gz" ;;
-      dirbz2) bzip2 -d -c < "$gettext_dir/archive.dir.tar.bz2" ;;
-      dirxz) xz -d -c < "$gettext_dir/archive.dir.tar.xz" ;;
+      dirgz) gzip -d -c < "$gettext_datadir/archive.dir.tar.gz" ;;
+      dirbz2) bzip2 -d -c < "$gettext_datadir/archive.dir.tar.bz2" ;;
+      dirxz) xz -d -c < "$gettext_datadir/archive.dir.tar.xz" ;;
     esac \
       | (cd "$work_dir" && tar xf - "gettext-$ver")
     if test `find "$work_dir" -type f -print | wc -l` = 0; then
@@ -487,7 +487,7 @@ case "@ARCHIVE_FORMAT@" in
 
     # Set up a temporary CVS repository.
     # We need the temporary CVS repository because any checkout needs write
-    # access to the CVSROOT/history file, so it cannot be under $gettext_dir.
+    # access to the CVSROOT/history file, so it cannot be under $gettext_datadir.
     # We need the temporary checkout directory because when --force was not
     # given, we need to compare the existing files with the checked out ones.
     # Set variables
@@ -529,7 +529,7 @@ case "@ARCHIVE_FORMAT@" in
     # Need to pass -d "$CVSROOT", because there may be a CVS directory in the
     # current directory.
     cvs -d "$CVSROOT" init
-    gzip -d -c < "$gettext_dir/archive.cvs.tar.gz" | (cd "$cvs_dir" && tar xf -)
+    gzip -d -c < "$gettext_datadir/archive.cvs.tar.gz" | (cd "$cvs_dir" && tar xf -)
 
     cd "$work_dir"
     cvsver=gettext-`echo "$ver" | sed -e 's/\./_/g'`
@@ -553,7 +553,7 @@ case "@ARCHIVE_FORMAT@" in
     # Check availability of the git program.
     (git --version) >/dev/null 2>/dev/null || func_fatal_error "git program not found"
     mkdir "$work_dir/archive"
-    gzip -d -c < "$gettext_dir/archive.git.tar.gz" | (cd "$work_dir/archive" && tar xf -)
+    gzip -d -c < "$gettext_datadir/archive.git.tar.gz" | (cd "$work_dir/archive" && tar xf -)
     (cd "$work_dir/archive" && git checkout -q "gettext-$ver") || {
       rm -rf "$work_dir"
       func_fatal_error "infrastructure files for version $ver not found; this is autopoint from GNU $package $version"

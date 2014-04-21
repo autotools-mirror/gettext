@@ -1,3 +1,8 @@
+2014-04-21  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Rename gettext_dir to gettext_datadir.
+	* gettextize.in: Likewise.
+
 2014-03-27  Daiki Ueno  <ueno@gnu.org>
 
 	autopoint: Use SED-based trace for non-standard Autoconf macros

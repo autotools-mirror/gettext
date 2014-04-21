@@ -1,3 +1,9 @@
+2014-04-21  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint-1 (gettext_datadir): Rename from gettext_dir.
+	* autopoint-2 (gettext_datadir): Likewise.
+	* autopoint-3 (gettext_datadir): Likewise.
+
 2014-04-15  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add tests for 'msgfilter quot' and 'msgfilter boldquot'

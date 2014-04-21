@@ -16,13 +16,13 @@ ${AUTOCONF} >/dev/null 2>/dev/null \
 
 rm -f configure.ac
 
-gettext_dir=$top_builddir/misc
-export gettext_dir
+gettext_datadir=$top_builddir/misc
+export gettext_datadir
 
 # Check if sanity checks are actually working.
 
 # no configure.ac
-$gettext_dir/autopoint 2>&1 | grep -q 'Missing configure.in or configure.ac' \
+$gettext_datadir/autopoint 2>&1 | grep -q 'Missing configure.in or configure.ac' \
     || exit 1
 
 test ! -d intl || exit 1
@@ -40,7 +40,7 @@ AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 EOF
 
-$gettext_dir/autopoint 2>&1 | grep -q 'Missing version' \
+$gettext_datadir/autopoint 2>&1 | grep -q 'Missing version' \
     || exit 1
 
 test ! -d intl || exit 1
@@ -61,7 +61,7 @@ EOF
 test -d intl || mkdir intl
 echo bogus-version > intl/VERSION
 
-$gettext_dir/autopoint 2>&1 | grep -q 'Missing version' \
+$gettext_datadir/autopoint 2>&1 | grep -q 'Missing version' \
     || exit 1
 
 test ! -d m4 || exit 1
@@ -81,7 +81,7 @@ EOF
 test -d intl || mkdir intl
 echo gettext-0.15 > intl/VERSION
 
-$gettext_dir/autopoint 2>&1 | grep -q 'locally modified' || exit 1
+$gettext_datadir/autopoint 2>&1 | grep -q 'locally modified' || exit 1
 
 test ! -d m4 || exit 1
 test ! -d po || exit 1
