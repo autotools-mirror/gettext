@@ -1,5 +1,13 @@
 2014-05-03  Daiki Ueno  <ueno@gnu.org>
 
+	xgettext: Recognize prefixed comment tag
+	Reported by Jiang Xin in
+	<http://article.gmane.org/gmane.comp.version-control.git/246462>.
+	* xgettext.c (remember_a_message): Discard a string prefixed to
+	the comment tag from all remaining comment lines.
+
+2014-05-03  Daiki Ueno  <ueno@gnu.org>
+
 	c: Support C99-style Unicode character escapes
 	* x-c.c: Include assert.h and po-charset.h.
 	(P7_QUOTES, P7_QUOTE, P7_NEWLINE): Redefine as a negative integer.

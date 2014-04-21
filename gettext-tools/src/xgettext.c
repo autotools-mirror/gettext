@@ -2295,6 +2295,11 @@ meta information, not the empty string.\n")));
     size_t nitems_after;
     int j;
     bool add_all_remaining_comments;
+    /* The string before the comment tag.  For example, If "** TRANSLATORS:"
+       is seen and the comment tag is "TRANSLATORS:",
+       then comment_tag_prefix is set to "** ".  */
+    const char *comment_tag_prefix = NULL;
+    size_t comment_tag_prefix_length = 0;
 
     nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
@@ -2373,13 +2378,25 @@ meta information, not the empty string.\n")));
             if (interesting)
               continue;
           }
-        /* When the comment tag is seen, it drags in not only the line
-           which it starts, but all remaining comment lines.  */
-        if (add_all_remaining_comments
-            || (add_all_remaining_comments =
-                  (comment_tag != NULL
-                   && strncmp (s, comment_tag, strlen (comment_tag)) == 0)))
-          message_comment_dot_append (mp, s);
+
+        if (!add_all_remaining_comments && comment_tag != NULL)
+          {
+            /* When the comment tag is seen, it drags in not only the line
+               which it starts, but all remaining comment lines.  */
+            if ((t = c_strstr (s, comment_tag)) != NULL)
+              {
+                add_all_remaining_comments = true;
+                comment_tag_prefix = s;
+                comment_tag_prefix_length = t - s;
+              }
+          }
+
+        if (add_all_remaining_comments)
+          {
+            if (strncmp (s, comment_tag_prefix, comment_tag_prefix_length) == 0)
+              s += comment_tag_prefix_length;
+            message_comment_dot_append (mp, s);
+          }
       }
 
     nitems_after = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
