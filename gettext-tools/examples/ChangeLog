@@ -1,3 +1,14 @@
+2014-04-21  Daiki Ueno  <ueno@gnu.org>
+
+	examples: Quote shell variables in hello-java*/configure
+	When running from xsmallpot.sh, embedded shell-script snippets are
+	stripped off from configure.ac and some variables are not set.
+	Make sure to quote them to avoid error.
+	* hello-java/configure.ac: Quote $BUILDJAVA.
+	* hello-java-awt/configure.ac: Quote $BUILDJAVAEXE and $BUILDJAVA.
+	* hello-java-qtjambi/configure.ac: Likewise.
+	* hello-java-swing/configure.ac: Likewise.
+
 2014-04-15  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Add a new example 'hello-c-gnome3'
