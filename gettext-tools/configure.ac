@@ -17,11 +17,11 @@ dnl along with this program.  If not, see <http://www.gnu.org/licenses/>.
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.62])
-AC_INIT
+AC_INIT([gettext-tools],
+	m4_esyscmd([../build-aux/git-version-gen ../.tarball-version]),
+	[bug-gnu-gettext@gnu.org])
 AC_CONFIG_SRCDIR([src/msgfmt.c])
 AC_CONFIG_AUX_DIR([../build-aux])
-. $srcdir/../version.sh
-gl_INIT_PACKAGE([gettext-tools], [$VERSION_NUMBER])
 AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
 AC_CONFIG_HEADERS([config.h])
 
@@ -499,12 +499,6 @@ AC_SUBST([TESTLIBASPRINTF])
 dnl Generate the version information file in the intl/ directory.
 test -d intl || mkdir intl
 echo "GNU gettext library from gettext-$VERSION" > intl/VERSION
-cat > intl/ChangeLog.inst <<EOF
-$RELEASE_DATE  GNU  <bug-gnu-gettext@gnu.org>
-
-	* Version $VERSION released.
-
-EOF
 
 AC_CONFIG_SUBDIRS([examples])
 

@@ -92,11 +92,10 @@ ngettext.1.in: ngettext.x
 envsubst.1: envsubst.x
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
 
-# Depend on version.sh to get version number changes.
-$(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../version.sh
+$(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../.version
 
 # Update them also during "make dist", in order to propagate added command
-# line options that were added, even if version.sh didn't change.
+# line options that were added, even if .version didn't change.
 UPDATEMODE =
 update-man1:
 	$(MAKE) $(man_MAN1IN) $(man_MAN1OTHER) UPDATEMODE=--update
@@ -104,19 +103,19 @@ update-man1:
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: update-man1
 
-gettext.3: gettext.3.in $(top_srcdir)/../version.sh
+gettext.3: gettext.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@
 	mv t-$@ $@
-ngettext.3: ngettext.3.in $(top_srcdir)/../version.sh
+ngettext.3: ngettext.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/ngettext.3.in > t-$@
 	mv t-$@ $@
-textdomain.3: textdomain.3.in $(top_srcdir)/../version.sh
+textdomain.3: textdomain.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/textdomain.3.in > t-$@
 	mv t-$@ $@
-bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/../version.sh
+bindtextdomain.3: bindtextdomain.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bindtextdomain.3.in > t-$@
 	mv t-$@ $@
-bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../version.sh
+bind_textdomain_codeset.3: bind_textdomain_codeset.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/bind_textdomain_codeset.3.in > t-$@
 	mv t-$@ $@
 

@@ -1,3 +1,15 @@
+2014-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	build: Use git-version-gen intead of version.sh
+	* version.sh: Remove.
+	* autogen.sh: Import git-version-gen from Gnulib.
+	* Makefile.am (EXTRA_DIST): Remove version.sh and add
+	$(top_srcdir)/.version.
+	(BUILT_SOURCES): Add $(top_srcdir)/.version.
+	($(top_srcdir)/.version): New rule.
+	(dist-hook): New rule.
+	* configure.ac: Use git-version-gen in AC_INIT.
+
 2014-04-21  Daiki Ueno  <ueno@gnu.org>
 
 	autogen.sh: Split the regeneration of data files into update.sh

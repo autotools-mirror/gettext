@@ -1,3 +1,8 @@
+2014-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	build: Use git-version-gen intead of version.sh
+	* configure.ac: Use git-version-gen in AC_INIT.
+
 2014-04-21  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Quote shell variables in hello-java*/configure

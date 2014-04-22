@@ -22,8 +22,7 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = gnulib-local gettext-runtime gettext-tools
 
 EXTRA_DIST = \
-  version.sh DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
-  update-po.sh \
+  DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh update-po.sh \
   build-aux/ac-help.sed build-aux/moopp \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
@@ -119,3 +118,12 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 # Woe32 support.
 
 EXTRA_DIST += README.woe32 windows/windres-options windows/gettext.rc
+
+# Versioning based on Git release tags.
+
+EXTRA_DIST += $(top_srcdir)/.version
+BUILT_SOURCES = $(top_srcdir)/.version
+$(top_srcdir)/.version:
+	echo $(VERSION) > $@-t && mv $@-t $@
+dist-hook:
+	echo $(VERSION) > $(distdir)/.tarball-version

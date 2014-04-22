@@ -1,3 +1,7 @@
+2014-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am: Refer to .version instead of version.sh.
+
 2013-06-10  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am: Use $(MKDIR_P) instead of $(mkdir_p).

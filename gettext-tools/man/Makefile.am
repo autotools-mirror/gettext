@@ -114,11 +114,10 @@ gettextize.1: gettextize.x
 autopoint.1: autopoint.x
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
-# Depend on version.sh to get version number changes.
-$(man_MAN1): help2man $(top_srcdir)/../version.sh
+$(man_MAN1): help2man $(top_srcdir)/../.version
 
 # Update them also during "make dist", in order to propagate added command
-# line options that were added, even if version.sh didn't change.
+# line options that were added, even if .version didn't change.
 UPDATEMODE =
 update-man1:
 	$(MAKE) $(man_MAN1) UPDATEMODE=--update

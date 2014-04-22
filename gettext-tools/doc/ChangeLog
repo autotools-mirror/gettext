@@ -1,3 +1,8 @@
+2014-04-22  Daiki Ueno  <ueno@gnu.org>
+
+	build: Use git-version-gen intead of version.sh
+	* Makefile.am: Refer to .version instead of version.sh.
+
 2014-04-15  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfilter.texi: Document 'quot' and 'boldquot' built-in filters.
