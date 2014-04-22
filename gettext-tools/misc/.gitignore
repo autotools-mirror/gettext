@@ -2,5 +2,10 @@
 /Makefile.in
 
 # Files distributed but not under version control:
-/archive.cvs.tar.gz
+/archive.*.tar.*
+/archive.*.tar
 
+# Executables generated:
+/autopoint
+/convert-archive
+/gettextize
