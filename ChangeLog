@@ -1,5 +1,15 @@
 2014-04-22  Daiki Ueno  <ueno@gnu.org>
 
+	m4: Revert commit d6690cc7 to libtool.m4
+	Reported by Benjamin Gilbert at:
+	<https://savannah.gnu.org/bugs/?41203>
+	With recent libtool, this patch did nothing but fix the output
+	message of configure.
+	* m4/libtool.m4: Remove the special handling of NM detection when
+	cross-compiling mingw32 on cygwin.
+
+2014-04-22  Daiki Ueno  <ueno@gnu.org>
+
 	build: Use git-version-gen intead of version.sh
 	* version.sh: Remove.
 	* autogen.sh: Import git-version-gen from Gnulib.
