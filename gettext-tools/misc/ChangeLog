@@ -1,3 +1,11 @@
+2014-04-23  Daiki Ueno  <ueno@gnu.org>
+
+	autopoint: Unset variables known to interfere with common tools
+	Reported by Jan Cholasta at:
+	<https://bugzilla.redhat.com/show_bug.cgi?id=801374>.
+	* autopoint.in: Unset CDPATH, CLICOLOR_FORCE, and GREP_OPTIONS.
+	* gettextize.in: Unset CLICOLOR_FORCE and GREP_OPTIONS.
+
 2014-04-21  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint.in: Rename gettext_dir to gettext_datadir.

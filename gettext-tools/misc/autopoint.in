@@ -219,6 +219,13 @@ func_fatal_error ()
   exit 1
 }
 
+# Nuisances.
+(unset CDPATH) >/dev/null 2>&1 && unset CDPATH
+
+# Unset more variables known to interfere with behavior of common tools.
+CLICOLOR_FORCE= GREP_OPTIONS=
+unset CLICOLOR_FORCE GREP_OPTIONS
+
 # Command-line option processing.
 # Removes the OPTIONS from the arguments. Sets the variables:
 # - force           yes if --force was given, empty otherwise
