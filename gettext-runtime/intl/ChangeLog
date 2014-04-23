@@ -1,3 +1,12 @@
+2014-04-23  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Port to Bison 3.0
+	* plural.y: Don't use removed YYLEX_PARAM and YYPARSE_PARAM
+	macros; replace deprecated %pure_parser with '%define api.pure
+	full'; adjust yylex/yyerror arglist.
+	* plural-exp.h (PLURAL_PARSE): Use explicit type 'struct
+	parse_args *arg' for ARG.
+
 2013-05-07  Carlos O'Donell  <carlos@redhat.com>
             Jeff Law  <law@redhat.com>
 
