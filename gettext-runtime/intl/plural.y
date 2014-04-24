@@ -41,7 +41,8 @@
 #endif
 
 %}
-%param {struct parse_args *arg}
+%parse-param {struct parse_args *arg}
+%lex-param {struct parse_args *arg}
 %define api.pure full
 %expect 7
 
