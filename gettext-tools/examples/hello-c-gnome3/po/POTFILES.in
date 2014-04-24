@@ -5,5 +5,4 @@
 hello.c
 hello.desktop.in.in
 hello.ui
-org.gnu.gettext.examples.hello.gschema.xml
-
+hello.gschema.xml
