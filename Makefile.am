@@ -22,7 +22,7 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = gnulib-local gettext-runtime gettext-tools
 
 EXTRA_DIST = \
-  DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh update-po.sh \
+  DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
   build-aux/ac-help.sed build-aux/moopp \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
@@ -127,3 +127,7 @@ $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
 dist-hook:
 	echo $(VERSION) > $(distdir)/.tarball-version
+
+# PO files update.
+
+maintainer-update-po-local: $(top_builddir)/config.status

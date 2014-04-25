@@ -523,3 +523,8 @@ distdir1:
 # Temporary directories created by po/Makefile.
 clean-local:
 	-rm -rf tmp-hello-*
+
+maintainer-update-po: $(top_builddir)/config.status
+	$(SHELL) ./config.status --recheck
+	$(SHELL) ./config.status po/Makefile
+	cd po && $(MAKE) update-po

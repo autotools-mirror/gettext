@@ -39,6 +39,8 @@ dnl Checks for library functions.
 
 AC_CONFIG_SUBDIRS([gettext-runtime gettext-tools])
 
+AM_EXTRA_RECURSIVE_TARGETS([maintainer-update-po])
+
 dnl Ensure that "configure --help" lists all the command line options that
 dnl are usable with the subdir configures. Really AC_CONFIG_SUBDIRS should
 dnl do it by itself.

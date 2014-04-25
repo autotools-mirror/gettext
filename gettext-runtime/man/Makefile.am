@@ -60,6 +60,8 @@ HELP2MAN = $(PERL) -w -- $(srcdir)/help2man
 # groff 1.17 or newer.
 MAN2HTML = groff -mandoc -Thtml
 
+UPDATEMODE =
+
 
 # We distribute both the man pages and their HTML equivalent.
 # The user can generate the parts, via
@@ -84,24 +86,15 @@ ngettext.1: ngettext.1.in Makefile
 	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in > t-$@
 	mv t-$@ $@
 
-gettext.1.in: gettext.x
+gettext.1.in: gettext.x ../src/gettext$(EXEEXT)
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in
-ngettext.1.in: ngettext.x
+ngettext.1.in: ngettext.x ../src/ngettext$(EXEEXT)
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
 
-envsubst.1: envsubst.x
+envsubst.1: envsubst.x ../src/envsubst$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
 
 $(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../.version
-
-# Update them also during "make dist", in order to propagate added command
-# line options that were added, even if .version didn't change.
-UPDATEMODE =
-update-man1:
-	$(MAKE) $(man_MAN1IN) $(man_MAN1OTHER) UPDATEMODE=--update
-	$(MAKE)
-# Hidden from automake, but really activated. Works around an automake-1.5 bug.
-#distdir: update-man1
 
 gettext.3: gettext.3.in $(top_srcdir)/../.version
 	sed -e 's/@''VERSION''@/@VERSION@/g' < $(srcdir)/gettext.3.in > t-$@

@@ -15,8 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # This script populates the build infrastructure in the source tree
-# checked-out from VCS.  To regenerate other materials, such as PO
-# files and manual pages, use update-po.sh.
+# checked-out from VCS.
 #
 # This script requires:
 #   - Autoconf

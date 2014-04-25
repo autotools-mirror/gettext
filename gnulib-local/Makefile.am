@@ -325,3 +325,5 @@ tests/test-term-ostream-xterm-mingw.out \
 tests/test-term-ostream-xterm-16color.out \
 tests/test-term-ostream-xterm-88color.out \
 tests/test-term-ostream-xterm-256color.out
+
+maintainer-update-po:

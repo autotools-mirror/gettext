@@ -59,6 +59,8 @@ HELP2MAN = $(PERL) -w -- $(srcdir)/help2man
 # groff 1.17 or newer.
 MAN2HTML = groff -mandoc -Thtml
 
+UPDATEMODE =
+
 
 # We distribute both the man pages and their HTML equivalent.
 # The user can generate the parts, via
@@ -76,54 +78,45 @@ uninstall-local: uninstall-html
 # The progname.x files contain some extra information not found in the
 # "progname --help" output.
 
-msgcmp.1: msgcmp.x
+msgcmp.1: msgcmp.x ../src/msgcmp$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
-msgfmt.1: msgfmt.x
+msgfmt.1: msgfmt.x ../src/msgfmt$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfmt$(EXEEXT) $(srcdir)/msgfmt.x msgfmt.1
-msgmerge.1: msgmerge.x
+msgmerge.1: msgmerge.x ../src/msgmerge$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgmerge$(EXEEXT) $(srcdir)/msgmerge.x msgmerge.1
-msgunfmt.1: msgunfmt.x
+msgunfmt.1: msgunfmt.x ../src/msgunfmt$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgunfmt$(EXEEXT) $(srcdir)/msgunfmt.x msgunfmt.1
-xgettext.1: xgettext.x
+xgettext.1: xgettext.x ../src/xgettext$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/xgettext$(EXEEXT) $(srcdir)/xgettext.x xgettext.1
-msgattrib.1: msgattrib.x
+msgattrib.1: msgattrib.x ../src/msgattrib$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgattrib$(EXEEXT) $(srcdir)/msgattrib.x msgattrib.1
-msgcat.1: msgcat.x
+msgcat.1: msgcat.x ../src/msgcat$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcat$(EXEEXT) $(srcdir)/msgcat.x msgcat.1
-msgcomm.1: msgcomm.x
+msgcomm.1: msgcomm.x ../src/msgcomm$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcomm$(EXEEXT) $(srcdir)/msgcomm.x msgcomm.1
-msgconv.1: msgconv.x
+msgconv.1: msgconv.x ../src/msgconv$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgconv$(EXEEXT) $(srcdir)/msgconv.x msgconv.1
-msgen.1: msgen.x
+msgen.1: msgen.x ../src/msgen$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
-msgexec.1: msgexec.x
+msgexec.1: msgexec.x ../src/msgexec$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
-msgfilter.1: msgfilter.x
+msgfilter.1: msgfilter.x ../src/msgfilter$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
-msggrep.1: msggrep.x
+msggrep.1: msggrep.x ../src/msggrep$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
-msginit.1: msginit.x
+msginit.1: msginit.x ../src/msginit$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
-msguniq.1: msguniq.x
+msguniq.1: msguniq.x ../src/msguniq$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
-recode-sr-latin.1: recode-sr-latin.x
+recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin$(EXEEXT)
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/recode-sr-latin$(EXEEXT) $(srcdir)/recode-sr-latin.x recode-sr-latin.1
 
-gettextize.1: gettextize.x
+gettextize.1: gettextize.x ../misc/gettextize
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
-autopoint.1: autopoint.x
+autopoint.1: autopoint.x ../misc/autopoint
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
 $(man_MAN1): help2man $(top_srcdir)/../.version
-
-# Update them also during "make dist", in order to propagate added command
-# line options that were added, even if .version didn't change.
-UPDATEMODE =
-update-man1:
-	$(MAKE) $(man_MAN1) UPDATEMODE=--update
-	$(MAKE)
-# Hidden from automake, but really activated. Works around an automake-1.5 bug.
-#distdir: update-man1
 
 
 # Man pages in HTML format.
