@@ -115,6 +115,11 @@ ${AUTOMAKE} -a -c >/dev/null 2>/dev/null || exit 1
 ${CONFIG_SHELL} ./configure --with-included-gettext >/dev/null 2>/dev/null \
     || exit 1
 
+# Workaround for 0.18.3 or earlier: Processing intl/plural.y with
+# Bison 3.0.1 or later generates a wrong code.  Use pre-generated
+# intl/plural.c in that case.
+test -f intl/plural.c && touch intl/plural.c
+
 ${MAKE} >/dev/null 2>/dev/null || exit 1
 
 exit 0
