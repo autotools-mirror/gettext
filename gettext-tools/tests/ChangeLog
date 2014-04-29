@@ -1,5 +1,11 @@
 2014-04-29  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Don't run a test only successful after "make dist" by default
+	* Makefile.am (TESTS): Move xgettext-1 to...
+	(EXTRA_DIST): ...here.
+
+2014-04-29  Daiki Ueno  <ueno@gnu.org>
+
 	* autopoint-3 (gettext_datadir): Don't regenerate intl/plural.c.
 
 2014-04-21  Daiki Ueno  <ueno@gnu.org>

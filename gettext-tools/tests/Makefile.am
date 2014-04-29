@@ -69,7 +69,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgunfmt-tcl-1 \
 	msguniq-1 msguniq-2 msguniq-3 msguniq-4 msguniq-5 msguniq-6 msguniq-7 \
 	recode-sr-latin-1 recode-sr-latin-2 \
-	xgettext-1 xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
+	xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
@@ -153,6 +153,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	gettext-3-1.po gettext-3-2.po gettext-4.po gettext-5.po \
 	gettext-6-1.po gettext-6-2.po gettext-7.po \
 	gettextpo-1.de.po \
+	xgettext-1 \
 	xgettext-c-1
 
 XGETTEXT = ../src/xgettext
