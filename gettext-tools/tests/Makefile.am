@@ -95,6 +95,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-python-1 xgettext-python-2 xgettext-python-3 \
 	xgettext-python-4 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
+	xgettext-scheme-4 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
 	xgettext-sh-6 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \

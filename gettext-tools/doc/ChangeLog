@@ -1,3 +1,7 @@
+2014-04-30  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext.texi (Scheme): Document gettext shorthand form _"abc".
+
 2014-04-22  Daiki Ueno  <ueno@gnu.org>
 
 	build: Use git-version-gen intead of version.sh

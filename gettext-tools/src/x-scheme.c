@@ -682,6 +682,7 @@ read_object (struct object *op, flag_context_ty outer_context)
   for (;;)
     {
       int c = do_getc ();
+      bool seen_underscore_prefix = false;
 
       switch (c)
         {
@@ -1167,6 +1168,33 @@ read_object (struct object *op, flag_context_ty outer_context)
             abort ();
           }
 
+        case '_':
+          /* GIMP script-fu extension: '_' before a string literal is
+             considered a gettext call on the string.  */
+          {
+            int c = do_getc ();
+            if (c == EOF)
+              /* Invalid input.  Be tolerant, no error message.  */
+              {
+                op->type = t_other;
+                return;
+              }
+            if (c != '"')
+              {
+                do_ungetc (c);
+
+                /* If '_' is not followed by a string literal,
+                   consider it a part of symbol.  */
+                op->token = XMALLOC (struct token);
+                read_token (op->token, '_');
+                op->type = t_symbol;
+                last_non_comment_line = line_number;
+                return;
+              }
+            seen_underscore_prefix = true;
+          }
+          /*FALLTHROUGH*/
+
         case '"':
           {
             op->token = XMALLOC (struct token);
@@ -1220,7 +1248,7 @@ read_object (struct object *op, flag_context_ty outer_context)
               }
             op->type = t_string;
 
-            if (extract_all)
+            if (seen_underscore_prefix || extract_all)
               {
                 lex_pos_ty pos;
 

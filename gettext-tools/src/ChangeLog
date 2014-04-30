@@ -1,5 +1,10 @@
 2014-04-30  Daiki Ueno  <ueno@gnu.org>
 
+	scheme: Recognize GIMP script-fu extension _"abc"
+	* x-scheme.c (read_object): Recognize _"abc".
+
+2014-04-30  Daiki Ueno  <ueno@gnu.org>
+
 	format-python-brace: Limit acceptable format specifiers
 	Problem reported by Kovid Goyal at:
 	<https://savannah.gnu.org/bugs/?41668>.
