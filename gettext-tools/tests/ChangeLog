@@ -1,3 +1,8 @@
+2014-04-30  Daiki Ueno  <ueno@gnu.org>
+
+	format-python-brace: Limit acceptable format specifiers
+	* format-python-brace-1: Add tests for standard format specifiers.
+
 2014-04-29  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Don't run a test only successful after "make dist" by default

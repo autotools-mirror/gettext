@@ -24,10 +24,16 @@ cat <<\EOF > f-pyb-1.data
 "abc{value[name}"
 # Valid: format specifier
 "abc{value:0}"
+# Valid: standard format specifier
+"abc{value:<<-#012.34e}"
+# Invalid: non-standard format specifier
+"abc{value:<c>}"
 # Valid: nested format specifier
-"abc{value:0{foo}0}"
+"abc{value:{foo}}"
 # Invalid: too many nesting of format specifier
-"abc{value:0{foo:0}0}"
+"abc{value:{foo:0}}"
+# Invalid: nested format specifier, in the middle of other format specifiers
+"abc{value:0{foo}0}"
 EOF
 
 : ${XGETTEXT=xgettext}

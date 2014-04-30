@@ -1,3 +1,12 @@
+2014-04-30  Daiki Ueno  <ueno@gnu.org>
+
+	format-python-brace: Limit acceptable format specifiers
+	Problem reported by Kovid Goyal at:
+	<https://savannah.gnu.org/bugs/?41668>.
+	* format-python-brace.c (parse_directive): Only recognize a single
+	nested format directive or the standard format specifiers as
+	format specifiers.
+
 2014-04-22  Roumen Petrov  <bugtrack@roumenpetrov.info>  (tiny change)
 
 	build: Use Automake 'subdir-objects' option
