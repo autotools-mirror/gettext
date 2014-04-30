@@ -99,6 +99,12 @@ char *alloca ();
 # include "lock.h"
 #endif
 
+#ifdef _LIBC
+# ifndef PRI_MACROS_BROKEN
+#  define PRI_MACROS_BROKEN 0
+# endif
+#endif
+
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.
    Note that our fallback values need not be literal strings, because we don't
    use them with preprocessor string concatenation.  */

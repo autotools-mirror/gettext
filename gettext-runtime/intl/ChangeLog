@@ -1,3 +1,8 @@
+2014-04-30  Steve Ellcey  <sellcey@mips.com>  (tiny change)
+
+	* loadmsgcat.c (PRI_MACROS_BROKEN) [_LIBC]: Define to 0, if
+	undefined.
+
 2014-04-23  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Port to Bison 3.0
