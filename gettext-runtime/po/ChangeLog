@@ -1,6 +1,6 @@
 2014-05-01  Daiki Ueno  <ueno@gnu.org>
 
-	Makefile.in.in: Add an option to mark the package GNU/non-GNU
+	Makefile.in.in: Add an option to claim the package as GNU/non-GNU
 	Reporeted by David Shea at:
 	<https://savannah.gnu.org/bugs/?40520>.
 	* Makevars (PACKAGE_GNU): New variable.
