@@ -1,3 +1,12 @@
+2014-05-01  Daiki Ueno  <ueno@gnu.org>
+
+	Makefile.in.in: Make dependencies of a PO file and 'dist' customizable
+	* Makevars (POFILESDEPS): New variable.
+	(DISTFILESDEPS): New variable.
+	* Makefile.in.in ($(POFILES)): Depend on $(POFILESDEPS) instead of
+	$(srcdir)/$(DOMAIN).pot.
+	(dist distdir): Run $(DISTFILEDEPS) instead of 'update-po'.
+
 2014-04-21  Daiki Ueno  <ueno@gnu.org>
 
 	* Rules-quot: Use built-in filter if possible.

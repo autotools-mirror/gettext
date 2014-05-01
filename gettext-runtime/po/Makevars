@@ -54,3 +54,13 @@ USE_MSGCTXT = no
 #   --previous            to keep previous msgids of translated messages,
 #   --quiet               to reduce the verbosity.
 MSGMERGE_OPTIONS =
+
+# This is the list of dependencies of each PO file target.  By
+# default, it includes $(DOMAIN).pot, that means a PO file is updated
+# when the POT file has changed.  Set this to empty to suppress the behavior.
+POFILESDEPS = $(srcdir)/$(DOMAIN).pot
+
+# This is the list of dependencies of the 'dist' rule.  By default, it
+# includes 'update-po', that means all PO files are updated before
+# creating a distribution.  Set this to empty to suppress the behavior.
+DISTFILESDEPS = update-po
