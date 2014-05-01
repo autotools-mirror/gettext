@@ -62,12 +62,13 @@ USE_MSGCTXT = no
 #   --quiet               to reduce the verbosity.
 MSGMERGE_OPTIONS =
 
-# This is the list of dependencies of each PO file target.  By
-# default, it includes $(DOMAIN).pot, that means a PO file is updated
-# when the POT file has changed.  Set this to empty to suppress the behavior.
-POFILESDEPS = $(srcdir)/$(DOMAIN).pot
+# This tells whether or not to regenerate a PO file when $(DOMAIN).pot
+# has changed.  Possible values are "yes" and "no".  Set this to no if
+# the POT file is checked in the repository and the version control
+# program ignores timestamps.
+PO_DEPENDS_ON_POT = yes
 
-# This is the list of dependencies of the 'dist' rule.  By default, it
-# includes 'update-po', that means all PO files are updated before
-# creating a distribution.  Set this to empty to suppress the behavior.
-DISTFILESDEPS = update-po
+# This tells whether or not to forcibly regenerate $(DOMAIN).pot and
+# PO files on "make dist".  Possible values are "yes" and "no".  Set
+# this to no if the POT file and PO files are maintained externally.
+DIST_DEPENDS_ON_POT = yes

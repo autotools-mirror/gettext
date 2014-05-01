@@ -1,3 +1,13 @@
+2014-05-02  Daiki Ueno  <ueno@gnu.org>
+
+	Makefile.in.in: Turn {POFILES,DISTFILES}DEPS into yes/no options
+	Preserve the previous behavior even if a user forgot to update
+	Makevars, after calling autopoint.
+	* Makevars (PO_DEPENDS_ON_POT): Rename from POFILESDEPS and turn
+	it into a yes/no option.
+	(DIST_DEPENDS_ON_POT): Rename from DISTFILESDEPS and turn it into
+	a yes/no option.
+
 2014-05-01  Daiki Ueno  <ueno@gnu.org>
 
 	Makefile.in.in: Add an option to claim the package as GNU/non-GNU
