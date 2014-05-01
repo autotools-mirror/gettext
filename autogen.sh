@@ -433,7 +433,16 @@ fi
  automake --add-missing --copy
 )
 
+echo "$0: copying common files from gettext-runtime to gettext-tools..."
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
+cp -p gettext-runtime/po/Makefile.in.in gettext-tools/po/Makefile.in.in
+cp -p gettext-runtime/po/Rules-quot gettext-tools/po/Rules-quot
+cp -p gettext-runtime/po/boldquot.sed gettext-tools/po/boldquot.sed
+cp -p gettext-runtime/po/quot.sed gettext-tools/po/quot.sed
+cp -p gettext-runtime/po/en@quot.header gettext-tools/po/en@quot.header
+cp -p gettext-runtime/po/en@boldquot.header gettext-tools/po/en@boldquot.header
+cp -p gettext-runtime/po/insert-header.sin gettext-tools/po/insert-header.sin
+cp -p gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
 
 (cd gettext-tools
  echo "$0: geneating configure in gettext-tools..."
