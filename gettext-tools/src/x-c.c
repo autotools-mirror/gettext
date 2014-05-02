@@ -23,6 +23,7 @@
 /* Specification.  */
 #include "x-c.h"
 
+#include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -36,6 +37,7 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "hash.h"
+#include "po-charset.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)
@@ -864,9 +866,28 @@ struct token_ty
    pathological cases which could bite us (like the DOS directory
    separator), but just pretend it can't happen.  */
 
-#define P7_QUOTES (1000 + '"')
-#define P7_QUOTE (1000 + '\'')
-#define P7_NEWLINE (1000 + '\n')
+/* Return value of phase7_getc when EOF is reached.  */
+#define P7_EOF (-1)
+#define P7_STRING_END (-2)
+
+/* Replace escape sequences within character strings with their single
+   character equivalents.  */
+#define P7_QUOTES (-3)
+#define P7_QUOTE (-4)
+#define P7_NEWLINE (-5)
+
+/* Convert an UTF-16 or UTF-32 code point to a return value that can be
+   distinguished from a single-byte return value.  */
+#define UNICODE(code) (0x100 + (code))
+
+/* Test a return value of phase7_getuc whether it designates an UTF-16 or
+   UTF-32 code point.  */
+#define IS_UNICODE(p7_result) ((p7_result) >= 0x100)
+
+/* Extract the UTF-16 or UTF-32 code of a return value that satisfies
+   IS_UNICODE.  */
+#define UNICODE_VALUE(p7_result) ((p7_result) - 0x100)
+
 
 static int
 phase7_getc ()
@@ -998,6 +1019,47 @@ phase7_getc ()
         }
       phase3_ungetc (c);
       return n;
+
+    case 'U': case 'u':
+      {
+        unsigned char buf[8];
+
+        n = 0;
+        for (j = 0; j < (c == 'u' ? 4 : 8); j++)
+          {
+            int c1 = phase3_getc ();
+
+            if (c1 >= '0' && c1 <= '9')
+              n = (n << 4) + (c1 - '0');
+            else if (c1 >= 'A' && c1 <= 'F')
+              n = (n << 4) + (c1 - 'A' + 10);
+            else if (c1 >= 'a' && c1 <= 'f')
+              n = (n << 4) + (c1 - 'a' + 10);
+            else
+              {
+                phase3_ungetc (c1);
+                while (--j >= 0)
+                  phase3_ungetc (buf[j]);
+                phase3_ungetc (c);
+                return '\\';
+              }
+
+            buf[j] = c1;
+          }
+
+        if (n < 0x110000)
+          return UNICODE (n);
+
+        error_with_progname = false;
+        error (0, 0, _("%s:%d: warning: invalid Unicode character"),
+               logical_file_name, line_number);
+        error_with_progname = true;
+
+        while (--j >= 0)
+          phase3_ungetc (buf[j]);
+        phase3_ungetc (c);
+        return '\\';
+      }
     }
 }
 
@@ -1233,44 +1295,53 @@ phase5_get (token_ty *tp)
       return;
 
     case '"':
-      /* We could worry about the 'L' before wide string constants,
-         but since gettext's argument is not a wide character string,
-         let the compiler complain about the argument not matching the
-         prototype.  Just pretend it won't happen.  */
-      bufpos = 0;
-      for (;;)
-        {
-          c = phase7_getc ();
-          if (c == P7_NEWLINE)
-            {
-              error_with_progname = false;
-              error (0, 0, _("%s:%d: warning: unterminated string literal"),
-                     logical_file_name, line_number - 1);
-              error_with_progname = true;
-              phase7_ungetc ('\n');
+      {
+        struct mixed_string_buffer *bp;
+
+        /* Start accumulating the string.  */
+        bp = mixed_string_buffer_alloc (lc_string,
+                                        logical_file_name,
+                                        line_number);
+
+        /* We could worry about the 'L' before wide string constants,
+           but since gettext's argument is not a wide character string,
+           let the compiler complain about the argument not matching the
+           prototype.  Just pretend it won't happen.  */
+        for (;;)
+          {
+            c = phase7_getc ();
+
+            /* Keep line_number in sync.  */
+            bp->line_number = line_number;
+
+            if (c == P7_NEWLINE)
+              {
+                error_with_progname = false;
+                error (0, 0, _("%s:%d: warning: unterminated string literal"),
+                       logical_file_name, line_number - 1);
+                error_with_progname = true;
+                phase7_ungetc ('\n');
+                break;
+              }
+            if (c == EOF || c == P7_QUOTES)
               break;
-            }
-          if (c == EOF || c == P7_QUOTES)
-            break;
-          if (c == P7_QUOTE)
-            c = '\'';
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = c;
-        }
-      if (bufpos >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[bufpos] = 0;
-      tp->type = token_type_string_literal;
-      tp->string = xstrdup (buffer);
-      tp->comment = add_reference (savable_comment);
-      return;
+            if (c == P7_QUOTE)
+              c = '\'';
+            if (IS_UNICODE (c))
+              {
+                assert (UNICODE_VALUE (c) >= 0
+                        && UNICODE_VALUE (c) < 0x110000);
+                mixed_string_buffer_append_unicode (bp,
+                                                    UNICODE_VALUE (c));
+              }
+            else
+              mixed_string_buffer_append_char (bp, c);
+          }
+        tp->type = token_type_string_literal;
+        tp->string = mixed_string_buffer_done (bp);
+        tp->comment = add_reference (savable_comment);
+        return;
+      }
 
     case '(':
       tp->type = token_type_lparen;
@@ -1303,8 +1374,8 @@ phase5_get (token_ty *tp)
 
     default:
       /* We could carefully recognize each of the 2 and 3 character
-        operators, but it is not necessary, as we only need to recognize
-        gettext invocations.  Don't bother.  */
+         operators, but it is not necessary, as we only need to recognize
+         gettext invocations.  Don't bother.  */
       tp->type = token_type_symbol;
       return;
     }
@@ -1843,7 +1914,10 @@ extract_parenthesized (message_list_ty *mlp,
                                      arglist_parser_alloc (mlp,
                                                            state ? next_shapes : NULL)))
             {
+              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding =
+                xgettext_global_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -1852,7 +1926,9 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_rparen:
+          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return false;
 
         case xgettext_token_type_comma:
@@ -1886,6 +1962,7 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_string_literal:
+          xgettext_current_source_encoding = po_charset_utf8;
           if (extract_all)
             remember_a_message (mlp, NULL, token.string, inner_context,
                                 &token.pos, NULL, token.comment);
@@ -1894,6 +1971,7 @@ extract_parenthesized (message_list_ty *mlp,
                                      inner_context,
                                      token.pos.file_name, token.pos.line_number,
                                      token.comment);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
@@ -1907,7 +1985,9 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_eof:
+          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return true;
 
         default:
