@@ -3156,7 +3156,7 @@ mixed_string_buffer_flush_curr_buffer (struct mixed_string_buffer *bp,
       char *curr;
       size_t count;
 
-      mixed_string_buffer_append_to_utf8_buffer (bp, '\0');
+      mixed_string_buffer_append_to_curr_buffer (bp, '\0');
 
       /* Convert from the source encoding to UTF-8.  */
       curr = from_current_source_encoding (bp->curr_buffer, bp->lcontext,
@@ -3187,7 +3187,7 @@ mixed_string_buffer_append_char (struct mixed_string_buffer *bp, int c)
   if (c == '\n')
     mixed_string_buffer_flush_curr_buffer (bp, bp->line_number - 1);
 
-  mixed_string_buffer_append_to_utf8_buffer (bp, (unsigned char) c);
+  mixed_string_buffer_append_to_curr_buffer (bp, (unsigned char) c);
 }
 
 void
