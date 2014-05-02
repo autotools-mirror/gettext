@@ -204,9 +204,6 @@ parse_directive (struct spec *spec,
             {
               /* FDI and INVALID_REASON will be set by a recursive call of
                  parse_directive.  */
-              *invalid_reason =
-                xasprintf (_(""), spec->directives, *format);
-              FDI_SET (format, FMTDIR_ERROR);
               return false;
             }
 
@@ -219,7 +216,7 @@ parse_directive (struct spec *spec,
         }
       else
         {
-          /* Standard format specifiers, in the form:
+          /* Standard format specifiers is in the form:
              [[fill]align][sign][#][0][minimumwidth][.precision][type]  */
 
           /* Look ahead two characters to skip [[fill]align].  */
