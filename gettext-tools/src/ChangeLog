@@ -1,5 +1,17 @@
 2014-05-02  Daiki Ueno  <ueno@gnu.org>
 
+	vala: Support C99-style Unicode character escapes
+	* x-vala.c: Include assert.h and po-charset.h.
+	(P7_QUOTES, P7_QUOTE, P7_NEWLINE): Redefine as a negative integer.
+	(P7_EOF, P7_STRING_END): New definitions.
+	(UNICODE): New macro.
+	(IS_UNICODE): New macro.
+	(UNICODE_VALUE): New macro.
+	(phase7_getc): Recognize "\unnnn" and "\Unnnnnnnn".
+	(phase3_get): Use mixed_string_buffer for parse string literal.
+
+2014-05-02  Daiki Ueno  <ueno@gnu.org>
+
 	xgettext: Factor out commonly used mixed_string_buffer
 	* x-python.c (init_mixed_string_buffer)
 	(mixed_string_buffer_append_byte)

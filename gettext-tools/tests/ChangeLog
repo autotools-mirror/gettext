@@ -1,3 +1,7 @@
+2014-05-02  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-vala-1: Test Unicode character escapes.
+
 2014-04-30  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-scheme-4: New file.

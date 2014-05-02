@@ -23,6 +23,7 @@
 /* Specification.  */
 #include "x-vala.h"
 
+#include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -36,6 +37,7 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "hash.h"
+#include "po-charset.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)
@@ -377,12 +379,28 @@ free_token (token_ty *tp)
 }
 
 
+/* Return value of phase7_getc when EOF is reached.  */
+#define P7_EOF (-1)
+#define P7_STRING_END (-2)
+
 /* Replace escape sequences within character strings with their single
    character equivalents.  */
+#define P7_QUOTES (-3)
+#define P7_QUOTE (-4)
+#define P7_NEWLINE (-5)
 
-#define P7_QUOTES (1000 + '"')
-#define P7_QUOTE (1000 + '\'')
-#define P7_NEWLINE (1000 + '\n')
+/* Convert an UTF-16 or UTF-32 code point to a return value that can be
+   distinguished from a single-byte return value.  */
+#define UNICODE(code) (0x100 + (code))
+
+/* Test a return value of phase7_getuc whether it designates an UTF-16 or
+   UTF-32 code point.  */
+#define IS_UNICODE(p7_result) ((p7_result) >= 0x100)
+
+/* Extract the UTF-16 or UTF-32 code of a return value that satisfies
+   IS_UNICODE.  */
+#define UNICODE_VALUE(p7_result) ((p7_result) - 0x100)
+
 
 static int
 phase7_getc ()
@@ -514,6 +532,47 @@ phase7_getc ()
         }
       phase1_ungetc (c);
       return n;
+
+    case 'U': case 'u':
+      {
+        unsigned char buf[8];
+
+        n = 0;
+        for (j = 0; j < (c == 'u' ? 4 : 8); j++)
+          {
+            int c1 = phase1_getc ();
+
+            if (c1 >= '0' && c1 <= '9')
+              n = (n << 4) + (c1 - '0');
+            else if (c1 >= 'A' && c1 <= 'F')
+              n = (n << 4) + (c1 - 'A' + 10);
+            else if (c1 >= 'a' && c1 <= 'f')
+              n = (n << 4) + (c1 - 'a' + 10);
+            else
+              {
+                phase1_ungetc (c1);
+                while (--j >= 0)
+                  phase1_ungetc (buf[j]);
+                phase1_ungetc (c);
+                return '\\';
+              }
+
+            buf[j] = c1;
+          }
+
+        if (n < 0x110000)
+          return UNICODE (n);
+
+        error_with_progname = false;
+        error (0, 0, _("%s:%d: warning: invalid Unicode character"),
+               logical_file_name, line_number);
+        error_with_progname = true;
+
+        while (--j >= 0)
+          phase1_ungetc (buf[j]);
+        phase1_ungetc (c);
+        return '\\';
+      }
     }
 }
 
@@ -802,7 +861,9 @@ phase3_get (token_ty *tp)
           /* FALLTHROUGH */
         case '"':
           {
+            struct mixed_string_buffer *bp;
             int c2 = phase2_getc ();
+
             if (c2 == '"')
               {
                 int c3 = phase2_getc ();
@@ -816,65 +877,67 @@ phase3_get (token_ty *tp)
               }
             else
               phase2_ungetc (c2);
-          }
 
-          bufpos = 0;
-          for (;;)
-            {
-              c = phase7_getc ();
-              if (c == P7_NEWLINE)
-                {
-                  if (verbatim)
-                    c = '\n';
-                  else
-                    {
-                      error_with_progname = false;
-                      error (0, 0, _("%s:%d: warning: unterminated string literal"),
-                             logical_file_name, line_number - 1);
-                      error_with_progname = true;
-                      phase7_ungetc ('\n');
+            /* Start accumulating the string.  */
+            bp = mixed_string_buffer_alloc (lc_string,
+                                            logical_file_name,
+                                            line_number);
+            for (;;)
+              {
+                c = phase7_getc ();
+                if (c == P7_NEWLINE)
+                  {
+                    if (verbatim)
+                      c = '\n';
+                    else
+                      {
+                        error_with_progname = false;
+                        error (0, 0, _("\
+%s:%d: warning: unterminated string literal"),
+                               logical_file_name, line_number - 1);
+                        error_with_progname = true;
+                        phase7_ungetc ('\n');
+                        break;
+                      }
+                  }
+                if (c == P7_QUOTES)
+                  {
+                    if (verbatim)
+                      {
+                        int c2 = phase2_getc ();
+                        if (c2 == '"')
+                          {
+                            int c3 = phase2_getc ();
+                            if (c3 == '"')
+                              break;
+                            phase2_ungetc (c3);
+                          }
+                        phase2_ungetc (c2);
+                        c = '"';
+                      }
+                    else
                       break;
-                    }
-                }
-              if (c == P7_QUOTES)
-                {
-                  if (verbatim)
-                    {
-                      int c2 = phase2_getc ();
-                      if (c2 == '"')
-                        {
-                          int c3 = phase2_getc ();
-                          if (c3 == '"')
-                            break;
-                          phase2_ungetc (c3);
-                        }
-                      phase2_ungetc (c2);
-                      c = '"';
-                    }
-                  else
-                    break;
-                }
-              if (c == EOF)
-                break;
-              if (c == P7_QUOTE)
-                c = '\'';
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = 0;
-          tp->type = last_token_type = template ? token_type_string_template : token_type_string_literal;
-          tp->string = xstrdup (buffer);
-          tp->comment = add_reference (savable_comment);
-          return;
+                  }
+                if (c == EOF)
+                  break;
+                if (c == P7_QUOTE)
+                  c = '\'';
+                if (IS_UNICODE (c))
+                  {
+                    assert (UNICODE_VALUE (c) >= 0
+                            && UNICODE_VALUE (c) < 0x110000);
+                    mixed_string_buffer_append_unicode (bp,
+                                                        UNICODE_VALUE (c));
+                  }
+                else
+                  mixed_string_buffer_append_char (bp, c);
+              }
+            tp->type = last_token_type = template
+              ? token_type_string_template : token_type_string_literal;
+            tp->string = xstrdup (mixed_string_buffer_done (bp));
+            tp->comment = add_reference (savable_comment);
+            return;
+          }
 
         case '/':
           switch (last_token_type)
@@ -1192,7 +1255,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                 arglist_parser_alloc (mlp,
                                                       state ? next_shapes : NULL)))
             {
+              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -1202,7 +1267,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_rparen:
           if (delim == token_type_rparen || delim == token_type_eof)
             {
+              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
+              xgettext_current_source_encoding = xgettext_global_source_encoding;
               return false;
             }
 
@@ -1221,7 +1288,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           continue;
 
         case token_type_eof:
+          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
+          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return true;
 
         case token_type_string_literal:
@@ -1230,6 +1299,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
+            xgettext_current_source_encoding = po_charset_utf8;
             if (extract_all)
               remember_a_message (mlp, NULL, token.string, inner_context,
                                   &pos, NULL, token.comment);
@@ -1251,6 +1321,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                            inner_context, pos.file_name,
                                            pos.line_number, token.comment);
               }
+            xgettext_current_source_encoding = xgettext_global_source_encoding;
           }
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
