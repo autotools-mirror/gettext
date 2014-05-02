@@ -370,8 +370,9 @@ extern void mixed_string_buffer_append_char (struct mixed_string_buffer *bp,
 extern void mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp,
                                                 int c);
 
-/* Frees mixed_string_buffer and returns the accumulated string as a
-   UTF-8 string.  */
+/* Frees mixed_string_buffer and returns the accumulated string.  If
+   any Unicode character has been added to BP, the result is in UTF-8.
+   Otherwise, it doesn't do any conversion.  */
 extern char * mixed_string_buffer_done (struct mixed_string_buffer *bp);
 
 
