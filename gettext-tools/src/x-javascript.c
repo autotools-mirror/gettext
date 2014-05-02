@@ -1204,6 +1204,7 @@ phase5_get (token_ty *tp)
                 {
                   int uc = phase7_getuc (quote_char);
 
+                  /* Keep line_number in sync.  */
                   bp->line_number = line_number;
 
                   if (uc == P7_EOF || uc == P7_STRING_END)

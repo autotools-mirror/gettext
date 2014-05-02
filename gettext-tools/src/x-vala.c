@@ -885,6 +885,10 @@ phase3_get (token_ty *tp)
             for (;;)
               {
                 c = phase7_getc ();
+
+                /* Keep line_number in sync.  */
+                bp->line_number = line_number;
+
                 if (c == P7_NEWLINE)
                   {
                     if (verbatim)
