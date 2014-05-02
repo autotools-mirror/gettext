@@ -5,8 +5,8 @@
 	Makevars, after calling autopoint.
 	* Makevars (PO_DEPENDS_ON_POT): Rename from POFILESDEPS and turn
 	it into a yes/no option.
-	(DIST_DEPENDS_ON_POT): Rename from DISTFILESDEPS and turn it into
-	a yes/no option.
+	(DIST_DEPENDS_ON_UPDATE_PO): Rename from DISTFILESDEPS and turn it
+	into a yes/no option.
 
 2014-05-01  Daiki Ueno  <ueno@gnu.org>
 

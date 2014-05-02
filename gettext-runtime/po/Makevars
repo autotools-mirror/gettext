@@ -68,7 +68,8 @@ MSGMERGE_OPTIONS =
 # program ignores timestamps.
 PO_DEPENDS_ON_POT = yes
 
-# This tells whether or not to forcibly regenerate $(DOMAIN).pot and
-# PO files on "make dist".  Possible values are "yes" and "no".  Set
-# this to no if the POT file and PO files are maintained externally.
-DIST_DEPENDS_ON_POT = yes
+# This tells whether or not to forcibly update $(DOMAIN).pot and
+# regenerate PO files on "make dist".  Possible values are "yes" and
+# "no".  Set this to no if the POT file and PO files are maintained
+# externally.
+DIST_DEPENDS_ON_UPDATE_PO = yes
