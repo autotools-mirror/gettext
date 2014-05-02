@@ -334,6 +334,47 @@ extern bool arglist_parser_decidedp (struct arglist_parser *ap, int argnum);
 extern void arglist_parser_done (struct arglist_parser *ap, int argnum);
 
 
+/* A string buffer type that allows appending bytes (in the
+   xgettext_current_source_encoding) or Unicode characters.
+   Returns the entire string in UTF-8 encoding.  */
+
+struct mixed_string_buffer
+{
+  /* The part of the string that has already been converted to UTF-8.  */
+  char *utf8_buffer;
+  size_t utf8_buflen;
+  size_t utf8_allocated;
+  /* The first half of an UTF-16 surrogate character.  */
+  unsigned short utf16_surr;
+  /* The part of the string that is still in the source encoding.  */
+  char *curr_buffer;
+  size_t curr_buflen;
+  size_t curr_allocated;
+  /* The lexical context.  Used only for error message purposes.  */
+  lexical_context_ty lcontext;
+  const char *logical_file_name;
+  int line_number;
+};
+
+/* Creates a fresh mixed_string_buffer.  */
+extern struct mixed_string_buffer *
+       mixed_string_buffer_alloc (lexical_context_ty lcontext,
+                                  const char *logical_file_name,
+                                  int line_number);
+
+/* Appends a character to a mixed_string_buffer.  */
+extern void mixed_string_buffer_append_char (struct mixed_string_buffer *bp,
+                                             int c);
+
+/* Appends a Unicode character to a mixed_string_buffer.  */
+extern void mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp,
+                                                int c);
+
+/* Frees mixed_string_buffer and returns the accumulated string as a
+   UTF-8 string.  */
+extern char * mixed_string_buffer_done (struct mixed_string_buffer *bp);
+
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,3 +1,43 @@
+2014-05-02  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Factor out commonly used mixed_string_buffer
+	* x-python.c (init_mixed_string_buffer)
+	(mixed_string_buffer_append_byte)
+	(mixed_string_buffer_append_unicode_grow)
+	(mixed_string_buffer_append_unicode)
+	(mixed_string_buffer_flush_utf16_surr)
+	(mixed_string_buffer_flush_curr_buffer)
+	(mixed_string_buffer_append, mixed_string_buffer_result)
+	(free_mixed_string_buffer): Move to...
+	* xgettext.c: ...here.
+	(mixed_string_buffer_alloc): Rename from init_mixed_string_buffer.
+	(mixed_string_buffer_append_to_curr_buffer): Rename from
+	mixed_string_buffer_append_byte.
+	(mixed_string_buffer_append_to_utf8_buffer): Rename from
+	mixed_string_buffer_append_unicode.
+	(mixed_string_buffer_grow_utf8_buffer): Rename from
+	mixed_string_buffer_append_unicode_grow.
+	(mixed_string_buffer_append_char): Split from
+	mixed_string_buffer_append.
+	(mixed_string_buffer_append_unicode): Split from
+	mixed_string_buffer_append.
+	(mixed_string_buffer_done): New function merging
+	mixed_string_buffer_result and free_mixed_string_buffer.
+	* xgettext.h (mixed_string_buffer): New struct moved from
+	x-python.c; add logical_file_name and line_number fields.
+	(mixed_string_buffer_alloc): New function declaration.
+	(mixed_string_buffer_append_char): New function declaration.
+	(mixed_string_buffer_append_unicode): New function declaration.
+	(mixed_string_buffer_done): New function declaration.
+	* x-javascript.c (init_mixed_string_buffer)
+	(mixed_string_buffer_append_byte)
+	(mixed_string_buffer_append_unicode_grow)
+	(mixed_string_buffer_append_unicode)
+	(mixed_string_buffer_flush_utf16_surr)
+	(mixed_string_buffer_flush_curr_buffer)
+	(mixed_string_buffer_append, mixed_string_buffer_result)
+	(free_mixed_string_buffer): Remove.
+
 2014-04-30  Daiki Ueno  <ueno@gnu.org>
 
 	scheme: Recognize GIMP script-fu extension _"abc"
