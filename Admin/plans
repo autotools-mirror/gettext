@@ -14,8 +14,6 @@ Things we plan to do. Comments welcome.
   1. Program to move msgstr contents to msgid contents,
   2. Program to update the translations accordingly, much like msgmerge.
 
-- Refer also to the GNOME translation project http://www.klid.dk/gnome/ ?
-
 - Mention Qt linguist (part of Qt 3)
 
 - Easier delivery of PO directory for maintainer! Add a target for incoming
@@ -36,6 +34,9 @@ Things we plan to do. Comments welcome.
 >                 language, it had been really translated !!!!!!!
 
 - msgdiff
+  People recommend the 'poediff' program from Pology:
+  http://pology.nedohodnik.net
+  which supports merging the diff back to the PO
 
 - automake integration: Add to "make dist" an invocation of
   "intltool-update --maintain", parametrized through a few variables that
@@ -44,8 +45,6 @@ Things we plan to do. Comments welcome.
     - which file types are to be considered by i18n,
     - which files are explicitly not i18n (e.g. generated files like
       src/po-gram-gen.c)
-
-- AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/version.sh'])
 
 - Generating sr@latin PO file automatically from sr.po.
 
@@ -146,3 +145,11 @@ Things we plan to do. Comments welcome.
 
 - Use libunistring as hard dependency.
 
+- A way to hook xgettext to call external scanner written in the
+  target programming language.  This would be particularly useful for
+  scripting languages which need run-time information to extract
+  strings.  Some programming languages already provide their own
+  scanners: pygettext in Python, rgettext in Ruby.
+
+- --xpath option to xgettext, like -k but works for an XPath
+  expression.  This might need libxml2 as hard dependency.
