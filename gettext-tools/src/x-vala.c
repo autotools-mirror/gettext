@@ -938,7 +938,7 @@ phase3_get (token_ty *tp)
               }
             tp->type = last_token_type = template
               ? token_type_string_template : token_type_string_literal;
-            tp->string = xstrdup (mixed_string_buffer_done (bp));
+            tp->string = mixed_string_buffer_done (bp);
             tp->comment = add_reference (savable_comment);
             return;
           }

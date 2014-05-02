@@ -1220,7 +1220,7 @@ phase5_get (token_ty *tp)
                   else
                     mixed_string_buffer_append_char (bp, uc);
                 }
-              tp->string = xstrdup (mixed_string_buffer_done (bp));
+              tp->string = mixed_string_buffer_done (bp);
               tp->comment = add_reference (savable_comment);
               lexical_context = lc_outside;
               tp->type = last_token_type = token_type_string;
