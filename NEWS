@@ -1,4 +1,4 @@
-Version 0.18.4 - unreleased
+Version 0.19 - unreleased
 
 * Programming languages support:
 
@@ -16,6 +16,14 @@ Version 0.18.4 - unreleased
   - PHP:
     Single and double quotes around heredoc markers are now recognized.
 
+  - Python:
+    The acceptable format specifiers in the braced-syntax format
+    strings is now limited to the Standard Format Specifiers, to
+    reasonably avoid false-positives.
+
+  - C and Vala:
+    xgettext now recognizes C99-style Unicode character escapes.
+
 * The --add-location option of msgattrib, msgcat, msgcomm, msgconv,
   msgen, msgfilter, msggrep, msgmerge, msguniq, and xgettext commands
   now takes an optional argument 'never', 'full', or 'file', to
@@ -30,9 +38,18 @@ Version 0.18.4 - unreleased
   possible, similar to the sed commands used in po/Rules-quot and
   po/Rules-boldquot.
 
+* The po/Makevars file has a couple of new options PO_DEPENDS_ON_POT
+  and DIST_DEPENDS_ON_UPDATE_PO, that can be used to adjust the
+  behavior of updating PO files on demand.
+
 * libgettextpo library:
   - Memory leak fixes in the PO file parser.
 
+* Documentation:
+  - A complete example showing the use of GNU gettext in a GNOME 3
+    application has been added.
+
+
 Version 0.18.3 - July 2013
 
 * Runtime behaviour:
