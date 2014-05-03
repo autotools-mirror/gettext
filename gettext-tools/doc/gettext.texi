@@ -10034,7 +10034,7 @@ guile
 @code{"abc"}
 
 @item gettext shorthand
-@code{(_ "abc")}, @code{_"abc"}
+@code{(_ "abc")}, @code{_"abc"} (GIMP script-fu extension)
 
 @item gettext/ngettext functions
 @code{gettext}, @code{ngettext}

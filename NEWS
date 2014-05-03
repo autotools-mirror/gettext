@@ -21,6 +21,10 @@ Version 0.19 - unreleased
     strings is now limited to the Standard Format Specifiers, to
     reasonably avoid false-positives.
 
+  - Scheme:
+    The gettext shorthand form _"abc", used by GIMP script-fu, is now
+    recognized by xgettext.
+
   - C and Vala:
     xgettext now recognizes C99-style Unicode character escapes.
 
