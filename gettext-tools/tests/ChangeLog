@@ -1,3 +1,9 @@
+2014-05-03  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add test for prefixed comment tag
+	* xgettext-11: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2014-05-02  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-vala-1: Test Unicode character escapes.
