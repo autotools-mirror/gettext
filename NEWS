@@ -46,6 +46,17 @@ Version 0.19 - unreleased
   and DIST_DEPENDS_ON_UPDATE_PO, that can be used to adjust the
   behavior of updating PO files on demand.
 
+* xgettext now strips prefixed string before the comment tag.  This is
+  useful to support C-style comment like this:
+
+  /*
+   * TRANSLATORS: first line
+   * second line
+   */
+
+  In this example, the extracted comment does not contain "* " at the
+  beginning of each line.
+
 * libgettextpo library:
   - Memory leak fixes in the PO file parser.
 
