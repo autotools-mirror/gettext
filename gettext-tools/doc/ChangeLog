@@ -1,5 +1,9 @@
 2014-05-05  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext.texi (Translations under Version Control): New section.
+
+2014-05-05  Daiki Ueno  <ueno@gnu.org>
+
 	* gettext.texi (Version Control Issues): Rename from "CVS Issues";
 	talk about generic issues when using version control systems.
 
