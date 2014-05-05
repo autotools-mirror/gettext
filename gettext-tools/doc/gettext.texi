@@ -193,10 +193,10 @@ The User's View
 * Setting the POSIX Locale::    How to Specify the Locale According to POSIX
 * Installing Localizations::    How to Install Additional Translations
 
-Setting the POSIX Locale
+Setting the Locale through Environment Variables
 
 * Locale Names::                How a Locale Specification Looks Like
-* Locale Environment Variables:: Which Environment Variable Specfies What
+* Locale Environment Variables::  Which Environment Variable Specfies What
 * The LANGUAGE variable::       How to Specify a Priority List of Languages
 
 Preparing Program Sources
@@ -341,7 +341,7 @@ The Maintainer's View
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.ac}
-* CVS Issues::                  Integrating with CVS
+* Version Control Issues::      
 * Release Management::          Creating a Distribution Tarball
 
 Files You Must Create or Alter
@@ -367,12 +367,13 @@ Autoconf macros for use in @file{configure.ac}
 * AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
 * AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
+* AM_XGETTEXT_OPTION::          AM_XGETTEXT_OPTION in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
 
-Integrating with CVS
+Integrating with Version Control Systems
 
-* Distributed CVS::             Avoiding version mismatch in distributed development
-* Files under CVS::             Files to put under CVS version control
+* Distributed Development::     
+* Files under Version Control::  
 * autopoint Invocation::        Invoking the @code{autopoint} Program
 
 Other Programming Languages
@@ -1196,7 +1197,7 @@ prompt, merely execute
 
 @menu
 * Locale Names::                How a Locale Specification Looks Like
-* Locale Environment Variables:: Which Environment Variable Specfies What
+* Locale Environment Variables::  Which Environment Variable Specfies What
 * The LANGUAGE variable::       How to Specify a Priority List of Languages
 @end menu
 
@@ -7554,7 +7555,7 @@ for changes.
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.ac}
-* CVS Issues::                  Integrating with CVS
+* Version Control Issues::      
 * Release Management::          Creating a Distribution Tarball
 @end menu
 
@@ -8390,7 +8391,7 @@ In other packages, it can go into the @file{src} directory.
 Do not install the @code{gettext.h} file in public locations.  Every
 package that needs it should contain a copy of it on its own.
 
-@node autoconf macros, CVS Issues, Adjusting Files, Maintainers
+@node autoconf macros, Version Control Issues, Adjusting Files, Maintainers
 @section Autoconf macros for use in @file{configure.ac}
 @cindex autoconf macros for @code{gettext}
 
@@ -8508,7 +8509,7 @@ The @code{AM_GNU_GETTEXT_VERSION} macro declares the version number of
 the GNU gettext infrastructure that is used by the package.
 
 The use of this macro is optional; only the @code{autopoint} program makes
-use of it (@pxref{CVS Issues}).
+use of it (@pxref{Version Control Issues}).
 
 @node AM_GNU_GETTEXT_NEED, AM_GNU_GETTEXT_INTL_SUBDIR, AM_GNU_GETTEXT_VERSION, autoconf macros
 @subsection AM_GNU_GETTEXT_NEED in @file{gettext.m4}
@@ -8639,32 +8640,33 @@ library support, like SCO.
 @file{iconv.m4} is distributed with the GNU gettext package because
 @file{gettext.m4} relies on it.
 
-@node CVS Issues, Release Management, autoconf macros, Maintainers
-@section Integrating with CVS
+@node Version Control Issues, Release Management, autoconf macros, Maintainers
+@section Integrating with Version Control Systems
 
-Many projects use CVS for distributed development, version control and
-source backup.  This section gives some advice how to manage the uses
-of @code{cvs}, @code{gettextize}, @code{autopoint} and @code{autoconf}.
+Many projects use version control systems for distributed development
+and source backup.  This section gives some advice how to manage the
+uses of @code{gettextize}, @code{autopoint} and @code{autoconf} on
+version controlled files.
 
 @menu
-* Distributed CVS::             Avoiding version mismatch in distributed development
-* Files under CVS::             Files to put under CVS version control
+* Distributed Development::     
+* Files under Version Control::  
 * autopoint Invocation::        Invoking the @code{autopoint} Program
 @end menu
 
-@node Distributed CVS, Files under CVS, CVS Issues, CVS Issues
+@node Distributed Development, Files under Version Control, Version Control Issues, Version Control Issues
 @subsection Avoiding version mismatch in distributed development
 
-In a project development with multiple developers, using CVS, there
-should be a single developer who occasionally - when there is desire to
-upgrade to a new @code{gettext} version - runs @code{gettextize} and
-performs the changes listed in @ref{Adjusting Files}, and then commits
-his changes to the CVS.
+In a project development with multiple developers, there should be a
+single developer who occasionally - when there is desire to upgrade to
+a new @code{gettext} version - runs @code{gettextize} and performs the
+changes listed in @ref{Adjusting Files}, and then commits his changes
+to the repository.
 
 It is highly recommended that all developers on a project use the same
 version of GNU @code{gettext} in the package.  In other words, if a
 developer runs @code{gettextize}, he should go the whole way, make the
-necessary remaining changes and commit his changes to the CVS.
+necessary remaining changes and commit his changes to the repository.
 Otherwise the following damages will likely occur:
 
 @itemize @bullet
@@ -8691,14 +8693,14 @@ version.  For example, it is possible that a platform specific bug goes
 undiscovered due to this constellation.
 @end itemize
 
-@node Files under CVS, autopoint Invocation, Distributed CVS, CVS Issues
-@subsection Files to put under CVS version control
+@node Files under Version Control, autopoint Invocation, Distributed Development, Version Control Issues
+@subsection Files to put under version control
 
 There are basically three ways to deal with generated files in the
-context of a CVS repository, such as @file{configure} generated from
-@file{configure.ac}, @code{@var{parser}.c} generated from
-@code{@var{parser}.y}, or @code{po/Makefile.in.in} autoinstalled by
-@code{gettextize} or @code{autopoint}.
+context of a version controlled repository, such as @file{configure}
+generated from @file{configure.ac}, @code{@var{parser}.c} generated
+from @code{@var{parser}.y}, or @code{po/Makefile.in.in} autoinstalled
+by @code{gettextize} or @code{autopoint}.
 
 @enumerate
 @item
@@ -8716,34 +8718,35 @@ Each of these three approaches has different advantages and drawbacks.
 
 @enumerate
 @item
-The advantage is that anyone can check out the CVS at any moment and
+The advantage is that anyone can check out the source at any moment and
 gets a working build.  The drawbacks are:  1a. It requires some frequent
-"cvs commit" actions by the maintainers.  1b. The repository grows in size
+"push" actions by the maintainers.  1b. The repository grows in size
 quite fast.
 
 @item
-The advantage is that anyone can check out the CVS, and the usual
-"./configure; make" will work.  The drawbacks are:  2a. The one who
-checks out the repository needs tools like GNU @code{automake},
-GNU @code{autoconf}, GNU @code{m4} installed in his PATH; sometimes
-he even needs particular versions of them.  2b. When a release is made
+The advantage is that anyone can check out the source, and the usual
+"./configure; make" will work.  The drawbacks are: 2a. The one who
+checks out the repository needs tools like GNU @code{automake}, GNU
+@code{autoconf}, GNU @code{m4} installed in his PATH; sometimes he
+even needs particular versions of them.  2b. When a release is made
 and a commit is made on the generated files, the other developers get
-conflicts on the generated files after doing "cvs update".  Although
-these conflicts are easy to resolve, they are annoying.
+conflicts on the generated files when merging the local work back to
+the repository.  Although these conflicts are easy to resolve, they
+are annoying.
 
 @item
 The advantage is less work for the maintainers.  The drawback is that
-anyone who checks out the CVS not only needs tools like GNU @code{automake},
-GNU @code{autoconf}, GNU @code{m4} installed in his PATH, but also that
-he needs to perform a package specific pre-build step before being able
-to "./configure; make".
+anyone who checks out the source not only needs tools like GNU
+@code{automake}, GNU @code{autoconf}, GNU @code{m4} installed in his
+PATH, but also that he needs to perform a package specific pre-build
+step before being able to "./configure; make".
 @end enumerate
 
 For the first and second approach, all files modified or brought in
 by the occasional @code{gettextize} invocation and update should be
-committed into the CVS.
+committed into the repository.
 
-For the third approach, the maintainer can omit from the CVS repository
+For the third approach, the maintainer can omit from the repository
 all the files that @code{gettextize} mentions as "copy".  Instead, he
 adds to the @file{configure.ac} or @file{configure.in} a line of the
 form
@@ -8754,9 +8757,9 @@ AM_GNU_GETTEXT_VERSION(@value{VERSION})
 
 @noindent
 and adds to the package's pre-build script an invocation of
-@samp{autopoint}.  For everyone who checks out the CVS, this
+@samp{autopoint}.  For everyone who checks out the source, this
 @code{autopoint} invocation will copy into the right place the
-@code{gettext} infrastructure files that have been omitted from the CVS.
+@code{gettext} infrastructure files that have been omitted from the repository.
 
 The version number used as argument to @code{AM_GNU_GETTEXT_VERSION} is
 the version of the @code{gettext} infrastructure that the package wants
@@ -8770,12 +8773,12 @@ into @code{AM_GNU_GETTEXT_VERSION(0.12.1)}, and all other developers that
 use the CVS will henceforth need to have GNU @code{gettext} 0.12.1 or newer
 installed.
 
-@node autopoint Invocation,  , Files under CVS, CVS Issues
+@node autopoint Invocation,  , Files under Version Control, Version Control Issues
 @subsection Invoking the @code{autopoint} Program
 
 @include autopoint.texi
 
-@node Release Management,  , CVS Issues, Maintainers
+@node Release Management,  , Version Control Issues, Maintainers
 @section Creating a Distribution Tarball
 
 @cindex release

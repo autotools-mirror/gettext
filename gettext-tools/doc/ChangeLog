@@ -1,3 +1,8 @@
+2014-05-05  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext.texi (Version Control Issues): Rename from "CVS Issues";
+	talk about generic issues when using version control systems.
+
 2014-04-30  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (Scheme): Document gettext shorthand form _"abc".
