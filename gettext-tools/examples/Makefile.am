@@ -464,6 +464,10 @@ install-data-local: $(EXAMPLESFILES)
 	for f1 in $(EXAMPLESDIRS); do \
 	  for f2 in $(EXAMPLESPOFILES); do \
 	    f=$$f1/po/$$f2; \
+	    test -f $(srcdir)/$$f || { \
+	      echo "WARNING: $(srcdir)/$$f doesn't exist; do \"make dist\" to prepare" >&2; \
+	      break; \
+	    }; \
 	    d=`echo /$$f | sed -e 's,/[^/]*$$,,'`; \
 	    test -z "$$d" || $(MKDIR_P) $(DESTDIR)$(examplesdir)$$d || exit 1; \
 	    b=`echo $$f | sed -e 's,^.*/,,'`; \

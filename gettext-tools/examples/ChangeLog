@@ -1,3 +1,8 @@
+2014-05-06  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (install-data-local): Don't fail if a PO file does
+	not exist, but warn user to do "make dist".
+
 2014-04-22  Daiki Ueno  <ueno@gnu.org>
 
 	build: Use git-version-gen intead of version.sh
