@@ -3247,40 +3247,22 @@ mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp, int c)
 char *
 mixed_string_buffer_done (struct mixed_string_buffer *bp)
 {
-  if (bp->utf8_buffer || bp->utf16_surr != 0)
-    {
-      char *utf8_buffer;
+  char *utf8_buffer;
 
-      /* Flush all into bp->utf8_buffer.  */
-      mixed_string_buffer_flush_utf16_surr (bp);
-      mixed_string_buffer_flush_curr_buffer (bp, bp->line_number);
-      /* NUL-terminate it.  */
-      mixed_string_buffer_grow_utf8_buffer (bp, 1);
-      bp->utf8_buffer[bp->utf8_buflen] = '\0';
+  /* Flush all into bp->utf8_buffer.  */
+  mixed_string_buffer_flush_utf16_surr (bp);
+  mixed_string_buffer_flush_curr_buffer (bp, bp->line_number);
+  /* NUL-terminate it.  */
+  mixed_string_buffer_grow_utf8_buffer (bp, 1);
+  bp->utf8_buffer[bp->utf8_buflen] = '\0';
 
-      /* Free curr_buffer and bp itself.  */
-      utf8_buffer = bp->utf8_buffer;
-      free (bp->curr_buffer);
-      free (bp);
+  /* Free curr_buffer and bp itself.  */
+  utf8_buffer = bp->utf8_buffer;
+  free (bp->curr_buffer);
+  free (bp);
 
-      /* Return it.  */
-      return utf8_buffer;
-    }
-  else
-    {
-      char *curr_buffer;
-
-      /* NUL-terminate it.  */
-      mixed_string_buffer_append_to_curr_buffer (bp, '\0');
-
-      /* Free utf8_buffer and bp itself.  */
-      curr_buffer = bp->curr_buffer;
-      free (bp->utf8_buffer);
-      free (bp);
-
-      /* Return it.  */
-      return curr_buffer;
-    }
+  /* Return it.  */
+  return utf8_buffer;
 }
 
 
