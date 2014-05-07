@@ -1,3 +1,23 @@
+2014-05-09  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Provide a way to interpret string literals lazily
+	* xgettext.c (extract_ty): New field 'literalstring_parser'.
+	(current_literalstring_parser): New variable.
+	(extract_from_file): Set 'current_literalstring_parser'.
+	(savable_comment_convert_encoding): New function.
+	(arglist_parser_remember_literal): New function.
+	(arglist_parser_remember): Call 'arglist_parser_remember_literal'.
+	(arglist_parser_done): Call literalstring_parser on msgctxt,
+	msgid, and msgid_plural before calling 'remember_a_message';
+	convert encoding of msgid_comment.
+	* x-*.h: Register 'literalstring_parser' through SCANNER_*.
+	* xgettext.h (enum literalstring_escape_type): New enum.
+	(struct literalstring_parser): New struct.
+	(struct partial_call): New fields 'msgctxt_escape',
+	'msgid_escape', and 'msgid_plural_escape'.
+	(arglist_parser_remember_literal): New function declaration.
+	(savable_comment_convert_encoding): New function declaration.
+
 2014-05-03  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: Recognize prefixed comment tag

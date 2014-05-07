@@ -31,7 +31,7 @@ extern "C" {
   { "gschema.xml", "gsettings" }, \
 
 #define SCANNERS_GSETTINGS \
-  { "gsettings", extract_gsettings, NULL, NULL, NULL }, \
+  { "gsettings", extract_gsettings, NULL, NULL, NULL, NULL }, \
 
 /* Scan a gsettings XML file and add its translatable strings to mdlp.  */
 extern void extract_gsettings (FILE *fp, const char *real_filename,

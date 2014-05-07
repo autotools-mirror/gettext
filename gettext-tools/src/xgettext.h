@@ -242,6 +242,24 @@ extern refcounted_string_list_ty *savable_comment;
 extern void savable_comment_add (const char *str);
 extern void savable_comment_reset (void);
 
+/* Convert character encoding of COMMENT according to the current
+   source encoding.  Returns a new refcounted_string_list_ty.  */
+extern refcounted_string_list_ty *
+       savable_comment_convert_encoding (refcounted_string_list_ty *comment,
+                                         lex_pos_ty *pos);
+
+
+enum literalstring_escape_type
+{
+  LET_ANSI_C = 1 << 0,
+  LET_UNICODE = 1 << 1
+};
+
+struct literalstring_parser
+{
+  char * (*parse) (const char *string, lex_pos_ty *pos,
+                   enum literalstring_escape_type type);
+};
 
 /* Add a message to the list of extracted messages.
    msgctxt must be either NULL or a malloc()ed string; its ownership is passed
@@ -275,7 +293,6 @@ extern void remember_a_message_plural (message_ty *mp,
                                        lex_pos_ty *pos,
                                        refcounted_string_list_ty *comment);
 
-
 /* Represents the progressive parsing of an argument list w.r.t. a single
    'struct callshape'.  */
 struct partial_call
@@ -288,12 +305,15 @@ struct partial_call
   int argtotal;                 /* total number of arguments, 0 if unspecified */
   string_list_ty xcomments;     /* auto-extracted comments */
   char *msgctxt;                /* context - owned string, or NULL */
+  enum literalstring_escape_type msgctxt_escape;
   lex_pos_ty msgctxt_pos;
   char *msgid;                  /* msgid - owned string, or NULL */
+  enum literalstring_escape_type msgid_escape;
   flag_context_ty msgid_context;
   lex_pos_ty msgid_pos;
   refcounted_string_list_ty *msgid_comment;
   char *msgid_plural;           /* msgid_plural - owned string, or NULL */
+  enum literalstring_escape_type msgid_plural_escape;
   flag_context_ty msgid_plural_context;
   lex_pos_ty msgid_plural_pos;
 };
@@ -326,6 +346,19 @@ extern void arglist_parser_remember (struct arglist_parser *ap,
                                      flag_context_ty context,
                                      char *file_name, size_t line_number,
                                      refcounted_string_list_ty *comment);
+/* Adds an uninterpreted string argument to an arglist_parser.  ARGNUM
+   must be > 0.
+   STRING is must be malloc()ed string; its ownership is passed to the callee.
+   FILE_NAME must be allocated with indefinite extent.
+   COMMENT may be savable_comment, or it may be a saved copy of savable_comment
+   (then add_reference must be used when saving it, and drop_reference while
+   dropping it).  Clear savable_comment.  */
+extern void arglist_parser_remember_literal (struct arglist_parser *ap,
+                                             int argnum, char *string,
+                                             flag_context_ty context,
+                                             char *file_name, size_t line_number,
+                                             refcounted_string_list_ty *comment,
+                                             enum literalstring_escape_type type);
 /* Tests whether an arglist_parser has is not waiting for more arguments after
    argument ARGNUM.  */
 extern bool arglist_parser_decidedp (struct arglist_parser *ap, int argnum);

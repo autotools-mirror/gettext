@@ -31,7 +31,7 @@ extern "C" {
   { "desktop", "Desktop" }, \
 
 #define SCANNERS_DESKTOP \
-  { "Desktop", extract_desktop, NULL, NULL, NULL }, \
+  { "Desktop", extract_desktop, NULL, NULL, NULL, NULL }, \
 
 /* Scan a Desktop Entry file and add its translatable strings to mdlp.  */
 extern void extract_desktop (FILE *fp, const char *real_filename,
