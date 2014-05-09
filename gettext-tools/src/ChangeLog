@@ -1,5 +1,23 @@
 2014-05-09  Daiki Ueno  <ueno@gnu.org>
 
+	vala: Interpret string literals lazily
+	* x-vala.c (P7_EOF, P7_STRING_END, P7_QUOTES, P7_QUOTE, P7_NEWLINE)
+	(UNICODE, IS_UNICODE, UNICODE_VALUE): Remove.
+	(phase7_getc): Remove.
+	(phase7_ungetc): Remove.
+	(phase3_get): Use 'phase2_get' directly to extract string
+	literals; use 'arglist_parser_remember_literal' instead of
+	'arglist_parser_remember'.
+	(literalstring_c): Declare external variable.
+	(extract_balanced): Remove the
+	'xgettext_current_source_encoding' setting to prevent encoding
+	conversion around 'arglist_parser_done'.
+	(token_ty): New field 'escape'.
+	* x-vala.h (SCANNERS_VALA): Register 'literalstring_c' as a
+	literalstring_parser.
+
+2014-05-09  Daiki Ueno  <ueno@gnu.org>
+
 	c: Interpret string literals lazily
 	* x-c.c (P7_EOF, P7_STRING_END, P7_QUOTES, P7_QUOTE, P7_NEWLINE)
 	(UNICODE, IS_UNICODE, UNICODE_VALUE): Remove.

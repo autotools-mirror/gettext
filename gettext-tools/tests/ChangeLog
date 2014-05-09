@@ -1,5 +1,10 @@
 2014-05-09  Daiki Ueno  <ueno@gnu.org>
 
+	vala: Interpret string literals lazily
+	* xgettext-vala-1: Test escape sequence in verbatim string.
+
+2014-05-09  Daiki Ueno  <ueno@gnu.org>
+
 	c: Interpret string literals lazily
 	* xgettext-c-19: New file.
 	* Makefile.am (TESTS): Add new test.
