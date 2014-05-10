@@ -76,44 +76,46 @@ uninstall-local: uninstall-html
 # Man pages.
 
 # The progname.x files contain some extra information not found in the
-# "progname --help" output.
+# "progname --help" output.  progname.1 depends on the source, not the
+# binary; we don't need to regenerate the binary when any source file
+# changes, only the main one.
 
-msgcmp.1: msgcmp.x ../src/msgcmp$(EXEEXT)
+msgcmp.1: msgcmp.x ../src/msgcmp.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
-msgfmt.1: msgfmt.x ../src/msgfmt$(EXEEXT)
+msgfmt.1: msgfmt.x ../src/msgfmt.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfmt$(EXEEXT) $(srcdir)/msgfmt.x msgfmt.1
-msgmerge.1: msgmerge.x ../src/msgmerge$(EXEEXT)
+msgmerge.1: msgmerge.x ../src/msgmerge.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgmerge$(EXEEXT) $(srcdir)/msgmerge.x msgmerge.1
-msgunfmt.1: msgunfmt.x ../src/msgunfmt$(EXEEXT)
+msgunfmt.1: msgunfmt.x ../src/msgunfmt.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgunfmt$(EXEEXT) $(srcdir)/msgunfmt.x msgunfmt.1
-xgettext.1: xgettext.x ../src/xgettext$(EXEEXT)
+xgettext.1: xgettext.x ../src/xgettext.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/xgettext$(EXEEXT) $(srcdir)/xgettext.x xgettext.1
-msgattrib.1: msgattrib.x ../src/msgattrib$(EXEEXT)
+msgattrib.1: msgattrib.x ../src/msgattrib.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgattrib$(EXEEXT) $(srcdir)/msgattrib.x msgattrib.1
-msgcat.1: msgcat.x ../src/msgcat$(EXEEXT)
+msgcat.1: msgcat.x ../src/msgcat.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcat$(EXEEXT) $(srcdir)/msgcat.x msgcat.1
-msgcomm.1: msgcomm.x ../src/msgcomm$(EXEEXT)
+msgcomm.1: msgcomm.x ../src/msgcomm.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcomm$(EXEEXT) $(srcdir)/msgcomm.x msgcomm.1
-msgconv.1: msgconv.x ../src/msgconv$(EXEEXT)
+msgconv.1: msgconv.x ../src/msgconv.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgconv$(EXEEXT) $(srcdir)/msgconv.x msgconv.1
-msgen.1: msgen.x ../src/msgen$(EXEEXT)
+msgen.1: msgen.x ../src/msgen.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
-msgexec.1: msgexec.x ../src/msgexec$(EXEEXT)
+msgexec.1: msgexec.x ../src/msgexec.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
-msgfilter.1: msgfilter.x ../src/msgfilter$(EXEEXT)
+msgfilter.1: msgfilter.x ../src/msgfilter.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
-msggrep.1: msggrep.x ../src/msggrep$(EXEEXT)
+msggrep.1: msggrep.x ../src/msggrep.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
-msginit.1: msginit.x ../src/msginit$(EXEEXT)
+msginit.1: msginit.x ../src/msginit.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
-msguniq.1: msguniq.x ../src/msguniq$(EXEEXT)
+msguniq.1: msguniq.x ../src/msguniq.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
-recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin$(EXEEXT)
+recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/recode-sr-latin$(EXEEXT) $(srcdir)/recode-sr-latin.x recode-sr-latin.1
 
-gettextize.1: gettextize.x ../misc/gettextize
+gettextize.1: gettextize.x ../misc/gettextize.in
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
-autopoint.1: autopoint.x ../misc/autopoint
+autopoint.1: autopoint.x ../misc/autopoint.in
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
 
 $(man_MAN1): help2man $(top_srcdir)/../.version

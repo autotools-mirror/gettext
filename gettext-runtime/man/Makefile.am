@@ -77,7 +77,9 @@ uninstall-local: uninstall-html
 # Man pages.
 
 # The progname.x files contain some extra information not found in the
-# "progname --help" output.
+# "progname --help" output.  Each progname.1 depends on the source,
+# not the binary; we don't need to regenerate the binary when any
+# source file changes, only the main one.
 
 gettext.1: gettext.1.in Makefile
 	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f gettext.1.in; then echo .; else echo $(srcdir); fi`/gettext.1.in > t-$@
@@ -86,12 +88,12 @@ ngettext.1: ngettext.1.in Makefile
 	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in > t-$@
 	mv t-$@ $@
 
-gettext.1.in: gettext.x ../src/gettext$(EXEEXT)
+gettext.1.in: gettext.x ../src/gettext.c
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in
-ngettext.1.in: ngettext.x ../src/ngettext$(EXEEXT)
+ngettext.1.in: ngettext.x ../src/ngettext.c
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/ngettext$(EXEEXT) $(srcdir)/ngettext.x ngettext.1.in
 
-envsubst.1: envsubst.x ../src/envsubst$(EXEEXT)
+envsubst.1: envsubst.x ../src/envsubst.c
 	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/envsubst$(EXEEXT) $(srcdir)/envsubst.x envsubst.1
 
 $(man_MAN1IN) $(man_MAN1OTHER): help2man $(top_srcdir)/../.version
