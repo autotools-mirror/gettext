@@ -36,6 +36,9 @@ Version 0.19 - unreleased
 * msgfmt now has --source option to keep generated .java file when
   running in Java mode.
 
+* msgattrib now has --empty option that sets msgstr to empty instead
+  of removing the entire entry when clearing fuzzy.
+
 * New built-in filters 'quot' and 'boldquot' have been added to
   msgfilter.  These filters convert Latin quotation marks ('...',
   "...") into Unicode quotation marks (for example, U+2018) if
