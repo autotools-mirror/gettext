@@ -10,16 +10,14 @@ Tasks not to forget before release:
   agrees with it, except for copyright header changes.
 
 - Update Origin version in
-    gettext-runtime/po/Makefile.in.in and
-    gettext-tools/po/Makefile.in.in
-  if these files have changed since the last release.
+    gettext-runtime/po/Makefile.in.in
+  if this file has changed since the last release.
 
 - Update the version numbers in
     gettext-runtime/m4/po.m4
     gettext-runtime/po/Makefile.in.in
-    gettext-tools/po/Makefile.in.in
-    gettext-runtime/intl/libgnuintl.h.in
-    gettext-tools/libgettextpo/gettext-po.h.in
+    gettext-runtime/intl/libgnuintl.in.h
+    gettext-tools/libgettextpo/gettext-po.in.h
 
 - Update -version-info arguments in gettext-runtime/intl/Makefile.in
   and in gettext-tools/libgettextpo/Makefile.am.
@@ -46,7 +44,7 @@ Tasks not to forget before release:
     gettext-runtime/NEWS
 
 - Tag the repository (don't push it to the remote repository yet).
-  git tag -m 'gettext 0.19.0 release' v0.19.0
+  git tag -m 'gettext 0.19 release' v0.19
 
 - Iterate:
     ./rerun-autogen
@@ -72,7 +70,7 @@ Tasks not to forget before release:
   cp archive.dir.tar.gz-<last-release-number> archive.dir.tar.gz
   ./add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the case statement in autopoint.in.
-- run "update-po.sh" to generate PO files with the built tools
+- run "make maintainer-update-po" to generate PO files with the built tools
 - again: "make dist"
 
 * Upload gettext-0.xx.yy.tar.gz to ftp.gnu.org, according to the
