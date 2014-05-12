@@ -125,6 +125,7 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
               if (*start == '`')
                 {
                   memcpy (r, start, p - start);
+                  r += p - start;
                   start = p;
                 }
             }

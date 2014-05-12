@@ -70,6 +70,9 @@ msgstr "`single quoted with grave'"
 
 msgid "single quoted with grave, empty `'"
 msgstr "single quoted with grave, empty `'"
+
+msgid "``double grave'"
+msgstr "``double grave'"
 EOF
 
 : ${MSGFILTER=msgfilter}
@@ -142,6 +145,9 @@ msgstr "‘single quoted with grave’"
 
 msgid "single quoted with grave, empty `'"
 msgstr "single quoted with grave, empty ‘’"
+
+msgid "``double grave'"
+msgstr "`‘double grave’"
 EOF
 
 : ${DIFF=diff}
@@ -216,6 +222,9 @@ msgstr "‘[1msingle quoted with grave[0m’"
 
 msgid "single quoted with grave, empty `'"
 msgstr "single quoted with grave, empty ‘[1m[0m’"
+
+msgid "``double grave'"
+msgstr "`‘[1mdouble grave[0m’"
 EOF
 
 ${DIFF} mfi-boldquot.ok mfi-boldquot.out || exit 1

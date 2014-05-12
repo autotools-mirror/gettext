@@ -1,3 +1,7 @@
+2014-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfilter-quote-1: Test doubled grave characters.
+
 2014-05-10  Guido Flohr  <guido@imperia.net>
 
 	msgattrib: Add --empty option to clear msgstr
