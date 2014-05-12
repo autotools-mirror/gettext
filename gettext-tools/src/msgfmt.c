@@ -1334,8 +1334,6 @@ get_languages (const char *directory)
 
       while (!feof (fp))
         {
-          char *start;
-
           /* Read next line from file.  */
           int len = getline (&line_buf, &line_len, fp);
 

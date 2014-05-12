@@ -498,7 +498,6 @@ is_number (const struct token *tp)
 {
   const char *str = tp->chars;
   int len = tp->charcount;
-  int radix = 10;
   enum { unknown, exact, inexact } exactness = unknown;
   bool seen_radix_prefix = false;
   bool seen_exactness_prefix = false;
@@ -513,25 +512,21 @@ is_number (const struct token *tp)
         case 'B': case 'b':
           if (seen_radix_prefix)
             return false;
-          radix = 2;
           seen_radix_prefix = true;
           break;
         case 'O': case 'o':
           if (seen_radix_prefix)
             return false;
-          radix = 8;
           seen_radix_prefix = true;
           break;
         case 'D': case 'd':
           if (seen_radix_prefix)
             return false;
-          radix = 10;
           seen_radix_prefix = true;
           break;
         case 'X': case 'x':
           if (seen_radix_prefix)
             return false;
-          radix = 16;
           seen_radix_prefix = true;
           break;
         case 'E': case 'e':

@@ -1413,15 +1413,10 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
   /* Print flag information in special comment.  */
   if (mp->is_fuzzy)
     {
-      bool first = true;
-
       ostream_write_str (stream, "#,");
 
       if (mp->is_fuzzy)
-        {
-          ostream_write_str (stream, " fuzzy");
-          first = false;
-        }
+        ostream_write_str (stream, " fuzzy");
 
       ostream_write_str (stream, "\n");
     }
