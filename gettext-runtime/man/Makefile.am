@@ -81,12 +81,15 @@ uninstall-local: uninstall-html
 # not the binary; we don't need to regenerate the binary when any
 # source file changes, only the main one.
 
-gettext.1: gettext.1.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f gettext.1.in; then echo .; else echo $(srcdir); fi`/gettext.1.in > t-$@
-	mv t-$@ $@
-ngettext.1: ngettext.1.in Makefile
-	sed -e 's|@''localedir''@|$(localedir)|g' < `if test -f ngettext.1.in; then echo .; else echo $(srcdir); fi`/ngettext.1.in > t-$@
-	mv t-$@ $@
+gettext.1 ngettext.1: Makefile
+	srcdir=''; \
+	test -f ./$@.in || srcdir=$(srcdir)/; \
+	if test -f $${srcdir}$@.in; then \
+	  sed -e 's|@''localedir''@|$(localedir)|g' $${srcdir}$@.in > t-$@; \
+	  mv t-$@ $@; \
+        fi
+gettext.1: gettext.1.in
+ngettext.1: ngettext.1.in
 
 gettext.1.in: gettext.x ../src/gettext.c
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/gettext$(EXEEXT) $(srcdir)/gettext.x gettext.1.in

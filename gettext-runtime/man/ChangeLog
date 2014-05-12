@@ -1,3 +1,9 @@
+2014-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (gettext.1 ngettext.1): Don't try to replace
+	@localedir@ in .1.in if x-to-1 fails; rewrite the target using the
+	snippet in the Autoconf manual.
+
 2014-04-22  Daiki Ueno  <ueno@gnu.org>
 
 	build: Use git-version-gen intead of version.sh
