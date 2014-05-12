@@ -1268,6 +1268,30 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
     fclose (fp);
 }
 
+static void
+add_languages (string_list_ty *languages, const char *line, size_t length)
+{
+  char *start;
+
+  /* Split the line by whitespace and build the languages list.  */
+  for (start = (char *) line; start - line < length; )
+    {
+      char *p;
+
+      /* Skip whitespace before the string.  */
+      while (*start == ' ' || *start == '\t')
+        start++;
+
+      p = start;
+      while (*p != '\0' && *p != ' ' && *p != '\t')
+        p++;
+
+      *p = '\0';
+      string_list_append_unique (languages, start);
+      start = p + 1;
+    }
+}
+
 /* Compute the languages list by reading the "LINGUAS" envvar or the
    LINGUAS file under DIRECTORY.  */
 static string_list_ty *
@@ -1279,19 +1303,7 @@ get_languages (const char *directory)
   languages = string_list_alloc ();
   envval = getenv ("LINGUAS");
   if (envval)
-    {
-      char *saveptr;
-      for (; ; envval = NULL)
-        {
-          char *language = strtok_r (envval, " \t", &saveptr);
-
-          if (!language)
-            break;
-
-          string_list_append_unique (languages, language);
-          free (language);
-        }
-    }
+    add_languages (languages, envval, strlen (envval));
   else
     {
       char *linguas_file_name;
@@ -1344,23 +1356,7 @@ get_languages (const char *directory)
           if (*line_buf == '\0' || *line_buf == '#')
             continue;
 
-          /* Split the line by whitespace and build the languages list.  */
-          for (start = line_buf; start - line_buf < len; )
-            {
-              char *p;
-
-              /* Skip whitespace before the string.  */
-              while (*start == ' ' || *start == '\t')
-                start++;
-
-              p = start;
-              while (*p != '\0' && *p != ' ' && *p != '\t')
-                p++;
-
-              *p = '\0';
-              string_list_append_unique (languages, start);
-              start = p + 1;
-            }
+          add_languages (languages, line_buf, len);
         }
 
       free (line_buf);

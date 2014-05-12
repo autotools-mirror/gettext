@@ -2684,17 +2684,17 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
           ap->alternative[i].argtotal = shapes->shapes[i].argtotal;
           ap->alternative[i].xcomments = shapes->shapes[i].xcomments;
           ap->alternative[i].msgctxt = NULL;
-          ap->alternative[i].msgctxt_escape = 0;
+          ap->alternative[i].msgctxt_escape = LET_NONE;
           ap->alternative[i].msgctxt_pos.file_name = NULL;
           ap->alternative[i].msgctxt_pos.line_number = (size_t)(-1);
           ap->alternative[i].msgid = NULL;
-          ap->alternative[i].msgid_escape = 0;
+          ap->alternative[i].msgid_escape = LET_NONE;
           ap->alternative[i].msgid_context = null_context;
           ap->alternative[i].msgid_pos.file_name = NULL;
           ap->alternative[i].msgid_pos.line_number = (size_t)(-1);
           ap->alternative[i].msgid_comment = NULL;
           ap->alternative[i].msgid_plural = NULL;
-          ap->alternative[i].msgid_plural_escape = 0;
+          ap->alternative[i].msgid_plural_escape = LET_NONE;
           ap->alternative[i].msgid_plural_context = null_context;
           ap->alternative[i].msgid_plural_pos.file_name = NULL;
           ap->alternative[i].msgid_plural_pos.line_number = (size_t)(-1);
@@ -2819,7 +2819,7 @@ arglist_parser_remember (struct arglist_parser *ap,
 {
   arglist_parser_remember_literal (ap, argnum, string, context,
                                    file_name, line_number,
-                                   comment, 0);
+                                   comment, LET_NONE);
 }
 
 bool

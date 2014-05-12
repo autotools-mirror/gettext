@@ -1,3 +1,9 @@
+2014-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	build: Fix Woe32 cross build
+	* woe32dll/gettextsrc-exports.c: Don't export line_comment and
+	po_lex_iconv if undefined.
+
 2014-04-22  Daiki Ueno  <ueno@gnu.org>
 
 	build: Use git-version-gen intead of version.sh

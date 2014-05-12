@@ -251,6 +251,7 @@ extern refcounted_string_list_ty *
 
 enum literalstring_escape_type
 {
+  LET_NONE = 0,
   LET_ANSI_C = 1 << 0,
   LET_UNICODE = 1 << 1
 };

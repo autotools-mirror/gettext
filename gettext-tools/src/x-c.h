@@ -84,7 +84,7 @@ extern void init_flag_table_objc (void);
 extern void init_flag_table_gcc_internal (void);
 
 
-extern DLL_VARIABLE struct literalstring_parser literalstring_c;
+extern struct literalstring_parser literalstring_c;
 
 
 #ifdef __cplusplus

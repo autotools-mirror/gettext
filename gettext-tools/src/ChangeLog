@@ -1,3 +1,15 @@
+2014-05-12  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfmt.c (add_languages): New function split from get_languages.
+	(get_languages): Use add_languages instead of manually parsing
+	LINGUAS envvar with strtok_r.
+
+	* x-c.h (literalstring_c): Remove unnecessary DLL_VARIABLE.
+	* xgettext.c (arglist_parser_alloc): Use LET_NONE instead of 0.
+	(arglist_parser_remember): Likewise.
+	* xgettext.h (enum literalstring_escape_type): New enum value
+	LET_NONE.
+
 2014-05-10  Guido Flohr  <guido@imperia.net>
 
 	msgattrib: Add --empty option to clear msgstr
