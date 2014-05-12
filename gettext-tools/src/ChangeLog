@@ -1,3 +1,9 @@
+2014-05-13  Felipe Sateler <fsateler@debian.org>  (tiny change)
+
+	project-id: Add missing quotes around `pwd` for basename
+	Problem reported at <http://bugs.debian.org/654779>.
+	* project-id: Quote argument of the basename command.
+
 2014-05-12  Daiki Ueno  <ueno@gnu.org>
 
 	msgfilter: Fix quote handling of doubled grave charaters
