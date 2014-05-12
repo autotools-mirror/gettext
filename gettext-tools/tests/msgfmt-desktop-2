@@ -7,8 +7,10 @@ cat <<\EOF > mf.desktop
 [Desktop Entry]
 Type=Application
 Name =Foo
+
 Comment[foo]=Already translated comment
 Comment= \sThis is a \nmultiline comment; for testing
+# This is a comment and must be preserved
 Keywords=Keyword1;Keyword2;Key\;word3;
 EOF
 
@@ -98,10 +100,12 @@ Type=Application
 Name[de]=German\nfoo
 Name[fr]=French\nfoo
 Name=Foo
+
 Comment[foo]=Already translated comment
 Comment[de]=German \ncomment
 Comment[fr]=French \ncomment
 Comment=\sThis is a \nmultiline comment; for testing
+# This is a comment and must be preserved
 Keywords[de]=one;two;thr\;ee;
 Keywords[fr]=one;two;thr\;ee;
 Keywords=Keyword1;Keyword2;Key\;word3;

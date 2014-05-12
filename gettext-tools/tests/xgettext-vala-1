@@ -5,7 +5,9 @@
 
 cat <<\EOF > xg-vala-1.vala
 int main (string[] args) {
-    var s1 = "Simple string, no gettext needed";
+    var s1 = "Simple string, " + " no gettext needed";
+    var c1 = '\'';
+    // This is a C++ style comment
     var s2 = _("Extract this first string");
     var s3 = "Prefix _(" + _("Extract this second string") + ") Postfix";
 
@@ -18,6 +20,8 @@ int main (string[] args) {
     fourth string""");
 
     var s5 = _("Extract this \u2464th string");
+
+    var s6 = /_("This is a regex literal and must not be extracted!")/i;
     return 0;
 }
 EOF
@@ -48,6 +52,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#. This is a C++ style comment
 msgid "Extract this first string"
 msgstr ""
 
