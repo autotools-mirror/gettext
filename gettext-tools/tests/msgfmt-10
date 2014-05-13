@@ -70,7 +70,7 @@ ${MSGFMT} --check -o /dev/null mf-test10.po2 \
 cat << EOF > mf-test10.ok
 mf-test10.po2:6: warning: header field 'Language' missing in header
 mf-test10.po2:20: number of format specifications in 'msgid_plural' and 'msgstr[1]' does not match
-msgfmt: found 1 fatal error
+msgfmt: found 2 fatal errors
 EOF
 
 : ${DIFF=diff}
