@@ -1,3 +1,8 @@
+2014-05-14  Daiki Ueno  <ueno@gnu.org>
+
+	* configure.ac: Adjust $docdir assuming that AC_PACKAGE_TARNAME is
+	set.
+
 2014-05-12  Daiki Ueno  <ueno@gnu.org>
 
 	build: Fix Woe32 cross build

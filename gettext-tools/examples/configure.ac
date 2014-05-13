@@ -25,7 +25,7 @@ AC_CONFIG_AUX_DIR([../../build-aux])
 AM_INIT_AUTOMAKE([silent-rules])
 
 dnl Installation directories.
-test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
+test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
 
 AM_PO_SUBDIRS
 

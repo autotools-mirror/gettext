@@ -1,3 +1,8 @@
+2014-05-14  Daiki Ueno  <ueno@gnu.org>
+
+	* configure.ac: Adjust $docdir assuming that AC_PACKAGE_TARNAME is
+	set.
+
 2014-05-06  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (install-data-local): Don't fail if a PO file does

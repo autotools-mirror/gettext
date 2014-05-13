@@ -26,7 +26,7 @@ AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
 AC_CONFIG_HEADERS([config.h])
 
 dnl Installation directories.
-test "$docdir" != '${datarootdir}/doc/${PACKAGE}' || docdir='${datarootdir}/doc/gettext'
+test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
 
 dnl Checks for programs.
 AC_PROG_CC
