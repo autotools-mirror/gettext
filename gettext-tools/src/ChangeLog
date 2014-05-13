@@ -1,3 +1,11 @@
+2014-05-13  Daiki Ueno  <ueno@gnu.org>
+
+	msgfmt: Accumulate errors when parsing the PO header
+	Problem reported by Peter Eisentraut at
+	<https://savannah.gnu.org/bugs/?40262>.
+	* msgl-check.c (check_header_entry): Return the number of errors.
+	(check_message): Check the return value of check_header_entry.
+
 2014-05-13  Felipe Sateler <fsateler@debian.org>  (tiny change)
 
 	project-id: Add missing quotes around `pwd` for basename

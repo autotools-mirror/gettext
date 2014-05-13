@@ -751,7 +751,7 @@ plural handling is a GNU gettext extension"));
 
 
 /* Perform miscellaneous checks on a header entry.  */
-static void
+static int
 check_header_entry (const message_ty *mp, const char *msgstr_string)
 {
   static const char *required_fields[] =
@@ -770,6 +770,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
   };
   const size_t nfields = SIZEOF (required_fields);
   const size_t nrequiredfields = nfields - 1;
+  int seen_errors = 0;
   int cnt;
 
   for (cnt = 0; cnt < nfields; ++cnt)
@@ -797,11 +798,12 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
                   p += strlen (default_values[cnt]);
                   if (*p == '\0' || *p == '\n')
                     {
-		      char *msg =
-			xasprintf (_("header field '%s' still has the initial default value\n"),
-				   field);
-		      po_xerror (severity, mp, NULL, 0, 0, true, msg);
-		      free (msg);
+                      char *msg =
+                        xasprintf (_("header field '%s' still has the initial default value\n"),
+                                   field);
+                      po_xerror (severity, mp, NULL, 0, 0, true, msg);
+                      free (msg);
+                      seen_errors++;
                     }
                 }
               break;
@@ -817,8 +819,10 @@ check_header_entry (const message_ty *mp, const char *msgstr_string)
                        field);
           po_xerror (severity, mp, NULL, 0, 0, true, msg);
           free (msg);
+          seen_errors++;
         }
     }
+  return seen_errors;
 }
 
 
@@ -834,18 +838,21 @@ check_message (const message_ty *mp,
                int check_compatibility,
                int check_accelerators, char accelerator_char)
 {
-  if (check_header && is_header (mp))
-    check_header_entry (mp, mp->msgstr);
+  int seen_errors = 0;
 
-  return check_pair (mp,
-                     mp->msgid, msgid_pos, mp->msgid_plural,
-                     mp->msgstr, mp->msgstr_len,
-                     mp->is_format,
-                     check_newlines,
-                     check_format_strings,
-                     distribution,
-                     check_compatibility,
-                     check_accelerators, accelerator_char);
+  if (check_header && is_header (mp))
+    seen_errors += check_header_entry (mp, mp->msgstr);
+
+  seen_errors += check_pair (mp,
+                             mp->msgid, msgid_pos, mp->msgid_plural,
+                             mp->msgstr, mp->msgstr_len,
+                             mp->is_format,
+                             check_newlines,
+                             check_format_strings,
+                             distribution,
+                             check_compatibility,
+                             check_accelerators, accelerator_char);
+  return seen_errors;
 }
 
 
