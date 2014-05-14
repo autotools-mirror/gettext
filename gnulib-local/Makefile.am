@@ -283,7 +283,6 @@ modules/memory-ostream \
 modules/moo \
 modules/moo-tests \
 modules/ostream \
-modules/regex.diff \
 modules/styled-ostream \
 modules/termcap \
 modules/termcap-h \
