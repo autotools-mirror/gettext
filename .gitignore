@@ -8,6 +8,8 @@
 *.o
 *.la
 *.lo
+*.gcno
+*.gcda
 *.class
 *.elc
 *.dll

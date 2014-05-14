@@ -2,6 +2,7 @@
 /po-gram-gen.c
 /po-gram-gen.h
 /po-gram-gen2.h
+/.dirstamp
 
 # Executables generated:
 /user-email
