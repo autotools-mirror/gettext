@@ -1,3 +1,9 @@
+2014-05-14  Daiki Ueno  <ueno@gnu.org>
+
+	msgfmt: Report error on accelerator mismatch
+	* msgfmt-18: New test.
+	* Makefile.am (TESTS): Add new test.
+
 2014-05-13  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfmt-10: Increment expected error count.

@@ -1,3 +1,9 @@
+2014-05-14  Daiki Ueno  <ueno@gnu.org>
+
+	msgfmt: Report error on accelerator mismatch
+	* msgl-check.c (check_pair): Increment error count on missing
+	accelerator character or too many accelerators.
+
 2014-05-13  Daiki Ueno  <ueno@gnu.org>
 
 	msgfmt: Accumulate errors when parsing the PO header

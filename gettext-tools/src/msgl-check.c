@@ -732,6 +732,7 @@ plural handling is a GNU gettext extension"));
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, msg);
               free (msg);
+              seen_errors++;
             }
           else if (count > 1)
             {
@@ -742,6 +743,7 @@ plural handling is a GNU gettext extension"));
                          mp, msgid_pos->file_name, msgid_pos->line_number,
                          (size_t)(-1), false, msg);
               free (msg);
+              seen_errors++;
             }
         }
     }
