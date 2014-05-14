@@ -647,8 +647,8 @@ process_message (message_ty *mp)
     return;
 
   /* Set environment variables for the subprocess.
-     Note: These environment variables, especially MSGEXEC_MSGCTXT and
-     MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
+     Note: These environment variables, especially MSGFILTER_MSGCTXT and
+     MSGFILTER_MSGID, may contain non-ASCII characters.  The subprocess
      may not interpret these values correctly if the locale encoding is
      different from the PO file's encoding.  We want about this situation,
      above.

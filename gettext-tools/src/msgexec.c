@@ -355,7 +355,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
 
       /* Set environment variables for the subprocess.
          Note: These environment variables, especially MSGEXEC_MSGCTXT and
-         MSGEXEC_MSGCTXT, may contain non-ASCII characters.  The subprocess
+         MSGEXEC_MSGID, may contain non-ASCII characters.  The subprocess
          may not interpret these values correctly if the locale encoding is
          different from the PO file's encoding.  We want about this situation,
          above.
