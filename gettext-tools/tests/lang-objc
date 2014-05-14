@@ -62,7 +62,7 @@ ${CC} -I../.. -I"$abs_top_srcdir"/gnulib-lib -I../../intl ${CFLAGS} \
 
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
 ${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CC --mode=link \
-                ${CC} -o l-objc-prog prog.${OBJEXT} \
+                ${CC} ${CFLAGS} -o l-objc-prog prog.${OBJEXT} \
                 ../../gnulib-lib/libgettextlib.la ${LDFLAGS} ${LTLIBINTL} \
 		|| exit 1
 

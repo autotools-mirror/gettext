@@ -1,5 +1,11 @@
 2014-05-14  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Fix errors when CFLAGS contains --coverage
+	* lang-c: Supply $CFLAGS to the libtool link command.
+	* lang-objc: Likewise.
+
+2014-05-14  Daiki Ueno  <ueno@gnu.org>
+
 	msgfmt: Report error on accelerator mismatch
 	* msgfmt-18: New test.
 	* Makefile.am (TESTS): Add new test.
