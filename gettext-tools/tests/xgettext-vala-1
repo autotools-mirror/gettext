@@ -84,7 +84,6 @@ test $? = 0 || { cat xg-vala-1.err; exit 1; }
 # only outputs "Binary file (standard input) matches".
 cat xg-vala-1.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-vala-1.pot
 
-cp xg-vala-1.pot ..
 cat <<\EOF > xg-vala-1.all.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
