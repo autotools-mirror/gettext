@@ -25,6 +25,9 @@ msgstr "{baz} {bar} {foo} {bar}"
 # Valid: single reuse of same argument
 msgid  "{baz} {bar} {foo} {bar}"
 msgstr "{foo} {bar} {baz}"
+# Valid: "{{" is an escape of "{"
+msgid  "abc{{{x1}{x2}"
+msgstr "{x2}abc{x1}"
 EOF
 
 : ${MSGFMT=msgfmt}

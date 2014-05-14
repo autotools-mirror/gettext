@@ -6,6 +6,10 @@
 cat <<\EOF > f-pyb-1.data
 # Invalid: no argument
 "abc"
+# Invalid: escaped braces
+"abc{{}}"
+# Valid: a numeric argument
+"abc{0}"
 # Valid: a named argument
 "abc{value}"
 # Invalid: an empty name
@@ -22,6 +26,10 @@ cat <<\EOF > f-pyb-1.data
 "abc{value[name]}"
 # Invalid: unterminated getitem operator
 "abc{value[name}"
+# Invalid: unterminated getitem operator
+"abc{value[0}"
+# Invalid: unknown character in getitem operator
+"abc{value[!]}"
 # Valid: format specifier
 "abc{value:0}"
 # Valid: standard format specifier
