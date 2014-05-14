@@ -69,6 +69,16 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
                          + (bold ? 7 : 3) * quote_count + 1,
                          char);
 
+#undef COPY_SEEN
+#define COPY_SEEN                             \
+  do                                            \
+    {                                           \
+      memcpy (r, start, p - start);             \
+      r += p - start;                           \
+      start = p;                                \
+    }                                           \
+  while (0)
+
   for (p = start; p <= end; p++)
     {
       switch (*p)
@@ -111,10 +121,7 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
             }
           else
             {
-              /* Copy the preceding string to R.  */
-              memcpy (r, start, p - start);
-              r += p - start;
-              start = p;
+              COPY_SEEN;
               state = true;
             }
           break;
@@ -123,18 +130,11 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
           if (state)
             {
               if (*start == '`')
-                {
-                  memcpy (r, start, p - start);
-                  r += p - start;
-                  start = p;
-                }
+                COPY_SEEN;
             }
           else
             {
-              /* Copy the preceding string to R.  */
-              memcpy (r, start, p - start);
-              r += p - start;
-              start = p;
+              COPY_SEEN;
               state = true;
             }
           break;
@@ -179,25 +179,19 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
                   start = p + 1;
                 }
               else
-                {
-                  /* Copy the preceding string to R.  */
-                  memcpy (r, start, p - start);
-                  r += p - start;
-                  start = p;
-                }
+                COPY_SEEN;
               state = false;
             }
           else if (p == input || *(p - 1) == '\n' || *(p - 1) == ' ')
             {
-              /* Copy the preceding string to R.  */
-              memcpy (r, start, p - start);
-              r += p - start;
-              start = p;
+              COPY_SEEN;
               state = true;
             }
           break;
         }
     }
+
+#undef COPY_SEEN
 
   /* Copy the rest to R.  */
   if (p > start)
