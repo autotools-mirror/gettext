@@ -1,5 +1,10 @@
 2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
 
+	* msgfilter.texi: Document the environment variable
+	MSGFILTER_MSGID_PLURAL and MSGFILTER_PLURAL_FORM.
+
+2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
+
 	* msgexec.texi: Document the environment variable
 	MSGEXEC_MSGID_PLURAL and MSGEXEC_PLURAL_FORM.
 

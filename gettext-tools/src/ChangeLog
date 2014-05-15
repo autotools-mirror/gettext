@@ -1,5 +1,11 @@
 2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
 
+	msgfilter: Implement plural support
+	* msgfilter.c (process_message): Set or unset
+	MSGFILTER_MSGID_PLURAL and MSGFILTER_PLURAL_FORM.
+
+2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
+
 	msgexec: Implement plural support
 	* msgexec.c (process_string): Set or unset MSGEXEC_MSGID_PLURAL.
 	(process_message): Set or unset MSGEXEC_PLURAL_FORM.

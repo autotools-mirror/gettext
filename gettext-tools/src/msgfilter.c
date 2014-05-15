@@ -663,6 +663,10 @@ process_message (message_ty *mp)
   else
     unsetenv ("MSGFILTER_MSGCTXT");
   xsetenv ("MSGFILTER_MSGID", mp->msgid, 1);
+  if (mp->msgid_plural != NULL)
+    xsetenv ("MSGFILTER_MSGID_PLURAL", mp->msgid_plural, 1);
+  else
+    unsetenv ("MSGFILTER_MSGID_PLURAL");
   location = xasprintf ("%s:%ld", mp->pos.file_name,
                         (long) mp->pos.line_number);
   xsetenv ("MSGFILTER_LOCATION", location, 1);
@@ -680,6 +684,15 @@ process_message (message_ty *mp)
       char *result;
       size_t length;
 
+      if (mp->msgid_plural != NULL)
+        {
+          char *plural_form_string = xasprintf ("%lu", k);
+
+          xsetenv ("MSGFILTER_PLURAL_FORM", plural_form_string, 1);
+          free (plural_form_string);
+        }
+      else
+        unsetenv ("MSGFILTER_PLURAL_FORM");
       process_string (p, strlen (p), &result, &length);
       result = (char *) xrealloc (result, length + 1);
       result[length] = '\0';

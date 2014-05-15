@@ -10,13 +10,18 @@ translation catalog.
 
 @vindex MSGFILTER_MSGCTXT@r{, environment variable}
 @vindex MSGFILTER_MSGID@r{, environment variable}
+@vindex MSGFILTER_MSGID_PLURAL@r{, environment variable}
 @vindex MSGFILTER_LOCATION@r{, environment variable}
+@vindex MSGFILTER_PLURAL_FORM@r{, environment variable}
 During each @var{filter} invocation, the environment variable
 @code{MSGFILTER_MSGID} is bound to the message's msgid, and the environment
 variable @code{MSGFILTER_LOCATION} is bound to the location in the PO file
 of the message.  If the message has a context, the environment variable
 @code{MSGFILTER_MSGCTXT} is bound to the message's msgctxt, otherwise it is
-unbound.
+unbound.  If the message has a plural form, environment variable
+@code{MSGFILTER_MSGID_PLURAL} is bound to the message's msgid_plural and
+@code{MSGFILTER_PLURAL_FORM} is bound to the order number of the plural
+actually processed (starting with 0), otherwise both are unbound.
 
 @subsection Input file location
 
