@@ -1,5 +1,11 @@
 2014-05-15  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Add test for msgexec plural handling
+	* msgexec-5: New test.
+	* Makefile.am (TESTS): Add new test.
+
+2014-05-15  Daiki Ueno  <ueno@gnu.org>
+
 	* msginit-3: Fix charset value after msginit invocation.
 
 2014-05-14  Daiki Ueno  <ueno@gnu.org>
