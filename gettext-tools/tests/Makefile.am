@@ -42,6 +42,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	msgen-1 msgen-2 msgen-3 msgen-4 \
 	msgexec-1 msgexec-2 msgexec-3 msgexec-4 msgexec-5 \
 	msgfilter-1 msgfilter-2 msgfilter-3 msgfilter-4 msgfilter-5 \
+	msgfilter-6 \
 	msgfilter-sr-latin-1 msgfilter-quote-1 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
