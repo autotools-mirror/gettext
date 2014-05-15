@@ -1,3 +1,8 @@
+2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
+
+	* msgexec.texi: Document the environment variable
+	MSGEXEC_MSGID_PLURAL and MSGEXEC_PLURAL_FORM.
+
 2014-05-10  Guido Flohr  <guido@imperia.net>
 
 	msgattrib: Add --empty option to clear msgstr

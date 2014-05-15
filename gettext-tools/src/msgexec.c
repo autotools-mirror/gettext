@@ -370,6 +370,10 @@ process_string (const message_ty *mp, const char *str, size_t len)
       else
         unsetenv ("MSGEXEC_MSGCTXT");
       xsetenv ("MSGEXEC_MSGID", mp->msgid, 1);
+      if (mp->msgid_plural != NULL)
+        xsetenv ("MSGEXEC_MSGID_PLURAL", mp->msgid_plural, 1);
+      else
+        unsetenv ("MSGEXEC_MSGID_PLURAL");
       location = xasprintf ("%s:%ld", mp->pos.file_name,
                             (long) mp->pos.line_number);
       xsetenv ("MSGEXEC_LOCATION", location, 1);
@@ -409,12 +413,22 @@ process_message (const message_ty *mp)
   const char *msgstr = mp->msgstr;
   size_t msgstr_len = mp->msgstr_len;
   const char *p;
+  size_t k;
 
   /* Process each NUL delimited substring separately.  */
-  for (p = msgstr; p < msgstr + msgstr_len; )
+  for (p = msgstr, k = 0; p < msgstr + msgstr_len; k++)
     {
       size_t length = strlen (p);
 
+      if (mp->msgid_plural != NULL)
+        {
+          char *plural_form_string = xasprintf ("%lu", k);
+
+          xsetenv ("MSGEXEC_PLURAL_FORM", plural_form_string, 1);
+          free (plural_form_string);
+        }
+      else
+        unsetenv ("MSGEXEC_PLURAL_FORM");
       process_string (mp, p, length);
 
       p += length + 1;
