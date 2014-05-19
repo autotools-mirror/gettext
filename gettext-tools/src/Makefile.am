@@ -450,7 +450,10 @@ BUILT_SOURCES = \
 
 po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > $@-tmp
+	srcdir=''; \
+	test -f ./po-gram-gen.h || srcdir=$(srcdir)/; \
+	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' \
+	  $${srcdir}po-gram-gen.h > $@-tmp && \
 	mv $@-tmp $@
 
 

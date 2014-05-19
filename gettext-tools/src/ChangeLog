@@ -1,3 +1,8 @@
+2014-05-19  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (po-gram-gen2.h): Adjust the directory to which
+	po-gram-gen.h, for VPATH build.
+
 2014-05-15  Stanislav Brabec  <sbrabec@suse.cz>  (tiny change)
 
 	msgfilter: Implement plural support
