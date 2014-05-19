@@ -26,29 +26,32 @@ EXTRA_DIST =
 
 man_aux = \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
-msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x msggrep.x msginit.x msguniq.x \
+msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x \
+msggrep.x msginit.x msguniq.x \
 recode-sr-latin.x \
 gettextize.x autopoint.x
 
 # Likewise.
 
-man_MAN1OTHER = \
+man_MAN1SRC = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
-msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 msggrep.1 msginit.1 msguniq.1 \
-recode-sr-latin.1 \
+msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 \
+msggrep.1 msginit.1 msguniq.1 \
+recode-sr-latin.1
+man_MAN1MISC = \
 gettextize.1 autopoint.1
-man_MAN1 = $(man_MAN1OTHER)
+man_MAN1 = $(man_MAN1SRC) $(man_MAN1MISC)
 man_MANS = $(man_MAN1)
 
-man_HTMLOTHER = \
+man_HTML = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
-msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
+msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html \
+msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
 recode-sr-latin.1.html \
 gettextize.1.html autopoint.1.html
-man_HTML = $(man_HTMLOTHER)
 
-EXTRA_DIST += help2man $(man_aux) $(man_MAN1OTHER) $(man_HTMLOTHER) ChangeLog.0
-MAINTAINERCLEANFILES = $(man_MAN1OTHER) $(man_HTMLOTHER)
+EXTRA_DIST += help2man $(man_aux) $(man_MANS) $(man_HTML) ChangeLog.0
+MAINTAINERCLEANFILES = $(man_MANS) $(man_HTML)
 
 PERL = @PERL@
 RM = rm -f
@@ -60,6 +63,15 @@ HELP2MAN = $(PERL) -w -- $(srcdir)/help2man
 MAN2HTML = groff -mandoc -Thtml
 
 UPDATEMODE =
+
+
+gt_man2html = \
+	if test -f $${srcdir}$$m; then \
+	  $(MAN2HTML) $${srcdir}$$m > t-$@ && \
+	  sed -e '/CreationDate:/d' < t-$@ > t2-$@ && \
+	  mv t2-$@ $@; \
+	  rm -f t-$@ t2-$@; \
+	fi
 
 
 # We distribute both the man pages and their HTML equivalent.
@@ -80,105 +92,66 @@ uninstall-local: uninstall-html
 # binary; we don't need to regenerate the binary when any source file
 # changes, only the main one.
 
+$(man_MAN1SRC): help2man $(top_srcdir)/../.version
+	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
+	  ../src/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
+
 msgcmp.1: msgcmp.x ../src/msgcmp.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcmp$(EXEEXT) $(srcdir)/msgcmp.x msgcmp.1
 msgfmt.1: msgfmt.x ../src/msgfmt.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfmt$(EXEEXT) $(srcdir)/msgfmt.x msgfmt.1
 msgmerge.1: msgmerge.x ../src/msgmerge.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgmerge$(EXEEXT) $(srcdir)/msgmerge.x msgmerge.1
 msgunfmt.1: msgunfmt.x ../src/msgunfmt.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgunfmt$(EXEEXT) $(srcdir)/msgunfmt.x msgunfmt.1
 xgettext.1: xgettext.x ../src/xgettext.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/xgettext$(EXEEXT) $(srcdir)/xgettext.x xgettext.1
 msgattrib.1: msgattrib.x ../src/msgattrib.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgattrib$(EXEEXT) $(srcdir)/msgattrib.x msgattrib.1
 msgcat.1: msgcat.x ../src/msgcat.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcat$(EXEEXT) $(srcdir)/msgcat.x msgcat.1
 msgcomm.1: msgcomm.x ../src/msgcomm.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgcomm$(EXEEXT) $(srcdir)/msgcomm.x msgcomm.1
 msgconv.1: msgconv.x ../src/msgconv.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgconv$(EXEEXT) $(srcdir)/msgconv.x msgconv.1
 msgen.1: msgen.x ../src/msgen.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgen$(EXEEXT) $(srcdir)/msgen.x msgen.1
 msgexec.1: msgexec.x ../src/msgexec.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgexec$(EXEEXT) $(srcdir)/msgexec.x msgexec.1
 msgfilter.1: msgfilter.x ../src/msgfilter.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msgfilter$(EXEEXT) $(srcdir)/msgfilter.x msgfilter.1
 msggrep.1: msggrep.x ../src/msggrep.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msggrep$(EXEEXT) $(srcdir)/msggrep.x msggrep.1
 msginit.1: msginit.x ../src/msginit.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msginit$(EXEEXT) $(srcdir)/msginit.x msginit.1
 msguniq.1: msguniq.x ../src/msguniq.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/msguniq$(EXEEXT) $(srcdir)/msguniq.x msguniq.1
 recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin.c
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../src/recode-sr-latin$(EXEEXT) $(srcdir)/recode-sr-latin.x recode-sr-latin.1
+
+$(man_MAN1MISC): help2man $(top_srcdir)/../.version
+	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
+	  ../misc/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
 
 gettextize.1: gettextize.x ../misc/gettextize.in
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/gettextize $(srcdir)/gettextize.x gettextize.1
 autopoint.1: autopoint.x ../misc/autopoint.in
-	$(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" ../misc/autopoint $(srcdir)/autopoint.x autopoint.1
-
-$(man_MAN1): help2man $(top_srcdir)/../.version
 
 
 # Man pages in HTML format.
 
 html-local: $(man_HTML)
 
+$(man_HTML):
+	srcdir=''; \
+	progname=`echo $@ | sed -e 's/\.1\.html$$//'`; \
+	m=$${progname}.1; \
+	test -f ./$$m || srcdir=$(srcdir)/; \
+	$(gt_man2html)
+
 msgcmp.1.html: msgcmp.1
-	$(MAN2HTML) `if test -f msgcmp.1; then echo .; else echo $(srcdir); fi`/msgcmp.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgfmt.1.html: msgfmt.1
-	$(MAN2HTML) `if test -f msgfmt.1; then echo .; else echo $(srcdir); fi`/msgfmt.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgmerge.1.html: msgmerge.1
-	$(MAN2HTML) `if test -f msgmerge.1; then echo .; else echo $(srcdir); fi`/msgmerge.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgunfmt.1.html: msgunfmt.1
-	$(MAN2HTML) `if test -f msgunfmt.1; then echo .; else echo $(srcdir); fi`/msgunfmt.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 xgettext.1.html: xgettext.1
-	$(MAN2HTML) `if test -f xgettext.1; then echo .; else echo $(srcdir); fi`/xgettext.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgattrib.1.html: msgattrib.1
-	$(MAN2HTML) `if test -f msgattrib.1; then echo .; else echo $(srcdir); fi`/msgattrib.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgcat.1.html: msgcat.1
-	$(MAN2HTML) `if test -f msgcat.1; then echo .; else echo $(srcdir); fi`/msgcat.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgcomm.1.html: msgcomm.1
-	$(MAN2HTML) `if test -f msgcomm.1; then echo .; else echo $(srcdir); fi`/msgcomm.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgconv.1.html: msgconv.1
-	$(MAN2HTML) `if test -f msgconv.1; then echo .; else echo $(srcdir); fi`/msgconv.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgen.1.html: msgen.1
-	$(MAN2HTML) `if test -f msgen.1; then echo .; else echo $(srcdir); fi`/msgen.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgexec.1.html: msgexec.1
-	$(MAN2HTML) `if test -f msgexec.1; then echo .; else echo $(srcdir); fi`/msgexec.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msgfilter.1.html: msgfilter.1
-	$(MAN2HTML) `if test -f msgfilter.1; then echo .; else echo $(srcdir); fi`/msgfilter.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msggrep.1.html: msggrep.1
-	$(MAN2HTML) `if test -f msggrep.1; then echo .; else echo $(srcdir); fi`/msggrep.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msginit.1.html: msginit.1
-	$(MAN2HTML) `if test -f msginit.1; then echo .; else echo $(srcdir); fi`/msginit.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 msguniq.1.html: msguniq.1
-	$(MAN2HTML) `if test -f msguniq.1; then echo .; else echo $(srcdir); fi`/msguniq.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 recode-sr-latin.1.html: recode-sr-latin.1
-	$(MAN2HTML) `if test -f recode-sr-latin.1; then echo .; else echo $(srcdir); fi`/recode-sr-latin.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 gettextize.1.html: gettextize.1
-	$(MAN2HTML) `if test -f gettextize.1; then echo .; else echo $(srcdir); fi`/gettextize.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 autopoint.1.html: autopoint.1
-	$(MAN2HTML) `if test -f autopoint.1; then echo .; else echo $(srcdir); fi`/autopoint.1 | sed -e '/CreationDate:/d' > t-$@
-	mv t-$@ $@
 
 install-html-local:
 	$(MKDIR_P) $(DESTDIR)$(htmldir)

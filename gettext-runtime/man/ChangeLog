@@ -1,3 +1,19 @@
+2014-05-19  Daiki Ueno  <ueno@gnu.org>
+
+	build: Simplify man and HTML documentation generation
+	Problem reported by Santiago Vila in:
+	<https://lists.gnu.org/archive/html/bug-gettext/2014-05/msg00024.html>.
+	* Makefile.am (man_HTML1GEN): Rename from man_HTMLGEN.
+	(man_HTML1IN): Rename from man_HTMLIN.
+	(man_HTML1OTHER): Rename from man_HTMLOTHER.
+	(man_HTML1): New variable.
+	(man_HTML3): New variable split from man_HTMLOTHER.
+	(gt_man2html): New variable; don't overwrite output if groff fails.
+	($(man_HTML1GEN)): Don't overwrite output if sed fails.
+	($(man_HTML1IN)): Rewrite using $(gt_man2html).
+	($(man_HTML1OTHER)): Rewrite using $(gt_man2html).
+	($(man_HTML3)): Rewrite using $(gt_man2html).
+
 2014-05-12  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (gettext.1 ngettext.1): Don't try to replace
