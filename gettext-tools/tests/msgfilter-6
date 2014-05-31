@@ -15,6 +15,8 @@ msgstr "'Votre commande, s'il vous plait', dit le garcon."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, c-format
+#| msgid "a piece of bread"
+#| msgid_plural "%d pieces of bread"
 msgid "a piece of cake"
 msgid_plural "%d pieces of cake"
 msgstr[0] "un morceau de gateau"
@@ -38,6 +40,8 @@ cat >> mf-test6.tmp <<MEOF
 $MSGFILTER_MSGID
 $MSGFILTER_MSGID_PLURAL
 $MSGFILTER_PLURAL_FORM
+$MSGFILTER_PREV_MSGID
+$MSGFILTER_PREV_MSGID_PLURAL
 MEOF
 cat
 EOF
@@ -58,20 +62,30 @@ cat <<\EOF > mf-test6.ok
 
 
 
+
+
 ========================= mf-test6.po:8 =========================
 'Your command, please?', asked the waiter.
 
 
-========================= mf-test6.po:14 =========================
+
+
+========================= mf-test6.po:16 =========================
 a piece of cake
 %d pieces of cake
 0
-========================= mf-test6.po:14 =========================
+a piece of bread
+%d pieces of bread
+========================= mf-test6.po:16 =========================
 a piece of cake
 %d pieces of cake
 1
-========================= mf-test6.po:20 =========================
+a piece of bread
+%d pieces of bread
+========================= mf-test6.po:22 =========================
 %s is replaced by %s.
+
+
 
 
 EOF

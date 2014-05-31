@@ -671,6 +671,18 @@ process_message (message_ty *mp)
                         (long) mp->pos.line_number);
   xsetenv ("MSGFILTER_LOCATION", location, 1);
   free (location);
+  if (mp->prev_msgctxt != NULL)
+    xsetenv ("MSGFILTER_PREV_MSGCTXT", mp->prev_msgctxt, 1);
+  else
+    unsetenv ("MSGFILTER_PREV_MSGCTXT");
+  if (mp->prev_msgid != NULL)
+    xsetenv ("MSGFILTER_PREV_MSGID", mp->prev_msgid, 1);
+  else
+    unsetenv ("MSGFILTER_PREV_MSGID");
+  if (mp->prev_msgid_plural != NULL)
+    xsetenv ("MSGFILTER_PREV_MSGID_PLURAL", mp->prev_msgid_plural, 1);
+  else
+    unsetenv ("MSGFILTER_PREV_MSGID_PLURAL");
 
   /* Count NUL delimited substrings.  */
   for (p = msgstr, nsubstrings = 0;
