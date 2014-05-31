@@ -1,5 +1,11 @@
 2014-05-31  Daiki Ueno  <ueno@gnu.org>
 
+	* msgexec.texi: Document the environment variable
+	MSGEXEC_PREV_MSGCTXT, MSGEXEC_PREV_MSGID, and
+	MSGEXEC_PREV_MSGID_PLURAL.
+
+2014-05-31  Daiki Ueno  <ueno@gnu.org>
+
 	* msgfilter.texi: Document the environment variable
 	MSGFILTER_PREV_MSGCTXT, MSGFILTER_PREV_MSGID, and
 	MSGFILTER_PREV_MSGID_PLURAL.
