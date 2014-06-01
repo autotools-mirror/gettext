@@ -36,6 +36,7 @@ lib/error.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \
 lib/exitfail.h.diff \
+lib/execute.c.diff \
 lib/fd-ostream.oo.c \
 lib/fd-ostream.oo.h \
 lib/file-ostream.oo.c \
@@ -227,6 +228,7 @@ lib/ostream.oo.h \
 lib/progname.h.diff \
 lib/regexec.c.diff \
 lib/regex_internal.h.diff \
+lib/spawn-pipe.c.diff \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/term-ostream.oo.c \
