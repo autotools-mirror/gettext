@@ -1,3 +1,7 @@
+2014-06-02  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19 released.
+
 2014-05-31  Daiki Ueno  <ueno@gnu.org>
 
 	* msgexec-5: Test MSGEXEC_PREV_MSGID and MSGEXEC_PREV_MSGID_PLURAL.

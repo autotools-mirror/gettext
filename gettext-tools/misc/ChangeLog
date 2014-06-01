@@ -1,3 +1,7 @@
+2014-06-02  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19 released.
+
 2014-04-23  Daiki Ueno  <ueno@gnu.org>
 
 	autopoint: Unset variables known to interfere with common tools

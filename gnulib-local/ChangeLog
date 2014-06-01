@@ -1,5 +1,9 @@
 2014-06-02  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext 0.19 released.
+
+2014-06-02  Daiki Ueno  <ueno@gnu.org>
+
 	build: Handle 'environ' global variable differently on cygwin x86_64
 	Problem reported by Vasyl Khalak in:
 	<https://cygwin.com/ml/cygwin/2013-06/msg00228.html>.

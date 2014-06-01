@@ -1,3 +1,7 @@
+2014-06-02  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19 released.
+
 2014-05-11  Daiki Ueno  <ueno@gnu.org>
 
 	* xsize.c (_GL_UNUSED): Define, if undefined.
