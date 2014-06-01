@@ -1,3 +1,13 @@
+2014-06-01  Daiki Ueno  <ueno@gnu.org>
+
+	* ISO_639: Remove Moldavian. Update Bihari, Bengali, Catalan,
+	Church Slavic, Divehi, Dzongkha, Ewe, Greek, Spanish, Fijian,
+	Gaelic, Hebrew, Interlingua, Indonesian, Inupiak, Central Khmer,
+	Kirghiz, Luxembourgish, Limburgan, Lao, Latvian, Norwegian Bokmal,
+	North Ndebele, Dutch, Norwegian Nynorsk, South Ndebele, Occitan,
+	Oromo, Pushto, Rundi, Romanian, Sango, Swati, South Sotho, Tswana,
+	Tonga, Uighur, Volapuk, Yiddish, and Zhuang.
+
 2014-05-31  Daiki Ueno  <ueno@gnu.org>
 
 	* msgexec.texi: Document the environment variable
