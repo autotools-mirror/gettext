@@ -49,7 +49,7 @@ man_HTML = $(man_HTML1) $(man_HTML3)
 
 EXTRA_DIST += help2man $(man_aux) $(man_MAN1IN) $(man_MAN1OTHER) \
 $(man_MAN3) $(man_MAN3IN) $(man_MAN3LINK) \
-$(man_HTML1IN) $(man_HTML1OTHER)
+$(man_HTML1IN) $(man_HTML1OTHER) $(man_HTML3)
 CLEANFILES = $(man_MAN1GEN) $(man_HTML1GEN)
 MAINTAINERCLEANFILES = $(man_MAN1IN) $(man_MAN1OTHER) $(man_MAN3) \
 $(man_HTML1IN) $(man_HTML1OTHER) $(man_HTML3)
