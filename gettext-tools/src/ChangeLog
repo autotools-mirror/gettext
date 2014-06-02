@@ -1,5 +1,17 @@
 2014-06-02  Daiki Ueno  <ueno@gnu.org>
 
+	msgl-check: Treat missing header errors as warnings
+	Problem reported by Richard Hughes at
+	<https://lists.fedoraproject.org/pipermail/devel/2014-June/199539.html>.
+	After <https://savannah.gnu.org/bugs/?40262>, "msgfmt -c" reports
+	error on missing PO headers.  However, it turned out to be too strict
+	for the projects using Launchpad Translations.  Let's relax the check
+	for the moment and wait for one or two release cycles.
+	* msgl-check.c (check_header_entry): Report missing
+	required headers as warning, instead of error.
+
+2014-06-02  Daiki Ueno  <ueno@gnu.org>
+
 	* gettext 0.19 released.
 
 2014-05-31  Daiki Ueno  <ueno@gnu.org>
