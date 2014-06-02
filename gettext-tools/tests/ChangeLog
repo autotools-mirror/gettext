@@ -1,5 +1,12 @@
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Ignore the LINGUAS envvar in msgfmt-desktop-2
+	Reported by Lars Wendler at:
+	<http://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00002.html>.
+	* msgfmt-desktop-2: Unset the LINGUAS envvar.
+
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
 	* xgettext-vala-1: Test comment-like string inside a string literal.
 
 2014-06-02  Daiki Ueno  <ueno@gnu.org>

@@ -111,6 +111,8 @@ Keywords[fr]=one;two;thr\;ee;
 Keywords=Keyword1;Keyword2;Key\;word3;
 EOF
 
+unset LINGUAS
+
 # Sanity checks for contradicting options.
 
 ${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out \
