@@ -1,3 +1,7 @@
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-vala-1: Test comment-like string inside a string literal.
+
 2014-06-02  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfmt-10: Update after error checking behaviro change.

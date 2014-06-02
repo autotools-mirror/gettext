@@ -1,3 +1,9 @@
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
+	vala: Don't elide comments while parsing string literal
+	* x-vala.c (phase3_get): Use phase1_getc to read characters inside
+	a string literal.
+
 2014-06-02  Daiki Ueno  <ueno@gnu.org>
 
 	msgl-check: Treat missing header errors as warnings
