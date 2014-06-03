@@ -1,5 +1,11 @@
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
+	desktop: Use logical filename as msgid location
+	* read-desktop.c (desktop_parse): Pass logical filename instead of
+	real filename to desktop_reader_handle_pair.
+
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
 	desktop: Read LINGUAS file even if LINGUAS envvar is set
 	* msgfmt.c (get_languages): If the LINGUAS envvar is set, use it
 	to restrict the languages list read from the LINGUAS file, not to
