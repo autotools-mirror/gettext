@@ -71,6 +71,9 @@ Tasks not to forget before release:
   ./add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
   Then update the case statement in autopoint.in.
 - run "make maintainer-update-po" to generate PO files with the built tools
+  PATH="$PWD/gettext-tools/src:$PWD/gettext-tools/misc:$PATH" \
+  gettext_datadir="$PWD/gettext-tools/misc" \
+  make maintainer-update-po
 - again: "make dist"
 
 * Upload gettext-0.xx.yy.tar.gz to ftp.gnu.org, according to the
