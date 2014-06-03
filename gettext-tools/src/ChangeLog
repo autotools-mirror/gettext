@@ -1,5 +1,13 @@
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
+	desktop: Read LINGUAS file even if LINGUAS envvar is set
+	* msgfmt.c (get_languages): If the LINGUAS envvar is set, use it
+	to restrict the languages list read from the LINGUAS file, not to
+	extend the list.
+	(add_languages): Take an optional DESIRED_LANGUAGES argument.
+
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
 	vala: Don't elide comments while parsing string literal
 	* x-vala.c (phase3_get): Use phase1_getc to read characters inside
 	a string literal.

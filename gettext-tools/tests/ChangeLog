@@ -1,5 +1,9 @@
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
+	* msgfmt-desktop-2: Test the effect of the LINGUAS envvar.
+
+2014-06-03  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Ignore the LINGUAS envvar in msgfmt-desktop-2
 	Reported by Lars Wendler at:
 	<http://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00002.html>.
