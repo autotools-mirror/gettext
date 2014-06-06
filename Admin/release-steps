@@ -76,16 +76,17 @@ Tasks not to forget before release:
   make maintainer-update-po
 - again: "make dist"
 
-* Upload gettext-0.xx.yy.tar.gz to ftp.gnu.org, according to the
+* Upload gettext-0.xx.yy.tar.{gz,xz} to ftp.gnu.org, according to the
   procedure given by Bradley M. Kuhn on 2003-11-11
   http://www.gnu.org/prep/maintain/maintain.html#Automated-Upload-Procedure,
   or using the gnupload script in gnulib.
-  gnulib/build-aux/gnupload --to ftp.gnu.org:gettext gettext-0.xx.yy.tar.gz
+  gnulib/build-aux/gnupload --to ftp.gnu.org:gettext gettext-0.xx.yy.tar.{gz,xz}
 
-* Upload archive.dir.tar.gz to alpha.gnu.org.
-  cp gettext-tools/misc/archive.dir.tar.gz archive.dir-0.xx.yy.tar.gz
+* Upload archive.dir.tar.xz to alpha.gnu.org.
+  xz gettext-tools/misc/archive.dir.tar
+  cp gettext-tools/misc/archive.dir.tar.xz archive.dir-0.xx.yy.tar.xz
   gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \
-                            --symlink-regex archive.dir-0.xx.yy.tar.gz
+                            --symlink-regex archive.dir-0.xx.yy.tar.xz
 
 - Push tag to the repository.
   git push --tags
