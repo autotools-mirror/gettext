@@ -622,6 +622,8 @@ phase3_get (token_ty *tp)
                 {
                 case '\\':
                   last_was_backslash = true;
+                  /* FALLTHROUGH */
+                default:
                   continue;
                 case '\n':
                   error_with_progname = false;
