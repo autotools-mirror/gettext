@@ -1,3 +1,7 @@
+2014-06-10  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19.1 released.
+
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfmt-desktop-2: Test the effect of the LINGUAS envvar.

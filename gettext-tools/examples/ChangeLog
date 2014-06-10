@@ -1,3 +1,7 @@
+2014-06-10  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19.1 released.
+
 2014-06-03  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Don't require msgfmt when compiling hello-c-gnome3
