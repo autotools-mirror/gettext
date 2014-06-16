@@ -1,3 +1,18 @@
+2014-06-16  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Stop installing ChangeLog.inst
+	After the git-version-gen migration (commit fbf4e276), the
+	creation of gettext-tools/intl/ChangeLog.inst in configure.ac was
+	removed because we lost access to $RELEASE_DATE.  Given that
+	intl/VERSION provides enough information, simply drop the
+	ChangeLog file.
+	Problem reported by Bruce Korb in
+	<https://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00022.html>.
+	* Makefile.in (install-data): Don't install ChangeLog.inst.
+	(distclean): Don't remove ChangeLog.inst.
+	(uninstall): Don't remove ChangeLog under $(gettextsrcdir)/intl.
+	(dist): Don't include ChangeLog in the distribution.
+
 2014-06-10  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.1 released.

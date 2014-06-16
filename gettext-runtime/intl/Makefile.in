@@ -460,7 +460,6 @@ install-data: all
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
 	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
-	  $(INSTALL_DATA) ChangeLog.inst $(DESTDIR)$(gettextsrcdir)/ChangeLog; \
 	  dists="COPYING.LIB $(DISTFILES.common)"; \
 	  for file in $$dists; do \
 	    $(INSTALL_DATA) $(srcdir)/$$file \
@@ -571,7 +570,7 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  for file in VERSION ChangeLog COPYING.LIB $(DISTFILES.common) $(DISTFILES.generated); do \
+	  for file in VERSION COPYING.LIB $(DISTFILES.common) $(DISTFILES.generated); do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
 	  done; \
 	else \
@@ -622,11 +621,6 @@ clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS
-	if test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; then \
-	  rm -f ChangeLog.inst $(DISTFILES.normal); \
-	else \
-	  : ; \
-	fi
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
@@ -646,7 +640,7 @@ dist distdir: Makefile
 	    additional="$(DISTFILES.normal)"; \
 	  fi; \
 	  $(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
-	  for file in ChangeLog $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
+	  for file in $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
 	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
 	    cp -p $$dir/$$file $(distdir) || test $$file = Makefile.in || exit 1; \
 	  done; \
