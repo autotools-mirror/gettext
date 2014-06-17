@@ -1,3 +1,8 @@
+2014-06-17  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Add back ChangeLog to gettext-runtime distribution
+	* Makefile.in (DISTFILES.gettext): Add ChangeLog.
+
 2014-06-16  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Stop installing ChangeLog.inst
