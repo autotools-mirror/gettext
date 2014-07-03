@@ -101,9 +101,7 @@ char *alloca ();
 #endif
 
 #ifdef _LIBC
-# ifndef PRI_MACROS_BROKEN
-#  define PRI_MACROS_BROKEN 0
-# endif
+# define PRI_MACROS_BROKEN 0
 #endif
 
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.

@@ -1,6 +1,11 @@
 2014-07-03  Siddhesh Poyarekar  <siddhesh@redhat.com>
 
 	intl: Sync up loadmsgcat.c with glibc
+	* loadmsgcat.c [_LIBC]: Define PRI_MACROS_BROKEN unconditionally.
+
+2014-07-03  Siddhesh Poyarekar  <siddhesh@redhat.com>
+
+	intl: Sync up loadmsgcat.c with glibc
 	* loadmsgcat.c: Include assert.h.
 	(_nl_load_domain): Add semicolon to end of line.
 	(_nl_load_domain)[HAVE_MMAP]: Use MAP_FAILED and assert that
