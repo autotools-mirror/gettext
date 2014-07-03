@@ -1,3 +1,14 @@
+2014-07-03  Siddhesh Poyarekar  <siddhesh@redhat.com>
+
+	intl: Sync up loadmsgcat.c with glibc
+	* loadmsgcat.c: Include assert.h.
+	(_nl_load_domain): Add semicolon to end of line.
+	(_nl_load_domain)[HAVE_MMAP]: Use MAP_FAILED and assert that
+	it is (void *) -1.
+	(_nl_load_domain)[_LIBC]: Call __libc_rwlock_init instead of
+	gl_rwlock_init.
+	(_nl_unload_domain): Cast convd->encoding to non-const.
+
 2014-06-17  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Add back ChangeLog to gettext-runtime distribution
