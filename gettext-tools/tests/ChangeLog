@@ -1,3 +1,9 @@
+2014-07-14  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Test empty literals in C test
+	* xgettext-c-2: Test empty literals that do not affect the
+	following lines.
+
 2014-06-16  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Test "make dist" in autopoint test
