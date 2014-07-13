@@ -150,5 +150,9 @@ Things we plan to do. Comments welcome.
   strings.  Some programming languages already provide their own
   scanners: pygettext in Python, rgettext in Ruby.
 
-- --xpath option to xgettext, like -k but works for an XPath
-  expression.  This might need libxml2 as hard dependency.
+- Make xgettext XML handling extensible through user ITS files
+  http://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00026.html
+
+- 3-way merge tool for PO files
+  msg3way was proposed by Panos Christeas
+  http://lists.gnu.org/archive/html/bug-gnu-utils/2010-11/msg00051.html
