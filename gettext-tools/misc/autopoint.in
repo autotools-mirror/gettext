@@ -29,6 +29,7 @@ version=@VERSION@
 prefix="@prefix@"
 datarootdir="@datarootdir@"
 : ${gettext_datadir="@datadir@/gettext"}
+: ${AUTOM4TE=autom4te}
 
 # func_tmpdir
 # creates a temporary directory.
@@ -151,7 +152,7 @@ m4_undefine([m4_exit])
 m4_undefine([m4_include])
 m4_undefine([m4_esyscmd])
 ' \
-  | ${AUTOM4TE:-autom4te} --no-cache --language=Autoconf-without-aclocal-m4 \
+  | "$AUTOM4TE" --no-cache --language=Autoconf-without-aclocal-m4 \
     --trace="$1":\$% - "$2" 2>/dev/null
 }
 
@@ -306,7 +307,7 @@ fi
 # is more accurate than func_trace_sed, but it only works with
 # autoconf >= 2.69.
 if echo "AC_PREREQ([2.69])" \
-  | autom4te --no-cache --language=Autoconf-without-aclocal-m4 - 2>&1; then
+  | "$AUTOM4TE" --no-cache --language=Autoconf-without-aclocal-m4 - 2>&1; then
   func_trace=func_trace_autoconf
 else
   func_trace=func_trace_sed
@@ -314,7 +315,10 @@ fi
 
 # Check whether the -V option and the version number in configure.in match.
 # At least one of the two must be given. If both are given, they must agree.
-xver=`"$func_trace" AM_GNU_GETTEXT_VERSION "$configure_in"`
+
+# Need to use func_trace_sed instead of $func_trace, since
+# AM_GNU_GETTEXT_VERSION is not a standard Autoconf trace.
+xver=`func_trace_sed AM_GNU_GETTEXT_VERSION "$configure_in"`
 if test -z "$xver" && test -f intl/VERSION; then
   xver=`cat intl/VERSION | LC_ALL=C sed -n -e 's/^.*gettext-\([-+_.0-9A-Za-z]*\).*$/\1/p'`
 fi
@@ -393,7 +397,9 @@ fi
 
 # Check whether to omit the intl/ directory.
 omitintl=
-xargs=`"$func_trace" AM_GNU_GETTEXT "$configure_in"`
+# Need to use func_trace_sed instead of $func_trace, since
+# AM_GNU_GETTEXT is not a standard Autoconf trace.
+xargs=`func_trace_sed AM_GNU_GETTEXT "$configure_in"`
 save_IFS="$IFS"; IFS=:
 for arg in $xargs; do
   if test 'external' = "$arg"; then
