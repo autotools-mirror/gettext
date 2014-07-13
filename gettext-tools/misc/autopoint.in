@@ -136,9 +136,10 @@ if test "@RELOCATABLE@" = yes; then
   gettext_datadir=`echo "$gettext_datadir/" | sed -e "s%^${orig_installprefix}/%${curr_installprefix}/%" | sed -e 's,/$,,'`
 fi
 
-# func_trace macro configure.ac
-# traces a standard Autoconf macro call and outputs the arguments to stdout.
-func_trace ()
+# func_trace_autoconf macro configure.ac
+# traces an Autoconf macro call and outputs the arguments to stdout,
+# using autom4te.
+func_trace_autoconf ()
 {
   echo '\
 dnl disable macros which may abort autom4te
@@ -155,8 +156,8 @@ m4_undefine([m4_esyscmd])
 }
 
 # func_trace_sed macro configure.ac
-# traces a non-standard Autoconf macro call and outputs the first
-# argument to stdout.
+# traces an Autoconf macro call and outputs the arguments to stdout,
+# using sed.
 func_trace_sed ()
 {
   sed_extract_arguments='
@@ -301,9 +302,19 @@ else
   fi
 fi
 
+# Select the method for Autoconf macro tracing.  func_trace_autoconf
+# is more accurate than func_trace_sed, but it only works with
+# autoconf >= 2.69.
+if echo "AC_PREREQ([2.69])" \
+  | autom4te --no-cache --language=Autoconf-without-aclocal-m4 - 2>&1; then
+  func_trace=func_trace_autoconf
+else
+  func_trace=func_trace_sed
+fi
+
 # Check whether the -V option and the version number in configure.in match.
 # At least one of the two must be given. If both are given, they must agree.
-xver=`func_trace_sed AM_GNU_GETTEXT_VERSION "$configure_in"`
+xver=`"$func_trace" AM_GNU_GETTEXT_VERSION "$configure_in"`
 if test -z "$xver" && test -f intl/VERSION; then
   xver=`cat intl/VERSION | LC_ALL=C sed -n -e 's/^.*gettext-\([-+_.0-9A-Za-z]*\).*$/\1/p'`
 fi
@@ -342,15 +353,15 @@ case "$ver" in
 esac
 
 # Check in which directory config.rpath, mkinstalldirs etc. belong.
-auxdir=`func_trace AC_CONFIG_AUX_DIR "$configure_in"`
+auxdir=`"$func_trace" AC_CONFIG_AUX_DIR "$configure_in"`
 if test -n "$auxdir"; then
   auxdir="$auxdir/"
 fi
 
 # Check in which directory the *.m4 macros belong.
-macrodirs=`func_trace AC_CONFIG_MACRO_DIR_TRACE "$configure_in"`
+macrodirs=`"$func_trace" AC_CONFIG_MACRO_DIR_TRACE "$configure_in"`
 if test -z "$macrodirs"; then
-  macrodirs=`func_trace AC_CONFIG_MACRO_DIR "$configure_in"`
+  macrodirs=`"$func_trace" AC_CONFIG_MACRO_DIR "$configure_in"`
 fi
 for arg in $macrodirs; do
   m4dir="$arg"
@@ -382,7 +393,7 @@ fi
 
 # Check whether to omit the intl/ directory.
 omitintl=
-xargs=`func_trace_sed AM_GNU_GETTEXT "$configure_in"`
+xargs=`"$func_trace" AM_GNU_GETTEXT "$configure_in"`
 save_IFS="$IFS"; IFS=:
 for arg in $xargs; do
   if test 'external' = "$arg"; then
@@ -393,7 +404,7 @@ done
 IFS="$save_IFS"
 
 # Check in which directory or directories the po/* infrastructure belongs.
-configfiles=`func_trace AC_CONFIG_FILES "$configure_in"`
+configfiles=`"$func_trace" AC_CONFIG_FILES "$configure_in"`
 # PO directories have a Makefile.in generated from Makefile.in.in.
 # Treat a directory as a PO directory if and only if it has a
 # POTFILES.in file. This allows packages to have multiple PO
