@@ -1,5 +1,12 @@
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
 
+	vala: Fix empty string literal handling
+	Similar to the commit 7b2d8d61 on July 11.
+	* x-vala.c (phase3_get): Add missing memory allocation for empty
+	string literal.
+
+2014-07-14  Daiki Ueno  <ueno@gnu.org>
+
 	build: Fix race in post-install removal of *.a
 	There was an implicit dependency between the prerequisites of
 	install-exec-local, which may have caused error with make -jN.
