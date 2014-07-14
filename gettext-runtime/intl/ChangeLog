@@ -1,5 +1,9 @@
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext 0.19.2 released.
+
+2014-07-14  Daiki Ueno  <ueno@gnu.org>
+
 	* Makefile.in (distclean): Remove intl/VERSION for gettext-runtime
 	and gettext-tools packages.
 
