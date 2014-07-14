@@ -1,5 +1,11 @@
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Test empty literals in Vala test
+	* xgettext-vala-1: Test empty literals that do not affect the
+	following lines.
+
+2014-07-14  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Test for AC_CONFIG_AUX_DIR usage in autopoint test
 	* autopoint-2: Check if build-aux/config.rpath is created if
 	AC_CONFIG_AUX_DIR([build-aux]) is called.
