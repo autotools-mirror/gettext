@@ -621,6 +621,11 @@ clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS
+	if test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; then \
+	  rm -f $(DISTFILES.normal); \
+	else \
+	  : ; \
+	fi
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"

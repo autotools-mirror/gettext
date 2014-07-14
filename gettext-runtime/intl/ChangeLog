@@ -1,3 +1,8 @@
+2014-07-14  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.in (distclean): Remove intl/VERSION for gettext-runtime
+	and gettext-tools packages.
+
 2014-07-03  Siddhesh Poyarekar  <siddhesh@redhat.com>
 
 	intl: Sync up loadmsgcat.c with glibc
