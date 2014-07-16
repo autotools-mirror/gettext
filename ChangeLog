@@ -1,3 +1,7 @@
+2014-07-16  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (distcheck-hook): Add back localename.c check.
+
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.2 released.
