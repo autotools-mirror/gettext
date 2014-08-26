@@ -1,5 +1,11 @@
 2014-08-27  Jonas 'Sortie' Termansen <sortie@maxsi.org>  (tiny change)
 
+	* msgfilter.c (process_message): Use proper format directive for
+	printing size_t.
+	* msgexec.c (process_message): Likewise.
+
+2014-08-27  Jonas 'Sortie' Termansen <sortie@maxsi.org>  (tiny change)
+
 	* hostname.c: Add guard around #include <sys/param.h>.
 
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
