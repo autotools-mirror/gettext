@@ -1,3 +1,9 @@
+2014-08-28  Jonas 'Sortie' Termansen <sortie@maxsi.org>  (tiny change)
+
+	* msginit.c: Include <stdint.h>.
+	(get_user_pwd): Cast uid_t value into uintmax_t and print it with
+	'%ju' format directive.
+
 2014-08-27  Jonas 'Sortie' Termansen <sortie@maxsi.org>  (tiny change)
 
 	* msgfilter.c (process_message): Use proper format directive for
