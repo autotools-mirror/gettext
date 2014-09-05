@@ -31,7 +31,8 @@ AC_OUTPUT
 EOF
 
 : ${ACLOCAL=aclocal}
-${ACLOCAL} >/dev/null 2>/dev/null || exit 1
+${ACLOCAL} >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 : > Makefile.am
 
@@ -92,7 +93,8 @@ EOF
 cp -p "$abs_top_srcdir"/gnulib-lib/gettext.h .
 cp -p "$abs_top_srcdir"/examples/hello-c/hello.c .
 
-$gettext_datadir/autopoint -f >/dev/null 2>/dev/null || exit 1
+$gettext_datadir/autopoint -f >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 test -d intl || exit 1
 test -d m4 || exit 1
@@ -104,16 +106,23 @@ test -f po/Makefile.in.in || exit 1
 cp -p po/Makevars.template po/Makevars
 echo hello.c > po/POTFILES.in
 
-${ACLOCAL} -I m4 >/dev/null 2>/dev/null || exit 1
+${ACLOCAL} -I m4 >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
+
 : ${AUTOHEADER=autoheader}
-${AUTOHEADER} >/dev/null 2>/dev/null || exit 1
-${AUTOCONF} >/dev/null 2>/dev/null || exit 1
-${AUTOMAKE} -a -c >/dev/null 2>/dev/null || exit 1
+${AUTOHEADER} >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
+
+${AUTOCONF} >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
+
+${AUTOMAKE} -a -c >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 # Check if libintl compiles.
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
-${CONFIG_SHELL} ./configure --with-included-gettext >/dev/null 2>/dev/null \
-    || exit 1
+${CONFIG_SHELL} ./configure --with-included-gettext >/dev/null 2>autpoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 # Workaround for 0.18.3 or earlier: Processing intl/plural.y with
 # Bison 3.0.1 or later generates a wrong code.  Use pre-generated
@@ -127,7 +136,10 @@ case "$required_gettext_version" in
     ;;
 esac
 
-${MAKE} >/dev/null 2>/dev/null || exit 1
-${MAKE} dist >/dev/null 2>/dev/null || exit 1
+${MAKE} >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
+
+${MAKE} dist >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 exit 0

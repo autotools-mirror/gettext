@@ -36,7 +36,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
-$gettext_datadir/autopoint >/dev/null 2>/dev/null || exit 1
+$gettext_datadir/autopoint >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 test ! -d intl || exit 1
 test -d m4 || exit 1
@@ -63,7 +64,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
-$gettext_datadir/autopoint >/dev/null 2>/dev/null || exit 1
+$gettext_datadir/autopoint >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 test -d intl || exit 1
 test -d m4 || exit 1
@@ -95,7 +97,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
-$gettext_datadir/autopoint >/dev/null 2>/dev/null || exit 1
+$gettext_datadir/autopoint >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 test ! -d intl || exit 1
 test ! -d m4 || exit 1
@@ -122,7 +125,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
-$gettext_datadir/autopoint >/dev/null 2>/dev/null || exit 1
+$gettext_datadir/autopoint >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 test ! -d intl || exit 1
 test -d m4 || exit 1

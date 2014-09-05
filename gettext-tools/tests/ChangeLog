@@ -1,3 +1,7 @@
+2014-09-05  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint-2, autopoint-3: Collect error output.
+
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.2 released.
