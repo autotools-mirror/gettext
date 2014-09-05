@@ -41,6 +41,10 @@ ${AUTOMAKE} --add-missing >/dev/null 2>/dev/null \
 
 rm -f configure.ac Makefile.am
 
+: ${LIBTOOLIZE=libtoolize}
+${LIBTOOLIZE} --version >/dev/null 2>/dev/null \
+  || { echo "Skipping test: libtoolize not found"; exit 77; }
+
 : ${MAKE=make}
 ${MAKE} --version >/dev/null 2>/dev/null \
   || { echo "Skipping test: make not found"; exit 77; }
@@ -53,9 +57,10 @@ AC_CONFIG_MACRO_DIR([m4])
 
 AC_INIT([hello], [0.0.0], [bug-gnu-gettext@gnu.org])
 AM_INIT_AUTOMAKE([foreign])
+LT_INIT
 
 AC_PROG_CC
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([use-libtool])
 AM_GNU_GETTEXT_VERSION([$required_gettext_version])
 
 AC_CONFIG_HEADERS([config.h])
@@ -87,7 +92,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 AM_CPPFLAGS = -I. -I$(srcdir)
 
 # Link time dependencies.
-LDADD = @LIBINTL@
+LDADD = @LTLIBINTL@
 EOF
 
 cp -p "$abs_top_srcdir"/gnulib-lib/gettext.h .
@@ -105,6 +110,9 @@ test -f po/Makefile.in.in || exit 1
 
 cp -p po/Makevars.template po/Makevars
 echo hello.c > po/POTFILES.in
+
+${LIBTOOLIZE} -f -i >/dev/null 2>autopoint.err
+test $? = 0 || { cat autopoint.err; exit 1; }
 
 ${ACLOCAL} -I m4 >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; exit 1; }

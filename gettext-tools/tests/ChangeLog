@@ -1,5 +1,9 @@
 2014-09-05  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint-3: Use libtool when compiling included libintl.
+
+2014-09-05  Daiki Ueno  <ueno@gnu.org>
+
 	* autopoint-2, autopoint-3: Collect error output.
 
 2014-07-14  Daiki Ueno  <ueno@gnu.org>
