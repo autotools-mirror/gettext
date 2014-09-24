@@ -1,3 +1,8 @@
+2014-09-24  Daiki Ueno  <ueno@gnu.org>
+
+	* filter-quote.c (BOLD_START, BOLD_END): Don't use non-portable
+	character escape "\e".
+
 2014-08-28  Jonas 'Sortie' Termansen <sortie@maxsi.org>  (tiny change)
 
 	* msginit.c: Include <stdint.h>.
