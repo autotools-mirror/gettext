@@ -1,5 +1,10 @@
 2014-09-24  Daiki Ueno  <ueno@gnu.org>
 
+	* x-python.c (x_python_lex): Move 'token3' variable declaration
+	out of the internal block.
+
+2014-09-24  Daiki Ueno  <ueno@gnu.org>
+
 	* filter-quote.c (BOLD_START, BOLD_END): Don't use non-portable
 	character escape "\e".
 
