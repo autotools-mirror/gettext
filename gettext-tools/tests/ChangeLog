@@ -1,3 +1,8 @@
+2014-09-24  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-c-19: Use iconv -f/-t instead of non-portable
+	--from/--to.
+
 2014-09-05  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint-3: Use libtool when compiling included libintl.
