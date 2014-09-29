@@ -1,3 +1,9 @@
+2014-09-30  Daiki Ueno  <ueno@gnu.org>
+
+	* x-c.c (literalstring_parse): Fix octal character escape handling.
+	Reported by Kjartan Maraas at:
+	<https://bugzilla.redhat.com/show_bug.cgi?id=1147535>.
+
 2014-09-24  Daiki Ueno  <ueno@gnu.org>
 
 	* x-python.c (x_python_lex): Move 'token3' variable declaration
