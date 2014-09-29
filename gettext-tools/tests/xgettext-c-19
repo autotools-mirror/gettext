@@ -12,7 +12,7 @@ cat <<\EOF > xg-c-19.in.c
 gettext ("二番目の文字列");
 
 /* 三番目のコメント */
-pgettext ("\u30B3\u30F3\u30C6\u30AF\u30B9\u30C8", "\xBB\xB0\xC8\xD6\xCC\xDC\xA4\xCE\xCA\xB8\xBB\xFA\xCE\xF3");
+pgettext ("\u30B3\u30F3\u30C6\u30AF\u30B9\u30C8", "\xBB\xB0\xC8\xD6\xCC\xDC\xA4\xCE\xCA\xB8\xBB\xFA\xCE\363");
 EOF
 
 : ${ICONV=iconv}
