@@ -61,6 +61,7 @@ AC_EXEEXT
 
 dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
+AM_PROG_CC_C_O
 
 dnl Check for build configuration.
 
