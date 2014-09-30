@@ -1,5 +1,11 @@
 2014-09-30  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint-1: Don't rely on non-portable "grep -q".
+	* msginit-3: Likewise.
+	* msgen-1: Likewise.
+
+2014-09-30  Daiki Ueno  <ueno@gnu.org>
+
 	* xgettext-c-19: Test octal string escape.
 
 2014-09-24  Daiki Ueno  <ueno@gnu.org>
