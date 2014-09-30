@@ -1,3 +1,7 @@
+2014-09-30  Daiki Ueno  <ueno@gnu.org>
+
+	* localcharset.c, localename.c, vasnprintf.c: Update from Gnulib.
+
 2014-07-16  Daiki Ueno  <ueno@gnu.org>
 
 	* localename.c: Update from Gnulib.
