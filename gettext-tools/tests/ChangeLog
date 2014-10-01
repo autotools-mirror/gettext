@@ -1,3 +1,36 @@
+2014-10-01  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Stop redundant textdomain directory creation
+	This was introduced by commit 3533f6cc when we didn't use separate
+	test directory for each test.  Now that we switched to init.sh, we
+	don't need to worry about filename conflicts.
+	* lang-c: Stop redundant textdomain directory creation.
+	* lang-c++: Likewise.
+	* lang-objc: Likewise.
+	* lang-sh: Likewise.
+	* lang-bash: Likewise.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+	* lang-clisp: Likewise.
+	* lang-elisp: Likewise.
+	* lang-librep: Likewise.
+	* lang-guile: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-java: Likewise.
+	* lang-csharp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-pascal: Likewise.
+	* lang-ycp: Likewise.
+	* lang-tcl: Likewise.
+	* lang-perl-1: Likewise.
+	* lang-perl-2: Likewise.
+	* lang-php: Likewise.
+	* lang-po: Likewise.
+	* lang-rst: Likewise.
+	* lang-lua: Likewise.
+	* lang-javascript: Likewise.
+	* lang-vala: Likewise.
+
 2014-09-30  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint-1: Don't rely on non-portable "grep -q".
