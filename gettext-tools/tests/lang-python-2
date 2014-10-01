@@ -104,11 +104,13 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
+  prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LC_ALL=$LOCALE_FR python prog2.py 2 > prog.out || exit 1
   ${DIFF} prog.ok prog.out || exit 1
 fi
 if test -z "$UTF8_LOCALE_UNSUPPORTED"; then
   if test $LOCALE_FR_UTF8 != none; then
+    prepare_locale_ fr $LOCALE_FR_UTF8
     LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 python prog2.py 2 > prog.out || exit 1
     ${DIFF} prog.oku prog.out || exit 1
   fi

@@ -1,5 +1,33 @@
 2014-10-01  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Adjust textdomain directory for Solaris 11
+	* init.cfg (prepare_locale_): New function.
+	* lang-bash: Call prepare_locale_ before running locale-dependant
+	tests.
+	* lang-c: Likewise.
+	* lang-c++: Likewise.
+	* lang-clisp: Likewise.
+	* lang-csharp: Likewise.
+	* lang-gawk: Likewise.
+	* lang-guile: Likewise.
+	* lang-java: Likewise.
+	* lang-javascript: Likewise.
+	* lang-librep: Likewise.
+	* lang-lua: Likewise.
+	* lang-objc: Likewise.
+	* lang-pascal: Likewise.
+	* lang-perl-1: Likewise.
+	* lang-perl-2: Likewise.
+	* lang-php: Likewise.
+	* lang-python-1: Likewise.
+	* lang-python-2: Likewise.
+	* lang-sh: Likewise.
+	* lang-smalltalk: Likewise.
+	* lang-tcl: Likewise.
+	* lang-vala: Likewise.
+
+2014-10-01  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Stop redundant textdomain directory creation
 	This was introduced by commit 3533f6cc when we didn't use separate
 	test directory for each test.  Now that we switched to init.sh, we
