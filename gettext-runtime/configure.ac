@@ -167,7 +167,7 @@ AC_ARG_ENABLE([libasprintf],
      SUBDIR_libasprintf=
    fi
   ], [SUBDIR_libasprintf=libasprintf])
-if test "$CXX" = ":"; then
+if test "$CXX" = "no"; then
   SUBDIR_libasprintf=
 fi
 AM_CONDITIONAL([ENABLE_LIBASPRINTF], [test -n "$SUBDIR_libasprintf"])
