@@ -1,3 +1,8 @@
+2014-10-02  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint-3: Invoke AC_CONFIG_MACRO_DIR after AC_INIT, not
+	before.
+
 2014-10-01  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Adjust textdomain directory for Solaris 11

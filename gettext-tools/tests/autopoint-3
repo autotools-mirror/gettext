@@ -53,11 +53,11 @@ gettext_datadir=$top_builddir/misc
 export gettext_datadir
 
 cat <<EOF >configure.ac
-AC_CONFIG_MACRO_DIR([m4])
-
 AC_INIT([hello], [0.0.0], [bug-gnu-gettext@gnu.org])
 AM_INIT_AUTOMAKE([foreign])
 LT_INIT
+
+AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_CC
 AM_GNU_GETTEXT([use-libtool])
