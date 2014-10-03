@@ -1,3 +1,8 @@
+2014-10-03  Daiki Ueno  <ueno@gnu.org>
+
+	* lang-c++: Check if CXX is "no", not ":".  See commit e854d2c7
+	for the rationale.
+
 2014-10-02  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint-3: Invoke AC_CONFIG_MACRO_DIR after AC_INIT, not

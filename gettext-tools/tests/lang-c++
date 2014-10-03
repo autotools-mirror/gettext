@@ -6,7 +6,7 @@
 # Assumes the following packages are installed: gcc g++.
 
 # Test whether a C++ compiler is found and libasprintf is built.
-test "${CXX}" != ":" || {
+test "${CXX}" != "no" || {
   echo "Skipping test: no C++ compiler found"
   exit 77
 }
