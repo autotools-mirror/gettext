@@ -1,3 +1,10 @@
+2014-10-08  Daiki Ueno  <ueno@gnu.org>
+
+	* write-po.c (wrap): Report error on incomplete multibyte sequence
+	at the end of input bytes.
+	Reported by Jakub Wilk at:
+	<https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=763820>.
+
 2014-09-30  Daiki Ueno  <ueno@gnu.org>
 
 	* x-c.c (literalstring_parse): Fix octal character escape handling.
