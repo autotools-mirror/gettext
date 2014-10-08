@@ -1,3 +1,14 @@
+2014-10-08  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Improve test coverage of C and Vala scanners
+	* xgettext-c-4: Check more trigraphs.
+	* xgettext-c-2: Check floating point literal.
+	* xgettext-c-19: Check out-of-range Unicode character, "\U"
+	character escape, incomplete "\u" escape, and surrogates.
+	* xgettext-vala-1: Check unterminated regexp literal, floating
+	point literal, string template, "/=" operator, multi-line
+	comments, and backslash-escaped character inside regexp literal.
+
 2014-10-03  Daiki Ueno  <ueno@gnu.org>
 
 	* lang-c++: Check if CXX is "no", not ":".  See commit e854d2c7
