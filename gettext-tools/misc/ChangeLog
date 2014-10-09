@@ -1,3 +1,12 @@
+2014-10-10  Eric Blake  <eblake@redhat.com>
+
+	autopoint: Fix infinite recursion when tracing configure.ac
+	Reported by Andreas Henriksson at:
+	<https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=764580>
+	* autopoint.in (func_trace_autoconf): Temporarily redefine
+	built-in macros, instead of undefining.
+	* gettextize.in: Likewise.
+
 2014-09-01  Daiki Ueno  <ueno@gnu.org>
 
 	* convert-archive.in: Don't use non-portable 'if ! COMMAND'.
