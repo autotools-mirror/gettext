@@ -35,12 +35,12 @@ email=$3
 for file in `find . -name "ChangeLog"`; do
   test $file = "./gnulib/ChangeLog" \
     || test $file = "./gettext-tools/examples/hello-c++-kde/admin/ChangeLog" \
-    || { date=`date -u +%Y-%m-%d`;
-         cat <<EOF
+    || { { date=`date -u +%Y-%m-%d`;
+           cat <<EOF
 $date  $user  <$email>
 
 	* gettext $ver released.
 
 EOF
-         cat $file; } > $file.tmp && mv $file.tmp $file
+           cat $file; } > $file.tmp && mv $file.tmp $file; }
 done
