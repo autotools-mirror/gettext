@@ -1,7 +1,8 @@
-Version 0.19.3 - unreleased
+Version 0.19.3 - October 2014
 
 * Bug fixes:
   - Fix xgettext mishandling of octal character escapes in C.
+  - Fix autopoint infinite recursion with certain configure.ac.
 
 * The po/Makevars file has a new field MSGINIT_OPTIONS, that can be
   used to adjust msginit's operation.  This is particularly useful for
