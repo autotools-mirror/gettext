@@ -61,6 +61,7 @@ Tasks not to forget before release:
 
 - Add an entry to all the ChangeLogs
   except gettext-tools/examples/hello-c++-kde/admin/ChangeLog.
+  Run Admin/update-changelog from the top-level directory.
 
 - Update translations from the Translation Project
 
