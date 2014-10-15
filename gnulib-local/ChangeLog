@@ -1,5 +1,9 @@
 2014-10-15  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext 0.19.3 released.
+
+2014-10-15  Daiki Ueno  <ueno@gnu.org>
+
 	* tests/test-term-ostream-xterm-basic-italic.out: New file.
 	* tests/test-term-ostream-xterm: Use it as possible test result.
 	* Makefile.am (EXTRA_DIST): Add new files.
