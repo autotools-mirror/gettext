@@ -6,7 +6,8 @@
 
 	* tests/test-term-ostream-xterm-basic-italic.out: New file.
 	* tests/test-term-ostream-xterm: Use it as possible test result.
-	* Makefile.am (EXTRA_DIST): Add new files.
+	* modules/term-ostream-tests (Files): Add new file.
+	* Makefile.am (EXTRA_DIST): Add new file.
 	Needed for ncurses >= 5.9-20140906 that defines sitm/ritm in the
 	xterm-basic terminfo definition.
 
