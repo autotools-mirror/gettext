@@ -1,3 +1,7 @@
+2014-10-15  Daiki Ueno  <ueno@gnu.org>
+
+	* libgnuintl.in.h (LIBINTL_VERSION): Bump to 0.19.3.
+
 2014-09-30  Daiki Ueno  <ueno@gnu.org>
 
 	* localcharset.c, localename.c, vasnprintf.c: Update from Gnulib.

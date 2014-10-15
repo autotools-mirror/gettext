@@ -1,3 +1,7 @@
+2014-10-15  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Update for 0.19.3.
+
 2014-10-10  Eric Blake  <eblake@redhat.com>
 
 	autopoint: Fix infinite recursion when tracing configure.ac
