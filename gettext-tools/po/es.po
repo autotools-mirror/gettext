@@ -1,15 +1,15 @@
 # Mensajes en español para GNU gettext.
 # Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2013, 2014 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Antonio Ceballos <aceballos@gmail.com>, 2013, 2014
 # Max de Mendizábal <max@upn.mx>, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004.
+# Antonio Ceballos <aceballos@gmail.com>, 2013, 2014
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.19-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2014-05-10 13:37+0900\n"
-"PO-Revision-Date: 2014-06-08 17:45+0200\n"
+"PO-Revision-Date: 2014-07-22 08:10+0200\n"
 "Last-Translator: Antonio Ceballos <aceballos@gmail.com>\n"
 "Language-Team: Spanish <es@tp.org.es>\n"
 "Language: es\n"
@@ -718,7 +718,7 @@ msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "Licencia GPLv3+: GNU GPL versión 3 o posterior <http://gnu.org/licenses/gpl.html>\n"
 "Esto es software libre: es usted libre de cambiarlo y redistribuirlo.\n"
-"SIN NINGUNA GARATÍA, dentro de los límites legales.\n"
+"SIN NINGUNA GARANTÍA, dentro de los límites legales.\n"
 
 #: src/hostname.c:184 src/msgattrib.c:361 src/msgcat.c:300 src/msgcmp.c:178
 #: src/msgcomm.c:291 src/msgconv.c:250 src/msgen.c:247 src/msgexec.c:186
@@ -930,7 +930,7 @@ msgstr "Selección de mensaje:\n"
 #: src/msgattrib.c:452
 #, c-format
 msgid "      --translated            keep translated, remove untranslated messages\n"
-msgstr "     --translated             mantiene lo traducido, elimina los mensajes sin traducir\n"
+msgstr "      --translated            mantiene lo traducido, elimina los mensajes sin traducir\n"
 
 #: src/msgattrib.c:454
 #, c-format
@@ -1027,7 +1027,7 @@ msgstr "      --obsolete              sinónimo de --only-obsolete --clean-obsol
 #: src/msguniq.c:369
 #, c-format
 msgid "Input file syntax:\n"
-msgstr "Sintáxis del fichero de entrada:\n"
+msgstr "Sintaxis del fichero de entrada:\n"
 
 #: src/msgattrib.c:493 src/msgconv.c:344 src/msgen.c:338 src/msgexec.c:290
 #: src/msgfilter.c:452 src/msggrep.c:587 src/msginit.c:393 src/msguniq.c:371
@@ -1039,7 +1039,7 @@ msgstr "  -P, --properties-input      el fichero de entrada sigue la misma sinta
 #: src/msgfilter.c:454 src/msggrep.c:589 src/msginit.c:395 src/msguniq.c:373
 #, c-format
 msgid "      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"
-msgstr "    --stringtable-input     el fichero de entrada sigue la sintaxis de .strings de NeXTstep/GNUstep\n"
+msgstr "      --stringtable-input     el fichero de entrada sigue la sintaxis de .strings de NeXTstep/GNUstep\n"
 
 #: src/msgattrib.c:498 src/msgcat.c:426 src/msgcomm.c:417 src/msgconv.c:349
 #: src/msgen.c:343 src/msgfilter.c:457 src/msgfmt.c:906 src/msggrep.c:592
@@ -1058,15 +1058,15 @@ msgid ""
 "      --color=WHEN            use colors and other text attributes if WHEN.\n"
 "                              WHEN may be 'always', 'never', 'auto', or 'html'.\n"
 msgstr ""
-"      --color                 utilizar siempre colores y otros atributos de texto\n"
-"      --color=CUANDO          utilizar colores y otros atributos de texto si se cumple CUANDO.\n"
+"      --color                 utiliza siempre colores y otros atributos de texto\n"
+"      --color=CUANDO          utiliza colores y otros atributos de texto si se cumple CUANDO.\n"
 
 #: src/msgattrib.c:504 src/msgcat.c:439 src/msgcomm.c:423 src/msgconv.c:355
 #: src/msgen.c:351 src/msgfilter.c:463 src/msggrep.c:598 src/msginit.c:408
 #: src/msgmerge.c:576 src/msgunfmt.c:503 src/msguniq.c:387 src/xgettext.c:975
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
-msgstr "      --stule=FICHEROESTILO   especifica fichero de reglas de estilo CSS para --color\n"
+msgstr "      --style=FICHEROESTILO   especifica fichero de reglas de estilo CSS para --color\n"
 
 #: src/msgattrib.c:506 src/msgcat.c:441 src/msgcomm.c:425 src/msgconv.c:357
 #: src/msgen.c:353 src/msgmerge.c:578 src/msgunfmt.c:505 src/msguniq.c:389
@@ -1105,7 +1105,7 @@ msgstr "      --no-location           no escribe las líneas '#: fichero:línea'
 #: src/xgettext.c:987
 #, c-format
 msgid "  -n, --add-location          generate '#: filename:line' lines (default)\n"
-msgstr "  -n, --add-location       genera líneas '#: fichero:línea' (por omisión)\n"
+msgstr "  -n, --add-location          genera líneas '#: fichero:línea' (por omisión)\n"
 
 #: src/msgattrib.c:518 src/msgcat.c:453 src/msgcomm.c:437 src/msguniq.c:401
 #: src/xgettext.c:989
@@ -1125,7 +1125,7 @@ msgstr "  -p, --properties-output     escribe un fichero .properties de Java\n"
 #: src/msgmerge.c:594 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:993
 #, c-format
 msgid "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
-msgstr "     --stringtable-output     escribe un fichero .strings de NeXTstep/GNUstep\n"
+msgstr "      --stringtable-output    escribe un fichero .strings de NeXTstep/GNUstep\n"
 
 #: src/msgattrib.c:524 src/msgcat.c:459 src/msgcomm.c:443 src/msgconv.c:375
 #: src/msgen.c:371 src/msgfilter.c:485 src/msggrep.c:618 src/msginit.c:414
@@ -1540,7 +1540,7 @@ msgstr "      --no-location           no escribe las líneas '#: fichero:línea'
 #: src/msgmerge.c:588
 #, c-format
 msgid "  -n, --add-location          preserve '#: filename:line' lines (default)\n"
-msgstr "  -n  --add-location          genera líneas '#: fichero:línea' (por omisión)\n"
+msgstr "  -n, --add-location          genera líneas '#: fichero:línea' (por omisión)\n"
 
 #: src/msgconv.c:369 src/msgen.c:365 src/msgfilter.c:479 src/msggrep.c:612
 #: src/msgmerge.c:590
@@ -1963,7 +1963,7 @@ msgid ""
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
 "  -kWORD, --keyword=PALABRA   busca PALABRA a modo de palabra clave adicional\n"
-"  -k, --keyword               no usar las palabras clave por omisión\n"
+"  -k, --keyword               no usa las palabras clave por omisión\n"
 
 #: src/msgfmt.c:874
 #, c-format
@@ -2061,7 +2061,7 @@ msgstr "      --statistics            muestra las estadísticas sobre las traduc
 #: src/msgfmt.c:924 src/msgmerge.c:612 src/msgunfmt.c:533
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
-msgstr "  -v, --verbose               aumenta el cantidad de mensajes\n"
+msgstr "  -v, --verbose               aumenta la cantidad de mensajes\n"
 
 #: src/msgfmt.c:1037
 #, c-format
@@ -2239,7 +2239,7 @@ msgstr ""
 "  -e, --regexp=PATRÓN          utiliza el PATRÓN como una expresión regular\n"
 "  -f, --file=FICHERO           obtiene al PATRÓN del FICHERO\n"
 "  -i, --ignore-case            indistingue si es mayúsculas o minúsculas\n"
-"  -v, --invert-match           mostrar solo quellos mensajes que no coinciden con\n"
+"  -v, --invert-match           muestra solo quellos mensajes que no coinciden con\n"
 "                               ningún criterio de selección\n"
 
 #: src/msggrep.c:602
