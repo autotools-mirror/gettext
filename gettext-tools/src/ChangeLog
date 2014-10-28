@@ -1,5 +1,19 @@
 2014-10-28  Daiki Ueno  <ueno@gnu.org>
 
+	xgettext: Allow plural extraction from a single argument function
+	The commit 8137d2b4 was a wrong fix since both singular/plural msgids
+	may point to the same address for Qt4 plural forms.  This reverts
+	the commit and fix the original double-free problem in the right
+	way.  Thanks to Jesper Fehrlund for suggestions.
+	* xgettext.c (arglist_parser_remember_literal): Don't ignore
+	plural argument even if ARGNUM1 equals to ARGNUM2.
+	(arglist_parser_done): Make a copy of best_cp->msgid_plural when
+	passing it to remember_a_message_plural, if it equals to
+	best_cp->msgid.  Also move code conversion logic earlier taking
+	into account of the ownership transfer of best_cp->msgid.
+
+2014-10-28  Daiki Ueno  <ueno@gnu.org>
+
 	xgettext: Fix double-free in singular/plural argument extraction
 	After commit 6aa7b7ed in 2009, xgettext assumed that ARGNUM1 and
 	ARGNUM2 of -k are different.  That could cause an double-free in

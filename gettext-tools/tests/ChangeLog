@@ -1,5 +1,10 @@
 2014-10-28  Daiki Ueno  <ueno@gnu.org>
 
+	xgettext: Allow plural extraction from a single argument function
+	* xgettext-12: Test a single argument function.
+
+2014-10-28  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Add test for same ARGNUM1/ARGNUM2 given to xgettext -k
 	* xgettext-12: New file.
 	* Makefile.am (TESTS): Add new test.
