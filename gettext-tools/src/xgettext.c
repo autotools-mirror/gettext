@@ -2791,7 +2791,7 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
               /* Mark msgid as done.  */
               cp->argnum1 = 0;
             }
-          if (argnum == cp->argnum2)
+          else if (argnum == cp->argnum2)
             {
               cp->msgid_plural = string;
               cp->msgid_plural_escape = type;
