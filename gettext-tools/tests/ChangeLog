@@ -1,3 +1,9 @@
+2014-10-28  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add test for same ARGNUM1/ARGNUM2 given to xgettext -k
+	* xgettext-12: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2014-10-15  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.3 released.
