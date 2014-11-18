@@ -38,6 +38,7 @@
 #include "message.h"
 #include "format.h"
 #include "gettext.h"
+#include "xsize.h"
 
 #define _(str) gettext (str)
 
@@ -121,8 +122,9 @@ get_string (const struct binary_mo_file *bfp, size_t offset, size_t *lengthp)
   /* See 'struct string_desc'.  */
   nls_uint32 s_length = get_uint32 (bfp, offset);
   nls_uint32 s_offset = get_uint32 (bfp, offset + 4);
+  size_t s_end = xsum3 (s_offset, s_length, 1);
 
-  if (s_offset + s_length + 1 > bfp->size)
+  if (size_overflow_p (s_end) || s_end > bfp->size)
     error (EXIT_FAILURE, 0, _("file \"%s\" is truncated"), bfp->filename);
   if (bfp->data[s_offset + s_length] != '\0')
     error (EXIT_FAILURE, 0,
