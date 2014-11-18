@@ -1,3 +1,8 @@
+2014-11-18  Yaakov Selkowitz  <yselkowi@redhat.com>
+
+	build: Fix autogen.sh --skip-gnulib after fbf4e276
+	* Makefile.am (EXTRA_DIST): Add build-aux/git-version-gen.
+
 2014-10-15  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.3 released.
