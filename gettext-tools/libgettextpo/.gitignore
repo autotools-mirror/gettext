@@ -9,6 +9,7 @@
 
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
+/alignof.h
 /alloca.in.h
 /arg-nonnull.h
 /asnprintf.c
