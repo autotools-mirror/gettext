@@ -1,3 +1,16 @@
+Version 0.19.4 - unreleased
+
+* xgettext now accepts same argument number for both singular and
+  plural forms.
+
+* Bug fixes:
+  - Fix integer overflow when reading MO files.
+  - Avoid dangling pointer access when same argument number is specified
+    for singular and plural forms.
+
+* Portability:
+  - Building on AIX 7.1 is now supported.
+
 Version 0.19.3 - October 2014
 
 * Bug fixes:
