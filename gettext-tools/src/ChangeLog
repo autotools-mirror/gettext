@@ -1,3 +1,11 @@
+2014-11-27  Daiki Ueno  <ueno@gnu.org>
+
+	javascript: Simplify Unicode character escape handling
+	ECMA-262 only supports "\uXXXX" style Unicode character escape and
+	we don't need extra space for character names.
+	* x-javascript.c: Don't include "uniname.h".
+	(phase2_pushback): Decrease to 5.  Don't refer to UNINAME_MAX.
+
 2014-11-18  Daiki Ueno  <ueno@gnu.org>
 
 	* read-mo.c: Include "xsize.h".
