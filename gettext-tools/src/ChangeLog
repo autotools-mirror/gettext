@@ -1,3 +1,11 @@
+2014-11-28  Daiki Ueno  <ueno@gnu.org>
+
+	msgfilter: Fix read buffer allocation for empty input
+	* msgfilter.c (prepare_read): Increase allocated buffer size even
+	if the original size is < 2.
+	Reported by Robin McCorkell at:
+	<https://savannah.gnu.org/bugs/?43720>.
+
 2014-11-27  Daiki Ueno  <ueno@gnu.org>
 
 	javascript: Simplify Unicode character escape handling
