@@ -1,3 +1,9 @@
+2014-11-28  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add test for empty msgstr passed to msgfilter
+	* msgfilter-7: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2014-11-18  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add test for integer overflow when reading MO file
