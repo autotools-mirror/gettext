@@ -1,3 +1,17 @@
+2014-11-28  Daiki Ueno  <ueno@gnu.org>
+
+	build: Update libtool files to 2.4.3
+	* m4/libtool.m4: Update from libtool-2.4.3, with modifications.
+	2008-04-06  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4 (LT_INIT): When setting LIBTOOL, use
+		CONFIG_SHELL; don't assume that the Makefile.in will set SHELL
+		to ${CONFIG_SHELL}.
+	* m4/ltoptions.m4: Likewise.
+	* m4/ltsuger.m4: Likewise.
+	* m4/ltversion.m4: Likewise.
+	* m4/lt~obsolete.m4: Likewise.
+	* build-aux/ltmain.sh: Likewise.
+
 2014-11-18  Yaakov Selkowitz  <yselkowi@redhat.com>
 
 	build: Fix autogen.sh --skip-gnulib after fbf4e276
