@@ -9,7 +9,7 @@ Version 0.19.4 - unreleased
     for singular and plural forms.
 
 * Portability:
-  - Building on AIX 7.1 is now supported.
+  - Building on Mac OS X 10.10 and AIX 7.1 is now supported.
 
 Version 0.19.3 - October 2014
 
