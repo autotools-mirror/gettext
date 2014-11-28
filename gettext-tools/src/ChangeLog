@@ -1,5 +1,10 @@
 2014-11-28  Daiki Ueno  <ueno@gnu.org>
 
+	* msgfilter.c (prepare_read): Simplify the last commit 06e206f5,
+	by always adding 1 to the buffer size.
+
+2014-11-28  Daiki Ueno  <ueno@gnu.org>
+
 	msgfilter: Fix read buffer allocation for empty input
 	* msgfilter.c (prepare_read): Increase allocated buffer size even
 	if the original size is < 2.
