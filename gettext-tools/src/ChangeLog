@@ -1,3 +1,12 @@
+2014-12-01  Daiki Ueno  <ueno@gnu.org>
+
+	c#: Recognize Unicode surrogate character pair
+	* x-csharp.c (accumulate_escaped): Change the first argument type
+	from 'struct string_buffer *' to 'struct mixed_string_buffer *',
+	for Unicode surrogate character pair handling; all callers
+	changed.  Reported by Petr Kadlec at:
+	<https://savannah.gnu.org/bugs/?32505>.
+
 2014-11-28  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfilter.c (prepare_read): Simplify the last commit 06e206f5,
