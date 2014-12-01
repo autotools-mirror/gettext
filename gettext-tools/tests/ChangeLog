@@ -1,5 +1,11 @@
 2014-12-01  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Add more tests for C# Unicode handling
+	* xgettext-csharp-1: Test verbatim string.
+	* xgettext-csharp-2: Test Unicode identifiers.
+
+2014-12-01  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Add test for Unicode surrogate characters in C#
 	* xgettext-csharp-8: New file.
 	* Makefile.am (TESTS): Add new test.
