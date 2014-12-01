@@ -3,6 +3,10 @@ Version 0.19.4 - unreleased
 * xgettext now accepts same argument number for both singular and
   plural forms.
 
+* Programming languages support:
+  - C#: xgettext now properly handles Unicode characters encoded with
+    surrogate pairs.
+
 * Bug fixes:
   - Fix integer overflow when reading MO files.
   - Avoid dangling pointer access when same argument number is specified
