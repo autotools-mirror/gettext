@@ -1,5 +1,11 @@
 2014-12-02  Daiki Ueno  <ueno@gnu.org>
 
+	c: Minor cleanup of the previous commit
+	* x-c.c (phase5_get): Remove redundant check of is_prefix; fit
+	lines to 80 column.
+
+2014-12-02  Daiki Ueno  <ueno@gnu.org>
+
 	c: Support C++11 string literals
 	* x-c.c (phase5_get): Recognize C++ string literals, defined in
 	ISO/IEC 9899:2011.  Reported at:

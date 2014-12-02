@@ -1218,7 +1218,7 @@ phase5_get (token_ty *tp)
 
                   if (is_prefix)
                     {
-                      raw_expected = is_prefix && buffer[bufpos - 1] == 'R';
+                      raw_expected = buffer[bufpos - 1] == 'R';
                       bufpos = 0;
                       goto string;
                     }
@@ -1386,7 +1386,8 @@ phase5_get (token_ty *tp)
                 if (c == '\n' && !raw_expected)
                   {
                     error_with_progname = false;
-                    error (0, 0, _("%s:%d: warning: unterminated string literal"),
+                    error (0, 0,
+                           _("%s:%d: warning: unterminated string literal"),
                            logical_file_name, line_number - 1);
                     error_with_progname = true;
                     phase3_ungetc ('\n');
