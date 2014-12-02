@@ -1,3 +1,9 @@
+2014-12-02  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add test for C++11 string literals
+	* xgettext-c-20: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2014-12-01  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add more tests for C# Unicode handling
