@@ -1,3 +1,10 @@
+2014-12-02  Daiki Ueno  <ueno@gnu.org>
+
+	c: Support C++11 string literals
+	* x-c.c (phase5_get): Recognize C++ string literals, defined in
+	ISO/IEC 9899:2011.  Reported at:
+	<https://savannah.gnu.org/bugs/?39499>.
+
 2014-12-01  Daiki Ueno  <ueno@gnu.org>
 
 	c#: Recognize Unicode surrogate character pair
