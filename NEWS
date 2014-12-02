@@ -6,6 +6,8 @@ Version 0.19.4 - unreleased
 * Programming languages support:
   - C#: xgettext now properly handles Unicode characters encoded with
     surrogate pairs.
+  - C/C++: xgettext now recognizes ISO/IEC 9899:2011 string literals
+    prefixed by R, u8, u8R, u, uR, U, UR, L, or LR.
 
 * Bug fixes:
   - Fix integer overflow when reading MO files.
