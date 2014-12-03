@@ -1,3 +1,7 @@
+2014-12-03  Daiki Ueno  <ueno@gnu.org>
+
+	* msgunfmt-3: Locate overflow.mo in $abs_srcdir instead of '..'.
+
 2014-12-02  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add test for C++11 string literals

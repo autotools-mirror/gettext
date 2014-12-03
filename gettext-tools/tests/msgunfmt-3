@@ -4,6 +4,6 @@
 # Test invalid or incomplete input
 
 : ${MSGUNFMT=msgunfmt}
-LANGUAGE= LC_ALL=C ${MSGUNFMT} ../overflow.mo 2>mu-3.err >/dev/null
+LANGUAGE= LC_ALL=C ${MSGUNFMT} "$abs_srcdir"/overflow.mo 2>mu-3.err >/dev/null
 test $? != 0 || exit 1
 grep ' is truncated' mu-3.err >/dev/null || exit 1
