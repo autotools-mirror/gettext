@@ -1,3 +1,10 @@
+2014-12-03  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Work around LCOV relative base directory resolution
+	* Makefile.in (plural.lo): Resolve relative source file name given
+	with '#line' directive, when $(srcdir) != $(builddir).
+	(mostlyclean): Remove plural.c generated in the 'plural.lo' rule.
+
 2014-10-15  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.3 released.

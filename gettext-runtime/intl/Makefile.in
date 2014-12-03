@@ -277,8 +277,13 @@ dngettext.lo: $(srcdir)/dngettext.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/dngettext.c
 ngettext.lo: $(srcdir)/ngettext.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/ngettext.c
+# $(srcdir)/plural.c contains a relative file name of the Bison source.
+# That could mess up gcov when the C source file is referred to from a
+# different base directory.
 plural.lo: $(srcdir)/plural.c
-	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/plural.c
+	$(AM_V_GEN)test "$(srcdir)" = . || \
+	  sed -e 's|^#line \([0-9]*\) "\(plural\.[cy]\)"|#line \1 "$(srcdir)/\2"|' < $(srcdir)/plural.c > plural.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) plural.c
 plural-exp.lo: $(srcdir)/plural-exp.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/plural-exp.c
 localcharset.lo: $(srcdir)/localcharset.c
@@ -616,6 +621,7 @@ mostlyclean:
 	rm -f *.a *.la *.o *.obj *.lo core core.*
 	rm -f libgnuintl.h libintl.h charset.alias ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
+	test "$(srcdir)" = . || rm -f plural.c
 
 clean: mostlyclean
 

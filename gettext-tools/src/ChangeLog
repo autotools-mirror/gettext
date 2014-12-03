@@ -1,3 +1,9 @@
+2014-12-03  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Work around LCOV relative base directory resolution
+	* plural-exp.c: Include "../intl/plural.c" instead of
+	"../../gettext-runtime/intl/plural.c".
+
 2014-12-02  Daiki Ueno  <ueno@gnu.org>
 
 	c: Minor cleanup of the previous commit
