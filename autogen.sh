@@ -420,7 +420,7 @@ fi
 )
 
 (cd gettext-runtime
- echo "$0: geneating configure in gettext-runtime..."
+ echo "$0: generating configure in gettext-runtime..."
  aclocal -I m4 -I ../m4 -I gnulib-m4
  autoconf
  autoheader && touch config.h.in
@@ -428,7 +428,7 @@ fi
 )
 
 (cd gettext-tools/examples
- echo "$0: geneating configure in gettext-tools/examples..."
+ echo "$0: generating configure in gettext-tools/examples..."
  aclocal -I ../../gettext-runtime/m4 -I ../../m4
  autoconf
  automake --add-missing --copy
@@ -446,7 +446,7 @@ cp -p gettext-runtime/po/insert-header.sin gettext-tools/po/insert-header.sin
 cp -p gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
 
 (cd gettext-tools
- echo "$0: geneating configure in gettext-tools..."
+ echo "$0: generating configure in gettext-tools..."
  aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
  autoconf
  autoheader && touch config.h.in

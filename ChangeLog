@@ -1,3 +1,8 @@
+2014-12-03  Daiki Ueno  <ueno@gnu.org>
+
+	autogen.sh: Fix typo
+	* autogen.sh: Fix typo: geneating -> generating.
+
 2014-12-01  Daiki Ueno  <ueno@gnu.org>
 
 	build: Update libtool files to 2.4.4
