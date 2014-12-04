@@ -504,7 +504,6 @@ uninstall-local:
 
 # Invoked from inside automake's distdir target.
 distdir1:
-	cd po && $(MAKE) update-po
 	for file in $(EXAMPLESFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

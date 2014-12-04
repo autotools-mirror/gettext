@@ -1,3 +1,12 @@
+2014-12-04  Daiki Ueno  <ueno@gnu.org>
+
+	examples: Don't forcibly regenerate POT files on 'make dist'
+	Previously we generated POT files on 'make dist'.  However, it
+	take some time to complete and require autotools bootstrap for
+	each project.
+	* Makefile.am (distdir1): Don't invoke update-po rule in po/Makefile.
+	* po/Makefile.am (distdir1): Don't invoke update-po rule.
+
 2014-10-15  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.3 released.
