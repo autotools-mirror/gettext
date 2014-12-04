@@ -1,3 +1,11 @@
+2014-12-04  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Make the LCOV workaround non-intrusive
+	* Makefile.in (PLURAL_OBJECT): New variable.
+	(OBJECTS): Refer to $(PLURAL_OBJECT) instead of plural.$lo.
+	(pluralx.c, pluralx.lo): New rule.
+	(mostlyclean): Remove pluralx.c.
+
 2014-12-03  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Work around LCOV relative base directory resolution
