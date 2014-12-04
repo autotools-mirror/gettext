@@ -1,3 +1,9 @@
+2014-12-04  Daiki Ueno  <ueno@gnu.org>
+
+	libgettextsrc: Follow plural.c -> pluralx.c file name change
+	* plural-exp.c: Include "../intl/pluralx.c" instead of
+	"../intl/plural.c".  Adjust to commit d2d04ba9.
+
 2014-12-03  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Work around LCOV relative base directory resolution
