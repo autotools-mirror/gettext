@@ -1,3 +1,8 @@
+2014-12-04  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Improve test coverage of GSettings scanner
+	* xgettext-gsettings-1: Check empty string and multiline comment.
+
 2014-12-03  Daiki Ueno  <ueno@gnu.org>
 
 	* msgunfmt-3: Locate overflow.mo in $abs_srcdir instead of '..'.
