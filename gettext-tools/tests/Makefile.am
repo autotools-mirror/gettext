@@ -145,7 +145,8 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	autopoint-1 autopoint-2 autopoint-3
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \
-	test.mo overflow.mo xg-c-1.ok.po mex-test2.ok \
+	test.mo overflow-1.mo overflow-2.mo overflow-3.mo overflow-4.mo \
+	overflow-5.mo overflow-6.mo xg-c-1.ok.po mex-test2.ok \
 	mm-ko.ascii.pot mm-ko.euc-kr.po mm-ko-comp.euc-kr.po \
 	mm-viet.comp.po mm-viet.pot mm-viet.out \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \

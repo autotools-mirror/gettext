@@ -1,3 +1,10 @@
+2014-12-05  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Add more tests for integer overflow when reading MO file
+	* msgunfmt-3: Check overflow-[1-6].mo.
+	* Makefile.am (EXTRA_DIST): Add more test data for msgunfmt
+	integer overflow.
+
 2014-12-04  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Improve test coverage of GSettings scanner
