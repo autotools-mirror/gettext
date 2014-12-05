@@ -1,3 +1,16 @@
+2014-12-05  Daiki Ueno  <ueno@gnu.org>
+
+	examples: Include hello-*.pot in the distribution
+	Partially revert 2c3d71ce, as it broke "make dist".  Instead,
+	include all the generated POT files in the distribution to prevent
+	re-generation of those files.
+	* Makefile.am (distdir1): Call update-po in po/Makefile.
+	* po/Makefile.am ($(DOMAIN).pot-update): Specify --directory for
+	xgettext invocation.
+	(DISTCLEANFILES): Move $(SMALLPOTS)...
+	(MAINTAINERCLEANFILES): ...here.
+	(distdir1): Include $(SMALLPOTS) in the distribution.
+
 2014-12-04  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Don't forcibly regenerate POT files on 'make dist'
