@@ -1,5 +1,11 @@
 2014-12-05  Daiki Ueno  <ueno@gnu.org>
 
+	examples: Regenerate stamp-po after POT has changed
+	* Makefile.am (distdir1): Invoke 'all' target in po/Makefile,
+	after 'update-po'.
+
+2014-12-05  Daiki Ueno  <ueno@gnu.org>
+
 	examples: Include hello-*.pot in the distribution
 	Partially revert 2c3d71ce, as it broke "make dist".  Instead,
 	include all the generated POT files in the distribution to prevent
