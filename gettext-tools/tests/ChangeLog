@@ -1,3 +1,10 @@
+2014-12-07  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Improve test coverage of Vala scanner
+	* xgettext-vala-1: Test regex literal right after arithmetic
+	assignment operators, and the case '@' is not followed by a
+	template string.
+
 2014-12-05  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Add more tests for integer overflow when reading MO file
