@@ -342,13 +342,14 @@ enum token_type_ty
   token_type_rparen,                    /* ) */
   token_type_lbrace,                    /* { */
   token_type_rbrace,                    /* } */
-  token_type_assign,                    /* = */
+  token_type_assign,                    /* = += -= *= /= %= <<= >>= &= |= ^= */
   token_type_return,                    /* return */
   token_type_plus,                      /* + */
-  token_type_minus,                     /* - */
+  token_type_arithmetic_operator,       /* - * / % << >> & | ^ */
   token_type_equality_test_operator,    /* == < > >= <= != */
   token_type_logic_operator,            /* ! && || */
   token_type_comma,                     /* , */
+  token_type_question,                  /* ? */
   token_type_colon,                     /* : */
   token_type_number,                    /* 2.7 */
   token_type_string_literal,            /* "abc" */
@@ -786,10 +787,12 @@ phase3_get (token_ty *tp)
             case token_type_assign:
             case token_type_return:
             case token_type_plus:
-            case token_type_minus:
+            case token_type_arithmetic_operator:
             case token_type_equality_test_operator:
             case token_type_logic_operator:
             case token_type_comma:
+            case token_type_question:
+            case token_type_colon:
               phase3_scan_regex ();
               tp->type = last_token_type = token_type_regex_literal;
               break;
@@ -797,11 +800,12 @@ phase3_get (token_ty *tp)
               {
                 int c2 = phase2_getc ();
                 if (c2 == '=')
+                  tp->type = last_token_type = token_type_assign;
+                else
                   {
-                    /* /= */
                     phase2_ungetc (c2);
+                    tp->type = last_token_type = token_type_arithmetic_operator;
                   }
-                tp->type = last_token_type = token_type_other;
                 break;
               }
             }
@@ -828,8 +832,11 @@ phase3_get (token_ty *tp)
             int c2 = phase2_getc ();
             switch (c2)
               {
-              case '=': case '+':
+              case '+':
                 tp->type = last_token_type = token_type_other;
+                break;
+              case '=':
+                tp->type = last_token_type = token_type_assign;
                 break;
               default:
                 phase2_ungetc (c2);
@@ -844,13 +851,30 @@ phase3_get (token_ty *tp)
             int c2 = phase2_getc ();
             switch (c2)
               {
-              case '=': case '-':
+              case '-':
                 tp->type = last_token_type = token_type_other;
+                break;
+              case '=':
+                tp->type = last_token_type = token_type_assign;
                 break;
               default:
                 phase2_ungetc (c2);
-                tp->type = last_token_type = token_type_minus;
+                tp->type = last_token_type = token_type_arithmetic_operator;
                 break;
+              }
+            return;
+          }
+
+        case '%':
+        case '^':
+          {
+            int c2 = phase2_getc ();
+            if (c2 == '=')
+	      tp->type = last_token_type = token_type_assign;
+            else
+              {
+                phase2_ungetc (c2);
+                tp->type = last_token_type = token_type_logic_operator;
               }
             return;
           }
@@ -878,12 +902,12 @@ phase3_get (token_ty *tp)
           {
             int c2 = phase2_getc ();
             if (c2 == '=')
+              tp->type = last_token_type = token_type_equality_test_operator;
+            else
               {
-                tp->type = last_token_type = token_type_equality_test_operator;
-                return;
+                phase2_ungetc (c2);
+                tp->type = last_token_type = token_type_logic_operator;
               }
-            phase2_ungetc (c2);
-            tp->type = last_token_type = token_type_logic_operator;
             return;
           }
           
@@ -896,17 +920,22 @@ phase3_get (token_ty *tp)
             else if (c2 == c)
               {
                 int c3 = phase2_getc ();
-                if (c3 != '=')
-                  phase2_ungetc (c3);
-                tp->type = last_token_type = token_type_other;
+                if (c3 == '=')
+                  tp->type = last_token_type = token_type_assign;
+                else
+                  {
+                    phase2_ungetc (c2);
+                    phase2_ungetc (c3);
+                    tp->type = last_token_type = token_type_other;
+                  }
               }
             else
               {
                 phase2_ungetc (c2);
                 tp->type = last_token_type = token_type_equality_test_operator;
               }
+            return;
           }
-          return;
           
         case ',':
           tp->type = last_token_type = token_type_comma;
@@ -923,25 +952,25 @@ phase3_get (token_ty *tp)
             if (c2 == c)
 	      tp->type = last_token_type = token_type_logic_operator;
             else if (c2 == '=')
-	      tp->type = last_token_type = token_type_other;
+	      tp->type = last_token_type = token_type_assign;
             else
               {
                 phase2_ungetc (c2);
-                tp->type = last_token_type = token_type_other;
+                tp->type = last_token_type = token_type_arithmetic_operator;
               }
+            return;
           }
-          return;
 
         case '?':
           {
             int c2 = phase2_getc ();
             if (c2 == '?')
+              tp->type = last_token_type = token_type_logic_operator;
+            else
               {
-                tp->type = last_token_type = token_type_logic_operator;
-                return;
+                phase2_ungetc (c2);
+                tp->type = last_token_type = token_type_question;
               }
-            phase2_ungetc (c2);
-            tp->type = last_token_type = token_type_other;
             return;
           }
 
@@ -1199,9 +1228,10 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_assign:
         case token_type_return:
         case token_type_plus:
-        case token_type_minus:
+        case token_type_arithmetic_operator:
         case token_type_equality_test_operator:
         case token_type_logic_operator:
+        case token_type_question:
         case token_type_colon:
         case token_type_number:
         case token_type_string_template:

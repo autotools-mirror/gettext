@@ -1,3 +1,12 @@
+2014-12-07  Daiki Ueno  <ueno@gnu.org>
+
+	vala: Make regex literal handling robuster
+	* x-vala.c (token_type_ty): New enumeration values
+	'token_type_arithmetic_operator' and 'token_type_question'.
+	Remove 'token_type_minus'.
+	(phase3_get): Rewrite regex literal handling right after
+	arithmetic assignment operators.
+
 2014-12-05  Daiki Ueno  <ueno@gnu.org>
 
 	msgunfmt: Avoid integer overflow using xsize
