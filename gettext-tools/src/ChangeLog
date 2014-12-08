@@ -1,3 +1,28 @@
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
+	desktop: Simplify the parsing logic
+	* read-desktop.h (desktop_reader_class_ty): Rename 'handle_text'
+	to 'handle_blank'.
+	(desktop_reader_handle_blank): Rename from
+	'desktop_reader_handle_text'.
+	* read-desktop.c (SIZEOF): New macro.
+	(desktop_reader_handle_blank): Rename from
+	'desktop_reader_handle_blank'.
+	(read_until_newline, read_group_name, read_key_name): Remove.
+	Merge into...
+	(desktop_lex): ...here.
+	(desktop_parse): Call 'desktop_lex' instead of read_*.  Don't
+	normalize whitespaces.
+	(enum token_type_ty): New enum.
+	(struct token_ty): New struct.
+	(free_token): New function.
+	* write-desktop.c (msgfmt_desktop_handle_blank): Rename from
+	'msgfmt_desktop_handle_text'.
+	* x-desktop.c: Include "c-ctype.h".
+	(extract_desktop_handle_comment): Normalize whitespaces here.
+	(extract_desktop_handle_blank): Rename from
+	'extract_desktop_handle_text'.
+
 2014-12-07  Daiki Ueno  <ueno@gnu.org>
 
 	vala: Make regex literal handling robuster
