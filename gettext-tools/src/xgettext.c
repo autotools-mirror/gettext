@@ -3181,7 +3181,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                   const char *xcomment = best_cp->xcomments.item[i];
                   bool found = false;
 
-                  if (mp->comment_dot != NULL)
+                  if (mp != NULL && mp->comment_dot != NULL)
                     {
                       size_t j;
 
