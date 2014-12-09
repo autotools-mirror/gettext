@@ -1,5 +1,10 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	* xgettext-vala-1: Don't copy the test program out of the test
+	directory.  Fix commit 2ff7a105.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Improve test coverage of Desktop scanner
 	* xgettext-desktop-1: Test invalid input and blank lines.
 

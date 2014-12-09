@@ -91,7 +91,6 @@ class Foo : Object {
 }
 EOF
 
-cp xg-vala-1.vala ..
 ${XGETTEXT} --add-comments --no-location -o xg-vala-1.tmp xg-vala-1.vala 2>xg-vala-1.err
 test $? = 0 || { cat xg-vala-1.err; exit 1; }
 # Don't simplify this to "grep ... < xg-vala-1.tmp", otherwise OpenBSD 4.0 grep
