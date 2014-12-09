@@ -1,3 +1,8 @@
+2014-12-24  Daiki Ueno  <ueno@gnu.org>
+
+	* libgnuintl.in.h (LIBINTL_VERSION): Bump to 0.19.4.
+	* Makefile.in (LTV_CURRENT, LTV_REVISION, LTV_AGE): Bump to 9:3:1.
+
 2014-12-04  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Make the LCOV workaround non-intrusive
