@@ -1,5 +1,10 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	* msgfmt.c (msgfmt_desktop_bulk): Don't dereference potentially
+	uninitialized value.  Spotted by clang-analyzer.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	* x-vala.c (phase3_get): Factor out the buffer allocation as a
 	macro.
 
