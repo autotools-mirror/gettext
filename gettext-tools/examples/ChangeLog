@@ -1,3 +1,18 @@
+2014-12-24  Daiki Ueno  <ueno@gnu.org>
+
+	* po/bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
+	* po/ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
+	* po/es.po: Update from Antonio Ceballos <aceballos@gmail.com>.
+	* po/ja.po: Update from Masahito Yamaga <ma@yama-ga.com>.
+	* po/pl.po: Update from Rafał Maszkowski <rzm@icm.edu.pl>.
+	* po/pt_BR.po: Update from Rafael Ferreira <rafael.f.f1@gmail.com>.
+	* po/ru.po: Update from Yuri Kozlov <yuray@komyakino.ru>.
+	* po/sk.po: Update from Marcel Telka <marcel@telka.sk>.
+	* po/sl.po: Update from Primož Peterlin <primozz.peterlin@gmail.com>.
+	* po/sv.po: Update from Jan Djärv <jan.h.d@swipnet.se>.
+	* po/uk.po: Update from Yuri Chornoivan <yurchor@ukr.net>.
+	* po/vi.po: Update from Trần Ngọc Quân <vnwildman@gmail.com>.
+
 2014-12-05  Daiki Ueno  <ueno@gnu.org>
 
 	examples: Regenerate stamp-po after POT has changed

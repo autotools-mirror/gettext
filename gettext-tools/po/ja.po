@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.19-rc1\n"
+"Project-Id-Version: GNU gettext-tools 0.19.3\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2014-05-10 13:37+0900\n"
-"PO-Revision-Date: 2014-05-11 13:39+0900\n"
+"POT-Creation-Date: 2014-10-16 15:04+0900\n"
+"PO-Revision-Date: 2014-10-18 08:13+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -31,22 +31,22 @@ msgstr "%2$s ¤ËÂÐ¤¹¤ë°ú¿ô %1$s ¤¬Û£Ëæ¤Ç¤¹"
 msgid "Valid arguments are:"
 msgstr "Àµ¤·¤¤°ú¿ô:"
 
-#: gnulib-lib/clean-temp.c:332
+#: gnulib-lib/clean-temp.c:325
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "°ì»þ¥Ç¥£¥ì¥¯¥È¥ê¤ò¸«ÉÕ¤±¤é¤ì¤Þ¤»¤ó. $TMPDIR ¤òÀßÄê¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤"
 
-#: gnulib-lib/clean-temp.c:346
+#: gnulib-lib/clean-temp.c:339
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "¥Æ¥ó¥×¥ì¡¼¥È \"%s\" ¤ò»È¤Ã¤Æ°ì»þ¥Ç¥£¥ì¥¯¥È¥ê¤òºî¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó"
 
-#: gnulib-lib/clean-temp.c:442
+#: gnulib-lib/clean-temp.c:435
 #, c-format
 msgid "cannot remove temporary file %s"
 msgstr "°ì»þ¥Õ¥¡¥¤¥ë \"%s\" ¤òºï½ü¤Ç¤­¤Þ¤»¤ó"
 
-#: gnulib-lib/clean-temp.c:457
+#: gnulib-lib/clean-temp.c:450
 #, c-format
 msgid "cannot remove temporary directory %s"
 msgstr "°ì»þ¥Ç¥£¥ì¥¯¥È¥ê %s ¤òºï½ü¤Ç¤­¤Þ¤»¤ó"
@@ -55,38 +55,38 @@ msgstr "°ì»þ¥Ç¥£¥ì¥¯¥È¥ê %s ¤òºï½ü¤Ç¤­¤Þ¤»¤ó"
 msgid "write error"
 msgstr "½ñ¤­¹þ¤ß¥¨¥é¡¼"
 
-#: gnulib-lib/copy-acl.c:54 gnulib-lib/copy-file.c:217
+#: gnulib-lib/copy-acl.c:54 gnulib-lib/copy-file.c:212
 #, c-format
 msgid "preserving permissions for %s"
 msgstr "%s ¤ËÂÐ¤¹¤ë¥¢¥¯¥»¥¹¸¢¤ò°Ý»ý"
 
-#: gnulib-lib/copy-file.c:194
+#: gnulib-lib/copy-file.c:189
 #, c-format
 msgid "error while opening %s for reading"
 msgstr "%s ¤òÆÉ¤ß¹þ¤â¤¦¤È¤·¤Æ¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/copy-file.c:198
+#: gnulib-lib/copy-file.c:193
 #, c-format
 msgid "cannot open backup file %s for writing"
 msgstr "¥Ð¥Ã¥¯¥¢¥Ã¥×¥Õ¥¡¥¤¥ë %s ¤ò½ñ¤­¹þ¤ßÍÑ¤Ë³«¤¯¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó"
 
-#: gnulib-lib/copy-file.c:202
+#: gnulib-lib/copy-file.c:197
 #, c-format
 msgid "error reading %s"
 msgstr "%s ¤òÆÉ¤ß¹þ¤ßÃæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/copy-file.c:206
+#: gnulib-lib/copy-file.c:201
 #, c-format
 msgid "error writing %s"
 msgstr "%s ¤ò½ñ¤­¹þ¤ßÃæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/copy-file.c:210
+#: gnulib-lib/copy-file.c:205
 #, c-format
 msgid "error after reading %s"
 msgstr "%s ¤òÆÉ¤ß¹þ¤ó¤À¸å¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:897
-#: src/msginit.c:972 src/msginit.c:1132 src/msginit.c:1231
+#: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:898
+#: src/msginit.c:973 src/msginit.c:1133 src/msginit.c:1232
 #: src/read-csharp.c:72 src/read-java.c:70 src/read-resources.c:73
 #: src/read-tcl.c:110 src/write-resources.c:77
 #, c-format
@@ -103,12 +103,12 @@ msgstr "C# ¥³¥ó¥Ñ¥¤¥é¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó. pnet ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤"
 msgid "C# virtual machine not found, try installing pnet"
 msgstr "C# ²¾ÁÛ¥Þ¥·¥ó¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó. pnet ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤"
 
-#: gnulib-lib/error.c:188
+#: gnulib-lib/error.c:191
 msgid "Unknown system error"
 msgstr "Ì¤ÃÎ¤Î¥·¥¹¥Æ¥à¥¨¥é¡¼"
 
-#: gnulib-lib/execute.c:189 gnulib-lib/execute.c:262
-#: gnulib-lib/spawn-pipe.c:234 gnulib-lib/spawn-pipe.c:348
+#: gnulib-lib/execute.c:191 gnulib-lib/execute.c:264
+#: gnulib-lib/spawn-pipe.c:236 gnulib-lib/spawn-pipe.c:350
 #: gnulib-lib/wait-process.c:282 gnulib-lib/wait-process.c:356
 #, c-format
 msgid "%s subprocess failed"
@@ -170,31 +170,31 @@ msgstr "%s: ¥ª¥×¥·¥ç¥ó '-W %s' ¤Ë°ú¿ô¤Ï¤¢¤ê¤Þ¤»¤ó\n"
 msgid "%s: option '-W %s' requires an argument\n"
 msgstr "%s: ¥ª¥×¥·¥ç¥ó '-W %s' ¤Ë¤Ï°ú¿ô¤¬É¬Í×¤Ç¤¹\n"
 
-#: gnulib-lib/javacomp.c:126 gnulib-lib/javacomp.c:140
-#: gnulib-lib/javacomp.c:156
+#: gnulib-lib/javacomp.c:121 gnulib-lib/javacomp.c:135
+#: gnulib-lib/javacomp.c:151
 #, c-format
 msgid "invalid source_version argument to compile_java_class"
 msgstr "compile_java_class ¤ËÂÐ¤¹¤ëÌµ¸ú¤Ê source_version °ú¿ô"
 
-#: gnulib-lib/javacomp.c:171 gnulib-lib/javacomp.c:192
+#: gnulib-lib/javacomp.c:166 gnulib-lib/javacomp.c:187
 #, c-format
 msgid "invalid target_version argument to compile_java_class"
 msgstr "compile_java_class ¤ËÂÐ¤¹¤ëÌµ¸ú¤Ê target_version °ú¿ô"
 
-#: gnulib-lib/javacomp.c:503 src/write-csharp.c:739 src/write-java.c:1140
+#: gnulib-lib/javacomp.c:498 src/write-csharp.c:739 src/write-java.c:1140
 #: src/write-java.c:1148 src/write-java.c:1176 src/write-java.c:1188
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "\"%s\" ¤ÎÀ¸À®¤Ë¼ºÇÔ¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/javacomp.c:510 src/write-catalog.c:255 src/write-catalog.c:319
+#: gnulib-lib/javacomp.c:505 src/write-catalog.c:255 src/write-catalog.c:319
 #: src/write-csharp.c:748 src/write-java.c:1156 src/write-java.c:1197
 #: src/write-mo.c:811 src/write-qt.c:748 src/write-tcl.c:222
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "\"%s\" ¥Õ¥¡¥¤¥ë¤ò½ñ¤­¹þ¤ßÃæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: gnulib-lib/javacomp.c:2343
+#: gnulib-lib/javacomp.c:2338
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr "Java ¥³¥ó¥Ñ¥¤¥é¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó. gcj ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤« $JAVAC ¤òÀßÄê¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤"
@@ -204,15 +204,15 @@ msgstr "Java ¥³¥ó¥Ñ¥¤¥é¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó. gcj ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤« $JAVAC ¤òÀßÄê¤
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr "Java ²¾ÁÛ¥Þ¥·¥ó¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó. gij ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤« $JAVA ¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤"
 
-#: gnulib-lib/javaversion.c:84 src/msginit.c:905 src/msginit.c:980
-#: src/msginit.c:1140
+#: gnulib-lib/javaversion.c:84 src/msginit.c:906 src/msginit.c:981
+#: src/msginit.c:1141
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s ¥µ¥Ö¥×¥í¥»¥¹Æþ½ÐÎÏ¥¨¥é¡¼"
 
 #: gnulib-lib/obstack.c:416 gnulib-lib/obstack.c:418 gnulib-lib/xmalloc.c:37
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:559 src/po-lex.c:83
-#: src/po-lex.c:102 src/x-glade.c:548 libgettextpo/gettext-po.c:1328
+#: src/po-lex.c:102 src/x-glade.c:548 libgettextpo/gettext-po.c:1326
 #, c-format
 msgid "memory exhausted"
 msgstr "¥á¥â¥ê¤ò»È¤¤²Ì¤¿¤·¤Þ¤·¤¿"
@@ -223,7 +223,7 @@ msgid "creation of threads failed"
 msgstr "¥¹¥ì¥Ã¥É¤ÎÀ¸À®¤Ë¼ºÇÔ"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:374
-#: src/msgexec.c:389
+#: src/msgexec.c:405
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "%s ¤Ø½ñ¤­½Ð¤¹¥µ¥Ö¥×¥í¥»¥¹¤¬¼ºÇÔ¤·¤Þ¤·¤¿"
@@ -282,8 +282,8 @@ msgstr "'"
 msgid "setting permissions for %s"
 msgstr "%s ¤ËÂÐ¤¹¤ë¥¢¥¯¥»¥¹¸¢¤òÀßÄê"
 
-#: gnulib-lib/spawn-pipe.c:140 gnulib-lib/spawn-pipe.c:143
-#: gnulib-lib/spawn-pipe.c:264 gnulib-lib/spawn-pipe.c:267
+#: gnulib-lib/spawn-pipe.c:142 gnulib-lib/spawn-pipe.c:145
+#: gnulib-lib/spawn-pipe.c:266 gnulib-lib/spawn-pipe.c:269
 #, c-format
 msgid "cannot create pipe"
 msgstr "¥Ñ¥¤¥×¤òºî¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó"
@@ -699,10 +699,10 @@ msgstr "Ì¿ÎáÈÖ¹æ %u ¤Ç¤Ï, Ê¸»ú '%c' ¤Ï 1 ¤«¤é 9 ¤Î´Ö¤Î¿ô»ú¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó."
 msgid "The character that terminates the directive number %u is not a digit between 1 and 9."
 msgstr "Ì¿ÎáÈÖ¹æ %u ¤Î½ªÃ¼Ê¸»ú¤Ï 1 ¤«¤é 9 ¤Î´Ö¤Î¿ô»ú¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó."
 
-#: src/hostname.c:178 src/msgattrib.c:355 src/msgcat.c:294 src/msgcmp.c:172
+#: src/hostname.c:180 src/msgattrib.c:355 src/msgcat.c:294 src/msgcmp.c:172
 #: src/msgcomm.c:285 src/msgconv.c:244 src/msgen.c:241 src/msgexec.c:180
-#: src/msgfilter.c:282 src/msgfmt.c:416 src/msggrep.c:419 src/msginit.c:268
-#: src/msgmerge.c:353 src/msgunfmt.c:262 src/msguniq.c:264
+#: src/msgfilter.c:282 src/msgfmt.c:416 src/msggrep.c:419 src/msginit.c:269
+#: src/msgmerge.c:356 src/msgunfmt.c:262 src/msguniq.c:264
 #: src/recode-sr-latin.c:110 src/urlget.c:143 src/xgettext.c:615
 #, c-format, no-wrap
 msgid ""
@@ -720,58 +720,58 @@ msgstr ""
 "¤³¤ì¤Ï¥Õ¥ê¡¼¡¦¥½¥Õ¥È¥¦¥§¥¢¤Ç¤¹¤Î¤ÇÊÑ¹¹¤ÈºÆÇÛÉÛ¤Ï¼«Í³¤Ç¤¹.\n"
 "¤¿¤À¤·Ë¡Î§¤¬µö¤¹ÈÏ°Ï¤ÇÌµÊÝ¾Ú¤Ç¤¹.\n"
 
-#: src/hostname.c:184 src/msgattrib.c:361 src/msgcat.c:300 src/msgcmp.c:178
+#: src/hostname.c:186 src/msgattrib.c:361 src/msgcat.c:300 src/msgcmp.c:178
 #: src/msgcomm.c:291 src/msgconv.c:250 src/msgen.c:247 src/msgexec.c:186
-#: src/msgfilter.c:288 src/msgfmt.c:422 src/msggrep.c:425 src/msginit.c:274
-#: src/msgmerge.c:359 src/msgunfmt.c:268 src/msguniq.c:270 src/urlget.c:149
+#: src/msgfilter.c:288 src/msgfmt.c:422 src/msggrep.c:425 src/msginit.c:275
+#: src/msgmerge.c:362 src/msgunfmt.c:268 src/msguniq.c:270 src/urlget.c:149
 #: src/xgettext.c:621
 #, c-format
 msgid "Written by %s.\n"
 msgstr "ºî¼Ô %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/hostname.c:184 src/msgattrib.c:361 src/msgcat.c:300 src/msgconv.c:250
+#: src/hostname.c:186 src/msgattrib.c:361 src/msgcat.c:300 src/msgconv.c:250
 #: src/msgen.c:247 src/msgexec.c:186 src/msgfilter.c:288 src/msggrep.c:425
-#: src/msginit.c:274 src/msguniq.c:270 src/recode-sr-latin.c:121
+#: src/msginit.c:275 src/msguniq.c:270 src/recode-sr-latin.c:121
 #: src/urlget.c:149
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/hostname.c:194 src/msginit.c:284 src/recode-sr-latin.c:130
+#: src/hostname.c:196 src/msginit.c:285 src/recode-sr-latin.c:130
 #, c-format
 msgid "too many arguments"
 msgstr "°ú¿ô¤¬Â¿¤¹¤®¤Þ¤¹"
 
-#: src/hostname.c:207 src/msgattrib.c:417 src/msgcat.c:363 src/msgcmp.c:209
+#: src/hostname.c:209 src/msgattrib.c:417 src/msgcat.c:363 src/msgcmp.c:209
 #: src/msgcomm.c:355 src/msgconv.c:303 src/msgen.c:300 src/msgexec.c:253
-#: src/msgfilter.c:403 src/msgfmt.c:770 src/msggrep.c:512 src/msginit.c:358
-#: src/msgmerge.c:481 src/msgunfmt.c:423 src/msguniq.c:322
+#: src/msgfilter.c:403 src/msgfmt.c:770 src/msggrep.c:512 src/msginit.c:359
+#: src/msgmerge.c:494 src/msgunfmt.c:423 src/msguniq.c:322
 #: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:851
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "¤è¤êÂ¿¤¯¤Î¾ðÊó¤òÆÀ¤ë¤¿¤á¤Ë¤Ï '%s --help' ¤ÈÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤.\n"
 
-#: src/hostname.c:211 src/msginit.c:362 src/recode-sr-latin.c:148
+#: src/hostname.c:213 src/msginit.c:363 src/recode-sr-latin.c:148
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "»ÈÍÑË¡: %s [¥ª¥×¥·¥ç¥ó]\n"
 
-#: src/hostname.c:215
+#: src/hostname.c:217
 #, c-format
 msgid "Print the machine's hostname.\n"
 msgstr "¥Þ¥·¥ó¤Î¥Û¥¹¥ÈÌ¾¤òÉ½¼¨.\n"
 
-#: src/hostname.c:218
+#: src/hostname.c:220
 #, c-format
 msgid "Output format:\n"
 msgstr "½ÐÎÏ·Á¼°:\n"
 
-#: src/hostname.c:220
+#: src/hostname.c:222
 #, c-format
 msgid "  -s, --short                 short host name\n"
 msgstr "  -s, --short                 Ã»¤¤¥Û¥¹¥ÈÌ¾\n"
 
-#: src/hostname.c:222
+#: src/hostname.c:224
 #, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified domain\n"
@@ -780,33 +780,33 @@ msgstr ""
 "  -f, --fqdn, --long          Ä¹¤¤¥Û¥¹¥ÈÌ¾, FQDN (Fully Qualified Domain Name)\n"
 "                                ¤ÈÊÌÌ¾ (¥¨¥¤¥ê¥¢¥¹) ¤ò´Þ¤à\n"
 
-#: src/hostname.c:225
+#: src/hostname.c:227
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
 msgstr "  -i, --ip-address            ¥Û¥¹¥ÈÌ¾¤ËÂÐ¤¹¤ë¥¢¥É¥ì¥¹\n"
 
-#: src/hostname.c:228 src/msgattrib.c:534 src/msgcat.c:469 src/msgcmp.c:258
+#: src/hostname.c:230 src/msgattrib.c:534 src/msgcat.c:469 src/msgcmp.c:258
 #: src/msgcomm.c:455 src/msgconv.c:385 src/msgen.c:381 src/msgexec.c:295
-#: src/msgfilter.c:495 src/msgfmt.c:916 src/msggrep.c:628 src/msginit.c:420
-#: src/msgmerge.c:606 src/msgunfmt.c:527 src/msguniq.c:417
+#: src/msgfilter.c:495 src/msgfmt.c:916 src/msggrep.c:628 src/msginit.c:421
+#: src/msgmerge.c:619 src/msgunfmt.c:527 src/msguniq.c:417
 #: src/recode-sr-latin.c:161 src/urlget.c:186 src/xgettext.c:1023
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "¾ðÊó½ÐÎÏ:\n"
 
-#: src/hostname.c:230 src/msgattrib.c:536 src/msgcat.c:471 src/msgcmp.c:260
+#: src/hostname.c:232 src/msgattrib.c:536 src/msgcat.c:471 src/msgcmp.c:260
 #: src/msgcomm.c:457 src/msgconv.c:387 src/msgen.c:383 src/msgexec.c:297
-#: src/msgfilter.c:497 src/msgfmt.c:918 src/msggrep.c:630 src/msginit.c:422
-#: src/msgmerge.c:608 src/msgunfmt.c:529 src/msguniq.c:419
+#: src/msgfilter.c:497 src/msgfmt.c:918 src/msggrep.c:630 src/msginit.c:423
+#: src/msgmerge.c:621 src/msgunfmt.c:529 src/msguniq.c:419
 #: src/recode-sr-latin.c:164 src/urlget.c:188 src/xgettext.c:1025
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  ¤³¤Î¥Ø¥ë¥×¤òÉ½¼¨¤·¤Æ½ªÎ»\n"
 
-#: src/hostname.c:232 src/msgattrib.c:538 src/msgcat.c:473 src/msgcmp.c:262
+#: src/hostname.c:234 src/msgattrib.c:538 src/msgcat.c:473 src/msgcmp.c:262
 #: src/msgcomm.c:459 src/msgconv.c:389 src/msgen.c:385 src/msgexec.c:299
-#: src/msgfilter.c:499 src/msgfmt.c:920 src/msggrep.c:632 src/msginit.c:424
-#: src/msgmerge.c:610 src/msgunfmt.c:531 src/msguniq.c:421
+#: src/msgfilter.c:499 src/msgfmt.c:920 src/msggrep.c:632 src/msginit.c:425
+#: src/msgmerge.c:623 src/msgunfmt.c:531 src/msguniq.c:421
 #: src/recode-sr-latin.c:167 src/urlget.c:190 src/xgettext.c:1027
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
@@ -816,30 +816,31 @@ msgstr "  -V, --version               ¥Ð¡¼¥¸¥ç¥ó¾ðÊó¤òÉ½¼¨¤·¤Æ½ªÎ»\n"
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/hostname.c:239 src/msgattrib.c:545 src/msgcat.c:480 src/msgcmp.c:269
+#: src/hostname.c:241 src/msgattrib.c:545 src/msgcat.c:480 src/msgcmp.c:269
 #: src/msgcomm.c:466 src/msgconv.c:396 src/msgen.c:392 src/msgexec.c:306
-#: src/msgfilter.c:506 src/msgfmt.c:931 src/msggrep.c:639 src/msginit.c:431
-#: src/msgmerge.c:621 src/msgunfmt.c:540 src/msguniq.c:428
+#: src/msgfilter.c:506 src/msgfmt.c:931 src/msggrep.c:639 src/msginit.c:432
+#: src/msgmerge.c:634 src/msgunfmt.c:540 src/msguniq.c:428
 #: src/recode-sr-latin.c:174 src/urlget.c:199 src/xgettext.c:1034
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "¥Ð¥°¥ì¥Ý¡¼¥È¤Ï <bug-gnu-gettext@gnu.org> ¤Þ¤Ç.\n"
 
-#: src/hostname.c:255 src/hostname.c:261 src/hostname.c:268
+#: src/hostname.c:257 src/hostname.c:263 src/hostname.c:270
 #, c-format
 msgid "could not get host name"
 msgstr "¥Û¥¹¥ÈÌ¾¤ò¼èÆÀ¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿"
 
 #: src/msgattrib.c:376 src/msgconv.c:265 src/msgexec.c:152 src/msgfilter.c:194
-#: src/msggrep.c:440 src/msginit.c:197 src/msguniq.c:285
+#: src/msggrep.c:440 src/msginit.c:198 src/msguniq.c:285
 #, c-format
 msgid "at most one input file allowed"
 msgstr "ºÇÂç 1¤Ä¤ÎÆþÎÏ¥Õ¥¡¥¤¥ë¤¬µö¤µ¤ì¤Þ¤¹"
 
 #: src/msgattrib.c:382 src/msgcat.c:316 src/msgcomm.c:301 src/msgconv.c:271
 #: src/msgen.c:269 src/msgfilter.c:303 src/msgfmt.c:470 src/msgfmt.c:478
-#: src/msgfmt.c:493 src/msgfmt.c:515 src/msggrep.c:446 src/msgmerge.c:384
-#: src/msgmerge.c:405 src/msgunfmt.c:299 src/msguniq.c:291 src/xgettext.c:631
-#: src/xgettext.c:638 src/xgettext.c:641 src/xgettext.c:644
+#: src/msgfmt.c:493 src/msgfmt.c:515 src/msggrep.c:446 src/msgmerge.c:387
+#: src/msgmerge.c:392 src/msgmerge.c:397 src/msgmerge.c:418 src/msgunfmt.c:299
+#: src/msguniq.c:291 src/xgettext.c:631 src/xgettext.c:638 src/xgettext.c:641
+#: src/xgettext.c:644
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s ¤È %s ¤ÏÇØÈ¿¤Ç¤¹"
@@ -858,7 +859,7 @@ msgstr "Â°À­¤Ë½¾¤Ã¤ÆËÝÌõ¥«¥¿¥í¥°¤Î¥á¥Ã¥»¡¼¥¸¤òÁªÊÌ¤·, Â°À­¤ò¤¦¤Þ¤¯Áàºî¤·¤Þ¤¹.\n"
 
 #: src/msgattrib.c:430 src/msgcat.c:384 src/msgcmp.c:227 src/msgcomm.c:375
 #: src/msgconv.c:315 src/msgen.c:316 src/msgexec.c:276 src/msgfilter.c:415
-#: src/msggrep.c:526 src/msginit.c:372 src/msgmerge.c:502 src/msgunfmt.c:435
+#: src/msggrep.c:526 src/msginit.c:373 src/msgmerge.c:515 src/msgunfmt.c:435
 #: src/msguniq.c:342
 #, c-format
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -866,7 +867,7 @@ msgstr "Ä¹¤¤¥ª¥×¥·¥ç¥ó¤ËÉ¬¿Ü¤Î°ú¿ô¤ÏÃ»¤¤¥ª¥×¥·¥ç¥ó¤Ë¤âÉ¬¿Ü¤Ç¤¹.\n"
 
 #: src/msgattrib.c:433 src/msgcat.c:387 src/msgcmp.c:230 src/msgcomm.c:378
 #: src/msgconv.c:318 src/msgen.c:319 src/msgexec.c:279 src/msgfilter.c:418
-#: src/msgfmt.c:788 src/msggrep.c:529 src/msginit.c:375 src/msgmerge.c:505
+#: src/msgfmt.c:788 src/msggrep.c:529 src/msginit.c:376 src/msgmerge.c:518
 #: src/msgunfmt.c:449 src/msguniq.c:345 src/xgettext.c:869
 #, c-format
 msgid "Input file location:\n"
@@ -879,7 +880,7 @@ msgstr "  INPUTFILE                   ÆþÎÏ PO ¥Õ¥¡¥¤¥ë\n"
 
 #: src/msgattrib.c:437 src/msgcat.c:393 src/msgcmp.c:236 src/msgcomm.c:384
 #: src/msgconv.c:322 src/msgen.c:323 src/msgexec.c:283 src/msgfilter.c:422
-#: src/msgfmt.c:792 src/msggrep.c:533 src/msgmerge.c:511 src/msguniq.c:349
+#: src/msgfmt.c:792 src/msggrep.c:533 src/msgmerge.c:524 src/msguniq.c:349
 #: src/xgettext.c:875
 #, c-format
 msgid "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -893,7 +894,7 @@ msgstr "ÆþÎÏ¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤¤, ¤â¤·¤¯¤Ï - ¤Î¾ì¹ç¤ÏÉ¸½àÆþÎÏ¤¬ÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹.
 
 #: src/msgattrib.c:442 src/msgcat.c:398 src/msgcomm.c:389 src/msgconv.c:327
 #: src/msgen.c:328 src/msgfilter.c:427 src/msgfmt.c:814 src/msggrep.c:538
-#: src/msginit.c:383 src/msgmerge.c:523 src/msgunfmt.c:489 src/msguniq.c:354
+#: src/msginit.c:384 src/msgmerge.c:536 src/msgunfmt.c:489 src/msguniq.c:354
 #: src/xgettext.c:880
 #, c-format
 msgid "Output file location:\n"
@@ -901,13 +902,13 @@ msgstr "½ÐÎÏ¥Õ¥¡¥¤¥ë¤Î»ØÄê:\n"
 
 #: src/msgattrib.c:444 src/msgcat.c:400 src/msgcomm.c:391 src/msgconv.c:329
 #: src/msgen.c:330 src/msgfilter.c:429 src/msgfmt.c:816 src/msgfmt.c:865
-#: src/msggrep.c:540 src/msgmerge.c:525 src/msgunfmt.c:491 src/msguniq.c:356
+#: src/msggrep.c:540 src/msgmerge.c:538 src/msgunfmt.c:491 src/msguniq.c:356
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=FILE      »ØÄê¤·¤¿¥Õ¥¡¥¤¥ë¤Ë½ÐÎÏ\n"
 
 #: src/msgattrib.c:446 src/msgcat.c:402 src/msgcomm.c:393 src/msgconv.c:331
-#: src/msgen.c:332 src/msgfilter.c:431 src/msggrep.c:542 src/msgmerge.c:527
+#: src/msgen.c:332 src/msgfilter.c:431 src/msggrep.c:542 src/msgmerge.c:540
 #: src/msgunfmt.c:493 src/msguniq.c:358
 #, c-format
 msgid ""
@@ -1016,35 +1017,35 @@ msgstr "      --obsolete              --only-obsolete --clear-obsolete ¤ÈÆ±¤¸\n"
 
 #: src/msgattrib.c:491 src/msgcat.c:418 src/msgcmp.c:250 src/msgcomm.c:409
 #: src/msgconv.c:342 src/msgen.c:336 src/msgexec.c:288 src/msgfilter.c:450
-#: src/msgfmt.c:878 src/msggrep.c:585 src/msginit.c:391 src/msgmerge.c:560
+#: src/msgfmt.c:878 src/msggrep.c:585 src/msginit.c:392 src/msgmerge.c:573
 #: src/msguniq.c:369
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "ÆþÎÏ¥Õ¥¡¥¤¥ë¤ÎÊ¸Ë¡:\n"
 
 #: src/msgattrib.c:493 src/msgconv.c:344 src/msgen.c:338 src/msgexec.c:290
-#: src/msgfilter.c:452 src/msggrep.c:587 src/msginit.c:393 src/msguniq.c:371
+#: src/msgfilter.c:452 src/msggrep.c:587 src/msginit.c:394 src/msguniq.c:371
 #, c-format
 msgid "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr "  -P, --properties-input      ÆþÎÏ¥Õ¥¡¥¤¥ë¤Ï Java .properties ¤ÎÊ¸Ë¡\n"
 
 #: src/msgattrib.c:495 src/msgconv.c:346 src/msgen.c:340 src/msgexec.c:292
-#: src/msgfilter.c:454 src/msggrep.c:589 src/msginit.c:395 src/msguniq.c:373
+#: src/msgfilter.c:454 src/msggrep.c:589 src/msginit.c:396 src/msguniq.c:373
 #, c-format
 msgid "      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"
 msgstr "      --stringtable-input     ÆþÎÏ¥Õ¥¡¥¤¥ë¤Ï NeXTstep/GNUstep .strings ¤ÎÊ¸Ë¡\n"
 
 #: src/msgattrib.c:498 src/msgcat.c:426 src/msgcomm.c:417 src/msgconv.c:349
 #: src/msgen.c:343 src/msgfilter.c:457 src/msgfmt.c:906 src/msggrep.c:592
-#: src/msginit.c:398 src/msgmerge.c:568 src/msgunfmt.c:497 src/msguniq.c:376
+#: src/msginit.c:399 src/msgmerge.c:581 src/msgunfmt.c:497 src/msguniq.c:376
 #: src/xgettext.c:969
 #, c-format
 msgid "Output details:\n"
 msgstr "½ÐÎÏ¤Î¾ÜºÙ:\n"
 
 #: src/msgattrib.c:500 src/msgcat.c:435 src/msgcomm.c:419 src/msgconv.c:351
-#: src/msgen.c:347 src/msgfilter.c:459 src/msggrep.c:594 src/msginit.c:404
-#: src/msgmerge.c:572 src/msgunfmt.c:499 src/msguniq.c:383 src/xgettext.c:971
+#: src/msgen.c:347 src/msgfilter.c:459 src/msggrep.c:594 src/msginit.c:405
+#: src/msgmerge.c:585 src/msgunfmt.c:499 src/msguniq.c:383 src/xgettext.c:971
 #, c-format
 msgid ""
 "      --color                 use colors and other text attributes always\n"
@@ -1056,21 +1057,21 @@ msgstr ""
 "                              WHEN ¤Ï 'always', 'never', 'auto', ¤Þ¤¿¤Ï 'html'.\n"
 
 #: src/msgattrib.c:504 src/msgcat.c:439 src/msgcomm.c:423 src/msgconv.c:355
-#: src/msgen.c:351 src/msgfilter.c:463 src/msggrep.c:598 src/msginit.c:408
-#: src/msgmerge.c:576 src/msgunfmt.c:503 src/msguniq.c:387 src/xgettext.c:975
+#: src/msgen.c:351 src/msgfilter.c:463 src/msggrep.c:598 src/msginit.c:409
+#: src/msgmerge.c:589 src/msgunfmt.c:503 src/msguniq.c:387 src/xgettext.c:975
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr "      --style=STYLEFILE       --color ¤ËÂÐ¤¹¤ë CSS ¥¹¥¿¥¤¥ë¥ë¡¼¥ë¤ò»ØÄê\n"
 
 #: src/msgattrib.c:506 src/msgcat.c:441 src/msgcomm.c:425 src/msgconv.c:357
-#: src/msgen.c:353 src/msgmerge.c:578 src/msgunfmt.c:505 src/msguniq.c:389
+#: src/msgen.c:353 src/msgmerge.c:591 src/msgunfmt.c:505 src/msguniq.c:389
 #: src/xgettext.c:977
 #, c-format
 msgid "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr "  -e, --no-escape             ½ÐÎÏ¤Ë C ¸À¸ì¤Î¥¨¥¹¥±¡¼¥×¤ò»È¤ï¤Ê¤¤ (É¸½à)\n"
 
 #: src/msgattrib.c:508 src/msgcat.c:443 src/msgcomm.c:427 src/msgconv.c:359
-#: src/msgen.c:355 src/msgfilter.c:467 src/msgmerge.c:580 src/msgunfmt.c:507
+#: src/msgen.c:355 src/msgfilter.c:467 src/msgmerge.c:593 src/msgunfmt.c:507
 #: src/msguniq.c:391 src/xgettext.c:979
 #, c-format
 msgid "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1079,7 +1080,7 @@ msgstr ""
 "                              ³ÈÄ¥Ê¸»ú¤ò´Þ¤á¤Ê¤¤\n"
 
 #: src/msgattrib.c:510 src/msgcat.c:445 src/msgcomm.c:429 src/msgconv.c:361
-#: src/msgen.c:357 src/msgfilter.c:469 src/msggrep.c:604 src/msgmerge.c:582
+#: src/msgen.c:357 src/msgfilter.c:469 src/msggrep.c:604 src/msgmerge.c:595
 #: src/msgunfmt.c:509 src/msguniq.c:393 src/xgettext.c:981
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
@@ -1110,29 +1111,29 @@ msgid "      --strict                write out strict Uniforum conforming .po fi
 msgstr "      --strict                ¸·Ì©¤Ê Uniforum ·Á¼°¤Î .po ¥Õ¥¡¥¤¥ë¤ò½ÐÎÏ\n"
 
 #: src/msgattrib.c:520 src/msgcat.c:455 src/msgcomm.c:439 src/msgconv.c:371
-#: src/msgen.c:367 src/msgfilter.c:481 src/msggrep.c:614 src/msginit.c:410
-#: src/msgmerge.c:592 src/msgunfmt.c:515 src/msguniq.c:403
+#: src/msgen.c:367 src/msgfilter.c:481 src/msggrep.c:614 src/msginit.c:411
+#: src/msgmerge.c:605 src/msgunfmt.c:515 src/msguniq.c:403
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     Java .properties ¥Õ¥¡¥¤¥ë¤ò½ÐÎÏ\n"
 
 #: src/msgattrib.c:522 src/msgcat.c:457 src/msgcomm.c:441 src/msgconv.c:373
-#: src/msgen.c:369 src/msgfilter.c:483 src/msggrep.c:616 src/msginit.c:412
-#: src/msgmerge.c:594 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:993
+#: src/msgen.c:369 src/msgfilter.c:483 src/msggrep.c:616 src/msginit.c:413
+#: src/msgmerge.c:607 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:993
 #, c-format
 msgid "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
 msgstr "      --stringtable-output    NeXTstep/GNUstep .strings ¥Õ¥¡¥¤¥ë¤ò½ÐÎÏ\n"
 
 #: src/msgattrib.c:524 src/msgcat.c:459 src/msgcomm.c:443 src/msgconv.c:375
-#: src/msgen.c:371 src/msgfilter.c:485 src/msggrep.c:618 src/msginit.c:414
-#: src/msgmerge.c:596 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:995
+#: src/msgen.c:371 src/msgfilter.c:485 src/msggrep.c:618 src/msginit.c:415
+#: src/msgmerge.c:609 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:995
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=NUMBER          ½ÐÎÏ¥Ú¡¼¥¸¤ÎÉý¤òÀßÄê\n"
 
 #: src/msgattrib.c:526 src/msgcat.c:461 src/msgcomm.c:445 src/msgconv.c:377
-#: src/msgen.c:373 src/msgfilter.c:487 src/msggrep.c:620 src/msginit.c:416
-#: src/msgmerge.c:598 src/msgunfmt.c:521 src/msguniq.c:409 src/xgettext.c:997
+#: src/msgen.c:373 src/msgfilter.c:487 src/msggrep.c:620 src/msginit.c:417
+#: src/msgmerge.c:611 src/msgunfmt.c:521 src/msguniq.c:409 src/xgettext.c:997
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1140,14 +1141,14 @@ msgid ""
 msgstr "      --no-wrap               ½ÐÎÏ¥Ú¡¼¥¸¤ÎÉý¤è¤êÄ¹¤¤¥á¥Ã¥»¡¼¥¸¹Ô¤ò²þ¹Ô¤·¤Ê¤¤\n"
 
 #: src/msgattrib.c:529 src/msgcat.c:464 src/msgcomm.c:448 src/msgconv.c:380
-#: src/msgen.c:376 src/msgfilter.c:490 src/msgmerge.c:601 src/msgunfmt.c:524
+#: src/msgen.c:376 src/msgfilter.c:490 src/msgmerge.c:614 src/msgunfmt.c:524
 #: src/msguniq.c:412 src/xgettext.c:1000
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output           ¥½¡¼¥È¤µ¤ì¤¿½ÐÎÏ¤òÀ¸À®\n"
 
 #: src/msgattrib.c:531 src/msgcat.c:466 src/msgcomm.c:450 src/msgconv.c:382
-#: src/msgen.c:378 src/msgfilter.c:492 src/msgmerge.c:603 src/msguniq.c:414
+#: src/msgen.c:378 src/msgfilter.c:492 src/msgmerge.c:616 src/msguniq.c:414
 #: src/xgettext.c:1002
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
@@ -1229,13 +1230,13 @@ msgstr ""
 "                              ¤Î¤ß¤òÉ½¼¨\n"
 
 #: src/msgcat.c:420 src/msgcmp.c:252 src/msgcomm.c:411 src/msgfmt.c:880
-#: src/msgmerge.c:562
+#: src/msgmerge.c:575
 #, c-format
 msgid "  -P, --properties-input      input files are in Java .properties syntax\n"
 msgstr "  -P, --properties-input      ÆþÎÏ¥Õ¥¡¥¤¥ë¤Ï Java .properties ¤ÎÊ¸Ë¡\n"
 
 #: src/msgcat.c:422 src/msgcmp.c:254 src/msgcomm.c:413 src/msgfmt.c:882
-#: src/msgmerge.c:564
+#: src/msgmerge.c:577
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
@@ -1256,27 +1257,27 @@ msgstr ""
 "      --use-first             ³Æ¡¹¤Î¥á¥Ã¥»¡¼¥¸¤ÎºÇ½é¤ËÍ­¸ú¤ÊËÝÌõ¤ò»È¤¦\n"
 "                              Ê£¿ô¤ÎËÝÌõ¤ò¥Þ¡¼¥¸¤·¤Ê¤¤\n"
 
-#: src/msgcat.c:433 src/msgen.c:345 src/msgmerge.c:570
+#: src/msgcat.c:433 src/msgen.c:345 src/msgmerge.c:583
 #, c-format
 msgid "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr "      --lang=CATALOGNAME      ¥Ø¥Ã¥À¹àÌÜ¤Î 'Language' Íó¤ò»ØÄê\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:178 src/msgcomm.c:291 src/msgmerge.c:359
+#: src/msgcmp.c:178 src/msgcomm.c:291 src/msgmerge.c:362
 msgid "Peter Miller"
 msgstr "Peter Miller"
 
-#: src/msgcmp.c:189 src/msgmerge.c:370
+#: src/msgcmp.c:189 src/msgmerge.c:373
 #, c-format
 msgid "no input files given"
 msgstr "ÆþÎÏ¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
 
-#: src/msgcmp.c:194 src/msgmerge.c:375
+#: src/msgcmp.c:194 src/msgmerge.c:378
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "Àµ³Î¤Ë 2¤Ä¤ÎÆþÎÏ¥Õ¥¡¥¤¥ë¤¬É¬Í×¤Ç¤¹"
 
-#: src/msgcmp.c:213 src/msgmerge.c:485
+#: src/msgcmp.c:213 src/msgmerge.c:498
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "»ÈÍÑË¡: %s [¥ª¥×¥·¥ç¥ó] def.po ref.pot\n"
@@ -1309,17 +1310,17 @@ msgstr "  def.po                      ËÝÌõ\n"
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot                     ¥½¡¼¥¹¤Ø¤Î»²¾È\n"
 
-#: src/msgcmp.c:239 src/msgmerge.c:551
+#: src/msgcmp.c:239 src/msgmerge.c:564
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "Áàºî»ØÄê:\n"
 
-#: src/msgcmp.c:241 src/msgmerge.c:553
+#: src/msgcmp.c:241 src/msgmerge.c:566
 #, c-format
 msgid "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr "  -m, --multi-domain          ref.pot ¤ò def.po Æâ¤Î¥É¥á¥¤¥ó¤Î³Æ¡¹¤ËÅ¬ÍÑ\n"
 
-#: src/msgcmp.c:243 src/msgmerge.c:555
+#: src/msgcmp.c:243 src/msgmerge.c:568
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr "  -N, --no-fuzzy-matching     ¤¢¤¤¤Þ¤¤¸¡º÷¤ò¹Ô¤ï¤Ê¤¤\n"
@@ -1344,17 +1345,17 @@ msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤ÏÌ¤ËÝÌõ¤Ç¤¹"
 msgid "this message needs to be reviewed by the translator"
 msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤ÏËÝÌõ¼Ô¤Ë¤è¤ë¥ì¥Ó¥å¡¼¤¬É¬Í×¤Ç¤¹"
 
-#: src/msgcmp.c:369 src/msgmerge.c:1505
+#: src/msgcmp.c:369 src/msgmerge.c:1518
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤Ï»È¤ï¤ì¤Þ¤¹¤¬ÄêµÁ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó..."
 
-#: src/msgcmp.c:372 src/msgmerge.c:1508
+#: src/msgcmp.c:372 src/msgmerge.c:1521
 #, c-format
 msgid "...but this definition is similar"
 msgstr "...¤·¤«¤·¤³¤ÎÄêµÁ¤¬»÷¤Æ¤¤¤Þ¤¹"
 
-#: src/msgcmp.c:377 src/msgmerge.c:1536
+#: src/msgcmp.c:377 src/msgmerge.c:1549
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤Ï»È¤ï¤ì¤Þ¤¹¤¬ %s ¤Ç¤ÏÄêµÁ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
@@ -1364,7 +1365,7 @@ msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤Ï»È¤ï¤ì¤Þ¤¹¤¬ %s ¤Ç¤ÏÄêµÁ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
 msgid "warning: this message is not used"
 msgstr "·Ù¹ð: ¤³¤Î¥á¥Ã¥»¡¼¥¸¤Ï»È¤ï¤ì¤Þ¤»¤ó"
 
-#: src/msgcmp.c:553 src/msgfmt.c:652 src/msgfmt.c:1443
+#: src/msgcmp.c:553 src/msgfmt.c:652 src/msgfmt.c:1446
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -1424,25 +1425,25 @@ msgstr "ÊÑ´¹ÂÐ¾Ý:\n"
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "É¸½à¤Î¥¨¥ó¥³¡¼¥Ç¥£¥ó¥°¤Ï¸½ºß¤Î¥í¡¼¥«¥ë¤Î¥¨¥ó¥³¡¼¥Ç¥£¥ó¥°¤Ç¤¹.\n"
 
-#: src/msgconv.c:363 src/msgen.c:359 src/msgmerge.c:584
+#: src/msgconv.c:363 src/msgen.c:359 src/msgmerge.c:597
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr "  -i, --indent                »ú²¼¤²·Á¼°¤Î½ÐÎÏ\n"
 
 #: src/msgconv.c:365 src/msgen.c:361 src/msgfilter.c:475 src/msggrep.c:608
-#: src/msgmerge.c:586
+#: src/msgmerge.c:599
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr "      --no-location           '#: filename:line' ¤Î¹Ô¤ò½ÐÎÏ¤·¤Ê¤¤\n"
 
 #: src/msgconv.c:367 src/msgen.c:363 src/msgfilter.c:477 src/msggrep.c:610
-#: src/msgmerge.c:588
+#: src/msgmerge.c:601
 #, c-format
 msgid "  -n, --add-location          preserve '#: filename:line' lines (default)\n"
 msgstr "  -n, --add-location          '#: filename:line' ¤Î¹Ô¤òÊÝ»ý (É¸½à)\n"
 
 #: src/msgconv.c:369 src/msgen.c:365 src/msgfilter.c:479 src/msggrep.c:612
-#: src/msgmerge.c:590
+#: src/msgmerge.c:603
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr "      --strict                ¸·Ì©¤Ê Uniforum ½ÐÎÏ·Á¼°\n"
@@ -1695,7 +1696,7 @@ msgstr ""
 msgid "  filename.po ...             input files\n"
 msgstr "  filename.po ...             ÆþÎÏ¥Õ¥¡¥¤¥ë\n"
 
-#: src/msgfmt.c:797 src/msgmerge.c:517 src/msgunfmt.c:438 src/xgettext.c:913
+#: src/msgfmt.c:797 src/msgmerge.c:530 src/msgunfmt.c:438 src/xgettext.c:913
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Áàºî¥â¡¼¥É:\n"
@@ -1927,7 +1928,7 @@ msgstr "      --no-hash               ¥Ð¥¤¥Ê¥ê¥Õ¥¡¥¤¥ë¤Ï¥Ï¥Ã¥·¥å¥Æ¡¼¥Ö¥ë¤ò´Þ¤Þ¤Ê
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            ËÝÌõ¤Ë´Ø¤¹¤ëÅý·×¾ðÊó¤òÉ½¼¨\n"
 
-#: src/msgfmt.c:924 src/msgmerge.c:612 src/msgunfmt.c:533
+#: src/msgfmt.c:924 src/msgmerge.c:625 src/msgunfmt.c:533
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               ¿ÇÃÇ¥ì¥Ù¥ë¤ò¾å¤²¤ë\n"
@@ -1982,12 +1983,12 @@ msgstr "¤¢¤¤¤Þ¤¤ (fuzzy) ¤Ê 'msgstr' ¥¨¥ó¥È¥ê¤ÏÌµ»ë¤µ¤ì¤Þ¤¹"
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: ·Ù¹ð: ¥½¡¼¥¹¥Õ¥¡¥¤¥ë¤Ë¤¢¤¤¤Þ¤¤ (fuzzy) ¤ÊËÝÌõ¤¬¤¢¤ê¤Þ¤¹"
 
-#: src/msgfmt.c:1306
+#: src/msgfmt.c:1323
 #, c-format
 msgid "%s does not exist"
 msgstr "%s ¤ÏÂ¸ºß¤·¤Þ¤»¤ó"
 
-#: src/msgfmt.c:1316
+#: src/msgfmt.c:1334
 #, c-format
 msgid "%s exists but cannot read"
 msgstr "%s ¤ÏÂ¸ºß¤·¤Þ¤¹¤¬ÆÉ¤ß¹þ¤á¤Þ¤»¤ó"
@@ -2110,7 +2111,7 @@ msgstr "      --sort-output           ¥½¡¼¥È¤µ¤ì¤¿½ÐÎÏ¤òÀ¸À®\n"
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          ¥Õ¥¡¥¤¥ë¤Ç½ÐÎÏ¤ò¥½¡¼¥È\n"
 
-#: src/msginit.c:297
+#: src/msginit.c:298
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in the ABOUT-NLS\n"
@@ -2119,7 +2120,7 @@ msgstr ""
 "¤¢¤Ê¤¿¤Ï¸À¸ì¤Ë´Ø¤ï¤ê¤Î¤Ê¤¤´Ä¶­¤Ë¤¤¤Þ¤¹. ABOUT-NLS ¤Ëµ­½Ò¤µ¤ì¤¿¤è¤¦¤Ë\n"
 "´Ä¶­ÊÑ¿ô LANG ¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤. ¤³¤ì¤ÇËÝÌõ¤ò¥Æ¥¹¥È¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹.\n"
 
-#: src/msginit.c:321
+#: src/msginit.c:322
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2130,24 +2131,24 @@ msgstr ""
 "--locale ¥ª¥×¥·¥ç¥ó¤Ç¥í¥«¡¼¥ë¤ò»ØÄê¤¹¤ë¤«, --output-file ¥ª¥×¥·¥ç¥ó¤Ç\n"
 "½ÐÎÏ¤¹¤ë .po ¥Õ¥¡¥¤¥ë¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤.\n"
 
-#: src/msginit.c:347
+#: src/msginit.c:348
 #, c-format
 msgid "Created %s.\n"
 msgstr "%s ¤òÀ¸À®.\n"
 
-#: src/msginit.c:367
+#: src/msginit.c:368
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
 msgstr "¿·¤·¤¤ PO ¥Õ¥¡¥¤¥ë¤òºîÀ®. ¥æ¡¼¥¶´Ä¶­¤«¤é¤ÎÃÍ¤Ç¥á¥¿¾ðÊó¤ò½é´ü²½¤·¤Þ¤¹.\n"
 
-#: src/msginit.c:377
+#: src/msginit.c:378
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=INPUTFILE       ÆþÎÏ¤¹¤ë POT ¥Õ¥¡¥¤¥ë\n"
 
-#: src/msginit.c:379
+#: src/msginit.c:380
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT file.\n"
@@ -2156,12 +2157,12 @@ msgstr ""
 "ÆþÎÏ¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤¤¾ì¹ç¤Ï¥«¥ì¥ó¥È¥Ç¥£¥ì¥¯¥È¥ê¤Ç POT ¥Õ¥¡¥¤¥ë¤¬¸¡º÷\n"
 "¤µ¤ì¤Þ¤¹. ¤â¤·ÆþÎÏ¥Õ¥¡¥¤¥ë¤¬ - ¤Ê¤é¤ÐÉ¸½àÆþÎÏ¤¬ÆÉ¤ß¹þ¤Þ¤ì¤Þ¤¹.\n"
 
-#: src/msginit.c:385
+#: src/msginit.c:386
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr "  -o, --output-file=FILE      »ØÄê¤µ¤ì¤¿ PO ¥Õ¥¡¥¤¥ë¤Ë½ÐÎÏ\n"
 
-#: src/msginit.c:387
+#: src/msginit.c:388
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2170,17 +2171,17 @@ msgstr ""
 "½ÐÎÏ¥Õ¥¡¥¤¥ë¤¬»ØÄê¤µ¤ì¤Ê¤¤¾ì¹ç, ½ÐÎÏ¥Õ¥¡¥¤¥ë¤Ï --locale ¥ª¥×¥·¥ç¥ó¤«¥æ¡¼¥¶¤Î\n"
 "¥í¥«¡¼¥ëÀßÄê¤Ë°ÍÂ¸¤·¤Þ¤¹. ¤â¤· - ¤Ê¤é¤Ð·ë²Ì¤ÏÉ¸½à½ÐÎÏ¤Ë½ÐÎÏ¤µ¤ì¤Þ¤¹.\n"
 
-#: src/msginit.c:400
+#: src/msginit.c:401
 #, c-format
 msgid "  -l, --locale=LL_CC          set target locale\n"
 msgstr "  -l, --locale=LL_CC          ÂÐ¾Ý¤È¤Ê¤ë¥í¥«¡¼¥ë¤òÀßÄê\n"
 
-#: src/msginit.c:402
+#: src/msginit.c:403
 #, c-format
 msgid "      --no-translator         assume the PO file is automatically generated\n"
 msgstr "      --no-translator         PO ¥Õ¥¡¥¤¥ë¤¬¼«Æ°À¸À®¤µ¤ì¤ë¤È²¾Äê\n"
 
-#: src/msginit.c:468
+#: src/msginit.c:469
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2188,12 +2189,12 @@ msgstr ""
 "1¤Ä°Ê¾å¤Î .pot ¥Õ¥¡¥¤¥ë¤ò¸«¤Ä¤±¤Þ¤·¤¿.\n"
 "--input ¥ª¥×¥·¥ç¥ó¤ÇÆþÎÏ¤¹¤ë .pot ¥Õ¥¡¥¤¥ë¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤.\n"
 
-#: src/msginit.c:476 src/msginit.c:481
+#: src/msginit.c:477 src/msginit.c:482
 #, c-format
 msgid "error reading current directory"
 msgstr "¥«¥ì¥ó¥È¥Ç¥£¥ì¥¯¥È¥ê¤ÎÆÉ¤ß¹þ¤ß¥¨¥é¡¼"
 
-#: src/msginit.c:489
+#: src/msginit.c:490
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2201,14 +2202,14 @@ msgstr ""
 "¥«¥ì¥ó¥È¥Ç¥£¥ì¥¯¥È¥ê¤Ë .pot ¥Õ¥¡¥¤¥ë¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿.\n"
 "--input ¥ª¥×¥·¥ç¥ó¤ÇÆþÎÏ¤¹¤ë .pot ¥Õ¥¡¥¤¥ë¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤.\n"
 
-#: src/msginit.c:918 src/msginit.c:993 src/msginit.c:1153 src/msginit.c:1248
+#: src/msginit.c:919 src/msginit.c:994 src/msginit.c:1154 src/msginit.c:1249
 #: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
 #: src/read-tcl.c:127 src/write-resources.c:104
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s ¥µ¥Ö¥×¥í¥»¥¹¼ºÇÔ, ½ªÎ»¥³¡¼¥É %d"
 
-#: src/msginit.c:1118
+#: src/msginit.c:1119
 msgid ""
 "The new message catalog should contain your email address, so that users can\n"
 "give you feedback about the translations, and so that maintainers can contact\n"
@@ -2222,7 +2223,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1534
+#: src/msginit.c:1535
 #, c-format
 msgid "English translations for %s package"
 msgstr "%s ¥Ñ¥Ã¥±¡¼¥¸¤ËÂÐ¤¹¤ë±ÑÌõ"
@@ -2448,17 +2449,17 @@ msgstr "Ê£¿ô·Á¤ÎÀ©¸æ¤Ï GNU gettext ¤Î³ÈÄ¥¤Ç¤¹"
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "msgstr ¤Ë¤Ï¥­¡¼¥Ü¡¼¥É¥¢¥¯¥»¥ì¥ì¡¼¥¿¤Îµ­¹æ '%c' ¤¬¤¢¤ê¤Þ¤»¤ó"
 
-#: src/msgl-check.c:739
+#: src/msgl-check.c:740
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "msgstr ¤Ë¤Ï¤¢¤Þ¤ê¤ËÂ¿¤¯¤Î¥­¡¼¥Ü¡¼¥É¥¢¥¯¥»¥ì¥ì¡¼¥¿¤Îµ­¹æ '%c' ¤¬¤¢¤ê¤Þ¤¹"
 
-#: src/msgl-check.c:801
+#: src/msgl-check.c:814
 #, c-format
 msgid "header field '%s' still has the initial default value\n"
 msgstr "¥Ø¥Ã¥À¾ðÊó '%s' ¤¬½é´üÉ¸½àÃÍ¤Î¤Þ¤Þ¤Ç¤¹\n"
 
-#: src/msgl-check.c:816
+#: src/msgl-check.c:831
 #, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "¥Ø¥Ã¥À¾ðÊó '%s' ¤¬¥Ø¥Ã¥À¤ÎÃæ¤Ë¤¢¤ê¤Þ¤»¤ó\n"
@@ -2494,16 +2495,16 @@ msgstr "\"%s\" ¤«¤é \"%s\" ¤Ø¤ÎÊÑ´¹¤¬½ÅÊ£, ¤¤¤¯¤Ä¤«¤Î°Û¤Ê¤Ã¤¿ msgid ¤¬Åù¤·¤¯¤Ê¤Ã
 msgid "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."
 msgstr "\"%s\" ¤«¤é \"%s\" ¤ËÊÑ´¹¤Ç¤­¤Þ¤»¤ó. %s ¤Ï iconv() ¤Ë°ÍÂ¸¤·¤Æ¤¤¤Þ¤¹.¤³¤Î¥Ð¡¼¥¸¥ç¥ó¤Ï iconv() ¤Ê¤·¤Çºî¤é¤ì¤Æ¤¤¤Þ¤¹."
 
-#: src/msgmerge.c:392 src/msgmerge.c:398
+#: src/msgmerge.c:405 src/msgmerge.c:411
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s ¤Ï %s ¤¬¤¢¤ë¾ì¹ç¤Ë¤Î¤ßÍ­¸ú¤Ç¤¹"
 
-#: src/msgmerge.c:453
+#: src/msgmerge.c:466
 msgid "backup type"
 msgstr "¥Ð¥Ã¥¯¥¢¥Ã¥×¥¿¥¤¥×"
 
-#: src/msgmerge.c:490
+#: src/msgmerge.c:503
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -2525,17 +2526,17 @@ msgstr ""
 "»Ä¤µ¤ì¤Þ¤¹. Àµ³Î¤Ë°ìÃ×¤·¤Æ¤¤¤ë¸Ä½ê¤¬¸«¤Ä¤«¤é¤Ê¤¤¾ì¹ç¤Ï, ¤¢¤¤¤Þ¤¤ (fuzzy)\n"
 "¸¡º÷¤ò»È¤¦¤È¤è¤êÎÉ¤¤·ë²Ì¤òÀ¸¤à¤Ç¤·¤ç¤¦. \n"
 
-#: src/msgmerge.c:507
+#: src/msgmerge.c:520
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr "  def.po                      ¸Å¤¤¥½¡¼¥¹¤ËÂÐ¤¹¤ë»²¾ÈËÝÌõ\n"
 
-#: src/msgmerge.c:509
+#: src/msgmerge.c:522
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  ref.pot                     ¿·¤·¤¤¥½¡¼¥¹¤ËÂÐ¤¹¤ë»²¾È\n"
 
-#: src/msgmerge.c:513
+#: src/msgmerge.c:526
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
@@ -2544,7 +2545,7 @@ msgstr ""
 "  -C, --compendium=FILE       ¥á¥Ã¥»¡¼¥¸ËÝÌõ¤ÎÄÉ²ÃÊ¸¸¥\n"
 "                              1²ó°Ê¾å»ØÄê¤µ¤ì¤ë²ÄÇ½À­¤¢¤ê\n"
 
-#: src/msgmerge.c:519
+#: src/msgmerge.c:532
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
@@ -2553,27 +2554,27 @@ msgstr ""
 "  -U, --update                def.po ¤ò¹¹¿·\n"
 "                              def.po ¤¬´û¤ËºÇ¿·ÈÇ¤Ç¤¢¤ì¤Ð²¿¤â¤·¤Ê¤¤\n"
 
-#: src/msgmerge.c:531
+#: src/msgmerge.c:544
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "¹¹¿·¥â¡¼¥É¤Ç¤Î½ÐÎÏ¥Õ¥¡¥¤¥ë¤Î¾ì½ê:\n"
 
-#: src/msgmerge.c:533
+#: src/msgmerge.c:546
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr "·ë²Ì¤Ï def.po ¤Ë½ñ¤­Ìá¤µ¤ì¤Þ¤¹.\n"
 
-#: src/msgmerge.c:535
+#: src/msgmerge.c:548
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr "      --backup=CONTROL        def.po ¤Î¥Ð¥Ã¥¯¥¢¥Ã¥×¤òºîÀ®\n"
 
-#: src/msgmerge.c:537
+#: src/msgmerge.c:550
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr "      --suffix=SUFFIX         ÄÌ¾ï¤Î¥Ð¥Ã¥¯¥¢¥Ã¥×ÀÜÈø¼­¤ò¾å½ñ¤­\n"
 
-#: src/msgmerge.c:539
+#: src/msgmerge.c:552
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or through\n"
@@ -2590,7 +2591,7 @@ msgstr ""
 "  existing, nil   ÈÖ¹æÉÕ¤­¥Ð¥Ã¥¯¥¢¥Ã¥×¤¬¤¢¤ì¤ÐÈÖ¹æÉÕ¤­, ¤½¤¦¤Ç¤Ê¤±¤ì¤ÐÃ±½ã·Á¼°\n"
 "  simple, never   ¾ï¤ËÃ±½ã·Á¼°¤Î¥Ð¥Ã¥¯¥¢¥Ã¥×¤òºîÀ®\n"
 
-#: src/msgmerge.c:546
+#: src/msgmerge.c:559
 #, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n"
@@ -2599,32 +2600,32 @@ msgstr ""
 "--suffix ¤ä´Ä¶­ÊÑ¿ô SIMPLE_BACKUP_SUFFIX ¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤Ð,\n"
 "¥Ð¥Ã¥¯¥¢¥Ã¥×ÀÜÈø¼­¤Ï '~' ¤Ç¤¹.\n"
 
-#: src/msgmerge.c:557
+#: src/msgmerge.c:570
 #, c-format
 msgid "      --previous              keep previous msgids of translated messages\n"
 msgstr "      --previous              ËÝÌõ¤µ¤ì¤¿¥á¥Ã¥»¡¼¥¸¤ÎÁ°¤Î msgid ¤ò»Ä¤¹\n"
 
-#: src/msgmerge.c:614 src/urlget.c:192
+#: src/msgmerge.c:627 src/urlget.c:192
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       ¿Ê¹Ô¾õ¶·¤òÉ½¼¨¤·¤Ê¤¤\n"
 
-#: src/msgmerge.c:1609
+#: src/msgmerge.c:1622
 #, c-format
 msgid "this message should define plural forms"
 msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤ÏÊ£¿ô·Á¤òÄêµÁ¤¹¤Ù¤­¤Ç¤¹"
 
-#: src/msgmerge.c:1632
+#: src/msgmerge.c:1645
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "¤³¤Î¥á¥Ã¥»¡¼¥¸¤ÏÊ£¿ô·Á¤òÄêµÁ¤¹¤Ù¤­¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó"
 
-#: src/msgmerge.c:2035
+#: src/msgmerge.c:2048
 #, c-format
 msgid "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"
 msgstr "%s %ld(Á°¤ÎÈÇ) + %ld(¿·ÈÇ) ¤òÆÉ¤ß¹þ¤ß (¥Þ¡¼¥¸ %ld, ¤¢¤¤¤Þ¤¤ %ld, ·çÍî %ld, ÇË´þ %ld).\n"
 
-#: src/msgmerge.c:2043 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
+#: src/msgmerge.c:2056 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
 #: src/urlget.c:437
 #, c-format
 msgid " done.\n"
@@ -2842,7 +2843,7 @@ msgstr "Ê£¿ô·Á¤Ë´Ö°ã¤Ã¤¿º÷°ú¤¬¤¢¤ê¤Þ¤¹"
 msgid "too many errors, aborting"
 msgstr "¥¨¥é¡¼¤¬Â¿²á¤®¤ë¤Î¤Ç, ½èÍý¤òÂÇ¤ÁÀÚ¤ê¤Þ¤¹"
 
-#: src/po-lex.c:437 src/po-lex.c:507 src/write-po.c:812 src/write-po.c:941
+#: src/po-lex.c:437 src/po-lex.c:507 src/write-po.c:812 src/write-po.c:950
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "ÉÔÀµ¤ÊÊ£¿ô¥Ð¥¤¥È¤Î¥·¡¼¥±¥ó¥¹"
@@ -3093,12 +3094,16 @@ msgstr "Java ¥¯¥é¥¹¤Î¥³¥ó¥Ñ¥¤¥ë¤Ë¼ºÇÔ. $JAVAC ¤òÀßÄê¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤"
 msgid "error while opening \"%s\" for writing"
 msgstr "\"%s\" ¤Ë½ñ¤­¹þ¤â¤¦¤È¤·¤Æ¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
 
-#: src/write-po.c:875
+#: src/write-po.c:821
+msgid "incomplete multibyte sequence"
+msgstr "ÉÔ´°Á´¤ÊÊ£¿ô¥Ð¥¤¥È¤Î¥·¡¼¥±¥ó¥¹"
+
+#: src/write-po.c:884
 #, c-format
 msgid "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr "¹ñºÝ²½¤µ¤ì¤¿¥á¥Ã¥»¡¼¥¸¤Ï '\\%c' ¤È¤¤¤¦¥¨¥¹¥±¡¼¥×¥·¡¼¥±¥ó¥¹¤ò´Þ¤ó¤Ç¤Ï¤¤¤±¤Þ¤»¤ó"
 
-#: src/write-po.c:1326 src/write-po.c:1455
+#: src/write-po.c:1335 src/write-po.c:1459
 #, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
@@ -3112,7 +3117,7 @@ msgstr ""
 "¸¡Æ¤¤·¤Æ¤¯¤À¤µ¤¤.\n"
 "%s\n"
 
-#: src/write-po.c:1338 src/write-po.c:1467
+#: src/write-po.c:1347 src/write-po.c:1471
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3201,17 +3206,17 @@ msgstr "%s:%d: ·Ù¹ð: Ê¸»úÎó¤Ë½ªÃ¼¤¬¤¢¤ê¤Þ¤»¤ó"
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: ·Ù¹ð: Àµµ¬É½¸½¤Ë½ªÃ¼¤¬¤¢¤ê¤Þ¤»¤ó"
 
-#: src/x-c.c:1051
+#: src/x-c.c:1052
 #, c-format
 msgid "warning: invalid Unicode character"
 msgstr "·Ù¹ð: ÉÔÀµ¤Ê Unicode Ê¸»ú"
 
-#: src/x-c.c:1294 src/x-csharp.c:1509 src/x-java.c:872 src/x-vala.c:628
+#: src/x-c.c:1297 src/x-csharp.c:1509 src/x-java.c:872 src/x-vala.c:630
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: ·Ù¹ð: Ê¸»úÄê¿ô¤Ë½ªÃ¼¤¬¤¢¤ê¤Þ¤»¤ó"
 
-#: src/x-c.c:1345 src/x-vala.c:752
+#: src/x-c.c:1348 src/x-vala.c:755
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: ·Ù¹ð: Ê¸»úÎó¤Ë½ªÃ¼¤¬¤¢¤ê¤Þ¤»¤ó"
