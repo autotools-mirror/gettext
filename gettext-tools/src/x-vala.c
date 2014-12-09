@@ -431,6 +431,19 @@ phase3_get (token_ty *tp)
   int bufpos;
   int last_was_backslash;
 
+#undef APPEND
+#define APPEND(c)                               \
+  do                                            \
+    {                                           \
+      if (bufpos >= bufmax)                     \
+        {                                       \
+          bufmax = 2 * bufmax + 10;             \
+          buffer = xrealloc (buffer, bufmax);   \
+        }                                       \
+      buffer[bufpos++] = c;                     \
+    }                                           \
+  while (0)
+
   if (phase3_pushback_length)
     {
       *tp = phase3_pushback[--phase3_pushback_length];
@@ -484,12 +497,7 @@ phase3_get (token_ty *tp)
           bufpos = 0;
           for (;;)
             {
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
+              APPEND (c);
               c = phase2_getc ();
               switch (c)
                 {
@@ -514,12 +522,7 @@ phase3_get (token_ty *tp)
                 }
               break;
             }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = 0;
+          APPEND (0);
           if (strcmp (buffer, "return") == 0)
             tp->type = last_token_type = token_type_return;
           else
@@ -554,23 +557,13 @@ phase3_get (token_ty *tp)
           bufpos = 0;
           for (;;)
             {
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
+              APPEND (c);
               c = phase2_getc ();
               switch (c)
                 {
                 case 'e':
                 case 'E':
-                  if (bufpos >= bufmax)
-                    {
-                      bufmax = 2 * bufmax + 10;
-                      buffer = xrealloc (buffer, bufmax);
-                    }
-                  buffer[bufpos++] = c;
+                  APPEND (c);
                   c = phase2_getc ();
                   if (c != '+' && c != '-')
                     {
@@ -600,12 +593,7 @@ phase3_get (token_ty *tp)
                 }
               break;
             }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = 0;
+          APPEND (0);
           tp->type = last_token_type = token_type_number;
           return;
 
@@ -710,12 +698,7 @@ phase3_get (token_ty *tp)
                           }
                         phase1_ungetc (c2);
                       }
-                    if (bufpos >= bufmax)
-                      {
-                        bufmax = 2 * bufmax + 10;
-                        buffer = xrealloc (buffer, bufmax);
-                      }
-                    buffer[bufpos++] = c;
+                    APPEND (c);
                   }
               }
             else
@@ -728,12 +711,7 @@ phase3_get (token_ty *tp)
                     if (last_was_backslash)
                       {
                         last_was_backslash = false;
-                        if (bufpos >= bufmax)
-                          {
-                            bufmax = 2 * bufmax + 10;
-                            buffer = xrealloc (buffer, bufmax);
-                          }
-                        buffer[bufpos++] = c;
+                        APPEND (c);
                         continue;
                       }
 
@@ -743,12 +721,7 @@ phase3_get (token_ty *tp)
                         last_was_backslash = true;
                         /* FALLTHROUGH */
                       default:
-                        if (bufpos >= bufmax)
-                          {
-                            bufmax = 2 * bufmax + 10;
-                            buffer = xrealloc (buffer, bufmax);
-                          }
-                        buffer[bufpos++] = c;
+                        APPEND (c);
                         continue;
 
                       case '\n':
@@ -765,12 +738,7 @@ phase3_get (token_ty *tp)
                     break;
                   }
               }
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + 10;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            buffer[bufpos] = 0;
+            APPEND (0);
             tp->type = last_token_type = template
               ? token_type_string_template : token_type_string_literal;
             tp->string = xstrdup (buffer);
@@ -979,6 +947,7 @@ phase3_get (token_ty *tp)
           return;
         }
     }
+#undef APPEND
 }
 
 static void
