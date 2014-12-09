@@ -1,5 +1,10 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext-8-prg.c (main): Release allocated memory.  Spotted by
+	clang-analyzer.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Test msgcat --sort-by-file option
 	* msgcat-20: New file.
 	* Makefile.am (TESTS): Add new test.
