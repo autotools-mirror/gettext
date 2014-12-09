@@ -1,5 +1,11 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	tests: Test msgcat --sort-by-file option
+	* msgcat-20: New file.
+	* Makefile.am (TESTS): Add new test.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	tests: Improve test coverage of Lua scanner
 	* xgettext-lua-1: Test nested and unmatched brackets.
 
