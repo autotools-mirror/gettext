@@ -1,5 +1,10 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext-8-prg.c: Include <assert.h>.
+	(main): Check return value of 'gettext'.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	* gettext-8-prg.c (main): Release allocated memory.  Spotted by
 	clang-analyzer.
 

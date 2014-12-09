@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <assert.h>
 
 #if HAVE_GETRLIMIT && HAVE_SETRLIMIT
 # include <sys/types.h>
@@ -76,7 +77,7 @@ main ()
 
   translated = gettext (msg);
   free (msg);
-  free (translated);
+  assert (translated != NULL);
 
   return 0;
 }
