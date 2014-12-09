@@ -218,6 +218,7 @@ desktop_lex (token_ty *tp)
   static size_t bufmax;
   size_t bufpos;
 
+#undef APPEND
 #define APPEND(c)                               \
   do                                            \
     {                                           \

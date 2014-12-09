@@ -1,5 +1,10 @@
 2014-12-09  Daiki Ueno  <ueno@gnu.org>
 
+	* read-desktop.c (desktop_lex): Undef the APPEND macro before
+	defining.
+
+2014-12-09  Daiki Ueno  <ueno@gnu.org>
+
 	desktop: Simplify the parsing logic
 	* read-desktop.h (desktop_reader_class_ty): Rename 'handle_text'
 	to 'handle_blank'.
