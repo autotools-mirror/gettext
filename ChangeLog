@@ -1,3 +1,7 @@
+2014-12-10  Daiki Ueno  <ueno@gnu.org>
+
+	* THANKS: Add contributors since 0.18.2.
+
 2014-12-03  Daiki Ueno  <ueno@gnu.org>
 
 	autogen.sh: Fix typo
