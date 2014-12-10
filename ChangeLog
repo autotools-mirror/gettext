@@ -1,5 +1,10 @@
 2014-12-10  Daiki Ueno  <ueno@gnu.org>
 
+	* autogen.sh: Copy intl.m4 and po.m4 to gettext-tools, if Gnulib's
+	version are older.
+
+2014-12-10  Daiki Ueno  <ueno@gnu.org>
+
 	* THANKS: Add contributors since 0.18.2.
 
 2014-12-03  Daiki Ueno  <ueno@gnu.org>
