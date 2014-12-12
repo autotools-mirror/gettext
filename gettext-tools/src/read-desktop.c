@@ -509,6 +509,8 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
         case token_type_blank:
           desktop_reader_handle_blank (reader, token.string);
           break;
+        case token_type_other:
+          break;
         }
       free_token (&token);
     }

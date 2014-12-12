@@ -1,5 +1,10 @@
 2014-12-12  Daiki Ueno  <ueno@gnu.org>
 
+	* read-desktop.c (desktop_parse): Check and ignore
+	token_type_other.
+
+2014-12-12  Daiki Ueno  <ueno@gnu.org>
+
 	* format-lisp.c (make_intersected_list): Don't dereference
 	potentially released memory.  'append_repeated_to_initial' may
 	release the LIST->element.  Spotted by clang-analyzer.
