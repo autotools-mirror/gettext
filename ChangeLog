@@ -1,3 +1,8 @@
+2014-12-16  Daiki Ueno  <ueno@gnu.org>
+
+	* m4/init-package-version.m4: Remove unused file.  The package
+	name and version number are now obtained from git-version-gen.
+
 2014-12-10  Daiki Ueno  <ueno@gnu.org>
 
 	* autogen.sh: Copy intl.m4 and po.m4 to gettext-tools, if Gnulib's
