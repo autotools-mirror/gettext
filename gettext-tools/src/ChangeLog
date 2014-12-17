@@ -1,3 +1,8 @@
+2014-12-17  Daiki Ueno  <ueno@gnu.org>
+
+	* x-sh.c (phase2_getc): Fix typo: debackslahificication ->
+	debackslashification.
+
 2014-12-12  Daiki Ueno  <ueno@gnu.org>
 
 	* read-desktop.c (desktop_parse): Check and ignore

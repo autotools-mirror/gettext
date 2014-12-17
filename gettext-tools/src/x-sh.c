@@ -551,14 +551,14 @@ phase2_getc ()
     }
   if (c == '\\')
     {
-      /* Number of debackslahificication passes that are active at the
+      /* Number of debackslashification passes that are active at the
          current point.  */
-      unsigned int debackslahify =
+      unsigned int debackslashify =
         nested_backquotes + (open_singlequote ? 0 : 1);
       /* Normal number of backslashes that yield a single backslash in the
          final output.  */
       unsigned int expected_count =
-        (unsigned int) 1 << debackslahify;
+        (unsigned int) 1 << debackslashify;
       /* Number of backslashes found.  */
       unsigned int count;
 
@@ -592,7 +592,7 @@ phase2_getc ()
         }
       else if (c == '"')
         {
-          /* Each debackslahificication pass converts \\ to \ and \" to ";
+          /* Each debackslashification pass converts \\ to \ and \" to ";
              passes corresponding to `...` drop a lone " whereas passes
              corresponding to "`...`" leave it alone.  Therefore, the
              minimum number of backslashes needed to get one double-quote
@@ -645,8 +645,8 @@ phase2_getc ()
       else
         {
           /* When not followed by a quoting character or backslash or dollar,
-             a backslash survives a debackslahificication pass unmodified.
-             Therefore each debackslahificication pass performs a
+             a backslash survives a debackslashification pass unmodified.
+             Therefore each debackslashification pass performs a
                count := (count + 1) >> 1
              operation.  Therefore the minimum number of backslashes needed
              to get one backslash in the end is  (expected_count >> 1) + 1.  */
