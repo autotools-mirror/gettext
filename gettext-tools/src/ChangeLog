@@ -1,3 +1,8 @@
+2014-12-18  Daiki Ueno  <ueno@gnu.org>
+
+	* x-sh.c (read_word): Use phase1 instead of phase2 for Bash ANSI-C
+	escape sequences.  Also handle '\"' and '\E'.
+
 2014-12-17  Daiki Ueno  <ueno@gnu.org>
 
 	* x-sh.c (phase2_getc): Fix typo: debackslahificication ->

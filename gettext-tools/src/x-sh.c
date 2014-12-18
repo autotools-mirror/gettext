@@ -911,32 +911,32 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
               if (c2 == '\'' && !open_singlequote)
                 {
                   /* Bash builtin for string with ANSI-C escape sequences.  */
-                  saw_opening_singlequote ();
                   for (;;)
                     {
-                      c = phase2_getc ();
+                      /* We have to use phase1 throughout this loop,
+                         because phase2 does debackslashification,
+                         which is undesirable when parsing ANSI-C
+                         escape sequences.  */
+                      c = phase1_getc ();
                       if (c == EOF)
                         break;
                       if (c == '\'')
-                        {
-                          saw_closing_singlequote ();
-                          break;
-                        }
+                        break;
                       if (c == '\\')
                         {
-                          c = phase2_getc ();
+                          c = phase1_getc ();
                           switch (c)
                             {
                             default:
-                              phase2_ungetc (c);
+                              phase1_ungetc (c);
                               c = '\\';
                               break;
 
                             case '\\':
                               break;
                             case '\'':
-                              /* Don't call saw_closing_singlequote ()
-                                 here.  */
+                              break;
+                            case '"':
                               break;
 
                             case 'a':
@@ -946,6 +946,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                               c = '\b';
                               break;
                             case 'e':
+                            case 'E':
                               c = 0x1b; /* ESC */
                               break;
                             case 'f':
@@ -965,7 +966,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                               break;
 
                             case 'x':
-                              c = phase2_getc ();
+                              c = phase1_getc ();
                               if ((c >= '0' && c <= '9')
                                   || (c >= 'A' && c <= 'F')
                                   || (c >= 'a' && c <= 'f'))
@@ -981,7 +982,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                                   else
                                     abort ();
 
-                                  c = phase2_getc ();
+                                  c = phase1_getc ();
                                   if ((c >= '0' && c <= '9')
                                       || (c >= 'A' && c <= 'F')
                                       || (c >= 'a' && c <= 'f'))
@@ -996,14 +997,14 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                                         abort ();
                                     }
                                   else
-                                    phase2_ungetc (c);
+                                    phase1_ungetc (c);
 
                                   c = n;
                                 }
                               else
                                 {
-                                  phase2_ungetc (c);
-                                  phase2_ungetc ('x');
+                                  phase1_ungetc (c);
+                                  phase1_ungetc ('x');
                                   c = '\\';
                                 }
                               break;
@@ -1013,19 +1014,19 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                               {
                                 int n = c - '0';
 
-                                c = phase2_getc ();
+                                c = phase1_getc ();
                                 if (c >= '0' && c <= '7')
                                   {
                                     n = n * 8 + c - '0';
 
-                                    c = phase2_getc ();
+                                    c = phase1_getc ();
                                     if (c >= '0' && c <= '7')
                                       n = n * 8 + c - '0';
                                     else
-                                      phase2_ungetc (c);
+                                      phase1_ungetc (c);
                                   }
                                 else
-                                  phase2_ungetc (c);
+                                  phase1_ungetc (c);
 
                                 c = n;
                               }
