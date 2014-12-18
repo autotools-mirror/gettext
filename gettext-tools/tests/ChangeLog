@@ -1,3 +1,7 @@
+2014-12-17  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-sh-3: Test Bash ANSI-C quoting.
+
 2014-12-12  Daiki Ueno  <ueno@gnu.org>
 
 	* format-lisp-2, format-scheme-2: Test type compatibility with
