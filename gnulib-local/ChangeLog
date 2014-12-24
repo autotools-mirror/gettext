@@ -1,3 +1,8 @@
+2014-12-24  Daiki Ueno  <ueno@gnu.org>
+
+	gnulib-local: Suppress compiler warning with -Wunused
+	* lib/diffseq.h.diff: New file.
+
 2014-12-16  Daiki Ueno  <ueno@gnu.org>
 
 	Backport iOS check from Gnulib
