@@ -1,3 +1,7 @@
+2014-12-24  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19.4 released.
+
 2014-12-18  Daiki Ueno  <ueno@gnu.org>
 
 	* x-sh.c (read_word): Use phase1 instead of phase2 for Bash ANSI-C
