@@ -1,3 +1,9 @@
+2014-12-25  Daiki Ueno  <ueno@gnu.org>
+
+	* build-aux/texinfo.tex: Update to 2014-12-03.16.  Needed because
+	the original texinfo does not allow @heading usage inside
+	@enumeration and texi2dvi fails due to this.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.
