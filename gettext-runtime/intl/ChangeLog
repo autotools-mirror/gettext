@@ -1,3 +1,12 @@
+2015-01-04  Václav Slavík  <vaclav@slavik.io>  (tiny change)
+
+	intl: Add missing libintl.h dependency from pluralx.$lo
+	plural(x).c depends on libintl.h if ENABLE_NLS, but the makefile
+	didn't have corresponding dependency for pluralx.c, because
+	d2d04ba forgot to add it.  Fix by using $(PLURAL_OBJECT) for the
+	dependency rule too.
+	* Makefile.in ($(PLURAL_OBJECT)): Depend on libintl.h.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.
