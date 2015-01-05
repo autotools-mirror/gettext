@@ -1,3 +1,7 @@
+2015-01-05  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext.texi (Vala): New section.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.
