@@ -858,6 +858,7 @@ struct token_ty
   char *string;         /* for token_type_name, token_type_string_literal */
   refcounted_string_list_ty *comment;   /* for token_type_string_literal,
                                            token_type_objc_special */
+  enum literalstring_escape_type escape; /* for token_type_string_literal */
   long number;
   int line_number;
 };
@@ -1101,6 +1102,9 @@ phase5_get (token_ty *tp)
   int c;
   int last_was_backslash;
   bool raw_expected;
+  int delimiter_left_end;
+  int delimiter_right_start;
+  int last_rparen;
 
   if (phase5_pushback_length)
     {
@@ -1393,11 +1397,14 @@ phase5_get (token_ty *tp)
            let the compiler complain about the argument not matching the
            prototype.  Just pretend it won't happen.  */
         last_was_backslash = false;
+        delimiter_left_end = -1;
+        delimiter_right_start = -1;
+        last_rparen = -1;
         bufpos = 0;
         for (;;)
           {
             c = phase3_getc ();
-            if (last_was_backslash)
+            if (last_was_backslash && !raw_expected)
               {
                 last_was_backslash = false;
                 if (bufpos >= bufmax)
@@ -1414,7 +1421,14 @@ phase5_get (token_ty *tp)
                 last_was_backslash = true;
                 /* FALLTHROUGH */
               default:
-                if (c == '\n' && !raw_expected)
+                if (raw_expected)
+                  {
+                    if (c == '(' && delimiter_left_end < 0)
+                      delimiter_left_end = bufpos;
+                    else if (c == ')' && delimiter_left_end >= 0)
+                      last_rparen = bufpos;
+                  }
+                else if (c == '\n')
                   {
                     error_with_progname = false;
                     error (0, 0,
@@ -1424,18 +1438,35 @@ phase5_get (token_ty *tp)
                     phase3_ungetc ('\n');
                     break;
                   }
-                else
+                if (bufpos >= bufmax)
                   {
-                    if (bufpos >= bufmax)
-                      {
-                        bufmax = 2 * bufmax + 10;
-                        buffer = xrealloc (buffer, bufmax);
-                      }
-                    buffer[bufpos++] = c;
-                    continue;
+                    bufmax = 2 * bufmax + 10;
+                    buffer = xrealloc (buffer, bufmax);
                   }
+                buffer[bufpos++] = c;
+                continue;
 
-              case EOF: case '"':
+              case '"':
+                if (raw_expected && delimiter_left_end >= 0)
+                  {
+                    if (last_rparen < 0
+                        || delimiter_left_end != bufpos - (last_rparen + 1)
+                        || strncmp (buffer, buffer + last_rparen + 1,
+                                    delimiter_left_end) != 0)
+                      {
+                        if (bufpos >= bufmax)
+                          {
+                            bufmax = 2 * bufmax + 10;
+                            buffer = xrealloc (buffer, bufmax);
+                          }
+                        buffer[bufpos++] = c;
+                        continue;
+                      }
+                    delimiter_right_start = last_rparen;
+                  }
+                break;
+
+              case EOF:
                 break;
               }
             break;
@@ -1449,13 +1480,7 @@ phase5_get (token_ty *tp)
 
         if (raw_expected)
           {
-            char *delimiter_left_end;
-            char *delimiter_right_start;
-
-            if (!(delimiter_left_end = strchr (buffer, '('))
-                || !(delimiter_right_start = strrchr (buffer, ')'))
-                || strncmp (buffer, delimiter_right_start + 1,
-                            (delimiter_left_end - buffer)) != 0)
+            if (delimiter_left_end < 0 || delimiter_right_start < 0)
               {
                 error_with_progname = false;
                 error (0, 0, _("%s:%d: warning: unterminated string literal"),
@@ -1464,15 +1489,17 @@ phase5_get (token_ty *tp)
               }
             else
               {
-                *delimiter_right_start = '\0';
+                buffer[delimiter_right_start] = '\0';
                 tp->type = token_type_string_literal;
-                tp->string = xstrdup (delimiter_left_end + 1);
+                tp->string = xstrdup (&buffer[delimiter_left_end + 1]);
+                tp->escape = LET_NONE;
                 tp->comment = add_reference (savable_comment);
                 return;
               }
           }
         tp->type = token_type_string_literal;
         tp->string = xstrdup (buffer);
+        tp->escape = LET_ANSI_C | LET_UNICODE;
         tp->comment = add_reference (savable_comment);
         return;
       }
@@ -1726,6 +1753,7 @@ phase8a_get (token_ty *tp)
       tp->string = new_string;
       tp->comment = add_reference (savable_comment);
       tp->type = token_type_string_literal;
+      tp->escape = LET_ANSI_C | LET_UNICODE;
     }
 }
 
@@ -1806,7 +1834,10 @@ phase8c_unget (token_ty *tp)
 
 /* 8. Concatenate adjacent string literals to form single string
    literals (because we don't expand macros, there are a few things we
-   will miss).  */
+   will miss).
+
+   FIXME: handle the case when the string literals have different
+   tp->escape setting.  */
 
 static void
 phase8_get (token_ty *tp)
@@ -1861,6 +1892,9 @@ struct xgettext_token_ty
   /* This field is used only for xgettext_token_type_string_literal,
      xgettext_token_type_keyword, xgettext_token_type_symbol.  */
   char *string;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
+  enum literalstring_escape_type escape;
 
   /* This field is used only for xgettext_token_type_string_literal.  */
   refcounted_string_list_ty *comment;
@@ -1937,6 +1971,7 @@ x_c_lex (xgettext_token_ty *tp)
 
           tp->type = xgettext_token_type_string_literal;
           tp->string = token.string;
+          tp->escape = token.escape;
           tp->comment = token.comment;
           tp->pos.file_name = logical_file_name;
           tp->pos.line_number = token.line_number;
@@ -2098,7 +2133,7 @@ extract_parenthesized (message_list_ty *mlp,
               const char *encoding;
 
               string = literalstring_parse (token.string, &token.pos,
-                                            LET_ANSI_C | LET_UNICODE);
+                                            token.escape);
               free (token.string);
               token.string = string;
 
@@ -2125,7 +2160,7 @@ extract_parenthesized (message_list_ty *mlp,
                                              token.pos.file_name,
                                              token.pos.line_number,
                                              token.comment,
-                                             LET_ANSI_C | LET_UNICODE);
+                                             token.escape);
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;

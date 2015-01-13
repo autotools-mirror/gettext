@@ -1,5 +1,10 @@
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
+	* xgettext-c-20: Adjust to the latest xgettext C++ scanner change;
+	don't accept unbalanced prefix in raw string literal.
+
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
 	* xgettext-c-20: Adjust the source file name from *.c to *.cc to
 	enable handling of raw string literals.
 

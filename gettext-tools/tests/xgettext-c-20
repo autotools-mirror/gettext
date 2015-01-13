@@ -51,14 +51,6 @@ LR"aaa(
 This is a wide raw string
 )aaa";
 
-// Missing opening parenthesis; be tolerate and treat it as a normal string.
-gettext (u8R"bar)
-aaa");
-
-// Missing closing parenthesis; be tolerate and treat it as a normal string.
-gettext (u8R"aaa(
-bar");
-
 // 'LR' prefixed raw string should be skipped.
 LR"(
 
@@ -106,18 +98,6 @@ msgstr ""
 msgid ""
 "\n"
 "This is a raw UTF-8 string\n"
-msgstr ""
-
-#. Missing opening parenthesis; be tolerate and treat it as a normal string.
-msgid ""
-"bar)\n"
-"aaa"
-msgstr ""
-
-#. Missing closing parenthesis; be tolerate and treat it as a normal string.
-msgid ""
-"aaa(\n"
-"bar"
 msgstr ""
 EOF
 

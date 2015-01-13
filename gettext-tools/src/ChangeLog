@@ -1,5 +1,16 @@
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
+	c++: Make C++11 raw string recognition stricter
+	Reported by Vaclav Slavik at:
+	<http://savannah.gnu.org/bugs/?43970>.
+	* x-c.c (struct token_ty): New field 'escape'.
+	(struct xgettext_token_ty): New field 'escape'.
+	(phase5_get): Recognize raw strings more strictly.  Set 'escape'
+	field of token appropriately for string literals.
+	(extract_parenthesized): Respect 'escape' field of token.
+
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
 	c++: Differentiate scanning logic from C
 	To enable raw string literals only in C++, add a flag indicating
 	the current source language is C++.
