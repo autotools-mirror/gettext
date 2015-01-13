@@ -1,5 +1,9 @@
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
+	* xgettext-c-20: Improve test coverage of raw string tests.
+
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
 	* xgettext-c-20: Adjust to the latest xgettext C++ scanner change;
 	don't accept unbalanced prefix in raw string literal.
 

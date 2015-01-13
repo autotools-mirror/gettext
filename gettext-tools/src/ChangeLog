@@ -1,5 +1,10 @@
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
+	* x-c.c (phase5_get): Reset raw_expected at the beginning of the
+	function.
+
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
 	c++: Make C++11 raw string recognition stricter
 	Reported by Vaclav Slavik at:
 	<http://savannah.gnu.org/bugs/?43970>.

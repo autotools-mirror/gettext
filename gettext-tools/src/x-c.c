@@ -1101,7 +1101,7 @@ phase5_get (token_ty *tp)
   int bufpos;
   int c;
   int last_was_backslash;
-  bool raw_expected;
+  bool raw_expected = false;
   int delimiter_left_end;
   int delimiter_right_start;
   int last_rparen;
@@ -1207,10 +1207,7 @@ phase5_get (token_ty *tp)
                       break;
                     case 'u':
                       if (bufpos == 1)
-                        {
-                          is_prefix = true;
-                          raw_expected = false;
-                        }
+                        is_prefix = true;
                       else
                         switch (buffer[1])
                           {
@@ -1223,10 +1220,7 @@ phase5_get (token_ty *tp)
                             break;
                           case '8':
                             if (bufpos == 2)
-                              {
-                                is_prefix = true;
-                                raw_expected = false;
-                              }
+                              is_prefix = true;
                             else if (cxx_extensions
                                      && bufpos == 3 && buffer[2] == 'R')
                               {
@@ -1239,10 +1233,7 @@ phase5_get (token_ty *tp)
                     case 'U':
                     case 'L':
                       if (bufpos == 1)
-                        {
-                          is_prefix = true;
-                          raw_expected = false;
-                        }
+                        is_prefix = true;
                       else if (cxx_extensions
                                && bufpos == 2 && buffer[1] == 'R')
                         {
