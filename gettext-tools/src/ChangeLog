@@ -1,3 +1,18 @@
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
+	c++: Differentiate scanning logic from C
+	To enable raw string literals only in C++, add a flag indicating
+	the current source language is C++.
+	Suggested by Vaclav Slavik at:
+	<https://savannah.gnu.org/bugs/?43970>.
+	* x-c.h (extract_cxx): New declaration.
+	(SCANNERS_C): Use extract_cxx for "C++".
+	* x-c.c (cxx_extensions): New variable.
+	(phase5_get): Respect cxx_extensions and recognize raw string
+	literals only when it is set.
+	(extract_cxx): New function.
+	(extract_c, extract_objc): Reset cxx_extensions.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.

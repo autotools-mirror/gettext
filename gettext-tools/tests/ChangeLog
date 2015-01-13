@@ -1,3 +1,8 @@
+2015-01-13  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-c-20: Adjust the source file name from *.c to *.cc to
+	enable handling of raw string literals.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.

@@ -5,21 +5,21 @@
 
 : ${XGETTEXT=xgettext}
 
-cat <<\EOF > err0.c
+cat <<\EOF > err0.cc
 gettext ("aaa(
 bbb
 )ccc");
 EOF
 
-(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err0.c 2>&1; exit) | grep 'unterminated string literal' || exit 1
+(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err0.cc 2>&1; exit) | grep 'unterminated string literal' || exit 1
 
-cat <<\EOF > err1.c
+cat <<\EOF > err1.cc
 gettext (R"aaa(
 bbb
 )ccc");
 EOF
 
-(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.c 2>&1; exit) | grep 'unterminated string literal' || exit 1
+(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.cc 2>&1; exit) | grep 'unterminated string literal' || exit 1
 
 cat <<\EOF > xg-c-20.cc
 #define X ""

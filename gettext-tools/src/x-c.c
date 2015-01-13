@@ -829,6 +829,9 @@ phase4_ungetc (int c)
 /* True if ObjectiveC extensions are recognized.  */
 static bool objc_extensions;
 
+/* True if C++ extensions are recognized.  */
+static bool cxx_extensions;
+
 enum token_type_ty
 {
   token_type_character_constant,        /* 'x' */
@@ -1097,7 +1100,7 @@ phase5_get (token_ty *tp)
   int bufpos;
   int c;
   int last_was_backslash;
-  bool raw_expected = false;
+  bool raw_expected;
 
   if (phase5_pushback_length)
     {
@@ -1177,10 +1180,14 @@ phase5_get (token_ty *tp)
               continue;
 
             default:
-              /* Recognize C++ string literals prefixed by R, u8, u8R,
-                 u, uR, U, UR, L, or LR.  It is defined in ISO/IEC
-                 9899:2011 2.14.5.  Since gettext's argument is a byte
-                 sequence, we are only interested in u8, R, and u8R.  */
+              /* Recognize string literals prefixed by R, u8, u8R, u,
+                 uR, U, UR, L, or LR.  It is defined in the C standard
+                 ISO/IEC 9899:201x and the C++ standard ISO/IEC
+                 14882:2011.  The raw string literals prefixed by R,
+                 u8R, uR, UR, or LR are only valid in C++.
+
+                 Since gettext's argument is a byte sequence, we are
+                 only interested in u8, R, and u8R.  */
               if (c == '"')
                 {
                   bool is_prefix = false;
@@ -1188,37 +1195,61 @@ phase5_get (token_ty *tp)
                   switch (buffer[0])
                     {
                     case 'R':
-                      if (bufpos == 1)
-                        is_prefix = true;
+                      if (cxx_extensions && bufpos == 1)
+                        {
+                          is_prefix = true;
+                          raw_expected = true;
+                        }
                       break;
                     case 'u':
                       if (bufpos == 1)
-                        is_prefix = true;
+                        {
+                          is_prefix = true;
+                          raw_expected = false;
+                        }
                       else
                         switch (buffer[1])
                           {
                           case 'R':
-                            if (bufpos == 2)
-                              is_prefix = true;
+                            if (cxx_extensions && bufpos == 2)
+                              {
+                                is_prefix = true;
+                                raw_expected = true;
+                              }
                             break;
                           case '8':
-                            if (bufpos == 2
-                                || (bufpos == 3 && buffer[2] == 'R'))
-                              is_prefix = true;
+                            if (bufpos == 2)
+                              {
+                                is_prefix = true;
+                                raw_expected = false;
+                              }
+                            else if (cxx_extensions
+                                     && bufpos == 3 && buffer[2] == 'R')
+                              {
+                                is_prefix = true;
+                                raw_expected = true;
+                              }
                             break;
                           }
                       break;
                     case 'U':
                     case 'L':
-                      if (bufpos == 1
-                          || (bufpos == 2 && buffer[1] == 'R'))
-                        is_prefix = true;
+                      if (bufpos == 1)
+                        {
+                          is_prefix = true;
+                          raw_expected = false;
+                        }
+                      else if (cxx_extensions
+                               && bufpos == 2 && buffer[1] == 'R')
+                        {
+                          is_prefix = true;
+                          raw_expected = true;
+                        }
                       break;
                     }
 
                   if (is_prefix)
                     {
-                      raw_expected = buffer[bufpos - 1] == 'R';
                       bufpos = 0;
                       goto string;
                     }
@@ -2160,6 +2191,18 @@ extract_c (FILE *f,
            msgdomain_list_ty *mdlp)
 {
   objc_extensions = false;
+  cxx_extensions = false;
+  extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
+}
+
+void
+extract_cxx (FILE *f,
+             const char *real_filename, const char *logical_filename,
+             flag_context_list_table_ty *flag_table,
+             msgdomain_list_ty *mdlp)
+{
+  objc_extensions = false;
+  cxx_extensions = true;
   extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
 }
 
@@ -2170,5 +2213,6 @@ extract_objc (FILE *f,
               msgdomain_list_ty *mdlp)
 {
   objc_extensions = true;
+  cxx_extensions = false;
   extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
 }

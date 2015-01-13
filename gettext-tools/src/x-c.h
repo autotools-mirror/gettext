@@ -45,7 +45,7 @@ extern "C" {
                         &flag_table_c,                                  \
                         &formatstring_c, NULL,                          \
                         &literalstring_c },                             \
-  { "C++",              extract_c,                                      \
+  { "C++",              extract_cxx,                                    \
                         &flag_table_c,                                  \
                         &formatstring_c, NULL,                          \
                         &literalstring_c },                             \
@@ -58,11 +58,16 @@ extern "C" {
                         &formatstring_gcc_internal, &formatstring_gfc_internal, \
                         &literalstring_c },                             \
 
-/* Scan a C/C++ file and add its translatable strings to mdlp.  */
+/* Scan a C file and add its translatable strings to mdlp.  */
 extern void extract_c (FILE *fp, const char *real_filename,
                        const char *logical_filename,
                        flag_context_list_table_ty *flag_table,
                        msgdomain_list_ty *mdlp);
+/* Scan a C++ file and add its translatable strings to mdlp.  */
+extern void extract_cxx (FILE *fp, const char *real_filename,
+                         const char *logical_filename,
+                         flag_context_list_table_ty *flag_table,
+                         msgdomain_list_ty *mdlp);
 /* Scan an ObjectiveC file and add its translatable strings to mdlp.  */
 extern void extract_objc (FILE *fp, const char *real_filename,
                           const char *logical_filename,
