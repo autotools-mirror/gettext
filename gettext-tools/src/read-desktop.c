@@ -271,16 +271,13 @@ desktop_lex (token_ty *tp)
                 break;
               }
             /* Skip until newline.  */
-            if (c != '\n')
+            while (c != '\n' && c != EOF)
               {
-                for (;;)
-                  {
-                    if (c == '\n' || c == EOF)
-                      break;
-                    if (!c_isspace (c))
-                      non_blank = true;
-                    c = phase2_getc ();
-                  }
+                c = phase2_getc ();
+                if (c == EOF)
+                  break;
+                if (!c_isspace (c))
+                  non_blank = true;
               }
             if (non_blank)
               po_xerror (PO_SEVERITY_WARNING, NULL,

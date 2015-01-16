@@ -1,3 +1,7 @@
+2015-01-16  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-desktop-1: Check "invalid non-blank character" warning.
+
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-c-20: Improve test coverage of raw string tests.

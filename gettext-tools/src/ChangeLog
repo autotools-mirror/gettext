@@ -1,3 +1,11 @@
+2015-01-16  Daiki Ueno  <ueno@gnu.org>
+
+	desktop: Avoid useless warning for group header
+	Reported by Marek Černocký at:
+	<https://savannah.gnu.org/bugs/?44005>
+	* read-desktop.c (desktop_lex): Fix "invalid non-blank
+	character" check after reading a group header.
+
 2015-01-13  Daiki Ueno  <ueno@gnu.org>
 
 	* x-c.c (phase5_get): Reset raw_expected at the beginning of the
