@@ -1,3 +1,8 @@
+2015-01-21  Peter Eisentraut  <peter@eisentraut.org>  (tiny change)
+
+	* po-mode.el (po-font-lock-keywords): Support all possible length
+	modifiers in C89/C99 format strings.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.
