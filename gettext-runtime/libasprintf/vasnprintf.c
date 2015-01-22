@@ -1,5 +1,5 @@
 /* vsprintf with automatic memory allocation.
-   Copyright (C) 1999, 2002-2012 Free Software Foundation, Inc.
+   Copyright (C) 1999, 2002-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -5179,18 +5179,21 @@ VASNPRINTF (DCHAR_T *resultbuf, size_t *lengthp,
                         /* SNPRINTF or sprintf failed.  Save and use the errno
                            that it has set, if any.  */
                         int saved_errno = errno;
+                        if (saved_errno == 0)
+                          {
+                            if (dp->conversion == 'c' || dp->conversion == 's')
+                              saved_errno = EILSEQ;
+                            else
+                              saved_errno = EINVAL;
+                          }
 
                         if (!(result == resultbuf || result == NULL))
                           free (result);
                         if (buf_malloced != NULL)
                           free (buf_malloced);
                         CLEANUP ();
-                        errno =
-                          (saved_errno != 0
-                           ? saved_errno
-                           : (dp->conversion == 'c' || dp->conversion == 's'
-                              ? EILSEQ
-                              : EINVAL));
+
+                        errno = saved_errno;
                         return NULL;
                       }
 
