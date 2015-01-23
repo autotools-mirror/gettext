@@ -1,3 +1,10 @@
+2015-01-23  Daiki Ueno  <ueno@gnu.org>
+
+	build: Fix parallel build from git checkout
+	Since po-gram-gen2.h depends on po-gram-gen.h, an explicit
+	dependency on the YACC rule is needed for parallel compilation.
+	* Makefile.am (po-gram-gen.h): Depend on po-gram-gen.c.
+
 2015-01-16  Daiki Ueno  <ueno@gnu.org>
 
 	desktop: Avoid useless warning for group header
