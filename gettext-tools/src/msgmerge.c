@@ -1025,8 +1025,9 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
               char *extended =
                 (char *) obstack_alloc (&pool,
                                         header_fields[UNKNOWN].len + len + 1);
-              memcpy (extended, header_fields[UNKNOWN].string,
-                      header_fields[UNKNOWN].len);
+              if (header_fields[UNKNOWN].string)
+                memcpy (extended, header_fields[UNKNOWN].string,
+                        header_fields[UNKNOWN].len);
               memcpy (&extended[header_fields[UNKNOWN].len], cp, len);
               extended[header_fields[UNKNOWN].len + len] = '\0';
               header_fields[UNKNOWN].string = extended;

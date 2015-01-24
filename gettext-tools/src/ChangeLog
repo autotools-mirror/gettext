@@ -1,3 +1,13 @@
+2015-01-24  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext, msgmerge: Avoid undefined non-null argument behavior
+	* xgettext.c (remember_a_message): Building with gcc's
+	-fsanitize=undefined and running tests triggered:
+	  xgettext.c:2425:17: runtime error: null pointer passed as argument \
+	    2, which is declared to never be null
+	Adjust the argument of strncmp to never be null.
+	* msgmerge.c (message_merge): Likewise for memcpy.
+
 2015-01-23  Daiki Ueno  <ueno@gnu.org>
 
 	build: Fix parallel build from git checkout

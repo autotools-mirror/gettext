@@ -2327,7 +2327,7 @@ meta information, not the empty string.\n")));
     /* The string before the comment tag.  For example, If "** TRANSLATORS:"
        is seen and the comment tag is "TRANSLATORS:",
        then comment_tag_prefix is set to "** ".  */
-    const char *comment_tag_prefix = NULL;
+    const char *comment_tag_prefix = "";
     size_t comment_tag_prefix_length = 0;
 
     nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
