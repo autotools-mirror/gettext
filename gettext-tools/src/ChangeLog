@@ -1,3 +1,23 @@
+2015-01-28  Daiki Ueno  <ueno@gnu.org>
+
+	msgfilter: Add --newline option
+	The filter program was supposed to handle translation without a
+	newline character at the end of line.  This was causing
+	portability problems with standard text processing programs on
+	some platforms (BSD sed, for instance) and not friendly towards
+	POSIX, where a "text file" is required to have an ending newline.
+	The new --newline option controls the behavior.  If it is given,
+	both filter input and output are assumed to end with a newline
+	character.
+	* msgfilter.c (newline): New variable.
+	(long_options): Add --newline option.
+	(main): Handle --newline option.
+	(usage): Document --newline option.
+	(process_string_with_newline): New function which wraps
+	process_string.
+	(process_message): Use process_string_with_newline instead of
+	process_string if --newline is specified.
+
 2015-01-24  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext, msgmerge: Avoid undefined non-null argument behavior

@@ -1,3 +1,8 @@
+2015-01-28  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfilter-8: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2015-01-16  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-desktop-1: Check "invalid non-blank character" warning.

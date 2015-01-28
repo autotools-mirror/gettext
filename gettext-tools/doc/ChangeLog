@@ -1,3 +1,7 @@
+2015-01-28  Daiki Ueno  <ueno@gnu.org>
+
+	* msgfilter.texi: Document --newline option.
+
 2015-01-05  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (Vala): New section.
