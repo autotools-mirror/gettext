@@ -1,3 +1,13 @@
+2015-01-29  Daiki Ueno  <ueno@gnu.org>
+
+	msgexec: Add --newline option
+	See the commit 96dde0b for the rationale.
+	* msgexec.c (newline): New variable.
+	(long_options): Add --newline option.
+	(main): Handle --newline option.
+	(usage): Document --newline option.
+	(process_string): Handle --newline option.
+
 2015-01-28  Daiki Ueno  <ueno@gnu.org>
 
 	msgfilter: Add --newline option

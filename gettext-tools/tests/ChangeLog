@@ -1,3 +1,8 @@
+2015-01-29  Daiki Ueno  <ueno@gnu.org>
+
+	* msgexec-6: New file.
+	* Makefile.am (TESTS): Add new test.
+
 2015-01-28  Daiki Ueno  <ueno@gnu.org>
 
 	* msgfilter-8: New file.
