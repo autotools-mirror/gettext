@@ -148,7 +148,7 @@ $(COMMON_SOURCE) read-catalog.c \
 color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
 msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
-plural-table.c quote.h \
+plural-table.c quote.h sentence.h sentence.c \
 $(FORMAT_SOURCE) \
 read-desktop.c
 

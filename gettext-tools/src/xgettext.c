@@ -58,6 +58,8 @@
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
+#include "msgl-check.h"
+#include "po-xerror.h"
 #include "po-time.h"
 #include "write-catalog.h"
 #include "write-po.h"
@@ -66,6 +68,7 @@
 #include "color.h"
 #include "format.h"
 #include "propername.h"
+#include "sentence.h"
 #include "unistr.h"
 #include "gettext.h"
 
@@ -179,6 +182,9 @@ static bool recognize_format_kde;
 /* If true, recognize Boost format strings.  */
 static bool recognize_format_boost;
 
+/* Syntax checks enabled by default.  */
+static enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
+
 /* Canonicalized encoding name for all input files.  */
 const char *xgettext_global_source_encoding;
 
@@ -204,6 +210,7 @@ static const struct option long_options[] =
   { "add-location", optional_argument, NULL, 'n' },
   { "boost", no_argument, NULL, CHAR_MAX + 11 },
   { "c++", no_argument, NULL, 'C' },
+  { "check", required_argument, NULL, CHAR_MAX + 17 },
   { "color", optional_argument, NULL, CHAR_MAX + 14 },
   { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
   { "debug", no_argument, &do_debug, 1 },
@@ -236,6 +243,7 @@ static const struct option long_options[] =
   { "package-version", required_argument, NULL, CHAR_MAX + 13 },
   { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
+  { "sentence-end", required_argument, NULL, CHAR_MAX + 18 },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
   { "strict", no_argument, NULL, 'S' },
@@ -346,7 +354,7 @@ main (int argc, char *argv[])
   init_flag_table_vala ();
 
   while ((optchar = getopt_long (argc, argv,
-                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:x:",
+                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:W:x:",
                                  long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -602,6 +610,26 @@ main (int argc, char *argv[])
         message_print_style_filepos (filepos_comment_none);
         break;
 
+      case CHAR_MAX + 17: /* --check */
+        if (strcmp (optarg, "ellipsis-unicode") == 0)
+          default_syntax_check[sc_ellipsis_unicode] = yes;
+        else if (strcmp (optarg, "space-ellipsis") == 0)
+          default_syntax_check[sc_space_ellipsis] = yes;
+        else if (strcmp (optarg, "quote-unicode") == 0)
+          default_syntax_check[sc_quote_unicode] = yes;
+        else
+          error (EXIT_FAILURE, 0, _("syntax check '%s' unknown"), optarg);
+        break;
+
+      case CHAR_MAX + 18: /* --sentence-end */
+        if (strcmp (optarg, "single-space") == 0)
+          sentence_end_required_spaces = 1;
+        else if (strcmp (optarg, "double-space") == 0)
+          sentence_end_required_spaces = 2;
+        else
+          error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -836,6 +864,24 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (mdlp);
 
+  /* Check syntax of messages.  */
+  {
+    int nerrors = 0;
+
+    for (i = 0; i < mdlp->nitems; i++)
+      {
+        message_list_ty *mlp = mdlp->item[i]->messages;
+        nerrors = syntax_check_message_list (mlp);
+      }
+
+    /* Exit with status 1 on any error.  */
+    if (nerrors > 0)
+      error (EXIT_FAILURE, 0,
+             ngettext ("found %d fatal error", "found %d fatal errors",
+                       nerrors),
+             nerrors);
+  }
+
   /* Write the PO file.  */
   msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
 
@@ -921,6 +967,14 @@ Operation mode:\n"));
                                 preceding keyword lines in output file\n\
   -c, --add-comments          place all comment blocks preceding keyword lines\n\
                                 in output file\n"));
+      printf (_("\
+      --check=NAME            perform syntax check on messages\n\
+                                (ellipsis-unicode, space-ellipsis,\n\
+                                 quote-unicode)\n"));
+      printf (_("\
+      --sentence-end=TYPE     type describing the end of sentence\n\
+                                (single-space, which is the default, \n\
+                                 or double-space)\n"));
       printf ("\n");
       printf (_("\
 Language specific options:\n"));
@@ -1644,8 +1698,8 @@ xgettext_record_flag (const char *optionstring)
           flag += 5;
         }
 
-      /* Unlike po_parse_comment_special(), we don't accept "fuzzy" or "wrap"
-         here - it has no sense.  */
+      /* Unlike po_parse_comment_special(), we don't accept "fuzzy",
+         "wrap", or "check" here - it has no sense.  */
       if (strlen (flag) >= 7
           && memcmp (flag + strlen (flag) - 7, "-format", 7) == 0)
         {
@@ -2238,6 +2292,7 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   enum is_format is_format[NFORMATS];
   struct argument_range range;
   enum is_wrap do_wrap;
+  enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
   message_ty *mp;
   char *msgstr;
   size_t i;
@@ -2264,6 +2319,8 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   range.min = -1;
   range.max = -1;
   do_wrap = undecided;
+  for (i = 0; i < NSYNTAXCHECKS; i++)
+    do_syntax_check[i] = undecided;
 
   if (msgctxt != NULL)
     CONVERT_STRING (msgctxt, lc_string);
@@ -2297,6 +2354,8 @@ meta information, not the empty string.\n")));
       for (i = 0; i < NFORMATS; i++)
         is_format[i] = mp->is_format[i];
       do_wrap = mp->do_wrap;
+      for (i = 0; i < NSYNTAXCHECKS; i++)
+        do_syntax_check[i] = mp->do_syntax_check[i];
     }
   else
     {
@@ -2376,12 +2435,13 @@ meta information, not the empty string.\n")));
             enum is_format tmp_format[NFORMATS];
             struct argument_range tmp_range;
             enum is_wrap tmp_wrap;
+            enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
             bool interesting;
 
             t += strlen ("xgettext:");
 
             po_parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_range,
-                                      &tmp_wrap);
+                                      &tmp_wrap, tmp_syntax_check);
 
             interesting = false;
             for (i = 0; i < NFORMATS; i++)
@@ -2400,6 +2460,12 @@ meta information, not the empty string.\n")));
                 do_wrap = tmp_wrap;
                 interesting = true;
               }
+            for (i = 0; i < NSYNTAXCHECKS; i++)
+              if (tmp_syntax_check[i] != undecided)
+                {
+                  do_syntax_check[i] = tmp_syntax_check[i];
+                  interesting = true;
+                }
 
             /* If the "xgettext:" marker was followed by an interesting
                keyword, and we updated our is_format/do_wrap variables,
@@ -2524,6 +2590,14 @@ meta information, not the empty string.\n")));
     }
 
   mp->do_wrap = do_wrap == no ? no : yes;       /* By default we wrap.  */
+
+  for (i = 0; i < NSYNTAXCHECKS; i++)
+    {
+      if (do_syntax_check[i] == undecided)
+        do_syntax_check[i] = default_syntax_check[i] == yes ? yes : no;
+
+      mp->do_syntax_check[i] = do_syntax_check[i];
+    }
 
   /* Warn about the use of non-reorderable format strings when the programming
      language also provides reorderable format strings.  */

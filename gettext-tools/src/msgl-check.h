@@ -60,6 +60,9 @@ extern int check_message_list (message_list_ty *mlp,
                                int check_compatibility,
                                int check_accelerators, char accelerator_char);
 
+/* Perform all syntax checks on a message list.
+   Return the number of errors that were seen.  */
+extern int syntax_check_message_list (message_list_ty *mlp);
 
 #ifdef __cplusplus
 }

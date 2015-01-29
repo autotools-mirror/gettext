@@ -245,6 +245,7 @@ if ! $skip_gnulib; then
       sys_stat
       sys_time
       term-styled-ostream
+      unictype/ctype-space
       unilbrk/ulc-width-linebreaks
       uniname/uniname
       unistd
@@ -351,6 +352,7 @@ if ! $skip_gnulib; then
       stdlib
       strchrnul
       strerror
+      unictype/ctype-space
       unilbrk/ulc-width-linebreaks
       unistr/u8-mbtouc
       unistr/u8-mbtoucr

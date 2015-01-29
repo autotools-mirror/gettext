@@ -113,6 +113,7 @@ struct default_catalog_reader_class_ty
   enum is_format is_format[NFORMATS];                                   \
   struct argument_range range;                                          \
   enum is_wrap do_wrap;                                                 \
+  enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];                  \
 
 typedef struct default_catalog_reader_ty default_catalog_reader_ty;
 struct default_catalog_reader_ty

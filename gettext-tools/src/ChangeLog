@@ -1,3 +1,44 @@
+2015-03-02  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Support message syntax checks
+	With this change, xgettext could report common syntactic problems
+	in extracted strings.  The current built-in checks are
+	ellipsis-unicode, space-ellipsis, and quote-unicode.  Those checks
+	can be enabled with --check option of xgettext and disabled with
+	special "xgettext:" comment in source files.
+	Feature suggested by Philip Withnall in:
+	https://savannah.gnu.org/bugs/?44098
+	* message.h (enum syntax_check_type): New enum.
+	(NSYNTAXCHECKS): New constant.
+	(enum is_syntax_check): New enum.
+	(struct message_ty): New field 'do_syntax_check'.
+	(syntax_check_name): New variable declaration.
+	* message.c (syntax_check_name): New variable.
+	* msgl-cat.c (catenate_msgdomain_list): Propagate
+	mp->do_syntax_check.
+	* msgmerge.c (message_merge): Propagate ref->do_syntax_check.
+	* msgl-check.h (syntax_check_message_list): New declaration.
+	* msgl-check.c (syntax_check_ellipsis_unicode): New function.
+	(syntax_check_space_ellipsis): New function.
+	(syntax_check_quote_unicode): New function.
+	(syntax_check_message): New function.
+	(syntax_check_message_list): New function.
+	* read-catalog-abstract.h (po_parse_comment_special): Adjust
+	function declaration.
+	* read-catalog-abstract.c (po_parse_comment_special): Add new
+	argument SCP for syntax checking; all callers changed.
+	* read-catalog.h (DEFAULT_CATALOG_READER_TY): New field
+	'do_syntax_check'.
+	* read-catalog.c (default_constructor): Initialize
+	this->do_syntax_check.
+	(default_copy_comment_state): Propagate this->do_syntax_check.
+	* sentence.h: New file.
+	* sentence.c: New file.
+	* xgettext.c (long_options): Add options --check and --sentence-end.
+	(main): Handle options --check and --sentence-end.
+	(usage): Document options --check and --sentence-end.
+	(remember_a_message): Propagate do_syntax_check value.
+
 2015-02-05  Alex Henrie  <alexhenrie24@gmail.com>  (tiny change)
 
 	xgettext: Wrap location comments to 79 characters

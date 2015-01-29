@@ -1,3 +1,7 @@
+2015-03-03  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext.texi: Document options --check and --sentence-end.
+
 2015-02-09  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (Plural forms): Add Arabic, Bahasa Indonesian, and

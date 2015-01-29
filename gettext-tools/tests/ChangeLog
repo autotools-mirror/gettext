@@ -1,3 +1,13 @@
+2015-03-03  Daiki Ueno  <ueno@gnu.org>
+
+	* xgettext-14: New file.
+	* sentence.c: New file
+	* Makefile.am (TESTS): Add new tests.
+	(noinst_PROGRAMS): Add 'sentence'.
+	(sentence_SOURCES): New variable.
+	(sentence_CPPFLAGS): New variable.
+	(sentence_LDADD): New variable.
+
 2015-02-06  Daiki Ueno  <ueno@gnu.org>
 
 	tests: Fix "broken pipe" error in msgfilter-7

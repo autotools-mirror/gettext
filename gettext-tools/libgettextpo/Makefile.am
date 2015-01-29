@@ -90,7 +90,8 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format.c \
   ../src/plural-exp.c \
   ../src/plural-eval.c \
-  ../src/msgl-check.c
+  ../src/msgl-check.c \
+  ../src/sentence.c
 
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".

@@ -1330,6 +1330,9 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
   result->do_wrap = ref->do_wrap;
 
+  for (i = 0; i < NSYNTAXCHECKS; i++)
+    result->do_syntax_check[i] = ref->do_syntax_check[i];
+
   /* Insert previous msgid, commented out with "#|".
      Do so only when --previous is specified, for backward compatibility.
      Since the "previous msgid" represents the original msgid that led to

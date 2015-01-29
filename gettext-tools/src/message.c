@@ -104,6 +104,14 @@ possible_format_p (enum is_format is_format)
 }
 
 
+const char *const syntax_check_name[NSYNTAXCHECKS] =
+{
+  /* sc_ellipsis_unicode */     "ellipsis-unicode",
+  /* sc_space_ellipsis */       "space-ellipsis",
+  /* sc_quote_unicode */        "quote-unicode"
+};
+
+
 message_ty *
 message_alloc (const char *msgctxt,
                const char *msgid, const char *msgid_plural,
@@ -130,6 +138,8 @@ message_alloc (const char *msgctxt,
   mp->range.min = -1;
   mp->range.max = -1;
   mp->do_wrap = undecided;
+  for (i = 0; i < NSYNTAXCHECKS; i++)
+    mp->do_syntax_check[i] = undecided;
   mp->prev_msgctxt = NULL;
   mp->prev_msgid = NULL;
   mp->prev_msgid_plural = NULL;
@@ -235,6 +245,8 @@ message_copy (message_ty *mp)
     result->is_format[i] = mp->is_format[i];
   result->range = mp->range;
   result->do_wrap = mp->do_wrap;
+  for (i = 0; i < NSYNTAXCHECKS; i++)
+    result->do_syntax_check[i] = mp->do_syntax_check[i];
   for (j = 0; j < mp->filepos_count; ++j)
     {
       lex_pos_ty *pp = &mp->filepos[j];
