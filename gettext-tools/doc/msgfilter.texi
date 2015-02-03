@@ -74,7 +74,7 @@ used filter is @samp{sed}.  A few particular built-in filters are also
 recognized.
 
 @table @samp
-@itemx --newline
+@item --newline
 @opindex --newline@r{, @code{msgfilter} option}
 Add newline at the end of each input line and also strip the ending
 newline from the output line.

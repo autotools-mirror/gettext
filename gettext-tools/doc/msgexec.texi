@@ -18,7 +18,7 @@ by a null byte.  The output of @samp{msgexec 0} is suitable as input for
 @samp{xargs -0}.
 
 @table @samp
-@itemx --newline
+@item --newline
 @opindex --newline@r{, @code{msgfilter} option}
 Add newline at the end of each input line.
 
