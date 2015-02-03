@@ -1,3 +1,15 @@
+2015-02-03  Daiki Ueno  <ueno@gnu.org>
+
+	msgfilter: Factor out quoted string handling
+	For later use in xgettext, separate out the scanner part in
+	filter-quote.c into a separate file.  See:
+	<https://savannah.gnu.org/bugs/?44098>.
+	* quote.h: New file split from filter-quote.c.
+	* filter-quote.c: Include "quote.h".
+	(convert_quote_callback): New function.
+	(convert_ascii_quote_to_unicode): Use scan_quoted from quote.h.
+	* Makefile.am (libgettextsrc_la_SOURCES): Add quote.h.
+
 2015-01-29  Daiki Ueno  <ueno@gnu.org>
 
 	msgexec: Add --newline option
