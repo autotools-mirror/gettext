@@ -1,3 +1,9 @@
+2015-02-05  Alex Henrie  <alexhenrie24@gmail.com>  (tiny change)
+
+	* xgettext-13: New file.
+	* Makefile.am (TESTS): Add new test.
+	* mm-viet.out: Adjust to the recent line-wrapping behavior change.
+
 2015-01-29  Daiki Ueno  <ueno@gnu.org>
 
 	* msgexec-6: New file.

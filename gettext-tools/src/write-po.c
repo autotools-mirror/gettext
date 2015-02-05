@@ -400,7 +400,7 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
               else
                 sprintf (buffer, ":%ld", (long) pp->line_number);
               len = strlen (cp) + strlen (buffer) + 1;
-              if (column > 2 && column + len >= page_width)
+              if (column > 2 && column + len > page_width)
                 {
                   ostream_write_str (stream, "\n#:");
                   column = 2;
