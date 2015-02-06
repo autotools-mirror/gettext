@@ -1,3 +1,10 @@
+2015-02-06  Daiki Ueno  <ueno@gnu.org>
+
+	tests: Fix "broken pipe" error in msgfilter-7
+	* msgfilter-7: Eat up filter input to avoid EPIPE in the parent
+	msgfilter process, which was exposed on AIX 5.
+	Reported by Michael Felt.
+
 2015-02-05  Alex Henrie  <alexhenrie24@gmail.com>  (tiny change)
 
 	* xgettext-13: New file.
