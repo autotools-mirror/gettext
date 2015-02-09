@@ -6242,6 +6242,8 @@ Languages with this property include:
 Japanese, @c   122.1 million speakers
 Vietnamese, @c  68.6 million speakers
 Korean @c       66.3 million speakers
+@item Tai-Kadai family
+Thai @c         20.4 million speakers
 @end table
 
 @item Two forms, singular used for one only
@@ -6279,6 +6281,8 @@ Finnish, @c      5.0 million speakers
 Estonian @c      1.0 million speakers
 @item Semitic family
 Hebrew @c        5.3 million speakers
+@item Austronesian family
+Bahasa Indonesian @c 23.2 million speakers
 @item Artificial
 Esperanto @c       2 million speakers
 @end table
@@ -6453,6 +6457,23 @@ Languages with this property include:
 @table @asis
 @item Slavic family
 Slovenian @c   1.9 million speakers
+@end table
+
+@item Six forms, special cases for one, two, all numbers ending in 02, 03, @dots{} 10, all numbers ending in 11 @dots{} 99, and others
+The header entry would look like this:
+
+@smallexample
+Plural-Forms: nplurals=6; \
+    plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 \
+    : n%100>=11 ? 4 : 5;
+@end smallexample
+
+@noindent
+Languages with this property include:
+
+@table @asis
+@item Afroasiatic family
+Arabic @c    246.0 million speakers
 @end table
 @end table
 
