@@ -1,3 +1,9 @@
+2015-02-18  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.in.in: Replace our own wording of licensing with GNU
+	All-Permissive License.  Reported by Riley Baird in:
+	<https://lists.debian.org/debian-legal/2015/01/msg00048.html>.
+
 2014-12-24  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.4 released.
