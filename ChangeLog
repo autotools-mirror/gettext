@@ -1,5 +1,16 @@
 2015-03-04  Daiki Ueno  <ueno@gnu.org>
 
+	build: Update libtool files to 2.4.6
+	* m4/libtool.m4: Update from libtool-2.4.6, with modifications.
+	2008-04-06  Bruno Haible  <bruno@clisp.org>
+		* m4/libtool.m4 (LT_INIT): When setting LIBTOOL, use
+		CONFIG_SHELL; don't assume that the Makefile.in will set SHELL
+		to ${CONFIG_SHELL}.
+	* m4/ltversion.m4: Likewise.
+	* build-aux/ltmain.sh: Likewise.
+
+2015-03-04  Daiki Ueno  <ueno@gnu.org>
+
 	* NEWS: Add 0.19.5 changes.
 
 2015-02-10  Daiki Ueno  <ueno@gnu.org>
