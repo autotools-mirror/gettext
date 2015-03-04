@@ -11,6 +11,7 @@
 
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
+/acl-errno-valid.c
 /acl-internal.h
 /acl.h
 /acl_entries.c
@@ -30,6 +31,7 @@
 /backupfile.h
 /basename.c
 /basename.h
+/binary-io.c
 /binary-io.h
 /byteswap.in.h
 /c-ctype.c
@@ -69,8 +71,8 @@
 /dirent-private.h
 /dirent.in.h
 /dosname.h
-/dup-safer.c
 /dup-safer-flag.c
+/dup-safer.c
 /dup2.c
 /errno.in.h
 /error-progname.c
@@ -89,8 +91,8 @@
 /fd-hook.h
 /fd-ostream.oo.c
 /fd-ostream.oo.h
-/fd-safer.c
 /fd-safer-flag.c
+/fd-safer.c
 /file-has-acl.c
 /file-ostream.oo.c
 /file-ostream.oo.h
@@ -152,6 +154,7 @@
 /iconv_open-solaris.gperf
 /iconv_open.c
 /iconveh.h
+/ignore-value.h
 /intprops.h
 /iswblank.c
 /itold.c
@@ -163,6 +166,7 @@
 /javaversion.class
 /javaversion.h
 /javaversion.java
+/langinfo.in.h
 /libunistring.valgrind
 /localcharset.c
 /localcharset.h
@@ -176,6 +180,7 @@
 /malloca.valgrind
 /mbchar.c
 /mbchar.h
+/mbiter.c
 /mbiter.h
 /mbrtowc.c
 /mbsinit.c
@@ -186,6 +191,7 @@
 /mbsstr.c
 /mbswidth.c
 /mbswidth.h
+/mbuiter.c
 /mbuiter.h
 /memchr.c
 /memchr.valgrind
@@ -205,14 +211,15 @@
 /ostream.oo.c
 /ostream.oo.h
 /pathmax.h
+/pipe-filter-aux.c
 /pipe-filter-aux.h
 /pipe-filter-ii.c
 /pipe-filter.h
 /pipe-safer.c
 /pipe.c
 /pipe.h
-/pipe2.c
 /pipe2-safer.c
+/pipe2.c
 /printf-args.c
 /printf-args.h
 /printf-parse.c
@@ -222,6 +229,8 @@
 /progreloc.c
 /propername.c
 /propername.h
+/qcopy-acl.c
+/qset-acl.c
 /quote.c
 /quote.h
 /quotearg.c
@@ -244,11 +253,14 @@
 /safe-write.c
 /safe-write.h
 /sched.in.h
+/secure_getenv.c
+/set-acl.c
 /set-mode-acl.c
 /setenv.c
 /setlocale.c
 /sh-quote.c
 /sh-quote.h
+/sig-handler.c
 /sig-handler.h
 /sigaction.c
 /signal.in.h
@@ -276,6 +288,7 @@
 /stddef.in.h
 /stdint.in.h
 /stdio-write.c
+/stdio.c
 /stdio.in.h
 /stdlib.in.h
 /stpcpy.c
@@ -309,6 +322,7 @@
 /sys_socket.in.h
 /sys_stat.in.h
 /sys_time.in.h
+/sys_types.in.h
 /sys_wait.in.h
 /tempname.c
 /tempname.h
@@ -325,10 +339,12 @@
 /trim.c
 /trim.h
 /uniconv.in.h
+/unictype.in.h
 /unilbrk.in.h
 /uniname.in.h
 /unistd--.h
 /unistd-safer.h
+/unistd.c
 /unistd.in.h
 /unistr.in.h
 /unitypes.in.h
@@ -345,6 +361,7 @@
 /wait-process.h
 /waitpid.c
 /wchar.in.h
+/wctype-h.c
 /wctype.in.h
 /wcwidth.c
 /write.c
@@ -360,6 +377,7 @@
 /xreadlink.h
 /xsetenv.c
 /xsetenv.h
+/xsize.c
 /xsize.h
 /xstrdup.c
 /xstriconv.c
@@ -412,21 +430,3 @@
 /term_ostream.vt.h
 /term_styled_ostream.priv.h
 /term_styled_ostream.vt.h
-
-/binary-io.c
-/mbiter.c
-/mbuiter.c
-/pipe-filter-aux.c
-/sig-handler.c
-/stdio.c
-/sys_types.in.h
-/unistd.c
-/wctype-h.c
-/xsize.c
-/acl-errno-valid.c
-/ignore-value.h
-/qcopy-acl.c
-/qset-acl.c
-/secure_getenv.c
-/set-acl.c
-/unictype.in.h
