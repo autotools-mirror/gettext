@@ -42,7 +42,6 @@
 2015-02-05  Alex Henrie  <alexhenrie24@gmail.com>  (tiny change)
 
 	xgettext: Wrap location comments to 79 characters
-
 	Previously, messages were wrapped to 79 characters, but location
 	comments were wrapped to 78 characters.
 	* write-po.c (message_print_comment_filepos): Fix off-by-one in
