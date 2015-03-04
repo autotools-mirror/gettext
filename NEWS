@@ -1,3 +1,28 @@
+Version 0.19.5 - unreleased
+
+* xgettext now has a feature to perform syntax checks on msgid, which
+  could enforce common styles of translatable strings.  They can be
+  enabled with --check option or special "xgettext: " comment in the
+  source code.  By default, no syntax checks are enabled.
+
+* msgfilter and msgexec now have an option --newline, which appends a
+  newline character to filter input and trims it from the filter
+  output.  This would allow filter programs to be more POSIX friendly.
+
+* The base Unicode standard is now updated to 7.0.0.  This
+  particularly improves "\N{...}" notation handling of xgettext for
+  Perl and Python.
+
+* Bug fixes:
+  - xgettext C++11 raw string recognition is now stricter and don't
+    accept unbalanced delimiters.
+  - Suppress baseless warnings which msgfmt emits when processing a
+    .desktop file.
+  - xgettext line wrapping behaviour is now consistent between comment
+    lines and non-comment lines.
+  - Fix msgfilter-7 test failure on some platforms.
+  - Fix VPATH build.
+
 Version 0.19.4 - December 2014
 
 * The --keyword option of xgettext now accepts same argument number
