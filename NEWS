@@ -13,6 +13,11 @@ Version 0.19.5 - unreleased
   particularly improves "\N{...}" notation handling of xgettext for
   Perl and Python.
 
+* Programming languages support:
+  - C++ with KDE: xgettext and msgfmt can now recognize KUIT (KDE User
+    Interface Text) markup.  See the documentation section "KUIT
+    Format Strings" for more info.
+
 * Bug fixes:
   - xgettext C++11 raw string recognition is now stricter and don't
     accept unbalanced delimiters.

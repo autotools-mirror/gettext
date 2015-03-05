@@ -1,3 +1,21 @@
+2015-03-06  Daiki Ueno  <ueno@gnu.org>
+
+	format-kde: Recognize KUIT markup
+	Reported by Chusslove Illich in:
+	https://lists.gnu.org/archive/html/bug-gettext/2015-01/msg00017.html
+	* format.h (formatstring_kde_kuit): New variable declaration.
+	* format.c (formatstring_parsers): Register formatstring_kde_kuit
+	as a format string parser.
+	* format-kde-kuit.c: New file.
+	* message.h (NFORMATS): Increment.
+	(enum format_type): New enum value format_kde_kuit.
+	* xgettext.c (xgettext_record_flag): Handle format_kde_kuit.
+	* Makefile.am (xgettext_SOURCES): Move libexpat-compat.c to...
+	(libgettextsrc_la_SOURCES): ...here.
+	(xgettext_LDADD): Move @LTLIBEXPAT@ to...
+	(libgettextsrc_la_LDFLAGS): ...here.
+	(FORMAT_SOURCE): Add format-kde-kuit.c.
+
 2015-03-02  Daiki Ueno  <ueno@gnu.org>
 
 	xgettext: Support message syntax checks

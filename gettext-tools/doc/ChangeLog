@@ -1,3 +1,7 @@
+2015-03-06  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext.texi (kde-kuit-format): New subsection.
+
 2015-03-03  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext.texi: Document options --check and --sentence-end.

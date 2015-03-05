@@ -67,11 +67,12 @@ enum format_type
   format_qt,
   format_qt_plural,
   format_kde,
+  format_kde_kuit,
   format_boost,
   format_lua,
   format_javascript
 };
-#define NFORMATS 27     /* Number of format_type enum values.  */
+#define NFORMATS 28     /* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

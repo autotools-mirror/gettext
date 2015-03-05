@@ -119,6 +119,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	format-gfc-internal-1 format-gfc-internal-2 \
 	format-java-1 format-java-2 \
 	format-kde-1 format-kde-2 \
+	format-kde-kuit-1 format-kde-kuit-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
 	format-php-1 format-php-2 \

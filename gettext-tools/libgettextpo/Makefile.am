@@ -85,13 +85,15 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-qt.c \
   ../src/format-qt-plural.c \
   ../src/format-kde.c \
+  ../src/format-kde-kuit.c \
   ../src/format-boost.c \
   ../src/format-lua.c \
   ../src/format.c \
   ../src/plural-exp.c \
   ../src/plural-eval.c \
   ../src/msgl-check.c \
-  ../src/sentence.c
+  ../src/sentence.c \
+  ../src/libexpat-compat.c
 
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".
@@ -106,7 +108,7 @@ libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD) $(LTLIBUNISTRING)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ @LTLIBEXPAT@ -lc -no-undefined
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL

@@ -1,3 +1,9 @@
+2015-03-05  Daiki Ueno  <ueno@gnu.org>
+
+	* format-kde-kuit-1: New file.
+	* format-kde-kuit-2: New file.
+	* Makefile.am (TESTS): Add new tests.
+
 2015-03-03  Daiki Ueno  <ueno@gnu.org>
 
 	* xgettext-14: New file.

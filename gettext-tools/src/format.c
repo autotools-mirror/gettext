@@ -58,6 +58,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_qt */               &formatstring_qt,
   /* format_qt_plural */        &formatstring_qt_plural,
   /* format_kde */              &formatstring_kde,
+  /* format_kde_kuit */         &formatstring_kde_kuit,
   /* format_boost */            &formatstring_boost,
   /* format_lua */              &formatstring_lua,
   /* format_javascript */       &formatstring_javascript

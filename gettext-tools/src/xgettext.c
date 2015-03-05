@@ -1864,6 +1864,11 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
+                  case format_kde_kuit:
+                    flag_context_list_table_insert (&flag_table_cxx_kde, 2,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_boost:
                     flag_context_list_table_insert (&flag_table_cxx_boost, 1,
                                                     name_start, name_end,
@@ -2543,7 +2548,19 @@ meta information, not the empty string.\n")));
                && (possible_format_p (is_format[format_qt])
                    || possible_format_p (is_format[format_qt_plural])
                    || possible_format_p (is_format[format_kde])
-                   || possible_format_p (is_format[format_boost]))))
+                   || possible_format_p (is_format[format_kde_kuit])
+                   || possible_format_p (is_format[format_boost])))
+          /* Avoid flagging a string as kde-format when it's known to
+             be a kde-kuit-format string.  */
+          && !(i == format_kde
+               && possible_format_p (is_format[format_kde_kuit]))
+          /* Avoid flagging a string as kde-kuit-format when it's
+             known to be a kde-format string.  Note that this relies
+             on the fact that format_kde < format_kde_kuit, so a
+             string will be marked as kde-format if both are
+             undecided.  */
+          && !(i == format_kde_kuit
+               && possible_format_p (is_format[format_kde])))
         {
           struct formatstring_parser *parser = formatstring_parsers[i];
           char *invalid_reason = NULL;
@@ -2678,7 +2695,19 @@ remember_a_message_plural (message_ty *mp, char *string,
                  && (possible_format_p (mp->is_format[format_qt])
                      || possible_format_p (mp->is_format[format_qt_plural])
                      || possible_format_p (mp->is_format[format_kde])
-                     || possible_format_p (mp->is_format[format_boost]))))
+                     || possible_format_p (mp->is_format[format_kde_kuit])
+                     || possible_format_p (mp->is_format[format_boost])))
+            /* Avoid flagging a string as kde-format when it's known
+               to be a kde-kuit-format string.  */
+            && !(i == format_kde
+                 && possible_format_p (mp->is_format[format_kde_kuit]))
+            /* Avoid flagging a string as kde-kuit-format when it's
+               known to be a kde-format string.  Note that this relies
+               on the fact that format_kde < format_kde_kuit, so a
+               string will be marked as kde-format if both are
+               undecided.  */
+            && !(i == format_kde_kuit
+                 && possible_format_p (mp->is_format[format_kde])))
           {
             struct formatstring_parser *parser = formatstring_parsers[i];
             char *invalid_reason = NULL;
@@ -3706,6 +3735,7 @@ language_to_extractor (const char *name)
           {
             result.flag_table = &flag_table_cxx_kde;
             result.formatstring_parser2 = &formatstring_kde;
+            result.formatstring_parser3 = &formatstring_kde_kuit;
           }
         /* Likewise for --boost.  */
         if (recognize_format_boost && strcmp (tp->name, "C++") == 0)

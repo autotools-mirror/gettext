@@ -138,6 +138,7 @@ FORMAT_SOURCE += \
   format-qt.c \
   format-qt-plural.c \
   format-kde.c \
+  format-kde-kuit.c \
   format-boost.c \
   format-lua.c \
   format-javascript.c
@@ -148,7 +149,7 @@ $(COMMON_SOURCE) read-catalog.c \
 color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
 msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
-plural-table.c quote.h sentence.h sentence.c \
+plural-table.c quote.h sentence.h sentence.c libexpat-compat.c \
 $(FORMAT_SOURCE) \
 read-desktop.c
 
@@ -180,7 +181,6 @@ xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c x-lua.c x-javascript.c x-vala.c x-gsettings.c \
-  libexpat-compat.c \
   x-desktop.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
@@ -247,7 +247,7 @@ urlget_SOURCES = urlget.c
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ @LTLIBEXPAT@ -lc -no-undefined
 
 libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS)
 
@@ -278,7 +278,7 @@ msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD
 msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD) $(OPENMP_CFLAGS)
 msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
-xgettext_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBEXPAT@ @LTLIBICONV@ $(WOE32_LDADD)
+xgettext_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBICONV@ $(WOE32_LDADD)
 msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)

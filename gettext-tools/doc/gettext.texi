@@ -9063,6 +9063,7 @@ strings.
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
 * kde-format::                  KDE Format Strings
+* kde-kuit-format::             KUIT Format Strings
 * boost-format::                Boost Format Strings
 * lua-format::                  Lua Format Strings
 * javascript-format::           JavaScript Format Strings
@@ -9311,7 +9312,7 @@ Qt format strings are described in the documentation of the QObject::tr method
 @uref{file:/usr/lib/qt-4.3.0/doc/html/qobject.html}.
 In summary, the only allowed directive is @samp{%n}.
 
-@node kde-format, boost-format, qt-plural-format, Translators for other Languages
+@node kde-format, kde-kuit-format, qt-plural-format, Translators for other Languages
 @subsection KDE Format Strings
 
 KDE 4 format strings are defined as follows:
@@ -9319,7 +9320,17 @@ A directive consists of a @samp{%} followed by a non-zero decimal number.
 If a @samp{%n} occurs in a format strings, all of @samp{%1}, ..., @samp{%(n-1)}
 must occur as well, except possibly one of them.
 
-@node boost-format, lua-format, kde-format, Translators for other Languages
+@node kde-kuit-format, boost-format, kde-format, Translators for other Languages
+@subsection KUIT Format Strings
+
+KUIT (KDE User Interface Text) is compatible with KDE 4 format strings,
+while it also allows programmers to add semantic information to a format
+string, through XML markup tags.  For example, if the first format
+directive is a filename, programmers could indicate that with
+@samp{<filename>%1</filename>}.  KUIT format strings are described in
+@uref{http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html#kuit_markup}.
+
+@node boost-format, lua-format, kde-kuit-format, Translators for other Languages
 @subsection Boost Format Strings
 
 Boost format strings are described in the documentation of the
