@@ -1,3 +1,8 @@
+2015-03-06  Daiki Ueno  <ueno@gnu.org>
+
+	* hello-c-gnome3/Makefile.am: Suggest hello.desktop.in should be
+	included in EXTRA_DIST.
+
 2015-02-02  Matthias Clasen  <mclasen@redhat.com>
 
 	* hello-c-gnome3/configure.ac: Require gettext 0.19, for GSettings
