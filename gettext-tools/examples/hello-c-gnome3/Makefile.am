@@ -50,9 +50,7 @@ hello.desktop.in: hello.desktop.in.in
 
 hello.desktop: hello.desktop.in
 	@rm -f $@ $@-t
-	$(AM_V_GEN) srcdir=''; \
-	  test -f ./$< || srcdir=$(srcdir)/; \
-	  sed -e "s|@bindir[@]|$(bindir)|" $< > $@-t && mv $@-t $@
+	$(AM_V_GEN) sed -e 's|@bindir[@]|$(bindir)|g' $< > $@-t && mv $@-t $@
 
 CLEANFILES = $(BUILT_SOURCES) hello.desktop $(desktop_DATA)
 

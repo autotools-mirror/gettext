@@ -1,3 +1,8 @@
+2015-03-07  Daiki Ueno  <ueno@gnu.org>
+
+	* hello-c-gnome3/Makefile.am (hello.desktop): Remove unnecessary
+	$srcdir check.
+
 2015-03-06  Daiki Ueno  <ueno@gnu.org>
 
 	* hello-c-gnome3/Makefile.am: Suggest hello.desktop.in should be
