@@ -1,3 +1,11 @@
+2015-03-11  Daiki Ueno  <ueno@gnu.org>
+
+	msgunfmt: Check allocated size for static segment
+	Reported by Max Lin in:
+	http://lists.gnu.org/archive/html/bug-gettext/2015-03/msg00005.html
+	* read-mo.c (get_sysdep_string): Check if the embedded segment
+	size is valid, before adding it to the string length.
+
 2015-03-06  Daiki Ueno  <ueno@gnu.org>
 
 	format-kde: Recognize KUIT markup
