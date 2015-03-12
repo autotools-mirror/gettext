@@ -226,7 +226,7 @@ format_parse (const char *format, bool translated, char *fdi,
           bp = stpcpy (bp, is_reference (amp) ? "&" : "&amp;");
           str = amp + 1;
         }
-      bp = stpcpy (bp, "</kuit>");
+      stpcpy (bp, "</kuit>");
 
       parser = XML_ParserCreate (NULL);
       if (parser == NULL)

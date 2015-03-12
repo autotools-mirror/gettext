@@ -1244,10 +1244,7 @@ phase5_get (token_ty *tp)
                     }
 
                   if (is_prefix)
-                    {
-                      bufpos = 0;
-                      goto string;
-                    }
+                    goto string;
                 }
               phase4_ungetc (c);
               break;
