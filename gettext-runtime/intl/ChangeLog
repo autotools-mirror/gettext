@@ -1,3 +1,8 @@
+2015-03-12  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Update from gnulib
+	* localename.c, vasnprintf.c: Update from gnulib.
+
 2015-01-22  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Update from gnulib
