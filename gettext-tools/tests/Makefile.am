@@ -257,7 +257,7 @@ gettextpo_1_prg_CPPFLAGS = \
 # self contained.
 gettextpo_1_prg_LDADD = ../libgettextpo/libgettextpo.la $(LDADD)
 sentence_SOURCES = sentence.c
-sentence_CPPFLAGS = -I../src -I../gnulib-lib
+sentence_CPPFLAGS = $(AM_CPPFLAGS) -I../src -I$(top_srcdir)/src
 sentence_LDADD = ../src/libgettextsrc.la $(LDADD)
 
 # Clean up after Solaris cc.
