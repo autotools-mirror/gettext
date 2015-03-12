@@ -1,4 +1,4 @@
-/* KUIT (KDE UI Text) format strings.
+/* KUIT (KDE User Interface Text) format strings.
    Copyright (C) 2015 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -38,9 +38,9 @@
 /* KUIT (KDE User Interface Text) is an XML-like markup which augments
    translatable strings with semantic information:
    http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html#kuit_markup
-   KUIT can be seen as a fragment of well-formed XML, except that it
-   still allows '&' as a Qt accelerator marker and '%' as a format
-   directive.  */
+   KUIT can be seen as a fragment of a well-formed XML document,
+   except that it allows '&' as a Qt accelerator marker and '%' as a
+   format directive.  */
 
 struct spec
 {

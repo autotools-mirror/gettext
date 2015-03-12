@@ -39,10 +39,10 @@ int sentence_end_required_spaces = 1;
          \($\|[ \u00a0]$\|\t\|[ \u00a0]\{REQUIRED_SPACES\}\)
 
    Since we are lacking a regular expression routine capable of
-   Unicode (though gnulib-lib/lib/regex.c provides locale-dependent
-   version, we would rather avoid depending on wchar_t), apply a
-   manually constructed DFA, which consists of 8 states where 4 of
-   them are a terminal.  */
+   Unicode (though gnulib-lib/lib/regex.c provides a locale-dependent
+   version, we would rather avoid depending on it), apply a manually
+   constructed DFA, which consists of 8 states where 4 of them are a
+   terminal.  */
 const char *
 sentence_end (const char *string, ucs4_t *ending_charp)
 {

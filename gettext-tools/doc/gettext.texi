@@ -9326,8 +9326,10 @@ must occur as well, except possibly one of them.
 KUIT (KDE User Interface Text) is compatible with KDE 4 format strings,
 while it also allows programmers to add semantic information to a format
 string, through XML markup tags.  For example, if the first format
-directive is a filename, programmers could indicate that with
-@samp{<filename>%1</filename>}.  KUIT format strings are described in
+directive in a string is a filename, programmers could indicate that
+with a @samp{filename} tag, like @samp{<filename>%1</filename>}.
+
+KUIT format strings are described in
 @uref{http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html#kuit_markup}.
 
 @node boost-format, lua-format, kde-kuit-format, Translators for other Languages

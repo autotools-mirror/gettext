@@ -1,4 +1,4 @@
-/* Scan quoted string segments from a string.
+/* Handle quoted segments of a string.
    Copyright (C) 2014-2015 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -15,8 +15,8 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _SCAN_QUOTE_H
-#define _SCAN_QUOTE_H
+#ifndef _QUOTE_H
+#define _QUOTE_H
 
 #include <stdbool.h>
 
@@ -35,8 +35,8 @@ scan_quoted (const char *input, size_t length,
   const char *p, *start, *end;
   bool seen_opening;
 
-  /* START shall point to the beginning of a quoted string, END points
-     to the end of the entire input string.  */
+  /* START shall point to the beginning of a quoted segment, END
+     points to the end of the entire input string.  */
   start = input;
   end = &input[length - 1];
   
@@ -139,4 +139,4 @@ scan_quoted (const char *input, size_t length,
 #endif
 
 
-#endif /* _SCAN_QUOTE_H */
+#endif /* _QUOTE_H */

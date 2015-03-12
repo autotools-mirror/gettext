@@ -1,9 +1,11 @@
 Version 0.19.5 - unreleased
 
 * xgettext now has a feature to perform syntax checks on msgid, which
-  could enforce common styles of translatable strings.  They can be
-  enabled with --check option or special "xgettext: " comment in the
-  source code.  By default, no syntax checks are enabled.
+  could enforce common styles of translatable strings, such as to
+  prefer Unicode characters to the corresponding ASCII characters.
+  They can be enabled with --check option or special "xgettext: "
+  comment in the source code.  By default, no syntax checks are
+  enabled.
 
 * msgfilter and msgexec now have an option --newline, which appends a
   newline character to filter input and trims it from the filter
