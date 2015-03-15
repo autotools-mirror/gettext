@@ -1,3 +1,7 @@
+2015-03-15  Benno Schulenberg <bensberg@justemail.net>  (tiny change)
+
+	* xgettext.texi: Fix a word and a punctuation.
+
 2015-03-06  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (kde-kuit-format): New subsection.
