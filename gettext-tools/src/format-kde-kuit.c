@@ -50,6 +50,8 @@ struct spec
 
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
 
+#define XML_NS "https://www.gnu.org/s/gettext/kde"
+
 /* Callback called when <element> is seen.  */
 static void
 start_element_handler (void *data, const char *name,
@@ -209,11 +211,14 @@ format_parse (const char *format, bool translated, char *fdi,
           str = amp + 1;
         }
 
-      buffer = xmalloc (amp_count * 4 + strlen (format) + 16);
+      buffer = xmalloc (amp_count * 4
+                        + strlen (format)
+                        + strlen ("<gt:kuit xmlns:gt=\"" XML_NS "\"></gt:kuit>")
+                        + 1);
       *buffer = '\0';
 
       bp = buffer;
-      bp = stpcpy (bp, "<kuit>");
+      bp = stpcpy (bp, "<gt:kuit xmlns:gt=\"" XML_NS "\">");
       str = format;
       while (str < str_limit)
         {
@@ -226,7 +231,7 @@ format_parse (const char *format, bool translated, char *fdi,
           bp = stpcpy (bp, is_reference (amp) ? "&" : "&amp;");
           str = amp + 1;
         }
-      stpcpy (bp, "</kuit>");
+      stpcpy (bp, "</gt:kuit>");
 
       parser = XML_ParserCreate (NULL);
       if (parser == NULL)

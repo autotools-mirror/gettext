@@ -1,3 +1,9 @@
+2015-03-20  Daiki Ueno  <ueno@gnu.org>
+
+	kde-kuit: Use xmlns to avoid element name conflict
+	* format-kde-kuit.c (XML_NS): New macro.
+	(format_parse): Add namespace qualifier to the <kuit> tag.
+
 2015-03-12  Daiki Ueno  <ueno@gnu.org>
 
 	* format-kde-kuit.c (format_parse): Remove dead assignment,
