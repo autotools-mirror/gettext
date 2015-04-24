@@ -1,3 +1,8 @@
+2015-04-24  Manuel Uberti  <manuel@boccaperta.com>  (tiny change)
+
+	* po-mode.el (po-keep-mo-file): New user option.
+	(po-validate): Respect po-keep-mo-file.  Fix comment indentation.
+
 2015-01-21  Peter Eisentraut  <peter@eisentraut.org>  (tiny change)
 
 	* po-mode.el (po-font-lock-keywords): Support all possible length
