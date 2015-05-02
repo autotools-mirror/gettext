@@ -9150,11 +9150,10 @@ of the @samp{str} object.
 
 Python @code{%} format strings are described in
 @w{Python Library reference} /
-@w{2. Built-in Types, Exceptions and Functions} /
-@w{2.2. Built-in Types} /
-@w{2.2.6. Sequence Types} /
-@w{2.2.6.2. String Formatting Operations}.
-@uref{http://www.python.org/doc/2.2.1/lib/typesseq-strings.html}.
+@w{5. Built-in Types} /
+@w{5.6. Sequence Types} /
+@w{5.6.2. String Formatting Operations}.
+@uref{http://docs.python.org/2/library/stdtypes.html#string-formatting-operations}.
 
 Python brace format strings are described in @w{PEP 3101 -- Advanced
 String Formatting}, @uref{http://www.python.org/dev/peps/pep-3101/}.

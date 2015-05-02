@@ -1,3 +1,8 @@
+2015-05-08  Matthew Behrens  <askedrelic@gmail.com>  (tiny change)
+
+	* gettext.texi (python-format): Update link to Python Library
+	Reference.
+
 2015-03-15  Benno Schulenberg <bensberg@justemail.net>  (tiny change)
 
 	* xgettext.texi: Fix a word and a punctuation.
