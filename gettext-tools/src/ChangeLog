@@ -1,3 +1,14 @@
+2015-05-08  Часлав Илић (Chusslove Illich)  <caslav.ilic@gmx.net>  (tiny change)
+
+	* x-c.c (init_flag_table_kde): New function.
+	(additional_keywords_kde): New variable.
+	(activate_additional_keywords_kde): New function.
+	(init_keywords): Optional addition of KDE-specific keywords.
+	* x-c.h (init_flag_table_kde): New function declaration.
+	(activate_additional_keywords_kde): New function declaration.
+	* xgettext.c (main): Invoke addition of KDE-specific keywords when
+	language is C++ with KDE.
+
 2015-03-20  Daiki Ueno  <ueno@gnu.org>
 
 	kde-kuit: Use xmlns to avoid element name conflict

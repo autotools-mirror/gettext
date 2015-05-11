@@ -143,6 +143,14 @@ x_objc_keyword (const char *name)
   add_keyword (name, &objc_keywords);
 }
 
+static bool additional_keywords_kde;
+
+void
+activate_additional_keywords_kde ()
+{
+  additional_keywords_kde = true;
+}
+
 /* Finish initializing the keywords hash tables.
    Called after argument processing, before each file is processed.  */
 static void
@@ -165,6 +173,50 @@ init_keywords ()
       x_c_keyword ("npgettext:1c,2,3");
       x_c_keyword ("dnpgettext:2c,3,4");
       x_c_keyword ("dcnpgettext:2c,3,4");
+
+      if (additional_keywords_kde)
+        {
+          x_c_keyword ("i18n:1");
+          x_c_keyword ("i18nc:1c,2");
+          x_c_keyword ("i18np:1,2");
+          x_c_keyword ("i18ncp:1c,2,3");
+          x_c_keyword ("i18nd:2");
+          x_c_keyword ("i18ndc:2c,3");
+          x_c_keyword ("i18ndp:2,3");
+          x_c_keyword ("i18ndcp:2c,3,4");
+          x_c_keyword ("ki18n:1");
+          x_c_keyword ("ki18nc:1c,2");
+          x_c_keyword ("ki18np:1,2");
+          x_c_keyword ("ki18ncp:1c,2,3");
+          x_c_keyword ("ki18nd:2");
+          x_c_keyword ("ki18ndc:2c,3");
+          x_c_keyword ("ki18ndp:2,3");
+          x_c_keyword ("ki18ndcp:2c,3,4");
+          x_c_keyword ("I18N_NOOP:1");
+          x_c_keyword ("I18NC_NOOP:1c,2");
+          x_c_keyword ("I18N_NOOP2:1c,2");
+          x_c_keyword ("I18N_NOOP2_NOSTRIP:1c,2");
+          x_c_keyword ("xi18n:1");
+          x_c_keyword ("xi18nc:1c,2");
+          x_c_keyword ("xi18np:1,2");
+          x_c_keyword ("xi18ncp:1c,2,3");
+          x_c_keyword ("xi18nd:2");
+          x_c_keyword ("xi18ndc:2c,3");
+          x_c_keyword ("xi18ndp:2,3");
+          x_c_keyword ("xi18ndcp:2c,3,4");
+          x_c_keyword ("kxi18n:1");
+          x_c_keyword ("kxi18nc:1c,2");
+          x_c_keyword ("kxi18np:1,2");
+          x_c_keyword ("kxi18ncp:1c,2,3");
+          x_c_keyword ("kxi18nd:2");
+          x_c_keyword ("kxi18ndc:2c,3");
+          x_c_keyword ("kxi18ndp:2,3");
+          x_c_keyword ("kxi18ndcp:2c,3,4");
+          x_c_keyword ("XI18N_NOOP:1");
+          x_c_keyword ("XI18NC_NOOP:1c,2");
+          x_c_keyword ("XI18N_NOOP2:1c,2");
+          x_c_keyword ("XI18N_NOOP2_NOSTRIP:1c,2");
+        }
 
       x_objc_keyword ("gettext");
       x_objc_keyword ("dgettext:2");
@@ -449,6 +501,50 @@ init_flag_table_gcc_internal ()
 #endif
 }
 
+void
+init_flag_table_kde ()
+{
+  xgettext_record_flag ("i18n:1:kde-format");
+  xgettext_record_flag ("i18nc:2:kde-format");
+  xgettext_record_flag ("i18np:1:kde-format");
+  xgettext_record_flag ("i18ncp:2:kde-format");
+  xgettext_record_flag ("i18nd:2:kde-format");
+  xgettext_record_flag ("i18ndc:3:kde-format");
+  xgettext_record_flag ("i18ndp:2:kde-format");
+  xgettext_record_flag ("i18ndcp:3:kde-format");
+  xgettext_record_flag ("ki18n:1:kde-format");
+  xgettext_record_flag ("ki18nc:2:kde-format");
+  xgettext_record_flag ("ki18np:1:kde-format");
+  xgettext_record_flag ("ki18ncp:2:kde-format");
+  xgettext_record_flag ("ki18nd:2:kde-format");
+  xgettext_record_flag ("ki18ndc:3:kde-format");
+  xgettext_record_flag ("ki18ndp:2:kde-format");
+  xgettext_record_flag ("ki18ndcp:3:kde-format");
+  xgettext_record_flag ("I18N_NOOP:1:kde-format");
+  xgettext_record_flag ("I18NC_NOOP:2:kde-format");
+  xgettext_record_flag ("I18N_NOOP2:2:kde-format");
+  xgettext_record_flag ("I18N_NOOP2_NOSTRIP:2:kde-format");
+  xgettext_record_flag ("xi18n:1:kde-kuit-format");
+  xgettext_record_flag ("xi18nc:2:kde-kuit-format");
+  xgettext_record_flag ("xi18np:1:kde-kuit-format");
+  xgettext_record_flag ("xi18ncp:2:kde-kuit-format");
+  xgettext_record_flag ("xi18nd:2:kde-kuit-format");
+  xgettext_record_flag ("xi18ndc:3:kde-kuit-format");
+  xgettext_record_flag ("xi18ndp:2:kde-kuit-format");
+  xgettext_record_flag ("xi18ndcp:3:kde-kuit-format");
+  xgettext_record_flag ("kxi18n:1:kde-kuit-format");
+  xgettext_record_flag ("kxi18nc:2:kde-kuit-format");
+  xgettext_record_flag ("kxi18np:1:kde-kuit-format");
+  xgettext_record_flag ("kxi18ncp:2:kde-kuit-format");
+  xgettext_record_flag ("kxi18nd:2:kde-kuit-format");
+  xgettext_record_flag ("kxi18ndc:3:kde-kuit-format");
+  xgettext_record_flag ("kxi18ndp:2:kde-kuit-format");
+  xgettext_record_flag ("kxi18ndcp:3:kde-kuit-format");
+  xgettext_record_flag ("XI18N_NOOP:1:kde-kuit-format");
+  xgettext_record_flag ("XI18NC_NOOP:2:kde-kuit-format");
+  xgettext_record_flag ("XI18N_NOOP2:2:kde-kuit-format");
+  xgettext_record_flag ("XI18N_NOOP2_NOSTRIP:2:kde-kuit-format");
+}
 
 /* ======================== Reading of characters.  ======================== */
 

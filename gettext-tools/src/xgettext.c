@@ -336,6 +336,7 @@ main (int argc, char *argv[])
   init_flag_table_c ();
   init_flag_table_objc ();
   init_flag_table_gcc_internal ();
+  init_flag_table_kde ();
   init_flag_table_sh ();
   init_flag_table_python ();
   init_flag_table_lisp ();
@@ -583,6 +584,7 @@ main (int argc, char *argv[])
 
       case CHAR_MAX + 10:       /* --kde */
         recognize_format_kde = true;
+        activate_additional_keywords_kde ();
         break;
 
       case CHAR_MAX + 11:       /* --boost */

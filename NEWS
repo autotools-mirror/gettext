@@ -19,6 +19,9 @@ Version 0.19.5 - unreleased
   - C++ with KDE: xgettext and msgfmt can now recognize KUIT (KDE User
     Interface Text) markup.  See the documentation section "KUIT
     Format Strings" for more info.
+  - C++ with KDE: xgettext now recognizes all default KDE keywords.
+    This removes the need for a long list of --keyword and --flag
+    options to perform a reasonable extraction.
 
 * Bug fixes:
   - xgettext C++11 raw string recognition is now stricter and don't

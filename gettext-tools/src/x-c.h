@@ -84,9 +84,12 @@ extern void x_objc_keyword (const char *name);
 
 extern void x_c_trigraphs (void);
 
+extern void activate_additional_keywords_kde (void);
+
 extern void init_flag_table_c (void);
 extern void init_flag_table_objc (void);
 extern void init_flag_table_gcc_internal (void);
+extern void init_flag_table_kde (void);
 
 
 extern struct literalstring_parser literalstring_c;
