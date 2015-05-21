@@ -1,3 +1,9 @@
+2015-06-22  Daiki Ueno  <ueno@gnu.org>
+
+	* msginit.texi: More explanations about "meta information".
+	* gettext.texi (Plural forms): Mention Unicode CLDR support in
+	msginit.
+
 2015-06-01  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext.texi (gawk): Mention new file extensions ".gawk" and

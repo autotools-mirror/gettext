@@ -1,3 +1,8 @@
+2015-06-22  Daiki Ueno  <ueno@gnu.org>
+
+	* cldr-plurals-1: New file.
+	* Makefile.am (TESTS): Add new tests.
+
 2015-03-12  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (sentence_CPPFLAGS): Add -I$(top_srcdir)/src and

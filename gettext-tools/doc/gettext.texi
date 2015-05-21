@@ -6222,7 +6222,11 @@ The following rules are known at this point.  The language with families
 are listed.  But this does not necessarily mean the information can be
 generalized for the whole family (as can be easily seen in the table
 below).@footnote{Additions are welcome.  Send appropriate information to
-@email{bug-gnu-gettext@@gnu.org} and @email{bug-glibc-manual@@gnu.org}.}
+@email{bug-gnu-gettext@@gnu.org} and @email{bug-glibc-manual@@gnu.org}.
+The Unicode CLDR Project (@uref{http://cldr.unicode.org}) provides a
+comprehensive set of plural forms in a different format.  The
+@code{msginit} program has preliminary support for the format so you can
+use it as a baseline (@pxref{msginit Invocation}).}
 
 @table @asis
 @item Only one form:

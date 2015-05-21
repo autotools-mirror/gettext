@@ -30,7 +30,7 @@ msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq \
 recode-sr-latin
 
-noinst_PROGRAMS = hostname urlget
+noinst_PROGRAMS = hostname urlget cldr-plurals
 
 lib_LTLIBRARIES = libgettextsrc.la
 
@@ -237,6 +237,8 @@ endif
 recode_sr_latin_SOURCES = recode-sr-latin.c filter-sr-latin.c
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
+cldr_plurals_SOURCES = cldr-plural.y cldr-plural-exp.c cldr-plurals.c
+cldr_plurals_LDADD = libgettextsrc.la $(LDADD)
 
 # How to build libgettextsrc.la.
 # Need ../gnulib-lib/libgettextlib.la.
@@ -447,7 +449,7 @@ endif
 # Special rules for bison and flex generated files.
 
 BUILT_SOURCES = \
-  po-gram-gen.c po-gram-gen.h po-gram-gen2.h
+  po-gram-gen.c po-gram-gen.h po-gram-gen2.h cldr-plural.c cldr-plural.h
 
 po-lex.o po-lex.lo: po-gram-gen2.h
 po-gram-gen2.h: po-gram-gen.h
@@ -465,6 +467,7 @@ install-exec-local:
 	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) cldr-plurals$(EXEEXT) $(DESTDIR)$(pkglibdir)/cldr-plurals$(EXEEXT)
 	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(pkglibdir)/user-email
 	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibdir)/project-id
 

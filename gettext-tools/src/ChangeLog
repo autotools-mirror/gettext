@@ -1,3 +1,18 @@
+2015-06-22  Daiki Ueno  <ueno@gnu.org>
+
+	msginit: Guess plural rules from Unicode CLDR
+	* Makefile.am (noinst_PROGRAMS): Add cldr-plurals.
+	(install-exec-local): Install cldr-plurals.
+	(BUILT_SOURCES): Add cldr-plural.c and cldr-plural.h.
+	(cldr_plural_SOURCES): New variable.
+	(cldr_plural_LDADD): New variable.
+	* cldr-plural-exp.h: New file.
+	* cldr-plural-exp.c: New file.
+	* cldr-plural.y: New file.
+	* cldr-plurals.c: New file.
+	* msginit.c (plural_forms): Call cldr-plurals program if the
+	plural rule is not defined in the code.
+
 2015-06-01  Daiki Ueno  <ueno@gnu.org>
 
 	* x-awk.h (EXTENSIONS_AWK): Register file extensions ".gawk" and

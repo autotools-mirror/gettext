@@ -145,7 +145,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
 	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst \
 	lang-lua lang-javascript lang-vala \
-	autopoint-1 autopoint-2 autopoint-3
+	autopoint-1 autopoint-2 autopoint-3 cldr-plurals-1
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	test.mo overflow-1.mo overflow-2.mo overflow-3.mo overflow-4.mo \

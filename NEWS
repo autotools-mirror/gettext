@@ -15,6 +15,11 @@ Version 0.19.5 - unreleased
   particularly improves "\N{...}" notation handling of xgettext for
   Perl and Python.
 
+* msginit is now capable of generating "Plural-Forms:" from Unicode
+  CLDR, if the GETTEXTCLDRDIR environment variable is set to the
+  location of the data directory.  The actual conversion is done by a
+  new helper program 'cldr-plural'.
+
 * Programming languages support:
   - C++ with KDE: xgettext and msgfmt can now recognize KUIT (KDE User
     Interface Text) markup.  See the documentation section "KUIT
