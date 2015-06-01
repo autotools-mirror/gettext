@@ -1,3 +1,8 @@
+2015-05-31  Benno Schulenberg <bensberg@justemail.net>  (tiny change)
+
+	* Makefile.in.in: Do not use --update when simply checking for
+	the version, as this might fail when msgmerge is very old.
+
 2015-02-18  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.in.in: Replace our own wording of licensing with GNU
