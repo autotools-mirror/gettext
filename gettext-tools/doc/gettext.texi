@@ -7712,11 +7712,10 @@ changes needed in each.
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
 @code{gettext} @value{VERSION} distribution itself, or from the GNU
-@code{hello} distribution (@uref{http://www.franken.de/users/gnu/ke/hello}
-or @uref{http://www.gnu.franken.de/ke/hello/})  You may indeed
-refer to the source code of the GNU @code{gettext} and GNU @code{hello}
-packages, as they are intended to be good examples for using GNU
-gettext functionality.
+@code{hello} distribution (@uref{http://www.gnu.org/software/hello}).
+You may indeed refer to the source code of the GNU @code{gettext} and
+GNU @code{hello} packages, as they are intended to be good examples for
+using GNU gettext functionality.
 
 @menu
 * po/POTFILES.in::              @file{POTFILES.in} in @file{po/}
