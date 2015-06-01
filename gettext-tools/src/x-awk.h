@@ -29,6 +29,8 @@ extern "C" {
 
 #define EXTENSIONS_AWK \
   { "awk",    "awk"   },                                                \
+  { "gawk",   "awk"   },                                                \
+  { "twjr",   "awk"   },                                                \
 
 #define SCANNERS_AWK \
   { "awk",              extract_awk,                                    \

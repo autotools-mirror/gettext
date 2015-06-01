@@ -10683,7 +10683,9 @@ with a single-letter name.
 gawk 3.1 or newer
 
 @item File extension
-@code{awk}
+@code{awk}, @code{gawk}, @code{twjr}.
+The file extension @code{twjr} is used by TexiWeb Jr
+(@uref{https://github.com/arnoldrobbins/texiwebjr}).
 
 @item String syntax
 @code{"abc"}
