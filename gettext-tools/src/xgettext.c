@@ -1,5 +1,6 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2012 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2015 Free Software Foundation,
+   Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
