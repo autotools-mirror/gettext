@@ -12,6 +12,7 @@
 /btowc.c
 /dup.c
 /fdopen.c
+/file-has-acl.c
 /fpucw.h
 /ftell.c
 /ftello.c
@@ -65,13 +66,13 @@
 /test-copy-file.c
 /test-copy-file.sh
 /test-dirent.c
-/test-dup.c
 /test-dup-safer.c
+/test-dup.c
 /test-dup2.c
 /test-environ.c
 /test-errno.c
-/test-fcntl.c
 /test-fcntl-h.c
+/test-fcntl.c
 /test-fdopen.c
 /test-fgetc.c
 /test-file-has-acl-1.sh
@@ -105,8 +106,8 @@
 /test-getopt.h
 /test-getopt_long.h
 /test-gettimeofday.c
-/test-iconv.c
 /test-iconv-h.c
+/test-iconv.c
 /test-ignore-value.c
 /test-init.sh
 /test-intprops.c
@@ -175,8 +176,8 @@
 /test-posix_spawn_file_actions_addclose.c
 /test-posix_spawn_file_actions_adddup2.c
 /test-posix_spawn_file_actions_addopen.c
-/test-quotearg.h
 /test-quotearg-simple.c
+/test-quotearg.h
 /test-raise.c
 /test-rawmemchr.c
 /test-read-file.c

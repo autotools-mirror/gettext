@@ -12,6 +12,7 @@
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
 /acl-errno-valid.c
+/acl-internal.c
 /acl-internal.h
 /acl.h
 /acl_entries.c
@@ -115,6 +116,7 @@
 /fwriteerror.h
 /gcd.c
 /gcd.h
+/get-permissions.c
 /getdelim.c
 /getdtablesize.c
 /getline.c
@@ -256,6 +258,7 @@
 /secure_getenv.c
 /set-acl.c
 /set-mode-acl.c
+/set-permissions.c
 /setenv.c
 /setlocale.c
 /sh-quote.c
