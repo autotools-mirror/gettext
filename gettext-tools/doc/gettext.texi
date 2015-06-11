@@ -469,6 +469,7 @@ Internationalizable Data
 * RST::                         Resource String Table
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
+* AppData::                     AppData - freedesktop.org application description
 
 Concluding Remarks
 
@@ -12153,6 +12154,7 @@ using GNU gettext.
 * RST::                         Resource String Table
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
+* AppData::                     AppData - freedesktop.org application description
 @end menu
 
 @node POT, RST, List of Data Formats, List of Data Formats
@@ -12198,7 +12200,7 @@ glade, libglade, glade2, libglade2, intltool
 @code{xgettext}, @code{libglade-xgettext}, @code{xml-i18n-extract}, @code{intltool-extract}
 @end table
 
-@node GSettings,  , Glade, List of Data Formats
+@node GSettings, AppData, Glade, List of Data Formats
 @subsection GSettings - GNOME user configuration schema
 
 @table @asis
@@ -12210,6 +12212,20 @@ glib2
 
 @item Extractor
 @code{xgettext}, @code{intltool-extract}
+@end table
+
+@node AppData,  , GSettings, List of Data Formats
+@subsection AppData - freedesktop.org application description
+
+@table @asis
+@item RPMs
+appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
+
+@item File extension
+@code{appdata.xml}
+
+@item Extractor
+@code{xgettext}, @code{intltool-extract}, @code{itstool}
 @end table
 
 @c This is the template for new data formats.

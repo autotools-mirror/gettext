@@ -1,3 +1,9 @@
+2015-06-11  Philip Withnall  <philip.withnall@collabora.co.uk>
+
+	xgettext: add support for AppData files
+	* Makefile.am (TESTS): Add xgettext-appdata-1.
+	* xgettext-appdata-1: New file.
+
 2015-08-21  Daiki Ueno  <ueno@gnu.org>
 
 	* Makefile.am (check_PROGRAMS): Rename from noinst_PROGRAMS, to

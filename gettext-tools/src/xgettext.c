@@ -89,6 +89,7 @@
 #include "x-java.h"
 #include "x-properties.h"
 #include "x-csharp.h"
+#include "x-appdata.h"
 #include "x-awk.h"
 #include "x-ycp.h"
 #include "x-tcl.h"
@@ -3764,6 +3765,7 @@ language_to_extractor (const char *name)
     SCANNERS_VALA
     SCANNERS_GSETTINGS
     SCANNERS_DESKTOP
+    SCANNERS_APPDATA
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
   };
@@ -3854,6 +3856,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_VALA
     EXTENSIONS_GSETTINGS
     EXTENSIONS_DESKTOP
+    EXTENSIONS_APPDATA
     /* Here may follow more file extensions... */
   };
 
