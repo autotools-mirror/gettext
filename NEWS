@@ -16,9 +16,11 @@ Version 0.19.5 - unreleased
   Perl and Python.
 
 * msginit is now capable of generating "Plural-Forms:" from Unicode
-  CLDR, if the GETTEXTCLDRDIR environment variable is set to the
-  location of the data directory.  The actual conversion is done by a
-  new helper program 'cldr-plural'.
+  CLDR.  This feature is still experimental, but you can try it by
+  setting the GETTEXTCLDRDIR environment variable pointing to the the
+  directory where the CLDR archive is extracted.  The actual
+  conversion is done by a helper program 'cldr-plural', which can be
+  used as a generic converter and evaluator of CLDR plural forms.
 
 * Programming languages support:
   - C++ with KDE: xgettext and msgfmt can now recognize KUIT (KDE User
