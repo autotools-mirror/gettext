@@ -1,5 +1,10 @@
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
+	* cldr-plurals.c (main): Fix unmatched braces when
+	!(DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT).
+
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
 	* cldr-plurals.c: Include "basename.h".
 	(main): Place optind on the right hand side of the expression, to
 	work around build failure on Solaris.

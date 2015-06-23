@@ -453,10 +453,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           free (extracted_rules);
         }
       else
-        {
-#else
-          error (1, 0, _("extraction is not supported"));
 #endif
+        {
+          error (1, 0, _("extraction is not supported"));
         }
     }
   else if (argc == optind)
