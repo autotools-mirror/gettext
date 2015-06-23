@@ -1,5 +1,11 @@
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
+	* cldr-plurals.c: Include "basename.h".
+	(main): Place optind on the right hand side of the expression, to
+	work around build failure on Solaris.
+
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
 	* Makefile.am (uninstall-local): Remove cldr-plurals.
 
 2015-06-23  Daiki Ueno  <ueno@gnu.org>

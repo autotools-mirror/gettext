@@ -20,6 +20,7 @@
 # include <config.h>
 #endif
 
+#include "basename.h"
 #include "cldr-plural-exp.h"
 #include "c-ctype.h"
 #include <errno.h>
@@ -418,7 +419,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
-  if (argc - optind == 2)
+  if (argc == optind + 2)
     {
       /* Two arguments: Read CLDR rules from a file.  */
 #if DYNLOAD_LIBEXPAT || HAVE_LIBEXPAT
@@ -458,7 +459,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 #endif
         }
     }
-  else if (argc - optind == 0)
+  else if (argc == optind)
     {
       /* No argument: Read CLDR rules from standard input.  */
       char *line = NULL;
