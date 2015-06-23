@@ -160,55 +160,48 @@ public class Matrix {
         }
       }
 
-      // Split into separate tables, to keep 80 column width.
-      int ngroups;
-      int[][] groups;
-      if (true) {
-        ngroups = 6;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, (nteams-5)/6 };
-        groups[1] = new int[] { (nteams-5)/6, (2*nteams-9)/6 };
-        groups[2] = new int[] { (2*nteams-9)/6, (3*nteams-1)/6 };
-        groups[3] = new int[] { (3*nteams-1)/6, (4*nteams+2)/6 };
-        groups[4] = new int[] { (4*nteams+2)/6, (5*nteams+10)/6 };
-        groups[5] = new int[] { (5*nteams+10)/6, nteams };
-      } else if (true) {
-        ngroups = 5;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, (nteams+4)/5 };
-        groups[1] = new int[] { (nteams+4)/5, (2*nteams+8)/5 };
-        groups[2] = new int[] { (2*nteams+8)/5, (3*nteams+12)/5 };
-        groups[3] = new int[] { (3*nteams+12)/5, (4*nteams+12)/5 };
-        groups[4] = new int[] { (4*nteams+12)/5, nteams };
-      } else if (true) {
-        ngroups = 4;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, nteams/4+1 };
-        groups[1] = new int[] { nteams/4+1, (2*nteams)/4+1 };
-        groups[2] = new int[] { (2*nteams)/4+1, (3*nteams)/4+1 };
-        groups[3] = new int[] { (3*nteams)/4+1, nteams };
-      } else if (true) {
-        ngroups = 3;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, nteams/3+1 };
-        groups[1] = new int[] { nteams/3+1, (2*nteams)/3+1 };
-        groups[2] = new int[] { (2*nteams)/3+1, nteams };
-      } else if (true) {
-        ngroups = 2;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, nteams/2+1 };
-        groups[1] = new int[] { nteams/2+1, nteams };
-      } else {
-        ngroups = 1;
-        groups = new int[ngroups][];
-        groups[0] = new int[] { 0, nteams };
-      }
-
       int[] columnwidth = new int[nteams];
       for (int t = 0; t < nteams; t++)
         columnwidth[t] =
           Math.max(teams[t].length(),
                    Integer.toString(total_per_team[t]).length());
+
+      // Split into separate tables, to keep 80 column width.
+      int maxwidth = 80 - 21 - 5 - Integer.toString(total).length();
+
+      // First determine how many groups are needed.
+      int ngroups = 0;
+      {
+        int width = 0, last_team = 0;
+        for (int t = 0; t < nteams; t++) {
+          int newwidth = width + columnwidth[t] + 1;
+          if (newwidth > maxwidth) {
+            last_team = t;
+            ngroups++;
+            width = 0;
+          }
+          width += columnwidth[t] + 1;
+        }
+        if (last_team < nteams)
+          ngroups++;
+      }
+
+      // Then initialize the size of each group.
+      int[][] groups = new int[ngroups][];
+      {
+        int width = 0, last_team = 0, index = 0;
+        for (int t = 0; t < nteams; t++) {
+          int newwidth = width + columnwidth[t] + 1;
+          if (newwidth > maxwidth) {
+            groups[index++] = new int[] { last_team, t };
+            last_team = t;
+            width = 0;
+          }
+          width += columnwidth[t] + 1;
+        }
+        if (last_team < nteams)
+          groups[index] = new int[] { last_team, nteams };
+      }
 
       stream.println("@example");
       for (int group = 0; group < ngroups; group++) {
