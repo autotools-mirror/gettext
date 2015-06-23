@@ -1,3 +1,8 @@
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (noinst_HEADERS): Add cldr-plural.h and
+	cldr-plural-exp.h.
+
 2015-06-22  Daiki Ueno  <ueno@gnu.org>
 
 	msginit: Guess plural rules from Unicode CLDR
