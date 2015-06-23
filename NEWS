@@ -1,4 +1,4 @@
-Version 0.19.5 - unreleased
+Version 0.19.5 - June 2015
 
 * xgettext now has a feature to perform syntax checks on msgid, which
   could enforce common styles of translatable strings, such as to
@@ -11,7 +11,7 @@ Version 0.19.5 - unreleased
   newline character to filter input and trims it from the filter
   output.  This would allow filter programs to be more POSIX friendly.
 
-* The base Unicode standard is now updated to 7.0.0.  This
+* The base Unicode standard is now updated to 8.0.0.  This
   particularly improves "\N{...}" notation handling of xgettext for
   Perl and Python.
 
