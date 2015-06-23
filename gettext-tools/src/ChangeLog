@@ -1,5 +1,9 @@
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
+	* Makefile.am (uninstall-local): Remove cldr-plurals.
+
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
 	* Makefile.am (noinst_HEADERS): Add cldr-plural.h and
 	cldr-plural-exp.h.
 

@@ -478,6 +478,7 @@ installdirs-local:
 uninstall-local:
 	$(RM) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
 	$(RM) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibdir)/cldr-plurals$(EXEEXT)
 	$(RM) $(DESTDIR)$(pkglibdir)/user-email
 	$(RM) $(DESTDIR)$(pkglibdir)/project-id
 
