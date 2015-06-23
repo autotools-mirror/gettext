@@ -1,3 +1,10 @@
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
+	* msginit-4: New file.
+	* common/supplemental/plurals.xml: New data file.
+	* Makefile.am (TESTS): Add new tests.
+	(EXTRA_DIST): Add new data file.
+
 2015-06-22  Daiki Ueno  <ueno@gnu.org>
 
 	* cldr-plurals-1: New file.
