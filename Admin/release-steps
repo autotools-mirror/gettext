@@ -7,6 +7,7 @@ Release procedure
 * Update 'gnulib' git submodule:
 
     git submodule foreach git pull origin master
+    git add gnulib
     git commit -m 'Update gnulib'
 
 * Update files:
@@ -26,7 +27,7 @@ Release procedure
   - gettext-runtime/intl/config.charset
 
     Update with libcharset inside libiconv.  Check that
-    gnulib/lib/{localcharset.h,localcharset.c,config.charset} agrees
+    gnulib/lib/{localcharset.h,localcharset.c,config.charset} agree
     with it, except for copyright header changes.
 
   - gettext-runtime/po/Makefile.in.in
