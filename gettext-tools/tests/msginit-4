@@ -40,8 +40,6 @@ EOF
 GETTEXTLIBDIR="$top_builddir"/src GETTEXTCLDRDIR="$abs_srcdir" ${MSGINIT} -l foo --no-translator --no-wrap -o mi-test4.tmp 2>mi-test4.err
 test $? = 0 || { cat mi-test4.err 1>&2; exit 1; }
 
-grep "Project-Id-Version: gt-msginit " mi-test4.tmp 2>&1 >/dev/null || exit 1
-
 # The charset stored in the header entry is the locale encoding of the gl_IE
 # locale, which is system dependent, or ASCII if the locale does not exist.
 #

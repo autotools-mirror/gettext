@@ -1,5 +1,11 @@
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
+	* msginit-4: Don't check the Project-Id-Version: field, which
+	cannot be generated since we can't rely on the project-id script
+	when $builddir != $srcdir.
+
+2015-06-23  Daiki Ueno  <ueno@gnu.org>
+
 	* msginit-4: New file.
 	* common/supplemental/plurals.xml: New data file.
 	* Makefile.am (TESTS): Add new tests.
