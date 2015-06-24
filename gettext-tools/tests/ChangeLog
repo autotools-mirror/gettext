@@ -1,5 +1,9 @@
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
 
+	* lang-bash: Skip if "bash --help" isn't localized on Mac OS X.
+
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
 	* msgfilter-8: Port the "echo -n" equivalent from gettext-2.
 	Reported by Paul Zimmermann in:
 	<https://lists.gnu.org/archive/html/bug-gettext/2015-06/msg00019.html>.
