@@ -5,6 +5,12 @@
 
 # Test conversion from CLDR to gettext, for Arabic and Russian
 
+LC_ALL=C "$top_builddir/src/cldr-plurals" ru /dev/null 2>&1 | grep 'extraction is not supported' > /dev/null 2>&1
+test $? = 0 && {
+  echo "Skipping test: cldr-plurals was built without XML support"
+  exit 77
+}
+
 cat > ar.ok <<\EOF
 nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);
 EOF

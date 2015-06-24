@@ -1,5 +1,10 @@
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
 
+	* cldr-plurals-1: Skip if XML is not supported.
+	* msginit-4: Likewise.
+
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
 	* format-kde-kuit-1: Skip if KDE KUIT format is not supported.
 	* format-kde-kuit-2: Likewise.
 	Suggested by Chusslove Illich.
