@@ -1,3 +1,9 @@
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
+	* format-kde-kuit-1: Skip if KDE KUIT format is not supported.
+	* format-kde-kuit-2: Likewise.
+	Suggested by Chusslove Illich.
+
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
 	* msginit-4: Don't check the Project-Id-Version: field, which

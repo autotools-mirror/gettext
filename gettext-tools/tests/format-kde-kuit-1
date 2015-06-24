@@ -3,6 +3,18 @@
 
 # Test recognition of KUIT format strings.
 
+: ${XGETTEXT=xgettext}
+
+cat <<\EOF > f-kd-invalid.cpp
+xi18n("<invalid>");
+EOF
+
+LC_ALL=C ${XGETTEXT} -L C++ --kde --flag=xi18n:1:kde-kuit-format -o - f-kd-invalid.cpp 2>&1 | grep 'not a valid KDE KUIT format' > /dev/null 2>&1
+test $? = 0 || {
+  echo "Skipping test: xgettext was built without KDE KUIT format support"
+  exit 77
+}
+
 cat <<\EOF > f-kd-1.data
 # Unrecognized: unbalanced filename tag
 "<filename>a"
@@ -24,7 +36,6 @@ cat <<\EOF > f-kd-1.data
 "<command>&#x2A;&#x2a;&#x61;&#141;</command>"
 EOF
 
-: ${XGETTEXT=xgettext}
 n=0
 while read comment; do
   read string
