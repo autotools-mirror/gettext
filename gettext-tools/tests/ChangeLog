@@ -1,5 +1,10 @@
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint-2 (required_gettext_version): Update to 0.19.5.
+	* autopoint-3 (required_gettext_version): Likewise.
+
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
 	* lang-bash: Skip if "bash --help" isn't localized on Mac OS X.
 
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
