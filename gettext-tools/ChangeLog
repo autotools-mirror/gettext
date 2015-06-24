@@ -1,3 +1,8 @@
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
+	* woe32dll/gettextsrc-exports.c: Export formatstring_kde_kuit.
+	Reported by Vincent Torri.
+
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
 	* ABOUT-NLS: Regenerate for 0.19.5.
