@@ -1,3 +1,10 @@
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
+	* x-c.c (literalstring_parse): Check if the next character of a
+	backslash is NUL.
+	Reported by Hanno Boeck in:
+	<http://savannah.gnu.org/bugs/?45391>.
+
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
 	* cldr-plurals.c (main): Fix unmatched braces when

@@ -1002,6 +1002,8 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
         }
 
       c = *++p;
+      if (c == '\0')
+        break;
 
       if (type & LET_ANSI_C)
         switch (c)
