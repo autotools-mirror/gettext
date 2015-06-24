@@ -3,6 +3,18 @@
 
 # Test --newline option.
 
+if (echo "testing\c"; echo 1,2,3) | grep c >/dev/null; then
+  # Stardent Vistra SVR4 grep lacks -e, says ghazi@caip.rutgers.edu.
+  if (echo -n testing; echo 1,2,3) | sed s/-n/xn/ | grep xn >/dev/null; then
+    ac_n= ac_c='
+' ac_t='        '
+  else
+    ac_n=-n ac_c= ac_t=
+  fi
+else
+  ac_n= ac_c='\c' ac_t=
+fi
+
 cat <<\EOF > mfi-test8.po
 # HEADER.
 #
@@ -57,7 +69,7 @@ cat <<\EOF > filter.sh
 #!/bin/sh
 cat
 if test "$MSGFILTER_MSGID" = "the excitement of a love affair"; then
-  echo -n non-terminated line
+  echo $ac_n "non-terminated line$ac_c"
 else
   echo terminated line
 fi
