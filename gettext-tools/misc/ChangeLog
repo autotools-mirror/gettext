@@ -1,3 +1,7 @@
+2015-06-24  Daiki Ueno  <ueno@gnu.org>
+
+	* autopoint.in: Update for 0.19.5.
+
 2015-04-24  Manuel Uberti  <manuel@boccaperta.com>  (tiny change)
 
 	* po-mode.el (po-keep-mo-file): New user option.
