@@ -1,5 +1,12 @@
 2015-06-25  Daiki Ueno  <ueno@gnu.org>
 
+	* x-c.c (literalstring_parse): Bail out if C == NUL.  Also adjust
+	the loop invariant in Unicode literal handling.
+	Reported by Hanno Boeck in:
+	<http://savannah.gnu.org/bugs/?45391>.
+
+2015-06-25  Daiki Ueno  <ueno@gnu.org>
+
 	* x-c.c (literalstring_parse): Add more NUL checks.  Change the
 	loop invariant so that C always points to the character previously
 	pointed by P.

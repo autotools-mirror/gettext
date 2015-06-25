@@ -1129,23 +1129,24 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
           case 'U': case 'u':
             {
               unsigned char buf[8];
-              int length = c == 'u' ? 4 : 8;
+              int prefix = c;
+              int length = prefix == 'u' ? 4 : 8;
               int n, j;
 
               for (n = 0, j = 0; j < length; j++)
                 {
-                  int c1 = *p++;
+                  c = *p++;
 
-                  if (c1 >= '0' && c1 <= '9')
-                    n = (n << 4) + (c1 - '0');
-                  else if (c1 >= 'A' && c1 <= 'F')
-                    n = (n << 4) + (c1 - 'A' + 10);
-                  else if (c1 >= 'a' && c1 <= 'f')
-                    n = (n << 4) + (c1 - 'a' + 10);
+                  if (c >= '0' && c <= '9')
+                    n = (n << 4) + (c - '0');
+                  else if (c >= 'A' && c <= 'F')
+                    n = (n << 4) + (c - 'A' + 10);
+                  else if (c >= 'a' && c <= 'f')
+                    n = (n << 4) + (c - 'a' + 10);
                   else
                     break;
 
-                  buf[j] = c1;
+                  buf[j] = c;
                 }
 
               if (j == length)
@@ -1167,7 +1168,7 @@ warning: invalid Unicode character"));
                   int i;
 
                   mixed_string_buffer_append_char (bp, '\\');
-                  mixed_string_buffer_append_char (bp, c);
+                  mixed_string_buffer_append_char (bp, prefix);
 
                   for (i = 0; i < j; i++)
                     mixed_string_buffer_append_char (bp, buf[i]);
@@ -1177,6 +1178,9 @@ warning: invalid Unicode character"));
             }
             continue;
           }
+
+      if (c == '\0')
+        break;
 
       mixed_string_buffer_append_char (bp, c);
     }
