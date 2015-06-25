@@ -985,13 +985,16 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
                                   logical_file_name,
                                   line_number);
 
-  for (p = string; *p != '\0'; p++)
+  for (p = string; ; )
     {
-      int c;
+      int c = *p++;
 
-      if (*p != '\\')
+      if (c == '\0')
+        break;
+
+      if (c != '\\')
         {
-          mixed_string_buffer_append_char (bp, *p);
+          mixed_string_buffer_append_char (bp, c);
           continue;
         }
 
@@ -1001,7 +1004,7 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
           continue;
         }
 
-      c = *++p;
+      c = *p++;
       if (c == '\0')
         break;
 
@@ -1043,7 +1046,9 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
             continue;
 
           case 'x':
-            c = *++p;
+            c = *p++;
+            if (c == '\0')
+              break;
             switch (c)
               {
               default:
@@ -1059,26 +1064,26 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
                 {
                   int n;
 
-                  for (n = 0; ; ++p)
+                  for (n = 0; ; c = *p++)
                     {
-                      switch (*p)
+                      switch (c)
                         {
                         default:
                           break;
 
                         case '0': case '1': case '2': case '3': case '4':
                         case '5': case '6': case '7': case '8': case '9':
-                          n = n * 16 + *p - '0';
+                          n = n * 16 + c - '0';
                           continue;
 
                         case 'A': case 'B': case 'C': case 'D': case 'E':
                         case 'F':
-                          n = n * 16 + 10 + *p - 'A';
+                          n = n * 16 + 10 + c - 'A';
                           continue;
 
                         case 'a': case 'b': case 'c': case 'd': case 'e':
                         case 'f':
-                          n = n * 16 + 10 + *p - 'a';
+                          n = n * 16 + 10 + c - 'a';
                           continue;
                         }
                       break;
@@ -1099,7 +1104,7 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
               for (n = 0, j = 0; j < 3; ++j)
                 {
                   n = n * 8 + c - '0';
-                  c = *++p;
+                  c = *p++;
                   switch (c)
                     {
                     default:
@@ -1129,7 +1134,7 @@ literalstring_parse (const char *string, lex_pos_ty *pos,
 
               for (n = 0, j = 0; j < length; j++)
                 {
-                  int c1 = *++p;
+                  int c1 = *p++;
 
                   if (c1 >= '0' && c1 <= '9')
                     n = (n << 4) + (c1 - '0');
