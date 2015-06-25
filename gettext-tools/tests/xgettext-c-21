@@ -6,8 +6,8 @@
 : ${XGETTEXT=xgettext}
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
-	    -o - xg-c-21.c | grep -v 'POT-Creation-Date' > xg-c-21.tmp.po \
-	    || exit 1
+	    -o - "$abs_srcdir"/xg-c-21.c \
+  | grep -v 'POT-Creation-Date' > xg-c-21.tmp.po || exit 1
 LC_ALL=C tr -d '\r' < xg-c-21.tmp.po > xg-c-21.po || exit 1
 
 cat <<\EOF > xg-c-21.ok
