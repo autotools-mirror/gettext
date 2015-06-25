@@ -1,3 +1,8 @@
+2015-06-25  Daiki Ueno  <ueno@gnu.org>
+
+	* woe32dll/gettextsrc-exports.c: Export syntax_check_name.
+	Reported by Michele Locati.
+
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
 
 	* woe32dll/gettextsrc-exports.c: Export formatstring_kde_kuit.
