@@ -80,7 +80,7 @@ EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
 	    -o - xg-c-20.cc | grep -v 'POT-Creation-Date' > xg-c-20.tmp.po \
-	    || { cp core* ..; exit 1; }
+	    || exit 1
 LC_ALL=C tr -d '\r' < xg-c-20.tmp.po > xg-c-20.po || exit 1
 
 cat <<\EOF > xg-c-20.ok
@@ -135,7 +135,7 @@ EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
 	    -o - xg-c-20.c | grep -v 'POT-Creation-Date' > xg-c-20c.tmp.po \
-	    || { cp core* ..; exit 1; }
+	    || exit 1
 LC_ALL=C tr -d '\r' < xg-c-20c.tmp.po > xg-c-20c.po || exit 1
 
 cat <<\EOF > xg-c-20c.ok
