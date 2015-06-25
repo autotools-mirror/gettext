@@ -2,9 +2,12 @@
 /po-gram-gen.c
 /po-gram-gen.h
 /po-gram-gen2.h
+/cldr-plural.c
+/cldr-plural.h
 /.dirstamp
 
 # Executables generated:
+/cldr-plurals
 /user-email
 /hostname
 /msgattrib

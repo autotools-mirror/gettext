@@ -2,6 +2,7 @@
 /glthread
 /gnulib-m4
 /uniconv
+/unictype
 /unilbrk
 /unistr
 /uniwidth
@@ -16,6 +17,7 @@
 /asprintf.c
 /basename.c
 /basename.h
+/charset.alias
 /close.c
 /configmake.h
 /c++defs.h
@@ -39,6 +41,7 @@
 /error.h
 /exitfail.c
 /exitfail.h
+/exported.sh
 /fcntl.in.h
 /fd-hook.c
 /fd-hook.h
@@ -146,6 +149,7 @@
 /sys_types.in.h
 /time.in.h
 /uniconv.in.h
+/unictype.in.h
 /unilbrk.in.h
 /unistd.in.h
 /unistr.in.h
@@ -212,7 +216,3 @@
 /ostream.h
 /ostream.priv.h
 /ostream.vt.h
-
-/charset.alias
-/exported.sh
-/unictype.in.h

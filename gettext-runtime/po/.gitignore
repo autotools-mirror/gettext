@@ -10,3 +10,4 @@
 
 /POTFILES
 /??@*.insert-header
+/remove-potcdate.sed
