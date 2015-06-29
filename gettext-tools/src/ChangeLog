@@ -1,3 +1,12 @@
+2015-06-29  Daiki Ueno  <ueno@gnu.org>
+
+	* msginit.c (catalogname_for_locale): Remove sr_YU, which were
+	removed from ISO 3166-1:1997.  Add comment saying that pap_AN,
+	which were removed from ISO 3166-1:2006, can be removed in the
+	future.
+	Reported by Jakub Wilk in:
+	<https://lists.gnu.org/archive/html/bug-gettext/2015-06/msg00057.html>.
+
 2015-06-25  Daiki Ueno  <ueno@gnu.org>
 
 	* x-c.c (literalstring_parse): Bail out if C == NUL.  Also adjust

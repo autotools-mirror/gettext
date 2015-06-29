@@ -649,7 +649,7 @@ catalogname_for_locale (const char *locale)
     "pa_IN",    /* Punjabi      India */
     "pag_PH",   /* Pangasinan   Philippines */
     "pam_PH",   /* Pampanga     Philippines */
-    "pap_AN",   /* Papiamento   Netherlands Antilles */
+    "pap_AN",   /* Papiamento   Netherlands Antilles - this line can be removed in 2018 */
     "pbb_CO",   /* Páez                Colombia */
     "pl_PL",    /* Polish       Poland */
     "ps_AF",    /* Pashto       Afghanistan */
@@ -676,7 +676,6 @@ catalogname_for_locale (const char *locale)
     "so_SO",    /* Somali       Somalia */
     "sq_AL",    /* Albanian     Albania */
     "sr_RS",    /* Serbian      Serbia */
-    "sr_YU",    /* Serbian      Yugoslavia - this line can be removed in 2010 */
     "srr_SN",   /* Serer        Senegal */
     "suk_TZ",   /* Sukuma       Tanzania */
     "sus_GN",   /* Susu         Guinea */
