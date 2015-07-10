@@ -1,16 +1,16 @@
 # Vietnamese Translation for gettext-tools.
 # Bản dịch tiếng Việt dành cho gettext-tools.
-# Copyright © 2014 Free Software Foundation, Inc.
+# Copyright © 2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2012-2014.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2012-2014, 2015.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.19.4-rc1\n"
+"Project-Id-Version: gettext-tools 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2014-12-10 13:21+0900\n"
-"PO-Revision-Date: 2014-12-11 08:25+0700\n"
+"POT-Creation-Date: 2015-06-23 15:18+0900\n"
+"PO-Revision-Date: 2015-06-30 08:11+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Language-Team-Website: <http://translationproject.org/team/vi.html>\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: gnulib-lib/argmatch.c:133
 #, c-format
@@ -89,9 +90,9 @@ msgid "error after reading %s"
 msgstr "gặp lỗi sau khi đọc %s"
 
 #: gnulib-lib/csharpcomp.c:310 gnulib-lib/javaversion.c:76 src/msginit.c:898
-#: src/msginit.c:973 src/msginit.c:1133 src/msginit.c:1232
-#: src/read-csharp.c:72 src/read-java.c:70 src/read-resources.c:73
-#: src/read-tcl.c:110 src/write-resources.c:77
+#: src/msginit.c:973 src/msginit.c:1133 src/msginit.c:1232 src/msginit.c:1397
+#: src/read-csharp.c:73 src/read-java.c:71 src/read-resources.c:74
+#: src/read-tcl.c:111 src/write-resources.c:78
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() gặp lỗi"
@@ -117,58 +118,63 @@ msgstr "Lỗi hệ thống không rõ"
 msgid "%s subprocess failed"
 msgstr "Tiến trình con “%s” gặp lỗi"
 
-#: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
+#: gnulib-lib/getopt.c:575 gnulib-lib/getopt.c:604
 #, c-format
 msgid "%s: option '%s' is ambiguous; possibilities:"
 msgstr "%s: tùy chọn “%s” chưa rõ ràng; khả năng là:"
 
-#: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
+#: gnulib-lib/getopt.c:619
+#, c-format
+msgid "%s: option '%s' is ambiguous\n"
+msgstr "%s: tùy chọn “%s” chưa rõ ràng\n"
+
+#: gnulib-lib/getopt.c:654 gnulib-lib/getopt.c:658
 #, c-format
 msgid "%s: option '--%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn “--%s” không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:642
+#: gnulib-lib/getopt.c:667 gnulib-lib/getopt.c:672
 #, c-format
 msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn “%c%s” không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:685 gnulib-lib/getopt.c:704
+#: gnulib-lib/getopt.c:715 gnulib-lib/getopt.c:734
 #, c-format
 msgid "%s: option '--%s' requires an argument\n"
 msgstr "%s: tùy chọn “%s” yêu cầu một đối số\n"
 
-#: gnulib-lib/getopt.c:742 gnulib-lib/getopt.c:745
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
 #, c-format
 msgid "%s: unrecognized option '--%s'\n"
 msgstr "%s: không nhận ra tùy chọn “--%s”\n"
 
-#: gnulib-lib/getopt.c:753 gnulib-lib/getopt.c:756
+#: gnulib-lib/getopt.c:783 gnulib-lib/getopt.c:786
 #, c-format
 msgid "%s: unrecognized option '%c%s'\n"
 msgstr "%s: không nhận ra tùy chọn “%c%s”\n"
 
-#: gnulib-lib/getopt.c:805 gnulib-lib/getopt.c:808
+#: gnulib-lib/getopt.c:835 gnulib-lib/getopt.c:838
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: tùy chọn không hợp lệ -- “%c”\n"
 
-#: gnulib-lib/getopt.c:861 gnulib-lib/getopt.c:878 gnulib-lib/getopt.c:1088
-#: gnulib-lib/getopt.c:1106
+#: gnulib-lib/getopt.c:891 gnulib-lib/getopt.c:908 gnulib-lib/getopt.c:1118
+#: gnulib-lib/getopt.c:1136
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: tùy chọn cần một đối số -- “%c”\n"
 
-#: gnulib-lib/getopt.c:934 gnulib-lib/getopt.c:950
+#: gnulib-lib/getopt.c:964 gnulib-lib/getopt.c:980
 #, c-format
 msgid "%s: option '-W %s' is ambiguous\n"
 msgstr "%s: tùy chọn “-W %s” chưa rõ ràng\n"
 
-#: gnulib-lib/getopt.c:974 gnulib-lib/getopt.c:992
+#: gnulib-lib/getopt.c:1004 gnulib-lib/getopt.c:1022
 #, c-format
 msgid "%s: option '-W %s' doesn't allow an argument\n"
 msgstr "%s: tùy chọn “-W %s” không cho phép đối số\n"
 
-#: gnulib-lib/getopt.c:1013 gnulib-lib/getopt.c:1031
+#: gnulib-lib/getopt.c:1043 gnulib-lib/getopt.c:1061
 #, c-format
 msgid "%s: option '-W %s' requires an argument\n"
 msgstr "%s: tùy chọn “-W %s” yêu cầu một đối số\n"
@@ -184,15 +190,15 @@ msgstr "đối số “source_version” (phiên bản nguồn) không hợp l�
 msgid "invalid target_version argument to compile_java_class"
 msgstr "đối số “target_version” (phiên bản đích) không hợp lệ đối với “compile_java_class” (biên dịch lớp Java)"
 
-#: gnulib-lib/javacomp.c:498 src/write-csharp.c:739 src/write-java.c:1140
-#: src/write-java.c:1148 src/write-java.c:1176 src/write-java.c:1188
+#: gnulib-lib/javacomp.c:498 src/write-csharp.c:739 src/write-java.c:1141
+#: src/write-java.c:1149 src/write-java.c:1177 src/write-java.c:1189
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "gặp lỗi khi tạo “%s”"
 
-#: gnulib-lib/javacomp.c:505 src/write-catalog.c:255 src/write-catalog.c:319
-#: src/write-csharp.c:748 src/write-java.c:1156 src/write-java.c:1197
-#: src/write-mo.c:811 src/write-qt.c:748 src/write-tcl.c:222
+#: gnulib-lib/javacomp.c:505 src/write-catalog.c:256 src/write-catalog.c:320
+#: src/write-csharp.c:748 src/write-java.c:1157 src/write-java.c:1198
+#: src/write-mo.c:812 src/write-qt.c:749 src/write-tcl.c:223
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "gặp lỗi khi ghi tập tin “%s”"
@@ -208,14 +214,15 @@ msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr "Không tìm thấy cơ chế ảo Java, hãy thử cài đặt gcj hoặc đặt $JAVA"
 
 #: gnulib-lib/javaversion.c:84 src/msginit.c:906 src/msginit.c:981
-#: src/msginit.c:1141
+#: src/msginit.c:1141 src/msginit.c:1405
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s lỗi V/R tiến trình con"
 
-#: gnulib-lib/obstack.c:338 gnulib-lib/obstack.c:340 gnulib-lib/xmalloc.c:37
-#: gnulib-lib/xsetenv.c:37 src/msgl-check.c:559 src/po-lex.c:83
-#: src/po-lex.c:102 src/x-glade.c:548 libgettextpo/gettext-po.c:1326
+#: gnulib-lib/obstack.c:338 gnulib-lib/obstack.c:340 gnulib-lib/xmalloc.c:38
+#: gnulib-lib/xsetenv.c:37 src/format-kde-kuit.c:239 src/msgl-check.c:564
+#: src/po-lex.c:83 src/po-lex.c:102 src/x-glade.c:549
+#: libgettextpo/gettext-po.c:1326
 #, c-format
 msgid "memory exhausted"
 msgstr "cạn bộ nhớ"
@@ -226,7 +233,7 @@ msgid "creation of threads failed"
 msgstr "việc tạo tuyến trình gặp lỗi"
 
 #: gnulib-lib/pipe-filter-ii.c:224 gnulib-lib/pipe-filter-ii.c:381
-#: src/msgexec.c:405
+#: src/msgexec.c:427
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "gặp lỗi khi ghi vào tiến trình phụ %s"
@@ -312,100 +319,102 @@ msgstr "%s tiến trình con"
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s tiến trình con nhận được tín hiệu nghiêm trọng %d"
 
-#: src/file-list.c:53 src/msggrep.c:247 src/open-catalog.c:122
-#: src/read-mo.c:258 src/read-tcl.c:125 src/urlget.c:216 src/xgettext.c:1974
-#: src/xgettext.c:1987 src/xgettext.c:1997
+#: src/file-list.c:54 src/msggrep.c:248 src/open-catalog.c:123
+#: src/read-mo.c:262 src/read-tcl.c:126 src/urlget.c:217 src/xgettext.c:2036
+#: src/xgettext.c:2049 src/xgettext.c:2059
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "gặp lỗi khi mở “%s” để đọc"
 
-#: src/format.c:151
+#: src/format.c:152
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr "“%s” không phải là một chuỗi định dạng %s đúng, không giống với “%s”. Lý do: %s"
 
-#: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
-#: src/format-gcc-internal.c:627 src/format-librep.c:312 src/format-lua.c:228
-#: src/format-pascal.c:397 src/format-perl.c:584 src/format-php.c:350
-#: src/format-qt.c:173 src/format-tcl.c:390 src/format-ycp.c:147
+#: src/format-awk.c:510 src/format-boost.c:618 src/format-elisp.c:349
+#: src/format-gcc-internal.c:627 src/format-kde.c:224 src/format-librep.c:313
+#: src/format-lua.c:228 src/format-pascal.c:398 src/format-perl.c:585
+#: src/format-php.c:351 src/format-qt.c:174 src/format-tcl.c:391
+#: src/format-ycp.c:148
 #, c-format
 msgid "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
 msgstr "một đặc tả định dạng cho đối số %u, như trong “%s”, không tồn tại trong “%s”"
 
-#: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
-#: src/format-gcc-internal.c:638 src/format-librep.c:323 src/format-lua.c:235
-#: src/format-pascal.c:408 src/format-perl.c:595 src/format-php.c:361
-#: src/format-qt.c:170 src/format-tcl.c:401 src/format-ycp.c:144
+#: src/format-awk.c:521 src/format-boost.c:629 src/format-elisp.c:360
+#: src/format-gcc-internal.c:638 src/format-kde.c:235 src/format-librep.c:324
+#: src/format-lua.c:235 src/format-pascal.c:409 src/format-perl.c:596
+#: src/format-php.c:362 src/format-qt.c:171 src/format-tcl.c:402
+#: src/format-ycp.c:145
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "một đặc tả định dạng cho đối số %u cũng không tồn tại trong “%s”"
 
-#: src/format-awk.c:540 src/format-boost.c:648 src/format-c.c:146
-#: src/format-elisp.c:379 src/format-gcc-internal.c:658
-#: src/format-gfc-internal.c:372 src/format-javascript.c:227
-#: src/format-librep.c:343 src/format-lua.c:242 src/format-pascal.c:428
-#: src/format-perl.c:615 src/format-php.c:381 src/format-python.c:527
-#: src/format-tcl.c:421
+#: src/format-awk.c:541 src/format-boost.c:649 src/format-c.c:147
+#: src/format-elisp.c:380 src/format-gcc-internal.c:658
+#: src/format-gfc-internal.c:372 src/format-javascript.c:228
+#: src/format-librep.c:344 src/format-lua.c:242 src/format-pascal.c:429
+#: src/format-perl.c:616 src/format-php.c:382 src/format-python.c:528
+#: src/format-tcl.c:422
 #, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
 msgstr "đặc tả định dạng trong “%s” và “%s” cho đối số %u không phải trùng nhau"
 
-#: src/format-boost.c:449
+#: src/format-boost.c:450
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr "Chỉ thị số %u bắt đầu với ký hiệu ống dẫn “|” nhưng không kết thúc với “|”."
 
-#: src/format-c.c:36
+#: src/format-c.c:37
 #, c-format
 msgid "In the directive number %u, the token after '<' is not the name of a format specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
 msgstr "Trong chỉ thị số %u, thẻ bài nằm sau “<” không phải là tên của vĩ lệnh đặc tả định dạng. Những tên vĩ lệnh hợp lệ được liệt kê trong ISO C 99 chương 7.8.1."
 
-#: src/format-c.c:39
+#: src/format-c.c:40
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "Trong chỉ thị số %u, thẻ bài nằm sau “<” mà không có “>” đi theo. "
 
-#: src/format-c.c:42 src/format-gfc-internal.c:289
+#: src/format-c.c:43 src/format-gfc-internal.c:289
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr "Chuỗi này tham chiệu đến đối số có số %u nhưng mà bỏ qua đối số có số %u."
 
-#: src/format-c.c:137 src/format-csharp.c:206 src/format-gfc-internal.c:363
-#: src/format-javascript.c:215 src/format-python.c:515
-#: src/format-qt-plural.c:110
+#: src/format-c.c:138 src/format-csharp.c:207 src/format-gfc-internal.c:363
+#: src/format-javascript.c:216 src/format-python.c:516
+#: src/format-qt-plural.c:111
 #, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
 msgstr "“%s” và “%s” không có cùng một số các đặc tả định dạng"
 
-#: src/format-csharp.c:88 src/format-java.c:205
+#: src/format-csharp.c:89 src/format-java.c:206
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
 msgstr "Trong chỉ thị số %u, dấu ngoặc móc mở “{” không có số đối số đi theo."
 
-#: src/format-csharp.c:109
+#: src/format-csharp.c:110
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
 msgstr "Trong chỉ thị số %u, dấu phẩy “,” không có một con số đi theo."
 
-#: src/format-csharp.c:130 src/format-java.c:191
+#: src/format-csharp.c:131 src/format-java.c:192
 msgid "The string ends in the middle of a directive: found '{' without matching '}'."
 msgstr "Chuỗi này kết thúc ở giữa chỉ thị: “{” mà không có “}” tương ứng."
 
-#: src/format-csharp.c:139
+#: src/format-csharp.c:140
 #, c-format
 msgid "The directive number %u ends with an invalid character '%c' instead of '}'."
 msgstr "Chỉ thị số %u kết thúc với ký tự không hợp lệ “%c” thay vì dấu ngoặc móc đóng “}”."
 
-#: src/format-csharp.c:140
+#: src/format-csharp.c:141
 #, c-format
 msgid "The directive number %u ends with an invalid character instead of '}'."
 msgstr "Chỉ thị số %u kết thúc với một ký tự không hợp lệ, thay vì dấu ngoặc móc đóng “}”."
 
-#: src/format-csharp.c:161 src/format-java.c:346
+#: src/format-csharp.c:162 src/format-java.c:347
 msgid "The string starts in the middle of a directive: found '}' without matching '{'."
 msgstr "Chuỗi bắt đầu ở giữa chỉ thị: “}” mà không có “{” tương ứng."
 
-#: src/format-csharp.c:162
+#: src/format-csharp.c:163
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "Chuỗi chứa một “}” lẻ đôi nằm sau chỉ thị số %u."
@@ -498,215 +507,230 @@ msgstr "Ký tự kết thúc chỉ thi số %u không phải đặc tả chuyể
 msgid "The string refers to argument number %u in incompatible ways."
 msgstr "Chuỗi tham chiếu đến đối số có số %u bằng nhiều cách không tương thích với nhau."
 
-#: src/format-java.c:240
+#: src/format-java.c:241
 #, c-format
 msgid "In the directive number %u, the substring \"%s\" is not a valid date/time style."
 msgstr "Trong chỉ thị số %u, chuỗi phụ “%s” không thuộc kiểu ngày/giờ hợp lệ."
 
-#: src/format-java.c:251 src/format-java.c:285 src/format-java.c:314
+#: src/format-java.c:252 src/format-java.c:286 src/format-java.c:315
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
 msgstr "Trong chỉ thị số %u, “%s” không cho phép dấu phẩy đi theo."
 
-#: src/format-java.c:274
+#: src/format-java.c:275
 #, c-format
 msgid "In the directive number %u, the substring \"%s\" is not a valid number style."
 msgstr "Trong chỉ thị số %u, chuỗi phụ “%s” không thuộc kiểu con số hợp lệ."
 
-#: src/format-java.c:323
+#: src/format-java.c:324
 #, c-format
 msgid "In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."
 msgstr "Trong chỉ thị số %u, số hiệu đối số không cho phép dấu phẩy và một trong số của “%s”, “%s”, “%s”, “%s” theo sau."
 
-#: src/format-java.c:572
+#: src/format-java.c:573
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
 msgstr "trong chỉ thị số %u, có một lựa chọn không chứa con số."
 
-#: src/format-java.c:583
+#: src/format-java.c:584
 #, c-format
 msgid "In the directive number %u, a choice contains a number that is not followed by '<', '#' or '%s'."
 msgstr "Trong chỉ thị số %u, có một lựa chọn chứa con số mà nó không theo sau bởi dấu “<”, “#” hay “%s” theo sau."
 
-#: src/format-java.c:745
+#: src/format-java.c:746
 #, c-format
 msgid "a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"
 msgstr "đặc tả định dạng cho đối số {%u}, như trong “%s”, không tồn tại trong “%s”"
 
-#: src/format-java.c:756
+#: src/format-java.c:757
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
 msgstr "đặc tả định dạng cho đối số {%u} không tồn tại trong “%s”"
 
-#: src/format-java.c:776
+#: src/format-java.c:777
 #, c-format
 msgid "format specifications in '%s' and '%s' for argument {%u} are not the same"
 msgstr "đặc tả định dạng trong “%s” và “%s” cho đối số {%u} không phải cùng một thứ"
 
-#: src/format-lisp.c:2337 src/format-lisp.c:2349 src/format-scheme.c:2363
-#: src/format-scheme.c:2375
+#: src/format-kde.c:159
+#, c-format
+msgid "The string refers to argument number %u but ignores the arguments %u and %u."
+msgstr "Chuỗi này tham chiệu đến đối số có số %u nhưng mà bỏ qua đối số có số %u và %u."
+
+#: src/format-kde.c:243
+#, c-format
+msgid "a format specification for arguments %u and %u doesn't exist in '%s', only one argument may be ignored"
+msgstr "một đặc tả định dạng cho tham số %u và %u không tồn tại trong “%s”, chỉ một tham số có thể được bỏ qua"
+
+#: src/format-kde-kuit.c:251 src/format-kde-kuit.c:261
+#, c-format
+msgid "error while parsing: %s"
+msgstr "gặp lỗi khi phân tích: “%s”"
+
+#: src/format-lisp.c:2340 src/format-lisp.c:2352 src/format-scheme.c:2365
+#: src/format-scheme.c:2377
 #, c-format
 msgid "In the directive number %u, parameter %u is of type '%s' but a parameter of type '%s' is expected."
 msgstr "Trong chỉ thị số %u, tham số %u có kiểu “%s” nhưng lẽ ra phải có kiểu “%s”."
 
-#: src/format-lisp.c:2372 src/format-scheme.c:2398
+#: src/format-lisp.c:2375 src/format-scheme.c:2400
 #, c-format
 msgid "In the directive number %u, too many parameters are given; expected at most %u parameter."
 msgid_plural "In the directive number %u, too many parameters are given; expected at most %u parameters."
 msgstr[0] "Trong chỉ thị số %u có quá nhiều tham số được đưa ra; cần nhiều nhất là %u tham số."
 
-#: src/format-lisp.c:2496 src/format-scheme.c:2499
+#: src/format-lisp.c:2499 src/format-scheme.c:2501
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "Trong chỉ thị số %u, “%c” không có chữ số đi theo."
 
-#: src/format-lisp.c:2736 src/format-scheme.c:2754
+#: src/format-lisp.c:2739 src/format-scheme.c:2756
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "Trong chỉ thị số %u, đối số “%d” là âm."
 
-#: src/format-lisp.c:2805
+#: src/format-lisp.c:2808
 msgid "The string ends in the middle of a ~/.../ directive."
-msgstr "Chuỗi kết thúc ở giữa chỉ thị kiểu “~/.../”."
+msgstr "Chuỗi kết thúc ở giữa chỉ thị kiểu “~/…/”."
 
-#: src/format-lisp.c:2843 src/format-lisp.c:3108 src/format-lisp.c:3225
-#: src/format-lisp.c:3285 src/format-lisp.c:3397 src/format-scheme.c:2840
-#: src/format-scheme.c:3105 src/format-scheme.c:3222 src/format-scheme.c:3320
+#: src/format-lisp.c:2846 src/format-lisp.c:3111 src/format-lisp.c:3228
+#: src/format-lisp.c:3288 src/format-lisp.c:3400 src/format-scheme.c:2842
+#: src/format-scheme.c:3107 src/format-scheme.c:3224 src/format-scheme.c:3322
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "Có “~%c” mà không có “~%c” tương ứng."
 
-#: src/format-lisp.c:2863 src/format-scheme.c:2860
+#: src/format-lisp.c:2866 src/format-scheme.c:2862
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "Trong chỉ thị số %u, cả hai dấu sửa đổi “@” và “:” được đưa ra."
 
-#: src/format-lisp.c:2976 src/format-scheme.c:2973
+#: src/format-lisp.c:2979 src/format-scheme.c:2975
 #, c-format
 msgid "In the directive number %u, '~:[' is not followed by two clauses, separated by '~;'."
 msgstr "Trong chỉ thị số %u, “~:[” không có hai mệnh đề đi theo, định giớí bằng “~;”."
 
-#: src/format-lisp.c:3326 src/format-scheme.c:3263
+#: src/format-lisp.c:3329 src/format-scheme.c:3265
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "Trong chỉ thị số %u, “~;” được dùng ở vị trí không hợp lệ."
 
-#: src/format-lisp.c:3432 src/format-scheme.c:3355
+#: src/format-lisp.c:3435 src/format-scheme.c:3357
 msgid "The string refers to some argument in incompatible ways."
 msgstr "Chuỗi tham chiếu đến một đối số nào đó bằng nhiều cách không tương thích với nhau."
 
-#: src/format-lisp.c:3474 src/format-scheme.c:3397
+#: src/format-lisp.c:3477 src/format-scheme.c:3399
 #, c-format
 msgid "format specifications in '%s' and '%s' are not equivalent"
 msgstr "đặc tả định dạng trong “%s” và “%s” không phải tương đương"
 
-#: src/format-lisp.c:3490 src/format-scheme.c:3413
+#: src/format-lisp.c:3493 src/format-scheme.c:3415
 #, c-format
 msgid "format specifications in '%s' are not a subset of those in '%s'"
 msgstr "đặc tả định dạng trong “%s” không phải tập hợp con của đặc tả trong “%s”"
 
-#: src/format-perl.c:433
+#: src/format-perl.c:434
 #, c-format
 msgid "In the directive number %u, the size specifier is incompatible with the conversion specifier '%c'."
 msgstr "Trong chỉ thị số %u, đặc tả kích cỡ không tương thích với đặc tả chuyển đổi “%c”."
 
-#: src/format-perl-brace.c:199 src/format-python.c:471
-#: src/format-python-brace.c:434 src/format-python-brace.c:447
-#: src/format-sh.c:308
+#: src/format-perl-brace.c:199 src/format-python.c:472
+#: src/format-python-brace.c:435 src/format-python-brace.c:448
+#: src/format-sh.c:309
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr "đặc tả định dạng cho đối số “%s” không tồn tại trong “%s”"
 
-#: src/format-python.c:115
+#: src/format-python.c:116
 msgid "The string refers to arguments both through argument names and through unnamed argument specifications."
 msgstr "Chuỗi tham chiếu đến đối số bằng cả hai tên đối số và đặc tả đối số không tên."
 
-#: src/format-python.c:354
+#: src/format-python.c:355
 #, c-format
 msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr "Chuỗi tham chiếu đến đối số tên “%s” bằng nhiều cách không tương thích với nhau."
 
-#: src/format-python.c:430
+#: src/format-python.c:431
 #, c-format
 msgid "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr "đặc tả định dạng trong “%s” cần một ánh xạ, còn đặc tả trong “%s” cần một tuple (tạm dịch: bản ghi, một dòng dữ liệu)"
 
-#: src/format-python.c:437
+#: src/format-python.c:438
 #, c-format
 msgid "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr "đặc tả định dạng trong “%s” cần một tuple (tạm dịch: bản ghi, một dòng dữ liệu), còn đặc tả trong “%s” cần một ánh xạ"
 
-#: src/format-python.c:460 src/format-sh.c:297
+#: src/format-python.c:461 src/format-sh.c:298
 #, c-format
 msgid "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
 msgstr "đặc tả định dạng cho đối số “%s”, như trong “%s”, không tồn tại trong “%s”"
 
-#: src/format-python.c:494
+#: src/format-python.c:495
 #, c-format
 msgid "format specifications in '%s' and '%s' for argument '%s' are not the same"
 msgstr "đặc tả định dạng trong “%s” và “%s” cho đối số “%s” không phải trùng nhau"
 
-#: src/format-python-brace.c:137
+#: src/format-python-brace.c:138
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a field name."
 msgstr "Trong chỉ thị số %u, “%c” không thể bắt đầu bằng một tên trường."
 
-#: src/format-python-brace.c:150
+#: src/format-python-brace.c:151
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getattr argument."
 msgstr "Trong chỉ thị số %u, “%c” không thể bắt đầu bằng một đối số getattr (lấy thuộc tính?)."
 
-#: src/format-python-brace.c:165
+#: src/format-python-brace.c:166
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "Trong chỉ thị số %u, “%c” không thể bắt đầu bằng một đối số getitem."
 
-#: src/format-python-brace.c:185
+#: src/format-python-brace.c:186
 #, c-format
 msgid "In the directive number %u, no more nesting is allowed in a format specifier."
 msgstr "Trong chỉ thị số %u, không cho phép lồng nhau thêm nữa trong bộ chỉ định định dạng."
 
-#: src/format-python-brace.c:270
+#: src/format-python-brace.c:271
 #, c-format
 msgid "In the directive number %u, there is an unterminated format directive."
 msgstr "Trong chỉ thị số %u, có một chỉ thị định dạng chưa được kết thúc."
 
-#: src/format-qt.c:152
+#: src/format-qt.c:153
 #, c-format
 msgid "'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"
 msgstr "“%s” là một chuỗi định dạng đơn giản, nhưng “%s” không phải: nó chứa một cờ “L” hay một số kiểu đối số chữ-số-kép"
 
-#: src/format-sh.c:79
+#: src/format-sh.c:80
 msgid "The string refers to a shell variable with a non-ASCII name."
 msgstr "Chuỗi tham chiếu đến một biến hệ vỏ có tên khác ASCII."
 
-#: src/format-sh.c:81
+#: src/format-sh.c:82
 msgid "The string refers to a shell variable with complex shell brace syntax. This syntax is unsupported here due to security reasons."
 msgstr "Chuỗi tham chiếu đến một biến hệ vỏ có cú pháp dấu ngoặc hệ vỏ phức tạp. Ở đây không hỗ trợ cú pháp đó bởi vì lý do bảo mật."
 
-#: src/format-sh.c:83
+#: src/format-sh.c:84
 msgid "The string refers to a shell variable whose value may be different inside shell functions."
 msgstr "Chuỗi tham chiếu đến biến hệ vỏ có giá trị có thể khác trong hàm trình bao."
 
-#: src/format-sh.c:85
+#: src/format-sh.c:86
 msgid "The string refers to a shell variable with an empty name."
 msgstr "Chuỗi tham chiếu đến biến hệ vỏ có tên rỗng."
 
-#: src/format-ycp.c:90
+#: src/format-ycp.c:91
 #, c-format
 msgid "In the directive number %u, the character '%c' is not a digit between 1 and 9."
 msgstr "Trong chỉ thị số %u, ký tự “%c” không phải chữ số nằm giữa 1 và 9."
 
-#: src/format-ycp.c:91
+#: src/format-ycp.c:92
 #, c-format
 msgid "The character that terminates the directive number %u is not a digit between 1 and 9."
 msgstr "Ký tự kết thúc chỉ thị số %u không phải chữ số nằm giữa 1 và 9."
 
-#: src/hostname.c:180 src/msgattrib.c:355 src/msgcat.c:294 src/msgcmp.c:172
-#: src/msgcomm.c:285 src/msgconv.c:244 src/msgen.c:241 src/msgexec.c:180
-#: src/msgfilter.c:282 src/msgfmt.c:416 src/msggrep.c:419 src/msginit.c:269
-#: src/msgmerge.c:356 src/msgunfmt.c:262 src/msguniq.c:264
-#: src/recode-sr-latin.c:110 src/urlget.c:143 src/xgettext.c:615
+#: src/hostname.c:181 src/msgattrib.c:356 src/msgcat.c:295 src/msgcmp.c:173
+#: src/msgcomm.c:286 src/msgconv.c:245 src/msgen.c:242 src/msgexec.c:187
+#: src/msgfilter.c:289 src/msgfmt.c:417 src/msggrep.c:420 src/msginit.c:269
+#: src/msgmerge.c:357 src/msgunfmt.c:263 src/msguniq.c:265
+#: src/recode-sr-latin.c:111 src/urlget.c:144 src/xgettext.c:646
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -719,59 +743,59 @@ msgstr ""
 "Đây là phần mềm tự do: bạn có quyền thay đổi và phát hành lại nó.\n"
 "KHÔNG CÓ BẢO HÀNH GÌ CẢ, với điều kiện được pháp luật cho phép.\n"
 
-#: src/hostname.c:186 src/msgattrib.c:361 src/msgcat.c:300 src/msgcmp.c:178
-#: src/msgcomm.c:291 src/msgconv.c:250 src/msgen.c:247 src/msgexec.c:186
-#: src/msgfilter.c:288 src/msgfmt.c:422 src/msggrep.c:425 src/msginit.c:275
-#: src/msgmerge.c:362 src/msgunfmt.c:268 src/msguniq.c:270 src/urlget.c:149
-#: src/xgettext.c:621
+#: src/hostname.c:187 src/msgattrib.c:362 src/msgcat.c:301 src/msgcmp.c:179
+#: src/msgcomm.c:292 src/msgconv.c:251 src/msgen.c:248 src/msgexec.c:193
+#: src/msgfilter.c:295 src/msgfmt.c:423 src/msggrep.c:426 src/msginit.c:275
+#: src/msgmerge.c:363 src/msgunfmt.c:269 src/msguniq.c:271 src/urlget.c:150
+#: src/xgettext.c:652
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Viết bởi %s.\n"
 
 # Name: don't translate / Tên: đừng dịch
 #. This is a proper name. See the gettext manual, section Names.
-#: src/hostname.c:186 src/msgattrib.c:361 src/msgcat.c:300 src/msgconv.c:250
-#: src/msgen.c:247 src/msgexec.c:186 src/msgfilter.c:288 src/msggrep.c:425
-#: src/msginit.c:275 src/msguniq.c:270 src/recode-sr-latin.c:121
-#: src/urlget.c:149
+#: src/hostname.c:187 src/msgattrib.c:362 src/msgcat.c:301 src/msgconv.c:251
+#: src/msgen.c:248 src/msgexec.c:193 src/msgfilter.c:295 src/msggrep.c:426
+#: src/msginit.c:275 src/msguniq.c:271 src/recode-sr-latin.c:122
+#: src/urlget.c:150
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/hostname.c:196 src/msginit.c:285 src/recode-sr-latin.c:130
+#: src/hostname.c:197 src/msginit.c:285 src/recode-sr-latin.c:131
 #, c-format
 msgid "too many arguments"
 msgstr "quá nhiều đối số"
 
-#: src/hostname.c:209 src/msgattrib.c:417 src/msgcat.c:363 src/msgcmp.c:209
-#: src/msgcomm.c:355 src/msgconv.c:303 src/msgen.c:300 src/msgexec.c:253
-#: src/msgfilter.c:403 src/msgfmt.c:770 src/msggrep.c:512 src/msginit.c:359
-#: src/msgmerge.c:494 src/msgunfmt.c:423 src/msguniq.c:322
-#: src/recode-sr-latin.c:143 src/urlget.c:172 src/xgettext.c:851
+#: src/hostname.c:210 src/msgattrib.c:418 src/msgcat.c:364 src/msgcmp.c:210
+#: src/msgcomm.c:356 src/msgconv.c:304 src/msgen.c:301 src/msgexec.c:260
+#: src/msgfilter.c:410 src/msgfmt.c:771 src/msggrep.c:513 src/msginit.c:359
+#: src/msgmerge.c:495 src/msgunfmt.c:424 src/msguniq.c:323
+#: src/recode-sr-latin.c:144 src/urlget.c:173 src/xgettext.c:900
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Hãy thử lệnh “%s --help” để xem thông tin thêm.\n"
 
-#: src/hostname.c:213 src/msginit.c:363 src/recode-sr-latin.c:148
+#: src/hostname.c:214 src/msginit.c:363 src/recode-sr-latin.c:149
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "Cách dùng: %s [TÙY CHỌN]\n"
 
-#: src/hostname.c:217
+#: src/hostname.c:218
 #, c-format
 msgid "Print the machine's hostname.\n"
 msgstr "In ra tên máy của máy tính này.\n"
 
-#: src/hostname.c:220
+#: src/hostname.c:221
 #, c-format
 msgid "Output format:\n"
 msgstr "Định dạng xuất ra:\n"
 
-#: src/hostname.c:222
+#: src/hostname.c:223
 #, c-format
 msgid "  -s, --short                 short host name\n"
 msgstr "  -s, --short                 tên máy ngắn\n"
 
-#: src/hostname.c:224
+#: src/hostname.c:225
 #, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified domain\n"
@@ -780,34 +804,34 @@ msgstr ""
 "  -f, --fqdn, --long          tên máy dài, gồm tên miền đầy đủ,\n"
 "                                và biệt hiệu\n"
 
-#: src/hostname.c:227
+#: src/hostname.c:228
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
 msgstr "  -i, --ip-address            các địa chỉ cho tên máy đó\n"
 
-#: src/hostname.c:230 src/msgattrib.c:534 src/msgcat.c:469 src/msgcmp.c:258
-#: src/msgcomm.c:455 src/msgconv.c:385 src/msgen.c:381 src/msgexec.c:295
-#: src/msgfilter.c:495 src/msgfmt.c:916 src/msggrep.c:628 src/msginit.c:421
-#: src/msgmerge.c:619 src/msgunfmt.c:527 src/msguniq.c:417
-#: src/recode-sr-latin.c:161 src/urlget.c:186 src/xgettext.c:1023
+#: src/hostname.c:231 src/msgattrib.c:535 src/msgcat.c:470 src/msgcmp.c:259
+#: src/msgcomm.c:456 src/msgconv.c:386 src/msgen.c:382 src/msgexec.c:307
+#: src/msgfilter.c:508 src/msgfmt.c:917 src/msggrep.c:629 src/msginit.c:421
+#: src/msgmerge.c:620 src/msgunfmt.c:528 src/msguniq.c:418
+#: src/recode-sr-latin.c:162 src/urlget.c:187 src/xgettext.c:1080
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Kết xuất thông tin:\n"
 
-#: src/hostname.c:232 src/msgattrib.c:536 src/msgcat.c:471 src/msgcmp.c:260
-#: src/msgcomm.c:457 src/msgconv.c:387 src/msgen.c:383 src/msgexec.c:297
-#: src/msgfilter.c:497 src/msgfmt.c:918 src/msggrep.c:630 src/msginit.c:423
-#: src/msgmerge.c:621 src/msgunfmt.c:529 src/msguniq.c:419
-#: src/recode-sr-latin.c:164 src/urlget.c:188 src/xgettext.c:1025
+#: src/hostname.c:233 src/msgattrib.c:537 src/msgcat.c:472 src/msgcmp.c:261
+#: src/msgcomm.c:458 src/msgconv.c:388 src/msgen.c:384 src/msgexec.c:309
+#: src/msgfilter.c:510 src/msgfmt.c:919 src/msggrep.c:631 src/msginit.c:423
+#: src/msgmerge.c:622 src/msgunfmt.c:530 src/msguniq.c:420
+#: src/recode-sr-latin.c:165 src/urlget.c:189 src/xgettext.c:1082
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  hiện trợ giúp này rồi thoát\n"
 
-#: src/hostname.c:234 src/msgattrib.c:538 src/msgcat.c:473 src/msgcmp.c:262
-#: src/msgcomm.c:459 src/msgconv.c:389 src/msgen.c:385 src/msgexec.c:299
-#: src/msgfilter.c:499 src/msgfmt.c:920 src/msggrep.c:632 src/msginit.c:425
-#: src/msgmerge.c:623 src/msgunfmt.c:531 src/msguniq.c:421
-#: src/recode-sr-latin.c:167 src/urlget.c:190 src/xgettext.c:1027
+#: src/hostname.c:235 src/msgattrib.c:539 src/msgcat.c:474 src/msgcmp.c:263
+#: src/msgcomm.c:460 src/msgconv.c:390 src/msgen.c:386 src/msgexec.c:311
+#: src/msgfilter.c:512 src/msgfmt.c:921 src/msggrep.c:633 src/msginit.c:425
+#: src/msgmerge.c:624 src/msgunfmt.c:532 src/msguniq.c:422
+#: src/recode-sr-latin.c:168 src/urlget.c:191 src/xgettext.c:1084
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               xuất thông tin phiên bản rồi thoát\n"
@@ -816,43 +840,43 @@ msgstr "  -V, --version               xuất thông tin phiên bản rồi thoá
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/hostname.c:241 src/msgattrib.c:545 src/msgcat.c:480 src/msgcmp.c:269
-#: src/msgcomm.c:466 src/msgconv.c:396 src/msgen.c:392 src/msgexec.c:306
-#: src/msgfilter.c:506 src/msgfmt.c:931 src/msggrep.c:639 src/msginit.c:432
-#: src/msgmerge.c:634 src/msgunfmt.c:540 src/msguniq.c:428
-#: src/recode-sr-latin.c:174 src/urlget.c:199 src/xgettext.c:1034
+#: src/hostname.c:242 src/msgattrib.c:546 src/msgcat.c:481 src/msgcmp.c:270
+#: src/msgcomm.c:467 src/msgconv.c:397 src/msgen.c:393 src/msgexec.c:318
+#: src/msgfilter.c:519 src/msgfmt.c:932 src/msggrep.c:640 src/msginit.c:432
+#: src/msgmerge.c:635 src/msgunfmt.c:541 src/msguniq.c:429
+#: src/recode-sr-latin.c:175 src/urlget.c:200 src/xgettext.c:1091
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Hãy thông báo lỗi cho <bug-gnu-gettext@gnu.org>.\n"
 "Hãy thông báo lỗi dịch nào cho <http://translationproject.org/team/vi.html>.\n"
 
-#: src/hostname.c:257 src/hostname.c:263 src/hostname.c:270
+#: src/hostname.c:258 src/hostname.c:264 src/hostname.c:271
 #, c-format
 msgid "could not get host name"
 msgstr "không thể lấy tên máy"
 
-#: src/msgattrib.c:376 src/msgconv.c:265 src/msgexec.c:152 src/msgfilter.c:194
-#: src/msggrep.c:440 src/msginit.c:198 src/msguniq.c:285
+#: src/msgattrib.c:377 src/msgconv.c:266 src/msgexec.c:155 src/msgfilter.c:197
+#: src/msggrep.c:441 src/msginit.c:198 src/msguniq.c:286
 #, c-format
 msgid "at most one input file allowed"
 msgstr "cho phép nhiều nhất một tập tin đầu vào"
 
-#: src/msgattrib.c:382 src/msgcat.c:316 src/msgcomm.c:301 src/msgconv.c:271
-#: src/msgen.c:269 src/msgfilter.c:303 src/msgfmt.c:470 src/msgfmt.c:478
-#: src/msgfmt.c:493 src/msgfmt.c:515 src/msggrep.c:446 src/msgmerge.c:387
-#: src/msgmerge.c:392 src/msgmerge.c:397 src/msgmerge.c:418 src/msgunfmt.c:299
-#: src/msguniq.c:291 src/xgettext.c:631 src/xgettext.c:638 src/xgettext.c:641
-#: src/xgettext.c:644
+#: src/msgattrib.c:383 src/msgcat.c:317 src/msgcomm.c:302 src/msgconv.c:272
+#: src/msgen.c:270 src/msgfilter.c:310 src/msgfmt.c:471 src/msgfmt.c:479
+#: src/msgfmt.c:494 src/msgfmt.c:516 src/msggrep.c:447 src/msgmerge.c:388
+#: src/msgmerge.c:393 src/msgmerge.c:398 src/msgmerge.c:419 src/msgunfmt.c:300
+#: src/msguniq.c:292 src/xgettext.c:662 src/xgettext.c:669 src/xgettext.c:672
+#: src/xgettext.c:675
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s và %s loại từ lẫn nhau"
 
-#: src/msgattrib.c:421 src/msgconv.c:307 src/msggrep.c:516 src/msguniq.c:326
+#: src/msgattrib.c:422 src/msgconv.c:308 src/msggrep.c:517 src/msguniq.c:327
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN_ĐẦU_VÀO]\n"
 
-#: src/msgattrib.c:426
+#: src/msgattrib.c:427
 #, c-format, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
@@ -861,61 +885,61 @@ msgstr ""
 "Lọc các chuỗi của phân loại thông dịch tùy theo thuộc tính,\n"
 "cũng thao tác thuộc tính.\n"
 
-#: src/msgattrib.c:430 src/msgcat.c:384 src/msgcmp.c:227 src/msgcomm.c:375
-#: src/msgconv.c:315 src/msgen.c:316 src/msgexec.c:276 src/msgfilter.c:415
-#: src/msggrep.c:526 src/msginit.c:373 src/msgmerge.c:515 src/msgunfmt.c:435
-#: src/msguniq.c:342
+#: src/msgattrib.c:431 src/msgcat.c:385 src/msgcmp.c:228 src/msgcomm.c:376
+#: src/msgconv.c:316 src/msgen.c:317 src/msgexec.c:288 src/msgfilter.c:422
+#: src/msggrep.c:527 src/msginit.c:373 src/msgmerge.c:516 src/msgunfmt.c:436
+#: src/msguniq.c:343
 #, c-format
 msgid "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr "Tất cả đối số bắt buộc phải có với tùy chọn dài cũng bắt buộc với tùy chọn ngắn.\n"
 
-#: src/msgattrib.c:433 src/msgcat.c:387 src/msgcmp.c:230 src/msgcomm.c:378
-#: src/msgconv.c:318 src/msgen.c:319 src/msgexec.c:279 src/msgfilter.c:418
-#: src/msgfmt.c:788 src/msggrep.c:529 src/msginit.c:376 src/msgmerge.c:518
-#: src/msgunfmt.c:449 src/msguniq.c:345 src/xgettext.c:869
+#: src/msgattrib.c:434 src/msgcat.c:388 src/msgcmp.c:231 src/msgcomm.c:379
+#: src/msgconv.c:319 src/msgen.c:320 src/msgexec.c:291 src/msgfilter.c:425
+#: src/msgfmt.c:789 src/msggrep.c:530 src/msginit.c:376 src/msgmerge.c:519
+#: src/msgunfmt.c:450 src/msguniq.c:346 src/xgettext.c:918
 #, c-format
 msgid "Input file location:\n"
 msgstr "Vị trí tập tin đầu vào:\n"
 
-#: src/msgattrib.c:435 src/msgconv.c:320 src/msggrep.c:531 src/msguniq.c:347
+#: src/msgattrib.c:436 src/msgconv.c:321 src/msggrep.c:532 src/msguniq.c:348
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
 msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin PO đầu vào\n"
 
-#: src/msgattrib.c:437 src/msgcat.c:393 src/msgcmp.c:236 src/msgcomm.c:384
-#: src/msgconv.c:322 src/msgen.c:323 src/msgexec.c:283 src/msgfilter.c:422
-#: src/msgfmt.c:792 src/msggrep.c:533 src/msgmerge.c:524 src/msguniq.c:349
-#: src/xgettext.c:875
+#: src/msgattrib.c:438 src/msgcat.c:394 src/msgcmp.c:237 src/msgcomm.c:385
+#: src/msgconv.c:323 src/msgen.c:324 src/msgexec.c:295 src/msgfilter.c:429
+#: src/msgfmt.c:793 src/msggrep.c:534 src/msgmerge.c:525 src/msguniq.c:350
+#: src/xgettext.c:924
 #, c-format
 msgid "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
 "  -D, --directory=THƯ_MỤC     thêm THƯ MỤC này vào danh sách để tìm kiếm\n"
 "                              tập tin đầu vào\n"
 
-#: src/msgattrib.c:439 src/msgconv.c:324 src/msgexec.c:285 src/msgfilter.c:424
-#: src/msggrep.c:535 src/msgunfmt.c:453 src/msguniq.c:351
+#: src/msgattrib.c:440 src/msgconv.c:325 src/msgexec.c:297 src/msgfilter.c:431
+#: src/msggrep.c:536 src/msgunfmt.c:454 src/msguniq.c:352
 #, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
 msgstr "Không đưa ra tập tin đầu vào, hay nó là “-” thì đọc đầu vào tiêu chuẩn.\n"
 
-#: src/msgattrib.c:442 src/msgcat.c:398 src/msgcomm.c:389 src/msgconv.c:327
-#: src/msgen.c:328 src/msgfilter.c:427 src/msgfmt.c:814 src/msggrep.c:538
-#: src/msginit.c:384 src/msgmerge.c:536 src/msgunfmt.c:489 src/msguniq.c:354
-#: src/xgettext.c:880
+#: src/msgattrib.c:443 src/msgcat.c:399 src/msgcomm.c:390 src/msgconv.c:328
+#: src/msgen.c:329 src/msgfilter.c:434 src/msgfmt.c:815 src/msggrep.c:539
+#: src/msginit.c:384 src/msgmerge.c:537 src/msgunfmt.c:490 src/msguniq.c:355
+#: src/xgettext.c:929
 #, c-format
 msgid "Output file location:\n"
 msgstr "Vị trí tập tin đầu ra:\n"
 
-#: src/msgattrib.c:444 src/msgcat.c:400 src/msgcomm.c:391 src/msgconv.c:329
-#: src/msgen.c:330 src/msgfilter.c:429 src/msgfmt.c:816 src/msgfmt.c:865
-#: src/msggrep.c:540 src/msgmerge.c:538 src/msgunfmt.c:491 src/msguniq.c:356
+#: src/msgattrib.c:445 src/msgcat.c:401 src/msgcomm.c:392 src/msgconv.c:330
+#: src/msgen.c:331 src/msgfilter.c:436 src/msgfmt.c:817 src/msgfmt.c:866
+#: src/msggrep.c:541 src/msgmerge.c:539 src/msgunfmt.c:492 src/msguniq.c:357
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=TẬP_TIN   ghi kết xuất vào TẬP TIN này\n"
 
-#: src/msgattrib.c:446 src/msgcat.c:402 src/msgcomm.c:393 src/msgconv.c:331
-#: src/msgen.c:332 src/msgfilter.c:431 src/msggrep.c:542 src/msgmerge.c:540
-#: src/msgunfmt.c:493 src/msguniq.c:358
+#: src/msgattrib.c:447 src/msgcat.c:403 src/msgcomm.c:394 src/msgconv.c:332
+#: src/msgen.c:333 src/msgfilter.c:438 src/msggrep.c:543 src/msgmerge.c:541
+#: src/msgunfmt.c:494 src/msguniq.c:359
 #, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
@@ -924,71 +948,71 @@ msgstr ""
 "Kết quả được ghi ra đầu ra tiêu chuẩn nếu không chỉ ra tập tin kết xuất,\n"
 "hoặc nếu nó là “-”.\n"
 
-#: src/msgattrib.c:450 src/msgcat.c:406 src/msgcomm.c:397 src/msguniq.c:362
+#: src/msgattrib.c:451 src/msgcat.c:407 src/msgcomm.c:398 src/msguniq.c:363
 #, c-format
 msgid "Message selection:\n"
 msgstr "Chọn chuỗi:\n"
 
-#: src/msgattrib.c:452
+#: src/msgattrib.c:453
 #, c-format
 msgid "      --translated            keep translated, remove untranslated messages\n"
 msgstr "      --translated            giữ các chuỗi đã dịch, bỏ các chuỗi chưa dịch\n"
 
-#: src/msgattrib.c:454
+#: src/msgattrib.c:455
 #, c-format
 msgid "      --untranslated          keep untranslated, remove translated messages\n"
 msgstr ""
 "      --untranslated          giữ các chuỗi chưa dịch,\n"
 "                              bỏ các chuỗi đã dịch\n"
 
-#: src/msgattrib.c:456
+#: src/msgattrib.c:457
 #, c-format
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
 msgstr ""
 "      --no-fuzzy              loại bỏ các chuỗi được đánh dấu là “fuzzy”\n"
 "                               (tạm dịch), các chuỗi này trở thành đã dịch\n"
 
-#: src/msgattrib.c:458
+#: src/msgattrib.c:459
 #, c-format
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
 msgstr "      --only-fuzzy            giữ các chuỗi được đánh dấu là “fuzzy”\n"
 
-#: src/msgattrib.c:460
+#: src/msgattrib.c:461
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
 msgstr "      --no-obsolete           loại bỏ các chuỗi đã cũ (có dấu #~)\n"
 
-#: src/msgattrib.c:462
+#: src/msgattrib.c:463
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr "      --only-obsolete         giữ các chuỗi đã cũ (có dấu #~)\n"
 
-#: src/msgattrib.c:465
+#: src/msgattrib.c:466
 #, c-format
 msgid "Attribute manipulation:\n"
 msgstr "Thao tác với các thuộc tính:\n"
 
-#: src/msgattrib.c:467
+#: src/msgattrib.c:468
 #, c-format
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
 msgstr "      --set-fuzzy             đặt mọi chuỗi là “fuzzy” (tạm dịch)\n"
 
-#: src/msgattrib.c:469
+#: src/msgattrib.c:470
 #, c-format
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 msgstr "      --clear-fuzzy           đặt mọi chuỗi là không-“fuzzy” (tạm dịch)\n"
 
-#: src/msgattrib.c:471
+#: src/msgattrib.c:472
 #, c-format
 msgid "      --set-obsolete          set all messages obsolete\n"
 msgstr "      --set-obsolete          đặt mọi chuỗi là cũ không dùng nữa\n"
 
-#: src/msgattrib.c:473
+#: src/msgattrib.c:474
 #, c-format
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
 msgstr "      --clear-obsolete        đặt mọi chuỗi là chưa quá cũ\n"
 
-#: src/msgattrib.c:475
+#: src/msgattrib.c:476
 #, c-format
 msgid ""
 "      --previous              when setting 'fuzzy', keep previous msgids\n"
@@ -997,77 +1021,77 @@ msgstr ""
 "      --previous              khi đặt “fuzzy” thì giữ lại các chuỗi gốc msgid\n"
 "                              của chuỗi đã dịch\n"
 
-#: src/msgattrib.c:478
+#: src/msgattrib.c:479
 #, c-format
 msgid "      --clear-previous        remove the \"previous msgid\" from all messages\n"
 msgstr "      --clear-previous        lại bỏ “previous msgid” ra khỏi mọi chuỗi\n"
 
-#: src/msgattrib.c:480
+#: src/msgattrib.c:481
 #, c-format
 msgid "      --empty                 when removing 'fuzzy', also set msgstr empty\n"
 msgstr ""
 "      --empty                 khi loại bỏ các chuỗi được đánh dấu là “fuzzy”\n"
 "                               (tạm dịch), xóa trống chuỗi này\n"
 
-#: src/msgattrib.c:482
+#: src/msgattrib.c:483
 #, c-format
 msgid "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
 msgstr ""
 "      --only-file=TẬP_TIN.po  thao tác chỉ những mục được liệt kê trong\n"
 "                               tập tin này\n"
 
-#: src/msgattrib.c:484
+#: src/msgattrib.c:485
 #, c-format
 msgid "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
 msgstr ""
 "      --ignore-file=T_TIN.po  thao tác chỉ những mục không được liệt kê\n"
 "                               trong tập tin này\n"
 
-#: src/msgattrib.c:486
+#: src/msgattrib.c:487
 #, c-format
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 msgstr "      --fuzzy                 tương đương với “--only-fuzzy --clear-fuzzy”\n"
 
-#: src/msgattrib.c:488
+#: src/msgattrib.c:489
 #, c-format
 msgid "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr "      --obsolete              tương đương với “--only-obsolete --clear-obsolete”\n"
 
-#: src/msgattrib.c:491 src/msgcat.c:418 src/msgcmp.c:250 src/msgcomm.c:409
-#: src/msgconv.c:342 src/msgen.c:336 src/msgexec.c:288 src/msgfilter.c:450
-#: src/msgfmt.c:878 src/msggrep.c:585 src/msginit.c:392 src/msgmerge.c:573
-#: src/msguniq.c:369
+#: src/msgattrib.c:492 src/msgcat.c:419 src/msgcmp.c:251 src/msgcomm.c:410
+#: src/msgconv.c:343 src/msgen.c:337 src/msgexec.c:300 src/msgfilter.c:463
+#: src/msgfmt.c:879 src/msggrep.c:586 src/msginit.c:392 src/msgmerge.c:574
+#: src/msguniq.c:370
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "Cú pháp tập tin đầu vào:\n"
 
-#: src/msgattrib.c:493 src/msgconv.c:344 src/msgen.c:338 src/msgexec.c:290
-#: src/msgfilter.c:452 src/msggrep.c:587 src/msginit.c:394 src/msguniq.c:371
+#: src/msgattrib.c:494 src/msgconv.c:345 src/msgen.c:339 src/msgexec.c:302
+#: src/msgfilter.c:465 src/msggrep.c:588 src/msginit.c:394 src/msguniq.c:372
 #, c-format
 msgid "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr ""
 "  -P, --properties-input      tập tin đầu vào có cú pháp .properties\n"
 "                              (thuộc tính) của Java\n"
 
-#: src/msgattrib.c:495 src/msgconv.c:346 src/msgen.c:340 src/msgexec.c:292
-#: src/msgfilter.c:454 src/msggrep.c:589 src/msginit.c:396 src/msguniq.c:373
+#: src/msgattrib.c:496 src/msgconv.c:347 src/msgen.c:341 src/msgexec.c:304
+#: src/msgfilter.c:467 src/msggrep.c:590 src/msginit.c:396 src/msguniq.c:374
 #, c-format
 msgid "      --stringtable-input     input file is in NeXTstep/GNUstep .strings syntax\n"
 msgstr ""
 "      --stringtable-input     tập tin đầu vào có cú pháp .strings kiểu\n"
 "                              NeXTstep/GNUstep\n"
 
-#: src/msgattrib.c:498 src/msgcat.c:426 src/msgcomm.c:417 src/msgconv.c:349
-#: src/msgen.c:343 src/msgfilter.c:457 src/msgfmt.c:906 src/msggrep.c:592
-#: src/msginit.c:399 src/msgmerge.c:581 src/msgunfmt.c:497 src/msguniq.c:376
-#: src/xgettext.c:969
+#: src/msgattrib.c:499 src/msgcat.c:427 src/msgcomm.c:418 src/msgconv.c:350
+#: src/msgen.c:344 src/msgfilter.c:470 src/msgfmt.c:907 src/msggrep.c:593
+#: src/msginit.c:399 src/msgmerge.c:582 src/msgunfmt.c:498 src/msguniq.c:377
+#: src/xgettext.c:1026
 #, c-format
 msgid "Output details:\n"
 msgstr "Chi tiết kết xuất:\n"
 
-#: src/msgattrib.c:500 src/msgcat.c:435 src/msgcomm.c:419 src/msgconv.c:351
-#: src/msgen.c:347 src/msgfilter.c:459 src/msggrep.c:594 src/msginit.c:405
-#: src/msgmerge.c:585 src/msgunfmt.c:499 src/msguniq.c:383 src/xgettext.c:971
+#: src/msgattrib.c:501 src/msgcat.c:436 src/msgcomm.c:420 src/msgconv.c:352
+#: src/msgen.c:348 src/msgfilter.c:472 src/msggrep.c:595 src/msginit.c:405
+#: src/msgmerge.c:586 src/msgunfmt.c:500 src/msguniq.c:384 src/xgettext.c:1028
 #, c-format
 msgid ""
 "      --color                 use colors and other text attributes always\n"
@@ -1083,90 +1107,90 @@ msgstr ""
 "                                 * auto       tự động\n"
 "                                 * html       HTML.\n"
 
-#: src/msgattrib.c:504 src/msgcat.c:439 src/msgcomm.c:423 src/msgconv.c:355
-#: src/msgen.c:351 src/msgfilter.c:463 src/msggrep.c:598 src/msginit.c:409
-#: src/msgmerge.c:589 src/msgunfmt.c:503 src/msguniq.c:387 src/xgettext.c:975
+#: src/msgattrib.c:505 src/msgcat.c:440 src/msgcomm.c:424 src/msgconv.c:356
+#: src/msgen.c:352 src/msgfilter.c:476 src/msggrep.c:599 src/msginit.c:409
+#: src/msgmerge.c:590 src/msgunfmt.c:504 src/msguniq.c:388 src/xgettext.c:1032
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr ""
 "      --style=TẬP_TIN         chỉ định tập tin quy tắc kiểu dáng CSS cho\n"
 "                              --color (màu)\n"
 
-#: src/msgattrib.c:506 src/msgcat.c:441 src/msgcomm.c:425 src/msgconv.c:357
-#: src/msgen.c:353 src/msgmerge.c:591 src/msgunfmt.c:505 src/msguniq.c:389
-#: src/xgettext.c:977
+#: src/msgattrib.c:507 src/msgcat.c:442 src/msgcomm.c:426 src/msgconv.c:358
+#: src/msgen.c:354 src/msgmerge.c:592 src/msgunfmt.c:506 src/msguniq.c:390
+#: src/xgettext.c:1034
 #, c-format
 msgid "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr "  -e, --no-escape             không dùng ký tự thoát C trong kết xuất (mặc định)\n"
 
-#: src/msgattrib.c:508 src/msgcat.c:443 src/msgcomm.c:427 src/msgconv.c:359
-#: src/msgen.c:355 src/msgfilter.c:467 src/msgmerge.c:593 src/msgunfmt.c:507
-#: src/msguniq.c:391 src/xgettext.c:979
+#: src/msgattrib.c:509 src/msgcat.c:444 src/msgcomm.c:428 src/msgconv.c:360
+#: src/msgen.c:356 src/msgfilter.c:480 src/msgmerge.c:594 src/msgunfmt.c:508
+#: src/msguniq.c:392 src/xgettext.c:1036
 #, c-format
 msgid "  -E, --escape                use C escapes in output, no extended chars\n"
 msgstr ""
 "  -E, --escape                dùng ký tự thoát C trong kết xuất,\n"
 "                              không dùng ký tự mở rộng\n"
 
-#: src/msgattrib.c:510 src/msgcat.c:445 src/msgcomm.c:429 src/msgconv.c:361
-#: src/msgen.c:357 src/msgfilter.c:469 src/msggrep.c:604 src/msgmerge.c:595
-#: src/msgunfmt.c:509 src/msguniq.c:393 src/xgettext.c:981
+#: src/msgattrib.c:511 src/msgcat.c:446 src/msgcomm.c:430 src/msgconv.c:362
+#: src/msgen.c:358 src/msgfilter.c:482 src/msggrep.c:605 src/msgmerge.c:596
+#: src/msgunfmt.c:510 src/msguniq.c:394 src/xgettext.c:1038
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po              ghi ra tập tin PO ngay cả khi nó trống rỗng\n"
 
-#: src/msgattrib.c:512 src/msgcat.c:447 src/msgcomm.c:431 src/msguniq.c:395
-#: src/xgettext.c:983
+#: src/msgattrib.c:513 src/msgcat.c:448 src/msgcomm.c:432 src/msguniq.c:396
+#: src/xgettext.c:1040
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr "  -i, --indent                ghi ra tập tin PO có thụt lề\n"
 
-#: src/msgattrib.c:514 src/msgcat.c:449 src/msgcomm.c:433 src/msguniq.c:397
-#: src/xgettext.c:985
+#: src/msgattrib.c:515 src/msgcat.c:450 src/msgcomm.c:434 src/msguniq.c:398
+#: src/xgettext.c:1042
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr "      --no-location           không ghi dòng kiểu “#: tên_tập_tin:số_hiệu_dòng”\n"
 
-#: src/msgattrib.c:516 src/msgcat.c:451 src/msgcomm.c:435 src/msguniq.c:399
-#: src/xgettext.c:987
+#: src/msgattrib.c:517 src/msgcat.c:452 src/msgcomm.c:436 src/msguniq.c:400
+#: src/xgettext.c:1044
 #, c-format
 msgid "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
 "  -n, --add-location          tạo ra dòng kiểu “#: tên_tập_tin:số_hiệu_dòng”\n"
 "                              (mặc định)\n"
 
-#: src/msgattrib.c:518 src/msgcat.c:453 src/msgcomm.c:437 src/msguniq.c:401
-#: src/xgettext.c:989
+#: src/msgattrib.c:519 src/msgcat.c:454 src/msgcomm.c:438 src/msguniq.c:402
+#: src/xgettext.c:1046
 #, c-format
 msgid "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr "      --strict                xuất tập tin PO tùy theo Uniforum chính xác\n"
 
-#: src/msgattrib.c:520 src/msgcat.c:455 src/msgcomm.c:439 src/msgconv.c:371
-#: src/msgen.c:367 src/msgfilter.c:481 src/msggrep.c:614 src/msginit.c:411
-#: src/msgmerge.c:605 src/msgunfmt.c:515 src/msguniq.c:403
+#: src/msgattrib.c:521 src/msgcat.c:456 src/msgcomm.c:440 src/msgconv.c:372
+#: src/msgen.c:368 src/msgfilter.c:494 src/msggrep.c:615 src/msginit.c:411
+#: src/msgmerge.c:606 src/msgunfmt.c:516 src/msguniq.c:404
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     xuất tập tin .properties (thuộc tính) kiểu Java\n"
 
-#: src/msgattrib.c:522 src/msgcat.c:457 src/msgcomm.c:441 src/msgconv.c:373
-#: src/msgen.c:369 src/msgfilter.c:483 src/msggrep.c:616 src/msginit.c:413
-#: src/msgmerge.c:607 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:993
+#: src/msgattrib.c:523 src/msgcat.c:458 src/msgcomm.c:442 src/msgconv.c:374
+#: src/msgen.c:370 src/msgfilter.c:496 src/msggrep.c:617 src/msginit.c:413
+#: src/msgmerge.c:608 src/msgunfmt.c:518 src/msguniq.c:406 src/xgettext.c:1050
 #, c-format
 msgid "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
 msgstr ""
 "      --stringtable-output    ghi ra tập tin .strings (chuỗi)\n"
 "                              kiểu NeXTstep/GNUstep\n"
 
-#: src/msgattrib.c:524 src/msgcat.c:459 src/msgcomm.c:443 src/msgconv.c:375
-#: src/msgen.c:371 src/msgfilter.c:485 src/msggrep.c:618 src/msginit.c:415
-#: src/msgmerge.c:609 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:995
+#: src/msgattrib.c:525 src/msgcat.c:460 src/msgcomm.c:444 src/msgconv.c:376
+#: src/msgen.c:372 src/msgfilter.c:498 src/msggrep.c:619 src/msginit.c:415
+#: src/msgmerge.c:610 src/msgunfmt.c:520 src/msguniq.c:408 src/xgettext.c:1052
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=SỐ              đặt chiều rộng của trang kết xuất\n"
 
-#: src/msgattrib.c:526 src/msgcat.c:461 src/msgcomm.c:445 src/msgconv.c:377
-#: src/msgen.c:373 src/msgfilter.c:487 src/msggrep.c:620 src/msginit.c:417
-#: src/msgmerge.c:611 src/msgunfmt.c:521 src/msguniq.c:409 src/xgettext.c:997
+#: src/msgattrib.c:527 src/msgcat.c:462 src/msgcomm.c:446 src/msgconv.c:378
+#: src/msgen.c:374 src/msgfilter.c:500 src/msggrep.c:621 src/msginit.c:417
+#: src/msgmerge.c:612 src/msgunfmt.c:522 src/msguniq.c:410 src/xgettext.c:1054
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1175,31 +1199,31 @@ msgstr ""
 "      --no-wrap               không ngắt ra nhiều dòng cho những dòng dài hơn\n"
 "                              chiều rộng trang kết xuất\n"
 
-#: src/msgattrib.c:529 src/msgcat.c:464 src/msgcomm.c:448 src/msgconv.c:380
-#: src/msgen.c:376 src/msgfilter.c:490 src/msgmerge.c:614 src/msgunfmt.c:524
-#: src/msguniq.c:412 src/xgettext.c:1000
+#: src/msgattrib.c:530 src/msgcat.c:465 src/msgcomm.c:449 src/msgconv.c:381
+#: src/msgen.c:377 src/msgfilter.c:503 src/msgmerge.c:615 src/msgunfmt.c:525
+#: src/msguniq.c:413 src/xgettext.c:1057
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr "  -s, --sort-output           tạo ra kết xuất được sắp xếp\n"
 
-#: src/msgattrib.c:531 src/msgcat.c:466 src/msgcomm.c:450 src/msgconv.c:382
-#: src/msgen.c:378 src/msgfilter.c:492 src/msgmerge.c:616 src/msguniq.c:414
-#: src/xgettext.c:1002
+#: src/msgattrib.c:532 src/msgcat.c:467 src/msgcomm.c:451 src/msgconv.c:383
+#: src/msgen.c:379 src/msgfilter.c:505 src/msgmerge.c:617 src/msguniq.c:415
+#: src/xgettext.c:1059
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr "  -F, --sort-by-file          sắp xếp kết xuất theo vị trí tập tin\n"
 
-#: src/msgcat.c:322 src/msgcomm.c:327
+#: src/msgcat.c:323 src/msgcomm.c:328
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "xác định tiêu chuẩn lựa chọn không thể sử dụng được (%d < n < %d)"
 
-#: src/msgcat.c:367 src/msgcomm.c:359 src/xgettext.c:855
+#: src/msgcat.c:368 src/msgcomm.c:360 src/xgettext.c:904
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
-msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN_ĐẦU_VÀO]...\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN_ĐẦU_VÀO]…\n"
 
-#: src/msgcat.c:372
+#: src/msgcat.c:373
 #, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
@@ -1224,23 +1248,23 @@ msgstr ""
 "chúng sẽ được lấy từ tập tin PO thứ nhất có chuỗi được dịch.\n"
 "Vị trí tập tin từ mọi tập tin PO sẽ được tích lũy.\n"
 
-#: src/msgcat.c:389 src/msgcomm.c:380 src/xgettext.c:871
+#: src/msgcat.c:390 src/msgcomm.c:381 src/xgettext.c:920
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
-msgstr "  TẬP_TIN_ĐẦU_VÀO ...         những tập tin đầu vào\n"
+msgstr "  TẬP_TIN_ĐẦU_VÀO …           những tập tin đầu vào\n"
 
-#: src/msgcat.c:391 src/msgcomm.c:382 src/xgettext.c:873
+#: src/msgcat.c:392 src/msgcomm.c:383 src/xgettext.c:922
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr "  -f, --files-from=TẬP_TIN    lấy từ tập tin này danh sách các tập tin đầu vào\n"
 
-#: src/msgcat.c:395 src/msgcomm.c:386 src/msgen.c:325 src/msgfmt.c:794
-#: src/xgettext.c:877
+#: src/msgcat.c:396 src/msgcomm.c:387 src/msgen.c:326 src/msgfmt.c:795
+#: src/xgettext.c:926
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "Nếu tập tin đầu vào là “-” thì đọc từ đầu vào tiêu chuẩn.\n"
 
-#: src/msgcat.c:408 src/msgcomm.c:399
+#: src/msgcat.c:409 src/msgcomm.c:400
 #, c-format
 msgid ""
 "  -<, --less-than=NUMBER      print messages with less than this many\n"
@@ -1249,7 +1273,7 @@ msgstr ""
 "  -<, --less-than=SỐ          in ra các chuỗi có ít hơn SỐ các lời\n"
 "                              định nghĩa; không bật thì mặc định là vô hạn\n"
 
-#: src/msgcat.c:411
+#: src/msgcat.c:412
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1258,7 +1282,7 @@ msgstr ""
 "  ->, --more-than=SỐ          in ra các chuỗi có nhiều hơn SỐ các lời\n"
 "                              định nghĩa; không bật thì mặc định là 0\n"
 
-#: src/msgcat.c:414 src/msgcomm.c:405
+#: src/msgcat.c:415 src/msgcomm.c:406
 #, c-format
 msgid ""
 "  -u, --unique                shorthand for --less-than=2, requests\n"
@@ -1267,16 +1291,16 @@ msgstr ""
 "  -u, --unique                dạng viết tắt cho tùy chọn “--less-than=2” (ít hơn 2),\n"
 "                              yêu cầu in ra chỉ những chuỗi duy nhất\n"
 
-#: src/msgcat.c:420 src/msgcmp.c:252 src/msgcomm.c:411 src/msgfmt.c:880
-#: src/msgmerge.c:575
+#: src/msgcat.c:421 src/msgcmp.c:253 src/msgcomm.c:412 src/msgfmt.c:881
+#: src/msgmerge.c:576
 #, c-format
 msgid "  -P, --properties-input      input files are in Java .properties syntax\n"
 msgstr ""
 "  -P, --properties-input      tập tin đầu vào có cú pháp kiểu .properties\n"
 "                              (thuộc tính) của Java\n"
 
-#: src/msgcat.c:422 src/msgcmp.c:254 src/msgcomm.c:413 src/msgfmt.c:882
-#: src/msgmerge.c:577
+#: src/msgcat.c:423 src/msgcmp.c:255 src/msgcomm.c:414 src/msgfmt.c:883
+#: src/msgmerge.c:578
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
@@ -1285,12 +1309,12 @@ msgstr ""
 "      --stringtable-input     tập tin đầu vào có cú pháp .strings (chuỗi)\n"
 "                              kiểu NeXTstep/GNUstep\n"
 
-#: src/msgcat.c:428 src/msgconv.c:337 src/msguniq.c:378
+#: src/msgcat.c:429 src/msgconv.c:338 src/msguniq.c:379
 #, c-format
 msgid "  -t, --to-code=NAME          encoding for output\n"
 msgstr "  -t, --to-code=MÃ            bộ ký tự cho kết xuất\n"
 
-#: src/msgcat.c:430 src/msguniq.c:380
+#: src/msgcat.c:431 src/msguniq.c:381
 #, c-format
 msgid ""
 "      --use-first             use first available translation for each\n"
@@ -1299,33 +1323,33 @@ msgstr ""
 "      --use-first             dùng bản dịch đầu tiên cho mỗi chuỗi,\n"
 "                              không trộn nhiều bản dịch\n"
 
-#: src/msgcat.c:433 src/msgen.c:345 src/msgmerge.c:583
+#: src/msgcat.c:434 src/msgen.c:346 src/msgmerge.c:584
 #, c-format
 msgid "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr "      --lang=TÊN_PHÂN_LOẠI    đặt trường “Language” (Ngôn ngữ) trong phần đầu\n"
 
 # Name: don't translate / Tên: đừng dịch
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:178 src/msgcomm.c:291 src/msgmerge.c:362
+#: src/msgcmp.c:179 src/msgcomm.c:292 src/msgmerge.c:363
 msgid "Peter Miller"
 msgstr "Peter Miller"
 
-#: src/msgcmp.c:189 src/msgmerge.c:373
+#: src/msgcmp.c:190 src/msgmerge.c:374
 #, c-format
 msgid "no input files given"
 msgstr "chưa đưa ra tập tin đầu vào"
 
-#: src/msgcmp.c:194 src/msgmerge.c:378
+#: src/msgcmp.c:195 src/msgmerge.c:379
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "cần chính xác 2 tập tin đầu vào"
 
-#: src/msgcmp.c:213 src/msgmerge.c:498
+#: src/msgcmp.c:214 src/msgmerge.c:499
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] cũ.po mới.pot\n"
 
-#: src/msgcmp.c:218
+#: src/msgcmp.c:219
 #, c-format, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -1343,83 +1367,83 @@ msgstr ""
 "của bạn. Vị trí nào không khớp với nhau, còn chưa xong để cung cấp sự chẩn đoán\n"
 "tốt hơn.\n"
 
-#: src/msgcmp.c:232
+#: src/msgcmp.c:233
 #, c-format
 msgid "  def.po                      translations\n"
 msgstr "  cũ.po                       bản dịch cũ\n"
 
-#: src/msgcmp.c:234
+#: src/msgcmp.c:235
 #, c-format
 msgid "  ref.pot                     references to the sources\n"
-msgstr "  mới.pot                     mẫu dùng để tham chiếu (được tạo bởi xgettext)\n"
+msgstr "  mới.pot                     các nguồn dùng để tham chiếu\n"
 
-#: src/msgcmp.c:239 src/msgmerge.c:564
+#: src/msgcmp.c:240 src/msgmerge.c:565
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "Sửa đổi thao tác:\n"
 
-#: src/msgcmp.c:241 src/msgmerge.c:566
+#: src/msgcmp.c:242 src/msgmerge.c:567
 #, c-format
 msgid "  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr "  -m, --multi-domain          áp dụng tập tin mới.pot vào mỗi miền nằm trong tập tin cũ.po\n"
 
-#: src/msgcmp.c:243 src/msgmerge.c:568
+#: src/msgcmp.c:244 src/msgmerge.c:569
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr "  -N, --no-fuzzy-matching     không dùng khả năng khớp mờ (fuzzy)\n"
 
-#: src/msgcmp.c:245
+#: src/msgcmp.c:246
 #, c-format
 msgid "      --use-fuzzy             consider fuzzy entries\n"
 msgstr "      --use-fuzzy             dùng các mục tạm dịch\n"
 
-#: src/msgcmp.c:247
+#: src/msgcmp.c:248
 #, c-format
 msgid "      --use-untranslated      consider untranslated entries\n"
 msgstr "      --use-untranslated      dùng các mục chưa dịch\n"
 
-#: src/msgcmp.c:324
+#: src/msgcmp.c:325
 #, c-format
 msgid "this message is untranslated"
 msgstr "chuỗi này chưa được dịch"
 
-#: src/msgcmp.c:330
+#: src/msgcmp.c:331
 #, c-format
 msgid "this message needs to be reviewed by the translator"
 msgstr "chuỗi này cần phải được xem xét lại bởi dịch giả"
 
-#: src/msgcmp.c:369 src/msgmerge.c:1518
+#: src/msgcmp.c:370 src/msgmerge.c:1523
 #, c-format
 msgid "this message is used but not defined..."
-msgstr "chuỗi này được dùng nhưng còn chưa được định nghĩa..."
+msgstr "chuỗi này được dùng nhưng còn chưa được định nghĩa…"
 
-#: src/msgcmp.c:372 src/msgmerge.c:1521
+#: src/msgcmp.c:373 src/msgmerge.c:1526
 #, c-format
 msgid "...but this definition is similar"
-msgstr "...nhưng mà định nghĩa này vẫn tương tự"
+msgstr "…nhưng mà định nghĩa này vẫn tương tự"
 
-#: src/msgcmp.c:377 src/msgmerge.c:1549
+#: src/msgcmp.c:378 src/msgmerge.c:1554
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "chuỗi này được dùng còn chưa được định nghĩa trong %s"
 
-#: src/msgcmp.c:546
+#: src/msgcmp.c:547
 #, c-format
 msgid "warning: this message is not used"
 msgstr "cảnh báo: chuỗi này không được dùng"
 
-#: src/msgcmp.c:553 src/msgfmt.c:652 src/msgfmt.c:1443
+#: src/msgcmp.c:554 src/msgfmt.c:653 src/msgfmt.c:1444 src/xgettext.c:883
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "tìm thấy %d lỗi nghiêm trọng"
 
-#: src/msgcomm.c:316
+#: src/msgcomm.c:317
 #, c-format
 msgid "at least two files must be specified"
 msgstr "phải chỉ ra ít nhất hai tập tin"
 
-#: src/msgcomm.c:364
+#: src/msgcomm.c:365
 #, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1440,7 +1464,7 @@ msgstr ""
 "trích sẽ được bảo tồn, nhưng chỉ từ tập tin PO thứ nhất đã định nghĩa chúng.\n"
 "Vị trí tập tin từ mọi tập tin PO này sẽ được tích lũy.\n"
 
-#: src/msgcomm.c:402
+#: src/msgcomm.c:403
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
@@ -1449,65 +1473,65 @@ msgstr ""
 "  ->, --more-than=SỐ          in các chuỗi chứa nhiều định nghĩa hơn\n"
 "                              SỐ này; không bật thì mặc định là 1\n"
 
-#: src/msgcomm.c:452 src/xgettext.c:1004
+#: src/msgcomm.c:453 src/xgettext.c:1061
 #, c-format
 msgid "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr "      --omit-header           không ghi dòng đầu có mục tin “msgid \"\"” \n"
 
-#: src/msgconv.c:311
+#: src/msgconv.c:312
 #, c-format
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr "Chuyển đổi phân loại thông dịch sang một bảng mã ký tự khác.\n"
 
-#: src/msgconv.c:335
+#: src/msgconv.c:336
 #, c-format
 msgid "Conversion target:\n"
 msgstr "Đích chuyển đổi:\n"
 
-#: src/msgconv.c:339
+#: src/msgconv.c:340
 #, c-format
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "Mã ký tự mặc định theo bảng mã ký tự của miền địa phương hiện có.\n"
 
-#: src/msgconv.c:363 src/msgen.c:359 src/msgmerge.c:597
+#: src/msgconv.c:364 src/msgen.c:360 src/msgmerge.c:598
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr "  -i, --indent                thụt lề cho kết xuất\n"
 
-#: src/msgconv.c:365 src/msgen.c:361 src/msgfilter.c:475 src/msggrep.c:608
-#: src/msgmerge.c:599
+#: src/msgconv.c:366 src/msgen.c:362 src/msgfilter.c:488 src/msggrep.c:609
+#: src/msgmerge.c:600
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr "      --no-location           thu hồi dòng kiểu “#: tên_tập_tin:số_dòng”\n"
 
-#: src/msgconv.c:367 src/msgen.c:363 src/msgfilter.c:477 src/msggrep.c:610
-#: src/msgmerge.c:601
+#: src/msgconv.c:368 src/msgen.c:364 src/msgfilter.c:490 src/msggrep.c:611
+#: src/msgmerge.c:602
 #, c-format
 msgid "  -n, --add-location          preserve '#: filename:line' lines (default)\n"
 msgstr "  -n, --add-location          giữ lại dòng “#: tên_tập_tin:số_dòng” (mặc định)\n"
 
-#: src/msgconv.c:369 src/msgen.c:365 src/msgfilter.c:479 src/msggrep.c:612
-#: src/msgmerge.c:603
+#: src/msgconv.c:370 src/msgen.c:366 src/msgfilter.c:492 src/msggrep.c:613
+#: src/msgmerge.c:604
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr "      --strict                xuất dữ liệu kiểu Uniforum chính xác\n"
 
-#: src/msgen.c:258 src/msgfmt.c:433 src/xgettext.c:661
+#: src/msgen.c:259 src/msgfmt.c:434 src/xgettext.c:692
 #, c-format
 msgid "no input file given"
 msgstr "chưa đưa ra tập tin đầu vào"
 
-#: src/msgen.c:263
+#: src/msgen.c:264
 #, c-format
 msgid "exactly one input file required"
 msgstr "cần chính xác một tập tin đầu vào"
 
-#: src/msgen.c:304
+#: src/msgen.c:305
 #, c-format
 msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] TẬP_TIN_ĐẦU_VÀO\n"
 
-#: src/msgen.c:309
+#: src/msgen.c:310
 #, c-format, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
@@ -1520,22 +1544,22 @@ msgstr ""
 "(POT: thường do xgettext tạo). Mục chưa dịch sẽ được gán\n"
 "bằng chuỗi gốc (msgid).\n"
 
-#: src/msgen.c:321
+#: src/msgen.c:322
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
-msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin dạng .po hay .pot đầu vào\n"
+msgstr "  TẬP_TIN_ĐẦU_VÀO             tập tin đầu vào dạng .po hay .pot\n"
 
-#: src/msgexec.c:196
+#: src/msgexec.c:203
 #, c-format
 msgid "missing command name"
 msgstr "thiếu tên lệnh"
 
-#: src/msgexec.c:257
+#: src/msgexec.c:264
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] LỆNH [TÙY_CHỌN_LỆNH]\n"
 
-#: src/msgexec.c:262
+#: src/msgexec.c:269
 #, c-format, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -1550,7 +1574,7 @@ msgstr ""
 "Kết xuất của nó trở thành kết xuất của tiến trình msgexec.\n"
 "Mã trả lại của megexec là mã trả lại tối đa qua mọi cuộc gọi.\n"
 
-#: src/msgexec.c:271
+#: src/msgexec.c:278
 #, c-format, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
@@ -1560,37 +1584,47 @@ msgstr ""
 "với một byte null theo sau. Kết xuất của tiến trình “msgexec 0”\n"
 "thích hợp là đầu vào cho lệnh “xargs -0”.\n"
 
-#: src/msgexec.c:281 src/msgfilter.c:420
+#: src/msgexec.c:283
+#, c-format
+msgid "Command input:\n"
+msgstr "Lệnh đầu vào:\n"
+
+#: src/msgexec.c:285
+#, c-format
+msgid "  --newline                   add newline at the end of input\n"
+msgstr "  --newline                   thêm ký tự dòng mới tại cuối của đầu vào\n"
+
+#: src/msgexec.c:293 src/msgfilter.c:427
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr "  -i, --input=TẬP_TIN_ĐẦU_VÀO tập tin .po đầu vào\n"
 
-#: src/msgexec.c:345
+#: src/msgexec.c:357
 #, c-format
 msgid "write to stdout failed"
 msgstr "gặp lỗi khi ghi vào đầu ra tiêu chuẩn"
 
-#: src/msgfilter.c:298
+#: src/msgfilter.c:305
 #, c-format
 msgid "missing filter name"
 msgstr "thiếu tên bộ lọc"
 
-#: src/msgfilter.c:318
+#: src/msgfilter.c:325
 #, c-format
 msgid "at least one sed script must be specified"
 msgstr "phải đưa ra ít nhất một văn lệnh sed"
 
-#: src/msgfilter.c:407
+#: src/msgfilter.c:414
 #, c-format
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] BỘ_LỌC [TÙY_CHỌN_LỌC]\n"
 
-#: src/msgfilter.c:411
+#: src/msgfilter.c:418
 #, c-format
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "Áp dụng một bộ lọc cho mọi chuỗi dịch của một catalog bản dịch.\n"
 
-#: src/msgfilter.c:435
+#: src/msgfilter.c:442
 #, c-format
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
@@ -1599,17 +1633,31 @@ msgstr ""
 "BỘ LỌC có thể là bất cứ chương trình nào đọc chuỗi dịch từ đầu vào tiêu chuẩn\n"
 "và ghi chuỗi dịch đã sửa đổi vào đầu ra tiêu chuẩn.\n"
 
-#: src/msgfilter.c:440
+#: src/msgfilter.c:447
+#, c-format
+msgid "Filter input and output:\n"
+msgstr "Bộ lọc đầu vào và đầu ra:\n"
+
+#: src/msgfilter.c:449
+#, c-format
+msgid ""
+"  --newline                   add a newline at the end of input and\n"
+"                                remove a newline from the end of output"
+msgstr ""
+"  --newline                   thêm ký hiệu dòng mới vào cuối đầu vào\n"
+"                                và gỡ bỏ ký hiệu dòng mới ở cuối đầu ra"
+
+#: src/msgfilter.c:453
 #, c-format
 msgid "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
 msgstr "TÙY CHỌN LỌC hữu ích khi BỘ LỌC là “sed”:\n"
 
-#: src/msgfilter.c:442
+#: src/msgfilter.c:455
 #, c-format
 msgid "  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
 msgstr "  -e, --expression=VĂN_LỆNH    thêm văn lệnh này vào những lệnh cần thực hiện\n"
 
-#: src/msgfilter.c:444
+#: src/msgfilter.c:457
 #, c-format
 msgid ""
 "  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n"
@@ -1619,122 +1667,127 @@ msgstr ""
 "                              thêm nội dung của TẬP TIN VĂN LỆNH này\n"
 "                              vào những lệnh cần thực hiện\n"
 
-#: src/msgfilter.c:447
+#: src/msgfilter.c:460
 #, c-format
 msgid "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr "  -n, --quiet, --silent       thu hồi khả năng tự động in miền mẫu\n"
 
-#: src/msgfilter.c:465 src/msggrep.c:600
+#: src/msgfilter.c:478 src/msggrep.c:601
 #, c-format
 msgid "      --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
 "      --no-escape             không dùng ký tự thoát C trong kết xuất\n"
 "                              (mặc định)\n"
 
-#: src/msgfilter.c:471 src/msggrep.c:606
+#: src/msgfilter.c:484 src/msggrep.c:607
 #, c-format
 msgid "      --indent                indented output style\n"
 msgstr "      --indent                kiểu dáng kết xuất đã thụt lề\n"
 
-#: src/msgfilter.c:473
+#: src/msgfilter.c:486
 #, c-format
 msgid "      --keep-header           keep header entry unmodified, don't filter it\n"
 msgstr "      --keep-header           giữ lại phần đầu không bị sửa đổi, không lọc nó\n"
 
-#: src/msgfmt.c:345
+#: src/msgfilter.c:666
+#, c-format
+msgid "filter output is not terminated with a newline"
+msgstr "đầu ra bộ lọc không được kết thúc bằng một ký hiệu dòng mới"
+
+#: src/msgfmt.c:346
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "đối số cho “%s” nên là một ký tự chấm câu riêng lẻ"
 
-#: src/msgfmt.c:392
+#: src/msgfmt.c:393
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "thứ tự xếp các byte (biểu diễn số nguyên) không hợp lệ: %s"
 
 # Name: don't translate / Tên: đừng dịch
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:422 src/msgunfmt.c:268 src/xgettext.c:621
+#: src/msgfmt.c:423 src/msgunfmt.c:269 src/xgettext.c:652
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/msgfmt.c:439
+#: src/msgfmt.c:440
 #, c-format
 msgid "no input file should be given if %s and %s are specified"
 msgstr "không đưa ra tập tin đầu vào nếu “%s” và “%s” được chỉ định"
 
-#: src/msgfmt.c:484 src/msgfmt.c:506 src/msgfmt.c:528 src/msgunfmt.c:330
-#: src/msgunfmt.c:353
+#: src/msgfmt.c:485 src/msgfmt.c:507 src/msgfmt.c:529 src/msgunfmt.c:331
+#: src/msgunfmt.c:354
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s cần một đặc tả “-d directory” (thư mục)"
 
-#: src/msgfmt.c:499 src/msgfmt.c:521 src/msgfmt.c:556 src/msgunfmt.c:323
-#: src/msgunfmt.c:346
+#: src/msgfmt.c:500 src/msgfmt.c:522 src/msgfmt.c:557 src/msgunfmt.c:324
+#: src/msgunfmt.c:347
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s cần một đặc tả “-l locale” (miền địa phương)"
 
-#: src/msgfmt.c:538
+#: src/msgfmt.c:539
 #, c-format
 msgid "%s requires a \"--template template\" specification"
 msgstr "%s cần một đặc tả “--template template”"
 
-#: src/msgfmt.c:545
+#: src/msgfmt.c:546
 #, c-format
 msgid "%s requires a \"-o file\" specification"
 msgstr "%s cần một đặc tả “-o tập-tin”"
 
-#: src/msgfmt.c:551
+#: src/msgfmt.c:552
 #, c-format
 msgid "%s and %s are mutually exclusive in %s"
 msgstr "%s và %s loại từ lẫn nhau trong %s"
 
-#: src/msgfmt.c:565 src/msgunfmt.c:362 src/msgunfmt.c:368
+#: src/msgfmt.c:566 src/msgunfmt.c:363 src/msgunfmt.c:369
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s chỉ hợp lệ với %s hay %s"
 
-#: src/msgfmt.c:571 src/msgfmt.c:577
+#: src/msgfmt.c:572 src/msgfmt.c:578
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr "%s chỉ hợp lệ với %s, %s hay %s"
 
 #. TRANSLATORS: The prefix before a statistics message.  The argument
 #. is a file name or a comma separated list of file names.
-#: src/msgfmt.c:740
+#: src/msgfmt.c:741
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#: src/msgfmt.c:744
+#: src/msgfmt.c:745
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d chuỗi đã dịch"
 
-#: src/msgfmt.c:749
+#: src/msgfmt.c:750
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d chuỗi tạm dịch"
 
-#: src/msgfmt.c:754
+#: src/msgfmt.c:755
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d chuỗi chưa dịch"
 
-#: src/msgfmt.c:774
+#: src/msgfmt.c:775
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
-msgstr "Cách dùng: %s [TÙY_CHỌN] tên_tập_tin.po ...\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] tên_tập_tin.po …\n"
 
-#: src/msgfmt.c:778
+#: src/msgfmt.c:779
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr "Tạo ra catalog bản dịch nhị phân từ mô tả thông dịch kiểu văn bản.\n"
 
-#: src/msgfmt.c:783 src/xgettext.c:864
+#: src/msgfmt.c:784 src/xgettext.c:913
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -1743,96 +1796,96 @@ msgstr ""
 "Tất cả đối số bắt buộc phải có với tùy chọn dài cũng bắt buộc với tùy chọn ngắn.\n"
 "Cũng vậy với đối số kiểu tùy chọn.\n"
 
-#: src/msgfmt.c:790
+#: src/msgfmt.c:791
 #, c-format
 msgid "  filename.po ...             input files\n"
-msgstr "  tên_tập_tin.po ...          những tập tin đầu vào\n"
+msgstr "  tên_tập_tin.po …            những tập tin đầu vào\n"
 
-#: src/msgfmt.c:797 src/msgmerge.c:530 src/msgunfmt.c:438 src/xgettext.c:913
+#: src/msgfmt.c:798 src/msgmerge.c:531 src/msgunfmt.c:439 src/xgettext.c:962
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Chế độ thao tác:\n"
 
-#: src/msgfmt.c:799
+#: src/msgfmt.c:800
 #, c-format
 msgid "  -j, --java                  Java mode: generate a Java ResourceBundle class\n"
 msgstr ""
 "  -j, --java                  chế độ Java: tạo ra lớp ResourceBundle\n"
 "                               (bó tài nguyên) kiểu Java\n"
 
-#: src/msgfmt.c:801
+#: src/msgfmt.c:802
 #, c-format
 msgid "      --java2                 like --java, and assume Java2 (JDK 1.2 or higher)\n"
 msgstr ""
 "      --java2                 giống như --java, và coi là Java2\n"
 "                               (JDK 1.2 hay sau)\n"
 
-#: src/msgfmt.c:803
+#: src/msgfmt.c:804
 #, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
 msgstr "      --csharp                chế độ C#: tạo ra một tập tin .dll kiểu .NET\n"
 
-#: src/msgfmt.c:805
+#: src/msgfmt.c:806
 #, c-format
 msgid "      --csharp-resources      C# resources mode: generate a .NET .resources file\n"
 msgstr ""
 "      --csharp-resources      chế độ tài nguyên C#: tạo ra một tập tin .resources\n"
 "                              (tài nguyên) kiểu .NET\n"
 
-#: src/msgfmt.c:807
+#: src/msgfmt.c:808
 #, c-format
 msgid "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr "      --tcl                   chế độ Tcl: tạo ra một tập tin .msg kiểu tcl/msgcat\n"
 
-#: src/msgfmt.c:809
+#: src/msgfmt.c:810
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr "      --qt                    chế độ Qt: tạo ra một tập tin .qm kiểu Qt\n"
 
-#: src/msgfmt.c:811
+#: src/msgfmt.c:812
 #, c-format
 msgid "      --desktop               Desktop Entry mode: generate a .desktop file\n"
 msgstr "      --desktop               chế độ Desktop Entry: tạo một tập tin .desktop\n"
 
-#: src/msgfmt.c:818
+#: src/msgfmt.c:819
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr "      --strict                bật chế độ Uniforum chính xác (chặt chẽ)\n"
 
-#: src/msgfmt.c:820 src/xgettext.c:888
+#: src/msgfmt.c:821 src/xgettext.c:937
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr "Nếu tập tin xuất là “-” thì kết xuất được ghi vào đầu ra tiêu chuẩn.\n"
 
-#: src/msgfmt.c:823
+#: src/msgfmt.c:824
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "Vị trí của tập tin xuất trong chế độ Java:\n"
 
-#: src/msgfmt.c:825 src/msgfmt.c:841 src/msgunfmt.c:458 src/msgunfmt.c:469
+#: src/msgfmt.c:826 src/msgfmt.c:842 src/msgunfmt.c:459 src/msgunfmt.c:470
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=TÀI_NGUYÊN   tên của tài nguyên\n"
 
-#: src/msgfmt.c:827 src/msgfmt.c:843 src/msgfmt.c:853 src/msgfmt.c:863
-#: src/msgunfmt.c:460 src/msgunfmt.c:471 src/msgunfmt.c:481
+#: src/msgfmt.c:828 src/msgfmt.c:844 src/msgfmt.c:854 src/msgfmt.c:864
+#: src/msgunfmt.c:461 src/msgunfmt.c:472 src/msgunfmt.c:482
 #, c-format
 msgid "  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"
 msgstr ""
 "  -l, --locale=MIỀN_ĐỊA_PHƯƠNG tên miền địa phương, hoặc ngôn ngữ hoặc\n"
 "                              ngôn-ngữ_quốc-gia (v.d. “vi” hay “vi_VN”)\n"
 
-#: src/msgfmt.c:829
+#: src/msgfmt.c:830
 #, c-format
 msgid "      --source                produce a .java file, instead of a .class file\n"
 msgstr "      --source                sản sinh tập tin .java, thay cho tập tin .class\n"
 
-#: src/msgfmt.c:831
+#: src/msgfmt.c:832
 #, c-format
 msgid "  -d DIRECTORY                base directory of classes directory hierarchy\n"
 msgstr "  -d THƯ_MỤC                  thư mục cơ sở của phân cấp thư mục lớp\n"
 
-#: src/msgfmt.c:833
+#: src/msgfmt.c:834
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource name,\n"
@@ -1843,19 +1896,19 @@ msgstr ""
 "vào tên tài nguyên, định giới bằng dấu gạch dưới. Tùy chọn “-d” bắt buộc\n"
 "phải sử dụng. Lớp được ghi dưới thư mục đã chỉ ra.\n"
 
-#: src/msgfmt.c:839
+#: src/msgfmt.c:840
 #, c-format
 msgid "Output file location in C# mode:\n"
 msgstr "Vị trí của tập tin xuất trong chế độ C#:\n"
 
-#: src/msgfmt.c:845 src/msgunfmt.c:473
+#: src/msgfmt.c:846 src/msgunfmt.c:474
 #, c-format
 msgid "  -d DIRECTORY                base directory for locale dependent .dll files\n"
 msgstr ""
 "  -d THƯ_MỤC                  thư mục cơ sở cho tập tin dạng .dll\n"
 "                              phụ thuộc vào miền địa phương\n"
 
-#: src/msgfmt.c:847
+#: src/msgfmt.c:848
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
@@ -1865,17 +1918,17 @@ msgstr ""
 "Tập tin .dll được ghi trong thư mục con của thư mục đã đưa ra\n"
 "có tên phụ thuộc vào miền địa phương.\n"
 
-#: src/msgfmt.c:851
+#: src/msgfmt.c:852
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Vị trí của tập tin xuất trong chế độ Tcl:\n"
 
-#: src/msgfmt.c:855 src/msgunfmt.c:483
+#: src/msgfmt.c:856 src/msgunfmt.c:484
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr "  -d THƯ_MỤC                  thư mục cơ sở của catalog bản dịch dạng .msg\n"
 
-#: src/msgfmt.c:857
+#: src/msgfmt.c:858
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
@@ -1884,31 +1937,31 @@ msgstr ""
 "Hai tùy chọn “-l” và “-d” bắt buộc phải sử dụng.\n"
 "Tập tin dạng .msg được ghi trong thư mục đã cho.\n"
 
-#: src/msgfmt.c:861
+#: src/msgfmt.c:862
 #, c-format
 msgid "Desktop Entry mode options:\n"
 msgstr "Các tùy chọn dành cho chế độ Desktop Entry:\n"
 
-#: src/msgfmt.c:867
+#: src/msgfmt.c:868
 #, c-format
 msgid "  --template=TEMPLATE         a .desktop file used as a template\n"
 msgstr "  --template=MẪU              tập tin .desktop được dùng làm mẫu\n"
 
-#: src/msgfmt.c:869
+#: src/msgfmt.c:870
 #, c-format
 msgid "  -d DIRECTORY                base directory of .po files\n"
 msgstr "  -d THƯ_MỤC                  thư mục cơ sở của tập tin .po\n"
 
-#: src/msgfmt.c:871 src/xgettext.c:934
+#: src/msgfmt.c:872 src/xgettext.c:991
 #, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
-"  -kTỪ, --keyword=TỪ          quét tìm TỪ này như là một từ khoá bổ sung\n"
-"  -k, --keyword               không dùng từ khoá mặc định\n"
+"  -kTỪ, --keyword=TỪ          quét tìm TỪ này như là một từ khóa bổ sung\n"
+"  -k, --keyword               không dùng từ khóa mặc định\n"
 
-#: src/msgfmt.c:874
+#: src/msgfmt.c:875
 #, c-format
 msgid ""
 "The -l, -o, and --template options are mandatory.  If -D is specified, input\n"
@@ -1917,12 +1970,12 @@ msgstr ""
 "Các tùy chọn -l, -o, và --template là bắt buộc.  Nếu chỉ ra tùy chọn -D, tập tin\n"
 "đầu vào sẽ đọc từ thư mục thay cho đối số dòng lệnh.\n"
 
-#: src/msgfmt.c:886 src/xgettext.c:905
+#: src/msgfmt.c:887 src/xgettext.c:954
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "Giải thích tập tin đầu vào:\n"
 
-#: src/msgfmt.c:888
+#: src/msgfmt.c:889
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -1933,19 +1986,19 @@ msgstr ""
 "                                   --check-header (kiểm tra phần đầu)\n"
 "                                   --check-domain (kiểm tra miền)\n"
 
-#: src/msgfmt.c:891
+#: src/msgfmt.c:892
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 "      --check-format          kiểm tra các chuỗi có định dạng\n"
 "                              phụ thuộc vào ngôn ngữ\n"
 
-#: src/msgfmt.c:893
+#: src/msgfmt.c:894
 #, c-format
 msgid "      --check-header          verify presence and contents of the header entry\n"
 msgstr "      --check-header          kiểm tra xem mục tin phần đầu có đúng không\n"
 
-#: src/msgfmt.c:895
+#: src/msgfmt.c:896
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
@@ -1954,14 +2007,14 @@ msgstr ""
 "      --check-domain          kiểm tra nếu có sự xung đột giữa chỉ thị miền\n"
 "                              và tùy chọn “--output-file” (tập tin xuất)\n"
 
-#: src/msgfmt.c:898
+#: src/msgfmt.c:899
 #, c-format
 msgid "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open msgfmt\n"
 msgstr ""
 "  -C, --check-compatibility   kiểm tra msgfmt của GNU ứng xử\n"
 "                              giống như msgfmt của X/Open\n"
 
-#: src/msgfmt.c:900
+#: src/msgfmt.c:901
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators for\n"
@@ -1970,17 +2023,17 @@ msgstr ""
 "      --check-accelerators[=K.TỰ] kiểm tra có ký tự tăng tốc bàn phím\n"
 "                              cho mục trình đơn\n"
 
-#: src/msgfmt.c:903
+#: src/msgfmt.c:904
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             dùng mục tin tạm dịch trong kết xuất\n"
 
-#: src/msgfmt.c:908
+#: src/msgfmt.c:909
 #, c-format
 msgid "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 msgstr "  -a, --alignment=SỐ          căn chỉnh các chuỗi theo số byte này (mặc định: %d)\n"
 
-#: src/msgfmt.c:910
+#: src/msgfmt.c:911
 #, c-format
 msgid ""
 "      --endianness=BYTEORDER  write out 32-bit numbers in the given byte order\n"
@@ -1990,99 +2043,99 @@ msgstr ""
 "                                (big hay little, mặc định phụ thuộc vào máy tính đang dùng)\n"
 "                                (byte đứng trước là lớn hay nhỏ. Intel thường là little)\n"
 
-#: src/msgfmt.c:913
+#: src/msgfmt.c:914
 #, c-format
 msgid "      --no-hash               binary file will not include the hash table\n"
 msgstr "      --no-hash               tập tin nhị phân sẽ không chứa bảng băm\n"
 
-#: src/msgfmt.c:922
+#: src/msgfmt.c:923
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            in ra thống kê về các chuỗi dịch\n"
 
-#: src/msgfmt.c:924 src/msgmerge.c:625 src/msgunfmt.c:533
+#: src/msgfmt.c:925 src/msgmerge.c:626 src/msgunfmt.c:534
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               gia tăng mức chi tiết\n"
 
-#: src/msgfmt.c:1037
+#: src/msgfmt.c:1038
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "cảnh báo: phần đầu của tập tin .po còn thiếu hay không hợp lệ\n"
 
-#: src/msgfmt.c:1040
+#: src/msgfmt.c:1041
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "cảnh báo: việc chuyển đổi bộ ký tự sẽ không hoạt động được\n"
 
-#: src/msgfmt.c:1050
+#: src/msgfmt.c:1051
 #, c-format
 msgid "warning: PO file header fuzzy\n"
 msgstr "cảnh báo: phần đầu tập tin PO thiếu thông tin\n"
 
-#: src/msgfmt.c:1052
+#: src/msgfmt.c:1053
 #, c-format
 msgid "warning: older versions of msgfmt will give an error on this\n"
 msgstr "cảnh báo: phiên bản msgfmt cũ hơn sẽ thông báo lỗi trong trường hợp này.\n"
 
-#: src/msgfmt.c:1076
+#: src/msgfmt.c:1077
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "tên miền “%s” không thích hợp làm tên tập tin"
 
-#: src/msgfmt.c:1081
+#: src/msgfmt.c:1082
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr "tên miền “%s” không thích hợp làm tên tập tin: nên sẽ dùng tiền tố"
 
-#: src/msgfmt.c:1095
+#: src/msgfmt.c:1096
 #, c-format
 msgid "'domain %s' directive ignored"
 msgstr "chỉ thị “domain %s” bị bỏ qua"
 
-#: src/msgfmt.c:1155
+#: src/msgfmt.c:1156
 #, c-format
 msgid "empty 'msgstr' entry ignored"
 msgstr "mục tin “msgstr” rỗng bị bỏ qua"
 
-#: src/msgfmt.c:1156
+#: src/msgfmt.c:1157
 #, c-format
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "chuỗi “msgstr” tạm dịch bị bỏ qua"
 
-#: src/msgfmt.c:1205
+#: src/msgfmt.c:1206
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: cảnh báo: tập tin nguồn chứa chuỗi tạm dịch"
 
-#: src/msgfmt.c:1323
+#: src/msgfmt.c:1324
 #, c-format
 msgid "%s does not exist"
 msgstr "%s không tồn tại"
 
-#: src/msgfmt.c:1334
+#: src/msgfmt.c:1335
 #, c-format
 msgid "%s exists but cannot read"
 msgstr "có %s nhưng không thể đọc nó"
 
-#: src/msggrep.c:258 src/po-lex.c:657 src/read-mo.c:87
-#: src/read-properties.c:89 src/read-stringtable.c:98 src/x-awk.c:139
-#: src/x-c.c:486 src/x-csharp.c:163 src/x-elisp.c:145 src/x-glade.c:565
-#: src/x-java.c:181 src/x-javascript.c:171 src/x-librep.c:147 src/x-lisp.c:212
+#: src/msggrep.c:259 src/po-lex.c:657 src/read-mo.c:88
+#: src/read-properties.c:90 src/read-stringtable.c:99 src/x-awk.c:140
+#: src/x-c.c:583 src/x-csharp.c:164 src/x-elisp.c:146 src/x-glade.c:566
+#: src/x-java.c:181 src/x-javascript.c:172 src/x-librep.c:148 src/x-lisp.c:213
 #: src/x-lua.c:173 src/x-perl.c:227 src/x-perl.c:302 src/x-perl.c:395
-#: src/x-php.c:163 src/x-python.c:176 src/x-rst.c:233 src/x-scheme.c:171
-#: src/x-sh.c:155 src/x-smalltalk.c:91 src/x-tcl.c:150 src/x-vala.c:176
-#: src/x-ycp.c:91
+#: src/x-php.c:164 src/x-python.c:177 src/x-rst.c:234 src/x-scheme.c:171
+#: src/x-sh.c:155 src/x-smalltalk.c:92 src/x-tcl.c:151 src/x-vala.c:176
+#: src/x-ycp.c:92
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "gặp lỗi khi đọc “%s”"
 
-#: src/msggrep.c:501
+#: src/msggrep.c:502
 #, c-format
 msgid "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been specified"
 msgstr "tùy chọn “%c” không thể được dùng trước chỉ ra “J” hay “K” hay “T” hay “C” hay “X”"
 
-#: src/msggrep.c:521
+#: src/msggrep.c:522
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
@@ -2091,7 +2144,7 @@ msgstr ""
 "Trích ra mọi chuỗi trong catalog bản dịch tương ứng với mẫu đã cho\n"
 "hay thuộc về một số tập tin nguồn đã cho.\n"
 
-#: src/msggrep.c:547
+#: src/msggrep.c:548
 #, c-format, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2131,7 +2184,7 @@ msgid ""
 "                              selection criterion\n"
 msgstr ""
 "Lựa chọn chuỗi:\n"
-"  [-N TẬP_TIN_NGUỒN]... [-M TÊN_MIỀN]...\n"
+"  [-N TẬP_TIN_NGUỒN]… [-M TÊN_MIỀN]…\n"
 "  [-J MẪU-MSGCTXT] [-K MẪU-MSGID] [-T MẪU-MSGSTR]\n"
 "\n"
 "  [-C MẪU-CHÚ-THÍCH] [-X MẪU-CHÚ-THÍCH-ĐÃ-TRÍCH]\n"
@@ -2141,7 +2194,7 @@ msgstr ""
 "hoặc nếu nó đến từ một của những miền đã xác định,\n"
 "hoặc nếu “-J” được đưa ra và ngữ cảnh (msgctxt) của nó khớp với\n"
 "MẪU-MSGCTXT\n"
-"hoặc nếu “-K” được đưa ra và khoá (msgid hay msgid_plural) của nó\n"
+"hoặc nếu “-K” được đưa ra và khóa (msgid hay msgid_plural) của nó\n"
 "khớp với MẪU-MSGID\n"
 "hoặc nếu “-T” được đưa ra và chuỗi dịch (msgstr) của nó khớp với\n"
 "MẪU-MSGSTR\n"
@@ -2153,7 +2206,7 @@ msgstr ""
 "Xác định nhiều tiêu chuẩn lựa chọn thì tập hợp chuỗi được chọn\n"
 "là hợp của những chuỗi đã chọn của mỗi tiêu chuẩn.\n"
 "\n"
-"Cú pháp cần dùng với mỗi bất cứ MẪU nào bên trên:  [-E | -F] [-e MẪU | -f TẬP_TIN]...\n"
+"Cú pháp cần dùng với mỗi bất cứ MẪU nào bên trên:  [-E | -F] [-e MẪU | -f TẬP_TIN]…\n"
 "MẪU là biểu thức chính quy cơ bản theo mặc định,\n"
 "hoặc là biểu thức chính quy đã mở rộng nếu tùy chọn “-E” được đưa ra,\n"
 "hoặc là chuỗi cố định nếu tùy chọn “-F” được đưa ra.\n"
@@ -2174,19 +2227,19 @@ msgstr ""
 "  -v, --invert-match\n"
 "\txuất chỉ những chuỗi không khớp với tiêu chuẩn lựa chọn nào\n"
 
-#: src/msggrep.c:602
+#: src/msggrep.c:603
 #, c-format
 msgid "      --escape                use C escapes in output, no extended chars\n"
 msgstr ""
 "      --escape                dùng ký tự thoát dạng C trong kết xuất,\n"
 "                              không có ký tự đã mở rộng\n"
 
-#: src/msggrep.c:623
+#: src/msggrep.c:624
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
 msgstr "      --sort-output           tạo ra kết xuất được sắp xếp\n"
 
-#: src/msggrep.c:625
+#: src/msggrep.c:626
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          sắp xếp kết xuất theo vị trí của tập tin\n"
@@ -2288,8 +2341,8 @@ msgstr ""
 "Hãy đưa ra tập tin .pot đầu vào, bằng tùy chọn “--input”\n"
 
 #: src/msginit.c:919 src/msginit.c:994 src/msginit.c:1154 src/msginit.c:1249
-#: src/read-csharp.c:83 src/read-java.c:81 src/read-resources.c:84
-#: src/read-tcl.c:127 src/write-resources.c:104
+#: src/msginit.c:1419 src/read-csharp.c:84 src/read-java.c:82
+#: src/read-resources.c:85 src/read-tcl.c:128 src/write-resources.c:105
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "tiến trình con %s bị lỗi với mã thoát %d"
@@ -2307,44 +2360,44 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1535
+#: src/msginit.c:1616
 #, c-format
 msgid "English translations for %s package"
 msgstr "Bản dịch Tiếng Việt dành cho gói %s"
 
-#: src/msgl-cat.c:177 src/msgl-charset.c:86 src/msgl-iconv.c:247
+#: src/msgl-cat.c:178 src/msgl-charset.c:87 src/msgl-iconv.c:248
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "bộ ký tự hiện có “%s” không phải tên bộ ký tự khả chuyển"
 
-#: src/msgl-cat.c:188 src/msgl-iconv.c:259
+#: src/msgl-cat.c:189 src/msgl-iconv.c:260
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "tập tin đầu vào chứa hai bộ ký tự khác nhau “%s” và “%s”"
 
-#: src/msgl-cat.c:203
+#: src/msgl-cat.c:204
 #, c-format
 msgid "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "tập tin đầu vào “%s” không chứa mục tin phần đầu xác định bộ ký tự"
 
-#: src/msgl-cat.c:207
+#: src/msgl-cat.c:208
 #, c-format
 msgid "domain \"%s\" in input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "miền “%s” trong tập tin đầu vào “%s” không chứa trường xác định bộ ký tự"
 
-#: src/msgl-cat.c:391 src/msgl-iconv.c:375
+#: src/msgl-cat.c:394 src/msgl-iconv.c:376
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "bộ ký tự đích “%s” không phải tên bảng mã khả chuyển."
 
-#: src/msgl-cat.c:442 src/msgl-cat.c:448 src/msgl-charset.c:92
-#: src/msgl-charset.c:127 src/po-xerror.c:122 src/po-xerror.c:147
-#: src/xgettext.c:544 src/xgettext.c:3426
+#: src/msgl-cat.c:445 src/msgl-cat.c:451 src/msgl-charset.c:93
+#: src/msgl-charset.c:128 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/xgettext.c:554 src/xgettext.c:3532
 #, c-format
 msgid "warning: "
 msgstr "cảnh báo: "
 
-#: src/msgl-cat.c:443
+#: src/msgl-cat.c:446
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2353,7 +2406,7 @@ msgstr ""
 "Những tập tin đầu vào chứa chuỗi ở các bảng mã ký tự khác nhau, gồm UTF-8,\n"
 "nên chuyển đổi kết xuất sang UTF-8.\n"
 
-#: src/msgl-cat.c:449
+#: src/msgl-cat.c:452
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among others.\n"
@@ -2364,7 +2417,7 @@ msgstr ""
 "nên chuyển đổi kết xuất sang UTF-8.\n"
 "Chọn bảng mã ký tự để xuất ra khác, hãy dùng tùy chọn “--to-code” (sang mã).\n"
 
-#: src/msgl-cat.c:488
+#: src/msgl-cat.c:491
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -2378,7 +2431,7 @@ msgstr ""
 "sang bảng mã ký tự ASCII, hoặc đảm bảo chúng được mã hóa bằng UTF-8 từ đầu,\n"
 "tức là trong các tập tin mã nguồn.\n"
 
-#: src/msgl-charset.c:93
+#: src/msgl-charset.c:94
 #, c-format
 msgid ""
 "Locale charset \"%s\" is different from\n"
@@ -2391,12 +2444,12 @@ msgstr ""
 "Kết xuất của “%s” có thể không đúng.\n"
 "Chỉnh sửa có thể:\n"
 
-#: src/msgl-charset.c:100
+#: src/msgl-charset.c:101
 #, c-format
 msgid "- Set LC_ALL to a locale with encoding %s.\n"
 msgstr "- Đặt LC_ALL thành miền địa phương có bảng mã ký tự %s.\n"
 
-#: src/msgl-charset.c:105
+#: src/msgl-charset.c:106
 #, c-format
 msgid ""
 "- Convert the translation catalog to %s using 'msgconv',\n"
@@ -2407,7 +2460,7 @@ msgstr ""
 "  rồi áp dụng “%s”,\n"
 "  rồi chuyển đổi lại về %s bằng “msgconv”.\n"
 
-#: src/msgl-charset.c:114
+#: src/msgl-charset.c:115
 #, c-format
 msgid ""
 "- Set LC_ALL to a locale with encoding %s,\n"
@@ -2420,7 +2473,7 @@ msgstr ""
 "  rồi áp dụng “%s”,\n"
 "  rồi chuyển đổi lại về %s bằng “msgconv”.\n"
 
-#: src/msgl-charset.c:128
+#: src/msgl-charset.c:129
 #, c-format
 msgid ""
 "Locale charset \"%s\" is not a portable encoding name.\n"
@@ -2431,71 +2484,71 @@ msgstr ""
 "Kết xuất của “%s” có thể không đúng.\n"
 "Cách giải quyết có thể là đặt “LC_ALL=C”\n"
 
-#: src/msgl-check.c:130
+#: src/msgl-check.c:135
 msgid "plural expression can produce negative values"
 msgstr "dạng thức số nhiều có thể cung cấp giá trị âm"
 
-#: src/msgl-check.c:141
+#: src/msgl-check.c:146
 #, c-format
 msgid "nplurals = %lu but plural expression can produce values as large as %lu"
 msgstr "“nplurals = %lu” nhưng dạng thức số nhiều có thể tạo giá trị đến %lu"
 
-#: src/msgl-check.c:187
+#: src/msgl-check.c:192
 msgid "plural expression can produce division by zero"
 msgstr "dạng thức số nhiều có thể gây ra trường hợp chia cho số không"
 
-#: src/msgl-check.c:192
+#: src/msgl-check.c:197
 msgid "plural expression can produce integer overflow"
 msgstr "dạng thức số nhiều có thể gây ra trường hợp tràn số nguyên"
 
-#: src/msgl-check.c:197
+#: src/msgl-check.c:202
 msgid "plural expression can produce arithmetic exceptions, possibly division by zero"
 msgstr "dạng thức số nhiều có thể gây ra trường hợp ngoại lệ tính toán, có lẽ chia cho số không"
 
-#: src/msgl-check.c:266
+#: src/msgl-check.c:271
 #, c-format
 msgid "Try using the following, valid for %s:"
 msgstr "Hãy thử dùng điều theo đây mà hợp lệ cho %s:"
 
-#: src/msgl-check.c:358 src/msgl-check.c:382
+#: src/msgl-check.c:363 src/msgl-check.c:387
 msgid "message catalog has plural form translations"
 msgstr "catalog bản dịch chứa bản dịch dạng số nhiều"
 
-#: src/msgl-check.c:360
+#: src/msgl-check.c:365
 msgid "but header entry lacks a \"plural=EXPRESSION\" attribute"
 msgstr "nhưng mà mục tin phần đầu tập tin còn thiếu thuộc tính số nhiều “plural=BIỂU_THỨC”"
 
-#: src/msgl-check.c:384
+#: src/msgl-check.c:389
 msgid "but header entry lacks a \"nplurals=INTEGER\" attribute"
 msgstr "nhưng mà mục tin phần đầu tập tin còn thiếu thuộc tính số nhiều “plural=SỐ_NGUYÊN”"
 
-#: src/msgl-check.c:420
+#: src/msgl-check.c:425
 msgid "invalid nplurals value"
 msgstr "giá trị nplurals (số dạng số nhiều) không hợp lệ"
 
-#: src/msgl-check.c:442
+#: src/msgl-check.c:447
 msgid "invalid plural expression"
 msgstr "dạng thức số nhiều không hợp lệ"
 
 # Literal: don't translate / Nghĩa chữ: đừng dịch
-#: src/msgl-check.c:472 src/msgl-check.c:488
+#: src/msgl-check.c:477 src/msgl-check.c:493
 #, c-format
 msgid "nplurals = %lu"
 msgstr "nplurals = %lu"
 
-#: src/msgl-check.c:474
+#: src/msgl-check.c:479
 #, c-format
 msgid "but some messages have only one plural form"
 msgid_plural "but some messages have only %lu plural forms"
 msgstr[0] "nhưng một số chuỗi chỉ có %lu dạng số nhiều"
 
-#: src/msgl-check.c:490
+#: src/msgl-check.c:495
 #, c-format
 msgid "but some messages have one plural form"
 msgid_plural "but some messages have %lu plural forms"
 msgstr[0] "nhưng một số chuỗi có %lu dạng số nhiều"
 
-#: src/msgl-check.c:514
+#: src/msgl-check.c:519
 msgid "message catalog has plural form translations, but lacks a header entry with \"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
 "catalog bản dịch chứa chuỗi dịch ở số nhiều, nhưng còn thiếu mục tin phần đầu chứa dòng\n"
@@ -2503,97 +2556,113 @@ msgstr ""
 "Với tiếng Việt, bạn có thể dùng:\n"
 "\"Plural-Forms: nplurals=1; plural=0;\""
 
-#: src/msgl-check.c:611
+#: src/msgl-check.c:616
 msgid "'msgid' and 'msgid_plural' entries do not both begin with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgid_plural” đều không bắt đầu với “\\n”"
 
-#: src/msgl-check.c:619
+#: src/msgl-check.c:624
 #, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgstr[%u]” đều không bắt đầu với “\\n”"
 
-#: src/msgl-check.c:634
+#: src/msgl-check.c:639
 msgid "'msgid' and 'msgstr' entries do not both begin with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgstr” đều không bắt đầu với “\\n”"
 
-#: src/msgl-check.c:652
+#: src/msgl-check.c:657
 msgid "'msgid' and 'msgid_plural' entries do not both end with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgid_plural” đều không kết thúc với “\\n”"
 
-#: src/msgl-check.c:660
+#: src/msgl-check.c:665
 #, c-format
 msgid "'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgstr[%u]” đều không kết thúc với “\\n”"
 
-#: src/msgl-check.c:675
+#: src/msgl-check.c:680
 msgid "'msgid' and 'msgstr' entries do not both end with '\\n'"
 msgstr "cả hai mục tin “msgid” và “msgstr” đều không kết thúc với “\\n”"
 
-#: src/msgl-check.c:687
+#: src/msgl-check.c:692
 msgid "plural handling is a GNU gettext extension"
 msgstr "khả năng xử lý dạng thức số nhiều là một phần mở rộng của phần mềm gettext của GNU"
 
-#: src/msgl-check.c:729
+#: src/msgl-check.c:734
 #, c-format
 msgid "msgstr lacks the keyboard accelerator mark '%c'"
 msgstr "chuỗi dịch msgstr còn thiếu ký tự gia tốc “%c”"
 
-#: src/msgl-check.c:740
+#: src/msgl-check.c:745
 #, c-format
 msgid "msgstr has too many keyboard accelerator marks '%c'"
 msgstr "chuỗi dịch msgstr có quá nhiều ký tự gia tốc “%c”"
 
-#: src/msgl-check.c:814
+#: src/msgl-check.c:819
 #, c-format
 msgid "header field '%s' still has the initial default value\n"
-msgstr "trường “%s” ở phần vẫn có giá trị khởi tạo mặc định\n"
+msgstr "trường “%s” ở phần đầu vẫn có giá trị khởi tạo mặc định\n"
 
-#: src/msgl-check.c:831
+#: src/msgl-check.c:836
 #, c-format
 msgid "header field '%s' missing in header\n"
 msgstr "trường “%s” còn thiếu trong phần đầu\n"
 
-#: src/msgl-iconv.c:65
+#: src/msgl-check.c:941
+msgid "ASCII ellipsis ('...') instead of Unicode"
+msgstr "chấm lửng hóa ASCII (”...”) thay cho Unicode"
+
+#: src/msgl-check.c:1014
+msgid "space before ellipsis found in user visible strings"
+msgstr "tìm thấy khoảngười trắng trước phần chấm lửng trong các chuỗi người dùng khả kiến"
+
+#: src/msgl-check.c:1043
+msgid "ASCII double quote used instead of Unicode"
+msgstr "Trích dẫn dấu nháy kép ASCII thay cho Unicode"
+
+#: src/msgl-check.c:1049
+msgid "ASCII single quote used instead of Unicode"
+msgstr "Trích dẫn dấu nháy đơn ASCII thay cho Unicode"
+
+#: src/msgl-iconv.c:66
 #, c-format
 msgid "%s: input is not valid in \"%s\" encoding"
 msgstr "%s: đầu vào không đúng trong bảng mã ký tự “%s”"
 
-#: src/msgl-iconv.c:69
+#: src/msgl-iconv.c:70
 #, c-format
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: gặp lỗi khi chuyển đổi từ bảng mã ký tự “%s” sang bảng mã ký tự “%s”"
 
-#: src/msgl-iconv.c:290
+#: src/msgl-iconv.c:291
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "tập tin đầu vào không chứa mục tin phần đầu xác định bộ ký tự"
 
-#: src/msgl-iconv.c:305 src/recode-sr-latin.c:288 src/recode-sr-latin.c:293
-#: src/x-python.c:665 src/xgettext.c:720
+#: src/msgl-iconv.c:306 src/recode-sr-latin.c:289 src/recode-sr-latin.c:294
+#: src/x-python.c:666 src/xgettext.c:751
 #, c-format
 msgid "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."
 msgstr "Không thể chuyển đổi từ “%s” sang “%s”. %s phụ thuộc vào iconv() mà không hỗ trợ khả năng chuyển đổi này."
 
-#: src/msgl-iconv.c:335
+#: src/msgl-iconv.c:336
 #, c-format
 msgid "Conversion from \"%s\" to \"%s\" introduces duplicates: some different msgids become equal."
 msgstr "Việc chuyển đổi từ “%s” sang “%s” giới thiệu một số bản sao: một số chuỗi gốc “msgid” thì trở thành trùng."
 
-#: src/msgl-iconv.c:341 src/recode-sr-latin.c:302 src/x-python.c:672
-#: src/xgettext.c:727
+#: src/msgl-iconv.c:342 src/recode-sr-latin.c:303 src/x-python.c:673
+#: src/xgettext.c:758
 #, c-format
 msgid "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."
 msgstr "Không thể chuyển đổi từ “%s” sang “%s”. %s phụ thuộc vào iconv() nhưng phiên bản này đã được xây dựng không có iconv()."
 
-#: src/msgmerge.c:405 src/msgmerge.c:411
+#: src/msgmerge.c:406 src/msgmerge.c:412
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s chỉ hợp lệ với %s"
 
-#: src/msgmerge.c:466
+#: src/msgmerge.c:467
 msgid "backup type"
 msgstr "kiểu sao lưu"
 
-#: src/msgmerge.c:503
+#: src/msgmerge.c:504
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -2617,17 +2686,17 @@ msgstr ""
 "Khi không tìm thấy chuỗi dịch khớp chính xác, khả năng khớp mờ được dùng\n"
 "để cung cấp kết quả hữu ích hơn.\n"
 
-#: src/msgmerge.c:520
+#: src/msgmerge.c:521
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr "  cũ.po                       chuỗi dịch tham chiếu đến nguồn cũ\n"
 
-#: src/msgmerge.c:522
+#: src/msgmerge.c:523
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  mới.pot                     tham chiếu đến nguồn mới\n"
 
-#: src/msgmerge.c:526
+#: src/msgmerge.c:527
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
@@ -2636,7 +2705,7 @@ msgstr ""
 "  -C, --compendium=TẬP_TIN    tập hợp chuỗi dịch thêm, cũng có thể được xác định\n"
 "                              nhiều lần (bản trích yếu)\n"
 
-#: src/msgmerge.c:532
+#: src/msgmerge.c:533
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
@@ -2645,27 +2714,27 @@ msgstr ""
 "  -U, --update                cập nhật tập tin cũ.po ; không làm gì\n"
 "                              nếu nó đã cập nhật rồi\n"
 
-#: src/msgmerge.c:544
+#: src/msgmerge.c:545
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "Vị trí của tập tin xuất trong chế độ cập nhật:\n"
 
-#: src/msgmerge.c:546
+#: src/msgmerge.c:547
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr "Kết quả được ghi về tập tin cũ.po\n"
 
-#: src/msgmerge.c:548
+#: src/msgmerge.c:549
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr "      --backup=ĐIỀU_KHIỂN     sao lưu tập tin cũ.po (_sao lưu_)\n"
 
-#: src/msgmerge.c:550
+#: src/msgmerge.c:551
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr "      --suffix=HẬU_TỐ         có quyền cao hơn hậu tố sao lưu bình thường\n"
 
-#: src/msgmerge.c:552
+#: src/msgmerge.c:553
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or through\n"
@@ -2688,7 +2757,7 @@ msgstr ""
 "  simple, never  luôn luôn tạo bản sao lưu đơn giản\n"
 "(đơn giản, không bao giờ)\n"
 
-#: src/msgmerge.c:559
+#: src/msgmerge.c:560
 #, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the SIMPLE_BACKUP_SUFFIX\n"
@@ -2697,91 +2766,91 @@ msgstr ""
 "Hậu tố sao lưu là “~” trừ khi được đặt bằng tùy chọn “--suffix” (hậu tố)\n"
 "hoặc bằng biến môi trường “SIMPLE_BACKUP_SUFFIX” (hậu tố sao lưu đơn giản).\n"
 
-#: src/msgmerge.c:570
+#: src/msgmerge.c:571
 #, c-format
 msgid "      --previous              keep previous msgids of translated messages\n"
 msgstr "      --previous              giữ lại các chuỗi gốc msgid cũ của chuỗi đã dịch\n"
 
-#: src/msgmerge.c:627 src/urlget.c:192
+#: src/msgmerge.c:628 src/urlget.c:193
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       không hiển thị tiến trình\n"
 
-#: src/msgmerge.c:1622
+#: src/msgmerge.c:1627
 #, c-format
 msgid "this message should define plural forms"
 msgstr "chuỗi này nên dùng ở dạng thức số nhiều"
 
-#: src/msgmerge.c:1645
+#: src/msgmerge.c:1650
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "chuỗi này không nên dùng ở dạng thức số nhiều"
 
-#: src/msgmerge.c:2048
+#: src/msgmerge.c:2053
 #, c-format
 msgid "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, obsolete %ld.\n"
 msgstr "%sĐọc %ld cũ + %ld tham chiếu, trộn %ld, tạm dịch %ld, thiếu %ld, không dùng nữa %ld.\n"
 
-#: src/msgmerge.c:2056 src/urlget.c:306 src/urlget.c:353 src/urlget.c:395
-#: src/urlget.c:437
+#: src/msgmerge.c:2061 src/urlget.c:307 src/urlget.c:354 src/urlget.c:396
+#: src/urlget.c:438
 #, c-format
 msgid " done.\n"
 msgstr " xong.\n"
 
-#: src/msgunfmt.c:308 src/msgunfmt.c:317 src/msgunfmt.c:340
+#: src/msgunfmt.c:309 src/msgunfmt.c:318 src/msgunfmt.c:341
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr "%s và tên tập tin dứt khoát loại từ lẫn nhau"
 
-#: src/msgunfmt.c:427
+#: src/msgunfmt.c:428
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
-msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN]...\n"
+msgstr "Cách dùng: %s [TÙY_CHỌN] [TẬP_TIN]…\n"
 
-#: src/msgunfmt.c:431
+#: src/msgunfmt.c:432
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr "Chuyển đổi catalog bản dịch nhị phân sang tập tin dạng .po kiểu Uniforum.\n"
 
-#: src/msgunfmt.c:440
+#: src/msgunfmt.c:441
 #, c-format
 msgid "  -j, --java                  Java mode: input is a Java ResourceBundle class\n"
 msgstr ""
 "  -j, --java                  chế độ Java: đầu vào là lớp ResourceBundle\n"
 "                              kiểu Java\n"
 
-#: src/msgunfmt.c:442
+#: src/msgunfmt.c:443
 #, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
 msgstr ""
 "      --csharp                chế độ C#: đầu vào là tập tin .dll\n"
 "                              kiểu .NET\n"
 
-#: src/msgunfmt.c:444
+#: src/msgunfmt.c:445
 #, c-format
 msgid "      --csharp-resources      C# resources mode: input is a .NET .resources file\n"
 msgstr ""
 "      --csharp-resources      chế độ tài nguyên C#: đầu vào là tập tin\n"
 "                             .resources kiểu .NET\n"
 
-#: src/msgunfmt.c:446
+#: src/msgunfmt.c:447
 #, c-format
 msgid "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 "      --tcl                   chế độ Tcl: đầu vào là tập tin\n"
 "                              .msg kiểu tcl/msgcat\n"
 
-#: src/msgunfmt.c:451
+#: src/msgunfmt.c:452
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
-msgstr "  TẬP_TIN ...                 đầu vào  là những tập tin .mo\n"
+msgstr "  TẬP_TIN …                   đầu vào  là những tập tin .mo\n"
 
-#: src/msgunfmt.c:456
+#: src/msgunfmt.c:457
 #, c-format
 msgid "Input file location in Java mode:\n"
 msgstr "vị trí của tập tin đầu vào trong chế độ Java:\n"
 
-#: src/msgunfmt.c:462
+#: src/msgunfmt.c:463
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource name,\n"
@@ -2791,12 +2860,12 @@ msgstr ""
 "vào tên tài nguyên, định giới bằng dấu gạch dưới. Hạng được định vị\n"
 "bằng CLASSPATH (đường dẫn lớp).\n"
 
-#: src/msgunfmt.c:467
+#: src/msgunfmt.c:468
 #, c-format
 msgid "Input file location in C# mode:\n"
 msgstr "Vị trí của tập tin đầu vào trong chế độ C#:\n"
 
-#: src/msgunfmt.c:475
+#: src/msgunfmt.c:476
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
@@ -2806,12 +2875,12 @@ msgstr ""
 "Tập tin .dll nằm trong thư mục con của thư mục đã xác định\n"
 "có tên phụ thuộc vào miền địa phương.\n"
 
-#: src/msgunfmt.c:479
+#: src/msgunfmt.c:480
 #, c-format
 msgid "Input file location in Tcl mode:\n"
 msgstr "Vị trí của tập tin đầu vào trong chế độ Tcl:\n"
 
-#: src/msgunfmt.c:485
+#: src/msgunfmt.c:486
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
@@ -2820,17 +2889,17 @@ msgstr ""
 "Hai tùy chọn “-l” và “-d” bắt buộc phải sử dụng.\n"
 "Tập tin .msg nằm trong thư mục đã xác định.\n"
 
-#: src/msgunfmt.c:511
+#: src/msgunfmt.c:512
 #, c-format
 msgid "  -i, --indent                write indented output style\n"
 msgstr "  -i, --indent                ghi kết xuất kiểu thụt lề (_thụt lề_)\n"
 
-#: src/msgunfmt.c:513
+#: src/msgunfmt.c:514
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
 msgstr "      --strict                ghi kiểu Uniforum chính xác (_chặt chẽ_)\n"
 
-#: src/msguniq.c:331
+#: src/msguniq.c:332
 #, c-format, no-wrap
 msgid ""
 "Unifies duplicate translations in a translation catalog.\n"
@@ -2852,19 +2921,19 @@ msgstr ""
 "chúng được lấy từ bản dịch thứ nhất. Vị trí tập tin sẽ được tích lũy.\n"
 "Dùng tùy chọn “--unique” (duy nhất) thì các bản sao bị hủy.\n"
 
-#: src/msguniq.c:364
+#: src/msguniq.c:365
 #, c-format
 msgid "  -d, --repeated              print only duplicates\n"
 msgstr "  -d, --repeated              in ra chỉ bản sao (trùng nhau)\n"
 
-#: src/msguniq.c:366
+#: src/msguniq.c:367
 #, c-format
 msgid "  -u, --unique                print only unique messages, discard duplicates\n"
 msgstr ""
 "  -u, --unique                chỉ in ra chuỗi duy nhất, hủy các bản sao\n"
 "                              (trùng nhau)\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:102
+#: src/open-catalog.c:57 libgettextpo/gettext-po.c:102
 #: libgettextpo/gettext-po.c:150 libgettextpo/gettext-po.c:198
 msgid "<stdin>"
 msgstr "<đầu_vào_tiêu_chuẩn>"
@@ -2922,32 +2991,32 @@ msgstr ""
 "Vì thế việc chuyển đổi chuỗi sang bộ ký tự của người dùng\n"
 "sẽ không hoạt động được.\n"
 
-#: src/po-gram-gen.y:93
+#: src/po-gram-gen.y:94
 #, c-format
 msgid "inconsistent use of #~"
 msgstr "dấu #~ được dùng không thống nhất"
 
-#: src/po-gram-gen.y:243
+#: src/po-gram-gen.y:244
 #, c-format
 msgid "missing 'msgstr[]' section"
 msgstr "thiếu phần “msgstr[]”"
 
-#: src/po-gram-gen.y:252
+#: src/po-gram-gen.y:253
 #, c-format
 msgid "missing 'msgid_plural' section"
 msgstr "thiếu phần “msgid_plural”"
 
-#: src/po-gram-gen.y:260
+#: src/po-gram-gen.y:261
 #, c-format
 msgid "missing 'msgstr' section"
 msgstr "thiếu phần “msgstr”"
 
-#: src/po-gram-gen.y:399
+#: src/po-gram-gen.y:400
 #, c-format
 msgid "first plural form has nonzero index"
 msgstr "dạng thức số nhiều đầu tiên có chỉ số là khác không"
 
-#: src/po-gram-gen.y:401
+#: src/po-gram-gen.y:402
 #, c-format
 msgid "plural form has wrong index"
 msgstr "dạng thức số nhiều có chỉ số không đúng"
@@ -2957,7 +3026,7 @@ msgstr "dạng thức số nhiều có chỉ số không đúng"
 msgid "too many errors, aborting"
 msgstr "quá nhiều lỗi nên hủy bỏ"
 
-#: src/po-lex.c:437 src/po-lex.c:507 src/write-po.c:812 src/write-po.c:950
+#: src/po-lex.c:437 src/po-lex.c:507 src/write-po.c:813 src/write-po.c:951
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "chuỗi nối tiếp đa byte không hợp lệ"
@@ -3001,64 +3070,64 @@ msgstr "kết thúc dòng bên trong chuỗi"
 msgid "context separator <EOT> within string"
 msgstr "gặp dấu định giới ngữ cảnh <EOT> bên trong chuỗi"
 
-#: src/read-catalog.c:318 src/xgettext.c:1046
+#: src/read-catalog.c:325 src/xgettext.c:1103
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "tập tin này có thể không chứa chỉ thị miền"
 
-#: src/read-catalog.c:363
+#: src/read-catalog.c:370
 msgid "duplicate message definition"
 msgstr "chuỗi gốc bị trùng lặp"
 
-#: src/read-catalog.c:365
+#: src/read-catalog.c:372
 msgid "this is the location of the first definition"
 msgstr "đây là vị trí của chuỗi nơi nó lần đầu được định nghĩa"
 
-#: src/read-mo.c:107 src/read-mo.c:129 src/read-mo.c:177 src/read-mo.c:205
+#: src/read-mo.c:108 src/read-mo.c:130 src/read-mo.c:168 src/read-mo.c:184
 #, c-format
 msgid "file \"%s\" is truncated"
 msgstr "tập tin “%s” bị cắt ngắn"
 
-#: src/read-mo.c:132
+#: src/read-mo.c:133
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "tập tin “%s” chứa một chuỗi không phải được kết thúc bằng NUL"
 
-#: src/read-mo.c:169 src/read-mo.c:280
+#: src/read-mo.c:176 src/read-mo.c:284
 #, c-format
 msgid "file \"%s\" is not in GNU .mo format"
 msgstr "tập tin “%s” không phải có định dạng .mo của GNU"
 
-#: src/read-mo.c:183
+#: src/read-mo.c:190
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "tập tin “%s” chứa một chuỗi không được kết thúc bằng NUL, tại %s"
 
-#: src/read-properties.c:227
+#: src/read-properties.c:228
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "cảnh báo: cú pháp “\\uxxxx” không hợp lệ với ký tự Unicode"
 
-#: src/read-stringtable.c:802
+#: src/read-stringtable.c:803
 msgid "warning: unterminated string"
 msgstr "cảnh báo: chuỗi chưa được kết thúc"
 
-#: src/read-stringtable.c:810
+#: src/read-stringtable.c:811
 msgid "warning: syntax error"
 msgstr "cảnh báo: lỗi cú pháp"
 
-#: src/read-stringtable.c:871 src/read-stringtable.c:893
+#: src/read-stringtable.c:872 src/read-stringtable.c:894
 msgid "warning: unterminated key/value pair"
 msgstr "cảnh báo: cặp khóa/giá trị chưa được kết thưc"
 
-#: src/read-stringtable.c:939
+#: src/read-stringtable.c:940
 msgid "warning: syntax error, expected ';' after string"
 msgstr "cảnh báo: lỗi cú pháp; cần dấu chấm phẩy “;” nằm sau chuỗi"
 
-#: src/read-stringtable.c:948
+#: src/read-stringtable.c:949
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr "cảnh báo: lỗi cú pháp; cần dấu bằng “=” hay dấu chấm phẩy “;” nằm sau chuỗi"
 
-#: src/recode-sr-latin.c:116
+#: src/recode-sr-latin.c:117
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "Viết bởi %s và %s.\n"
@@ -3068,16 +3137,16 @@ msgstr "Viết bởi %s và %s.\n"
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
 #. "&Scaron;egan".
 #. This is a proper name. See the gettext manual, section Names.
-#: src/recode-sr-latin.c:120
+#: src/recode-sr-latin.c:121
 msgid "Danilo Segan"
 msgstr "Danilo Šegan"
 
-#: src/recode-sr-latin.c:153
+#: src/recode-sr-latin.c:154
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
 msgstr "Mã hóa lại văn bản tiếng Xéc-bi từ chữ viết Ki-rin sang chữ viết La-tinh.\n"
 
-#: src/recode-sr-latin.c:156
+#: src/recode-sr-latin.c:157
 #, c-format, no-wrap
 msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
@@ -3086,27 +3155,27 @@ msgstr ""
 "Văn bản đầu vào được đọc từ đầu vào tiêu chuẩn. Văn bản đã chuyển đổi\n"
 "được xuất vào đầu ra tiêu chuẩn.\n"
 
-#: src/recode-sr-latin.c:339
+#: src/recode-sr-latin.c:340
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
 msgstr "đầu vào không hợp lệ theo bảng mã ký tự “%s”"
 
-#: src/recode-sr-latin.c:367
+#: src/recode-sr-latin.c:368
 #, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "gặp lỗi khi chuyển đổi từ bảng mã ký tự “%s” sang bảng mã ký tự “%s”"
 
-#: src/urlget.c:159
+#: src/urlget.c:160
 #, c-format
 msgid "expected two arguments"
 msgstr "cần hai đối số"
 
-#: src/urlget.c:176
+#: src/urlget.c:177
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr "Cách dùng: %s [TÙY_CHỌN] URL TẬP_TIN\n"
 
-#: src/urlget.c:181
+#: src/urlget.c:182
 #, c-format, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
@@ -3115,62 +3184,62 @@ msgstr ""
 "Lấy và xuất nội dung của địa chỉ Mạng (URL).\n"
 "URL không thể truy cập được thì TẬP_TIN được dùng thay thế.\n"
 
-#: src/urlget.c:228
+#: src/urlget.c:229
 #, c-format
 msgid "error reading \"%s\""
 msgstr "gặp lỗi khi đọc “%s”"
 
-#: src/urlget.c:234
+#: src/urlget.c:235
 #, c-format
 msgid "error writing stdout"
 msgstr "gặp lỗi khi ghi vào đầu ra tiêu chuẩn"
 
-#: src/urlget.c:238
+#: src/urlget.c:239
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "gặp lỗi sau khi đọc “%s”"
 
-#: src/urlget.c:264
+#: src/urlget.c:265
 #, c-format
 msgid "Retrieving %s..."
-msgstr "Đang lấy %s..."
+msgstr "Đang lấy %s…"
 
-#: src/urlget.c:308
+#: src/urlget.c:309
 #, c-format
 msgid " timed out.\n"
 msgstr " quá hạn.\n"
 
-#: src/urlget.c:445
+#: src/urlget.c:446
 #, c-format
 msgid " failed.\n"
 msgstr " gặp lỗi.\n"
 
-#: src/write-catalog.c:126
+#: src/write-catalog.c:127
 msgid "Cannot output multiple translation domains into a single file with the specified output format. Try using PO file syntax instead."
 msgstr "Không thể xuất nhiều miền thông dịch vào một tập tin riêng lẻ theo định dạng xuất đã xác định. Hãy thử dùng cú pháp tập tin PO thay thế."
 
-#: src/write-catalog.c:129
+#: src/write-catalog.c:130
 msgid "Cannot output multiple translation domains into a single file with the specified output format."
 msgstr "Không thể xuất nhiều miền thông dịch vào một tập tin riêng lẻ theo định dạng xuất đã xác định."
 
-#: src/write-catalog.c:162
+#: src/write-catalog.c:163
 msgid "message catalog has context dependent translations, but the output format does not support them."
 msgstr "catalog bản dịch chứa bản dịch phụ thuộc vào ngữ cảnh, mà định dạng xuất không hỗ trợ."
 
-#: src/write-catalog.c:197
+#: src/write-catalog.c:198
 msgid "message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."
 msgstr "catalog bản dịch chứa chuỗi ở dạng thức số nhiều, mà định dạng xuất không hỗ trợ. Hãy thử tạo ra lớp Java bằng lệnh “msgfmt --java”, thay cho tập tin tài nguyên."
 
-#: src/write-catalog.c:202
+#: src/write-catalog.c:203
 msgid "message catalog has plural form translations, but the output format does not support them."
 msgstr "catalog bản dịch chứa chuỗi ở dạng thức số nhiều, mà định dạng xuất không hỗ trợ."
 
-#: src/write-catalog.c:231 src/write-catalog.c:275
+#: src/write-catalog.c:232 src/write-catalog.c:276
 #, c-format
 msgid "cannot create output file \"%s\""
 msgstr "không thể tạo tập tin kết xuất “%s”"
 
-#: src/write-catalog.c:239 src/write-catalog.c:283
+#: src/write-catalog.c:240 src/write-catalog.c:284
 msgid "standard output"
 msgstr "đầu ra tiêu chuẩn"
 
@@ -3189,36 +3258,36 @@ msgstr "gặp lỗi khi biên dịch lớp C#, hãy thử tùy chọn “--verbo
 msgid "compilation of C# class failed"
 msgstr "gặp lỗi khi biên dịch lớp C#"
 
-#: src/write-java.c:1091
+#: src/write-java.c:1092
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "không phải tên lớp Java hợp lệ: %s"
 
-#: src/write-java.c:1210
+#: src/write-java.c:1211
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr "lỗi biên dịch lớp Java, hãy thử tùy chọn “--verbose” (xuất chi tiết) hoặc đặt biến $JAVAC"
 
-#: src/write-java.c:1213
+#: src/write-java.c:1214
 #, c-format
 msgid "compilation of Java class failed, please try to set $JAVAC"
 msgstr "lỗi biên dịch lớp Java, hãy thử đặt biến $JAVAC"
 
-#: src/write-mo.c:799 src/write-qt.c:736 src/write-tcl.c:212
+#: src/write-mo.c:800 src/write-qt.c:737 src/write-tcl.c:213
 #, c-format
 msgid "error while opening \"%s\" for writing"
 msgstr "gặp lỗi khi mở “%s” để ghi"
 
-#: src/write-po.c:821
+#: src/write-po.c:822
 msgid "incomplete multibyte sequence"
 msgstr "chuỗi nối tiếp đa byte không hợp lệ"
 
-#: src/write-po.c:884
+#: src/write-po.c:885
 #, c-format
 msgid "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr "chuỗi đã quốc tế hóa không nên chứa dãy thoát “\\%c”"
 
-#: src/write-po.c:1335 src/write-po.c:1459
+#: src/write-po.c:1336 src/write-po.c:1460
 #, c-format
 msgid ""
 "The following msgctxt contains non-ASCII characters.\n"
@@ -3231,7 +3300,7 @@ msgstr ""
 "Đề nghị bạn nhập chuỗi ngữ cảnh msgctxt hoàn toàn ASCII thay thế.\n"
 "%s\n"
 
-#: src/write-po.c:1347 src/write-po.c:1471
+#: src/write-po.c:1348 src/write-po.c:1472
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3244,7 +3313,7 @@ msgstr ""
 "Đề nghị bạn nhập chuỗi gốc msgid hoàn toàn ASCII thay thế.\n"
 "%s\n"
 
-#: src/write-qt.c:667
+#: src/write-qt.c:668
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
@@ -3253,7 +3322,7 @@ msgstr ""
 "còn định dạng catalog bản dịch kiểu Qt không hỗ trợ\n"
 "khả năng xử lý dạng số nhiều.\n"
 
-#: src/write-qt.c:693
+#: src/write-qt.c:694
 msgid ""
 "message catalog has msgctxt strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -3264,7 +3333,7 @@ msgstr ""
 "hỗ trợ ký tự UTF-8 (Unicode) chỉ trong chuỗi dịch, không phải trong\n"
 "chuỗi ngữ cảnh.\n"
 
-#: src/write-qt.c:717
+#: src/write-qt.c:718
 msgid ""
 "message catalog has msgid strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -3275,12 +3344,12 @@ msgstr ""
 "hỗ trợ ký tự UTF-8 (Unicode) chỉ trong chuỗi dịch, không phải trong\n"
 "chuỗi gốc.\n"
 
-#: src/write-resources.c:94
+#: src/write-resources.c:95
 #, c-format
 msgid "error while writing to %s subprocess"
 msgstr "gặp lỗi khi ghi vào tiến trình phụ %s"
 
-#: src/write-resources.c:131
+#: src/write-resources.c:132
 msgid ""
 "message catalog has context dependent translations\n"
 "but the C# .resources format doesn't support contexts\n"
@@ -3289,7 +3358,7 @@ msgstr ""
 "vào ngữ cảnh, còn định dạng .resources (tài nguyên)\n"
 "kiểu C# không hỗ trợ khả năng ngữ cảnh.\n"
 
-#: src/write-resources.c:150
+#: src/write-resources.c:151
 msgid ""
 "message catalog has plural form translations\n"
 "but the C# .resources format doesn't support plural handling\n"
@@ -3298,7 +3367,7 @@ msgstr ""
 "còn định dạng .resources (tài nguyên) kiểu C# không\n"
 "hỗ trợ khả năng xử lý dạng số nhiều.\n"
 
-#: src/write-tcl.c:157
+#: src/write-tcl.c:158
 msgid ""
 "message catalog has context dependent translations\n"
 "but the Tcl message catalog format doesn't support contexts\n"
@@ -3307,7 +3376,7 @@ msgstr ""
 "vào ngữ cảnh, còn định dạng kiểu Tcl không hỗ trợ\n"
 "khả năng ngữ cảnh.\n"
 
-#: src/write-tcl.c:176
+#: src/write-tcl.c:177
 msgid ""
 "message catalog has plural form translations\n"
 "but the Tcl message catalog format doesn't support plural handling\n"
@@ -3316,36 +3385,36 @@ msgstr ""
 "còn định dạng kiểu Tcl không hỗ trợ khả năng thao tác\n"
 "dạng thức số nhiều.\n"
 
-#: src/x-awk.c:341 src/x-javascript.c:795 src/x-python.c:931
+#: src/x-awk.c:342 src/x-javascript.c:796 src/x-python.c:932
 #, c-format
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: cảnh báo: chuỗi chưa được kết thúc"
 
-#: src/x-awk.c:592
+#: src/x-awk.c:593
 #, c-format
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: cảnh báo: biểu thức chính quy chưa được kết thúc"
 
-#: src/x-c.c:1052
+#: src/x-c.c:1153
 #, c-format
 msgid "warning: invalid Unicode character"
 msgstr "cảnh báo: ký tự Unicode không hợp lệ"
 
-#: src/x-c.c:1344 src/x-csharp.c:1509 src/x-java.c:872 src/x-vala.c:619
+#: src/x-c.c:1464 src/x-csharp.c:1510 src/x-java.c:872 src/x-vala.c:619
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: cảnh báo: hằng ký tự chưa được kết thúc"
 
-#: src/x-c.c:1390 src/x-c.c:1430 src/x-vala.c:729
+#: src/x-c.c:1520 src/x-c.c:1571 src/x-vala.c:729
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: cảnh báo: kiểu chuỗi văn chưa được kết thúc"
 
-#: src/x-csharp.c:224 src/xgettext.c:2106
+#: src/x-csharp.c:225 src/xgettext.c:2168
 msgid "Please specify the source encoding through --from-code."
 msgstr "Hãy đưa ra bảng mã ký tự nguồn bằng tùy chọn “--from-code” (từ mã)."
 
-#: src/x-csharp.c:269
+#: src/x-csharp.c:270
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3354,7 +3423,7 @@ msgstr ""
 "%s:%d: chuỗi đa byte không hợp lệ.\n"
 "Hãy đưa ra bảng mã ký tự nguồn đúng bằng “--from-code” (từ mã).\n"
 
-#: src/x-csharp.c:285
+#: src/x-csharp.c:286
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3363,7 +3432,7 @@ msgstr ""
 "%s:%d: chuỗi đa byte dài chưa hoàn thành.\n"
 "Hãy đưa ra bảng mã ký tự nguồn đúng bằng “--from-code” (từ mã).\n"
 
-#: src/x-csharp.c:297
+#: src/x-csharp.c:298
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3372,7 +3441,7 @@ msgstr ""
 "%s:%d: chuỗi đa byte chưa hoàn thành ở kết thúc tập tin.\n"
 "Hãy đưa ra bảng mã ký tự nguồn đúng bằng “--from-code” (từ mã).\n"
 
-#: src/x-csharp.c:306
+#: src/x-csharp.c:307
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3381,12 +3450,12 @@ msgstr ""
 "%s:%d: chuỗi đa byte chưa hoàn thành ở kết thúc dòng.\n"
 "Hãy đưa ra bảng mã ký tự nguồn đúng bằng “--from-code” (từ mã).\n"
 
-#: src/x-csharp.c:315 src/x-javascript.c:321 src/x-python.c:374
+#: src/x-csharp.c:316 src/x-javascript.c:322 src/x-python.c:375
 #, c-format
 msgid "%s:%d: iconv failure"
 msgstr "%s:%d: lỗi iconv"
 
-#: src/x-csharp.c:338
+#: src/x-csharp.c:339
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3395,43 +3464,43 @@ msgstr ""
 "%s:%d: chuỗi đa byte không hợp lệ.\n"
 "Hãy đưa ra bảng mã ký tự nguồn dùng “--from-code” (từ mã).\n"
 
-#: src/x-csharp.c:1390 src/x-python.c:1138
+#: src/x-csharp.c:1391 src/x-python.c:1139
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: cảnh báo: ký tự Unicode không hợp lệ"
 
-#: src/x-csharp.c:1512 src/x-java.c:875
+#: src/x-csharp.c:1513 src/x-java.c:875
 #, c-format
 msgid "%s:%d: warning: unterminated string constant"
 msgstr "%s:%d: cảnh báo: hằng chuỗi chưa được kết thúc"
 
-#: src/x-csharp.c:2018 src/x-java.c:1369
+#: src/x-csharp.c:2019 src/x-java.c:1369
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr "%s:%d: cảnh báo: gặp dấu ngoặc đóng “)” ở nơi cần dấu ngoặc móc đóng “}”"
 
-#: src/x-csharp.c:2052 src/x-java.c:1403
+#: src/x-csharp.c:2053 src/x-java.c:1403
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr "%s:%d: cảnh báo: gặp dấu ngoặc móc đóng “}” ở nơi cần dấu ngoặc đóng “)”"
 
-#: src/x-glade.c:295
+#: src/x-glade.c:296
 #, c-format
 msgid "Missing context for the string extracted from '%s' element"
 msgstr "Thiếu nội dung cho chuỗi được rút trích từ phần tử “%s”"
 
-#: src/x-glade.c:417
+#: src/x-glade.c:418
 #, c-format
 msgid "The root element <%s> is not allowed in a valid Glade file"
 msgstr "Phần tử gốc <%s> là không được phép trong một tập tin Glade hợp lệ"
 
 # Variable: do not translate/ biến: đừng dịch
-#: src/x-glade.c:572 src/x-glade.c:579
+#: src/x-glade.c:573 src/x-glade.c:580
 #, c-format
 msgid "%s:%lu:%lu: %s"
 msgstr "%s:%lu:%lu: %s"
 
-#: src/x-glade.c:606
+#: src/x-glade.c:607
 #, c-format
 msgid ""
 "Language \"glade\" is not supported. %s relies on expat.\n"
@@ -3445,11 +3514,11 @@ msgstr ""
 msgid "%s:%d: warning: lone surrogate U+%04X"
 msgstr "%s:%d: cảnh báo: chỉ một đồ thay thế U+%04X"
 
-#: src/x-javascript.c:230
+#: src/x-javascript.c:231
 msgid "Please specify the source encoding through --from-code\n"
 msgstr "Hãychỉ định bảng mã ký tự nguồn bằng tùy chọn “--from-code” (từ mã)\n"
 
-#: src/x-javascript.c:275
+#: src/x-javascript.c:276
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3458,7 +3527,7 @@ msgstr ""
 "%s:%d: chuỗi đa byte không hợp lệ. Hãy chỉ định bảng mã\n"
 "ký tự nguồn đúng bằng tùy chọn “--from-code” (từ mã).\n"
 
-#: src/x-javascript.c:291
+#: src/x-javascript.c:292
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3468,7 +3537,7 @@ msgstr ""
 "Hãy chỉ định bảng mã ký tự nguồn đúng bằng tùy chọn\n"
 "“--from-code” (từ mã).\n"
 
-#: src/x-javascript.c:303
+#: src/x-javascript.c:304
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3478,7 +3547,7 @@ msgstr ""
 "Hãy chỉ định bảng mã ký tự nguồn đúng bằng cách dùng tùy chọn\n"
 "“--from-code” (từ mã).\n"
 
-#: src/x-javascript.c:312
+#: src/x-javascript.c:313
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3488,7 +3557,7 @@ msgstr ""
 "Hãy chỉ định bảng mã ký tự nguồn đúng thông qua tùy chọn\n"
 "“--from-code” (từ mã).\n"
 
-#: src/x-javascript.c:344
+#: src/x-javascript.c:345
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3497,17 +3566,17 @@ msgstr ""
 "%s:%d: Chuỗi đa byte không hợp lệ. Hãy chỉ định\n"
 "bảng mã ký tự nguồn dùng tùy chọn “--from-code” (từ mã).\n"
 
-#: src/x-javascript.c:954
+#: src/x-javascript.c:955
 #, c-format
 msgid "%s:%d: warning: RegExp literal terminated too early"
 msgstr "%s:%d: cảnh báo: Gặp kết thúc BTCQ quá sớm"
 
-#: src/x-javascript.c:1055
+#: src/x-javascript.c:1056
 #, c-format
 msgid "%s:%d: warning: %s is not allowed"
 msgstr "%s:%d: cảnh báo: không cho phép %s"
 
-#: src/x-javascript.c:1069
+#: src/x-javascript.c:1070
 #, c-format
 msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: cảnh báo: đánh dấu XML chưa được hoàn tất"
@@ -3548,7 +3617,7 @@ msgstr "%s:%d: phép nội suy không hợp lệ (\"\\L\") của ký tự 8-bit 
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: phép nội suy không hợp lệ (\"\\U\") của ký tự 8-bit “%c”"
 
-#: src/x-python.c:278
+#: src/x-python.c:279
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in http://www.python.org/peps/pep-0263.html.\n"
@@ -3557,7 +3626,7 @@ msgstr ""
 "hoặc bằng ghi chú như được ghi rõ trong tài liệu:\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:324
+#: src/x-python.c:325
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3569,7 +3638,7 @@ msgstr ""
 "hoặc bằng ghi chú như được chỉ ra trong tài liệu:\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:341
+#: src/x-python.c:342
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -3581,7 +3650,7 @@ msgstr ""
 "hoặc thông qua ghi chú như được định nghĩa trong tài liệu:\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:354
+#: src/x-python.c:355
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -3593,7 +3662,7 @@ msgstr ""
 "hoặc thông qua ghi chú như được định nghĩa trong tài liệu:\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:364
+#: src/x-python.c:365
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -3605,7 +3674,7 @@ msgstr ""
 "hoặc thông qua ghi chú như được định nghĩa trong tài liệu:\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:397
+#: src/x-python.c:398
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -3617,84 +3686,94 @@ msgstr ""
 "hoặc thông qua ghi chú như được định nghĩa trong tài liệu\n"
 "http://www.python.org/peps/pep-0263.html.\n"
 
-#: src/x-python.c:722
+#: src/x-python.c:723
 #, c-format
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
 msgstr "Không nhận ra bảng mã ký tự “%s” nên tiếp tục với ASCII để thay thế."
 
-#: src/x-rst.c:108
+#: src/x-rst.c:109
 #, c-format
 msgid "%s:%d: invalid string definition"
 msgstr "%s:%d: chuỗi gốc không hợp lệ"
 
-#: src/x-rst.c:172
+#: src/x-rst.c:173
 #, c-format
 msgid "%s:%d: missing number after #"
 msgstr "%s:%d: thiếu con số nằm sau dấu #"
 
-#: src/x-rst.c:207
+#: src/x-rst.c:208
 #, c-format
 msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: dạng thức chuỗi không hợp lệ"
 
-#: src/x-sh.c:1074
+#: src/x-sh.c:1075
 #, c-format
 msgid "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"
-msgstr "%s:%lu: cảnh báo: cú pháp $\"...\" đã lạc hậu vì lý do bảo mật; hãy dùng eval_gettext thay thế."
+msgstr "%s:%lu: cảnh báo: cú pháp $\"…\" đã lạc hậu vì lý do bảo mật; hãy dùng eval_gettext thay thế."
 
 #: src/x-vala.c:414
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: cảnh báo: gặp kết thúc biểu thức chính quy quá sớm"
 
-#: src/xgettext.c:545
+#: src/xgettext.c:555
 #, c-format
 msgid "'%s' is not a valid encoding name.  Using ASCII as fallback.\n"
 msgstr "“%s” không phải là tên bảng mã. Quay lại dùng ASCII.\n"
 
-#: src/xgettext.c:648
+#: src/xgettext.c:624
+#, c-format
+msgid "syntax check '%s' unknown"
+msgstr "không nhận kiểm tra “%s”"
+
+#: src/xgettext.c:633
+#, c-format
+msgid "sentence end type '%s' unknown"
+msgstr "không biết kiểu kết thúc câu “%s”"
+
+#: src/xgettext.c:679
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "không cho phép dùng tùy chọn “--join-existing” (nối lại tồn tại) khi kết xuất được ghi vào đầu ra tiêu chuẩn"
 
-#: src/xgettext.c:653
+#: src/xgettext.c:684
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "phần mềm xgettext không thể hoạt động khi không có từ khóa cần tìm"
 
-#: src/xgettext.c:808
+#: src/xgettext.c:839
 #, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
 msgstr "cảnh báo: không biết tập tin “%s” có phần mở rộng “%s”; nên thử C"
 
-#: src/xgettext.c:859
+#: src/xgettext.c:908
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Trích các chuỗi có thể dịch ra những tập tin đầu vào đã cho.\n"
 
-#: src/xgettext.c:882
+#: src/xgettext.c:931
 #, c-format
 msgid "  -d, --default-domain=NAME   use NAME.po for output (instead of messages.po)\n"
 msgstr ""
 "  -d, --default-domain=TÊN    dùng tập tin TÊN này làm kết xuất\n"
 "                              (thay cho messages.po)\n"
 
-#: src/xgettext.c:884
+#: src/xgettext.c:933
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr "  -o, --output=TẬP_TIN        ghi kết xuất vào tập tin này\n"
 
-#: src/xgettext.c:886
+#: src/xgettext.c:935
 #, c-format
 msgid "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr "  -p, --output-dir=THƯ_MỤC    các tập tin xuất sẽ được để vào thư mục này\n"
 
-#: src/xgettext.c:891
+#: src/xgettext.c:940
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "Chọn ngôn ngữ của tập tin đầu vào:\n"
 
-#: src/xgettext.c:893
+#: src/xgettext.c:942
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -3711,17 +3790,17 @@ msgstr ""
 "                                GCC-source, NXStringTable, RST, Glade, Lua,\n"
 "                                JavaScript, Vala, Desktop)\n"
 
-#: src/xgettext.c:900
+#: src/xgettext.c:949
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++                   dạng viết tắt cho tùy chọn “--language=C++”\n"
 
-#: src/xgettext.c:902
+#: src/xgettext.c:951
 #, c-format
 msgid "By default the language is guessed depending on the input file name extension.\n"
 msgstr "Mặc định là ngôn ngữ sẽ được đoán phụ bằng phần mở rộng của tên tập tin đầu vào.\n"
 
-#: src/xgettext.c:907
+#: src/xgettext.c:956
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -3730,22 +3809,22 @@ msgstr ""
 "      --from-code=MÃ         bảng mã ký tự của tập tin đầu vào\n"
 "                                (trừ Python, Tcl, Glade)\n"
 
-#: src/xgettext.c:910
+#: src/xgettext.c:959
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr "Mặc định là giả sử tập tin đầu vào có bộ ký tự ASCII.\n"
 
-#: src/xgettext.c:915
+#: src/xgettext.c:964
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr "  -j, --join-existing         nối lại các chuỗi với tập tin đã có\n"
 
-#: src/xgettext.c:917
+#: src/xgettext.c:966
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr "  -x, --exclude-file=TẬP_TIN.po mục tin từ tập tin này sẽ không được trích ra\n"
 
-#: src/xgettext.c:919
+#: src/xgettext.c:968
 #, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
@@ -3754,21 +3833,43 @@ msgid ""
 "                                in output file\n"
 msgstr ""
 "  -cTHẺ, --add-comments=THẺ   để vào tập tin kết xuất các khối ghi chú\n"
-"                                bắt đầu với thẻ này và nằm trước dòng từ khoá\n"
+"                                bắt đầu với thẻ này và nằm trước dòng từ khóa\n"
 "  -c, --add-comments          để vào tập tin kết xuất các khối ghi chú nằm\n"
-"                                trước dòng từ khoá\n"
+"                                trước dòng từ khóa\n"
 
-#: src/xgettext.c:925
+#: src/xgettext.c:973
+#, c-format
+msgid ""
+"      --check=NAME            perform syntax check on messages\n"
+"                                (ellipsis-unicode, space-ellipsis,\n"
+"                                 quote-unicode)\n"
+msgstr ""
+"      --check=TÊN             thực hiện kiểm tra cú pháp trên chuỗi\n"
+"                                (ellipsis-unicode, space-ellipsis,\n"
+"                                 quote-unicode)\n"
+
+#: src/xgettext.c:977
+#, c-format
+msgid ""
+"      --sentence-end=TYPE     type describing the end of sentence\n"
+"                                (single-space, which is the default, \n"
+"                                 or double-space)\n"
+msgstr ""
+"      --sentence-end=KIỂU     kiểu mô tả tại cuối của câu\n"
+"                                (single-space, đây là mặc định,\n"
+"                                 hoặc double-space)\n"
+
+#: src/xgettext.c:982
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Tùy chọn đặc trưng cho ngôn ngữ:\n"
 
-#: src/xgettext.c:927
+#: src/xgettext.c:984
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           trích ra mọi chuỗi\n"
 
-#: src/xgettext.c:929
+#: src/xgettext.c:986
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3781,7 +3882,7 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n"
 "                                Lua, JavaScript, Vala)\n"
 
-#: src/xgettext.c:937
+#: src/xgettext.c:994
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3794,16 +3895,16 @@ msgstr ""
 "                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n"
 "                                Lua, JavaScript, Vala, Desktop)\n"
 
-#: src/xgettext.c:942
+#: src/xgettext.c:999
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n"
 "                              number ARG of keyword WORD\n"
 msgstr ""
 "      --flag=TỪ:ĐỐI_SỐ:CỜ     cờ phụ thêm cho chuỗi nằm bên trong đối số\n"
-"                              có số ĐỐI SỐ của từ khoá TỪ\n"
+"                              có số ĐỐI SỐ của từ khóa TỪ\n"
 
-#: src/xgettext.c:945
+#: src/xgettext.c:1002
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -3816,78 +3917,78 @@ msgstr ""
 "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n"
 "                                Lua, JavaScript, Vala)\n"
 
-#: src/xgettext.c:950
+#: src/xgettext.c:1007
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr "  -T, --trigraphs             hiểu chữ ba C kiểu ANSI để nhập vào\n"
 
-#: src/xgettext.c:952
+#: src/xgettext.c:1009
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr "                                (chỉ những ngôn ngữ C, C++, ObjectiveC)\n"
 
-#: src/xgettext.c:954
+#: src/xgettext.c:1011
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt                    chấp nhận chuỗi định dạng Qt\n"
 
-#: src/xgettext.c:956 src/xgettext.c:960 src/xgettext.c:964
+#: src/xgettext.c:1013 src/xgettext.c:1017 src/xgettext.c:1021
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (chỉ ngôn ngữ C++)\n"
 
-#: src/xgettext.c:958
+#: src/xgettext.c:1015
 #, c-format
 msgid "      --kde                   recognize KDE 4 format strings\n"
 msgstr "      --kde                   chấp nhận chuỗi định dạng KDE4\n"
 
-#: src/xgettext.c:962
+#: src/xgettext.c:1019
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr "      --boost                 chấp nhận chuỗi định dạng Boost\n"
 
-#: src/xgettext.c:966
+#: src/xgettext.c:1023
 #, c-format
 msgid "      --debug                 more detailed formatstring recognition result\n"
 msgstr "      --debug                 kết quả chi tiết hơn về nhận diện định dạng chuỗi\n"
 
-#: src/xgettext.c:991
+#: src/xgettext.c:1048
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr ""
 "      --properties-output      ghi ra tập tin .properties\n"
 "                               thuộc tính) kiểu Java\n"
 
-#: src/xgettext.c:1006
+#: src/xgettext.c:1063
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr "      --copyright-holder=CHUỖI  đặt người giữ tác quyền trong kết xuất\n"
 
-#: src/xgettext.c:1008
+#: src/xgettext.c:1065
 #, c-format
 msgid "      --foreign-user          omit FSF copyright in output for foreign user\n"
 msgstr ""
 "      --foreign-user          bỏ phần bản quyền Tổ Chức Phần Mềm Tự Do\n"
 "                              trong kết xuất cho người dùng nước ngoài\n"
 
-#: src/xgettext.c:1010
+#: src/xgettext.c:1067
 #, c-format
 msgid "      --package-name=PACKAGE  set package name in output\n"
 msgstr "      --package-name=GÓI      đặt tên gói trong kết xuất\n"
 
-#: src/xgettext.c:1012
+#: src/xgettext.c:1069
 #, c-format
 msgid "      --package-version=VERSION  set package version in output\n"
 msgstr "      --package-version=PHIÊN_BẢN đặt phiên bản của gói trong kết xuất\n"
 
-#: src/xgettext.c:1014
+#: src/xgettext.c:1071
 #, c-format
 msgid "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 msgstr ""
 "      --msgid-bugs-address=ĐỊA_CHỈ@THƯ\n"
 "                              đặt địa chỉ thông báo lỗi chuỗi gốc msgid\n"
 
-#: src/xgettext.c:1016
+#: src/xgettext.c:1073
 #, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr\n"
@@ -3896,7 +3997,7 @@ msgstr ""
 "  -m[CHUỖI], --msgstr-prefix[=CHUỖI]    dùng CHUỖI này hay \"\"\n"
 "                              làm tiền tố cho giá trị msgstr\n"
 
-#: src/xgettext.c:1019
+#: src/xgettext.c:1076
 #, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for msgstr\n"
@@ -3905,46 +4006,46 @@ msgstr ""
 "  -M[CHUỖI],  --msgstr-suffix[=CHUỖI]   dùng chuỗi này hay \"\" làm hậu tố\n"
 "                                        cho giá trị msgstr\n"
 
-#: src/xgettext.c:1840
+#: src/xgettext.c:1902
 #, c-format
 msgid "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s"
 msgstr "Đối số “--flag” (cờ) không có cú pháp <từ khóa>:<số đối số>:[qua-]<cờ>: %s"
 
-#: src/xgettext.c:1965
+#: src/xgettext.c:2027
 msgid "standard input"
 msgstr "đầu vào tiêu chuẩn"
 
-#: src/xgettext.c:2071
+#: src/xgettext.c:2133
 #, c-format
 msgid "Non-ASCII character at %s%s."
 msgstr "Gặp một ký tự không phải ASCII tại %s%s."
 
-#: src/xgettext.c:2075
+#: src/xgettext.c:2137
 #, c-format
 msgid "Non-ASCII comment at or before %s%s."
 msgstr "Gặp một ghi chú không phải ASCII nằm tại hay trước %s%s."
 
-#: src/xgettext.c:2080
+#: src/xgettext.c:2142
 #, c-format
 msgid "Non-ASCII string at %s%s."
 msgstr "Gặp một chuỗi không phải ASCII tại %s%s."
 
-#: src/xgettext.c:2186 src/xgettext.c:2219 src/xgettext.c:2281
+#: src/xgettext.c:2248 src/xgettext.c:2281 src/xgettext.c:2346
 #, c-format
 msgid "%s%s: warning: "
 msgstr "%s%s: cảnh báo: "
 
-#: src/xgettext.c:2189
+#: src/xgettext.c:2251
 #, c-format
 msgid "Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n"
 msgstr "Dù nó được dùng tại một vị trí của chuỗi định dạng, %s không phải là một chuỗi định dạng %s đúng. Lý do: %s\n"
 
-#: src/xgettext.c:2190
+#: src/xgettext.c:2252
 #, c-format
 msgid "Although declared as such, the %s is not a valid %s format string. Reason: %s\n"
 msgstr "Dù nó được khai báo như vậy, %s không phải là một chuỗi định dạng %s đúng. Lý do: %s\n"
 
-#: src/xgettext.c:2221
+#: src/xgettext.c:2283
 #, c-format
 msgid ""
 "'%s' format string with unnamed arguments cannot be properly localized:\n"
@@ -3958,7 +4059,7 @@ msgstr ""
 "Đề nghị bạn dùng chuỗi định dạng có đối số có tên,\n"
 "và sự ánh xạ thay cho bản ghi nhiều thành phần cho những đối số.\n"
 
-#: src/xgettext.c:2283
+#: src/xgettext.c:2348
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
 "gettext(\"\") returns the header entry with\n"
@@ -3969,27 +4070,27 @@ msgstr ""
 "gettext(\"\") sẽ đưa ra siêu thông tin (thông tin đặc biệt),\n"
 "không phải chuỗi trống rỗng.\n"
 
-#: src/xgettext.c:2979
+#: src/xgettext.c:3085
 #, c-format
 msgid "ambiguous argument specification for keyword '%.*s'"
-msgstr "đặc tả đối chưa rõ ràng cho từ khoá “%.*s”"
+msgstr "đặc tả đối chưa rõ ràng cho từ khóa “%.*s”"
 
-#: src/xgettext.c:3006
+#: src/xgettext.c:3112
 #, c-format
 msgid "warning: missing context for keyword '%.*s'"
-msgstr "cảnh báo: thiếu ngữ cảnh cho từ khoá “%.*s”"
+msgstr "cảnh báo: thiếu ngữ cảnh cho từ khóa “%.*s”"
 
-#: src/xgettext.c:3031
+#: src/xgettext.c:3137
 #, c-format
 msgid "warning: missing context for plural argument of keyword '%.*s'"
-msgstr "cảnh báo: thiếu ngữ cảnh cho đối số ở dạng thức số nhiều của từ khoá “%.*s”"
+msgstr "cảnh báo: thiếu ngữ cảnh cho đối số ở dạng thức số nhiều của từ khóa “%.*s”"
 
-#: src/xgettext.c:3052
+#: src/xgettext.c:3158
 #, c-format
 msgid "context mismatch between singular and plural form"
 msgstr "ngữ cảnh xung đột giữa dạng số ít và số nhiều"
 
-#: src/xgettext.c:3427
+#: src/xgettext.c:3533
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4001,7 +4102,7 @@ msgstr ""
 "hãy chỉ định biến MSGID_BUGS_ADDRESS trong đó;\n"
 "không thì đưa ra tùy chọn dòng lệnh “--msgid-bugs-address”.\n"
 
-#: src/xgettext.c:3646
+#: src/xgettext.c:3753
 #, c-format
 msgid "language '%s' unknown"
 msgstr "không nhận ra ngôn ngữ “%s”"

@@ -1,165 +1,167 @@
+# This file is distributed under the same license as the gettext package.
 # Turkish translations for Gnu Gettext Package.
 # Copyright (C) 2006 Free Software Foundation, Inc.
-# Nilgün Belma Bugüner <nilgun@buguner.name.tr>, 2001, ..., 2006.
 #
+# Nilgün Belma Bugüner <nilgun@buguner.name.tr>, 2001, ..., 2006.
+# Volkan Gezer <volkangezer@gmail.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.15-pre5\n"
+"Project-Id-Version: gettext-runtime 0.19.4-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2006-04-20 15:54+0200\n"
-"PO-Revision-Date: 2006-07-01 08:58+0300\n"
-"Last-Translator: Nilgün Belma Bugüner <nilgun@buguner.name.tr>\n"
+"POT-Creation-Date: 2014-12-10 13:21+0900\n"
+"PO-Revision-Date: 2015-02-15 20:19+0100\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: Lokalize 1.5\n"
 
-#: ../gettext-tools/lib/closeout.c:64
+#: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "yazma hatası"
 
-#: ../gettext-tools/lib/error.c:121
+#: gnulib-lib/error.c:191
 msgid "Unknown system error"
 msgstr "Bilinmeyen sistem hatası"
 
-#: ../gettext-tools/lib/getopt.c:551 ../gettext-tools/lib/getopt.c:570
+#: gnulib-lib/getopt.c:547 gnulib-lib/getopt.c:576
 #, c-format
-msgid "%s: option `%s' is ambiguous\n"
-msgstr "%s: `%s' seçeneği belirsiz\n"
+msgid "%s: option '%s' is ambiguous; possibilities:"
+msgstr "%s: `%s' seçeneği belirsiz; kullanılabilecekler:"
 
-#: ../gettext-tools/lib/getopt.c:603 ../gettext-tools/lib/getopt.c:607
+#: gnulib-lib/getopt.c:624 gnulib-lib/getopt.c:628
 #, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: `--%s' seçeneği argümansız kullanılır\n"
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: '--%s' seçeneği bağımsız değişkene izin vermiyor\n"
 
-#: ../gettext-tools/lib/getopt.c:616 ../gettext-tools/lib/getopt.c:621
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:642
 #, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: `%c%s' seçeneği argümansız kullanılır\n"
+msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgstr "%s: '%c%s' seçeneği bağımsız değişkene izin vermiyor\n"
 
-#: ../gettext-tools/lib/getopt.c:667 ../gettext-tools/lib/getopt.c:689
-#: ../gettext-tools/lib/getopt.c:1020 ../gettext-tools/lib/getopt.c:1042
+#: gnulib-lib/getopt.c:685 gnulib-lib/getopt.c:704
 #, c-format
-msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: `%s' seçeneği bir argümanla kullanılır\n"
+msgid "%s: option '--%s' requires an argument\n"
+msgstr "%s: '--%s' seçeneği bağımsız bir değişken gerektiriyor\n"
 
-#: ../gettext-tools/lib/getopt.c:727 ../gettext-tools/lib/getopt.c:730
+#: gnulib-lib/getopt.c:742 gnulib-lib/getopt.c:745
 #, c-format
-msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: `--%s' seçeneği bilinmiyor\n"
+msgid "%s: unrecognized option '--%s'\n"
+msgstr "%s: '--%s' seçeneği bilinmiyor\n"
 
-#: ../gettext-tools/lib/getopt.c:738 ../gettext-tools/lib/getopt.c:741
+#: gnulib-lib/getopt.c:753 gnulib-lib/getopt.c:756
 #, c-format
-msgid "%s: unrecognized option `%c%s'\n"
-msgstr "%s: `%c%s' seçeneği bilinmiyor\n"
+msgid "%s: unrecognized option '%c%s'\n"
+msgstr "%s: '%c%s' seçeneği bilinmiyor\n"
 
-#: ../gettext-tools/lib/getopt.c:796 ../gettext-tools/lib/getopt.c:799
+#: gnulib-lib/getopt.c:805 gnulib-lib/getopt.c:808
 #, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: kuraldışı seçenek -- %c\n"
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: geçersiz seçenek -- '%c'\n"
 
-#: ../gettext-tools/lib/getopt.c:805 ../gettext-tools/lib/getopt.c:808
+#: gnulib-lib/getopt.c:861 gnulib-lib/getopt.c:878 gnulib-lib/getopt.c:1088
+#: gnulib-lib/getopt.c:1106
 #, c-format
-msgid "%s: invalid option -- %c\n"
-msgstr "%s: geçersiz seçenek -- %c\n"
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: seçenek bir bağımsız değişken gerektiriyor -- '%c'\n"
 
-#: ../gettext-tools/lib/getopt.c:863 ../gettext-tools/lib/getopt.c:882
-#: ../gettext-tools/lib/getopt.c:1095 ../gettext-tools/lib/getopt.c:1116
+#: gnulib-lib/getopt.c:934 gnulib-lib/getopt.c:950
 #, c-format
-msgid "%s: option requires an argument -- %c\n"
-msgstr "%s: seçenek için bir argüman gerekli -- %c\n"
+msgid "%s: option '-W %s' is ambiguous\n"
+msgstr "%s: '-W %s' seçeneği belirsiz\n"
 
-#: ../gettext-tools/lib/getopt.c:935 ../gettext-tools/lib/getopt.c:954
+#: gnulib-lib/getopt.c:974 gnulib-lib/getopt.c:992
 #, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: `-W %s' seçeneği belirsiz\n"
+msgid "%s: option '-W %s' doesn't allow an argument\n"
+msgstr "%s: '-W %s' seçeneği bağımsız bir değişkene izin vermiyor\n"
 
-#: ../gettext-tools/lib/getopt.c:978 ../gettext-tools/lib/getopt.c:999
+#: gnulib-lib/getopt.c:1013 gnulib-lib/getopt.c:1031
 #, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: `-W %s' seçeneği bir argümanla kullanılmaz\n"
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: '-W %s' seçeneği bağımsız bir değişken gerektiriyor\n"
 
-#: ../gettext-tools/lib/xmalloc.c:41
+#: gnulib-lib/xmalloc.c:37
 #, c-format
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
-#: src/envsubst.c:114 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"This is free software; see the source for copying conditions.  There is NO\n"
-"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
-"Telif Hakkı (C) %s Free Software Foundation, Inc.\n"
-"Bu bir serbest yazılımdır; kopyalama koşulları için kaynak koduna bakınız.\n"
-"Hiçbir garantisi yoktur; hatta SATILABİLİRLİĞİ veya ŞAHSİ KULLANIMINIZA\n"
-"UYGUNLUĞU için bile garanti verilmez.\n"
+"Telif Hakkı (C) %s Özgür Yazılım Vakfı Inc.\n"
+"Lisans GPLv3+: GNU GPL sürüm 3 ya da sonrası <http://gnu.org/licenses/gpl.html>\n"
+"Bu özgür yazılımdır: değiştirip dağıtma özgürlüğüne sahipsiniz.\n"
+"Yasaların elverdiği ölçüde HİÇBİR GARANTİ yoktur.\n"
 
-#: src/envsubst.c:119 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/envsubst.c:139 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "argümanlar eksik"
 
-#: src/envsubst.c:172 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
 #, c-format
-msgid "Try `%s --help' for more information.\n"
-msgstr "Daha fazla bilgilendirilmek için `%s --help' yazınız.\n"
+msgid "Try '%s --help' for more information.\n"
+msgstr "Daha fazla bilgi için '%s --help' deneyin.\n"
 
-#: src/envsubst.c:177
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Kullanımı: %s [SEÇENEK] [KABUK-BİÇİMİ]\n"
 
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Ortam değişkenlerinin değerleri ikame edilir.\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "İşlem kipi:\n"
 
-#: src/envsubst.c:189
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             KABUK-BİÇİMİ içindeki değişkenleri çıktılar\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Bilgilendirici çıktı:\n"
 
-#: src/envsubst.c:196
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  bu yardım iletisini gösterir ve çıkar\n"
 
-#: src/envsubst.c:199
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -176,7 +178,7 @@ msgstr ""
 "Aksi takdirde, standart girdideki ortam değişkenlerinin tümüne bu ikame\n"
 "işlemi uygulanır.\n"
 
-#: src/envsubst.c:212
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -186,27 +188,31 @@ msgstr ""
 "her satırda bir tane olmak üzere KABUK-BİÇİMİ içindeki ortam değişkenleri\n"
 "çıktılanır.\n"
 
-#: src/envsubst.c:216 src/gettext.c:276 src/ngettext.c:242
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr ""
 "Yazılım hatalarını <bug-gnu-utils@gnu.org> adresine,\n"
 "Çeviri hatalarını <gnu-tr@belgeler.org> adresine bildiriniz.\n"
 
-#: src/envsubst.c:439
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
 
-#: src/envsubst.c:440
+#: src/envsubst.c:443
 msgid "standard input"
 msgstr "standart girdi"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:244
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -215,12 +221,12 @@ msgstr ""
 "Kullanımı: %s [SEÇENEK] [[PAKET] MSGID]\n"
 "ya da:     %s [SEÇENEK] -s [MSGID]...\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Bir iletinin anadile çevirisini gösterir.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
@@ -240,38 +246,39 @@ msgstr ""
 "  -V, --version         sürüm bilgilerini gösterir ve çıkar\n"
 "  [PAKET] MSGID         PAKET.mo dosyasından MSGID ile ilişkili çeviriyi alır\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:264
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
+"When used with the -s option the program behaves like the 'echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
 msgstr ""
-"PAKET parametresi verilmemişse .mo dosyasının adı TEXTDOMAIN çevre\n"
-"değişkeninden saptanır. İleti kataloğu olması gereken dizinde değilse\n"
-"bulunduğu dizin TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
-"Program -s seçeneği ile kullanıldığında `echo' komutu verilmiş gibi davranır.\n"
-"Ancak iletiyi standart çıktıya basitçe kopyalamak yerine çevirisini verir.\n"
+"TEXTDOMAIN parametresi belirtilmemişse, alan adı TEXTDOMAIN ortam \n"
+"değişkeninden alınır. Mesaj kataloğu geçerli dizinde bulunamazsa, farklı\n"
+"bir konum TEXTDOMAINDIR ortam değişkeni kullanılarak belirtilebilir.\n"
+"-s seçeneği ile kullanıldığında, program 'echo' komutu gibi çalışır. Ancak,\n"
+"argümanlarını sadece stdout'a kopyalamaz. Bunun yerine, seçili katalogta\n"
+"bulunan mesajlar çevrilir.\n"
 "Standart arama dizini: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Kullanımı: %s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL SAYI\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Bir sayıya bağlı olarak ilgili tekil/çoğul ileti çevirisini gösterir.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
@@ -292,7 +299,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL   MSGID (tekil) / MSGID-PLURAL (çoğul) çevrilir\n"
 "  SAYI               SAYIya bağlı olarak tekil/çoğul iletilerden biri seçilir\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -305,6 +312,19 @@ msgstr ""
 "saptanır. İleti kataloğu olması gereken dizinde değilse bulunduğu dizin\n"
 "TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
 "Standart arama dizini: %s\n"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: kuraldışı seçenek -- %c\n"
+
+#~ msgid ""
+#~ "Copyright (C) %s Free Software Foundation, Inc.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+#~ msgstr ""
+#~ "Telif Hakkı (C) %s Free Software Foundation, Inc.\n"
+#~ "Bu bir serbest yazılımdır; kopyalama koşulları için kaynak koduna bakınız.\n"
+#~ "Hiçbir garantisi yoktur; hatta SATILABİLİRLİĞİ veya ŞAHSİ KULLANIMINIZA\n"
+#~ "UYGUNLUĞU için bile garanti verilmez.\n"
 
 #~ msgid "invalid argument `%s' for `%s'"
 #~ msgstr "argüman `%s' `%s' için geçersiz"
