@@ -1,5 +1,9 @@
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext 0.19.5 released.
+
+2015-07-10  Daiki Ueno  <ueno@gnu.org>
+
 	* po/bg.po: Update from Roumen Petrov <transl@roumenpetrov.info>.
 	* po/ca.po: Update from Ivan Vilata i Balaguer <ivan@selidor.net>.
 	* po/cs.po: Update from Marek Černocký <marek@manet.cz>.

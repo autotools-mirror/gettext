@@ -1,3 +1,7 @@
+2015-07-10  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19.5 released.
+
 2015-06-24  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint-2 (required_gettext_version): Update to 0.19.5.

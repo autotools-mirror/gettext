@@ -1,3 +1,7 @@
+2015-07-10  Daiki Ueno  <ueno@gnu.org>
+
+	* gettext 0.19.5 released.
+
 2015-06-23  Daiki Ueno  <ueno@gnu.org>
 
 	* m4/codeset.m4: Update copyright year.
