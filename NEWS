@@ -1,4 +1,4 @@
-Version 0.19.5 - June 2015
+Version 0.19.5 - July 2015
 
 * xgettext now has a feature to perform syntax checks on msgid, which
   could enforce common styles of translatable strings, such as to
