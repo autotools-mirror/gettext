@@ -3,7 +3,8 @@
 	build: Avoid link error on Mac OS X < 10.6
 	Reported by Ryan Schmidt in:
 	<http://savannah.gnu.org/bugs/?45527>.
-	* autogen.sh (GNULIB_MODULES_LIBGETTEXTPO): Add stpncpy.
+	* autogen.sh (GNULIB_MODULES_LIBGETTEXTPO): Add stpcpy and
+	stpncpy.
 
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
