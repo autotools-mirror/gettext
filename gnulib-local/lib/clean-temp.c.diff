@@ -1,0 +1,14 @@
+diff --git i/lib/clean-temp.c w/lib/clean-temp.c
+index 40ec02f..1053312 100644
+--- i/lib/clean-temp.c
++++ w/lib/clean-temp.c
+@@ -582,6 +582,9 @@ static bool
+ supports_delete_on_close ()
+ {
+   static int known; /* 1 = yes, -1 = no, 0 = unknown */
++  /* M4 wants to close and later reopen a temporary file, so
++     delete-on-close must not be used.  */
++  known = -1;
+   if (!known)
+     {
+       OSVERSIONINFO v;
