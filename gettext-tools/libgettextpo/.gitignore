@@ -129,6 +129,7 @@
 /stdio.in.h
 /stdlib.in.h
 /stpcpy.c
+/stpncpy.c
 /str-two-way.h
 /strchrnul.c
 /strchrnul.valgrind
