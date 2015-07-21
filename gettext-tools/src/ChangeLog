@@ -1,3 +1,13 @@
+2015-07-21  Václav Slavík  <vaclav@slavik.io>  (tiny change)
+
+	cldr-plurals: Fix --enable-relocatable compilation
+	Compilation of the cldr-plurals tool was broken in the relocatable
+	case because of missing CPPFLAGS/LDFLAGS.  Add the same flags used
+	by other tools to the makefile.
+	* Makefile.am (cldr_plurals_CPPFLAGS)
+	(cldr_plurals_LDFLAGS): Adjust for --enable-relocatable
+	compilation.
+
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.5 released.

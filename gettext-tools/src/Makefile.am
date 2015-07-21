@@ -333,6 +333,7 @@ msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
+cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
 if RELOCATABLE_VIA_LD
 msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
@@ -352,6 +353,7 @@ msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
 urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
+cldr_plurals_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
 endif
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
