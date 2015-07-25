@@ -1,3 +1,9 @@
+2015-07-27  Peter Eisentraut  <peter@eisentraut.org>  (tiny change)
+
+	po-mode: Fix to accept four-part msgfmt version number
+	* po-mode.el (po-msgfmt-version-check): Accept four-part version
+	number.
+
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.5 released.
