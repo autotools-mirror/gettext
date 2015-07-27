@@ -17,7 +17,7 @@ Version 0.19.5 - July 2015
 
 * msginit is now capable of generating "Plural-Forms:" from Unicode
   CLDR.  This feature is still experimental, but you can try it by
-  setting the GETTEXTCLDRDIR environment variable pointing to the the
+  setting the GETTEXTCLDRDIR environment variable pointing to the
   directory where the CLDR archive is extracted.  The actual
   conversion is done by a helper program 'cldr-plural', which can be
   used as a generic converter and evaluator of CLDR plural forms.
