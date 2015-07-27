@@ -120,6 +120,10 @@ Release procedure
 
     Update required_gettext_version.
 
+  - gettext-tools/misc/gettextize.in
+
+    Update gettext_version.
+
   and commit the changes.
 
 * Update all ChangeLogs:
