@@ -112,17 +112,13 @@ Release procedure
 
 * Update autopoint related files:
 
+  - gettext-tools/configure.ac
+
+    Update ARCHIVE_VERSION
+
   - gettext-tools/misc/autopoint.in
 
     Update the case statement to include the latest release.
-
-  - gettext-tools/tests/autopoint-[23]
-
-    Update required_gettext_version.
-
-  - gettext-tools/misc/gettextize.in
-
-    Update gettext_version.
 
   and commit the changes.
 

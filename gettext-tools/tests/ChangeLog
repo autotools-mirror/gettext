@@ -1,3 +1,10 @@
+2015-07-28  Daiki Ueno  <ueno@gnu.org>
+
+	* init-env.in (ARCHIVE_VERSION): New substituted variable.
+	* autopoint-2: Use ARCHIVE_VERSION, instead of the hard-coded
+	version string.
+	* autopoint-3: Likewise.
+
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.5 released.

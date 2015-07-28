@@ -1,3 +1,9 @@
+2015-07-28  Daiki Ueno  <ueno@gnu.org>
+
+	* gettextize.in (archive_version): New variable, set to
+	ARCHIVE_VERSION.  Use it as the argument of
+	AM_GNU_GETTEXT_VERSION.
+
 2015-07-27  Daiki Ueno  <ueno@gnu.org>
 
 	gettextize: Use a crafted version string
