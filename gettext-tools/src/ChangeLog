@@ -1,3 +1,8 @@
+2015-08-15  Daiki Ueno  <ueno@gnu.org>
+
+	* cldr-plurals.c (main): Close FP after use.
+	Reported by Denis Denisov.
+
 2015-07-21  Václav Slavík  <vaclav@slavik.io>  (tiny change)
 
 	cldr-plurals: Fix --enable-relocatable compilation

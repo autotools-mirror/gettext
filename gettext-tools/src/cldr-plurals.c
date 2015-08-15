@@ -434,6 +434,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
             error (1, 0, _("%s cannot be read"), logical_filename);
 
           extract_rule (fp, logical_filename, logical_filename, locale);
+          fclose (fp);
           if (extracted_rules == NULL)
             error (1, 0, _("cannot extract rules for %s"), locale);
 
