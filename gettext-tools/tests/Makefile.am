@@ -215,7 +215,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-noinst_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence
+check_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)

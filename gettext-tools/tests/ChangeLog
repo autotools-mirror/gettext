@@ -1,3 +1,8 @@
+2015-08-21  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (check_PROGRAMS): Rename from noinst_PROGRAMS, to
+	defer the compilation until required.
+
 2015-07-28  Daiki Ueno  <ueno@gnu.org>
 
 	* autopoint-2: Add checks for AM_GNU_GETTEXT_REQUIRE_VERSION.
