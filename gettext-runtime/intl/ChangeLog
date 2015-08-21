@@ -1,3 +1,13 @@
+2015-08-21  Daiki Ueno  <ueno@gnu.org>
+
+	intl: Pacify compilation with pre-C99 compilers
+	* loadmsgcat.c (_nl_load_domain): Move the call to
+	__libc_lock_define_initialized_recursive to the end of local
+	variable declarations to avoid extra ';' being expanded to an
+	empty statement.
+	Reported by pan7 in:
+	<http://savannah.gnu.org/support/?108864>.
+
 2015-07-10  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.5 released.
