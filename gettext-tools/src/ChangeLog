@@ -1,3 +1,14 @@
+2015-08-21  Daiki Ueno  <ueno@gnu.org>
+
+	xgettext: Allow multiple --copyright-holder
+	Feature requested by Francesco Poli in:
+	<https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=682580>.
+	* xgettext.c (default_copyright_holder): New constant, renamed
+	from copyright_holder.
+	(copyright_holder): Define as a variable.
+	(main): Allow multiple --copyright-holder options.
+	(construct_header): Support multiple --copyright-holder options.
+
 2015-08-15  Daiki Ueno  <ueno@gnu.org>
 
 	* cldr-plurals.c (main): Close FP after use.

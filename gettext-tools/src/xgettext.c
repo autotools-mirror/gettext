@@ -124,7 +124,8 @@ message_list_ty *exclude;
 static int force_po;
 
 /* Copyright holder of the output file and the translations.  */
-static const char *copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
+static const char *default_copyright_holder = "THE PACKAGE'S COPYRIGHT HOLDER";
+static char *copyright_holder = NULL;
 
 /* Package name.  */
 static const char *package_name = NULL;
@@ -540,11 +541,19 @@ main (int argc, char *argv[])
         break;
 
       case CHAR_MAX + 1:        /* --copyright-holder */
-        copyright_holder = optarg;
+        if (copyright_holder == NULL)
+          copyright_holder = xstrdup (optarg);
+        else
+          {
+            size_t total_len = strlen (copyright_holder) + 2 + strlen (optarg);
+            copyright_holder = xrealloc (copyright_holder, total_len);
+            strcat (copyright_holder, "\n");
+            strcat (copyright_holder, optarg);
+          }
         break;
 
       case CHAR_MAX + 2:        /* --foreign-user */
-        copyright_holder = "";
+        copyright_holder = xstrdup ("");
         break;
 
       case CHAR_MAX + 3:        /* --from-code */
@@ -3559,13 +3568,61 @@ Content-Transfer-Encoding: 8bit\n",
 
   mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
+  if (copyright_holder == NULL)
+    copyright_holder = xstrdup (default_copyright_holder);
+
   if (copyright_holder[0] != '\0')
-    comment = xasprintf ("\
+    {
+      size_t copyright_comment_len;
+      char *copyright_comment;
+      const char *p;
+      char *q;
+      size_t count = 1;
+
+      p = copyright_holder;
+      while (*p != '\0')
+        {
+          p = strchr (p, '\n');
+          if (p == NULL)
+            break;
+          count++;
+          p++;
+        }
+
+      copyright_comment_len =
+        strlen (copyright_holder) + strlen ("Copyright (C) YEAR \n") * count;
+      copyright_comment = XNMALLOC (copyright_comment_len, char);
+
+      p = copyright_holder;
+      q = copyright_comment;
+      while (*p != '\0')
+        {
+          char *newline = strchr (p, '\n');
+
+          q = stpcpy (q, "Copyright (C) YEAR ");
+          if (newline != NULL)
+            {
+              *newline = '\0';
+              q = stpcpy (q, p);
+              q = stpcpy (q, "\n");
+              p = newline + 1;
+            }
+          else
+            {
+              q = stpcpy (q, p);
+              q = stpcpy (q, "\n");
+              break;
+            }
+        }
+
+      comment = xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
-Copyright (C) YEAR %s\n\
+%s\
 This file is distributed under the same license as the PACKAGE package.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
-                         copyright_holder);
+                         copyright_comment);
+      free (copyright_comment);
+    }
   else
     comment = xstrdup ("\
 SOME DESCRIPTIVE TITLE.\n\
@@ -3573,6 +3630,7 @@ This file is put in the public domain.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
   message_comment_append (mp, comment);
   free (comment);
+  free (copyright_holder);
 
   mp->is_fuzzy = true;
 
