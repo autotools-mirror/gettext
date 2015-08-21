@@ -1,5 +1,10 @@
 2015-07-28  Daiki Ueno  <ueno@gnu.org>
 
+	* gettextize.in: Check if AM_GNU_GETTEXT_VERSION is used.
+	* autopoint.in: Respect AM_GNU_GETTEXT_REQUIRE_VERSION.
+
+2015-07-28  Daiki Ueno  <ueno@gnu.org>
+
 	* gettextize.in (archive_version): New variable, set to
 	ARCHIVE_VERSION.  Use it as the argument of
 	AM_GNU_GETTEXT_VERSION.

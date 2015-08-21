@@ -1,5 +1,9 @@
 2015-07-28  Daiki Ueno  <ueno@gnu.org>
 
+	* autopoint-2: Add checks for AM_GNU_GETTEXT_REQUIRE_VERSION.
+
+2015-07-28  Daiki Ueno  <ueno@gnu.org>
+
 	* init-env.in (ARCHIVE_VERSION): New substituted variable.
 	* autopoint-2: Use ARCHIVE_VERSION, instead of the hard-coded
 	version string.

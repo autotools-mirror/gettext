@@ -11,6 +11,13 @@ into a source package.  It extracts from a macro call of the form
 used by the package, and copies the infrastructure files belonging to
 this version into the package.
 
+To extract the latest available infrastructure which satisfies a version
+requirement, then you can use the form
+@code{AM_GNU_GETTEXT_REQUIRE_VERSION(@var{version})} instead.  For example, if
+gettext @value{VERSION} is installed on your system and @code{0.19.1} is
+requested, then the infrastructure files of version @value{VERSION} will
+be copied into a source package.
+
 @subsubsection Options
 
 @table @samp
