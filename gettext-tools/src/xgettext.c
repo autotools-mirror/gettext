@@ -3619,9 +3619,10 @@ Content-Transfer-Encoding: 8bit\n",
       comment = xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
 %s\
-This file is distributed under the same license as the PACKAGE package.\n\
+This file is distributed under the same license as the %s package.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
-                         copyright_comment);
+                           copyright_comment,
+                           package_name != NULL ? package_name : "PACKAGE");
       free (copyright_comment);
     }
   else
