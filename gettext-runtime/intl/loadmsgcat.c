@@ -885,6 +885,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 	      if (nb == -1 && errno == EINTR)
 		continue;
 #endif
+              free (data);
 	      goto out;
 	    }
 	  read_ptr += nb;

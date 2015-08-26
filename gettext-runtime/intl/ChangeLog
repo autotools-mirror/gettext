@@ -1,3 +1,10 @@
+2015-08-26  Paul Eggert  <eggert@cs.ucla.edu>
+
+	intl: fix memory leak in _nl_load_domain
+	* loadmsgcat.c (_nl_load_domain):
+	Free data after a read failure.  See:
+	https://sourceware.org/bugzilla/show_bug.cgi?id=18871
+
 2015-08-21  Daiki Ueno  <ueno@gnu.org>
 
 	intl: Pacify compilation with pre-C99 compilers
@@ -4074,7 +4081,7 @@
 	(dist): Mention ChangeLog explicitly.
 
 2001-03-04  Bruno Haible  <haible@clisp.cons.org>
- 
+
 	* dcigettext.c (ISSLASH, HAS_DEVICE, IS_ABSOLUTE_PATH,
 	IS_PATH_WITH_DIR): New macros.
 	(DCIGETTEXT): Use IS_ABSOLUTE_PATH and IS_PATH_WITH_DIR. Increment
@@ -4293,7 +4300,7 @@
 	(DCIGETTEXT): Change cache handing in the plural case. Don't call
 	plural_eval before the translation and its catalog file have been
 	found. Remove plindex from cache key. Add 'translation_length' and
-	'domain' to cache result. 
+	'domain' to cache result.
 	(_nl_find_msg): Remove index argument, return length of translation
 	to the caller instead. Weaken comparison of string lengths, to account
 	for plural entries. Call iconv() on the entire result string, not
