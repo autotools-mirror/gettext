@@ -1,3 +1,7 @@
+2015-09-01  Daiki Ueno  <ueno@gnu.org>
+
+	* NEWS: Add 0.19.6 changes.
+
 2015-07-12  Daiki Ueno  <ueno@gnu.org>
 
 	build: Avoid link error on Mac OS X < 10.6
