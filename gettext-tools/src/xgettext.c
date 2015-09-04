@@ -71,6 +71,8 @@
 #include "propername.h"
 #include "sentence.h"
 #include "unistr.h"
+#include "xlocator.h"
+#include "its.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
@@ -206,6 +208,8 @@ const char *xgettext_current_source_encoding;
 iconv_t xgettext_current_source_iconv;
 #endif
 
+static xlocator_list_ty *its_locators;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -229,6 +233,7 @@ static const struct option long_options[] =
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "its", no_argument, NULL, CHAR_MAX + 19 },
   { "join-existing", no_argument, NULL, 'j' },
   { "kde", no_argument, NULL, CHAR_MAX + 10 },
   { "keyword", optional_argument, NULL, 'k' },
@@ -289,6 +294,9 @@ static void usage (int status)
 static void read_exclusion_file (char *file_name);
 static void extract_from_file (const char *file_name, extractor_ty extractor,
                                msgdomain_list_ty *mdlp);
+static void extract_from_xml_file (const char *file_name,
+                                   its_rule_list_ty *rules,
+                                   msgdomain_list_ty *mdlp);
 static message_ty *construct_header (void);
 static void finalize_header (msgdomain_list_ty *mdlp);
 static extractor_ty language_to_extractor (const char *name);
@@ -307,6 +315,7 @@ main (int argc, char *argv[])
   bool some_additional_keywords = false;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
+  bool its = false;
   const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
@@ -643,6 +652,10 @@ main (int argc, char *argv[])
           error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
         break;
 
+      case CHAR_MAX + 19: /* --its */
+        its = true;
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -701,6 +714,25 @@ xgettext cannot work without keywords to look for"));
     {
       error (EXIT_SUCCESS, 0, _("no input file given"));
       usage (EXIT_FAILURE);
+    }
+
+  if (its)
+    {
+      const char *gettextdatadir;
+      char *locatordir;
+
+      /* Make it possible to override the locator file location.  This
+         is necessary for running the testsuite before "make
+         install".  */
+      gettextdatadir = getenv ("GETTEXTDATADIR");
+      if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
+        gettextdatadir = relocate (GETTEXTDATADIR);
+
+      locatordir =
+        xconcatenated_filename (gettextdatadir, "its/locators",
+                                NULL);
+      its_locators = xlocator_list_alloc ();
+      xlocator_list_add_directory (its_locators, locatordir);
     }
 
   /* Determine extractor from language.  */
@@ -801,6 +833,7 @@ This version was built without iconv()."),
     {
       const char *filename;
       extractor_ty this_file_extractor;
+      its_rule_list_ty *its_rules;
 
       filename = file_list->item[i];
 
@@ -839,24 +872,75 @@ This version was built without iconv()."),
                 }
             }
 
-          if (language == NULL)
+          if (language == NULL && its_locators != NULL)
             {
-              extension = strrchr (reduced, '.');
-              if (extension == NULL)
-                extension = "";
-              else
-                extension++;
-              error (0, 0, _("\
-warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
-              language = "C";
+              bool inspect;
+              const char *gettextdatadir;
+              const char *baseuri;
+              char *ruledir;
+              const char *its_filename = NULL;
+
+              /* Inspect the content, only when the file extension is
+                 ".xml".  */
+              inspect = strlen (reduced) >= 4
+                && memcmp (reduced + strlen (reduced) - 4, ".xml", 4)
+                == 0;
+
+              baseuri = xlocator_list_locate (its_locators, filename,
+                                              inspect);
+
+              /* Make it possible to override the locator file location.  This
+                 is necessary for running the testsuite before "make
+                 install".  */
+              gettextdatadir = getenv ("GETTEXTDATADIR");
+              if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
+                gettextdatadir = relocate (GETTEXTDATADIR);
+
+              ruledir =
+                xconcatenated_filename (gettextdatadir, "its/rules",
+                                        NULL);
+              its_filename =
+                xconcatenated_filename (ruledir, baseuri,
+                                        NULL);
+              free (ruledir);
+
+              its_rules = its_rule_list_alloc ();
+              if (!its_rule_list_add_file (its_rules, its_filename))
+                {
+                  its_rule_list_free (its_rules);
+                  its_rules = NULL;
+                }
             }
-          this_file_extractor = language_to_extractor (language);
+
+          if (its_rules == NULL)
+            {
+              if (language == NULL)
+                {
+                  extension = strrchr (reduced, '.');
+                  if (extension == NULL)
+                    extension = "";
+                  else
+                    extension++;
+                  error (0, 0, _("\
+warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
+                  language = "C";
+                }
+
+              this_file_extractor = language_to_extractor (language);
+            }
 
           free (reduced);
         }
 
-      /* Extract the strings from the file.  */
-      extract_from_file (filename, this_file_extractor, mdlp);
+      if (its_rules != NULL)
+        {
+          /* Extract the strings from the file, using ITS.  */
+          extract_from_xml_file (filename, its_rules, mdlp);
+          its_rule_list_free (its_rules);
+        }
+      else
+        /* Extract the strings from the file.  */
+        extract_from_file (filename, this_file_extractor, mdlp);
     }
   string_list_free (file_list);
 
@@ -897,6 +981,8 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
 
   /* Write the PO file.  */
   msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
+
+  xlocator_list_free (its_locators);
 
   exit (EXIT_SUCCESS);
 }
@@ -1030,6 +1116,10 @@ Language specific options:\n"));
       --boost                 recognize Boost format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
+      printf (_("\
+      --its                   extract from XML file using ITS rules\n"));
+      printf (_("\
+                                (only XML files)\n"));
       printf (_("\
       --debug                 more detailed formatstring recognition result\n"));
       printf ("\n");
@@ -2114,6 +2204,32 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   current_literalstring_parser = extractor.literalstring_parser;
   extractor.func (fp, real_file_name, logical_file_name, extractor.flag_table,
                   mdlp);
+
+  if (fp != stdin)
+    fclose (fp);
+  free (logical_file_name);
+  free (real_file_name);
+}
+
+static void
+extract_from_xml_file (const char *file_name,
+                       its_rule_list_ty *rules,
+                       msgdomain_list_ty *mdlp)
+{
+  char *logical_file_name;
+  char *real_file_name;
+  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+
+  /* Set the default for the source file encoding.  May be overridden by
+     the extractor function.  */
+  xgettext_current_source_encoding = xgettext_global_source_encoding;
+#if HAVE_ICONV
+  xgettext_current_source_iconv = xgettext_global_source_iconv;
+#endif
+
+  its_rule_list_extract (rules, fp, real_file_name, logical_file_name,
+                         NULL,
+                         mdlp);
 
   if (fp != stdin)
     fclose (fp);
