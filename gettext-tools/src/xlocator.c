@@ -166,11 +166,11 @@ static char *
 xlocator_list_resolve_target (struct xlocator_list_ty *locators,
                               struct xlocator_target_ty *target)
 {
-  const char *target_uri = NULL;
+  char *target_uri = NULL;
   char *result = NULL;
 
   if (!target->is_indirection)
-    target_uri = target->uri;
+    target_uri = xstrdup (target->uri);
   else
     {
       void *value;
@@ -201,11 +201,14 @@ xlocator_list_resolve_target (struct xlocator_list_ty *locators,
       free (path);
 
       uri = xmlParseURI ((const char *) absolute_uri);
+      xmlFree (absolute_uri);
+
       if (uri != NULL)
         result = xstrdup (uri->path);
       xmlFreeURI (uri);
     }
 
+  free (target_uri);
   return result;
 }
 
@@ -416,6 +419,7 @@ xlocator_list_add_file (struct xlocator_list_ty *locators,
         }
     }
 
+  xmlFreeDoc (doc);
   return true;
 }
 
@@ -506,9 +510,26 @@ xlocator_destroy (struct xlocator_ty *locator)
 void
 xlocator_list_destroy (struct xlocator_list_ty *locators)
 {
+  void *iter;
+  const void *key;
+  size_t keylen;
+  void *data;
+
+  iter = NULL;
+  while (hash_iterate (&locators->indirections, &iter, &key, &keylen, &data)
+         == 0)
+    {
+      struct xlocator_target_ty *target = data;
+      free (target->uri);
+      free (target);
+    }
   hash_destroy (&locators->indirections);
+
+  free (locators->base);
+
   while (locators->nitems-- > 0)
     xlocator_destroy (&locators->items[locators->nitems]);
+  free (locators->items);
 }
 
 void

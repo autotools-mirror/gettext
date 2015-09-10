@@ -754,6 +754,7 @@ its_rule_list_add_file (struct its_rule_list_ty *rules,
       rules->items[rules->nitems++] = rule;
     }
 
+  xmlFreeDoc (doc);
   return true;
 }
 
