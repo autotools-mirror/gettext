@@ -925,7 +925,6 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
     {
       struct its_value_list_ty *values;
       const char *value;
-      char *msgid;
       char *content;
       char *comment = NULL;
 
@@ -940,20 +939,13 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
           if (value)
             comment = _its_get_content (node, value);
         }
-
-      value = its_value_list_get_value (values, "withinText");
-
-      content = _its_collect_text_content (node);
-      if (value && strcmp (value, "yes") == 0)
-        msgid = xasprintf ("<%s>%s</%s>", node->name, content, node->name);
-      else
-        msgid = xstrdup (content);
-      free (content);
-
       its_value_list_destroy (values);
       free (values);
 
-      if (*msgid != '\0')
+      content = _its_collect_text_content (node);
+      if (*content == '\0')
+        free (content);
+      else
         {
           lex_pos_ty pos;
 
@@ -961,7 +953,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
           pos.line_number = xmlGetLineNo (node);
 
           remember_a_message (mlp, NULL,
-                              msgid,
+                              content,
                               null_context, &pos,
                               comment, NULL);
         }
