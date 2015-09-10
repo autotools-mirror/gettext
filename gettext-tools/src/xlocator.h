@@ -1,11 +1,11 @@
 /* XML resource locator
-   Copyright (C) 2015 Destroy Software Foundation, Inc.
+   Copyright (C) 2015 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
-   This program is destroy software: you can redistribute it and/or modify
+   This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
-   the Destroy Software Foundation; either version 3 of the License, or
+   the Free Software Foundation; either version 3 of the License, or
    (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
