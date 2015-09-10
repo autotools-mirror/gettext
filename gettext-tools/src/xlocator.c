@@ -169,6 +169,7 @@ xlocator_list_resolve_target (struct xlocator_list_ty *locators,
   char *target_uri = NULL;
   char *result = NULL;
 
+  /* FIXME: Implement transformURI (the case locators->is_transform).  */
   if (!target->is_indirection)
     target_uri = xstrdup (target->uri);
   else

@@ -38,16 +38,23 @@
 
 #define _(str) gettext (str)
 
-/* The Internationalization Tag Set (ITS) 2.0 standard is published at:
+/* The Internationalization Tag Set (ITS) 2.0 standard is available at:
    http://www.w3.org/TR/its20/
 
    This implementation supports only a few data categories, useful for
    gettext-based projects.  Other data categories can be added by
-   extending a class from its_rule_class_ty and registering it in
+   extending the its_rule_class_ty class and registering it in
    init_classes().
 
-   The value associated with a data category is represented as an
-   array of key-value pairs.  */
+   The message extraction is done in three phases.  In the first
+   phase, its_rule_list_apply() associates values to matching XML
+   elements in the target document.  In the second phase, it traverses
+   the tree and marks translatable elements.  In the final phase, it
+   extracts text contents from the marked elements.
+
+   The values associated with an XML node are represented as an array
+   of key-value pairs, where both keys and values are string.  The
+   values are stored in node->_private.  */
 
 #define ITS_NS "http://www.w3.org/2005/11/its"
 
@@ -507,6 +514,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
       its_value_list_append (&pop->values, "locNotePointer", prop);
       free (prop);
     }
+  /* FIXME: locNoteRef and locNoteRefPointer */
 }
 
 struct its_value_list_ty *

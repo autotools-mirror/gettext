@@ -28,13 +28,17 @@ extern "C" {
 
 typedef struct its_rule_list_ty its_rule_list_ty;
 
+/* Creates a fresh its_rule_list_ty holding global ITS rules.  */
 extern its_rule_list_ty *its_rule_list_alloc (void);
 
+/* Releases memory allocated for RULES.  */
 extern void its_rule_list_free (its_rule_list_ty *rules);
 
+/* Loads global ITS rules from FILENAME.  */
 extern bool its_rule_list_add_file (its_rule_list_ty *rules,
                                     const char *filename);
 
+/* Extracts messages from FP, accoding to the loaded ITS rules.  */
 extern void its_rule_list_extract (its_rule_list_ty *rules,
                                    FILE *fp, const char *real_filename,
                                    const char *logical_filename,

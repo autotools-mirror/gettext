@@ -27,11 +27,19 @@ extern "C" {
 
 typedef struct xlocator_list_ty xlocator_list_ty;
 
+/* Creates a fresh xlocator_list_ty with the base URI BASE, and loads
+   the locating rules from the files in DIRECTORY.  */
 extern struct xlocator_list_ty *xlocator_list_alloc (const char *base,
                                                      const char *directory);
+
+/* Determines the location of resource associated with PATH, accoding
+   to the loaded locating rules.  If INSPECT_CONTENT is true, it also
+   checks the content of the file pointed by PATH.  */
 extern char *xlocator_list_locate (xlocator_list_ty *locators,
                                    const char *path,
                                    bool inspect_content);
+
+/* Releases memory allocated for LOCATORS.  */
 extern void xlocator_list_free (xlocator_list_ty *locators);
 
 #ifdef __cplusplus
