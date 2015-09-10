@@ -316,6 +316,32 @@ _its_get_attribute (xmlNode *node, const char *attr)
   return result;
 }
 
+static const char *
+_its_collect_text_content (xmlNode *node)
+{
+  static char *buffer;
+  static size_t bufmax;
+  size_t bufpos = 0;
+  xmlNode *n;
+
+  for (n = node->children; n; n = n->next)
+    if (n->type == XML_TEXT_NODE)
+      {
+        xmlChar *content = xmlNodeGetContent (n);
+        size_t content_length = xmlStrlen (content);
+
+        if (bufpos >= bufmax)
+          {
+            bufmax = 2 * bufmax + content_length + 1;
+            buffer = xrealloc (buffer, bufmax);
+          }
+        memcpy (&buffer[bufpos], content, content_length);
+        bufpos += content_length;
+        buffer[bufpos] = 0;
+      }
+  return buffer;
+}
+
 /* Implementation of Translate data category.  */
 static void
 its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
@@ -414,29 +440,8 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
     }
 
   if (n)
-    {
-      static char *buffer;
-      static size_t bufmax;
-      size_t bufpos = 0;
-
-      for (n = n->children; n; n = n->next)
-        if (n->type == XML_TEXT_NODE)
-          {
-            xmlChar *content = xmlNodeGetContent (n);
-            size_t content_length = xmlStrlen (content);
-
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + content_length + 1;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            memcpy (&buffer[bufpos], content, content_length);
-            bufpos += content_length;
-            buffer[bufpos] = 0;
-          }
-
-      its_value_list_append (&pop->values, "locNote", buffer);
-    }
+    its_value_list_append (&pop->values, "locNote",
+                           _its_collect_text_content (n));
   else if (xmlHasProp (node, BAD_CAST "locNotePointer"))
     {
       prop = _its_get_attribute (node, "locNotePointer");
@@ -682,6 +687,47 @@ its_rule_list_extract_nodes (its_rule_list_ty *rules,
     }
 }
 
+static char *
+_its_get_content (xmlNode *node, const char *pointer)
+{
+  xmlXPathContext *context;
+  xmlXPathObject *object;
+  char *result;
+
+  context = xmlXPathNewContext (node->doc);
+  if (!context)
+    {
+      error (0, 0, _("cannot create XPath context"));
+      return NULL;
+    }
+
+  object = xmlXPathNodeEval (node, BAD_CAST pointer, context);
+  if (!object)
+    {
+      xmlXPathFreeContext (context);
+      error (0, 0, _("cannot evaluate XPath location path: %s"),
+             pointer);
+      return NULL;
+    }
+
+  if (object->nodesetval)
+    {
+      xmlNodeSet *nodes = object->nodesetval;
+      string_list_ty sl;
+      size_t i;
+
+      string_list_init (&sl);
+      for (i = 0; i < nodes->nodeNr; i++)
+        string_list_append (&sl, _its_collect_text_content (nodes->nodeTab[i]));
+      result = string_list_concat (&sl);
+    }
+
+  xmlXPathFreeObject (object);
+  xmlXPathFreeContext (context);
+
+  return result;
+}
+
 static void
 its_rule_list_extract_text (its_rule_list_ty *rules,
                             xmlNode *node,
@@ -693,11 +739,20 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
     {
       struct its_value_list_ty *values;
       xmlNode *n;
-      const char *comment = NULL;
+      const char *value;
+      char *comment = NULL;
 
       values = its_rule_list_eval (rules, node);
 
-      comment = its_value_list_get_value (values, "locNote");
+      value = its_value_list_get_value (values, "locNote");
+      if (value)
+        comment = xstrdup (value);
+      else
+        {
+          value = its_value_list_get_value (values, "locNotePointer");
+          if (value)
+            comment = _its_get_content (node, value);
+        }
 
       for (n = node->children; n; n = n->next)
         if (n->type == XML_TEXT_NODE)
@@ -715,6 +770,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                                     xstrdup ((const char *) content),
                                     null_context, &pos,
                                     comment, NULL);
+                free (comment);
               }
             xmlFree (content);
           }
