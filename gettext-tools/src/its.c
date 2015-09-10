@@ -34,6 +34,7 @@
 #include <libxml/xpath.h>
 #include <stdlib.h>
 #include "xalloc.h"
+#include "xvasprintf.h"
 
 #define _(str) gettext (str)
 
@@ -97,6 +98,28 @@ its_value_list_get_value (struct its_value_list_ty *values,
         return value->value;
     }
   return NULL;
+}
+
+static void
+its_value_list_set_value (struct its_value_list_ty *values,
+                          const char *name,
+                          const char *value)
+{
+  size_t i;
+
+  for (i = 0; i < values->nitems; i++)
+    {
+      struct its_value_ty *_value = &values->items[i];
+      if (strcmp (_value->name, name) == 0)
+        {
+          free (_value->value);
+          _value->value = xstrdup (value);
+          break;
+        }
+    }
+
+  if (i == values->nitems)
+    its_value_list_append (values, name, value);
 }
 
 static void
@@ -316,29 +339,57 @@ _its_get_attribute (xmlNode *node, const char *attr)
   return result;
 }
 
-static const char *
+static char *
 _its_collect_text_content (xmlNode *node)
 {
-  static char *buffer;
-  static size_t bufmax;
+  char *buffer = NULL;
+  size_t bufmax = 0;
   size_t bufpos = 0;
   xmlNode *n;
 
   for (n = node->children; n; n = n->next)
-    if (n->type == XML_TEXT_NODE)
-      {
-        xmlChar *content = xmlNodeGetContent (n);
-        size_t content_length = xmlStrlen (content);
+    {
+      char *content = NULL;
 
-        if (bufpos >= bufmax)
+      switch (n->type)
+        {
+        case XML_TEXT_NODE:
           {
-            bufmax = 2 * bufmax + content_length + 1;
-            buffer = xrealloc (buffer, bufmax);
+            xmlChar *xcontent = xmlNodeGetContent (n);
+            content = xstrdup ((const char *) xcontent);
+            xmlFree (xcontent);
           }
-        memcpy (&buffer[bufpos], content, content_length);
-        bufpos += content_length;
-        buffer[bufpos] = 0;
-      }
+          break;
+
+        case XML_ELEMENT_NODE:
+          {
+            char *p = _its_collect_text_content (n);
+            content = xasprintf ("<%s>%s</%s>", n->name, p, n->name);
+            free (p);
+          }
+          break;
+
+        default:
+          break;
+        }
+
+      if (content != NULL)
+        {
+          size_t length = strlen (content);
+
+          if (bufpos + length + 1 >= bufmax)
+            {
+              bufmax = 2 * bufmax + length + 1;
+              buffer = xrealloc (buffer, bufmax);
+            }
+          strcpy (&buffer[bufpos], content);
+          bufpos += length;
+        }
+      free (content);
+    }
+
+  if (buffer == NULL)
+    buffer = xstrdup ("");
   return buffer;
 }
 
@@ -380,22 +431,27 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
 
   /* Inherit from the parent elements.  */
   for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
-    if ((intptr_t) n->_private > 0)
-      break;
-
-  if (n == NULL || (intptr_t) n->_private == 0)
-    /* The default value is translate="yes".  */
-    its_value_list_append (result, "translate", "yes");
-  else
     {
       intptr_t index = (intptr_t) n->_private;
-      struct its_value_list_ty *values;
+      if (index > 0)
+        {
+          struct its_value_list_ty *values;
+          const char *value;
 
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-      its_value_list_merge (result, values);
+          assert (index <= pool->nitems);
+          values = &pool->items[index - 1];
+
+          value = its_value_list_get_value (values, "translate");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "translate", value);
+              return result;
+            }
+        }
     }
 
+  /* The default value is translate="yes".  */
+  its_value_list_append (result, "translate", "yes");
   return result;
 }
 
@@ -440,8 +496,11 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
     }
 
   if (n)
-    its_value_list_append (&pop->values, "locNote",
-                           _its_collect_text_content (n));
+    {
+      char *content = _its_collect_text_content (n);
+      its_value_list_append (&pop->values, "locNote", content);
+      free (content);
+    }
   else if (xmlHasProp (node, BAD_CAST "locNotePointer"))
     {
       prop = _its_get_attribute (node, "locNotePointer");
@@ -462,20 +521,33 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
 
   /* Inherit from the parent elements.  */
   for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
-    if ((intptr_t) n->_private > 0)
-      break;
-
-  /* The default value is None.  */
-  if (n != NULL && (intptr_t) n->_private > 0)
     {
       intptr_t index = (intptr_t) n->_private;
-      struct its_value_list_ty *values;
+      if (index > 0)
+        {
+          struct its_value_list_ty *values;
+          const char *value;
 
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-      its_value_list_merge (result, values);
+          assert (index <= pool->nitems);
+          values = &pool->items[index - 1];
+
+          value = its_value_list_get_value (values, "locNote");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "locNote", value);
+              return result;
+            }
+
+          value = its_value_list_get_value (values, "locNotePointer");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "locNotePointer", value);
+              return result;
+            }
+        }
     }
 
+  /* The default value is None.  */
   return result;
 }
 
@@ -486,6 +558,73 @@ static struct its_rule_class_ty its_localization_note_rule_class =
     its_rule_destructor,
     its_rule_apply,
     its_localization_note_rule_eval,
+  };
+
+/* Implementation of Element Within Text data category.  */
+static void
+its_element_within_text_rule_constructor (struct its_rule_ty *pop,
+                                          xmlNode *node)
+{
+  char *prop;
+
+  if (!xmlHasProp (node, BAD_CAST "selector"))
+    {
+      error (0, 0, _("\"withinTextRule\" node does not contain \"selector\""));
+      return;
+    }
+
+  if (!xmlHasProp (node, BAD_CAST "withinText"))
+    {
+      error (0, 0,
+             _("\"withinTextRule\" node does not contain \"withinText\""));
+      return;
+    }
+
+  prop = _its_get_attribute (node, "selector");
+  if (prop)
+    pop->selector = prop;
+
+  prop = _its_get_attribute (node, "withinText");
+  its_value_list_append (&pop->values, "withinText", prop);
+  free (prop);
+}
+
+struct its_value_list_ty *
+its_element_within_text_rule_eval (struct its_rule_ty *pop,
+                                   struct its_pool_ty *pool,
+                                   xmlNode *node)
+{
+  struct its_value_list_ty *result;
+  intptr_t index;
+
+  result = XCALLOC (1, struct its_value_list_ty);
+
+  /* Doesn't inherit from the parent elements, and the default value
+     is None.  */
+  index = (intptr_t) node->_private;
+  if (index > 0)
+    {
+      struct its_value_list_ty *values;
+      const char *value;
+
+      assert (index <= pool->nitems);
+      values = &pool->items[index - 1];
+
+      value = its_value_list_get_value (values, "withinText");
+      if (value != NULL)
+        its_value_list_set_value (result, "withinText", value);
+    }
+
+  return result;
+}
+
+static struct its_rule_class_ty its_element_within_text_rule_class =
+  {
+    sizeof (struct its_rule_ty),
+    its_element_within_text_rule_constructor,
+    its_rule_destructor,
+    its_rule_apply,
+    its_element_within_text_rule_eval,
   };
 
 static struct its_rule_ty *
@@ -527,6 +666,7 @@ init_classes (void)
 
   ADD_RULE_CLASS ("translateRule", its_translate_rule_class);
   ADD_RULE_CLASS ("locNoteRule", its_localization_note_rule_class);
+  ADD_RULE_CLASS ("withinTextRule", its_element_within_text_rule_class);
 
 #undef ADD_RULE_CLASS
 }
@@ -552,7 +692,10 @@ its_rule_list_free (struct its_rule_list_ty *rules)
   size_t i;
 
   for (i = 0; i < rules->nitems; i++)
-    its_rule_destroy (rules->items[i]);
+    {
+      its_rule_destroy (rules->items[i]);
+      free (rules->items[i]);
+    }
   free (rules->items);
   its_pool_destroy (&rules->pool);
 }
@@ -599,10 +742,7 @@ its_rule_list_add_file (struct its_rule_list_ty *rules,
 
       rule = its_rule_parse (node);
       if (!rule)
-        {
-          xmlFreeDoc (doc);
-          return false;
-        }
+        continue;
 
       if (rules->nitems == rules->nitems_max)
         {
@@ -650,40 +790,80 @@ its_rule_list_eval (its_rule_list_ty *rules, xmlNode *node)
   return result;
 }
 
+static bool
+its_rule_list_is_translatable (its_rule_list_ty *rules,
+                               xmlNode *node,
+                               int depth)
+{
+  struct its_value_list_ty *values;
+  const char *value;
+  xmlNode *n;
+
+  if (node->type != XML_ELEMENT_NODE)
+    return false;
+
+  values = its_rule_list_eval (rules, node);
+
+  /* Check if NODE has translate="yes".  */
+  value = its_value_list_get_value (values, "translate");
+  if (!(value && strcmp (value, "yes") == 0))
+    {
+      its_value_list_destroy (values);
+      free (values);
+      return false;
+    }
+
+  /* Check if NODE has withinText="yes", if NODE is not top-level.  */
+  if (depth > 0)
+    {
+      value = its_value_list_get_value (values, "withinText");
+      if (!(value && strcmp (value, "yes") == 0))
+        {
+          its_value_list_destroy (values);
+          free (values);
+          return false;
+        }
+    }
+
+  its_value_list_destroy (values);
+  free (values);
+
+  for (n = node->children; n; n = n->next)
+    {
+      switch (n->type)
+        {
+        case XML_ELEMENT_NODE:
+          if (!its_rule_list_is_translatable (rules, n, depth + 1))
+            return false;
+          break;
+
+        case XML_TEXT_NODE:
+          break;
+
+        default:
+          return false;
+        }
+    }
+
+  return true;
+}
+
 static void
 its_rule_list_extract_nodes (its_rule_list_ty *rules,
                              struct its_node_list_ty *nodes,
-                             xmlNode *node,
-                             const struct its_value_ty *values)
+                             xmlNode *node)
 {
   if (node->type == XML_ELEMENT_NODE)
     {
-      struct its_value_list_ty *element_values;
-      size_t i;
       xmlNode *n;
 
-      element_values = its_rule_list_eval (rules, node);
-      for (i = 0; values[i].name != NULL; i++)
-        {
-          size_t j;
-
-          for (j = 0; j < element_values->nitems; j++)
-            {
-              struct its_value_ty *element_value = &element_values->items[j];
-              if (strcmp (values[i].name, element_value->name) == 0
-                  && strcmp (values[i].value, element_value->value) == 0)
-                break;
-            }
-
-          if (j == element_values->nitems)
-            break;
-        }
-
-      if (values[i].name == NULL)
+      if (its_rule_list_is_translatable (rules, node, 0))
         its_node_list_append (nodes, node);
-
-      for (n = node->children; n; n = n->next)
-        its_rule_list_extract_nodes (rules, nodes, n, values);
+      else
+        {
+          for (n = node->children; n; n = n->next)
+            its_rule_list_extract_nodes (rules, nodes, n);
+        }
     }
 }
 
@@ -718,8 +898,13 @@ _its_get_content (xmlNode *node, const char *pointer)
 
       string_list_init (&sl);
       for (i = 0; i < nodes->nodeNr; i++)
-        string_list_append (&sl, _its_collect_text_content (nodes->nodeTab[i]));
+        {
+          char *content = _its_collect_text_content (nodes->nodeTab[i]);
+          string_list_append (&sl, content);
+          free (content);
+        }
       result = string_list_concat (&sl);
+      string_list_destroy (&sl);
     }
 
   xmlXPathFreeObject (object);
@@ -738,8 +923,9 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
   if (node->type == XML_ELEMENT_NODE)
     {
       struct its_value_list_ty *values;
-      xmlNode *n;
       const char *value;
+      char *msgid;
+      char *content;
       char *comment = NULL;
 
       values = its_rule_list_eval (rules, node);
@@ -754,26 +940,31 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
             comment = _its_get_content (node, value);
         }
 
-      for (n = node->children; n; n = n->next)
-        if (n->type == XML_TEXT_NODE)
-          {
-            xmlChar *content = xmlNodeGetContent (n);
+      value = its_value_list_get_value (values, "withinText");
 
-            if (xmlStrlen (content) > 0)
-              {
-                lex_pos_ty pos;
+      content = _its_collect_text_content (node);
+      if (value && strcmp (value, "yes") == 0)
+        msgid = xasprintf ("<%s>%s</%s>", node->name, content, node->name);
+      else
+        msgid = xstrdup (content);
+      free (content);
 
-                pos.file_name = xstrdup (logical_filename);
-                pos.line_number = xmlGetLineNo (n);
+      its_value_list_destroy (values);
+      free (values);
 
-                remember_a_message (mlp, NULL,
-                                    xstrdup ((const char *) content),
-                                    null_context, &pos,
-                                    comment, NULL);
-                free (comment);
-              }
-            xmlFree (content);
-          }
+      if (*msgid != '\0')
+        {
+          lex_pos_ty pos;
+
+          pos.file_name = xstrdup (logical_filename);
+          pos.line_number = xmlGetLineNo (node);
+
+          remember_a_message (mlp, NULL,
+                              msgid,
+                              null_context, &pos,
+                              comment, NULL);
+        }
+      free (comment);
     }
 }
 
@@ -784,11 +975,6 @@ its_rule_list_extract (its_rule_list_ty *rules,
                        flag_context_list_table_ty *flag_table,
                        msgdomain_list_ty *mdlp)
 {
-  const struct its_value_ty values[] =
-    {
-      { "translate", "yes" },
-      { NULL, NULL }
-    };
   xmlDoc *doc;
   struct its_node_list_ty nodes;
   size_t i;
@@ -806,8 +992,7 @@ its_rule_list_extract (its_rule_list_ty *rules,
   memset (&nodes, 0, sizeof (struct its_node_list_ty));
   its_rule_list_extract_nodes (rules,
                                &nodes,
-                               xmlDocGetRootElement (doc),
-                               values);
+                               xmlDocGetRootElement (doc));
 
   for (i = 0; i < nodes.nitems; i++)
     its_rule_list_extract_text (rules, nodes.items[i],
