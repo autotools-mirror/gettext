@@ -523,7 +523,7 @@ init_classes (void)
   ADD_RULE_CLASS ("translateRule", its_translate_rule_class);
   ADD_RULE_CLASS ("locNoteRule", its_localization_note_rule_class);
 
-#undef ADD_CLASS
+#undef ADD_RULE_CLASS
 }
 
 struct its_rule_list_ty *
