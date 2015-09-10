@@ -38,6 +38,7 @@
 #include "gettext.h"
 #include "hash.h"
 #include <libxml/parser.h>
+#include <libxml/uri.h>
 #include "xalloc.h"
 
 #include "xlocator.h"
@@ -84,6 +85,8 @@ struct xlocator_ty
 
 struct xlocator_list_ty
 {
+  char *base;
+
   hash_table indirections;
 
   struct xlocator_ty *items;
@@ -105,16 +108,18 @@ _xlocator_get_attribute (xmlNode *node, const char *attr)
 }
 
 static bool
-xlocator_match (struct xlocator_ty *locator, const char *filename,
+xlocator_match (struct xlocator_ty *locator, const char *path,
                 bool inspect_content)
 {
   switch (locator->type)
     {
     case XLOCATOR_URI:
-      return strcmp (locator->matcher.uri, filename) == 0;
+      return strcmp (locator->matcher.uri, path) == 0;
 
     case XLOCATOR_URI_PATTERN:
-      return fnmatch (locator->matcher.pattern, filename, FNM_PATHNAME) == 0;
+      /* FIXME: We should not use fnmatch() here, since PATTERN is a
+         URI, with a wildcard.  */
+      return fnmatch (locator->matcher.pattern, path, FNM_PATHNAME) == 0;
 
     case XLOCATOR_NAMESPACE:
     case XLOCATOR_DOCUMENT_ELEMENT:
@@ -126,7 +131,7 @@ xlocator_match (struct xlocator_ty *locator, const char *filename,
           xmlNode *root;
           bool result;
 
-          doc = xmlReadFile (filename, "utf-8",
+          doc = xmlReadFile (path, "utf-8",
                              XML_PARSE_NONET
                              | XML_PARSE_NOWARNING
                              | XML_PARSE_NOBLANKS
@@ -157,13 +162,15 @@ xlocator_match (struct xlocator_ty *locator, const char *filename,
     }
 }
 
-const char *
+static char *
 xlocator_list_resolve_target (struct xlocator_list_ty *locators,
                               struct xlocator_target_ty *target)
 {
-  if (!target->is_indirection)
-    return target->uri;
+  const char *target_uri = NULL;
+  char *result = NULL;
 
+  if (!target->is_indirection)
+    target_uri = target->uri;
   else
     {
       void *value;
@@ -174,18 +181,37 @@ xlocator_list_resolve_target (struct xlocator_list_ty *locators,
         {
           struct xlocator_target_ty *next_target =
             (struct xlocator_target_ty *) value;
-          return xlocator_list_resolve_target (locators, next_target);
+          target_uri = xlocator_list_resolve_target (locators, next_target);
         }
-
-      error (0, 0, _("cannot resolve \"typeId\" %s"), target->uri);
-      return NULL;
+      else
+        error (0, 0, _("cannot resolve \"typeId\" %s"), target->uri);
     }
 
+  if (target_uri != NULL)
+    {
+      char *path;
+      xmlChar *absolute_uri;
+      xmlURI *uri;
+
+      /* Use a dummy file name under the locators->base directory, so
+         that xmlBuildURI() resolve a URI relative to the file, not
+         the parent directory.  */
+      path = xconcatenated_filename (locators->base, ".", NULL);
+      absolute_uri = xmlBuildURI (BAD_CAST target_uri, BAD_CAST path);
+      free (path);
+
+      uri = xmlParseURI ((const char *) absolute_uri);
+      if (uri != NULL)
+        result = xstrdup (uri->path);
+      xmlFreeURI (uri);
+    }
+
+  return result;
 }
 
-const char *
+char *
 xlocator_list_locate (struct xlocator_list_ty *locators,
-                      const char *filename,
+                      const char *path,
                       bool inspect_content)
 {
   struct xlocator_ty *locator;
@@ -194,7 +220,7 @@ xlocator_list_locate (struct xlocator_list_ty *locators,
   for (i = 0; i < locators->nitems; i++)
     {
       locator = &locators->items[i];
-      if (xlocator_match (locator, filename, inspect_content))
+      if (xlocator_match (locator, path, inspect_content))
         break;
     }
 
@@ -311,7 +337,7 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
   return false;
 }
 
-bool
+static bool
 xlocator_list_add_file (struct xlocator_list_ty *locators,
                         const char *locator_file_name)
 {
@@ -393,9 +419,9 @@ xlocator_list_add_file (struct xlocator_list_ty *locators,
   return true;
 }
 
-bool
+static bool
 xlocator_list_add_directory (struct xlocator_list_ty *locators,
-                                const char *directory)
+                             const char *directory)
 {
 #if HAVE_DIR
   DIR *dirp;
@@ -435,21 +461,19 @@ xlocator_list_add_directory (struct xlocator_list_ty *locators,
   return true;
 }
 
-static void
-xlocator_list_init (struct xlocator_list_ty *locators)
-{
-  memset (locators, 0, sizeof (struct xlocator_list_ty));
-  hash_init (&locators->indirections, 10);
-
-  xmlCheckVersion (LIBXML_VERSION);
-}
-
 struct xlocator_list_ty *
-xlocator_list_alloc (void)
+xlocator_list_alloc (const char *base, const char *directory)
 {
   struct xlocator_list_ty *result;
-  result = XMALLOC (struct xlocator_list_ty);
-  xlocator_list_init (result);
+
+  xmlCheckVersion (LIBXML_VERSION);
+
+  result = XCALLOC (1, struct xlocator_list_ty);
+  hash_init (&result->indirections, 10);
+  result->base = xstrdup (base);
+
+  xlocator_list_add_directory (result, directory);
+
   return result;
 }
 

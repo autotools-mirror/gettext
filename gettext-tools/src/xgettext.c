@@ -719,7 +719,7 @@ xgettext cannot work without keywords to look for"));
   if (its)
     {
       const char *gettextdatadir;
-      char *locatordir;
+      char *itsdir, *ruledir, *locatordir;
 
       /* Make it possible to override the locator file location.  This
          is necessary for running the testsuite before "make
@@ -728,11 +728,14 @@ xgettext cannot work without keywords to look for"));
       if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
         gettextdatadir = relocate (GETTEXTDATADIR);
 
-      locatordir =
-        xconcatenated_filename (gettextdatadir, "its/locators",
-                                NULL);
-      its_locators = xlocator_list_alloc ();
-      xlocator_list_add_directory (its_locators, locatordir);
+      itsdir = xconcatenated_filename (gettextdatadir, "its", NULL);
+      ruledir = xconcatenated_filename (itsdir, "rules", NULL);
+      locatordir = xconcatenated_filename (itsdir, "locators", NULL);
+      free (itsdir);
+
+      its_locators = xlocator_list_alloc (ruledir, locatordir);
+      free (ruledir);
+      free (locatordir);
     }
 
   /* Determine extractor from language.  */
@@ -875,10 +878,7 @@ This version was built without iconv()."),
           if (language == NULL && its_locators != NULL)
             {
               bool inspect;
-              const char *gettextdatadir;
-              const char *baseuri;
-              char *ruledir;
-              const char *its_filename = NULL;
+              char *its_filename = NULL;
 
               /* Inspect the content, only when the file extension is
                  ".xml".  */
@@ -886,30 +886,18 @@ This version was built without iconv()."),
                 && memcmp (reduced + strlen (reduced) - 4, ".xml", 4)
                 == 0;
 
-              baseuri = xlocator_list_locate (its_locators, filename,
-                                              inspect);
-
-              /* Make it possible to override the locator file location.  This
-                 is necessary for running the testsuite before "make
-                 install".  */
-              gettextdatadir = getenv ("GETTEXTDATADIR");
-              if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-                gettextdatadir = relocate (GETTEXTDATADIR);
-
-              ruledir =
-                xconcatenated_filename (gettextdatadir, "its/rules",
-                                        NULL);
-              its_filename =
-                xconcatenated_filename (ruledir, baseuri,
-                                        NULL);
-              free (ruledir);
-
-              its_rules = its_rule_list_alloc ();
-              if (!its_rule_list_add_file (its_rules, its_filename))
+              its_filename = xlocator_list_locate (its_locators, filename,
+                                                   inspect);
+              if (its_filename != NULL)
                 {
-                  its_rule_list_free (its_rules);
-                  its_rules = NULL;
+                  its_rules = its_rule_list_alloc ();
+                  if (!its_rule_list_add_file (its_rules, its_filename))
+                    {
+                      its_rule_list_free (its_rules);
+                      its_rules = NULL;
+                    }
                 }
+              free (its_filename);
             }
 
           if (its_rules == NULL)

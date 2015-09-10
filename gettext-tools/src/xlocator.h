@@ -27,14 +27,11 @@ extern "C" {
 
 typedef struct xlocator_list_ty xlocator_list_ty;
 
-extern struct xlocator_list_ty *xlocator_list_alloc (void);
-extern bool xlocator_list_add_file (struct xlocator_list_ty *locators,
-                                       const char *locator_file_name);
-extern bool xlocator_list_add_directory (struct xlocator_list_ty *locators,
-                                         const char *directory);
-extern const char *xlocator_list_locate (xlocator_list_ty *locators,
-                                         const char *filename,
-                                         bool inspect_content);
+extern struct xlocator_list_ty *xlocator_list_alloc (const char *base,
+                                                     const char *directory);
+extern char *xlocator_list_locate (xlocator_list_ty *locators,
+                                   const char *path,
+                                   bool inspect_content);
 extern void xlocator_list_free (xlocator_list_ty *locators);
 
 #ifdef __cplusplus
