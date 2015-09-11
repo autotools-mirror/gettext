@@ -458,7 +458,7 @@ changequote([,])dnl
 fi
 AC_SUBST([ARCHIVE_FORMAT])
 
-ARCHIVE_VERSION=0.19.5
+ARCHIVE_VERSION=0.19.6
 AC_SUBST([ARCHIVE_VERSION])
 
 dnl Check for tools needed for formatting the documentation.
