@@ -1,5 +1,9 @@
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
+	* gettext 0.19.6 released.
+
+2015-09-11  Daiki Ueno  <ueno@gnu.org>
+
 	* po/fi.po: Update from Jorma Karvonen <karvonen.jorma@gmail.com>.
 	* po/it.po: Update from Marco Colombo <m.colombo@ed.ac.uk>.
 	* po/zh_CN.po: Update from Ji ZhengYu <zhengyuji@gmail.com>.
