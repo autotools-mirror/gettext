@@ -4,14 +4,15 @@
 # Piotr Pogorzelski <ppogorze@ippt.gov.pl>, 1995
 # Jakub Bogusz <qboosh@pld-linux.org>, 2002, 2003, remarks to some 18 messages in 2014
 # Piotr Drąg <piotrdrag@gmail.com>, remarks on grammar errors in 2014
-# Rafał Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2007, 2010, 2013-2105
+# Jakub Bogusz <qboosh@pld-linux.org>, 3 typos, 2015
+# Rafał Maszkowski <rzm@icm.edu.pl>, 1995-1999, 2001, 2003-2007, 2010, 2013-2015
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2015-06-23 15:18+0900\n"
-"PO-Revision-Date: 2015-06-23 21:59+0200\n"
+"PO-Revision-Date: 2015-07-15 18:54+0200\n"
 "Last-Translator: Rafał Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
 "Language: pl\n"
@@ -2583,7 +2584,7 @@ msgstr "Podwójny cudzysłów ASCII użyty zamiast znaku Unicode"
 
 #: src/msgl-check.c:1049
 msgid "ASCII single quote used instead of Unicode"
-msgstr "Pojedyńczy cudzysłów ASCII użyty zamiast zanku Unicode"
+msgstr "Pojedynczy cudzysłów ASCII użyty zamiast znaku Unicode"
 
 #: src/msgl-iconv.c:66
 #, c-format
@@ -3767,7 +3768,7 @@ msgid ""
 "                                (ellipsis-unicode, space-ellipsis,\n"
 "                                 quote-unicode)\n"
 msgstr ""
-"      --check=NAZWA           spradzenie składni komunikatów\n"
+"      --check=NAZWA           sprawdzenie składni komunikatów\n"
 "                                (ellipsis-unicode, space-ellipsis,\n"
 "                                 quote-unicode - wielokropki Unicode,\n"
 "                                 sekwencje spacja-wielokropek, cudzysłowy\n"
