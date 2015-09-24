@@ -31,7 +31,9 @@
 #include <stdint.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <libxml/xmlwriter.h>
 #include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
 #include <stdlib.h>
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -259,7 +261,8 @@ struct its_rule_class_ty
 #define ITS_RULE_TY                             \
   struct its_rule_class_ty *methods;            \
   char *selector;                               \
-  struct its_value_list_ty values;
+  struct its_value_list_ty values;              \
+  xmlNs **namespaces;
 
 struct its_rule_ty
 {
@@ -273,6 +276,13 @@ its_rule_destructor (struct its_rule_ty *pop)
 {
   free (pop->selector);
   its_value_list_destroy (&pop->values);
+  if (pop->namespaces)
+    {
+      size_t i;
+      for (i = 0; pop->namespaces[i] != NULL; i++)
+        xmlFreeNsList (pop->namespaces[i]);
+      free (pop->namespaces);
+    }
 }
 
 static void
@@ -293,6 +303,17 @@ its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
     {
       error (0, 0, _("cannot create XPath context"));
       return;
+    }
+
+  if (rule->namespaces)
+    {
+      size_t i;
+      for (i = 0; rule->namespaces[i] != NULL; i++)
+        {
+          xmlNs *ns;
+          for (ns = rule->namespaces[i]; ns; ns = ns->next)
+            xmlXPathRegisterNs (context, ns->prefix, ns->href);
+        }
     }
 
   object = xmlXPathEvalExpression (BAD_CAST rule->selector, context);
@@ -362,16 +383,37 @@ _its_collect_text_content (xmlNode *node)
         {
         case XML_TEXT_NODE:
           {
+            xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
+            xmlTextWriter *writer = xmlNewTextWriter (buffer);
             xmlChar *xcontent = xmlNodeGetContent (n);
-            content = xstrdup ((const char *) xcontent);
+            xmlTextWriterWriteString (writer, xcontent);
             xmlFree (xcontent);
+            content =
+              xstrdup ((const char *) xmlOutputBufferGetContent (buffer));
+            xmlFreeTextWriter (writer);
           }
           break;
 
         case XML_ELEMENT_NODE:
           {
+            xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
+            xmlTextWriter *writer = xmlNewTextWriter (buffer);
             char *p = _its_collect_text_content (n);
-            content = xasprintf ("<%s>%s</%s>", n->name, p, n->name);
+
+            xmlTextWriterStartElement (writer, BAD_CAST n->name);
+            if (n->properties)
+              {
+                xmlAttr *attr = n->properties;
+                for (; attr; attr = attr->next)
+                  xmlTextWriterWriteAttribute (writer,
+                                               attr->name,
+                                               xmlGetProp (n, attr->name));
+              }
+            xmlTextWriterWriteString (writer, BAD_CAST p);
+            xmlTextWriterEndElement (writer);
+            content =
+              xstrdup ((const char *) xmlOutputBufferGetContent (buffer));
+            xmlFreeTextWriter (writer);
             free (p);
           }
           break;
@@ -435,6 +477,17 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
   xmlNode *n = node;
 
   result = XCALLOC (1, struct its_value_list_ty);
+
+  /* A local attribute overrides the global rule.  */
+  if (xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "translate"))
+    {
+      char *prop;
+
+      prop = _its_get_attribute (node, "translate");
+      its_value_list_append (result, "translate", prop);
+      free (prop);
+      return result;
+    }
 
   /* Inherit from the parent elements.  */
   for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
@@ -527,6 +580,29 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
 
   result = XCALLOC (1, struct its_value_list_ty);
 
+  /* Local attributes overrides the global rule.  */
+  if (xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "locNote")
+      || xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "locNoteRef"))
+    {
+      char *prop;
+
+      if (xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "locNote"))
+        {
+          prop = _its_get_attribute (node, "locNote");
+          its_value_list_append (result, "locNote", prop);
+          free (prop);
+        }
+
+      if (xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "locNoteType"))
+        {
+          prop = _its_get_attribute (node, "locNoteType");
+          its_value_list_append (result, "locNoteType", prop);
+          free (prop);
+        }
+
+      return result;
+    }
+
   /* Inherit from the parent elements.  */
   for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
     {
@@ -607,6 +683,17 @@ its_element_within_text_rule_eval (struct its_rule_ty *pop,
 
   result = XCALLOC (1, struct its_value_list_ty);
 
+  /* A local attribute overrides the global rule.  */
+  if (xmlHasNsProp (node, BAD_CAST ITS_NS, BAD_CAST "withinText"))
+    {
+      char *prop;
+
+      prop = _its_get_attribute (node, "withinText");
+      its_value_list_append (result, "withinText", prop);
+      free (prop);
+      return result;
+    }
+
   /* Doesn't inherit from the parent elements, and the default value
      is None.  */
   index = (intptr_t) node->_private;
@@ -648,13 +735,30 @@ its_rule_alloc (struct its_rule_class_ty *method_table, xmlNode *node)
 }
 
 static struct its_rule_ty *
-its_rule_parse (xmlNode *node)
+its_rule_parse (xmlDoc *doc, xmlNode *node)
 {
   const char *name = (const char *) node->name;
   void *value;
 
   if (hash_find_entry (&classes, name, strlen (name), &value) == 0)
-    return its_rule_alloc ((struct its_rule_class_ty *) value, node);
+    {
+      struct its_rule_ty *result;
+      xmlNs **namespaces;
+
+      result = its_rule_alloc ((struct its_rule_class_ty *) value, node);
+      namespaces = xmlGetNsList (doc, node);
+      if (namespaces)
+        {
+          size_t i;
+          for (i = 0; namespaces[i] != NULL; i++)
+            ;
+          result->namespaces = XCALLOC (i + 1, xmlNs *);
+          for (i = 0; namespaces[i] != NULL; i++)
+            result->namespaces[i] = xmlCopyNamespaceList (namespaces[i]);
+        }
+      xmlFree (namespaces);
+      return result;
+    }
 
   return NULL;
 }
@@ -748,7 +852,7 @@ its_rule_list_add_file (struct its_rule_list_ty *rules,
     {
       struct its_rule_ty *rule;
 
-      rule = its_rule_parse (node);
+      rule = its_rule_parse (doc, node);
       if (!rule)
         continue;
 

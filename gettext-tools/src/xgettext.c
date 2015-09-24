@@ -836,7 +836,7 @@ This version was built without iconv()."),
     {
       const char *filename;
       extractor_ty this_file_extractor;
-      its_rule_list_ty *its_rules;
+      its_rule_list_ty *its_rules = NULL;
 
       filename = file_list->item[i];
 

@@ -119,7 +119,7 @@ xlocator_match (struct xlocator_ty *locator, const char *path,
     case XLOCATOR_URI_PATTERN:
       /* FIXME: We should not use fnmatch() here, since PATTERN is a
          URI, with a wildcard.  */
-      return fnmatch (locator->matcher.pattern, path, FNM_PATHNAME) == 0;
+      return fnmatch (locator->matcher.pattern, path, 0) == 0;
 
     case XLOCATOR_NAMESPACE:
     case XLOCATOR_DOCUMENT_ELEMENT:
