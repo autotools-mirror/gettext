@@ -367,8 +367,56 @@ _its_get_attribute (xmlNode *node, const char *attr)
   return result;
 }
 
+enum whitespace_type_ty
+{
+  none,
+  normalize,
+  strip
+};
+typedef enum whitespace_type_ty whitespace_type_ty;
+
 static char *
-_its_collect_text_content (xmlNode *node)
+normalize_whitespace (const char *text, whitespace_type_ty whitespace)
+{
+  if (whitespace == none)
+    return xstrdup (text);
+  else
+    {
+      char *result, *p;
+
+      /* Strip whitespaces at the beginning/end of the text.  */
+      result = xstrdup (text + strspn (text, " \t\n"));
+      for (p = result + strlen (result);
+           p > result && (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n');
+           p--)
+        ;
+      if (p > result)
+        *++p = '\0';
+
+      /* Normalize whitespaces within the text.  */
+      if (whitespace == normalize)
+        {
+          char *end = result + strlen (result);
+          for (p = result; *p != '\0';)
+            {
+              size_t len = strspn (p, " \t\n");
+              if (len > 0)
+                {
+                  *p = ' ';
+                  memmove (p + 1, p + len, end - (p + len));
+                  end -= len - 1;
+                  *end = '\0';
+                  p++;
+                }
+              p += strcspn (p, " \t\n");
+            }
+        }
+      return result;
+    }
+}
+
+static char *
+_its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
 {
   char *buffer = NULL;
   size_t bufmax = 0;
@@ -386,10 +434,11 @@ _its_collect_text_content (xmlNode *node)
             xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (buffer);
             xmlChar *xcontent = xmlNodeGetContent (n);
+
             xmlTextWriterWriteString (writer, xcontent);
             xmlFree (xcontent);
             content =
-              xstrdup ((const char *) xmlOutputBufferGetContent (buffer));
+              normalize_whitespace ((const char *) xmlOutputBufferGetContent (buffer), whitespace);
             xmlFreeTextWriter (writer);
           }
           break;
@@ -398,7 +447,7 @@ _its_collect_text_content (xmlNode *node)
           {
             xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (buffer);
-            char *p = _its_collect_text_content (n);
+            char *p = _its_collect_text_content (n, whitespace);
 
             xmlTextWriterStartElement (writer, BAD_CAST n->name);
             if (n->properties)
@@ -412,7 +461,7 @@ _its_collect_text_content (xmlNode *node)
             xmlTextWriterWriteString (writer, BAD_CAST p);
             xmlTextWriterEndElement (writer);
             content =
-              xstrdup ((const char *) xmlOutputBufferGetContent (buffer));
+              normalize_whitespace ((const char *) xmlOutputBufferGetContent (buffer), whitespace);
             xmlFreeTextWriter (writer);
             free (p);
           }
@@ -557,7 +606,8 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   if (n)
     {
-      char *content = _its_collect_text_content (n);
+      /* FIXME: Respect space attribute.  */
+      char *content = _its_collect_text_content (n, normalize);
       its_value_list_append (&pop->values, "locNote", content);
       free (content);
     }
@@ -722,6 +772,87 @@ static struct its_rule_class_ty its_element_within_text_rule_class =
     its_element_within_text_rule_eval,
   };
 
+/* Implementation of Preserve Space data category.  */
+static void
+its_preserve_space_rule_constructor (struct its_rule_ty *pop,
+                                     xmlNode *node)
+{
+  char *prop;
+
+  if (!xmlHasProp (node, BAD_CAST "selector"))
+    {
+      error (0, 0,
+             _("\"preserveSpaeRule\" node does not contain \"selector\""));
+      return;
+    }
+
+  if (!xmlHasProp (node, BAD_CAST "space"))
+    {
+      error (0, 0,
+             _("\"preserveSpaceRule\" node does not contain \"space\""));
+      return;
+    }
+
+  prop = _its_get_attribute (node, "selector");
+  if (prop)
+    pop->selector = prop;
+
+  prop = _its_get_attribute (node, "space");
+  its_value_list_append (&pop->values, "space", prop);
+  free (prop);
+}
+
+struct its_value_list_ty *
+its_preserve_space_rule_eval (struct its_rule_ty *pop,
+                              struct its_pool_ty *pool,
+                              xmlNode *node)
+{
+  struct its_value_list_ty *result;
+  intptr_t index;
+
+  result = XCALLOC (1, struct its_value_list_ty);
+
+  /* A local attribute overrides the global rule.  */
+  if (xmlHasProp (node, BAD_CAST "xml:space"))
+    {
+      char *prop;
+
+      prop = _its_get_attribute (node, "xml:space");
+      its_value_list_append (result, "space", prop);
+      free (prop);
+      return result;
+    }
+
+  /* Doesn't inherit from the parent elements, and the default value
+     is None.  */
+  index = (intptr_t) node->_private;
+  if (index > 0)
+    {
+      struct its_value_list_ty *values;
+      const char *value;
+
+      assert (index <= pool->nitems);
+      values = &pool->items[index - 1];
+
+      value = its_value_list_get_value (values, "space");
+      if (value != NULL)
+        its_value_list_set_value (result, "space", value);
+    }
+
+  /* The default value is space="default".  */
+  its_value_list_append (result, "space", "default");
+  return result;
+}
+
+static struct its_rule_class_ty its_preserve_space_rule_class =
+  {
+    sizeof (struct its_rule_ty),
+    its_preserve_space_rule_constructor,
+    its_rule_destructor,
+    its_rule_apply,
+    its_preserve_space_rule_eval,
+  };
+
 static struct its_rule_ty *
 its_rule_alloc (struct its_rule_class_ty *method_table, xmlNode *node)
 {
@@ -779,6 +910,7 @@ init_classes (void)
   ADD_RULE_CLASS ("translateRule", its_translate_rule_class);
   ADD_RULE_CLASS ("locNoteRule", its_localization_note_rule_class);
   ADD_RULE_CLASS ("withinTextRule", its_element_within_text_rule_class);
+  ADD_RULE_CLASS ("preserveSpaceRule", its_preserve_space_rule_class);
 
 #undef ADD_RULE_CLASS
 }
@@ -1012,7 +1144,9 @@ _its_get_content (xmlNode *node, const char *pointer)
       string_list_init (&sl);
       for (i = 0; i < nodes->nodeNr; i++)
         {
-          char *content = _its_collect_text_content (nodes->nodeTab[i]);
+          /* FIXME: Respect space attribute.  */
+          char *content = _its_collect_text_content (nodes->nodeTab[i],
+                                                     normalize);
           string_list_append (&sl, content);
           free (content);
         }
@@ -1039,6 +1173,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       const char *value;
       char *content;
       char *comment = NULL;
+      whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (rules, node);
 
@@ -1051,10 +1186,17 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
           if (value)
             comment = _its_get_content (node, value);
         }
+
+      value = its_value_list_get_value (values, "space");
+      if (value && strcmp (value, "preserve") == 0)
+        whitespace = none;
+      else
+        whitespace = normalize;
+
       its_value_list_destroy (values);
       free (values);
 
-      content = _its_collect_text_content (node);
+      content = _its_collect_text_content (node, whitespace);
       if (*content == '\0')
         free (content);
       else
