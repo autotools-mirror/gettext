@@ -430,6 +430,7 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
       switch (n->type)
         {
         case XML_TEXT_NODE:
+        case XML_CDATA_SECTION_NODE:
           {
             xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (buffer);
@@ -465,6 +466,10 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
             xmlFreeTextWriter (writer);
             free (p);
           }
+          break;
+
+        case XML_ENTITY_REF_NODE:
+          content = xasprintf ("&%s;", (const char *) n->name);
           break;
 
         default:
