@@ -32,6 +32,7 @@
 # define HAVE_DIR 0
 #endif
 
+#include "basename.h"
 #include <errno.h>
 #include "error.h"
 #include <fnmatch.h>
@@ -119,7 +120,8 @@ xlocator_match (struct xlocator_ty *locator, const char *path,
     case XLOCATOR_URI_PATTERN:
       /* FIXME: We should not use fnmatch() here, since PATTERN is a
          URI, with a wildcard.  */
-      return fnmatch (locator->matcher.pattern, path, 0) == 0;
+      return fnmatch (locator->matcher.pattern, basename (path), FNM_PATHNAME)
+        == 0;
 
     case XLOCATOR_NAMESPACE:
     case XLOCATOR_DOCUMENT_ELEMENT:

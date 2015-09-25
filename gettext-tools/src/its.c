@@ -48,15 +48,17 @@
    extending the its_rule_class_ty class and registering it in
    init_classes().
 
-   The message extraction is done in three phases.  In the first
-   phase, its_rule_list_apply() associates values to matching XML
-   elements in the target document.  In the second phase, it traverses
-   the tree and marks translatable elements.  In the final phase, it
-   extracts text contents from the marked elements.
+   The message extraction is performed in three steps.  In the first
+   step, its_rule_list_apply() assigns values to nodes in an XML
+   document.  In the second step, its_rule_list_extract_nodes() marks
+   translatable nodes.  In the final step,
+   its_rule_list_extract_text() extracts text contents from the marked
+   nodes.
 
-   The values associated with an XML node are represented as an array
-   of key-value pairs, where both keys and values are string.  The
-   values are stored in node->_private.  */
+   The values assigned to a node are represented as an array of
+   key-value pairs, where both keys and values are string.  The array
+   is stored in node->_private.  To retrieve the values for a node,
+   use its_rule_list_eval().  */
 
 #define ITS_NS "http://www.w3.org/2005/11/its"
 
@@ -366,42 +368,37 @@ _its_get_attribute (xmlNode *node, const char *attr)
   return result;
 }
 
-enum whitespace_type_ty
+enum its_whitespace_type_ty
 {
-  none,
-  normalize,
-  strip
+  preserve,
+  normalize
 };
-typedef enum whitespace_type_ty whitespace_type_ty;
 
 static char *
-normalize_whitespace (const char *text, whitespace_type_ty whitespace)
+normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
 {
-  if (whitespace == none)
+  if (whitespace == preserve)
     return xstrdup (text);
   else
+    /* Normalize whitespaces within the text, but not at the beginning
+       nor the end of the text.  */
     {
-      char *result, *p;
+      char *result, *p, *end;
 
       result = xstrdup (text);
-
-      /* Normalize whitespaces within the text.  */
-      if (whitespace == normalize)
+      end = result + strlen (result);
+      for (p = result; *p != '\0';)
         {
-          char *end = result + strlen (result);
-          for (p = result; *p != '\0';)
+          size_t len = strspn (p, " \t\n");
+          if (len > 0)
             {
-              size_t len = strspn (p, " \t\n");
-              if (len > 0)
-                {
-                  *p = ' ';
-                  memmove (p + 1, p + len, end - (p + len));
-                  end -= len - 1;
-                  *end = '\0';
-                  p++;
-                }
-              p += strcspn (p, " \t\n");
+              *p = ' ';
+              memmove (p + 1, p + len, end - (p + len));
+              end -= len - 1;
+              *end = '\0';
+              p++;
             }
+          p += strcspn (p, " \t\n");
         }
       return result;
     }
@@ -471,7 +468,8 @@ _its_encode_special_chars (const char *content, bool is_attribute)
 }
 
 static char *
-_its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
+_its_collect_text_content (xmlNode *node,
+                           enum its_whitespace_type_ty whitespace)
 {
   char *buffer = NULL;
   size_t bufmax = 0;
@@ -640,7 +638,6 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
                          xmlNode *node)
 {
   struct its_value_list_ty *result;
-  xmlNode *n = node;
 
   result = XCALLOC (1, struct its_value_list_ty);
 
@@ -676,6 +673,8 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
+        xmlNode *n;
+
         for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
           {
             const char *value =
@@ -761,7 +760,6 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
                                  xmlNode *node)
 {
   struct its_value_list_ty *result;
-  xmlNode *n = node;
 
   result = XCALLOC (1, struct its_value_list_ty);
 
@@ -788,24 +786,57 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
       return result;
     }
 
-  /* Inherit from the parent elements.  */
-  for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+  switch (node->type)
     {
-      const char *value;
+    case XML_ATTRIBUTE_NODE:
+      /* Attribute nodes don't inherit from the parent elements.  */
+      {
+        const char *value;
 
-      value = _its_pool_get_value_for_node (pool, n, "locNote");
-      if (value != NULL)
-        {
-          its_value_list_set_value (result, "locNote", value);
-          return result;
-        }
+        value = _its_pool_get_value_for_node (pool, node, "locNote");
+        if (value != NULL)
+          {
+            its_value_list_set_value (result, "locNote", value);
+            return result;
+          }
 
-      value = _its_pool_get_value_for_node (pool, n, "locNotePointer");
-      if (value != NULL)
-        {
-          its_value_list_set_value (result, "locNotePointer", value);
-          return result;
-        }
+        value = _its_pool_get_value_for_node (pool, node, "locNotePointer");
+        if (value != NULL)
+          {
+            its_value_list_set_value (result, "locNotePointer", value);
+            return result;
+          }
+      }
+      break;
+
+    case XML_ELEMENT_NODE:
+      /* Inherit from the parent elements.  */
+      {
+        xmlNode *n;
+
+        for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+          {
+            const char *value;
+
+            value = _its_pool_get_value_for_node (pool, n, "locNote");
+            if (value != NULL)
+              {
+                its_value_list_set_value (result, "locNote", value);
+                return result;
+              }
+
+            value = _its_pool_get_value_for_node (pool, n, "locNotePointer");
+            if (value != NULL)
+              {
+                its_value_list_set_value (result, "locNotePointer", value);
+                return result;
+              }
+          }
+      }
+      break;
+
+    default:
+      break;
     }
 
   /* The default value is None.  */
@@ -922,7 +953,7 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
                               xmlNode *node)
 {
   struct its_value_list_ty *result;
-  const char *value;
+  xmlNode *n;
 
   result = XCALLOC (1, struct its_value_list_ty);
 
@@ -937,13 +968,15 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
       return result;
     }
 
-  /* Doesn't inherit from the parent elements, and the default value
-     is None.  */
-  value = _its_pool_get_value_for_node (pool, node, "space");
-  if (value != NULL)
+  /* Inherit from the parent elements.  */
+  for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
     {
-      its_value_list_set_value (result, "space", value);
-      return result;
+      const char *value = _its_pool_get_value_for_node (pool, n, "space");
+      if (value != NULL)
+        {
+          its_value_list_set_value (result, "space", value);
+          return result;
+        }
     }
 
   /* The default value is space="default".  */
@@ -1309,7 +1342,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       const char *value;
       char *content;
       char *comment = NULL;
-      whitespace_type_ty whitespace;
+      enum its_whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (rules, node);
 
@@ -1325,7 +1358,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
 
       value = its_value_list_get_value (values, "space");
       if (value && strcmp (value, "preserve") == 0)
-        whitespace = none;
+        whitespace = preserve;
       else
         whitespace = normalize;
 
@@ -1348,7 +1381,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                                         content,
                                         null_context, &pos,
                                         comment, NULL);
-          if (whitespace == none)
+          if (whitespace == preserve)
             message->do_wrap = no;
 
           if (node->type == XML_ELEMENT_NODE)
