@@ -142,10 +142,12 @@ xlocator_match (struct xlocator_ty *locator, const char *path,
 
           root = xmlDocGetRootElement (doc);
           if (locator->type == XLOCATOR_NAMESPACE)
-            result = xmlStrEqual (root->ns->href, BAD_CAST locator->matcher.ns);
+            result = root->ns != NULL
+              && xmlStrEqual (root->ns->href, BAD_CAST locator->matcher.ns);
           else
             result =
               ((!locator->matcher.d.prefix
+                || *locator->matcher.d.prefix == '\0'
                 || !root->ns
                 || xmlStrEqual (root->ns->prefix,
                                 BAD_CAST locator->matcher.d.prefix))
@@ -358,6 +360,7 @@ xlocator_list_add_file (struct xlocator_list_ty *locators,
 
   root = xmlDocGetRootElement (doc);
   if (!(xmlStrEqual (root->name, BAD_CAST "locatingRules")
+        && root->ns
         && xmlStrEqual (root->ns->href, BAD_CAST LOCATING_RULES_NS)))
     {
       error (0, 0, _("the root element is not \"locatingRules\""

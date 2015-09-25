@@ -970,7 +970,8 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
   /* Write the PO file.  */
   msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
 
-  xlocator_list_free (its_locators);
+  if (its_locators)
+    xlocator_list_free (its_locators);
 
   exit (EXIT_SUCCESS);
 }
