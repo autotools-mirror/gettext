@@ -280,7 +280,7 @@ its_rule_destructor (struct its_rule_ty *pop)
     {
       size_t i;
       for (i = 0; pop->namespaces[i] != NULL; i++)
-        xmlFreeNsList (pop->namespaces[i]);
+        xmlFreeNs (pop->namespaces[i]);
       free (pop->namespaces);
     }
 }
@@ -310,9 +310,8 @@ its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
       size_t i;
       for (i = 0; rule->namespaces[i] != NULL; i++)
         {
-          xmlNs *ns;
-          for (ns = rule->namespaces[i]; ns; ns = ns->next)
-            xmlXPathRegisterNs (context, ns->prefix, ns->href);
+          xmlNs *ns = rule->namespaces[i];
+          xmlXPathRegisterNs (context, ns->prefix, ns->href);
         }
     }
 
@@ -1233,10 +1232,12 @@ its_rule_list_extract_nodes (its_rule_list_ty *rules,
 }
 
 static char *
-_its_get_content (xmlNode *node, const char *pointer)
+_its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
+                  const char *pointer)
 {
   xmlXPathContext *context;
   xmlXPathObject *object;
+  size_t i;
   char *result;
 
   context = xmlXPathNewContext (node->doc);
@@ -1244,6 +1245,20 @@ _its_get_content (xmlNode *node, const char *pointer)
     {
       error (0, 0, _("cannot create XPath context"));
       return NULL;
+    }
+
+  for (i = 0; i < rules->nitems; i++)
+    {
+      struct its_rule_ty *rule = rules->items[i];
+      if (rule->namespaces)
+        {
+          size_t i;
+          for (i = 0; rule->namespaces[i] != NULL; i++)
+            {
+              xmlNs *ns = rule->namespaces[i];
+              xmlXPathRegisterNs (context, ns->prefix, ns->href);
+            }
+        }
     }
 
   object = xmlXPathNodeEval (node, BAD_CAST pointer, context);
@@ -1305,7 +1320,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
         {
           value = its_value_list_get_value (values, "locNotePointer");
           if (value)
-            comment = _its_get_content (node, value);
+            comment = _its_get_content (rules, node, value);
         }
 
       value = its_value_list_get_value (values, "space");
