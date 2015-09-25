@@ -384,14 +384,7 @@ normalize_whitespace (const char *text, whitespace_type_ty whitespace)
     {
       char *result, *p;
 
-      /* Strip whitespaces at the beginning/end of the text.  */
-      result = xstrdup (text + strspn (text, " \t\n"));
-      for (p = result + strlen (result);
-           p > result && (*p == '\0' || *p == ' ' || *p == '\t' || *p == '\n');
-           p--)
-        ;
-      if (p > result)
-        *++p = '\0';
+      result = xstrdup (text);
 
       /* Normalize whitespaces within the text.  */
       if (whitespace == normalize)
@@ -432,15 +425,39 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
         case XML_TEXT_NODE:
         case XML_CDATA_SECTION_NODE:
           {
-            xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
-            xmlTextWriter *writer = xmlNewTextWriter (buffer);
             xmlChar *xcontent = xmlNodeGetContent (n);
+            const char *ccontent;
+            xmlChar *econtent;
 
-            xmlTextWriterWriteString (writer, xcontent);
+            /* We can't expect xmlTextWriterWriteString encode special
+               characters as we write text outside of the element.  */
+            econtent = xmlEncodeSpecialChars (NULL, xcontent);
             xmlFree (xcontent);
+            ccontent = (const char *) econtent;
+
+            /* Skip whitespaces at the beginning of the text, if this
+               is the first node.  */
+            if (whitespace == normalize && !n->prev)
+              ccontent = ccontent + strspn (ccontent, " \t\n");
             content =
-              normalize_whitespace ((const char *) xmlOutputBufferGetContent (buffer), whitespace);
-            xmlFreeTextWriter (writer);
+              normalize_whitespace (ccontent, whitespace);
+            xmlFree (econtent);
+
+            /* Skip whitespaces at the end of the text, if this
+               is the last node.  */
+            if (whitespace == normalize && !n->next)
+              {
+                char *p = content + strlen (content);
+                for (; p > content; p--)
+                  {
+                    int c = *(p - 1);
+                    if (!(c == ' ' || c == '\t' || c == '\n'))
+                      {
+                        *p = '\0';
+                        break;
+                      }
+                  }
+              }
           }
           break;
 
@@ -459,7 +476,8 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
                                                attr->name,
                                                xmlGetProp (n, attr->name));
               }
-            xmlTextWriterWriteString (writer, BAD_CAST p);
+            if (*p != '\0')
+              xmlTextWriterWriteRaw (writer, BAD_CAST p);
             xmlTextWriterEndElement (writer);
             content =
               normalize_whitespace ((const char *) xmlOutputBufferGetContent (buffer), whitespace);
@@ -496,6 +514,13 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
   return buffer;
 }
 
+static void
+_its_error_missing_attribute (const char *element, const char *attribute)
+{
+  error (0, 0, _("\"%s\" node does not contain \"%s\""),
+         element, attribute);
+}
+
 /* Implementation of Translate data category.  */
 static void
 its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
@@ -504,13 +529,13 @@ its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
-      error (0, 0, _("\"translateRule\" node does not contain \"selector\""));
+      _its_error_missing_attribute ("translateRule", "selector");
       return;
     }
 
   if (!xmlHasProp (node, BAD_CAST "translate"))
     {
-      error (0, 0, _("\"translateRule\" node does not contain \"translate\""));
+      _its_error_missing_attribute ("translateRule", "translate");
       return;
     }
 
@@ -587,13 +612,13 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
-      error (0, 0, _("\"locNoteRule\" node does not contain \"selector\""));
+      _its_error_missing_attribute ("locNoteRule", "selector");
       return;
     }
 
   if (!xmlHasProp (node, BAD_CAST "locNoteType"))
     {
-      error (0, 0, _("\"locNoteRule\" node does not contain \"locNoteType\""));
+      _its_error_missing_attribute ("locNoteRule", "locNoteType");
       return;
     }
 
@@ -708,14 +733,13 @@ its_element_within_text_rule_constructor (struct its_rule_ty *pop,
 
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
-      error (0, 0, _("\"withinTextRule\" node does not contain \"selector\""));
+      _its_error_missing_attribute ("withinTextRule", "selector");
       return;
     }
 
   if (!xmlHasProp (node, BAD_CAST "withinText"))
     {
-      error (0, 0,
-             _("\"withinTextRule\" node does not contain \"withinText\""));
+      _its_error_missing_attribute ("withinTextRule", "withinText");
       return;
     }
 
@@ -786,15 +810,13 @@ its_preserve_space_rule_constructor (struct its_rule_ty *pop,
 
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
-      error (0, 0,
-             _("\"preserveSpaeRule\" node does not contain \"selector\""));
+      _its_error_missing_attribute ("preserveSpaceRule", "selector");
       return;
     }
 
   if (!xmlHasProp (node, BAD_CAST "space"))
     {
-      error (0, 0,
-             _("\"preserveSpaceRule\" node does not contain \"space\""));
+      _its_error_missing_attribute ("preserveSpaceRule", "space");
       return;
     }
 
@@ -841,7 +863,10 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
 
       value = its_value_list_get_value (values, "space");
       if (value != NULL)
-        its_value_list_set_value (result, "space", value);
+        {
+          its_value_list_set_value (result, "space", value);
+          return result;
+        }
     }
 
   /* The default value is space="default".  */
@@ -1207,14 +1232,17 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       else
         {
           lex_pos_ty pos;
+          message_ty *message;
 
           pos.file_name = xstrdup (logical_filename);
           pos.line_number = xmlGetLineNo (node);
 
-          remember_a_message (mlp, NULL,
-                              content,
-                              null_context, &pos,
-                              comment, NULL);
+          message = remember_a_message (mlp, NULL,
+                                        content,
+                                        null_context, &pos,
+                                        comment, NULL);
+          if (whitespace == none)
+            message->do_wrap = no;
         }
       free (comment);
     }
