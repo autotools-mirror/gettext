@@ -409,7 +409,7 @@ normalize_whitespace (const char *text, whitespace_type_ty whitespace)
 }
 
 static char *
-_its_encode_special_chars (const char *content)
+_its_encode_special_chars (const char *content, bool is_attribute)
 {
   const char *str;
   size_t amount = 0;
@@ -427,6 +427,12 @@ _its_encode_special_chars (const char *content)
           break;
         case '>':
           amount += 4;
+          break;
+        case '"':
+          if (is_attribute)
+            amount += 5;
+          else
+            amount += 1;
           break;
         default:
           amount += 1;
@@ -449,6 +455,12 @@ _its_encode_special_chars (const char *content)
           break;
         case '>':
           p = stpcpy (p, "&gt;");
+          break;
+        case '"':
+          if (is_attribute)
+            p = stpcpy (p, "&quot;");
+          else
+            *p++ = '"';
           break;
         default:
           *p++ = *str;
@@ -482,7 +494,8 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
             /* We can't expect xmlTextWriterWriteString() encode
                special characters as we write text outside of the
                element.  */
-            ccontent = _its_encode_special_chars ((const char *) xcontent);
+            ccontent = _its_encode_special_chars ((const char *) xcontent,
+                                                  node->type == XML_ATTRIBUTE_NODE);
             xmlFree (xcontent);
 
             /* Skip whitespaces at the beginning of the text, if this
@@ -597,6 +610,23 @@ its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
   free (prop);
 }
 
+const char *
+_its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
+                              const char *name)
+{
+  intptr_t index = (intptr_t) node->_private;
+  if (index > 0)
+    {
+      struct its_value_list_ty *values;
+
+      assert (index <= pool->nitems);
+      values = &pool->items[index - 1];
+
+      return its_value_list_get_value (values, name);
+    }
+  return NULL;
+}
+
 struct its_value_list_ty *
 its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
                          xmlNode *node)
@@ -617,29 +647,47 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
       return result;
     }
 
-  /* Inherit from the parent elements.  */
-  for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+  switch (node->type)
     {
-      intptr_t index = (intptr_t) n->_private;
-      if (index > 0)
-        {
-          struct its_value_list_ty *values;
-          const char *value;
+    case XML_ATTRIBUTE_NODE:
+      /* Attribute nodes don't inherit from the parent elements.  */
+      {
+        const char *value =
+          _its_pool_get_value_for_node (pool, node, "translate");
+        if (value != NULL)
+          {
+            its_value_list_set_value (result, "translate", value);
+            return result;
+          }
 
-          assert (index <= pool->nitems);
-          values = &pool->items[index - 1];
+        /* The default value is translate="no".  */
+        its_value_list_append (result, "translate", "no");
+      }
+      break;
 
-          value = its_value_list_get_value (values, "translate");
-          if (value != NULL)
-            {
-              its_value_list_set_value (result, "translate", value);
-              return result;
-            }
-        }
+    case XML_ELEMENT_NODE:
+      /* Inherit from the parent elements.  */
+      {
+        for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+          {
+            const char *value =
+              _its_pool_get_value_for_node (pool, n, "translate");
+            if (value != NULL)
+              {
+                its_value_list_set_value (result, "translate", value);
+                return result;
+              }
+          }
+
+        /* The default value is translate="yes".  */
+        its_value_list_append (result, "translate", "yes");
+      }
+      break;
+
+    default:
+      break;
     }
 
-  /* The default value is translate="yes".  */
-  its_value_list_append (result, "translate", "yes");
   return result;
 }
 
@@ -735,28 +783,20 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
   /* Inherit from the parent elements.  */
   for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
     {
-      intptr_t index = (intptr_t) n->_private;
-      if (index > 0)
+      const char *value;
+
+      value = _its_pool_get_value_for_node (pool, n, "locNote");
+      if (value != NULL)
         {
-          struct its_value_list_ty *values;
-          const char *value;
+          its_value_list_set_value (result, "locNote", value);
+          return result;
+        }
 
-          assert (index <= pool->nitems);
-          values = &pool->items[index - 1];
-
-          value = its_value_list_get_value (values, "locNote");
-          if (value != NULL)
-            {
-              its_value_list_set_value (result, "locNote", value);
-              return result;
-            }
-
-          value = its_value_list_get_value (values, "locNotePointer");
-          if (value != NULL)
-            {
-              its_value_list_set_value (result, "locNotePointer", value);
-              return result;
-            }
+      value = _its_pool_get_value_for_node (pool, n, "locNotePointer");
+      if (value != NULL)
+        {
+          its_value_list_set_value (result, "locNotePointer", value);
+          return result;
         }
     }
 
@@ -807,7 +847,7 @@ its_element_within_text_rule_eval (struct its_rule_ty *pop,
                                    xmlNode *node)
 {
   struct its_value_list_ty *result;
-  intptr_t index;
+  const char *value;
 
   result = XCALLOC (1, struct its_value_list_ty);
 
@@ -824,19 +864,9 @@ its_element_within_text_rule_eval (struct its_rule_ty *pop,
 
   /* Doesn't inherit from the parent elements, and the default value
      is None.  */
-  index = (intptr_t) node->_private;
-  if (index > 0)
-    {
-      struct its_value_list_ty *values;
-      const char *value;
-
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-
-      value = its_value_list_get_value (values, "withinText");
-      if (value != NULL)
-        its_value_list_set_value (result, "withinText", value);
-    }
+  value = _its_pool_get_value_for_node (pool, node, "withinText");
+  if (value != NULL)
+    its_value_list_set_value (result, "withinText", value);
 
   return result;
 }
@@ -884,7 +914,7 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
                               xmlNode *node)
 {
   struct its_value_list_ty *result;
-  intptr_t index;
+  const char *value;
 
   result = XCALLOC (1, struct its_value_list_ty);
 
@@ -901,21 +931,11 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
 
   /* Doesn't inherit from the parent elements, and the default value
      is None.  */
-  index = (intptr_t) node->_private;
-  if (index > 0)
+  value = _its_pool_get_value_for_node (pool, node, "space");
+  if (value != NULL)
     {
-      struct its_value_list_ty *values;
-      const char *value;
-
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-
-      value = its_value_list_get_value (values, "space");
-      if (value != NULL)
-        {
-          its_value_list_set_value (result, "space", value);
-          return result;
-        }
+      its_value_list_set_value (result, "space", value);
+      return result;
     }
 
   /* The default value is space="default".  */
@@ -1123,7 +1143,8 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
   const char *value;
   xmlNode *n;
 
-  if (node->type != XML_ELEMENT_NODE)
+  if (node->type != XML_ELEMENT_NODE
+      && node->type != XML_ATTRIBUTE_NODE)
     return false;
 
   values = its_rule_list_eval (rules, node);
@@ -1181,6 +1202,17 @@ its_rule_list_extract_nodes (its_rule_list_ty *rules,
     {
       xmlNode *n;
 
+      if (node->properties)
+        {
+          xmlAttr *attr = node->properties;
+          for (; attr; attr = attr->next)
+            {
+              xmlNode *n = (xmlNode *) attr;
+              if (its_rule_list_is_translatable (rules, n, 0))
+                its_node_list_append (nodes, n);
+            }
+        }
+              
       if (its_rule_list_is_translatable (rules, node, 0))
         its_node_list_append (nodes, node);
       else
@@ -1246,7 +1278,8 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                             flag_context_list_table_ty *flag_table,
                             message_list_ty *mlp)
 {
-  if (node->type == XML_ELEMENT_NODE)
+  if (node->type == XML_ELEMENT_NODE
+      || node->type == XML_ATTRIBUTE_NODE)
     {
       struct its_value_list_ty *values;
       const char *value;
