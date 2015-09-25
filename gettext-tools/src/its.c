@@ -409,6 +409,57 @@ normalize_whitespace (const char *text, whitespace_type_ty whitespace)
 }
 
 static char *
+_its_encode_special_chars (const char *content)
+{
+  const char *str;
+  size_t amount = 0;
+  char *result, *p;
+
+  for (str = content; *str != '\0'; str++)
+    {
+      switch (*str)
+        {
+        case '&':
+          amount += 5;
+          break;
+        case '<':
+          amount += 4;
+          break;
+        case '>':
+          amount += 4;
+          break;
+        default:
+          amount += 1;
+          break;
+        }
+    }
+
+  result = XNMALLOC (amount + 1, char);
+  *result = '\0';
+  p = result;
+  for (str = content; *str != '\0'; str++)
+    {
+      switch (*str)
+        {
+        case '&':
+          p = stpcpy (p, "&amp;");
+          break;
+        case '<':
+          p = stpcpy (p, "&lt;");
+          break;
+        case '>':
+          p = stpcpy (p, "&gt;");
+          break;
+        default:
+          *p++ = *str;
+          break;
+        }
+    }
+  *p = '\0';
+  return result;
+}
+
+static char *
 _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
 {
   char *buffer = NULL;
@@ -427,13 +478,12 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
           {
             xmlChar *xcontent = xmlNodeGetContent (n);
             const char *ccontent;
-            xmlChar *econtent;
 
-            /* We can't expect xmlTextWriterWriteString encode special
-               characters as we write text outside of the element.  */
-            econtent = xmlEncodeSpecialChars (NULL, xcontent);
+            /* We can't expect xmlTextWriterWriteString() encode
+               special characters as we write text outside of the
+               element.  */
+            ccontent = _its_encode_special_chars ((const char *) xcontent);
             xmlFree (xcontent);
-            ccontent = (const char *) econtent;
 
             /* Skip whitespaces at the beginning of the text, if this
                is the first node.  */
@@ -441,7 +491,6 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
               ccontent = ccontent + strspn (ccontent, " \t\n");
             content =
               normalize_whitespace (ccontent, whitespace);
-            xmlFree (econtent);
 
             /* Skip whitespaces at the end of the text, if this
                is the last node.  */
