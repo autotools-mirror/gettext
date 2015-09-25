@@ -419,17 +419,17 @@ _its_encode_special_chars (const char *content, bool is_attribute)
       switch (*str)
         {
         case '&':
-          amount += 5;
+          amount += sizeof ("&amp;");
           break;
         case '<':
-          amount += 4;
+          amount += sizeof ("&lt;");
           break;
         case '>':
-          amount += 4;
+          amount += sizeof ("&gt;");
           break;
         case '"':
           if (is_attribute)
-            amount += 5;
+            amount += sizeof ("&quot;");
           else
             amount += 1;
           break;

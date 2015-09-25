@@ -236,13 +236,56 @@ xlocator_list_locate (struct xlocator_list_ty *locators,
   return xlocator_list_resolve_target (locators, &locator->target);
 }
 
+static void
+_xlocator_error_missing_attribute (const char *element, const char *attribute)
+{
+  error (0, 0, _("\"%s\" node does not have \"%s\""), element, attribute);
+}
+
+static void
+_xlocator_error_missing_attributes (const char *element, ...)
+{
+  va_list ap;
+  char *buffer = NULL;
+  size_t buflen = 0;
+  size_t bufmax = 0;
+
+  va_start (ap, element);
+  while (true)
+    {
+      const char *attribute;
+      size_t length;
+
+      attribute = va_arg (ap, char *);
+      if (!attribute)
+        break;
+
+      length = strlen (attribute) + 2;
+      if (buflen + length + 1 >= bufmax)
+        {
+          bufmax = bufmax * 2 + length + 1;
+          buffer = xrealloc (buffer, bufmax);
+        }
+      sprintf (&buffer[buflen], "%s, ", attribute);
+      buflen += length;
+    }
+  va_end (ap);
+
+  if (buflen > 0)
+    buffer[buflen - 2] = '\0';
+
+  error (0, 0, _("\"%s\" node must have one of: %s"),
+         element, buffer);
+}
+
 static bool
 xlocator_target_init (struct xlocator_target_ty *target, xmlNode *node)
 {
   if (!(xmlHasProp (node, BAD_CAST "uri")
         || xmlHasProp (node, BAD_CAST "typeId")))
     {
-      error (0, 0, _("node does not have \"uri\" nor \"typeId\""));
+      _xlocator_error_missing_attributes ((const char *) node->name,
+                                          "uri", "typeId", NULL);
       return false;
     }
 
@@ -251,12 +294,28 @@ xlocator_target_init (struct xlocator_target_ty *target, xmlNode *node)
       target->uri = _xlocator_get_attribute (node, "uri");
       target->is_indirection = false;
     }
-  else if (xmlHasProp (node, BAD_CAST "typeId"))
+  else
     {
       target->uri = _xlocator_get_attribute (node, "typeId");
       target->is_indirection = true;
     }
 
+  return true;
+}
+
+static bool
+_xlocator_check_transform_pattern (const char *name, const char *pattern)
+{
+  const char *p;
+  size_t count;
+
+  for (p = pattern, count = 0; *p != '\0'; p = strchr (p, '*'))
+    count++;
+  if (count > 1)
+    {
+      error (0, 0, _("\"%s\" contains multiple wildcard characters"), name);
+      return false;
+    }
   return true;
 }
 
@@ -270,8 +329,8 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
       if (!(xmlHasProp (node, BAD_CAST "resource")
             || xmlHasProp (node, BAD_CAST "pattern")))
         {
-          error (0, 0,
-                 _("\"uri\" node does not have \"resource\" nor \"pattern\""));
+          _xlocator_error_missing_attributes ("uri", "resource", "pattern",
+                                              NULL);
           return false;
         }
 
@@ -290,12 +349,14 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
     }
   else if (xmlStrEqual (node->name, BAD_CAST "transformURI"))
     {
-      if (!(xmlHasProp (node, BAD_CAST "fromPattern")
-            && xmlHasProp (node, BAD_CAST "toPattern")))
+      if (!xmlHasProp (node, BAD_CAST "fromPattern"))
         {
-          error (0, 0,
-                 _("\"transformURI\" node does not have \"fromPattern\""
-                   " and \"toPattern\""));
+          _xlocator_error_missing_attribute ("transformURI", "fromPattern");
+          return false;
+        }
+      if (!xmlHasProp (node, BAD_CAST "toPattern"))
+        {
+          _xlocator_error_missing_attribute ("transformURI", "toPattern");
           return false;
         }
 
@@ -304,14 +365,21 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
       locator->target.uri = _xlocator_get_attribute (node, "toPattern");
       locator->is_transform = true;
 
+      if (!_xlocator_check_transform_pattern ("fromPattern",
+                                              locator->matcher.uri))
+        return false;
+
+      if (!_xlocator_check_transform_pattern ("toPattern",
+                                              locator->target.uri))
+        return false;
+
       return true;
     }
   else if (xmlStrEqual (node->name, BAD_CAST "namespace"))
     {
       if (!xmlHasProp (node, BAD_CAST "ns"))
         {
-          error (0, 0,
-                 _("\"namespace\" node does not have \"ns\""));
+          _xlocator_error_missing_attribute ("namespace", "ns");
           return false;
         }
 
@@ -322,12 +390,14 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
     }
   else if (xmlStrEqual (node->name, BAD_CAST "documentElement"))
     {
-      if (!(xmlHasProp (node, BAD_CAST "prefix")
-            || xmlHasProp (node, BAD_CAST "localName")))
+      if (!xmlHasProp (node, BAD_CAST "prefix"))
         {
-          error (0, 0,
-                 _("\"documentElement\" node does not have \"prefix\""
-                   " and \"localName\""));
+          _xlocator_error_missing_attribute ("documentElement", "prefix");
+          return false;
+        }
+      if (!xmlHasProp (node, BAD_CAST "localName"))
+        {
+          _xlocator_error_missing_attribute ("documentElement", "localName");
           return false;
         }
 
@@ -341,6 +411,32 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
     }
 
   return false;
+}
+
+static void
+xlocator_destroy (struct xlocator_ty *locator)
+{
+  switch (locator->type)
+    {
+    case XLOCATOR_URI:
+      free (locator->matcher.uri);
+      break;
+
+    case XLOCATOR_URI_PATTERN:
+      free (locator->matcher.pattern);
+      break;
+
+    case XLOCATOR_NAMESPACE:
+      free (locator->matcher.ns);
+      break;
+
+    case XLOCATOR_DOCUMENT_ELEMENT:
+      free (locator->matcher.d.prefix);
+      free (locator->matcher.d.local_name);
+      break;
+    }
+
+  free (locator->target.uri);
 }
 
 static bool
@@ -360,12 +456,13 @@ xlocator_list_add_file (struct xlocator_list_ty *locators,
 
   root = xmlDocGetRootElement (doc);
   if (!(xmlStrEqual (root->name, BAD_CAST "locatingRules")
+#if 0
         && root->ns
-        && xmlStrEqual (root->ns->href, BAD_CAST LOCATING_RULES_NS)))
+        && xmlStrEqual (root->ns->href, BAD_CAST LOCATING_RULES_NS)
+#endif
+        ))
     {
-      error (0, 0, _("the root element is not \"locatingRules\""
-                     " under namespace %s"),
-             LOCATING_RULES_NS);
+      error (0, 0, _("the root element is not \"locatingRules\""));
       xmlFreeDoc (doc);
       return false;
     }
@@ -407,8 +504,8 @@ xlocator_list_add_file (struct xlocator_list_ty *locators,
 
           if (!xlocator_init (&locator, node))
             {
-              xmlFreeDoc (doc);
-              return false;
+              xlocator_destroy (&locator);
+              continue;
             }
 
           if (locators->nitems == locators->nitems_max)
@@ -485,32 +582,6 @@ xlocator_list_alloc (const char *base, const char *directory)
   return result;
 }
 
-static void
-xlocator_destroy (struct xlocator_ty *locator)
-{
-  switch (locator->type)
-    {
-    case XLOCATOR_URI:
-      free (locator->matcher.uri);
-      break;
-
-    case XLOCATOR_URI_PATTERN:
-      free (locator->matcher.pattern);
-      break;
-
-    case XLOCATOR_NAMESPACE:
-      free (locator->matcher.ns);
-      break;
-
-    case XLOCATOR_DOCUMENT_ELEMENT:
-      free (locator->matcher.d.prefix);
-      free (locator->matcher.d.local_name);
-      break;
-    }
-
-  free (locator->target.uri);
-}
-
 void
 xlocator_list_destroy (struct xlocator_list_ty *locators)
 {
@@ -539,6 +610,7 @@ xlocator_list_destroy (struct xlocator_list_ty *locators)
 void
 xlocator_list_free (struct xlocator_list_ty *locators)
 {
-  xlocator_list_destroy (locators);
+  if (locators != NULL)
+    xlocator_list_destroy (locators);
   free (locators);
 }
