@@ -489,21 +489,25 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
         case XML_CDATA_SECTION_NODE:
           {
             xmlChar *xcontent = xmlNodeGetContent (n);
+            char *econtent;
             const char *ccontent;
 
             /* We can't expect xmlTextWriterWriteString() encode
                special characters as we write text outside of the
                element.  */
-            ccontent = _its_encode_special_chars ((const char *) xcontent,
-                                                  node->type == XML_ATTRIBUTE_NODE);
+            econtent =
+              _its_encode_special_chars ((const char *) xcontent,
+                                         node->type == XML_ATTRIBUTE_NODE);
             xmlFree (xcontent);
 
             /* Skip whitespaces at the beginning of the text, if this
                is the first node.  */
+            ccontent = econtent;
             if (whitespace == normalize && !n->prev)
               ccontent = ccontent + strspn (ccontent, " \t\n");
             content =
               normalize_whitespace (ccontent, whitespace);
+            free (econtent);
 
             /* Skip whitespaces at the end of the text, if this
                is the last node.  */
@@ -528,21 +532,26 @@ _its_collect_text_content (xmlNode *node, whitespace_type_ty whitespace)
             xmlOutputBuffer *buffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (buffer);
             char *p = _its_collect_text_content (n, whitespace);
+            const char *ccontent;
 
             xmlTextWriterStartElement (writer, BAD_CAST n->name);
             if (n->properties)
               {
                 xmlAttr *attr = n->properties;
                 for (; attr; attr = attr->next)
-                  xmlTextWriterWriteAttribute (writer,
-                                               attr->name,
-                                               xmlGetProp (n, attr->name));
+                  {
+                    xmlChar *prop = xmlGetProp (n, attr->name);
+                    xmlTextWriterWriteAttribute (writer,
+                                                 attr->name,
+                                                 prop);
+                    xmlFree (prop);
+                  }
               }
             if (*p != '\0')
               xmlTextWriterWriteRaw (writer, BAD_CAST p);
             xmlTextWriterEndElement (writer);
-            content =
-              normalize_whitespace ((const char *) xmlOutputBufferGetContent (buffer), whitespace);
+            ccontent = (const char *) xmlOutputBufferGetContent (buffer);
+            content = normalize_whitespace (ccontent, whitespace);
             xmlFreeTextWriter (writer);
             free (p);
           }
@@ -1315,6 +1324,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
         {
           lex_pos_ty pos;
           message_ty *message;
+          char *dot;
 
           pos.file_name = xstrdup (logical_filename);
           pos.line_number = xmlGetLineNo (node);
@@ -1325,6 +1335,24 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                                         comment, NULL);
           if (whitespace == none)
             message->do_wrap = no;
+
+          if (node->type == XML_ELEMENT_NODE)
+            {
+              assert (node->parent);
+              dot = xasprintf ("(itstool) path: %s/%s",
+                               node->parent->name,
+                               node->name);
+            }
+          else
+            {
+              assert (node->parent && node->parent->parent);
+              dot = xasprintf ("(itstool) path: %s/%s@%s",
+                               node->parent->parent->name,
+                               node->parent->name,
+                               node->name);
+            }
+          message_comment_dot_append (message, dot);
+          free (dot);
         }
       free (comment);
     }
