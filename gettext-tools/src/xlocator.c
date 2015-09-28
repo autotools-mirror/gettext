@@ -35,7 +35,6 @@
 #include "basename.h"
 #include <errno.h>
 #include "error.h"
-#include <fnmatch.h>
 #include "gettext.h"
 #include "hash.h"
 #include <libxml/parser.h>
@@ -63,6 +62,7 @@ enum xlocator_type
 struct xlocator_target_ty
 {
   bool is_indirection;
+  bool is_transform;
   char *uri;
 };
 
@@ -80,7 +80,6 @@ struct xlocator_ty
     } d;
   } matcher;
 
-  bool is_transform;
   struct xlocator_target_ty target;
 };
 
@@ -109,7 +108,53 @@ _xlocator_get_attribute (xmlNode *node, const char *attr)
 }
 
 static bool
+_xlocator_match_pattern (const char *pattern, const char *filename,
+                         ptrdiff_t *start_offset, ptrdiff_t *end_offset)
+{
+  const char *p = pattern, *q = filename;
+  size_t length = strlen (filename);
+
+  while (true)
+    {
+      switch (*p)
+        {
+        case '\0':
+          return *q == '\0';
+
+        case '*':
+          if (*q == '\0')
+            return false;
+          else
+            {
+              const char *end = filename + length;
+              while (true)
+                {
+                  if (_xlocator_match_pattern (p + 1, end, NULL, NULL))
+                    {
+                      if (start_offset)
+                        *start_offset = q - filename;
+                      if (end_offset)
+                        *end_offset = end - filename;
+                      return true;
+                    }
+                  if (end == q + 1)
+                    break;
+                  end--;
+                }
+              return false;
+            }
+
+        default:
+          if (*p == *q)
+            return _xlocator_match_pattern (p + 1, q + 1, NULL, NULL);
+          return false;
+        }
+    }
+}
+
+static bool
 xlocator_match (struct xlocator_ty *locator, const char *path,
+                struct xlocator_target_ty *target,
                 bool inspect_content)
 {
   switch (locator->type)
@@ -118,10 +163,51 @@ xlocator_match (struct xlocator_ty *locator, const char *path,
       return strcmp (locator->matcher.uri, path) == 0;
 
     case XLOCATOR_URI_PATTERN:
-      /* FIXME: We should not use fnmatch() here, since PATTERN is a
-         URI, with a wildcard.  */
-      return fnmatch (locator->matcher.pattern, basename (path), FNM_PATHNAME)
-        == 0;
+      {
+        char *filename = basename (path);
+        /* We can't simply use fnmatch() here, since PATH is a component
+           of a URI.  */
+        if (!target->is_transform)
+          return _xlocator_match_pattern (locator->matcher.pattern, filename,
+                                          NULL, NULL);
+        else
+          {
+            ptrdiff_t start_offset = -1, end_offset = -1;
+            char *star, *buffer, *bp;
+
+            if (!_xlocator_match_pattern (locator->matcher.pattern, filename,
+                                          &start_offset, &end_offset))
+              return false;
+
+            /* If fromPattern doesn't contain '*', use toPattern as it
+               is as URI.  */
+            if (start_offset < 0 || end_offset < 0)
+              return true;
+
+            /* If toPattern doesn't contain '*', use the pattern as it
+               is as URI.  */
+            star = strchr (target->uri, '*');
+            if (star == NULL)
+              return true;
+
+            bp = buffer = XNMALLOC ((filename - path)
+                                    + (star - target->uri)
+                                    + (end_offset - start_offset)
+                                    + strlen (star + 1) + 1,
+                                    char);
+            bp = stpncpy (bp, path, filename - path);
+            if (star > target->uri)
+              bp = stpncpy (bp, target->uri, star - target->uri);
+            bp = stpncpy (bp, filename + start_offset,
+                          end_offset - start_offset);
+            if (*star != '\0')
+              bp = stpcpy (bp, star + 1);
+            free (target->uri);
+            target->is_transform = false;
+            target->uri = buffer;
+            return true;
+          }
+      }
 
     case XLOCATOR_NAMESPACE:
     case XLOCATOR_DOCUMENT_ELEMENT:
@@ -173,7 +259,6 @@ xlocator_list_resolve_target (struct xlocator_list_ty *locators,
   char *target_uri = NULL;
   char *result = NULL;
 
-  /* FIXME: Implement transformURI (the case locators->is_transform).  */
   if (!target->is_indirection)
     target_uri = xstrdup (target->uri);
   else
@@ -228,7 +313,7 @@ xlocator_list_locate (struct xlocator_list_ty *locators,
   for (i = 0; i < locators->nitems; i++)
     {
       locator = &locators->items[i];
-      if (xlocator_match (locator, path, inspect_content))
+      if (xlocator_match (locator, path, &locator->target, inspect_content))
         break;
     }
 
@@ -305,20 +390,20 @@ xlocator_target_init (struct xlocator_target_ty *target, xmlNode *node)
   return true;
 }
 
-static bool
-_xlocator_check_transform_pattern (const char *name, const char *pattern)
+static size_t
+_xlocator_count_transform_pattern (const char *pattern)
 {
   const char *p;
-  size_t count;
+  size_t result;
 
-  for (p = pattern, count = 0; *p != '\0'; p = strchr (p, '*'))
-    count++;
-  if (count > 1)
+  for (p = pattern, result = 0; ; p++, result++)
     {
-      error (0, 0, _("\"%s\" contains multiple wildcard characters"), name);
-      return false;
+      p = strchr (p, '*');
+      if (!p)
+        break;
     }
-  return true;
+
+  return result;
 }
 
 static bool
@@ -351,6 +436,8 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
     }
   else if (xmlStrEqual (node->name, BAD_CAST "transformURI"))
     {
+      size_t from_count, to_count;
+
       if (!xmlHasProp (node, BAD_CAST "fromPattern"))
         {
           _xlocator_error_missing_attribute ("transformURI", "fromPattern");
@@ -365,15 +452,23 @@ xlocator_init (struct xlocator_ty *locator, xmlNode *node)
       locator->type = XLOCATOR_URI_PATTERN;
       locator->matcher.uri = _xlocator_get_attribute (node, "fromPattern");
       locator->target.uri = _xlocator_get_attribute (node, "toPattern");
-      locator->is_transform = true;
+      locator->target.is_transform = true;
 
-      if (!_xlocator_check_transform_pattern ("fromPattern",
-                                              locator->matcher.uri))
-        return false;
-
-      if (!_xlocator_check_transform_pattern ("toPattern",
-                                              locator->target.uri))
-        return false;
+      from_count = _xlocator_count_transform_pattern (locator->matcher.uri);
+      to_count = _xlocator_count_transform_pattern (locator->target.uri);
+      if (from_count > 1)
+        {
+          error (0, 0, _("\"%s\" contains multiple wildcard characters"),
+                 "fromPattern");
+          return false;
+        }
+      if (to_count > from_count)
+        {
+          error (0, 0, _("\"%s\" contains %zu wildcard characters,"
+                         " while \"%s\" contains %zu"),
+                 "toPattern", to_count, "fromPattern", from_count);
+          return false;
+        }
 
       return true;
     }
