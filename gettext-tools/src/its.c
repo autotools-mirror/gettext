@@ -634,22 +634,6 @@ _its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
   return NULL;
 }
 
-static void
-_its_pool_set_value_for_node (struct its_pool_ty *pool, xmlNode *node,
-                              const char *name, const char *value)
-{
-  intptr_t index = (intptr_t) node->_private;
-  if (index > 0)
-    {
-      struct its_value_list_ty *values;
-
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-
-      its_value_list_set_value (values, name, value);
-    }
-}
-
 struct its_value_list_ty *
 its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
                          xmlNode *node)
@@ -657,17 +641,6 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
   struct its_value_list_ty *result;
 
   result = XCALLOC (1, struct its_value_list_ty);
-
-  /* A local attribute overrides the global rule.  */
-  if (xmlHasNsProp (node, BAD_CAST "translate", BAD_CAST ITS_NS))
-    {
-      char *prop;
-
-      prop = _its_get_attribute (node, "translate", ITS_NS);
-      its_value_list_append (result, "translate", prop);
-      free (prop);
-      return result;
-    }
 
   switch (node->type)
     {
@@ -690,8 +663,18 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
-        struct its_value_list_ty *values;
         const char *value;
+
+        /* A local attribute overrides the global rule.  */
+        if (xmlHasNsProp (node, BAD_CAST "translate", BAD_CAST ITS_NS))
+          {
+            char *prop;
+
+            prop = _its_get_attribute (node, "translate", ITS_NS);
+            its_value_list_append (result, "translate", prop);
+            free (prop);
+            return result;
+          }
 
         /* Check value for the current node.  */
         value = _its_pool_get_value_for_node (pool, node, "translate");
@@ -708,10 +691,10 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
           its_value_list_append (result, "translate", "yes");
         else
           {
+            struct its_value_list_ty *values;
+
             values = its_translate_rule_eval (pop, pool, node->parent);
-            value = its_value_list_get_value (values, "translate");
-            its_value_list_set_value (result, "translate", value);
-            _its_pool_set_value_for_node (pool, node, "translate", value);
+            its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
           }
@@ -795,32 +778,6 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
 
   result = XCALLOC (1, struct its_value_list_ty);
 
-  /* Local attributes overrides the global rule.  */
-  if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS)
-      || xmlHasNsProp (node, BAD_CAST "locNoteRef", BAD_CAST ITS_NS)
-      || xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
-    {
-      char *prop;
-
-      if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS))
-        {
-          prop = _its_get_attribute (node, "locNote", ITS_NS);
-          its_value_list_append (result, "locNote", prop);
-          free (prop);
-        }
-
-      /* FIXME: locNoteRef */
-
-      if (xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
-        {
-          prop = _its_get_attribute (node, "locNoteType", ITS_NS);
-          its_value_list_append (result, "locNoteType", prop);
-          free (prop);
-        }
-
-      return result;
-    }
-
   switch (node->type)
     {
     case XML_ATTRIBUTE_NODE:
@@ -851,29 +808,65 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
-        xmlNode *n;
+        const char *value;
 
-        for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+        /* Local attributes overrides the global rule.  */
+        if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS)
+            || xmlHasNsProp (node, BAD_CAST "locNoteRef", BAD_CAST ITS_NS)
+            || xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
           {
-            const char *value;
+            char *prop;
 
-            value = _its_pool_get_value_for_node (pool, node, "locNoteType");
-            if (value != NULL)
-              its_value_list_set_value (result, "locNoteType", value);
-
-            value = _its_pool_get_value_for_node (pool, n, "locNote");
-            if (value != NULL)
+            if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS))
               {
-                its_value_list_set_value (result, "locNote", value);
-                return result;
+                prop = _its_get_attribute (node, "locNote", ITS_NS);
+                its_value_list_append (result, "locNote", prop);
+                free (prop);
               }
 
-            value = _its_pool_get_value_for_node (pool, n, "locNotePointer");
-            if (value != NULL)
+            /* FIXME: locNoteRef */
+
+            if (xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
               {
-                its_value_list_set_value (result, "locNotePointer", value);
-                return result;
+                prop = _its_get_attribute (node, "locNoteType", ITS_NS);
+                its_value_list_append (result, "locNoteType", prop);
+                free (prop);
               }
+
+            return result;
+          }
+
+        /* Check value for the current node.  */
+        value = _its_pool_get_value_for_node (pool, node, "locNoteType");
+        if (value != NULL)
+          its_value_list_set_value (result, "locNoteType", value);
+
+        value = _its_pool_get_value_for_node (pool, node, "locNote");
+        if (value != NULL)
+          {
+            its_value_list_set_value (result, "locNote", value);
+            return result;
+          }
+
+        value = _its_pool_get_value_for_node (pool, node, "locNotePointer");
+        if (value != NULL)
+          {
+            its_value_list_set_value (result, "locNotePointer", value);
+            return result;
+          }
+
+        /* Recursively check value for the parent node.  */
+        if (node->parent == NULL
+            || node->parent->type != XML_ELEMENT_NODE)
+          return result;
+        else
+          {
+            struct its_value_list_ty *values;
+
+            values = its_localization_note_rule_eval (pop, pool, node->parent);
+            its_value_list_merge (result, values);
+            its_value_list_destroy (values);
+            free (values);
           }
       }
       break;
@@ -932,6 +925,9 @@ its_element_within_text_rule_eval (struct its_rule_ty *pop,
   const char *value;
 
   result = XCALLOC (1, struct its_value_list_ty);
+
+  if (node->type != XML_ELEMENT_NODE)
+    return result;
 
   /* A local attribute overrides the global rule.  */
   if (xmlHasNsProp (node, BAD_CAST "withinText", BAD_CAST ITS_NS))
@@ -996,9 +992,13 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
                               xmlNode *node)
 {
   struct its_value_list_ty *result;
-  xmlNode *n;
+  struct its_value_list_ty *values;
+  const char *value;
 
   result = XCALLOC (1, struct its_value_list_ty);
+
+  if (node->type != XML_ELEMENT_NODE)
+    return result;
 
   /* A local attribute overrides the global rule.  */
   if (xmlHasNsProp (node, BAD_CAST "space", BAD_CAST XML_NS))
@@ -1011,19 +1011,27 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
       return result;
     }
 
-  /* Inherit from the parent elements.  */
-  for (n = node; n && n->type == XML_ELEMENT_NODE; n = n->parent)
+  value = _its_pool_get_value_for_node (pool, node, "space");
+  if (value != NULL)
     {
-      const char *value = _its_pool_get_value_for_node (pool, n, "space");
-      if (value != NULL)
-        {
-          its_value_list_set_value (result, "space", value);
-          return result;
-        }
+      its_value_list_set_value (result, "space", value);
+      return result;
     }
 
-  /* The default value is space="default".  */
-  its_value_list_append (result, "space", "default");
+  /* Inherit from the parent elements.  */
+  if (node->parent == NULL
+      || node->parent->type != XML_ELEMENT_NODE)
+    {
+      /* The default value is space="default".  */
+      its_value_list_append (result, "space", "default");
+      return result;
+    }
+
+  values = its_preserve_space_rule_eval (pop, pool, node->parent);
+  its_value_list_merge (result, values);
+  its_value_list_destroy (values);
+  free (values);
+
   return result;
 }
 
