@@ -53,31 +53,65 @@ EOF
 cat <<\EOF > its/rules/messages.its
 <?xml version="1.0"?>
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
-  xmlns:msg="http://www.gnu.org/s/gettext/ns/messages/1.0"
-  version="1.0">
+           xmlns:msg="http://www.gnu.org/s/gettext/ns/messages/1.0"
+           version="1.0">
+  <!-- Invalid: no selector -->
+  <its:translateRule translate="yes"/>
+  <!-- Invalid: no translate -->
+  <its:translateRule selector="/"/>
+
   <its:translateRule selector="//msg:message/@comment" translate="yes"/>
   <its:translateRule selector="//msg:note" translate="no"/>
+
+  <!-- Invalid: no selector -->
+  <its:locNoteRule locNoteType="alert"/>
+  <!-- Invalid: no locNoteType -->
+  <its:locNoteRule selector="/"/>
   <its:locNoteRule selector="//msg:message/*" locNoteType="alert"
     locNotePointer="../msg:note"/>
-  <its:withinTextRule selector="//msg:span | //msg:code" withinText="yes"/>
+  <its:locNoteRule selector="//msg:code" locNoteType="alert">
+    <its:locNote>This is code</its:locNote>
+  </its:locNoteRule>
+  <its:locNoteRule selector="//msg:message/@comment" locNoteType="alert">
+    <its:locNote>This is a comment</its:locNote>
+  </its:locNoteRule>
+
+  <!-- Invalid: no selector -->
+  <its:withinTextRule withinText="yes"/>
+  <!-- Invalid: no withinText -->
+  <its:withinTextRule selector="/"/>
+  <its:withinTextRule selector="//msg:span | //msg:link" withinText="yes"/>
+
+  <!-- Invalid: no selector -->
+  <its:preserveSpaceRule space="preserve"/>
+  <!-- Invalid: no space -->
+  <its:preserveSpaceRule selector="/"/>
   <its:preserveSpaceRule selector="//msg:code" space="preserve"/>
 </its:rules>
 EOF
 
 cat <<\EOF >messages.xml
-<messages xmlns="http://www.gnu.org/s/gettext/ns/messages/1.0">
+<?xml version="1.0"?>
+<!DOCTYPE messages PUBLIC "" "" [
+<!ENTITY foo "bar">
+]>
+<messages xmlns="http://www.gnu.org/s/gettext/ns/messages/1.0"
+          xmlns:its="http://www.w3.org/2005/11/its">
   <message>
-    <p>This is a test message</p>
+    <p>This is a test message &foo;&gt;&lt;&amp;&quot;"</p>
   </message>
   <message>
-    <p>This is a test message, with an <span>element</span> in a text</p>
+    <p its:translate="no">This is a non-translatable message</p>
+  </message>
+  <message>
+    <p>This is a test message, with an <span>element</span> in a <link href="http://www.gnu.org/s/gettext">text</link></p>
   </message>
   <message>
     <code>  $ echo '  ' &gt;&gt; /dev/null
+  $ cat &lt; /dev/yes
 </code>
-    </p>
   </message>
-  <message comment="This is a comment">
+  <message comment="This is a comment &lt;&gt;&amp;&quot;">
     <p>This is a test message, with an attribute</p>
   </message>
   <message>
@@ -86,46 +120,74 @@ cat <<\EOF >messages.xml
     </note>
     <p>This is a test message, with a localization note</p>
   </message>
+  <message>
+    <p its:locNote="This is a local localization note" its:locNoteType="alert">
+      This is a test message, with a local localization note
+    </p>
+  </message>
+  <message>
+    <!-- empty element, which shouldn't be extracted -->
+    <p></p>
+  </message>
+  <message>
+    <p xml:space="preserve"> This is a message with  space  preserved</p>
+  </message>
 </messages>
 EOF
 
 cat <<\EOF >messages.ok
 #. (itstool) path: message/p
-#: messages.xml:3
-msgid "This is a test message"
+#: messages.xml:8
+msgid "This is a test message &foo;&gt;&lt;&amp;\"\""
 msgstr ""
 
 #. (itstool) path: message/p
-#: messages.xml:6
-msgid "This is a test message, with an <span>element</span> in a text"
+#: messages.xml:14
+msgid "This is a test message, with an <span>element</span> in a <link href=\"http://www.gnu.org/s/gettext\">text</link>"
 msgstr ""
 
-#. (itstool) path: p/code
-#: messages.xml:9
+#. This is code
+#. (itstool) path: message/code
+#: messages.xml:17
 #, no-wrap
 msgid ""
 "  $ echo '  ' &gt;&gt; /dev/null\n"
+"  $ cat &lt; /dev/yes\n"
 msgstr ""
 
+#. This is a comment
 #. (itstool) path: messages/message@comment
-#: messages.xml:14
-msgid "This is a comment"
+#: messages.xml:21
+msgid "This is a comment &lt;&gt;&amp;&quot;"
 msgstr ""
 
 #. (itstool) path: message/p
-#: messages.xml:15
+#: messages.xml:22
 msgid "This is a test message, with an attribute"
 msgstr ""
 
 #. This is a localization note
 #. (itstool) path: message/p
-#: messages.xml:21
+#: messages.xml:28
 msgid "This is a test message, with a localization note"
+msgstr ""
+
+#. This is a local localization note
+#. (itstool) path: message/p
+#: messages.xml:31
+msgid "This is a test message, with a local localization note"
+msgstr ""
+
+#. (itstool) path: message/p
+#: messages.xml:40
+#, no-wrap
+msgid " This is a message with  space  preserved"
 msgstr ""
 EOF
 
-${XGETTEXT} --its --omit-header -o messages.pot messages.xml 2>messages.err || { cat messages.err; exit 1; }
-
+${XGETTEXT} --its --no-wrap --omit-header -o messages.pot messages.xml 2>messages.err || { cat messages.err; exit 1; }
 : ${DIFF=diff}
 ${DIFF} messages.ok messages.pot
 result=$?
+
+exit $result
