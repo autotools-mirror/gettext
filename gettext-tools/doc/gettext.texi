@@ -470,6 +470,7 @@ Internationalizable Data
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
+* XML::                         XML - Generic XML files
 
 Concluding Remarks
 
@@ -12155,6 +12156,7 @@ using GNU gettext.
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
+* XML::                         XML - Generic XML files
 @end menu
 
 @node POT, RST, List of Data Formats, List of Data Formats
@@ -12214,7 +12216,7 @@ glib2
 @code{xgettext}, @code{intltool-extract}
 @end table
 
-@node AppData,  , GSettings, List of Data Formats
+@node AppData, XML, GSettings, List of Data Formats
 @subsection AppData - freedesktop.org application description
 
 @table @asis
@@ -12227,6 +12229,98 @@ appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
 @item Extractor
 @code{xgettext}, @code{intltool-extract}, @code{itstool}
 @end table
+
+@node XML,  , AppData, List of Data Formats
+@subsection XML - Generic XML files
+
+@table @asis
+@item RPMs
+
+@item File extension
+@code{xml}, or anything else
+
+@item Extractor
+@code{xgettext}, @code{itstool}
+@end table
+
+@menu
+* Preparing ITS Rules::  Preparing Rules for XML Internationalization
+@end menu
+
+@node Preparing ITS Rules,  , XML, XML
+@subsubsection Preparing Rules for XML Internationalization
+@cindex preparing rules for XML translation
+
+Marking translatable strings in an XML file is done with a separate
+"rule" file, making use of the Internationalization Tag Set standard
+(ITS, @uref{http://www.w3.org/TR/its20/}).
+
+For example, given the following XML document:
+
+@example
+<?xml version="1.0"?>
+<messages>
+  <message>
+    <p>A translatable string</p>
+  </message>
+  <message>
+    <p translatable="no">A non-translatable string</p>
+  </message>
+</messages>
+@end example
+
+The following ITS rule can be used to extract the first text content ("A
+translatable string"), but not the second ("A non-translatable string").
+
+@example
+<?xml version="1.0"?>
+<its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0">
+  <its:translateRule selector="/messages" translate="no"/>
+  <its:translateRule selector="//message/p" translate="yes"/>
+
+  <!-- If 'p' has an attribute 'translatable' with the value 'no', then
+       the content is not translatable.  -->
+  <its:translateRule selector="//message/p[@@translatable = 'no']"
+    translate="no"/>
+</its:rules>
+@end example
+
+@samp{xgettext} uses another file called "locating rule" to associate an
+ITS rule with an XML file.  For example, if the above XML file is saved
+as @file{messages.xml} and the corresponding ITS file is saved as
+@file{messages.its}, the locating rule would look like the following.
+
+@example
+<?xml version="1.0"?>
+<locatingRules>
+  <locatingRule pattern="*.xml">
+    <documentRule localName="messages" target="messages.its"/>
+  </locatingRule>
+  <locatingRule pattern="*.msg" target="messages.its"/>
+</locatingRules>
+@end example
+
+The @code{locatingRule} element must have a @code{pattern} attribute,
+which denotes either a literal file name or a wildcard pattern of the
+XML file.  The @code{locatingRule} element can have child
+@code{documentRule} element, which adds checks on the content of the XML
+file.  The first rule matches any file with the @file{.xml} file
+extension, but only applies to XML files whose root node is
+@samp{<messages>}.
+
+The second rule also allows any file with the @file{.msg} file extension
+to be handled with the same ITS rule file.
+
+The associated ITS file is indicated by @code{target} attribute of
+@code{locatingRule} or @code{documentRule}.
+
+Locating rule file must have the @file{.loc} file extension.  Both ITS
+rule files and locating rule files must be installed in the
+@file{GETTEXTDATADIR/its} directory, where @code{GETTEXTDATADIR} is the
+gettext data directory (typically @file{/usr/share/gettext}).
+
+Once those files are properly installed, extracting translatable strings
+with @code{xgettext} is done through @code{--its} option.
 
 @c This is the template for new data formats.
 @ignore

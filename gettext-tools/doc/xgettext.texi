@@ -422,6 +422,12 @@ Recognize Boost format strings.
 @*
 This option has an effect only with the language C++.
 
+@item --its
+@opindex --its@r{, @code{xgettext} option}
+@cindex recognizing genering XML files
+Recognize generic XML strings.
+See @ref{Preparing ITS Rules} for details.
+
 @item --debug
 @opindex --debug@r{, @code{xgettext} option}
 @cindex debugging messages marked as format strings
