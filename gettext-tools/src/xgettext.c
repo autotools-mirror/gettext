@@ -71,8 +71,8 @@
 #include "propername.h"
 #include "sentence.h"
 #include "unistr.h"
-#include "xlocator.h"
 #include "its.h"
+#include "locating-rule.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
@@ -208,7 +208,7 @@ const char *xgettext_current_source_encoding;
 iconv_t xgettext_current_source_iconv;
 #endif
 
-static xlocator_list_ty *its_locators;
+static locating_rule_list_ty *its_locating_rules;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -719,7 +719,7 @@ xgettext cannot work without keywords to look for"));
   if (its)
     {
       const char *gettextdatadir;
-      char *itsdir, *ruledir, *locatordir;
+      char *itsdir;
 
       /* Make it possible to override the locator file location.  This
          is necessary for running the testsuite before "make
@@ -729,13 +729,8 @@ xgettext cannot work without keywords to look for"));
         gettextdatadir = relocate (GETTEXTDATADIR);
 
       itsdir = xconcatenated_filename (gettextdatadir, "its", NULL);
-      ruledir = xconcatenated_filename (itsdir, "rules", NULL);
-      locatordir = xconcatenated_filename (itsdir, "locators", NULL);
+      its_locating_rules = locating_rule_list_alloc (itsdir, itsdir);
       free (itsdir);
-
-      its_locators = xlocator_list_alloc (ruledir, locatordir);
-      free (ruledir);
-      free (locatordir);
     }
 
   /* Determine extractor from language.  */
@@ -875,19 +870,12 @@ This version was built without iconv()."),
                 }
             }
 
-          if (language == NULL && its_locators != NULL)
+          if (language == NULL && its_locating_rules != NULL)
             {
-              bool inspect;
               char *its_filename = NULL;
 
-              /* Inspect the content, only when the file extension is
-                 ".xml".  */
-              inspect = strlen (reduced) >= 4
-                && memcmp (reduced + strlen (reduced) - 4, ".xml", 4)
-                == 0;
-
-              its_filename = xlocator_list_locate (its_locators, filename,
-                                                   inspect);
+              its_filename = locating_rule_list_locate (its_locating_rules,
+                                                        filename);
               if (its_filename != NULL)
                 {
                   its_rules = its_rule_list_alloc ();
@@ -970,8 +958,8 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
   /* Write the PO file.  */
   msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
 
-  if (its_locators)
-    xlocator_list_free (its_locators);
+  if (its_locating_rules)
+    locating_rule_list_free (its_locating_rules);
 
   exit (EXIT_SUCCESS);
 }

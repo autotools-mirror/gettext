@@ -1,4 +1,4 @@
-/* XML resource locator
+/* XML resource locating rules
    Copyright (C) 2015 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
@@ -16,8 +16,8 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _XLOCATOR_H
-#define _XLOCATOR_H
+#ifndef _LOCATING_RULE_H
+#define _LOCATING_RULE_H
 
 #include <stdbool.h>
 
@@ -25,25 +25,23 @@
 extern "C" {
 #endif
 
-typedef struct xlocator_list_ty xlocator_list_ty;
+typedef struct locating_rule_list_ty locating_rule_list_ty;
 
-/* Creates a fresh xlocator_list_ty with the base URI BASE, and loads
+/* Creates a fresh locating_rule_list_ty with the base URI BASE, and loads
    the locating rules from the files in DIRECTORY.  */
-extern struct xlocator_list_ty *xlocator_list_alloc (const char *base,
+extern struct locating_rule_list_ty *locating_rule_list_alloc (const char *base,
                                                      const char *directory);
 
 /* Determines the location of resource associated with PATH, accoding
-   to the loaded locating rules.  If INSPECT_CONTENT is true, it also
-   checks the content of the file pointed by PATH.  */
-extern char *xlocator_list_locate (xlocator_list_ty *locators,
-                                   const char *path,
-                                   bool inspect_content);
+   to the loaded locating rules.  */
+extern char *locating_rule_list_locate (locating_rule_list_ty *locators,
+                                   const char *path);
 
 /* Releases memory allocated for LOCATORS.  */
-extern void xlocator_list_free (xlocator_list_ty *locators);
+extern void locating_rule_list_free (locating_rule_list_ty *locators);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  /* _XLOCATOR_H */
+#endif  /* _LOCATING_RULE_H */

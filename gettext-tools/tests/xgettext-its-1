@@ -16,26 +16,26 @@ EOF
 ${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
 test -d its || mkdir its
-test -d its/locators || mkdir its/locators
-test -d its/rules || mkdir its/rules
 
-cat <<\EOF > its/locators/empty-1.loc
+cat <<\EOF > its/empty-1.loc
 <?xml version="1.0"?>
 <locatingRules/>
 EOF
 
 ${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
-cat <<\EOF > its/locators/empty-2.loc
+cat <<\EOF > its/empty-2.loc
 <?xml version="1.0"?>
-<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
-  <documentElement prefix="" localName="empty" uri="empty.its"/>
+<locatingRules>
+  <locatingRule pattern="*.xml">
+    <documentRule prefix="" localName="empty" target="empty.its"/>
+  </locatingRule>
 </locatingRules>
 EOF
 
 ${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
-cat <<\EOF > its/rules/empty.its
+cat <<\EOF > its/empty.its
 <?xml version="1.0"?>
 <its:rules xmlns:its="http://www.w3.org/2005/11/its" version="1.0">
 </its:rules>
@@ -43,14 +43,16 @@ EOF
 
 ${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
-cat <<\EOF > its/locators/messages.loc
+cat <<\EOF > its/messages.loc
 <?xml version="1.0"?>
-<locatingRules xmlns="http://thaiopensource.com/ns/locating-rules/1.0">
-  <documentElement prefix="" localName="messages" uri="messages.its"/>
+<locatingRules>
+  <locatingRule pattern="*.xml">
+    <documentRule localName="messages" target="messages.its"/>
+  </locatingRule>
 </locatingRules>
 EOF
 
-cat <<\EOF > its/rules/messages.its
+cat <<\EOF > its/messages.its
 <?xml version="1.0"?>
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
            xmlns:msg="http://www.gnu.org/s/gettext/ns/messages/1.0"

@@ -40,7 +40,7 @@ read-po.h read-properties.h read-stringtable.h \
 str-list.h \
 color.h write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
-cldr-plural-exp.h xlocator.h its.h \
+cldr-plural-exp.h locating-rule.h its.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
 msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
 plural-count.h plural-eval.h plural-distrib.h \
@@ -183,7 +183,7 @@ xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c x-lua.c x-javascript.c x-vala.c x-gsettings.c \
-  x-desktop.c x-appdata.c xlocator.c its.c
+  x-desktop.c x-appdata.c locating-rule.c its.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
 else
