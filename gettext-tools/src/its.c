@@ -1135,30 +1135,25 @@ its_rule_list_free (struct its_rule_list_ty *rules)
   its_pool_destroy (&rules->pool);
 }
 
+
 bool
 its_rule_list_add_file (struct its_rule_list_ty *rules,
                         const char *filename)
 {
   xmlDoc *doc;
   xmlNode *root, *node;
-  FILE *fp;
 
-  fp = fopen (filename, "r");
-  if (fp == NULL)
+  doc = xmlReadFile (filename, "utf-8",
+                     XML_PARSE_NONET
+                     | XML_PARSE_NOWARNING
+                     | XML_PARSE_NOBLANKS
+                     | XML_PARSE_NOERROR);
+  if (doc == NULL)
     {
-      error (0, errno,
-             _("error while opening \"%s\" for reading"), filename);
+      xmlError *err = xmlGetLastError ();
+      error (0, 0, _("cannot read %s: %s"), filename, err->message);
       return false;
     }
-
-  doc = xmlReadFd (fileno (fp), filename, "utf-8",
-                   XML_PARSE_NONET
-                   | XML_PARSE_NOWARNING
-                   | XML_PARSE_NOBLANKS
-                   | XML_PARSE_NOERROR);
-  fclose (fp);
-  if (doc == NULL)
-    return false;
 
   root = xmlDocGetRootElement (doc);
   if (!(xmlStrEqual (root->name, BAD_CAST "rules")
@@ -1475,7 +1470,11 @@ its_rule_list_extract (its_rule_list_ty *rules,
                    | XML_PARSE_NOBLANKS
                    | XML_PARSE_NOERROR);
   if (doc == NULL)
-    return;
+    {
+      xmlError *err = xmlGetLastError ();
+      error (0, 0, _("cannot read %s: %s"), logical_filename, err->message);
+      return;
+    }
 
   its_rule_list_apply (rules, doc);
 
