@@ -12253,7 +12253,9 @@ appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
 
 Marking translatable strings in an XML file is done with a separate
 "rule" file, making use of the Internationalization Tag Set standard
-(ITS, @uref{http://www.w3.org/TR/its20/}).
+(ITS, @uref{http://www.w3.org/TR/its20/}).  Currently supported ITS data
+categories are: @samp{Translate}, @samp{Localization Note},
+@samp{Elements Within Text}, and @samp{Preserve Space}.
 
 For example, given the following XML document:
 
