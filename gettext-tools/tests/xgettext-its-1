@@ -64,6 +64,8 @@ cat <<\EOF > its/messages.its
 
   <its:translateRule selector="//msg:message/@comment" translate="yes"/>
   <its:translateRule selector="//msg:note" translate="no"/>
+  <its:translateRule selector="//msg:p[@translatable = 'no']"
+    translate="no"/>
 
   <!-- Invalid: no selector -->
   <its:locNoteRule locNoteType="alert"/>
@@ -133,6 +135,9 @@ cat <<\EOF >messages.xml
   </message>
   <message>
     <p xml:space="preserve"> This is a message with  space  preserved</p>
+  </message>
+  <message>
+    <p translatable="no">This is a non-translatable string</p>
   </message>
 </messages>
 EOF
