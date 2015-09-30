@@ -854,7 +854,7 @@ This version was built without iconv()."),
           const char *base;
           char *reduced;
           const char *extension;
-          const char *language;
+          const char *language_from_extension;
           const char *p;
 
           base = strrchr (filename, '/');
@@ -868,9 +868,9 @@ This version was built without iconv()."),
             reduced[strlen (reduced) - 3] = '\0';
 
           /* Work out what the file extension is.  */
-          language = NULL;
+          language_from_extension = NULL;
           p = reduced + strlen (reduced);
-          for (; p > reduced && language == NULL; p--)
+          for (; p > reduced && language_from_extension == NULL; p--)
             {
               if (*p == '.')
                 {
@@ -878,11 +878,11 @@ This version was built without iconv()."),
 
                   /* Derive the language from the extension, and the extractor
                      function from the language.  */
-                  language = extension_to_language (extension);
+                  language_from_extension = extension_to_language (extension);
                 }
             }
 
-          if (language == NULL && its_locating_rules != NULL)
+          if (language_from_extension == NULL && its_locating_rules != NULL)
             {
               const char *its_basename =
                 locating_rule_list_locate (its_locating_rules, filename,
@@ -913,7 +913,7 @@ This version was built without iconv()."),
 
           if (its_rules == NULL)
             {
-              if (language == NULL)
+              if (language_from_extension == NULL)
                 {
                   extension = strrchr (reduced, '.');
                   if (extension == NULL)
@@ -922,10 +922,11 @@ This version was built without iconv()."),
                     extension++;
                   error (0, 0, _("\
 warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
-                  language = "C";
+                  language_from_extension = "C";
                 }
 
-              this_file_extractor = language_to_extractor (language);
+              this_file_extractor =
+                language_to_extractor (language_from_extension);
             }
 
           free (reduced);
@@ -2214,6 +2215,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 
 static message_ty *
 xgettext_its_extract_callback (message_list_ty *mlp,
+                               const char *msgctxt,
                                const char *msgid,
                                lex_pos_ty *pos,
                                const char *extracted_comment,
@@ -2221,7 +2223,8 @@ xgettext_its_extract_callback (message_list_ty *mlp,
 {
   message_ty *message;
 
-  message = remember_a_message (mlp, NULL,
+  message = remember_a_message (mlp,
+                                msgctxt == NULL ? NULL : xstrdup (msgctxt),
                                 xstrdup (msgid),
                                 null_context, pos,
                                 extracted_comment, NULL);

@@ -62,6 +62,7 @@
 
 #define ITS_NS "http://www.w3.org/2005/11/its"
 #define XML_NS "http://www.w3.org/XML/1998/namespace"
+#define ITST_NS "http://itstool.org/extensions/"
 
 struct its_value_ty
 {
@@ -199,6 +200,23 @@ its_pool_alloc_value_list (struct its_pool_ty *pool)
   values = &pool->items[pool->nitems++];
   memset (values, 0, sizeof (struct its_value_list_ty));
   return values;
+}
+
+static const char *
+its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
+                              const char *name)
+{
+  intptr_t index = (intptr_t) node->_private;
+  if (index > 0)
+    {
+      struct its_value_list_ty *values;
+
+      assert (index <= pool->nitems);
+      values = &pool->items[index - 1];
+
+      return its_value_list_get_value (values, name);
+    }
+  return NULL;
 }
 
 static void
@@ -617,23 +635,6 @@ its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
   free (prop);
 }
 
-static const char *
-_its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
-                              const char *name)
-{
-  intptr_t index = (intptr_t) node->_private;
-  if (index > 0)
-    {
-      struct its_value_list_ty *values;
-
-      assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
-
-      return its_value_list_get_value (values, name);
-    }
-  return NULL;
-}
-
 struct its_value_list_ty *
 its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
                          xmlNode *node)
@@ -648,7 +649,7 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
       /* Attribute nodes don't inherit from the parent elements.  */
       {
         const char *value =
-          _its_pool_get_value_for_node (pool, node, "translate");
+          its_pool_get_value_for_node (pool, node, "translate");
         if (value != NULL)
           {
             its_value_list_set_value (result, "translate", value);
@@ -677,7 +678,7 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
           }
 
         /* Check value for the current node.  */
-        value = _its_pool_get_value_for_node (pool, node, "translate");
+        value = its_pool_get_value_for_node (pool, node, "translate");
         if (value != NULL)
           {
             its_value_list_set_value (result, "translate", value);
@@ -785,18 +786,18 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
       {
         const char *value;
 
-        value = _its_pool_get_value_for_node (pool, node, "locNoteType");
+        value = its_pool_get_value_for_node (pool, node, "locNoteType");
         if (value != NULL)
           its_value_list_set_value (result, "locNoteType", value);
 
-        value = _its_pool_get_value_for_node (pool, node, "locNote");
+        value = its_pool_get_value_for_node (pool, node, "locNote");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNote", value);
             return result;
           }
 
-        value = _its_pool_get_value_for_node (pool, node, "locNotePointer");
+        value = its_pool_get_value_for_node (pool, node, "locNotePointer");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNotePointer", value);
@@ -837,18 +838,18 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
           }
 
         /* Check value for the current node.  */
-        value = _its_pool_get_value_for_node (pool, node, "locNoteType");
+        value = its_pool_get_value_for_node (pool, node, "locNoteType");
         if (value != NULL)
           its_value_list_set_value (result, "locNoteType", value);
 
-        value = _its_pool_get_value_for_node (pool, node, "locNote");
+        value = its_pool_get_value_for_node (pool, node, "locNote");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNote", value);
             return result;
           }
 
-        value = _its_pool_get_value_for_node (pool, node, "locNotePointer");
+        value = its_pool_get_value_for_node (pool, node, "locNotePointer");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNotePointer", value);
@@ -942,7 +943,7 @@ its_element_within_text_rule_eval (struct its_rule_ty *pop,
 
   /* Doesn't inherit from the parent elements, and the default value
      is None.  */
-  value = _its_pool_get_value_for_node (pool, node, "withinText");
+  value = its_pool_get_value_for_node (pool, node, "withinText");
   if (value != NULL)
     its_value_list_set_value (result, "withinText", value);
 
@@ -1011,7 +1012,7 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
       return result;
     }
 
-  value = _its_pool_get_value_for_node (pool, node, "space");
+  value = its_pool_get_value_for_node (pool, node, "space");
   if (value != NULL)
     {
       its_value_list_set_value (result, "space", value);
@@ -1042,6 +1043,60 @@ static struct its_rule_class_ty its_preserve_space_rule_class =
     its_rule_destructor,
     its_rule_apply,
     its_preserve_space_rule_eval,
+  };
+
+/* Implementation of Context data category.  */
+static void
+itst_context_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
+{
+  char *prop;
+
+  if (!xmlHasProp (node, BAD_CAST "selector"))
+    {
+      _its_error_missing_attribute ("contextRule", "selector");
+      return;
+    }
+
+  if (!xmlHasProp (node, BAD_CAST "contextPointer"))
+    {
+      _its_error_missing_attribute ("contextRule", "contextPointer");
+      return;
+    }
+
+  prop = _its_get_attribute (node, "selector", NULL);
+  if (prop)
+    pop->selector = prop;
+
+  prop = _its_get_attribute (node, "contextPointer", NULL);
+  its_value_list_append (&pop->values, "contextPointer", prop);
+  free (prop);
+}
+
+struct its_value_list_ty *
+itst_context_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
+                        xmlNode *node)
+{
+  struct its_value_list_ty *result;
+  const char *value;
+
+  result = XCALLOC (1, struct its_value_list_ty);
+
+  /* Doesn't inherit from the parent elements, and the default value
+     is None.  */
+  value = its_pool_get_value_for_node (pool, node, "contextPointer");
+  if (value != NULL)
+    its_value_list_set_value (result, "contextPointer", value);
+
+  return result;
+}
+
+static struct its_rule_class_ty itst_context_rule_class =
+  {
+    sizeof (struct its_rule_ty),
+    itst_context_rule_constructor,
+    its_rule_destructor,
+    its_rule_apply,
+    itst_context_rule_eval,
   };
 
 static struct its_rule_ty *
@@ -1102,6 +1157,7 @@ init_classes (void)
   ADD_RULE_CLASS ("locNoteRule", its_localization_note_rule_class);
   ADD_RULE_CLASS ("withinTextRule", its_element_within_text_rule_class);
   ADD_RULE_CLASS ("preserveSpaceRule", its_preserve_space_rule_class);
+  ADD_RULE_CLASS ("contextRule", itst_context_rule_class);
 
 #undef ADD_RULE_CLASS
 }
@@ -1388,8 +1444,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
     {
       struct its_value_list_ty *values;
       const char *value;
-      char *content;
-      char *comment = NULL;
+      char *msgid, *msgctxt = NULL, *comment = NULL;
       enum its_whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (rules, node);
@@ -1410,11 +1465,15 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       else
         whitespace = normalize;
 
+      value = its_value_list_get_value (values, "contextPointer");
+      if (value)
+        msgctxt = _its_get_content (rules, node, value);
+
       its_value_list_destroy (values);
       free (values);
 
-      content = _its_collect_text_content (node, whitespace);
-      if (*content != '\0')
+      msgid = _its_collect_text_content (node, whitespace);
+      if (*msgid != '\0')
         {
           lex_pos_ty pos;
           message_ty *message;
@@ -1437,13 +1496,20 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                                   node->name);
             }
 
-          message = callback (mlp, content, &pos, comment, marker);
+          if (msgctxt != NULL && *msgctxt == '\0')
+            {
+              free (msgctxt);
+              msgctxt = NULL;
+            }
+
+          message = callback (mlp, msgctxt, msgid, &pos, comment, marker);
           free (marker);
 
           if (whitespace == preserve)
             message->do_wrap = no;
         }
-      free (content);
+      free (msgctxt);
+      free (msgid);
       free (comment);
     }
 }

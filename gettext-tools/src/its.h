@@ -29,6 +29,7 @@ extern "C" {
 typedef struct its_rule_list_ty its_rule_list_ty;
 
 typedef message_ty * (*its_extract_callback_ty) (message_list_ty *mlp,
+                                                 const char *msgctxt,
                                                  const char *msgid,
                                                  lex_pos_ty *pos,
                                                  const char *extracted_comment,

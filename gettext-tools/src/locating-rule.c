@@ -25,6 +25,7 @@
 
 #include "basename.h"
 #include "concat-filename.h"
+#include "c-strcase.h"
 
 #if HAVE_DIRENT_H
 # include <dirent.h>
@@ -126,7 +127,8 @@ locating_rule_match (struct locating_rule_ty *rule,
     return NULL;
 
   if (language != NULL
-      && (rule->language == NULL || strcmp (language, rule->language) != 0))
+      && (rule->language == NULL
+          || c_strcasecmp (language, rule->language) != 0))
     return NULL;
 
   if (rule->target != NULL)
