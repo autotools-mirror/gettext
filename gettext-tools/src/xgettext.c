@@ -78,8 +78,6 @@
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)
 
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
-
 
 #include "x-c.h"
 #include "x-po.h"
@@ -107,6 +105,10 @@
 #include "x-vala.h"
 #include "x-gsettings.h"
 #include "x-desktop.h"
+
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+#define ENDOF(a) ((a) + SIZEOF(a))
 
 
 /* If nonzero add all comments immediately preceding one of the keywords. */
@@ -212,6 +214,9 @@ iconv_t xgettext_current_source_iconv;
 
 static locating_rule_list_ty *its_locating_rules;
 
+/* If nonzero add comments used by itstool. */
+static bool add_itstool_comments = false;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -235,7 +240,7 @@ static const struct option long_options[] =
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
-  { "its", no_argument, NULL, CHAR_MAX + 19 },
+  { "itstool", no_argument, NULL, CHAR_MAX + 19 },
   { "join-existing", no_argument, NULL, 'j' },
   { "kde", no_argument, NULL, CHAR_MAX + 10 },
   { "keyword", optional_argument, NULL, 'k' },
@@ -317,7 +322,6 @@ main (int argc, char *argv[])
   bool some_additional_keywords = false;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
-  bool its = false;
   char *its_dirs[2] = { NULL, NULL };
   const char *file_name;
   const char *files_from = NULL;
@@ -391,7 +395,6 @@ main (int argc, char *argv[])
         x_tcl_extract_all ();
         x_perl_extract_all ();
         x_php_extract_all ();
-        x_glade_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
         x_vala_extract_all ();
@@ -471,7 +474,6 @@ main (int argc, char *argv[])
         x_tcl_keyword (optarg);
         x_perl_keyword (optarg);
         x_php_keyword (optarg);
-        x_glade_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
         x_vala_keyword (optarg);
@@ -655,8 +657,8 @@ main (int argc, char *argv[])
           error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
         break;
 
-      case CHAR_MAX + 19: /* --its */
-        its = true;
+      case CHAR_MAX + 19: /* --itstool */
+        add_itstool_comments = true;
         break;
 
       default:
@@ -719,30 +721,29 @@ xgettext cannot work without keywords to look for"));
       usage (EXIT_FAILURE);
     }
 
-  if (its)
-    {
-      const char *gettextdatadir;
-      char *versioned_gettextdatadir;
+  {
+    const char *gettextdatadir;
+    char *versioned_gettextdatadir;
 
-      /* Make it possible to override the locator file location.  This
-         is necessary for running the testsuite before "make
-         install".  */
-      gettextdatadir = getenv ("GETTEXTDATADIR");
-      if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-        gettextdatadir = relocate (GETTEXTDATADIR);
+    /* Make it possible to override the locator file location.  This
+       is necessary for running the testsuite before "make
+       install".  */
+    gettextdatadir = getenv ("GETTEXTDATADIR");
+    if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
+      gettextdatadir = relocate (GETTEXTDATADIR);
 
-      its_dirs[0] = xconcatenated_filename (gettextdatadir, "its", NULL);
+    its_dirs[0] = xconcatenated_filename (gettextdatadir, "its", NULL);
 
-      versioned_gettextdatadir =
-        xasprintf ("%s%s", relocate (GETTEXTDATADIR), PACKAGE_SUFFIX);
-      its_dirs[1] = xconcatenated_filename (versioned_gettextdatadir, "its",
-                                            NULL);
-      free (versioned_gettextdatadir);
+    versioned_gettextdatadir =
+      xasprintf ("%s%s", relocate (GETTEXTDATADIR), PACKAGE_SUFFIX);
+    its_dirs[1] = xconcatenated_filename (versioned_gettextdatadir, "its",
+                                          NULL);
+    free (versioned_gettextdatadir);
 
-      its_locating_rules = locating_rule_list_alloc ();
-      for (i = 0; i < SIZEOF (its_dirs); i++)
-        locating_rule_list_add_directory (its_locating_rules, its_dirs[i]);
-    }
+    its_locating_rules = locating_rule_list_alloc ();
+    for (i = 0; i < SIZEOF (its_dirs); i++)
+      locating_rule_list_add_directory (its_locating_rules, its_dirs[i]);
+  }
 
   /* Determine extractor from language.  */
   if (language != NULL)
@@ -884,7 +885,8 @@ This version was built without iconv()."),
           if (language == NULL && its_locating_rules != NULL)
             {
               const char *its_basename =
-                locating_rule_list_locate (its_locating_rules, filename);
+                locating_rule_list_locate (its_locating_rules, filename,
+                                           language);
               if (its_basename != NULL)
                 {
                   size_t j;
@@ -1118,10 +1120,6 @@ Language specific options:\n"));
       printf (_("\
                                 (only language C++)\n"));
       printf (_("\
-      --its                   extract from XML file using ITS rules\n"));
-      printf (_("\
-                                (only XML files)\n"));
-      printf (_("\
       --debug                 more detailed formatstring recognition result\n"));
       printf ("\n");
       printf (_("\
@@ -1150,6 +1148,8 @@ Output details:\n"));
       --properties-output     write out a Java .properties file\n"));
       printf (_("\
       --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
+      printf (_("\
+      --itstool               write out itstool comments\n"));
       printf (_("\
   -w, --width=NUMBER          set output page width\n"));
       printf (_("\
@@ -2212,6 +2212,30 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   free (real_file_name);
 }
 
+static message_ty *
+xgettext_its_extract_callback (message_list_ty *mlp,
+                               const char *msgid,
+                               lex_pos_ty *pos,
+                               const char *extracted_comment,
+                               const char *marker)
+{
+  message_ty *message;
+
+  message = remember_a_message (mlp, NULL,
+                                xstrdup (msgid),
+                                null_context, pos,
+                                extracted_comment, NULL);
+
+  if (add_itstool_comments)
+    {
+      char *dot = xasprintf ("(itstool) path: %s", marker);
+      message_comment_dot_append (message, dot);
+      free (dot);
+    }
+
+  return message;
+}
+
 static void
 extract_from_xml_file (const char *file_name,
                        its_rule_list_ty *rules,
@@ -2230,7 +2254,8 @@ extract_from_xml_file (const char *file_name,
 
   its_rule_list_extract (rules, fp, real_file_name, logical_file_name,
                          NULL,
-                         mdlp);
+                         mdlp,
+                         xgettext_its_extract_callback);
 
   if (fp != stdin)
     fclose (fp);
@@ -3836,10 +3861,6 @@ finalize_header (msgdomain_list_ty *mdlp)
       }
   }
 }
-
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
-#define ENDOF(a) ((a) + SIZEOF(a))
 
 
 static extractor_ty

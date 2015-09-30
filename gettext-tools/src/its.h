@@ -28,6 +28,12 @@ extern "C" {
 
 typedef struct its_rule_list_ty its_rule_list_ty;
 
+typedef message_ty * (*its_extract_callback_ty) (message_list_ty *mlp,
+                                                 const char *msgid,
+                                                 lex_pos_ty *pos,
+                                                 const char *extracted_comment,
+                                                 const char *marker);
+
 /* Creates a fresh its_rule_list_ty holding global ITS rules.  */
 extern its_rule_list_ty *its_rule_list_alloc (void);
 
@@ -43,7 +49,8 @@ extern void its_rule_list_extract (its_rule_list_ty *rules,
                                    FILE *fp, const char *real_filename,
                                    const char *logical_filename,
                                    flag_context_list_table_ty *flag_table,
-                                   msgdomain_list_ty *mdlp);
+                                   msgdomain_list_ty *mdlp,
+                                   its_extract_callback_ty callback);
 
 #ifdef __cplusplus
 }

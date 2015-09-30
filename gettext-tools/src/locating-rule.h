@@ -34,10 +34,11 @@ extern bool
        locating_rule_list_add_directory (locating_rule_list_ty *rules,
                                          const char *directory);
 
-/* Determines the location of resource associated with PATH, accoding
-   to the loaded locating rules.  */
+/* Determines the location of resource associated with FILENAME,
+   accoding to the loaded locating rules.  */
 extern const char *locating_rule_list_locate (locating_rule_list_ty *rules,
-                                              const char *path);
+                                              const char *filename,
+                                              const char *language);
 
 /* Releases memory allocated for RULES.  */
 extern void locating_rule_list_free (locating_rule_list_ty *rules);

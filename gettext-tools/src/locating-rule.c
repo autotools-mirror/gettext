@@ -67,6 +67,7 @@ struct document_locating_rule_list_ty
 struct locating_rule_ty
 {
   char *pattern;
+  char *language;
 
   struct document_locating_rule_list_ty doc_rules;
   char *target;
@@ -118,9 +119,14 @@ document_locating_rule_match (struct document_locating_rule_ty *rule,
 
 static const char *
 locating_rule_match (struct locating_rule_ty *rule,
-                     const char *filename)
+                     const char *filename,
+                     const char *language)
 {
-  if (fnmatch (rule->pattern, filename, FNM_PATHNAME) != 0)
+  if (language == NULL && fnmatch (rule->pattern, filename, FNM_PATHNAME) != 0)
+    return NULL;
+
+  if (language != NULL
+      && (rule->language == NULL || strcmp (language, rule->language) != 0))
     return NULL;
 
   if (rule->target != NULL)
@@ -157,14 +163,15 @@ locating_rule_match (struct locating_rule_ty *rule,
 
 const char *
 locating_rule_list_locate (struct locating_rule_list_ty *rules,
-                           const char *path)
+                           const char *filename,
+                           const char *language)
 {
   const char *target = NULL;
   size_t i;
 
   for (i = 0; i < rules->nitems; i++)
     {
-      target = locating_rule_match (&rules->items[i], path);
+      target = locating_rule_match (&rules->items[i], filename, language);
       if (target != NULL)
         return target;
     }
@@ -226,6 +233,7 @@ locating_rule_destroy (struct locating_rule_ty *rule)
   for (i = 0; i < rule->doc_rules.nitems; i++)
     document_locating_rule_destroy (&rule->doc_rules.items[i]);
 
+  free (rule->language);
   free (rule->pattern);
   free (rule->target);
 }
@@ -276,6 +284,8 @@ locating_rule_list_add_file (struct locating_rule_list_ty *rules,
 
           memset (&rule, 0, sizeof (struct locating_rule_ty));
           rule.pattern = get_attribute (node, "pattern");
+          if (xmlHasProp (node, BAD_CAST "language"))
+            rule.language = get_attribute (node, "language");
           if (xmlHasProp (node, BAD_CAST "target"))
             rule.target = get_attribute (node, "target");
           else

@@ -470,7 +470,7 @@ Internationalizable Data
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
-* XML::                         XML - Generic XML files
+* Preparing ITS Rules::         Preparing Rules for XML Internationalization
 
 Concluding Remarks
 
@@ -12156,7 +12156,7 @@ using GNU gettext.
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
-* XML::                         XML - Generic XML files
+* Preparing ITS Rules::  Preparing Rules for XML Internationalization
 @end menu
 
 @node POT, RST, List of Data Formats, List of Data Formats
@@ -12216,7 +12216,7 @@ glib2
 @code{xgettext}, @code{intltool-extract}
 @end table
 
-@node AppData, XML, GSettings, List of Data Formats
+@node AppData, Preparing ITS Rules, GSettings, List of Data Formats
 @subsection AppData - freedesktop.org application description
 
 @table @asis
@@ -12230,25 +12230,11 @@ appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
 @code{xgettext}, @code{intltool-extract}, @code{itstool}
 @end table
 
-@node XML,  , AppData, List of Data Formats
-@subsection XML - Generic XML files
-
-@table @asis
-@item RPMs
-
-@item File extension
-@code{xml}, or anything else
-
-@item Extractor
-@code{xgettext}, @code{itstool}
-@end table
-
 @menu
-* Preparing ITS Rules::  Preparing Rules for XML Internationalization
 @end menu
 
-@node Preparing ITS Rules,  , XML, XML
-@subsubsection Preparing Rules for XML Internationalization
+@node Preparing ITS Rules,  , AppData, List of Data Formats
+@subsection Preparing Rules for XML Internationalization
 @cindex preparing rules for XML translation
 
 Marking translatable strings in an XML file is done with a separate
@@ -12257,7 +12243,8 @@ Marking translatable strings in an XML file is done with a separate
 categories are: @samp{Translate}, @samp{Localization Note},
 @samp{Elements Within Text}, and @samp{Preserve Space}.
 
-For example, given the following XML document:
+For example, given the following XML document in a file
+@file{messages.xml}:
 
 @example
 <?xml version="1.0"?>
@@ -12287,18 +12274,17 @@ translatable string"), but not the second ("A non-translatable string").
 </its:rules>
 @end example
 
-@samp{xgettext} uses another file called "locating rule" to associate an
-ITS rule with an XML file.  For example, if the above XML file is saved
-as @file{messages.xml} and the corresponding ITS file is saved as
-@file{messages.its}, the locating rule would look like the following.
+@samp{xgettext} needs another file called "locating rule" to associate
+an ITS rule with an XML file.  For example, if the above ITS file is
+saved as @file{messages.its}, the locating rule would look like:
 
 @example
 <?xml version="1.0"?>
 <locatingRules>
-  <locatingRule pattern="*.xml">
+  <locatingRule language="Messages" pattern="*.xml">
     <documentRule localName="messages" target="messages.its"/>
   </locatingRule>
-  <locatingRule pattern="*.msg" target="messages.its"/>
+  <locatingRule language="Messages" pattern="*.msg" target="messages.its"/>
 </locatingRules>
 @end example
 
@@ -12306,23 +12292,25 @@ The @code{locatingRule} element must have a @code{pattern} attribute,
 which denotes either a literal file name or a wildcard pattern of the
 XML file.  The @code{locatingRule} element can have child
 @code{documentRule} element, which adds checks on the content of the XML
-file.  The first rule matches any file with the @file{.xml} file
-extension, but only applies to XML files whose root node is
-@samp{<messages>}.
+file.
+
+The first rule matches any file with the @file{.xml} file extension, but
+it only applies to XML files whose root element is @samp{<messages>}.
 
 The second rule also allows any file with the @file{.msg} file extension
-to be handled with the same ITS rule file.
+to be handled with the same ITS rule file.  The optional @code{language}
+attribute of @code{locatingRule} allows @code{xgettext} to choose rules
+with @code{-L} option, instead of the file name matching.
 
-The associated ITS file is indicated by @code{target} attribute of
+The associated ITS file is indicated by the @code{target} attribute of
 @code{locatingRule} or @code{documentRule}.
 
-Locating rule file must have the @file{.loc} file extension.  Both ITS
+Locating rule files must have the @file{.loc} file extension.  Both ITS
 rule files and locating rule files must be installed in the
-@file{GETTEXTDATADIR/its} directory, where @code{GETTEXTDATADIR} is the
-gettext data directory (typically @file{/usr/share/gettext}).
+@file{$prefix/share/gettext/its} directory.
 
-Once those files are properly installed, extracting translatable strings
-with @code{xgettext} is done through @code{--its} option.
+Once those files are properly installed, @code{xgettext} can extract
+translatable strings from the matching XML files.
 
 @c This is the template for new data formats.
 @ignore

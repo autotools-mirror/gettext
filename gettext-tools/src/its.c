@@ -1380,7 +1380,8 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
                             xmlNode *node,
                             const char *logical_filename,
                             flag_context_list_table_ty *flag_table,
-                            message_list_ty *mlp)
+                            message_list_ty *mlp,
+                            its_extract_callback_ty callback)
 {
   if (node->type == XML_ELEMENT_NODE
       || node->type == XML_ATTRIBUTE_NODE)
@@ -1413,42 +1414,36 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       free (values);
 
       content = _its_collect_text_content (node, whitespace);
-      if (*content == '\0')
-        free (content);
-      else
+      if (*content != '\0')
         {
           lex_pos_ty pos;
           message_ty *message;
-          char *dot;
+          char *marker;
 
           pos.file_name = xstrdup (logical_filename);
           pos.line_number = xmlGetLineNo (node);
 
-          message = remember_a_message (mlp, NULL,
-                                        content,
-                                        null_context, &pos,
-                                        comment, NULL);
-          if (whitespace == preserve)
-            message->do_wrap = no;
-
           if (node->type == XML_ELEMENT_NODE)
             {
               assert (node->parent);
-              dot = xasprintf ("(itstool) path: %s/%s",
-                               node->parent->name,
-                               node->name);
+              marker = xasprintf ("%s/%s", node->parent->name, node->name);
             }
           else
             {
               assert (node->parent && node->parent->parent);
-              dot = xasprintf ("(itstool) path: %s/%s@%s",
-                               node->parent->parent->name,
-                               node->parent->name,
-                               node->name);
+              marker = xasprintf ("%s/%s@%s",
+                                  node->parent->parent->name,
+                                  node->parent->name,
+                                  node->name);
             }
-          message_comment_dot_append (message, dot);
-          free (dot);
+
+          message = callback (mlp, content, &pos, comment, marker);
+          free (marker);
+
+          if (whitespace == preserve)
+            message->do_wrap = no;
         }
+      free (content);
       free (comment);
     }
 }
@@ -1458,7 +1453,8 @@ its_rule_list_extract (its_rule_list_ty *rules,
                        FILE *fp, const char *real_filename,
                        const char *logical_filename,
                        flag_context_list_table_ty *flag_table,
-                       msgdomain_list_ty *mdlp)
+                       msgdomain_list_ty *mdlp,
+                       its_extract_callback_ty callback)
 {
   xmlDoc *doc;
   struct its_node_list_ty nodes;
@@ -1487,7 +1483,8 @@ its_rule_list_extract (its_rule_list_ty *rules,
     its_rule_list_extract_text (rules, nodes.items[i],
                                 logical_filename,
                                 flag_table,
-                                mdlp->item[0]->messages);
+                                mdlp->item[0]->messages,
+                                callback);
 
   free (nodes.items);
   xmlFreeDoc (doc);

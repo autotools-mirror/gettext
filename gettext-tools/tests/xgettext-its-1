@@ -4,8 +4,8 @@
 # Test of ITS support.
 
 : ${XGETTEXT=xgettext}
-: ${GETTEXTDATADIR=.}
 
+GETTEXTDATADIR=.
 export GETTEXTDATADIR
 
 cat <<\EOF > empty.xml
@@ -13,7 +13,7 @@ cat <<\EOF > empty.xml
 <empty></empty>
 EOF
 
-${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
+${XGETTEXT} --itstool -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
 test -d its || mkdir its
 
@@ -22,7 +22,7 @@ cat <<\EOF > its/empty-1.loc
 <locatingRules/>
 EOF
 
-${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
+${XGETTEXT} --itstool -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
 cat <<\EOF > its/empty-2.loc
 <?xml version="1.0"?>
@@ -33,7 +33,7 @@ cat <<\EOF > its/empty-2.loc
 </locatingRules>
 EOF
 
-${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
+${XGETTEXT} --itstool -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
 cat <<\EOF > its/empty.its
 <?xml version="1.0"?>
@@ -41,7 +41,7 @@ cat <<\EOF > its/empty.its
 </its:rules>
 EOF
 
-${XGETTEXT} --its -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
+${XGETTEXT} --itstool -o empty.pot empty.xml 2>empty.err || { cat empty.err; exit 1; }
 
 cat <<\EOF > its/messages.loc
 <?xml version="1.0"?>
@@ -192,7 +192,7 @@ msgid " This is a message with  space  preserved"
 msgstr ""
 EOF
 
-${XGETTEXT} --its --no-wrap --omit-header -o messages.pot messages.xml 2>messages.err || { cat messages.err; exit 1; }
+${XGETTEXT} --itstool --no-wrap --omit-header -o messages.pot messages.xml 2>messages.err || { cat messages.err; exit 1; }
 : ${DIFF=diff}
 ${DIFF} messages.ok messages.pot
 result=$?
