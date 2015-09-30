@@ -74,8 +74,6 @@ struct locating_rule_ty
 
 struct locating_rule_list_ty
 {
-  char *base;
-
   struct locating_rule_ty *items;
   size_t nitems;
   size_t nitems_max;
@@ -157,7 +155,7 @@ locating_rule_match (struct locating_rule_ty *rule,
   return NULL;
 }
 
-char *
+const char *
 locating_rule_list_locate (struct locating_rule_list_ty *rules,
                            const char *path)
 {
@@ -168,7 +166,7 @@ locating_rule_list_locate (struct locating_rule_list_ty *rules,
     {
       target = locating_rule_match (&rules->items[i], path);
       if (target != NULL)
-        return xconcatenated_filename (rules->base, target, NULL);
+        return target;
     }
 
   return NULL;
@@ -306,7 +304,7 @@ locating_rule_list_add_file (struct locating_rule_list_ty *rules,
   return true;
 }
 
-static bool
+bool
 locating_rule_list_add_directory (struct locating_rule_list_ty *rules,
                                   const char *directory)
 {
@@ -349,16 +347,13 @@ locating_rule_list_add_directory (struct locating_rule_list_ty *rules,
 }
 
 struct locating_rule_list_ty *
-locating_rule_list_alloc (const char *base, const char *directory)
+locating_rule_list_alloc (void)
 {
   struct locating_rule_list_ty *result;
 
   xmlCheckVersion (LIBXML_VERSION);
 
   result = XCALLOC (1, struct locating_rule_list_ty);
-  result->base = xstrdup (base);
-
-  locating_rule_list_add_directory (result, directory);
 
   return result;
 }
@@ -366,8 +361,6 @@ locating_rule_list_alloc (const char *base, const char *directory)
 void
 locating_rule_list_destroy (struct locating_rule_list_ty *rules)
 {
-  free (rules->base);
-
   while (rules->nitems-- > 0)
     locating_rule_destroy (&rules->items[rules->nitems]);
   free (rules->items);

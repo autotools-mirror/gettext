@@ -461,6 +461,11 @@ AC_SUBST([ARCHIVE_FORMAT])
 ARCHIVE_VERSION=0.19.5
 AC_SUBST([ARCHIVE_VERSION])
 
+PACKAGE_SUFFIX="-$ARCHIVE_VERSION"
+AC_SUBST([PACKAGE_SUFFIX])
+AC_DEFINE_UNQUOTED(PACKAGE_SUFFIX, "$PACKAGE_SUFFIX",
+  [Define to the suffix of this package])
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
@@ -518,6 +523,8 @@ AC_CONFIG_FILES([intl/Makefile:../gettext-runtime/intl/Makefile.in], [
     < intl/Makefile > intl/Makefile.tmp
   mv intl/Makefile.tmp intl/Makefile
   ])
+
+AC_CONFIG_FILES([its/Makefile])
 
 AC_CONFIG_FILES([gnulib-lib/Makefile])
 

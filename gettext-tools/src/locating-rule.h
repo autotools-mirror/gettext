@@ -27,18 +27,20 @@ extern "C" {
 
 typedef struct locating_rule_list_ty locating_rule_list_ty;
 
-/* Creates a fresh locating_rule_list_ty with the base URI BASE, and loads
-   the locating rules from the files in DIRECTORY.  */
-extern struct locating_rule_list_ty *locating_rule_list_alloc (const char *base,
-                                                     const char *directory);
+/* Creates a fresh locating_rule_list_ty.  */
+extern struct locating_rule_list_ty *locating_rule_list_alloc (void);
+
+extern bool
+       locating_rule_list_add_directory (locating_rule_list_ty *rules,
+                                         const char *directory);
 
 /* Determines the location of resource associated with PATH, accoding
    to the loaded locating rules.  */
-extern char *locating_rule_list_locate (locating_rule_list_ty *locators,
-                                   const char *path);
+extern const char *locating_rule_list_locate (locating_rule_list_ty *rules,
+                                              const char *path);
 
-/* Releases memory allocated for LOCATORS.  */
-extern void locating_rule_list_free (locating_rule_list_ty *locators);
+/* Releases memory allocated for RULES.  */
+extern void locating_rule_list_free (locating_rule_list_ty *rules);
 
 #ifdef __cplusplus
 }

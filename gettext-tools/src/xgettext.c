@@ -78,6 +78,8 @@
 /* A convenience macro.  I don't like writing gettext() every time.  */
 #define _(str) gettext (str)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 #include "x-c.h"
 #include "x-po.h"
@@ -316,6 +318,7 @@ main (int argc, char *argv[])
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
   bool its = false;
+  char *its_dirs[2] = { NULL, NULL };
   const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
@@ -719,7 +722,7 @@ xgettext cannot work without keywords to look for"));
   if (its)
     {
       const char *gettextdatadir;
-      char *itsdir;
+      char *versioned_gettextdatadir;
 
       /* Make it possible to override the locator file location.  This
          is necessary for running the testsuite before "make
@@ -728,9 +731,17 @@ xgettext cannot work without keywords to look for"));
       if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
         gettextdatadir = relocate (GETTEXTDATADIR);
 
-      itsdir = xconcatenated_filename (gettextdatadir, "its", NULL);
-      its_locating_rules = locating_rule_list_alloc (itsdir, itsdir);
-      free (itsdir);
+      its_dirs[0] = xconcatenated_filename (gettextdatadir, "its", NULL);
+
+      versioned_gettextdatadir =
+        xasprintf ("%s%s", relocate (GETTEXTDATADIR), PACKAGE_SUFFIX);
+      its_dirs[1] = xconcatenated_filename (versioned_gettextdatadir, "its",
+                                            NULL);
+      free (versioned_gettextdatadir);
+
+      its_locating_rules = locating_rule_list_alloc ();
+      for (i = 0; i < SIZEOF (its_dirs); i++)
+        locating_rule_list_add_directory (its_locating_rules, its_dirs[i]);
     }
 
   /* Determine extractor from language.  */
@@ -872,20 +883,30 @@ This version was built without iconv()."),
 
           if (language == NULL && its_locating_rules != NULL)
             {
-              char *its_filename = NULL;
-
-              its_filename = locating_rule_list_locate (its_locating_rules,
-                                                        filename);
-              if (its_filename != NULL)
+              const char *its_basename =
+                locating_rule_list_locate (its_locating_rules, filename);
+              if (its_basename != NULL)
                 {
+                  size_t j;
+
                   its_rules = its_rule_list_alloc ();
-                  if (!its_rule_list_add_file (its_rules, its_filename))
+                  for (j = 0; j < SIZEOF (its_dirs); j++)
+                    {
+                      char *its_filename =
+                        xconcatenated_filename (its_dirs[j], its_basename,
+                                                NULL);
+                      bool result =
+                        its_rule_list_add_file (its_rules, its_filename);
+                      free (its_filename);
+                      if (result)
+                        break;
+                    }
+                  if (j == SIZEOF (its_dirs))
                     {
                       its_rule_list_free (its_rules);
                       its_rules = NULL;
                     }
                 }
-              free (its_filename);
             }
 
           if (its_rules == NULL)
@@ -960,6 +981,9 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
 
   if (its_locating_rules)
     locating_rule_list_free (its_locating_rules);
+
+  for (i = 0; i < SIZEOF (its_dirs); i++)
+    free (its_dirs[i]);
 
   exit (EXIT_SUCCESS);
 }
