@@ -1,3 +1,13 @@
+2015-09-30  Daiki Ueno  <ueno@gnu.org>
+
+	build: Avoid file name length limitation of tar
+	"csharpdoc" is a bit too long to accommodate long file names with
+	the version returned from git-version-gen:
+	  tar: gettext-0.19.6.4-1e74e4/.../csharpdoc/...: file name is too
+	    long (max 99); not dumped
+	* doc: Rename from csharpdoc.
+	* Makefile.am (doc, DOC_FILES): Adjust to the directory name change.
+
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.6 released.
