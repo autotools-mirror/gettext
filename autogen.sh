@@ -245,6 +245,7 @@ if ! $skip_gnulib; then
       sys_stat
       sys_time
       term-styled-ostream
+      trim
       unictype/ctype-space
       unilbrk/ulc-width-linebreaks
       uniname/uniname
