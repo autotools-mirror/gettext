@@ -85,8 +85,8 @@ EXTRA_DIST += $(DOC_FILES)
 install-doc: all-doc
 	$(MKDIR_P) $(DESTDIR)$(htmldir)/csharpdoc
 	@for f in $(DOC_FILES); do \
-	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f"; \
-	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/$$f; \
+	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/csharpdoc/`basename $$f`"; \
+	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(htmldir)/csharpdoc/`basename $$f`; \
 	done
 
 installdirs-doc:
@@ -94,6 +94,6 @@ installdirs-doc:
 
 uninstall-doc:
 	@for f in $(DOC_FILES); do \
-	  echo "$(RM) $(DESTDIR)$(htmldir)/$$f"; \
-	  $(RM) $(DESTDIR)$(htmldir)/$$f; \
+	  echo "$(RM) $(DESTDIR)$(htmldir)/csharpdoc/`basename $$f`"; \
+	  $(RM) $(DESTDIR)$(htmldir)/csharpdoc/$$f; \
 	done
