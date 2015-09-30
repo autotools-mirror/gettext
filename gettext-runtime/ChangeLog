@@ -1,3 +1,7 @@
+2015-09-30  Daiki Ueno  <ueno@gnu.org>
+
+	* Makefile.am (ABOUT-NLS): Don't omit directory name of input file.
+
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.6 released.
