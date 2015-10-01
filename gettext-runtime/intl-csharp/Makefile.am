@@ -95,5 +95,5 @@ installdirs-doc:
 uninstall-doc:
 	@for f in $(DOC_FILES); do \
 	  echo "$(RM) $(DESTDIR)$(htmldir)/csharpdoc/`basename $$f`"; \
-	  $(RM) $(DESTDIR)$(htmldir)/csharpdoc/$$f; \
+	  $(RM) $(DESTDIR)$(htmldir)/csharpdoc/`basename $$f`; \
 	done
