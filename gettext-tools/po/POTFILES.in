@@ -105,7 +105,6 @@ src/x-awk.c
 src/x-c.c
 src/x-csharp.c
 src/x-elisp.c
-src/x-glade.c
 src/x-java.c
 src/x-javascript.c
 src/x-librep.c
