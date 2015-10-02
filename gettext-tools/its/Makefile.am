@@ -20,4 +20,4 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 
 pkgdatadir = $(datadir)/gettext
 itsdir = $(pkgdatadir)$(PACKAGE_SUFFIX)/its
-dist_its_DATA = appdata.loc appdata.its
+dist_its_DATA = gsettings.loc gsettings.its appdata.loc appdata.its
