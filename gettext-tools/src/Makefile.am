@@ -183,7 +183,7 @@ xgettext_SOURCES += \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-glade.c x-lua.c x-javascript.c x-vala.c x-gsettings.c \
-  x-desktop.c x-appdata.c
+  x-desktop.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
 else
