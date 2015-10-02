@@ -28,17 +28,13 @@ extern "C" {
 #endif
 
 
+/* The scanner is implemented as ITS rules, in its/appdata.its.  */
+
 #define EXTENSIONS_APPDATA \
-  { "appdata.xml", "appdata" }, \
+  { "appdata.xml", NULL }, \
 
 #define SCANNERS_APPDATA \
-  { "appdata", extract_appdata, NULL, NULL, NULL, NULL }, \
-
-/* Scan an AppData XML file and add its translatable strings to mdlp.  */
-extern void extract_appdata (FILE *fp, const char *real_filename,
-                             const char *logical_filename,
-                             flag_context_list_table_ty *flag_table,
-                             msgdomain_list_ty *mdlp);
+  { "appdata", NULL, NULL, NULL, NULL, NULL }, \
 
 
 #ifdef __cplusplus

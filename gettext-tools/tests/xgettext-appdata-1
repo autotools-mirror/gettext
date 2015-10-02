@@ -110,6 +110,14 @@ msgid ""
 "problems with your laptop battery, or are trying to work out what programs "
 "are using significant amounts of power."
 msgstr ""
+
+#: xg-gs-1.appdata.xml:28
+msgid "The main window showing the application in action"
+msgstr ""
+
+#: xg-gs-1.appdata.xml:32
+msgid "The preferences window where you can change the defaults"
+msgstr ""
 EOF
 
 : ${DIFF=diff}
