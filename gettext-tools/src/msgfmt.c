@@ -212,7 +212,6 @@ static struct msg_domain *new_domain (const char *name, const char *file_name);
 static bool is_nonobsolete (const message_ty *mp);
 static void read_catalog_file_msgfmt (char *filename,
                                       catalog_input_format_ty input_syntax);
-static string_list_ty *get_languages (const char *directory);
 static int msgfmt_desktop_bulk (const char *directory,
                                 const char *template_file_name,
                                 hash_table *keywords,
@@ -1298,35 +1297,30 @@ add_languages (string_list_ty *languages, string_list_ty *desired_languages,
 
 /* Compute the languages list by reading the "LINGUAS" envvar or the
    LINGUAS file under DIRECTORY.  */
-static string_list_ty *
-get_languages (const char *directory)
+static void
+get_languages (string_list_ty *languages, const char *directory)
 {
   char *envval;
-  string_list_ty *languages;
-  string_list_ty *desired_languages = NULL;
-  char *linguas_file_name;
+  string_list_ty real_desired_languages, *desired_languages = NULL;
+  char *linguas_file_name = NULL;
   struct stat statbuf;
   FILE *fp;
   size_t line_len = 0;
   char *line_buf = NULL;
 
-  languages = string_list_alloc ();
   envval = getenv ("LINGUAS");
   if (envval)
     {
-      desired_languages = string_list_alloc ();
-      add_languages (desired_languages, NULL, envval, strlen (envval));
+      string_list_init (&real_desired_languages);
+      add_languages (&real_desired_languages, NULL, envval, strlen (envval));
+      desired_languages = &real_desired_languages;
     }
 
   linguas_file_name = xconcatenated_filename (directory, "LINGUAS", NULL);
   if (stat (linguas_file_name, &statbuf) < 0)
     {
       error (EXIT_SUCCESS, 0, _("%s does not exist"), linguas_file_name);
-      string_list_free (languages);
-      if (desired_languages != NULL)
-        string_list_free (desired_languages);
-      free (linguas_file_name);
-      return NULL;
+      goto out;
     }
 
   fp = fopen (linguas_file_name, "r");
@@ -1334,11 +1328,7 @@ get_languages (const char *directory)
     {
       error (EXIT_SUCCESS, 0, _("%s exists but cannot read"),
              linguas_file_name);
-      string_list_free (languages);
-      if (desired_languages != NULL)
-        string_list_free (desired_languages);
-      free (linguas_file_name);
-      return NULL;
+      goto out;
     }
 
   while (!feof (fp))
@@ -1368,11 +1358,132 @@ get_languages (const char *directory)
 
   free (line_buf);
   fclose (fp);
-  if (desired_languages != NULL)
-    string_list_free (desired_languages);
-  free (linguas_file_name);
 
-  return languages;
+ out:
+  if (desired_languages != NULL)
+    string_list_destroy (desired_languages);
+  free (linguas_file_name);
+}
+
+static void
+msgfmt_operand_list_init (msgfmt_operand_list_ty *operands)
+{
+  operands->items = NULL;
+  operands->nitems = 0;
+  operands->nitems_max = 0;
+}
+
+static void
+msgfmt_operand_list_destroy (msgfmt_operand_list_ty *operands)
+{
+  size_t i;
+
+  for (i = 0; i < operands->nitems; i++)
+    {
+      free (operands->items[i].language);
+      message_list_free (operands->items[i].mlp, 0);
+    }
+  free (operands->items);
+}
+
+static void
+msgfmt_operand_list_append (msgfmt_operand_list_ty *operands,
+                            const char *language,
+                            message_list_ty *messages)
+{
+  msgfmt_operand_ty *operand;
+
+  if (operands->nitems == operands->nitems_max)
+    {
+      operands->nitems_max = operands->nitems_max * 2 + 1;
+      operands->items = xrealloc (operands->items,
+                                  sizeof (msgfmt_operand_ty)
+                                  * operands->nitems_max);
+    }
+
+  operand = &operands->items[operands->nitems++];
+  operand->language = xstrdup (language);
+  operand->mlp = messages;
+}
+
+static int
+msgfmt_operand_list_add_directory (msgfmt_operand_list_ty *operands,
+                                   const char *directory)
+{
+  string_list_ty languages;
+  void *saved_dir_list;
+  int retval = 0;
+  size_t i;
+
+  string_list_init (&languages);
+  get_languages (&languages, directory);
+
+  if (languages.nitems == 0)
+    return 0;
+
+  /* Reset the directory search list so only .po files under DIRECTORY
+     will be read.  */
+  saved_dir_list = dir_list_save_reset ();
+  dir_list_append (directory);
+
+  /* Read all .po files.  */
+  for (i = 0; i < languages.nitems; i++)
+    {
+      const char *language = languages.item[i];
+      message_list_ty *mlp;
+      char *input_file_name;
+      int nerrors;
+
+      current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
+                                   add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
+
+      input_file_name = xconcatenated_filename ("", language, ".po");
+      read_catalog_file_msgfmt (input_file_name, &input_format_po);
+      free (input_file_name);
+
+      /* The domain directive is not supported in the bulk execution mode.
+         Thus, domain_list should always contain a single domain.  */
+      assert (current_domain == domain_list && domain_list->next == NULL);
+      mlp = current_domain->mlp;
+      free (current_domain);
+      current_domain = domain_list = NULL;
+
+      /* Remove obsolete messages.  They were only needed for duplicate
+         checking.  */
+      message_list_remove_if_not (mlp, is_nonobsolete);
+
+      /* Perform all kinds of checks: plural expressions, format
+         strings, ...  */
+      nerrors =
+        check_message_list (mlp,
+                            /* Untranslated and fuzzy messages have already
+                               been dealt with during parsing, see below in
+                               msgfmt_frob_new_message.  */
+                            0, 0,
+                            1, check_format_strings, check_header,
+                            check_compatibility,
+                            check_accelerators, accelerator_char);
+
+      retval += nerrors;
+      if (nerrors > 0)
+        {
+          error (0, 0,
+                 ngettext ("found %d fatal error", "found %d fatal errors",
+                           nerrors),
+                 nerrors);
+          continue;
+        }
+
+      /* Convert the messages to Unicode.  */
+      iconv_message_list (mlp, NULL, po_charset_utf8, NULL);
+
+      msgfmt_operand_list_append (operands, language, mlp);
+    }
+
+  string_list_destroy (&languages);
+  dir_list_restore (saved_dir_list);
+
+  return retval;
 }
 
 /* Helper function to support 'bulk' operation mode of --desktop.
@@ -1385,90 +1496,26 @@ msgfmt_desktop_bulk (const char *directory,
                      hash_table *keywords,
                      const char *file_name)
 {
-  string_list_ty *languages = NULL;
-  message_list_ty **messages = NULL;
-  void *saved_dir_list;
-  int retval = 0;
-  size_t i;
+  msgfmt_operand_list_ty operands;
+  int retval;
 
-  languages = get_languages (directory);
-  if (!languages)
-    return EXIT_FAILURE;
-
-  /* Reset the directory search list so only .po files under DIRECTORY
-     will be read.  */
-  saved_dir_list = dir_list_save_reset ();
-  dir_list_append (directory);
+  msgfmt_operand_list_init (&operands);
 
   /* Read all .po files.  */
-  messages = XNMALLOC (languages->nitems, message_list_ty *);
-  for (i = 0; i < languages->nitems; i++)
+  retval = msgfmt_operand_list_add_directory (&operands, directory);
+  if (retval > 0)
     {
-      const char *language = languages->item[i];
-      char *input_file_name;
-      int nerrors;
-
-      current_domain = new_domain (file_name, file_name);
-
-      input_file_name = xconcatenated_filename ("", language, ".po");
-      read_catalog_file_msgfmt (input_file_name, &input_format_po);
-      free (input_file_name);
-
-      /* The domain directive is not supported by --desktop mode.
-         Thus, domain_list should always contain a single domain.  */
-      assert (current_domain == domain_list && domain_list->next == NULL);
-      messages[i] = current_domain->mlp;
-      free (current_domain);
-      current_domain = domain_list = NULL;
-
-      /* Remove obsolete messages.  They were only needed for duplicate
-         checking.  */
-      message_list_remove_if_not (messages[i], is_nonobsolete);
-
-      /* Perform all kinds of checks: plural expressions, format
-         strings, ...  */
-      nerrors =
-        check_message_list (messages[i],
-                            /* Untranslated and fuzzy messages have already
-                               been dealt with during parsing, see below in
-                               msgfmt_frob_new_message.  */
-                            0, 0,
-                            1, check_format_strings, check_header,
-                            check_compatibility,
-                            check_accelerators, accelerator_char);
-
-      /* Exit with status 1 on any error.  */
-      if (nerrors > 0)
-        {
-          error (0, 0,
-                 ngettext ("found %d fatal error", "found %d fatal errors",
-                           nerrors),
-                 nerrors);
-          retval = EXIT_FAILURE;
-          goto out;
-        }
-
-      /* Convert the messages to Unicode.  */
-      iconv_message_list (messages[i], NULL, po_charset_utf8, NULL);
+      msgfmt_operand_list_destroy (&operands);
+      return retval;
     }
 
   /* Write the messages into .desktop file.  */
-  if (msgdomain_write_desktop_bulk (languages,
-                                    messages,
-                                    template_file_name,
-                                    keywords,
-                                    file_name))
-    {
-      retval = EXIT_FAILURE;
-      goto out;
-    }
+  retval = msgdomain_write_desktop_bulk (&operands,
+                                         template_file_name,
+                                         keywords,
+                                         file_name);
 
- out:
-  dir_list_restore (saved_dir_list);
-  for (i = 0; i < languages->nitems; i++)
-    message_list_free (messages[i], 0);
-  free (messages);
-  string_list_free (languages);
+  msgfmt_operand_list_destroy (&operands);
 
   return retval;
 }
