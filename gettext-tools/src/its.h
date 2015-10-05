@@ -66,6 +66,18 @@ extern void its_rule_list_extract (its_rule_list_ty *rules,
                                    msgdomain_list_ty *mdlp,
                                    its_extract_callback_ty callback);
 
+typedef struct its_merge_context_ty its_merge_context_ty;
+
+extern its_merge_context_ty *
+       its_merge_context_alloc (its_rule_list_ty *rules, const char *filename);
+extern void its_merge_context_free (its_merge_context_ty *context);
+extern void its_merge_context_merge (its_merge_context_ty *context,
+                                     const char *language,
+                                     message_list_ty *mlp);
+
+extern void its_merge_context_write (its_merge_context_ty *context,
+                                     FILE *fp);
+
 #ifdef __cplusplus
 }
 #endif
