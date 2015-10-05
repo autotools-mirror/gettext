@@ -50,6 +50,7 @@
 #include "write-tcl.h"
 #include "write-qt.h"
 #include "write-desktop.h"
+#include "write-xml.h"
 #include "propername.h"
 #include "message.h"
 #include "open-catalog.h"
@@ -62,9 +63,13 @@
 #include "msgl-check.h"
 #include "msgl-iconv.h"
 #include "concat-filename.h"
+#include "its.h"
+#include "locating-rule.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* Contains exit status for case in which no premature exit occurs.  */
 static int exit_status;
@@ -110,6 +115,14 @@ static const char *desktop_template_name;
 static const char *desktop_base_directory;
 static hash_table desktop_keywords;
 static bool desktop_default_keywords = true;
+
+/* XML mode output file specification.  */
+static bool xml_mode;
+static const char *xml_locale_name;
+static const char *xml_template_name;
+static const char *xml_base_directory;
+static const char *xml_language;
+static its_rule_list_ty *xml_its_rules;
 
 /* We may have more than one input file.  Domains with same names in
    different files have to merged.  So we need a list of tables for
@@ -181,6 +194,7 @@ static const struct option long_options[] =
   { "java", no_argument, NULL, 'j' },
   { "java2", no_argument, NULL, CHAR_MAX + 5 },
   { "keyword", required_argument, NULL, 'k' },
+  { "language", required_argument, NULL, 'L' },
   { "locale", required_argument, NULL, 'l' },
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
@@ -197,6 +211,7 @@ static const struct option long_options[] =
   { "use-untranslated", no_argument, NULL, CHAR_MAX + 12 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
+  { "xml", no_argument, NULL, 'x' },
   { NULL, 0, NULL, 0 }
 };
 
@@ -216,6 +231,10 @@ static int msgfmt_desktop_bulk (const char *directory,
                                 const char *template_file_name,
                                 hash_table *keywords,
                                 const char *file_name);
+static int msgfmt_xml_bulk (const char *directory,
+                            const char *template_file_name,
+                            its_rule_list_ty *its_rules,
+                            const char *file_name);
 
 
 int
@@ -252,8 +271,8 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:o:Pr:vV", long_options,
-                             NULL))
+  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:L:o:Pr:vVx",
+                             long_options, NULL))
          != EOF)
     switch (opt)
       {
@@ -281,6 +300,7 @@ main (int argc, char *argv[])
         csharp_base_directory = optarg;
         tcl_base_directory = optarg;
         desktop_base_directory = optarg;
+        xml_base_directory = optarg;
         break;
       case 'D':
         dir_list_append (optarg);
@@ -313,6 +333,10 @@ main (int argc, char *argv[])
         csharp_locale_name = optarg;
         tcl_locale_name = optarg;
         desktop_locale_name = optarg;
+        xml_locale_name = optarg;
+        break;
+      case 'L':
+        xml_language = optarg;
         break;
       case 'o':
         output_file_name = optarg;
@@ -332,6 +356,9 @@ main (int argc, char *argv[])
         break;
       case 'V':
         do_version = true;
+        break;
+      case 'x':
+        xml_mode = true;
         break;
       case CHAR_MAX + 1: /* --check-accelerators */
         check_accelerators = true;
@@ -402,6 +429,7 @@ main (int argc, char *argv[])
         break;
       case CHAR_MAX + 16: /* --template=TEMPLATE */
         desktop_template_name = optarg;
+        xml_template_name = optarg;
         break;
       default:
         usage (EXIT_FAILURE);
@@ -428,12 +456,16 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     usage (EXIT_SUCCESS);
 
   /* Test whether we have a .po file name as argument.  */
-  if (optind >= argc && !(desktop_mode && desktop_base_directory))
+  if (optind >= argc
+      && !(desktop_mode && desktop_base_directory)
+      && !(xml_mode && xml_base_directory))
     {
       error (EXIT_SUCCESS, 0, _("no input file given"));
       usage (EXIT_FAILURE);
     }
-  if (optind < argc && desktop_mode && desktop_base_directory)
+  if (optind < argc
+      && ((desktop_mode && desktop_base_directory)
+          || (xml_mode && xml_base_directory)))
     {
       error (EXIT_SUCCESS, 0,
              _("no input file should be given if %s and %s are specified"),
@@ -449,10 +481,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       | (csharp_resources_mode ? 4 : 0)
       | (tcl_mode ? 8 : 0)
       | (qt_mode ? 16 : 0)
-      | (desktop_mode ? 32 : 0);
+      | (desktop_mode ? 32 : 0)
+      | (xml_mode ? 64 : 0);
     static const char *mode_options[] =
       { "--java", "--csharp", "--csharp-resources", "--tcl", "--qt",
-        "--desktop" };
+        "--desktop", "--xml" };
     /* More than one bit set?  */
     if (modes & (modes - 1))
       {
@@ -558,6 +591,34 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           usage (EXIT_FAILURE);
         }
     }
+  else if (xml_mode)
+    {
+      if (xml_template_name == NULL)
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"--template template\" specification"),
+                 "--xml");
+          usage (EXIT_FAILURE);
+        }
+      if (output_file_name == NULL)
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-o file\" specification"),
+                 "--xml");
+          usage (EXIT_FAILURE);
+        }
+      if (xml_base_directory != NULL && xml_locale_name != NULL)
+        error (EXIT_FAILURE, 0,
+               _("%s and %s are mutually exclusive in %s"),
+               "-d", "-l", "--xml");
+      if (xml_base_directory == NULL && xml_locale_name == NULL)
+        {
+          error (EXIT_SUCCESS, 0,
+                 _("%s requires a \"-l locale\" specification"),
+                 "--xml");
+          usage (EXIT_FAILURE);
+        }
+    }
   else
     {
       if (java_resource_name != NULL)
@@ -597,6 +658,80 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                                          output_file_name);
       if (desktop_keywords.table != NULL)
         hash_destroy (&desktop_keywords);
+      exit (exit_status);
+    }
+
+  if (xml_mode)
+    {
+      const char *gettextdatadir;
+      char *versioned_gettextdatadir;
+      char *its_dirs[2] = { NULL, NULL };
+      locating_rule_list_ty *its_locating_rules;
+      const char *its_basename;
+      size_t i;
+
+      /* Make it possible to override the locator file location.  This
+         is necessary for running the testsuite before "make
+         install".  */
+      gettextdatadir = getenv ("GETTEXTDATADIR");
+      if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
+        gettextdatadir = relocate (GETTEXTDATADIR);
+
+      its_dirs[0] = xconcatenated_filename (gettextdatadir, "its", NULL);
+
+      versioned_gettextdatadir =
+        xasprintf ("%s%s", relocate (GETTEXTDATADIR), PACKAGE_SUFFIX);
+      its_dirs[1] = xconcatenated_filename (versioned_gettextdatadir, "its",
+                                            NULL);
+      free (versioned_gettextdatadir);
+
+      its_locating_rules = locating_rule_list_alloc ();
+      for (i = 0; i < SIZEOF (its_dirs); i++)
+        locating_rule_list_add_from_directory (its_locating_rules, its_dirs[i]);
+
+      its_basename = locating_rule_list_locate (its_locating_rules,
+                                                xml_template_name,
+                                                xml_language);
+
+      if (its_basename != NULL)
+        {
+          size_t j;
+
+          xml_its_rules = its_rule_list_alloc ();
+          for (j = 0; j < SIZEOF (its_dirs); j++)
+            {
+              char *its_filename =
+                xconcatenated_filename (its_dirs[j], its_basename, NULL);
+              struct stat statbuf;
+              bool ok = false;
+
+              if (stat (its_filename, &statbuf) == 0)
+                ok = its_rule_list_add_from_file (xml_its_rules, its_filename);
+              free (its_filename);
+              if (ok)
+                break;
+            }
+          if (j == SIZEOF (its_dirs))
+            {
+              its_rule_list_free (xml_its_rules);
+              xml_its_rules = NULL;
+            }
+        }
+      locating_rule_list_free (its_locating_rules);
+
+      if (xml_its_rules == NULL)
+        error (EXIT_FAILURE, 0, _("cannot locate ITS rules for %s"),
+               xml_template_name);
+    }
+
+  /* Bulk processing mode for XML files.
+     Process all .po files in desktop_base_directory.  */
+  if (xml_mode && xml_base_directory)
+    {
+      exit_status = msgfmt_xml_bulk (xml_base_directory,
+                                     xml_template_name,
+                                     xml_its_rules,
+                                     output_file_name);
       exit (exit_status);
     }
 
@@ -705,6 +840,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           if (desktop_keywords.table != NULL)
             hash_destroy (&desktop_keywords);
         }
+      else if (xml_mode)
+        {
+          if (msgdomain_write_xml (domain->mlp, canon_encoding,
+                                   xml_locale_name,
+                                   xml_template_name,
+                                   xml_its_rules,
+                                   domain->file_name))
+            exit_status = EXIT_FAILURE;
+        }
       else
         {
           if (msgdomain_write_mo (domain->mlp, domain->domain_name,
@@ -810,6 +954,8 @@ Operation mode:\n"));
       --qt                    Qt mode: generate a Qt .qm file\n"));
       printf (_("\
       --desktop               Desktop Entry mode: generate a .desktop file\n"));
+      printf (_("\
+      --xml                   XML mode: generate XML file\n"));
       printf ("\n");
       printf (_("\
 Output file location:\n"));
@@ -871,6 +1017,22 @@ Desktop Entry mode options:\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
+      printf (_("\
+The -l, -o, and --template options are mandatory.  If -D is specified, input\n\
+files are read from the directory instead of the command line arguments.\n"));
+      printf ("\n");
+      printf (_("\
+XML mode options:\n"));
+      printf (_("\
+  -l, --locale=LOCALE         locale name, either language or language_COUNTRY\n"));
+      printf (_("\
+  -L, --language=NAME         recognise the specified XML language\n"));
+      printf (_("\
+  -o, --output-file=FILE      write output to specified file\n"));
+      printf (_("\
+  --template=TEMPLATE         a .desktop file used as a template\n"));
+      printf (_("\
+  -d DIRECTORY                base directory of .po files\n"));
       printf (_("\
 The -l, -o, and --template options are mandatory.  If -D is specified, input\n\
 files are read from the directory instead of the command line arguments.\n"));
@@ -1514,6 +1676,40 @@ msgfmt_desktop_bulk (const char *directory,
                                          template_file_name,
                                          keywords,
                                          file_name);
+
+  msgfmt_operand_list_destroy (&operands);
+
+  return status;
+}
+
+/* Helper function to support 'bulk' operation mode of --xml.
+   This reads all .po files in DIRECTORY and merges them into an
+   XML file FILE_NAME.  Currently it does not support some
+   options available in 'iterative' mode, such as --statistics.  */
+static int
+msgfmt_xml_bulk (const char *directory,
+                 const char *template_file_name,
+                 its_rule_list_ty *its_rules,
+                 const char *file_name)
+{
+  msgfmt_operand_list_ty operands;
+  int nerrors, status;
+
+  msgfmt_operand_list_init (&operands);
+
+  /* Read all .po files.  */
+  nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
+  if (nerrors > 0)
+    {
+      msgfmt_operand_list_destroy (&operands);
+      return 1;
+    }
+
+  /* Write the messages into .xml file.  */
+  status = msgdomain_write_xml_bulk (&operands,
+                                     template_file_name,
+                                     its_rules,
+                                     file_name);
 
   msgfmt_operand_list_destroy (&operands);
 

@@ -51,6 +51,7 @@ read-resources.h write-resources.h \
 read-tcl.h write-tcl.h \
 write-qt.h \
 read-desktop.h write-desktop.h \
+write-xml.h \
 po-time.h plural-table.h lang-table.h format.h filters.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
@@ -164,7 +165,8 @@ msgcmp_SOURCES += msgl-fsearch.c
 msgfmt_SOURCES = msgfmt.c
 msgfmt_SOURCES += \
   write-mo.c write-java.c write-csharp.c write-resources.c write-tcl.c \
-  write-qt.c write-desktop.c ../../gettext-runtime/intl/hash-string.c
+  write-qt.c write-desktop.c write-xml.c \
+  ../../gettext-runtime/intl/hash-string.c
 if !WOE32DLL
 msgmerge_SOURCES = msgmerge.c
 else

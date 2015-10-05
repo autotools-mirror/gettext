@@ -12286,7 +12286,18 @@ A required @code{escape} attribute with the value @code{yes} or @code{no}.
 This data category extends the standard @samp{Preserve Space} data
 category with the additional value @samp{trim}.  The value means to
 remove the leading and trailing whitespaces of the content, but not to
-normalize whitespaces in the middle.
+normalize whitespaces in the middle.  In the global rule, the
+@code{preserveSpaceRule} element contains the following:
+
+@itemize
+@item
+A required @code{selector} attribute.  It contains an absolute selector
+that selects the nodes to which this rule applies.
+
+@item
+A required @code{space} attribute with the value @code{default},
+@code{preserve}, or @code{trim}.
+@end itemize
 
 @end table
 
@@ -12362,6 +12373,22 @@ rule files and locating rule files must be installed in the
 @file{$prefix/share/gettext/its} directory.  Once those files are
 properly installed, @code{xgettext} can extract translatable strings
 from the matching XML files.
+
+@subsubsection Two Use-cases of Translated Strings in XML
+
+For XML, there are two use-cases of translated strings.  One is the case
+where the translated strings are directly consumed by programs, and the
+other is the case where the translated strings are merged back to the
+original XML document.  In the former case, special characters in the
+extracted strings shouldn't be escaped, while they should in the latter
+case.  To control wheter to escape special characters, the @samp{Escape
+Special Characters} data category can be used.
+
+To merge the translations, the @samp{msgfmt} program can be used with
+the option @code{--xml}.  @xref{msgfmt Invocation}, for more details
+about how one calls the @samp{msgfmt} program.  @samp{msgfmt}'s
+@code{--xml} option doesn't perform character escaping, so translated
+strings can have arbitrary XML constructs, such as elements for markup.
 
 @c This is the template for new data formats.
 @ignore

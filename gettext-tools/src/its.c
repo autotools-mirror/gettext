@@ -1810,3 +1810,134 @@ its_rule_list_extract (its_rule_list_ty *rules,
   free (nodes.items);
   xmlFreeDoc (doc);
 }
+
+struct its_merge_context_ty
+{
+  its_rule_list_ty *rules;
+  xmlDoc *doc;
+  struct its_node_list_ty nodes;
+};
+
+static void
+its_merge_context_merge_node (struct its_merge_context_ty *context,
+                              xmlNode *node,
+                              const char *language,
+                              message_list_ty *mlp)
+{
+  if (node->type == XML_ELEMENT_NODE)
+    {
+      struct its_value_list_ty *values;
+      const char *value;
+      char *msgid = NULL, *msgctxt = NULL;
+      enum its_whitespace_type_ty whitespace;
+      bool no_escape;
+
+      values = its_rule_list_eval (context->rules, node);
+
+      value = its_value_list_get_value (values, "space");
+      if (value && strcmp (value, "preserve") == 0)
+        whitespace = ITS_WHITESPACE_PRESERVE;
+      else if (value && strcmp (value, "trim") == 0)
+        whitespace = ITS_WHITESPACE_TRIM;
+      else
+        whitespace = ITS_WHITESPACE_NORMALIZE;
+
+      value = its_value_list_get_value (values, "escape");
+      no_escape = value != NULL && strcmp (value, "no") == 0;
+
+      value = its_value_list_get_value (values, "contextPointer");
+      if (value)
+        msgctxt = _its_get_content (context->rules, node, value,
+                                    ITS_WHITESPACE_PRESERVE, no_escape);
+
+      value = its_value_list_get_value (values, "textPointer");
+      if (value)
+        msgid = _its_get_content (context->rules, node, value,
+                                  ITS_WHITESPACE_PRESERVE, no_escape);
+      its_value_list_destroy (values);
+      free (values);
+
+      if (msgid == NULL)
+        msgid = _its_collect_text_content (node, whitespace, no_escape);
+      if (*msgid != '\0')
+        {
+          message_ty *mp;
+
+          mp = message_list_search (mlp, msgctxt, msgid);
+          if (mp && *mp->msgstr != '\0')
+            {
+              xmlNode *translated;
+
+              translated = xmlNewNode (node->ns, node->name);
+              xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language);
+
+              xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
+              xmlAddNextSibling (node, translated);
+            }
+        }
+      free (msgctxt);
+      free (msgid);
+    }
+}
+
+void
+its_merge_context_merge (its_merge_context_ty *context,
+                         const char *language,
+                         message_list_ty *mlp)
+{
+  size_t i;
+
+  for (i = 0; i < context->nodes.nitems; i++)
+    its_merge_context_merge_node (context, context->nodes.items[i],
+                                  language,
+                                  mlp);
+}
+
+struct its_merge_context_ty *
+its_merge_context_alloc (its_rule_list_ty *rules,
+                         const char *filename)
+{
+  xmlDoc *doc;
+  struct its_merge_context_ty *result;
+
+  doc = xmlReadFile (filename, NULL,
+                     XML_PARSE_NONET
+                     | XML_PARSE_NOWARNING
+                     | XML_PARSE_NOBLANKS
+                     | XML_PARSE_NOERROR);
+  if (doc == NULL)
+    {
+      xmlError *err = xmlGetLastError ();
+      error (0, 0, _("cannot read %s: %s"), filename, err->message);
+      return NULL;
+    }
+
+  its_rule_list_apply (rules, doc);
+
+  result = XMALLOC (struct its_merge_context_ty);
+  result->rules = rules;
+  result->doc = doc;
+
+  /* Collect translatable nodes.  */
+  memset (&result->nodes, 0, sizeof (struct its_node_list_ty));
+  its_rule_list_extract_nodes (result->rules,
+                               &result->nodes,
+                               xmlDocGetRootElement (result->doc));
+
+  return result;
+}
+
+void
+its_merge_context_write (struct its_merge_context_ty *context,
+                         FILE *fp)
+{
+  xmlDocFormatDump (fp, context->doc, 1);
+}
+
+void
+its_merge_context_free (struct its_merge_context_ty *context)
+{
+  xmlFreeDoc (context->doc);
+  free (context->nodes.items);
+  free (context);
+}
