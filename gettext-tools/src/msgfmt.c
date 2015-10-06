@@ -1407,8 +1407,8 @@ msgfmt_operand_list_append (msgfmt_operand_list_ty *operands,
 }
 
 static int
-msgfmt_operand_list_add_directory (msgfmt_operand_list_ty *operands,
-                                   const char *directory)
+msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
+                                        const char *directory)
 {
   string_list_ty languages;
   void *saved_dir_list;
@@ -1497,25 +1497,25 @@ msgfmt_desktop_bulk (const char *directory,
                      const char *file_name)
 {
   msgfmt_operand_list_ty operands;
-  int retval;
+  int nerrors, status;
 
   msgfmt_operand_list_init (&operands);
 
   /* Read all .po files.  */
-  retval = msgfmt_operand_list_add_directory (&operands, directory);
-  if (retval > 0)
+  nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
+  if (nerrors > 0)
     {
       msgfmt_operand_list_destroy (&operands);
-      return retval;
+      return 1;
     }
 
   /* Write the messages into .desktop file.  */
-  retval = msgdomain_write_desktop_bulk (&operands,
+  status = msgdomain_write_desktop_bulk (&operands,
                                          template_file_name,
                                          keywords,
                                          file_name);
 
   msgfmt_operand_list_destroy (&operands);
 
-  return retval;
+  return status;
 }

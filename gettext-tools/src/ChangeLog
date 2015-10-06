@@ -1,5 +1,12 @@
 2015-10-06  Daiki Ueno  <ueno@gnu.org>
 
+	* msgfmt.c (msgfmt_desktop_bulk): Distinguish the number of errors
+	and the exit status.
+	* write-desktop.c (msgdomain_write_desktop_bulk): Don't
+	immediately exit when fwriteerror() returns error.
+
+2015-10-06  Daiki Ueno  <ueno@gnu.org>
+
 	msgfmt: Refactor --desktop handling
 	* msgfmt.c (get_languages): Avoid redundant memory allocation.
 	(msgfmt_operand_list_init): New function.
@@ -7,6 +14,7 @@
 	(msgfmt_operand_list_append): New function.
 	(msgfmt_operand_list_add_directory): New function.
 	(msgfmt_desktop_bulk): Rewrite using msgfmt_operand_list_ty.
+
 	* msgfmt.h (msgfmt_operand_ty)
 	(msgfmt_operand_list_ty): New type.
 	* write-desktop.c (msgdomain_write_desktop_bulk):

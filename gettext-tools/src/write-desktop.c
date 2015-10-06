@@ -159,8 +159,7 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
       if (msgfmt_reader->output_file == NULL)
         {
           desktop_reader_free (reader);
-          error (EXIT_SUCCESS,
-                 errno, _("error while opening \"%s\" for writing"),
+          error (0, errno, _("error while opening \"%s\" for writing"),
                  file_name);
           return 1;
         }
@@ -170,8 +169,7 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
   if (template_file == NULL)
     {
       desktop_reader_free (reader);
-      error (EXIT_SUCCESS,
-             errno, _("error while opening \"%s\" for reading"),
+      error (0, errno, _("error while opening \"%s\" for reading"),
              template_file_name);
       return 1;
     }
@@ -180,8 +178,11 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
 
   /* Make sure nothing went wrong.  */
   if (fwriteerror (msgfmt_reader->output_file))
-    error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-           file_name);
+    {
+      error (0, errno, _("error while writing \"%s\" file"),
+             file_name);
+      return 1;
+    }
 
   desktop_reader_free (reader);
 
