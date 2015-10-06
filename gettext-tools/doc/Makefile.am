@@ -78,7 +78,8 @@ $(srcdir)/stamp-vti: $(info_TEXINFOS) $(gettext_TEXINFOS) $(top_srcdir)/../.vers
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \
-	echo "@set VERSION $(VERSION)") > vti.tmp
+	echo "@set VERSION $(VERSION)"; \
+	echo "@set ARCHIVE-VERSION $(ARCHIVE_VERSION)") > vti.tmp
 	cmp -s vti.tmp version.texi \
 	  || (echo "Updating version.texi"; \
 	      cp vti.tmp version.texi)

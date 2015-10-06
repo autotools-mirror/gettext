@@ -1,3 +1,12 @@
+2015-10-06  Daiki Ueno  <ueno@gnu.org>
+
+	doc: Don't expose generated version
+	* Makefile.am ($(srcdir)/stamp-vti): Set ARCHIVE-VERSION, derived
+	from $(ARCHIVE_VERSION) in version.texi.
+	* gettext.texi (Files under Version Control): Refer to
+	ARCHIVE-VERSION, instead of VERSION.
+	* autopoint.texi: Refer to ARCHIVE-VERSION, instead of VERSION.
+
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.6 released.
