@@ -1,3 +1,9 @@
+2015-10-08  Daiki Ueno  <ueno@gnu.org>
+
+	* hello-c-gnome3/Makefile.am (hello.desktop.in): Don't use a
+	temporary file.
+	(hello.desktop): Likewise.
+
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.6 released.
