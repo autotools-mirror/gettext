@@ -1,3 +1,12 @@
+2015-10-14  Mike Frysinger  <vapier@chromium.org>
+
+	intl/localename: control langinfo.h inclusion
+	This header is only used to work around buggy behavior in old
+	versions of glibc, so do not include it all the time.  Otherwise
+	we get build failures on systems that do not provide langinfo.h.
+	* localename.c: Wrap langinfo.h include with same
+	ifdefs used in the source later on.
+
 2015-09-11  Daiki Ueno  <ueno@gnu.org>
 
 	* gettext 0.19.6 released.
