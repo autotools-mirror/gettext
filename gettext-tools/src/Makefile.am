@@ -57,7 +57,7 @@ x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
 x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h x-lua.h \
 x-javascript.h x-vala.h x-gsettings.h x-desktop.h x-appdata.h libexpat-compat.h
 
-EXTRA_DIST += FILES project-id ChangeLog.0
+EXTRA_DIST += FILES project-id
 
 aliaspath = $(localedir)
 jardir = $(datadir)/gettext

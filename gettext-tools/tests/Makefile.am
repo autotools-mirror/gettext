@@ -157,7 +157,6 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \
 	qttest_pl.po qttest_pl.qm \
 	qttest2_de.po qttest2_de.qm qttest2_de.ts \
-	ChangeLog.0 \
 	gettext-3-1.po gettext-3-2.po gettext-4.po gettext-5.po \
 	gettext-6-1.po gettext-6-2.po gettext-7.po \
 	gettextpo-1.de.po \

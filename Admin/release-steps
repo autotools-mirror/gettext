@@ -122,12 +122,6 @@ Release procedure
 
   and commit the changes.
 
-* Update all ChangeLogs:
-
-    ./Admin/update-changelog
-
-  and commit the changes.
-
 * Create a release:
 
     git clean -xdff

@@ -34,6 +34,13 @@ stamp-h1
 Makefile.in
 Makefile
 
+/ChangeLog
+/gettext-runtime/ChangeLog
+/gettext-runtime/libasprintf/ChangeLog
+/gettext-tools/ChangeLog
+/gettext-tools/examples/ChangeLog
+
 /build-aux/git-version-gen
+/build-aux/gitlog-to-changelog
 /build-aux/snippet
 /build-aux/test-driver
