@@ -26,11 +26,9 @@ changelog_etc = \
   gettext-runtime/doc/ChangeLog.0 \
   gettext-runtime/intl-csharp/ChangeLog.0 \
   gettext-runtime/intl-java/ChangeLog.0 \
-  gettext-runtime/intl/ChangeLog.0 \
   gettext-runtime/libasprintf/ChangeLog.0 \
   gettext-runtime/m4/ChangeLog.0 \
   gettext-runtime/man/ChangeLog.0 \
-  gettext-runtime/po/ChangeLog.0 \
   gettext-runtime/src/ChangeLog.0 \
   gettext-runtime/tests/ChangeLog.0 \
   gettext-tools/ChangeLog.0 \
@@ -44,8 +42,6 @@ changelog_etc = \
   gettext-tools/man/ChangeLog.0 \
   gettext-tools/man/ChangeLog.1 \
   gettext-tools/misc/ChangeLog.0 \
-  gettext-tools/po/ChangeLog.0 \
-  gettext-tools/po/ChangeLog.1 \
   gettext-tools/projects/ChangeLog.0 \
   gettext-tools/src/ChangeLog.0 \
   gettext-tools/src/ChangeLog.1 \
@@ -55,7 +51,7 @@ changelog_etc = \
   gnulib-local/ChangeLog.0
 
 EXTRA_DIST = \
-  DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
+  $(changelog_etc) DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
   build-aux/ac-help.sed build-aux/moopp build-aux/git-version-gen \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
