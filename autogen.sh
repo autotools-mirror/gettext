@@ -417,7 +417,8 @@ fi
 
 # Automake requires that ChangeLog exist.
 for dir in . gettext-runtime gettext-runtime/libasprintf \
-           gettext-tools gettext-tools/examples; do
+           gettext-tools gettext-tools/examples \
+	   gettext-runtime/intl gettext-runtime/po gettext-tools/po; do
   cat > "$dir/ChangeLog" <<\EOF
 No more ChangeLog files
 ========================
@@ -425,10 +426,6 @@ Do not modify any of the ChangeLog files in gettext.  Starting on
 October 14th, 2015 we put changelog information only in the git commit
 log, and generate a top-level ChangeLog file from logs at "make dist"
 time.
-
-This rule doesn't apply to the ChangeLog files under "intl" and "po"
-directories, because those files are distributed as part of gettext
-infrastructure files pulled with the autopoint program.
 
 Local Variables:
 buffer-read-only: t

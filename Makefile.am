@@ -154,23 +154,30 @@ EXTRA_DIST += $(top_srcdir)/.version
 BUILT_SOURCES = $(top_srcdir)/.version
 $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
-dist-hook: gen-ChangeLog
+dist-hook: gen-ChangeLogs
 	echo $(VERSION) > $(distdir)/.tarball-version
 
 # Generate ChangeLog.
 
 gen_start_date = 2015-10-13
-.PHONY: gen-ChangeLog
-gen-ChangeLog:
+.PHONY: gen-ChangeLogs
+gen-ChangeLogs:
 	$(AM_V_GEN)if test -d .git; then				\
 	  log_fix="$(srcdir)/build-aux/git-log-fix";			\
 	  test -e "$$log_fix"						\
 	    && amend_git_log="--amend=$$log_fix"			\
 	    || amend_git_log=;						\
-	  $(top_srcdir)/build-aux/gitlog-to-changelog			\
-	    $$amend_git_log --since=$(gen_start_date) > $(distdir)/cl-t && \
-	    { rm -f $(distdir)/ChangeLog &&				\
-	      mv $(distdir)/cl-t $(distdir)/ChangeLog; }		\
+	  for d in . gettext-runtime/intl gettext-runtime/po		\
+		gettext-tools/po; do					\
+	    test "$$d" = "."						\
+	      && cldir="$(distdir)"					\
+	      || cldir="$(distdir)/$$d";				\
+	    $(top_srcdir)/build-aux/gitlog-to-changelog			\
+	      $$amend_git_log --since=$(gen_start_date) -- "$$d"	\
+		> "$$cldir/cl-t" &&					\
+	    { rm -f "$$cldir/ChangeLog" &&				\
+	      mv "$$cldir/cl-t" "$$cldir/ChangeLog"; };			\
+	  done;								\
 	fi
 
 # PO files update.
