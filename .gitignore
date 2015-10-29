@@ -36,9 +36,12 @@ Makefile
 
 /ChangeLog
 /gettext-runtime/ChangeLog
+/gettext-runtime/intl/ChangeLog
 /gettext-runtime/libasprintf/ChangeLog
+/gettext-runtime/po/ChangeLog
 /gettext-tools/ChangeLog
 /gettext-tools/examples/ChangeLog
+/gettext-tools/po/ChangeLog
 
 /build-aux/git-version-gen
 /build-aux/gitlog-to-changelog
