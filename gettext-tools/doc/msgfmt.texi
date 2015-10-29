@@ -190,7 +190,8 @@ or a combined language and country specification of the form @var{ll_CC}.
 
 @item -d @var{directory}
 @opindex -d@r{, @code{msgfmt} option}
-Specify the base directory of @file{.msg} message catalogs.
+Specify the directory where PO files are read.  The directory must
+contain the @samp{LINGUAS} file.
 
 @end table
 
