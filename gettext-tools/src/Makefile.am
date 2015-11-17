@@ -239,6 +239,7 @@ recode_sr_latin_SOURCES = recode-sr-latin.c filter-sr-latin.c
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 cldr_plurals_SOURCES = cldr-plural.y cldr-plural-exp.c cldr-plurals.c
+cldr_plurals_CFLAGS = $(AM_CFLAGS) $(INCXML)
 cldr_plurals_LDADD = libgettextsrc.la $(LDADD)
 
 # How to build libgettextsrc.la.
