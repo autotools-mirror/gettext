@@ -2608,7 +2608,7 @@ with the following one:
 
 @{
   static const char *messages[] = @{
-    gettext_noop ("some very meaningful message",
+    gettext_noop ("some very meaningful message"),
     gettext_noop ("and another one")
   @};
   const char *string;
