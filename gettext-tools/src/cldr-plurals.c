@@ -61,7 +61,7 @@ extract_rules (FILE *fp,
     error (EXIT_FAILURE, 0, _("memory exhausted"));
 
   node = xmlDocGetRootElement (doc);
-  if (!xmlStrEqual (node->name, BAD_CAST "supplementalData"))
+  if (node && !xmlStrEqual (node->name, BAD_CAST "supplementalData"))
     {
       error_at_line (0, 0,
                      logical_filename,
@@ -69,27 +69,32 @@ extract_rules (FILE *fp,
                      _("\
 The root element <%s> is not allowed in a valid CLDR file"),
                      node->name);
-      return NULL;
+      goto out;
     }
 
   for (n = node->children; n; n = n->next)
     {
-      if (xmlStrEqual (n->name, BAD_CAST "plurals"))
-        {
-          node = n;
-          break;
-        }
+      if (n->type == XML_ELEMENT_NODE
+          && xmlStrEqual (n->name, BAD_CAST "plurals"))
+        break;
+    }
+  if (!n)
+    {
+      error (0, 0, _("The element <%s> does not contain a <%s> element"),
+             "supplementalData", "plurals");
+      goto out;
     }
 
   locale_length = strlen (locale);
-  for (n = node->children; n; n = n->next)
+  for (n = n->children; n; n = n->next)
     {
       xmlChar *locales;
       xmlChar *cp;
       xmlNodePtr n2;
       bool found = false;
 
-      if (!xmlStrEqual (n->name, BAD_CAST "pluralRules"))
+      if (n->type != XML_ELEMENT_NODE
+          || !xmlStrEqual (n->name, BAD_CAST "pluralRules"))
         continue;
 
       if (!xmlHasProp (n, BAD_CAST "locales"))
@@ -129,7 +134,8 @@ The element <%s> does not have attribute <%s>"),
           xmlChar *content;
           size_t length;
 
-          if (!xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
+          if (n2->type != XML_ELEMENT_NODE
+              || !xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
             continue;
 
           if (!xmlHasProp (n2, BAD_CAST "count"))
@@ -170,6 +176,7 @@ The element <%s> does not have attribute <%s>"),
   if (p)
     *p = '\0';
 
+ out:
   xmlFreeDoc (doc);
   return buffer;
 }
