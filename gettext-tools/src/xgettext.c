@@ -2271,9 +2271,11 @@ extract_from_xml_file (const char *file_name,
   char *real_file_name;
   FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
 
-  /* Set the default for the source file encoding.  May be overridden by
-     the extractor function.  */
-  xgettext_current_source_encoding = xgettext_global_source_encoding;
+  /* The default encoding for XML is UTF-8.  It can be overridden by
+     an XML declaration in the XML file itself, not through the
+     --from-code option.  */
+  xgettext_current_source_encoding = po_charset_utf8;
+
 #if HAVE_ICONV
   xgettext_current_source_iconv = xgettext_global_source_iconv;
 #endif
