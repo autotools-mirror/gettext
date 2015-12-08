@@ -1733,7 +1733,6 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       if (*msgid != '\0')
         {
           lex_pos_ty pos;
-          message_ty *message;
           char *marker;
 
           pos.file_name = xstrdup (logical_filename);
@@ -1759,8 +1758,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
               msgctxt = NULL;
             }
 
-          message = callback (mlp, msgctxt, msgid, &pos, comment, marker,
-                              whitespace);
+          callback (mlp, msgctxt, msgid, &pos, comment, marker, whitespace);
           free (marker);
         }
       free (msgctxt);
