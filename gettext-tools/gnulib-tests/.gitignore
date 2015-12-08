@@ -10,6 +10,7 @@
 # Files brought in by gnulib-tool:
 /Makefile.gnulib
 /btowc.c
+/ctype.in.h
 /dup.c
 /fdopen.c
 /file-has-acl.c
@@ -65,6 +66,7 @@
 /test-copy-file-2.sh
 /test-copy-file.c
 /test-copy-file.sh
+/test-ctype.c
 /test-dirent.c
 /test-dup-safer.c
 /test-dup.c
