@@ -116,6 +116,7 @@
 /test-inttypes.c
 /test-iswblank.c
 /test-langinfo.c
+/test-linked_list.c
 /test-linkedhash_list.c
 /test-locale.c
 /test-localename.c

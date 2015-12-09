@@ -43,6 +43,7 @@ Makefile
 /gettext-tools/examples/ChangeLog
 /gettext-tools/po/ChangeLog
 
+/build-aux/ar-lib
 /build-aux/git-version-gen
 /build-aux/gitlog-to-changelog
 /build-aux/snippet

@@ -291,25 +291,6 @@ AH_BOTTOM([
 #endif
 ])
 
-dnl Check for the expat XML parser.
-dnl On operating systems where binary distribution vendors are likely to
-dnl ship both gettext and expat, we use dynamic loading to avoid a hard
-dnl dependency from gettext to expat.
-case "$host_os" in
-  linux*)
-    AC_DEFINE([DYNLOAD_LIBEXPAT], [1],
-      [Define to 1 if libexpat shall be dynamically loaded via dlopen().])
-    LIBEXPAT="-ldl"
-    LTLIBEXPAT="-ldl"
-    AC_SUBST([LIBEXPAT])
-    AC_SUBST([LTLIBEXPAT])
-    ;;
-  *)
-    AC_LIB_HAVE_LINKFLAGS([expat], [],
-      [#include <expat.h>], [XML_ExpatVersion();])
-    ;;
-esac
-
 dnl Check for nm output filter that yields the exported symbols.
 gt_GLOBAL_SYMBOL_PIPE
 

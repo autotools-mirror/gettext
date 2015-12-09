@@ -56,7 +56,7 @@ po-time.h plural-table.h lang-table.h format.h filters.h \
 xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
 x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h x-lua.h \
-x-javascript.h x-vala.h x-gsettings.h x-desktop.h x-appdata.h libexpat-compat.h
+x-javascript.h x-vala.h x-gsettings.h x-desktop.h x-appdata.h
 
 EXTRA_DIST += FILES project-id
 
@@ -152,7 +152,7 @@ $(COMMON_SOURCE) read-catalog.c \
 color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
 msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
-plural-table.c quote.h sentence.h sentence.c libexpat-compat.c \
+plural-table.c quote.h sentence.h sentence.c \
 $(FORMAT_SOURCE) \
 read-desktop.c locating-rule.c its.c
 
@@ -254,7 +254,7 @@ cldr_plurals_LDADD = libgettextsrc.la $(LDADD)
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ @LTLIBEXPAT@ -lc -no-undefined
+  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS) $(INCXML)
 

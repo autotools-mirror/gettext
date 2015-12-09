@@ -342,6 +342,7 @@ if ! $skip_gnulib; then
       hash
       iconv
       libunistring-optional
+      markup
       minmax
       open
       ostream
