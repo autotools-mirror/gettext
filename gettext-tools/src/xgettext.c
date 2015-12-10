@@ -892,8 +892,8 @@ This version was built without iconv()."),
               const char *its_basename;
 
               its_basename = locating_rule_list_locate (its_locating_rules,
-                                                          filename,
-                                                          language);
+                                                        filename,
+                                                        language);
 
               if (its_basename != NULL)
                 {
@@ -924,6 +924,9 @@ This version was built without iconv()."),
                     }
                   if (j == SIZEOF (its_dirs))
                     {
+                      error (0, 0, _("\
+warning: ITS rule file '%s' does not exist; check your gettext installation"),
+                             its_basename);
                       its_rule_list_free (its_rules);
                       its_rules = NULL;
                     }
