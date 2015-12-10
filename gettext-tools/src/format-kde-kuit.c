@@ -243,6 +243,9 @@ format_parse (const char *format, bool translated, char *fdi,
           *invalid_reason =
             xasprintf (_("error while parsing: %s"),
                        err->message);
+          free (buffer);
+          xmlFreeDoc (doc);
+          return NULL;
         }
 
       free (buffer);
