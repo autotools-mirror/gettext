@@ -374,7 +374,8 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
                 || (u8_mbtouc (&uc, (uint8_t *) name, strlen (name)) > 0
                     && uc_is_alpha (uc))))))
     {
-      char *error_text = xasprintf (_("'%s' is not a valid name"), name);
+      char *error_text = xasprintf (_("'%s' is not a valid name: %c"),
+                                    name, *p);
       emit_error (context, error_text);
       free (error_text);
       return false;
@@ -518,14 +519,22 @@ unescape_string_inplace (markup_parse_context_ty *context,
 
               if (end == from || errno != 0)
                 {
-                  emit_error (context,
-                              _("out of range when resolving character ref"));
+                  char *error_text =
+                    xasprintf (_("invalid character reference: %s"),
+                               errno != 0
+                               ? strerror (errno)
+                               : _("not a valid number specification"));
+                  emit_error (context, error_text);
+                  free (error_text);
                   return false;
                 }
               else if (*end != ';')
                 {
-                  emit_error (context,
-                              _("character reference does not end with a ';'"));
+                  char *error_text =
+                    xasprintf (_("invalid character reference: %s"),
+                               _("no ending ';'"));
+                  emit_error (context, error_text);
+                  free (error_text);
                   return false;
                 }
               else
@@ -546,7 +555,11 @@ unescape_string_inplace (markup_parse_context_ty *context,
                     }
                   else
                     {
-                      emit_error (context, _("invalid character reference"));
+                      char *error_text =
+                        xasprintf (_("invalid character reference: %s"),
+                                   _("non-permitted character"));
+                      emit_error (context, error_text);
+                      free (error_text);
                       return false;
                     }
                 }
@@ -579,16 +592,23 @@ unescape_string_inplace (markup_parse_context_ty *context,
             }
           else
             {
+              const char *reason;
+              char *error_text;
+
               if (*from == ';')
-                emit_error (context, _("empty entity '&;'"));
+                reason = _("empty");
               else
                 {
                   const char *end = strchr (from, ';');
                   if (end)
-                    emit_error (context, _("unknown entity name"));
+                    reason = _("unknown");
                   else
-                    emit_error (context, _("entity does not end with a ';'"));
+                    reason = _("no ending ';'");
                 }
+              error_text = xasprintf (_("invalid entity reference: %s"),
+                                      reason);
+              emit_error (context, error_text);
+              free (error_text);
               return false;
             }
         }
@@ -971,7 +991,10 @@ markup_parse_context_parse (markup_parse_context_ty *context,
             }
           else
             {
-              emit_error (context, _("invalid character after '<'"));
+              char *error_text = xasprintf (_("invalid character after '%s'"),
+                                            "<");
+              emit_error (context, error_text);
+              free (error_text);
             }
           break;
 
@@ -1005,7 +1028,9 @@ markup_parse_context_parse (markup_parse_context_ty *context,
             }
           else
             {
-              emit_error (context, _("missing '>'"));
+              char *error_text = xasprintf (_("missing '%c'"), '>');
+              emit_error (context, error_text);
+              free (error_text);
             }
           break;
 
@@ -1079,7 +1104,9 @@ markup_parse_context_parse (markup_parse_context_ty *context,
                 }
               else
                 {
-                  emit_error (context, _("missing '='"));
+                  char *error_text = xasprintf (_("missing '%c'"), '=');
+                  emit_error (context, error_text);
+                  free (error_text);
                 }
             }
           break;
@@ -1110,7 +1137,10 @@ markup_parse_context_parse (markup_parse_context_ty *context,
                 }
               else
                 {
-                  emit_error (context, _("missing '>' or '/'"));
+                  char *error_text = xasprintf (_("missing '%c' or '%c'"),
+                                                '>', '/');
+                  emit_error (context, error_text);
+                  free (error_text);
                 }
 
               /* If we're done with attributes, invoke
@@ -1143,7 +1173,10 @@ markup_parse_context_parse (markup_parse_context_ty *context,
                 }
               else
                 {
-                  emit_error (context, _("missing opening quote"));
+                  char *error_text = xasprintf (_("missing '%c' or '%c'"),
+                                                '\'', '"');
+                  emit_error (context, error_text);
+                  free (error_text);
                 }
             }
           break;
@@ -1265,7 +1298,10 @@ markup_parse_context_parse (markup_parse_context_ty *context,
             }
           else
             {
-              emit_error (context, _("invalid character after '</'"));
+              char *error_text = xasprintf (_("invalid character after '%s'"),
+                                            "</");
+              emit_error (context, error_text);
+              free (error_text);
             }
           break;
 
@@ -1292,14 +1328,18 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 
               if (*context->iter != '>')
                 {
-                  emit_error (context,
-                              _("invalid character after a close element name"));
+                  char *error_text =
+                    xasprintf (_("invalid character after '%s'"),
+                               _("a close element name"));
+                  emit_error (context, error_text);
+                  free (error_text);
                 }
               else if (gl_list_size (context->tag_stack) == 0)
                 {
                   emit_error (context, _("element is closed"));
                 }
-              else if (strcmp (close_name->buffer, current_element (context)) != 0)
+              else if (strcmp (close_name->buffer, current_element (context))
+                       != 0)
                 {
                   emit_error (context, _("element is closed"));
                 }
@@ -1418,6 +1458,8 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 bool
 markup_parse_context_end_parse (markup_parse_context_ty *context)
 {
+  const char *location = NULL;
+
   assert (context != NULL);
   assert (!context->parsing);
   assert (context->state != STATE_ERROR);
@@ -1443,72 +1485,70 @@ markup_parse_context_end_parse (markup_parse_context_ty *context)
       break;
 
     case STATE_AFTER_OPEN_ANGLE:
-      emit_error (context,
-                  _("document ended unexpectedly just after '<'"));
+      location = _("after '<'");
       break;
 
     case STATE_AFTER_CLOSE_ANGLE:
       if (gl_list_size (context->tag_stack) > 0)
         {
           /* Error message the same as for INSIDE_TEXT */
-          emit_error (context,
-                      _("document ended unexpectedly with elements still open"));
+          location = _("elements still open");
         }
       break;
 
     case STATE_AFTER_ELISION_SLASH:
-      emit_error (context, _("document ended unexpectedly without '>'"));
+      location = _("missing '>'");
       break;
 
     case STATE_INSIDE_OPEN_TAG_NAME:
-      emit_error (context,
-                  _("document ended unexpectedly inside an element name"));
+      location = _("inside an element name");
       break;
 
     case STATE_INSIDE_ATTRIBUTE_NAME:
     case STATE_AFTER_ATTRIBUTE_NAME:
-      emit_error (context,
-                  _("document ended unexpectedly inside an attribute name"));
+      location = _("inside an attribute name");
       break;
 
     case STATE_BETWEEN_ATTRIBUTES:
-      emit_error (context,
-                  _("document ended unexpectedly inside an open tag"));
+      location = _("inside an open tag");
       break;
 
     case STATE_AFTER_ATTRIBUTE_EQUALS_SIGN:
-      emit_error (context, _("document ended unexpectedly after '='"));
+      location = _("after '='");
       break;
 
     case STATE_INSIDE_ATTRIBUTE_VALUE_SQ:
     case STATE_INSIDE_ATTRIBUTE_VALUE_DQ:
-      emit_error (context,
-                  _("document ended unexpectedly inside an attribute value"));
+      location = _("inside an attribute value");
       break;
 
     case STATE_INSIDE_TEXT:
       assert (gl_list_size (context->tag_stack) > 0);
-      emit_error (context,
-                  _("document ended unexpectedly with elements still open"));
+      location = _("elements still open");
       break;
 
     case STATE_AFTER_CLOSE_TAG_SLASH:
     case STATE_INSIDE_CLOSE_TAG_NAME:
     case STATE_AFTER_CLOSE_TAG_NAME:
-      emit_error (context,
-                  _("document ended unexpectedly inside the close tag"));
+      location = _("inside the close tag");
       break;
 
     case STATE_INSIDE_PASSTHROUGH:
-      emit_error (context,
-                  _("document ended unexpectedly inside a comment or "
-                    "processing instruction"));
+      location = _("inside a comment or processing instruction");
       break;
 
     case STATE_ERROR:
     default:
       abort ();
       break;
+    }
+
+  if (location != NULL)
+    {
+      char *error_text = xasprintf (_("document ended unexpectedly: %s"),
+                                    location);
+      emit_error (context, error_text);
+      free (error_text);
     }
 
   context->parsing = false;
