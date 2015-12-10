@@ -246,6 +246,7 @@ static const struct option long_options[] =
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
+  { "its", required_argument, NULL, CHAR_MAX + 20 },
   { "itstool", no_argument, NULL, CHAR_MAX + 19 },
   { "join-existing", no_argument, NULL, 'j' },
   { "kde", no_argument, NULL, CHAR_MAX + 10 },
@@ -329,6 +330,7 @@ main (int argc, char *argv[])
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
   char *its_dirs[2] = { NULL, NULL };
+  char *explicit_its_filename = NULL;
   const char *file_name;
   const char *files_from = NULL;
   string_list_ty *file_list;
@@ -655,6 +657,10 @@ main (int argc, char *argv[])
           error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
         break;
 
+      case CHAR_MAX + 20: /* --its */
+        explicit_its_filename = optarg;
+        break;
+
       case CHAR_MAX + 19: /* --itstool */
         add_itstool_comments = true;
         break;
@@ -742,6 +748,12 @@ xgettext cannot work without keywords to look for"));
     for (i = 0; i < SIZEOF (its_dirs); i++)
       locating_rule_list_add_from_directory (its_locating_rules, its_dirs[i]);
   }
+
+  /* Explicit ITS file selection and language specification are
+     mutually exclusive.  */
+  if (explicit_its_filename != NULL && language != NULL)
+    error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+           "--its", "--language");
 
   /* Determine extractor from language.  */
   if (language != NULL)
@@ -847,6 +859,16 @@ This version was built without iconv()."),
 
       if (extractor.func)
         this_file_extractor = extractor;
+      else if (explicit_its_filename != NULL)
+        {
+          its_rules = its_rule_list_alloc ();
+          if (!its_rule_list_add_from_file (its_rules,
+                                            explicit_its_filename))
+            {
+              error (EXIT_FAILURE, 0, _("\
+warning: ITS rule file '%s' does not exist"), explicit_its_filename);
+            }
+        }
       else
         {
           const char *language_from_extension = NULL;
@@ -1171,6 +1193,8 @@ Output details:\n"));
       --properties-output     write out a Java .properties file\n"));
       printf (_("\
       --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
+      printf (_("\
+      --its=FILE              apply ITS rules from FILE\n"));
       printf (_("\
       --itstool               write out itstool comments\n"));
       printf (_("\
