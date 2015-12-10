@@ -8,6 +8,7 @@
 
   <its:translateRule selector="//default[@l10n]" translate="yes"/>
   <gt:contextRule selector="//default[@context]" contextPointer="@context"/>
+  <gt:escapeRule selector="//default/@context" escape="no"/>
 
   <gt:preserveSpaceRule selector="//default" space="trim"/>
   <gt:escapeRule selector="/schemalist" encode="no"/>

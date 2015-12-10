@@ -8,10 +8,15 @@
                 /glade-interface//atkproperty[@translatable = 'yes'] |
                 /glade-interface//atkaction/description"
       translate="yes"/>
+
   <its:locNoteRule selector="/glade-interface//property[@comments] |
                              /glade-interface//atkproperty[@comments]"
                    locNotePointer="@comments"
                    locNoteType="alert"/>
+  <gt:escapeRule selector="/glade-interface/property/@comments |
+                           /glade-interface//atkproperty/@comments"
+		 escape="no"/>
+
   <gt:contextRule selector="/glade-interface//property[@context = 'yes'] |
                             /glade-interface//property[@context = 'yes']"
                   contextPointer="substring-before(., '|')"
