@@ -99,6 +99,11 @@ cat <<\EOF > its/messages.its
   <gt:contextRule selector="//msg:p[@context = 'yes']"
                   contextPointer="substring-before(., '|')"
                   textPointer="substring-after(., '|')"/>
+
+  <gt:escapeRule selector="//msg:message/*[@unescape = 'yes']" escape="no"/>
+
+  <its:translateRule selector="//msg:message/@unescaped" translate="yes"/>
+  <gt:escapeRule selector="//msg:message/@unescaped" escape="no"/>
 </its:rules>
 EOF
 
@@ -159,6 +164,12 @@ cat <<\EOF >messages.xml
     <p xml:space="trim"> Leading/trailing  whitespaces are  removed,
       but not middle  
     </p>
+  </message>
+  <message>
+    <p unescape="yes">This is an unescaped element &lt;&gt;&amp;&quot;</p>
+  </message>
+  <message unescaped="This is an unescaped attribute &lt;&gt;&amp;&quot;">
+    <p></p>
   </message>
 </messages>
 EOF
@@ -225,6 +236,16 @@ msgstr ""
 msgid ""
 "Leading/trailing  whitespaces are  removed,\n"
 "      but not middle"
+msgstr ""
+
+#. (itstool) path: message/p
+#: messages.xml:59
+msgid "This is an unescaped element <>&\""
+msgstr ""
+
+#. (itstool) path: messages/message@unescaped
+#: messages.xml:61
+msgid "This is an unescaped attribute <>&\""
 msgstr ""
 EOF
 

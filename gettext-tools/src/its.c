@@ -1661,10 +1661,13 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
         comment = xstrdup (value);
       else
         {
+          value = its_value_list_get_value (values, "escape");
+          no_escape = value != NULL && strcmp (value, "no") == 0;
+
           value = its_value_list_get_value (values, "locNotePointer");
           if (value)
             comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
-                                        false);
+                                        no_escape);
         }
 
       if (comment != NULL && *comment != '\0')
