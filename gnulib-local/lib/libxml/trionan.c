@@ -52,7 +52,7 @@ compute_minus_zerod (void)
 }
 # define minus_zerod compute_minus_zerod ()
 #else
-double minus_zerod = -0.0;
+static double minus_zerod = -0.0;
 #endif
 
 #undef INFINITY
