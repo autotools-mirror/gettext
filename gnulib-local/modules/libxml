@@ -61,9 +61,7 @@ lib/libxml/threads.in.h
 lib/libxml/timsort.h
 lib/libxml/tree.c
 lib/libxml/tree.in.h
-lib/libxml/triodef.h
 lib/libxml/trionan.c
-lib/libxml/trionan.h
 lib/libxml/uri.c
 lib/libxml/uri.in.h
 lib/libxml/valid.c
@@ -112,6 +110,9 @@ stdarg
 snprintf
 vsnprintf
 no-c++
+isinf
+isnan
+signbit
 
 configure.ac:
 gl_LIBXML
@@ -155,8 +156,6 @@ libxml_rpl_la_SOURCES = \
   libxml/threads.c \
   libxml/timsort.h \
   libxml/tree.c \
-  libxml/triodef.h \
-  libxml/trionan.h \
   libxml/trionan.c \
   libxml/uri.c \
   libxml/valid.c \
