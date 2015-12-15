@@ -113,6 +113,9 @@ no-c++
 isinf
 isnan
 signbit
+pow
+log10
+fabs
 
 configure.ac:
 gl_LIBXML

@@ -30,6 +30,7 @@
 /minus-zero.h
 /nan.h
 /putenv.c
+/randomd.c
 /read-file.c
 /read-file.h
 /same-inode.h
@@ -76,6 +77,8 @@
 /test-dup2.c
 /test-environ.c
 /test-errno.c
+/test-fabs.c
+/test-fabs.h
 /test-fcntl-h.c
 /test-fcntl.c
 /test-fdopen.c
@@ -135,6 +138,8 @@
 /test-locale.c
 /test-localename.c
 /test-lock.c
+/test-log10.c
+/test-log10.h
 /test-lseek.c
 /test-lseek.sh
 /test-lstat.c
@@ -194,6 +199,7 @@
 /test-posix_spawn_file_actions_addclose.c
 /test-posix_spawn_file_actions_adddup2.c
 /test-posix_spawn_file_actions_addopen.c
+/test-pow.c
 /test-quotearg-simple.c
 /test-quotearg.h
 /test-raise.c

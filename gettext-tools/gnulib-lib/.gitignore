@@ -185,6 +185,7 @@
 /locale.in.h
 /localename.c
 /localename.h
+/log10.c
 /lstat.c
 /malloc.c
 /malloca.c
