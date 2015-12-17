@@ -1490,7 +1490,9 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
           break;
 
         case XML_TEXT_NODE:
+        case XML_CDATA_SECTION_NODE:
         case XML_ENTITY_REF_NODE:
+        case XML_COMMENT_NODE:
           break;
 
         default:
