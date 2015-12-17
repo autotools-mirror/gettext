@@ -11,5 +11,5 @@
   <gt:escapeRule selector="//default/@context" escape="no"/>
 
   <gt:preserveSpaceRule selector="//default" space="trim"/>
-  <gt:escapeRule selector="/schemalist" encode="no"/>
+  <gt:escapeRule selector="/schemalist" escape="no"/>
 </its:rules>
