@@ -1,3 +1,18 @@
+Version 0.19.7 - December 2015
+
+* Programming languages support:
+  - XML:
+    xgettext can now load custom string extraction rules supplied by
+    consumer projects.  The rules are written in XML, utilizing the
+    Internationalization Tag Set (ITS) standard.  All the existing
+    XML-based language scanners (Glade, GSettings, and AppData) are
+    rewritten using ITS.  In addition, msgfmt now has --xml option to
+    merge translations back to the original XML document.
+
+* Portability:
+  - Improve OS/2 kLIBC support (still not complete)
+  - Remove dependency on expat
+
 Version 0.19.6 - September 2015
 
 * Programming languages support:
