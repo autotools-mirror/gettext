@@ -61,14 +61,14 @@ extract_rules (FILE *fp,
     error (EXIT_FAILURE, 0, _("memory exhausted"));
 
   node = xmlDocGetRootElement (doc);
-  if (node && !xmlStrEqual (node->name, BAD_CAST "supplementalData"))
+  if (!node || !xmlStrEqual (node->name, BAD_CAST "supplementalData"))
     {
       error_at_line (0, 0,
                      logical_filename,
                      xmlGetLineNo (node),
                      _("\
-The root element <%s> is not allowed in a valid CLDR file"),
-                     node->name);
+The root element must be <%s>"),
+                     "supplementalData");
       goto out;
     }
 
@@ -167,14 +167,16 @@ The element <%s> does not have attribute <%s>"),
           xmlFree (content);
 
           buflen += length;
-          buffer[buflen] = '\0';
         }
     }
 
-  /* Scrub the last semicolon, if any.  */
-  p = strrchr (buffer, ';');
-  if (p)
-    *p = '\0';
+  if (buffer)
+    {
+      /* Scrub the last semicolon, if any.  */
+      p = strrchr (buffer, ';');
+      if (p)
+        *p = '\0';
+    }
 
  out:
   xmlFreeDoc (doc);
