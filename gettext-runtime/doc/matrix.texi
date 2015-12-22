@@ -48,7 +48,6 @@ gdbm               |                                                   |
 gettext-examples   | []             []        []             []     [] |
 gettext-runtime    |                          []             []     [] |
 gettext-tools      |                          []             []        |
-gip                |                          []                    [] |
 gjay               |                                                   |
 glunarclock        |                []        []                    [] |
 gnubiff            |                                                [] |
@@ -61,9 +60,8 @@ gnunet-gtk         |                                                   |
 gold               |                                                   |
 gphoto2            |                                                [] |
 gprof              |                          []                       |
-gpsdrive           |                                                   |
 gramadoir          |                                                   |
-grep               |                                         []     [] |
+grep               |                          []             []     [] |
 grub               |                                         []        |
 gsasl              |                                                   |
 gss                |                                                   |
@@ -74,7 +72,6 @@ gst-plugins-ugly   |                          []             []     [] |
 gstreamer          |                []        []             []     [] |
 gtick              |                                                [] |
 gtkam              |                       []                       [] |
-gtkorphan          |                          []                    [] |
 gtkspell           | []             []     []                []     [] |
 guix               |                                                   |
 guix-packages      |                                                   |
@@ -101,7 +98,6 @@ libc               |                          []             []     [] |
 libexif            |                       ()                          |
 libextractor       |                                                   |
 libgnutls          |                                                [] |
-libgpg-error       |                                                [] |
 libgphoto2         |                                                [] |
 libgphoto2_port    |                                                [] |
 libgsasl           |                                                   |
@@ -167,14 +163,14 @@ wastesedge         |                                                   |
 wcd                |                                                   |
 wcd-man            |                                                   |
 wdiff              |                                         []     [] |
-wget               |                                         []     [] |
+wget               |                                                [] |
 wyslij-po          |                                                   |
 xboard             |                                                   |
 xdg-user-dirs      | []    []    [] []     [] []     []      [] []  [] |
 xkeyboard-config   |                          []             []     [] |
                    +---------------------------------------------------+
                      af am an ar as ast az be bg bn bn_IN bs ca crh cs
-                      4  0  2  4  3 11   0  8 24  3   3    1 55  4  76
+                      4  0  2  5  3 11   0  8 23  3   3    1 54  4  73
 @end group
 
 @group
@@ -184,7 +180,7 @@ a2ps               | []  []  []     []         [] [] []       []  []  |
 aegis              | []  []                       []              []  |
 anubis             | []  []                       []          []  []  |
 aspell             | []  []         []         [] []          []  []  |
-bash               | []                        [] []          []  []  |
+bash               |                           [] []              []  |
 bfd                | []                           []          []  []  |
 binutils           |                              []          []  []  |
 bison              | []  []  []                [] [] []       []  []  |
@@ -200,7 +196,7 @@ cppi               | []  []                    []             []  []  |
 cpplib             | []  []                    [] []          []  []  |
 cryptsetup         | []  []                       []          []  []  |
 datamash           | []  []                    []                 []  |
-denemo             |                                                  |
+denemo             | []                                               |
 dfarc              | []  []                    [] []          []  []  |
 dialog             | []  []  []                [] []    [] [] []  []  |
 dico               | []  []                                   []  []  |
@@ -226,7 +222,6 @@ gdbm               | []  []                    []             []  []  |
 gettext-examples   | []  []  []                [] []          []  []  |
 gettext-runtime    | []  []                    [] []          []  []  |
 gettext-tools      | []  []                       []          []  []  |
-gip                | []  []                    [] []    []    []  []  |
 gjay               |     []                    []             []  []  |
 glunarclock        | []  []                    []             []  []  |
 gnubiff            |     ()                    []             []  ()  |
@@ -239,7 +234,6 @@ gnunet-gtk         |     []                                           |
 gold               |                              []          []  []  |
 gphoto2            | []  ()                    []                 []  |
 gprof              | []  []                    [] []          []  []  |
-gpsdrive           | []  []                       [] []               |
 gramadoir          | []  []                    []             []  []  |
 grep               | []  []                    [] [] []       []  []  |
 grub               | []  []                       []          []  []  |
@@ -252,9 +246,8 @@ gst-plugins-ugly   | []  []  []                [] []    []    []  []  |
 gstreamer          | []  []  []                   []    []    []  []  |
 gtick              | []  ()                    []             []  []  |
 gtkam              | []  ()                    [] []          []  []  |
-gtkorphan          | []  []                    []             []  []  |
 gtkspell           | []  []  []                [] []    []    []  []  |
-guix               | []                        []                 []  |
+guix               | []                        []                     |
 guix-packages      |                                                  |
 gutenprint         | []  []                                   []  []  |
 hello              | []  []  []                [] [] []       []  []  |
@@ -279,7 +272,6 @@ libc               | []  []                       []          []  []  |
 libexif            | []  []         ()            []              []  |
 libextractor       |     []                                           |
 libgnutls          |     []                    []             []  []  |
-libgpg-error       |     []                    []                 []  |
 libgphoto2         | []  ()                                       []  |
 libgphoto2_port    | []  ()                       []    []    []  []  |
 libgsasl           | []  []                    []             []  []  |
@@ -311,7 +303,7 @@ psmisc             | []  []  []                []       []    []  []  |
 pspp               |     []                       []              []  |
 pushover           |     ()                    [] []              []  |
 pwdutils           | []  []                                       []  |
-pyspread           | []  []                                           |
+pyspread           | []  []                                       []  |
 radius             |                              []              []  |
 recode             | []  []  []                [] []          []  []  |
 recutils           |     []                       []          []  []  |
@@ -352,7 +344,7 @@ xdg-user-dirs      | []  []  []                [] [] [] [] [] []  []  |
 xkeyboard-config   | []  []  []                [] []          []  []  |
                    +--------------------------------------------------+
                      da  de  el en en_GB en_ZA eo es et eu fa fi  fr 
-                     123 134 32  1   6     0   97 97 23 14  4 106 139
+                     120 130 32  1   6     0   94 95 22 13  4 103 136
 @end group
 
 @group
@@ -362,7 +354,7 @@ a2ps               |                   []          []    [] []       |
 aegis              |                                     []          |
 anubis             |                   [] []       []    []          |
 aspell             | []                []          []    [] []       |
-bash               |                      []       []    [] []       |
+bash               |                               []    [] []       |
 bfd                |                               []       []       |
 binutils           |                               []    [] []       |
 bison              |                   []                            |
@@ -404,7 +396,6 @@ gdbm               |                                                 |
 gettext-examples   | []    []          [] []       []    [] []       |
 gettext-runtime    | []    []          [] []       []    [] []       |
 gettext-tools      |                               []    [] []       |
-gip                | []    []          [] []       []       []       |
 gjay               |       []                                        |
 glunarclock        | []    []          [] []       []    []          |
 gnubiff            |                      []       []    ()          |
@@ -417,7 +408,6 @@ gnunet-gtk         |                                                 |
 gold               |                               []    []          |
 gphoto2            |                      []       []    [] []       |
 gprof              | []                   []       []    []          |
-gpsdrive           |       []             []       []    []          |
 gramadoir          | []                   []       []                |
 grep               | []    []          [] []       []    [] []       |
 grub               |       []             []             []          |
@@ -430,9 +420,8 @@ gst-plugins-ugly   |       []          [] []       []    [] []       |
 gstreamer          |       []          [] []       []    []          |
 gtick              | []    []             []       []    []          |
 gtkam              |                      []       [] [] [] []       |
-gtkorphan          |                   [] []       []    []          |
 gtkspell           | []    []    []    [] [] []    [] [] [] []       |
-guix               |                      []                         |
+guix               |                                                 |
 guix-packages      |                                                 |
 gutenprint         |       []             []             []          |
 hello              | []    []          [] []       []                |
@@ -449,7 +438,7 @@ iso_639_3          |       []                            []          |
 iso_639_5          |                                                 |
 jwhois             |       []             []       []    []          |
 kbd                |                      []       []    []          |
-klavaro            |       []             []             []       [] |
+klavaro            |       []          [] []             []       [] |
 latrine            |                      []                         |
 ld                 | []                            []    [] []       |
 leafpad            | []    []    []    [] []       []    [] ()       |
@@ -457,7 +446,6 @@ libc               |       []          []          []    [] []       |
 libexif            |                                     []          |
 libextractor       |                                                 |
 libgnutls          |                                     []          |
-libgpg-error       |                      []             [] []       |
 libgphoto2         |                                     [] []       |
 libgphoto2_port    |                                     [] []       |
 libgsasl           | []                   []       []    []          |
@@ -523,14 +511,14 @@ wastesedge         |                                     ()          |
 wcd                |                                                 |
 wcd-man            |                                                 |
 wdiff              |       []             []             []          |
-wget               |                      []       []    [] []       |
+wget               |                      []             [] []       |
 wyslij-po          |       []          []          []                |
 xboard             |                                                 |
 xdg-user-dirs      | [] [] [] [] [] [] [] []    [] [] [] [] []    [] |
 xkeyboard-config   |       []             []       []    [] []       |
                    +-------------------------------------------------+
                      ga gd gl gu he hi hr hu hy ia id is it ja ka kk
-                     36  2 49  4  8  2 54 75  2  6 84 11 89 60  0  3
+                     35  2 47  4  8  2 53 69  2  6 80 11 86 58  0  3
 @end group
 
 @group
@@ -582,7 +570,6 @@ gdbm               |                                                  |
 gettext-examples   |          []       []             [] [] []    []  |
 gettext-runtime    |    []                                        []  |
 gettext-tools      |    []                                            |
-gip                |                   []             []          []  |
 gjay               |                                                  |
 glunarclock        |                   []                         []  |
 gnubiff            |                                              []  |
@@ -595,20 +582,18 @@ gnunet-gtk         |                                                  |
 gold               |                                                  |
 gphoto2            |                                              []  |
 gprof              |                                  []          []  |
-gpsdrive           |                                              []  |
 gramadoir          |                                              []  |
 grep               |                                        []    []  |
 grub               |                []                      []    []  |
 gsasl              |                                              []  |
 gss                |                                                  |
-gst-plugins-bad    |                                        []        |
+gst-plugins-bad    |                                        []    []  |
 gst-plugins-base   |                   []                   []    []  |
 gst-plugins-good   |                [] []                   []    []  |
 gst-plugins-ugly   |                   []             [] [] []    []  |
 gstreamer          |                []                            []  |
 gtick              |                                              []  |
 gtkam              |                                        []    []  |
-gtkorphan          |                   []                         []  |
 gtkspell           |          []    [] []       []    []    []    []  |
 guix               |                                                  |
 guix-packages      |                                                  |
@@ -635,14 +620,13 @@ libc               |    []                                        []  |
 libexif            |                                              []  |
 libextractor       |                                              []  |
 libgnutls          |                                  []          []  |
-libgpg-error       |                                              []  |
 libgphoto2         |                                              []  |
 libgphoto2_port    |                                              []  |
 libgsasl           |                                              []  |
 libiconv           |                []                            []  |
 libidn             |                                              []  |
 liferea            |                [] []                         []  |
-lilypond           |                                                  |
+lilypond           |                                              []  |
 lordsawar          |                                                  |
 lprng              |                                                  |
 lynx               |                                              []  |
@@ -708,7 +692,7 @@ xdg-user-dirs      | [] [] [] []    [] [] [] []    []       []    []  |
 xkeyboard-config   |    []          []                            []  |
                    +--------------------------------------------------+
                      kn ko ku ky lg lt lv mk ml mn mr ms mt nb ne nl 
-                      5 11  4  6  0 13 24  3  3  3  4 12  2 40  1 126
+                      5 11  4  6  0 13 22  3  3  3  4 11  2 40  1 124
 @end group
 
 @group
@@ -760,7 +744,6 @@ gdbm               |             []         []                     [] |
 gettext-examples   |             []     []  []   [] []    [] []    [] |
 gettext-runtime    | []          []     []  []   [] []    [] []    [] |
 gettext-tools      |             []         []   [] []    [] []    [] |
-gip                |             []         []      []    []       [] |
 gjay               |                                               [] |
 glunarclock        |             []         []   []       [] []    [] |
 gnubiff            |                                               [] |
@@ -773,7 +756,6 @@ gnunet-gtk         |                                                  |
 gold               |                                                  |
 gphoto2            |             []         []   [] []             [] |
 gprof              |                        []   [] []             [] |
-gpsdrive           |                                []                |
 gramadoir          |                                      []       [] |
 grep               |             []         []      []    [] []    [] |
 grub               |             []         []      []       []    [] |
@@ -786,11 +768,10 @@ gst-plugins-ugly   |             []         []   [] []    [] []    [] |
 gstreamer          |             []         []   [] []    [] []    [] |
 gtick              |             []         []      []    []       [] |
 gtkam              |          [] []         []      []    []       [] |
-gtkorphan          |             []         []      []             [] |
 gtkspell           |             []     []  []   [] []    [] [] [] [] |
 guix               |                                                  |
 guix-packages      |                                                  |
-gutenprint         |                                         []       |
+gutenprint         |                                      [] []       |
 hello              |             []         []      []    [] []    [] |
 help2man           |             []         []      []             [] |
 help2man-texi      |             []                                   |
@@ -813,7 +794,6 @@ libc               |             []                 []    []          |
 libexif            |             []         ()            []          |
 libextractor       |             []                                   |
 libgnutls          |             []                                   |
-libgpg-error       |             []              []                [] |
 libgphoto2         |             []                                   |
 libgphoto2_port    |             []         []      []    []       [] |
 libgsasl           |             []              []       []       [] |
@@ -859,13 +839,13 @@ skribilo           |                                                  |
 solfege            |             []         []      []                |
 solfege-manual     |             []         []                        |
 spotmachine        |                        []                     [] |
-sudo               |             []         []      []       []    [] |
+sudo               |             []         []      []    [] []    [] |
 sudoers            |             []         []               []    [] |
 sysstat            |             []         []      []    []       [] |
 tar                |             []         []      []       []    [] |
 texinfo            |             []         []      []                |
 texinfo_document   |             []         []                        |
-tigervnc           |                                                  |
+tigervnc           |                        []                        |
 tin                |                                []                |
 tin-man            |                                                  |
 tracgoogleappsa... |             []         []      []             [] |
@@ -879,14 +859,14 @@ wastesedge         |                                                  |
 wcd                |                                                  |
 wcd-man            |                                                  |
 wdiff              |             []         []      []       []    [] |
-wget               |             []         []      []    []       [] |
+wget               |             []         []      []    []          |
 wyslij-po          | []          []         []                     [] |
-xboard             |             []                                [] |
+xboard             |             []                 []             [] |
 xdg-user-dirs      | [] []    [] []  [] []  []   [] []    [] [] [] [] |
 xkeyboard-config   |             []         []      []       []       |
                    +--------------------------------------------------+
                      nn or os pa pl  ps pt pt_BR ro ru rw sk sl sq sr
-                      7  3  1  6 117  1 12  84   33 82  3 37 45  7 98
+                      7  3  1  6 114  1 12  83   32 80  3 38 45  7 94
 @end group
 
 @group
@@ -896,19 +876,19 @@ a2ps               | []             [] [] []     []                    |
 aegis              |                             []                    |
 anubis             | []                [] []     []                    |
 aspell             |                      []     []  []     []         |
-bash               | []                [] []     []         []         |
+bash               | []                   []     []         []         |
 bfd                |                      []     []                    |
 binutils           | []                   []     []                    |
 bison              | []                   []     []         []         |
 bison-runtime      | []             [] [] []     []         []         |
 buzztrax           | []                          []         []         |
-ccd2cue            |                      []     []                    |
-ccide              |                      []     []         []         |
+ccd2cue            |                      []     []         []         |
+ccide              | []                   []     []         []         |
 cflow              | []                   []     []         []         |
 clisp              |                                                   |
 coreutils          | []                   []     []         []         |
 cpio               | []                [] []     []         []         |
-cppi               | []                   []     []                    |
+cppi               | []                   []     []         []         |
 cpplib             | []                [] []     []         []         |
 cryptsetup         |                      []     []         []         |
 datamash           | []                   []     []                    |
@@ -920,14 +900,14 @@ diffutils          | []                [] []     []         []         |
 dink               |                                                   |
 direvent           |                      []     []                    |
 doodle             | []                          []                    |
-dos2unix           |                      []     []         []         |
-dos2unix-man       |                      []                []         |
+dos2unix           | []                   []     []         []         |
+dos2unix-man       | []                   []                []         |
 e2fsprogs          | []                   []     []         []         |
 enscript           | []                [] []     []                    |
 exif               | []                [] []     []         []         |
 fetchmail          | []                []        []         []         |
 findutils          | []                [] []     []         []         |
-flex               | []                []        []                    |
+flex               | []                []        []         []         |
 freedink           |                []           []                    |
 fusionforge        |                                                   |
 gas                |                      []                           |
@@ -938,11 +918,10 @@ gdbm               |                      []     []                    |
 gettext-examples   | []                [] []     []         []    []   |
 gettext-runtime    | []                [] []     []         []    []   |
 gettext-tools      | []                [] []     []         []         |
-gip                | []             []           []         []         |
 gjay               |                []           []                    |
 glunarclock        | []                          []  []     []         |
 gnubiff            | []                          []                    |
-gnubik             |                      []     []         []         |
+gnubik             | []                   []     []         []         |
 gnucash            |       () ()              () ()         []         |
 gnuchess           |                      []     []                    |
 gnulib             | []                   []     []         []         |
@@ -951,7 +930,6 @@ gnunet-gtk         |                                                   |
 gold               |                      []     []                    |
 gphoto2            | []                   []     []         []         |
 gprof              | []                [] []     []                    |
-gpsdrive           | []                          []         []         |
 gramadoir          | []                          []         []         |
 grep               | []             []    []     []         []         |
 grub               | []                [] []     []                    |
@@ -964,12 +942,11 @@ gst-plugins-ugly   | []                [] []     []         []         |
 gstreamer          | []                [] []     []         []         |
 gtick              |                      []     []         []         |
 gtkam              | []                   []     []         []         |
-gtkorphan          | []                          []         []         |
 gtkspell           | []             [] [] []     []  []     []    []   |
 guix               |                             []                    |
 guix-packages      |                                                   |
-gutenprint         |                   [] []     []                    |
-hello              |                [] [] []     []         []         |
+gutenprint         |                   [] []     []         []         |
+hello              | []             [] [] []     []         []         |
 help2man           |                      []     []         []         |
 help2man-texi      |                      []                           |
 hylafax            |                             []                    |
@@ -991,7 +968,6 @@ libc               | []                [] []     []         []         |
 libexif            |                             []         ()         |
 libextractor       |                      []     []                    |
 libgnutls          | []                   []     []         []         |
-libgpg-error       | []                   []     []         []         |
 libgphoto2         |                      []     []                    |
 libgphoto2_port    | []                   []     []         []         |
 libgsasl           | []                   []     []         []         |
@@ -1005,7 +981,7 @@ lynx               | []                [] []     []                    |
 m4                 | []                          []         []         |
 mailfromd          |                      []     []                    |
 mailutils          |                             []                    |
-make               | []                   []     []                    |
+make               | []                   []     []         []         |
 man-db             |                             []         []         |
 man-db-manpages    |                                        []         |
 midi-instruments   | []             [] [] []     []         []         |
@@ -1013,13 +989,13 @@ minicom            | []                          []                    |
 mkisofs            |                      []     []         []         |
 myserver           |                             []                    |
 nano               | []                   []     []         []         |
-opcodes            |                      []     []                    |
+opcodes            |                      []     []         []         |
 parted             | []                [] []     []         []         |
 pies               |                      []     []                    |
 popt               | []    []       [] [] []     []         []         |
 procps-ng          |                      []     []                    |
 procps-ng-man      |                      []                           |
-psmisc             | []                   []     []                    |
+psmisc             | []                   []     []         []         |
 pspp               |                   [] []                []         |
 pushover           | []                                                |
 pwdutils           | []                          []                    |
@@ -1032,14 +1008,14 @@ rush               |                      []     []                    |
 sarg               |                                                   |
 sed                | []                [] []     []         []         |
 sharutils          |                      []     []         []         |
-shishi             |                             []                    |
-skribilo           |                                                   |
+shishi             |                             []         []         |
+skribilo           | []                                                |
 solfege            |                   []        []         []         |
 solfege-manual     |                   []                              |
-spotmachine        |                      []     []                    |
+spotmachine        | []                   []     []                    |
 sudo               |                   [] []     []         []         |
 sudoers            |                      []     []         []         |
-sysstat            |                   [] []     []         []         |
+sysstat            | []                [] []     []         []         |
 tar                | []                [] []     []         []         |
 texinfo            |                   [] []     []                    |
 texinfo_document   |                      []                           |
@@ -1054,17 +1030,17 @@ vice               | ()                ()                              |
 vmm                |                                                   |
 vorbis-tools       | []                          []                    |
 wastesedge         |                                                   |
-wcd                |                      []     []                    |
+wcd                |                      []     []         []         |
 wcd-man            |                      []                           |
-wdiff              | []                   []     []                    |
-wget               |                   [] []     []                    |
+wdiff              | []                   []     []         []         |
+wget               |                      []     []         []         |
 wyslij-po          |                      []     []                    |
 xboard             |                      []                           |
 xdg-user-dirs      | []    [] []    [] [] []     []         []    []   |
 xkeyboard-config   | []                [] []     []                    |
                    +---------------------------------------------------+
                      sv sw ta te tg th tr uk  ur vi  wa wo zh_CN zh_HK
-                     87  1  4  3  0 14 52 114  1 130  7  1  88     7  
+                     91  1  4  3  0 13 50 113  1 126  7  1  95     7  
 @end group
 
 @group
@@ -1074,23 +1050,23 @@ a2ps               |       | 30
 aegis              |       |  9
 anubis             |       | 19
 aspell             |       | 28
-bash               |  []   | 25
+bash               |  []   | 21
 bfd                |       |  9
 binutils           |       | 12
 bison              |  []   | 18
 bison-runtime      |  []   | 38
 buzztrax           |       |  8
-ccd2cue            |       |  7
-ccide              |       | 16
+ccd2cue            |       |  8
+ccide              |       | 17
 cflow              |       | 15
 clisp              |       | 10
 coreutils          |       | 20
-cpio               |  []   | 21
-cppi               |       | 16
+cpio               |       | 20
+cppi               |       | 17
 cpplib             |  []   | 19
 cryptsetup         |       | 13
 datamash           |       | 11
-denemo             |       |  3
+denemo             |       |  4
 dfarc              |       | 16
 dialog             |  []   | 42
 dico               |       |  6
@@ -1098,14 +1074,14 @@ diffutils          |       | 21
 dink               |       |  9
 direvent           |       | 10
 doodle             |       | 12
-dos2unix           |  []   | 17
-dos2unix-man       |       |  8
+dos2unix           |  []   | 18
+dos2unix-man       |       |  9
 e2fsprogs          |       | 14
 enscript           |       | 21
 exif               |       | 26
 fetchmail          |       | 19
 findutils          |       | 28
-flex               |  []   | 18
+flex               |  []   | 19
 freedink           |       | 23
 fusionforge        |       |  3
 gas                |       |  5
@@ -1116,12 +1092,11 @@ gdbm               |       | 10
 gettext-examples   |  []   | 40
 gettext-runtime    |  []   | 34
 gettext-tools      |  []   | 24
-gip                |  []   | 28
 gjay               |       |  8
 glunarclock        |  []   | 27
 gnubiff            |       |  9
-gnubik             |       | 18
-gnucash            |  ()   |  6
+gnubik             |       | 19
+gnucash            |  ()   |  7
 gnuchess           |       | 10
 gnulib             |       | 23
 gnunet             |       |  1
@@ -1129,25 +1104,23 @@ gnunet-gtk         |       |  1
 gold               |       |  7
 gphoto2            |  []   | 19
 gprof              |       | 21
-gpsdrive           |       | 13
 gramadoir          |       | 14
-grep               |  []   | 30
+grep               |  []   | 31
 grub               |       | 21
 gsasl              |  []   | 19
 gss                |       | 17
-gst-plugins-bad    |       | 13
+gst-plugins-bad    |       | 14
 gst-plugins-base   |       | 27
 gst-plugins-good   |       | 32
 gst-plugins-ugly   |       | 34
 gstreamer          |  []   | 31
 gtick              |       | 19
 gtkam              |       | 24
-gtkorphan          |       | 20
 gtkspell           |  []   | 48
-guix               |       |  5
+guix               |       |  3
 guix-packages      |       |  0
-gutenprint         |       | 13
-hello              |  []   | 29
+gutenprint         |       | 15
+hello              |  []   | 30
 help2man           |       | 18
 help2man-texi      |       |  5
 hylafax            |       |  5
@@ -1161,7 +1134,7 @@ iso_639_3          |       | 10
 iso_639_5          |       |  2
 jwhois             |  []   | 20
 kbd                |       | 16
-klavaro            |       | 29
+klavaro            |       | 30
 latrine            |       |  7
 ld                 |  []   | 15
 leafpad            |  []   | 40
@@ -1169,21 +1142,20 @@ libc               |  []   | 24
 libexif            |       |  9
 libextractor       |       |  5
 libgnutls          |       | 13
-libgpg-error       |       | 15
 libgphoto2         |       |  9
 libgphoto2_port    |  []   | 19
 libgsasl           |       | 18
 libiconv           |  []   | 29
 libidn             |       | 17
 liferea            |       | 29
-lilypond           |       | 10
+lilypond           |       | 11
 lordsawar          |       |  3
 lprng              |       |  3
 lynx               |       | 19
 m4                 |  []   | 22
 mailfromd          |       |  4
 mailutils          |       |  6
-make               |       | 18
+make               |       | 19
 man-db             |       | 14
 man-db-manpages    |       |  9
 midi-instruments   |  []   | 43
@@ -1191,17 +1163,17 @@ minicom            |  []   | 17
 mkisofs            |       | 13
 myserver           |       |  9
 nano               |  []   | 29
-opcodes            |       | 11
+opcodes            |       | 12
 parted             |  []   | 21
 pies               |       |  4
 popt               |  []   | 36
 procps-ng          |       |  5
 procps-ng-man      |       |  4
-psmisc             |  []   | 21
+psmisc             |  []   | 22
 pspp               |       | 13
 pushover           |       |  6
 pwdutils           |       |  8
-pyspread           |       |  5
+pyspread           |       |  6
 radius             |       |  9
 recode             |       | 31
 recutils           |       |  9
@@ -1210,18 +1182,18 @@ rush               |       | 10
 sarg               |       |  4
 sed                |  []   | 34
 sharutils          |       | 12
-shishi             |       |  6
-skribilo           |       |  3
+shishi             |       |  7
+skribilo           |       |  4
 solfege            |       | 19
 solfege-manual     |       |  9
-spotmachine        |       |  9
-sudo               |       | 23
+spotmachine        |       | 10
+sudo               |       | 24
 sudoers            |       | 20
-sysstat            |       | 21
+sysstat            |       | 22
 tar                |  []   | 30
 texinfo            |       | 17
 texinfo_document   |       | 11
-tigervnc           |       | 10
+tigervnc           |       | 11
 tin                |  []   |  7
 tin-man            |       |  1
 tracgoogleappsa... |  []   | 22
@@ -1232,16 +1204,16 @@ vice               |       |  1
 vmm                |       |  3
 vorbis-tools       |       | 13
 wastesedge         |       |  2
-wcd                |       |  7
+wcd                |       |  8
 wcd-man            |       |  3
-wdiff              |  []   | 22
-wget               |       | 22
+wdiff              |  []   | 23
+wget               |       | 19
 wyslij-po          |       | 14
-xboard             |       |  8
+xboard             |       |  9
 xdg-user-dirs      |  []   | 68
 xkeyboard-config   |  []   | 27
                    +-------+
   90 teams           zh_TW
- 170 domains          44    2805
+ 166 domains          42    2748
 @end group
 @end example
