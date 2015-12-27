@@ -270,6 +270,7 @@
 /test-term-ostream-xterm-aix51.out
 /test-term-ostream-xterm-basic-italic.out
 /test-term-ostream-xterm-basic.out
+/test-term-ostream-xterm-freebsd101.out
 /test-term-ostream-xterm-irix65.out
 /test-term-ostream-xterm-linux-debian.out
 /test-term-ostream-xterm-linux-mandriva.out
