@@ -1,22 +1,59 @@
-Release procedure
-============================================================================
-* Create a branch for release
+-*- outline -*-
+Here are most of the steps we (maintainers) follow when making a release.
+We assume that the following environment variables are set:
 
-    git checkout -b release-0.XX
+  GPG_KEY_ID - your gpg key ID
+  CURRENT_VERSION - the next release version
+  PREVIOUS_VERSION - the previous release version
 
-* Update 'gnulib' git submodule:
+* Making a snapshot release
+
+** Update 'gnulib' git submodule:
 
     git submodule foreach git pull origin master
     git add gnulib
     git commit -m 'Update gnulib'
 
-* Update files:
+** Run these commands, in this order:
+
+    ./autogen.sh
+    ./configure
+    make
+    make dist
+    make distcheck
+
+  Then you will get a distribution tarball:
+
+    gettext-$CURRENT_VERSION-*.tar.xz
+
+  Rename it e.g. gettext-ss.tar.xz
+
+** Test the snapshot tarball.  If it seems good, then upload to
+  alpha.gnu.org:
+
+    gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \
+                              gettext-ss.tar.xz
+
+  Notify translators and testers, by sending an email to:
+
+    coordinator@translationproject.org
+    platform-testers@gnu.org
+
+* Making an official release
+
+** Create a branch for release
+
+    git checkout -b release-$CURRENT_VERSION
+
+** Update files:
 
   - gettext-runtime/ABOUT-NLS
   - gettext-runtime/doc/matrix.texi
 
     Update with information from the Translation Project, by running
-    run.sh in gettext-runtime/doc/Admin/.
+    run.sh in gettext-runtime/doc/Admin/.  Copy resulting matrix.texi
+    into gettext-runtime/doc/, and gettext-runtime/ABOUT-NLS will be
+    automatically regenerated in the next build process.
 
   - gettext-runtime/intl/locale.alias
 
@@ -36,11 +73,10 @@ Release procedure
     release.
 
   - gettext-runtime/m4/po.m4
-  - gettext-runtime/po/Makefile.in.in
   - gettext-runtime/intl/libgnuintl.in.h
   - gettext-tools/libgettextpo/gettext-po.in.h
 
-    Update the version numbers.
+    Update the version numbers, if there is any change.
 
   - gettext-runtime/intl/Makefile.in
   - gettext-tools/libgettextpo/Makefile.am
@@ -64,33 +100,19 @@ Release procedure
 
   - djgpp/*
 
-* Run these commands, in this order:
+** Update autopoint related files:
 
-    ./autogen.sh
-    ./configure
-    make distcheck-hook
-    make
-    (cd gettext-tools/examples/po && make update-po)
-    make distcheck
+  - gettext-tools/configure.ac
 
-  Then you will get a distribution tarball:
+    Update ARCHIVE_VERSION
 
-    gettext-0.XX-*.tar.xz
+  - gettext-tools/misc/autopoint.in
 
-  Rename it e.g. gettext-ss.tar.xz
+    Update the case statement around line 371 to include the latest release.
 
-* Test the snapshot tarball.  If it seems good, then upload to
-  alpha.gnu.org:
+  and commit the changes.
 
-    gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \
-                              gettext-ss.tar.xz
-
-  Notify translators and testers, by sending an email to:
-
-    coordinator@translationproject.org
-    platform-testers@gnu.org
-
-* Once you get enough translation updates, update translations:
+** Once you get enough translation updates, update translations:
 
     rsync -Lrtvz translationproject.org::tp/latest/gettext-runtime/ \
           gettext-runtime/po
@@ -102,83 +124,86 @@ Release procedure
   Adjust LINGUAS files if any of the languages has been added or
   removed since the last release.  Commit the changes.
 
-* Regenerate POT and PO files with the built tools
-
-    PATH="$PWD/gettext-tools/src:$PWD/gettext-tools/misc:$PATH" \
-    gettext_datadir="$PWD/gettext-tools/misc" \
-    make maintainer-update-po
-
-  Note: Do not commit the generated PO files after "make dist".
-
-* Update autopoint related files:
-
-  - gettext-tools/configure.ac
-
-    Update ARCHIVE_VERSION
-
-  - gettext-tools/misc/autopoint.in
-
-    Update the case statement to include the latest release.
-
-  and commit the changes.
-
-* Create a release:
+** Create a release:
 
     git clean -xdff
     git checkout .
-    git tag -u <gpg-key-id> v0.XX
+
+    git commit --allow-empty -m "Release $CURRENT_VERSION"
+    git tag -u $GPG_KEY_ID $CURRENT_VERSION
+
     ./autogen.sh
     ./configure
     make distcheck-hook
     make
-    make distcheck
+    make dist
     (cd gettext-tools/misc
-     ./add-to-archive ../../gettext-0.XX.tar.gz)
-    make
+     ./add-to-archive ../../gettext-$CURRENT_VERSION.tar.gz)
     make distcheck
 
-* Upload tarballs:
+** Upload tarballs:
 
-    gnulib/build-aux/gnupload --to ftp.gnu.org:gettext gettext-0.XX.tar.{gz,xz}
+    gnulib/build-aux/gnupload --to ftp.gnu.org:gettext \
+                              gettext-$CURRENT_VERSION.tar.{gz,xz,lz}
 
-* Merge release-0.XX branch to master and push the changes to the
-  remote repository:
+** Merge release-$CURRENT_VERSION branch to master and push the changes to the
+   remote repository:
 
     git checkout master
-    git merge release-0.XX
-    git push
-    git push --tags
+    git merge release-$CURRENT_VERSION
+    git push origin master
+    git push origin release-$CURRENT_VERSION
 
-* Upload autopoint archive to alpha.gnu.org:
+** Upload autopoint archive to alpha.gnu.org:
+
+  This is needed to compile git master after the release (as
+  autogen.sh fetches the archive).
 
     xz gettext-tools/misc/archive.dir.tar
-    cp gettext-tools/misc/archive.dir.tar.xz archive.dir-0.XX.tar.xz
-    gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \
-                              --symlink-regex archive.dir-0.XX.tar.xz
+    cp gettext-tools/misc/archive.dir.tar.xz archive.dir-$CURRENT_VERSION.tar.xz
+    gnulib/build-aux/gnupload \
+      --to alpha.gnu.org:gettext \
+      --symlink-regex archive.dir-$CURRENT_VERSION.tar.xz
 
-* Update the homepage on www.gnu.org:
+** Update the homepage on www.gnu.org:
 
   - Bump the version number in gettext.html.
   - Update FAQ.html from gettext-tools/doc/FAQ.html.
 
-* Regenerate the documentation for www.gnu.org:
+** Regenerate the documentation for www.gnu.org:
 
     cp gnulib/build-aux/gendocs.sh gettext-tools/doc
     cp gnulib/doc/gendocs_template gettext-tools/doc
     cp -p gettext-runtime/doc/*.texi gettext-tools/doc
+    cp build-aux/texinfo.tex gettext-tools/doc
     (cd gettext-tools/doc
      LC_ALL=C ./gendocs.sh --email bug-gnu-gettext gettext "GNU gettext")
 
     cp gnulib/build-aux/gendocs.sh gettext-runtime/libasprintf
     cp gnulib/doc/gendocs_template gettext-runtime/libasprintf
+    cp build-aux/texinfo.tex gettext-runtime/libasprintf
     (cd gettext-runtime/libasprintf
      LC_ALL=C ./gendocs.sh --email bug-gnu-gettext autosprintf "GNU autosprintf")
+
+  FIXME: Add a script to automate this process.
 
   Copy the resulting manual/ directories.  Commit the resulting
   manual/ directories in CVS, and for every removed HTML file (that
   corresponds to a deleted node) add a line to the .symlinks file in
   the same directory.
 
-* Submit a News entry on https://savannah.gnu.org/projects/gettext/
+** Announce on info-gnu
 
-* Announce on info-gnu
+  The announcement template can be generated with:
+
+    gnulib/build-aux/announce-gen \
+      --release-type stable \
+      --package-name gettext \
+      --previous-version $PREVIOUS_VERSION \
+      --current-version $CURRENT_VERSION \
+      --gpg-key-id $GPG_KEY_ID \
+      --url-directory ftp://ftp.gnu.org/gnu/gettext \
+      --bootstrap-tools=autoconf,automake,libtool,bison,gnulib \
+      --gnulib-version=$(cd gnulib && git describe)
+
+* Submit a News entry on https://savannah.gnu.org/projects/gettext/
