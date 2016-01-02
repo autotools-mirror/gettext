@@ -1,5 +1,5 @@
 /* Extract some translations of a translation catalog.
-   Copyright (C) 2001-2007, 2009-2010, 2012, 2015 Free Software
+   Copyright (C) 2001-2007, 2009-2010, 2012, 2015-2016 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 

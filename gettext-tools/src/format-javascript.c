@@ -1,5 +1,5 @@
 /* JavaScript format strings.
-   Copyright (C) 2001-2004, 2006-2009, 2013, 2015 Free Software
+   Copyright (C) 2001-2004, 2006-2009, 2013, 2015-2016 Free Software
    Foundation, Inc.
    Written by Andreas Stricker <andy@knitter.ch>, 2010.
    It's based on python format module from Bruno Haible.
