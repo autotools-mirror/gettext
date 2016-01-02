@@ -43,8 +43,14 @@ Makefile
 /gettext-tools/examples/ChangeLog
 /gettext-tools/po/ChangeLog
 
+# Files brought in by gnulib-tool:
+/GNUmakefile
 /build-aux/ar-lib
 /build-aux/git-version-gen
 /build-aux/gitlog-to-changelog
 /build-aux/snippet
 /build-aux/test-driver
+/build-aux/update-copyright
+/build-aux/useless-if-before-free
+/build-aux/vc-list-files
+/maint.mk

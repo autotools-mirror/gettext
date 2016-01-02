@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2015 Free Software Foundation, Inc.
+# Copyright (C) 2003-2016 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -380,6 +380,11 @@ if ! $skip_gnulib; then
     $GNULIB_TOOL --copy-file tests/init.sh gettext-tools || exit $?
     $GNULIB_TOOL --copy-file build-aux/git-version-gen || exit $?
     $GNULIB_TOOL --copy-file build-aux/gitlog-to-changelog || exit $?
+    $GNULIB_TOOL --copy-file build-aux/update-copyright || exit $?
+    $GNULIB_TOOL --copy-file build-aux/useless-if-before-free || exit $?
+    $GNULIB_TOOL --copy-file build-aux/vc-list-files || exit $?
+    $GNULIB_TOOL --copy-file top/GNUmakefile . || exit $?
+    $GNULIB_TOOL --copy-file top/maint.mk . || exit $?
   fi
 fi
 

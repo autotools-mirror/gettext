@@ -1,0 +1,14 @@
+COPYING$
+COPYING.LIB$
+.*\.po$
+^build-aux/ltmain\.sh$
+^build-aux/texinfo\.tex$
+^m4/lt.*\.m4$
+^m4/libtool\.m4$
+^gettext-runtime/intl/localcharset\.[ch]$
+^gettext-runtime/intl/config\.charset$
+^gettext-runtime/intl/locale\.alias$
+^gettext-tools/doc/gpl\.texi$
+^gettext-tools/doc/lgpl\.texi$
+^gettext-tools/doc/fdl\.texi$
+^gettext-tools/examples/hello-c++-kde/admin/.*$
