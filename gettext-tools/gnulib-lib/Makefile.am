@@ -61,6 +61,11 @@ include Makefile.gnulib
 # Which classes to export from the shared library.
 MOOPPFLAGS += --dllexport=styled_ostream
 
+# OS/2 does not support a DLL name longer than 8 characters.
+if OS2
+libgettextlib_la_LDFLAGS += -os2dllname gtlib
+endif
+
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
 if !WOE32DLL
 libgettextlib_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \

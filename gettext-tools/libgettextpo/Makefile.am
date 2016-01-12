@@ -117,6 +117,11 @@ libgettextpo_la_SOURCES += ../woe32dll/gettextpo-exports.c
 libgettextpo_la_LDFLAGS += -Wl,--export-all-symbols
 endif
 
+# OS/2 does not support a DLL name longer than 8 characters.
+if OS2
+libgettextpo_la_LDFLAGS += -os2dllname gtpo
+endif
+
 # Version information according to Woe32 conventions.
 EXTRA_DIST += libgettextpo.rc
 if WOE32

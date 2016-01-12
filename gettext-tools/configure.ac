@@ -100,10 +100,12 @@ LT_LANG([Windows Resource])
 dnl On mingw and Cygwin, we can activate special Makefile rules which add
 dnl version information to the shared libraries and executables.
 case "$host_os" in
-  mingw* | cygwin*) is_woe32=yes ;;
-  *) is_woe32=no ;;
+  mingw* | cygwin*) special_makefile_rules=woe32 ;;
+  os2*) special_makefile_rules=os2 ;;
+  *) special_makefile_rules=none ;;
 esac
-AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
+AM_CONDITIONAL([WOE32], [test $special_makefile_rules = woe32])
+AM_CONDITIONAL([OS2], [test $special_makefile_rules = os2])
 
 dnl On Cygwin 1.7.10-1 or later, error_* variables are defined in the
 dnl Cygwin DLL.  To avoid any conflict with gettext DLLs, always link

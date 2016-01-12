@@ -255,6 +255,11 @@ libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
+# OS/2 does not support a DLL name longer than 8 characters.
+if OS2
+libgettextsrc_la_LDFLAGS += -os2dllname gtsrc
+endif
+
 libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS) $(INCXML)
 
 # Tell the mingw or Cygwin linker which symbols to export.
