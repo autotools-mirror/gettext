@@ -44,7 +44,7 @@ LT_INIT([win32-dll])
 case "$host_os" in
   # On Cygwin, without -no-undefined, a warning is emitted and only a static
   # library is built.
-  beos* | mingw* | cygwin*) LTNOUNDEF='-no-undefined' ;;
+  beos* | mingw* | cygwin* | os2*) LTNOUNDEF='-no-undefined' ;;
   *) LTNOUNDEF='' ;;
 esac
 AC_SUBST([LTNOUNDEF])
