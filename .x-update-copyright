@@ -12,3 +12,13 @@ COPYING.LIB$
 ^gettext-tools/doc/lgpl\.texi$
 ^gettext-tools/doc/fdl\.texi$
 ^gettext-tools/examples/hello-c++-kde/admin/.*$
+^gettext-tools/tests/msgcomm-22$
+^gettext-tools/tests/msgfilter-sr-latin-1$
+^gettext-tools/tests/msggrep-1$
+^gettext-tools/tests/msggrep-11$
+^gettext-tools/tests/msggrep-2$
+^gettext-tools/tests/msggrep-3$
+^gettext-tools/tests/msggrep-4$
+^gettext-tools/tests/msggrep-5$
+^gettext-tools/tests/msggrep-9$
+^gettext-tools/tests/msgmerge-14$

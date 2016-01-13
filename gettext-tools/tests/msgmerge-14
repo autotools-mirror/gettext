@@ -7,7 +7,7 @@
 
 cat <<\EOF > mm-test14-ru.po
 # Russian messages for CLISP
-# Copyright (C) 1998, 2016 Free Software Foundation, Inc.
+# Copyright (C) 1998 Free Software Foundation, Inc.
 # Eduard Haritonov <hed@iis.nsk.su>, 1998.
 # Arseny Slobodjuck <ampy@ich.dvo.ru>, 2002.
 #
