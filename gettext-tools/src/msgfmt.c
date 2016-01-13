@@ -251,6 +251,7 @@ main (int argc, char *argv[])
 
   /* Set default value for global variables.  */
   alignment = DEFAULT_OUTPUT_ALIGNMENT;
+  byteswap = 0 ^ ENDIANNESS;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);

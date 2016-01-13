@@ -1,3 +1,6 @@
+* Support for reproducible builds:
+  - msgfmt now produces little-endian .mo files by default.
+
 Version 0.19.7 - December 2015
 
 * Programming languages support:
