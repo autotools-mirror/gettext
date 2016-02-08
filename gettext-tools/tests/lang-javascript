@@ -44,7 +44,7 @@ msgstr "«Votre commande, s'il vous plait», dit le garçon."
 # Reverse the arguments.
 #, javascript-format
 msgid "%s is replaced by %s."
-msgstr "%s remplace %s."
+msgstr "%2$s remplace %1$s."
 EOF
 
 : ${MSGMERGE=msgmerge}
@@ -66,7 +66,9 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 (gjs -c imports.gettext) >/dev/null 2>/dev/null \
   || { echo "Skipping test: gjs gettext module not found"; exit 77; }
 (gjs -c imports.format) >/dev/null 2>/dev/null \
-  || { echo "Skipping test: gjs format module not found"; exit 77; }
+    || { echo "Skipping test: gjs format module not found"; exit 77; }
+(pkg-config gjs-1.0 --atleast-version=1.40) >/dev/null 2>/dev/null \
+    || { echo "Skipping test: gjs version is older than 1.40"; exit 77; }
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
@@ -99,11 +101,11 @@ fi
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
-FF remplace EUR.
+EUR remplace FF.
 EOF
 cat <<\EOF > prog.oku
 Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
-FF remplace EUR.
+EUR remplace FF.
 EOF
 
 : ${LOCALE_FR=fr_FR}

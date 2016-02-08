@@ -42,6 +42,18 @@ cat <<\EOF > f-js-1.data
 "abc%.4.2f"
 # Valid: three arguments
 "abc%d%j%j"
+# Valid: a numbered argument
+"abc%1$d"
+# Invalid: zero
+"abc%0$d"
+# Valid: two-digit numbered arguments
+"abc%11$def%10$dgh%9$dij%8$dkl%7$dmn%6$dop%5$dqr%4$dst%3$duv%2$dwx%1$dyz"
+# Invalid: unterminated number
+"abc%1"
+# Invalid: flags before number
+"abc%+1$d"
+# Invalid: mixing of numbered and unnumbered arguments
+"abc%d%2$x"
 EOF
 
 : ${XGETTEXT=xgettext}
