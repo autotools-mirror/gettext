@@ -12351,7 +12351,12 @@ an ITS rule with an XML file.  If the above ITS file is saved as
 
 The @code{locatingRule} element must have a @code{pattern} attribute,
 which denotes either a literal file name or a wildcard pattern of the
-XML file.  The @code{locatingRule} element can have child
+XML file@footnote{Note that the file name matching is done after
+removing any @code{.in} suffix from the input file name.  Thus the
+@code{pattern} attribute must not include a pattern matching @code{.in}.
+For example, if the input file name is @file{foo.msg.in}, the pattern
+should be either @code{*.msg} or just @code{*}, rather than
+@code{*.in}.}.  The @code{locatingRule} element can have child
 @code{documentRule} element, which adds checks on the content of the XML
 file.
 
