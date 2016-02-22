@@ -110,7 +110,8 @@ const char *const syntax_check_name[NSYNTAXCHECKS] =
 {
   /* sc_ellipsis_unicode */     "ellipsis-unicode",
   /* sc_space_ellipsis */       "space-ellipsis",
-  /* sc_quote_unicode */        "quote-unicode"
+  /* sc_quote_unicode */        "quote-unicode",
+  /* sc_bullet_unicode */       "bullet-unicode"
 };
 
 

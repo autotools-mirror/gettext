@@ -120,9 +120,10 @@ enum syntax_check_type
 {
   sc_ellipsis_unicode,
   sc_space_ellipsis,
-  sc_quote_unicode
+  sc_quote_unicode,
+  sc_bullet_unicode
 };
-#define NSYNTAXCHECKS 3
+#define NSYNTAXCHECKS 4
 extern DLL_VARIABLE const char *const syntax_check_name[NSYNTAXCHECKS];
 
 /* Is current msgid subject to a syntax check?  */

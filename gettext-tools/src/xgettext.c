@@ -637,13 +637,15 @@ main (int argc, char *argv[])
         break;
 
       case CHAR_MAX + 17: /* --check */
-        if (strcmp (optarg, "ellipsis-unicode") == 0)
-          default_syntax_check[sc_ellipsis_unicode] = yes;
-        else if (strcmp (optarg, "space-ellipsis") == 0)
-          default_syntax_check[sc_space_ellipsis] = yes;
-        else if (strcmp (optarg, "quote-unicode") == 0)
-          default_syntax_check[sc_quote_unicode] = yes;
-        else
+        for (i = 0; i < NSYNTAXCHECKS; i++)
+          {
+            if (strcmp (optarg, syntax_check_name[i]) == 0)
+              {
+                default_syntax_check[i] = yes;
+                break;
+              }
+          }
+        if (i == NSYNTAXCHECKS)
           error (EXIT_FAILURE, 0, _("syntax check '%s' unknown"), optarg);
         break;
 

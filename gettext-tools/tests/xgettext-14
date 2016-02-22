@@ -96,3 +96,40 @@ LANGUAGE= LC_ALL=C ${XGETTEXT} --omit-header --add-comments --check=quote-unicod
 
 test `grep -c 'ASCII double quote' xg-quote-u.err` = 4 || exit 1
 test `grep -c 'ASCII single quote' xg-quote-u.err` = 12 || exit 1
+
+# --check=bullet-unicode
+cat <<\EOF > xg-bullet-u1.c
+gettext ("The following is a list of items:\n\
+* item 1\n\
+* item 2\n\
+* item 3\n");
+EOF
+
+: ${XGETTEXT=xgettext}
+LANGUAGE= LC_ALL=C ${XGETTEXT} --omit-header --add-comments --check=bullet-unicode -d xg-bullet-u1.tmp xg-bullet-u1.c 2>xg-bullet-u1.err
+
+test `grep -c 'ASCII bullet' xg-bullet-u1.err` = 1 || { cat xg-bullet-u1.err; exit 1; }
+
+cat <<\EOF > xg-bullet-u2.c
+gettext ("The following is a list of items:\n\
+* item 1\n\
+ - item 2\n\
+* item 3\n");
+EOF
+
+: ${XGETTEXT=xgettext}
+LANGUAGE= LC_ALL=C ${XGETTEXT} --omit-header --add-comments --check=bullet-unicode -d xg-bullet-u2.tmp xg-bullet-u2.c 2>xg-bullet-u2.err
+
+test `grep -c 'ASCII bullet' xg-bullet-u2.err` = 1 || { cat xg-bullet-u2.err; exit 1; }
+
+cat <<\EOF > xg-bullet-u3.c
+gettext ("The following is NOT a list of items:\n\
+* item 1\n\
+- item 2\n\
+* item 3\n");
+EOF
+
+: ${XGETTEXT=xgettext}
+LANGUAGE= LC_ALL=C ${XGETTEXT} --omit-header --add-comments --check=bullet-unicode -d xg-bullet-u3.tmp xg-bullet-u3.c 2>xg-bullet-u3.err
+
+test `grep -c 'ASCII bullet' xg-bullet-u3.err` = 0 || { cat xg-bullet-u3.err; exit 1; }
