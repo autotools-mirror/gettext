@@ -22,6 +22,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <fnmatch.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <time.h>
@@ -258,6 +259,7 @@ static const struct option long_options[] =
   { "no-location", no_argument, NULL, CHAR_MAX + 16 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
+  { "options", required_argument, NULL, 'O' },
   { "output", required_argument, NULL, 'o' },
   { "output-dir", required_argument, NULL, 'p' },
   { "package-name", required_argument, NULL, CHAR_MAX + 12 },
@@ -277,6 +279,87 @@ static const struct option long_options[] =
   { NULL, 0, NULL, 0 }
 };
 
+
+enum suboption_type
+{
+  OPT_FLAG,
+  OPT_KEYWORD,
+  OPT_LANGUAGE,
+  NSUBOPTS
+};
+
+static char * const suboption_tokens[] =
+{
+  "flag",
+  "keyword",
+  "language",
+  NULL
+};
+
+struct suboption_ty
+{
+  enum suboption_type type;
+  char *value;
+};
+
+struct suboption_list_ty
+{
+  char *pattern;
+  struct suboption_ty *items;
+  size_t nitems;
+  size_t nitems_max;
+};
+
+struct suboption_list_list_ty
+{
+  struct suboption_list_ty *items;
+  size_t nitems;
+  size_t nitems_max;
+};
+
+static void
+suboption_list_destroy (struct suboption_list_ty *opts)
+{
+  free (opts->items);
+}
+
+static void
+suboption_list_insert (struct suboption_list_ty *opts, struct suboption_ty *opt)
+{
+  if (opts->nitems == opts->nitems_max)
+    {
+      opts->nitems_max = opts->nitems_max * 2 + 1;
+      opts->items = xrealloc (opts->items,
+                              opts->nitems_max * sizeof (struct suboption_ty));
+    }
+  memcpy (&opts->items[opts->nitems++], opt, sizeof (struct suboption_ty));
+}
+
+static void
+suboption_list_list_destroy (struct suboption_list_list_ty *list)
+{
+  size_t i;
+
+  for (i = 0; i < list->nitems; i++)
+    suboption_list_destroy (&list->items[i]);
+  free (list->items);
+}
+
+static void
+suboption_list_list_insert (struct suboption_list_list_ty *list,
+                            struct suboption_list_ty *opts)
+{
+  if (list->nitems == list->nitems_max)
+    {
+      list->nitems_max = list->nitems_max * 2 + 1;
+      list->items = xrealloc (list->items,
+                              list->nitems_max * sizeof (struct suboption_list_ty));
+    }
+  memcpy (&list->items[list->nitems++], opts,
+          sizeof (struct suboption_list_ty));
+}
+
+static struct suboption_list_list_ty suboptions;
 
 /* The extractors must all be functions returning void and taking three
    arguments designating the input stream and one message domain list argument
@@ -314,6 +397,7 @@ static message_ty *construct_header (void);
 static void finalize_header (msgdomain_list_ty *mdlp);
 static extractor_ty language_to_extractor (const char *name);
 static const char *extension_to_language (const char *extension);
+static const char *filename_to_language (const char *filename);
 
 
 int
@@ -381,7 +465,7 @@ main (int argc, char *argv[])
   init_flag_table_vala ();
 
   while ((optchar = getopt_long (argc, argv,
-                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:W:x:",
+                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:O:p:sTVw:W:x:",
                                  long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -516,6 +600,53 @@ main (int argc, char *argv[])
 
       case 'o':
         output_file = optarg;
+        break;
+
+      case 'O':
+        {
+          char *subopts = strchr (optarg, ':');
+
+          if (subopts != NULL)
+            {
+              char *pattern;
+              struct suboption_list_ty *opts;
+
+              pattern = xmalloc (subopts - optarg + 1);
+              memcpy (pattern, optarg, subopts - optarg);
+              pattern[subopts - optarg] = '\0';
+
+              opts = XZALLOC (struct suboption_list_ty);
+              opts->pattern = pattern;
+
+              subopts++;
+              while (*subopts != '\0')
+                {
+                  int suboptchar;
+                  char *value;
+
+                  suboptchar = getsubopt (&subopts, suboption_tokens, &value);
+                  switch (suboptchar)
+                    {
+                    case OPT_FLAG:
+                    case OPT_KEYWORD:
+                    case OPT_LANGUAGE:
+                      {
+                        struct suboption_ty opt;
+
+                        opt.type = suboptchar;
+                        opt.value = xstrdup (value);
+                        suboption_list_insert (opts, &opt);
+                      }
+                      break;
+
+                    default:
+                      error (EXIT_FAILURE, 0, _("unknown sub-option for -O"));
+                      break;
+                    }
+                }
+              suboption_list_list_insert (&suboptions, opts);
+            }
+        }
         break;
 
       case 'p':
@@ -872,12 +1003,14 @@ warning: ITS rule file '%s' does not exist"), explicit_its_filename);
         }
       else
         {
-          const char *language_from_extension = NULL;
+          const char *language_from_filename = NULL;
           const char *base;
           char *reduced;
 
           base = strrchr (filename, '/');
-          if (!base)
+          if (base)
+            base++;
+          else
             base = filename;
 
           reduced = xstrdup (base);
@@ -886,31 +1019,14 @@ warning: ITS rule file '%s' does not exist"), explicit_its_filename);
                  && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
             reduced[strlen (reduced) - 3] = '\0';
 
-          /* If no language is specified with -L, deduce it the extension.  */
+          /* If no language is specified with -L, guess it from the
+             --options and the file name extension.  */
           if (language == NULL)
-            {
-              const char *p;
-
-              /* Work out what the file extension is.  */
-              p = reduced + strlen (reduced);
-              for (; p > reduced && language_from_extension == NULL; p--)
-                {
-                  if (*p == '.')
-                    {
-                      const char *extension = p + 1;
-
-                      /* Derive the language from the extension, and
-                         the extractor function from the language.  */
-                      language_from_extension =
-                        extension_to_language (extension);
-                    }
-                }
-            }
+            language_from_filename = filename_to_language (reduced);
 
           /* If language is not determined from the file name
              extension, check ITS locating rules.  */
-          if (language_from_extension == NULL
-              && strcmp (filename, "-") != 0)
+          if (language_from_filename == NULL && strcmp (filename, "-") != 0)
             {
               const char *its_basename;
 
@@ -958,7 +1074,7 @@ warning: ITS rule file '%s' does not exist; check your gettext installation"),
 
           if (its_rules == NULL)
             {
-              if (language_from_extension == NULL)
+              if (language_from_filename == NULL)
                 {
                   const char *extension = strrchr (reduced, '.');
                   if (extension == NULL)
@@ -967,11 +1083,11 @@ warning: ITS rule file '%s' does not exist; check your gettext installation"),
                     extension++;
                   error (0, 0, _("\
 warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
-                  language_from_extension = "C";
+                  language_from_filename = "C";
                 }
 
               this_file_extractor =
-                language_to_extractor (language_from_extension);
+                language_to_extractor (language_from_filename);
             }
 
           free (reduced);
@@ -1032,6 +1148,8 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
 
   for (i = 0; i < SIZEOF (its_dirs); i++)
     free (its_dirs[i]);
+
+  suboption_list_list_destroy (&suboptions);
 
   exit (EXIT_SUCCESS);
 }
@@ -1101,6 +1219,9 @@ Input file interpretation:\n"));
       printf (_("\
       --from-code=NAME        encoding of input files\n\
                                 (except for Python, Tcl, Glade)\n"));
+      printf (_("\
+  -O, --options=PAT:OPTIONS   specify options effective to files matching PAT\n\
+                                (flag, keyword, language)\n"));
       printf (_("\
 By default the input files are assumed to be in ASCII.\n"));
       printf ("\n");
@@ -4011,5 +4132,47 @@ extension_to_language (const char *extension)
   for (tp = table; tp < ENDOF(table); ++tp)
     if (strcmp (extension, tp->extension) == 0)
       return tp->language;
+  return NULL;
+}
+
+static const char *
+filename_to_language (const char *filename)
+{
+  const char *p;
+  size_t i;
+
+  for (i = 0; i < suboptions.nitems; i++)
+    {
+      struct suboption_list_ty *opts =
+        &suboptions.items[suboptions.nitems - 1 - i];
+
+      if (fnmatch (opts->pattern, filename, FNM_PATHNAME) == 0)
+        {
+          size_t j;
+
+          for (j = 0; j < opts->nitems; j++)
+            {
+              struct suboption_ty *opt = &opts->items[j];
+
+              if (opt->type == OPT_LANGUAGE)
+                return opt->value;
+            }
+        }
+    }
+
+  /* Work out what the file extension is.  */
+  p = filename + strlen (filename);
+  for (; p > filename; p--)
+    {
+      if (*p == '.')
+        {
+          const char *extension = p + 1;
+
+          /* Derive the language from the extension, and
+             the extractor function from the language.  */
+          return extension_to_language (extension);
+        }
+    }
+
   return NULL;
 }
