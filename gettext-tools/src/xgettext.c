@@ -1154,6 +1154,10 @@ Language specific options:\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC)\n"));
       printf (_("\
+      --its=FILE              apply ITS rules from FILE\n"));
+      printf (_("\
+                                (only XML based languages)\n"));
+      printf (_("\
       --qt                    recognize Qt format strings\n"));
       printf (_("\
                                 (only language C++)\n"));
@@ -1194,8 +1198,6 @@ Output details:\n"));
       --properties-output     write out a Java .properties file\n"));
       printf (_("\
       --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"));
-      printf (_("\
-      --its=FILE              apply ITS rules from FILE\n"));
       printf (_("\
       --itstool               write out itstool comments\n"));
       printf (_("\
