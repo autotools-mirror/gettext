@@ -232,7 +232,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     goto bad_format;
                   }
 
-                if (spec.allocated == spec.numbered_arg_count)
+                if (spec.allocated == unnumbered_arg_count)
                   {
                     spec.allocated = 2 * spec.allocated + 1;
                     spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
