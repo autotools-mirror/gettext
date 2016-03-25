@@ -451,6 +451,12 @@ string_add (int c)
 static void
 string_end ()
 {
+  if (string_buf_length >= string_buf_alloc)
+    {
+      string_buf_alloc = string_buf_alloc + 1;
+      string_buf = xrealloc (string_buf, string_buf_alloc);
+    }
+
   string_buf[string_buf_length] = '\0';
 }
 
