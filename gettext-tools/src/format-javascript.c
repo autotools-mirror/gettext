@@ -343,7 +343,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
       /* Check the argument names are the same.
          Both arrays are sorted.  We search for the first difference.  */
-      for (i = 0; i < spec2->numbered_arg_count; i++)
+      for (i = 0, j = 0; i < n1 || j < n2; )
         {
           int cmp = (i >= n1 ? 1 :
                      j >= n2 ? -1 :
