@@ -261,8 +261,9 @@ if ! $skip_gnulib; then
       write
       xalloc
       xconcat-filename
-      xmalloca
       xerror
+      xmalloca
+      xmemdup0
       xsetenv
       xstriconv
       xstriconveh

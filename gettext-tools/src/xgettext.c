@@ -73,6 +73,7 @@
 #include "unistr.h"
 #include "its.h"
 #include "locating-rule.h"
+#include "search-path.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
@@ -328,7 +329,8 @@ main (int argc, char *argv[])
   bool some_additional_keywords = false;
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
-  char *its_dirs[2] = { NULL, NULL };
+  char **dirs;
+  char **its_dirs;
   char *explicit_its_filename = NULL;
   const char *file_name;
   const char *files_from = NULL;
@@ -726,35 +728,30 @@ xgettext cannot work without keywords to look for"));
       usage (EXIT_FAILURE);
     }
 
-  {
-    const char *gettextdatadir;
-    char *versioned_gettextdatadir;
-
-    /* Make it possible to override the locator file location.  This
-       is necessary for running the testsuite before "make
-       install".  */
-    gettextdatadir = getenv ("GETTEXTDATADIR");
-    if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-      gettextdatadir = relocate (GETTEXTDATADIR);
-
-    its_dirs[0] = xconcatenated_filename (gettextdatadir, "its", NULL);
-
-    versioned_gettextdatadir =
-      xasprintf ("%s%s", relocate (GETTEXTDATADIR), PACKAGE_SUFFIX);
-    its_dirs[1] = xconcatenated_filename (versioned_gettextdatadir, "its",
-                                          NULL);
-    free (versioned_gettextdatadir);
-
-    its_locating_rules = locating_rule_list_alloc ();
-    for (i = 0; i < SIZEOF (its_dirs); i++)
-      locating_rule_list_add_from_directory (its_locating_rules, its_dirs[i]);
-  }
-
   /* Explicit ITS file selection and language specification are
      mutually exclusive.  */
   if (explicit_its_filename != NULL && language != NULL)
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--its", "--language");
+
+  if (explicit_its_filename == NULL)
+    {
+      its_dirs = get_search_path ("its");
+      its_locating_rules = locating_rule_list_alloc ();
+      for (dirs = its_dirs; *dirs != NULL; dirs++)
+        {
+          /* Make it possible to override the locator file location.  This
+             is necessary for running the testsuite before "make
+             install".  */
+          char *relocated = relocate (*dirs);
+          if (relocated != *dirs)
+            {
+              free (*dirs);
+              *dirs = relocated;
+            }
+          locating_rule_list_add_from_directory (its_locating_rules, *dirs);
+        }
+    }
 
   /* Determine extractor from language.  */
   if (language != NULL)
@@ -930,7 +927,7 @@ warning: ITS rule file '%s' does not exist"), explicit_its_filename);
                     its_rule_list_add_from_string (its_rules,
                                                    ITS_ROOT_UNTRANSLATABLE);
 
-                  for (j = 0; j < SIZEOF (its_dirs); j++)
+                  for (j = 0; its_dirs[j] != NULL; j++)
                     {
                       char *its_filename =
                         xconcatenated_filename (its_dirs[j], its_basename,
@@ -945,7 +942,7 @@ warning: ITS rule file '%s' does not exist"), explicit_its_filename);
                       if (ok)
                         break;
                     }
-                  if (j == SIZEOF (its_dirs))
+                  if (its_dirs[j] == NULL)
                     {
                       error (0, 0, _("\
 warning: ITS rule file '%s' does not exist; check your gettext installation"),
@@ -1030,8 +1027,9 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
   if (its_locating_rules)
     locating_rule_list_free (its_locating_rules);
 
-  for (i = 0; i < SIZEOF (its_dirs); i++)
+  for (i = 0; its_dirs[i] != NULL; i++)
     free (its_dirs[i]);
+  free (its_dirs);
 
   exit (EXIT_SUCCESS);
 }

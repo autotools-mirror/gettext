@@ -308,6 +308,7 @@
 /test-write.c
 /test-xalloc-die.c
 /test-xalloc-die.sh
+/test-xmemdup0.c
 /test-xvasprintf.c
 /wcrtomb.c
 /wctob.c

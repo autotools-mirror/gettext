@@ -416,6 +416,8 @@
 /xmalloc.c
 /xmalloca.c
 /xmalloca.h
+/xmemdup0.c
+/xmemdup0.h
 /xreadlink.c
 /xreadlink.h
 /xsetenv.c
