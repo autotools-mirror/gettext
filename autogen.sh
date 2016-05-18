@@ -32,7 +32,7 @@
 # data files used by the autopoint program.  If you already have the
 # file, place it under gettext-tools/misc, before running this script.
 #
-# Usage: ./autogen.sh [--skip-gnulib]
+# Usage: ./autogen.sh [--skip-gnulib] [--no-git]
 #
 # Usage after a git clone:              ./autogen.sh
 # Usage from a released tarball:        ./autogen.sh --skip-gnulib
@@ -42,12 +42,20 @@
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 skip_gnulib=false
+
+# Use git to update gnulib sources
+use_git=true
+
 while :; do
   case "$1" in
     --skip-gnulib) skip_gnulib=true; shift;;
+    --no-git) use_git=false; shift;;
     *) break ;;
   esac
 done
+
+$use_git || test -d "$GNULIB_SRCDIR" \
+  || die "Error: --no-git requires --gnulib-srcdir"
 
 cleanup_gnulib() {
   status=$?
@@ -90,7 +98,7 @@ if ! $skip_gnulib; then
     ;;
   *)
     # Use GNULIB_SRCDIR as a reference.
-    if test -d "$GNULIB_SRCDIR"/.git && \
+    if $use_git && test -d "$GNULIB_SRCDIR"/.git && \
           git_modules_config submodule.gnulib.url >/dev/null; then
       echo "$0: getting gnulib files..."
       if git submodule -h|grep -- --reference > /dev/null; then
