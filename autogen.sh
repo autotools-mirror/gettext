@@ -208,6 +208,7 @@ if ! $skip_gnulib; then
       gcd
       getline
       getopt-gnu
+      gettext
       gettext-h
       hash
       html-styled-ostream

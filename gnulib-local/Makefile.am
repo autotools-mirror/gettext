@@ -248,7 +248,6 @@ m4/alloca.m4 \
 m4/backupfile.m4 \
 m4/curses.m4 \
 m4/gcj.m4 \
-m4/hard-locale.m4.diff \
 m4/libcroco.m4 \
 m4/libglib.m4 \
 m4/libxml.m4 \

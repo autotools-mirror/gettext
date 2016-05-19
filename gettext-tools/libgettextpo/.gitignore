@@ -74,6 +74,8 @@
 /gl_list.h
 /gl_xlist.c
 /gl_xlist.h
+/hard-locale.c
+/hard-locale.h
 /hash.c
 /hash.h
 /iconv.c

@@ -157,6 +157,7 @@
 /test-mbrtowc2.sh
 /test-mbrtowc3.sh
 /test-mbrtowc4.sh
+/test-mbrtowc5.sh
 /test-mbsinit.c
 /test-mbsinit.sh
 /test-mbsrtowcs.c
