@@ -25,9 +25,9 @@ extern "C" {
 
 
 /* Find the standard search path for data files.  Returns a NULL
-   terminated list of strings.  If NAME is not NULL, append it to each
-   directory.  Note that it does not resolve relocated pathnames.  */
-extern char **get_search_path (const char *name);
+   terminated list of strings.  If SUB is not NULL, append it to each
+   directory.  */
+extern char **get_search_path (const char *sub);
 
 
 #ifdef __cplusplus

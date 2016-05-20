@@ -673,19 +673,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       its_dirs = get_search_path ("its");
       its_locating_rules = locating_rule_list_alloc ();
       for (dirs = its_dirs; *dirs != NULL; dirs++)
-        {
-          /* Make it possible to override the locator file location.  This
-             is necessary for running the testsuite before "make
-             install".  */
-          char *relocated = relocate (*dirs);
-          if (relocated != *dirs)
-            {
-              free (*dirs);
-              *dirs = relocated;
-            }
-
-          locating_rule_list_add_from_directory (its_locating_rules, *dirs);
-        }
+        locating_rule_list_add_from_directory (its_locating_rules, *dirs);
 
       its_basename = locating_rule_list_locate (its_locating_rules,
                                                 xml_template_name,

@@ -27,100 +27,119 @@
 #include <string.h>
 
 #include "concat-filename.h"
+#include "relocatable.h"
 #include "xalloc.h"
 #include "xmemdup0.h"
 #include "xvasprintf.h"
 
+typedef void (* foreach_function_ty) (const char *dir, size_t len, void *data);
+
+struct path_array_ty {
+  char **ptr;
+  size_t len;
+  const char *sub;
+};
+
+static void
+foreach_components (const char *dirs, foreach_function_ty function, void *data)
+{
+  const char *start = dirs;
+
+  /* Count the number of valid components in GETTEXTDATADIRS.  */
+  while (*start != '\0')
+    {
+      char *end = strchrnul (start, ':');
+
+      /* Skip empty component.  */
+      if (start != end)
+        function (start, end - start, data);
+
+      if (*end == '\0')
+        break;
+
+      start = end + 1;
+    }
+}
+
+static void
+increment (const char *dir, size_t len, void *data)
+{
+  size_t *count = data;
+  (*count)++;
+}
+
+static void
+fill (const char *dir, size_t len, void *data)
+{
+  struct path_array_ty *array = data;
+  char *base, *name;
+
+  base = xmemdup0 (dir, len);
+  if (array->sub == NULL)
+    name = base;
+  else
+    {
+      name = xconcatenated_filename (base, array->sub, NULL);
+      free (base);
+    }
+
+  array->ptr[array->len++] = name;
+}
+
 /* Find the standard search path for data files.  Returns a NULL
    terminated list of strings.  */
 char **
-get_search_path (const char *name)
+get_search_path (const char *sub)
 {
-  char **result;
   const char *gettextdatadir;
   const char *gettextdatadirs;
-  char *base, *dir;
-  size_t n_dirs = 2;
+  struct path_array_ty array;
+  char *base, *name;
+  size_t count = 2;
 
   gettextdatadirs = getenv ("GETTEXTDATADIRS");
-
-  /* If GETTEXTDATADIRS is not set, fallback to XDG_DATA_DIRS.  */
-  if (gettextdatadirs == NULL || *gettextdatadirs == '\0')
-    gettextdatadirs = getenv ("XDG_DATA_DIRS");
-
   if (gettextdatadirs != NULL)
-    {
-      const char *start = gettextdatadirs;
+    foreach_components (gettextdatadirs, increment, &count);
 
-      /* Count the number of valid elements in GETTEXTDATADIRS.  */
-      while (*start != '\0')
-        {
-          char *end = strchrnul (start, ':');
+  gettextdatadirs = getenv ("XDG_DATA_DIRS");
+  if (gettextdatadirs != NULL)
+    foreach_components (gettextdatadirs, increment, &count);
 
-          /* Skip empty element.  */
-          if (start != end)
-            n_dirs++;
-
-          if (*end == '\0')
-            break;
-
-          start = end + 1;
-        }
-    }
-
-  result = XCALLOC (n_dirs + 1, char *);
-
-  n_dirs = 0;
+  array.ptr = XCALLOC (count + 1, char *);
+  array.len = 0;
+  array.sub = sub;
 
   gettextdatadir = getenv ("GETTEXTDATADIR");
   if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-    gettextdatadir = GETTEXTDATADIR;
+    /* Make it possible to override the locator file location.  This
+       is necessary for running the testsuite before "make
+       install".  */
+    gettextdatadir = relocate (GETTEXTDATADIR);
 
-  if (name == NULL)
-    dir = xstrdup (gettextdatadir);
+  if (sub == NULL)
+    name = xstrdup (gettextdatadir);
   else
-    dir = xconcatenated_filename (gettextdatadir, name, NULL);
-  result[n_dirs++] = dir;
+    name = xconcatenated_filename (gettextdatadir, sub, NULL);
+  array.ptr[array.len++] = name;
 
+  gettextdatadirs = getenv ("GETTEXTDATADIRS");
   if (gettextdatadirs != NULL)
-    {
-      const char *start = gettextdatadirs;
+    foreach_components (gettextdatadirs, fill, &array);
 
-      /* Count the number of valid elements in GETTEXTDATADIRS.  */
-      while (*start != '\0')
-        {
-          char *end = strchrnul (start, ':');
+  gettextdatadirs = getenv ("XDG_DATA_DIRS");
+  if (gettextdatadirs != NULL)
+    foreach_components (gettextdatadirs, fill, &array);
 
-          /* Skip empty element.  */
-          if (start != end)
-            {
-              base = xmemdup0 (start, end - start);
-              if (name == NULL)
-                dir = base;
-              else
-                {
-                  dir = xconcatenated_filename (base, name, NULL);
-                  free (base);
-                }
-              result[n_dirs++] = dir;
-            }
-
-          if (*end == '\0')
-            break;
-
-          start = end + 1;
-        }
-    }
-
+  /* Append version specific directory.  */
   base = xasprintf ("%s%s", gettextdatadir, PACKAGE_SUFFIX);
-  if (name == NULL)
-    dir = base;
+  if (sub == NULL)
+    name = base;
   else
     {
-      dir = xconcatenated_filename (base, name, NULL);
+      name = xconcatenated_filename (base, sub, NULL);
       free (base);
     }
-  result[n_dirs++] = dir;
+  array.ptr[array.len++] = name;
 
-  return result;
+  return array.ptr;
 }
