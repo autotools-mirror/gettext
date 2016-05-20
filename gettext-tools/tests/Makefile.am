@@ -113,7 +113,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-vala-1 \
 	xgettext-gsettings-1 \
 	xgettext-desktop-1 \
-	xgettext-its-1 \
+	xgettext-its-1 xgettext-its-2 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
