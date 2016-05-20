@@ -41,16 +41,16 @@ struct path_array_ty {
 };
 
 static void
-foreach_components (const char *dirs, foreach_function_ty function, void *data)
+foreach_elements (const char *dirs, foreach_function_ty function, void *data)
 {
   const char *start = dirs;
 
-  /* Count the number of valid components in GETTEXTDATADIRS.  */
+  /* Count the number of valid elements in GETTEXTDATADIRS.  */
   while (*start != '\0')
     {
       char *end = strchrnul (start, ':');
 
-      /* Skip empty component.  */
+      /* Skip empty element.  */
       if (start != end)
         function (start, end - start, data);
 
@@ -87,7 +87,12 @@ fill (const char *dir, size_t len, void *data)
 }
 
 /* Find the standard search path for data files.  Returns a NULL
-   terminated list of strings.  */
+   terminated list of strings.  The order in the path is as follows:
+
+   1. $GETTEXTDATADIR or GETTEXTDATADIR
+   2. $GETTEXTDATADIRS
+   3. $XDG_DATA_DIRS, where each element is suffixed with "gettext"
+   4. $GETTEXTDATADIR or GETTEXTDATADIR, suffixed with PACKAGE_SUFFIX  */
 char **
 get_search_path (const char *sub)
 {
@@ -99,15 +104,14 @@ get_search_path (const char *sub)
 
   gettextdatadirs = getenv ("GETTEXTDATADIRS");
   if (gettextdatadirs != NULL)
-    foreach_components (gettextdatadirs, increment, &count);
+    foreach_elements (gettextdatadirs, increment, &count);
 
   gettextdatadirs = getenv ("XDG_DATA_DIRS");
   if (gettextdatadirs != NULL)
-    foreach_components (gettextdatadirs, increment, &count);
+    foreach_elements (gettextdatadirs, increment, &count);
 
   array.ptr = XCALLOC (count + 1, char *);
   array.len = 0;
-  array.sub = sub;
 
   gettextdatadir = getenv ("GETTEXTDATADIR");
   if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
@@ -116,19 +120,29 @@ get_search_path (const char *sub)
        install".  */
     gettextdatadir = relocate (GETTEXTDATADIR);
 
+  /* Append element from GETTEXTDATADIR.  */
   if (sub == NULL)
     name = xstrdup (gettextdatadir);
   else
     name = xconcatenated_filename (gettextdatadir, sub, NULL);
   array.ptr[array.len++] = name;
 
+  /* Append elements from GETTEXTDATADIRS.  */
+  array.sub = sub;
   gettextdatadirs = getenv ("GETTEXTDATADIRS");
   if (gettextdatadirs != NULL)
-    foreach_components (gettextdatadirs, fill, &array);
+    foreach_elements (gettextdatadirs, fill, &array);
 
+  /* Append elements from XDG_DATA_DIRS.  Note that each element needs
+     to have "gettext" suffix.  */
+  if (sub == NULL)
+    array.sub = xstrdup ("gettext");
+  else
+    array.sub = xconcatenated_filename ("gettext", sub, NULL);
   gettextdatadirs = getenv ("XDG_DATA_DIRS");
   if (gettextdatadirs != NULL)
-    foreach_components (gettextdatadirs, fill, &array);
+    foreach_elements (gettextdatadirs, fill, &array);
+  free (array.sub);
 
   /* Append version specific directory.  */
   base = xasprintf ("%s%s", gettextdatadir, PACKAGE_SUFFIX);
