@@ -54,6 +54,8 @@ cat <<\EOF > f-js-1.data
 "abc%+1$d"
 # Invalid: mixing of numbered and unnumbered arguments
 "abc%d%2$x"
+# Valid: multiple uses of same argument
+"abc%2$xdef%1$sghi%2$x"
 EOF
 
 : ${XGETTEXT=xgettext}
