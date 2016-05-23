@@ -381,9 +381,10 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
           {
             if (spec1->numbered[i].number == spec2->numbered[j].number)
               {
-                if (!equality
-                    && (spec1->numbered[i].type == FAT_ANY
-                        || spec2->numbered[i].type == FAT_ANY))
+                if (!(spec1->numbered[i].type == spec2->numbered[j].type
+                      || (!equality
+                          && (spec1->numbered[i].type == FAT_ANY
+                              || spec2->numbered[i].type == FAT_ANY))))
                   {
                     if (error_logger)
                       error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
