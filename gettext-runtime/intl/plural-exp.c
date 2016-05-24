@@ -25,9 +25,7 @@
 
 #include "plural-exp.h"
 
-#if (defined __GNUC__ && !(defined __APPLE_CC_ && __APPLE_CC__ > 1) \
-     && !defined __cplusplus)                                       \
-    || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)
+#if HAVE_STRUCT_INITIALIZER
 
 /* These structs are the constant expression for the germanic plural
    form determination.  It represents the expression  "n != 1".  */
