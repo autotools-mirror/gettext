@@ -14,6 +14,8 @@
   - Improve OS/2 kLIBC support.
   - Fix libintl compilation issue with pre-C99 compilers.  It was a
     regression since 0.19.5.
+  - The AM_GNU_GETTEXT macro can now detect musl-libc's gettext
+    implementation.
 
 Version 0.19.7 - December 2015
 
