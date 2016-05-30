@@ -1105,7 +1105,7 @@ Operation mode:\n"));
       printf (_("\
       --check=NAME            perform syntax check on messages\n\
                                 (ellipsis-unicode, space-ellipsis,\n\
-                                 quote-unicode)\n"));
+                                 quote-unicode, bullet-unicode)\n"));
       printf (_("\
       --sentence-end=TYPE     type describing the end of sentence\n\
                                 (single-space, which is the default, \n\
