@@ -142,7 +142,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	format-lua-1 format-lua-2 \
 	format-javascript-1 format-javascript-2 \
 	plural-1 plural-2 \
-	gettextpo-1 sentence \
+	gettextpo-1 sentence-1 \
 	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python-1 \
 	lang-python-2 lang-clisp lang-elisp lang-librep lang-guile \
 	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
@@ -216,7 +216,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence
+check_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
@@ -260,9 +260,9 @@ gettextpo_1_prg_CPPFLAGS = \
 # Don't add more libraries here. This test must check whether libgettextpo is
 # self contained.
 gettextpo_1_prg_LDADD = ../libgettextpo/libgettextpo.la $(LDADD)
-sentence_SOURCES = sentence.c
-sentence_CPPFLAGS = $(AM_CPPFLAGS) -I../src -I$(top_srcdir)/src
-sentence_LDADD = ../src/libgettextsrc.la $(LDADD)
+sentence_1_prg_SOURCES = sentence-1-prg.c
+sentence_1_prg_CPPFLAGS = $(AM_CPPFLAGS) -I../src -I$(top_srcdir)/src
+sentence_1_prg_LDADD = ../src/libgettextsrc.la $(LDADD)
 
 # Clean up after Solaris cc.
 clean-local:
