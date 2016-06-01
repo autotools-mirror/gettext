@@ -43,7 +43,7 @@ This is a primary sentence.
 This is a secondary sentence
 
 2
-This is a primary sentence.　
+This is a primary sentence. 
 This is a secondary sentence
 
 2
@@ -97,8 +97,9 @@ This is a secondary sentence
 . 
 This is a secondary sentence
 
-FFFD
-
+2E
+. 
+This is a secondary sentence
 
 2E
 .	This is a secondary sentence
