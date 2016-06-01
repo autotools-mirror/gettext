@@ -28,35 +28,49 @@
 int
 main (int argc, char **argv)
 {
-  char buffer[1024];
-
   while (1)
     {
+      char buffer[1024];
       const char *result;
       ucs4_t ending_char;
-      char *p;
+      char *p, *newline;
 
-      if (!fgets (buffer, sizeof buffer, stdin))
+      memset (buffer, 0, sizeof buffer);
+
+      /* Read REQUIRED_SPACES parameter.  */
+      if (!fgets (buffer, sizeof (buffer) - 1, stdin))
         break;
+
+      newline = strchr (buffer, '\n');
+      if (!newline)
+        return 1;
+      *newline = '\0';
 
       sentence_end_required_spaces = atoi (buffer);
 
-      memset (buffer, 0, sizeof buffer);
+      /* Collect lines until an empty line is read.  */
       p = buffer;
       while (1)
         {
-          p = fgets (p, sizeof buffer - (buffer - p), stdin);
-          if (p == NULL)
+          p = fgets (p, sizeof (buffer) - (p - buffer) - 1, stdin);
+          if (!p)
             break;
+
           if (*p == '\n')
             break;
-          p = strchr (p, '\n') + 1;
+
+          newline = strchr (p, '\n');
+          if (!newline)
+            return 1;
+
+          p = newline + 1;
+          *p = '\0';
         }
+
       if (p == NULL)
         break;
 
-      *(p - 1) = '\0';
-
+      *newline = '\0';
       result = sentence_end (buffer, &ending_char);
       printf ("%X\n%s\n\n", ending_char, result);
     }
