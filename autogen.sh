@@ -432,48 +432,37 @@ if ! test -f gettext-tools/misc/archive.dir.tar; then
   test $retval -eq 0 || exit $retval
 fi
 
-# Automake requires that ChangeLog exist.
-for dir in . gettext-runtime gettext-runtime/libasprintf \
-           gettext-tools gettext-tools/examples \
-	   gettext-runtime/intl gettext-runtime/po gettext-tools/po; do
-  cat > "$dir/ChangeLog" <<\EOF
-No more ChangeLog files
-========================
-Do not modify any of the ChangeLog files in gettext.  Starting on
-October 14th, 2015 we put changelog information only in the git commit
-log, and generate a top-level ChangeLog file from logs at "make dist"
-time.
-
-Local Variables:
-buffer-read-only: t
-mode: text
-End:
-EOF
-done
-
 # Generate configure script in each subdirectories.
-(cd gettext-runtime/libasprintf
- echo "$0: generating configure in gettext-runtime/libasprintf..."
- aclocal -I ../../m4 -I ../m4 -I gnulib-m4
- autoconf
- autoheader && touch config.h.in
- automake --add-missing --copy
-)
+dir0=`pwd`
 
-(cd gettext-runtime
- echo "$0: generating configure in gettext-runtime..."
- aclocal -I m4 -I ../m4 -I gnulib-m4
- autoconf
- autoheader && touch config.h.in
- automake --add-missing --copy
-)
+echo "$0: generating configure in gettext-runtime/libasprintf..."
+cd gettext-runtime/libasprintf
+aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
+  && autoconf \
+  && autoheader \
+  && touch ChangeLog config.h.in \
+  && automake --add-missing --copy \
+  || exit $?
+cd "$dir0"
 
-(cd gettext-tools/examples
- echo "$0: generating configure in gettext-tools/examples..."
- aclocal -I ../../gettext-runtime/m4 -I ../../m4
- autoconf
- automake --add-missing --copy
-)
+echo "$0: generating configure in gettext-runtime..."
+cd gettext-runtime
+aclocal -I m4 -I ../m4 -I gnulib-m4 \
+  && autoconf \
+  && autoheader \
+  && touch ChangeLog config.h.in \
+  && automake --add-missing --copy \
+  || exit $?
+cd "$dir0"
+
+echo "$0: generating configure in gettext-tools/examples..."
+cd gettext-tools/examples
+aclocal -I ../../gettext-runtime/m4 -I ../../m4 \
+  && autoconf \
+  && touch ChangeLog \
+  && automake --add-missing --copy \
+  || exit $?
+cd "$dir0"
 
 echo "$0: copying common files from gettext-runtime to gettext-tools..."
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
@@ -499,15 +488,16 @@ for file in intl.m4 po.m4; do
   fi
 done
 
-(cd gettext-tools
- echo "$0: generating configure in gettext-tools..."
- aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4
- autoconf
- autoheader && touch config.h.in
- test -d intl || mkdir intl
- automake --add-missing --copy
-)
+echo "$0: generating configure in gettext-tools..."
+cd gettext-tools
+aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 \
+  && autoconf \
+  && autoheader && touch ChangeLog config.h.in \
+  && test -d intl || mkdir intl \
+  && automake --add-missing --copy \
+  || exit $?
+cd "$dir0"
 
-aclocal -I m4
-autoconf
-automake
+aclocal -I m4 && autoconf && touch ChangeLog && automake || exit $?
+
+echo "$0: done.  Now you can run './configure'."
