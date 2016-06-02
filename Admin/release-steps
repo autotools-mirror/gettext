@@ -20,7 +20,10 @@ We assume that the following environment variables are set:
     ./configure
     make
     make dist
-    make distcheck
+
+    # To prevent auto-updating '.version' file by GNUmakefile due to
+    # regenerated PO files, specify Makefile manually.
+    make -f Makefile distcheck
 
   Then you will get a distribution tarball:
 
@@ -69,14 +72,19 @@ We assume that the following environment variables are set:
 
   - gettext-runtime/po/Makefile.in.in
 
-    Update Origin version, if this file has changed since the last
-    release.
+    Update Origin version.
 
-  - gettext-runtime/m4/po.m4
+  - gettext-runtime/m4/*.m4
+
+    Update version at the first line.
+
   - gettext-runtime/intl/libgnuintl.in.h
+
+    Update LIBINTL_VERSION.
+
   - gettext-tools/libgettextpo/gettext-po.in.h
 
-    Update the version numbers, if there is any change.
+    Update LIBGETTEXTPO_VERSION.
 
   - gettext-runtime/intl/Makefile.in
   - gettext-tools/libgettextpo/Makefile.am
@@ -92,25 +100,27 @@ We assume that the following environment variables are set:
 
   - gettext-tools/misc/po-mode.el
 
-    Bump po-mode-version-string.
+    Update po-mode-version-string, if there is any change.
 
   - NEWS
   - gettext-runtime/libasprintf/NEWS
   - gettext-runtime/NEWS
 
+    Add news entries if any.
+
   - djgpp/*
+
+    Update to the latest upstream.
 
 ** Update autopoint related files:
 
   - gettext-tools/configure.ac
 
-    Update ARCHIVE_VERSION
+    Update ARCHIVE_VERSION.
 
   - gettext-tools/misc/autopoint.in
 
-    Update the case statement around line 371 to include the latest release.
-
-  and commit the changes.
+    Update the 'case' statement around line 371 to include the latest release.
 
 ** Once you get enough translation updates, update translations:
 
@@ -139,7 +149,10 @@ We assume that the following environment variables are set:
     make dist
     (cd gettext-tools/misc
      ./add-to-archive ../../gettext-$CURRENT_VERSION.tar.gz)
-    make distcheck
+
+    # To prevent auto-updating '.version' file by GNUmakefile due to
+    # regenerated PO files, specify Makefile manually.
+    make -f Makefile distcheck
 
 ** Upload tarballs:
 
