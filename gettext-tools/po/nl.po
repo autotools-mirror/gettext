@@ -1,17 +1,17 @@
 # Dutch translations for gettext-tools.
-# Copyright (C) 2015 Free Software Foundation, Inc.
+# Copyright (C) 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
 # "Voor de wind."
 #
 # Erick Branderhorst <Erick.Branderhorst@asml.nl>, 1996.
-# Benno Schulenberg <benno@vertaalt.nl>, 2007, 2008, 2014, 2015.
+# Benno Schulenberg <benno@vertaalt.nl>, 2007, 2008, 2014, 2015, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools-0.19.6.43\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2015-12-11 12:54+0900\n"
-"PO-Revision-Date: 2015-12-12 13:55+0100\n"
+"PO-Revision-Date: 2016-05-30 21:52+0200\n"
 "Last-Translator: Benno Schulenberg <benno@vertaalt.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "Language: nl\n"
@@ -1440,7 +1440,7 @@ msgid ""
 "you have translated each and every message in your program.  Where an exact\n"
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
-"Twee PO-bestaden in Uniforum-stijl vergelijken en controleren dat beide\n"
+"Vergelijkt twee PO-bestaden in Uniforum-stijl en controleert dat beide\n"
 "dezelfde set msgid's bevatten.  Het bestand 'bestaande.po' is een bestaand\n"
 "PO-bestand met oude vertalingen; het bestand 'referentie.pot' is het laatst\n"
 "aangemaakte PO-bestand, of een een POT-bestand (gewoonlijk aangemaakt door\n"
@@ -3359,9 +3359,9 @@ msgid "'%s' is not a valid encoding name.  Using ASCII as fallback.\n"
 msgstr ""
 
 #: src/xgettext.c:648
-#, fuzzy, c-format
+#, c-format
 msgid "syntax check '%s' unknown"
-msgstr "taal '%s' is onbekend"
+msgstr "syntaxcontrole '%s' is onbekend"
 
 #: src/xgettext.c:657
 #, c-format
@@ -3576,9 +3576,9 @@ msgid "      --its=FILE              apply ITS rules from FILE\n"
 msgstr ""
 
 #: src/xgettext.c:1198
-#, fuzzy, c-format
+#, c-format
 msgid "      --itstool               write out itstool comments\n"
-msgstr "  -s, --short                 korte hostnaam\n"
+msgstr ""
 
 #: src/xgettext.c:1211
 #, c-format
@@ -3903,7 +3903,7 @@ msgstr "ongeldige tekenreferentie: %s"
 
 #: libgettextpo/markup.c:526
 msgid "not a valid number specification"
-msgstr ""
+msgstr "geen geldige nummerspecificatie"
 
 #: libgettextpo/markup.c:535 libgettextpo/markup.c:606
 msgid "no ending ';'"

@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.19.6.43\n"
+"Project-Id-Version: GNU gettext-tools 0.19.7-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2015-12-11 12:54+0900\n"
-"PO-Revision-Date: 2015-12-13 10:15+0100\n"
+"POT-Creation-Date: 2015-12-22 17:59+0900\n"
+"PO-Revision-Date: 2015-12-31 00:56+0100\n"
 "Last-Translator: Antonio Ceballos <aceballos@gmail.com>\n"
 "Language-Team: Spanish <es@tp.org.es>\n"
 "Language: es\n"
@@ -320,8 +320,8 @@ msgstr "el subproceso %s ha recibido una señal fatal %d"
 
 #: src/cldr-plurals.c:69
 #, c-format
-msgid "The root element <%s> is not allowed in a valid CLDR file"
-msgstr "El elemento raíz <%s> no se permite en un fichero CLDR válido"
+msgid "The root element must be <%s>"
+msgstr "El elemento raíz debe ser <%s>"
 
 #: src/cldr-plurals.c:83
 #, c-format
@@ -333,7 +333,7 @@ msgstr "El elemento <%s> no contiene un elemento <%s>"
 msgid "The element <%s> does not have attribute <%s>"
 msgstr "El elemento <%s> no tiene un atributo <%s>"
 
-#: src/cldr-plurals.c:189 src/hostname.c:210 src/msgattrib.c:418
+#: src/cldr-plurals.c:191 src/hostname.c:210 src/msgattrib.c:418
 #: src/msgcat.c:364 src/msgcmp.c:210 src/msgcomm.c:356 src/msgconv.c:304
 #: src/msgen.c:301 src/msgexec.c:260 src/msgfilter.c:410 src/msgfmt.c:914
 #: src/msggrep.c:513 src/msginit.c:359 src/msgmerge.c:495 src/msgunfmt.c:424
@@ -343,12 +343,12 @@ msgstr "El elemento <%s> no tiene un atributo <%s>"
 msgid "Try '%s --help' for more information.\n"
 msgstr "Pruebe '%s --help' para más información.\n"
 
-#: src/cldr-plurals.c:193
+#: src/cldr-plurals.c:195
 #, c-format
 msgid "Usage: %s [OPTION...] [LOCALE RULES]...\n"
 msgstr "Modo de empleo: %s [OPCIÓN...] [REGIÓN REGLAS]...\n"
 
-#: src/cldr-plurals.c:198
+#: src/cldr-plurals.c:200
 #, c-format, no-wrap
 msgid ""
 "Extract or convert Unicode CLDR plural rules.\n"
@@ -363,7 +363,7 @@ msgstr ""
 "para la REGIÓN en REGLAS y las imprime en un formato adecuado para gettext.\n"
 "Si no se pone ningún argumento, lee las reglas de plurales CLDR de la entradaestándar.\n"
 
-#: src/cldr-plurals.c:207 src/msgfmt.c:927 src/xgettext.c:1057
+#: src/cldr-plurals.c:209 src/msgfmt.c:927 src/xgettext.c:1057
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -372,12 +372,12 @@ msgstr ""
 "Los argumentos obligatorios en las opciones largas también lo son para las \n"
 "opciones cortas. De forma similar se comportan los argumentos opcionales.\n"
 
-#: src/cldr-plurals.c:212
+#: src/cldr-plurals.c:214
 #, c-format
 msgid "  -c, --cldr                  print plural rules in the CLDR format\n"
 msgstr "  -c, --cldr                  imprime las reglas de plurales en formato CLDR\n"
 
-#: src/cldr-plurals.c:214 src/hostname.c:233 src/msgattrib.c:537
+#: src/cldr-plurals.c:216 src/hostname.c:233 src/msgattrib.c:537
 #: src/msgcat.c:472 src/msgcmp.c:261 src/msgcomm.c:458 src/msgconv.c:388
 #: src/msgen.c:384 src/msgexec.c:309 src/msgfilter.c:510 src/msgfmt.c:1080
 #: src/msggrep.c:631 src/msginit.c:423 src/msgmerge.c:622 src/msgunfmt.c:530
@@ -387,7 +387,7 @@ msgstr "  -c, --cldr                  imprime las reglas de plurales en formato 
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  muestra esta ayuda y finaliza\n"
 
-#: src/cldr-plurals.c:216 src/hostname.c:235 src/msgattrib.c:539
+#: src/cldr-plurals.c:218 src/hostname.c:235 src/msgattrib.c:539
 #: src/msgcat.c:474 src/msgcmp.c:263 src/msgcomm.c:460 src/msgconv.c:390
 #: src/msgen.c:386 src/msgexec.c:311 src/msgfilter.c:512 src/msgfmt.c:1082
 #: src/msggrep.c:633 src/msginit.c:425 src/msgmerge.c:624 src/msgunfmt.c:532
@@ -401,7 +401,7 @@ msgstr "  -V, --version               muestra la versión y finaliza\n"
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/cldr-plurals.c:223 src/hostname.c:242 src/msgattrib.c:546
+#: src/cldr-plurals.c:225 src/hostname.c:242 src/msgattrib.c:546
 #: src/msgcat.c:481 src/msgcmp.c:270 src/msgcomm.c:467 src/msgconv.c:397
 #: src/msgen.c:393 src/msgexec.c:318 src/msgfilter.c:519 src/msgfmt.c:1093
 #: src/msggrep.c:640 src/msginit.c:432 src/msgmerge.c:635 src/msgunfmt.c:541
@@ -410,7 +410,7 @@ msgstr "  -V, --version               muestra la versión y finaliza\n"
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Comunicar los `bugs' a <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/cldr-plurals.c:287 src/hostname.c:181 src/msgattrib.c:356
+#: src/cldr-plurals.c:289 src/hostname.c:181 src/msgattrib.c:356
 #: src/msgcat.c:295 src/msgcmp.c:173 src/msgcomm.c:286 src/msgconv.c:245
 #: src/msgen.c:242 src/msgexec.c:187 src/msgfilter.c:289 src/msgfmt.c:444
 #: src/msggrep.c:420 src/msginit.c:269 src/msgmerge.c:357 src/msgunfmt.c:263
@@ -428,7 +428,7 @@ msgstr ""
 "Esto es software libre: es usted libre de cambiarlo y redistribuirlo.\n"
 "SIN NINGUNA GARANTÍA, dentro de los límites legales.\n"
 
-#: src/cldr-plurals.c:293 src/hostname.c:187 src/msgattrib.c:362
+#: src/cldr-plurals.c:295 src/hostname.c:187 src/msgattrib.c:362
 #: src/msgcat.c:301 src/msgcmp.c:179 src/msgcomm.c:292 src/msgconv.c:251
 #: src/msgen.c:248 src/msgexec.c:193 src/msgfilter.c:295 src/msgfmt.c:450
 #: src/msggrep.c:426 src/msginit.c:275 src/msgmerge.c:363 src/msgunfmt.c:269
@@ -438,26 +438,26 @@ msgid "Written by %s.\n"
 msgstr "Escrito por %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cldr-plurals.c:293
+#: src/cldr-plurals.c:295
 msgid "Daiki Ueno"
 msgstr "Daiki Ueno"
 
-#: src/cldr-plurals.c:313
+#: src/cldr-plurals.c:315
 #, c-format
 msgid "%s cannot be read"
 msgstr "%s no se puede leer"
 
-#: src/cldr-plurals.c:319
+#: src/cldr-plurals.c:321
 #, c-format
 msgid "cannot extract rules for %s"
 msgstr "no se pueden extraer las reglas para %s"
 
-#: src/cldr-plurals.c:329
+#: src/cldr-plurals.c:331
 #, c-format
 msgid "cannot parse CLDR rule"
 msgstr "no se puede analizar la regla CLDR"
 
-#: src/cldr-plurals.c:364
+#: src/cldr-plurals.c:366
 #, c-format
 msgid "extra operand %s"
 msgstr "operando extra %s"
@@ -937,7 +937,7 @@ msgstr "no se pudo obtener el nombre de la máquina"
 msgid "selector is not specified"
 msgstr "no se ha especificado selector"
 
-#: src/its.c:326 src/its.c:1548
+#: src/its.c:326 src/its.c:1550
 #, c-format
 msgid "cannot create XPath context"
 msgstr "no se puede crear el contexto XPath"
@@ -962,13 +962,13 @@ msgstr "el valor del atributo \"%s\" no es válido para \"%s\""
 msgid "the root element is not \"rules\" under namespace %s"
 msgstr "el elemento raíz no es \"rules\" en el espacio de nombres %s"
 
-#: src/its.c:1376 src/its.c:1402 src/its.c:1793 src/its.c:1912
+#: src/its.c:1376 src/its.c:1402 src/its.c:1795 src/its.c:1914
 #: src/locating-rule.c:170
 #, c-format
 msgid "cannot read %s: %s"
 msgstr "no se puede leer %s: %s"
 
-#: src/its.c:1571
+#: src/its.c:1573
 #, c-format
 msgid "cannot evaluate XPath location path: %s"
 msgstr "no se puede evaluar la ruta en la que está ubicado el XPath: %s"
@@ -4563,6 +4563,9 @@ msgstr "dentro de un comentario o de una instrucción de procesamiento"
 #, c-format
 msgid "document ended unexpectedly: %s"
 msgstr "documento finalizado de forma inesperada: %s"
+
+#~ msgid "The root element <%s> is not allowed in a valid CLDR file"
+#~ msgstr "El elemento raíz <%s> no se permite en un fichero CLDR válido"
 
 #~ msgid "Missing context for the string extracted from '%s' element"
 #~ msgstr "No hay contexto para la cadena extraída del elemento '%s'"
