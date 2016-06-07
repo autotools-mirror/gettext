@@ -450,7 +450,7 @@ cd gettext-runtime
 aclocal -I m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
   && autoheader \
-  && touch ChangeLog config.h.in \
+  && touch ChangeLog intl/ChangeLog config.h.in \
   && automake --add-missing --copy \
   || exit $?
 cd "$dir0"
