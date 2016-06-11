@@ -237,8 +237,8 @@ libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
 # according to the libtool documentation, section "Library interface versions".
 # Maintainers of other packages that include the intl directory must *not*
 # change these values.
-LTV_CURRENT=10
-LTV_REVISION=4
+LTV_CURRENT=9
+LTV_REVISION=5
 LTV_AGE=1
 
 .SUFFIXES:
