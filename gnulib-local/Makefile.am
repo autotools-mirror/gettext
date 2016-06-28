@@ -268,8 +268,6 @@ m4/termcap.m4 \
 m4/terminfo.m4 \
 m4/term-ostream.m4 \
 m4/unionwait.m4 \
-Makefile \
-Makefile.in \
 modules/backupfile \
 modules/basename \
 modules/closeout \
