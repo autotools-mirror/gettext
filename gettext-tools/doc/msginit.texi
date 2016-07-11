@@ -41,7 +41,9 @@ The value is first looked up from the embedded table.
 
 As an experimental feature, you can instruct @code{msginit} to use the
 information from Unicode CLDR, by setting the @code{GETTEXTCLDRDIR}
-environment variable.
+environment variable.  The program will look for a file named
+@code{common/supplemental/plurals.xml} under that directory.  You can
+get the CLDR data from @url{http://cldr.unicode.org/}.
 
 @end table
 
