@@ -3518,10 +3518,12 @@ Write to your team?  ('n' if writing to the Translation Project robot) ")))
             (re-search-forward
              (concat "^" (regexp-quote mail-header-separator) "\n"))
             (save-excursion
-              (insert-buffer-substring buffer)
-              (shell-command-on-region
-               (region-beginning) (region-end)
-               (concat po-gzip-uuencode-command " " name ".gz") t t))))))
+              (save-restriction
+                (narrow-to-region (point) (point))
+                (insert-buffer-substring buffer)
+                (shell-command-on-region
+                 (point-min) (point-max)
+                 (concat po-gzip-uuencode-command " " name ".gz") t t)))))))
   (message ""))
 
 (defun po-confirm-and-quit ()
