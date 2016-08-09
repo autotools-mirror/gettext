@@ -681,11 +681,6 @@ for file in *; do
       func_linkorcopy $file "$gettext_datadir/$file" $file
       ;;
     config.rpath)
-      if test -f "$srcdir/$auxdir$file"; then
-        :
-      else
-        added_extradist="$added_extradist $auxdir$file"
-      fi
       func_linkorcopy $file "$gettext_datadir/$file" "$auxdir$file"
       ;;
   esac
