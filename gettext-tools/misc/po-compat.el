@@ -179,6 +179,8 @@ Content-Type into a Mule coding system.")
              (if (re-search-forward charset-regexp nil t)
                  (match-string 1))))))
 
+;;;###autoload (autoload 'po-find-file-coding-system "po-compat")
+
 (eval-and-compile
   (if po-EMACS20
       (defun po-find-file-coding-system-guts (operation filename)

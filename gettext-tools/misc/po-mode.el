@@ -1171,6 +1171,7 @@ Initialize or replace current translation with the original message"))])
     po-mode-map)
   "Keymap for PO mode.")
 
+;;;###autoload
 (defun po-mode ()
   "Major mode for translators when they edit PO files.
 
@@ -3577,6 +3578,9 @@ strings remain."
             (progn
               (save-buffer)
               (kill-buffer (current-buffer)))))))
+
+;;;###autoload (add-to-list 'auto-mode-alist '("\\.po[tx]?\\'\\|\\.po\\." . po-mode))
+;;;###autoload (modify-coding-system-alist 'file "\\.po[tx]?\\'\\|\\.po\\." 'po-find-file-coding-system)
 
 (provide 'po-mode)
 
