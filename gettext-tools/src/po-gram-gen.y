@@ -221,14 +221,11 @@ message
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
                   if (!$1.obsolete || pass_obsolete_entries)
-                    {
-                      do_callback_message ($1.ctxt, string2, &$1.pos, $3.string,
-                                           $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
-                                           $1.prev_ctxt,
-                                           $1.prev_id, $1.prev_id_plural,
-                                           $1.obsolete);
-                      free ($3.string);
-                    }
+                    do_callback_message ($1.ctxt, string2, &$1.pos, $3.string,
+                                         $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
+                                         $1.prev_ctxt,
+                                         $1.prev_id, $1.prev_id_plural,
+                                         $1.obsolete);
                   else
                     {
                       free_message_intro ($1);

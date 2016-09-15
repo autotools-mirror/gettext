@@ -397,6 +397,8 @@ default_add_message (default_catalog_reader_ty *this,
          appropriate.  */
       mp = message_alloc (msgctxt, msgid, msgid_plural, msgstr, msgstr_len,
                           msgstr_pos);
+      if (msgid_plural != NULL)
+        free (msgid_plural);
       mp->prev_msgctxt = prev_msgctxt;
       mp->prev_msgid = prev_msgid;
       mp->prev_msgid_plural = prev_msgid_plural;
