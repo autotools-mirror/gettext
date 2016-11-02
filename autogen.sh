@@ -19,7 +19,7 @@
 #
 # This script requires:
 #   - Autoconf
-#   - Automake
+#   - Automake >= 1.13
 #   - Wget
 #   - Git
 #   - XZ Utils

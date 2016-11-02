@@ -11,7 +11,7 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       http://gcc.gnu.org/
 
-  * GNU automake
+  * GNU automake 1.13 or newer
     + Homepage:
       http://www.gnu.org/software/automake/
 
@@ -59,6 +59,14 @@ You will need reasonably recent versions of the build tools:
   * GNU tar (for creating distributable tarballs)
     + Homepage:
       http://www.gnu.org/software/tar/
+
+  * GNU Wget
+    + Homepage:
+      https://www.gnu.org/software/wget/
+
+  * XZ Utils
+    + Homepage:
+      http://tukaani.org/xz/
 
 And, of course, the packages listed in the DEPENDENCIES file.
 
