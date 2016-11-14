@@ -634,7 +634,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	  for (;;)
 	    {
 	      resolved_dirname = (char *) alloca (path_max + dirname_len);
-	      ADD_BLOCK (block_list, tmp_dirname);
+	      ADD_BLOCK (block_list, resolved_dirname);
 
 	      __set_errno (0);
 	      ret = getcwd (resolved_dirname, path_max);
