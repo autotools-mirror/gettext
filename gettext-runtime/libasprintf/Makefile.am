@@ -172,6 +172,6 @@ uninstall-html:
 EXTRA_DIST += texi2html autosprintf_all.html
 
 
-# Woe32 support.
+# Windows support.
 
-EXTRA_DIST += README.woe32
+EXTRA_DIST += README.windows

@@ -50,9 +50,9 @@ $(srcdir)/ABOUT-NLS: $(srcdir)/../gettext-runtime/ABOUT-NLS
 EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 
-# Woe32 support.
+# Windows support.
 
-EXTRA_DIST += README.woe32
+EXTRA_DIST += README.windows
 
 
 # Cygwin support.

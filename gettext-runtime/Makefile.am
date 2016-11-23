@@ -53,9 +53,10 @@ ABOUT-NLS: $(srcdir)/doc/nls.texi $(srcdir)/doc/matrix.texi
 EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 
-# Woe32 support.
+# Windows support.
 
-EXTRA_DIST += README.woe32
+EXTRA_DIST += README.windows
+
 
 maintainer-update-po: $(top_builddir)/config.status
 	$(SHELL) ./config.status --recheck

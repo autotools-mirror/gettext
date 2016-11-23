@@ -144,9 +144,9 @@ EXTRA_DIST += djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
 EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 
-# Woe32 support.
+# Windows support.
 
-EXTRA_DIST += README.woe32 windows/windres-options windows/gettext.rc
+EXTRA_DIST += README.windows windows/windres-options windows/gettext.rc
 
 # Versioning based on Git release tags.
 
