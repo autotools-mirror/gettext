@@ -2399,12 +2399,6 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
           return;
 
         case '(':
-          c = phase2_getc ();
-          if (c == ')')
-            /* Ignore empty list.  */
-            continue;
-          else
-            phase2_ungetc (c);
           tp->type = token_type_lparen;
           return;
 
