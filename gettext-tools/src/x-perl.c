@@ -109,6 +109,13 @@ init_keywords ()
       x_perl_keyword ("dngettext:2,3");
       x_perl_keyword ("dcngettext:2,3");
       x_perl_keyword ("gettext_noop");
+      x_perl_keyword ("pgettext:1c,2");
+      x_perl_keyword ("dpgettext:2c,3");
+      x_perl_keyword ("dcpgettext:2c,3");
+      x_perl_keyword ("npgettext:1c,2,3");
+      x_perl_keyword ("dnpgettext:2c,3,4");
+      x_perl_keyword ("dcnpgettext:2c,3,4");
+
 #if 0
       x_perl_keyword ("__");
       x_perl_keyword ("$__");
@@ -126,6 +133,7 @@ init_keywords ()
 void
 init_flag_table_perl ()
 {
+  /* Gettext binding for Perl.  */
   xgettext_record_flag ("gettext:1:pass-perl-format");
   xgettext_record_flag ("gettext:1:pass-perl-brace-format");
   xgettext_record_flag ("%gettext:1:pass-perl-format");
@@ -150,9 +158,30 @@ init_flag_table_perl ()
   xgettext_record_flag ("dcngettext:3:pass-perl-brace-format");
   xgettext_record_flag ("gettext_noop:1:pass-perl-format");
   xgettext_record_flag ("gettext_noop:1:pass-perl-brace-format");
+  xgettext_record_flag ("pgettext:2:pass-perl-format");
+  xgettext_record_flag ("pgettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("dpgettext:3:pass-perl-format");
+  xgettext_record_flag ("dpgettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("dcpgettext:3:pass-perl-format");
+  xgettext_record_flag ("dcpgettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("npgettext:2:pass-perl-format");
+  xgettext_record_flag ("npgettext:3:pass-perl-format");
+  xgettext_record_flag ("npgettext:2:pass-perl-brace-format");
+  xgettext_record_flag ("npgettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("dnpgettext:3:pass-perl-format");
+  xgettext_record_flag ("dnpgettext:4:pass-perl-format");
+  xgettext_record_flag ("dnpgettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("dnpgettext:4:pass-perl-brace-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-perl-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-perl-format");
+  xgettext_record_flag ("dcnpgettext:3:pass-perl-brace-format");
+  xgettext_record_flag ("dcnpgettext:4:pass-perl-brace-format");
+
+  /* Perl builtins.  */
   xgettext_record_flag ("printf:1:perl-format"); /* argument 1 or 2 ?? */
   xgettext_record_flag ("sprintf:1:perl-format");
 #if 0
+  /* Shortcuts from libintl-perl.  */
   xgettext_record_flag ("__:1:pass-perl-format");
   xgettext_record_flag ("__:1:pass-perl-brace-format");
   xgettext_record_flag ("%__:1:pass-perl-format");

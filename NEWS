@@ -1,6 +1,13 @@
 * Runtime behaviour:
   - update-po target in Makefile.in.in now uses msgfmt --previous.
 
+* Programming languages support:
+  - Perl:
+    o Native support for context functions (pgettext, dpgettext, dcpgettext,
+      npgettext, dnpgettext, dcnpgettext).
+    o better detection of question mark and slash as operators (as opposed 
+      to regular expression delimiters).
+
 Version 0.19.8 - June 2016
 
 * Support for reproducible builds:

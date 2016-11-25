@@ -11003,7 +11003,9 @@ perl
 
 @item gettext/ngettext functions
 @code{gettext}, @code{dgettext}, @code{dcgettext}, @code{ngettext},
-@code{dngettext}, @code{dcngettext}
+@code{dngettext}, @code{dcngettext}, @code{pgettext}, @code{dpgettext},
+@code{dcpgettext}, @code{npgettext}, @code{dnpgettext},
+@code{dcnpgettext}
 
 @item textdomain
 @code{textdomain} function
@@ -11027,7 +11029,8 @@ http://www.cpan.org/).
 platform dependent: gettext_pp emulates, gettext_xs uses GNU gettext
 
 @item Extractor
-@code{xgettext -k__ -k\$__ -k%__ -k__x -k__n:1,2 -k__nx:1,2 -k__xn:1,2 -kN__ -k}
+@code{xgettext -k__ -k\$__ -k%__ -k__x -k__n:1,2 -k__nx:1,2 -k__xn:1,2 
+-kN__ -kN__n:1,2 -k__p:1c,2 -k__np:1c,2,3 -kN__p:1c,2 -kN__np:1c,2,3}
 
 @item Formatting with positions
 Both kinds of format strings support formatting with positions.
