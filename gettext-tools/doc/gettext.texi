@@ -11245,24 +11245,55 @@ following keywords in your Perl sources:
 
 @item @code{gettext}
 
-@item @code{dgettext}
+@item @code{dgettext:2}
 
-@item @code{dcgettext}
+The second argument will be extracted.
+
+@item @code{dcgettext:2}
+
+The second argument will be extracted.
 
 @item @code{ngettext:1,2}
 
 The first (singular) and the second (plural) argument will be
 extracted.
 
-@item @code{dngettext:1,2}
+@item @code{dngettext:2,3}
 
-The first (singular) and the second (plural) argument will be
+The second (singular) and the third (plural) argument will be
 extracted.
 
-@item @code{dcngettext:1,2}
+@item @code{dcngettext:2,3}
 
-The first (singular) and the second (plural) argument will be
+The second (singular) and the third (plural) argument will be
 extracted.
+
+@item @code{pgettext:1c,2}
+
+The first (message context) and the second argument will be extracted.
+
+@item @code{dpgettext:2c,3}
+
+The second (message context) and the third argument will be extracted.
+
+@item @code{dcpgettext:2c,3}
+
+The second (message context) and the third argument will be extracted.
+
+@item @code{npgettext:1c,2,3}
+
+The first (message context), second (singular), and third (plural)
+argument will be extracted.
+
+@item @code{dnpgettext:2c,3,4}
+
+The second (message context), third (singular), and fourth (plural)
+argument will be extracted.
+
+@item @code{dcnpgettext:2c,3,4}
+
+The second (message context), third (singular), and fourth (plural)
+argument will be extracted.
 
 @item @code{gettext_noop}
 
