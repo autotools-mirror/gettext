@@ -321,6 +321,12 @@ BINDTEXTDOMAIN (const char *domainname, const char *dirname)
   const char *saved_dirname = dirname;
   char dirname_with_drive[_MAX_PATH];
 
+# ifdef __KLIBC__
+  if (dirname && strncmp (dirname, "/@unixroot", 10) == 0
+      && (dirname[10] == '\0' || dirname[10] == '/' || dirname[10] == '\\'))
+    /* kLIBC itself processes /@unixroot prefix */;
+  else
+# endif
   /* Resolve UNIXROOT into dirname if it is not resolved by os2compat.[ch]. */
   if (dirname && (dirname[0] == '/' || dirname[0] == '\\' ))
     {
