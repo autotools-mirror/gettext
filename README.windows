@@ -30,7 +30,7 @@ There are three ways to create binaries of this package for Microsoft Windows:
    Building 32-bit binaries for mingw is achieved through the following
    preparation, configure, and build commands:
 
-      PATH=/usr/local/mingw32/bin:$PATH
+      PATH=/usr/local/mingw32/bin:/usr/i686-w64-mingw32/sys-root/mingw/bin:$PATH
       export PATH
       ./configure --host=i686-w64-mingw32 --prefix=/usr/local/mingw32 \
             CC=i686-w64-mingw32-gcc \
@@ -43,7 +43,7 @@ There are three ways to create binaries of this package for Microsoft Windows:
    Building 64-bit binaries for mingw is achieved through the following
    preparation, configure, and build commands:
 
-      PATH=/usr/local/mingw64/bin:$PATH
+      PATH=/usr/local/mingw64/bin:/usr/x86_64-w64-mingw32/sys-root/mingw/bin:$PATH
       export PATH
       ./configure --host=x86_64-w64-mingw32 --prefix=/usr/local/mingw64 \
             CC=x86_64-w64-mingw32-gcc \
