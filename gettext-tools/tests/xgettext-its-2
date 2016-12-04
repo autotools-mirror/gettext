@@ -37,25 +37,25 @@ unset GETTEXTDATADIR
 unset GETTEXTDATADIRS
 unset XDG_DATA_DIRS
 
-${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
 result=$?
 test $result = 0 || Exit 1
 
 GETTEXTDATADIR=a
 export GETTEXTDATADIR
-${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.a 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
 result=$?
 test $result = 0 && Exit 1
 
 GETTEXTDATADIRS=b:a
 export GETTEXTDATADIRS
-${XGETTEXT} -o /dev/null input.b 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.b 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
 result=$?
 test $result = 0 && Exit 1
 
 XDG_DATA_DIRS=xa
 export XDG_DATA_DIRS
-${XGETTEXT} -o /dev/null input.xa 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
+LC_MESSAGES=C ${XGETTEXT} -o /dev/null input.xa 2>&1 | grep 'is unknown; will try C' 2>&1 >/dev/null
 result=$?
 test $result = 0 && Exit 1
 
