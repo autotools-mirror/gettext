@@ -758,7 +758,7 @@ for podir in $podirs; do
         func_linkorcopy Makevars.template "$gettext_datadir/po/Makevars.template" "$podir/Makevars.template"
         if test -f "$srcdir/po/Makevars"; then
           LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/$podir/Makevars" | LC_ALL=C sort > "$srcdir/$podir/Makevars.tmp1"
-          LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$srcdir/$podir/Makevars.template" | LC_ALL=C sort > "$srcdir/$podir/Makevars.tmp2"
+          LC_ALL=C sed -n -e 's/[ 	]*\([A-Za-z0-9_]*\)[ 	]*=.*/\1/p' < "$gettext_datadir/po/Makevars.template" | LC_ALL=C sort > "$srcdir/$podir/Makevars.tmp2"
           missingvars=`LC_ALL=C comm -13 "$srcdir/$podir/Makevars.tmp1" "$srcdir/$podir/Makevars.tmp2"`
           rm -f "$srcdir/$podir/Makevars.tmp1" "$srcdir/$podir/Makevars.tmp2"
           if test -n "$missingvars"; then
