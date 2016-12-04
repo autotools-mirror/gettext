@@ -432,6 +432,9 @@ if ! test -f gettext-tools/misc/archive.dir.tar; then
   test $retval -eq 0 || exit $retval
 fi
 
+## Make sure we get new versions of files brought in by automake.
+#(cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver)
+
 # Generate configure script in each subdirectories.
 dir0=`pwd`
 
@@ -498,6 +501,10 @@ aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m
   || exit $?
 cd "$dir0"
 
-aclocal -I m4 && autoconf && touch ChangeLog && automake || exit $?
+aclocal -I m4 \
+  && autoconf \
+  && touch ChangeLog \
+  && automake --add-missing --copy \
+  || exit $?
 
 echo "$0: done.  Now you can run './configure'."
