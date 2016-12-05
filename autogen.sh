@@ -432,8 +432,8 @@ if ! test -f gettext-tools/misc/archive.dir.tar; then
   test $retval -eq 0 || exit $retval
 fi
 
-## Make sure we get new versions of files brought in by automake.
-#(cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver)
+# Make sure we get new versions of files brought in by automake.
+(cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver ylwrap)
 
 # Generate configure script in each subdirectories.
 dir0=`pwd`
