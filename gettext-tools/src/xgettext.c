@@ -330,7 +330,7 @@ main (int argc, char *argv[])
   bool sort_by_msgid = false;
   bool sort_by_filepos = false;
   char **dirs;
-  char **its_dirs;
+  char **its_dirs = NULL;
   char *explicit_its_filename = NULL;
   const char *file_name;
   const char *files_from = NULL;
@@ -1016,9 +1016,12 @@ warning: file '%s' extension '%s' is unknown; will try C"), filename, extension)
   if (its_locating_rules)
     locating_rule_list_free (its_locating_rules);
 
-  for (i = 0; its_dirs[i] != NULL; i++)
-    free (its_dirs[i]);
-  free (its_dirs);
+  if (its_dirs != NULL)
+    {
+      for (i = 0; its_dirs[i] != NULL; i++)
+        free (its_dirs[i]);
+      free (its_dirs);
+    }
 
   exit (EXIT_SUCCESS);
 }
