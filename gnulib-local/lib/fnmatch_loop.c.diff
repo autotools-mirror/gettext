@@ -5,7 +5,7 @@
     struct patternlist
     {
       struct patternlist *next;
-      CHAR str[1];
+      CHAR str[FLEXIBLE_ARRAY_MEMBER];
     } *list = NULL;
     struct patternlist **lastp = &list;
     size_t pattern_len = STRLEN (pattern);
@@ -27,7 +27,7 @@
     {
       struct patternlist *next;
 +     int malloced;
-      CHAR str[1];
+      CHAR str[FLEXIBLE_ARRAY_MEMBER];
     } *list = NULL;
     struct patternlist **lastp = &list;
     size_t pattern_len = STRLEN (pattern);
@@ -69,7 +69,7 @@
 ***************
 *** 1075,1085 ****
               plensize = plen * sizeof (CHAR);                                  \
-              newpsize = offsetof (struct patternlist, str) + plensize;         \
+              newpsize = FLEXSIZEOF (struct patternlist, str, plensize);        \
               if ((size_t) -1 / sizeof (CHAR) < plen                            \
 !                 || newpsize < offsetof (struct patternlist, str)              \
 !                 || ALLOCA_LIMIT <= newpsize)                                  \
@@ -81,7 +81,7 @@
               lastp = &newp->next
 --- 1081,1101 ----
               plensize = plen * sizeof (CHAR);                                  \
-              newpsize = offsetof (struct patternlist, str) + plensize;         \
+              newpsize = FLEXSIZEOF (struct patternlist, str, plensize);        \
               if ((size_t) -1 / sizeof (CHAR) < plen                            \
 !                 || newpsize < offsetof (struct patternlist, str))             \
 !               goto failed;                                                    \

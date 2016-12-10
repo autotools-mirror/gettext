@@ -2,7 +2,7 @@ diff --git a/diffseq.h b/diffseq.h
 index 1974c36..02ef9f2 100644
 --- a/diffseq.h
 +++ b/diffseq.h
-@@ -186,7 +186,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim,
+@@ -207,7 +207,7 @@ diag (OFFSET xoff, OFFSET xlim, OFFSET yoff, OFFSET ylim,
    for (c = 1;; ++c)
      {
        OFFSET d;                 /* Active diagonal. */
