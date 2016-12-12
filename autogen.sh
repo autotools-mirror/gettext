@@ -101,7 +101,7 @@ if ! $skip_gnulib; then
     if $use_git && test -d "$GNULIB_SRCDIR"/.git && \
           git_modules_config submodule.gnulib.url >/dev/null; then
       echo "$0: getting gnulib files..."
-      if git submodule -h|grep -- --reference > /dev/null; then
+      if git submodule -h | grep -- --reference > /dev/null; then
         # Prefer the one-liner available in git 1.6.4 or newer.
         git submodule update --init --reference "$GNULIB_SRCDIR" \
           "$gnulib_path" || exit $?
@@ -496,7 +496,7 @@ cd gettext-tools
 aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 \
   && autoconf \
   && autoheader && touch ChangeLog config.h.in \
-  && test -d intl || mkdir intl \
+  && { test -d intl || mkdir intl; } \
   && automake --add-missing --copy \
   || exit $?
 cd "$dir0"
