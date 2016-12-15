@@ -115,8 +115,6 @@ msgdomain_write_csharp_resources (message_list_ty *mlp,
                                   const char *domain_name,
                                   const char *file_name)
 {
-  message_list_delete_header_field (mlp, "POT-Creation-Date:");
-  
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
@@ -160,6 +158,10 @@ but the C# .resources format doesn't support plural handling\n")));
 
       /* Convert the messages to Unicode.  */
       iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+
+      /* Support for "reproducible builds": Delete information that may vary
+         between builds in the same conditions.  */
+      message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
       /* Execute the WriteResource program.  */
       {

@@ -646,8 +646,10 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
+  /* Support for "reproducible builds": Delete information that may vary
+     between builds in the same conditions.  */
   message_list_delete_header_field (mlp, "POT-Creation-Date:");
-  
+
   /* Create a temporary directory where we can put the C# file.
      A simple temporary file would also be possible but would require us to
      define our own variant of mkstemp(): On one hand the functions mktemp(),

@@ -204,8 +204,10 @@ msgdomain_write_desktop (message_list_ty *mlp,
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
+  /* Support for "reproducible builds": Delete information that may vary
+     between builds in the same conditions.  */
   message_list_delete_header_field (mlp, "POT-Creation-Date:");
-  
+
   /* Create a single-element operands and run the bulk operation on it.  */
   operand.language = (char *) locale_name;
   operand.mlp = mlp;

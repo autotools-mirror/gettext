@@ -36,20 +36,20 @@ static const struct
   const char *name;
   size_t len;
 }
-  known_fields[] =
-    {
-      { "Project-Id-Version:", sizeof ("Project-Id-Version:") - 1 },
-      { "Report-Msgid-Bugs-To:", sizeof ("Report-Msgid-Bugs-To:") - 1 },
-      { "POT-Creation-Date:", sizeof ("POT-Creation-Date:") - 1 },
-      { "PO-Revision-Date:", sizeof ("PO-Revision-Date:") - 1 },
-      { "Last-Translator:", sizeof ("Last-Translator:") - 1 },
-      { "Language-Team:", sizeof ("Language-Team:") - 1 },
-      { "Language:", sizeof ("Language:") - 1 },
-      { "MIME-Version:", sizeof ("MIME-Version:") - 1 },
-      { "Content-Type:", sizeof ("Content-Type:") - 1 },
-      { "Content-Transfer-Encoding:",
-        sizeof ("Content-Transfer-Encoding:") - 1 }
-    };
+known_fields[] =
+  {
+    { "Project-Id-Version:", sizeof ("Project-Id-Version:") - 1 },
+    { "Report-Msgid-Bugs-To:", sizeof ("Report-Msgid-Bugs-To:") - 1 },
+    { "POT-Creation-Date:", sizeof ("POT-Creation-Date:") - 1 },
+    { "PO-Revision-Date:", sizeof ("PO-Revision-Date:") - 1 },
+    { "Last-Translator:", sizeof ("Last-Translator:") - 1 },
+    { "Language-Team:", sizeof ("Language-Team:") - 1 },
+    { "Language:", sizeof ("Language:") - 1 },
+    { "MIME-Version:", sizeof ("MIME-Version:") - 1 },
+    { "Content-Type:", sizeof ("Content-Type:") - 1 },
+    { "Content-Transfer-Encoding:", sizeof ("Content-Transfer-Encoding:") - 1 }
+  };
+
 
 void
 msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
@@ -175,21 +175,8 @@ void
 message_list_delete_header_field (message_list_ty *mlp,
                                   const char *field)
 {
+  size_t field_len = strlen (field);
   size_t j;
-  int field_index;
-  size_t k;
-
-  /* Search the field in known_fields[].  */
-  field_index = -1;
-  for (k = 0; k < SIZEOF (known_fields); k++)
-    if (strcmp (known_fields[k].name, field) == 0)
-      {
-        field_index = k;
-        break;
-      }
-
-  size_t field_len;
-  field_len = strlen (field);
 
   /* Search the header entry.  */
   for (j = 0; j < mlp->nitems; j++)
@@ -199,11 +186,8 @@ message_list_delete_header_field (message_list_ty *mlp,
 
         /* Modify the header entry.  */
         const char *header = mp->msgstr;
-        char *new_header =
-          XCALLOC (strlen (header) + 1,
-                    char);
 
-        /* Test whether the field already occurs in the header entry.  */
+        /* Test whether the field occurs in the header entry.  */
         const char *h;
 
         for (h = header; *h != '\0'; )
@@ -217,7 +201,9 @@ message_list_delete_header_field (message_list_ty *mlp,
           }
         if (h != NULL && *h != '\0')
           {
-            /* Replace the field.  */
+            /* Delete the field.  */
+            char *new_header = XCALLOC (strlen (header) + 1, char);
+
             char *p = new_header;
             memcpy (p, header, h - header);
             p += h - header;
@@ -225,15 +211,12 @@ message_list_delete_header_field (message_list_ty *mlp,
             if (h != NULL)
               {
                 h++;
-                stpcpy (p, h);
+                strcpy (p, h);
               }
+            else
+              *p = '\0';
+
+            mp->msgstr = new_header;
           }
-        else
-          {
-            char *p = new_header;
-            p = stpcpy (p, header);
-          }
-        
-        mp->msgstr = new_header;
       }
 }

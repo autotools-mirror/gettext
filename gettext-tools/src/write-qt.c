@@ -725,6 +725,10 @@ strings, not in the untranslated strings\n")));
           }
       }
 
+      /* Support for "reproducible builds": Delete information that may vary
+         between builds in the same conditions.  */
+      message_list_delete_header_field (mlp, "POT-Creation-Date:");
+
       if (strcmp (domain_name, "-") == 0)
         {
           output_file = stdout;
@@ -743,7 +747,6 @@ strings, not in the untranslated strings\n")));
 
       if (output_file != NULL)
         {
-          message_list_delete_header_field (mlp, "POT-Creation-Date:");
           write_qm (output_file, mlp);
 
           /* Make sure nothing went wrong.  */

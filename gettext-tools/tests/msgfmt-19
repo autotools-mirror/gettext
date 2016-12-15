@@ -1,7 +1,8 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test accelerators.
+# Test that PO files that differ only in the POT-Creation-Date yield the
+# exact same .mo file.
 
 cat <<\EOF > mf-19-1.po
 # SOME DESCRIPTIVE TITLE.
@@ -20,13 +21,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "pen &File"
-msgstr "pen File"
+msgid "Open &File"
+msgstr "Open File"
 
-msgid "how _Help"
-msgstr "how Help"
+msgid "Show _Help"
+msgstr "Show Help"
 EOF
-
 
 cat <<\EOF > mf-19-2.po
 # SOME DESCRIPTIVE TITLE.
@@ -45,13 +45,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "pen &File"
-msgstr "pen File"
+msgid "Open &File"
+msgstr "Open File"
 
-msgid "how _Help"
-msgstr "how Help"
+msgid "Show _Help"
+msgstr "Show Help"
 EOF
-
 
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o mf-19-1.mo mf-19-1.po 2>/dev/null
