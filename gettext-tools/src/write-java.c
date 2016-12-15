@@ -61,6 +61,7 @@
 #include "message.h"
 #include "msgfmt.h"
 #include "msgl-iconv.h"
+#include "msgl-header.h"
 #include "plural-exp.h"
 #include "po-charset.h"
 #include "xalloc.h"
@@ -1065,6 +1066,8 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
 
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+
+  message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
   if (output_source)
     {

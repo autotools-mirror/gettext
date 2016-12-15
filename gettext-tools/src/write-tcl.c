@@ -34,6 +34,7 @@
 #include "xerror.h"
 #include "message.h"
 #include "msgl-iconv.h"
+#include "msgl-header.h"
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -216,6 +217,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
         return 1;
       }
 
+    message_list_delete_header_field (mlp, "POT-Creation-Date:");
     write_msg (output_file, mlp, frobbed_locale_name);
 
     /* Make sure nothing went wrong.  */

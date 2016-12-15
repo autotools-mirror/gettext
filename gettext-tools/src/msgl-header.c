@@ -30,16 +30,12 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
-void
-msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
-                                 const char *field, const char *value)
+/* The known fields in their usual order.  */
+static const struct
 {
-  /* The known fields in their usual order.  */
-  static const struct
-    {
-      const char *name;
-      size_t len;
-    }
+  const char *name;
+  size_t len;
+}
   known_fields[] =
     {
       { "Project-Id-Version:", sizeof ("Project-Id-Version:") - 1 },
@@ -54,6 +50,11 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
       { "Content-Transfer-Encoding:",
         sizeof ("Content-Transfer-Encoding:") - 1 }
     };
+
+void
+msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
+                                 const char *field, const char *value)
+{
   size_t field_len;
   int field_index;
   size_t k, i;
@@ -167,4 +168,72 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
             mp->msgstr = new_header;
           }
     }
+}
+
+
+void
+message_list_delete_header_field (message_list_ty *mlp,
+                                  const char *field)
+{
+  size_t j;
+  int field_index;
+  size_t k;
+
+  /* Search the field in known_fields[].  */
+  field_index = -1;
+  for (k = 0; k < SIZEOF (known_fields); k++)
+    if (strcmp (known_fields[k].name, field) == 0)
+      {
+        field_index = k;
+        break;
+      }
+
+  size_t field_len;
+  field_len = strlen (field);
+
+  /* Search the header entry.  */
+  for (j = 0; j < mlp->nitems; j++)
+    if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+      {
+        message_ty *mp = mlp->item[j];
+
+        /* Modify the header entry.  */
+        const char *header = mp->msgstr;
+        char *new_header =
+          XCALLOC (strlen (header) + 1,
+                    char);
+
+        /* Test whether the field already occurs in the header entry.  */
+        const char *h;
+
+        for (h = header; *h != '\0'; )
+          {
+            if (strncmp (h, field, field_len) == 0)
+              break;
+            h = strchr (h, '\n');
+            if (h == NULL)
+              break;
+            h++;
+          }
+        if (h != NULL && *h != '\0')
+          {
+            /* Replace the field.  */
+            char *p = new_header;
+            memcpy (p, header, h - header);
+            p += h - header;
+            h = strchr (h, '\n');
+            if (h != NULL)
+              {
+                h++;
+                stpcpy (p, h);
+              }
+          }
+        else
+          {
+            char *p = new_header;
+            p = stpcpy (p, header);
+          }
+        
+        mp->msgstr = new_header;
+      }
 }

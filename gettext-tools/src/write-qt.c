@@ -35,6 +35,7 @@
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
+#include "msgl-header.h"
 #include "hash-string.h"
 #include "unistr.h"
 #include "xalloc.h"
@@ -742,6 +743,7 @@ strings, not in the untranslated strings\n")));
 
       if (output_file != NULL)
         {
+          message_list_delete_header_field (mlp, "POT-Creation-Date:");
           write_qm (output_file, mlp);
 
           /* Make sure nothing went wrong.  */

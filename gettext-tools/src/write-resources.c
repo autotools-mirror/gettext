@@ -38,6 +38,7 @@
 #include "message.h"
 #include "msgfmt.h"
 #include "msgl-iconv.h"
+#include "msgl-header.h"
 #include "po-charset.h"
 #include "xalloc.h"
 #include "concat-filename.h"
@@ -114,6 +115,8 @@ msgdomain_write_csharp_resources (message_list_ty *mlp,
                                   const char *domain_name,
                                   const char *file_name)
 {
+  message_list_delete_header_field (mlp, "POT-Creation-Date:");
+  
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {

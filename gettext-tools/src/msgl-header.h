@@ -34,6 +34,9 @@ extern void
        msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
                                         const char *field, const char *value);
 
+extern void
+       message_list_delete_header_field (message_list_ty *mlp, const char *field);
+
 
 #ifdef __cplusplus
 }

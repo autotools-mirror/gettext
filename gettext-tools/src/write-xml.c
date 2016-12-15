@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include "error.h"
 #include "msgl-iconv.h"
+#include "msgl-header.h"
 #include "po-charset.h"
 #include "read-catalog.h"
 #include "read-po.h"
@@ -94,6 +95,8 @@ msgdomain_write_xml (message_list_ty *mlp,
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
 
+  message_list_delete_header_field (mlp, "POT-Creation-Date:");
+  
   /* Create a single-element operands and run the bulk operation on it.  */
   operand.language = (char *) locale_name;
   operand.mlp = mlp;

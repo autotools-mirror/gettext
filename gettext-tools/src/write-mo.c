@@ -48,6 +48,9 @@
 #include "binary-io.h"
 #include "fwriteerror.h"
 #include "gettext.h"
+#include "read-catalog.h"
+#include "read-stringtable.h"
+#include "msgl-header.h"
 
 #define _(str) gettext (str)
 
@@ -804,6 +807,7 @@ msgdomain_write_mo (message_list_ty *mlp,
 
       if (output_file != NULL)
         {
+          message_list_delete_header_field (mlp, "POT-Creation-Date:");
           write_table (output_file, mlp);
 
           /* Make sure nothing went wrong.  */
