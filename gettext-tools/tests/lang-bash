@@ -10,6 +10,10 @@
 # output when accessing any .mo file not generated from a .po file in UTF-8
 # encoding.
 
+# This test fails if the gettext package was configured with --disable-nls,
+# because in this case the gettext-runtime/src/gettext program does not do
+# any message catalog lookups.
+
 cat <<\EOF > prog.bash
 #! /bin/bash
 

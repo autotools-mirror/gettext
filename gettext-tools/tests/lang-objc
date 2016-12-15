@@ -5,6 +5,10 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: gcc.
 
+# This test fails if the gettext package was configured with --disable-nls,
+# because in this case the gettext-runtime/intl/ directory does not produce
+# a <libintl.h> header file.
+
 # Test whether an ObjectiveC compiler is found.
 cat <<\EOF > hello.m
 #include <stdio.h>
