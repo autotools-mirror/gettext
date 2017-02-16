@@ -375,6 +375,8 @@ check: all
 
 info dvi ps pdf html tags TAGS ctags CTAGS ID:
 
+install-dvi install-ps install-pdf install-html:
+
 mostlyclean:
 	rm -f remove-potcdate.sed
 	rm -f stamp-poT
