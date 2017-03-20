@@ -439,7 +439,10 @@ extern char *setlocale (int, const char *);
 
 #undef newlocale
 #define newlocale libintl_newlocale
+/* Declare newlocale() only if the system headers define the 'locale_t' type. */
+#if !(defined __CYGWIN__ && !defined LC_ALL_MASK)
 extern locale_t newlocale (int, const char *, locale_t);
+#endif
 
 #endif
 
