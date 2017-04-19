@@ -1,6 +1,6 @@
 ;;; po-mode.el --- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-2002, 2005-2008, 2010, 2015-2016 Free Software
+;; Copyright (C) 1995-2002, 2005-2008, 2010, 2015-2017 Free Software
 ;; Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
@@ -63,7 +63,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.24" "\
+(defconst po-mode-version-string "2.25" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -2930,15 +2930,15 @@ keyword for subsequent commands, also added to possible completions."
 (defun po-preset-string-functions ()
   "Preset FIND-STRING-FUNCTION and MARK-STRING-FUNCTION according to mode.
 These variables are locally set in source buffer only when not already bound."
-  (let ((pair (cond ((string-equal mode-name "AWK")
+  (let ((pair (cond ((equal major-mode 'awk-mode)
                      '(po-find-awk-string . po-mark-awk-string))
-                    ((member mode-name '("C" "C++"))
+                    ((member major-mode '(c-mode c++-mode))
                      '(po-find-c-string . po-mark-c-string))
-                    ((string-equal mode-name "Emacs-Lisp")
+                    ((equal major-mode 'emacs-lisp-mode)
                      '(po-find-emacs-lisp-string . po-mark-emacs-lisp-string))
-                    ((string-equal mode-name "Python")
+                    ((equal major-mode 'python-mode)
                      '(po-find-python-string . po-mark-python-string))
-                    ((and (string-equal mode-name "Shell-script")
+                    ((and (equal major-mode 'sh-mode)
                           (string-equal mode-line-process "[bash]"))
                      '(po-find-bash-string . po-mark-bash-string))
                     (t '(po-find-unknown-string . po-mark-unknown-string)))))
