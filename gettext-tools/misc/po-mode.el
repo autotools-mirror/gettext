@@ -2910,7 +2910,7 @@ Disregard some simple strings which are most probably non-translatable."
   (po-mark-found-string "_"))
 
 (defun po-select-mark-and-mark (arg)
-  "Mark last found string in program sources as translatable, ask for keywoard,
+  "Mark last found string in program sources as translatable, ask for keyword,
 using completion.  With prefix argument, just ask the name of a preferred
 keyword for subsequent commands, also added to possible completions."
   (interactive "P")
@@ -2919,7 +2919,7 @@ keyword for subsequent commands, also added to possible completions."
         (setq po-keywords (cons keyword (delete keyword po-keywords))))
     (or po-string-contents (error (_"No such string")))
     (let* ((default (car (car po-keywords)))
-           (keyword (completing-read (format (_"Mark with keywoard? [%s] ")
+           (keyword (completing-read (format (_"Mark with keyword? [%s] ")
                                              default)
                                      po-keywords nil t )))
       (if (string-equal keyword "") (setq keyword default))
