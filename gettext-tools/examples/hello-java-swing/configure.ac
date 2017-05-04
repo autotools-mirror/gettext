@@ -7,20 +7,6 @@ AC_INIT
 AC_CONFIG_SRCDIR(Hello.java)
 AM_INIT_AUTOMAKE(hello-java-swing, 0)
 
-dnl Check whether we can build native executable.
-AC_ARG_ENABLE(java-exe,
-  [  --enable-java-exe       compile Java to native code, not to bytecode],
-  :, enable_java_exe=no)
-gt_GCJ
-if test "$enable_java_exe" != no && test -n "$HAVE_GCJ"; then
-  BUILDJAVAEXE=yes
-else
-  BUILDJAVAEXE=no
-fi
-AC_SUBST(BUILDJAVAEXE)
-AM_CONDITIONAL([USEJEXE], [test "$BUILDJAVAEXE" = yes])
-AC_PROG_RANLIB
-
 dnl Check whether we can execute Java programs.
 gt_JAVAEXEC([TestAWT], [$srcdir/m4])
 dnl Check whether we can build Java programs.

@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008, 2010-2011, 2015-2016 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010-2011, 2015-2017 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -257,7 +257,6 @@ lib/xstrdup.c \
 m4/alloca.m4 \
 m4/backupfile.m4 \
 m4/curses.m4 \
-m4/gcj.m4 \
 m4/java.m4 \
 m4/libcroco.m4 \
 m4/libglib.m4 \
@@ -274,7 +273,6 @@ modules/error-progname \
 modules/fd-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
-modules/gcj \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
 modules/hash \

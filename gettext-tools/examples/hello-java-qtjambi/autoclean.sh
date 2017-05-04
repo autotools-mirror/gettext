@@ -13,7 +13,6 @@ rm -f m4/progtest.m4
 rm -f po/remove-potcdate.sin
 
 # Brought in by explicit copy.
-rm -f m4/gcj.m4
 rm -f m4/javacomp.m4
 rm -f m4/javaexec.m4
 rm -f javacomp.sh.in

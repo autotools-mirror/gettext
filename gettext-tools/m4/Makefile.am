@@ -41,7 +41,7 @@ aclocal_DATA = \
 
 examplesbuildauxdir = $(docdir)/examples/build-aux
 examplesbuildaux_DATA = \
-  ../gnulib-m4/gcj.m4 ../gnulib-m4/javacomp.m4 ../gnulib-m4/javaexec.m4 \
+  ../gnulib-m4/javacomp.m4 ../gnulib-m4/javaexec.m4 \
   ../gnulib-m4/csharpcomp.m4 ../gnulib-m4/csharpexec.m4 csharpexec-test.exe
 
 # Generate this list with

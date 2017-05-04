@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003, 2005-2010, 2012, 2015-2016 Free Software
+   Copyright (C) 2001-2003, 2005-2010, 2012, 2015-2017 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -270,19 +270,8 @@ fetch (const char *url, const char *file)
   /* First try: using Java.  */
   {
     const char *class_name = "gnu.gettext.GetURL";
-    const char *gettextjexedir;
     const char *gettextjar;
     const char *args[2];
-
-# if USEJEXE
-    /* Make it possible to override the executable's location.  This is
-       necessary for running the testsuite before "make install".  */
-    gettextjexedir = getenv ("GETTEXTJEXEDIR");
-    if (gettextjexedir == NULL || gettextjexedir[0] == '\0')
-      gettextjexedir = relocate (GETTEXTJEXEDIR);
-# else
-    gettextjexedir = NULL;
-# endif
 
     /* Make it possible to override the gettext.jar location.  This is
        necessary for running the testsuite before "make install".  */
@@ -296,7 +285,7 @@ fetch (const char *url, const char *file)
 
     /* Fetch the URL's contents.  */
     java_exitcode = 127;
-    if (!execute_java_class (class_name, &gettextjar, 1, true, gettextjexedir,
+    if (!execute_java_class (class_name, &gettextjar, 1, true, NULL,
                              args,
                              false, true,
                              execute_it, NULL))

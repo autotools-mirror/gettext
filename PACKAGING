@@ -111,7 +111,7 @@ following file list.
       $prefix/share/gettext/po/*
       $prefix/share/gettext/projects/*
       $prefix/share/gettext/gettext.h
-      $prefix/share/gettext/gettext.jar   (only installed if gcj is not present)
+      $prefix/share/gettext/gettext.jar
       $prefix/share/gettext/msgunfmt.tcl
       $prefix/share/gettext/archive.git.tar.gz
       $prefix/share/gettext/archive.dir.tar.gz   (only installed if --without-git specified)
@@ -158,17 +158,11 @@ following file list.
 Java support:
 -------------
 
-If GNU gcj is available at build time, two programs will be built as native
-executables:
-      $prefix/lib/gettext/gnu.gettext.*
-and the gettext-tools package will therefore have a runtime dependency to
-libgcj.so.
-
-If GNU gcj is not available at build time but another Java implementation is
-available instead, the two programs will be compiled to Java bytecode only:
+If some Java implementation is available, two programs will be compiled to
+Java bytecode:
       $prefix/share/gettext/gettext.jar
 and the gettext-tools package will therefore have a runtime dependency to
-the Java virtual machine (Sun Java2, IBM Java2, GNU libgcj.jar, or other).
+the Java virtual machine (OpenJDK, Oracle Java, IBM Java, or other).
 
 
 C# support:

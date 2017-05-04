@@ -1,5 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2003, 2006-2008, 2011, 2015-2016 Free Software
+   Copyright (C) 2001-2003, 2006-2008, 2011, 2015-2017 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -95,16 +95,6 @@ msgdomain_read_java (const char *resource_name, const char *locale_name)
   const char *args[3];
   struct locals locals;
 
-#if USEJEXE
-  /* Make it possible to override the executable's location.  This is
-     necessary for running the testsuite before "make install".  */
-  gettextjexedir = getenv ("GETTEXTJEXEDIR");
-  if (gettextjexedir == NULL || gettextjexedir[0] == '\0')
-    gettextjexedir = relocate (GETTEXTJEXEDIR);
-#else
-  gettextjexedir = NULL;
-#endif
-
   /* Make it possible to override the gettext.jar location.  This is
      necessary for running the testsuite before "make install".  */
   gettextjar = getenv ("GETTEXTJAR");
@@ -128,7 +118,7 @@ msgdomain_read_java (const char *resource_name, const char *locale_name)
   /* Dump the resource and retrieve the resulting output.
      Here we use the user's CLASSPATH, not a minimal one, so that the
      resource can be found.  */
-  if (execute_java_class (class_name, &gettextjar, 1, false, gettextjexedir,
+  if (execute_java_class (class_name, &gettextjar, 1, false, NULL,
                           args,
                           verbose, false,
                           execute_and_read_po_output, &locals))
