@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2016 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2017 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -8233,7 +8233,7 @@ textdomain (@var{PACKAGE});
 @end example
 
 To make LOCALEDIR known to the program, add the following lines to
-@file{Makefile.in} if you are using Autoconf version 2.60 or newer:
+@file{Makefile.in}:
 
 @example
 datadir = @@datadir@@
@@ -8242,15 +8242,7 @@ localedir = @@localedir@@
 DEFS = -DLOCALEDIR=\"$(localedir)\" @@DEFS@@
 @end example
 
-or these lines if your version of Autoconf is older than 2.60:
-
-@example
-datadir = @@datadir@@
-localedir = $(datadir)/locale
-DEFS = -DLOCALEDIR=\"$(localedir)\" @@DEFS@@
-@end example
-
-Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, thus
+Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, and
 @code{$(localedir)} defaults to @samp{$(prefix)/share/locale}.
 
 @item
