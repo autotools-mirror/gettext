@@ -1,8 +1,6 @@
-diff --git a/unistd.in.h b/unistd.in.h
-index b82be83..9df3f13 100644
---- a/unistd.in.h
-+++ b/unistd.in.h
-@@ -125,7 +125,11 @@
+--- unistd.in.h	2017-05-15 19:05:30.449063823 +0200
++++ unistd.in.h.new	2017-05-15 19:14:39.145268786 +0200
+@@ -136,7 +136,11 @@
  
  /* Get getopt(), optarg, optind, opterr, optopt.
     But avoid namespace pollution on glibc systems.  */
@@ -12,6 +10,6 @@ index b82be83..9df3f13 100644
 +   gettext-tools/libgettextpo/, but there is only a single
 +   GNULIB_UNISTD_H_GETOPT variable for both.  */
 +#if @GNULIB_UNISTD_H_GETOPT@ && !defined GTPO_CONFIG_H && !defined __GLIBC__ && !defined _GL_SYSTEM_GETOPT
- # define __need_getopt
- # include <getopt.h>
+ # include <getopt-cdefs.h>
+ # include <getopt-pfx-core.h>
  #endif

@@ -6,14 +6,14 @@
   extensions
   snippet/arg-nonnull
 ! alloca          [test -n "$FNMATCH_H"]
+  builtin-expect  [test -n "$FNMATCH_H"]
   flexmember      [test -n "$FNMATCH_H"]
   stdbool         [test -n "$FNMATCH_H"]
-  wchar           [test -n "$FNMATCH_H"]
 --- 11,17 ----
   Depends-on:
   extensions
   snippet/arg-nonnull
 ! alloca-opt      [test -n "$FNMATCH_H"]
+  builtin-expect  [test -n "$FNMATCH_H"]
   flexmember      [test -n "$FNMATCH_H"]
   stdbool         [test -n "$FNMATCH_H"]
-  wchar           [test -n "$FNMATCH_H"]

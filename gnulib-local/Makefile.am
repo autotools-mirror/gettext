@@ -42,7 +42,7 @@ lib/file-ostream.oo.c \
 lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
 lib/fnmatch_loop.c.diff \
-lib/getopt.in.h.diff \
+lib/getopt-core.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
 lib/glibconfig.in.h \
