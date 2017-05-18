@@ -102,20 +102,19 @@
               *lastp = newp;                                                    \
               lastp = &newp->next
 ***************
-*** 1103,1114 ****
+*** 1103,1113 ****
       {
       case L_('*'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
 !         return 0;
-        /* FALLTHROUGH */
-  
+        FALLTHROUGH;
       case L_('+'):
         do
           {
             for (rs = string; rs <= string_end; ++rs)
               /* First match the prefix with the current pattern with the
                  current pattern.  */
---- 1119,1135 ----
+--- 1119,1134 ----
       {
       case L_('*'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
@@ -123,8 +122,7 @@
 !           retval = 0;
 !           goto done;
 !         }
-        /* FALLTHROUGH */
-  
+        FALLTHROUGH;
       case L_('+'):
         do
           {
@@ -134,7 +132,7 @@
               /* First match the prefix with the current pattern with the
                  current pattern.  */
 ***************
-*** 1130,1160 ****
+*** 1130,1159 ****
                                   : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
                                   flags & FNM_FILE_NAME
                                   ? flags : flags & ~FNM_PERIOD) == 0)))
@@ -149,8 +147,7 @@
       case L_('?'):
         if (FCT (p, string, string_end, no_leading_period, flags) == 0)
 !         return 0;
-        /* FALLTHROUGH */
-  
+        FALLTHROUGH;
       case L_('@'):
         do
 !         /* I cannot believe it but 'strcat' is actually acceptable
@@ -166,7 +163,7 @@
   
         /* None of the patterns lead to a match.  */
         return FNM_NOMATCH;
---- 1151,1204 ----
+--- 1151,1203 ----
                                   : rs[-1] == '/' && NO_LEADING_PERIOD (flags),
                                   flags & FNM_FILE_NAME
                                   ? flags : flags & ~FNM_PERIOD) == 0)))
@@ -192,8 +189,7 @@
 !           retval = 0;
 !           goto done;
 !         }
-        /* FALLTHROUGH */
-  
+        FALLTHROUGH;
       case L_('@'):
         do
 !         {
