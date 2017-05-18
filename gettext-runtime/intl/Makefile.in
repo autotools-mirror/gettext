@@ -158,6 +158,7 @@ SOURCES = \
   relocatable.c \
   langprefs.c \
   localename.c \
+  flexmember.h \
   log.c \
   printf.c \
   setlocale.c \

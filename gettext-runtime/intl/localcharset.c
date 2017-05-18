@@ -1,6 +1,6 @@
 /* Determine a canonical name for the current locale's character encoding.
 
-   Copyright (C) 2000-2006, 2008-2015 Free Software Foundation, Inc.
+   Copyright (C) 2000-2006, 2008-2017 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@
 # define DARWIN7 /* Darwin 7 or newer, i.e. Mac OS X 10.3 or newer */
 #endif
 
-#if defined _WIN32 || defined __WIN32__
+#if (defined _WIN32 || defined __WIN32__) && !defined __CYGWIN__
 # define WINDOWS_NATIVE
 # include <locale.h>
 #endif
@@ -75,6 +75,7 @@
 # include "relocatable.h"
 #else
 # define relocate(pathname) (pathname)
+# define relocate2(pathname,allocatedp) (*(allocatedp) = NULL, (pathname))
 #endif
 
 /* Get LIBDIR.  */
@@ -129,6 +130,7 @@ get_charset_aliases (void)
   if (cp == NULL)
     {
 #if !(defined DARWIN7 || defined VMS || defined WINDOWS_NATIVE || defined __CYGWIN__ || defined OS2)
+      char *malloc_dir = NULL;
       const char *dir;
       const char *base = "charset.alias";
       char *file_name;
@@ -137,7 +139,7 @@ get_charset_aliases (void)
          necessary for running the testsuite before "make install".  */
       dir = getenv ("CHARSETALIASDIR");
       if (dir == NULL || dir[0] == '\0')
-        dir = relocate (LIBDIR);
+        dir = relocate2 (LIBDIR, &malloc_dir);
 
       /* Concatenate dir and base into freshly allocated file_name.  */
       {
@@ -153,6 +155,8 @@ get_charset_aliases (void)
             memcpy (file_name + dir_len + add_slash, base, base_len + 1);
           }
       }
+
+      free (malloc_dir);
 
       if (file_name == NULL)
         /* Out of memory.  Treat the file as empty.  */
@@ -507,7 +511,7 @@ locale_charset (void)
     current_locale = setlocale (LC_CTYPE, NULL);
 
   pdot = strrchr (current_locale, '.');
-  if (pdot)
+  if (pdot && 2 + strlen (pdot + 1) + 1 <= sizeof (buf))
     sprintf (buf, "CP%s", pdot + 1);
   else
     {

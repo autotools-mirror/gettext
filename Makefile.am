@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2016 Free Software Foundation, Inc.
+## Copyright (C) 1995-2017 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -73,6 +73,7 @@ distcheck-hook:
 	cmp -s gettext-runtime/m4/codeset.m4 gettext-tools/gnulib-m4/codeset.m4
 	cmp -s gettext-runtime/m4/extern-inline.m4 gettext-tools/gnulib-m4/extern-inline.m4
 	cmp -s gettext-runtime/m4/fcntl-o.m4 gettext-tools/gnulib-m4/fcntl-o.m4
+	cmp -s gettext-runtime/m4/flexmember.m4 gettext-tools/gnulib-m4/flexmember.m4
 	cmp -s gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
 	cmp -s gettext-runtime/m4/glibc2.m4 gettext-tools/gnulib-m4/glibc2.m4
 	cmp -s gettext-runtime/m4/glibc21.m4 gettext-tools/gnulib-m4/glibc21.m4
@@ -102,6 +103,7 @@ distcheck-hook:
 	cmp -s gettext-runtime/m4/xsize.m4 gettext-tools/gnulib-m4/xsize.m4
 	cmp -s gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 gettext-tools/gnulib-m4/intmax_t.m4
 	test "`sed 1,17d gettext-runtime/intl/config.charset | md5sum`" = "`sed 1,17d gettext-tools/gnulib-lib/config.charset | md5sum`"
+	test "`sed 1,16d gettext-runtime/intl/flexmember.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/flexmember.h | md5sum`"
 	test "`sed 1,16d gettext-runtime/intl/localcharset.h | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/localcharset.h | md5sum`"
 	test "`sed 1,16d gettext-runtime/intl/localcharset.c | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/localcharset.c | md5sum`"
 	test "`sed 1,16d gettext-runtime/intl/localename.c | md5sum`" = "`sed 1,16d gettext-tools/gnulib-lib/localename.c | md5sum`"

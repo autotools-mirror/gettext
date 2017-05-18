@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2016 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2017 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -542,27 +542,26 @@ relocate (const char *pathname)
 # ifdef __KLIBC__
 #  undef strncmp
 
-  if (pathname && strncmp (pathname, "/@unixroot", 10) == 0
-      && (pathname[10] == '\0' || pathname[10] == '/' || pathname[10] == '\\'))
+  if (strncmp (pathname, "/@unixroot", 10) == 0
+      && (pathname[10] == '\0' || ISSLASH (pathname[10])))
     {
       /* kLIBC itself processes /@unixroot prefix */
-
       return pathname;
     }
   else
 # endif
-  if (pathname && ISSLASH (pathname[0]))
+  if (ISSLASH (pathname[0]))
     {
       const char *unixroot = getenv ("UNIXROOT");
 
-      if (unixroot && HAS_DEVICE (unixroot) && !unixroot[2])
+      if (unixroot && HAS_DEVICE (unixroot) && unixroot[2] == '\0')
         {
           char *result = (char *) xmalloc (2 + strlen (pathname) + 1);
 #ifdef NO_XMALLOC
           if (result != NULL)
 #endif
             {
-              strcpy (result, unixroot);
+              memcpy (result, unixroot, 2);
               strcpy (result + 2, pathname);
               return result;
             }
@@ -572,6 +571,19 @@ relocate (const char *pathname)
 
   /* Nothing to relocate.  */
   return pathname;
+}
+
+/* Returns the pathname, relocated according to the current installation
+   directory.
+   This function sets *ALLOCATEDP to the allocated memory, or to NULL if
+   no memory allocation occurs.  So that, after you're done with the return
+   value, to reclaim allocated memory, you can do: free (*ALLOCATEDP).  */
+const char *
+relocate2 (const char *pathname, char **allocatedp)
+{
+  const char *result = relocate (pathname);
+  *allocatedp = (result != pathname ? (char *) result : NULL);
+  return result;
 }
 
 #endif

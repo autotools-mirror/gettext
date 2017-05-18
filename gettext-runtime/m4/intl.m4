@@ -1,5 +1,5 @@
-# intl.m4 serial 29 (gettext-0.19)
-dnl Copyright (C) 1995-2014, 2016 Free Software Foundation, Inc.
+# intl.m4 serial 30 (gettext-0.19.9)
+dnl Copyright (C) 1995-2014, 2016-2017 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -44,6 +44,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gt_INTL_MACOSX])dnl
   AC_REQUIRE([gl_EXTERN_INLINE])dnl
   AC_REQUIRE([gt_GL_ATTRIBUTE])dnl
+  AC_REQUIRE([AC_C_FLEXIBLE_ARRAY_MEMBER])dnl
 
   dnl Support for automake's --enable-silent-rules.
   case "$enable_silent_rules" in
