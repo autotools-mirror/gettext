@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-2017 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -914,7 +914,15 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
   domain = (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
   if (domain == NULL)
-    goto out;
+    {
+#ifdef HAVE_MMAP
+      if (use_mmap)
+	munmap ((caddr_t) data, size);
+      else
+#endif
+	free (data);
+      goto out;
+    }
   domain_file->data = domain;
 
   domain->data = (char *) data;
