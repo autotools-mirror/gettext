@@ -9161,7 +9161,7 @@ String Formatting}, @uref{http://www.python.org/dev/peps/pep-3101/}.
 
 Lisp format strings are described in the Common Lisp HyperSpec,
 chapter 22.3 @w{Formatted Output},
-@uref{http://www.lisp.org/HyperSpec/Body/sec_22-3.html}.
+@uref{http://www.ai.mit.edu/projects/iiip/doc/CommonLISP/HyperSpec/Body/sec_22-3.html}.
 
 @node elisp-format, librep-format, lisp-format, Translators for other Languages
 @subsection Emacs Lisp Format Strings
