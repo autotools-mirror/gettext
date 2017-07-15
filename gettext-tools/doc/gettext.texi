@@ -8022,8 +8022,8 @@ the simplest is to concatenate the files @file{codeset.m4}, @file{fcntl-o.m4},
 @file{visibility.m4}, @file{wchar_t.m4}, @file{wint_t.m4}, @file{xsize.m4}
 from GNU @code{gettext}'s
 @file{m4/} directory into a single file.  If you have suppressed the
-@file{intl/} directory, only @file{gettext.m4}, @file{iconv.m4},
-@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
+@file{intl/} directory, only @file{gettext.m4}, @file{intlmacosx.m4},
+@file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
 @file{nls.m4}, @file{po.m4}, @file{progtest.m4} need to be concatenated.
 
 If you are not using GNU @code{automake} 1.8 or newer, you will need to

@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 1995-1998, 2000-2016 Free Software Foundation, Inc.
+# Copyright (C) 1995-1998, 2000-2017 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -826,18 +826,42 @@ if (aclocal --version) >/dev/null 2>/dev/null; then
   esac
 fi
 
-m4filelist='gettext.m4 iconv.m4 lib-ld.m4 lib-link.m4 lib-prefix.m4 nls.m4
- po.m4 progtest.m4'
+m4filelist='
+  gettext.m4
+  iconv.m4
+  intlmacosx.m4
+  lib-ld.m4 lib-link.m4 lib-prefix.m4
+  nls.m4
+  po.m4 progtest.m4'
 # With aclocal versions < 1.9 we need all m4 files, otherwise "aclocal -I m4"
 # might give an error. (aclocal < 1.9 didn't know which macros are really
 # needed, it looked which macros are potentially needed.)
 min_automake_version=1.9
 if test -n "$intldir" || test -z "$have_automake19"; then
   # Add intldir.m4, intl.m4 and its dependencies.
-  m4filelist=$m4filelist' codeset.m4 fcntl-o.m4 glibc2.m4 glibc21.m4 intdiv0.m4
-   intl.m4 intldir.m4 intlmacosx.m4 intmax.m4 inttypes_h.m4 inttypes-pri.m4
-   lcmessage.m4 lock.m4 longlong.m4 printf-posix.m4 size_max.m4 stdint_h.m4
-   threadlib.m4 uintmax_t.m4 visibility.m4 wchar_t.m4 wint_t.m4 xsize.m4'
+  m4filelist=$m4filelist'
+    codeset.m4
+    fcntl-o.m4
+    glibc2.m4
+    glibc21.m4
+    intdiv0.m4
+    intl.m4
+    intldir.m4
+    intmax.m4
+    inttypes_h.m4
+    inttypes-pri.m4
+    lcmessage.m4
+    lock.m4
+    longlong.m4
+    printf-posix.m4
+    size_max.m4
+    stdint_h.m4
+    threadlib.m4
+    uintmax_t.m4
+    visibility.m4
+    wchar_t.m4
+    wint_t.m4
+    xsize.m4'
   min_automake_version=1.8
 fi
 
