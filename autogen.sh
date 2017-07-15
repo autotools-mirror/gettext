@@ -445,6 +445,7 @@ aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   && autoheader \
   && touch ChangeLog config.h.in \
   && automake --add-missing --copy \
+  && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
 
@@ -455,6 +456,7 @@ aclocal -I m4 -I ../m4 -I gnulib-m4 \
   && autoheader \
   && touch ChangeLog intl/ChangeLog config.h.in \
   && automake --add-missing --copy \
+  && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
 
@@ -464,6 +466,7 @@ aclocal -I ../../gettext-runtime/m4 -I ../../m4 \
   && autoconf \
   && touch ChangeLog \
   && automake --add-missing --copy \
+  && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
 
@@ -498,6 +501,7 @@ aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m
   && autoheader && touch ChangeLog config.h.in \
   && { test -d intl || mkdir intl; } \
   && automake --add-missing --copy \
+  && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
 
@@ -505,6 +509,7 @@ aclocal -I m4 \
   && autoconf \
   && touch ChangeLog \
   && automake --add-missing --copy \
+  && rm -rf autom4te.cache gettext-runtime/autom4te.cache gettext-tools/autom4te.cache \
   || exit $?
 
 echo "$0: done.  Now you can run './configure'."
