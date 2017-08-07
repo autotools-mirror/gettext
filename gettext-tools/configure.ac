@@ -161,9 +161,6 @@ AC_CHECK_TYPES([ptrdiff_t])
 gt_TYPE_SSIZE_T
 AC_TYPE_PID_T
 gl_GLIBC21
-if test $GLIBC21 = yes; then
-  AC_CHECK_MEMBERS([struct __locale_struct.__names], , , [#include <xlocale.h>])
-fi
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS([select])
