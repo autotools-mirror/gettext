@@ -1,5 +1,5 @@
 /* Message list header manipulation.
-   Copyright (C) 2007, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2007, 2015-2017 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2007.
 
    This program is free software: you can redistribute it and/or modify
@@ -166,6 +166,7 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
               }
 
             mp->msgstr = new_header;
+            mp->msgstr_len = strlen (new_header) + 1;
           }
     }
 }
@@ -217,6 +218,7 @@ message_list_delete_header_field (message_list_ty *mlp,
               *p = '\0';
 
             mp->msgstr = new_header;
+            mp->msgstr_len = strlen (new_header) + 1;
           }
       }
 }
