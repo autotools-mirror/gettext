@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/its subdirectory of GNU gettext
-## Copyright (C) 2015-2016 Free Software Foundation, Inc.
+## Copyright (C) 2015-2017 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,4 +21,4 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 pkgdatadir = $(datadir)/gettext
 itsdir = $(pkgdatadir)$(PACKAGE_SUFFIX)/its
 dist_its_DATA = glade.loc glade1.its glade2.its gtkbuilder.its \
-gsettings.loc gsettings.its appdata.loc appdata.its
+gsettings.loc gsettings.its metainfo.loc metainfo.its

@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
 
-/* The scanner is implemented as ITS rules, in its/appdata.its.  */
+/* The scanner is implemented as ITS rules, in its/metainfo.its.  */
 
 #define EXTENSIONS_APPDATA
 

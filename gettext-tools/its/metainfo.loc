@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<locatingRules>
+  <locatingRule name="metainfo" pattern="*.metainfo.xml">
+    <documentRule localName="component" target="metainfo.its"/>
+  </locatingRule>
+  <locatingRule name="AppData" pattern="*.appdata.xml">
+    <documentRule localName="component" target="metainfo.its"/>
+  </locatingRule>
+</locatingRules>
