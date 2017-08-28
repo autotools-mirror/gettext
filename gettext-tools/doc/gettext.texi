@@ -12246,12 +12246,15 @@ glib2
 @node AppData, Preparing ITS Rules, GSettings, List of Data Formats
 @subsection AppData - freedesktop.org application description
 
+This file format is specified in
+@url{https://www.freedesktop.org/software/appstream/docs/}.
+
 @table @asis
 @item RPMs
 appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
 
 @item File extension
-@code{appdata.xml}
+@code{appdata.xml}, @code{metainfo.xml}
 
 @item Extractor
 @code{xgettext}, @code{intltool-extract}, @code{itstool}
