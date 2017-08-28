@@ -1,5 +1,5 @@
 /* xgettext AppData file backend.
-   Copyright (C) 2002-2003, 2006, 2013, 2015-2016 Free Software Foundation,
+   Copyright (C) 2002-2003, 2006, 2013, 2015-2017 Free Software Foundation,
    Inc.
    Written by Philip Withnall <philip.withnall@collabora.co.uk>, 2015.
 
@@ -30,11 +30,10 @@ extern "C" {
 
 /* The scanner is implemented as ITS rules, in its/appdata.its.  */
 
-#define EXTENSIONS_APPDATA \
-  { "appdata.xml", NULL }, \
+#define EXTENSIONS_APPDATA
 
 #define SCANNERS_APPDATA \
-  { "appdata", NULL, NULL, NULL, NULL, NULL }, \
+  { "appdata", NULL, NULL, NULL, NULL, NULL },
 
 
 #ifdef __cplusplus
