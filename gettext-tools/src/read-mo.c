@@ -169,11 +169,19 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
       s_offset += segsize;
 
       if (sysdepref == SEGMENTS_END)
-        break;
+        {
+          /* The last static segment must end in a NUL.  */
+          if (!(segsize > 0 && bfp->data[s_offset - 1] == '\0'))
+            /* Invalid.  */
+            error (EXIT_FAILURE, 0,
+                   _("file \"%s\" contains a not NUL terminated system dependent string"),
+                   bfp->filename);
+          break;
+        }
       if (sysdepref >= header->n_sysdep_segments)
         /* Invalid.  */
-          error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
-                 bfp->filename);
+        error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format"),
+               bfp->filename);
       /* See 'struct sysdep_segment'.  */
       sysdep_segment_offset = header->sysdep_segments_offset + sysdepref * 8;
       ss_length = get_uint32 (bfp, sysdep_segment_offset);

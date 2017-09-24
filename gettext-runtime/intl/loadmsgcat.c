@@ -1039,18 +1039,25 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 				? orig_sysdep_tab[i]
 				: trans_sysdep_tab[i]));
 			size_t need = 0;
+			const char *static_segments =
+			  (char *) data
+			  + W (domain->must_swap, sysdep_string->offset);
 			const struct segment_pair *p = sysdep_string->segments;
 
 			if (W (domain->must_swap, p->sysdepref) != SEGMENTS_END)
-			  for (p = sysdep_string->segments;; p++)
+			  for (;; p++)
 			    {
+			      nls_uint32 segsize;
 			      nls_uint32 sysdepref;
 
-			      need += W (domain->must_swap, p->segsize);
+			      segsize = W (domain->must_swap, p->segsize);
+			      need += segsize;
 
 			      sysdepref = W (domain->must_swap, p->sysdepref);
 			      if (sysdepref == SEGMENTS_END)
 				break;
+
+			      static_segments += segsize;
 
 			      if (sysdepref >= n_sysdep_segments)
 				{
@@ -1063,11 +1070,24 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 				{
 				  /* This particular string pair is invalid.  */
 				  valid = 0;
-				  break;
 				}
 
 			      need += strlen (sysdep_segment_values[sysdepref]);
 			    }
+
+			/* The last static segment must end in a NUL.  */
+			{
+			  nls_uint32 segsize =
+			    W (domain->must_swap, p->segsize);
+
+			  if (!(segsize > 0
+				&& static_segments[segsize - 1] == '\0'))
+			    {
+			      /* Invalid.  */
+			      freea (sysdep_segment_values);
+			      goto invalid;
+			    }
+			}
 
 			needs[j] = need;
 			if (!valid)
@@ -1122,7 +1142,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 			    if (W (domain->must_swap, p->sysdepref)
 				!= SEGMENTS_END)
-			      for (p = sysdep_string->segments;; p++)
+			      for (;; p++)
 				{
 				  nls_uint32 sysdepref;
 
@@ -1183,7 +1203,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 				  {
 				    inmem_tab_entry->pointer = mem;
 
-				    for (p = sysdep_string->segments;; p++)
+				    for (;; p++)
 				      {
 					nls_uint32 segsize =
 					  W (domain->must_swap, p->segsize);
