@@ -1307,6 +1307,8 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
     {
 #ifdef _LIBC
       __libc_rwlock_fini (domain->conversions_lock);
+#else
+      gl_rwlock_destroy (domain->conversions_lock);
 #endif
       goto invalid;
     }
