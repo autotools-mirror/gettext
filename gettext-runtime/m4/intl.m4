@@ -1,4 +1,4 @@
-# intl.m4 serial 31 (gettext-0.19.9)
+# intl.m4 serial 32 (gettext-0.19.9)
 dnl Copyright (C) 1995-2014, 2016-2018 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -29,7 +29,6 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([AC_PROG_CC])dnl
   AC_REQUIRE([AC_CANONICAL_HOST])dnl
   AC_REQUIRE([gt_GLIBC2])dnl
-  AC_REQUIRE([AC_PROG_RANLIB])dnl
   AC_REQUIRE([gl_VISIBILITY])dnl
   AC_REQUIRE([gt_INTL_SUBDIR_CORE])dnl
   AC_REQUIRE([AC_TYPE_LONG_LONG_INT])dnl
@@ -45,6 +44,21 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gl_EXTERN_INLINE])dnl
   AC_REQUIRE([gt_GL_ATTRIBUTE])dnl
   AC_REQUIRE([AC_C_FLEXIBLE_ARRAY_MEMBER])dnl
+
+  dnl In projects that use gnulib, use gl_PROG_AR_RANLIB.
+  dnl The '][' hides this use from 'aclocal'.
+  m4_ifdef([g][l_PROG_AR_RANLIB],
+    [AC_REQUIRE([g][l_PROG_AR_RANLIB])],
+    [AC_REQUIRE([AC_PROG_RANLIB])
+     dnl Use Automake-documented default values for AR and ARFLAGS, but prefer
+     dnl ${host}-ar over ar (useful for cross-compiling).
+     AC_CHECK_TOOL([AR], [ar], [ar])
+     if test -z "$ARFLAGS"; then
+       ARFLAGS='cr'
+     fi
+     AC_SUBST([AR])
+     AC_SUBST([ARFLAGS])
+    ])
 
   dnl Support for automake's --enable-silent-rules.
   case "$enable_silent_rules" in

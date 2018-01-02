@@ -64,7 +64,8 @@ mkdir_p = @mkdir_p@
 
 l = @INTL_LIBTOOL_SUFFIX_PREFIX@
 
-AR = ar
+AR = @AR@
+ARFLAGS = @ARFLAGS@
 CC = @CC@
 LIBTOOL = @LIBTOOL@
 RANLIB = @RANLIB@
@@ -221,7 +222,7 @@ all-no-no:
 
 libintl.a libgnuintl.a: $(OBJECTS)
 	$(AM_V_at)rm -f $@
-	$(AM_V_AR)$(AR) cru $@ $(OBJECTS)
+	$(AM_V_AR)$(AR) $(ARFLAGS) $@ $(OBJECTS)
 	$(AM_V_at)$(RANLIB) $@
 
 libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
