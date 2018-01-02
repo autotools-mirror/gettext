@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2011, 2015-2017 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2011, 2015-2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -465,6 +465,8 @@ po-gram-gen2.h: po-gram-gen.h
 	  $${srcdir}po-gram-gen.h > $@-tmp && \
 	mv $@-tmp $@
 po-gram-gen.h: po-gram-gen.c
+
+cldr-plural.h: cldr-plural.c
 
 
 # Special rules for installation of auxiliary programs.

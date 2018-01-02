@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2007, 2009, 2015-2016 Free Software
+## Copyright (C) 1995-1997, 2001-2007, 2009, 2015-2016, 2018 Free Software
 ## Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,11 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.2 gnits
+
+# This directory does not support parallel make.
+# So, turn off parallel execution (at least in GNU make >= 4.0).
+GNUMAKEFLAGS = -j1
+
 EXTRA_DIST =
 MOSTLYCLEANFILES =
 
