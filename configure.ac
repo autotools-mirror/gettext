@@ -23,10 +23,10 @@ AC_INIT([gettext],
 	[bug-gnu-gettext@gnu.org])
 AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests dist-xz dist-lzip])
+AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests tar-ustar dist-xz dist-lzip])
 
 dnl Override automake's tar command used for creating distributions.
-am__tar='${AMTAR} chof - --owner=root --group=root "$$tardir"'
+am__tar='${AMTAR} chf - --format=ustar --owner=root --group=root "$$tardir"'
 
 dnl Checks for programs.
 
