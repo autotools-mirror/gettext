@@ -68,6 +68,10 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       http://tukaani.org/xz/
 
+  * Lzip
+    + Homepage:
+      http://www.nongnu.org/lzip/
+
 And, of course, the packages listed in the DEPENDENCIES file.
 
 
