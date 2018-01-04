@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2017 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2018 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -9477,6 +9477,9 @@ that language, and to combine the resulting files using @code{msgcat}.
 @item RPMs
 gcc, gpp, gobjc, glibc, gettext
 
+@item Ubuntu packages
+gcc, g++, gobjc, libc6-dev, libasprintf-dev
+
 @item File extension
 For C: @code{c}, @code{h}.
 @*For C++: @code{C}, @code{c++}, @code{cc}, @code{cxx}, @code{cpp}, @code{hpp}.
@@ -9536,6 +9539,9 @@ The following examples are available in the @file{examples} directory:
 @table @asis
 @item RPMs
 bash, gettext
+
+@item Ubuntu packages
+bash, gettext-base
 
 @item File extension
 @code{sh}
@@ -9826,6 +9832,9 @@ that don't have the @code{gettext()} function in libc.
 @item RPMs
 python
 
+@item Ubuntu packages
+python
+
 @item File extension
 @code{py}
 
@@ -9915,6 +9924,9 @@ verifies that the format string uses all supplied arguments.)
 @item RPMs
 clisp 2.28 or newer
 
+@item Ubuntu packages
+clisp
+
 @item File extension
 @code{lisp}
 
@@ -9963,6 +9975,9 @@ An example is available in the @file{examples} directory: @code{hello-clisp}.
 
 @table @asis
 @item RPMs
+clisp
+
+@item Ubuntu packages
 clisp
 
 @item File extension
@@ -10015,6 +10030,9 @@ On platforms without gettext, no translation.
 @item RPMs
 emacs, xemacs
 
+@item Ubuntu packages
+emacs, xemacs21
+
 @item File extension
 @code{el}
 
@@ -10062,6 +10080,9 @@ Only XEmacs.  Without @code{I18N3} defined at build time, no translation.
 @table @asis
 @item RPMs
 librep 0.15.3 or newer
+
+@item Ubuntu packages
+librep16
 
 @item File extension
 @code{jl}
@@ -10113,6 +10134,9 @@ An example is available in the @file{examples} directory: @code{hello-librep}.
 @table @asis
 @item RPMs
 guile
+
+@item Ubuntu packages
+guile-2.0
 
 @item File extension
 @code{scm}
@@ -10166,6 +10190,9 @@ An example is available in the @file{examples} directory: @code{hello-guile}.
 @item RPMs
 smalltalk
 
+@item Ubuntu packages
+gnu-smalltalk
+
 @item File extension
 @code{st}
 
@@ -10218,6 +10245,9 @@ An example is available in the @file{examples} directory:
 @table @asis
 @item RPMs
 java, java2
+
+@item Ubuntu packages
+default-jdk
 
 @item File extension
 @code{java}
@@ -10413,7 +10443,10 @@ than a class with a single-letter name.
 
 @table @asis
 @item RPMs
-pnet, pnetlib 0.6.2 or newer, or mono 0.29 or newer
+mono
+
+@item Ubuntu packages
+mono-mcs
 
 @item File extension
 @code{cs}
@@ -10681,6 +10714,9 @@ with a single-letter name.
 @item RPMs
 gawk 3.1 or newer
 
+@item Ubuntu packages
+gawk
+
 @item File extension
 @code{awk}, @code{gawk}, @code{twjr}.
 The file extension @code{twjr} is used by TexiWeb Jr
@@ -10736,6 +10772,9 @@ An example is available in the @file{examples} directory: @code{hello-gawk}.
 @table @asis
 @item RPMs
 fpk
+
+@item Ubuntu packages
+fp-compiler, fp-units-fcl
 
 @item File extension
 @code{pp}, @code{pas}
@@ -10794,6 +10833,9 @@ An example is available in the @file{examples} directory: @code{hello-pascal}.
 @item RPMs
 wxGTK, gettext
 
+@item Ubuntu packages
+libwxgtk3.0-dev
+
 @item File extension
 @code{cpp}
 
@@ -10845,6 +10887,9 @@ yes
 @item RPMs
 libycp, libycp-devel, yast2-core, yast2-core-devel
 
+@item Ubuntu packages
+---
+
 @item File extension
 @code{ycp}
 
@@ -10894,6 +10939,9 @@ An example is available in the @file{examples} directory: @code{hello-ycp}.
 
 @table @asis
 @item RPMs
+tcl
+
+@item Ubuntu packages
 tcl
 
 @item File extension
@@ -10958,6 +11006,9 @@ argument is given.
 @table @asis
 @item RPMs
 perl
+
+@item Ubuntu packages
+perl, libintl-perl
 
 @item File extension
 @code{pl}, @code{PL}, @code{pm}, @code{perl}, @code{cgi}
@@ -11823,6 +11874,9 @@ get executed.  Most of the time you will happily get along with
 @item RPMs
 mod_php4, mod_php4-core, phpdoc
 
+@item Ubuntu packages
+php
+
 @item File extension
 @code{php}, @code{php3}, @code{php4}
 
@@ -11874,6 +11928,9 @@ An example is available in the @file{examples} directory: @code{hello-php}.
 @item RPMs
 roxen
 
+@item Ubuntu packages
+pike8.0 or pike7.8
+
 @item File extension
 @code{pike}
 
@@ -11920,6 +11977,9 @@ On platforms without gettext, the functions are not available.
 
 @table @asis
 @item RPMs
+gcc
+
+@item Ubuntu packages
 gcc
 
 @item File extension
@@ -11969,6 +12029,9 @@ yes
 @table @asis
 @item RPMs
 lua
+
+@item Ubuntu packages
+lua, lua-gettext
 
 @item File extension
 @code{lua}
@@ -12032,6 +12095,9 @@ On platforms without gettext, the functions are not available.
 @item RPMs
 js
 
+@item Ubuntu packages
+gjs
+
 @item File extension
 @code{js}
 
@@ -12085,6 +12151,9 @@ On platforms without gettext, the functions are not available.
 @table @asis
 @item RPMs
 vala
+
+@item Ubuntu packages
+valac
 
 @item File extension
 @code{vala}
@@ -12142,6 +12211,8 @@ yes
 @table @asis
 @item RPMs
 
+@item Ubuntu packages
+
 @item File extension
 
 @item String syntax
@@ -12193,6 +12264,9 @@ using GNU gettext.
 @item RPMs
 gettext
 
+@item Ubuntu packages
+gettext
+
 @item File extension
 @code{pot}, @code{po}
 
@@ -12208,6 +12282,9 @@ gettext
 @item RPMs
 fpk
 
+@item Ubuntu packages
+fp-compiler
+
 @item File extension
 @code{rst}
 
@@ -12222,6 +12299,9 @@ fpk
 @item RPMs
 glade, libglade, glade2, libglade2, intltool
 
+@item Ubuntu packages
+glade, libglade2-dev, intltool
+
 @item File extension
 @code{glade}, @code{glade2}, @code{ui}
 
@@ -12235,6 +12315,9 @@ glade, libglade, glade2, libglade2, intltool
 @table @asis
 @item RPMs
 glib2
+
+@item Ubuntu packages
+libglib2.0-dev
 
 @item File extension
 @code{gschema.xml}
@@ -12252,6 +12335,9 @@ This file format is specified in
 @table @asis
 @item RPMs
 appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
+
+@item Ubuntu packages
+appdata-tools, appstream, libappstream-glib-dev
 
 @item File extension
 @code{appdata.xml}, @code{metainfo.xml}
@@ -12433,6 +12519,8 @@ strings can have arbitrary XML constructs, such as elements for markup.
 
 @table @asis
 @item RPMs
+
+@item Ubuntu packages
 
 @item File extension
 
