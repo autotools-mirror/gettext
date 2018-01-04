@@ -12032,6 +12032,12 @@ lua
 
 @item Ubuntu packages
 lua, lua-gettext
+@*
+You need to install the @code{lua-gettext} package from
+@url{https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md}.
+Debian and Ubuntu packages of it are available.  Download the
+appropriate one, and install it through
+@samp{sudo dpkg -i lua-gettext_0.0_amd64.deb}.
 
 @item File extension
 @code{lua}
