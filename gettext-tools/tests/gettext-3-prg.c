@@ -44,7 +44,7 @@ struct data_t strings[] =
 };
 const int data_cnt = sizeof (strings) / sizeof (strings[0]);
 
-const char *lang[] = { "de_DE", "fr_FR", "ll_CC" };
+const char *lang[] = { "de_DE.UTF-8", "fr_FR.UTF-8", "ll_CC" };
 const int lang_cnt = sizeof (lang) / sizeof (lang[0]);
 
 int
