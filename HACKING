@@ -75,6 +75,104 @@ You will need reasonably recent versions of the build tools:
 And, of course, the packages listed in the DEPENDENCIES file.
 
 
+Additional requirements for maintainers
+---------------------------------------
+
+If you are a maintainer, you will want to minimize the number of tests that
+are skipped. To this effect, you need to install also:
+
+  * A C++ compiler
+    + Homepage: https://gcc.gnu.org/
+    + Ubuntu package: g++
+  * An Objective C compiler
+    + Homepage: https://gcc.gnu.org/
+    + Ubuntu package: gobjc
+
+  * Python
+    + Homepage: https://www.python.org/
+    + Ubuntu package: python
+
+  * GNU clisp
+    + Homepage: http://clisp.org/
+    + Ubuntu package: clisp
+
+  * librep
+    + Homepage: http://librep.sourceforge.net/
+    + Ubuntu package: rep
+
+  * GNU guile
+    + Homepage: https://www.gnu.org/software/guile/
+    + Ubuntu package: guile-2.0
+
+  * GNU smalltalk
+    + Homepage: http://smalltalk.gnu.org/
+    + Ubuntu package: gnu-smalltalk
+
+  * A Java compiler
+    + Homepage: http://openjdk.java.net/
+    + Ubuntu package: default-jdk
+
+  * A C# compiler
+    + Homepage: http://www.mono-project.com/
+    + Ubuntu package: mono-mcs
+
+  * GNU awk
+    + Homepage: https://www.gnu.org/software/gawk/
+    + Ubuntu package: gawk
+
+  * The Free Pascal compiler ppc386 or ppcx64
+    + Homepage: https://www.freepascal.org/
+    + Ubuntu package: fp-compiler
+  * The Free Pascal Free Component Library
+    + Homepage: https://www.freepascal.org/fcl/fcl.var
+    + Ubuntu package: fp-units-fcl
+
+  * Tcl
+    + Homepage: https://www.tcl.tk/
+    + Ubuntu package: tcl
+
+  * Perl
+    + Homepage: https://www.perl.org/
+    + Ubuntu package: perl
+  * The Perl packages Locale::Messages and libintl-perl
+    + Homepage: http://search.cpan.org/~guido/libintl-perl/
+    + Ubuntu package: libintl-perl
+
+  * php
+    + Homepage: http://www.php.net/
+    + Ubuntu package: php
+
+  * lua
+    + Homepage: https://www.lua.org/
+    + Ubuntu package: lua5.2 or lua5.1
+  * The lua-gettext package
+    + Homepage: https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md
+    + Debian and Ubuntu packages:
+      Download, then install through
+      $ sudo dpkg -i lua-gettext_0.0_amd64.deb
+
+  * The GNOME/Mozilla JavaScript interpreter
+    + Homepage: https://wiki.gnome.org/Projects/Gjs
+    + Ubuntu package: gjs
+
+  * The GNOME Vala compiler
+    + Homepage: https://wiki.gnome.org/Projects/Vala
+    + Ubuntu package: valac
+
+And you need to install a couple of locales, used by the tests.
+By default, only those enabled in /etc/locale.gen are preinstalled.
+
+$ sudo localedef -i ar_SA -f ISO-8859-6 ar_SA.ISO-8859-6
+$ sudo localedef -i de_DE -f ISO-8859-1 de_DE.ISO-8859-1
+$ sudo localedef -i de_DE -f UTF-8 de_DE.UTF-8
+$ sudo localedef -i fa_IR -f UTF-8 fa_IR
+$ sudo localedef -i fr_FR -f ISO-8859-1 fr_FR.ISO-8859-1
+$ sudo localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
+$ sudo localedef -i ja_JP -f EUC-JP ja_JP.EUC-JP
+$ sudo localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
+$ sudo localedef -i zh_CN -f GB18030 zh_CN.GB18030
+
+
 Building off the git repository
 ===============================
 
@@ -84,6 +182,7 @@ Access to the git repository is described at
 After fetching the sources from the repository, peek at the comments in
 autogen.sh, then run "./autogen.sh"; then you can proceed with "./configure"
 as usual.
+
 
 Submitting patches
 ==================
