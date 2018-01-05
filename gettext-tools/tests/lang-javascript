@@ -66,9 +66,10 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 (gjs -c imports.gettext) >/dev/null 2>/dev/null \
   || { echo "Skipping test: gjs gettext module not found"; Exit 77; }
 (gjs -c imports.format) >/dev/null 2>/dev/null \
-    || { echo "Skipping test: gjs format module not found"; Exit 77; }
-(pkg-config gjs-1.0 --atleast-version=1.40) >/dev/null 2>/dev/null \
-    || { echo "Skipping test: gjs version is older than 1.40"; Exit 77; }
+  || { echo "Skipping test: gjs format module not found"; Exit 77; }
+# Test for presence of gjs version 1.40 or newer.
+(gjs -c 'print(imports.format.vprintf("%3$s%2$s%1$s", ["x","y","z"]))') 2>/dev/null | grep zyx >/dev/null \
+  || { echo "Skipping test: gjs version is older than 1.40"; Exit 77; }
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
