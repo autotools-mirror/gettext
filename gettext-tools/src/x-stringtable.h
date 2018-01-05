@@ -1,5 +1,5 @@
 /* xgettext NXStringTable backend.
-   Copyright (C) 2003, 2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006, 2015-2016, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ extern "C" {
 #define SCANNERS_STRINGTABLE \
   { "NXStringTable",    extract_stringtable, NULL, NULL, NULL, NULL },        \
 
-/* Scan a JavaProperties file and add its translatable strings to mdlp.  */
+/* Scan an NXStringTable file and add its translatable strings to mdlp.  */
 extern void extract_stringtable (FILE *fp, const char *real_filename,
                                  const char *logical_filename,
                                  flag_context_list_table_ty *flag_table,
