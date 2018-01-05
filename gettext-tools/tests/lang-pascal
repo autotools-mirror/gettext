@@ -34,7 +34,13 @@ EOF
 }
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o pascalprog.tmp --omit-header --add-location pascalprog.rst || Exit 1
+# fpc 3.0.0 or newer produces a .rsj file instead of a .rst file.
+if test -f pascalprog.rsj; then
+  suffix=rsj
+else
+  suffix=rst
+fi
+${XGETTEXT} -o pascalprog.tmp --omit-header --add-location pascalprog.${suffix} || Exit 1
 LC_ALL=C tr -d '\r' < pascalprog.tmp > pascalprog.pot || Exit 1
 
 cat <<EOF > pascalprog.ok

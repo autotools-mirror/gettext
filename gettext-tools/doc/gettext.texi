@@ -12283,6 +12283,11 @@ gettext
 @node RST, Glade, POT, List of Data Formats
 @subsection Resource String Table
 @cindex RST
+@cindex RSJ
+
+RST is the format of resource string table files of the Free Pascal compiler
+versions older than 3.0.0.  RSJ is the new format of resource string table
+files, created by the Free Pascal compiler version 3.0.0 or newer.
 
 @table @asis
 @item RPMs
@@ -12292,7 +12297,7 @@ fpk
 fp-compiler
 
 @item File extension
-@code{rst}
+@code{rst}, @code{rsj}
 
 @item Extractor
 @code{xgettext}, @code{rstconv}

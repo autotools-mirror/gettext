@@ -97,6 +97,7 @@ TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
 	xgettext-php-1 xgettext-php-2 xgettext-php-3 xgettext-php-4 \
 	xgettext-po-1 xgettext-po-2 \
 	xgettext-properties-1 \
+	xgettext-rst-1 xgettext-rst-2 \
 	xgettext-python-1 xgettext-python-2 xgettext-python-3 \
 	xgettext-python-4 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \

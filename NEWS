@@ -7,6 +7,9 @@
       npgettext, dnpgettext, dcnpgettext).
     o better detection of question mark and slash as operators (as opposed 
       to regular expression delimiters).
+  - Pascal:
+    xgettext can now extract strings from .rsj files, produced by the
+    Free Pascal compiler version 3.0.0 or newer.
 
 Version 0.19.8 - June 2016
 
