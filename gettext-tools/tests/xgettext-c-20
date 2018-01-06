@@ -1,7 +1,7 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test C support: C++11 string literals.
+# Test C++ support: C++11 string literals.
 
 : ${XGETTEXT=xgettext}
 
