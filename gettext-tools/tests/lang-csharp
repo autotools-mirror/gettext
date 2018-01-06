@@ -178,9 +178,21 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 : ${CSHARPEXEC="/bin/sh ../../csharpexec.sh"}
 if test $LOCALE_FR != none; then
-  prepare_locale_ fr $LOCALE_FR
-  LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp program.exe 2 > prog.out || Exit 1
-  ${DIFF} prog.ok prog.out || Exit 1
+  # On Mac OS X, with mono 4.2.3, this test would fail, because the Console's
+  # output encoding is System.Text.Encoding.Default, and this is UTF-8 even
+  # in the fr_FR.ISO8859-1 locale. System.Text.Encoding.Default is defined
+  # through InternalCodePage(), which uses g_get_charset(), which uses either
+  # locale_charset() or nl_langinfo(CODESET) [which is "ISO8859-1" in this case]
+  # or "UTF-8" - depending on platform or build configuration. So, skip this
+  # test on Mac OS X.
+  case "$host_os" in
+    darwin*) ;;
+    *)
+      prepare_locale_ fr $LOCALE_FR
+      LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp program.exe 2 > prog.out || Exit 1
+      ${DIFF} prog.ok prog.out || Exit 1
+      ;;
+  esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ fr $LOCALE_FR_UTF8
