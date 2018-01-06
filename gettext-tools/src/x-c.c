@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2009, 2012, 2015-2016 Free Software
+   Copyright (C) 1995-1998, 2000-2009, 2012, 2015-2016, 2018 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -1402,6 +1402,12 @@ phase5_get (token_ty *tp)
           c = phase4_getc ();
           switch (c)
             {
+            case 'p':
+            case 'P':
+              if (!cxx_extensions)
+                continue;
+              /* In C++17, 'p' and 'P' can be used as an exponent marker.  */
+              /* FALLTHROUGH */
             case 'e':
             case 'E':
               if (bufpos >= bufmax)
@@ -1420,12 +1426,12 @@ phase5_get (token_ty *tp)
 
             case 'A': case 'B': case 'C': case 'D':           case 'F':
             case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-            case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+            case 'M': case 'N': case 'O':           case 'Q': case 'R':
             case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
             case 'Y': case 'Z':
             case 'a': case 'b': case 'c': case 'd':           case 'f':
             case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-            case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+            case 'm': case 'n': case 'o':           case 'q': case 'r':
             case 's': case 't': case 'u': case 'v': case 'w': case 'x':
             case 'y': case 'z':
             case '0': case '1': case '2': case '3': case '4':
@@ -1433,6 +1439,45 @@ phase5_get (token_ty *tp)
             case '.':
               continue;
 
+            case '\'':
+              if (cxx_extensions)
+                {
+                  /* In C++14, a single-quote followed by a digit, ASCII letter,
+                     or underscore can be part of a preprocessing number token.  */
+                  int c1 = phase4_getc ();
+                  switch (c1)
+                    {
+                    case '0': case '1': case '2': case '3': case '4':
+                    case '5': case '6': case '7': case '8': case '9':
+                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                    case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                    case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                    case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                    case 'Y': case 'Z':
+                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                    case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                    case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                    case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                    case 'y': case 'z':
+                    case '_':
+                      if (bufpos >= bufmax)
+                        {
+                          bufmax = 2 * bufmax + 10;
+                          buffer = xrealloc (buffer, bufmax);
+                        }
+                      buffer[bufpos++] = c;
+                      c = c1;
+                      continue;
+                    default:
+                      /* The two phase4_getc() calls that returned c and c1 did
+                         nothing more than to call phase3_getc(), without any
+                         lookahead.  Therefore 2 pushback characters are
+                         supported in this case.  */
+                      phase4_ungetc (c1);
+                      break;
+                    }
+                }
+              /* FALLTHROUGH */
             default:
               phase4_ungetc (c);
               break;
