@@ -1,5 +1,5 @@
 /* Reading Java .properties files.
-   Copyright (C) 2003, 2005-2007, 2009, 2015-2016 Free Software Foundation,
+   Copyright (C) 2003, 2005-2007, 2009, 2015-2016, 2018 Free Software Foundation,
    Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
@@ -38,6 +38,7 @@
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "msgl-ascii.h"
+#include "read-file.h"
 #include "unistr.h"
 #include "gettext.h"
 
@@ -54,7 +55,14 @@
    files for PropertyResourceBundle, each non-comment line contains a
    key/value pair in the form "key = value" or "key : value" or "key value",
    where the key is the msgid and the value is the msgstr.  Messages with
-   plurals are not supported in this format.  */
+   plurals are not supported in this format.
+
+   The encoding of Java .properties files is:
+     - ASCII with Java \uxxxx escape sequences,
+     - ISO-8859-1 if non-ASCII bytes are encounterd,
+     - UTF-8 if non-ASCII bytes are encountered and the entire file is
+       valid UTF-8 (in Java 9 or newer), see
+       https://docs.oracle.com/javase/9/intl/internationalization-enhancements-jdk-9.htm */
 
 /* Handling of comments: We copy all comments from the .properties file to
    the PO file. This is not really needed; it's a service for translators
@@ -66,47 +74,39 @@ static const char *real_file_name;
 /* File name and line number.  */
 extern lex_pos_ty gram_pos;
 
-/* The input file stream.  */
-static FILE *fp;
+/* The contents of the input file.  */
+static char *contents;
+static size_t contents_length;
 
+/* True if the input file is assumed to be in UTF-8 encoding.
+   False if it is assumed to be in ISO-8859-1 encoding.  */
+static bool assume_utf8;
 
-/* Phase 1: Read an ISO-8859-1 character.
-   Max. 1 pushback character.  */
+/* Current position in contents.  */
+static size_t position;
+
+/* Phase 1: Read an input byte.
+   Max. 1 pushback byte.  */
 
 static int
 phase1_getc ()
 {
-  int c;
+  if (position == contents_length)
+    return EOF;
 
-  c = getc (fp);
-
-  if (c == EOF)
-    {
-      if (ferror (fp))
-        {
-          const char *errno_description = strerror (errno);
-          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                     xasprintf ("%s: %s",
-                                xasprintf (_("error while reading \"%s\""),
-                                           real_file_name),
-                                errno_description));
-        }
-      return EOF;
-    }
-
-  return c;
+  return (unsigned char) contents[position++];
 }
 
 static inline void
 phase1_ungetc (int c)
 {
   if (c != EOF)
-    ungetc (c, fp);
+    position--;
 }
 
 
-/* Phase 2: Read an ISO-8859-1 character, treating CR/LF like a single LF.
-   Max. 2 pushback characters.  */
+/* Phase 2: Read an input byte, treating CR/LF like a single LF.
+   Max. 2 pushback bytes.  */
 
 static unsigned char phase2_pushback[2];
 static int phase2_pushback_length;
@@ -148,7 +148,7 @@ phase2_ungetc (int c)
 }
 
 
-/* Phase 3: Read an ISO-8859-1 character, treating CR/LF like a single LF,
+/* Phase 3: Read an input byte, treating CR/LF like a single LF,
    with handling of continuation lines.
    Max. 1 pushback character.  */
 
@@ -180,62 +180,6 @@ static inline void
 phase3_ungetc (int c)
 {
   phase2_ungetc (c);
-}
-
-
-/* Phase 4: Read an UTF-16 codepoint, treating CR/LF like a single LF,
-   with handling of continuation lines and of \uxxxx sequences.  */
-
-static int
-phase4_getuc ()
-{
-  int c = phase3_getc ();
-
-  if (c == EOF)
-    return -1;
-  if (c == '\\')
-    {
-      int c2 = phase3_getc ();
-
-      if (c2 == 't')
-        return '\t';
-      if (c2 == 'n')
-        return '\n';
-      if (c2 == 'r')
-        return '\r';
-      if (c2 == 'f')
-        return '\f';
-      if (c2 == 'u')
-        {
-          unsigned int n = 0;
-          int i;
-
-          for (i = 0; i < 4; i++)
-            {
-              int c1 = phase3_getc ();
-
-              if (c1 >= '0' && c1 <= '9')
-                n = (n << 4) + (c1 - '0');
-              else if (c1 >= 'A' && c1 <= 'F')
-                n = (n << 4) + (c1 - 'A' + 10);
-              else if (c1 >= 'a' && c1 <= 'f')
-                n = (n << 4) + (c1 - 'a' + 10);
-              else
-                {
-                  phase3_ungetc (c1);
-                  po_xerror (PO_SEVERITY_ERROR, NULL,
-                             real_file_name, gram_pos.line_number, (size_t)(-1),
-                             false, _("warning: invalid \\uxxxx syntax for Unicode character"));
-                  return 'u';
-                }
-            }
-          return n;
-        }
-
-      return c2;
-    }
-  else
-    return c;
 }
 
 
@@ -354,6 +298,77 @@ conv_from_java (char *string)
 }
 
 
+/* Phase 4: Read the next single byte or UTF-16 code point,
+   treating CR/LF like a single LF, with handling of continuation lines
+   and of \uxxxx sequences.  */
+
+/* Return value of phase 4 when EOF is reached.  */
+#define P4_EOF 0xffff
+
+/* Convert an UTF-16 code point to a return value that can be distinguished
+   from a single-byte return value.  */
+#define UNICODE(code) (0x10000 + (code))
+
+/* Test a return value of phase 4 whether it designates an UTF-16 code
+   point.  */
+#define IS_UNICODE(p4_result) ((p4_result) >= 0x10000)
+
+/* Extract the UTF-16 code of a return value that satisfies IS_UNICODE.  */
+#define UTF16_VALUE(p4_result) ((p4_result) - 0x10000)
+
+static int
+phase4_getuc ()
+{
+  int c = phase3_getc ();
+
+  if (c == EOF)
+    return P4_EOF;
+  if (c == '\\')
+    {
+      int c2 = phase3_getc ();
+
+      if (c2 == 't')
+        return '\t';
+      if (c2 == 'n')
+        return '\n';
+      if (c2 == 'r')
+        return '\r';
+      if (c2 == 'f')
+        return '\f';
+      if (c2 == 'u')
+        {
+          unsigned int n = 0;
+          int i;
+
+          for (i = 0; i < 4; i++)
+            {
+              int c1 = phase3_getc ();
+
+              if (c1 >= '0' && c1 <= '9')
+                n = (n << 4) + (c1 - '0');
+              else if (c1 >= 'A' && c1 <= 'F')
+                n = (n << 4) + (c1 - 'A' + 10);
+              else if (c1 >= 'a' && c1 <= 'f')
+                n = (n << 4) + (c1 - 'a' + 10);
+              else
+                {
+                  phase3_ungetc (c1);
+                  po_xerror (PO_SEVERITY_ERROR, NULL,
+                             real_file_name, gram_pos.line_number, (size_t)(-1),
+                             false, _("warning: invalid \\uxxxx syntax for Unicode character"));
+                  return 'u';
+                }
+            }
+          return UNICODE (n);
+        }
+
+      return c2;
+    }
+  else
+    return c;
+}
+
+
 /* Reads a key or value string.
    Returns the string in UTF-8 encoding, or NULL if the end of the logical
    line is reached.
@@ -366,9 +381,61 @@ conv_from_java (char *string)
 static char *
 read_escaped_string (bool in_key)
 {
-  static unsigned short *buffer;
-  static size_t bufmax;
-  static size_t buflen;
+  /* The part of the string that has already been converted to UTF-8.  */
+  static unsigned char *utf8_buffer;
+  static size_t utf8_buflen;
+  static size_t utf8_allocated;
+  /* The first half of an UTF-16 surrogate character.  */
+  unsigned short utf16_surr;
+  /* Line in which this surrogate character occurred.  */
+  size_t utf16_surr_line;
+
+  /* Ensures utf8_buffer has room for N bytes.  N must be <= 10.  */
+  #define utf8_buffer_ensure_available(n)  \
+    do                                                                        \
+      {                                                                       \
+        if (utf8_buflen + (n) > utf8_allocated)                               \
+          {                                                                   \
+            utf8_allocated = 2 * utf8_allocated + 10;                         \
+            utf8_buffer =                                                     \
+              (unsigned char *) xrealloc (utf8_buffer, utf8_allocated);       \
+          }                                                                   \
+      }                                                                       \
+    while (0)
+
+  /* Appends a lone surrogate to utf8_buffer.  */
+  /* Note: A half surrogate is invalid in UTF-8:
+     - RFC 3629 says
+         "The definition of UTF-8 prohibits encoding character
+          numbers between U+D800 and U+DFFF".
+     - Unicode 4.0 chapter 3
+       <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
+       section 3.9, p.77, says
+         "Because surrogate code points are not Unicode scalar
+          values, any UTF-8 byte sequence that would otherwise
+          map to code points D800..DFFF is ill-formed."
+       and in table 3-6, p. 78, does not mention D800..DFFF.
+     - The unicode.org FAQ question "How do I convert an unpaired
+       UTF-16 surrogate to UTF-8?" has the answer
+         "By representing such an unpaired surrogate on its own
+          as a 3-byte sequence, the resulting UTF-8 data stream
+          would become ill-formed."
+     So use U+FFFD instead.  */
+  #define utf8_buffer_append_lone_surrogate(uc, line) \
+    do                                                                        \
+      {                                                                       \
+        error_with_progname = false;                                          \
+        po_xerror (PO_SEVERITY_ERROR, NULL,                                   \
+                   real_file_name, (line), (size_t)(-1), false,               \
+                   xasprintf (_("warning: lone surrogate U+%04X"), (uc)));    \
+        error_with_progname = true;                                           \
+        utf8_buffer_ensure_available (3);                                     \
+        utf8_buffer[utf8_buflen++] = 0xef;                                    \
+        utf8_buffer[utf8_buflen++] = 0xbf;                                    \
+        utf8_buffer[utf8_buflen++] = 0xbd;                                    \
+      }                                                                       \
+    while (0)
+
   int c;
 
   /* Skip whitespace before the string.  */
@@ -380,11 +447,10 @@ read_escaped_string (bool in_key)
     /* Empty string.  */
     return NULL;
 
-  /* Start accumulating the string.  We store the string in UTF-16 before
-     converting it to UTF-8.  Why not converting every character directly to
-     UTF-8? Because a string can contain surrogates like \uD800\uDF00, and
-     we must combine them to a single UTF-8 character.  */
-  buflen = 0;
+  /* Start accumulating the string.  */
+  utf8_buflen = 0;
+  utf16_surr = 0;
+  utf16_surr_line = 0;
   for (;;)
     {
       if (in_key && (c == '=' || c == ':'
@@ -401,17 +467,107 @@ read_escaped_string (bool in_key)
 
       phase3_ungetc (c);
 
-      /* Read the next UTF-16 codepoint.  */
+      /* Read the next byte or UTF-16 code point.  */
       c = phase4_getuc ();
-      if (c < 0)
+      if (c == P4_EOF)
         break;
+
       /* Append it to the buffer.  */
-      if (buflen >= bufmax)
+      if (IS_UNICODE (c))
         {
-          bufmax += 100;
-          buffer = xrealloc (buffer, bufmax * sizeof (unsigned short));
+          /* Append an UTF-16 code point.  */
+          /* Test whether this character and the previous one form a Unicode
+             surrogate pair.  */
+          if (utf16_surr != 0
+              && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
+            {
+              unsigned short utf16buf[2];
+              ucs4_t uc;
+              int len;
+
+              utf16buf[0] = utf16_surr;
+              utf16buf[1] = UTF16_VALUE (c);
+              if (u16_mbtouc (&uc, utf16buf, 2) != 2)
+                abort ();
+
+              utf8_buffer_ensure_available (6);
+              len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 6);
+              if (len < 0)
+                {
+                  error_with_progname = false;
+                  po_xerror (PO_SEVERITY_ERROR, NULL,
+                             real_file_name, gram_pos.line_number, (size_t)(-1),
+                             false, _("warning: invalid Unicode character"));
+                  error_with_progname = true;
+                }
+              else
+                utf8_buflen += len;
+
+              utf16_surr = 0;
+            }
+          else
+            {
+              if (utf16_surr != 0)
+                {
+                  utf8_buffer_append_lone_surrogate (utf16_surr, utf16_surr_line);
+                  utf16_surr = 0;
+                }
+
+              if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
+                {
+                  utf16_surr = UTF16_VALUE (c);
+                  utf16_surr_line = gram_pos.line_number;
+                }
+              else if (c >= UNICODE (0xdc00) && c < UNICODE (0xe000))
+                utf8_buffer_append_lone_surrogate (UTF16_VALUE (c), gram_pos.line_number);
+              else
+                {
+                  ucs4_t uc = UTF16_VALUE (c);
+                  int len;
+
+                  utf8_buffer_ensure_available (3);
+                  len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 3);
+                  if (len < 0)
+                    {
+                      error_with_progname = false;
+                      po_xerror (PO_SEVERITY_ERROR, NULL,
+                                 real_file_name, gram_pos.line_number, (size_t)(-1),
+                                 false, _("warning: invalid Unicode character"));
+                      error_with_progname = true;
+                    }
+                  else
+                    utf8_buflen += len;
+                }
+            }
         }
-      buffer[buflen++] = c;
+      else
+        {
+          /* Append a single byte.  */
+          if (utf16_surr != 0)
+            {
+              utf8_buffer_append_lone_surrogate (utf16_surr, utf16_surr_line);
+              utf16_surr = 0;
+            }
+
+          if (assume_utf8)
+            {
+              /* No conversion needed.  */
+              utf8_buffer_ensure_available (1);
+              utf8_buffer[utf8_buflen++] = c;
+            }
+          else
+            {
+              /* Convert the byte from ISO-8859-1 to UTF-8 on the fly.  */
+              ucs4_t uc = c;
+              int len;
+
+              utf8_buffer_ensure_available (2);
+              len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 2);
+              if (len < 0)
+                abort ();
+              utf8_buflen += len;
+            }
+        }
 
       c = phase3_getc ();
       if (c == EOF || c == '\n')
@@ -421,30 +577,19 @@ read_escaped_string (bool in_key)
           break;
         }
     }
+  if (utf16_surr != 0)
+    utf8_buffer_append_lone_surrogate (utf16_surr, utf16_surr_line);
 
-  /* Now convert from UTF-16 to UTF-8.  */
+  /* Return the result.  */
   {
-    size_t pos;
-    unsigned char *utf8_string;
-    unsigned char *q;
-
-    /* Each UTF-16 word needs 3 bytes at worst.  */
-    utf8_string = XNMALLOC (3 * buflen + 1, unsigned char);
-    for (pos = 0, q = utf8_string; pos < buflen; )
-      {
-        ucs4_t uc;
-        int n;
-
-        pos += u16_mbtouc (&uc, buffer + pos, buflen - pos);
-        n = u8_uctomb (q, uc, 6);
-        assert (n > 0);
-        q += n;
-      }
-    *q = '\0';
-    assert (q - utf8_string <= 3 * buflen);
+    unsigned char *utf8_string = XNMALLOC (utf8_buflen + 1, unsigned char);
+    memcpy (utf8_string, utf8_buffer, utf8_buflen);
+    utf8_string[utf8_buflen] = '\0';
 
     return (char *) utf8_string;
   }
+  #undef utf8_buffer_append_lone_surrogate
+  #undef utf8_buffer_ensure_available
 }
 
 
@@ -454,7 +599,23 @@ static void
 properties_parse (abstract_catalog_reader_ty *this, FILE *file,
                   const char *real_filename, const char *logical_filename)
 {
-  fp = file;
+  /* Read the file into memory.  */
+  contents = fread_file (file, &contents_length);
+  if (contents == NULL)
+    {
+      const char *errno_description = strerror (errno);
+      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                 xasprintf ("%s: %s",
+                            xasprintf (_("error while reading \"%s\""),
+                                       real_filename),
+                            errno_description));
+      return;
+    }
+
+  /* Test whether it's valid UTF-8.  */
+  assume_utf8 = (u8_check ((uint8_t *) contents, contents_length) == NULL);
+
+  position = 0;
   real_file_name = real_filename;
   gram_pos.file_name = xstrdup (real_file_name);
   gram_pos.line_number = 1;
@@ -513,7 +674,9 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
             }
           buffer[buflen] = '\0';
 
-          po_callback_comment_dispatcher (conv_from_java (conv_from_iso_8859_1 (buffer)));
+          po_callback_comment_dispatcher (
+            conv_from_java (
+              assume_utf8 ? buffer : conv_from_iso_8859_1 (buffer)));
         }
       else
         {
@@ -549,7 +712,8 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
         }
     }
 
-  fp = NULL;
+  free (contents);
+  contents = NULL;
   real_file_name = NULL;
   gram_pos.line_number = 0;
 }

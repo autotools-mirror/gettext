@@ -2,6 +2,9 @@
   - update-po target in Makefile.in.in now uses msgfmt --previous.
 
 * Programming languages support:
+  - Java:
+    xgettext now support UTF-8 encoded .properties files (a new feature
+    of Java 9).
   - Perl:
     o Native support for context functions (pgettext, dpgettext, dcpgettext,
       npgettext, dnpgettext, dcnpgettext).

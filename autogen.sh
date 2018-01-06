@@ -231,6 +231,7 @@ if ! $skip_gnulib; then
       pipe-filter-ii
       progname
       propername
+      read-file
       readdir
       relocatable-prog
       relocatable-script
@@ -259,6 +260,7 @@ if ! $skip_gnulib; then
       unilbrk/ulc-width-linebreaks
       uniname/uniname
       unistd
+      unistr/u8-check
       unistr/u8-mbtouc
       unistr/u8-mbtoucr
       unistr/u8-uctomb
