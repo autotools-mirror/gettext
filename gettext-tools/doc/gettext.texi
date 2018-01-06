@@ -114,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2012 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2018 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -162,6 +162,7 @@ version @value{VERSION}.
 * Maintainers::                 The Maintainer's View
 * Installers::                  The Installer's and Distributor's View
 * Programming Languages::       Other Programming Languages
+* Data Formats::                Other Data Formats
 * Conclusion::                  Concluding Remarks
 
 * Language Codes::              ISO 639 language codes
@@ -384,7 +385,6 @@ Other Programming Languages
 * Translators for other Languages::  The Translator's View
 * Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
-* List of Data Formats::        Internationalizable Data
 
 The Translator's View
 
@@ -463,7 +463,12 @@ Perl
 * Long Lines::                  How To Grok with Long Lines
 * Perl Pitfalls::               Bugs, Pitfalls, and Things That Do Not Work
 
-Internationalizable Data
+Other Data Formats
+
+* Internationalizable Data::    Internationalizable Data Formats
+* Localized Data::              Localized Data Formats
+
+Internationalizable Data Formats
 
 * POT::                         POT - Portable Object Template
 * RST::                         Resource String Table
@@ -471,6 +476,28 @@ Internationalizable Data
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
 * Preparing ITS Rules::         Preparing Rules for XML Internationalization
+
+Localized Data Formats
+
+* Editable Message Catalogs::   Editable Message Catalogs
+* Compiled Message Catalogs::   Compiled Message Catalogs
+* Desktop Entry::               Desktop Entry files
+* XML::                         XML files
+
+Editable Message Catalogs
+
+* PO::                          PO - Portable Object
+* Java .properties::            Java .properties
+* GNUstep .strings::            NeXTstep/GNUstep .strings
+
+Compiled Message Catalogs
+
+* MO::                          MO - Machine Object
+* Java ResourceBundle::         Java ResourceBundle
+* C# Satellite Assembly::       C# Satellite Assembly
+* C# Resource::                 C# Resource
+* Tcl message catalog::         Tcl message catalog
+* Qt message catalog::          Qt message catalog
 
 Concluding Remarks
 
@@ -8896,7 +8923,7 @@ may be set, prior to configuration, to limit the installed set.
 @code{LINGUAS} should then contain a space separated list of two-letter
 codes, stating which languages are allowed.
 
-@node Programming Languages, Conclusion, Installers, Top
+@node Programming Languages, Data Formats, Installers, Top
 @chapter Other Programming Languages
 
 While the presentation of @code{gettext} focuses mostly on C and
@@ -8911,7 +8938,6 @@ approach.
 * Translators for other Languages::  The Translator's View
 * Maintainers for other Languages::  The Maintainer's View
 * List of Programming Languages::  Individual Programming Languages
-* List of Data Formats::        Internationalizable Data
 @end menu
 
 @node Language Implementors, Programmers for other Languages, Programming Languages, Programming Languages
@@ -9386,7 +9412,7 @@ invocation per programming language, each with the options appropriate for
 that language, and to combine the resulting files using @code{msgcat}.
 @end itemize
 
-@node List of Programming Languages, List of Data Formats, Maintainers for other Languages, Programming Languages
+@node List of Programming Languages,  , Maintainers for other Languages, Programming Languages
 @section Individual Programming Languages
 
 @c Here is a list of programming languages, as used for Free Software projects
@@ -12248,8 +12274,19 @@ yes
 
 @end ignore
 
-@node List of Data Formats,  , List of Programming Languages, Programming Languages
-@section Internationalizable Data
+@node Data Formats, Conclusion, Programming Languages, Top
+@chapter Other Data Formats
+
+While the GNU gettext tools deal mainly with POT and PO files, they can
+also manipulate a couple of other data formats.
+
+@menu
+* Internationalizable Data::    Internationalizable Data Formats
+* Localized Data::              Localized Data Formats
+@end menu
+
+@node Internationalizable Data, Localized Data, Data Formats, Data Formats
+@section Internationalizable Data Formats
 
 Here is a list of other data formats which can be internationalized
 using GNU gettext.
@@ -12260,10 +12297,10 @@ using GNU gettext.
 * Glade::                       Glade - GNOME user interface description
 * GSettings::                   GSettings - GNOME user configuration schema
 * AppData::                     AppData - freedesktop.org application description
-* Preparing ITS Rules::  Preparing Rules for XML Internationalization
+* Preparing ITS Rules::         Preparing Rules for XML Internationalization
 @end menu
 
-@node POT, RST, List of Data Formats, List of Data Formats
+@node POT, RST, Internationalizable Data, Internationalizable Data
 @subsection POT - Portable Object Template
 
 @table @asis
@@ -12280,7 +12317,7 @@ gettext
 @code{xgettext}
 @end table
 
-@node RST, Glade, POT, List of Data Formats
+@node RST, Glade, POT, Internationalizable Data
 @subsection Resource String Table
 @cindex RST
 @cindex RSJ
@@ -12303,7 +12340,7 @@ fp-compiler
 @code{xgettext}, @code{rstconv}
 @end table
 
-@node Glade, GSettings, RST, List of Data Formats
+@node Glade, GSettings, RST, Internationalizable Data
 @subsection Glade - GNOME user interface description
 
 @table @asis
@@ -12320,7 +12357,7 @@ glade, libglade2-dev, intltool
 @code{xgettext}, @code{libglade-xgettext}, @code{xml-i18n-extract}, @code{intltool-extract}
 @end table
 
-@node GSettings, AppData, Glade, List of Data Formats
+@node GSettings, AppData, Glade, Internationalizable Data
 @subsection GSettings - GNOME user configuration schema
 
 @table @asis
@@ -12337,7 +12374,7 @@ libglib2.0-dev
 @code{xgettext}, @code{intltool-extract}
 @end table
 
-@node AppData, Preparing ITS Rules, GSettings, List of Data Formats
+@node AppData, Preparing ITS Rules, GSettings, Internationalizable Data
 @subsection AppData - freedesktop.org application description
 
 This file format is specified in
@@ -12357,10 +12394,7 @@ appdata-tools, appstream, libappstream-glib-dev
 @code{xgettext}, @code{intltool-extract}, @code{itstool}
 @end table
 
-@menu
-@end menu
-
-@node Preparing ITS Rules,  , AppData, List of Data Formats
+@node Preparing ITS Rules,  , AppData, Internationalizable Data
 @subsection Preparing Rules for XML Internationalization
 @cindex preparing rules for XML translation
 
@@ -12540,7 +12574,156 @@ strings can have arbitrary XML constructs, such as elements for markup.
 
 @end ignore
 
-@node Conclusion, Language Codes, Programming Languages, Top
+@node Localized Data,  , Internationalizable Data, Data Formats
+@section Localized Data Formats
+
+Here is a list of file formats that contain localized data and that the
+GNU gettext tools can manipulate.
+
+@menu
+* Editable Message Catalogs::   Editable Message Catalogs
+* Compiled Message Catalogs::   Compiled Message Catalogs
+* Desktop Entry::               Desktop Entry files
+* XML::                         XML files
+@end menu
+
+@node Editable Message Catalogs, Compiled Message Catalogs, Localized Data, Localized Data
+@subsection Editable Message Catalogs
+
+These file formats can be used with all of the @code{msg*} tools and with
+the @code{xgettext} program.
+
+If you just want to convert among these formats, you can use the
+@code{msgcat} program (with the appropriate option) or the @code{xgettext}
+program.
+
+@menu
+* PO::                          PO - Portable Object
+* Java .properties::            Java .properties
+* GNUstep .strings::            NeXTstep/GNUstep .strings
+@end menu
+
+@node PO, Java .properties, Editable Message Catalogs, Editable Message Catalogs
+@subsubsection PO - Portable Object
+
+@table @asis
+@item File extension
+@code{po}
+@end table
+
+@node Java .properties, GNUstep .strings, PO, Editable Message Catalogs
+@subsubsection Java .properties
+
+@table @asis
+@item File extension
+@code{properties}
+@end table
+
+@node GNUstep .strings,  , Java .properties, Editable Message Catalogs
+@subsubsection NeXTstep/GNUstep .strings
+
+@table @asis
+@item File extension
+@code{strings}
+@end table
+
+@node Compiled Message Catalogs, Desktop Entry, Editable Message Catalogs, Localized Data
+@subsection Compiled Message Catalogs
+
+These file formats can be created through @code{msgfmt} and converted back
+to PO format through @code{msgunfmt}.
+
+@menu
+* MO::                          MO - Machine Object
+* Java ResourceBundle::         Java ResourceBundle
+* C# Satellite Assembly::       C# Satellite Assembly
+* C# Resource::                 C# Resource
+* Tcl message catalog::         Tcl message catalog
+* Qt message catalog::          Qt message catalog
+@end menu
+
+@node MO, Java ResourceBundle, Compiled Message Catalogs, Compiled Message Catalogs
+@subsubsection MO - Machine Object
+
+@table @asis
+@item File extension
+@code{mo}
+@end table
+
+See section @ref{MO Files} for details.
+
+@node Java ResourceBundle, C# Satellite Assembly, MO, Compiled Message Catalogs
+@subsubsection Java ResourceBundle
+
+@table @asis
+@item File extension
+@code{class}
+@end table
+
+For more information, see the section @ref{Java} and the examples
+@code{hello-java}, @code{hello-java-awt}, @code{hello-java-swing}.
+
+@node C# Satellite Assembly, C# Resource, Java ResourceBundle, Compiled Message Catalogs
+@subsubsection C# Satellite Assembly
+
+@table @asis
+@item File extension
+@code{dll}
+@end table
+
+For more information, see the section @ref{C#}.
+
+@node C# Resource, Tcl message catalog, C# Satellite Assembly, Compiled Message Catalogs
+@subsubsection C# Resource
+
+@table @asis
+@item File extension
+@code{resources}
+@end table
+
+For more information, see the section @ref{C#}.
+
+@node Tcl message catalog, Qt message catalog, C# Resource, Compiled Message Catalogs
+@subsubsection Tcl message catalog
+
+@table @asis
+@item File extension
+@code{msg}
+@end table
+
+For more information, see the section @ref{Tcl} and the examples
+@code{hello-tcl}, @code{hello-tcl-tk}.
+
+@node Qt message catalog,  , Tcl message catalog, Compiled Message Catalogs
+@subsubsection Qt message catalog
+
+@table @asis
+@item File extension
+@code{qm}
+@end table
+
+For more information, see the examples @code{hello-c++-qt} and
+@code{hello-c++-kde}.
+
+@node Desktop Entry, XML, Compiled Message Catalogs, Localized Data
+@subsection Desktop Entry files
+
+The programmer produces a desktop entry file template with only the
+English strings.  These strings get included in the POT file, by way of
+@code{xgettext} (usually by listing the template in @code{po/POTFILES.in}).
+The translators produce PO files, one for each language.  Finally, an
+@code{msgfmt --desktop} invocation collects all the translations in the
+desktop entry file.
+
+For more information, see the example @code{hello-c-gnome3}.
+
+@node XML,  , Desktop Entry, Localized Data
+@subsection XML files
+
+See the section @ref{Preparing ITS Rules} and
+@ref{msgfmt Invocation}, subsection ``XML mode operations''.
+
+@node Conclusion, Language Codes, Data Formats, Top
 @chapter Concluding Remarks
 
 We would like to conclude this GNU @code{gettext} manual by presenting
