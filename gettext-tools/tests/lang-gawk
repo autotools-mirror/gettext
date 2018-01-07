@@ -79,11 +79,11 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of gawk version 3.1.3 or newer, excluding version 3.1.5.
+# Test for presence of gawk version 3.1.3 or newer, excluding versions 3.1.5 and 4.2.0.
 (gawk --version) >/dev/null 2>/dev/null \
   || { echo "Skipping test: gawk not found"; Exit 77; }
 case `gawk --version 2>&1 | sed -e 's/^[^0-9]*//'` in
-  0.* | 1.* | 2.* | 3.0* | 3.1.0* | 3.1.1* | 3.1.2* | 3.1.5*)
+  0.* | 1.* | 2.* | 3.0* | 3.1.0* | 3.1.1* | 3.1.2* | 3.1.5* | 4.2.0*)
     echo "Skipping test: gawk version too old"; Exit 77;;
 esac
 
