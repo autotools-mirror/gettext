@@ -1404,9 +1404,8 @@ phase5_get (token_ty *tp)
             {
             case 'p':
             case 'P':
-              if (!cxx_extensions)
-                continue;
-              /* In C++17, 'p' and 'P' can be used as an exponent marker.  */
+              /* In C99 and C++17, 'p' and 'P' can be used as an exponent
+                 marker.  */
               /* FALLTHROUGH */
             case 'e':
             case 'E':

@@ -2,9 +2,12 @@
   - update-po target in Makefile.in.in now uses msgfmt --previous.
 
 * Programming languages support:
+  - C, C++:
+    xgettext now supports 'p'/'P' exponent markers in number tokens, as
+    specified in C99 and C++17.
   - C++:
-    xgettext now supports single-quotes and 'p'/'P' exponent markers in
-    number tokens, as specified in C++14 and C++17, respectively.
+    xgettext now supports single-quotes in number tokens, as specified in
+    C++14.
   - Java:
     xgettext now supports UTF-8 encoded .properties files (a new feature
     of Java 9).
