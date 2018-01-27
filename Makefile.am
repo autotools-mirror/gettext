@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2017 Free Software Foundation, Inc.
+## Copyright (C) 1995-2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -148,7 +148,7 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 # Windows support.
 
-EXTRA_DIST += README.windows windows/windres-options windows/gettext.rc
+EXTRA_DIST += INSTALL.windows windows/windres-options windows/gettext.rc
 
 # Versioning based on Git release tags.
 

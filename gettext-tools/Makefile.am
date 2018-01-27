@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-2007, 2010, 2015-2016 Free Software Foundation, Inc.
+## Copyright (C) 1995-2007, 2010, 2015-2016, 2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 # Windows support.
 
-EXTRA_DIST += README.windows
+EXTRA_DIST += INSTALL.windows
 
 
 # Cygwin support.

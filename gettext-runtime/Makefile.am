@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime directory of GNU gettext
-## Copyright (C) 1995-2006, 2010, 2012, 2015-2016 Free Software Foundation,
+## Copyright (C) 1995-2006, 2010, 2012, 2015-2016, 2018 Free Software Foundation,
 ## Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -55,7 +55,7 @@ EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 # Windows support.
 
-EXTRA_DIST += README.windows
+EXTRA_DIST += INSTALL.windows
 
 
 maintainer-update-po: $(top_builddir)/config.status
