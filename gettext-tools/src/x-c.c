@@ -1438,6 +1438,17 @@ phase5_get (token_ty *tp)
             case '.':
               continue;
 
+            case '_':
+              if (cxx_extensions)
+                /* In C++, an underscore can be part of a preprocessing number
+                   token.  */
+                continue;
+              else
+                {
+                  phase4_ungetc (c);
+                  break;
+                }
+
             case '\'':
               if (cxx_extensions)
                 {
