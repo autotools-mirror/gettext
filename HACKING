@@ -23,7 +23,7 @@ You will need reasonably recent versions of the build tools:
     + Homepage:
       http://www.gnu.org/software/m4/
 
-  * GNU bison 2.7 or newer
+  * GNU bison 3.0 or newer
     + Homepage:
       http://www.gnu.org/software/bison/
 
