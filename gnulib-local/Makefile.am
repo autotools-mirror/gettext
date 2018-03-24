@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008, 2010-2011, 2015-2017 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010-2011, 2015-2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -233,7 +233,6 @@ lib/obstack.h.diff \
 lib/ostream.oo.c \
 lib/ostream.oo.h \
 lib/progname.h.diff \
-lib/regexec.c.diff \
 lib/regex_internal.h.diff \
 lib/spawn-pipe.c.diff \
 lib/styled-ostream.oo.c \

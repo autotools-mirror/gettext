@@ -77,6 +77,8 @@
 /gettext-tools/libgettextpo/c-strstr.c
 /gettext-tools/libgettextpo/c-strstr.h
 /gettext-tools/libgettextpo/c++defs.h
+/gettext-tools/libgettextpo/cloexec.c
+/gettext-tools/libgettextpo/cloexec.h
 /gettext-tools/libgettextpo/close.c
 /gettext-tools/libgettextpo/concat-filename.c
 /gettext-tools/libgettextpo/concat-filename.h
@@ -85,6 +87,7 @@
 /gettext-tools/libgettextpo/dirname-lgpl.c
 /gettext-tools/libgettextpo/dirname.h
 /gettext-tools/libgettextpo/dosname.h
+/gettext-tools/libgettextpo/dup2.c
 /gettext-tools/libgettextpo/errno.in.h
 /gettext-tools/libgettextpo/error-progname.c
 /gettext-tools/libgettextpo/error-progname.h
@@ -92,6 +95,7 @@
 /gettext-tools/libgettextpo/error.h
 /gettext-tools/libgettextpo/exitfail.c
 /gettext-tools/libgettextpo/exitfail.h
+/gettext-tools/libgettextpo/fcntl.c
 /gettext-tools/libgettextpo/fcntl.in.h
 /gettext-tools/libgettextpo/fd-hook.c
 /gettext-tools/libgettextpo/fd-hook.h
@@ -110,6 +114,7 @@
 /gettext-tools/libgettextpo/gcd.c
 /gettext-tools/libgettextpo/gcd.h
 /gettext-tools/libgettextpo/getdelim.c
+/gettext-tools/libgettextpo/getdtablesize.c
 /gettext-tools/libgettextpo/getline.c
 /gettext-tools/libgettextpo/getprogname.c
 /gettext-tools/libgettextpo/getprogname.h
@@ -180,9 +185,12 @@
 /gettext-tools/libgettextpo/ref-del.sin
 /gettext-tools/libgettextpo/relocatable.c
 /gettext-tools/libgettextpo/relocatable.h
+/gettext-tools/libgettextpo/relocatable.valgrind
 /gettext-tools/libgettextpo/signal.in.h
 /gettext-tools/libgettextpo/sigprocmask.c
 /gettext-tools/libgettextpo/size_max.h
+/gettext-tools/libgettextpo/stat-time.c
+/gettext-tools/libgettextpo/stat-time.h
 /gettext-tools/libgettextpo/stat-w32.c
 /gettext-tools/libgettextpo/stat-w32.h
 /gettext-tools/libgettextpo/stat.c
