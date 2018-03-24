@@ -1,4 +1,7 @@
-* Runtime behaviour:
+* Support for reproducible builds:
+  - msgfmt now eliminates the POT-Creation-Date header field from .mo files.
+
+* Improvements for translators:
   - update-po target in Makefile.in.in now uses msgfmt --previous.
 
 * Programming languages support:
