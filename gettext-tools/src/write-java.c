@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2003, 2005-2010, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010, 2015-2016, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -1208,7 +1208,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
      Java compilers create the class files in the source file's directory -
      which is in a temporary directory in our case.  */
   java_sources[0] = java_file_name;
-  if (compile_java_class (java_sources, 1, NULL, 0, "1.3", "1.1", directory,
+  if (compile_java_class (java_sources, 1, NULL, 0, "1.5", "1.6", directory,
                           true, false, true, verbose > 0))
     {
       if (!verbose)
