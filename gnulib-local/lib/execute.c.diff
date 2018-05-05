@@ -14,5 +14,5 @@ index 15a487b..489abf5 100644
 +#endif
 +
  
- #if defined EINTR && ((defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__)
+ #if defined EINTR && (defined _WIN32 && ! defined __CYGWIN__)
  

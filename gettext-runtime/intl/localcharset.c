@@ -1,6 +1,6 @@
 /* Determine a canonical name for the current locale's character encoding.
 
-   Copyright (C) 2000-2006, 2008-2017 Free Software Foundation, Inc.
+   Copyright (C) 2000-2006, 2008-2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@
 # define DARWIN7 /* Darwin 7 or newer, i.e. Mac OS X 10.3 or newer */
 #endif
 
-#if (defined _WIN32 || defined __WIN32__) && !defined __CYGWIN__
+#if defined _WIN32 && !defined __CYGWIN__
 # define WINDOWS_NATIVE
 # include <locale.h>
 #endif
@@ -88,7 +88,7 @@
 # define O_NOFOLLOW 0
 #endif
 
-#if defined _WIN32 || defined __WIN32__ || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
+#if defined _WIN32 || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
   /* Native Windows, Cygwin, OS/2, DOS */
 # define ISSLASH(C) ((C) == '/' || (C) == '\\')
 #endif
@@ -262,8 +262,10 @@ get_charset_aliases (void)
 # if defined DARWIN7
       /* To avoid the trouble of installing a file that is shared by many
          GNU packages -- many packaging systems have problems with this --,
-         simply inline the aliases here.  */
-      cp = "ISO8859-1" "\0" "ISO-8859-1" "\0"
+         simply inline the aliases here.
+         For speed, map the most frequent case first.  */
+      cp = "UTF-8" "\0" "UTF-8" "\0"
+           "ISO8859-1" "\0" "ISO-8859-1" "\0"
            "ISO8859-2" "\0" "ISO-8859-2" "\0"
            "ISO8859-4" "\0" "ISO-8859-4" "\0"
            "ISO8859-5" "\0" "ISO-8859-5" "\0"
@@ -355,7 +357,7 @@ get_charset_aliases (void)
          by Alex Taylor:
          <http://altsan.org/os2/toolkits/uls/index.html#codepages>.
          See also "IBM Globalization - Code page identifiers":
-         <http://www-01.ibm.com/software/globalization/cp/cp_cpgid.html>.  */
+         <https://www-01.ibm.com/software/globalization/cp/cp_cpgid.html>.  */
       cp = "CP813" "\0" "ISO-8859-7" "\0"
            "CP878" "\0" "KOI8-R" "\0"
            "CP819" "\0" "ISO-8859-1" "\0"

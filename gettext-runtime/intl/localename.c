@@ -1,5 +1,5 @@
 /* Determine name of the currently selected locale.
-   Copyright (C) 1995-2017 Free Software Foundation, Inc.
+   Copyright (C) 1995-2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -40,7 +40,7 @@
 # if defined __APPLE__ && defined __MACH__
 #  include <xlocale.h>
 # endif
-# if (__GLIBC__ >= 2 && !defined __UCLIBC__) || defined __CYGWIN__
+# if (__GLIBC__ >= 2 && !defined __UCLIBC__) || (defined __linux__ && HAVE_LANGINFO_H) || defined __CYGWIN__
 #  include <langinfo.h>
 # endif
 # if !defined IN_LIBINTL
@@ -61,7 +61,7 @@ extern char * getlocalename_l(int, locale_t);
 # endif
 #endif
 
-#if (defined _WIN32 || defined __WIN32__) && !defined __CYGWIN__
+#if defined _WIN32 && !defined __CYGWIN__
 # define WINDOWS_NATIVE
 # if !defined IN_LIBINTL
 #  include "glthread/lock.h"
@@ -1157,7 +1157,7 @@ gl_locale_name_canonicalize (char *name)
 {
   /* This conversion is based on a posting by
      Deborah GoldSmith <goldsmit@apple.com> on 2005-03-08,
-     http://lists.apple.com/archives/carbon-dev/2005/Mar/msg00293.html */
+     https://lists.apple.com/archives/carbon-dev/2005/Mar/msg00293.html */
 
   /* Convert legacy (NeXTstep inherited) English names to Unix (ISO 639 and
      ISO 3166) names.  Prior to Mac OS X 10.3, there is no API for doing this.
@@ -1331,7 +1331,7 @@ gl_locale_name_canonicalize (char *name)
   };
 
   /* Convert script names (ISO 15924) to Unix conventions.
-     See http://www.unicode.org/iso15924/iso15924-codes.html  */
+     See https://www.unicode.org/iso15924/iso15924-codes.html  */
   typedef struct { const char script[4+1]; const char unixy[9+1]; }
           script_entry;
   static const script_entry script_table[] = {
@@ -1492,8 +1492,8 @@ gl_locale_name_from_win32_LANGID (LANGID langid)
     sub = SUBLANGID (langid);
 
     /* Dispatch on language.
-       See also http://www.unicode.org/unicode/onlinedat/languages.html .
-       For details about languages, see http://www.ethnologue.com/ .  */
+       See also https://www.unicode.org/unicode/onlinedat/languages.html .
+       For details about languages, see https://www.ethnologue.com/ .  */
     switch (primary)
       {
       case LANG_AFRIKAANS:
@@ -2259,10 +2259,10 @@ gl_locale_name_from_win32_LANGID (LANGID langid)
           }
         return "wen";
       case LANG_SOTHO:
-        /* <http://www.microsoft.com/globaldev/reference/lcid-all.mspx> calls
-           it "Sepedi"; according to
-           <http://www.ethnologue.com/show_language.asp?code=nso>
-           <http://www.ethnologue.com/show_language.asp?code=sot>
+        /* <https://msdn.microsoft.com/en-us/library/dd318693.aspx> calls
+           it "Sesotho sa Leboa"; according to
+           <https://www.ethnologue.com/show_language.asp?code=nso>
+           <https://www.ethnologue.com/show_language.asp?code=sot>
            it's the same as Northern Sotho.  */
         switch (sub)
           {
@@ -2592,7 +2592,7 @@ get_lcid (const char *locale_name)
 #endif
 
 
-#if HAVE_USELOCALE /* glibc, Solaris >= 12 or Mac OS X */
+#if HAVE_USELOCALE /* glibc, Mac OS X, Solaris 11 OpenIndiana, or Solaris 12  */
 
 /* Simple hash set of strings.  We don't want to drag in lots of hash table
    code here.  */
@@ -2601,7 +2601,7 @@ get_lcid (const char *locale_name)
 
 /* A hash function for NUL-terminated char* strings using
    the method described by Bruno Haible.
-   See http://www.haible.de/bruno/hashfunc.html.  */
+   See https://www.haible.de/bruno/hashfunc.html.  */
 static size_t _GL_ATTRIBUTE_PURE
 string_hash (const void *x)
 {
@@ -2695,7 +2695,7 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
 #  if __GLIBC__ >= 2 && !defined __UCLIBC__
         /* Work around an incorrect definition of the _NL_LOCALE_NAME macro in
            glibc < 2.12.
-           See <http://sourceware.org/bugzilla/show_bug.cgi?id=10968>.  */
+           See <https://sourceware.org/bugzilla/show_bug.cgi?id=10968>.  */
         const char *name =
           nl_langinfo (_NL_ITEM ((category), _NL_ITEM_INDEX (-1)));
         if (name[0] == '\0')
@@ -2703,7 +2703,10 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
              nl_langinfo (_NL_LOCALE_NAME (category)).  */
           name = thread_locale->__names[category];
         return name;
-#  elif defined __FreeBSD__ || (defined __APPLE__ && defined __MACH__)
+#  elif defined __linux__ && HAVE_LANGINFO_H && defined NL_LOCALE_NAME
+        /* musl libc */
+        return nl_langinfo_l (NL_LOCALE_NAME (category), thread_locale);
+#  elif (defined __FreeBSD__ || defined __DragonFly__) || (defined __APPLE__ && defined __MACH__)
         /* FreeBSD, Mac OS X */
         int mask;
 
@@ -2731,9 +2734,27 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
             return "";
           }
         return querylocale (mask, thread_locale);
-#  elif defined __sun && HAVE_GETLOCALENAME_L
+#  elif defined __sun
+#   if HAVE_GETLOCALENAME_L
         /* Solaris >= 12.  */
         return getlocalename_l (category, thread_locale);
+#   else
+        /* Solaris 11 OpenIndiana.
+           For the internal structure of locale objects, see
+           https://github.com/OpenIndiana/illumos-gate/blob/master/usr/src/lib/libc/port/locale/localeimpl.h  */
+        switch (category)
+          {
+          case LC_CTYPE:
+          case LC_NUMERIC:
+          case LC_TIME:
+          case LC_COLLATE:
+          case LC_MONETARY:
+          case LC_MESSAGES:
+            return ((const char * const *) thread_locale)[category];
+          default: /* We shouldn't get here.  */
+            return "";
+          }
+#   endif
 #  elif defined __CYGWIN__
         /* Cygwin < 2.6 lacks uselocale and thread-local locales altogether.
            Cygwin <= 2.6.1 lacks NL_LOCALE_NAME, requiring peeking inside
@@ -2765,28 +2786,10 @@ gl_locale_name_thread (int category, const char *categoryname)
   const char *name = gl_locale_name_thread_unsafe (category, categoryname);
   if (name != NULL)
     return struniq (name);
-#elif defined WINDOWS_NATIVE
-  if (LC_MIN <= category && category <= LC_MAX)
-    {
-      char *locname = setlocale (category, NULL);
-      LCID lcid = 0;
-
-      /* If CATEGORY is LC_ALL, the result might be a semi-colon
-        separated list of locales.  We need only one, so we take the
-        one corresponding to LC_CTYPE, as the most important for
-        character translations.  */
-      if (strchr (locname, ';'))
-       locname = setlocale (LC_CTYPE, NULL);
-
-      /* Convert locale name to LCID.  We don't want to use
-         LocaleNameToLCID because (a) it is only available since Vista,
-         and (b) it doesn't accept locale names returned by 'setlocale'.  */
-      lcid = get_lcid (locname);
-
-      if (lcid > 0)
-        return gl_locale_name_from_win32_LCID (lcid);
-    }
 #endif
+  /* On WINDOWS_NATIVE, don't use GetThreadLocale() here, because when
+     SetThreadLocale has not been called - which is a very frequent case -
+     the value of GetThreadLocale() ignores past calls to 'setlocale'.  */
   return NULL;
 }
 
@@ -2803,6 +2806,28 @@ gl_locale_name_thread (int category, const char *categoryname)
 const char *
 gl_locale_name_posix (int category, const char *categoryname)
 {
+#if defined WINDOWS_NATIVE
+  if (LC_MIN <= category && category <= LC_MAX)
+    {
+      char *locname = setlocale (category, NULL);
+      LCID lcid = 0;
+
+      /* If CATEGORY is LC_ALL, the result might be a semi-colon
+        separated list of locales.  We need only one, so we take the
+        one corresponding to LC_CTYPE, as the most important for
+        character translations.  */
+      if (category == LC_ALL && strchr (locname, ';'))
+        locname = setlocale (LC_CTYPE, NULL);
+
+      /* Convert locale name to LCID.  We don't want to use
+         LocaleNameToLCID because (a) it is only available since Vista,
+         and (b) it doesn't accept locale names returned by 'setlocale'.  */
+      lcid = get_lcid (locname);
+
+      if (lcid > 0)
+        return gl_locale_name_from_win32_LCID (lcid);
+    }
+#endif
   /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
      On some systems this can be done by the 'setlocale' function itself.  */
 #if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
