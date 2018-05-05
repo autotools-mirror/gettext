@@ -142,7 +142,7 @@ people who like their own language and write it well, and who are also
 able to synergize with other translators speaking the same language.
 Each translation team has its own mailing list.  The up-to-date list
 of teams can be found at the Free Translation Project's homepage,
-@file{http://translationproject.org/}, in the "Teams" area.
+@file{https://translationproject.org/}, in the "Teams" area.
 
 If you'd like to volunteer to @emph{work} at translating messages, you
 should become a member of the translating team for your own language.
@@ -189,7 +189,7 @@ mere existence a PO file and its wide availability in a distribution.
 If @value{STATUS} seems to be old, you may fetch a more recent copy
 of this @file{ABOUT-NLS} file on most GNU archive sites.  The most
 up-to-date matrix with full percentage details can be found at
-@file{http://translationproject.org/extra/matrix.html}.
+@file{https://translationproject.org/extra/matrix.html}.
 
 
 @node Using gettext in own code

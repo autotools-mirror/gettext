@@ -89,7 +89,7 @@ if test -n "$english"; then
      echo "  $url#$anchor"
    fi
    echo "  $url"
-   echo "  http://i18n.kde.org/"
+   echo "  https://l10n.kde.org/"
   ) 1>&2
   address1=`echo "$html" | tr '\012' '|' | sed -n -e 's,^.*>'"$english"'[^<>]*team<\(.*\)$,\1,p' | sed -e "$sed_addnl" | sed -e 2q -e 1d | sed -n -e 's,^.*mailing list\(.*\)$,\1,p' | sed -e 's,</LI>.*,,' | sed -e 's,</A>.*,</A>,' | sed -n -e 's,^.*HREF="\([^"]*\)">[^<>]*</A>.*$,\1,p'`
   case "$address1" in
@@ -107,7 +107,7 @@ else
   (echo "A translation team for your "`if test "$catalog" = "$language"; then echo "language ($language)"; else echo "local dialect ($catalog)"; fi`
    echo "may not exist yet.  Please visit"
    echo "  $url"
-   echo "  http://i18n.kde.org/"
+   echo "  https://l10n.kde.org/"
    echo "and decide whether you want to create a new translation team."
   ) 1>&2
   address=

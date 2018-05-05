@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2016 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -277,7 +277,7 @@ phase2_getc ()
                                                                line_number),
                                       _("\
 Please specify the source encoding through --from-code or through a comment\n\
-as specified in http://www.python.org/peps/pep-0263.html.\n")));
+as specified in https://www.python.org/peps/pep-0263.html.\n")));
           exit (EXIT_FAILURE);
         }
       return c;
@@ -324,7 +324,7 @@ as specified in http://www.python.org/peps/pep-0263.html.\n")));
                                    xasprintf (_("\
 %s:%d: Invalid multibyte sequence.\n\
 Please specify the correct source encoding through --from-code or through a\n\
-comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                                    real_file_name, line_number));
                   exit (EXIT_FAILURE);
                 }
@@ -341,7 +341,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
                                        xasprintf (_("\
 %s:%d: Long incomplete multibyte sequence.\n\
 Please specify the correct source encoding through --from-code or through a\n\
-comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                                        real_file_name, line_number));
                       exit (EXIT_FAILURE);
                     }
@@ -354,7 +354,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
                                        xasprintf (_("\
 %s:%d: Incomplete multibyte sequence at end of file.\n\
 Please specify the correct source encoding through --from-code or through a\n\
-comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                                        real_file_name, line_number));
                       exit (EXIT_FAILURE);
                     }
@@ -364,7 +364,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
                                        xasprintf (_("\
 %s:%d: Incomplete multibyte sequence at end of line.\n\
 Please specify the correct source encoding through --from-code or through a\n\
-comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
+comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                                        real_file_name, line_number - 1));
                       exit (EXIT_FAILURE);
                     }
@@ -397,7 +397,7 @@ comment as specified in http://www.python.org/peps/pep-0263.html.\n"),
                                    xasprintf (_("\
 %s:%d: Invalid multibyte sequence.\n\
 Please specify the source encoding through --from-code or through a comment\n\
-as specified in http://www.python.org/peps/pep-0263.html.\n"),
+as specified in https://www.python.org/peps/pep-0263.html.\n"),
                                    real_file_name, line_number));
                   exit (EXIT_FAILURE);
                 }

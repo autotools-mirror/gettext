@@ -330,9 +330,9 @@ AC_ARG_WITH([xz],
   [gt_use_xz=maybe])
 # The CVS format is deprecated, because "cvs init" does not work in all
 # circumstances
-# (see <http://lists.gnu.org/archive/html/bug-cvs/2010-05/msg00003.html>)
+# (see <https://lists.gnu.org/archive/html/bug-cvs/2010-05/msg00003.html>)
 # and we are not allowed to distribute the cvs infrastructure files ourselves
-# (see <http://lists.gnu.org/archive/html/bug-cvs/2010-06/msg00011.html>).
+# (see <https://lists.gnu.org/archive/html/bug-cvs/2010-06/msg00011.html>).
 #
 # With the archive from version 0.18.1, we can observe the following
 # compression rates:

@@ -1,5 +1,5 @@
 /* KUIT (KDE User Interface Text) format strings.
-   Copyright (C) 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2015-2018 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
    This program is free software: you can redistribute it and/or modify
@@ -53,7 +53,7 @@
 
 /* KUIT (KDE User Interface Text) is an XML-like markup which augments
    translatable strings with semantic information:
-   http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html#kuit_markup
+   https://api.kde.org/frameworks/ki18n/html/prg_guide.html#kuit_markup
    KUIT can be seen as a fragment of a well-formed XML document,
    except that it allows '&' as a Qt accelerator marker and '%' as a
    format directive.  */
@@ -73,7 +73,7 @@ struct char_range
 };
 
 /* Character ranges for NameStartChar defined in:
-   http://www.w3.org/TR/REC-xml/#NT-NameStartChar  */
+   https://www.w3.org/TR/REC-xml/#NT-NameStartChar  */
 static const struct char_range name_chars1[] =
   {
     { ':', ':' },
@@ -95,7 +95,7 @@ static const struct char_range name_chars1[] =
   };
 
 /* Character ranges for NameChar, excluding NameStartChar:
-   http://www.w3.org/TR/REC-xml/#NT-NameChar  */
+   https://www.w3.org/TR/REC-xml/#NT-NameChar  */
 static const struct char_range name_chars2[] =
   {
     { '-', '-' },

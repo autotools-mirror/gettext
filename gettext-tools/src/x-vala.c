@@ -1,5 +1,5 @@
 /* xgettext Vala backend.
-   Copyright (C) 2013, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2013, 2015-2018 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2013.
 
@@ -45,7 +45,7 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* The Vala syntax is defined in the Vala Reference Manual
-   http://www.vala-project.org/doc/vala/.
+   https://www.vala-project.org/doc/vala/.
    See also vala/valascanner.vala.  */
 
 /* ====================== Keyword set customization.  ====================== */

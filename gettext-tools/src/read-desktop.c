@@ -1,5 +1,5 @@
 /* Reading Desktop Entry files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2016 Free
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2018 Free
    Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
@@ -46,7 +46,7 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* The syntax of a Desktop Entry file is defined at
-   http://standards.freedesktop.org/desktop-entry-spec/latest/index.html.  */
+   https://standards.freedesktop.org/desktop-entry-spec/latest/index.html.  */
 
 desktop_reader_ty *
 desktop_reader_alloc (desktop_reader_class_ty *method_table)

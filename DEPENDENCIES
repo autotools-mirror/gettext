@@ -100,9 +100,9 @@ The following packages should be installed before GNU gettext is installed
   + Recommended.
     Needed for the 'autopoint' program, if not configured with --without-xz.
   + Homepage:
-    http://tukaani.org/xz/
+    https://tukaani.org/xz/
   + Download:
-    http://tukaani.org/xz/
+    https://tukaani.org/xz/
 
 * GNOME glib2
   + Optional.
@@ -146,7 +146,7 @@ The following packages should be installed before GNU gettext is installed
   + Optional but deprecated.
     Needed by the 'autopoint' program, if configured with --with-cvs.
   + Homepage:
-    http://www.nongnu.org/cvs/
+    https://www.nongnu.org/cvs/
   + Download:
     https://ftp.gnu.org/non-gnu/cvs/
 

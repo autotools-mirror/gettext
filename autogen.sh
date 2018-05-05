@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2017 Free Software Foundation, Inc.
+# Copyright (C) 2003-2018 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -408,7 +408,7 @@ if test -n "$GNULIB_TOOL"; then
 else
   for file in config.guess config.sub; do
     echo "$0: getting $file..."
-    wget -q --timeout=5 -O build-aux/$file.tmp "http://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=build-aux/${file};hb=HEAD" \
+    wget -q --timeout=5 -O build-aux/$file.tmp "https://git.savannah.gnu.org/gitweb/?p=gnulib.git;a=blob_plain;f=build-aux/${file};hb=HEAD" \
       && mv build-aux/$file.tmp build-aux/$file \
       && chmod a+x build-aux/$file
     retval=$?
@@ -421,7 +421,7 @@ fi
 if ! test -f gettext-tools/misc/archive.dir.tar; then
   if ! test -f gettext-tools/misc/archive.dir.tar.xz; then
     echo "$0: getting gettext-tools/misc/archive.dir.tar..."
-    wget -q --timeout=5 -O gettext-tools/misc/archive.dir.tar.xz-t "ftp://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.xz" \
+    wget -q --timeout=5 -O gettext-tools/misc/archive.dir.tar.xz-t "https://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.xz" \
       && mv gettext-tools/misc/archive.dir.tar.xz-t gettext-tools/misc/archive.dir.tar.xz
     retval=$?
     rm -f gettext-tools/misc/archive.dir.tar.xz-t

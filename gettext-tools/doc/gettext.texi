@@ -1388,15 +1388,15 @@ understanding where each localization file is stored on the file system.
 @cindex @file{ABOUT-NLS} file
 For programs that participate in the Translation Project, you can start
 looking for translations here:
-@url{http://translationproject.org/team/index.html}.
+@url{https://translationproject.org/team/index.html}.
 A snapshot of this information is also found in the @file{ABOUT-NLS} file
 that is shipped with GNU gettext.
 
 For programs that are part of the KDE project, the starting point is:
-@url{http://i18n.kde.org/}.
+@url{https://l10n.kde.org/}.
 
 For programs that are part of the GNOME project, the starting point is:
-@url{http://www.gnome.org/i18n/}.
+@url{https://wiki.gnome.org/TranslationProject}.
 
 For other programs, you may check whether the program's source code package
 contains some @file{@var{ll}.po} files; often they are kept together in a
@@ -2747,7 +2747,7 @@ printf (_("Written by %s.\n"),
 
 @noindent
 The GNU gnulib library offers a module @samp{propername}
-(@url{http://www.gnu.org/software/gnulib/MODULES.html#module=propername})
+(@url{https://www.gnu.org/software/gnulib/MODULES.html#module=propername})
 which takes care to automatically append the original name, in parentheses,
 to the translated name.  For names that cannot be written in ASCII, it
 also frees the translator from the task of entering the appropriate non-ASCII
@@ -2771,7 +2771,7 @@ printf (_("Written by %s and %s.\n"),
 You can also write the original name directly in Unicode (rather than with
 Unicode escapes or HTML entities) and denote the pronunciation using the
 International Phonetic Alphabet (see
-@url{http://www.wikipedia.org/wiki/International_Phonetic_Alphabet}).
+@url{https://en.wikipedia.org/wiki/International_Phonetic_Alphabet}).
 
 As a translator, you should use some care when translating names, because
 it is frustrating if people see their names mutilated or distorted.
@@ -3018,7 +3018,7 @@ but also to coordinate difficult linguistic issues.
 @cindex list of translation teams, where to find
 In the Free Translation Project, each translation team has its own mailing
 list.  The up-to-date list of teams can be found at the Free Translation
-Project's homepage, @uref{http://translationproject.org/}, in the "Teams"
+Project's homepage, @uref{https://translationproject.org/}, in the "Teams"
 area.
 
 @item Language
@@ -4946,7 +4946,7 @@ You can also design your own styles.  This is described in the next section.
 
 The same style file can be used for styling of a PO file, for terminal
 output and for HTML output.  It is written in CSS (Cascading Style Sheet)
-syntax.  See @url{http://www.w3.org/TR/css2/cover.html} for a formal
+syntax.  See @url{https://www.w3.org/TR/css2/cover.html} for a formal
 definition of CSS.  Many HTML authoring tutorials also contain explanations
 of CSS.
 
@@ -7746,7 +7746,7 @@ changes needed in each.
 So, here comes a list of files, each one followed by a description of
 all alterations it needs.  Many examples are taken out from the GNU
 @code{gettext} @value{VERSION} distribution itself, or from the GNU
-@code{hello} distribution (@uref{http://www.gnu.org/software/hello}).
+@code{hello} distribution (@uref{https://www.gnu.org/software/hello}).
 You may indeed refer to the source code of the GNU @code{gettext} and
 GNU @code{hello} packages, as they are intended to be good examples for
 using GNU gettext functionality.
@@ -8004,10 +8004,10 @@ encoding and therefore needs to identify the platform.
 
 You can obtain the newest version of @file{config.guess} and
 @file{config.sub} from the @samp{config} project at
-@file{http://savannah.gnu.org/}. The commands to fetch them are
+@file{https://savannah.gnu.org/}. The commands to fetch them are
 @smallexample
-$ wget -O config.guess 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
-$ wget -O config.sub 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
+$ wget -O config.guess 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD'
+$ wget -O config.sub 'https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD'
 @end smallexample
 @noindent
 Less recent versions are also contained in the GNU @code{automake} and
@@ -9177,10 +9177,10 @@ Python @code{%} format strings are described in
 @w{5. Built-in Types} /
 @w{5.6. Sequence Types} /
 @w{5.6.2. String Formatting Operations}.
-@uref{http://docs.python.org/2/library/stdtypes.html#string-formatting-operations}.
+@uref{https://docs.python.org/2/library/stdtypes.html#string-formatting-operations}.
 
 Python brace format strings are described in @w{PEP 3101 -- Advanced
-String Formatting}, @uref{http://www.python.org/dev/peps/pep-3101/}.
+String Formatting}, @uref{https://www.python.org/dev/peps/pep-3101/}.
 
 @node lisp-format, elisp-format, python-format, Translators for other Languages
 @subsection Lisp Format Strings
@@ -9194,7 +9194,7 @@ chapter 22.3 @w{Formatted Output},
 
 Emacs Lisp format strings are documented in the Emacs Lisp reference,
 section @w{Formatting Strings},
-@uref{http://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75}.
+@uref{https://www.gnu.org/manual/elisp-manual-21-2.8/html_chapter/elisp_4.html#SEC75}.
 Note that as of version 21, XEmacs supports numbered argument specifications
 in format strings while FSF Emacs doesn't.
 
@@ -9218,7 +9218,7 @@ Scheme format strings are documented in the SLIB manual, section
 Smalltalk format strings are described in the GNU Smalltalk documentation,
 class @code{CharArray}, methods @samp{bindWith:} and
 @samp{bindWithArguments:}.
-@uref{http://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238}.
+@uref{https://www.gnu.org/software/smalltalk/gst-manual/gst_68.html#SEC238}.
 In summary, a directive starts with @samp{%} and is followed by @samp{%}
 or a nonzero digit (@samp{1} to @samp{9}).
 
@@ -9243,14 +9243,14 @@ C# format strings are described in the .NET documentation for class
 
 awk format strings are described in the gawk documentation, section
 @w{Printf},
-@uref{http://www.gnu.org/manual/gawk/html_node/Printf.html#Printf}.
+@uref{https://www.gnu.org/manual/gawk/html_node/Printf.html#Printf}.
 
 @node object-pascal-format, ycp-format, awk-format, Translators for other Languages
 @subsection Object Pascal Format Strings
 
 Object Pascal format strings are described in the documentation of the
 Free Pascal runtime library, section Format,
-@uref{http://www.freepascal.org/docs-html/rtl/sysutils/format.html}.
+@uref{https://www.freepascal.org/docs-html/rtl/sysutils/format.html}.
 
 @node ycp-format, tcl-format, object-pascal-format, Translators for other Languages
 @subsection YCP Format Strings
@@ -9353,14 +9353,14 @@ directive in a string is a filename, programmers could indicate that
 with a @samp{filename} tag, like @samp{<filename>%1</filename>}.
 
 KUIT format strings are described in
-@uref{http://api.kde.org/frameworks-api/frameworks5-apidocs/ki18n/html/prg_guide.html#kuit_markup}.
+@uref{https://api.kde.org/frameworks/ki18n/html/prg_guide.html#kuit_markup}.
 
 @node boost-format, lua-format, kde-kuit-format, Translators for other Languages
 @subsection Boost Format Strings
 
 Boost format strings are described in the documentation of the
 @code{boost::format} class, at
-@uref{http://www.boost.org/libs/format/doc/format.html}.
+@uref{https://www.boost.org/libs/format/doc/format.html}.
 In summary, a directive has either the same syntax as in a C format string,
 such as @samp{%1$+5d}, or may be surrounded by vertical bars, such as
 @samp{%|1$+5d|} or @samp{%|1$+5|}, or consists of just an argument number
@@ -9370,7 +9370,7 @@ between percent signs, such as @samp{%1%}.
 @subsection Lua Format Strings
 
 Lua format strings are described in the Lua reference manual, section @w{String Manipulation},
-@uref{http://www.lua.org/manual/5.1/manual.html#pdf-string.format}.
+@uref{https://www.lua.org/manual/5.1/manual.html#pdf-string.format}.
 
 @node javascript-format,  , lua-format, Translators for other Languages
 @subsection JavaScript Format Strings
@@ -11093,7 +11093,7 @@ Use @code{setlocale (LC_ALL, "");}
 @code{use POSIX;}
 @*@code{use Locale::TextDomain;} (included in the package libintl-perl
 which is available on the Comprehensive Perl Archive Network CPAN,
-http://www.cpan.org/).
+https://www.cpan.org/).
 
 @item Use or emulate GNU gettext
 platform dependent: gettext_pp emulates, gettext_xs uses GNU gettext
@@ -11118,7 +11118,7 @@ package is not installed on the target system.
 
 @item Documentation
 Included in @code{libintl-perl}, available on CPAN
-(http://www.cpan.org/).
+(https://www.cpan.org/).
 
 @end table
 
@@ -12400,7 +12400,7 @@ appdata-tools, appstream, libappstream-glib-dev
 
 Marking translatable strings in an XML file is done through a separate
 "rule" file, making use of the Internationalization Tag Set standard
-(ITS, @uref{http://www.w3.org/TR/its20/}).  The currently supported ITS
+(ITS, @uref{https://www.w3.org/TR/its20/}).  The currently supported ITS
 data categories are: @samp{Translate}, @samp{Localization Note},
 @samp{Elements Within Text}, and @samp{Preserve Space}.  In addition to
 them, @code{xgettext} also recognizes the following extended data

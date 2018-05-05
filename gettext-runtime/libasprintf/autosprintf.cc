@@ -1,5 +1,5 @@
 /* Class autosprintf - formatted output to an ostream.
-   Copyright (C) 2002, 2013, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2002, 2013, 2015-2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -60,7 +60,7 @@ namespace gnu
   autosprintf& autosprintf::operator = (autosprintf temporary)
   {
     /* Copy-and-swap idiom.
-       See http://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom  */
+       See https://stackoverflow.com/questions/3279543/what-is-the-copy-and-swap-idiom  */
     std::swap (temporary.str, this->str);
     return *this;
   }

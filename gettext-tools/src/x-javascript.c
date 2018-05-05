@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2003, 2005-2009, 2013, 2015-2016 Free Software
+   Copyright (C) 2002-2003, 2005-2009, 2013, 2015-2018 Free Software
    Foundation, Inc.
 
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010
@@ -55,7 +55,7 @@
 
 /* The JavaScript aka ECMA-Script syntax is defined in ECMA-262
    specification:
-   http://www.ecma-international.org/publications/standards/Ecma-262.htm */
+   https://www.ecma-international.org/publications/standards/Ecma-262.htm */
 
 /* ====================== Keyword set customization.  ====================== */
 

@@ -215,7 +215,7 @@ We assume that the following environment variables are set:
       --previous-version $PREVIOUS_VERSION \
       --current-version $CURRENT_VERSION \
       --gpg-key-id $GPG_KEY_ID \
-      --url-directory ftp://ftp.gnu.org/gnu/gettext \
+      --url-directory https://ftp.gnu.org/gnu/gettext \
       --bootstrap-tools=autoconf,automake,libtool,bison,gnulib \
       --gnulib-version=$(cd gnulib && git describe)
 

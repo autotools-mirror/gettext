@@ -1,5 +1,5 @@
 /* Exporting symbols from Cygwin shared libraries.
-   Copyright (C) 2006, 2011-2016 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2011-2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -89,7 +89,7 @@
    the effect of no longer exporting the functions! - until the option
    --export-all-symbols is used.
 
-   See <http://www.haible.de/bruno/woe32dll.html> for more details.  */
+   See <https://haible.de/bruno/woe32dll.html> for more details.  */
 
 #if defined __GNUC__ /* GCC compiler, GNU toolchain */
 

@@ -9,56 +9,56 @@ You will need reasonably recent versions of the build tools:
 
   * A C compiler; on Cygwin or mingw also a C++ compiler. Such as GNU GCC.
     + Homepage:
-      http://gcc.gnu.org/
+      https://gcc.gnu.org/
 
   * GNU automake 1.13 or newer
     + Homepage:
-      http://www.gnu.org/software/automake/
+      https://www.gnu.org/software/automake/
 
   * GNU autoconf
     + Homepage:
-      http://www.gnu.org/software/autoconf/
+      https://www.gnu.org/software/autoconf/
 
   * GNU m4
     + Homepage:
-      http://www.gnu.org/software/m4/
+      https://www.gnu.org/software/m4/
 
   * GNU bison 3.0 or newer
     + Homepage:
-      http://www.gnu.org/software/bison/
+      https://www.gnu.org/software/bison/
 
   * GNU gperf
     + Homepage:
-      http://www.gnu.org/software/gperf/
+      https://www.gnu.org/software/gperf/
 
   * GNU groff 1.17 or newer
     + Homepage:
-      http://www.gnu.org/software/groff/
+      https://www.gnu.org/software/groff/
 
   * GNU texinfo
     + Homepage:
-      http://www.gnu.org/software/texinfo/
+      https://www.gnu.org/software/texinfo/
 
   * GNU emacs or XEmacs
     + Homepage:
-      http://www.gnu.org/software/emacs/
-      http://www.xemacs.org/
+      https://www.gnu.org/software/emacs/
+      https://www.xemacs.org/
 
   * Perl
     + Homepage:
-      http://www.perl.org/
+      https://www.perl.org/
 
   * TeX (for making the doc in .dvi, .ps or .pdf format)
     + Homepage:
-      http://tug.org/teTeX/
+      https://tug.org/teTeX/
 
   * Either an internet connection or a recent copy of GNU gnulib.
     + Homepage:
-      http://www.gnu.org/software/gnulib/
+      https://www.gnu.org/software/gnulib/
 
   * GNU tar (for creating distributable tarballs)
     + Homepage:
-      http://www.gnu.org/software/tar/
+      https://www.gnu.org/software/tar/
 
   * GNU Wget
     + Homepage:
@@ -66,11 +66,11 @@ You will need reasonably recent versions of the build tools:
 
   * XZ Utils
     + Homepage:
-      http://tukaani.org/xz/
+      https://tukaani.org/xz/
 
   * Lzip
     + Homepage:
-      http://www.nongnu.org/lzip/
+      https://www.nongnu.org/lzip/
 
 And, of course, the packages listed in the DEPENDENCIES file.
 
@@ -113,7 +113,7 @@ are skipped. To this effect, you need to install also:
     + Ubuntu package: default-jdk
 
   * A C# compiler
-    + Homepage: http://www.mono-project.com/
+    + Homepage: https://www.mono-project.com/
     + Ubuntu package: mono-mcs
 
   * GNU awk
@@ -177,7 +177,7 @@ Building off the git repository
 ===============================
 
 Access to the git repository is described at
-  http://savannah.gnu.org/git/?group=gettext
+  https://savannah.gnu.org/git/?group=gettext
 
 After fetching the sources from the repository, peek at the comments in
 autogen.sh, then run "./autogen.sh"; then you can proceed with "./configure"
@@ -190,7 +190,7 @@ Submitting patches
 Patches should be sent to bug-gettext@gnu.org, the bug/feature mailing
 list.  You can subscribe to the mailing list, or see the list
 archives, by following links from
-http://savannah.gnu.org/mail/?group=gettext .
+https://savannah.gnu.org/mail/?group=gettext .
 
 To email a patch you can use a shell command like 'git format-patch
 -1' to create a file, and then attach the file to your email.  
@@ -204,4 +204,4 @@ but instead should contain the log entries in the commit message.
 For the style of a ChangeLog entry, see the "Change Logs" section of
 the GNU coding standards:
 
-  http://www.gnu.org/prep/standards/html_node/Change-Logs.html
+  https://www.gnu.org/prep/standards/html_node/Change-Logs.html

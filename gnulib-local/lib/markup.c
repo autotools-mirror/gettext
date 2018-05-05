@@ -1,5 +1,5 @@
 /* markup.c -- simple XML-like parser
-   Copyright (C) 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2015-2018 Free Software Foundation, Inc.
 
    This file is not part of the GNU gettext program, but is used with
    GNU gettext.
@@ -66,7 +66,7 @@
  * the parser may accept documents that an XML parser would not.
  * However, XML documents which are not well-formed (which is a weaker
  * condition than being valid.  See the XML specification
- * <http://www.w3.org/TR/REC-xml/> for definitions of these terms.)
+ * <https://www.w3.org/TR/REC-xml/> for definitions of these terms.)
  * are not considered valid GMarkup documents.
  *
  * Simplifications to XML include:

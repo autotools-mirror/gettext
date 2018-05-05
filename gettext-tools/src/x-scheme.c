@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2009, 2011, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2004-2009, 2011, 2015-2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -932,7 +932,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 
               case '!':
                 /* Block comment '#! ... !#'.  See
-                   <http://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>.  */
+                   <https://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>.  */
                 {
                   int c;
 
@@ -980,8 +980,8 @@ read_object (struct object *op, flag_context_ty outer_context)
 
               case '|':
                 /* Block comment '#| ... |#'.  See
-                   <http://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>
-                   and <http://srfi.schemers.org/srfi-30/srfi-30.html>.  */
+                   <https://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>
+                   and <https://srfi.schemers.org/srfi-30/srfi-30.html>.  */
                 {
                   int depth = 0;
                   int c;

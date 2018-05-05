@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2010, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2002-2010, 2015-2018 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2010.
 
@@ -46,7 +46,7 @@
    Also, the syntax after the 'sub' keyword is specified in perlsub.pod.
    Try the command "man perlsub" or "perldoc perlsub".
    Perl 5.10 has new operators '//' and '//=', see
-   <http://perldoc.perl.org/perldelta.html#Defined-or-operator>.  */
+   <https://perldoc.perl.org/perldelta.html#Defined-or-operator>.  */
 
 #define DEBUG_PERL 0
 

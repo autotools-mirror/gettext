@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2015-2018 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -42,7 +42,7 @@
 #define _(str) gettext (str)
 
 /* The Internationalization Tag Set (ITS) 2.0 standard is available at:
-   http://www.w3.org/TR/its20/
+   https://www.w3.org/TR/its20/
 
    This implementation supports only a few data categories, useful for
    gettext-based projects.  Other data categories can be added by

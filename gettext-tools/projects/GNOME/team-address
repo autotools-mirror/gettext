@@ -15,13 +15,13 @@ address=`echo "$html" | tr '\012' '|' | sed -e "$sed_addnl" | sed -n -e "$sed_ex
 if test -n "$address"; then
   (echo "Please consider joining your translation team, and visit"
    echo "  $address"
-   echo "  http://l10n.gnome.org/"
+   echo "  https://l10n.gnome.org/"
   ) 1>&2
 else
   (echo "A translation team for your "`if test "$catalog" = "$language"; then echo "language ($language)"; else echo "local dialect ($catalog)"; fi`
    echo "may not exist yet.  Please visit"
    echo "  $url"
-   echo "  http://l10n.gnome.org/"
+   echo "  https://l10n.gnome.org/"
    echo "and decide whether you want to create a new translation team."
   ) 1>&2
   address=

@@ -1,5 +1,5 @@
 /* Object Pascal format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2015-2016 Free Software
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2015-2018 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -34,7 +34,7 @@
 
 /* Object Pascal format strings are usable with the "format" function in the
    "sysutils" unit.  They are described in
-   <http://www.freepascal.org/docs-html/rtl/sysutils/format.html>
+   <https://www.freepascal.org/docs-html/rtl/sysutils/format.html>
    and are implemented in fpc-2.4.0/rtl/objpas/sysutils/sysformt.inc.
    Another implementation exists in Borland Delphi.  The GNU Pascal's
    "sysutils" doesn't (yet?) have the "format" function.

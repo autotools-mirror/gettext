@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table with string based keys.
-   Copyright (C) 1994-1995, 2000-2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2006, 2015-2018 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software: you can redistribute it and/or modify
@@ -124,7 +124,7 @@ compute_hashval (const void *key, size_t keylen)
 
   /* Compute the hash value for the given string.  The algorithm
      is taken from [Aho,Sethi,Ullman], fixed according to
-     http://www.haible.de/bruno/hashfunc.html.  */
+     https://haible.de/bruno/hashfunc.html.  */
   cnt = 0;
   hval = keylen;
   while (cnt < keylen)

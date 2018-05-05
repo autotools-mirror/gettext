@@ -151,8 +151,8 @@ Things we plan to do. Comments welcome.
   scanners: pygettext in Python, rgettext in Ruby.
 
 - Make xgettext XML handling extensible through user ITS files
-  http://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00026.html
+  https://lists.gnu.org/archive/html/bug-gettext/2014-06/msg00026.html
 
 - 3-way merge tool for PO files
   msg3way was proposed by Panos Christeas
-  http://lists.gnu.org/archive/html/bug-gnu-utils/2010-11/msg00051.html
+  https://lists.gnu.org/archive/html/bug-gnu-utils/2010-11/msg00051.html

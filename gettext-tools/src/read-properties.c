@@ -409,7 +409,7 @@ read_escaped_string (bool in_key)
          "The definition of UTF-8 prohibits encoding character
           numbers between U+D800 and U+DFFF".
      - Unicode 4.0 chapter 3
-       <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
+       <https://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
        section 3.9, p.77, says
          "Because surrogate code points are not Unicode scalar
           values, any UTF-8 byte sequence that would otherwise

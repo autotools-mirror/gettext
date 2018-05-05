@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2016 Free Software Foundation, Inc.
+   Copyright (C) 2012-2018 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -41,7 +41,7 @@
 
 /* The Lua syntax is defined in the Lua manual section 9,
    which can be found at
-   http://www.lua.org/manual/5.2/manual.html#9  */
+   https://www.lua.org/manual/5.2/manual.html#9  */
 
 /* If true extract all strings.  */
 static bool extract_all = false;

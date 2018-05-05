@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2015-2018 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -31,7 +31,7 @@
 #include "cldr-plural.h"
 
 /* The grammar of Unicode CLDR plural rules is defined at:
-   http://unicode.org/reports/tr35/tr35-numbers.html#Plural_rules_syntax
+   https://unicode.org/reports/tr35/tr35-numbers.html#Plural_rules_syntax
 
    This implementation only supports the "preferred" form, which
    doesn't support obsolete keywords "in", "is", "not", and "within".
