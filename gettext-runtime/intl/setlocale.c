@@ -1,5 +1,5 @@
 /* setlocale() function that respects the locale chosen by the user.
-   Copyright (C) 2009, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2015-2016, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2009.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@
 
 #include "gettextP.h"
 
-#if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __WIN32__ || defined __CYGWIN__
+#if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __CYGWIN__
 
 # undef setlocale
 # undef newlocale
@@ -81,7 +81,7 @@ category_to_name (int category)
   return retval;
 }
 
-# if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+# if defined _WIN32 && ! defined __CYGWIN__
 
 /* The native Win32 setlocale() function expects locale names of the form
    "German" or "German_Germany" or "DEU", but not "de" or "de_DE".  We need
@@ -854,7 +854,7 @@ libintl_setlocale (int category, const char *locale)
 
           if (setlocale_unixlike (LC_ALL, base_name) == NULL)
             goto fail;
-# if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+# if defined _WIN32 && ! defined __CYGWIN__
           /* On native Windows, setlocale(LC_ALL,...) may succeed but set the
              LC_CTYPE category to an invalid value ("C") when it does not
              support the specified encoding.  Report a failure instead.  */
@@ -910,7 +910,7 @@ libintl_setlocale (int category, const char *locale)
     }
   else
     {
-# if (defined _WIN32 || defined __WIN32__) && ! defined __CYGWIN__
+# if defined _WIN32 && ! defined __CYGWIN__
       if (category == LC_ALL && locale != NULL && strchr (locale, '.') != NULL)
         {
           char *saved_locale;

@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2017 Free Software Foundation, Inc.
+   Copyright (C) 1995-2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -209,7 +209,7 @@ static void *mempcpy (void *dest, const void *src, size_t n);
                         it may be concatenated to a directory pathname.
    IS_PATH_WITH_DIR(P)  tests whether P contains a directory specification.
  */
-#if defined _WIN32 || defined __WIN32__ || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
+#if defined _WIN32 || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
   /* Win32, Cygwin, OS/2, DOS */
 # define ISSLASH(C) ((C) == '/' || (C) == '\\')
 # define HAS_DEVICE(P) \

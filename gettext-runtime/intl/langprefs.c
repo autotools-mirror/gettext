@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004-2007, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2004-2007, 2015-2016, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -32,7 +32,7 @@
 extern void _nl_locale_name_canonicalize (char *name);
 #endif
 
-#if defined _WIN32 || defined __WIN32__
+#if defined _WIN32
 # define WIN32_NATIVE
 #endif
 

@@ -1,5 +1,5 @@
 /* Display hostname in various forms.
-   Copyright (C) 2001-2003, 2006-2007, 2012, 2015-2016 Free Software
+   Copyright (C) 2001-2003, 2006-2007, 2012, 2015-2016, 2018 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -28,7 +28,7 @@
 #include <string.h>
 #include <locale.h>
 
-#if defined _WIN32 || defined __WIN32__
+#if defined _WIN32
 # define WIN32_NATIVE
 #endif
 
