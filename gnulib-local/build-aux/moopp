@@ -1,7 +1,7 @@
 #!/bin/sh
 # Minimal Object-Oriented style PreProcessor.
 
-# Copyright (C) 2006-2008, 2015-2016 Free Software Foundation, Inc.
+# Copyright (C) 2006-2008, 2015-2018 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2006.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -71,7 +71,7 @@ func_version ()
 {
   echo "$progname (GNU $package) $version"
   echo "Copyright (C) 2006-2007 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law."
   echo "Written by" "Bruno Haible"
