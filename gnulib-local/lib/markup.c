@@ -25,7 +25,7 @@
  *
  * You should have received a copy of the GNU General Public
  * License along with GLib; see the file COPYING.LIB.  If not,
- * see <http://www.gnu.org/licenses/>.
+ * see <https://www.gnu.org/licenses/>.
  */
 
 #include "config.h"
