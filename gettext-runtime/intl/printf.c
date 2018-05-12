@@ -91,13 +91,21 @@ char *alloca ();
 #include "asnprintf.c"
 #endif
 
+/* Users don't expect libintl_fprintf to be less POSIX compliant
+   than the fprintf implementation provided by gnulib or - on mingw -
+   the one provided by mingw libs when __USE_MINGW_ANSI_STDIO is in
+   effect.  */
+#define USE_REPLACEMENT_CODE_ALWAYS 1
+
 DLL_EXPORTED
 int
 libintl_vfprintf (FILE *stream, const char *format, va_list args)
 {
+#if !USE_REPLACEMENT_CODE_ALWAYS
   if (strchr (format, '$') == NULL)
     return vfprintf (stream, format, args);
   else
+#endif
     {
       size_t length;
       char *result = libintl_vasnprintf (NULL, &length, format, args);
@@ -155,9 +163,11 @@ DLL_EXPORTED
 int
 libintl_vsprintf (char *resultbuf, const char *format, va_list args)
 {
+#if !USE_REPLACEMENT_CODE_ALWAYS
   if (strchr (format, '$') == NULL)
     return vsprintf (resultbuf, format, args);
   else
+#endif
     {
       size_t length = (size_t) ~0 / (4 * sizeof (char));
       char *result = libintl_vasnprintf (resultbuf, &length, format, args);
@@ -208,9 +218,11 @@ DLL_EXPORTED
 int
 libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list args)
 {
+# if !USE_REPLACEMENT_CODE_ALWAYS
   if (strchr (format, '$') == NULL)
     return system_vsnprintf (resultbuf, length, format, args);
   else
+# endif
     {
       size_t maxlength = length;
       char *result = libintl_vasnprintf (resultbuf, &length, format, args);
@@ -322,9 +334,11 @@ DLL_EXPORTED
 int
 libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
 {
+# if !USE_REPLACEMENT_CODE_ALWAYS
   if (wcschr (format, '$') == NULL)
     return vfwprintf (stream, format, args);
   else
+# endif
     {
       size_t length;
       wchar_t *result = libintl_vasnwprintf (NULL, &length, format, args);
@@ -385,9 +399,11 @@ DLL_EXPORTED
 int
 libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_list args)
 {
+# if !USE_REPLACEMENT_CODE_ALWAYS
   if (wcschr (format, '$') == NULL)
     return system_vswprintf (resultbuf, length, format, args);
   else
+# endif
     {
       size_t maxlength = length;
       wchar_t *result = libintl_vasnwprintf (resultbuf, &length, format, args);
