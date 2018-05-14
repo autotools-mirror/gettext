@@ -868,10 +868,92 @@ read_object (struct object *op, flag_context_ty outer_context)
                 }
 
               case 'T': case 't': /* Boolean true */
-              case 'F': case 'f': /* Boolean false */
+              case 'F': /* Boolean false */
                 op->type = t_other;
                 last_non_comment_line = line_number;
                 return;
+
+              case 'a':
+              case 'c':
+              case 'f':
+              case 'h':
+              case 'l':
+              case 's':
+              case 'u':
+              case 'v':
+              case 'y':
+                {
+                  struct token token;
+                  do_ungetc (c);
+                  read_token (&token, '#');
+                  if ((token.charcount == 2
+                       && (token.chars[1] == 'a' || token.chars[1] == 'c'
+                           || token.chars[1] == 'h' || token.chars[1] == 'l'
+                           || token.chars[1] == 's' || token.chars[1] == 'u'
+                           || token.chars[1] == 'y'))
+                      || (token.charcount == 3
+                          && (token.chars[1] == 's' || token.chars[1] == 'u')
+                          && token.chars[2] == '8')
+                      || (token.charcount == 4
+                          && (((token.chars[1] == 's' || token.chars[1] == 'u')
+                               && token.chars[2] == '1'
+                               && token.chars[3] == '6')
+                              || ((token.chars[1] == 'c'
+                                   || token.chars[1] == 'f'
+                                   || token.chars[1] == 's'
+                                   || token.chars[1] == 'u')
+                                  && ((token.chars[2] == '3'
+                                       && token.chars[3] == '2')
+                                      || (token.chars[2] == '6'
+                                          && token.chars[3] == '4')))
+                              || (token.chars[1] == 'v'
+                                  && token.chars[2] == 'u'
+                                  && token.chars[3] == '8'))))
+                    {
+                      c = do_getc ();
+                      if (c != EOF)
+                        do_ungetc (c);
+                      if (c == '(')
+                        {
+                          /* Homogenous vector syntax:
+                               #a(...) - vector of char
+                               #c(...) - vector of complex (old)
+                               #c32(...) - vector of complex of single-float
+                               #c64(...) - vector of complex of double-float
+                               #f32(...) - vector of single-float
+                               #f64(...) - vector of double-float
+                               #h(...) - vector of short (old)
+                               #l(...) - vector of long long (old)
+                               #s(...) - vector of single-float (old)
+                               #s8(...) - vector of signed 8-bit integers
+                               #s16(...) - vector of signed 16-bit integers
+                               #s32(...) - vector of signed 32-bit integers
+                               #s64(...) - vector of signed 64-bit integers
+                               #u(...) - vector of unsigned long (old)
+                               #u8(...) - vector of unsigned 8-bit integers
+                               #u16(...) - vector of unsigned 16-bit integers
+                               #u32(...) - vector of unsigned 32-bit integers
+                               #u64(...) - vector of unsigned 64-bit integers
+                               #vu8(...) - vector of byte
+                               #y(...) - vector of byte (old)
+                           */
+                          struct object inner;
+                          read_object (&inner, null_context);
+                          /* Dots and EOF are not allowed here.
+                             But be tolerant.  */
+                          free_token (&token);
+                          free_object (&inner);
+                          op->type = t_other;
+                          last_non_comment_line = line_number;
+                          return;
+                        }
+                    }
+                  /* Boolean false, or unknown # object.  But be tolerant.  */
+                  free_token (&token);
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
 
               case 'B': case 'b':
               case 'O': case 'o':
@@ -900,27 +982,21 @@ read_object (struct object *op, flag_context_ty outer_context)
                           if (c != EOF)
                             do_ungetc (c);
                           if (c == '(')
-                            /* Homogenous vector syntax, see arrays.scm.  */
-                            case 'a':   /* Vectors of char */
-                            case 'c':   /* Vectors of complex */
-                          /*case 'e':*/ /* Vectors of long */
-                            case 'h':   /* Vectors of short */
-                          /*case 'i':*/ /* Vectors of double-float */
-                            case 'l':   /* Vectors of long long */
-                            case 's':   /* Vectors of single-float */
-                            case 'u':   /* Vectors of unsigned long */
-                            case 'y':   /* Vectors of byte */
-                              {
-                                struct object inner;
-                                read_object (&inner, null_context);
-                                /* Dots and EOF are not allowed here.
-                                   But be tolerant.  */
-                                free_token (&token);
-                                free_object (&inner);
-                                op->type = t_other;
-                                last_non_comment_line = line_number;
-                                return;
-                              }
+                            {
+                              /* Homogenous vector syntax:
+                                   #e(...) - vector of long (old)
+                                   #i(...) - vector of double-float (old)
+                               */
+                              struct object inner;
+                              read_object (&inner, null_context);
+                              /* Dots and EOF are not allowed here.
+                                 But be tolerant.  */
+                              free_token (&token);
+                              free_object (&inner);
+                              op->type = t_other;
+                              last_non_comment_line = line_number;
+                              return;
+                            }
                         }
                       /* Unknown # object.  But be tolerant.  */
                       free_token (&token);
