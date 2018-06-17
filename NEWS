@@ -2,7 +2,7 @@
   - msgfmt now eliminates the POT-Creation-Date header field from .mo files.
 
 * Improvements for translators:
-  - update-po target in Makefile.in.in now uses msgfmt --previous.
+  - update-po target in Makefile.in.in now uses msgmerge --previous.
 
 * Programming languages support:
   - C, C++:
