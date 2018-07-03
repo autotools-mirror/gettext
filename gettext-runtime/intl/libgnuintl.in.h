@@ -111,7 +111,7 @@ extern int libintl_version;
 /* _INTL_MAY_RETURN_STRING_ARG(n) declares that the given function may return
    its n-th argument literally.  This enables GCC to warn for example about
    printf (gettext ("foo %y")).  */
-#if defined __GNUC__ && __GNUC__ >= 3 && !(defined __APPLE_CC__ && __APPLE_CC__ > 1 && defined __cplusplus)
+#if defined __GNUC__ && __GNUC__ >= 3 && !(defined __APPLE_CC__ && __APPLE_CC__ > 1 && !(defined __clang__ && __clang__ && __clang_major__ >= 3) && defined __cplusplus)
 # define _INTL_MAY_RETURN_STRING_ARG(n) __attribute__ ((__format_arg__ (n)))
 #else
 # define _INTL_MAY_RETURN_STRING_ARG(n)
