@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006-2007, 2015-2016 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006-2007, 2015-2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -61,6 +61,10 @@ HELP2MAN = $(PERL) -w -- $(srcdir)/help2man
 
 # groff 1.17 or newer.
 MAN2HTML = groff -mandoc -Thtml
+# Some versions of groff -Thtml map '\-' to '&minus;' = U+2212, which yields
+# the wrong result when copy&pasting command-line options and such.
+# Also remove 'CreationDate:' lines, for reproducible builds.
+MAN2HTML_POSTPROCESS = sed -e 's/\&minus;/-/g' -e '/CreationDate:/d'
 
 UPDATEMODE =
 
@@ -68,7 +72,7 @@ UPDATEMODE =
 gt_man2html = \
 	if test -f $${srcdir}$$m; then \
 	  $(MAN2HTML) $${srcdir}$$m > t-$@ && \
-	  sed -e '/CreationDate:/d' < t-$@ > t2-$@ && \
+	  $(MAN2HTML_POSTPROCESS) < t-$@ > t2-$@ && \
 	  mv t2-$@ $@; \
 	  rm -f t-$@ t2-$@; \
 	fi
