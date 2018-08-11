@@ -83,7 +83,7 @@ category_to_name (int category)
 
 # if defined _WIN32 && ! defined __CYGWIN__
 
-/* The native Win32 setlocale() function expects locale names of the form
+/* The native Windows setlocale() function expects locale names of the form
    "German" or "German_Germany" or "DEU", but not "de" or "de_DE".  We need
    to convert the names from the form with ISO 639 language code and ISO 3166
    country code to the form with English names or with three-letter identifier.
@@ -390,6 +390,7 @@ static const struct table_entry language_table[] =
     { "sq", "Albanian" },
     { "sr", "Serbian (Latin)" },
     { "sr@cyrillic", "SRB" }, /* Serbian (Cyrillic) */
+    { "sv", "Swedish" },
     { "sw", "Swahili" },
     { "syr", "Syriac" },
     { "ta", "Tamil" },
@@ -640,6 +641,11 @@ setlocale_unixlike (int category, const char *locale)
   char llCC_buf[64];
   char ll_buf[64];
   char CC_buf[64];
+
+  /* The native Windows implementation of setlocale understands the special
+     locale name "C", but not "POSIX".  Therefore map "POSIX" to "C".  */
+  if (locale != NULL && strcmp (locale, "POSIX") == 0)
+    locale = "C";
 
   /* First, try setlocale with the original argument unchanged.  */
   result = setlocale (category, locale);
