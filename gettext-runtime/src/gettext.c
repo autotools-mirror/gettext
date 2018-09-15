@@ -49,6 +49,7 @@ static bool do_expand;
 /* Long options.  */
 static const struct option long_options[] =
 {
+  { "context", required_argument, NULL, 'c' },
   { "domain", required_argument, NULL, 'd' },
   { "help", no_argument, NULL, 'h' },
   { "shell-script", no_argument, NULL, 's' },
@@ -76,6 +77,7 @@ main (int argc, char *argv[])
   bool do_version = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
+  const char *context = NULL;
   add_newline = true;
   do_expand = false;
 
@@ -95,11 +97,14 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "+d:eEhnsV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "+c:d:eEhnsV", long_options, NULL))
          != EOF)
     switch (optchar)
     {
     case '\0':          /* Long option.  */
+      break;
+    case 'c':
+      context = optarg;
       break;
     case 'd':
       domain = optarg;
@@ -186,7 +191,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
             bindtextdomain (domain, domaindir);
 
           /* Write out the result.  */
-          fputs (dgettext (domain, msgid), stdout);
+          fputs ((context != NULL
+                  ? dpgettext_expr (domain, context, msgid)
+                  : dgettext (domain, msgid)),
+                 stdout);
         }
     }
   else
@@ -212,7 +220,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                 msgid = expand_escape (msgid);
 
               /* Write out the result.  */
-              fputs (domain == NULL ? msgid : dgettext (domain, msgid),
+              fputs ((domain == NULL ? msgid :
+                      context != NULL
+                      ? dpgettext_expr (domain, context, msgid)
+                      : dgettext (domain, msgid)),
                      stdout);
 
               /* We separate the arguments by a single ' '.  */
@@ -252,14 +263,25 @@ Display native language translation of a textual message.\n"));
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n\
-  -e                        enable expansion of some escape sequences\n\
-  -E                        (ignored for compatibility)\n\
-  -h, --help                display this help and exit\n\
-  -n                        suppress trailing newline\n\
-  -V, --version             display version information and exit\n\
+  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"));
+      printf (_("\
+  -c, --context=CONTEXT     specify context for MSGID\n"));
+      printf (_("\
+  -e                        enable expansion of some escape sequences\n"));
+      printf (_("\
+  -n                        suppress trailing newline\n"));
+      printf (_("\
+  -E                        (ignored for compatibility)\n"));
+      printf (_("\
   [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n\
                             to MSGID from TEXTDOMAIN\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                display this help and exit\n"));
+      printf (_("\
+  -V, --version             display version information and exit\n"));
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\

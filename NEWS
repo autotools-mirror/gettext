@@ -13,6 +13,10 @@
   - C++:
     xgettext now supports single-quotes in number tokens, as specified in
     C++14.
+  - Shell:
+    o The programs 'gettext', 'ngettext' now support a --context argument.
+    o gettext.sh contains new function eval_pgettext and eval_npgettext
+      for producing translations of messages with context.
   - Java:
     o xgettext now supports UTF-8 encoded .properties files (a new feature
       of Java 9).

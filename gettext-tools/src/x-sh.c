@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003, 2005-2009, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2009, 2015-2016, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -112,8 +112,12 @@ init_keywords ()
          xgettext.texi!  */
       x_sh_keyword ("gettext");
       x_sh_keyword ("ngettext:1,2");
+      /* Note: There is also special handling for 'gettext' and 'ngettext'
+         in read_command, below.  */
       x_sh_keyword ("eval_gettext");
       x_sh_keyword ("eval_ngettext:1,2");
+      x_sh_keyword ("eval_pgettext:1c,2");
+      x_sh_keyword ("eval_npgettext:1c,2,3");
       default_keywords = false;
     }
 }
@@ -127,6 +131,9 @@ init_flag_table_sh ()
   xgettext_record_flag ("eval_gettext:1:sh-format");
   xgettext_record_flag ("eval_ngettext:1:sh-format");
   xgettext_record_flag ("eval_ngettext:2:sh-format");
+  xgettext_record_flag ("eval_pgettext:2:sh-format");
+  xgettext_record_flag ("eval_npgettext:2:sh-format");
+  xgettext_record_flag ("eval_npgettext:3:sh-format");
 }
 
 
@@ -465,6 +472,24 @@ string_of_word (const struct word *wp)
   str = XNMALLOC (n + 1, char);
   memcpy (str, wp->token->chars, n);
   str[n] = '\0';
+  return str;
+}
+
+/* Convert a t_string token to a char*, ignoring the first OFFSET bytes.  */
+static char *
+substring_of_word (const struct word *wp, size_t offset)
+{
+  char *str;
+  int n;
+
+  if (!(wp->type == t_string))
+    abort ();
+  n = wp->token->charcount;
+  if (!(offset <= n))
+    abort ();
+  str = XNMALLOC (n - offset + 1, char);
+  memcpy (str, wp->token->chars + offset, n - offset);
+  str[n - offset] = '\0';
   return str;
 }
 
@@ -1250,6 +1275,8 @@ read_command (int looking_for, flag_context_ty outer_context)
         }
       else
         {
+          bool matters_for_argparser = true;
+
           if (argparser == NULL)
             {
               /* This is the function position.  */
@@ -1282,24 +1309,67 @@ read_command (int looking_for, flag_context_ty outer_context)
             {
               /* These are the argument positions.  */
               if (inner.type == t_string)
-                arglist_parser_remember (argparser, arg,
-                                         string_of_word (&inner),
-                                         inner_context,
-                                         logical_file_name,
-                                         inner.line_number_at_start,
-                                         savable_comment);
-
-              if (arglist_parser_decidedp (argparser, arg))
                 {
-                  /* Stop looking for arguments of the last function_name.  */
-                  /* FIXME: What about context_iter?  */
-                  arglist_parser_done (argparser, arg);
-                  shapes = NULL;
-                  argparser = NULL;
+                  bool accepts_context =
+                    ((argparser->keyword_len == 7
+                      && memcmp (argparser->keyword, "gettext", 7) == 0)
+                     || (argparser->keyword_len == 8
+                         && memcmp (argparser->keyword, "ngettext", 8) == 0));
+                  if (accepts_context && argparser->next_is_msgctxt)
+                    {
+                      argparser->next_is_msgctxt = false;
+                      arglist_parser_remember_msgctxt (argparser,
+                                                       string_of_word (&inner),
+                                                       inner_context,
+                                                       logical_file_name,
+                                                       inner.line_number_at_start);
+                      matters_for_argparser = false;
+                    }
+                  else if (accepts_context
+                           && ((inner.token->charcount == 2
+                                && memcmp (inner.token->chars, "-c", 2) == 0)
+                               || (inner.token->charcount == 9
+                                   && memcmp (inner.token->chars, "--context", 9) == 0)))
+                    {
+                      argparser->next_is_msgctxt = true;
+                      matters_for_argparser = false;
+                    }
+                  else if (accepts_context
+                           && (inner.token->charcount >= 10
+                               && memcmp (inner.token->chars, "--context=", 10) == 0))
+                    {
+                      argparser->next_is_msgctxt = false;
+                      arglist_parser_remember_msgctxt (argparser,
+                                                       substring_of_word (&inner, 10),
+                                                       inner_context,
+                                                       logical_file_name,
+                                                       inner.line_number_at_start);
+                      matters_for_argparser = false;
+                    }
+                  else
+                    {
+                      arglist_parser_remember (argparser, arg,
+                                               string_of_word (&inner),
+                                               inner_context,
+                                               logical_file_name,
+                                               inner.line_number_at_start,
+                                               savable_comment);
+                    }
                 }
+
+              if (matters_for_argparser)
+                if (arglist_parser_decidedp (argparser, arg))
+                  {
+                    /* Stop looking for arguments of the last function_name.  */
+                    /* FIXME: What about context_iter?  */
+                    arglist_parser_done (argparser, arg);
+                    shapes = NULL;
+                    argparser = NULL;
+                  }
             }
 
-          arg++;
+          if (matters_for_argparser)
+            arg++;
         }
 
       free_word (&inner);

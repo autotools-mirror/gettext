@@ -2961,6 +2961,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
       ap->mlp = mlp;
       ap->keyword = NULL;
       ap->keyword_len = 0;
+      ap->next_is_msgctxt = false;
       ap->nalternatives = 0;
 
       return ap;
@@ -2977,6 +2978,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
       ap->mlp = mlp;
       ap->keyword = shapes->keyword;
       ap->keyword_len = shapes->keyword_len;
+      ap->next_is_msgctxt = false;
       ap->nalternatives = shapes->nshapes;
       for (i = 0; i < shapes->nshapes; i++)
         {
@@ -3023,6 +3025,7 @@ arglist_parser_clone (struct arglist_parser *ap)
   copy->mlp = ap->mlp;
   copy->keyword = ap->keyword;
   copy->keyword_len = ap->keyword_len;
+  copy->next_is_msgctxt = ap->next_is_msgctxt;
   copy->nalternatives = ap->nalternatives;
   for (i = 0; i < ap->nalternatives; i++)
     {
@@ -3116,6 +3119,7 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
     free (string);
 }
 
+
 void
 arglist_parser_remember (struct arglist_parser *ap,
                          int argnum, char *string,
@@ -3127,6 +3131,36 @@ arglist_parser_remember (struct arglist_parser *ap,
                                    file_name, line_number,
                                    comment, LET_NONE);
 }
+
+
+void
+arglist_parser_remember_msgctxt (struct arglist_parser *ap,
+                                 char *string,
+                                 flag_context_ty context,
+                                 char *file_name, size_t line_number)
+{
+  bool stored_string = false;
+  size_t nalternatives = ap->nalternatives;
+  size_t i;
+
+  for (i = 0; i < nalternatives; i++)
+    {
+      struct partial_call *cp = &ap->alternative[i];
+
+      cp->msgctxt = string;
+      cp->msgctxt_escape = LET_NONE;
+      cp->msgctxt_pos.file_name = file_name;
+      cp->msgctxt_pos.line_number = line_number;
+      stored_string = true;
+      /* Mark msgctxt as done.  */
+      cp->argnumc = 0;
+    }
+  /* Note: There is a memory leak here: When string was stored but is later
+     not used by arglist_parser_done, we don't free it.  */
+  if (!stored_string)
+    free (string);
+}
+
 
 bool
 arglist_parser_decidedp (struct arglist_parser *ap, int argnum)

@@ -44,6 +44,7 @@ static int do_expand;
 /* Long options.  */
 static const struct option long_options[] =
 {
+  { "context", required_argument, NULL, 'c' },
   { "domain", required_argument, NULL, 'd' },
   { "help", no_argument, NULL, 'h' },
   { "version", no_argument, NULL, 'V' },
@@ -72,6 +73,7 @@ main (int argc, char *argv[])
   bool do_version = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
+  const char *context = NULL;
   do_expand = false;
 
   /* Set program name for message texts.  */
@@ -90,11 +92,14 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "+d:eEhV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "+c:d:eEhV", long_options, NULL))
          != EOF)
     switch (optchar)
     {
     case '\0':          /* Long option.  */
+      break;
+    case 'c':
+      context = optarg;
       break;
     case 'd':
       domain = optarg;
@@ -192,7 +197,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         bindtextdomain (domain, domaindir);
 
       /* Write out the result.  */
-      fputs (dngettext (domain, msgid, msgid_plural, n), stdout);
+      fputs ((context != NULL
+              ? dnpgettext_expr (domain, context, msgid, msgid_plural, n)
+              : dngettext (domain, msgid, msgid_plural, n)),
+             stdout);
     }
 
   exit (EXIT_SUCCESS);
@@ -220,14 +228,26 @@ form depends on a number.\n"));
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\
-  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n\
-  -e                        enable expansion of some escape sequences\n\
-  -E                        (ignored for compatibility)\n\
-  -h, --help                display this help and exit\n\
-  -V, --version             display version information and exit\n\
-  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n\
-  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n\
+  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"));
+      printf (_("\
+  -c, --context=CONTEXT     specify context for MSGID\n"));
+      printf (_("\
+  -e                        enable expansion of some escape sequences\n"));
+      printf (_("\
+  -E                        (ignored for compatibility)\n"));
+      printf (_("\
+  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"));
+      printf (_("\
+  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"));
+      printf (_("\
   COUNT                     choose singular/plural form based on this value\n"));
+      printf ("\n");
+      printf (_("\
+Informative output:\n"));
+      printf (_("\
+  -h, --help                display this help and exit\n"));
+      printf (_("\
+  -V, --version             display version information and exit\n"));
       printf ("\n");
       /* xgettext: no-wrap */
       printf (_("\

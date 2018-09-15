@@ -12,6 +12,13 @@ textual message.
 @noindent @strong{Arguments}
 
 @table @samp
+@item -c @var{context}
+@itemx --context=@var{context}
+@opindex -c@r{, @code{gettext} option}
+@opindex --context@r{, @code{gettext} option}
+Specify the context for the messages to be translated.
+See @ref{Contexts} for details.
+
 @item -d @var{textdomain}
 @itemx --domain=@var{textdomain}
 @opindex -d@r{, @code{gettext} option}

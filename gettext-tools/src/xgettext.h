@@ -1,6 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2015-2016 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2015-2016, 2018 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -327,6 +326,7 @@ struct arglist_parser
   message_list_ty *mlp;         /* list where the message shall be added */
   const char *keyword;          /* the keyword, not NUL terminated */
   size_t keyword_len;           /* the keyword's length */
+  bool next_is_msgctxt;         /* true if the next argument is the msgctxt */
   size_t nalternatives;         /* number of partial_call alternatives */
   struct partial_call alternative[1]; /* partial_call alternatives */
 };
@@ -361,6 +361,14 @@ extern void arglist_parser_remember_literal (struct arglist_parser *ap,
                                              char *file_name, size_t line_number,
                                              refcounted_string_list_ty *comment,
                                              enum literalstring_escape_type type);
+/* Adds a string argument as msgctxt to an arglist_parser, without incrementing
+   the current argument number.
+   STRING must be malloc()ed string; its ownership is passed to the callee.
+   FILE_NAME must be allocated with indefinite extent.  */
+extern void arglist_parser_remember_msgctxt (struct arglist_parser *ap,
+                                             char *string,
+                                             flag_context_ty context,
+                                             char *file_name, size_t line_number);
 /* Tests whether an arglist_parser has is not waiting for more arguments after
    argument ARGNUM.  */
 extern bool arglist_parser_decidedp (struct arglist_parser *ap, int argnum);

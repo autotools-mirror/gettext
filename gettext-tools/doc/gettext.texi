@@ -450,6 +450,8 @@ sh - Shell Script
 * envsubst Invocation::         Invoking the @code{envsubst} program
 * eval_gettext Invocation::     Invoking the @code{eval_gettext} function
 * eval_ngettext Invocation::    Invoking the @code{eval_ngettext} function
+* eval_pgettext Invocation::    Invoking the @code{eval_pgettext} function
+* eval_npgettext Invocation::   Invoking the @code{eval_npgettext} function
 
 Perl
 
@@ -9582,7 +9584,8 @@ bash, gettext-base
 @pindex gettext
 @pindex ngettext
 @code{gettext}, @code{ngettext} programs
-@*@code{eval_gettext}, @code{eval_ngettext} shell functions
+@*@code{eval_gettext}, @code{eval_ngettext}, @code{eval_pgettext},
+@code{eval_npgettext} shell functions
 
 @item textdomain
 @vindex TEXTDOMAIN@r{, environment variable}
@@ -9624,6 +9627,8 @@ An example is available in the @file{examples} directory: @code{hello-sh}.
 * envsubst Invocation::         Invoking the @code{envsubst} program
 * eval_gettext Invocation::     Invoking the @code{eval_gettext} function
 * eval_ngettext Invocation::    Invoking the @code{eval_ngettext} function
+* eval_pgettext Invocation::    Invoking the @code{eval_pgettext} function
+* eval_npgettext Invocation::   Invoking the @code{eval_npgettext} function
 @end menu
 
 @node Preparing Shell Scripts, gettext.sh, sh, sh
@@ -9644,8 +9649,10 @@ Insert the line
 
 near the top of the script.  @code{gettext.sh} is a shell function library
 that provides the functions
-@code{eval_gettext} (see @ref{eval_gettext Invocation}) and
-@code{eval_ngettext} (see @ref{eval_ngettext Invocation}).
+@code{eval_gettext} (see @ref{eval_gettext Invocation}),
+@code{eval_ngettext} (see @ref{eval_ngettext Invocation}),
+@code{eval_pgettext} (see @ref{eval_pgettext Invocation}), and
+@code{eval_npgettext} (see @ref{eval_npgettext Invocation}).
 You have to ensure that @code{gettext.sh} can be found in the @code{PATH}.
 
 @item
@@ -9759,6 +9766,12 @@ See @ref{eval_gettext Invocation}.
 
 @item eval_ngettext
 See @ref{eval_ngettext Invocation}.
+
+@item eval_pgettext
+See @ref{eval_pgettext Invocation}.
+
+@item eval_npgettext
+See @ref{eval_npgettext Invocation}.
 @end itemize
 
 @node gettext Invocation, ngettext Invocation, gettext.sh, sh
@@ -9797,7 +9810,7 @@ This function outputs the native language translation of a textual message,
 performing dollar-substitution on the result.  Note that only shell variables
 mentioned in @var{msgid} will be dollar-substituted in the result.
 
-@node eval_ngettext Invocation,  , eval_gettext Invocation, sh
+@node eval_ngettext Invocation, eval_pgettext Invocation, eval_gettext Invocation, sh
 @subsubsection Invoking the @code{eval_ngettext} function
 
 @cindex @code{eval_ngettext} function, usage
@@ -9810,6 +9823,35 @@ This function outputs the native language translation of a textual message
 whose grammatical form depends on a number, performing dollar-substitution
 on the result.  Note that only shell variables mentioned in @var{msgid} or
 @var{msgid-plural} will be dollar-substituted in the result.
+
+@node eval_pgettext Invocation, eval_npgettext Invocation, eval_ngettext Invocation, sh
+@subsubsection Invoking the @code{eval_pgettext} function
+
+@cindex @code{eval_pgettext} function, usage
+@example
+eval_pgettext @var{msgctxt} @var{msgid}
+@end example
+
+@cindex lookup message translation with context
+This function outputs the native language translation of a textual message
+in the given context @var{msgctxt} (see @ref{Contexts}), performing
+dollar-substitution on the result.  Note that only shell variables mentioned
+in @var{msgid} will be dollar-substituted in the result.
+
+@node eval_npgettext Invocation,  , eval_pgettext Invocation, sh
+@subsubsection Invoking the @code{eval_npgettext} function
+
+@cindex @code{eval_npgettext} function, usage
+@example
+eval_npgettext @var{msgctxt} @var{msgid} @var{msgid-plural} @var{count}
+@end example
+
+@cindex lookup plural message translation with context
+This function outputs the native language translation of a textual message
+whose grammatical form depends on a number in the given context @var{msgctxt}
+(see @ref{Contexts}), performing dollar-substitution on the result.  Note
+that only shell variables mentioned in @var{msgid} or @var{msgid-plural}
+will be dollar-substituted in the result.
 
 @node bash, Python, sh, List of Programming Languages
 @subsection bash - Bourne-Again Shell Script

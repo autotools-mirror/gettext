@@ -11,6 +11,13 @@ textual message whose grammatical form depends on a number.
 @noindent @strong{Arguments}
 
 @table @samp
+@item -c @var{context}
+@itemx --context=@var{context}
+@opindex -c@r{, @code{ngettext} option}
+@opindex --context@r{, @code{ngettext} option}
+Specify the context for the messages to be translated.
+See @ref{Contexts} for details.
+
 @item -d @var{textdomain}
 @itemx --domain=@var{textdomain}
 @opindex -d@r{, @code{ngettext} option}
