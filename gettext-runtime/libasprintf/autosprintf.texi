@@ -85,7 +85,7 @@ A copy of the license is at @url{https://www.gnu.org/licenses/gpl.html}.
 @end titlepage
 
 @ifset makeinfo
-@node Top, Introduction, (dir), (dir)
+@node Top
 @top GNU autosprintf
 
 This manual documents the GNU autosprintf class, version @value{VERSION}.
@@ -98,7 +98,7 @@ This manual documents the GNU autosprintf class, version @value{VERSION}.
 
 @end ifset
 
-@node Introduction, Class autosprintf, Top, Top
+@node Introduction
 @chapter Introduction
 
 This package makes the C formatted output routines (@code{fprintf} et al.)
@@ -138,7 +138,7 @@ It reduces the risk of programming errors due to forgotten state in the
 output stream (e.g.@: @code{cout << hex;} not followed by @code{cout << dec;}).
 @end itemize
 
-@node Class autosprintf, Using autosprintf, Introduction, Top
+@node Class autosprintf
 @chapter The @code{autosprintf} class
 
 An instance of class @code{autosprintf} just contains a string with the
@@ -160,7 +160,7 @@ The destructor @code{~autosprintf ()} destroys the encapsulated string.
 An @code{operator <<} is provided that outputs the encapsulated string to the
 given @code{ostream}.
 
-@node Using autosprintf,  , Class autosprintf, Top
+@node Using autosprintf
 @chapter Using @code{autosprintf} in own programs
 
 To use the @code{autosprintf} class in your programs, you need to add
