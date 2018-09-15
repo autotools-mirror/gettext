@@ -27,7 +27,12 @@ We assume that the following environment variables are set:
 
   Then you will get a distribution tarball:
 
-    gettext-$CURRENT_VERSION-*.tar.xz
+    gettext-$CURRENT_VERSION-*.tar.gz
+
+  If necessary, produce variants with higher compression (takes 7 minutes):
+
+    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | xz -c -e > gettext-$CURRENT_VERSION-*.tar.xz
+    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION-*.tar.lz
 
   Rename it e.g. gettext-ss.tar.xz
 
@@ -153,6 +158,11 @@ We assume that the following environment variables are set:
     # To prevent auto-updating '.version' file by GNUmakefile due to
     # regenerated PO files, specify Makefile manually.
     make -f Makefile distcheck
+
+  If necessary, produce variants with higher compression (takes 7 minutes):
+
+    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | xz -c -e > gettext-$CURRENT_VERSION-*.tar.xz
+    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION-*.tar.lz
 
 ** Upload tarballs:
 

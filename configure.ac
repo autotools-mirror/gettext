@@ -1,6 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-2003, 2005-2006, 2009-2010, 2015-2016 Free Software
-dnl Foundation, Inc.
+dnl Copyright (C) 1995-2018 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -23,7 +22,7 @@ AC_INIT([gettext],
 	[bug-gnu-gettext@gnu.org])
 AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
 AC_CONFIG_AUX_DIR([build-aux])
-AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests tar-ustar dist-xz dist-lzip])
+AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests tar-ustar])
 
 dnl Override automake's tar command used for creating distributions.
 am__tar='${AMTAR} chf - --format=ustar --owner=root --group=root "$$tardir"'
