@@ -23,9 +23,13 @@
 
 #include <stdlib.h>
 
-#if HAVE_CFPREFERENCESCOPYAPPVALUE
+#if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
 # include <string.h>
-# include <CoreFoundation/CFPreferences.h>
+# if HAVE_CFLOCALECOPYPREFERREDLANGUAGES
+#  include <CoreFoundation/CFLocale.h>
+# elif HAVE_CFPREFERENCESCOPYAPPVALUE
+#  include <CoreFoundation/CFPreferences.h>
+# endif
 # include <CoreFoundation/CFPropertyList.h>
 # include <CoreFoundation/CFArray.h>
 # include <CoreFoundation/CFString.h>
@@ -233,7 +237,8 @@ _nl_language_preferences_win32_system (HMODULE kernel32)
 const char *
 _nl_language_preferences_default (void)
 {
-#if HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.2 or newer */
+#if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
+  /* MacOS X 10.4 or newer */
   {
     /* Cache the preferences list, since CoreFoundation calls are expensive.  */
     static const char *cached_languages;
@@ -241,6 +246,9 @@ _nl_language_preferences_default (void)
 
     if (!cache_initialized)
       {
+# if HAVE_CFLOCALECOPYPREFERREDLANGUAGES /* MacOS X 10.5 or newer */
+        CFArrayRef prefArray = CFLocaleCopyPreferredLanguages ();
+# elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.4 or newer */
         CFTypeRef preferences =
           CFPreferencesCopyAppValue (CFSTR ("AppleLanguages"),
                                      kCFPreferencesCurrentApplication);
@@ -248,6 +256,8 @@ _nl_language_preferences_default (void)
             && CFGetTypeID (preferences) == CFArrayGetTypeID ())
           {
             CFArrayRef prefArray = (CFArrayRef)preferences;
+# endif
+
             int n = CFArrayGetCount (prefArray);
             char buf[256];
             size_t size = 0;
@@ -331,7 +341,12 @@ _nl_language_preferences_default (void)
                     cached_languages = languages;
                   }
               }
+
+# if HAVE_CFLOCALECOPYPREFERREDLANGUAGES /* MacOS X 10.5 or newer */
+        CFRelease (prefArray);
+# elif HAVE_CFPREFERENCESCOPYAPPVALUE /* MacOS X 10.4 or newer */
           }
+# endif
         cache_initialized = 1;
       }
     if (cached_languages != NULL)
