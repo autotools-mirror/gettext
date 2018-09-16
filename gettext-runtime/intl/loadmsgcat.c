@@ -506,7 +506,15 @@ char *alloca ();
 /* We need a sign, whether a new catalog was loaded, which can be associated
    with all translations.  This is important if the translations are
    cached by one of GCC's features.  */
+#if defined __APPLE__ && defined __MACH__
+/* On macOS 10.13 with Apple clang-902.0.39.1 and cctools-895, when linking
+   statically, we need an explicit zero-initialization, in order to avoid a
+   link-time error that __nl_msg_cat_cntr is an undefined symbol.  It could
+   be a compiler bug or a ranlib bug.  */
+int _nl_msg_cat_cntr = 0;
+#else
 int _nl_msg_cat_cntr;
+#endif
 
 
 /* Expand a system dependent string segment.  Return NULL if unsupported.  */
