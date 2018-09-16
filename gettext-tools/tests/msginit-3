@@ -47,7 +47,7 @@ grep "Project-Id-Version: gt-msginit " mi-test3.tmp 2>&1 >/dev/null || Exit 1
 #
 # Project-Id-Version contains version constructed from a temporary
 # directory name
-sed -e '1,10d' -e 's/\(ISO-8859-1\|CP1252\|UTF-8\)/ASCII/g' < mi-test3.tmp | grep -v Project-Id-Version | LC_ALL=C tr -d '\r' > mi-test3.out || Exit 1
+sed -e '1,10d' -e 's/ISO-8859-1/ASCII/g' -e 's/CP1252/ASCII/g' -e 's/UTF-8/ASCII/g' < mi-test3.tmp | grep -v Project-Id-Version | LC_ALL=C tr -d '\r' > mi-test3.out || Exit 1
 cat <<\EOF > mi-test3.ok
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"

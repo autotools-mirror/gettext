@@ -52,7 +52,7 @@ test $? = 0 || { cat mi-test4.err 1>&2; Exit 1; }
 #
 # Project-Id-Version contains version constructed from a temporary
 # directory name
-sed -e '1,10d' -e 's/\(ISO-8859-1\|CP1252\|UTF-8\)/ASCII/g' < mi-test4.tmp | grep -v Project-Id-Version | LC_ALL=C tr -d '\r' > mi-test4.out || Exit 1
+sed -e '1,10d' -e 's/ISO-8859-1/ASCII/g' -e 's/CP1252/ASCII/g' -e 's/UTF-8/ASCII/g' < mi-test4.tmp | grep -v Project-Id-Version | LC_ALL=C tr -d '\r' > mi-test4.out || Exit 1
 cat <<\EOF > mi-test4.ok
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
