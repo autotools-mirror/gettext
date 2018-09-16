@@ -36,10 +36,11 @@
     Free Pascal compiler version 3.0.0 or newer.
 
 * Runtime behaviour:
-  The replacements for the printf()/fprintf()/... functions that are
-  provided through <libintl.h> on native Windows and NetBSD are now POSIX
-  compliant.  There is no conflict any more between these replacements
-  and other possible replacements provided by gnulib or mingw.
+  - The interpretation of the language preferences on macOS has been fixed.
+  - The replacements for the printf()/fprintf()/... functions that are
+    provided through <libintl.h> on native Windows and NetBSD are now POSIX
+    compliant.  There is no conflict any more between these replacements
+    and other possible replacements provided by gnulib or mingw.
 
 Version 0.19.8 - June 2016
 

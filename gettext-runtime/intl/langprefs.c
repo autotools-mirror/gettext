@@ -264,12 +264,25 @@ _nl_language_preferences_default (void)
                   {
                     _nl_locale_name_canonicalize (buf);
                     size += strlen (buf) + 1;
+                    /* Mac OS X 10.12 or newer returns an array of elements of
+                       the form "ll-CC" where ll is a language code and CC is a
+                       country code.  _nl_locale_name_canonicalize converts this
+                       to "ll_CC".  Sometimes ll and CC are unrelated, i.e.
+                       there is no translation for "ll_CC" but one for "ll".
+                       Therefore, in the result, we return "ll_CC" followed
+                       by "ll".  */
+                    {
+                      char *underscore = strchr (buf, '_');
+                      if (underscore != NULL)
+                        size += (underscore - buf) + 1;
+                    }
                     /* Most GNU programs use msgids in English and don't ship
-                       an en.mo message catalog.  Therefore when we see "en"
-                       in the preferences list, arrange for gettext() to
-                       return the msgid, and ignore all further elements of
+                       an en.mo message catalog.  Therefore when we see "en" or
+                       "en-CC" in the preferences list, arrange for gettext()
+                       to return the msgid, and ignore all further elements of
                        the preferences list.  */
-                    if (strcmp (buf, "en") == 0)
+                    if (buf[0] == 'e' && buf[1] == 'n'
+                        && (buf[2] == '\0' || buf[2] == '_'))
                       break;
                   }
                 else
@@ -297,7 +310,17 @@ _nl_language_preferences_default (void)
                             strcpy (p, buf);
                             p += strlen (buf);
                             *p++ = ':';
-                            if (strcmp (buf, "en") == 0)
+                            {
+                              char *underscore = strchr (buf, '_');
+                              if (underscore != NULL)
+                                {
+                                  memcpy (p, buf, underscore - buf);
+                                  p += underscore - buf;
+                                  *p++ = ':';
+                                }
+                            }
+                            if (buf[0] == 'e' && buf[1] == 'n'
+                                 && (buf[2] == '\0' || buf[2] == '_'))
                               break;
                           }
                         else
