@@ -27,4 +27,4 @@ Makefile.am:
 TESTS += test-term-ostream-xterm
 TESTS_ENVIRONMENT += srcdir='$(srcdir)'
 check_PROGRAMS += test-term-ostream
-test_term_ostream_LDADD = $(LIBTERMCAP) $(LDADD)
+test_term_ostream_LDADD = $(LIBTERMCAP) $(LDADD) @INTL_MACOSX_LIBS@
