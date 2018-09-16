@@ -260,6 +260,7 @@ _nl_language_preferences_default (void)
 
             int n = CFArrayGetCount (prefArray);
             char buf[256];
+            char buf2[256];
             size_t size = 0;
             int i;
 
@@ -272,19 +273,30 @@ _nl_language_preferences_default (void)
                                            buf, sizeof (buf),
                                            kCFStringEncodingASCII))
                   {
+                    strcpy (buf2, buf);
                     _nl_locale_name_canonicalize (buf);
                     size += strlen (buf) + 1;
                     /* Mac OS X 10.12 or newer returns an array of elements of
-                       the form "ll-CC" where ll is a language code and CC is a
-                       country code.  _nl_locale_name_canonicalize converts this
-                       to "ll_CC".  Sometimes ll and CC are unrelated, i.e.
-                       there is no translation for "ll_CC" but one for "ll".
+                       the form "ll-CC" or "ll-Scrp-CC" where ll is a language
+                       code, CC is a country code, and Scrp (optional) is a
+                       script code.
+                       _nl_locale_name_canonicalize converts this to "ll_CC" or
+                       "ll_Scrp_CC".
+                       Sometimes ll and CC are unrelated, i.e. there is no
+                       translation for "ll_CC" but one for "ll".
+                       Similarly, in the case with a script, sometimes there is
+                       no translation for "ll_Scrp_CC" but one for "ll_Scrp"
+                       (after proper canonicalization).
                        Therefore, in the result, we return "ll_CC" followed
-                       by "ll".  */
+                       by "ll", or similarly for the case with a script.  */
                     {
-                      char *underscore = strchr (buf, '_');
-                      if (underscore != NULL)
-                        size += (underscore - buf) + 1;
+                      char *last_minus = strrchr (buf2, '-');
+                      if (last_minus != NULL)
+                        {
+                          *last_minus = '\0';
+                          _nl_locale_name_canonicalize (buf2);
+                          size += strlen (buf2) + 1;
+                        }
                     }
                     /* Most GNU programs use msgids in English and don't ship
                        an en.mo message catalog.  Therefore when we see "en" or
@@ -316,16 +328,19 @@ _nl_language_preferences_default (void)
                                                    buf, sizeof (buf),
                                                    kCFStringEncodingASCII))
                           {
+                            strcpy (buf2, buf);
                             _nl_locale_name_canonicalize (buf);
                             strcpy (p, buf);
                             p += strlen (buf);
                             *p++ = ':';
                             {
-                              char *underscore = strchr (buf, '_');
-                              if (underscore != NULL)
+                              char *last_minus = strrchr (buf2, '-');
+                              if (last_minus != NULL)
                                 {
-                                  memcpy (p, buf, underscore - buf);
-                                  p += underscore - buf;
+                                  *last_minus = '\0';
+                                  _nl_locale_name_canonicalize (buf2);
+                                  strcpy (p, buf2);
+                                  p += strlen (buf2);
                                   *p++ = ':';
                                 }
                             }
