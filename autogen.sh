@@ -54,8 +54,10 @@ while :; do
   esac
 done
 
-$use_git || test -d "$GNULIB_SRCDIR" \
-  || die "Error: --no-git requires --gnulib-srcdir"
+if ! $use_git && ! test -d "$GNULIB_SRCDIR"; then
+  echo "error: --no-git requires GNULIB_SRCDIR to be set" 1>&2
+  exit 1
+fi
 
 cleanup_gnulib() {
   status=$?
