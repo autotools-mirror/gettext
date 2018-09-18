@@ -34,7 +34,6 @@ lib/diffseq.h.diff \
 lib/error.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \
-lib/execute.c.diff \
 lib/exitfail.h.diff \
 lib/fd-ostream.oo.c \
 lib/fd-ostream.oo.h \
@@ -234,7 +233,6 @@ lib/ostream.oo.c \
 lib/ostream.oo.h \
 lib/progname.h.diff \
 lib/regex_internal.h.diff \
-lib/spawn-pipe.c.diff \
 lib/styled-ostream.oo.c \
 lib/styled-ostream.oo.h \
 lib/termcap.h \
@@ -300,7 +298,6 @@ modules/xalloc \
 modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd \
-tests/test-environ.c.diff \
 tests/test-moo-aroot.oo.c \
 tests/test-moo-aroot.oo.h \
 tests/test-moo-assign.c \
