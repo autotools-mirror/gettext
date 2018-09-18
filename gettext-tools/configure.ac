@@ -195,6 +195,14 @@ AH_BOTTOM([
 
 gt_PREREQ_HOSTNAME
 
+dnl Parameterization of the 'libxml' module:
+dnl When INCLUDED_LIBXML is true and building static libraries, tell
+dnl libxml's xmlexports.h to omit '__declspec(dllimport)' on mingw and Cygwin.
+if test "$gl_cv_libxml_use_included" = yes && test "$enable_shared" != yes; then
+  AC_DEFINE([LIBXML_STATIC], [1],
+    [Define if libxml is being used as a static library.])
+fi
+
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export
 dnl    auxiliary pointer variables for every exported variable,
