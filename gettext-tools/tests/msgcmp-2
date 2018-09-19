@@ -18,7 +18,7 @@ EOF
 
 : ${MSGCMP=msgcmp}
 LC_MESSAGES=C LC_ALL= \
-${MSGCMP} mc-test2.in1 mc-test2.in2 2>&1 | grep -v '^==' | sed -e 's|[^ ]*\\msgcmp\.exe|msgcmp|' -e 's|^msgcmp\.exe|msgcmp|' | LC_ALL=C tr -d '\r' > mc-test2.out
+${MSGCMP} mc-test2.in1 mc-test2.in2 2>&1 | grep -v '^==' | sed -e 's|[^ ]*\\msgcmp\.exe|msgcmp|' -e 's|^msgcmp\.exe|msgcmp|' -e 's|^/cygdrive/[^ ]*/msgcmp|msgcmp|' | LC_ALL=C tr -d '\r' > mc-test2.out
 
 cat <<EOF > mc-test2.ok
 mc-test2.in2:1: this message is used but not defined...

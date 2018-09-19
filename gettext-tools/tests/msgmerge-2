@@ -18,7 +18,7 @@ EOF
 : ${MSGMERGE=msgmerge}
 LC_MESSAGES=C LC_ALL= \
 ${MSGMERGE} -q -o /dev/stdout mm-test2.in1 mm-test2.in2 \
-  2>&1 | grep -v '^==' | sed -e 's|[^ ]*\\msgmerge\.exe|msgmerge|' -e 's|^msgmerge\.exe|msgmerge|' | LC_ALL=C tr -d '\r' > mm-test2.out
+  2>&1 | grep -v '^==' | sed -e 's|[^ ]*\\msgmerge\.exe|msgmerge|' -e 's|^msgmerge\.exe|msgmerge|' -e 's|^/cygdrive/[^ ]*/msgmerge|msgmerge|' | LC_ALL=C tr -d '\r' > mm-test2.out
 
 cat << EOF > mm-test2.ok
 mm-test2.in1:3: duplicate message definition...
