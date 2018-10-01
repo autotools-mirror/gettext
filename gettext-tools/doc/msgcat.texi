@@ -16,6 +16,10 @@ comments, extracted comments, and file positions will be cumulated, except that
 if @code{--use-first} is specified, they will be taken from the first PO file
 to define them.
 
+To concatenate POT files, better use @code{xgettext}, not @code{msgcat},
+because @code{msgcat} would choke on the undefined charsets in the specified
+POT files.
+
 @subsection Input file location
 
 @table @samp
