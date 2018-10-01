@@ -274,7 +274,7 @@ static const struct option long_options[] =
   { "style", required_argument, NULL, CHAR_MAX + 15 },
   { "trigraphs", no_argument, NULL, 'T' },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
+  { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
 };
 

@@ -88,9 +88,9 @@ static const struct option long_options[] =
   { "to-code", required_argument, NULL, 't' },
   { "unique", no_argument, NULL, 'u' },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
-  { "more-than", required_argument, NULL, '>', },
-  { "less-than", required_argument, NULL, '<', },
+  { "width", required_argument, NULL, 'w' },
+  { "more-than", required_argument, NULL, '>' },
+  { "less-than", required_argument, NULL, '<' },
   { NULL, 0, NULL, 0 }
 };
 

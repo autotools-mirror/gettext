@@ -112,7 +112,7 @@ static const struct option long_options[] =
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 5 },
   { "style", required_argument, NULL, CHAR_MAX + 7 },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
+  { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
 };
 

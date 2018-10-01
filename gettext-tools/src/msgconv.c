@@ -82,7 +82,7 @@ static const struct option long_options[] =
   { "style", required_argument, NULL, CHAR_MAX + 5 },
   { "to-code", required_argument, NULL, 't' },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
+  { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
 };
 

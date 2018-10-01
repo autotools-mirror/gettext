@@ -85,7 +85,7 @@ static const struct option long_options[] =
   { "unique", no_argument, NULL, 'u' },
   { "use-first", no_argument, NULL, CHAR_MAX + 1 },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
+  { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
 };
 

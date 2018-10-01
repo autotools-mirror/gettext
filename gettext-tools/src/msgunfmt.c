@@ -100,7 +100,7 @@ static const struct option long_options[] =
   { "tcl", no_argument, NULL, CHAR_MAX + 1 },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w', },
+  { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
 };
 
