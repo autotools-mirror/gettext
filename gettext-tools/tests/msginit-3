@@ -37,7 +37,8 @@ msgstr ""
 EOF
 
 : ${MSGINIT=msginit}
-GETTEXTLIBDIR="$abs_top_srcdir"/src ${MSGINIT} -l ga_IE --no-translator -o mi-test3.tmp 2>mi-test3.err
+GETTEXTLIBDIR_SRCDIR="$abs_top_srcdir"/src \
+${MSGINIT} -l ga_IE --no-translator -o mi-test3.tmp 2>mi-test3.err
 test $? = 0 || { cat mi-test3.err 1>&2; Exit 1; }
 
 grep "Project-Id-Version: gt-msginit " mi-test3.tmp 2>&1 >/dev/null || Exit 1

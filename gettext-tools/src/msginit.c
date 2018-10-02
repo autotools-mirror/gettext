@@ -875,7 +875,7 @@ project_id (const char *header)
       return old_field;
     }
 
-  gettextlibdir = getenv ("GETTEXTLIBDIR");
+  gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
     gettextlibdir = relocate (LIBDIR "/gettext");
 
@@ -949,7 +949,7 @@ project_id_version (const char *header)
   if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
     return old_field;
 
-  gettextlibdir = getenv ("GETTEXTLIBDIR");
+  gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
   if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
     gettextlibdir = relocate (LIBDIR "/gettext");
 
@@ -1360,7 +1360,7 @@ plural_forms ()
       size_t linelen;
       int exitstatus;
 
-      gettextlibdir = getenv ("GETTEXTLIBDIR");
+      gettextlibdir = getenv ("GETTEXTLIBDIR_BUILDDIR");
       if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
         gettextlibdir = relocate (LIBDIR "/gettext");
 
