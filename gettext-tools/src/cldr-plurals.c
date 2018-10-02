@@ -55,10 +55,9 @@ extract_rules (FILE *fp,
   doc = xmlReadFd (fileno (fp), logical_filename, NULL,
                    XML_PARSE_NONET
                    | XML_PARSE_NOWARNING
-                   | XML_PARSE_NOERROR
                    | XML_PARSE_NOBLANKS);
   if (doc == NULL)
-    error (EXIT_FAILURE, 0, _("memory exhausted"));
+    error (EXIT_FAILURE, 0, _("Could not parse file %s as XML"), logical_filename);
 
   node = xmlDocGetRootElement (doc);
   if (!node || !xmlStrEqual (node->name, BAD_CAST "supplementalData"))
