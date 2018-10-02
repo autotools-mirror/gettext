@@ -44,7 +44,8 @@ msgstr ""
 EOF
 
 : ${MSGINIT=msginit}
-GETTEXTLIBDIR="$top_builddir"/src GETTEXTCLDRDIR="$abs_srcdir" ${MSGINIT} -l foo --no-translator --no-wrap -o mi-test4.tmp 2>mi-test4.err
+GETTEXTLIBDIR="$top_builddir"/src GETTEXTCLDRDIR="$abs_srcdir" \
+${MSGINIT} -i mi-test4.pot -l foo --no-translator --no-wrap -o mi-test4.tmp 2>mi-test4.err
 test $? = 0 || { cat mi-test4.err 1>&2; Exit 1; }
 
 # The charset stored in the header entry is the locale encoding of the gl_IE
