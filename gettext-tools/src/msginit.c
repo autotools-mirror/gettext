@@ -1377,8 +1377,11 @@ plural_forms ()
           last_dir = dir;
         }
 
-      /* Call the cldr-plurals command.  */
-      argv[0] = "cldr-plurals";
+      /* Call the cldr-plurals command.
+         argv[0] must be prog, not just the base name "cldr-plurals",
+         because on Cygwin in a build with --enable-shared, the libtool
+         wrapper of cldr-plurals.exe apparently needs this.  */
+      argv[0] = prog;
       argv[1] = (char *) language;
       argv[2] = last_dir;
       argv[3] = NULL;
