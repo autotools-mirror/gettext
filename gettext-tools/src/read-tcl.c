@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005-2008, 2011, 2015-2016 Free Software
+   Copyright (C) 2002-2003, 2005-2008, 2011, 2015-2016, 2018 Free Software
    Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -66,7 +66,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
 
   /* Make it possible to override the msgunfmt.tcl location.  This is
      necessary for running the testsuite before "make install".  */
-  gettextdatadir = getenv ("GETTEXTDATADIR");
+  gettextdatadir = getenv ("GETTEXTTCLDIR");
   if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
     gettextdatadir = relocate (GETTEXTDATADIR);
 
