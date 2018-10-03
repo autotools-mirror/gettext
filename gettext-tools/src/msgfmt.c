@@ -1153,7 +1153,6 @@ struct msgfmt_catalog_reader_ty
   DEFAULT_CATALOG_READER_TY
 
   bool has_header_entry;
-  bool has_nonfuzzy_header_entry;
 };
 
 
@@ -1167,7 +1166,6 @@ msgfmt_constructor (abstract_catalog_reader_ty *that)
   default_constructor (that);
 
   this->has_header_entry = false;
-  this->has_nonfuzzy_header_entry = false;
 }
 
 
@@ -1191,18 +1189,6 @@ warning: PO file header missing or invalid\n")));
           multiline_error (NULL,
                            xasprintf (_("\
 warning: charset conversion will not work\n")));
-        }
-      else if (!this->has_nonfuzzy_header_entry)
-        {
-          /* Has only a fuzzy header entry.  Since the versions 0.10.xx
-             ignore a fuzzy header entry and even give an error on it, we
-             give a warning, to increase operability with these older
-             msgfmt versions.  This warning can go away in January 2003.  */
-          multiline_warning (xasprintf ("%s: ", this->file_name),
-                             xasprintf (_("warning: PO file header fuzzy\n")));
-          multiline_warning (NULL,
-                             xasprintf (_("\
-warning: older versions of msgfmt will give an error on this\n")));
         }
     }
 }
@@ -1323,8 +1309,6 @@ msgfmt_frob_new_message (default_catalog_reader_ty *that, message_ty *mp,
           if (is_header (mp))
             {
               this->has_header_entry = true;
-              if (!mp->is_fuzzy)
-                this->has_nonfuzzy_header_entry = true;
             }
           else
             /* We don't count the header entry in the statistic so place
