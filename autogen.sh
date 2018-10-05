@@ -225,6 +225,7 @@ if ! $skip_gnulib; then
       memmove
       memset
       minmax
+      mkdir
       obstack
       open
       opendir
