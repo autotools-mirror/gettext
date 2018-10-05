@@ -386,7 +386,13 @@ if ! $skip_gnulib; then
       xstriconv
       xvasprintf
     '
+    # Module 'realloc-posix' is enabled in gettext-tools/config.status, because
+    # it occurs as dependency of some module ('read-file') in
+    # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore on mingw, libgettextpo/stdlib.h
+    # contains '#define realloc rpl_realloc'. Therefore we need to include
+    # realloc.lo in libgettextpo.la.
     GNULIB_MODULES_LIBGETTEXTPO_OTHER='
+      realloc-posix
     '
     $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
       --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?

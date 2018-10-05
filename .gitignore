@@ -181,6 +181,7 @@
 /gettext-tools/libgettextpo/raise.c
 /gettext-tools/libgettextpo/rawmemchr.c
 /gettext-tools/libgettextpo/rawmemchr.valgrind
+/gettext-tools/libgettextpo/realloc.c
 /gettext-tools/libgettextpo/ref-add.sin
 /gettext-tools/libgettextpo/ref-del.sin
 /gettext-tools/libgettextpo/relocatable.c
