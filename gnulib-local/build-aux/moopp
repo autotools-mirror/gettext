@@ -516,7 +516,13 @@ func_emit_source_h ()
     echo "#endif"
     echo
     echo "/* Functions that invoke the methods.  */"
+    echo "#ifdef __cplusplus"
+    echo "extern \"C\" {"
+    echo "#endif"
     echo "$all_methods" | sed -e "$sed_remove_empty_lines" -e 's/\([^A-Za-z_0-9]\)\([A-Za-z_0-9][A-Za-z_0-9]*\)[ 	]*([^,)]*/\1'"${main_classname}_"'\2 ('"${main_classname}_t first_arg"'/' -e 's,^,extern ,' -e 's,$,;,'
+    echo "#ifdef __cplusplus"
+    echo "}"
+    echo "#endif"
     echo
     # Now come the implementation details.
     echo "/* Type representing an implementation of ${main_classname}_t.  */"
