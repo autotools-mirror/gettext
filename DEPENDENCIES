@@ -51,7 +51,7 @@ The following packages should be installed before GNU gettext is installed
     http://openjdk.java.net/install/index.html
     https://github.com/kaffe/kaffe
 
-* A C# runtime and compiler (e.g. pnet or mono).
+* A C# runtime and compiler (e.g. mono).
   + Recommended.
     Needed for building GNU.Gettext.dll. Also needed for 'msgfmt' and
     'msgunfmt', so that they can handle C# resources and assemblies.

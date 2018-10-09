@@ -3,11 +3,7 @@
 
 # Test of gettext facilities in the C# language.
 # Assumes an fr_FR locale is installed.
-# Assumes the following packages are installed: pnet, pnetlib.
-
-# Note: This test fails with mono-0.28 because the CultureInfo.Parent pointers
-# are wrong for locales containing a language and a territory. This is fixed
-# in mono-0.29.
+# Assumes the following packages are installed: mono, mcs.
 
 # Test whether we can build and test C# programs.
 test "${CSHARP_CHOICE}" != no || {

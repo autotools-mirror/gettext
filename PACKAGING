@@ -168,8 +168,4 @@ the Java virtual machine (OpenJDK, Oracle Java, IBM Java, or other).
 C# support:
 -----------
 
-For C# support, one of pnet or mono must be available at build time; it must
-also be available at run time. If you have both available, choose the desired
-one through the configure option. Note there is no interoperability currently
-between pnet and mono: Programs compiled with pnet don't run with mono, and
-vice versa.
+For C# support, mono must be available at build time and at run time.
