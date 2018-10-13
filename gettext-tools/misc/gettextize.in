@@ -1256,7 +1256,7 @@ func_modify_configure_in "(AC_OUTPUT): Remove command that created po/Makefile."
 sed -e '/^\(dnl \|\)AC_LINK_FILES(\$nls_cv_header_libgt, \$nls_cv_header_intl)$/d' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
 func_modify_configure_in "(AC_LINK_FILES): Remove invocation."
 # AM_GNU_GETTEXT_VERSION may not be present, when AM_GNU_GETTEXT_REQUIRE_VERSION is used.
-if grep '^AM_GNU_GETTEXT_VERSION(' "$srcdir/$configure_in" 2>&1 >/dev/null; then
+if grep '^AM_GNU_GETTEXT_VERSION(' "$srcdir/$configure_in" >/dev/null; then
   sed -e 's/^AM_GNU_GETTEXT_VERSION([^()]*)/AM_GNU_GETTEXT_VERSION(['"$archive_version"'])/' < "$srcdir/$configure_in" > "$srcdir/$configure_in.tmp"
   func_modify_configure_in "(AM_GNU_GETTEXT_VERSION): Bump to $archive_version."
 fi
@@ -1271,7 +1271,7 @@ for file in `(cd "$srcdir"; find . -name Makefile.am -print; find . -name Makefi
     fi
     # INTLLIBS is deprecated because it doesn't distinguish the two
     # cases: with libtool, without libtool.
-    if grep '@''INTLLIBS''@' "$srcdir/$file" >/dev/null 2>&1; then
+    if grep '@''INTLLIBS''@' "$srcdir/$file" >/dev/null; then
       if test -n "$use_libtool"; then
         please="$please
 Please change $file to use @""LTLIBINTL""@ or @""LIBINTL""@ instead of
@@ -1287,7 +1287,7 @@ Please change $file to use @""LIBINTL""@ instead of @""INTLLIBS""@.
     fi
     # DATADIRNAME is deprecated because we install only .gmo files nowadays,
     # which can be stored in the platform independent $prefix/share hierarchy.
-    if grep '@''DATADIRNAME''@' "$srcdir/$file" >/dev/null 2>&1; then
+    if grep '@''DATADIRNAME''@' "$srcdir/$file" >/dev/null; then
       please="$please
 Please change $file to use the constant string \"share\" instead of
 @""DATADIRNAME""@. @""DATADIRNAME""@ will go away.
@@ -1295,14 +1295,14 @@ Please change $file to use the constant string \"share\" instead of
     fi
     # INSTOBJEXT is deprecated because we install only .gmo files nowadays,
     # no catgets .cat catalogs.
-    if grep '@''INSTOBJEXT''@' "$srcdir/$file" >/dev/null 2>&1; then
+    if grep '@''INSTOBJEXT''@' "$srcdir/$file" >/dev/null; then
       please="$please
 Please change $file to use the constant string \".mo\" instead of
 @""INSTOBJEXT""@. @""INSTOBJEXT""@ will go away.
 "
     fi
     # GENCAT is deprecated because we install no catgets catalogs anymore.
-    if grep '@''GENCAT''@' "$srcdir/$file" >/dev/null 2>&1; then
+    if grep '@''GENCAT''@' "$srcdir/$file" >/dev/null; then
       please="$please
 Please change $file to use the constant string \"gencat\" instead of
 @""GENCAT""@. @""GENCAT""@ will go away. Maybe you don't even need it any more?
@@ -1310,7 +1310,7 @@ Please change $file to use the constant string \"gencat\" instead of
     fi
     # POSUB is deprecated because it causes "./configure --disable-nls", "make",
     # "make dist" to create a buggy tarfile.
-    if grep '@''POSUB''@' "$srcdir/$file" >/dev/null 2>&1; then
+    if grep '@''POSUB''@' "$srcdir/$file" >/dev/null; then
       please="$please
 Please change $file to use the constant string \"po\" instead of
 @""POSUB""@. @""POSUB""@ will go away.
@@ -1320,7 +1320,7 @@ Please change $file to use the constant string \"po\" instead of
 done
 
 # Recommend replacement for deprecated configure variables.
-if grep '\$nls_cv_header_' "$srcdir/$configure_in" >/dev/null 2>&1; then
+if grep '\$nls_cv_header_' "$srcdir/$configure_in" >/dev/null; then
   please="$please
 Please stop using \$nls_cv_header_intl or \$nls_cv_header_libgt in the
 $configure_in file. Both will go away. Use <libintl.h> or \"gettext.h\" instead.
