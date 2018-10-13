@@ -321,7 +321,7 @@ func_version_prereq ()
   req="$1"
   ver="$2"
   echo "m4_if(m4_version_compare([$ver], [$req]), [-1], [m4_exit([1])])" \
-    | "$AUTOM4TE" --language=M4sugar 2>&1 >/dev/null
+    | "$AUTOM4TE" --language=M4sugar >/dev/null
 }
 
 # If AM_GNU_GETTEXT_REQUIRE_VERSION is used and archive_version is newer than
