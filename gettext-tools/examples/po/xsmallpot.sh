@@ -32,8 +32,8 @@ AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([m4/Makefile])
 AC_OUTPUT
 EOF
-    aclocal -I m4
     autopoint -f
+    aclocal -I m4
     autoconf
     automake -a -c
     ./configure
