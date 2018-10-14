@@ -159,6 +159,25 @@ are skipped. To this effect, you need to install also:
     + Homepage: https://wiki.gnome.org/Projects/Vala
     + Ubuntu package: valac
 
+If you want to exercise the sample programs in gettext-tools/examples/, you
+also need to install:
+
+  * The Qt GUI toolkit library
+    + Homepage: https://www.qt.io/
+    + Ubuntu package: libqt4-dev
+
+  * The wxWidgets GUI toolkit library
+    + Homepage: https://www.wxwidgets.org/
+    + Ubuntu package: libwxgtk3.0-dev
+
+  * The GNUstep toolkit and development environment
+    + Homepage: http://www.gnustep.org/
+    * Ubuntu package: gnustep-devel
+
+  * The C# System.Windows.Forms implementation
+    + Homepage: https://www.mono-project.com/
+    + Ubuntu package: libmono-system-windows-forms4.0-cil
+
 And you need to install a couple of locales, used by the tests.
 By default, only those enabled in /etc/locale.gen are preinstalled.
 
