@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2007, 2009-2016 Free Software Foundation, Inc.
+## Copyright (C) 2001-2007, 2009-2016, 2018 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -294,7 +294,6 @@ EXAMPLESFILES = \
   \
   hello-csharp-forms/INSTALL \
   hello-csharp-forms/README \
-  hello-csharp-forms/BUGS \
   hello-csharp-forms/autogen.sh \
   hello-csharp-forms/autoclean.sh \
   hello-csharp-forms/hello.cs \
