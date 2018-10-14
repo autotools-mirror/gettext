@@ -64,7 +64,7 @@ uninstall-dll:
 doc:
 	test -d doc || mkdir doc
 	csdoc -flibrary-name=GNU.Gettext intl.cs | \
-	csdoc2html -o doc -fmulti-file -f<frames -fcombine-members -fno-namespace-directories -
+	csdoc2html -o doc -fmulti-file -fframes -fcombine-members -fno-namespace-directories -
 
 intl-csharp.texi: intl.cs
 	csdoc -flibrary-name=GNU.Gettext intl.cs | \
