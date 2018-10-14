@@ -40,6 +40,15 @@ The following packages should be installed before GNU gettext is installed
   + If it is installed in a nonstandard directory, pass the option
     --with-libxml2-prefix=DIR to 'configure'.
 
+* libacl
+  + Recommended.
+    Needed so that the creation of backup files respects the access control
+    lists (ACLs) set on the original files.
+  + Homepage:
+    https://savannah.nongnu.org/projects/acl/
+  + Download:
+    https://download.savannah.nongnu.org/releases/acl/
+
 * A Java runtime and compiler (e.g. OpenJDK or kaffe).
   + Recommended.
     Needed for building libintl.jar.  Also needed for 'msgfmt' and
