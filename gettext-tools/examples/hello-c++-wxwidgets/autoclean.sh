@@ -7,6 +7,8 @@
 test ! -f Makefile || make distclean
 
 # Brought in by explicit copy.
+rm -f m4/asm-underscore.m4
+rm -f m4/host-cpu-c-abi.m4
 rm -f m4/nls.m4
 rm -f m4/po.m4
 rm -f m4/progtest.m4
