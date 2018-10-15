@@ -23,6 +23,7 @@ rm -f configure
 rm -f Makefile.in
 rm -f m4/Makefile.in
 rm -f po/Makefile.in
+rm -f compile
 rm -f install-sh
 rm -f missing
 rm -f config.guess

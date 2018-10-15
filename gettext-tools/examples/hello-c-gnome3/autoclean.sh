@@ -11,6 +11,8 @@ rm -rf autom4te.cache
 rm -f ABOUT-NLS
 rm -f config.rpath
 rm -f m4/codeset.m4
+rm -f m4/extern-inline.m4
+rm -f m4/fcntl-o.m4
 rm -f m4/gettext.m4
 rm -f m4/glibc2.m4
 rm -f m4/glibc21.m4
@@ -34,6 +36,7 @@ rm -f m4/printf-posix.m4
 rm -f m4/progtest.m4
 rm -f m4/size_max.m4
 rm -f m4/stdint_h.m4
+rm -f m4/threadlib.m4
 rm -f m4/uintmax_t.m4
 rm -f m4/visibility.m4
 rm -f m4/wchar_t.m4
@@ -51,6 +54,7 @@ rm -f configure
 # Generated or brought in by automake.
 rm -f Makefile.in
 rm -f m4/Makefile.in
+rm -f compile
 rm -f install-sh
 rm -f missing
 rm -f config.guess

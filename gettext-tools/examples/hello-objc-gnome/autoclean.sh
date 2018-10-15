@@ -21,20 +21,24 @@ rm -f m4/intldir.m4
 rm -f m4/intlmacosx.m4
 rm -f m4/intmax.m4
 rm -f m4/inttypes-pri.m4
+rm -f m4/inttypes-h.m4
 rm -f m4/inttypes_h.m4
 rm -f m4/lcmessage.m4
 rm -f m4/lib-ld.m4
 rm -f m4/lib-link.m4
 rm -f m4/lib-prefix.m4
 rm -f m4/lock.m4
+rm -f m4/longdouble.m4
 rm -f m4/longlong.m4
 rm -f m4/nls.m4
 rm -f m4/po.m4
 rm -f m4/printf-posix.m4
 rm -f m4/progtest.m4
+rm -f m4/signed.m4
 rm -f m4/size_max.m4
 rm -f m4/stdint_h.m4
 rm -f m4/uintmax_t.m4
+rm -f m4/ulonglong.m4
 rm -f m4/visibility.m4
 rm -f m4/wchar_t.m4
 rm -f m4/wint_t.m4
@@ -51,6 +55,7 @@ rm -f configure
 # Generated or brought in by automake.
 rm -f Makefile.in
 rm -f m4/Makefile.in
+rm -f compile
 rm -f install-sh
 rm -f missing
 rm -f config.guess

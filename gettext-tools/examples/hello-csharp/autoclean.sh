@@ -17,6 +17,7 @@ rm -f po/remove-potcdate.sin
 rm -f m4/csharpcomp.m4
 rm -f m4/csharpexec.m4
 rm -f m4/csharpexec-test.exe
+rm -f m4/csharp.m4
 rm -f csharpcomp.sh.in
 rm -f csharpexec.sh.in
 
@@ -30,8 +31,11 @@ rm -f configure
 rm -f Makefile.in
 rm -f m4/Makefile.in
 rm -f po/Makefile.in
+rm -f compile
 rm -f install-sh
 rm -f missing
+rm -f config.guess
+rm -f config.sub
 rm -f po/*.pot
 rm -f po/stamp-po
 for f in po/*/*.resources.dll; do
