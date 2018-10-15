@@ -1,5 +1,5 @@
 /* Test program, used by the gettext-4 test.
-   Copyright (C) 2001, 2005-2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2001, 2005-2006, 2013, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -51,9 +51,9 @@ main (int argc, char *argv[])
   bindtextdomain ("codeset", "gt-4");
 
   /* Here we expect output in ISO-8859-1.
-     Except on Darwin 7 or newer and on BeOS, for which locale_charset ()
-     always returns "UTF-8" (see config.charset).  */
-#if !((defined __APPLE__ && defined __MACH__) || defined __BEOS__)
+     Except on Darwin 7 or newer and on BeOS and Haiku, for which
+     locale_charset () always returns "UTF-8" (see localcharset.c).  */
+#if !((defined __APPLE__ && defined __MACH__) || defined __BEOS__ || defined __HAIKU__)
   s = gettext ("cheese");
   if (strcmp (s, "K\344se"))
     {
