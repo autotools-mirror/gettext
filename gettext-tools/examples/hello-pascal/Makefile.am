@@ -8,7 +8,7 @@ AUTOMAKE_OPTIONS = foreign
 ACLOCAL_AMFLAGS = -I m4
 
 # The list of subdirectories containing Makefiles.
-SUBDIRS = m4 po
+SUBDIRS = m4 . po
 
 # The list of programs that are built.
 bin_PASCALPROGRAMS = hello
@@ -24,7 +24,7 @@ EXTRA_DIST = autogen.sh autoclean.sh
 all-local: hello$(EXEEXT)
 
 # How to build the 'hello' program.
-hello$(EXEEXT) hello.rst: $(hello_SOURCES)
+hello$(EXEEXT) hello.rsj: $(hello_SOURCES)
 	LOCALEDIR='@localedir@' $(PPC) $(hello_SOURCES)
 
 install-exec-local: all-local
@@ -37,9 +37,9 @@ installdirs-local:
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/hello$(EXEEXT)
 
-# Distribute the RST file because it's needed to generate POT files and can
+# Distribute the RSJ file because it's needed to generate POT files and can
 # only be rebuilt on those platforms to which the Pascal compiler is ported.
-EXTRA_DIST += hello.rst
+EXTRA_DIST += hello.rsj
 
 # The list of auxiliary files generated during the compilation.
 CLEANFILES = hello.o hello$(EXEEXT)

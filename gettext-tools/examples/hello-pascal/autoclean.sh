@@ -25,6 +25,7 @@ rm -f m4/Makefile.in
 rm -f po/Makefile.in
 rm -f install-sh
 rm -f missing
+rm -f hello.rsj
 rm -f po/*.pot
 rm -f po/stamp-po
 rm -f po/*.gmo

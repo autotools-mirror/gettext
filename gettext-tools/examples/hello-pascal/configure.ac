@@ -8,9 +8,9 @@ AC_CONFIG_SRCDIR(hello.pas)
 AM_INIT_AUTOMAKE(hello-pascal, 0)
 
 dnl Check for availability of the Free Pascal Compiler.
-AC_PATH_PROG(PPC, ppc386)
+AC_PATH_PROGS(PPC, ppc386 ppcx64)
 if test -z "$PPC"; then
-  echo "*** Essential program ppc386 not found" 1>&2
+  echo "*** Essential program ppc386 or ppcx64 not found" 1>&2
   exit 1
 fi
 AC_SUBST(PPC)

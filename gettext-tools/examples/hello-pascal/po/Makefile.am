@@ -5,7 +5,7 @@
 
 # List of files which contain translatable strings.
 POTFILES = \
-  hello.rst
+  hello.rsj
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)
