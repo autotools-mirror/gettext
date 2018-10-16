@@ -94,7 +94,7 @@ all-local: stamp-po
 # $(POFILES) has been designed to not touch files that don't need to be
 # changed.
 stamp-po: $(srcdir)/$(DOMAIN).pot
-	test -z "$(PROPERTIESFILES)" || $(MAKE) $(PROPERTIESFILES) \
+	test ! -f $(srcdir)/$(DOMAIN).pot || \
 	  $(MAKE) update-properties
 	@test ! -f $(srcdir)/$(DOMAIN).pot || { \
 	  echo "touch stamp-po" && \
