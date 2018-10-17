@@ -43,3 +43,5 @@ EXTRA_DIST += hello.rsj
 
 # The list of auxiliary files generated during the compilation.
 CLEANFILES = hello.o hello$(EXEEXT)
+
+MAINTAINERCLEANFILES = hello.rsj
