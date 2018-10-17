@@ -21,6 +21,10 @@ EXTRA_DIST = autogen.sh autoclean.sh
 
 # ---------------- General rules for compiling Pascal programs ----------------
 
+EXTRA_DIST += $(hello_SOURCES)
+
+# Rules for compiling Pascal programs.
+
 all-local: hello$(EXEEXT)
 
 # How to build the 'hello' program.
