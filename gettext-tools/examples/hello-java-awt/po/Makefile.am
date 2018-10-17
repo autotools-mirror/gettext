@@ -61,9 +61,9 @@ POFILES = @POFILES@
 UPDATEPOFILES = @UPDATEPOFILES@
 # This is computed as $(foreach lang, $(LINGUAS), $(lang).nop)
 DUMMYPOFILES = @DUMMYPOFILES@
-# This is computed as $(foreach lang, $(LINGUAS), $(top_srcdir)/$(DOMAIN)_$(lang).properties)
+# This is computed as $(foreach lang, $(LINGUAS), $(srcdir)/$(DOMAIN)_$(lang).properties)
 PROPERTIESFILES = @PROPERTIESFILES@
-# This is computed as $(foreach lang, $(LINGUAS), $(top_srcdir)/$(DOMAIN)_$(lang).class)
+# This is computed as $(foreach lang, $(LINGUAS), $(srcdir)/$(DOMAIN)_$(lang).class)
 CLASSFILES = @CLASSFILES@
 
 # This is computed as
@@ -185,9 +185,9 @@ MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 
-MAINTAINERCLEANFILES = stamp-po
+MAINTAINERCLEANFILES = stamp-po $(DOMAIN).properties $(PROPERTIESFILES) $(CLASSFILES)
 
-EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES)
+EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(DOMAIN).properties $(PROPERTIESFILES)
 
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: distdir1
@@ -246,25 +246,25 @@ update-po: Makefile
 $(DUMMYPOFILES):
 
 update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
-	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
+	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties"; \
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties || { rm -f $(srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
 	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po"; \
 	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po || exit 1; \
-	  echo "$(MSGCAT) --properties-output -o $(top_srcdir)/$(DOMAIN)_$$lang.properties $(srcdir)/$${lang}.po"; \
-	  $(MSGCAT) --properties-output -o $(top_srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
-	  mv $(top_srcdir)/$(DOMAIN)_$$lang.properties.tmp $(top_srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
+	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $(srcdir)/$${lang}.po"; \
+	  $(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
+	  mv $(srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
 	done
 
 # Alternatively, we could create classes instead of properties files.
 update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
-	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
+	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties"; \
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties || { rm -f $(srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics --verbose -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
+	  $(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
 	done
 
 echo-catalogs:

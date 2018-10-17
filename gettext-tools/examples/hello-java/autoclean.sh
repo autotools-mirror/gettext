@@ -34,4 +34,4 @@ rm -f install-sh
 rm -f missing
 rm -f po/*.pot
 rm -f po/stamp-po
-rm -f hello-java*.properties
+rm -f po/hello-java*.properties

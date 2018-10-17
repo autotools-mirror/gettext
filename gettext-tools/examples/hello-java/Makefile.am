@@ -52,7 +52,7 @@ hello.jar: $(hello_CLASSES)
 	{ echo "Manifest-Version: 1.0"; echo "Main-Class: $(hello_MAINCLASS)"; echo 'Class-Path: @LIBINTL_JAR@'; } > Manifest.mf
 	$(JAR) cfm $@ Manifest.mf Hello*.class
 	rm -f Manifest.mf
-	abs_jar=`pwd`/$@; (cd po && $(MAKE)) && catalogs=`GNUMAKEFLAGS=--no-print-directory $(MAKE) -s -C po echo-catalogs`; test -n "$$catalogs" && (cd $(srcdir) && $(JAR) uf "$$abs_jar" $$catalogs) || { rm -f $@ jartmp*; exit 1; }
+	abs_jar=`pwd`/$@; (cd po && $(MAKE)) && catalogs=`GNUMAKEFLAGS=--no-print-directory $(MAKE) -s -C po echo-catalogs`; test -n "$$catalogs" && (cd $(srcdir)/po && $(JAR) uf "$$abs_jar" $$catalogs) || { rm -f $@ jartmp*; exit 1; }
 
 Hello.class: $(srcdir)/Hello.java
 	CLASSPATH=.@CLASSPATH_SEPARATOR@$(hello_JAVALIBS) $(JAVACOMP) -d . $(srcdir)/Hello.java

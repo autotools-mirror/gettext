@@ -1,5 +1,5 @@
-# po.m4 serial 24 (gettext-0.19)
-dnl Copyright (C) 1995-2014, 2016 Free Software Foundation, Inc.
+# po.m4 serial 25 (gettext-0.19.9)
+dnl Copyright (C) 1995-2014, 2016, 2018 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -329,9 +329,9 @@ changequote([,])dnl
   # Compute GMOFILES
   # as      $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(lang).gmo)
   # Compute PROPERTIESFILES
-  # as      $(foreach lang, $(ALL_LINGUAS), $(top_srcdir)/$(DOMAIN)_$(lang).properties)
+  # as      $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(DOMAIN)_$(lang).properties)
   # Compute CLASSFILES
-  # as      $(foreach lang, $(ALL_LINGUAS), $(top_srcdir)/$(DOMAIN)_$(lang).class)
+  # as      $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(DOMAIN)_$(lang).class)
   # Compute QMFILES
   # as      $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(lang).qm)
   # Compute MSGFILES
@@ -356,8 +356,8 @@ changequote([,])dnl
     UPDATEPOFILES="$UPDATEPOFILES $lang.po-update"
     DUMMYPOFILES="$DUMMYPOFILES $lang.nop"
     GMOFILES="$GMOFILES $srcdirpre$lang.gmo"
-    PROPERTIESFILES="$PROPERTIESFILES \$(top_srcdir)/\$(DOMAIN)_$lang.properties"
-    CLASSFILES="$CLASSFILES \$(top_srcdir)/\$(DOMAIN)_$lang.class"
+    PROPERTIESFILES="$PROPERTIESFILES \$(srcdir)/\$(DOMAIN)_$lang.properties"
+    CLASSFILES="$CLASSFILES \$(srcdir)/\$(DOMAIN)_$lang.class"
     QMFILES="$QMFILES $srcdirpre$lang.qm"
     frobbedlang=`echo $lang | sed -e 's/\..*$//' -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`
     MSGFILES="$MSGFILES $srcdirpre$frobbedlang.msg"
