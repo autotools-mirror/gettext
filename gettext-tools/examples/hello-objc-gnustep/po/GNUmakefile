@@ -158,6 +158,9 @@ $(POFILES): $(DOMAIN).pot
 	  $(MAKE) $${lang}.po-create; \
 	fi
 
+internal-clean::
+	rm -f remove-potcdate.sed
+
 update-po:
 	$(MAKE) $(DOMAIN).pot-update
 	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
