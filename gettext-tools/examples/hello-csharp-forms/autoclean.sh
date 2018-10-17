@@ -39,6 +39,8 @@ rm -f config.sub
 rm -f po/*.pot
 rm -f po/stamp-po
 for f in po/*/*.resources.dll; do
-  rm -f $f
-  rmdir `echo $f | sed -e 's,/[^/]*$,,'`
+  if test -f "$f"; then
+    rm -f "$f"
+    rmdir `echo $f | sed -e 's,/[^/]*$,,'`
+  fi
 done
