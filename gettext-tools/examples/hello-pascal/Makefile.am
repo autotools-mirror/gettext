@@ -23,13 +23,26 @@ EXTRA_DIST = autogen.sh autoclean.sh
 
 EXTRA_DIST += $(hello_SOURCES)
 
+# Distribute the RSJ file because it's needed to generate POT files and can
+# only be rebuilt on those platforms to which the Pascal compiler is ported.
+EXTRA_DIST += hello.rsj
+# The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put this file in the source directory, not the build directory.
+
 # Rules for compiling Pascal programs.
 
 all-local: hello$(EXEEXT)
 
 # How to build the 'hello' program.
-hello$(EXEEXT) hello.rsj: $(hello_SOURCES)
+hello$(EXEEXT) $(srcdir)/hello.rsj: $(hello_SOURCES)
 	LOCALEDIR='@localedir@' $(PPC) -o./hello$(EXEEXT) $(hello_SOURCES)
+	if test '$(srcdir)' != .; then mv hello.rsj $(srcdir)/hello.rsj; fi
 
 install-exec-local: all-local
 	$(MKDIR_P) $(DESTDIR)$(bindir)
@@ -40,10 +53,6 @@ installdirs-local:
 
 uninstall-local:
 	rm -f $(DESTDIR)$(bindir)/hello$(EXEEXT)
-
-# Distribute the RSJ file because it's needed to generate POT files and can
-# only be rebuilt on those platforms to which the Pascal compiler is ported.
-EXTRA_DIST += hello.rsj
 
 # The list of auxiliary files generated during the compilation.
 CLEANFILES = hello.o hello$(EXEEXT)
