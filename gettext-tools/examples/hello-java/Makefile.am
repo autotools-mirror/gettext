@@ -23,13 +23,6 @@ hello_MAINCLASS = Hello
 # The link dependencies of the 'hello' program.
 hello_JAVALIBS = @LIBINTL_JAR@
 
-# The resources of the 'hello' program, excluding message catalogs, but
-# including the fallback message catalog.
-hello_RESOURCES = hello-java.properties
-
-# Resources that are generated from PO files.
-MAINTAINERCLEANFILES = hello-java*.properties
-
 # Additional files to be distributed.
 EXTRA_DIST = autogen.sh autoclean.sh
 
@@ -57,9 +50,9 @@ all-local: hello.jar hello.sh
 
 hello.jar: $(hello_CLASSES)
 	{ echo "Manifest-Version: 1.0"; echo "Main-Class: $(hello_MAINCLASS)"; echo 'Class-Path: @LIBINTL_JAR@'; } > Manifest.mf
-	catalogs=`MAKEFLAGS= $(MAKE) -s -C po echo-catalogs`; \
-	$(JAR) cfm $@ Manifest.mf Hello*.class $(hello_RESOURCES) $$catalogs
+	$(JAR) cfm $@ Manifest.mf Hello*.class
 	rm -f Manifest.mf
+	abs_jar=`pwd`/$@; (cd po && $(MAKE)) && catalogs=`GNUMAKEFLAGS=--no-print-directory $(MAKE) -s -C po echo-catalogs`; test -n "$$catalogs" && (cd $(srcdir) && $(JAR) uf "$$abs_jar" $$catalogs) || { rm -f $@ jartmp*; exit 1; }
 
 Hello.class: $(srcdir)/Hello.java
 	CLASSPATH=.@CLASSPATH_SEPARATOR@$(hello_JAVALIBS) $(JAVACOMP) -d . $(srcdir)/Hello.java

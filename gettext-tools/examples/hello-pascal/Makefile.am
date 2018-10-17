@@ -14,7 +14,7 @@ SUBDIRS = m4 . po
 bin_PASCALPROGRAMS = hello
 
 # The source files of the 'hello' program.
-hello_SOURCES = hello.pas
+hello_SOURCES = $(srcdir)/hello.pas
 
 # Additional files to be distributed.
 EXTRA_DIST = autogen.sh autoclean.sh
@@ -25,7 +25,7 @@ all-local: hello$(EXEEXT)
 
 # How to build the 'hello' program.
 hello$(EXEEXT) hello.rsj: $(hello_SOURCES)
-	LOCALEDIR='@localedir@' $(PPC) $(hello_SOURCES)
+	LOCALEDIR='@localedir@' $(PPC) -o./hello$(EXEEXT) $(hello_SOURCES)
 
 install-exec-local: all-local
 	$(MKDIR_P) $(DESTDIR)$(bindir)

@@ -245,9 +245,9 @@ update-po: Makefile
 
 $(DUMMYPOFILES):
 
-update-properties: Makefile $(DOMAIN).pot $(POFILES)
-	@echo "$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
+update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
+	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
 	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po"; \
@@ -258,9 +258,9 @@ update-properties: Makefile $(DOMAIN).pot $(POFILES)
 	done
 
 # Alternatively, we could create classes instead of properties files.
-update-classes: Makefile $(DOMAIN).pot $(POFILES)
-	@echo "$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
+update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
+	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties"; \
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(top_srcdir)/$(DOMAIN).properties || { rm -f $(top_srcdir)/$(DOMAIN).properties; exit 1; }
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
 	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(top_srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
@@ -268,4 +268,5 @@ update-classes: Makefile $(DOMAIN).pot $(POFILES)
 	done
 
 echo-catalogs:
-	@echo $(CATALOGS)
+# When packaging the catalogs for installation, include the fallback catalog always.
+	@echo $(DOMAIN).properties $(CATALOGS)
