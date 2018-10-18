@@ -216,7 +216,15 @@ MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 
-MAINTAINERCLEANFILES = stamp-po $(RESOURCESDLLFILES)
+MAINTAINERCLEANFILES = stamp-po
+maintainer-clean-local:
+	if test -n "$(RESOURCESDLLFILES)"; then \
+	  for file in $(RESOURCESDLLFILES); do \
+	    rm -f "$$file"; \
+	    dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \
+	    if test -d "$$dir"; then rmdir "$$dir"; fi; \
+	  done; \
+	fi
 
 EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(RESOURCESDLLFILES)
 
