@@ -24,7 +24,13 @@ else
 fi
 save_prefix="$prefix"
 prefix="$final_prefix"
-eval "pkgdatadir=\"${datadir}/${PACKAGE}\""
+save_datarootdir="$datarootdir"
+eval "datarootdir=\"${datarootdir}\""
+save_datadir="$datadir"
+eval "datadir=\"${datadir}\""
+pkgdatadir="${datadir}/${PACKAGE}"
+datadir="$save_datadir"
+datarootdir="$save_datarootdir"
 prefix="$save_prefix"
 AC_SUBST(pkgdatadir)
 
