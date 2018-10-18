@@ -107,6 +107,21 @@ We assume that the following environment variables are set:
 
     Update po-mode-version-string, if there is any change.
 
+  - gettext-tools/examples/hello-c/m4/Makefile.am
+    gettext-tools/examples/hello-c-gnome/m4/Makefile.am
+    gettext-tools/examples/hello-c-gnome3/m4/Makefile.am
+    gettext-tools/examples/hello-c++/m4/Makefile.am
+    gettext-tools/examples/hello-c++-kde/m4/Makefile.am
+    gettext-tools/examples/hello-c++-gnome/m4/Makefile.am
+    gettext-tools/examples/hello-objc/m4/Makefile.am
+    gettext-tools/examples/hello-objc-gnome/m4/Makefile.am
+
+    Update list of .m4 files (brought in by autopoint).
+
+    Then check the build infrastructure of the examples by running
+      $ cd gettext-tools/examples
+      $ ,/check-examples
+
   - NEWS
   - gettext-runtime/libasprintf/NEWS
   - gettext-runtime/NEWS

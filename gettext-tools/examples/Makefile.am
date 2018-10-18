@@ -19,7 +19,9 @@
 AUTOMAKE_OPTIONS = 1.2 foreign
 ACLOCAL_AMFLAGS = -I ../../gettext-runtime/m4 -I ../../m4
 SUBDIRS = po
-EXTRA_DIST =
+EXTRA_DIST = \
+  HACKING \
+  check-examples
 
 examplesdir = $(docdir)/examples
 
