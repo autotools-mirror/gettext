@@ -248,24 +248,57 @@ $(DUMMYPOFILES):
 
 update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties || { rm -f $(srcdir)/$(DOMAIN).properties; exit 1; }
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(DOMAIN).properties || { rm -f $(DOMAIN).properties; exit 1; }
+# Move $(DOMAIN).properties into $(srcdir). But don't provoke a gratuitous error
+# in a VPATH build with read-only $(srcdir).
+	@if test '$(srcdir)' != .; then \
+	  if test -f $(srcdir)/$(DOMAIN).properties && cmp $(DOMAIN).properties $(srcdir)/$(DOMAIN).properties >/dev/null; then \
+	    rm -f $(DOMAIN).properties; \
+	  else \
+	    mv -f $(DOMAIN).properties $(srcdir)/$(DOMAIN).properties; \
+	  fi; \
+	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
 	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po"; \
 	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po || exit 1; \
 	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $(srcdir)/$${lang}.po"; \
-	  $(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
-	  mv $(srcdir)/$(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
+	  $(MSGCAT) --properties-output -o $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
+	  if test '$(srcdir)' = .; then \
+	    mv -f $(DOMAIN)_$$lang.properties.tmp $(DOMAIN)_$$lang.properties || exit 1; \
+	  else \
+	    if test -f $(srcdir)/$(DOMAIN)_$$lang.properties && cmp $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties >/dev/null; then \
+	      rm -f $(DOMAIN)_$$lang.properties.tmp; \
+	    else \
+	      mv -f $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
+	    fi; \
+	  fi; \
 	done
 
 # Alternatively, we could create classes instead of properties files.
 update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties"; \
-	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties || { rm -f $(srcdir)/$(DOMAIN).properties; exit 1; }
+	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(DOMAIN).properties || { rm -f $(DOMAIN).properties; exit 1; }
+# Move $(DOMAIN).properties into $(srcdir). But don't provoke a gratuitous error
+# in a VPATH build with read-only $(srcdir).
+	@if test '$(srcdir)' != .; then \
+	  if test -f $(srcdir)/$(DOMAIN).properties && cmp $(DOMAIN).properties $(srcdir)/$(DOMAIN).properties >/dev/null; then \
+	    rm -f $(DOMAIN).properties; \
+	  else \
+	    mv -f $(DOMAIN).properties $(srcdir)/$(DOMAIN).properties; \
+	  fi; \
+	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
 	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
+	  $(GMSGFMT) -c --statistics --verbose -j -d . -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
+	  if test '$(srcdir)' != .; then \
+	    if test -f $(srcdir)/$(DOMAIN)_$$lang.class && cmp $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class >/dev/null; then \
+	      rm -f $(DOMAIN)_$$lang.class; \
+	    else \
+	      mv -f $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class || exit 1; \
+	    fi; \
+	  fi; \
 	done
 
 echo-catalogs:
