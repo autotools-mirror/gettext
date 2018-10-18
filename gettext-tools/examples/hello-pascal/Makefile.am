@@ -42,7 +42,15 @@ all-local: hello$(EXEEXT)
 # How to build the 'hello' program.
 hello$(EXEEXT) $(srcdir)/hello.rsj: $(hello_SOURCES)
 	LOCALEDIR='@localedir@' $(PPC) -o./hello$(EXEEXT) $(hello_SOURCES)
-	if test '$(srcdir)' != .; then mv hello.rsj $(srcdir)/hello.rsj; fi
+# Move hello.rsj into $(srcdir). But don't provoke a gratuitous error in a
+# VPATH build with read-only $(srcdir).
+	if test '$(srcdir)' != .; then \
+	  if test -f $(srcdir)/hello.rsj && cmp hello.rsj $(srcdir)/hello.rsj >/dev/null; then \
+	    rm -f hello.rsj; \
+	  else \
+	    mv -f hello.rsj $(srcdir)/hello.rsj; \
+	  fi; \
+	fi
 
 install-exec-local: all-local
 	$(MKDIR_P) $(DESTDIR)$(bindir)
