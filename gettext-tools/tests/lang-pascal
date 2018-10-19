@@ -4,9 +4,9 @@
 # Test of gettext facilities in the Object Pascal language.
 # Assumes the following packages are installed: fpk.
 
-# Note: This test fails with fpk 1.0.10 when an UTF-8 locale is present,
-# because fpk ignores the locale's encoding. It supports only unibyte locales.
-# This here is a quick workaround:
+# Note: This test fails with fpk 1.0.10 ... 3.0.0 when an UTF-8 locale is
+# present, because fpk ignores the locale's encoding. It supports only unibyte
+# locales. This here is a quick workaround:
 UTF8_LOCALE_UNSUPPORTED=yes
 
 cat <<\EOF > pascalprog.pp

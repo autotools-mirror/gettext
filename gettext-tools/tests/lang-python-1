@@ -3,7 +3,7 @@
 
 # Test of gettext facilities in the Python language.
 
-# Note: This test fails with Python 2.3, 2.4 when an UTF-8 locale is present.
+# Note: This test fails with Python 2.3 ... 2.7 when an UTF-8 locale is present.
 # It looks like a bug in Python's gettext.py. This here is a quick workaround:
 UTF8_LOCALE_UNSUPPORTED=yes
 
