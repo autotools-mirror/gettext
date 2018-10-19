@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello-1.pl.in)
-AM_INIT_AUTOMAKE(hello-perl, 0)
+AC_INIT([hello-perl], [0])
+AC_CONFIG_SRCDIR([hello-1.pl.in])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of the Perl interpreter.
 AC_PATH_PROG(PERL, perl)

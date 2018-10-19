@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello.ycp)
-AM_INIT_AUTOMAKE(hello-ycp, 0)
+AC_INIT([hello-ycp], [0])
+AC_CONFIG_SRCDIR([hello.ycp])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of YaST's engine.
 test -f /usr/lib/YaST2/bin/y2base || {

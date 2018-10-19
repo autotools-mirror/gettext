@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello.cs)
-AM_INIT_AUTOMAKE(hello-csharp-forms, 0)
+AC_INIT([hello-csharp-forms], [0])
+AC_CONFIG_SRCDIR([hello.cs])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check whether we can build C# programs at all.
 gt_CSHARPCOMP

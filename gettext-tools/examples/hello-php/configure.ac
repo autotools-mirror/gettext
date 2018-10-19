@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello.php)
-AM_INIT_AUTOMAKE(hello-php, 0)
+AC_INIT([hello-php], [0])
+AC_CONFIG_SRCDIR([hello.php])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of the PHP system.
 AC_PATH_PROG(PHP, php)

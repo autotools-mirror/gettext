@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(Hello.java)
-AM_INIT_AUTOMAKE(hello-java-swing, 0)
+AC_INIT([hello-java-swing], [0])
+AC_CONFIG_SRCDIR([Hello.java])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check whether we can execute Java programs.
 gt_JAVAEXEC([TestAWT], [$srcdir/m4])

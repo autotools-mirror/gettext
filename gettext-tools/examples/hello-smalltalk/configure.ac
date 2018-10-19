@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello.st.in)
-AM_INIT_AUTOMAKE(hello-smalltalk, 0)
+AC_INIT([hello-smalltalk], [0])
+AC_CONFIG_SRCDIR([hello.st.in])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of GNU Smalltalk.
 AC_PATH_PROG(GST, gst)

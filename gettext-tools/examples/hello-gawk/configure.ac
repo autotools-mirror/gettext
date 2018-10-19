@@ -3,9 +3,9 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT
-AC_CONFIG_SRCDIR(hello.awk)
-AM_INIT_AUTOMAKE(hello-gawk, 0)
+AC_INIT([hello-gawk], [0])
+AC_CONFIG_SRCDIR([hello.awk])
+AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of GNU awk.
 AC_PATH_PROG(GAWK, gawk)
