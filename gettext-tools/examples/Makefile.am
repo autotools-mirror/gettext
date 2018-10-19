@@ -317,7 +317,6 @@ EXAMPLESFILES = \
   hello-pascal/autogen.sh \
   hello-pascal/autoclean.sh \
   hello-pascal/hello.pas \
-  hello-pascal/hello.rst \
   hello-pascal/Makefile.am \
   hello-pascal/configure.ac \
   hello-pascal/m4/Makefile.am \
