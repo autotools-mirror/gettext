@@ -1,5 +1,5 @@
-/* Test program, used by the gettext-7 test.
-   Copyright (C) 2005-2007, 2009-2010, 2015-2016 Free Software Foundation, Inc.
+/* Test program, used by the intl-thread-3 test.
+   Copyright (C) 2005-2007, 2009-2010, 2015-2016, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#if USE_POSIX_THREADS && ((__GLIBC__ >= 2 && !defined __UCLIBC__) || (defined __APPLE__ && defined __MACH__)) && HAVE_USELOCALE
+#if USE_POSIX_THREADS && HAVE_USELOCALE
 
 #include <pthread.h>
 
@@ -33,17 +33,10 @@
 #undef _LIBINTL_H
 #include "libgnuintl.h"
 
-/* Name of German locale in ISO-8859-1 or ISO-8859-15 encoding.  */
-#if __GLIBC__ >= 2
-# define LOCALE_DE_ISO8859 "de_DE.ISO-8859-1"
-#elif defined __APPLE__ && defined __MACH__ /* MacOS X */
-# define LOCALE_DE_ISO8859 "de_DE.ISO8859-1"
-#else
-# define LOCALE_DE_ISO8859 "de_DE"
-#endif
-
-/* Name of German locale in UTF-8 encoding.  */
-#define LOCALE_DE_UTF8 "de_DE.UTF-8"
+/* Name of locale to use in thread1.  */
+const char *locale_name_1;
+/* Name of locale to use in thread2.  */
+const char *locale_name_2;
 
 /* Set to 1 if the program is not behaving correctly.  */
 int result;
@@ -84,7 +77,7 @@ thread1_execution (void *arg)
   char *s;
 
   waitfor (1);
-  uselocale (newlocale (LC_ALL_MASK, LOCALE_DE_ISO8859, NULL));
+  uselocale (newlocale (LC_ALL_MASK, locale_name_1, NULL));
   setto (2);
 
   /* Here we expect output in ISO-8859-1.  */
@@ -118,7 +111,7 @@ thread2_execution (void *arg)
   char *s;
 
   waitfor (2);
-  uselocale (newlocale (LC_ALL_MASK, LOCALE_DE_UTF8, NULL));
+  uselocale (newlocale (LC_ALL_MASK, locale_name_2, NULL));
   setto (1);
 
   /* Here we expect output in UTF-8.  */
@@ -146,40 +139,19 @@ thread2_execution (void *arg)
   return NULL;
 }
 
-static void
-check_locale_exists (const char *name)
-{
-  if (newlocale (LC_ALL_MASK, name, NULL) == NULL)
-    {
-      printf ("%s\n", name);
-      exit (1);
-    }
-}
-
 int
 main (int argc, char *argv[])
 {
-  int arg;
   pthread_t thread1;
   pthread_t thread2;
 
-  arg = (argc > 1 ? atoi (argv[1]) : 0);
-  switch (arg)
-    {
-    case 1:
-      /* Check for the existence of the first locale.  */
-      check_locale_exists (LOCALE_DE_ISO8859);
-      /* Check for the existence of the second locale.  */
-      check_locale_exists (LOCALE_DE_UTF8);
-      return 0;
-    default:
-      break;
-    }
+  locale_name_1 = argv[1];
+  locale_name_2 = argv[2];
 
   unsetenv ("LANGUAGE");
   unsetenv ("OUTPUT_CHARSET");
   textdomain ("tstthread");
-  bindtextdomain ("tstthread", "gt-7");
+  bindtextdomain ("tstthread", "in-th-3");
   result = 0;
 
   flipflop = 1;
