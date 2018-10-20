@@ -1,4 +1,4 @@
-/* Test program, used by the gettext-4 test.
+/* Test program, used by the intl-4 test.
    Copyright (C) 2001, 2005-2006, 2013, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -47,8 +47,8 @@ main (int argc, char *argv[])
 
   xsetenv ("LC_ALL", argv[1], 1);
   setlocale (LC_ALL, "");
-  textdomain ("codeset");
-  bindtextdomain ("codeset", "gt-4");
+  textdomain ("tstprog");
+  bindtextdomain ("tstprog", "in-4");
 
   /* Here we expect output in ISO-8859-1.
      Except on Darwin 7 or newer and on BeOS and Haiku, for which
@@ -62,7 +62,7 @@ main (int argc, char *argv[])
     }
 #endif
 
-  bind_textdomain_codeset ("codeset", "UTF-8");
+  bind_textdomain_codeset ("tstprog", "UTF-8");
 
   /* Here we expect output in UTF-8.  */
   s = gettext ("cheese");
@@ -72,7 +72,7 @@ main (int argc, char *argv[])
       result = 1;
     }
 
-  bind_textdomain_codeset ("codeset", "ISO-8859-1");
+  bind_textdomain_codeset ("tstprog", "ISO-8859-1");
 
   /* Here we expect output in ISO-8859-1.  */
   s = gettext ("cheese");

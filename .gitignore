@@ -659,8 +659,6 @@ autom4te.cache/
 /gettext-tools/tests/fc4.exe
 /gettext-tools/tests/fc5
 /gettext-tools/tests/fc5.exe
-/gettext-tools/tests/gettext-4-prg
-/gettext-tools/tests/gettext-4-prg.exe
 /gettext-tools/tests/gettext-5-prg
 /gettext-tools/tests/gettext-5-prg.exe
 /gettext-tools/tests/gettext-6-prg
@@ -675,6 +673,8 @@ autom4te.cache/
 /gettext-tools/tests/intl-1-prg.exe
 /gettext-tools/tests/intl-3-prg
 /gettext-tools/tests/intl-3-prg.exe
+/gettext-tools/tests/intl-4-prg
+/gettext-tools/tests/intl-4-prg.exe
 /gettext-tools/tests/intl-setlocale-1-prg
 /gettext-tools/tests/intl-setlocale-1-prg.exe
 /gettext-tools/tests/sentence-1-prg
