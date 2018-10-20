@@ -1,5 +1,5 @@
-/* Test program, used by the gettext-3 test.
-   Copyright (C) 2000, 2005, 2007, 2015-2016 Free Software Foundation, Inc.
+/* Test program, used by the intl-setlocale-1 test.
+   Copyright (C) 2000, 2005, 2007, 2015-2016, 2018 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ main (void)
   unsetenv ("LANG");
   unsetenv ("OUTPUT_CHARSET");
 
-  textdomain ("tstlang");
+  textdomain ("tstprog");
 
   for (i = 0; i < lang_cnt; ++i)
     {
@@ -69,7 +69,7 @@ main (void)
       if (setlocale (LC_ALL, lang[i]) == NULL)
         setlocale (LC_ALL, "C");
 
-      bindtextdomain ("tstlang", "gt-3");
+      bindtextdomain ("tstprog", "in-sl-1");
 
       for (j = 0; j < data_cnt; ++j)
         printf ("%s - %s\n", strings[j].selection,

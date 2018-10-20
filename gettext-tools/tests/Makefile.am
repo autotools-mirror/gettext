@@ -20,8 +20,9 @@ AUTOMAKE_OPTIONS = 1.11 gnits no-dependencies color-tests
 EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
-TESTS = gettext-1 gettext-2 gettext-3 gettext-4 gettext-5 gettext-6 gettext-7 \
-	gettext-8 \
+TESTS = gettext-1 gettext-2 \
+	intl-setlocale-1 \
+	gettext-4 gettext-5 gettext-6 gettext-7 gettext-8 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
@@ -161,8 +162,8 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \
 	qttest_pl.po qttest_pl.qm \
 	qttest2_de.po qttest2_de.qm qttest2_de.ts \
-	gettext-3-1.po gettext-3-2.po gettext-4.po gettext-5.po \
-	gettext-6-1.po gettext-6-2.po gettext-7.po \
+	intl-setlocale-1-1.po intl-setlocale-1-2.po \
+	gettext-4.po gettext-5.po gettext-6-1.po gettext-6-2.po gettext-7.po \
 	gettextpo-1.de.po \
 	xgettext-1 \
 	xgettext-c-1 xg-c-21.c \
@@ -219,7 +220,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale gettext-3-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
+check_PROGRAMS = tstgettext tstngettext testlocale intl-setlocale-1-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
@@ -227,8 +228,8 @@ tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 testlocale_SOURCES = testlocale.c
-gettext_3_prg_SOURCES = gettext-3-prg.c
-gettext_3_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+intl_setlocale_1_prg_SOURCES = intl-setlocale-1-prg.c
+intl_setlocale_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_4_prg_SOURCES = gettext-4-prg.c
 gettext_4_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_5_prg_SOURCES = gettext-5-prg.c
