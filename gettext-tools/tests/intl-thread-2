@@ -1,0 +1,56 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test that gettext() in multithreaded applications works correctly if
+# different threads operate in different locales with the same encoding.
+
+# Let's use two UTF-8 locales that configure already checked for:
+# French and Turkish.
+# The second PO file is actually German, not Turkish, but that doesn't matter.
+
+test -d in-th-2 || mkdir in-th-2
+test -d in-th-2/fr_FR || mkdir in-th-2/fr_FR
+test -d in-th-2/fr_FR/LC_MESSAGES || mkdir in-th-2/fr_FR/LC_MESSAGES
+test -d in-th-2/tr_TR || mkdir in-th-2/tr_TR
+test -d in-th-2/tr_TR/LC_MESSAGES || mkdir in-th-2/tr_TR/LC_MESSAGES
+
+: ${MSGFMT=msgfmt}
+${MSGFMT} -o in-th-2/fr_FR/LC_MESSAGES/tstthread.mo "$abs_srcdir"/intl-thread-2-1.po
+${MSGFMT} -o in-th-2/tr_TR/LC_MESSAGES/tstthread.mo "$abs_srcdir"/intl-thread-2-2.po
+
+: ${DIFF=diff}
+cat <<EOF > in-th-2.ok
+beauté
+Schönheit
+beauté
+Schönheit
+EOF
+
+: ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+: ${LOCALE_TR_UTF8=tr_TR.UTF-8}
+if test $LOCALE_FR_UTF8 != none && test $LOCALE_TR_UTF8 != none; then
+  prepare_locale_ fr $LOCALE_FR_UTF8
+  prepare_locale_ tr $LOCALE_TR_UTF8
+  ../intl-thread-2-prg $LOCALE_FR_UTF8 $LOCALE_TR_UTF8 > in-th-2.out
+  case $? in
+    0)
+      ${DIFF} in-th-2.ok in-th-2.out || Exit 1
+      ;;
+    77)
+      echo "Skipping test: POSIX per-thread locales not supported"
+      Exit 77
+      ;;
+    *)
+      Exit 1
+      ;;
+  esac
+else
+  if test -f /usr/bin/localedef; then
+    echo "Skipping test: no french and turkish locales are installed"
+  else
+    echo "Skipping test: no french and turkish locales are supported"
+  fi
+  Exit 77
+fi
+
+Exit 0
