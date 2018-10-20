@@ -21,10 +21,9 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
-	intl-1 intl-2 intl-3 intl-4 \
+	intl-1 intl-2 intl-3 intl-4 intl-5 \
 	intl-setlocale-1 intl-setlocale-2 \
 	intl-thread-1 intl-thread-2 intl-thread-3 \
-	gettext-8 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
 	msgattrib-6 msgattrib-7 msgattrib-8 msgattrib-9 msgattrib-10 \
 	msgattrib-11 msgattrib-12 msgattrib-13 msgattrib-14 msgattrib-15 \
@@ -224,7 +223,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
+check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
@@ -238,6 +237,8 @@ intl_3_prg_SOURCES = intl-3-prg.c
 intl_3_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_4_prg_SOURCES = intl-4-prg.c
 intl_4_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+intl_5_prg_SOURCES = intl-5-prg.c
+intl_5_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_1_prg_SOURCES = intl-setlocale-1-prg.c
 intl_setlocale_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_2_prg_SOURCES = intl-setlocale-2-prg.c
@@ -257,8 +258,6 @@ intl_thread_3_prg_CFLAGS = $(intl_thread_3_prg_CFLAGS_@HAVE_NEWLOCALE@)
 intl_thread_3_prg_CFLAGS_1 = -DUSE_POSIX_THREADS
 intl_thread_3_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD) $(intl_thread_3_prg_LDADD_@HAVE_NEWLOCALE@)
 intl_thread_3_prg_LDADD_1 = -lpthread
-gettext_8_prg_SOURCES = gettext-8-prg.c
-gettext_8_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 cake_SOURCES = plural-1-prg.c setlocale.c
 cake_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 fc3_SOURCES = format-c-3-prg.c setlocale.c

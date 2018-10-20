@@ -3,4 +3,4 @@
 
 # Test that gettext() does not crash by stack overflow when msgid is very long.
 
-../gettext-8-prg
+../intl-5-prg
