@@ -671,6 +671,8 @@ autom4te.cache/
 /gettext-tools/tests/gettext-8-prg.exe
 /gettext-tools/tests/gettextpo-1-prg
 /gettext-tools/tests/gettextpo-1-prg.exe
+/gettext-tools/tests/intl-1-prg
+/gettext-tools/tests/intl-1-prg.exe
 /gettext-tools/tests/intl-setlocale-1-prg
 /gettext-tools/tests/intl-setlocale-1-prg.exe
 /gettext-tools/tests/sentence-1-prg

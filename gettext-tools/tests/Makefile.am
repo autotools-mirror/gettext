@@ -21,6 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
+	intl-1 \
 	intl-setlocale-1 \
 	gettext-4 gettext-5 gettext-6 gettext-7 gettext-8 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
@@ -162,7 +163,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \
 	qttest_pl.po qttest_pl.qm \
 	qttest2_de.po qttest2_de.qm qttest2_de.ts \
-	intl-setlocale-1-1.po intl-setlocale-1-2.po \
+	intl-1.po intl-setlocale-1-1.po intl-setlocale-1-2.po \
 	gettext-4.po gettext-5.po gettext-6-1.po gettext-6-2.po gettext-7.po \
 	gettextpo-1.de.po \
 	xgettext-1 \
@@ -220,7 +221,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale intl-setlocale-1-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
+check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-setlocale-1-prg gettext-4-prg gettext-5-prg gettext-6-prg gettext-7-prg gettext-8-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = tstgettext.c setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
@@ -228,6 +229,8 @@ tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
 tstngettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 testlocale_SOURCES = testlocale.c
+intl_1_prg_SOURCES = intl-1-prg.c
+intl_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_1_prg_SOURCES = intl-setlocale-1-prg.c
 intl_setlocale_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 gettext_4_prg_SOURCES = gettext-4-prg.c
