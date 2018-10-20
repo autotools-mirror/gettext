@@ -1,10 +1,12 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test that on glibc systems, the gettext() results come out in the correct
-# encoding for locales that differ only in their encoding.
+# Test that a gettext() result comes out in the correct encoding, even when the
+# same message from the same catalog file was already looked up in a locale with
+# a different encoding.
 
-# This test works only on glibc systems.
+# This test works only on glibc systems, because it relies on HAVE_LOCALE_NULL
+# being set and on the notification by setlocale().
 : ${GLIBC2=no}
 test "$GLIBC2" = yes || {
   echo "Skipping test: not a glibc system"
@@ -30,13 +32,13 @@ LC_ALL=de_DE.UTF-8 ../testlocale || {
   Exit 77
 }
 
-test -d gt-5 || mkdir gt-5
-test -d gt-5/de_DE || mkdir gt-5/de_DE
-test -d gt-5/de_DE/LC_MESSAGES || mkdir gt-5/de_DE/LC_MESSAGES
+test -d in-sl-2 || mkdir in-sl-2
+test -d in-sl-2/de_DE || mkdir in-sl-2/de_DE
+test -d in-sl-2/de_DE/LC_MESSAGES || mkdir in-sl-2/de_DE/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o gt-5/de_DE/LC_MESSAGES/codeset.mo "$abs_srcdir"/gettext-5.po
+${MSGFMT} -o in-sl-2/de_DE/LC_MESSAGES/tstprog.mo "$abs_srcdir"/intl-setlocale-2.po
 
-../gettext-5-prg || Exit 1
+../intl-setlocale-2-prg || Exit 1
 
 Exit 0
