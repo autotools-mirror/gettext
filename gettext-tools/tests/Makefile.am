@@ -177,7 +177,7 @@ XGETTEXT = ../src/xgettext
 # For debugging memory leaks and memory allocation bugs.
 # You should build with --disable-shared when using valgrind.
 CHECKER =
-#CHECKER = valgrind --tool=memcheck --suppressions=$(abs_srcdir)/../gnulib-lib/malloca.valgrind --suppressions=$(abs_srcdir)/../gnulib-lib/libunistring.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
+#CHECKER = valgrind --tool=memcheck --suppressions=$(abs_srcdir)/../gnulib-lib/libunistring.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
 #CHECKER = valgrind --tool=massif --format=html --depth=10 --alloc-fn=xmalloc --alloc-fn=xrealloc --stacks=no
 
 TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
@@ -203,6 +203,10 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    RECODE="$(CHECKER) recode" \
 		    CONFIG_SHELL='$(SHELL)'
 
+# Invoke the shell explicitly, because the execute-permission bit on the scripts
+# may get lost in particular circumstances (e.g. when unpacking a tarball, or
+# under Cygwin).
+# This has the consequence that all tests have to be shell scripts.
 LOG_COMPILER = $(SHELL)
 
 # Update the expected test results.
@@ -212,7 +216,7 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 	  -k_ --omit-header --no-location \
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 
-# Three auxiliary programs used by the tests.
+# Auxiliary programs used by the tests.
 AM_CPPFLAGS = \
   -I.. \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
