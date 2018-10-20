@@ -21,7 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
-	intl-1 \
+	intl-1 intl-2 \
 	intl-setlocale-1 \
 	gettext-4 gettext-5 gettext-6 gettext-7 gettext-8 \
 	msgattrib-1 msgattrib-2 msgattrib-3 msgattrib-4 msgattrib-5 \
@@ -163,7 +163,8 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	msguniq-a.in msguniq-a.inp msguniq-a.out \
 	qttest_pl.po qttest_pl.qm \
 	qttest2_de.po qttest2_de.qm qttest2_de.ts \
-	intl-1.po intl-setlocale-1-1.po intl-setlocale-1-2.po \
+	intl-1.po intl-2-1.po intl-2-2.po \
+	intl-setlocale-1-1.po intl-setlocale-1-2.po \
 	gettext-4.po gettext-5.po gettext-6-1.po gettext-6-2.po gettext-7.po \
 	gettextpo-1.de.po \
 	xgettext-1 \
