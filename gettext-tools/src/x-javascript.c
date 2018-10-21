@@ -931,7 +931,7 @@ static int phase5_pushback_length;
 static token_type_ty last_token_type = token_type_other;
 
 static void
-phase5_scan_regexp ()
+phase5_scan_regexp (void)
 {
     int c;
 
@@ -1332,7 +1332,7 @@ phase5_get (token_ty *tp)
             tp->type = last_token_type = token_type_operator;
           else
             {
-              phase5_scan_regexp (tp);
+              phase5_scan_regexp ();
               tp->type = last_token_type = token_type_regexp;
             }
           return;
