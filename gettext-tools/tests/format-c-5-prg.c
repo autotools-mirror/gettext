@@ -22,16 +22,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "xsetenv.h"
 
 /* For %Id to work, we need the real setlocale(), not the fake one. */
-#if !(__GLIBC__ >= 2 && !defined __UCLIBC__)
+#if !USE_SYSTEM_LIBINTL && !(__GLIBC__ >= 2 && !defined __UCLIBC__)
 # include "setlocale.c"
 #endif
 
+#if USE_SYSTEM_LIBINTL
+# define xsetenv setenv
+# include <libintl.h>
+#else
+# include "xsetenv.h"
 /* Make sure we use the included libintl, not the system's one. */
-#undef _LIBINTL_H
-#include "libgnuintl.h"
+# undef _LIBINTL_H
+# include "libgnuintl.h"
+#endif
 
 #define _(string) gettext (string)
 

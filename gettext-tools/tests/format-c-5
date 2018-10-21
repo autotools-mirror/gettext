@@ -36,17 +36,53 @@ LC_ALL=C tr -d '\r' < fa.po.tmp > fa.po.un || Exit 1
 : ${DIFF=diff}
 ${DIFF} fa.po fa.po.un || Exit 1
 
-LANGUAGE= ../fc5 fa_IR
-case $? in
-  0) ;;
-  77)
+if test -z "$USE_SYSTEM_LIBINTL"; then
+  # In the tests/ dir: Rely on a fake setlocale, so that we can exercise
+  # the test on all platforms.
+
+  LANGUAGE= ../fc5 fa_IR
+  case $? in
+    0) ;;
+    77)
+      if test -f /usr/bin/localedef; then
+        echo "Skipping test: locale fa_IR not installed"
+      else
+        echo "Skipping test: locale fa_IR not supported"
+      fi
+      Exit 77;;
+    *) Exit 1;;
+  esac
+
+else
+  # In the system-tests/ dir: Don't use a fake setlocale.
+
+  skipped=true
+
+  prepare_locale_ fa fa_IR
+  LANGUAGE= ../fc5 fa_IR
+  case $? in
+    0) skipped=false ;;
+    77) ;;
+    *) Exit 1;;
+  esac
+
+  prepare_locale_ fa fa_IR.UTF-8
+  LANGUAGE= ../fc5 fa_IR.UTF-8
+  case $? in
+    0) skipped=false ;;
+    77) ;;
+    *) Exit 1;;
+  esac
+
+  if $skipped; then
     if test -f /usr/bin/localedef; then
-      echo "Skipping test: locale fa_IR not installed"
+      echo "Skipping test: no Farsi locale is installed"
     else
-      echo "Skipping test: locale fa_IR not supported"
+      echo "Skipping test: no Farsi locale is supported"
     fi
-    Exit 77;;
-  *) Exit 1;;
-esac
+    Exit 77
+  fi
+
+fi
 
 Exit 0

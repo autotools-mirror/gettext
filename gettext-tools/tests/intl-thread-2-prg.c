@@ -29,9 +29,13 @@
 
 #include <pthread.h>
 
+#if USE_SYSTEM_LIBINTL
+# include <libintl.h>
+#else
 /* Make sure we use the included libintl, not the system's one. */
-#undef _LIBINTL_H
-#include "libgnuintl.h"
+# undef _LIBINTL_H
+# include "libgnuintl.h"
+#endif
 
 /* Name of locale to use in thread1.  */
 const char *locale_name_1;

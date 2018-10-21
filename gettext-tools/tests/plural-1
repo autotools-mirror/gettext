@@ -48,18 +48,50 @@ sed 1,2d < plural-1-fr.po > plural-1-fr.po.strip
 : ${DIFF=diff}
 ${DIFF} plural-1-fr.po.strip plural-1-fr.po.un || Exit 1
 
-: ${DIFF=diff}
-echo 'un morceau de gateau' > plural-1-cake.ok
-LANGUAGE= ../cake fr 1 > plural-1-cake.tmp || Exit 1
-LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
-${DIFF} plural-1-cake.ok cake.out || Exit 1
-echo '2 morceaux de gateau' > plural-1-cake.ok
-LANGUAGE= ../cake fr 2 > plural-1-cake.tmp || Exit 1
-LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
-${DIFF} plural-1-cake.ok cake.out || Exit 1
-echo '10 morceaux de gateau' > plural-1-cake.ok
-LANGUAGE= ../cake fr 10 > plural-1-cake.tmp || Exit 1
-LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
-${DIFF} plural-1-cake.ok cake.out || Exit 1
+func_do_test ()
+{
+  echo 'un morceau de gateau' > plural-1-cake.ok
+  LANGUAGE= ../cake "$1" 1 > plural-1-cake.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
+  ${DIFF} plural-1-cake.ok cake.out || Exit 1
+  echo '2 morceaux de gateau' > plural-1-cake.ok
+  LANGUAGE= ../cake "$1" 2 > plural-1-cake.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
+  ${DIFF} plural-1-cake.ok cake.out || Exit 1
+  echo '10 morceaux de gateau' > plural-1-cake.ok
+  LANGUAGE= ../cake "$1" 10 > plural-1-cake.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < plural-1-cake.tmp > cake.out || Exit 1
+  ${DIFF} plural-1-cake.ok cake.out || Exit 1
+}
+
+if test -z "$USE_SYSTEM_LIBINTL"; then
+  # In the tests/ dir: Rely on a fake setlocale, so that we can exercise
+  # the test on all platforms.
+
+  func_do_test fr
+
+else
+  # In the system-tests/ dir: Don't use a fake setlocale.
+
+  : ${LOCALE_FR=fr_FR}
+  : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+  if test $LOCALE_FR != none; then
+    prepare_locale_ plural-1-dir/fr plural-1-dir/$LOCALE_FR
+    func_do_test $LOCALE_FR
+  fi
+  if test $LOCALE_FR_UTF8 != none; then
+    prepare_locale_ plural-1-dir/fr plural-1-dir/$LOCALE_FR_UTF8
+    func_do_test $LOCALE_FR_UTF8
+  fi
+  if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
+    if test -f /usr/bin/localedef; then
+      echo "Skipping test: no french locale is installed"
+    else
+      echo "Skipping test: no french locale is supported"
+    fi
+    Exit 77
+  fi
+
+fi
 
 Exit 0

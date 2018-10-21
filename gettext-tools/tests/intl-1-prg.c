@@ -21,11 +21,16 @@
 #include <locale.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "xsetenv.h"
 
+#if USE_SYSTEM_LIBINTL
+# define xsetenv setenv
+# include <libintl.h>
+#else
+# include "xsetenv.h"
 /* Make sure we use the included libintl, not the system's one. */
-#undef _LIBINTL_H
-#include "libgnuintl.h"
+# undef _LIBINTL_H
+# include "libgnuintl.h"
+#endif
 
 int
 main (int argc, char *argv[])

@@ -25,9 +25,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#if USE_SYSTEM_LIBINTL
+# include <libintl.h>
+#else
 /* Make sure we use the included libintl, not the system's one. */
-#undef _LIBINTL_H
-#include "libgnuintl.h"
+# undef _LIBINTL_H
+# include "libgnuintl.h"
+#endif
 
 #define N_(string) string
 

@@ -25,11 +25,16 @@
 #ifdef HAVE_INTTYPES_H
 # include <inttypes.h>
 #endif
-#include "xsetenv.h"
 
+#if USE_SYSTEM_LIBINTL
+# define xsetenv setenv
+# include <libintl.h>
+#else
+# include "xsetenv.h"
 /* Make sure we use the included libintl, not the system's one. */
-#undef _LIBINTL_H
-#include "libgnuintl.h"
+# undef _LIBINTL_H
+# include "libgnuintl.h"
+#endif
 
 /* Disable the override of setlocale that libgnuintl.h activates on MacOS X
    and Windows.  This test relies on the fake setlocale function in
