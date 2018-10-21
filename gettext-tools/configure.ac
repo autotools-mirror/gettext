@@ -464,6 +464,7 @@ gl_PROG_ANSI_CXX([CXX], [ANSICXX])
 gt_LOCALE_FR
 gt_LOCALE_FR_UTF8
 gt_LOCALE_JA
+gt_LOCALE_DE_UTF8
 
 dnl Checks for functions for the tests/*.c tests.
 AC_CHECK_FUNCS_ONCE([getrlimit setrlimit uselocale])
