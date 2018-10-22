@@ -37,6 +37,7 @@
 
 * Runtime behaviour:
   - The interpretation of the language preferences on macOS has been fixed.
+  - Per-thread locales are now also supported on Solaris 11.4.
   - The replacements for the printf()/fprintf()/... functions that are
     provided through <libintl.h> on native Windows and NetBSD are now POSIX
     compliant.  There is no conflict any more between these replacements

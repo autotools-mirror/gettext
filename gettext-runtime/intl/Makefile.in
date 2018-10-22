@@ -127,6 +127,7 @@ HEADERS = \
   localcharset.h \
   lock.h \
   relocatable.h \
+  localename-table.h \
   tsearch.h tsearch.c \
   verify.h \
   xsize.h \
@@ -159,6 +160,7 @@ SOURCES = \
   relocatable.c \
   langprefs.c \
   localename.c \
+  localename-table.c \
   flexmember.h \
   log.c \
   printf.c \
@@ -193,6 +195,7 @@ OBJECTS = \
   relocatable.$lo \
   langprefs.$lo \
   localename.$lo \
+  localename-table.$lo \
   log.$lo \
   printf.$lo \
   setlocale.$lo \
@@ -306,6 +309,8 @@ langprefs.lo: $(srcdir)/langprefs.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/langprefs.c
 localename.lo: $(srcdir)/localename.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/localename.c
+localename-table.lo: $(srcdir)/localename-table.c
+	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/localename-table.c
 log.lo: $(srcdir)/log.c
 	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=compile $(COMPILE) $(srcdir)/log.c
 printf.lo: $(srcdir)/printf.c
@@ -362,9 +367,10 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h
 	sed -e '/IN_LIBGLOCALE/d' \
 	    -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
 	    -e 's,@''HAVE_ASPRINTF''@,@HAVE_ASPRINTF@,g' \
-	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
+	    -e 's,@''HAVE_NAMELESS_LOCALES''@,@HAVE_NAMELESS_LOCALES@,g' \
+	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	  < $(srcdir)/libgnuintl.in.h \
 	| if test '@WOE32DLL@' = yes; then \
 	    sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/'; \
@@ -380,9 +386,10 @@ libintl.h: $(srcdir)/libgnuintl.in.h
 	sed -e '/IN_LIBGLOCALE/d' \
 	    -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
 	    -e 's,@''HAVE_ASPRINTF''@,@HAVE_ASPRINTF@,g' \
-	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
+	    -e 's,@''HAVE_NAMELESS_LOCALES''@,@HAVE_NAMELESS_LOCALES@,g' \
+	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	  < $(srcdir)/libgnuintl.in.h > libintl.h
 
 check: all
@@ -534,6 +541,7 @@ info dvi ps pdf html:
 $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo setlocale.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 localename.$lo: $(srcdir)/gettextP.h
+localename.$lo localename-table.$lo: $(srcdir)/localename-table.h
 hash-string.$lo dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
 explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo $(PLURAL_OBJECT) plural-exp.$lo: $(srcdir)/plural-exp.h

@@ -437,6 +437,30 @@ extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
 #endif
 
 
+/* Support for retrieving the name of a locale_t object.  */
+#if @HAVE_NAMELESS_LOCALES@
+
+#ifndef GNULIB_defined_newlocale /* don't override gnulib */
+#undef newlocale
+#define newlocale libintl_newlocale
+extern locale_t newlocale (int, const char *, locale_t);
+#endif
+
+#ifndef GNULIB_defined_duplocale /* don't override gnulib */
+#undef duplocale
+#define duplocale libintl_duplocale
+extern locale_t duplocale (locale_t);
+#endif
+
+#ifndef GNULIB_defined_freelocale /* don't override gnulib */
+#undef freelocale
+#define freelocale libintl_freelocale
+extern void freelocale (locale_t);
+#endif
+
+#endif
+
+
 /* Support for the locale chosen by the user.  */
 #if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __CYGWIN__
 
