@@ -41,6 +41,12 @@ EOF
   hello-objc-gnustep)
     ./autogen.sh
     ;;
+  hello-pascal)
+    ./autogen.sh
+    ./configure
+    # Build hello.rsj.
+    make
+    ;;
   *)
     grep '^\(AC_INIT\|AC_CONFIG\|AC_PROG_\|AC_SUBST(.*OBJC\|AM_INIT\|AM_CONDITIONAL\|AM_GNU_GETTEXT\|AM_PO_SUBDIRS\|AC_OUTPUT\)' configure.ac > tmp-configure.ac
     mv -f tmp-configure.ac configure.ac
