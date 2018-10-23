@@ -264,8 +264,10 @@
 /gettext-tools/libgrep/Makefile.gnulib
 /gettext-tools/libgrep/btowc.c
 /gettext-tools/libgrep/c++defs.h
+/gettext-tools/libgrep/cdefs.h
 /gettext-tools/libgrep/intprops.h
 /gettext-tools/libgrep/langinfo.in.h
+/gettext-tools/libgrep/libc-config.h
 /gettext-tools/libgrep/localeconv.c
 /gettext-tools/libgrep/mbrlen.c
 /gettext-tools/libgrep/mbtowc-impl.h
