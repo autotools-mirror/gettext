@@ -30,6 +30,13 @@ XGETTEXT_OPTIONS = \
 # their copyright.
 COPYRIGHT_HOLDER = Yoyodyne, Inc.
 
+# This tells whether or not to prepend "GNU " prefix to the package
+# name that gets inserted into the header of the $(DOMAIN).pot file.
+# Possible values are "yes", "no", or empty.  If it is empty, try to
+# detect it automatically by scanning the files in $(top_srcdir) for
+# "GNU packagename" string.
+PACKAGE_GNU = no
+
 # This is the email address or URL to which the translators shall report
 # bugs in the untranslated strings:
 # - Strings which are not entire sentences, see the maintainer guidelines
@@ -125,15 +132,23 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 # heuristic whether some file in the top level directory mentions "GNU xyz".
 # If GNU 'find' is available, we avoid grepping through monster files.
 $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
-	if { if (LC_ALL=C find --version) 2>/dev/null | grep GNU >/dev/null; then \
-	       LC_ALL=C find -L $(top_srcdir) -maxdepth 1 -type f -size -10000000c -exec grep 'GNU $(PACKAGE)' /dev/null '{}' ';' 2>/dev/null; \
-	     else \
-	       LC_ALL=C grep 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null; \
-	     fi; \
-	   } | grep -v 'libtool:' >/dev/null; then \
-	  package_gnu='GNU '; \
+	package_gnu="$(PACKAGE_GNU)"; \
+	test -n "$$package_gnu" || { \
+	  if { if (LC_ALL=C find --version) 2>/dev/null | grep GNU >/dev/null; then \
+	         LC_ALL=C find -L $(top_srcdir) -maxdepth 1 -type f -size -10000000c -exec grep 'GNU $(PACKAGE)' /dev/null '{}' ';' 2>/dev/null; \
+	       else \
+	         LC_ALL=C grep 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null; \
+	       fi; \
+	     } | grep -v 'libtool:' >/dev/null; then \
+	     package_gnu=yes; \
+	   else \
+	     package_gnu=no; \
+	   fi; \
+	}; \
+	if test "$$package_gnu" = "yes"; then \
+	  package_prefix='GNU '; \
 	else \
-	  package_gnu=''; \
+	  package_prefix=''; \
 	fi; \
 	if test -n '$(MSGID_BUGS_ADDRESS)'; then \
 	  msgid_bugs_address='$(MSGID_BUGS_ADDRESS)'; \
@@ -152,7 +167,7 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	    $(XGETTEXT) --default-domain=$(DOMAIN) --directory=$(top_srcdir) \
 	      --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) @XGETTEXT_EXTRA_OPTIONS@ \
 	      --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	      --package-name="$${package_gnu}$(PACKAGE)" \
+	      --package-name="$${package_prefix}$(PACKAGE)" \
 	      --package-version='$(VERSION)' \
 	      --msgid-bugs-address="$$msgid_bugs_address" \
 	      $(POTFILES) \
