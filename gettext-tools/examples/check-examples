@@ -245,7 +245,8 @@ func_check_maintainerclean ()
   fi
   func_maintainerclean "$sample"
   # TODO: Remove .pot files workaround.
-  LC_ALL=C diff -r -q "$sample.bak" "$sample" | sed -n -e 's/^Only in //p' | sed -e 's|: |/|' | grep "^${sample}/" | grep -v '\.pot$' > "$sample.out"
+  # TODO: Remove .po~ files workaround.
+  LC_ALL=C diff -r -q "$sample.bak" "$sample" | sed -n -e 's/^Only in //p' | sed -e 's|: |/|' | grep "^${sample}/" | grep -v '\.pot$' | grep -v '\.po~$' > "$sample.out"
   func_autoclean "$sample"
   if ! test -s "$sample.out"; then
     rm -f "$sample.out"
@@ -317,7 +318,8 @@ func_check_maintainerclean_vpath ()
       fi
       func_maintainerclean "$sample" build
       # TODO: Remove .pot files workaround.
-      find "$sample"/build -type f | LC_ALL=C sort | grep -v '\.pot$' > "$sample.out"
+      # TODO: Remove .po~ files workaround.
+      find "$sample"/build -type f | LC_ALL=C sort | grep -v '\.pot$' | grep -v '\.po~$' > "$sample.out"
       rm -rf "$sample"/build
       func_autoclean "$sample"
       if ! test -s "$sample.out"; then

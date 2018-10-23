@@ -11,6 +11,8 @@ rm -rf autom4te.cache
 rm -f ABOUT-NLS
 rm -f config.rpath
 rm -f m4/codeset.m4
+rm -f m4/extern-inline.m4
+rm -f m4/fcntl-o.m4
 rm -f m4/gettext.m4
 rm -f m4/glibc2.m4
 rm -f m4/glibc21.m4
@@ -21,7 +23,6 @@ rm -f m4/intldir.m4
 rm -f m4/intlmacosx.m4
 rm -f m4/intmax.m4
 rm -f m4/inttypes-pri.m4
-rm -f m4/inttypes-h.m4
 rm -f m4/inttypes_h.m4
 rm -f m4/lcmessage.m4
 rm -f m4/lib-ld.m4
@@ -37,6 +38,7 @@ rm -f m4/progtest.m4
 rm -f m4/signed.m4
 rm -f m4/size_max.m4
 rm -f m4/stdint_h.m4
+rm -f m4/threadlib.m4
 rm -f m4/uintmax_t.m4
 rm -f m4/ulonglong.m4
 rm -f m4/visibility.m4
