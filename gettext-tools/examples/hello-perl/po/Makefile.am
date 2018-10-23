@@ -191,6 +191,12 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	    ;; \
 	esac
 	test ! -f $(DOMAIN).po || { \
+	  if test -f $(srcdir)/$(DOMAIN).pot-header; then \
+	    sed -e '1,/^#$$/d' < $(DOMAIN).po > $(DOMAIN).1po && \
+	    cat $(srcdir)/$(DOMAIN).pot-header $(DOMAIN).1po > $(DOMAIN).po && \
+	    rm -f $(DOMAIN).1po \
+	    || exit 1; \
+	  fi; \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
 	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
 	    sed -f remove-potcdate.sed < $(DOMAIN).po > $(DOMAIN).2po && \
