@@ -124,9 +124,9 @@ following file list.
       $prefix/share/aclocal/iconv.m4
       $prefix/share/aclocal/intdiv0.m4
       $prefix/share/aclocal/intl.m4
+      $prefix/share/aclocal/intl-thread-locale.m4
       $prefix/share/aclocal/intldir.m4
       $prefix/share/aclocal/intlmacosx.m4
-      $prefix/share/aclocal/intlsolaris.m4
       $prefix/share/aclocal/intmax.m4
       $prefix/share/aclocal/inttypes_h.m4
       $prefix/share/aclocal/inttypes-pri.m4

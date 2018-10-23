@@ -745,6 +745,7 @@ core
 # Other.
 /gettext-runtime/intl/libgnuintl.h
 /gettext-runtime/intl/libgnuintl.la
+/gettext-runtime/intl/localename-table.h
 /gettext-runtime/libasprintf/autosprintf.h
 /gettext-runtime/libasprintf/alloca.h
 /gettext-runtime/libasprintf/errno.h
