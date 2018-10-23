@@ -56,6 +56,12 @@ EXTRA_LOCALE_CATEGORIES =
 #   --quiet               to reduce the verbosity.
 MSGMERGE_OPTIONS = --quiet
 
+# These options get passed to msginit.
+# If you want to disable line wrapping when writing PO files, add
+# --no-wrap to MSGMERGE_OPTIONS, XGETTEXT_OPTIONS, and
+# MSGINIT_OPTIONS.
+MSGINIT_OPTIONS =
+
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit

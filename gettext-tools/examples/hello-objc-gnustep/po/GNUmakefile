@@ -55,6 +55,12 @@ MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
 #   --quiet               to reduce the verbosity.
 MSGMERGE_OPTIONS = --quiet
 
+# These options get passed to msginit.
+# If you want to disable line wrapping when writing PO files, add
+# --no-wrap to MSGMERGE_OPTIONS, XGETTEXT_OPTIONS, and
+# MSGINIT_OPTIONS.
+MSGINIT_OPTIONS =
+
 -include $(GNUSTEP_MAKEFILES)/rules.make
 
 # Main application
