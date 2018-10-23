@@ -127,7 +127,7 @@ HEADERS = \
   localcharset.h \
   lock.h \
   relocatable.h \
-  localename-table.h \
+  localename-table.in.h \
   tsearch.h tsearch.c \
   verify.h \
   xsize.h \
@@ -392,6 +392,14 @@ libintl.h: $(srcdir)/libgnuintl.in.h
 	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	  < $(srcdir)/libgnuintl.in.h > libintl.h
 
+localename-table.h: $(srcdir)/localename-table.in.h
+	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
+	    -e 's/extern,/extern LIBINTL_DLL_EXPORTED,/' \
+	    -e "/#if HAVE_USELOCALE/r $(srcdir)/export.h" \
+	  < $(srcdir)/localename-table.in.h \
+	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
+	  > localename-table.h
+
 check: all
 
 # We must not install the libintl.h/libintl.a files if we are on a
@@ -541,7 +549,7 @@ info dvi ps pdf html:
 $(OBJECTS): ../config.h libgnuintl.h
 bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo setlocale.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 localename.$lo: $(srcdir)/gettextP.h
-localename.$lo localename-table.$lo: $(srcdir)/localename-table.h
+localename.$lo localename-table.$lo: localename-table.h
 hash-string.$lo dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
 explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
 dcigettext.$lo loadmsgcat.$lo $(PLURAL_OBJECT) plural-exp.$lo: $(srcdir)/plural-exp.h
@@ -574,7 +582,7 @@ ID: $(HEADERS) $(SOURCES)
 
 mostlyclean:
 	rm -f *.a *.la *.o *.obj *.lo core core.*
-	rm -f libgnuintl.h libintl.h ref-add.sed ref-del.sed
+	rm -f libgnuintl.h libintl.h localename-table.h ref-add.sed ref-del.sed
 	rm -f -r .libs _libs
 	rm -f pluralx.c
 
