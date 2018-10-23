@@ -110,8 +110,16 @@ stamp-po: $(srcdir)/$(DOMAIN).pot
 
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
+# The determination of whether the package xyz is a GNU one is based on the
+# heuristic whether some file in the top level directory mentions "GNU xyz".
+# If GNU 'find' is available, we avoid grepping through monster files.
 $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
-	if LC_ALL=C grep 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
+	if { if (LC_ALL=C find --version) 2>/dev/null | grep GNU >/dev/null; then \
+	       LC_ALL=C find -L $(top_srcdir) -maxdepth 1 -type f -size -10000000c -exec grep 'GNU $(PACKAGE)' /dev/null '{}' ';' 2>/dev/null; \
+	     else \
+	       LC_ALL=C grep 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null; \
+	     fi; \
+	   } | grep -v 'libtool:' >/dev/null; then \
 	  package_gnu='GNU '; \
 	else \
 	  package_gnu=''; \
