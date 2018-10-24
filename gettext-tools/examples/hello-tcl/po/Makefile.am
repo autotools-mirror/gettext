@@ -58,8 +58,9 @@ MSGMERGE_OPTIONS = --quiet
 # MSGINIT_OPTIONS.
 MSGINIT_OPTIONS =
 
-MSGMERGE = msgmerge
+MSGMERGE = @MSGMERGE@
 MSGMERGE_UPDATE = @MSGMERGE@ --update
+MSGMERGE_FOR_MSGFMT_OPTION = @MSGMERGE_FOR_MSGFMT_OPTION@
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
@@ -81,6 +82,16 @@ MSGFILES = @MSGFILES@
 CATALOGS = @TCLCATALOGS@
 
 SUFFIXES = .sed .sin .nop .po-create .po-update
+
+# The .pot file, stamp-po, .po files, and .msg files appear in release tarballs.
+# The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put these files in the source directory, not the build directory.
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@

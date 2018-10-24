@@ -58,8 +58,9 @@ MSGMERGE_OPTIONS = --quiet
 # MSGINIT_OPTIONS.
 MSGINIT_OPTIONS =
 
-MSGMERGE = msgmerge
+MSGMERGE = @MSGMERGE@
 MSGMERGE_UPDATE = @MSGMERGE@ --update
+MSGMERGE_FOR_MSGFMT_OPTION = @MSGMERGE_FOR_MSGFMT_OPTION@
 MSGCAT = msgcat
 MSGINIT = msginit
 MSGCONV = msgconv
@@ -84,6 +85,16 @@ CLASSFILES = @CLASSFILES@
 CATALOGS = @JAVACATALOGS@
 
 SUFFIXES = .po .sed .sin .nop .po-create .po-update
+
+# The .pot file, stamp-po, .po files, and .properties or .class files appear
+# in release tarballs. The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put these files in the source directory, not the build directory.
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
@@ -287,6 +298,11 @@ update-po: Makefile
 
 $(DUMMYPOFILES):
 
+# During .po -> .properties or .class conversion, take into account the most
+# recent changes to the .pot file. This eliminates the need to update the .po
+# files when the .pot file has changed, which would be troublesome if the .po
+# files are put under version control.
+
 update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	@echo "$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(srcdir)/$(DOMAIN).properties"; \
 	$(MSGINIT) -i $(srcdir)/$(DOMAIN).pot --no-translator -l en --properties-output -o $(DOMAIN).properties || { rm -f $(DOMAIN).properties; exit 1; }
@@ -301,10 +317,12 @@ update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $(srcdir)/$${lang}.po || exit 1; \
-	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $(srcdir)/$${lang}.po"; \
-	  $(MSGCAT) --properties-output -o $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$${lang}.po || exit 1; \
+	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
+	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.1po"; \
+	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.1po || exit 1; \
+	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $${lang}.1po"; \
+	  $(MSGCAT) --properties-output -o $(DOMAIN)_$$lang.properties.tmp $${lang}.1po || exit 1; \
 	  if test '$(srcdir)' = .; then \
 	    mv -f $(DOMAIN)_$$lang.properties.tmp $(DOMAIN)_$$lang.properties || exit 1; \
 	  else \
@@ -314,6 +332,7 @@ update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	      mv -f $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
 	    fi; \
 	  fi; \
+	  rm -f $${lang}.1po; \
 	done
 
 # Alternatively, we could create classes instead of properties files.
@@ -331,8 +350,10 @@ update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po"; \
-	  $(GMSGFMT) -c --statistics --verbose -j -d . -r $(DOMAIN) -l $${lang} $(srcdir)/$${lang}.po || exit 1; \
+	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
+	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $${lang}.1po"; \
+	  $(GMSGFMT) -c --statistics --verbose -j -d . -r $(DOMAIN) -l $${lang} $${lang}.1po || exit 1; \
 	  if test '$(srcdir)' != .; then \
 	    if test -f $(srcdir)/$(DOMAIN)_$$lang.class && cmp $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class >/dev/null; then \
 	      rm -f $(DOMAIN)_$$lang.class; \
@@ -340,6 +361,7 @@ update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	      mv -f $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class || exit 1; \
 	    fi; \
 	  fi; \
+	  rm -f $${lang}.1po; \
 	done
 
 echo-catalogs:

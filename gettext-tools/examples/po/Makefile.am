@@ -152,6 +152,16 @@ DUMMYPOFILES = @DUMMYPOFILES@
 
 SUFFIXES = .po .sed .sin .nop .po-update
 
+# The .pot file, stamp-po, and .po files appear in release tarballs.
+# The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put these files in the source directory, not the build directory.
+
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@
 	mv t-$@ $@

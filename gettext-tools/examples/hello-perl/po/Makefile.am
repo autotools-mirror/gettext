@@ -72,8 +72,9 @@ MSGMERGE_OPTIONS = --quiet
 # MSGINIT_OPTIONS.
 MSGINIT_OPTIONS =
 
-MSGMERGE = msgmerge
+MSGMERGE = @MSGMERGE@
 MSGMERGE_UPDATE = @MSGMERGE@ --update
+MSGMERGE_FOR_MSGFMT_OPTION = @MSGMERGE_FOR_MSGFMT_OPTION@
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
@@ -96,11 +97,30 @@ CATALOGS = @CATALOGS@
 
 SUFFIXES = .po .gmo .sed .sin .nop .po-create .po-update
 
-.po.gmo:
+# The .pot file, stamp-po, .po files, and .gmo files appear in release tarballs.
+# The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put these files in the source directory, not the build directory.
+
+# During .po -> .gmo conversion, take into account the most recent changes to
+# the .pot file. This eliminates the need to update the .po files when the
+# .pot file has changed, which would be troublesome if the .po files are put
+# under version control.
+.po.gmo: $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}rm -f $${lang}.gmo && $(GMSGFMT) -c --statistics --verbose -o $${lang}.gmo $${lang}.po"; \
-	cd $(srcdir) && rm -f $${lang}.gmo && $(GMSGFMT) -c --statistics --verbose -o t-$${lang}.gmo $${lang}.po && mv t-$${lang}.gmo $${lang}.gmo
+	echo "$${cdcmd}rm -f $${lang}.gmo && $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $${lang}.po $(DOMAIN).pot && $(GMSGFMT) -c --statistics --verbose -o $${lang}.gmo $${lang}.1po && rm -f $${lang}.1po"; \
+	cd $(srcdir) && \
+	rm -f $${lang}.gmo && \
+	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $${lang}.po $(DOMAIN).pot && \
+	$(GMSGFMT) -c --statistics --verbose -o t-$${lang}.gmo $${lang}.1po && \
+	mv t-$${lang}.gmo $${lang}.gmo && \
+	rm -f $${lang}.1po
 
 .sin.sed:
 	sed -e '/^#/d' $< > t-$@

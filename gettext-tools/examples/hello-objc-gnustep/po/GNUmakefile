@@ -70,6 +70,7 @@ PACKAGE_VERSION = 0
 XGETTEXT = xgettext
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = msgmerge --update
+MSGMERGE_FOR_MSGFMT_OPTION = --for-msgfmt
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
@@ -245,14 +246,16 @@ $(DUMMYPOFILES):
 update-strings: $(CATALOGS)
 	@:
 
-# I don't know how to make a dependency from a particular .strings file to its
-# corresponding .po file; therefore I put here a dependency towards all .po
-# files. It's safer than no dependency at all.
-$(STRINGSFILES): $(POFILES)
-	$(MAKE) $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))).po
+# During .po -> .strings conversion, take into account the most recent changes
+# to the .pot file. This eliminates the need to update the .po files when the
+# .pot file has changed, which would be troublesome if the .po files are put
+# under version control.
+$(STRINGSFILES): $(DOMAIN).pot $(POFILES)
 	mkdir -p $(patsubst %/,%, $(dir $@))
-	msgcat --stringtable-output -o $@.tmp $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))).po
+	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $@.1po $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))).po $(DOMAIN).pot
+	msgcat --stringtable-output -o $@.tmp $@.1po
 	mv $@.tmp $@
+	rm -f $@.1po
 
 $(ENSTRINGSFILES): $(DOMAIN).pot
 	mkdir -p $(patsubst %/,%, $(dir $@))
