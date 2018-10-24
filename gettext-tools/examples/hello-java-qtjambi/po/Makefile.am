@@ -222,7 +222,9 @@ MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 
-MAINTAINERCLEANFILES = stamp-po $(DOMAIN).properties $(PROPERTIESFILES) $(CLASSFILES)
+MAINTAINERCLEANFILES = \
+  $(DOMAIN).pot stamp-po \
+  $(DOMAIN).properties $(PROPERTIESFILES) $(CLASSFILES)
 
 EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(DOMAIN).properties $(PROPERTIESFILES)
 

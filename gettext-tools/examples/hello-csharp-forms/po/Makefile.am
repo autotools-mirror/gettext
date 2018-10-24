@@ -253,7 +253,7 @@ MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 
-MAINTAINERCLEANFILES = stamp-po
+MAINTAINERCLEANFILES = $(DOMAIN).pot stamp-po
 maintainer-clean-local:
 	if test -n "$(RESOURCESDLLFILES)"; then \
 	  for file in $(RESOURCESDLLFILES); do \

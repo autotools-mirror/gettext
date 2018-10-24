@@ -43,6 +43,9 @@
     compliant.  There is no conflict any more between these replacements
     and other possible replacements provided by gnulib or mingw.
 
+* Improvements for maintainers:
+  - The .pot file in a 'po' directory is now erased by "make maintainer-clean".
+
 Version 0.19.8 - June 2016
 
 * Support for reproducible builds:

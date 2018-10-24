@@ -249,7 +249,7 @@ MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
 
-MAINTAINERCLEANFILES = stamp-po $(MSGFILES)
+MAINTAINERCLEANFILES = $(DOMAIN).pot stamp-po $(MSGFILES)
 
 EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(MSGFILES)
 

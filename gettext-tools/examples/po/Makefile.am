@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007, 2009, 2016 Free Software Foundation,
+## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018 Free Software Foundation,
 ## Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -331,7 +331,7 @@ MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
 
-MAINTAINERCLEANFILES = stamp-po $(SMALLPOTS)
+MAINTAINERCLEANFILES = $(DOMAIN).pot stamp-po $(SMALLPOTS)
 
 EXTRA_DIST = remove-potcdate.sin xsmallpot.sh mmsmallpo.sh LINGUAS \
   $(POFILES)
