@@ -131,15 +131,6 @@ distcheck-hook:
 	cmp -s gettext-tools/examples/hello-java-awt/m4/TestAWT.class gettext-tools/examples/hello-java-swing/m4/TestAWT.class
 	test "`sed 1,15d gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,15d gettext-runtime/libasprintf/alloca.in.h | md5sum`"
 
-# DJGPP port.
-
-EXTRA_DIST += djgpp/COPYING.DJ djgpp/Makefile.maint djgpp/README.DJ \
-              djgpp/README.in djgpp/README djgpp/config.bat djgpp/config.in \
-              djgpp/config.sed djgpp/config.site djgpp/djpwd.h \
-              djgpp/edtests.bat djgpp/fnchange.in djgpp/fnchange.lst \
-              djgpp/getpwnam.c djgpp/msginit.sed djgpp/tscript.sed \
-              djgpp/unsetenv.c
-
 
 # OS/2 port.
 
@@ -150,6 +141,7 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 
 EXTRA_DIST += INSTALL.windows windows/windres-options windows/gettext.rc
 
+
 # Versioning based on Git release tags.
 
 EXTRA_DIST += $(top_srcdir)/.version
@@ -158,6 +150,7 @@ $(top_srcdir)/.version:
 	echo $(VERSION) > $@-t && mv $@-t $@
 dist-hook: gen-ChangeLogs
 	echo $(VERSION) > $(distdir)/.tarball-version
+
 
 # Generate ChangeLog.
 
@@ -181,6 +174,7 @@ gen-ChangeLogs:
 	      mv "$$cldir/cl-t" "$$cldir/ChangeLog"; };			\
 	  done;								\
 	fi
+
 
 # PO files update.
 

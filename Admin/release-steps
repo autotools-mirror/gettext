@@ -128,10 +128,6 @@ We assume that the following environment variables are set:
 
     Add news entries if any.
 
-  - djgpp/*
-
-    Update to the latest upstream.
-
 ** Update autopoint related files:
 
   - gettext-tools/configure.ac
