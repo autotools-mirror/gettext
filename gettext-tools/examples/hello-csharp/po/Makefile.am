@@ -130,9 +130,9 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	package_gnu="$(PACKAGE_GNU)"; \
 	test -n "$$package_gnu" || { \
 	  if { if (LC_ALL=C find --version) 2>/dev/null | grep GNU >/dev/null; then \
-	         LC_ALL=C find -L $(top_srcdir) -maxdepth 1 -type f -size -10000000c -exec grep 'GNU $(PACKAGE)' /dev/null '{}' ';' 2>/dev/null; \
+	         LC_ALL=C find -L $(top_srcdir) -maxdepth 1 -type f -size -10000000c -exec grep -i 'GNU $(PACKAGE)' /dev/null '{}' ';' 2>/dev/null; \
 	       else \
-	         LC_ALL=C grep 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null; \
+	         LC_ALL=C grep -i 'GNU $(PACKAGE)' $(top_srcdir)/* 2>/dev/null; \
 	       fi; \
 	     } | grep -v 'libtool:' >/dev/null; then \
 	     package_gnu=yes; \
