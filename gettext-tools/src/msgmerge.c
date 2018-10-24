@@ -85,6 +85,14 @@ static int force_po;
 /* Apply the .pot file to each of the domains in the PO file.  */
 static bool multi_domain_mode = false;
 
+/* Produce output for msgfmt, not for a translator.
+   msgfmt ignores
+     - untranslated messages,
+     - fuzzy messages, except the header entry,
+     - obsolete messages.
+   Therefore output for msgfmt does not need to include such messages.  */
+static bool for_msgfmt = false;
+
 /* Determines whether to use fuzzy matching.  */
 static bool use_fuzzy_matching = true;
 
@@ -114,6 +122,7 @@ static const struct option long_options[] =
   { "compendium", required_argument, NULL, 'C' },
   { "directory", required_argument, NULL, 'D' },
   { "escape", no_argument, NULL, 'E' },
+  { "for-msgfmt", no_argument, NULL, CHAR_MAX + 12 },
   { "force-po", no_argument, &force_po, 1 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
@@ -344,6 +353,10 @@ main (int argc, char **argv)
         message_print_style_filepos (filepos_comment_none);
         break;
 
+      case CHAR_MAX + 12: /* --for-msgfmt */
+        for_msgfmt = true;
+        break;
+
       default:
         usage (EXIT_FAILURE);
         break;
@@ -388,6 +401,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
                  "--update", "--output-file");
         }
+      if (for_msgfmt)
+        {
+          error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
+                 "--update", "--for-msgfmt");
+        }
       if (color != NULL)
         {
           error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
@@ -425,6 +443,22 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* In update mode, --stringtable-input implies --stringtable-output.  */
   if (update_mode && input_syntax == &input_format_stringtable)
     output_syntax = &output_format_stringtable;
+
+  if (for_msgfmt)
+    {
+      /* With --for-msgfmt, no fuzzy matching.  */
+      use_fuzzy_matching = false;
+
+      /* With --for-msgfmt, merging is fast, therefore no need for a progress
+         indicator.  */
+      quiet = true;
+
+      /* With --for-msgfmt, no need for comments.  */
+      message_print_style_comment (false);
+
+      /* With --for-msgfmt, no need for source location lines.  */
+      message_print_style_filepos (filepos_comment_none);
+    }
 
   /* Merge the two files.  */
   result = merge (argv[optind], argv[optind + 1], input_syntax, &def);
@@ -566,6 +600,9 @@ environment variable.\n\
 Operation modifiers:\n"));
       printf (_("\
   -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"));
+      printf (_("\
+      --for-msgfmt            produce output for '%s', not for a translator\n"),
+              "msgfmt");
       printf (_("\
   -N, --no-fuzzy-matching     do not use fuzzy matching\n"));
       printf (_("\
@@ -1500,11 +1537,19 @@ match_domain (const char *fn1, const char *fn2,
           message_ty *mp =
             message_merge (defmsg, refmsg, false, &distribution);
 
-          message_list_append (resultmlp, mp);
+          /* When producing output for msgfmt, omit messages that are
+             untranslated or fuzzy (except the header entry).  */
+          if (!(for_msgfmt
+                && (mp->msgstr[0] == '\0' /* untranslated? */
+                    || (mp->is_fuzzy && !is_header (mp))))) /* fuzzy? */
+            {
+              message_list_append (resultmlp, mp);
 
-          /* Remember that this message has been used, when we scan
-             later to see if anything was omitted.  */
-          defmsg->used = 1;
+              /* Remember that this message has been used, when we scan
+                 later to see if anything was omitted.  */
+              defmsg->used = 1;
+            }
+
           stats->merged++;
         }
       else if (!is_header (refmsg))
@@ -1538,6 +1583,7 @@ this message is used but not defined..."));
               /* Remember that this message has been used, when we scan
                  later to see if anything was omitted.  */
               defmsg->used = 1;
+
               stats->fuzzied++;
               if (!quiet && verbosity_level <= 1)
                 /* Always print a dot if we handled a fuzzy match.  */
@@ -1556,27 +1602,31 @@ this message is used but not defined in %s"), fn1);
 
               mp = message_copy (refmsg);
 
-              if (mp->msgid_plural != NULL)
+              /* Test if mp is untranslated.  (It most likely is.)  */
+              is_untranslated = true;
+              for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
+                if (*p != '\0')
+                  {
+                    is_untranslated = false;
+                    break;
+                  }
+
+              if (mp->msgid_plural != NULL && is_untranslated)
                 {
-                  /* Test if mp is untranslated.  (It most likely is.)  */
-                  is_untranslated = true;
-                  for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
-                    if (*p != '\0')
-                      {
-                        is_untranslated = false;
-                        break;
-                      }
-                  if (is_untranslated)
-                    {
-                      /* Change mp->msgstr_len consecutive empty strings into
-                         nplurals consecutive empty strings.  */
-                      if (nplurals > mp->msgstr_len)
-                        mp->msgstr = untranslated_plural_msgstr;
-                      mp->msgstr_len = nplurals;
-                    }
+                  /* Change mp->msgstr_len consecutive empty strings into
+                     nplurals consecutive empty strings.  */
+                  if (nplurals > mp->msgstr_len)
+                    mp->msgstr = untranslated_plural_msgstr;
+                  mp->msgstr_len = nplurals;
                 }
 
-              message_list_append (resultmlp, mp);
+              /* When producing output for msgfmt, omit messages that are
+                 untranslated or fuzzy (except the header entry).  */
+              if (!(for_msgfmt && (is_untranslated || mp->is_fuzzy)))
+                {
+                  message_list_append (resultmlp, mp);
+                }
+
               stats->missing++;
             }
         }
@@ -1998,48 +2048,51 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
 
   definitions_destroy (&definitions);
 
-  /* Look for messages in the definition file, which are not present
-     in the reference file, indicating messages which defined but not
-     used in the program.  Don't scan the compendium(s).  */
-  for (k = 0; k < def->nitems; ++k)
+  if (!for_msgfmt)
     {
-      const char *domain = def->item[k]->domain;
-      message_list_ty *defmlp = def->item[k]->messages;
-
-      for (j = 0; j < defmlp->nitems; j++)
+      /* Look for messages in the definition file, which are not present
+         in the reference file, indicating messages which defined but not
+         used in the program.  Don't scan the compendium(s).  */
+      for (k = 0; k < def->nitems; ++k)
         {
-          message_ty *defmsg = defmlp->item[j];
+          const char *domain = def->item[k]->domain;
+          message_list_ty *defmlp = def->item[k]->messages;
 
-          if (!defmsg->used)
+          for (j = 0; j < defmlp->nitems; j++)
             {
-              /* Remember the old translation although it is not used anymore.
-                 But we mark it as obsolete.  */
-              message_ty *mp;
+              message_ty *defmsg = defmlp->item[j];
 
-              mp = message_copy (defmsg);
-              /* Clear the extracted comments.  */
-              if (mp->comment_dot != NULL)
+              if (!defmsg->used)
                 {
-                  string_list_free (mp->comment_dot);
-                  mp->comment_dot = NULL;
-                }
-              /* Clear the file position comments.  */
-              if (mp->filepos != NULL)
-                {
-                  size_t i;
+                  /* Remember the old translation although it is not used anymore.
+                     But we mark it as obsolete.  */
+                  message_ty *mp;
 
-                  for (i = 0; i < mp->filepos_count; i++)
-                    free ((char *) mp->filepos[i].file_name);
-                  mp->filepos_count = 0;
-                  free (mp->filepos);
-                  mp->filepos = NULL;
-                }
-              /* Mark as obsolete.   */
-              mp->obsolete = true;
+                  mp = message_copy (defmsg);
+                  /* Clear the extracted comments.  */
+                  if (mp->comment_dot != NULL)
+                    {
+                      string_list_free (mp->comment_dot);
+                      mp->comment_dot = NULL;
+                    }
+                  /* Clear the file position comments.  */
+                  if (mp->filepos != NULL)
+                    {
+                      size_t i;
 
-              message_list_append (msgdomain_list_sublist (result, domain, true),
-                                   mp);
-              stats.obsolete++;
+                      for (i = 0; i < mp->filepos_count; i++)
+                        free ((char *) mp->filepos[i].file_name);
+                      mp->filepos_count = 0;
+                      free (mp->filepos);
+                      mp->filepos = NULL;
+                    }
+                  /* Mark as obsolete.   */
+                  mp->obsolete = true;
+
+                  message_list_append (msgdomain_list_sublist (result, domain, true),
+                                       mp);
+                  stats.obsolete++;
+                }
             }
         }
     }

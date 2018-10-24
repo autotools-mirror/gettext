@@ -4,6 +4,12 @@
 * Improvements for translators:
   - update-po target in Makefile.in.in now uses msgmerge --previous.
 
+* Improvements for maintainers:
+  - msgmerge now has an option --for-msgfmt, that produces a PO file meant
+    for use by msgfmt only.  This option saves processing time, in particular
+    by omitting fuzzy matching that is not useful in this situation.
+  - The .pot file in a 'po' directory is now erased by "make maintainer-clean".
+
 * Programming languages support:
   - C, C++:
     xgettext now supports 'p'/'P' exponent markers in number tokens, as
@@ -42,9 +48,6 @@
     provided through <libintl.h> on native Windows and NetBSD are now POSIX
     compliant.  There is no conflict any more between these replacements
     and other possible replacements provided by gnulib or mingw.
-
-* Improvements for maintainers:
-  - The .pot file in a 'po' directory is now erased by "make maintainer-clean".
 
 Version 0.19.8 - June 2016
 
