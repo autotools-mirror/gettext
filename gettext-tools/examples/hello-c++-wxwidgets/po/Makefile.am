@@ -105,30 +105,30 @@ SUFFIXES = .po .gmo .sed .sin .nop .po-create .po-update
 
 all-local: all-local-@USE_NLS@
 
-all-local-yes: stamp-po
+all-local-yes: $(srcdir)/stamp-po
 all-local-no:
 
 # $(srcdir)/$(DOMAIN).pot is only created when needed. When xgettext finds no
 # internationalized messages, no $(srcdir)/$(DOMAIN).pot is created (because
 # we don't want to bother translators with empty POT files). We assume that
 # LINGUAS is empty in this case, i.e. $(POFILES) and $(GMOFILES) are empty.
-# In this case, stamp-po is a nop (i.e. a phony target).
+# In this case, $(srcdir)/stamp-po is a nop (i.e. a phony target).
 
-# stamp-po is a timestamp denoting the last time at which the CATALOGS have
-# been loosely updated. Its purpose is that when a developer or translator
-# checks out the package via CVS, and the $(DOMAIN).pot file is not in CVS,
-# "make" will update the $(DOMAIN).pot and the $(CATALOGS), but subsequent
-# invocations of "make" will do nothing. This timestamp would not be necessary
-# if updating the $(CATALOGS) would always touch them; however, the rule for
-# $(POFILES) has been designed to not touch files that don't need to be
-# changed.
-stamp-po: $(srcdir)/$(DOMAIN).pot
+# $(srcdir)/stamp-po is a timestamp denoting the last time at which the CATALOGS
+# have been loosely updated. Its purpose is that when a developer or translator
+# checks out the package from a version control system, and the $(DOMAIN).pot
+# file is not under version control, "make" will update the $(DOMAIN).pot and
+# the $(CATALOGS), but subsequent invocations of "make" will do nothing. This
+# timestamp would not be necessary if updating the $(CATALOGS) would always
+# touch them; however, the rule for $(POFILES) has been designed to not touch
+# files that don't need to be changed.
+$(srcdir)/stamp-po: $(srcdir)/$(DOMAIN).pot
 	test ! -f $(srcdir)/$(DOMAIN).pot || \
 	  test -z "$(GMOFILES)" || $(MAKE) $(GMOFILES)
 	@test ! -f $(srcdir)/$(DOMAIN).pot || { \
-	  echo "touch stamp-po" && \
-	  echo timestamp > stamp-poT && \
-	  mv stamp-poT stamp-po; \
+	  echo "touch $(srcdir)/stamp-po" && \
+	  echo timestamp > $(srcdir)/stamp-poT && \
+	  mv $(srcdir)/stamp-poT $(srcdir)/stamp-po; \
 	}
 
 # Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
@@ -335,7 +335,7 @@ EXTRA_DIST = remove-potcdate.sin LINGUAS $(POFILES) $(GMOFILES)
 #distdir: distdir1
 distdir1:
 	$(MAKE) update-po
-	$(MAKE) stamp-po
+	$(MAKE) $(srcdir)/stamp-po
 	if test -f $(srcdir)/$(DOMAIN).pot; then \
 	  for file in $(DOMAIN).pot stamp-po; do \
 	    if test -f $$file; then d=.; else d=$(srcdir); fi; \

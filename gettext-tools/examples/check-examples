@@ -477,8 +477,8 @@ func_check_dist_vpath ()
             rm -rf "$sample/autom4te.cache"
             if test -f "$sample/build/$sample-0.tar.gz"; then
               (cd "$sample"/build && tar xfz "$sample-0.tar.gz")
-              # TODO: Remove stamp-po workaround.
-              LC_ALL=C diff -r -q "$sample" "$sample/build/$sample-0" | grep -v "^Only in $sample: build$" | grep -v "^Only in $sample: BUGS$" | grep -v "^Only in $sample/build/$sample-0/po: stamp-po$" > "$sample.out"
+              # TODO: Remove stamp-po workaround after next release.
+              LC_ALL=C diff -r -q "$sample" "$sample/build/$sample-0" | grep -v "^Only in $sample: build$" | grep -v "^Only in $sample: BUGS$" | { if test -f "$sample"/po/Makevars; then grep -v "^Only in $sample/build/$sample-0/po: stamp-po$"; else cat; fi; } > "$sample.out"
             else
               echo "$sample-0.tar.gz was not created" > "$sample.out"
             fi
