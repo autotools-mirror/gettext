@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2015-2016 Free Software
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2015-2016, 2018 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -69,6 +69,8 @@ extern void
        message_print_style_uniforum (void);
 extern void
        message_print_style_escape (bool flag);
+extern void
+       message_print_style_comment (bool flag);
 extern void
        message_print_style_filepos (enum filepos_comment_type type);
 

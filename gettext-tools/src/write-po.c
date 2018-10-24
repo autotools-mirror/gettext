@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2015-2016 Free Software
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2015-2016, 2018 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -240,10 +240,18 @@ enum
 
 /* Output mp->comment as a set of comment lines.  */
 
+static bool print_comment = true;
+
+void
+message_print_style_comment (bool flag)
+{
+  print_comment = flag;
+}
+
 void
 message_print_comment (const message_ty *mp, ostream_t stream)
 {
-  if (mp->comment != NULL)
+  if (print_comment && mp->comment != NULL)
     {
       size_t j;
 
