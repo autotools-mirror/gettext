@@ -53,10 +53,6 @@ GMSGFMT_ = @GMSGFMT@
 GMSGFMT_no = @GMSGFMT@
 GMSGFMT_yes = @GMSGFMT_015@
 GMSGFMT = $(GMSGFMT_$(USE_MSGCTXT))
-MSGFMT_ = @MSGFMT@
-MSGFMT_no = @MSGFMT@
-MSGFMT_yes = @MSGFMT_015@
-MSGFMT = $(MSGFMT_$(USE_MSGCTXT))
 XGETTEXT_ = @XGETTEXT@
 XGETTEXT_no = @XGETTEXT@
 XGETTEXT_yes = @XGETTEXT_015@
@@ -94,11 +90,7 @@ DISTFILESDEPS = $(DISTFILESDEPS_$(DIST_DEPENDS_ON_UPDATE_PO))
 # Makevars gets inserted here. (Don't remove this line!)
 
 .SUFFIXES:
-.SUFFIXES: .po .gmo .mo .sed .sin .nop .po-create .po-update
-
-.po.mo:
-	@echo "$(MSGFMT) -c -o $@ $<"; \
-	$(MSGFMT) -c -o t-$@ $< && mv t-$@ $@
+.SUFFIXES: .po .gmo .sed .sin .nop .po-create .po-update
 
 .po.gmo:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
@@ -386,7 +378,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile Makefile.in POTFILES *.mo
+	rm -f Makefile Makefile.in POTFILES
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"

@@ -84,11 +84,7 @@ DUMMYPOFILES = @DUMMYPOFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(lang).gmo)
 CATALOGS = @CATALOGS@
 
-SUFFIXES = .po .gmo .mo .sed .sin .nop .po-create .po-update
-
-.po.mo:
-	@echo "$(MSGFMT) -c -o $@ $<"; \
-	$(MSGFMT) -c -o t-$@ $< && mv t-$@ $@
+SUFFIXES = .po .gmo .sed .sin .nop .po-create .po-update
 
 .po.gmo:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
@@ -324,8 +320,6 @@ MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
-
-DISTCLEANFILES = *.mo
 
 MAINTAINERCLEANFILES = stamp-po $(GMOFILES)
 
