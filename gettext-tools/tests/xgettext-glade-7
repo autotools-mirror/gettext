@@ -184,7 +184,8 @@ cat <<EOF > xg-gl-7.ui
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o - xg-gl-7.ui | grep -v 'POT-Creation-Date' > xg-gl-7.pot || Exit 1
+${XGETTEXT} -o xg-gl-7.tmp xg-gl-7.ui || Exit 1
+grep -v 'POT-Creation-Date' < xg-gl-7.tmp > xg-gl-7.pot || Exit 1
 
 cat <<\EOF > xg-gl-7.ok
 # SOME DESCRIPTIVE TITLE.

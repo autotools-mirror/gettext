@@ -23,8 +23,8 @@ EOF
 
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
-${XGETTEXT} --output - --no-location -k_ xg-test3.in.c 2>/dev/null \
-  | sed '/\"POT-Creation-Date:.*/d' | LC_ALL=C tr -d '\r' > xg-test3.po
+${XGETTEXT} --output xg-test3.tmp --no-location -k_ xg-test3.in.c 2>/dev/null || Exit 1
+sed -e '/\"POT-Creation-Date:.*/d' < xg-test3.tmp | LC_ALL=C tr -d '\r' > xg-test3.po
 
 cat <<EOF > xg-test3.ok
 # SOME DESCRIPTIVE TITLE.

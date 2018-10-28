@@ -32,9 +32,9 @@ iconv -f UTF-8 -t EUC-JP < xg-c-19.in.c > xg-c-19.c \
   || { echo "Skipping test: iconv does not work for EUC-JP"; Exit 77; }
 
 ${XGETTEXT} --from-code=EUC-JP --add-comments --no-location --no-wrap \
-	    -o - xg-c-19.c | grep -v 'POT-Creation-Date' > xg-c-19.tmp.po \
-	    || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-19.tmp.po > xg-c-19.po || Exit 1
+            -o xg-c-19.tmp xg-c-19.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-19.tmp > xg-c-19.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-19.tmq > xg-c-19.po || Exit 1
 
 cat <<\EOF > xg-c-19.ok
 # SOME DESCRIPTIVE TITLE.

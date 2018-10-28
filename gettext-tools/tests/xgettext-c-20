@@ -79,9 +79,9 @@ gettext(\"abc\");
 EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
-	    -o - xg-c-20.cc | grep -v 'POT-Creation-Date' > xg-c-20.tmp.po \
-	    || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-20.tmp.po > xg-c-20.po || Exit 1
+            -o xg-c-20.tmp xg-c-20.cc || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-20.tmp > xg-c-20.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-20.tmq > xg-c-20.po || Exit 1
 
 cat <<\EOF > xg-c-20.ok
 # SOME DESCRIPTIVE TITLE.
@@ -134,9 +134,9 @@ uR"aaa(This is NOT a raw string";
 EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
-	    -o - xg-c-20.c | grep -v 'POT-Creation-Date' > xg-c-20c.tmp.po \
-	    || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-20c.tmp.po > xg-c-20c.po || Exit 1
+            -o xg-c-20c.tmp xg-c-20.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-20c.tmp > xg-c-20c.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-20c.tmq > xg-c-20c.po || Exit 1
 
 cat <<\EOF > xg-c-20c.ok
 # SOME DESCRIPTIVE TITLE.

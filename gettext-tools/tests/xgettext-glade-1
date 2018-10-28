@@ -1330,7 +1330,8 @@ for said code in libglade.</text>
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments -o - xg-gl-1-widgets.glade | grep -v 'POT-Creation-Date' > xg-gl-1.pot || Exit 1
+${XGETTEXT} --add-comments -o xg-gl-1.tmp xg-gl-1-widgets.glade || Exit 1
+grep -v 'POT-Creation-Date' < xg-gl-1.tmp > xg-gl-1.pot || Exit 1
 
 cat <<EOF > xg-gl-1.ok
 # SOME DESCRIPTIVE TITLE.

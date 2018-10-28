@@ -57,7 +57,8 @@ cat <<EOF > xg-gs-1.appdata.xml
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --add-comments -o - xg-gs-1.appdata.xml | grep -v 'POT-Creation-Date' > xg-gs-1.pot || Exit 1
+${XGETTEXT} --add-comments -o xg-gs-1.tmp xg-gs-1.appdata.xml || Exit 1
+grep -v 'POT-Creation-Date' < xg-gs-1.tmp > xg-gs-1.pot || Exit 1
 
 cat <<EOF > xg-gs-1.ok
 # SOME DESCRIPTIVE TITLE.
