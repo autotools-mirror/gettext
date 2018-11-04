@@ -1028,11 +1028,8 @@ phase7_getc ()
   switch (c)
     {
     default:
-      /* Unknown escape sequences really should be an error, but just
-         ignore them, and let the real compiler complain.  */
-      phase3_ungetc (c);
-      return '\\';
-
+      /* Invalid escape sequences generate a GCC warning, and GCC transforms
+         \c to the character c.  So let's do the same.  */
     case '"':
     case '\'':
     case '?':
