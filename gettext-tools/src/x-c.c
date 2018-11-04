@@ -746,7 +746,7 @@ phase2_ungetc (int c)
    line.  Basically, all you need to do is elide "\\\n" sequences from
    the input.  */
 
-static unsigned char phase3_pushback[2];
+static unsigned char phase3_pushback[9];
 static int phase3_pushback_length;
 
 
@@ -770,7 +770,7 @@ phase3_getc ()
 }
 
 
-/* Supports 2 characters of pushback.  */
+/* Supports 9 characters of pushback.  */
 static void
 phase3_ungetc (int c)
 {
