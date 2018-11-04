@@ -517,74 +517,8 @@ phase3_ungetc (int c)
 
 /* ========================= Accumulating strings.  ======================== */
 
-/* A string buffer type that allows appending Unicode characters.
-   Returns the entire string in UTF-8 encoding.  */
-
-struct string_buffer
-{
-  /* The part of the string that has already been converted to UTF-8.  */
-  char *utf8_buffer;
-  size_t utf8_buflen;
-  size_t utf8_allocated;
-};
-
-/* Initialize a 'struct string_buffer' to empty.  */
-static inline void
-init_string_buffer (struct string_buffer *bp)
-{
-  bp->utf8_buffer = NULL;
-  bp->utf8_buflen = 0;
-  bp->utf8_allocated = 0;
-}
-
-/* Auxiliary function: Ensure count more bytes are available in bp->utf8.  */
-static inline void
-string_buffer_append_unicode_grow (struct string_buffer *bp, size_t count)
-{
-  if (bp->utf8_buflen + count > bp->utf8_allocated)
-    {
-      size_t new_allocated = 2 * bp->utf8_allocated + 10;
-      if (new_allocated < bp->utf8_buflen + count)
-        new_allocated = bp->utf8_buflen + count;
-      bp->utf8_allocated = new_allocated;
-      bp->utf8_buffer = xrealloc (bp->utf8_buffer, new_allocated);
-    }
-}
-
-/* Auxiliary function: Append a Unicode character to bp->utf8.
-   uc must be < 0x110000.  */
-static inline void
-string_buffer_append_unicode (struct string_buffer *bp, unsigned int uc)
-{
-  unsigned char utf8buf[6];
-  int count = u8_uctomb (utf8buf, uc, 6);
-
-  if (count < 0)
-    /* The caller should have ensured that uc is not out-of-range.  */
-    abort ();
-
-  string_buffer_append_unicode_grow (bp, count);
-  memcpy (bp->utf8_buffer + bp->utf8_buflen, utf8buf, count);
-  bp->utf8_buflen += count;
-}
-
-/* Return the string buffer's contents.  */
-static char *
-string_buffer_result (struct string_buffer *bp)
-{
-  /* NUL-terminate it.  */
-  string_buffer_append_unicode_grow (bp, 1);
-  bp->utf8_buffer[bp->utf8_buflen] = '\0';
-  /* Return it.  */
-  return bp->utf8_buffer;
-}
-
-/* Free the memory pointed to by a 'struct string_buffer'.  */
-static inline void
-free_string_buffer (struct string_buffer *bp)
-{
-  free (bp->utf8_buffer);
-}
+/* See xg-mixed-string.h for the API.
+   In this extractor, we add only Unicode characters.  */
 
 
 /* ======================== Accumulating comments.  ======================== */
@@ -592,31 +526,31 @@ free_string_buffer (struct string_buffer *bp)
 
 /* Accumulating a single comment line.  */
 
-static struct string_buffer comment_buffer;
+static struct mixed_string_buffer comment_buffer;
 
 static inline void
 comment_start ()
 {
-  lexical_context = lc_comment;
-  comment_buffer.utf8_buflen = 0;
+  mixed_string_buffer_init (&comment_buffer, lc_comment,
+                            logical_file_name, line_number);
 }
 
 static inline bool
 comment_at_start ()
 {
-  return (comment_buffer.utf8_buflen == 0);
+  return mixed_string_buffer_is_empty (&comment_buffer);
 }
 
 static inline void
 comment_add (int c)
 {
-  string_buffer_append_unicode (&comment_buffer, c);
+  mixed_string_buffer_append_unicode (&comment_buffer, c);
 }
 
 static inline void
 comment_line_end (size_t chars_to_remove)
 {
-  char *buffer = string_buffer_result (&comment_buffer);
+  char *buffer = mixed_string_buffer_result (&comment_buffer);
   size_t buflen = strlen (buffer);
 
   buflen -= chars_to_remove;
@@ -1683,10 +1617,11 @@ phase6_get (token_ty *tp)
           if (c == '"')
             {
               /* Verbatim string literal.  */
-              struct string_buffer literal;
+              struct mixed_string_buffer literal;
 
               lexical_context = lc_string;
-              init_string_buffer (&literal);
+              mixed_string_buffer_init (&literal, lexical_context,
+                                        logical_file_name, logical_line_number);
               for (;;)
                 {
                   /* Use phase 2, because phase 4 elides comments and phase 3
@@ -1704,10 +1639,9 @@ phase6_get (token_ty *tp)
                         }
                     }
                   /* No special treatment of newline and backslash here.  */
-                  string_buffer_append_unicode (&literal, c);
+                  mixed_string_buffer_append_unicode (&literal, c);
                 }
-              tp->string = xstrdup (string_buffer_result (&literal));
-              free_string_buffer (&literal);
+              tp->string = mixed_string_buffer_result (&literal);
               tp->comment = add_reference (savable_comment);
               lexical_context = lc_outside;
               tp->type = token_type_string_literal;
@@ -1720,11 +1654,12 @@ phase6_get (token_ty *tp)
             c = do_getc_unicode_escaped (is_identifier_start);
           if (is_identifier_start (c))
             {
-              static struct string_buffer buffer;
-              buffer.utf8_buflen = 0;
+              struct mixed_string_buffer buffer;
+              mixed_string_buffer_init (&buffer, lexical_context,
+                                        logical_file_name, logical_line_number);
               for (;;)
                 {
-                  string_buffer_append_unicode (&buffer, c);
+                  mixed_string_buffer_append_unicode (&buffer, c);
                   c = phase4_getc ();
                   if (c == '\\')
                     c = do_getc_unicode_escaped (is_identifier_part);
@@ -1732,7 +1667,7 @@ phase6_get (token_ty *tp)
                     break;
                 }
               phase4_ungetc (c);
-              tp->string = xstrdup (string_buffer_result (&buffer));
+              tp->string = mixed_string_buffer_result (&buffer);
               tp->type = token_type_symbol;
               return;
             }
