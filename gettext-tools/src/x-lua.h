@@ -18,12 +18,14 @@
 #include <stdio.h>
 
 #include "message.h"
-#include "xgettext.h"
+#include "xg-arglist-context.h"
+
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
+
 
 #define EXTENSIONS_LUA \
   { "lua",    "Lua"   },                                                \
@@ -42,6 +44,7 @@ extern "C"
   extern void x_lua_extract_all (void);
 
   extern void init_flag_table_lua (void);
+
 
 #ifdef __cplusplus
 }

@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2011, 2013-2014, 2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -31,7 +31,14 @@
 #include <string.h>
 
 #include "message.h"
+#include "rc-str-list.h"
 #include "xgettext.h"
+#include "xg-encoding.h"
+#include "xg-mixed-string.h"
+#include "xg-arglist-context.h"
+#include "xg-arglist-callshape.h"
+#include "xg-arglist-parser.h"
+#include "xg-message.h"
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"

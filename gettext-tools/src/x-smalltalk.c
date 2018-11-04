@@ -1,6 +1,5 @@
 /* xgettext Smalltalk backend.
-   Copyright (C) 2002-2003, 2005-2009, 2011, 2015-2016 Free Software
-   Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2011, 2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -30,6 +29,7 @@
 
 #include "message.h"
 #include "xgettext.h"
+#include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
 #include "gettext.h"

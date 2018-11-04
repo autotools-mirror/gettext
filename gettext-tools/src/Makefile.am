@@ -52,7 +52,10 @@ write-qt.h \
 read-desktop.h write-desktop.h \
 write-xml.h \
 po-time.h plural-table.h lang-table.h format.h filters.h \
-xgettext.h x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
+xgettext.h \
+rc-str-list.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
+xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
+x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
 x-tcl.h x-perl.h x-php.h x-stringtable.h x-rst.h x-glade.h x-lua.h \
 x-javascript.h x-vala.h x-gsettings.h x-desktop.h x-appdata.h
@@ -177,6 +180,10 @@ else
 xgettext_SOURCES = ../woe32dll/c++xgettext.cc
 endif
 xgettext_SOURCES += \
+  xg-encoding.c \
+  xg-mixed-string.c \
+  xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \
+  xg-message.c \
   x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
   x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
   x-rst.c x-lua.c x-javascript.c x-vala.c \

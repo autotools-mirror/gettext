@@ -1,5 +1,5 @@
 /* xgettext librep backend.
-   Copyright (C) 2001-2003, 2005-2009, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -32,6 +32,10 @@
 #include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
+#include "xg-arglist-context.h"
+#include "xg-arglist-callshape.h"
+#include "xg-arglist-parser.h"
+#include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
 #include "hash.h"

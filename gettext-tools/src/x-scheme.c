@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2009, 2011, 2015-2018 Free Software Foundation, Inc.
+   Copyright (C) 2004-2009, 2011, 2014, 2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -31,6 +31,10 @@
 
 #include "message.h"
 #include "xgettext.h"
+#include "xg-arglist-context.h"
+#include "xg-arglist-callshape.h"
+#include "xg-arglist-parser.h"
+#include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
 #include "hash.h"

@@ -1,6 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003, 2005-2009, 2011, 2015-2016 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2011, 2018 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -31,7 +30,10 @@
 #include <stdlib.h>
 
 #include "message.h"
+#include "rc-str-list.h"
 #include "xgettext.h"
+#include "xg-arglist-context.h"
+#include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
 #include "gettext.h"

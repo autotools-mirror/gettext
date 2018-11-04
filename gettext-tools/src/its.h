@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -19,8 +19,11 @@
 #ifndef _ITS_H_
 #define _ITS_H_
 
+#include <stdio.h>
+
 #include "message.h"
-#include "xgettext.h"
+#include "pos.h"
+#include "xg-arglist-context.h"
 
 #ifdef __cplusplus
 extern "C" {

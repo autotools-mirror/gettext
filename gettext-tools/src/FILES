@@ -285,6 +285,30 @@ msgl-check.c
 +-------------- The 'xgettext' program
 | xgettext.h
 |               Declarations used by the backends.
+| rc-str-list.h
+|               A reference-counted list-of-immutable-strings type.
+| xg-encoding.h
+| xg-encoding.c
+|               Keeping track of the encoding of strings to be extracted.
+| xg-mixed-string.h
+| xg-mixed-string.c
+|               Handling strings that are given partially in the source
+|               encoding and partially in Unicode.
+| xg-arglist-context.h
+| xg-arglist-context.c
+|               Keeping track of the flags that apply to a string extracted
+|               in a certain context.
+| xg-arglist-callshape.h
+| xg-arglist-callshape.c
+|               Resolving ambiguity of argument lists: Information given
+|               through command-line options.
+| xg-arglist-parser.h
+| xg-arglist-parser.c
+|               Resolving ambiguity of argument lists: Progressive parsing
+|               of an argument list, keeping track of all possibilities.
+| xg-message.h
+| xg-message.c
+|               Extracting a message.  Accumulating the message list.
 | x-c.h
 | x-c.c
 |               String extractor for C.
