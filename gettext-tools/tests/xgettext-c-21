@@ -5,7 +5,7 @@
 
 : ${XGETTEXT=xgettext}
 
-${XGETTEXT} --add-comments --no-location --no-wrap \
+${XGETTEXT} --no-location --no-wrap \
             -o xg-c-21.tmp "$abs_srcdir"/xg-c-21.c || Exit 1
 grep -v 'POT-Creation-Date' < xg-c-21.tmp > xg-c-21.tmq || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-21.tmq > xg-c-21.po || Exit 1
@@ -29,16 +29,46 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "\n"
+msgid "1abc"
 msgstr ""
 
-msgid "\\u"
+msgid "2abc"
 msgstr ""
 
-msgid "\\U"
+msgid "3abc"
 msgstr ""
 
-msgid "\\u3"
+msgid "4abc"
+msgstr ""
+
+msgid "5abc"
+msgstr ""
+
+msgid "6abc"
+msgstr ""
+
+msgid "7abc"
+msgstr ""
+
+msgid "8abc\\x"
+msgstr ""
+
+msgid "9abc\n"
+msgstr ""
+
+msgid "10abc\\u"
+msgstr ""
+
+msgid "11abc\\U"
+msgstr ""
+
+msgid "12abc\\u3"
+msgstr ""
+
+msgid "13abc\\u45"
+msgstr ""
+
+msgid "14abc\\u567"
 msgstr ""
 EOF
 
