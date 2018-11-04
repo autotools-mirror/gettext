@@ -12,6 +12,9 @@
 
 * Programming languages support:
   - C, C++:
+    xgettext now supports strings in u8"..." syntax, as specified in C11
+    and C++11.
+  - C, C++:
     xgettext now supports 'p'/'P' exponent markers in number tokens, as
     specified in C99 and C++17.
   - C++:

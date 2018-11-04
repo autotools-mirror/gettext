@@ -1274,6 +1274,17 @@ phase5_get (token_ty *tp)
             case '5': case '6': case '7': case '8': case '9':
               continue;
 
+            case '"':
+              /* Recognize C11 / C++11 string literals.
+                 See (for C) ISO 9899:2011 section 6.4.5
+                 and (for C++) ISO C++ 11 section 2.14.5 [lex.string].
+                 Note: The programmer who passes an UTF-8 encoded string to
+                 gettext() or similar API functions will have to have called
+                 bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
+              if (bufpos == 2 && buffer[0] == 'u' && buffer[1] == '8')
+                goto string_literal;
+              /* FALLTHROUGH */
+
             default:
               phase4_ungetc (c);
               break;
@@ -1449,6 +1460,13 @@ phase5_get (token_ty *tp)
       return;
 
     case '"':
+    string_literal:
+      /* We could worry about the 'L' or 'u' or 'U' before wide string
+         constants, but since gettext's argument is a 'const char *', not
+         a 'const wchar_t *' (for 'L') nor a 'const char16_t *' (for 'u')
+         nor a 'const char32_t *' (for 'U'), the compiler would complain
+         about the argument not matching the prototype.  Just pretend it
+         won't happen.  */
       {
         struct mixed_string_buffer *bp;
 
@@ -1457,10 +1475,6 @@ phase5_get (token_ty *tp)
                                         logical_file_name,
                                         line_number);
 
-        /* We could worry about the 'L' before wide string constants,
-           but since gettext's argument is not a wide character string,
-           let the compiler complain about the argument not matching the
-           prototype.  Just pretend it won't happen.  */
         for (;;)
           {
             c = phase7_getc ();
