@@ -434,7 +434,8 @@ comment_add (int c)
 static inline void
 comment_line_end (size_t chars_to_remove)
 {
-  char *buffer = mixed_string_buffer_result (&comment_buffer);
+  char *buffer =
+    mixed_string_contents_free1 (mixed_string_buffer_result (&comment_buffer));
   size_t buflen = strlen (buffer);
 
   buflen -= chars_to_remove;
@@ -564,7 +565,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_string_literal, token_type_symbol */
+  char *string;                         /* for token_type_symbol */
+  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
   refcounted_string_list_ty *comment;   /* for token_type_string_literal */
   int line_number;
 };
@@ -574,10 +576,13 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      free (tp->mixed_string);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -836,7 +841,7 @@ phase5_get (token_ty *tp)
             mixed_string_buffer_init (&literal, lc_string,
                                       logical_file_name, line_number);
             accumulate_escaped (&literal, '"');
-            tp->string = mixed_string_buffer_result (&literal);
+            tp->mixed_string = mixed_string_buffer_result (&literal);
             tp->comment = add_reference (savable_comment);
             tp->type = token_type_string_literal;
             return;
@@ -916,8 +921,7 @@ phase6_get (token_ty *tp)
   phase5_get (tp);
   if (tp->type == token_type_string_literal && phase6_last != token_type_rparen)
     {
-      char *sum = tp->string;
-      size_t sum_len = strlen (sum);
+      mixed_string_ty *sum = tp->mixed_string;
 
       for (;;)
         {
@@ -936,12 +940,7 @@ phase6_get (token_ty *tp)
                   phase5_get (&token_after);
                   if (token_after.type != token_type_dot)
                     {
-                      char *addend = token3.string;
-                      size_t addend_len = strlen (addend);
-
-                      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
-                      memcpy (sum + sum_len, addend, addend_len + 1);
-                      sum_len += addend_len;
+                      sum = mixed_string_concat_free1 (sum, token3.mixed_string);
 
                       phase5_unget (&token_after);
                       free_token (&token3);
@@ -955,7 +954,7 @@ phase6_get (token_ty *tp)
           phase5_unget (&token2);
           break;
         }
-      tp->string = sum;
+      tp->mixed_string = sum;
     }
   phase6_last = tp->type;
 }
@@ -1209,16 +1208,21 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
         case token_type_string_literal:
           {
+            char *string;
             lex_pos_ty pos;
+
+            string = mixed_string_contents (token.mixed_string);
+            mixed_string_free (token.mixed_string);
+
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
             xgettext_current_source_encoding = po_charset_utf8;
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, inner_context,
+              remember_a_message (mlp, NULL, string, inner_context,
                                   &pos, NULL, token.comment);
             else
-              arglist_parser_remember (argparser, arg, token.string,
+              arglist_parser_remember (argparser, arg, string,
                                        inner_context,
                                        pos.file_name, pos.line_number,
                                        token.comment);

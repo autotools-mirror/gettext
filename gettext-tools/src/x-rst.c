@@ -502,7 +502,8 @@ extract_rsj (FILE *f,
           char *s1;
           if (parse_string () != pr_parsed)
             goto invalid_json;
-          s1 = mixed_string_buffer_result (&stringbuf);
+          s1 = mixed_string_contents_free1 (
+                 mixed_string_buffer_result (&stringbuf));
 
           /* Parse a colon.  */
           c = phase2_getc ();
@@ -549,7 +550,8 @@ extract_rsj (FILE *f,
                               char *s2;
                               if (parse_string () != pr_parsed)
                                 goto invalid_json;
-                              s2 = mixed_string_buffer_result (&stringbuf);
+                              s2 = mixed_string_contents_free1 (
+                                     mixed_string_buffer_result (&stringbuf));
 
                               /* Parse a colon.  */
                               c = phase2_getc ();
@@ -570,7 +572,9 @@ extract_rsj (FILE *f,
                                     goto invalid_rsj;
                                   if (r == pr_syntax || location != NULL)
                                     goto invalid_json;
-                                  location = mixed_string_buffer_result (&stringbuf);
+                                  location =
+                                    mixed_string_contents_free1 (
+                                      mixed_string_buffer_result (&stringbuf));
                                 }
                               else if (strcmp (s2, "sourcebytes") == 0)
                                 {
@@ -606,7 +610,9 @@ extract_rsj (FILE *f,
                                     goto invalid_rsj;
                                   if (r == pr_syntax || msgid != NULL)
                                     goto invalid_json;
-                                  msgid = mixed_string_buffer_result (&stringbuf);
+                                  msgid =
+                                    mixed_string_contents_free1 (
+                                      mixed_string_buffer_result (&stringbuf));
                                 }
                               else
                                 goto invalid_rsj;

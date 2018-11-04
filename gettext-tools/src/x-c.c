@@ -952,7 +952,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_name, token_type_string_literal */
+  char *string;                         /* for token_type_name */
+  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
   refcounted_string_list_ty *comment;   /* for token_type_string_literal,
                                            token_type_objc_special */
   long number;
@@ -1175,8 +1176,10 @@ phase7_ungetc (int c)
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_name || tp->type == token_type_string_literal)
+  if (tp->type == token_type_name)
     free (tp->string);
+  if (tp->type == token_type_string_literal)
+    mixed_string_free (tp->mixed_string);
   if (tp->type == token_type_string_literal
       || tp->type == token_type_objc_special)
     drop_reference (tp->comment);
@@ -1396,7 +1399,7 @@ phase5_get (token_ty *tp)
                                   if (relevant)
                                     {
                                       tp->type = token_type_string_literal;
-                                      tp->string = mixed_string_buffer_result (&msb);
+                                      tp->mixed_string = mixed_string_buffer_result (&msb);
                                       tp->comment = add_reference (savable_comment);
                                     }
                                   else
@@ -1671,7 +1674,7 @@ phase5_get (token_ty *tp)
               mixed_string_buffer_append_char (&msb, c);
           }
         tp->type = token_type_string_literal;
-        tp->string = mixed_string_buffer_result (&msb);
+        tp->mixed_string = mixed_string_buffer_result (&msb);
         tp->comment = add_reference (savable_comment);
         return;
       }
@@ -1838,13 +1841,13 @@ phase6_get (token_ty *tp)
           && buf[1].type == token_type_number
           && buf[2].type == token_type_string_literal)
         {
-          logical_file_name = xstrdup (buf[2].string);
+          logical_file_name = mixed_string_contents (buf[2].mixed_string);
           line_number = buf[1].number;
         }
       if (bufpos >= 2 && buf[0].type == token_type_number
           && buf[1].type == token_type_string_literal)
         {
-          logical_file_name = xstrdup (buf[1].string);
+          logical_file_name = mixed_string_contents (buf[1].mixed_string);
           line_number = buf[0].number;
         }
 
@@ -1922,7 +1925,9 @@ phase8a_get (token_ty *tp)
       /* Turn PRIdXXX into "<PRIdXXX>".  */
       char *new_string = xasprintf ("<%s>", tp->string);
       free (tp->string);
-      tp->string = new_string;
+      tp->mixed_string =
+        mixed_string_alloc_utf8 (new_string, lc_string,
+                                 logical_file_name, line_number);
       tp->comment = add_reference (savable_comment);
       tp->type = token_type_string_literal;
     }
@@ -2016,7 +2021,6 @@ phase8_get (token_ty *tp)
   for (;;)
     {
       token_ty tmp;
-      size_t len;
 
       phase8c_get (&tmp);
       if (tmp.type != token_type_string_literal)
@@ -2024,9 +2028,8 @@ phase8_get (token_ty *tp)
           phase8c_unget (&tmp);
           return;
         }
-      len = strlen (tp->string);
-      tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
-      strcpy (tp->string + len, tmp.string);
+      tp->mixed_string =
+        mixed_string_concat_free1 (tp->mixed_string, tmp.mixed_string);
       free_token (&tmp);
     }
 }
@@ -2057,16 +2060,18 @@ struct xgettext_token_ty
   /* This field is used only for xgettext_token_type_keyword.  */
   const struct callshapes *shapes;
 
-  /* This field is used only for xgettext_token_type_string_literal,
-     xgettext_token_type_keyword, xgettext_token_type_symbol.  */
+  /* This field is used only for xgettext_token_type_keyword,
+     xgettext_token_type_symbol.  */
   char *string;
+
+  /* This field is used only for xgettext_token_type_string_literal.  */
+  mixed_string_ty *mixed_string;
 
   /* This field is used only for xgettext_token_type_string_literal.  */
   refcounted_string_list_ty *comment;
 
-  /* These fields are only for
-       xgettext_token_type_keyword,
-       xgettext_token_type_string_literal.  */
+  /* This field is used only for xgettext_token_type_keyword,
+     xgettext_token_type_string_literal.  */
   lex_pos_ty pos;
 };
 
@@ -2135,7 +2140,7 @@ x_c_lex (xgettext_token_ty *tp)
           last_non_comment_line = newline_count;
 
           tp->type = xgettext_token_type_string_literal;
-          tp->string = token.string;
+          tp->mixed_string = token.mixed_string;
           tp->comment = token.comment;
           tp->pos.file_name = logical_file_name;
           tp->pos.line_number = token.line_number;
@@ -2295,17 +2300,22 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_string_literal:
-          xgettext_current_source_encoding = po_charset_utf8;
-          if (extract_all)
-            remember_a_message (mlp, NULL, token.string, inner_context,
-                                &token.pos, NULL, token.comment);
-          else
-            arglist_parser_remember (argparser, arg, token.string,
-                                     inner_context,
-                                     token.pos.file_name, token.pos.line_number,
-                                     token.comment);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
-          drop_reference (token.comment);
+          {
+            char *string = mixed_string_contents (token.mixed_string);
+            mixed_string_free (token.mixed_string);
+            xgettext_current_source_encoding = po_charset_utf8;
+            if (extract_all)
+              remember_a_message (mlp, NULL, string, inner_context,
+                                  &token.pos, NULL, token.comment);
+            else
+              arglist_parser_remember (argparser, arg, string,
+                                       inner_context,
+                                       token.pos.file_name,
+                                       token.pos.line_number,
+                                       token.comment);
+            xgettext_current_source_encoding = xgettext_global_source_encoding;
+            drop_reference (token.comment);
+          }
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
           state = 0;

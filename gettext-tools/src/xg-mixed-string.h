@@ -28,22 +28,95 @@ extern "C" {
 #endif
 
 
+/* A string that contains segments in the xgettext_current_source_encoding
+   and segments in UTF-8, in an alternating way.  */
+
+enum segment_type
+{
+  source_encoded,
+  utf8_encoded
+};
+
+struct mixed_string_segment
+{
+  /*enum segment_type*/ unsigned char type;
+  size_t length;
+  char contents[FLEXIBLE_ARRAY_MEMBER];
+};
+
+typedef struct mixed_string mixed_string_ty;
+struct mixed_string
+{
+  /* The alternating segments.  */
+  struct mixed_string_segment **segments;
+  size_t nsegments;
+  /* The lexical context.  Used only for error message purposes.  */
+  lexical_context_ty lcontext;
+  const char *logical_file_name;
+  int line_number;
+};
+
+/* Creates a mixed_string that contains just a string in the
+   xgettext_current_source_encoding.  */
+extern mixed_string_ty *
+       mixed_string_alloc_simple (const char *string,
+                                  lexical_context_ty lcontext,
+                                  const char *logical_file_name,
+                                  int line_number);
+
+/* Creates a mixed_string that contains just a UTF-8 string.  */
+extern mixed_string_ty *
+       mixed_string_alloc_utf8 (const char *string,
+                                lexical_context_ty lcontext,
+                                const char *logical_file_name,
+                                int line_number);
+
+/* Creates a copy of a mixed_string.  */
+extern mixed_string_ty *
+       mixed_string_clone (const mixed_string_ty *ms1);
+
+/* Returns the contents of a mixed_string as an UTF-8 encoded string.
+   This may provoke an error if no source encoding has been specified
+   through --from-code.  The result is freshly allocated.  */
+extern char *
+       mixed_string_contents (const mixed_string_ty *ms);
+
+/* Frees a mixed_string.  */
+extern void
+       mixed_string_free (mixed_string_ty *ms);
+
+/* Returns the contents of a mixed_string as an UTF-8 encoded string,
+   and frees the argument.  */
+extern char *
+       mixed_string_contents_free1 (mixed_string_ty *ms);
+
+/* Concatenates two mixed_strings.  */
+extern mixed_string_ty *
+       mixed_string_concat (const mixed_string_ty *ms1,
+                            const mixed_string_ty *ms2);
+/* Concatenates two mixed_strings, and frees the first argument.  */
+extern mixed_string_ty *
+       mixed_string_concat_free1 (mixed_string_ty *ms1,
+                                  const mixed_string_ty *ms2);
+
+
 /* A string buffer type that allows appending bytes (in the
    xgettext_current_source_encoding) or Unicode characters.
-   Returns the entire string in UTF-8 encoding.  */
+   When done, it returns the entire string as a mixed_string.  */
 
 struct mixed_string_buffer
 {
-  /* The part of the string that has already been converted to UTF-8.  */
-  char *utf8_buffer;
-  size_t utf8_buflen;
-  size_t utf8_allocated;
-  /* The first half of an UTF-16 surrogate character.  */
-  unsigned short utf16_surr;
-  /* The part of the string that is still in the source encoding.  */
+  /* The alternating segments that are already finished.  */
+  struct mixed_string_segment **segments;
+  size_t nsegments;
+  size_t nsegments_allocated;
+  /* The segment that is being accumulated.  */
+  int curr_type; /* An enum segment_type, or -1. */
   char *curr_buffer;
   size_t curr_buflen;
   size_t curr_allocated;
+  /* The first half of an UTF-16 surrogate character.  */
+  unsigned short utf16_surr;
   /* The lexical context.  Used only for error message purposes.  */
   lexical_context_ty lcontext;
   const char *logical_file_name;
@@ -58,22 +131,27 @@ extern void
                                  int line_number);
 
 /* Determines whether a mixed_string_buffer is still empty.  */
-extern bool mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp);
+extern bool
+       mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp);
 
 /* Appends a character to a mixed_string_buffer.  */
-extern void mixed_string_buffer_append_char (struct mixed_string_buffer *bp,
-                                             int c);
+extern void
+       mixed_string_buffer_append_char (struct mixed_string_buffer *bp, int c);
 
 /* Appends a Unicode character to a mixed_string_buffer.  */
-extern void mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp,
-                                                int c);
+extern void
+       mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp,
+                                           int c);
 
-/* Frees the memory pointed to by a 'struct mixed_string_buffer'.  */
-extern void mixed_string_buffer_destroy (struct mixed_string_buffer *bp);
+/* Frees the memory pointed to by a 'struct mixed_string_buffer' and
+   discards the accumulated string.  */
+extern void
+       mixed_string_buffer_destroy (struct mixed_string_buffer *bp);
 
 /* Frees the memory pointed to by a 'struct mixed_string_buffer'
-   and returns the accumulated string in UTF-8.  */
-extern char * mixed_string_buffer_result (struct mixed_string_buffer *bp);
+   and returns the accumulated string.  */
+extern mixed_string_ty *
+       mixed_string_buffer_result (struct mixed_string_buffer *bp);
 
 
 #ifdef __cplusplus

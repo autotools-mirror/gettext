@@ -365,7 +365,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_symbol, token_type_string_literal */
+  char *string;                         /* for token_type_symbol */
+  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
   refcounted_string_list_ty *comment;   /* for token_type_string_literal */
   int line_number;
 };
@@ -374,10 +375,13 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      mixed_string_free (tp->mixed_string);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -923,10 +927,18 @@ phase3_get (token_ty *tp)
                     mixed_string_buffer_append_char (&msb, c);
                 }
             /* Done accumulating the string.  */
-            tp->type = last_token_type =
-              template ? token_type_string_template : token_type_string_literal;
-            tp->string = mixed_string_buffer_result (&msb);
-            tp->comment = add_reference (savable_comment);
+            if (template)
+              {
+                tp->type = token_type_string_template;
+                mixed_string_buffer_destroy (&msb);
+              }
+            else
+              {
+                tp->type = token_type_string_literal;
+                tp->mixed_string = mixed_string_buffer_result (&msb);
+                tp->comment = add_reference (savable_comment);
+              }
+            last_token_type = tp->type;
             return;
           }
 
@@ -1153,8 +1165,7 @@ x_vala_lex (token_ty *tp)
   phase3_get (tp);
   if (tp->type == token_type_string_literal)
     {
-      char *sum = tp->string;
-      size_t sum_len = strlen (sum);
+      mixed_string_ty *sum = tp->mixed_string;
 
       for (;;)
         {
@@ -1168,12 +1179,7 @@ x_vala_lex (token_ty *tp)
               phase3_get (&token3);
               if (token3.type == token_type_string_literal)
                 {
-                  char *addend = token3.string;
-                  size_t addend_len = strlen (addend);
-
-                  sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
-                  memcpy (sum + sum_len, addend, addend_len + 1);
-                  sum_len += addend_len;
+                  sum = mixed_string_concat_free1 (sum, token3.mixed_string);
 
                   free_token (&token3);
                   free_token (&token2);
@@ -1184,7 +1190,7 @@ x_vala_lex (token_ty *tp)
           phase3_unget (&token2);
           break;
         }
-      tp->string = sum;
+      tp->mixed_string = sum;
     }
 }
 
@@ -1315,13 +1321,18 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
 
         case token_type_string_literal:
           {
+            char *string;
             lex_pos_ty pos;
+
+            string = mixed_string_contents (token.mixed_string);
+            mixed_string_free (token.mixed_string);
+
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
             xgettext_current_source_encoding = po_charset_utf8;
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, inner_context,
+              remember_a_message (mlp, NULL, string, inner_context,
                                   &pos, NULL, token.comment);
             else
               {
@@ -1331,13 +1342,13 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                     struct arglist_parser *tmp_argparser;
                     tmp_argparser = arglist_parser_alloc (mlp, next_shapes);
 
-                    arglist_parser_remember (tmp_argparser, 1, token.string,
+                    arglist_parser_remember (tmp_argparser, 1, string,
                                              inner_context, pos.file_name,
                                              pos.line_number, token.comment);
                     arglist_parser_done (tmp_argparser, 1);
                   }
                 else
-                  arglist_parser_remember (argparser, arg, token.string,
+                  arglist_parser_remember (argparser, arg, string,
                                            inner_context, pos.file_name,
                                            pos.line_number, token.comment);
               }
