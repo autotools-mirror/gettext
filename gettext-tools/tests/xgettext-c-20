@@ -19,7 +19,7 @@ bbb
 )ccc");
 EOF
 
-(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.cc 2>&1; exit) | grep 'unterminated string literal' || Exit 1
+(LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.cc 2>&1; exit) | grep 'unterminated raw string literal' || Exit 1
 
 cat <<\EOF > xg-c-20.cc
 #define X ""

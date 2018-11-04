@@ -1283,6 +1283,174 @@ phase5_get (token_ty *tp)
                  bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
               if (bufpos == 2 && buffer[0] == 'u' && buffer[1] == '8')
                 goto string_literal;
+              /* Recognize C++11 raw string literals.
+                 See ISO C++ 11 section 2.14.5 [lex.string].
+                 Here it is important to properly parse all cases according to
+                 the standard, otherwise our parser could get confused by
+                 double-quotes inside the raw string.
+                 Note: The programmer who passes an UTF-8 encoded string to
+                 gettext() or similar API functions will have to have called
+                 bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
+              if (cxx_extensions
+                  && (bufpos == 1
+                      || (bufpos == 2
+                          && (buffer[0] == 'u' || buffer[0] == 'U'
+                              || buffer[0] == 'L'))
+                      || (bufpos == 3 && buffer[0] == 'u' && buffer[1] == '8'))
+                  && buffer[bufpos - 1] == 'R')
+                {
+                  /* Only R and u8R raw strings can be used as gettext()
+                     arguments, for type reasons.  */
+                  const bool relevant = (bufpos != 2);
+                  int starting_line_number = line_number;
+                  bufpos = 0;
+                  /* Start the buffer with a closing parenthesis.  This makes the
+                     parsing code below simpler.  */
+                  buffer[bufpos++] = ')';
+                  /* Parse the initial delimiter.  */
+                  for (;;)
+                    {
+                      bool valid_delimiter_char;
+
+                      c = phase3_getc ();
+                      switch (c)
+                        {
+                        case 'A': case 'B': case 'C': case 'D': case 'E':
+                        case 'F': case 'G': case 'H': case 'I': case 'J':
+                        case 'K': case 'L': case 'M': case 'N': case 'O':
+                        case 'P': case 'Q': case 'R': case 'S': case 'T':
+                        case 'U': case 'V': case 'W': case 'X': case 'Y':
+                        case 'Z':
+                        case 'a': case 'b': case 'c': case 'd': case 'e':
+                        case 'f': case 'g': case 'h': case 'i': case 'j':
+                        case 'k': case 'l': case 'm': case 'n': case 'o':
+                        case 'p': case 'q': case 'r': case 's': case 't':
+                        case 'u': case 'v': case 'w': case 'x': case 'y':
+                        case 'z':
+                        case '0': case '1': case '2': case '3': case '4':
+                        case '5': case '6': case '7': case '8': case '9':
+                        case '_': case '{': case '}': case '[': case ']':
+                        case '#': case '<': case '>': case '%': case ':':
+                        case ';': case '.': case '?': case '*': case '+':
+                        case '-': case '/': case '^': case '&': case '|':
+                        case '~': case '!': case '=': case ',': case '\'':
+                          valid_delimiter_char = true;
+                          break;
+                        case '"':
+                          /* A double-quote within the delimiter! This is too
+                             weird.  We don't support this.  */
+                          error_with_progname = false;
+                          error (0, 0, _("%s:%d: warning: a double-quote in the delimiter of a raw string literal is unsupported"),
+                                 logical_file_name, starting_line_number);
+                          error_with_progname = true;
+                          /* FALLTHROUGH */
+                        default:
+                          valid_delimiter_char = false;
+                          break;
+                        }
+                      if (!valid_delimiter_char)
+                        break;
+
+                      if (bufpos >= bufmax)
+                        {
+                          bufmax = 2 * bufmax + 10;
+                          buffer = xrealloc (buffer, bufmax);
+                        }
+                      buffer[bufpos++] = c;
+                    }
+                  if (c == '(')
+                    {
+                      struct mixed_string_buffer *bp;
+                      /* The state is either 0 or
+                         N, after a ')' and N-1 bytes of the delimiter have been
+                         encountered.  */
+                      int state;
+
+                      /* Start accumulating the string.  */
+                      if (relevant)
+                        bp = mixed_string_buffer_alloc (lc_string,
+                                                        logical_file_name,
+                                                        line_number);
+                      else
+                        bp = NULL;
+                      state = 0;
+
+                      for (;;)
+                        {
+                          c = phase3_getc ();
+
+                          /* Keep line_number in sync.  */
+                          if (relevant)
+                            bp->line_number = line_number;
+
+                          if (c == EOF)
+                            break;
+
+                          /* Update the state.  */
+                          if (c == (state < bufpos ? buffer[state] : '"'))
+                            {
+                              if (state < bufpos)
+                                state++;
+                              else /* state == bufpos && c == '"' */
+                                {
+                                  /* Finished parsing the string.  */
+                                  if (relevant)
+                                    {
+                                      tp->type = token_type_string_literal;
+                                      tp->string = mixed_string_buffer_done (bp);
+                                      tp->comment = add_reference (savable_comment);
+                                    }
+                                  else
+                                    tp->type = token_type_symbol;
+                                  return;
+                                }
+                            }
+                          else
+                            {
+                              int i;
+
+                              /* None of the bytes buffer[0]...buffer[state-1]
+                                 can be ')'.  */
+                              if (relevant)
+                                for (i = 0; i < state; i++)
+                                  mixed_string_buffer_append_char (bp, buffer[i]);
+
+                              /* But c may be ')'.  */
+                              if (c == ')')
+                                state = 1;
+                              else
+                                {
+                                  if (relevant)
+                                    mixed_string_buffer_append_char (bp, c);
+                                  state = 0;
+                                }
+                            }
+                        }
+                    }
+                  if (c == EOF)
+                    {
+                      error_with_progname = false;
+                      error (0, 0, _("%s:%d: warning: unterminated raw string literal"),
+                             logical_file_name, starting_line_number);
+                      error_with_progname = true;
+                      tp->type = token_type_eof;
+                      return;
+                    }
+                  /* The error message for c == '"' was already emitted above.  */
+                  if (c != '"')
+                    {
+                      error_with_progname = false;
+                      error (0, 0, _("%s:%d: warning: invalid raw string literal syntax"),
+                             logical_file_name, starting_line_number);
+                      error_with_progname = true;
+                    }
+                  /* To get into a sane state, read up until the next double-quote,
+                     newline, or EOF.  */
+                  while (!(c == EOF || c == '"' || c == '\n'))
+                    c = phase3_getc ();
+                  tp->type = token_type_symbol;
+                  return;
+                }
               /* FALLTHROUGH */
 
             default:
