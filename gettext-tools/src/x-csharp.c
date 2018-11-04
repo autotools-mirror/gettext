@@ -31,6 +31,7 @@
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
+#include "xg-pos.h"
 #include "xg-encoding.h"
 #include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
@@ -130,13 +131,6 @@ init_flag_table_csharp ()
 
 
 /* ======================== Reading of characters.  ======================== */
-
-/* Real filename, used in error messages about the input file.  */
-static const char *real_file_name;
-
-/* Logical filename and line number, used to label the extracted messages.  */
-static char *logical_file_name;
-static int line_number;
 
 /* The input file stream.  */
 static FILE *fp;

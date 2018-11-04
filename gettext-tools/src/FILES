@@ -287,6 +287,9 @@ msgl-check.c
 |               Declarations used by the backends.
 | rc-str-list.h
 |               A reference-counted list-of-immutable-strings type.
+| xg-pos.h
+| xg-pos.c
+|               The source file position.
 | xg-encoding.h
 | xg-encoding.c
 |               Keeping track of the encoding of strings to be extracted.

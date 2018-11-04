@@ -53,7 +53,7 @@ read-desktop.h write-desktop.h \
 write-xml.h \
 po-time.h plural-table.h lang-table.h format.h filters.h \
 xgettext.h \
-rc-str-list.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
+rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
 xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
 x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
 x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
@@ -180,6 +180,7 @@ else
 xgettext_SOURCES = ../woe32dll/c++xgettext.cc
 endif
 xgettext_SOURCES += \
+  xg-pos.c \
   xg-encoding.c \
   xg-mixed-string.c \
   xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \

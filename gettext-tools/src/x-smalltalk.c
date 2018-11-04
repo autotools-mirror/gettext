@@ -29,6 +29,7 @@
 
 #include "message.h"
 #include "xgettext.h"
+#include "xg-pos.h"
 #include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
@@ -66,14 +67,6 @@
 
 
 /* ======================== Reading of characters.  ======================== */
-
-
-/* Real filename, used in error messages about the input file.  */
-static const char *real_file_name;
-
-/* Logical filename and line number, used to label the extracted messages.  */
-static char *logical_file_name;
-static int line_number;
 
 /* The input file stream.  */
 static FILE *fp;
