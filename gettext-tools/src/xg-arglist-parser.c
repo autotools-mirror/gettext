@@ -478,14 +478,14 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               }
 
             mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
-                                     msgid_context,
+                                     false, msgid_context,
                                      &best_cp->msgid_pos,
-                                     NULL, best_cp->msgid_comment);
+                                     NULL, best_cp->msgid_comment, false);
             if (mp != NULL && best_cp->msgid_plural != NULL)
-              remember_a_message_plural (mp, best_cp->msgid_plural,
+              remember_a_message_plural (mp, best_cp->msgid_plural, false,
                                          msgid_plural_context,
                                          &best_cp->msgid_plural_pos,
-                                         NULL);
+                                         NULL, false);
           }
 
           if (best_cp->xcomments.nitems > 0)

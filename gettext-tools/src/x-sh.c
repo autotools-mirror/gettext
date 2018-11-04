@@ -1092,7 +1092,8 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                       string.chars[string.charcount++] = (unsigned char) c;
                     }
                   remember_a_message (mlp, NULL, string_of_token (&string),
-                                      context, &pos, NULL, savable_comment);
+                                      false, context, &pos, NULL,
+                                      savable_comment, false);
                   free_token (&string);
 
                   error_with_progname = false;
@@ -1257,8 +1258,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 
               pos.file_name = logical_file_name;
               pos.line_number = inner.line_number_at_start;
-              remember_a_message (mlp, NULL, string_of_word (&inner),
-                                  inner_context, &pos, NULL, savable_comment);
+              remember_a_message (mlp, NULL, string_of_word (&inner), false,
+                                  inner_context, &pos, NULL, savable_comment,
+                                  false);
             }
         }
 

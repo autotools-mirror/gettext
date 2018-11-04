@@ -887,9 +887,9 @@ read_command (int looking_for, flag_context_ty outer_context)
 
                 pos.file_name = logical_file_name;
                 pos.line_number = inner.line_number_at_start;
-                remember_a_message (mlp, NULL, string_of_word (&inner),
+                remember_a_message (mlp, NULL, string_of_word (&inner), false,
                                     inner_context, &pos,
-                                    NULL, savable_comment);
+                                    NULL, savable_comment, false);
               }
           }
 

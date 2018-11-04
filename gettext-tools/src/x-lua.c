@@ -1145,8 +1145,8 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, inner_context,
-                                  &pos, NULL, token.comment);
+              remember_a_message (mlp, NULL, token.string, false, inner_context,
+                                  &pos, NULL, token.comment, false);
             else
               {
                 /* A string immediately after a symbol means a function call.  */

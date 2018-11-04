@@ -1795,8 +1795,9 @@ xgettext_its_extract_callback (message_list_ty *mlp,
   message = remember_a_message (mlp,
                                 msgctxt == NULL ? NULL : xstrdup (msgctxt),
                                 xstrdup (msgid),
+                                false,
                                 null_context, pos,
-                                extracted_comment, NULL);
+                                extracted_comment, NULL, false);
 
   if (add_itstool_comments)
     {

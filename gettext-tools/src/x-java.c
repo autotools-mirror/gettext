@@ -1217,16 +1217,18 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
-            xgettext_current_source_encoding = po_charset_utf8;
             if (extract_all)
-              remember_a_message (mlp, NULL, string, inner_context,
-                                  &pos, NULL, token.comment);
+              remember_a_message (mlp, NULL, string, true, inner_context,
+                                  &pos, NULL, token.comment, true);
             else
-              arglist_parser_remember (argparser, arg, string,
-                                       inner_context,
-                                       pos.file_name, pos.line_number,
-                                       token.comment);
-            xgettext_current_source_encoding = xgettext_global_source_encoding;
+              {
+                xgettext_current_source_encoding = po_charset_utf8;
+                arglist_parser_remember (argparser, arg, string,
+                                         inner_context,
+                                         pos.file_name, pos.line_number,
+                                         token.comment);
+                xgettext_current_source_encoding = xgettext_global_source_encoding;
+              }
           }
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;

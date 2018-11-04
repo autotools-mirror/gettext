@@ -1587,10 +1587,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                         pos.line_number = line_number;
                         pos.file_name = logical_file_name;
 
-                        xgettext_current_source_encoding = po_charset_utf8;
                         remember_a_message (mlp, NULL, xstrdup (t1->string),
-                                            context, &pos, NULL, savable_comment);
-                        xgettext_current_source_encoding = xgettext_global_source_encoding;
+                                            true, context, &pos, NULL,
+                                            savable_comment, true);
                         free_token (t2);
                         free_token (t1);
                       }
@@ -2017,10 +2016,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
               extract_quotelike_pass3 (&token, EXIT_FAILURE);
-              xgettext_current_source_encoding = po_charset_utf8;
-              remember_a_message (mlp, NULL, token.string, context, &pos,
-                                  NULL, savable_comment);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              remember_a_message (mlp, NULL, token.string, true, context, &pos,
+                                  NULL, savable_comment, true);
               /* FALLTHROUGH */
             default:
               context = null_context;
@@ -3317,10 +3314,8 @@ extract_balanced (message_list_ty *mlp,
 
               pos.file_name = logical_file_name;
               pos.line_number = tp->line_number;
-              xgettext_current_source_encoding = po_charset_utf8;
-              remember_a_message (mlp, NULL, string, inner_context, &pos,
-                                  NULL, tp->comment);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
+              remember_a_message (mlp, NULL, string, true, inner_context, &pos,
+                                  NULL, tp->comment, true);
             }
           else if (!skip_until_comma)
             {

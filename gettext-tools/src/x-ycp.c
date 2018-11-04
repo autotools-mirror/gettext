@@ -681,8 +681,8 @@ extract_parenthesized (message_list_ty *mlp,
                 {
                   /* Seen an msgid.  */
                   plural_mp = remember_a_message (mlp, NULL, token.string,
-                                                  inner_context, &pos,
-                                                  NULL, token.comment);
+                                                  false, inner_context, &pos,
+                                                  NULL, token.comment, false);
                   plural_state = 1;
                   state = 2;
                 }
@@ -690,9 +690,9 @@ extract_parenthesized (message_list_ty *mlp,
                 {
                   /* Seen an msgid_plural.  */
                   if (plural_mp != NULL)
-                    remember_a_message_plural (plural_mp, token.string,
+                    remember_a_message_plural (plural_mp, token.string, false,
                                                inner_context, &pos,
-                                               token.comment);
+                                               token.comment, false);
                   state = 0;
                 }
               drop_reference (token.comment);

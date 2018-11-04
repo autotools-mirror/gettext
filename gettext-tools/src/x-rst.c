@@ -228,7 +228,8 @@ extract_rst (FILE *f,
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
-      remember_a_message (mlp, NULL, msgid, null_context, &pos, NULL, NULL);
+      remember_a_message (mlp, NULL, msgid, false, null_context, &pos, NULL,
+                          NULL, false);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)
@@ -634,8 +635,8 @@ extract_rsj (FILE *f,
                       pos.file_name = location;
                       pos.line_number = (size_t)(-1);
 
-                      remember_a_message (mlp, NULL, msgid, null_context, &pos,
-                                          NULL, NULL);
+                      remember_a_message (mlp, NULL, msgid, true, null_context,
+                                          &pos, NULL, NULL, false);
 
                       /* Parse a comma.  */
                       c = phase2_getc ();

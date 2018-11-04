@@ -788,8 +788,8 @@ extract_parenthesized (message_list_ty *mlp,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, inner_context, &pos,
-                                  NULL, savable_comment);
+              remember_a_message (mlp, NULL, token.string, false, inner_context,
+                                  &pos, NULL, savable_comment, false);
             else
               arglist_parser_remember (argparser, arg, token.string,
                                        inner_context,
@@ -807,8 +807,8 @@ extract_parenthesized (message_list_ty *mlp,
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
-            remember_a_message (mlp, NULL, token.string, inner_context, &pos,
-                                NULL, savable_comment);
+            remember_a_message (mlp, NULL, token.string, false, inner_context,
+                                &pos, NULL, savable_comment, false);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

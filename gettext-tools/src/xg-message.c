@@ -136,9 +136,9 @@ and a mapping instead of a tuple for the arguments.\n"),
 
 message_ty *
 remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
-                    flag_context_ty context, lex_pos_ty *pos,
+                    bool is_utf8, flag_context_ty context, lex_pos_ty *pos,
                     const char *extracted_comment,
-                    refcounted_string_list_ty *comment)
+                    refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
   enum is_format is_format[NFORMATS];
   struct argument_range range;
@@ -173,9 +173,12 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   for (i = 0; i < NSYNTAXCHECKS; i++)
     do_syntax_check[i] = undecided;
 
-  if (msgctxt != NULL)
-    CONVERT_STRING (msgctxt, lc_string);
-  CONVERT_STRING (msgid, lc_string);
+  if (!is_utf8)
+    {
+      if (msgctxt != NULL)
+        CONVERT_STRING (msgctxt, lc_string);
+      CONVERT_STRING (msgid, lc_string);
+    }
 
   if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
     {
@@ -275,7 +278,8 @@ meta information, not the empty string.\n")));
         if (s == NULL)
           break;
 
-        CONVERT_STRING (s, lc_comment);
+        if (!comment_is_utf8)
+          CONVERT_STRING (s, lc_comment);
 
         /* To reduce the possibility of unwanted matches we do a two
            step match: the line must contain 'xgettext:' and one of
@@ -479,9 +483,10 @@ meta information, not the empty string.\n")));
 
 
 void
-remember_a_message_plural (message_ty *mp, char *string,
+remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                            flag_context_ty context, lex_pos_ty *pos,
-                           refcounted_string_list_ty *comment)
+                           refcounted_string_list_ty *comment,
+                           bool comment_is_utf8)
 {
   char *msgid_plural;
   char *msgstr1;
@@ -493,7 +498,8 @@ remember_a_message_plural (message_ty *mp, char *string,
 
   savable_comment_to_xgettext_comment (comment);
 
-  CONVERT_STRING (msgid_plural, lc_string);
+  if (!is_utf8)
+    CONVERT_STRING (msgid_plural, lc_string);
 
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)
