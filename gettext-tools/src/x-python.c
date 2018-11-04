@@ -1565,9 +1565,7 @@ extract_balanced (message_list_ty *mlp,
                                 arglist_parser_alloc (mlp,
                                                       state ? next_shapes : NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_current_file_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -1577,9 +1575,7 @@ extract_balanced (message_list_ty *mlp,
         case token_type_rparen:
           if (delim == token_type_rparen || delim == token_type_eof)
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_current_file_source_encoding;
               return false;
             }
           next_context_iter = null_context_list_iterator;
@@ -1601,9 +1597,7 @@ extract_balanced (message_list_ty *mlp,
                                 null_context, null_context_list_iterator,
                                 arglist_parser_alloc (mlp, NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_current_file_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -1613,9 +1607,7 @@ extract_balanced (message_list_ty *mlp,
         case token_type_rbracket:
           if (delim == token_type_rbracket || delim == token_type_eof)
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_current_file_source_encoding;
               return false;
             }
           next_context_iter = null_context_list_iterator;
@@ -1624,22 +1616,22 @@ extract_balanced (message_list_ty *mlp,
 
         case token_type_string:
           {
-            char *string;
             lex_pos_ty pos;
-
-            string = mixed_string_contents (token.mixed_string);
-            mixed_string_free (token.mixed_string);
 
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, string, true, inner_context,
-                                  &pos, NULL, token.comment, true);
+              {
+                char *string = mixed_string_contents (token.mixed_string);
+                mixed_string_free (token.mixed_string);
+                remember_a_message (mlp, NULL, string, true, inner_context,
+                                    &pos, NULL, token.comment, true);
+              }
             else
               {
                 xgettext_current_source_encoding = po_charset_utf8;
-                arglist_parser_remember (argparser, arg, string,
+                arglist_parser_remember (argparser, arg, token.mixed_string,
                                          inner_context,
                                          pos.file_name, pos.line_number,
                                          token.comment);
@@ -1652,9 +1644,7 @@ extract_balanced (message_list_ty *mlp,
           continue;
 
         case token_type_eof:
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_current_file_source_encoding;
           return true;
 
         case token_type_plus:

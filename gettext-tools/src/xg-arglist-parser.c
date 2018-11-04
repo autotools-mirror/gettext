@@ -124,14 +124,15 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->argnum2_glib_context = cp->argnum2_glib_context;
       ccp->argtotal = cp->argtotal;
       ccp->xcomments = cp->xcomments;
-      ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
+      ccp->msgctxt =
+        (cp->msgctxt != NULL ? mixed_string_clone (cp->msgctxt) : NULL);
       ccp->msgctxt_pos = cp->msgctxt_pos;
-      ccp->msgid = (cp->msgid != NULL ? xstrdup (cp->msgid) : NULL);
+      ccp->msgid = (cp->msgid != NULL ? mixed_string_clone (cp->msgid) : NULL);
       ccp->msgid_context = cp->msgid_context;
       ccp->msgid_pos = cp->msgctxt_pos;
       ccp->msgid_comment = add_reference (cp->msgid_comment);
       ccp->msgid_plural =
-        (cp->msgid_plural != NULL ? xstrdup (cp->msgid_plural) : NULL);
+        (cp->msgid_plural != NULL ? mixed_string_clone (cp->msgid_plural) : NULL);
       ccp->msgid_plural_context = cp->msgid_plural_context;
       ccp->msgid_plural_pos = cp->msgid_plural_pos;
     }
@@ -142,7 +143,7 @@ arglist_parser_clone (struct arglist_parser *ap)
 
 void
 arglist_parser_remember (struct arglist_parser *ap,
-                         int argnum, char *string,
+                         int argnum, mixed_string_ty *string,
                          flag_context_ty context,
                          char *file_name, size_t line_number,
                          refcounted_string_list_ty *comment)
@@ -194,13 +195,13 @@ arglist_parser_remember (struct arglist_parser *ap,
   /* Note: There is a memory leak here: When string was stored but is later
      not used by arglist_parser_done, we don't free it.  */
   if (!stored_string)
-    free (string);
+    mixed_string_free (string);
 }
 
 
 void
 arglist_parser_remember_msgctxt (struct arglist_parser *ap,
-                                 char *string,
+                                 mixed_string_ty *string,
                                  flag_context_ty context,
                                  char *file_name, size_t line_number)
 {
@@ -222,7 +223,7 @@ arglist_parser_remember_msgctxt (struct arglist_parser *ap,
   /* Note: There is a memory leak here: When string was stored but is later
      not used by arglist_parser_done, we don't free it.  */
   if (!stored_string)
-    free (string);
+    mixed_string_free (string);
 }
 
 
@@ -389,17 +390,52 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
         {
           /* best_cp indicates the best found complete call.
              Now call remember_a_message.  */
+          flag_context_ty msgid_context;
+          flag_context_ty msgid_plural_context;
+          char *best_msgctxt;
+          char *best_msgid;
+          char *best_msgid_plural;
           message_ty *mp;
+
+          msgid_context = best_cp->msgid_context;
+          msgid_plural_context = best_cp->msgid_plural_context;
+
+          /* Special support for the 3-argument tr operator in Qt:
+             When --qt and --keyword=tr:1,1,2c,3t are specified, add to the
+             context the information that the argument is expected to be a
+             qt-plural-format.  */
+          if (recognize_qt_formatstrings ()
+              && best_cp->msgid_plural == best_cp->msgid)
+            {
+              msgid_context.is_format3 = yes_according_to_context;
+              msgid_plural_context.is_format3 = yes_according_to_context;
+            }
+
+          best_msgctxt =
+            (best_cp->msgctxt != NULL
+             ? mixed_string_contents_free1 (best_cp->msgctxt)
+             : NULL);
+          best_msgid =
+            (best_cp->msgid != NULL
+             ? mixed_string_contents_free1 (best_cp->msgid)
+             : NULL);
+          best_msgid_plural =
+            (best_cp->msgid_plural != NULL
+             ? /* Special support for the 3-argument tr operator in Qt.  */
+               (best_cp->msgid_plural == best_cp->msgid
+                ? xstrdup (best_msgid)
+                : mixed_string_contents_free1 (best_cp->msgid_plural))
+             : NULL);
 
           /* Split strings in the GNOME glib syntax "msgctxt|msgid".  */
           if (best_cp->argnum1_glib_context || best_cp->argnum2_glib_context)
             /* split_keywordspec should not allow the context to be specified
                in two different ways.  */
-            if (best_cp->msgctxt != NULL)
+            if (best_msgctxt != NULL)
               abort ();
           if (best_cp->argnum1_glib_context)
             {
-              const char *separator = strchr (best_cp->msgid, '|');
+              const char *separator = strchr (best_msgid, '|');
 
               if (separator == NULL)
                 {
@@ -413,18 +449,18 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                 }
               else
                 {
-                  size_t ctxt_len = separator - best_cp->msgid;
+                  size_t ctxt_len = separator - best_msgid;
                   char *ctxt = XNMALLOC (ctxt_len + 1, char);
 
-                  memcpy (ctxt, best_cp->msgid, ctxt_len);
+                  memcpy (ctxt, best_msgid, ctxt_len);
                   ctxt[ctxt_len] = '\0';
-                  best_cp->msgctxt = ctxt;
-                  best_cp->msgid = xstrdup (separator + 1);
+                  best_msgctxt = ctxt;
+                  best_msgid = xstrdup (separator + 1);
                 }
             }
-          if (best_cp->msgid_plural != NULL && best_cp->argnum2_glib_context)
+          if (best_msgid_plural != NULL && best_cp->argnum2_glib_context)
             {
-              const char *separator = strchr (best_cp->msgid_plural, '|');
+              const char *separator = strchr (best_msgid_plural, '|');
 
               if (separator == NULL)
                 {
@@ -438,16 +474,16 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                 }
               else
                 {
-                  size_t ctxt_len = separator - best_cp->msgid_plural;
+                  size_t ctxt_len = separator - best_msgid_plural;
                   char *ctxt = XNMALLOC (ctxt_len + 1, char);
 
-                  memcpy (ctxt, best_cp->msgid_plural, ctxt_len);
+                  memcpy (ctxt, best_msgid_plural, ctxt_len);
                   ctxt[ctxt_len] = '\0';
-                  if (best_cp->msgctxt == NULL)
-                    best_cp->msgctxt = ctxt;
+                  if (best_msgctxt == NULL)
+                    best_msgctxt = ctxt;
                   else
                     {
-                      if (strcmp (ctxt, best_cp->msgctxt) != 0)
+                      if (strcmp (ctxt, best_msgctxt) != 0)
                         {
                           error_with_progname = false;
                           error_at_line (0, 0,
@@ -458,35 +494,19 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                         }
                       free (ctxt);
                     }
-                  best_cp->msgid_plural = xstrdup (separator + 1);
+                  best_msgid_plural = xstrdup (separator + 1);
                 }
             }
 
-          {
-            flag_context_ty msgid_context = best_cp->msgid_context;
-            flag_context_ty msgid_plural_context = best_cp->msgid_plural_context;
-
-            /* Special support for the 3-argument tr operator in Qt:
-               When --qt and --keyword=tr:1,1,2c,3t are specified, add to the
-               context the information that the argument is expected to be a
-               qt-plural-format.  */
-            if (recognize_qt_formatstrings ()
-                && best_cp->msgid_plural == best_cp->msgid)
-              {
-                msgid_context.is_format3 = yes_according_to_context;
-                msgid_plural_context.is_format3 = yes_according_to_context;
-              }
-
-            mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
-                                     false, msgid_context,
-                                     &best_cp->msgid_pos,
-                                     NULL, best_cp->msgid_comment, false);
-            if (mp != NULL && best_cp->msgid_plural != NULL)
-              remember_a_message_plural (mp, best_cp->msgid_plural, false,
-                                         msgid_plural_context,
-                                         &best_cp->msgid_plural_pos,
-                                         NULL, false);
-          }
+          mp = remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
+                                   msgid_context,
+                                   &best_cp->msgid_pos,
+                                   NULL, best_cp->msgid_comment, false);
+          if (mp != NULL && best_msgid_plural != NULL)
+            remember_a_message_plural (mp, best_msgid_plural, true,
+                                       msgid_plural_context,
+                                       &best_cp->msgid_plural_pos,
+                                       NULL, false);
 
           if (best_cp->xcomments.nitems > 0)
             {

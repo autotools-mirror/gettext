@@ -32,6 +32,7 @@
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
@@ -791,10 +792,16 @@ extract_parenthesized (message_list_ty *mlp,
               remember_a_message (mlp, NULL, token.string, false, inner_context,
                                   &pos, NULL, savable_comment, false);
             else
-              arglist_parser_remember (argparser, arg, token.string,
-                                       inner_context,
-                                       pos.file_name, pos.line_number,
-                                       savable_comment);
+              {
+                mixed_string_ty *ms =
+                  mixed_string_alloc_simple (token.string, lc_string,
+                                             pos.file_name, pos.line_number);
+                free (token.string);
+                arglist_parser_remember (argparser, arg, ms,
+                                         inner_context,
+                                         pos.file_name, pos.line_number,
+                                         savable_comment);
+              }
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

@@ -35,6 +35,7 @@
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
@@ -930,12 +931,19 @@ read_command (int looking_for, flag_context_ty outer_context)
           {
             /* These are the argument positions.  */
             if (argparser != NULL && inner.type == t_string)
-              arglist_parser_remember (argparser, arg,
-                                       string_of_word (&inner),
-                                       inner_context,
-                                       logical_file_name,
-                                       inner.line_number_at_start,
-                                       savable_comment);
+              {
+                char *s = string_of_word (&inner);
+                mixed_string_ty *ms =
+                  mixed_string_alloc_simple (s, lc_string,
+                                             logical_file_name,
+                                             inner.line_number_at_start);
+                free (s);
+                arglist_parser_remember (argparser, arg, ms,
+                                         inner_context,
+                                         logical_file_name,
+                                         inner.line_number_at_start,
+                                         savable_comment);
+              }
           }
 
         free_word (&inner);

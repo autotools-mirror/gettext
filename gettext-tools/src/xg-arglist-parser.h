@@ -25,6 +25,7 @@
 #include "rc-str-list.h"
 #include "str-list.h"
 
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 
@@ -44,13 +45,13 @@ struct partial_call
   bool argnum2_glib_context;    /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal;                 /* total number of arguments, 0 if unspecified */
   string_list_ty xcomments;     /* auto-extracted comments */
-  char *msgctxt;                /* context - owned string, or NULL */
+  mixed_string_ty *msgctxt;     /* context - owned mixed_string, or NULL */
   lex_pos_ty msgctxt_pos;
-  char *msgid;                  /* msgid - owned string, or NULL */
+  mixed_string_ty *msgid;       /* msgid - owned mixed_string, or NULL */
   flag_context_ty msgid_context;
   lex_pos_ty msgid_pos;
   refcounted_string_list_ty *msgid_comment;
-  char *msgid_plural;           /* msgid_plural - owned string, or NULL */
+  mixed_string_ty *msgid_plural; /* msgid_plural - owned mixed_string, or NULL */
   flag_context_ty msgid_plural_context;
   lex_pos_ty msgid_plural_pos;
 };
@@ -74,22 +75,22 @@ extern struct arglist_parser * arglist_parser_alloc (message_list_ty *mlp,
 /* Clones an arglist_parser.  */
 extern struct arglist_parser * arglist_parser_clone (struct arglist_parser *ap);
 /* Adds a string argument to an arglist_parser.  ARGNUM must be > 0.
-   STRING must be malloc()ed string; its ownership is passed to the callee.
+   STRING must be a mixed_string; its ownership is passed to the callee.
    FILE_NAME must be allocated with indefinite extent.
    COMMENT may be savable_comment, or it may be a saved copy of savable_comment
    (then add_reference must be used when saving it, and drop_reference while
    dropping it).  Clear savable_comment.  */
 extern void arglist_parser_remember (struct arglist_parser *ap,
-                                     int argnum, char *string,
+                                     int argnum, mixed_string_ty *string,
                                      flag_context_ty context,
                                      char *file_name, size_t line_number,
                                      refcounted_string_list_ty *comment);
 /* Adds a string argument as msgctxt to an arglist_parser, without incrementing
    the current argument number.
-   STRING must be malloc()ed string; its ownership is passed to the callee.
+   STRING must be a mixed_string; its ownership is passed to the callee.
    FILE_NAME must be allocated with indefinite extent.  */
 extern void arglist_parser_remember_msgctxt (struct arglist_parser *ap,
-                                             char *string,
+                                             mixed_string_ty *string,
                                              flag_context_ty context,
                                              char *file_name, size_t line_number);
 /* Tests whether an arglist_parser has is not waiting for more arguments after

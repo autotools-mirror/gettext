@@ -1281,9 +1281,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                 arglist_parser_alloc (mlp,
                                                       state ? next_shapes : NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -1293,9 +1291,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_rparen:
           if (delim == token_type_rparen || delim == token_type_eof)
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               return false;
             }
 
@@ -1314,44 +1310,46 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           continue;
 
         case token_type_eof:
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return true;
 
         case token_type_string_literal:
           {
-            char *string;
             lex_pos_ty pos;
-
-            string = mixed_string_contents (token.mixed_string);
-            mixed_string_free (token.mixed_string);
 
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, string, true, inner_context,
-                                  &pos, NULL, token.comment, false);
+              {
+                char *string = mixed_string_contents (token.mixed_string);
+                mixed_string_free (token.mixed_string);
+                remember_a_message (mlp, NULL, string, true, inner_context,
+                                    &pos, NULL, token.comment, false);
+              }
             else
               {
-                xgettext_current_source_encoding = po_charset_utf8;
                 /* A string immediately after a symbol means a function call.  */
                 if (state)
                   {
                     struct arglist_parser *tmp_argparser;
                     tmp_argparser = arglist_parser_alloc (mlp, next_shapes);
 
-                    arglist_parser_remember (tmp_argparser, 1, string,
+                    xgettext_current_source_encoding = po_charset_utf8;
+                    arglist_parser_remember (tmp_argparser, 1, token.mixed_string,
                                              inner_context, pos.file_name,
                                              pos.line_number, token.comment);
+                    xgettext_current_source_encoding = xgettext_global_source_encoding;
                     arglist_parser_done (tmp_argparser, 1);
                   }
                 else
-                  arglist_parser_remember (argparser, arg, string,
-                                           inner_context, pos.file_name,
-                                           pos.line_number, token.comment);
-                xgettext_current_source_encoding = xgettext_global_source_encoding;
+                  {
+                    xgettext_current_source_encoding = po_charset_utf8;
+                    arglist_parser_remember (argparser, arg, token.mixed_string,
+                                             inner_context, pos.file_name,
+                                             pos.line_number, token.comment);
+                    xgettext_current_source_encoding = xgettext_global_source_encoding;
+                  }
               }
           }
           drop_reference (token.comment);

@@ -32,6 +32,7 @@
 #include "rc-str-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
@@ -1149,19 +1150,23 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                   &pos, NULL, token.comment, false);
             else
               {
+                mixed_string_ty *ms =
+                  mixed_string_alloc_simple (token.string, lc_string,
+                                             pos.file_name, pos.line_number);
+                free (token.string);
                 /* A string immediately after a symbol means a function call.  */
                 if (state)
                   {
                     struct arglist_parser *tmp_argparser;
                     tmp_argparser = arglist_parser_alloc (mlp, next_shapes);
 
-                    arglist_parser_remember (tmp_argparser, 1, token.string,
+                    arglist_parser_remember (tmp_argparser, 1, ms,
                                              inner_context, pos.file_name,
                                              pos.line_number, token.comment);
                     arglist_parser_done (tmp_argparser, 1);
                   }
                 else
-                  arglist_parser_remember (argparser, arg, token.string,
+                  arglist_parser_remember (argparser, arg, ms,
                                            inner_context, pos.file_name,
                                            pos.line_number, token.comment);
               }

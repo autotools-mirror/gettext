@@ -2252,10 +2252,7 @@ extract_parenthesized (message_list_ty *mlp,
                                      arglist_parser_alloc (mlp,
                                                            state ? next_shapes : NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding =
-                xgettext_global_source_encoding;
               return true;
             }
           next_context_iter = null_context_list_iterator;
@@ -2264,9 +2261,7 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_rparen:
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return false;
 
         case xgettext_token_type_comma:
@@ -2301,15 +2296,17 @@ extract_parenthesized (message_list_ty *mlp,
 
         case xgettext_token_type_string_literal:
           {
-            char *string = mixed_string_contents (token.mixed_string);
-            mixed_string_free (token.mixed_string);
             if (extract_all)
-              remember_a_message (mlp, NULL, string, true, inner_context,
-                                  &token.pos, NULL, token.comment, false);
+              {
+                char *string = mixed_string_contents (token.mixed_string);
+                mixed_string_free (token.mixed_string);
+                remember_a_message (mlp, NULL, string, true, inner_context,
+                                    &token.pos, NULL, token.comment, false);
+              }
             else
               {
                 xgettext_current_source_encoding = po_charset_utf8;
-                arglist_parser_remember (argparser, arg, string,
+                arglist_parser_remember (argparser, arg, token.mixed_string,
                                          inner_context,
                                          token.pos.file_name,
                                          token.pos.line_number,
@@ -2330,9 +2327,7 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case xgettext_token_type_eof:
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           return true;
 
         default:

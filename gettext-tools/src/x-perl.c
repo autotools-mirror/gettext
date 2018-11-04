@@ -34,6 +34,7 @@
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
@@ -3066,9 +3067,7 @@ extract_balanced (message_list_ty *mlp,
 
       if (delim == tp->type)
         {
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           if (next_argparser != NULL)
             free (next_argparser);
 #if DEBUG_PERL
@@ -3085,9 +3084,7 @@ extract_balanced (message_list_ty *mlp,
 
       if (comma_delim && tp->type == token_type_comma)
         {
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           if (next_argparser != NULL)
             free (next_argparser);
 #if DEBUG_PERL
@@ -3137,9 +3134,7 @@ extract_balanced (message_list_ty *mlp,
                                 inner_context, next_context_iter,
                                 1, next_argparser))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               return true;
             }
 
@@ -3223,9 +3218,7 @@ extract_balanced (message_list_ty *mlp,
                                     inner_context, next_context_iter,
                                     1, next_argparser))
                 {
-                  xgettext_current_source_encoding = po_charset_utf8;
                   arglist_parser_done (argparser, arg);
-                  xgettext_current_source_encoding = xgettext_global_source_encoding;
                   return true;
                 }
               next_is_argument = false;
@@ -3238,9 +3231,7 @@ extract_balanced (message_list_ty *mlp,
                                     inner_context, next_context_iter,
                                     arg, arglist_parser_clone (argparser)))
                 {
-                  xgettext_current_source_encoding = po_charset_utf8;
                   arglist_parser_done (argparser, arg);
-                  xgettext_current_source_encoding = xgettext_global_source_encoding;
                   if (next_argparser != NULL)
                     free (next_argparser);
                   free_token (tp);
@@ -3277,9 +3268,7 @@ extract_balanced (message_list_ty *mlp,
           if (arglist_parser_decidedp (argparser, arg))
             {
               /* We have missed the argument.  */
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               argparser = arglist_parser_alloc (mlp, NULL);
               arg = 0;
             }
@@ -3339,10 +3328,12 @@ extract_balanced (message_list_ty *mlp,
               if (must_collect)
                 {
                   char *string = collect_message (mlp, tp, EXIT_FAILURE);
-
+                  mixed_string_ty *ms =
+                    mixed_string_alloc_utf8 (string, lc_string,
+                                             logical_file_name, tp->line_number);
+                  free (string);
                   xgettext_current_source_encoding = po_charset_utf8;
-                  arglist_parser_remember (argparser, arg,
-                                           string, inner_context,
+                  arglist_parser_remember (argparser, arg, ms, inner_context,
                                            logical_file_name, tp->line_number,
                                            tp->comment);
                   xgettext_current_source_encoding = xgettext_global_source_encoding;
@@ -3351,9 +3342,7 @@ extract_balanced (message_list_ty *mlp,
 
           if (arglist_parser_decidedp (argparser, arg))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               argparser = arglist_parser_alloc (mlp, NULL);
             }
 
@@ -3381,9 +3370,7 @@ extract_balanced (message_list_ty *mlp,
           fprintf (stderr, "%s:%d: type EOF (%d)\n",
                    logical_file_name, tp->line_number, nesting_level);
 #endif
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           if (next_argparser != NULL)
             free (next_argparser);
           next_argparser = NULL;
@@ -3399,9 +3386,7 @@ extract_balanced (message_list_ty *mlp,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               if (next_argparser != NULL)
                 free (next_argparser);
               free_token (tp);
@@ -3435,9 +3420,7 @@ extract_balanced (message_list_ty *mlp,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
             {
-              xgettext_current_source_encoding = po_charset_utf8;
               arglist_parser_done (argparser, arg);
-              xgettext_current_source_encoding = xgettext_global_source_encoding;
               if (next_argparser != NULL)
                 free (next_argparser);
               free_token (tp);
@@ -3469,9 +3452,7 @@ extract_balanced (message_list_ty *mlp,
 #endif
 
           /* The ultimate sign.  */
-          xgettext_current_source_encoding = po_charset_utf8;
           arglist_parser_done (argparser, arg);
-          xgettext_current_source_encoding = xgettext_global_source_encoding;
           argparser = arglist_parser_alloc (mlp, NULL);
 
           /* FIXME: Instead of resetting outer_context here, it may be better
