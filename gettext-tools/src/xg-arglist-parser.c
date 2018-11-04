@@ -87,6 +87,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
           ap->alternative[i].msgid_pos.file_name = NULL;
           ap->alternative[i].msgid_pos.line_number = (size_t)(-1);
           ap->alternative[i].msgid_comment = NULL;
+          ap->alternative[i].msgid_comment_is_utf8 = false;
           ap->alternative[i].msgid_plural = NULL;
           ap->alternative[i].msgid_plural_context = null_context;
           ap->alternative[i].msgid_plural_pos.file_name = NULL;
@@ -131,6 +132,7 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->msgid_context = cp->msgid_context;
       ccp->msgid_pos = cp->msgctxt_pos;
       ccp->msgid_comment = add_reference (cp->msgid_comment);
+      ccp->msgid_comment_is_utf8 = cp->msgid_comment_is_utf8;
       ccp->msgid_plural =
         (cp->msgid_plural != NULL ? mixed_string_clone (cp->msgid_plural) : NULL);
       ccp->msgid_plural_context = cp->msgid_plural_context;
@@ -146,7 +148,8 @@ arglist_parser_remember (struct arglist_parser *ap,
                          int argnum, mixed_string_ty *string,
                          flag_context_ty context,
                          char *file_name, size_t line_number,
-                         refcounted_string_list_ty *comment)
+                         refcounted_string_list_ty *comment,
+                         bool comment_is_utf8)
 {
   bool stored_string = false;
   size_t nalternatives = ap->nalternatives;
@@ -176,6 +179,7 @@ arglist_parser_remember (struct arglist_parser *ap,
               cp->msgid_pos.file_name = file_name;
               cp->msgid_pos.line_number = line_number;
               cp->msgid_comment = add_reference (comment);
+              cp->msgid_comment_is_utf8 = comment_is_utf8;
               stored_string = true;
               /* Mark msgid as done.  */
               cp->argnum1 = 0;
@@ -501,7 +505,8 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
           mp = remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
                                    msgid_context,
                                    &best_cp->msgid_pos,
-                                   NULL, best_cp->msgid_comment, false);
+                                   NULL, best_cp->msgid_comment,
+                                   best_cp->msgid_comment_is_utf8);
           if (mp != NULL && best_msgid_plural != NULL)
             remember_a_message_plural (mp, best_msgid_plural, true,
                                        msgid_plural_context,

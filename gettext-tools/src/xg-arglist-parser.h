@@ -51,6 +51,7 @@ struct partial_call
   flag_context_ty msgid_context;
   lex_pos_ty msgid_pos;
   refcounted_string_list_ty *msgid_comment;
+  bool msgid_comment_is_utf8;
   mixed_string_ty *msgid_plural; /* msgid_plural - owned mixed_string, or NULL */
   flag_context_ty msgid_plural_context;
   lex_pos_ty msgid_plural_pos;
@@ -79,12 +80,15 @@ extern struct arglist_parser * arglist_parser_clone (struct arglist_parser *ap);
    FILE_NAME must be allocated with indefinite extent.
    COMMENT may be savable_comment, or it may be a saved copy of savable_comment
    (then add_reference must be used when saving it, and drop_reference while
-   dropping it).  Clear savable_comment.  */
+   dropping it).  Clear savable_comment.
+   COMMENT_IS_UTF8 must be true if COMMENT has already been converted to UTF-8.
+ */
 extern void arglist_parser_remember (struct arglist_parser *ap,
                                      int argnum, mixed_string_ty *string,
                                      flag_context_ty context,
                                      char *file_name, size_t line_number,
-                                     refcounted_string_list_ty *comment);
+                                     refcounted_string_list_ty *comment,
+                                     bool comment_is_utf8);
 /* Adds a string argument as msgctxt to an arglist_parser, without incrementing
    the current argument number.
    STRING must be a mixed_string; its ownership is passed to the callee.

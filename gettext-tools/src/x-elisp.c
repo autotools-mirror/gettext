@@ -720,7 +720,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                                                  inner_context,
                                                  logical_file_name,
                                                  inner.line_number_at_start,
-                                                 savable_comment);
+                                                 savable_comment, false);
                       }
                   }
 

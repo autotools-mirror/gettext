@@ -1370,7 +1370,7 @@ read_command (int looking_for, flag_context_ty outer_context)
                                                inner_context,
                                                logical_file_name,
                                                inner.line_number_at_start,
-                                               savable_comment);
+                                               savable_comment, false);
                     }
                 }
 

@@ -2304,15 +2304,11 @@ extract_parenthesized (message_list_ty *mlp,
                                     &token.pos, NULL, token.comment, false);
               }
             else
-              {
-                xgettext_current_source_encoding = po_charset_utf8;
-                arglist_parser_remember (argparser, arg, token.mixed_string,
-                                         inner_context,
-                                         token.pos.file_name,
-                                         token.pos.line_number,
-                                         token.comment);
-                xgettext_current_source_encoding = xgettext_global_source_encoding;
-              }
+              arglist_parser_remember (argparser, arg, token.mixed_string,
+                                       inner_context,
+                                       token.pos.file_name,
+                                       token.pos.line_number,
+                                       token.comment, false);
             drop_reference (token.comment);
           }
           next_context_iter = null_context_list_iterator;

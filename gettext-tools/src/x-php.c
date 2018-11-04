@@ -1542,7 +1542,7 @@ extract_balanced (message_list_ty *mlp,
                 free (token.string);
                 arglist_parser_remember (argparser, arg, ms, inner_context,
                                          pos.file_name, pos.line_number,
-                                         token.comment);
+                                         token.comment, false);
               }
             drop_reference (token.comment);
           }

@@ -800,7 +800,7 @@ extract_parenthesized (message_list_ty *mlp,
                 arglist_parser_remember (argparser, arg, ms,
                                          inner_context,
                                          pos.file_name, pos.line_number,
-                                         savable_comment);
+                                         savable_comment, false);
               }
           }
           next_is_argument = false;

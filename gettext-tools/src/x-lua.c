@@ -1161,14 +1161,16 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                     tmp_argparser = arglist_parser_alloc (mlp, next_shapes);
 
                     arglist_parser_remember (tmp_argparser, 1, ms,
-                                             inner_context, pos.file_name,
-                                             pos.line_number, token.comment);
+                                             inner_context,
+                                             pos.file_name, pos.line_number,
+                                             token.comment, false);
                     arglist_parser_done (tmp_argparser, 1);
                   }
                 else
                   arglist_parser_remember (argparser, arg, ms,
-                                           inner_context, pos.file_name,
-                                           pos.line_number, token.comment);
+                                           inner_context,
+                                           pos.file_name, pos.line_number,
+                                           token.comment, false);
               }
           }
           drop_reference (token.comment);

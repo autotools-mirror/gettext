@@ -3332,11 +3332,9 @@ extract_balanced (message_list_ty *mlp,
                     mixed_string_alloc_utf8 (string, lc_string,
                                              logical_file_name, tp->line_number);
                   free (string);
-                  xgettext_current_source_encoding = po_charset_utf8;
                   arglist_parser_remember (argparser, arg, ms, inner_context,
                                            logical_file_name, tp->line_number,
-                                           tp->comment);
-                  xgettext_current_source_encoding = xgettext_global_source_encoding;
+                                           tp->comment, true);
                 }
             }
 

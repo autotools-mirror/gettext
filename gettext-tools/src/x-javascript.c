@@ -1514,14 +1514,10 @@ extract_balanced (message_list_ty *mlp,
                                     &pos, NULL, token.comment, true);
               }
             else
-              {
-                xgettext_current_source_encoding = po_charset_utf8;
-                arglist_parser_remember (argparser, arg, token.mixed_string,
-                                         inner_context,
-                                         pos.file_name, pos.line_number,
-                                         token.comment);
-                xgettext_current_source_encoding = xgettext_current_file_source_encoding;
-              }
+              arglist_parser_remember (argparser, arg, token.mixed_string,
+                                       inner_context,
+                                       pos.file_name, pos.line_number,
+                                       token.comment, true);
           }
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
