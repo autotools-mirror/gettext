@@ -295,7 +295,6 @@ struct extractor_ty
   struct formatstring_parser *formatstring_parser1;
   struct formatstring_parser *formatstring_parser2;
   struct formatstring_parser *formatstring_parser3;
-  struct literalstring_parser *literalstring_parser;
 };
 
 
@@ -2127,32 +2126,6 @@ savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
     }
 }
 
-refcounted_string_list_ty *
-savable_comment_convert_encoding (refcounted_string_list_ty *comment,
-                                  lex_pos_ty *pos)
-{
-  refcounted_string_list_ty *result;
-  size_t i;
-
-  result = XMALLOC (refcounted_string_list_ty);
-  result->refcount = 1;
-  string_list_init (&result->contents);
-
-  for (i = 0; i < comment->contents.nitems; i++)
-    {
-      const char *old_string = comment->contents.item[i];
-      char *string = from_current_source_encoding (old_string,
-                                                   lc_comment,
-                                                   pos->file_name,
-                                                   pos->line_number);
-      string_list_append (&result->contents, string);
-      if (string != old_string)
-        free (string);
-    }
-
-  return result;
-}
-
 
 
 static FILE *
@@ -2222,7 +2195,6 @@ static struct formatstring_parser *current_formatstring_parser1;
 static struct formatstring_parser *current_formatstring_parser2;
 static struct formatstring_parser *current_formatstring_parser3;
 
-static struct literalstring_parser *current_literalstring_parser;
 
 static void
 extract_from_file (const char *file_name, extractor_ty extractor,
@@ -2242,7 +2214,6 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   current_formatstring_parser1 = extractor.formatstring_parser1;
   current_formatstring_parser2 = extractor.formatstring_parser2;
   current_formatstring_parser3 = extractor.formatstring_parser3;
-  current_literalstring_parser = extractor.literalstring_parser;
   extractor.func (fp, real_file_name, logical_file_name, extractor.flag_table,
                   mdlp);
 
@@ -2992,17 +2963,14 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
           ap->alternative[i].argtotal = shapes->shapes[i].argtotal;
           ap->alternative[i].xcomments = shapes->shapes[i].xcomments;
           ap->alternative[i].msgctxt = NULL;
-          ap->alternative[i].msgctxt_escape = LET_NONE;
           ap->alternative[i].msgctxt_pos.file_name = NULL;
           ap->alternative[i].msgctxt_pos.line_number = (size_t)(-1);
           ap->alternative[i].msgid = NULL;
-          ap->alternative[i].msgid_escape = LET_NONE;
           ap->alternative[i].msgid_context = null_context;
           ap->alternative[i].msgid_pos.file_name = NULL;
           ap->alternative[i].msgid_pos.line_number = (size_t)(-1);
           ap->alternative[i].msgid_comment = NULL;
           ap->alternative[i].msgid_plural = NULL;
-          ap->alternative[i].msgid_plural_escape = LET_NONE;
           ap->alternative[i].msgid_plural_context = null_context;
           ap->alternative[i].msgid_plural_pos.file_name = NULL;
           ap->alternative[i].msgid_plural_pos.line_number = (size_t)(-1);
@@ -3040,16 +3008,13 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->argtotal = cp->argtotal;
       ccp->xcomments = cp->xcomments;
       ccp->msgctxt = (cp->msgctxt != NULL ? xstrdup (cp->msgctxt) : NULL);
-      ccp->msgctxt_escape = cp->msgctxt_escape;
       ccp->msgctxt_pos = cp->msgctxt_pos;
       ccp->msgid = (cp->msgid != NULL ? xstrdup (cp->msgid) : NULL);
-      ccp->msgid_escape = cp->msgid_escape;
       ccp->msgid_context = cp->msgid_context;
       ccp->msgid_pos = cp->msgctxt_pos;
       ccp->msgid_comment = add_reference (cp->msgid_comment);
       ccp->msgid_plural =
         (cp->msgid_plural != NULL ? xstrdup (cp->msgid_plural) : NULL);
-      ccp->msgid_plural_escape = cp->msgid_plural_escape;
       ccp->msgid_plural_context = cp->msgid_plural_context;
       ccp->msgid_plural_pos = cp->msgid_plural_pos;
     }
@@ -3059,12 +3024,11 @@ arglist_parser_clone (struct arglist_parser *ap)
 
 
 void
-arglist_parser_remember_literal (struct arglist_parser *ap,
-                                 int argnum, char *string,
-                                 flag_context_ty context,
-                                 char *file_name, size_t line_number,
-                                 refcounted_string_list_ty *comment,
-                                 enum literalstring_escape_type type)
+arglist_parser_remember (struct arglist_parser *ap,
+                         int argnum, char *string,
+                         flag_context_ty context,
+                         char *file_name, size_t line_number,
+                         refcounted_string_list_ty *comment)
 {
   bool stored_string = false;
   size_t nalternatives = ap->nalternatives;
@@ -3079,7 +3043,6 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
       if (argnum == cp->argnumc)
         {
           cp->msgctxt = string;
-          cp->msgctxt_escape = type;
           cp->msgctxt_pos.file_name = file_name;
           cp->msgctxt_pos.line_number = line_number;
           stored_string = true;
@@ -3091,7 +3054,6 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
           if (argnum == cp->argnum1)
             {
               cp->msgid = string;
-              cp->msgid_escape = type;
               cp->msgid_context = context;
               cp->msgid_pos.file_name = file_name;
               cp->msgid_pos.line_number = line_number;
@@ -3103,7 +3065,6 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
           if (argnum == cp->argnum2)
             {
               cp->msgid_plural = string;
-              cp->msgid_plural_escape = type;
               cp->msgid_plural_context = context;
               cp->msgid_plural_pos.file_name = file_name;
               cp->msgid_plural_pos.line_number = line_number;
@@ -3117,19 +3078,6 @@ arglist_parser_remember_literal (struct arglist_parser *ap,
      not used by arglist_parser_done, we don't free it.  */
   if (!stored_string)
     free (string);
-}
-
-
-void
-arglist_parser_remember (struct arglist_parser *ap,
-                         int argnum, char *string,
-                         flag_context_ty context,
-                         char *file_name, size_t line_number,
-                         refcounted_string_list_ty *comment)
-{
-  arglist_parser_remember_literal (ap, argnum, string, context,
-                                   file_name, line_number,
-                                   comment, LET_NONE);
 }
 
 
@@ -3148,7 +3096,6 @@ arglist_parser_remember_msgctxt (struct arglist_parser *ap,
       struct partial_call *cp = &ap->alternative[i];
 
       cp->msgctxt = string;
-      cp->msgctxt_escape = LET_NONE;
       cp->msgctxt_pos.file_name = file_name;
       cp->msgctxt_pos.line_number = line_number;
       stored_string = true;
@@ -3401,8 +3348,6 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
           {
             flag_context_ty msgid_context = best_cp->msgid_context;
             flag_context_ty msgid_plural_context = best_cp->msgid_plural_context;
-            struct literalstring_parser *parser = current_literalstring_parser;
-            const char *encoding;
 
             /* Special support for the 3-argument tr operator in Qt:
                When --qt and --keyword=tr:1,1,2c,3t are specified, add to the
@@ -3416,98 +3361,15 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                 msgid_plural_context.is_format3 = yes_according_to_context;
               }
 
-            if (best_cp->msgctxt != NULL)
-              {
-                if (parser != NULL && best_cp->msgctxt_escape != 0)
-                  {
-                    char *msgctxt =
-                      parser->parse (best_cp->msgctxt,
-                                     &best_cp->msgctxt_pos,
-                                     best_cp->msgctxt_escape);
-                    free (best_cp->msgctxt);
-                    best_cp->msgctxt = msgctxt;
-                  }
-                else
-                  {
-                    lex_pos_ty *pos = &best_cp->msgctxt_pos;
-                    CONVERT_STRING (best_cp->msgctxt, lc_string);
-                  }
-              }
-
-            if (parser != NULL && best_cp->msgid_escape != 0)
-              {
-                char *msgid = parser->parse (best_cp->msgid,
-                                             &best_cp->msgid_pos,
-                                             best_cp->msgid_escape);
-                if (best_cp->msgid_plural == best_cp->msgid)
-                  best_cp->msgid_plural = msgid;
-                free (best_cp->msgid);
-                best_cp->msgid = msgid;
-              }
-            else
-              {
-                lex_pos_ty *pos = &best_cp->msgid_pos;
-                CONVERT_STRING (best_cp->msgid, lc_string);
-              }
-
-            if (best_cp->msgid_plural)
-              {
-                /* best_cp->msgid_plural may point to best_cp->msgid.
-                   In that case, it is already interpreted and converted.  */
-                if (best_cp->msgid_plural != best_cp->msgid)
-                  {
-                    if (parser != NULL
-                        && best_cp->msgid_plural_escape != 0)
-                      {
-                        char *msgid_plural =
-                          parser->parse (best_cp->msgid_plural,
-                                         &best_cp->msgid_plural_pos,
-                                         best_cp->msgid_plural_escape);
-                        free (best_cp->msgid_plural);
-                        best_cp->msgid_plural = msgid_plural;
-                      }
-                    else
-                      {
-                        lex_pos_ty *pos = &best_cp->msgid_plural_pos;
-                        CONVERT_STRING (best_cp->msgid_plural, lc_string);
-                      }
-                  }
-
-                /* If best_cp->msgid_plural equals to best_cp->msgid,
-                   the ownership will be transferred to
-                   remember_a_message before it is passed to
-                   remember_a_message_plural.
-
-                   Make a copy of the string in that case.  */
-                if (best_cp->msgid_plural == best_cp->msgid)
-                  best_cp->msgid_plural = xstrdup (best_cp->msgid);
-              }
-
-            if (best_cp->msgid_comment != NULL)
-              {
-                refcounted_string_list_ty *msgid_comment =
-                  savable_comment_convert_encoding (best_cp->msgid_comment,
-                                                    &best_cp->msgid_pos);
-                drop_reference (best_cp->msgid_comment);
-                best_cp->msgid_comment = msgid_comment;
-              }
-
-            /* best_cp->msgctxt, best_cp->msgid, and best_cp->msgid_plural
-               are already in UTF-8.  Prevent further conversion in
-               remember_a_message.  */
-            encoding = xgettext_current_source_encoding;
-            xgettext_current_source_encoding = po_charset_utf8;
             mp = remember_a_message (ap->mlp, best_cp->msgctxt, best_cp->msgid,
                                      msgid_context,
                                      &best_cp->msgid_pos,
                                      NULL, best_cp->msgid_comment);
             if (mp != NULL && best_cp->msgid_plural != NULL)
-              remember_a_message_plural (mp,
-                                         best_cp->msgid_plural,
+              remember_a_message_plural (mp, best_cp->msgid_plural,
                                          msgid_plural_context,
                                          &best_cp->msgid_plural_pos,
                                          NULL);
-            xgettext_current_source_encoding = encoding;
           }
 
           if (best_cp->xcomments.nitems > 0)
@@ -3906,7 +3768,6 @@ language_to_extractor (const char *name)
     flag_context_list_table_ty *flag_table;
     struct formatstring_parser *formatstring_parser1;
     struct formatstring_parser *formatstring_parser2;
-    struct literalstring_parser *literalstring_parser;
   };
   typedef struct table_ty table_ty;
 
@@ -3954,7 +3815,6 @@ language_to_extractor (const char *name)
         result.formatstring_parser1 = tp->formatstring_parser1;
         result.formatstring_parser2 = tp->formatstring_parser2;
         result.formatstring_parser3 = NULL;
-        result.literalstring_parser = tp->literalstring_parser;
 
         /* Handle --qt.  It's preferrable to handle this facility here rather
            than through an option --language=C++/Qt because the latter would

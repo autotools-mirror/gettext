@@ -1,5 +1,5 @@
 /* xgettext RST/RSJ backend.
-   Copyright (C) 2001-2003, 2006, 2015-2016, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006, 2014, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,9 +33,9 @@ extern "C" {
 
 #define SCANNERS_RST \
   { "RST",              extract_rst,                                    \
-                        NULL, &formatstring_pascal, NULL, NULL },       \
+                        NULL, &formatstring_pascal, NULL },             \
   { "RSJ",              extract_rsj,                                    \
-                        NULL, &formatstring_pascal, NULL, NULL },       \
+                        NULL, &formatstring_pascal, NULL },             \
 
 /* Scan an RST file and add its translatable strings to mdlp.  */
 extern void extract_rst (FILE *fp, const char *real_filename,

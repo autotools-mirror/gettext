@@ -1,6 +1,5 @@
 /* xgettext AppData file backend.
-   Copyright (C) 2002-2003, 2006, 2013, 2015-2017 Free Software Foundation,
-   Inc.
+   Copyright (C) 2002-2003, 2006, 2013, 2015-2017 Free Software Foundation, Inc.
    Written by Philip Withnall <philip.withnall@collabora.co.uk>, 2015.
 
    This program is free software: you can redistribute it and/or modify
