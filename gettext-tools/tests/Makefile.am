@@ -82,7 +82,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-8 xgettext-c-9 xgettext-c-10 \
 	xgettext-c-11 xgettext-c-12 xgettext-c-13 xgettext-c-14 xgettext-c-15 \
 	xgettext-c-16 xgettext-c-17 xgettext-c-18 xgettext-c-19 xgettext-c-20 \
-	xgettext-c-21 xgettext-c-22 xgettext-c-23 \
+	xgettext-c-21 xgettext-c-22 xgettext-c-23 xgettext-c-24 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
 	xgettext-csharp-7 xgettext-csharp-8 \
@@ -114,7 +114,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-lua-1 xgettext-lua-2 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
 	xgettext-javascript-4 xgettext-javascript-5 xgettext-javascript-6 \
-	xgettext-vala-1 \
+	xgettext-vala-1 xgettext-vala-2 \
 	xgettext-gsettings-1 \
 	xgettext-desktop-1 \
 	xgettext-its-1 xgettext-its-2 \
@@ -169,7 +169,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	intl-thread-3.po \
 	gettextpo-1.de.po \
 	xgettext-1 \
-	xgettext-c-1 xg-c-21.c \
+	xgettext-c-1 xg-c-21.c xg-c-24.c xg-vala-2.vala \
 	common/supplemental/plurals.xml
 
 XGETTEXT = ../src/xgettext
