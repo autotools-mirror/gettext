@@ -1190,43 +1190,42 @@ phase5_get (token_ty *tp)
             return;
           }
 
-        /* Strings.  */
+        case '"': case '\'':
+          /* Strings.  */
           {
-            struct mixed_string_buffer *bp;
             int quote_char;
+            struct mixed_string_buffer msb;
 
-            case '"': case '\'':
-              quote_char = c;
-              lexical_context = lc_string;
-              /* Start accumulating the string.  */
-              bp = mixed_string_buffer_alloc (lexical_context,
-                                              logical_file_name,
-                                              line_number);
-              for (;;)
-                {
-                  int uc = phase7_getuc (quote_char);
+            quote_char = c;
+            lexical_context = lc_string;
+            /* Start accumulating the string.  */
+            mixed_string_buffer_init (&msb, lexical_context,
+                                      logical_file_name, line_number);
+            for (;;)
+              {
+                int uc = phase7_getuc (quote_char);
 
-                  /* Keep line_number in sync.  */
-                  bp->line_number = line_number;
+                /* Keep line_number in sync.  */
+                msb.line_number = line_number;
 
-                  if (uc == P7_EOF || uc == P7_STRING_END)
-                    break;
+                if (uc == P7_EOF || uc == P7_STRING_END)
+                  break;
 
-                  if (IS_UNICODE (uc))
-                    {
-                      assert (UNICODE_VALUE (uc) >= 0
-                              && UNICODE_VALUE (uc) < 0x110000);
-                      mixed_string_buffer_append_unicode (bp,
-                                                          UNICODE_VALUE (uc));
-                    }
-                  else
-                    mixed_string_buffer_append_char (bp, uc);
-                }
-              tp->string = mixed_string_buffer_done (bp);
-              tp->comment = add_reference (savable_comment);
-              lexical_context = lc_outside;
-              tp->type = last_token_type = token_type_string;
-              return;
+                if (IS_UNICODE (uc))
+                  {
+                    assert (UNICODE_VALUE (uc) >= 0
+                            && UNICODE_VALUE (uc) < 0x110000);
+                    mixed_string_buffer_append_unicode (&msb,
+                                                        UNICODE_VALUE (uc));
+                  }
+                else
+                  mixed_string_buffer_append_char (&msb, uc);
+              }
+            tp->string = mixed_string_buffer_result (&msb);
+            tp->comment = add_reference (savable_comment);
+            lexical_context = lc_outside;
+            tp->type = last_token_type = token_type_string;
+            return;
           }
 
         case '+':

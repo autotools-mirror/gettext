@@ -54,16 +54,6 @@ mixed_string_buffer_init (struct mixed_string_buffer *bp,
   bp->line_number = line_number;
 }
 
-struct mixed_string_buffer *
-mixed_string_buffer_alloc (lexical_context_ty lcontext,
-                           const char *logical_file_name,
-                           int line_number)
-{
-  struct mixed_string_buffer *bp = XMALLOC (struct mixed_string_buffer);
-  mixed_string_buffer_init (bp, lcontext, logical_file_name, line_number);
-  return bp;
-}
-
 bool
 mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp)
 {
@@ -262,15 +252,4 @@ mixed_string_buffer_result (struct mixed_string_buffer *bp)
 
   /* Return it.  */
   return utf8_buffer;
-}
-
-char *
-mixed_string_buffer_done (struct mixed_string_buffer *bp)
-{
-  char *result = mixed_string_buffer_result (bp);
-
-  /* Free also bp itself.  */
-  free (bp);
-
-  return result;
 }

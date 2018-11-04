@@ -57,12 +57,6 @@ extern void
                                  const char *logical_file_name,
                                  int line_number);
 
-/* Creates a fresh mixed_string_buffer.  */
-extern struct mixed_string_buffer *
-       mixed_string_buffer_alloc (lexical_context_ty lcontext,
-                                  const char *logical_file_name,
-                                  int line_number);
-
 /* Determines whether a mixed_string_buffer is still empty.  */
 extern bool mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp);
 
@@ -80,9 +74,6 @@ extern void mixed_string_buffer_destroy (struct mixed_string_buffer *bp);
 /* Frees the memory pointed to by a 'struct mixed_string_buffer'
    and returns the accumulated string in UTF-8.  */
 extern char * mixed_string_buffer_result (struct mixed_string_buffer *bp);
-
-/* Frees mixed_string_buffer and returns the accumulated string in UTF-8.  */
-extern char * mixed_string_buffer_done (struct mixed_string_buffer *bp);
 
 
 #ifdef __cplusplus

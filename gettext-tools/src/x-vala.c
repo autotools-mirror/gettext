@@ -844,7 +844,7 @@ phase3_get (token_ty *tp)
           /* FALLTHROUGH */
         case '"':
           {
-            struct mixed_string_buffer *bp;
+            struct mixed_string_buffer msb;
             int c2 = phase1_getc ();
 
             if (c2 == '"')
@@ -862,16 +862,15 @@ phase3_get (token_ty *tp)
               phase2_ungetc (c2);
 
             /* Start accumulating the string.  */
-            bp = mixed_string_buffer_alloc (lc_string,
-                                            logical_file_name,
-                                            line_number);
+            mixed_string_buffer_init (&msb, lc_string,
+                                      logical_file_name, line_number);
             if (verbatim)
               for (;;)
                 {
                   c = phase1_getc ();
 
                   /* Keep line_number in sync.  */
-                  bp->line_number = line_number;
+                  msb.line_number = line_number;
 
                   if (c == '"')
                     {
@@ -887,7 +886,7 @@ phase3_get (token_ty *tp)
                     }
                   if (c == EOF)
                     break;
-                  mixed_string_buffer_append_char (bp, c);
+                  mixed_string_buffer_append_char (&msb, c);
                 }
             else
               for (;;)
@@ -895,7 +894,7 @@ phase3_get (token_ty *tp)
                   c = phase7_getc ();
 
                   /* Keep line_number in sync.  */
-                  bp->line_number = line_number;
+                  msb.line_number = line_number;
 
                   if (c == P7_NEWLINE)
                     {
@@ -917,16 +916,16 @@ phase3_get (token_ty *tp)
                     {
                       assert (UNICODE_VALUE (c) >= 0
                               && UNICODE_VALUE (c) < 0x110000);
-                      mixed_string_buffer_append_unicode (bp,
+                      mixed_string_buffer_append_unicode (&msb,
                                                           UNICODE_VALUE (c));
                     }
                   else
-                    mixed_string_buffer_append_char (bp, c);
+                    mixed_string_buffer_append_char (&msb, c);
                 }
             /* Done accumulating the string.  */
             tp->type = last_token_type =
               template ? token_type_string_template : token_type_string_literal;
-            tp->string = mixed_string_buffer_done (bp);
+            tp->string = mixed_string_buffer_result (&msb);
             tp->comment = add_reference (savable_comment);
             return;
           }

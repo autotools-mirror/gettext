@@ -1361,7 +1361,7 @@ phase5_get (token_ty *tp)
                     }
                   if (c == '(')
                     {
-                      struct mixed_string_buffer *bp;
+                      struct mixed_string_buffer msb;
                       /* The state is either 0 or
                          N, after a ')' and N-1 bytes of the delimiter have been
                          encountered.  */
@@ -1369,11 +1369,9 @@ phase5_get (token_ty *tp)
 
                       /* Start accumulating the string.  */
                       if (relevant)
-                        bp = mixed_string_buffer_alloc (lc_string,
-                                                        logical_file_name,
-                                                        line_number);
-                      else
-                        bp = NULL;
+                        mixed_string_buffer_init (&msb, lc_string,
+                                                  logical_file_name,
+                                                  line_number);
                       state = 0;
 
                       for (;;)
@@ -1382,7 +1380,7 @@ phase5_get (token_ty *tp)
 
                           /* Keep line_number in sync.  */
                           if (relevant)
-                            bp->line_number = line_number;
+                            msb.line_number = line_number;
 
                           if (c == EOF)
                             break;
@@ -1398,7 +1396,7 @@ phase5_get (token_ty *tp)
                                   if (relevant)
                                     {
                                       tp->type = token_type_string_literal;
-                                      tp->string = mixed_string_buffer_done (bp);
+                                      tp->string = mixed_string_buffer_result (&msb);
                                       tp->comment = add_reference (savable_comment);
                                     }
                                   else
@@ -1414,7 +1412,7 @@ phase5_get (token_ty *tp)
                                  can be ')'.  */
                               if (relevant)
                                 for (i = 0; i < state; i++)
-                                  mixed_string_buffer_append_char (bp, buffer[i]);
+                                  mixed_string_buffer_append_char (&msb, buffer[i]);
 
                               /* But c may be ')'.  */
                               if (c == ')')
@@ -1422,7 +1420,7 @@ phase5_get (token_ty *tp)
                               else
                                 {
                                   if (relevant)
-                                    mixed_string_buffer_append_char (bp, c);
+                                    mixed_string_buffer_append_char (&msb, c);
                                   state = 0;
                                 }
                             }
@@ -1637,19 +1635,18 @@ phase5_get (token_ty *tp)
          about the argument not matching the prototype.  Just pretend it
          won't happen.  */
       {
-        struct mixed_string_buffer *bp;
+        struct mixed_string_buffer msb;
 
         /* Start accumulating the string.  */
-        bp = mixed_string_buffer_alloc (lc_string,
-                                        logical_file_name,
-                                        line_number);
+        mixed_string_buffer_init (&msb, lc_string,
+                                  logical_file_name, line_number);
 
         for (;;)
           {
             c = phase7_getc ();
 
             /* Keep line_number in sync.  */
-            bp->line_number = line_number;
+            msb.line_number = line_number;
 
             if (c == P7_NEWLINE)
               {
@@ -1668,14 +1665,13 @@ phase5_get (token_ty *tp)
               {
                 assert (UNICODE_VALUE (c) >= 0
                         && UNICODE_VALUE (c) < 0x110000);
-                mixed_string_buffer_append_unicode (bp,
-                                                    UNICODE_VALUE (c));
+                mixed_string_buffer_append_unicode (&msb, UNICODE_VALUE (c));
               }
             else
-              mixed_string_buffer_append_char (bp, c);
+              mixed_string_buffer_append_char (&msb, c);
           }
         tp->type = token_type_string_literal;
-        tp->string = mixed_string_buffer_done (bp);
+        tp->string = mixed_string_buffer_result (&msb);
         tp->comment = add_reference (savable_comment);
         return;
       }

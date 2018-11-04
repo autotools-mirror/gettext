@@ -1639,14 +1639,15 @@ phase6_get (token_ty *tp)
         case '"':
           /* Regular string literal.  */
           {
-            struct mixed_string_buffer *literal;
+            struct mixed_string_buffer literal;
 
             lexical_context = lc_string;
-            literal = mixed_string_buffer_alloc (lexical_context,
-                                                 logical_file_name,
-                                                 logical_line_number);
-            accumulate_escaped (literal, '"');
-            tp->string = mixed_string_buffer_done (literal);
+            mixed_string_buffer_init (&literal,
+                                      lexical_context,
+                                      logical_file_name,
+                                      logical_line_number);
+            accumulate_escaped (&literal, '"');
+            tp->string = mixed_string_buffer_result (&literal);
             tp->comment = add_reference (savable_comment);
             lexical_context = lc_outside;
             tp->type = token_type_string_literal;

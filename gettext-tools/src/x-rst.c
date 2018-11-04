@@ -386,7 +386,7 @@ parse_integer ()
   return (bufpos == 0 ? pr_none : pr_parsed);
 }
 
-static struct mixed_string_buffer *stringbuf;
+static struct mixed_string_buffer stringbuf;
 
 /* Parses a string.  Returns it in stringbuf, in UTF-8 encoding.
    Returns a parse_result.  */
@@ -401,14 +401,13 @@ parse_string ()
       phase2_ungetc (c);
       return pr_none;
     }
-  stringbuf = mixed_string_buffer_alloc (lc_string,
-                                         logical_file_name,
-                                         line_number);
+  mixed_string_buffer_init (&stringbuf, lc_string,
+                            logical_file_name, line_number);
   for (;;)
     {
       c = phase1_getc ();
       /* Keep line_number in sync.  */
-      stringbuf->line_number = line_number;
+      stringbuf.line_number = line_number;
       if (c == EOF || (c >= 0 && c < 0x20))
         return pr_syntax;
       if (c == '"')
@@ -434,7 +433,7 @@ parse_string ()
                   else
                     return pr_syntax;
                 }
-              mixed_string_buffer_append_unicode (stringbuf, n);
+              mixed_string_buffer_append_unicode (&stringbuf, n);
             }
           else
             {
@@ -462,11 +461,11 @@ parse_string ()
                 default:
                   return pr_syntax;
                 }
-              mixed_string_buffer_append_char (stringbuf, c);
+              mixed_string_buffer_append_char (&stringbuf, c);
             }
         }
       else
-        mixed_string_buffer_append_char (stringbuf, c);
+        mixed_string_buffer_append_char (&stringbuf, c);
     }
   return pr_parsed;
 }
@@ -503,7 +502,7 @@ extract_rsj (FILE *f,
           char *s1;
           if (parse_string () != pr_parsed)
             goto invalid_json;
-          s1 = mixed_string_buffer_done (stringbuf);
+          s1 = mixed_string_buffer_result (&stringbuf);
 
           /* Parse a colon.  */
           c = phase2_getc ();
@@ -550,7 +549,7 @@ extract_rsj (FILE *f,
                               char *s2;
                               if (parse_string () != pr_parsed)
                                 goto invalid_json;
-                              s2 = mixed_string_buffer_done (stringbuf);
+                              s2 = mixed_string_buffer_result (&stringbuf);
 
                               /* Parse a colon.  */
                               c = phase2_getc ();
@@ -571,7 +570,7 @@ extract_rsj (FILE *f,
                                     goto invalid_rsj;
                                   if (r == pr_syntax || location != NULL)
                                     goto invalid_json;
-                                  location = mixed_string_buffer_done (stringbuf);
+                                  location = mixed_string_buffer_result (&stringbuf);
                                 }
                               else if (strcmp (s2, "sourcebytes") == 0)
                                 {
@@ -607,7 +606,7 @@ extract_rsj (FILE *f,
                                     goto invalid_rsj;
                                   if (r == pr_syntax || msgid != NULL)
                                     goto invalid_json;
-                                  msgid = mixed_string_buffer_done (stringbuf);
+                                  msgid = mixed_string_buffer_result (&stringbuf);
                                 }
                               else
                                 goto invalid_rsj;
