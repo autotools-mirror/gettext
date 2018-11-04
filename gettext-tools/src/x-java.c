@@ -33,6 +33,7 @@
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
+#include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
@@ -385,233 +386,22 @@ phase3_ungetc (int c)
 
 /* ========================= Accumulating strings.  ======================== */
 
-/* A string buffer type that allows appending bytes (in the
-   xgettext_current_source_encoding) or Unicode characters.
-   Returns the entire string in UTF-8 encoding.  */
+/* See xg-mixed-string.h for the main API.  */
 
-struct string_buffer
-{
-  /* The part of the string that has already been converted to UTF-8.  */
-  char *utf8_buffer;
-  size_t utf8_buflen;
-  size_t utf8_allocated;
-  /* The first half of an UTF-16 surrogate character.  */
-  unsigned short utf16_surr;
-  /* The part of the string that is still in the source encoding.  */
-  char *curr_buffer;
-  size_t curr_buflen;
-  size_t curr_allocated;
-  /* The lexical context.  Used only for error message purposes.  */
-  lexical_context_ty lcontext;
-};
-
-/* Initialize a 'struct string_buffer' to empty.  */
-static inline void
-init_string_buffer (struct string_buffer *bp, lexical_context_ty lcontext)
-{
-  bp->utf8_buffer = NULL;
-  bp->utf8_buflen = 0;
-  bp->utf8_allocated = 0;
-  bp->utf16_surr = 0;
-  bp->curr_buffer = NULL;
-  bp->curr_buflen = 0;
-  bp->curr_allocated = 0;
-  bp->lcontext = lcontext;
-}
-
-/* Auxiliary function: Append a byte to bp->curr.  */
-static inline void
-string_buffer_append_byte (struct string_buffer *bp, unsigned char c)
-{
-  if (bp->curr_buflen == bp->curr_allocated)
-    {
-      bp->curr_allocated = 2 * bp->curr_allocated + 10;
-      bp->curr_buffer = xrealloc (bp->curr_buffer, bp->curr_allocated);
-    }
-  bp->curr_buffer[bp->curr_buflen++] = c;
-}
-
-/* Auxiliary function: Ensure count more bytes are available in bp->utf8.  */
-static inline void
-string_buffer_append_unicode_grow (struct string_buffer *bp, size_t count)
-{
-  if (bp->utf8_buflen + count > bp->utf8_allocated)
-    {
-      size_t new_allocated = 2 * bp->utf8_allocated + 10;
-      if (new_allocated < bp->utf8_buflen + count)
-        new_allocated = bp->utf8_buflen + count;
-      bp->utf8_allocated = new_allocated;
-      bp->utf8_buffer = xrealloc (bp->utf8_buffer, new_allocated);
-    }
-}
-
-/* Auxiliary function: Append a Unicode character to bp->utf8.
-   uc must be < 0x110000.  */
-static inline void
-string_buffer_append_unicode (struct string_buffer *bp, ucs4_t uc)
-{
-  unsigned char utf8buf[6];
-  int count = u8_uctomb (utf8buf, uc, 6);
-
-  if (count < 0)
-    /* The caller should have ensured that uc is not out-of-range.  */
-    abort ();
-
-  string_buffer_append_unicode_grow (bp, count);
-  memcpy (bp->utf8_buffer + bp->utf8_buflen, utf8buf, count);
-  bp->utf8_buflen += count;
-}
-
-/* Auxiliary function: Handle the attempt to append a lone surrogate to
-   bp->utf8.  */
+/* Append a character or Unicode character to a 'struct mixed_string_buffer'.  */
 static void
-string_buffer_append_lone_surrogate (struct string_buffer *bp, unsigned int uc)
-{
-  /* A half surrogate is invalid, therefore use U+FFFD instead.
-     It appears to be valid Java: The Java Language Specification,
-     3rd ed., says "The Java programming language represents text
-     in sequences of 16-bit code units, using the UTF-16 encoding."
-     but does not impose constraints on the use of \uxxxx escape
-     sequences for surrogates.  And the JDK's javac happily groks
-     half surrogates.
-     But a half surrogate is invalid in UTF-8:
-       - RFC 3629 says
-           "The definition of UTF-8 prohibits encoding character
-            numbers between U+D800 and U+DFFF".
-       - Unicode 4.0 chapter 3
-         <http://www.unicode.org/versions/Unicode4.0.0/ch03.pdf>
-         section 3.9, p.77, says
-           "Because surrogate code points are not Unicode scalar
-            values, any UTF-8 byte sequence that would otherwise
-            map to code points D800..DFFF is ill-formed."
-         and in table 3-6, p. 78, does not mention D800..DFFF.
-       - The unicode.org FAQ question "How do I convert an unpaired
-         UTF-16 surrogate to UTF-8?" has the answer
-           "By representing such an unpaired surrogate on its own
-            as a 3-byte sequence, the resulting UTF-8 data stream
-            would become ill-formed."
-     So use U+FFFD instead.  */
-  error_with_progname = false;
-  error (0, 0, _("%s:%d: warning: lone surrogate U+%04X"),
-         logical_file_name, line_number, uc);
-  error_with_progname = true;
-  string_buffer_append_unicode (bp, 0xfffd);
-}
-
-/* Auxiliary function: Flush bp->utf16_surr into bp->utf8_buffer.  */
-static inline void
-string_buffer_flush_utf16_surr (struct string_buffer *bp)
-{
-  if (bp->utf16_surr != 0)
-    {
-      string_buffer_append_lone_surrogate (bp, bp->utf16_surr);
-      bp->utf16_surr = 0;
-    }
-}
-
-/* Auxiliary function: Flush bp->curr_buffer into bp->utf8_buffer.  */
-static inline void
-string_buffer_flush_curr_buffer (struct string_buffer *bp, int lineno)
-{
-  if (bp->curr_buflen > 0)
-    {
-      char *curr;
-      size_t count;
-
-      string_buffer_append_byte (bp, '\0');
-
-      /* Convert from the source encoding to UTF-8.  */
-      curr = from_current_source_encoding (bp->curr_buffer, bp->lcontext,
-                                           logical_file_name, lineno);
-
-      /* Append it to bp->utf8_buffer.  */
-      count = strlen (curr);
-      string_buffer_append_unicode_grow (bp, count);
-      memcpy (bp->utf8_buffer + bp->utf8_buflen, curr, count);
-      bp->utf8_buflen += count;
-
-      if (curr != bp->curr_buffer)
-        free (curr);
-      bp->curr_buflen = 0;
-    }
-}
-
-/* Append a character or Unicode character to a 'struct string_buffer'.  */
-static void
-string_buffer_append (struct string_buffer *bp, int c)
+mixed_string_buffer_append (struct mixed_string_buffer *bp, int c)
 {
   if (IS_UNICODE (c))
     {
       /* Append a Unicode character.  */
-
-      /* Switch from multibyte character mode to Unicode character mode.  */
-      string_buffer_flush_curr_buffer (bp, line_number);
-
-      /* Test whether this character and the previous one form a Unicode
-         surrogate character pair.  */
-      if (bp->utf16_surr != 0
-          && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
-        {
-          unsigned short utf16buf[2];
-          ucs4_t uc;
-
-          utf16buf[0] = bp->utf16_surr;
-          utf16buf[1] = UTF16_VALUE (c);
-          if (u16_mbtouc (&uc, utf16buf, 2) != 2)
-            abort ();
-
-          string_buffer_append_unicode (bp, uc);
-          bp->utf16_surr = 0;
-        }
-      else
-        {
-          string_buffer_flush_utf16_surr (bp);
-
-          if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
-            bp->utf16_surr = UTF16_VALUE (c);
-          else if (c >= UNICODE (0xdc00) && c < UNICODE (0xe000))
-            string_buffer_append_lone_surrogate (bp, UTF16_VALUE (c));
-          else
-            string_buffer_append_unicode (bp, UTF16_VALUE (c));
-        }
+      mixed_string_buffer_append_unicode (bp, UTF16_VALUE (c));
     }
   else
     {
       /* Append a single byte.  */
-
-      /* Switch from Unicode character mode to multibyte character mode.  */
-      string_buffer_flush_utf16_surr (bp);
-
-      /* When a newline is seen, convert the accumulated multibyte sequence.
-         This ensures a correct line number in the error message in case of
-         a conversion error.  The "- 1" is to account for the newline.  */
-      if (c == '\n')
-        string_buffer_flush_curr_buffer (bp, line_number - 1);
-
-      string_buffer_append_byte (bp, (unsigned char) c);
+      mixed_string_buffer_append_char (bp, (unsigned char) c);
     }
-}
-
-/* Return the string buffer's contents.  */
-static char *
-string_buffer_result (struct string_buffer *bp)
-{
-  /* Flush all into bp->utf8_buffer.  */
-  string_buffer_flush_utf16_surr (bp);
-  string_buffer_flush_curr_buffer (bp, line_number);
-  /* NUL-terminate it.  */
-  string_buffer_append_unicode_grow (bp, 1);
-  bp->utf8_buffer[bp->utf8_buflen] = '\0';
-  /* Return it.  */
-  return bp->utf8_buffer;
-}
-
-/* Free the memory pointed to by a 'struct string_buffer'.  */
-static inline void
-free_string_buffer (struct string_buffer *bp)
-{
-  free (bp->utf8_buffer);
-  free (bp->curr_buffer);
 }
 
 
@@ -620,34 +410,31 @@ free_string_buffer (struct string_buffer *bp)
 
 /* Accumulating a single comment line.  */
 
-static struct string_buffer comment_buffer;
+static struct mixed_string_buffer comment_buffer;
 
 static inline void
 comment_start ()
 {
-  comment_buffer.utf8_buflen = 0;
-  comment_buffer.utf16_surr = 0;
-  comment_buffer.curr_buflen = 0;
-  comment_buffer.lcontext = lc_comment;
+  mixed_string_buffer_init (&comment_buffer, lc_comment,
+                            logical_file_name, line_number);
 }
 
 static inline bool
 comment_at_start ()
 {
-  return (comment_buffer.utf8_buflen == 0 && comment_buffer.utf16_surr == 0
-          && comment_buffer.curr_buflen == 0);
+  return mixed_string_buffer_is_empty (&comment_buffer);
 }
 
 static inline void
 comment_add (int c)
 {
-  string_buffer_append (&comment_buffer, c);
+  mixed_string_buffer_append (&comment_buffer, c);
 }
 
 static inline void
 comment_line_end (size_t chars_to_remove)
 {
-  char *buffer = string_buffer_result (&comment_buffer);
+  char *buffer = mixed_string_buffer_result (&comment_buffer);
   size_t buflen = strlen (buffer);
 
   buflen -= chars_to_remove;
@@ -855,7 +642,7 @@ do_getc_escaped ()
 
 /* Read a string literal or character literal.  */
 static void
-accumulate_escaped (struct string_buffer *literal, int delimiter)
+accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
 {
   int c;
 
@@ -880,7 +667,7 @@ accumulate_escaped (struct string_buffer *literal, int delimiter)
         }
       if (RED (c) == '\\')
         c = do_getc_escaped ();
-      string_buffer_append (literal, c);
+      mixed_string_buffer_append (literal, c);
     }
 }
 
@@ -1044,12 +831,12 @@ phase5_get (token_ty *tp)
         case '"':
           /* String literal.  */
           {
-            struct string_buffer literal;
+            struct mixed_string_buffer literal;
 
-            init_string_buffer (&literal, lc_string);
+            mixed_string_buffer_init (&literal, lc_string,
+                                      logical_file_name, line_number);
             accumulate_escaped (&literal, '"');
-            tp->string = xstrdup (string_buffer_result (&literal));
-            free_string_buffer (&literal);
+            tp->string = mixed_string_buffer_result (&literal);
             tp->comment = add_reference (savable_comment);
             tp->type = token_type_string_literal;
             return;
@@ -1058,11 +845,12 @@ phase5_get (token_ty *tp)
         case '\'':
           /* Character literal.  */
           {
-            struct string_buffer literal;
+            struct mixed_string_buffer literal;
 
-            init_string_buffer (&literal, lc_outside);
+            mixed_string_buffer_init (&literal, lc_outside,
+                                      logical_file_name, line_number);
             accumulate_escaped (&literal, '\'');
-            free_string_buffer (&literal);
+            mixed_string_buffer_destroy (&literal);
             tp->type = token_type_other;
             return;
           }
