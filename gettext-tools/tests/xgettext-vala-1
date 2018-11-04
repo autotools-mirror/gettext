@@ -27,7 +27,7 @@ int main (string[] args) {
     }
 
     var s4 = _("""Extract this
-    ""\a
+    ""\t\a
     fourth string""");
 
     var s5 = _("Extract this \u2464th string");
@@ -128,7 +128,7 @@ msgstr ""
 
 msgid ""
 "Extract this\n"
-"    \"\"\\a\n"
+"    \"\"\\t\\a\n"
 "    fourth string"
 msgstr ""
 
@@ -193,7 +193,7 @@ msgstr ""
 
 msgid ""
 "Extract this\n"
-"    \"\"\\a\n"
+"    \"\"\\t\\a\n"
 "    fourth string"
 msgstr ""
 

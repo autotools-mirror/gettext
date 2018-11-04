@@ -448,18 +448,12 @@ phase7_getc ()
 
     case '"':
     case '\'':
-    case '?':
     case '\\':
+    case '$':
       return c;
 
-    case 'a':
-      return '\a';
     case 'b':
       return '\b';
-
-      /* The \e escape is preculiar to gcc, and assumes an ASCII
-         character set (or superset).  We don't provide support for it
-         here.  */
 
     case 'f':
       return '\f';
@@ -513,8 +507,7 @@ phase7_getc ()
         }
       return n;
 
-    case '0': case '1': case '2': case '3':
-    case '4': case '5': case '6': case '7':
+    case '0':
       n = 0;
       for (j = 0; j < 3; ++j)
         {
@@ -534,12 +527,12 @@ phase7_getc ()
       phase1_ungetc (c);
       return n;
 
-    case 'U': case 'u':
+    case 'u':
       {
         unsigned char buf[8];
 
         n = 0;
-        for (j = 0; j < (c == 'u' ? 4 : 8); j++)
+        for (j = 0; j < 4; j++)
           {
             int c1 = phase1_getc ();
 
