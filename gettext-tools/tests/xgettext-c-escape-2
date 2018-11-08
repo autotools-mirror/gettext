@@ -5,16 +5,16 @@
 
 : ${XGETTEXT=xgettext}
 
-cat <<\EOF > xg-c-23.c
+cat <<\EOF > xg-c-escape-2.c
 char *x = N_("Jean Br\xc3\xa9""fort");
 EOF
 
 ${XGETTEXT} --from-code=UTF-8 --no-location -kN_ \
-            -o xg-c-23.tmp xg-c-23.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-23.tmp > xg-c-23.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-23.tmq > xg-c-23.po || Exit 1
+            -o xg-c-escape-2.tmp xg-c-escape-2.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-escape-2.tmp > xg-c-escape-2.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-escape-2.tmq > xg-c-escape-2.po || Exit 1
 
-cat <<\EOF > xg-c-23.ok
+cat <<\EOF > xg-c-escape-2.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -38,7 +38,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-23.ok xg-c-23.po
+${DIFF} xg-c-escape-2.ok xg-c-escape-2.po
 result=$?
 
 exit $result
