@@ -6,11 +6,11 @@
 : ${XGETTEXT=xgettext}
 
 ${XGETTEXT} --no-location --no-wrap \
-            -o xg-c-21.tmp "$abs_srcdir"/xg-c-21.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-21.tmp > xg-c-21.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-21.tmq > xg-c-21.po || Exit 1
+            -o xg-c-escape-3.tmp "$abs_srcdir"/xg-c-escape-3.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-escape-3.tmp > xg-c-escape-3.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-escape-3.tmq > xg-c-escape-3.po || Exit 1
 
-cat <<\EOF > xg-c-21.ok
+cat <<\EOF > xg-c-escape-3.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -73,7 +73,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-21.ok xg-c-21.po
+${DIFF} xg-c-escape-3.ok xg-c-escape-3.po
 result=$?
 
 exit $result
