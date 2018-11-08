@@ -3,15 +3,15 @@
 
 # Test C support: comments.
 
-cat <<EOF > xg-c-5.in.cc
+cat <<EOF > xg-c-comment-1.in.cc
 main(){printf(gettext/*puke*/(/*barf*/"Hello, " "World!" "\n")); }
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-5.tmp xg-c-5.in.cc || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-5.tmp.po > xg-c-5.po || Exit 1
+${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-comment-1.tmp xg-c-comment-1.in.cc || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-comment-1.tmp.po > xg-c-comment-1.po || Exit 1
 
-cat <<EOF > xg-c-5.ok
+cat <<EOF > xg-c-comment-1.ok
 #. puke
 #. barf
 #, c-format
@@ -20,7 +20,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-5.ok xg-c-5.po
+${DIFF} xg-c-comment-1.ok xg-c-comment-1.po
 result=$?
 
 exit $result
