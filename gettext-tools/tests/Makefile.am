@@ -80,8 +80,9 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-9 \
-	xgettext-c-16 xgettext-c-18 xgettext-c-19 \
+	xgettext-c-16 xgettext-c-18 \
 	xgettext-c-21 xgettext-c-23 xgettext-c-24 xgettext-c-25 \
+	xgettext-c-escape-1 \
 	xgettext-c-format-1 xgettext-c-format-2 xgettext-c-format-3 \
 	xgettext-c-format-4 xgettext-c-format-5 \
 	xgettext-c-ctxt-1 xgettext-c-ctxt-2 xgettext-c-ctxt-3 \

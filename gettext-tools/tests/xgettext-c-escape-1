@@ -13,7 +13,7 @@ EOF
 
 (LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.c 2>&1; exit) | grep 'invalid Unicode character' || Exit 1
 
-cat <<\EOF > xg-c-19.in.c
+cat <<\EOF > xg-c-escape-1.in.c
 /* 最初のコメント */
 "最初の文字列";
 
@@ -28,15 +28,15 @@ gettext ("\u30A");
 EOF
 
 : ${ICONV=iconv}
-iconv -f UTF-8 -t EUC-JP < xg-c-19.in.c > xg-c-19.c \
+iconv -f UTF-8 -t EUC-JP < xg-c-escape-1.in.c > xg-c-escape-1.c \
   || { echo "Skipping test: iconv does not work for EUC-JP"; Exit 77; }
 
 ${XGETTEXT} --from-code=EUC-JP --add-comments --no-location --no-wrap \
-            -o xg-c-19.tmp xg-c-19.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-19.tmp > xg-c-19.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-19.tmq > xg-c-19.po || Exit 1
+            -o xg-c-escape-1.tmp xg-c-escape-1.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-escape-1.tmp > xg-c-escape-1.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-escape-1.tmq > xg-c-escape-1.po || Exit 1
 
-cat <<\EOF > xg-c-19.ok
+cat <<\EOF > xg-c-escape-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -74,7 +74,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-19.ok xg-c-19.po
+${DIFF} xg-c-escape-1.ok xg-c-escape-1.po
 result=$?
 
 exit $result
