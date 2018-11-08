@@ -21,7 +21,7 @@ EOF
 
 (LANGUAGE= LC_ALL=C ${XGETTEXT} --no-location --no-wrap -o - err1.cc 2>&1; exit) | grep 'unterminated raw string literal' || Exit 1
 
-cat <<\EOF > xg-c-20.cc
+cat <<\EOF > xg-c-c++-1.cc
 #define X ""
 gettext (X"This is a concatenation of a macro and a string");
 
@@ -79,11 +79,11 @@ gettext(\"abc\");
 EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
-            -o xg-c-20.tmp xg-c-20.cc || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-20.tmp > xg-c-20.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-20.tmq > xg-c-20.po || Exit 1
+            -o xg-c-c++-1.tmp xg-c-c++-1.cc || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-c++-1.tmp > xg-c-c++-1.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-c++-1.tmq > xg-c-c++-1.po || Exit 1
 
-cat <<\EOF > xg-c-20.ok
+cat <<\EOF > xg-c-c++-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -123,9 +123,9 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-20.ok xg-c-20.po || Exit 1
+${DIFF} xg-c-c++-1.ok xg-c-c++-1.po || Exit 1
 
-cat <<\EOF > xg-c-20.c
+cat <<\EOF > xg-c-c++-1.c
 gettext (R"aaa(This is NOT a raw string");
 
 gettext (u8R"aaa(This is NOT a raw string");
@@ -134,11 +134,11 @@ uR"aaa(This is NOT a raw string";
 EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
-            -o xg-c-20c.tmp xg-c-20.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-20c.tmp > xg-c-20c.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-20c.tmq > xg-c-20c.po || Exit 1
+            -o xg-c-c++-1c.tmp xg-c-c++-1.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-c++-1c.tmp > xg-c-c++-1c.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-c++-1c.tmq > xg-c-c++-1c.po || Exit 1
 
-cat <<\EOF > xg-c-20c.ok
+cat <<\EOF > xg-c-c++-1c.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -161,4 +161,4 @@ msgid "aaa(This is NOT a raw string"
 msgstr ""
 EOF
 
-${DIFF} xg-c-20c.ok xg-c-20c.po || Exit 1
+${DIFF} xg-c-c++-1c.ok xg-c-c++-1c.po || Exit 1
