@@ -3,7 +3,7 @@
 
 # Test C support: --add-comments option.
 
-cat <<EOF > xg-c-9.c
+cat <<EOF > xg-c-comment-5.c
 // This comment will not be extracted.
 print (gettext ("help"));
 //  TRANSLATORS: This is an extracted comment.
@@ -22,10 +22,10 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
-  -d xg-c-9.tmp xg-c-9.c || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-9.tmp.po > xg-c-9.po || Exit 1
+  -d xg-c-comment-5.tmp xg-c-comment-5.c || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-comment-5.tmp.po > xg-c-comment-5.po || Exit 1
 
-cat <<EOF > xg-c-9.ok
+cat <<EOF > xg-c-comment-5.ok
 msgid "help"
 msgstr ""
 
@@ -50,7 +50,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-9.ok xg-c-9.po
+${DIFF} xg-c-comment-5.ok xg-c-comment-5.po
 result=$?
 
 exit $result
