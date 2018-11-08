@@ -3,7 +3,7 @@
 
 # Test C support: --add-comments option.
 
-cat <<EOF > xg-c-6.in.C
+cat <<EOF > xg-c-comment-4.in.C
 /* This comment will not be extracted.  */
 gettext ("help");
 
@@ -19,10 +19,10 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=XXX \
-  -d xg-c-6.tmp xg-c-6.in.C || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-6.tmp.po > xg-c-6.po || Exit 1
+  -d xg-c-comment-4.tmp xg-c-comment-4.in.C || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-comment-4.tmp.po > xg-c-comment-4.po || Exit 1
 
-cat <<EOF > xg-c-6.ok
+cat <<EOF > xg-c-comment-4.ok
 msgid "help"
 msgstr ""
 
@@ -39,7 +39,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-6.ok xg-c-6.po
+${DIFF} xg-c-comment-4.ok xg-c-comment-4.po
 result=$?
 
 exit $result

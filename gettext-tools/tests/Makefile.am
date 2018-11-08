@@ -79,10 +79,11 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-appdata-1 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 \
-	xgettext-c-6 xgettext-c-9 \
+	xgettext-c-9 \
 	xgettext-c-18 \
 	xgettext-c-24 xgettext-c-25 \
 	xgettext-c-comment-1 xgettext-c-comment-2 xgettext-c-comment-3 \
+	xgettext-c-comment-4 \
 	xgettext-c-escape-1 xgettext-c-escape-2 xgettext-c-escape-3 \
 	xgettext-c-format-1 xgettext-c-format-2 xgettext-c-format-3 \
 	xgettext-c-format-4 xgettext-c-format-5 \
