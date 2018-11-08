@@ -81,9 +81,10 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 \
 	xgettext-c-6 xgettext-c-7 xgettext-c-9 \
 	xgettext-c-14 \
-	xgettext-c-16 xgettext-c-17 xgettext-c-18 xgettext-c-19 \
+	xgettext-c-16 xgettext-c-18 xgettext-c-19 \
 	xgettext-c-21 xgettext-c-23 xgettext-c-24 xgettext-c-25 \
 	xgettext-c-format-1 xgettext-c-format-2 xgettext-c-format-3 \
+	xgettext-c-format-4 \
 	xgettext-c-ctxt-1 xgettext-c-ctxt-2 xgettext-c-ctxt-3 \
 	xgettext-c-c++-1 xgettext-c-c++-2 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \

@@ -3,7 +3,7 @@
 
 # Test C++ support: test kde-format and format recognition heuristics.
 
-cat <<\EOF > xg-c-17.cc
+cat <<\EOF > xg-c-format-4.cc
 /* When xgettext has no info, it flags both c-format and kde-format, based
    on the heuristics.  */
 gettext ("used time: %1m %2s");
@@ -15,11 +15,11 @@ gettext ("remaining time: %1m %2s");
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-c-17.tmp --language=C++ --kde \
-  xg-c-17.cc || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-17.tmp.po > xg-c-17.po || Exit 1
+${XGETTEXT} --omit-header --no-location -d xg-c-format-4.tmp --language=C++ --kde \
+  xg-c-format-4.cc || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-format-4.tmp.po > xg-c-format-4.po || Exit 1
 
-cat <<EOF > xg-c-17.ok
+cat <<EOF > xg-c-format-4.ok
 #, c-format, kde-format
 msgid "used time: %1m %2s"
 msgstr ""
@@ -30,7 +30,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-17.ok xg-c-17.po
+${DIFF} xg-c-format-4.ok xg-c-format-4.po
 result=$?
 
 exit $result
