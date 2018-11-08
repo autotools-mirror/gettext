@@ -3,7 +3,7 @@
 
 # Test C support: comments.
 
-cat <<EOF > xg-c-7.c
+cat <<EOF > xg-c-comment-2.c
 int
 main()
 {
@@ -38,10 +38,10 @@ main()
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c --c++ -d xg-c-7.tmp xg-c-7.c || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-7.tmp.po > xg-c-7.po || Exit 1
+${XGETTEXT} --omit-header --no-location -c --c++ -d xg-c-comment-2.tmp xg-c-comment-2.c || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-comment-2.tmp.po > xg-c-comment-2.po || Exit 1
 
-cat <<EOF > xg-c-7.ok
+cat <<EOF > xg-c-comment-2.ok
 #. This is a comment which immediately before a keyword.
 msgid "1"
 msgstr ""
@@ -74,7 +74,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-7.ok xg-c-7.po
+${DIFF} xg-c-comment-2.ok xg-c-comment-2.po
 result=$?
 
 exit $result
