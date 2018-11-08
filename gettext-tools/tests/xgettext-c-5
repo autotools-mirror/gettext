@@ -5,16 +5,16 @@
 
 : ${XGETTEXT=xgettext}
 
-cat <<\EOF > xg-c-25.c
+cat <<\EOF > xg-c-5.c
 gettext("Choose a " u8"rosé wine à la carte");
 EOF
 
 ${XGETTEXT} --from-code=ISO-8859-1 --no-location \
-            -o xg-c-25.tmp xg-c-25.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-25.tmp > xg-c-25.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-25.tmq > xg-c-25.po || Exit 1
+            -o xg-c-5.tmp xg-c-5.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-5.tmp > xg-c-5.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-5.tmq > xg-c-5.po || Exit 1
 
-cat <<\EOF > xg-c-25.ok
+cat <<\EOF > xg-c-5.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -38,7 +38,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-25.ok xg-c-25.po
+${DIFF} xg-c-5.ok xg-c-5.po
 result=$?
 
 exit $result
