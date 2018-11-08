@@ -3,7 +3,7 @@
 
 # Test C support: extraction of 'range:' flags.
 
-cat <<\EOF > xg-c-18.c
+cat <<\EOF > xg-c-6.c
 if (days > 7 && days < 14)
   /* xgettext: range: 1..6 */
   printf (ngettext ("one week and one day", "one week and %d days",
@@ -12,10 +12,10 @@ if (days > 7 && days < 14)
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-c-18.tmp xg-c-18.c || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-18.tmp.po > xg-c-18.po || Exit 1
+${XGETTEXT} --omit-header --no-location -d xg-c-6.tmp xg-c-6.c || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-6.tmp.po > xg-c-6.po || Exit 1
 
-cat <<EOF > xg-c-18.ok
+cat <<EOF > xg-c-6.ok
 #, c-format, range: 1..6
 msgid "one week and one day"
 msgid_plural "one week and %d days"
@@ -24,7 +24,7 @@ msgstr[1] ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-18.ok xg-c-18.po
+${DIFF} xg-c-6.ok xg-c-6.po
 result=$?
 
 exit $result
