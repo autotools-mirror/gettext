@@ -4,21 +4,21 @@
 # Test C support: valid but unlikely C format strings are _not_ marked as
 # c-format by default.
 
-cat <<\EOF > xg-c-12.c
+cat <<\EOF > xg-c-format-1.c
 gettext ("%1% on, %2% off");
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-c-12.tmp xg-c-12.c || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-12.tmp.po > xg-c-12.po || Exit 1
+${XGETTEXT} --omit-header --no-location -d xg-c-format-1.tmp xg-c-format-1.c || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-format-1.tmp.po > xg-c-format-1.po || Exit 1
 
-cat <<EOF > xg-c-12.ok
+cat <<EOF > xg-c-format-1.ok
 msgid "%1% on, %2% off"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-12.ok xg-c-12.po
+${DIFF} xg-c-format-1.ok xg-c-format-1.po
 result=$?
 
 exit $result
