@@ -80,9 +80,9 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 \
 	xgettext-c-18 \
-	xgettext-c-24 xgettext-c-25 \
+	xgettext-c-25 \
 	xgettext-c-comment-1 xgettext-c-comment-2 xgettext-c-comment-3 \
-	xgettext-c-comment-4 xgettext-c-comment-5 \
+	xgettext-c-comment-4 xgettext-c-comment-5 xgettext-c-comment-6 \
 	xgettext-c-escape-1 xgettext-c-escape-2 xgettext-c-escape-3 \
 	xgettext-c-format-1 xgettext-c-format-2 xgettext-c-format-3 \
 	xgettext-c-format-4 xgettext-c-format-5 \
@@ -174,7 +174,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	intl-thread-3.po \
 	gettextpo-1.de.po \
 	xgettext-1 \
-	xgettext-c-1 xg-c-24.c xg-c-escape-3.c xg-vala-2.vala \
+	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml
 
 XGETTEXT = ../src/xgettext

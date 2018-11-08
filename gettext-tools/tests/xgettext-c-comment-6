@@ -6,11 +6,11 @@
 : ${XGETTEXT=xgettext}
 
 ${XGETTEXT} --from-code=ISO-8859-1 --add-comments --no-location --no-wrap \
-            -o xg-c-24.tmp "$abs_srcdir"/xg-c-24.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-24.tmp > xg-c-24.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-24.tmq > xg-c-24.po || Exit 1
+            -o xg-c-comment-6.tmp "$abs_srcdir"/xg-c-comment-6.c || Exit 1
+grep -v 'POT-Creation-Date' < xg-c-comment-6.tmp > xg-c-comment-6.tmq || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-comment-6.tmq > xg-c-comment-6.po || Exit 1
 
-cat <<\EOF > xg-c-24.ok
+cat <<\EOF > xg-c-comment-6.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -35,4 +35,4 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-c-24.ok xg-c-24.po || Exit 1
+${DIFF} xg-c-comment-6.ok xg-c-comment-6.po || Exit 1
