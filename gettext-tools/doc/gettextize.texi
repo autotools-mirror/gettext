@@ -49,15 +49,6 @@ and accepts the following options:
 @opindex --force@r{, @code{gettextize} option}
 Force replacement of files which already exist.
 
-@item --intl
-@opindex --intl@r{, @code{gettextize} option}
-Install the libintl sources in a subdirectory named @file{intl/}.
-This libintl will be used to provide internationalization on systems
-that don't have GNU libintl installed.  If this option is omitted,
-the call to @code{AM_GNU_GETTEXT} in @file{configure.ac} should read:
-@samp{AM_GNU_GETTEXT([external])}, and internationalization will not
-be enabled on systems lacking GNU gettext.
-
 @item --po-dir=@var{dir}
 @opindex --po-dir@r{, @code{gettextize} option}
 Specify a directory containing PO files.  Such a directory contains the
@@ -130,13 +121,6 @@ If @samp{--po-dir} has been specified, this holds for every directory
 specified through @samp{--po-dir}, instead of @file{po/}.
 
 @item
-Only if @samp{--intl} has been specified:
-A @file{intl/} directory is created and filled with most of the files
-originally in the @file{intl/} directory of the GNU @code{gettext}
-distribution.  Also, if option @code{--force} (@code{-f}) is given,
-the @file{intl/} directory is emptied first.
-
-@item
 The file @file{config.rpath} is copied into the directory containing
 configuration support files.  It is needed by the @code{AM_GNU_GETTEXT}
 autoconf macro.
@@ -161,19 +145,16 @@ in each affected directory, as well as the top level @file{configure.ac}
 or @file{configure.in} file.
 
 It is interesting to understand that most new files for supporting
-GNU @code{gettext} facilities in one package go in @file{intl/},
-@file{po/} and @file{m4/} subdirectories.  One distinction between
-@file{intl/} and the two other directories is that @file{intl/} is
-meant to be completely identical in all packages using GNU @code{gettext},
-while the other directories will mostly contain package dependent
-files.
+GNU @code{gettext} facilities in one package go in @file{po/} and
+@file{m4/} subdirectories.  Still, these directories will mostly
+contain package dependent files.
 
 The @code{gettextize} program makes backup files for all files it
 replaces or changes, and also write ChangeLog entries about these
 changes.  This way, the careful maintainer can check after running
 @code{gettextize} whether its changes are acceptable to him, and
 possibly adjust them.  An exception to this rule is the @file{intl/}
-directory, which is added or replaced or removed as a whole.
+directory, which is removed as a whole if it still existed.
 
 It is important to understand that @code{gettextize} can not do the
 entire job of adapting a package for using GNU @code{gettext}.  The

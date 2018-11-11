@@ -9,6 +9,10 @@
     for use by msgfmt only.  This option saves processing time, in particular
     by omitting fuzzy matching that is not useful in this situation.
   - The .pot file in a 'po' directory is now erased by "make maintainer-clean".
+  - The --intl option of the gettextize program (deprecated since 2010) is
+    no longer available. Instead of including the intl sources in your package,
+    we suggest making the libintl library an optional prerequisite of your
+    package. This will simplify the build system of your package.
 
 * Programming languages support:
   - C, C++:

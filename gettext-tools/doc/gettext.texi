@@ -355,7 +355,6 @@ Files You Must Create or Alter
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
-* acconfig::                    @file{acconfig.h} at top level
 * config.h.in::                 @file{config.h.in} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
@@ -366,7 +365,6 @@ Autoconf macros for use in @file{configure.ac}
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 * AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
-* AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_XGETTEXT_OPTION::          AM_XGETTEXT_OPTION in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
@@ -7667,9 +7665,8 @@ GNU @code{m4} must be fully installed before GNU Autoconf is even
 
 To further ease the task of a package maintainer the @code{automake}
 package was designed and implemented.  GNU @code{gettext} now uses this
-tool and the @file{Makefile}s in the @file{intl/} and @file{po/}
-therefore know about all the goals necessary for using @code{automake}
-and @file{libintl} in one project.
+tool and the @file{Makefile} in the @file{po/} directory therefore
+knows about all the goals necessary for using @code{automake}.
 
 Those four packages are only needed by you, as a maintainer; the
 installers of your own package and end users do not really need any of
@@ -7762,7 +7759,6 @@ using GNU gettext functionality.
 * config.guess::                @file{config.guess}, @file{config.sub} at top level
 * mkinstalldirs::               @file{mkinstalldirs} at top level
 * aclocal::                     @file{aclocal.m4} at top level
-* acconfig::                    @file{acconfig.h} at top level
 * config.h.in::                 @file{config.h.in} at top level
 * Makefile::                    @file{Makefile.in} at top level
 * src/Makefile::                @file{Makefile.in} in @file{src/}
@@ -7938,19 +7934,12 @@ Here is the main @code{m4} macro for triggering internationalization
 support.  Just add this line to @file{configure.ac}:
 
 @example
-AM_GNU_GETTEXT
+AM_GNU_GETTEXT([external])
 @end example
 
 @noindent
 This call is purposely simple, even if it generates a lot of configure
 time checking and actions.
-
-If you have suppressed the @file{intl/} subdirectory by calling
-@code{gettextize} without @samp{--intl} option, this call should read
-
-@example
-AM_GNU_GETTEXT([external])
-@end example
 
 @item Have output files created.
 
@@ -7958,51 +7947,24 @@ The @code{AC_OUTPUT} directive, at the end of your @file{configure.ac}
 file, needs to be modified in two ways:
 
 @example
-AC_OUTPUT([@var{existing configuration files} intl/Makefile po/Makefile.in],
+AC_OUTPUT([@var{existing configuration files} po/Makefile.in],
 [@var{existing additional actions}])
 @end example
 
 The modification to the first argument to @code{AC_OUTPUT} asks
-for substitution in the @file{intl/} and @file{po/} directories.
+for substitution in the @file{po/} directory.
 Note the @samp{.in} suffix used for @file{po/} only.  This is because
 the distributed file is really @file{po/Makefile.in.in}.
 
-If you have suppressed the @file{intl/} subdirectory by calling
-@code{gettextize} without @samp{--intl} option, then you don't need to
-add @code{intl/Makefile} to the @code{AC_OUTPUT} line.
-
 @end enumerate
-
-If, after doing the recommended modifications, a command like
-@samp{aclocal -I m4} or @samp{autoconf} or @samp{autoreconf} fails with
-a trace similar to this:
-
-@smallexample
-configure.ac:44: warning: AC_COMPILE_IFELSE was called before AC_GNU_SOURCE
-../../lib/autoconf/specific.m4:335: AC_GNU_SOURCE is expanded from...
-m4/lock.m4:224: gl_LOCK is expanded from...
-m4/gettext.m4:571: gt_INTL_SUBDIR_CORE is expanded from...
-m4/gettext.m4:472: AM_INTL_SUBDIR is expanded from...
-m4/gettext.m4:347: AM_GNU_GETTEXT is expanded from...
-configure.ac:44: the top level
-configure.ac:44: warning: AC_RUN_IFELSE was called before AC_GNU_SOURCE
-@end smallexample
-
-@noindent
-you need to add an explicit invocation of @samp{AC_GNU_SOURCE} in the
-@file{configure.ac} file - after @samp{AC_PROG_CC} but before
-@samp{AM_GNU_GETTEXT}, most likely very close to the @samp{AC_PROG_CC}
-invocation.  This is necessary because of ordering restrictions imposed
-by GNU autoconf.
 
 @node config.guess
 @subsection @file{config.guess}, @file{config.sub} at top level
 
-If you haven't suppressed the @file{intl/} subdirectory,
-you need to add the GNU @file{config.guess} and @file{config.sub} files
-to your distribution.  They are needed because the @file{intl/} directory
-has platform dependent support for determining the locale's character
-encoding and therefore needs to identify the platform.
+You need to add the GNU @file{config.guess} and @file{config.sub} files
+to your distribution.  They are needed because the @code{AM_ICONV} macro
+contains knowledge about specific platforms and therefore needs to
+identify the platform.
 
 You can obtain the newest version of @file{config.guess} and
 @file{config.sub} from the @samp{config} project at
@@ -8040,21 +8002,10 @@ automake 1.9.
 @cindex @file{aclocal.m4} file
 
 If you do not have an @file{aclocal.m4} file in your distribution,
-the simplest is to concatenate the files @file{codeset.m4}, @file{fcntl-o.m4},
-@file{gettext.m4}, @file{glibc2.m4}, @file{glibc21.m4}, @file{iconv.m4},
-@file{intdiv0.m4}, @file{intl.m4}, @file{intldir.m4}, @file{intlmacosx.m4},
-@file{intl-thread-locale.m4}, @file{intmax.m4}, @file{inttypes_h.m4},
-@file{inttypes-pri.m4}, @file{lcmessage.m4}, @file{lib-ld.m4},
-@file{lib-link.m4}, @file{lib-prefix.m4}, @file{lock.m4}, @file{longlong.m4},
-@file{nls.m4}, @file{po.m4}, @file{printf-posix.m4}, @file{progtest.m4},
-@file{size_max.m4}, @file{stdint_h.m4}, @file{threadlib.m4},
-@file{uintmax_t.m4}, @file{visibility.m4}, @file{wchar_t.m4}, @file{wint_t.m4},
-@file{xsize.m4}
-from GNU @code{gettext}'s
-@file{m4/} directory into a single file.  If you have suppressed the
-@file{intl/} directory, only @file{gettext.m4}, @file{intlmacosx.m4},
-@file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
-@file{nls.m4}, @file{po.m4}, @file{progtest.m4} need to be concatenated.
+the simplest is to concatenate the files @file{gettext.m4},
+@file{intlmacosx.m4}, @file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
+@file{lib-prefix.m4}, @file{nls.m4}, @file{po.m4}, @file{progtest.m4}
+from GNU @code{gettext}'s @file{m4/} directory into a single file.
 
 If you are not using GNU @code{automake} 1.8 or newer, you will need to
 add a file @file{mkdirp.m4} from a newer automake distribution to the
@@ -8097,17 +8048,6 @@ might be integrated in the standard Autoconf set, because this
 piece of @code{m4} code will be the same for all projects using GNU
 @code{gettext}.
 
-@node acconfig
-@subsection @file{acconfig.h} at top level
-@cindex @file{acconfig.h} file
-
-Earlier GNU @code{gettext} releases required to put definitions for
-@code{ENABLE_NLS}, @code{HAVE_GETTEXT} and @code{HAVE_LC_MESSAGES},
-@code{HAVE_STPCPY}, @code{PACKAGE} and @code{VERSION} into an
-@file{acconfig.h} file.  This is not needed any more; you can remove
-them from your @file{acconfig.h} file unless your package uses them
-independently from the @file{intl/} directory.
-
 @node config.h.in
 @subsection @file{config.h.in} at top level
 @cindex @file{config.h.in} file
@@ -8116,25 +8056,11 @@ The include file template that holds the C macros to be defined by
 @code{configure} is usually called @file{config.h.in} and may be
 maintained either manually or automatically.
 
-If @code{gettextize} has created an @file{intl/} directory, this file
-must be called @file{config.h.in} and must be at the top level.  If,
-however, you have suppressed the @file{intl/} directory by calling
-@code{gettextize} without @samp{--intl} option, then you can choose the
-name of this file and its location freely.
-
 If it is maintained automatically, by use of the @samp{autoheader}
 program, you need to do nothing about it.  This is the case in particular
 if you are using GNU @code{automake}.
 
-If it is maintained manually, and if @code{gettextize} has created an
-@file{intl/} directory, you should switch to using @samp{autoheader}.
-The list of C macros to be added for the sake of the @file{intl/}
-directory is just too long to be maintained manually; it also changes
-between different versions of GNU @code{gettext}.
-
-If it is maintained manually, and if on the other hand you have
-suppressed the @file{intl/} directory by calling @code{gettextize}
-without @samp{--intl} option, then you can get away by adding the
+If it is maintained manually, you can get away by adding the
 following lines to @file{config.h.in}:
 
 @example
@@ -8165,7 +8091,7 @@ distributed.
 
 @item
 Wherever you process subdirectories in your @file{Makefile.in}, be sure
-you also process the subdirectories @samp{intl} and @samp{po}.  Special
+you also process the subdirectory @samp{po}.  Special
 rules in the @file{Makefiles} take care for the case where no
 internationalization is wanted.
 
@@ -8179,19 +8105,13 @@ example, we also define @code{SUBDIRS} in @code{Makefile.in} for it
 to be further used in the @samp{dist:} goal.
 
 @example
-SUBDIRS = doc intl lib src po
+SUBDIRS = doc lib src po
 @end example
 
-Note that you must arrange for @samp{make} to descend into the
-@code{intl} directory before descending into other directories containing
-code which make use of the @code{libintl.h} header file.  For this
-reason, here we mention @code{intl} before @code{lib} and @code{src}.
-
 @item
-A delicate point is the @samp{dist:} goal, as both
-@file{intl/Makefile} and @file{po/Makefile} will later assume that the
-proper directory has been set up from the main @file{Makefile}.  Here is
-an example at what the @samp{dist:} goal might look like:
+A delicate point is the @samp{dist:} goal, as @file{po/Makefile} will later
+assume that the proper directory has been set up from the main @file{Makefile}.
+Here is an example at what the @samp{dist:} goal might look like:
 
 @example
 distdir = $(PACKAGE)-$(VERSION)
@@ -8301,12 +8221,6 @@ LIBS = ../lib/libsupport.a @@LIBINTL@@ @@LIBS@@
 @end example
 
 @item
-You should also ensure that directory @file{intl/} will be searched for
-C preprocessor include files in all circumstances.  So, you have to
-manage so both @samp{-I../intl} and @samp{-I$(top_srcdir)/intl} will
-be given to the C compiler.
-
-@item
 Your @samp{dist:} goal has to conform with others.  Here is a
 reasonable definition for it:
 
@@ -8369,16 +8283,6 @@ for all programs together.  Remember that when you use @code{libtool}
 to link a program, you need to use @@LTLIBINTL@@ instead of @@LIBINTL@@
 for that program.
 
-@item
-If you have an @file{intl/} directory, whose contents is created by
-@code{gettextize}, then to ensure that it will be searched for
-C preprocessor include files in all circumstances, add something like
-this to @file{Makefile.am}:
-
-@example
-AM_CPPFLAGS = -I../intl -I$(top_srcdir)/intl
-@end example
-
 @end enumerate
 
 @node lib/gettext.h
@@ -8399,9 +8303,8 @@ in order to get some specific C compiler warnings about code quality with
 some older versions of GCC (older than 3.0).
 
 @item
-When the package does not include the @code{intl/} subdirectory, and the
-libintl.h header (with its associated libintl library, if any) is not
-already installed on the system, it is preferable that the package builds
+When the libintl.h header (with its associated libintl library, if any) is
+not already installed on the system, it is preferable that the package builds
 without internationalization support, rather than to give a compilation
 error.
 @end itemize
@@ -8455,7 +8358,6 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 * AM_GNU_GETTEXT::              AM_GNU_GETTEXT in @file{gettext.m4}
 * AM_GNU_GETTEXT_VERSION::      AM_GNU_GETTEXT_VERSION in @file{gettext.m4}
 * AM_GNU_GETTEXT_NEED::         AM_GNU_GETTEXT_NEED in @file{gettext.m4}
-* AM_GNU_GETTEXT_INTL_SUBDIR::  AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
 * AM_PO_SUBDIRS::               AM_PO_SUBDIRS in @file{po.m4}
 * AM_XGETTEXT_OPTION::          AM_XGETTEXT_OPTION in @file{po.m4}
 * AM_ICONV::                    AM_ICONV in @file{iconv.m4}
@@ -8467,30 +8369,22 @@ The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 @amindex AM_GNU_GETTEXT
 The @code{AM_GNU_GETTEXT} macro tests for the presence of the GNU gettext
 function family in either the C library or a separate @code{libintl}
-library (shared or static libraries are both supported) or in the package's
-@file{intl/} directory.  It also invokes @code{AM_PO_SUBDIRS}, thus preparing
-the @file{po/} directories of the package for building.
+library (shared or static libraries are both supported).  It also invokes
+@code{AM_PO_SUBDIRS}, thus preparing the @file{po/} directories of the
+package for building.
 
 @code{AM_GNU_GETTEXT} accepts up to three optional arguments.  The general
 syntax is
 
 @example
-AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}], [@var{intldir}])
+AM_GNU_GETTEXT([@var{intlsymbol}], [@var{needsymbol}])
 @end example
 
 @c We don't document @var{intlsymbol} = @samp{use-libtool} here, because
 @c it is of no use for packages other than GNU gettext itself.  (Such packages
 @c are not allowed to install the shared libintl.  But if they use libtool,
 @c then it is in order to install shared libraries that depend on libintl.)
-@var{intlsymbol} can be @samp{external} or @samp{no-libtool}.  The default
-(if it is not specified or empty) is @samp{no-libtool}.  @var{intlsymbol}
-should be @samp{external} for packages with no @file{intl/} directory.
-For packages with an @file{intl/} directory, you can either use an
-@var{intlsymbol} equal to @samp{no-libtool}, or you can use @samp{external}
-and override by using the macro @code{AM_GNU_GETTEXT_INTL_SUBDIR} elsewhere.
-The two ways to specify the existence of an @file{intl/} directory are
-equivalent.  At build time, a static library
-@code{$(top_builddir)/intl/libintl.a} will then be created.
+@var{intlsymbol} should always be @samp{external}.
 
 If @var{needsymbol} is specified and is @samp{need-ngettext}, then GNU
 gettext implementations (in libc or libintl) without the @code{ngettext()}
@@ -8503,9 +8397,6 @@ more than one requirement, just specify the strongest one among them, or
 invoke the @code{AM_GNU_GETTEXT_NEED} macro several times.  The hierarchy
 among the various alternatives is as follows: @samp{need-formatstring-macros}
 implies @samp{need-ngettext}.
-
-@var{intldir} is used to find the intl libraries.  If empty, the value
-@samp{$(top_builddir)/intl/} is used.
 
 The @code{AM_GNU_GETTEXT} macro determines whether GNU gettext is
 available and should be used.  If so, it sets the @code{USE_NLS} variable
@@ -8584,21 +8475,6 @@ account.
 
 The @code{AM_GNU_GETTEXT_NEED} invocations can occur before or after
 the @code{AM_GNU_GETTEXT} invocation; the order doesn't matter.
-
-@node AM_GNU_GETTEXT_INTL_SUBDIR
-@subsection AM_GNU_GETTEXT_INTL_SUBDIR in @file{intldir.m4}
-
-@amindex AM_GNU_GETTEXT_INTL_SUBDIR
-The @code{AM_GNU_GETTEXT_INTL_SUBDIR} macro specifies that the
-@code{AM_GNU_GETTEXT} macro, although invoked with the first argument
-@samp{external}, should also prepare for building the @file{intl/}
-subdirectory.
-
-The @code{AM_GNU_GETTEXT_INTL_SUBDIR} invocation can occur before or after
-the @code{AM_GNU_GETTEXT} invocation; the order doesn't matter.
-
-The use of this macro requires GNU automake 1.10 or newer and
-GNU autoconf 2.61 or newer.
 
 @node AM_PO_SUBDIRS
 @subsection AM_PO_SUBDIRS in @file{po.m4}
@@ -9021,24 +8897,17 @@ contact the GNU @code{gettext} maintainers, so they can add support for
 your language to @file{po-mode.el}.
 @end enumerate
 
-On the implementation side, three approaches are possible, with
+On the implementation side, two approaches are possible, with
 different effects on portability and copyright:
 
 @itemize @bullet
 @item
-You may integrate the GNU @code{gettext}'s @file{intl/} directory in
-your package, as described in @ref{Maintainers}.  This allows you to
-have internationalization on all kinds of platforms.  Note that when you
-then distribute your package, it legally falls under the GNU General
-Public License, and the GNU project will be glad about your contribution
-to the Free Software pool.
-
-@item
 You may link against GNU @code{gettext} functions if they are found in
 the C library.  For example, an autoconf test for @code{gettext()} and
 @code{ngettext()} will detect this situation.  For the moment, this test
-will succeed on GNU systems and not on other platforms.  No severe
-copyright restrictions apply.
+will succeed on GNU systems and on Solaris 11 platforms.  No severe
+copyright restrictions apply, except if you want to distribute statically
+linked binaries.
 
 @item
 You may emulate or reimplement the GNU @code{gettext} functionality.
@@ -9394,16 +9263,9 @@ object.
 @section The Maintainer's View
 
 For the maintainer, the general procedure differs from the C language
-case in two ways.
+case:
 
 @itemize @bullet
-@item
-For those languages that don't use GNU gettext, the @file{intl/} directory
-is not needed and can be omitted.  This means that the maintainer calls the
-@code{gettextize} program without the @samp{--intl} option, and that he
-invokes the @code{AM_GNU_GETTEXT} autoconf macro via
-@samp{AM_GNU_GETTEXT([external])}.
-
 @item
 If only a single programming language is used, the @code{XGETTEXT_OPTIONS}
 variable in @file{po/Makevars} (@pxref{po/Makevars}) should be adjusted to

@@ -192,7 +192,6 @@ Options:
       --help           print this help and exit
       --version        print version information and exit
   -f, --force          force writing of new files even if old exist
-      --intl           install libintl in a subdirectory (deprecated)
       --po-dir=DIR     specify directory with PO files
       --no-changelog   don't update or create ChangeLog files
       --symlink        make symbolic links instead of copying files
@@ -299,7 +298,7 @@ unset CLICOLOR_FORCE GREP_OPTIONS
 
 # Warn about deprecated options.
 if test -n "$intldir"; then
-  echo "gettextize: warning: the option '--intl' is deprecated and will be removed" 1>&2
+  func_fatal_error "The option '--intl' is no longer available."
 fi
 
 # Command-line argument processing.
@@ -613,10 +612,7 @@ func_m4ChangeLog_finish ()
 }
 using_m4ChangeLog=yes
 
-if test ! -f "$srcdir/intl/Makefile.in" && test -n "$intldir"; then
-  added_acoutput="$added_acoutput intl/Makefile"
-fi
-if test -f "$srcdir/intl/Makefile.in" && test -z "$intldir"; then
+if test -f "$srcdir/intl/Makefile.in"; then
   removed_acoutput="$removed_acoutput intl/Makefile"
 fi
 if test -d "$srcdir/intl"; then
@@ -633,19 +629,7 @@ if test -d "$srcdir/intl"; then
   else
     echo "Wipe out intl/ subdirectory"
   fi
-  if test -z "$intldir"; then
-    removed_directory=intl
-  fi
-else
-  if test -n "$intldir"; then
-    if $doit; then
-      echo "Creating intl/ subdirectory"
-      mkdir "$srcdir/intl" || func_fatal_error "failed to create intl/ subdirectory"
-    else
-      echo "Create intl/ subdirectory"
-    fi
-    added_directories="$added_directories intl"
-  fi
+  removed_directory=intl
 fi
 
 $do_changelog && func_ChangeLog_init
@@ -686,44 +670,24 @@ for file in *; do
   esac
 done
 
-# Copy files to intl/ subdirectory.
-if test -n "$intldir"; then
-  cd intl
-  for file in *; do
-    if test $file != COPYING.LIB-2.0 && test $file != COPYING.LIB-2.1; then
-      if test $file != plural.c; then
-        func_linkorcopy $file "$gettext_datadir/intl/$file" intl/$file
-      else
-        # plural.c is a generated file; it must be copied and touched.
-        func_copy $file intl/$file
-        if $doit; then
-          (sleep 2; touch "$srcdir/intl/$file") &
-        fi
-      fi
-    fi
-  done
-  cd ..
-else
-  echo "Not copying intl/ directory."
-  # Tell the user what to put into configure.ac, if it is not already there.
-  external=
-  # Need to use func_trace_sed instead of $func_trace, since
-  # AM_GNU_GETTEXT is not a standard Autoconf trace.
-  xargs=`func_trace_sed AM_GNU_GETTEXT "$srcdir/$configure_in"`
-  save_IFS="$IFS"; IFS=:
-  for arg in $xargs; do
-    if test 'external' = "$arg"; then
-      external=yes
-      break
-    fi
-  done
-  IFS="$save_IFS"
-  if test -z "$external"; then
-    please="$please
+# Tell the user what to put into configure.ac, if it is not already there.
+external=
+# Need to use func_trace_sed instead of $func_trace, since
+# AM_GNU_GETTEXT is not a standard Autoconf trace.
+xargs=`func_trace_sed AM_GNU_GETTEXT "$srcdir/$configure_in"`
+save_IFS="$IFS"; IFS=:
+for arg in $xargs; do
+  if test 'external' = "$arg"; then
+    external=yes
+    break
+  fi
+done
+IFS="$save_IFS"
+if test -z "$external"; then
+  please="$please
 Please use AM_GNU_GETTEXT([external]) in order to cause autoconfiguration
 to look for an external libintl.
 "
-  fi
 fi
 
 # Copy files to po/ subdirectory.
@@ -837,7 +801,7 @@ m4filelist='
 # might give an error. (aclocal < 1.9 didn't know which macros are really
 # needed, it looked which macros are potentially needed.)
 min_automake_version=1.9
-if test -n "$intldir" || test -z "$have_automake19"; then
+if test -z "$have_automake19"; then
   # Add intldir.m4, intl.m4 and its dependencies.
   m4filelist=$m4filelist'
     codeset.m4

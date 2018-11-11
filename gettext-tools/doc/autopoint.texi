@@ -65,5 +65,5 @@ package's @file{configure} script and by @code{autoheader} to create the
 package's @file{config.h.in} include file template.
 
 The name @samp{autopoint} is an abbreviation of @samp{auto-po-intl-m4};
-the tool copies or updates mostly files in the @file{po}, @file{intl},
-@file{m4} directories.
+in earlier versions, the tool copied or updated mostly files in the @file{po},
+@file{intl}, @file{m4} directories.
