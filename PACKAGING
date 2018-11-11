@@ -115,37 +115,15 @@ following file list.
       $prefix/share/gettext/archive.dir.tar.gz   (only installed if --without-git specified)
       $prefix/share/gettext/archive.cvs.tar.gz   (only installed if --with-cvs specified)
       $prefix/share/gettext-$VERSION/its/*
-      $prefix/share/aclocal/codeset.m4
-      $prefix/share/aclocal/fcntl-o.m4
       $prefix/share/aclocal/gettext.m4
-      $prefix/share/aclocal/glibc2.m4
-      $prefix/share/aclocal/glibc21.m4
       $prefix/share/aclocal/iconv.m4
-      $prefix/share/aclocal/intdiv0.m4
-      $prefix/share/aclocal/intl.m4
-      $prefix/share/aclocal/intl-thread-locale.m4
-      $prefix/share/aclocal/intldir.m4
       $prefix/share/aclocal/intlmacosx.m4
-      $prefix/share/aclocal/intmax.m4
-      $prefix/share/aclocal/inttypes_h.m4
-      $prefix/share/aclocal/inttypes-pri.m4
-      $prefix/share/aclocal/lcmessage.m4
       $prefix/share/aclocal/lib-ld.m4
       $prefix/share/aclocal/lib-link.m4
       $prefix/share/aclocal/lib-prefix.m4
-      $prefix/share/aclocal/lock.m4
-      $prefix/share/aclocal/longlong.m4
       $prefix/share/aclocal/nls.m4
       $prefix/share/aclocal/po.m4
-      $prefix/share/aclocal/printf-posix.m4
       $prefix/share/aclocal/progtest.m4
-      $prefix/share/aclocal/size_max.m4
-      $prefix/share/aclocal/stdint_h.m4
-      $prefix/share/aclocal/uintmax_t.m4
-      $prefix/share/aclocal/visibility.m4
-      $prefix/share/aclocal/wchar_t.m4
-      $prefix/share/aclocal/wint_t.m4
-      $prefix/share/aclocal/xsize.m4
       $prefix/share/emacs/site-lisp/po-compat.el
       $prefix/share/emacs/site-lisp/po-compat.elc
       $prefix/share/emacs/site-lisp/po-mode.el

@@ -7994,8 +7994,7 @@ AC_CONFIG_AUX_DIR([@var{subdir}])
 
 With earlier versions of GNU gettext, you needed to add the GNU
 @file{mkinstalldirs} script to your distribution.  This is not needed any
-more.  You can remove it if you not also using an automake version older than
-automake 1.9.
+more.  You can remove it.
 
 @node aclocal
 @subsection @file{aclocal.m4} at top level
@@ -8007,10 +8006,6 @@ the simplest is to concatenate the files @file{gettext.m4},
 @file{lib-prefix.m4}, @file{nls.m4}, @file{po.m4}, @file{progtest.m4}
 from GNU @code{gettext}'s @file{m4/} directory into a single file.
 
-If you are not using GNU @code{automake} 1.8 or newer, you will need to
-add a file @file{mkdirp.m4} from a newer automake distribution to the
-list of files above.
-
 If you already have an @file{aclocal.m4} file, then you will have
 to merge the said macro files into your @file{aclocal.m4}.  Note that if
 you are upgrading from a previous release of GNU @code{gettext}, you
@@ -8020,8 +8015,11 @@ change a little from one release of GNU @code{gettext} to the next.
 Their contents may vary as we get more experience with strange systems
 out there.
 
-If you are using GNU @code{automake} 1.5 or newer, it is enough to put
-these macro files into a subdirectory named @file{m4/} and add the line
+You should be using GNU @code{automake} 1.9 or newer.  With it, you need
+to copy the files @file{gettext.m4}, @file{intlmacosx.m4}, @file{iconv.m4},
+@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{nls.m4},
+@file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s @file{m4/}
+directory to a subdirectory named @file{m4/} and add the line
 
 @example
 ACLOCAL_AMFLAGS = -I m4
