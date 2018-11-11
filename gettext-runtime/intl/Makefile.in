@@ -43,7 +43,6 @@ includedir = @includedir@
 datarootdir = @datarootdir@
 datadir = @datadir@
 localedir = @localedir@
-gettextsrcdir = $(datadir)/gettext/intl
 aliaspath = $(localedir)
 subdir = intl
 
@@ -211,11 +210,6 @@ $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
 DISTFILES.normal = VERSION
 DISTFILES.gettext = ChangeLog COPYING.LIB INSTALL.windows libintl.glibc
-DISTFILES.obsolete = xopen-msg.sed linux-msg.sed po2tbl.sed.in cat-compat.c \
-COPYING.LIB-2 COPYING.LIB-2.0 COPYING.LIB-2.1 \
-gettext.h libgettext.h plural-eval.c libgnuintl.h \
-libgnuintl.h_vms Makefile.vms libgnuintl.h.msvc-static \
-libgnuintl.h.msvc-shared Makefile.msvc
 
 all: all-@USE_INCLUDED_LIBINTL@
 all-yes: libintl.$la libintl.h ref-add.sed ref-del.sed
@@ -451,27 +445,6 @@ install-exec: all
 	  : ; \
 	fi
 install-data: all
-	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
-	  $(INSTALL_DATA) VERSION $(DESTDIR)$(gettextsrcdir)/VERSION; \
-	  dists="COPYING.LIB $(DISTFILES.common)"; \
-	  for file in $$dists; do \
-	    $(INSTALL_DATA) $(srcdir)/$$file \
-			    $(DESTDIR)$(gettextsrcdir)/$$file; \
-	  done; \
-	  dists="$(DISTFILES.generated)"; \
-	  for file in $$dists; do \
-	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
-	    $(INSTALL_DATA) $$dir/$$file \
-			    $(DESTDIR)$(gettextsrcdir)/$$file; \
-	  done; \
-	  dists="$(DISTFILES.obsolete)"; \
-	  for file in $$dists; do \
-	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
-	  done; \
-	else \
-	  : ; \
-	fi
 
 install-strip: install
 
@@ -493,11 +466,6 @@ installdirs:
 	fi
 	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkdir_p) $(DESTDIR)$(localedir); \
-	else \
-	  : ; \
-	fi
-	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  $(mkdir_p) $(DESTDIR)$(gettextsrcdir); \
 	else \
 	  : ; \
 	fi

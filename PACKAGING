@@ -106,7 +106,6 @@ following file list.
       $prefix/lib/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext-tools.mo
       $prefix/share/gettext/config.rpath
-      $prefix/share/gettext/intl/*
       $prefix/share/gettext/po/*
       $prefix/share/gettext/projects/*
       $prefix/share/gettext/gettext.h

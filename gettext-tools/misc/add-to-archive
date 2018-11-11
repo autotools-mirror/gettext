@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002, 2006, 2009-2010, 2015-2016 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2006, 2009-2010, 2018 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 #
 
 # Usage: add-to-archive /somewhere/gettext-0.xx.yy.tar.gz
-# Adds the infrastructure files for gettext version 0.xx.yy to the reposutory
+# Adds the infrastructure files for gettext version 0.xx.yy to the repository
 # in the archive.dir.tar file.
 
 if test $# != 1; then
@@ -62,14 +62,6 @@ work_archive=`pwd`/"$work_dir/archive"
        cp -p $file "$work_archive/$file" ;;
    esac
  done
- mkdir "$work_archive/intl"
- cd intl
- for file in *; do
-   if test $file != COPYING.LIB-2 && test $file != COPYING.LIB-2.0 && test $file != COPYING.LIB-2.1; then
-     cp -p $file "$work_archive/intl/$file"
-   fi
- done
- cd ..
  mkdir "$work_archive/po"
  cd po
  for file in *; do
