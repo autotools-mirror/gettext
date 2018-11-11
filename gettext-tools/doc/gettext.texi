@@ -8002,9 +8002,10 @@ more.  You can remove it.
 
 If you do not have an @file{aclocal.m4} file in your distribution,
 the simplest is to concatenate the files @file{gettext.m4},
-@file{intlmacosx.m4}, @file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
-@file{lib-prefix.m4}, @file{nls.m4}, @file{po.m4}, @file{progtest.m4}
-from GNU @code{gettext}'s @file{m4/} directory into a single file.
+@file{host-cpu-c-abi.m4}, @file{intlmacosx.m4}, @file{iconv.m4},
+@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{nls.m4},
+@file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s @file{m4/}
+directory into a single file.
 
 If you already have an @file{aclocal.m4} file, then you will have
 to merge the said macro files into your @file{aclocal.m4}.  Note that if
@@ -8016,10 +8017,11 @@ Their contents may vary as we get more experience with strange systems
 out there.
 
 You should be using GNU @code{automake} 1.9 or newer.  With it, you need
-to copy the files @file{gettext.m4}, @file{intlmacosx.m4}, @file{iconv.m4},
-@file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{nls.m4},
-@file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s @file{m4/}
-directory to a subdirectory named @file{m4/} and add the line
+to copy the files @file{gettext.m4}, @file{host-cpu-c-abi.m4},
+@file{intlmacosx.m4}, @file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4},
+@file{lib-prefix.m4}, @file{nls.m4}, @file{po.m4}, @file{progtest.m4} from
+GNU @code{gettext}'s @file{m4/} directory to a subdirectory named @file{m4/}
+and add the line
 
 @example
 ACLOCAL_AMFLAGS = -I m4

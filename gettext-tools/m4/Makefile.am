@@ -4,6 +4,7 @@
 
 aclocaldir = @aclocaldir@
 aclocal_DATA = \
+  ../../gettext-runtime/gnulib-m4/host-cpu-c-abi.m4 \
   ../../gettext-runtime/gnulib-m4/lib-ld.m4 \
   ../../gettext-runtime/gnulib-m4/lib-link.m4 \
   ../../gettext-runtime/gnulib-m4/lib-prefix.m4 \
