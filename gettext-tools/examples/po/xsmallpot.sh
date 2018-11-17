@@ -58,7 +58,7 @@ cd po
 make $potfile
 sed -e "/^#:/ {
 s, \\([^ ]\\), $directory/\\1,g
-}" < $potfile > ../../po/$potfile
+}" < $potfile > "$abs_srcdir"/$potfile
 cd ..
 cd ..
 rm -rf tmp-$directory

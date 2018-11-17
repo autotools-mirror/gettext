@@ -368,23 +368,24 @@ update-po: Makefile
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
 	echo "$${cdcmd}$(MSGMERGE) $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
-	cd $(srcdir); \
-	if $(MSGMERGE) $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
-	  if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
-	    rm -f $$tmpdir/$$lang.new.po; \
-	  else \
-	    if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
-	      :; \
-	    else \
-	      echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
-	      exit 1; \
-	    fi; \
-	  fi; \
-	  $(MAKE) $(SMALLPOFILES_FOR_lang) LL=$$lang; \
-	else \
-	  echo "msgmerge for $$lang.po failed!" 1>&2; \
-	  rm -f $$tmpdir/$$lang.new.po; \
-	fi
+	(cd $(srcdir) && \
+	 if $(MSGMERGE) $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	   if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
+	     rm -f $$tmpdir/$$lang.new.po; \
+	   else \
+	     if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
+	       :; \
+	     else \
+	       echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
+	       exit 1; \
+	     fi; \
+	   fi; \
+	 else \
+	   echo "msgmerge for $$lang.po failed!" 1>&2; \
+	   rm -f $$tmpdir/$$lang.new.po; \
+	   exit 1; \
+	 fi) && \
+	$(MAKE) $(SMALLPOFILES_FOR_lang) LL=$$lang
 
 $(DUMMYPOFILES):
 
@@ -393,123 +394,123 @@ $(DUMMYPOFILES):
 # Depend on LL being set.
 
 SMALLPOFILES_FOR_lang = \
-  ../hello-c/po/$$lang.po \
-  ../hello-c-gnome/po/$$lang.po \
-  ../hello-c-gnome3/po/$$lang.po \
-  ../hello-c++/po/$$lang.po \
-  ../hello-c++-qt/po/$$lang.po \
-  ../hello-c++-kde/po/$$lang.po \
-  ../hello-c++-gnome/po/$$lang.po \
-  ../hello-c++-wxwidgets/po/$$lang.po \
-  ../hello-objc/po/$$lang.po \
-  ../hello-objc-gnustep/po/$$lang.po \
-  ../hello-objc-gnome/po/$$lang.po \
-  ../hello-sh/po/$$lang.po \
-  ../hello-python/po/$$lang.po \
-  ../hello-clisp/po/$$lang.po \
-  ../hello-librep/po/$$lang.po \
-  ../hello-guile/po/$$lang.po \
-  ../hello-smalltalk/po/$$lang.po \
-  ../hello-java/po/$$lang.po \
-  ../hello-java-awt/po/$$lang.po \
-  ../hello-java-swing/po/$$lang.po \
-  ../hello-java-qtjambi/po/$$lang.po \
-  ../hello-csharp/po/$$lang.po \
-  ../hello-csharp-forms/po/$$lang.po \
-  ../hello-gawk/po/$$lang.po \
-  ../hello-pascal/po/$$lang.po \
-  ../hello-ycp/po/$$lang.po \
-  ../hello-tcl/po/$$lang.po \
-  ../hello-tcl-tk/po/$$lang.po \
-  ../hello-perl/po/$$lang.po \
-  ../hello-php/po/$$lang.po
+  $(srcdir)/../hello-c/po/$$lang.po \
+  $(srcdir)/../hello-c-gnome/po/$$lang.po \
+  $(srcdir)/../hello-c-gnome3/po/$$lang.po \
+  $(srcdir)/../hello-c++/po/$$lang.po \
+  $(srcdir)/../hello-c++-qt/po/$$lang.po \
+  $(srcdir)/../hello-c++-kde/po/$$lang.po \
+  $(srcdir)/../hello-c++-gnome/po/$$lang.po \
+  $(srcdir)/../hello-c++-wxwidgets/po/$$lang.po \
+  $(srcdir)/../hello-objc/po/$$lang.po \
+  $(srcdir)/../hello-objc-gnustep/po/$$lang.po \
+  $(srcdir)/../hello-objc-gnome/po/$$lang.po \
+  $(srcdir)/../hello-sh/po/$$lang.po \
+  $(srcdir)/../hello-python/po/$$lang.po \
+  $(srcdir)/../hello-clisp/po/$$lang.po \
+  $(srcdir)/../hello-librep/po/$$lang.po \
+  $(srcdir)/../hello-guile/po/$$lang.po \
+  $(srcdir)/../hello-smalltalk/po/$$lang.po \
+  $(srcdir)/../hello-java/po/$$lang.po \
+  $(srcdir)/../hello-java-awt/po/$$lang.po \
+  $(srcdir)/../hello-java-swing/po/$$lang.po \
+  $(srcdir)/../hello-java-qtjambi/po/$$lang.po \
+  $(srcdir)/../hello-csharp/po/$$lang.po \
+  $(srcdir)/../hello-csharp-forms/po/$$lang.po \
+  $(srcdir)/../hello-gawk/po/$$lang.po \
+  $(srcdir)/../hello-pascal/po/$$lang.po \
+  $(srcdir)/../hello-ycp/po/$$lang.po \
+  $(srcdir)/../hello-tcl/po/$$lang.po \
+  $(srcdir)/../hello-tcl-tk/po/$$lang.po \
+  $(srcdir)/../hello-perl/po/$$lang.po \
+  $(srcdir)/../hello-php/po/$$lang.po
 
-../hello-c/po/$(LL).po: hello-c.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c $(LL)
+$(srcdir)/../hello-c/po/$(LL).po: $(srcdir)/hello-c.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c $(LL)
 
-../hello-c-gnome/po/$(LL).po: hello-c-gnome.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c-gnome $(LL)
+$(srcdir)/../hello-c-gnome/po/$(LL).po: $(srcdir)/hello-c-gnome.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c-gnome $(LL)
 
-../hello-c-gnome3/po/$(LL).po: hello-c-gnome3.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c-gnome3 $(LL)
+$(srcdir)/../hello-c-gnome3/po/$(LL).po: $(srcdir)/hello-c-gnome3.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c-gnome3 $(LL)
 
-../hello-c++/po/$(LL).po: hello-c++.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c++ $(LL)
+$(srcdir)/../hello-c++/po/$(LL).po: $(srcdir)/hello-c++.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++ $(LL)
 
-../hello-c++-qt/po/$(LL).po: hello-c++-qt.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c++-qt $(LL)
+$(srcdir)/../hello-c++-qt/po/$(LL).po: $(srcdir)/hello-c++-qt.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-qt $(LL)
 
-../hello-c++-kde/po/$(LL).po: hello-c++-kde.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c++-kde $(LL)
+$(srcdir)/../hello-c++-kde/po/$(LL).po: $(srcdir)/hello-c++-kde.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-kde $(LL)
 
-../hello-c++-gnome/po/$(LL).po: hello-c++-gnome.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c++-gnome $(LL)
+$(srcdir)/../hello-c++-gnome/po/$(LL).po: $(srcdir)/hello-c++-gnome.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-gnome $(LL)
 
-../hello-c++-wxwidgets/po/$(LL).po: hello-c++-wxwidgets.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-c++-wxwidgets $(LL)
+$(srcdir)/../hello-c++-wxwidgets/po/$(LL).po: $(srcdir)/hello-c++-wxwidgets.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-wxwidgets $(LL)
 
-../hello-objc/po/$(LL).po: hello-objc.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-objc $(LL)
+$(srcdir)/../hello-objc/po/$(LL).po: $(srcdir)/hello-objc.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc $(LL)
 
-../hello-objc-gnustep/po/$(LL).po: hello-objc-gnustep.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-objc-gnustep $(LL)
+$(srcdir)/../hello-objc-gnustep/po/$(LL).po: $(srcdir)/hello-objc-gnustep.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnustep $(LL)
 
-../hello-objc-gnome/po/$(LL).po: hello-objc-gnome.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-objc-gnome $(LL)
+$(srcdir)/../hello-objc-gnome/po/$(LL).po: $(srcdir)/hello-objc-gnome.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnome $(LL)
 
-../hello-sh/po/$(LL).po: hello-sh.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-sh $(LL)
+$(srcdir)/../hello-sh/po/$(LL).po: $(srcdir)/hello-sh.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-sh $(LL)
 
-../hello-python/po/$(LL).po: hello-python.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-python $(LL)
+$(srcdir)/../hello-python/po/$(LL).po: $(srcdir)/hello-python.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-python $(LL)
 
-../hello-clisp/po/$(LL).po: hello-clisp.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-clisp $(LL)
+$(srcdir)/../hello-clisp/po/$(LL).po: $(srcdir)/hello-clisp.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-clisp $(LL)
 
-../hello-librep/po/$(LL).po: hello-librep.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-librep $(LL)
+$(srcdir)/../hello-librep/po/$(LL).po: $(srcdir)/hello-librep.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-librep $(LL)
 
-../hello-guile/po/$(LL).po: hello-guile.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-guile $(LL)
+$(srcdir)/../hello-guile/po/$(LL).po: $(srcdir)/hello-guile.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-guile $(LL)
 
-../hello-smalltalk/po/$(LL).po: hello-smalltalk.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-smalltalk $(LL)
+$(srcdir)/../hello-smalltalk/po/$(LL).po: $(srcdir)/hello-smalltalk.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-smalltalk $(LL)
 
-../hello-java/po/$(LL).po: hello-java.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-java $(LL)
+$(srcdir)/../hello-java/po/$(LL).po: $(srcdir)/hello-java.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-java $(LL)
 
-../hello-java-awt/po/$(LL).po: hello-java-awt.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-java-awt $(LL)
+$(srcdir)/../hello-java-awt/po/$(LL).po: $(srcdir)/hello-java-awt.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-java-awt $(LL)
 
-../hello-java-swing/po/$(LL).po: hello-java-swing.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-java-swing $(LL)
+$(srcdir)/../hello-java-swing/po/$(LL).po: $(srcdir)/hello-java-swing.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-java-swing $(LL)
 
-../hello-java-qtjambi/po/$(LL).po: hello-java-qtjambi.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-java-qtjambi $(LL)
+$(srcdir)/../hello-java-qtjambi/po/$(LL).po: $(srcdir)/hello-java-qtjambi.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-java-qtjambi $(LL)
 
-../hello-csharp/po/$(LL).po: hello-csharp.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-csharp $(LL)
+$(srcdir)/../hello-csharp/po/$(LL).po: $(srcdir)/hello-csharp.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-csharp $(LL)
 
-../hello-csharp-forms/po/$(LL).po: hello-csharp-forms.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
+$(srcdir)/../hello-csharp-forms/po/$(LL).po: $(srcdir)/hello-csharp-forms.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
 
-../hello-gawk/po/$(LL).po: hello-gawk.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-gawk $(LL)
+$(srcdir)/../hello-gawk/po/$(LL).po: $(srcdir)/hello-gawk.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-gawk $(LL)
 
-../hello-pascal/po/$(LL).po: hello-pascal.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-pascal $(LL)
+$(srcdir)/../hello-pascal/po/$(LL).po: $(srcdir)/hello-pascal.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-pascal $(LL)
 
-../hello-ycp/po/$(LL).po: hello-ycp.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-ycp $(LL)
+$(srcdir)/../hello-ycp/po/$(LL).po: $(srcdir)/hello-ycp.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ycp $(LL)
 
-../hello-tcl/po/$(LL).po: hello-tcl.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-tcl $(LL)
+$(srcdir)/../hello-tcl/po/$(LL).po: $(srcdir)/hello-tcl.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-tcl $(LL)
 
-../hello-tcl-tk/po/$(LL).po: hello-tcl-tk.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-tcl-tk $(LL)
+$(srcdir)/../hello-tcl-tk/po/$(LL).po: $(srcdir)/hello-tcl-tk.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-tcl-tk $(LL)
 
-../hello-perl/po/$(LL).po: hello-perl.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-perl $(LL)
+$(srcdir)/../hello-perl/po/$(LL).po: $(srcdir)/hello-perl.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-perl $(LL)
 
-../hello-php/po/$(LL).po: hello-php.pot $(LL).po
-	$(SHELL) mmsmallpo.sh hello-php $(LL)
+$(srcdir)/../hello-php/po/$(LL).po: $(srcdir)/hello-php.pot $(srcdir)/$(LL).po
+	cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-php $(LL)
