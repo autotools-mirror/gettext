@@ -703,6 +703,13 @@ to look for an external libintl.
 "
 fi
 
+# Tell the user to remove invocations of macros that no longer exist.
+if sed -e 's,#.*$,,; s,^dnl .*$,,; s, dnl .*$,,' "$srcdir/$configure_in" | grep AM_GNU_GETTEXT_INTL_SUBDIR >/dev/null; then
+  please="$please
+Please remove the invocation of AM_GNU_GETTEXT_INTL_SUBDIR.
+"
+fi
+
 # Copy files to po/ subdirectory.
 cd po
 for podir in $podirs; do
