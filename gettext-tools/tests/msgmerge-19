@@ -193,11 +193,12 @@ msgstr "zu viele Argumente"
 msgid "Missing arguments."
 msgstr "Argumente fehlen"
 
-#, fuzzy
+#, fuzzy, c-format
 #~| msgid "%s: invalid option -- %c\n"
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: ungültige Option -- %c\n"
 
+#, c-format
 #~ msgid "%s: invalid option -- %c\n"
 #~ msgstr "%s: ungültige Option -- %c\n"
 EOF
