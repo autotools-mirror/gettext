@@ -27,8 +27,7 @@ top_builddir = ..
 # 'make' program that supports VPATH (such as GNU make). This line is removed
 # by autoconf automatically when "$(srcdir)" = ".".
 # In this directory, the VPATH handling is particular:
-# 1. If INTL_LIBTOOL_SUFFIX_PREFIX is 'l' (indicating a build with libtool),
-#    the .c -> .lo rules carefully use $(srcdir), so that VPATH can be omitted.
+# 1. The .c -> .lo rules carefully use $(srcdir), so that VPATH can be omitted.
 # 2. If PACKAGE = gettext-tools, VPATH _must_ be omitted, because otherwise
 #    'make' does the wrong thing if GNU gettext was configured with
 #    "./configure --srcdir=`pwd`", namely it gets confused by the .lo and .la
@@ -60,8 +59,6 @@ mkinstalldirs = $(SHELL) @install_sh@ -d
 install_sh = $(SHELL) @install_sh@
 MKDIR_P = @MKDIR_P@
 mkdir_p = @mkdir_p@
-
-l = @INTL_LIBTOOL_SUFFIX_PREFIX@
 
 AR = @AR@
 ARFLAGS = @ARFLAGS@
@@ -112,9 +109,9 @@ LIBS = @LIBS@
 
 COMPILE = $(CC) -c $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(XCFLAGS)
 
-# This line will be replaced with pluralx.$lo, when this file is used
+# This line will be replaced with pluralx.lo, when this file is used
 # in gettext-tools/intl/.  See the pluralx.lo rule below for the rationale.
-PLURAL_OBJECT = plural.$lo
+PLURAL_OBJECT = plural.lo
 
 HEADERS = \
   gmo.h \
@@ -171,38 +168,38 @@ SOURCES = \
   intl-exports.c \
   intl-compat.c
 OBJECTS = \
-  bindtextdom.$lo \
-  dcgettext.$lo \
-  dgettext.$lo \
-  gettext.$lo \
-  finddomain.$lo \
-  hash-string.$lo \
-  loadmsgcat.$lo \
-  localealias.$lo \
-  textdomain.$lo \
-  l10nflist.$lo \
-  explodename.$lo \
-  dcigettext.$lo \
-  dcngettext.$lo \
-  dngettext.$lo \
-  ngettext.$lo \
+  bindtextdom.lo \
+  dcgettext.lo \
+  dgettext.lo \
+  gettext.lo \
+  finddomain.lo \
+  hash-string.lo \
+  loadmsgcat.lo \
+  localealias.lo \
+  textdomain.lo \
+  l10nflist.lo \
+  explodename.lo \
+  dcigettext.lo \
+  dcngettext.lo \
+  dngettext.lo \
+  ngettext.lo \
   $(PLURAL_OBJECT) \
-  plural-exp.$lo \
-  localcharset.$lo \
-  threadlib.$lo \
-  lock.$lo \
-  relocatable.$lo \
-  langprefs.$lo \
-  localename.$lo \
-  localename-table.$lo \
-  log.$lo \
-  printf.$lo \
-  setlocale.$lo \
-  version.$lo \
-  xsize.$lo \
-  osdep.$lo \
-  intl-compat.$lo
-OBJECTS_RES_yes = libintl.res.$lo
+  plural-exp.lo \
+  localcharset.lo \
+  threadlib.lo \
+  lock.lo \
+  relocatable.lo \
+  langprefs.lo \
+  localename.lo \
+  localename-table.lo \
+  log.lo \
+  printf.lo \
+  setlocale.lo \
+  version.lo \
+  xsize.lo \
+  osdep.lo \
+  intl-compat.lo
+OBJECTS_RES_yes = libintl.res.lo
 OBJECTS_RES_no =
 DISTFILES.common = Makefile.in \
 locale.alias ref-add.sin ref-del.sin export.h libintl.rc \
@@ -212,15 +209,10 @@ DISTFILES.normal = VERSION
 DISTFILES.gettext = ChangeLog COPYING.LIB INSTALL.windows libintl.glibc
 
 all: all-@USE_INCLUDED_LIBINTL@
-all-yes: libintl.$la libintl.h ref-add.sed ref-del.sed
+all-yes: libintl.la libintl.h ref-add.sed ref-del.sed
 all-no: all-no-@BUILD_INCLUDED_LIBINTL@
-all-no-yes: libgnuintl.$la
+all-no-yes: libgnuintl.la
 all-no-no:
-
-libintl.a libgnuintl.a: $(OBJECTS)
-	$(AM_V_at)rm -f $@
-	$(AM_V_AR)$(AR) $(ARFLAGS) $@ $(OBJECTS)
-	$(AM_V_at)$(RANLIB) $@
 
 libintl.la libgnuintl.la: $(OBJECTS) $(OBJECTS_RES_@WOE32@)
 	$(AM_V_GEN)$(LIBTOOL) $(AM_V_lt) --tag=CC --mode=link \
@@ -241,10 +233,7 @@ LTV_REVISION=5
 LTV_AGE=1
 
 .SUFFIXES:
-.SUFFIXES: .c .y .o .lo .sin .sed
-
-.c.o:
-	$(AM_V_CC)$(COMPILE) $<
+.SUFFIXES: .c .y .lo .sin .sed
 
 .y.c:
 	$(AM_V_YACC)$(YACC) $(YFLAGS) --output $@ $<
@@ -396,19 +385,18 @@ localename-table.h: $(srcdir)/localename-table.in.h
 
 check: all
 
-# We must not install the libintl.h/libintl.a files if we are on a
+# We must not install the libintl.h/libintl.la files if we are on a
 # system which has the GNU gettext() function in its C library or in a
 # separate library.
 # If you want to use the one which comes with this version of the
 # package, you have to use "configure --with-included-gettext".
 install: install-exec install-data
 install-exec: all
-	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
+	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkdir_p) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	  $(INSTALL_DATA) libintl.h $(DESTDIR)$(includedir)/libintl.h; \
 	  $(LIBTOOL) --mode=install \
-	    $(INSTALL_DATA) libintl.$la $(DESTDIR)$(libdir)/libintl.$la; \
+	    $(INSTALL_DATA) libintl.la $(DESTDIR)$(libdir)/libintl.la; \
 	  if test "@RELOCATABLE@" = yes; then \
 	    dependencies=`sed -n -e 's,^dependency_libs=\(.*\),\1,p' < $(DESTDIR)$(libdir)/libintl.la | sed -e "s,^',," -e "s,'\$$,,"`; \
 	    if test -n "$$dependencies"; then \
@@ -423,11 +411,11 @@ install-exec: all
 	   && test @GLIBC2@ != no; then \
 	  $(mkdir_p) $(DESTDIR)$(libdir); \
 	  $(LIBTOOL) --mode=install \
-	    $(INSTALL_DATA) libgnuintl.$la $(DESTDIR)$(libdir)/libgnuintl.$la; \
+	    $(INSTALL_DATA) libgnuintl.la $(DESTDIR)$(libdir)/libgnuintl.la; \
 	  rm -f $(DESTDIR)$(libdir)/preloadable_libintl.so; \
 	  $(INSTALL_DATA) $(DESTDIR)$(libdir)/libgnuintl.so $(DESTDIR)$(libdir)/preloadable_libintl.so; \
 	  $(LIBTOOL) --mode=uninstall \
-	    rm -f $(DESTDIR)$(libdir)/libgnuintl.$la; \
+	    rm -f $(DESTDIR)$(libdir)/libgnuintl.la; \
 	else \
 	  : ; \
 	fi
@@ -451,8 +439,7 @@ install-strip: install
 install-dvi install-html install-info install-ps install-pdf:
 
 installdirs:
-	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
+	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  $(mkdir_p) $(DESTDIR)$(libdir) $(DESTDIR)$(includedir); \
 	else \
 	  : ; \
@@ -474,11 +461,10 @@ installdirs:
 installcheck:
 
 uninstall:
-	if { test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; } \
-	   && test '@USE_INCLUDED_LIBINTL@' = yes; then \
+	if test '@USE_INCLUDED_LIBINTL@' = yes; then \
 	  rm -f $(DESTDIR)$(includedir)/libintl.h; \
 	  $(LIBTOOL) --mode=uninstall \
-	    rm -f $(DESTDIR)$(libdir)/libintl.$la; \
+	    rm -f $(DESTDIR)$(libdir)/libintl.la; \
 	else \
 	  : ; \
 	fi
@@ -515,17 +501,17 @@ uninstall:
 info dvi ps pdf html:
 
 $(OBJECTS): ../config.h libgnuintl.h
-bindtextdom.$lo dcgettext.$lo dcigettext.$lo dcngettext.$lo dgettext.$lo dngettext.$lo finddomain.$lo gettext.$lo intl-compat.$lo loadmsgcat.$lo localealias.$lo ngettext.$lo setlocale.$lo textdomain.$lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
-localename.$lo: $(srcdir)/gettextP.h
-localename.$lo localename-table.$lo: localename-table.h
-hash-string.$lo dcigettext.$lo loadmsgcat.$lo: $(srcdir)/hash-string.h
-explodename.$lo l10nflist.$lo: $(srcdir)/loadinfo.h
-dcigettext.$lo loadmsgcat.$lo $(PLURAL_OBJECT) plural-exp.$lo: $(srcdir)/plural-exp.h
-dcigettext.$lo: $(srcdir)/eval-plural.h
-localcharset.$lo: $(srcdir)/localcharset.h
-bindtextdom.$lo dcigettext.$lo finddomain.$lo loadmsgcat.$lo localealias.$lo lock.$lo log.$lo: $(srcdir)/lock.h
-localealias.$lo localcharset.$lo relocatable.$lo: $(srcdir)/relocatable.h
-printf.$lo: $(srcdir)/printf-args.h $(srcdir)/printf-args.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/xsize.c $(srcdir)/printf-parse.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/vasnprintf.c
+bindtextdom.lo dcgettext.lo dcigettext.lo dcngettext.lo dgettext.lo dngettext.lo finddomain.lo gettext.lo intl-compat.lo loadmsgcat.lo localealias.lo ngettext.lo setlocale.lo textdomain.lo: $(srcdir)/gettextP.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+localename.lo: $(srcdir)/gettextP.h
+localename.lo localename-table.lo: localename-table.h
+hash-string.lo dcigettext.lo loadmsgcat.lo: $(srcdir)/hash-string.h
+explodename.lo l10nflist.lo: $(srcdir)/loadinfo.h
+dcigettext.lo loadmsgcat.lo $(PLURAL_OBJECT) plural-exp.lo: $(srcdir)/plural-exp.h
+dcigettext.lo: $(srcdir)/eval-plural.h
+localcharset.lo: $(srcdir)/localcharset.h
+bindtextdom.lo dcigettext.lo finddomain.lo loadmsgcat.lo localealias.lo lock.lo log.lo: $(srcdir)/lock.h
+localealias.lo localcharset.lo relocatable.lo: $(srcdir)/relocatable.h
+printf.lo: $(srcdir)/printf-args.h $(srcdir)/printf-args.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/xsize.c $(srcdir)/printf-parse.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/vasnprintf.c
 
 # A bison-2.1 generated plural.c includes <libintl.h> if ENABLE_NLS.
 PLURAL_DEPS_yes = libintl.h
@@ -558,11 +544,7 @@ clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS
-	if test "$(PACKAGE)" = "gettext-runtime" || test "$(PACKAGE)" = "gettext-tools"; then \
-	  rm -f $(DISTFILES.normal); \
-	else \
-	  : ; \
-	fi
+	rm -f $(DISTFILES.normal)
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
@@ -576,13 +558,8 @@ dist distdir: Makefile
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  : ; \
 	else \
-	  if test "$(PACKAGE)" = "gettext-runtime"; then \
-	    additional="$(DISTFILES.gettext)"; \
-	  else \
-	    additional="$(DISTFILES.normal)"; \
-	  fi; \
-	  $(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $$additional; \
-	  for file in $(DISTFILES.common) $(DISTFILES.generated) $$additional; do \
+	  $(MAKE) $(DISTFILES.common) $(DISTFILES.generated) $(DISTFILES.gettext); \
+	  for file in $(DISTFILES.common) $(DISTFILES.generated) $(DISTFILES.gettext); do \
 	    if test -f $$file; then dir=.; else dir=$(srcdir); fi; \
 	    cp -p $$dir/$$file $(distdir) || test $$file = Makefile.in || exit 1; \
 	  done; \

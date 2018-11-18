@@ -14,7 +14,6 @@ iconv.m4 \
 intdiv0.m4 \
 intl.m4 \
 intl-thread-locale.m4 \
-intldir.m4 \
 intlmacosx.m4 \
 intmax.m4 \
 inttypes-pri.m4 \

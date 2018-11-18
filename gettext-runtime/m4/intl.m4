@@ -1,4 +1,4 @@
-# intl.m4 serial 34 (gettext-0.19.9)
+# intl.m4 serial 35 (gettext-0.19.9)
 dnl Copyright (C) 1995-2014, 2016-2018 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -20,8 +20,7 @@ dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2009.
 AC_PREREQ([2.60])
 
 dnl Checks for all prerequisites of the intl subdirectory,
-dnl except for INTL_LIBTOOL_SUFFIX_PREFIX (and possibly LIBTOOL), INTLOBJS,
-dnl            USE_INCLUDED_LIBINTL, BUILD_INCLUDED_LIBINTL.
+dnl except for LIBTOOL, USE_INCLUDED_LIBINTL, BUILD_INCLUDED_LIBINTL.
 AC_DEFUN([AM_INTL_SUBDIR],
 [
   AC_REQUIRE([AC_PROG_INSTALL])dnl

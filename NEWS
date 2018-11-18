@@ -13,6 +13,7 @@
     no longer available. Instead of including the intl sources in your package,
     we suggest making the libintl library an optional prerequisite of your
     package. This will simplify the build system of your package.
+  - Accordingly, the Autoconf macro AM_GNU_GETTEXT_INTL_SUBDIR is gone as well.
 
 * Programming languages support:
   - C, C++:
