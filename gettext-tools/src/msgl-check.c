@@ -984,7 +984,7 @@ syntax_check_space_ellipsis (const message_ty *mp, const char *msgid)
               /* Look for a U+2026.  */
               for (cp = end - 1; cp >= str; cp--)
                 {
-                  u8_mbtouc (&uc, (const unsigned char *) cp, ellipsis - cp);
+                  u8_mbtouc (&uc, (const unsigned char *) cp, end - cp);
                   if (uc != 0xfffd)
                     break;
                 }
