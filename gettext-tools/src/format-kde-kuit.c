@@ -251,7 +251,7 @@ format_parse (const char *format, bool translated, char *fdi,
       free (buffer);
       xmlFreeDoc (doc);
     }
-#elif FORMAT_KDE_KUIT_FALLBACK_MARKUP
+#elif FORMAT_KDE_KUIT_USE_FALLBACK_MARKUP
     {
       markup_parser_ty parser;
       markup_parse_context_ty *context;
@@ -283,6 +283,7 @@ format_parse (const char *format, bool translated, char *fdi,
     }
 #else
     /* No support for XML.  */
+    free (buffer);
 #endif
 
   spec.base = formatstring_kde.parse (format, translated, fdi, invalid_reason);
