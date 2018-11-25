@@ -512,6 +512,8 @@ for file in intl.m4 po.m4; do
 done
 
 echo "$0: generating configure in gettext-tools..."
+mkdir -p gettext-tools/intl
+cp -p gettext-runtime/intl/Makefile.am gettext-tools/intl/Makefile.am
 cd gettext-tools
 aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 \
   && autoconf \

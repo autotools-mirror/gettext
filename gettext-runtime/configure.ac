@@ -89,6 +89,11 @@ dnl Checks for libraries.
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT([use-libtool], [need-ngettext])
+dnl Conditionals for the intl/ directory.
+AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
+AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
+AM_CONDITIONAL([PACKAGE_IS_GETTEXT_TOOLS], [false])
+AM_CONDITIONAL([PRELOADABLE_LIBINTL], [false])
 
 dnl Checks for header files, functions and declarations.
 gl_INIT

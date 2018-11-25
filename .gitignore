@@ -318,6 +318,7 @@
 /gettext-runtime/config.h.in
 /gettext-runtime/Makefile.in
 /gettext-runtime/doc/Makefile.in
+/gettext-runtime/intl/Makefile.in
 /gettext-runtime/intl-csharp/Makefile.in
 /gettext-runtime/intl-java/Makefile.in
 /gettext-runtime/libasprintf/aclocal.m4
