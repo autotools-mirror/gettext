@@ -69,7 +69,7 @@ ${MSGFMT} --desktop --template=mf.desktop -l fr fr.po \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --desktop --template=mf.desktop fr.po -o mf.desktop.out \
+${MSGFMT} --desktop --template=mf.desktop fr.po -o mf.desktop.out \
           >/dev/null 2>/dev/null \
   && Exit 1
 

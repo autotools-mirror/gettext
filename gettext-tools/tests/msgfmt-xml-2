@@ -179,11 +179,11 @@ ${MSGFMT} --xml --template=mf.appdata.xml -d po \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out -l fr \
+${MSGFMT} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out -l fr \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out po/fr.po \
+${MSGFMT} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out po/fr.po \
           >/dev/null 2>/dev/null \
   && Exit 1
 

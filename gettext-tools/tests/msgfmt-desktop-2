@@ -150,11 +150,11 @@ ${MSGFMT} --desktop --template=mf.desktop -d po \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --desktop --template=mf.desktop -d po -o mf.desktop.out -l fr \
+${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out -l fr \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --desktop --template=mf.desktop -d po -o mf.desktop.out po/fr.po \
+${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out po/fr.po \
           >/dev/null 2>/dev/null \
   && Exit 1
 

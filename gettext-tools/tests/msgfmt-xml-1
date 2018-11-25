@@ -94,7 +94,7 @@ ${MSGFMT} --xml --template=mf.appdata.xml -l fr fr.po \
           >/dev/null 2>/dev/null \
   && Exit 1
 
-${MSGFMG} --xml --template=mf.appdata.xml fr.po -o mf.appdata.xml.out \
+${MSGFMT} --xml --template=mf.appdata.xml fr.po -o mf.appdata.xml.out \
           >/dev/null 2>/dev/null \
   && Exit 1
 
