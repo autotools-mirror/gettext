@@ -492,10 +492,6 @@ dnl Check whether to execute tests of the system (vendor-provided) libintl API.
 dnl We execute these tests if and only if we don't install our own libintl.
 AM_CONDITIONAL([TEST_SYSTEM_LIBINTL], [test $USE_INCLUDED_LIBINTL = no])
 
-dnl Generate the version information file in the intl/ directory.
-test -d intl || mkdir intl
-echo "GNU gettext library from gettext-$VERSION" > intl/VERSION
-
 AC_CONFIG_SUBDIRS([examples])
 
 AC_CONFIG_FILES([Makefile])

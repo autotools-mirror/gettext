@@ -201,7 +201,6 @@ DISTFILES.common = Makefile.in \
 locale.alias ref-add.sin ref-del.sin export.h libintl.rc \
 $(HEADERS) $(SOURCES)
 DISTFILES.generated = plural.c
-DISTFILES.normal = VERSION
 DISTFILES.gettext = ChangeLog COPYING.LIB INSTALL.windows libintl.glibc
 
 all: all-@USE_INCLUDED_LIBINTL@
@@ -538,7 +537,6 @@ clean: mostlyclean
 
 distclean: clean
 	rm -f Makefile ID TAGS
-	rm -f $(DISTFILES.normal)
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
@@ -546,8 +544,6 @@ maintainer-clean: distclean
 	rm -f $(srcdir)/plural.c
 
 
-# GNU gettext needs not contain the file 'VERSION' but contains some
-# other files which should not be distributed in other packages.
 distdir = ../$(PACKAGE)-$(VERSION)/$(subdir)
 dist distdir: Makefile
 	if test "$(PACKAGE)" = "gettext-tools"; then \
