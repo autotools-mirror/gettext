@@ -82,7 +82,6 @@
 /gettext-tools/libgettextpo/close.c
 /gettext-tools/libgettextpo/concat-filename.c
 /gettext-tools/libgettextpo/concat-filename.h
-/gettext-tools/libgettextpo/config.charset
 /gettext-tools/libgettextpo/diffseq.h
 /gettext-tools/libgettextpo/dirname-lgpl.c
 /gettext-tools/libgettextpo/dirname.h
@@ -180,8 +179,6 @@
 /gettext-tools/libgettextpo/rawmemchr.c
 /gettext-tools/libgettextpo/rawmemchr.valgrind
 /gettext-tools/libgettextpo/realloc.c
-/gettext-tools/libgettextpo/ref-add.sin
-/gettext-tools/libgettextpo/ref-del.sin
 /gettext-tools/libgettextpo/relocatable.c
 /gettext-tools/libgettextpo/relocatable.h
 /gettext-tools/libgettextpo/relocatable.valgrind
@@ -598,10 +595,6 @@ autom4te.cache/
 /gettext-runtime/src/ngettext.exe
 /gettext-runtime/tests/test-lock
 /gettext-runtime/tests/test-lock.exe
-/gettext-tools/libgettextpo/configmake.h
-/gettext-tools/libgettextpo/charset.alias
-/gettext-tools/libgettextpo/ref-add.sed
-/gettext-tools/libgettextpo/ref-del.sed
 /gettext-tools/libgettextpo/gettext-po.h
 /gettext-tools/libgettextpo/libgnu.la
 /gettext-tools/libgettextpo/libgettextpo.la
