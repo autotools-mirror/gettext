@@ -647,10 +647,6 @@ autom4te.cache/
 /gettext-tools/src/urlget.exe
 /gettext-tools/src/xgettext
 /gettext-tools/src/xgettext.exe
-/gettext-tools/src/gnu.gettext.DumpResource
-/gettext-tools/src/gnu.gettext.DumpResource.exe
-/gettext-tools/src/gnu.gettext.GetURL
-/gettext-tools/src/gnu.gettext.GetURL.exe
 /gettext-tools/system-tests/cake
 /gettext-tools/system-tests/cake.exe
 /gettext-tools/system-tests/fc3
