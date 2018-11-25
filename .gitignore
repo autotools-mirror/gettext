@@ -150,7 +150,6 @@
 /gettext-tools/libgettextpo/malloc.c
 /gettext-tools/libgettextpo/malloca.c
 /gettext-tools/libgettextpo/malloca.h
-/gettext-tools/libgettextpo/malloca.valgrind
 /gettext-tools/libgettextpo/markup.c
 /gettext-tools/libgettextpo/markup.h
 /gettext-tools/libgettextpo/mbrtowc.c
