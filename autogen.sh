@@ -137,6 +137,7 @@ if ! $skip_gnulib; then
     GNULIB_MODULES_RUNTIME_FOR_SRC='
       atexit
       basename
+      binary-io
       closeout
       error
       getopt-gnu

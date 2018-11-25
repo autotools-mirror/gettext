@@ -1,5 +1,5 @@
 /* Substitution of environment variables in shell format strings.
-   Copyright (C) 2003-2007, 2012, 2015-2018 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007, 2012, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -34,6 +34,7 @@
 #include "basename.h"
 #include "xalloc.h"
 #include "propername.h"
+#include "binary-io.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -139,6 +140,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         default:
           abort ();
         }
+
+      /* The result is most often used in shell `...` expressions.
+         Therefore, on native Windows, don't produce CR/LF newlines.  */
+      set_binary_mode (STDOUT_FILENO, O_BINARY);
+
       print_variables (argv[optind++]);
     }
   else
