@@ -1,0 +1,48 @@
+Code coverage
+=============
+
+Documentation:
+https://gcc.gnu.org/onlinedocs/gcc/Invoking-Gcov.html
+http://ltp.sourceforge.net/coverage/lcov.php
+https://wiki.documentfoundation.org/Development/Lcov
+https://linux.die.net/man/1/lcov
+
+0. Use lcov 1.12 or newer.
+   Make sure that /etc/lcovrc or your ~/.lcovrc contains
+     geninfo_auto_base = 1
+   (Without it, you get many more warnings in step 4.)
+
+1. Configure in source directory (no VPATH build) with
+   $ ./configure CC="gcc --coverage" CPPFLAGS=-Wall
+   Why in the source directory?
+   Because in a VPATH build, there are more files that create trouble in
+   steps 4 and 5 (po-gram-gen.[yc], cldr-plurals.[yc], and more).
+
+2. Compile:
+   $ make
+   This step creates many *.gcno files.
+
+3. Run:
+   $ rm -f `find . -name '*.gcda'`
+   $ make check
+   This step creates many *.gcda files.
+
+4. $ lcov --capture --directory . --output-file coverage.info
+   You get warnings about
+     c-ctype.h ostream.h ostream.oo.h styled-ostream.h term-ostream.h unistr.h xalloc.h
+     plural.c plural.y
+   Handle them by making symlinks:
+   $ for f in c-ctype.h ostream.h ostream.oo.h styled-ostream.h term-ostream.h unistr.h xalloc.h; do
+       ln -sf ../gnulib-lib/$f gettext-tools/src/$f
+     done
+   $ for f in plural.c plural.y; do
+       ln -sf ../../gettext-runtime/intl/$f gettext-tools/intl/$f
+       ln -sf ../../gettext-runtime/intl/$f gettext-tools/src/$f
+     done
+
+5. $ genhtml coverage.info --output-directory lcov.out
+
+6. $ xdg-open lcov.out/index.html
+
+7. When done:
+   $ rm -f `find . -name '*.gcno'` `find . -name '*.gcda'`
