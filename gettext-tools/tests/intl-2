@@ -30,17 +30,21 @@ EOF
 if test $LOCALE_FR != none; then
   prepare_locale_ in-2-1/fr in-2-1/$LOCALE_FR
   prepare_locale_ in-2-2/fr in-2-2/$LOCALE_FR
-  ../intl-1-prg in-2-1 $LOCALE_FR > in-2.out || Exit 1
+  ../intl-1-prg in-2-1 $LOCALE_FR > in-2.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-2.tmp > in-2.out || Exit 1
   ${DIFF} in-2-1.ok in-2.out || Exit 1
-  ../intl-1-prg in-2-2 $LOCALE_FR > in-2.out || Exit 1
+  ../intl-1-prg in-2-2 $LOCALE_FR > in-2.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-2.tmp > in-2.out || Exit 1
   ${DIFF} in-2-1.ok in-2.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ in-2-1/fr in-2-1/$LOCALE_FR_UTF8
   prepare_locale_ in-2-2/fr in-2-2/$LOCALE_FR_UTF8
-  ../intl-1-prg in-2-1 $LOCALE_FR_UTF8 > in-2.out || Exit 1
+  ../intl-1-prg in-2-1 $LOCALE_FR_UTF8 > in-2.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-2.tmp > in-2.out || Exit 1
   ${DIFF} in-2-2.ok in-2.out || Exit 1
-  ../intl-1-prg in-2-2 $LOCALE_FR_UTF8 > in-2.out || Exit 1
+  ../intl-1-prg in-2-2 $LOCALE_FR_UTF8 > in-2.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-2.tmp > in-2.out || Exit 1
   ${DIFF} in-2-2.ok in-2.out || Exit 1
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then

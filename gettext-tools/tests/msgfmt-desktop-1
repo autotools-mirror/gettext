@@ -75,8 +75,9 @@ ${MSGFMT} --desktop --template=mf.desktop fr.po -o mf.desktop.out \
 
 # Proceed to the .desktop file generation.
 
-${MSGFMT} --desktop --template=mf.desktop -l fr fr.po -o mf.desktop.out \
+${MSGFMT} --desktop --template=mf.desktop -l fr fr.po -o mf.desktop.tmp \
   || Exit 1
+LC_ALL=C tr -d '\r' < mf.desktop.tmp > mf.desktop.out || Exit 1
 
 : ${DIFF=diff}
 ${DIFF} mf.desktop.ok mf.desktop.out

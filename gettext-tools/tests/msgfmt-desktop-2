@@ -160,7 +160,8 @@ ${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out po/fr.po \
 
 # Proceed to the .desktop file generation.
 
-${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out || Exit 1
+${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.tmp || Exit 1
+LC_ALL=C tr -d '\r' < mf.desktop.tmp > mf.desktop.out || Exit 1
 
 : ${DIFF=diff}
 ${DIFF} mf.desktop.ok mf.desktop.out
@@ -168,7 +169,9 @@ test $? = 0 || Exit 1
 
 # Restrict the desired languages with the LINGUAS envvar.
 
-LINGUAS="fr ja" ${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.desired.out || Exit 1
+LINGUAS="fr ja" \
+${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.desired.tmp || Exit 1
+LC_ALL=C tr -d '\r' < mf.desktop.desired.tmp > mf.desktop.desired.out || Exit 1
 
 : ${DIFF=diff}
 ${DIFF} mf.desktop.desired.ok mf.desktop.desired.out

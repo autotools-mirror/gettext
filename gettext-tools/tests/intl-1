@@ -19,12 +19,14 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
   prepare_locale_ in-1/fr in-1/$LOCALE_FR
-  ../intl-1-prg in-1 $LOCALE_FR > in-1.out || Exit 1
+  ../intl-1-prg in-1 $LOCALE_FR > in-1.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-1.tmp > in-1.out || Exit 1
   ${DIFF} in-1.ok in-1.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ in-1/fr in-1/$LOCALE_FR_UTF8
-  ../intl-1-prg in-1 $LOCALE_FR_UTF8 > in-1.out || Exit 1
+  ../intl-1-prg in-1 $LOCALE_FR_UTF8 > in-1.tmp || Exit 1
+  LC_ALL=C tr -d '\r' < in-1.tmp > in-1.out || Exit 1
   ${DIFF} in-1.ok in-1.out || Exit 1
 fi
 if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
