@@ -1409,7 +1409,13 @@ plural_forms ()
           goto failed;
         }
       if (linelen > 0 && line[linelen - 1] == '\n')
-        line[linelen - 1] = '\0';
+        {
+          line[linelen - 1] = '\0';
+#if defined _WIN32 && ! defined __CYGWIN__
+          if (linelen > 1 && line[linelen - 2] == '\r')
+            line[linelen - 2] = '\0';
+#endif
+        }
 
       fclose (fp);
 
