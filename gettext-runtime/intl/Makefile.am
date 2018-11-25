@@ -462,6 +462,18 @@ uninstall-aliasfile: ref-del.sed
 endif
 
 
+# We don't install the source code any more.
+
+if PACKAGE_IS_GETTEXT_TOOLS
+
+install-data-local: uninstall-sources
+uninstall-local: uninstall-sources
+uninstall-sources:
+	rm -rf $(DESTDIR)$(datadir)/gettext/intl
+
+endif
+
+
 # Clean up after Solaris cc.
 clean-local:
 	rm -rf SunWS_cache
