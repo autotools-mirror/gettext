@@ -44,9 +44,9 @@ msgstr ""
 EOF
 
 : ${MSGINIT=msginit}
-GETTEXTLIBDIR_SRCDIR="$abs_top_srcdir"/src \
+GETTEXTLIBDIR_SRCDIR="$wabs_top_srcdir"/src \
 GETTEXTLIBDIR_BUILDDIR="$top_builddir"/src \
-GETTEXTCLDRDIR="$abs_srcdir" \
+GETTEXTCLDRDIR="$wabs_srcdir" \
 ${MSGINIT} -i mi-test4.pot -l foo --no-translator --no-wrap -o mi-test4.tmp 2>mi-test4.err
 test $? = 0 || { cat mi-test4.err 1>&2; Exit 1; }
 

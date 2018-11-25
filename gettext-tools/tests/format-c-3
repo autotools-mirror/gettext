@@ -4,7 +4,7 @@
 # Test ISO C 99 <inttypes.h> format string directives.
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o fc3.tmp --omit-header --no-location "$abs_srcdir"/format-c-3-prg.c || Exit 1
+${XGETTEXT} -o fc3.tmp --omit-header --no-location "$wabs_srcdir"/format-c-3-prg.c || Exit 1
 LC_ALL=C tr -d '\r' < fc3.tmp > fc3.pot || Exit 1
 
 cat <<EOF > fc3.ok

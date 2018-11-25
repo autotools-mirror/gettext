@@ -8,14 +8,14 @@ test -d in-3-1/fr || mkdir in-3-1/fr
 test -d in-3-1/fr/LC_MESSAGES || mkdir in-3-1/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-3-1/fr/LC_MESSAGES/tstprog.mo "$abs_srcdir"/intl-2-1.po
+${MSGFMT} -o in-3-1/fr/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-2-1.po
 
 test -d in-3-2 || mkdir in-3-2
 test -d in-3-2/fr || mkdir in-3-2/fr
 test -d in-3-2/fr/LC_MESSAGES || mkdir in-3-2/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-3-2/fr/LC_MESSAGES/tstprog.mo "$abs_srcdir"/intl-2-2.po
+${MSGFMT} -o in-3-2/fr/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-2-2.po
 
 : ${DIFF=diff}
 cat <<EOF > in-3-1.ok

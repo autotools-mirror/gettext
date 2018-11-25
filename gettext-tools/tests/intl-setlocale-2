@@ -37,7 +37,7 @@ test -d in-sl-2/de_DE || mkdir in-sl-2/de_DE
 test -d in-sl-2/de_DE/LC_MESSAGES || mkdir in-sl-2/de_DE/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-sl-2/de_DE/LC_MESSAGES/tstprog.mo "$abs_srcdir"/intl-setlocale-2.po
+${MSGFMT} -o in-sl-2/de_DE/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-setlocale-2.po
 
 ../intl-setlocale-2-prg || Exit 1
 

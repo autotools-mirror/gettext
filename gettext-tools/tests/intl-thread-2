@@ -14,8 +14,8 @@ test -d in-th-2/de || mkdir in-th-2/de
 test -d in-th-2/de/LC_MESSAGES || mkdir in-th-2/de/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-th-2/fr/LC_MESSAGES/tstthread.mo "$abs_srcdir"/intl-thread-2-1.po
-${MSGFMT} -o in-th-2/de/LC_MESSAGES/tstthread.mo "$abs_srcdir"/intl-thread-2-2.po
+${MSGFMT} -o in-th-2/fr/LC_MESSAGES/tstthread.mo "$wabs_srcdir"/intl-thread-2-1.po
+${MSGFMT} -o in-th-2/de/LC_MESSAGES/tstthread.mo "$wabs_srcdir"/intl-thread-2-2.po
 
 : ${DIFF=diff}
 cat <<EOF > in-th-2.ok

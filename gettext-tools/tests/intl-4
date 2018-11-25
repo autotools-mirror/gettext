@@ -9,7 +9,7 @@ test -d in-4/fr || mkdir in-4/fr
 test -d in-4/fr/LC_MESSAGES || mkdir in-4/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-4/fr/LC_MESSAGES/tstprog.mo "$abs_srcdir"/intl-4.po
+${MSGFMT} -o in-4/fr/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-4.po
 
 # This test works only on systems that have a traditional french locale
 # installed.

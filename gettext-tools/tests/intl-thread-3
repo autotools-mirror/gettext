@@ -13,7 +13,7 @@ test -d in-th-3/fr || mkdir in-th-3/fr
 test -d in-th-3/fr/LC_MESSAGES || mkdir in-th-3/fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o in-th-3/fr/LC_MESSAGES/tstthread.mo "$abs_srcdir"/intl-thread-3.po
+${MSGFMT} -o in-th-3/fr/LC_MESSAGES/tstthread.mo "$wabs_srcdir"/intl-thread-3.po
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}

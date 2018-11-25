@@ -37,7 +37,7 @@ msgstr ""
 EOF
 
 : ${MSGINIT=msginit}
-GETTEXTLIBDIR_SRCDIR="$abs_top_srcdir"/src \
+GETTEXTLIBDIR_SRCDIR="$wabs_top_srcdir"/src \
 ${MSGINIT} -l ga_IE --no-translator -o mi-test3.tmp 2>mi-test3.err
 test $? = 0 || { cat mi-test3.err 1>&2; Exit 1; }
 

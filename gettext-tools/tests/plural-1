@@ -2,7 +2,7 @@
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location "$abs_srcdir"/plural-1-prg.c || Exit 1
+${XGETTEXT} -o plural-1-cake.tmp --omit-header --no-location "$wabs_srcdir"/plural-1-prg.c || Exit 1
 LC_ALL=C tr -d '\r' < plural-1-cake.tmp > plural-1-cake.pot || Exit 1
 
 cat <<EOF > plural-1-cake.ok
