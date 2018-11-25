@@ -370,7 +370,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
          Note: These environment variables, especially MSGEXEC_MSGCTXT and
          MSGEXEC_MSGID, may contain non-ASCII characters.  The subprocess
          may not interpret these values correctly if the locale encoding is
-         different from the PO file's encoding.  We want about this situation,
+         different from the PO file's encoding.  We warned about this situation,
          above.
          On Unix, this problem is often harmless.  On Windows, however, - both
          native Windows and Cygwin - the values of environment variables *must*
