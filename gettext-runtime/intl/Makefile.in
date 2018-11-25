@@ -433,6 +433,11 @@ install-exec: all
 	  : ; \
 	fi
 install-data: all
+	if test "$(PACKAGE)" = "gettext-tools"; then \
+	  rm -rf $(DESTDIR)$(datadir)/gettext/intl; \
+	else \
+	  : ; \
+	fi
 
 install-strip: install
 
@@ -491,9 +496,7 @@ uninstall:
 	  : ; \
 	fi
 	if test "$(PACKAGE)" = "gettext-tools"; then \
-	  for file in VERSION COPYING.LIB $(DISTFILES.common) $(DISTFILES.generated); do \
-	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \
-	  done; \
+	  rm -rf $(DESTDIR)$(datadir)/gettext/intl; \
 	else \
 	  : ; \
 	fi
