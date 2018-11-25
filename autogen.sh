@@ -153,6 +153,7 @@ if ! $skip_gnulib; then
       stdio
       stdlib
       strtoul
+      unistd
       unlocked-io
       xalloc
     '
