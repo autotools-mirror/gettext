@@ -2,6 +2,13 @@
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test various msginit options.
+
+# This test fails on mingw, because it relies on the 'project-id' script,
+# which is a shell script (for maintainability) and there is no simple way
+# to execute shell scripts in a native Windows environment.
+# People who need this functionality should use a Cygwin environment, not
+# a native Windows environment.
+
 cat <<\EOF > mi-test3.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
