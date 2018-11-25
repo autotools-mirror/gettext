@@ -119,7 +119,6 @@
 /gettext-tools/libgettextpo/getprogname.c
 /gettext-tools/libgettextpo/getprogname.h
 /gettext-tools/libgettextpo/gettext.h
-/gettext-tools/libgettextpo/gettimeofday.c
 /gettext-tools/libgettextpo/gl_anylinked_list1.h
 /gettext-tools/libgettextpo/gl_anylinked_list2.h
 /gettext-tools/libgettextpo/gl_linked_list.c
@@ -221,7 +220,6 @@
 /gettext-tools/libgettextpo/stripslash.c
 /gettext-tools/libgettextpo/strstr.c
 /gettext-tools/libgettextpo/sys_stat.in.h
-/gettext-tools/libgettextpo/sys_time.in.h
 /gettext-tools/libgettextpo/sys_types.in.h
 /gettext-tools/libgettextpo/time.in.h
 /gettext-tools/libgettextpo/uniconv.in.h
