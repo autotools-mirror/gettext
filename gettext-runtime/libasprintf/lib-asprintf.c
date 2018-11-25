@@ -1,5 +1,5 @@
 /* Library functions for class autosprintf.
-   Copyright (C) 2002-2003, 2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2018 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,18 @@
 #include "vasnprintf.c"
 #include "asnprintf.c"
 
+/* Define to the same symbols as in lib-asprintf.h.  */
+#define asprintf libasprintf_asprintf
+#define vasprintf libasprintf_vasprintf
+
 /* Define functions declared in "vasprintf.h".  */
+#include "vasprintf.c"
+#include "asprintf.c"
+
+/* Define the same functions also without the 'libasprintf_' prefix,
+   for binary backward-compatibility.  */
+#undef asprintf
+#undef vasprintf
 #include "vasprintf.c"
 #include "asprintf.c"
 

@@ -28,7 +28,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lib-asprintf.h"
 
 /* std::swap() is in <utility> since C++11.  */
 #if __cplusplus >= 201103L
@@ -36,6 +35,10 @@
 #else
 # include <algorithm>
 #endif
+
+/* This include must come last, since it contains overrides of functions that
+   the system may provide (namely, vasprintf).  */
+#include "lib-asprintf.h"
 
 namespace gnu
 {
