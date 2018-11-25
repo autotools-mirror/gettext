@@ -18,9 +18,11 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies subdir-objects
 EXTRA_DIST =
+BUILT_SOURCES =
 MOSTLYCLEANFILES = core *.stackdump
 CLEANFILES =
 DISTCLEANFILES =
+MAINTAINERCLEANFILES =
 
 RM = rm -f
 
@@ -462,19 +464,58 @@ endif
 
 # Special rules for bison and flex generated files.
 
-BUILT_SOURCES = \
-  po-gram-gen.c po-gram-gen.h po-gram-gen2.h cldr-plural.c cldr-plural.h
+# The Automake generated .y.c rule is broken: When executed in a VPATH build,
+#   - The .c file gets generated in the build directory. But since it requires
+#     special tools to rebuild it, we need to distribute it in the tarballs,
+#     and by the GNU Coding Standards
+#     <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>
+#     the file should be generated in the source directory.
+#   - The #line numbers in the .c file refer to a nonexistent file once it
+#     has been moved from the build directory to the source directory. This
+#     leads to error if 'lcov' is used later.
+# Therefore we override this rule.
+
+po-gram-gen.c po-gram-gen.h: po-gram-gen.y
+	$(AM_V_GEN)$(SHELL) $(YLWRAP) $(srcdir)/po-gram-gen.y \
+	                              y.tab.c po-gram-gen.c \
+	                              y.tab.h po-gram-gen.h \
+	                              y.output po-gram-gen.output \
+	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
+	&& sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.c > po-gram-gen.c-tmp \
+	&& rm -f po-gram-gen.c \
+	&& mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
+	&& { test '$(srcdir)' = . || mv po-gram-gen.h $(srcdir)/po-gram-gen.h; }
+BUILT_SOURCES += po-gram-gen.c po-gram-gen.h
+MOSTLYCLEANFILES += po-gram-gen.c-tmp
+MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
+EXTRA_DIST += po-gram-gen.c po-gram-gen.h
+
+# po-gram-gen2.h is generated from po-gram-gen.h and is also distributed in the
+# tarballs (just for convenience).
+po-gram-gen2.h: po-gram-gen.h
+	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > po-gram-gen2.h-tmp \
+	&& mv po-gram-gen2.h-tmp $(srcdir)/po-gram-gen2.h
+BUILT_SOURCES += po-gram-gen2.h
+MOSTLYCLEANFILES += po-gram-gen2.h-tmp
+MAINTAINERCLEANFILES += po-gram-gen2.h
+EXTRA_DIST += po-gram-gen2.h
 
 po-lex.o po-lex.lo: po-gram-gen2.h
-po-gram-gen2.h: po-gram-gen.h
-	srcdir=''; \
-	test -f ./po-gram-gen.h || srcdir=$(srcdir)/; \
-	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' \
-	  $${srcdir}po-gram-gen.h > $@-tmp && \
-	mv $@-tmp $@
-po-gram-gen.h: po-gram-gen.c
 
-cldr-plural.h: cldr-plural.c
+cldr-plural.c cldr-plural.h: cldr-plural.y
+	$(AM_V_GEN)$(SHELL) $(YLWRAP) $(srcdir)/cldr-plural.y \
+	                              y.tab.c cldr-plural.c \
+	                              y.tab.h cldr-plural.h \
+	                              y.output cldr-plural.output \
+	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
+	&& sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.c > cldr-plural.c-tmp \
+	&& rm -f cldr-plural.c \
+	&& mv cldr-plural.c-tmp $(srcdir)/cldr-plural.c \
+	&& { test '$(srcdir)' = . || mv cldr-plural.h $(srcdir)/cldr-plural.h; }
+BUILT_SOURCES += cldr-plural.c cldr-plural.h
+MOSTLYCLEANFILES += cldr-plural.c-tmp
+MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
+EXTRA_DIST += cldr-plural.c cldr-plural.h
 
 
 # Special rules for installation of auxiliary programs.
