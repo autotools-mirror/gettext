@@ -284,7 +284,6 @@
 /gettext-tools/tests/init.sh
 
 # Files brought in by "automake --add-missing --copy":
-/build-aux/ar-lib
 /build-aux/compile
 /build-aux/depcomp
 /build-aux/elisp-comp
