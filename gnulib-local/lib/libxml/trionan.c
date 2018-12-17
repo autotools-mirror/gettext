@@ -1,6 +1,7 @@
 /* Replacement 'trionan.c', using Gnulib functions.  */
 
 #include "config.h"
+#include <float.h>
 #include <math.h>
 
 /* Copied from gnulib/tests/infinity.h.  */
