@@ -1,5 +1,5 @@
 /* testlocale - test whether the locale given by the environment is installed.
-   Copyright (C) 2003, 2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006, 2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ int
 main (int argc, char *argv[])
 {
 /* This test must match the one in intl/localename.c.  */
-#if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
+#if defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
   if (setlocale (LC_ALL, "") == NULL)
     /* Couldn't set locale.  */
     exit (77);

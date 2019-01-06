@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2015-2018 Free Software
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2015-2019 Free Software
    Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -102,10 +102,8 @@ main (int argc, char *argv[])
   error_print_progname = maybe_print_progname;
   gram_max_allowed_errors = UINT_MAX;
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));

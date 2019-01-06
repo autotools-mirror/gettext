@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form string from message catalog and print it.
-   Copyright (C) 1995-1997, 2000-2007, 2015-2018 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2007, 2015-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -79,10 +79,8 @@ main (int argc, char *argv[])
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));

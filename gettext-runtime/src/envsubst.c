@@ -1,5 +1,5 @@
 /* Substitution of environment variables in shell format strings.
-   Copyright (C) 2003-2007, 2012, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2003-2007, 2012, 2018-2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -75,10 +75,8 @@ main (int argc, char *argv[])
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));

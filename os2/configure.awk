@@ -21,7 +21,6 @@ BEGIN{
   cfg["HAVE_MEMMOVE"] = 1;
   cfg["HAVE_MEMSET"] = 1;
   cfg["HAVE_PUTENV"] = 1;
-  cfg["HAVE_SETLOCALE"] = 1;
   cfg["HAVE_STRCHR"] = 1;
   cfg["HAVE_STRCSPN"] = 1;
   cfg["HAVE_STRDUP"] = 1;

@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form strings from message catalog and print them.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2015-2018 Free Software
+   Copyright (C) 1995-1997, 2000-2007, 2012, 2015-2019 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,6 @@
 #include "propername.h"
 #include "xsetenv.h"
 
-#define HAVE_SETLOCALE 1
 /* Make sure we use the included libintl, not the system's one. */
 #undef _LIBINTL_H
 #include "libgnuintl.h"
@@ -77,10 +76,8 @@ main (int argc, char *argv[])
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
@@ -122,11 +119,9 @@ main (int argc, char *argv[])
       usage (EXIT_FAILURE);
     }
 
-#ifdef HAVE_SETLOCALE
   if (environ_changed)
     /* Set locale again via LC_ALL.  */
     setlocale (LC_ALL, "");
-#endif
 
   /* Version information is requested.  */
   if (do_version)

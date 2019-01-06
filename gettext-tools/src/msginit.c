@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -161,10 +161,8 @@ main (int argc, char **argv)
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
@@ -789,12 +787,10 @@ canonical_locale_charset ()
 
   xsetenv ("LC_ALL", locale, 1);
 
-#ifdef HAVE_SETLOCALE
   if (setlocale (LC_ALL, "") == NULL)
     /* Nonexistent locale.  Use anything.  */
     charset = "";
   else
-#endif
     /* Get the locale's charset.  */
     charset = locale_charset ();
 
@@ -805,9 +801,7 @@ canonical_locale_charset ()
   else
     unsetenv ("LC_ALL");
 
-#ifdef HAVE_SETLOCALE
   setlocale (LC_ALL, "");
-#endif
 
   /* Canonicalize it.  */
   charset = po_charset_canonicalize (charset);
@@ -1610,12 +1604,10 @@ get_title ()
   unsetenv ("LANGUAGE");
   xsetenv ("OUTPUT_CHARSET", encoding, 1);
 
-#ifdef HAVE_SETLOCALE
   if (setlocale (LC_ALL, "") == NULL)
     /* Nonexistent locale.  Use the English title.  */
     result = english;
   else
-#endif
     {
       /* Fetch the translation.  */
       /* TRANSLATORS: "English" needs to be replaced by your language.
@@ -1648,9 +1640,7 @@ get_title ()
   else
     unsetenv ("OUTPUT_CHARSET");
 
-#ifdef HAVE_SETLOCALE
   setlocale (LC_ALL, "");
-#endif
 
   return result;
 }

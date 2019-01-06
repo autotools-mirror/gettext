@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995-1998, 2000-2007, 2009-2010, 2012, 2015-2018 Free Software
+   Copyright (C) 1995-1998, 2000-2007, 2009-2010, 2012, 2015-2019 Free Software
    Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
@@ -260,10 +260,8 @@ main (int argc, char *argv[])
   error_one_per_line = 1;
   exit_status = EXIT_SUCCESS;
 
-#ifdef HAVE_SETLOCALE
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
-#endif
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));

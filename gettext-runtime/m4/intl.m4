@@ -1,5 +1,5 @@
-# intl.m4 serial 35 (gettext-0.19.9)
-dnl Copyright (C) 1995-2014, 2016-2018 Free Software Foundation, Inc.
+# intl.m4 serial 36 (gettext-0.19.9)
+dnl Copyright (C) 1995-2014, 2016-2019 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -73,7 +73,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
        [Define as the type of the result of subtracting two pointers, if the system doesn't define it.])
     ])
   AC_CHECK_HEADERS([features.h stddef.h stdlib.h string.h])
-  AC_CHECK_FUNCS([asprintf fwprintf newlocale putenv setenv setlocale \
+  AC_CHECK_FUNCS([asprintf fwprintf newlocale putenv setenv \
     snprintf strnlen uselocale wcslen wcsnlen mbrtowc wcrtomb])
 
   dnl Use the _snprintf function only if it is declared (because on NetBSD it
