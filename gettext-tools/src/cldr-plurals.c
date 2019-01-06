@@ -22,6 +22,7 @@
 
 #include "basename.h"
 #include "cldr-plural-exp.h"
+#include "closeout.h"
 #include "c-ctype.h"
 #include <errno.h>
 #include <error.h>
@@ -254,6 +255,9 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
   bindtextdomain ("bison-runtime", relocate (BISON_LOCALEDIR));
   textdomain (PACKAGE);
+
+  /* Ensure that write errors on stdout are detected.  */
+  atexit (close_stdout);
 
   while ((optchar = getopt_long (argc, argv, "chV", long_options, NULL)) != EOF)
     switch (optchar)
