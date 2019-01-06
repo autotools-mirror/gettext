@@ -1,5 +1,5 @@
 /* Determine name of the currently selected locale.
-   Copyright (C) 1995-2018 Free Software Foundation, Inc.
+   Copyright (C) 1995-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -35,7 +35,13 @@
 
 #include "flexmember.h"
 
-#if HAVE_USELOCALE
+/* We cannot support uselocale() on platforms where the locale_t type is fake.
+   See intl-thread-locale.m4 for details.  */
+#if HAVE_WORKING_USELOCALE && !HAVE_FAKE_LOCALES
+# define HAVE_GOOD_USELOCALE 1
+#endif
+
+#if HAVE_GOOD_USELOCALE
 /* Mac OS X 10.5 defines the locale_t type in <xlocale.h>.  */
 # if defined __APPLE__ && defined __MACH__
 #  include <xlocale.h>
@@ -2623,7 +2629,8 @@ get_lcid (const char *locale_name)
 #endif
 
 
-#if HAVE_USELOCALE /* glibc, Mac OS X, Solaris 11 OpenIndiana, or Solaris >= 11.4  */
+#if HAVE_GOOD_USELOCALE /* glibc, Mac OS X, FreeBSD >= 9.1, Cygwin >= 2.6,
+                           Solaris 11 OpenIndiana, or Solaris >= 11.4  */
 
 /* Simple hash set of strings.  We don't want to drag in lots of hash table
    code here.  */
@@ -2708,7 +2715,7 @@ struniq (const char *string)
 #endif
 
 
-#if HAVE_USELOCALE && HAVE_NAMELESS_LOCALES
+#if HAVE_GOOD_USELOCALE && HAVE_NAMELESS_LOCALES
 
 /* The 'locale_t' object does not contain the names of the locale categories.
    We have to associate them with the object through a hash table.
@@ -3088,7 +3095,7 @@ freelocale (locale_t locale)
 #endif
 
 
-#if defined IN_LIBINTL || HAVE_USELOCALE
+#if defined IN_LIBINTL || HAVE_GOOD_USELOCALE
 
 /* Like gl_locale_name_thread, except that the result is not in storage of
    indefinite extent.  */
@@ -3098,7 +3105,7 @@ static
 const char *
 gl_locale_name_thread_unsafe (int category, const char *categoryname)
 {
-# if HAVE_USELOCALE
+# if HAVE_GOOD_USELOCALE
   {
     locale_t thread_locale = uselocale (NULL);
     if (thread_locale != LC_GLOBAL_LOCALE)
@@ -3211,7 +3218,7 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
 const char *
 gl_locale_name_thread (int category, const char *categoryname)
 {
-#if HAVE_USELOCALE
+#if HAVE_GOOD_USELOCALE
   const char *name = gl_locale_name_thread_unsafe (category, categoryname);
   if (name != NULL)
     return struniq (name);
@@ -3262,7 +3269,7 @@ gl_locale_name_posix (int category, const char *categoryname)
 
     /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
        On some systems this can be done by the 'setlocale' function itself.  */
-#if defined HAVE_SETLOCALE && defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
+#if defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
     locname = setlocale (category, NULL);
 #else
     /* On other systems we ignore what setlocale reports and instead look at the
