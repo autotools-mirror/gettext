@@ -4806,8 +4806,10 @@ msgid and the current one (especially if the msgid is long and only few
 words in it have changed).  Finally, it's always welcome to highlight the
 different sections of a message in a PO file (comments, msgid, msgstr, etc.).
 
-Such highlighting is possible through the @code{msgcat} options
-@samp{--color} and @samp{--style}.
+Such highlighting is possible through the options @samp{--color} and
+@samp{--style}.  They are supported by all the programs that produce
+a PO file on standard output, such as @code{msgcat}, @code{msgmerge},
+and @code{msgunfmt}.
 
 @menu
 * The --color option::          Triggering colorized output
@@ -4841,6 +4843,10 @@ output goes directly to a text screen or terminal emulator window.
 
 @item html
 The output will be colorized and be in HTML format.
+
+@item test
+This is a special value, understood only by the @code{msgcat} program.  It
+is explained in the next section (@ref{The TERM variable}).
 @end table
 
 @noindent
@@ -4855,7 +4861,7 @@ get colorized output in this situation nevertheless, use the command
 
 The @samp{--color=html} option will produce output that can be viewed in
 a browser.  This can be useful, for example, for Indic languages,
-because the renderic of Indic scripts in browser is usually better than
+because the renderic of Indic scripts in browsers is usually better than
 in terminal emulators.
 
 Note that the output produced with the @code{--color} option is @emph{not}
