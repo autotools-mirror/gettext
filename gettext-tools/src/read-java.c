@@ -1,5 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2003, 2006-2008, 2011, 2015-2017 Free Software
+   Copyright (C) 2001-2003, 2006-2008, 2010-2011, 2017 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 

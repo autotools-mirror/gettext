@@ -1,5 +1,5 @@
 /* GNU gettext for C#
- * Copyright (C) 2003, 2015-2016, 2018 Free Software Foundation, Inc.
+ * Copyright (C) 2003-2004, 2018 Free Software Foundation, Inc.
  * Written by Bruno Haible <bruno@clisp.org>, 2003.
  *
  * This program is free software: you can redistribute it and/or modify

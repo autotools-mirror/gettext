@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005-2008, 2011, 2015-2016, 2018 Free Software
+   Copyright (C) 2002-2003, 2005-2008, 2010-2011, 2018 Free Software
    Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 

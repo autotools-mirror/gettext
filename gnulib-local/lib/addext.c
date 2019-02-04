@@ -1,5 +1,5 @@
 /* addext.c -- add an extension to a file name
-   Copyright (C) 1990, 1997-1999, 2001-2003, 2005-2006, 2015-2016 Free Software
+   Copyright (C) 1990, 1997-1999, 2001-2003, 2005-2006 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify

@@ -1,5 +1,5 @@
 /* Manipulates attributes of messages in translation catalogs.
-   Copyright (C) 2001-2007, 2009-2010, 2012, 2015-2019 Free Software
+   Copyright (C) 2001-2007, 2009-2010, 2012-2014, 2016, 2018-2019 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 

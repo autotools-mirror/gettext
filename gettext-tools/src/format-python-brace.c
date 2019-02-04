@@ -1,5 +1,5 @@
 /* Python brace format strings.
-   Copyright (C) 2004, 2006-2007, 2013, 2015-2016 Free Software Foundation,
+   Copyright (C) 2004, 2006-2007, 2013-2014, 2016 Free Software Foundation,
    Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
