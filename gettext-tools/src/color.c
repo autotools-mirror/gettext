@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006-2008, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,6 @@
 
 #include "term-ostream.h"
 #include "xalloc.h"
-#include "relocatable.h"
 #include "filename.h"
 #include "concat-filename.h"
 
@@ -387,7 +386,7 @@ print_color_test ()
 
 /* Lookup the location of the style file.  */
 static const char *
-style_file_lookup (const char *file_name)
+style_file_lookup (const char *file_name, const char *stylesdir_after_install)
 {
   if (!IS_PATH_WITH_DIR (file_name))
     {
@@ -398,9 +397,8 @@ style_file_lookup (const char *file_name)
       if (stat (file_name, &statbuf) < 0)
         {
           /* ... but it exists in the styles installation location...  */
-          const char *gettextstylesdir = relocate (GETTEXTDATADIR "/styles");
           char *possible_file_name =
-            xconcatenated_filename (gettextstylesdir, file_name, NULL);
+            xconcatenated_filename (stylesdir_after_install, file_name, NULL);
 
           if (stat (possible_file_name, &statbuf) >= 0)
             {
@@ -417,29 +415,35 @@ style_file_lookup (const char *file_name)
 
 /* Assign a default value to style_file_name if necessary.  */
 void
-style_file_prepare ()
+style_file_prepare (const char *style_file_envvar,
+                    const char *stylesdir_envvar,
+                    const char *stylesdir_after_install,
+                    const char *default_style_file)
 {
   if (style_file_name == NULL)
     {
-      const char *user_preference = getenv ("PO_STYLE");
+      const char *user_preference = getenv (style_file_envvar);
 
       if (user_preference != NULL && user_preference[0] != '\0')
-        style_file_name = style_file_lookup (xstrdup (user_preference));
+        style_file_name =
+          style_file_lookup (xstrdup (user_preference),
+                             stylesdir_after_install);
       else
         {
-          const char *gettextdatadir;
+          const char *stylesdir;
 
-          /* Make it possible to override the po-default.css location.  This is
-             necessary for running the testsuite before "make install".  */
-          gettextdatadir = getenv ("GETTEXTDATADIR");
-          if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
-            gettextdatadir = relocate (GETTEXTDATADIR);
+          /* Make it possible to override the default style file location.  This
+             is necessary for running the testsuite before "make install".  */
+          stylesdir = getenv (stylesdir_envvar);
+          if (stylesdir == NULL || stylesdir[0] == '\0')
+            stylesdir = stylesdir_after_install;
 
           style_file_name =
-            xconcatenated_filename (gettextdatadir, "styles/po-default.css",
+            xconcatenated_filename (stylesdir, default_style_file,
                                    NULL);
         }
     }
   else
-    style_file_name = style_file_lookup (style_file_name);
+    style_file_name =
+      style_file_lookup (style_file_name, stylesdir_after_install);
 }

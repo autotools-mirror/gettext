@@ -42,6 +42,10 @@ esac
 GETTEXTDATADIR="$wabs_top_srcdir"
 export GETTEXTDATADIR
 
+# Variable needed for checking output with --color.
+GETTEXTSTYLESDIR="$GETTEXTDATADIR/styles"
+export GETTEXTSTYLESDIR
+
 : ${GETTEXT=tstgettext}
 : ${NGETTEXT=tstngettext}
 : ${XGETTEXT=xgettext}

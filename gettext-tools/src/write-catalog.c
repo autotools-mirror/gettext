@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2008, 2012, 2015-2016 Free Software
+   Copyright (C) 1995-1998, 2000-2008, 2012, 2019 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -57,8 +57,11 @@
 # include "fd-ostream.h"
 
 # include "color.h"
+# include "relocatable.h"
 # include "po-charset.h"
 # include "msgl-iconv.h"
+
+# define GETTEXTSTYLESDIR  GETTEXTDATADIR "/styles"
 
 #endif
 
@@ -240,7 +243,9 @@ message catalog has plural form translations, but the output format does not sup
           filename = _("standard output");
         }
 
-      style_file_prepare ();
+      style_file_prepare ("PO_STYLE",
+                          "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
+                          "po-default.css");
       stream = term_styled_ostream_create (fd, filename, style_file_name);
       if (stream == NULL)
         stream = fd_ostream_create (fd, filename, true);
@@ -298,7 +303,9 @@ message catalog has plural form translations, but the output format does not sup
               mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, false, NULL);
             }
 
-          style_file_prepare ();
+          style_file_prepare ("PO_STYLE",
+                              "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
+                              "po-default.css");
           html_stream = html_styled_ostream_create (stream, style_file_name);
           output_syntax->print (mdlp, html_stream, page_width, debug);
           ostream_free (html_stream);

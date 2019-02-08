@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -45,8 +45,21 @@ extern void handle_style_option (const char *option);
 /* Print a color test page.  */
 extern void print_color_test (void);
 
-/* Assign a default value to style_file_name if necessary.  */
-extern void style_file_prepare (void);
+/* Assign a default value to style_file_name if necessary.
+   STYLE_FILE_ENVVAR is an environment variable that, when set to a non-empty
+   value, specifies the style file to use.  This environment variable is meant
+   to be set by the user.
+   STYLESDIR_ENVVAR is an environment variable that, when set to a non-empty
+   value, specifies the directory with the styles files, or NULL.  This is
+   necessary for running the testsuite before "make install".
+   STYLESDIR_AFTER_INSTALL is the directory with the styles files after
+   "make install".
+   DEFAULT_STYLE_FILE is the file name of the default style file, relative to
+   STYLESDIR.  */
+extern void style_file_prepare (const char *style_file_envvar,
+                                const char *stylesdir_envvar,
+                                const char *stylesdir_after_install,
+                                const char *default_style_file);
 
 
 #ifdef __cplusplus
