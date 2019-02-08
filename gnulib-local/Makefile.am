@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008, 2010-2012, 2014-2018 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010-2012, 2014-2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -310,7 +310,7 @@ tests/test-moo-sub1.oo.h \
 tests/test-moo-sub2.oo.c \
 tests/test-moo-sub2.oo.h \
 tests/test-term-ostream.c \
-tests/test-term-ostream-xterm \
+tests/test-term-ostream-xterm.sh \
 tests/test-term-ostream-xterm-16color.out \
 tests/test-term-ostream-xterm-256color.out \
 tests/test-term-ostream-xterm-88color.out \

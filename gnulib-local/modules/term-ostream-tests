@@ -1,6 +1,6 @@
 Files:
 tests/test-term-ostream.c
-tests/test-term-ostream-xterm
+tests/test-term-ostream-xterm.sh
 tests/test-term-ostream-xterm-r6.out
 tests/test-term-ostream-xterm-xf86-v32.out
 tests/test-term-ostream-xterm-basic.out
@@ -24,7 +24,7 @@ Depends-on:
 configure.ac:
 
 Makefile.am:
-TESTS += test-term-ostream-xterm
+TESTS += test-term-ostream-xterm.sh
 TESTS_ENVIRONMENT += srcdir='$(srcdir)'
 check_PROGRAMS += test-term-ostream
 test_term_ostream_LDADD = $(LIBTERMCAP) $(LDADD) @INTL_MACOSX_LIBS@
