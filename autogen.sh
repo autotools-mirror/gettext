@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2018 Free Software Foundation, Inc.
+# Copyright (C) 2003-2019 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -460,8 +460,8 @@ echo "$0: generating configure in gettext-runtime/libasprintf..."
 cd gettext-runtime/libasprintf
 aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
-  && autoheader \
-  && touch ChangeLog config.h.in \
+  && autoheader && touch config.h.in \
+  && touch ChangeLog \
   && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
@@ -471,8 +471,8 @@ echo "$0: generating configure in gettext-runtime..."
 cd gettext-runtime
 aclocal -I m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
-  && autoheader \
-  && touch ChangeLog intl/ChangeLog config.h.in \
+  && autoheader && touch config.h.in \
+  && touch ChangeLog intl/ChangeLog \
   && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
@@ -518,7 +518,8 @@ cp -p gettext-runtime/intl/Makefile.am gettext-tools/intl/Makefile.am
 cd gettext-tools
 aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 \
   && autoconf \
-  && autoheader && touch ChangeLog config.h.in \
+  && autoheader && touch config.h.in \
+  && touch ChangeLog \
   && { test -d intl || mkdir intl; } \
   && automake --add-missing --copy \
   && rm -rf autom4te.cache \
