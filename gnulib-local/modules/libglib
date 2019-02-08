@@ -109,7 +109,7 @@ MOSTLYCLEANFILES += \
   glib/gstrfuncs.h \
   glib/gstring.h \
   glib/gtypes.h
-MOSTLYCLEANFILES += glib/*.h-t
+MOSTLYCLEANFILES += glib.h-t glibconfig.h-t glib/*.h-t
 
 if GL_COND_LIBTOOL
 lib_LDFLAGS += $(LTLIBGLIB)
