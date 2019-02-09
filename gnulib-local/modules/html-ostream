@@ -9,6 +9,7 @@ Depends-on:
 ostream
 array-list
 xlist
+minmax
 unistr/u8-mbtouc
 xalloc
 

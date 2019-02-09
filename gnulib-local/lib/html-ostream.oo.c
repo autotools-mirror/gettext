@@ -26,6 +26,7 @@
 
 #include "gl_xlist.h"
 #include "gl_array_list.h"
+#include "minmax.h"
 #include "unistr.h"
 #include "xalloc.h"
 
@@ -49,6 +50,35 @@ fields:
 /* Implementation of ostream_t methods.  */
 
 static void
+verify_invariants (html_ostream_t stream)
+{
+  /* Verify the invariant regarding size(class_stack).  */
+  if (gl_list_size (stream->class_stack)
+      != MAX (stream->curr_class_stack_size, stream->last_class_stack_size))
+    abort ();
+}
+
+/* Removes the excess elements of class_stack.
+   Needs to be called after max(curr_class_stack_size,last_class_stack_size)
+   may have been reduced.  */
+static void
+shrink_class_stack (html_ostream_t stream)
+{
+  size_t keep =
+    MAX (stream->curr_class_stack_size, stream->last_class_stack_size);
+  size_t i = gl_list_size (stream->class_stack);
+  while (i > keep)
+    {
+      i--;
+      free ((char *) gl_list_get_at (stream->class_stack, i));
+      gl_list_remove_at (stream->class_stack, i);
+    }
+}
+
+/* Emits <span> or </span> tags, to follow the increase / decrease of the
+   class_stack from last_class_stack_size to curr_class_stack_size.
+   When done, sets last_class_stack_size to curr_class_stack_size.  */
+static void
 emit_pending_spans (html_ostream_t stream, bool shrink_stack)
 {
   if (stream->curr_class_stack_size > stream->last_class_stack_size)
@@ -67,23 +97,17 @@ emit_pending_spans (html_ostream_t stream, bool shrink_stack)
     }
   else if (stream->curr_class_stack_size < stream->last_class_stack_size)
     {
-      size_t i = stream->last_class_stack_size;
+      size_t i;
 
-      while (i > stream->curr_class_stack_size)
-        {
-          char *classname;
-
-          --i;
-          classname = (char *) gl_list_get_at (stream->class_stack, i);
-          ostream_write_str (stream->destination, "</span>");
-          if (shrink_stack)
-            {
-              gl_list_remove_at (stream->class_stack, i);
-              free (classname);
-            }
-        }
+      for (i = stream->last_class_stack_size; i > stream->curr_class_stack_size; i--)
+        ostream_write_str (stream->destination, "</span>");
       stream->last_class_stack_size = stream->curr_class_stack_size;
+      if (shrink_stack)
+        shrink_class_stack (stream);
     }
+  /* Here last_class_stack_size == curr_class_stack_size.  */
+  if (shrink_stack)
+    verify_invariants (stream);
 }
 
 static void
@@ -134,11 +158,18 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
 
                 if (uc == '\n')
                   {
+                    verify_invariants (stream);
+                    /* Emit </span> tags to follow the decrease of the class stack
+                       from last_class_stack_size to 0.  Then emit the newline.
+                       Then prepare for emitting <span> tags to go back from 0
+                       to curr_class_stack_size.  */
                     size_t prev_class_stack_size = stream->curr_class_stack_size;
                     stream->curr_class_stack_size = 0;
                     emit_pending_spans (stream, false);
                     ostream_write_str (stream->destination, "<br/>");
                     stream->curr_class_stack_size = prev_class_stack_size;
+                    shrink_class_stack (stream);
+                    verify_invariants (stream);
                   }
                 else
                   {
@@ -219,6 +250,7 @@ html_ostream::free (html_ostream_t stream)
 {
   stream->curr_class_stack_size = 0;
   emit_pending_spans (stream, true);
+  verify_invariants (stream);
   gl_list_free (stream->class_stack);
   free (stream);
 }
@@ -228,6 +260,7 @@ html_ostream::free (html_ostream_t stream)
 static void
 html_ostream::begin_span (html_ostream_t stream, const char *classname)
 {
+  verify_invariants (stream);
   if (stream->last_class_stack_size > stream->curr_class_stack_size
       && strcmp ((char *) gl_list_get_at (stream->class_stack,
                                           stream->curr_class_stack_size),
@@ -244,18 +277,28 @@ html_ostream::begin_span (html_ostream_t stream, const char *classname)
     gl_list_add_at (stream->class_stack, stream->curr_class_stack_size,
                     xstrdup (classname));
   stream->curr_class_stack_size++;
+  verify_invariants (stream);
 }
 
 static void
 html_ostream::end_span (html_ostream_t stream, const char *classname)
 {
-  if (!(stream->curr_class_stack_size > 0
-        && strcmp ((char *) gl_list_get_at (stream->class_stack,
-                                            stream->curr_class_stack_size - 1),
-                   classname) == 0))
-    /* Improperly nested begin_span/end_span calls.  */
-    abort ();
-  stream->curr_class_stack_size--;
+  verify_invariants (stream);
+  if (stream->curr_class_stack_size > 0)
+    {
+      char *innermost_active_span =
+        (char *) gl_list_get_at (stream->class_stack,
+                                 stream->curr_class_stack_size - 1);
+      if (strcmp (innermost_active_span, classname) == 0)
+        {
+          stream->curr_class_stack_size--;
+          shrink_class_stack (stream);
+          verify_invariants (stream);
+          return;
+        }
+    }
+  /* Improperly nested begin_span/end_span calls.  */
+  abort ();
 }
 
 /* Constructor.  */
