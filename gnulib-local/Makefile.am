@@ -37,6 +37,8 @@ lib/error-progname.h \
 lib/exitfail.h.diff \
 lib/fd-ostream.oo.c \
 lib/fd-ostream.oo.h \
+lib/fd-styled-ostream.oo.c \
+lib/fd-styled-ostream.oo.h \
 lib/file-ostream.oo.c \
 lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
@@ -268,6 +270,7 @@ modules/basename \
 modules/closeout \
 modules/error-progname \
 modules/fd-ostream \
+modules/fd-styled-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
 modules/gettext-runtime-misc \
