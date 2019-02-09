@@ -70,6 +70,7 @@ html_styled_ostream::free (html_styled_ostream_t stream)
   html_ostream_free (stream->html_destination);
   ostream_write_str (stream->destination, "</body>\n");
   ostream_write_str (stream->destination, "</html>\n");
+  free (stream);
 }
 
 /* Implementation of styled_ostream_t methods.  */
