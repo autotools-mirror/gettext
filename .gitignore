@@ -368,6 +368,7 @@
 # (see MAINTAINERCLEANFILES in Makefile.am and, if present, Makefile.gnulib):
 /.version
 /gettext-runtime/libasprintf/autosprintf.info
+/gettext-runtime/libasprintf/autosprintf_all.html
 /gettext-runtime/man/envsubst.1
 /gettext-runtime/man/envsubst.1.html
 /gettext-runtime/man/gettext.1.in
