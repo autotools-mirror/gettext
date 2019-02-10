@@ -1459,6 +1459,8 @@ output_buffer (term_ostream_t stream)
     }
   if (len > 0)
     {
+      int error_code = 0;
+
       /* Block fatal signals, so that a SIGINT or similar doesn't interrupt
          us without the possibility of restoring the terminal's state.  */
       block_fatal_signals ();
@@ -1497,8 +1499,10 @@ output_buffer (term_ostream_t stream)
           for (n = 1; n < len && equal_attributes (ap[n], attr); n++)
             ;
           if (full_write (stream->fd, cp, n) < n)
-            error (EXIT_FAILURE, errno, _("error writing to %s"),
-                   stream->filename);
+            {
+              error_code = errno;
+              break;
+            }
           cp += n;
           ap += n;
           len -= n;
@@ -1514,6 +1518,13 @@ output_buffer (term_ostream_t stream)
       /* Unblock fatal and stopping signals.  */
       unblock_stopping_signals ();
       unblock_fatal_signals ();
+
+      /* Do output to stderr only after we have switched back to the default
+         attributes.  Otherwise this output may come out with the wrong text
+         attributes.  */
+      if (error_code != 0)
+        error (EXIT_FAILURE, error_code, _("error writing to %s"),
+               stream->filename);
     }
   stream->buflen = 0;
 }
