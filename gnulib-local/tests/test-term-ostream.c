@@ -26,7 +26,7 @@ main ()
   term_ostream_t stream;
   int i, row, col;
 
-  stream = term_ostream_create (1, "stdout");
+  stream = term_ostream_create (1, "stdout", TTYCTL_AUTO);
 
   for (i = 0; i < 8; i++)
     colors[i].c =

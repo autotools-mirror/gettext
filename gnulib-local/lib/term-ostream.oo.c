@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2017, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -1712,7 +1712,7 @@ xstrdup0 (const char *str)
 }
 
 term_ostream_t
-term_ostream_create (int fd, const char *filename)
+term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 {
   term_ostream_t stream = XMALLOC (struct term_ostream_representation);
   const char *term;

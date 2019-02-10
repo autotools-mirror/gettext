@@ -246,7 +246,8 @@ message catalog has plural form translations, but the output format does not sup
       style_file_prepare ("PO_STYLE",
                           "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
                           "po-default.css");
-      stream = term_styled_ostream_create (fd, filename, style_file_name);
+      stream =
+        term_styled_ostream_create (fd, filename, TTYCTL_AUTO, style_file_name);
       if (stream == NULL)
         stream = fd_ostream_create (fd, filename, true);
       output_syntax->print (mdlp, stream, page_width, debug);

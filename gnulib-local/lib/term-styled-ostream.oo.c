@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing ANSI escape sequences.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -598,7 +598,7 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
 /* Constructor.  */
 
 term_styled_ostream_t
-term_styled_ostream_create (int fd, const char *filename,
+term_styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
                             const char *css_filename)
 {
   term_styled_ostream_t stream =
@@ -606,7 +606,7 @@ term_styled_ostream_create (int fd, const char *filename,
   CRStyleSheet *css_file_contents;
 
   stream->base.base.vtable = &term_styled_ostream_vtable;
-  stream->destination = term_ostream_create (fd, filename);
+  stream->destination = term_ostream_create (fd, filename, tty_control);
 
   if (cr_om_parser_simply_parse_file ((const guchar *) css_filename,
                                       CR_UTF_8, /* CR_AUTO is not supported */

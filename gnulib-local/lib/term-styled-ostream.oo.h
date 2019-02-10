@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing ANSI escape sequences.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 #define _TERM_STYLED_OSTREAM_H
 
 #include "styled-ostream.h"
+#include "term-ostream.h"
 
 
 struct term_styled_ostream : struct styled_ostream
@@ -35,10 +36,12 @@ extern "C" {
 /* Create an output stream referring to the file descriptor FD, styled with
    the file CSS_FILENAME.
    FILENAME is used only for error messages.
+   TTY_CONTROL specifies the amount of control to take over the underlying tty.
    Note that the resulting stream must be closed before FD can be closed.
    Return NULL upon failure.  */
 extern term_styled_ostream_t
        term_styled_ostream_create (int fd, const char *filename,
+                                   ttyctl_t tty_control,
                                    const char *css_filename);
 
 

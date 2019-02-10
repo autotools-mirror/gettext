@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -89,6 +89,26 @@ methods:
                                   term_underline_t underline);
 };
 
+/* The amount of control to take over the underlying tty in order to avoid
+   garbled output on the screen, due to interleaved output of escape sequences
+   and output from the kernel (such as when the kernel echoes user's input
+   or when the kernel prints '^C' after the user pressed Ctrl-C).  */
+typedef enum
+{
+  TTYCTL_AUTO = 0,  /* Automatic best-possible choice.  */
+  TTYCTL_NONE,      /* No control.
+                       Result: Garbled output can occur, and the terminal can
+                       be left in any state when the program is interrupted.  */
+  TTYCTL_PARTIAL,   /* Signal handling.
+                       Result: Garbled output can occur, but the terminal will
+                       be left in the default state when the program is
+                       interrupted.  */
+  TTYCTL_FULL       /* Signal handling and disabling echo and flush-upon-signal.
+                       Result: No garbled output, and the the terminal will
+                       be left in the default state when the program is
+                       interrupted.  */
+} ttyctl_t;
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -97,9 +117,11 @@ extern "C" {
 
 /* Create an output stream referring to the file descriptor FD.
    FILENAME is used only for error messages.
+   TTY_CONTROL specifies the amount of control to take over the underlying tty.
    The resulting stream will be line-buffered.
    Note that the resulting stream must be closed before FD can be closed.  */
-extern term_ostream_t term_ostream_create (int fd, const char *filename);
+extern term_ostream_t
+       term_ostream_create (int fd, const char *filename, ttyctl_t tty_control);
 
 
 #ifdef __cplusplus
