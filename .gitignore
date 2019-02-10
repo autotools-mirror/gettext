@@ -805,3 +805,6 @@ core
 .#*
 \#*#
 
+# libtextstyle has its own .gitignore.
+!/libtextstyle/**
+

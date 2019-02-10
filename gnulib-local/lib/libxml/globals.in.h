@@ -63,6 +63,8 @@ XMLCALL xmlParserInputBufferCreateFilenameDefault (xmlParserInputBufferCreateFil
 XMLPUBFUN xmlOutputBufferCreateFilenameFunc
 XMLCALL xmlOutputBufferCreateFilenameDefault (xmlOutputBufferCreateFilenameFunc func);
 
+#if !defined IN_LIBTEXTSTYLE
+
 /*
  * Externally global symbols which need to be protected for backwards
  * compatibility support.
@@ -101,6 +103,8 @@ XMLCALL xmlOutputBufferCreateFilenameDefault (xmlOutputBufferCreateFilenameFunc 
 #undef  xmlLastError
 #undef  xmlParserInputBufferCreateFilenameValue
 #undef  xmlOutputBufferCreateFilenameValue
+
+#endif
 
 /**
  * xmlRegisterNodeFunc:

@@ -1,0 +1,4 @@
+New in 0.5:
+
+* The libtextstyle library can now be built and installed independently
+  of GNU gettext.
