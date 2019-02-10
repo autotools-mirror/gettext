@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2018 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2019 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -114,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2018 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2019 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -4972,7 +4972,7 @@ due to a limitation in @code{libcroco}.)
 @end itemize
 
 CSS rules are built up from selectors and declarations.  The declarations
-specify graphical properties; the selectors specify specify when they apply.
+specify graphical properties; the selectors specify when they apply.
 
 In PO files, the following simple selectors (based on "CSS classes", see
 the CSS2 spec, section 5.8.3) are supported.
