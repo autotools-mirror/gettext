@@ -171,6 +171,30 @@ cat <<\EOF >messages.xml
   <message unescaped="This is an unescaped attribute &lt;&gt;&amp;&quot;">
     <p></p>
   </message>
+  <message>
+    <p xml:space="paragraph">
+    This is the first paragraph with
+a newline.
+  
+    This is  the  second paragprah with spaces.
+
+
+    This is the last paragraph.</p>
+  </message>
+  <message>
+    <p xml:space="paragraph">This is the only one paragraph</p>
+  </message>
+  <message>
+    <p xml:space="paragraph">This is the only one paragraph with a boundary
+
+</p>
+  </message>
+  <message>
+    <p xml:space="paragraph"></p>
+  </message>
+  <message>
+    <p xml:space="paragraph"> </p>
+  </message>
 </messages>
 EOF
 
@@ -246,6 +270,26 @@ msgstr ""
 #. (itstool) path: messages/message@unescaped
 #: messages.xml:61
 msgid "This is an unescaped attribute <>&\""
+msgstr ""
+
+#. (itstool) path: message/p
+#: messages.xml:65
+msgid ""
+"This is the first paragraph with a newline.\n"
+"\n"
+"This is the second paragprah with spaces.\n"
+"\n"
+"This is the last paragraph."
+msgstr ""
+
+#. (itstool) path: message/p
+#: messages.xml:75
+msgid "This is the only one paragraph"
+msgstr ""
+
+#. (itstool) path: message/p
+#: messages.xml:78
+msgid "This is the only one paragraph with a boundary"
 msgstr ""
 EOF
 

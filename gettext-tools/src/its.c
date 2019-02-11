@@ -399,6 +399,69 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
     case ITS_WHITESPACE_TRIM:
       return trim (text);
 
+    case ITS_WHITESPACE_NORMALIZE_PARAGRAPH:
+      /* Normalize whitespaces within the text, keeping paragraph
+         boundaries.  */
+      {
+        char *result, *p, *out;
+
+        result = trim (text);
+        for (p = out = result; *p != '\0';)
+          {
+            char *pp, *pend = NULL, *next = NULL;
+            bool last_ws = false;
+
+            /* Find a paragraph boundary.  */
+            for (pp = p; *pp != '\0';)
+              {
+                char *nl = strchrnul (pp, '\n');
+                if (*nl == '\0')
+                  {
+                    pend = nl;
+                    next = pend;
+                    break;
+                  }
+                pp = nl + 1;
+                pp += strspn (pp, " \t\n");
+                if (*pp == '\n')
+                  {
+                    pend = nl;
+                    next = pp + 1;
+                    break;
+                  }
+              }
+
+            /* Normalize whitespaces in the paragraph.  */
+            assert (pend != NULL);
+            for (pp = p; pp < pend; pp++)
+              if (!(*pp == ' ' || *pp == '\t' || *pp == '\n'))
+                break;
+            for (; pp < pend; pp++)
+              {
+                if (*pp == ' ' || *pp == '\t' || *pp == '\n')
+                  {
+                    if (!last_ws)
+                      {
+                        *out++ = ' ';
+                        last_ws = true;
+                      }
+                  }
+                else
+                  {
+                    *out++ = *pp;
+                    last_ws = false;
+                  }
+              }
+            if (*pend != '\0')
+              {
+                memcpy (out, "\n\n", 2);
+                out += 2;
+              }
+            p = next;
+          }
+        *out = '\0';
+        return result;
+      }
     default:
       /* Normalize whitespaces within the text, but not at the beginning
          nor the end of the text.  */
@@ -1000,7 +1063,11 @@ its_preserve_space_rule_constructor (struct its_rule_ty *pop,
            || strcmp (prop, "default") == 0
            /* gettext extension: remove leading/trailing whitespaces only.  */
            || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
-               && strcmp (prop, "trim") == 0)))
+               && strcmp (prop, "trim") == 0)
+           /* gettext extension: same as default except keeping
+              paragraph boundaries.  */
+           || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
+               && strcmp (prop, "paragraph") == 0)))
     {
       error (0, 0, _("invalid attribute value \"%s\" for \"%s\""),
              prop, "space");
@@ -1719,6 +1786,8 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
         whitespace = ITS_WHITESPACE_PRESERVE;
       else if (value && strcmp (value, "trim") == 0)
         whitespace = ITS_WHITESPACE_TRIM;
+      else if (value && strcmp (value, "paragraph") == 0)
+        whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
       else
         whitespace = ITS_WHITESPACE_NORMALIZE;
 
@@ -1846,6 +1915,8 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
         whitespace = ITS_WHITESPACE_PRESERVE;
       else if (value && strcmp (value, "trim") == 0)
         whitespace = ITS_WHITESPACE_TRIM;
+      else if (value && strcmp (value, "paragraph") == 0)
+        whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
       else
         whitespace = ITS_WHITESPACE_NORMALIZE;
 

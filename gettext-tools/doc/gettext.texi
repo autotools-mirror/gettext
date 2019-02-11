@@ -12354,10 +12354,12 @@ A required @code{escape} attribute with the value @code{yes} or @code{no}.
 @item Extended Preserve Space
 
 This data category extends the standard @samp{Preserve Space} data
-category with the additional value @samp{trim}.  The value means to
-remove the leading and trailing whitespaces of the content, but not to
-normalize whitespaces in the middle.  In the global rule, the
-@code{preserveSpaceRule} element contains the following:
+category with the additional values @samp{trim} and @samp{paragraph}.
+@samp{trim} means to remove the leading and trailing whitespaces of the
+content, but not to normalize whitespaces in the middle.
+@samp{paragraph} means to normalize the content but keep the paragraph
+boundaries.  In the global
+rule, the @code{preserveSpaceRule} element contains the following:
 
 @itemize
 @item
@@ -12366,7 +12368,7 @@ that selects the nodes to which this rule applies.
 
 @item
 A required @code{space} attribute with the value @code{default},
-@code{preserve}, or @code{trim}.
+@code{preserve}, @code{trim}, or @code{paragraph}.
 @end itemize
 
 @end table
