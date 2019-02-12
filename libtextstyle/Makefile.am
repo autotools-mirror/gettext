@@ -30,6 +30,7 @@ EXTRA_DIST = \
   build-aux/texi2html \
   build-aux/run-test \
   build-aux/test-driver.diff \
+  m4/libtextstyle.m4 \
   examples/color-filter/README \
   examples/color-filter/INSTALL \
   examples/color-filter/autogen.sh \
