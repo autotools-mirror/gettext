@@ -133,7 +133,7 @@ HEADERS_WITH_EXTERNS = \
 # This file has the same format as the one expected by the libtool option
 # '-export-symbols', but we don't use this option, because it may prevent us
 # from building some of the unit tests.
-libtextstyle.sym : $(HEADERS_WITH_EXTERNS)
+$(srcdir)/libtextstyle.sym : $(HEADERS_WITH_EXTERNS)
 	for f in $(HEADERS_WITH_EXTERNS); do \
 	  if test -f $$f; then \
 	    cat $$f; \
@@ -145,6 +145,14 @@ libtextstyle.sym : $(HEADERS_WITH_EXTERNS)
 	  > $@-t
 	mv $@-t $@
 # We distribute it because declared.sh relies on GNU sed.
+# The GNU Coding Standards say in
+# <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
+#   "GNU distributions usually contain some files which are not source files
+#    ... . Since these files normally appear in the source directory, they
+#    should always appear in the source directory, not in the build directory.
+#    So Makefile rules to update them should put the updated files in the
+#    source directory."
+# Therefore we put this file in the source directory, not the build directory.
 MOSTLYCLEANFILES     += libtextstyle.sym-t
 MAINTAINERCLEANFILES += libtextstyle.sym
 EXTRA_DIST           += libtextstyle.sym declared.sh
@@ -174,7 +182,7 @@ endif
 if INCLUDED_LIBGLIB
 COMPILATION_UNITS += $(libglib_rpl_la_SOURCES)
 endif
-config.h: $(BUILT_SOURCES) libtextstyle.sym
+config.h: $(BUILT_SOURCES) $(srcdir)/libtextstyle.sym
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  : "Avoid double inclusion, to avoid a warning about redefinitions."; \
 	  echo '#ifndef LIBTEXTSTYLE_CONFIG_H'; \
@@ -203,14 +211,7 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	      done; \
 	    } 5>&1 \
 	      | sed -e 's,.* ,,' | LC_ALL=C sort | LC_ALL=C uniq \
-	      | { \
-	          if test -f libtextstyle.sym; then \
-	            symfile='libtextstyle.sym'; \
-	          else \
-	            symfile='$(srcdir)/libtextstyle.sym'; \
-	          fi; \
-	          LC_ALL=C join -v 1 - $$symfile; \
-	        } \
+	      | LC_ALL=C join -v 1 - $(srcdir)/libtextstyle.sym \
 	      | sed -e 's,^\(.*\)$$,#define \1 libtextstyle_\1,' > config.h-t; \
 	  } 6>&1 && \
 	  if test -f config.h; then \
