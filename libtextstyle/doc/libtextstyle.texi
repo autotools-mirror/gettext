@@ -538,7 +538,11 @@ locations, or @code{-L@var{libdir} -ltextstyle -Wl,-rpath,@var{libdir}}
 for a shared library installed in other locations (assuming a GCC
 compatible compiler and linker and no @code{libtool}), or
 @code{-L@var{libdir} -ltextstyle -R@var{libdir}} for a shared library
-installed in other locations (with @code{libtool}).
+installed in other locations (with @code{libtool}).  Additionally, the
+link options may need to include the dependencies: @code{-lm}, and
+@code{-lncurses} or (on NetBSD) @code{-ltermcap} or (on AIX)
+@code{-lxcurses} or (on HP-UX) @code{-lcurses}, and on some systems also
+@code{-liconv}.
 
 It is a bit complicated to determine the right link options in a portable
 way.  Therefore an Autoconf macro is provided in the file
