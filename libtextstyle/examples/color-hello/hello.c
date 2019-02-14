@@ -139,16 +139,23 @@ main (int argc, char *argv[])
       exit (0);
     }
 
-  /* Find the style file.  */
-  style_file_prepare ("HELLO_STYLE", "HELLO_STYLESDIR", STYLESDIR,
-                      "hello-default.css");
-  /* As a fallback, use the default in the current directory.  */
-  {
-    struct stat statbuf;
+  if (color_mode == color_yes
+      || (color_mode == color_tty && isatty (STDOUT_FILENO)))
+    {
+      /* Find the style file.  */
+      style_file_prepare ("HELLO_STYLE", "HELLO_STYLESDIR", STYLESDIR,
+                          "hello-default.css");
+      /* As a fallback, use the default in the current directory.  */
+      {
+        struct stat statbuf;
 
-    if (style_file_name == NULL || stat (style_file_name, &statbuf) < 0)
-      style_file_name = "hello-default.css";
-  }
+        if (style_file_name == NULL || stat (style_file_name, &statbuf) < 0)
+          style_file_name = "hello-default.css";
+      }
+    }
+  else
+    /* No styling.  */
+    style_file_name = NULL;
 
   /* Create a terminal output stream that uses this style file.  */
   styled_ostream_t stream =
