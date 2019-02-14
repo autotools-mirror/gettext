@@ -142,7 +142,9 @@ libtextstyle_toc.html: libtextstyle.texi version.texi $(libtextstyle_TEXINFOS)
 	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter `if test -f libtextstyle.texi; then echo libtextstyle.texi; else echo $(srcdir)/libtextstyle.texi; fi` ;; \
 	esac \
 	&& { mv libtextstyle/libtextstyle.html libtextstyle_toc.html; \
-	     mv libtextstyle/*.html .; \
+	     for file in libtextstyle/*.html; do \
+	       sed -e 's/libtextstyle\.html/libtextstyle.html/g' < $$file > `basename $$file` && rm -f $$file; \
+	     done; \
 	     rmdir libtextstyle; \
 	   }
 
