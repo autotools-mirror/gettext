@@ -15,6 +15,7 @@ safe-read
 stdlib
 xalloc
 gettext-h
+close
 
 configure.ac:
 

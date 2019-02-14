@@ -31,6 +31,7 @@
 /lib/c-strcase.h
 /lib/c-strcasecmp.c
 /lib/c-strncasecmp.c
+/lib/close.c
 /lib/concat-filename.c
 /lib/concat-filename.h
 /lib/dirname.h
@@ -44,6 +45,8 @@
 /lib/fatal-signal.c
 /lib/fatal-signal.h
 /lib/fcntl.in.h
+/lib/fd-hook.c
+/lib/fd-hook.h
 /lib/fd-ostream.oo.c
 /lib/fd-ostream.oo.h
 /lib/fd-styled-ostream.oo.c
