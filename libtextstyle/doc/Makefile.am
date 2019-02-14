@@ -37,8 +37,7 @@ libtextstyle_TEXINFOS = gpl.texi fdl.texi
 # So we have to duplicate the entire rule which would otherwise be generated
 # by automake.
 $(srcdir)/stamp-vti: $(info_TEXINFOS) $(libtextstyle_TEXINFOS) $(top_srcdir)/version.sh
-	(dir=.; test -f ./libtextstyle.texi || dir=$(srcdir); \
-	set `$(SHELL) $(top_srcdir)/build-aux/mdate-sh $$dir/libtextstyle.texi`; \
+	(set `$(SHELL) $(top_srcdir)/build-aux/mdate-sh $(srcdir)/libtextstyle.texi`; \
 	echo "@set UPDATED $$1 $$2 $$3"; \
 	echo "@set UPDATED-MONTH $$2 $$3"; \
 	echo "@set EDITION $(VERSION)"; \
@@ -132,14 +131,14 @@ html-split: libtextstyle_toc.html
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
 libtextstyle.html: libtextstyle.texi version.texi $(libtextstyle_TEXINFOS)
-	$(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -monolithic `if test -f libtextstyle.texi; then echo libtextstyle.texi; else echo $(srcdir)/libtextstyle.texi; fi`
+	$(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -monolithic $(srcdir)/libtextstyle.texi
 
 libtextstyle_toc.html: libtextstyle.texi version.texi $(libtextstyle_TEXINFOS)
 	case "@PERL@" in \
 	  *"/missing perl") \
-	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter `if test -f libtextstyle.texi; then echo libtextstyle.texi; else echo $(srcdir)/libtextstyle.texi; fi` || exit 0 ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter $(srcdir)/libtextstyle.texi || exit 0 ;; \
 	  *) $(RM) libtextstyle_*.html ; \
-	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter `if test -f libtextstyle.texi; then echo libtextstyle.texi; else echo $(srcdir)/libtextstyle.texi; fi` ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter $(srcdir)/libtextstyle.texi ;; \
 	esac \
 	&& { mv libtextstyle/libtextstyle.html libtextstyle_toc.html; \
 	     for file in libtextstyle/*.html; do \
