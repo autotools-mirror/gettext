@@ -86,9 +86,11 @@ if test $skip_gnulib = false; then
       filename
       xalloc
       xconcat-filename
+
+      term-ostream-tests
     '
     $GNULIB_TOOL --lib=libtextstyle --source-base=lib --m4-base=gnulib-m4 --tests-base=tests \
-      --with-tests --makefile-name=Makefile.gnulib --libtool \
+      --makefile-name=Makefile.gnulib --libtool \
       --local-dir=gnulib-local --local-dir=../gnulib-local \
       --import --avoid=hash-tests $GNULIB_MODULES
     $GNULIB_TOOL --copy-file build-aux/config.guess; chmod a+x build-aux/config.guess

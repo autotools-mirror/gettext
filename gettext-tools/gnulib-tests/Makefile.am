@@ -24,6 +24,10 @@ AUTOMAKE_OPTIONS += 1.11 color-tests
 # Ensure that test-quotearg.c finds libintl.h.
 AM_CPPFLAGS += -I../intl
 
+# Ensure that test-term-ostream links correctly when using --disable-shared
+# on macOS.
+test_term_ostream_LDADD += @INTL_MACOSX_LIBS@
+
 
 # Remove .deps directories creates by 'configure'.
 # I would say that this left-over is an Automake 1.16.1 bug.
