@@ -142,7 +142,7 @@ libtextstyle_toc.html: libtextstyle.texi version.texi $(libtextstyle_TEXINFOS)
 	esac \
 	&& { mv libtextstyle/libtextstyle.html libtextstyle_toc.html; \
 	     for file in libtextstyle/*.html; do \
-	       sed -e 's/libtextstyle\.html/libtextstyle.html/g' < $$file > `basename $$file` && rm -f $$file; \
+	       sed -e 's/libtextstyle\.html/libtextstyle_toc.html/g' < $$file > `basename $$file` && rm -f $$file; \
 	     done; \
 	     rmdir libtextstyle; \
 	   }
