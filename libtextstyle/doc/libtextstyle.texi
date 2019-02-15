@@ -507,7 +507,10 @@ Basic use of GNU libtextstyle consists of statements like these:
 @end smallexample
 
 Before this snippet, your code needs to determine the name of the style
-file to use (@code{style_file_name}).
+file to use (@code{style_file_name}).  If no styling is desired -- the
+precise condition depends on the value of @code{color_mode} but also on
+your application logic --, you should set @code{style_file_name} to
+@code{NULL}.
 
 An object of type @code{styled_ostream_t} is allocated.  The function
 @code{styled_ostream_create} allocates it; the function

@@ -601,9 +601,16 @@ term_styled_ostream_t
 term_styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
                             const char *css_filename)
 {
-  term_styled_ostream_t stream =
-    XMALLOC (struct term_styled_ostream_representation);
+  term_styled_ostream_t stream;
   CRStyleSheet *css_file_contents;
+
+  /* If css_filename is NULL, no styling is desired.  The code below would end
+     up returning NULL anyway.  But it's better to not rely on such details of
+     libcroco behaviour.  */
+  if (css_filename == NULL)
+    return NULL;
+
+  stream = XMALLOC (struct term_styled_ostream_representation);
 
   stream->base.base.vtable = &term_styled_ostream_vtable;
   stream->destination = term_ostream_create (fd, filename, tty_control);
