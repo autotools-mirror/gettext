@@ -467,7 +467,7 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
          nor the end of the text.  */
       {
         char *result, *p, *out;
-        bool last_ws;
+        bool last_ws = false;
 
         result = xstrdup (text);
         for (p = out = result; *p != '\0'; p++)
