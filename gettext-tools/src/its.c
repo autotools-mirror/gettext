@@ -403,23 +403,27 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
       /* Normalize whitespaces within the text, but not at the beginning
          nor the end of the text.  */
       {
-        char *result, *p, *end;
+        char *result, *p, *out;
+        bool last_ws;
 
         result = xstrdup (text);
-        end = result + strlen (result);
-        for (p = result; *p != '\0';)
+        for (p = out = result; *p != '\0'; p++)
           {
-            size_t len = strspn (p, " \t\n");
-            if (len > 0)
+            if (*p == ' ' || *p == '\t' || *p == '\n')
               {
-                *p = ' ';
-                memmove (p + 1, p + len, end - (p + len));
-                end -= len - 1;
-                *end = '\0';
-                p++;
+                if (!last_ws)
+                  {
+                    *out++ = ' ';
+                    last_ws = true;
+                  }
               }
-            p += strcspn (p, " \t\n");
+            else
+              {
+                *out++ = *p;
+                last_ws = false;
+              }
           }
+        *out = '\0';
         return result;
       }
     }
