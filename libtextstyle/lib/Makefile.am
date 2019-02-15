@@ -41,6 +41,13 @@ AM_CPPFLAGS = \
   -I$(top_builddir) -I$(top_srcdir) \
   -DIN_LIBTEXTSTYLE
 
+# Parameterization of the 'libxml' module:
+# When building a shared library, don't export the variables
+# xmlMalloc, xmlMallocAtomic, xmlRealloc, xmlFree, xmlMemStrdup.
+if INCLUDED_LIBXML
+AM_CPPFLAGS += -DLIBXML_STATIC
+endif
+
 # Rules generated and collected by gnulib-tool.
 include Makefile.gnulib
 
