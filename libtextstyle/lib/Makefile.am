@@ -260,6 +260,8 @@ LTV_AGE=0
 
 # How to build libtextstyle.la.
 libtextstyle_la_LDFLAGS += \
+  -no-undefined \
+  -export-symbols $(srcdir)/libtextstyle.sym \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
 # Use the C++ compiler only when needed.
