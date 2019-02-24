@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2018 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009-2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -365,6 +365,7 @@ if USE_INCLUDED_LIBINTL
 
 install-exec-local: install-exec-libintl
 install-exec-libintl: libintl.la
+	$(mkdir_p) $(DESTDIR)$(libdir)
 	$(LIBTOOL) --mode=install \
 	  $(INSTALL_DATA) libintl.la $(DESTDIR)$(libdir)/libintl.la; \
 	if test "@RELOCATABLE@" = yes; then \
@@ -376,12 +377,12 @@ install-exec-libintl: libintl.la
 
 installdirs-local: installdirs-libintl
 installdirs-libintl:
-	  $(mkdir_p) $(DESTDIR)$(libdir)
+	$(mkdir_p) $(DESTDIR)$(libdir)
 
 uninstall-local: uninstall-libintl
 uninstall-libintl:
-	  $(LIBTOOL) --mode=uninstall \
-	    rm -f $(DESTDIR)$(libdir)/libintl.la
+	$(LIBTOOL) --mode=uninstall \
+	  rm -f $(DESTDIR)$(libdir)/libintl.la
 
 endif
 
