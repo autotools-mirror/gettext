@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006, 2009, 2016 Free Software
+## Copyright (C) 1995-1998, 2000-2006, 2009, 2016, 2019 Free Software
 ## Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -65,6 +65,15 @@ MOOPPFLAGS += --dllexport=styled_ostream
 if OS2
 libgettextlib_la_LDFLAGS += -os2dllname gtlib
 endif
+
+# Specify installation directory, for --enable-relocatable.
+if RELOCATABLE_VIA_LD
+# This is needed, because libgettextlib depends on libintl.
+libgettextlib_la_LDFLAGS += `$(RELOCATABLE_LDFLAGS) $(libdir)`
+endif
+
+# Support for relocatability.
+RELOCATABLE_LIBRARY_PATH = $(libdir)
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
 if !WOE32DLL

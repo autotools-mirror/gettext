@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2018 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -273,6 +273,12 @@ if WOE32DLL
 libgettextsrc_la_SOURCES += ../woe32dll/gettextsrc-exports.c
 libgettextsrc_la_LDFLAGS += -Wl,--export-all-symbols
 libgettextsrc_la_CPPFLAGS += $(GETTEXTLIB_EXPORTS_FLAGS)
+endif
+
+# Specify installation directory, for --enable-relocatable.
+if RELOCATABLE_VIA_LD
+# This is needed, because libgettextsrc depends on libgettextlib and libintl.
+libgettextsrc_la_LDFLAGS += `$(RELOCATABLE_LDFLAGS) $(libdir)`
 endif
 
 # No need to install libgettextsrc.a, except on AIX.

@@ -122,6 +122,15 @@ if OS2
 libgettextpo_la_LDFLAGS += -os2dllname gtpo
 endif
 
+# Specify installation directory, for --enable-relocatable.
+if RELOCATABLE_VIA_LD
+# This is needed, because libgettextpo depends on libintl.
+libgettextpo_la_LDFLAGS += `$(RELOCATABLE_LDFLAGS) $(libdir)`
+endif
+
+# Support for relocatability.
+RELOCATABLE_LIBRARY_PATH = $(libdir)
+
 # Version information according to Woe32 conventions.
 EXTRA_DIST += libgettextpo.rc
 if WOE32
