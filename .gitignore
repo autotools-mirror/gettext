@@ -26,6 +26,7 @@
 /build-aux/install-reloc
 /build-aux/javacomp.sh.in
 /build-aux/javaexec.sh.in
+/build-aux/libtool-reloc
 /build-aux/moopp
 /build-aux/reloc-ldflags
 /build-aux/relocatable.sh.in
