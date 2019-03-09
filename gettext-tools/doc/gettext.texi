@@ -267,6 +267,7 @@ Manipulating PO Files
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
 * Colorizing::                  Highlighting parts of PO files
+* Other tools::                 Other tools for manipulating PO files
 * libgettextpo::                Writing your own programs that process PO files
 
 Highlighting parts of PO files
@@ -4743,6 +4744,7 @@ write other specialized programs that process PO files.
 * msgen Invocation::            Invoking the @code{msgen} Program
 * msgexec Invocation::          Invoking the @code{msgexec} Program
 * Colorizing::                  Highlighting parts of PO files
+* Other tools::                 Other tools for manipulating PO files
 * libgettextpo::                Writing your own programs that process PO files
 @end menu
 
@@ -5197,6 +5199,30 @@ case "$1" in
 esac
 @end smallexample
 @end enumerate
+
+@node Other tools
+@section Other tools for manipulating PO files
+
+@cindex Pology
+The ``Pology'' package is a Free Software package for manipulating PO files.
+It features, in particular:
+
+@itemize
+@item
+Examination and in-place modification of collections of PO files.
+@item
+Format-aware diffing and patching of PO files.
+@item
+Handling of version-control branches.
+@item
+Fine-grained asynchronous review workflow.
+@item
+Custom translation validation.
+@item
+Language and project specific support.
+@end itemize
+
+Its home page is at @url{http://pology.nedohodnik.net/}.
 
 @node libgettextpo
 @section Writing your own programs that process PO files
