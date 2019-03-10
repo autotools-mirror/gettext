@@ -397,7 +397,7 @@ Input file syntax:\n"));
       printf (_("\
 Output details:\n"));
       printf (_("\
-  -l, --locale=LL_CC          set target locale\n"));
+  -l, --locale=LL_CC[.ENCODING]  set target locale\n"));
       printf (_("\
       --no-translator         assume the PO file is automatically generated\n"));
       printf (_("\

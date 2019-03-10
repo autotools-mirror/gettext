@@ -1257,7 +1257,7 @@ still refers to the German locale as of 2000 that stores characters in
 ISO-8859-1 encoding -- a text encoding that cannot even accommodate the Euro
 currency sign.
 
-Some locale names use @samp{@var{ll}_@var{CC}.@@@var{variant}} instead of
+Some locale names use @samp{@var{ll}_@var{CC}@@@var{variant}} instead of
 @samp{@var{ll}_@var{CC}}.  The @samp{@@@var{variant}} can denote any kind of
 characteristics that is not already implied by the language @var{ll} and
 the country @var{CC}.  It can denote a particular monetary unit.  For example,
