@@ -181,4 +181,5 @@ AC_CONFIG_FILES([lib/exported.sh])
 AC_CONFIG_FILES([lib/textstyle/version.h:lib/textstyle/version.in.h])
 AC_CONFIG_FILES([lib/textstyle/woe32dll.h:lib/textstyle/woe32dll.in.h])
 AC_CONFIG_FILES([tests/Makefile])
+AC_CONFIG_FILES([adhoc-tests/Makefile])
 AC_OUTPUT

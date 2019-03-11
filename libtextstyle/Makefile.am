@@ -20,7 +20,7 @@ AUTOMAKE_OPTIONS = 1.13 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4 -I gnulib-m4
 
 # The list of subdirectories containing Makefiles.
-SUBDIRS = doc lib tests
+SUBDIRS = doc lib tests adhoc-tests
 
 EXTRA_DIST = \
   version.sh \
