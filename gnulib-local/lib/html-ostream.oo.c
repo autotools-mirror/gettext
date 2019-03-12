@@ -166,8 +166,8 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
                     size_t prev_class_stack_size = stream->curr_class_stack_size;
                     stream->curr_class_stack_size = 0;
                     emit_pending_spans (stream, false);
-                    ostream_write_str (stream->destination, "<br/>");
                     stream->curr_class_stack_size = prev_class_stack_size;
+                    ostream_write_str (stream->destination, "<br/>");
                     shrink_class_stack (stream);
                     verify_invariants (stream);
                   }
@@ -238,11 +238,22 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-html_ostream::flush (html_ostream_t stream)
+html_ostream::flush (html_ostream_t stream, ostream_flush_scope_t scope)
 {
-  /* There's nothing to do here, since stream->buf[] contains only a few
-     bytes that don't correspond to a character, and it's not worth closing
-     the open spans.  */
+  verify_invariants (stream);
+  /* stream->buf[] contains only a few bytes that don't correspond to a
+     character.  Can't flush it.  */
+  /* Close the open <span> tags, and prepare for reopening the same <span>
+     tags.  */
+  size_t prev_class_stack_size = stream->curr_class_stack_size;
+  stream->curr_class_stack_size = 0;
+  emit_pending_spans (stream, false);
+  stream->curr_class_stack_size = prev_class_stack_size;
+  shrink_class_stack (stream);
+  verify_invariants (stream);
+
+  if (scope != FLUSH_THIS_STREAM)
+    ostream_flush (stream->destination, scope);
 }
 
 static void

@@ -10,10 +10,12 @@ ostream
 error
 stdlib
 full-write
+fsync
 gettext
 xalloc
 
 configure.ac:
+AC_CHECK_FUNCS_ONCE([tcdrain])
 
 Makefile.am:
 lib_SOURCES += fd-ostream.c

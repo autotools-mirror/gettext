@@ -1,5 +1,5 @@
 /* Output stream referring to an stdio FILE.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,10 @@
 #include "file-ostream.h"
 
 #include <stdlib.h>
+#include <unistd.h>
+#if HAVE_TCDRAIN
+# include <termios.h>
+#endif
 
 #include "xalloc.h"
 
@@ -40,10 +44,27 @@ file_ostream::write_mem (file_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-file_ostream::flush (file_ostream_t stream)
+file_ostream::flush (file_ostream_t stream, ostream_flush_scope_t scope)
 {
-  /* This ostream has no internal buffer.  No need to fflush (stream->fp),
-     since it's external to this ostream.  */
+  /* This ostream has no internal buffer, therefore nothing to do for
+     scope == FLUSH_THIS_STREAM.  */
+  if (scope != FLUSH_THIS_STREAM)
+    {
+      fflush (stream->fp);
+      if (scope == FLUSH_ALL)
+        {
+          int fd = fileno (stream->fp);
+          if (fd >= 0)
+            {
+              /* For streams connected to a disk file:  */
+              fsync (fd);
+              #if HAVE_TCDRAIN
+              /* For streams connected to a terminal:  */
+              tcdrain (fd);
+              #endif
+            }
+        }
+    }
 }
 
 static void

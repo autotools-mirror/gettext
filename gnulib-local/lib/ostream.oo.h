@@ -1,5 +1,5 @@
 /* Abstract output stream data type.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,25 @@
 
 #include "moo.h"
 
+
+/* Describes the scope of a flush operation.  */
+typedef enum
+{
+  /* Flushes buffers in this ostream_t.
+     Use this value if you want to write to the underlying ostream_t.  */
+  FLUSH_THIS_STREAM = 0,
+  /* Flushes all buffers in the current process.
+     Use this value if you want to write to the same target through a
+     different file descriptor or a FILE stream.  */
+  FLUSH_THIS_PROCESS = 1,
+  /* Flushes buffers in the current process and attempts to flush the buffers
+     in the kernel.
+     Use this value so that some other process (or the kernel itself)
+     may write to the same target.  */
+  FLUSH_ALL = 2
+} ostream_flush_scope_t;
+
+
 /* An output stream is an object to which one can feed a sequence of bytes.  */
 
 struct ostream
@@ -33,7 +52,7 @@ methods:
   void write_mem (ostream_t stream, const void *data, size_t len);
 
   /* Bring buffered data to its destination.  */
-  void flush (ostream_t stream);
+  void flush (ostream_t stream, ostream_flush_scope_t scope);
 
   /* Close and free a stream.  */
   void free (ostream_t stream);

@@ -29,6 +29,24 @@
 
 /* ----------------------------- From ostream.h ----------------------------- */
 
+/* Describes the scope of a flush operation.  */
+typedef enum
+{
+  /* Flushes buffers in this ostream_t.
+     Use this value if you want to write to the underlying ostream_t.  */
+  FLUSH_THIS_STREAM = 0,
+  /* Flushes all buffers in the current process.
+     Use this value if you want to write to the same target through a
+     different file descriptor or a FILE stream.  */
+  FLUSH_THIS_PROCESS = 1,
+  /* Flushes buffers in the current process and attempts to flush the buffers
+     in the kernel.
+     Use this value so that some other process (or the kernel itself)
+     may write to the same target.  */
+  FLUSH_ALL = 2
+} ostream_flush_scope_t;
+
+
 /* An output stream is an object to which one can feed a sequence of bytes.  */
 
 struct any_ostream_representation;
@@ -39,7 +57,7 @@ typedef struct any_ostream_representation * ostream_t;
 extern "C" {
 #endif
 extern void ostream_write_mem (ostream_t first_arg, const void *data, size_t len);
-extern void ostream_flush (ostream_t first_arg);
+extern void ostream_flush (ostream_t first_arg, ostream_flush_scope_t scope);
 extern void ostream_free (ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -71,7 +89,7 @@ typedef ostream_t styled_ostream_t;
 extern "C" {
 #endif
 extern void styled_ostream_write_mem (styled_ostream_t first_arg, const void *data, size_t len);
-extern void styled_ostream_flush (styled_ostream_t first_arg);
+extern void styled_ostream_flush (styled_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void styled_ostream_free (styled_ostream_t first_arg);
 extern void styled_ostream_begin_use_class (styled_ostream_t first_arg, const char *classname);
 extern void styled_ostream_end_use_class (styled_ostream_t first_arg, const char *classname);
@@ -89,7 +107,7 @@ typedef ostream_t file_ostream_t;
 extern "C" {
 #endif
 extern void file_ostream_write_mem (file_ostream_t first_arg, const void *data, size_t len);
-extern void file_ostream_flush (file_ostream_t first_arg);
+extern void file_ostream_flush (file_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void file_ostream_free (file_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -119,7 +137,7 @@ typedef ostream_t fd_ostream_t;
 extern "C" {
 #endif
 extern void fd_ostream_write_mem (fd_ostream_t first_arg, const void *data, size_t len);
-extern void fd_ostream_flush (fd_ostream_t first_arg);
+extern void fd_ostream_flush (fd_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void fd_ostream_free (fd_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -188,7 +206,7 @@ typedef ostream_t term_ostream_t;
 extern "C" {
 #endif
 extern void term_ostream_write_mem (term_ostream_t first_arg, const void *data, size_t len);
-extern void term_ostream_flush (term_ostream_t first_arg);
+extern void term_ostream_flush (term_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void term_ostream_free (term_ostream_t first_arg);
 extern term_color_t term_ostream_rgb_to_color (term_ostream_t first_arg, int red, int green, int blue);
 extern term_color_t term_ostream_get_color (term_ostream_t first_arg);
@@ -253,7 +271,7 @@ typedef ostream_t memory_ostream_t;
 extern "C" {
 #endif
 extern void memory_ostream_write_mem (memory_ostream_t first_arg, const void *data, size_t len);
-extern void memory_ostream_flush (memory_ostream_t first_arg);
+extern void memory_ostream_flush (memory_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void memory_ostream_free (memory_ostream_t first_arg);
 extern void memory_ostream_contents (memory_ostream_t first_arg, const void **bufp, size_t *buflenp);
 #ifdef __cplusplus
@@ -285,7 +303,7 @@ typedef ostream_t iconv_ostream_t;
 extern "C" {
 #endif
 extern void iconv_ostream_write_mem (iconv_ostream_t first_arg, const void *data, size_t len);
-extern void iconv_ostream_flush (iconv_ostream_t first_arg);
+extern void iconv_ostream_flush (iconv_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void iconv_ostream_free (iconv_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -319,7 +337,7 @@ typedef ostream_t html_ostream_t;
 extern "C" {
 #endif
 extern void html_ostream_write_mem (html_ostream_t first_arg, const void *data, size_t len);
-extern void html_ostream_flush (html_ostream_t first_arg);
+extern void html_ostream_flush (html_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void html_ostream_free (html_ostream_t first_arg);
 extern void html_ostream_begin_span (html_ostream_t first_arg, const char *classname);
 extern void html_ostream_end_span (html_ostream_t first_arg, const char *classname);
@@ -356,7 +374,7 @@ typedef styled_ostream_t term_styled_ostream_t;
 extern "C" {
 #endif
 extern void term_styled_ostream_write_mem (term_styled_ostream_t first_arg, const void *data, size_t len);
-extern void term_styled_ostream_flush (term_styled_ostream_t first_arg);
+extern void term_styled_ostream_flush (term_styled_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void term_styled_ostream_free (term_styled_ostream_t first_arg);
 extern void term_styled_ostream_begin_use_class (term_styled_ostream_t first_arg, const char *classname);
 extern void term_styled_ostream_end_use_class (term_styled_ostream_t first_arg, const char *classname);
@@ -395,7 +413,7 @@ typedef styled_ostream_t html_styled_ostream_t;
 extern "C" {
 #endif
 extern void html_styled_ostream_write_mem (html_styled_ostream_t first_arg, const void *data, size_t len);
-extern void html_styled_ostream_flush (html_styled_ostream_t first_arg);
+extern void html_styled_ostream_flush (html_styled_ostream_t first_arg, ostream_flush_scope_t scope);
 extern void html_styled_ostream_free (html_styled_ostream_t first_arg);
 extern void html_styled_ostream_begin_use_class (html_styled_ostream_t first_arg, const char *classname);
 extern void html_styled_ostream_end_use_class (html_styled_ostream_t first_arg, const char *classname);

@@ -59,9 +59,9 @@ html_styled_ostream::write_mem (html_styled_ostream_t stream,
 }
 
 static void
-html_styled_ostream::flush (html_styled_ostream_t stream)
+html_styled_ostream::flush (html_styled_ostream_t stream, ostream_flush_scope_t scope)
 {
-  html_ostream_flush (stream->html_destination);
+  html_ostream_flush (stream->html_destination, scope);
 }
 
 static void

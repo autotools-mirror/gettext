@@ -96,9 +96,9 @@ term_styled_ostream::write_mem (term_styled_ostream_t stream,
 }
 
 static void
-term_styled_ostream::flush (term_styled_ostream_t stream)
+term_styled_ostream::flush (term_styled_ostream_t stream, ostream_flush_scope_t scope)
 {
-  term_ostream_flush (stream->destination);
+  term_ostream_flush (stream->destination, scope);
 }
 
 static void

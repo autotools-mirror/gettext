@@ -1,5 +1,5 @@
 /* Output stream that accumulates the output in memory.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@ memory_ostream::write_mem (memory_ostream_t stream,
 }
 
 static void
-memory_ostream::flush (memory_ostream_t stream)
+memory_ostream::flush (memory_ostream_t stream, ostream_flush_scope_t scope)
 {
 }
 

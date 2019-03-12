@@ -57,6 +57,7 @@
 /lib/float+.h
 /lib/float.c
 /lib/float.in.h
+/lib/fsync.c
 /lib/full-write.c
 /lib/full-write.h
 /lib/getprogname.c

@@ -26,6 +26,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#if HAVE_TCDRAIN
+# include <termios.h>
+#endif
 
 #include "error.h"
 #include "fatal-signal.h"
@@ -1605,15 +1609,24 @@ term_ostream::write_mem (term_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-term_ostream::flush (term_ostream_t stream)
+term_ostream::flush (term_ostream_t stream, ostream_flush_scope_t scope)
 {
   output_buffer (stream);
+  if (scope == FLUSH_ALL)
+    {
+      /* For streams connected to a disk file:  */
+      fsync (stream->fd);
+      #if HAVE_TCDRAIN
+      /* For streams connected to a terminal:  */
+      tcdrain (stream->fd);
+      #endif
+    }
 }
 
 static void
 term_ostream::free (term_ostream_t stream)
 {
-  term_ostream_flush (stream);
+  term_ostream_flush (stream, FLUSH_THIS_STREAM);
   free (stream->filename);
   if (stream->set_a_foreground != NULL)
     free (stream->set_a_foreground);

@@ -1,3 +1,7 @@
+New in 0.6:
+* The ostream_t operation 'flush' now takes an additional argument, of type
+  ostream_flush_scope_t.
+
 New in 0.5:
 
 * The libtextstyle library can now be built and installed independently

@@ -1,5 +1,5 @@
 /* Output stream referring to a file descriptor.
-   Copyright (C) 2006-2007 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,10 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#if HAVE_TCDRAIN
+# include <termios.h>
+#endif
 
 #include "error.h"
 #include "full-write.h"
@@ -123,7 +127,7 @@ fd_ostream::write_mem (fd_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-fd_ostream::flush (fd_ostream_t stream)
+fd_ostream::flush (fd_ostream_t stream, ostream_flush_scope_t scope)
 {
   if (stream->buffer != NULL && stream->avail < BUFSIZE)
     {
@@ -132,12 +136,21 @@ fd_ostream::flush (fd_ostream_t stream)
         error (EXIT_FAILURE, errno, _("error writing to %s"), stream->filename);
       stream->avail = BUFSIZE;
     }
+  if (scope == FLUSH_ALL)
+    {
+      /* For streams connected to a disk file:  */
+      fsync (stream->fd);
+      #if HAVE_TCDRAIN
+      /* For streams connected to a terminal:  */
+      tcdrain (stream->fd);
+      #endif
+    }
 }
 
 static void
 fd_ostream::free (fd_ostream_t stream)
 {
-  fd_ostream_flush (stream);
+  fd_ostream_flush (stream, FLUSH_THIS_STREAM);
   free (stream->filename);
   free (stream);
 }

@@ -7,9 +7,11 @@ lib/file-ostream.oo.c
 
 Depends-on:
 ostream
+fsync
 xalloc
 
 configure.ac:
+AC_CHECK_FUNCS_ONCE([tcdrain])
 
 Makefile.am:
 lib_SOURCES += file-ostream.c

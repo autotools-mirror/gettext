@@ -1,5 +1,5 @@
 /* Output stream that converts the output to another encoding.
-   Copyright (C) 2006-2007, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2010, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -139,10 +139,13 @@ iconv_ostream::write_mem (iconv_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-iconv_ostream::flush (iconv_ostream_t stream)
+iconv_ostream::flush (iconv_ostream_t stream, ostream_flush_scope_t scope)
 {
-  /* There's nothing we can do here, since stream->buf[] contains only a few
-     bytes that don't correspond to a character.  */
+  /* For scope == FLUSH_THIS_STREAM, there's nothing we can do here, since
+     stream->buf[] contains only a few bytes that don't correspond to a
+     character.  */
+  if (scope != FLUSH_THIS_STREAM)
+    ostream_flush (stream->destination, scope);
 }
 
 static void

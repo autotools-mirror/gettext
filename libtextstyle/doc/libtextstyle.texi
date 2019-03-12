@@ -681,7 +681,7 @@ Writes a sequence of bytes to a stream.
 Writes a string's contents to a stream.
 @end deftypefn
 
-@deftypefn Function void ostream_flush (ostream_t@tie{}@var{stream})
+@deftypefn Function void ostream_flush (ostream_t@tie{}@var{stream}, ostream_flush_scope_t@tie{}@var{scope})
 Brings buffered data to its destination.
 @end deftypefn
 

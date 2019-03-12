@@ -13,6 +13,7 @@ stdlib
 fatal-signal
 sigprocmask
 full-write
+fsync
 gettext-h
 terminfo-h
 xalloc

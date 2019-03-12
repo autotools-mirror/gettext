@@ -42,9 +42,9 @@ fd_styled_ostream::write_mem (fd_styled_ostream_t stream,
 }
 
 static void
-fd_styled_ostream::flush (fd_styled_ostream_t stream)
+fd_styled_ostream::flush (fd_styled_ostream_t stream, ostream_flush_scope_t scope)
 {
-  fd_ostream_flush (stream->destination);
+  fd_ostream_flush (stream->destination, scope);
 }
 
 static void
