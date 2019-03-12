@@ -855,6 +855,16 @@ The @code{html_ostream_begin_span} / @code{html_ostream_end_span} calls
 must match properly.
 @end deftypefn
 
+@deftypefn Function void html_ostream_flush_to_current_style (html_ostream_t@tie{}@var{stream})
+This function acts like @code{ostream_flush (@var{stream}, FLUSH_THIS_STREAM)},
+except that it leaves the destination with the current text style enabled,
+instead of with the default text style.
+
+After calling this function, you can output strings without newlines(!) to the
+underlying stream, and they will be rendered like strings passed to
+@code{ostream_write_mem} or @code{ostream_write_str}.
+@end deftypefn
+
 @node The memory_ostream class
 @subsubsection The @code{memory_ostream} class
 

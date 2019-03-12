@@ -312,6 +312,17 @@ html_ostream::end_span (html_ostream_t stream, const char *classname)
   abort ();
 }
 
+static void
+html_ostream::flush_to_current_style (html_ostream_t stream)
+{
+  verify_invariants (stream);
+  /* stream->buf[] contains only a few bytes that don't correspond to a
+     character.  Can't flush it.  */
+  /* Open all requested <span> tags.  */
+  emit_pending_spans (stream, true);
+  verify_invariants (stream);
+}
+
 /* Constructor.  */
 
 html_ostream_t
