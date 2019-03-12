@@ -93,6 +93,13 @@ extern void styled_ostream_flush (styled_ostream_t first_arg, ostream_flush_scop
 extern void styled_ostream_free (styled_ostream_t first_arg);
 extern void styled_ostream_begin_use_class (styled_ostream_t first_arg, const char *classname);
 extern void styled_ostream_end_use_class (styled_ostream_t first_arg, const char *classname);
+/* Like styled_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
+   leaves the destination with the current text style enabled, instead
+   of with the default text style.
+   After calling this function, you can output strings without newlines(!)
+   to the underlying stream, and they will be rendered like strings passed
+   to 'ostream_write_mem' or 'ostream_write_str'.  */
+extern void styled_ostream_flush_to_current_style (styled_ostream_t stream);
 #ifdef __cplusplus
 }
 #endif

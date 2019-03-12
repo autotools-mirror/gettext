@@ -595,6 +595,18 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
   stream->curr_attr = (attributes_t *) found;
 }
 
+static void
+term_styled_ostream::flush_to_current_style (term_styled_ostream_t stream)
+{
+  term_ostream_set_color (stream->destination, stream->curr_attr->color);
+  term_ostream_set_bgcolor (stream->destination, stream->curr_attr->bgcolor);
+  term_ostream_set_weight (stream->destination, stream->curr_attr->weight);
+  term_ostream_set_posture (stream->destination, stream->curr_attr->posture);
+  term_ostream_set_underline (stream->destination, stream->curr_attr->underline);
+
+  term_ostream_flush_to_current_style (stream->destination);
+}
+
 /* Constructor.  */
 
 term_styled_ostream_t

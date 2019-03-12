@@ -89,6 +89,12 @@ html_styled_ostream::end_use_class (html_styled_ostream_t stream,
   html_ostream_end_span (stream->html_destination, classname);
 }
 
+static void
+html_styled_ostream::flush_to_current_style (html_styled_ostream_t stream)
+{
+  html_ostream_flush_to_current_style (stream->html_destination);
+}
+
 /* Constructor.  */
 
 html_styled_ostream_t

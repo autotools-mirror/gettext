@@ -1,10 +1,11 @@
 New in 0.6:
 * The ostream_t operation 'flush' now takes an additional argument, of type
   ostream_flush_scope_t.
-* The term_ostream_t type supports a new function
-  term_ostream_flush_to_current_style.
-* The html_ostream_t type supports a new function
-  html_ostream_flush_to_current_style.
+* New functions:
+       TYPE                               FUNCTION
+  styled_ostream_t          styled_ostream_flush_to_current_style
+  term_ostream_t            term_ostream_flush_to_current_style
+  html_ostream_t            html_ostream_flush_to_current_style
 
 New in 0.5:
 

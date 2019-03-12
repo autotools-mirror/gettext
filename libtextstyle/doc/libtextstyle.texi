@@ -707,6 +707,16 @@ Ends a run of text belonging to @code{@var{classname}}.  The
 @code{styled_ostream_end_use_class} calls must match properly.
 @end deftypefn
 
+@deftypefn Function void styled_ostream_flush_to_current_style (styled_ostream_t@tie{}@var{stream})
+This function acts like @code{ostream_flush (@var{stream}, FLUSH_THIS_STREAM)},
+except that it leaves the destination with the current text style enabled,
+instead of with the default text style.
+
+After calling this function, you can output strings without newlines(!) to the
+underlying stream, and they will be rendered like strings passed to
+@code{ostream_write_mem} or @code{ostream_write_str}.
+@end deftypefn
+
 @node ostream subclasses without styling
 @subsection Concrete ostream subclasses without styling
 

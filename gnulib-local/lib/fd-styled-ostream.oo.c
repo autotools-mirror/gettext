@@ -68,6 +68,12 @@ fd_styled_ostream::end_use_class (fd_styled_ostream_t stream,
 {
 }
 
+static void
+fd_styled_ostream::flush_to_current_style (fd_styled_ostream_t stream)
+{
+  fd_ostream_flush (stream->destination, FLUSH_THIS_STREAM);
+}
+
 /* Constructor.  */
 
 fd_styled_ostream_t
