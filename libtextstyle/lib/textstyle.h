@@ -219,6 +219,13 @@ extern term_posture_t term_ostream_get_posture (term_ostream_t first_arg);
 extern void term_ostream_set_posture (term_ostream_t first_arg, term_posture_t posture);
 extern term_underline_t term_ostream_get_underline (term_ostream_t first_arg);
 extern void term_ostream_set_underline (term_ostream_t first_arg, term_underline_t underline);
+/* Like term_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
+   leaves the terminal with the current text attributes enabled, instead of
+   with the default text attributes.
+   After calling this function, you can output strings without newlines(!)
+   to the underlying file descriptor, and they will be rendered like strings
+   passed to 'ostream_write_mem' or 'ostream_write_str'.  */
+extern void term_ostream_flush_to_current_style (term_ostream_t first_arg);
 #ifdef __cplusplus
 }
 #endif

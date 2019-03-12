@@ -1,6 +1,8 @@
 New in 0.6:
 * The ostream_t operation 'flush' now takes an additional argument, of type
   ostream_flush_scope_t.
+* The term_ostream_t type supports a new function
+  term_ostream_flush_to_current_style.
 
 New in 0.5:
 

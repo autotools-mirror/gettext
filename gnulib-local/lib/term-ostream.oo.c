@@ -971,7 +971,17 @@ fields:
   bool supports_weight;
   bool supports_posture;
   bool supports_underline;
-  /* Variable state.  */
+  /* Variable state, representing past output.  */
+  attributes_t default_attr;    /* Default simplified attributes of the
+                                   terminal.  */
+  attributes_t active_attr;     /* Simplified attributes that we have set
+                                   on the terminal.  */
+  bool non_default_active;      /* True if activate_non_default_attr()
+                                   is in effect.
+                                   active_attr != default_attr implies
+                                   non_default_active == true,
+                                   but not the opposite!  */
+  /* Variable state, representing future output.  */
   char *buffer;                 /* Buffer for the current line.  */
   attributes_t *attrbuffer;     /* Buffer for the simplified attributes; same
                                    length as buffer.  */
@@ -1138,11 +1148,12 @@ out_char (int c)
   return 0;
 }
 
-/* Output escape sequences to switch from OLD_ATTR to NEW_ATTR.  */
+/* Output escape sequences to switch from STREAM->ACTIVE_ATTR to NEW_ATTR,
+   and update STREAM->ACTIVE_ATTR.  */
 static void
-out_attr_change (term_ostream_t stream,
-                 attributes_t old_attr, attributes_t new_attr)
+out_attr_change (term_ostream_t stream, attributes_t new_attr)
 {
+  attributes_t old_attr = stream->active_attr;
   bool cleared_attributes;
 
   /* We don't know the default colors of the terminal.  The only way to switch
@@ -1422,49 +1433,18 @@ out_attr_change (term_ostream_t stream,
       assert (new_attr.underline == UNDERLINE_ON);
       tputs (stream->enter_underline_mode, 1, out_char);
     }
+
+  /* Keep track of the active attributes.  */
+  stream->active_attr = new_attr;
 }
 
-/* Output the buffered line atomically.
-   The terminal is assumed to have the default state (regarding colors and
-   attributes) before this call.  It is left in default state after this
-   call (regardless of stream->curr_attr).  */
+/* Prepare for activating some non-default attributes.
+   Note: This may block some signals.  */
 static void
-output_buffer (term_ostream_t stream)
+activate_non_default_attr (term_ostream_t stream)
 {
-  attributes_t default_attr;
-  attributes_t attr;
-  const char *cp;
-  const attributes_t *ap;
-  size_t len;
-  size_t n;
-
-  default_attr.color = COLOR_DEFAULT;
-  default_attr.bgcolor = COLOR_DEFAULT;
-  default_attr.weight = WEIGHT_DEFAULT;
-  default_attr.posture = POSTURE_DEFAULT;
-  default_attr.underline = UNDERLINE_DEFAULT;
-
-  attr = default_attr;
-
-  cp = stream->buffer;
-  ap = stream->attrbuffer;
-  len = stream->buflen;
-
-  /* See how much we can output without blocking signals.  */
-  for (n = 0; n < len && equal_attributes (ap[n], attr); n++)
-    ;
-  if (n > 0)
+  if (!stream->non_default_active)
     {
-      if (full_write (stream->fd, cp, n) < n)
-        error (EXIT_FAILURE, errno, _("error writing to %s"), stream->filename);
-      cp += n;
-      ap += n;
-      len -= n;
-    }
-  if (len > 0)
-    {
-      int error_code = 0;
-
       /* Block fatal signals, so that a SIGINT or similar doesn't interrupt
          us without the possibility of restoring the terminal's state.  */
       block_fatal_signals ();
@@ -1493,28 +1473,17 @@ output_buffer (term_ostream_t stream)
       out_fd = stream->fd;
       out_filename = stream->filename;
 
-      while (len > 0)
-        {
-          /* Activate the attributes in *ap.  */
-          out_attr_change (stream, attr, *ap);
-          attr = *ap;
-          /* See how many characters we can output without further attribute
-             changes.  */
-          for (n = 1; n < len && equal_attributes (ap[n], attr); n++)
-            ;
-          if (full_write (stream->fd, cp, n) < n)
-            {
-              error_code = errno;
-              break;
-            }
-          cp += n;
-          ap += n;
-          len -= n;
-        }
+      stream->non_default_active = true;
+    }
+}
 
-      /* Switch back to the default attributes.  */
-      out_attr_change (stream, attr, default_attr);
-
+/* Deactivate the non-default attributes mode.
+   Note: This may unblock some signals.  */
+static void
+deactivate_non_default_attr (term_ostream_t stream)
+{
+  if (stream->non_default_active)
+    {
       /* Disable the exit handler.  */
       out_fd = -1;
       out_filename = NULL;
@@ -1523,14 +1492,97 @@ output_buffer (term_ostream_t stream)
       unblock_stopping_signals ();
       unblock_fatal_signals ();
 
-      /* Do output to stderr only after we have switched back to the default
-         attributes.  Otherwise this output may come out with the wrong text
-         attributes.  */
-      if (error_code != 0)
-        error (EXIT_FAILURE, error_code, _("error writing to %s"),
-               stream->filename);
+      stream->non_default_active = false;
+    }
+}
+
+/* Activate the default attributes.  */
+static void
+activate_default_attr (term_ostream_t stream)
+{
+  /* Switch back to the default attributes.  */
+  out_attr_change (stream, stream->default_attr);
+
+  deactivate_non_default_attr (stream);
+}
+
+/* Output the buffered line atomically.
+   The terminal is left in the the state (regarding colors and attributes)
+   represented by the simplified attributes goal_attr.  */
+static void
+output_buffer (term_ostream_t stream, attributes_t goal_attr)
+{
+  const char *cp;
+  const attributes_t *ap;
+  size_t len;
+  size_t n;
+
+  cp = stream->buffer;
+  ap = stream->attrbuffer;
+  len = stream->buflen;
+
+  /* See how much we can output without blocking signals.  */
+  for (n = 0; n < len && equal_attributes (ap[n], stream->active_attr); n++)
+    ;
+  if (n > 0)
+    {
+      if (full_write (stream->fd, cp, n) < n)
+        {
+          int error_code = errno;
+          /* Do output to stderr only after we have switched back to the
+             default attributes.  Otherwise this output may come out with
+             the wrong text attributes.  */
+          if (!equal_attributes (stream->active_attr, stream->default_attr))
+            activate_default_attr (stream);
+          error (EXIT_FAILURE, error_code, _("error writing to %s"),
+                 stream->filename);
+        }
+      cp += n;
+      ap += n;
+      len -= n;
+    }
+  if (len > 0)
+    {
+      if (!equal_attributes (*ap, stream->default_attr))
+        activate_non_default_attr (stream);
+
+      do
+        {
+          /* Activate the attributes in *ap.  */
+          out_attr_change (stream, *ap);
+          /* See how many characters we can output without further attribute
+             changes.  */
+          for (n = 1; n < len && equal_attributes (ap[n], stream->active_attr); n++)
+            ;
+          if (full_write (stream->fd, cp, n) < n)
+            {
+              int error_code = errno;
+              /* Do output to stderr only after we have switched back to the
+                 default attributes.  Otherwise this output may come out with
+                 the wrong text attributes.  */
+              if (!equal_attributes (stream->active_attr, stream->default_attr))
+                activate_default_attr (stream);
+              error (EXIT_FAILURE, error_code, _("error writing to %s"),
+                     stream->filename);
+            }
+          cp += n;
+          ap += n;
+          len -= n;
+        }
+      while (len > 0);
     }
   stream->buflen = 0;
+
+  /* Before changing to goal_attr, we may need to enable the non-default
+     attributes mode.  */
+  if (!equal_attributes (goal_attr, stream->default_attr))
+    activate_non_default_attr (stream);
+  /* Change to goal_attr.  */
+  if (!equal_attributes (goal_attr, stream->active_attr))
+    out_attr_change (stream, goal_attr);
+  /* When we can deactivate the non-default attributes mode, do so.  */
+  if (equal_attributes (goal_attr, stream->default_attr))
+    deactivate_non_default_attr (stream);
 }
 
 /* Implementation of ostream_t methods.  */
@@ -1596,7 +1648,7 @@ term_ostream::write_mem (term_ostream_t stream, const void *data, size_t len)
 
       if (newline != NULL)
         {
-          output_buffer (stream);
+          output_buffer (stream, stream->default_attr);
           if (full_write (stream->fd, "\n", 1) < 1)
             error (EXIT_FAILURE, errno, _("error writing to %s"),
                    stream->filename);
@@ -1611,7 +1663,7 @@ term_ostream::write_mem (term_ostream_t stream, const void *data, size_t len)
 static void
 term_ostream::flush (term_ostream_t stream, ostream_flush_scope_t scope)
 {
-  output_buffer (stream);
+  output_buffer (stream, stream->default_attr);
   if (scope == FLUSH_ALL)
     {
       /* For streams connected to a disk file:  */
@@ -1627,6 +1679,9 @@ static void
 term_ostream::free (term_ostream_t stream)
 {
   term_ostream_flush (stream, FLUSH_THIS_STREAM);
+  /* Verify that the non-default attributes mode is turned off.  */
+  if (stream->non_default_active)
+    abort ();
   free (stream->filename);
   if (stream->set_a_foreground != NULL)
     free (stream->set_a_foreground);
@@ -1719,6 +1774,12 @@ term_ostream::set_underline (term_ostream_t stream, term_underline_t underline)
 {
   stream->curr_attr.underline = underline;
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
+}
+
+static void
+term_ostream::flush_to_current_style (term_ostream_t stream)
+{
+  output_buffer (stream, stream->simp_attr);
 }
 
 /* Constructor.  */
@@ -1928,12 +1989,24 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
   stream->buflen = 0;
 
   /* Initialize the current attributes.  */
-  stream->curr_attr.color = COLOR_DEFAULT;
-  stream->curr_attr.bgcolor = COLOR_DEFAULT;
-  stream->curr_attr.weight = WEIGHT_DEFAULT;
-  stream->curr_attr.posture = POSTURE_DEFAULT;
-  stream->curr_attr.underline = UNDERLINE_DEFAULT;
-  stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
+  {
+    attributes_t assumed_default;
+    attributes_t simplified_default;
+
+    assumed_default.color = COLOR_DEFAULT;
+    assumed_default.bgcolor = COLOR_DEFAULT;
+    assumed_default.weight = WEIGHT_DEFAULT;
+    assumed_default.posture = POSTURE_DEFAULT;
+    assumed_default.underline = UNDERLINE_DEFAULT;
+
+    simplified_default = simplify_attributes (stream, assumed_default);
+
+    stream->default_attr = simplified_default;
+    stream->active_attr = simplified_default;
+    stream->non_default_active = false;
+    stream->curr_attr = assumed_default;
+    stream->simp_attr = simplified_default;
+  }
 
   /* Register an exit handler.  */
   {
