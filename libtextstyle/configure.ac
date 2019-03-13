@@ -54,9 +54,6 @@ gl_WOE32_DLL
 
 LT_INIT([win32-dll])
 
-dnl Make "libtool --tag=CXX ..." work when needed.
-LT_LANG([C++])
-
 dnl Prepares the libtool configuration for handling of Windows resources, and
 dnl sets the RC variable to a program that compiles Windows resource files.
 LT_LANG([Windows Resource])
@@ -99,13 +96,6 @@ else
   DLL_VARIABLE=
 fi
 AC_SUBST([DLL_VARIABLE])
-dnl Some parts of the source have to be compiled with the C++ compiler.
-if test $is_woe32dll = yes; then
-  AC_PROG_CXX
-  _AM_DEPENDENCIES([CXX])
-else
-  AM_CONDITIONAL([am__fastdepCXX], [false])
-fi
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([

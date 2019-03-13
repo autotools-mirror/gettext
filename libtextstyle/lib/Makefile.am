@@ -265,12 +265,6 @@ libtextstyle_la_LDFLAGS += \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
 # Use the C++ compiler only when needed.
-if WOE32DLL
-libtextstyle_la_LINK = \
-  $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
-  $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(libtextstyle_la_LDFLAGS) $(LDFLAGS) -o $@
-else
 libtextstyle_la_LINK = \
   $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
   $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(libtextstyle_la_LDFLAGS) $(LDFLAGS) -o $@
-endif
