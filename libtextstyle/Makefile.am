@@ -65,5 +65,3 @@ EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 # Windows support.
 
 EXTRA_DIST += INSTALL.windows
-#TEMPORARY
-#EXTRA_DIST += INSTALL.windows windows/windres-options
