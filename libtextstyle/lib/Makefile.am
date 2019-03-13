@@ -231,23 +231,33 @@ config.h: $(BUILT_SOURCES) $(srcdir)/libtextstyle.sym
 	fi
 MOSTLYCLEANFILES += config.h config.h-t
 
-# TEMPORARY
-if false
-
-## Version information according to Woe32 conventions.
-#EXTRA_DIST += libtextstyle.rc
-#if WOE32
-#WOE32_LIBADD = libtextstyle.res.lo
-#libtextstyle.res.lo : $(srcdir)/libtextstyle.rc
-#	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) `$(SHELL) $(top_srcdir)/build-aux/windres-options --escape $(VERSION)` -i $(srcdir)/libtextstyle.rc -o libtextstyle.res.lo --output-format=coff
-#MOSTLYCLEANFILES += libtextstyle.res.lo
-#else
-#WOE32_LIBADD =
-#endif
-#libtextstyle_la_LIBADD       += $(WOE32_LIBADD)
-#libtextstyle_la_DEPENDENCIES += $(WOE32_LIBADD)
-
+# Version information according to Woe32 conventions.
+EXTRA_DIST += libtextstyle.rc
+if WOE32
+WOE32_LIBADD = libtextstyle.res.lo
+# This rule is executed only on Woe32 systems.
+# Use $(RC) with libtool, $(WINDRES) when not using libtool.
+# The following sed expressions come from the windres-options script. They are
+# inlined here, so that they can be written in a Makefile without requiring a
+# temporary file. They must contain literal newlines rather than semicolons,
+# so that they work with the sed-3.02 that is shipped with MSYS.
+libtextstyle.res.lo: $(srcdir)/libtextstyle.rc
+	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
+	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	  -i $(srcdir)/libtextstyle.rc -o libtextstyle.res.lo --output-format=coff
+MOSTLYCLEANFILES += libtextstyle.res.lo
+else
+WOE32_LIBADD =
 endif
+libtextstyle_la_LIBADD       += $(WOE32_LIBADD)
+libtextstyle_la_DEPENDENCIES += $(WOE32_LIBADD)
 
 # Parametrization of the 'relocatable-lib-lgpl' module.
 AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1
