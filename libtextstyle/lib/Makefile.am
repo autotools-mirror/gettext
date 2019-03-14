@@ -96,7 +96,7 @@ nobase_nodist_include_HEADERS += textstyle/woe32dll.h
 
 # Directories that contain some CLEANFILES.
 CLEANDIRS =
-CLEANDIRS_NOT_IN_SRCDIR = textstyle
+CLEANDIRS_NOT_IN_SRCDIR =
 clean-local: clean-generic
 	@for dir in '' $(CLEANDIRS); do \
 	  if test -n "$$dir" && test -d $$dir; then \
@@ -114,7 +114,7 @@ clean-local: clean-generic
 
 # Directories that contain some DISTCLEANFILES.
 DISTCLEANDIRS = sys
-DISTCLEANDIRS_NOT_IN_SRCDIR =
+DISTCLEANDIRS_NOT_IN_SRCDIR = textstyle
 distclean-local: distclean-generic
 	@for dir in '' $(DISTCLEANDIRS); do \
 	  if test -n "$$dir" && test -d $$dir; then \
