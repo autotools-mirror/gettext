@@ -124,9 +124,7 @@ autoconf
 autoheader && touch config.h.in
 touch ChangeLog
 # Make sure we get new versions of files brought in by automake.
-#TEMPORARY
-#(cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver)
-(cd build-aux && rm -f compile depcomp install-sh missing test-driver)
+(cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver)
 automake --add-missing --copy
 # Support environments where sh exists but not /bin/sh (Android).
 patch build-aux/test-driver < build-aux/test-driver.diff
