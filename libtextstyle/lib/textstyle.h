@@ -530,6 +530,26 @@ extern void libtextstyle_set_failure_exit_code (int exit_code);
 }
 #endif
 
+/* ----------------------- Exported gnulib overrides ----------------------- */
+
+#if defined _WIN32 && ! defined __CYGWIN__
+
+# include <io.h>
+
+# ifdef __cplusplus
+extern "C" {
+# endif
+
+extern int libtextstyle_isatty (int fd);
+# undef isatty
+# define isatty libtextstyle_isatty
+
+# ifdef __cplusplus
+}
+# endif
+
+#endif
+
 /* ------------------------------------------------------------------------- */
 
 #endif /* _TEXTSTYLE_H */

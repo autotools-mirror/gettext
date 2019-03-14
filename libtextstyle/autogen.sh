@@ -84,6 +84,7 @@ if test $skip_gnulib = false; then
         html-styled-ostream
         term-styled-ostream
       filename
+      isatty
       xalloc
       xconcat-filename
 

@@ -70,6 +70,10 @@ dnl Checks for types, header files, functions and declarations.
 
 gl_INIT
 
+dnl Arrange that the gnulib-generated <unistd.h> does not declare isatty(). The
+dnl adhoc-tests want to get this declaration from <textstyle.h>, not <unistd.h>.
+GNULIB_ISATTY=0
+
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export
 dnl    auxiliary pointer variables for every exported variable,

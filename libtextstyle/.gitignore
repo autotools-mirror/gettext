@@ -81,6 +81,7 @@
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
 /lib/intprops.h
+/lib/isatty.c
 /lib/isinf.c
 /lib/isnan.c
 /lib/isnand.c
