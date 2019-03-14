@@ -164,17 +164,6 @@ MOSTLYCLEANFILES     += libtextstyle.sym-t
 MAINTAINERCLEANFILES += libtextstyle.sym
 EXTRA_DIST           += libtextstyle.sym declared.sh
 
-# TEMPORARY
-if false
-
-## Tell the mingw or Cygwin linker which symbols to export.
-#if WOE32DLL
-#libtextstyle_la_SOURCES += ../woe32dll/unistring-exports.c
-#libtextstyle_la_LDFLAGS += -Wl,--export-all-symbols
-#endif
-
-endif
-
 # Hide undesired symbols that are defined by libtextstyle_la_SOURCES or
 # gl_LIBOBJS or the dependency libraries from the global namespace,
 # by prefixing them with "libtextstyle_".

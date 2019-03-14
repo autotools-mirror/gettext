@@ -56,12 +56,6 @@ EXTRA_DIST = \
 EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 
-# Cygwin support.
-
-#TEMPORARY
-#EXTRA_DIST += woe32dll/export.h
-
-
 # Windows support.
 
 EXTRA_DIST += INSTALL.windows

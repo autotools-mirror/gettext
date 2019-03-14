@@ -66,9 +66,6 @@ case "$host_os" in
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 
-dnl TEMPORARY.
-AM_CONDITIONAL([false], [false])
-
 dnl Checks for types, header files, functions and declarations.
 
 gl_INIT
