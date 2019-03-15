@@ -399,6 +399,7 @@ extern void term_styled_ostream_flush (term_styled_ostream_t first_arg, ostream_
 extern void term_styled_ostream_free (term_styled_ostream_t first_arg);
 extern void term_styled_ostream_begin_use_class (term_styled_ostream_t first_arg, const char *classname);
 extern void term_styled_ostream_end_use_class (term_styled_ostream_t first_arg, const char *classname);
+extern void term_styled_ostream_flush_to_current_style (term_styled_ostream_t first_arg);
 #ifdef __cplusplus
 }
 #endif
@@ -438,6 +439,7 @@ extern void html_styled_ostream_flush (html_styled_ostream_t first_arg, ostream_
 extern void html_styled_ostream_free (html_styled_ostream_t first_arg);
 extern void html_styled_ostream_begin_use_class (html_styled_ostream_t first_arg, const char *classname);
 extern void html_styled_ostream_end_use_class (html_styled_ostream_t first_arg, const char *classname);
+extern void html_styled_ostream_flush_to_current_style (html_styled_ostream_t first_arg);
 #ifdef __cplusplus
 }
 #endif
