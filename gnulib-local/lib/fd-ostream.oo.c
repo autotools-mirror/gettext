@@ -47,6 +47,26 @@ fields:
 
 #define BUFSIZE 4096
 
+#if HAVE_TCDRAIN
+
+/* EINTR handling for tcdrain().
+   This function can return -1/EINTR even though we don't have any
+   signal handlers set up, namely when we get interrupted via SIGSTOP.  */
+
+static inline int
+nonintr_tcdrain (int fd)
+{
+  int retval;
+
+  do
+    retval = tcdrain (fd);
+  while (retval < 0 && errno == EINTR);
+
+  return retval;
+}
+
+#endif
+
 /* Implementation of ostream_t methods.  */
 
 static void
@@ -142,7 +162,7 @@ fd_ostream::flush (fd_ostream_t stream, ostream_flush_scope_t scope)
       fsync (stream->fd);
       #if HAVE_TCDRAIN
       /* For streams connected to a terminal:  */
-      tcdrain (stream->fd);
+      nonintr_tcdrain (stream->fd);
       #endif
     }
 }

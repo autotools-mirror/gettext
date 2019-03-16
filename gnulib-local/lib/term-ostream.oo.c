@@ -938,6 +938,29 @@ typedef struct
 } attributes_t;
 
 
+/* ============================ EINTR handling ============================ */
+
+#if HAVE_TCDRAIN
+
+/* EINTR handling for tcdrain().
+   This function can return -1/EINTR even though we don't have any
+   signal handlers set up, namely when we get interrupted via SIGSTOP.  */
+
+static inline int
+nonintr_tcdrain (int fd)
+{
+  int retval;
+
+  do
+    retval = tcdrain (fd);
+  while (retval < 0 && errno == EINTR);
+
+  return retval;
+}
+
+#endif
+
+
 /* ============================ term_ostream_t ============================ */
 
 struct term_ostream : struct ostream
@@ -1670,7 +1693,7 @@ term_ostream::flush (term_ostream_t stream, ostream_flush_scope_t scope)
       fsync (stream->fd);
       #if HAVE_TCDRAIN
       /* For streams connected to a terminal:  */
-      tcdrain (stream->fd);
+      nonintr_tcdrain (stream->fd);
       #endif
     }
 }

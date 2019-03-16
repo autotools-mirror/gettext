@@ -20,6 +20,7 @@
 /* Specification.  */
 #include "file-ostream.h"
 
+#include <errno.h>
 #include <stdlib.h>
 #include <unistd.h>
 #if HAVE_TCDRAIN
@@ -33,6 +34,26 @@ struct file_ostream : struct ostream
 fields:
   FILE *fp;
 };
+
+#if HAVE_TCDRAIN
+
+/* EINTR handling for tcdrain().
+   This function can return -1/EINTR even though we don't have any
+   signal handlers set up, namely when we get interrupted via SIGSTOP.  */
+
+static inline int
+nonintr_tcdrain (int fd)
+{
+  int retval;
+
+  do
+    retval = tcdrain (fd);
+  while (retval < 0 && errno == EINTR);
+
+  return retval;
+}
+
+#endif
 
 /* Implementation of ostream_t methods.  */
 
@@ -60,7 +81,7 @@ file_ostream::flush (file_ostream_t stream, ostream_flush_scope_t scope)
               fsync (fd);
               #if HAVE_TCDRAIN
               /* For streams connected to a terminal:  */
-              tcdrain (fd);
+              nonintr_tcdrain (fd);
               #endif
             }
         }
