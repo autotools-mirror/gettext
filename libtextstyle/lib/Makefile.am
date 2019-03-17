@@ -135,12 +135,12 @@ HEADERS_WITH_EXTERNS = \
   textstyle.h \
   textstyle/version.in.h
 
-# List of exported symbols.
+# List of declared exported symbols.
 # We extract it from the header files that get installed.
 # This file has the same format as the one expected by the libtool option
 # '-export-symbols', but we don't use this option, because it may prevent us
 # from building some of the unit tests.
-$(srcdir)/libtextstyle.sym : $(HEADERS_WITH_EXTERNS)
+$(srcdir)/libtextstyle.sym.in : $(HEADERS_WITH_EXTERNS)
 	for f in $(HEADERS_WITH_EXTERNS); do \
 	  if test -f $$f; then \
 	    cat $$f; \
@@ -160,9 +160,20 @@ $(srcdir)/libtextstyle.sym : $(HEADERS_WITH_EXTERNS)
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put this file in the source directory, not the build directory.
-MOSTLYCLEANFILES     += libtextstyle.sym-t
-MAINTAINERCLEANFILES += libtextstyle.sym
-EXTRA_DIST           += libtextstyle.sym declared.sh
+MOSTLYCLEANFILES     += libtextstyle.sym.in-t
+MAINTAINERCLEANFILES += libtextstyle.sym.in
+EXTRA_DIST           += libtextstyle.sym.in declared.sh
+
+# List of exported symbols (platform dependent).
+libtextstyle.sym : $(srcdir)/libtextstyle.sym.in
+	cat $(srcdir)/libtextstyle.sym.in \
+	  | case "@host_os@" in \
+	      mingw*) cat ;; \
+	      *) grep -v '^libtextstyle_isatty$$' ;; \
+	    esac \
+	  > $@-t
+	mv $@-t $@
+MOSTLYCLEANFILES += libtextstyle.sym libtextstyle.sym-t
 
 # Hide undesired symbols that are defined by libtextstyle_la_SOURCES or
 # gl_LIBOBJS or the dependency libraries from the global namespace,
@@ -178,7 +189,7 @@ endif
 if INCLUDED_LIBGLIB
 COMPILATION_UNITS += $(libglib_rpl_la_SOURCES)
 endif
-config.h: $(BUILT_SOURCES) $(srcdir)/libtextstyle.sym
+config.h: $(BUILT_SOURCES) libtextstyle.sym
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  : "Avoid double inclusion, to avoid a warning about redefinitions."; \
 	  echo '#ifndef LIBTEXTSTYLE_CONFIG_H'; \
@@ -207,7 +218,7 @@ config.h: $(BUILT_SOURCES) $(srcdir)/libtextstyle.sym
 	      done; \
 	    } 5>&1 \
 	      | sed -e 's,.* ,,' | LC_ALL=C sort | LC_ALL=C uniq \
-	      | LC_ALL=C join -v 1 - $(srcdir)/libtextstyle.sym \
+	      | LC_ALL=C join -v 1 - libtextstyle.sym \
 	      | sed -e 's,^\(.*\)$$,#define \1 libtextstyle_\1,' > config.h-t; \
 	  } 6>&1 && \
 	  if test -f config.h; then \
@@ -260,6 +271,6 @@ LTV_AGE=0
 # How to build libtextstyle.la.
 libtextstyle_la_LDFLAGS += \
   -no-undefined \
-  -export-symbols $(srcdir)/libtextstyle.sym \
+  -export-symbols libtextstyle.sym \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
