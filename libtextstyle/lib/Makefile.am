@@ -263,7 +263,3 @@ libtextstyle_la_LDFLAGS += \
   -export-symbols $(srcdir)/libtextstyle.sym \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
-# Use the C++ compiler only when needed.
-libtextstyle_la_LINK = \
-  $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
-  $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(libtextstyle_la_LDFLAGS) $(LDFLAGS) -o $@
