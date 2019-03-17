@@ -122,6 +122,7 @@
 /lib/safe-read.h
 /lib/safe-write.c
 /lib/safe-write.h
+/lib/same-inode.h
 /lib/sig-handler.c
 /lib/sig-handler.h
 /lib/sigaction.c

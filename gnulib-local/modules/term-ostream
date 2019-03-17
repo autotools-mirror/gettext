@@ -11,9 +11,11 @@ ostream
 error
 stdlib
 fatal-signal
+sigaction
 sigprocmask
 full-write
 fsync
+same-inode
 gettext-h
 terminfo-h
 xalloc

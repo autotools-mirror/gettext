@@ -1,3 +1,6 @@
+New in 0.7:
+* Reliable tty control, as described by the ttyctl_t enum, is now implemented.
+
 New in 0.6:
 * The ostream_t operation 'flush' now takes an additional argument, of type
   ostream_flush_scope_t.
