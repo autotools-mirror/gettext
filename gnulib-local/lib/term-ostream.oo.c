@@ -67,12 +67,6 @@ static char tparambuf[100];
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-/* Restriction for code executed in signal handlers:
-   - Such code must be marked ASYNC_SAFE.
-   - Such code must only access memory locations (variables, struct fields) that
-     are marked 'volatile'.  */
-#define ASYNC_SAFE
-
 
 /* =========================== Color primitives =========================== */
 
@@ -331,7 +325,7 @@ rgb_to_color_common8 (int r, int g, int b)
 /* Convert a cm_common8 color in RGB encoding to BGR encoding.
    See the ncurses terminfo(5) manual page, section "Color Handling", for an
    explanation why this is needed.  */
-static ASYNC_SAFE inline int
+static _GL_ASYNC_SAFE inline int
 color_bgr (term_color_t color)
 {
   return ((color & 4) >> 2) | (color & 2) | ((color & 1) << 2);
@@ -1035,7 +1029,7 @@ nonintr_tcdrain (int fd)
 #if DEBUG_SIGNALS
 
 /* Log a simple message.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 log_message (const char *message)
 {
   full_write (STDERR_FILENO, message, strlen (message));
@@ -1050,7 +1044,7 @@ log_message (const char *message)
 #if HAVE_TCGETATTR || DEBUG_SIGNALS
 
 /* Async-safe implementation of sprintf (str, "%d", n).  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 sprintf_integer (char *str, int x)
 {
   unsigned int y;
@@ -1083,7 +1077,7 @@ sprintf_integer (char *str, int x)
 #if HAVE_TCGETATTR
 
 /* Async-safe conversion of errno value to string.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 simple_errno_string (char *str, int errnum)
 {
   switch (errnum)
@@ -1102,7 +1096,7 @@ simple_errno_string (char *str, int errnum)
 #if DEBUG_SIGNALS
 
 /* Async-safe conversion of signal number to name.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 simple_signal_string (char *str, int sig)
 {
   switch (sig)
@@ -1148,7 +1142,7 @@ simple_signal_string (char *str, int sig)
 }
 
 /* Emit a message that a given signal handler is being run.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 log_signal_handler_called (int sig)
 {
   char message[100];
@@ -1374,7 +1368,7 @@ typedef enum
 static pgrp_status_t volatile pgrp_status = PGRP_UNKNOWN;
 
 /* Update pgrp_status, depending on term_fd.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 update_pgrp_status (void)
 {
   int fd = term_fd;
@@ -1451,7 +1445,7 @@ out_char (int c)
 }
 
 /* Output a single char to out_fd.  Ignore errors.  */
-static ASYNC_SAFE int
+static _GL_ASYNC_SAFE int
 out_char_unchecked (int c)
 {
   char bytes[1];
@@ -1462,7 +1456,7 @@ out_char_unchecked (int c)
 }
 
 /* Output escape sequences to switch the foreground color to NEW_COLOR.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 out_color_change (term_ostream_t stream, term_color_t new_color,
                   bool async_safe)
 {
@@ -1556,7 +1550,7 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
 }
 
 /* Output escape sequences to switch the background color to NEW_BGCOLOR.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
                     bool async_safe)
 {
@@ -1654,7 +1648,7 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
 }
 
 /* Output escape sequences to switch the weight to NEW_WEIGHT.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 out_weight_change (term_ostream_t stream, term_weight_t new_weight,
                    bool async_safe)
 {
@@ -1667,7 +1661,7 @@ out_weight_change (term_ostream_t stream, term_weight_t new_weight,
 }
 
 /* Output escape sequences to switch the posture to NEW_POSTURE.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 out_posture_change (term_ostream_t stream, term_posture_t new_posture,
                     bool async_safe)
 {
@@ -1680,7 +1674,7 @@ out_posture_change (term_ostream_t stream, term_posture_t new_posture,
 }
 
 /* Output escape sequences to switch the underline to NEW_UNDERLINE.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 out_underline_change (term_ostream_t stream, term_underline_t new_underline,
                       bool async_safe)
 {
@@ -1713,7 +1707,7 @@ restore (void)
 #if HAVE_TCGETATTR
 
 /* Return a failure message after tcsetattr() failed.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 tcsetattr_failed (char message[100], const char *caller)
 {
   int errnum = errno;
@@ -1731,7 +1725,7 @@ static tcflag_t volatile orig_lflag;
 
 /* Modifies the tty's local mode, preparing for non-default terminal state.
    Used only when the out_stream's tty_control is TTYCTL_FULL.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 clobber_local_mode (void)
 {
   /* Here, out_fd == term_fd.  */
@@ -1764,7 +1758,7 @@ clobber_local_mode (void)
 /* Modifies the tty's local mode, once the terminal is back to the default state.
    Returns true if ECHO was turned off.
    Used only when the out_stream's tty_control is TTYCTL_FULL.  */
-static ASYNC_SAFE bool
+static _GL_ASYNC_SAFE bool
 restore_local_mode (void)
 {
   /* Here, out_fd == term_fd.  */
@@ -1848,7 +1842,7 @@ init_relevant_signal_set ()
 }
 
 /* Temporarily delay the relevant signals.  */
-static ASYNC_SAFE inline void
+static _GL_ASYNC_SAFE inline void
 block_relevant_signals ()
 {
   /* The caller must ensure that init_relevant_signal_set () was already
@@ -1860,14 +1854,14 @@ block_relevant_signals ()
 }
 
 /* Stop delaying the relevant signals.  */
-static ASYNC_SAFE inline void
+static _GL_ASYNC_SAFE inline void
 unblock_relevant_signals ()
 {
   sigprocmask (SIG_UNBLOCK, &relevant_signal_set, NULL);
 }
 
 /* Determines whether a signal is ignored.  */
-static ASYNC_SAFE bool
+static _GL_ASYNC_SAFE bool
 is_ignored (int sig)
 {
   struct sigaction action;
@@ -1894,7 +1888,7 @@ is_ignored (int sig)
    To test this kind of behaviour, use the 'color-filter' example like this:
      $ yes | ./filter '.*'
  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 show_signal_marker (int sig)
 {
   /* Write to stderr, not to out_stream->fd, because out_stream->fd is often
@@ -1919,7 +1913,7 @@ show_signal_marker (int sig)
 
 /* The main code of the signal handler for fatal signals and stopping signals.
    It is reentrant.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 fatal_or_stopping_signal_handler (int sig)
 {
   bool echo_was_off = false;
@@ -1965,7 +1959,7 @@ fatal_or_stopping_signal_handler (int sig)
 
 /* The signal handler for fatal signals.
    It is reentrant.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 fatal_signal_handler (int sig)
 {
   log_signal_handler_called (sig);
@@ -1976,7 +1970,7 @@ fatal_signal_handler (int sig)
 
 /* The signal handler for stopping signals.
    It is reentrant.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 stopping_signal_handler (int sig)
 {
   log_signal_handler_called (sig);
@@ -1996,7 +1990,7 @@ stopping_signal_handler (int sig)
 
 /* The signal handler for SIGCONT.
    It is reentrant.  */
-static ASYNC_SAFE void
+static _GL_ASYNC_SAFE void
 continuing_signal_handler (int sig)
 {
   log_signal_handler_called (sig);

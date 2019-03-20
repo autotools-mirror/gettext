@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2005-2006 Free Software Foundation, Inc.
+   Copyright (C) 2005-2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -51,7 +51,7 @@ extern sigjmp_buf sigfpe_exit;
 
 #if USE_SIGINFO
 /* Additional information that is set before sigfpe_exit is invoked.  */
-extern int sigfpe_code;
+extern int volatile sigfpe_code;
 #endif
 
 /* Protect against signals during plural evaluation.  Must be called around

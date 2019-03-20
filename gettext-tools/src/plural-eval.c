@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003, 2005, 2019 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software: you can redistribute it and/or modify
@@ -41,11 +41,11 @@ sigjmp_buf sigfpe_exit;
 #if USE_SIGINFO
 
 /* Additional information that is set before sigfpe_exit is invoked.  */
-int sigfpe_code;
+int volatile sigfpe_code;
 
 /* Signal handler called in case of arithmetic exception (e.g. division
    by zero) during plural_eval.  */
-static void
+static _GL_ASYNC_SAFE void
 sigfpe_handler (int sig, siginfo_t *sip, void *scp)
 {
   sigfpe_code = sip->si_code;
@@ -56,7 +56,7 @@ sigfpe_handler (int sig, siginfo_t *sip, void *scp)
 
 /* Signal handler called in case of arithmetic exception (e.g. division
    by zero) during plural_eval.  */
-static void
+static _GL_ASYNC_SAFE void
 sigfpe_handler (int sig)
 {
   siglongjmp (sigfpe_exit, 1);
