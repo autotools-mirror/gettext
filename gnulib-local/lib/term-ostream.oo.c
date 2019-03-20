@@ -1203,23 +1203,23 @@ fields:
   bool volatile same_as_stderr;
   #endif
   /* Variable state, representing past output.  */
-  attributes_t default_attr;    /* Default simplified attributes of the
-                                   terminal.  */
-  attributes_t active_attr;     /* Simplified attributes that we have set
-                                   on the terminal.  */
-  bool non_default_active;      /* True if activate_non_default_attr()
-                                   is in effect.
-                                   active_attr != default_attr implies
-                                   non_default_active == true,
-                                   but not the opposite!  */
+  attributes_t default_attr;         /* Default simplified attributes of the
+                                        terminal.  */
+  attributes_t volatile active_attr; /* Simplified attributes that we have set
+                                        on the terminal.  */
+  bool non_default_active;           /* True if activate_non_default_attr()
+                                        is in effect.
+                                        active_attr != default_attr implies
+                                        non_default_active == true,
+                                        but not the opposite!  */
   /* Variable state, representing future output.  */
-  char *buffer;                 /* Buffer for the current line.  */
-  attributes_t *attrbuffer;     /* Buffer for the simplified attributes; same
-                                   length as buffer.  */
-  size_t buflen;                /* Number of bytes stored so far.  */
-  size_t allocated;             /* Allocated size of the buffer.  */
-  attributes_t curr_attr;       /* Current attributes.  */
-  attributes_t simp_attr;       /* Simplified current attributes.  */
+  char *buffer;                      /* Buffer for the current line.  */
+  attributes_t *attrbuffer;          /* Buffer for the simplified attributes;
+                                        same length as buffer.  */
+  size_t buflen;                     /* Number of bytes stored so far.  */
+  size_t allocated;                  /* Allocated size of the buffer.  */
+  attributes_t curr_attr;            /* Current attributes.  */
+  attributes_t simp_attr;            /* Simplified current attributes.  */
 };
 
 /* Simplify attributes, according to the terminal's capabilities.  */
