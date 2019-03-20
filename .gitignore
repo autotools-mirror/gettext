@@ -109,6 +109,7 @@
 /gettext-tools/libgettextpo/fstat.c
 /gettext-tools/libgettextpo/fstrcmp.c
 /gettext-tools/libgettextpo/fstrcmp.h
+/gettext-tools/libgettextpo/fsync.c
 /gettext-tools/libgettextpo/fwriteerror.c
 /gettext-tools/libgettextpo/fwriteerror.h
 /gettext-tools/libgettextpo/gcd.c
