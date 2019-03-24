@@ -151,6 +151,8 @@
 /lib/sys_types.in.h
 /lib/term-ostream.oo.c
 /lib/term-ostream.oo.h
+/lib/term-style-control.c
+/lib/term-style-control.h
 /lib/term-styled-ostream.oo.c
 /lib/term-styled-ostream.oo.h
 /lib/terminfo.h

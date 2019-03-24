@@ -8,14 +8,11 @@ m4/term-ostream.m4
 
 Depends-on:
 ostream
+term-style-control
 error
 stdlib
-fatal-signal
-sigaction
-sigprocmask
 full-write
 fsync
-same-inode
 gettext-h
 terminfo-h
 xalloc

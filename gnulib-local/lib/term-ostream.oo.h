@@ -97,25 +97,9 @@ methods:
   void flush_to_current_style (term_ostream_t stream);
 };
 
-/* The amount of control to take over the underlying tty in order to avoid
-   garbled output on the screen, due to interleaved output of escape sequences
-   and output from the kernel (such as when the kernel echoes user's input
-   or when the kernel prints '^C' after the user pressed Ctrl-C).  */
-typedef enum
-{
-  TTYCTL_AUTO = 0,  /* Automatic best-possible choice.  */
-  TTYCTL_NONE,      /* No control.
-                       Result: Garbled output can occur, and the terminal can
-                       be left in any state when the program is interrupted.  */
-  TTYCTL_PARTIAL,   /* Signal handling.
-                       Result: Garbled output can occur, but the terminal will
-                       be left in the default state when the program is
-                       interrupted.  */
-  TTYCTL_FULL       /* Signal handling and disabling echo and flush-upon-signal.
-                       Result: No garbled output, and the the terminal will
-                       be left in the default state when the program is
-                       interrupted.  */
-} ttyctl_t;
+/* Get ttyctl_t.  */
+#define term_style_user_data term_ostream_representation
+#include "term-style-control.h"
 
 
 #ifdef __cplusplus
