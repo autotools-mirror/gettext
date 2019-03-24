@@ -1,7 +1,7 @@
 #!/bin/sh
 # Minimal Object-Oriented style PreProcessor.
 
-# Copyright (C) 2006-2008, 2016, 2018 Free Software Foundation, Inc.
+# Copyright (C) 2006-2008, 2016, 2018-2019 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2006.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -70,7 +70,7 @@ Report bugs to <bruno@clisp.org>."
 func_version ()
 {
   echo "$progname (GNU $package) $version"
-  echo "Copyright (C) 2006-2007 Free Software Foundation, Inc.
+  echo "Copyright (C) 2006-2019 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law."
@@ -605,9 +605,6 @@ func_emit_source_c ()
   {
     echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'
     echo
-    echo "#line 1 \"${source_impl_file_base}\""
-    cat "$source_impl_file" | sed -e "${impl_decl_lineno}"',$d'
-    echo "#line "`expr 3 + ${impl_decl_lineno} + 1`" \"$newfile_base\""
     # In C mode, where subclass_t is identical to rootclass_t, we define the
     # any_rootclass_representation type to the right one for subclass.
     if test -n "$all_superclasses"; then
@@ -621,6 +618,9 @@ func_emit_source_c ()
     echo "#if !IS_CPLUSPLUS"
     echo "#define ${main_classname}_representation any_${rootclassname}_representation"
     echo "#endif"
+    echo "#line 1 \"${source_impl_file_base}\""
+    cat "$source_impl_file" | sed -e "${impl_decl_lineno}"',$d'
+    echo "#line "`expr 6 + ${impl_decl_lineno} + 1`" \"$newfile_base\""
     echo "#include \"${main_classname}.priv.h\""
     echo
     echo "const typeinfo_t ${main_classname}_typeinfo = { \"${main_classname}\" };"
