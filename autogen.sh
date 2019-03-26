@@ -252,6 +252,7 @@ if ! $skip_gnulib; then
       stdlib
       stpcpy
       stpncpy
+      strchrnul
       strcspn
       strerror
       strpbrk
