@@ -176,10 +176,10 @@ cat <<\EOF >messages.xml
     This is the first paragraph with
 a newline.
   
-    This is  the  second paragprah with spaces.
+    This is  the  second paragraph with spaces.
 
 
-    This is the last paragraph.</p>
+    This is the last paragraph.     </p>
   </message>
   <message>
     <p xml:space="paragraph">This is the only one paragraph</p>
@@ -277,7 +277,7 @@ msgstr ""
 msgid ""
 "This is the first paragraph with a newline.\n"
 "\n"
-"This is the second paragprah with spaces.\n"
+"This is the second paragraph with spaces.\n"
 "\n"
 "This is the last paragraph."
 msgstr ""

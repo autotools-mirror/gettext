@@ -403,61 +403,78 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
       /* Normalize whitespaces within the text, keeping paragraph
          boundaries.  */
       {
-        char *result, *p, *out;
+        char *result = xstrdup (text);
+        /* Go through the string, shrinking it, reading from *p++
+           and writing to *out++.  (result <= out <= p.)  */
+        const char *start_of_paragraph;
+        char *out;
 
-        result = trim (text);
-        for (p = out = result; *p != '\0';)
+        out = result;
+        for (start_of_paragraph = result; *start_of_paragraph != '\0';)
           {
-            char *pp, *pend = NULL, *next = NULL;
-            bool last_ws = false;
+            const char *end_of_paragraph;
+            const char *next_paragraph;
 
-            /* Find a paragraph boundary.  */
-            for (pp = p; *pp != '\0';)
-              {
-                char *nl = strchrnul (pp, '\n');
-                if (*nl == '\0')
+            /* Find the next paragraph boundary.  */
+            {
+              const char *p;
+
+              for (p = start_of_paragraph;;)
+                {
+                  const char *nl = strchrnul (p, '\n');
+                  if (*nl == '\0')
+                    {
+                      end_of_paragraph = nl;
+                      next_paragraph = end_of_paragraph;
+                      break;
+                    }
+                  p = nl + 1;
                   {
-                    pend = nl;
-                    next = pend;
-                    break;
+                    const char *past_whitespace = p + strspn (p, " \t\n");
+                    if (memchr (p, '\n', past_whitespace - p) != NULL)
+                      {
+                        end_of_paragraph = nl;
+                        next_paragraph = past_whitespace;
+                        break;
+                      }
+                    p = past_whitespace;
                   }
-                pp = nl + 1;
-                pp += strspn (pp, " \t\n");
-                if (*pp == '\n')
-                  {
-                    pend = nl;
-                    next = pp + 1;
-                    break;
-                  }
-              }
+                }
+            }
 
             /* Normalize whitespaces in the paragraph.  */
-            assert (pend != NULL);
-            for (pp = p; pp < pend; pp++)
-              if (!(*pp == ' ' || *pp == '\t' || *pp == '\n'))
-                break;
-            for (; pp < pend; pp++)
-              {
-                if (*pp == ' ' || *pp == '\t' || *pp == '\n')
-                  {
-                    if (!last_ws)
-                      {
+            {
+              const char *p;
+
+              /* Remove whitespace at the beginning of the paragraph.  */
+              for (p = start_of_paragraph; p < end_of_paragraph; p++)
+                if (!(*p == ' ' || *p == '\t' || *p == '\n'))
+                  break;
+
+              for (; p < end_of_paragraph;)
+                {
+                  if (*p == ' ' || *p == '\t' || *p == '\n')
+                    {
+                      /* Normalize whitespace inside the paragraph, and
+                         remove whitespace at the end of the paragraph.  */
+                      do
+                        p++;
+                      while (p < end_of_paragraph
+                             && (*p == ' ' || *p == '\t' || *p == '\n'));
+                      if (p < end_of_paragraph)
                         *out++ = ' ';
-                        last_ws = true;
-                      }
-                  }
-                else
-                  {
-                    *out++ = *pp;
-                    last_ws = false;
-                  }
-              }
-            if (*pend != '\0')
+                    }
+                  else
+                    *out++ = *p++;
+                }
+            }
+
+            if (*next_paragraph != '\0')
               {
                 memcpy (out, "\n\n", 2);
                 out += 2;
               }
-            p = next;
+            start_of_paragraph = next_paragraph;
           }
         *out = '\0';
         return result;

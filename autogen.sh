@@ -226,6 +226,7 @@ if ! $skip_gnulib; then
       locale
       localename
       lock
+      memchr
       memmove
       memset
       minmax
