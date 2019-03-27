@@ -1339,6 +1339,11 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
   attributes_t old_attr = stream->active_attr;
   bool cleared_attributes;
 
+  /* Keep track of the active attributes.  Do this *before* emitting the
+     escape sequences, otherwise async_set_attributes_from_default will not
+     do its job correctly.  */
+  stream->active_attr = new_attr;
+
   /* For out_char to work.  */
   out_stream = stream;
   out_fd = stream->fd;
@@ -1438,9 +1443,6 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
     {
       out_underline_change (stream, new_attr.underline, false);
     }
-
-  /* Keep track of the active attributes.  */
-  stream->active_attr = new_attr;
 }
 
 static void

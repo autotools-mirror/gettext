@@ -2,6 +2,8 @@ New in 0.8:
 * Fixed a couple of reliability bugs:
   - When a program exits while the terminal was in non-default state, the
     library left the terminal with ECHO off.
+  - The SIGCONT signal handler would fail to restore the proper styling,
+    with a low probability.
   - The SIGTSTP and SIGCONT signal handlers could clobber errno.
 
 New in 0.7:
